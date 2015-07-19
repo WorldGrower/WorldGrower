@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.creaturetype.CreatureType;
@@ -30,6 +31,12 @@ import org.worldgrower.gui.ImageIds;
 
 public class PlantGenerator {
 
+	private final WorldObject organization;
+	
+	public PlantGenerator(WorldObject organization) {
+		this.organization = organization;
+	}
+	
 	public static int generateBerryBush(int x, int y, World world) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();
@@ -84,7 +91,7 @@ public class PlantGenerator {
 		return id;
 	}
 	
-	public static int generateDemonTree(int x, int y, World world) {
+	public int generateDemonTree(int x, int y, World world) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();
 		
@@ -98,7 +105,7 @@ public class PlantGenerator {
 		properties.put(Constants.ID, world.generateUniqueId());
 		properties.put(Constants.IMAGE_ID, ImageIds.TREE);
 		properties.put(Constants.ENERGY, 1000);
-		properties.put(Constants.GROUP, "vermin");
+		properties.put(Constants.GROUP, new IdList().add(organization));
 		properties.put(Constants.CREATURE_TYPE, CreatureType.PLANT_CREATURE_TYPE);
 		properties.put(Constants.CONDITIONS, new Conditions());
 		

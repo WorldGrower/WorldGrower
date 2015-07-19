@@ -14,25 +14,50 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.WorldObjectImpl;
+import org.worldgrower.attribute.IdList;
+import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.gui.ImageIds;
+import org.worldgrower.profession.Profession;
 
 public class GroupPropertyUtils {
 
 	public static boolean isWorldObjectPotentialEnemy(WorldObject performer, WorldObject w) {
-		String performerGroup = performer.getProperty(Constants.GROUP);
-		return w.hasIntelligence() && (w != performer) && (w.getProperty(Constants.GROUP) == null || !w.getProperty(Constants.GROUP).equals(performerGroup));
+		IdList performerOrganizationIdList = performer.getProperty(Constants.GROUP);
+		IdList otherOrganizationIdList = w.getProperty(Constants.GROUP);
+		return w.hasIntelligence() && (w != performer) && (!otherOrganizationIdList.intersects(performerOrganizationIdList));
 	}
 	
 	public static List<WorldObject> findWorldObjectsInSameGroup(WorldObject performer, World world) {
-		String performerGroup = performer.getProperty(Constants.GROUP);
-		return world.findWorldObjects(w -> w.hasIntelligence() && (w.getProperty(Constants.GROUP) != null) && w.getProperty(Constants.GROUP).equals(performerGroup));
+		IdList performerOrganizationIdList = performer.getProperty(Constants.GROUP);
+		return world.findWorldObjects(w -> w.hasIntelligence() && (w.getProperty(Constants.GROUP).intersects(performerOrganizationIdList)));
 	}
 	
 	public static void throwPerformerOutGroup(WorldObject performer, WorldObject w) {
-		performer.setProperty(Constants.GROUP, null);
+		performer.getProperty(Constants.GROUP).remove(w);
+	}
+	
+	public static WorldObject create(String organizationName, Profession profession, World world) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		properties.put(Constants.X, -100000);
+		properties.put(Constants.Y, -100000);
+		properties.put(Constants.WIDTH, 4);
+		properties.put(Constants.HEIGHT, 4);
+		properties.put(Constants.NAME, organizationName);
+		properties.put(Constants.ID, world.generateUniqueId());
+		properties.put(Constants.IMAGE_ID, ImageIds.TREE);
+		properties.put(Constants.PROFESSION, profession);
+		
+		WorldObject organization = new WorldObjectImpl(properties);
+		world.addWorldObject(organization);
+		
+		return organization;
 	}
 }

@@ -112,8 +112,7 @@ public class Constants {
 	
 	public static final UnCheckedProperty<UnCheckedProperty<WorldObject>> EQUIPMENT_SLOT = new UnCheckedProperty<UnCheckedProperty<WorldObject>>("equipmentSlot", ALL_PROPERTIES);
 	
-	public static final StringProperty GROUP = new StringProperty("group", NULLABLE, ALL_PROPERTIES);
-	//TODO: add WorldObjectProperty, ListStringProperty
+	public static final IdListProperty GROUP = new IdListProperty("group", ALL_PROPERTIES);
 	public static final IdMapProperty RELATIONSHIPS = new IdMapProperty("relationships", ALL_PROPERTIES);
 	public static final IdProperty MATE_ID = new IdProperty("mate", ALL_PROPERTIES);
 	public static final IdListProperty CHILDREN = new IdListProperty("children", ALL_PROPERTIES);

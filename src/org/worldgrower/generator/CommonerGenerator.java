@@ -39,15 +39,15 @@ import org.worldgrower.gui.ImageIds;
 
 public class CommonerGenerator {
 
-	public static int generateCursedCommoner(int x, int y, World world, CommonerImageIds commonerImageIds, CommonerNameGenerator commonerNameGenerator) {
-		int id = generateCommoner(x, y, world, commonerImageIds, commonerNameGenerator);
+	public static int generateCursedCommoner(int x, int y, World world, CommonerImageIds commonerImageIds, CommonerNameGenerator commonerNameGenerator, WorldObject organization) {
+		int id = generateCommoner(x, y, world, commonerImageIds, commonerNameGenerator, organization);
 		WorldObject cursedCommoner = world.findWorldObject(Constants.ID, id);
 		cursedCommoner.setProperty(Constants.CURSE, Curse.TOAD_CURSE);
 		
 		return id;
 	}
 	
-	public static int generateCommoner(int x, int y, World world, CommonerImageIds commonerImageIds, CommonerNameGenerator commonerNameGenerator) {
+	public static int generateCommoner(int x, int y, World world, CommonerImageIds commonerImageIds, CommonerNameGenerator commonerNameGenerator, WorldObject organization) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();
 		
@@ -101,12 +101,12 @@ public class CommonerGenerator {
 		properties.put(Constants.BACKGROUND, new BackgroundImpl());
 		properties.put(Constants.GOLD, 100);
 		properties.put(Constants.HOUSE_ID, null);
-		properties.put(Constants.GROUP, "village");
+		properties.put(Constants.GROUP, new IdList().add(organization));
 		
 		properties.put(Constants.DAMAGE, 8);
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		
-		WorldObject creature = new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new CommonerOnTurn(commonerImageIds, commonerNameGenerator), new CommonerWorldEvaluationFunction());
+		WorldObject creature = new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new CommonerOnTurn(commonerImageIds, commonerNameGenerator, organization), new CommonerWorldEvaluationFunction());
 		world.addWorldObject(creature);
 		
 		return id;

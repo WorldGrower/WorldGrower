@@ -25,6 +25,7 @@ import org.worldgrower.WorldObjectContainer;
 import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.WorldObjectPriorities;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdMap;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.creaturetype.CreatureType;
@@ -57,7 +58,7 @@ public class TestUtils {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.NAME, name);
 		properties.put(Constants.ID, id);
-		properties.put(Constants.GROUP, "group");
+		properties.put(Constants.GROUP, new IdList().add(6));
 		properties.put(Constants.SOCIAL, 0);
 		properties.put(Constants.RELATIONSHIPS, new IdMap());
 		properties.put(Constants.CREATURE_TYPE,CreatureType.HUMAN_CREATURE_TYPE);
@@ -69,7 +70,7 @@ public class TestUtils {
 	public static WorldObject createIntelligentWorldObject(int id, ManagedProperty<?> property, Object value) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.ID, id);
-		properties.put(Constants.GROUP, "group");
+		properties.put(Constants.GROUP, new IdList().add(6));
 		properties.put(property, value);
 		WorldObject w1 = new WorldObjectImpl(properties, Actions.ALL_ACTIONS, null);
 		return w1;
@@ -86,7 +87,7 @@ public class TestUtils {
 	public static WorldObject createIntelligentWorldObject(int id, ManagedProperty<?> property, Object value, WorldObjectPriorities worldObjectPriorities) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.ID, id);
-		properties.put(Constants.GROUP, "group");
+		properties.put(Constants.GROUP, new IdList());
 		properties.put(property, value);
 		WorldObject w1 = new WorldObjectImpl(properties, Actions.ALL_ACTIONS, worldObjectPriorities);
 		return w1;

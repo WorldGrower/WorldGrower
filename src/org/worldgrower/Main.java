@@ -28,7 +28,6 @@ import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdMap;
 import org.worldgrower.attribute.LookDirection;
 import org.worldgrower.attribute.ManagedProperty;
-import org.worldgrower.attribute.Skill;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.creaturetype.CreatureType;
@@ -40,6 +39,7 @@ import org.worldgrower.generator.ItemGenerator;
 import org.worldgrower.generator.PlantGenerator;
 import org.worldgrower.generator.TerrainGenerator;
 import org.worldgrower.generator.WorldGenerator;
+import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.gui.CommonerImageIds;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.WorldPanel;
@@ -51,13 +51,16 @@ public class Main {
 	public static void run(String playerName, String playerProfession, int worldWidth, int worldHeight, int enemyDensity, int villagerCount, int seed) throws Exception {
 		DungeonMaster dungeonMaster = new DungeonMaster();
 		World world = new WorldImpl(worldWidth, worldHeight, dungeonMaster);
+		int playerCharacterId = world.generateUniqueId();
+		
 		final CommonerImageIds commonerImageIds = new CommonerImageIds();
 		final CommonerNameGenerator commonerNameGenerator = new CommonerNameGenerator();
+		final WorldObject organization = GroupPropertyUtils.create("villagers", null, world);
 		
-		final WorldObject playerCharacter = createPlayerCharacter(playerName, playerProfession, world, commonerImageIds, commonerNameGenerator);
+		final WorldObject playerCharacter = createPlayerCharacter(playerCharacterId, playerName, playerProfession, world, commonerImageIds, commonerNameGenerator, organization);
 		world.addWorldObject(playerCharacter);
 		
-		addDefaultWorldObjects(world, commonerImageIds, commonerNameGenerator, villagerCount, seed);
+		addDefaultWorldObjects(world, commonerImageIds, commonerNameGenerator, organization, villagerCount, seed);
 		
 		world.addListener(new CurseListener(world));
 		exploreWorld(playerCharacter, world);
@@ -70,9 +73,12 @@ public class Main {
 	private static void addEnemies(int enemyDensity, World world, int seed) {
 		if (enemyDensity > 0) {
 			WorldGenerator worldGenerator = new WorldGenerator(seed);
-			worldGenerator.addWorldObjects(world, 1, 1, 5, TerrainType.GRASLAND, CreatureGenerator::generateRat);
-			worldGenerator.addWorldObjects(world, 1, 1, 5, TerrainType.GRASLAND, CreatureGenerator::generateSlime);
-			worldGenerator.addWorldObjects(world, 2, 2, 4, TerrainType.PLAINS, PlantGenerator::generateDemonTree);
+			WorldObject verminOrganization = GroupPropertyUtils.create("vermin", null, world);
+			CreatureGenerator creatureGenerator = new CreatureGenerator(verminOrganization);
+			PlantGenerator plantGenerator = new PlantGenerator(verminOrganization);
+			worldGenerator.addWorldObjects(world, 1, 1, 5, TerrainType.GRASLAND, creatureGenerator::generateRat);
+			worldGenerator.addWorldObjects(world, 1, 1, 5, TerrainType.GRASLAND, creatureGenerator::generateSlime);
+			worldGenerator.addWorldObjects(world, 2, 2, 4, TerrainType.PLAINS, plantGenerator::generateDemonTree);
 		}
 	}
 	
@@ -101,12 +107,12 @@ public class Main {
 
 	private static void addDefaultWorldObjects(World world,
 			final CommonerImageIds commonerImageIds,
-			final CommonerNameGenerator commonerNameGenerator, int villagerCount, int seed) {
+			final CommonerNameGenerator commonerNameGenerator, WorldObject organization, int villagerCount, int seed) {
 	
 		PlantGenerator.generateBerryBush(3, 3, world);
 		
 		for(int i=0; i<villagerCount; i++) {
-			CommonerGenerator.generateCommoner(1, 1, world, commonerImageIds, commonerNameGenerator);
+			CommonerGenerator.generateCommoner(1, 1, world, commonerImageIds, commonerNameGenerator, organization);
 		}
 		
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
@@ -134,7 +140,7 @@ public class Main {
 		CommonerGenerator.generateGods(world);
 	}
 
-	private static WorldObject createPlayerCharacter(String playerName, String playerProfession, World world, final CommonerImageIds commonerImageIds, final CommonerNameGenerator commonerNameGenerator) {
+	private static WorldObject createPlayerCharacter(int id, String playerName, String playerProfession, World world, final CommonerImageIds commonerImageIds, final CommonerNameGenerator commonerNameGenerator, WorldObject organization) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, 5);
 		properties.put(Constants.Y, 5);
@@ -143,13 +149,13 @@ public class Main {
 		properties.put(Constants.HIT_POINTS, 17);
 		properties.put(Constants.HIT_POINTS_MAX, 17);
 		properties.put(Constants.NAME, playerName);
-		properties.put(Constants.ID, world.generateUniqueId());
+		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.KNIGHT);
 		properties.put(Constants.LOOK_DIRECTION, LookDirection.SOUTH);
 		properties.put(Constants.FOOD, 500);
 		properties.put(Constants.WATER, 500);
 		properties.put(Constants.ENERGY, 1000);
-		properties.put(Constants.GROUP, "village");
+		properties.put(Constants.GROUP, new IdList().add(organization));
 		
 		WorldObjectContainer inventory = new WorldObjectContainer();
 		inventory.add(ItemGenerator.getIronClaymore(1.0f));
@@ -185,14 +191,11 @@ public class Main {
 		properties.put(Constants.CHARISMA, 10);
 		
 		SkillUtils.addAllSkills(properties);
-		Skill bluffSkill = new Skill();
-		for(int i=0; i<100; i++) { bluffSkill.use(); }
-		properties.put(Constants.BLUFF_SKILL, bluffSkill);
 
 		properties.put(Constants.DAMAGE, 8);
 		properties.put(Constants.DAMAGE_RESIST, 100);
 		
-		final WorldObject playerCharacter = new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new CommonerOnTurn(commonerImageIds, commonerNameGenerator), null);
+		final WorldObject playerCharacter = new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new CommonerOnTurn(commonerImageIds, commonerNameGenerator, organization), null);
 		return playerCharacter;
 	}
 

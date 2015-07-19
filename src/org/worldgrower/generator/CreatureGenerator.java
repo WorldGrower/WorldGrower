@@ -32,7 +32,13 @@ import org.worldgrower.gui.ImageIds;
 
 public class CreatureGenerator {
 
-	public static int generateRat(int x, int y, World world) {
+	private final WorldObject organization;
+	
+	public CreatureGenerator(WorldObject organization) {
+		this.organization = organization;
+	}
+
+	public int generateRat(int x, int y, World world) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();
 		
@@ -55,7 +61,7 @@ public class CreatureGenerator {
 		properties.put(Constants.FOOD, 200);
 		properties.put(Constants.WATER, 200);
 		properties.put(Constants.ENERGY, 1000);
-		properties.put(Constants.GROUP, "vermin");
+		properties.put(Constants.GROUP, new IdList().add(organization));
 		properties.put(Constants.INVENTORY, new WorldObjectContainer());
 		properties.put(Constants.DEMANDS, new WorldObjectContainer());
 		properties.put(Constants.CHILDREN, new IdList());
@@ -78,13 +84,13 @@ public class CreatureGenerator {
 		properties.put(Constants.DAMAGE, 2);
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		
-		WorldObject rat = new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new BeastOnTurn(CreatureGenerator::generateRat), new RatWorldEvaluationFunction());
+		WorldObject rat = new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new BeastOnTurn(this::generateRat), new RatWorldEvaluationFunction());
 		world.addWorldObject(rat);
 		
 		return id;
 	}
 	
-	public static int generateSpider(int x, int y, World world) {
+	public int generateSpider(int x, int y, World world) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();
 		
@@ -107,7 +113,7 @@ public class CreatureGenerator {
 		properties.put(Constants.FOOD, 200);
 		properties.put(Constants.WATER, 200);
 		properties.put(Constants.ENERGY, 1000);
-		properties.put(Constants.GROUP, "vermin");
+		properties.put(Constants.GROUP, new IdList().add(organization));
 		properties.put(Constants.INVENTORY, new WorldObjectContainer());
 		properties.put(Constants.DEMANDS, new WorldObjectContainer());
 		properties.put(Constants.CHILDREN, new IdList());
@@ -130,13 +136,13 @@ public class CreatureGenerator {
 		properties.put(Constants.DAMAGE, 5);
 		properties.put(Constants.DAMAGE_RESIST, 10);
 		
-		WorldObject spider = new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new BeastOnTurn(CreatureGenerator::generateSpider), new SpiderWorldEvaluationFunction());
+		WorldObject spider = new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new BeastOnTurn(this::generateSpider), new SpiderWorldEvaluationFunction());
 		world.addWorldObject(spider);
 		
 		return id;
 	}
 	
-	public static int generateSlime(int x, int y, World world) {
+	public int generateSlime(int x, int y, World world) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();
 		
@@ -159,7 +165,7 @@ public class CreatureGenerator {
 		properties.put(Constants.FOOD, 500);
 		properties.put(Constants.WATER, 500);
 		properties.put(Constants.ENERGY, 1000);
-		properties.put(Constants.GROUP, "vermin");
+		properties.put(Constants.GROUP, new IdList().add(organization));
 		properties.put(Constants.INVENTORY, new WorldObjectContainer());
 		properties.put(Constants.DEMANDS, new WorldObjectContainer());
 		properties.put(Constants.CHILDREN, new IdList());
@@ -182,7 +188,7 @@ public class CreatureGenerator {
 		properties.put(Constants.DAMAGE, 3);
 		properties.put(Constants.DAMAGE_RESIST, 8);
 		
-		WorldObject slime = new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new BeastOnTurn(CreatureGenerator::generateSlime), new SlimeWorldEvaluationFunction());
+		WorldObject slime = new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new BeastOnTurn(this::generateSlime), new SlimeWorldEvaluationFunction());
 		world.addWorldObject(slime);
 		
 		return id;

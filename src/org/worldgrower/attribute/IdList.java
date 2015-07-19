@@ -25,12 +25,14 @@ public class IdList implements Serializable {
 
 	private final List<Integer> ids = new ArrayList<>();
 	
-	public void add(int id) {
+	public IdList add(int id) {
 		ids.add(id);
+		return this;
 	}
 	
-	public void add(WorldObject worldObject) {
+	public IdList add(WorldObject worldObject) {
 		ids.add(worldObject.getProperty(Constants.ID));
+		return this;
 	}
 	
 	public void remove(WorldObject worldObject) {
@@ -43,6 +45,13 @@ public class IdList implements Serializable {
 
 	public boolean contains(WorldObject worldObject) {
 		return ids.contains(worldObject.getProperty(Constants.ID));
+	}
+	
+	public boolean intersects(IdList otherIdList) {
+		List<Integer> copyIds = new ArrayList<>(this.ids);
+		copyIds.removeAll(otherIdList.ids);
+		
+		return (copyIds.size() != this.ids.size());
 	}
 	
 	@Override
