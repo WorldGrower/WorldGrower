@@ -27,6 +27,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.OrganizationNamer;
+import org.worldgrower.profession.Profession;
 import org.worldgrower.profession.Professions;
 
 public class CreateOrganizationAction extends AbstractAction {
@@ -48,12 +49,15 @@ public class CreateOrganizationAction extends AbstractAction {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		String[] professionNames = Professions.getDescriptions().toArray(new String[0]);
+		String professionName = (String) JOptionPane.showInputDialog(parent, "Choose Profession", "Choose Profession", JOptionPane.QUESTION_MESSAGE, null, professionNames, professionNames[0]);
+		Profession profession = Professions.getProfessionByDescription(professionName);
 		
-		String[] organizationNames = new OrganizationNamer().getNames(Professions.FARMER_PROFESSION).toArray(new String[0]);
+		String[] organizationNames = new OrganizationNamer().getNames(profession).toArray(new String[0]);
 		String organizationName = (String) JOptionPane.showInputDialog(parent, "Choose Organization name", "Choose Organization name", JOptionPane.QUESTION_MESSAGE, null, organizationNames, organizationNames[0]);
 		
-		int index = Arrays.asList(organizationNames).indexOf(organizationName);
+		int indexOfOrganization = Arrays.asList(organizationNames).indexOf(organizationName);
 		
-		Main.executeAction(playerCharacter, Actions.CREATE_ORGANIZATION_ACTION, new int[] { index}, world, dungeonMaster, playerCharacter, parent);
+		Main.executeAction(playerCharacter, Actions.CREATE_ORGANIZATION_ACTION, new int[] { indexOfOrganization}, world, dungeonMaster, playerCharacter, parent);
 	}
 }

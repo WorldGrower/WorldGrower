@@ -14,6 +14,10 @@
  *******************************************************************************/
 package org.worldgrower.profession;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class Professions {
 	public static final FarmerProfession FARMER_PROFESSION = new FarmerProfession();
 	public static final BlacksmithProfession BLACKSMITH_PROFESSION = new BlacksmithProfession();
@@ -22,4 +26,33 @@ public class Professions {
 	public static final LumberjackProfession LUMBERJACK_PROFESSION = new LumberjackProfession();
 	public static final MinerProfession MINER_PROFESSION = new MinerProfession();
 	public static final SheriffProfession SHERIFF_PROFESSION = new SheriffProfession();
+	
+	private static final List<Profession> ALL_PROFESSIONS = new ArrayList<>();
+	
+	static {
+		add(FARMER_PROFESSION);
+		add(BLACKSMITH_PROFESSION);
+		add(PRIEST_PROFESSION);
+		add(THIEF_PROFESSION);
+		add(LUMBERJACK_PROFESSION);
+		add(MINER_PROFESSION);
+		add(SHERIFF_PROFESSION);
+	}
+	
+	private static void add(Profession profession) {
+		ALL_PROFESSIONS.add(profession);
+	}
+	
+	public static List<String> getDescriptions() {
+		return ALL_PROFESSIONS.stream().map(p -> p.getDescription()).collect(Collectors.toList());
+	}
+
+	public static Profession getProfessionByDescription(String professionName) {
+		for(Profession profession : ALL_PROFESSIONS) {
+			if (profession.getDescription().equals(professionName)) {
+				return profession;
+			}
+		}
+		throw new IllegalStateException("profession " + professionName + " not found in " + ALL_PROFESSIONS);
+	}
 }
