@@ -1,0 +1,14 @@
+WorldGrower is a top-down rpg with creating a detailed world, in which actions have consequences.
+It is open source software which is licensed under GPL (see LICENSE).
+
+Installation instructions
+  Download and extract the .zip file on the local filesystem
+  Make sure Java 8 is installed.
+  To run under Windows, use worldgrower.cmd.
+  To run under Linux, use worldgrower.sh.
+
+Controls
+  left, up, right, down or numeric keyboard: move character
+  left-click: center map
+  right-click on object: see list of possible actions
+  right-click on self: see character sheet or build actions

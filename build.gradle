@@ -1,0 +1,66 @@
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+version = ''
+archivesBaseName = 'worldgrower'
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'WorldGrower',
+                   'Implementation-Version': version,
+                   'Main-Class': 'org.worldgrower.gui.start.StartScreen'
+    }
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src'
+        }
+    }
+    
+    test {
+    	java {
+    		srcDir 'test'
+    	}
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.+'
+}
+
+test {
+}
+
+task release(dependsOn: ['jar', 'test']) {
+	File releaseDir = new File(buildDir, 'release')
+	releaseDir.mkdir()
+	
+	copy {
+        from 'build/libs'
+        into 'build/release'
+        include '**/*.jar'
+    }
+    
+    copy {
+        from 'scripts'
+        into 'build/release'
+        include '**/*.sh'
+        include '**/*.cmd'
+    }
+    
+    File releaseResourceDir = new File(releaseDir, 'resources')
+    releaseResourceDir.mkdirs()
+    
+    copy {
+        from 'resources'
+        into 'build/release/resources'
+        include '*.*'
+    }
+}

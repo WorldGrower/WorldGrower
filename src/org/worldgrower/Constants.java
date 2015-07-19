@@ -1,0 +1,161 @@
+/*******************************************************************************
+ *     This program is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU General Public License as published by
+ *     the Free Software Foundation, either version 3 of the License, or
+ *     (at your option) any later version.
+ *
+ *     This program is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU General Public License for more details.
+ *
+ *     You should have received a copy of the GNU General Public License
+ *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *******************************************************************************/
+package org.worldgrower;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.worldgrower.attribute.Background;
+import org.worldgrower.attribute.BooleanProperty;
+import org.worldgrower.attribute.IdListProperty;
+import org.worldgrower.attribute.IdMapProperty;
+import org.worldgrower.attribute.IdProperty;
+import org.worldgrower.attribute.IntProperty;
+import org.worldgrower.attribute.LookDirection;
+import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.attribute.Reasons;
+import org.worldgrower.attribute.SkillProperty;
+import org.worldgrower.attribute.StringProperty;
+import org.worldgrower.attribute.UnCheckedProperty;
+import org.worldgrower.attribute.WorldObjectContainerProperty;
+import org.worldgrower.attribute.WorldObjectProperty;
+import org.worldgrower.condition.Conditions;
+import org.worldgrower.creaturetype.CreatureType;
+import org.worldgrower.curse.Curse;
+import org.worldgrower.gui.ImageIds;
+import org.worldgrower.profession.Profession;
+
+public class Constants {
+
+	public static final List<ManagedProperty<?>> ALL_PROPERTIES = new ArrayList<>();
+	
+	private static final boolean NULLABLE = true;
+	private static final boolean NOT_NULLABLE = false;
+	
+	public static final IntProperty X = new IntProperty("X", null, null, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty Y = new IntProperty("Y", null, null, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty WIDTH = new IntProperty("WIDTH", 1, null, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty HEIGHT = new IntProperty("HEIGHT", 1, null, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty HIT_POINTS = new IntProperty("HP", 0, 200, NOT_NULLABLE, ALL_PROPERTIES); // TODO: max = HPmax
+	public static final IntProperty HIT_POINTS_MAX = new IntProperty("HPmax", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final StringProperty NAME = new StringProperty("NAME", NOT_NULLABLE, ALL_PROPERTIES);
+	public static final UnCheckedProperty<MetaInformation> META_INFORMATION = new UnCheckedProperty<>("metaInformation", ALL_PROPERTIES); 
+	
+	public static final IntProperty EXPERIENCE = new IntProperty("xp", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
+	
+	public static final IntProperty STRENGTH = new IntProperty("STR", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty DEXTERITY = new IntProperty("DEX", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty CONSTITUTION = new IntProperty("CON", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty INTELLIGENCE = new IntProperty("INT", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty WISDOM = new IntProperty("WIS", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty CHARISMA = new IntProperty("CHA", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
+	
+	public static final SkillProperty BLUFF_SKILL = new SkillProperty("bluff", ALL_PROPERTIES);
+	public static final SkillProperty INSIGHT_SKILL = new SkillProperty("insight", ALL_PROPERTIES);
+	public static final SkillProperty HAND_TO_HAND_SKILL = new SkillProperty("hand-to-hand", ALL_PROPERTIES);
+	public static final SkillProperty ONE_HANDED_SKILL = new SkillProperty("one-handed", ALL_PROPERTIES);
+	public static final SkillProperty TWO_HANDED_SKILL = new SkillProperty("one-handed", ALL_PROPERTIES);
+	public static final SkillProperty PERCEPTION_SKILL = new SkillProperty("perception", ALL_PROPERTIES);
+	public static final SkillProperty DIPLOMACY_SKILL = new SkillProperty("diplomacy", ALL_PROPERTIES);
+	public static final SkillProperty INTIMIDATE_SKILL = new SkillProperty("intimidate", ALL_PROPERTIES);
+	public static final SkillProperty SMITHING_SKILL = new SkillProperty("smithing", ALL_PROPERTIES);
+	public static final SkillProperty ALCHEMY_SKILL = new SkillProperty("alchemy", ALL_PROPERTIES);
+	public static final SkillProperty ARCHERY_SKILL = new SkillProperty("archery", ALL_PROPERTIES);
+	public static final SkillProperty THIEVERY_SKILL = new SkillProperty("thievery", ALL_PROPERTIES);
+	public static final SkillProperty EVOCATION_SKILL = new SkillProperty("evocation", ALL_PROPERTIES);
+	
+	public static final UnCheckedProperty<CreatureType> CREATURE_TYPE = new UnCheckedProperty<CreatureType>("creatureType", ALL_PROPERTIES);
+	
+	public static final IntProperty FOOD_SOURCE = new IntProperty("foodSource",0, 500, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty FOOD = new IntProperty("food", 0, 1000, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty WATER = new IntProperty("water", 0, 1000, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty WATER_SOURCE = new IntProperty("waterSource", 0, 2000, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty WOOD_SOURCE = new IntProperty("woodSource", 0, 50, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty GRAPE_SOURCE = new IntProperty("grapeSource", 0, 500, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty GRAPE = new IntProperty("grape", 0, 500, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty WINE = new IntProperty("wine", 0, 500, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty PAPER = new IntProperty("paper", 0, 500, NOT_NULLABLE, ALL_PROPERTIES);
+	
+	public static final IntProperty WOOD = new IntProperty("wood", 0, 50, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IdProperty HOUSE_ID = new IdProperty("houseId", ALL_PROPERTIES);
+	public static final IdProperty SMITH_ID = new IdProperty("smithId", ALL_PROPERTIES);
+	public static final IntProperty ENERGY = new IntProperty("energy", 0, 1000, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty PAPER_MILL_QUALITY = new IntProperty("paperMillQuality", 0, 50, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IdProperty PAPER_MILL_ID = new IdProperty("paperMillId", ALL_PROPERTIES);
+	
+	public static final IntProperty DAMAGE = new IntProperty("damage", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty RANGE = new IntProperty("range", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty DAMAGE_RESIST = new IntProperty("damageResist", 0, 800, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty ARMOR = new IntProperty("armor", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty WEIGHT = new IntProperty("weight", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty EQUIPMENT_HEALTH = new IntProperty("equipmentHealth", 0, 1000, NOT_NULLABLE, ALL_PROPERTIES);
+	
+	public static final UnCheckedProperty<WorldObject> HEAD_EQUIPMENT = new UnCheckedProperty<WorldObject>("headEquipment", ALL_PROPERTIES);
+	public static final UnCheckedProperty<WorldObject> TORSO_EQUIPMENT = new UnCheckedProperty<WorldObject>("torsoEquipment", ALL_PROPERTIES);
+	public static final UnCheckedProperty<WorldObject> ARMS_EQUIPMENT = new UnCheckedProperty<WorldObject>("armsEquipment", ALL_PROPERTIES);
+	public static final UnCheckedProperty<WorldObject> LEGS_EQUIPMENT = new UnCheckedProperty<WorldObject>("legsEquipment", ALL_PROPERTIES);
+	public static final UnCheckedProperty<WorldObject> FEET_EQUIPMENT = new UnCheckedProperty<WorldObject>("feetEquipment", ALL_PROPERTIES);
+	public static final UnCheckedProperty<WorldObject> LEFT_HAND_EQUIPMENT = new UnCheckedProperty<WorldObject>("handEquipment", ALL_PROPERTIES);
+	public static final UnCheckedProperty<WorldObject> RIGHT_HAND_EQUIPMENT = new UnCheckedProperty<WorldObject>("handEquipment", ALL_PROPERTIES);
+	
+	public static final UnCheckedProperty<UnCheckedProperty<WorldObject>> EQUIPMENT_SLOT = new UnCheckedProperty<UnCheckedProperty<WorldObject>>("equipmentSlot", ALL_PROPERTIES);
+	
+	public static final StringProperty GROUP = new StringProperty("group", NULLABLE, ALL_PROPERTIES);
+	//TODO: add WorldObjectProperty, ListStringProperty
+	public static final IdMapProperty RELATIONSHIPS = new IdMapProperty("relationships", ALL_PROPERTIES);
+	public static final IdProperty MATE_ID = new IdProperty("mate", ALL_PROPERTIES);
+	public static final IdListProperty CHILDREN = new IdListProperty("children", ALL_PROPERTIES);
+	public static final StringProperty GENDER = new StringProperty("gender", NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty PREGNANCY = new IntProperty("pregnancy", null, null, NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty SOCIAL = new IntProperty("social", 0, 1000, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final UnCheckedProperty<Background> BACKGROUND = new UnCheckedProperty<Background>("background", ALL_PROPERTIES);
+
+	public static final WorldObjectProperty FACADE = new WorldObjectProperty("facade", NULLABLE, ALL_PROPERTIES);
+	public static final UnCheckedProperty<Reasons> REASONS = new UnCheckedProperty<Reasons>("reasons", ALL_PROPERTIES);
+	public static final StringProperty TEXT = new StringProperty("text", NOT_NULLABLE, ALL_PROPERTIES);
+
+	public static final WorldObjectContainerProperty INVENTORY = new WorldObjectContainerProperty("inventory", ALL_PROPERTIES);
+	public static final IntProperty PRICE = new IntProperty("price", 0, null, NULLABLE, ALL_PROPERTIES);
+	public static final BooleanProperty SELLABLE = new BooleanProperty("sellable", NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty QUANTITY = new IntProperty("quantity", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty GOLD = new IntProperty("gold", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final WorldObjectContainerProperty DEMANDS = new WorldObjectContainerProperty("demands", ALL_PROPERTIES);
+	
+	public static final UnCheckedProperty<Profession> PROFESSION = new UnCheckedProperty<Profession>("profession", ALL_PROPERTIES);
+
+	public static final WorldObjectProperty DEITY = new WorldObjectProperty("deity", NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IdProperty PLACE_OF_WORSHIP_ID = new IdProperty("placeOfWorshipId", ALL_PROPERTIES);
+	
+	public static final IntProperty SLEEP_COMFORT = new IntProperty("sleepComfort", 0, 100, NOT_NULLABLE, ALL_PROPERTIES);
+	
+	public static final IntProperty SMITH_QUALITY = new IntProperty("smithQuality", 0, 100, NOT_NULLABLE, ALL_PROPERTIES);
+	
+	public static final IntProperty ID = new IntProperty("Id", null, null, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final UnCheckedProperty<ImageIds> IMAGE_ID = new UnCheckedProperty<>("ImageId", ALL_PROPERTIES);
+	public static final UnCheckedProperty<LookDirection> LOOK_DIRECTION = new UnCheckedProperty<>("lookDirection", ALL_PROPERTIES);
+	
+	public static final IntProperty STONE = new IntProperty("stone", 0, 15, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty ORE = new IntProperty("ore", 0, 15, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty STONE_SOURCE = new IntProperty("stoneSource", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty ORE_SOURCE = new IntProperty("oreSource", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty GOLD_SOURCE = new IntProperty("goldSource", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
+	
+	public static final UnCheckedProperty<Curse> CURSE = new UnCheckedProperty<Curse>("curse", ALL_PROPERTIES);
+	public static final UnCheckedProperty<Conditions> CONDITIONS = new UnCheckedProperty<>("conditions", ALL_PROPERTIES);
+	
+	public static final IntProperty RELATIONSHIP_VALUE = new IntProperty("relationshipValue", -1000, 1000, false, ALL_PROPERTIES);
+	
+	public static final IdProperty ILLUSION_CREATOR_ID = new IdProperty("illusionCreatorId", ALL_PROPERTIES);
+}
