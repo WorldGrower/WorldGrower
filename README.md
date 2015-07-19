@@ -7,14 +7,13 @@ It focuses on skills, dialogue, economy and society.
 - [Installation](#installation)
 - [Bugs and Feature Requests](#bugs-and-feature-requests)
 - [Documentation](#documentation)
-- [Community](#community)
 - [License](#license)
 
 ## Installation<a name="installation"></a>
 
 Binary installation
 
-*   [Download .zip file](http://install)
+*   [Download .zip file](http://worldgrower.github.io/WorldGrower/releases/worldgrower-0.0.1-alpha.zip)
 *   Extract the .zip file on the local filesystem
 *   [Make sure Java 8 is installed.](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html)
 *   To run under Windows, use worldgrower.cmd.
@@ -38,28 +37,9 @@ issue](https://issue).
 
 ## Documentation<a name="documentation"></a>
 
-WorldGrower's documentation, included in this repo in the `docs/manual`
-directory, is built with [Middleman](http://middlemanapp.com/) and publicly
-hosted at [docs.prediction.io](http://docs.prediction.io/).
-
-Interested in helping with our documentation? Read [Contributing
-Documentation](http://docs.prediction.io/community/contribute-documentation/).
-
-[![Build
-Status](https://travis-ci.org/PredictionIO/PredictionIO.svg?branch=livedoc)](https://travis-ci.org/PredictionIO/PredictionIO)
-[![Dependency
-Status](https://gemnasium.com/PredictionIO/PredictionIO.svg)](https://gemnasium.com/PredictionIO/PredictionIO)
-
-
-## Community<a name="community"></a>
-
-Keep track of development and community news.
-
-*   Follow [@predictionio](https://twitter.com/predictionio) on Twitter.
-*   Read and subscribe to [the
-    Newsletter](http://prediction.us6.list-manage1.com/subscribe?u=d8c0435d851c1310fc64c6e26&id=8c6c1b46d0).
-*   Join the [Community
-    Forum](https://groups.google.com/forum/#!forum/predictionio-user).
+WorldGrower's documentation, included in this repo in the gh-pages branch.
+[User Manual](http://worldgrower.github.io/WorldGrower/UserManual.htm).
+[Developer Guide](http://worldgrower.github.io/WorldGrower/DeveloperGuide.htm).
 
 
 ## License<a name="license"></a>
