@@ -48,8 +48,7 @@ public abstract class AbstractChangeOpinionConversation implements Conversation 
 	public abstract Question createQuestion(WorldObject performer, WorldObject target, WorldObject subject);
 	
 	@Override
-	public final List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem,
-			World world) {
+	public final List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, World world) {
 		IdMap relationships = performer.getProperty(Constants.RELATIONSHIPS);
 		List<Integer> subjectIds = relationships.getIdsWithoutTarget(target);
 
