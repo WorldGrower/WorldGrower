@@ -43,9 +43,7 @@ WorldGrower's documentation, included in this repo in the gh-pages branch.
 
 [Developer Guide](http://worldgrower.github.io/WorldGrower/DeveloperGuide.htm).
 
-[![Build Status](https://travis-ci.org/WorldGrower/WorldGrower.svg?branch=master)]
-
-[WorldGrower on Travis](https://travis-ci.org/WorldGrower/WorldGrower)
+[WorldGrower on Travis](https://travis-ci.org/WorldGrower/WorldGrower): [![Build Status](https://travis-ci.org/WorldGrower/WorldGrower.svg?branch=master)]
 
 ## License<a name="license"></a>
 
