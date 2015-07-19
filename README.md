@@ -38,7 +38,9 @@ issue](https://issue).
 ## Documentation<a name="documentation"></a>
 
 WorldGrower's documentation, included in this repo in the gh-pages branch.
+
 [User Manual](http://worldgrower.github.io/WorldGrower/UserManual.htm).
+
 [Developer Guide](http://worldgrower.github.io/WorldGrower/DeveloperGuide.htm).
 
 
