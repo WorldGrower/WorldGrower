@@ -33,6 +33,11 @@ public class UndeadCreatureType implements CreatureType {
 		return true;
 	}
 	
+	@Override
+	public boolean canTrade() {
+		return true;
+	}
+	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
 	}

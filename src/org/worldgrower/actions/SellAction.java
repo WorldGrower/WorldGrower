@@ -54,7 +54,7 @@ public class SellAction implements ManagedOperation {
 
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return (target.hasIntelligence() && target.hasProperty(Constants.INVENTORY));
+		return (target.hasIntelligence() && target.hasProperty(Constants.INVENTORY) && target.getProperty(Constants.CREATURE_TYPE).canTrade());
 	}
 	
 	@Override

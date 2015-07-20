@@ -33,6 +33,11 @@ public class RatCreatureType implements CreatureType {
 		return true;
 	}
 	
+	@Override
+	public boolean canTrade() {
+		return false;
+	}
+	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
 	}

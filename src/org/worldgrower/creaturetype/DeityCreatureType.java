@@ -33,6 +33,11 @@ public class DeityCreatureType implements CreatureType {
 		return false;
 	}
 	
+	@Override
+	public boolean canTrade() {
+		return false;
+	}
+	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
 	}

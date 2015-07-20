@@ -22,6 +22,7 @@ import java.util.List;
 public interface CreatureType extends Serializable {
 	public boolean canTalk();
 	public boolean canMove();
+	public boolean canTrade();
 	
 	public static final List<CreatureType> ALL_CREATURE_TYPES = new ArrayList<>();
 	
