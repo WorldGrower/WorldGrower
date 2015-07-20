@@ -53,6 +53,7 @@ public class Conversations implements Serializable {
 	public static final Conversation NICER_CONVERSATION = new NicerConversation();
 	public static final Conversation NOT_NICER_CONVERSATION = new NotNicerConversation();
 	public static final Conversation ORGANIZATION_CONVERSATION = new OrganizationConversation();
+	public static final Conversation JOIN_ORGANIZATION_CONVERSATION = new JoinOrganizationConversation();
 	
 	public static final Conversation INTIMIDATE1_CONVERSATION = new IntimidateConversation(DEMAND_MONEY_CONVERSATION);
 	public static final Conversation INTIMIDATE2_CONVERSATION = new IntimidateConversation(NAME_CONVERSATION);
@@ -84,6 +85,7 @@ public class Conversations implements Serializable {
 		add(NICER_CONVERSATION, ConversationCategory.RELATIONSHIP_OTHERS);
 		add(NOT_NICER_CONVERSATION, ConversationCategory.RELATIONSHIP_OTHERS);
 		add(ORGANIZATION_CONVERSATION, ConversationCategory.GROUP);
+		add(JOIN_ORGANIZATION_CONVERSATION, ConversationCategory.GROUP);
 		
 		add(INTIMIDATE1_CONVERSATION, ConversationCategory.INTIMIDATE_TARGET);
 		add(INTIMIDATE2_CONVERSATION, ConversationCategory.INTIMIDATE_TARGET);

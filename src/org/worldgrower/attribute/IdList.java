@@ -55,6 +55,13 @@ public class IdList implements Serializable {
 		return (copyIds.size() != this.ids.size());
 	}
 	
+	public List<Integer> getIdsNotPresentInOther(IdList otherIdList) {
+		List<Integer> copyIds = new ArrayList<>(this.ids);
+		copyIds.removeAll(otherIdList.ids);
+		
+		return copyIds;
+	}
+	
 	@Override
 	public String toString() {
 		return "[" + ids + "]";

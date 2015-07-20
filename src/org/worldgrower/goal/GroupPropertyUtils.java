@@ -57,7 +57,7 @@ public class GroupPropertyUtils {
 		properties.put(Constants.HEIGHT, 4);
 		properties.put(Constants.NAME, organizationName);
 		properties.put(Constants.ID, world.generateUniqueId());
-		properties.put(Constants.IMAGE_ID, ImageIds.TREE);
+		properties.put(Constants.IMAGE_ID, ImageIds.BLACK_CROSS);
 		properties.put(Constants.ORGANIZATION_LEADER_ID, performerId);
 		properties.put(Constants.PROFESSION, profession);
 		
