@@ -14,6 +14,7 @@
  *******************************************************************************/
 package org.worldgrower.conversation;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -64,7 +65,13 @@ public class IntimidateConversation implements Conversation {
 
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, World world) {
-		return Arrays.asList(new Question(null, "I think you better help me or I'll slit your throat. " + parentConversation.getQuestionPhrases(performer, target, questionHistoryItem, world).get(0).getQuestionPhrase()));
+		List<Question> parentQuestionPhrases = parentConversation.getQuestionPhrases(performer, target, questionHistoryItem, world);
+		List<Question> result = new ArrayList<>();
+		for(Question parentQuestionPhrase : parentQuestionPhrases) {
+			WorldObject subject = parentQuestionPhrase.getSubjectId() != -1 ? world.findWorldObject(Constants.ID, parentQuestionPhrase.getSubjectId()) : null;
+			result.add(new Question(subject, "I think you better help me or I'll slit your throat. " + parentQuestionPhrase.getQuestionPhrase()));
+		}
+		return result;
 	}
 
 	@Override

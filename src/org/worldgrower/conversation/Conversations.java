@@ -56,41 +56,36 @@ public class Conversations implements Serializable {
 	public static final Conversation JOIN_PERFORMER_ORGANIZATION_CONVERSATION = new JoinPerformerOrganizationConversation();
 	public static final Conversation JOIN_TARGET_ORGANIZATION_CONVERSATION = new JoinTargetOrganizationConversation();
 	
-	public static final Conversation INTIMIDATE1_CONVERSATION = new IntimidateConversation(DEMAND_MONEY_CONVERSATION);
-	public static final Conversation INTIMIDATE2_CONVERSATION = new IntimidateConversation(NAME_CONVERSATION);
-	
 	private static final List<Conversation> CONVERSATIONS = new ArrayList<>();
 	private static final Map<Conversation, ConversationCategory> CONVERSATION_CATEGORIES = new HashMap<>();
 	
 	static {
-		add(NAME_CONVERSATION, ConversationCategory.PERSONAL_INFORMATION);
-		add(GOAL_CONVERSATION, ConversationCategory.PERSONAL_INFORMATION);
-		add(IMMEDIATE_GOAL_CONVERSATION, ConversationCategory.PERSONAL_INFORMATION);
+		addNormalAndIntimidate(NAME_CONVERSATION, ConversationCategory.PERSONAL_INFORMATION);
+		addNormalAndIntimidate(GOAL_CONVERSATION, ConversationCategory.PERSONAL_INFORMATION);
+		addNormalAndIntimidate(IMMEDIATE_GOAL_CONVERSATION, ConversationCategory.PERSONAL_INFORMATION);
 		add(RELATIONSHIP_CONVERSATION, ConversationCategory.RELATIONSHIP_OTHERS);
-		add(PROFESSION_CONVERSATION, ConversationCategory.PERSONAL_INFORMATION);
-		add(DEITY_CONVERSATION, ConversationCategory.PERSONAL_INFORMATION);
-		add(DEITY_EXPLANATION_CONVERSATION, ConversationCategory.PERSONAL_INFORMATION);
+		addNormalAndIntimidate(PROFESSION_CONVERSATION, ConversationCategory.PERSONAL_INFORMATION);
+		addNormalAndIntimidate(DEITY_CONVERSATION, ConversationCategory.PERSONAL_INFORMATION);
+		addNormalAndIntimidate(DEITY_EXPLANATION_CONVERSATION, ConversationCategory.PERSONAL_INFORMATION);
 		add(DEITY_REASON_CONVERSATION, ConversationCategory.PERSONAL_INFORMATION);
-		add(PROFESSION_REASON_CONVERSATION, ConversationCategory.PERSONAL_INFORMATION);
-		add(DEMANDS_CONVERSATION, ConversationCategory.PERSONAL_INFORMATION);
+		addNormalAndIntimidate(PROFESSION_REASON_CONVERSATION, ConversationCategory.PERSONAL_INFORMATION);
+		addNormalAndIntimidate(DEMANDS_CONVERSATION, ConversationCategory.PERSONAL_INFORMATION);
 		add(BROKEN_LAW_CONVERSATION, ConversationCategory.DEMAND);
 		add(COMPLIMENT_CONVERSATION, ConversationCategory.DIPLOMACY_TARGET);
 		add(EXPLAIN_CURSE_CONVERSATION, ConversationCategory.PERSONAL_INFORMATION);
-		add(LOCATION_CONVERSATION, ConversationCategory.DEMAND);
-		add(DEMAND_MONEY_CONVERSATION, ConversationCategory.DEMAND);
+		addNormalAndIntimidate(LOCATION_CONVERSATION, ConversationCategory.DEMAND);
+		addNormalAndIntimidate(DEMAND_MONEY_CONVERSATION, ConversationCategory.DEMAND);
 		add(PROPOSE_MATE_CONVERSATION, ConversationCategory.DEMAND);
-		add(FAMILY_CONVERSATION, ConversationCategory.PERSONAL_INFORMATION);
+		addNormalAndIntimidate(FAMILY_CONVERSATION, ConversationCategory.PERSONAL_INFORMATION);
 		add(KISS_CONVERSATION, ConversationCategory.DEMAND);
 		add(WHY_ANGRY_CONVERSATION, ConversationCategory.PERSONAL_INFORMATION);
 		add(WHY_ANGRY_OTHER_CONVERSATION, ConversationCategory.RELATIONSHIP_OTHERS);
 		add(NICER_CONVERSATION, ConversationCategory.RELATIONSHIP_OTHERS);
 		add(NOT_NICER_CONVERSATION, ConversationCategory.RELATIONSHIP_OTHERS);
-		add(ORGANIZATION_CONVERSATION, ConversationCategory.GROUP);
-		add(JOIN_PERFORMER_ORGANIZATION_CONVERSATION, ConversationCategory.GROUP);
-		add(JOIN_TARGET_ORGANIZATION_CONVERSATION, ConversationCategory.GROUP);
+		addNormalAndIntimidate(ORGANIZATION_CONVERSATION, ConversationCategory.GROUP);
+		addNormalAndIntimidate(JOIN_PERFORMER_ORGANIZATION_CONVERSATION, ConversationCategory.GROUP);
+		addNormalAndIntimidate(JOIN_TARGET_ORGANIZATION_CONVERSATION, ConversationCategory.GROUP);
 		
-		add(INTIMIDATE1_CONVERSATION, ConversationCategory.INTIMIDATE_TARGET);
-		add(INTIMIDATE2_CONVERSATION, ConversationCategory.INTIMIDATE_TARGET);
 	}
 	
 	public static int[] createArgs(Conversation conversation) {
@@ -119,6 +114,11 @@ public class Conversations implements Serializable {
 	private static void add(Conversation conversation, ConversationCategory conversationCategory) {
 		CONVERSATIONS.add(conversation);
 		CONVERSATION_CATEGORIES.put(conversation, conversationCategory);
+	}
+	
+	private static void addNormalAndIntimidate(Conversation conversation, ConversationCategory conversationCategory) {
+		add(conversation, conversationCategory);
+		add(new IntimidateConversation(conversation), ConversationCategory.INTIMIDATE_TARGET);
 	}
 	
 	public Map<ConversationCategory, List<Question>> getQuestionPhrases(WorldObject performer, WorldObject target, World world) {
