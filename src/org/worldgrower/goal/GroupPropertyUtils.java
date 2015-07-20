@@ -60,7 +60,7 @@ public class GroupPropertyUtils {
 		return organisations;
 	}
 	
-	private static WorldObject findProfessionOrganization(WorldObject performer, World world) {
+	public static WorldObject findProfessionOrganization(WorldObject performer, World world) {
 		Profession performerProfession = performer.getProperty(Constants.PROFESSION);
 		IdList organizations = performer.getProperty(Constants.GROUP);
 		for(int organizationId : organizations.getIds()) {

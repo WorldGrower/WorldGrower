@@ -22,6 +22,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.IdList;
+import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.history.HistoryItem;
 
 public class JoinPerformerOrganizationConversation implements Conversation {
@@ -36,7 +37,7 @@ public class JoinPerformerOrganizationConversation implements Conversation {
 		
 		final int replyId;
 		int relationshipValue = target.getProperty(Constants.RELATIONSHIPS).getValue(performer);
-		if (relationshipValue > 0) {
+		if (relationshipValue > 100) {
 			replyId = YES;
 		} else {
 			replyId = NO;
@@ -80,6 +81,12 @@ public class JoinPerformerOrganizationConversation implements Conversation {
 		if (replyIndex == YES) {
 			WorldObject target = conversationContext.getTarget();
 			WorldObject organization = conversationContext.getSubject();
+			World world = conversationContext.getWorld();
+			
+			WorldObject oldOrganization = GroupPropertyUtils.findProfessionOrganization(target, world);
+			if (oldOrganization != null) {
+				target.getProperty(Constants.GROUP).remove(oldOrganization);
+			}
 			
 			target.getProperty(Constants.GROUP).add(organization);
 		}
