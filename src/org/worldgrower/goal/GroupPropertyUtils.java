@@ -53,7 +53,14 @@ public class GroupPropertyUtils {
 		return (findProfessionOrganization(performer, world) != null);
 	}
 	
-	public static WorldObject findProfessionOrganization(WorldObject performer, World world) {
+	public static List<WorldObject> findProfessionOrganizationsInWorld(WorldObject performer, World world) {
+		Profession performerProfession = performer.getProperty(Constants.PROFESSION);
+		
+		List<WorldObject> organisations = world.findWorldObjects(w -> w.hasProperty(Constants.ORGANIZATION_LEADER_ID) && w.getProperty(Constants.PROFESSION) == performerProfession);
+		return organisations;
+	}
+	
+	private static WorldObject findProfessionOrganization(WorldObject performer, World world) {
 		Profession performerProfession = performer.getProperty(Constants.PROFESSION);
 		IdList organizations = performer.getProperty(Constants.GROUP);
 		for(int organizationId : organizations.getIds()) {

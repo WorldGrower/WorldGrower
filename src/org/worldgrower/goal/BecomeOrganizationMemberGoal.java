@@ -14,6 +14,8 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
@@ -30,14 +32,15 @@ public class BecomeOrganizationMemberGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		WorldObject organization = GroupPropertyUtils.findProfessionOrganization(performer, world);
-		if (organization != null) {
-			Integer leaderId = organization.getProperty(Constants.ORGANIZATION_LEADER_ID);
+		List<WorldObject> organizations = GroupPropertyUtils.findProfessionOrganizationsInWorld(performer, world);
+		if (organizations.size() > 0) {
+			Collections.sort(organizations, new OrganizationComparator(performer));
+			Integer leaderId = organizations.get(0).getProperty(Constants.ORGANIZATION_LEADER_ID);
 			if (leaderId != null) {
 				WorldObject organizationLeader = world.findWorldObject(Constants.ID, leaderId);
 				int relationshipValue = performer.getProperty(Constants.RELATIONSHIPS).getValue(organizationLeader);
 				if (relationshipValue >= 0) {
-					return new OperationInfo(performer, organizationLeader, Conversations.createArgs(Conversations.JOIN_ORGANIZATION_CONVERSATION, organization), Actions.TALK_ACTION);
+					return new OperationInfo(performer, organizationLeader, Conversations.createArgs(Conversations.JOIN_TARGET_ORGANIZATION_CONVERSATION, organizations.get(0)), Actions.TALK_ACTION);
 				} else {
 					return createOrganization(performer, world);
 				}
@@ -49,6 +52,27 @@ public class BecomeOrganizationMemberGoal implements Goal {
 		}
 	}
 
+	private static class OrganizationComparator implements  Comparator<WorldObject> {
+
+		private final WorldObject performer;
+		
+		public OrganizationComparator(WorldObject performer) {
+			this.performer = performer;
+		}
+
+		@Override
+		public int compare(WorldObject organization1, WorldObject organization2) {
+			Integer leaderId1 = organization1.getProperty(Constants.ORGANIZATION_LEADER_ID);
+			Integer leaderId2 = organization2.getProperty(Constants.ORGANIZATION_LEADER_ID);
+			
+			int relationshipValue1 = performer.getProperty(Constants.RELATIONSHIPS).getValue(leaderId1);
+			int relationshipValue2 = performer.getProperty(Constants.RELATIONSHIPS).getValue(leaderId2);
+			
+			return Integer.compare(relationshipValue1, relationshipValue2);
+		}
+		
+	}
+	
 	private OperationInfo createOrganization(WorldObject performer, World world) {
 		int professionIndex = Professions.indexOf(performer.getProperty(Constants.PROFESSION));
 		int organizationIndex = getOrganizationIndex(performer, world);

@@ -24,7 +24,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.history.HistoryItem;
 
-public class JoinOrganizationConversation implements Conversation {
+public class JoinTargetOrganizationConversation implements Conversation {
 
 	private static final int YES = 0;
 	private static final int NO = 1;
@@ -49,12 +49,12 @@ public class JoinOrganizationConversation implements Conversation {
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, World world) {
 		IdList performerOrganizations = performer.getProperty(Constants.GROUP);
 		IdList targetOrganizations = target.getProperty(Constants.GROUP);
-		List<Integer> organizationsToJoin = performerOrganizations.getIdsNotPresentInOther(targetOrganizations);
+		List<Integer> organizationsToJoin = targetOrganizations.getIdsNotPresentInOther(performerOrganizations);
 		
 		List<Question> questions = new ArrayList<>();
 		for(int organizationId : organizationsToJoin) {
 			WorldObject organization = world.findWorldObject(Constants.ID, organizationId);
-			questions.add(new Question(organization, "Would you like to join the " + organization.getProperty(Constants.NAME) + " ?"));
+			questions.add(new Question(organization, "Can I join the " + organization.getProperty(Constants.NAME) + " ?"));
 		}
 		
 		return questions;
@@ -65,7 +65,7 @@ public class JoinOrganizationConversation implements Conversation {
 		WorldObject organization = conversationContext.getSubject();
 		
 		return Arrays.asList(
-			new Response(YES, "Yes, I'll join the " + organization.getProperty(Constants.NAME)),
+			new Response(YES, "Yes, you can join the " + organization.getProperty(Constants.NAME)),
 			new Response(NO, "No")
 			);
 	}
@@ -78,10 +78,10 @@ public class JoinOrganizationConversation implements Conversation {
 	@Override
 	public void handleResponse(int replyIndex, ConversationContext conversationContext) {
 		if (replyIndex == YES) {
-			WorldObject target = conversationContext.getTarget();
+			WorldObject performer = conversationContext.getPerformer();
 			WorldObject organization = conversationContext.getSubject();
 			
-			target.getProperty(Constants.GROUP).add(organization);
+			performer.getProperty(Constants.GROUP).add(organization);
 		}
 	}
 }
