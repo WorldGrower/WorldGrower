@@ -16,6 +16,7 @@ package org.worldgrower.attribute;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.worldgrower.Constants;
@@ -57,6 +58,10 @@ public class IdList implements Serializable {
 	@Override
 	public String toString() {
 		return "[" + ids + "]";
+	}
+	
+	public List<Integer> getIds() {
+		return Collections.unmodifiableList(ids);
 	}
 	
 	public IdList copy() {

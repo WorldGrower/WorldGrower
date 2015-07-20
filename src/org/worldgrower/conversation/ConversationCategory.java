@@ -19,7 +19,8 @@ public enum ConversationCategory {
 	RELATIONSHIP_OTHERS("Relationship with others"),
 	DEMAND("Demand"),
 	DIPLOMACY_TARGET("Diplomacy"),
-	INTIMIDATE_TARGET("Intimidate");
+	INTIMIDATE_TARGET("Intimidate"),
+	GROUP("organization");
 	
 	private final String description;
 	
