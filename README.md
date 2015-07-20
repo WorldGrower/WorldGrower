@@ -5,6 +5,7 @@ It focuses on skills, dialogue, economy and society.
 
 ## Table of contents
 - [Installation](#installation)
+- [Features](#features)
 - [Bugs and Feature Requests](#bugs-and-feature-requests)
 - [Documentation](#documentation)
 - [License](#license)
@@ -25,6 +26,12 @@ Source installation
 *   Make sure Java 8 is installed
 *   Run org.worldgrower.gui.start.StartScreen
 
+## Features<a name="features"></a>
+- dynamic world that is built up from scratch
+- play several roles like farmer, lumberjack, priest, etc
+- extensive dialogue system
+- mislead enemies with disguises and illusions
+- use character skills to build up an economy from the ground up 
 
 ## Bugs and Feature Requests<a name="bugs-and-feature-requests"></a>
 
