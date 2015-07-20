@@ -120,7 +120,8 @@ public class Constants {
 	public static final IntProperty PREGNANCY = new IntProperty("pregnancy", null, null, NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty SOCIAL = new IntProperty("social", 0, 1000, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final UnCheckedProperty<Background> BACKGROUND = new UnCheckedProperty<Background>("background", ALL_PROPERTIES);
-
+	public static final IdProperty ORGANIZATION_LEADER_ID = new IdProperty("leader", ALL_PROPERTIES);
+	
 	public static final WorldObjectProperty FACADE = new WorldObjectProperty("facade", NULLABLE, ALL_PROPERTIES);
 	public static final UnCheckedProperty<Reasons> REASONS = new UnCheckedProperty<Reasons>("reasons", ALL_PROPERTIES);
 	public static final StringProperty TEXT = new StringProperty("text", NOT_NULLABLE, ALL_PROPERTIES);

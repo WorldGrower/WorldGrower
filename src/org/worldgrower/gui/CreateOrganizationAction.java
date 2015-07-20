@@ -53,7 +53,7 @@ public class CreateOrganizationAction extends AbstractAction {
 		String professionName = (String) JOptionPane.showInputDialog(parent, "Choose Profession", "Choose Profession", JOptionPane.QUESTION_MESSAGE, null, professionNames, professionNames[0]);
 		Profession profession = Professions.getProfessionByDescription(professionName);
 		
-		String[] organizationNames = new OrganizationNamer().getNames(profession).toArray(new String[0]);
+		String[] organizationNames = new OrganizationNamer().getNames(profession, world).toArray(new String[0]);
 		String organizationName = (String) JOptionPane.showInputDialog(parent, "Choose Organization name", "Choose Organization name", JOptionPane.QUESTION_MESSAGE, null, organizationNames, organizationNames[0]);
 		
 		int indexOfOrganization = Arrays.asList(organizationNames).indexOf(organizationName);

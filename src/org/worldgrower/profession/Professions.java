@@ -15,8 +15,12 @@
 package org.worldgrower.profession;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import org.worldgrower.World;
+import org.worldgrower.goal.GroupPropertyUtils;
 
 public class Professions {
 	public static final FarmerProfession FARMER_PROFESSION = new FarmerProfession();

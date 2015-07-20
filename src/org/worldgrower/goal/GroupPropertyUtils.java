@@ -44,7 +44,12 @@ public class GroupPropertyUtils {
 		performer.getProperty(Constants.GROUP).remove(w);
 	}
 	
-	public static WorldObject create(String organizationName, Profession profession, World world) {
+	public static boolean isOrganizationNameInUse(String organizationName, World world) {
+		List<WorldObject> organizations = world.findWorldObjects(w -> w.hasProperty(Constants.ORGANIZATION_LEADER_ID) && w.getProperty(Constants.NAME).equals(organizationName));
+		return organizations.size() > 0;
+	}
+	
+	public static WorldObject create(Integer performerId, String organizationName, Profession profession, World world) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, -100000);
 		properties.put(Constants.Y, -100000);
@@ -53,6 +58,7 @@ public class GroupPropertyUtils {
 		properties.put(Constants.NAME, organizationName);
 		properties.put(Constants.ID, world.generateUniqueId());
 		properties.put(Constants.IMAGE_ID, ImageIds.TREE);
+		properties.put(Constants.ORGANIZATION_LEADER_ID, performerId);
 		properties.put(Constants.PROFESSION, profession);
 		
 		WorldObject organization = new WorldObjectImpl(properties);
