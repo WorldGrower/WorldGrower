@@ -27,13 +27,11 @@ public class DrinkAction implements ManagedOperation {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		int water = performer.getProperty(Constants.WATER);
-		
 		int waterInTarget = target.getProperty(Constants.WATER_SOURCE);
-		water = water + Math.min(100, waterInTarget);
 
-		performer.setProperty(Constants.WATER, water);
-		target.setProperty(Constants.WATER_SOURCE, waterInTarget - 100);
+		int waterDrunk = Math.min(100, waterInTarget);
+		performer.increment(Constants.WATER, waterDrunk);
+		target.increment(Constants.WATER_SOURCE, -waterDrunk);
 	}
 
 	@Override
