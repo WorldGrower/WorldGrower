@@ -27,6 +27,7 @@ import javax.swing.JTextField;
 
 import org.worldgrower.Main;
 import org.worldgrower.gui.ExceptionHandler;
+import org.worldgrower.util.NumberUtils;
 
 public class OptionsScreen {
 
@@ -186,35 +187,39 @@ public class OptionsScreen {
 			errors.add("Player Profession cannot be empty");
 		}
 		
-		if (!isNumeric(worldWidthTextField.getText())) {
-			errors.add("World Width must be numeric");
-		}
+		validateDimensionField(errors, worldWidthTextField);
+		validateDimensionField(errors, worldHeightTextField);
 		
-		if (!isNumeric(worldHeightTextField.getText())) {
-			errors.add("World Height must be numeric");
-		}
-		
-		if (!isNumeric(numberOfEnemiesTextField.getText())) {
+		if (!NumberUtils.isNumeric(numberOfEnemiesTextField.getText())) {
 			errors.add("Number of enemies must be numeric");
 		}
 		
-		if (!isNumeric(numberOfVillagersTextField.getText())) {
+		if (!NumberUtils.isNumeric(numberOfVillagersTextField.getText())) {
 			errors.add("Number of villagers must be numeric");
 		}
 		
-		if (!isNumeric(seedTextField.getText())) {
+		if (!NumberUtils.isNumeric(seedTextField.getText())) {
 			errors.add("Seed must be numeric");
 		}
 		
 		return errors;
 	}
-	
-	private static boolean isNumeric(String str)
-	{
-	    for (char c : str.toCharArray())
-	    {
-	        if (!Character.isDigit(c)) return false;
-	    }
-	    return true;
+
+	private static void validateDimensionField(List<String> errors, JTextField textField) {
+		if (textField.getText().length() == 0) {
+			errors.add("World Height cannot be empty");
+			return;
+		}
+		
+		if (!NumberUtils.isNumeric(textField.getText())) {
+			errors.add("World Height must be numeric");
+			return;
+		}
+		
+		if (Integer.parseInt(textField.getText()) < 100) {
+			errors.add("World Height must be at least 100");
+		}
 	}
+	
+
 }

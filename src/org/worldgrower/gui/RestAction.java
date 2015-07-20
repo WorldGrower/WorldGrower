@@ -25,6 +25,7 @@ import org.worldgrower.Main;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.util.NumberUtils;
 
 public class RestAction extends AbstractAction {
 
@@ -47,10 +48,12 @@ public class RestAction extends AbstractAction {
 	public void actionPerformed(ActionEvent e) {
 		
 		String turnsString = JOptionPane.showInputDialog("Rest how many turns?");
-		int turns = Integer.parseInt(turnsString);
-		
-		for(int i=0; i<turns; i++) {
-			Main.executeAction(playerCharacter, Actions.REST_ACTION, new int[0], world, dungeonMaster, playerCharacter, parent);
+		if ((turnsString != null) && (NumberUtils.isNumeric(turnsString))) {
+			int turns = Integer.parseInt(turnsString);
+			
+			for(int i=0; i<turns; i++) {
+				Main.executeAction(playerCharacter, Actions.REST_ACTION, new int[0], world, dungeonMaster, playerCharacter, parent);
+			}
 		}
 	}
 }
