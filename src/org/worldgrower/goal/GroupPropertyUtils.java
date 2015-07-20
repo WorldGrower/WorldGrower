@@ -49,6 +49,22 @@ public class GroupPropertyUtils {
 		return organizations.size() > 0;
 	}
 	
+	public static boolean isPerformerMemberOfProfessionOrganization(WorldObject performer, World world) {
+		return (findProfessionOrganization(performer, world) != null);
+	}
+	
+	public static WorldObject findProfessionOrganization(WorldObject performer, World world) {
+		Profession performerProfession = performer.getProperty(Constants.PROFESSION);
+		IdList organizations = performer.getProperty(Constants.GROUP);
+		for(int organizationId : organizations.getIds()) {
+			WorldObject organisation = world.findWorldObject(Constants.ID, organizationId);
+			if (organisation.getProperty(Constants.PROFESSION) == performerProfession) {
+				return organisation;
+			}
+		}
+		return null;
+	}
+	
 	public static WorldObject create(Integer performerId, String organizationName, Profession profession, World world) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, -100000);

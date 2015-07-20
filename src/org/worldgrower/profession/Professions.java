@@ -15,12 +15,8 @@
 package org.worldgrower.profession;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import org.worldgrower.World;
-import org.worldgrower.goal.GroupPropertyUtils;
 
 public class Professions {
 	public static final FarmerProfession FARMER_PROFESSION = new FarmerProfession();
@@ -50,6 +46,10 @@ public class Professions {
 	public static List<String> getDescriptions() {
 		return ALL_PROFESSIONS.stream().map(p -> p.getDescription()).collect(Collectors.toList());
 	}
+	
+	public static List<Profession> getAllProfessions() {
+		return ALL_PROFESSIONS;
+	}
 
 	public static Profession getProfessionByDescription(String professionName) {
 		for(Profession profession : ALL_PROFESSIONS) {
@@ -58,5 +58,9 @@ public class Professions {
 			}
 		}
 		throw new IllegalStateException("profession " + professionName + " not found in " + ALL_PROFESSIONS);
+	}
+
+	public static int indexOf(Profession profession) {
+		return ALL_PROFESSIONS.indexOf(profession);
 	}
 }

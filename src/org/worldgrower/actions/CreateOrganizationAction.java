@@ -30,9 +30,12 @@ public class CreateOrganizationAction implements ManagedOperation {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		Profession profession = Professions.FARMER_PROFESSION;
+		int professionIndex = args[0];
+		int organizationIndex = args[1];
+		
+		Profession profession = Professions.getAllProfessions().get(professionIndex);
 		List<String> organizationNames = new OrganizationNamer().getNames(profession, world);
-		int organizationIndex = args[0];
+		
 		String organizationName = organizationNames.get(organizationIndex);
 		
 		WorldObject organization = GroupPropertyUtils.create(performer.getProperty(Constants.ID), organizationName, profession, world);

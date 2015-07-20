@@ -52,12 +52,13 @@ public class CreateOrganizationAction extends AbstractAction {
 		String[] professionNames = Professions.getDescriptions().toArray(new String[0]);
 		String professionName = (String) JOptionPane.showInputDialog(parent, "Choose Profession", "Choose Profession", JOptionPane.QUESTION_MESSAGE, null, professionNames, professionNames[0]);
 		Profession profession = Professions.getProfessionByDescription(professionName);
+		int professionIndex = Professions.indexOf(profession);
 		
 		String[] organizationNames = new OrganizationNamer().getNames(profession, world).toArray(new String[0]);
 		String organizationName = (String) JOptionPane.showInputDialog(parent, "Choose Organization name", "Choose Organization name", JOptionPane.QUESTION_MESSAGE, null, organizationNames, organizationNames[0]);
 		
 		int indexOfOrganization = Arrays.asList(organizationNames).indexOf(organizationName);
 		
-		Main.executeAction(playerCharacter, Actions.CREATE_ORGANIZATION_ACTION, new int[] { indexOfOrganization}, world, dungeonMaster, playerCharacter, parent);
+		Main.executeAction(playerCharacter, Actions.CREATE_ORGANIZATION_ACTION, new int[] { professionIndex, indexOfOrganization}, world, dungeonMaster, playerCharacter, parent);
 	}
 }

@@ -38,12 +38,14 @@ public class CommonerWorldEvaluationFunction implements WorldObjectPriorities {
 		} else {
 			Profession profession = performer.getProperty(Constants.PROFESSION);
 			
-			final List<Goal> professionGoals;
+			List<Goal> professionGoals;
 			if (profession != null) {
 				professionGoals = profession.getProfessionGoals();
 			} else {
 				professionGoals = new ArrayList<>();
 			}
+			professionGoals = new ArrayList<>(professionGoals);
+			professionGoals.add(Goals.BECOME_ORGANIZATION_MEMBER_GOAL);
 			
 			List<Goal> genericGoals = Arrays.asList(
 					Goals.PROTECT_ONSE_SELF_GOAL, 

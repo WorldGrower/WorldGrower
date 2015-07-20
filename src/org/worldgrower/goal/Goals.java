@@ -51,4 +51,5 @@ public class Goals {
 	public static final SellGoldGoal SELL_GOLD_GOAL = new SellGoldGoal();
 	public static final PaperMillGoal PAPER_MILL_GOAL = new PaperMillGoal();
 	public static final CreatePaperGoal CREATE_PAPER_GOAL = new CreatePaperGoal();
+	public static final BecomeOrganizationMemberGoal BECOME_ORGANIZATION_MEMBER_GOAL = new BecomeOrganizationMemberGoal();
 }
