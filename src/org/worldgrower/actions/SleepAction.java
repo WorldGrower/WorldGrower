@@ -28,7 +28,7 @@ public class SleepAction implements ManagedOperation {
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		int sleepComfort = target.getProperty(Constants.SLEEP_COMFORT);
-		performer.increment(Constants.ENERGY, 5 + sleepComfort);
+		performer.increment(Constants.ENERGY, 7 + sleepComfort);
 	}
 
 	@Override
