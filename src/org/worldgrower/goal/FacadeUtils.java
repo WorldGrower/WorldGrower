@@ -34,6 +34,16 @@ public class FacadeUtils {
 			return null;
 		}
 	}
+	
+	public static WorldObject createFacadeForSelf(WorldObject performer) {
+		final WorldObject performerFacade;
+		if (performer.getProperty(Constants.FACADE) != null) {
+			performerFacade = new WorldObjectFacade(performer, performer.getProperty(Constants.FACADE));
+		} else {
+			performerFacade = performer;
+		}
+		return performerFacade;
+	}
 
 	private static boolean facadeIsBelieved(WorldObject performer, WorldObject target) {
 		int bluffSkill = performer.getProperty(Constants.BLUFF_SKILL).getLevel();
