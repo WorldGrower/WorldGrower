@@ -17,6 +17,8 @@ package org.worldgrower.profession;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.worldgrower.Constants;
+import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.goal.Goal;
 
 public class ThiefProfession implements Profession {
@@ -29,5 +31,10 @@ public class ThiefProfession implements Profession {
 	@Override
 	public List<Goal> getProfessionGoals() {
 		return new ArrayList<>();
+	}
+
+	@Override
+	public SkillProperty getSkillProperty() {
+		return Constants.THIEVERY_SKILL;
 	}
 }

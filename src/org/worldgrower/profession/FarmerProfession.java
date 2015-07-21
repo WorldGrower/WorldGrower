@@ -17,6 +17,8 @@ package org.worldgrower.profession;
 import java.util.Arrays;
 import java.util.List;
 
+import org.worldgrower.Constants;
+import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
 
@@ -33,5 +35,10 @@ public class FarmerProfession implements Profession {
 				Goals.GATHER_FOOD_GOAL, 
 				Goals.CREATE_FOOD_SOURCES_GOAL,
 				Goals.CREATE_WINE_GOAL);
+	}
+
+	@Override
+	public SkillProperty getSkillProperty() {
+		return Constants.FARMING_SKILL;
 	}
 }

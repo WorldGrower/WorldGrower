@@ -17,6 +17,8 @@ package org.worldgrower.profession;
 import java.util.Arrays;
 import java.util.List;
 
+import org.worldgrower.Constants;
+import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
 
@@ -35,4 +37,8 @@ public class BlacksmithProfession implements Profession {
 				Goals.MINT_GOLD_GOAL);
 	}
 
+	@Override
+	public SkillProperty getSkillProperty() {
+		return Constants.SMITHING_SKILL;
+	}
 }

@@ -17,6 +17,8 @@ package org.worldgrower.profession;
 import java.util.Arrays;
 import java.util.List;
 
+import org.worldgrower.Constants;
+import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
 
@@ -35,5 +37,10 @@ public class MinerProfession implements Profession {
 				Goals.SELL_ORE_GOAL,
 				Goals.SELL_GOLD_GOAL
 				);
+	}
+
+	@Override
+	public SkillProperty getSkillProperty() {
+		return Constants.MINING_SKILL;
 	}
 }

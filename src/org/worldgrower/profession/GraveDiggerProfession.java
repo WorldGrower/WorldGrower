@@ -17,6 +17,7 @@ package org.worldgrower.profession;
 import java.util.Arrays;
 import java.util.List;
 
+import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.goal.Goal;
 
 public class GraveDiggerProfession implements Profession {
@@ -30,6 +31,12 @@ public class GraveDiggerProfession implements Profession {
 	public List<Goal> getProfessionGoals() {
 		//TODO: implement
 		return Arrays.asList(/*Goals.CREATE_GRAVE*/);
+	}
+
+	@Override
+	public SkillProperty getSkillProperty() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

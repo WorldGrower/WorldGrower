@@ -16,9 +16,11 @@ package org.worldgrower.profession;
 
 import java.util.List;
 
+import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.goal.Goal;
 
 public interface Profession {
 	public String getDescription();
 	public List<Goal> getProfessionGoals();
+	public SkillProperty getSkillProperty();
 }

@@ -52,4 +52,5 @@ public class Goals {
 	public static final PaperMillGoal PAPER_MILL_GOAL = new PaperMillGoal();
 	public static final CreatePaperGoal CREATE_PAPER_GOAL = new CreatePaperGoal();
 	public static final BecomeOrganizationMemberGoal BECOME_ORGANIZATION_MEMBER_GOAL = new BecomeOrganizationMemberGoal();
+	public static final LearnSkillGoal LEARN_SKILL_GOAL = new LearnSkillGoal();
 }

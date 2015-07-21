@@ -18,6 +18,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.goal.Goal;
 
 public class PlayerCharacterProfession implements Profession, Serializable {
@@ -36,5 +37,10 @@ public class PlayerCharacterProfession implements Profession, Serializable {
 	@Override
 	public List<Goal> getProfessionGoals() {
 		return new ArrayList<Goal>();
+	}
+
+	@Override
+	public SkillProperty getSkillProperty() {
+		return null;
 	}
 }

@@ -38,14 +38,19 @@ public class CommonerWorldEvaluationFunction implements WorldObjectPriorities {
 		} else {
 			Profession profession = performer.getProperty(Constants.PROFESSION);
 			
-			List<Goal> professionGoals;
+			final List<Goal> professionGoals;
+			final List<Goal> organizationGoals;
 			if (profession != null) {
 				professionGoals = profession.getProfessionGoals();
+				
+				organizationGoals = new ArrayList<>();
+				organizationGoals.add(Goals.BECOME_ORGANIZATION_MEMBER_GOAL);
+				organizationGoals.add(Goals.LEARN_SKILL_GOAL);
 			} else {
 				professionGoals = new ArrayList<>();
+				organizationGoals = new ArrayList<>();
 			}
-			professionGoals = new ArrayList<>(professionGoals);
-			professionGoals.add(Goals.BECOME_ORGANIZATION_MEMBER_GOAL);
+			
 			
 			List<Goal> genericGoals = Arrays.asList(
 					Goals.PROTECT_ONSE_SELF_GOAL, 
@@ -68,6 +73,7 @@ public class CommonerWorldEvaluationFunction implements WorldObjectPriorities {
 			List<Goal> result = new ArrayList<>();
 			result.addAll(genericGoals);
 			result.addAll(backgroundGoals);
+			result.addAll(organizationGoals);
 			result.addAll(professionGoals);
 			result.addAll(personalGoals);
 			return result;

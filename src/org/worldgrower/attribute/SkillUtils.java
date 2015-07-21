@@ -17,8 +17,8 @@ package org.worldgrower.attribute;
 import java.util.Map;
 
 import org.worldgrower.Constants;
-import org.worldgrower.Reach;
 import org.worldgrower.WorldObject;
+import org.worldgrower.profession.Profession;
 
 public class SkillUtils {
 
@@ -41,6 +41,27 @@ public class SkillUtils {
 		properties.put(Constants.MINING_SKILL, new Skill());
 		properties.put(Constants.LUMBERING_SKILL, new Skill());
 		properties.put(Constants.RELIGION_SKILL, new Skill());
+	}
+	
+	public static boolean canTargetTeachPerformer(WorldObject performer, WorldObject target) {
+		Profession performerProfession = performer.getProperty(Constants.PROFESSION);
+		
+		if (performerProfession != null) {
+			SkillProperty skillProperty = performerProfession.getSkillProperty();
+			if (skillProperty != null) {
+				int performerSkillLevel = performer.getProperty(skillProperty).getLevel();
+				int targetSkillLevel = target.getProperty(skillProperty).getLevel();
+				
+				return (performerSkillLevel + 5 < targetSkillLevel);
+			}
+		}
+		return false;
+	}
+	
+	public static void teachSkill(WorldObject performer, SkillProperty skillProperty) {
+		for(int i=0; i<10; i++) {
+			performer.getProperty(skillProperty).use();
+		}
 	}
 	
 	public static double useSkill(WorldObject performer, SkillProperty skill) {
