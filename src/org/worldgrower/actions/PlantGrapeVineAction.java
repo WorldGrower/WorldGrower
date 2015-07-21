@@ -21,6 +21,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.generator.PlantGenerator;
 import org.worldgrower.goal.GoalUtils;
 
@@ -31,9 +32,11 @@ public class PlantGrapeVineAction implements BuildAction {
 		int x = (Integer)target.getProperty(Constants.X) + 1;
 		int y = (Integer)target.getProperty(Constants.Y) + 1;
 		
-		PlantGenerator.generateGrapeVine(x, y, world);
+		int grapeVineId = PlantGenerator.generateGrapeVine(x, y, world);
+		WorldObject grapeVine = world.findWorldObject(Constants.ID, grapeVineId);
+		grapeVine.increment(Constants.GRAPE_SOURCE, (int)(10 * SkillUtils.useSkill(performer, Constants.FARMING_SKILL)));
 	}
-
+	
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
 		int x = (Integer)target.getProperty(Constants.X) + 1;

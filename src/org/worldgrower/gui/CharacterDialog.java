@@ -32,6 +32,7 @@ import javax.swing.border.EmptyBorder;
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectContainer;
+import org.worldgrower.attribute.Skill;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.UnCheckedProperty;
 import org.worldgrower.goal.ArmorPropertyUtils;
@@ -57,7 +58,7 @@ public class CharacterDialog extends JDialog {
 		
 		this.playerCharacter = playerCharacter;
 		
-		setBounds(100, 100, 605, 689);
+		setBounds(100, 100, 605, 850);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -124,6 +125,11 @@ public class CharacterDialog extends JDialog {
 		createSkillBlock(Constants.ARCHERY_SKILL, 508);
 		createSkillBlock(Constants.THIEVERY_SKILL, 538);
 		createSkillBlock(Constants.EVOCATION_SKILL, 568);
+		createSkillBlock(Constants.ILLUSION_SKILL, 598);
+		createSkillBlock(Constants.FARMING_SKILL, 628);
+		createSkillBlock(Constants.MINING_SKILL, 658);
+		createSkillBlock(Constants.LUMBERING_SKILL, 688);
+		createSkillBlock(Constants.RELIGION_SKILL, 718);
 		
 		JLabel lblHead = new JLabel("Head");
 		lblHead.setBounds(264, 13, 56, 16);

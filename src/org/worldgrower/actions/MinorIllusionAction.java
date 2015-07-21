@@ -22,10 +22,13 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
+import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.goal.GoalUtils;
 
 public class MinorIllusionAction implements BuildAction {
 
+	private static final int ENERGY_USE = 400;
+	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		int x = (Integer)target.getProperty(Constants.X);
@@ -40,8 +43,10 @@ public class MinorIllusionAction implements BuildAction {
 		illusionWorldObject.setProperty(Constants.X, x);
 		illusionWorldObject.setProperty(Constants.Y, y);
 		world.addWorldObject(illusionWorldObject);
+		
+		SkillUtils.useEnergy(performer, Constants.ILLUSION_SKILL, ENERGY_USE);
 	}
-
+	
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
 		int x = (Integer)target.getProperty(Constants.X);
@@ -52,7 +57,8 @@ public class MinorIllusionAction implements BuildAction {
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
 		int distanceBetweenPerformerAndTarget = Reach.evaluateTarget(performer, args, target, 1);
-		return distanceBetweenPerformerAndTarget;
+		return distanceBetweenPerformerAndTarget 
+				+ SkillUtils.distanceForEnergyUse(performer, Constants.ILLUSION_SKILL, ENERGY_USE);
 	}
 
 	@Override

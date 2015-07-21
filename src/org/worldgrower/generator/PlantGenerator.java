@@ -47,7 +47,7 @@ public class PlantGenerator {
 		properties.put(Constants.HEIGHT, 1);
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.BUSH);
-		properties.put(Constants.FOOD_SOURCE, 500);
+		properties.put(Constants.FOOD_SOURCE, 1);
 		properties.put(Constants.NAME, "berry bush");
 		WorldObject berryBush = new WorldObjectImpl(properties, new BerryBushOnTurn());
 		world.addWorldObject(berryBush);
@@ -65,7 +65,7 @@ public class PlantGenerator {
 		properties.put(Constants.HEIGHT, 2);
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.GRAPE_VINE);
-		properties.put(Constants.GRAPE_SOURCE, 500);
+		properties.put(Constants.GRAPE_SOURCE, 1);
 		properties.put(Constants.NAME, "grape vine");
 		WorldObject berryBush = new WorldObjectImpl(properties, new GrapeVineOnTurn());
 		world.addWorldObject(berryBush);

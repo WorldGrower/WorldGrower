@@ -22,19 +22,25 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.gui.ImageIds;
 
 public class MineOreAction implements ManagedOperation {
 
+	private static final int ENERGY_USE = 50;
+	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.ORE, 1, ImageIds.IRON);
 		target.increment(Constants.ORE_SOURCE, - 1);
+		
+		SkillUtils.useEnergy(performer, Constants.MINING_SKILL, ENERGY_USE);
 	}
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return Reach.evaluateTarget(performer, args, target, 1);
+		return Reach.evaluateTarget(performer, args, target, 1)
+				+ SkillUtils.distanceForEnergyUse(performer, Constants.MINING_SKILL, ENERGY_USE);
 	}
 
 	@Override

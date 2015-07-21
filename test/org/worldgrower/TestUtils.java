@@ -28,6 +28,7 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdMap;
 import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.attribute.Skill;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.goal.Goal;
 
@@ -39,6 +40,8 @@ public class TestUtils {
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, width);
 		properties.put(Constants.HEIGHT, height);
+		properties.put(Constants.ENERGY, 1000);
+		properties.put(Constants.LUMBERING_SKILL, new Skill());
 		WorldObject w1 = new WorldObjectImpl(properties);
 		return w1;
 	}

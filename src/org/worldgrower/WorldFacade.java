@@ -76,11 +76,11 @@ public class WorldFacade implements World {
 				
 		int illusionCreatorId = worldObject.getProperty(Constants.ILLUSION_CREATOR_ID);
 		WorldObject illusionCreator = world.findWorldObject(Constants.ID, illusionCreatorId);
-		int bluff = illusionCreator.getProperty(Constants.BLUFF_SKILL).getLevel();
+		int illusion = illusionCreator.getProperty(Constants.ILLUSION_SKILL).getLevel();
 		
-		return (bluff > insight);
+		return (illusion > insight);
 	}
-
+	
 	@Override
 	public List<WorldObject> findWorldObjects(WorldObjectCondition worldObjectCondition) {
 		List<WorldObject> worldObjects = world.findWorldObjects(worldObjectCondition);

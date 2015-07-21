@@ -75,6 +75,11 @@ public class Constants {
 	public static final SkillProperty ARCHERY_SKILL = new SkillProperty("archery", ALL_PROPERTIES);
 	public static final SkillProperty THIEVERY_SKILL = new SkillProperty("thievery", ALL_PROPERTIES);
 	public static final SkillProperty EVOCATION_SKILL = new SkillProperty("evocation", ALL_PROPERTIES);
+	public static final SkillProperty ILLUSION_SKILL = new SkillProperty("illusion", ALL_PROPERTIES);
+	public static final SkillProperty FARMING_SKILL = new SkillProperty("farming", ALL_PROPERTIES);
+	public static final SkillProperty MINING_SKILL = new SkillProperty("mining", ALL_PROPERTIES);
+	public static final SkillProperty LUMBERING_SKILL = new SkillProperty("lumbering", ALL_PROPERTIES);
+	public static final SkillProperty RELIGION_SKILL = new SkillProperty("religion", ALL_PROPERTIES);
 	
 	public static final UnCheckedProperty<CreatureType> CREATURE_TYPE = new UnCheckedProperty<CreatureType>("creatureType", ALL_PROPERTIES);
 	

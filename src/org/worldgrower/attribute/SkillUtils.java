@@ -17,6 +17,8 @@ package org.worldgrower.attribute;
 import java.util.Map;
 
 import org.worldgrower.Constants;
+import org.worldgrower.Reach;
+import org.worldgrower.WorldObject;
 
 public class SkillUtils {
 
@@ -34,6 +36,32 @@ public class SkillUtils {
 		properties.put(Constants.ARCHERY_SKILL, new Skill());
 		properties.put(Constants.THIEVERY_SKILL, new Skill());
 		properties.put(Constants.EVOCATION_SKILL, new Skill());
+		properties.put(Constants.ILLUSION_SKILL, new Skill());
+		properties.put(Constants.FARMING_SKILL, new Skill());
+		properties.put(Constants.MINING_SKILL, new Skill());
+		properties.put(Constants.LUMBERING_SKILL, new Skill());
+		properties.put(Constants.RELIGION_SKILL, new Skill());
 	}
 	
+	public static double useSkill(WorldObject performer, SkillProperty skill) {
+		double result = 1.0f + (performer.getProperty(skill).getLevel() / 100.0f);
+		performer.getProperty(skill).use();
+		return result;
+	}
+	
+	public static int getRealEnergyUse(WorldObject performer, SkillProperty skill, int energyUse) {
+		return (int)(energyUse / (1.0f + (performer.getProperty(skill).getLevel() / 100.0f)));
+	}
+	
+	public static void useEnergy(WorldObject performer, SkillProperty skill, int energyUse) {
+		performer.increment(Constants.ENERGY, -(int)(energyUse / useSkill(performer, skill)));
+	}
+	
+	public static int distanceForEnergyUse(WorldObject performer, SkillProperty skill, int energyUse) {
+		if (performer.getProperty(Constants.ENERGY) >= getRealEnergyUse(performer, skill, energyUse)) {
+			return 0;
+		} else {
+			return getRealEnergyUse(performer, skill,energyUse) - performer.getProperty(Constants.ENERGY);
+		}
+	}
 }
