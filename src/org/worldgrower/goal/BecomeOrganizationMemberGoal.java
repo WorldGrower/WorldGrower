@@ -23,6 +23,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.WorldObjectFacade;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.OrganizationNamer;
 import org.worldgrower.conversation.Conversations;
@@ -32,7 +33,8 @@ public class BecomeOrganizationMemberGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		List<WorldObject> organizations = GroupPropertyUtils.findProfessionOrganizationsInWorld(performer, world);
+		WorldObject performerFacade = getPerformerFacade(performer);
+		List<WorldObject> organizations = GroupPropertyUtils.findProfessionOrganizationsInWorld(performerFacade, world);
 		if (organizations.size() > 0) {
 			Collections.sort(organizations, new OrganizationComparator(performer));
 			Integer leaderId = organizations.get(0).getProperty(Constants.ORGANIZATION_LEADER_ID);
@@ -50,6 +52,16 @@ public class BecomeOrganizationMemberGoal implements Goal {
 		} else {
 			return createOrganization(performer, world);
 		}
+	}
+
+	private WorldObject getPerformerFacade(WorldObject performer) {
+		final WorldObject performerFacade;
+		if (performer.getProperty(Constants.FACADE) != null) {
+			performerFacade = new WorldObjectFacade(performer, performer.getProperty(Constants.FACADE));
+		} else {
+			performerFacade = performer;
+		}
+		return performerFacade;
 	}
 
 	private static class OrganizationComparator implements  Comparator<WorldObject> {
@@ -74,8 +86,9 @@ public class BecomeOrganizationMemberGoal implements Goal {
 	}
 	
 	private OperationInfo createOrganization(WorldObject performer, World world) {
-		int professionIndex = Professions.indexOf(performer.getProperty(Constants.PROFESSION));
-		int organizationIndex = getOrganizationIndex(performer, world);
+		WorldObject performerToFind = getPerformerFacade(performer);
+		int professionIndex = Professions.indexOf(performerToFind.getProperty(Constants.PROFESSION));
+		int organizationIndex = getOrganizationIndex(performerToFind, world);
 		return new OperationInfo(performer, performer, new int[] {professionIndex, organizationIndex}, Actions.CREATE_ORGANIZATION_ACTION);
 	}
 
@@ -94,7 +107,7 @@ public class BecomeOrganizationMemberGoal implements Goal {
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		return GroupPropertyUtils.isPerformerMemberOfProfessionOrganization(performer, world);
+		return GroupPropertyUtils.isPerformerMemberOfProfessionOrganization(getPerformerFacade(performer), world);
 	}
 	
 	@Override
