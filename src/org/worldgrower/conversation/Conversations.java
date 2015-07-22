@@ -105,6 +105,15 @@ public class Conversations implements Serializable {
 		}
 	}
 	
+	public static int[] createArgs(Conversation conversation, WorldObject subject, int additionalValue) {
+		int id = CONVERSATIONS.indexOf(conversation);
+		if (subject != null) {
+			return new int[] { id, subject.getProperty(Constants.ID), -1, additionalValue };
+		} else {
+			return new int[] { id, -1, -1, additionalValue };
+		}
+	}
+	
 	public static int[] createArgs(Conversation conversation, HistoryItem historyItem) {
 		int id = CONVERSATIONS.indexOf(conversation);
 		if (historyItem != null) {
