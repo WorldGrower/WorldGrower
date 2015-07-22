@@ -31,10 +31,10 @@ import javax.swing.border.EmptyBorder;
 
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
-import org.worldgrower.WorldObjectContainer;
 import org.worldgrower.attribute.Skill;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.UnCheckedProperty;
+import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.goal.ArmorPropertyUtils;
 import org.worldgrower.goal.MeleeDamagePropertyUtils;
 

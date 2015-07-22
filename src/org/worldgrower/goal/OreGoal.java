@@ -44,10 +44,9 @@ public class OreGoal implements Goal {
 	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
 		if (performer.hasProperty(Constants.DEMANDS)) {
 			if (goalMet) {
-				performer.getProperty(Constants.DEMANDS).removeAllQuantity(Constants.ORE);
+				performer.getProperty(Constants.DEMANDS).remove(Constants.ORE);
 			} else {
-				ImageIds noImage = null;
-				performer.getProperty(Constants.DEMANDS).addQuantity(Constants.ORE, 1, noImage);
+				performer.getProperty(Constants.DEMANDS).add(Constants.ORE, 1);
 			}
 		}
 	}

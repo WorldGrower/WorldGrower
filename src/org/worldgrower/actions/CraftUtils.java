@@ -17,9 +17,9 @@ package org.worldgrower.actions;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.WorldObjectContainer;
 import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.Skill;
+import org.worldgrower.attribute.WorldObjectContainer;
 
 public class CraftUtils {
 

@@ -29,6 +29,7 @@ import org.worldgrower.attribute.IdMap;
 import org.worldgrower.attribute.LookDirection;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.curse.CurseListener;

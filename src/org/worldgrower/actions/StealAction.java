@@ -22,8 +22,8 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.WorldObjectContainer;
 import org.worldgrower.attribute.Skill;
+import org.worldgrower.attribute.WorldObjectContainer;
 
 public class StealAction implements ManagedOperation {
 

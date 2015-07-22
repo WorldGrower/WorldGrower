@@ -21,14 +21,15 @@ import java.util.Map;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.WorldObjectContainer;
 import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.WorldObjectPriorities;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdMap;
 import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.attribute.PropertyCountMap;
 import org.worldgrower.attribute.Skill;
+import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.goal.Goal;
 
@@ -65,7 +66,7 @@ public class TestUtils {
 		properties.put(Constants.SOCIAL, 0);
 		properties.put(Constants.RELATIONSHIPS, new IdMap());
 		properties.put(Constants.CREATURE_TYPE,CreatureType.HUMAN_CREATURE_TYPE);
-		properties.put(Constants.DEMANDS, new WorldObjectContainer());
+		properties.put(Constants.DEMANDS, new PropertyCountMap());
 		WorldObject w1 = new WorldObjectImpl(properties);
 		return w1;
 	}

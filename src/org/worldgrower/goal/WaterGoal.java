@@ -49,10 +49,9 @@ public class WaterGoal implements Goal {
 	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
 		if (performer.hasProperty(Constants.DEMANDS)) {
 			if (goalMet) {
-				performer.getProperty(Constants.DEMANDS).removeAllQuantity(Constants.WATER);
+				performer.getProperty(Constants.DEMANDS).remove(Constants.WATER);
 			} else {
-				ImageIds noImage = null;
-				performer.getProperty(Constants.DEMANDS).addQuantity(Constants.WATER, 1, noImage);
+				performer.getProperty(Constants.DEMANDS).add(Constants.WATER, 1);
 			}
 		}
 	}

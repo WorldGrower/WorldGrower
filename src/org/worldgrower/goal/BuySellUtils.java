@@ -19,10 +19,10 @@ import java.util.List;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.WorldObjectContainer;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.attribute.WorldObjectContainer;
 
 public class BuySellUtils {
 
@@ -54,7 +54,7 @@ public class BuySellUtils {
 		List<ManagedProperty<?>> propertyKeys = performer.getProperty(Constants.INVENTORY).get(indexOfItemsToSell).getPropertyKeys();
 		boolean demandsGoods = false;
 		for(ManagedProperty<?> property : propertyKeys) {
-			demandsGoods = demandsGoods || worldObject.hasProperty(Constants.DEMANDS) && worldObject.getProperty(Constants.DEMANDS).getQuantityFor(property) > 0;
+			demandsGoods = demandsGoods || worldObject.hasProperty(Constants.DEMANDS) && worldObject.getProperty(Constants.DEMANDS).count(property) > 0;
 		}
 		return demandsGoods;
 	}

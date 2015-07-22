@@ -42,7 +42,7 @@ import javax.swing.event.ListSelectionListener;
 
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
-import org.worldgrower.WorldObjectContainer;
+import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.gui.ImageInfoReader;
 
 public class InventoryDialog extends JDialog {

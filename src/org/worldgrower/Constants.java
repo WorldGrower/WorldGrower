@@ -25,6 +25,7 @@ import org.worldgrower.attribute.IdProperty;
 import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.LookDirection;
 import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.attribute.PropertyCountMapProperty;
 import org.worldgrower.attribute.Reasons;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.StringProperty;
@@ -137,7 +138,7 @@ public class Constants {
 	public static final BooleanProperty SELLABLE = new BooleanProperty("sellable", NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty QUANTITY = new IntProperty("quantity", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty GOLD = new IntProperty("gold", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
-	public static final WorldObjectContainerProperty DEMANDS = new WorldObjectContainerProperty("demands", ALL_PROPERTIES);
+	public static final PropertyCountMapProperty DEMANDS = new PropertyCountMapProperty("demands", ALL_PROPERTIES);
 	
 	public static final UnCheckedProperty<Profession> PROFESSION = new UnCheckedProperty<Profession>("profession", ALL_PROPERTIES);
 

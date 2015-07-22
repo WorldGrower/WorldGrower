@@ -20,7 +20,7 @@ import java.util.List;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.WorldObjectContainer;
+import org.worldgrower.attribute.PropertyCountMap;
 import org.worldgrower.history.HistoryItem;
 
 public class DemandsConversation implements Conversation {
@@ -29,7 +29,7 @@ public class DemandsConversation implements Conversation {
 	public Response getReplyPhrase(ConversationContext conversationContext) {
 		WorldObject target = conversationContext.getTarget();
 		final int replyId;
-		WorldObjectContainer demands = target.getProperty(Constants.DEMANDS);
+		PropertyCountMap demands = target.getProperty(Constants.DEMANDS);
 		if (demands.size() > 0) {
 			replyId = 0;
 		} else {
@@ -46,10 +46,10 @@ public class DemandsConversation implements Conversation {
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		WorldObject target = conversationContext.getTarget();
-		WorldObjectContainer demands = target.getProperty(Constants.DEMANDS);
+		PropertyCountMap demands = target.getProperty(Constants.DEMANDS);
 		StringBuilder demandsBuilder = new StringBuilder();
-		for(int i=0; i<demands.size(); i++) {
-			demandsBuilder.append(demands.get(i).getProperty(Constants.NAME));
+		for(int i=0; i<demands.keySet().size(); i++) {
+			demandsBuilder.append(demands.keySet().get(i).getName());
 			if (i < demands.size() - 1) {
 				demandsBuilder.append(", ");
 			}

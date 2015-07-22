@@ -40,10 +40,9 @@ public class WoodGoal implements Goal {
 	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
 		if (performer.hasProperty(Constants.DEMANDS)) {
 			if (goalMet) {
-				performer.getProperty(Constants.DEMANDS).removeAllQuantity(Constants.WOOD);
+				performer.getProperty(Constants.DEMANDS).remove(Constants.WOOD);
 			} else {
-				ImageIds noImage = null;
-				performer.getProperty(Constants.DEMANDS).addQuantity(Constants.WOOD, 1, noImage);
+				performer.getProperty(Constants.DEMANDS).add(Constants.WOOD, 1);
 			}
 		}
 	}

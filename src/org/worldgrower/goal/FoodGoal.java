@@ -45,10 +45,9 @@ public class FoodGoal implements Goal {
 	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
 		if (performer.hasProperty(Constants.DEMANDS)) {
 			if (goalMet) {
-				performer.getProperty(Constants.DEMANDS).removeAllQuantity(Constants.FOOD);
+				performer.getProperty(Constants.DEMANDS).remove(Constants.FOOD);
 			} else {
-				ImageIds noImage = null;
-				performer.getProperty(Constants.DEMANDS).addQuantity(Constants.FOOD, 1, noImage);
+				performer.getProperty(Constants.DEMANDS).add(Constants.FOOD, 1);
 			}
 		}
 	}

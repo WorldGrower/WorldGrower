@@ -44,10 +44,9 @@ public class StoneGoal implements Goal {
 	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
 		if (performer.hasProperty(Constants.DEMANDS)) {
 			if (goalMet) {
-				performer.getProperty(Constants.DEMANDS).removeAllQuantity(Constants.STONE);
+				performer.getProperty(Constants.DEMANDS).remove(Constants.STONE);
 			} else {
-				ImageIds noImage = null;
-				performer.getProperty(Constants.DEMANDS).addQuantity(Constants.STONE, 1, noImage);
+				performer.getProperty(Constants.DEMANDS).add(Constants.STONE, 1);
 			}
 		}
 	}

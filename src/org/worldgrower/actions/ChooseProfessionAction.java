@@ -27,10 +27,12 @@ import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.WorldObjectContainer;
 import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.attribute.Background;
 import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.attribute.PropertyCountMap;
+import org.worldgrower.attribute.PropertyCountMapProperty;
+import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.profession.Profession;
 import org.worldgrower.profession.Professions;
@@ -189,29 +191,29 @@ public class ChooseProfessionAction implements ManagedOperation {
 	static List<ProfessionEvaluation> getProfessionEvaluationsByDemand(WorldObject performer, World world) {
 		List<WorldObject> worldObjects = GroupPropertyUtils.findWorldObjectsInSameGroup(performer, world);
 		
-		WorldObjectContainer mergedDemands = new WorldObjectContainer();
+		PropertyCountMap mergedDemands = new PropertyCountMap();
 		for(WorldObject worldObject : worldObjects) {
 			if (worldObject.hasProperty(Constants.DEMANDS)) {
-				mergedDemands.addDemands(worldObject.getProperty(Constants.DEMANDS));
+				mergedDemands.addAll(worldObject.getProperty(Constants.DEMANDS));
 			}
 		}
 		
 		return mapDemandsToProfessions(mergedDemands);
 	}
 
-	static List<ProfessionEvaluation> mapDemandsToProfessions(WorldObjectContainer demands) {
+	static List<ProfessionEvaluation> mapDemandsToProfessions(PropertyCountMap demands) {
 		List<ProfessionEvaluation> result = new ArrayList<>();
 		
-		int foodDemand = demands.getQuantityFor(Constants.FOOD);
+		int foodDemand = demands.count(Constants.FOOD);
 		result.add(new ProfessionEvaluation(Professions.FARMER_PROFESSION, foodDemand));
 		
 		//int waterDemand = demands.getQuantityFor(Constants.WATER);
 		
-		int woodDemand = demands.getQuantityFor(Constants.WOOD);
+		int woodDemand = demands.count(Constants.WOOD);
 		result.add(new ProfessionEvaluation(Professions.LUMBERJACK_PROFESSION, woodDemand));
 		
-		int stoneDemand = demands.getQuantityFor(Constants.STONE);
-		int oreDemand = demands.getQuantityFor(Constants.ORE);
+		int stoneDemand = demands.count(Constants.STONE);
+		int oreDemand = demands.count(Constants.ORE);
 		result.add(new ProfessionEvaluation(Professions.MINER_PROFESSION, (stoneDemand + oreDemand) / 2));
 		
 		return result;

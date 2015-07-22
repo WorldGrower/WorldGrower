@@ -21,7 +21,7 @@ import java.util.List;
 import org.junit.Test;
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
-import org.worldgrower.WorldObjectContainer;
+import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.gui.ImageIds;
 
 public class UTestWorldObjectContainer {

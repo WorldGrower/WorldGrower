@@ -17,12 +17,12 @@ package org.worldgrower.attribute;
 import java.io.ObjectStreamException;
 import java.util.List;
 
-public class WorldObjectContainerProperty implements ManagedProperty<WorldObjectContainer> {
+public class PropertyCountMapProperty implements ManagedProperty<PropertyCountMap> {
 
 	private final String name;
 	private final int ordinal = OrdinalGenerator.getNextOrdinal();
 	
-	public WorldObjectContainerProperty(String name, List<ManagedProperty<?>> allProperties) {
+	public PropertyCountMapProperty(String name, List<ManagedProperty<?>> allProperties) {
 		this.name = name;
 		allProperties.add(this);
 	}
@@ -33,7 +33,7 @@ public class WorldObjectContainerProperty implements ManagedProperty<WorldObject
 	}
 
 	@Override
-	public void checkValue(WorldObjectContainer value) {
+	public void checkValue(PropertyCountMap value) {
 		if (value == null) {
 			throw new IllegalStateException("value " + value + " is null");
 		}		
@@ -54,7 +54,7 @@ public class WorldObjectContainerProperty implements ManagedProperty<WorldObject
 	}
 
 	@Override
-	public WorldObjectContainer copy(Object value) {
-		return ((WorldObjectContainer) value).copy();
+	public PropertyCountMap copy(Object value) {
+		return ((PropertyCountMap) value).copy();
 	}
 }
