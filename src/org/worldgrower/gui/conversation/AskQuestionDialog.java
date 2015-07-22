@@ -137,7 +137,7 @@ public class AskQuestionDialog extends JDialog implements ManagedOperationListen
 
 					@Override
 					public void actionPerformed(ActionEvent actionEvent) {
-						int[] args = new int[] { question.getId(), question.getSubjectId(), question.getHistoryItemId() };
+						int[] args = new int[] { question.getId(), question.getSubjectId(), question.getHistoryItemId(), question.getAdditionalValue() };
 						answerer.askQuestion(args);
 					}
 				});

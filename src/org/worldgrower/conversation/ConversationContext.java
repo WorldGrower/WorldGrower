@@ -25,14 +25,16 @@ public class ConversationContext {
 	private final WorldObject subject;
 	private final HistoryItem questionHistoryItem;
 	private final World world;
+	private final int additionalValue;
 	
-	public ConversationContext(WorldObject performer, WorldObject target, WorldObject subject, HistoryItem questionHistoryItem, World world) {
+	public ConversationContext(WorldObject performer, WorldObject target, WorldObject subject, HistoryItem questionHistoryItem, World world, int additionalValue) {
 		super();
 		this.performer = performer;
 		this.target = target;
 		this.subject = subject;
 		this.questionHistoryItem = questionHistoryItem;
 		this.world = world;
+		this.additionalValue = additionalValue;
 	}
 
 	public WorldObject getPerformer() {
@@ -53,5 +55,9 @@ public class ConversationContext {
 
 	public World getWorld() {
 		return world;
+	}
+
+	public int getAdditionalValue() {
+		return additionalValue;
 	}
 }

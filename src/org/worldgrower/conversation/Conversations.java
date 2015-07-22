@@ -56,6 +56,7 @@ public class Conversations implements Serializable {
 	public static final Conversation JOIN_PERFORMER_ORGANIZATION_CONVERSATION = new JoinPerformerOrganizationConversation();
 	public static final Conversation JOIN_TARGET_ORGANIZATION_CONVERSATION = new JoinTargetOrganizationConversation();
 	public static final Conversation LEARN_SKILLS_USING_ORGANIZATION = new LearnSkillUsingOrganizationConversation();
+	public static final Conversation SET_ORGANIZATION_PROFIT_PERCENTAGE = new SetOrganizationProfitPercentageConversation();
 	
 	private static final List<Conversation> CONVERSATIONS = new ArrayList<>();
 	private static final Map<Conversation, ConversationCategory> CONVERSATION_CATEGORIES = new HashMap<>();
@@ -87,28 +88,29 @@ public class Conversations implements Serializable {
 		addNormalAndIntimidate(JOIN_PERFORMER_ORGANIZATION_CONVERSATION, ConversationCategory.GROUP);
 		addNormalAndIntimidate(JOIN_TARGET_ORGANIZATION_CONVERSATION, ConversationCategory.GROUP);
 		add(LEARN_SKILLS_USING_ORGANIZATION, ConversationCategory.GROUP);
+		add(SET_ORGANIZATION_PROFIT_PERCENTAGE, ConversationCategory.GROUP);
 	}
 	
 	public static int[] createArgs(Conversation conversation) {
 		int id = CONVERSATIONS.indexOf(conversation);
-		return new int[] { id, -1, -1 };
+		return new int[] { id, -1, -1, 0 };
 	}
 	
 	public static int[] createArgs(Conversation conversation, WorldObject subject) {
 		int id = CONVERSATIONS.indexOf(conversation);
 		if (subject != null) {
-			return new int[] { id, subject.getProperty(Constants.ID), -1 };
+			return new int[] { id, subject.getProperty(Constants.ID), -1, 0 };
 		} else {
-			return new int[] { id, -1, -1 };
+			return new int[] { id, -1, -1, 0 };
 		}
 	}
 	
 	public static int[] createArgs(Conversation conversation, HistoryItem historyItem) {
 		int id = CONVERSATIONS.indexOf(conversation);
 		if (historyItem != null) {
-			return new int[] { id, -1, historyItem.getHistoryId() };
+			return new int[] { id, -1, historyItem.getHistoryId(), 0 };
 		} else {
-			return new int[] { id, -1, -1 };
+			return new int[] { id, -1, -1, 0 };
 		}
 	}
 
@@ -157,12 +159,12 @@ public class Conversations implements Serializable {
 		}
 	}
 
-	public Response getReplyPhrase(int index, int subjectId, int historyItemId, WorldObject performer, WorldObject target, World world) {
+	public Response getReplyPhrase(int index, int subjectId, int historyItemId, WorldObject performer, WorldObject target, World world, int additionalValue) {
 		WorldObject subject = getSubject(subjectId, world);
 		HistoryItem questionHistoryItem = getQuestionHistoryItem(historyItemId, world);
 		WorldObject performerFacade = createFacade(performer, performer, target);
 		WorldObject targetFacade = createFacade(target, performer, target);
-		ConversationContext conversationContext = new ConversationContext(performerFacade, targetFacade, subject, questionHistoryItem, world);
+		ConversationContext conversationContext = new ConversationContext(performerFacade, targetFacade, subject, questionHistoryItem, world, additionalValue);
 		Response response = CONVERSATIONS.get(index).getReplyPhrase(conversationContext);
 		return response;
 	}
@@ -175,21 +177,21 @@ public class Conversations implements Serializable {
 		}
 	}
 
-	public List<Response> getReplyPhrases(int index, int subjectId, int historyItemId, WorldObject performer, WorldObject target, World world) {
+	public List<Response> getReplyPhrases(int index, int subjectId, int historyItemId, WorldObject performer, WorldObject target, World world, int additionalValue) {
 		WorldObject subject = getSubject(subjectId, world);
 		HistoryItem questionHistoryItem = getQuestionHistoryItem(historyItemId, world);
 		WorldObject performerFacade = createFacade(performer, performer, target);
 		WorldObject targetFacade = createFacade(target, performer, target);
-		ConversationContext conversationContext = new ConversationContext(performerFacade, targetFacade, subject, questionHistoryItem, world);
+		ConversationContext conversationContext = new ConversationContext(performerFacade, targetFacade, subject, questionHistoryItem, world, additionalValue);
 		List<Response> responses = CONVERSATIONS.get(index).getReplyPhrases(conversationContext);
 		
 		return responses;
 	}
 	
-	public void handleResponse(int replyIndex, int index, int subjectId, int historyItemId, WorldObject performer, WorldObject target, World world) {
+	public void handleResponse(int replyIndex, int index, int subjectId, int historyItemId, WorldObject performer, WorldObject target, World world, int additionalValue) {
 		WorldObject subject = getSubject(subjectId, world);
 		HistoryItem questionHistoryItem = getQuestionHistoryItem(historyItemId, world);
-		ConversationContext conversationContext = new ConversationContext(performer, target, subject, questionHistoryItem, world);
+		ConversationContext conversationContext = new ConversationContext(performer, target, subject, questionHistoryItem, world, additionalValue);
 		CONVERSATIONS.get(index).handleResponse(replyIndex, conversationContext);
 	}
 

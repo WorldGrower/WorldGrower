@@ -60,6 +60,11 @@ public class GroupPropertyUtils {
 		return organisations;
 	}
 	
+	public static List<WorldObject> findOrganizationMembers(WorldObject organization, World world) {
+		List<WorldObject> members = world.findWorldObjects(w -> w.hasProperty(Constants.GROUP) && w.getProperty(Constants.GROUP).contains(organization));
+		return members;
+	}
+	
 	public static WorldObject findProfessionOrganization(WorldObject performer, World world) {
 		Profession performerProfession = performer.getProperty(Constants.PROFESSION);
 		IdList organizations = performer.getProperty(Constants.GROUP);
@@ -70,6 +75,12 @@ public class GroupPropertyUtils {
 			}
 		}
 		return null;
+	}
+	
+	public static List<WorldObject> findOrganizationsUsingLeader(WorldObject leader, World world) {
+		int leaderId = leader.getProperty(Constants.ID);
+		List<WorldObject> organizations = world.findWorldObjects(w -> w.hasProperty(Constants.ORGANIZATION_LEADER_ID) && (w.getProperty(Constants.ORGANIZATION_LEADER_ID) != null) && w.getProperty(Constants.ORGANIZATION_LEADER_ID).intValue() == leaderId);
+		return organizations;
 	}
 	
 	public static WorldObject create(Integer performerId, String organizationName, Profession profession, World world) {

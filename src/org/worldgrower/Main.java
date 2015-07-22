@@ -56,7 +56,7 @@ public class Main {
 		
 		final CommonerImageIds commonerImageIds = new CommonerImageIds();
 		final CommonerNameGenerator commonerNameGenerator = new CommonerNameGenerator();
-		final WorldObject organization = GroupPropertyUtils.create(playerCharacterId, "villagers", null, world);
+		final WorldObject organization = GroupPropertyUtils.create(null, "villagers", null, world);
 		
 		final WorldObject playerCharacter = createPlayerCharacter(playerCharacterId, playerName, playerProfession, world, commonerImageIds, commonerNameGenerator, organization);
 		world.addWorldObject(playerCharacter);

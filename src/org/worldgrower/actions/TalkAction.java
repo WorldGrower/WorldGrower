@@ -36,8 +36,9 @@ public class TalkAction implements ManagedOperation {
 		int question = args[0];
 		int subjectId = args[1];
 		int historyItemId = args[2];
+		int additionalValue = args[3];
 		
-		Response answer = conversations.getReplyPhrase(question, subjectId, historyItemId, performer, target, world);
+		Response answer = conversations.getReplyPhrase(question, subjectId, historyItemId, performer, target, world, additionalValue);
 		
 		WorldObject performerFacade = createFacade(performer, performer, target);
 		WorldObject targetFacade = createFacade(target, performer, target);
@@ -45,7 +46,7 @@ public class TalkAction implements ManagedOperation {
 		performer.getProperty(Constants.RELATIONSHIPS).incrementValue(targetFacade.getProperty(Constants.ID), 1);
 		target.getProperty(Constants.RELATIONSHIPS).incrementValue(performerFacade.getProperty(Constants.ID), 1);
 		
-		conversations.handleResponse(answer.getId(), question, subjectId, historyItemId, performerFacade, targetFacade, world);
+		conversations.handleResponse(answer.getId(), question, subjectId, historyItemId, performerFacade, targetFacade, world, additionalValue);
 		
 		performer.increment(Constants.SOCIAL, 70);
 		target.increment(Constants.SOCIAL, 70);

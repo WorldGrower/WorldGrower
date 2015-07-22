@@ -20,5 +20,5 @@ import org.worldgrower.conversation.Response;
 
 public interface Questioner {
 	public String getQuestionPhrase();
-	public List<Response> getResponsePhrases(int id, int subjectId, int historyItemId);
+	public List<Response> getResponsePhrases(int id, int subjectId, int historyItemId, int additionalValue);
 }

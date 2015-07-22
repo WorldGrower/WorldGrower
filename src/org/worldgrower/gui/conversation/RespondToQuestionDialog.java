@@ -47,7 +47,7 @@ public class RespondToQuestionDialog extends JDialog {
 		}
 	}
 
-	public RespondToQuestionDialog(int id, int conversationId, int historyItemId, Questioner questioner, Conversations conversations, ImageIds imageIdPerformer, ImageIds imageIdTarget, ImageInfoReader imageInfoReader) {
+	public RespondToQuestionDialog(int id, int conversationId, int historyItemId, int additionalValue, Questioner questioner, Conversations conversations, ImageIds imageIdPerformer, ImageIds imageIdTarget, ImageInfoReader imageInfoReader) {
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		setBounds(100, 100, 560, 300);
 		getContentPane().setLayout(null);
@@ -73,7 +73,7 @@ public class RespondToQuestionDialog extends JDialog {
 		targetLabel.setBounds(6, 90, 32, 48);
 		getContentPane().add(targetLabel);
 		
-		comboBoxResponse = createResponseComboBox(id, conversationId, historyItemId, conversations, questioner);
+		comboBoxResponse = createResponseComboBox(id, conversationId, historyItemId, conversations, questioner, additionalValue);
 		comboBoxResponse.setBounds(44, 86, 475, 80);
 		getContentPane().add(comboBoxResponse);
 		
@@ -97,9 +97,9 @@ public class RespondToQuestionDialog extends JDialog {
 		cancelButton.addActionListener(new CloseDialogAction());		
 	}
 	
-	private JComboBox<Response> createResponseComboBox(int id, int subjectId, int historyItemId, Conversations conversations, Questioner questioner) {
+	private JComboBox<Response> createResponseComboBox(int id, int subjectId, int historyItemId, Conversations conversations, Questioner questioner, int additionalValue) {
 		JComboBox<Response> responseComboBox = new JComboBox<Response>();
-		List<Response> responses = questioner.getResponsePhrases(id, subjectId, historyItemId);
+		List<Response> responses = questioner.getResponsePhrases(id, subjectId, historyItemId, additionalValue);
 		for(Response response : responses) {
 			responseComboBox.addItem(response);
 		}

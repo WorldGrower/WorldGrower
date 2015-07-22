@@ -22,10 +22,16 @@ public class Question {
 	private final int subjectId;
 	private final String questionPhrase;
 	private int historyItemId = -1;
+	private final int additionalValue;
 	
 	public Question(WorldObject subject, String questionPhrase) {
+		this(subject, questionPhrase, 0);
+	}
+	
+	public Question(WorldObject subject, String questionPhrase, int additionalValue) {
 		this.subjectId = (subject != null ? subject.getProperty(Constants.ID) : -1);
 		this.questionPhrase = questionPhrase;
+		this.additionalValue = additionalValue;
 	}
 
 	public int getId() {
@@ -50,6 +56,10 @@ public class Question {
 
 	public void setHistoryItemId(int historyItemId) {
 		this.historyItemId = historyItemId;
+	}
+
+	public int getAdditionalValue() {
+		return additionalValue;
 	}
 
 	@Override
