@@ -163,6 +163,7 @@ public class Main {
 		inventory.add(ItemGenerator.getLongBow(1.0f));
 		properties.put(Constants.INVENTORY, inventory);
 		properties.put(Constants.GOLD, 100);
+		properties.put(Constants.PROFIT_PERCENTAGE, 0);
 		
 		properties.put(Constants.PROFESSION, new PlayerCharacterProfession(playerProfession));
 		properties.put(Constants.RELATIONSHIPS, new IdMap());

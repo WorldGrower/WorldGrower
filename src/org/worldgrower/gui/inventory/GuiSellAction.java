@@ -26,6 +26,7 @@ import org.worldgrower.Main;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.goal.BuySellUtils;
 import org.worldgrower.gui.ImageInfoReader;
 
 public class GuiSellAction extends AbstractAction {
@@ -67,7 +68,8 @@ public class GuiSellAction extends AbstractAction {
 				@Override
 				public void actionPerformed(ActionEvent actionEvent) {
 					InventoryItem inventoryItem = dialog.getSelectedValue();
-					int[] args = new int[] { inventoryItem.getId(), inventoryItem.getPrice() };
+					int price = BuySellUtils.getPrice(playerCharacter, inventoryItem.getId());
+					int[] args = new int[] { inventoryItem.getId(), price };
 					sell(args);
 					
 					dialog.refresh(playerCharacter.getProperty(Constants.INVENTORY), playerCharacter.getProperty(Constants.GOLD));
@@ -77,8 +79,7 @@ public class GuiSellAction extends AbstractAction {
 
 		@Override
 		public boolean isPossible(InventoryItem inventoryItem) {
-			int price = inventoryItem.getPrice();
-			return price <= target.getProperty(Constants.GOLD);
+			return BuySellUtils.worldObjectWillBuyGoods(playerCharacter, target, inventoryItem.getId(), world);
 		}
 		
 	}

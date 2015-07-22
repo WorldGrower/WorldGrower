@@ -29,7 +29,7 @@ public class FoodGoal implements Goal {
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		boolean hasInventoryFood = performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.FOOD) > 0;
 		WorldObject target = GoalUtils.findNearestTarget(performer, Actions.EAT_ACTION, world);
-		List<WorldObject> targets = BuyUtils.findBuyTargets(performer, Constants.FOOD, world);
+		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.FOOD, world);
 		if (targets.size() > 0) {
 			return new OperationInfo(performer, targets.get(0), new int[] { targets.get(0).getProperty(Constants.INVENTORY).getIndexFor(Constants.FOOD), 5 }, Actions.BUY_ACTION);
 		} else if (hasInventoryFood) {

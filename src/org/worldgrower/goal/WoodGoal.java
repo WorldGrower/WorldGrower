@@ -27,7 +27,7 @@ public class WoodGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		List<WorldObject> targets = BuyUtils.findBuyTargets(performer, Constants.WOOD, world);
+		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.WOOD, world);
 		if (targets.size() > 0) {
 			return new OperationInfo(performer, targets.get(0), new int[] { targets.get(0).getProperty(Constants.INVENTORY).getIndexFor(Constants.WOOD), 5 }, Actions.BUY_ACTION);
 		} else {

@@ -281,7 +281,9 @@ public class InventoryDialog extends JDialog {
 		@Override
 		public void stateChanged(ChangeEvent e) {
 			if (noSellRadioButton.isSelected()) {
-				inventoryJList.getSelectedValue().setSellable(false);
+				if (inventoryJList.getSelectedValue() != null) {
+					inventoryJList.getSelectedValue().setSellable(false);
+				}
 			}
 		}
 	}
@@ -291,7 +293,9 @@ public class InventoryDialog extends JDialog {
 		@Override
 		public void stateChanged(ChangeEvent e) {
 			if (sellRadioButton.isSelected()) {
-				inventoryJList.getSelectedValue().setSellable(true);
+				if (inventoryJList.getSelectedValue() != null) {
+					inventoryJList.getSelectedValue().setSellable(true);
+				}
 			}
 		}
 	}

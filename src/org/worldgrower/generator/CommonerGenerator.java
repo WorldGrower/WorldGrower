@@ -100,6 +100,7 @@ public class CommonerGenerator {
 		properties.put(Constants.CONDITIONS, new Conditions());
 		properties.put(Constants.BACKGROUND, new BackgroundImpl());
 		properties.put(Constants.GOLD, 100);
+		properties.put(Constants.PROFIT_PERCENTAGE, 0);
 		properties.put(Constants.HOUSE_ID, null);
 		properties.put(Constants.GROUP, new IdList().add(organization));
 		

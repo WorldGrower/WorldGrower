@@ -27,7 +27,7 @@ public class OreGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		List<WorldObject> targets = BuyUtils.findBuyTargets(performer, Constants.ORE, world);
+		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.ORE, world);
 		if (targets.size() > 0) {
 			return new OperationInfo(performer, targets.get(0), new int[] { targets.get(0).getProperty(Constants.INVENTORY).getIndexFor(Constants.ORE), 5 }, Actions.BUY_ACTION);
 		} else {
