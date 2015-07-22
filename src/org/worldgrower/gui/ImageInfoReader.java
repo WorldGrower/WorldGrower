@@ -40,6 +40,7 @@ public class ImageInfoReader {
     	Sprites sprites2c = readSprites2C();
     	Sprites sprites2d = readSprites2D();
     	Sprites sprites3a = readSprites3A();
+    	Sprites sprites3b = readSprites3B();
     	Sprites objects = readObjects();
     	Sprites monsters = readMonsters();
     	Sprites orcSoldier = readOrcSoldier();
@@ -159,6 +160,15 @@ public class ImageInfoReader {
 		addCharacter(ImageIds.FEMALE_ORANGE_HAIR_GIRL_COMMONER, sprites3a, 9, 4, 1, 1);
 		
 		add(ImageIds.BLACK_CROSS, pirates.getSubImage(7, 6, 1, 1));
+		
+		addCharacter(ImageIds.MALE_OLD_COMMONER, sprites3b, 0, 0, 1, 1);
+		addCharacter(ImageIds.FEMALE_OLDER_COMMONER, sprites3b, 3, 0, 1, 1);
+		addCharacter(ImageIds.MALE_SPIKY_HAIRED_COMMONER, sprites3b, 6, 0, 1, 1);
+		addCharacter(ImageIds.FEMALE_MILKER_COMMONER, sprites3b, 9, 0, 1, 1);
+		addCharacter(ImageIds.MALE_GREEN_HAIRED_COMMONER, sprites3b, 0, 4, 1, 1);
+		addCharacter(ImageIds.FEMALE_BLOND_GIRL, sprites3b, 3, 4, 1, 1);
+		addCharacter(ImageIds.MALE_BROWN_HAIR_BOY_COMMONER, sprites3b, 6, 4, 1, 1);
+		addCharacter(ImageIds.FEMALE_BLUE_HAIR_GIRL_COMMONER, sprites3b, 9, 4, 1, 1);
     }
     
     private void addCharacter(ImageIds imageId, Sprites sprites, int x, int y, int width, int height) {
@@ -218,6 +228,10 @@ public class ImageInfoReader {
     
     private static Sprites readSprites3A() throws IOException {
 		return readImages("resources/vx_chara03_a.png", 32, 48, 8, 12);
+	}
+    
+    private static Sprites readSprites3B() throws IOException {
+		return readImages("resources/vx_chara03_b.png", 32, 48, 8, 12);
 	}
 	
 	private static Sprites readObjects() throws IOException {
