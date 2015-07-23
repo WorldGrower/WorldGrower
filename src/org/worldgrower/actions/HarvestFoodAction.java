@@ -58,6 +58,11 @@ public class HarvestFoodAction implements ManagedOperation {
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
 		return "harvesting " + target.getProperty(Constants.NAME);
 	}
+
+	@Override
+	public String getSimpleDescription() {
+		return "harvest food";
+	}
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();

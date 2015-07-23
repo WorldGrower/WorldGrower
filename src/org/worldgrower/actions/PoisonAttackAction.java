@@ -62,6 +62,11 @@ public class PoisonAttackAction implements ManagedOperation {
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
 		return "poisoning " + target.getProperty(Constants.NAME);
 	}
+
+	@Override
+	public String getSimpleDescription() {
+		return "poison attack";
+	}
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();

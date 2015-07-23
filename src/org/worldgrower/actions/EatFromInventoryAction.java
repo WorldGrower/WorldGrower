@@ -53,6 +53,11 @@ public class EatFromInventoryAction implements ManagedOperation {
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
 		return "eating " + target.getProperty(Constants.NAME);
 	}
+
+	@Override
+	public String getSimpleDescription() {
+		return "eat";
+	}
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();

@@ -52,6 +52,11 @@ public class ChooseDeityAction implements ManagedOperation {
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
 		return "choosing a deity";
 	}
+
+	@Override
+	public String getSimpleDescription() {
+		return "choose deity";
+	}
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();

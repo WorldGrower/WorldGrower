@@ -334,6 +334,11 @@ public class ChooseProfessionAction implements ManagedOperation {
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
 		return "choosing a profession";
 	}
+
+	@Override
+	public String getSimpleDescription() {
+		return "choose profession";
+	}
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();

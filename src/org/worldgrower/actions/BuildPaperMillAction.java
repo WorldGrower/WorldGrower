@@ -101,4 +101,9 @@ public class BuildPaperMillAction implements BuildAction {
 	public int getHeight() {
 		return 1;
 	}
+	
+	@Override
+	public String getSimpleDescription() {
+		return "build papermill";
+	}
 }

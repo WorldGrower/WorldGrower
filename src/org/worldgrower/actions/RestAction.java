@@ -50,6 +50,11 @@ public class RestAction implements ManagedOperation {
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
 		return "resting";
 	}
+
+	@Override
+	public String getSimpleDescription() {
+		return "rest";
+	}
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();

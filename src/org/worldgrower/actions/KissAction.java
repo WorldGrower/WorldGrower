@@ -62,6 +62,11 @@ public class KissAction implements ManagedOperation {
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
 		return "kissing " + target.getProperty(Constants.NAME);
 	}
+
+	@Override
+	public String getSimpleDescription() {
+		return "kiss";
+	}
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();

@@ -59,6 +59,11 @@ public class CraftLongBowAction implements ManagedOperation {
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
 		return "crafting longbow";
 	}
+
+	@Override
+	public String getSimpleDescription() {
+		return "craft longbow";
+	}
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();

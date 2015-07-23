@@ -49,6 +49,11 @@ public class DoNothingAction implements ManagedOperation {
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
 		return "doing nothing";
 	}
+
+	@Override
+	public String getSimpleDescription() {
+		return "do nothing";
+	}
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();

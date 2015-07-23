@@ -61,4 +61,9 @@ public class BrewWineAction implements ManagedOperation {
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
 	}
+
+	@Override
+	public String getSimpleDescription() {
+		return "brew wine";
+	}
 }

@@ -49,6 +49,11 @@ public class ReadAction implements ManagedOperation {
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
 		return "reading " + target.getProperty(Constants.NAME);
 	}
+
+	@Override
+	public String getSimpleDescription() {
+		return "read";
+	}
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();

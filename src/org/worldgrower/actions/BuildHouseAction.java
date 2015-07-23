@@ -106,4 +106,9 @@ public class BuildHouseAction implements BuildAction {
 	public int getHeight() {
 		return 4;
 	}
+	
+	@Override
+	public String getSimpleDescription() {
+		return "build house";
+	}
 }

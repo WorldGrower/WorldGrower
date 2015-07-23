@@ -54,6 +54,11 @@ public class DrinkAction implements ManagedOperation {
 		return "drinking from " + target.getProperty(Constants.NAME);
 	}
 	
+	@Override
+	public String getSimpleDescription() {
+		return "drink";
+	}
+	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
 	}

@@ -49,6 +49,11 @@ public class WorshipDeityAction implements ManagedOperation {
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
 		return "worshipping my deity " + performer.getProperty(Constants.DEITY);
 	}
+
+	@Override
+	public String getSimpleDescription() {
+		return "worship";
+	}
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();

@@ -56,6 +56,11 @@ public class MinorHealAction implements MagicSpell {
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
 		return "healing minor wounds for " + target.getProperty(Constants.NAME);
 	}
+
+	@Override
+	public String getSimpleDescription() {
+		return "heal minor wounds";
+	}
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();

@@ -75,6 +75,11 @@ public class TalkAction implements ManagedOperation {
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
 		return "talking to " + target.getProperty(Constants.NAME);
 	}
+
+	@Override
+	public String getSimpleDescription() {
+		return "talk";
+	}
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();

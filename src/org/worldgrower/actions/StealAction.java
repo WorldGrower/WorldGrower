@@ -68,6 +68,11 @@ public class StealAction implements ManagedOperation {
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
 		return "stealing from " + target.getProperty(Constants.NAME);
 	}
+
+	@Override
+	public String getSimpleDescription() {
+		return "steal";
+	}
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();

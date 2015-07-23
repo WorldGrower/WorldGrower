@@ -74,7 +74,9 @@ public class Actions {
 	public static final MinorHealAction MINOR_HEAL_ACTION = new MinorHealAction();
 	public static final BuildLibraryAction BUILD_LIBRARY_ACTION = new BuildLibraryAction();
 	public static final ResearchReligionSkillAction RESEARCH_RELIGION_SKILL_ACTION = new ResearchReligionSkillAction();
+	public static final ResearchIllusionSkillAction RESEARCH_ILLUSION_SKILL_ACTION = new ResearchIllusionSkillAction();
 	public static final ResearchSpellAction RESEARCH_MINOR_HEALING_ACTION = new ResearchSpellAction(MINOR_HEAL_ACTION);
+	public static final ResearchSpellAction RESEARCH_MINOR_ILLUSION_ACTION = new ResearchSpellAction(MINOR_ILLUSION_ACTION);
 	
 	public static final List<ManagedOperation> ALL_ACTIONS = Arrays.asList(
 		MOVE_ACTION,
@@ -128,6 +130,8 @@ public class Actions {
 		MINOR_HEAL_ACTION,
 		BUILD_LIBRARY_ACTION,
 		RESEARCH_RELIGION_SKILL_ACTION,
-		RESEARCH_MINOR_HEALING_ACTION
+		RESEARCH_ILLUSION_SKILL_ACTION,
+		RESEARCH_MINOR_HEALING_ACTION,
+		RESEARCH_MINOR_ILLUSION_ACTION
 	);
 }

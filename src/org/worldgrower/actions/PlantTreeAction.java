@@ -57,6 +57,11 @@ public class PlantTreeAction implements BuildAction {
 		return "planting a tree";
 	}
 	
+	@Override
+	public String getSimpleDescription() {
+		return "plant tree";
+	}
+	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
 	}

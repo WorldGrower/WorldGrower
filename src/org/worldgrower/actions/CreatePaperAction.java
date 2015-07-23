@@ -59,6 +59,11 @@ public class CreatePaperAction implements ManagedOperation {
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
 		return "creating paper";
 	}
+
+	@Override
+	public String getSimpleDescription() {
+		return "create paper";
+	}
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();

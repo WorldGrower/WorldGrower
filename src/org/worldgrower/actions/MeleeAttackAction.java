@@ -70,6 +70,11 @@ public class MeleeAttackAction implements ManagedOperation {
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
 		return "attacking " + target.getProperty(Constants.NAME);
 	}
+
+	@Override
+	public String getSimpleDescription() {
+		return "melee attack";
+	}
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();

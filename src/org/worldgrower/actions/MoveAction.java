@@ -91,6 +91,11 @@ public class MoveAction implements ManagedOperation {
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
 		return "moving";
 	}
+
+	@Override
+	public String getSimpleDescription() {
+		return "move";
+	}
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();

@@ -52,6 +52,11 @@ public class CocoonAction implements ManagedOperation {
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
 		return "cocooning " + target.getProperty(Constants.NAME);
 	}
+
+	@Override
+	public String getSimpleDescription() {
+		return "cocoon";
+	}
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();

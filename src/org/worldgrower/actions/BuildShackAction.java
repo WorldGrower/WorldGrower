@@ -86,6 +86,11 @@ public class BuildShackAction implements BuildAction {
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
 		return "building a shack";
 	}
+
+	@Override
+	public String getSimpleDescription() {
+		return "build shack";
+	}
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();

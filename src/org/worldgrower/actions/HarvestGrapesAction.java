@@ -57,6 +57,11 @@ public class HarvestGrapesAction implements ManagedOperation {
 		return "harvesting " + target.getProperty(Constants.NAME);
 	}
 	
+	@Override
+	public String getSimpleDescription() {
+		return "harvest grapes";
+	}
+	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
 	}

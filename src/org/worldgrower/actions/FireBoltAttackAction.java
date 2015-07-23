@@ -49,6 +49,11 @@ public class FireBoltAttackAction implements ManagedOperation {
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
 		return "attacking " + target.getProperty(Constants.NAME);
 	}
+
+	@Override
+	public String getSimpleDescription() {
+		return "fire bolt";
+	}
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();

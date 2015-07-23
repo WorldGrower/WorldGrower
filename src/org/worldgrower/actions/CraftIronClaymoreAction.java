@@ -59,6 +59,11 @@ public class CraftIronClaymoreAction implements ManagedOperation {
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
 		return "crafting iron claymore";
 	}
+
+	@Override
+	public String getSimpleDescription() {
+		return "craft iron claymore";
+	}
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();

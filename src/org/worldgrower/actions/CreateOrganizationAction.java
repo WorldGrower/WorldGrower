@@ -65,6 +65,11 @@ public class CreateOrganizationAction implements ManagedOperation {
 		return "creating an organization";
 	}
 	
+	@Override
+	public String getSimpleDescription() {
+		return "create organization";
+	}
+	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
 	}

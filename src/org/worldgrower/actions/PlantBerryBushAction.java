@@ -60,6 +60,11 @@ public class PlantBerryBushAction implements BuildAction {
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
 		return "planting a berry bush";
 	}
+
+	@Override
+	public String getSimpleDescription() {
+		return "plant berry bush";
+	}
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();

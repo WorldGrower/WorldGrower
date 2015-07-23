@@ -51,6 +51,12 @@ public class SleepAction implements ManagedOperation {
 		return "resting at " + target.getProperty(Constants.NAME);
 	}
 	
+
+	@Override
+	public String getSimpleDescription() {
+		return "rest";
+	}
+	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
 	}

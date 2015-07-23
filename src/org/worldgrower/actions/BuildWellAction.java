@@ -86,6 +86,11 @@ public class BuildWellAction implements BuildAction {
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
 		return "building a well";
 	}
+
+	@Override
+	public String getSimpleDescription() {
+		return "build well";
+	}
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();

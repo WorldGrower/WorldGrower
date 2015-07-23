@@ -88,6 +88,11 @@ public class BuildShrineAction implements BuildAction {
 		return "building a shrine";
 	}
 	
+	@Override
+	public String getSimpleDescription() {
+		return "build shrine";
+	}
+	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
 	}

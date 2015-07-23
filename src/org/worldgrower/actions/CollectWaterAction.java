@@ -56,6 +56,11 @@ public class CollectWaterAction implements ManagedOperation {
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
 		return "collecting water from " + target.getProperty(Constants.NAME);
 	}
+
+	@Override
+	public String getSimpleDescription() {
+		return "collect water";
+	}
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();

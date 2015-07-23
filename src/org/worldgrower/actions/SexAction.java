@@ -68,6 +68,11 @@ public class SexAction implements ManagedOperation {
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
 		return "having sex with " + target.getProperty(Constants.NAME);
 	}
+
+	@Override
+	public String getSimpleDescription() {
+		return "have sex";
+	}
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();

@@ -248,10 +248,10 @@ public class GuiMouseListener extends MouseAdapter {
 				if (canPlayerCharacterPerformAction(worldObject, action)) {
 					PlayerCharacterAction guiAction = new PlayerCharacterAction(playerCharacter, world, container, dungeonMaster, action, worldObject);
 					JMenuItem menuItem = new JMenuItem(guiAction);
-					menuItem.setText(action.getClass().getSimpleName());
+					menuItem.setText(action.getSimpleDescription());
 					menu.add(menuItem);
 				} else if (canPlayerCharacterPerformActionUnderCorrectCircumstances(worldObject, action)) {
-					JMenuItem menuItem = new JMenuItem(action.getClass().getSimpleName());
+					JMenuItem menuItem = new JMenuItem(action.getSimpleDescription());
 					menuItem.setEnabled(false);
 					menu.add(menuItem);
 				}

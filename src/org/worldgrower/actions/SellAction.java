@@ -61,6 +61,11 @@ public class SellAction implements ManagedOperation {
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
 		return "selling to " + target.getProperty(Constants.NAME);
 	}
+
+	@Override
+	public String getSimpleDescription() {
+		return "sell";
+	}
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();

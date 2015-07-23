@@ -57,6 +57,11 @@ public class MineStoneAction implements ManagedOperation {
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
 		return "mining " + target.getProperty(Constants.NAME);
 	}
+
+	@Override
+	public String getSimpleDescription() {
+		return "mine stone";
+	}
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();

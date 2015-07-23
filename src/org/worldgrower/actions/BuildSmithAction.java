@@ -87,6 +87,11 @@ public class BuildSmithAction implements BuildAction {
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
 		return "building a smithy";
 	}
+
+	@Override
+	public String getSimpleDescription() {
+		return "build smithy";
+	}
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();

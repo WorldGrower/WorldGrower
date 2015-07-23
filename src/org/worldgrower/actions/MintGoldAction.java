@@ -59,6 +59,11 @@ public class MintGoldAction implements ManagedOperation {
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
 		return "minting gold";
 	}
+
+	@Override
+	public String getSimpleDescription() {
+		return "mint gold";
+	}
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();

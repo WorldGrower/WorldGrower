@@ -57,7 +57,12 @@ public class ResearchSpellAction implements ManagedOperation {
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "studying spell " + spell.getClass().getSimpleName();
+		return "studying spell '" + spell.getSimpleDescription() + "'";
+	}
+
+	@Override
+	public String getSimpleDescription() {
+		return "study spell '" + spell.getSimpleDescription() + "'";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {

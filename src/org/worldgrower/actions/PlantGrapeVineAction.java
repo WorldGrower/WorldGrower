@@ -59,6 +59,11 @@ public class PlantGrapeVineAction implements BuildAction {
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
 		return "planting a grape vine";
 	}
+
+	@Override
+	public String getSimpleDescription() {
+		return "plant grape vine";
+	}
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();

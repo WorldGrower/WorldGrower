@@ -61,6 +61,11 @@ public class BuyAction implements ManagedOperation {
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
 		return "buying from " + target.getProperty(Constants.NAME);
 	}
+
+	@Override
+	public String getSimpleDescription() {
+		return "buy";
+	}
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();

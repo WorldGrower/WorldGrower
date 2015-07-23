@@ -56,6 +56,11 @@ public class AbstractResearchKnowledgeSkillAction implements ManagedOperation {
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
 		return "studying " + skillProperty.getName();
 	}
+
+	@Override
+	public String getSimpleDescription() {
+		return "study " + skillProperty.getName();
+	}
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();

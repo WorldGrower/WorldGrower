@@ -22,10 +22,11 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
+import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.goal.GoalUtils;
 
-public class MinorIllusionAction implements BuildAction {
+public class MinorIllusionAction implements BuildAction, MagicSpell {
 
 	private static final int ENERGY_USE = 400;
 	
@@ -51,7 +52,7 @@ public class MinorIllusionAction implements BuildAction {
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
 		int x = (Integer)target.getProperty(Constants.X);
 		int y = (Integer)target.getProperty(Constants.Y);
-		return GoalUtils.isOpenSpace(x, y, 1, 1, world) && !target.hasProperty(Constants.ID);
+		return GoalUtils.isOpenSpace(x, y, 1, 1, world) && !target.hasProperty(Constants.ID) && performer.getProperty(Constants.KNOWN_SPELLS).contains(this);
 	}
 
 	@Override
@@ -70,6 +71,11 @@ public class MinorIllusionAction implements BuildAction {
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
 		return "creating a minor illusion";
 	}
+
+	@Override
+	public String getSimpleDescription() {
+		return "create minor illusion";
+	}
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
@@ -82,6 +88,21 @@ public class MinorIllusionAction implements BuildAction {
 
 	@Override
 	public int getHeight() {
+		return 1;
+	}
+
+	@Override
+	public int getResearchCost() {
+		return 50;
+	}
+
+	@Override
+	public SkillProperty getSkill() {
+		return Constants.ILLUSION_SKILL;
+	}
+
+	@Override
+	public int getRequiredSkillLevel() {
 		return 1;
 	}
 }

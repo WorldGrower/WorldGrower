@@ -58,6 +58,11 @@ public class DisguiseAction implements ManagedOperation {
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
 		return "disguising myself";
 	}
+
+	@Override
+	public String getSimpleDescription() {
+		return "disguise";
+	}
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();

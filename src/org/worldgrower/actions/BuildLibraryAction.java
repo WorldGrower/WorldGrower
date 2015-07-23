@@ -100,4 +100,10 @@ public class BuildLibraryAction implements BuildAction {
 	public int getHeight() {
 		return 2;
 	}
+	
+
+	@Override
+	public String getSimpleDescription() {
+		return "build library";
+	}
 }
