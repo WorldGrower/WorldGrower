@@ -30,6 +30,9 @@ public class MinorHealAction implements ManagedOperation {
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		target.increment(Constants.HIT_POINTS, 5);
+		if (target.getProperty(Constants.HIT_POINTS) > target.getProperty(Constants.HIT_POINTS_MAX)) {
+			target.setProperty(Constants.HIT_POINTS, target.getProperty(Constants.HIT_POINTS_MAX));
+		}
 		
 		SkillUtils.useEnergy(performer, Constants.RESTORATION_SKILL, ENERGY_USE);
 	}
