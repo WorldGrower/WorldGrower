@@ -54,6 +54,7 @@ public class ImageInfoReader {
     	Sprites sprites420 = readSprites420();
     	Sprites spider = readSpritesSpider();
     	Sprites stone = readSpritesStone();
+    	Sprites tora_vx_02 = readSpritesTora02();
     	
     	addCharacter(ImageIds.KNIGHT, sprites, 0, 0, 1, 1);
     	addCharacter(ImageIds.GUARD, sprites, 0, 4, 1, 1);
@@ -169,6 +170,8 @@ public class ImageInfoReader {
 		addCharacter(ImageIds.FEMALE_BLOND_GIRL, sprites3b, 3, 4, 1, 1);
 		addCharacter(ImageIds.MALE_BROWN_HAIR_BOY_COMMONER, sprites3b, 6, 4, 1, 1);
 		addCharacter(ImageIds.FEMALE_BLUE_HAIR_GIRL_COMMONER, sprites3b, 9, 4, 1, 1);
+		
+		add(ImageIds.LIBRARY, tora_vx_02.getSubImage(0, 10, 1, 2));
     }
     
     private void addCharacter(ImageIds imageId, Sprites sprites, int x, int y, int width, int height) {
@@ -276,6 +279,10 @@ public class ImageInfoReader {
 	
 	private static Sprites readSpritesStone() throws IOException {
 		return readImages("resources/stone-b1.png", 32, 32, 12, 8);
+	}
+	
+	private static Sprites readSpritesTora02() throws IOException {
+		return readImages("resources/tora_vx_02.png", 32, 32, 16, 16);
 	}
 	
 	private static Sprites readImages(String imageFilename, int width, int height, int rows, int cols) throws IOException {

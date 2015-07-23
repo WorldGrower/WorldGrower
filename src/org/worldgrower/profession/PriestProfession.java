@@ -33,7 +33,8 @@ public class PriestProfession implements Profession {
 	public List<Goal> getProfessionGoals() {
 		return Arrays.asList(
 				Goals.CHOOSE_DEITY_GOAL,
-				Goals.SHRINE_TO_DEITY_GOAL
+				Goals.SHRINE_TO_DEITY_GOAL,
+				Goals.LIBRARY_GOAL
 				);
 	}
 

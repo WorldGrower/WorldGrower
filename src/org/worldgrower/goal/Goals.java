@@ -54,4 +54,5 @@ public class Goals {
 	public static final BecomeOrganizationMemberGoal BECOME_ORGANIZATION_MEMBER_GOAL = new BecomeOrganizationMemberGoal();
 	public static final LearnSkillGoal LEARN_SKILL_GOAL = new LearnSkillGoal();
 	public static final ImproveOrganizationGoal IMPROVE_ORGANIZATION_GOAL = new ImproveOrganizationGoal();
+	public static final LibraryGoal LIBRARY_GOAL = new LibraryGoal();
 }
