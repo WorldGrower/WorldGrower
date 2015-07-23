@@ -37,6 +37,7 @@ public class SkillUtils {
 		properties.put(Constants.THIEVERY_SKILL, new Skill());
 		properties.put(Constants.EVOCATION_SKILL, new Skill());
 		properties.put(Constants.ILLUSION_SKILL, new Skill());
+		properties.put(Constants.RESTORATION_SKILL, new Skill());
 		properties.put(Constants.FARMING_SKILL, new Skill());
 		properties.put(Constants.MINING_SKILL, new Skill());
 		properties.put(Constants.LUMBERING_SKILL, new Skill());

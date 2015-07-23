@@ -71,6 +71,7 @@ public class Actions {
 	public static final CreatePaperAction CREATE_PAPER_ACTION = new CreatePaperAction();
 	public static final CollectWaterAction COLLECT_WATER_ACTION = new CollectWaterAction();
 	public static final CreateOrganizationAction CREATE_ORGANIZATION_ACTION = new CreateOrganizationAction();
+	public static final MinorHealAction MINOR_HEAL_ACTION = new MinorHealAction();
 	
 	public static final List<ManagedOperation> ALL_ACTIONS = Arrays.asList(
 		MOVE_ACTION,
@@ -120,6 +121,7 @@ public class Actions {
 		MINOR_ILLUSION_ACTION,
 		CREATE_PAPER_ACTION,
 		COLLECT_WATER_ACTION,
-		CREATE_ORGANIZATION_ACTION
+		CREATE_ORGANIZATION_ACTION,
+		MINOR_HEAL_ACTION
 	);
 }

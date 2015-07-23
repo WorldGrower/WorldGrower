@@ -23,11 +23,15 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
 
-public class FireBoltAttackAction implements ManagedOperation {
+public class MinorHealAction implements ManagedOperation {
 
+	private static final int ENERGY_USE = 400;
+	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		AttackUtils.magicAttack(5, this, performer, target, args, world, SkillUtils.useSkill(performer, Constants.EVOCATION_SKILL));
+		target.increment(Constants.HIT_POINTS, 5);
+		
+		SkillUtils.useEnergy(performer, Constants.RESTORATION_SKILL, ENERGY_USE);
 	}
 	
 	@Override
@@ -47,7 +51,7 @@ public class FireBoltAttackAction implements ManagedOperation {
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "attacking " + target.getProperty(Constants.NAME);
+		return "healing minor wounds for " + target.getProperty(Constants.NAME);
 	}
 	
 	public Object readResolve() throws ObjectStreamException {

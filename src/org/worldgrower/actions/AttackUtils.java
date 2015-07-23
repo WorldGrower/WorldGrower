@@ -16,6 +16,7 @@ package org.worldgrower.actions;
 
 import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
+import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 
@@ -54,5 +55,19 @@ public class AttackUtils {
 		target.setProperty(Constants.HIT_POINTS, targetHP);	
 		
 		world.logAction(action, performer, target, args, message);
+	}
+	
+	public static int distanceWithFreeLeftHand(WorldObject performer, WorldObject target, int range) {
+		WorldObject attackWeapon = performer.getProperty(Constants.LEFT_HAND_EQUIPMENT);
+		if (attackWeapon == null) {
+			int distance = Reach.distance(performer, target);
+			if (distance <= range) {
+				return 0;
+			} else {
+				return distance - range;
+			}
+		} else {
+			return 1;
+		}
 	}
 }

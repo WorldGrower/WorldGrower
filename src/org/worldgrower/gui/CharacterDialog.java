@@ -130,6 +130,7 @@ public class CharacterDialog extends JDialog {
 		createSkillBlock(Constants.MINING_SKILL, 658);
 		createSkillBlock(Constants.LUMBERING_SKILL, 688);
 		createSkillBlock(Constants.RELIGION_SKILL, 718);
+		createSkillBlock(Constants.RESTORATION_SKILL, 748);
 		
 		JLabel lblHead = new JLabel("Head");
 		lblHead.setBounds(264, 13, 56, 16);

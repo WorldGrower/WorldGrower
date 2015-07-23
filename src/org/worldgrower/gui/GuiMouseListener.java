@@ -111,6 +111,7 @@ public class GuiMouseListener extends MouseAdapter {
             	addBrewActions(menu);
             	addPlantActions(menu);
             	addIllusionActions(menu);
+            	addRestorationActions(menu);
             	
             	JMenuItem restMenuItem = new JMenuItem(new RestAction(playerCharacter, imageInfoReader, world, (WorldPanel)container, dungeonMaster));
             	restMenuItem.setText("Rest...");
@@ -185,6 +186,11 @@ public class GuiMouseListener extends MouseAdapter {
 		addBuildActions(menu, "Illusions", buildActions, buildAction -> new ChooseWorldObjectAction(playerCharacter, imageInfoReader, world, ((WorldPanel)container), dungeonMaster, new StartBuildModeAction(playerCharacter, imageInfoReader, ((WorldPanel)container), buildAction)));
 	}
 	
+	private void addRestorationActions(JPopupMenu menu) {
+		ManagedOperation[] restorationActions = { Actions.MINOR_HEAL_ACTION };
+		addActions(menu, "Restoration", restorationActions);
+	}
+	
 	private void addBuildActions(JPopupMenu menu, String menuTitle, BuildAction[] buildActions) {
 		addBuildActions(menu, menuTitle, buildActions, buildAction -> new StartBuildModeAction(playerCharacter, imageInfoReader, ((WorldPanel)container), buildAction));
 	}
@@ -222,7 +228,7 @@ public class GuiMouseListener extends MouseAdapter {
 			if (canPlayerCharacterPerformBuildAction(action)) {
 				PlayerCharacterAction guiAction = new PlayerCharacterAction(playerCharacter, world, container, dungeonMaster, action, playerCharacter);
 				JMenuItem craftMenuItem = new JMenuItem(guiAction);
-				craftMenuItem.setText(action.getDescription(playerCharacter, null, null, world) + "...");
+				craftMenuItem.setText(action.getDescription(playerCharacter, playerCharacter, null, world) + "...");
 				parentMenuItem.add(craftMenuItem);
 			} else {
 				createDisabledActionMenuItem(parentMenuItem, action);
