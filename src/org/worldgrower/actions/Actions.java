@@ -73,6 +73,8 @@ public class Actions {
 	public static final CreateOrganizationAction CREATE_ORGANIZATION_ACTION = new CreateOrganizationAction();
 	public static final MinorHealAction MINOR_HEAL_ACTION = new MinorHealAction();
 	public static final BuildLibraryAction BUILD_LIBRARY_ACTION = new BuildLibraryAction();
+	public static final ResearchReligionSkillAction RESEARCH_RELIGION_SKILL_ACTION = new ResearchReligionSkillAction();
+	public static final ResearchSpellAction RESEARCH_MINOR_HEALING_ACTION = new ResearchSpellAction(MINOR_HEAL_ACTION);
 	
 	public static final List<ManagedOperation> ALL_ACTIONS = Arrays.asList(
 		MOVE_ACTION,
@@ -124,6 +126,8 @@ public class Actions {
 		COLLECT_WATER_ACTION,
 		CREATE_ORGANIZATION_ACTION,
 		MINOR_HEAL_ACTION,
-		BUILD_LIBRARY_ACTION
+		BUILD_LIBRARY_ACTION,
+		RESEARCH_RELIGION_SKILL_ACTION,
+		RESEARCH_MINOR_HEALING_ACTION
 	);
 }

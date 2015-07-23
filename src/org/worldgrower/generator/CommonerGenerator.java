@@ -14,6 +14,7 @@
  *******************************************************************************/
 package org.worldgrower.generator;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -82,6 +83,8 @@ public class CommonerGenerator {
 		properties.put(Constants.CHARISMA, 10);
 		
 		SkillUtils.addAllSkills(properties);
+		properties.put(Constants.KNOWN_SPELLS, new ArrayList<>());
+		properties.put(Constants.STUDYING_SPELLS, new PropertyCountMap());
 		
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, imageId);

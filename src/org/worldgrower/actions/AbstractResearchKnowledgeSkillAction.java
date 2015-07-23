@@ -18,61 +18,46 @@ import java.io.ObjectStreamException;
 
 import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
+import org.worldgrower.ManagedOperation;
+import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillProperty;
-import org.worldgrower.attribute.SkillUtils;
 
-public class MinorHealAction implements MagicSpell {
+public class AbstractResearchKnowledgeSkillAction implements ManagedOperation {
 
-	private static final int ENERGY_USE = 400;
+	private final SkillProperty skillProperty;
 	
+	public AbstractResearchKnowledgeSkillAction(SkillProperty skillProperty) {
+		this.skillProperty = skillProperty;
+	}
+
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		target.increment(Constants.HIT_POINTS, 5);
-		if (target.getProperty(Constants.HIT_POINTS) > target.getProperty(Constants.HIT_POINTS_MAX)) {
-			target.setProperty(Constants.HIT_POINTS, target.getProperty(Constants.HIT_POINTS_MAX));
-		}
-		
-		SkillUtils.useEnergy(performer, Constants.RESTORATION_SKILL, ENERGY_USE);
-	}
-	
-	@Override
-	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return ((target.hasProperty(Constants.ARMOR)) && (target.getProperty(Constants.HIT_POINTS) > 0) && target.hasIntelligence() && performer.getProperty(Constants.KNOWN_SPELLS).contains(this));
+		performer.getProperty(skillProperty).use();
 	}
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return AttackUtils.distanceWithFreeLeftHand(performer, target, 4);
+		return Reach.evaluateTarget(performer, args, target, 1);
 	}
-	
+
 	@Override
 	public ArgumentRange[] getArgumentRanges() {
 		return ArgumentRange.EMPTY_ARGUMENT_RANGE;
 	}
+
+	@Override
+	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
+		return target.hasProperty(Constants.LIBRARY_QUALITY);
+	}
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "healing minor wounds for " + target.getProperty(Constants.NAME);
+		return "studying " + skillProperty.getName();
 	}
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
-	}
-
-	@Override
-	public int getResearchCost() {
-		return 20;
-	}
-
-	@Override
-	public SkillProperty getSkill() {
-		return Constants.RESTORATION_SKILL;
-	}
-
-	@Override
-	public int getRequiredSkillLevel() {
-		return 0;
 	}
 }

@@ -21,6 +21,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.worldgrower.actions.Actions;
+import org.worldgrower.actions.MagicSpell;
 import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.WorldObjectProperties;
@@ -151,6 +152,8 @@ public class WorldObjectImpl implements WorldObject, Serializable {
 		} else if (operation == Actions.COCOON_ACTION) {
 			//TODO
 			return this.getProperty(Constants.NAME).equals("Spider");
+		} else if (operation instanceof MagicSpell) {
+			return this.getProperty(Constants.KNOWN_SPELLS).contains(operation);
 		} else {
 			return true;
 		}

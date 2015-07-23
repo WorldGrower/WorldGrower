@@ -237,7 +237,7 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 
 	private void createDisabledActionMenuItem(JMenuItem menu, ManagedOperation craftAction) {
-		JMenuItem craftMenuItem = new JMenuItem(craftAction.getDescription(playerCharacter, null, null, world) + "...");
+		JMenuItem craftMenuItem = new JMenuItem(craftAction.getDescription(playerCharacter, playerCharacter, null, world) + "...");
 		craftMenuItem.setEnabled(false);
 		menu.add(craftMenuItem);
 	}

@@ -16,6 +16,7 @@ package org.worldgrower;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,6 +29,7 @@ import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdMap;
 import org.worldgrower.attribute.LookDirection;
 import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.attribute.PropertyCountMap;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.condition.Conditions;
@@ -193,6 +195,8 @@ public class Main {
 		properties.put(Constants.CHARISMA, 10);
 		
 		SkillUtils.addAllSkills(properties);
+		properties.put(Constants.KNOWN_SPELLS, new ArrayList<>());
+		properties.put(Constants.STUDYING_SPELLS, new PropertyCountMap());
 
 		properties.put(Constants.DAMAGE, 8);
 		properties.put(Constants.DAMAGE_RESIST, 100);
