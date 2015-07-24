@@ -37,6 +37,8 @@ import org.worldgrower.gui.chooseworldobject.ChooseWorldObjectAction;
 import org.worldgrower.gui.chooseworldobject.DisguiseAction;
 import org.worldgrower.gui.conversation.GuiAskQuestionAction;
 import org.worldgrower.gui.inventory.GuiBuyAction;
+import org.worldgrower.gui.inventory.GuiGetItemAction;
+import org.worldgrower.gui.inventory.GuiPutItemAction;
 import org.worldgrower.gui.inventory.GuiSellAction;
 import org.worldgrower.gui.inventory.GuiStealAction;
 import org.worldgrower.gui.inventory.InventoryAction;
@@ -125,6 +127,8 @@ public class GuiMouseListener extends MouseAdapter {
             } else {
             	if (worldObject.hasIntelligence()) {
             		addCommunicationActions(menu, worldObject);
+            	} else {
+            		addInventoryActions(menu, worldObject);
             	}
             	addAllActions(menu, worldObject);
             	
@@ -157,6 +161,22 @@ public class GuiMouseListener extends MouseAdapter {
 		if (canPlayerCharacterPerformAction(worldObject, Actions.STEAL_ACTION)) {
 			JMenuItem guiStealMenuItem = new JMenuItem(new GuiStealAction(playerCharacter, world, dungeonMaster, container, worldObject, imageInfoReader));
 			guiStealMenuItem.setText("Steal...");
+			menu.add(guiStealMenuItem);
+		}
+		
+		
+	}
+	
+	private void addInventoryActions(JPopupMenu menu, WorldObject worldObject) {
+		if (canPlayerCharacterPerformAction(worldObject, Actions.GET_ITEM_FROM_INVENTORY_ACTION)) {
+			JMenuItem guiStealMenuItem = new JMenuItem(new GuiGetItemAction(playerCharacter, world, dungeonMaster, container, worldObject, imageInfoReader));
+			guiStealMenuItem.setText("Get Item...");
+			menu.add(guiStealMenuItem);
+		}
+		
+		if (canPlayerCharacterPerformAction(worldObject, Actions.PUT_ITEM_INTO_INVENTORY_ACTION)) {
+			JMenuItem guiStealMenuItem = new JMenuItem(new GuiPutItemAction(playerCharacter, world, dungeonMaster, container, worldObject, imageInfoReader));
+			guiStealMenuItem.setText("Put Item...");
 			menu.add(guiStealMenuItem);
 		}
 	}

@@ -25,6 +25,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.goal.GoalUtils;
 import org.worldgrower.gui.ImageIds;
@@ -51,6 +52,9 @@ public class BuildLibraryAction implements BuildAction {
 		properties.put(Constants.CONDITIONS, new Conditions());
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
+		properties.put(Constants.INVENTORY, new WorldObjectContainer());
+		properties.put(Constants.LOCK_STRENGTH, 20);
+		properties.put(Constants.LOCKED, Boolean.TRUE);
 		
 		WorldObject library = new WorldObjectImpl(properties);
 		world.addWorldObject(library);

@@ -81,6 +81,8 @@ public class Actions {
 	public static final ResearchSpellAction RESEARCH_MINOR_ILLUSION_ACTION = new ResearchSpellAction(MINOR_ILLUSION_ACTION);
 	public static final ResearchSpellAction RESEARCH_FIRE_BOLT_ACTION = new ResearchSpellAction(FIRE_BOLT_ATTACK_ACTION);
 	public static final ResearchSpellAction RESEARCH_RAY_OF_FROST_ACTION = new ResearchSpellAction(RAY_OF_FROST_ATTACK_ACTION);
+	public static final GetItemFromInventoryAction GET_ITEM_FROM_INVENTORY_ACTION = new GetItemFromInventoryAction();
+	public static final PutItemIntoInventoryAction PUT_ITEM_INTO_INVENTORY_ACTION = new PutItemIntoInventoryAction();
 	
 	public static final List<ManagedOperation> ALL_ACTIONS = Arrays.asList(
 		MOVE_ACTION,
@@ -139,6 +141,8 @@ public class Actions {
 		RESEARCH_EVOCATION_SKILL_ACTION,
 		RESEARCH_MINOR_HEALING_ACTION,
 		RESEARCH_MINOR_ILLUSION_ACTION,
-		RESEARCH_RAY_OF_FROST_ACTION
+		RESEARCH_RAY_OF_FROST_ACTION,
+		GET_ITEM_FROM_INVENTORY_ACTION,
+		PUT_ITEM_INTO_INVENTORY_ACTION
 	);
 }

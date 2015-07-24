@@ -164,7 +164,7 @@ public class Constants {
 	public static final UnCheckedProperty<Curse> CURSE = new UnCheckedProperty<Curse>("curse", ALL_PROPERTIES);
 	public static final UnCheckedProperty<Conditions> CONDITIONS = new UnCheckedProperty<>("conditions", ALL_PROPERTIES);
 	
-	public static final IntProperty RELATIONSHIP_VALUE = new IntProperty("relationshipValue", -1000, 1000, false, ALL_PROPERTIES);
+	public static final IntProperty RELATIONSHIP_VALUE = new IntProperty("relationshipValue", -1000, 1000, NOT_NULLABLE, ALL_PROPERTIES);
 	
 	public static final IdProperty ILLUSION_CREATOR_ID = new IdProperty("illusionCreatorId", ALL_PROPERTIES);
 	
@@ -172,4 +172,7 @@ public class Constants {
 	public static final PropertyCountMapProperty STUDYING_SPELLS = new PropertyCountMapProperty("studyingSpells", ALL_PROPERTIES);
 
 	public static final BooleanProperty FLAMMABLE = new BooleanProperty("flammable", NOT_NULLABLE, ALL_PROPERTIES);
+
+	public static final IntProperty LOCK_STRENGTH = new IntProperty("lockStrength", 0, 1000, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final BooleanProperty LOCKED = new BooleanProperty("locked", NOT_NULLABLE, ALL_PROPERTIES);
 }
