@@ -42,7 +42,8 @@ public class ResearchSpellAction implements ManagedOperation {
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return Reach.evaluateTarget(performer, args, target, 1);
+		int skillLevelMet = (performer.getProperty(spell.getSkill()).getLevel() >= spell.getRequiredSkillLevel()) ? 1 : 0;
+		return Reach.evaluateTarget(performer, args, target, 1) + skillLevelMet;
 	}
 
 	@Override
@@ -52,7 +53,7 @@ public class ResearchSpellAction implements ManagedOperation {
 
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return target.hasProperty(Constants.LIBRARY_QUALITY) && !performer.getProperty(Constants.KNOWN_SPELLS).contains(spell) && (performer.getProperty(spell.getSkill()).getLevel() >= spell.getRequiredSkillLevel());
+		return target.hasProperty(Constants.LIBRARY_QUALITY) && !performer.getProperty(Constants.KNOWN_SPELLS).contains(spell);
 	}
 	
 	@Override

@@ -23,7 +23,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 
-public class FireBoltAttackAction implements MagicSpell {
+public class RayOfFrostAttackAction implements MagicSpell {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
@@ -52,7 +52,7 @@ public class FireBoltAttackAction implements MagicSpell {
 
 	@Override
 	public String getSimpleDescription() {
-		return "fire bolt";
+		return "ray of frost";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {

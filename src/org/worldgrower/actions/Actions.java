@@ -65,6 +65,7 @@ public class Actions {
 	public static final ReadAction READ_ACTION = new ReadAction();
 	public static final DisguiseAction DISGUISE_ACTION = new DisguiseAction();
 	public static final FireBoltAttackAction FIRE_BOLT_ATTACK_ACTION = new FireBoltAttackAction();
+	public static final RayOfFrostAttackAction RAY_OF_FROST_ATTACK_ACTION = new RayOfFrostAttackAction();
 	public static final BrewWineAction BREW_WINE_ACTION = new BrewWineAction();
 	public static final MinorIllusionAction MINOR_ILLUSION_ACTION = new MinorIllusionAction();
 	public static final BuildPaperMillAction BUILD_PAPER_MILL_ACTION = new BuildPaperMillAction();
@@ -75,8 +76,11 @@ public class Actions {
 	public static final BuildLibraryAction BUILD_LIBRARY_ACTION = new BuildLibraryAction();
 	public static final ResearchReligionSkillAction RESEARCH_RELIGION_SKILL_ACTION = new ResearchReligionSkillAction();
 	public static final ResearchIllusionSkillAction RESEARCH_ILLUSION_SKILL_ACTION = new ResearchIllusionSkillAction();
+	public static final ResearchEvocationSkillAction RESEARCH_EVOCATION_SKILL_ACTION = new ResearchEvocationSkillAction();
 	public static final ResearchSpellAction RESEARCH_MINOR_HEALING_ACTION = new ResearchSpellAction(MINOR_HEAL_ACTION);
 	public static final ResearchSpellAction RESEARCH_MINOR_ILLUSION_ACTION = new ResearchSpellAction(MINOR_ILLUSION_ACTION);
+	public static final ResearchSpellAction RESEARCH_FIRE_BOLT_ACTION = new ResearchSpellAction(FIRE_BOLT_ATTACK_ACTION);
+	public static final ResearchSpellAction RESEARCH_RAY_OF_FROST_ACTION = new ResearchSpellAction(RAY_OF_FROST_ATTACK_ACTION);
 	
 	public static final List<ManagedOperation> ALL_ACTIONS = Arrays.asList(
 		MOVE_ACTION,
@@ -121,6 +125,7 @@ public class Actions {
 		READ_ACTION,
 		DISGUISE_ACTION,
 		FIRE_BOLT_ATTACK_ACTION,
+		RAY_OF_FROST_ATTACK_ACTION,
 		MINT_GOLD_ACTION,
 		BREW_WINE_ACTION,
 		MINOR_ILLUSION_ACTION,
@@ -131,7 +136,9 @@ public class Actions {
 		BUILD_LIBRARY_ACTION,
 		RESEARCH_RELIGION_SKILL_ACTION,
 		RESEARCH_ILLUSION_SKILL_ACTION,
+		RESEARCH_EVOCATION_SKILL_ACTION,
 		RESEARCH_MINOR_HEALING_ACTION,
-		RESEARCH_MINOR_ILLUSION_ACTION
+		RESEARCH_MINOR_ILLUSION_ACTION,
+		RESEARCH_RAY_OF_FROST_ACTION
 	);
 }
