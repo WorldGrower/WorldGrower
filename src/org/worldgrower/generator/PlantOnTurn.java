@@ -12,29 +12,17 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.condition;
+package org.worldgrower.generator;
 
+import org.worldgrower.Constants;
+import org.worldgrower.OnTurn;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 
-public class CocoonedCondition implements Condition {
-
-	@Override
-	public boolean canTakeAction() {
-		return false;
-	}
-
-	@Override
-	public boolean canMove() {
-		return false;
-	}
-
-	@Override
-	public String getDescription() {
-		return "cocooned";
-	}
+public class PlantOnTurn implements OnTurn {
 
 	@Override
 	public void onTurn(WorldObject worldObject, World world) {
+		worldObject.getProperty(Constants.CONDITIONS).onTurn(worldObject, world);
 	}
 }

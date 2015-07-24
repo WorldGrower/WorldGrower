@@ -208,6 +208,12 @@ public class WorldPanel extends JPanel {
 			
 			if (world.getTerrain().isExplored(x, y)) {
 				g.drawImage(image, (x+offsetX) * 48, (y+offsetY) * 48, null);
+				
+				ImageIds overlayingImageId = getOverlayingImageId(worldObject);
+				if (overlayingImageId != null) {
+					Image overlayingImage = imageInfoReader.getImage(overlayingImageId, lookDirection);
+					g.drawImage(overlayingImage, (x+offsetX) * 48, (y+offsetY) * 48, null);
+				}
 			}
 		}
 		
@@ -228,6 +234,14 @@ public class WorldPanel extends JPanel {
 			return worldObject.getProperty(Constants.IMAGE_ID);
 		}
 	}
+    
+    private ImageIds getOverlayingImageId(WorldObject worldObject) {
+    	if (worldObject.hasProperty(Constants.CONDITIONS) && worldObject.getProperty(Constants.CONDITIONS).hasCondition(Condition.BURNING_CONDITION)) {
+    		return ImageIds.BURNING;
+    	} else {
+    		return null;
+    	}
+    }
     
 	private LookDirection getLookDirection(WorldObject worldObject) {
 		if (worldObject.hasProperty(Constants.LOOK_DIRECTION)) {

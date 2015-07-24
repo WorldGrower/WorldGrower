@@ -19,6 +19,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.worldgrower.World;
+import org.worldgrower.WorldObject;
+
 public class Conditions implements Serializable {
 
 	private final Map<Condition, Integer> conditions = new HashMap<>();
@@ -49,8 +52,9 @@ public class Conditions implements Serializable {
 		return true;
 	}
 	
-	public void onTurn() {
+	public void onTurn(WorldObject worldObject, World world) {
 		for(Entry<Condition, Integer> entry : conditions.entrySet()) {
+			entry.getKey().onTurn(worldObject, world);
 			int turns = entry.getValue();
 			turns--;
 			if (turns != 0) {

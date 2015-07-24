@@ -85,7 +85,13 @@ public class PlantGenerator {
 		properties.put(Constants.IMAGE_ID, ImageIds.TREE);
 		properties.put(Constants.NAME, "tree");
 		properties.put(Constants.WOOD_SOURCE, 50);
-		WorldObject tree = new WorldObjectImpl(properties);
+		properties.put(Constants.FLAMMABLE, Boolean.TRUE);
+		properties.put(Constants.CONDITIONS, new Conditions());
+		properties.put(Constants.HIT_POINTS, 200);
+		properties.put(Constants.HIT_POINTS_MAX, 200);
+		properties.put(Constants.ARMOR, 0);
+		properties.put(Constants.DAMAGE_RESIST, 0);
+		WorldObject tree = new WorldObjectImpl(properties, new PlantOnTurn());
 		world.addWorldObject(tree);
 		
 		return id;

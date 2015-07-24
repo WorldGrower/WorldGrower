@@ -22,12 +22,17 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.condition.Condition;
 
 public class FireBoltAttackAction implements MagicSpell {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		AttackUtils.magicAttack(5, this, performer, target, args, world, SkillUtils.useSkill(performer, Constants.EVOCATION_SKILL));
+	
+		if (target.hasProperty(Constants.FLAMMABLE) && target.getProperty(Constants.FLAMMABLE)) {
+			target.getProperty(Constants.CONDITIONS).addCondition(Condition.BURNING_CONDITION, 100);
+		}
 	}
 	
 	@Override

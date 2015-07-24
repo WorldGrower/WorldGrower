@@ -14,6 +14,9 @@
  *******************************************************************************/
 package org.worldgrower.condition;
 
+import org.worldgrower.World;
+import org.worldgrower.WorldObject;
+
 public class ParalyzedCondition implements Condition {
 
 	@Override
@@ -29,5 +32,9 @@ public class ParalyzedCondition implements Condition {
 	@Override
 	public String getDescription() {
 		return "paralyzed";
+	}
+
+	@Override
+	public void onTurn(WorldObject worldObject, World world) {
 	}
 }

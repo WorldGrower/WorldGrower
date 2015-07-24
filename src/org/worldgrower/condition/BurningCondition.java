@@ -14,27 +14,39 @@
  *******************************************************************************/
 package org.worldgrower.condition;
 
+import java.util.List;
+
+import org.worldgrower.Constants;
+import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 
-public class CocoonedCondition implements Condition {
+public class BurningCondition implements Condition {
 
 	@Override
 	public boolean canTakeAction() {
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean canMove() {
-		return false;
+		return true;
 	}
 
 	@Override
 	public String getDescription() {
-		return "cocooned";
+		return "burning";
 	}
 
 	@Override
 	public void onTurn(WorldObject worldObject, World world) {
+		worldObject.increment(Constants.HIT_POINTS, -5);
+		
+		List<WorldObject> flammableAdjacentWorldObjects = world.findWorldObjects(w -> Reach.distance(worldObject, w) <= 2 && w.hasProperty(Constants.FLAMMABLE) && w.getProperty(Constants.FLAMMABLE));
+		for(WorldObject flammableAdjacentWorldObject : flammableAdjacentWorldObjects) {
+			if (!flammableAdjacentWorldObject.getProperty(Constants.CONDITIONS).hasCondition(BURNING_CONDITION)) {
+				flammableAdjacentWorldObject.getProperty(Constants.CONDITIONS).addCondition(BURNING_CONDITION, 100);
+			}
+		}
 	}
 }

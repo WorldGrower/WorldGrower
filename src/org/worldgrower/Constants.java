@@ -170,4 +170,6 @@ public class Constants {
 	
 	public static final UnCheckedProperty<List<ManagedOperation>> KNOWN_SPELLS = new UnCheckedProperty<>("knownSpells", ALL_PROPERTIES);
 	public static final PropertyCountMapProperty STUDYING_SPELLS = new PropertyCountMapProperty("studyingSpells", ALL_PROPERTIES);
+
+	public static final BooleanProperty FLAMMABLE = new BooleanProperty("flammable", NOT_NULLABLE, ALL_PROPERTIES);
 }

@@ -69,7 +69,7 @@ public class WorldObjectImpl implements WorldObject, Serializable {
 	public WorldObjectImpl(Map<ManagedProperty<?>, Object> properties) {
 		this(properties, new ArrayList<>(), new DoNothingOnTurn(), null);
 	}
-	
+
 	public WorldObjectImpl(Map<ManagedProperty<?>, Object> properties, OnTurn onTurn) {
 		this(properties, new ArrayList<>(), onTurn, null);
 	}

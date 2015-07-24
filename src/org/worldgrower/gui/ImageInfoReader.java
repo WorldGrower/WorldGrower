@@ -172,6 +172,7 @@ public class ImageInfoReader {
 		addCharacter(ImageIds.FEMALE_BLUE_HAIR_GIRL_COMMONER, sprites3b, 9, 4, 1, 1);
 		
 		add(ImageIds.LIBRARY, tora_vx_02.getSubImage(0, 10, 1, 2));
+		add(ImageIds.BURNING, sprites420.getSubImage(2, 20, 1, 1));
     }
     
     private void addCharacter(ImageIds imageId, Sprites sprites, int x, int y, int width, int height) {

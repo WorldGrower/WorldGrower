@@ -16,12 +16,17 @@ package org.worldgrower.condition;
 
 import java.io.Serializable;
 
+import org.worldgrower.World;
+import org.worldgrower.WorldObject;
+
 public interface Condition extends Serializable {
 
 	public boolean canTakeAction();
 	public boolean canMove();
 	public String getDescription();
+	public void onTurn(WorldObject worldObject, World world);	
 	
 	public static final ParalyzedCondition PARALYZED_CONDITION = new ParalyzedCondition();
 	public static final CocoonedCondition COCOONED_CONDITION = new CocoonedCondition();
+	public static final BurningCondition BURNING_CONDITION = new BurningCondition();
 }

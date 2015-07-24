@@ -41,6 +41,8 @@ public class CommonerOnTurn implements OnTurn {
 		worldObject.increment(Constants.SOCIAL, -1);
 		worldObject.increment(Constants.ENERGY, -1);
 		
+		worldObject.getProperty(Constants.CONDITIONS).onTurn(worldObject, world);
+		
 		Integer pregnancy = worldObject.getProperty(Constants.PREGNANCY);
 		if (pregnancy != null) {
 			pregnancy = pregnancy + 1;
