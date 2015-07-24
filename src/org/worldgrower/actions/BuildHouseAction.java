@@ -25,6 +25,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.condition.Conditions;
 import org.worldgrower.goal.GoalUtils;
 import org.worldgrower.gui.ImageIds;
 
@@ -44,6 +45,8 @@ public class BuildHouseAction implements BuildAction {
 		properties.put(Constants.NAME, "house");
 		properties.put(Constants.ID, world.generateUniqueId());
 		properties.put(Constants.IMAGE_ID, ImageIds.HOUSE);
+		properties.put(Constants.FLAMMABLE, Boolean.TRUE);
+		properties.put(Constants.CONDITIONS, new Conditions());
 		properties.put(Constants.HIT_POINTS, 200);
 		properties.put(Constants.HIT_POINTS_MAX, 200);
 		properties.put(Constants.ARMOR, 0);

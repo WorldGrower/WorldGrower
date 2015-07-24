@@ -25,6 +25,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.condition.Conditions;
 import org.worldgrower.goal.GoalUtils;
 import org.worldgrower.gui.ImageIds;
 
@@ -46,6 +47,8 @@ public class BuildPaperMillAction implements BuildAction {
 		properties.put(Constants.IMAGE_ID, ImageIds.PAPER_MILL);
 		properties.put(Constants.HIT_POINTS, 50);
 		properties.put(Constants.HIT_POINTS_MAX, 50);
+		properties.put(Constants.FLAMMABLE, Boolean.TRUE);
+		properties.put(Constants.CONDITIONS, new Conditions());
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		
