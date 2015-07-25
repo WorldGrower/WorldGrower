@@ -43,7 +43,7 @@ public class BuildLibraryAction implements BuildAction {
 		properties.put(Constants.WIDTH, 1);
 		properties.put(Constants.HEIGHT, 2);
 		properties.put(Constants.LIBRARY_QUALITY, 1);
-		properties.put(Constants.NAME, "papermill");
+		properties.put(Constants.NAME, "library");
 		properties.put(Constants.ID, world.generateUniqueId());
 		properties.put(Constants.IMAGE_ID, ImageIds.LIBRARY);
 		properties.put(Constants.HIT_POINTS, 50);

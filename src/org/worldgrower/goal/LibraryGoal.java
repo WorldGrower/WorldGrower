@@ -26,8 +26,12 @@ public class LibraryGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		WorldObject targetLocation = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 2, 3, world);
-		return new OperationInfo(performer, targetLocation, new int[0], Actions.BUILD_LIBRARY_ACTION);
+		if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) < 6) {
+			return new WoodGoal().calculateGoal(performer, world);
+		} else {
+			WorldObject targetLocation = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 2, 3, world);
+			return new OperationInfo(performer, targetLocation, new int[0], Actions.BUILD_LIBRARY_ACTION);
+		}
 	}
 	
 	@Override

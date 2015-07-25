@@ -23,6 +23,10 @@ public class PlantOnTurn implements OnTurn {
 
 	@Override
 	public void onTurn(WorldObject worldObject, World world) {
+		if (worldObject.getProperty(Constants.CONDITIONS) == null) {
+			throw new IllegalStateException("worldObject " + worldObject + " doesn't have conditions property");
+		}
+		
 		worldObject.getProperty(Constants.CONDITIONS).onTurn(worldObject, world);
 	}
 }
