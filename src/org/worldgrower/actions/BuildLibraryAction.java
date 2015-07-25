@@ -27,6 +27,7 @@ import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.condition.Conditions;
+import org.worldgrower.generator.ItemGenerator;
 import org.worldgrower.goal.GoalUtils;
 import org.worldgrower.gui.ImageIds;
 
@@ -59,6 +60,7 @@ public class BuildLibraryAction implements BuildAction {
 		WorldObject library = new WorldObjectImpl(properties);
 		world.addWorldObject(library);
 		
+		performer.getProperty(Constants.INVENTORY).add(ItemGenerator.generateKey(library));
 		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.WOOD, 6);
 	}
 

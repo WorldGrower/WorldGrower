@@ -172,4 +172,13 @@ public class ItemGenerator {
 		properties.put(Constants.IMAGE_ID, ImageIds.SPELL_BOOK);
 		return new WorldObjectImpl(properties);
 	}
+	
+	public static WorldObject generateKey(WorldObject structureToLock) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		properties.put(Constants.LOCK_ID, structureToLock.getProperty(Constants.ID));
+		properties.put(Constants.PRICE, 1);
+		properties.put(Constants.SELLABLE, false);
+		properties.put(Constants.IMAGE_ID, ImageIds.KEY);
+		return new WorldObjectImpl(properties);
+	}
 }
