@@ -56,4 +56,24 @@ public class UTestHistoryImpl {
 		List<HistoryItem> historyItems = history.findHistoryItems(performer, performer, new int[0], Actions.CUT_WOOD_ACTION);
 		assertEquals(0, historyItems.size());
 	}
+	
+	@Test
+	public void testGetLastPerformedOperation() {
+		assertEquals(Actions.CUT_WOOD_ACTION, history.getLastPerformedOperation(performer).getOperationInfo().getManagedOperation());
+	}
+
+	@Test
+	public void testGetLastPerformedOperationOverwrite() {
+		History history = new HistoryImpl();
+		
+		history.actionPerformed(new OperationInfo(performer, target, new int[0], Actions.CUT_WOOD_ACTION), new Turn());
+		assertEquals(Actions.CUT_WOOD_ACTION, history.getLastPerformedOperation(performer).getOperationInfo().getManagedOperation());
+		
+		history.actionPerformed(new OperationInfo(performer, target, new int[0], Actions.MINE_ORE_ACTION), new Turn());
+		assertEquals(Actions.MINE_ORE_ACTION, history.getLastPerformedOperation(performer).getOperationInfo().getManagedOperation());
+		
+		history.actionPerformed(new OperationInfo(performer, target, new int[0], Actions.MOVE_ACTION), new Turn());
+		assertEquals(Actions.MOVE_ACTION, history.getLastPerformedOperation(performer).getOperationInfo().getManagedOperation());
+		
+	}
 }

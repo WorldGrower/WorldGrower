@@ -25,6 +25,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
 
 public class HistoryImpl implements History, Serializable {
 
@@ -33,21 +34,33 @@ public class HistoryImpl implements History, Serializable {
 	
 	private final Map<Integer, List<HistoryItem>> historyItemsByPerformer = new HashMap<>();
 	
+	private final Map<Integer, HistoryItem> lastPerformedActionMap = new HashMap<>();
+	
 	@Override
 	public HistoryItem actionPerformed(OperationInfo operationInfo, Turn turn) {
 		HistoryItem historyItem = new HistoryItem(currentHistoryId, operationInfo.copy(), turn);
-		historyItems.add(historyItem);
 		
 		Integer performerId = historyItem.getOperationInfo().getPerformer().getProperty(Constants.ID);
-		List<HistoryItem> historyItemsByPerformerList = historyItemsByPerformer.get(performerId);
-		if (historyItemsByPerformerList == null) {
-			historyItemsByPerformerList = new ArrayList<>();
-			historyItemsByPerformer.put(performerId, historyItemsByPerformerList);
-		}
-		historyItemsByPerformerList.add(historyItem);
+		addHistoryItem(historyItem);
+		
+		lastPerformedActionMap.put(performerId, historyItem);
 		
 		currentHistoryId++;
 		return historyItem;
+	}
+
+	private void addHistoryItem(HistoryItem historyItem) {
+		if (historyItem.getOperationInfo().getManagedOperation() != Actions.MOVE_ACTION) {
+			historyItems.add(historyItem);
+			
+			Integer performerId = historyItem.getOperationInfo().getPerformer().getProperty(Constants.ID);
+			List<HistoryItem> historyItemsByPerformerList = historyItemsByPerformer.get(performerId);
+			if (historyItemsByPerformerList == null) {
+				historyItemsByPerformerList = new ArrayList<>();
+				historyItemsByPerformer.put(performerId, historyItemsByPerformerList);
+			}
+			historyItemsByPerformerList.add(historyItem);
+		}
 	}
 	
 	@Override
@@ -83,12 +96,7 @@ public class HistoryImpl implements History, Serializable {
 	
 	@Override
 	public HistoryItem getLastPerformedOperation(WorldObject worldObject) {
-		for(int i=historyItems.size()-1; i>=0; i--) {
-			if (historyItems.get(i).getOperationInfo().isPerformer(worldObject)) {
-				return historyItems.get(i);
-			}
-		}
-		return null;
+		return lastPerformedActionMap.get(worldObject.getProperty(Constants.ID));
 	}
 
 	@Override
