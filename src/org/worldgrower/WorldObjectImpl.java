@@ -164,8 +164,10 @@ public class WorldObjectImpl implements WorldObject, Serializable {
 		if (obj instanceof WorldObject) {
 			WorldObject other = (WorldObject) obj;
 			
-			if ((this.getProperty(Constants.ID) != null) && (other.getProperty(Constants.ID) != null)) {
-				return this.getProperty(Constants.ID).intValue() == other.getProperty(Constants.ID).intValue();
+			Integer thisId = this.getProperty(Constants.ID);
+			Integer otherId = other.getProperty(Constants.ID);
+			if ((thisId != null) && (otherId != null)) {
+				return thisId.intValue() == otherId.intValue();
 			}
 		}
 		
