@@ -33,6 +33,7 @@ public class HistoryImpl implements History, Serializable {
 	private int currentHistoryId = 0;
 	
 	private final Map<Integer, List<HistoryItem>> historyItemsByPerformer = new HashMap<>();
+	private final Map<ManagedOperation, List<HistoryItem>> historyItemsByOperations = new HashMap<>();
 	
 	private final Map<Integer, HistoryItem> lastPerformedActionMap = new HashMap<>();
 	
@@ -50,7 +51,8 @@ public class HistoryImpl implements History, Serializable {
 	}
 
 	private void addHistoryItem(HistoryItem historyItem) {
-		if (historyItem.getOperationInfo().getManagedOperation() != Actions.MOVE_ACTION) {
+		ManagedOperation action = historyItem.getOperationInfo().getManagedOperation();
+		if (action != Actions.MOVE_ACTION) {
 			historyItems.add(historyItem);
 			
 			Integer performerId = historyItem.getOperationInfo().getPerformer().getProperty(Constants.ID);
@@ -60,6 +62,13 @@ public class HistoryImpl implements History, Serializable {
 				historyItemsByPerformer.put(performerId, historyItemsByPerformerList);
 			}
 			historyItemsByPerformerList.add(historyItem);
+			
+			List<HistoryItem> historyItemsByOperationsList = historyItemsByOperations.get(action);
+			if (historyItemsByOperationsList == null) {
+				historyItemsByOperationsList = new ArrayList<>();
+				historyItemsByOperations.put(action, historyItemsByOperationsList);
+			}
+			historyItemsByOperationsList.add(historyItem);
 		}
 	}
 	
@@ -101,8 +110,12 @@ public class HistoryImpl implements History, Serializable {
 
 	@Override
 	public List<HistoryItem> findHistoryItems(ManagedOperation managedOperationToFind) {
-		List<HistoryItem> foundItems = historyItems.stream().filter(h -> h.getOperationInfo().evaluate((performer, target, args, managedOperation) -> (managedOperation == managedOperationToFind))).collect(Collectors.toList());
-		return foundItems;
+		List<HistoryItem> foundItems = historyItemsByOperations.get(managedOperationToFind);
+		if (foundItems != null) {
+			return foundItems;
+		} else {
+			return new ArrayList<>();
+		}
 	}
 
 	@Override

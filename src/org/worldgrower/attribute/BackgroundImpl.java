@@ -36,7 +36,6 @@ import org.worldgrower.history.HistoryItem;
 
 public class BackgroundImpl implements Background, Serializable {
 
-	private List<HistoryItem> importantHistoryItems = new ArrayList<>();
 	private List<Goal> importantUnmetGoals = new ArrayList<>();
 	private Map<Integer, List<String>> angryReasons = new HashMap<>();
 	
@@ -51,6 +50,7 @@ public class BackgroundImpl implements Background, Serializable {
 				return (T)demeter;
 			}
 			
+			List<HistoryItem> importantHistoryItems = world.getHistory().findHistoryItems(Actions.MELEE_ATTACK_ACTION);
 			for(HistoryItem historyItem : importantHistoryItems) {
 				OperationInfo operationInfo = historyItem.getOperationInfo();
 				if (operationInfo.evaluate(new PerformerWasAttackedByUndead(backgroundPerformer))) {
@@ -73,7 +73,7 @@ public class BackgroundImpl implements Background, Serializable {
 	@Override
 	public List<Goal> getPersonalGoals(WorldObject backgroundPerformer, World world) {
 		List<Goal> personalGoals = new ArrayList<>();
-		
+		List<HistoryItem> importantHistoryItems = world.getHistory().findHistoryItems(Actions.MELEE_ATTACK_ACTION);
 		for(HistoryItem historyItem : importantHistoryItems) {
 			OperationInfo operationInfo = historyItem.getOperationInfo();
 		
@@ -103,7 +103,7 @@ public class BackgroundImpl implements Background, Serializable {
 		@Override
 		public boolean evaluate(WorldObject performer, WorldObject target, int[] args, ManagedOperation managedOperation) {
 			this.attacker = performer;
-			return (target == backgroundPerformer) && (managedOperation == Actions.MELEE_ATTACK_ACTION);
+			return (target.equals(backgroundPerformer)) && (managedOperation == Actions.MELEE_ATTACK_ACTION);
 		}	
 		
 		public WorldObject getAttacker() {
@@ -131,15 +131,8 @@ public class BackgroundImpl implements Background, Serializable {
 	}
 	
 	@Override
-	public void log(HistoryItem historyItem) {
-		if (historyItem.getOperationInfo().getManagedOperation() != Actions.MOVE_ACTION) {
-			importantHistoryItems.add(historyItem);
-		}
-	}
-	
-	@Override
 	public String toString() {
-		return "importantHistoryItems = " + importantHistoryItems.size() + ", importantUnmetGoals = " + importantUnmetGoals;
+		return "importantUnmetGoals = " + importantUnmetGoals;
 	}
 
 	@Override

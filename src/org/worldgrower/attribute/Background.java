@@ -26,7 +26,6 @@ public interface Background {
 
 	public<T> T chooseValue(WorldObject performer, ManagedProperty<T> property, World world);
 	public List<Goal> getPersonalGoals(WorldObject performer, World world);
-	public void log(HistoryItem historyItem);
 	
 	public void addGoalObstructed(WorldObject performer, WorldObject actionTarget, ManagedOperation managedOperation, int[] args, World world);
 	public List<String> getAngryReasons(boolean firstPerson, WorldObject performer, World world);

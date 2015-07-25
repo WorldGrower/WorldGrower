@@ -67,10 +67,6 @@ public class OperationInfo implements Serializable {
 		removeDeadWorldObjects(world);
 		
 		goalChangedCalculator.recordEndState(performer, target, managedOperation, args, world);
-		
-		if (performer.hasProperty(Constants.BACKGROUND)) {
-			performer.getProperty(Constants.BACKGROUND).log(historyItem);
-		}
 	}
 	
 	private void removeDeadWorldObjects(World world) {

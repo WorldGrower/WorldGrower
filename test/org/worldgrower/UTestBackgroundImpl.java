@@ -20,16 +20,11 @@ import static org.worldgrower.TestUtils.createWorldObject;
 import java.util.List;
 
 import org.junit.Test;
-import org.worldgrower.OperationInfo;
-import org.worldgrower.World;
-import org.worldgrower.WorldImpl;
-import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.Background;
 import org.worldgrower.attribute.BackgroundImpl;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.RevengeGoal;
-import org.worldgrower.history.HistoryItem;
 import org.worldgrower.history.Turn;
 
 public class UTestBackgroundImpl {
@@ -39,9 +34,10 @@ public class UTestBackgroundImpl {
 		Background background = new BackgroundImpl();
 		World world = new WorldImpl(10, 10, null);
 		
+		
 		WorldObject performer = createWorldObject(0, "Tom");
 		WorldObject attacker = createWorldObject(1, "attacker");
-		background.log(new HistoryItem(0, new OperationInfo(attacker, performer, new int[0], Actions.MELEE_ATTACK_ACTION), new Turn()));
+		world.getHistory().actionPerformed(new OperationInfo(attacker, performer, new int[0], Actions.MELEE_ATTACK_ACTION), new Turn());
 		
 		List<Goal> personalGoals = background.getPersonalGoals(performer, world);
 		assertEquals(1, personalGoals.size());
