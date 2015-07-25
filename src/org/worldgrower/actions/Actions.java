@@ -83,6 +83,10 @@ public class Actions {
 	public static final ResearchSpellAction RESEARCH_RAY_OF_FROST_ACTION = new ResearchSpellAction(RAY_OF_FROST_ATTACK_ACTION);
 	public static final GetItemFromInventoryAction GET_ITEM_FROM_INVENTORY_ACTION = new GetItemFromInventoryAction();
 	public static final PutItemIntoInventoryAction PUT_ITEM_INTO_INVENTORY_ACTION = new PutItemIntoInventoryAction();
+	public static final ScribeMagicSpellAction SCRIBE_MINOR_HEALING_ACTION = new ScribeMagicSpellAction(MINOR_HEAL_ACTION);
+	public static final ScribeMagicSpellAction SCRIBE_MINOR_ILLUSION_ACTION = new ScribeMagicSpellAction(MINOR_ILLUSION_ACTION);
+	public static final ScribeMagicSpellAction SCRIBE_FIRE_BOLT_ACTION = new ScribeMagicSpellAction(FIRE_BOLT_ATTACK_ACTION);
+	public static final ScribeMagicSpellAction SCRIBE_RAY_OF_FROST_ACTION = new ScribeMagicSpellAction(RAY_OF_FROST_ATTACK_ACTION);
 	
 	public static final List<ManagedOperation> ALL_ACTIONS = Arrays.asList(
 		MOVE_ACTION,
@@ -143,6 +147,10 @@ public class Actions {
 		RESEARCH_MINOR_ILLUSION_ACTION,
 		RESEARCH_RAY_OF_FROST_ACTION,
 		GET_ITEM_FROM_INVENTORY_ACTION,
-		PUT_ITEM_INTO_INVENTORY_ACTION
+		PUT_ITEM_INTO_INVENTORY_ACTION,
+		SCRIBE_MINOR_HEALING_ACTION,
+		SCRIBE_MINOR_ILLUSION_ACTION,
+		SCRIBE_FIRE_BOLT_ACTION,
+		SCRIBE_RAY_OF_FROST_ACTION 
 	);
 }

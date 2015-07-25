@@ -114,6 +114,7 @@ public class GuiMouseListener extends MouseAdapter {
             	addPlantActions(menu);
             	addIllusionActions(menu);
             	addRestorationActions(menu);
+            	addScribeMagicSpells(menu);
             	
             	JMenuItem restMenuItem = new JMenuItem(new RestAction(playerCharacter, imageInfoReader, world, (WorldPanel)container, dungeonMaster));
             	restMenuItem.setText("Rest...");
@@ -209,6 +210,11 @@ public class GuiMouseListener extends MouseAdapter {
 	private void addRestorationActions(JPopupMenu menu) {
 		ManagedOperation[] restorationActions = { Actions.MINOR_HEAL_ACTION };
 		addActions(menu, "Restoration", restorationActions);
+	}
+	
+	private void addScribeMagicSpells(JPopupMenu menu) {
+		ManagedOperation[] scribeActions = { Actions.SCRIBE_MINOR_HEALING_ACTION, Actions.SCRIBE_MINOR_ILLUSION_ACTION, Actions.SCRIBE_FIRE_BOLT_ACTION, Actions.SCRIBE_RAY_OF_FROST_ACTION };
+		addActions(menu, "Scribe spells", scribeActions);
 	}
 	
 	private void addBuildActions(JPopupMenu menu, String menuTitle, BuildAction[] buildActions) {

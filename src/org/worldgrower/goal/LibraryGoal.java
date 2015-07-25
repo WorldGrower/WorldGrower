@@ -43,8 +43,13 @@ public class LibraryGoal implements Goal {
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		List<WorldObject> libraries = world.findWorldObjects(w -> w.hasProperty(Constants.LIBRARY_QUALITY));
+		List<WorldObject> libraries = findLibraries(world);
 		return libraries.size() > 0;
+	}
+
+	private List<WorldObject> findLibraries(World world) {
+		List<WorldObject> libraries = world.findWorldObjects(w -> w.hasProperty(Constants.LIBRARY_QUALITY));
+		return libraries;
 	}
 	
 	@Override
@@ -59,6 +64,7 @@ public class LibraryGoal implements Goal {
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		return performer.getProperty(Constants.WATER);
+		List<WorldObject> libraries = findLibraries(world);
+		return libraries.size();
 	}
 }

@@ -22,6 +22,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 import org.worldgrower.Constants;
+import org.worldgrower.ManagedOperation;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.gui.ImageIds;
@@ -155,6 +156,19 @@ public class WorldObjectContainer implements Serializable {
 		for(WorldObject worldObject : worldObjects) {
 			if (worldObject != null) {
 				if (worldObject.hasProperty(propertyKey)) {
+					return index;
+				}
+			}
+			index++;
+		}
+		return -1;
+	}
+	
+	public<T> int getIndexFor(ManagedProperty<T> propertyKey, T value) {
+		int index = 0; 
+		for(WorldObject worldObject : worldObjects) {
+			if (worldObject != null) {
+				if (worldObject.hasProperty(propertyKey) && worldObject.getProperty(propertyKey) == value) {
 					return index;
 				}
 			}

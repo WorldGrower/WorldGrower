@@ -28,7 +28,7 @@ public class ShrineToDeityGoal implements Goal {
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		WorldObject performerDeity = performer.getProperty(Constants.DEITY);
 		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.WORSHIP_DEITY_ACTION, w -> w.getProperty(Constants.DEITY) == performerDeity, world);
-		if (targets.size() > 0) {
+		if (targets.size() > 0 && (!GoalUtils.actionAlreadyPerformed(performer, Actions.WORSHIP_DEITY_ACTION, new int[0], world))) {
 			return new OperationInfo(performer, targets.get(0), new int[0], Actions.WORSHIP_DEITY_ACTION);
 		} else if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.STONE) < 8) {
 				return new StoneGoal().calculateGoal(performer, world);

@@ -14,12 +14,14 @@
  *******************************************************************************/
 package org.worldgrower.generator;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
+import org.worldgrower.actions.MagicSpell;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.gui.ImageIds;
 
@@ -159,6 +161,15 @@ public class ItemGenerator {
 		properties.put(Constants.PRICE, 1);
 		properties.put(Constants.SELLABLE, false);
 		properties.put(Constants.IMAGE_ID, ImageIds.WATER);
+		return new WorldObjectImpl(properties);
+	}
+
+	public static WorldObject generateSpellBook(MagicSpell magicSpell) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		properties.put(Constants.KNOWN_SPELLS, Arrays.asList(magicSpell));
+		properties.put(Constants.PRICE, 100);
+		properties.put(Constants.SELLABLE, false);
+		properties.put(Constants.IMAGE_ID, ImageIds.SPELL_BOOK);
 		return new WorldObjectImpl(properties);
 	}
 }
