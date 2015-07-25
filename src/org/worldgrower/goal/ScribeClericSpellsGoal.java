@@ -36,12 +36,16 @@ public class ScribeClericSpellsGoal implements Goal {
 	
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
+		List<WorldObject> libraries = getLibraries(world);
+		if (libraries.size() == 0) {
+			return null;
+		}
+		
+		WorldObject library = libraries.get(0);
+		
 		List<MagicSpell> missingClericSpells = new ArrayList<>(CLERIC_SPELLS);
 		Set<ManagedOperation> magicSpellsFound = findMagicSpells(world);
 		missingClericSpells.removeAll(magicSpellsFound);
-		
-		List<WorldObject> libraries = getLibraries(world);
-		WorldObject library = libraries.get(0);
 		
 		for(MagicSpell missingClericSpell : missingClericSpells) {
 			SkillProperty skillPropery = missingClericSpell.getSkill();
