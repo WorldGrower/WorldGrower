@@ -32,6 +32,7 @@ Source installation
 - extensive dialogue system
 - mislead enemies with disguises and illusions
 - use character skills to build up an economy from the ground up 
+- found organizations and use their influence to further your own goals
 
 ## Bugs and Feature Requests<a name="bugs-and-feature-requests"></a>
 
