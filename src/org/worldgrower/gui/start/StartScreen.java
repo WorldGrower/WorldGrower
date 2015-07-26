@@ -122,7 +122,7 @@ public class StartScreen {
 		btnExit.setBounds(78, 266, 157, 44);
 		frame.getContentPane().add(btnExit);
 		
-		JLabel lblVersion = new JLabel(Version.VERSION);
+		JLabel lblVersion = new JLabel("Version " + Version.VERSION);
 		lblVersion.setBounds(83, 342, 168, 21);
 		frame.getContentPane().add(lblVersion);
 		
