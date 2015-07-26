@@ -128,7 +128,7 @@ public class HistoryImpl implements History, Serializable {
 		throw new IllegalStateException("historyItemId " + historyItemId + " not found");
 	}
 	
-	private static class HistoryItemsForTarget {
+	private static class HistoryItemsForTarget implements Serializable {
 		private final Map<Integer, List<HistoryItem>> historyItemsByTarget = new HashMap<>();
 		
 		public void addHistoryItem(HistoryItem historyItem) {

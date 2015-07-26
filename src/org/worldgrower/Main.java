@@ -88,7 +88,7 @@ public class Main {
 	public static void load(File fileToLoad) {
 		DungeonMaster dungeonMaster = new DungeonMaster();//TODO: turn state will be lost
 		World world = WorldImpl.load(fileToLoad);
-		final WorldObject playerCharacter = world.getWorldObjects().get(0);
+		final WorldObject playerCharacter = world.findWorldObject(Constants.ID, 0);
 		
 		world.addListener(new CurseListener(world));
 		
