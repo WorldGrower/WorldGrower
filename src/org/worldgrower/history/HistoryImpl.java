@@ -32,7 +32,7 @@ public class HistoryImpl implements History, Serializable {
 	private final List<HistoryItem> historyItems = new ArrayList<>();
 	private int currentHistoryId = 0;
 	
-	private final Map<Integer, List<HistoryItem>> historyItemsByPerformer = new HashMap<>();
+	private final Map<Integer, HistoryItemsForTarget> historyItemsByPerformer = new HashMap<>();
 	private final Map<ManagedOperation, List<HistoryItem>> historyItemsByOperations = new HashMap<>();
 	
 	private final Map<Integer, HistoryItem> lastPerformedActionMap = new HashMap<>();
@@ -56,12 +56,12 @@ public class HistoryImpl implements History, Serializable {
 			historyItems.add(historyItem);
 			
 			Integer performerId = historyItem.getOperationInfo().getPerformer().getProperty(Constants.ID);
-			List<HistoryItem> historyItemsByPerformerList = historyItemsByPerformer.get(performerId);
-			if (historyItemsByPerformerList == null) {
-				historyItemsByPerformerList = new ArrayList<>();
-				historyItemsByPerformer.put(performerId, historyItemsByPerformerList);
+			HistoryItemsForTarget historyItemsForTarget = historyItemsByPerformer.get(performerId);
+			if (historyItemsForTarget == null) {
+				historyItemsForTarget = new HistoryItemsForTarget();
+				historyItemsByPerformer.put(performerId, historyItemsForTarget);
 			}
-			historyItemsByPerformerList.add(historyItem);
+			historyItemsForTarget.addHistoryItem(historyItem);
 			
 			List<HistoryItem> historyItemsByOperationsList = historyItemsByOperations.get(action);
 			if (historyItemsByOperationsList == null) {
@@ -84,12 +84,11 @@ public class HistoryImpl implements History, Serializable {
 	
 	@Override
 	public List<HistoryItem> findHistoryItems(WorldObject performer, WorldObject target, int[] args, ManagedOperation managedOperation) {
-		OperationInfo searchOperationInfo = new OperationInfo(performer, target, args, managedOperation);
 		
 		Integer performerId = performer.getProperty(Constants.ID);
-		List<HistoryItem> historyItemsByPerformerList = historyItemsByPerformer.get(performerId);
-		if (historyItemsByPerformerList != null) {
-			List<HistoryItem> foundItems = historyItemsByPerformerList.stream().filter(h -> h.getOperationInfo().isEqual(searchOperationInfo)).collect(Collectors.toList());
+		HistoryItemsForTarget historyItemsForTarget = historyItemsByPerformer.get(performerId);
+		if (historyItemsForTarget != null) {
+			List<HistoryItem> foundItems = historyItemsForTarget.findHistoryItems(performer, target, args, managedOperation);
 			return foundItems;			
 		} else {
 			return new ArrayList<>();
@@ -127,5 +126,33 @@ public class HistoryImpl implements History, Serializable {
 		}
 		
 		throw new IllegalStateException("historyItemId " + historyItemId + " not found");
+	}
+	
+	private static class HistoryItemsForTarget {
+		private final Map<Integer, List<HistoryItem>> historyItemsByTarget = new HashMap<>();
+		
+		public void addHistoryItem(HistoryItem historyItem) {
+				
+			Integer targetId = historyItem.getOperationInfo().getTarget().getProperty(Constants.ID);
+			List<HistoryItem> historyItemsByTargetList = historyItemsByTarget.get(targetId);
+			if (historyItemsByTargetList == null) {
+				historyItemsByTargetList = new ArrayList<>();
+				historyItemsByTarget.put(targetId, historyItemsByTargetList);
+			}
+			historyItemsByTargetList.add(historyItem);
+		}
+		
+		public List<HistoryItem> findHistoryItems(WorldObject performer, WorldObject target, int[] args, ManagedOperation managedOperation) {
+			OperationInfo searchOperationInfo = new OperationInfo(performer, target, args, managedOperation);
+			
+			Integer targetId = target.getProperty(Constants.ID);
+			List<HistoryItem> historyItemsByTargetList = historyItemsByTarget.get(targetId);
+			if (historyItemsByTargetList != null) {
+				List<HistoryItem> foundItems = historyItemsByTargetList.stream().filter(h -> h.getOperationInfo().isEqual(searchOperationInfo)).collect(Collectors.toList());
+				return foundItems;			
+			} else {
+				return new ArrayList<>();
+			}
+		}
 	}
 }

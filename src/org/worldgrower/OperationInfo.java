@@ -128,6 +128,10 @@ public class OperationInfo implements Serializable {
 	public WorldObject getPerformer() {
 		return performer;
 	}
+	
+	public WorldObject getTarget() {
+		return target;
+	}
 
 	public ManagedOperation getManagedOperation() {
 		return managedOperation;
