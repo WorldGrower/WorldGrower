@@ -10,8 +10,8 @@ import org.worldgrower.profession.Profession;
 
 public class OrganizationNamer {
 
-	private static final String[] PREFIXES = { "Alliance", "Dominion", "Legion"};
-	private static final String[] SUFFIXES = { "Organization", "Harvesters", "Syndicate", "Guild"};
+	private static final String[] PREFIXES = { "Alliance", "Dominion", "Legion", "Society" };
+	private static final String[] SUFFIXES = { "Organization", "Harvesters", "Syndicate", "Guild", "Association", "Companions", "Pact" };
 	
 	public List<String> getNames(Profession profession, World world) {
 		List<String> result = new ArrayList<>();
