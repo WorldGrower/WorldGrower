@@ -33,8 +33,8 @@ public class BuildHouseAction implements BuildAction {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		int x = (Integer)target.getProperty(Constants.X) + 1;
-		int y = (Integer)target.getProperty(Constants.Y) + 1;
+		int x = (Integer)target.getProperty(Constants.X);
+		int y = (Integer)target.getProperty(Constants.Y);
 		
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
@@ -69,8 +69,8 @@ public class BuildHouseAction implements BuildAction {
 		if (target.hasProperty(Constants.ID)) {
 			return false;
 		} else {
-			int x = (Integer)target.getProperty(Constants.X) + 1;
-			int y = (Integer)target.getProperty(Constants.Y) + 1;
+			int x = (Integer)target.getProperty(Constants.X);
+			int y = (Integer)target.getProperty(Constants.Y);
 			return GoalUtils.isOpenSpace(x, y, 2, 4, world);
 		}
 	}

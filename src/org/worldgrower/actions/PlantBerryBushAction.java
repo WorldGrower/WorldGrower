@@ -29,8 +29,8 @@ public class PlantBerryBushAction implements BuildAction {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		int x = (Integer)target.getProperty(Constants.X) + 1;
-		int y = (Integer)target.getProperty(Constants.Y) + 1;
+		int x = (Integer)target.getProperty(Constants.X);
+		int y = (Integer)target.getProperty(Constants.Y);
 		
 		int berryBushId = PlantGenerator.generateBerryBush(x, y, world);
 		WorldObject berryBush = world.findWorldObject(Constants.ID, berryBushId);
@@ -40,8 +40,8 @@ public class PlantBerryBushAction implements BuildAction {
 	
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		int x = (Integer)target.getProperty(Constants.X) + 1;
-		int y = (Integer)target.getProperty(Constants.Y) + 1;
+		int x = (Integer)target.getProperty(Constants.X);
+		int y = (Integer)target.getProperty(Constants.Y);
 		return GoalUtils.isOpenSpace(x, y, 1, 1, world) && !target.hasProperty(Constants.ID);
 	}
 

@@ -33,8 +33,8 @@ public class BuildShackAction implements BuildAction {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		int x = (Integer)target.getProperty(Constants.X) + 1;
-		int y = (Integer)target.getProperty(Constants.Y) + 1;
+		int x = (Integer)target.getProperty(Constants.X);
+		int y = (Integer)target.getProperty(Constants.Y);
 		
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
@@ -61,8 +61,8 @@ public class BuildShackAction implements BuildAction {
 
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		int x = (Integer)target.getProperty(Constants.X) + 1;
-		int y = (Integer)target.getProperty(Constants.Y) + 1;
+		int x = (Integer)target.getProperty(Constants.X);
+		int y = (Integer)target.getProperty(Constants.Y);
 		return GoalUtils.isOpenSpace(x, y, 2, 2, world);
 	}
 
