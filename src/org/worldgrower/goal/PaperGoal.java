@@ -22,16 +22,15 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 
-public class WoodGoal implements Goal {
+public class PaperGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.WOOD, world);
+		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.PAPER, world);
 		if (targets.size() > 0) {
-			return new OperationInfo(performer, targets.get(0), new int[] { targets.get(0).getProperty(Constants.INVENTORY).getIndexFor(Constants.WOOD), 5 }, Actions.BUY_ACTION);
+			return new OperationInfo(performer, targets.get(0), new int[] { targets.get(0).getProperty(Constants.INVENTORY).getIndexFor(Constants.PAPER), 5 }, Actions.BUY_ACTION);
 		} else {
-			WorldObject target = GoalUtils.findNearestTarget(performer, Actions.CUT_WOOD_ACTION, world);
-			return new OperationInfo(performer, target, new int[0], Actions.CUT_WOOD_ACTION);
+			return new CreatePaperGoal().calculateGoal(performer, world);
 		}
 	}
 
@@ -39,9 +38,9 @@ public class WoodGoal implements Goal {
 	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
 		if (performer.hasProperty(Constants.DEMANDS)) {
 			if (goalMet) {
-				performer.getProperty(Constants.DEMANDS).remove(Constants.WOOD);
+				performer.getProperty(Constants.DEMANDS).remove(Constants.PAPER);
 			} else {
-				performer.getProperty(Constants.DEMANDS).add(Constants.WOOD, 1);
+				performer.getProperty(Constants.DEMANDS).add(Constants.PAPER, 1);
 			}
 		}
 	}
@@ -58,7 +57,7 @@ public class WoodGoal implements Goal {
 
 	@Override
 	public String getDescription() {
-		return "looking for wood";
+		return "looking for paper";
 	}
 
 	@Override

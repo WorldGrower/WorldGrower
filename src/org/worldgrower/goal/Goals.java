@@ -56,4 +56,5 @@ public class Goals {
 	public static final ImproveOrganizationGoal IMPROVE_ORGANIZATION_GOAL = new ImproveOrganizationGoal();
 	public static final LibraryGoal LIBRARY_GOAL = new LibraryGoal();
 	public static final ScribeClericSpellsGoal SCRIBE_CLERIC_SPELLS_GOAL = new ScribeClericSpellsGoal();
+	public static final PaperGoal PAPER_GOAL = new PaperGoal();
 }

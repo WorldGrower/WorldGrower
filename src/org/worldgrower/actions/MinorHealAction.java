@@ -73,7 +73,7 @@ public class MinorHealAction implements MagicSpell {
 
 	@Override
 	public SkillProperty getSkill() {
-		return Constants.RESTORATION_SKILL;
+		return Constants.RELIGION_SKILL;
 	}
 
 	@Override

@@ -37,10 +37,6 @@ public class ScribeClericSpellsGoal implements Goal {
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		List<WorldObject> libraries = getLibraries(world);
-		if (libraries.size() == 0) {
-			return null;
-		}
-		
 		WorldObject library = libraries.get(0);
 		
 		List<MagicSpell> missingClericSpells = new ArrayList<>(CLERIC_SPELLS);
@@ -56,6 +52,8 @@ public class ScribeClericSpellsGoal implements Goal {
 				return new OperationInfo(performer, library, new int[0], Actions.RESEARCH_RELIGION_SKILL_ACTION);
 			} else if (!performer.getProperty(Constants.KNOWN_SPELLS).contains(missingClericSpell)) {
 				return new OperationInfo(performer, library, new int[0], Actions.RESEARCH_MINOR_HEALING_ACTION);
+			} else if (performerInventory.getWorldObjects(Constants.KNOWN_SPELLS, clericSpells).size() == 0 && performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.PAPER) < 5) {
+				return new PaperGoal().calculateGoal(performer, world);
 			} else if (performerInventory.getWorldObjects(Constants.KNOWN_SPELLS, clericSpells).size() == 0) {
 				return new OperationInfo(performer, performer, new int[0], Actions.SCRIBE_MINOR_HEALING_ACTION);
 			} else if (performerInventory.getWorldObjects(Constants.KNOWN_SPELLS, clericSpells).size() > 0) {
