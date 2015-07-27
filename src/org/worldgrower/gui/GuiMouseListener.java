@@ -36,13 +36,14 @@ import org.worldgrower.actions.BuildAction;
 import org.worldgrower.gui.chooseworldobject.ChooseWorldObjectAction;
 import org.worldgrower.gui.chooseworldobject.DisguiseAction;
 import org.worldgrower.gui.conversation.GuiAskQuestionAction;
+import org.worldgrower.gui.debug.GuiShowCommonersOverviewAction;
+import org.worldgrower.gui.debug.GuiShowPropertiesAction;
 import org.worldgrower.gui.inventory.GuiBuyAction;
 import org.worldgrower.gui.inventory.GuiGetItemAction;
 import org.worldgrower.gui.inventory.GuiPutItemAction;
 import org.worldgrower.gui.inventory.GuiSellAction;
 import org.worldgrower.gui.inventory.GuiStealAction;
 import org.worldgrower.gui.inventory.InventoryAction;
-import org.worldgrower.gui.properties.GuiShowPropertiesAction;
 
 public class GuiMouseListener extends MouseAdapter {
 	private JComponent container;
@@ -286,10 +287,14 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 
 	private void addPropertiesMenu(JPopupMenu menu, WorldObject worldObject) {
-		if (Boolean.getBoolean("showProperties")) {
+		if (Boolean.getBoolean("DEBUG")) {
 			JMenuItem guiPropertiesItem = new JMenuItem(new GuiShowPropertiesAction(worldObject));
 			guiPropertiesItem.setText("Properties...");
 			menu.add(guiPropertiesItem);
+			
+			JMenuItem guiShowCommonersOverviewItem = new JMenuItem(new GuiShowCommonersOverviewAction(world));
+			guiShowCommonersOverviewItem.setText("Show Commoners Overview...");
+			menu.add(guiShowCommonersOverviewItem);
 		}
 	}
 

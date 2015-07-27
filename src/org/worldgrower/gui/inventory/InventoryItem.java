@@ -21,7 +21,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.gui.ImageIds;
-import org.worldgrower.gui.properties.PropertiesModel.PropertyComparator;
+import org.worldgrower.gui.debug.PropertiesModel.PropertyComparator;
 
 public class InventoryItem {
 	private final int id;

@@ -45,7 +45,7 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.WorldObjectList;
-import org.worldgrower.gui.properties.PropertiesModel;
+import org.worldgrower.gui.debug.PropertiesModel;
 
 public class DisguiseDialog extends JDialog {
 
