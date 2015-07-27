@@ -21,6 +21,8 @@ import org.worldgrower.actions.UTestChooseProfessionAction;
 import org.worldgrower.actions.UTestTalkAction;
 import org.worldgrower.attribute.UTestIdList;
 import org.worldgrower.attribute.UTestIdMap;
+import org.worldgrower.attribute.UTestIntProperty;
+import org.worldgrower.attribute.UTestPropertyCountMap;
 import org.worldgrower.attribute.UTestWorldObjectProperties;
 import org.worldgrower.conversation.UTestConversations;
 import org.worldgrower.conversation.UTestLocationConversation;
@@ -28,6 +30,7 @@ import org.worldgrower.goal.UTestBuildLocationUtils;
 import org.worldgrower.goal.UTestGoalUtils;
 import org.worldgrower.goal.UTestZone;
 import org.worldgrower.history.UTestHistoryImpl;
+import org.worldgrower.util.UTestNumberUtils;
 
 @RunWith(Suite.class)
 @SuiteClasses({ 
@@ -51,7 +54,10 @@ import org.worldgrower.history.UTestHistoryImpl;
 	UTestWorldObjectProperties.class,
 	UTestIdList.class,
 	UTestHistoryImpl.class,
-	UTestLocationConversation.class
+	UTestLocationConversation.class,
+	UTestPropertyCountMap.class,
+	UTestIntProperty.class,
+	UTestNumberUtils.class
 })
 public class CompleteTestSuite {
 }

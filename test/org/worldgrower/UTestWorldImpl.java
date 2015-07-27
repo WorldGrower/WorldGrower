@@ -16,9 +16,13 @@ package org.worldgrower;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import org.junit.Test;
+import org.worldgrower.actions.Actions;
+import org.worldgrower.history.Turn;
 
 public class UTestWorldImpl {
 
@@ -69,5 +73,35 @@ public class UTestWorldImpl {
 		
 		world.removeWorldObject(house);
 		assertEquals(null, person.getProperty(Constants.HOUSE_ID));
+	}
+	
+	@Test
+	public void testSaveLoad() throws IOException {
+		File fileToSave = File.createTempFile("worldgrower", ".sav");
+		World world = new WorldImpl(0, 0, null);
+		WorldObject house = TestUtils.createWorldObject(6, "test");
+		WorldObject person = TestUtils.createIntelligentWorldObject(7, Constants.HOUSE_ID, 6);
+		
+		world.addWorldObject(house);
+		world.addWorldObject(person);
+		
+		world.getHistory().actionPerformed(new OperationInfo(person, house, new int[0], Actions.CUT_WOOD_ACTION), new Turn());
+		
+		world.save(fileToSave);
+		world = WorldImpl.load(fileToSave);
+		
+		assertEquals(2, world.getWorldObjects().size());
+		assertEquals(Actions.CUT_WOOD_ACTION, world.getHistory().getHistoryItem(0).getOperationInfo().getManagedOperation());
+	}
+	
+	@Test
+	public void testIdHigherThan128() {
+		// this test is for java Integer caching, see http://stackoverflow.com/questions/3131136/integers-caching-in-java
+		World world = new WorldImpl(0, 0, null);
+		for(int i=0; i<300; i++) {
+			int id = world.generateUniqueId();
+			world.addWorldObject(TestUtils.createWorldObject(id, "test"));
+		}
+		assertEquals(290, world.findWorldObject(Constants.ID, 290).getProperty(Constants.ID).intValue());
 	}
 }

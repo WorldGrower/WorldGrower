@@ -14,17 +14,16 @@
 *******************************************************************************/
 package org.worldgrower.history;
 
+import static org.junit.Assert.assertEquals;
+
+import java.util.List;
+
 import org.junit.Test;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.TestUtils;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.history.HistoryImpl;
-
-import static org.junit.Assert.assertEquals;
-
-import java.util.List;
 
 public class UTestHistoryImpl {
 
@@ -58,6 +57,15 @@ public class UTestHistoryImpl {
 	}
 	
 	@Test
+	public void testfindHistoryItemsByManagedOperation() {
+		List<HistoryItem> historyItems = history.findHistoryItems(Actions.CUT_WOOD_ACTION);
+		assertEquals(1, historyItems.size());
+		assertEquals(6, historyItems.get(0).getOperationInfo().getPerformer().getProperty(Constants.ID).intValue());
+		
+		assertEquals(0, history.findHistoryItems(Actions.MINE_ORE_ACTION).size());
+	}
+	
+	@Test
 	public void testGetLastPerformedOperation() {
 		assertEquals(Actions.CUT_WOOD_ACTION, history.getLastPerformedOperation(performer).getOperationInfo().getManagedOperation());
 	}
@@ -75,5 +83,10 @@ public class UTestHistoryImpl {
 		history.actionPerformed(new OperationInfo(performer, target, new int[0], Actions.MOVE_ACTION), new Turn());
 		assertEquals(Actions.MOVE_ACTION, history.getLastPerformedOperation(performer).getOperationInfo().getManagedOperation());
 		
+	}
+	
+	@Test
+	public void testGetHistoryItem() {
+		assertEquals(Actions.CUT_WOOD_ACTION, history.getHistoryItem(0).getOperationInfo().getManagedOperation());
 	}
 }

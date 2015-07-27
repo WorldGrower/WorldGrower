@@ -14,14 +14,15 @@
  *******************************************************************************/
 package org.worldgrower.util;
 
-public class NumberUtils {
+import static org.junit.Assert.assertEquals;
 
-	public static boolean isNumeric(String str)
-	{
-	    for (char c : str.toCharArray())
-	    {
-	        if (!Character.isDigit(c)) return false;
-	    }
-	    return true;
+import org.junit.Test;
+
+public class UTestNumberUtils {
+
+	@Test
+	public void testIsNumeric() {
+		assertEquals(true, NumberUtils.isNumeric("10"));
+		assertEquals(false, NumberUtils.isNumeric("abc"));
 	}
 }
