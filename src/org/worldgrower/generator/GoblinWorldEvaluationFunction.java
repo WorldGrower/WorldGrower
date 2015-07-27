@@ -27,6 +27,6 @@ public class GoblinWorldEvaluationFunction implements WorldObjectPriorities {
 
 	@Override
 	public List<Goal> getPriorities(WorldObject performer, World world) {
-		return Arrays.asList(Goals.KILL_OUTSIDERS_GOAL, Goals.FOOD_GOAL, Goals.WATER_GOAL);
+		return Arrays.asList(Goals.KILL_OUTSIDERS_GOAL, Goals.FOOD_GOAL, Goals.DRINK_WATER_GOAL);
 	}
 }

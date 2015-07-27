@@ -166,6 +166,7 @@ public class ItemGenerator {
 
 	public static WorldObject generateSpellBook(MagicSpell magicSpell) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		properties.put(Constants.NAME, "spellbook");
 		properties.put(Constants.KNOWN_SPELLS, Arrays.asList(magicSpell));
 		properties.put(Constants.PRICE, 100);
 		properties.put(Constants.SELLABLE, false);
@@ -175,6 +176,7 @@ public class ItemGenerator {
 	
 	public static WorldObject generateKey(WorldObject structureToLock) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		properties.put(Constants.NAME, "key");
 		properties.put(Constants.LOCK_ID, structureToLock.getProperty(Constants.ID));
 		properties.put(Constants.PRICE, 1);
 		properties.put(Constants.SELLABLE, false);

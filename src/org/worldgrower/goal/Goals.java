@@ -17,7 +17,8 @@ package org.worldgrower.goal;
 public class Goals {
 
 	public static final FoodGoal FOOD_GOAL = new FoodGoal();
-	public static final WaterGoal WATER_GOAL = new WaterGoal();
+	public static final DrinkWaterGoal DRINK_WATER_GOAL = new DrinkWaterGoal();
+	public static final CollectWaterGoal COLLECT_WATER_GOAL = new CollectWaterGoal();
 	public static final WoodGoal WOOD_GOAL = new WoodGoal();
 	public static final KillOutsidersGoal KILL_OUTSIDERS_GOAL = new KillOutsidersGoal();
 	public static final ShackGoal SHACK_GOAL = new ShackGoal();

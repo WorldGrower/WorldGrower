@@ -22,7 +22,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 
-public class WaterGoal implements Goal {
+public class CollectWaterGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
@@ -30,9 +30,9 @@ public class WaterGoal implements Goal {
 		if (targets.size() > 0) {
 			return new OperationInfo(performer, targets.get(0), new int[] { targets.get(0).getProperty(Constants.INVENTORY).getIndexFor(Constants.WATER), 5 }, Actions.BUY_ACTION);
 		} else {
-			WorldObject target = GoalUtils.findNearestTarget(performer, Actions.DRINK_ACTION, world);
+			WorldObject target = GoalUtils.findNearestTarget(performer, Actions.COLLECT_WATER_ACTION, world);
 			if (target != null) {
-				return new OperationInfo(performer, target, new int[0], Actions.DRINK_ACTION);
+				return new OperationInfo(performer, target, new int[0], Actions.COLLECT_WATER_ACTION);
 			} else {
 				if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) < 6) {
 					return new WoodGoal().calculateGoal(performer, world);
@@ -57,21 +57,21 @@ public class WaterGoal implements Goal {
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		return performer.getProperty(Constants.WATER) > 750;
+		return true;
 	}
 	
 	@Override
 	public boolean isUrgentGoalMet(WorldObject performer, World world) {
-		return performer.getProperty(Constants.WATER) > 250;
+		return isGoalMet(performer, world);
 	}
 
 	@Override
 	public String getDescription() {
-		return "thirsty and looking for water";
+		return "collecting water";
 	}
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		return performer.getProperty(Constants.WATER);
+		return 0;
 	}
 }

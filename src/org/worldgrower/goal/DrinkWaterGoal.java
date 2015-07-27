@@ -14,47 +14,64 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
+import java.util.List;
+
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 
-public class CreatePaperGoal implements Goal {
+public class DrinkWaterGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WATER) == 0) {
-			return new CollectWaterGoal().calculateGoal(performer, world);
+		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.WATER, world);
+		if (targets.size() > 0) {
+			return new OperationInfo(performer, targets.get(0), new int[] { targets.get(0).getProperty(Constants.INVENTORY).getIndexFor(Constants.WATER), 5 }, Actions.BUY_ACTION);
+		} else {
+			WorldObject target = GoalUtils.findNearestTarget(performer, Actions.DRINK_ACTION, world);
+			if (target != null) {
+				return new OperationInfo(performer, target, new int[0], Actions.DRINK_ACTION);
+			} else {
+				if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) < 6) {
+					return new WoodGoal().calculateGoal(performer, world);
+				} else {
+					WorldObject targetLocation = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 2, 2, world);
+					return new OperationInfo(performer, targetLocation, new int[0], Actions.BUILD_WELL_ACTION);
+				}
+			}
 		}
-		if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) == 0) {
-			return new WoodGoal().calculateGoal(performer, world);
-		}
-
-		return new OperationInfo(performer, performer, new int[0], Actions.CREATE_PAPER_ACTION);
 	}
 	
 	@Override
 	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
+		if (performer.hasProperty(Constants.DEMANDS)) {
+			if (goalMet) {
+				performer.getProperty(Constants.DEMANDS).remove(Constants.WATER);
+			} else {
+				performer.getProperty(Constants.DEMANDS).add(Constants.WATER, 1);
+			}
+		}
 	}
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.PAPER) > 5;
+		return performer.getProperty(Constants.WATER) > 750;
 	}
 	
 	@Override
 	public boolean isUrgentGoalMet(WorldObject performer, World world) {
-		return isGoalMet(performer, world);
+		return performer.getProperty(Constants.WATER) > 250;
 	}
 
 	@Override
 	public String getDescription() {
-		return "creating paper";
+		return "thirsty and looking for water";
 	}
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.PAPER);
+		return performer.getProperty(Constants.WATER);
 	}
 }
