@@ -73,6 +73,24 @@ public class PlantGenerator {
 		return id;
 	}
 	
+	public static int generateNightShade(int x, int y, World world) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		int id = world.generateUniqueId();
+		
+		properties.put(Constants.X, x);
+		properties.put(Constants.Y, y);
+		properties.put(Constants.WIDTH, 1);
+		properties.put(Constants.HEIGHT, 1);
+		properties.put(Constants.ID, id);
+		properties.put(Constants.IMAGE_ID, ImageIds.NIGHT_SHADE_PLANT);
+		properties.put(Constants.NIGHT_SHADE_SOURCE, 1);
+		properties.put(Constants.NAME, "nightshade");
+		WorldObject nightshadePlant = new WorldObjectImpl(properties, new NightShadeOnTurn());
+		world.addWorldObject(nightshadePlant);
+		
+		return id;
+	}
+	
 	public static int generateTree(int x, int y, World world) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();

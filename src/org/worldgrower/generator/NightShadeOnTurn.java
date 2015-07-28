@@ -12,22 +12,17 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.condition;
+package org.worldgrower.generator;
 
-import java.io.Serializable;
-
+import org.worldgrower.Constants;
+import org.worldgrower.OnTurn;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 
-public interface Condition extends Serializable {
+public class NightShadeOnTurn implements OnTurn {
 
-	public boolean canTakeAction();
-	public boolean canMove();
-	public String getDescription();
-	public void onTurn(WorldObject worldObject, World world);	
-	
-	public static final ParalyzedCondition PARALYZED_CONDITION = new ParalyzedCondition();
-	public static final CocoonedCondition COCOONED_CONDITION = new CocoonedCondition();
-	public static final BurningCondition BURNING_CONDITION = new BurningCondition();
-	public static final PoisonedCondition POISONED_CONDITION = new PoisonedCondition();
+	@Override
+	public void onTurn(WorldObject worldObject, World world) {
+		worldObject.increment(Constants.NIGHT_SHADE_SOURCE, 1);
+	}
 }

@@ -183,4 +183,14 @@ public class ItemGenerator {
 		properties.put(Constants.IMAGE_ID, ImageIds.KEY);
 		return new WorldObjectImpl(properties);
 	}
+
+	public static WorldObject generateNightShade() {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		properties.put(Constants.NAME, "nightshade");
+		properties.put(Constants.NIGHT_SHADE, 1);
+		properties.put(Constants.PRICE, 1);
+		properties.put(Constants.SELLABLE, false);
+		properties.put(Constants.IMAGE_ID, ImageIds.NIGHT_SHADE);
+		return new WorldObjectImpl(properties);
+	}
 }

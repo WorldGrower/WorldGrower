@@ -175,6 +175,10 @@ public class ImageInfoReader {
 		add(ImageIds.BURNING, sprites420.getSubImage(2, 20, 1, 1));
 		add(ImageIds.SPELL_BOOK, sprites420.getSubImage(6, 29, 1, 1));
 		add(ImageIds.KEY, sprites420.getSubImage(7, 16, 1, 1));
+		
+		add(ImageIds.NIGHT_SHADE_PLANT, tileB.getSubImage(3, 6, 1, 1));
+		add(ImageIds.NIGHT_SHADE, statues.getSubImage(12, 0, 1, 1));
+		add(ImageIds.POISON, sprites420.getSubImage(5, 2, 1, 1));
     }
     
     private void addCharacter(ImageIds imageId, Sprites sprites, int x, int y, int width, int height) {

@@ -120,5 +120,8 @@ public enum ImageIds {
 	LIBRARY,
 	BURNING,
 	SPELL_BOOK,
-	KEY
+	KEY,
+	NIGHT_SHADE_PLANT,
+	NIGHT_SHADE,
+	POISON
 }

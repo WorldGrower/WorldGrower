@@ -14,20 +14,29 @@
  *******************************************************************************/
 package org.worldgrower.condition;
 
-import java.io.Serializable;
-
+import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 
-public interface Condition extends Serializable {
+public class PoisonedCondition implements Condition {
 
-	public boolean canTakeAction();
-	public boolean canMove();
-	public String getDescription();
-	public void onTurn(WorldObject worldObject, World world);	
-	
-	public static final ParalyzedCondition PARALYZED_CONDITION = new ParalyzedCondition();
-	public static final CocoonedCondition COCOONED_CONDITION = new CocoonedCondition();
-	public static final BurningCondition BURNING_CONDITION = new BurningCondition();
-	public static final PoisonedCondition POISONED_CONDITION = new PoisonedCondition();
+	@Override
+	public boolean canTakeAction() {
+		return true;
+	}
+
+	@Override
+	public boolean canMove() {
+		return true;
+	}
+
+	@Override
+	public String getDescription() {
+		return "poisoned";
+	}
+
+	@Override
+	public void onTurn(WorldObject worldObject, World world) {
+		worldObject.increment(Constants.HIT_POINTS, -5);
+	}
 }

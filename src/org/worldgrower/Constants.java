@@ -176,4 +176,8 @@ public class Constants {
 	public static final IntProperty LOCK_STRENGTH = new IntProperty("lockStrength", 0, 1000, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final BooleanProperty LOCKED = new BooleanProperty("locked", NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IdProperty LOCK_ID = new IdProperty("lockId", ALL_PROPERTIES);
+	
+	public static final IntProperty NIGHT_SHADE_SOURCE = new IntProperty("nightShadeSource", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty NIGHT_SHADE = new IntProperty("nightShade", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
+	
 }

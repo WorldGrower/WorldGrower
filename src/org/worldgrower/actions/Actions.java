@@ -24,6 +24,7 @@ public class Actions {
 	public static final DoNothingAction DO_NOTHING_ACTION = new DoNothingAction();
 	public static final MoveAction MOVE_ACTION = new MoveAction();
 	public static final EatAction EAT_ACTION = new EatAction();
+	public static final EatNightShadeAction EAT_NIGHT_SHADE_ACTION = new EatNightShadeAction();
 	public static final EatFromInventoryAction EAT_FROM_INVENTORY_ACTION = new EatFromInventoryAction();
 	public static final DrinkAction DRINK_ACTION = new DrinkAction();
 	public static final CutWoodAction CUT_WOOD_ACTION = new CutWoodAction();
@@ -43,6 +44,7 @@ public class Actions {
 	public static final BuyAction BUY_ACTION = new BuyAction();
 	public static final HarvestFoodAction HARVEST_FOOD_ACTION = new HarvestFoodAction();
 	public static final HarvestGrapesAction HARVEST_GRAPES_ACTION = new HarvestGrapesAction();
+	public static final HarvestNightShadeAction HARVEST_NIGHT_SHADE_ACTION = new HarvestNightShadeAction();
 	public static final PlantBerryBushAction PLANT_BERRY_BUSH_ACTION = new PlantBerryBushAction();
 	public static final PlantGrapeVineAction PLANT_GRAPE_VINE_ACTION = new PlantGrapeVineAction();
 	public static final PlantTreeAction PLANT_TREE_ACTION = new PlantTreeAction();
@@ -91,6 +93,7 @@ public class Actions {
 	public static final List<ManagedOperation> ALL_ACTIONS = Arrays.asList(
 		MOVE_ACTION,
 		EAT_ACTION,
+		EAT_NIGHT_SHADE_ACTION,
 		EAT_FROM_INVENTORY_ACTION,
 		DRINK_ACTION,
 		CUT_WOOD_ACTION,
@@ -109,6 +112,7 @@ public class Actions {
 		BUY_ACTION,
 		HARVEST_FOOD_ACTION,
 		HARVEST_GRAPES_ACTION,
+		HARVEST_NIGHT_SHADE_ACTION,
 		PLANT_BERRY_BUSH_ACTION,
 		PLANT_GRAPE_VINE_ACTION,
 		PLANT_TREE_ACTION,
