@@ -17,6 +17,7 @@ package org.worldgrower.attribute;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -145,7 +146,7 @@ public class BackgroundImpl implements Background, Serializable {
 			angryReasons.put(performerId, angryReasonList);
 		}
 		
-		angryReasonList.add("You were " + managedOperation.getDescription(performer, actionTarget, args, world));
+		angryReasonList.add(managedOperation.getDescription(performer, actionTarget, args, world));
 	}
 	
 	@Override
@@ -159,6 +160,8 @@ public class BackgroundImpl implements Background, Serializable {
 				String prefix = firstPerson ? "You were " : pronoun + " was";
 				angryReasonsList.set(i, prefix + angryReason);
 			}
+			angryReasonsList = new ArrayList<>(new HashSet<>(angryReasonsList));
+			
 			return angryReasonsList;
 		} else {
 			return new ArrayList<>();

@@ -20,7 +20,9 @@ import java.util.List;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.Skill;
+import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
 
 public class ComplimentConversation implements Conversation {
@@ -87,18 +89,23 @@ public class ComplimentConversation implements Conversation {
 	public void handleResponse(int replyIndex, ConversationContext conversationContext) {
 		WorldObject performer = conversationContext.getPerformer();
 		WorldObject target = conversationContext.getTarget();
+		World world = conversationContext.getWorld();
+		
 		if (replyIndex == 0) {
 			double diplomacyBonus = getDiplomacyBonus(conversationContext);
-			performer.getProperty(Constants.RELATIONSHIPS).incrementValue(target, (int) (50 * diplomacyBonus));
-			target.getProperty(Constants.RELATIONSHIPS).incrementValue(performer, (int) (50 * diplomacyBonus));
+			RelationshipPropertyUtils.changeRelationshipValue(performer, target, (int) (50 * diplomacyBonus), Actions.TALK_ACTION, Conversations.createArgs(this), world);
 		} else if (replyIndex == 2) {
-			performer.getProperty(Constants.RELATIONSHIPS).incrementValue(target, -50);
-			target.getProperty(Constants.RELATIONSHIPS).incrementValue(performer, -50);
+			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -50, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 		}
 	}
 
 	@Override
 	public boolean isConversationAvailable(WorldObject performer, WorldObject target, World world) {
 		return true;
+	}
+	
+	@Override
+	public String getDescription(WorldObject performer, WorldObject target, World world) {
+		return "accusing " + target.getProperty(Constants.NAME) + " of a crime";
 	}
 }

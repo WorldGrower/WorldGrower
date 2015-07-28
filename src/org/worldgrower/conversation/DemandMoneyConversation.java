@@ -20,6 +20,8 @@ import java.util.List;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
+import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
 
 public class DemandMoneyConversation implements Conversation {
@@ -76,26 +78,30 @@ public class DemandMoneyConversation implements Conversation {
 	public void handleResponse(int replyIndex, ConversationContext conversationContext) {
 		WorldObject performer = conversationContext.getPerformer();
 		WorldObject target = conversationContext.getTarget();
+		World world = conversationContext.getWorld();
+		
 		if (replyIndex == GET_LOST) {
-			performer.getProperty(Constants.RELATIONSHIPS).incrementValue(target, -50);
-			target.getProperty(Constants.RELATIONSHIPS).incrementValue(performer, -50);
+			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -50, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 		} else if (replyIndex == SURE) {
-			performer.getProperty(Constants.RELATIONSHIPS).incrementValue(target, 50);
-			target.getProperty(Constants.RELATIONSHIPS).incrementValue(performer, -50);
+			RelationshipPropertyUtils.changeRelationshipValue(performer, target, 50, -50, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 			
 			performer.increment(Constants.GOLD, 100);
 			target.increment(Constants.GOLD, -100);
 			
 		} else if (replyIndex == NO) {
-			performer.getProperty(Constants.RELATIONSHIPS).incrementValue(target, 50);
-			target.getProperty(Constants.RELATIONSHIPS).incrementValue(performer, -50);
+			RelationshipPropertyUtils.changeRelationshipValue(performer, target, 50, -50, Actions.TALK_ACTION, Conversations.createArgs(this), world);
+			
 		} else if (replyIndex == I_CAN_ONLY) {
-			performer.getProperty(Constants.RELATIONSHIPS).incrementValue(target, 20);
-			target.getProperty(Constants.RELATIONSHIPS).incrementValue(performer, -20);
+			RelationshipPropertyUtils.changeRelationshipValue(performer, target, 20, -20, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 			
 			int goldQuantity = target.getProperty(Constants.GOLD);
 			performer.increment(Constants.GOLD, goldQuantity);
 			target.increment(Constants.GOLD, -goldQuantity);
 		}
+	}
+	
+	@Override
+	public String getDescription(WorldObject performer, WorldObject target, World world) {
+		return "demanding money";
 	}
 }

@@ -21,7 +21,9 @@ import java.util.List;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.Skill;
+import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
 
 public class IntimidateConversation implements Conversation {
@@ -89,6 +91,15 @@ public class IntimidateConversation implements Conversation {
 	
 	@Override
 	public void handleResponse(int replyIndex, ConversationContext conversationContext) {
-		conversationContext.getTarget().getProperty(Constants.RELATIONSHIPS).incrementValue(conversationContext.getPerformer(), -1000);
+		WorldObject performer = conversationContext.getPerformer();
+		WorldObject target = conversationContext.getTarget();
+		World world = conversationContext.getWorld();
+		
+		RelationshipPropertyUtils.changeRelationshipValue(performer, target, 50, -1000, Actions.TALK_ACTION, Conversations.createArgs(this), world);
+	}
+	
+	@Override
+	public String getDescription(WorldObject performer, WorldObject target, World world) {
+		return "intimidating me";
 	}
 }

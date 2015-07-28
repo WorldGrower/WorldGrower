@@ -14,6 +14,7 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -80,6 +81,15 @@ public class GroupPropertyUtils {
 	public static List<WorldObject> findOrganizationsUsingLeader(WorldObject leader, World world) {
 		int leaderId = leader.getProperty(Constants.ID);
 		List<WorldObject> organizations = world.findWorldObjects(w -> w.hasProperty(Constants.ORGANIZATION_LEADER_ID) && (w.getProperty(Constants.ORGANIZATION_LEADER_ID) != null) && w.getProperty(Constants.ORGANIZATION_LEADER_ID).intValue() == leaderId);
+		return organizations;
+	}
+	
+	public static List<WorldObject> getOrganizations(WorldObject performer, World world) {
+		List<WorldObject> organizations = new ArrayList<>();
+		for(int organizationId : performer.getProperty(Constants.GROUP).getIds()) {
+			organizations.add(world.findWorldObject(Constants.ID, organizationId));
+		}
+		
 		return organizations;
 	}
 	

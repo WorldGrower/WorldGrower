@@ -17,6 +17,7 @@ package org.worldgrower.conversation;
 import java.util.Arrays;
 import java.util.List;
 
+import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.goal.Goal;
@@ -62,5 +63,10 @@ public class GoalConversation implements Conversation {
 	
 	@Override
 	public void handleResponse(int replyIndex, ConversationContext conversationContext) {
+	}
+	
+	@Override
+	public String getDescription(WorldObject performer, WorldObject target, World world) {
+		return "talking about my goals";
 	}
 }

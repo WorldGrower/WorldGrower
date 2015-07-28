@@ -20,11 +20,13 @@ import java.util.List;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
+import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
 
 public class NameConversation implements Conversation {
 
-	private static final int GET_LOST = -999;
+	private static final int GET_LOST = 4;
 	private static final int MY_NAME = 0;
 	private static final int TOLD_WHILE = 1;
 	private static final int LIKE_I_TOLD = 2;
@@ -79,10 +81,15 @@ public class NameConversation implements Conversation {
 	public void handleResponse(int replyIndex, ConversationContext conversationContext) {
 		WorldObject performer = conversationContext.getPerformer();
 		WorldObject target = conversationContext.getTarget();
+		World world = conversationContext.getWorld();
 		
 		if (replyIndex == GET_LOST) {
-			performer.getProperty(Constants.RELATIONSHIPS).incrementValue(target, -100);
-			target.getProperty(Constants.RELATIONSHIPS).incrementValue(performer, -100);
+			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -100, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 		}
+	}
+	
+	@Override
+	public String getDescription(WorldObject performer, WorldObject target, World world) {
+		return "talking about my name";
 	}
 }

@@ -21,7 +21,9 @@ import java.util.List;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.IdMap;
+import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
 
 public abstract class AbstractChangeOpinionConversation implements Conversation {
@@ -79,16 +81,16 @@ public abstract class AbstractChangeOpinionConversation implements Conversation 
 		WorldObject performer = conversationContext.getPerformer();
 		WorldObject target = conversationContext.getTarget();
 		WorldObject subject = conversationContext.getSubject();
+		World world = conversationContext.getWorld();
 
 		if (replyIndex == YES) {
-			handleYesResponse(performer, target, subject);
+			handleYesResponse(performer, target, subject, world);
 		} else if (replyIndex == NO) {
-			performer.getProperty(Constants.RELATIONSHIPS).incrementValue(target, -10);
-			target.getProperty(Constants.RELATIONSHIPS).incrementValue(performer, -10);
+			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -10, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 		}
 	}
 	
-	public abstract void handleYesResponse(WorldObject performer, WorldObject target, WorldObject subject);
+	public abstract void handleYesResponse(WorldObject performer, WorldObject target, WorldObject subject, World world);
 
 	@Override
 	public final boolean isConversationAvailable(WorldObject performer, WorldObject target, World world) {

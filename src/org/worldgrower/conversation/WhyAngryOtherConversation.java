@@ -21,7 +21,9 @@ import java.util.List;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.IdMap;
+import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
 
 public class WhyAngryOtherConversation implements Conversation {
@@ -82,14 +84,20 @@ public class WhyAngryOtherConversation implements Conversation {
 	public void handleResponse(int replyIndex, ConversationContext conversationContext) {
 		WorldObject performer = conversationContext.getPerformer();
 		WorldObject target = conversationContext.getTarget();
+		World world = conversationContext.getWorld();
+		
 		if (replyIndex == REAL_REASON) {
-			performer.getProperty(Constants.RELATIONSHIPS).incrementValue(target, 10);
-			target.getProperty(Constants.RELATIONSHIPS).incrementValue(performer, 10);
+			RelationshipPropertyUtils.changeRelationshipValue(performer, target, 10, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 		}
 	}
 
 	@Override
 	public boolean isConversationAvailable(WorldObject performer, WorldObject target, World world) {
 		return true;
+	}
+	
+	@Override
+	public String getDescription(WorldObject performer, WorldObject target, World world) {
+		return "talking about why I'm angry with someone";
 	}
 }

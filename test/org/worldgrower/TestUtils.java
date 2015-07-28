@@ -67,7 +67,7 @@ public class TestUtils {
 		properties.put(Constants.RELATIONSHIPS, new IdMap());
 		properties.put(Constants.CREATURE_TYPE,CreatureType.HUMAN_CREATURE_TYPE);
 		properties.put(Constants.DEMANDS, new PropertyCountMap());
-		WorldObject w1 = new WorldObjectImpl(properties);
+		WorldObject w1 = new WorldObjectImpl(properties, Actions.ALL_ACTIONS, null);
 		return w1;
 	}
 	

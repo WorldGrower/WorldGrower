@@ -82,4 +82,9 @@ public class LearnSkillUsingOrganizationConversation implements Conversation {
 			SkillUtils.teachSkill(performer, skillProperty);
 		}
 	}
+	
+	@Override
+	public String getDescription(WorldObject performer, WorldObject target, World world) {
+		return "talking about improving my skills";
+	}
 }

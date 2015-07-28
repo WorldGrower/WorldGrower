@@ -15,7 +15,10 @@
 package org.worldgrower.conversation;
 
 import org.worldgrower.Constants;
+import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
+import org.worldgrower.goal.RelationshipPropertyUtils;
 
 public class NicerConversation extends AbstractChangeOpinionConversation {
 
@@ -25,8 +28,12 @@ public class NicerConversation extends AbstractChangeOpinionConversation {
 	}
 
 	@Override
-	public void handleYesResponse(WorldObject performer, WorldObject target, WorldObject subject) {
-		performer.getProperty(Constants.RELATIONSHIPS).incrementValue(target, 50);
-		target.getProperty(Constants.RELATIONSHIPS).incrementValue(subject, 50);
+	public void handleYesResponse(WorldObject performer, WorldObject target, WorldObject subject, World world) {
+		RelationshipPropertyUtils.changeRelationshipValue(performer, target, 50, Actions.TALK_ACTION, Conversations.createArgs(this), world);
+	}
+	
+	@Override
+	public String getDescription(WorldObject performer, WorldObject target, World world) {
+		return "talking to better get along with someone";
 	}
 }

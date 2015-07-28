@@ -14,27 +14,26 @@
  *******************************************************************************/
 package org.worldgrower.conversation;
 
-import org.worldgrower.Constants;
+import java.util.List;
+
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.actions.Actions;
-import org.worldgrower.goal.RelationshipPropertyUtils;
 
-public class NotNicerConversation extends AbstractChangeOpinionConversation {
+public interface InterceptedConversation {
 
-	@Override
-	public Question createQuestion(WorldObject performer, WorldObject target, WorldObject subject) {
-		String pronoun = subject.getProperty(Constants.GENDER).equals("female") ? "She" : "He";
-		return new Question(subject, "Can you stay away from " + subject.getProperty(Constants.NAME) + "? "+pronoun+" cannot be trusted.");
-	}
+	public Response getReplyPhrase(ConversationContext conversationContext);
+	public List<Response> getReplyPhrases(ConversationContext conversationContext);
 
-	@Override
-	public void handleYesResponse(WorldObject performer, WorldObject target, WorldObject subject, World world) {
-		RelationshipPropertyUtils.changeRelationshipValue(performer, target, 50, -50, Actions.TALK_ACTION, Conversations.createArgs(this), world);
-	}
-	
-	@Override
-	public String getDescription(WorldObject performer, WorldObject target, World world) {
-		return "talking in order to avoid someone";
+	public boolean isConversationAvailable(WorldObject performer, WorldObject target, World world);
+
+	public void handleResponse(int replyIndex, ConversationContext conversationContext, Conversation originalConversation);
+
+	public default Response getReply(List<Response> replyPhrases, int replyId) {
+		for(Response response : replyPhrases) {
+			if (response.getId() == replyId) {
+				return response;
+			}
+		}
+		throw new IllegalStateException("replyId " + replyId + " not found in responses: " + replyPhrases);
 	}
 }

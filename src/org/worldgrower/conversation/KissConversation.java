@@ -63,4 +63,9 @@ public class KissConversation implements Conversation {
 	@Override
 	public void handleResponse(int replyIndex, ConversationContext conversationContext) {
 	}
+	
+	@Override
+	public String getDescription(WorldObject performer, WorldObject target, World world) {
+		return "talking about kissing";
+	}
 }

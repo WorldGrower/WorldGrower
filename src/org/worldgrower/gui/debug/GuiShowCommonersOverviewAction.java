@@ -30,6 +30,7 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.goal.Goal;
+import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.profession.Profession;
 
 public class GuiShowCommonersOverviewAction extends AbstractAction {
@@ -74,7 +75,7 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 
 		@Override
 		public int getColumnCount() {
-			return 7;
+			return 8;
 		}
 
 		@Override
@@ -104,6 +105,8 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 				return "Water";
 			} else if (columnIndex == 6) {
 				return "Energy";
+			} else if (columnIndex == 7) {
+				return "Organization";
 			} else {
 				return null;
 			}
@@ -141,6 +144,13 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 				return npc.getProperty(Constants.WATER);
 			} else if (columnIndex == 6) {
 				return npc.getProperty(Constants.ENERGY);
+			} else if (columnIndex == 7) {
+				List<WorldObject> organizations = GroupPropertyUtils.getOrganizations(npc, world);
+				StringBuilder builder = new StringBuilder();
+				for(WorldObject organization : organizations) {
+					builder.append(organization.getProperty(Constants.NAME)).append(";");
+				}
+				return builder.toString();
 			} else {
 				return null;
 			}

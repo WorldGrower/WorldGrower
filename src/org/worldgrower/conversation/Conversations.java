@@ -18,6 +18,7 @@ import static org.worldgrower.goal.FacadeUtils.createFacade;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,6 +62,8 @@ public class Conversations implements Serializable {
 	private static final List<Conversation> CONVERSATIONS = new ArrayList<>();
 	private static final Map<Conversation, ConversationCategory> CONVERSATION_CATEGORIES = new HashMap<>();
 	
+	private static final List<InterceptedConversation> INTERCEPTED_CONVERSATIONS = Arrays.asList(new WhyNotIntelligentConversation());
+	
 	static {
 		addNormalAndIntimidate(NAME_CONVERSATION, ConversationCategory.PERSONAL_INFORMATION);
 		addNormalAndIntimidate(GOAL_CONVERSATION, ConversationCategory.PERSONAL_INFORMATION);
@@ -92,12 +95,20 @@ public class Conversations implements Serializable {
 	}
 	
 	public static int[] createArgs(Conversation conversation) {
-		int id = CONVERSATIONS.indexOf(conversation);
+		int id = indexOf(conversation);
 		return new int[] { id, -1, -1, 0 };
+	}
+
+	private static int indexOf(Conversation conversation) {
+		int id = CONVERSATIONS.indexOf(conversation);
+		if (id == -1) {
+			throw new IllegalStateException("Conversation " + conversation + " not found in list of conversations");
+		}
+		return id;
 	}
 	
 	public static int[] createArgs(Conversation conversation, WorldObject subject) {
-		int id = CONVERSATIONS.indexOf(conversation);
+		int id = indexOf(conversation);
 		if (subject != null) {
 			return new int[] { id, subject.getProperty(Constants.ID), -1, 0 };
 		} else {
@@ -106,7 +117,7 @@ public class Conversations implements Serializable {
 	}
 	
 	public static int[] createArgs(Conversation conversation, WorldObject subject, int additionalValue) {
-		int id = CONVERSATIONS.indexOf(conversation);
+		int id = indexOf(conversation);
 		if (subject != null) {
 			return new int[] { id, subject.getProperty(Constants.ID), -1, additionalValue };
 		} else {
@@ -115,7 +126,7 @@ public class Conversations implements Serializable {
 	}
 	
 	public static int[] createArgs(Conversation conversation, HistoryItem historyItem) {
-		int id = CONVERSATIONS.indexOf(conversation);
+		int id = indexOf(conversation);
 		if (historyItem != null) {
 			return new int[] { id, -1, historyItem.getHistoryId(), 0 };
 		} else {
@@ -174,8 +185,18 @@ public class Conversations implements Serializable {
 		WorldObject performerFacade = createFacade(performer, performer, target);
 		WorldObject targetFacade = createFacade(target, performer, target);
 		ConversationContext conversationContext = new ConversationContext(performerFacade, targetFacade, subject, questionHistoryItem, world, additionalValue);
-		Response response = CONVERSATIONS.get(index).getReplyPhrase(conversationContext);
+		Response response = getReplyPhrase(index, conversationContext);
 		return response;
+	}
+
+	private Response getReplyPhrase(int index, ConversationContext conversationContext) {
+		for(InterceptedConversation interceptedConversation : INTERCEPTED_CONVERSATIONS) {
+			if (interceptedConversation.getReplyPhrase(conversationContext) != null) {
+				return interceptedConversation.getReplyPhrase(conversationContext);
+			}
+		}
+		
+		return CONVERSATIONS.get(index).getReplyPhrase(conversationContext);
 	}
 	
 	private WorldObject getSubject(int subjectId, World world) {
@@ -192,7 +213,17 @@ public class Conversations implements Serializable {
 		WorldObject performerFacade = createFacade(performer, performer, target);
 		WorldObject targetFacade = createFacade(target, performer, target);
 		ConversationContext conversationContext = new ConversationContext(performerFacade, targetFacade, subject, questionHistoryItem, world, additionalValue);
+		List<Response> responses = getReplyPhrases(index, conversationContext);
+		
+		return responses;
+	}
+
+	private List<Response> getReplyPhrases(int index, ConversationContext conversationContext) {
 		List<Response> responses = CONVERSATIONS.get(index).getReplyPhrases(conversationContext);
+		
+		for(InterceptedConversation interceptedConversation : INTERCEPTED_CONVERSATIONS) {
+			responses.addAll(interceptedConversation.getReplyPhrases(conversationContext));
+		}
 		
 		return responses;
 	}
@@ -201,10 +232,22 @@ public class Conversations implements Serializable {
 		WorldObject subject = getSubject(subjectId, world);
 		HistoryItem questionHistoryItem = getQuestionHistoryItem(historyItemId, world);
 		ConversationContext conversationContext = new ConversationContext(performer, target, subject, questionHistoryItem, world, additionalValue);
+		handleResponse(replyIndex, index, conversationContext);
+	}
+
+	private void handleResponse(int replyIndex, int index, ConversationContext conversationContext) {
+		for(InterceptedConversation interceptedConversation : INTERCEPTED_CONVERSATIONS) {
+			interceptedConversation.handleResponse(replyIndex, conversationContext, CONVERSATIONS.get(index));
+		}
+		
 		CONVERSATIONS.get(index).handleResponse(replyIndex, conversationContext);
 	}
 
 	public int size() {
 		return CONVERSATIONS.size();
+	}
+
+	public Conversation getConversation(int index) {
+		return CONVERSATIONS.get(index);
 	}
 }

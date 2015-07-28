@@ -14,8 +14,6 @@
  *******************************************************************************/
 package org.worldgrower.actions;
 
-import static org.worldgrower.goal.FacadeUtils.createFacade;
-
 import java.io.ObjectStreamException;
 
 import org.worldgrower.ArgumentRange;
@@ -25,16 +23,14 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.goal.RacePropertyUtils;
+import org.worldgrower.goal.RelationshipPropertyUtils;
 
 public class KissAction implements ManagedOperation {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		
-		WorldObject performerFacade = createFacade(performer, performer, target);
-		WorldObject targetFacade = createFacade(target, performer, target);
-		performer.getProperty(Constants.RELATIONSHIPS).incrementValue(targetFacade.getProperty(Constants.ID), 50);
-		target.getProperty(Constants.RELATIONSHIPS).incrementValue(performerFacade.getProperty(Constants.ID), 50);
+		RelationshipPropertyUtils.changeRelationshipValueUsingFacades(performer, target, 50, this, args, world);
 		
 		world.logAction(this, performer, target, args, "");
 	}

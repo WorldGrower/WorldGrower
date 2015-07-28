@@ -20,6 +20,8 @@ import java.util.List;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
+import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
 
 public class ProposeMateConversation implements Conversation {
@@ -65,13 +67,18 @@ public class ProposeMateConversation implements Conversation {
 	public void handleResponse(int replyIndex, ConversationContext conversationContext) {
 		WorldObject performer = conversationContext.getPerformer();
 		WorldObject target = conversationContext.getTarget();
+		World world = conversationContext.getWorld();
 		
 		if (replyIndex == YES) {
 			performer.setProperty(Constants.MATE_ID, target.getProperty(Constants.ID));
 			target.setProperty(Constants.MATE_ID, performer.getProperty(Constants.ID));
 		} else if (replyIndex == NO) {
-			performer.getProperty(Constants.RELATIONSHIPS).incrementValue(target, -50);
-			target.getProperty(Constants.RELATIONSHIPS).incrementValue(performer, -50);
+			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -50, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 		}
+	}
+	
+	@Override
+	public String getDescription(WorldObject performer, WorldObject target, World world) {
+		return "talking about becoming a mate for someone";
 	}
 }

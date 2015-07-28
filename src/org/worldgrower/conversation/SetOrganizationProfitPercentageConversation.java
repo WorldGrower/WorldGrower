@@ -81,4 +81,9 @@ public class SetOrganizationProfitPercentageConversation implements Conversation
 			}
 		}
 	}
+	
+	@Override
+	public String getDescription(WorldObject performer, WorldObject target, World world) {
+		return "talking about setting the profit percentage for an organization";
+	}
 }

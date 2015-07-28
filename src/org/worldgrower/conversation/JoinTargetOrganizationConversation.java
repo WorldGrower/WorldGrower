@@ -37,7 +37,7 @@ public class JoinTargetOrganizationConversation implements Conversation {
 		
 		final int replyId;
 		int relationshipValue = target.getProperty(Constants.RELATIONSHIPS).getValue(performer);
-		if (relationshipValue > 100) {
+		if (relationshipValue >= 0) {
 			replyId = YES;
 		} else {
 			replyId = NO;
@@ -90,5 +90,10 @@ public class JoinTargetOrganizationConversation implements Conversation {
 			
 			performer.getProperty(Constants.GROUP).add(organization);
 		}
+	}
+	
+	@Override
+	public String getDescription(WorldObject performer, WorldObject target, World world) {
+		return "talking about joining an organization";
 	}
 }

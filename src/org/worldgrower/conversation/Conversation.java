@@ -48,4 +48,6 @@ public interface Conversation extends Serializable {
 	}
 	
 	public void handleResponse(int replyIndex, ConversationContext conversationContext);
+
+	public String getDescription(WorldObject performer, WorldObject target, World world);
 }

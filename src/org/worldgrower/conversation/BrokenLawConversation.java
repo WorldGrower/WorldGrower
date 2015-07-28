@@ -65,4 +65,9 @@ public class BrokenLawConversation implements Conversation {
 	public boolean isConversationAvailable(WorldObject performer, WorldObject target, World world) {
 		return false;
 	}
+
+	@Override
+	public String getDescription(WorldObject performer, WorldObject target, World world) {
+		return "accusing " + target.getProperty(Constants.NAME) + " of a crime";
+	}
 }

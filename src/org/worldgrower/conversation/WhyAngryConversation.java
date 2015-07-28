@@ -74,4 +74,9 @@ public class WhyAngryConversation implements Conversation {
 		int relationshipValue = target.getProperty(Constants.RELATIONSHIPS).getValue(performer);
 		return relationshipValue < 0;
 	}
+	
+	@Override
+	public String getDescription(WorldObject performer, WorldObject target, World world) {
+		return "talking about why you're angry";
+	}
 }
