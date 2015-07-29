@@ -243,7 +243,7 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 
 	private void addBrewActions(JPopupMenu menu) {
-		ManagedOperation[] brewActions = { Actions.BREW_WINE_ACTION };
+		ManagedOperation[] brewActions = { Actions.BREW_WINE_ACTION, Actions.BREW_POISON_ACTION };
 		addActions(menu, "Brew", brewActions);
 	}
 	

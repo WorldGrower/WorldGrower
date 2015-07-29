@@ -22,26 +22,24 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.condition.Condition;
+import org.worldgrower.attribute.WorldObjectContainer;
 
-public class DrinkAction implements ManagedOperation {
+public class PoisonAction implements ManagedOperation {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		int waterInTarget = target.getProperty(Constants.WATER_SOURCE);
-
-		int waterDrunk = Math.min(100, waterInTarget);
-		performer.increment(Constants.WATER, waterDrunk);
-		target.increment(Constants.WATER_SOURCE, -waterDrunk);
+		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
+		int indexOfPoison = performerInventory.getIndexFor(Constants.POISON_DAMAGE);
+		WorldObject poison = performerInventory.get(indexOfPoison);
 		
-		if (target.hasProperty(Constants.POISON_DAMAGE) && target.getProperty(Constants.POISON_DAMAGE) > 0) {
-			performer.getProperty(Constants.CONDITIONS).addCondition(Condition.POISONED_CONDITION, 20);
-		}
+		performerInventory.remove(indexOfPoison);
+		target.setProperty(Constants.POISON_DAMAGE, poison.getProperty(Constants.POISON_DAMAGE));
 	}
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return Reach.evaluateTarget(performer, args, target, 1);
+		int poisonInInventory = performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.POISON_DAMAGE) > 0 ? 0 : 1;
+		return Reach.evaluateTarget(performer, args, target, 1) + poisonInInventory;
 	}
 
 	@Override
@@ -56,12 +54,12 @@ public class DrinkAction implements ManagedOperation {
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "drinking from " + target.getProperty(Constants.NAME);
+		return "poisoning " + target.getProperty(Constants.NAME);
 	}
 	
 	@Override
 	public String getSimpleDescription() {
-		return "drink";
+		return "poison";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {

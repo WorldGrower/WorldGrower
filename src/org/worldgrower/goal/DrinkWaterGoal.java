@@ -30,8 +30,11 @@ public class DrinkWaterGoal implements Goal {
 		if (targets.size() > 0) {
 			return new OperationInfo(performer, targets.get(0), new int[] { targets.get(0).getProperty(Constants.INVENTORY).getIndexFor(Constants.WATER), 5 }, Actions.BUY_ACTION);
 		} else {
+			boolean hasInventoryWater = performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WATER) > 0;
 			WorldObject target = GoalUtils.findNearestTarget(performer, Actions.DRINK_ACTION, world);
-			if (target != null) {
+			if (hasInventoryWater) {
+				return new OperationInfo(performer, performer, new int[0], Actions.DRINK_FROM_INVENTORY_ACTION);
+			} else if (target != null) {
 				return new OperationInfo(performer, target, new int[0], Actions.DRINK_ACTION);
 			} else {
 				if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) < 6) {

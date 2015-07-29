@@ -19,29 +19,31 @@ import java.io.ObjectStreamException;
 import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
-import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.condition.Condition;
 
-public class DrinkAction implements ManagedOperation {
+public class DrinkFromInventoryAction implements ManagedOperation {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		int waterInTarget = target.getProperty(Constants.WATER_SOURCE);
-
-		int waterDrunk = Math.min(100, waterInTarget);
-		performer.increment(Constants.WATER, waterDrunk);
-		target.increment(Constants.WATER_SOURCE, -waterDrunk);
+		int water = performer.getProperty(Constants.WATER);
 		
-		if (target.hasProperty(Constants.POISON_DAMAGE) && target.getProperty(Constants.POISON_DAMAGE) > 0) {
+		water = water + 100;
+
+		performer.setProperty(Constants.WATER, water);
+		
+		int indexOfWater = performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.WATER);
+		if (performer.getProperty(Constants.INVENTORY).get(indexOfWater).hasProperty(Constants.POISON_DAMAGE) && performer.getProperty(Constants.INVENTORY).get(indexOfWater).getProperty(Constants.POISON_DAMAGE) > 0) {
 			performer.getProperty(Constants.CONDITIONS).addCondition(Condition.POISONED_CONDITION, 20);
 		}
+		
+		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.WATER, 1);
 	}
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return Reach.evaluateTarget(performer, args, target, 1);
+		return 0;
 	}
 
 	@Override
@@ -51,7 +53,7 @@ public class DrinkAction implements ManagedOperation {
 
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return (target.hasProperty(Constants.WATER_SOURCE)) && (target.getProperty(Constants.WATER_SOURCE) > 0);
+		return (performer.hasProperty(Constants.INVENTORY)) && (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WATER) > 0);
 	}
 	
 	@Override

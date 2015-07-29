@@ -34,6 +34,7 @@ public class ItemGenerator {
 	public static final String IRON_BOOTS_NAME = "Iron Gauntlets";
 	
 	public static final String LONGBOW_NAME = "Longbow";
+	public static final String POISON_NAME = "Poison";
 
 	public static WorldObject getIronClaymore(double skillBonus) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
@@ -191,6 +192,16 @@ public class ItemGenerator {
 		properties.put(Constants.PRICE, 1);
 		properties.put(Constants.SELLABLE, false);
 		properties.put(Constants.IMAGE_ID, ImageIds.NIGHT_SHADE);
+		return new WorldObjectImpl(properties);
+	}
+
+	public static WorldObject generatePoison(double skillBonus) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		properties.put(Constants.NAME, POISON_NAME);
+		properties.put(Constants.PRICE, 50);
+		properties.put(Constants.SELLABLE, false);
+		properties.put(Constants.POISON_DAMAGE, (int) (4 * skillBonus));
+		properties.put(Constants.IMAGE_ID, ImageIds.POISON);
 		return new WorldObjectImpl(properties);
 	}
 }

@@ -69,6 +69,7 @@ public class Actions {
 	public static final FireBoltAttackAction FIRE_BOLT_ATTACK_ACTION = new FireBoltAttackAction();
 	public static final RayOfFrostAttackAction RAY_OF_FROST_ATTACK_ACTION = new RayOfFrostAttackAction();
 	public static final BrewWineAction BREW_WINE_ACTION = new BrewWineAction();
+	public static final BrewPoisonAction BREW_POISON_ACTION = new BrewPoisonAction();
 	public static final MinorIllusionAction MINOR_ILLUSION_ACTION = new MinorIllusionAction();
 	public static final BuildPaperMillAction BUILD_PAPER_MILL_ACTION = new BuildPaperMillAction();
 	public static final CreatePaperAction CREATE_PAPER_ACTION = new CreatePaperAction();
@@ -89,6 +90,8 @@ public class Actions {
 	public static final ScribeMagicSpellAction SCRIBE_MINOR_ILLUSION_ACTION = new ScribeMagicSpellAction(MINOR_ILLUSION_ACTION);
 	public static final ScribeMagicSpellAction SCRIBE_FIRE_BOLT_ACTION = new ScribeMagicSpellAction(FIRE_BOLT_ATTACK_ACTION);
 	public static final ScribeMagicSpellAction SCRIBE_RAY_OF_FROST_ACTION = new ScribeMagicSpellAction(RAY_OF_FROST_ATTACK_ACTION);
+	public static final PoisonAction POISON_ACTION = new PoisonAction();
+	public static final DrinkFromInventoryAction DRINK_FROM_INVENTORY_ACTION = new DrinkFromInventoryAction();
 	
 	public static final List<ManagedOperation> ALL_ACTIONS = Arrays.asList(
 		MOVE_ACTION,
@@ -155,6 +158,9 @@ public class Actions {
 		SCRIBE_MINOR_HEALING_ACTION,
 		SCRIBE_MINOR_ILLUSION_ACTION,
 		SCRIBE_FIRE_BOLT_ACTION,
-		SCRIBE_RAY_OF_FROST_ACTION 
+		SCRIBE_RAY_OF_FROST_ACTION,
+		BREW_POISON_ACTION,
+		POISON_ACTION,
+		DRINK_FROM_INVENTORY_ACTION
 	);
 }

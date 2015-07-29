@@ -41,6 +41,8 @@ public class ImageInfoReader {
     	Sprites sprites2d = readSprites2D();
     	Sprites sprites3a = readSprites3A();
     	Sprites sprites3b = readSprites3B();
+    	Sprites sprites3c = readSprites3C();
+    	Sprites sprites3d = readSprites3D();
     	Sprites objects = readObjects();
     	Sprites monsters = readMonsters();
     	Sprites orcSoldier = readOrcSoldier();
@@ -179,6 +181,22 @@ public class ImageInfoReader {
 		add(ImageIds.NIGHT_SHADE_PLANT, tileB.getSubImage(3, 6, 1, 1));
 		add(ImageIds.NIGHT_SHADE, statues.getSubImage(12, 0, 1, 1));
 		add(ImageIds.POISON, sprites420.getSubImage(5, 2, 1, 1));
+		
+		addCharacter(ImageIds.MALE_3C_1, sprites3c, 0, 0, 1, 1);
+		addCharacter(ImageIds.FEMALE_3C_1, sprites3c, 3, 0, 1, 1);
+		addCharacter(ImageIds.MALE_3C_2, sprites3c, 6, 0, 1, 1);
+		addCharacter(ImageIds.FEMALE_3C_2, sprites3c, 9, 0, 1, 1);
+		addCharacter(ImageIds.MALE_3C_3, sprites3c, 0, 4, 1, 1);
+		addCharacter(ImageIds.FEMALE_3C_3, sprites3c, 3, 4, 1, 1);
+		addCharacter(ImageIds.MALE_3C_4, sprites3c, 6, 4, 1, 1);
+		addCharacter(ImageIds.FEMALE_3C_4, sprites3c, 9, 4, 1, 1);
+		
+		addCharacter(ImageIds.MALE_3D_1, sprites3d, 0, 0, 1, 1);
+		addCharacter(ImageIds.FEMALE_3D_1, sprites3d, 3, 0, 1, 1);
+		addCharacter(ImageIds.MALE_3D_2, sprites3d, 6, 0, 1, 1);
+		addCharacter(ImageIds.FEMALE_3D_2, sprites3d, 9, 0, 1, 1);
+		addCharacter(ImageIds.MALE_3D_3, sprites3d, 0, 4, 1, 1);
+		addCharacter(ImageIds.FEMALE_3D_3, sprites3d, 3, 4, 1, 1);
     }
     
     private void addCharacter(ImageIds imageId, Sprites sprites, int x, int y, int width, int height) {
@@ -243,7 +261,15 @@ public class ImageInfoReader {
     private static Sprites readSprites3B() throws IOException {
 		return readImages("resources/vx_chara03_b.png", 32, 48, 8, 12);
 	}
-	
+
+    private static Sprites readSprites3C() throws IOException {
+		return readImages("resources/vx_chara03_c.png", 32, 48, 8, 12);
+	}
+
+    private static Sprites readSprites3D() throws IOException {
+		return readImages("resources/vx_chara03_d.png", 32, 48, 8, 12);
+	}
+    
 	private static Sprites readObjects() throws IOException {
 		return readImages("resources/tileb.png", 32, 32, 16, 16);
 	}

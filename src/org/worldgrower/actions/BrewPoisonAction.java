@@ -19,29 +19,28 @@ import java.io.ObjectStreamException;
 import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
-import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.condition.Condition;
+import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.ItemGenerator;
 
-public class DrinkAction implements ManagedOperation {
+public class BrewPoisonAction implements ManagedOperation {
 
+	private static final int NIGHT_SHADE_REQUIRED = 3;
+	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		int waterInTarget = target.getProperty(Constants.WATER_SOURCE);
-
-		int waterDrunk = Math.min(100, waterInTarget);
-		performer.increment(Constants.WATER, waterDrunk);
-		target.increment(Constants.WATER_SOURCE, -waterDrunk);
+		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
 		
-		if (target.hasProperty(Constants.POISON_DAMAGE) && target.getProperty(Constants.POISON_DAMAGE) > 0) {
-			performer.getProperty(Constants.CONDITIONS).addCondition(Condition.POISONED_CONDITION, 20);
-		}
+		double skillBonus = CraftUtils.useAlchemySkill(performer);
+		inventory.addQuantity(ItemGenerator.generatePoison(skillBonus));
+
+		inventory.removeQuantity(Constants.NIGHT_SHADE, NIGHT_SHADE_REQUIRED);
 	}
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return Reach.evaluateTarget(performer, args, target, 1);
+		return CraftUtils.distance(performer, Constants.NIGHT_SHADE, NIGHT_SHADE_REQUIRED);
 	}
 
 	@Override
@@ -51,20 +50,20 @@ public class DrinkAction implements ManagedOperation {
 
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return (target.hasProperty(Constants.WATER_SOURCE)) && (target.getProperty(Constants.WATER_SOURCE) > 0);
+		return CraftUtils.isValidTarget(performer, target, world);
 	}
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "drinking from " + target.getProperty(Constants.NAME);
-	}
-	
-	@Override
-	public String getSimpleDescription() {
-		return "drink";
+		return "brewing poison";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
+	}
+
+	@Override
+	public String getSimpleDescription() {
+		return "brew poison";
 	}
 }

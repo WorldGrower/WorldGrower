@@ -31,8 +31,14 @@ public class CollectWaterAction implements ManagedOperation {
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		WorldObjectContainer inventoryPerformer = performer.getProperty(Constants.INVENTORY);
 		
-		WorldObject collectedWater = ItemGenerator.generateWater(); 
+		WorldObject collectedWater = ItemGenerator.generateWater();
+		
 		inventoryPerformer.addQuantity(collectedWater);
+		
+		if (target.hasProperty(Constants.POISON_DAMAGE) && target.getProperty(Constants.POISON_DAMAGE) > 0) {
+			int indexOfWater = inventoryPerformer.getIndexFor(Constants.WATER);
+			inventoryPerformer.get(indexOfWater).setProperty(Constants.POISON_DAMAGE, target.getProperty(Constants.POISON_DAMAGE));
+		}
 
 		target.increment(Constants.WATER_SOURCE, -1);
 	}
