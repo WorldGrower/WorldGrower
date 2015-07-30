@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.JComponent;
@@ -201,6 +202,10 @@ public class Main {
 
 		properties.put(Constants.DAMAGE, 8);
 		properties.put(Constants.DAMAGE_RESIST, 100);
+		
+		if (Boolean.getBoolean("DEBUG")) {
+			((List<Object>)properties.get(Constants.KNOWN_SPELLS)).addAll(Actions.getMagicSpells());
+		}
 		
 		final WorldObject playerCharacter = new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new CommonerOnTurn(commonerImageIds, commonerNameGenerator, organization), null);
 		return playerCharacter;
