@@ -40,11 +40,15 @@ public class OptionsScreen {
 	private JTextField playerProfessionTextField;
 	private JTextField seedTextField;
 
+	private final CharacterAttributes characterAttributes;
+	
 	/**
 	 * Create the application.
+	 * @param characterAttributes 
 	 */
-	public OptionsScreen() {
+	public OptionsScreen(CharacterAttributes characterAttributes) {
 		initialize();
+		this.characterAttributes = characterAttributes;
 	}
 	
 	public void setVisible(boolean visible) {
@@ -128,7 +132,7 @@ public class OptionsScreen {
 						int enemyDensity = Integer.parseInt(numberOfEnemiesTextField.getText());
 						int villagerCount = Integer.parseInt(numberOfVillagersTextField.getText());
 						int seed = Integer.parseInt(seedTextField.getText());
-						Main.run(playerNameTextField.getText(), playerProfessionTextField.getText(), worldWidth, worldHeight, enemyDensity, villagerCount, seed);
+						Main.run(playerNameTextField.getText(), playerProfessionTextField.getText(), worldWidth, worldHeight, enemyDensity, villagerCount, seed, characterAttributes);
 					} catch (Exception e1) {
 						ExceptionHandler.handle(e1);
 					}

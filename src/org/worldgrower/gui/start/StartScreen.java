@@ -88,8 +88,8 @@ public class StartScreen {
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
 				try {
-					OptionsScreen window = new OptionsScreen();
-					window.setVisible(true);
+					CharacterCustomizationScreen characterCustomizationScreen = new CharacterCustomizationScreen();
+					characterCustomizationScreen.setVisible(true);
 				} catch (Exception e1) {
 					ExceptionHandler.handle(e1);
 				}

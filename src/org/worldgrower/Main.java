@@ -47,12 +47,13 @@ import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.gui.CommonerImageIds;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.WorldPanel;
+import org.worldgrower.gui.start.CharacterAttributes;
 import org.worldgrower.profession.PlayerCharacterProfession;
 import org.worldgrower.terrain.TerrainType;
 
 public class Main {
 
-	public static void run(String playerName, String playerProfession, int worldWidth, int worldHeight, int enemyDensity, int villagerCount, int seed) throws Exception {
+	public static void run(String playerName, String playerProfession, int worldWidth, int worldHeight, int enemyDensity, int villagerCount, int seed, CharacterAttributes characterAttributes) throws Exception {
 		DungeonMaster dungeonMaster = new DungeonMaster();
 		World world = new WorldImpl(worldWidth, worldHeight, dungeonMaster);
 		int playerCharacterId = world.generateUniqueId();
@@ -61,7 +62,7 @@ public class Main {
 		final CommonerNameGenerator commonerNameGenerator = new CommonerNameGenerator();
 		final WorldObject organization = GroupPropertyUtils.create(null, "villagers", null, world);
 		
-		final WorldObject playerCharacter = createPlayerCharacter(playerCharacterId, playerName, playerProfession, world, commonerImageIds, commonerNameGenerator, organization);
+		final WorldObject playerCharacter = createPlayerCharacter(playerCharacterId, playerName, playerProfession, world, commonerImageIds, commonerNameGenerator, organization, characterAttributes);
 		world.addWorldObject(playerCharacter);
 		
 		addDefaultWorldObjects(world, commonerImageIds, commonerNameGenerator, organization, villagerCount, seed);
@@ -145,7 +146,7 @@ public class Main {
 		CommonerGenerator.generateGods(world);
 	}
 
-	private static WorldObject createPlayerCharacter(int id, String playerName, String playerProfession, World world, final CommonerImageIds commonerImageIds, final CommonerNameGenerator commonerNameGenerator, WorldObject organization) {
+	private static WorldObject createPlayerCharacter(int id, String playerName, String playerProfession, World world, final CommonerImageIds commonerImageIds, final CommonerNameGenerator commonerNameGenerator, WorldObject organization, CharacterAttributes characterAttributes) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, 5);
 		properties.put(Constants.Y, 5);
@@ -189,12 +190,12 @@ public class Main {
 		properties.put(Constants.EXPERIENCE, 0);
 		properties.put(Constants.ARMOR, 18);
 		
-		properties.put(Constants.STRENGTH, 10);
-		properties.put(Constants.DEXTERITY, 10);
-		properties.put(Constants.CONSTITUTION, 10);
-		properties.put(Constants.INTELLIGENCE, 10);
-		properties.put(Constants.WISDOM, 10);
-		properties.put(Constants.CHARISMA, 10);
+		properties.put(Constants.STRENGTH, characterAttributes.getStrength());
+		properties.put(Constants.DEXTERITY, characterAttributes.getDexterity());
+		properties.put(Constants.CONSTITUTION, characterAttributes.getConstitution());
+		properties.put(Constants.INTELLIGENCE, characterAttributes.getIntelligence());
+		properties.put(Constants.WISDOM, characterAttributes.getWisdom());
+		properties.put(Constants.CHARISMA, characterAttributes.getCharisma());
 		
 		SkillUtils.addAllSkills(properties);
 		properties.put(Constants.KNOWN_SPELLS, new ArrayList<>());
