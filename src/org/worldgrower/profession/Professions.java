@@ -19,15 +19,18 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Professions {
-	public static final FarmerProfession FARMER_PROFESSION = new FarmerProfession();
-	public static final BlacksmithProfession BLACKSMITH_PROFESSION = new BlacksmithProfession();
-	public static final PriestProfession PRIEST_PROFESSION = new PriestProfession();
-	public static final ThiefProfession THIEF_PROFESSION = new ThiefProfession();
-	public static final LumberjackProfession LUMBERJACK_PROFESSION = new LumberjackProfession();
-	public static final MinerProfession MINER_PROFESSION = new MinerProfession();
-	public static final SheriffProfession SHERIFF_PROFESSION = new SheriffProfession();
 	
 	private static final List<Profession> ALL_PROFESSIONS = new ArrayList<>();
+	
+	public static final FarmerProfession FARMER_PROFESSION = new FarmerProfession(ALL_PROFESSIONS);
+	public static final BlacksmithProfession BLACKSMITH_PROFESSION = new BlacksmithProfession(ALL_PROFESSIONS);
+	public static final PriestProfession PRIEST_PROFESSION = new PriestProfession(ALL_PROFESSIONS);
+	public static final ThiefProfession THIEF_PROFESSION = new ThiefProfession(ALL_PROFESSIONS);
+	public static final LumberjackProfession LUMBERJACK_PROFESSION = new LumberjackProfession(ALL_PROFESSIONS);
+	public static final MinerProfession MINER_PROFESSION = new MinerProfession(ALL_PROFESSIONS);
+	public static final SheriffProfession SHERIFF_PROFESSION = new SheriffProfession(ALL_PROFESSIONS);
+	
+	
 	
 	static {
 		add(FARMER_PROFESSION);

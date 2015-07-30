@@ -14,6 +14,7 @@
  *******************************************************************************/
 package org.worldgrower.profession;
 
+import java.io.ObjectStreamException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -23,6 +24,10 @@ import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
 
 public class BlacksmithProfession implements Profession {
+
+	public BlacksmithProfession(List<Profession> allProfessions) {
+		allProfessions.add(this);
+	}
 
 	@Override
 	public String getDescription() {
@@ -40,5 +45,9 @@ public class BlacksmithProfession implements Profession {
 	@Override
 	public SkillProperty getSkillProperty() {
 		return Constants.SMITHING_SKILL;
+	}
+	
+	public Object readResolve() throws ObjectStreamException {
+		return readResolveImpl();
 	}
 }

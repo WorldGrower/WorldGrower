@@ -14,6 +14,7 @@
  *******************************************************************************/
 package org.worldgrower.profession;
 
+import java.io.ObjectStreamException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -39,4 +40,7 @@ public class GraveDiggerProfession implements Profession {
 		return null;
 	}
 
+	public Object readResolve() throws ObjectStreamException {
+		return readResolveImpl();
+	}
 }

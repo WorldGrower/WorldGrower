@@ -14,6 +14,7 @@
  *******************************************************************************/
 package org.worldgrower.profession;
 
+import java.io.ObjectStreamException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +23,10 @@ import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.goal.Goal;
 
 public class ThiefProfession implements Profession {
+
+	public ThiefProfession(List<Profession> allProfessions) {
+		allProfessions.add(this);
+	}
 
 	@Override
 	public String getDescription() {
@@ -36,5 +41,9 @@ public class ThiefProfession implements Profession {
 	@Override
 	public SkillProperty getSkillProperty() {
 		return Constants.THIEVERY_SKILL;
+	}
+	
+	public Object readResolve() throws ObjectStreamException {
+		return readResolveImpl();
 	}
 }

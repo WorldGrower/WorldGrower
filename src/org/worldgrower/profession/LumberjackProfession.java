@@ -14,6 +14,7 @@
  *******************************************************************************/
 package org.worldgrower.profession;
 
+import java.io.ObjectStreamException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -24,6 +25,10 @@ import org.worldgrower.goal.Goals;
 
 public class LumberjackProfession implements Profession {
 
+	public LumberjackProfession(List<Profession> allProfessions) {
+		allProfessions.add(this);
+	}
+
 	@Override
 	public String getDescription() {
 		return "lumberjack";
@@ -32,7 +37,7 @@ public class LumberjackProfession implements Profession {
 	@Override
 	public List<Goal> getProfessionGoals() {
 		return Arrays.asList(
-				Goals.WOOD_GOAL, 
+				Goals.CREATE_WOOD_GOAL, 
 				Goals.SELL_WOOD_GOAL,
 				Goals.PAPER_MILL_GOAL,
 				Goals.CREATE_PAPER_GOAL);
@@ -41,5 +46,9 @@ public class LumberjackProfession implements Profession {
 	@Override
 	public SkillProperty getSkillProperty() {
 		return Constants.LUMBERING_SKILL;
+	}
+	
+	public Object readResolve() throws ObjectStreamException {
+		return readResolveImpl();
 	}
 }

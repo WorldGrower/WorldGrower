@@ -14,13 +14,28 @@
  *******************************************************************************/
 package org.worldgrower.profession;
 
+import java.io.ObjectStreamException;
+import java.io.Serializable;
 import java.util.List;
 
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.goal.Goal;
 
-public interface Profession {
+public interface Profession extends Serializable {
 	public String getDescription();
 	public List<Goal> getProfessionGoals();
 	public SkillProperty getSkillProperty();
+	
+	public default Object readResolveImpl() throws ObjectStreamException {
+		Class<?> clazz = getClass();
+		List<Profession> allProfessions = Professions.getAllProfessions();
+		
+		for(Profession profession : allProfessions) {
+			if (profession.getClass() == clazz) {
+				return profession;
+			}
+		}
+		
+		throw new IllegalStateException("Profession with class " + clazz + " not found");
+	}
 }
