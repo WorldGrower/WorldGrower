@@ -96,7 +96,7 @@ public class OptionsScreen {
 		frame.getContentPane().add(lblNumberOfEnemies);
 		
 		numberOfEnemiesTextField = new JTextField();
-		numberOfEnemiesTextField.setText("10");
+		numberOfEnemiesTextField.setText("0");
 		numberOfEnemiesTextField.setColumns(10);
 		numberOfEnemiesTextField.setBounds(188, 201, 137, 22);
 		frame.getContentPane().add(numberOfEnemiesTextField);

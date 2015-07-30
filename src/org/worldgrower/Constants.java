@@ -180,5 +180,5 @@ public class Constants {
 	
 	public static final IntProperty NIGHT_SHADE_SOURCE = new IntProperty("nightShadeSource", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty NIGHT_SHADE = new IntProperty("nightShade", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
-	
+	public static final BooleanProperty DECEASED_WORLD_OBJECT = new BooleanProperty("deceasedWorldObject", NOT_NULLABLE, ALL_PROPERTIES);
 }

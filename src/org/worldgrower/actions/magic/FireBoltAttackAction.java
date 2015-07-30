@@ -12,7 +12,7 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.actions;
+package org.worldgrower.actions.magic;
 
 import java.io.ObjectStreamException;
 
@@ -20,14 +20,20 @@ import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.AttackUtils;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.condition.Condition;
 
-public class RayOfFrostAttackAction implements MagicSpell {
+public class FireBoltAttackAction implements MagicSpell {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		AttackUtils.magicAttack(5, this, performer, target, args, world, SkillUtils.useSkill(performer, Constants.EVOCATION_SKILL));
+	
+		if (target.hasProperty(Constants.FLAMMABLE) && target.getProperty(Constants.FLAMMABLE)) {
+			target.getProperty(Constants.CONDITIONS).addCondition(Condition.BURNING_CONDITION, 100);
+		}
 	}
 	
 	@Override
@@ -52,7 +58,7 @@ public class RayOfFrostAttackAction implements MagicSpell {
 
 	@Override
 	public String getSimpleDescription() {
-		return "ray of frost";
+		return "fire bolt";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {

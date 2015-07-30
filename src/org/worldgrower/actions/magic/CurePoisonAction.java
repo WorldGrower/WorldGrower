@@ -12,7 +12,7 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.actions;
+package org.worldgrower.actions.magic;
 
 import java.io.ObjectStreamException;
 
@@ -20,19 +20,18 @@ import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.AttackUtils;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.condition.Condition;
 
-public class MinorHealAction implements MagicSpell {
+public class CurePoisonAction implements MagicSpell {
 
 	private static final int ENERGY_USE = 400;
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		target.increment(Constants.HIT_POINTS, 5);
-		if (target.getProperty(Constants.HIT_POINTS) > target.getProperty(Constants.HIT_POINTS_MAX)) {
-			target.setProperty(Constants.HIT_POINTS, target.getProperty(Constants.HIT_POINTS_MAX));
-		}
+		target.getProperty(Constants.CONDITIONS).removeCondition(Condition.POISONED_CONDITION);
 		
 		SkillUtils.useEnergy(performer, Constants.RESTORATION_SKILL, ENERGY_USE);
 	}
@@ -54,12 +53,12 @@ public class MinorHealAction implements MagicSpell {
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "healing minor wounds for " + target.getProperty(Constants.NAME);
+		return "cure poison wounds for " + target.getProperty(Constants.NAME);
 	}
 
 	@Override
 	public String getSimpleDescription() {
-		return "heal minor wounds";
+		return "cure poison";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {
@@ -68,7 +67,7 @@ public class MinorHealAction implements MagicSpell {
 
 	@Override
 	public int getResearchCost() {
-		return 20;
+		return 30;
 	}
 
 	@Override
@@ -78,6 +77,6 @@ public class MinorHealAction implements MagicSpell {
 
 	@Override
 	public int getRequiredSkillLevel() {
-		return 0;
+		return 1;
 	}
 }

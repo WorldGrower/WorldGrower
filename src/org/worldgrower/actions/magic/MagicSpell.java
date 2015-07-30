@@ -1,4 +1,4 @@
-package org.worldgrower.actions;
+package org.worldgrower.actions.magic;
 
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.attribute.SkillProperty;

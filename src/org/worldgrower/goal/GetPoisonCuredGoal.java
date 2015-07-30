@@ -21,33 +21,31 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.condition.Condition;
+import org.worldgrower.conversation.Conversations;
 
-public class WoodGoal implements Goal {
+public class GetPoisonCuredGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.WOOD, world);
-		if (targets.size() > 0) {
-			return new OperationInfo(performer, targets.get(0), new int[] { targets.get(0).getProperty(Constants.INVENTORY).getIndexFor(Constants.WOOD), 5 }, Actions.BUY_ACTION);
+		if (performer.getProperty(Constants.KNOWN_SPELLS).contains(Actions.CURE_POISON_ACTION)) {
+			return new OperationInfo(performer, performer, new int[0], Actions.CURE_POISON_ACTION);
 		} else {
-			return new CreateWoodGoal().calculateGoal(performer, world);
-		}
-	}
-
-	@Override
-	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
-		if (performer.hasProperty(Constants.DEMANDS)) {
-			if (goalMet) {
-				performer.getProperty(Constants.DEMANDS).remove(Constants.WOOD);
-			} else {
-				performer.getProperty(Constants.DEMANDS).add(Constants.WOOD, 1);
+			List<WorldObject> targets = world.findWorldObjects(w -> w.getProperty(Constants.KNOWN_SPELLS).contains(Actions.CURE_POISON_ACTION));
+			if (targets.size() > 0) {
+				return new OperationInfo(performer, targets.get(0), Conversations.createArgs(Conversations.CURE_POISON_CONVERSATION), Actions.TALK_ACTION);
 			}
 		}
+		return null;
 	}
 	
 	@Override
+	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
+	}
+
+	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		return true;
+		return !performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.POISONED_CONDITION);
 	}
 	
 	@Override
@@ -57,11 +55,11 @@ public class WoodGoal implements Goal {
 
 	@Override
 	public String getDescription() {
-		return "looking for wood";
+		return "looking to have my poisoned condition cured";
 	}
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		return 0;
+		return (!performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.POISONED_CONDITION)) ? 1 : 0;
 	}
 }

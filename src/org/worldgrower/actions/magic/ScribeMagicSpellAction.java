@@ -12,7 +12,7 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.actions;
+package org.worldgrower.actions.magic;
 
 import java.io.ObjectStreamException;
 
@@ -21,6 +21,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.CraftUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.ItemGenerator;
 
@@ -68,5 +69,9 @@ public class ScribeMagicSpellAction implements ManagedOperation {
 	@Override
 	public String getSimpleDescription() {
 		return "scribe spell '" + magicSpell.getSimpleDescription() + "'";
+	}
+	
+	public MagicSpell getSpell() {
+		return magicSpell;
 	}
 }

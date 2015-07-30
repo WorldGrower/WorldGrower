@@ -54,15 +54,18 @@ public class GoalChangedCalculator {
 			List<Goal> targetGoals = actor.getPriorities(world);
 			List<GoalEvaluation> targetGoalEval = targetGoalEvaluations.get(actor.getProperty(Constants.ID));
 			
-			for(int i=0; i<targetGoalEval.size(); i++) {
-				Goal targetGoal = targetGoals.get(i);
-				GoalEvaluation oldGoalEval = GoalEvaluation.find(targetGoal, targetGoalEval);
-				if (oldGoalEval != null) {
-					int oldGoalEvaluation = oldGoalEval.getEvaluation();
-					int newGoalEvaluation = targetGoal.evaluate(actor, world);
-					
-					if (newGoalEvaluation < oldGoalEvaluation) {
-						goalObstructedHandler.goalHindered(performer, actor, targetGoals.size() - i, oldGoalEvaluation - newGoalEvaluation, target, managedOperation, args, world);
+			// targetGoalEval can be null in case of a newly created WorldObject
+			if (targetGoalEval != null) {
+				for(int i=0; i<targetGoalEval.size(); i++) {
+					Goal targetGoal = targetGoals.get(i);
+					GoalEvaluation oldGoalEval = GoalEvaluation.find(targetGoal, targetGoalEval);
+					if (oldGoalEval != null) {
+						int oldGoalEvaluation = oldGoalEval.getEvaluation();
+						int newGoalEvaluation = targetGoal.evaluate(actor, world);
+						
+						if (newGoalEvaluation < oldGoalEvaluation) {
+							goalObstructedHandler.goalHindered(performer, actor, targetGoals.size() - i, oldGoalEvaluation - newGoalEvaluation, target, managedOperation, args, world);
+						}
 					}
 				}
 			}

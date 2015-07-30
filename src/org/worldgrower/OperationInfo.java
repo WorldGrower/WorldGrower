@@ -20,6 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.worldgrower.actions.Actions;
+import org.worldgrower.generator.CommonerGenerator;
 import org.worldgrower.history.HistoryItem;
 import org.worldgrower.history.Turn;
 
@@ -74,6 +75,9 @@ public class OperationInfo implements Serializable {
 		
 		for(WorldObject worldObject : worldObjects) {
 			if (worldObject.hasProperty(Constants.HIT_POINTS) && worldObject.getProperty(Constants.HIT_POINTS) == 0) {
+				if (worldObject.hasIntelligence()) {
+					CommonerGenerator.generateSkeletalRemains(worldObject, world);
+				}
 				world.removeWorldObject(worldObject);
 			}
 			if (worldObject.hasProperty(Constants.WOOD_SOURCE) && worldObject.getProperty(Constants.WOOD_SOURCE) == 0) {

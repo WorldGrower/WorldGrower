@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.worldgrower.Constants;
+import org.worldgrower.DoNothingOnTurn;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
@@ -191,6 +192,46 @@ public class CreatureGenerator {
 		
 		WorldObject slime = new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new BeastOnTurn(this::generateSlime), new SlimeWorldEvaluationFunction());
 		world.addWorldObject(slime);
+		
+		return id;
+	}
+	
+	public int generateSkeleton(int x, int y, World world) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		int id = world.generateUniqueId();
+		
+		properties.put(Constants.X, x);
+		properties.put(Constants.Y, y);
+		properties.put(Constants.WIDTH, 1);
+		properties.put(Constants.HEIGHT, 1);
+		properties.put(Constants.HIT_POINTS, 15);
+		properties.put(Constants.HIT_POINTS_MAX, 15);
+		properties.put(Constants.NAME, "Spider");
+		properties.put(Constants.ID, id);
+		properties.put(Constants.IMAGE_ID, ImageIds.SKELETON);
+		properties.put(Constants.ENERGY, 1000);
+		properties.put(Constants.GROUP, new IdList().add(organization));
+		properties.put(Constants.INVENTORY, new WorldObjectContainer());
+		properties.put(Constants.CREATURE_TYPE, CreatureType.UNDEAD_CREATURE_TYPE);
+		properties.put(Constants.CONDITIONS, new Conditions());
+		properties.put(Constants.GOLD, 0);
+		
+		properties.put(Constants.ARMOR, 10);
+		
+		properties.put(Constants.STRENGTH, 6);
+		properties.put(Constants.DEXTERITY, 12);
+		properties.put(Constants.CONSTITUTION, 8);
+		properties.put(Constants.INTELLIGENCE, 6);
+		properties.put(Constants.WISDOM, 12);
+		properties.put(Constants.CHARISMA, 6);
+		
+		properties.put(Constants.HAND_TO_HAND_SKILL, new Skill());
+		
+		properties.put(Constants.DAMAGE, 5);
+		properties.put(Constants.DAMAGE_RESIST, 10);
+		
+		WorldObject skeleton = new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new DoNothingOnTurn(), new SkeletonWorldEvaluationFunction());
+		world.addWorldObject(skeleton);
 		
 		return id;
 	}

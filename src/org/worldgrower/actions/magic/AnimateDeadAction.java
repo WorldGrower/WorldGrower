@@ -12,56 +12,44 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.actions;
+package org.worldgrower.actions.magic;
 
 import java.io.ObjectStreamException;
 
 import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
-import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.WorldObjectImpl;
+import org.worldgrower.actions.AttackUtils;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
-import org.worldgrower.goal.GoalUtils;
+import org.worldgrower.generator.CreatureGenerator;
+import org.worldgrower.goal.GroupPropertyUtils;
 
-public class MinorIllusionAction implements BuildAction, MagicSpell {
+public class AnimateDeadAction implements MagicSpell {
 
-	private static final int ENERGY_USE = 400;
-	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		int x = (Integer)target.getProperty(Constants.X);
-		int y = (Integer)target.getProperty(Constants.Y);
+		double skillBonus = SkillUtils.useSkill(performer, getSkill());
 		
-		int sourceId = args[0];
-		WorldObject sourceWorldObject = world.findWorldObject(Constants.ID, sourceId);
+		CreatureGenerator creatureGenerator = new CreatureGenerator(world.findWorldObject(Constants.ID, performer.getProperty(Constants.GROUP).getIds().get(0)));
+		Integer targetX = target.getProperty(Constants.X);
+		Integer targetY = target.getProperty(Constants.Y);
+		creatureGenerator.generateSkeleton(targetX, targetY, world);
 		
-		WorldObjectImpl illusionWorldObject = (WorldObjectImpl) sourceWorldObject.deepCopy();
-		illusionWorldObject.setProperty(Constants.ID, world.generateUniqueId());
-		illusionWorldObject.setProperty(Constants.ILLUSION_CREATOR_ID, performer.getProperty(Constants.ID));
-		illusionWorldObject.setProperty(Constants.X, x);
-		illusionWorldObject.setProperty(Constants.Y, y);
-		world.addWorldObject(illusionWorldObject);
-		
-		SkillUtils.useEnergy(performer, Constants.ILLUSION_SKILL, ENERGY_USE);
+		world.removeWorldObject(target);
 	}
 	
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		int x = (Integer)target.getProperty(Constants.X);
-		int y = (Integer)target.getProperty(Constants.Y);
-		return GoalUtils.isOpenSpace(x, y, 1, 1, world) && !target.hasProperty(Constants.ID) && performer.getProperty(Constants.KNOWN_SPELLS).contains(this);
+		return ((target.hasProperty(Constants.DECEASED_WORLD_OBJECT)) && target.getProperty(Constants.DECEASED_WORLD_OBJECT));
 	}
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		int distanceBetweenPerformerAndTarget = Reach.evaluateTarget(performer, args, target, 1);
-		return distanceBetweenPerformerAndTarget 
-				+ SkillUtils.distanceForEnergyUse(performer, Constants.ILLUSION_SKILL, ENERGY_USE);
+		return AttackUtils.distanceWithFreeLeftHand(performer, target, 4);
 	}
-
+	
 	@Override
 	public ArgumentRange[] getArgumentRanges() {
 		return ArgumentRange.EMPTY_ARGUMENT_RANGE;
@@ -69,12 +57,12 @@ public class MinorIllusionAction implements BuildAction, MagicSpell {
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "creating a minor illusion";
+		return "animating " + target.getProperty(Constants.NAME);
 	}
 
 	@Override
 	public String getSimpleDescription() {
-		return "create minor illusion";
+		return "animate";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {
@@ -82,23 +70,13 @@ public class MinorIllusionAction implements BuildAction, MagicSpell {
 	}
 
 	@Override
-	public int getWidth() {
-		return 1;
-	}
-
-	@Override
-	public int getHeight() {
-		return 1;
-	}
-
-	@Override
 	public int getResearchCost() {
-		return 50;
+		return 20;
 	}
 
 	@Override
 	public SkillProperty getSkill() {
-		return Constants.ILLUSION_SKILL;
+		return Constants.EVOCATION_SKILL;
 	}
 
 	@Override

@@ -20,6 +20,7 @@ public class Goals {
 	public static final DrinkWaterGoal DRINK_WATER_GOAL = new DrinkWaterGoal();
 	public static final CollectWaterGoal COLLECT_WATER_GOAL = new CollectWaterGoal();
 	public static final WoodGoal WOOD_GOAL = new WoodGoal();
+	public static final CreateWoodGoal CREATE_WOOD_GOAL = new CreateWoodGoal();
 	public static final KillOutsidersGoal KILL_OUTSIDERS_GOAL = new KillOutsidersGoal();
 	public static final ShackGoal SHACK_GOAL = new ShackGoal();
 	public static final ProtectOnseSelfGoal PROTECT_ONSE_SELF_GOAL = new ProtectOnseSelfGoal();
@@ -58,4 +59,5 @@ public class Goals {
 	public static final LibraryGoal LIBRARY_GOAL = new LibraryGoal();
 	public static final ScribeClericSpellsGoal SCRIBE_CLERIC_SPELLS_GOAL = new ScribeClericSpellsGoal();
 	public static final PaperGoal PAPER_GOAL = new PaperGoal();
+	public static final GetPoisonCuredGoal GET_POISON_CURED_GOAL = new GetPoisonCuredGoal();
 }

@@ -12,7 +12,7 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.actions;
+package org.worldgrower.actions.magic;
 
 import java.io.ObjectStreamException;
 
@@ -20,24 +20,27 @@ import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.AttackUtils;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
-import org.worldgrower.condition.Condition;
 
-public class FireBoltAttackAction implements MagicSpell {
+public class MinorHealAction implements MagicSpell {
 
+	private static final int ENERGY_USE = 400;
+	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		AttackUtils.magicAttack(5, this, performer, target, args, world, SkillUtils.useSkill(performer, Constants.EVOCATION_SKILL));
-	
-		if (target.hasProperty(Constants.FLAMMABLE) && target.getProperty(Constants.FLAMMABLE)) {
-			target.getProperty(Constants.CONDITIONS).addCondition(Condition.BURNING_CONDITION, 100);
+		target.increment(Constants.HIT_POINTS, 5);
+		if (target.getProperty(Constants.HIT_POINTS) > target.getProperty(Constants.HIT_POINTS_MAX)) {
+			target.setProperty(Constants.HIT_POINTS, target.getProperty(Constants.HIT_POINTS_MAX));
 		}
+		
+		SkillUtils.useEnergy(performer, Constants.RESTORATION_SKILL, ENERGY_USE);
 	}
 	
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return ((target.hasProperty(Constants.ARMOR)) && (target.getProperty(Constants.HIT_POINTS) > 0) && performer.getProperty(Constants.KNOWN_SPELLS).contains(this));
+		return ((target.hasProperty(Constants.ARMOR)) && (target.getProperty(Constants.HIT_POINTS) > 0) && target.hasIntelligence() && performer.getProperty(Constants.KNOWN_SPELLS).contains(this));
 	}
 
 	@Override
@@ -52,12 +55,12 @@ public class FireBoltAttackAction implements MagicSpell {
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "attacking " + target.getProperty(Constants.NAME);
+		return "healing minor wounds for " + target.getProperty(Constants.NAME);
 	}
 
 	@Override
 	public String getSimpleDescription() {
-		return "fire bolt";
+		return "heal minor wounds";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {
@@ -66,12 +69,12 @@ public class FireBoltAttackAction implements MagicSpell {
 
 	@Override
 	public int getResearchCost() {
-		return 10;
+		return 20;
 	}
 
 	@Override
 	public SkillProperty getSkill() {
-		return Constants.EVOCATION_SKILL;
+		return Constants.RELIGION_SKILL;
 	}
 
 	@Override

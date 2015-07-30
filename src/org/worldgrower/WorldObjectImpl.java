@@ -21,7 +21,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.worldgrower.actions.Actions;
-import org.worldgrower.actions.MagicSpell;
+import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.WorldObjectProperties;

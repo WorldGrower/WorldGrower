@@ -69,6 +69,7 @@ public class ImageInfoReader {
         addCharacter(ImageIds.FEMALE_COMMONER, sprites, 3, 0, 1, 1);
         add(ImageIds.WELL, objects.getSubImage(0, 11, 2, 2));
         add(ImageIds.SKELETON, monsters.getSubImage(0, 0, 1, 1));
+        add(ImageIds.SKELETAL_REMAINS, tileE.getSubImage(4, 3, 1, 1));
         add(ImageIds.ORC_SOLDIER, orcSoldier.getSubImage(0, 0, 1, 1));
         add(ImageIds.STONE_RESOURCE, pirates.getSubImage(10, 5, 2, 2));
         add(ImageIds.ORE_RESOURCE, pirates.getSubImage(14, 5, 2, 2));

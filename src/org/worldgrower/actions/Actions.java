@@ -14,10 +14,21 @@
  *******************************************************************************/
 package org.worldgrower.actions;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.worldgrower.ManagedOperation;
+import org.worldgrower.actions.magic.AnimateDeadAction;
+import org.worldgrower.actions.magic.CurePoisonAction;
+import org.worldgrower.actions.magic.FireBoltAttackAction;
+import org.worldgrower.actions.magic.MagicSpell;
+import org.worldgrower.actions.magic.MinorHealAction;
+import org.worldgrower.actions.magic.MinorIllusionAction;
+import org.worldgrower.actions.magic.RayOfFrostAttackAction;
+import org.worldgrower.actions.magic.ResearchSpellAction;
+import org.worldgrower.actions.magic.ScribeMagicSpellAction;
 
 public class Actions {
 
@@ -76,24 +87,26 @@ public class Actions {
 	public static final CollectWaterAction COLLECT_WATER_ACTION = new CollectWaterAction();
 	public static final CreateOrganizationAction CREATE_ORGANIZATION_ACTION = new CreateOrganizationAction();
 	public static final MinorHealAction MINOR_HEAL_ACTION = new MinorHealAction();
+	public static final CurePoisonAction CURE_POISON_ACTION = new CurePoisonAction();
 	public static final BuildLibraryAction BUILD_LIBRARY_ACTION = new BuildLibraryAction();
 	public static final ResearchReligionSkillAction RESEARCH_RELIGION_SKILL_ACTION = new ResearchReligionSkillAction();
 	public static final ResearchIllusionSkillAction RESEARCH_ILLUSION_SKILL_ACTION = new ResearchIllusionSkillAction();
 	public static final ResearchEvocationSkillAction RESEARCH_EVOCATION_SKILL_ACTION = new ResearchEvocationSkillAction();
-	public static final ResearchSpellAction RESEARCH_MINOR_HEALING_ACTION = new ResearchSpellAction(MINOR_HEAL_ACTION);
-	public static final ResearchSpellAction RESEARCH_MINOR_ILLUSION_ACTION = new ResearchSpellAction(MINOR_ILLUSION_ACTION);
-	public static final ResearchSpellAction RESEARCH_FIRE_BOLT_ACTION = new ResearchSpellAction(FIRE_BOLT_ATTACK_ACTION);
-	public static final ResearchSpellAction RESEARCH_RAY_OF_FROST_ACTION = new ResearchSpellAction(RAY_OF_FROST_ATTACK_ACTION);
 	public static final GetItemFromInventoryAction GET_ITEM_FROM_INVENTORY_ACTION = new GetItemFromInventoryAction();
 	public static final PutItemIntoInventoryAction PUT_ITEM_INTO_INVENTORY_ACTION = new PutItemIntoInventoryAction();
-	public static final ScribeMagicSpellAction SCRIBE_MINOR_HEALING_ACTION = new ScribeMagicSpellAction(MINOR_HEAL_ACTION);
-	public static final ScribeMagicSpellAction SCRIBE_MINOR_ILLUSION_ACTION = new ScribeMagicSpellAction(MINOR_ILLUSION_ACTION);
-	public static final ScribeMagicSpellAction SCRIBE_FIRE_BOLT_ACTION = new ScribeMagicSpellAction(FIRE_BOLT_ATTACK_ACTION);
-	public static final ScribeMagicSpellAction SCRIBE_RAY_OF_FROST_ACTION = new ScribeMagicSpellAction(RAY_OF_FROST_ATTACK_ACTION);
 	public static final PoisonAction POISON_ACTION = new PoisonAction();
 	public static final DrinkFromInventoryAction DRINK_FROM_INVENTORY_ACTION = new DrinkFromInventoryAction();
+	public static final AnimateDeadAction ANIMATE_DEAD_ACTION = new AnimateDeadAction();
 	
-	public static final List<ManagedOperation> ALL_ACTIONS = Arrays.asList(
+	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
+			MINOR_HEAL_ACTION, 
+			MINOR_ILLUSION_ACTION, 
+			FIRE_BOLT_ATTACK_ACTION, 
+			RAY_OF_FROST_ATTACK_ACTION, 
+			CURE_POISON_ACTION,
+			ANIMATE_DEAD_ACTION);
+	
+	public static final List<ManagedOperation> ALL_ACTIONS = new ArrayList<>(Arrays.asList(
 		MOVE_ACTION,
 		EAT_ACTION,
 		EAT_NIGHT_SHADE_ACTION,
@@ -137,30 +150,65 @@ public class Actions {
 		COCOON_ACTION,
 		READ_ACTION,
 		DISGUISE_ACTION,
-		FIRE_BOLT_ATTACK_ACTION,
-		RAY_OF_FROST_ATTACK_ACTION,
 		MINT_GOLD_ACTION,
 		BREW_WINE_ACTION,
-		MINOR_ILLUSION_ACTION,
 		CREATE_PAPER_ACTION,
 		COLLECT_WATER_ACTION,
 		CREATE_ORGANIZATION_ACTION,
-		MINOR_HEAL_ACTION,
 		BUILD_LIBRARY_ACTION,
 		RESEARCH_RELIGION_SKILL_ACTION,
 		RESEARCH_ILLUSION_SKILL_ACTION,
 		RESEARCH_EVOCATION_SKILL_ACTION,
-		RESEARCH_MINOR_HEALING_ACTION,
-		RESEARCH_MINOR_ILLUSION_ACTION,
-		RESEARCH_RAY_OF_FROST_ACTION,
 		GET_ITEM_FROM_INVENTORY_ACTION,
 		PUT_ITEM_INTO_INVENTORY_ACTION,
-		SCRIBE_MINOR_HEALING_ACTION,
-		SCRIBE_MINOR_ILLUSION_ACTION,
-		SCRIBE_FIRE_BOLT_ACTION,
-		SCRIBE_RAY_OF_FROST_ACTION,
 		BREW_POISON_ACTION,
 		POISON_ACTION,
 		DRINK_FROM_INVENTORY_ACTION
-	);
+	));
+	
+	static {
+		ALL_ACTIONS.addAll(MAGIC_SPELLS);
+		
+		for(MagicSpell magicSpell : MAGIC_SPELLS) {
+			ResearchSpellAction researchSpellAction = new ResearchSpellAction(magicSpell);
+			ALL_ACTIONS.add(researchSpellAction);
+			
+			ScribeMagicSpellAction scribeMagicSpellAction = new ScribeMagicSpellAction(magicSpell);
+			ALL_ACTIONS.add(scribeMagicSpellAction);
+		}
+	}
+	
+	public static ResearchSpellAction getResearchSpellActionFor(MagicSpell magicSpell) {
+		for(ManagedOperation managedOperation : ALL_ACTIONS) {
+			if (managedOperation.getClass() == ResearchSpellAction.class) {
+				ResearchSpellAction researchSpellAction = (ResearchSpellAction) managedOperation;
+				if (researchSpellAction.getSpell() == magicSpell) {
+					return researchSpellAction;
+				}
+			}
+		}
+		
+		throw new IllegalStateException("Problem getting ResearchSpellAction for MagicSpell " + magicSpell);
+	}
+	
+	public static ScribeMagicSpellAction getScribeMagicSpellActionFor(MagicSpell magicSpell) {
+		for(ManagedOperation managedOperation : ALL_ACTIONS) {
+			if (managedOperation.getClass() == ScribeMagicSpellAction.class) {
+				ScribeMagicSpellAction scribeMagicSpellAction = (ScribeMagicSpellAction) managedOperation;
+				if (scribeMagicSpellAction.getSpell() == magicSpell) {
+					return scribeMagicSpellAction;
+				}
+			}
+		}
+		
+		throw new IllegalStateException("Problem getting ScribeMagicSpellAction for MagicSpell " + magicSpell);
+	}
+	
+	public static List<ManagedOperation> getAllScribeMagicSpellActions() {
+		return ALL_ACTIONS.stream().filter(operation -> operation.getClass() == ScribeMagicSpellAction.class).collect(Collectors.toList());
+	}
+	
+	public static List<MagicSpell> getMagicSpells() {
+		return MAGIC_SPELLS;
+	}
 }

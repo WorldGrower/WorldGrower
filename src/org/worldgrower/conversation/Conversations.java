@@ -58,6 +58,7 @@ public class Conversations implements Serializable {
 	public static final Conversation JOIN_TARGET_ORGANIZATION_CONVERSATION = new JoinTargetOrganizationConversation();
 	public static final Conversation LEARN_SKILLS_USING_ORGANIZATION = new LearnSkillUsingOrganizationConversation();
 	public static final Conversation SET_ORGANIZATION_PROFIT_PERCENTAGE = new SetOrganizationProfitPercentageConversation();
+	public static final Conversation CURE_POISON_CONVERSATION = new CurePoisonConversation();
 	
 	private static final List<Conversation> CONVERSATIONS = new ArrayList<>();
 	private static final Map<Conversation, ConversationCategory> CONVERSATION_CATEGORIES = new HashMap<>();
@@ -92,6 +93,7 @@ public class Conversations implements Serializable {
 		addNormalAndIntimidate(JOIN_TARGET_ORGANIZATION_CONVERSATION, ConversationCategory.GROUP);
 		add(LEARN_SKILLS_USING_ORGANIZATION, ConversationCategory.GROUP);
 		add(SET_ORGANIZATION_PROFIT_PERCENTAGE, ConversationCategory.GROUP);
+		addNormalAndIntimidate(CURE_POISON_CONVERSATION, ConversationCategory.DEMAND);
 	}
 	
 	public static int[] createArgs(Conversation conversation) {

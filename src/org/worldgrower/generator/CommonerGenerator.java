@@ -140,4 +140,31 @@ public class CommonerGenerator {
 		
 		return id;
 	}
+	
+	public static int generateSkeletalRemains(WorldObject originalWorldObject, World world) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		int id = world.generateUniqueId();
+		
+		properties.put(Constants.X, originalWorldObject.getProperty(Constants.X));
+		properties.put(Constants.Y, originalWorldObject.getProperty(Constants.Y));
+		properties.put(Constants.WIDTH, 1);
+		properties.put(Constants.HEIGHT, 1);
+		properties.put(Constants.HIT_POINTS, 15);
+		properties.put(Constants.HIT_POINTS_MAX, 15);
+		properties.put(Constants.NAME, "skeletal remains");
+		properties.put(Constants.ARMOR, 10);
+		properties.put(Constants.DECEASED_WORLD_OBJECT, Boolean.TRUE);
+
+		properties.put(Constants.ID, id);
+		properties.put(Constants.IMAGE_ID, ImageIds.SKELETAL_REMAINS);
+		properties.put(Constants.LOOK_DIRECTION, null);
+		properties.put(Constants.INVENTORY, originalWorldObject.getProperty(Constants.INVENTORY));
+		properties.put(Constants.GOLD, originalWorldObject.getProperty(Constants.GOLD));
+		properties.put(Constants.DAMAGE_RESIST, 0);
+		
+		WorldObject creature = new WorldObjectImpl(properties);
+		world.addWorldObject(creature);
+		
+		return id;
+	}
 }

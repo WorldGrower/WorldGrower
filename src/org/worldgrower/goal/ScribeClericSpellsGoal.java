@@ -26,7 +26,7 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.actions.MagicSpell;
+import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.WorldObjectContainer;
 
@@ -51,11 +51,11 @@ public class ScribeClericSpellsGoal implements Goal {
 			if (performer.getProperty(skillPropery).getLevel() < missingClericSpell.getRequiredSkillLevel()) {
 				return new OperationInfo(performer, library, new int[0], Actions.RESEARCH_RELIGION_SKILL_ACTION);
 			} else if (!performer.getProperty(Constants.KNOWN_SPELLS).contains(missingClericSpell)) {
-				return new OperationInfo(performer, library, new int[0], Actions.RESEARCH_MINOR_HEALING_ACTION);
+				return new OperationInfo(performer, library, new int[0], Actions.getResearchSpellActionFor(Actions.MINOR_HEAL_ACTION));
 			} else if (performerInventory.getWorldObjects(Constants.KNOWN_SPELLS, clericSpells).size() == 0 && performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.PAPER) < 5) {
 				return new PaperGoal().calculateGoal(performer, world);
 			} else if (performerInventory.getWorldObjects(Constants.KNOWN_SPELLS, clericSpells).size() == 0) {
-				return new OperationInfo(performer, performer, new int[0], Actions.SCRIBE_MINOR_HEALING_ACTION);
+				return new OperationInfo(performer, performer, new int[0], Actions.getScribeMagicSpellActionFor(Actions.MINOR_HEAL_ACTION));
 			} else if (performerInventory.getWorldObjects(Constants.KNOWN_SPELLS, clericSpells).size() > 0) {
 				int indexOfSpellBook = performerInventory.getIndexFor(Constants.KNOWN_SPELLS, clericSpells);
 				return new OperationInfo(performer, library, new int[] {indexOfSpellBook}, Actions.PUT_ITEM_INTO_INVENTORY_ACTION);

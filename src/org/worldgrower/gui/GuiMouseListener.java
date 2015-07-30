@@ -214,7 +214,7 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 	
 	private void addScribeMagicSpells(JPopupMenu menu) {
-		ManagedOperation[] scribeActions = { Actions.SCRIBE_MINOR_HEALING_ACTION, Actions.SCRIBE_MINOR_ILLUSION_ACTION, Actions.SCRIBE_FIRE_BOLT_ACTION, Actions.SCRIBE_RAY_OF_FROST_ACTION };
+		ManagedOperation[] scribeActions = Actions.getAllScribeMagicSpellActions().toArray(new ManagedOperation[0]);
 		addActions(menu, "Scribe spells", scribeActions);
 	}
 	
