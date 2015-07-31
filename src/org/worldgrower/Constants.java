@@ -35,9 +35,13 @@ import org.worldgrower.attribute.WorldObjectProperty;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.curse.Curse;
+import org.worldgrower.goal.Goal;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.profession.Profession;
 
+/**
+ * The Constants class holds all properties constants, describing them with name, type and possible values.
+ */
 public class Constants {
 
 	public static final List<ManagedProperty<?>> ALL_PROPERTIES = new ArrayList<>();
@@ -56,12 +60,12 @@ public class Constants {
 	
 	public static final IntProperty EXPERIENCE = new IntProperty("xp", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	
-	public static final IntProperty STRENGTH = new IntProperty("STR", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
-	public static final IntProperty DEXTERITY = new IntProperty("DEX", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
-	public static final IntProperty CONSTITUTION = new IntProperty("CON", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
-	public static final IntProperty INTELLIGENCE = new IntProperty("INT", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
-	public static final IntProperty WISDOM = new IntProperty("WIS", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
-	public static final IntProperty CHARISMA = new IntProperty("CHA", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty STRENGTH = new IntProperty("STR", 0, 20, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty DEXTERITY = new IntProperty("DEX", 0, 20, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty CONSTITUTION = new IntProperty("CON", 0, 20, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty INTELLIGENCE = new IntProperty("INT", 0, 20, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty WISDOM = new IntProperty("WIS", 0, 20, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty CHARISMA = new IntProperty("CHA", 0, 20, NOT_NULLABLE, ALL_PROPERTIES);
 	
 	public static final SkillProperty BLUFF_SKILL = new SkillProperty("bluff", ALL_PROPERTIES);
 	public static final SkillProperty INSIGHT_SKILL = new SkillProperty("insight", ALL_PROPERTIES);
@@ -181,4 +185,6 @@ public class Constants {
 	public static final IntProperty NIGHT_SHADE_SOURCE = new IntProperty("nightShadeSource", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty NIGHT_SHADE = new IntProperty("nightShade", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final BooleanProperty DECEASED_WORLD_OBJECT = new BooleanProperty("deceasedWorldObject", NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IdProperty CREATOR_ID = new IdProperty("creatorId", ALL_PROPERTIES);
+	public static final UnCheckedProperty<Goal> GIVEN_ORDER = new UnCheckedProperty<>("givenOrder", ALL_PROPERTIES);
 }

@@ -14,6 +14,9 @@
  *******************************************************************************/
 package org.worldgrower;
 
+/**
+ * The Reach class is used to determine if two WorldObjects are next to each other and what distance exists between them.
+ */
 public class Reach {
 
 	//TODO: add reach 2, 3, etc

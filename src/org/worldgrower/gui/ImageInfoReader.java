@@ -43,6 +43,7 @@ public class ImageInfoReader {
     	Sprites sprites3b = readSprites3B();
     	Sprites sprites3c = readSprites3C();
     	Sprites sprites3d = readSprites3D();
+    	Sprites sprites3e = readSprites3E();
     	Sprites objects = readObjects();
     	Sprites monsters = readMonsters();
     	Sprites orcSoldier = readOrcSoldier();
@@ -198,6 +199,15 @@ public class ImageInfoReader {
 		addCharacter(ImageIds.FEMALE_3D_2, sprites3d, 9, 0, 1, 1);
 		addCharacter(ImageIds.MALE_3D_3, sprites3d, 0, 4, 1, 1);
 		addCharacter(ImageIds.FEMALE_3D_3, sprites3d, 3, 4, 1, 1);
+		
+		addCharacter(ImageIds.MALE_3E_1, sprites3e, 0, 0, 1, 1);
+		addCharacter(ImageIds.FEMALE_3E_1, sprites3e, 3, 0, 1, 1);
+		addCharacter(ImageIds.MALE_3E_2, sprites3e, 6, 0, 1, 1);
+		addCharacter(ImageIds.FEMALE_3E_2, sprites3e, 9, 0, 1, 1);
+		addCharacter(ImageIds.MALE_3E_3, sprites3e, 0, 4, 1, 1);
+		addCharacter(ImageIds.FEMALE_3E_3, sprites3e, 3, 4, 1, 1);
+		addCharacter(ImageIds.MALE_3E_4, sprites3e, 6, 4, 1, 1);
+		addCharacter(ImageIds.FEMALE_3E_4, sprites3e, 9, 4, 1, 1);
     }
     
     private void addCharacter(ImageIds imageId, Sprites sprites, int x, int y, int width, int height) {
@@ -269,6 +279,10 @@ public class ImageInfoReader {
 
     private static Sprites readSprites3D() throws IOException {
 		return readImages("resources/vx_chara03_d.png", 32, 48, 8, 12);
+	}
+
+    private static Sprites readSprites3E() throws IOException {
+		return readImages("resources/vx_chara03_e.png", 32, 48, 8, 12);
 	}
     
 	private static Sprites readObjects() throws IOException {

@@ -16,6 +16,9 @@ package org.worldgrower;
 
 import java.io.Serializable;
 
+/**
+ * Each time a turn passes, the onTurn method is called to process ongoing effects.
+ */
 public interface OnTurn extends Serializable {
 
 	public void onTurn(WorldObject worldObject, World world);

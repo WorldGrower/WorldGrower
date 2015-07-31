@@ -17,6 +17,7 @@ package org.worldgrower.generator;
 import java.util.Arrays;
 import java.util.List;
 
+import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectPriorities;
@@ -27,6 +28,11 @@ public class SkeletonWorldEvaluationFunction implements WorldObjectPriorities {
 
 	@Override
 	public List<Goal> getPriorities(WorldObject performer, World world) {
-		return Arrays.asList(Goals.KILL_OUTSIDERS_GOAL, Goals.IDLE_GOAL);
+		Goal givenOrder = performer.getProperty(Constants.GIVEN_ORDER);
+		if (givenOrder != null) {
+			return Arrays.asList(givenOrder, Goals.KILL_OUTSIDERS_GOAL, Goals.IDLE_GOAL);
+		} else {
+			return Arrays.asList(Goals.KILL_OUTSIDERS_GOAL, Goals.IDLE_GOAL);
+		}
 	}
 }

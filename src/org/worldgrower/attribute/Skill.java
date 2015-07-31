@@ -18,25 +18,38 @@ import java.io.Serializable;
 
 public class Skill implements Serializable {
 
+	private static final int USAGE_OFFSET = 22;
+	
 	private int level;
 	private int currentUsageCount;
 	private int maxUsageCount;
+	private int usageOffset;
 	
-	public Skill() {
-		this.level = 0;
-		this.currentUsageCount = 0;
-		this.maxUsageCount = calculateMaxUsageCount();
+	// governingAttributeValue has value 0 to 20
+	public Skill(int governingAttributeValue) {
+		if (governingAttributeValue <= 10) {
+			this.level = 0;
+			this.usageOffset = USAGE_OFFSET - governingAttributeValue;
+			this.currentUsageCount = 0;
+			this.maxUsageCount = calculateMaxUsageCount();
+		} else {
+			this.level = governingAttributeValue - 10;
+			this.usageOffset = USAGE_OFFSET - governingAttributeValue;
+			this.currentUsageCount = 0;
+			this.maxUsageCount = calculateMaxUsageCount();
+		}
 	}
 
-	private Skill(int level, int currentUsageCount, int maxUsageCount) {
+	private Skill(int level, int currentUsageCount, int maxUsageCount, int usageOffset) {
 		super();
 		this.level = level;
 		this.currentUsageCount = currentUsageCount;
 		this.maxUsageCount = maxUsageCount;
+		this.usageOffset = usageOffset;
 	}
 
 	private int calculateMaxUsageCount() {
-		return 3 * level * level + 10;
+		return 3 * level * level + usageOffset;
 	}
 	
 	public void use() {
@@ -58,7 +71,7 @@ public class Skill implements Serializable {
 	}
 
 	public Skill copy() {
-		return new Skill(level, currentUsageCount, maxUsageCount);
+		return new Skill(level, currentUsageCount, maxUsageCount, usageOffset);
 	}
 	
 	@Override

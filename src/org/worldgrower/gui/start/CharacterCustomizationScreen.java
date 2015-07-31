@@ -33,6 +33,12 @@ public class CharacterCustomizationScreen extends JFrame {
 	
 	private List<JButton> plusButtons = new ArrayList<>();
 	private List<JButton> minButtons = new ArrayList<>();
+	private JLabel lblStrength;
+	private JLabel lblConstitution;
+	private JLabel lblDexterity;
+	private JLabel lblIntelligence;
+	private JLabel lblWisdom;
+	private JLabel lblCharisma;
 
 	public CharacterCustomizationScreen() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -52,7 +58,7 @@ public class CharacterCustomizationScreen extends JFrame {
 		lblStrengthDesc.setBounds(12, 13, 86, 16);
 		contentPane.add(lblStrengthDesc);
 		
-		JLabel lblStrength = new JLabel("10");
+		lblStrength = new JLabel("10");
 		lblStrength.setBounds(110, 13, 24, 16);
 		contentPane.add(lblStrength);
 		
@@ -60,7 +66,7 @@ public class CharacterCustomizationScreen extends JFrame {
 		lblConstitutionDesc.setBounds(12, 51, 86, 16);
 		contentPane.add(lblConstitutionDesc);
 		
-		JLabel lblConstitution = new JLabel("10");
+		lblConstitution = new JLabel("10");
 		lblConstitution.setBounds(110, 51, 24, 16);
 		contentPane.add(lblConstitution);
 		
@@ -68,7 +74,7 @@ public class CharacterCustomizationScreen extends JFrame {
 		lblDexterityDesc.setBounds(12, 91, 86, 16);
 		contentPane.add(lblDexterityDesc);
 		
-		JLabel lblDexterity = new JLabel("10");
+		lblDexterity = new JLabel("10");
 		lblDexterity.setBounds(110, 91, 24, 16);
 		contentPane.add(lblDexterity);
 		
@@ -76,7 +82,7 @@ public class CharacterCustomizationScreen extends JFrame {
 		lblIntelligenceDesc.setBounds(12, 133, 86, 16);
 		contentPane.add(lblIntelligenceDesc);
 		
-		JLabel lblIntelligence = new JLabel("10");
+		lblIntelligence = new JLabel("10");
 		lblIntelligence.setBounds(110, 133, 24, 16);
 		contentPane.add(lblIntelligence);
 		
@@ -84,7 +90,7 @@ public class CharacterCustomizationScreen extends JFrame {
 		lblWisdomDesc.setBounds(12, 179, 86, 16);
 		contentPane.add(lblWisdomDesc);
 		
-		JLabel lblWisdom = new JLabel("10");
+		lblWisdom = new JLabel("10");
 		lblWisdom.setBounds(110, 179, 24, 16);
 		contentPane.add(lblWisdom);
 		
@@ -92,7 +98,7 @@ public class CharacterCustomizationScreen extends JFrame {
 		lblCharismaDesc.setBounds(12, 224, 86, 16);
 		contentPane.add(lblCharismaDesc);
 		
-		JLabel lblCharisma = new JLabel("10");
+		lblCharisma = new JLabel("10");
 		lblCharisma.setBounds(110, 224, 24, 16);
 		contentPane.add(lblCharisma);
 		
@@ -143,7 +149,7 @@ public class CharacterCustomizationScreen extends JFrame {
 				incrementAttributeValue(lblDexterity, attributeLabel); 
 			}
 		});
-		button_2.setBounds(146, 133, 41, 25);
+		button_2.setBounds(146, 91, 41, 25);
 		contentPane.add(button_2);
 		
 		JButton button_3 = new JButton("-");
@@ -153,7 +159,7 @@ public class CharacterCustomizationScreen extends JFrame {
 				decrementAttributeValue(lblDexterity, attributeLabel); 
 			}
 		});
-		button_3.setBounds(199, 133, 41, 25);
+		button_3.setBounds(199, 91, 41, 25);
 		contentPane.add(button_3);
 		
 		JButton button_4 = new JButton("+");
@@ -163,7 +169,7 @@ public class CharacterCustomizationScreen extends JFrame {
 				incrementAttributeValue(lblIntelligence, attributeLabel); 
 			}
 		});
-		button_4.setBounds(146, 179, 41, 25);
+		button_4.setBounds(146, 133, 41, 25);
 		contentPane.add(button_4);
 		
 		JButton button_5 = new JButton("-");
@@ -173,7 +179,7 @@ public class CharacterCustomizationScreen extends JFrame {
 				decrementAttributeValue(lblIntelligence, attributeLabel); 
 			}
 		});
-		button_5.setBounds(199, 179, 41, 25);
+		button_5.setBounds(199, 133, 41, 25);
 		contentPane.add(button_5);
 		
 		JButton button_6 = new JButton("+");
@@ -183,7 +189,7 @@ public class CharacterCustomizationScreen extends JFrame {
 				incrementAttributeValue(lblWisdom, attributeLabel); 
 			}
 		});
-		button_6.setBounds(146, 224, 41, 25);
+		button_6.setBounds(146, 179, 41, 25);
 		contentPane.add(button_6);
 		
 		JButton button_7 = new JButton("-");
@@ -193,7 +199,7 @@ public class CharacterCustomizationScreen extends JFrame {
 				decrementAttributeValue(lblWisdom, attributeLabel); 
 			}
 		});
-		button_7.setBounds(199, 224, 41, 25);
+		button_7.setBounds(199, 179, 41, 25);
 		contentPane.add(button_7);
 		
 		JButton button_8 = new JButton("+");
@@ -203,7 +209,7 @@ public class CharacterCustomizationScreen extends JFrame {
 				incrementAttributeValue(lblCharisma, attributeLabel); 
 			}
 		});
-		button_8.setBounds(146, 91, 41, 25);
+		button_8.setBounds(146, 224, 41, 25);
 		contentPane.add(button_8);
 		
 		JButton button_9 = new JButton("-");
@@ -213,7 +219,7 @@ public class CharacterCustomizationScreen extends JFrame {
 				decrementAttributeValue(lblCharisma, attributeLabel); 
 			}
 		});
-		button_9.setBounds(199, 91, 41, 25);
+		button_9.setBounds(199, 224, 41, 25);
 		contentPane.add(button_9);
 		
 		JLabel lblRemainingAttributePoints = new JLabel("Remaining attribute points:");
@@ -251,6 +257,8 @@ public class CharacterCustomizationScreen extends JFrame {
 		attributePoints--;
 		attributeLabel.setText(Integer.toString(attributePoints));
 		
+		handleMinMaxValues();
+		
 		if (attributePoints == 0) {
 			for(JButton plusButton : plusButtons) {
 				plusButton.setEnabled(false);
@@ -258,6 +266,37 @@ public class CharacterCustomizationScreen extends JFrame {
 		}
 	}
 	
+	private void handleMinMaxValues() {
+		int strength = Integer.parseInt(lblStrength.getText());
+		handleMinMaxValue(strength, 0);
+		
+		int constitution = Integer.parseInt(lblConstitution.getText());
+		handleMinMaxValue(constitution, 1);
+		
+		int dexterity = Integer.parseInt(lblDexterity.getText());
+		handleMinMaxValue(dexterity, 2);
+		
+		int intelligence = Integer.parseInt(lblIntelligence.getText());
+		handleMinMaxValue(intelligence, 3);
+		
+		int wisdom = Integer.parseInt(lblWisdom.getText());
+		handleMinMaxValue(wisdom, 4);
+		
+		int charisma = Integer.parseInt(lblCharisma.getText());
+		handleMinMaxValue(charisma, 5);
+	}
+	
+	private void handleMinMaxValue(int attributeValue, int buttonIndex) {
+		if (attributeValue == 20) {
+			plusButtons.get(buttonIndex).setEnabled(false);
+		} else if (attributeValue == 8) {
+			minButtons.get(buttonIndex).setEnabled(false);
+		} else {
+			plusButtons.get(buttonIndex).setEnabled(true);
+			minButtons.get(buttonIndex).setEnabled(true);
+		}
+	}
+
 	private void decrementAttributeValue(JLabel label, JLabel attributeLabel) {
 		int currentValue = Integer.parseInt(label.getText());
 		int newValue = currentValue - 1;
@@ -265,6 +304,8 @@ public class CharacterCustomizationScreen extends JFrame {
 		
 		attributePoints++;
 		attributeLabel.setText(Integer.toString(attributePoints));
+		
+		handleMinMaxValues();
 		
 		if (attributePoints > 0) {
 			for(JButton plusButton : plusButtons) {

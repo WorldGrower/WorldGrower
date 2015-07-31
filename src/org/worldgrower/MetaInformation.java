@@ -21,6 +21,10 @@ import java.util.Queue;
 
 import org.worldgrower.goal.Goal;
 
+/**
+ * MetaInformation holds all information of a non-player character regarding goals, actions, etc.
+ * It holds all the state regarding the decisions a non-player character makes.
+ */
 class MetaInformation implements Serializable {
 	private LinkedList<OperationInfo> currentTask = new LinkedList<OperationInfo>();
 	private Goal finalGoal; 

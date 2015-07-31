@@ -24,6 +24,10 @@ import org.worldgrower.goal.Goal;
 import org.worldgrower.history.HistoryItem;
 import org.worldgrower.history.Turn;
 
+/**
+ * The DungeonMaster class is responsible for executing actions, making sure they can be executed and making npc's
+ * choose the correct actions.
+ */
 public class DungeonMaster implements Serializable {
 	
 	private final GoalCalculator goalCalculator = new GoalCalculator();

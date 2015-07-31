@@ -27,6 +27,7 @@ import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.PropertyCountMap;
 import org.worldgrower.attribute.Skill;
+import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.creaturetype.CreatureType;
@@ -81,7 +82,7 @@ public class CreatureGenerator {
 		properties.put(Constants.WISDOM, 12);
 		properties.put(Constants.CHARISMA, 6);
 		
-		properties.put(Constants.HAND_TO_HAND_SKILL, new Skill());
+		properties.put(Constants.HAND_TO_HAND_SKILL, new Skill(10));
 		
 		properties.put(Constants.DAMAGE, 2);
 		properties.put(Constants.DAMAGE_RESIST, 0);
@@ -133,7 +134,7 @@ public class CreatureGenerator {
 		properties.put(Constants.WISDOM, 12);
 		properties.put(Constants.CHARISMA, 6);
 		
-		properties.put(Constants.HAND_TO_HAND_SKILL, new Skill());
+		properties.put(Constants.HAND_TO_HAND_SKILL, new Skill(10));
 		
 		properties.put(Constants.DAMAGE, 5);
 		properties.put(Constants.DAMAGE_RESIST, 10);
@@ -185,7 +186,7 @@ public class CreatureGenerator {
 		properties.put(Constants.WISDOM, 12);
 		properties.put(Constants.CHARISMA, 6);
 		
-		properties.put(Constants.HAND_TO_HAND_SKILL, new Skill());
+		properties.put(Constants.HAND_TO_HAND_SKILL, new Skill(10));
 		
 		properties.put(Constants.DAMAGE, 3);
 		properties.put(Constants.DAMAGE_RESIST, 8);
@@ -196,7 +197,7 @@ public class CreatureGenerator {
 		return id;
 	}
 	
-	public int generateSkeleton(int x, int y, World world) {
+	public int generateSkeleton(int x, int y, World world, WorldObject performer) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();
 		
@@ -206,7 +207,7 @@ public class CreatureGenerator {
 		properties.put(Constants.HEIGHT, 1);
 		properties.put(Constants.HIT_POINTS, 15);
 		properties.put(Constants.HIT_POINTS_MAX, 15);
-		properties.put(Constants.NAME, "Spider");
+		properties.put(Constants.NAME, "Skeleton");
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.SKELETON);
 		properties.put(Constants.ENERGY, 1000);
@@ -215,6 +216,8 @@ public class CreatureGenerator {
 		properties.put(Constants.CREATURE_TYPE, CreatureType.UNDEAD_CREATURE_TYPE);
 		properties.put(Constants.CONDITIONS, new Conditions());
 		properties.put(Constants.GOLD, 0);
+		properties.put(Constants.CREATOR_ID, performer.getProperty(Constants.ID));
+		properties.put(Constants.GIVEN_ORDER, null);
 		
 		properties.put(Constants.ARMOR, 10);
 		
@@ -224,13 +227,12 @@ public class CreatureGenerator {
 		properties.put(Constants.INTELLIGENCE, 6);
 		properties.put(Constants.WISDOM, 12);
 		properties.put(Constants.CHARISMA, 6);
-		
-		properties.put(Constants.HAND_TO_HAND_SKILL, new Skill());
+		SkillUtils.addAllSkills(properties);
 		
 		properties.put(Constants.DAMAGE, 5);
 		properties.put(Constants.DAMAGE_RESIST, 10);
 		
-		WorldObject skeleton = new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new DoNothingOnTurn(), new SkeletonWorldEvaluationFunction());
+		WorldObject skeleton = new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new SkeletonOnTurn(), new SkeletonWorldEvaluationFunction());
 		world.addWorldObject(skeleton);
 		
 		return id;

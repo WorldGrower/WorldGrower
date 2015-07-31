@@ -19,6 +19,10 @@ import java.util.List;
 
 import org.worldgrower.goal.Goal;
 
+/**
+ * GoalCalculator calculates the next goal and ManagedOperation a non-player character should perform.
+ * It handles already tried goals and priority goals.
+ */
 public class GoalCalculator implements Serializable {
 
 	public GoalAndOperationInfo calculateGoal(WorldObject performer, World world, List<Goal> triedGoals) {

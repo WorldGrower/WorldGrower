@@ -139,4 +139,12 @@ public enum ImageIds {
 	FEMALE_3D_2,
 	MALE_3D_3,
 	FEMALE_3D_3,
+	MALE_3E_1,
+	FEMALE_3E_1,
+	MALE_3E_2,
+	FEMALE_3E_2,
+	MALE_3E_3,
+	FEMALE_3E_3,
+	MALE_3E_4,
+	FEMALE_3E_4
 }

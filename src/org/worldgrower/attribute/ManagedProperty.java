@@ -20,7 +20,11 @@ import java.util.List;
 
 import org.worldgrower.Constants;
 
-
+/**
+ * A ManagedProperty manages a certain type T.
+ * It is managed because it provides limits to possible values.
+ * The checkValue method blocks invalid or out of range values.
+ */
 public interface ManagedProperty<T> extends Serializable {
 	public String getName();
 	public void checkValue(T value);

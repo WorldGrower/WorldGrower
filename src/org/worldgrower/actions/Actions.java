@@ -97,6 +97,7 @@ public class Actions {
 	public static final PoisonAction POISON_ACTION = new PoisonAction();
 	public static final DrinkFromInventoryAction DRINK_FROM_INVENTORY_ACTION = new DrinkFromInventoryAction();
 	public static final AnimateDeadAction ANIMATE_DEAD_ACTION = new AnimateDeadAction();
+	public static final CommandAction COMMAND_ACTION = new CommandAction();
 	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 
@@ -163,7 +164,8 @@ public class Actions {
 		PUT_ITEM_INTO_INVENTORY_ACTION,
 		BREW_POISON_ACTION,
 		POISON_ACTION,
-		DRINK_FROM_INVENTORY_ACTION
+		DRINK_FROM_INVENTORY_ACTION,
+		COMMAND_ACTION
 	));
 	
 	static {

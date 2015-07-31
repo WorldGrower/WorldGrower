@@ -20,6 +20,10 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 
+/**
+ * A Goal describes something a non-player character wants to achieve.
+ * This class is responsible for calculating the next ManagedOperation to perform, if the Goal is achieved or not and if the Goal is getting closer or not.
+ */
 public interface Goal extends Serializable {
 	public OperationInfo calculateGoal(WorldObject performer, World world);
 	public boolean isGoalMet(WorldObject performer, World world);

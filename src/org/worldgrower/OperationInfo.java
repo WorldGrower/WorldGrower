@@ -24,6 +24,9 @@ import org.worldgrower.generator.CommonerGenerator;
 import org.worldgrower.history.HistoryItem;
 import org.worldgrower.history.Turn;
 
+/**
+ * An OperationInfo instance holds all the state necessary to execute a ManagedOperation.
+ */
 public class OperationInfo implements Serializable {
 	private final WorldObject performer;
 	private final WorldObject target;

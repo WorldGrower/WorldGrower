@@ -14,6 +14,7 @@
 *******************************************************************************/
 package org.worldgrower.attribute;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.worldgrower.Constants;
@@ -23,25 +24,55 @@ import org.worldgrower.profession.Profession;
 public class SkillUtils {
 
 	public static void addAllSkills(Map<ManagedProperty<?>, Object> properties) {
-		properties.put(Constants.BLUFF_SKILL, new Skill());
-		properties.put(Constants.INSIGHT_SKILL, new Skill());
-		properties.put(Constants.HAND_TO_HAND_SKILL, new Skill());
-		properties.put(Constants.ONE_HANDED_SKILL, new Skill());
-		properties.put(Constants.TWO_HANDED_SKILL, new Skill());
-		properties.put(Constants.PERCEPTION_SKILL, new Skill());
-		properties.put(Constants.DIPLOMACY_SKILL, new Skill());
-		properties.put(Constants.INTIMIDATE_SKILL, new Skill());
-		properties.put(Constants.SMITHING_SKILL, new Skill());
-		properties.put(Constants.ALCHEMY_SKILL, new Skill());
-		properties.put(Constants.ARCHERY_SKILL, new Skill());
-		properties.put(Constants.THIEVERY_SKILL, new Skill());
-		properties.put(Constants.EVOCATION_SKILL, new Skill());
-		properties.put(Constants.ILLUSION_SKILL, new Skill());
-		properties.put(Constants.RESTORATION_SKILL, new Skill());
-		properties.put(Constants.FARMING_SKILL, new Skill());
-		properties.put(Constants.MINING_SKILL, new Skill());
-		properties.put(Constants.LUMBERING_SKILL, new Skill());
-		properties.put(Constants.RELIGION_SKILL, new Skill());
+		addSkill(Constants.BLUFF_SKILL, properties);
+		addSkill(Constants.INSIGHT_SKILL, properties);
+		addSkill(Constants.HAND_TO_HAND_SKILL, properties);
+		addSkill(Constants.ONE_HANDED_SKILL, properties);
+		addSkill(Constants.TWO_HANDED_SKILL, properties);
+		addSkill(Constants.PERCEPTION_SKILL, properties);
+		addSkill(Constants.DIPLOMACY_SKILL, properties);
+		addSkill(Constants.INTIMIDATE_SKILL, properties);
+		addSkill(Constants.SMITHING_SKILL, properties);
+		addSkill(Constants.ALCHEMY_SKILL, properties);
+		addSkill(Constants.ARCHERY_SKILL, properties);
+		addSkill(Constants.THIEVERY_SKILL, properties);
+		addSkill(Constants.EVOCATION_SKILL, properties);
+		addSkill(Constants.ILLUSION_SKILL, properties);
+		addSkill(Constants.RESTORATION_SKILL, properties);
+		addSkill(Constants.FARMING_SKILL, properties);
+		addSkill(Constants.MINING_SKILL, properties);
+		addSkill(Constants.LUMBERING_SKILL, properties);
+		addSkill(Constants.RELIGION_SKILL, properties);
+	}
+	
+	private static final Map<SkillProperty, IntProperty> SKILLS_TO_ATTRIBUTE_MAP = new HashMap<>();
+	
+	static {
+		SKILLS_TO_ATTRIBUTE_MAP.put(Constants.BLUFF_SKILL, Constants.CHARISMA);
+		SKILLS_TO_ATTRIBUTE_MAP.put(Constants.INSIGHT_SKILL, Constants.WISDOM);
+		SKILLS_TO_ATTRIBUTE_MAP.put(Constants.HAND_TO_HAND_SKILL, Constants.STRENGTH);
+		SKILLS_TO_ATTRIBUTE_MAP.put(Constants.ONE_HANDED_SKILL, Constants.STRENGTH);
+		SKILLS_TO_ATTRIBUTE_MAP.put(Constants.TWO_HANDED_SKILL, Constants.STRENGTH);
+		SKILLS_TO_ATTRIBUTE_MAP.put(Constants.PERCEPTION_SKILL, Constants.WISDOM);
+		SKILLS_TO_ATTRIBUTE_MAP.put(Constants.DIPLOMACY_SKILL, Constants.CHARISMA);
+		SKILLS_TO_ATTRIBUTE_MAP.put(Constants.INTIMIDATE_SKILL, Constants.CHARISMA);
+		SKILLS_TO_ATTRIBUTE_MAP.put(Constants.SMITHING_SKILL, Constants.WISDOM);
+		SKILLS_TO_ATTRIBUTE_MAP.put(Constants.ALCHEMY_SKILL, Constants.WISDOM);
+		SKILLS_TO_ATTRIBUTE_MAP.put(Constants.ARCHERY_SKILL, Constants.DEXTERITY);
+		SKILLS_TO_ATTRIBUTE_MAP.put(Constants.THIEVERY_SKILL, Constants.DEXTERITY);
+		SKILLS_TO_ATTRIBUTE_MAP.put(Constants.EVOCATION_SKILL, Constants.INTELLIGENCE);
+		SKILLS_TO_ATTRIBUTE_MAP.put(Constants.ILLUSION_SKILL, Constants.INTELLIGENCE);
+		SKILLS_TO_ATTRIBUTE_MAP.put(Constants.RESTORATION_SKILL, Constants.INTELLIGENCE);
+		SKILLS_TO_ATTRIBUTE_MAP.put(Constants.FARMING_SKILL, Constants.WISDOM);
+		SKILLS_TO_ATTRIBUTE_MAP.put(Constants.MINING_SKILL, Constants.WISDOM);
+		SKILLS_TO_ATTRIBUTE_MAP.put(Constants.LUMBERING_SKILL, Constants.WISDOM);
+		SKILLS_TO_ATTRIBUTE_MAP.put(Constants.RELIGION_SKILL, Constants.INTELLIGENCE);
+	}
+	
+	private static void addSkill(SkillProperty skillProperty, Map<ManagedProperty<?>, Object> properties) {
+		IntProperty attribute = SKILLS_TO_ATTRIBUTE_MAP.get(skillProperty);
+		int attributeValue = (Integer) properties.get(attribute);
+		properties.put(skillProperty, new Skill(attributeValue));
 	}
 	
 	public static boolean canTargetTeachPerformer(WorldObject performer, WorldObject target) {

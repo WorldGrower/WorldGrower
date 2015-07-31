@@ -22,6 +22,10 @@ import org.worldgrower.goal.Goal;
 import org.worldgrower.history.History;
 import org.worldgrower.terrain.Terrain;
 
+/** 
+ * A world contains a collection of WorldObects, as well as the history of performed actions and the world terrain. 
+ * It contains all the state for this program.
+ */
 public interface World {
 
 	public void addWorldObject(WorldObject worldObject);

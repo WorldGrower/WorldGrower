@@ -42,7 +42,7 @@ public class TestUtils {
 		properties.put(Constants.WIDTH, width);
 		properties.put(Constants.HEIGHT, height);
 		properties.put(Constants.ENERGY, 1000);
-		properties.put(Constants.LUMBERING_SKILL, new Skill());
+		properties.put(Constants.LUMBERING_SKILL, new Skill(10));
 		WorldObject w1 = new WorldObjectImpl(properties);
 		return w1;
 	}

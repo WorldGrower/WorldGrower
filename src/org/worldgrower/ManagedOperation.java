@@ -20,6 +20,10 @@ import java.util.List;
 
 import org.worldgrower.actions.Actions;
 
+/**
+ * A ManagedOperation described an action that a WorldObject performs on another WorldObject.
+ * A performer performs the action on a target with additional arguments args, and a World instance to lookup data.
+ */
 public interface ManagedOperation extends Serializable {
 
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world);

@@ -20,6 +20,10 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.WorldObject;
 
+/**
+ * History holds all ManagedOperations that were executed until now.
+ * Its main purpose is to hold this information and provide fast ways to query it.
+ */
 public interface History {
 
 	public HistoryItem actionPerformed(OperationInfo operationInfo, Turn turn);

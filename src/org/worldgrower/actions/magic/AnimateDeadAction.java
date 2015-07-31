@@ -24,7 +24,6 @@ import org.worldgrower.actions.AttackUtils;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.generator.CreatureGenerator;
-import org.worldgrower.goal.GroupPropertyUtils;
 
 public class AnimateDeadAction implements MagicSpell {
 
@@ -35,7 +34,7 @@ public class AnimateDeadAction implements MagicSpell {
 		CreatureGenerator creatureGenerator = new CreatureGenerator(world.findWorldObject(Constants.ID, performer.getProperty(Constants.GROUP).getIds().get(0)));
 		Integer targetX = target.getProperty(Constants.X);
 		Integer targetY = target.getProperty(Constants.Y);
-		creatureGenerator.generateSkeleton(targetX, targetY, world);
+		creatureGenerator.generateSkeleton(targetX, targetY, world, performer);
 		
 		world.removeWorldObject(target);
 	}

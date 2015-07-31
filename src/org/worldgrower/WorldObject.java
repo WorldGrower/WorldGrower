@@ -20,6 +20,10 @@ import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.goal.Goal;
 
+/**
+ * A worldObject is a collections of properties and actions it may execute.
+ * Both non-player-characters and lifeless objects are described by WorldObjects.
+ */
 public interface WorldObject {
 
 	public<T> T getProperty(ManagedProperty<T> propertyKey);

@@ -12,42 +12,17 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.goal;
+package org.worldgrower.generator;
 
-import org.worldgrower.OperationInfo;
+import org.worldgrower.Constants;
+import org.worldgrower.OnTurn;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.actions.Actions;
 
-public class CreateWoodGoal implements Goal {
-
-	@Override
-	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		WorldObject target = GoalUtils.findNearestTarget(performer, Actions.CUT_WOOD_ACTION, world);
-		return new OperationInfo(performer, target, new int[0], Actions.CUT_WOOD_ACTION);
-	}
-
-	@Override
-	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
-	}
+public class SkeletonOnTurn implements OnTurn {
 	
 	@Override
-	public boolean isGoalMet(WorldObject performer, World world) {
-		return false;
-	}
-	
-	@Override
-	public boolean isUrgentGoalMet(WorldObject performer, World world) {
-		return isGoalMet(performer, world);
-	}
-
-	@Override
-	public String getDescription() {
-		return "looking for wood";
-	}
-
-	@Override
-	public int evaluate(WorldObject performer, World world) {
-		return 0;
+	public void onTurn(WorldObject worldObject, World world) {	
+		worldObject.setProperty(Constants.ENERGY, 1000);
 	}
 }
