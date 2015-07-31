@@ -40,6 +40,10 @@ public class IdList implements Serializable {
 		ids.remove(worldObject.getProperty(Constants.ID));
 	}
 	
+	public void removeAll(List<Integer> idsToRemove) {
+		ids.removeAll(idsToRemove);
+	}
+	
 	public void remove(int id) {
 		ids.remove(Integer.valueOf(id));
 	}

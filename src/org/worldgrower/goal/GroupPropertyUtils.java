@@ -42,7 +42,7 @@ public class GroupPropertyUtils {
 	}
 	
 	public static void throwPerformerOutGroup(WorldObject performer, WorldObject w) {
-		performer.getProperty(Constants.GROUP).remove(w);
+		performer.getProperty(Constants.GROUP).removeAll(w.getProperty(Constants.GROUP).getIds());
 	}
 	
 	public static boolean isOrganizationNameInUse(String organizationName, World world) {
