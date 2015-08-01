@@ -48,6 +48,7 @@ public class Goals {
 	public static final SubdueOutsidersGoal SUBDUE_OUTSIDERS_GOAL = new SubdueOutsidersGoal();
 	public static final CocoonOutsidersGoal COCOON_OUTSIDERS_GOAL = new CocoonOutsidersGoal();
 	public static final MateGoal MATE_GOAL = new MateGoal();
+	public static final SexGoal SEX_GOAL = new SexGoal();
 	public static final MintGoldGoal MINT_GOLD_GOAL = new MintGoldGoal();
 	public static final MineResourcesGoal MINE_RESOURCES_GOAL = new MineResourcesGoal();
 	public static final SellGoldGoal SELL_GOLD_GOAL = new SellGoldGoal();

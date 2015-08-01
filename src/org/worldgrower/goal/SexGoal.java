@@ -14,41 +14,30 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
-import java.util.List;
-
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.IdMap;
-import org.worldgrower.conversation.Conversations;
 
-public class MateGoal implements Goal {
+public class SexGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
+		Integer mateId = performer.getProperty(Constants.MATE_ID);
 		IdMap relationships = performer.getProperty(Constants.RELATIONSHIPS);
 				
-		int bestId = relationships.findBestId(w -> RacePropertyUtils.canHaveOffspring(performer, w) && (w.getProperty(Constants.HOUSE_ID) != null), world);
+		int bestId = relationships.findBestId(w -> true, world);
 		
-		if (bestId == -1) {
-			bestId = relationships.findBestId(w -> RacePropertyUtils.canHaveOffspring(performer, w), world);
-		}
-		
-		if ((bestId != -1) && (relationships.getValue(bestId) > 750)) {
+		if ((mateId != null)) {
+			WorldObject target = world.findWorldObject(Constants.ID, mateId);
+			return new OperationInfo(performer, target, new int[0], Actions.SEX_ACTION);
+		} else if (bestId != -1 && relationships.getValue(bestId) > 750) {
 			WorldObject target = world.findWorldObject(Constants.ID, bestId);
-			return new OperationInfo(performer, target, Conversations.createArgs(Conversations.PROPOSE_MATE_CONVERSATION), Actions.TALK_ACTION);
-		} else if (bestId != -1) {
-			return new ImproveRelationshipGoal(bestId, 750, world).calculateGoal(performer, world);
+			return new OperationInfo(performer, target, new int[0], Actions.SEX_ACTION);
 		} else {
-			List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.SEX_ACTION, w -> RacePropertyUtils.canHaveOffspring(performer, w) ,world);
-			if (targets.size() > 0) {
-				WorldObject target = targets.get(0);
-				return new ImproveRelationshipGoal(target.getProperty(Constants.ID), 750, world).calculateGoal(performer, world);
-			} else {
-				return null;
-			}
+			return new ImproveRelationshipGoal(bestId, 750, world).calculateGoal(performer, world);
 		}
 	}
 	
@@ -58,7 +47,7 @@ public class MateGoal implements Goal {
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		return performer.getProperty(Constants.MATE_ID) != null;
+		return false;
 	}
 	
 	@Override
@@ -68,11 +57,11 @@ public class MateGoal implements Goal {
 
 	@Override
 	public String getDescription() {
-		return "looking to have a mate";
+		return "looking to have sex";
 	}
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		return (performer.getProperty(Constants.MATE_ID) != null) ? 1 : 0;
+		return 0;
 	}
 }
