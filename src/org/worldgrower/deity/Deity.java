@@ -14,10 +14,14 @@
  *******************************************************************************/
 package org.worldgrower.deity;
 
+import java.io.ObjectStreamException;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import org.worldgrower.profession.Profession;
+import org.worldgrower.profession.Professions;
 
 public interface Deity extends Serializable {
 
@@ -38,5 +42,17 @@ public interface Deity extends Serializable {
 
 	public static List<String> getAllDeityNames() {
 		return ALL_DEITIES.stream().map(deity -> deity.getName()).collect(Collectors.toList());
+	}
+	
+	public default Object readResolveImpl() throws ObjectStreamException {
+		Class<?> clazz = getClass();
+		
+		for(Deity deity : ALL_DEITIES) {
+			if (deity.getClass() == clazz) {
+				return deity;
+			}
+		}
+		
+		throw new IllegalStateException("Profession with class " + clazz + " not found");
 	}
 }

@@ -14,6 +14,8 @@
  *******************************************************************************/
 package org.worldgrower.deity;
 
+import java.io.ObjectStreamException;
+
 public class Aphrodite implements Deity {
 
 	@Override
@@ -26,4 +28,7 @@ public class Aphrodite implements Deity {
 		return getName() + " is the Goddess of love, beauty, desire, sex and pleasure.";
 	}
 
+	public Object readResolve() throws ObjectStreamException {
+		return readResolveImpl();
+	}
 }

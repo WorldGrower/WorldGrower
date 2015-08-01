@@ -14,6 +14,8 @@
  *******************************************************************************/
 package org.worldgrower.deity;
 
+import java.io.ObjectStreamException;
+
 public class Hades implements Deity {
 
 	@Override
@@ -24,5 +26,9 @@ public class Hades implements Deity {
 	@Override
 	public String getExplanation() {
 		return getName() + " is the God of underworld and all things beneath the earth.";
+	}
+	
+	public Object readResolve() throws ObjectStreamException {
+		return readResolveImpl();
 	}
 }

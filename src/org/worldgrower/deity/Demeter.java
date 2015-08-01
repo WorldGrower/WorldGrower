@@ -14,6 +14,8 @@
  *******************************************************************************/
 package org.worldgrower.deity;
 
+import java.io.ObjectStreamException;
+
 public class Demeter implements Deity {
 
 	@Override
@@ -24,5 +26,9 @@ public class Demeter implements Deity {
 	@Override
 	public String getExplanation() {
 		return getName() + " is the God of harvest, sacred laws and life and death.";
+	}
+	
+	public Object readResolve() throws ObjectStreamException {
+		return readResolveImpl();
 	}
 }

@@ -14,6 +14,8 @@
  *******************************************************************************/
 package org.worldgrower.deity;
 
+import java.io.ObjectStreamException;
+
 public class Hephaestus implements Deity {
 
 	@Override
@@ -26,4 +28,7 @@ public class Hephaestus implements Deity {
 		return getName() + " is the crippled god of fire, metalworking, and crafts.";
 	}
 
+	public Object readResolve() throws ObjectStreamException {
+		return readResolveImpl();
+	}
 }
