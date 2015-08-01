@@ -14,25 +14,29 @@
  *******************************************************************************/
 package org.worldgrower.conversation;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.goal.DeityPropertyUtils;
+import org.worldgrower.deity.Deity;
 import org.worldgrower.history.HistoryItem;
+import org.worldgrower.profession.Profession;
+import org.worldgrower.profession.Professions;
 
 public class DeityExplanationConversation implements Conversation {
 
 	@Override
 	public Response getReplyPhrase(ConversationContext conversationContext) {
 		WorldObject target = conversationContext.getTarget();
-		WorldObject subject = conversationContext.getSubject();
-		WorldObject targetDeity = target.getProperty(Constants.DEITY);
+		Deity subjectDeity = Deity.ALL_DEITIES.get(conversationContext.getAdditionalValue());
+		Deity targetDeity = target.getProperty(Constants.DEITY);
+		Profession targetProfession = target.getProperty(Constants.PROFESSION);
 		
 		final int replyId;
-		if (targetDeity == subject) {
+		if ((targetDeity == subjectDeity) || (targetProfession == Professions.PRIEST_PROFESSION)) {
 			replyId = 0;
 		} else {
 			replyId = 1;
@@ -42,16 +46,20 @@ public class DeityExplanationConversation implements Conversation {
 
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, World world) {
-		WorldObject deity = DeityPropertyUtils.findDeity("Demeter", world);
-		return Arrays.asList(new Question(deity, "What can you tell me about " + deity.getProperty(Constants.NAME)));
+		List<Question> questions = new ArrayList<>();
+		for(Deity deity : Deity.ALL_DEITIES) {
+			int indexOfDeity = Deity.ALL_DEITIES.indexOf(deity);
+			questions.add(new Question(null, "What can you tell me about " + deity.getName(), indexOfDeity));
+		}
+		return questions;
 	}
 	
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
-		WorldObject subject = conversationContext.getSubject();
+		Deity subjectDeity = Deity.ALL_DEITIES.get(conversationContext.getAdditionalValue());
 		return Arrays.asList(
-			new Response(0, subject, subject.getProperty(Constants.NAME) + " is the God of harvest, sacred laws and life and death."),
-			new Response(1, subject, "I don't know more about " + subject.getProperty(Constants.NAME))
+			new Response(0, subjectDeity.getExplanation()),
+			new Response(1, "I don't know more about " + subjectDeity.getName())
 			);
 	}
 

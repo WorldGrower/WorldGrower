@@ -20,6 +20,7 @@ import java.util.List;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.deity.Deity;
 import org.worldgrower.history.HistoryItem;
 
 public class DeityConversation implements Conversation {
@@ -28,7 +29,7 @@ public class DeityConversation implements Conversation {
 	public Response getReplyPhrase(ConversationContext conversationContext) {
 		WorldObject target = conversationContext.getTarget();
 		final int replyId;
-		WorldObject deity = target.getProperty(Constants.DEITY);
+		Deity deity = target.getProperty(Constants.DEITY);
 		if (deity != null) {
 			replyId = 0;
 		} else {
@@ -45,8 +46,8 @@ public class DeityConversation implements Conversation {
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		WorldObject target = conversationContext.getTarget();
-		WorldObject deity = target.getProperty(Constants.DEITY);
-		String deityName = (deity != null ? deity.getProperty(Constants.NAME) : "");
+		Deity deity = target.getProperty(Constants.DEITY);
+		String deityName = (deity != null ? deity.getName() : "");
 		return Arrays.asList(
 			new Response(0, "I worship " + deityName),
 			new Response(1, "I don't worship a deity")

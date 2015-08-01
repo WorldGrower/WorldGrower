@@ -21,13 +21,14 @@ import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.goal.DeityPropertyUtils;
+import org.worldgrower.deity.Deity;
 
 public class ChooseDeityAction implements ManagedOperation {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		WorldObject deity = DeityPropertyUtils.findDeity("Demeter", world);
+		int deityIndex = args[0];
+		Deity deity = Deity.ALL_DEITIES.get(deityIndex);
 		performer.setProperty(Constants.DEITY, deity);
 	}
 

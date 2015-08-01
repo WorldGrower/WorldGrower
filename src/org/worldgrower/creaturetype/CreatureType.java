@@ -31,7 +31,6 @@ public interface CreatureType extends Serializable {
 	public static final RatCreatureType RAT_CREATURE_TYPE = new RatCreatureType(ALL_CREATURE_TYPES);
 	public static final SpiderCreatureType SPIDER_CREATURE_TYPE = new SpiderCreatureType(ALL_CREATURE_TYPES);
 	public static final SlimeCreatureType SLIME_CREATURE_TYPE = new SlimeCreatureType(ALL_CREATURE_TYPES);
-	public static final DeityCreatureType DEITY_CREATURE_TYPE = new DeityCreatureType(ALL_CREATURE_TYPES);
 	public static final PlantCreatureType PLANT_CREATURE_TYPE = new PlantCreatureType(ALL_CREATURE_TYPES);
 	public static final GoblinCreatureType GOBLIN_CREATURE_TYPE = new GoblinCreatureType(ALL_CREATURE_TYPES);
 	

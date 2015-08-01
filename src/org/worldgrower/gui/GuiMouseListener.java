@@ -125,6 +125,10 @@ public class GuiMouseListener extends MouseAdapter {
             	createOrganizationMenuItem.setText("Create Organization...");
             	menu.add(createOrganizationMenuItem);
             	
+            	JMenuItem chooseDeityMenuItem = new JMenuItem(new ChooseDeityAction(playerCharacter, imageInfoReader, world, (WorldPanel)container, dungeonMaster));
+            	chooseDeityMenuItem.setText("Choose Deity...");
+            	menu.add(chooseDeityMenuItem);
+            	
             	menu.show(e.getComponent(), e.getX(), e.getY());
             } else {
             	if (worldObject.hasIntelligence()) {

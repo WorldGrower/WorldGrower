@@ -12,33 +12,18 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.creaturetype;
+package org.worldgrower.deity;
 
-import java.io.ObjectStreamException;
-import java.util.List;
+public class Hephaestus implements Deity {
 
-public class DeityCreatureType implements CreatureType {
-
-	public DeityCreatureType(List<CreatureType> allCreatureTypes) {
-		allCreatureTypes.add(this);
+	@Override
+	public String getName() {
+		return "Hephaestus";
 	}
 
 	@Override
-	public boolean canTalk() {
-		return false;
+	public String getExplanation() {
+		return getName() + " is the crippled god of fire, metalworking, and crafts.";
 	}
 
-	@Override
-	public boolean canMove() {
-		return false;
-	}
-	
-	@Override
-	public boolean canTrade() {
-		return false;
-	}
-	
-	public Object readResolve() throws ObjectStreamException {
-		return readResolveImpl();
-	}
 }

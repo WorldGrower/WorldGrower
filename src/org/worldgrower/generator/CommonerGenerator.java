@@ -117,30 +117,6 @@ public class CommonerGenerator {
 		return id;
 	}
 	
-	public static void generateGods(World world) {
-		CommonerGenerator.generateGod("Demeter", world);
-		CommonerGenerator.generateGod("Hephaestus", world);
-		CommonerGenerator.generateGod("Hades", world);
-	}
-	
-	private static int generateGod(String name, World world) {
-		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
-		int id = world.generateUniqueId();
-		
-		properties.put(Constants.X, -100000);
-		properties.put(Constants.Y, -100000);
-		properties.put(Constants.WIDTH, 4);
-		properties.put(Constants.HEIGHT, 4);
-		properties.put(Constants.NAME, name);
-		properties.put(Constants.ID, id);
-		properties.put(Constants.IMAGE_ID, ImageIds.STATUE_OF_DEITY);
-		properties.put(Constants.CREATURE_TYPE, CreatureType.DEITY_CREATURE_TYPE);
-		WorldObject god = new WorldObjectImpl(properties);
-		world.addWorldObject(god);
-		
-		return id;
-	}
-	
 	public static int generateSkeletalRemains(WorldObject originalWorldObject, World world) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();

@@ -35,6 +35,7 @@ import org.worldgrower.attribute.WorldObjectProperty;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.curse.Curse;
+import org.worldgrower.deity.Deity;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.profession.Profession;
@@ -149,7 +150,7 @@ public class Constants {
 	
 	public static final UnCheckedProperty<Profession> PROFESSION = new UnCheckedProperty<Profession>("profession", ALL_PROPERTIES);
 
-	public static final WorldObjectProperty DEITY = new WorldObjectProperty("deity", NOT_NULLABLE, ALL_PROPERTIES);
+	public static final UnCheckedProperty<Deity> DEITY = new UnCheckedProperty<>("deity", ALL_PROPERTIES);
 	public static final IdProperty PLACE_OF_WORSHIP_ID = new IdProperty("placeOfWorshipId", ALL_PROPERTIES);
 	
 	public static final IntProperty SLEEP_COMFORT = new IntProperty("sleepComfort", 0, 100, NOT_NULLABLE, ALL_PROPERTIES);

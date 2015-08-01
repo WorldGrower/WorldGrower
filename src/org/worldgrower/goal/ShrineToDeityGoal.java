@@ -21,12 +21,13 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.deity.Deity;
 
 public class ShrineToDeityGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		WorldObject performerDeity = performer.getProperty(Constants.DEITY);
+		Deity performerDeity = performer.getProperty(Constants.DEITY);
 		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.WORSHIP_DEITY_ACTION, w -> w.getProperty(Constants.DEITY) == performerDeity, world);
 		if (targets.size() > 0 && (!GoalUtils.actionAlreadyPerformed(performer, Actions.WORSHIP_DEITY_ACTION, new int[0], world))) {
 			return new OperationInfo(performer, targets.get(0), new int[0], Actions.WORSHIP_DEITY_ACTION);

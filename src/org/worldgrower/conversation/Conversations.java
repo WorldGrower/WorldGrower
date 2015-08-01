@@ -71,9 +71,9 @@ public class Conversations implements Serializable {
 		addNormalAndIntimidate(IMMEDIATE_GOAL_CONVERSATION, ConversationCategory.PERSONAL_INFORMATION);
 		add(RELATIONSHIP_CONVERSATION, ConversationCategory.RELATIONSHIP_OTHERS);
 		addNormalAndIntimidate(PROFESSION_CONVERSATION, ConversationCategory.PERSONAL_INFORMATION);
-		addNormalAndIntimidate(DEITY_CONVERSATION, ConversationCategory.PERSONAL_INFORMATION);
-		addNormalAndIntimidate(DEITY_EXPLANATION_CONVERSATION, ConversationCategory.PERSONAL_INFORMATION);
-		add(DEITY_REASON_CONVERSATION, ConversationCategory.PERSONAL_INFORMATION);
+		addNormalAndIntimidate(DEITY_CONVERSATION, ConversationCategory.DEITY);
+		addNormalAndIntimidate(DEITY_EXPLANATION_CONVERSATION, ConversationCategory.DEITY);
+		add(DEITY_REASON_CONVERSATION, ConversationCategory.DEITY);
 		addNormalAndIntimidate(PROFESSION_REASON_CONVERSATION, ConversationCategory.PERSONAL_INFORMATION);
 		addNormalAndIntimidate(DEMANDS_CONVERSATION, ConversationCategory.PERSONAL_INFORMATION);
 		add(BROKEN_LAW_CONVERSATION, ConversationCategory.DEMAND);

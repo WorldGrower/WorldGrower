@@ -20,7 +20,8 @@ public enum ConversationCategory {
 	DEMAND("Demand"),
 	DIPLOMACY_TARGET("Diplomacy"),
 	INTIMIDATE_TARGET("Intimidate"),
-	GROUP("organization");
+	GROUP("Organization"),
+	DEITY("Deity");
 	
 	private final String description;
 	

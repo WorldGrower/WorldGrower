@@ -20,6 +20,7 @@ import java.util.List;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.deity.Deity;
 import org.worldgrower.history.HistoryItem;
 
 public class DeityReasonConversation implements Conversation {
@@ -27,7 +28,7 @@ public class DeityReasonConversation implements Conversation {
 	@Override
 	public Response getReplyPhrase(ConversationContext conversationContext) {
 		WorldObject target = conversationContext.getTarget();
-		WorldObject deity = target.getProperty(Constants.DEITY);
+		Deity deity = target.getProperty(Constants.DEITY);
 		
 		final int replyId = 0;
 		return getReply(getReplyPhrases(conversationContext), replyId);
@@ -35,19 +36,18 @@ public class DeityReasonConversation implements Conversation {
 
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, World world) {
-		WorldObject deity = target.getProperty(Constants.DEITY);
-		return Arrays.asList(new Question(deity, "Why did you choose to follow " + deity.getProperty(Constants.NAME) + " ?"));
+		Deity deity = target.getProperty(Constants.DEITY);
+		return Arrays.asList(new Question(null, "Why did you choose to follow " + deity.getName() + " ?"));
 	}
 	
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		WorldObject target = conversationContext.getTarget();
-		WorldObject subject = conversationContext.getSubject();
-		WorldObject deity = target.getProperty(Constants.DEITY);
+		Deity deity = target.getProperty(Constants.DEITY);
 		return Arrays.asList(
-			new Response(0, subject, "As a child, I was always scared of food running out. I worship " + deity.getProperty(Constants.NAME) + " so that it never happens again."),
-			new Response(1, subject, "Our existance depends on nature. That is why I worship " + deity.getProperty(Constants.NAME)),
-			new Response(2, subject, "The cycle of life and death must remain undisturbed.")
+			new Response(0, "As a child, I was always scared of food running out. I worship " + deity.getName() + " so that it never happens again."),
+			new Response(1, "Our existance depends on nature. That is why I worship " + deity.getName()),
+			new Response(2, "The cycle of life and death must remain undisturbed.")
 			);
 	}
 	

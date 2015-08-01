@@ -142,8 +142,6 @@ public class Main {
 		worldGenerator.addWorldObjects(world, 1, 1, world.getWidth() / 50, TerrainType.GRASLAND, PlantGenerator::generateNightShade);
 		
 		worldGenerator.addWorldObjects(world, 1, 1, 20, TerrainType.PLAINS, PlantGenerator::generateBerryBush);
-		
-		CommonerGenerator.generateGods(world);
 	}
 
 	private static WorldObject createPlayerCharacter(int id, String playerName, String playerProfession, World world, final CommonerImageIds commonerImageIds, final CommonerNameGenerator commonerNameGenerator, WorldObject organization, CharacterAttributes characterAttributes) {

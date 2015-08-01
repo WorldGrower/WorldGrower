@@ -29,7 +29,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.creaturetype.CreatureType;
-import org.worldgrower.goal.DeityPropertyUtils;
+import org.worldgrower.deity.Deity;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
 import org.worldgrower.goal.RevengeGoal;
@@ -42,9 +42,9 @@ public class BackgroundImpl implements Background, Serializable {
 	
 	@Override
 	public <T> T chooseValue(WorldObject backgroundPerformer, ManagedProperty<T> property, World world) {
-		WorldObject demeter = DeityPropertyUtils.findDeity("Demeter", world);
-		WorldObject hephaestus = DeityPropertyUtils.findDeity("Hephaestus", world);
-		WorldObject hades = DeityPropertyUtils.findDeity("Hades", world);
+		Deity demeter = Deity.DEMETER;
+		Deity hephaestus = Deity.HEPHAESTUS;
+		Deity hades = Deity.HADES;
 		
 		if (property == Constants.DEITY) {
 			if (importantUnmetGoals.contains(Goals.FOOD_GOAL)) {

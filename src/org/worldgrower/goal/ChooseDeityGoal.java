@@ -19,12 +19,16 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.deity.Deity;
 
 public class ChooseDeityGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		return new OperationInfo(performer, performer, new int[0], Actions.CHOOSE_DEITY_ACTION);
+		Deity chosenDeity = Deity.DEMETER;
+		
+		int indexOfDeity = Deity.ALL_DEITIES.indexOf(chosenDeity);
+		return new OperationInfo(performer, performer, new int[] { indexOfDeity }, Actions.CHOOSE_DEITY_ACTION);
 	}
 	
 	@Override

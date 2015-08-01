@@ -12,25 +12,17 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.goal;
+package org.worldgrower.deity;
 
-import java.util.List;
+public class Hades implements Deity {
 
-import org.worldgrower.Constants;
-import org.worldgrower.World;
-import org.worldgrower.WorldObject;
-import org.worldgrower.creaturetype.CreatureType;
+	@Override
+	public String getName() {
+		return "Hades";
+	}
 
-public class DeityPropertyUtils {
-
-	public static WorldObject findDeity(String name, World world) {
-		List<WorldObject> deities = world.findWorldObjects(
-				w -> w.getProperty(Constants.NAME).equals(name) 
-					&& w.getProperty(Constants.CREATURE_TYPE) == CreatureType.DEITY_CREATURE_TYPE);
-		if (deities.size() == 1) {
-			return deities.get(0);
-		} else {
-			throw new IllegalStateException("Deity " + name + " not found");
-		}
+	@Override
+	public String getExplanation() {
+		return getName() + " is the God of underworld and all things beneath the earth.";
 	}
 }

@@ -41,8 +41,8 @@ public class BuildShrineAction implements BuildAction {
 		properties.put(Constants.WIDTH, 1);
 		properties.put(Constants.HEIGHT, 2);
 		properties.put(Constants.DEITY, performer.getProperty(Constants.DEITY));
-		properties.put(Constants.NAME, "shrine to " + performer.getProperty(Constants.DEITY).getProperty(Constants.NAME));
-		properties.put(Constants.TEXT, "shrine to " + performer.getProperty(Constants.DEITY).getProperty(Constants.NAME));
+		properties.put(Constants.NAME, "shrine to " + performer.getProperty(Constants.DEITY).getName());
+		properties.put(Constants.TEXT, "shrine to " + performer.getProperty(Constants.DEITY).getName());
 		properties.put(Constants.ID, world.generateUniqueId());
 		properties.put(Constants.IMAGE_ID, ImageIds.STATUE_OF_DEITY);
 		properties.put(Constants.HIT_POINTS, 150);
