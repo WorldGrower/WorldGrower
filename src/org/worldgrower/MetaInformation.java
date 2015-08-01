@@ -64,6 +64,16 @@ class MetaInformation implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "finalGoal = " + finalGoal + ", currentTask = " + (currentTask.size() > 0 ? currentTask.getLast().toShortString() : "null");
+		StringBuilder currentTasksBuilder = new StringBuilder();
+		if (currentTask.size() > 0) {
+			for(OperationInfo operationInfo : currentTask) {
+				currentTasksBuilder.append(operationInfo.toShortString()).append(" | ");
+			}
+		} else {
+			currentTasksBuilder.append("null");
+		}
+		
+		
+		return "finalGoal = " + finalGoal.getClass().getSimpleName() + ", currentTask = " + currentTasksBuilder.toString();
 	}
 }

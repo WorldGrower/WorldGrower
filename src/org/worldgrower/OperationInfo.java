@@ -97,7 +97,7 @@ public class OperationInfo implements Serializable {
 	}
 	
 	public String toShortString() {
-		return "OperationInfo [args=" + Arrays.toString(args) + ", managedOperation=" + managedOperation.getClass().getName() + "]";
+		return "[" + managedOperation.getClass().getSimpleName() + "(" + Arrays.toString(args) + ")]";
 	}
 	
 	public String getDescription(World world) {
