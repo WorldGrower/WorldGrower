@@ -38,9 +38,9 @@ Source installation
 
 Have a bug or a feature request?  Please search for existing and closed issues
 on the [Community
-Forum](https://forum). If your
+Forum](http://worldgrower.freefo.org/index.php). If your
 problem or idea is not addressed yet, [please open a new
-issue](https://issue).
+issue](https://github.com/WorldGrower/WorldGrower/issues).
 
 
 ## Documentation<a name="documentation"></a>
