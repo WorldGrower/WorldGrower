@@ -1,6 +1,6 @@
 # WorldGrower
 
-WorldGrower is a top-down rpg with creating a detailed world, in which actions have consequences.
+WorldGrower is a 2D turn-based top-down rpg with creating a detailed world, in which actions have consequences.
 It focuses on skills, dialogue, economy and society.
 
 ## Table of contents
