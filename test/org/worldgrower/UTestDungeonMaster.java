@@ -58,7 +58,7 @@ public class UTestDungeonMaster {
 		world.addWorldObject(worldObject);
 		
 		OperationInfo actualImmediateGoal = dungeonMaster.getImmediateGoal(worldObject, world);
-		assertEquals("OperationInfo [args=[], managedOperation=org.worldgrower.actions.CutWoodAction]", actualImmediateGoal.toShortString());
+		assertEquals("[CutWoodAction([])]", actualImmediateGoal.toShortString());
 	}
 	
 	@Test
@@ -69,7 +69,7 @@ public class UTestDungeonMaster {
 		OperationInfo operationInfo = new OperationInfo(worldObject, worldObject, new int[0], Actions.CUT_WOOD_ACTION);
 		world.getHistory().actionPerformed(operationInfo, new Turn());
 		
-		assertEquals("OperationInfo [args=[], managedOperation=org.worldgrower.actions.CutWoodAction]", dungeonMaster.getImmediateGoal(worldObject, world).toShortString());
+		assertEquals("[CutWoodAction([])]", dungeonMaster.getImmediateGoal(worldObject, world).toShortString());
 	}
 	
 	@Test
@@ -80,8 +80,8 @@ public class UTestDungeonMaster {
 		OperationInfo immediateGoal = new OperationInfo(worldObject, worldObject, new int[0], Actions.CUT_WOOD_ACTION);
 		List<OperationInfo> tasks = dungeonMaster.calculateTasks(worldObject, world, immediateGoal);
 		assertEquals(2, tasks.size());
-		assertEquals("OperationInfo [args=[], managedOperation=org.worldgrower.actions.CutWoodAction]", tasks.get(0).toShortString());
-		assertEquals("OperationInfo [args=[1, 1], managedOperation=org.worldgrower.actions.MoveAction]", tasks.get(1).toShortString());
+		assertEquals("[CutWoodAction([])]", tasks.get(0).toShortString());
+		assertEquals("[MoveAction([1, 1])]", tasks.get(1).toShortString());
 	}
 	
 	@Test
