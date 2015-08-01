@@ -54,7 +54,7 @@ public class UTestDungeonMaster {
 		World world = new WorldImpl(10, 10, null);
 		WorldObject worldObject = createWorldObject();
 		OperationInfo operationInfo = new OperationInfo(worldObject, worldObject, new int[0], Actions.CUT_WOOD_ACTION);
-		worldObject.getProperty(Constants.META_INFORMATION).setCurrentTask(Arrays.asList(operationInfo));
+		worldObject.getProperty(Constants.META_INFORMATION).setCurrentTask(Arrays.asList(operationInfo), GoalChangedReason.EMPTY_META_INFORMATION);
 		world.addWorldObject(worldObject);
 		
 		OperationInfo actualImmediateGoal = dungeonMaster.getImmediateGoal(worldObject, world);

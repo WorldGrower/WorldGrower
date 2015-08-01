@@ -27,7 +27,8 @@ import org.worldgrower.goal.Goal;
  */
 class MetaInformation implements Serializable {
 	private LinkedList<OperationInfo> currentTask = new LinkedList<OperationInfo>();
-	private Goal finalGoal; 
+	private GoalChangedReason goalChangedReason;
+	private Goal finalGoal;
 	private final WorldObject worldObject;
 	
 	public MetaInformation(WorldObject worldObject) {
@@ -38,12 +39,14 @@ class MetaInformation implements Serializable {
 		return currentTask;
 	}
 
-	public void setCurrentTask(List<OperationInfo> task) {
+	public void setCurrentTask(List<OperationInfo> task, GoalChangedReason goalChangedReason) {
 		if (task.size() == 0) {
 			throw new IllegalStateException("task cannot be empty for WorldObject " + worldObject);
 		}
 		currentTask.clear();
 		currentTask.addAll(task);
+		
+		this.goalChangedReason = goalChangedReason;
 	}
 
 	public boolean isEmpty() {
@@ -74,6 +77,6 @@ class MetaInformation implements Serializable {
 		}
 		
 		
-		return "finalGoal = " + finalGoal.getClass().getSimpleName() + ", currentTask = " + currentTasksBuilder.toString();
+		return "finalGoal = " + finalGoal.getClass().getSimpleName() + ", currentTask = " + currentTasksBuilder.toString() + ", goalChangedReason = " + goalChangedReason;
 	}
 }

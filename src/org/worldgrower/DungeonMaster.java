@@ -55,26 +55,28 @@ public class DungeonMaster implements Serializable {
 		World worldFacade = createWorldFacade(worldObject, world);
 		
 		if (metaInformation.isEmpty()) {
-			calculateGoalAndTasks(worldObject, worldFacade, metaInformation);
+			calculateGoalAndTasks(worldObject, worldFacade, metaInformation, GoalChangedReason.EMPTY_META_INFORMATION);
 		} else {
 			Goal finalGoal = metaInformation.getFinalGoal();
 			if (finalGoal.isGoalMet(worldObject, worldFacade)) {
-				calculateGoalAndTasks(worldObject, worldFacade, metaInformation);
+				calculateGoalAndTasks(worldObject, worldFacade, metaInformation, GoalChangedReason.FINAL_GOAL_WAS_MET);
 			}
 		}
 
 		if (!metaInformation.getImmediateGoal().isValidTarget(worldFacade) || moreUrgentImportantGoalIsNotMet(worldObject, worldFacade)) {
-			calculateGoalAndTasks(worldObject, worldFacade, metaInformation);
+			calculateGoalAndTasks(worldObject, worldFacade, metaInformation, GoalChangedReason.TARGET_NO_LONGER_VALID_OR_MORE_IMPORTANT_GOAL_NOT_MET);
 		}
 		
 		OperationInfo peekOperationInfo = metaInformation.getCurrentTask().peek();
-		if ((!peekOperationInfo.isPossible(worldObject, worldFacade)) 
-				|| (peekOperationInfo.targetMoved(worldFacade))) {
-			recalculateTasks(worldObject, worldFacade, metaInformation);
+		if (!peekOperationInfo.isPossible(worldObject, worldFacade)) {
+			recalculateTasks(worldObject, worldFacade, metaInformation, GoalChangedReason.OPERATION_NOT_POSSIBLE);
+		}
+		if (peekOperationInfo.targetMoved(worldFacade)) {
+			recalculateTasks(worldObject, worldFacade, metaInformation, GoalChangedReason.TARGET_MOVED);
 		}
 		
 		if (isDeceivedByWorldFacade(metaInformation.getCurrentTask().peek(), worldObject, world, worldFacade)) {
-			recalculateTasks(worldObject, world, metaInformation);
+			recalculateTasks(worldObject, world, metaInformation, GoalChangedReason.DECEIVED);
 		}
 		
 		OperationInfo operationInfo = metaInformation.getCurrentTask().poll();
@@ -110,7 +112,7 @@ public class DungeonMaster implements Serializable {
 		return metaInformation;
 	}
 
-	private void calculateGoalAndTasks(WorldObject worldObject, World world, MetaInformation metaInformation) {
+	private void calculateGoalAndTasks(WorldObject worldObject, World world, MetaInformation metaInformation, GoalChangedReason goalChangedReason) {
 		boolean goalFound = false;
 		List<Goal> triedGoals = new ArrayList<>();
 		
@@ -119,7 +121,7 @@ public class DungeonMaster implements Serializable {
 			Goal finalGoal = goalAndOperationInfo.getGoal();
 			List<OperationInfo> tasks = calculateTasks(worldObject, world, goalAndOperationInfo.getOperationInfo());
 			if (tasks.size() > 0) {
-				metaInformation.setCurrentTask(tasks);
+				metaInformation.setCurrentTask(tasks, goalChangedReason);
 				metaInformation.setFinalGoal(finalGoal);
 				goalFound = true;
 				//	System.out.println(worldObject.getProperty(Constants.NAME) + " : final goal : " + finalGoal + " , immediateGoal : " + immediateGoal);
@@ -132,7 +134,7 @@ public class DungeonMaster implements Serializable {
 		}
 	}
 
-	private void recalculateTasks(WorldObject worldObject, World world, MetaInformation metaInformation) {
+	private void recalculateTasks(WorldObject worldObject, World world, MetaInformation metaInformation, GoalChangedReason goalChangedReason) {
 		if (metaInformation.isEmpty()) {
 			throw new IllegalStateException("WorldObject " + worldObject + " has no goal");
 		}
@@ -140,9 +142,9 @@ public class DungeonMaster implements Serializable {
 		List<OperationInfo> tasks = calculateTasks(worldObject, world, metaInformation.getImmediateGoal());
 		if (tasks.size() == 0) {
 			// for now, try another goal
-			calculateGoalAndTasks(worldObject, world, metaInformation);
+			calculateGoalAndTasks(worldObject, world, metaInformation, goalChangedReason);
 		} else {
-			metaInformation.setCurrentTask(tasks);
+			metaInformation.setCurrentTask(tasks, goalChangedReason);
 		}
 	}
 	
