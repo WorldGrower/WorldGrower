@@ -32,7 +32,7 @@ public class LearnSkillGoal implements Goal {
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		WorldObject organization = GroupPropertyUtils.findProfessionOrganization(performer, world);
 		
-		if (organization != null) {
+		if (organization != null && performer.getProperty(Constants.GROUP).contains(organization)) {
 			List<WorldObject> organizationMembers = world.findWorldObjects(w -> w.hasProperty(Constants.GROUP) && w.getProperty(Constants.GROUP).contains(organization));
 			
 			for(WorldObject target : organizationMembers) {
