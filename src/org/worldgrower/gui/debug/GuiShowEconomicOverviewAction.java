@@ -81,7 +81,7 @@ public class GuiShowEconomicOverviewAction extends AbstractAction {
 
 		@Override
 		public int getRowCount() {
-			return 5;
+			return 11;
 		}
 
 		private List<HistoryItem> getOperations(ManagedOperation managedOperation) {
@@ -117,6 +117,18 @@ public class GuiShowEconomicOverviewAction extends AbstractAction {
 					return "HarvestFood by non-professionals";
 				} else if (rowIndex == 4) {
 					return "EatFood";
+				} else if (rowIndex == 5) {
+					return "MineStone";
+				} else if (rowIndex == 6) {
+					return "MineStone by non-professionals";
+				} else if (rowIndex == 7) {
+					return "MineOre";
+				} else if (rowIndex == 8) {
+					return "MineOre by non-professionals";
+				} else if (rowIndex == 9) {
+					return "MineGold";
+				} else if (rowIndex == 10) {
+					return "MineGold by non-professionals";
 				} else {
 					return null;
 				}
@@ -131,6 +143,18 @@ public class GuiShowEconomicOverviewAction extends AbstractAction {
 					return getOperationsByNonProfessionals(Actions.HARVEST_FOOD_ACTION, Professions.FARMER_PROFESSION).size();
 				} else if (rowIndex == 4) {
 					return getOperations(Actions.EAT_ACTION).size();
+				} else if (rowIndex == 5) {
+					return getOperations(Actions.MINE_STONE_ACTION).size();
+				} else if (rowIndex == 6) {
+					return getOperationsByNonProfessionals(Actions.MINE_STONE_ACTION, Professions.MINER_PROFESSION).size();
+				} else if (rowIndex == 7) {
+					return getOperations(Actions.MINE_ORE_ACTION).size();
+				} else if (rowIndex == 8) {
+					return getOperationsByNonProfessionals(Actions.MINE_ORE_ACTION, Professions.MINER_PROFESSION).size();
+				} else if (rowIndex == 9) {
+					return getOperations(Actions.MINE_GOLD_ACTION).size();
+				} else if (rowIndex == 10) {
+					return getOperationsByNonProfessionals(Actions.MINE_GOLD_ACTION, Professions.MINER_PROFESSION).size();
 				} else {
 					return null;
 				}
