@@ -19,7 +19,6 @@ import java.awt.event.MouseEvent;
 import java.util.function.Function;
 
 import javax.swing.Action;
-import javax.swing.JComponent;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -46,13 +45,13 @@ import org.worldgrower.gui.inventory.GuiStealAction;
 import org.worldgrower.gui.inventory.InventoryAction;
 
 public class GuiMouseListener extends MouseAdapter {
-	private JComponent container;
+	private WorldPanel container;
 	private WorldObject playerCharacter;
 	private World world;
 	private DungeonMaster dungeonMaster;
 	private ImageInfoReader imageInfoReader;
 	
-    public GuiMouseListener(JComponent container, WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, ImageInfoReader imageInfoReader) {
+    public GuiMouseListener(WorldPanel container, WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, ImageInfoReader imageInfoReader) {
 		super();
 		this.container = container;
 		this.playerCharacter = playerCharacter;

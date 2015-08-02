@@ -17,7 +17,6 @@ package org.worldgrower.gui;
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
-import javax.swing.JComponent;
 
 import org.worldgrower.DungeonMaster;
 import org.worldgrower.Main;
@@ -30,9 +29,9 @@ public class GuiMoveAction extends AbstractAction {
 	private WorldObject playerCharacter;
 	private World world;
 	private DungeonMaster dungeonMaster;
-	private JComponent container;
+	private WorldPanel container;
 	
-	public GuiMoveAction(int[] args, WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, JComponent container) {
+	public GuiMoveAction(int[] args, WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, WorldPanel container) {
 		super();
 		this.args = args;
 		this.playerCharacter = playerCharacter;

@@ -18,13 +18,13 @@ import java.awt.event.ActionEvent;
 import java.util.List;
 
 import javax.swing.AbstractAction;
-import javax.swing.JComponent;
 
 import org.worldgrower.Constants;
 import org.worldgrower.DungeonMaster;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.gui.ImageInfoReader;
+import org.worldgrower.gui.WorldPanel;
 
 public class DisguiseAction extends AbstractAction {
 
@@ -32,10 +32,10 @@ public class DisguiseAction extends AbstractAction {
 	private DisguiseDialog dialog;
 	private ImageInfoReader imageInfoReader;
 	private World world;
-	private JComponent parent;
+	private WorldPanel parent;
 	private DungeonMaster dungeonMaster;
 	
-	public DisguiseAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, World world, JComponent parent, DungeonMaster dungeonMaster) {
+	public DisguiseAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, World world, WorldPanel parent, DungeonMaster dungeonMaster) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.imageInfoReader = imageInfoReader;

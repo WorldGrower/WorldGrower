@@ -27,7 +27,6 @@ import java.util.Map;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -45,6 +44,7 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.WorldObjectList;
+import org.worldgrower.gui.WorldPanel;
 import org.worldgrower.gui.debug.PropertiesModel;
 
 public class DisguiseDialog extends JDialog {
@@ -60,10 +60,10 @@ public class DisguiseDialog extends JDialog {
 	
 	private WorldObject playerCharacter;
 	private World world;
-	private JComponent parent;
+	private WorldPanel parent;
 	private DungeonMaster dungeonMaster;
 
-	public DisguiseDialog(WorldObject playerCharacter, ImageInfoReader imageInfoReader, List<WorldObject> disguiseWorldObjects, JComponent parent, World world, DungeonMaster dungeonMaster) {
+	public DisguiseDialog(WorldObject playerCharacter, ImageInfoReader imageInfoReader, List<WorldObject> disguiseWorldObjects, WorldPanel parent, World world, DungeonMaster dungeonMaster) {
 		initializeGui(parent, disguiseWorldObjects, imageInfoReader);
 		
 		this.playerCharacter = playerCharacter;

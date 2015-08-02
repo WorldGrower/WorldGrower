@@ -226,12 +226,13 @@ public class Main {
         worldPanel.createGuiRespondToImage();
     }
     
-    public static void executeAction(WorldObject playerCharacter, ManagedOperation action, int[] args, World world, DungeonMaster dungeonMaster, WorldObject target, JComponent container) {
+    public static void executeAction(WorldObject playerCharacter, ManagedOperation action, int[] args, World world, DungeonMaster dungeonMaster, WorldObject target, WorldPanel worldPanel) {
     	if (action.isActionPossible(playerCharacter, playerCharacter, args, world) && playerCharacter.canWorldObjectPerformAction(action)) {
     		dungeonMaster.executeAction(action, playerCharacter, target, args, world);
     		dungeonMaster.runWorld(world);
     		exploreWorld(playerCharacter, world);
-    		container.repaint();
+    		worldPanel.centerViewOnPlayerCharacter();
+    		worldPanel.repaint();
     	}
 	}
 

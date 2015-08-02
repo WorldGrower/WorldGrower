@@ -18,7 +18,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.AbstractAction;
-import javax.swing.JComponent;
 
 import org.worldgrower.Constants;
 import org.worldgrower.DungeonMaster;
@@ -27,18 +26,19 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.gui.ImageInfoReader;
+import org.worldgrower.gui.WorldPanel;
 
 public class GuiStealAction extends AbstractAction {
 
 	private WorldObject playerCharacter;
 	private World world;
 	private DungeonMaster dungeonMaster;
-	private JComponent container;
+	private WorldPanel container;
 	private WorldObject target;
 	private InventoryDialog dialog;
 	private ImageInfoReader imageInfoReader;
 	
-	public GuiStealAction(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, JComponent container, WorldObject target, ImageInfoReader imageInfoReader) {
+	public GuiStealAction(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, WorldPanel container, WorldObject target, ImageInfoReader imageInfoReader) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.world = world;

@@ -371,4 +371,16 @@ public class WorldPanel extends JPanel {
 	public boolean inBuildMode() {
 		return buildModeOutline.inBuildMode();
 	}
+
+	public void centerViewOnPlayerCharacter() {
+		int x = playerCharacter.getProperty(Constants.X);
+		int y = playerCharacter.getProperty(Constants.Y);
+		
+		int xInView = (x+offsetX) * 48;
+		int yInView = (y+offsetY) * 48;
+		
+		if ((xInView < 48) || (xInView > this.getWidth() - 48) || (yInView < 48) || (yInView > this.getHeight() - 48)) {
+			centerOffsetsOn(x+offsetX, y+offsetY);
+		}
+	}
 }

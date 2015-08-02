@@ -17,7 +17,6 @@ package org.worldgrower.gui;
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
-import javax.swing.JComponent;
 
 import org.worldgrower.DungeonMaster;
 import org.worldgrower.Main;
@@ -28,12 +27,12 @@ import org.worldgrower.WorldObject;
 public class PlayerCharacterAction extends AbstractAction {
 	private WorldObject playerCharacter;
 	private World world;
-	private JComponent container;
+	private WorldPanel container;
 	private DungeonMaster dungeonMaster;
 	private ManagedOperation action;
 	private WorldObject target;
 	
-	public PlayerCharacterAction(WorldObject playerCharacter, World world, JComponent container, DungeonMaster dungeonMaster, ManagedOperation action, WorldObject target) {
+	public PlayerCharacterAction(WorldObject playerCharacter, World world, WorldPanel container, DungeonMaster dungeonMaster, ManagedOperation action, WorldObject target) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.world = world;

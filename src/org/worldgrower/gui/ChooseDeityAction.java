@@ -18,7 +18,6 @@ import java.awt.event.ActionEvent;
 import java.util.Arrays;
 
 import javax.swing.AbstractAction;
-import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 
 import org.worldgrower.DungeonMaster;
@@ -33,10 +32,10 @@ public class ChooseDeityAction extends AbstractAction {
 	private WorldObject playerCharacter;
 	private ImageInfoReader imageInfoReader;
 	private World world;
-	private JComponent parent;
+	private WorldPanel parent;
 	private DungeonMaster dungeonMaster;
 	
-	public ChooseDeityAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, World world, JComponent parent, DungeonMaster dungeonMaster) {
+	public ChooseDeityAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, World world, WorldPanel parent, DungeonMaster dungeonMaster) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.imageInfoReader = imageInfoReader;

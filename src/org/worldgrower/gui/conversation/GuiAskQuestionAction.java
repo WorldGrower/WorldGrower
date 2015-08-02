@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.AbstractAction;
-import javax.swing.JComponent;
 
 import org.worldgrower.Constants;
 import org.worldgrower.DungeonMaster;
@@ -33,19 +32,20 @@ import org.worldgrower.conversation.Conversations;
 import org.worldgrower.conversation.Question;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
+import org.worldgrower.gui.WorldPanel;
 
 public class GuiAskQuestionAction extends AbstractAction implements Answerer {
 
 	private WorldObject playerCharacter;
 	private World world;
 	private DungeonMaster dungeonMaster;
-	private JComponent container;
+	private WorldPanel container;
 	private WorldObject target;
 	private Conversations conversations = new Conversations();
 	private AskQuestionDialog dialog;
 	private ImageInfoReader imageInfoReader;
 	
-	public GuiAskQuestionAction(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, JComponent container, WorldObject target, ImageInfoReader imageInfoReader) {
+	public GuiAskQuestionAction(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, WorldPanel container, WorldObject target, ImageInfoReader imageInfoReader) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.world = world;
