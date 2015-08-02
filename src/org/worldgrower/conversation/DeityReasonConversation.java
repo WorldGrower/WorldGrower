@@ -14,6 +14,7 @@
  *******************************************************************************/
 package org.worldgrower.conversation;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -44,11 +45,16 @@ public class DeityReasonConversation implements Conversation {
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		WorldObject target = conversationContext.getTarget();
 		Deity deity = target.getProperty(Constants.DEITY);
-		return Arrays.asList(
-			new Response(0, "As a child, I was always scared of food running out. I worship " + deity.getName() + " so that it never happens again."),
-			new Response(1, "Our existance depends on nature. That is why I worship " + deity.getName()),
-			new Response(2, "The cycle of life and death must remain undisturbed.")
-			);
+		List<String> reasons = deity.getReasons();
+		
+		List<Response> responses = new ArrayList<>();
+		int responseId = 0;
+		for (String reason : reasons) {
+			responses.add(new Response(responseId, reason));
+			responseId++;
+		}
+		
+		return responses;
 	}
 	
 	@Override

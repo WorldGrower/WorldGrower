@@ -15,6 +15,8 @@
 package org.worldgrower.deity;
 
 import java.io.ObjectStreamException;
+import java.util.Arrays;
+import java.util.List;
 
 public class Demeter implements Deity {
 
@@ -30,5 +32,13 @@ public class Demeter implements Deity {
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
+	}
+
+	@Override
+	public List<String> getReasons() {
+		return Arrays.asList(
+				"As a child, I was always scared of food running out. I worship " + getName() + " so that it never happens again.",
+				"Our existance depends on nature. That is why I worship " + getName()
+		);
 	}
 }

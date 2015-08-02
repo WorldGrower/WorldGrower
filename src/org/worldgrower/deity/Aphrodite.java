@@ -15,6 +15,8 @@
 package org.worldgrower.deity;
 
 import java.io.ObjectStreamException;
+import java.util.Arrays;
+import java.util.List;
 
 public class Aphrodite implements Deity {
 
@@ -30,5 +32,12 @@ public class Aphrodite implements Deity {
 
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
+	}
+	
+	@Override
+	public List<String> getReasons() {
+		return Arrays.asList(
+				"I worship " + getName() + " to have a good love life."
+		);
 	}
 }

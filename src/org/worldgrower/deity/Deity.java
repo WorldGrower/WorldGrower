@@ -20,24 +20,26 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.worldgrower.profession.Profession;
-import org.worldgrower.profession.Professions;
-
 public interface Deity extends Serializable {
 
 	public String getName();
 	public String getExplanation();
+	public List<String> getReasons();
 	
 	public static final Demeter DEMETER = new Demeter();
 	public static final Hephaestus HEPHAESTUS = new Hephaestus();
 	public static final Hades HADES = new Hades();
 	public static final Aphrodite APHRODITE = new Aphrodite();
+	public static final Apollo APOLLO = new Apollo();
+	public static final Dionysus DIONYSUS = new Dionysus();
 	
 	public static final List<Deity> ALL_DEITIES = Arrays.asList(
 			DEMETER,
 			HEPHAESTUS,
 			HADES,
-			APHRODITE
+			APHRODITE,
+			APOLLO,
+			DIONYSUS
 			);
 
 	public static List<String> getAllDeityNames() {

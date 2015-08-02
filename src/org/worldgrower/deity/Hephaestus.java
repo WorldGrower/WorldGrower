@@ -15,6 +15,8 @@
 package org.worldgrower.deity;
 
 import java.io.ObjectStreamException;
+import java.util.Arrays;
+import java.util.List;
 
 public class Hephaestus implements Deity {
 
@@ -30,5 +32,12 @@ public class Hephaestus implements Deity {
 
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
+	}
+	
+	@Override
+	public List<String> getReasons() {
+		return Arrays.asList(
+				"I worship " + getName() + " because I want be more creative"
+		);
 	}
 }

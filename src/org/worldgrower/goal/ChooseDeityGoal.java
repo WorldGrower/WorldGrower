@@ -25,9 +25,11 @@ public class ChooseDeityGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		Deity chosenDeity = Deity.DEMETER;
+		int min = 0;
+		int max = Deity.ALL_DEITIES.size() - 1;
+		int range = (max - min) + 1;     
+		int indexOfDeity = (int)(Math.random() * range) + min;
 		
-		int indexOfDeity = Deity.ALL_DEITIES.indexOf(chosenDeity);
 		return new OperationInfo(performer, performer, new int[] { indexOfDeity }, Actions.CHOOSE_DEITY_ACTION);
 	}
 	

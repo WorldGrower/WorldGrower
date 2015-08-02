@@ -18,28 +18,26 @@ import java.io.ObjectStreamException;
 import java.util.Arrays;
 import java.util.List;
 
-public class Hades implements Deity {
+public class Dionysus implements Deity {
 
 	@Override
 	public String getName() {
-		return "Hades";
+		return "Dionysus";
 	}
 
 	@Override
 	public String getExplanation() {
-		return getName() + " is the God of underworld and all things beneath the earth.";
+		return getName() + " is the God of wine, parties and festivals, madness, chaos, drunkenness, drugs, and ecstasy.";
 	}
-	
+
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
 	}
-
+	
 	@Override
 	public List<String> getReasons() {
 		return Arrays.asList(
-				getName() + " rules the underworld and I worship him as a sign of respect for my relatives who are there.",
-				"The cycle of life and death must remain undisturbed."
+				"I worship " + getName() + " to be more fertile to get more children"
 		);
-				
 	}
 }
