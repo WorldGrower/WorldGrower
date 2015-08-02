@@ -32,6 +32,7 @@ import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.history.History;
 import org.worldgrower.history.HistoryImpl;
+import org.worldgrower.history.Turn;
 import org.worldgrower.terrain.Terrain;
 import org.worldgrower.terrain.TerrainImpl;
 
@@ -187,5 +188,10 @@ public class WorldImpl implements World, Serializable {
 		} catch(IOException | ClassNotFoundException ex) {
 			throw new RuntimeException("Problem loading file " + fileToLoad, ex);
 		}
+	}
+	
+	@Override
+	public Turn getCurrentTurn() {
+		return dungeonMaster.getCurrentTurn();
 	}
 }

@@ -22,6 +22,7 @@ import java.util.List;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.history.History;
+import org.worldgrower.history.Turn;
 import org.worldgrower.terrain.Terrain;
 
 public class WorldFacade implements World {
@@ -154,4 +155,8 @@ public class WorldFacade implements World {
 	public void save(File fileToSave) {
 	}
 
+	@Override
+	public Turn getCurrentTurn() {
+		return world.getCurrentTurn();
+	}
 }

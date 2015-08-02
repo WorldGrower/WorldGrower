@@ -20,6 +20,7 @@ import java.util.List;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.history.History;
+import org.worldgrower.history.Turn;
 import org.worldgrower.terrain.Terrain;
 
 /** 
@@ -46,6 +47,7 @@ public interface World {
 	
 	public Goal getGoal(WorldObject worldObject);
 	public OperationInfo getImmediateGoal(WorldObject worldObject, World world);
+	public Turn getCurrentTurn();
 	
 	public History getHistory();
 	public void save(File fileToSave);

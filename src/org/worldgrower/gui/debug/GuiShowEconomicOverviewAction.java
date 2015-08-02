@@ -30,6 +30,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.actions.ChooseProfessionAction;
 import org.worldgrower.history.HistoryItem;
 import org.worldgrower.profession.Profession;
 import org.worldgrower.profession.Professions;
@@ -84,15 +85,6 @@ public class GuiShowEconomicOverviewAction extends AbstractAction {
 			return 11;
 		}
 
-		private List<HistoryItem> getOperations(ManagedOperation managedOperation) {
-			return world.getHistory().findHistoryItems(managedOperation);
-		}
-		
-		private List<HistoryItem> getOperationsByNonProfessionals(ManagedOperation managedOperation, Profession profession) {
-			List<HistoryItem> historyItems = getOperations(managedOperation);
-			return historyItems.stream().filter(h -> h.getOperationInfo().getPerformer().getProperty(Constants.PROFESSION) == null || h.getOperationInfo().getPerformer().getProperty(Constants.PROFESSION) != profession).collect(Collectors.toList());
-		}
-		
 		@Override
 		public String getColumnName(int columnIndex) {
 			if (columnIndex == 0) {
@@ -134,27 +126,27 @@ public class GuiShowEconomicOverviewAction extends AbstractAction {
 				}
 			} else if (columnIndex == 1) {
 				if (rowIndex == 0) {
-					return getOperations(Actions.CUT_WOOD_ACTION).size();
+					return ChooseProfessionAction.getRecentOperationsCount(Actions.CUT_WOOD_ACTION, world);
 				} else if (rowIndex == 1) {
-					return getOperationsByNonProfessionals(Actions.CUT_WOOD_ACTION, Professions.LUMBERJACK_PROFESSION).size();
+					return ChooseProfessionAction.getRecentOperationsByNonProfessionalsCount(Actions.CUT_WOOD_ACTION, Professions.LUMBERJACK_PROFESSION, world);
 				} else if (rowIndex == 2) {
-					return getOperations(Actions.HARVEST_FOOD_ACTION).size();
+					return ChooseProfessionAction.getRecentOperationsCount(Actions.HARVEST_FOOD_ACTION, world);
 				} else if (rowIndex == 3) {
-					return getOperationsByNonProfessionals(Actions.HARVEST_FOOD_ACTION, Professions.FARMER_PROFESSION).size();
+					return ChooseProfessionAction.getRecentOperationsByNonProfessionalsCount(Actions.HARVEST_FOOD_ACTION, Professions.FARMER_PROFESSION, world);
 				} else if (rowIndex == 4) {
-					return getOperations(Actions.EAT_ACTION).size();
+					return ChooseProfessionAction.getRecentOperationsCount(Actions.EAT_ACTION, world);
 				} else if (rowIndex == 5) {
-					return getOperations(Actions.MINE_STONE_ACTION).size();
+					return ChooseProfessionAction.getRecentOperationsCount(Actions.MINE_STONE_ACTION, world);
 				} else if (rowIndex == 6) {
-					return getOperationsByNonProfessionals(Actions.MINE_STONE_ACTION, Professions.MINER_PROFESSION).size();
+					return ChooseProfessionAction.getRecentOperationsByNonProfessionalsCount(Actions.MINE_STONE_ACTION, Professions.MINER_PROFESSION, world);
 				} else if (rowIndex == 7) {
-					return getOperations(Actions.MINE_ORE_ACTION).size();
+					return ChooseProfessionAction.getRecentOperationsCount(Actions.MINE_ORE_ACTION, world);
 				} else if (rowIndex == 8) {
-					return getOperationsByNonProfessionals(Actions.MINE_ORE_ACTION, Professions.MINER_PROFESSION).size();
+					return ChooseProfessionAction.getRecentOperationsByNonProfessionalsCount(Actions.MINE_ORE_ACTION, Professions.MINER_PROFESSION, world);
 				} else if (rowIndex == 9) {
-					return getOperations(Actions.MINE_GOLD_ACTION).size();
+					return ChooseProfessionAction.getRecentOperationsCount(Actions.MINE_GOLD_ACTION, world);
 				} else if (rowIndex == 10) {
-					return getOperationsByNonProfessionals(Actions.MINE_GOLD_ACTION, Professions.MINER_PROFESSION).size();
+					return ChooseProfessionAction.getRecentOperationsByNonProfessionalsCount(Actions.MINE_GOLD_ACTION, Professions.MINER_PROFESSION, world);
 				} else {
 					return null;
 				}

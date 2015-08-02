@@ -32,4 +32,7 @@ public class Turn implements Serializable {
 		return new Turn(turn+1);
 	}
 	
+	public boolean isWithin1000Turns(Turn other) {
+		return Math.abs(turn - other.turn) < 1000;
+	}
 }

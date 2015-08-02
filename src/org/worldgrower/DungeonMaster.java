@@ -186,4 +186,8 @@ public class DungeonMaster implements Serializable {
 	void setTaskCalculator(TaskCalculator taskCalculator) {
 		this.taskCalculator = taskCalculator;
 	}
+
+	public Turn getCurrentTurn() {
+		return currentTurn;
+	}
 }
