@@ -379,7 +379,7 @@ public class WorldPanel extends JPanel {
 		int xInView = (x+offsetX) * 48;
 		int yInView = (y+offsetY) * 48;
 		
-		if ((xInView < 48) || (xInView > this.getWidth() - 48) || (yInView < 48) || (yInView > this.getHeight() - 48)) {
+		if ((xInView < 48) || (xInView > this.getWidth() - 48) || (yInView < 48) || (yInView > this.getHeight() - 96)) {
 			centerOffsetsOn(x+offsetX, y+offsetY);
 		}
 	}
