@@ -18,8 +18,10 @@ import java.io.ObjectStreamException;
 import java.util.Arrays;
 import java.util.List;
 
+import org.worldgrower.Constants;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.goal.Goal;
+import org.worldgrower.goal.Goals;
 
 public class GraveDiggerProfession implements Profession {
 
@@ -30,14 +32,12 @@ public class GraveDiggerProfession implements Profession {
 
 	@Override
 	public List<Goal> getProfessionGoals() {
-		//TODO: implement
-		return Arrays.asList(/*Goals.CREATE_GRAVE*/);
+		return Arrays.asList(Goals.GATHER_REMAINS_GOAL, Goals.CREATE_GRAVE_GOAL);
 	}
 
 	@Override
 	public SkillProperty getSkillProperty() {
-		// TODO Auto-generated method stub
-		return null;
+		return Constants.ALCHEMY_SKILL;
 	}
 
 	public Object readResolve() throws ObjectStreamException {

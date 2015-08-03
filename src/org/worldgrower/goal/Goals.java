@@ -61,4 +61,6 @@ public class Goals {
 	public static final ScribeClericSpellsGoal SCRIBE_CLERIC_SPELLS_GOAL = new ScribeClericSpellsGoal();
 	public static final PaperGoal PAPER_GOAL = new PaperGoal();
 	public static final GetPoisonCuredGoal GET_POISON_CURED_GOAL = new GetPoisonCuredGoal();
+	public static final GatherRemainsGoal GATHER_REMAINS_GOAL = new GatherRemainsGoal();
+	public static final CreateGraveGoal CREATE_GRAVE_GOAL = new CreateGraveGoal();
 }

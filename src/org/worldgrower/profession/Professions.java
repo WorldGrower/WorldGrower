@@ -29,7 +29,7 @@ public class Professions {
 	public static final LumberjackProfession LUMBERJACK_PROFESSION = new LumberjackProfession(ALL_PROFESSIONS);
 	public static final MinerProfession MINER_PROFESSION = new MinerProfession(ALL_PROFESSIONS);
 	public static final SheriffProfession SHERIFF_PROFESSION = new SheriffProfession(ALL_PROFESSIONS);
-	
+	public static final GraveDiggerProfession GRAVE_DIGGER_PROFESSION = new GraveDiggerProfession();
 	
 	
 	static {
@@ -40,6 +40,7 @@ public class Professions {
 		add(LUMBERJACK_PROFESSION);
 		add(MINER_PROFESSION);
 		add(SHERIFF_PROFESSION);
+		add(GRAVE_DIGGER_PROFESSION);
 	}
 	
 	private static void add(Profession profession) {

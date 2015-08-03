@@ -45,7 +45,8 @@ public class Hades implements Deity {
 		return Arrays.asList(
 				getName() + " rules the underworld and I worship him as a sign of respect for my relatives who are there.",
 				"The cycle of life and death must remain undisturbed.",
-				"As a priest of " + getName() + ", I strive to keep things of the underworld where they belong"
+				"As a priest of " + getName() + ", I strive to keep things of the underworld where they belong",
+				getName() + " is God of the underworld, and as a grave digger I want to keep dead things in the underworld"
 		);
 				
 	}
@@ -57,6 +58,8 @@ public class Hades implements Deity {
 			return 1;
 		} else if (performer.getProperty(Constants.PROFESSION) == Professions.PRIEST_PROFESSION) {
 			return 2;
+		} else if (performer.getProperty(Constants.PROFESSION) == Professions.GRAVE_DIGGER_PROFESSION) {
+			return 3;
 		}
 		
 		return -1;

@@ -127,7 +127,7 @@ public class CommonerGenerator {
 		properties.put(Constants.HEIGHT, 1);
 		properties.put(Constants.HIT_POINTS, 15);
 		properties.put(Constants.HIT_POINTS_MAX, 15);
-		properties.put(Constants.NAME, "skeletal remains");
+		properties.put(Constants.NAME, "skeletal remains of " + originalWorldObject.getProperty(Constants.NAME));
 		properties.put(Constants.ARMOR, 10);
 		properties.put(Constants.DECEASED_WORLD_OBJECT, Boolean.TRUE);
 

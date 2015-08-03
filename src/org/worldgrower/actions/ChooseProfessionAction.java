@@ -46,7 +46,8 @@ public class ChooseProfessionAction implements ManagedOperation {
 			new ProfessionInfo(Professions.FARMER_PROFESSION, 1.0, 1.2, 0.8, 1.0, 1.2, 1.0),
 			new ProfessionInfo(Professions.LUMBERJACK_PROFESSION, 1.2, 1.2, 1.2, 0.8, 1.0, 1.0),
 			new ProfessionInfo(Professions.MINER_PROFESSION, 1.4, 1.3, 1.1, 0.8, 1.0, 1.0),
-			new ProfessionInfo(Professions.SHERIFF_PROFESSION, 1.5, 1.3, 0.8, 1.1, 0.8, 0.8)
+			new ProfessionInfo(Professions.SHERIFF_PROFESSION, 1.5, 1.3, 0.8, 1.1, 0.8, 0.8),
+			new ProfessionInfo(Professions.GRAVE_DIGGER_PROFESSION, 1.5, 1.1, 0.8, 1.0, 1.1, 1.1)
 			);
 	
 	@Override
@@ -219,7 +220,18 @@ public class ChooseProfessionAction implements ManagedOperation {
 		int oreDemand = demands.count(Constants.ORE);
 		result.add(new ProfessionEvaluation(Professions.MINER_PROFESSION, (stoneDemand + oreDemand) / 2));
 		
+		List<WorldObject> remains = getRemains(world);
+		if (remains.size() > 0) {
+			result.add(new ProfessionEvaluation(Professions.GRAVE_DIGGER_PROFESSION, remains.size()));
+		} else {
+			result.add(new ProfessionEvaluation(Professions.GRAVE_DIGGER_PROFESSION, Integer.MIN_VALUE));
+		}
+		
 		return result;
+	}
+	
+	private static List<WorldObject> getRemains(World world) {
+		return world.findWorldObjects(w -> w.hasProperty(Constants.DECEASED_WORLD_OBJECT) && w.getProperty(Constants.DECEASED_WORLD_OBJECT));
 	}
 
 	static Map<Profession, Integer> getProfessionCounts(List<WorldObject> worldObjects) {
