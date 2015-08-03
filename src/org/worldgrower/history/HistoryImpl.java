@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.OperationInfo;
+import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 
@@ -154,5 +155,12 @@ public class HistoryImpl implements History, Serializable {
 				return new ArrayList<>();
 			}
 		}
+	}
+
+	@Override
+	public List<HistoryItem> findHistoryItems(WorldObject performer, ManagedOperation managedOperation) {
+		List<HistoryItem> historyItems = findHistoryItems(managedOperation);
+		historyItems = historyItems.stream().filter(w -> w.getOperationInfo().getPerformer().equals(performer)).collect(Collectors.toList());
+		return historyItems;
 	}
 }

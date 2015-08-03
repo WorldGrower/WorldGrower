@@ -18,6 +18,11 @@ import java.io.ObjectStreamException;
 import java.util.Arrays;
 import java.util.List;
 
+import org.worldgrower.Constants;
+import org.worldgrower.World;
+import org.worldgrower.WorldObject;
+import org.worldgrower.profession.Professions;
+
 public class Apollo implements Deity {
 
 	@Override
@@ -37,7 +42,22 @@ public class Apollo implements Deity {
 	@Override
 	public List<String> getReasons() {
 		return Arrays.asList(
-				"I worship " + getName() + " to hopefully get a glimpse of the future"
+				"I worship " + getName() + " to strike true with my archery skills",
+				"I worship " + getName() + " to have good weather to work in",
+				getName() + " is the god of arts, and as his priest I do everything to promote the arts"
 		);
+	}
+
+	@Override
+	public int getReasonIndex(WorldObject performer, World world) {
+		if (performer.getProperty(Constants.ARCHERY_SKILL).getLevel() > 0) {
+			return 0;
+		} else if (performer.getProperty(Constants.PROFESSION) == Professions.LUMBERJACK_PROFESSION) {
+			return 1;
+		} else if (performer.getProperty(Constants.PROFESSION) == Professions.PRIEST_PROFESSION) {
+			return 2;
+		}
+		
+		return -1;
 	}
 }

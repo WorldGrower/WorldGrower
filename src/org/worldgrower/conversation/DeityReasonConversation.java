@@ -26,12 +26,21 @@ import org.worldgrower.history.HistoryItem;
 
 public class DeityReasonConversation implements Conversation {
 
+	private static final int SEEMED_LIKE = Integer.MAX_VALUE;
+	
 	@Override
 	public Response getReplyPhrase(ConversationContext conversationContext) {
 		WorldObject target = conversationContext.getTarget();
 		Deity deity = target.getProperty(Constants.DEITY);
+		String reason = target.getProperty(Constants.REASONS).getReason(Constants.DEITY);
 		
-		final int replyId = 0;
+		
+		final int replyId;
+		if (reason != null) {
+			replyId = deity.getReasons().indexOf(reason);
+		} else {
+			replyId = SEEMED_LIKE;
+		}
 		return getReply(getReplyPhrases(conversationContext), replyId);
 	}
 
@@ -53,7 +62,7 @@ public class DeityReasonConversation implements Conversation {
 			responses.add(new Response(responseId, reason));
 			responseId++;
 		}
-		
+		responses.add(new Response(SEEMED_LIKE, "I don't care that much about which deity to follow, it seemed a good idea at the time"));
 		return responses;
 	}
 	

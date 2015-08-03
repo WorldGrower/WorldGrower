@@ -34,4 +34,5 @@ public interface History {
 	public HistoryItem getLastPerformedOperation(WorldObject worldObject);
 	public List<HistoryItem> findHistoryItems(ManagedOperation managedOperation);
 	public HistoryItem getHistoryItem(int historyItemId);
+	public List<HistoryItem> findHistoryItems(WorldObject performer, ManagedOperation managedOperation);
 }

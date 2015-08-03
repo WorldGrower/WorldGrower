@@ -28,8 +28,14 @@ public class ChooseDeityAction implements ManagedOperation {
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		int deityIndex = args[0];
+		int reasonIndex = args[1];
+		
 		Deity deity = Deity.ALL_DEITIES.get(deityIndex);
 		performer.setProperty(Constants.DEITY, deity);
+		
+		if (reasonIndex != -1) {
+			performer.getProperty(Constants.REASONS).addReason(Constants.DEITY, deity.getReasons().get(reasonIndex));
+		}
 	}
 
 	@Override

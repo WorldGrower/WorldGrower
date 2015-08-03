@@ -29,6 +29,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.deity.Deity;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.profession.Profession;
@@ -75,7 +76,7 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 
 		@Override
 		public int getColumnCount() {
-			return 8;
+			return 9;
 		}
 
 		@Override
@@ -107,6 +108,8 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 				return "Energy";
 			} else if (columnIndex == 7) {
 				return "Organization";
+			} else if (columnIndex == 8) {
+				return "Deity";
 			} else {
 				return null;
 			}
@@ -151,6 +154,9 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 					builder.append(organization.getProperty(Constants.NAME)).append(";");
 				}
 				return builder.toString();
+			} else if (columnIndex == 8) {
+				Deity deity = npc.getProperty(Constants.DEITY);
+				return deity != null ? deity.getName() : "";
 			} else {
 				return null;
 			}

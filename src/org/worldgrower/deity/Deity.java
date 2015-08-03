@@ -20,11 +20,15 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.worldgrower.World;
+import org.worldgrower.WorldObject;
+
 public interface Deity extends Serializable {
 
 	public String getName();
 	public String getExplanation();
 	public List<String> getReasons();
+	public int getReasonIndex(WorldObject performer, World world);
 	
 	public static final Demeter DEMETER = new Demeter();
 	public static final Hephaestus HEPHAESTUS = new Hephaestus();
@@ -32,6 +36,10 @@ public interface Deity extends Serializable {
 	public static final Aphrodite APHRODITE = new Aphrodite();
 	public static final Apollo APOLLO = new Apollo();
 	public static final Dionysus DIONYSUS = new Dionysus();
+	public static final Ares ARES = new Ares();
+	public static final Artemis ARTEMIS = new Artemis();
+	public static final Hermes HERMES = new Hermes();
+	public static final Athena ATHENA = new Athena();
 	
 	public static final List<Deity> ALL_DEITIES = Arrays.asList(
 			DEMETER,
@@ -39,7 +47,11 @@ public interface Deity extends Serializable {
 			HADES,
 			APHRODITE,
 			APOLLO,
-			DIONYSUS
+			DIONYSUS,
+			ARES,
+			ARTEMIS,
+			HERMES,
+			ATHENA
 			);
 
 	public static List<String> getAllDeityNames() {

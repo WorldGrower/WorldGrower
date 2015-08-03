@@ -56,10 +56,11 @@ public class LearnSkillUsingOrganizationConversation implements Conversation {
 	
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
-		WorldObject organization = conversationContext.getSubject();
+		WorldObject performer = conversationContext.getPerformer();
+		Profession profession = performer.getProperty(Constants.PROFESSION);
 		
 		return Arrays.asList(
-			new Response(YES, "Yes, I'll join the " + organization.getProperty(Constants.NAME)),
+			new Response(YES, "Yes, I'll teach you about " + profession.getDescription() + " skills"),
 			new Response(NO, "No")
 			);
 	}

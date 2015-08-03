@@ -18,6 +18,11 @@ import java.io.ObjectStreamException;
 import java.util.Arrays;
 import java.util.List;
 
+import org.worldgrower.Constants;
+import org.worldgrower.World;
+import org.worldgrower.WorldObject;
+import org.worldgrower.profession.Professions;
+
 public class Hephaestus implements Deity {
 
 	@Override
@@ -37,7 +42,22 @@ public class Hephaestus implements Deity {
 	@Override
 	public List<String> getReasons() {
 		return Arrays.asList(
-				"I worship " + getName() + " because I want be more creative"
+				"I worship " + getName() + " because I'm a blacksmith",
+				"I worship " + getName() + " because I'm a miner",
+				getName() + " is the God of crafts and as his priest I promote the crafts through our community"
 		);
+	}
+
+	@Override
+	public int getReasonIndex(WorldObject performer, World world) {
+		if (performer.getProperty(Constants.PROFESSION) == Professions.BLACKSMITH_PROFESSION) {
+			return 0;
+		} else if (performer.getProperty(Constants.PROFESSION) == Professions.MINER_PROFESSION) {
+			return 1;
+		} else if (performer.getProperty(Constants.PROFESSION) == Professions.PRIEST_PROFESSION) {
+			return 2;
+		}
+		
+		return -1;
 	}
 }

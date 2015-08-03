@@ -18,6 +18,11 @@ import java.io.ObjectStreamException;
 import java.util.Arrays;
 import java.util.List;
 
+import org.worldgrower.Constants;
+import org.worldgrower.World;
+import org.worldgrower.WorldObject;
+import org.worldgrower.profession.Professions;
+
 public class Dionysus implements Deity {
 
 	@Override
@@ -37,7 +42,15 @@ public class Dionysus implements Deity {
 	@Override
 	public List<String> getReasons() {
 		return Arrays.asList(
-				"I worship " + getName() + " to be more fertile to get more children"
-		);
+				getName() + " is the God of wine and festivals, he is important for keeping up morale in our community"
+				);
+	}
+
+	@Override
+	public int getReasonIndex(WorldObject performer, World world) {
+		if (performer.getProperty(Constants.PROFESSION) == Professions.PRIEST_PROFESSION) {
+			return 0;
+		}
+		return -1;
 	}
 }

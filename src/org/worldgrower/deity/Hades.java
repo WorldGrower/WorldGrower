@@ -18,6 +18,12 @@ import java.io.ObjectStreamException;
 import java.util.Arrays;
 import java.util.List;
 
+import org.worldgrower.Constants;
+import org.worldgrower.World;
+import org.worldgrower.WorldObject;
+import org.worldgrower.creaturetype.CreatureType;
+import org.worldgrower.profession.Professions;
+
 public class Hades implements Deity {
 
 	@Override
@@ -38,8 +44,21 @@ public class Hades implements Deity {
 	public List<String> getReasons() {
 		return Arrays.asList(
 				getName() + " rules the underworld and I worship him as a sign of respect for my relatives who are there.",
-				"The cycle of life and death must remain undisturbed."
+				"The cycle of life and death must remain undisturbed.",
+				"As a priest of " + getName() + ", I strive to keep things of the underworld where they belong"
 		);
 				
+	}
+
+	@Override
+	public int getReasonIndex(WorldObject performer, World world) {
+		int undeadCreatureCount = world.findWorldObjects(w -> w.getProperty(Constants.CREATURE_TYPE) == CreatureType.UNDEAD_CREATURE_TYPE).size();
+		if (undeadCreatureCount > 0) {
+			return 1;
+		} else if (performer.getProperty(Constants.PROFESSION) == Professions.PRIEST_PROFESSION) {
+			return 2;
+		}
+		
+		return -1;
 	}
 }

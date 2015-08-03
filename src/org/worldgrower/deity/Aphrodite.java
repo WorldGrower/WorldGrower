@@ -18,6 +18,11 @@ import java.io.ObjectStreamException;
 import java.util.Arrays;
 import java.util.List;
 
+import org.worldgrower.Constants;
+import org.worldgrower.World;
+import org.worldgrower.WorldObject;
+import org.worldgrower.profession.Professions;
+
 public class Aphrodite implements Deity {
 
 	@Override
@@ -37,7 +42,19 @@ public class Aphrodite implements Deity {
 	@Override
 	public List<String> getReasons() {
 		return Arrays.asList(
-				"I worship " + getName() + " to have a good love life."
+				"I worship " + getName() + " to have a good love life.",
+				"As a priest of " + getName() + ", I strive to spread love and beauty in our community"
 		);
+	}
+
+	@Override
+	public int getReasonIndex(WorldObject performer, World world) {
+		if (performer.getProperty(Constants.CHARISMA) >= 12) {
+			return 0;
+		} else if (performer.getProperty(Constants.PROFESSION) == Professions.PRIEST_PROFESSION) {
+			return 1;
+		}
+		
+		return -1;
 	}
 }

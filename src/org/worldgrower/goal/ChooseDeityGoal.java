@@ -14,6 +14,9 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
@@ -25,12 +28,32 @@ public class ChooseDeityGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		int min = 0;
-		int max = Deity.ALL_DEITIES.size() - 1;
-		int range = (max - min) + 1;     
-		int indexOfDeity = (int)(Math.random() * range) + min;
+		List<DeityReason> deityReasons = new ArrayList<>();
+		for(Deity deity : Deity.ALL_DEITIES) {
+			int reasonIndex = deity.getReasonIndex(performer, world);
+			if (reasonIndex != -1) {
+				deityReasons.add(new DeityReason(deity, reasonIndex));
+			}
+		}
+		final int indexOfDeity;
+		final int reasonIndex;
+		if (deityReasons.size() > 0) {
+			int randomDeityIndex = getRandomValue(0, deityReasons.size() - 1);
+			Deity randomDeity = deityReasons.get(randomDeityIndex).getDeity();
+			indexOfDeity = Deity.ALL_DEITIES.indexOf(randomDeity);
+			reasonIndex = deityReasons.get(randomDeityIndex).getReasonIndex();
+		} else {
+			int randomDeityIndex = getRandomValue(0, Deity.ALL_DEITIES.size() - 1);
+			indexOfDeity = randomDeityIndex;
+			reasonIndex = -1;
+		}
 		
-		return new OperationInfo(performer, performer, new int[] { indexOfDeity }, Actions.CHOOSE_DEITY_ACTION);
+		return new OperationInfo(performer, performer, new int[] { indexOfDeity, reasonIndex }, Actions.CHOOSE_DEITY_ACTION);
+	}
+	
+	private int getRandomValue(int min, int max) {
+		int range = (max - min) + 1;     
+		return (int)(Math.random() * range) + min;
 	}
 	
 	@Override
@@ -55,5 +78,23 @@ public class ChooseDeityGoal implements Goal {
 	@Override
 	public int evaluate(WorldObject performer, World world) {
 		return (performer.getProperty(Constants.DEITY) != null) ? 1 : 0;
+	}
+	
+	private static class DeityReason {
+		private final Deity deity;
+		private final int reasonIndex;
+		
+		public DeityReason(Deity deity, int reasonIndex) {
+			this.deity = deity;
+			this.reasonIndex = reasonIndex;
+		}
+
+		public Deity getDeity() {
+			return deity;
+		}
+
+		public int getReasonIndex() {
+			return reasonIndex;
+		}
 	}
 }

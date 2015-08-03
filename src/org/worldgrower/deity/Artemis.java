@@ -21,66 +21,37 @@ import java.util.List;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.actions.Actions;
-import org.worldgrower.history.HistoryItem;
 import org.worldgrower.profession.Professions;
 
-public class Demeter implements Deity {
+public class Artemis implements Deity {
 
 	@Override
 	public String getName() {
-		return "Demeter";
+		return "Artemis";
 	}
 
 	@Override
 	public String getExplanation() {
-		return getName() + " is the God of harvest, sacred laws and life and death.";
+		return getName() + " is the Goddess of the hunt, virginity, archery, the moon, and all animals.";
 	}
-	
+
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
 	}
-
+	
 	@Override
 	public List<String> getReasons() {
 		return Arrays.asList(
-				"As a farmer I worship " + getName() + " to have a good harvest",
-				"As a child, I was always scared of food running out. I worship " + getName() + " so that it never happens again.",
-				"Our existence depends on nature. That is why I worship " + getName()
+				"As a priest of " + getName() + ", I want our troops to win any war they enter"
 		);
 	}
 
 	@Override
 	public int getReasonIndex(WorldObject performer, World world) {
-		if (performer.getProperty(Constants.PROFESSION) == Professions.FARMER_PROFESSION) {
+		if (performer.getProperty(Constants.PROFESSION) == Professions.PRIEST_PROFESSION) {
 			return 0;
-		} else if (wasHungry(performer, world)) {
-			return 1;
-		} else if (performer.getProperty(Constants.PROFESSION) == Professions.PRIEST_PROFESSION) {
-			return 2;
 		}
-			
+		
 		return -1;
 	}
-	
-	private boolean wasHungry(WorldObject performer, World world) {
-		List<HistoryItem> eatActions = world.getHistory().findHistoryItems(performer, Actions.EAT_ACTION);
-		
-		for(HistoryItem historyItem : eatActions) {
-			if (historyItem.getOperationInfo().getPerformer().getProperty(Constants.FOOD) < 500) {
-				return true;
-			}
-		}
-		
-		List<HistoryItem> eatFromInventoryActions = world.getHistory().findHistoryItems(performer, Actions.EAT_FROM_INVENTORY_ACTION);
-		for(HistoryItem historyItem : eatFromInventoryActions) {
-			if (historyItem.getOperationInfo().getPerformer().getProperty(Constants.FOOD) < 500) {
-				return true;
-			}
-		}
-		
-		return false;
-	}
-	
-	
 }
