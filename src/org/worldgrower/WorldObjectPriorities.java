@@ -19,6 +19,9 @@ import java.util.List;
 
 import org.worldgrower.goal.Goal;
 
+/**
+ * This interface is used by non-player characters to determine what goals they have and what priority each goal has.
+ */
 public interface WorldObjectPriorities extends Serializable {
 
 	public List<Goal> getPriorities(WorldObject performer, World world);

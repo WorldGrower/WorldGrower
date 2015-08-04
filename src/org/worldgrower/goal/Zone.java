@@ -20,6 +20,10 @@ import java.util.List;
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
 
+/**
+ * A zone is an overlay of the world, with each square in the world assigned a value.
+ * This makes some squares more desirable than others.
+ */
 public class Zone {
 
 	private final int[][] zone;

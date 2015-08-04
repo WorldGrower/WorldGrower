@@ -87,9 +87,9 @@ public class GoalUtils {
 		return true;
 	}
 	
-	public static boolean actionAlreadyPerformed(WorldObject performer, ManagedOperation action, int[] args, World world) {
+	public static boolean actionAlreadyPerformed(WorldObject performer, WorldObject target, ManagedOperation action, int[] args, World world) {
 		List<WorldObject> targets = findNearestNewTargets(performer, action, args, world);
-		return targets.size() == 0;
+		return !targets.contains(target);
 	}
 
 	public static List<WorldObject> findNearestNewTargets(WorldObject performer, ManagedOperation action, int[] args, World world) {

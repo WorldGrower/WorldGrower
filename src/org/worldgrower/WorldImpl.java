@@ -14,6 +14,8 @@
  *******************************************************************************/
 package org.worldgrower;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -26,8 +28,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.worldgrower.attribute.IdProperty;
-import org.worldgrower.attribute.IntProperty;
+import org.worldgrower.attribute.IdContainer;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.history.History;
@@ -65,24 +66,24 @@ public class WorldImpl implements World, Serializable {
 		
 		int id = worldObjectToRemove.getProperty(Constants.ID);
 		for(WorldObject worldObject : worldObjects) {
-			IdProperty[] worldObjectIds = getIdProperties();
-			for(IdProperty worldObjectId : worldObjectIds) {
-				if (worldObject.hasProperty(worldObjectId) && (worldObject.getProperty(worldObjectId) != null) && (worldObject.getProperty(worldObjectId).intValue() == id)) {
-					worldObject.setProperty(worldObjectId, null);
+			List<IdContainer> worldObjectIds = getIdProperties();
+			for(IdContainer worldObjectId : worldObjectIds) {
+				ManagedProperty<?> property = (ManagedProperty<?>) worldObjectId;
+				if (worldObject.hasProperty(property) && (worldObject.getProperty(property) != null)) {
+					worldObjectId.remove(worldObject, property, id);
 				}
 			}
 		}
 	}
 	
-	//TODO: add IdMap & IdList
-	private IdProperty[] getIdProperties() {
-		List<IdProperty> result = new ArrayList<>();
+	private List<IdContainer> getIdProperties() {
+		List<IdContainer> result = new ArrayList<>();
 		for(ManagedProperty<?> property : Constants.ALL_PROPERTIES) {
-			if (property instanceof IdProperty) {
-				result.add((IdProperty)property);
+			if (property instanceof IdContainer) {
+				result.add((IdContainer)property);
 			}
 		}
-		return result.toArray(new IdProperty[0]);
+		return result;
 	}
 	
 	@Override
@@ -163,7 +164,7 @@ public class WorldImpl implements World, Serializable {
 	
 	@Override
 	public void save(File fileToSave) {
-		try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(fileToSave))){
+		try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(fileToSave)))) {
 
 			objectOutputStream.writeObject ( Version.VERSION );
 	    	objectOutputStream.writeObject ( this );
@@ -174,7 +175,7 @@ public class WorldImpl implements World, Serializable {
 	}
 	
 	public static World load(File fileToLoad) {
-		try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(fileToLoad))) {
+		try (ObjectInputStream objectInputStream = new ObjectInputStream(new BufferedInputStream(new FileInputStream(fileToLoad)))) {
 			String versionFromFile = (String) objectInputStream.readObject();
 			
 			if (!versionFromFile.equals( Version.VERSION )) {

@@ -93,4 +93,8 @@ public class IdMap implements Serializable {
 	public void incrementValue(WorldObject worldObject, int value) {
 		incrementValue(worldObject.getProperty(Constants.ID), value);
 	}
+
+	public void remove(int id) {
+		idsToValue.remove(id);
+	}
 }

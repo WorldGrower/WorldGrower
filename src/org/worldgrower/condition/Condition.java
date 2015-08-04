@@ -19,6 +19,10 @@ import java.io.Serializable;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 
+/**
+ * A Condition is something WorldObjects can have.
+ * It lasts several turns and can limit the actions of the WorldObject.
+ */
 public interface Condition extends Serializable {
 
 	public boolean canTakeAction();

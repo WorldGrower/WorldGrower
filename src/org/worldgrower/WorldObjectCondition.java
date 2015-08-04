@@ -14,6 +14,9 @@
  *******************************************************************************/
 package org.worldgrower;
 
+/**
+ * A WorldObjectCondition is a test on a WorldObject
+ */
 public interface WorldObjectCondition {
 
 	public boolean isWorldObjectValid(WorldObject worldObject);

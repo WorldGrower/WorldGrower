@@ -14,6 +14,10 @@
  *******************************************************************************/
 package org.worldgrower;
 
+/**
+ * Whenever the goal of a non-player character changes,
+ * the reason is recorded as one of these states.
+ */
 public enum GoalChangedReason {
 	EMPTY_META_INFORMATION, 
 	FINAL_GOAL_WAS_MET, 

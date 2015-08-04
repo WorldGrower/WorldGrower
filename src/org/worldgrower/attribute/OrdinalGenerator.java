@@ -14,6 +14,10 @@
  *******************************************************************************/
 package org.worldgrower.attribute;
 
+/**
+ * Each time a property is created, it gets assigned a new ordinal.
+ * The ordinal can thought of as a unique id related to each property.
+ */
 class OrdinalGenerator {
 
 	private static int currentOrdinal;

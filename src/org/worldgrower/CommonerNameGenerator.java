@@ -21,6 +21,9 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class provides names for commoners.
+ */
 public class CommonerNameGenerator implements Serializable {
 	
 	private List<String> maleCommonerNames = new ArrayList<>();

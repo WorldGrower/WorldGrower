@@ -17,7 +17,9 @@ package org.worldgrower.attribute;
 import java.io.ObjectStreamException;
 import java.util.List;
 
-public class IdListProperty implements ManagedProperty<IdList> {
+import org.worldgrower.WorldObject;
+
+public class IdListProperty implements ManagedProperty<IdList>, IdContainer {
 	
 	private final String name;
 	private final int ordinal = OrdinalGenerator.getNextOrdinal();
@@ -56,5 +58,11 @@ public class IdListProperty implements ManagedProperty<IdList> {
 	@Override
 	public IdList copy(Object value) {
 		return ((IdList)value).copy();
+	}
+
+	@Override
+	public void remove(WorldObject worldObject, ManagedProperty<?> property, int id) {
+		IdListProperty idListProperty = (IdListProperty) property;
+		worldObject.getProperty(idListProperty).remove(id);
 	}
 }

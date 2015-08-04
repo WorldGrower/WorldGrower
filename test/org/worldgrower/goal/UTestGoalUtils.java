@@ -107,11 +107,30 @@ public class UTestGoalUtils {
 		WorldObject target = TestUtils.createIntelligentWorldObject(7, Constants.CREATURE_TYPE, CreatureType.HUMAN_CREATURE_TYPE);
 		world.addWorldObject(target);
 		
-		assertEquals(false, GoalUtils.actionAlreadyPerformed(performer, Actions.TALK_ACTION, Conversations.createArgs(Conversations.PROFESSION_CONVERSATION), world));
+		assertEquals(false, GoalUtils.actionAlreadyPerformed(performer, target, Actions.TALK_ACTION, Conversations.createArgs(Conversations.PROFESSION_CONVERSATION), world));
 		
 		OperationInfo operationInfo = new OperationInfo(performer, target, Conversations.createArgs(Conversations.PROFESSION_CONVERSATION), Actions.TALK_ACTION);
 		world.getHistory().actionPerformed(operationInfo, new Turn());
 		
-		assertEquals(true, GoalUtils.actionAlreadyPerformed(performer, Actions.TALK_ACTION, Conversations.createArgs(Conversations.PROFESSION_CONVERSATION), world));
+		assertEquals(true, GoalUtils.actionAlreadyPerformed(performer, target, Actions.TALK_ACTION, Conversations.createArgs(Conversations.PROFESSION_CONVERSATION), world));
+	}
+	
+	@Test
+	public void testActionAlreadyPerformedMultipleTargets() {
+		World world = new WorldImpl(0, 0, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(6, Constants.CREATURE_TYPE, CreatureType.HUMAN_CREATURE_TYPE);
+		world.addWorldObject(performer);
+		WorldObject target = TestUtils.createIntelligentWorldObject(7, Constants.CREATURE_TYPE, CreatureType.HUMAN_CREATURE_TYPE);
+		world.addWorldObject(target);
+		WorldObject target2 = TestUtils.createIntelligentWorldObject(8, Constants.CREATURE_TYPE, CreatureType.HUMAN_CREATURE_TYPE);
+		world.addWorldObject(target2);
+		
+		
+		assertEquals(false, GoalUtils.actionAlreadyPerformed(performer, target, Actions.TALK_ACTION, Conversations.createArgs(Conversations.PROFESSION_CONVERSATION), world));
+		
+		OperationInfo operationInfo = new OperationInfo(performer, target, Conversations.createArgs(Conversations.PROFESSION_CONVERSATION), Actions.TALK_ACTION);
+		world.getHistory().actionPerformed(operationInfo, new Turn());
+		
+		assertEquals(true, GoalUtils.actionAlreadyPerformed(performer, target, Actions.TALK_ACTION, Conversations.createArgs(Conversations.PROFESSION_CONVERSATION), world));
 	}
 }

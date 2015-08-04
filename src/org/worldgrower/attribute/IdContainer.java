@@ -14,21 +14,13 @@
  *******************************************************************************/
 package org.worldgrower.attribute;
 
-import java.util.List;
-
 import org.worldgrower.WorldObject;
 
-public class IdProperty extends IntProperty implements IdContainer {
+/**
+ * All ManagedProperty classes that hold ids implement this interface.
+ * Whenever the WorldObject is removed, any id that points to it should also be removed.
+ */
+public interface IdContainer {
 
-	public IdProperty(String name, List<ManagedProperty<?>> allProperties) {
-		super(name, null, null, true, allProperties);
-	}
-
-	@Override
-	public void remove(WorldObject worldObject, ManagedProperty<?> property, int id) {
-		IntProperty intProperty = (IntProperty) property;
-		if (worldObject.hasProperty(intProperty) && (worldObject.getProperty(intProperty) != null) && (worldObject.getProperty(intProperty).intValue() == id)) {
-			worldObject.setProperty(intProperty, null);
-		}
-	}
+	public void remove(WorldObject worldObject, ManagedProperty<?> property, int id);
 }

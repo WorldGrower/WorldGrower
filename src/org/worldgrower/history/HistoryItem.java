@@ -19,6 +19,9 @@ import java.io.Serializable;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 
+/**
+ * A HistoryItem represents an action that a performer performed on a target on a certain point in time.
+ */
 public class HistoryItem implements Serializable {
 	private final int historyId;
 	private final OperationInfo operationInfo;

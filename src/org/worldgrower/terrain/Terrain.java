@@ -14,7 +14,10 @@
  *******************************************************************************/
 package org.worldgrower.terrain;
 
-
+/**
+ * A Terrain represents the state of the terrain in a world.
+ * What terrain type it is and whether it is explored.
+ */
 public interface Terrain {
 
 	public TerrainInfo getTerrainInfo(int x, int y);

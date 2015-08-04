@@ -17,7 +17,9 @@ package org.worldgrower.attribute;
 import java.io.ObjectStreamException;
 import java.util.List;
 
-public class IdMapProperty implements ManagedProperty<IdMap> {
+import org.worldgrower.WorldObject;
+
+public class IdMapProperty implements ManagedProperty<IdMap>, IdContainer {
 	
 	private final String name;
 	private final int ordinal = OrdinalGenerator.getNextOrdinal();
@@ -56,5 +58,12 @@ public class IdMapProperty implements ManagedProperty<IdMap> {
 	@Override
 	public IdMap copy(Object value) {
 		return ((IdMap)value).copy();
+	}
+
+	@Override
+	public void remove(WorldObject worldObject, ManagedProperty<?> property, int id) {
+		IdMapProperty idMapProperty = (IdMapProperty) property;
+		worldObject.getProperty(idMapProperty).remove(id);
+		
 	}
 }

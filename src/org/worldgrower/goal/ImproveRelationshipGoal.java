@@ -35,17 +35,17 @@ public class ImproveRelationshipGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		if (!GoalUtils.actionAlreadyPerformed(performer, Actions.TALK_ACTION, Conversations.createArgs(Conversations.COMPLIMENT_CONVERSATION), world)) {
+		if (!GoalUtils.actionAlreadyPerformed(performer, target, Actions.TALK_ACTION, Conversations.createArgs(Conversations.COMPLIMENT_CONVERSATION), world)) {
 			return new OperationInfo(performer, target, Conversations.createArgs(Conversations.COMPLIMENT_CONVERSATION), Actions.TALK_ACTION);
-		} else if (!GoalUtils.actionAlreadyPerformed(performer, Actions.TALK_ACTION, Conversations.createArgs(Conversations.FAMILY_CONVERSATION), world)) {
+		} else if (!GoalUtils.actionAlreadyPerformed(performer, target, Actions.TALK_ACTION, Conversations.createArgs(Conversations.FAMILY_CONVERSATION), world)) {
 			return new OperationInfo(performer, target, Conversations.createArgs(Conversations.FAMILY_CONVERSATION), Actions.TALK_ACTION);
-		} else if (!GoalUtils.actionAlreadyPerformed(performer, Actions.TALK_ACTION, Conversations.createArgs(Conversations.PROFESSION_CONVERSATION), world)) {
+		} else if (!GoalUtils.actionAlreadyPerformed(performer, target, Actions.TALK_ACTION, Conversations.createArgs(Conversations.PROFESSION_CONVERSATION), world)) {
 			return new OperationInfo(performer, target, Conversations.createArgs(Conversations.PROFESSION_CONVERSATION), Actions.TALK_ACTION);
-		} else if (!GoalUtils.actionAlreadyPerformed(performer, Actions.TALK_ACTION, Conversations.createArgs(Conversations.KISS_CONVERSATION), world)) {
+		} else if (!GoalUtils.actionAlreadyPerformed(performer, target, Actions.TALK_ACTION, Conversations.createArgs(Conversations.KISS_CONVERSATION), world)) {
 			return new OperationInfo(performer, target, Conversations.createArgs(Conversations.KISS_CONVERSATION), Actions.TALK_ACTION);
 		} else {
-			return new OperationInfo(performer, target, null, Actions.KISS_ACTION);
-		}		
+			return new OperationInfo(performer, target, new int[0], Actions.KISS_ACTION);
+		}
 	}
 	
 	@Override

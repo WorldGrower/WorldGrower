@@ -25,6 +25,9 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.goal.GoalUtils;
 import org.worldgrower.terrain.TerrainType;
 
+/**
+ * This class is used for populating the world instance with worldobjects.
+ */
 public class WorldGenerator {
 
 	private final Random random;

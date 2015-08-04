@@ -20,6 +20,11 @@ import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.goal.Goal;
 
+/**
+ * A WorldObjectFacade takes the original WorldObject and the facade.
+ * If a property is set in the facade, it is returned.
+ * If a property is not set in the facade, the value in the original WorldObject is returned.
+ */
 public class WorldObjectFacade implements WorldObject {
 
 	private final WorldObject originalWorldObject;

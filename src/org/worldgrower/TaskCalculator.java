@@ -16,6 +16,9 @@ package org.worldgrower;
 
 import java.util.List;
 
+/**
+ * This class is responsible for calculating move actions to get to the goal.
+ */
 public interface TaskCalculator {
 	public List<OperationInfo> calculateTask(WorldObject performer, World world, OperationInfo goal);
 }

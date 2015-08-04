@@ -21,7 +21,9 @@ import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.ReasonsImpl;
 import org.worldgrower.deity.Deity;
+import org.worldgrower.profession.Professions;
 
 public class ChooseDeityAction implements ManagedOperation {
 
@@ -35,6 +37,20 @@ public class ChooseDeityAction implements ManagedOperation {
 		
 		if (reasonIndex != -1) {
 			performer.getProperty(Constants.REASONS).addReason(Constants.DEITY, deity.getReasons().get(reasonIndex));
+		}
+		
+		setFacade(performer);
+	}
+
+	private void setFacade(WorldObject performer) {
+		WorldObject performerFacade = performer.getProperty(Constants.FACADE);
+		if (performer.getProperty(Constants.PROFESSION) == Professions.THIEF_PROFESSION &&  performerFacade != null) {
+			performerFacade.setProperty(Constants.DEITY, Deity.DEMETER);
+			
+			if (performerFacade.getProperty(Constants.REASONS) == null) {
+				performerFacade.setProperty(Constants.REASONS, new ReasonsImpl());
+			}
+			performerFacade.getProperty(Constants.REASONS).addReason(Constants.DEITY, Deity.DEMETER.getReasons().get(0));
 		}
 	}
 
