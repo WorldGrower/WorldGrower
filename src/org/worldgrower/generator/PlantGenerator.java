@@ -151,4 +151,22 @@ public class PlantGenerator {
 		
 		return id;
 	}
+	
+	public static int generateCottonPlant(int x, int y, World world) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		int id = world.generateUniqueId();
+		
+		properties.put(Constants.X, x);
+		properties.put(Constants.Y, y);
+		properties.put(Constants.WIDTH, 1);
+		properties.put(Constants.HEIGHT, 1);
+		properties.put(Constants.ID, id);
+		properties.put(Constants.IMAGE_ID, ImageIds.COTTON_PLANT);
+		properties.put(Constants.COTTON_SOURCE, 1);
+		properties.put(Constants.NAME, "cotton plant");
+		WorldObject cottonPlant = new WorldObjectImpl(properties, new CottonPlantOnTurn());
+		world.addWorldObject(cottonPlant);
+		
+		return id;
+	}
 }

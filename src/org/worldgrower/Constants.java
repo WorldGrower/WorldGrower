@@ -99,6 +99,7 @@ public class Constants {
 	public static final IntProperty GRAPE = new IntProperty("grape", 0, 500, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty WINE = new IntProperty("wine", 0, 500, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty PAPER = new IntProperty("paper", 0, 500, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty COTTON_SOURCE = new IntProperty("cottonSource", 0, 500, NOT_NULLABLE, ALL_PROPERTIES);
 	
 	public static final IntProperty WOOD = new IntProperty("wood", 0, 50, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IdProperty HOUSE_ID = new IdProperty("houseId", ALL_PROPERTIES);
