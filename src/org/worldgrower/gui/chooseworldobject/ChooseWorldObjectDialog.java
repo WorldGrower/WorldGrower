@@ -32,6 +32,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.DungeonMaster;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.gui.ActionContainingArgs;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.StartBuildModeAction;
 import org.worldgrower.gui.WorldObjectList;
@@ -46,9 +47,9 @@ public class ChooseWorldObjectDialog extends JDialog {
 	private World world;
 	private JComponent parent;
 	private DungeonMaster dungeonMaster;
-	private Action guiAction;
+	private ActionContainingArgs guiAction;
 
-	public ChooseWorldObjectDialog(WorldObject playerCharacter, ImageInfoReader imageInfoReader, List<WorldObject> disguiseWorldObjects, JComponent parent, World world, DungeonMaster dungeonMaster, Action guiAction) {
+	public ChooseWorldObjectDialog(WorldObject playerCharacter, ImageInfoReader imageInfoReader, List<WorldObject> disguiseWorldObjects, JComponent parent, World world, DungeonMaster dungeonMaster, ActionContainingArgs guiAction) {
 		initializeGui(parent, disguiseWorldObjects, imageInfoReader);
 		
 		this.playerCharacter = playerCharacter;
@@ -96,7 +97,7 @@ public class ChooseWorldObjectDialog extends JDialog {
 				WorldObject selectedPerson = personList.getSelectedValue();
 				int selectedId = selectedPerson.getProperty(Constants.ID);
 				
-				((StartBuildModeAction) guiAction).setArgs(new int[] { selectedId });
+				guiAction.setArgs(new int[] { selectedId });
 				
 				guiAction.actionPerformed(null);		
 				ChooseWorldObjectDialog.this.dispose();

@@ -21,7 +21,10 @@ import java.util.List;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.VotingPropertyUtils;
 import org.worldgrower.attribute.IdList;
+import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.goal.BuildLocationUtils;
 import org.worldgrower.history.HistoryItem;
 
 public class VoteLeaderOrganizationConversation implements Conversation {
@@ -43,17 +46,22 @@ public class VoteLeaderOrganizationConversation implements Conversation {
 		for(int organizationId : targetOrganizations.getIds()) {
 			WorldObject organization = world.findWorldObject(Constants.ID, organizationId);
 			if (performer.getProperty(Constants.GROUP).contains(organization)) {
-				questions.add(new Question(organization, "I want to vote on leadership for the " + organization.getProperty(Constants.NAME)));
+				boolean voteAlreadyInProgress = world.findWorldObjects(w -> VotingPropertyUtils.isVotingBoxForOrganization(w, organization)).size() > 0;
+				if (!voteAlreadyInProgress) {
+					questions.add(new Question(organization, "I want to vote on leadership for the " + organization.getProperty(Constants.NAME)));
+				}
 			}
 		}
 		
 		return questions;
 	}
 	
+
+	
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
-			new Response(LETS_PUT, "Let's put it to a vote")
+			new Response(LETS_PUT, "Let's put it to a vote. From now for " + VotingPropertyUtils.getNumberOfTurnsCandidatesMayBeProposed() + " turns anyone can become a candidate for leader, and after that voting starts.")
 			);
 	}
 
@@ -66,16 +74,17 @@ public class VoteLeaderOrganizationConversation implements Conversation {
 	
 	@Override
 	public void handleResponse(int replyIndex, ConversationContext conversationContext) {
+		WorldObject target = conversationContext.getTarget();
 		WorldObject organization = conversationContext.getSubject();
 		World world = conversationContext.getWorld();
+		
 		if (replyIndex == LETS_PUT) {
-			//TODO: request council: which people are possible candidates and how are we going to collect votes?
-			//For now, let's keep things simple
+			WorldObject location = BuildLocationUtils.findOpenLocationNearExistingProperty(target, 2, 2, world);
+			int votingBoxId = BuildingGenerator.generateVotingBox(location.getProperty(Constants.X), location.getProperty(Constants.Y), world);
 			
-			// create council object though which people can talk one-to-many
-			// council object can be a house or artificial construct
-			
-			//TODO: If implemented, add to Conversations
+			WorldObject votingBox = world.findWorldObject(Constants.ID, votingBoxId);
+			votingBox.setProperty(Constants.ORGANIZATION_ID, organization.getProperty(Constants.ID));
+			votingBox.setProperty(Constants.TEXT, "Voting box for " + organization.getProperty(Constants.NAME));
 		}
 	}
 	

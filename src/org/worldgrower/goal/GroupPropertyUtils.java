@@ -110,4 +110,8 @@ public class GroupPropertyUtils {
 		
 		return organization;
 	}
+
+	public static WorldObject getVillagersOrganization(WorldObject performer, World world) {
+		return world.findWorldObject(Constants.ID, 1);
+	}
 }

@@ -20,6 +20,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -105,7 +108,7 @@ public class AskQuestionDialog extends JDialog implements ManagedOperationListen
 		getContentPane().add(targetLabel);
 		
 		label = new JLabel(" ");
-		label.setBounds(44, 70, 395, 96);
+		label.setBounds(44, 70, 495, 200);
 		getContentPane().add(label);
 		
 		okButton.addActionListener(new CloseDialogAction());
@@ -123,7 +126,7 @@ public class AskQuestionDialog extends JDialog implements ManagedOperationListen
 	private JPopupMenu createQuestions(ImageInfoReader imageInfoReader, Map<Integer, ImageIds> subjectImageIds, Conversations conversations, Answerer answerer) {
 		Map<ConversationCategory, List<Question>> questions = answerer.getQuestionPhrases();
 		JPopupMenu popupMenu = new JPopupMenu();
-		for(Entry<ConversationCategory, List<Question>> entry : questions.entrySet()) {
+		for(Entry<ConversationCategory, List<Question>> entry : getQuestions(questions)) {
 			JMenu menu = new JMenu(entry.getKey().getDescription());
 			popupMenu.add(menu);
 			
@@ -148,6 +151,20 @@ public class AskQuestionDialog extends JDialog implements ManagedOperationListen
 		return popupMenu;
 	}
 
+	private List<Entry<ConversationCategory, List<Question>>> getQuestions(Map<ConversationCategory, List<Question>> questionsMap) {
+		List<Entry<ConversationCategory, List<Question>>> questions = new ArrayList<>();
+		questions.addAll(questionsMap.entrySet());
+		
+		Collections.sort(questions, new Comparator<Entry<ConversationCategory, List<Question>>>() {
+			@Override
+			public int compare(Entry<ConversationCategory, List<Question>> o1, Entry<ConversationCategory, List<Question>> o2) {
+				return o1.getKey().getDescription().compareTo(o2.getKey().getDescription());
+			}
+		});
+		
+		return questions;
+	}
+
 	public void showMe() {
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setVisible(true);
@@ -157,7 +174,7 @@ public class AskQuestionDialog extends JDialog implements ManagedOperationListen
 	public void actionPerformed(ManagedOperation managedOperation, WorldObject performer, WorldObject target, int[] args, Object value) {
 		if (answerer.filterMessage(performer)) {
 			Response response = (Response) value;
-			label.setText(response.getResponsePhrase());
+			label.setText("<html>" + response.getResponsePhrase() + "</html>");
 		}
 	}
 }

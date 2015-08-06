@@ -169,4 +169,8 @@ public class OperationInfo implements Serializable {
 	public OperationInfo copy() {
 		return new OperationInfo(performer.deepCopy(), target.deepCopy(), args, managedOperation);
 	}
+
+	public boolean matches(WorldObject performer, WorldObject target, ManagedOperation managedOperation) {
+		return ((this.performer.equals(performer)) && (this.target.equals(target)) && (this.managedOperation == managedOperation));
+	}
 }

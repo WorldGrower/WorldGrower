@@ -22,7 +22,7 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.BuildAction;
 
-public class StartBuildModeAction extends AbstractAction {
+public class StartBuildModeAction extends AbstractAction implements ActionContainingArgs {
 
 	private WorldObject playerCharacter;
 	private CharacterDialog dialog;
@@ -44,6 +44,7 @@ public class StartBuildModeAction extends AbstractAction {
 		worldPanel.startBuildMode(buildAction, args);
 	}
 
+	@Override
 	public void setArgs(int[] args) {
 		this.args = args;
 	}

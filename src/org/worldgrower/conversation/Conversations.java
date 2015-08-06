@@ -97,7 +97,7 @@ public class Conversations implements Serializable {
 		add(SET_ORGANIZATION_PROFIT_PERCENTAGE, ConversationCategory.GROUP);
 		addNormalAndIntimidate(CURE_POISON_CONVERSATION, ConversationCategory.DEMAND);
 		addNormalAndIntimidate(WHO_IS_LEADER_ORGANIZATION_CONVERSATION, ConversationCategory.GROUP);
-		// addNormalAndIntimidate(VOTE_LEADER_ORGANIZATION_CONVERSATION, ConversationCategory.GROUP);
+		addNormalAndIntimidate(VOTE_LEADER_ORGANIZATION_CONVERSATION, ConversationCategory.GROUP);
 	}
 	
 	public static int[] createArgs(Conversation conversation) {

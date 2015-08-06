@@ -63,4 +63,6 @@ public class Goals {
 	public static final GetPoisonCuredGoal GET_POISON_CURED_GOAL = new GetPoisonCuredGoal();
 	public static final GatherRemainsGoal GATHER_REMAINS_GOAL = new GatherRemainsGoal();
 	public static final CreateGraveGoal CREATE_GRAVE_GOAL = new CreateGraveGoal();
+	public static final OrganizationVoteGoal ORGANIZATION_VOTE_GOAL = new OrganizationVoteGoal();
+	public static final OrganizationCandidateGoal ORGANIZATION_CANDIDATE_GOAL = new OrganizationCandidateGoal();
 }

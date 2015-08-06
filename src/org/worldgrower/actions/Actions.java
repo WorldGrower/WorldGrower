@@ -100,6 +100,8 @@ public class Actions {
 	public static final CommandAction COMMAND_ACTION = new CommandAction();
 	public static final GatherRemainsAction GATHER_REMAINS_ACTION = new GatherRemainsAction();
 	public static final CreateGraveAction CREATE_GRAVE_ACTION = new CreateGraveAction();
+	public static final BecomeLeaderCandidateAction BECOME_LEADER_CANDIDATE_ACTION = new BecomeLeaderCandidateAction();
+	public static final VoteForLeaderAction VOTE_FOR_LEADER_ACTION = new VoteForLeaderAction();
 	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 
@@ -170,7 +172,9 @@ public class Actions {
 		COMMAND_ACTION,
 		GATHER_REMAINS_ACTION,
 		CREATE_GRAVE_ACTION,
-		BUILD_PAPER_MILL_ACTION
+		BUILD_PAPER_MILL_ACTION,
+		BECOME_LEADER_CANDIDATE_ACTION,
+		VOTE_FOR_LEADER_ACTION
 	));
 	
 	static {

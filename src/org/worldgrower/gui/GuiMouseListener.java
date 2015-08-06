@@ -34,6 +34,7 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.BuildAction;
 import org.worldgrower.gui.chooseworldobject.ChooseWorldObjectAction;
 import org.worldgrower.gui.chooseworldobject.DisguiseAction;
+import org.worldgrower.gui.chooseworldobject.GuiVoteAction;
 import org.worldgrower.gui.conversation.GuiAskQuestionAction;
 import org.worldgrower.gui.debug.GuiShowCommonersOverviewAction;
 import org.worldgrower.gui.debug.GuiShowEconomicOverviewAction;
@@ -135,6 +136,7 @@ public class GuiMouseListener extends MouseAdapter {
             		addCommunicationActions(menu, worldObject);
             	} else {
             		addInventoryActions(menu, worldObject);
+            		addVoteActions(menu, worldObject);
             	}
             	addAllActions(menu, worldObject);
             	
@@ -184,6 +186,14 @@ public class GuiMouseListener extends MouseAdapter {
 			JMenuItem guiStealMenuItem = new JMenuItem(new GuiPutItemAction(playerCharacter, world, dungeonMaster, container, worldObject, imageInfoReader));
 			guiStealMenuItem.setText("Put Item...");
 			menu.add(guiStealMenuItem);
+		}
+	}
+	
+	private void addVoteActions(JPopupMenu menu, WorldObject worldObject) {
+		if (canPlayerCharacterPerformAction(worldObject, Actions.VOTE_FOR_LEADER_ACTION)) {
+			JMenuItem guiVoteMenuItem = new JMenuItem(new GuiVoteAction(playerCharacter, imageInfoReader, world, container, dungeonMaster, worldObject));
+			guiVoteMenuItem.setText("Vote...");
+			menu.add(guiVoteMenuItem);
 		}
 	}
 

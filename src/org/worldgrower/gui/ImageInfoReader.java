@@ -211,6 +211,7 @@ public class ImageInfoReader {
 		
 		add(ImageIds.COTTON_PLANT, tileB.getSubImage(4, 4, 1, 1));
 		add(ImageIds.COTTON, statues.getSubImage(11, 0, 1, 1));
+		add(ImageIds.VOTING_BOX, tileB.getSubImage(9, 2, 1, 1));
     }
     
     private void addCharacter(ImageIds imageId, Sprites sprites, int x, int y, int width, int height) {

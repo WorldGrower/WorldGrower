@@ -24,7 +24,6 @@ import java.util.stream.Collectors;
 import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.OperationInfo;
-import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 
@@ -146,14 +145,29 @@ public class HistoryImpl implements History, Serializable {
 		public List<HistoryItem> findHistoryItems(WorldObject performer, WorldObject target, int[] args, ManagedOperation managedOperation) {
 			OperationInfo searchOperationInfo = new OperationInfo(performer, target, args, managedOperation);
 			
-			Integer targetId = target.getProperty(Constants.ID);
-			List<HistoryItem> historyItemsByTargetList = historyItemsByTarget.get(targetId);
+			List<HistoryItem> historyItemsByTargetList = getHistoryItemsByTargetList(target);
 			if (historyItemsByTargetList != null) {
 				List<HistoryItem> foundItems = historyItemsByTargetList.stream().filter(h -> h.getOperationInfo().isEqual(searchOperationInfo)).collect(Collectors.toList());
 				return foundItems;			
 			} else {
 				return new ArrayList<>();
 			}
+		}
+
+		public List<HistoryItem> findHistoryItems(WorldObject performer, WorldObject target, ManagedOperation managedOperation) {
+			List<HistoryItem> historyItemsByTargetList = getHistoryItemsByTargetList(target);
+			if (historyItemsByTargetList != null) {
+				List<HistoryItem> foundItems = historyItemsByTargetList.stream().filter(h -> h.getOperationInfo().matches(performer, target, managedOperation)).collect(Collectors.toList());
+				return foundItems;			
+			} else {
+				return new ArrayList<>();
+			}
+		}
+
+		private List<HistoryItem> getHistoryItemsByTargetList(WorldObject target) {
+			Integer targetId = target.getProperty(Constants.ID);
+			List<HistoryItem> historyItemsByTargetList = historyItemsByTarget.get(targetId);
+			return historyItemsByTargetList;
 		}
 	}
 
@@ -162,5 +176,17 @@ public class HistoryImpl implements History, Serializable {
 		List<HistoryItem> historyItems = findHistoryItems(managedOperation);
 		historyItems = historyItems.stream().filter(w -> w.getOperationInfo().getPerformer().equals(performer)).collect(Collectors.toList());
 		return historyItems;
+	}
+
+	@Override
+	public List<HistoryItem> findHistoryItems(WorldObject performer,WorldObject target, ManagedOperation managedOperation) {
+		Integer performerId = performer.getProperty(Constants.ID);
+		HistoryItemsForTarget historyItemsForTarget = historyItemsByPerformer.get(performerId);
+		if (historyItemsForTarget != null) {
+			List<HistoryItem> foundItems = historyItemsForTarget.findHistoryItems(performer, target, managedOperation);
+			return foundItems;			
+		} else {
+			return new ArrayList<>();
+		}		
 	}
 }

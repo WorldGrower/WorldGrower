@@ -18,41 +18,60 @@ import java.awt.event.ActionEvent;
 import java.util.List;
 
 import javax.swing.AbstractAction;
-import javax.swing.JComponent;
 
 import org.worldgrower.Constants;
 import org.worldgrower.DungeonMaster;
+import org.worldgrower.Main;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.IdList;
 import org.worldgrower.gui.ActionContainingArgs;
 import org.worldgrower.gui.ImageInfoReader;
+import org.worldgrower.gui.WorldPanel;
 
-public class ChooseWorldObjectAction extends AbstractAction {
+public class GuiVoteAction extends AbstractAction {
 
 	private WorldObject playerCharacter;
 	private ChooseWorldObjectDialog dialog;
 	private ImageInfoReader imageInfoReader;
 	private World world;
-	private JComponent parent;
+	private WorldPanel parent;
 	private DungeonMaster dungeonMaster;
-	private ActionContainingArgs guiAction;
+	private WorldObject worldObject;
 	
-	public ChooseWorldObjectAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, World world, JComponent parent, DungeonMaster dungeonMaster, ActionContainingArgs guiAction) {
+	public GuiVoteAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, World world, WorldPanel parent, DungeonMaster dungeonMaster, WorldObject worldObject) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.imageInfoReader = imageInfoReader;
 		this.world = world;
 		this.parent = parent;
 		this.dungeonMaster = dungeonMaster;
-		this.guiAction = guiAction;
+		this.worldObject = worldObject;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		List<WorldObject> disguiseWorldObjects = world.findWorldObjects(w -> w.getProperty(Constants.WIDTH) == 1 && w.getProperty(Constants.HEIGHT) == 1 && w.getProperty(Constants.ID) != playerCharacter.getProperty(Constants.ID));
+		IdList candidates = worldObject.getProperty(Constants.CANDIDATES);
+		List<WorldObject> voteWorldObjects = world.findWorldObjects(w -> candidates.contains(w.getProperty(Constants.ID)));
 		
-		dialog = new ChooseWorldObjectDialog(playerCharacter, imageInfoReader, disguiseWorldObjects, parent, world, dungeonMaster, guiAction);
+		ActionContainingArgs guiAction = new GuiAction();
+		dialog = new ChooseWorldObjectDialog(playerCharacter, imageInfoReader, voteWorldObjects, parent, world, dungeonMaster, guiAction);
 		dialog.showMe();
+	}
+	
+	private class GuiAction extends AbstractAction implements ActionContainingArgs {
+		private int[] args;
+		
+		@Override
+		public void actionPerformed(ActionEvent actionEvent) {
+			Main.executeAction(playerCharacter, Actions.VOTE_FOR_LEADER_ACTION, args, world, dungeonMaster, worldObject, parent);
+		}
+
+		@Override
+		public void setArgs(int[] args) {
+			this.args = args;
+		}
 	}
 }

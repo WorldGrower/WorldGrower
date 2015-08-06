@@ -51,6 +51,10 @@ public class IdList implements Serializable {
 	public boolean contains(WorldObject worldObject) {
 		return ids.contains(worldObject.getProperty(Constants.ID));
 	}
+
+	public boolean contains(int id) {
+		return ids.contains(id);
+	}
 	
 	public boolean intersects(IdList otherIdList) {
 		List<Integer> copyIds = new ArrayList<>(this.ids);

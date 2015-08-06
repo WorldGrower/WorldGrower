@@ -148,5 +148,6 @@ public enum ImageIds {
 	MALE_3E_4,
 	FEMALE_3E_4,
 	COTTON_PLANT,
-	COTTON
+	COTTON,
+	VOTING_BOX
 }

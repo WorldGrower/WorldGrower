@@ -30,6 +30,7 @@ public interface History {
 	
 	public HistoryItem findHistoryItem(WorldObject performer, WorldObject target, int[] args, ManagedOperation managedOperation);
 	public List<HistoryItem> findHistoryItems(WorldObject performer, WorldObject target, int[] args, ManagedOperation managedOperation);
+	public List<HistoryItem> findHistoryItems(WorldObject performer, WorldObject target, ManagedOperation managedOperation);
 	public List<HistoryItem> findHistoryItemsForAnyPerformer(WorldObject performer, WorldObject target, int[] args, ManagedOperation managedOperation);
 	public HistoryItem getLastPerformedOperation(WorldObject worldObject);
 	public List<HistoryItem> findHistoryItems(ManagedOperation managedOperation);

@@ -227,7 +227,7 @@ public class Main {
     }
     
     public static void executeAction(WorldObject playerCharacter, ManagedOperation action, int[] args, World world, DungeonMaster dungeonMaster, WorldObject target, WorldPanel worldPanel) {
-    	if (action.isActionPossible(playerCharacter, playerCharacter, args, world) && playerCharacter.canWorldObjectPerformAction(action)) {
+    	if (action.isActionPossible(playerCharacter, target, args, world) && playerCharacter.canWorldObjectPerformAction(action)) {
     		dungeonMaster.executeAction(action, playerCharacter, target, args, world);
     		dungeonMaster.runWorld(world);
     		exploreWorld(playerCharacter, world);
