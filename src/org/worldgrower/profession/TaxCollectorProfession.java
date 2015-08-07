@@ -23,27 +23,29 @@ import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
 
-public class GraveDiggerProfession implements Profession {
+public class TaxCollectorProfession implements Profession {
 
-	public GraveDiggerProfession(List<Profession> allProfessions) {
+	public TaxCollectorProfession(List<Profession> allProfessions) {
 		allProfessions.add(this);
 	}
 
 	@Override
 	public String getDescription() {
-		return "grave digger";
+		return "tax collector";
 	}
 
 	@Override
 	public List<Goal> getProfessionGoals() {
-		return Arrays.asList(Goals.GATHER_REMAINS_GOAL, Goals.CREATE_GRAVE_GOAL);
+		return Arrays.asList(
+				Goals.COLLECT_TAXES_GOAL
+		);
 	}
 
 	@Override
 	public SkillProperty getSkillProperty() {
-		return Constants.ALCHEMY_SKILL;
+		return Constants.DIPLOMACY_SKILL;
 	}
-
+	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
 	}

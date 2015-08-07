@@ -21,7 +21,8 @@ public enum ConversationCategory {
 	DIPLOMACY_TARGET("Diplomacy"),
 	INTIMIDATE_TARGET("Intimidate"),
 	GROUP("Organization"),
-	DEITY("Deity");
+	DEITY("Deity"),
+	LEADER("Leader");
 	
 	private final String description;
 	

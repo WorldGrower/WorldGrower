@@ -31,6 +31,8 @@ import org.worldgrower.gui.ImageIds;
 
 public class BuildHouseAction implements BuildAction {
 
+	public static final String NAME = "house";
+	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		int x = (Integer)target.getProperty(Constants.X);
@@ -42,7 +44,7 @@ public class BuildHouseAction implements BuildAction {
 		properties.put(Constants.WIDTH, 2);
 		properties.put(Constants.HEIGHT, 4);
 		properties.put(Constants.SLEEP_COMFORT, 5);
-		properties.put(Constants.NAME, "house");
+		properties.put(Constants.NAME, NAME);
 		properties.put(Constants.ID, world.generateUniqueId());
 		properties.put(Constants.IMAGE_ID, ImageIds.HOUSE);
 		properties.put(Constants.FLAMMABLE, Boolean.TRUE);

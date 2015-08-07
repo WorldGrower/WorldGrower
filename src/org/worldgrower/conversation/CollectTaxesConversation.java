@@ -14,75 +14,81 @@
  *******************************************************************************/
 package org.worldgrower.conversation;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.actions.VotingPropertyUtils;
-import org.worldgrower.attribute.IdList;
+import org.worldgrower.attribute.IdMap;
+import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.history.HistoryItem;
+import org.worldgrower.profession.Professions;
 
-public class VoteLeaderOrganizationConversation implements Conversation {
+public class CollectTaxesConversation implements Conversation {
 
-	private static final int LETS_PUT = 0;
+	private static final int YES = 0;
+	private static final int NO = 1;
 	
 	@Override
 	public Response getReplyPhrase(ConversationContext conversationContext) {
-		final int replyId = LETS_PUT;
+		WorldObject target = conversationContext.getTarget();
+		World world = conversationContext.getWorld();
+		
+		int amountToCollect = GroupPropertyUtils.getAmountToCollect(target, world);
+		
+		final int replyId;
+		if (target.getProperty(Constants.GOLD) >= amountToCollect) {
+			replyId = YES;
+		} else {
+			replyId = NO;
+		}
 		
 		return getReply(getReplyPhrases(conversationContext), replyId);
 	}
 
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, World world) {
-		IdList targetOrganizations = target.getProperty(Constants.GROUP);
-		
-		List<Question> questions = new ArrayList<>();
-		for(int organizationId : targetOrganizations.getIds()) {
-			WorldObject organization = world.findWorldObject(Constants.ID, organizationId);
-			if (performer.getProperty(Constants.GROUP).contains(organization)) {
-				boolean voteAlreadyInProgress = world.findWorldObjects(w -> VotingPropertyUtils.isVotingBoxForOrganization(w, organization)).size() > 0;
-				if (!voteAlreadyInProgress) {
-					questions.add(new Question(organization, "I want to vote on leadership for the " + organization.getProperty(Constants.NAME)));
-				}
-			}
-		}
-		
-		return questions;
+		int amountToCollect = GroupPropertyUtils.getAmountToCollect(target, world);
+		return Arrays.asList(new Question(null, "I'm here to collect your taxes. The taxes are " + amountToCollect + " gold. Will you pay your taxes?"));
 	}
-	
-
 	
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
-			new Response(LETS_PUT, "Let's put it to a vote. From now for " + VotingPropertyUtils.getNumberOfTurnsCandidatesMayBeProposed() + " turns anyone can become a candidate for leader, and after that voting starts.")
+			new Response(YES, "Yes, I'll pay my taxes"),
+			new Response(NO, "No, I won't pay my taxes")
 			);
 	}
-
+	
 	@Override
 	public boolean isConversationAvailable(WorldObject performer, WorldObject target, World world) {
-		IdList performerOrganizations = performer.getProperty(Constants.GROUP);
-		IdList targetOrganizations = target.getProperty(Constants.GROUP);
-		return performerOrganizations.intersects(targetOrganizations);
+		return ((performer.getProperty(Constants.PROFESSION) == Professions.TAX_COLLECTOR_PROFESSION) && (GroupPropertyUtils.getAmountToCollect(target, world) > 0));
 	}
 	
 	@Override
 	public void handleResponse(int replyIndex, ConversationContext conversationContext) {
+		WorldObject performer = conversationContext.getPerformer();
 		WorldObject target = conversationContext.getTarget();
-		WorldObject organization = conversationContext.getSubject();
 		World world = conversationContext.getWorld();
+		WorldObject organization = GroupPropertyUtils.getVillagersOrganization(world);
 		
-		if (replyIndex == LETS_PUT) {
-			VotingPropertyUtils.createVotingBox(target, organization, world);
+		if (replyIndex == YES) {
+			int amountToCollect = GroupPropertyUtils.getAmountToCollect(target, world);
+			target.increment(Constants.GOLD, -amountToCollect);
+			performer.increment(Constants.ORGANIZATION_GOLD, amountToCollect);
+			
+			IdMap taxesPaidTurn = organization.getProperty(Constants.TAXES_PAID_TURN);
+			taxesPaidTurn.remove(target);
+			taxesPaidTurn.incrementValue(target, world.getCurrentTurn().getValue());
+		} else if (replyIndex == NO) {
+			target.setProperty(Constants.HOUSE_ID, null);
+			//TODO: organization sells house
 		}
 	}
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, World world) {
-		return "talking about who leads an organization";
+		return "talking about taxes to collect";
 	}
 }

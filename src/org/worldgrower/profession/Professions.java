@@ -29,23 +29,8 @@ public class Professions {
 	public static final LumberjackProfession LUMBERJACK_PROFESSION = new LumberjackProfession(ALL_PROFESSIONS);
 	public static final MinerProfession MINER_PROFESSION = new MinerProfession(ALL_PROFESSIONS);
 	public static final SheriffProfession SHERIFF_PROFESSION = new SheriffProfession(ALL_PROFESSIONS);
-	public static final GraveDiggerProfession GRAVE_DIGGER_PROFESSION = new GraveDiggerProfession();
-	
-	
-	static {
-		add(FARMER_PROFESSION);
-		add(BLACKSMITH_PROFESSION);
-		add(PRIEST_PROFESSION);
-		add(THIEF_PROFESSION);
-		add(LUMBERJACK_PROFESSION);
-		add(MINER_PROFESSION);
-		add(SHERIFF_PROFESSION);
-		add(GRAVE_DIGGER_PROFESSION);
-	}
-	
-	private static void add(Profession profession) {
-		ALL_PROFESSIONS.add(profession);
-	}
+	public static final GraveDiggerProfession GRAVE_DIGGER_PROFESSION = new GraveDiggerProfession(ALL_PROFESSIONS);
+	public static final TaxCollectorProfession TAX_COLLECTOR_PROFESSION = new TaxCollectorProfession(ALL_PROFESSIONS);
 	
 	public static List<String> getDescriptions() {
 		return ALL_PROFESSIONS.stream().map(p -> p.getDescription()).collect(Collectors.toList());

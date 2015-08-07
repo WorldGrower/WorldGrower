@@ -12,7 +12,7 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.conversation;
+package org.worldgrower.conversation.leader;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,68 +21,64 @@ import java.util.List;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.actions.VotingPropertyUtils;
-import org.worldgrower.attribute.IdList;
+import org.worldgrower.conversation.Conversation;
+import org.worldgrower.conversation.ConversationContext;
+import org.worldgrower.conversation.Question;
+import org.worldgrower.conversation.Response;
+import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.history.HistoryItem;
 
-public class VoteLeaderOrganizationConversation implements Conversation {
+public class SetHouseTaxRateConversation implements Conversation {
 
-	private static final int LETS_PUT = 0;
+	private static final int YES = 0;
+	private static final int NO = 1;
 	
 	@Override
 	public Response getReplyPhrase(ConversationContext conversationContext) {
-		final int replyId = LETS_PUT;
-		
+		final int replyId = YES;		
 		return getReply(getReplyPhrases(conversationContext), replyId);
 	}
 
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, World world) {
-		IdList targetOrganizations = target.getProperty(Constants.GROUP);
+		int[] houseTaxRates = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+		int currentHouseTaxRate = GroupPropertyUtils.getVillagersOrganization(world).getProperty(Constants.HOUSE_TAX_RATE);
 		
 		List<Question> questions = new ArrayList<>();
-		for(int organizationId : targetOrganizations.getIds()) {
-			WorldObject organization = world.findWorldObject(Constants.ID, organizationId);
-			if (performer.getProperty(Constants.GROUP).contains(organization)) {
-				boolean voteAlreadyInProgress = world.findWorldObjects(w -> VotingPropertyUtils.isVotingBoxForOrganization(w, organization)).size() > 0;
-				if (!voteAlreadyInProgress) {
-					questions.add(new Question(organization, "I want to vote on leadership for the " + organization.getProperty(Constants.NAME)));
-				}
+		for(int newHouseTaxRate : houseTaxRates) {
+			if (newHouseTaxRate != currentHouseTaxRate) {
+				questions.add(new Question(null, "I want to change the house tax rate from " + currentHouseTaxRate + " to " + newHouseTaxRate + " gold pieces per 100 turns", newHouseTaxRate));
 			}
 		}
 		
 		return questions;
 	}
 	
-
-	
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
-			new Response(LETS_PUT, "Let's put it to a vote. From now for " + VotingPropertyUtils.getNumberOfTurnsCandidatesMayBeProposed() + " turns anyone can become a candidate for leader, and after that voting starts.")
+			new Response(YES, "Ok"),
+			new Response(NO, "That's not possible")
 			);
 	}
 
 	@Override
 	public boolean isConversationAvailable(WorldObject performer, WorldObject target, World world) {
-		IdList performerOrganizations = performer.getProperty(Constants.GROUP);
-		IdList targetOrganizations = target.getProperty(Constants.GROUP);
-		return performerOrganizations.intersects(targetOrganizations);
+		return GroupPropertyUtils.performerIsLeaderOfVillagers(performer, world);
 	}
 	
 	@Override
 	public void handleResponse(int replyIndex, ConversationContext conversationContext) {
-		WorldObject target = conversationContext.getTarget();
-		WorldObject organization = conversationContext.getSubject();
 		World world = conversationContext.getWorld();
+		int newShackTaxRate = conversationContext.getAdditionalValue();
 		
-		if (replyIndex == LETS_PUT) {
-			VotingPropertyUtils.createVotingBox(target, organization, world);
+		if (replyIndex == YES) {
+			GroupPropertyUtils.getVillagersOrganization(world).setProperty(Constants.HOUSE_TAX_RATE, newShackTaxRate);
 		}
 	}
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, World world) {
-		return "talking about who leads an organization";
+		return "talking about changing the tax rate for houses";
 	}
 }

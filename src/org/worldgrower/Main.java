@@ -21,7 +21,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.ToolTipManager;
 
@@ -60,7 +59,7 @@ public class Main {
 		
 		final CommonerImageIds commonerImageIds = new CommonerImageIds();
 		final CommonerNameGenerator commonerNameGenerator = new CommonerNameGenerator();
-		final WorldObject organization = GroupPropertyUtils.create(null, "villagers", null, world);
+		final WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
 		
 		final WorldObject playerCharacter = createPlayerCharacter(playerCharacterId, playerName, playerProfession, world, commonerImageIds, commonerNameGenerator, organization, characterAttributes);
 		world.addWorldObject(playerCharacter);
@@ -167,6 +166,7 @@ public class Main {
 		inventory.add(ItemGenerator.getLongBow(1.0f));
 		properties.put(Constants.INVENTORY, inventory);
 		properties.put(Constants.GOLD, 100);
+		properties.put(Constants.ORGANIZATION_GOLD, 0);
 		properties.put(Constants.PROFIT_PERCENTAGE, 0);
 		
 		properties.put(Constants.PROFESSION, new PlayerCharacterProfession(playerProfession));

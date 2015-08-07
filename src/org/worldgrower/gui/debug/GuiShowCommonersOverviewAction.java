@@ -76,7 +76,7 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 
 		@Override
 		public int getColumnCount() {
-			return 9;
+			return 10;
 		}
 
 		@Override
@@ -87,8 +87,6 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 		private List<WorldObject> getNPCs() {
 			return world.findWorldObjects(w -> w.isControlledByAI() && w.hasIntelligence());
 		}
-		
-		
 		
 		@Override
 		public String getColumnName(int columnIndex) {
@@ -110,6 +108,8 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 				return "Organization";
 			} else if (columnIndex == 8) {
 				return "Deity";
+			} else if (columnIndex == 9) {
+				return "Gold";
 			} else {
 				return null;
 			}
@@ -157,6 +157,8 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 			} else if (columnIndex == 8) {
 				Deity deity = npc.getProperty(Constants.DEITY);
 				return deity != null ? deity.getName() : "";
+			} else if (columnIndex == 9) {
+				return npc.getProperty(Constants.GOLD);
 			} else {
 				return null;
 			}

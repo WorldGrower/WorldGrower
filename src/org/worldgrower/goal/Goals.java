@@ -65,4 +65,7 @@ public class Goals {
 	public static final CreateGraveGoal CREATE_GRAVE_GOAL = new CreateGraveGoal();
 	public static final OrganizationVoteGoal ORGANIZATION_VOTE_GOAL = new OrganizationVoteGoal();
 	public static final OrganizationCandidateGoal ORGANIZATION_CANDIDATE_GOAL = new OrganizationCandidateGoal();
+	public static final StartOrganizationVoteGoal START_ORGANIZATION_VOTE_GOAL = new StartOrganizationVoteGoal();
+	public static final CollectTaxesGoal COLLECT_TAXES_GOAL = new CollectTaxesGoal();
+	public static final SetTaxesGoal SET_TAXES_GOAL = new SetTaxesGoal();
 }

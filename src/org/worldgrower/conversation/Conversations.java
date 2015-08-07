@@ -27,6 +27,8 @@ import java.util.stream.Collectors;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.conversation.leader.SetHouseTaxRateConversation;
+import org.worldgrower.conversation.leader.SetShackTaxRateConversation;
 import org.worldgrower.history.HistoryItem;
 
 public class Conversations implements Serializable {
@@ -61,6 +63,9 @@ public class Conversations implements Serializable {
 	public static final Conversation CURE_POISON_CONVERSATION = new CurePoisonConversation();
 	public static final Conversation WHO_IS_LEADER_ORGANIZATION_CONVERSATION = new WhoIsLeaderOrganizationConversation();
 	public static final Conversation VOTE_LEADER_ORGANIZATION_CONVERSATION = new VoteLeaderOrganizationConversation();
+	public static final SetShackTaxRateConversation SET_SHACK_TAX_RATE_CONVERSATION = new SetShackTaxRateConversation();
+	public static final SetHouseTaxRateConversation SET_HOUSE_TAX_RATE_CONVERSATION = new SetHouseTaxRateConversation();
+	public static final CollectTaxesConversation COLLECT_TAXES_CONVERSATION = new CollectTaxesConversation();
 	
 	private static final List<Conversation> CONVERSATIONS = new ArrayList<>();
 	private static final Map<Conversation, ConversationCategory> CONVERSATION_CATEGORIES = new HashMap<>();
@@ -98,6 +103,9 @@ public class Conversations implements Serializable {
 		addNormalAndIntimidate(CURE_POISON_CONVERSATION, ConversationCategory.DEMAND);
 		addNormalAndIntimidate(WHO_IS_LEADER_ORGANIZATION_CONVERSATION, ConversationCategory.GROUP);
 		addNormalAndIntimidate(VOTE_LEADER_ORGANIZATION_CONVERSATION, ConversationCategory.GROUP);
+		add(SET_SHACK_TAX_RATE_CONVERSATION, ConversationCategory.LEADER);
+		add(SET_HOUSE_TAX_RATE_CONVERSATION, ConversationCategory.LEADER);
+		add(COLLECT_TAXES_CONVERSATION, ConversationCategory.GROUP);
 	}
 	
 	public static int[] createArgs(Conversation conversation) {

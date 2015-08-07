@@ -19,6 +19,8 @@ import java.util.List;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.goal.BuildLocationUtils;
 import org.worldgrower.goal.GroupPropertyUtils;
 
 public class VotingPropertyUtils {
@@ -59,7 +61,7 @@ public class VotingPropertyUtils {
 				return voteBoxes.get(0);
 			}
 		}
-		WorldObject villagersOrganization = GroupPropertyUtils.getVillagersOrganization(performer, world);
+		WorldObject villagersOrganization = GroupPropertyUtils.getVillagersOrganization(world);
 		if (villagersOrganization != null) {
 			List<WorldObject> voteBoxes = world.findWorldObjects(w -> VotingPropertyUtils.isVotingBoxForOrganization(w, villagersOrganization));
 			if (voteBoxes.size() == 1) {
@@ -69,7 +71,23 @@ public class VotingPropertyUtils {
 		return null;
 	}
 	
+	public static boolean votingBoxExistsForOrganization(WorldObject organization, World world) {
+		List<WorldObject> voteBoxes = world.findWorldObjects(w -> VotingPropertyUtils.isVotingBoxForOrganization(w, organization));
+		return voteBoxes.size() > 0;
+	}
+	
 	public static int getNumberOfTurnsCandidatesMayBeProposed() {
 		return VOTING_CANDIDATES_PHASE_END;
+	}
+	
+	public static int createVotingBox(WorldObject target, WorldObject organization, World world) {
+		WorldObject location = BuildLocationUtils.findOpenLocationNearExistingProperty(target, 2, 2, world);
+		int votingBoxId = BuildingGenerator.generateVotingBox(location.getProperty(Constants.X), location.getProperty(Constants.Y), world);
+		
+		WorldObject votingBox = world.findWorldObject(Constants.ID, votingBoxId);
+		votingBox.setProperty(Constants.ORGANIZATION_ID, organization.getProperty(Constants.ID));
+		votingBox.setProperty(Constants.TEXT, "Voting box for " + organization.getProperty(Constants.NAME));
+		
+		return votingBoxId;
 	}
 }

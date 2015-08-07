@@ -63,8 +63,10 @@ public class CommonerWorldEvaluationFunction implements WorldObjectPriorities {
 					Goals.HOUSE_GOAL, 
 					Goals.CHOOSE_PROFESSION_GOAL,
 					Goals.CHOOSE_DEITY_GOAL,
+					Goals.START_ORGANIZATION_VOTE_GOAL,
 					Goals.ORGANIZATION_CANDIDATE_GOAL,
-					Goals.ORGANIZATION_VOTE_GOAL);
+					Goals.ORGANIZATION_VOTE_GOAL,
+					Goals.SET_TAXES_GOAL);
 			
 			List<Goal> backgroundGoals = performer.getProperty(Constants.BACKGROUND).getPersonalGoals(performer, world);
 			

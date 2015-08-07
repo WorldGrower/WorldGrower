@@ -23,7 +23,10 @@ import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
+import org.worldgrower.actions.BuildHouseAction;
+import org.worldgrower.actions.BuildShackAction;
 import org.worldgrower.attribute.IdList;
+import org.worldgrower.attribute.IdMap;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.profession.Profession;
@@ -110,8 +113,43 @@ public class GroupPropertyUtils {
 		
 		return organization;
 	}
+	
+	public static WorldObject createVillagersOrganization(World world) {
+		WorldObject organization = create(null, "villagers", null, world);
+		organization.setProperty(Constants.SHACK_TAX_RATE, 0);
+		organization.setProperty(Constants.HOUSE_TAX_RATE, 0);
+		organization.setProperty(Constants.TAXES_PAID_TURN, new IdMap());
+		
+		return organization;
+	}
 
-	public static WorldObject getVillagersOrganization(WorldObject performer, World world) {
+	public static WorldObject getVillagersOrganization(World world) {
 		return world.findWorldObject(Constants.ID, 1);
+	}
+	
+	public static boolean performerIsLeaderOfVillagers(WorldObject performer, World world) {
+		WorldObject villagersOrganization = getVillagersOrganization(world);
+		return ((villagersOrganization.getProperty(Constants.ORGANIZATION_LEADER_ID) != null) && (villagersOrganization.getProperty(Constants.ORGANIZATION_LEADER_ID).intValue() == performer.getProperty(Constants.ID).intValue()));
+	}
+	
+	public static boolean canCollectTaxes(World world) {
+		WorldObject villagersOrganization = getVillagersOrganization(world);
+		return villagersOrganization.getProperty(Constants.SHACK_TAX_RATE) > 0 || villagersOrganization.getProperty(Constants.HOUSE_TAX_RATE) > 0;
+	}
+	
+	//TODO: amount to pay should be cumulative over several pay periodes
+	public static int getAmountToCollect(WorldObject target, World world) {
+		int amountToCollect = 0;
+		Integer houseId = target.getProperty(Constants.HOUSE_ID);
+		if (houseId != null) {
+			WorldObject house = world.findWorldObject(Constants.ID, houseId.intValue());
+			String name = house.getProperty(Constants.NAME);
+			if (name.equals(BuildShackAction.NAME)) {
+				amountToCollect += GroupPropertyUtils.getVillagersOrganization(world).getProperty(Constants.SHACK_TAX_RATE);
+			} else if (name.equals(BuildHouseAction.NAME)) {
+				amountToCollect += GroupPropertyUtils.getVillagersOrganization(world).getProperty(Constants.HOUSE_TAX_RATE);
+			}
+		}
+		return amountToCollect;
 	}
 }

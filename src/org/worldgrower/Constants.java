@@ -194,4 +194,9 @@ public class Constants {
 	public static final IntProperty TURN_COUNTER = new IntProperty("turnCounter", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IdListProperty CANDIDATES = new IdListProperty("candidates", ALL_PROPERTIES);
 	public static final IdMapProperty VOTES = new IdMapProperty("votes", ALL_PROPERTIES);
+	
+	public static final IntProperty SHACK_TAX_RATE = new IntProperty("shackTaxRate", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty HOUSE_TAX_RATE = new IntProperty("houseTaxRate", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty ORGANIZATION_GOLD = new IntProperty("organizationGold", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IdMapProperty TAXES_PAID_TURN = new IdMapProperty("taxesPaidTurn", ALL_PROPERTIES);
 }

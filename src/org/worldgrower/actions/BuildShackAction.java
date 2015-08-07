@@ -31,6 +31,8 @@ import org.worldgrower.gui.ImageIds;
 
 public class BuildShackAction implements BuildAction {
 
+	public static final String NAME = "shack";
+	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		int x = (Integer)target.getProperty(Constants.X);
@@ -42,7 +44,7 @@ public class BuildShackAction implements BuildAction {
 		properties.put(Constants.WIDTH, 2);
 		properties.put(Constants.HEIGHT, 2);
 		properties.put(Constants.SLEEP_COMFORT, 3);
-		properties.put(Constants.NAME, "shack");
+		properties.put(Constants.NAME, NAME);
 		properties.put(Constants.ID, world.generateUniqueId());
 		properties.put(Constants.IMAGE_ID, ImageIds.SHACK);
 		properties.put(Constants.HIT_POINTS, 100);

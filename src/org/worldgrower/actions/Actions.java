@@ -29,6 +29,7 @@ import org.worldgrower.actions.magic.MinorIllusionAction;
 import org.worldgrower.actions.magic.RayOfFrostAttackAction;
 import org.worldgrower.actions.magic.ResearchSpellAction;
 import org.worldgrower.actions.magic.ScribeMagicSpellAction;
+import org.worldgrower.conversation.CollectTaxesConversation;
 
 public class Actions {
 
@@ -102,6 +103,8 @@ public class Actions {
 	public static final CreateGraveAction CREATE_GRAVE_ACTION = new CreateGraveAction();
 	public static final BecomeLeaderCandidateAction BECOME_LEADER_CANDIDATE_ACTION = new BecomeLeaderCandidateAction();
 	public static final VoteForLeaderAction VOTE_FOR_LEADER_ACTION = new VoteForLeaderAction();
+	public static final StartOrganizationVoteAction START_ORGANIZATION_VOTE_ACTION = new StartOrganizationVoteAction();
+	public static final SetTaxRateAction SET_TAX_RATE_ACTION = new SetTaxRateAction();
 	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 
@@ -174,7 +177,9 @@ public class Actions {
 		CREATE_GRAVE_ACTION,
 		BUILD_PAPER_MILL_ACTION,
 		BECOME_LEADER_CANDIDATE_ACTION,
-		VOTE_FOR_LEADER_ACTION
+		VOTE_FOR_LEADER_ACTION,
+		START_ORGANIZATION_VOTE_ACTION,
+		SET_TAX_RATE_ACTION
 	));
 	
 	static {
