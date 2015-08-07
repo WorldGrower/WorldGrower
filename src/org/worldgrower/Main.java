@@ -227,7 +227,7 @@ public class Main {
     }
     
     public static void executeAction(WorldObject playerCharacter, ManagedOperation action, int[] args, World world, DungeonMaster dungeonMaster, WorldObject target, WorldPanel worldPanel) {
-    	if (action.isActionPossible(playerCharacter, target, args, world) && playerCharacter.canWorldObjectPerformAction(action)) {
+    	if (canActionExecute(playerCharacter, action, args, world, target)) {
     		dungeonMaster.executeAction(action, playerCharacter, target, args, world);
     		dungeonMaster.runWorld(world);
     		exploreWorld(playerCharacter, world);
@@ -235,6 +235,12 @@ public class Main {
     		worldPanel.repaint();
     	}
 	}
+    
+    public static boolean canActionExecute(WorldObject playerCharacter, ManagedOperation action, int[] args, World world, WorldObject target) {
+    	return action.isActionPossible(playerCharacter, target, args, world) 
+    			&& playerCharacter.canWorldObjectPerformAction(action)
+    			&& action.isValidTarget(playerCharacter, target, world);
+    }
 
 	private static void exploreWorld(WorldObject playerCharacter, World world) {
 		int x = playerCharacter.getProperty(Constants.X);

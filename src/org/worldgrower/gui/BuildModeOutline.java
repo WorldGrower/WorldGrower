@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.worldgrower.Constants;
+import org.worldgrower.Main;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
@@ -45,12 +46,16 @@ public class BuildModeOutline {
 		this.buildMode = false;
 		if (executeBuildAction) {
 			WorldObject buildLocation = getBuildLocation(mouseLocation, offsetX, offsetY);
-			if (buildAction.isValidTarget(playerCharacter, buildLocation, world)) {
+			if (isbuildActionPossible(playerCharacter, world, buildLocation)) {
 				guiMouseListener.executeBuildAction(buildAction, buildLocation, args);
 			}
 		}
 		
 		this.buildAction = null;
+	}
+
+	private boolean isbuildActionPossible(WorldObject playerCharacter, World world, WorldObject buildLocation) {
+		return Main.canActionExecute(playerCharacter, buildAction, args, world, buildLocation);
 	}
 	
 	public void repaintBuildMode(Graphics g, Point mouseLocation, int offsetX, int offsetY, WorldObject playerCharacter, World world) {
@@ -59,7 +64,7 @@ public class BuildModeOutline {
 			
 			final Color color;
 			WorldObject buildLocation = getBuildLocation(mouseLocation, offsetX, offsetY);
-			if (buildAction.isValidTarget(playerCharacter, buildLocation, world)) {
+			if (isbuildActionPossible(playerCharacter, world, buildLocation)) {
 				color = Color.GREEN;
 			} else {
 				color = Color.RED;
