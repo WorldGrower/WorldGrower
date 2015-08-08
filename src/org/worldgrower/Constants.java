@@ -199,4 +199,5 @@ public class Constants {
 	public static final IntProperty HOUSE_TAX_RATE = new IntProperty("houseTaxRate", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty ORGANIZATION_GOLD = new IntProperty("organizationGold", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IdMapProperty TAXES_PAID_TURN = new IdMapProperty("taxesPaidTurn", ALL_PROPERTIES);
+	public static final IdMapProperty PAY_CHECK_PAID_TURN = new IdMapProperty("payCheckPaidTurn", ALL_PROPERTIES);
 }

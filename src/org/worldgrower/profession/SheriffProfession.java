@@ -38,7 +38,8 @@ public class SheriffProfession implements Profession {
 	public List<Goal> getProfessionGoals() {
 		return Arrays.asList(
 				Goals.KILL_OUTSIDERS_GOAL,
-				Goals.CATCH_THIEVES_GOAL
+				Goals.CATCH_THIEVES_GOAL,
+				Goals.COLLECT_PAY_CHECK_GOAL
 				);
 	}
 

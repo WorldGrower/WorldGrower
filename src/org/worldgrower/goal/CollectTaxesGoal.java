@@ -63,9 +63,7 @@ public class CollectTaxesGoal implements Goal {
 	}
 
 	private boolean mustPayTaxes(List<WorldObject> members, IdMap taxesPaidTurn, Turn currentTurn, WorldObject w, World world) {
-		return members.contains(w) 
-				&& (!taxesPaidTurn.contains(w) || taxesPaidTurn.getValue(w) < currentTurn.getValue() -200)
-				&& GroupPropertyUtils.getAmountToCollect(w, world) > 0;
+		return members.contains(w) && GroupPropertyUtils.getAmountToCollect(w, world) > 0;
 	}
 	
 	@Override

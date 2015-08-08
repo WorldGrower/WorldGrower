@@ -33,6 +33,8 @@ import org.worldgrower.profession.Profession;
 
 public class GroupPropertyUtils {
 
+	private static final int TAXES_PERIOD = 500;
+	
 	public static boolean isWorldObjectPotentialEnemy(WorldObject performer, WorldObject w) {
 		IdList performerOrganizationIdList = performer.getProperty(Constants.GROUP);
 		IdList otherOrganizationIdList = w.getProperty(Constants.GROUP);
@@ -119,6 +121,7 @@ public class GroupPropertyUtils {
 		organization.setProperty(Constants.SHACK_TAX_RATE, 0);
 		organization.setProperty(Constants.HOUSE_TAX_RATE, 0);
 		organization.setProperty(Constants.TAXES_PAID_TURN, new IdMap());
+		organization.setProperty(Constants.PAY_CHECK_PAID_TURN, new IdMap());
 		
 		return organization;
 	}
@@ -132,13 +135,39 @@ public class GroupPropertyUtils {
 		return ((villagersOrganization.getProperty(Constants.ORGANIZATION_LEADER_ID) != null) && (villagersOrganization.getProperty(Constants.ORGANIZATION_LEADER_ID).intValue() == performer.getProperty(Constants.ID).intValue()));
 	}
 	
+	public static WorldObject getLeaderOfVillagers(World world) {
+		WorldObject villagersOrganization = getVillagersOrganization(world);
+		Integer leaderId = villagersOrganization.getProperty(Constants.ORGANIZATION_LEADER_ID);
+		if (leaderId != null) {
+			return world.findWorldObject(Constants.ID, leaderId.intValue());
+		} else {
+			return null;
+		}
+	}
+	
 	public static boolean canCollectTaxes(World world) {
 		WorldObject villagersOrganization = getVillagersOrganization(world);
 		return villagersOrganization.getProperty(Constants.SHACK_TAX_RATE) > 0 || villagersOrganization.getProperty(Constants.HOUSE_TAX_RATE) > 0;
 	}
 	
-	//TODO: amount to pay should be cumulative over several pay periodes
 	public static int getAmountToCollect(WorldObject target, World world) {
+		WorldObject villagersOrganization = getVillagersOrganization(world);
+		IdMap taxesPaidTurn = villagersOrganization.getProperty(Constants.TAXES_PAID_TURN);
+		int currentTurn = world.getCurrentTurn().getValue();
+		
+		final int numberOfTaxPeriods;
+		int turnsNotPaid = currentTurn - taxesPaidTurn.getValue(target);
+		if (turnsNotPaid < TAXES_PERIOD) {
+			numberOfTaxPeriods = 0;
+		} else {
+			numberOfTaxPeriods = turnsNotPaid / TAXES_PERIOD;
+		}
+		
+		int amountToCollect = getBaseAmountToPay(target, world) * numberOfTaxPeriods;
+		return amountToCollect;
+	}
+
+	private static int getBaseAmountToPay(WorldObject target, World world) {
 		int amountToCollect = 0;
 		Integer houseId = target.getProperty(Constants.HOUSE_ID);
 		if (houseId != null) {
@@ -150,6 +179,24 @@ public class GroupPropertyUtils {
 				amountToCollect += GroupPropertyUtils.getVillagersOrganization(world).getProperty(Constants.HOUSE_TAX_RATE);
 			}
 		}
+		return amountToCollect;
+	}
+	
+	
+	public static int getPayCheckAmount(WorldObject target, World world) {
+		WorldObject villagersOrganization = getVillagersOrganization(world);
+		IdMap payCheckPaidTurn = villagersOrganization.getProperty(Constants.PAY_CHECK_PAID_TURN);
+		int currentTurn = world.getCurrentTurn().getValue();
+		
+		final int numberOfPayCheckPeriods;
+		int turnsNotPaid = currentTurn - payCheckPaidTurn.getValue(target);
+		if (turnsNotPaid < TAXES_PERIOD) {
+			numberOfPayCheckPeriods = 0;
+		} else {
+			numberOfPayCheckPeriods = turnsNotPaid / TAXES_PERIOD;
+		}
+		
+		int amountToCollect = 5 * numberOfPayCheckPeriods;
 		return amountToCollect;
 	}
 }

@@ -68,4 +68,6 @@ public class Goals {
 	public static final StartOrganizationVoteGoal START_ORGANIZATION_VOTE_GOAL = new StartOrganizationVoteGoal();
 	public static final CollectTaxesGoal COLLECT_TAXES_GOAL = new CollectTaxesGoal();
 	public static final SetTaxesGoal SET_TAXES_GOAL = new SetTaxesGoal();
+	public static final HandoverTaxesGoal HANDOVER_TAXES_GOAL = new HandoverTaxesGoal();
+	public static final CollectPayCheckGoal COLLECT_PAY_CHECK_GOAL = new CollectPayCheckGoal();
 }

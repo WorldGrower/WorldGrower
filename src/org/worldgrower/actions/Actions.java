@@ -105,6 +105,7 @@ public class Actions {
 	public static final VoteForLeaderAction VOTE_FOR_LEADER_ACTION = new VoteForLeaderAction();
 	public static final StartOrganizationVoteAction START_ORGANIZATION_VOTE_ACTION = new StartOrganizationVoteAction();
 	public static final SetTaxRateAction SET_TAX_RATE_ACTION = new SetTaxRateAction();
+	public static final HandoverTaxesAction HANDOVER_TAXES_ACTION = new HandoverTaxesAction();
 	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 
@@ -179,7 +180,8 @@ public class Actions {
 		BECOME_LEADER_CANDIDATE_ACTION,
 		VOTE_FOR_LEADER_ACTION,
 		START_ORGANIZATION_VOTE_ACTION,
-		SET_TAX_RATE_ACTION
+		SET_TAX_RATE_ACTION,
+		HANDOVER_TAXES_ACTION
 	));
 	
 	static {

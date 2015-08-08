@@ -37,7 +37,9 @@ public class TaxCollectorProfession implements Profession {
 	@Override
 	public List<Goal> getProfessionGoals() {
 		return Arrays.asList(
-				Goals.COLLECT_TAXES_GOAL
+				Goals.COLLECT_TAXES_GOAL,
+				Goals.HANDOVER_TAXES_GOAL,
+				Goals.COLLECT_PAY_CHECK_GOAL
 		);
 	}
 

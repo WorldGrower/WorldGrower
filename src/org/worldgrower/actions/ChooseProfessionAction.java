@@ -230,9 +230,11 @@ public class ChooseProfessionAction implements ManagedOperation {
 		
 		boolean canCollectTaxes = GroupPropertyUtils.canCollectTaxes(world);
 		if (canCollectTaxes) {
-			result.add(new ProfessionEvaluation(Professions.TAX_COLLECTOR_PROFESSION, 1));
+			result.add(new ProfessionEvaluation(Professions.TAX_COLLECTOR_PROFESSION, 0));
+			result.add(new ProfessionEvaluation(Professions.SHERIFF_PROFESSION, 0));
 		} else {
 			result.add(new ProfessionEvaluation(Professions.TAX_COLLECTOR_PROFESSION, Integer.MIN_VALUE));
+			result.add(new ProfessionEvaluation(Professions.SHERIFF_PROFESSION, Integer.MIN_VALUE));
 		}
 		return result;
 	}
