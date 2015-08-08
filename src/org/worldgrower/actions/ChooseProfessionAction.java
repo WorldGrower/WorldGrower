@@ -72,6 +72,10 @@ public class ChooseProfessionAction implements ManagedOperation {
 			performer.setProperty(Constants.FACADE, facade);
 		}
 		
+		if (profession == Professions.TAX_COLLECTOR_PROFESSION) {
+			performer.setProperty(Constants.CAN_COLLECT_TAXES, Boolean.TRUE);
+		}
+		
 		performer.setProperty(Constants.PROFESSION, profession);
 		performer.getProperty(Constants.REASONS).addReason(Constants.PROFESSION, reason);
 	}

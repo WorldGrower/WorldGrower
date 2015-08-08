@@ -27,6 +27,7 @@ import java.util.stream.Collectors;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.conversation.leader.CanCollectTaxesConversation;
 import org.worldgrower.conversation.leader.SetHouseTaxRateConversation;
 import org.worldgrower.conversation.leader.SetShackTaxRateConversation;
 import org.worldgrower.history.HistoryItem;
@@ -67,6 +68,7 @@ public class Conversations implements Serializable {
 	public static final SetHouseTaxRateConversation SET_HOUSE_TAX_RATE_CONVERSATION = new SetHouseTaxRateConversation();
 	public static final CollectTaxesConversation COLLECT_TAXES_CONVERSATION = new CollectTaxesConversation();
 	public static final CollectPayCheckConversation COLLECT_PAY_CHECK_CONVERSATION = new CollectPayCheckConversation();
+	public static final CanCollectTaxesConversation CAN_COLLECT_TAXES_CONVERSATION = new CanCollectTaxesConversation();
 	
 	private static final List<Conversation> CONVERSATIONS = new ArrayList<>();
 	private static final Map<Conversation, ConversationCategory> CONVERSATION_CATEGORIES = new HashMap<>();
@@ -108,6 +110,7 @@ public class Conversations implements Serializable {
 		add(SET_HOUSE_TAX_RATE_CONVERSATION, ConversationCategory.LEADER);
 		add(COLLECT_TAXES_CONVERSATION, ConversationCategory.GROUP);
 		add(COLLECT_PAY_CHECK_CONVERSATION, ConversationCategory.LEADER);
+		addNormalAndIntimidate(CAN_COLLECT_TAXES_CONVERSATION, ConversationCategory.LEADER);
 	}
 	
 	public static int[] createArgs(Conversation conversation) {

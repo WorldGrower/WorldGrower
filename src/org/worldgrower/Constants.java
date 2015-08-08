@@ -200,4 +200,5 @@ public class Constants {
 	public static final IntProperty ORGANIZATION_GOLD = new IntProperty("organizationGold", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IdMapProperty TAXES_PAID_TURN = new IdMapProperty("taxesPaidTurn", ALL_PROPERTIES);
 	public static final IdMapProperty PAY_CHECK_PAID_TURN = new IdMapProperty("payCheckPaidTurn", ALL_PROPERTIES);
+	public static final BooleanProperty CAN_COLLECT_TAXES = new BooleanProperty("canCollectTaxes", NOT_NULLABLE, ALL_PROPERTIES);
 }
