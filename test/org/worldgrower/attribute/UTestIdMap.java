@@ -29,7 +29,7 @@ public class UTestIdMap {
 	
 	@Test
 	public void testIncrement() {
-		IdMap idMap = new IdMap();
+		IdMap idMap = new IdToIntegerMap();
 		assertEquals(0, idMap.getValue(6));
 		
 		idMap.incrementValue(6, 2);
@@ -38,7 +38,7 @@ public class UTestIdMap {
 	
 	@Test
 	public void testFindBestId() {
-		IdMap idMap = new IdMap();
+		IdMap idMap = new IdToIntegerMap();
 		World world = new WorldImpl(0, 0, null);
 		
 		WorldObject person1 = TestUtils.createIntelligentWorldObject(1, Constants.GOLD, 10);
@@ -56,7 +56,7 @@ public class UTestIdMap {
 	
 	@Test
 	public void testGetIdsWithoutTarget() {
-		IdMap idMap = new IdMap();
+		IdMap idMap = new IdToIntegerMap();
 		WorldObject person1 = TestUtils.createWorldObject(1, "Test1");
 		WorldObject person2 = TestUtils.createWorldObject(2, "Test2");
 		

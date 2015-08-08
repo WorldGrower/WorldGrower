@@ -26,7 +26,7 @@ import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.BackgroundImpl;
 import org.worldgrower.attribute.IdList;
-import org.worldgrower.attribute.IdMap;
+import org.worldgrower.attribute.IdRelationshipMap;
 import org.worldgrower.attribute.LookDirection;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.PropertyCountMap;
@@ -95,7 +95,7 @@ public class CommonerGenerator {
 		properties.put(Constants.PROFESSION, null);
 		properties.put(Constants.INVENTORY, new WorldObjectContainer());
 		properties.put(Constants.DEMANDS, new PropertyCountMap());
-		properties.put(Constants.RELATIONSHIPS, new IdMap());
+		properties.put(Constants.RELATIONSHIPS, new IdRelationshipMap());
 		properties.put(Constants.REASONS, new ReasonsImpl());
 		properties.put(Constants.CHILDREN, new IdList());
 		properties.put(Constants.SOCIAL, 500);

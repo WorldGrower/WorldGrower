@@ -14,29 +14,16 @@
  *******************************************************************************/
 package org.worldgrower.attribute;
 
-import java.io.Serializable;
-import java.util.List;
-import java.util.function.Predicate;
+public class IdRelationshipMap extends AbstractIdMap {
 
-import org.worldgrower.World;
-import org.worldgrower.WorldObject;
+	public IdRelationshipMap() {
+		super(true);
+	}
 
-public interface IdMap extends Serializable {
-
-	public void incrementValue(int id, int value);
-	public void incrementValue(WorldObject worldObject, int value);
-	public int getValue(int id);
-	public int getValue(WorldObject worldObject);
-	
-	public int findBestId(Predicate<WorldObject> predicate, World world);
-	public List<Integer> getIds();
-	public List<Integer> getIdsWithoutTarget(WorldObject target);
-	public boolean contains(WorldObject worldObject);
-	
-	public String toString();
-	
-	public IdMap copy();
-
-	public void remove(int id);
-	public void remove(WorldObject worldObject);
+	@Override
+	public IdMap copy() {
+		AbstractIdMap idMap = new IdRelationshipMap();
+		copyContent(idMap);
+		return idMap;
+	}
 }

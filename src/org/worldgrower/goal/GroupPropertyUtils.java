@@ -27,6 +27,7 @@ import org.worldgrower.actions.BuildHouseAction;
 import org.worldgrower.actions.BuildShackAction;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdMap;
+import org.worldgrower.attribute.IdToIntegerMap;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.profession.Profession;
@@ -120,8 +121,8 @@ public class GroupPropertyUtils {
 		WorldObject organization = create(null, "villagers", null, world);
 		organization.setProperty(Constants.SHACK_TAX_RATE, 0);
 		organization.setProperty(Constants.HOUSE_TAX_RATE, 0);
-		organization.setProperty(Constants.TAXES_PAID_TURN, new IdMap());
-		organization.setProperty(Constants.PAY_CHECK_PAID_TURN, new IdMap());
+		organization.setProperty(Constants.TAXES_PAID_TURN, new IdToIntegerMap());
+		organization.setProperty(Constants.PAY_CHECK_PAID_TURN, new IdToIntegerMap());
 		
 		return organization;
 	}

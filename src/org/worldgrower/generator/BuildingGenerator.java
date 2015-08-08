@@ -22,7 +22,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.attribute.IdList;
-import org.worldgrower.attribute.IdMap;
+import org.worldgrower.attribute.IdToIntegerMap;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.gui.ImageIds;
 
@@ -41,7 +41,7 @@ public class BuildingGenerator {
 		properties.put(Constants.NAME, "voting box");
 		properties.put(Constants.TURN_COUNTER, 0);
 		properties.put(Constants.CANDIDATES, new IdList());
-		properties.put(Constants.VOTES, new IdMap());
+		properties.put(Constants.VOTES, new IdToIntegerMap());
 		WorldObject votingBox = new WorldObjectImpl(properties, new VotingBoxOnTurn());
 		world.addWorldObject(votingBox);
 		
