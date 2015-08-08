@@ -38,4 +38,5 @@ public interface Profession extends Serializable {
 		
 		throw new IllegalStateException("Profession with class " + clazz + " not found");
 	}
+	public boolean isPaidByVillagerLeader();
 }

@@ -43,4 +43,9 @@ public class PlayerCharacterProfession implements Profession, Serializable {
 	public SkillProperty getSkillProperty() {
 		return null;
 	}
+	
+	@Override
+	public boolean isPaidByVillagerLeader() {
+		return false;
+	}
 }

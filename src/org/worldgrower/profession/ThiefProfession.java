@@ -46,4 +46,9 @@ public class ThiefProfession implements Profession {
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
 	}
+	
+	@Override
+	public boolean isPaidByVillagerLeader() {
+		return false;
+	}
 }

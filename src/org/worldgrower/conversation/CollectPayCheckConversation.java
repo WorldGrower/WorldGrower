@@ -23,7 +23,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.IdMap;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.history.HistoryItem;
-import org.worldgrower.profession.Professions;
+import org.worldgrower.profession.Profession;
 
 public class CollectPayCheckConversation implements Conversation {
 
@@ -64,7 +64,8 @@ public class CollectPayCheckConversation implements Conversation {
 	
 	@Override
 	public boolean isConversationAvailable(WorldObject performer, WorldObject target, World world) {
-		return ((performer.getProperty(Constants.PROFESSION) == Professions.TAX_COLLECTOR_PROFESSION || performer.getProperty(Constants.PROFESSION) == Professions.SHERIFF_PROFESSION) && (GroupPropertyUtils.getPayCheckAmount(performer, world) > 0));
+		Profession performerProfession = performer.getProperty(Constants.PROFESSION);
+		return ((performerProfession != null) && (performerProfession.isPaidByVillagerLeader()) && (GroupPropertyUtils.getPayCheckAmount(performer, world) > 0));
 	}
 	
 	@Override
