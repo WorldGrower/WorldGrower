@@ -17,6 +17,7 @@ package org.worldgrower.goal;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.BiFunction;
 
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
@@ -32,13 +33,12 @@ public class CollectTaxesGoal implements Goal {
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		List<WorldObject> targets = getCollectTaxesTargets(performer, world);
-		Collections.sort(targets, new AmountToPayComparator(world));
+		sortTargets(targets, world, GroupPropertyUtils::getAmountToCollect);
 		if (targets.size() > 0) {
 			return new OperationInfo(performer, targets.get(0), Conversations.createArgs(Conversations.COLLECT_TAXES_CONVERSATION), Actions.TALK_ACTION);
 		} else {
 			return null;
 		}
-		
 	}
 	
 	@Override
@@ -48,7 +48,7 @@ public class CollectTaxesGoal implements Goal {
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
 		List<WorldObject> targets = getCollectTaxesTargets(performer, world);
-		return targets.size() == 0;
+		return ((targets.size() == 0) || (performer.getProperty(Constants.ORGANIZATION_GOLD) > 500));
 	}
 
 	private List<WorldObject> getCollectTaxesTargets(WorldObject performer, World world) {
@@ -82,19 +82,25 @@ public class CollectTaxesGoal implements Goal {
 		return organizationGold != null ? organizationGold.intValue() : 0;
 	}
 	
+	void sortTargets(List<WorldObject> targets, World world, BiFunction<WorldObject, World, Integer> amountToPayMapping) {
+		Collections.sort(targets, new AmountToPayComparator(world, amountToPayMapping));
+	}
+	
 	private static class AmountToPayComparator implements Comparator<WorldObject> {
 		private final World world;
+		private final BiFunction<WorldObject, World, Integer> amountToPayMapping;
 		
-		public AmountToPayComparator(World world) {
+		public AmountToPayComparator(World world, BiFunction<WorldObject, World, Integer> amountToPayMapping) {
 			this.world = world;
+			this.amountToPayMapping = amountToPayMapping;
 		}
 
 		@Override
 		public int compare(WorldObject o1, WorldObject o2) {
-			int amountToPay1 = GroupPropertyUtils.getAmountToCollect(o1, world);
-			int amountToPay2 = GroupPropertyUtils.getAmountToCollect(o2, world);
+			int amountToPay1 = amountToPayMapping.apply(o1, world);
+			int amountToPay2 = amountToPayMapping.apply(o2, world);
 			
-			return amountToPay1 - amountToPay2;
+			return amountToPay2 - amountToPay1;
 		}
 	}
 }
