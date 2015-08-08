@@ -14,6 +14,7 @@
  *******************************************************************************/
 package org.worldgrower;
 
+import org.worldgrower.actions.Actions;
 import org.worldgrower.goal.FacadeUtils;
 import org.worldgrower.goal.GroupPropertyUtils;
 
@@ -30,20 +31,32 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 			
 			logToBackground(target, actionTarget, managedOperation, args, performerFacade, world);
 			
-			alterRelationships(performer, target, stepsUntilLastGoal, world, value, performerFacade, targetFacade);
+			alterRelationships(performer, target, managedOperation, world, value, performerFacade, targetFacade);
 		}
 	}
 
-	private void alterRelationships(WorldObject performer, WorldObject target, int stepsUntilLastGoal, World world, int value, WorldObject performerFacade, WorldObject targetFacade) {
+	private void alterRelationships(WorldObject performer, WorldObject target, ManagedOperation managedOperation, World world, int value, WorldObject performerFacade, WorldObject targetFacade) {
 		performer.getProperty(Constants.RELATIONSHIPS).incrementValue(targetFacade.getProperty(Constants.ID), value);
 		target.getProperty(Constants.RELATIONSHIPS).incrementValue(performerFacade.getProperty(Constants.ID), value);
 		
-		if (stepsUntilLastGoal > 10) {
+		if (performerViolatedGroupRules(managedOperation)) {
 			GroupPropertyUtils.throwPerformerOutGroup(performerFacade, target);
 			
 			WorldObject realPerformer = world.findWorldObject(Constants.ID, performerFacade.getProperty(Constants.ID));
 			GroupPropertyUtils.throwPerformerOutGroup(realPerformer, target);
 		}
+	}
+	
+	//TODO: clean up this code
+	private boolean performerViolatedGroupRules(ManagedOperation managedOperation) {
+		Class<?> actionClass = managedOperation.getClass();
+		return (actionClass == Actions.MELEE_ATTACK_ACTION.getClass())
+				|| (actionClass == Actions.RANGED_ATTACK_ACTION.getClass())
+				|| (actionClass == Actions.FIRE_BOLT_ATTACK_ACTION.getClass())
+				|| (actionClass == Actions.RAY_OF_FROST_ATTACK_ACTION.getClass()
+				|| (actionClass == Actions.STEAL_ACTION.getClass())
+				);
+		
 	}
 
 	private void logToBackground(WorldObject target, WorldObject actionTarget, ManagedOperation managedOperation, int[] args, WorldObject performerFacade, World world) {
