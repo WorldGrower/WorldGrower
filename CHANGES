@@ -1,3 +1,13 @@
+v0.0.4
+
+- add more deities and improved DeityReasonConversation
+- add centerViewOnPlayerCharacter functionality
+- add economic overview
+- add grave digger profession
+- save/load performance improvement
+- add voting box and voting process
+- add tax collector profession
+
 v0.0.3
 
 - added commoners overview debug screen
