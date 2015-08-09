@@ -190,7 +190,8 @@ public class Constants {
 	public static final BooleanProperty DECEASED_WORLD_OBJECT = new BooleanProperty("deceasedWorldObject", NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IdProperty CREATOR_ID = new IdProperty("creatorId", ALL_PROPERTIES);
 	public static final UnCheckedProperty<Goal> GIVEN_ORDER = new UnCheckedProperty<>("givenOrder", ALL_PROPERTIES);
-
+	public static final BooleanProperty MINION_ORGANIZATION = new BooleanProperty("minionOrganization", NOT_NULLABLE, ALL_PROPERTIES);
+	
 	public static final IdProperty ORGANIZATION_ID = new IdProperty("organizationId", ALL_PROPERTIES);
 	public static final IntProperty TURN_COUNTER = new IntProperty("turnCounter", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IdListProperty CANDIDATES = new IdListProperty("candidates", ALL_PROPERTIES);

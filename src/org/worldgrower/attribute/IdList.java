@@ -36,6 +36,11 @@ public class IdList implements Serializable {
 		return this;
 	}
 	
+	public IdList addAll(IdList idList) {
+		ids.addAll(idList.getIds());
+		return this;
+	}
+	
 	public void remove(WorldObject worldObject) {
 		ids.remove(worldObject.getProperty(Constants.ID));
 	}

@@ -27,8 +27,14 @@ import org.worldgrower.goal.Goals;
 
 public class CommandAction implements ManagedOperation {
 
-	private Goal goal = Goals.CREATE_WOOD_GOAL;
+	private final Goal goal;
+	private final String commandDescription;
 	
+	public CommandAction(Goal goal, String commandDescription) {
+		this.goal = goal;
+		this.commandDescription = commandDescription;
+	}
+
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		target.setProperty(Constants.GIVEN_ORDER, goal);
@@ -51,7 +57,7 @@ public class CommandAction implements ManagedOperation {
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "commanding " + target.getProperty(Constants.NAME) + " to gather wood";
+		return "commanding " + target.getProperty(Constants.NAME) + " to " + commandDescription;
 	}
 	
 	public Object readResolve() throws ObjectStreamException {
@@ -60,6 +66,6 @@ public class CommandAction implements ManagedOperation {
 
 	@Override
 	public String getSimpleDescription() {
-		return "command: gather wood";
+		return "command: " + commandDescription;
 	}
 }

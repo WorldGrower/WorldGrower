@@ -29,7 +29,8 @@ import org.worldgrower.actions.magic.MinorIllusionAction;
 import org.worldgrower.actions.magic.RayOfFrostAttackAction;
 import org.worldgrower.actions.magic.ResearchSpellAction;
 import org.worldgrower.actions.magic.ScribeMagicSpellAction;
-import org.worldgrower.conversation.CollectTaxesConversation;
+import org.worldgrower.goal.GatherFoodGoal;
+import org.worldgrower.goal.Goals;
 
 public class Actions {
 
@@ -97,8 +98,12 @@ public class Actions {
 	public static final PutItemIntoInventoryAction PUT_ITEM_INTO_INVENTORY_ACTION = new PutItemIntoInventoryAction();
 	public static final PoisonAction POISON_ACTION = new PoisonAction();
 	public static final DrinkFromInventoryAction DRINK_FROM_INVENTORY_ACTION = new DrinkFromInventoryAction();
+	
 	public static final AnimateDeadAction ANIMATE_DEAD_ACTION = new AnimateDeadAction();
-	public static final CommandAction COMMAND_ACTION = new CommandAction();
+	public static final CommandAction COMMAND_GATHER_WOOD_ACTION = new CommandAction(Goals.CREATE_WOOD_GOAL, "gather wood");
+	public static final CommandAction COMMAND_GATHER_FOOD_ACTION = new CommandAction(new GatherFoodGoal(Integer.MAX_VALUE), "gather food");
+	public static final CommandAction COMMAND_GATHER_RESOURCES_ACTION = new CommandAction(Goals.MINE_GOLD_GOAL, "gather gold");
+	
 	public static final GatherRemainsAction GATHER_REMAINS_ACTION = new GatherRemainsAction();
 	public static final CreateGraveAction CREATE_GRAVE_ACTION = new CreateGraveAction();
 	public static final BecomeLeaderCandidateAction BECOME_LEADER_CANDIDATE_ACTION = new BecomeLeaderCandidateAction();
@@ -173,7 +178,9 @@ public class Actions {
 		BREW_POISON_ACTION,
 		POISON_ACTION,
 		DRINK_FROM_INVENTORY_ACTION,
-		COMMAND_ACTION,
+		COMMAND_GATHER_WOOD_ACTION,
+		COMMAND_GATHER_FOOD_ACTION,
+		COMMAND_GATHER_RESOURCES_ACTION,
 		GATHER_REMAINS_ACTION,
 		CREATE_GRAVE_ACTION,
 		BUILD_PAPER_MILL_ACTION,

@@ -136,6 +136,10 @@ public class GroupPropertyUtils {
 		return ((villagersOrganization.getProperty(Constants.ORGANIZATION_LEADER_ID) != null) && (villagersOrganization.getProperty(Constants.ORGANIZATION_LEADER_ID).intValue() == performer.getProperty(Constants.ID).intValue()));
 	}
 	
+	public static boolean performerIsLeaderOfOrganization(WorldObject performer, WorldObject organization, World world) {
+		return ((organization.getProperty(Constants.ORGANIZATION_LEADER_ID) != null) && (organization.getProperty(Constants.ORGANIZATION_LEADER_ID).intValue() == performer.getProperty(Constants.ID).intValue()));
+	}
+	
 	public static WorldObject getLeaderOfVillagers(World world) {
 		WorldObject villagersOrganization = getVillagersOrganization(world);
 		Integer leaderId = villagersOrganization.getProperty(Constants.ORGANIZATION_LEADER_ID);

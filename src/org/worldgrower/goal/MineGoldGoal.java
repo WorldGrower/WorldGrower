@@ -14,33 +14,20 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
-import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.attribute.WorldObjectContainer;
 
-public class GatherFoodGoal implements Goal {
-
-	private final int foodQuantityGoalMet;
-	
-	public GatherFoodGoal() {
-		this(10);
-	}
-
-	public GatherFoodGoal(int foodQuantityGoalMet) {
-		this.foodQuantityGoalMet = foodQuantityGoalMet;
-	}
+public class MineGoldGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		WorldObject target = GoalUtils.findNearestTarget(performer, Actions.HARVEST_FOOD_ACTION, world);
+		WorldObject target = GoalUtils.findNearestTarget(performer, Actions.MINE_GOLD_ACTION, world);
 		if (target != null) {
-			return new OperationInfo(performer, target, new int[0], Actions.HARVEST_FOOD_ACTION);
-		} else {
-			return null;
+			return new OperationInfo(performer, target, new int[0], Actions.MINE_GOLD_ACTION);
 		}
+		return null;
 	}
 	
 	@Override
@@ -49,24 +36,21 @@ public class GatherFoodGoal implements Goal {
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
-		return performerInventory.getQuantityFor(Constants.FOOD_SOURCE) > foodQuantityGoalMet;
+		return false;
 	}
 	
 	@Override
 	public boolean isUrgentGoalMet(WorldObject performer, World world) {
-		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
-		return performerInventory.getQuantityFor(Constants.FOOD_SOURCE) > 2;
+		return isGoalMet(performer, world);
 	}
 
 	@Override
 	public String getDescription() {
-		return "harvesting food";
+		return "looking for gold";
 	}
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
-		return performerInventory.getQuantityFor(Constants.FOOD_SOURCE);
+		return 0;
 	}
 }

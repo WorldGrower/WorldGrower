@@ -15,6 +15,7 @@
 package org.worldgrower.actions.magic;
 
 import java.io.ObjectStreamException;
+import java.util.List;
 
 import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
@@ -24,6 +25,7 @@ import org.worldgrower.actions.AttackUtils;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.generator.CreatureGenerator;
+import org.worldgrower.goal.GroupPropertyUtils;
 
 public class AnimateDeadAction implements MagicSpell {
 
@@ -31,10 +33,22 @@ public class AnimateDeadAction implements MagicSpell {
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		double skillBonus = SkillUtils.useSkill(performer, getSkill());
 		
-		CreatureGenerator creatureGenerator = new CreatureGenerator(world.findWorldObject(Constants.ID, performer.getProperty(Constants.GROUP).getIds().get(0)));
+		final WorldObject minionOrganization;
+		List<WorldObject> minionOrganizations = world.findWorldObjects(w -> w.hasProperty(Constants.MINION_ORGANIZATION) && w.getProperty(Constants.MINION_ORGANIZATION) && GroupPropertyUtils.performerIsLeaderOfOrganization(performer, w, world));
+		if (minionOrganizations.size() > 0) {
+			minionOrganization = minionOrganizations.get(0);
+		} else {
+			minionOrganization = GroupPropertyUtils.create(performer.getProperty(Constants.ID), "minions of " + performer.getProperty(Constants.NAME), null, world);
+			minionOrganization.setProperty(Constants.MINION_ORGANIZATION, Boolean.TRUE);
+			performer.getProperty(Constants.GROUP).add(minionOrganization);
+		}
+		
+		CreatureGenerator creatureGenerator = new CreatureGenerator(minionOrganization);
 		Integer targetX = target.getProperty(Constants.X);
 		Integer targetY = target.getProperty(Constants.Y);
-		creatureGenerator.generateSkeleton(targetX, targetY, world, performer);
+		int skeletonId = creatureGenerator.generateSkeleton(targetX, targetY, world, performer);
+		WorldObject skeleton = world.findWorldObject(Constants.ID, skeletonId);
+		skeleton.getProperty(Constants.GROUP).addAll(performer.getProperty(Constants.GROUP));
 		
 		world.removeWorldObject(target);
 	}

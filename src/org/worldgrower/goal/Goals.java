@@ -51,6 +51,7 @@ public class Goals {
 	public static final SexGoal SEX_GOAL = new SexGoal();
 	public static final MintGoldGoal MINT_GOLD_GOAL = new MintGoldGoal();
 	public static final MineResourcesGoal MINE_RESOURCES_GOAL = new MineResourcesGoal();
+	public static final MineGoldGoal MINE_GOLD_GOAL = new MineGoldGoal();
 	public static final SellGoldGoal SELL_GOLD_GOAL = new SellGoldGoal();
 	public static final PaperMillGoal PAPER_MILL_GOAL = new PaperMillGoal();
 	public static final CreatePaperGoal CREATE_PAPER_GOAL = new CreatePaperGoal();
