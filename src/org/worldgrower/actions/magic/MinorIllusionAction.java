@@ -25,6 +25,7 @@ import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.actions.BuildAction;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.generator.IllusionOnTurn;
 import org.worldgrower.goal.GoalUtils;
 
 public class MinorIllusionAction implements BuildAction, MagicSpell {
@@ -39,14 +40,15 @@ public class MinorIllusionAction implements BuildAction, MagicSpell {
 		int sourceId = args[0];
 		WorldObject sourceWorldObject = world.findWorldObject(Constants.ID, sourceId);
 		
-		WorldObjectImpl illusionWorldObject = (WorldObjectImpl) sourceWorldObject.deepCopy();
+		WorldObjectImpl illusionWorldObject = (WorldObjectImpl) sourceWorldObject.deepCopy(new IllusionOnTurn());
 		illusionWorldObject.setProperty(Constants.ID, world.generateUniqueId());
 		illusionWorldObject.setProperty(Constants.ILLUSION_CREATOR_ID, performer.getProperty(Constants.ID));
 		illusionWorldObject.setProperty(Constants.X, x);
 		illusionWorldObject.setProperty(Constants.Y, y);
+		illusionWorldObject.setProperty(Constants.TURNS_TO_LIVE, (int)(10 * SkillUtils.getSkillBonus(performer, getSkill())));
 		world.addWorldObject(illusionWorldObject);
 		
-		SkillUtils.useEnergy(performer, Constants.ILLUSION_SKILL, ENERGY_USE);
+		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE);
 	}
 	
 	@Override
@@ -60,7 +62,7 @@ public class MinorIllusionAction implements BuildAction, MagicSpell {
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
 		int distanceBetweenPerformerAndTarget = Reach.evaluateTarget(performer, args, target, 1);
 		return distanceBetweenPerformerAndTarget 
-				+ SkillUtils.distanceForEnergyUse(performer, Constants.ILLUSION_SKILL, ENERGY_USE);
+				+ SkillUtils.distanceForEnergyUse(performer, getSkill(), ENERGY_USE);
 	}
 
 	@Override

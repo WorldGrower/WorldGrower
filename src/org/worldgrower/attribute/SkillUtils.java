@@ -97,13 +97,18 @@ public class SkillUtils {
 	}
 	
 	public static double useSkill(WorldObject performer, SkillProperty skill) {
-		double result = 1.0f + (performer.getProperty(skill).getLevel() / 100.0f);
+		double result = getSkillBonus(performer, skill);
 		performer.getProperty(skill).use();
+		return result;
+	}
+
+	public static double getSkillBonus(WorldObject performer, SkillProperty skill) {
+		double result = 1.0f + (performer.getProperty(skill).getLevel() / 100.0f);
 		return result;
 	}
 	
 	public static int getRealEnergyUse(WorldObject performer, SkillProperty skill, int energyUse) {
-		return (int)(energyUse / (1.0f + (performer.getProperty(skill).getLevel() / 100.0f)));
+		return (int)(energyUse / (getSkillBonus(performer, skill)));
 	}
 	
 	public static void useEnergy(WorldObject performer, SkillProperty skill, int energyUse) {

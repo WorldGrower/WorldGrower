@@ -174,6 +174,7 @@ public class Constants {
 	public static final IntProperty RELATIONSHIP_VALUE = new IntProperty("relationshipValue", -1000, 1000, NOT_NULLABLE, ALL_PROPERTIES);
 	
 	public static final IdProperty ILLUSION_CREATOR_ID = new IdProperty("illusionCreatorId", ALL_PROPERTIES);
+	public static final IntProperty TURNS_TO_LIVE = new IntProperty("turnsToLive", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	
 	public static final UnCheckedProperty<List<ManagedOperation>> KNOWN_SPELLS = new UnCheckedProperty<>("knownSpells", ALL_PROPERTIES);
 	public static final PropertyCountMapProperty STUDYING_SPELLS = new PropertyCountMapProperty("studyingSpells", ALL_PROPERTIES);
