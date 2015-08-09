@@ -25,6 +25,7 @@ import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.actions.BuildAction;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.IllusionOnTurn;
 import org.worldgrower.goal.GoalUtils;
 
@@ -46,6 +47,8 @@ public class MinorIllusionAction implements BuildAction, MagicSpell {
 		illusionWorldObject.setProperty(Constants.X, x);
 		illusionWorldObject.setProperty(Constants.Y, y);
 		illusionWorldObject.setProperty(Constants.TURNS_TO_LIVE, (int)(10 * SkillUtils.getSkillBonus(performer, getSkill())));
+		illusionWorldObject.setProperty(Constants.INVENTORY, new WorldObjectContainer());
+		
 		world.addWorldObject(illusionWorldObject);
 		
 		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE);
