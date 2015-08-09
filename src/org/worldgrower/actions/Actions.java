@@ -112,6 +112,9 @@ public class Actions {
 	public static final SetTaxRateAction SET_TAX_RATE_ACTION = new SetTaxRateAction();
 	public static final HandoverTaxesAction HANDOVER_TAXES_ACTION = new HandoverTaxesAction();
 	
+	public static final PlantCottonPlantAction PLANT_COTTON_PLANT_ACTION = new PlantCottonPlantAction();
+	public static final HarvestCottonAction HARVEST_COTTON_ACTION = new HarvestCottonAction();
+	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 
 			MINOR_ILLUSION_ACTION, 
@@ -188,7 +191,9 @@ public class Actions {
 		VOTE_FOR_LEADER_ACTION,
 		START_ORGANIZATION_VOTE_ACTION,
 		SET_TAX_RATE_ACTION,
-		HANDOVER_TAXES_ACTION
+		HANDOVER_TAXES_ACTION,
+		PLANT_COTTON_PLANT_ACTION,
+		HARVEST_COTTON_ACTION
 	));
 	
 	static {

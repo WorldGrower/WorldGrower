@@ -204,4 +204,14 @@ public class ItemGenerator {
 		properties.put(Constants.IMAGE_ID, ImageIds.POISON);
 		return new WorldObjectImpl(properties);
 	}
+	
+	public static WorldObject generateCotton() {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		properties.put(Constants.NAME, "cotton");
+		properties.put(Constants.COTTON, 1);
+		properties.put(Constants.PRICE, 1);
+		properties.put(Constants.SELLABLE, false);
+		properties.put(Constants.IMAGE_ID, ImageIds.COTTON);
+		return new WorldObjectImpl(properties);
+	}
 }
