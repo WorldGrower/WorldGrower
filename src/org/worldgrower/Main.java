@@ -186,7 +186,7 @@ public class Main {
 		properties.put(Constants.RIGHT_HAND_EQUIPMENT, null);
 		
 		properties.put(Constants.EXPERIENCE, 0);
-		properties.put(Constants.ARMOR, 18);
+		properties.put(Constants.ARMOR, 0);
 		
 		properties.put(Constants.STRENGTH, characterAttributes.getStrength());
 		properties.put(Constants.DEXTERITY, characterAttributes.getDexterity());
@@ -199,8 +199,8 @@ public class Main {
 		properties.put(Constants.KNOWN_SPELLS, new ArrayList<>());
 		properties.put(Constants.STUDYING_SPELLS, new PropertyCountMap());
 
-		properties.put(Constants.DAMAGE, 8);
-		properties.put(Constants.DAMAGE_RESIST, 100);
+		properties.put(Constants.DAMAGE, 2);
+		properties.put(Constants.DAMAGE_RESIST, 10);
 		
 		if (Boolean.getBoolean("DEBUG")) {
 			((List<Object>)properties.get(Constants.KNOWN_SPELLS)).addAll(Actions.getMagicSpells());

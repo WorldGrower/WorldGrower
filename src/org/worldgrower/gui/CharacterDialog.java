@@ -57,7 +57,7 @@ public class CharacterDialog extends JDialog {
 		
 		this.playerCharacter = playerCharacter;
 		
-		setBounds(100, 100, 605, 850);
+		setBounds(100, 100, 605, 950);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -130,6 +130,9 @@ public class CharacterDialog extends JDialog {
 		createSkillBlock(Constants.LUMBERING_SKILL, 688);
 		createSkillBlock(Constants.RELIGION_SKILL, 718);
 		createSkillBlock(Constants.RESTORATION_SKILL, 748);
+		createSkillBlock(Constants.WEAVING_SKILL, 778);
+		createSkillBlock(Constants.LIGHT_ARMOR_SKILL, 808);
+		createSkillBlock(Constants.HEAVY_ARMOR_SKILL, 838);
 		
 		JLabel lblHead = new JLabel("Head");
 		lblHead.setBounds(264, 13, 56, 16);
@@ -235,12 +238,19 @@ public class CharacterDialog extends JDialog {
 	private JComboBox<ComboBoxEquipmentItem> createEquipmentComboBox(WorldObjectContainer inventory, UnCheckedProperty<WorldObject> propertyKey) {
 		List<WorldObject> worldObjects = inventory.getWorldObjects(Constants.EQUIPMENT_SLOT, propertyKey);
 		List<ComboBoxEquipmentItem> equipmentWorldObjects = new ArrayList<>();
-		equipmentWorldObjects.add(new ComboBoxEquipmentItem(null, ""));
+		ComboBoxEquipmentItem noSelectedComboBoxEquipmentItem = new ComboBoxEquipmentItem(null, "");
+		equipmentWorldObjects.add(noSelectedComboBoxEquipmentItem);
+		ComboBoxEquipmentItem selectedItem = noSelectedComboBoxEquipmentItem;
 		for(WorldObject worldObject : worldObjects) {
-			equipmentWorldObjects.add(new ComboBoxEquipmentItem(worldObject, worldObject.getProperty(Constants.NAME)));
+			ComboBoxEquipmentItem comboBoxEquipmentItem = new ComboBoxEquipmentItem(worldObject, worldObject.getProperty(Constants.NAME));
+			if (worldObject == playerCharacter.getProperty(propertyKey)) {
+				selectedItem = comboBoxEquipmentItem;
+			}
+			equipmentWorldObjects.add(comboBoxEquipmentItem);
 		}
 		
 		JComboBox<ComboBoxEquipmentItem> equipmentComboBox = new JComboBox<ComboBoxEquipmentItem>(equipmentWorldObjects.toArray(new ComboBoxEquipmentItem[0]));
+		equipmentComboBox.setSelectedItem(selectedItem);
 		equipmentComboBox.addActionListener(new EquipmentChangedAction());
 		return equipmentComboBox;
 	}
@@ -266,6 +276,15 @@ public class CharacterDialog extends JDialog {
 			int meleeDamage = MeleeDamagePropertyUtils.calculateMeleeDamage(playerCharacter);
 			playerCharacter.setProperty(Constants.DAMAGE, meleeDamage);
 			lblDamageValue.setText(playerCharacter.getProperty(Constants.DAMAGE).toString());
+		}
+	}
+	
+	private ComboBoxEquipmentItem createEquipmentItem(UnCheckedProperty<WorldObject> equipmentProperty) {
+		WorldObject equipment = playerCharacter.getProperty(equipmentProperty);
+		if (equipment != null) {
+			return new ComboBoxEquipmentItem(equipment, equipment.getProperty(Constants.NAME));
+		} else {
+			return new ComboBoxEquipmentItem(null, "");
 		}
 	}
 	
