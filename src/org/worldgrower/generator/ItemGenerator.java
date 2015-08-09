@@ -36,6 +36,12 @@ public class ItemGenerator {
 	public static final String LONGBOW_NAME = "Longbow";
 	public static final String POISON_NAME = "Poison";
 
+	public static final String COTTON_SHIRT_NAME = "Cotton Shirt";
+	public static final String COTTON_HAT_NAME = "Cotton Hat";
+	public static final String COTTON_BOOTS_NAME = "Cotton Boots";
+	public static final String COTTON_GLOVES_NAME = "Cotton Gloves";
+	public static final String COTTON_PANTS_NAME = "Cotton Pants";
+	
 	public static WorldObject getIronClaymore(double skillBonus) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.NAME, IRON_CLAYMORE_NAME);
@@ -212,6 +218,71 @@ public class ItemGenerator {
 		properties.put(Constants.PRICE, 1);
 		properties.put(Constants.SELLABLE, false);
 		properties.put(Constants.IMAGE_ID, ImageIds.COTTON);
+		return new WorldObjectImpl(properties);
+	}
+	
+	public static WorldObject getCottonShirt(double skillBonus) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		properties.put(Constants.NAME, COTTON_SHIRT_NAME);
+		properties.put(Constants.PRICE, 100);
+		properties.put(Constants.SELLABLE, false);
+		properties.put(Constants.ARMOR, (int) (2 * skillBonus));
+		properties.put(Constants.WEIGHT, 2);
+		properties.put(Constants.EQUIPMENT_HEALTH, 1000);
+		properties.put(Constants.EQUIPMENT_SLOT, Constants.TORSO_EQUIPMENT);
+		properties.put(Constants.IMAGE_ID, ImageIds.COTTON_SHIRT);
+		return new WorldObjectImpl(properties);
+	}
+	
+	public static WorldObject getCottonHat(double skillBonus) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		properties.put(Constants.NAME, COTTON_HAT_NAME);
+		properties.put(Constants.PRICE, 30);
+		properties.put(Constants.SELLABLE, false);
+		properties.put(Constants.ARMOR, (int) (1 * skillBonus));
+		properties.put(Constants.WEIGHT, 1);
+		properties.put(Constants.EQUIPMENT_HEALTH, 1000);
+		properties.put(Constants.EQUIPMENT_SLOT, Constants.HEAD_EQUIPMENT);
+		properties.put(Constants.IMAGE_ID, ImageIds.COTTON_HAT);
+		return new WorldObjectImpl(properties);
+	}
+	
+	public static WorldObject getCottonBoots(double skillBonus) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		properties.put(Constants.NAME, COTTON_BOOTS_NAME);
+		properties.put(Constants.PRICE, 40);
+		properties.put(Constants.SELLABLE, false);
+		properties.put(Constants.ARMOR, (int) (1 * skillBonus));
+		properties.put(Constants.WEIGHT, 1);
+		properties.put(Constants.EQUIPMENT_HEALTH, 1000);
+		properties.put(Constants.EQUIPMENT_SLOT, Constants.FEET_EQUIPMENT);
+		properties.put(Constants.IMAGE_ID, ImageIds.COTTON_BOOTS);
+		return new WorldObjectImpl(properties);
+	}
+	
+	public static WorldObject getCottonGloves(double skillBonus) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		properties.put(Constants.NAME, COTTON_GLOVES_NAME);
+		properties.put(Constants.PRICE, 30);
+		properties.put(Constants.SELLABLE, false);
+		properties.put(Constants.ARMOR, (int) (1 * skillBonus));
+		properties.put(Constants.WEIGHT, 1);
+		properties.put(Constants.EQUIPMENT_HEALTH, 1000);
+		properties.put(Constants.EQUIPMENT_SLOT, Constants.ARMS_EQUIPMENT);
+		properties.put(Constants.IMAGE_ID, ImageIds.COTTON_ARMS);
+		return new WorldObjectImpl(properties);
+	}
+	
+	public static WorldObject getCottonPants(double skillBonus) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		properties.put(Constants.NAME, COTTON_PANTS_NAME);
+		properties.put(Constants.PRICE, 40);
+		properties.put(Constants.SELLABLE, false);
+		properties.put(Constants.ARMOR, (int) (2 * skillBonus));
+		properties.put(Constants.WEIGHT, 2);
+		properties.put(Constants.EQUIPMENT_HEALTH, 1000);
+		properties.put(Constants.EQUIPMENT_SLOT, Constants.LEGS_EQUIPMENT);
+		properties.put(Constants.IMAGE_ID, ImageIds.COTTON_PANTS);
 		return new WorldObjectImpl(properties);
 	}
 }

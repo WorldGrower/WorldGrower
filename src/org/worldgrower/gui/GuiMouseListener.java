@@ -112,6 +112,7 @@ public class GuiMouseListener extends MouseAdapter {
             	addPropertiesMenu(menu, playerCharacter);
             	addBuildActions(menu);
             	addCraftActions(menu);
+            	addWeaveActions(menu);
             	addBrewActions(menu);
             	addPlantActions(menu);
             	addIllusionActions(menu);
@@ -254,6 +255,11 @@ public class GuiMouseListener extends MouseAdapter {
 	private void addCraftActions(JPopupMenu menu) {
 		ManagedOperation[] craftActions = { Actions.CRAFT_IRON_CLAYMORE_ACTION, Actions.CRAFT_IRON_CUIRASS_ACTION, Actions.CRAFT_IRON_HELMET_ACTION, Actions.CRAFT_IRON_GAUNTLETS_ACTION, Actions.CRAFT_IRON_BOOTS_ACTION, Actions.CRAFT_LONG_BOW_ACTION, Actions.MINT_GOLD_ACTION, Actions.CREATE_PAPER_ACTION };
 		addActions(menu, "Craft", craftActions);
+	}
+	
+	private void addWeaveActions(JPopupMenu menu) {
+		ManagedOperation[] weaveActions = { Actions.WEAVE_COTTON_SHIRT_ACTION, Actions.WEAVE_COTTON_HAT_ACTION, Actions.WEAVE_COTTON_BOOTS_ACTION, Actions.WEAVE_COTTON_GLOVES_ACTION, Actions.WEAVE_COTTON_PANTS_ACTION };
+		addActions(menu, "Weave", weaveActions);
 	}
 
 	private void addBrewActions(JPopupMenu menu) {

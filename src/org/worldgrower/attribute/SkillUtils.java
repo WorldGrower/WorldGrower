@@ -43,6 +43,9 @@ public class SkillUtils {
 		addSkill(Constants.MINING_SKILL, properties);
 		addSkill(Constants.LUMBERING_SKILL, properties);
 		addSkill(Constants.RELIGION_SKILL, properties);
+		addSkill(Constants.WEAVING_SKILL, properties);
+		addSkill(Constants.LIGHT_ARMOR_SKILL, properties);
+		addSkill(Constants.HEAVY_ARMOR_SKILL, properties);
 	}
 	
 	private static final Map<SkillProperty, IntProperty> SKILLS_TO_ATTRIBUTE_MAP = new HashMap<>();
@@ -67,6 +70,9 @@ public class SkillUtils {
 		SKILLS_TO_ATTRIBUTE_MAP.put(Constants.MINING_SKILL, Constants.WISDOM);
 		SKILLS_TO_ATTRIBUTE_MAP.put(Constants.LUMBERING_SKILL, Constants.WISDOM);
 		SKILLS_TO_ATTRIBUTE_MAP.put(Constants.RELIGION_SKILL, Constants.INTELLIGENCE);
+		SKILLS_TO_ATTRIBUTE_MAP.put(Constants.WEAVING_SKILL, Constants.WISDOM);
+		SKILLS_TO_ATTRIBUTE_MAP.put(Constants.LIGHT_ARMOR_SKILL, Constants.DEXTERITY);
+		SKILLS_TO_ATTRIBUTE_MAP.put(Constants.HEAVY_ARMOR_SKILL, Constants.STRENGTH);
 	}
 	
 	private static void addSkill(SkillProperty skillProperty, Map<ManagedProperty<?>, Object> properties) {

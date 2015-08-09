@@ -114,6 +114,11 @@ public class Actions {
 	
 	public static final PlantCottonPlantAction PLANT_COTTON_PLANT_ACTION = new PlantCottonPlantAction();
 	public static final HarvestCottonAction HARVEST_COTTON_ACTION = new HarvestCottonAction();
+	public static final WeaveCottonShirtAction WEAVE_COTTON_SHIRT_ACTION = new WeaveCottonShirtAction();
+	public static final WeaveCottonHatAction WEAVE_COTTON_HAT_ACTION = new WeaveCottonHatAction();
+	public static final WeaveCottonBootsAction WEAVE_COTTON_BOOTS_ACTION = new WeaveCottonBootsAction();
+	public static final WeaveCottonGlovesAction WEAVE_COTTON_GLOVES_ACTION = new WeaveCottonGlovesAction();
+	public static final WeaveCottonPantsAction WEAVE_COTTON_PANTS_ACTION = new WeaveCottonPantsAction();
 	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 
@@ -193,7 +198,12 @@ public class Actions {
 		SET_TAX_RATE_ACTION,
 		HANDOVER_TAXES_ACTION,
 		PLANT_COTTON_PLANT_ACTION,
-		HARVEST_COTTON_ACTION
+		HARVEST_COTTON_ACTION,
+		WEAVE_COTTON_SHIRT_ACTION,
+		WEAVE_COTTON_HAT_ACTION,
+		WEAVE_COTTON_BOOTS_ACTION,
+		WEAVE_COTTON_GLOVES_ACTION,
+		WEAVE_COTTON_PANTS_ACTION
 	));
 	
 	static {
