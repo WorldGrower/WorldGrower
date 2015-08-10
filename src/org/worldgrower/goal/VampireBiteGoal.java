@@ -12,29 +12,47 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.condition;
+package org.worldgrower.goal;
 
+import org.worldgrower.Constants;
+import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
 
-public class ParalyzedCondition implements Condition {
+public class VampireBiteGoal implements Goal {
 
 	@Override
-	public boolean canTakeAction() {
-		return false;
+	public OperationInfo calculateGoal(WorldObject performer, World world) {
+		WorldObject target = GoalUtils.findNearestTarget(performer, Actions.VAMPIRE_BITE_ACTION, world);
+		if (target != null) {
+			return new OperationInfo(performer, target, new int[0], Actions.VAMPIRE_BITE_ACTION);
+		} else {
+			return null;
+		}
+	}
+	
+	@Override
+	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
 	}
 
 	@Override
-	public boolean canMove() {
-		return false;
+	public boolean isGoalMet(WorldObject performer, World world) {
+		return performer.getProperty(Constants.VAMPIRE_BLOOD_LEVEL) > 500;
+	}
+	
+	@Override
+	public boolean isUrgentGoalMet(WorldObject performer, World world) {
+		return isGoalMet(performer, world);
 	}
 
 	@Override
 	public String getDescription() {
-		return "paralyzed";
+		return "looking to bite people";
 	}
 
 	@Override
-	public void onTurn(WorldObject worldObject, World world, int startTurn) {
+	public int evaluate(WorldObject performer, World world) {
+		return performer.getProperty(Constants.VAMPIRE_BLOOD_LEVEL);
 	}
 }

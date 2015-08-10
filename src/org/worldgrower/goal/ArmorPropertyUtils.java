@@ -16,6 +16,9 @@ package org.worldgrower.goal;
 
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.ArmorType;
+import org.worldgrower.attribute.SkillProperty;
+import org.worldgrower.attribute.SkillUtils;
 
 public class ArmorPropertyUtils {
 
@@ -24,29 +27,50 @@ public class ArmorPropertyUtils {
 		
 		WorldObject headEquipment = worldObject.getProperty(Constants.HEAD_EQUIPMENT);
 		if (headEquipment != null) {
-			armor += headEquipment.getProperty(Constants.ARMOR);
+			
+			double skillBonus = getSkillBonus(worldObject, headEquipment);
+			armor += (skillBonus * headEquipment.getProperty(Constants.ARMOR));
 		}
 		
 		WorldObject torsoEquipment = worldObject.getProperty(Constants.TORSO_EQUIPMENT);
 		if (torsoEquipment != null) {
-			armor += torsoEquipment.getProperty(Constants.ARMOR);
+			double skillBonus = getSkillBonus(worldObject, torsoEquipment);
+			armor += (skillBonus * torsoEquipment.getProperty(Constants.ARMOR));
 		}
 		
 		WorldObject armsEquipment = worldObject.getProperty(Constants.ARMS_EQUIPMENT);
 		if (armsEquipment != null) {
-			armor += armsEquipment.getProperty(Constants.ARMOR);
+			double skillBonus = getSkillBonus(worldObject, armsEquipment);
+			armor += (skillBonus * armsEquipment.getProperty(Constants.ARMOR));
 		}
 		
 		WorldObject legsEquipment = worldObject.getProperty(Constants.LEGS_EQUIPMENT);
 		if (legsEquipment != null) {
-			armor += legsEquipment.getProperty(Constants.ARMOR);
+			double skillBonus = getSkillBonus(worldObject, legsEquipment);
+			armor += (skillBonus * legsEquipment.getProperty(Constants.ARMOR));
 		}
 		
 		WorldObject feetEquipment = worldObject.getProperty(Constants.FEET_EQUIPMENT);
 		if (feetEquipment != null) {
-			armor += feetEquipment.getProperty(Constants.ARMOR);
+			double skillBonus = getSkillBonus(worldObject, feetEquipment);
+			armor += (skillBonus * feetEquipment.getProperty(Constants.ARMOR));
 		}
 		
 		return armor;
+	}
+	
+	public static double getSkillBonus(WorldObject worldObject, WorldObject equipment) {
+		SkillProperty skill;
+		int armorType = equipment.getProperty(Constants.ARMOR_TYPE);
+		if (armorType == ArmorType.LIGHT) {
+			skill = Constants.LIGHT_ARMOR_SKILL;
+		} else if (armorType == ArmorType.HEAVY) {
+			skill = Constants.HEAVY_ARMOR_SKILL;
+		} else {
+			throw new IllegalStateException("armorType " + armorType + " isn't supported in worldobject " + worldObject + " and equipment " + equipment);
+		}
+		 
+		double skillBonus = SkillUtils.getSkillBonus(worldObject, skill);
+		return skillBonus;
 	}
 }

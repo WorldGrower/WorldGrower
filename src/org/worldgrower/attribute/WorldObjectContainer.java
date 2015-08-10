@@ -207,4 +207,19 @@ public class WorldObjectContainer implements Serializable {
 	public <T> void setProperty(int index, ManagedProperty<T> propertyKey, T value) {
 		worldObjects.get(index).setProperty(propertyKey, value);
 	}
+
+	public int getIndexFor(StringProperty property, String value, Function<WorldObject, Boolean> testFunction) {
+		int index = 0;
+		for(WorldObject worldObject : worldObjects) {
+			if (worldObject != null) {
+				if (worldObject.hasProperty(property) && worldObject.getProperty(property).equals(value)) {
+					if (testFunction.apply(worldObject)) {
+						return index;
+					}
+				}
+			}
+			index++;
+		}
+		return -1;
+	}
 }

@@ -39,13 +39,13 @@ public class BurningCondition implements Condition {
 	}
 
 	@Override
-	public void onTurn(WorldObject worldObject, World world) {
+	public void onTurn(WorldObject worldObject, World world, int startTurn) {
 		worldObject.increment(Constants.HIT_POINTS, -5);
 		
 		List<WorldObject> flammableAdjacentWorldObjects = world.findWorldObjects(w -> Reach.distance(worldObject, w) <= 2 && w.hasProperty(Constants.FLAMMABLE) && w.getProperty(Constants.FLAMMABLE));
 		for(WorldObject flammableAdjacentWorldObject : flammableAdjacentWorldObjects) {
 			if (!flammableAdjacentWorldObject.getProperty(Constants.CONDITIONS).hasCondition(BURNING_CONDITION)) {
-				flammableAdjacentWorldObject.getProperty(Constants.CONDITIONS).addCondition(BURNING_CONDITION, 100);
+				flammableAdjacentWorldObject.getProperty(Constants.CONDITIONS).addCondition(BURNING_CONDITION, 100, world);
 			}
 		}
 	}

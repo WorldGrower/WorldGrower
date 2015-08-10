@@ -30,61 +30,61 @@ import org.worldgrower.profession.Profession;
 public class CommonerWorldEvaluationFunction implements WorldObjectPriorities {
 
 	@Override
-	public List<Goal> getPriorities(WorldObject performer, World world) {
-		Curse curse = performer.getProperty(Constants.CURSE);
+	public List<Goal> getPriorities(WorldObject performer, World world) {	
+		Profession profession = performer.getProperty(Constants.PROFESSION);
 		
-		if (curse != null) {
-			return curse.getCurseGoals();
+		final List<Goal> professionGoals;
+		final List<Goal> organizationGoals;
+		if (profession != null) {
+			professionGoals = new ArrayList<>(profession.getProfessionGoals());
+			professionGoals.add(Goals.IMPROVE_ORGANIZATION_GOAL);
+			
+			organizationGoals = new ArrayList<>();
+			organizationGoals.add(Goals.BECOME_ORGANIZATION_MEMBER_GOAL);
+			organizationGoals.add(Goals.LEARN_SKILL_GOAL);
 		} else {
-			Profession profession = performer.getProperty(Constants.PROFESSION);
-			
-			final List<Goal> professionGoals;
-			final List<Goal> organizationGoals;
-			if (profession != null) {
-				professionGoals = new ArrayList<>(profession.getProfessionGoals());
-				professionGoals.add(Goals.IMPROVE_ORGANIZATION_GOAL);
-				
-				organizationGoals = new ArrayList<>();
-				organizationGoals.add(Goals.BECOME_ORGANIZATION_MEMBER_GOAL);
-				organizationGoals.add(Goals.LEARN_SKILL_GOAL);
-			} else {
-				professionGoals = new ArrayList<>();
-				organizationGoals = new ArrayList<>();
-			}
-			
-			
-			List<Goal> genericGoals = Arrays.asList(
-					Goals.GET_POISON_CURED_GOAL,
-					Goals.PROTECT_ONSE_SELF_GOAL, 
-					Goals.FOOD_GOAL, 
-					Goals.DRINK_WATER_GOAL,
-					Goals.REST_GOAL,
-					Goals.SHACK_GOAL, 
-					Goals.HOUSE_GOAL, 
-					Goals.CHOOSE_PROFESSION_GOAL,
-					Goals.CHOOSE_DEITY_GOAL,
-					Goals.START_ORGANIZATION_VOTE_GOAL,
-					Goals.ORGANIZATION_CANDIDATE_GOAL,
-					Goals.ORGANIZATION_VOTE_GOAL,
-					Goals.SET_TAXES_GOAL);
-			
-			List<Goal> backgroundGoals = performer.getProperty(Constants.BACKGROUND).getPersonalGoals(performer, world);
-			
-			List<Goal> personalGoals = Arrays.asList(
-					Goals.SOCIALIZE_GOAL,
-					Goals.MATE_GOAL,
-					Goals.CHILDREN_GOAL,
-					Goals.SEX_GOAL,
-					Goals.IDLE_GOAL);
-					
-			
-			List<Goal> result = new ArrayList<>();
-			result.addAll(genericGoals);
-			result.addAll(backgroundGoals);
-			result.addAll(organizationGoals);
-			result.addAll(professionGoals);
-			result.addAll(personalGoals);
-			return result;
+			professionGoals = new ArrayList<>();
+			organizationGoals = new ArrayList<>();
 		}
+		
+		
+		List<Goal> genericGoals = Arrays.asList(
+				Goals.GET_POISON_CURED_GOAL,
+				Goals.PROTECT_ONSE_SELF_GOAL, 
+				Goals.FOOD_GOAL, 
+				Goals.DRINK_WATER_GOAL,
+				Goals.REST_GOAL,
+				Goals.SHACK_GOAL, 
+				Goals.HOUSE_GOAL, 
+				Goals.CHOOSE_PROFESSION_GOAL,
+				Goals.CHOOSE_DEITY_GOAL,
+				Goals.START_ORGANIZATION_VOTE_GOAL,
+				Goals.ORGANIZATION_CANDIDATE_GOAL,
+				Goals.ORGANIZATION_VOTE_GOAL,
+				Goals.SET_TAXES_GOAL,
+				Goals.BUY_CLOTHES_GOAL);
+		
+		List<Goal> backgroundGoals = performer.getProperty(Constants.BACKGROUND).getPersonalGoals(performer, world);
+		
+		List<Goal> personalGoals = Arrays.asList(
+				Goals.SOCIALIZE_GOAL,
+				Goals.MATE_GOAL,
+				Goals.CHILDREN_GOAL,
+				Goals.SEX_GOAL,
+				Goals.IDLE_GOAL);
+				
+		
+		List<Goal> result = new ArrayList<>();
+		result.addAll(genericGoals);
+		result.addAll(backgroundGoals);
+		result.addAll(organizationGoals);
+		result.addAll(professionGoals);
+		result.addAll(personalGoals);
+	
+		Curse curse = performer.getProperty(Constants.CURSE);
+		if (curse != null) {
+			result = curse.getCurseGoals(result);
+		}
+		return result;
 	}
 }

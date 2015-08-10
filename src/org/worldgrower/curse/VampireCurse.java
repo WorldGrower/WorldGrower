@@ -12,29 +12,37 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.condition;
+package org.worldgrower.curse;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.goal.Goal;
+import org.worldgrower.goal.Goals;
 
-public class ParalyzedCondition implements Condition {
+public class VampireCurse implements Curse {
 
 	@Override
-	public boolean canTakeAction() {
-		return false;
+	public List<Goal> getCurseGoals(List<Goal> normalGoals) {
+		List<Goal> allGoals = new ArrayList<>(normalGoals);
+		allGoals.add(0, Goals.VAMPIRE_BITE_GOAL);
+		return allGoals;
 	}
-
+	
+	@Override
+	public void perform(WorldObject performer, WorldObject target, int[] args, ManagedOperation managedOperation, World world) {
+	}
+	
 	@Override
 	public boolean canMove() {
-		return false;
+		return true;
 	}
 
 	@Override
-	public String getDescription() {
-		return "paralyzed";
-	}
-
-	@Override
-	public void onTurn(WorldObject worldObject, World world, int startTurn) {
+	public String getExplanation() {
+		return "I've been turned into a vampire";
 	}
 }

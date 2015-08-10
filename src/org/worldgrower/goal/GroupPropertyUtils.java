@@ -204,4 +204,12 @@ public class GroupPropertyUtils {
 		int amountToCollect = 5 * numberOfPayCheckPeriods;
 		return amountToCollect;
 	}
+	
+	public static boolean isMinionOrganzation(WorldObject organization) {
+		return organization.hasProperty(Constants.MINION_ORGANIZATION) && organization.getProperty(Constants.MINION_ORGANIZATION);
+	}
+	
+	public static boolean canJoinOrChangeLeaderOfOrganization(WorldObject organization) {
+		return !isMinionOrganzation(organization);
+	}
 }

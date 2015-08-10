@@ -14,11 +14,17 @@
  *******************************************************************************/
 package org.worldgrower.actions;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.ArmorType;
+import org.worldgrower.attribute.SkillUtils;
 
 public class AttackUtils {
 
@@ -33,6 +39,49 @@ public class AttackUtils {
 		int damage = (int) (performerDamage * skillBonus * (performerEnergy / 1000) * ((1000 - targetDamageResist) / 1000));
 		targetHP = targetHP - damage;
 		String message = performer.getProperty(Constants.NAME) + " attacks " + target.getProperty(Constants.NAME) + ": " + damage + " damage";
+		
+		if (targetHP < 0) {
+			targetHP = 0;
+		}
+		target.setProperty(Constants.HIT_POINTS, targetHP);	
+		
+		userArmorSkill(target);
+		
+		world.logAction(action, performer, target, args, message);
+	}
+	
+	private static void userArmorSkill(WorldObject target) {
+		List<WorldObject> targetEquipmentList = new ArrayList<>();
+		targetEquipmentList.add(target.getProperty(Constants.HEAD_EQUIPMENT));
+		targetEquipmentList.add(target.getProperty(Constants.TORSO_EQUIPMENT));
+		targetEquipmentList.add(target.getProperty(Constants.ARMS_EQUIPMENT));
+		targetEquipmentList.add(target.getProperty(Constants.LEGS_EQUIPMENT));
+		targetEquipmentList.add(target.getProperty(Constants.FEET_EQUIPMENT));
+		
+		boolean targetHasLightArmor = targetEquipmentList.stream().filter(w -> w.getProperty(Constants.ARMOR_TYPE) == ArmorType.LIGHT).collect(Collectors.toList()).size() > 0;
+		boolean targetHasHeavyArmor = targetEquipmentList.stream().filter(w -> w.getProperty(Constants.ARMOR_TYPE) == ArmorType.HEAVY).collect(Collectors.toList()).size() > 0;
+		
+		if (targetHasLightArmor && targetHasHeavyArmor) {
+			SkillUtils.useSkill(target, Constants.LIGHT_ARMOR_SKILL);
+			SkillUtils.useSkill(target, Constants.HEAVY_ARMOR_SKILL);
+		} else if(targetHasLightArmor) {
+			SkillUtils.useSkill(target, Constants.LIGHT_ARMOR_SKILL);
+			SkillUtils.useSkill(target, Constants.LIGHT_ARMOR_SKILL);
+		} else if (targetHasHeavyArmor) {
+			SkillUtils.useSkill(target, Constants.HEAVY_ARMOR_SKILL);
+			SkillUtils.useSkill(target, Constants.HEAVY_ARMOR_SKILL);
+		}
+	}
+
+	public static void biteAttack(ManagedOperation action, WorldObject performer, WorldObject target, int[] args, World world) {
+		int targetHP = target.getProperty(Constants.HIT_POINTS);
+		
+		int performerDamage = 10;
+		float performerEnergy = (float) performer.getProperty(Constants.ENERGY);
+		
+		int damage = (int) (performerDamage * (performerEnergy / 1000));
+		targetHP = targetHP - damage;
+		String message = performer.getProperty(Constants.NAME) + " bites " + target.getProperty(Constants.NAME) + ": " + damage + " damage";
 		
 		if (targetHP < 0) {
 			targetHP = 0;

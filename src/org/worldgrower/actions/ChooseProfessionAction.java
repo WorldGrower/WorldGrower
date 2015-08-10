@@ -48,7 +48,8 @@ public class ChooseProfessionAction implements ManagedOperation {
 			new ProfessionInfo(Professions.MINER_PROFESSION, 1.4, 1.3, 1.1, 0.8, 1.0, 1.0),
 			new ProfessionInfo(Professions.SHERIFF_PROFESSION, 1.5, 1.3, 0.8, 1.1, 0.8, 0.8),
 			new ProfessionInfo(Professions.GRAVE_DIGGER_PROFESSION, 1.5, 1.1, 0.8, 1.0, 1.1, 1.1),
-			new ProfessionInfo(Professions.TAX_COLLECTOR_PROFESSION , 1.0, 1.0, 1.0, 1.0, 1.2, 1.4)
+			new ProfessionInfo(Professions.TAX_COLLECTOR_PROFESSION, 1.0, 1.0, 1.0, 1.0, 1.2, 1.4),
+			new ProfessionInfo(Professions.WEAVER_PROFESSION, 0.8, 1.0, 0.8, 1.0, 1.4, 1.1)
 			);
 	
 	@Override

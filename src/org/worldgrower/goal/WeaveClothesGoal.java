@@ -1,0 +1,73 @@
+/*******************************************************************************
+ *     This program is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU General Public License as published by
+ *     the Free Software Foundation, either version 3 of the License, or
+ *     (at your option) any later version.
+ *
+ *     This program is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU General Public License for more details.
+ *
+ *     You should have received a copy of the GNU General Public License
+ *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *******************************************************************************/
+package org.worldgrower.goal;
+
+import org.worldgrower.Constants;
+import org.worldgrower.OperationInfo;
+import org.worldgrower.World;
+import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.ItemGenerator;
+
+public class WeaveClothesGoal implements Goal {
+
+	@Override
+	public OperationInfo calculateGoal(WorldObject performer, World world) {
+		if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.COTTON) < 10) {
+			return new CottonGoal().calculateGoal(performer, world);
+		} else {
+			int cottonShirtCount = performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.NAME, ItemGenerator.COTTON_SHIRT_NAME).size();
+			int cottonPantsCount = performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.NAME, ItemGenerator.COTTON_PANTS_NAME).size();
+			int cottonBootsCount = performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.NAME, ItemGenerator.COTTON_BOOTS_NAME).size();
+			
+			if (cottonShirtCount == 0){
+				return new OperationInfo(performer, performer, new int[0], Actions.WEAVE_COTTON_SHIRT_ACTION);
+			} else if (cottonPantsCount < cottonShirtCount) {
+				return new OperationInfo(performer, performer, new int[0], Actions.WEAVE_COTTON_PANTS_ACTION);
+			} else if (cottonBootsCount < cottonShirtCount) {
+				return new OperationInfo(performer, performer, new int[0], Actions.WEAVE_COTTON_BOOTS_ACTION);
+			} else {
+				return null;
+			}
+		}
+	}
+	
+	@Override
+	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
+	}
+
+	@Override
+	public boolean isGoalMet(WorldObject performer, World world) {
+		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY); 
+		return (inventory.getQuantityFor(Constants.ARMOR) >= 10);
+	}
+	
+	@Override
+	public boolean isUrgentGoalMet(WorldObject performer, World world) {
+		return isGoalMet(performer, world);
+	}
+
+	@Override
+	public String getDescription() {
+		return "weaving clothes";
+	}
+
+	@Override
+	public int evaluate(WorldObject performer, World world) {
+		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY); 
+		return inventory.getQuantityFor(Constants.ARMOR);
+	}
+}

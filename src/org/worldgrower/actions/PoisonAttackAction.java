@@ -36,7 +36,7 @@ public class PoisonAttackAction implements ManagedOperation {
 		
 		if (targetHP < 1) {
 			targetHP = 1;
-			target.getProperty(Constants.CONDITIONS).addCondition(Condition.PARALYZED_CONDITION, 5);
+			target.getProperty(Constants.CONDITIONS).addCondition(Condition.PARALYZED_CONDITION, 5, world);
 		}
 		target.setProperty(Constants.HIT_POINTS, targetHP);	
 		

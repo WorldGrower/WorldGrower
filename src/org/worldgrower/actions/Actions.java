@@ -120,6 +120,8 @@ public class Actions {
 	public static final WeaveCottonGlovesAction WEAVE_COTTON_GLOVES_ACTION = new WeaveCottonGlovesAction();
 	public static final WeaveCottonPantsAction WEAVE_COTTON_PANTS_ACTION = new WeaveCottonPantsAction();
 	
+	public static final VampireBiteAction VAMPIRE_BITE_ACTION = new VampireBiteAction();
+	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 
 			MINOR_ILLUSION_ACTION, 
@@ -203,7 +205,8 @@ public class Actions {
 		WEAVE_COTTON_HAT_ACTION,
 		WEAVE_COTTON_BOOTS_ACTION,
 		WEAVE_COTTON_GLOVES_ACTION,
-		WEAVE_COTTON_PANTS_ACTION
+		WEAVE_COTTON_PANTS_ACTION,
+		VAMPIRE_BITE_ACTION
 	));
 	
 	static {

@@ -23,11 +23,12 @@ import org.worldgrower.goal.Goal;
 
 public interface Curse {
 
-	public List<Goal> getCurseGoals();
+	public List<Goal> getCurseGoals(List<Goal> normalGoals);
 	public void perform(WorldObject performer, WorldObject target, int[] args, ManagedOperation managedOperation, World world);
 	public boolean canMove();
 	public String getExplanation();
 	
 	public static final SirenCurse SIREN_CURSE = new SirenCurse();
 	public static final ToadCurse TOAD_CURSE = new ToadCurse();
+	public static final VampireCurse VAMPIRE_CURSE = new VampireCurse();
 }

@@ -35,7 +35,7 @@ public class DrinkAction implements ManagedOperation {
 		target.increment(Constants.WATER_SOURCE, -waterDrunk);
 		
 		if (target.hasProperty(Constants.POISON_DAMAGE) && target.getProperty(Constants.POISON_DAMAGE) > 0) {
-			performer.getProperty(Constants.CONDITIONS).addCondition(Condition.POISONED_CONDITION, 20);
+			performer.getProperty(Constants.CONDITIONS).addCondition(Condition.POISONED_CONDITION, 20, world);
 		}
 	}
 

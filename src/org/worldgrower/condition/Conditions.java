@@ -24,10 +24,10 @@ import org.worldgrower.WorldObject;
 
 public class Conditions implements Serializable {
 
-	private final Map<Condition, Integer> conditions = new HashMap<>();
+	private final Map<Condition, ConditionInfo> conditions = new HashMap<>();
 	
-	public void addCondition(Condition condition, int turns) {
-		conditions.put(condition, turns);
+	public void addCondition(Condition condition, int turns, World world) {
+		conditions.put(condition, new ConditionInfo(turns, world.getCurrentTurn().getValue()));
 	}
 	
 	public void removeCondition(Condition condition) {
@@ -53,12 +53,13 @@ public class Conditions implements Serializable {
 	}
 	
 	public void onTurn(WorldObject worldObject, World world) {
-		for(Entry<Condition, Integer> entry : conditions.entrySet()) {
-			entry.getKey().onTurn(worldObject, world);
-			int turns = entry.getValue();
-			turns--;
-			if (turns != 0) {
-				entry.setValue(turns);
+		for(Entry<Condition, ConditionInfo> entry : conditions.entrySet()) {
+			int startTurns = entry.getValue().getStartTurn();
+			entry.getKey().onTurn(worldObject, world, startTurns);
+			int turnsItWillLast = entry.getValue().getTurnsItWillLast();
+			turnsItWillLast--;
+			if (turnsItWillLast != 0) {
+				entry.getValue().setTurnsItWillLast(turnsItWillLast);
 			} else {
 				conditions.remove(entry.getKey());
 			}
@@ -67,6 +68,32 @@ public class Conditions implements Serializable {
 
 	public boolean hasCondition(Condition condition) {
 		return conditions.containsKey(condition);
+	}
+	
+	private static class ConditionInfo {
+		private int turnsItWillLast;
+		private int startTurn;
+		
+		public ConditionInfo(int turnsItWillLast, int startTurn) {
+			this.turnsItWillLast = turnsItWillLast;
+			this.startTurn = startTurn;
+		}
+
+		public int getTurnsItWillLast() {
+			return turnsItWillLast;
+		}
+
+		public void setTurnsItWillLast(int turnsItWillLast) {
+			this.turnsItWillLast = turnsItWillLast;
+		}
+
+		public int getStartTurn() {
+			return startTurn;
+		}
+
+		public void setStartTurn(int startTurn) {
+			this.startTurn = startTurn;
+		}
 	}
 
 	@Override

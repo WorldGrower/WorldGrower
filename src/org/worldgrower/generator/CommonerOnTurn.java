@@ -14,23 +14,19 @@
  *******************************************************************************/
 package org.worldgrower.generator;
 
-import org.worldgrower.CommonerNameGenerator;
 import org.worldgrower.Constants;
 import org.worldgrower.OnTurn;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.goal.GoalUtils;
-import org.worldgrower.gui.CommonerImageIds;
 
 public class CommonerOnTurn implements OnTurn {
 
-	private final CommonerImageIds commonerImageIds;
-	private final CommonerNameGenerator commonerNameGenerator;
+	private final CommonerGenerator commonerGenerator;
 	private final WorldObject organization;
 	
-	public CommonerOnTurn(CommonerImageIds commonerImageIds, CommonerNameGenerator commonerNameGenerator, WorldObject organization) {
-		this.commonerImageIds = commonerImageIds;
-		this.commonerNameGenerator = commonerNameGenerator;
+	public CommonerOnTurn(CommonerGenerator commonerGenerator, WorldObject organization) {
+		this.commonerGenerator = commonerGenerator;
 		this.organization = organization;
 	}
 
@@ -53,7 +49,7 @@ public class CommonerOnTurn implements OnTurn {
 				int performerY = worldObject.getProperty(Constants.Y);
 				int[] position = GoalUtils.findOpenSpace(worldObject, 1, 1, world);
 				if (position != null) {
-					int id = CommonerGenerator.generateCommoner(position[0] + performerX, position[1] + performerY, world, commonerImageIds, commonerNameGenerator, organization);
+					int id = commonerGenerator.generateCommoner(position[0] + performerX, position[1] + performerY, world, organization);
 					worldObject.setProperty(Constants.PREGNANCY, null);
 					worldObject.getProperty(Constants.CHILDREN).add(id);
 				}

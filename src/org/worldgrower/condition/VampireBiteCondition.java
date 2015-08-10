@@ -14,27 +14,37 @@
  *******************************************************************************/
 package org.worldgrower.condition;
 
+import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.creaturetype.CreatureType;
+import org.worldgrower.curse.Curse;
 
-public class ParalyzedCondition implements Condition {
+public class VampireBiteCondition implements Condition {
 
 	@Override
 	public boolean canTakeAction() {
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean canMove() {
-		return false;
+		return true;
 	}
 
 	@Override
 	public String getDescription() {
-		return "paralyzed";
+		return "bitten by a vampire";
 	}
 
 	@Override
 	public void onTurn(WorldObject worldObject, World world, int startTurn) {
+		int currentTurn = world.getCurrentTurn().getValue();
+		
+		if (currentTurn - startTurn > 500) {
+			worldObject.setProperty(Constants.VAMPIRE_BLOOD_LEVEL, 0);
+			worldObject.setProperty(Constants.CREATURE_TYPE, CreatureType.UNDEAD_CREATURE_TYPE);
+			worldObject.setProperty(Constants.CURSE, Curse.VAMPIRE_CURSE);
+		}
 	}
 }

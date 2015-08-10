@@ -12,29 +12,46 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.condition;
+package org.worldgrower.profession;
 
-import org.worldgrower.World;
-import org.worldgrower.WorldObject;
+import java.io.ObjectStreamException;
+import java.util.Arrays;
+import java.util.List;
 
-public class ParalyzedCondition implements Condition {
+import org.worldgrower.Constants;
+import org.worldgrower.attribute.SkillProperty;
+import org.worldgrower.goal.Goal;
+import org.worldgrower.goal.Goals;
 
-	@Override
-	public boolean canTakeAction() {
-		return false;
-	}
+public class WeaverProfession implements Profession {
 
-	@Override
-	public boolean canMove() {
-		return false;
+	public WeaverProfession(List<Profession> allProfessions) {
+		allProfessions.add(this);
 	}
 
 	@Override
 	public String getDescription() {
-		return "paralyzed";
+		return "weaver";
 	}
 
 	@Override
-	public void onTurn(WorldObject worldObject, World world, int startTurn) {
+	public List<Goal> getProfessionGoals() {
+		return Arrays.asList(
+				Goals.COTTON_GOAL,
+				Goals.WEAVE_CLOTHES_GOAL);
+	}
+
+	@Override
+	public SkillProperty getSkillProperty() {
+		return Constants.WEAVING_SKILL;
+	}
+	
+	public Object readResolve() throws ObjectStreamException {
+		return readResolveImpl();
+	}
+
+	@Override
+	public boolean isPaidByVillagerLeader() {
+		return false;
 	}
 }

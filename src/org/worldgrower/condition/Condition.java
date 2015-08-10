@@ -28,10 +28,11 @@ public interface Condition extends Serializable {
 	public boolean canTakeAction();
 	public boolean canMove();
 	public String getDescription();
-	public void onTurn(WorldObject worldObject, World world);	
+	public void onTurn(WorldObject worldObject, World world, int startTurns);	
 	
 	public static final ParalyzedCondition PARALYZED_CONDITION = new ParalyzedCondition();
 	public static final CocoonedCondition COCOONED_CONDITION = new CocoonedCondition();
 	public static final BurningCondition BURNING_CONDITION = new BurningCondition();
 	public static final PoisonedCondition POISONED_CONDITION = new PoisonedCondition();
+	public static final VampireBiteCondition VAMPIRE_BITE_CONDITION = new VampireBiteCondition();
 }

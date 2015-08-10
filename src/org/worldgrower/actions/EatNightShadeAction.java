@@ -36,7 +36,7 @@ public class EatNightShadeAction implements ManagedOperation {
 		performer.setProperty(Constants.FOOD, food);
 		target.setProperty(Constants.NIGHT_SHADE_SOURCE, foodInTarget - 10);
 		
-		performer.getProperty(Constants.CONDITIONS).addCondition(Condition.POISONED_CONDITION, 20);
+		performer.getProperty(Constants.CONDITIONS).addCondition(Condition.POISONED_CONDITION, 20, world);
 	}
 
 	@Override

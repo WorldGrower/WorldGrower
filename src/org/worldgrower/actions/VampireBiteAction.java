@@ -23,19 +23,23 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.condition.Condition;
+import org.worldgrower.creaturetype.CreatureType;
 
-public class CocoonAction implements ManagedOperation {
+public class VampireBiteAction implements ManagedOperation {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		target.getProperty(Constants.CONDITIONS).addCondition(Condition.COCOONED_CONDITION, 5, world);
-	
-		world.logAction(this, performer, target, args, "");
+		AttackUtils.biteAttack(this, performer, target, args, world);
+		performer.increment(Constants.VAMPIRE_BLOOD_LEVEL, 500);
+		target.getProperty(Constants.CONDITIONS).addCondition(Condition.VAMPIRE_BITE_CONDITION, Integer.MAX_VALUE, world);
 	}
-
+	
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return ((target.hasProperty(Constants.ARMOR)) && (target.getProperty(Constants.HIT_POINTS) > 0) && target.hasProperty(Constants.CONDITIONS) && !target.getProperty(Constants.CONDITIONS).canTakeAction());
+		return ((target.hasProperty(Constants.ARMOR)) 
+				&& (target.getProperty(Constants.HIT_POINTS) > 0) 
+				&& target.hasIntelligence() 
+				&& target.getProperty(Constants.CREATURE_TYPE) == CreatureType.HUMAN_CREATURE_TYPE);
 	}
 
 	@Override
@@ -50,12 +54,12 @@ public class CocoonAction implements ManagedOperation {
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "cocooning " + target.getProperty(Constants.NAME);
+		return "biting " + target.getProperty(Constants.NAME);
 	}
 
 	@Override
 	public String getSimpleDescription() {
-		return "cocoon";
+		return "bite";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {

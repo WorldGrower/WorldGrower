@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.VotingPropertyUtils;
 import org.worldgrower.attribute.IdList;
+import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.history.HistoryItem;
 
 public class VoteLeaderOrganizationConversation implements Conversation {
@@ -43,10 +44,12 @@ public class VoteLeaderOrganizationConversation implements Conversation {
 		List<Question> questions = new ArrayList<>();
 		for(int organizationId : targetOrganizations.getIds()) {
 			WorldObject organization = world.findWorldObject(Constants.ID, organizationId);
-			if (performer.getProperty(Constants.GROUP).contains(organization)) {
-				boolean voteAlreadyInProgress = world.findWorldObjects(w -> VotingPropertyUtils.isVotingBoxForOrganization(w, organization)).size() > 0;
-				if (!voteAlreadyInProgress) {
-					questions.add(new Question(organization, "I want to vote on leadership for the " + organization.getProperty(Constants.NAME)));
+			if (GroupPropertyUtils.canJoinOrChangeLeaderOfOrganization(organization)) {
+				if (performer.getProperty(Constants.GROUP).contains(organization)) {
+					boolean voteAlreadyInProgress = world.findWorldObjects(w -> VotingPropertyUtils.isVotingBoxForOrganization(w, organization)).size() > 0;
+					if (!voteAlreadyInProgress) {
+						questions.add(new Question(organization, "I want to vote on leadership for the " + organization.getProperty(Constants.NAME)));
+					}
 				}
 			}
 		}

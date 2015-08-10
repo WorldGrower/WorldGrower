@@ -22,6 +22,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.actions.magic.MagicSpell;
+import org.worldgrower.attribute.ArmorType;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.gui.ImageIds;
 
@@ -65,6 +66,7 @@ public class ItemGenerator {
 		properties.put(Constants.EQUIPMENT_HEALTH, 1000);
 		properties.put(Constants.EQUIPMENT_SLOT, Constants.TORSO_EQUIPMENT);
 		properties.put(Constants.IMAGE_ID, ImageIds.IRON_CUIRASS);
+		properties.put(Constants.ARMOR_TYPE, ArmorType.HEAVY);
 		return new WorldObjectImpl(properties);
 	}
 	
@@ -78,6 +80,7 @@ public class ItemGenerator {
 		properties.put(Constants.EQUIPMENT_HEALTH, 1000);
 		properties.put(Constants.EQUIPMENT_SLOT, Constants.HEAD_EQUIPMENT);
 		properties.put(Constants.IMAGE_ID, ImageIds.IRON_HELMET);
+		properties.put(Constants.ARMOR_TYPE, ArmorType.HEAVY);
 		return new WorldObjectImpl(properties);
 	}
 	
@@ -91,6 +94,7 @@ public class ItemGenerator {
 		properties.put(Constants.EQUIPMENT_HEALTH, 1000);
 		properties.put(Constants.EQUIPMENT_SLOT, Constants.ARMS_EQUIPMENT);
 		properties.put(Constants.IMAGE_ID, ImageIds.IRON_GAUNTLETS);
+		properties.put(Constants.ARMOR_TYPE, ArmorType.HEAVY);
 		return new WorldObjectImpl(properties);
 	}
 	
@@ -104,6 +108,7 @@ public class ItemGenerator {
 		properties.put(Constants.EQUIPMENT_HEALTH, 1000);
 		properties.put(Constants.EQUIPMENT_SLOT, Constants.ARMS_EQUIPMENT);
 		properties.put(Constants.IMAGE_ID, ImageIds.IRON_BOOTS);
+		properties.put(Constants.ARMOR_TYPE, ArmorType.HEAVY);
 		return new WorldObjectImpl(properties);
 	}
 	
@@ -231,6 +236,7 @@ public class ItemGenerator {
 		properties.put(Constants.EQUIPMENT_HEALTH, 1000);
 		properties.put(Constants.EQUIPMENT_SLOT, Constants.TORSO_EQUIPMENT);
 		properties.put(Constants.IMAGE_ID, ImageIds.COTTON_SHIRT);
+		properties.put(Constants.ARMOR_TYPE, ArmorType.LIGHT);
 		return new WorldObjectImpl(properties);
 	}
 	
@@ -244,6 +250,7 @@ public class ItemGenerator {
 		properties.put(Constants.EQUIPMENT_HEALTH, 1000);
 		properties.put(Constants.EQUIPMENT_SLOT, Constants.HEAD_EQUIPMENT);
 		properties.put(Constants.IMAGE_ID, ImageIds.COTTON_HAT);
+		properties.put(Constants.ARMOR_TYPE, ArmorType.LIGHT);
 		return new WorldObjectImpl(properties);
 	}
 	
@@ -257,6 +264,7 @@ public class ItemGenerator {
 		properties.put(Constants.EQUIPMENT_HEALTH, 1000);
 		properties.put(Constants.EQUIPMENT_SLOT, Constants.FEET_EQUIPMENT);
 		properties.put(Constants.IMAGE_ID, ImageIds.COTTON_BOOTS);
+		properties.put(Constants.ARMOR_TYPE, ArmorType.LIGHT);
 		return new WorldObjectImpl(properties);
 	}
 	
@@ -270,6 +278,7 @@ public class ItemGenerator {
 		properties.put(Constants.EQUIPMENT_HEALTH, 1000);
 		properties.put(Constants.EQUIPMENT_SLOT, Constants.ARMS_EQUIPMENT);
 		properties.put(Constants.IMAGE_ID, ImageIds.COTTON_ARMS);
+		properties.put(Constants.ARMOR_TYPE, ArmorType.LIGHT);
 		return new WorldObjectImpl(properties);
 	}
 	
@@ -283,6 +292,7 @@ public class ItemGenerator {
 		properties.put(Constants.EQUIPMENT_HEALTH, 1000);
 		properties.put(Constants.EQUIPMENT_SLOT, Constants.LEGS_EQUIPMENT);
 		properties.put(Constants.IMAGE_ID, ImageIds.COTTON_PANTS);
+		properties.put(Constants.ARMOR_TYPE, ArmorType.LIGHT);
 		return new WorldObjectImpl(properties);
 	}
 }

@@ -71,4 +71,8 @@ public class Goals {
 	public static final SetTaxesGoal SET_TAXES_GOAL = new SetTaxesGoal();
 	public static final HandoverTaxesGoal HANDOVER_TAXES_GOAL = new HandoverTaxesGoal();
 	public static final CollectPayCheckGoal COLLECT_PAY_CHECK_GOAL = new CollectPayCheckGoal();
+	public static final CottonGoal COTTON_GOAL = new CottonGoal();
+	public static final WeaveClothesGoal WEAVE_CLOTHES_GOAL = new WeaveClothesGoal();
+	public static final BuyClothesGoal BUY_CLOTHES_GOAL = new BuyClothesGoal();
+	public static final VampireBiteGoal VAMPIRE_BITE_GOAL = new VampireBiteGoal();
 }

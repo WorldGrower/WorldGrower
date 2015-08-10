@@ -28,10 +28,11 @@ import org.worldgrower.goal.Goals;
 public class ToadCurse implements Curse {
 
 	@Override
-	public List<Goal> getCurseGoals() {
+	public List<Goal> getCurseGoals(List<Goal> normalGoals) {
 		return Arrays.asList(Goals.CURSE_KISS_GOAL, Goals.IDLE_GOAL);
 	}
 	
+	@Override
 	public void perform(WorldObject performer, WorldObject target, int[] args, ManagedOperation managedOperation, World world) {
 		if (managedOperation == Actions.KISS_ACTION) {
 

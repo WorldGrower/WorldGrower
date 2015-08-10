@@ -32,7 +32,7 @@ public class FireBoltAttackAction implements MagicSpell {
 		AttackUtils.magicAttack(5, this, performer, target, args, world, SkillUtils.useSkill(performer, Constants.EVOCATION_SKILL));
 	
 		if (target.hasProperty(Constants.FLAMMABLE) && target.getProperty(Constants.FLAMMABLE)) {
-			target.getProperty(Constants.CONDITIONS).addCondition(Condition.BURNING_CONDITION, 100);
+			target.getProperty(Constants.CONDITIONS).addCondition(Condition.BURNING_CONDITION, 100, world);
 		}
 	}
 	

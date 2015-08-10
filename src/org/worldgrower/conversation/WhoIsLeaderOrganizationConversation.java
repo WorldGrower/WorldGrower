@@ -22,6 +22,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.IdList;
+import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.history.HistoryItem;
 
 public class WhoIsLeaderOrganizationConversation implements Conversation {
@@ -52,7 +53,9 @@ public class WhoIsLeaderOrganizationConversation implements Conversation {
 		List<Question> questions = new ArrayList<>();
 		for(int organizationId : targetOrganizations.getIds()) {
 			WorldObject organization = world.findWorldObject(Constants.ID, organizationId);
-			questions.add(new Question(organization, "Who leads the " + organization.getProperty(Constants.NAME) + " ?"));
+			if (GroupPropertyUtils.canJoinOrChangeLeaderOfOrganization(organization)) {
+				questions.add(new Question(organization, "Who leads the " + organization.getProperty(Constants.NAME) + " ?"));
+			}
 		}
 		
 		return questions;

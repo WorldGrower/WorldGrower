@@ -22,12 +22,18 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.attribute.StringProperty;
 import org.worldgrower.attribute.WorldObjectContainer;
 
 public class BuySellUtils {
 
 	public static List<WorldObject> findBuyTargets(WorldObject performer, IntProperty property, World world) {
 		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.BUY_ACTION, w -> w.getProperty(Constants.INVENTORY).getQuantityFor(property, Constants.PRICE, inventoryItem -> inventoryItem.getProperty(Constants.SELLABLE)) > 0, world);
+		return targets;
+	}
+
+	public static List<WorldObject> findBuyTargets(WorldObject performer, StringProperty property, String value, World world) {
+		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.BUY_ACTION, w -> w.getProperty(Constants.INVENTORY).getIndexFor(property, value, inventoryItem -> inventoryItem.hasProperty(Constants.PRICE) && inventoryItem.getProperty(Constants.SELLABLE)) > 0, world);
 		return targets;
 	}
 	
@@ -72,5 +78,9 @@ public class BuySellUtils {
 			}
 		}
 		return betterPriceExists;
+	}
+
+	public static int getIndexFor(WorldObject target, StringProperty property, String value) {
+		return target.getProperty(Constants.INVENTORY).getIndexFor(property, value, inventoryItem -> inventoryItem.hasProperty(Constants.PRICE) && (inventoryItem.getProperty(Constants.SELLABLE)));
 	}
 }

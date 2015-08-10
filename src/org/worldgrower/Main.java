@@ -60,11 +60,12 @@ public class Main {
 		final CommonerImageIds commonerImageIds = new CommonerImageIds();
 		final CommonerNameGenerator commonerNameGenerator = new CommonerNameGenerator();
 		final WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
+		final CommonerGenerator commonerGenerator = new CommonerGenerator(seed, commonerImageIds, commonerNameGenerator);
 		
-		final WorldObject playerCharacter = createPlayerCharacter(playerCharacterId, playerName, playerProfession, world, commonerImageIds, commonerNameGenerator, organization, characterAttributes);
+		final WorldObject playerCharacter = createPlayerCharacter(playerCharacterId, playerName, playerProfession, world, commonerGenerator, organization, characterAttributes);
 		world.addWorldObject(playerCharacter);
 		
-		addDefaultWorldObjects(world, commonerImageIds, commonerNameGenerator, organization, villagerCount, seed);
+		addDefaultWorldObjects(world, commonerGenerator, organization, villagerCount, seed);
 		
 		world.addListener(new CurseListener(world));
 		exploreWorld(playerCharacter, world);
@@ -109,14 +110,12 @@ public class Main {
         });
 	}
 
-	private static void addDefaultWorldObjects(World world,
-			final CommonerImageIds commonerImageIds,
-			final CommonerNameGenerator commonerNameGenerator, WorldObject organization, int villagerCount, int seed) {
+	private static void addDefaultWorldObjects(World world, CommonerGenerator commonerGenerator, WorldObject organization, int villagerCount, int seed) {
 	
 		PlantGenerator.generateBerryBush(3, 3, world);
 		
 		for(int i=0; i<villagerCount; i++) {
-			CommonerGenerator.generateCommoner(1, 1, world, commonerImageIds, commonerNameGenerator, organization);
+			commonerGenerator.generateCommoner(1, 1, world, organization);
 		}
 		
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
@@ -143,7 +142,7 @@ public class Main {
 		worldGenerator.addWorldObjects(world, 1, 1, 20, TerrainType.PLAINS, PlantGenerator::generateBerryBush);
 	}
 
-	private static WorldObject createPlayerCharacter(int id, String playerName, String playerProfession, World world, final CommonerImageIds commonerImageIds, final CommonerNameGenerator commonerNameGenerator, WorldObject organization, CharacterAttributes characterAttributes) {
+	private static WorldObject createPlayerCharacter(int id, String playerName, String playerProfession, World world, CommonerGenerator commonerGenerator, WorldObject organization, CharacterAttributes characterAttributes) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, 5);
 		properties.put(Constants.Y, 5);
@@ -206,7 +205,7 @@ public class Main {
 			((List<Object>)properties.get(Constants.KNOWN_SPELLS)).addAll(Actions.getMagicSpells());
 		}
 		
-		final WorldObject playerCharacter = new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new CommonerOnTurn(commonerImageIds, commonerNameGenerator, organization), null);
+		final WorldObject playerCharacter = new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new CommonerOnTurn(commonerGenerator, organization), null);
 		return playerCharacter;
 	}
 

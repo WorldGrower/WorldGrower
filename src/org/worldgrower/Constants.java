@@ -131,6 +131,7 @@ public class Constants {
 	public static final UnCheckedProperty<WorldObject> RIGHT_HAND_EQUIPMENT = new UnCheckedProperty<WorldObject>("handEquipment", ALL_PROPERTIES);
 	
 	public static final UnCheckedProperty<UnCheckedProperty<WorldObject>> EQUIPMENT_SLOT = new UnCheckedProperty<UnCheckedProperty<WorldObject>>("equipmentSlot", ALL_PROPERTIES);
+	public static final IntProperty ARMOR_TYPE = new IntProperty("armorType", 0, 1, NOT_NULLABLE, ALL_PROPERTIES);
 	
 	public static final IdListProperty GROUP = new IdListProperty("group", ALL_PROPERTIES);
 	public static final IdMapProperty RELATIONSHIPS = new IdMapProperty("relationships", ALL_PROPERTIES);
@@ -208,4 +209,6 @@ public class Constants {
 	public static final IdMapProperty TAXES_PAID_TURN = new IdMapProperty("taxesPaidTurn", ALL_PROPERTIES);
 	public static final IdMapProperty PAY_CHECK_PAID_TURN = new IdMapProperty("payCheckPaidTurn", ALL_PROPERTIES);
 	public static final BooleanProperty CAN_COLLECT_TAXES = new BooleanProperty("canCollectTaxes", NOT_NULLABLE, ALL_PROPERTIES);
+	
+	public static final IntProperty VAMPIRE_BLOOD_LEVEL = new IntProperty("vampireBloodLevel", 0, 1000, NOT_NULLABLE, ALL_PROPERTIES);
 }

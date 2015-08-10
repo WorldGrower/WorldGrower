@@ -41,10 +41,12 @@ public class SetOrganizationProfitPercentageConversation implements Conversation
 		List<Question> questions = new ArrayList<>();
 		
 		for(WorldObject organization : organizations) {
-			if (target.getProperty(Constants.GROUP).contains(organization)) {
-				for(int profitPercentage = -100; profitPercentage<=100; profitPercentage+=50) {
-					questions.add(new Question(organization, "I'd like to set the profit percentage for " + organization.getProperty(Constants.NAME) + " to " + profitPercentage + "%, can you take care of this?", profitPercentage));
-				}		
+			if (GroupPropertyUtils.canJoinOrChangeLeaderOfOrganization(organization)) {
+				if (target.getProperty(Constants.GROUP).contains(organization)) {
+					for(int profitPercentage = -100; profitPercentage<=100; profitPercentage+=50) {
+						questions.add(new Question(organization, "I'd like to set the profit percentage for " + organization.getProperty(Constants.NAME) + " to " + profitPercentage + "%, can you take care of this?", profitPercentage));
+					}		
+				}
 			}
 		}
 
