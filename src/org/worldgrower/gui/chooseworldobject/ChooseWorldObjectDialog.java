@@ -21,12 +21,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import org.worldgrower.Constants;
 import org.worldgrower.DungeonMaster;
@@ -34,7 +35,6 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.gui.ActionContainingArgs;
 import org.worldgrower.gui.ImageInfoReader;
-import org.worldgrower.gui.StartBuildModeAction;
 import org.worldgrower.gui.WorldObjectList;
 
 public class ChooseWorldObjectDialog extends JDialog {
@@ -78,6 +78,7 @@ public class ChooseWorldObjectDialog extends JDialog {
 		
 		okButton = new JButton("OK");
 		okButton.setActionCommand("OK");
+		okButton.setEnabled(false);
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
 		
@@ -101,6 +102,14 @@ public class ChooseWorldObjectDialog extends JDialog {
 				
 				guiAction.actionPerformed(null);		
 				ChooseWorldObjectDialog.this.dispose();
+			}
+		});
+		
+		personList.addSelectionListener(new ListSelectionListener() {
+			
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				okButton.setEnabled(true);
 			}
 		});
 	}

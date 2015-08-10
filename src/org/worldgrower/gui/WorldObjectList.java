@@ -25,6 +25,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.ListCellRenderer;
+import javax.swing.event.ListSelectionListener;
 
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
@@ -62,6 +63,10 @@ public class WorldObjectList extends JScrollPane {
 	
 	public void setSelectedIndex(int index) {
 		worldObjectList.setSelectedIndex(index);
+	}
+	
+	public void addSelectionListener(ListSelectionListener l) {
+		worldObjectList.getSelectionModel().addListSelectionListener(l);
 	}
 	
 	class ListRenderer extends JLabel implements ListCellRenderer<WorldObject> {
