@@ -115,6 +115,7 @@ public class WorldPanel extends JPanel {
         
         final JTextArea messageTextArea = new JTextArea(3, 30);
         messageTextArea.setEditable(false);
+        makeUnfocussable(messageTextArea);
         world.addListener((operation, performer, target, args, message) -> messageTextArea.setText(message.toString()));
         
         JLabel hpLabel = new JLabel("HP/HPmax    ");
@@ -127,6 +128,7 @@ public class WorldPanel extends JPanel {
         hpTextArea = new JTextArea(1, 10);
         hpTextArea.setEditable(false);
         hpTextArea.setEnabled(false);
+        makeUnfocussable(hpTextArea);
         infoPanel.add(hpTextArea);
         layout.putConstraint(SpringLayout.WEST, hpTextArea, 0, SpringLayout.EAST, messageTextArea);
         layout.putConstraint(SpringLayout.NORTH, hpTextArea, 0, SpringLayout.SOUTH, hpLabel);
@@ -141,6 +143,7 @@ public class WorldPanel extends JPanel {
         foodTextArea = new JTextArea(1, 10);
         foodTextArea.setEditable(false);
         foodTextArea.setEnabled(false);
+        makeUnfocussable(foodTextArea);
         infoPanel.add(foodTextArea);
         layout.putConstraint(SpringLayout.WEST, foodTextArea, 0, SpringLayout.WEST, foodLabel);
         layout.putConstraint(SpringLayout.NORTH, foodTextArea, 0, SpringLayout.SOUTH, foodLabel);
@@ -155,6 +158,7 @@ public class WorldPanel extends JPanel {
         waterTextArea = new JTextArea(1, 10);
         waterTextArea.setEditable(false);
         waterTextArea.setEnabled(false);
+        makeUnfocussable(waterTextArea);
         infoPanel.add(waterTextArea);
         layout.putConstraint(SpringLayout.WEST, waterTextArea, 0, SpringLayout.WEST, waterLabel);
         layout.putConstraint(SpringLayout.NORTH, waterTextArea, 0, SpringLayout.SOUTH, waterLabel);
@@ -169,6 +173,7 @@ public class WorldPanel extends JPanel {
         energyTextArea = new JTextArea(1, 10);
         energyTextArea.setEditable(false);
         energyTextArea.setEnabled(false);
+        makeUnfocussable(energyTextArea);
         infoPanel.add(energyTextArea);
         layout.putConstraint(SpringLayout.WEST, energyTextArea, 0, SpringLayout.WEST, energyLabel);
         layout.putConstraint(SpringLayout.NORTH, energyTextArea, 0, SpringLayout.SOUTH, energyLabel);
@@ -184,6 +189,11 @@ public class WorldPanel extends JPanel {
         
         this.playerCharacter = playerCharacter;
         this.world = world;
+    }
+    
+    private void makeUnfocussable(JComponent component) {
+    	component.setRequestFocusEnabled(false);
+    	component.setFocusable(false);
     }
     
     @Override
