@@ -6,16 +6,30 @@
   </head>
   <body>
     <h1>WorldGrower Developer Guide</h1>
-    <h2> Coding Standards</h2>
+    <a href="#Coding_Standards">Coding Standards</a><br>
+    <a href="#Changelog">Changelog</a><br>
+    <a href="#Commit_Messages">Commit Messages</a><br>
+    <a href="#Release">Release</a><br>
+    <a href="#Debugging">Debugging</a><br>
+    <a href="#Overview">Overview</a><br>
+    <a href="#Coding_Guidelines">Coding Guidelines</a><br>
+    <a href="#Adding_a_new_Action">Adding a new Action</a><br>
+    <a href="#Adding_a_new_WorldObject">Adding a new WorldObject</a><br>
+    <a href="#Adding_a_new_Goal">Adding a new Goal</a><br>
+    <a href="#Adding_a_new_Image">Adding a new Image</a><br>
+    <a href="#Adding_a_new_Conversation">Adding a new Conversation</a><br>
+    <h2><br>
+    </h2>
+    <h2><a name="Coding_Standards"></a>Coding Standards</h2>
     <br>
     Use the Java Coding conventions: <a
 href="http://www.oracle.com/technetwork/java/javase/documentation/codeconvtoc-136057.html">http://www.oracle.com/technetwork/java/javase/documentation/codeconvtoc-136057.html</a><br>
     <br>
-    <h2> Changelog</h2>
+    <h2> <a name="Changelog"></a>Changelog</h2>
     <br>
     When adding changes, be sure to update CHANGES file.<br>
     <br>
-    <h2>Commit Messages</h2>
+    <h2><a name="Commit_Messages"></a>Commit Messages</h2>
     <br>
     A good commit should not only contain good changes, but also include
     a helpful description of them for other developers, people tracking
@@ -23,21 +37,21 @@ href="http://www.oracle.com/technetwork/java/javase/documentation/codeconvtoc-13
     There are many style guides on the Web describing best practices for
     documenting your Git commits. <br>
     <br>
-    <h2>Release</h2>
+    <h2><a name="Release"></a>Release</h2>
     <br>
     WorldGrower is released with Gradle 2.0.<br>
     Download Gradle from <a href="https://gradle.org/gradle-download/">https://gradle.org/gradle-download/</a><br>
     <br>
     run 'gradle release' to create a release.<br>
     <br>
-    <h2>Debugging</h2>
+    <h2><a name="Debugging"></a>Debugging</h2>
     <br>
     To run in debug&nbsp; mode, start WorldGrower with -DDEBUG=true.<br>
     This allows to view the properties of each WorldObject.<br>
     This also gives access to the commoners overview screen and other
     debug screens.<br>
     <br>
-    <h2>Overview</h2>
+    <h2><a name="Overview"></a>Overview</h2>
     A WorldObject represents an object in the World and has properties.<br>
     Properties such as hit points, gold, name, etc.<br>
     All properties are declared in the Constants class and have types
@@ -50,6 +64,7 @@ href="http://www.oracle.com/technetwork/java/javase/documentation/codeconvtoc-13
     on other WorldObjects.<br>
     For example: person performs CutWoodAction on Tree<br>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
     person performs TalkAction with other person<br>
     <br>
     An intelligent WorldObject uses Goal instances to further its goals.<br>
@@ -57,11 +72,11 @@ href="http://www.oracle.com/technetwork/java/javase/documentation/codeconvtoc-13
     The Goal instances at the beginning of those multiple Goal instances
     have a higher priority than the ones at the end.<br>
     <br>
-    <h2>Coding Guidelines</h2>
+    <h2><a name="Coding_Guidelines"></a>Coding Guidelines</h2>
     <br>
     under construction<br>
     <br>
-    <h2>Adding a new Action</h2>
+    <h2><a name="Adding_a_new_Action"></a>Adding a new Action</h2>
     <br>
     Adding a new Action/ManagedOperation is as follows:<br>
     Create a class implementing ManagedOperation or its subinterfaces
@@ -118,7 +133,11 @@ href="http://www.oracle.com/technetwork/java/javase/documentation/codeconvtoc-13
     added to the GuiMouseListener class,<br>
     so that it appears in the popup menu.<br>
     <br>
-    <h2>Adding a new WorldObject</h2>
+    Once an action has been added, it's best to create one or Goals that
+    use the action.<br>
+    That way, intelligent WorldObjects can also use the new action.<br>
+    <br>
+    <h2><a name="Adding_a_new_WorldObject"></a>Adding a new WorldObject</h2>
     A new WorldObject probably requires some new properties<br>
     New properties can be added to the Constants class.<br>
     <br>
@@ -140,7 +159,7 @@ href="http://www.oracle.com/technetwork/java/javase/documentation/codeconvtoc-13
     In that package are several classes that generate new WorldObjects
     like PlantGenerator or ItemGenerator.<br>
     <br>
-    <h2>Adding a new Goal</h2>
+    <h2><a name="Adding_a_new_Goal"></a>Adding a new Goal</h2>
     Create a new class under org.worldgrower.goal that implements the
     Goal interface.<br>
     <br>
@@ -181,9 +200,53 @@ href="http://www.oracle.com/technetwork/java/javase/documentation/codeconvtoc-13
     If someone does something which lowers this number, the person for
     which this goal is meant becomes unhappy.<br>
     <br>
-    <h2>Adding a new Image</h2>
+    Once the class is implemented, it can be added to the Goals class.<br>
+    After that, the constant in the Goals class can be added to other
+    classes that provide Goals like<br>
+    &nbsp;&nbsp;&nbsp; - CommonerWorldEvaluationFunction<br>
+    &nbsp;&nbsp;&nbsp; - any of the Profession implementations if the
+    Goal is related to a profession<br>
+    <br>
+    <h2><a name="Adding_a_new_Image"></a>Adding a new Image</h2>
     <br>
     Adding a new image means adding a new entry to ImageIds<br>
     and add the code to read in the image to ImageInfoReader.<br>
+    <br>
+    <h2><a name="Adding_a_new_Conversation"></a>Adding a new
+      Conversation</h2>
+    <br>
+    Create a class under org.worldgrower.conversation or its subpackages
+    that implements Conversation.<br>
+    <br>
+    The method <u>getQuestionPhrases</u> returns&nbsp; possible
+    Questions for this conversation.<br>
+    A Question contains a questionPhrase, the text that is actually
+    presented to the target.<br>
+    It also contains a subject, which is a WorldObject that is sent to
+    the target when it has to reply.<br>
+    It contains a similar field for HistoryItem, for when the conversion
+    discusses an event that has happened.<br>
+    And an additionalValue in case a Question needs it.<br>
+    <br>
+    The method <u>getReplyPhrase</u> returns a response, in case the
+    question is asked to an intelligent WorldObject.<br>
+    It's best to use the default method <u>getReply</u> like this:<br>
+    final int replyId = ...;<br>
+    return getReply(getReplyPhrases(conversationContext), replyId);<br>
+    That way the replyPhrases aren't duplicated accross methods.<br>
+    <br>
+    The method <u>getReplyPhrases </u>returns multiple Responses.<br>
+    Each Response has an id, which is the replyId used in the method <u>getReplyPhras</u><u>e</u>.<br>
+    A response has the same fields as a question inclusing the
+    historyItem and the subject.<br>
+    It also has a boolean isPossible which indicates whether the
+    Response is possible.<br>
+    <br>
+    The method <u>isConversationAvailable </u>indicates whether the
+    conversation is available.<br>
+    <br>
+    The method <u>getDescription </u>describes the Conversation as if
+    "I'm" is put before the description.<br>
+    For example: I'm talking about my name<br>
   </body>
 </html>
