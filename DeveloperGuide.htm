@@ -34,6 +34,156 @@ href="http://www.oracle.com/technetwork/java/javase/documentation/codeconvtoc-13
     <br>
     To run in debug&nbsp; mode, start WorldGrower with -DDEBUG=true.<br>
     This allows to view the properties of each WorldObject.<br>
-    This also gives access to the commoners overview screen.<br>
+    This also gives access to the commoners overview screen and other
+    debug screens.<br>
+    <br>
+    <h2>Overview</h2>
+    A WorldObject represents an object in the World and has properties.<br>
+    Properties such as hit points, gold, name, etc.<br>
+    All properties are declared in the Constants class and have types
+    like integer, String, List of ids, etc.<br>
+    <br>
+    Each WorldObject has a unique id, an int with which can be given to
+    World instance to retrieve it.<br>
+    <br>
+    Each intelligent WorldObject can perform actions (ManagedOperation)
+    on other WorldObjects.<br>
+    For example: person performs CutWoodAction on Tree<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    person performs TalkAction with other person<br>
+    <br>
+    An intelligent WorldObject uses Goal instances to further its goals.<br>
+    It uses WorldObjectPriorities to return multiple Goal instances.<br>
+    The Goal instances at the beginning of those multiple Goal instances
+    have a higher priority than the ones at the end.<br>
+    <br>
+    <h2>Coding Guidelines</h2>
+    <br>
+    under construction<br>
+    <br>
+    <h2>Adding a new Action</h2>
+    <br>
+    Adding a new Action/ManagedOperation is as follows:<br>
+    Create a class implementing ManagedOperation or its subinterfaces
+    under org.worldgrower.actions or subpackages.<br>
+    There are several interfaces that extend ManagedOperation:<br>
+    &nbsp;&nbsp;&nbsp; - MagicSpell for magic spells<br>
+    &nbsp;&nbsp;&nbsp; - BuildAction for actions that build something<br>
+    <br>
+    The <u>execute</u> method changes properties in performer and
+    target<br>
+    <br>
+    The <u>isValidTarget</u> method indicates what properties a target
+    should have so that this<br>
+    action can be executed on it. Nothing should be assumed about any
+    properties the target has.<br>
+    So it's best to check with WorldObject::hasProperty.<br>
+    <br>
+    The <u>distance</u> method determine whether the circumstances are
+    correct to execute the action.<br>
+    This includes circumstances like location, having certain items in
+    the inventory, etc.<br>
+    When the distance is 0, the action can be executed.<br>
+    When the distance is not 0, the action cannot be executed.<br>
+    This method is used when executing a method, and also in the
+    pathfinding algorithm A*.<br>
+    When the performer needs to be next the target, it's recommended to
+    use the Reach class.<br>
+    <br>
+    The <u>getArgumentRanges</u> method returns ranges for the int[]
+    args argument of the execute.<br>
+    At this moment, the code only checks whether there are arguments or
+    not.<br>
+    This has implications for the user interface, as methods without
+    argument ranges can be called automatically.<br>
+    For actions that expect int[] args, the user interface needs a way
+    for the user to pass them along.<br>
+    <br>
+    The <u>getSimpleDescription</u> method describes the action in a
+    simple command.<br>
+    <br>
+    The <u>getDescription</u> method describes the action as it is used
+    in a sentence like:<br>
+    "She was " + action.getDescription()<br>
+    So for example: "cutting wood", "talking to Adela", etc.<br>
+    <br>
+    The readResolve needs needs to be present in order for serialization
+    to work.<br>
+    <br>
+    When the class is implemented, it needs to be added to the Actions
+    class,<br>
+    both as a constant and added to other similar actions.<br>
+    <br>
+    If the action has int[] args and ArgumentRanges, it needs to be
+    added to the GuiMouseListener class,<br>
+    so that it appears in the popup menu.<br>
+    <br>
+    <h2>Adding a new WorldObject</h2>
+    A new WorldObject probably requires some new properties<br>
+    New properties can be added to the Constants class.<br>
+    <br>
+    When a WorldObject points to another worldObject, it usually uses
+    the id.<br>
+    That's why there are types like IdList, IdMap, etc.<br>
+    WorldObject are sometimes deep copied, which is trickier with direct
+    references to other WorldObject instances.<br>
+    <br>
+    A WorldObject can have references to WorldObject instances that
+    don't have an id.<br>
+    Inventory items are examples of WorldObject instances that don't
+    have an id.<br>
+    That's because the World instance doesn't directly contain them.<br>
+    A WorldObject with an inventory property contains them.<br>
+    <br>
+    The method that creates the new WorldObject is placed in the
+    org.worldgrower.generator package.<br>
+    In that package are several classes that generate new WorldObjects
+    like PlantGenerator or ItemGenerator.<br>
+    <br>
+    <h2>Adding a new Goal</h2>
+    Create a new class under org.worldgrower.goal that implements the
+    Goal interface.<br>
+    <br>
+    The method <u>calculateGoal</u> returns an OperationInfo instance
+    which best describes how to attain the goal.<br>
+    It shouldn't change any state in WorldObjects or elsewhere.<br>
+    The Goal can depend on subgoals, for example when inventory items
+    are needed.<br>
+    The calculateGoal method should test whether anything is missing,
+    and if it is, return subgoals.<br>
+    If there is no way for the goal to be attained, null can be
+    returned.<br>
+    <br>
+    The method <u>goalMetOrNot </u>is used to record whether some
+    demands aren't being met.<br>
+    For example: if the food goal isn't met, it can be added to the
+    demands property.<br>
+    The demands property is used to determine what goods are in demand,
+    <br>
+    and is used when intelligent WorldObjects choose a profession.<br>
+    <br>
+    The method <u>isGoalMet </u>indicates whether this goal is being
+    met.<br>
+    If it isn't being met, the calculateGoal method is called.<br>
+    <br>
+    Normally one goal is finished before the next goal is started.<br>
+    If the method <u>isUrgentGoalMet</u> returns false, the current
+    goal is aborted and the urgent goal is calculated.<br>
+    <br>
+    The method <u>getDescription</u> retrun a description of the goal
+    like:<br>
+    "I'm" + getDescription<br>
+    For example: I'm looking for food<br>
+    <br>
+    The <u>evaluate</u> method indicates how much success there is in
+    attaining the goal.<br>
+    A higher number is better.<br>
+    If someone does something which lowers this number, the person for
+    which this goal is meant becomes unhappy.<br>
+    <br>
+    <h2>Adding a new Image</h2>
+    <br>
+    Adding a new image means adding a new entry to ImageIds<br>
+    and add the code to read in the image to ImageInfoReader.<br>
   </body>
 </html>
