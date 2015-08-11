@@ -14,11 +14,8 @@
  *******************************************************************************/
 package org.worldgrower.condition;
 
-import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.creaturetype.CreatureType;
-import org.worldgrower.curse.Curse;
 
 public class VampireBiteCondition implements Condition {
 
@@ -42,9 +39,12 @@ public class VampireBiteCondition implements Condition {
 		int currentTurn = world.getCurrentTurn().getValue();
 		
 		if (currentTurn - startTurn > 500) {
-			worldObject.setProperty(Constants.VAMPIRE_BLOOD_LEVEL, 0);
-			worldObject.setProperty(Constants.CREATURE_TYPE, CreatureType.UNDEAD_CREATURE_TYPE);
-			worldObject.setProperty(Constants.CURSE, Curse.VAMPIRE_CURSE);
+			VampireUtils.vampirizePerson(worldObject);
 		}
+	}
+	
+	@Override
+	public boolean isDisease() {
+		return true;
 	}
 }

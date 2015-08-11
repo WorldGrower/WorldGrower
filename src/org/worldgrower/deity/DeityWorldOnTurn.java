@@ -12,34 +12,18 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.condition;
+package org.worldgrower.deity;
 
 import org.worldgrower.World;
-import org.worldgrower.WorldObject;
+import org.worldgrower.WorldOnTurn;
 
-public class CocoonedCondition implements Condition {
-
-	@Override
-	public boolean canTakeAction() {
-		return false;
-	}
+public class DeityWorldOnTurn implements WorldOnTurn {
 
 	@Override
-	public boolean canMove() {
-		return false;
-	}
+	public void onTurn(World world) {
 
-	@Override
-	public String getDescription() {
-		return "cocooned";
-	}
-
-	@Override
-	public void onTurn(WorldObject worldObject, World world, int startTurn) {
-	}
-	
-	@Override
-	public boolean isDisease() {
-		return false;
+		for(Deity deity : Deity.ALL_DEITIES) {
+			deity.onTurn(world);
+		}
 	}
 }

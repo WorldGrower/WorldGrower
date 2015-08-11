@@ -35,6 +35,7 @@ import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.curse.CurseListener;
+import org.worldgrower.deity.DeityWorldOnTurn;
 import org.worldgrower.generator.CommonerGenerator;
 import org.worldgrower.generator.CommonerOnTurn;
 import org.worldgrower.generator.CreatureGenerator;
@@ -54,7 +55,7 @@ public class Main {
 
 	public static void run(String playerName, String playerProfession, int worldWidth, int worldHeight, int enemyDensity, int villagerCount, int seed, CharacterAttributes characterAttributes) throws Exception {
 		DungeonMaster dungeonMaster = new DungeonMaster();
-		World world = new WorldImpl(worldWidth, worldHeight, dungeonMaster);
+		World world = new WorldImpl(worldWidth, worldHeight, dungeonMaster, new DeityWorldOnTurn());
 		int playerCharacterId = world.generateUniqueId();
 		
 		final CommonerImageIds commonerImageIds = new CommonerImageIds();
@@ -88,7 +89,7 @@ public class Main {
 	}
 	
 	public static void load(File fileToLoad) {
-		DungeonMaster dungeonMaster = new DungeonMaster();//TODO: turn state will be lost
+		DungeonMaster dungeonMaster = new DungeonMaster();
 		World world = WorldImpl.load(fileToLoad);
 		final WorldObject playerCharacter = world.findWorldObject(Constants.ID, 0);
 		

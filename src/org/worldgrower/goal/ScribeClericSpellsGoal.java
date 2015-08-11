@@ -26,14 +26,13 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.actions.BuildLibraryAction;
 import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.WorldObjectContainer;
 
 public class ScribeClericSpellsGoal implements Goal {
 
-	private final List<MagicSpell> CLERIC_SPELLS = Arrays.asList(Actions.MINOR_HEAL_ACTION);
+	private final List<MagicSpell> CLERIC_SPELLS = Arrays.asList(Actions.MINOR_HEAL_ACTION, Actions.CURE_DISEASE_ACTION);
 	
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {

@@ -14,6 +14,7 @@
  *******************************************************************************/
 package org.worldgrower.generator;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -40,7 +41,7 @@ import org.worldgrower.curse.Curse;
 import org.worldgrower.gui.CommonerImageIds;
 import org.worldgrower.gui.ImageIds;
 
-public class CommonerGenerator {
+public class CommonerGenerator implements Serializable {
 
 	private final Random random;
 	private final CommonerImageIds commonerImageIds;

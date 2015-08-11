@@ -37,7 +37,7 @@ public class UTestTaskCalculator {
 	public void testPathFindingNoObstacle() {
 		WorldObject performer = createWorldObject(5, 5, 1, 1);
 		WorldObject target = createWorldObject(2, 2, 1, 1);
-		World world = new WorldImpl(10, 10, null);
+		World world = createWorld();
 		world.addWorldObject(performer);
 		world.addWorldObject(target);
 		List<OperationInfo> tasks = taskCalculator.calculateTask(performer, world, new OperationInfo(performer, target, new int[0], new CutWoodAction()));
@@ -47,13 +47,17 @@ public class UTestTaskCalculator {
 		assertContains(tasks.get(1).toString(), "args=[-1, -1]");
 		assertContains(tasks.get(2).toString(), CutWoodAction.class.getName());
 	}
+
+	private WorldImpl createWorld() {
+		return new WorldImpl(10, 10, null, null);
+	}
 	
 	@Test
 	public void testPathFindingObstacle() {
 		WorldObject performer = createWorldObject(5, 5, 1, 1);
 		WorldObject target = createWorldObject(2, 2, 1, 1);
 		WorldObject obstacle = createWorldObject(3, 3, 1, 1);
-		World world = new WorldImpl(10, 10, null);
+		World world = createWorld();
 		world.addWorldObject(performer);
 		world.addWorldObject(target);
 		world.addWorldObject(obstacle);
@@ -73,7 +77,7 @@ public class UTestTaskCalculator {
 		WorldObject obstacle1 = createWorldObject(1, 3, 1, 1);
 		WorldObject obstacle2 = createWorldObject(2, 3, 1, 1);
 		WorldObject obstacle3 = createWorldObject(3, 3, 1, 1);
-		World world = new WorldImpl(10, 10, null);
+		World world = createWorld();
 		world.addWorldObject(performer);
 		world.addWorldObject(target);
 		world.addWorldObject(obstacle1);
@@ -95,7 +99,7 @@ public class UTestTaskCalculator {
 		WorldObject obstacle1 = createWorldObject(0, 7, 2, 2);
 		WorldObject obstacle2 = createWorldObject(1, 9, 2, 2);
 
-		World world = new WorldImpl(15, 15, null);
+		World world = new WorldImpl(15, 15, null, null);
 		world.addWorldObject(performer);
 		world.addWorldObject(target);
 		world.addWorldObject(obstacle1);

@@ -14,32 +14,21 @@
  *******************************************************************************/
 package org.worldgrower.condition;
 
+import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.creaturetype.CreatureType;
+import org.worldgrower.curse.Curse;
 
-public class CocoonedCondition implements Condition {
+public class VampireUtils {
 
-	@Override
-	public boolean canTakeAction() {
-		return false;
-	}
-
-	@Override
-	public boolean canMove() {
-		return false;
-	}
-
-	@Override
-	public String getDescription() {
-		return "cocooned";
-	}
-
-	@Override
-	public void onTurn(WorldObject worldObject, World world, int startTurn) {
+	public static void vampirizePerson(WorldObject worldObject) {
+		worldObject.setProperty(Constants.VAMPIRE_BLOOD_LEVEL, 0);
+		worldObject.setProperty(Constants.CREATURE_TYPE, CreatureType.UNDEAD_CREATURE_TYPE);
+		worldObject.setProperty(Constants.CURSE, Curse.VAMPIRE_CURSE);
 	}
 	
-	@Override
-	public boolean isDisease() {
-		return false;
+	public static int getVampireCount(World world) {
+		return world.findWorldObjects(w -> w.hasProperty(Constants.CURSE) && w.getProperty(Constants.CURSE) == Curse.VAMPIRE_CURSE).size();
 	}
 }

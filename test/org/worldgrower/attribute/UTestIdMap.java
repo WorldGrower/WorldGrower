@@ -39,7 +39,7 @@ public class UTestIdMap {
 	@Test
 	public void testFindBestId() {
 		IdMap idMap = new IdToIntegerMap();
-		World world = new WorldImpl(0, 0, null);
+		World world = new WorldImpl(0, 0, null, null);
 		
 		WorldObject person1 = TestUtils.createIntelligentWorldObject(1, Constants.GOLD, 10);
 		WorldObject person2 = TestUtils.createIntelligentWorldObject(2, Constants.GOLD, 0);

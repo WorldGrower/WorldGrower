@@ -32,7 +32,7 @@ public class UTestBackgroundImpl {
 	@Test
 	public void testPerformerWasAttacked() {
 		Background background = new BackgroundImpl();
-		World world = new WorldImpl(10, 10, null);
+		World world = new WorldImpl(10, 10, null, null);
 		
 		
 		WorldObject performer = createWorldObject(0, "Tom");

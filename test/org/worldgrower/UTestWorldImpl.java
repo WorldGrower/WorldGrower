@@ -29,7 +29,7 @@ public class UTestWorldImpl {
 	private World world;
 	
 	public UTestWorldImpl() {
-		world = new WorldImpl(0, 0, null);
+		world = createWorld();
 		WorldObject worldObject = TestUtils.createWorldObject(6, "test");
 		world.addWorldObject(worldObject);
 	}
@@ -50,7 +50,7 @@ public class UTestWorldImpl {
 	
 	@Test
 	public void testRemoveWorldObject() {
-		World world = new WorldImpl(0, 0, null);
+		World world = createWorld();
 		WorldObject worldObject = TestUtils.createWorldObject(6, "test");
 		world.addWorldObject(worldObject);
 		
@@ -62,7 +62,7 @@ public class UTestWorldImpl {
 	
 	@Test
 	public void testRemoveDependentWorldObject() {
-		World world = new WorldImpl(0, 0, null);
+		World world = createWorld();
 		WorldObject house = TestUtils.createWorldObject(6, "test");
 		WorldObject person = TestUtils.createIntelligentWorldObject(7, Constants.HOUSE_ID, 6);
 		
@@ -78,7 +78,7 @@ public class UTestWorldImpl {
 	@Test
 	public void testSaveLoad() throws IOException {
 		File fileToSave = File.createTempFile("worldgrower", ".sav");
-		World world = new WorldImpl(0, 0, null);
+		World world = createWorld();
 		WorldObject house = TestUtils.createWorldObject(6, "test");
 		WorldObject person = TestUtils.createIntelligentWorldObject(7, Constants.HOUSE_ID, 6);
 		
@@ -97,11 +97,15 @@ public class UTestWorldImpl {
 	@Test
 	public void testIdHigherThan128() {
 		// this test is for java Integer caching, see http://stackoverflow.com/questions/3131136/integers-caching-in-java
-		World world = new WorldImpl(0, 0, null);
+		World world = createWorld();
 		for(int i=0; i<300; i++) {
 			int id = world.generateUniqueId();
 			world.addWorldObject(TestUtils.createWorldObject(id, "test"));
 		}
 		assertEquals(290, world.findWorldObject(Constants.ID, 290).getProperty(Constants.ID).intValue());
+	}
+
+	private WorldImpl createWorld() {
+		return new WorldImpl(0, 0, null, null);
 	}
 }

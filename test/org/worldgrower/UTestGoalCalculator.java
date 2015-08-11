@@ -40,7 +40,7 @@ public class UTestGoalCalculator {
 	public void testCalculateGoal() {
 		TestWorldObjectPriorities worldObjectPriorities = new TestWorldObjectPriorities(Arrays.asList(new TestGoal()));
 		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.FOOD, 1000, worldObjectPriorities);
-		World world = new WorldImpl(10, 10, null);
+		World world = new WorldImpl(10, 10, null, null);
 		List<Goal> triedGoals = new ArrayList<>();
 		
 		GoalAndOperationInfo goalAndOperationInfo = goalCalculator.calculateGoal(performer, world, triedGoals);
@@ -51,7 +51,7 @@ public class UTestGoalCalculator {
 	public void testMoreUrgentImportantGoalIsNotMet() {
 		TestWorldObjectPriorities worldObjectPriorities = new TestWorldObjectPriorities(Arrays.asList(new TestGoal()));
 		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.FOOD, 1000, worldObjectPriorities);
-		World world = new WorldImpl(10, 10, null);
+		World world = new WorldImpl(10, 10, null, null);
 		Goal currentGoal = new TestGoal();
 		
 		assertEquals(true, goalCalculator.moreUrgentImportantGoalIsNotMet(performer, world, currentGoal));

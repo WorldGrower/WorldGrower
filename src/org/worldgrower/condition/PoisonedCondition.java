@@ -39,4 +39,9 @@ public class PoisonedCondition implements Condition {
 	public void onTurn(WorldObject worldObject, World world, int startTurn) {
 		worldObject.increment(Constants.HIT_POINTS, -5);
 	}
+	
+	@Override
+	public boolean isDisease() {
+		return false;
+	}
 }

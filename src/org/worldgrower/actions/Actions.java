@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.actions.magic.AnimateDeadAction;
+import org.worldgrower.actions.magic.CureDiseaseAction;
 import org.worldgrower.actions.magic.CurePoisonAction;
 import org.worldgrower.actions.magic.FireBoltAttackAction;
 import org.worldgrower.actions.magic.MagicSpell;
@@ -90,6 +91,8 @@ public class Actions {
 	public static final CreateOrganizationAction CREATE_ORGANIZATION_ACTION = new CreateOrganizationAction();
 	public static final MinorHealAction MINOR_HEAL_ACTION = new MinorHealAction();
 	public static final CurePoisonAction CURE_POISON_ACTION = new CurePoisonAction();
+	public static final CureDiseaseAction CURE_DISEASE_ACTION = new CureDiseaseAction();
+	
 	public static final BuildLibraryAction BUILD_LIBRARY_ACTION = new BuildLibraryAction();
 	public static final ResearchReligionSkillAction RESEARCH_RELIGION_SKILL_ACTION = new ResearchReligionSkillAction();
 	public static final ResearchIllusionSkillAction RESEARCH_ILLUSION_SKILL_ACTION = new ResearchIllusionSkillAction();
@@ -128,7 +131,8 @@ public class Actions {
 			FIRE_BOLT_ATTACK_ACTION, 
 			RAY_OF_FROST_ATTACK_ACTION, 
 			CURE_POISON_ACTION,
-			ANIMATE_DEAD_ACTION);
+			ANIMATE_DEAD_ACTION,
+			CURE_DISEASE_ACTION);
 	
 	public static final List<ManagedOperation> ALL_ACTIONS = new ArrayList<>(Arrays.asList(
 		MOVE_ACTION,

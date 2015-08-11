@@ -37,7 +37,7 @@ public class UTestWorldGenerator {
 	@Test
 	public void testAddWorldObjects() {
 		WorldGenerator worldGenerator = new WorldGenerator(0);
-		World world = new WorldImpl(10, 10, null);
+		World world = new WorldImpl(10, 10, null, null);
 		AddWorldObjectFunctionImpl addWorldObjectFunction = new AddWorldObjectFunctionImpl();
 		worldGenerator.addWorldObjects(world, 10, 10, 1, TerrainType.GRASLAND, addWorldObjectFunction);
 		

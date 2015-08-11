@@ -48,6 +48,7 @@ public interface World {
 	public Goal getGoal(WorldObject worldObject);
 	public OperationInfo getImmediateGoal(WorldObject worldObject, World world);
 	public Turn getCurrentTurn();
+	public void nextTurn();
 	
 	public History getHistory();
 	public void save(File fileToSave);

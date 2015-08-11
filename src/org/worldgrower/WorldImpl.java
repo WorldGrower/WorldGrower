@@ -45,14 +45,17 @@ public class WorldImpl implements World, Serializable {
 	private final Terrain terrain;
 	private final DungeonMaster dungeonMaster;
 	private final History history = new HistoryImpl();
+	private Turn currentTurn = new Turn();
+	private final WorldOnTurn worldOnTurn;
 	
-	public WorldImpl(int width, int height, DungeonMaster dungeonMaster) {
-		this(new TerrainImpl(width, height), dungeonMaster);
+	public WorldImpl(int width, int height, DungeonMaster dungeonMaster, WorldOnTurn worldOnTurn) {
+		this(new TerrainImpl(width, height), dungeonMaster, worldOnTurn);
 	}
 	
-	private WorldImpl(Terrain terrain, DungeonMaster dungeonMaster) {
+	private WorldImpl(Terrain terrain, DungeonMaster dungeonMaster, WorldOnTurn worldOnTurn) {
 		this.terrain = terrain;
 		this.dungeonMaster = dungeonMaster;
+		this.worldOnTurn = worldOnTurn;
 	}
 
 	@Override
@@ -193,6 +196,12 @@ public class WorldImpl implements World, Serializable {
 	
 	@Override
 	public Turn getCurrentTurn() {
-		return dungeonMaster.getCurrentTurn();
+		return currentTurn;
+	}
+
+	@Override
+	public void nextTurn() {
+		worldOnTurn.onTurn(this);
+		currentTurn = currentTurn.next();
 	}
 }

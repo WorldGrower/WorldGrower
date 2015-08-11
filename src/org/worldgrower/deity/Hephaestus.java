@@ -60,4 +60,8 @@ public class Hephaestus implements Deity {
 		
 		return -1;
 	}
+	
+	@Override
+	public void onTurn(World world) {
+	}
 }

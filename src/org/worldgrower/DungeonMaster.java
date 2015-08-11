@@ -33,8 +33,6 @@ public class DungeonMaster implements Serializable {
 	private final GoalCalculator goalCalculator = new GoalCalculator();
 	private TaskCalculator taskCalculator = new TaskCalculatorImpl();
 	
-	private Turn currentTurn = new Turn();
-	
 	public void runWorld(World world) {
 		//TODO: removed WorldObjects shouldn't be iterated anymore
 		List<WorldObject> worldObjects = new ArrayList<>(world.getWorldObjects());
@@ -46,7 +44,7 @@ public class DungeonMaster implements Serializable {
 			
 			worldObject.onTurn(world);
 		}
-		currentTurn = currentTurn.next();
+		world.nextTurn();
 	}
 	
 	private void runWorldObject(WorldObject worldObject, World world) {
@@ -80,7 +78,7 @@ public class DungeonMaster implements Serializable {
 		}
 		
 		OperationInfo operationInfo = metaInformation.getCurrentTask().poll();
-		operationInfo.perform(world, currentTurn);
+		operationInfo.perform(world);
 	}
 	
 	private boolean isDeceivedByWorldFacade(OperationInfo operationInfo, WorldObject worldObject, World world, World worldFacade) {
@@ -162,7 +160,7 @@ public class DungeonMaster implements Serializable {
 	}
 
 	public void executeAction(ManagedOperation action, WorldObject performer, WorldObject target, int[] args, World world) {
-		new OperationInfo(performer, target, args, action).perform(world, currentTurn);
+		new OperationInfo(performer, target, args, action).perform(world);
 	}
 	
 	public Goal getGoal(WorldObject worldObject) {
@@ -185,9 +183,5 @@ public class DungeonMaster implements Serializable {
 	
 	void setTaskCalculator(TaskCalculator taskCalculator) {
 		this.taskCalculator = taskCalculator;
-	}
-
-	public Turn getCurrentTurn() {
-		return currentTurn;
 	}
 }

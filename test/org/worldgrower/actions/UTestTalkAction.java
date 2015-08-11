@@ -112,7 +112,7 @@ public class UTestTalkAction {
 	}
 	
 	private World createWorld() {
-		World world = new WorldImpl(0, 0, dungeonMaster);
+		World world = new WorldImpl(0, 0, dungeonMaster, null);
 		world.addWorldObject(performer);
 		world.addWorldObject(target);
 		world.addWorldObject(deity);

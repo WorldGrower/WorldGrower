@@ -37,17 +37,21 @@ public class UTestGoalUtils {
 
 	@Test
 	public void testIsOpenSpace() {
-		World world = new WorldImpl(10, 10, null);
+		World world = createWorld();
 		world.addWorldObject(TestUtils.createWorldObject(3, 3, 1, 1));
 		
 		assertTrue(GoalUtils.isOpenSpace(0, 0, 2, 2, world));
 		assertFalse(GoalUtils.isOpenSpace(3, 3, 1, 1, world));
 		assertFalse(GoalUtils.isOpenSpace(2, 2, 2, 2, world));
 	}
+
+	private WorldImpl createWorld() {
+		return new WorldImpl(10, 10, null, null);
+	}
 	
 	@Test
 	public void testFindOpenSpace() {
-		World world = new WorldImpl(10, 10, null);
+		World world = createWorld();
 		WorldObject performer = TestUtils.createWorldObject(3, 3, 1, 1);
 		world.addWorldObject(performer);
 		int[] position = GoalUtils.findOpenSpace(performer, 1, 1, world);
@@ -59,7 +63,7 @@ public class UTestGoalUtils {
 	
 	@Test
 	public void testFindNearestTarget() {
-		World world = new WorldImpl(10, 10, null);
+		World world = createWorld();
 		WorldObject performer = TestUtils.createWorldObject(3, 3, 1, 1);
 		world.addWorldObject(performer);
 		
@@ -74,7 +78,7 @@ public class UTestGoalUtils {
 	
 	@Test
 	public void testFindNearestTargetNoTarget() {
-		World world = new WorldImpl(10, 10, null);
+		World world = createWorld();
 		WorldObject performer = TestUtils.createWorldObject(3, 3, 1, 1);
 		world.addWorldObject(performer);
 		
@@ -85,7 +89,7 @@ public class UTestGoalUtils {
 	
 	@Test
 	public void testfindNearestTargets() {
-		World world = new WorldImpl(10, 10, null);
+		World world = createWorld();
 		WorldObject performer = TestUtils.createWorldObject(3, 3, 1, 1);
 		world.addWorldObject(performer);
 		
@@ -101,7 +105,7 @@ public class UTestGoalUtils {
 	
 	@Test
 	public void testActionAlreadyPerformed() {
-		World world = new WorldImpl(0, 0, null);
+		World world = createWorld();
 		WorldObject performer = TestUtils.createIntelligentWorldObject(6, Constants.CREATURE_TYPE, CreatureType.HUMAN_CREATURE_TYPE);
 		world.addWorldObject(performer);
 		WorldObject target = TestUtils.createIntelligentWorldObject(7, Constants.CREATURE_TYPE, CreatureType.HUMAN_CREATURE_TYPE);
@@ -117,7 +121,7 @@ public class UTestGoalUtils {
 	
 	@Test
 	public void testActionAlreadyPerformedMultipleTargets() {
-		World world = new WorldImpl(0, 0, null);
+		World world = createWorld();
 		WorldObject performer = TestUtils.createIntelligentWorldObject(6, Constants.CREATURE_TYPE, CreatureType.HUMAN_CREATURE_TYPE);
 		world.addWorldObject(performer);
 		WorldObject target = TestUtils.createIntelligentWorldObject(7, Constants.CREATURE_TYPE, CreatureType.HUMAN_CREATURE_TYPE);

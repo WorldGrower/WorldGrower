@@ -159,4 +159,9 @@ public class WorldFacade implements World {
 	public Turn getCurrentTurn() {
 		return world.getCurrentTurn();
 	}
+
+	@Override
+	public void nextTurn() {
+		throw new IllegalStateException("WorldFacade is read-only, cannot goto next turn");
+	}
 }

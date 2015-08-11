@@ -61,12 +61,12 @@ public class OperationInfo implements Serializable {
 		return managedOperation.isValidTarget(performer, target, world);
 	}
 	
-	public void perform(World world, Turn turn) {
+	public void perform(World world) {
 		GoalChangedCalculator goalChangedCalculator = new GoalChangedCalculator(new DefaultGoalObstructedHandler());
 		goalChangedCalculator.recordStartState(performer, target, world);
 		
 		managedOperation.execute(performer, target, args, world);
-		HistoryItem historyItem = world.getHistory().actionPerformed(this, turn);
+		HistoryItem historyItem = world.getHistory().actionPerformed(this, world.getCurrentTurn());
 		
 		removeDeadWorldObjects(world);
 		

@@ -29,6 +29,7 @@ public interface Deity extends Serializable {
 	public String getExplanation();
 	public List<String> getReasons();
 	public int getReasonIndex(WorldObject performer, World world);
+	public void onTurn(World world);
 	
 	public static final Demeter DEMETER = new Demeter();
 	public static final Hephaestus HEPHAESTUS = new Hephaestus();

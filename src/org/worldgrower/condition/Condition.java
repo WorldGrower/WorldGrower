@@ -29,6 +29,7 @@ public interface Condition extends Serializable {
 	public boolean canMove();
 	public String getDescription();
 	public void onTurn(WorldObject worldObject, World world, int startTurns);	
+	public boolean isDisease();
 	
 	public static final ParalyzedCondition PARALYZED_CONDITION = new ParalyzedCondition();
 	public static final CocoonedCondition COCOONED_CONDITION = new CocoonedCondition();

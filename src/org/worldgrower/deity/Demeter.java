@@ -82,5 +82,7 @@ public class Demeter implements Deity {
 		return false;
 	}
 	
-	
+	@Override
+	public void onTurn(World world) {
+	}
 }

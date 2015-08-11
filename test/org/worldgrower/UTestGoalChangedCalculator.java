@@ -26,7 +26,7 @@ public class UTestGoalChangedCalculator {
 		GoalChangedCalculator goalChangedCalculator = new GoalChangedCalculator(goalObstructedHandler);
 		WorldObject t1 = TestUtils.createWorldObject(0, "Test1");
 		WorldObject t2 = TestUtils.createWorldObject(0, "Test2");
-		World world = new WorldImpl(10, 10, null);
+		World world = new WorldImpl(10, 10, null, null);
 		
 		goalChangedCalculator.recordStartState(t1, t2, world);
 		goalChangedCalculator.recordEndState(t1, t2, null, null, world);

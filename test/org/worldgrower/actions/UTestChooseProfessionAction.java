@@ -70,7 +70,7 @@ public class UTestChooseProfessionAction {
 	
 	@Test
 	public void testGetProfessionEvaluationsByCompetition() {
-		World world = new WorldImpl(10, 10, null);
+		World world = new WorldImpl(10, 10, null, null);
 		world.addWorldObject(TestUtils.createIntelligentWorldObject(1, Constants.PROFESSION, Professions.FARMER_PROFESSION));
 
 		WorldObject performer = TestUtils.createWorldObject(1, "jobseeker");

@@ -32,7 +32,7 @@ public class UTestCollectTaxesGoal {
 	
 	@Test
 	public void testSortTargets() {
-		World world = new WorldImpl(10, 10, null);
+		World world = new WorldImpl(10, 10, null, null);
 		world.addWorldObject(TestUtils.createIntelligentWorldObject(1, Constants.HOUSE_ID, 3));
 		world.addWorldObject(TestUtils.createIntelligentWorldObject(2, Constants.HOUSE_ID, 4));
 		

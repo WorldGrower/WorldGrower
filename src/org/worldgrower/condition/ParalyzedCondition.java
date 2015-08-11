@@ -37,4 +37,9 @@ public class ParalyzedCondition implements Condition {
 	@Override
 	public void onTurn(WorldObject worldObject, World world, int startTurn) {
 	}
+	
+	@Override
+	public boolean isDisease() {
+		return false;
+	}
 }

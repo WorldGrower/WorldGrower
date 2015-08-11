@@ -42,16 +42,20 @@ public class UTestDungeonMaster {
 	
 	@Test
 	public void testGetImmediateGoalNoImmediateGoal() {
-		World world = new WorldImpl(10, 10, null);
+		World world = createWorld();
 		WorldObject worldObject = createWorldObject();
 		world.addWorldObject(worldObject);
 		
 		assertEquals(null, dungeonMaster.getImmediateGoal(worldObject, world));
 	}
 
+	private WorldImpl createWorld() {
+		return new WorldImpl(10, 10, null, null);
+	}
+
 	@Test
 	public void testGetImmediateGoalAnImmediateGoal() {
-		World world = new WorldImpl(10, 10, null);
+		World world = createWorld();
 		WorldObject worldObject = createWorldObject();
 		OperationInfo operationInfo = new OperationInfo(worldObject, worldObject, new int[0], Actions.CUT_WOOD_ACTION);
 		worldObject.getProperty(Constants.META_INFORMATION).setCurrentTask(Arrays.asList(operationInfo), GoalChangedReason.EMPTY_META_INFORMATION);
@@ -63,7 +67,7 @@ public class UTestDungeonMaster {
 	
 	@Test
 	public void testGetImmediateGoalFromHistory() {
-		World world = new WorldImpl(10, 10, null);
+		World world = createWorld();
 		WorldObject worldObject = createWorldObject();
 		world.addWorldObject(worldObject);
 		OperationInfo operationInfo = new OperationInfo(worldObject, worldObject, new int[0], Actions.CUT_WOOD_ACTION);
@@ -74,7 +78,7 @@ public class UTestDungeonMaster {
 	
 	@Test
 	public void testCalculateTasksWorldObjectCanMove() {
-		World world = new WorldImpl(10, 10, null);
+		World world = createWorld();
 		WorldObject worldObject = createWorldObject();
 		world.addWorldObject(worldObject);
 		OperationInfo immediateGoal = new OperationInfo(worldObject, worldObject, new int[0], Actions.CUT_WOOD_ACTION);
@@ -86,7 +90,7 @@ public class UTestDungeonMaster {
 	
 	@Test
 	public void testCalculateTasksWorldObjectCanNotMove() {
-		World world = new WorldImpl(10, 10, null);
+		World world = createWorld();
 		WorldObject worldObject = createWorldObject();
 		worldObject.setProperty(Constants.CURSE, Curse.SIREN_CURSE);
 		world.addWorldObject(worldObject);

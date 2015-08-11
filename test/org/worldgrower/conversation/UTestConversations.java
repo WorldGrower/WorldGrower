@@ -32,7 +32,7 @@ public class UTestConversations {
 	private Conversations conversations = new Conversations();
 	private WorldObject performer = TestUtils.createWorldObject(1, "test1");
 	private WorldObject target = TestUtils.createWorldObject(1, "test2");
-	private World world = new WorldImpl(10, 10, null);
+	private World world = new WorldImpl(10, 10, null, null);
 	
 	@Test
 	public void testCreateArgs() {

@@ -21,6 +21,8 @@ import java.util.List;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.condition.VampireUtils;
+import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.profession.Professions;
 
 public class Dionysus implements Deity {
@@ -52,5 +54,28 @@ public class Dionysus implements Deity {
 			return 0;
 		}
 		return -1;
+	}
+	
+	@Override
+	public void onTurn(World world) {
+		int currentTurn = world.getCurrentTurn().getValue();
+		int totalNumberOfWorshippers = DeityPropertyUtils.getTotalNumberOfWorshippers(world);
+		
+		if ((currentTurn % 1000 == 0) && (totalNumberOfWorshippers > 10) && (VampireUtils.getVampireCount(world) == 0)) {
+			List<WorldObject> targets = DeityPropertyUtils.getWorshippersFor(this, world);
+			final WorldObject target;
+			if (targets.size() > 0) {
+				target = targets.get(0);
+			} else {
+				List<WorldObject> allWorshippers = DeityPropertyUtils.getAllWorshippers(world);
+				
+				int indexOfChosenTarget = (int) (Math.random() * allWorshippers.size());
+				target = allWorshippers.get(indexOfChosenTarget);
+			}
+			
+			VampireUtils.vampirizePerson(target);
+		}
+		
+		
 	}
 }

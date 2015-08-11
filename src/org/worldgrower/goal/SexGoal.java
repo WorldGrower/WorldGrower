@@ -36,8 +36,10 @@ public class SexGoal implements Goal {
 		} else if (bestId != -1 && relationships.getValue(bestId) > 750) {
 			WorldObject target = world.findWorldObject(Constants.ID, bestId);
 			return new OperationInfo(performer, target, new int[0], Actions.SEX_ACTION);
-		} else {
+		} else if (bestId != -1) {
 			return new ImproveRelationshipGoal(bestId, 750, world).calculateGoal(performer, world);
+		} else {
+			return null;
 		}
 	}
 	

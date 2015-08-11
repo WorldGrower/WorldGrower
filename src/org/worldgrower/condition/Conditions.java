@@ -16,6 +16,7 @@ package org.worldgrower.condition;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -32,6 +33,16 @@ public class Conditions implements Serializable {
 	
 	public void removeCondition(Condition condition) {
 		conditions.remove(condition);
+	}
+	
+	public void removeAllDiseases() {
+		Iterator<Entry<Condition, ConditionInfo>> conditionIterator = conditions.entrySet().iterator();
+		while (conditionIterator.hasNext()) {
+			Entry<Condition, ConditionInfo> conditionEntry = conditionIterator.next();
+			if (conditionEntry.getKey().isDisease()) {
+				conditionIterator.remove();
+			}
+		}
 	}
 	
 	public boolean canTakeAction() {

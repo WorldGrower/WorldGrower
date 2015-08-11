@@ -12,34 +12,14 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.condition;
+package org.worldgrower;
 
-import org.worldgrower.World;
-import org.worldgrower.WorldObject;
+import java.io.Serializable;
 
-public class CocoonedCondition implements Condition {
+/**
+ * Each time a turn passes, the onTurn method is called to process ongoing effects.
+ */
+public interface WorldOnTurn extends Serializable {
 
-	@Override
-	public boolean canTakeAction() {
-		return false;
-	}
-
-	@Override
-	public boolean canMove() {
-		return false;
-	}
-
-	@Override
-	public String getDescription() {
-		return "cocooned";
-	}
-
-	@Override
-	public void onTurn(WorldObject worldObject, World world, int startTurn) {
-	}
-	
-	@Override
-	public boolean isDisease() {
-		return false;
-	}
+	public void onTurn(World world);
 }

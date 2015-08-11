@@ -49,4 +49,9 @@ public class BurningCondition implements Condition {
 			}
 		}
 	}
+
+	@Override
+	public boolean isDisease() {
+		return false;
+	}
 }
