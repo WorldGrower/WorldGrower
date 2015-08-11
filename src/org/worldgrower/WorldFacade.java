@@ -25,6 +25,10 @@ import org.worldgrower.history.History;
 import org.worldgrower.history.Turn;
 import org.worldgrower.terrain.Terrain;
 
+/**
+ * A WorldFacade is a filter over the original World.
+ * Illusions that aren't believed are filtered out from the World. 
+ */
 public class WorldFacade implements World {
 
 	private final WorldObject personViewingWorld;
