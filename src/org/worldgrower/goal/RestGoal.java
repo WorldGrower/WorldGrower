@@ -24,9 +24,9 @@ public class RestGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		if (performer.hasProperty(Constants.HOUSE_ID) && performer.getProperty(Constants.HOUSE_ID) != null) {
-			WorldObject target = world.findWorldObject(Constants.ID, performer.getProperty(Constants.HOUSE_ID));
-			return new OperationInfo(performer, target, new int[0], Actions.SLEEP_ACTION);
+		if (performer.hasProperty(Constants.HOUSES) && performer.getProperty(Constants.HOUSES) != null && performer.getProperty(Constants.HOUSES).size() > 0) {
+			WorldObject bestHouse = HousePropertyUtils.getBestHouse(performer, world);
+			return new OperationInfo(performer, bestHouse, new int[0], Actions.SLEEP_ACTION);
 		} else {
 			return new OperationInfo(performer, performer, new int[0], Actions.REST_ACTION);
 		}

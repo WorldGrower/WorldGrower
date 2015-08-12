@@ -32,6 +32,7 @@ public class Professions {
 	public static final GraveDiggerProfession GRAVE_DIGGER_PROFESSION = new GraveDiggerProfession(ALL_PROFESSIONS);
 	public static final TaxCollectorProfession TAX_COLLECTOR_PROFESSION = new TaxCollectorProfession(ALL_PROFESSIONS);
 	public static final WeaverProfession WEAVER_PROFESSION = new WeaverProfession(ALL_PROFESSIONS);
+	public static final CarpenterProfession CARPENTER_PROFESSION = new CarpenterProfession(ALL_PROFESSIONS);
 	
 	public static List<String> getDescriptions() {
 		return ALL_PROFESSIONS.stream().map(p -> p.getDescription()).collect(Collectors.toList());

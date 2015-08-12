@@ -118,7 +118,7 @@ public class CommonerGenerator implements Serializable {
 		properties.put(Constants.GOLD, 100);
 		properties.put(Constants.ORGANIZATION_GOLD, 0);
 		properties.put(Constants.PROFIT_PERCENTAGE, 0);
-		properties.put(Constants.HOUSE_ID, null);
+		properties.put(Constants.HOUSES, new IdList());
 		properties.put(Constants.GROUP, new IdList().add(organization));
 		
 		properties.put(Constants.DAMAGE, 8);

@@ -15,55 +15,36 @@
 package org.worldgrower.actions;
 
 import java.io.ObjectStreamException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.WorldObjectImpl;
-import org.worldgrower.attribute.ManagedProperty;
-import org.worldgrower.condition.Conditions;
+import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.goal.GoalUtils;
-import org.worldgrower.gui.ImageIds;
 
 public class BuildHouseAction implements BuildAction {
 
-	public static final String NAME = "house";
+	private static final int REQUIRED_STONE = 14;
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		int x = (Integer)target.getProperty(Constants.X);
 		int y = (Integer)target.getProperty(Constants.Y);
+	
+		int id = BuildingGenerator.generateHouse(x, y, world, SkillUtils.useSkill(performer, Constants.CARPENTRY_SKILL));
 		
-		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
-		properties.put(Constants.X, x);
-		properties.put(Constants.Y, y);
-		properties.put(Constants.WIDTH, 2);
-		properties.put(Constants.HEIGHT, 4);
-		properties.put(Constants.SLEEP_COMFORT, 5);
-		properties.put(Constants.NAME, NAME);
-		properties.put(Constants.ID, world.generateUniqueId());
-		properties.put(Constants.IMAGE_ID, ImageIds.HOUSE);
-		properties.put(Constants.FLAMMABLE, Boolean.TRUE);
-		properties.put(Constants.CONDITIONS, new Conditions());
-		properties.put(Constants.HIT_POINTS, 200);
-		properties.put(Constants.HIT_POINTS_MAX, 200);
-		properties.put(Constants.ARMOR, 0);
-		properties.put(Constants.DAMAGE_RESIST, 0);
-		
-		WorldObject house = new WorldObjectImpl(properties);
-		world.addWorldObject(house);
-		
-		Integer currentHouseId = performer.getProperty(Constants.HOUSE_ID);
-		if (currentHouseId != null) {
-			world.removeWorldObject(world.findWorldObjects(w -> w.getProperty(Constants.ID).intValue() == currentHouseId.intValue()).get(0));
+		List<Integer> currentHouseIds = performer.getProperty(Constants.HOUSES).getIds();
+		if (currentHouseIds.size() > 0) {
+			int currentHouseId = currentHouseIds.get(0);
+			world.removeWorldObject(world.findWorldObjects(w -> w.getProperty(Constants.ID).intValue() == currentHouseId && BuildingGenerator.isShack(w)).get(0));
 		}
 		
-		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.STONE, 14);
-		performer.setProperty(Constants.HOUSE_ID, house.getProperty(Constants.ID));
+		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.STONE, REQUIRED_STONE);
+		performer.getProperty(Constants.HOUSES).add(id);
 	}
 
 	@Override
@@ -81,8 +62,8 @@ public class BuildHouseAction implements BuildAction {
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
 		int distanceBetweenPerformerAndTarget = Reach.evaluateTarget(performer, args, target, 1);
 		int stone = performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.STONE);
-		if (stone < 14) {
-			return (14 - stone) * 1000 + distanceBetweenPerformerAndTarget;
+		if (stone < REQUIRED_STONE) {
+			return (REQUIRED_STONE - stone) * 1000 + distanceBetweenPerformerAndTarget;
 		} else {
 			return 0 + distanceBetweenPerformerAndTarget;
 		}
@@ -115,5 +96,9 @@ public class BuildHouseAction implements BuildAction {
 	@Override
 	public String getSimpleDescription() {
 		return "build house";
+	}
+	
+	public static boolean hasEnoughStone(WorldObject performer) {
+		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.STONE) >= REQUIRED_STONE;
 	}
 }

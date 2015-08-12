@@ -15,50 +15,29 @@
 package org.worldgrower.actions;
 
 import java.io.ObjectStreamException;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.WorldObjectImpl;
-import org.worldgrower.attribute.ManagedProperty;
-import org.worldgrower.condition.Conditions;
+import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.goal.GoalUtils;
-import org.worldgrower.gui.ImageIds;
 
 public class BuildShackAction implements BuildAction {
 
-	public static final String NAME = "shack";
+	private static final int REQUIRED_WOOD = 6;
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		int x = (Integer)target.getProperty(Constants.X);
 		int y = (Integer)target.getProperty(Constants.Y);
+	
+		int id = BuildingGenerator.generateShack(x, y, world, SkillUtils.useSkill(performer, Constants.CARPENTRY_SKILL));
 		
-		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
-		properties.put(Constants.X, x);
-		properties.put(Constants.Y, y);
-		properties.put(Constants.WIDTH, 2);
-		properties.put(Constants.HEIGHT, 2);
-		properties.put(Constants.SLEEP_COMFORT, 3);
-		properties.put(Constants.NAME, NAME);
-		properties.put(Constants.ID, world.generateUniqueId());
-		properties.put(Constants.IMAGE_ID, ImageIds.SHACK);
-		properties.put(Constants.HIT_POINTS, 100);
-		properties.put(Constants.HIT_POINTS_MAX, 100);
-		properties.put(Constants.FLAMMABLE, Boolean.TRUE);
-		properties.put(Constants.CONDITIONS, new Conditions());
-		properties.put(Constants.ARMOR, 0);
-		properties.put(Constants.DAMAGE_RESIST, 0);
-		
-		WorldObject shack = new WorldObjectImpl(properties);
-		world.addWorldObject(shack);
-		
-		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.WOOD, 6);
-		performer.setProperty(Constants.HOUSE_ID, shack.getProperty(Constants.ID));
+		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.WOOD, REQUIRED_WOOD);
+		performer.getProperty(Constants.HOUSES).add(id);
 	}
 
 	@Override
@@ -72,8 +51,8 @@ public class BuildShackAction implements BuildAction {
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
 		int distanceBetweenPerformerAndTarget = Reach.evaluateTarget(performer, args, target, 1);
 		int wood = performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD);
-		if (wood < 6) {
-			return (6 - wood) * 1000 + distanceBetweenPerformerAndTarget;
+		if (wood < REQUIRED_WOOD) {
+			return (REQUIRED_WOOD - wood) * 1000 + distanceBetweenPerformerAndTarget;
 		} else {
 			return 0 + distanceBetweenPerformerAndTarget;
 		}
@@ -109,5 +88,9 @@ public class BuildShackAction implements BuildAction {
 	@Override
 	public int getHeight() {
 		return 2;
+	}
+	
+	public static boolean hasEnoughWood(WorldObject performer) {
+		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) >= REQUIRED_WOOD;
 	}
 }

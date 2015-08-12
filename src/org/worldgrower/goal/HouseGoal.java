@@ -14,22 +14,20 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
+import java.util.List;
+
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.actions.Actions;
+import org.worldgrower.generator.BuildingGenerator;
 
 public class HouseGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.STONE) < 14) {
-			return new StoneGoal().calculateGoal(performer, world);
-		} else {
-			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 3, 5, world);
-			return new OperationInfo(performer, target, new int[0], Actions.BUILD_HOUSE_ACTION);
-		}
+		//TODO: add buying house
+		return new CreateHouseGoal().calculateGoal(performer, world);
 	}
 
 	@Override
@@ -38,10 +36,11 @@ public class HouseGoal implements Goal {
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		Integer houseId = performer.getProperty(Constants.HOUSE_ID);
-		if (houseId != null) {
+		List<Integer> houseIds = performer.getProperty(Constants.HOUSES).getIds();
+		if (houseIds.size() > 0) {
+			int houseId = houseIds.get(0);
 			WorldObject house = world.findWorldObject(Constants.ID, houseId);
-			return (house.getProperty(Constants.SLEEP_COMFORT) == 5);
+			return (BuildingGenerator.isHouse(house));
 		} else {
 			return false;
 		}
@@ -59,6 +58,6 @@ public class HouseGoal implements Goal {
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		return (performer.getProperty(Constants.HOUSE_ID) != null) ? 1 : 0;
+		return performer.getProperty(Constants.HOUSES).size();
 	}
 }

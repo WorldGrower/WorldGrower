@@ -124,6 +124,7 @@ public class Actions {
 	public static final WeaveCottonPantsAction WEAVE_COTTON_PANTS_ACTION = new WeaveCottonPantsAction();
 	
 	public static final VampireBiteAction VAMPIRE_BITE_ACTION = new VampireBiteAction();
+	public static final ConstructBedAction CONSTRUCT_BED_ACTION = new ConstructBedAction();
 	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 

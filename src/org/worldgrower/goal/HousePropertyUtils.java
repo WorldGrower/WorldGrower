@@ -26,13 +26,35 @@ public class HousePropertyUtils {
 	public static List<WorldObject> getHousingOfOwners(List<WorldObject> owners, World world) {
 		List<WorldObject> result = new ArrayList<>();
 		for(WorldObject owner : owners) {
-			if (owner.hasProperty(Constants.HOUSE_ID) && owner.getProperty(Constants.HOUSE_ID) != null) {
-				int houseId = owner.getProperty(Constants.HOUSE_ID);
-				result.add(world.findWorldObject(Constants.ID, houseId));
+			if (owner.hasProperty(Constants.HOUSES) && owner.getProperty(Constants.HOUSES) != null) {
+				List<Integer> houseIds = owner.getProperty(Constants.HOUSES).getIds();
+				for(int houseId : houseIds) {
+					result.add(world.findWorldObject(Constants.ID, houseId));
+				}
 			}
 		}
 		
 		return result;
+	}
+
+	public static WorldObject getBestHouse(WorldObject performer, World world) {
+		int bestId = -1;
+		int bestValue = Integer.MIN_VALUE;
+		List<Integer> houseIds = performer.getProperty(Constants.HOUSES).getIds();
+		for(int houseId : houseIds) {
+			WorldObject house = world.findWorldObject(Constants.ID, houseId);
+			int sleepComfort = house.getProperty(Constants.SLEEP_COMFORT);
+			if (sleepComfort > bestValue) {
+				bestId = houseId;
+				bestValue = sleepComfort;
+			}
+		}
+		
+		if (bestId != -1) {
+			return world.findWorldObject(Constants.ID, bestId);
+		} else {
+			return null;
+		}
 	}
 	
 }

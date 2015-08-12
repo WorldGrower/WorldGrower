@@ -14,47 +14,54 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
+import java.util.List;
+
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.actions.BuildShackAction;
+import org.worldgrower.conversation.Conversations;
 
-public class ShackGoal implements Goal {
-
+public class SellHouseGoal implements Goal {
+	
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		if (!BuildShackAction.hasEnoughWood(performer)) {
-			return new WoodGoal().calculateGoal(performer, world);
-		} else {
-			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 3, 3, world);
-			return new OperationInfo(performer, target, new int[0], Actions.BUILD_SHACK_ACTION);
+		List<Integer> houseIds = performer.getProperty(Constants.HOUSES).getIds();
+		if (houseIds.size() > 0) {
+			int houseId = houseIds.get(0);
+			WorldObject house = world.findWorldObject(Constants.ID, houseId);
+			List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.SELL_ACTION, w -> BuySellUtils.worldObjectWillBuyGoods(performer, w, house, world) , world);
+			if (targets.size() > 0) {
+				return new OperationInfo(performer, targets.get(0), Conversations.createArgs(Conversations.SELL_HOUSE_CONVERSATION), Actions.TALK_ACTION);
+			}
 		}
+		return null;
 	}
 	
 	@Override
-	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
+	public final boolean isUrgentGoalMet(WorldObject performer, World world) {
+		return isGoalMet(performer, world);
+	}
+	
+	@Override
+	public final void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
 	}
 
 	@Override
-	public boolean isGoalMet(WorldObject performer, World world) {
-		return performer.getProperty(Constants.HOUSES).size() > 0;
-	}
-	
-	@Override
-	public boolean isUrgentGoalMet(WorldObject performer, World world) {
-		return isGoalMet(performer, world);
+	public final boolean isGoalMet(WorldObject performer, World world) {
+		return performer.getProperty(Constants.HOUSES).size() == 1;
 	}
 
 	@Override
 	public String getDescription() {
-		return "building a shack";
+		return "selling a house";
+	}
+	
+	@Override
+	public final int evaluate(WorldObject performer, World world) {
+		return 0;
 	}
 
-	@Override
-	public int evaluate(WorldObject performer, World world) {
-		return performer.getProperty(Constants.HOUSES).size();
-	}
 
 }

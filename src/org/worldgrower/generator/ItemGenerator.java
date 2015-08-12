@@ -295,4 +295,15 @@ public class ItemGenerator {
 		properties.put(Constants.ARMOR_TYPE, ArmorType.LIGHT);
 		return new WorldObjectImpl(properties);
 	}
+	
+	public static WorldObject getBed(double skillBonus) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		properties.put(Constants.NAME, "Bed");
+		properties.put(Constants.PRICE, 50);
+		properties.put(Constants.SELLABLE, false);
+		properties.put(Constants.WEIGHT, 5);
+		properties.put(Constants.SLEEP_COMFORT, (int)(2 * skillBonus));
+		properties.put(Constants.IMAGE_ID, ImageIds.BED);
+		return new WorldObjectImpl(properties);
+	}
 }

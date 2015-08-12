@@ -23,7 +23,6 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.StringProperty;
-import org.worldgrower.attribute.WorldObjectContainer;
 
 public class BuySellUtils {
 
@@ -38,34 +37,49 @@ public class BuySellUtils {
 	}
 	
 	public static int getPrice(WorldObject performer, int inventoryIndex) {
-		int price = performer.getProperty(Constants.INVENTORY).get(inventoryIndex).getProperty(Constants.PRICE);
+		WorldObject inventoryItem = getInventoryItem(performer, inventoryIndex);
+		return getPrice(performer, inventoryItem);
+	}
+
+	public static int getPrice(WorldObject performer, WorldObject worldObject) {
+		int price = worldObject.getProperty(Constants.PRICE);
 		int profitPercentage = performer.getProperty(Constants.PROFIT_PERCENTAGE);
 		price = price + ((price * profitPercentage) / 100);
 		return price;
 	}
+
+	private static WorldObject getInventoryItem(WorldObject performer, int inventoryIndex) {
+		return performer.getProperty(Constants.INVENTORY).get(inventoryIndex);
+	}
 	
-	public static boolean worldObjectWillBuyGoods(WorldObject performer, WorldObject worldObject, int indexOfItemsToSell, World world) {
-		boolean demandsGoods = getDemandGoods(performer, worldObject, indexOfItemsToSell);
+	public static boolean worldObjectWillBuyGoods(WorldObject performer, WorldObject target, int indexOfItemsToSell, World world) {
+		WorldObject inventoryItem = getInventoryItem(performer, indexOfItemsToSell);
+		return worldObjectWillBuyGoods(performer, target, inventoryItem, world);
+	}
+	
+	public static boolean worldObjectWillBuyGoods(WorldObject performer, WorldObject target, WorldObject worldObject, World world) {
+		boolean demandsGoods = getDemandGoods(performer, target, worldObject);
 		
-		int price = BuySellUtils.getPrice(performer, indexOfItemsToSell);
-		boolean betterPriceExists = betterPriceExists(indexOfItemsToSell, world, price);
+		int price = BuySellUtils.getPrice(performer, worldObject);
+		/*boolean betterPriceExists = betterPriceExists(worldObject, world, price);*/
 		
-		boolean hasMoneyToBuyGoods = (price <= worldObject.getProperty(Constants.GOLD));
+		boolean hasMoneyToBuyGoods = (price <= target.getProperty(Constants.GOLD));
 		
-		return demandsGoods && !betterPriceExists && hasMoneyToBuyGoods;
+		return demandsGoods && /*!betterPriceExists &&*/ hasMoneyToBuyGoods;
 	}
 
 	//TODO: fix demands
-	private static boolean getDemandGoods(WorldObject performer, WorldObject worldObject, int indexOfItemsToSell) {
-		List<ManagedProperty<?>> propertyKeys = performer.getProperty(Constants.INVENTORY).get(indexOfItemsToSell).getPropertyKeys();
+	private static boolean getDemandGoods(WorldObject performer, WorldObject target, WorldObject worldObject) {
+		List<ManagedProperty<?>> propertyKeys = worldObject.getPropertyKeys();
 		boolean demandsGoods = false;
 		for(ManagedProperty<?> property : propertyKeys) {
-			demandsGoods = demandsGoods || worldObject.hasProperty(Constants.DEMANDS) && worldObject.getProperty(Constants.DEMANDS).count(property) > 0;
+			demandsGoods = demandsGoods || target.hasProperty(Constants.DEMANDS) && target.getProperty(Constants.DEMANDS).count(property) > 0;
 		}
 		return demandsGoods;
 	}
 
-	private static boolean betterPriceExists(int indexOfPropertyToSell, World world, int price) {
+	//TODO: fix
+	/*private static boolean betterPriceExists(int indexOfPropertyToSell, World world, int price) {
 		boolean betterPriceExists = false;
 		List<WorldObject> targets = world.findWorldObjects(w -> w.hasProperty(Constants.INVENTORY) && w.getProperty(Constants.INVENTORY).getWorldObjects(Constants.SELLABLE, Boolean.TRUE).size() > 0);
 		for(WorldObject target : targets) {
@@ -78,7 +92,7 @@ public class BuySellUtils {
 			}
 		}
 		return betterPriceExists;
-	}
+	}*/
 
 	public static int getIndexFor(WorldObject target, StringProperty property, String value) {
 		return target.getProperty(Constants.INVENTORY).getIndexFor(property, value, inventoryItem -> inventoryItem.hasProperty(Constants.PRICE) && (inventoryItem.getProperty(Constants.SELLABLE)));

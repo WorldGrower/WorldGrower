@@ -219,6 +219,8 @@ public class ImageInfoReader {
 		add(ImageIds.COTTON_BOOTS, sprites420.getSubImage(0, 14, 1, 1));
 		add(ImageIds.COTTON_ARMS, sprites420.getSubImage(7, 14, 1, 1));
 		add(ImageIds.COTTON_PANTS, sprites420.getSubImage(2, 13, 1, 1));
+		
+		add(ImageIds.BED, tileE.getSubImage(10, 4, 1, 2));
     }
     
     private void addCharacter(ImageIds imageId, Sprites sprites, int x, int y, int width, int height) {

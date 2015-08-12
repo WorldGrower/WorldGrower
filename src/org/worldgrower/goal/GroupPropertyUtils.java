@@ -23,12 +23,11 @@ import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
-import org.worldgrower.actions.BuildHouseAction;
-import org.worldgrower.actions.BuildShackAction;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdMap;
 import org.worldgrower.attribute.IdToIntegerMap;
 import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.profession.Profession;
 
@@ -174,14 +173,15 @@ public class GroupPropertyUtils {
 
 	private static int getBaseAmountToPay(WorldObject target, World world) {
 		int amountToCollect = 0;
-		Integer houseId = target.getProperty(Constants.HOUSE_ID);
-		if (houseId != null) {
-			WorldObject house = world.findWorldObject(Constants.ID, houseId.intValue());
-			String name = house.getProperty(Constants.NAME);
-			if (name.equals(BuildShackAction.NAME)) {
-				amountToCollect += GroupPropertyUtils.getVillagersOrganization(world).getProperty(Constants.SHACK_TAX_RATE);
-			} else if (name.equals(BuildHouseAction.NAME)) {
-				amountToCollect += GroupPropertyUtils.getVillagersOrganization(world).getProperty(Constants.HOUSE_TAX_RATE);
+		List<Integer> houseIds = target.getProperty(Constants.HOUSES).getIds();
+		if (houseIds.size() > 0) {
+			for(int houseId : houseIds) {
+				WorldObject house = world.findWorldObject(Constants.ID, houseId);
+				if (BuildingGenerator.isShack(house)) {
+					amountToCollect += GroupPropertyUtils.getVillagersOrganization(world).getProperty(Constants.SHACK_TAX_RATE);
+				} else if (BuildingGenerator.isHouse(house)) {
+					amountToCollect += GroupPropertyUtils.getVillagersOrganization(world).getProperty(Constants.HOUSE_TAX_RATE);
+				}
 			}
 		}
 		return amountToCollect;

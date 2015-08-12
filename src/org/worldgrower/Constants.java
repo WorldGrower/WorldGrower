@@ -90,7 +90,7 @@ public class Constants {
 	public static final SkillProperty WEAVING_SKILL = new SkillProperty("weaving", ALL_PROPERTIES);
 	public static final SkillProperty LIGHT_ARMOR_SKILL = new SkillProperty("light armor", ALL_PROPERTIES);
 	public static final SkillProperty HEAVY_ARMOR_SKILL = new SkillProperty("heavy armor", ALL_PROPERTIES);
-	
+	public static final SkillProperty CARPENTRY_SKILL = new SkillProperty("carpentry", ALL_PROPERTIES);
 	
 	public static final UnCheckedProperty<CreatureType> CREATURE_TYPE = new UnCheckedProperty<CreatureType>("creatureType", ALL_PROPERTIES);
 	
@@ -107,7 +107,7 @@ public class Constants {
 	public static final IntProperty COTTON = new IntProperty("cotton", 0, 500, NOT_NULLABLE, ALL_PROPERTIES);
 	
 	public static final IntProperty WOOD = new IntProperty("wood", 0, 50, NOT_NULLABLE, ALL_PROPERTIES);
-	public static final IdProperty HOUSE_ID = new IdProperty("houseId", ALL_PROPERTIES);
+	public static final IdListProperty HOUSES = new IdListProperty("houses", ALL_PROPERTIES);
 	public static final IdProperty SMITH_ID = new IdProperty("smithId", ALL_PROPERTIES);
 	public static final IntProperty ENERGY = new IntProperty("energy", 0, 1000, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty PAPER_MILL_QUALITY = new IntProperty("paperMillQuality", 0, 50, NOT_NULLABLE, ALL_PROPERTIES);

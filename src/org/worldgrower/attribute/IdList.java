@@ -49,6 +49,10 @@ public class IdList implements Serializable {
 		ids.removeAll(idsToRemove);
 	}
 	
+	public void removeAll() {
+		ids.clear();
+	}
+	
 	public void remove(int id) {
 		ids.remove(Integer.valueOf(id));
 	}

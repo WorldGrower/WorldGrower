@@ -24,10 +24,14 @@ import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdToIntegerMap;
 import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.condition.Conditions;
 import org.worldgrower.gui.ImageIds;
 
 public class BuildingGenerator {
 
+	private static final String SHACK_NAME = "shack";
+	private static final String HOUSE_NAME = "house";
+	
 	public static int generateVotingBox(int x, int y, World world) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();
@@ -46,5 +50,65 @@ public class BuildingGenerator {
 		world.addWorldObject(votingBox);
 		
 		return id;
+	}
+	
+	public static int generateShack(int x, int y, World world, double skillBonus) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		int id = world.generateUniqueId();
+		
+		properties.put(Constants.X, x);
+		properties.put(Constants.Y, y);
+		properties.put(Constants.WIDTH, 2);
+		properties.put(Constants.HEIGHT, 2);
+		properties.put(Constants.SLEEP_COMFORT, (int)(3 * skillBonus));
+		properties.put(Constants.NAME, SHACK_NAME);
+		properties.put(Constants.ID, id);
+		properties.put(Constants.IMAGE_ID, ImageIds.SHACK);
+		properties.put(Constants.HIT_POINTS, 100);
+		properties.put(Constants.HIT_POINTS_MAX, 100);
+		properties.put(Constants.FLAMMABLE, Boolean.TRUE);
+		properties.put(Constants.CONDITIONS, new Conditions());
+		properties.put(Constants.ARMOR, 0);
+		properties.put(Constants.DAMAGE_RESIST, 0);
+		properties.put(Constants.PRICE, 10);
+		
+		WorldObject shack = new WorldObjectImpl(properties);
+		world.addWorldObject(shack);
+		
+		return id;
+	}
+	
+	public static int generateHouse(int x, int y, World world, double skillBonus) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		int id = world.generateUniqueId();
+		
+		properties.put(Constants.X, x);
+		properties.put(Constants.Y, y);
+		properties.put(Constants.WIDTH, 2);
+		properties.put(Constants.HEIGHT, 4);
+		properties.put(Constants.SLEEP_COMFORT, (int)(5 * skillBonus));
+		properties.put(Constants.NAME, HOUSE_NAME);
+		properties.put(Constants.ID, id);
+		properties.put(Constants.IMAGE_ID, ImageIds.HOUSE);
+		properties.put(Constants.FLAMMABLE, Boolean.TRUE);
+		properties.put(Constants.CONDITIONS, new Conditions());
+		properties.put(Constants.HIT_POINTS, 200);
+		properties.put(Constants.HIT_POINTS_MAX, 200);
+		properties.put(Constants.ARMOR, 0);
+		properties.put(Constants.DAMAGE_RESIST, 0);
+		properties.put(Constants.PRICE, 50);
+		
+		WorldObject house = new WorldObjectImpl(properties);
+		world.addWorldObject(house);
+		
+		return id;
+	}
+	
+	public static boolean isShack(WorldObject worldObject) {
+		return worldObject.getProperty(Constants.NAME).equals(SHACK_NAME);
+	}
+	
+	public static boolean isHouse(WorldObject worldObject) {
+		return worldObject.getProperty(Constants.NAME).equals(HOUSE_NAME);
 	}
 }

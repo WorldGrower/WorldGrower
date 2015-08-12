@@ -57,7 +57,7 @@ public class CharacterDialog extends JDialog {
 		
 		this.playerCharacter = playerCharacter;
 		
-		setBounds(100, 100, 605, 950);
+		setBounds(100, 100, 605, 980);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -133,6 +133,7 @@ public class CharacterDialog extends JDialog {
 		createSkillBlock(Constants.WEAVING_SKILL, 778);
 		createSkillBlock(Constants.LIGHT_ARMOR_SKILL, 808);
 		createSkillBlock(Constants.HEAVY_ARMOR_SKILL, 838);
+		createSkillBlock(Constants.CARPENTRY_SKILL, 868);
 		
 		JLabel lblHead = new JLabel("Head");
 		lblHead.setBounds(264, 13, 56, 16);

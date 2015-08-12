@@ -176,6 +176,7 @@ public class Main {
 		properties.put(Constants.GENDER, "male");
 		properties.put(Constants.CREATURE_TYPE, CreatureType.HUMAN_CREATURE_TYPE);
 		properties.put(Constants.CONDITIONS, new Conditions());
+		properties.put(Constants.HOUSES, new IdList());
 		
 		properties.put(Constants.HEAD_EQUIPMENT, null);
 		properties.put(Constants.TORSO_EQUIPMENT, null);

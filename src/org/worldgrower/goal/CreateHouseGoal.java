@@ -19,27 +19,31 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.actions.BuildShackAction;
+import org.worldgrower.actions.BuildHouseAction;
 
-public class ShackGoal implements Goal {
+public class CreateHouseGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		if (!BuildShackAction.hasEnoughWood(performer)) {
-			return new WoodGoal().calculateGoal(performer, world);
+		if (!BuildHouseAction.hasEnoughStone(performer)) {
+			return new StoneGoal().calculateGoal(performer, world);
 		} else {
-			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 3, 3, world);
-			return new OperationInfo(performer, target, new int[0], Actions.BUILD_SHACK_ACTION);
+			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 3, 5, world);
+			if (target != null) {
+				return new OperationInfo(performer, target, new int[0], Actions.BUILD_HOUSE_ACTION);
+			} else {
+				return null;
+			}
 		}
 	}
-	
+
 	@Override
 	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
 	}
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		return performer.getProperty(Constants.HOUSES).size() > 0;
+		return performer.getProperty(Constants.HOUSES).size() > 1;
 	}
 	
 	@Override
@@ -49,12 +53,11 @@ public class ShackGoal implements Goal {
 
 	@Override
 	public String getDescription() {
-		return "building a shack";
+		return "constructing a house";
 	}
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
 		return performer.getProperty(Constants.HOUSES).size();
 	}
-
 }

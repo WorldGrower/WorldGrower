@@ -30,7 +30,7 @@ public class MateGoal implements Goal {
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		IdMap relationships = performer.getProperty(Constants.RELATIONSHIPS);
 				
-		int bestId = relationships.findBestId(w -> RacePropertyUtils.canHaveOffspring(performer, w) && (w.getProperty(Constants.HOUSE_ID) != null), world);
+		int bestId = relationships.findBestId(w -> RacePropertyUtils.canHaveOffspring(performer, w) && (w.getProperty(Constants.HOUSES).size() > 0), world);
 		
 		if (bestId == -1) {
 			bestId = relationships.findBestId(w -> RacePropertyUtils.canHaveOffspring(performer, w), world);

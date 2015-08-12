@@ -75,4 +75,5 @@ public class Goals {
 	public static final WeaveClothesGoal WEAVE_CLOTHES_GOAL = new WeaveClothesGoal();
 	public static final BuyClothesGoal BUY_CLOTHES_GOAL = new BuyClothesGoal();
 	public static final VampireBiteGoal VAMPIRE_BITE_GOAL = new VampireBiteGoal();
+	public static final CreateHouseGoal CREATE_HOUSE_GOAL = new CreateHouseGoal();
 }

@@ -64,15 +64,15 @@ public class UTestWorldImpl {
 	public void testRemoveDependentWorldObject() {
 		World world = createWorld();
 		WorldObject house = TestUtils.createWorldObject(6, "test");
-		WorldObject person = TestUtils.createIntelligentWorldObject(7, Constants.HOUSE_ID, 6);
+		WorldObject person = TestUtils.createIntelligentWorldObject(7, Constants.SMITH_ID, 6);
 		
 		world.addWorldObject(house);
 		world.addWorldObject(person);
 		
-		assertEquals(6, person.getProperty(Constants.HOUSE_ID).intValue());
+		assertEquals(6, person.getProperty(Constants.SMITH_ID).intValue());
 		
 		world.removeWorldObject(house);
-		assertEquals(null, person.getProperty(Constants.HOUSE_ID));
+		assertEquals(null, person.getProperty(Constants.SMITH_ID));
 	}
 	
 	@Test
@@ -80,7 +80,7 @@ public class UTestWorldImpl {
 		File fileToSave = File.createTempFile("worldgrower", ".sav");
 		World world = createWorld();
 		WorldObject house = TestUtils.createWorldObject(6, "test");
-		WorldObject person = TestUtils.createIntelligentWorldObject(7, Constants.HOUSE_ID, 6);
+		WorldObject person = TestUtils.createIntelligentWorldObject(7, Constants.SMITH_ID, 6);
 		
 		world.addWorldObject(house);
 		world.addWorldObject(person);

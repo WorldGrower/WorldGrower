@@ -20,75 +20,77 @@ import java.util.List;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.IdMap;
-import org.worldgrower.goal.GroupPropertyUtils;
+import org.worldgrower.deity.Deity;
+import org.worldgrower.goal.BuySellUtils;
 import org.worldgrower.history.HistoryItem;
 
-public class CollectTaxesConversation implements Conversation {
+public class SellHouseConversation implements Conversation {
 
 	private static final int YES = 0;
 	private static final int NO = 1;
 	
 	@Override
 	public Response getReplyPhrase(ConversationContext conversationContext) {
+		WorldObject performer = conversationContext.getPerformer();
 		WorldObject target = conversationContext.getTarget();
 		World world = conversationContext.getWorld();
 		
-		int amountToCollect = GroupPropertyUtils.getAmountToCollect(target, world);
+		int houseId = performer.getProperty(Constants.HOUSES).getIds().get(0);
+		WorldObject house = world.findWorldObject(Constants.ID, houseId);
+		
+		boolean targetWillBuy = BuySellUtils.worldObjectWillBuyGoods(performer, target, house, world);
 		
 		final int replyId;
-		if (target.getProperty(Constants.GOLD) >= amountToCollect) {
+		if (targetWillBuy) {
 			replyId = YES;
 		} else {
 			replyId = NO;
 		}
-		
 		return getReply(getReplyPhrases(conversationContext), replyId);
 	}
 
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, World world) {
-		int amountToCollect = GroupPropertyUtils.getAmountToCollect(target, world);
-		return Arrays.asList(new Question(null, "I'm here to collect your taxes. The taxes are " + amountToCollect + " gold. Will you pay your taxes?"));
+		return Arrays.asList(new Question(null, "Do you want to buy a house?"));
 	}
 	
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
+		WorldObject target = conversationContext.getTarget();
+		Deity deity = target.getProperty(Constants.DEITY);
+		String deityName = (deity != null ? deity.getName() : "");
 		return Arrays.asList(
-			new Response(YES, "Yes, I'll pay my taxes"),
-			new Response(NO, "No, I won't pay my taxes")
+			new Response(0, "yes"),
+			new Response(1, "no")
 			);
 	}
-	
+
 	@Override
 	public boolean isConversationAvailable(WorldObject performer, WorldObject target, World world) {
-		boolean canCollectTaxes = (performer.hasProperty(Constants.CAN_COLLECT_TAXES)) && (performer.getProperty(Constants.CAN_COLLECT_TAXES));
-		return (canCollectTaxes && (GroupPropertyUtils.getAmountToCollect(target, world) > 0));
+		return performer.hasProperty(Constants.HOUSES) && performer.getProperty(Constants.HOUSES).size() > 0;
 	}
-	
+
 	@Override
 	public void handleResponse(int replyIndex, ConversationContext conversationContext) {
 		WorldObject performer = conversationContext.getPerformer();
 		WorldObject target = conversationContext.getTarget();
 		World world = conversationContext.getWorld();
-		WorldObject organization = GroupPropertyUtils.getVillagersOrganization(world);
 		
 		if (replyIndex == YES) {
-			int amountToCollect = GroupPropertyUtils.getAmountToCollect(target, world);
-			target.increment(Constants.GOLD, -amountToCollect);
-			performer.increment(Constants.ORGANIZATION_GOLD, amountToCollect);
+			int houseId = performer.getProperty(Constants.HOUSES).getIds().get(0);
+			WorldObject house = world.findWorldObject(Constants.ID, houseId);
+			int price = BuySellUtils.getPrice(performer, house);
 			
-			IdMap taxesPaidTurn = organization.getProperty(Constants.TAXES_PAID_TURN);
-			taxesPaidTurn.remove(target);
-			taxesPaidTurn.incrementValue(target, world.getCurrentTurn().getValue());
-		} else if (replyIndex == NO) {
-			target.getProperty(Constants.HOUSES).removeAll();
-			//TODO: organization sells house
+			performer.getProperty(Constants.HOUSES).remove(houseId);
+			target.getProperty(Constants.HOUSES).add(houseId);
+			
+			target.setProperty(Constants.GOLD, target.getProperty(Constants.GOLD) - price);
+			performer.setProperty(Constants.GOLD, performer.getProperty(Constants.GOLD) + price);
 		}
 	}
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, World world) {
-		return "talking about taxes to collect";
+		return "talking about selling a house";
 	}
 }
