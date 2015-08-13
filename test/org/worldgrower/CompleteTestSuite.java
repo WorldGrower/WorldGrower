@@ -29,6 +29,7 @@ import org.worldgrower.conversation.UTestConversations;
 import org.worldgrower.conversation.UTestLocationConversation;
 import org.worldgrower.goal.UTestBuildLocationUtils;
 import org.worldgrower.goal.UTestGoalUtils;
+import org.worldgrower.goal.UTestGroupPropertyUtils;
 import org.worldgrower.goal.UTestZone;
 import org.worldgrower.history.UTestHistoryImpl;
 import org.worldgrower.util.UTestNumberUtils;
@@ -59,7 +60,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestPropertyCountMap.class,
 	UTestIntProperty.class,
 	UTestNumberUtils.class,
-	UTestAttackUtils.class
+	UTestAttackUtils.class,
+	UTestGroupPropertyUtils.class
 })
 public class CompleteTestSuite {
 }
