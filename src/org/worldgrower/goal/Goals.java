@@ -76,4 +76,7 @@ public class Goals {
 	public static final BuyClothesGoal BUY_CLOTHES_GOAL = new BuyClothesGoal();
 	public static final VampireBiteGoal VAMPIRE_BITE_GOAL = new VampireBiteGoal();
 	public static final CreateHouseGoal CREATE_HOUSE_GOAL = new CreateHouseGoal();
+	public static final GetHealedGoal GET_HEALED_GOAL = new GetHealedGoal();
+	public static final SellHouseGoal SELL_HOUSE_GOAL = new SellHouseGoal();
+	public static final MarkHouseAsSellableGoal MARK_HOUSE_AS_SELLABLE_GOAL = new MarkHouseAsSellableGoal();
 }

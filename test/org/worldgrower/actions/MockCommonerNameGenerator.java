@@ -12,41 +12,20 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.condition;
+package org.worldgrower.actions;
 
-import org.worldgrower.Constants;
-import org.worldgrower.World;
-import org.worldgrower.WorldObject;
+import org.worldgrower.CommonerNameGenerator;
 
-public class VampireBiteCondition implements Condition {
+public class MockCommonerNameGenerator implements CommonerNameGenerator {
 
 	@Override
-	public boolean canTakeAction() {
-		return true;
+	public String getNextMaleCommonerName() {
+		return "Test";
 	}
 
 	@Override
-	public boolean canMove() {
-		return true;
+	public String getNextFemaleCommonerName() {
+		return "Test";
 	}
 
-	@Override
-	public String getDescription() {
-		return "bitten by a vampire";
-	}
-
-	@Override
-	public void onTurn(WorldObject worldObject, World world, int startTurn) {
-		int currentTurn = world.getCurrentTurn().getValue();
-		
-		if (currentTurn - startTurn > 500) {
-			VampireUtils.vampirizePerson(worldObject);
-			worldObject.getProperty(Constants.CONDITIONS).removeCondition(this);
-		}
-	}
-	
-	@Override
-	public boolean isDisease() {
-		return true;
-	}
 }

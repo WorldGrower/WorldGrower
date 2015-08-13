@@ -20,18 +20,31 @@ import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
+import org.worldgrower.conversation.Conversations;
 import org.worldgrower.generator.BuildingGenerator;
 
 public class HouseGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		//TODO: add buying house
-		return new CreateHouseGoal().calculateGoal(performer, world);
+		List<WorldObject> targets = world.findWorldObjects(w -> HousePropertyUtils.hasHouseForSale(w, world));
+		if (targets.size() > 0) {
+			return new OperationInfo(performer, targets.get(0), Conversations.createArgs(Conversations.BUY_HOUSE_CONVERSATION), Actions.TALK_ACTION);
+		} else { 
+			return new CreateHouseGoal().calculateGoal(performer, world);
+		}
 	}
 
 	@Override
 	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
+		if (performer.hasProperty(Constants.DEMANDS)) {
+			if (goalMet) {
+				performer.getProperty(Constants.DEMANDS).remove(Constants.HOUSES);
+			} else {
+				performer.getProperty(Constants.DEMANDS).add(Constants.HOUSES, 1);
+			}
+		}
 	}
 
 	@Override

@@ -70,6 +70,8 @@ public class Conversations implements Serializable {
 	public static final CollectPayCheckConversation COLLECT_PAY_CHECK_CONVERSATION = new CollectPayCheckConversation();
 	public static final CanCollectTaxesConversation CAN_COLLECT_TAXES_CONVERSATION = new CanCollectTaxesConversation();
 	public static final SellHouseConversation SELL_HOUSE_CONVERSATION = new SellHouseConversation();
+	public static final MinorHealConversation MINOR_HEAL_CONVERSATION = new MinorHealConversation();
+	public static final BuyHouseConversation BUY_HOUSE_CONVERSATION = new BuyHouseConversation();
 	
 	private static final List<Conversation> CONVERSATIONS = new ArrayList<>();
 	private static final Map<Conversation, ConversationCategory> CONVERSATION_CATEGORIES = new HashMap<>();
@@ -113,6 +115,8 @@ public class Conversations implements Serializable {
 		add(COLLECT_PAY_CHECK_CONVERSATION, ConversationCategory.LEADER);
 		addNormalAndIntimidate(CAN_COLLECT_TAXES_CONVERSATION, ConversationCategory.LEADER);
 		add(SELL_HOUSE_CONVERSATION, ConversationCategory.DEMAND);
+		addNormalAndIntimidate(MINOR_HEAL_CONVERSATION, ConversationCategory.DEMAND);
+		add(BUY_HOUSE_CONVERSATION, ConversationCategory.DEMAND);
 	}
 	
 	public static int[] createArgs(Conversation conversation) {

@@ -14,42 +14,10 @@
  *******************************************************************************/
 package org.worldgrower;
 
-import java.io.IOException;
-import java.io.Serializable;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-
 /**
- * This class provides names for commoners.
+ * This interface provides unique names for commoners.
  */
-public class CommonerNameGenerator implements Serializable {
-	
-	private List<String> maleCommonerNames = new ArrayList<>();
-	private List<String> femaleCommonerNames = new ArrayList<>();
-
-	private int currentMaleCommonerIndex = 0;
-	private int currentFemaleCommonerIndex = 0;
-	
-	public CommonerNameGenerator() throws IOException {
-		maleCommonerNames.addAll(readFile("resources/male_names.txt"));
-		femaleCommonerNames.addAll(readFile("resources/female_names.txt"));
-	}
-	
-	private List<String> readFile(String filename) throws IOException {
-		return Files.readAllLines(Paths.get(filename));
-	}
-	
-	public String getNextMaleCommonerName() {
-		String name = maleCommonerNames.get(currentMaleCommonerIndex);
-		currentMaleCommonerIndex = ((currentMaleCommonerIndex+1) % maleCommonerNames.size());
-		return name;
-	}
-
-	public String getNextFemaleCommonerName() {
-		String name = femaleCommonerNames.get(currentFemaleCommonerIndex);
-		currentFemaleCommonerIndex = ((currentFemaleCommonerIndex+1) % femaleCommonerNames.size());
-		return name;
-	}
+public interface CommonerNameGenerator {
+	public String getNextMaleCommonerName();
+	public String getNextFemaleCommonerName();
 }

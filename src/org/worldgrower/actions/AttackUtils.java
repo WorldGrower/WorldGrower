@@ -58,8 +58,8 @@ public class AttackUtils {
 		targetEquipmentList.add(target.getProperty(Constants.LEGS_EQUIPMENT));
 		targetEquipmentList.add(target.getProperty(Constants.FEET_EQUIPMENT));
 		
-		boolean targetHasLightArmor = targetEquipmentList.stream().filter(w -> w.getProperty(Constants.ARMOR_TYPE) == ArmorType.LIGHT).collect(Collectors.toList()).size() > 0;
-		boolean targetHasHeavyArmor = targetEquipmentList.stream().filter(w -> w.getProperty(Constants.ARMOR_TYPE) == ArmorType.HEAVY).collect(Collectors.toList()).size() > 0;
+		boolean targetHasLightArmor = targetEquipmentList.stream().filter(w -> w != null && w.getProperty(Constants.ARMOR_TYPE) == ArmorType.LIGHT).collect(Collectors.toList()).size() > 0;
+		boolean targetHasHeavyArmor = targetEquipmentList.stream().filter(w -> w != null && w.getProperty(Constants.ARMOR_TYPE) == ArmorType.HEAVY).collect(Collectors.toList()).size() > 0;
 		
 		if (targetHasLightArmor && targetHasHeavyArmor) {
 			SkillUtils.useSkill(target, Constants.LIGHT_ARMOR_SKILL);

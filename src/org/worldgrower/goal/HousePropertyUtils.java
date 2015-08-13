@@ -57,4 +57,45 @@ public class HousePropertyUtils {
 		}
 	}
 	
+	public static boolean hasHouses(WorldObject performer) {
+		return performer.hasProperty(Constants.HOUSES) && performer.getProperty(Constants.HOUSES).size() > 0;
+	}
+
+	public static boolean hasHouseForSale(WorldObject target, World world) {
+		WorldObject houseForSale = getHouseForSale(target, world);
+		return houseForSale != null;
+	}
+
+	public static WorldObject getHouseForSale(WorldObject target, World world) {
+		if (target.hasProperty(Constants.HOUSES)) {
+			List<Integer> houseIds = target.getProperty(Constants.HOUSES).getIds();
+			for(int houseId : houseIds) {
+				WorldObject house = world.findWorldObject(Constants.ID, houseId);
+				if (house.hasProperty(Constants.SELLABLE) && house.getProperty(Constants.SELLABLE)) {
+					return house;
+				}
+			}
+		}
+		return null;
+	}
+
+	public static boolean allHousesButFirstSellable(WorldObject performer, World world) {
+		List<Integer> houseIds = performer.getProperty(Constants.HOUSES).getIds();
+		boolean isFirstHouse = true;
+		for(int houseId : houseIds) {
+			WorldObject house = world.findWorldObject(Constants.ID, houseId);
+			
+			if (!isFirstHouse) {
+				if (!(house.hasProperty(Constants.SELLABLE) && house.getProperty(Constants.SELLABLE))) {
+					return false;
+				}
+			}
+			
+			if (isFirstHouse) {
+				isFirstHouse = false;
+			}
+		}
+		
+		return true;
+	}
 }

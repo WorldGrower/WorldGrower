@@ -50,6 +50,7 @@ public class CommonerWorldEvaluationFunction implements WorldObjectPriorities {
 		
 		List<Goal> genericGoals = Arrays.asList(
 				Goals.GET_POISON_CURED_GOAL,
+				Goals.GET_HEALED_GOAL,
 				Goals.PROTECT_ONSE_SELF_GOAL, 
 				Goals.FOOD_GOAL, 
 				Goals.DRINK_WATER_GOAL,

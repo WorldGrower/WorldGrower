@@ -21,23 +21,22 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.condition.Condition;
 import org.worldgrower.conversation.Conversations;
 
-public class GetPoisonCuredGoal implements Goal {
+public class GetHealedGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		if (performer.getProperty(Constants.KNOWN_SPELLS).contains(Actions.CURE_POISON_ACTION)) {
-			if (Actions.CURE_POISON_ACTION.hasRequiredEnergy(performer)) {
-				return new OperationInfo(performer, performer, new int[0], Actions.CURE_POISON_ACTION);
+		if (performer.getProperty(Constants.KNOWN_SPELLS).contains(Actions.MINOR_HEAL_ACTION)) {
+			if (Actions.MINOR_HEAL_ACTION.hasRequiredEnergy(performer)) {
+				return new OperationInfo(performer, performer, new int[0], Actions.MINOR_HEAL_ACTION);
 			} else {
 				return new RestGoal().calculateGoal(performer, world);
 			}
 		} else {
-			List<WorldObject> targets = world.findWorldObjects(w -> MagicSpellUtils.worldObjectKnowsSpell(w, Actions.CURE_POISON_ACTION)  && !GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, w));
+			List<WorldObject> targets = world.findWorldObjects(w -> MagicSpellUtils.worldObjectKnowsSpell(w, Actions.MINOR_HEAL_ACTION) && !GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, w));
 			if (targets.size() > 0) {
-				return new OperationInfo(performer, targets.get(0), Conversations.createArgs(Conversations.CURE_POISON_CONVERSATION), Actions.TALK_ACTION);
+				return new OperationInfo(performer, targets.get(0), Conversations.createArgs(Conversations.MINOR_HEAL_CONVERSATION), Actions.TALK_ACTION);
 			}
 		}
 		return null;
@@ -49,7 +48,9 @@ public class GetPoisonCuredGoal implements Goal {
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		return !performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.POISONED_CONDITION);
+		int hitPoints = performer.getProperty(Constants.HIT_POINTS).intValue();
+		int maxHitPoints = performer.getProperty(Constants.HIT_POINTS_MAX).intValue();
+		return hitPoints == maxHitPoints;
 	}
 	
 	@Override
@@ -59,11 +60,11 @@ public class GetPoisonCuredGoal implements Goal {
 
 	@Override
 	public String getDescription() {
-		return "looking to have my poisoned condition cured";
+		return "looking to get healed";
 	}
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		return (!performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.POISONED_CONDITION)) ? 1 : 0;
+		return performer.getProperty(Constants.HIT_POINTS).intValue();
 	}
 }

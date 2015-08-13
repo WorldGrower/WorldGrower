@@ -111,4 +111,8 @@ public class BuildingGenerator {
 	public static boolean isHouse(WorldObject worldObject) {
 		return worldObject.getProperty(Constants.NAME).equals(HOUSE_NAME);
 	}
+	
+	public static boolean isSellable(WorldObject worldObject) {
+		return isShack(worldObject) || isHouse(worldObject);
+	}
 }

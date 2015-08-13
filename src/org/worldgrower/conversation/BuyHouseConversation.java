@@ -24,34 +24,20 @@ import org.worldgrower.goal.BuySellUtils;
 import org.worldgrower.goal.HousePropertyUtils;
 import org.worldgrower.history.HistoryItem;
 
-public class SellHouseConversation implements Conversation {
+public class BuyHouseConversation implements Conversation {
 
 	private static final int YES = 0;
 	private static final int NO = 1;
 	
 	@Override
 	public Response getReplyPhrase(ConversationContext conversationContext) {
-		WorldObject performer = conversationContext.getPerformer();
-		WorldObject target = conversationContext.getTarget();
-		World world = conversationContext.getWorld();
-		
-		int houseId = performer.getProperty(Constants.HOUSES).getIds().get(0);
-		WorldObject house = world.findWorldObject(Constants.ID, houseId);
-		
-		boolean targetWillBuy = BuySellUtils.worldObjectWillBuyGoods(performer, target, house, world);
-		
-		final int replyId;
-		if (targetWillBuy) {
-			replyId = YES;
-		} else {
-			replyId = NO;
-		}
+		int replyId = YES;
 		return getReply(getReplyPhrases(conversationContext), replyId);
 	}
 
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, World world) {
-		return Arrays.asList(new Question(null, "Do you want to buy a house?"));
+		return Arrays.asList(new Question(null, "I'd like to buy a house"));
 	}
 	
 	@Override
@@ -64,7 +50,7 @@ public class SellHouseConversation implements Conversation {
 
 	@Override
 	public boolean isConversationAvailable(WorldObject performer, WorldObject target, World world) {
-		return HousePropertyUtils.hasHouses(performer);
+		return HousePropertyUtils.hasHouseForSale(target, world);
 	}
 
 	@Override
@@ -74,15 +60,14 @@ public class SellHouseConversation implements Conversation {
 		World world = conversationContext.getWorld();
 		
 		if (replyIndex == YES) {
-			int houseId = performer.getProperty(Constants.HOUSES).getIds().get(0);
-			WorldObject house = world.findWorldObject(Constants.ID, houseId);
-			int price = BuySellUtils.getPrice(performer, house);
+			WorldObject house = HousePropertyUtils.getHouseForSale(target, world);
+			int price = BuySellUtils.getPrice(target, house);
 			
-			performer.getProperty(Constants.HOUSES).remove(houseId);
-			target.getProperty(Constants.HOUSES).add(houseId);
+			performer.getProperty(Constants.HOUSES).add(house);
+			target.getProperty(Constants.HOUSES).remove(house);
 			
-			target.increment(Constants.GOLD, -price);
-			performer.increment(Constants.GOLD, price);
+			target.increment(Constants.GOLD, price);
+			performer.increment(Constants.GOLD, -price);
 		}
 	}
 	

@@ -20,11 +20,11 @@ import java.util.List;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.goal.BuySellUtils;
-import org.worldgrower.goal.HousePropertyUtils;
+import org.worldgrower.actions.Actions;
+import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
 
-public class SellHouseConversation implements Conversation {
+public class MinorHealConversation implements Conversation {
 
 	private static final int YES = 0;
 	private static final int NO = 1;
@@ -33,40 +33,32 @@ public class SellHouseConversation implements Conversation {
 	public Response getReplyPhrase(ConversationContext conversationContext) {
 		WorldObject performer = conversationContext.getPerformer();
 		WorldObject target = conversationContext.getTarget();
-		World world = conversationContext.getWorld();
-		
-		int houseId = performer.getProperty(Constants.HOUSES).getIds().get(0);
-		WorldObject house = world.findWorldObject(Constants.ID, houseId);
-		
-		boolean targetWillBuy = BuySellUtils.worldObjectWillBuyGoods(performer, target, house, world);
 		
 		final int replyId;
-		if (targetWillBuy) {
+		int relationshipValue = target.getProperty(Constants.RELATIONSHIPS).getValue(performer);
+		if (relationshipValue >= 0) {
 			replyId = YES;
 		} else {
 			replyId = NO;
 		}
+		
 		return getReply(getReplyPhrases(conversationContext), replyId);
 	}
 
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, World world) {
-		return Arrays.asList(new Question(null, "Do you want to buy a house?"));
-	}
-	
-	@Override
-	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
-			new Response(0, "yes"),
-			new Response(1, "no")
+			new Question(null, "Can you heal me?")
 			);
 	}
 
 	@Override
-	public boolean isConversationAvailable(WorldObject performer, WorldObject target, World world) {
-		return HousePropertyUtils.hasHouses(performer);
+	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
+		return Arrays.asList(
+			new Response(YES, "yes"),
+			new Response(NO, "no"));
 	}
-
+	
 	@Override
 	public void handleResponse(int replyIndex, ConversationContext conversationContext) {
 		WorldObject performer = conversationContext.getPerformer();
@@ -74,20 +66,21 @@ public class SellHouseConversation implements Conversation {
 		World world = conversationContext.getWorld();
 		
 		if (replyIndex == YES) {
-			int houseId = performer.getProperty(Constants.HOUSES).getIds().get(0);
-			WorldObject house = world.findWorldObject(Constants.ID, houseId);
-			int price = BuySellUtils.getPrice(performer, house);
-			
-			performer.getProperty(Constants.HOUSES).remove(houseId);
-			target.getProperty(Constants.HOUSES).add(houseId);
-			
-			target.increment(Constants.GOLD, -price);
-			performer.increment(Constants.GOLD, price);
+			Actions.MINOR_HEAL_ACTION.execute(target, performer, new int[0], world);
+		} else if (replyIndex == NO) {
+			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -50, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 		}
+	}
+
+	@Override
+	public boolean isConversationAvailable(WorldObject performer, WorldObject target, World world) {
+		int hitPoints = performer.getProperty(Constants.HIT_POINTS).intValue();
+		int maxHitPoints = performer.getProperty(Constants.HIT_POINTS_MAX).intValue();
+		return hitPoints < maxHitPoints;
 	}
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, World world) {
-		return "talking about selling a house";
+		return "getting healed";
 	}
 }

@@ -45,7 +45,8 @@ public class MinorHealAction implements MagicSpell {
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return AttackUtils.distanceWithFreeLeftHand(performer, target, 4);
+		return AttackUtils.distanceWithFreeLeftHand(performer, target, 4)
+				+ SkillUtils.distanceForEnergyUse(performer, getSkill(), ENERGY_USE);
 	}
 	
 	@Override
@@ -80,5 +81,9 @@ public class MinorHealAction implements MagicSpell {
 	@Override
 	public int getRequiredSkillLevel() {
 		return 0;
+	}
+	
+	public boolean hasRequiredEnergy(WorldObject performer) {
+		return performer.getProperty(Constants.ENERGY) >= ENERGY_USE;
 	}
 }

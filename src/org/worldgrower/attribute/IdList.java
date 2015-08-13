@@ -18,8 +18,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Function;
 
 import org.worldgrower.Constants;
+import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 
 public class IdList implements Serializable {
@@ -86,6 +88,18 @@ public class IdList implements Serializable {
 	
 	public List<Integer> getIds() {
 		return Collections.unmodifiableList(ids);
+	}
+	
+	public List<WorldObject> mapToWorldObjects(World world, Function<WorldObject, Boolean> testFunction) {
+		List<WorldObject> worldObjects = new ArrayList<>();
+		for(int id : ids) {
+			WorldObject worldObject = world.findWorldObject(Constants.ID, id);
+			if (testFunction.apply(worldObject).booleanValue()) {
+				worldObjects.add(worldObject);
+			}
+		}
+		
+		return worldObjects;
 	}
 	
 	public IdList copy() {

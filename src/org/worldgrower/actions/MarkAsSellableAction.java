@@ -12,41 +12,37 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.actions.magic;
+package org.worldgrower.actions;
 
 import java.io.ObjectStreamException;
 
 import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
+import org.worldgrower.ManagedOperation;
+import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.actions.AttackUtils;
-import org.worldgrower.attribute.SkillProperty;
-import org.worldgrower.attribute.SkillUtils;
-import org.worldgrower.condition.Condition;
+import org.worldgrower.generator.BuildingGenerator;
 
-public class CurePoisonAction implements MagicSpell {
+public class MarkAsSellableAction implements ManagedOperation {
 
-	private static final int ENERGY_USE = 400;
-	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		target.getProperty(Constants.CONDITIONS).removeCondition(Condition.POISONED_CONDITION);
-		
-		SkillUtils.useEnergy(performer, Constants.RESTORATION_SKILL, ENERGY_USE);
+		target.setProperty(Constants.SELLABLE, Boolean.TRUE);
 	}
-	
+
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return ((target.hasProperty(Constants.ARMOR)) && (target.getProperty(Constants.HIT_POINTS) > 0) && target.hasIntelligence() && performer.getProperty(Constants.KNOWN_SPELLS).contains(this));
+		return BuildingGenerator.isSellable(target) && performer.getProperty(Constants.HOUSES).contains(target);
 	}
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return AttackUtils.distanceWithFreeLeftHand(performer, target, 4)
-				+ SkillUtils.distanceForEnergyUse(performer, getSkill(), ENERGY_USE);
+		int distanceBetweenPerformerAndTarget = Reach.evaluateTarget(performer, args, target, 1);
+		int sellableDistance = target.hasProperty(Constants.SELLABLE) && target.getProperty(Constants.SELLABLE) ? 1 : 0;
+		return distanceBetweenPerformerAndTarget + sellableDistance;
 	}
-	
+
 	@Override
 	public ArgumentRange[] getArgumentRanges() {
 		return ArgumentRange.EMPTY_ARGUMENT_RANGE;
@@ -54,34 +50,16 @@ public class CurePoisonAction implements MagicSpell {
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "cure poison wounds for " + target.getProperty(Constants.NAME);
-	}
-
-	@Override
-	public String getSimpleDescription() {
-		return "cure poison";
+		return "marking a house for sale";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
 	}
 
-	@Override
-	public int getResearchCost() {
-		return 30;
-	}
-
-	@Override
-	public SkillProperty getSkill() {
-		return Constants.RELIGION_SKILL;
-	}
-
-	@Override
-	public int getRequiredSkillLevel() {
-		return 1;
-	}
 	
-	public boolean hasRequiredEnergy(WorldObject performer) {
-		return performer.getProperty(Constants.ENERGY) >= ENERGY_USE;
+	@Override
+	public String getSimpleDescription() {
+		return "mark for sale";
 	}
 }

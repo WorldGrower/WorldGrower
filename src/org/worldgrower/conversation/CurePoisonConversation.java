@@ -80,6 +80,6 @@ public class CurePoisonConversation implements Conversation {
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, World world) {
-		return "curing poisoned cindition of " + target.getProperty(Constants.NAME);
+		return "curing poisoned condition of " + target.getProperty(Constants.NAME);
 	}
 }

@@ -12,41 +12,15 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.condition;
+package org.worldgrower.goal;
 
 import org.worldgrower.Constants;
-import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.magic.MagicSpell;
 
-public class VampireBiteCondition implements Condition {
+public class MagicSpellUtils {
 
-	@Override
-	public boolean canTakeAction() {
-		return true;
-	}
-
-	@Override
-	public boolean canMove() {
-		return true;
-	}
-
-	@Override
-	public String getDescription() {
-		return "bitten by a vampire";
-	}
-
-	@Override
-	public void onTurn(WorldObject worldObject, World world, int startTurn) {
-		int currentTurn = world.getCurrentTurn().getValue();
-		
-		if (currentTurn - startTurn > 500) {
-			VampireUtils.vampirizePerson(worldObject);
-			worldObject.getProperty(Constants.CONDITIONS).removeCondition(this);
-		}
-	}
-	
-	@Override
-	public boolean isDisease() {
-		return true;
+	public static boolean worldObjectKnowsSpell(WorldObject w, MagicSpell magicSpell) {
+		return w.hasProperty(Constants.KNOWN_SPELLS) && w.getProperty(Constants.KNOWN_SPELLS).contains(magicSpell);
 	}
 }

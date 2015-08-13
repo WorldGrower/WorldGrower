@@ -17,6 +17,7 @@ package org.worldgrower;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
+import org.worldgrower.actions.UTestAttackUtils;
 import org.worldgrower.actions.UTestChooseProfessionAction;
 import org.worldgrower.actions.UTestTalkAction;
 import org.worldgrower.attribute.UTestIdList;
@@ -57,7 +58,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestLocationConversation.class,
 	UTestPropertyCountMap.class,
 	UTestIntProperty.class,
-	UTestNumberUtils.class
+	UTestNumberUtils.class,
+	UTestAttackUtils.class
 })
 public class CompleteTestSuite {
 }

@@ -37,7 +37,9 @@ public class CarpenterProfession implements Profession {
 	@Override
 	public List<Goal> getProfessionGoals() {
 		return Arrays.asList(
-				Goals.CREATE_HOUSE_GOAL);
+				Goals.CREATE_HOUSE_GOAL,
+				Goals.MARK_HOUSE_AS_SELLABLE_GOAL,
+				Goals.SELL_HOUSE_GOAL);
 	}
 
 	@Override
