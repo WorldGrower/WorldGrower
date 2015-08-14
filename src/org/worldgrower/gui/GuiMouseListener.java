@@ -220,11 +220,13 @@ public class GuiMouseListener extends MouseAdapter {
 	
 	private void addIllusionActions(JPopupMenu menu) {
 		BuildAction[] buildActions = { Actions.MINOR_ILLUSION_ACTION };
-		addBuildActions(menu, "Illusions", buildActions, buildAction -> new ChooseWorldObjectAction(playerCharacter, imageInfoReader, world, ((WorldPanel)container), dungeonMaster, new StartBuildModeAction(playerCharacter, imageInfoReader, ((WorldPanel)container), buildAction)));
+		ManagedOperation[] illusionActions = { Actions.INVISIBILITY_ACTION };
+		JMenu illusionMenu = addBuildActions(menu, "Illusions", buildActions, buildAction -> new ChooseWorldObjectAction(playerCharacter, imageInfoReader, world, ((WorldPanel)container), dungeonMaster, new StartBuildModeAction(playerCharacter, imageInfoReader, ((WorldPanel)container), buildAction)));
+		addActions(illusionMenu, illusionActions);
 	}
 	
 	private void addRestorationActions(JPopupMenu menu) {
-		ManagedOperation[] restorationActions = { Actions.MINOR_HEAL_ACTION };
+		ManagedOperation[] restorationActions = { Actions.MINOR_HEAL_ACTION, Actions.CURE_DISEASE_ACTION, Actions.CURE_POISON_ACTION };
 		addActions(menu, "Restoration", restorationActions);
 	}
 	
@@ -237,7 +239,7 @@ public class GuiMouseListener extends MouseAdapter {
 		addBuildActions(menu, menuTitle, buildActions, buildAction -> new StartBuildModeAction(playerCharacter, imageInfoReader, ((WorldPanel)container), buildAction));
 	}
 	
-	private void addBuildActions(JPopupMenu menu, String menuTitle, BuildAction[] buildActions, Function<BuildAction, Action> guiActionBuilder) {
+	private JMenu addBuildActions(JPopupMenu menu, String menuTitle, BuildAction[] buildActions, Function<BuildAction, Action> guiActionBuilder) {
 		JMenu parentMenuItem = new JMenu(menuTitle);
 		menu.add(parentMenuItem);
 		
@@ -250,6 +252,7 @@ public class GuiMouseListener extends MouseAdapter {
 				createDisabledActionMenuItem(parentMenuItem, buildAction);
 			}
 		}
+		return parentMenuItem;
 	}
 	
 	private void addCraftActions(JPopupMenu menu) {
@@ -271,6 +274,10 @@ public class GuiMouseListener extends MouseAdapter {
 		JMenu parentMenuItem = new JMenu(menuTitle);
 		menu.add(parentMenuItem);
 		
+		addActions(parentMenuItem, actions);
+	}
+
+	private void addActions(JMenu parentMenuItem, ManagedOperation[] actions) {
 		for(ManagedOperation action : actions) {
 			if (canPlayerCharacterPerformBuildAction(action)) {
 				PlayerCharacterAction guiAction = new PlayerCharacterAction(playerCharacter, world, container, dungeonMaster, action, playerCharacter);

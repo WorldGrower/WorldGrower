@@ -29,8 +29,8 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.swing.JComponent;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JTextArea;
 import javax.swing.KeyStroke;
 import javax.swing.SpringLayout;
@@ -38,6 +38,8 @@ import javax.swing.SwingUtilities;
 
 import org.worldgrower.Constants;
 import org.worldgrower.DungeonMaster;
+import org.worldgrower.ManagedOperation;
+import org.worldgrower.ManagedOperationListener;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.BuildAction;
@@ -56,10 +58,11 @@ public class WorldPanel extends JPanel {
 	private int offsetX = 0;
 	private int offsetY = 0;
 	
-	private JTextArea hpTextArea;
-	private JTextArea foodTextArea;
-	private JTextArea waterTextArea;
-	private JTextArea energyTextArea;
+	private JTextArea messageTextArea;
+	private JProgressBar hitPointsProgressBar;
+	private JProgressBar foodTextProgressBar;
+	private JProgressBar waterProgressBar;
+	private JProgressBar energyProgressBar;
 	
 	private BuildModeOutline buildModeOutline = new BuildModeOutline();
 	private MouseMotionListener mouseMotionListener;
@@ -113,70 +116,51 @@ public class WorldPanel extends JPanel {
         SpringLayout layout = new SpringLayout();
 		infoPanel.setLayout(layout);
         
-        final JTextArea messageTextArea = new JTextArea(3, 30);
+        messageTextArea = new JTextArea(3, 30);
         messageTextArea.setEditable(false);
+        messageTextArea.setToolTipText("This area displays messages like combat or dialogues");
         makeUnfocussable(messageTextArea);
-        world.addListener((operation, performer, target, args, message) -> messageTextArea.setText(message.toString()));
+        world.addListener(new MessageManagedOperationListener());
         
-        JLabel hpLabel = new JLabel("HP/HPmax    ");
-        hpLabel.setBackground(Color.WHITE);
-        hpLabel.setOpaque(true);
-        infoPanel.add(hpLabel);
-        layout.putConstraint(SpringLayout.WEST, hpLabel, 0, SpringLayout.EAST, messageTextArea);
-        layout.putConstraint(SpringLayout.NORTH, hpLabel, 0, SpringLayout.NORTH, messageTextArea);
+        hitPointsProgressBar = new JProgressBar(JProgressBar.VERTICAL, 0, playerCharacter.getProperty(Constants.HIT_POINTS_MAX));
+        hitPointsProgressBar.setBackground(Color.BLACK);
+        hitPointsProgressBar.setForeground(Color.RED);
+        hitPointsProgressBar.setToolTipText("hit points");
         
-        hpTextArea = new JTextArea(1, 10);
-        hpTextArea.setEditable(false);
-        hpTextArea.setEnabled(false);
-        makeUnfocussable(hpTextArea);
-        infoPanel.add(hpTextArea);
-        layout.putConstraint(SpringLayout.WEST, hpTextArea, 0, SpringLayout.EAST, messageTextArea);
-        layout.putConstraint(SpringLayout.NORTH, hpTextArea, 0, SpringLayout.SOUTH, hpLabel);
+        infoPanel.add(hitPointsProgressBar);
+        layout.putConstraint(SpringLayout.WEST, hitPointsProgressBar, 0, SpringLayout.EAST, messageTextArea);
+        layout.putConstraint(SpringLayout.NORTH, hitPointsProgressBar, 0, SpringLayout.NORTH, messageTextArea);
+        layout.putConstraint(SpringLayout.SOUTH, hitPointsProgressBar, 0, SpringLayout.SOUTH, messageTextArea);
         
-        JLabel foodLabel = new JLabel("Food            ");
-        foodLabel.setBackground(Color.WHITE);
-        foodLabel.setOpaque(true);
-        infoPanel.add(foodLabel);
-        layout.putConstraint(SpringLayout.WEST, foodLabel, 5, SpringLayout.EAST, hpLabel);
-        layout.putConstraint(SpringLayout.NORTH, foodLabel, 0, SpringLayout.NORTH, hpLabel);
+        foodTextProgressBar = new JProgressBar(JProgressBar.VERTICAL, 0, 1000);
+        foodTextProgressBar.setBackground(Color.BLACK);
+        foodTextProgressBar.setForeground(Color.YELLOW);
+        foodTextProgressBar.setToolTipText("food");
         
-        foodTextArea = new JTextArea(1, 10);
-        foodTextArea.setEditable(false);
-        foodTextArea.setEnabled(false);
-        makeUnfocussable(foodTextArea);
-        infoPanel.add(foodTextArea);
-        layout.putConstraint(SpringLayout.WEST, foodTextArea, 0, SpringLayout.WEST, foodLabel);
-        layout.putConstraint(SpringLayout.NORTH, foodTextArea, 0, SpringLayout.SOUTH, foodLabel);
+        infoPanel.add(foodTextProgressBar);
+        layout.putConstraint(SpringLayout.WEST, foodTextProgressBar, 0, SpringLayout.EAST, hitPointsProgressBar);
+        layout.putConstraint(SpringLayout.NORTH, foodTextProgressBar, 0, SpringLayout.NORTH, hitPointsProgressBar);
+        layout.putConstraint(SpringLayout.SOUTH, foodTextProgressBar, 0, SpringLayout.SOUTH, messageTextArea);
         
-        JLabel waterLabel = new JLabel("Water            ");
-        waterLabel.setBackground(Color.WHITE);
-        waterLabel.setOpaque(true);
-        infoPanel.add(waterLabel);
-        layout.putConstraint(SpringLayout.WEST, waterLabel, 5, SpringLayout.EAST, foodLabel);
-        layout.putConstraint(SpringLayout.NORTH, waterLabel, 0, SpringLayout.NORTH, foodLabel);
+        waterProgressBar = new JProgressBar(JProgressBar.VERTICAL, 0, 1000);
+        waterProgressBar.setBackground(Color.BLACK);
+        waterProgressBar.setForeground(Color.BLUE);
+        waterProgressBar.setToolTipText("water");
         
-        waterTextArea = new JTextArea(1, 10);
-        waterTextArea.setEditable(false);
-        waterTextArea.setEnabled(false);
-        makeUnfocussable(waterTextArea);
-        infoPanel.add(waterTextArea);
-        layout.putConstraint(SpringLayout.WEST, waterTextArea, 0, SpringLayout.WEST, waterLabel);
-        layout.putConstraint(SpringLayout.NORTH, waterTextArea, 0, SpringLayout.SOUTH, waterLabel);
+        infoPanel.add(waterProgressBar);
+        layout.putConstraint(SpringLayout.WEST, waterProgressBar, 0, SpringLayout.EAST, foodTextProgressBar);
+        layout.putConstraint(SpringLayout.NORTH, waterProgressBar, 0, SpringLayout.NORTH, foodTextProgressBar);
+        layout.putConstraint(SpringLayout.SOUTH, waterProgressBar, 0, SpringLayout.SOUTH, messageTextArea);
 
-        JLabel energyLabel = new JLabel("Energy          ");
-        energyLabel.setBackground(Color.WHITE);
-        energyLabel.setOpaque(true);
-        infoPanel.add(energyLabel);
-        layout.putConstraint(SpringLayout.WEST, energyLabel, 5, SpringLayout.EAST, waterLabel);
-        layout.putConstraint(SpringLayout.NORTH, energyLabel, 0, SpringLayout.NORTH, waterLabel);
+        energyProgressBar = new JProgressBar(JProgressBar.VERTICAL, 0, 1000);
+        energyProgressBar.setBackground(Color.BLACK);
+        energyProgressBar.setForeground(Color.GREEN);
+        energyProgressBar.setToolTipText("energy");
         
-        energyTextArea = new JTextArea(1, 10);
-        energyTextArea.setEditable(false);
-        energyTextArea.setEnabled(false);
-        makeUnfocussable(energyTextArea);
-        infoPanel.add(energyTextArea);
-        layout.putConstraint(SpringLayout.WEST, energyTextArea, 0, SpringLayout.WEST, energyLabel);
-        layout.putConstraint(SpringLayout.NORTH, energyTextArea, 0, SpringLayout.SOUTH, energyLabel);
+        infoPanel.add(energyProgressBar);
+        layout.putConstraint(SpringLayout.WEST, energyProgressBar, 0, SpringLayout.EAST, waterProgressBar);
+        layout.putConstraint(SpringLayout.NORTH, energyProgressBar, 0, SpringLayout.NORTH, waterProgressBar);
+        layout.putConstraint(SpringLayout.SOUTH, energyProgressBar, 0, SpringLayout.SOUTH, messageTextArea);
 
         infoPanel.add(messageTextArea);
         layout.putConstraint(SpringLayout.WEST, messageTextArea, 0, SpringLayout.WEST, infoPanel);
@@ -184,11 +168,21 @@ public class WorldPanel extends JPanel {
         
         add(infoPanel, BorderLayout.SOUTH);
         
-        layout.putConstraint(SpringLayout.EAST, infoPanel, 0, SpringLayout.EAST, energyLabel);
+        layout.putConstraint(SpringLayout.EAST, infoPanel, 0, SpringLayout.EAST, energyProgressBar);
         layout.putConstraint(SpringLayout.SOUTH, infoPanel, 0, SpringLayout.SOUTH, messageTextArea);
         
         this.playerCharacter = playerCharacter;
         this.world = world;
+    }
+    
+    private class MessageManagedOperationListener implements ManagedOperationListener {
+
+		@Override
+		public void actionPerformed(ManagedOperation managedOperation, WorldObject performer, WorldObject target, int[] args, Object message) {
+			if (performer.equals(playerCharacter) || target.equals(playerCharacter)) {
+				messageTextArea.setText(message.toString());
+			}
+		}
     }
     
     private void makeUnfocussable(JComponent component) {
@@ -216,7 +210,7 @@ public class WorldPanel extends JPanel {
 			int x = worldObject.getProperty(Constants.X);
 			int y = worldObject.getProperty(Constants.Y);
 			
-			if (world.getTerrain().isExplored(x, y)) {
+			if (world.getTerrain().isExplored(x, y) && isWorldObjectVisible(worldObject)) {
 				g.drawImage(image, (x+offsetX) * 48, (y+offsetY) * 48, null);
 				
 				ImageIds overlayingImageId = getOverlayingImageId(worldObject);
@@ -227,14 +221,24 @@ public class WorldPanel extends JPanel {
 			}
 		}
 		
-		repaintHpTextAreaRepaint();
-		repaintFoodTextAreaRepaint();
-		repaintWaterTextAreaRepaint();
-		repaintEnergyTextAreaRepaint();
+		hitPointsProgressBar.setValue(playerCharacter.getProperty(Constants.HIT_POINTS));
+		foodTextProgressBar.setValue(playerCharacter.getProperty(Constants.FOOD));
+		waterProgressBar.setValue(playerCharacter.getProperty(Constants.WATER));
+		energyProgressBar.setValue(playerCharacter.getProperty(Constants.ENERGY));
 		buildModeOutline.repaintBuildMode(g, getMouseLocation(), offsetX, offsetY, playerCharacter, world);
     }
 
-    private ImageIds getImageId(WorldObject worldObject) {
+    private boolean isWorldObjectVisible(WorldObject worldObject) {
+		if (worldObject.equals(playerCharacter)) {
+			return true;
+		} else if (worldObject.hasProperty(Constants.CONDITIONS) && worldObject.getProperty(Constants.CONDITIONS).hasCondition(Condition.INVISIBLE_CONDITION)) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	private ImageIds getImageId(WorldObject worldObject) {
 		WorldObject facade = worldObject.getProperty(Constants.FACADE);
 		if (worldObject.hasProperty(Constants.CONDITIONS) && worldObject.getProperty(Constants.CONDITIONS).hasCondition(Condition.COCOONED_CONDITION)) {
 			return ImageIds.COCOON;
@@ -246,12 +250,20 @@ public class WorldPanel extends JPanel {
 	}
     
     private ImageIds getOverlayingImageId(WorldObject worldObject) {
-    	if (worldObject.hasProperty(Constants.CONDITIONS) && worldObject.getProperty(Constants.CONDITIONS).hasCondition(Condition.BURNING_CONDITION)) {
+    	if (hasCondition(worldObject, Condition.BURNING_CONDITION)) {
     		return ImageIds.BURNING;
+    	} else if (hasCondition(worldObject, Condition.INVISIBLE_CONDITION)) {
+    		return ImageIds.INVISIBILITY_INDICATOR;
+    	} else if (hasCondition(worldObject, Condition.POISONED_CONDITION)) {
+    		return ImageIds.POISONED_INDICATOR;
     	} else {
     		return null;
     	}
     }
+
+	private boolean hasCondition(WorldObject worldObject, Condition condition) {
+		return worldObject.hasProperty(Constants.CONDITIONS) && worldObject.getProperty(Constants.CONDITIONS).hasCondition(condition);
+	}
     
 	private LookDirection getLookDirection(WorldObject worldObject) {
 		if (worldObject.hasProperty(Constants.LOOK_DIRECTION)) {
@@ -259,35 +271,6 @@ public class WorldPanel extends JPanel {
 		} else {
 			return null;
 		}
-	}
-
-	private void repaintHpTextAreaRepaint() {
-		StringBuilder hpDescription = new StringBuilder();
-		hpDescription.append(playerCharacter.getProperty(Constants.HIT_POINTS));
-		hpDescription.append("/");
-		hpDescription.append(playerCharacter.getProperty(Constants.HIT_POINTS_MAX));
-		hpTextArea.setText(hpDescription.toString());
-	}
-	
-	private void repaintFoodTextAreaRepaint() {
-		StringBuilder foodDescription = new StringBuilder();
-		foodDescription.append(playerCharacter.getProperty(Constants.FOOD));
-		foodDescription.append("/1000");
-		foodTextArea.setText(foodDescription.toString());
-	}
-	
-	private void repaintWaterTextAreaRepaint() {
-		StringBuilder waterDescription = new StringBuilder();
-		waterDescription.append(playerCharacter.getProperty(Constants.WATER));
-		waterDescription.append("/1000");
-		waterTextArea.setText(waterDescription.toString());
-	}
-	
-	private void repaintEnergyTextAreaRepaint() {
-		StringBuilder energyDescription = new StringBuilder();
-		energyDescription.append(playerCharacter.getProperty(Constants.ENERGY));
-		energyDescription.append("/1000");
-		energyTextArea.setText(energyDescription.toString());
 	}
     
     public void centerOffsetsOn(int x, int y) {

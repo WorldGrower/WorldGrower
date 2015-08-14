@@ -80,6 +80,7 @@ public class SellHouseConversation implements Conversation {
 			
 			performer.getProperty(Constants.HOUSES).remove(houseId);
 			target.getProperty(Constants.HOUSES).add(houseId);
+			house.setProperty(Constants.SELLABLE, Boolean.FALSE);
 			
 			target.increment(Constants.GOLD, -price);
 			performer.increment(Constants.GOLD, price);

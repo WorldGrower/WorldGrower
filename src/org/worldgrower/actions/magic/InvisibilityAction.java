@@ -18,33 +18,38 @@ import java.io.ObjectStreamException;
 
 import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
+import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.actions.AttackUtils;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.condition.Condition;
 
-public class CureDiseaseAction implements MagicSpell {
+public class InvisibilityAction implements MagicSpell {
 
-	private static final int ENERGY_USE = 500;
+	private static final int ENERGY_USE = 600;
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		target.getProperty(Constants.CONDITIONS).removeAllDiseases();
-		SkillUtils.useEnergy(performer, Constants.RESTORATION_SKILL, ENERGY_USE);
+	
+		int turns = (int)(8 * SkillUtils.getSkillBonus(performer, getSkill()));
+		target.getProperty(Constants.CONDITIONS).addCondition(Condition.INVISIBLE_CONDITION, turns, world);
+		
+		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE);
 	}
 	
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return ((target.hasProperty(Constants.CONDITIONS)) && target.hasIntelligence() && performer.getProperty(Constants.KNOWN_SPELLS).contains(this));
+		return target.hasProperty(Constants.CONDITIONS) && performer.getProperty(Constants.KNOWN_SPELLS).contains(this);
 	}
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return AttackUtils.distanceWithFreeLeftHand(performer, target, 4)
+		int distanceBetweenPerformerAndTarget = Reach.evaluateTarget(performer, args, target, 1);
+		return distanceBetweenPerformerAndTarget 
 				+ SkillUtils.distanceForEnergyUse(performer, getSkill(), ENERGY_USE);
 	}
-	
+
 	@Override
 	public ArgumentRange[] getArgumentRanges() {
 		return ArgumentRange.EMPTY_ARGUMENT_RANGE;
@@ -52,12 +57,12 @@ public class CureDiseaseAction implements MagicSpell {
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "curing disease for " + target.getProperty(Constants.NAME);
+		return "making someone invisible";
 	}
 
 	@Override
 	public String getSimpleDescription() {
-		return "cure disease";
+		return "make invisible";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {
@@ -66,16 +71,16 @@ public class CureDiseaseAction implements MagicSpell {
 
 	@Override
 	public int getResearchCost() {
-		return 25;
+		return 60;
 	}
 
 	@Override
 	public SkillProperty getSkill() {
-		return Constants.RELIGION_SKILL;
+		return Constants.ILLUSION_SKILL;
 	}
 
 	@Override
 	public int getRequiredSkillLevel() {
-		return 1;
+		return 2;
 	}
 }

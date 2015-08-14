@@ -20,6 +20,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.condition.Condition;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.history.History;
 import org.worldgrower.history.Turn;
@@ -67,6 +68,9 @@ public class WorldFacade implements World {
 				if (!illusionIsBelievedBy(personViewingWorld, worldObject, world)) {
 					worldObjectIterator.remove();
 				}
+			}
+			if (worldObject.hasProperty(Constants.CONDITIONS) && worldObject.getProperty(Constants.CONDITIONS).hasCondition(Condition.INVISIBLE_CONDITION)) {
+				worldObjectIterator.remove();
 			}
 		}
 	}

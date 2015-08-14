@@ -35,8 +35,7 @@ public class BecomeOrganizationMemberGoal implements Goal {
 		WorldObject performerFacade = FacadeUtils.createFacadeForSelf(performer);
 		List<WorldObject> organizations = GroupPropertyUtils.findProfessionOrganizationsInWorld(performerFacade, world);
 		if (organizations.size() > 0) {
-			Collections.sort(organizations, new OrganizationComparator(performer));
-			Integer leaderId = organizations.get(0).getProperty(Constants.ORGANIZATION_LEADER_ID);
+			Integer leaderId = getMostLikedLeaderId(performer, organizations);
 			if (leaderId != null) {
 				WorldObject organizationLeader = world.findWorldObject(Constants.ID, leaderId);
 				int relationshipValue = performer.getProperty(Constants.RELATIONSHIPS).getValue(organizationLeader);
@@ -53,6 +52,13 @@ public class BecomeOrganizationMemberGoal implements Goal {
 		}
 	}
 
+	Integer getMostLikedLeaderId(WorldObject performer, List<WorldObject> organizations) {
+		Collections.sort(organizations, new OrganizationComparator(performer));
+		Collections.reverse(organizations);
+		Integer leaderId = organizations.get(0).getProperty(Constants.ORGANIZATION_LEADER_ID);
+		return leaderId;
+	}
+
 	private static class OrganizationComparator implements  Comparator<WorldObject> {
 
 		private final WorldObject performer;
@@ -66,8 +72,8 @@ public class BecomeOrganizationMemberGoal implements Goal {
 			Integer leaderId1 = organization1.getProperty(Constants.ORGANIZATION_LEADER_ID);
 			Integer leaderId2 = organization2.getProperty(Constants.ORGANIZATION_LEADER_ID);
 			
-			int relationshipValue1 = performer.getProperty(Constants.RELATIONSHIPS).getValue(leaderId1);
-			int relationshipValue2 = performer.getProperty(Constants.RELATIONSHIPS).getValue(leaderId2);
+			int relationshipValue1 = leaderId1 != null ? performer.getProperty(Constants.RELATIONSHIPS).getValue(leaderId1) : 0;
+			int relationshipValue2 = leaderId2 != null ? performer.getProperty(Constants.RELATIONSHIPS).getValue(leaderId2) : 0;
 			
 			return Integer.compare(relationshipValue1, relationshipValue2);
 		}

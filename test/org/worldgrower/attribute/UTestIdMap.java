@@ -66,4 +66,12 @@ public class UTestIdMap {
 		assertEquals(Arrays.asList(2), idMap.getIdsWithoutTarget(person1));
 		assertEquals(Arrays.asList(1), idMap.getIdsWithoutTarget(person2));
 	}
+	
+	@Test
+	public void testIdRelationshipMap() {
+		IdMap idMap = new IdRelationshipMap();
+		idMap.incrementValue(1, 2000);
+		
+		assertEquals(1000, idMap.getValue(1));
+	}
 }

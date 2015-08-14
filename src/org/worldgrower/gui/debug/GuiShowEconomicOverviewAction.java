@@ -16,8 +16,6 @@ package org.worldgrower.gui.debug;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.swing.AbstractAction;
 import javax.swing.JFrame;
@@ -26,13 +24,9 @@ import javax.swing.JTable;
 import javax.swing.Timer;
 import javax.swing.table.AbstractTableModel;
 
-import org.worldgrower.Constants;
-import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.ChooseProfessionAction;
-import org.worldgrower.history.HistoryItem;
-import org.worldgrower.profession.Profession;
 import org.worldgrower.profession.Professions;
 
 public class GuiShowEconomicOverviewAction extends AbstractAction {
@@ -82,7 +76,7 @@ public class GuiShowEconomicOverviewAction extends AbstractAction {
 
 		@Override
 		public int getRowCount() {
-			return 11;
+			return 13;
 		}
 
 		@Override
@@ -121,6 +115,10 @@ public class GuiShowEconomicOverviewAction extends AbstractAction {
 					return "MineGold";
 				} else if (rowIndex == 10) {
 					return "MineGold by non-professionals";
+				} else if (rowIndex == 11) {
+					return "HarvestCotton";
+				} else if (rowIndex == 12) {
+					return "HarvestCotton by non-professionals";
 				} else {
 					return null;
 				}
@@ -147,6 +145,10 @@ public class GuiShowEconomicOverviewAction extends AbstractAction {
 					return ChooseProfessionAction.getRecentOperationsCount(Actions.MINE_GOLD_ACTION, world);
 				} else if (rowIndex == 10) {
 					return ChooseProfessionAction.getRecentOperationsByNonProfessionalsCount(Actions.MINE_GOLD_ACTION, Professions.MINER_PROFESSION, world);
+				} else if (rowIndex == 11) {
+					return ChooseProfessionAction.getRecentOperationsCount(Actions.HARVEST_COTTON_ACTION, world);
+				} else if (rowIndex == 12) {
+					return ChooseProfessionAction.getRecentOperationsByNonProfessionalsCount(Actions.HARVEST_COTTON_ACTION, Professions.WEAVER_PROFESSION, world);
 				} else {
 					return null;
 				}

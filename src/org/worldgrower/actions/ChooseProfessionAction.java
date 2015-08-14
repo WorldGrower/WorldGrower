@@ -398,5 +398,4 @@ public class ChooseProfessionAction implements ManagedOperation {
 		List<HistoryItem> filteredHistoryItems = historyItems.stream().filter(h -> isNonProfessional(h, profession)).collect(Collectors.toList());
 		return filteredHistoryItems.size();
 	}
-	
 }

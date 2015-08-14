@@ -15,9 +15,15 @@
 package org.worldgrower.attribute;
 
 import org.junit.Test;
+import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
+import org.worldgrower.World;
+import org.worldgrower.WorldImpl;
+import org.worldgrower.WorldObject;
 
 import static org.junit.Assert.assertEquals;
+
+import java.util.List;
 
 public class UTestIdList {
 
@@ -58,5 +64,29 @@ public class UTestIdList {
 		assertEquals(true, idList.contains(TestUtils.createWorldObject(7, "Test")));
 		assertEquals(true, idList.contains(TestUtils.createWorldObject(6, "Test")));
 		assertEquals(false, idList.contains(TestUtils.createWorldObject(5, "Test")));
+	}
+	
+	@Test
+	public void testIntersects() {
+		IdList idList1 = new IdList().add(3);
+		IdList idList2 = new IdList().add(4);
+		IdList idList3 = new IdList().add(3).add(4);
+		
+		assertEquals(false, idList1.intersects(idList2));
+		assertEquals(false, idList2.intersects(idList1));
+		assertEquals(true, idList1.intersects(idList1));
+		assertEquals(true, idList1.intersects(idList3));
+	}
+	
+	@Test
+	public void testMapToWorldObjects() {
+		IdList idList = new IdList().add(1).add(2);
+		World world = new WorldImpl(0, 0, null, null);
+		world.addWorldObject(TestUtils.createWorldObject(1, "Test1"));
+		world.addWorldObject(TestUtils.createWorldObject(2, "Test2"));
+		
+		List<WorldObject> worldObjects = idList.mapToWorldObjects(world, w -> w.getProperty(Constants.NAME).equals("Test1"));
+		assertEquals(1, worldObjects.size());
+		assertEquals(1, worldObjects.get(0).getProperty(Constants.ID).intValue());
 	}
 }

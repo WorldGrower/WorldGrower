@@ -221,6 +221,8 @@ public class ImageInfoReader {
 		add(ImageIds.COTTON_PANTS, sprites420.getSubImage(2, 13, 1, 1));
 		
 		add(ImageIds.BED, tileE.getSubImage(10, 4, 1, 2));
+		add(ImageIds.INVISIBILITY_INDICATOR, sprites420.getSubImage(2, 21, 1, 1));
+		add(ImageIds.POISONED_INDICATOR, sprites420.getSubImage(4, 24, 1, 1));
     }
     
     private void addCharacter(ImageIds imageId, Sprites sprites, int x, int y, int width, int height) {

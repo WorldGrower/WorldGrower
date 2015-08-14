@@ -14,27 +14,32 @@
  *******************************************************************************/
 package org.worldgrower.condition;
 
-import java.io.Serializable;
-
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 
-/**
- * A Condition is something WorldObjects can have.
- * It lasts several turns and can limit the actions of the WorldObject.
- */
-public interface Condition extends Serializable {
+public class InvisibleCondition implements Condition {
 
-	public boolean canTakeAction();
-	public boolean canMove();
-	public String getDescription();
-	public void onTurn(WorldObject worldObject, World world, int startTurns);	
-	public boolean isDisease();
+	@Override
+	public boolean canTakeAction() {
+		return true;
+	}
+
+	@Override
+	public boolean canMove() {
+		return true;
+	}
+
+	@Override
+	public String getDescription() {
+		return "invisible";
+	}
+
+	@Override
+	public void onTurn(WorldObject worldObject, World world, int startTurn) {
+	}
 	
-	public static final ParalyzedCondition PARALYZED_CONDITION = new ParalyzedCondition();
-	public static final CocoonedCondition COCOONED_CONDITION = new CocoonedCondition();
-	public static final BurningCondition BURNING_CONDITION = new BurningCondition();
-	public static final PoisonedCondition POISONED_CONDITION = new PoisonedCondition();
-	public static final VampireBiteCondition VAMPIRE_BITE_CONDITION = new VampireBiteCondition();
-	public static final InvisibleCondition INVISIBLE_CONDITION = new InvisibleCondition();
+	@Override
+	public boolean isDisease() {
+		return false;
+	}
 }
