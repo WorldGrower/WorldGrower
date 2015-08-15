@@ -1,3 +1,16 @@
+v0.0.5
+
+- give player character ability to collect taxes
+- illusions disappear after a while and can' contain objects
+- add more commands for undead servants
+- add cotton and weave actions
+- add CureDiseaseAction
+- Dionysus can now create vampires in his onTurn method
+- add carpentry skill and carpenter profession
+- add Buy/Sell house conversations
+- add InvisibilityAction
+- reworked user interface of main screen
+
 v0.0.4
 
 - add more deities and improved DeityReasonConversation
