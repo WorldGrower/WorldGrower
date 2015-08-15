@@ -18,6 +18,7 @@
     <a href="#Adding_a_new_Goal">Adding a new Goal</a><br>
     <a href="#Adding_a_new_Image">Adding a new Image</a><br>
     <a href="#Adding_a_new_Conversation">Adding a new Conversation</a><br>
+    <a href="#Adding_unit_tests">Adding unit tests</a><br>
     <h2><br>
     </h2>
     <h2><a name="Coding_Standards"></a>Coding Standards</h2>
@@ -64,6 +65,7 @@ href="http://www.oracle.com/technetwork/java/javase/documentation/codeconvtoc-13
     on other WorldObjects.<br>
     For example: person performs CutWoodAction on Tree<br>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
 
     person performs TalkAction with other person<br>
     <br>
@@ -248,5 +250,17 @@ href="http://www.oracle.com/technetwork/java/javase/documentation/codeconvtoc-13
     The method <u>getDescription </u>describes the Conversation as if
     "I'm" is put before the description.<br>
     For example: I'm talking about my name<br>
+    <br>
+    <h2><a name="Adding_unit_tests"></a>Adding unit tests</h2>
+    <br>
+    All tests are under the test folder and follow a similar package
+    structure as the source tree.<br>
+    If the class you want to add a test for is already being tested, the
+    test can simply be added to that class.<br>
+    <br>
+    If the class isn't yet being tested, it's best to add a new test
+    class with prefix UTest.<br>
+    To add the new class to the existing tests, just add it to the
+    CompleteTestSuite class.<br>
   </body>
 </html>
