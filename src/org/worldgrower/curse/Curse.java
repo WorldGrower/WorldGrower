@@ -14,6 +14,7 @@
  *******************************************************************************/
 package org.worldgrower.curse;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.worldgrower.ManagedOperation;
@@ -21,7 +22,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.goal.Goal;
 
-public interface Curse {
+public interface Curse extends Serializable {
 
 	public List<Goal> getCurseGoals(List<Goal> normalGoals);
 	public void perform(WorldObject performer, WorldObject target, int[] args, ManagedOperation managedOperation, World world);

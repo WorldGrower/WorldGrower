@@ -81,7 +81,7 @@ public class Conditions implements Serializable {
 		return conditions.containsKey(condition);
 	}
 	
-	private static class ConditionInfo {
+	private static class ConditionInfo implements Serializable {
 		private int turnsItWillLast;
 		private int startTurn;
 		
