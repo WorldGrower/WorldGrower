@@ -57,7 +57,7 @@ public class CharacterDialog extends JDialog {
 		
 		this.playerCharacter = playerCharacter;
 		
-		setBounds(100, 100, 605, 980);
+		setBounds(100, 100, 605, 1010);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -134,6 +134,7 @@ public class CharacterDialog extends JDialog {
 		createSkillBlock(Constants.LIGHT_ARMOR_SKILL, 808);
 		createSkillBlock(Constants.HEAVY_ARMOR_SKILL, 838);
 		createSkillBlock(Constants.CARPENTRY_SKILL, 868);
+		createSkillBlock(Constants.TRANSMUTATION_SKILL, 898);
 		
 		JLabel lblHead = new JLabel("Head");
 		lblHead.setBounds(264, 13, 56, 16);
@@ -222,18 +223,18 @@ public class CharacterDialog extends JDialog {
 	
 	private void createSkillBlock(SkillProperty skillProperty, int y) {
 		
-		JLabel lblInsight = new JLabel(skillProperty.getName());
-		lblInsight.setBounds(22, y, 77, 16);
-		contentPanel.add(lblInsight);
+		JLabel lblSkill = new JLabel(skillProperty.getName());
+		lblSkill.setBounds(22, y, 90, 16);
+		contentPanel.add(lblSkill);
 		
-		JLabel lblBluffValue = new JLabel(playerCharacter.getProperty(skillProperty).toString());
-		lblBluffValue.setBounds(111, y, 14, 16);
-		contentPanel.add(lblBluffValue);
+		JLabel lblSkillValue = new JLabel(playerCharacter.getProperty(skillProperty).toString());
+		lblSkillValue.setBounds(111, y, 14, 16);
+		contentPanel.add(lblSkillValue);
 		
-		JProgressBar bluffProgressBar = new JProgressBar(0, 100);
-		bluffProgressBar.setBounds(127, y, 100, 20);
-		bluffProgressBar.setValue(playerCharacter.getProperty(skillProperty).getPercentageUntilNextLevelUp());
-		contentPanel.add(bluffProgressBar);
+		JProgressBar skillProgressBar = new JProgressBar(0, 100);
+		skillProgressBar.setBounds(130, y, 100, 20);
+		skillProgressBar.setValue(playerCharacter.getProperty(skillProperty).getPercentageUntilNextLevelUp());
+		contentPanel.add(skillProgressBar);
 	}
 	
 	private JComboBox<ComboBoxEquipmentItem> createEquipmentComboBox(WorldObjectContainer inventory, UnCheckedProperty<WorldObject> propertyKey) {

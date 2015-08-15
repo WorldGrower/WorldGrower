@@ -30,6 +30,7 @@ public interface Condition extends Serializable {
 	public String getDescription();
 	public void onTurn(WorldObject worldObject, World world, int startTurns);	
 	public boolean isDisease();
+	public void conditionEnds(WorldObject worldObject);
 	
 	public static final ParalyzedCondition PARALYZED_CONDITION = new ParalyzedCondition();
 	public static final CocoonedCondition COCOONED_CONDITION = new CocoonedCondition();
@@ -37,4 +38,6 @@ public interface Condition extends Serializable {
 	public static final PoisonedCondition POISONED_CONDITION = new PoisonedCondition();
 	public static final VampireBiteCondition VAMPIRE_BITE_CONDITION = new VampireBiteCondition();
 	public static final InvisibleCondition INVISIBLE_CONDITION = new InvisibleCondition();
+	public static final EnlargedCondition ENLARGED_CONDITION = new EnlargedCondition();
+	public static final ReducedCondition REDUCED_CONDITION = new ReducedCondition();
 }

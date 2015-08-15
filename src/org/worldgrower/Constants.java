@@ -54,6 +54,8 @@ public class Constants {
 	public static final IntProperty Y = new IntProperty("Y", null, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty WIDTH = new IntProperty("WIDTH", 1, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty HEIGHT = new IntProperty("HEIGHT", 1, null, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty ORIGINAL_WIDTH = new IntProperty("ORIGINAL_WIDTH", 1, null, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty ORIGINAL_HEIGHT = new IntProperty("ORIGINAL_HEIGHT", 1, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty HIT_POINTS = new IntProperty("HP", 0, 200, NOT_NULLABLE, ALL_PROPERTIES); // TODO: max = HPmax
 	public static final IntProperty HIT_POINTS_MAX = new IntProperty("HPmax", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final StringProperty NAME = new StringProperty("NAME", NOT_NULLABLE, ALL_PROPERTIES);
@@ -91,6 +93,7 @@ public class Constants {
 	public static final SkillProperty LIGHT_ARMOR_SKILL = new SkillProperty("light armor", ALL_PROPERTIES);
 	public static final SkillProperty HEAVY_ARMOR_SKILL = new SkillProperty("heavy armor", ALL_PROPERTIES);
 	public static final SkillProperty CARPENTRY_SKILL = new SkillProperty("carpentry", ALL_PROPERTIES);
+	public static final SkillProperty TRANSMUTATION_SKILL = new SkillProperty("transmutation", ALL_PROPERTIES);
 	
 	public static final UnCheckedProperty<CreatureType> CREATURE_TYPE = new UnCheckedProperty<CreatureType>("creatureType", ALL_PROPERTIES);
 	

@@ -14,6 +14,7 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -98,5 +99,33 @@ public class GoalUtils {
 	
 	public static List<WorldObject> findNearestNewTargets(WorldObject performer, ManagedOperation action, int[] args, Predicate<WorldObject> condition, World world) {
 		return GoalUtils.findNearestTargets(performer, action, w -> world.getHistory().findHistoryItem(performer, w, args, action) == null && !performer.equals(w) && condition.test(w), world);
+	}
+
+	public static boolean canEnlarge(WorldObject target, World world) {
+		int newHeight = target.getProperty(Constants.HEIGHT) * 2;
+		int newWidth = target.getProperty(Constants.WIDTH) * 2;
+		
+		int openSpaceX = target.getProperty(Constants.X);
+		int openSpaceY = target.getProperty(Constants.Y);
+		
+		List<WorldObject> allFoundWorldObjects = new ArrayList<>();
+		for(int x=openSpaceX; x<openSpaceX+newWidth; x++) {
+			for(int y=openSpaceY; y<openSpaceY+newHeight; y++) {
+				List<WorldObject> foundWorldObjects = world.findWorldObjects(new CreaturePositionCondition(y, x));
+				for(WorldObject foundWorldObject : foundWorldObjects) {
+					if (!allFoundWorldObjects.contains(foundWorldObject)) {
+						allFoundWorldObjects.add(foundWorldObject);
+					}
+				}
+			}
+		}
+		if (allFoundWorldObjects.size() > 1) {
+			return false;
+		} else if (allFoundWorldObjects.size() == 1) {
+			return allFoundWorldObjects.get(0).equals(target);
+		} else {
+			return true;
+		}
+		
 	}
 }

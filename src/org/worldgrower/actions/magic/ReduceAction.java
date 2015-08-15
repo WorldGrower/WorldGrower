@@ -26,20 +26,41 @@ import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
 
-public class CurePoisonAction implements MagicSpell {
+public class ReduceAction implements MagicSpell {
 
-	private static final int ENERGY_USE = 400;
+	private static final int ENERGY_USE = 500;
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		Conditions.remove(target, Condition.POISONED_CONDITION);
-		
-		SkillUtils.useEnergy(performer, Constants.RESTORATION_SKILL, ENERGY_USE);
+		if (target.getProperty(Constants.CONDITIONS).hasCondition(Condition.ENLARGED_CONDITION)) {
+			Conditions.remove(target, Condition.ENLARGED_CONDITION);
+		} else {
+			target.setProperty(Constants.ORIGINAL_HEIGHT, target.getProperty(Constants.HEIGHT));
+			target.setProperty(Constants.ORIGINAL_WIDTH, target.getProperty(Constants.WIDTH));
+			
+			int height = halveDimension(target.getProperty(Constants.HEIGHT));
+			target.setProperty(Constants.HEIGHT, height);
+			
+			int width = halveDimension(target.getProperty(Constants.WIDTH));
+			target.setProperty(Constants.WIDTH, width);
+			
+			int turns = (int)(8 * SkillUtils.getSkillBonus(performer, getSkill()));
+			target.getProperty(Constants.CONDITIONS).addCondition(Condition.REDUCED_CONDITION, turns, world);
+		}		
+		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE);
+	}
+
+	private int halveDimension(int dimension) {
+		dimension = dimension / 2;
+		if (dimension < 1) {
+			dimension = 1;
+		}
+		return dimension;
 	}
 	
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return ((target.hasProperty(Constants.ARMOR)) && (target.getProperty(Constants.HIT_POINTS) > 0) && target.hasIntelligence() && performer.getProperty(Constants.KNOWN_SPELLS).contains(this));
+		return (target.hasProperty(Constants.CONDITIONS) && !target.getProperty(Constants.CONDITIONS).hasCondition(Condition.REDUCED_CONDITION) && performer.getProperty(Constants.KNOWN_SPELLS).contains(this));
 	}
 
 	@Override
@@ -55,12 +76,12 @@ public class CurePoisonAction implements MagicSpell {
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "cure poison wounds for " + target.getProperty(Constants.NAME);
+		return "reducing " + target.getProperty(Constants.NAME);
 	}
 
 	@Override
 	public String getSimpleDescription() {
-		return "cure poison";
+		return "reduce";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {
@@ -74,15 +95,11 @@ public class CurePoisonAction implements MagicSpell {
 
 	@Override
 	public SkillProperty getSkill() {
-		return Constants.RELIGION_SKILL;
+		return Constants.TRANSMUTATION_SKILL;
 	}
 
 	@Override
 	public int getRequiredSkillLevel() {
 		return 1;
-	}
-	
-	public boolean hasRequiredEnergy(WorldObject performer) {
-		return performer.getProperty(Constants.ENERGY) >= ENERGY_USE;
 	}
 }

@@ -14,24 +14,37 @@
  *******************************************************************************/
 package org.worldgrower;
 
+import java.util.List;
+
 import org.worldgrower.actions.Actions;
+import org.worldgrower.condition.Condition;
 import org.worldgrower.goal.FacadeUtils;
 import org.worldgrower.goal.GroupPropertyUtils;
-
 
 public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 
 	@Override
 	public void goalHindered(WorldObject performer, WorldObject target, int stepsUntilLastGoal, int goalEvaluationDecrease, WorldObject actionTarget, ManagedOperation managedOperation, int[] args, World world) {
 		if (performer.hasProperty(Constants.RELATIONSHIPS) && target.hasProperty(Constants.RELATIONSHIPS)) {
-			int value = -100 * stepsUntilLastGoal;
-			
-			WorldObject performerFacade = FacadeUtils.createFacade(performer, performer, target);
-			WorldObject targetFacade = FacadeUtils.createFacade(target, performer, target);
-			
-			logToBackground(target, actionTarget, managedOperation, args, performerFacade, world);
-			
-			alterRelationships(performer, target, managedOperation, world, value, performerFacade, targetFacade);
+			if (hasAnyoneSeenAction(performer, actionTarget, managedOperation, args, world)) {
+				int value = -100 * stepsUntilLastGoal;
+				
+				WorldObject performerFacade = FacadeUtils.createFacade(performer, performer, target);
+				WorldObject targetFacade = FacadeUtils.createFacade(target, performer, target);
+				
+				logToBackground(target, actionTarget, managedOperation, args, performerFacade, world);
+				
+				alterRelationships(performer, target, managedOperation, world, value, performerFacade, targetFacade);
+			}
+		}
+	}
+	
+	private boolean hasAnyoneSeenAction(WorldObject performer, WorldObject actionTarget, ManagedOperation managedOperation, int[] args, World world) {
+		if (performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.INVISIBLE_CONDITION)) {
+			return false;
+		} else {
+			List<WorldObject> targets = world.findWorldObjects(w -> (Reach.distance(performer, w) < 6 || Reach.distance(actionTarget, w) < 6) && w.hasIntelligence() && !w.equals(performer));
+			return targets.size() > 0;
 		}
 	}
 

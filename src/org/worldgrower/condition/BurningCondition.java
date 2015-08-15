@@ -54,4 +54,8 @@ public class BurningCondition implements Condition {
 	public boolean isDisease() {
 		return false;
 	}
+
+	@Override
+	public void conditionEnds(WorldObject worldObject) {
+	}
 }

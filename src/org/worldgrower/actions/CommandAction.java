@@ -23,7 +23,6 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.goal.Goal;
-import org.worldgrower.goal.Goals;
 
 public class CommandAction implements ManagedOperation {
 

@@ -14,7 +14,6 @@
  *******************************************************************************/
 package org.worldgrower.condition;
 
-import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 
@@ -41,12 +40,16 @@ public class VampireBiteCondition implements Condition {
 		
 		if (currentTurn - startTurn > 500) {
 			VampireUtils.vampirizePerson(worldObject);
-			worldObject.getProperty(Constants.CONDITIONS).removeCondition(this);
+			Conditions.remove(worldObject, this);
 		}
 	}
 	
 	@Override
 	public boolean isDisease() {
 		return true;
+	}
+
+	@Override
+	public void conditionEnds(WorldObject worldObject) {
 	}
 }

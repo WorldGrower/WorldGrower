@@ -47,6 +47,7 @@ public class SkillUtils {
 		addSkill(Constants.LIGHT_ARMOR_SKILL, properties);
 		addSkill(Constants.HEAVY_ARMOR_SKILL, properties);
 		addSkill(Constants.CARPENTRY_SKILL, properties);
+		addSkill(Constants.TRANSMUTATION_SKILL, properties);
 	}
 	
 	private static final Map<SkillProperty, IntProperty> SKILLS_TO_ATTRIBUTE_MAP = new HashMap<>();
@@ -75,6 +76,7 @@ public class SkillUtils {
 		SKILLS_TO_ATTRIBUTE_MAP.put(Constants.LIGHT_ARMOR_SKILL, Constants.DEXTERITY);
 		SKILLS_TO_ATTRIBUTE_MAP.put(Constants.HEAVY_ARMOR_SKILL, Constants.STRENGTH);
 		SKILLS_TO_ATTRIBUTE_MAP.put(Constants.CARPENTRY_SKILL, Constants.WISDOM);
+		SKILLS_TO_ATTRIBUTE_MAP.put(Constants.TRANSMUTATION_SKILL, Constants.INTELLIGENCE);
 	}
 	
 	private static void addSkill(SkillProperty skillProperty, Map<ManagedProperty<?>, Object> properties) {

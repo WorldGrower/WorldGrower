@@ -25,6 +25,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.ArmorType;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.condition.Condition;
 
 public class AttackUtils {
 
@@ -37,6 +38,7 @@ public class AttackUtils {
 		float performerEnergy = (float) performer.getProperty(Constants.ENERGY);
 		
 		int damage = (int) (performerDamage * skillBonus * (performerEnergy / 1000) * ((1000 - targetDamageResist) / 1000));
+		damage = changeForSize(damage, performer, target);
 		targetHP = targetHP - damage;
 		String message = performer.getProperty(Constants.NAME) + " attacks " + target.getProperty(Constants.NAME) + ": " + damage + " damage";
 		
@@ -50,6 +52,19 @@ public class AttackUtils {
 		world.logAction(action, performer, target, args, message);
 	}
 	
+	private static int changeForSize(int damage, WorldObject performer, WorldObject target) {
+		if (performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.ENLARGED_CONDITION)) {
+			damage *= 2;
+		} else if (performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.REDUCED_CONDITION)) {
+			damage /= 2;
+		} else if (target.getProperty(Constants.CONDITIONS).hasCondition(Condition.ENLARGED_CONDITION)) {
+			damage /= 2;
+		} else if (target.getProperty(Constants.CONDITIONS).hasCondition(Condition.REDUCED_CONDITION)) {
+			damage *= 2;
+		}
+		return damage;
+	}
+
 	private static void userArmorSkill(WorldObject target) {
 		List<WorldObject> targetEquipmentList = new ArrayList<>();
 		targetEquipmentList.add(target.getProperty(Constants.HEAD_EQUIPMENT));

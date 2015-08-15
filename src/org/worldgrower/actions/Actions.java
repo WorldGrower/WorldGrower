@@ -23,12 +23,14 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.actions.magic.AnimateDeadAction;
 import org.worldgrower.actions.magic.CureDiseaseAction;
 import org.worldgrower.actions.magic.CurePoisonAction;
+import org.worldgrower.actions.magic.EnlargeAction;
 import org.worldgrower.actions.magic.FireBoltAttackAction;
 import org.worldgrower.actions.magic.InvisibilityAction;
 import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.actions.magic.MinorHealAction;
 import org.worldgrower.actions.magic.MinorIllusionAction;
 import org.worldgrower.actions.magic.RayOfFrostAttackAction;
+import org.worldgrower.actions.magic.ReduceAction;
 import org.worldgrower.actions.magic.ResearchSpellAction;
 import org.worldgrower.actions.magic.ScribeMagicSpellAction;
 import org.worldgrower.goal.GatherFoodGoal;
@@ -94,6 +96,8 @@ public class Actions {
 	public static final CurePoisonAction CURE_POISON_ACTION = new CurePoisonAction();
 	public static final CureDiseaseAction CURE_DISEASE_ACTION = new CureDiseaseAction();
 	public static final InvisibilityAction INVISIBILITY_ACTION = new InvisibilityAction();
+	public static final EnlargeAction ENLARGE_ACTION = new EnlargeAction();
+	public static final ReduceAction REDUCE_ACTION = new ReduceAction();
 	
 	public static final BuildLibraryAction BUILD_LIBRARY_ACTION = new BuildLibraryAction();
 	public static final ResearchReligionSkillAction RESEARCH_RELIGION_SKILL_ACTION = new ResearchReligionSkillAction();
@@ -137,7 +141,9 @@ public class Actions {
 			CURE_POISON_ACTION,
 			ANIMATE_DEAD_ACTION,
 			CURE_DISEASE_ACTION,
-			INVISIBILITY_ACTION);
+			INVISIBILITY_ACTION,
+			ENLARGE_ACTION,
+			REDUCE_ACTION);
 	
 	public static final List<ManagedOperation> ALL_ACTIONS = new ArrayList<>(Arrays.asList(
 		MOVE_ACTION,

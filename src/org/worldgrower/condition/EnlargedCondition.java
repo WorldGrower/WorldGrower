@@ -14,10 +14,11 @@
  *******************************************************************************/
 package org.worldgrower.condition;
 
+import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 
-public class InvisibleCondition implements Condition {
+public class EnlargedCondition implements Condition {
 
 	@Override
 	public boolean canTakeAction() {
@@ -31,7 +32,7 @@ public class InvisibleCondition implements Condition {
 
 	@Override
 	public String getDescription() {
-		return "invisible";
+		return "enlarged";
 	}
 
 	@Override
@@ -45,5 +46,7 @@ public class InvisibleCondition implements Condition {
 
 	@Override
 	public void conditionEnds(WorldObject worldObject) {
+		worldObject.setProperty(Constants.HEIGHT, worldObject.getProperty(Constants.ORIGINAL_HEIGHT));
+		worldObject.setProperty(Constants.WIDTH, worldObject.getProperty(Constants.ORIGINAL_WIDTH));
 	}
 }

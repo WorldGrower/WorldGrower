@@ -44,7 +44,9 @@ public class VampireBiteAction implements ManagedOperation {
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return Reach.evaluateTarget(performer, args, target, 1);
+		int performerIsVampireDistance = performer.hasProperty(Constants.VAMPIRE_BLOOD_LEVEL) ? 0 : 1;
+		return Reach.evaluateTarget(performer, args, target, 1)
+				+ performerIsVampireDistance;
 	}
 	
 	@Override

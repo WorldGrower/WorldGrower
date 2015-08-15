@@ -42,4 +42,8 @@ public class CocoonedCondition implements Condition {
 	public boolean isDisease() {
 		return false;
 	}
+
+	@Override
+	public void conditionEnds(WorldObject worldObject) {
+	}
 }

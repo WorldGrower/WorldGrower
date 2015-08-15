@@ -20,6 +20,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 
@@ -31,8 +32,13 @@ public class Conditions implements Serializable {
 		conditions.put(condition, new ConditionInfo(turns, world.getCurrentTurn().getValue()));
 	}
 	
-	public void removeCondition(Condition condition) {
+	private void removeConditionFromWorldObject(WorldObject worldObject, Condition condition) {
 		conditions.remove(condition);
+		condition.conditionEnds(worldObject);
+	}
+	
+	public static void remove(WorldObject worldObject, Condition condition) {
+		worldObject.getProperty(Constants.CONDITIONS).removeConditionFromWorldObject(worldObject, condition);
 	}
 	
 	public void removeAllDiseases() {
@@ -72,7 +78,7 @@ public class Conditions implements Serializable {
 			if (turnsItWillLast != 0) {
 				entry.getValue().setTurnsItWillLast(turnsItWillLast);
 			} else {
-				conditions.remove(entry.getKey());
+				removeConditionFromWorldObject(worldObject, entry.getKey());
 			}
 		}
 	}

@@ -25,27 +25,38 @@ import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
+import org.worldgrower.goal.GoalUtils;
 
-public class CurePoisonAction implements MagicSpell {
+public class EnlargeAction implements MagicSpell {
 
-	private static final int ENERGY_USE = 400;
+	private static final int ENERGY_USE = 500;
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		Conditions.remove(target, Condition.POISONED_CONDITION);
-		
-		SkillUtils.useEnergy(performer, Constants.RESTORATION_SKILL, ENERGY_USE);
+		if (target.getProperty(Constants.CONDITIONS).hasCondition(Condition.REDUCED_CONDITION)) {
+			Conditions.remove(target, Condition.REDUCED_CONDITION);
+		} else {
+			target.setProperty(Constants.ORIGINAL_HEIGHT, target.getProperty(Constants.HEIGHT));
+			target.setProperty(Constants.ORIGINAL_WIDTH, target.getProperty(Constants.WIDTH));
+			
+			target.setProperty(Constants.HEIGHT, target.getProperty(Constants.HEIGHT) * 2);
+			target.setProperty(Constants.WIDTH, target.getProperty(Constants.WIDTH) * 2);
+			int turns = (int)(8 * SkillUtils.getSkillBonus(performer, getSkill()));
+			target.getProperty(Constants.CONDITIONS).addCondition(Condition.ENLARGED_CONDITION, turns, world);
+		}
+		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE);
 	}
 	
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return ((target.hasProperty(Constants.ARMOR)) && (target.getProperty(Constants.HIT_POINTS) > 0) && target.hasIntelligence() && performer.getProperty(Constants.KNOWN_SPELLS).contains(this));
+		return (target.hasProperty(Constants.CONDITIONS) && !target.getProperty(Constants.CONDITIONS).hasCondition(Condition.ENLARGED_CONDITION) && performer.getProperty(Constants.KNOWN_SPELLS).contains(this));
 	}
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
 		return AttackUtils.distanceWithFreeLeftHand(performer, target, 4)
-				+ SkillUtils.distanceForEnergyUse(performer, getSkill(), ENERGY_USE);
+				+ SkillUtils.distanceForEnergyUse(performer, getSkill(), ENERGY_USE)
+				+ (GoalUtils.canEnlarge(target, world) ? 0 : 1);
 	}
 	
 	@Override
@@ -55,12 +66,12 @@ public class CurePoisonAction implements MagicSpell {
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "cure poison wounds for " + target.getProperty(Constants.NAME);
+		return "enlarging " + target.getProperty(Constants.NAME);
 	}
 
 	@Override
 	public String getSimpleDescription() {
-		return "cure poison";
+		return "enlarge";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {
@@ -74,15 +85,11 @@ public class CurePoisonAction implements MagicSpell {
 
 	@Override
 	public SkillProperty getSkill() {
-		return Constants.RELIGION_SKILL;
+		return Constants.TRANSMUTATION_SKILL;
 	}
 
 	@Override
 	public int getRequiredSkillLevel() {
 		return 1;
-	}
-	
-	public boolean hasRequiredEnergy(WorldObject performer) {
-		return performer.getProperty(Constants.ENERGY) >= ENERGY_USE;
 	}
 }

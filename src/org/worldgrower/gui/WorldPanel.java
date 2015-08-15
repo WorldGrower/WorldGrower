@@ -211,6 +211,7 @@ public class WorldPanel extends JPanel {
 			int y = worldObject.getProperty(Constants.Y);
 			
 			if (world.getTerrain().isExplored(x, y) && isWorldObjectVisible(worldObject)) {
+				image = changeSize(worldObject, image);
 				g.drawImage(image, (x+offsetX) * 48, (y+offsetY) * 48, null);
 				
 				ImageIds overlayingImageId = getOverlayingImageId(worldObject);
@@ -227,6 +228,30 @@ public class WorldPanel extends JPanel {
 		energyProgressBar.setValue(playerCharacter.getProperty(Constants.ENERGY));
 		buildModeOutline.repaintBuildMode(g, getMouseLocation(), offsetX, offsetY, playerCharacter, world);
     }
+
+	private Image changeSize(WorldObject worldObject, Image image) {
+		if (hasCondition(worldObject, Condition.ENLARGED_CONDITION)) {
+			int imageWidth = 48 * worldObject.getProperty(Constants.WIDTH);
+			int imageHeight = 48 * worldObject.getProperty(Constants.HEIGHT);
+			image = image.getScaledInstance(imageWidth, imageHeight, Image.SCALE_DEFAULT);
+		}
+		if (hasCondition(worldObject, Condition.REDUCED_CONDITION)) {
+			final int imageWidth;
+			if (worldObject.getProperty(Constants.ORIGINAL_WIDTH) == 1) {
+				imageWidth = 24 * worldObject.getProperty(Constants.WIDTH);
+			} else {
+				imageWidth = 48 * worldObject.getProperty(Constants.WIDTH);
+			}
+			final int imageHeight;
+			if (worldObject.getProperty(Constants.ORIGINAL_HEIGHT) == 1) {
+				imageHeight = 24 * worldObject.getProperty(Constants.HEIGHT);
+			} else {
+				imageHeight = 48 * worldObject.getProperty(Constants.HEIGHT);
+			}
+			image = image.getScaledInstance(imageWidth, imageHeight, Image.SCALE_DEFAULT);
+		}
+		return image;
+	}
 
     private boolean isWorldObjectVisible(WorldObject worldObject) {
 		if (worldObject.equals(playerCharacter)) {
