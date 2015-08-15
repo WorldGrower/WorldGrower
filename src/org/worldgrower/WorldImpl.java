@@ -107,7 +107,7 @@ public class WorldImpl implements World, Serializable {
 	
 	public<T> WorldObject findWorldObject(ManagedProperty<T> propertyKey, T value) {
 		if (propertyKey == Constants.ID) {
-			return findWorldObjectById((int) value);
+			return findWorldObjectById((Integer) value);
 		} else {
 			List<WorldObject> result = 
 					worldObjects
