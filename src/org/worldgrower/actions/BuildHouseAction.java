@@ -40,7 +40,10 @@ public class BuildHouseAction implements BuildAction {
 		List<Integer> currentHouseIds = performer.getProperty(Constants.HOUSES).getIds();
 		if (currentHouseIds.size() > 0) {
 			int currentHouseId = currentHouseIds.get(0);
-			world.removeWorldObject(world.findWorldObjects(w -> w.getProperty(Constants.ID).intValue() == currentHouseId && BuildingGenerator.isShack(w)).get(0));
+			List<WorldObject> shacks = world.findWorldObjects(w -> w.getProperty(Constants.ID).intValue() == currentHouseId && BuildingGenerator.isShack(w));
+			if (shacks.size() > 0) {
+				world.removeWorldObject(shacks.get(0));
+			}
 		}
 		
 		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.STONE, REQUIRED_STONE);
