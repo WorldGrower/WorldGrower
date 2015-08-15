@@ -79,4 +79,7 @@ public class Goals {
 	public static final GetHealedGoal GET_HEALED_GOAL = new GetHealedGoal();
 	public static final SellHouseGoal SELL_HOUSE_GOAL = new SellHouseGoal();
 	public static final MarkHouseAsSellableGoal MARK_HOUSE_AS_SELLABLE_GOAL = new MarkHouseAsSellableGoal();
+	public static final CreateFurnitureGoal CREATE_FURNITURE_GOAL = new CreateFurnitureGoal();
+	public static final SellFurnitureGoal SELL_FURNITURE_GOAL = new SellFurnitureGoal();
+	public static final FurnitureGoal FURNITURE_GOAL = new FurnitureGoal();
 }

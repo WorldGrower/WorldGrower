@@ -24,6 +24,7 @@ import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdToIntegerMap;
 import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.gui.ImageIds;
 
@@ -71,6 +72,7 @@ public class BuildingGenerator {
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		properties.put(Constants.PRICE, 10);
+		properties.put(Constants.INVENTORY, new WorldObjectContainer());
 		
 		WorldObject shack = new WorldObjectImpl(properties);
 		world.addWorldObject(shack);
@@ -97,6 +99,7 @@ public class BuildingGenerator {
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		properties.put(Constants.PRICE, 50);
+		properties.put(Constants.INVENTORY, new WorldObjectContainer());
 		
 		WorldObject house = new WorldObjectImpl(properties);
 		world.addWorldObject(house);

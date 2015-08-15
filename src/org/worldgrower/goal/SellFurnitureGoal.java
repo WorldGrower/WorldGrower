@@ -12,49 +12,18 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.profession;
-
-import java.io.ObjectStreamException;
-import java.util.Arrays;
-import java.util.List;
+package org.worldgrower.goal;
 
 import org.worldgrower.Constants;
-import org.worldgrower.attribute.SkillProperty;
-import org.worldgrower.goal.Goal;
-import org.worldgrower.goal.Goals;
 
-public class CarpenterProfession implements Profession {
+public class SellFurnitureGoal extends AbstractSellGoal {
 
-	public CarpenterProfession(List<Profession> allProfessions) {
-		allProfessions.add(this);
+	public SellFurnitureGoal() {
+		super(Constants.SLEEP_COMFORT);
 	}
 
 	@Override
 	public String getDescription() {
-		return "carpenter";
-	}
-
-	@Override
-	public List<Goal> getProfessionGoals() {
-		return Arrays.asList(
-				Goals.CREATE_HOUSE_GOAL,
-				Goals.MARK_HOUSE_AS_SELLABLE_GOAL,
-				Goals.SELL_HOUSE_GOAL,
-				Goals.CREATE_FURNITURE_GOAL,
-				Goals.SELL_FURNITURE_GOAL);
-	}
-
-	@Override
-	public SkillProperty getSkillProperty() {
-		return Constants.CARPENTRY_SKILL;
-	}
-	
-	public Object readResolve() throws ObjectStreamException {
-		return readResolveImpl();
-	}
-	
-	@Override
-	public boolean isPaidByVillagerLeader() {
-		return false;
+		return "selling furniture";
 	}
 }

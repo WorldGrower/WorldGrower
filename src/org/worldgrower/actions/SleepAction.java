@@ -15,6 +15,7 @@
 package org.worldgrower.actions;
 
 import java.io.ObjectStreamException;
+import java.util.List;
 
 import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
@@ -22,13 +23,21 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.generator.ItemGenerator;
 
 public class SleepAction implements ManagedOperation {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		int sleepComfort = target.getProperty(Constants.SLEEP_COMFORT);
-		performer.increment(Constants.ENERGY, 7 + sleepComfort);
+		int energyIncrease = 7 + sleepComfort;
+		
+		List<WorldObject> beds = target.getProperty(Constants.INVENTORY).getWorldObjects(Constants.NAME, ItemGenerator.BED_NAME);
+		if (beds.size() > 0) {
+			energyIncrease += beds.get(0).getProperty(Constants.SLEEP_COMFORT);
+		}
+		
+		performer.increment(Constants.ENERGY, energyIncrease);
 	}
 
 	@Override

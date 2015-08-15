@@ -67,4 +67,8 @@ public class ConstructBedAction implements ManagedOperation {
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
 	}
+
+	public static boolean hasEnoughWood(WorldObject performer) {
+		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) >= WOOD_REQUIRED;
+	}
 }

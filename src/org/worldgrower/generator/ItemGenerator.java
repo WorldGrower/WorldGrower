@@ -43,6 +43,8 @@ public class ItemGenerator {
 	public static final String COTTON_GLOVES_NAME = "Cotton Gloves";
 	public static final String COTTON_PANTS_NAME = "Cotton Pants";
 	
+	public static final String BED_NAME = "Bed";
+	
 	public static WorldObject getIronClaymore(double skillBonus) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.NAME, IRON_CLAYMORE_NAME);
@@ -298,7 +300,7 @@ public class ItemGenerator {
 	
 	public static WorldObject getBed(double skillBonus) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
-		properties.put(Constants.NAME, "Bed");
+		properties.put(Constants.NAME, BED_NAME);
 		properties.put(Constants.PRICE, 50);
 		properties.put(Constants.SELLABLE, false);
 		properties.put(Constants.WEIGHT, 5);

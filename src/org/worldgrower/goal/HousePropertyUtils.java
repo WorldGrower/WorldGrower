@@ -20,6 +20,7 @@ import java.util.List;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.generator.ItemGenerator;
 
 public class HousePropertyUtils {
 
@@ -97,5 +98,10 @@ public class HousePropertyUtils {
 		}
 		
 		return true;
+	}
+
+	public static boolean hasHouseWithBed(WorldObject performer, World world) {
+		List<WorldObject> housesWithBed = performer.getProperty(Constants.HOUSES).mapToWorldObjects(world, w -> w.getProperty(Constants.INVENTORY).getWorldObjects(Constants.NAME, ItemGenerator.BED_NAME).size() > 0);
+		return housesWithBed.size() > 0;
 	}
 }
