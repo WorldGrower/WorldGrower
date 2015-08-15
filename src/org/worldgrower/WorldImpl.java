@@ -40,6 +40,7 @@ import org.worldgrower.terrain.TerrainImpl;
 public class WorldImpl implements World, Serializable {
 
 	private final List<WorldObject> worldObjects = new ArrayList<>();
+	private final IdToIndexMapping idToIndexMapping = new IdToIndexMapping();
 	private int nextId;
 	private transient List<ManagedOperationListener> listeners = new ArrayList<>();
 	private final Terrain terrain;
@@ -61,11 +62,13 @@ public class WorldImpl implements World, Serializable {
 	@Override
 	public void addWorldObject(WorldObject worldObject) {
 		worldObjects.add(worldObject);
+		idToIndexMapping.idAdded(worldObjects);
 	}
 	
 	@Override
 	public void removeWorldObject(WorldObject worldObjectToRemove) {
 		worldObjects.remove(worldObjectToRemove);
+		idToIndexMapping.idRemoved(worldObjects);
 		
 		int id = worldObjectToRemove.getProperty(Constants.ID);
 		for(WorldObject worldObject : worldObjects) {
@@ -103,16 +106,25 @@ public class WorldImpl implements World, Serializable {
 	}
 	
 	public<T> WorldObject findWorldObject(ManagedProperty<T> propertyKey, T value) {
-		List<WorldObject> result = 
-				worldObjects
-				.stream()
-				.filter(w -> w.getProperty(propertyKey).equals(value))
-				.collect(Collectors.toList());
-		if (result.size() == 1) {
-			return result.get(0);
+		if (propertyKey == Constants.ID) {
+			return findWorldObjectById((int) value);
 		} else {
-			throw new IllegalStateException("Problem finding worldObject with propertyKey " + propertyKey + " and value " + value);
+			List<WorldObject> result = 
+					worldObjects
+					.stream()
+					.filter(w -> w.getProperty(propertyKey).equals(value))
+					.collect(Collectors.toList());
+			if (result.size() == 1) {
+				return result.get(0);
+			} else {
+				throw new IllegalStateException("Problem finding worldObject with propertyKey " + propertyKey + " and value " + value);
+			}
 		}
+	}
+	
+	private WorldObject findWorldObjectById(int id) {
+		int index = idToIndexMapping.getIndex(id);
+		return worldObjects.get(index);
 	}
 
 	@Override
