@@ -103,6 +103,11 @@ public class HistoryImpl implements History, Serializable {
 	}
 	
 	@Override
+	public List<HistoryItem> findHistoryItemsForPerformer(WorldObject performer) {
+		return historyItems.stream().filter(h -> h.getOperationInfo().getPerformer().equals(performer)).collect(Collectors.toList());
+	}
+	
+	@Override
 	public HistoryItem getLastPerformedOperation(WorldObject worldObject) {
 		return lastPerformedActionMap.get(worldObject.getProperty(Constants.ID));
 	}

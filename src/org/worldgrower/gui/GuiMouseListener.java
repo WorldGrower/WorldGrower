@@ -39,6 +39,8 @@ import org.worldgrower.gui.conversation.GuiAskQuestionAction;
 import org.worldgrower.gui.debug.GuiShowCommonersOverviewAction;
 import org.worldgrower.gui.debug.GuiShowEconomicOverviewAction;
 import org.worldgrower.gui.debug.GuiShowPropertiesAction;
+import org.worldgrower.gui.debug.PerformedActionsDialog;
+import org.worldgrower.gui.debug.ShowPerformedActionsAction;
 import org.worldgrower.gui.inventory.GuiBuyAction;
 import org.worldgrower.gui.inventory.GuiGetItemAction;
 import org.worldgrower.gui.inventory.GuiPutItemAction;
@@ -143,6 +145,7 @@ public class GuiMouseListener extends MouseAdapter {
             	addAllActions(menu, worldObject);
             	
             	addPropertiesMenu(menu, worldObject);
+            	addPerformedActionsMenu(menu, worldObject);
             	
             	menu.show(e.getComponent(), e.getX(), e.getY());
             }
@@ -330,6 +333,14 @@ public class GuiMouseListener extends MouseAdapter {
 			JMenuItem guiShowEconomicOverviewItem = new JMenuItem(new GuiShowEconomicOverviewAction(world));
 			guiShowEconomicOverviewItem.setText("Show Economic Overview...");
 			menu.add(guiShowEconomicOverviewItem);
+		}
+	}
+	
+	private void addPerformedActionsMenu(JPopupMenu menu, WorldObject worldObject) {
+		if (Boolean.getBoolean("DEBUG")) {
+			JMenuItem showPerformedActionsItem = new JMenuItem(new ShowPerformedActionsAction(worldObject, world));
+			showPerformedActionsItem.setText("Show performed actions...");
+			menu.add(showPerformedActionsItem);
 		}
 	}
 

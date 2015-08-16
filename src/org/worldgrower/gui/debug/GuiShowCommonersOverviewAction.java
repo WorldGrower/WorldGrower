@@ -14,8 +14,11 @@
  *******************************************************************************/
 package org.worldgrower.gui.debug;
 
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 
 import javax.swing.AbstractAction;
@@ -50,6 +53,19 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 		table.setBounds(50, 50, 700, 700);
 		frame.add(new JScrollPane(table));
 		
+		table.addMouseListener(new MouseAdapter() {
+		    public void mousePressed(MouseEvent me) {
+		        JTable table =(JTable) me.getSource();
+		        Point p = me.getPoint();
+		        int row = table.rowAtPoint(p);
+		        if (me.getClickCount() == 2) {
+		        	WorldObject target = getNPCs().get(row);
+		            ShowPerformedActionsAction showPerformedActionsAction = new ShowPerformedActionsAction(target, world);
+		            showPerformedActionsAction.actionPerformed(null);
+		        }
+		    }
+		});
+		
 		Timer timer = new Timer(500, new ActionListener() {
 
 			@Override
@@ -65,7 +81,11 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 		frame.setVisible(true);
 	}
 	
-	private static class WorldModel extends AbstractTableModel {
+	private List<WorldObject> getNPCs() {
+		return world.findWorldObjects(w -> w.isControlledByAI() && w.hasIntelligence());
+	}
+	
+	private class WorldModel extends AbstractTableModel {
 
 		private World world;
 		
@@ -82,10 +102,6 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 		@Override
 		public int getRowCount() {
 			return getNPCs().size();
-		}
-
-		private List<WorldObject> getNPCs() {
-			return world.findWorldObjects(w -> w.isControlledByAI() && w.hasIntelligence());
 		}
 		
 		@Override
