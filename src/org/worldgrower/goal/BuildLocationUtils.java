@@ -29,9 +29,16 @@ public class BuildLocationUtils {
 	public static WorldObject findOpenLocationNearExistingProperty(WorldObject performer, int width, int height, World world) {
 		List<WorldObject> housing = getHousing(performer, world);
 		
-		return findOpenLocationNearExistingProperty(performer, width, height, world, housing);
+		// add additional free space to left and top of open space
+		width++;
+		height++;
+		
+		WorldObject target = findOpenLocationNearExistingProperty(performer, width, height, world, housing);
+		target.increment(Constants.X, 1);
+		target.increment(Constants.Y, 1);
+		return target;
 	}
-
+	
 	private static List<WorldObject> getHousing(WorldObject performer, World world) {
 		List<WorldObject> housingOwners = GroupPropertyUtils.findWorldObjectsInSameGroup(performer, world);
 		List<WorldObject> housing = HousePropertyUtils.getHousingOfOwners(housingOwners, world);
