@@ -67,8 +67,13 @@ public class GroupPropertyUtils {
 	}
 	
 	public static List<WorldObject> findOrganizationMembers(WorldObject organization, World world) {
-		List<WorldObject> members = world.findWorldObjects(w -> w.hasProperty(Constants.GROUP) && w.getProperty(Constants.GROUP).contains(organization));
+		List<WorldObject> members = world.findWorldObjects(w -> worldObjectIsMemberOfOrganization(organization, w));
 		return members;
+	}
+
+	private static boolean worldObjectIsMemberOfOrganization(WorldObject organization, WorldObject w) {
+		IdList group = w.getProperty(Constants.GROUP);
+		return ((group != null) && (group.contains(organization)));
 	}
 	
 	public static WorldObject findProfessionOrganization(WorldObject performer, World world) {
