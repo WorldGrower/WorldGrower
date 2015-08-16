@@ -89,11 +89,17 @@ public class BecomeOrganizationMemberGoal implements Goal {
 
 	private int getOrganizationIndex(WorldObject performer, World world) {
 		List<String> organizationNames = new OrganizationNamer().getNames(performer.getProperty(Constants.PROFESSION), world);
-		Random r = new Random();
-		int low = 0;
-		int high = organizationNames.size() - 1;
-		int organizationIndex = r.nextInt(high-low) + low;
-		return organizationIndex;
+		if (organizationNames.size() == 1) {
+			return 0;
+		} else if (organizationNames.size() == 0) {
+			throw new IllegalStateException("No organization names found for profession " + performer.getProperty(Constants.PROFESSION));
+		} else {
+			Random r = new Random();
+			int low = 0;
+			int high = organizationNames.size() - 1;
+			int organizationIndex = r.nextInt(high-low) + low;
+			return organizationIndex;
+		}
 	}
 	
 	@Override
