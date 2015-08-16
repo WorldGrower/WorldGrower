@@ -85,7 +85,14 @@ public class GroupPropertyUtils {
 	
 	public static List<WorldObject> findOrganizationsUsingLeader(WorldObject leader, World world) {
 		int leaderId = leader.getProperty(Constants.ID);
-		List<WorldObject> organizations = world.findWorldObjects(w -> worldObjectHasLeader(leaderId, w));
+		List<WorldObject> organizations = new ArrayList<>();
+		List<Integer> memberOrganizationIds = leader.getProperty(Constants.GROUP).getIds();
+		for(int memberOrganizationId : memberOrganizationIds) {
+			WorldObject memberOrganization = world.findWorldObject(Constants.ID, memberOrganizationId);
+			if (worldObjectHasLeader(leaderId, memberOrganization)) {
+				organizations.add(memberOrganization);
+			}
+		}
 		return organizations;
 	}
 

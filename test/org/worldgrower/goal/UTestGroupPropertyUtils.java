@@ -17,6 +17,8 @@ package org.worldgrower.goal;
 import static org.junit.Assert.assertEquals;
 import static org.worldgrower.TestUtils.createIntelligentWorldObject;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
@@ -46,5 +48,20 @@ public class UTestGroupPropertyUtils {
 		
 		assertEquals(true, GroupPropertyUtils.isOrganizationNameInUse("TestOrg", world));
 		assertEquals(false, GroupPropertyUtils.isOrganizationNameInUse("TestOrg2", world));
+	}
+	
+	@Test
+	public void testFindOrganizationsUsingLeader() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject leader = createIntelligentWorldObject(1, Constants.GROUP, new IdList());
+		world.addWorldObject(leader);
+		
+		IdList leaderGroup = leader.getProperty(Constants.GROUP);
+		leaderGroup.add(GroupPropertyUtils.create(1, "TestOrg", Professions.FARMER_PROFESSION, world));
+		leaderGroup.add(GroupPropertyUtils.create(2, "TestOrg2", Professions.FARMER_PROFESSION, world));
+		
+		List<WorldObject> organizations = GroupPropertyUtils.findOrganizationsUsingLeader(leader, world);
+		assertEquals(1, organizations.size());
+		assertEquals("TestOrg", organizations.get(0).getProperty(Constants.NAME));
 	}
 }

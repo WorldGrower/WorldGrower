@@ -42,6 +42,9 @@ public class BuySellUtils {
 	}
 
 	public static int getPrice(WorldObject performer, WorldObject worldObject) {
+		if (worldObject.getProperty(Constants.PRICE) == null) {
+			throw new IllegalStateException("WorldObject " + worldObject + " has no price");
+		}
 		int price = worldObject.getProperty(Constants.PRICE);
 		int profitPercentage = performer.getProperty(Constants.PROFIT_PERCENTAGE);
 		price = price + ((price * profitPercentage) / 100);
