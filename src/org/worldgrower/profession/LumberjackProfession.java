@@ -37,7 +37,7 @@ public class LumberjackProfession implements Profession {
 	@Override
 	public List<Goal> getProfessionGoals() {
 		return Arrays.asList(
-				Goals.CREATE_WOOD_GOAL, 
+				Goals.CREATE_OR_PLANT_WOOD_GOAL, 
 				Goals.SELL_WOOD_GOAL,
 				Goals.PAPER_MILL_GOAL,
 				Goals.CREATE_PAPER_GOAL);

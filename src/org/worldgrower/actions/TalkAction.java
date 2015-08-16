@@ -56,7 +56,9 @@ public class TalkAction implements ManagedOperation {
 	
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return Reach.evaluateTarget(performer, args, target, 10);
+		int question = args[0];
+		return Reach.evaluateTarget(performer, args, target, 10)
+				+ conversations.distance(question, performer, target, world);
 	}
 
 	@Override

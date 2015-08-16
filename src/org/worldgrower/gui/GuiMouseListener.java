@@ -32,6 +32,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.BuildAction;
+import org.worldgrower.conversation.Conversations;
 import org.worldgrower.gui.chooseworldobject.ChooseWorldObjectAction;
 import org.worldgrower.gui.chooseworldobject.DisguiseAction;
 import org.worldgrower.gui.chooseworldobject.GuiVoteAction;
@@ -153,7 +154,7 @@ public class GuiMouseListener extends MouseAdapter {
     }
 
 	private void addCommunicationActions(JPopupMenu menu, WorldObject worldObject) {
-		if (canPlayerCharacterPerformAction(worldObject, Actions.TALK_ACTION)) {
+		if (canPlayerCharacterPerformTalkAction(worldObject, Actions.TALK_ACTION)) {
 			JMenuItem guiTalkMenuItem = new JMenuItem(new GuiAskQuestionAction(playerCharacter, world, dungeonMaster, container, worldObject, imageInfoReader));
 			guiTalkMenuItem.setText("Talk...");
 			menu.add(guiTalkMenuItem);
@@ -346,6 +347,9 @@ public class GuiMouseListener extends MouseAdapter {
 
 	private boolean canPlayerCharacterPerformAction(WorldObject worldObject, ManagedOperation action) {
 		return canPlayerCharacterPerformActionUnderCorrectCircumstances(worldObject, action) && action.isActionPossible(playerCharacter, worldObject, new int[0], world);
+	}
+	private boolean canPlayerCharacterPerformTalkAction(WorldObject worldObject, ManagedOperation action) {
+		return canPlayerCharacterPerformActionUnderCorrectCircumstances(worldObject, action) && action.isActionPossible(playerCharacter, worldObject, Conversations.createArgs(Conversations.NAME_CONVERSATION), world);
 	}
 	
 	private boolean canPlayerCharacterPerformActionUnderCorrectCircumstances(WorldObject worldObject, ManagedOperation action) {

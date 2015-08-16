@@ -275,4 +275,8 @@ public class Conversations implements Serializable {
 	public Conversation getConversation(int index) {
 		return CONVERSATIONS.get(index);
 	}
+
+	public int distance(int index, WorldObject performer, WorldObject target, World world) {
+		return CONVERSATIONS.get(index).isConversationAvailable(performer, target, world) ? 0 : 1;
+	}
 }

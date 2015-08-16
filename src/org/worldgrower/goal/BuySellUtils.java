@@ -42,6 +42,10 @@ public class BuySellUtils {
 	}
 
 	public static int getPrice(WorldObject performer, WorldObject worldObject) {
+		if (worldObject == null) {
+			throw new IllegalStateException("WorldObject is null");
+		}
+		
 		if (worldObject.getProperty(Constants.PRICE) == null) {
 			throw new IllegalStateException("WorldObject " + worldObject + " has no price");
 		}

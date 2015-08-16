@@ -82,4 +82,5 @@ public class Goals {
 	public static final CreateFurnitureGoal CREATE_FURNITURE_GOAL = new CreateFurnitureGoal();
 	public static final SellFurnitureGoal SELL_FURNITURE_GOAL = new SellFurnitureGoal();
 	public static final FurnitureGoal FURNITURE_GOAL = new FurnitureGoal();
+	public static final CreateOrPlantWoodGoal CREATE_OR_PLANT_WOOD_GOAL = new CreateOrPlantWoodGoal();
 }
