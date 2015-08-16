@@ -25,6 +25,7 @@ import org.worldgrower.actions.magic.CureDiseaseAction;
 import org.worldgrower.actions.magic.CurePoisonAction;
 import org.worldgrower.actions.magic.EnlargeAction;
 import org.worldgrower.actions.magic.FireBoltAttackAction;
+import org.worldgrower.actions.magic.InflictWoundsAction;
 import org.worldgrower.actions.magic.InvisibilityAction;
 import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.actions.magic.MinorHealAction;
@@ -98,6 +99,7 @@ public class Actions {
 	public static final InvisibilityAction INVISIBILITY_ACTION = new InvisibilityAction();
 	public static final EnlargeAction ENLARGE_ACTION = new EnlargeAction();
 	public static final ReduceAction REDUCE_ACTION = new ReduceAction();
+	public static final InflictWoundsAction INFLICT_WOUNDS_ACTION = new InflictWoundsAction();
 	
 	public static final BuildLibraryAction BUILD_LIBRARY_ACTION = new BuildLibraryAction();
 	public static final ResearchReligionSkillAction RESEARCH_RELIGION_SKILL_ACTION = new ResearchReligionSkillAction();
@@ -143,7 +145,8 @@ public class Actions {
 			CURE_DISEASE_ACTION,
 			INVISIBILITY_ACTION,
 			ENLARGE_ACTION,
-			REDUCE_ACTION);
+			REDUCE_ACTION,
+			INFLICT_WOUNDS_ACTION);
 	
 	public static final List<ManagedOperation> ALL_ACTIONS = new ArrayList<>(Arrays.asList(
 		MOVE_ACTION,

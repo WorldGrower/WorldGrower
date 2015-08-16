@@ -35,7 +35,7 @@ public class MinorHealAction implements MagicSpell {
 			target.setProperty(Constants.HIT_POINTS, target.getProperty(Constants.HIT_POINTS_MAX));
 		}
 		
-		SkillUtils.useEnergy(performer, Constants.RESTORATION_SKILL, ENERGY_USE);
+		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE);
 	}
 	
 	@Override

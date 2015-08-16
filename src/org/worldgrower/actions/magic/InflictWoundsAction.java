@@ -23,27 +23,22 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.AttackUtils;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
-import org.worldgrower.condition.Condition;
 
-public class FireBoltAttackAction implements MagicSpell {
+public class InflictWoundsAction implements MagicSpell {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		AttackUtils.magicAttack(5, this, performer, target, args, world, SkillUtils.useSkill(performer, getSkill()));
-	
-		if (target.hasProperty(Constants.FLAMMABLE) && target.getProperty(Constants.FLAMMABLE)) {
-			target.getProperty(Constants.CONDITIONS).addCondition(Condition.BURNING_CONDITION, 100, world);
-		}
+		AttackUtils.magicAttack(4, this, performer, target, args, world, SkillUtils.useSkill(performer, getSkill()));
 	}
 	
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return ((target.hasProperty(Constants.ARMOR)) && (target.getProperty(Constants.HIT_POINTS) > 0) && performer.getProperty(Constants.KNOWN_SPELLS).contains(this));
+		return ((target.hasProperty(Constants.ARMOR)) && (target.getProperty(Constants.HIT_POINTS) > 0) && target.hasIntelligence() && performer.getProperty(Constants.KNOWN_SPELLS).contains(this));
 	}
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return AttackUtils.distanceWithFreeLeftHand(performer, target, 4);
+		return AttackUtils.distanceWithFreeLeftHand(performer, target, 1);
 	}
 	
 	@Override
@@ -53,12 +48,12 @@ public class FireBoltAttackAction implements MagicSpell {
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "attacking " + target.getProperty(Constants.NAME);
+		return "inflicting wounds on " + target.getProperty(Constants.NAME);
 	}
 
 	@Override
 	public String getSimpleDescription() {
-		return "fire bolt";
+		return "inflict wounds";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {
@@ -67,7 +62,7 @@ public class FireBoltAttackAction implements MagicSpell {
 
 	@Override
 	public int getResearchCost() {
-		return 10;
+		return 15;
 	}
 
 	@Override
