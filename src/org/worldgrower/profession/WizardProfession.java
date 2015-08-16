@@ -12,19 +12,47 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.goal;
+package org.worldgrower.profession;
 
+import java.io.ObjectStreamException;
 import java.util.Arrays;
 import java.util.List;
 
-import org.worldgrower.actions.Actions;
-import org.worldgrower.actions.magic.MagicSpell;
+import org.worldgrower.Constants;
+import org.worldgrower.attribute.SkillProperty;
+import org.worldgrower.goal.Goal;
+import org.worldgrower.goal.Goals;
 
-public class ScribeClericSpellsGoal extends AbstractScribeSpellsGoal {
+public class WizardProfession implements Profession {
 
-	private static final List<MagicSpell> CLERIC_SPELLS = Arrays.asList(Actions.MINOR_HEAL_ACTION, Actions.CURE_DISEASE_ACTION);
+	public WizardProfession(List<Profession> allProfessions) {
+		allProfessions.add(this);
+	}
+
+	@Override
+	public String getDescription() {
+		return "wizard";
+	}
+
+	@Override
+	public List<Goal> getProfessionGoals() {
+		return Arrays.asList(
+				Goals.LIBRARY_GOAL,
+				Goals.SCRIBE_WIZARD_SPELLS_GOAL
+				);
+	}
+
+	@Override
+	public SkillProperty getSkillProperty() {
+		return Constants.EVOCATION_SKILL;
+	}
 	
-	public ScribeClericSpellsGoal() {
-		super(CLERIC_SPELLS, Actions.RESEARCH_RELIGION_SKILL_ACTION);
+	public Object readResolve() throws ObjectStreamException {
+		return readResolveImpl();
+	}
+	
+	@Override
+	public boolean isPaidByVillagerLeader() {
+		return false;
 	}
 }
