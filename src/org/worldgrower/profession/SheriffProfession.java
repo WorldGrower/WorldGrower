@@ -39,7 +39,8 @@ public class SheriffProfession implements Profession {
 		return Arrays.asList(
 				Goals.KILL_OUTSIDERS_GOAL,
 				Goals.CATCH_THIEVES_GOAL,
-				Goals.COLLECT_PAY_CHECK_GOAL
+				Goals.COLLECT_PAY_CHECK_GOAL,
+				Goals.TRAIN_GOAL
 				);
 	}
 
@@ -55,5 +56,10 @@ public class SheriffProfession implements Profession {
 	@Override
 	public boolean isPaidByVillagerLeader() {
 		return true;
+	}
+	
+	@Override
+	public boolean avoidEnemies() {
+		return false;
 	}
 }

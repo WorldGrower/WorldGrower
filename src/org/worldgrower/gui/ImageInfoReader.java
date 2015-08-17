@@ -69,7 +69,7 @@ public class ImageInfoReader {
         add(ImageIds.SHACK, objects.getSubImage(5, 0, 2, 2));
         addCharacter(ImageIds.FEMALE_COMMONER, sprites, 3, 0, 1, 1);
         add(ImageIds.WELL, objects.getSubImage(0, 11, 2, 2));
-        add(ImageIds.SKELETON, monsters.getSubImage(0, 0, 1, 1));
+        addCharacter(ImageIds.SKELETON, monsters, 0, 0, 1, 1);
         add(ImageIds.SKELETAL_REMAINS, tileE.getSubImage(4, 3, 1, 1));
         add(ImageIds.ORC_SOLDIER, orcSoldier.getSubImage(0, 0, 1, 1));
         add(ImageIds.STONE_RESOURCE, pirates.getSubImage(10, 5, 2, 2));
@@ -223,6 +223,9 @@ public class ImageInfoReader {
 		add(ImageIds.BED, tileE.getSubImage(10, 4, 1, 2));
 		add(ImageIds.INVISIBILITY_INDICATOR, sprites420.getSubImage(2, 21, 1, 1));
 		add(ImageIds.POISONED_INDICATOR, sprites420.getSubImage(4, 24, 1, 1));
+		
+		addCharacter(ImageIds.WEREWOLF, monsters, 0, 4, 1, 1);
+		add(ImageIds.TRAINING_DUMMY, tileB.getSubImage(1, 13, 1, 2));
     }
     
     private void addCharacter(ImageIds imageId, Sprites sprites, int x, int y, int width, int height) {

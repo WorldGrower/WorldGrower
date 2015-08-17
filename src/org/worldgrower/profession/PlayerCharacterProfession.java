@@ -48,4 +48,9 @@ public class PlayerCharacterProfession implements Profession, Serializable {
 	public boolean isPaidByVillagerLeader() {
 		return false;
 	}
+	
+	@Override
+	public boolean avoidEnemies() {
+		return false;
+	}
 }

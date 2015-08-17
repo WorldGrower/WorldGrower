@@ -33,6 +33,7 @@ public interface CreatureType extends Serializable {
 	public static final SlimeCreatureType SLIME_CREATURE_TYPE = new SlimeCreatureType(ALL_CREATURE_TYPES);
 	public static final PlantCreatureType PLANT_CREATURE_TYPE = new PlantCreatureType(ALL_CREATURE_TYPES);
 	public static final GoblinCreatureType GOBLIN_CREATURE_TYPE = new GoblinCreatureType(ALL_CREATURE_TYPES);
+	public static final WerewolfCreatureType WEREWOLF_CREATURE_TYPE = new WerewolfCreatureType(ALL_CREATURE_TYPES);
 	
 	public default Object readResolveImpl() throws ObjectStreamException {
 		Class<?> clazz = getClass();

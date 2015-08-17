@@ -40,6 +40,11 @@ public class VampireCurse implements Curse {
 	public boolean canMove() {
 		return true;
 	}
+	
+	@Override
+	public boolean canTalk() {
+		return true;
+	}
 
 	@Override
 	public String getExplanation() {

@@ -46,6 +46,11 @@ public class ToadCurse implements Curse {
 	public boolean canMove() {
 		return false;
 	}
+	
+	@Override
+	public boolean canTalk() {
+		return true;
+	}
 
 	@Override
 	public String getExplanation() {

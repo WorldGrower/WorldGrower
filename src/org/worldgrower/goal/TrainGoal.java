@@ -18,58 +18,43 @@ import java.util.List;
 
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
-import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.profession.Profession;
+import org.worldgrower.actions.ConstructTrainingDummyAction;
+import org.worldgrower.generator.BuildingGenerator;
 
-public class ProtectOnseSelfGoal implements Goal {
+public class TrainGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		if (avoidsEnemies(performer)) {
-			List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.MELEE_ATTACK_ACTION, w -> GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, w), world);
-			
-			Zone zone = new Zone(world.getWidth(), world.getHeight());
-			zone.addValues(targets, 5, 1);
-			
-			int lowestDangerValue = Integer.MAX_VALUE;
-			int performerX = performer.getProperty(Constants.X);
-			int performerY = performer.getProperty(Constants.Y);
-			int[] bestArgs = null;
-			for(int x : zone.getValuesX(performerX)) {
-				for(int y : zone.getValuesY(performerY)) {
-					if ((zone.value(x, y) < lowestDangerValue) && (x != 0) && (y != 0)) {
-						bestArgs = new int[]{ x - performerX, y - performerY };
-					}
-				}
-			}
-			
-			if (bestArgs != null) {
-				return new OperationInfo(performer, performer, bestArgs, Actions.MOVE_ACTION);
-			}
-		}
-		return null;
-	}
-	
-	private boolean avoidsEnemies(WorldObject performer) {
-		Profession profession = performer.getProperty(Constants.PROFESSION);
-		if (profession != null) {
-			return profession.avoidEnemies();
+		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.MELEE_ATTACK_ACTION, w -> BuildingGenerator.isTrainingDummy(w), world);
+		if (targets.size() > 0) {
+			return new OperationInfo(performer, targets.get(0), new int[] { 0 }, Actions.MELEE_ATTACK_ACTION);
 		} else {
-			return true;
+			if (!ConstructTrainingDummyAction.hasEnoughWood(performer)) {
+				return new WoodGoal().calculateGoal(performer, world);
+			} else {
+				WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 2, 3, world);
+				return new OperationInfo(performer, target, new int[0], Actions.CONSTRUCT_TRAINING_DUMMY_ACTION);
+			}
 		}
 	}
 	
 	@Override
 	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
+		if (performer.hasProperty(Constants.DEMANDS)) {
+			if (goalMet) {
+				performer.getProperty(Constants.DEMANDS).remove(Constants.ORE);
+			} else {
+				performer.getProperty(Constants.DEMANDS).add(Constants.ORE, 1);
+			}
+		}
 	}
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		List<WorldObject> worldObjects = world.findWorldObjects(w -> GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, w) && Reach.distance(performer, w) < 10);
-		return worldObjects.isEmpty();
+		return performer.getProperty(Constants.HAND_TO_HAND_SKILL).getLevel() > 15;
 	}
 	
 	@Override
@@ -79,11 +64,11 @@ public class ProtectOnseSelfGoal implements Goal {
 
 	@Override
 	public String getDescription() {
-		return "avoiding danger";
+		return "training";
 	}
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		return performer.getProperty(Constants.HIT_POINTS);
+		return 0;
 	}
 }

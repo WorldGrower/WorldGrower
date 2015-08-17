@@ -32,6 +32,7 @@ public class BuildingGenerator {
 
 	private static final String SHACK_NAME = "shack";
 	private static final String HOUSE_NAME = "house";
+	private static final String TRAINING_DUMMY_NAME = "Training dummy";
 	
 	public static int generateVotingBox(int x, int y, World world) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
@@ -107,6 +108,31 @@ public class BuildingGenerator {
 		return id;
 	}
 	
+	public static int generateTrainingDummy(int x, int y, World world, double skillBonus) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		int id = world.generateUniqueId();
+		int hitPoints = (int)(50 * skillBonus);
+		
+		properties.put(Constants.X, x);
+		properties.put(Constants.Y, y);
+		properties.put(Constants.WIDTH, 1);
+		properties.put(Constants.HEIGHT, 2);
+		properties.put(Constants.NAME, TRAINING_DUMMY_NAME);
+		properties.put(Constants.ID, id);
+		properties.put(Constants.IMAGE_ID, ImageIds.TRAINING_DUMMY);
+		properties.put(Constants.FLAMMABLE, Boolean.TRUE);
+		properties.put(Constants.CONDITIONS, new Conditions());
+		properties.put(Constants.HIT_POINTS, hitPoints);
+		properties.put(Constants.HIT_POINTS_MAX, hitPoints);
+		properties.put(Constants.ARMOR, 0);
+		properties.put(Constants.DAMAGE_RESIST, 0);
+		
+		WorldObject trainingDummy = new WorldObjectImpl(properties);
+		world.addWorldObject(trainingDummy);
+		
+		return id;
+	}	
+	
 	public static boolean isShack(WorldObject worldObject) {
 		return worldObject.getProperty(Constants.NAME).equals(SHACK_NAME);
 	}
@@ -117,5 +143,9 @@ public class BuildingGenerator {
 	
 	public static boolean isSellable(WorldObject worldObject) {
 		return isShack(worldObject) || isHouse(worldObject);
+	}
+	
+	public static boolean isTrainingDummy(WorldObject worldObject) {
+		return worldObject.getProperty(Constants.NAME).equals(TRAINING_DUMMY_NAME);
 	}
 }

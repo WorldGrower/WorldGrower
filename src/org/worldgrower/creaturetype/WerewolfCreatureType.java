@@ -12,53 +12,33 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.profession;
+package org.worldgrower.creaturetype;
 
 import java.io.ObjectStreamException;
-import java.util.Arrays;
 import java.util.List;
 
-import org.worldgrower.Constants;
-import org.worldgrower.attribute.SkillProperty;
-import org.worldgrower.goal.Goal;
-import org.worldgrower.goal.Goals;
+public class WerewolfCreatureType implements CreatureType {
 
-public class TaxCollectorProfession implements Profession {
-
-	public TaxCollectorProfession(List<Profession> allProfessions) {
-		allProfessions.add(this);
+	public WerewolfCreatureType(List<CreatureType> allCreatureTypes) {
+		allCreatureTypes.add(this);
 	}
 
 	@Override
-	public String getDescription() {
-		return "tax collector";
+	public boolean canTalk() {
+		return false;
 	}
 
 	@Override
-	public List<Goal> getProfessionGoals() {
-		return Arrays.asList(
-				Goals.COLLECT_TAXES_GOAL,
-				Goals.HANDOVER_TAXES_GOAL,
-				Goals.COLLECT_PAY_CHECK_GOAL
-		);
+	public boolean canMove() {
+		return true;
 	}
-
+	
 	@Override
-	public SkillProperty getSkillProperty() {
-		return Constants.DIPLOMACY_SKILL;
+	public boolean canTrade() {
+		return false;
 	}
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
-	}
-	
-	@Override
-	public boolean isPaidByVillagerLeader() {
-		return true;
-	}
-	
-	@Override
-	public boolean avoidEnemies() {
-		return true;
 	}
 }

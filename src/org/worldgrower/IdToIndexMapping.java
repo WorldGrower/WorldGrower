@@ -42,6 +42,11 @@ class IdToIndexMapping implements Serializable {
 	}
 
 	public int getIndex(int id) {
-		return idToIndexMapping.get(id);
+		Integer index = idToIndexMapping.get(id);
+		if (index != null) {
+			return index;
+		} else {
+			throw new IllegalStateException("Id " + id + " not found in idToIndexMapping");
+		}
 	}
 }

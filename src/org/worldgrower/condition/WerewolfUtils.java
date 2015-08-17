@@ -12,26 +12,26 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.curse;
+package org.worldgrower.condition;
 
-import java.io.Serializable;
-import java.util.List;
-
-import org.worldgrower.ManagedOperation;
+import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.goal.Goal;
+import org.worldgrower.attribute.IdList;
+import org.worldgrower.creaturetype.CreatureType;
+import org.worldgrower.curse.Curse;
+import org.worldgrower.gui.ImageIds;
 
-public interface Curse extends Serializable {
+public class WerewolfUtils {
 
-	public List<Goal> getCurseGoals(List<Goal> normalGoals);
-	public void perform(WorldObject performer, WorldObject target, int[] args, ManagedOperation managedOperation, World world);
-	public boolean canMove();
-	public boolean canTalk();
-	public String getExplanation();
+	public static void makePersonIntoWerewolf(WorldObject worldObject) {
+		worldObject.setProperty(Constants.CREATURE_TYPE, CreatureType.WEREWOLF_CREATURE_TYPE);
+		worldObject.setProperty(Constants.CURSE, Curse.WEREWOLF_CURSE);
+		worldObject.setProperty(Constants.GROUP, new IdList());
+		worldObject.setProperty(Constants.IMAGE_ID, ImageIds.WEREWOLF);
+	}
 	
-	public static final SirenCurse SIREN_CURSE = new SirenCurse();
-	public static final ToadCurse TOAD_CURSE = new ToadCurse();
-	public static final VampireCurse VAMPIRE_CURSE = new VampireCurse();
-	public static final WerewolfCurse WEREWOLF_CURSE = new WerewolfCurse();
+	public static int getWerewolfCount(World world) {
+		return world.findWorldObjects(w -> w.hasProperty(Constants.CURSE) && w.getProperty(Constants.CURSE) == Curse.WEREWOLF_CURSE).size();
+	}
 }

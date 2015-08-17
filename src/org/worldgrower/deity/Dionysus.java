@@ -75,7 +75,5 @@ public class Dionysus implements Deity {
 			
 			VampireUtils.vampirizePerson(target);
 		}
-		
-		
 	}
 }

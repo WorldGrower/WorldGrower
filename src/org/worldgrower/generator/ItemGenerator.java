@@ -14,7 +14,6 @@
  *******************************************************************************/
 package org.worldgrower.generator;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -181,7 +180,7 @@ public class ItemGenerator {
 	public static WorldObject generateSpellBook(MagicSpell magicSpell) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.NAME, "spellbook");
-		properties.put(Constants.KNOWN_SPELLS, Arrays.asList(magicSpell));
+		properties.put(Constants.MAGIC_SPELL, magicSpell);
 		properties.put(Constants.PRICE, 100);
 		properties.put(Constants.SELLABLE, false);
 		properties.put(Constants.IMAGE_ID, ImageIds.SPELL_BOOK);

@@ -28,6 +28,7 @@ import org.worldgrower.attribute.UTestSkillUtils;
 import org.worldgrower.attribute.UTestWorldObjectProperties;
 import org.worldgrower.conversation.UTestConversations;
 import org.worldgrower.conversation.UTestLocationConversation;
+import org.worldgrower.goal.UTestAbstractScribeSpellsGoal;
 import org.worldgrower.goal.UTestBecomeOrganizationMemberGoal;
 import org.worldgrower.goal.UTestBuildLocationUtils;
 import org.worldgrower.goal.UTestGoalUtils;
@@ -65,7 +66,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestAttackUtils.class,
 	UTestGroupPropertyUtils.class,
 	UTestBecomeOrganizationMemberGoal.class,
-	UTestSkillUtils.class
+	UTestSkillUtils.class,
+	UTestAbstractScribeSpellsGoal.class
 })
 public class CompleteTestSuite {
 }

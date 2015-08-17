@@ -134,6 +134,7 @@ public class Actions {
 	public static final VampireBiteAction VAMPIRE_BITE_ACTION = new VampireBiteAction();
 	public static final ConstructBedAction CONSTRUCT_BED_ACTION = new ConstructBedAction();
 	public static final MarkAsSellableAction MARK_AS_SELLABLE_ACTION = new MarkAsSellableAction();
+	public static final ConstructTrainingDummyAction CONSTRUCT_TRAINING_DUMMY_ACTION = new ConstructTrainingDummyAction();
 	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 
@@ -226,7 +227,8 @@ public class Actions {
 		WEAVE_COTTON_PANTS_ACTION,
 		VAMPIRE_BITE_ACTION,
 		CONSTRUCT_BED_ACTION,
-		MARK_AS_SELLABLE_ACTION
+		MARK_AS_SELLABLE_ACTION,
+		CONSTRUCT_TRAINING_DUMMY_ACTION
 	));
 	
 	static {

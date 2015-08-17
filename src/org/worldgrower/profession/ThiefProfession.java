@@ -51,4 +51,9 @@ public class ThiefProfession implements Profession {
 	public boolean isPaidByVillagerLeader() {
 		return false;
 	}
+	
+	@Override
+	public boolean avoidEnemies() {
+		return true;
+	}
 }

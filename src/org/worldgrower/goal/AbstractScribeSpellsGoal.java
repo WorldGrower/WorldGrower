@@ -15,7 +15,6 @@
 package org.worldgrower.goal;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -53,8 +52,7 @@ public abstract class AbstractScribeSpellsGoal implements Goal {
 			for(MagicSpell missingSpell : missingSpells) {
 				SkillProperty skillPropery = missingSpell.getSkill();
 				WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
-				List<ManagedOperation> spells = Arrays.asList(magicSpellsForScribing.get(0));
-				List<WorldObject> knownSpellsInInventory = performerInventory.getWorldObjects(Constants.KNOWN_SPELLS, spells);
+				List<WorldObject> knownSpellsInInventory = getKnownSpellsInInventory(performer, missingSpell);
 				int performerPaperQuantity = performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.PAPER);
 				
 				if (performer.getProperty(skillPropery).getLevel() < missingSpell.getRequiredSkillLevel()) {
@@ -66,7 +64,7 @@ public abstract class AbstractScribeSpellsGoal implements Goal {
 				} else if (knownSpellsInInventory.size() == 0) {
 					return new OperationInfo(performer, performer, new int[0], Actions.getScribeMagicSpellActionFor(missingSpell));
 				} else if (knownSpellsInInventory.size() > 0) {
-					int indexOfSpellBook = performerInventory.getIndexFor(Constants.KNOWN_SPELLS, spells);
+					int indexOfSpellBook = performerInventory.getIndexFor(Constants.MAGIC_SPELL, missingSpell);
 					return new OperationInfo(performer, library, new int[] {indexOfSpellBook}, Actions.PUT_ITEM_INTO_INVENTORY_ACTION);
 				}
 			}
@@ -75,6 +73,12 @@ public abstract class AbstractScribeSpellsGoal implements Goal {
 		}
 		
 		return null;
+	}
+
+	static List<WorldObject> getKnownSpellsInInventory(WorldObject performer, ManagedOperation spell) {
+		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
+		List<WorldObject> knownSpellsInInventory = performerInventory.getWorldObjects(Constants.MAGIC_SPELL, spell);
+		return knownSpellsInInventory;
 	}
 	
 	@Override
@@ -92,9 +96,11 @@ public abstract class AbstractScribeSpellsGoal implements Goal {
 		Set<ManagedOperation> magicSpellsFound = new HashSet<>();
 		
 		for(WorldObject library : libraries) {
-			List<WorldObject> spellBooks = library.getProperty(Constants.INVENTORY).getWorldObjects(Constants.KNOWN_SPELLS, Arrays.asList(magicSpellsForScribing.get(0)));
-			for(WorldObject spellBook : spellBooks) {
-				magicSpellsFound.add(spellBook.getProperty(Constants.KNOWN_SPELLS).get(0));
+			for(MagicSpell magicSpell : magicSpellsForScribing) {
+				List<WorldObject> spellBooks = library.getProperty(Constants.INVENTORY).getWorldObjects(Constants.MAGIC_SPELL, magicSpell);
+				for(WorldObject spellBook : spellBooks) {
+					magicSpellsFound.add(spellBook.getProperty(Constants.MAGIC_SPELL));
+				}
 			}
 		}
 		

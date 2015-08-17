@@ -219,6 +219,7 @@ public class CharacterDialog extends JDialog {
 		okButton.addActionListener(new CloseDialogAction());
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
+		SwingUtils.installEscapeCloseOperation(this);
 	}
 	
 	private void createSkillBlock(SkillProperty skillProperty, int y) {

@@ -146,6 +146,13 @@ public class WorldObjectImpl implements WorldObject, Serializable {
 				CreatureType creatureType = this.getProperty(Constants.CREATURE_TYPE);
 				return creatureType.canMove();
 			}
+		} else if (operation == Actions.TALK_ACTION) {
+				Curse curse = this.getProperty(Constants.CURSE);
+				if (curse != null) {
+					return curse.canTalk();
+				} else {
+					return true;
+				}
 		} else if (operation == Actions.POISON_ATTACK_ACTION) {
 			//TODO
 			return this.getProperty(Constants.NAME).equals("Spider");

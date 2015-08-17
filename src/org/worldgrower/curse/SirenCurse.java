@@ -54,4 +54,9 @@ public class SirenCurse implements Curse {
 	public String getExplanation() {
 		return "I've been cursed and I can't move from this spot. Only if someone kisses me will the curse be broken.";
 	}
+
+	@Override
+	public boolean canTalk() {
+		return true;
+	}
 }

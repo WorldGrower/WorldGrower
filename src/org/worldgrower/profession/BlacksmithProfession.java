@@ -55,4 +55,9 @@ public class BlacksmithProfession implements Profession {
 	public boolean isPaidByVillagerLeader() {
 		return false;
 	}
+
+	@Override
+	public boolean avoidEnemies() {
+		return true;
+	}
 }
