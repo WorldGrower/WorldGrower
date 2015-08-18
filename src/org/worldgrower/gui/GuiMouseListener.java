@@ -208,6 +208,10 @@ public class GuiMouseListener extends MouseAdapter {
 		JMenuItem inventoryMenuItem = new JMenuItem(new InventoryAction(playerCharacter, imageInfoReader));
 		inventoryMenuItem.setText("Inventory");
 		menu.add(inventoryMenuItem);
+		
+		JMenuItem magicOverviewMenuItem = new JMenuItem(new MagicOverviewAction(playerCharacter, imageInfoReader));
+		magicOverviewMenuItem.setText("Magic Overview");
+		menu.add(magicOverviewMenuItem);
 	}
 
 	private void addBuildActions(JPopupMenu menu) {
