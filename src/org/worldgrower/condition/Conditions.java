@@ -21,6 +21,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.worldgrower.Constants;
+import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 
@@ -116,5 +117,13 @@ public class Conditions implements Serializable {
 	@Override
 	public String toString() {
 		return "Conditions [conditions=" + conditions + "]";
+	}
+
+	public void perform(WorldObject performer, WorldObject target, int[] args, ManagedOperation managedOperation, World world) {
+		Iterator<Entry<Condition, ConditionInfo>> conditionIterator = conditions.entrySet().iterator();
+		while (conditionIterator.hasNext()) {
+			Entry<Condition, ConditionInfo> conditionEntry = conditionIterator.next();
+			conditionEntry.getKey().perform(performer, target, args, managedOperation, world);
+		}
 	}
 }

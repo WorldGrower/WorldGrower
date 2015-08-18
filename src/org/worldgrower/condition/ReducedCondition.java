@@ -15,6 +15,7 @@
 package org.worldgrower.condition;
 
 import org.worldgrower.Constants;
+import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 
@@ -48,5 +49,9 @@ public class ReducedCondition implements Condition {
 	public void conditionEnds(WorldObject worldObject) {
 		worldObject.setProperty(Constants.HEIGHT, worldObject.getProperty(Constants.ORIGINAL_HEIGHT));
 		worldObject.setProperty(Constants.WIDTH, worldObject.getProperty(Constants.ORIGINAL_WIDTH));
+	}
+	
+	@Override
+	public void perform(WorldObject performer, WorldObject target, int[] args, ManagedOperation managedOperation, World world) {
 	}
 }

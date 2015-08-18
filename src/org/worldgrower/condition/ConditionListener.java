@@ -14,41 +14,25 @@
  *******************************************************************************/
 package org.worldgrower.condition;
 
+import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
+import org.worldgrower.ManagedOperationListener;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 
-public class ParalyzedCondition implements Condition {
+public class ConditionListener implements ManagedOperationListener {
 
-	@Override
-	public boolean canTakeAction() {
-		return false;
-	}
-
-	@Override
-	public boolean canMove() {
-		return false;
-	}
-
-	@Override
-	public String getDescription() {
-		return "paralyzed";
-	}
-
-	@Override
-	public void onTurn(WorldObject worldObject, World world, int startTurn) {
-	}
+	private final World world;
 	
-	@Override
-	public boolean isDisease() {
-		return false;
+	public ConditionListener(World world) {
+		this.world = world;
 	}
 
 	@Override
-	public void conditionEnds(WorldObject worldObject) {
-	}
-	
-	@Override
-	public void perform(WorldObject performer, WorldObject target, int[] args, ManagedOperation managedOperation, World world) {
+	public void actionPerformed(ManagedOperation managedOperation, WorldObject performer, WorldObject target, int[] args, Object value) {
+		Conditions targetConditions = target.getProperty(Constants.CONDITIONS);
+		if (targetConditions != null) {
+			targetConditions.perform(performer, target, args, managedOperation, world);
+		}
 	}
 }

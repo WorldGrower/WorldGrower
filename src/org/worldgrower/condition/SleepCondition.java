@@ -14,11 +14,13 @@
  *******************************************************************************/
 package org.worldgrower.condition;
 
+import org.worldgrower.DefaultGoalObstructedHandler;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
 
-public class ParalyzedCondition implements Condition {
+public class SleepCondition implements Condition {
 
 	@Override
 	public boolean canTakeAction() {
@@ -32,11 +34,12 @@ public class ParalyzedCondition implements Condition {
 
 	@Override
 	public String getDescription() {
-		return "paralyzed";
+		return "sleeping";
 	}
 
 	@Override
 	public void onTurn(WorldObject worldObject, World world, int startTurn) {
+		Actions.REST_ACTION.execute(worldObject, worldObject, new int[0], world);
 	}
 	
 	@Override
@@ -50,5 +53,8 @@ public class ParalyzedCondition implements Condition {
 	
 	@Override
 	public void perform(WorldObject performer, WorldObject target, int[] args, ManagedOperation managedOperation, World world) {
+		if (DefaultGoalObstructedHandler.performerAttacked(managedOperation)) {
+			Conditions.remove(target, this);
+		}
 	}
 }

@@ -21,7 +21,7 @@ import java.util.function.Predicate;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 
-public interface IdMap extends Serializable {
+public interface IdMap extends Serializable, IdContainer {
 
 	public void incrementValue(int id, int value);
 	public void incrementValue(WorldObject worldObject, int value);

@@ -96,7 +96,7 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 
 		@Override
 		public int getColumnCount() {
-			return 11;
+			return 12;
 		}
 
 		@Override
@@ -128,6 +128,8 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 				return "Gold";
 			} else if (columnIndex == 10) {
 				return "OrganizationGold";
+			} else if (columnIndex == 11) {
+				return "Id";
 			} else {
 				return null;
 			}
@@ -179,6 +181,8 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 				return npc.getProperty(Constants.GOLD);
 			} else if (columnIndex == 10) {
 				return npc.getProperty(Constants.ORGANIZATION_GOLD);
+			} else if (columnIndex == 11) {
+				return npc.getProperty(Constants.ID);
 			} else {
 				return null;
 			}

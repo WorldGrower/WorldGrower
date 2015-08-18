@@ -14,6 +14,7 @@
  *******************************************************************************/
 package org.worldgrower.condition;
 
+import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 
@@ -51,5 +52,9 @@ public class VampireBiteCondition implements Condition {
 
 	@Override
 	public void conditionEnds(WorldObject worldObject) {
+	}
+	
+	@Override
+	public void perform(WorldObject performer, WorldObject target, int[] args, ManagedOperation managedOperation, World world) {
 	}
 }

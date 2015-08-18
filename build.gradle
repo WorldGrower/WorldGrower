@@ -38,14 +38,13 @@ dependencies {
 test {
 }
 
-task release(dependsOn: ['jar', 'test']) {
+task release(dependsOn: ['jar', 'test']) << {
 	File releaseDir = new File(buildDir, 'release')
 	releaseDir.mkdir()
 	
 	copy {
         from 'build/libs'
         into 'build/release'
-        include '**/*.jar'
     }
     
     copy {

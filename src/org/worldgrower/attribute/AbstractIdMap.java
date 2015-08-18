@@ -36,7 +36,7 @@ public abstract class AbstractIdMap implements IdMap {
 	private final Map<Integer, Integer> idsToValue = new HashMap<>();
 	
 	@Override
-	public void incrementValue(int id, int value) {
+	public final void incrementValue(int id, int value) {
 		int currentValue = getValue(id);
 		
 		int newValue = currentValue + value;
@@ -47,18 +47,18 @@ public abstract class AbstractIdMap implements IdMap {
 	}
 	
 	@Override
-	public int getValue(int id) {
+	public final int getValue(int id) {
 		Integer value = idsToValue.get(id);
 		return value != null ? value.intValue() : 0;
 	}
 	
 	@Override
-	public int getValue(WorldObject worldObject) {
+	public final int getValue(WorldObject worldObject) {
 		return getValue(worldObject.getProperty(Constants.ID));
 	}
 	
 	@Override
-	public int findBestId(Predicate<WorldObject> predicate, World world) {
+	public final int findBestId(Predicate<WorldObject> predicate, World world) {
 		int bestId = -1;
 		int bestRelationshipValue = Integer.MIN_VALUE;
 		for(Entry<Integer, Integer> entry : idsToValue.entrySet()) {
@@ -77,43 +77,49 @@ public abstract class AbstractIdMap implements IdMap {
 	}
 	
 	@Override
-	public List<Integer> getIds() {
+	public final List<Integer> getIds() {
 		return new ArrayList<>(idsToValue.keySet());
 	}
 	
 	@Override
-	public List<Integer> getIdsWithoutTarget(WorldObject target) {
+	public final List<Integer> getIdsWithoutTarget(WorldObject target) {
 		List<Integer> ids = getIds();
 		ids.remove(target.getProperty(Constants.ID));
 		return ids;
 	}
 
 	@Override
-	public boolean contains(WorldObject worldObject) {
+	public final boolean contains(WorldObject worldObject) {
 		return idsToValue.containsKey(worldObject.getProperty(Constants.ID));
 	}
 	
 	@Override
-	public String toString() {
+	public final String toString() {
 		return "[" + idsToValue + "]";
 	}
 
 	@Override
-	public void incrementValue(WorldObject worldObject, int value) {
+	public final void incrementValue(WorldObject worldObject, int value) {
 		incrementValue(worldObject.getProperty(Constants.ID), value);
 	}
 
 	@Override
-	public void remove(int id) {
+	public final void remove(int id) {
 		idsToValue.remove(id);
 	}
 	
 	@Override
-	public void remove(WorldObject worldObject) {
+	public final void remove(WorldObject worldObject) {
 		idsToValue.remove(worldObject.getProperty(Constants.ID));
 	}
 	
 	protected final void copyContent(AbstractIdMap idMap) {
 		idMap.idsToValue.putAll(this.idsToValue);
+	}
+	
+	@Override
+	public final void remove(WorldObject worldObject, ManagedProperty<?> property, int id) {
+		IdMapProperty idMapProperty = (IdMapProperty) property;
+		worldObject.getProperty(idMapProperty).remove(id);
 	}
 }

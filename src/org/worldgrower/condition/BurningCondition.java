@@ -17,6 +17,7 @@ package org.worldgrower.condition;
 import java.util.List;
 
 import org.worldgrower.Constants;
+import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
@@ -57,5 +58,9 @@ public class BurningCondition implements Condition {
 
 	@Override
 	public void conditionEnds(WorldObject worldObject) {
+	}
+
+	@Override
+	public void perform(WorldObject performer, WorldObject target, int[] args, ManagedOperation managedOperation, World world) {
 	}
 }

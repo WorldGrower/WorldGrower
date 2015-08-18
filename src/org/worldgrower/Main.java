@@ -32,6 +32,7 @@ import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.PropertyCountMap;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.condition.ConditionListener;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.curse.CurseListener;
@@ -53,6 +54,8 @@ import org.worldgrower.terrain.TerrainType;
 
 public class Main {
 
+	private static JFrame frame = null;
+	
 	public static void run(String playerName, String playerProfession, int worldWidth, int worldHeight, int enemyDensity, int villagerCount, int seed, CharacterAttributes characterAttributes) throws Exception {
 		DungeonMaster dungeonMaster = new DungeonMaster();
 		World world = new WorldImpl(worldWidth, worldHeight, dungeonMaster, new DeityWorldOnTurn());
@@ -68,12 +71,17 @@ public class Main {
 		
 		addDefaultWorldObjects(world, commonerGenerator, organization, villagerCount, seed);
 		
-		world.addListener(new CurseListener(world));
+		addWorldListeners(world);
 		exploreWorld(playerCharacter, world);
 		
 		addEnemies(enemyDensity, world, seed);
 		
 		createAndShowGUI(dungeonMaster, world, playerCharacter);
+	}
+
+	private static void addWorldListeners(World world) {
+		world.addListener(new CurseListener(world));
+		world.addListener(new ConditionListener(world));
 	}
 
 	private static void addEnemies(int enemyDensity, World world, int seed) {
@@ -93,7 +101,7 @@ public class Main {
 		World world = WorldImpl.load(fileToLoad);
 		final WorldObject playerCharacter = world.findWorldObject(Constants.ID, 0);
 		
-		world.addListener(new CurseListener(world));
+		addWorldListeners(world);
 		
 		createAndShowGUI(dungeonMaster, world, playerCharacter);
 	}
@@ -212,7 +220,10 @@ public class Main {
 	}
 
     private static void createAndShowGUI(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster) throws IOException {
-        JFrame frame = new JFrame("World");
+    	if (frame != null) {
+    		frame.dispose();
+    	}
+        frame = new JFrame("World");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         WorldPanel worldPanel = new WorldPanel(playerCharacter, world, dungeonMaster);

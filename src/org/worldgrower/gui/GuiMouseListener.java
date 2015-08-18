@@ -40,7 +40,6 @@ import org.worldgrower.gui.conversation.GuiAskQuestionAction;
 import org.worldgrower.gui.debug.GuiShowCommonersOverviewAction;
 import org.worldgrower.gui.debug.GuiShowEconomicOverviewAction;
 import org.worldgrower.gui.debug.GuiShowPropertiesAction;
-import org.worldgrower.gui.debug.PerformedActionsDialog;
 import org.worldgrower.gui.debug.ShowPerformedActionsAction;
 import org.worldgrower.gui.inventory.GuiBuyAction;
 import org.worldgrower.gui.inventory.GuiGetItemAction;
@@ -234,7 +233,7 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 	
 	private void addTransmutationActions(JPopupMenu menu) {
-		ManagedOperation[] transmutationActions = { Actions.ENLARGE_ACTION, Actions.REDUCE_ACTION };
+		ManagedOperation[] transmutationActions = { Actions.ENLARGE_ACTION, Actions.REDUCE_ACTION, Actions.SLEEP_MAGIC_SPELL_ACTION };
 		addActions(menu, "Transmute", transmutationActions);
 	}
 	

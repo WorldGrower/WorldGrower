@@ -23,25 +23,23 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.AttackUtils;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.condition.Condition;
 
-public class MinorHealAction implements MagicSpell {
+public class SleepMagicSpellAction implements MagicSpell {
 
 	private static final int ENERGY_USE = 400;
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		int hitPointsRestored = (int)(5 * SkillUtils.getSkillBonus(performer, getSkill()));
-		target.increment(Constants.HIT_POINTS, hitPointsRestored);
-		if (target.getProperty(Constants.HIT_POINTS) > target.getProperty(Constants.HIT_POINTS_MAX)) {
-			target.setProperty(Constants.HIT_POINTS, target.getProperty(Constants.HIT_POINTS_MAX));
-		}
-		
+		int turns = (int)(10 * SkillUtils.getSkillBonus(performer, getSkill()));
+		target.getProperty(Constants.CONDITIONS).addCondition(Condition.SLEEP_CONDITION, turns, world);
+
 		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE);
 	}
 	
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return ((target.hasProperty(Constants.ARMOR)) && (target.getProperty(Constants.HIT_POINTS) > 0) && target.hasIntelligence() && performer.getProperty(Constants.KNOWN_SPELLS).contains(this));
+		return (target.hasProperty(Constants.CONDITIONS) && target.hasIntelligence() && performer.getProperty(Constants.KNOWN_SPELLS).contains(this));
 	}
 
 	@Override
@@ -57,12 +55,12 @@ public class MinorHealAction implements MagicSpell {
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "healing minor wounds for " + target.getProperty(Constants.NAME);
+		return "casting sleep on " + target.getProperty(Constants.NAME);
 	}
 
 	@Override
 	public String getSimpleDescription() {
-		return "heal minor wounds";
+		return "cast sleep";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {
@@ -71,20 +69,16 @@ public class MinorHealAction implements MagicSpell {
 
 	@Override
 	public int getResearchCost() {
-		return 20;
+		return 30;
 	}
 
 	@Override
 	public SkillProperty getSkill() {
-		return Constants.RELIGION_SKILL;
+		return Constants.TRANSMUTATION_SKILL;
 	}
 
 	@Override
 	public int getRequiredSkillLevel() {
-		return 0;
-	}
-	
-	public boolean hasRequiredEnergy(WorldObject performer) {
-		return performer.getProperty(Constants.ENERGY) >= ENERGY_USE;
+		return 1;
 	}
 }

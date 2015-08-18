@@ -16,6 +16,7 @@ package org.worldgrower.condition;
 
 import java.io.Serializable;
 
+import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 
@@ -31,6 +32,7 @@ public interface Condition extends Serializable {
 	public void onTurn(WorldObject worldObject, World world, int startTurns);	
 	public boolean isDisease();
 	public void conditionEnds(WorldObject worldObject);
+	public void perform(WorldObject performer, WorldObject target, int[] args, ManagedOperation managedOperation, World world);
 	
 	public static final ParalyzedCondition PARALYZED_CONDITION = new ParalyzedCondition();
 	public static final CocoonedCondition COCOONED_CONDITION = new CocoonedCondition();
@@ -40,4 +42,6 @@ public interface Condition extends Serializable {
 	public static final InvisibleCondition INVISIBLE_CONDITION = new InvisibleCondition();
 	public static final EnlargedCondition ENLARGED_CONDITION = new EnlargedCondition();
 	public static final ReducedCondition REDUCED_CONDITION = new ReducedCondition();
+	public static final SleepCondition SLEEP_CONDITION = new SleepCondition();
+	
 }

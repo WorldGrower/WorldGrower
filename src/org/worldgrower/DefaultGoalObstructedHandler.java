@@ -59,16 +59,23 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 			GroupPropertyUtils.throwPerformerOutGroup(realPerformer, target);
 		}
 	}
-	
+
 	//TODO: clean up this code
-	private boolean performerViolatedGroupRules(ManagedOperation managedOperation) {
+	public static boolean performerAttacked(ManagedOperation managedOperation) {
 		Class<?> actionClass = managedOperation.getClass();
 		return (actionClass == Actions.MELEE_ATTACK_ACTION.getClass())
 				|| (actionClass == Actions.RANGED_ATTACK_ACTION.getClass())
 				|| (actionClass == Actions.FIRE_BOLT_ATTACK_ACTION.getClass())
 				|| (actionClass == Actions.RAY_OF_FROST_ATTACK_ACTION.getClass()
-				|| (actionClass == Actions.STEAL_ACTION.getClass())
 				|| (actionClass == Actions.INFLICT_WOUNDS_ACTION.getClass())
+				);
+	}
+	
+
+	private boolean performerViolatedGroupRules(ManagedOperation managedOperation) {
+		Class<?> actionClass = managedOperation.getClass();
+		return ((actionClass == Actions.STEAL_ACTION.getClass())
+				|| performerAttacked(managedOperation)
 				);
 		
 	}

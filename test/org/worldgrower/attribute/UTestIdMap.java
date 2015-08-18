@@ -74,4 +74,9 @@ public class UTestIdMap {
 		
 		assertEquals(1000, idMap.getValue(1));
 	}
+	
+	@Test
+	public void testremoveId() {
+		
+	}
 }
