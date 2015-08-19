@@ -17,7 +17,7 @@ package org.worldgrower.attribute;
 import java.io.ObjectStreamException;
 import java.util.List;
 
-public class PropertyCountMapProperty implements ManagedProperty<PropertyCountMap> {
+public class PropertyCountMapProperty<T> implements ManagedProperty<PropertyCountMap<T>> {
 
 	private final String name;
 	private final int ordinal = OrdinalGenerator.getNextOrdinal();
@@ -33,7 +33,7 @@ public class PropertyCountMapProperty implements ManagedProperty<PropertyCountMa
 	}
 
 	@Override
-	public void checkValue(PropertyCountMap value) {
+	public void checkValue(PropertyCountMap<T> value) {
 		if (value == null) {
 			throw new IllegalStateException("value " + value + " is null");
 		}		
@@ -54,7 +54,7 @@ public class PropertyCountMapProperty implements ManagedProperty<PropertyCountMa
 	}
 
 	@Override
-	public PropertyCountMap copy(Object value) {
-		return ((PropertyCountMap) value).copy();
+	public PropertyCountMap<T> copy(Object value) {
+		return ((PropertyCountMap<T>) value).copy();
 	}
 }

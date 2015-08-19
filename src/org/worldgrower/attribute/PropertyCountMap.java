@@ -20,11 +20,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class PropertyCountMap implements Serializable {
+public class PropertyCountMap<T> implements Serializable {
 
-	private final Map<ManagedProperty<?>, Integer> propertyCounts = new HashMap<>(); 
+	private final Map<T, Integer> propertyCounts = new HashMap<>(); 
 	
-	public void add(ManagedProperty<?> propertyKey, int quantity) {
+	public void add(T propertyKey, int quantity) {
 		if (propertyCounts.containsKey(propertyKey)) {
 			propertyCounts.put(propertyKey, propertyCounts.get(propertyKey) + quantity);
 		} else {
@@ -36,11 +36,11 @@ public class PropertyCountMap implements Serializable {
 		return propertyCounts.size();
 	}
 	
-	public List<ManagedProperty<?>> keySet() {
+	public List<T> keySet() {
 		return new ArrayList<>(propertyCounts.keySet());
 	}
 	
-	public int count(ManagedProperty<?> propertyKey) {
+	public int count(T propertyKey) {
 		if (propertyCounts.containsKey(propertyKey)) {
 			return propertyCounts.get(propertyKey);
 		} else {
@@ -53,19 +53,19 @@ public class PropertyCountMap implements Serializable {
 		return "[" + propertyCounts + "]";
 	}
 
-	public PropertyCountMap copy() {
-		PropertyCountMap result = new PropertyCountMap();
+	public PropertyCountMap<T> copy() {
+		PropertyCountMap<T> result = new PropertyCountMap<T>();
 		result.propertyCounts.putAll(this.propertyCounts);
 		return result;
 	}
 
-	public void addAll(PropertyCountMap propertyMap) {
-		for (ManagedProperty<?> propertyKey : propertyMap.keySet()) {
+	public void addAll(PropertyCountMap<T> propertyMap) {
+		for (T propertyKey : propertyMap.keySet()) {
 			add(propertyKey, propertyMap.count(propertyKey));
 		}
 	}
 
-	public void remove(ManagedProperty<?> managedProperty) {
+	public void remove(T managedProperty) {
 		propertyCounts.remove(managedProperty);
 	}
 }

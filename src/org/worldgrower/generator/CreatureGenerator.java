@@ -66,7 +66,7 @@ public class CreatureGenerator {
 		properties.put(Constants.ENERGY, 1000);
 		properties.put(Constants.GROUP, new IdList().add(organization));
 		properties.put(Constants.INVENTORY, new WorldObjectContainer());
-		properties.put(Constants.DEMANDS, new PropertyCountMap());
+		properties.put(Constants.DEMANDS, new PropertyCountMap<ManagedProperty<?>>());
 		properties.put(Constants.CHILDREN, new IdList());
 		properties.put(Constants.SOCIAL, 500);
 		properties.put(Constants.GENDER, gender);
@@ -118,7 +118,7 @@ public class CreatureGenerator {
 		properties.put(Constants.ENERGY, 1000);
 		properties.put(Constants.GROUP, new IdList().add(organization));
 		properties.put(Constants.INVENTORY, new WorldObjectContainer());
-		properties.put(Constants.DEMANDS, new PropertyCountMap());
+		properties.put(Constants.DEMANDS, new PropertyCountMap<ManagedProperty<?>>());
 		properties.put(Constants.CHILDREN, new IdList());
 		properties.put(Constants.SOCIAL, 500);
 		properties.put(Constants.GENDER, gender);
@@ -170,7 +170,7 @@ public class CreatureGenerator {
 		properties.put(Constants.ENERGY, 1000);
 		properties.put(Constants.GROUP, new IdList().add(organization));
 		properties.put(Constants.INVENTORY, new WorldObjectContainer());
-		properties.put(Constants.DEMANDS, new PropertyCountMap());
+		properties.put(Constants.DEMANDS, new PropertyCountMap<ManagedProperty<?>>());
 		properties.put(Constants.CHILDREN, new IdList());
 		properties.put(Constants.SOCIAL, 500);
 		properties.put(Constants.GENDER, gender);

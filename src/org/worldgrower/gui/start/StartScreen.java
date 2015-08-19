@@ -96,6 +96,7 @@ public class StartScreen {
 			}
 		});
 		btnNewGame.setBounds(78, 81, 157, 44);
+		frame.getRootPane().setDefaultButton(btnNewGame);
 		frame.getContentPane().add(btnNewGame);
 		
 		JButton btnLoadGame = new JButton("Load Game");

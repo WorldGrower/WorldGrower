@@ -122,11 +122,11 @@ public class MagicOverviewDialog extends JDialog {
 				return magicSpell.getRequiredSkillLevel();
 			} else if (column == 3) {
 				List<ManagedOperation> knownSpells = playerCharacter.getProperty(Constants.KNOWN_SPELLS);
-				PropertyCountMap studyingSpells = playerCharacter.getProperty(Constants.STUDYING_SPELLS);
+				PropertyCountMap<MagicSpell> studyingSpells = playerCharacter.getProperty(Constants.STUDYING_SPELLS);
 				if (knownSpells.contains(magicSpell)) {
 					return "Known";
-				} else if (studyingSpells.count(magicSpell.getSkill()) > 0) {
-					int percentage = (studyingSpells.count(magicSpell.getSkill()) * 100) / magicSpell.getResearchCost();
+				} else if (studyingSpells.count(magicSpell) > 0) {
+					int percentage = (studyingSpells.count(magicSpell) * 100) / magicSpell.getResearchCost();
 					return percentage + "%";
 				} else {
 					return "Unknown";

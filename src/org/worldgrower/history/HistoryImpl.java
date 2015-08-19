@@ -52,7 +52,7 @@ public class HistoryImpl implements History, Serializable {
 
 	private void addHistoryItem(HistoryItem historyItem) {
 		ManagedOperation action = historyItem.getOperationInfo().getManagedOperation();
-		if (action != Actions.MOVE_ACTION) {
+		if (action != Actions.MOVE_ACTION && action != Actions.REST_ACTION && action != Actions.SLEEP_ACTION) {
 			historyItems.add(historyItem);
 			
 			Integer performerId = historyItem.getOperationInfo().getPerformer().getProperty(Constants.ID);

@@ -206,7 +206,7 @@ public class Main {
 		
 		SkillUtils.addAllSkills(properties);
 		properties.put(Constants.KNOWN_SPELLS, new ArrayList<>());
-		properties.put(Constants.STUDYING_SPELLS, new PropertyCountMap());
+		properties.put(Constants.STUDYING_SPELLS, new PropertyCountMap<ManagedOperation>());
 
 		properties.put(Constants.DAMAGE, 2);
 		properties.put(Constants.DAMAGE_RESIST, 10);

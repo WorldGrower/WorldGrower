@@ -34,7 +34,7 @@ public class CurePoisonAction implements MagicSpell {
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		Conditions.remove(target, Condition.POISONED_CONDITION);
 		
-		SkillUtils.useEnergy(performer, Constants.RESTORATION_SKILL, ENERGY_USE);
+		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE);
 	}
 	
 	@Override
@@ -74,7 +74,7 @@ public class CurePoisonAction implements MagicSpell {
 
 	@Override
 	public SkillProperty getSkill() {
-		return Constants.RELIGION_SKILL;
+		return Constants.RESTORATION_SKILL;
 	}
 
 	@Override

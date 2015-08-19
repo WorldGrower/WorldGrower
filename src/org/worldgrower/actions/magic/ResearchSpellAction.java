@@ -33,9 +33,9 @@ public class ResearchSpellAction implements ManagedOperation {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		performer.getProperty(Constants.STUDYING_SPELLS).add(spell.getSkill(), 1);
+		performer.getProperty(Constants.STUDYING_SPELLS).add(spell, 1);
 
-		if (performer.getProperty(Constants.STUDYING_SPELLS).count(spell.getSkill()) > spell.getResearchCost()) {
+		if (performer.getProperty(Constants.STUDYING_SPELLS).count(spell) > spell.getResearchCost()) {
 			performer.getProperty(Constants.KNOWN_SPELLS).add(spell);
 		}
 	}
@@ -53,7 +53,7 @@ public class ResearchSpellAction implements ManagedOperation {
 
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return target.hasProperty(Constants.LIBRARY_QUALITY) && !performer.getProperty(Constants.KNOWN_SPELLS).contains(spell);
+		return isValidTarget(target) && !performer.getProperty(Constants.KNOWN_SPELLS).contains(spell);
 	}
 	
 	@Override
@@ -72,5 +72,9 @@ public class ResearchSpellAction implements ManagedOperation {
 
 	public MagicSpell getSpell() {
 		return spell;
+	}
+	
+	public static boolean isValidTarget(WorldObject target) {
+		return target.hasProperty(Constants.LIBRARY_QUALITY);
 	}
 }

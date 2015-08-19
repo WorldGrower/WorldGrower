@@ -26,6 +26,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.attribute.BackgroundImpl;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdRelationshipMap;
@@ -96,7 +97,7 @@ public class CommonerGenerator implements Serializable {
 		
 		SkillUtils.addAllSkills(properties);
 		properties.put(Constants.KNOWN_SPELLS, new ArrayList<>());
-		properties.put(Constants.STUDYING_SPELLS, new PropertyCountMap());
+		properties.put(Constants.STUDYING_SPELLS, new PropertyCountMap<MagicSpell>());
 		
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, imageId);
@@ -106,7 +107,7 @@ public class CommonerGenerator implements Serializable {
 		properties.put(Constants.ENERGY, 1000);
 		properties.put(Constants.PROFESSION, null);
 		properties.put(Constants.INVENTORY, new WorldObjectContainer());
-		properties.put(Constants.DEMANDS, new PropertyCountMap());
+		properties.put(Constants.DEMANDS, new PropertyCountMap<ManagedProperty<?>>());
 		properties.put(Constants.RELATIONSHIPS, new IdRelationshipMap());
 		properties.put(Constants.REASONS, new ReasonsImpl());
 		properties.put(Constants.CHILDREN, new IdList());

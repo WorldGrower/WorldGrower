@@ -74,7 +74,7 @@ public class SleepMagicSpellAction implements MagicSpell {
 
 	@Override
 	public SkillProperty getSkill() {
-		return Constants.TRANSMUTATION_SKILL;
+		return Constants.ENCHANTMENT_SKILL;
 	}
 
 	@Override

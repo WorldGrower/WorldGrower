@@ -46,7 +46,7 @@ public class PriestProfession implements Profession {
 
 	@Override
 	public SkillProperty getSkillProperty() {
-		return Constants.RELIGION_SKILL;
+		return Constants.RESTORATION_SKILL;
 	}
 	
 	public Object readResolve() throws ObjectStreamException {

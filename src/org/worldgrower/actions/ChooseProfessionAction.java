@@ -200,7 +200,7 @@ public class ChooseProfessionAction implements ManagedOperation {
 	static List<ProfessionEvaluation> getProfessionEvaluationsByDemand(WorldObject performer, World world) {
 		List<WorldObject> worldObjects = GroupPropertyUtils.findWorldObjectsInSameGroup(performer, world);
 		
-		PropertyCountMap mergedDemands = new PropertyCountMap();
+		PropertyCountMap<ManagedProperty<?>> mergedDemands = new PropertyCountMap<ManagedProperty<?>>();
 		for(WorldObject worldObject : worldObjects) {
 			if (worldObject.hasProperty(Constants.DEMANDS)) {
 				mergedDemands.addAll(worldObject.getProperty(Constants.DEMANDS));
@@ -210,7 +210,7 @@ public class ChooseProfessionAction implements ManagedOperation {
 		return mapDemandsToProfessions(mergedDemands, world);
 	}
 
-	static List<ProfessionEvaluation> mapDemandsToProfessions(PropertyCountMap demands, World world) {
+	static List<ProfessionEvaluation> mapDemandsToProfessions(PropertyCountMap<ManagedProperty<?>> demands, World world) {
 		List<ProfessionEvaluation> result = new ArrayList<>();
 		int populationCount = getPopulationCount(world);
 		

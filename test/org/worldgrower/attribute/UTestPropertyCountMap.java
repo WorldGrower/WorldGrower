@@ -23,7 +23,7 @@ public class UTestPropertyCountMap {
 
 	@Test
 	public void testAdd() {
-		PropertyCountMap propertyCountMap = new PropertyCountMap();
+		PropertyCountMap<ManagedProperty<?>> propertyCountMap = new PropertyCountMap<ManagedProperty<?>>();
 		propertyCountMap.add(Constants.GOLD, 5);
 		
 		assertEquals(5, propertyCountMap.count(Constants.GOLD));
@@ -32,7 +32,7 @@ public class UTestPropertyCountMap {
 	
 	@Test
 	public void testRemove() {
-		PropertyCountMap propertyCountMap = new PropertyCountMap();
+		PropertyCountMap<ManagedProperty<?>> propertyCountMap = new PropertyCountMap<ManagedProperty<?>>();
 		propertyCountMap.add(Constants.GOLD, 5);
 		propertyCountMap.remove(Constants.GOLD);
 		
@@ -41,10 +41,10 @@ public class UTestPropertyCountMap {
 	
 	@Test
 	public void testAddAll() {
-		PropertyCountMap propertyCountMap1 = new PropertyCountMap();
+		PropertyCountMap<ManagedProperty<?>> propertyCountMap1 = new PropertyCountMap<ManagedProperty<?>>();
 		propertyCountMap1.add(Constants.GOLD, 5);
 		
-		PropertyCountMap propertyCountMap2 = new PropertyCountMap();
+		PropertyCountMap<ManagedProperty<?>> propertyCountMap2 = new PropertyCountMap<ManagedProperty<?>>();
 		propertyCountMap2.add(Constants.GOLD, 3);
 		propertyCountMap2.add(Constants.HIT_POINTS, 2);
 		

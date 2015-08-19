@@ -67,7 +67,7 @@ public class InflictWoundsAction implements MagicSpell {
 
 	@Override
 	public SkillProperty getSkill() {
-		return Constants.EVOCATION_SKILL;
+		return Constants.NECROMANCY_SKILL;
 	}
 
 	@Override

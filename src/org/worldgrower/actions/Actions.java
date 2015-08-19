@@ -19,7 +19,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
+import org.worldgrower.WorldObject;
 import org.worldgrower.actions.magic.AnimateDeadAction;
 import org.worldgrower.actions.magic.CureDiseaseAction;
 import org.worldgrower.actions.magic.CurePoisonAction;
@@ -31,6 +33,7 @@ import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.actions.magic.MendAction;
 import org.worldgrower.actions.magic.MinorHealAction;
 import org.worldgrower.actions.magic.MinorIllusionAction;
+import org.worldgrower.actions.magic.ParalyzeSpellAction;
 import org.worldgrower.actions.magic.RayOfFrostAttackAction;
 import org.worldgrower.actions.magic.ReduceAction;
 import org.worldgrower.actions.magic.ResearchSpellAction;
@@ -104,9 +107,10 @@ public class Actions {
 	public static final InflictWoundsAction INFLICT_WOUNDS_ACTION = new InflictWoundsAction();
 	public static final MendAction MEND_ACTION = new MendAction();
 	public static final SleepMagicSpellAction SLEEP_MAGIC_SPELL_ACTION = new SleepMagicSpellAction();
+	public static final ParalyzeSpellAction PARALYZE_SPELL_ACTION = new ParalyzeSpellAction();
 	
 	public static final BuildLibraryAction BUILD_LIBRARY_ACTION = new BuildLibraryAction();
-	public static final ResearchReligionSkillAction RESEARCH_RELIGION_SKILL_ACTION = new ResearchReligionSkillAction();
+	public static final ResearchRestorationSkillAction RESEARCH_RESTORATION_SKILL_ACTION = new ResearchRestorationSkillAction();
 	public static final ResearchIllusionSkillAction RESEARCH_ILLUSION_SKILL_ACTION = new ResearchIllusionSkillAction();
 	public static final ResearchEvocationSkillAction RESEARCH_EVOCATION_SKILL_ACTION = new ResearchEvocationSkillAction();
 	public static final GetItemFromInventoryAction GET_ITEM_FROM_INVENTORY_ACTION = new GetItemFromInventoryAction();
@@ -153,7 +157,8 @@ public class Actions {
 			REDUCE_ACTION,
 			INFLICT_WOUNDS_ACTION,
 			MEND_ACTION,
-			SLEEP_MAGIC_SPELL_ACTION);
+			SLEEP_MAGIC_SPELL_ACTION,
+			PARALYZE_SPELL_ACTION);
 	
 	public static final List<ManagedOperation> ALL_ACTIONS = new ArrayList<>(Arrays.asList(
 		MOVE_ACTION,
@@ -205,7 +210,7 @@ public class Actions {
 		COLLECT_WATER_ACTION,
 		CREATE_ORGANIZATION_ACTION,
 		BUILD_LIBRARY_ACTION,
-		RESEARCH_RELIGION_SKILL_ACTION,
+		RESEARCH_RESTORATION_SKILL_ACTION,
 		RESEARCH_ILLUSION_SKILL_ACTION,
 		RESEARCH_EVOCATION_SKILL_ACTION,
 		GET_ITEM_FROM_INVENTORY_ACTION,
@@ -281,5 +286,20 @@ public class Actions {
 	
 	public static List<MagicSpell> getMagicSpells() {
 		return MAGIC_SPELLS;
+	}
+
+	public static List<MagicSpell> getMagicSpellsToResearch(WorldObject performer) {
+		List<MagicSpell> allSpells = new ArrayList<>(MAGIC_SPELLS);
+		List<ManagedOperation> knownSpells = performer.getProperty(Constants.KNOWN_SPELLS);
+		
+		allSpells.removeAll(knownSpells);
+		
+		allSpells = allSpells.stream().filter(s -> getResearchSpellActionFor(s).distance(performer, performer, new int[0], null) == 0).collect(Collectors.toList());
+		
+		return allSpells;
+	}
+	
+	public static List<String> getMagicSpellDescriptions(List<MagicSpell> magicSpells) {
+		return magicSpells.stream().map(s -> s.getSimpleDescription()).collect(Collectors.toList());
 	}
 }

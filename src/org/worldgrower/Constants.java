@@ -17,6 +17,7 @@ package org.worldgrower;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.attribute.Background;
 import org.worldgrower.attribute.BooleanProperty;
 import org.worldgrower.attribute.IdListProperty;
@@ -88,12 +89,13 @@ public class Constants {
 	public static final SkillProperty FARMING_SKILL = new SkillProperty("farming", ALL_PROPERTIES);
 	public static final SkillProperty MINING_SKILL = new SkillProperty("mining", ALL_PROPERTIES);
 	public static final SkillProperty LUMBERING_SKILL = new SkillProperty("lumbering", ALL_PROPERTIES);
-	public static final SkillProperty RELIGION_SKILL = new SkillProperty("religion", ALL_PROPERTIES);
 	public static final SkillProperty WEAVING_SKILL = new SkillProperty("weaving", ALL_PROPERTIES);
 	public static final SkillProperty LIGHT_ARMOR_SKILL = new SkillProperty("light armor", ALL_PROPERTIES);
 	public static final SkillProperty HEAVY_ARMOR_SKILL = new SkillProperty("heavy armor", ALL_PROPERTIES);
 	public static final SkillProperty CARPENTRY_SKILL = new SkillProperty("carpentry", ALL_PROPERTIES);
 	public static final SkillProperty TRANSMUTATION_SKILL = new SkillProperty("transmutation", ALL_PROPERTIES);
+	public static final SkillProperty ENCHANTMENT_SKILL = new SkillProperty("enchantment", ALL_PROPERTIES);
+	public static final SkillProperty NECROMANCY_SKILL = new SkillProperty("necromancy", ALL_PROPERTIES);
 	
 	public static final UnCheckedProperty<CreatureType> CREATURE_TYPE = new UnCheckedProperty<CreatureType>("creatureType", ALL_PROPERTIES);
 	
@@ -156,7 +158,7 @@ public class Constants {
 	public static final BooleanProperty SELLABLE = new BooleanProperty("sellable", NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty QUANTITY = new IntProperty("quantity", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty GOLD = new IntProperty("gold", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
-	public static final PropertyCountMapProperty DEMANDS = new PropertyCountMapProperty("demands", ALL_PROPERTIES);
+	public static final PropertyCountMapProperty<ManagedProperty<?>> DEMANDS = new PropertyCountMapProperty<ManagedProperty<?>>("demands", ALL_PROPERTIES);
 	
 	public static final UnCheckedProperty<Profession> PROFESSION = new UnCheckedProperty<Profession>("profession", ALL_PROPERTIES);
 
@@ -186,7 +188,7 @@ public class Constants {
 	public static final IntProperty TURNS_TO_LIVE = new IntProperty("turnsToLive", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	
 	public static final UnCheckedProperty<List<ManagedOperation>> KNOWN_SPELLS = new UnCheckedProperty<>("knownSpells", ALL_PROPERTIES);
-	public static final PropertyCountMapProperty STUDYING_SPELLS = new PropertyCountMapProperty("studyingSpells", ALL_PROPERTIES);
+	public static final PropertyCountMapProperty<MagicSpell> STUDYING_SPELLS = new PropertyCountMapProperty<MagicSpell>("studyingSpells", ALL_PROPERTIES);
 	public static final UnCheckedProperty<ManagedOperation> MAGIC_SPELL = new UnCheckedProperty<>("magicSpell", ALL_PROPERTIES);
 	
 	public static final BooleanProperty FLAMMABLE = new BooleanProperty("flammable", NOT_NULLABLE, ALL_PROPERTIES);

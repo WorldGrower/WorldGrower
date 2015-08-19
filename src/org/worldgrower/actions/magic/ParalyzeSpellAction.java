@@ -23,20 +23,23 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.AttackUtils;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.condition.Condition;
 
-public class CureDiseaseAction implements MagicSpell {
+public class ParalyzeSpellAction implements MagicSpell {
 
-	private static final int ENERGY_USE = 500;
+	private static final int ENERGY_USE = 600;
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		target.getProperty(Constants.CONDITIONS).removeAllDiseases();
+		int turns = (int)(8 * SkillUtils.getSkillBonus(performer, getSkill()));
+		target.getProperty(Constants.CONDITIONS).addCondition(Condition.PARALYZED_CONDITION, turns, world);
+
 		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE);
 	}
 	
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return ((target.hasProperty(Constants.CONDITIONS)) && target.hasIntelligence() && performer.getProperty(Constants.KNOWN_SPELLS).contains(this));
+		return (target.hasProperty(Constants.CONDITIONS) && target.hasIntelligence() && performer.getProperty(Constants.KNOWN_SPELLS).contains(this));
 	}
 
 	@Override
@@ -52,12 +55,12 @@ public class CureDiseaseAction implements MagicSpell {
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "curing disease for " + target.getProperty(Constants.NAME);
+		return "casting paralyze on " + target.getProperty(Constants.NAME);
 	}
 
 	@Override
 	public String getSimpleDescription() {
-		return "cure disease";
+		return "paralyze";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {
@@ -66,16 +69,16 @@ public class CureDiseaseAction implements MagicSpell {
 
 	@Override
 	public int getResearchCost() {
-		return 25;
+		return 40;
 	}
 
 	@Override
 	public SkillProperty getSkill() {
-		return Constants.RESTORATION_SKILL;
+		return Constants.ENCHANTMENT_SKILL;
 	}
 
 	@Override
 	public int getRequiredSkillLevel() {
-		return 1;
+		return 2;
 	}
 }

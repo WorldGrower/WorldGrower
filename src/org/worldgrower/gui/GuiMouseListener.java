@@ -22,6 +22,7 @@ import javax.swing.Action;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
+import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 
 import org.worldgrower.Constants;
@@ -32,6 +33,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.BuildAction;
+import org.worldgrower.actions.magic.ResearchSpellAction;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.gui.chooseworldobject.ChooseWorldObjectAction;
 import org.worldgrower.gui.chooseworldobject.DisguiseAction;
@@ -55,6 +57,10 @@ public class GuiMouseListener extends MouseAdapter {
 	private DungeonMaster dungeonMaster;
 	private ImageInfoReader imageInfoReader;
 	
+	private final CharacterSheetAction characterSheetAction;
+	private final InventoryAction inventoryAction;
+	private final MagicOverviewAction magicOverviewAction;
+	
     public GuiMouseListener(WorldPanel container, WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, ImageInfoReader imageInfoReader) {
 		super();
 		this.container = container;
@@ -62,6 +68,22 @@ public class GuiMouseListener extends MouseAdapter {
 		this.world = world;
 		this.dungeonMaster = dungeonMaster;
 		this.imageInfoReader = imageInfoReader;
+		
+		characterSheetAction = new CharacterSheetAction(playerCharacter, imageInfoReader);
+		inventoryAction = new InventoryAction(playerCharacter, imageInfoReader);
+		magicOverviewAction = new MagicOverviewAction(playerCharacter, imageInfoReader);
+		addKeyBindings();
+	}
+
+	private void addKeyBindings() {
+		container.getInputMap().put(KeyStroke.getKeyStroke("C"), "characterSheetAction");
+		container.getActionMap().put("characterSheetAction", characterSheetAction);
+		
+		container.getInputMap().put(KeyStroke.getKeyStroke("I"), "inventoryAction");
+		container.getActionMap().put("inventoryAction", inventoryAction);
+
+		container.getInputMap().put(KeyStroke.getKeyStroke("M"), "magicOverviewAction");
+		container.getActionMap().put("magicOverviewAction", magicOverviewAction);
 	}
 
 	public void mousePressed(MouseEvent e){
@@ -141,6 +163,7 @@ public class GuiMouseListener extends MouseAdapter {
             	} else {
             		addInventoryActions(menu, worldObject);
             		addVoteActions(menu, worldObject);
+            		addResearchActions(menu, worldObject);
             	}
             	addAllActions(menu, worldObject);
             	
@@ -199,17 +222,26 @@ public class GuiMouseListener extends MouseAdapter {
 			menu.add(guiVoteMenuItem);
 		}
 	}
+	
+	private void addResearchActions(JPopupMenu menu, WorldObject worldObject) {
+		if (ResearchSpellAction.isValidTarget(worldObject)) {
+			JMenuItem guiResearchMagicSpellMenuItem = new JMenuItem(new GuiResearchMagicSpellAction(playerCharacter, imageInfoReader, world, container, dungeonMaster, worldObject));
+			guiResearchMagicSpellMenuItem.setText("Research multiple turns...");
+			menu.add(guiResearchMagicSpellMenuItem);
+		}
+	}
 
 	private void addPlayerCharacterInformationMenus(JPopupMenu menu) {
-		JMenuItem characterSheetMenuItem = new JMenuItem(new CharacterSheetAction(playerCharacter, imageInfoReader));
+		JMenuItem characterSheetMenuItem = new JMenuItem(characterSheetAction);
 		characterSheetMenuItem.setText("Character Sheet");
 		menu.add(characterSheetMenuItem);
 		
-		JMenuItem inventoryMenuItem = new JMenuItem(new InventoryAction(playerCharacter, imageInfoReader));
+		
+		JMenuItem inventoryMenuItem = new JMenuItem(inventoryAction);
 		inventoryMenuItem.setText("Inventory");
 		menu.add(inventoryMenuItem);
 		
-		JMenuItem magicOverviewMenuItem = new JMenuItem(new MagicOverviewAction(playerCharacter, imageInfoReader));
+		JMenuItem magicOverviewMenuItem = new JMenuItem(magicOverviewAction);
 		magicOverviewMenuItem.setText("Magic Overview");
 		menu.add(magicOverviewMenuItem);
 	}
