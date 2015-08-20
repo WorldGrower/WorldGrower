@@ -33,6 +33,7 @@ public class BuildingGenerator {
 	private static final String SHACK_NAME = "shack";
 	private static final String HOUSE_NAME = "house";
 	private static final String TRAINING_DUMMY_NAME = "Training dummy";
+	private static final String GRAVE_NAME = "grave";
 	
 	public static int generateVotingBox(int x, int y, World world) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
@@ -133,12 +134,39 @@ public class BuildingGenerator {
 		return id;
 	}	
 	
+	public static int generateGrave(int x, int y, World world, WorldObject deceasedWorldObject) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		int id = world.generateUniqueId();
+		
+		properties.put(Constants.X, x);
+		properties.put(Constants.Y, y);
+		properties.put(Constants.WIDTH, 1);
+		properties.put(Constants.HEIGHT, 1);
+		properties.put(Constants.NAME, GRAVE_NAME);
+		properties.put(Constants.ID, id);
+		properties.put(Constants.IMAGE_ID, ImageIds.GRAVE);
+		properties.put(Constants.TEXT, "Here are the " + deceasedWorldObject.getProperty(Constants.NAME) + " buried");
+		properties.put(Constants.HIT_POINTS, 50);
+		properties.put(Constants.HIT_POINTS_MAX, 50);
+		properties.put(Constants.ARMOR, 0);
+		properties.put(Constants.DAMAGE_RESIST, 0);
+		
+		WorldObject grave = new WorldObjectImpl(properties);
+		world.addWorldObject(grave);
+		
+		return id;
+	}
+	
 	public static boolean isShack(WorldObject worldObject) {
 		return worldObject.getProperty(Constants.NAME).equals(SHACK_NAME);
 	}
 	
 	public static boolean isHouse(WorldObject worldObject) {
 		return worldObject.getProperty(Constants.NAME).equals(HOUSE_NAME);
+	}
+	
+	public static boolean isGrave(WorldObject worldObject) {
+		return worldObject.getProperty(Constants.NAME).equals(GRAVE_NAME);
 	}
 	
 	public static boolean isSellable(WorldObject worldObject) {

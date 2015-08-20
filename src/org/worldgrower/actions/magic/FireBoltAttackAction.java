@@ -21,11 +21,12 @@ import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.AttackUtils;
+import org.worldgrower.actions.DeadlyAction;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.condition.Condition;
 
-public class FireBoltAttackAction implements MagicSpell {
+public class FireBoltAttackAction implements MagicSpell, DeadlyAction {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
@@ -78,5 +79,10 @@ public class FireBoltAttackAction implements MagicSpell {
 	@Override
 	public int getRequiredSkillLevel() {
 		return 0;
+	}
+
+	@Override
+	public String getDeathDescription(WorldObject performer, WorldObject target) {
+		return "burned to death";
 	}
 }

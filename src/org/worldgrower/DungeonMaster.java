@@ -33,19 +33,20 @@ public class DungeonMaster implements Serializable {
 	private TaskCalculator taskCalculator = new TaskCalculatorImpl();
 	
 	public void runWorld(World world) {
-		//TODO: removed WorldObjects shouldn't be iterated anymore
 		List<WorldObject> worldObjects = new ArrayList<>(world.getWorldObjects());
 		
 		for(WorldObject worldObject : worldObjects) {
 			if (worldObject.hasIntelligence() && worldObject.isControlledByAI()) {
-				runWorldObject(worldObject, world);
+				if (world.exists(worldObject)) {
+					runWorldObject(worldObject, world);
+				}
 			}
 			
 			worldObject.onTurn(world);
 		}
 		world.nextTurn();
 	}
-	
+
 	private void runWorldObject(WorldObject worldObject, World world) {
 		MetaInformation metaInformation = getMetaInformation(worldObject);
 		

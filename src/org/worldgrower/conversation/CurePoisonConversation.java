@@ -68,7 +68,7 @@ public class CurePoisonConversation implements Conversation {
 		World world = conversationContext.getWorld();
 		
 		if (replyIndex == YES) {
-			Conditions.remove(performer, Condition.POISONED_CONDITION);
+			Actions.CURE_POISON_ACTION.execute(target, performer, new int[0], world);
 		} else if (replyIndex == NO) {
 			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -50, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 		}
@@ -76,7 +76,7 @@ public class CurePoisonConversation implements Conversation {
 
 	@Override
 	public boolean isConversationAvailable(WorldObject performer, WorldObject target, World world) {
-		return performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.POISONED_CONDITION);
+		return performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.POISONED_CONDITION) && Actions.CURE_POISON_ACTION.hasRequiredEnergy(target);
 	}
 	
 	@Override

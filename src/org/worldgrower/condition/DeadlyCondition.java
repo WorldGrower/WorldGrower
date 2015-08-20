@@ -12,19 +12,9 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.goal;
+package org.worldgrower.condition;
 
-import java.util.Arrays;
-import java.util.List;
+public interface DeadlyCondition extends Condition {
 
-import org.worldgrower.actions.Actions;
-import org.worldgrower.actions.magic.MagicSpell;
-
-public class ScribeWizardSpellsGoal extends AbstractScribeSpellsGoal {
-
-	private static final List<MagicSpell> WIZARD_SPELLS = Arrays.asList(Actions.FIRE_BOLT_ATTACK_ACTION, Actions.RAY_OF_FROST_ATTACK_ACTION);
-	
-	public ScribeWizardSpellsGoal() {
-		super(WIZARD_SPELLS, Actions.RESEARCH_EVOCATION_SKILL_ACTION);
-	}
+	public String getDeathDescription();
 }

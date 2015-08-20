@@ -18,14 +18,13 @@ import java.io.ObjectStreamException;
 
 import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
-import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.creaturetype.CreatureType;
 
-public class VampireBiteAction implements ManagedOperation {
+public class VampireBiteAction implements DeadlyAction {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
@@ -66,5 +65,10 @@ public class VampireBiteAction implements ManagedOperation {
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
+	}
+
+	@Override
+	public String getDeathDescription(WorldObject performer, WorldObject target) {
+		return "drained of blood";
 	}
 }

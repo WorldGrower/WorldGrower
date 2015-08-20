@@ -126,6 +126,11 @@ public class WorldImpl implements World, Serializable {
 		int index = idToIndexMapping.getIndex(id);
 		return worldObjects.get(index);
 	}
+	
+	@Override
+	public boolean exists(WorldObject worldObject) {
+		return idToIndexMapping.idExists(worldObject.getProperty(Constants.ID));
+	}
 
 	@Override
 	public int generateUniqueId() {

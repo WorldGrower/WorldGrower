@@ -85,4 +85,6 @@ public class Goals {
 	public static final FurnitureGoal FURNITURE_GOAL = new FurnitureGoal();
 	public static final CreateOrPlantWoodGoal CREATE_OR_PLANT_WOOD_GOAL = new CreateOrPlantWoodGoal();
 	public static final TrainGoal TRAIN_GOAL = new TrainGoal();
+	public static final ScribeNecromancerSpellsGoal SCRIBE_NECROMANCER_SPELLS_GOAL = new ScribeNecromancerSpellsGoal();
+	public static final KillVillagersGoal KILL_VILLAGERS_GOAL = new KillVillagersGoal();
 }

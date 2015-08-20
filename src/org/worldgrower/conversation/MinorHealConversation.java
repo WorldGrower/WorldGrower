@@ -76,7 +76,7 @@ public class MinorHealConversation implements Conversation {
 	public boolean isConversationAvailable(WorldObject performer, WorldObject target, World world) {
 		int hitPoints = performer.getProperty(Constants.HIT_POINTS).intValue();
 		int maxHitPoints = performer.getProperty(Constants.HIT_POINTS_MAX).intValue();
-		return hitPoints < maxHitPoints;
+		return (hitPoints < maxHitPoints) && Actions.MINOR_HEAL_ACTION.hasRequiredEnergy(target);
 	}
 	
 	@Override

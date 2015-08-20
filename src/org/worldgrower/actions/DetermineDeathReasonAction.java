@@ -12,72 +12,50 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.actions.magic;
+package org.worldgrower.actions;
 
 import java.io.ObjectStreamException;
 
 import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
+import org.worldgrower.ManagedOperation;
+import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.actions.AttackUtils;
-import org.worldgrower.actions.DeadlyAction;
-import org.worldgrower.attribute.SkillProperty;
-import org.worldgrower.attribute.SkillUtils;
 
-public class InflictWoundsAction implements MagicSpell, DeadlyAction {
+public class DetermineDeathReasonAction implements ManagedOperation {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		AttackUtils.magicAttack(4, this, performer, target, args, world, SkillUtils.useSkill(performer, getSkill()));
-	}
-	
-	@Override
-	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return ((target.hasProperty(Constants.ARMOR)) && (target.getProperty(Constants.HIT_POINTS) > 0) && target.hasIntelligence() && performer.getProperty(Constants.KNOWN_SPELLS).contains(this));
+		world.logAction(this, performer, target, args, target.getProperty(Constants.DEATH_REASON));
 	}
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return AttackUtils.distanceWithFreeLeftHand(performer, target, 1);
+		return Reach.evaluateTarget(performer, args, target, 1);
 	}
-	
+
 	@Override
 	public ArgumentRange[] getArgumentRanges() {
 		return ArgumentRange.EMPTY_ARGUMENT_RANGE;
 	}
-	
+
+	@Override
+	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
+		return target.hasProperty(Constants.DEATH_REASON);
+	}
+
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "inflicting wounds on " + target.getProperty(Constants.NAME);
+		return "determine cause of death for " + target.getProperty(Constants.NAME);
 	}
 
 	@Override
 	public String getSimpleDescription() {
-		return "inflict wounds";
+		return "determine cause of death";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
-	}
-
-	@Override
-	public int getResearchCost() {
-		return 15;
-	}
-
-	@Override
-	public SkillProperty getSkill() {
-		return Constants.NECROMANCY_SKILL;
-	}
-
-	@Override
-	public int getRequiredSkillLevel() {
-		return 0;
-	}
-
-	@Override
-	public String getDeathDescription(WorldObject performer, WorldObject target) {
-		return "killed by necrotic damage";
 	}
 }

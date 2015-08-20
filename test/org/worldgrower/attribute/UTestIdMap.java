@@ -76,7 +76,15 @@ public class UTestIdMap {
 	}
 	
 	@Test
-	public void testremoveId() {
+	public void testRemoveId() {
+		IdMap idMap = new IdRelationshipMap();
+		WorldObject person = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, idMap);
+		idMap.incrementValue(6, 2);
+		WorldObject person2 = TestUtils.createWorldObject(1, "Test2");
 		
+		assertEquals(2, idMap.getValue(6));
+		idMap.remove(person, Constants.RELATIONSHIPS, 6);
+		assertEquals(0, idMap.getValue(6));
+		assertEquals(false, idMap.contains(person2));
 	}
 }

@@ -20,11 +20,11 @@ import java.util.List;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.magic.MagicSpell;
 
-public class ScribeWizardSpellsGoal extends AbstractScribeSpellsGoal {
+public class ScribeNecromancerSpellsGoal extends AbstractScribeSpellsGoal {
 
-	private static final List<MagicSpell> WIZARD_SPELLS = Arrays.asList(Actions.FIRE_BOLT_ATTACK_ACTION, Actions.RAY_OF_FROST_ATTACK_ACTION);
+	private static final List<MagicSpell> NECROMANCER_SPELLS = Arrays.asList(Actions.INFLICT_WOUNDS_ACTION, Actions.ANIMATE_DEAD_ACTION);
 	
-	public ScribeWizardSpellsGoal() {
-		super(WIZARD_SPELLS, Actions.RESEARCH_EVOCATION_SKILL_ACTION);
+	public ScribeNecromancerSpellsGoal() {
+		super(NECROMANCER_SPELLS, Actions.RESEARCH_NECROMANCY_SKILL_ACTION);
 	}
 }

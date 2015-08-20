@@ -32,6 +32,7 @@ public interface World {
 	public void addWorldObject(WorldObject worldObject);
 	public void removeWorldObject(WorldObject worldObject);
 	public List<WorldObject> getWorldObjects();
+	public boolean exists(WorldObject worldObject);
 	
 	public List<WorldObject> findWorldObjects(WorldObjectCondition worldObjectCondition);
 	public<T> WorldObject findWorldObject(ManagedProperty<T> propertyKey, T value);

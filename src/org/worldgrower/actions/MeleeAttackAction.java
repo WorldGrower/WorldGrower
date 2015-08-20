@@ -18,17 +18,17 @@ import java.io.ObjectStreamException;
 
 import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
-import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillProperty;
+import org.worldgrower.attribute.SkillUtils;
 
-public class MeleeAttackAction implements ManagedOperation {
+public class MeleeAttackAction implements DeadlyAction {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		AttackUtils.attack(this, performer, target, args, world, useSkill(performer));
+		AttackUtils.attack(this, performer, target, args, world, SkillUtils.useSkill(performer, determineSkill(performer)));
 	}
 	
 	private SkillProperty determineSkill(WorldObject performer) {
@@ -44,13 +44,6 @@ public class MeleeAttackAction implements ManagedOperation {
 		}
 	}
 	
-	private double useSkill(WorldObject performer) {
-		SkillProperty skill = determineSkill(performer);
-		double result = 1.0f + (performer.getProperty(skill).getLevel() / 100.0f);
-		performer.getProperty(skill).use();
-		return result;
-	}
-
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
 		return ((target.hasProperty(Constants.ARMOR)) && (target.getProperty(Constants.HIT_POINTS) > 0));
@@ -78,5 +71,17 @@ public class MeleeAttackAction implements ManagedOperation {
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
+	}
+
+	@Override
+	public String getDeathDescription(WorldObject performer, WorldObject target) {
+		WorldObject leftHandEquipment = performer.getProperty(Constants.LEFT_HAND_EQUIPMENT);
+		WorldObject rightHandEquipment = performer.getProperty(Constants.RIGHT_HAND_EQUIPMENT);
+		
+		if ((leftHandEquipment == null) && (rightHandEquipment == null)) {
+			return "pummeled to death";
+		} else {
+			return "slashed by a sword";
+		}
 	}
 }

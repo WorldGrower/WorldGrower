@@ -14,17 +14,18 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
-import java.util.Arrays;
-import java.util.List;
+import org.worldgrower.Constants;
+import org.worldgrower.WorldObject;
+import org.worldgrower.actions.DeadlyAction;
+import org.worldgrower.condition.DeadlyCondition;
 
-import org.worldgrower.actions.Actions;
-import org.worldgrower.actions.magic.MagicSpell;
+public class DeathReasonPropertyUtils {
 
-public class ScribeWizardSpellsGoal extends AbstractScribeSpellsGoal {
+	public static void targetDiesByPerformerAction(WorldObject performer, WorldObject target, DeadlyAction action) {
+		target.setProperty(Constants.DEATH_REASON, target.getProperty(Constants.NAME) + " was " + action.getDeathDescription(performer, target));
+	}
 
-	private static final List<MagicSpell> WIZARD_SPELLS = Arrays.asList(Actions.FIRE_BOLT_ATTACK_ACTION, Actions.RAY_OF_FROST_ATTACK_ACTION);
-	
-	public ScribeWizardSpellsGoal() {
-		super(WIZARD_SPELLS, Actions.RESEARCH_EVOCATION_SKILL_ACTION);
+	public static void targetDiesByCondition(DeadlyCondition condition, WorldObject target) {
+		target.setProperty(Constants.DEATH_REASON, target.getProperty(Constants.NAME) + " was " + condition.getDeathDescription());
 	}
 }

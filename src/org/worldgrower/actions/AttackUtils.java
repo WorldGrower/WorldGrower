@@ -26,10 +26,11 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.ArmorType;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.condition.Condition;
+import org.worldgrower.goal.DeathReasonPropertyUtils;
 
 public class AttackUtils {
 
-	public static void attack(ManagedOperation action, WorldObject performer, WorldObject target, int[] args, World world, double skillBonus) {
+	public static void attack(DeadlyAction action, WorldObject performer, WorldObject target, int[] args, World world, double skillBonus) {
 		int targetHP = target.getProperty(Constants.HIT_POINTS);
 		if (target.getProperty(Constants.DAMAGE_RESIST) == null) { throw new IllegalStateException("DamageResist is null in " + target); }
 		float targetDamageResist = (float) target.getProperty(Constants.DAMAGE_RESIST);
@@ -42,8 +43,9 @@ public class AttackUtils {
 		targetHP = targetHP - damage;
 		String message = performer.getProperty(Constants.NAME) + " attacks " + target.getProperty(Constants.NAME) + ": " + damage + " damage";
 		
-		if (targetHP < 0) {
+		if (targetHP <= 0) {
 			targetHP = 0;
+			DeathReasonPropertyUtils.targetDiesByPerformerAction(performer, target, action);
 		}
 		target.setProperty(Constants.HIT_POINTS, targetHP);	
 		
@@ -88,7 +90,7 @@ public class AttackUtils {
 		}
 	}
 
-	public static void biteAttack(ManagedOperation action, WorldObject performer, WorldObject target, int[] args, World world) {
+	public static void biteAttack(DeadlyAction action, WorldObject performer, WorldObject target, int[] args, World world) {
 		int targetHP = target.getProperty(Constants.HIT_POINTS);
 		
 		int performerDamage = 10;
@@ -98,23 +100,25 @@ public class AttackUtils {
 		targetHP = targetHP - damage;
 		String message = performer.getProperty(Constants.NAME) + " bites " + target.getProperty(Constants.NAME) + ": " + damage + " damage";
 		
-		if (targetHP < 0) {
+		if (targetHP <= 0) {
 			targetHP = 0;
+			DeathReasonPropertyUtils.targetDiesByPerformerAction(performer, target, action);
 		}
 		target.setProperty(Constants.HIT_POINTS, targetHP);	
 		
 		world.logAction(action, performer, target, args, message);
 	}
 	
-	public static void magicAttack(int performerDamage, ManagedOperation action, WorldObject performer, WorldObject target, int[] args, World world, double skillBonus) {
+	public static void magicAttack(int performerDamage, DeadlyAction action, WorldObject performer, WorldObject target, int[] args, World world, double skillBonus) {
 		int targetHP = target.getProperty(Constants.HIT_POINTS);
 		
 		int damage = (int) (performerDamage * skillBonus);
 		targetHP = targetHP - damage;
 		String message = performer.getProperty(Constants.NAME) + " attacks " + target.getProperty(Constants.NAME) + ": " + damage + " damage";
 		
-		if (targetHP < 0) {
+		if (targetHP <= 0) {
 			targetHP = 0;
+			DeathReasonPropertyUtils.targetDiesByPerformerAction(performer, target, action);
 		}
 		target.setProperty(Constants.HIT_POINTS, targetHP);	
 		

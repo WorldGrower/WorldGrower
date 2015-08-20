@@ -12,49 +12,53 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.condition;
+package org.worldgrower.profession;
 
-import org.worldgrower.ManagedOperation;
-import org.worldgrower.World;
-import org.worldgrower.WorldObject;
+import java.io.ObjectStreamException;
+import java.util.Arrays;
+import java.util.List;
 
-public class PoisonedCondition implements DeadlyCondition {
+import org.worldgrower.Constants;
+import org.worldgrower.attribute.SkillProperty;
+import org.worldgrower.goal.Goal;
+import org.worldgrower.goal.Goals;
 
-	@Override
-	public boolean canTakeAction() {
-		return true;
-	}
+public class NecromancerProfession implements Profession {
 
-	@Override
-	public boolean canMove() {
-		return true;
+	public NecromancerProfession(List<Profession> allProfessions) {
+		allProfessions.add(this);
 	}
 
 	@Override
 	public String getDescription() {
-		return "poisoned";
+		return "necromancer";
 	}
 
 	@Override
-	public void onTurn(WorldObject worldObject, World world, int startTurn) {
-		decreaseHitPoints(worldObject, this, 5);
+	public List<Goal> getProfessionGoals() {
+		return Arrays.asList(
+				Goals.LIBRARY_GOAL,
+				Goals.SCRIBE_NECROMANCER_SPELLS_GOAL,
+				Goals.KILL_VILLAGERS_GOAL
+				);
+	}
+
+	@Override
+	public SkillProperty getSkillProperty() {
+		return Constants.NECROMANCY_SKILL;
+	}
+	
+	public Object readResolve() throws ObjectStreamException {
+		return readResolveImpl();
 	}
 	
 	@Override
-	public boolean isDisease() {
+	public boolean isPaidByVillagerLeader() {
 		return false;
 	}
-
-	@Override
-	public void conditionEnds(WorldObject worldObject) {
-	}
 	
 	@Override
-	public void perform(WorldObject performer, WorldObject target, int[] args, ManagedOperation managedOperation, World world) {
-	}
-
-	@Override
-	public String getDeathDescription() {
-		return "killed by poison";
+	public boolean avoidEnemies() {
+		return true;
 	}
 }

@@ -113,6 +113,7 @@ public class Actions {
 	public static final ResearchRestorationSkillAction RESEARCH_RESTORATION_SKILL_ACTION = new ResearchRestorationSkillAction();
 	public static final ResearchIllusionSkillAction RESEARCH_ILLUSION_SKILL_ACTION = new ResearchIllusionSkillAction();
 	public static final ResearchEvocationSkillAction RESEARCH_EVOCATION_SKILL_ACTION = new ResearchEvocationSkillAction();
+	public static final ResearchNecromancySkillAction RESEARCH_NECROMANCY_SKILL_ACTION = new ResearchNecromancySkillAction();
 	public static final GetItemFromInventoryAction GET_ITEM_FROM_INVENTORY_ACTION = new GetItemFromInventoryAction();
 	public static final PutItemIntoInventoryAction PUT_ITEM_INTO_INVENTORY_ACTION = new PutItemIntoInventoryAction();
 	public static final PoisonAction POISON_ACTION = new PoisonAction();
@@ -143,6 +144,8 @@ public class Actions {
 	public static final ConstructBedAction CONSTRUCT_BED_ACTION = new ConstructBedAction();
 	public static final MarkAsSellableAction MARK_AS_SELLABLE_ACTION = new MarkAsSellableAction();
 	public static final ConstructTrainingDummyAction CONSTRUCT_TRAINING_DUMMY_ACTION = new ConstructTrainingDummyAction();
+	public static final DetermineDeathReasonAction DETERMINE_DEATH_REASON_ACTION = new DetermineDeathReasonAction();
+	public static final PlantNightShadeAction PLANT_NIGHT_SHADE_ACTION = new PlantNightShadeAction();
 	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 
@@ -213,6 +216,7 @@ public class Actions {
 		RESEARCH_RESTORATION_SKILL_ACTION,
 		RESEARCH_ILLUSION_SKILL_ACTION,
 		RESEARCH_EVOCATION_SKILL_ACTION,
+		RESEARCH_NECROMANCY_SKILL_ACTION,
 		GET_ITEM_FROM_INVENTORY_ACTION,
 		PUT_ITEM_INTO_INVENTORY_ACTION,
 		BREW_POISON_ACTION,
@@ -239,7 +243,9 @@ public class Actions {
 		VAMPIRE_BITE_ACTION,
 		CONSTRUCT_BED_ACTION,
 		MARK_AS_SELLABLE_ACTION,
-		CONSTRUCT_TRAINING_DUMMY_ACTION
+		CONSTRUCT_TRAINING_DUMMY_ACTION,
+		DETERMINE_DEATH_REASON_ACTION,
+		PLANT_NIGHT_SHADE_ACTION
 	));
 	
 	static {

@@ -12,36 +12,41 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.actions.magic;
+package org.worldgrower.actions;
 
 import java.io.ObjectStreamException;
 
 import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
+import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.actions.AttackUtils;
-import org.worldgrower.actions.DeadlyAction;
-import org.worldgrower.attribute.SkillProperty;
-import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.generator.PlantGenerator;
+import org.worldgrower.goal.GoalUtils;
 
-public class InflictWoundsAction implements MagicSpell, DeadlyAction {
+public class PlantNightShadeAction implements BuildAction {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		AttackUtils.magicAttack(4, this, performer, target, args, world, SkillUtils.useSkill(performer, getSkill()));
+		int x = (Integer)target.getProperty(Constants.X);
+		int y = (Integer)target.getProperty(Constants.Y);
+		
+		PlantGenerator.generateNightShade(x, y, world);
 	}
-	
+
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return ((target.hasProperty(Constants.ARMOR)) && (target.getProperty(Constants.HIT_POINTS) > 0) && target.hasIntelligence() && performer.getProperty(Constants.KNOWN_SPELLS).contains(this));
+		int x = (Integer)target.getProperty(Constants.X);
+		int y = (Integer)target.getProperty(Constants.Y);
+		return GoalUtils.isOpenSpace(x, y, 1, 1, world) && !target.hasProperty(Constants.ID);
 	}
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return AttackUtils.distanceWithFreeLeftHand(performer, target, 1);
+		int distanceBetweenPerformerAndTarget = Reach.evaluateTarget(performer, args, target, 1);
+		return distanceBetweenPerformerAndTarget;
 	}
-	
+
 	@Override
 	public ArgumentRange[] getArgumentRanges() {
 		return ArgumentRange.EMPTY_ARGUMENT_RANGE;
@@ -49,12 +54,12 @@ public class InflictWoundsAction implements MagicSpell, DeadlyAction {
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "inflicting wounds on " + target.getProperty(Constants.NAME);
+		return "planting nightshade plant";
 	}
-
+	
 	@Override
 	public String getSimpleDescription() {
-		return "inflict wounds";
+		return "plant nightshade plant";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {
@@ -62,22 +67,12 @@ public class InflictWoundsAction implements MagicSpell, DeadlyAction {
 	}
 
 	@Override
-	public int getResearchCost() {
-		return 15;
+	public int getWidth() {
+		return 1;
 	}
 
 	@Override
-	public SkillProperty getSkill() {
-		return Constants.NECROMANCY_SKILL;
-	}
-
-	@Override
-	public int getRequiredSkillLevel() {
-		return 0;
-	}
-
-	@Override
-	public String getDeathDescription(WorldObject performer, WorldObject target) {
-		return "killed by necrotic damage";
+	public int getHeight() {
+		return 1;
 	}
 }

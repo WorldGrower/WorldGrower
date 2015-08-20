@@ -22,22 +22,15 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.SkillProperty;
+import org.worldgrower.attribute.SkillUtils;
 
-public class RangedAttackAction implements ManagedOperation {
+public class RangedAttackAction implements DeadlyAction {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		AttackUtils.attack(this, performer, target, args, world, useSkill(performer));
+		AttackUtils.attack(this, performer, target, args, world, SkillUtils.useSkill(performer, Constants.ARCHERY_SKILL));
 	}
 	
-	private double useSkill(WorldObject performer) {
-		SkillProperty skill = Constants.ARCHERY_SKILL;
-		double result = 1.0f + (performer.getProperty(skill).getLevel() / 100.0f);
-		performer.getProperty(skill).use();
-		return result;
-	}
-
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
 		return ((target.hasProperty(Constants.ARMOR)) && (target.getProperty(Constants.HIT_POINTS) > 0));
@@ -76,5 +69,10 @@ public class RangedAttackAction implements ManagedOperation {
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
+	}
+
+	@Override
+	public String getDeathDescription(WorldObject performer, WorldObject target) {
+		return "shot by an arrow";
 	}
 }

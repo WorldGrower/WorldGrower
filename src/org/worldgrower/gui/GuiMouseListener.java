@@ -252,7 +252,7 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 	
 	private void addPlantActions(JPopupMenu menu) {
-		BuildAction[] buildActions = { Actions.PLANT_BERRY_BUSH_ACTION, Actions.PLANT_GRAPE_VINE_ACTION, Actions.PLANT_TREE_ACTION, Actions.PLANT_COTTON_PLANT_ACTION };
+		BuildAction[] buildActions = { Actions.PLANT_BERRY_BUSH_ACTION, Actions.PLANT_GRAPE_VINE_ACTION, Actions.PLANT_TREE_ACTION, Actions.PLANT_COTTON_PLANT_ACTION, Actions.PLANT_NIGHT_SHADE_ACTION };
 		addBuildActions(menu, "Plant", buildActions);
 	}
 	

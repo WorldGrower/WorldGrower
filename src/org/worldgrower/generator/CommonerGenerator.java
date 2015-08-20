@@ -144,7 +144,8 @@ public class CommonerGenerator implements Serializable {
 		properties.put(Constants.NAME, "skeletal remains of " + originalWorldObject.getProperty(Constants.NAME));
 		properties.put(Constants.ARMOR, 10);
 		properties.put(Constants.DECEASED_WORLD_OBJECT, Boolean.TRUE);
-
+		properties.put(Constants.DEATH_REASON, originalWorldObject.getProperty(Constants.DEATH_REASON));
+		
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.SKELETAL_REMAINS);
 		properties.put(Constants.LOOK_DIRECTION, null);

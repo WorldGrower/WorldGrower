@@ -46,12 +46,20 @@ public class GuiShowReadAction implements ManagedOperationListener {
 	@Override
 	public void actionPerformed(ManagedOperation managedOperation, WorldObject performer, WorldObject target, int[] args, Object value) {
 		if ((performer == playerCharacter) && (managedOperation == Actions.READ_ACTION)) {
-			String text = (String) value;
-			
-			ImageIds imageIdTarget = target.getProperty(Constants.IMAGE_ID);
+			String text = (String) value;			
 			String targetName = target.getProperty(Constants.NAME);
-			Icon targetIcon = new ImageIcon(imageInfoReader.getImage(imageIdTarget, null));
-			JOptionPane.showMessageDialog(container, text, "Reading " + targetName, JOptionPane.PLAIN_MESSAGE, targetIcon);
+			showMessage(text, "Reading " + targetName, target);
+		} else if ((performer == playerCharacter) && (managedOperation == Actions.DETERMINE_DEATH_REASON_ACTION)) {
+			String text = (String) value;			
+			String targetName = target.getProperty(Constants.NAME);
+			showMessage(text, "Determining cause of death for " + targetName, target);
 		}
+	}
+	
+	private void showMessage(String text, String title, WorldObject target) {
+		ImageIds imageIdTarget = target.getProperty(Constants.IMAGE_ID);
+		Icon targetIcon = new ImageIcon(imageInfoReader.getImage(imageIdTarget, null));
+		JOptionPane.showMessageDialog(container, text, title, JOptionPane.PLAIN_MESSAGE, targetIcon);
+
 	}
 }

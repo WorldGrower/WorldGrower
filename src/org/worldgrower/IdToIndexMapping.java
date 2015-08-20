@@ -49,4 +49,8 @@ class IdToIndexMapping implements Serializable {
 			throw new IllegalStateException("Id " + id + " not found in idToIndexMapping");
 		}
 	}
+
+	public boolean idExists(int id) {
+		return idToIndexMapping.containsKey(id);
+	}
 }

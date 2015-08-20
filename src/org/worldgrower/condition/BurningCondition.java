@@ -22,7 +22,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 
-public class BurningCondition implements Condition {
+public class BurningCondition implements DeadlyCondition {
 
 	@Override
 	public boolean canTakeAction() {
@@ -41,7 +41,7 @@ public class BurningCondition implements Condition {
 
 	@Override
 	public void onTurn(WorldObject worldObject, World world, int startTurn) {
-		worldObject.increment(Constants.HIT_POINTS, -5);
+		decreaseHitPoints(worldObject, this, 5);
 		
 		List<WorldObject> flammableAdjacentWorldObjects = world.findWorldObjects(w -> Reach.distance(worldObject, w) <= 2 && w.hasProperty(Constants.FLAMMABLE) && w.getProperty(Constants.FLAMMABLE));
 		for(WorldObject flammableAdjacentWorldObject : flammableAdjacentWorldObjects) {
@@ -62,5 +62,10 @@ public class BurningCondition implements Condition {
 
 	@Override
 	public void perform(WorldObject performer, WorldObject target, int[] args, ManagedOperation managedOperation, World world) {
+	}
+
+	@Override
+	public String getDeathDescription() {
+		return "burned to death";
 	}
 }

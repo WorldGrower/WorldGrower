@@ -22,6 +22,8 @@ import java.util.List;
 
 import org.junit.Test;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.IdMap;
+import org.worldgrower.attribute.IdRelationshipMap;
 import org.worldgrower.history.Turn;
 
 public class UTestWorldImpl {
@@ -73,6 +75,23 @@ public class UTestWorldImpl {
 		
 		world.removeWorldObject(house);
 		assertEquals(null, person.getProperty(Constants.SMITH_ID));
+	}
+	
+	@Test
+	public void testRemoveWorldObjectInIdContainer() {
+		World world = createWorld();
+		WorldObject person1 = TestUtils.createWorldObject(6, "test");
+		IdMap idMap = new IdRelationshipMap();
+		idMap.incrementValue(person1, 6);
+		WorldObject person2 = TestUtils.createIntelligentWorldObject(7, Constants.RELATIONSHIPS, idMap);
+		
+		world.addWorldObject(person1);
+		world.addWorldObject(person2);
+
+		world.removeWorldObject(person1);
+		assertEquals(false, idMap.contains(person1));
+		assertEquals(-1, idMap.findBestId(w -> true, world));
+		
 	}
 	
 	@Test
