@@ -30,9 +30,9 @@ public class CollectWaterGoal implements Goal {
 		if (targets.size() > 0) {
 			return new OperationInfo(performer, targets.get(0), new int[] { targets.get(0).getProperty(Constants.INVENTORY).getIndexFor(Constants.WATER), 5 }, Actions.BUY_ACTION);
 		} else {
-			WorldObject target = GoalUtils.findNearestTarget(performer, Actions.COLLECT_WATER_ACTION, world);
-			if (target != null) {
-				return new OperationInfo(performer, target, new int[0], Actions.COLLECT_WATER_ACTION);
+			WorldObject waterSourcetarget = WaterPropertyUtils.findWaterSource(performer, world);
+			if (waterSourcetarget != null) {
+				return new OperationInfo(performer, waterSourcetarget, new int[0], Actions.COLLECT_WATER_ACTION);
 			} else {
 				if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) < 6) {
 					return new WoodGoal().calculateGoal(performer, world);

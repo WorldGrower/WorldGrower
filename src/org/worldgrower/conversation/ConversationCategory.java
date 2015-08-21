@@ -22,7 +22,8 @@ public enum ConversationCategory {
 	INTIMIDATE_TARGET("Intimidate"),
 	GROUP("Organization"),
 	DEITY("Deity"),
-	LEADER("Leader");
+	LEADER("Leader"), 
+	SHARE_KNOWLEDGE("Share knowledge");
 	
 	private final String description;
 	

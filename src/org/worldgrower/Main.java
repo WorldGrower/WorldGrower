@@ -27,6 +27,7 @@ import javax.swing.ToolTipManager;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdRelationshipMap;
+import org.worldgrower.attribute.KnowledgeMap;
 import org.worldgrower.attribute.LookDirection;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.PropertyCountMap;
@@ -185,6 +186,7 @@ public class Main {
 		properties.put(Constants.CREATURE_TYPE, CreatureType.HUMAN_CREATURE_TYPE);
 		properties.put(Constants.CONDITIONS, new Conditions());
 		properties.put(Constants.HOUSES, new IdList());
+		properties.put(Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		
 		properties.put(Constants.HEAD_EQUIPMENT, null);
 		properties.put(Constants.TORSO_EQUIPMENT, null);

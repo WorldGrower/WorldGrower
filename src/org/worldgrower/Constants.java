@@ -24,6 +24,7 @@ import org.worldgrower.attribute.IdListProperty;
 import org.worldgrower.attribute.IdMapProperty;
 import org.worldgrower.attribute.IdProperty;
 import org.worldgrower.attribute.IntProperty;
+import org.worldgrower.attribute.KnowledgeMapProperty;
 import org.worldgrower.attribute.LookDirection;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.PropertyCountMapProperty;
@@ -147,6 +148,7 @@ public class Constants {
 	public static final IntProperty SOCIAL = new IntProperty("social", 0, 1000, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final UnCheckedProperty<Background> BACKGROUND = new UnCheckedProperty<Background>("background", ALL_PROPERTIES);
 	public static final IdProperty ORGANIZATION_LEADER_ID = new IdProperty("leader", ALL_PROPERTIES);
+	public static final KnowledgeMapProperty KNOWLEDGE_MAP = new KnowledgeMapProperty("knowledgeMap", ALL_PROPERTIES);
 	
 	public static final WorldObjectProperty FACADE = new WorldObjectProperty("facade", NULLABLE, ALL_PROPERTIES);
 	public static final UnCheckedProperty<Reasons> REASONS = new UnCheckedProperty<Reasons>("reasons", ALL_PROPERTIES);

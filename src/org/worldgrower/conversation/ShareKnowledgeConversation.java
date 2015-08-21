@@ -14,6 +14,7 @@
  *******************************************************************************/
 package org.worldgrower.conversation;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -21,65 +22,80 @@ import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.condition.Condition;
+import org.worldgrower.attribute.Knowledge;
+import org.worldgrower.attribute.KnowledgeMap;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
 
-public class CurePoisonConversation implements Conversation {
+public class ShareKnowledgeConversation implements Conversation {
 
-	private static final int YES = 0;
-	private static final int NO = 1;
+	private final int THANKS = 0;
+	private final int GET_LOST = 1;
 	
 	@Override
 	public Response getReplyPhrase(ConversationContext conversationContext) {
 		WorldObject performer = conversationContext.getPerformer();
 		WorldObject target = conversationContext.getTarget();
+		int relationshipValue = target.getProperty(Constants.RELATIONSHIPS).getValue(performer);
 		
 		final int replyId;
-		int relationshipValue = target.getProperty(Constants.RELATIONSHIPS).getValue(performer);
-		if (relationshipValue >= 0) {
-			replyId = YES;
+		if (relationshipValue < 0) {
+			replyId = GET_LOST;
 		} else {
-			replyId = NO;
+			replyId = THANKS;
 		}
-		
 		return getReply(getReplyPhrases(conversationContext), replyId);
 	}
 
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, World world) {
+		List<Question> questions = new ArrayList<>();
+		KnowledgeMap performerOnlyKnowledge = getPerformerOnlyKnowledge(performer, target);
+		for(int id : performerOnlyKnowledge.getIds()) {
+			WorldObject subject = world.findWorldObject(Constants.ID, id);
+			//TODO: implement fully
+			questions.add(new Question(subject, "Did you know the well is poisoned?"));
+		}
+		return questions;
+	}
+
+	private KnowledgeMap getPerformerOnlyKnowledge(WorldObject performer, WorldObject target) {
+		KnowledgeMap performerKnowledge = performer.getProperty(Constants.KNOWLEDGE_MAP);
+		KnowledgeMap targetKnowledge = target.getProperty(Constants.KNOWLEDGE_MAP);
+		KnowledgeMap performerOnlyKnowledge = performerKnowledge.subtract(targetKnowledge);
+		return performerOnlyKnowledge;
+	}
+	
+	@Override
+	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
-			new Question(null, "Can you cure my poisoned condition?")
+			new Response(0, "Thanks for the information"),
+			new Response(1, "Get lost")
 			);
 	}
 
 	@Override
-	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
-		return Arrays.asList(
-			new Response(YES, "yes"),
-			new Response(NO, "no"));
+	public boolean isConversationAvailable(WorldObject performer, WorldObject target, World world) {
+		KnowledgeMap performerOnlyKnowledge = getPerformerOnlyKnowledge(performer, target);
+		return performerOnlyKnowledge.hasKnowledge();
 	}
 	
 	@Override
 	public void handleResponse(int replyIndex, ConversationContext conversationContext) {
 		WorldObject performer = conversationContext.getPerformer();
 		WorldObject target = conversationContext.getTarget();
+		WorldObject subject = conversationContext.getSubject();
 		World world = conversationContext.getWorld();
 		
-		if (replyIndex == YES) {
-			Actions.CURE_POISON_ACTION.execute(target, performer, new int[0], world);
-		} else if (replyIndex == NO) {
-			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -50, Actions.TALK_ACTION, Conversations.createArgs(this), world);
-		}
-	}
-
-	@Override
-	public boolean isConversationAvailable(WorldObject performer, WorldObject target, World world) {
-		return performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.POISONED_CONDITION) && Actions.CURE_POISON_ACTION.hasRequiredEnergy(target);
+		KnowledgeMap performerKnowledge = performer.getProperty(Constants.KNOWLEDGE_MAP);
+		Knowledge knowledge = performerKnowledge.getKnowledge(subject);
+		target.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(subject, knowledge);
+		
+		RelationshipPropertyUtils.changeRelationshipValue(performer, target, 50, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 	}
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, World world) {
-		return "curing poisoned condition of " + target.getProperty(Constants.NAME);
+		return "sharing knowledge";
 	}
 }

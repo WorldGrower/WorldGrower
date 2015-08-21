@@ -51,7 +51,8 @@ public class ChooseProfessionAction implements ManagedOperation {
 			new ProfessionInfo(Professions.TAX_COLLECTOR_PROFESSION, 1.0, 1.0, 1.0, 1.0, 1.2, 1.4),
 			new ProfessionInfo(Professions.WEAVER_PROFESSION, 0.8, 1.0, 0.8, 1.0, 1.4, 1.1),
 			new ProfessionInfo(Professions.CARPENTER_PROFESSION, 0.8, 1.0, 0.8, 1.0, 1.4, 1.1),
-			new ProfessionInfo(Professions.WIZARD_PROFESSION, 0.8, 0.8, 1.0, 1.4, 1.1, 0.9)
+			new ProfessionInfo(Professions.WIZARD_PROFESSION, 0.8, 0.8, 1.0, 1.4, 1.1, 0.9),
+			new ProfessionInfo(Professions.NECROMANCER_PROFESSION, 0.8, 0.8, 1.0, 1.4, 1.1, 0.9)
 			);
 	
 	@Override
@@ -71,6 +72,13 @@ public class ChooseProfessionAction implements ManagedOperation {
 			
 			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 			properties.put(Constants.PROFESSION, Professions.FARMER_PROFESSION);
+			WorldObject facade = new WorldObjectImpl(properties);
+			performer.setProperty(Constants.FACADE, facade);
+		}
+		
+		if (profession == Professions.NECROMANCER_PROFESSION) {
+			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+			properties.put(Constants.PROFESSION, Professions.WIZARD_PROFESSION);
 			WorldObject facade = new WorldObjectImpl(properties);
 			performer.setProperty(Constants.FACADE, facade);
 		}
@@ -226,7 +234,7 @@ public class ChooseProfessionAction implements ManagedOperation {
 		
 		int stoneDemand = demands.count(Constants.STONE);
 		int oreDemand = demands.count(Constants.ORE);
-		result.add(new ProfessionEvaluation(Professions.MINER_PROFESSION, (stoneDemand + oreDemand) / 2));
+		result.add(new ProfessionEvaluation(Professions.MINER_PROFESSION, (stoneDemand + oreDemand) / 3));
 		
 		List<WorldObject> remains = getRemains(world);
 		if (remains.size() > 0) {
@@ -234,6 +242,13 @@ public class ChooseProfessionAction implements ManagedOperation {
 		} else {
 			result.add(new ProfessionEvaluation(Professions.GRAVE_DIGGER_PROFESSION, Integer.MIN_VALUE));
 		}
+		
+		if (populationCount > 10) {
+			result.add(new ProfessionEvaluation(Professions.NECROMANCER_PROFESSION, -1));
+		} else {
+			result.add(new ProfessionEvaluation(Professions.NECROMANCER_PROFESSION, Integer.MIN_VALUE));
+		}
+		
 		
 		boolean canCollectTaxes = GroupPropertyUtils.canCollectTaxes(world);
 		if (canCollectTaxes) {

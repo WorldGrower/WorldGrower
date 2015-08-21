@@ -30,6 +30,7 @@ import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.attribute.BackgroundImpl;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdRelationshipMap;
+import org.worldgrower.attribute.KnowledgeMap;
 import org.worldgrower.attribute.LookDirection;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.PropertyCountMap;
@@ -121,6 +122,7 @@ public class CommonerGenerator implements Serializable {
 		properties.put(Constants.PROFIT_PERCENTAGE, 0);
 		properties.put(Constants.HOUSES, new IdList());
 		properties.put(Constants.GROUP, new IdList().add(organization));
+		properties.put(Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		
 		properties.put(Constants.DAMAGE, 8);
 		properties.put(Constants.DAMAGE_RESIST, 0);

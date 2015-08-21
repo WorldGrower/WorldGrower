@@ -23,6 +23,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.condition.Condition;
+import org.worldgrower.goal.WaterPropertyUtils;
 
 public class DrinkAction implements ManagedOperation {
 
@@ -36,6 +37,7 @@ public class DrinkAction implements ManagedOperation {
 		
 		if (target.hasProperty(Constants.POISON_DAMAGE) && target.getProperty(Constants.POISON_DAMAGE) > 0) {
 			performer.getProperty(Constants.CONDITIONS).addCondition(Condition.POISONED_CONDITION, 20, world);
+			WaterPropertyUtils.everyoneInVicinityKnowsOfPoisoning(performer, target, world);
 		}
 	}
 
@@ -51,7 +53,7 @@ public class DrinkAction implements ManagedOperation {
 
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return (target.hasProperty(Constants.WATER_SOURCE)) && (target.getProperty(Constants.WATER_SOURCE) > 0);
+		return (target.hasProperty(Constants.WATER_SOURCE)) && (target.getProperty(Constants.WATER_SOURCE) > 0) && WaterPropertyUtils.isWaterSafeToDrink(performer, target);
 	}
 	
 	@Override

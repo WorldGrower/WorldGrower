@@ -115,6 +115,7 @@ public class WorldPanel extends JPanel {
         infoPanel.setBackground(Color.RED);
         SpringLayout layout = new SpringLayout();
 		infoPanel.setLayout(layout);
+		makeUnfocussable(infoPanel);
         
         messageTextArea = new JTextArea(3, 30);
         messageTextArea.setEditable(false);
@@ -126,6 +127,7 @@ public class WorldPanel extends JPanel {
         hitPointsProgressBar.setBackground(Color.BLACK);
         hitPointsProgressBar.setForeground(Color.RED);
         hitPointsProgressBar.setToolTipText("hit points");
+        makeUnfocussable(hitPointsProgressBar);
         
         infoPanel.add(hitPointsProgressBar);
         layout.putConstraint(SpringLayout.WEST, hitPointsProgressBar, 0, SpringLayout.EAST, messageTextArea);
@@ -136,6 +138,7 @@ public class WorldPanel extends JPanel {
         foodTextProgressBar.setBackground(Color.BLACK);
         foodTextProgressBar.setForeground(Color.YELLOW);
         foodTextProgressBar.setToolTipText("food");
+        makeUnfocussable(foodTextProgressBar);
         
         infoPanel.add(foodTextProgressBar);
         layout.putConstraint(SpringLayout.WEST, foodTextProgressBar, 0, SpringLayout.EAST, hitPointsProgressBar);
@@ -146,6 +149,7 @@ public class WorldPanel extends JPanel {
         waterProgressBar.setBackground(Color.BLACK);
         waterProgressBar.setForeground(Color.BLUE);
         waterProgressBar.setToolTipText("water");
+        makeUnfocussable(waterProgressBar);
         
         infoPanel.add(waterProgressBar);
         layout.putConstraint(SpringLayout.WEST, waterProgressBar, 0, SpringLayout.EAST, foodTextProgressBar);
@@ -156,6 +160,7 @@ public class WorldPanel extends JPanel {
         energyProgressBar.setBackground(Color.BLACK);
         energyProgressBar.setForeground(Color.GREEN);
         energyProgressBar.setToolTipText("energy");
+        makeUnfocussable(energyProgressBar);
         
         infoPanel.add(energyProgressBar);
         layout.putConstraint(SpringLayout.WEST, energyProgressBar, 0, SpringLayout.EAST, waterProgressBar);
@@ -281,6 +286,10 @@ public class WorldPanel extends JPanel {
     		return ImageIds.INVISIBILITY_INDICATOR;
     	} else if (hasCondition(worldObject, Condition.POISONED_CONDITION)) {
     		return ImageIds.POISONED_INDICATOR;
+    	} else if (hasCondition(worldObject, Condition.SLEEP_CONDITION)) {
+    		return ImageIds.SLEEPING_INDICATOR;
+    	} else if (hasCondition(worldObject, Condition.PARALYZED_CONDITION)) {
+    		return ImageIds.PARALYZED_INDICATOR;
     	} else {
     		return null;
     	}
