@@ -98,7 +98,7 @@ public class GoalUtils {
 	}
 	
 	public static List<WorldObject> findNearestNewTargets(WorldObject performer, ManagedOperation action, int[] args, Predicate<WorldObject> condition, World world) {
-		return GoalUtils.findNearestTargets(performer, action, w -> world.getHistory().findHistoryItem(performer, w, args, action) == null && !performer.equals(w) && condition.test(w), world);
+		return GoalUtils.findNearestTargets(performer, action, w -> !performer.equals(w) && condition.test(w) && world.getHistory().findHistoryItem(performer, w, args, action) == null, world);
 	}
 
 	public static boolean canEnlarge(WorldObject target, World world) {
