@@ -36,13 +36,12 @@ public class DungeonMaster implements Serializable {
 		List<WorldObject> worldObjects = new ArrayList<>(world.getWorldObjects());
 		
 		for(WorldObject worldObject : worldObjects) {
-			if (worldObject.hasIntelligence() && worldObject.isControlledByAI()) {
-				if (world.exists(worldObject)) {
+			if (world.exists(worldObject)) {
+				if (worldObject.hasIntelligence() && worldObject.isControlledByAI()) {
 					runWorldObject(worldObject, world);
-				}
+				}			
+				worldObject.onTurn(world);
 			}
-			
-			worldObject.onTurn(world);
 		}
 		world.nextTurn();
 	}
