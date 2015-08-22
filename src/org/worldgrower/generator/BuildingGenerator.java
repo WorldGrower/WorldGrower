@@ -75,6 +75,8 @@ public class BuildingGenerator {
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		properties.put(Constants.PRICE, 10);
 		properties.put(Constants.INVENTORY, new WorldObjectContainer());
+		properties.put(Constants.LOCK_STRENGTH, 0);
+		properties.put(Constants.LOCKED, Boolean.FALSE);
 		
 		WorldObject shack = new WorldObjectImpl(properties);
 		world.addWorldObject(shack);
@@ -102,6 +104,8 @@ public class BuildingGenerator {
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		properties.put(Constants.PRICE, 50);
 		properties.put(Constants.INVENTORY, new WorldObjectContainer());
+		properties.put(Constants.LOCK_STRENGTH, 2);
+		properties.put(Constants.LOCKED, Boolean.TRUE);
 		
 		WorldObject house = new WorldObjectImpl(properties);
 		world.addWorldObject(house);

@@ -54,7 +54,7 @@ public class BuildLibraryAction implements BuildAction {
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		properties.put(Constants.INVENTORY, new WorldObjectContainer());
-		properties.put(Constants.LOCK_STRENGTH, 20);
+		properties.put(Constants.LOCK_STRENGTH, 2);
 		properties.put(Constants.LOCKED, Boolean.TRUE);
 		
 		WorldObject library = new WorldObjectImpl(properties);

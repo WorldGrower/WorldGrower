@@ -15,8 +15,10 @@
 package org.worldgrower.condition;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -125,5 +127,19 @@ public class Conditions implements Serializable {
 			Entry<Condition, ConditionInfo> conditionEntry = conditionIterator.next();
 			conditionEntry.getKey().perform(performer, target, args, managedOperation, world);
 		}
+	}
+
+	public boolean hasDiseaseCondition() {
+		return getDiseaseConditions().size() > 0;
+	}
+
+	public List<Condition> getDiseaseConditions() {
+		List<Condition> diseases = new ArrayList<>();
+		for(Condition condition : conditions.keySet()) {
+			if (condition.isDisease()) {
+				diseases.add(condition);
+			}
+		}
+		return diseases;
 	}
 }

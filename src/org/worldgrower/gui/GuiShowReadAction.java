@@ -53,6 +53,10 @@ public class GuiShowReadAction implements ManagedOperationListener {
 			String text = (String) value;			
 			String targetName = target.getProperty(Constants.NAME);
 			showMessage(text, "Determining cause of death for " + targetName, target);
+		} else if ((performer == playerCharacter) && (managedOperation == Actions.DETECT_POISON_AND_DISEASE_ACTION)) {
+			String text = (String) value;			
+			String targetName = target.getProperty(Constants.NAME);
+			showMessage(text, "Detect poison and disease on " + targetName, target);
 		}
 	}
 	

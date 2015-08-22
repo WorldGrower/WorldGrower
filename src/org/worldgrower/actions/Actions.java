@@ -25,10 +25,12 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.magic.AnimateDeadAction;
 import org.worldgrower.actions.magic.CureDiseaseAction;
 import org.worldgrower.actions.magic.CurePoisonAction;
+import org.worldgrower.actions.magic.DetectPoisonAndDiseaseAction;
 import org.worldgrower.actions.magic.EnlargeAction;
 import org.worldgrower.actions.magic.FireBoltAttackAction;
 import org.worldgrower.actions.magic.InflictWoundsAction;
 import org.worldgrower.actions.magic.InvisibilityAction;
+import org.worldgrower.actions.magic.LockMagicSpellAction;
 import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.actions.magic.MendAction;
 import org.worldgrower.actions.magic.MinorHealAction;
@@ -39,6 +41,7 @@ import org.worldgrower.actions.magic.ReduceAction;
 import org.worldgrower.actions.magic.ResearchSpellAction;
 import org.worldgrower.actions.magic.ScribeMagicSpellAction;
 import org.worldgrower.actions.magic.SleepMagicSpellAction;
+import org.worldgrower.actions.magic.UnlockMagicSpellAction;
 import org.worldgrower.goal.GatherFoodGoal;
 import org.worldgrower.goal.Goals;
 
@@ -108,6 +111,9 @@ public class Actions {
 	public static final MendAction MEND_ACTION = new MendAction();
 	public static final SleepMagicSpellAction SLEEP_MAGIC_SPELL_ACTION = new SleepMagicSpellAction();
 	public static final ParalyzeSpellAction PARALYZE_SPELL_ACTION = new ParalyzeSpellAction();
+	public static final DetectPoisonAndDiseaseAction DETECT_POISON_AND_DISEASE_ACTION = new DetectPoisonAndDiseaseAction();
+	public static final UnlockMagicSpellAction UNLOCK_MAGIC_SPELL_ACTION = new UnlockMagicSpellAction();
+	public static final LockMagicSpellAction LOCK_MAGIC_SPELL_ACTION = new LockMagicSpellAction();
 	
 	public static final BuildLibraryAction BUILD_LIBRARY_ACTION = new BuildLibraryAction();
 	public static final ResearchRestorationSkillAction RESEARCH_RESTORATION_SKILL_ACTION = new ResearchRestorationSkillAction();
@@ -161,7 +167,10 @@ public class Actions {
 			INFLICT_WOUNDS_ACTION,
 			MEND_ACTION,
 			SLEEP_MAGIC_SPELL_ACTION,
-			PARALYZE_SPELL_ACTION);
+			PARALYZE_SPELL_ACTION,
+			DETECT_POISON_AND_DISEASE_ACTION,
+			UNLOCK_MAGIC_SPELL_ACTION,
+			LOCK_MAGIC_SPELL_ACTION);
 	
 	public static final List<ManagedOperation> ALL_ACTIONS = new ArrayList<>(Arrays.asList(
 		MOVE_ACTION,
