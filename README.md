@@ -14,7 +14,7 @@ It focuses on skills, dialogue, economy and society.
 
 Binary installation
 
-*   [Download .zip file](http://worldgrower.github.io/WorldGrower/releases/worldgrower-0.0.5.zip)
+*   [Download .zip file](http://worldgrower.github.io/WorldGrower/releases/worldgrower-0.0.6.zip)
 *   Extract the .zip file on the local filesystem
 *   [Make sure Java 8 is installed.](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html)
 *   To run under Windows, use worldgrower.cmd.

@@ -1,3 +1,12 @@
+v0.0.6
+
+- add EnlargeAction, ReduceAction, MendAction, SleepMagicSpellAction, paralyze and inflict wounds action
+- actions only have negative consequences if someone saw you do them
+- provide more space between buildings
+- add Wizard and Necromancer profession
+- add ConstructTrainingDummyAction, DetermineDeathReasonAction and PlantNightShadeAction
+- add magic overview
+
 v0.0.5
 
 - give player character ability to collect taxes
