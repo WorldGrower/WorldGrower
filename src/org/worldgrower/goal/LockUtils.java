@@ -23,7 +23,7 @@ public class LockUtils {
 
 	public static int distance(WorldObject performer, WorldObject target) {
 		if (target.hasProperty(Constants.LOCKED) && target.getProperty(Constants.LOCKED)) {
-			if (performerHasKey(performer, target)) {
+			if (performerHasKey(performer, target) || performerIsMagicLockCreator(performer, target)) {
 				return 0;
 			} else {
 				return 1;
@@ -36,5 +36,15 @@ public class LockUtils {
 	private static boolean performerHasKey(WorldObject performer, WorldObject target) {
 		List<WorldObject> keys = performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.LOCK_ID, target.getProperty(Constants.ID));
 		return keys.size() > 0;
+	}
+	
+	private static boolean performerIsMagicLockCreator(WorldObject performer, WorldObject target) {
+		if (target.getProperty(Constants.MAGIC_LOCK_CREATOR_ID) != null) {
+			int magicLockCreatorId = target.getProperty(Constants.MAGIC_LOCK_CREATOR_ID);
+			if (performer.getProperty(Constants.ID).intValue() == magicLockCreatorId) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

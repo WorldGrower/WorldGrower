@@ -34,6 +34,7 @@ public class LockMagicSpellAction implements MagicSpell {
 		
 		target.setProperty(Constants.LOCK_STRENGTH, level);
 		target.setProperty(Constants.LOCKED, Boolean.TRUE);
+		target.setProperty(Constants.MAGIC_LOCK_CREATOR_ID, performer.getProperty(Constants.ID));
 		
 		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE);
 	}
