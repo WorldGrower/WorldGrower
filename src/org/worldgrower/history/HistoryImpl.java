@@ -134,23 +134,64 @@ public class HistoryImpl implements History, Serializable {
 	}
 	
 	private static class HistoryItemsForTarget implements Serializable {
-		private final Map<Integer, List<HistoryItem>> historyItemsByTarget = new HashMap<>();
+		private final Map<Integer, HistoryItemsForAction> historyItemsByTarget = new HashMap<>();
 		
 		public void addHistoryItem(HistoryItem historyItem) {
 				
 			Integer targetId = historyItem.getOperationInfo().getTarget().getProperty(Constants.ID);
-			List<HistoryItem> historyItemsByTargetList = historyItemsByTarget.get(targetId);
+			HistoryItemsForAction historyItemsByTargetList = historyItemsByTarget.get(targetId);
 			if (historyItemsByTargetList == null) {
-				historyItemsByTargetList = new ArrayList<>();
+				historyItemsByTargetList = new HistoryItemsForAction();
 				historyItemsByTarget.put(targetId, historyItemsByTargetList);
 			}
-			historyItemsByTargetList.add(historyItem);
+			historyItemsByTargetList.addHistoryItem(historyItem);
 		}
 		
-		public List<HistoryItem> findHistoryItems(WorldObject performer, WorldObject target, int[] args, ManagedOperation managedOperation) {
-			OperationInfo searchOperationInfo = new OperationInfo(performer, target, args, managedOperation);
+		public List<HistoryItem> findHistoryItems(WorldObject performer, WorldObject target, int[] args, ManagedOperation action) {
+			HistoryItemsForAction historyItemsByTargetList = getHistoryItemsByTargetList(target);
+			if (historyItemsByTargetList != null) {
+				List<HistoryItem> foundItems = historyItemsByTargetList.findHistoryItems(performer, target, args, action);
+				return foundItems;			
+			} else {
+				return new ArrayList<>();
+			}
+		}
+
+		public List<HistoryItem> findHistoryItems(WorldObject performer, WorldObject target, ManagedOperation action) {
+			HistoryItemsForAction historyItemsByTargetList = getHistoryItemsByTargetList(target);
+			if (historyItemsByTargetList != null) {
+				List<HistoryItem> foundItems = historyItemsByTargetList.findHistoryItems(performer, target, action);
+				return foundItems;			
+			} else {
+				return new ArrayList<>();
+			}
+		}
+
+		private HistoryItemsForAction getHistoryItemsByTargetList(WorldObject target) {
+			Integer targetId = target.getProperty(Constants.ID);
+			HistoryItemsForAction historyItemsByTargetList = historyItemsByTarget.get(targetId);
+			return historyItemsByTargetList;
+		}
+	}
+	
+	private static class HistoryItemsForAction implements Serializable {
+		private final Map<ManagedOperation, List<HistoryItem>> historyItemsByAction = new HashMap<>();
+		
+		public void addHistoryItem(HistoryItem historyItem) {
+				
+			ManagedOperation action = historyItem.getOperationInfo().getManagedOperation();
+			List<HistoryItem> historyItemsByActionList = historyItemsByAction.get(action);
+			if (historyItemsByActionList == null) {
+				historyItemsByActionList = new ArrayList<>();
+				historyItemsByAction.put(action, historyItemsByActionList);
+			}
+			historyItemsByActionList.add(historyItem);
+		}
+		
+		public List<HistoryItem> findHistoryItems(WorldObject performer, WorldObject target, int[] args, ManagedOperation action) {
+			OperationInfo searchOperationInfo = new OperationInfo(performer, target, args, action);
 			
-			List<HistoryItem> historyItemsByTargetList = getHistoryItemsByTargetList(target);
+			List<HistoryItem> historyItemsByTargetList = getHistoryItemsByActionList(action);
 			if (historyItemsByTargetList != null) {
 				List<HistoryItem> foundItems = historyItemsByTargetList.stream().filter(h -> h.getOperationInfo().isEqual(searchOperationInfo)).collect(Collectors.toList());
 				return foundItems;			
@@ -159,19 +200,18 @@ public class HistoryImpl implements History, Serializable {
 			}
 		}
 
-		public List<HistoryItem> findHistoryItems(WorldObject performer, WorldObject target, ManagedOperation managedOperation) {
-			List<HistoryItem> historyItemsByTargetList = getHistoryItemsByTargetList(target);
+		public List<HistoryItem> findHistoryItems(WorldObject performer, WorldObject target, ManagedOperation action) {
+			List<HistoryItem> historyItemsByTargetList = getHistoryItemsByActionList(action);
 			if (historyItemsByTargetList != null) {
-				List<HistoryItem> foundItems = historyItemsByTargetList.stream().filter(h -> h.getOperationInfo().matches(performer, target, managedOperation)).collect(Collectors.toList());
+				List<HistoryItem> foundItems = historyItemsByTargetList.stream().filter(h -> h.getOperationInfo().matches(performer, target, action)).collect(Collectors.toList());
 				return foundItems;			
 			} else {
 				return new ArrayList<>();
 			}
 		}
 
-		private List<HistoryItem> getHistoryItemsByTargetList(WorldObject target) {
-			Integer targetId = target.getProperty(Constants.ID);
-			List<HistoryItem> historyItemsByTargetList = historyItemsByTarget.get(targetId);
+		private List<HistoryItem> getHistoryItemsByActionList(ManagedOperation action) {
+			List<HistoryItem> historyItemsByTargetList = historyItemsByAction.get(action);
 			return historyItemsByTargetList;
 		}
 	}
