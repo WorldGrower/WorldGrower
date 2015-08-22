@@ -77,10 +77,9 @@ public class BackgroundImpl implements Background, Serializable {
 		List<HistoryItem> importantHistoryItems = world.getHistory().findHistoryItems(Actions.MELEE_ATTACK_ACTION);
 		for(HistoryItem historyItem : importantHistoryItems) {
 			OperationInfo operationInfo = historyItem.getOperationInfo();
-		
-			handlePerformerWasAttacked(backgroundPerformer, personalGoals, operationInfo);
-
-		
+			if (operationInfo.getTarget().equals(backgroundPerformer)) {
+				handlePerformerWasAttacked(backgroundPerformer, personalGoals, operationInfo);
+			}
 		}
 		
 		return personalGoals;
