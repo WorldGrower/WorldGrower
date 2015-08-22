@@ -24,6 +24,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.KeyStroke;
 
@@ -47,7 +48,8 @@ public class PropertiesDialog extends JDialog {
         rootPane.registerKeyboardAction(new CloseDialogAction(), stroke, JComponent.WHEN_IN_FOCUSED_WINDOW);
 		
         JTable propertiesTable = new JTable(new PropertiesModel(worldObject));
-		getContentPane().add(propertiesTable);
+        JScrollPane tableScrollPane = new JScrollPane(propertiesTable);
+		getContentPane().add(tableScrollPane);
 		propertiesTable.addMouseListener(new PropertiesMouseAdapter());
 	}
 	

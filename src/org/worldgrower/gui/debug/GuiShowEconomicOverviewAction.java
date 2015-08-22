@@ -76,7 +76,7 @@ public class GuiShowEconomicOverviewAction extends AbstractAction {
 
 		@Override
 		public int getRowCount() {
-			return 13;
+			return 17;
 		}
 
 		@Override
@@ -119,6 +119,14 @@ public class GuiShowEconomicOverviewAction extends AbstractAction {
 					return "HarvestCotton";
 				} else if (rowIndex == 12) {
 					return "HarvestCotton by non-professionals";
+				} else if (rowIndex == 13) {
+					return "BuildHouseAction";
+				} else if (rowIndex == 14) {
+					return "BuildHouseAction by non-professionals";
+				} else if (rowIndex == 15) {
+					return "ConstructBedAction";
+				} else if (rowIndex == 16) {
+					return "ConstructBedAction by non-professionals";
 				} else {
 					return null;
 				}
@@ -149,6 +157,14 @@ public class GuiShowEconomicOverviewAction extends AbstractAction {
 					return ChooseProfessionAction.getRecentOperationsCount(Actions.HARVEST_COTTON_ACTION, world);
 				} else if (rowIndex == 12) {
 					return ChooseProfessionAction.getRecentOperationsByNonProfessionalsCount(Actions.HARVEST_COTTON_ACTION, Professions.WEAVER_PROFESSION, world);
+				} else if (rowIndex == 13) {
+					return ChooseProfessionAction.getRecentOperationsCount(Actions.BUILD_HOUSE_ACTION, world);
+				} else if (rowIndex == 14) {
+					return ChooseProfessionAction.getRecentOperationsByNonProfessionalsCount(Actions.BUILD_HOUSE_ACTION, Professions.CARPENTER_PROFESSION, world);
+				} else if (rowIndex == 15) {
+					return ChooseProfessionAction.getRecentOperationsCount(Actions.CONSTRUCT_BED_ACTION, world);
+				} else if (rowIndex == 16) {
+					return ChooseProfessionAction.getRecentOperationsByNonProfessionalsCount(Actions.CONSTRUCT_BED_ACTION, Professions.CARPENTER_PROFESSION, world);
 				} else {
 					return null;
 				}

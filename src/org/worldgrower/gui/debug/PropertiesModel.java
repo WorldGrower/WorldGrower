@@ -33,6 +33,17 @@ public class PropertiesModel extends AbstractTableModel {
 	}
 
 	@Override
+	public String getColumnName(int column) {
+		if (column == 0) {
+			return "Property Name";
+		} else if (column == 1) {
+			return "Property Value";
+		} else {
+			return null;
+		}
+	}
+
+	@Override
 	public int getColumnCount() {
 		return 2;
 	}
