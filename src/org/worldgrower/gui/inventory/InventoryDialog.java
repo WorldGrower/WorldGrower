@@ -123,7 +123,7 @@ public class InventoryDialog extends JDialog {
 		inventoryJList = createInventoryList(inventory, imageInfoReader);
 		
 		JScrollPane inventoryScrollPane = new JScrollPane();
-		inventoryScrollPane.getViewport().add(inventoryJList);
+		inventoryScrollPane.setViewportView(inventoryJList);
 		inventoryScrollPane.setBounds(12, 27, 200, 291);
 		getContentPane().add(inventoryScrollPane);
 		
@@ -145,7 +145,7 @@ public class InventoryDialog extends JDialog {
 		getContentPane().add(noSellRadioButton);
 		
 		sellRadioButton = new JRadioButton("Sell at price: ");
-		sellRadioButton.setBounds(224, 240, 100, 40);
+		sellRadioButton.setBounds(224, 240, 142, 40);
 		getContentPane().add(sellRadioButton);
 		
 		ButtonGroup group = new ButtonGroup();
@@ -154,7 +154,7 @@ public class InventoryDialog extends JDialog {
 		
 		priceTextField = new JTextField("0");
 		priceTextField.setEditable(false);
-		priceTextField.setBounds(324, 240, 50, 40);
+		priceTextField.setBounds(374, 240, 50, 40);
 		getContentPane().add(priceTextField);
 		
 		if (inventoryJList.getModel().getSize() == 0) {

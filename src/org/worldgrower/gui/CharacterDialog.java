@@ -57,72 +57,72 @@ public class CharacterDialog extends JDialog {
 		
 		this.playerCharacter = playerCharacter;
 		
-		setBounds(100, 100, 855, 700);
+		setBounds(100, 100, 900, 700);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 
 		JLabel lblStrength = new JLabel("Strength");
-		lblStrength.setBounds(22, 13, 77, 16);
+		lblStrength.setBounds(12, 13, 120, 16);
 		contentPanel.add(lblStrength);
 		
 		JLabel lblConstitution = new JLabel("Constitution");
-		lblConstitution.setBounds(22, 42, 77, 16);
+		lblConstitution.setBounds(12, 42, 120, 16);
 		contentPanel.add(lblConstitution);
 		
 		JLabel lblDexterity = new JLabel("Dexterity");
-		lblDexterity.setBounds(22, 71, 77, 16);
+		lblDexterity.setBounds(12, 71, 120, 16);
 		contentPanel.add(lblDexterity);
 		
 		JLabel lblIntelligence = new JLabel("Intelligence");
-		lblIntelligence.setBounds(22, 100, 77, 16);
+		lblIntelligence.setBounds(12, 100, 120, 16);
 		contentPanel.add(lblIntelligence);
 		
 		JLabel lblWisdom = new JLabel("Wisdom");
-		lblWisdom.setBounds(22, 129, 77, 16);
+		lblWisdom.setBounds(12, 129, 120, 16);
 		contentPanel.add(lblWisdom);
 		
 		JLabel lblCharisma = new JLabel("Charisma");
-		lblCharisma.setBounds(22, 158, 77, 16);
+		lblCharisma.setBounds(12, 158, 120, 16);
 		contentPanel.add(lblCharisma);
 		
 		JLabel lblStrengthValue = new JLabel(playerCharacter.getProperty(Constants.STRENGTH).toString());
-		lblStrengthValue.setBounds(111, 13, 14, 16);
+		lblStrengthValue.setBounds(150, 13, 14, 16);
 		contentPanel.add(lblStrengthValue);
 		
 		JLabel lblConstitutionValue = new JLabel(playerCharacter.getProperty(Constants.CONSTITUTION).toString());
-		lblConstitutionValue.setBounds(111, 42, 14, 16);
+		lblConstitutionValue.setBounds(150, 42, 14, 16);
 		contentPanel.add(lblConstitutionValue);
 		
 		JLabel lblDexterityValue = new JLabel(playerCharacter.getProperty(Constants.DEXTERITY).toString());
-		lblDexterityValue.setBounds(111, 71, 14, 16);
+		lblDexterityValue.setBounds(150, 71, 14, 16);
 		contentPanel.add(lblDexterityValue);
 		
 		JLabel lblIntelligenceValue = new JLabel(playerCharacter.getProperty(Constants.INTELLIGENCE).toString());
-		lblIntelligenceValue.setBounds(111, 100, 14, 16);
+		lblIntelligenceValue.setBounds(150, 100, 14, 16);
 		contentPanel.add(lblIntelligenceValue);
 		
 		JLabel lblWisdomValue = new JLabel(playerCharacter.getProperty(Constants.WISDOM).toString());
-		lblWisdomValue.setBounds(111, 129, 14, 16);
+		lblWisdomValue.setBounds(150, 129, 14, 16);
 		contentPanel.add(lblWisdomValue);
 		
 		JLabel lblCharismaValue = new JLabel(playerCharacter.getProperty(Constants.CHARISMA).toString());
-		lblCharismaValue.setBounds(111, 158, 14, 16);
+		lblCharismaValue.setBounds(150, 158, 14, 16);
 		contentPanel.add(lblCharismaValue);
 
-		createSkillBlock(Constants.BLUFF_SKILL, 22, 208);
-		createSkillBlock(Constants.INSIGHT_SKILL, 22, 238);
-		createSkillBlock(Constants.HAND_TO_HAND_SKILL, 22, 268);
-		createSkillBlock(Constants.ONE_HANDED_SKILL, 22, 298);
-		createSkillBlock(Constants.TWO_HANDED_SKILL, 22, 328);
-		createSkillBlock(Constants.PERCEPTION_SKILL, 22, 358);
-		createSkillBlock(Constants.DIPLOMACY_SKILL, 22, 388);
-		createSkillBlock(Constants.INTIMIDATE_SKILL, 22, 418);
-		createSkillBlock(Constants.SMITHING_SKILL, 22, 448);
-		createSkillBlock(Constants.ALCHEMY_SKILL, 22, 478);
-		createSkillBlock(Constants.ARCHERY_SKILL, 22, 508);
-		createSkillBlock(Constants.NECROMANCY_SKILL, 22, 538);
+		createSkillBlock(Constants.BLUFF_SKILL, 12, 208);
+		createSkillBlock(Constants.INSIGHT_SKILL, 12, 238);
+		createSkillBlock(Constants.HAND_TO_HAND_SKILL, 12, 268);
+		createSkillBlock(Constants.ONE_HANDED_SKILL, 12, 298);
+		createSkillBlock(Constants.TWO_HANDED_SKILL, 12, 328);
+		createSkillBlock(Constants.PERCEPTION_SKILL, 12, 358);
+		createSkillBlock(Constants.DIPLOMACY_SKILL, 12, 388);
+		createSkillBlock(Constants.INTIMIDATE_SKILL, 12, 418);
+		createSkillBlock(Constants.SMITHING_SKILL, 12, 448);
+		createSkillBlock(Constants.ALCHEMY_SKILL, 12, 478);
+		createSkillBlock(Constants.ARCHERY_SKILL, 12, 508);
+		createSkillBlock(Constants.NECROMANCY_SKILL, 12, 538);
 		
 		createSkillBlock(Constants.THIEVERY_SKILL, 250, 208);
 		createSkillBlock(Constants.EVOCATION_SKILL, 250, 238);
@@ -139,77 +139,77 @@ public class CharacterDialog extends JDialog {
 		createSkillBlock(Constants.ENCHANTMENT_SKILL, 250, 568);
 		
 		JLabel lblHead = new JLabel("Head");
-		lblHead.setBounds(500, 13, 56, 16);
+		lblHead.setBounds(500, 13, 80, 16);
 		contentPanel.add(lblHead);
 		
 		JLabel lblTorso = new JLabel("Torso");
-		lblTorso.setBounds(500, 42, 56, 16);
+		lblTorso.setBounds(500, 42, 80, 16);
 		contentPanel.add(lblTorso);
 		
 		JLabel lblArms = new JLabel("Arms");
-		lblArms.setBounds(500, 71, 56, 16);
+		lblArms.setBounds(500, 71, 80, 16);
 		contentPanel.add(lblArms);
 		
 		JLabel lblLegs = new JLabel("Legs");
-		lblLegs.setBounds(500, 100, 56, 16);
+		lblLegs.setBounds(500, 100, 80, 16);
 		contentPanel.add(lblLegs);
 		
 		JLabel lblFeet = new JLabel("Feet");
-		lblFeet.setBounds(500, 129, 56, 16);
+		lblFeet.setBounds(500, 129, 80, 16);
 		contentPanel.add(lblFeet);
 		
 		JLabel lblLeftHand = new JLabel("Left Hand");
-		lblLeftHand.setBounds(500, 192, 69, 16);
+		lblLeftHand.setBounds(500, 192, 80, 16);
 		contentPanel.add(lblLeftHand);
 		
 		JLabel lblRightHand = new JLabel("Right Hand");
-		lblRightHand.setBounds(500, 221, 69, 16);
+		lblRightHand.setBounds(500, 221, 80, 16);
 		contentPanel.add(lblRightHand);
 		
 		WorldObjectContainer inventory = playerCharacter.getProperty(Constants.INVENTORY);
 		
 		cmbHead = createEquipmentComboBox(inventory, Constants.HEAD_EQUIPMENT);
-		cmbHead.setBounds(582, 13, 243, 22);
+		cmbHead.setBounds(590, 13, 243, 22);
 		contentPanel.add(cmbHead);
 		
 		cmbTorso = createEquipmentComboBox(inventory, Constants.TORSO_EQUIPMENT);
-		cmbTorso.setBounds(582, 42, 243, 22);
+		cmbTorso.setBounds(590, 42, 243, 22);
 		contentPanel.add(cmbTorso);
 		
 		cmbArms = createEquipmentComboBox(inventory, Constants.ARMS_EQUIPMENT);
-		cmbArms.setBounds(582, 71, 243, 22);
+		cmbArms.setBounds(590, 71, 243, 22);
 		contentPanel.add(cmbArms);
 		
 		cmbLegs = createEquipmentComboBox(inventory, Constants.LEGS_EQUIPMENT);
-		cmbLegs.setBounds(582, 100, 243, 22);
+		cmbLegs.setBounds(590, 100, 243, 22);
 		contentPanel.add(cmbLegs);
 		
 		cmbFeet = createEquipmentComboBox(inventory, Constants.FEET_EQUIPMENT);
-		cmbFeet.setBounds(582, 129, 243, 22);
+		cmbFeet.setBounds(590, 129, 243, 22);
 		contentPanel.add(cmbFeet);
 		
 		cmbLeftHand = createEquipmentComboBox(inventory, Constants.LEFT_HAND_EQUIPMENT);
-		cmbLeftHand.setBounds(582, 192, 243, 22);
+		cmbLeftHand.setBounds(590, 192, 243, 22);
 		contentPanel.add(cmbLeftHand);
 		
 		cmbRightHand = createEquipmentComboBox(inventory, Constants.RIGHT_HAND_EQUIPMENT);
-		cmbRightHand.setBounds(582, 221, 243, 22);
+		cmbRightHand.setBounds(590, 221, 243, 22);
 		contentPanel.add(cmbRightHand);
 		
 		JLabel lblArmor = new JLabel("Armor");
-		lblArmor.setBounds(582, 331, 77, 16);
+		lblArmor.setBounds(590, 331, 150, 16);
 		contentPanel.add(lblArmor);
 		
 		lblArmorValue = new JLabel(playerCharacter.getProperty(Constants.ARMOR).toString());
-		lblArmorValue.setBounds(726, 331, 14, 16);
+		lblArmorValue.setBounds(740, 331, 14, 16);
 		contentPanel.add(lblArmorValue);
 		
 		JLabel lblWeaponDamage = new JLabel("Weapon Damage");
-		lblWeaponDamage.setBounds(582, 293, 111, 16);
+		lblWeaponDamage.setBounds(590, 293, 150, 16);
 		contentPanel.add(lblWeaponDamage);
 		
 		lblDamageValue = new JLabel(playerCharacter.getProperty(Constants.DAMAGE).toString());
-		lblDamageValue.setBounds(726, 293, 14, 16);
+		lblDamageValue.setBounds(740, 293, 14, 16);
 		contentPanel.add(lblDamageValue);
 		
 		JPanel buttonPane = new JPanel();
@@ -227,15 +227,15 @@ public class CharacterDialog extends JDialog {
 	private void createSkillBlock(SkillProperty skillProperty, int x, int y) {
 		
 		JLabel lblSkill = new JLabel(skillProperty.getName());
-		lblSkill.setBounds(x, y, 90, 16);
+		lblSkill.setBounds(x, y, 100, 16);
 		contentPanel.add(lblSkill);
 		
 		JLabel lblSkillValue = new JLabel(playerCharacter.getProperty(skillProperty).toString());
-		lblSkillValue.setBounds(x + 89, y, 14, 16);
+		lblSkillValue.setBounds(x + 105, y, 15, 16);
 		contentPanel.add(lblSkillValue);
 		
 		JProgressBar skillProgressBar = new JProgressBar(0, 100);
-		skillProgressBar.setBounds(x + 108, y, 100, 20);
+		skillProgressBar.setBounds(x + 120, y, 100, 20);
 		skillProgressBar.setValue(playerCharacter.getProperty(skillProperty).getPercentageUntilNextLevelUp());
 		contentPanel.add(skillProgressBar);
 	}
