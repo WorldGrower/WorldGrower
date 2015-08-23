@@ -51,7 +51,7 @@ public class CharacterCustomizationScreen extends JFrame {
 		
 		JLabel attributeLabel = new JLabel(Integer.toString(attributePoints));
 		attributeLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		attributeLabel.setBounds(393, 42, 56, 16);
+		attributeLabel.setBounds(393, 51, 56, 16);
 		contentPane.add(attributeLabel);
 		
 		JLabel lblStrengthDesc = new JLabel("Strength");
@@ -223,7 +223,7 @@ public class CharacterCustomizationScreen extends JFrame {
 		contentPane.add(button_9);
 		
 		JLabel lblRemainingAttributePoints = new JLabel("Remaining attribute points:");
-		lblRemainingAttributePoints.setBounds(294, 13, 167, 16);
+		lblRemainingAttributePoints.setBounds(294, 13, 215, 25);
 		contentPane.add(lblRemainingAttributePoints);
 		
 		JButton btnOk = new JButton("Ok");
