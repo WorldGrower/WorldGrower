@@ -16,6 +16,7 @@ package org.worldgrower.goal;
 
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
+import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
@@ -36,7 +37,7 @@ public class GatherFoodGoal implements Goal {
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		WorldObject target = GoalUtils.findNearestTarget(performer, Actions.HARVEST_FOOD_ACTION, world);
-		if (target != null) {
+		if (target != null && Reach.distance(performer, target) < 15) {
 			return new OperationInfo(performer, target, new int[0], Actions.HARVEST_FOOD_ACTION);
 		} else {
 			return null;

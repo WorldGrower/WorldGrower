@@ -27,7 +27,7 @@ public class WaterPropertyUtils {
 
 	public static WorldObject findWaterSource(WorldObject performer, World world) {
 		KnowledgeMap knowledgeMap = performer.getProperty(Constants.KNOWLEDGE_MAP);
-		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.DRINK_ACTION, w -> !knowledgeMap.hasProperty(w, Constants.POISON_DAMAGE), world);
+		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.DRINK_ACTION, w -> !knowledgeMap.hasProperty(w, Constants.POISON_DAMAGE) && Reach.distance(performer, w) < 15, world);
 		if (targets.size() > 0) {
 			return targets.get(0);
 		} else {
