@@ -23,7 +23,7 @@ public class ExceptionHandler implements Thread.UncaughtExceptionHandler {
 
 	public static void handle(Throwable throwable) {
 		try {
-			ExceptionDialog exceptionDialog = new ExceptionDialog(Version.VERSION, "Unexpected error", "An unexpected error has occurred: " + throwable.getMessage(), throwable);
+			ExceptionDialog exceptionDialog = new ExceptionDialog(Version.getVersion(), "Unexpected error", "An unexpected error has occurred: " + throwable.getMessage(), throwable);
 			exceptionDialog.setVisible(true);
 		} catch (Throwable t) {
 			// don't let the exception get thrown out, will cause infinite

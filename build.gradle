@@ -2,7 +2,7 @@ apply plugin: 'java'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
-version = ''
+version = '0.0.8'
 archivesBaseName = 'worldgrower'
 
 jar {
@@ -17,6 +17,9 @@ sourceSets {
     main {
         java {
             srcDir 'src'
+        }
+        resources {
+            srcDir 'resources'
         }
     }
     
@@ -45,6 +48,8 @@ task release(dependsOn: ['jar', 'test']) << {
 	copy {
         from 'build/libs'
         into 'build/release'
+        rename { String fileName -> fileName.replace("-" + version, "")
+  }
     }
     
     copy {
@@ -53,13 +58,10 @@ task release(dependsOn: ['jar', 'test']) << {
         include '**/*.sh'
         include '**/*.cmd'
     }
-    
-    File releaseResourceDir = new File(releaseDir, 'resources')
-    releaseResourceDir.mkdirs()
-    
-    copy {
-        from 'resources'
-        into 'build/release/resources'
-        include '*.*'
-    }
 }
+
+task zipRelease(type: Zip) {
+	from 'build/release'
+}
+
+release.finalizedBy zipRelease

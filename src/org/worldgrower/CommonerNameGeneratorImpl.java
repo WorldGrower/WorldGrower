@@ -14,10 +14,11 @@
  *******************************************************************************/
 package org.worldgrower;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Serializable;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,12 +34,24 @@ public class CommonerNameGeneratorImpl implements CommonerNameGenerator, Seriali
 	private int currentFemaleCommonerIndex = 0;
 	
 	public CommonerNameGeneratorImpl() throws IOException {
-		maleCommonerNames.addAll(readFile("resources/male_names.txt"));
-		femaleCommonerNames.addAll(readFile("resources/female_names.txt"));
+		maleCommonerNames.addAll(readFile("/male_names.txt"));
+		femaleCommonerNames.addAll(readFile("/female_names.txt"));
 	}
 	
 	private List<String> readFile(String filename) throws IOException {
-		return Files.readAllLines(Paths.get(filename));
+		InputStream fileResource = this.getClass().getResourceAsStream(filename);
+		if (fileResource == null) {
+			throw new IllegalStateException(filename + " not found in classpath");
+		}
+		BufferedReader fileReader = new BufferedReader(new InputStreamReader(fileResource, "UTF-8"));
+		List<String> lines = new ArrayList<>();
+		String line = fileReader.readLine();
+		while(line != null){
+		    line = fileReader.readLine();
+		    lines.add(line);
+		}
+		fileReader.close();
+		return lines;
 	}
 	
 	@Override

@@ -14,7 +14,35 @@
  *******************************************************************************/
 package org.worldgrower;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.Enumeration;
+import java.util.jar.Manifest;
+
 public class Version {
 
-	public static final String VERSION = "0.0.7";
+	private static String VERSION;
+	
+	public static String getVersion() {
+		if (VERSION == null) {
+			VERSION = readVersionFromManifest();
+		}
+		return VERSION;
+	}
+
+	private static String readVersionFromManifest() {
+		try {
+			Enumeration<URL> resources = Version.class.getClassLoader().getResources("META-INF/MANIFEST.MF");
+			while (resources.hasMoreElements()) {
+				Manifest manifest = new Manifest(resources.nextElement().openStream());
+				String implementationTitle = manifest.getMainAttributes().getValue("Implementation-Title");
+				if ("WorldGrower".equals(implementationTitle)) {
+					return manifest.getMainAttributes().getValue("Implementation-Version");
+				}
+			}
+			return "Development";
+		} catch(IOException ex) {
+			return "Development";
+		}
+	}
 }

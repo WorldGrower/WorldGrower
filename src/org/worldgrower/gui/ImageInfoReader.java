@@ -16,7 +16,6 @@ package org.worldgrower.gui;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -264,111 +263,111 @@ public class ImageInfoReader {
     }
 	
     private static Sprites readOrcSoldier() throws IOException {
-		return readImages("resources/orcsoldier_a.png", 32, 32, 4, 3);
+		return readImages("orcsoldier_a.png", 32, 32, 4, 3);
 	}
     
     private static Sprites readMonsters() throws IOException {
-		return readImages("resources/charchip01.png", 32, 32, 8, 12);
+		return readImages("charchip01.png", 32, 32, 8, 12);
 	}
     
     private static Sprites readSprites() throws IOException {
-		return readImages("resources/vx_chara01_a.png", 32, 48, 8, 12);
+		return readImages("vx_chara01_a.png", 32, 48, 8, 12);
 	}
     
     private static Sprites readSpritesB() throws IOException {
-		return readImages("resources/vx_chara01_b.png", 32, 48, 8, 12);
+		return readImages("vx_chara01_b.png", 32, 48, 8, 12);
 	}
     
     private static Sprites readSprites2A() throws IOException {
-		return readImages("resources/vx_chara02_a.png", 32, 48, 8, 12);
+		return readImages("vx_chara02_a.png", 32, 48, 8, 12);
 	}
     
     private static Sprites readSprites2B() throws IOException {
-		return readImages("resources/vx_chara02_b.png", 32, 48, 8, 12);
+		return readImages("vx_chara02_b.png", 32, 48, 8, 12);
 	}
     
     private static Sprites readSprites2C() throws IOException {
-		return readImages("resources/vx_chara02_c.png", 32, 48, 8, 12);
+		return readImages("vx_chara02_c.png", 32, 48, 8, 12);
 	}
     
     private static Sprites readSprites2D() throws IOException {
-		return readImages("resources/vx_chara02_d.png", 32, 48, 8, 12);
+		return readImages("vx_chara02_d.png", 32, 48, 8, 12);
 	}
     
     private static Sprites readSprites3A() throws IOException {
-		return readImages("resources/vx_chara03_a.png", 32, 48, 8, 12);
+		return readImages("vx_chara03_a.png", 32, 48, 8, 12);
 	}
     
     private static Sprites readSprites3B() throws IOException {
-		return readImages("resources/vx_chara03_b.png", 32, 48, 8, 12);
+		return readImages("vx_chara03_b.png", 32, 48, 8, 12);
 	}
 
     private static Sprites readSprites3C() throws IOException {
-		return readImages("resources/vx_chara03_c.png", 32, 48, 8, 12);
+		return readImages("vx_chara03_c.png", 32, 48, 8, 12);
 	}
 
     private static Sprites readSprites3D() throws IOException {
-		return readImages("resources/vx_chara03_d.png", 32, 48, 8, 12);
+		return readImages("vx_chara03_d.png", 32, 48, 8, 12);
 	}
 
     private static Sprites readSprites3E() throws IOException {
-		return readImages("resources/vx_chara03_e.png", 32, 48, 8, 12);
+		return readImages("vx_chara03_e.png", 32, 48, 8, 12);
 	}
 
     private static Sprites readSprites3F() throws IOException {
-		return readImages("resources/vx_chara03_f.png", 32, 48, 8, 12);
+		return readImages("vx_chara03_f.png", 32, 48, 8, 12);
 	}
     
 	private static Sprites readObjects() throws IOException {
-		return readImages("resources/tileb.png", 32, 32, 16, 16);
+		return readImages("tileb.png", 32, 32, 16, 16);
 	}
 
 	private static Sprites readPirates() throws IOException {
-		return readImages("resources/pirate-themed-tilee.png", 32, 32, 16, 16);
+		return readImages("pirate-themed-tilee.png", 32, 32, 16, 16);
 	}
 	
 	private static Sprites readHouses() throws IOException {
-		return readImages("resources/tilea3.png", 32, 32, 8, 16);
+		return readImages("tilea3.png", 32, 32, 8, 16);
 	}
 
 	private static Sprites readTileB() throws IOException {
-		return readImages("resources/tileb.png", 32, 32, 16, 16);
+		return readImages("tileb.png", 32, 32, 16, 16);
 	}
 	
 	private static Sprites readTileE() throws IOException {
-		return readImages("resources/tilee.png", 32, 32, 16, 16);
+		return readImages("tilee.png", 32, 32, 16, 16);
 	}
 	
 	private static Sprites readStatues() throws IOException {
-		return readImages("resources/statues.png", 32, 32, 16, 16);
+		return readImages("statues.png", 32, 32, 16, 16);
 	}
 	
     private static Sprites readRat() throws IOException {
-		return readImages("resources/rat_c.png", 32, 32, 4, 3);
+		return readImages("rat_c.png", 32, 32, 4, 3);
 	}
     
     private static Sprites readSlime() throws IOException {
-		return readImages("resources/slimeking_f.png", 32, 32, 4, 3);
+		return readImages("slimeking_f.png", 32, 32, 4, 3);
 	}
     
     private static Sprites readSprites420() throws IOException {
-		return readImages("resources/420icons.png", 34, 34, 14, 24);
+		return readImages("420icons.png", 34, 34, 14, 24);
 	}
 	
 	private static Sprites readSpritesSpider() throws IOException {
-		return readImages("resources/SpiderSpriteB2.png", 40, 35, 3, 4);
+		return readImages("SpiderSpriteB2.png", 40, 35, 3, 4);
 	}
 	
 	private static Sprites readSpritesStone() throws IOException {
-		return readImages("resources/stone-b1.png", 32, 32, 12, 8);
+		return readImages("stone-b1.png", 32, 32, 12, 8);
 	}
 	
 	private static Sprites readSpritesTora02() throws IOException {
-		return readImages("resources/tora_vx_02.png", 32, 32, 16, 16);
+		return readImages("tora_vx_02.png", 32, 32, 16, 16);
 	}
 	
 	private static Sprites readImages(String imageFilename, int width, int height, int rows, int cols) throws IOException {
-		BufferedImage bigImg = ImageIO.read(new File(imageFilename));
+		BufferedImage bigImg = ImageIO.read(ImageInfoReader.class.getResource("/" + imageFilename));
 		return new Sprites(bigImg, width, height);
 	}
 	

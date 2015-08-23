@@ -186,7 +186,7 @@ public class WorldImpl implements World, Serializable {
 	public void save(File fileToSave) {
 		try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(fileToSave)))) {
 
-			objectOutputStream.writeObject ( Version.VERSION );
+			objectOutputStream.writeObject ( Version.getVersion() );
 	    	objectOutputStream.writeObject ( this );
 	    	
 		} catch(IOException ex) {
@@ -198,8 +198,8 @@ public class WorldImpl implements World, Serializable {
 		try (ObjectInputStream objectInputStream = new ObjectInputStream(new BufferedInputStream(new FileInputStream(fileToLoad)))) {
 			String versionFromFile = (String) objectInputStream.readObject();
 			
-			if (!versionFromFile.equals( Version.VERSION )) {
-				throw new RuntimeException("Version in file " + fileToLoad + " doesn't match: " + versionFromFile + " isn't equal to " + Version.VERSION);
+			if (!versionFromFile.equals( Version.getVersion() )) {
+				throw new RuntimeException("Version in file " + fileToLoad + " doesn't match: " + versionFromFile + " isn't equal to " + Version.getVersion());
 			}
 			
 			WorldImpl world = (WorldImpl) objectInputStream.readObject();
