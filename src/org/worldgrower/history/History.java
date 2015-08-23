@@ -14,6 +14,7 @@
  *******************************************************************************/
 package org.worldgrower.history;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.worldgrower.ManagedOperation;
@@ -34,7 +35,10 @@ public interface History {
 	public List<HistoryItem> findHistoryItemsForAnyPerformer(WorldObject performer, WorldObject target, int[] args, ManagedOperation managedOperation);
 	public List<HistoryItem> findHistoryItemsForPerformer(WorldObject worldObject);
 	public HistoryItem getLastPerformedOperation(WorldObject worldObject);
+	public Collection<HistoryItem> getAllLastPerformedOperations();
 	public List<HistoryItem> findHistoryItems(ManagedOperation managedOperation);
 	public HistoryItem getHistoryItem(int historyItemId);
 	public List<HistoryItem> findHistoryItems(WorldObject performer, ManagedOperation managedOperation);
+
+	
 }

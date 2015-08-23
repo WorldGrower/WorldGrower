@@ -87,4 +87,5 @@ public class Goals {
 	public static final TrainGoal TRAIN_GOAL = new TrainGoal();
 	public static final ScribeNecromancerSpellsGoal SCRIBE_NECROMANCER_SPELLS_GOAL = new ScribeNecromancerSpellsGoal();
 	public static final KillVillagersGoal KILL_VILLAGERS_GOAL = new KillVillagersGoal();
+	public static final RevengeGoal REVENGE_GOAL = new RevengeGoal();
 }

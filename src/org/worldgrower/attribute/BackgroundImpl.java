@@ -16,6 +16,7 @@ package org.worldgrower.attribute;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -32,13 +33,13 @@ import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.deity.Deity;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
-import org.worldgrower.goal.RevengeGoal;
 import org.worldgrower.history.HistoryItem;
 
 public class BackgroundImpl implements Background, Serializable {
 
-	private List<Goal> importantUnmetGoals = new ArrayList<>();
-	private Map<Integer, List<String>> angryReasons = new HashMap<>();
+	private final List<Goal> importantUnmetGoals = new ArrayList<>();
+	private final Map<Integer, List<String>> angryReasons = new HashMap<>();
+	private final List<Integer> revengeTargets = new ArrayList<>();
 	
 	@Override
 	public <T> T chooseValue(WorldObject backgroundPerformer, ManagedProperty<T> property, World world) {
@@ -74,21 +75,33 @@ public class BackgroundImpl implements Background, Serializable {
 	@Override
 	public List<Goal> getPersonalGoals(WorldObject backgroundPerformer, World world) {
 		List<Goal> personalGoals = new ArrayList<>();
-		List<HistoryItem> importantHistoryItems = world.getHistory().findHistoryItems(Actions.MELEE_ATTACK_ACTION);
-		for(HistoryItem historyItem : importantHistoryItems) {
-			OperationInfo operationInfo = historyItem.getOperationInfo();
-			if (operationInfo.getTarget().equals(backgroundPerformer)) {
-				handlePerformerWasAttacked(backgroundPerformer, personalGoals, operationInfo);
-			}
+		
+		if (revengeTargets.size() > 0) {
+			personalGoals.add(Goals.REVENGE_GOAL);
 		}
 		
 		return personalGoals;
 	}
 
-	private void handlePerformerWasAttacked(WorldObject backgroundPerformer, List<Goal> personalGoals, OperationInfo operationInfo) {
+	@Override
+	public void checkForNewGoals(WorldObject performer, World world) {
+		checkForNewRevengeTargets(performer, world);
+	}
+	
+	private void checkForNewRevengeTargets(WorldObject backgroundPerformer, World world) {
+		Collection<HistoryItem> importantHistoryItems = world.getHistory().getAllLastPerformedOperations();
+		for(HistoryItem historyItem : importantHistoryItems) {
+			OperationInfo operationInfo = historyItem.getOperationInfo();
+			if (operationInfo.getTarget().equals(backgroundPerformer)) {
+				handlePerformerWasAttacked(backgroundPerformer, operationInfo);
+			}
+		}
+	}
+
+	private void handlePerformerWasAttacked(WorldObject backgroundPerformer, OperationInfo operationInfo) {
 		PerformerWasAttacked performerWasAttacked = new PerformerWasAttacked(backgroundPerformer);
 		if (operationInfo.evaluate(performerWasAttacked)) {
-			personalGoals.add(new RevengeGoal(performerWasAttacked.getAttacker()));
+			revengeTargets.add(operationInfo.getTarget().getProperty(Constants.ID));
 		}
 	}
 	
@@ -165,5 +178,23 @@ public class BackgroundImpl implements Background, Serializable {
 		} else {
 			return new ArrayList<>();
 		}
+	}
+
+	@Override
+	public void remove(WorldObject worldObject, ManagedProperty<?> property, int id) {
+		UnCheckedProperty<Background> backgroundProperty = (UnCheckedProperty<Background>) property;
+		worldObject.getProperty(backgroundProperty).remove(id);
+	}
+
+	@Override
+	public WorldObject getRevengeTarget(World world) {
+		int id = revengeTargets.get(0);
+		return world.findWorldObject(Constants.ID, id);
+	}
+
+	@Override
+	public void remove(int id) {
+		angryReasons.remove(id);
+		revengeTargets.remove(id);
 	}
 }

@@ -20,13 +20,15 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.goal.Goal;
-import org.worldgrower.history.HistoryItem;
 
-public interface Background {
+public interface Background extends IdContainer {
 
 	public<T> T chooseValue(WorldObject performer, ManagedProperty<T> property, World world);
 	public List<Goal> getPersonalGoals(WorldObject performer, World world);
 	
 	public void addGoalObstructed(WorldObject performer, WorldObject actionTarget, ManagedOperation managedOperation, int[] args, World world);
 	public List<String> getAngryReasons(boolean firstPerson, WorldObject performer, World world);
+	public WorldObject getRevengeTarget(World world);
+	public void checkForNewGoals(WorldObject performer, World world);
+	public void remove(int id);
 }

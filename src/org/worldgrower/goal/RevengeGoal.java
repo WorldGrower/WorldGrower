@@ -22,15 +22,13 @@ import org.worldgrower.actions.Actions;
 
 public class RevengeGoal implements Goal {
 
-	private final WorldObject target;
-	
-	public RevengeGoal(WorldObject target) {
-		this.target = target;
-	}
-
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		return new OperationInfo(performer, target, new int[0], Actions.MELEE_ATTACK_ACTION);
+		return new OperationInfo(performer, getTarget(performer, world), new int[0], Actions.MELEE_ATTACK_ACTION);
+	}
+	
+	private WorldObject getTarget(WorldObject performer, World world) {
+		return performer.getProperty(Constants.BACKGROUND).getRevengeTarget(world);
 	}
 	
 	@Override
@@ -39,7 +37,7 @@ public class RevengeGoal implements Goal {
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		return (target.getOperations().size() == 0);
+		return (getTarget(performer, world).getOperations().size() == 0);
 	}
 	
 	@Override
@@ -49,11 +47,11 @@ public class RevengeGoal implements Goal {
 
 	@Override
 	public String getDescription() {
-		return "getting revenge on " + target.getProperty(Constants.NAME);
+		return "getting revenge";
 	}
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		return Integer.MAX_VALUE - target.getOperations().size();
+		return Integer.MAX_VALUE - getTarget(performer, world).getOperations().size();
 	}
 }

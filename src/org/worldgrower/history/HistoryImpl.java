@@ -16,6 +16,7 @@ package org.worldgrower.history;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -110,6 +111,11 @@ public class HistoryImpl implements History, Serializable {
 	@Override
 	public HistoryItem getLastPerformedOperation(WorldObject worldObject) {
 		return lastPerformedActionMap.get(worldObject.getProperty(Constants.ID));
+	}
+	
+	@Override
+	public Collection<HistoryItem> getAllLastPerformedOperations() {
+		return lastPerformedActionMap.values();
 	}
 
 	@Override
