@@ -88,27 +88,27 @@ public class CharacterDialog extends JDialog {
 		contentPanel.add(lblCharisma);
 		
 		JLabel lblStrengthValue = new JLabel(playerCharacter.getProperty(Constants.STRENGTH).toString());
-		lblStrengthValue.setBounds(150, 13, 14, 16);
+		lblStrengthValue.setBounds(150, 13, 20, 16);
 		contentPanel.add(lblStrengthValue);
 		
 		JLabel lblConstitutionValue = new JLabel(playerCharacter.getProperty(Constants.CONSTITUTION).toString());
-		lblConstitutionValue.setBounds(150, 42, 14, 16);
+		lblConstitutionValue.setBounds(150, 42, 20, 16);
 		contentPanel.add(lblConstitutionValue);
 		
 		JLabel lblDexterityValue = new JLabel(playerCharacter.getProperty(Constants.DEXTERITY).toString());
-		lblDexterityValue.setBounds(150, 71, 14, 16);
+		lblDexterityValue.setBounds(150, 71, 20, 16);
 		contentPanel.add(lblDexterityValue);
 		
 		JLabel lblIntelligenceValue = new JLabel(playerCharacter.getProperty(Constants.INTELLIGENCE).toString());
-		lblIntelligenceValue.setBounds(150, 100, 14, 16);
+		lblIntelligenceValue.setBounds(150, 100, 20, 16);
 		contentPanel.add(lblIntelligenceValue);
 		
 		JLabel lblWisdomValue = new JLabel(playerCharacter.getProperty(Constants.WISDOM).toString());
-		lblWisdomValue.setBounds(150, 129, 14, 16);
+		lblWisdomValue.setBounds(150, 129, 20, 16);
 		contentPanel.add(lblWisdomValue);
 		
 		JLabel lblCharismaValue = new JLabel(playerCharacter.getProperty(Constants.CHARISMA).toString());
-		lblCharismaValue.setBounds(150, 158, 14, 16);
+		lblCharismaValue.setBounds(150, 158, 20, 16);
 		contentPanel.add(lblCharismaValue);
 
 		createSkillBlock(Constants.BLUFF_SKILL, 12, 208);

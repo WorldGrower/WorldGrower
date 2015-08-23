@@ -120,28 +120,28 @@ public class DisguiseDialog extends JDialog {
 		
 		noDisguiseRadioButton = new JRadioButton("No disguise");
 		buttonGroup.add(noDisguiseRadioButton);
-		noDisguiseRadioButton.setBounds(21, 19, 127, 25);
+		noDisguiseRadioButton.setBounds(21, 19, 231, 25);
 		contentPanel.add(noDisguiseRadioButton);
 		
 		chooseExistingPersonRadioButton = new JRadioButton("Choose existing Person:");
 		buttonGroup.add(chooseExistingPersonRadioButton);
-		chooseExistingPersonRadioButton.setBounds(21, 49, 179, 25);
+		chooseExistingPersonRadioButton.setBounds(21, 49, 299, 25);
 		contentPanel.add(chooseExistingPersonRadioButton);
 		
 		createNewPersonRadioButton = new JRadioButton("Create new Person:");
 		buttonGroup.add(createNewPersonRadioButton);
-		createNewPersonRadioButton.setBounds(21, 239, 158, 25);
+		createNewPersonRadioButton.setBounds(21, 239, 299, 25);
 		contentPanel.add(createNewPersonRadioButton);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(228, 243, 286, 164);
+		scrollPane_1.setBounds(340, 243, 259, 164);
 		contentPanel.add(scrollPane_1);
 		
 		table = new JTable();
 		scrollPane_1.setViewportView(table);
 		
 		personList = new WorldObjectList(imageInfoReader, disguiseWorldObjects);
-		personList.setBounds(226, 68, 173, 130);
+		personList.setBounds(341, 68, 173, 130);
 		contentPanel.add(personList);
 		
 		JPanel buttonPane = new JPanel();
