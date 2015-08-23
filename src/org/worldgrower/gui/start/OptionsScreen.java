@@ -66,53 +66,53 @@ public class OptionsScreen {
 		frame.getContentPane().setLayout(null);
 		
 		JLabel lblPlayerName = new JLabel("Character Name:");
-		lblPlayerName.setBounds(46, 30, 98, 26);
+		lblPlayerName.setBounds(25, 30, 191, 26);
 		frame.getContentPane().add(lblPlayerName);
 		
 		playerNameTextField = new JTextField();
 		playerNameTextField.setText("MyName");
-		playerNameTextField.setBounds(188, 32, 137, 22);
+		playerNameTextField.setBounds(228, 30, 137, 22);
 		frame.getContentPane().add(playerNameTextField);
 		playerNameTextField.setColumns(10);
 		
 		JLabel lblWorldWidth = new JLabel("World Width:");
-		lblWorldWidth.setBounds(46, 123, 98, 26);
+		lblWorldWidth.setBounds(25, 123, 191, 26);
 		frame.getContentPane().add(lblWorldWidth);
 		
 		worldWidthTextField = new JTextField();
 		worldWidthTextField.setText("100");
-		worldWidthTextField.setBounds(188, 125, 137, 22);
+		worldWidthTextField.setBounds(228, 123, 137, 22);
 		frame.getContentPane().add(worldWidthTextField);
 		worldWidthTextField.setColumns(10);
 		
 		JLabel lblWorldHeight = new JLabel("World Height:");
-		lblWorldHeight.setBounds(46, 162, 98, 26);
+		lblWorldHeight.setBounds(25, 162, 191, 26);
 		frame.getContentPane().add(lblWorldHeight);
 		
 		worldHeightTextField = new JTextField();
 		worldHeightTextField.setText("100");
 		worldHeightTextField.setColumns(10);
-		worldHeightTextField.setBounds(188, 162, 137, 22);
+		worldHeightTextField.setBounds(228, 160, 137, 22);
 		frame.getContentPane().add(worldHeightTextField);
 		
 		JLabel lblNumberOfEnemies = new JLabel("Enemy density:");
-		lblNumberOfEnemies.setBounds(46, 201, 117, 26);
+		lblNumberOfEnemies.setBounds(25, 201, 191, 26);
 		frame.getContentPane().add(lblNumberOfEnemies);
 		
 		numberOfEnemiesTextField = new JTextField();
 		numberOfEnemiesTextField.setText("0");
 		numberOfEnemiesTextField.setColumns(10);
-		numberOfEnemiesTextField.setBounds(188, 201, 137, 22);
+		numberOfEnemiesTextField.setBounds(228, 199, 137, 22);
 		frame.getContentPane().add(numberOfEnemiesTextField);
 		
 		JLabel lblNumberOfVillagers = new JLabel("Number of Villagers:");
-		lblNumberOfVillagers.setBounds(46, 241, 130, 26);
+		lblNumberOfVillagers.setBounds(25, 241, 191, 26);
 		frame.getContentPane().add(lblNumberOfVillagers);
 		
 		numberOfVillagersTextField = new JTextField();
 		numberOfVillagersTextField.setText("4");
 		numberOfVillagersTextField.setColumns(10);
-		numberOfVillagersTextField.setBounds(188, 243, 137, 22);
+		numberOfVillagersTextField.setBounds(228, 241, 137, 22);
 		frame.getContentPane().add(numberOfVillagersTextField);
 		
 		JButton btnOk = new JButton("Ok");
@@ -152,23 +152,23 @@ public class OptionsScreen {
 		frame.getContentPane().add(btnCancel);
 		
 		JLabel lblPlayerProfession = new JLabel("Character Profession:");
-		lblPlayerProfession.setBounds(46, 69, 130, 26);
+		lblPlayerProfession.setBounds(25, 69, 191, 26);
 		frame.getContentPane().add(lblPlayerProfession);
 		
 		playerProfessionTextField = new JTextField();
 		playerProfessionTextField.setText("adventurer");
 		playerProfessionTextField.setColumns(10);
-		playerProfessionTextField.setBounds(188, 71, 137, 22);
+		playerProfessionTextField.setBounds(228, 69, 137, 22);
 		frame.getContentPane().add(playerProfessionTextField);
 		
 		JLabel lblSeed = new JLabel("Seed:");
-		lblSeed.setBounds(46, 283, 130, 26);
+		lblSeed.setBounds(25, 283, 191, 26);
 		frame.getContentPane().add(lblSeed);
 		
 		seedTextField = new JTextField();
 		seedTextField.setText("666");
 		seedTextField.setColumns(10);
-		seedTextField.setBounds(188, 285, 137, 22);
+		seedTextField.setBounds(228, 283, 137, 22);
 		frame.getContentPane().add(seedTextField);
 		btnCancel.addActionListener(new ActionListener() {
 			
