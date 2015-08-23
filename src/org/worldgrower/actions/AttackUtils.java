@@ -26,6 +26,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.ArmorType;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.Conditions;
 import org.worldgrower.goal.DeathReasonPropertyUtils;
 
 public class AttackUtils {
@@ -59,12 +60,21 @@ public class AttackUtils {
 			damage *= 2;
 		} else if (performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.REDUCED_CONDITION)) {
 			damage /= 2;
-		} else if (target.getProperty(Constants.CONDITIONS).hasCondition(Condition.ENLARGED_CONDITION)) {
+		} else if (targetHasCondition(target, Condition.ENLARGED_CONDITION)) {
 			damage /= 2;
-		} else if (target.getProperty(Constants.CONDITIONS).hasCondition(Condition.REDUCED_CONDITION)) {
+		} else if (targetHasCondition(target, Condition.REDUCED_CONDITION)) {
 			damage *= 2;
 		}
 		return damage;
+	}
+	
+	private static boolean targetHasCondition(WorldObject target, Condition condition) {
+		Conditions targetConditions = target.getProperty(Constants.CONDITIONS);
+		if (targetConditions != null) {
+			return targetConditions.hasCondition(condition);
+		} else {
+			return false;
+		}
 	}
 
 	private static void userArmorSkill(WorldObject target) {
