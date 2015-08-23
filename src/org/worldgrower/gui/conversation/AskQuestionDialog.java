@@ -142,6 +142,7 @@ public class AskQuestionDialog extends JDialog implements ManagedOperationListen
 					public void actionPerformed(ActionEvent actionEvent) {
 						int[] args = new int[] { question.getId(), question.getSubjectId(), question.getHistoryItemId(), question.getAdditionalValue() };
 						answerer.askQuestion(args);
+						askQuestion.setEnabled(answerer.canAskQuestion());
 					}
 				});
 				menu.add(questionMenuItem);

@@ -85,6 +85,11 @@ public class GuiAskQuestionAction extends AbstractAction implements Answerer {
 	public void askQuestion(int[] args) {
 		Main.executeAction(playerCharacter, playerCharacter.getOperation(Actions.TALK_ACTION), args, world, dungeonMaster, target, container);
 	}
+	
+	@Override
+	public boolean canAskQuestion() {
+		return Main.canActionExecute(playerCharacter, Actions.TALK_ACTION, Conversations.createArgs(Conversations.NAME_CONVERSATION), world, target);
+	}
 
 	@Override
 	public Map<ConversationCategory, List<Question>> getQuestionPhrases() {

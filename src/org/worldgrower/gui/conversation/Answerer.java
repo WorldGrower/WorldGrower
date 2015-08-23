@@ -26,4 +26,5 @@ public interface Answerer {
 	public Map<ConversationCategory, List<Question>> getQuestionPhrases();
 	public void doneTalking();
 	public boolean filterMessage(WorldObject performer);
+	public boolean canAskQuestion();
 }
