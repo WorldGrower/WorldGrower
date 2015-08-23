@@ -31,4 +31,5 @@ public interface Background extends IdContainer {
 	public WorldObject getRevengeTarget(World world);
 	public void checkForNewGoals(WorldObject performer, World world);
 	public void remove(int id);
+	public Background copy();
 }

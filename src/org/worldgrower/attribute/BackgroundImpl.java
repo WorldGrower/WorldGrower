@@ -182,7 +182,7 @@ public class BackgroundImpl implements Background, Serializable {
 
 	@Override
 	public void remove(WorldObject worldObject, ManagedProperty<?> property, int id) {
-		UnCheckedProperty<Background> backgroundProperty = (UnCheckedProperty<Background>) property;
+		BackgroundProperty backgroundProperty = (BackgroundProperty) property;
 		worldObject.getProperty(backgroundProperty).remove(id);
 	}
 
@@ -194,7 +194,17 @@ public class BackgroundImpl implements Background, Serializable {
 
 	@Override
 	public void remove(int id) {
-		angryReasons.remove(id);
-		revengeTargets.remove(id);
+		Integer key = Integer.valueOf(id);
+		angryReasons.remove(key);
+		revengeTargets.remove(key);
+	}
+
+	@Override
+	public Background copy() {
+		BackgroundImpl backgroundImpl = new BackgroundImpl();
+		backgroundImpl.importantUnmetGoals.addAll(importantUnmetGoals);
+		backgroundImpl.angryReasons.putAll(angryReasons);
+		backgroundImpl.revengeTargets.addAll(revengeTargets);
+		return backgroundImpl;
 	}
 }

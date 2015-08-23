@@ -19,6 +19,7 @@ import java.util.List;
 
 import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.attribute.Background;
+import org.worldgrower.attribute.BackgroundProperty;
 import org.worldgrower.attribute.BooleanProperty;
 import org.worldgrower.attribute.IdListProperty;
 import org.worldgrower.attribute.IdMapProperty;
@@ -146,7 +147,7 @@ public class Constants {
 	public static final StringProperty GENDER = new StringProperty("gender", NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty PREGNANCY = new IntProperty("pregnancy", null, null, NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty SOCIAL = new IntProperty("social", 0, 1000, NOT_NULLABLE, ALL_PROPERTIES);
-	public static final UnCheckedProperty<Background> BACKGROUND = new UnCheckedProperty<Background>("background", ALL_PROPERTIES);
+	public static final BackgroundProperty BACKGROUND = new BackgroundProperty("background", ALL_PROPERTIES);
 	public static final IdProperty ORGANIZATION_LEADER_ID = new IdProperty("leader", ALL_PROPERTIES);
 	public static final KnowledgeMapProperty KNOWLEDGE_MAP = new KnowledgeMapProperty("knowledgeMap", ALL_PROPERTIES);
 	
