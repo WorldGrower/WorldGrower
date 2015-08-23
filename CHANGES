@@ -1,3 +1,11 @@
+v0.0.7
+
+- add DetectPoisonAndDiseaseAction, Lock and unlock spells
+- add debug skill overview
+- improved performance
+- fixed bug when attacking enemies
+- enlarge label size on several screens for larger font size
+
 v0.0.6
 
 - add EnlargeAction, ReduceAction, MendAction, SleepMagicSpellAction, paralyze and inflict wounds action
