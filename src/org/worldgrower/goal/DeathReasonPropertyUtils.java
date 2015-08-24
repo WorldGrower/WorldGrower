@@ -28,4 +28,8 @@ public class DeathReasonPropertyUtils {
 	public static void targetDiesByCondition(DeadlyCondition condition, WorldObject target) {
 		target.setProperty(Constants.DEATH_REASON, target.getProperty(Constants.NAME) + " was " + condition.getDeathDescription());
 	}
+	
+	public static void targetDiesByDrowning(WorldObject target) {
+		target.setProperty(Constants.DEATH_REASON, target.getProperty(Constants.NAME) + " was killed by drowning");
+	}
 }

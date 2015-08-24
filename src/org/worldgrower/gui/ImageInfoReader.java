@@ -66,7 +66,7 @@ public class ImageInfoReader {
         add(ImageIds.GOBLIN, monsters.getSubImage(2, 4, 1, 1));
         add(ImageIds.TRUNK, objects.getSubImage(3, 5, 1, 1));
         add(ImageIds.TREE, objects.getSubImage(6, 4, 2, 2));
-        add(ImageIds.SHACK, objects.getSubImage(5, 0, 2, 2));
+        add(ImageIds.SHACK, tora_vx_02.getSubImage(5, 8, 2, 2));
         addCharacter(ImageIds.FEMALE_COMMONER, sprites, 3, 0, 1, 1);
         add(ImageIds.WELL, objects.getSubImage(0, 11, 2, 2));
         addCharacter(ImageIds.SKELETON, monsters, 0, 0, 1, 1);
@@ -75,6 +75,14 @@ public class ImageInfoReader {
         add(ImageIds.STONE_RESOURCE, pirates.getSubImage(10, 5, 2, 2));
         add(ImageIds.ORE_RESOURCE, pirates.getSubImage(14, 5, 2, 2));
         add(ImageIds.HOUSE, houses.getSubImage(0, 0, 2, 4));
+        add(ImageIds.HOUSE2, houses.getSubImage(2, 0, 2, 4));
+        add(ImageIds.HOUSE3, houses.getSubImage(4, 0, 2, 4));
+        add(ImageIds.HOUSE4, houses.getSubImage(6, 0, 2, 4));
+        add(ImageIds.HOUSE5, houses.getSubImage(8, 0, 2, 4));
+        add(ImageIds.HOUSE6, houses.getSubImage(10, 0, 2, 4));
+        add(ImageIds.HOUSE7, houses.getSubImage(12, 0, 2, 4));
+        add(ImageIds.HOUSE8, houses.getSubImage(14, 0, 2, 4));
+        
         add(ImageIds.SMITH, tileE.getSubImage(2, 8, 1, 2));
         addCharacter(ImageIds.BLUE_HAIRED_COMMONER, sprites, 6, 0, 1, 1);
         addCharacter(ImageIds.TULBAN_MALE_COMMONER, sprites, 9, 0, 1, 1);
@@ -237,6 +245,8 @@ public class ImageInfoReader {
 		addCharacter(ImageIds.FEMALE_3F_3, sprites3f, 3, 4, 1, 1);
 		addCharacter(ImageIds.MALE_3F_4, sprites3f, 6, 4, 1, 1);
 		addCharacter(ImageIds.FEMALE_3F_4, sprites3f, 9, 4, 1, 1);
+		
+		add(ImageIds.WATER_WALK_INDICATOR, sprites420.getSubImage(9, 21, 1, 1));
     }
     
     private void addCharacter(ImageIds imageId, Sprites sprites, int x, int y, int width, int height) {
@@ -249,6 +259,16 @@ public class ImageInfoReader {
     	images.add(sprites.getSubImage(x, y + 1, width, height));
     	images.add(sprites.getSubImage(x, y + 2, width, height));
     	images.add(sprites.getSubImage(x, y + 3, width, height));
+    	
+    	images.add(sprites.getSubImage(x + 1, y, width, height));
+    	images.add(sprites.getSubImage(x + 1, y + 1, width, height));
+    	images.add(sprites.getSubImage(x + 1, y + 2, width, height));
+    	images.add(sprites.getSubImage(x + 1, y + 3, width, height));
+    	
+    	images.add(sprites.getSubImage(x + 2, y, width, height));
+    	images.add(sprites.getSubImage(x + 2, y + 1, width, height));
+    	images.add(sprites.getSubImage(x + 2, y + 2, width, height));
+    	images.add(sprites.getSubImage(x + 2, y + 3, width, height));
     	
     	idToImages.put(imageId, images);
 		
@@ -372,16 +392,20 @@ public class ImageInfoReader {
 	}
 	
    public Image getImage(ImageIds id, LookDirection lookDirection) {
+	   return getImage(id, lookDirection, 0);
+   }
+   
+   public Image getImage(ImageIds id, LookDirection lookDirection, int moveIndex) {
 	   List<Image> images = idToImages.get(id);
 	   
-	   final int index;
+	   int index;
 	   if ((lookDirection != null) && (images.size() > 1)) {
 		   index = lookDirection.ordinal();
 	   } else {
 		   index = 0;
 	   }
+	   index += (moveIndex * 4);
 	   return images.get(index);
-	   
    }
    
    private static class Sprites {

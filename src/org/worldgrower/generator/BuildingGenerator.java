@@ -16,6 +16,7 @@ package org.worldgrower.generator;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import org.worldgrower.Constants;
 import org.worldgrower.World;
@@ -88,14 +89,16 @@ public class BuildingGenerator {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();
 		
+		ImageIds houseImageId = generateHouseImageIds();
+		
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 2);
-		properties.put(Constants.HEIGHT, 4);
+		properties.put(Constants.HEIGHT, 3);
 		properties.put(Constants.SLEEP_COMFORT, (int)(5 * skillBonus));
 		properties.put(Constants.NAME, HOUSE_NAME);
 		properties.put(Constants.ID, id);
-		properties.put(Constants.IMAGE_ID, ImageIds.HOUSE);
+		properties.put(Constants.IMAGE_ID, houseImageId);
 		properties.put(Constants.FLAMMABLE, Boolean.TRUE);
 		properties.put(Constants.CONDITIONS, new Conditions());
 		properties.put(Constants.HIT_POINTS, 200);
@@ -113,6 +116,15 @@ public class BuildingGenerator {
 		return id;
 	}
 	
+	private static ImageIds generateHouseImageIds() {
+		ImageIds[] houseImageIds = { ImageIds.HOUSE, ImageIds.HOUSE2, ImageIds.HOUSE3, ImageIds.HOUSE4, ImageIds.HOUSE5, ImageIds.HOUSE6, ImageIds.HOUSE7, ImageIds.HOUSE8};
+		Random r = new Random();
+		int low = 0;
+		int high = houseImageIds.length - 1;
+		int houseIndex = r.nextInt(high-low) + low;
+		return houseImageIds[houseIndex];
+	}
+
 	public static int generateTrainingDummy(int x, int y, World world, double skillBonus) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();

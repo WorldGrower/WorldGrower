@@ -18,6 +18,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.OnTurn;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.goal.DrownUtils;
 
 public class PlantOnTurn implements OnTurn {
 
@@ -28,5 +29,6 @@ public class PlantOnTurn implements OnTurn {
 		}
 		
 		worldObject.getProperty(Constants.CONDITIONS).onTurn(worldObject, world);
+		DrownUtils.checkForDrowning(worldObject, world);
 	}
 }

@@ -42,6 +42,7 @@ import org.worldgrower.actions.magic.ResearchSpellAction;
 import org.worldgrower.actions.magic.ScribeMagicSpellAction;
 import org.worldgrower.actions.magic.SleepMagicSpellAction;
 import org.worldgrower.actions.magic.UnlockMagicSpellAction;
+import org.worldgrower.actions.magic.WaterWalkAction;
 import org.worldgrower.goal.GatherFoodGoal;
 import org.worldgrower.goal.Goals;
 
@@ -114,6 +115,7 @@ public class Actions {
 	public static final DetectPoisonAndDiseaseAction DETECT_POISON_AND_DISEASE_ACTION = new DetectPoisonAndDiseaseAction();
 	public static final UnlockMagicSpellAction UNLOCK_MAGIC_SPELL_ACTION = new UnlockMagicSpellAction();
 	public static final LockMagicSpellAction LOCK_MAGIC_SPELL_ACTION = new LockMagicSpellAction();
+	public static final WaterWalkAction WATER_WALK_ACTION = new WaterWalkAction();
 	
 	public static final BuildLibraryAction BUILD_LIBRARY_ACTION = new BuildLibraryAction();
 	public static final ResearchRestorationSkillAction RESEARCH_RESTORATION_SKILL_ACTION = new ResearchRestorationSkillAction();
@@ -170,7 +172,8 @@ public class Actions {
 			PARALYZE_SPELL_ACTION,
 			DETECT_POISON_AND_DISEASE_ACTION,
 			UNLOCK_MAGIC_SPELL_ACTION,
-			LOCK_MAGIC_SPELL_ACTION);
+			LOCK_MAGIC_SPELL_ACTION,
+			WATER_WALK_ACTION);
 	
 	public static final List<ManagedOperation> ALL_ACTIONS = new ArrayList<>(Arrays.asList(
 		MOVE_ACTION,

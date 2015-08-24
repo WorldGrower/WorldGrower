@@ -154,6 +154,7 @@ public class Main {
 
 	private static WorldObject createPlayerCharacter(int id, String playerName, String playerProfession, World world, CommonerGenerator commonerGenerator, WorldObject organization, CharacterAttributes characterAttributes) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		
 		properties.put(Constants.X, 5);
 		properties.put(Constants.Y, 5);
 		properties.put(Constants.WIDTH, 1);

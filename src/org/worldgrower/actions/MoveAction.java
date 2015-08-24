@@ -24,6 +24,8 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.LookDirection;
+import org.worldgrower.condition.Condition;
+import org.worldgrower.terrain.TerrainType;
 
 public class MoveAction implements ManagedOperation {
 
@@ -67,8 +69,18 @@ public class MoveAction implements ManagedOperation {
 		if ((newX < 0) || (newY < 0) || (newX >= world.getWidth()) || (newY >= world.getHeight())) {
 			return 1;
 		} else {
-			List<WorldObject> actors = world.findWorldObjects(new CreaturePositionCondition(performer.getProperty(Constants.Y) + args[1], performer.getProperty(Constants.X) + args[0]));
-			return actors.size();
+			TerrainType terrainType = world.getTerrain().getTerrainInfo(newX, newY).getTerrainType();
+			boolean hasWaterWalkCondition = performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.WATER_WALK_CONDITION);
+			if (terrainType == TerrainType.WATER) {
+				if (hasWaterWalkCondition) {
+					return 0;
+				} else {
+					return 1;
+				}
+			} else {
+				List<WorldObject> actors = world.findWorldObjects(new CreaturePositionCondition(performer.getProperty(Constants.Y) + args[1], performer.getProperty(Constants.X) + args[0]));
+				return actors.size();
+			}
 		}
 	}
 	

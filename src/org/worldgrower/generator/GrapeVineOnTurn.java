@@ -18,11 +18,13 @@ import org.worldgrower.Constants;
 import org.worldgrower.OnTurn;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.goal.DrownUtils;
 
 public class GrapeVineOnTurn implements OnTurn {
 
 	@Override
 	public void onTurn(WorldObject worldObject, World world) {
 		worldObject.increment(Constants.GRAPE_SOURCE, 10);
+		DrownUtils.checkForDrowning(worldObject, world);
 	}
 }

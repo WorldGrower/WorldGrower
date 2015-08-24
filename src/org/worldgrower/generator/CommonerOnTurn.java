@@ -19,6 +19,7 @@ import org.worldgrower.OnTurn;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.Background;
+import org.worldgrower.goal.DrownUtils;
 import org.worldgrower.goal.GoalUtils;
 
 public class CommonerOnTurn implements OnTurn {
@@ -47,6 +48,8 @@ public class CommonerOnTurn implements OnTurn {
 		if (background != null) {
 			background.checkForNewGoals(worldObject, world);
 		}
+		
+		DrownUtils.checkForDrowning(worldObject, world);
 		
 		Integer pregnancy = worldObject.getProperty(Constants.PREGNANCY);
 		if (pregnancy != null) {

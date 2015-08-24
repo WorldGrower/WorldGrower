@@ -48,6 +48,10 @@ public class PlantGenerator {
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.BUSH);
 		properties.put(Constants.FOOD_SOURCE, 1);
+		properties.put(Constants.HIT_POINTS, 15);
+		properties.put(Constants.HIT_POINTS_MAX, 15);
+		properties.put(Constants.ARMOR, 0);
+		properties.put(Constants.DAMAGE_RESIST, 0);
 		properties.put(Constants.NAME, "berry bush");
 		WorldObject berryBush = new WorldObjectImpl(properties, new BerryBushOnTurn());
 		world.addWorldObject(berryBush);
@@ -66,6 +70,10 @@ public class PlantGenerator {
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.GRAPE_VINE);
 		properties.put(Constants.GRAPE_SOURCE, 1);
+		properties.put(Constants.HIT_POINTS, 15);
+		properties.put(Constants.HIT_POINTS_MAX, 15);
+		properties.put(Constants.ARMOR, 0);
+		properties.put(Constants.DAMAGE_RESIST, 0);
 		properties.put(Constants.NAME, "grape vine");
 		WorldObject berryBush = new WorldObjectImpl(properties, new GrapeVineOnTurn());
 		world.addWorldObject(berryBush);
@@ -84,6 +92,10 @@ public class PlantGenerator {
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.NIGHT_SHADE_PLANT);
 		properties.put(Constants.NIGHT_SHADE_SOURCE, 1);
+		properties.put(Constants.HIT_POINTS, 15);
+		properties.put(Constants.HIT_POINTS_MAX, 15);
+		properties.put(Constants.ARMOR, 0);
+		properties.put(Constants.DAMAGE_RESIST, 0);
 		properties.put(Constants.NAME, "nightshade");
 		WorldObject nightshadePlant = new WorldObjectImpl(properties, new NightShadeOnTurn());
 		world.addWorldObject(nightshadePlant);
@@ -163,6 +175,10 @@ public class PlantGenerator {
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.COTTON_PLANT);
 		properties.put(Constants.COTTON_SOURCE, 1);
+		properties.put(Constants.HIT_POINTS, 15);
+		properties.put(Constants.HIT_POINTS_MAX, 15);
+		properties.put(Constants.ARMOR, 0);
+		properties.put(Constants.DAMAGE_RESIST, 0);
 		properties.put(Constants.NAME, "cotton plant");
 		WorldObject cottonPlant = new WorldObjectImpl(properties, new CottonPlantOnTurn());
 		world.addWorldObject(cottonPlant);

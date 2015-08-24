@@ -40,7 +40,9 @@ public class TerrainImpl implements Terrain, Serializable {
 		for(int x=0; x<width; x++) {
 			for(int y=0; y<height; y++) {
 				double terrainHeight = heights[counter++];
-				if (terrainHeight < 0.5f) {
+				if (terrainHeight < 0.1f) {
+					terrainInfos[x][y] = new TerrainInfo(TerrainType.WATER);
+				} else if (terrainHeight < 0.5f) {
 					terrainInfos[x][y] = new TerrainInfo(TerrainType.GRASLAND);
 				} else if (terrainHeight < 0.75f){
 					terrainInfos[x][y] = new TerrainInfo(TerrainType.PLAINS);

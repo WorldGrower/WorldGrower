@@ -15,6 +15,7 @@
 package org.worldgrower.gui;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.AbstractAction;
 
@@ -42,6 +43,16 @@ public class GuiMoveAction extends AbstractAction {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Main.executeAction(playerCharacter, playerCharacter.getOperation(Actions.MOVE_ACTION), args, world, dungeonMaster, playerCharacter, container);
+		if (Main.canActionExecute(playerCharacter, playerCharacter.getOperation(Actions.MOVE_ACTION), args, world, playerCharacter)) {
+			container.movePlayerCharacter(args, new ActionListener() {
+	
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					Main.executeAction(playerCharacter, playerCharacter.getOperation(Actions.MOVE_ACTION), args, world, dungeonMaster, playerCharacter, container);
+					
+				}
+				
+			});
+		}		
 	}
 }

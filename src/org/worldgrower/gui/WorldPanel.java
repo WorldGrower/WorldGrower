@@ -21,11 +21,13 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.MouseInfo;
 import java.awt.Point;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.event.MouseMotionListener;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JComponent;
@@ -67,6 +69,8 @@ public class WorldPanel extends JPanel {
 	private BuildModeOutline buildModeOutline = new BuildModeOutline();
 	private MouseMotionListener mouseMotionListener;
 	
+	private MoveMode moveMode = new MoveMode();
+	
     public WorldPanel(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster) throws IOException {
         super(new BorderLayout());
 
@@ -80,36 +84,7 @@ public class WorldPanel extends JPanel {
         this.setMinimumSize(new Dimension(width, height));
         this.setPreferredSize(new Dimension(width, height));
         
-        getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "Cancel");
-        getActionMap().put("Cancel", new ShowStartScreenAction(world));
-        
-        getInputMap().put(KeyStroke.getKeyStroke("UP"), "up");
-        getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD8, 0), "up");
-        getActionMap().put("up", new GuiMoveAction(new int[] { 0,  -1 }, playerCharacter, world, dungeonMaster, this));
-        
-        getInputMap().put(KeyStroke.getKeyStroke("DOWN"), "down");
-        getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD2, 0), "down");
-        getActionMap().put("down", new GuiMoveAction(new int[] { 0,  1 }, playerCharacter, world, dungeonMaster, this));
-        
-        getInputMap().put(KeyStroke.getKeyStroke("LEFT"), "left");
-        getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD4, 0), "left");
-        getActionMap().put("left", new GuiMoveAction(new int[] { -1,  0 }, playerCharacter, world, dungeonMaster, this));
-        
-        getInputMap().put(KeyStroke.getKeyStroke("RIGHT"), "right");
-        getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD6, 0), "right");
-        getActionMap().put("right", new GuiMoveAction(new int[] { 1,  0 }, playerCharacter, world, dungeonMaster, this));
-
-        getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD7, 0), "7");
-        getActionMap().put("7", new GuiMoveAction(new int[] { -1,  -1 }, playerCharacter, world, dungeonMaster, this));
-        
-        getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD9, 0), "9");
-        getActionMap().put("9", new GuiMoveAction(new int[] { 1,  -1 }, playerCharacter, world, dungeonMaster, this));
-
-        getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD1, 0), "1");
-        getActionMap().put("1", new GuiMoveAction(new int[] { -1,  1 }, playerCharacter, world, dungeonMaster, this));
-        
-        getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD3, 0), "3");
-        getActionMap().put("3", new GuiMoveAction(new int[] { 1,  1 }, playerCharacter, world, dungeonMaster, this));
+        initializeKeyBindings(playerCharacter, world, dungeonMaster);
         
         JPanel infoPanel = new JPanel(new BorderLayout());
         infoPanel.setBackground(Color.RED);
@@ -179,6 +154,39 @@ public class WorldPanel extends JPanel {
         this.playerCharacter = playerCharacter;
         this.world = world;
     }
+
+	private void initializeKeyBindings(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster) {
+		getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "Cancel");
+        getActionMap().put("Cancel", new ShowStartScreenAction(world));
+        
+        getInputMap().put(KeyStroke.getKeyStroke("UP"), "up");
+        getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD8, 0), "up");
+        getActionMap().put("up", new GuiMoveAction(new int[] { 0,  -1 }, playerCharacter, world, dungeonMaster, this));
+        
+        getInputMap().put(KeyStroke.getKeyStroke("DOWN"), "down");
+        getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD2, 0), "down");
+        getActionMap().put("down", new GuiMoveAction(new int[] { 0,  1 }, playerCharacter, world, dungeonMaster, this));
+        
+        getInputMap().put(KeyStroke.getKeyStroke("LEFT"), "left");
+        getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD4, 0), "left");
+        getActionMap().put("left", new GuiMoveAction(new int[] { -1,  0 }, playerCharacter, world, dungeonMaster, this));
+        
+        getInputMap().put(KeyStroke.getKeyStroke("RIGHT"), "right");
+        getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD6, 0), "right");
+        getActionMap().put("right", new GuiMoveAction(new int[] { 1,  0 }, playerCharacter, world, dungeonMaster, this));
+
+        getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD7, 0), "7");
+        getActionMap().put("7", new GuiMoveAction(new int[] { -1,  -1 }, playerCharacter, world, dungeonMaster, this));
+        
+        getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD9, 0), "9");
+        getActionMap().put("9", new GuiMoveAction(new int[] { 1,  -1 }, playerCharacter, world, dungeonMaster, this));
+
+        getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD1, 0), "1");
+        getActionMap().put("1", new GuiMoveAction(new int[] { -1,  1 }, playerCharacter, world, dungeonMaster, this));
+        
+        getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD3, 0), "3");
+        getActionMap().put("3", new GuiMoveAction(new int[] { 1,  1 }, playerCharacter, world, dungeonMaster, this));
+	}
     
     private class MessageManagedOperationListener implements ManagedOperationListener {
 
@@ -207,7 +215,7 @@ public class WorldPanel extends JPanel {
 		}
         
 		List<WorldObject> worldObjects = world.getWorldObjects();
-		for(WorldObject worldObject : worldObjects) {
+		for(WorldObject worldObject : new ArrayList<>(worldObjects)) {
 			ImageIds id = getImageId(worldObject);
 			LookDirection lookDirection = getLookDirection(worldObject);
     		Image image = imageInfoReader.getImage(id, lookDirection);
@@ -215,14 +223,11 @@ public class WorldPanel extends JPanel {
 			int x = worldObject.getProperty(Constants.X);
 			int y = worldObject.getProperty(Constants.Y);
 			
-			if (world.getTerrain().isExplored(x, y) && isWorldObjectVisible(worldObject)) {
-				image = changeSize(worldObject, image);
-				g.drawImage(image, (x+offsetX) * 48, (y+offsetY) * 48, null);
-				
-				ImageIds overlayingImageId = getOverlayingImageId(worldObject);
-				if (overlayingImageId != null) {
-					Image overlayingImage = imageInfoReader.getImage(overlayingImageId, lookDirection);
-					g.drawImage(overlayingImage, (x+offsetX) * 48, (y+offsetY) * 48, null);
+			if (worldObject.getProperty(Constants.ID) == 0) {
+				moveMode.drawPlayerCharacter(g, this, worldObject, imageInfoReader);
+			} else {
+				if (world.getTerrain().isExplored(x, y) && isWorldObjectVisible(worldObject)) {
+					drawWorldObject(g, worldObject, lookDirection, image, x, y);
 				}
 			}
 		}
@@ -233,6 +238,21 @@ public class WorldPanel extends JPanel {
 		energyProgressBar.setValue(playerCharacter.getProperty(Constants.ENERGY));
 		buildModeOutline.repaintBuildMode(g, getMouseLocation(), offsetX, offsetY, playerCharacter, world);
     }
+
+	private void drawWorldObject(Graphics g, WorldObject worldObject, LookDirection lookDirection, Image image, int x, int y) {
+		drawWorldObjectInPixels(g, worldObject, lookDirection, image, x, y, 0, 0);
+	}
+	
+	public void drawWorldObjectInPixels(Graphics g, WorldObject worldObject, LookDirection lookDirection, Image image, int xInSquares, int yInSquares, int xDeltaInPixels, int yDeltaInPixels) {
+		image = changeSize(worldObject, image);
+		g.drawImage(image, (xInSquares+offsetX) * 48 + xDeltaInPixels, (yInSquares+offsetY) * 48 + yDeltaInPixels, null);
+		
+		ImageIds overlayingImageId = getOverlayingImageId(worldObject);
+		if (overlayingImageId != null) {
+			Image overlayingImage = imageInfoReader.getImage(overlayingImageId, lookDirection);
+			g.drawImage(overlayingImage, (xInSquares+offsetX) * 48 + xDeltaInPixels, (yInSquares+offsetY) * 48 + yDeltaInPixels, null);
+		}
+	}
 
 	private Image changeSize(WorldObject worldObject, Image image) {
 		if (hasCondition(worldObject, Condition.ENLARGED_CONDITION)) {
@@ -268,7 +288,7 @@ public class WorldPanel extends JPanel {
 		}
 	}
 
-	private ImageIds getImageId(WorldObject worldObject) {
+	ImageIds getImageId(WorldObject worldObject) {
 		WorldObject facade = worldObject.getProperty(Constants.FACADE);
 		if (worldObject.hasProperty(Constants.CONDITIONS) && worldObject.getProperty(Constants.CONDITIONS).hasCondition(Condition.COCOONED_CONDITION)) {
 			return ImageIds.COCOON;
@@ -290,6 +310,8 @@ public class WorldPanel extends JPanel {
     		return ImageIds.SLEEPING_INDICATOR;
     	} else if (hasCondition(worldObject, Condition.PARALYZED_CONDITION)) {
     		return ImageIds.PARALYZED_INDICATOR;
+    	} else if (hasCondition(worldObject, Condition.WATER_WALK_CONDITION)) {
+    		return ImageIds.WATER_WALK_INDICATOR;    		
     	} else {
     		return null;
     	}
@@ -299,7 +321,7 @@ public class WorldPanel extends JPanel {
 		return worldObject.hasProperty(Constants.CONDITIONS) && worldObject.getProperty(Constants.CONDITIONS).hasCondition(condition);
 	}
     
-	private LookDirection getLookDirection(WorldObject worldObject) {
+	LookDirection getLookDirection(WorldObject worldObject) {
 		if (worldObject.hasProperty(Constants.LOOK_DIRECTION)) {
 			return worldObject.getProperty(Constants.LOOK_DIRECTION);
 		} else {
@@ -333,6 +355,9 @@ public class WorldPanel extends JPanel {
 		if (terrain.isExplored(x, y)) {
 			TerrainType terrainType = terrain.getTerrainInfo(x, y).getTerrainType();
 			switch(terrainType) {
+				case WATER:
+					backgroundColor = new Color(0, 0, 100);
+					break;
 				case GRASLAND:
 					backgroundColor = new Color(110, 196, 88);
 					break;
@@ -409,5 +434,13 @@ public class WorldPanel extends JPanel {
 		if ((xInView < 48) || (xInView > this.getWidth() - 48) || (yInView < 48) || (yInView > this.getHeight() - 96)) {
 			centerOffsetsOn(x+offsetX, y+offsetY);
 		}
+	}
+
+	public void movePlayerCharacter(int[] args, ActionListener guiMoveAction) {
+		moveMode.startMove(this, args, guiMoveAction);
+	}
+
+	public void repaintAround(int x, int y) {
+		WorldPanel.this.repaint((x + offsetX) * 48 - 48, (y + offsetY) * 48 - 48, 48 * 3, 48 * 3);
 	}
 }

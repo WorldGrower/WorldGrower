@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.AbstractAction;
+import javax.swing.SwingUtilities;
 
 import org.worldgrower.Constants;
 import org.worldgrower.DungeonMaster;
@@ -57,14 +58,22 @@ public class GuiAskQuestionAction extends AbstractAction implements Answerer {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		ImageIds imageIdPerformer = playerCharacter.getProperty(Constants.IMAGE_ID);
-		ImageIds imageIdTarget = target.getProperty(Constants.IMAGE_ID);
+		final ImageIds imageIdPerformer = playerCharacter.getProperty(Constants.IMAGE_ID);
+		final ImageIds imageIdTarget = target.getProperty(Constants.IMAGE_ID);
 		
-		Map<Integer, ImageIds> subjectImageIds = createSubjectImageIdsMap();
+		final Map<Integer, ImageIds> subjectImageIds = createSubjectImageIdsMap();
 		
-		dialog = new AskQuestionDialog(this, conversations, imageIdPerformer, imageIdTarget, subjectImageIds, imageInfoReader);
-		world.addListener(dialog);
-		dialog.showMe();
+		
+		SwingUtilities.invokeLater(new Runnable() {
+			
+			@Override
+			public void run() {
+				dialog = new AskQuestionDialog(GuiAskQuestionAction.this, conversations, imageIdPerformer, imageIdTarget, subjectImageIds, imageInfoReader);
+				world.addListener(dialog);
+				dialog.showMe();
+				
+			}
+		});
 	}
 
 	private Map<Integer, ImageIds> createSubjectImageIdsMap() {

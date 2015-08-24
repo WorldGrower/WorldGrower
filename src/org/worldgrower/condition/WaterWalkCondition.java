@@ -12,19 +12,43 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.generator;
+package org.worldgrower.condition;
 
-import org.worldgrower.Constants;
-import org.worldgrower.OnTurn;
+import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.goal.DrownUtils;
 
-public class NightShadeOnTurn implements OnTurn {
+public class WaterWalkCondition implements Condition {
 
 	@Override
-	public void onTurn(WorldObject worldObject, World world) {
-		worldObject.increment(Constants.NIGHT_SHADE_SOURCE, 1);
-		DrownUtils.checkForDrowning(worldObject, world);
+	public boolean canTakeAction() {
+		return true;
+	}
+
+	@Override
+	public boolean canMove() {
+		return true;
+	}
+
+	@Override
+	public String getDescription() {
+		return "able to walk on water";
+	}
+
+	@Override
+	public void onTurn(WorldObject worldObject, World world, int startTurn) {
+	}
+	
+	@Override
+	public boolean isDisease() {
+		return false;
+	}
+
+	@Override
+	public void conditionEnds(WorldObject worldObject) {
+	}
+	
+	@Override
+	public void perform(WorldObject performer, WorldObject target, int[] args, ManagedOperation managedOperation, World world) {
 	}
 }
