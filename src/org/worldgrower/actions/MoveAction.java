@@ -25,6 +25,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.LookDirection;
 import org.worldgrower.condition.Condition;
+import org.worldgrower.goal.LocationUtils;
 import org.worldgrower.terrain.TerrainType;
 
 public class MoveAction implements ManagedOperation {
@@ -66,7 +67,7 @@ public class MoveAction implements ManagedOperation {
 		int newX = performerX + args[0];
 		int newY = performerY + args[1];
 		
-		if ((newX < 0) || (newY < 0) || (newX >= world.getWidth()) || (newY >= world.getHeight())) {
+		if (LocationUtils.areInvalidCoordinates(newX, newY, world)) {
 			return 1;
 		} else {
 			TerrainType terrainType = world.getTerrain().getTerrainInfo(newX, newY).getTerrainType();
@@ -83,7 +84,7 @@ public class MoveAction implements ManagedOperation {
 			}
 		}
 	}
-	
+
 	@Override
 	public ArgumentRange[] getArgumentRanges() {
 		ArgumentRange[] argumentRanges = new ArgumentRange[2];

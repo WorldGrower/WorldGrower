@@ -27,15 +27,17 @@ public class DrownUtils {
 		int x = worldObject.getProperty(Constants.X);
 		int y = worldObject.getProperty(Constants.Y);
 		
-		TerrainType terrainType = world.getTerrain().getTerrainInfo(x, y).getTerrainType();
-		if (terrainType == TerrainType.WATER) {
-			Conditions conditions = worldObject.getProperty(Constants.CONDITIONS);
-			boolean hasWaterWalkCondition = conditions != null ? conditions.hasCondition(Condition.WATER_WALK_CONDITION) : false;
-			if (!hasWaterWalkCondition) {
-				worldObject.increment(Constants.HIT_POINTS, -5);
-				if (worldObject.getProperty(Constants.HIT_POINTS) == 0) {
-					if (worldObject.hasProperty(Constants.CONDITIONS)) {
-						DeathReasonPropertyUtils.targetDiesByDrowning(worldObject);
+		if (!LocationUtils.areInvalidCoordinates(x, y, world)) {
+			TerrainType terrainType = world.getTerrain().getTerrainInfo(x, y).getTerrainType();
+			if (terrainType == TerrainType.WATER) {
+				Conditions conditions = worldObject.getProperty(Constants.CONDITIONS);
+				boolean hasWaterWalkCondition = conditions != null ? conditions.hasCondition(Condition.WATER_WALK_CONDITION) : false;
+				if (!hasWaterWalkCondition) {
+					worldObject.increment(Constants.HIT_POINTS, -5);
+					if (worldObject.getProperty(Constants.HIT_POINTS) == 0) {
+						if (worldObject.hasProperty(Constants.CONDITIONS)) {
+							DeathReasonPropertyUtils.targetDiesByDrowning(worldObject);
+						}
 					}
 				}
 			}

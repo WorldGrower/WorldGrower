@@ -18,6 +18,7 @@ import java.util.List;
 
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
+import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
@@ -41,10 +42,20 @@ public class DrinkWaterGoal implements Goal {
 					return new WoodGoal().calculateGoal(performer, world);
 				} else {
 					WorldObject targetLocation = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 2, 2, world);
-					return new OperationInfo(performer, targetLocation, new int[0], Actions.BUILD_WELL_ACTION);
+					List<WorldObject> existingWells = getExistingWellsNearTargetLocation(targetLocation, world);
+					if (existingWells.size() > 0) {
+						return new OperationInfo(performer, existingWells.get(0), new int[0], Actions.DRINK_ACTION);
+					} else {
+						return new OperationInfo(performer, targetLocation, new int[0], Actions.BUILD_WELL_ACTION);
+					}
 				}
 			}
 		}
+	}
+	
+	private List<WorldObject> getExistingWellsNearTargetLocation(WorldObject targetLocation, World world) {
+		List<WorldObject> existingWells = world.findWorldObjects(w -> w.hasProperty(Constants.WATER_SOURCE) && Reach.distance(targetLocation, w) < 10);
+		return existingWells;
 	}
 	
 	@Override
