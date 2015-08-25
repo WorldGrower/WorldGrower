@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<shortcuts>
+  <!-- <skipIfNotSupported/>  -->
+  <shortcut
+    name="WorldGrower"
+    target="$INSTALL_PATH\release\worldgrower.cmd"
+    workingDirectory="$INSTALL_PATH\release"
+    commandLine=""
+    description="starts WorldGrower"
+    initialState="normal"
+    programGroup="no"
+    desktop="yes"
+    applications="no"
+    startMenu="no"
+    startup="no">
+  </shortcut>
+</shortcuts>

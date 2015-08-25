@@ -16,7 +16,6 @@ package org.worldgrower.generator;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 import org.worldgrower.Constants;
 import org.worldgrower.World;
@@ -63,7 +62,7 @@ public class BuildingGenerator {
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 2);
-		properties.put(Constants.HEIGHT, 2);
+		properties.put(Constants.HEIGHT, 3);
 		properties.put(Constants.SLEEP_COMFORT, (int)(3 * skillBonus));
 		properties.put(Constants.NAME, SHACK_NAME);
 		properties.put(Constants.ID, id);
@@ -93,7 +92,7 @@ public class BuildingGenerator {
 		
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
-		properties.put(Constants.WIDTH, 2);
+		properties.put(Constants.WIDTH, 3);
 		properties.put(Constants.HEIGHT, 3);
 		properties.put(Constants.SLEEP_COMFORT, (int)(5 * skillBonus));
 		properties.put(Constants.NAME, HOUSE_NAME);
@@ -117,12 +116,7 @@ public class BuildingGenerator {
 	}
 	
 	private static ImageIds generateHouseImageIds() {
-		ImageIds[] houseImageIds = { ImageIds.HOUSE, ImageIds.HOUSE2, ImageIds.HOUSE3, ImageIds.HOUSE4, ImageIds.HOUSE5, ImageIds.HOUSE6, ImageIds.HOUSE7, ImageIds.HOUSE8};
-		Random r = new Random();
-		int low = 0;
-		int high = houseImageIds.length - 1;
-		int houseIndex = r.nextInt(high-low) + low;
-		return houseImageIds[houseIndex];
+		return ImageIds.HOUSE6;
 	}
 
 	public static int generateTrainingDummy(int x, int y, World world, double skillBonus) {

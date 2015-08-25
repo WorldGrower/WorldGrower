@@ -178,4 +178,8 @@ public enum ImageIds {
 	HOUSE6,
 	HOUSE7,
 	HOUSE8,
+	DOOR,
+	STONE_DOOR,
+	WINDOW,
+	STONE_WINDOW
 }

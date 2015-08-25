@@ -28,7 +28,7 @@ public class ShackGoal implements Goal {
 		if (!BuildShackAction.hasEnoughWood(performer)) {
 			return new WoodGoal().calculateGoal(performer, world);
 		} else {
-			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 3, 3, world);
+			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 3, 4, world);
 			return new OperationInfo(performer, target, new int[0], Actions.BUILD_SHACK_ACTION);
 		}
 	}

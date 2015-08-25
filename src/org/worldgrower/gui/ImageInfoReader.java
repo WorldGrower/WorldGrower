@@ -14,6 +14,7 @@
  *******************************************************************************/
 package org.worldgrower.gui;
 
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -50,6 +51,7 @@ public class ImageInfoReader {
     	Sprites pirates = readPirates();
     	Sprites houses = readHouses();
     	Sprites tileB = readTileB();
+    	Sprites tileC = readTileC();
     	Sprites tileE = readTileE();
     	Sprites statues = readStatues();
     	Sprites rat = readRat();
@@ -66,7 +68,7 @@ public class ImageInfoReader {
         add(ImageIds.GOBLIN, monsters.getSubImage(2, 4, 1, 1));
         add(ImageIds.TRUNK, objects.getSubImage(3, 5, 1, 1));
         add(ImageIds.TREE, objects.getSubImage(6, 4, 2, 2));
-        add(ImageIds.SHACK, tora_vx_02.getSubImage(5, 8, 2, 2));
+        add(ImageIds.SHACK, houses.getSubImage(12, 0, 2, 4));
         addCharacter(ImageIds.FEMALE_COMMONER, sprites, 3, 0, 1, 1);
         add(ImageIds.WELL, objects.getSubImage(0, 11, 2, 2));
         addCharacter(ImageIds.SKELETON, monsters, 0, 0, 1, 1);
@@ -247,6 +249,52 @@ public class ImageInfoReader {
 		addCharacter(ImageIds.FEMALE_3F_4, sprites3f, 9, 4, 1, 1);
 		
 		add(ImageIds.WATER_WALK_INDICATOR, sprites420.getSubImage(9, 21, 1, 1));
+		add(ImageIds.DOOR, tileC.getSubImage(12, 6, 1, 2));
+		add(ImageIds.STONE_DOOR, tileC.getSubImage(12, 2, 1, 2));
+		add(ImageIds.WINDOW, tileC.getSubImage(14, 6, 1, 1));
+		add(ImageIds.STONE_WINDOW, tileC.getSubImage(13, 2, 1, 2));
+		
+		addDoorToHouse(ImageIds.SHACK);
+		
+		addDoorToHouse(ImageIds.HOUSE);
+		addDoorToHouse(ImageIds.HOUSE2);
+		addDoorToHouse(ImageIds.HOUSE3);
+		addDoorToHouse(ImageIds.HOUSE4);
+		addDoorToHouse(ImageIds.HOUSE5);
+		//addDoorToHouse(ImageIds.HOUSE6);
+		addDoorToHouse(ImageIds.HOUSE7);
+		addDoorToHouse(ImageIds.HOUSE8);
+		
+		Image houseImage = idToImages.get(ImageIds.HOUSE6).get(0);
+		BufferedImage off_Image = new BufferedImage(houseImage.getWidth(null) * 2, houseImage.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g2 = (Graphics2D) off_Image.getGraphics();
+		g2.drawImage(houseImage, houseImage.getWidth(null), 0, null);
+		g2.drawImage(houseImage, 0, 0, null);
+		addStoneDoorToHouse(g2);
+		addStoneWindowToHouse(g2);
+		g2.dispose();
+		idToImages.put(ImageIds.HOUSE6, Arrays.asList(off_Image));
+    }
+    
+    private void addDoorToHouse(ImageIds houseId) {
+		addDoorToHouse(idToImages.get(houseId).get(0));
+    }
+    
+    private void addDoorToHouse(Image houseImage) {
+    	Graphics2D g2 = (Graphics2D) houseImage.getGraphics();
+		Image doorImage =  idToImages.get(ImageIds.DOOR).get(0);
+		g2.drawImage(doorImage, 16, 82, null);
+		g2.dispose();
+    }
+    
+    private void addStoneWindowToHouse(Graphics2D g2) {
+		Image windowImage =  idToImages.get(ImageIds.STONE_WINDOW).get(0);
+		g2.drawImage(windowImage, 82, 62, null);
+    }
+    
+    private void addStoneDoorToHouse(Graphics2D g2) {
+		Image doorImage =  idToImages.get(ImageIds.STONE_DOOR).get(0);
+		g2.drawImage(doorImage, 16, 82, null);
     }
     
     private void addCharacter(ImageIds imageId, Sprites sprites, int x, int y, int width, int height) {
@@ -352,6 +400,10 @@ public class ImageInfoReader {
 
 	private static Sprites readTileB() throws IOException {
 		return readImages("tileb.png", 32, 32, 16, 16);
+	}
+	
+	private static Sprites readTileC() throws IOException {
+		return readImages("tilec.png", 32, 32, 16, 16);
 	}
 	
 	private static Sprites readTileE() throws IOException {

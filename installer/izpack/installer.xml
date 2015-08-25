@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+
+        <installation version="1.0">
+          <!-- Ant properties in this file can be referenced with @{},
+               otherwise use variables below in installer files with ${} -->
+          <info>
+            <appname>WorldGrower</appname>
+            <appversion>0.0.8</appversion>
+            <javaversion>1.8</javaversion>
+            <uninstaller name="remove.task" path="${INSTALL_PATH}/Uninstall" write="yes"/>
+          </info>
+
+          <guiprefs width="600" height="480" resizable="no">
+            <laf name="kunststoff">
+              <os family="unix" />
+            </laf>
+            <modifier key="useHeadingPanel" value="yes"/>
+            <modifier key="useHeadingForSummary" value="yes"/>
+			<modifier key="headingImageOnLeft" value="yes"/>
+            <modifier key="headingLineCount" value="2"/>
+            <modifier key="headingFontSize" value="1.5"/>
+            <modifier key="headingBackgroundColor" value="0x00ffffff"/>
+            <modifier key="headingPanelCounter" value="text"/>
+            <modifier key="headingPanelCounterPos" value="inHeading"/>
+          </guiprefs>
+
+          <locale>
+            <langpack iso3="eng"/>
+          </locale>
+
+          <!-- Need to define ant properties we want to use during install as variables -->
+          <variables>
+            <variable name="app.name" value="@{app.name}"/>
+            <variable name="DesktopShortcutCheckboxEnabled" value="true" />
+          </variables>
+
+
+          <resources>
+			<res src="../../installer/izpack/win_shortcut_specification.xml" id="shortcutSpec.xml"/>
+			<res src="../../installer/izpack/win_shortcut_specification.xml" id="WinshortcutSpec.xml"/>
+			<res src="../../installer/izpack/unix_shortcut_specification.xml" id="Unix_shortcutSpec.xml"/>
+          </resources>
+
+          <panels>
+            <panel classname="TargetPanel"/>
+            <panel classname="ShortcutPanel"/>
+            <panel classname="SummaryPanel"/>
+            <panel classname="InstallPanel"/>
+            <panel classname="SimpleFinishPanel"/>
+          </panels>
+
+          <listeners>
+              <listener installer="SummaryLoggerInstallerListener">
+                  <os family="windows"/>
+              </listener>
+          </listeners>
+
+ 		<packs>
+            <pack name="Main Application" required="yes" installGroups="New Application" >
+              <description>The first application deployed in a new JBoss application server.</description>
+              <file src="../release" targetdir="$INSTALL_PATH"/>
+            </pack>
+          </packs>
+
+          <!-- The native libraries to add. This is required for creating shortcuts on Windows -->
+          <native type="izpack" name="ShellLink.dll"/>
+          <native type="izpack" name="ShellLink_x64.dll" />
+
+        </installation>

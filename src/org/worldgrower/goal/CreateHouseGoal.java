@@ -28,7 +28,7 @@ public class CreateHouseGoal implements Goal {
 		if (!BuildHouseAction.hasEnoughStone(performer)) {
 			return new StoneGoal().calculateGoal(performer, world);
 		} else {
-			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 3, 4, world);
+			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 4, 4, world);
 			if (target != null) {
 				return new OperationInfo(performer, target, new int[0], Actions.BUILD_HOUSE_ACTION);
 			} else {

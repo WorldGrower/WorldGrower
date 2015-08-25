@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+
+<shortcuts>
+
+   <shortcut
+     name="WorldGrower"
+     programGroup="no"
+     desktop="yes"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     target="konqueror"
+     workingDirectory=""
+     commandLine=""
+     initialState="noShow"
+     iconFile="help"
+     iconIndex="0"
+     url="$INSTALL_PATH/release/worldgrower.sh"
+     type="Link"
+     encoding="UTF-8"
+     description="WorldGrower">
+   </shortcut>
+
+</shortcuts>

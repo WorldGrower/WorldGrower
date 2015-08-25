@@ -1,7 +1,17 @@
 apply plugin: 'java'
 
+configurations {
+    izpackconf
+}
+
+dependencies {
+        izpackconf group: 'org.codehaus.izpack', name:'izpack-standalone-compiler', version: '4.3.4'
+        izpackconf group: 'org.codehaus.izpack', name:'izpack-ant', version: '5.0.3'
+    }
+
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
+// for now, also change version in installer.xml
 version = '0.0.8'
 archivesBaseName = 'worldgrower'
 
@@ -64,4 +74,24 @@ task zipRelease(type: Zip) {
 	from 'build/release'
 }
 
-release.finalizedBy zipRelease
+task izpack() << {
+	new File('build/izpacktemp').mkdir();
+	new File('build/distributions').mkdir();
+
+    ant.taskdef(name: 'izpackAnt',
+                classname: 'com.izforge.izpack.ant.IzPackTask',
+                classpath: configurations.izpackconf.asPath)
+	
+	//ant.properties['product.version'] = version
+                
+    ant.izpackAnt(
+    	input: 'installer/izpack/installer.xml',
+        output: 'build/distributions/worldgrower-'+version+'-install.jar',
+        installerType: 'standard',
+        inheritAll: 'true',
+        basedir: 'build/izpacktemp',
+        compression: 'deflate',
+        compressionlevel: '9')
+}
+
+release.finalizedBy zipRelease, izpack

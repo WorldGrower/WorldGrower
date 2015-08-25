@@ -44,11 +44,7 @@ public class MoveMode {
 		if (moveMode && moveStep < 48) {
 			
 			
-			int deltaX = moveDirection[0] * moveStep;
-			int deltaY = moveDirection[1] * moveStep;
-			
-			image = imageInfoReader.getImage(id, lookDirection, moveIndex);
-			worldPanel.drawWorldObjectInPixels(g, worldObject, lookDirection, image, x, y, deltaX, deltaY);
+			paintMovingPlayerCharacter(g, worldPanel, worldObject, imageInfoReader, id, lookDirection, x, y);
 			try {
 				Thread.sleep(4);
 			} catch (InterruptedException e) {
@@ -69,8 +65,8 @@ public class MoveMode {
 			}
 		} else {
 			
-			moveDirection = null;
-			moveStep = 0;
+			//moveDirection = null;
+			//moveStep = 0;
 			if (guiMoveAction != null) {
 				SwingUtilities.invokeLater(
 						new Runnable() {
@@ -85,7 +81,20 @@ public class MoveMode {
 			
 			if (!moveMode) {
 				worldPanel.drawWorldObjectInPixels(g, worldObject, lookDirection, image, x, y, 0, 0);
+			} else {
+				paintMovingPlayerCharacter(g, worldPanel, worldObject, imageInfoReader, id, lookDirection, x, y);
 			}
 		}
+	}
+
+	private void paintMovingPlayerCharacter(Graphics g, WorldPanel worldPanel,
+			WorldObject worldObject, ImageInfoReader imageInfoReader,
+			ImageIds id, LookDirection lookDirection, int x, int y) {
+		Image image;
+		int deltaX = moveDirection[0] * moveStep;
+		int deltaY = moveDirection[1] * moveStep;
+		
+		image = imageInfoReader.getImage(id, lookDirection, moveIndex);
+		worldPanel.drawWorldObjectInPixels(g, worldObject, lookDirection, image, x, y, deltaX, deltaY);
 	}
 }

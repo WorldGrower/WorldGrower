@@ -44,7 +44,7 @@ public class BuildShackAction implements BuildAction {
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
 		int x = (Integer)target.getProperty(Constants.X);
 		int y = (Integer)target.getProperty(Constants.Y);
-		return GoalUtils.isOpenSpace(x, y, 3, 3, world);
+		return GoalUtils.isOpenSpace(x, y, 3, 4, world);
 	}
 
 	@Override
