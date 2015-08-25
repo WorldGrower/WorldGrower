@@ -15,17 +15,19 @@
 package org.worldgrower.actions.magic;
 
 import java.io.ObjectStreamException;
+import java.util.List;
 
 import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.AttackUtils;
+import org.worldgrower.actions.DisguiseTargetFactory;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.goal.FacadeUtils;
 
-public class DisguiseMagicSpellAction implements MagicSpell {
+public class DisguiseMagicSpellAction implements MagicSpell, DisguiseTargetFactory {
 
 	private static final int ENERGY_USE = 400;
 	
@@ -85,5 +87,12 @@ public class DisguiseMagicSpellAction implements MagicSpell {
 	
 	public boolean hasRequiredEnergy(WorldObject performer) {
 		return performer.getProperty(Constants.ENERGY) >= ENERGY_USE;
+	}
+	
+	@Override
+	public List<WorldObject> getDisguiseTargets(WorldObject performer, World world) {
+		int performerId = performer.getProperty(Constants.ID);
+		List<WorldObject> disguiseWorldObjects = world.findWorldObjects(w -> w.hasIntelligence() && w.getProperty(Constants.WIDTH) == 1 && w.getProperty(Constants.HEIGHT) == 1 && (w.getProperty(Constants.ID) != performerId));
+		return disguiseWorldObjects;
 	}
 }

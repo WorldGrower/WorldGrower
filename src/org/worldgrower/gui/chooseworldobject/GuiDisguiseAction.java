@@ -19,11 +19,10 @@ import java.util.List;
 
 import javax.swing.AbstractAction;
 
-import org.worldgrower.Constants;
 import org.worldgrower.DungeonMaster;
-import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.DisguiseTargetFactory;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.WorldPanel;
 
@@ -35,9 +34,9 @@ public class GuiDisguiseAction extends AbstractAction {
 	private World world;
 	private WorldPanel parent;
 	private DungeonMaster dungeonMaster;
-	private ManagedOperation disguiseAction;
+	private DisguiseTargetFactory disguiseAction;
 	
-	public GuiDisguiseAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, World world, WorldPanel parent, DungeonMaster dungeonMaster, ManagedOperation disguiseAction) {
+	public GuiDisguiseAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, World world, WorldPanel parent, DungeonMaster dungeonMaster, DisguiseTargetFactory disguiseAction) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.imageInfoReader = imageInfoReader;
@@ -50,7 +49,7 @@ public class GuiDisguiseAction extends AbstractAction {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		List<WorldObject> disguiseWorldObjects = world.findWorldObjects(w -> w.getProperty(Constants.WIDTH) == 1 && w.getProperty(Constants.HEIGHT) == 1 && w.getProperty(Constants.ID) != playerCharacter.getProperty(Constants.ID));
+		List<WorldObject> disguiseWorldObjects = disguiseAction.getDisguiseTargets(playerCharacter, world);
 		
 		dialog = new DisguiseDialog(playerCharacter, imageInfoReader, disguiseWorldObjects, parent, world, dungeonMaster, disguiseAction);
 		dialog.showMe();

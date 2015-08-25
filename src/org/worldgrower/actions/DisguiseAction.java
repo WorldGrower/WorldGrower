@@ -15,6 +15,7 @@
 package org.worldgrower.actions;
 
 import java.io.ObjectStreamException;
+import java.util.List;
 
 import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
@@ -23,7 +24,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.goal.FacadeUtils;
 
-public class DisguiseAction implements ManagedOperation {
+public class DisguiseAction implements DisguiseTargetFactory {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
@@ -59,5 +60,12 @@ public class DisguiseAction implements ManagedOperation {
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
+	}
+
+	@Override
+	public List<WorldObject> getDisguiseTargets(WorldObject performer, World world) {
+		int performerId = performer.getProperty(Constants.ID);
+		List<WorldObject> disguiseWorldObjects = world.findWorldObjects(w -> w.getProperty(Constants.WIDTH) == 1 && w.getProperty(Constants.HEIGHT) == 1 && (w.getProperty(Constants.ID) != performerId));
+		return disguiseWorldObjects;
 	}
 }
