@@ -12,27 +12,34 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.actions;
+package org.worldgrower.actions.magic;
 
 import java.io.ObjectStreamException;
 
 import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
-import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.AttackUtils;
+import org.worldgrower.attribute.SkillProperty;
+import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.goal.FacadeUtils;
 
-public class DisguiseAction implements ManagedOperation {
+public class DisguiseMagicSpellAction implements MagicSpell {
 
+	private static final int ENERGY_USE = 400;
+	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		FacadeUtils.disguise(performer, args[0], world);
+		
+		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE);
 	}
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return 0;
+		return AttackUtils.distanceWithFreeLeftHand(performer, target, 4)
+				+ SkillUtils.distanceForEnergyUse(performer, getSkill(), ENERGY_USE);
 	}
 
 	@Override
@@ -49,15 +56,34 @@ public class DisguiseAction implements ManagedOperation {
 
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "disguising myself";
+		return "casting disguise self";
 	}
 
 	@Override
 	public String getSimpleDescription() {
-		return "disguise";
+		return "cast disguise self";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
+	}
+	
+	@Override
+	public int getResearchCost() {
+		return 30;
+	}
+
+	@Override
+	public SkillProperty getSkill() {
+		return Constants.ILLUSION_SKILL;
+	}
+
+	@Override
+	public int getRequiredSkillLevel() {
+		return 1;
+	}
+	
+	public boolean hasRequiredEnergy(WorldObject performer) {
+		return performer.getProperty(Constants.ENERGY) >= ENERGY_USE;
 	}
 }

@@ -36,7 +36,7 @@ import org.worldgrower.actions.BuildAction;
 import org.worldgrower.actions.magic.ResearchSpellAction;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.gui.chooseworldobject.ChooseWorldObjectAction;
-import org.worldgrower.gui.chooseworldobject.DisguiseAction;
+import org.worldgrower.gui.chooseworldobject.GuiDisguiseAction;
 import org.worldgrower.gui.chooseworldobject.GuiVoteAction;
 import org.worldgrower.gui.conversation.GuiAskQuestionAction;
 import org.worldgrower.gui.debug.GuiShowCommonersOverviewAction;
@@ -130,7 +130,7 @@ public class GuiMouseListener extends MouseAdapter {
             if (worldObject.getProperty(Constants.ID) == 0) {
             	addPlayerCharacterInformationMenus(menu);
             	
-            	JMenuItem disguiseMenuItem = new JMenuItem(new DisguiseAction(playerCharacter, imageInfoReader, world, (WorldPanel)container, dungeonMaster));
+            	JMenuItem disguiseMenuItem = new JMenuItem(new GuiDisguiseAction(playerCharacter, imageInfoReader, world, (WorldPanel)container, dungeonMaster, Actions.DISGUISE_ACTION));
             	disguiseMenuItem.setText("Disguise...");
             	menu.add(disguiseMenuItem);
             	
@@ -262,6 +262,10 @@ public class GuiMouseListener extends MouseAdapter {
 		ManagedOperation[] illusionActions = { Actions.INVISIBILITY_ACTION };
 		JMenu illusionMenu = addBuildActions(menu, "Illusions", buildActions, buildAction -> new ChooseWorldObjectAction(playerCharacter, imageInfoReader, world, ((WorldPanel)container), dungeonMaster, new StartBuildModeAction(playerCharacter, imageInfoReader, ((WorldPanel)container), buildAction)));
 		addActions(illusionMenu, illusionActions);
+		
+    	JMenuItem disguiseMenuItem = new JMenuItem(new GuiDisguiseAction(playerCharacter, imageInfoReader, world, (WorldPanel)container, dungeonMaster, Actions.DISGUISE_MAGIC_SPELL_ACTION));
+    	disguiseMenuItem.setText("Disguise self");
+    	illusionMenu.add(disguiseMenuItem);
 	}
 	
 	private void addRestorationActions(JPopupMenu menu) {

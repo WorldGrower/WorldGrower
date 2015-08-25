@@ -455,10 +455,10 @@ public class ImageInfoReader {
 	   int index;
 	   if ((lookDirection != null) && (images.size() > 1)) {
 		   index = lookDirection.ordinal();
+		   index += (moveIndex * 4);
 	   } else {
 		   index = 0;
 	   }
-	   index += (moveIndex * 4);
 	   return images.get(index);
    }
    

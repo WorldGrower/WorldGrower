@@ -21,12 +21,13 @@ import javax.swing.AbstractAction;
 
 import org.worldgrower.Constants;
 import org.worldgrower.DungeonMaster;
+import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.WorldPanel;
 
-public class DisguiseAction extends AbstractAction {
+public class GuiDisguiseAction extends AbstractAction {
 
 	private WorldObject playerCharacter;
 	private DisguiseDialog dialog;
@@ -34,14 +35,16 @@ public class DisguiseAction extends AbstractAction {
 	private World world;
 	private WorldPanel parent;
 	private DungeonMaster dungeonMaster;
+	private ManagedOperation disguiseAction;
 	
-	public DisguiseAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, World world, WorldPanel parent, DungeonMaster dungeonMaster) {
+	public GuiDisguiseAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, World world, WorldPanel parent, DungeonMaster dungeonMaster, ManagedOperation disguiseAction) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.imageInfoReader = imageInfoReader;
 		this.world = world;
 		this.parent = parent;
 		this.dungeonMaster = dungeonMaster;
+		this.disguiseAction = disguiseAction;
 	}
 
 	@Override
@@ -49,7 +52,7 @@ public class DisguiseAction extends AbstractAction {
 		
 		List<WorldObject> disguiseWorldObjects = world.findWorldObjects(w -> w.getProperty(Constants.WIDTH) == 1 && w.getProperty(Constants.HEIGHT) == 1 && w.getProperty(Constants.ID) != playerCharacter.getProperty(Constants.ID));
 		
-		dialog = new DisguiseDialog(playerCharacter, imageInfoReader, disguiseWorldObjects, parent, world, dungeonMaster);
+		dialog = new DisguiseDialog(playerCharacter, imageInfoReader, disguiseWorldObjects, parent, world, dungeonMaster, disguiseAction);
 		dialog.showMe();
 	}
 }

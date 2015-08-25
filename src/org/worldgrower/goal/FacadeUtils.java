@@ -15,6 +15,7 @@
 package org.worldgrower.goal;
 
 import org.worldgrower.Constants;
+import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectFacade;
 
@@ -50,5 +51,17 @@ public class FacadeUtils {
 		int insightSkill = target.getProperty(Constants.INSIGHT_SKILL).getLevel();
 		
 		return bluffSkill > insightSkill;
+	}
+	
+	public static void disguise(WorldObject performer, int selectedPersonId, World world) {
+		final WorldObject facade;
+		if (selectedPersonId < 0) {
+			facade = null;
+		} else {
+			WorldObject selectedPerson = world.findWorldObject(Constants.ID, selectedPersonId);
+			facade = selectedPerson.deepCopy();
+		}
+		
+		performer.setProperty(Constants.FACADE, facade);
 	}
 }

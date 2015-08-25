@@ -37,10 +37,10 @@ import javax.swing.border.EmptyBorder;
 import org.worldgrower.Constants;
 import org.worldgrower.DungeonMaster;
 import org.worldgrower.Main;
+import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
-import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.WorldObjectList;
@@ -62,15 +62,16 @@ public class DisguiseDialog extends JDialog {
 	private World world;
 	private WorldPanel parent;
 	private DungeonMaster dungeonMaster;
+	private ManagedOperation disguiseAction;
 
-	public DisguiseDialog(WorldObject playerCharacter, ImageInfoReader imageInfoReader, List<WorldObject> disguiseWorldObjects, WorldPanel parent, World world, DungeonMaster dungeonMaster) {
+	public DisguiseDialog(WorldObject playerCharacter, ImageInfoReader imageInfoReader, List<WorldObject> disguiseWorldObjects, WorldPanel parent, World world, DungeonMaster dungeonMaster, ManagedOperation disguiseAction) {
 		initializeGui(parent, disguiseWorldObjects, imageInfoReader);
 		
 		this.playerCharacter = playerCharacter;
 		this.world = world;
 		this.parent = parent;
 		this.dungeonMaster = dungeonMaster;
-		
+		this.disguiseAction = disguiseAction;
 		
 		transferDataToScreen(playerCharacter, disguiseWorldObjects);
 		handleActions();
@@ -190,7 +191,7 @@ public class DisguiseDialog extends JDialog {
 				
 				playerCharacter.setProperty(Constants.FACADE, facade);
 				
-				Main.executeAction(playerCharacter, Actions.DISGUISE_ACTION, args, world, dungeonMaster, playerCharacter, parent);
+				Main.executeAction(playerCharacter, disguiseAction, args, world, dungeonMaster, playerCharacter, parent);
 				
 				DisguiseDialog.this.dispose();
 			}
