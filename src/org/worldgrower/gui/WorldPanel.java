@@ -48,8 +48,6 @@ import org.worldgrower.actions.BuildAction;
 import org.worldgrower.attribute.LookDirection;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.gui.conversation.GuiRespondToQuestion;
-import org.worldgrower.terrain.Terrain;
-import org.worldgrower.terrain.TerrainType;
 
 public class WorldPanel extends JPanel {
 
@@ -69,7 +67,8 @@ public class WorldPanel extends JPanel {
 	private BuildModeOutline buildModeOutline = new BuildModeOutline();
 	private MouseMotionListener mouseMotionListener;
 	
-	private MoveMode moveMode = new MoveMode();
+	private final MoveMode moveMode = new MoveMode();
+	private final BackgroundPainter backgroundPainter;
 	
     public WorldPanel(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster) throws IOException {
         super(new BorderLayout());
@@ -153,6 +152,7 @@ public class WorldPanel extends JPanel {
         
         this.playerCharacter = playerCharacter;
         this.world = world;
+        this.backgroundPainter = new BackgroundPainter(imageInfoReader.getImage(ImageIds.GRASS_BACKGROUND, null));
     }
 
 	private void initializeKeyBindings(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster) {
@@ -207,12 +207,7 @@ public class WorldPanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         
-        for(int x = 0; x<world.getWidth() ;x++) {
-			for(int y = 0; y<world.getHeight(); y++) {
-				g.setColor(getBackgroundColor(x, y));
-				g.fillRect((x+offsetX) * 48, (y+offsetY) * 48, 48, 48);
-			}
-		}
+        backgroundPainter.paint(g, world, this);
         
 		List<WorldObject> worldObjects = world.getWorldObjects();
 		for(WorldObject worldObject : new ArrayList<>(worldObjects)) {
@@ -252,6 +247,15 @@ public class WorldPanel extends JPanel {
 			Image overlayingImage = imageInfoReader.getImage(overlayingImageId, lookDirection);
 			g.drawImage(overlayingImage, (xInSquares+offsetX) * 48 + xDeltaInPixels, (yInSquares+offsetY) * 48 + yDeltaInPixels, null);
 		}
+	}
+	
+	public void drawBackgroundImage(Graphics g, Image image, int x, int y) {
+		g.drawImage(image, (x+offsetX) * 48, (y+offsetY) * 48, null);
+	}
+	
+	public void drawUnexploredTerrain(Graphics g, int x, int y) {
+		g.setColor(Color.BLACK);
+		g.fillRect((x+offsetX) * 48, (y+offsetY) * 48, 48, 48);
 	}
 
 	private Image changeSize(WorldObject worldObject, Image image) {
@@ -349,36 +353,6 @@ public class WorldPanel extends JPanel {
     	}
     }
     
-	private Color getBackgroundColor(int x, int y) {
-		final Color backgroundColor;
-		Terrain terrain = world.getTerrain();
-		if (terrain.isExplored(x, y)) {
-			TerrainType terrainType = terrain.getTerrainInfo(x, y).getTerrainType();
-			switch(terrainType) {
-				case WATER:
-					backgroundColor = new Color(0, 0, 100);
-					break;
-				case GRASLAND:
-					backgroundColor = new Color(110, 196, 88);
-					break;
-				case PLAINS:
-					backgroundColor = new Color(235, 195, 75);
-					break;
-				case HILL:
-					backgroundColor = new Color(171, 140, 17);
-					break;
-				case MOUNTAIN:
-					backgroundColor = new Color(161, 161, 161);
-					break;
-				default:
-					backgroundColor = Color.BLACK;
-			}
-		} else {
-			backgroundColor = Color.BLACK;
-		}
-		return backgroundColor;
-	}
-
 	public WorldObject findWorldObject(int x, int y) {
         List<WorldObject> worldObjects = world.findWorldObjects(w -> w.getProperty(Constants.X) == (x-offsetX) && w.getProperty(Constants.Y) == (y-offsetY));
 		final WorldObject worldObject;

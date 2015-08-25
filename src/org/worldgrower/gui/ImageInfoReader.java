@@ -50,6 +50,7 @@ public class ImageInfoReader {
     	Sprites orcSoldier = readOrcSoldier();
     	Sprites pirates = readPirates();
     	Sprites houses = readHouses();
+    	Sprites tileA2 = readTileA2();
     	Sprites tileB = readTileB();
     	Sprites tileC = readTileC();
     	Sprites tileE = readTileE();
@@ -256,15 +257,12 @@ public class ImageInfoReader {
 		
 		addDoorToHouse(ImageIds.SHACK);
 		
-		addDoorToHouse(ImageIds.HOUSE);
-		addDoorToHouse(ImageIds.HOUSE2);
-		addDoorToHouse(ImageIds.HOUSE3);
-		addDoorToHouse(ImageIds.HOUSE4);
-		addDoorToHouse(ImageIds.HOUSE5);
-		//addDoorToHouse(ImageIds.HOUSE6);
-		addDoorToHouse(ImageIds.HOUSE7);
-		addDoorToHouse(ImageIds.HOUSE8);
+		add(ImageIds.GRASS_BACKGROUND, tileA2.getSubImage(0, 0, 2, 2));
 		
+		createCompleteHouse();
+    }
+
+	private void createCompleteHouse() {
 		Image houseImage = idToImages.get(ImageIds.HOUSE6).get(0);
 		BufferedImage off_Image = new BufferedImage(houseImage.getWidth(null) * 2, houseImage.getHeight(null), BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g2 = (Graphics2D) off_Image.getGraphics();
@@ -274,7 +272,7 @@ public class ImageInfoReader {
 		addStoneWindowToHouse(g2);
 		g2.dispose();
 		idToImages.put(ImageIds.HOUSE6, Arrays.asList(off_Image));
-    }
+	}
     
     private void addDoorToHouse(ImageIds houseId) {
 		addDoorToHouse(idToImages.get(houseId).get(0));
@@ -398,6 +396,10 @@ public class ImageInfoReader {
 		return readImages("tilea3.png", 32, 32, 8, 16);
 	}
 
+	private static Sprites readTileA2() throws IOException {
+		return readImages("tilea2.png", 32, 32, 16, 16);
+	}
+	
 	private static Sprites readTileB() throws IOException {
 		return readImages("tileb.png", 32, 32, 16, 16);
 	}
