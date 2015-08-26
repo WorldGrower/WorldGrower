@@ -77,7 +77,7 @@ public class Conversations implements Serializable {
 	private static final List<Conversation> CONVERSATIONS = new ArrayList<>();
 	private static final Map<Conversation, ConversationCategory> CONVERSATION_CATEGORIES = new HashMap<>();
 	
-	private static final List<InterceptedConversation> INTERCEPTED_CONVERSATIONS = Arrays.asList(new WhyNotIntelligentConversation());
+	private static final List<InterceptedConversation> INTERCEPTED_CONVERSATIONS = Arrays.asList(new WhyNotIntelligentConversation(), new SawDisguisingConversation());
 	
 	static {
 		addNormalAndIntimidate(NAME_CONVERSATION, ConversationCategory.PERSONAL_INFORMATION);

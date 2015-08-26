@@ -14,7 +14,10 @@
  *******************************************************************************/
 package org.worldgrower.conversation;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.worldgrower.Constants;
@@ -49,9 +52,12 @@ public class DemandsConversation implements Conversation {
 		WorldObject target = conversationContext.getTarget();
 		PropertyCountMap<ManagedProperty<?>> demands = target.getProperty(Constants.DEMANDS);
 		StringBuilder demandsBuilder = new StringBuilder();
-		for(int i=0; i<demands.keySet().size(); i++) {
-			demandsBuilder.append(demands.keySet().get(i).getName());
-			if (i < demands.size() - 1) {
+		List<ManagedProperty<?>> demandsList = getDemandsList(demands);
+		for(int i=0; i<demandsList.size(); i++) {
+			demandsBuilder.append(demandsList.get(i).getName());
+			if ((demands.size() > 1) && (i == demands.size() - 2)) {
+				demandsBuilder.append(" and ");
+			} else if (i < demands.size() - 1) {
 				demandsBuilder.append(", ");
 			}
 		}
@@ -59,6 +65,12 @@ public class DemandsConversation implements Conversation {
 			new Response(0, "I'd like to buy " + demandsBuilder.toString()),
 			new Response(1, "I'm not looking for anything to buy right now")
 			);
+	}
+
+	private List<ManagedProperty<?>> getDemandsList(PropertyCountMap<ManagedProperty<?>> demands) {
+		List<ManagedProperty<?>> demandsList = new ArrayList<>(demands.keySet());
+		Collections.sort(demandsList, new DemandsComparator());
+		return demandsList;
 	}
 
 	@Override
@@ -73,5 +85,14 @@ public class DemandsConversation implements Conversation {
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, World world) {
 		return "asking me what I want to buy";
+	}
+	
+	private static class DemandsComparator implements Comparator<ManagedProperty<?>> {
+
+		@Override
+		public int compare(ManagedProperty<?> o1, ManagedProperty<?> o2) {
+			return o1.getName().compareTo(o2.getName());
+		}
+		
 	}
 }

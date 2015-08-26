@@ -80,7 +80,15 @@ public class MoveAction implements ManagedOperation {
 				}
 			} else {
 				List<WorldObject> actors = world.findWorldObjects(new CreaturePositionCondition(performer.getProperty(Constants.Y) + args[1], performer.getProperty(Constants.X) + args[0]));
-				return actors.size();
+				if (actors.size() == 1) {
+					if (actors.get(0).equals(performer)) {
+						return 0;
+					} else {
+						return 1;
+					}
+				} else {
+					return actors.size();
+				}
 			}
 		}
 	}

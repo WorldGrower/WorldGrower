@@ -22,13 +22,13 @@ import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.KnowledgeMap;
 import org.worldgrower.goal.FacadeUtils;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 
-public class WhyNotIntelligentConversation implements InterceptedConversation {
+public class SawDisguisingConversation implements InterceptedConversation {
 
-	private static final int WHY_NOT_INTELLIGENT = -1;
-	private static final int SEE_THROUGH = -2;
+	private static final int SEE_THROUGH = -3;
 	
 	@Override
 	public Response getReplyPhrase(ConversationContext conversationContext) {
@@ -37,12 +37,7 @@ public class WhyNotIntelligentConversation implements InterceptedConversation {
 		World world = conversationContext.getWorld();
 		
 		if (isConversationAvailable(performer, target, world)) {
-			int replyId;
-			if (FacadeUtils.performerIsSuccessFullyDisguised(performer)) {
-				replyId = WHY_NOT_INTELLIGENT;
-			} else {
-				replyId = SEE_THROUGH;
-			}
+			int replyId = SEE_THROUGH;
 			return getReply(getReplyPhrases(conversationContext), replyId);
 		}
 		return null;
@@ -56,8 +51,7 @@ public class WhyNotIntelligentConversation implements InterceptedConversation {
 		
 		if (isConversationAvailable(performer, target, world)) {
 			return Arrays.asList(
-					new Response(WHY_NOT_INTELLIGENT, "My name is " + "What are you? Why am I talking with a " + performer.getProperty(Constants.NAME) + "?"),
-					new Response(SEE_THROUGH, "A good try, " + performer.getProperty(Constants.NAME) + ", but I see through your disguise")
+					new Response(SEE_THROUGH, "A good try, " + performer.getProperty(Constants.NAME) + ", but I saw you disguise yourself earlier")
 				);
 		} else {
 			return new ArrayList<>();
@@ -67,7 +61,9 @@ public class WhyNotIntelligentConversation implements InterceptedConversation {
 	@Override
 	public boolean isConversationAvailable(WorldObject performer, WorldObject target, World world) {
 		WorldObject facade = performer.getProperty(Constants.FACADE);
-		return ((facade != null) && (facade.getProperty(Constants.ID) != null) && (!world.findWorldObject(Constants.ID, facade.getProperty(Constants.ID)).hasIntelligence()));
+		KnowledgeMap knowledgeMap = target.getProperty(Constants.KNOWLEDGE_MAP);
+		boolean targetHasKnowledgeOverFacade = knowledgeMap != null ? knowledgeMap.hasProperty(performer, Constants.FACADE) : false;
+		return ((facade != null) && (!FacadeUtils.performerIsSuccessFullyDisguised(performer)) && targetHasKnowledgeOverFacade);
 	}
 
 	@Override

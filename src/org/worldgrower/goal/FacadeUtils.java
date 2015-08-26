@@ -14,7 +14,10 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
+import java.util.List;
+
 import org.worldgrower.Constants;
+import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectFacade;
@@ -50,9 +53,17 @@ public class FacadeUtils {
 		int bluffSkill = performer.getProperty(Constants.BLUFF_SKILL).getLevel();
 		int insightSkill = target.getProperty(Constants.INSIGHT_SKILL).getLevel();
 		
+		if (target.getProperty(Constants.KNOWLEDGE_MAP).hasProperty(performer, Constants.FACADE)) {
+			insightSkill += 5;
+		}
+		
 		return bluffSkill > insightSkill;
 	}
 	
+	public static boolean performerIsSuccessFullyDisguised(WorldObject performer) {
+		return performer instanceof WorldObjectFacade;
+	}
+ 	
 	public static void disguise(WorldObject performer, int selectedPersonId, World world) {
 		final WorldObject facade;
 		if (selectedPersonId < 0) {
@@ -63,5 +74,15 @@ public class FacadeUtils {
 		}
 		
 		performer.setProperty(Constants.FACADE, facade);
+		if (facade != null) {
+			everyoneInVicinityKnowsOfFacade(performer, world);
+		}
+	}
+	
+	private static void everyoneInVicinityKnowsOfFacade(WorldObject performer, World world) {
+		List<WorldObject> peopleThatknowOfDisguise = world.findWorldObjects(w -> w.hasIntelligence() && Reach.distance(performer, w) < 20);
+		for(WorldObject personThatknowsOfDisguise : peopleThatknowOfDisguise) {
+			personThatknowsOfDisguise.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(performer, Constants.FACADE, performer.getProperty(Constants.FACADE));
+		}
 	}
 }

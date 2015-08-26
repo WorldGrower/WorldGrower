@@ -18,7 +18,7 @@ public class MoveMode {
 	private ActionListener guiMoveAction;
 	private int moveIndex = 0;
 	
-	public void startMove(WorldPanel worldPanel, int[] args, ActionListener guiMoveAction) {
+	public void startMove(WorldPanel worldPanel, int[] args, ActionListener guiMoveAction, WorldObject worldObject) {
 		if (moveMode) {
 			return;
 		}
@@ -29,7 +29,9 @@ public class MoveMode {
 		this.guiMoveAction = guiMoveAction;
 		moveIndex = 0;
 		
-		worldPanel.repaint();
+		int x = worldObject.getProperty(Constants.X);
+		int y = worldObject.getProperty(Constants.Y);
+		worldPanel.repaintAround(x, y, worldObject);
 	}
 	
 	public void drawPlayerCharacter(Graphics g, WorldPanel worldPanel, WorldObject worldObject, ImageInfoReader imageInfoReader) {
@@ -54,7 +56,7 @@ public class MoveMode {
 			SwingUtilities.invokeLater(
 					  new Runnable() {
 						public void run() {
-							worldPanel.repaintAround(x, y);
+							worldPanel.repaintAround(x, y, worldObject);
 						}
 					  }
 					);

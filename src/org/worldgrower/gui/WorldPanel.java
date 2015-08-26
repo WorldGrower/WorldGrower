@@ -411,10 +411,12 @@ public class WorldPanel extends JPanel {
 	}
 
 	public void movePlayerCharacter(int[] args, ActionListener guiMoveAction) {
-		moveMode.startMove(this, args, guiMoveAction);
+		moveMode.startMove(this, args, guiMoveAction, playerCharacter);
 	}
 
-	public void repaintAround(int x, int y) {
-		WorldPanel.this.repaint((x + offsetX) * 48 - 48, (y + offsetY) * 48 - 48, 48 * 3, 48 * 3);
+	public void repaintAround(int x, int y, WorldObject worldObject) {
+		int width = worldObject.getProperty(Constants.WIDTH);
+		int height = worldObject.getProperty(Constants.HEIGHT);
+		WorldPanel.this.repaint((x + offsetX) * 48 - 48, (y + offsetY) * 48 - 48, 48 * (2 + width), 48 * (2 + height));
 	}
 }

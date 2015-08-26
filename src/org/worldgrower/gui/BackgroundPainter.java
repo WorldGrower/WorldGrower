@@ -34,8 +34,8 @@ import org.worldgrower.terrain.TerrainType;
 public class BackgroundPainter {
 
 	private final Map<TerrainType, Color> terrainTypesToColor = new HashMap<>();
-	private final Map<TerrainType, Image> backgroundImages = new HashMap<>();
-
+	private Image[] backgroundImages = new Image[TerrainType.values().length];
+	
 	public BackgroundPainter(Image grassBackgroundImage) {
 		terrainTypesToColor.put(TerrainType.WATER, new Color(0, 0, 163));
 		terrainTypesToColor.put(TerrainType.GRASLAND, new Color(110, 196, 88));
@@ -52,7 +52,7 @@ public class BackgroundPainter {
 			Color currentColor = entry.getValue();
 			
 			if (terrainType == TerrainType.GRASLAND) {
-				backgroundImages.put(terrainType, cropImage(toBufferedImage(grassBackgroundImage), 48, 48));
+				addBackgroundImage(terrainType, cropImage(toBufferedImage(grassBackgroundImage), 48, 48));
 			} else {
 				Color grassColor = terrainTypesToColor.get(TerrainType.GRASLAND);
 				
@@ -62,9 +62,17 @@ public class BackgroundPainter {
 				
 				Image filteredImage = filterImage(grassBackgroundImage, new ColorFilter(deltaRed, deltaGreen, deltaBlue));
 				BufferedImage bufferedImage = toBufferedImage(filteredImage); 
-				backgroundImages.put(terrainType, cropImage(bufferedImage, 48, 48));
+				addBackgroundImage(terrainType, cropImage(bufferedImage, 48, 48));
 			}
 		}
+	}
+	
+	private void addBackgroundImage(TerrainType terrainType, Image backgroundImage) {
+		backgroundImages[terrainType.ordinal()] = backgroundImage;
+	}
+	
+	private Image getBackgroundImage(TerrainType terrainType) {
+		return backgroundImages[terrainType.ordinal()];
 	}
 
 	private BufferedImage cropImage(BufferedImage src, int width, int height) {
@@ -98,7 +106,7 @@ public class BackgroundPainter {
 			for(int y = 0; y<world.getHeight(); y++) {
 				if (terrain.isExplored(x, y)) {
 					TerrainType terrainType = terrain.getTerrainInfo(x, y).getTerrainType();
-					Image image = backgroundImages.get(terrainType);
+					Image image = getBackgroundImage(terrainType);
 					worldPanel.drawBackgroundImage(g, image, x, y);
 				} else {
 					worldPanel.drawUnexploredTerrain(g, x, y);

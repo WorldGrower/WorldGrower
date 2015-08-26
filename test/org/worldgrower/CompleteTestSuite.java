@@ -23,10 +23,12 @@ import org.worldgrower.actions.UTestTalkAction;
 import org.worldgrower.attribute.UTestIdList;
 import org.worldgrower.attribute.UTestIdMap;
 import org.worldgrower.attribute.UTestIntProperty;
+import org.worldgrower.attribute.UTestKnowledgeMap;
 import org.worldgrower.attribute.UTestPropertyCountMap;
 import org.worldgrower.attribute.UTestSkillUtils;
 import org.worldgrower.attribute.UTestWorldObjectProperties;
 import org.worldgrower.conversation.UTestConversations;
+import org.worldgrower.conversation.UTestDemandsConversation;
 import org.worldgrower.conversation.UTestLocationConversation;
 import org.worldgrower.goal.UTestAbstractScribeSpellsGoal;
 import org.worldgrower.goal.UTestBecomeOrganizationMemberGoal;
@@ -67,7 +69,9 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestGroupPropertyUtils.class,
 	UTestBecomeOrganizationMemberGoal.class,
 	UTestSkillUtils.class,
-	UTestAbstractScribeSpellsGoal.class
+	UTestAbstractScribeSpellsGoal.class,
+	UTestKnowledgeMap.class,
+	UTestDemandsConversation.class
 })
 public class CompleteTestSuite {
 }
