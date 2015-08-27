@@ -5,8 +5,8 @@
             location="applications"/>
 <shortcut
 name="WorldGrower"
-target="/usr/bin/java"
-commandLine="-jar $INSTALL_PATH/worldgrower.jar"
+target="java"
+commandLine="-jar $INSTALL_PATH/release/worldgrower.jar"
 description="Launch WorldGrower"
 workingDirectory="$INSTALL_PATH"
 initialState="normal"
