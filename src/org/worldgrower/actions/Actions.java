@@ -102,7 +102,8 @@ public class Actions {
 	public static final BuildPaperMillAction BUILD_PAPER_MILL_ACTION = new BuildPaperMillAction();
 	public static final CreatePaperAction CREATE_PAPER_ACTION = new CreatePaperAction();
 	public static final CollectWaterAction COLLECT_WATER_ACTION = new CollectWaterAction();
-	public static final CreateOrganizationAction CREATE_ORGANIZATION_ACTION = new CreateOrganizationAction();
+	public static final CreateProfessionOrganizationAction CREATE_PROFESSION_ORGANIZATION_ACTION = new CreateProfessionOrganizationAction();
+	public static final CreateReligionOrganizationAction CREATE_RELIGION_ORGANIZATION_ACTION = new CreateReligionOrganizationAction();
 	public static final MinorHealAction MINOR_HEAL_ACTION = new MinorHealAction();
 	public static final CurePoisonAction CURE_POISON_ACTION = new CurePoisonAction();
 	public static final CureDiseaseAction CURE_DISEASE_ACTION = new CureDiseaseAction();
@@ -226,7 +227,8 @@ public class Actions {
 		BREW_WINE_ACTION,
 		CREATE_PAPER_ACTION,
 		COLLECT_WATER_ACTION,
-		CREATE_ORGANIZATION_ACTION,
+		CREATE_PROFESSION_ORGANIZATION_ACTION,
+		CREATE_RELIGION_ORGANIZATION_ACTION,
 		BUILD_LIBRARY_ACTION,
 		RESEARCH_RESTORATION_SKILL_ACTION,
 		RESEARCH_ILLUSION_SKILL_ACTION,

@@ -22,6 +22,8 @@ import java.util.stream.Collectors;
 
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.goal.Goal;
+import org.worldgrower.goal.Goals;
 
 public interface Deity extends Serializable {
 
@@ -59,6 +61,15 @@ public interface Deity extends Serializable {
 		return ALL_DEITIES.stream().map(deity -> deity.getName()).collect(Collectors.toList());
 	}
 	
+	//For now, default implementation
+	public default List<Goal> getOrganizationGoals() {
+		return Arrays.asList(Goals.DESTROY_SHRINES_TO_OTHER_DEITIES_GOAL);
+	}
+	
+	public default List<String> getOrganizationGoalDescriptions() {
+		return getOrganizationGoals().stream().map(g -> g.getDescription()).collect(Collectors.toList());
+	}
+	
 	public default Object readResolveImpl() throws ObjectStreamException {
 		Class<?> clazz = getClass();
 		
@@ -69,5 +80,17 @@ public interface Deity extends Serializable {
 		}
 		
 		throw new IllegalStateException("Profession with class " + clazz + " not found");
+	}
+	public static List<String> getNames() {
+		return ALL_DEITIES.stream().map(d -> d.getName()).collect(Collectors.toList());
+	}
+	public static Deity getDeityByDescription(String deityName) {
+		for(Deity deity : ALL_DEITIES) {
+			if (deity.getName().equals(deityName)) {
+				return deity;
+			}
+		}
+		throw new IllegalStateException("deity " + deityName + " not found in " + ALL_DEITIES);
+	
 	}
 }

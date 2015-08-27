@@ -15,9 +15,12 @@
 package org.worldgrower.goal;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.worldgrower.Constants;
 import org.worldgrower.World;
@@ -27,12 +30,15 @@ import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdMap;
 import org.worldgrower.attribute.IdToIntegerMap;
 import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.deity.Deity;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.profession.Profession;
 
 public class GroupPropertyUtils {
 
+	//TODO: in longer run, merge profession and religion code. Code will be compacter with less duplication, but less readable.
+	
 	private static final int TAXES_PERIOD = 500;
 	
 	public static boolean isWorldObjectPotentialEnemy(WorldObject performer, WorldObject w) {
@@ -59,10 +65,21 @@ public class GroupPropertyUtils {
 		return (findProfessionOrganization(performer, world) != null);
 	}
 	
+	public static boolean isPerformerMemberOfReligionOrganization(WorldObject performer, World world) {
+		return (findReligionOrganization(performer, world) != null);
+	}
+	
 	public static List<WorldObject> findProfessionOrganizationsInWorld(WorldObject performer, World world) {
 		Profession performerProfession = performer.getProperty(Constants.PROFESSION);
 		
 		List<WorldObject> organisations = world.findWorldObjects(w -> w.hasProperty(Constants.ORGANIZATION_LEADER_ID) && w.getProperty(Constants.PROFESSION) == performerProfession);
+		return organisations;
+	}
+	
+	public static List<WorldObject> findReligionOrganizationsInWorld(WorldObject performer, World world) {
+		Deity performerDeity = performer.getProperty(Constants.DEITY);
+		
+		List<WorldObject> organisations = world.findWorldObjects(w -> w.hasProperty(Constants.ORGANIZATION_LEADER_ID) && w.getProperty(Constants.DEITY) == performerDeity);
 		return organisations;
 	}
 	
@@ -82,6 +99,18 @@ public class GroupPropertyUtils {
 		for(int organizationId : organizations.getIds()) {
 			WorldObject organisation = world.findWorldObject(Constants.ID, organizationId);
 			if (organisation.getProperty(Constants.PROFESSION) == performerProfession) {
+				return organisation;
+			}
+		}
+		return null;
+	}
+	
+	public static WorldObject findReligionOrganization(WorldObject performer, World world) {
+		Deity performerDeity = performer.getProperty(Constants.DEITY);
+		IdList organizations = performer.getProperty(Constants.GROUP);
+		for(int organizationId : organizations.getIds()) {
+			WorldObject organisation = world.findWorldObject(Constants.ID, organizationId);
+			if (organisation.getProperty(Constants.DEITY) == performerDeity) {
 				return organisation;
 			}
 		}
@@ -115,7 +144,22 @@ public class GroupPropertyUtils {
 		return organizations;
 	}
 	
-	public static WorldObject create(Integer performerId, String organizationName, Profession profession, World world) {
+	public static WorldObject createProfessionOrganization(Integer performerId, String organizationName, Profession profession, World world) {
+		WorldObject organization = create(performerId, organizationName, world);
+		organization.setProperty(Constants.PROFESSION, profession);
+		
+		return organization;
+	}
+
+	public static WorldObject createReligionOrganization(Integer performerId, String organizationName, Deity deity, Goal organizationGoal, World world) {
+		WorldObject organization = create(performerId, organizationName, world);
+		organization.setProperty(Constants.DEITY, deity);
+		organization.setProperty(Constants.ORGANIZATION_GOAL, organizationGoal);
+		
+		return organization;
+	}
+	
+	public static WorldObject create(Integer performerId, String organizationName, World world) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, -100000);
 		properties.put(Constants.Y, -100000);
@@ -125,7 +169,6 @@ public class GroupPropertyUtils {
 		properties.put(Constants.ID, world.generateUniqueId());
 		properties.put(Constants.IMAGE_ID, ImageIds.BLACK_CROSS);
 		properties.put(Constants.ORGANIZATION_LEADER_ID, performerId);
-		properties.put(Constants.PROFESSION, profession);
 		
 		WorldObject organization = new WorldObjectImpl(properties);
 		world.addWorldObject(organization);
@@ -134,7 +177,7 @@ public class GroupPropertyUtils {
 	}
 	
 	public static WorldObject createVillagersOrganization(World world) {
-		WorldObject organization = create(null, "villagers", null, world);
+		WorldObject organization = create(null, "villagers", world);
 		organization.setProperty(Constants.SHACK_TAX_RATE, 0);
 		organization.setProperty(Constants.HOUSE_TAX_RATE, 0);
 		organization.setProperty(Constants.TAXES_PAID_TURN, new IdToIntegerMap());
@@ -222,11 +265,53 @@ public class GroupPropertyUtils {
 		return amountToCollect;
 	}
 	
-	public static boolean isMinionOrganzation(WorldObject organization) {
+	public static boolean isMinionOrganization(WorldObject organization) {
 		return organization.hasProperty(Constants.MINION_ORGANIZATION) && organization.getProperty(Constants.MINION_ORGANIZATION);
 	}
 	
 	public static boolean canJoinOrChangeLeaderOfOrganization(WorldObject organization) {
-		return !isMinionOrganzation(organization);
+		return !isMinionOrganization(organization);
+	}
+	
+	public static int getRandomOrganizationIndex(WorldObject performer, List<String> organizationNames) {
+		if (organizationNames.size() == 1) {
+			return 0;
+		} else if (organizationNames.size() == 0) {
+			throw new IllegalStateException("No organization names found for " + performer.toString());
+		} else {
+			Random r = new Random();
+			int low = 0;
+			int high = organizationNames.size() - 1;
+			int organizationIndex = r.nextInt(high-low) + low;
+			return organizationIndex;
+		}
+	}
+	
+	public static Integer getMostLikedLeaderId(WorldObject performer, List<WorldObject> organizations) {
+		Collections.sort(organizations, new OrganizationComparator(performer));
+		Collections.reverse(organizations);
+		Integer leaderId = organizations.get(0).getProperty(Constants.ORGANIZATION_LEADER_ID);
+		return leaderId;
+	}
+
+	private static class OrganizationComparator implements  Comparator<WorldObject> {
+
+		private final WorldObject performer;
+		
+		public OrganizationComparator(WorldObject performer) {
+			this.performer = performer;
+		}
+
+		@Override
+		public int compare(WorldObject organization1, WorldObject organization2) {
+			Integer leaderId1 = organization1.getProperty(Constants.ORGANIZATION_LEADER_ID);
+			Integer leaderId2 = organization2.getProperty(Constants.ORGANIZATION_LEADER_ID);
+			
+			int relationshipValue1 = leaderId1 != null ? performer.getProperty(Constants.RELATIONSHIPS).getValue(leaderId1) : 0;
+			int relationshipValue2 = leaderId2 != null ? performer.getProperty(Constants.RELATIONSHIPS).getValue(leaderId2) : 0;
+			
+			return Integer.compare(relationshipValue1, relationshipValue2);
+		}
+		
 	}
 }

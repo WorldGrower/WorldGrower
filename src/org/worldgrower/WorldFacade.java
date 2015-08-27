@@ -96,6 +96,13 @@ public class WorldFacade implements World {
 		filter(worldObjects);
 		return worldObjects;
 	}
+	
+	@Override
+	public List<WorldObject> findWorldObjectsByProperty(ManagedProperty<?> managedProperty, WorldObjectCondition worldObjectCondition) {
+		List<WorldObject> worldObjects = world.findWorldObjectsByProperty(managedProperty, worldObjectCondition);
+		filter(worldObjects);
+		return worldObjects;
+	}
 
 	@Override
 	public <T> WorldObject findWorldObject(ManagedProperty<T> propertyKey, T value) {

@@ -16,16 +16,20 @@ package org.worldgrower.goal;
 
 import static org.junit.Assert.assertEquals;
 import static org.worldgrower.TestUtils.createIntelligentWorldObject;
+import static org.worldgrower.goal.GroupPropertyUtils.createProfessionOrganization;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.IdList;
+import org.worldgrower.attribute.IdRelationshipMap;
 import org.worldgrower.profession.Professions;
 
 public class UTestGroupPropertyUtils {
@@ -45,7 +49,7 @@ public class UTestGroupPropertyUtils {
 	@Test
 	public void testIsOrganizationNameInUse() {
 		World world = new WorldImpl(0, 0, null, null);
-		GroupPropertyUtils.create(1, "TestOrg", Professions.FARMER_PROFESSION, world);
+		createProfessionOrganization(1, "TestOrg", Professions.FARMER_PROFESSION, world);
 		
 		assertEquals(true, GroupPropertyUtils.isOrganizationNameInUse("TestOrg", world));
 		assertEquals(false, GroupPropertyUtils.isOrganizationNameInUse("TestOrg2", world));
@@ -58,8 +62,8 @@ public class UTestGroupPropertyUtils {
 		world.addWorldObject(leader);
 		
 		IdList leaderGroup = leader.getProperty(Constants.GROUP);
-		leaderGroup.add(GroupPropertyUtils.create(1, "TestOrg", Professions.FARMER_PROFESSION, world));
-		leaderGroup.add(GroupPropertyUtils.create(2, "TestOrg2", Professions.FARMER_PROFESSION, world));
+		leaderGroup.add(createProfessionOrganization(1, "TestOrg", Professions.FARMER_PROFESSION, world));
+		leaderGroup.add(createProfessionOrganization(2, "TestOrg2", Professions.FARMER_PROFESSION, world));
 		
 		List<WorldObject> organizations = GroupPropertyUtils.findOrganizationsUsingLeader(leader, world);
 		assertEquals(1, organizations.size());
@@ -74,10 +78,37 @@ public class UTestGroupPropertyUtils {
 		world.addWorldObject(member);
 		world.addWorldObject(nonMember);
 				
-		WorldObject organization = GroupPropertyUtils.create(1, "TestOrg", Professions.FARMER_PROFESSION, world);
+		WorldObject organization = createProfessionOrganization(1, "TestOrg", Professions.FARMER_PROFESSION, world);
 		member.getProperty(Constants.GROUP).add(organization);
 	
 		assertEquals(Arrays.asList(member), GroupPropertyUtils.findOrganizationMembers(organization, world));
 	
+	}
+	
+	@Test
+	public void testGetMostLikedLeaderId() {
+		IdRelationshipMap idRelationshipMap = new IdRelationshipMap();
+		idRelationshipMap.incrementValue(3, 100);
+		idRelationshipMap.incrementValue(5, 200);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, idRelationshipMap);
+		List<WorldObject> organizations = new ArrayList<>();
+
+		organizations.add(TestUtils.createIntelligentWorldObject(2, Constants.ORGANIZATION_LEADER_ID, 3));
+		assertEquals(3, GroupPropertyUtils.getMostLikedLeaderId(performer, organizations).intValue());
+		
+		organizations.add(TestUtils.createIntelligentWorldObject(4, Constants.ORGANIZATION_LEADER_ID, 5));
+		assertEquals(5, GroupPropertyUtils.getMostLikedLeaderId(performer, organizations).intValue());
+	}
+	
+	@Test
+	public void testGetMostLikedLeaderIdForNoLeader() {
+		IdRelationshipMap idRelationshipMap = new IdRelationshipMap();
+		idRelationshipMap.incrementValue(3, -100);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, idRelationshipMap);
+		List<WorldObject> organizations = new ArrayList<>();
+
+		organizations.add(TestUtils.createIntelligentWorldObject(2, Constants.ORGANIZATION_LEADER_ID, 3));
+		organizations.add(TestUtils.createIntelligentWorldObject(4, Constants.ORGANIZATION_LEADER_ID, null));
+		assertEquals(null, GroupPropertyUtils.getMostLikedLeaderId(performer, organizations));
 	}
 }

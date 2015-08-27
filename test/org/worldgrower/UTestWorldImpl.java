@@ -123,6 +123,53 @@ public class UTestWorldImpl {
 		}
 		assertEquals(290, world.findWorldObject(Constants.ID, 290).getProperty(Constants.ID).intValue());
 	}
+	
+	@Test
+	public void testFindWorldObjectsByPropertyMatchingCondition() {
+		World world = createWorld();
+		WorldObject person1 = TestUtils.createIntelligentWorldObject(6, Constants.FOOD, 500);
+		world.addWorldObject(person1);
+		
+		List<WorldObject> worldObjects = world.findWorldObjectsByProperty(Constants.FOOD, w -> w.getProperty(Constants.FOOD) > 0);
+		assertEquals(1, worldObjects.size());
+		assertEquals(6, worldObjects.get(0).getProperty(Constants.ID).intValue());
+	}
+	
+	@Test
+	public void testFindWorldObjectsByPropertyNonMatchingCondition() {
+		World world = createWorld();
+		WorldObject person1 = TestUtils.createIntelligentWorldObject(6, Constants.FOOD, 500);
+		world.addWorldObject(person1);
+		
+		List<WorldObject> worldObjects = world.findWorldObjectsByProperty(Constants.FOOD, w -> w.getProperty(Constants.FOOD) > 700);
+		assertEquals(0, worldObjects.size());
+	}
+	
+	@Test
+	public void testFindWorldObjectsByPropertyRemove() {
+		World world = createWorld();
+		WorldObject person1 = TestUtils.createIntelligentWorldObject(6, Constants.FOOD, 500);
+		world.addWorldObject(person1);
+		world.removeWorldObject(person1);
+		
+		List<WorldObject> worldObjects = world.findWorldObjectsByProperty(Constants.FOOD, w -> w.getProperty(Constants.FOOD) > 0);
+		assertEquals(0, worldObjects.size());
+	}
+	
+	@Test
+	public void testFindWorldObjectsByPropertyLazyInstantiation() {
+		World world = createWorld();
+		
+		List<WorldObject> worldObjects = world.findWorldObjectsByProperty(Constants.FOOD, w -> w.getProperty(Constants.FOOD) > 0);
+		assertEquals(0, worldObjects.size());
+		
+		WorldObject person1 = TestUtils.createIntelligentWorldObject(6, Constants.FOOD, 500);
+		world.addWorldObject(person1);
+		
+		worldObjects = world.findWorldObjectsByProperty(Constants.FOOD, w -> w.getProperty(Constants.FOOD) > 0);
+		assertEquals(1, worldObjects.size());
+		assertEquals(6, worldObjects.get(0).getProperty(Constants.ID).intValue());
+	}
 
 	private WorldImpl createWorld() {
 		return new WorldImpl(0, 0, null, null);

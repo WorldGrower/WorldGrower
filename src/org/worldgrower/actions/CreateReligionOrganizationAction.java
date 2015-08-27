@@ -15,24 +15,33 @@
 package org.worldgrower.actions;
 
 import java.io.ObjectStreamException;
+import java.util.List;
 
 import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
-import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.deity.Deity;
+import org.worldgrower.goal.Goal;
+import org.worldgrower.goal.GroupPropertyUtils;
 
-public class WorshipDeityAction implements ManagedOperation {
+public class CreateReligionOrganizationAction implements ManagedOperation {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		//TODO: implement
-	}
-
-	@Override
-	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return Reach.evaluateTarget(performer, args, target, 1);
+		int deityIndex = args[0];
+		int organizationIndex = args[1];
+		int goalId = args[2];
+		
+		Deity deity = Deity.ALL_DEITIES.get(deityIndex);
+		List<String> organizationNames = new OrganizationNamer().getDeityOrganizationNames(deity, world);
+		
+		String organizationName = organizationNames.get(organizationIndex);
+		Goal goal = goalId != -1 ? deity.getOrganizationGoals().get(goalId) : null;
+		
+		WorldObject organization = GroupPropertyUtils.createReligionOrganization(performer.getProperty(Constants.ID), organizationName, deity, goal, world);
+		performer.getProperty(Constants.GROUP).add(organization);
 	}
 
 	@Override
@@ -42,17 +51,24 @@ public class WorshipDeityAction implements ManagedOperation {
 
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return (target.hasProperty(Constants.CAN_BE_WORSHIPPED) && (target.getProperty(Constants.CAN_BE_WORSHIPPED)));
+		int performerId = performer.getProperty(Constants.ID);
+		int targetId = target.getProperty(Constants.ID);
+		return (performerId == targetId);
+	}
+
+	@Override
+	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
+		return 0;
 	}
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "worshipping my deity " + performer.getProperty(Constants.DEITY);
+		return "creating a religion organization";
 	}
-
+	
 	@Override
 	public String getSimpleDescription() {
-		return "worship";
+		return "create religion organization";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {

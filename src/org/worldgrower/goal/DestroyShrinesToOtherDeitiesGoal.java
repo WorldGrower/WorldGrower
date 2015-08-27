@@ -23,22 +23,22 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.deity.Deity;
 
-public class ShrineToDeityGoal implements Goal {
+public class DestroyShrinesToOtherDeitiesGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		Deity performerDeity = performer.getProperty(Constants.DEITY);
-		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.WORSHIP_DEITY_ACTION, w -> w.getProperty(Constants.DEITY) == performerDeity, world);
-		if (targets.size() > 0 && (!GoalUtils.actionAlreadyPerformed(performer, targets.get(0), Actions.WORSHIP_DEITY_ACTION, new int[0], world))) {
-			return new OperationInfo(performer, targets.get(0), new int[0], Actions.WORSHIP_DEITY_ACTION);
-		} else if ((targets.size() == 0) && performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.STONE) < 8) {
-				return new StoneGoal().calculateGoal(performer, world);
-		} else if (targets.size() == 0) {
-			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 2, 3, world);
-			return new OperationInfo(performer, target, new int[0], Actions.BUILD_SHRINE_ACTION);
+		List<WorldObject> targets = findShrinesToOtherDeities(performer, world);
+		if (targets.size() > 0) {
+			return new OperationInfo(performer, targets.get(0), new int[0], Actions.MELEE_ATTACK_ACTION);
 		} else {
 			return null;
 		}
+	}
+	
+	private List<WorldObject> findShrinesToOtherDeities(WorldObject performer, World world) {
+		Deity performerDeity = performer.getProperty(Constants.DEITY);
+		List<WorldObject> shrinesToOtherDeities = world.findWorldObjectsByProperty(Constants.CAN_BE_WORSHIPPED, w -> (w.getProperty(Constants.DEITY) != performerDeity));
+		return shrinesToOtherDeities;
 	}
 	
 	@Override
@@ -47,7 +47,7 @@ public class ShrineToDeityGoal implements Goal {
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		return (performer.getProperty(Constants.PLACE_OF_WORSHIP_ID) != null);
+		return findShrinesToOtherDeities(performer, world).size() == 0;
 	}
 	
 	@Override
@@ -57,11 +57,11 @@ public class ShrineToDeityGoal implements Goal {
 
 	@Override
 	public String getDescription() {
-		return "choosing a deity";
+		return "destroy shrines to other deities";
 	}
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		return (performer.getProperty(Constants.PLACE_OF_WORSHIP_ID) != null) ? 1 : 0;
+		return Integer.MAX_VALUE - findShrinesToOtherDeities(performer, world).size();
 	}
 }

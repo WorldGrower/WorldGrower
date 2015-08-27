@@ -55,7 +55,7 @@ public class Goals {
 	public static final SellGoldGoal SELL_GOLD_GOAL = new SellGoldGoal();
 	public static final PaperMillGoal PAPER_MILL_GOAL = new PaperMillGoal();
 	public static final CreatePaperGoal CREATE_PAPER_GOAL = new CreatePaperGoal();
-	public static final BecomeOrganizationMemberGoal BECOME_ORGANIZATION_MEMBER_GOAL = new BecomeOrganizationMemberGoal();
+	public static final BecomeProfessionOrganizationMemberGoal BECOME_PROFESSION_ORGANIZATION_MEMBER_GOAL = new BecomeProfessionOrganizationMemberGoal();
 	public static final LearnSkillGoal LEARN_SKILL_GOAL = new LearnSkillGoal();
 	public static final ImproveOrganizationGoal IMPROVE_ORGANIZATION_GOAL = new ImproveOrganizationGoal();
 	public static final LibraryGoal LIBRARY_GOAL = new LibraryGoal();
@@ -88,4 +88,6 @@ public class Goals {
 	public static final ScribeNecromancerSpellsGoal SCRIBE_NECROMANCER_SPELLS_GOAL = new ScribeNecromancerSpellsGoal();
 	public static final KillVillagersGoal KILL_VILLAGERS_GOAL = new KillVillagersGoal();
 	public static final RevengeGoal REVENGE_GOAL = new RevengeGoal();
+	public static final BecomeReligionOrganizationMemberGoal BECOME_RELIGION_ORGANIZATION_MEMBER_GOAL = new BecomeReligionOrganizationMemberGoal();
+	public static final DestroyShrinesToOtherDeitiesGoal DESTROY_SHRINES_TO_OTHER_DEITIES_GOAL = new DestroyShrinesToOtherDeitiesGoal();
 }

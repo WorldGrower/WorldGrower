@@ -26,7 +26,7 @@ import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.profession.Profession;
 import org.worldgrower.profession.Professions;
 
-public class CreateOrganizationAction implements ManagedOperation {
+public class CreateProfessionOrganizationAction implements ManagedOperation {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
@@ -34,11 +34,11 @@ public class CreateOrganizationAction implements ManagedOperation {
 		int organizationIndex = args[1];
 		
 		Profession profession = Professions.getAllProfessions().get(professionIndex);
-		List<String> organizationNames = new OrganizationNamer().getNames(profession, world);
+		List<String> organizationNames = new OrganizationNamer().getProfessionOrganizationNames(profession, world);
 		
 		String organizationName = organizationNames.get(organizationIndex);
 		
-		WorldObject organization = GroupPropertyUtils.create(performer.getProperty(Constants.ID), organizationName, profession, world);
+		WorldObject organization = GroupPropertyUtils.createProfessionOrganization(performer.getProperty(Constants.ID), organizationName, profession, world);
 		
 		performer.getProperty(Constants.GROUP).add(organization);
 	}
@@ -62,12 +62,12 @@ public class CreateOrganizationAction implements ManagedOperation {
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "creating an organization";
+		return "creating a profession organization";
 	}
 	
 	@Override
 	public String getSimpleDescription() {
-		return "create organization";
+		return "create profession organization";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {

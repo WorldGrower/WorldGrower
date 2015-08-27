@@ -88,7 +88,7 @@ public class Main {
 	private static void addEnemies(int enemyDensity, World world, int seed) {
 		if (enemyDensity > 0) {
 			WorldGenerator worldGenerator = new WorldGenerator(seed);
-			WorldObject verminOrganization = GroupPropertyUtils.create(null, "vermin", null, world);
+			WorldObject verminOrganization = GroupPropertyUtils.create(null, "vermin", world);
 			CreatureGenerator creatureGenerator = new CreatureGenerator(verminOrganization);
 			PlantGenerator plantGenerator = new PlantGenerator(verminOrganization);
 			worldGenerator.addWorldObjects(world, 1, 1, 5, TerrainType.GRASLAND, creatureGenerator::generateRat);

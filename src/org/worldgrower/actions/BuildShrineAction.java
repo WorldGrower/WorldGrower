@@ -45,6 +45,7 @@ public class BuildShrineAction implements BuildAction {
 		properties.put(Constants.TEXT, "shrine to " + performer.getProperty(Constants.DEITY).getName());
 		properties.put(Constants.ID, world.generateUniqueId());
 		properties.put(Constants.IMAGE_ID, ImageIds.STATUE_OF_DEITY);
+		properties.put(Constants.CAN_BE_WORSHIPPED, Boolean.TRUE);
 		properties.put(Constants.HIT_POINTS, 150);
 		properties.put(Constants.HIT_POINTS_MAX, 150);
 		properties.put(Constants.ARMOR, 0);
@@ -53,6 +54,7 @@ public class BuildShrineAction implements BuildAction {
 		WorldObject shrine = new WorldObjectImpl(properties);
 		world.addWorldObject(shrine);
 		
+		performer.setProperty(Constants.PLACE_OF_WORSHIP_ID, shrine.getProperty(Constants.ID));
 		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.STONE, 8);
 	}
 

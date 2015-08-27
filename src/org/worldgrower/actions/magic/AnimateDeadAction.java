@@ -34,11 +34,11 @@ public class AnimateDeadAction implements MagicSpell {
 		double skillBonus = SkillUtils.useSkill(performer, getSkill());
 		
 		final WorldObject minionOrganization;
-		List<WorldObject> minionOrganizations = world.findWorldObjects(w -> GroupPropertyUtils.isMinionOrganzation(w) && GroupPropertyUtils.performerIsLeaderOfOrganization(performer, w, world));
+		List<WorldObject> minionOrganizations = world.findWorldObjects(w -> GroupPropertyUtils.isMinionOrganization(w) && GroupPropertyUtils.performerIsLeaderOfOrganization(performer, w, world));
 		if (minionOrganizations.size() > 0) {
 			minionOrganization = minionOrganizations.get(0);
 		} else {
-			minionOrganization = GroupPropertyUtils.create(performer.getProperty(Constants.ID), "minions of " + performer.getProperty(Constants.NAME), null, world);
+			minionOrganization = GroupPropertyUtils.create(performer.getProperty(Constants.ID), "minions of " + performer.getProperty(Constants.NAME), world);
 			minionOrganization.setProperty(Constants.MINION_ORGANIZATION, Boolean.TRUE);
 			performer.getProperty(Constants.GROUP).add(minionOrganization);
 		}

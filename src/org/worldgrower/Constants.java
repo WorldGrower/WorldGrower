@@ -150,9 +150,10 @@ public class Constants {
 	public static final BackgroundProperty BACKGROUND = new BackgroundProperty("background", ALL_PROPERTIES);
 	public static final IdProperty ORGANIZATION_LEADER_ID = new IdProperty("leader", ALL_PROPERTIES);
 	public static final KnowledgeMapProperty KNOWLEDGE_MAP = new KnowledgeMapProperty("knowledgeMap", ALL_PROPERTIES);
+	public static final UnCheckedProperty<Goal> ORGANIZATION_GOAL = new UnCheckedProperty<>("organizationGoal", ALL_PROPERTIES);
 	
 	public static final WorldObjectProperty FACADE = new WorldObjectProperty("facade", NULLABLE, ALL_PROPERTIES);
-	public static final UnCheckedProperty<Reasons> REASONS = new UnCheckedProperty<Reasons>("reasons", ALL_PROPERTIES);
+	public static final UnCheckedProperty<Reasons> REASONS = new UnCheckedProperty<>("reasons", ALL_PROPERTIES);
 	public static final StringProperty TEXT = new StringProperty("text", NOT_NULLABLE, ALL_PROPERTIES);
 
 	public static final WorldObjectContainerProperty INVENTORY = new WorldObjectContainerProperty("inventory", ALL_PROPERTIES);
@@ -167,6 +168,7 @@ public class Constants {
 
 	public static final UnCheckedProperty<Deity> DEITY = new UnCheckedProperty<>("deity", ALL_PROPERTIES);
 	public static final IdProperty PLACE_OF_WORSHIP_ID = new IdProperty("placeOfWorshipId", ALL_PROPERTIES);
+	public static final BooleanProperty CAN_BE_WORSHIPPED = new BooleanProperty("canBeWorshipped", NOT_NULLABLE ,ALL_PROPERTIES);
 	
 	public static final IntProperty SLEEP_COMFORT = new IntProperty("sleepComfort", 0, 100, NOT_NULLABLE, ALL_PROPERTIES);
 	

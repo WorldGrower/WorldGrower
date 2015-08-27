@@ -41,6 +41,7 @@ public class WorldImpl implements World, Serializable {
 
 	private final List<WorldObject> worldObjects = new ArrayList<>();
 	private final IdToIndexMapping idToIndexMapping = new IdToIndexMapping();
+	private final PropertyCache propertyCache = new PropertyCache();
 	private int nextId;
 	private transient List<ManagedOperationListener> listeners = new ArrayList<>();
 	private final Terrain terrain;
@@ -63,6 +64,7 @@ public class WorldImpl implements World, Serializable {
 	public void addWorldObject(WorldObject worldObject) {
 		worldObjects.add(worldObject);
 		idToIndexMapping.idAdded(worldObjects);
+		propertyCache.idAdded(worldObject);
 	}
 	
 	@Override
@@ -70,6 +72,12 @@ public class WorldImpl implements World, Serializable {
 		worldObjects.remove(worldObjectToRemove);
 		idToIndexMapping.idRemoved(worldObjects);
 		
+		removeIdContainers(worldObjectToRemove);
+		
+		propertyCache.idRemoved(worldObjectToRemove);
+	}
+
+	private void removeIdContainers(WorldObject worldObjectToRemove) {
 		int id = worldObjectToRemove.getProperty(Constants.ID);
 		for(WorldObject worldObject : worldObjects) {
 			List<IdContainer> worldObjectIds = getIdProperties();
@@ -103,6 +111,11 @@ public class WorldImpl implements World, Serializable {
 			.stream()
 			.filter(w -> worldObjectCondition.isWorldObjectValid(w))
 			.collect(Collectors.toList());
+	}
+	
+	@Override
+	public List<WorldObject> findWorldObjectsByProperty(ManagedProperty<?> managedProperty, WorldObjectCondition worldObjectCondition) {
+		return propertyCache.findWorldObjectsByProperty(managedProperty, worldObjectCondition, this);
 	}
 	
 	public<T> WorldObject findWorldObject(ManagedProperty<T> propertyKey, T value) {

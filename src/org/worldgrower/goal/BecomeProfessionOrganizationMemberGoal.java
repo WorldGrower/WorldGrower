@@ -14,10 +14,7 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Random;
 
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
@@ -28,80 +25,38 @@ import org.worldgrower.actions.OrganizationNamer;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.profession.Professions;
 
-public class BecomeOrganizationMemberGoal implements Goal {
+public class BecomeProfessionOrganizationMemberGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		WorldObject performerFacade = FacadeUtils.createFacadeForSelf(performer);
 		List<WorldObject> organizations = GroupPropertyUtils.findProfessionOrganizationsInWorld(performerFacade, world);
 		if (organizations.size() > 0) {
-			Integer leaderId = getMostLikedLeaderId(performer, organizations);
+			Integer leaderId = GroupPropertyUtils.getMostLikedLeaderId(performer, organizations);
 			if (leaderId != null) {
 				WorldObject organizationLeader = world.findWorldObject(Constants.ID, leaderId);
 				int relationshipValue = performer.getProperty(Constants.RELATIONSHIPS).getValue(organizationLeader);
 				if (relationshipValue >= 0) {
 					return new OperationInfo(performer, organizationLeader, Conversations.createArgs(Conversations.JOIN_TARGET_ORGANIZATION_CONVERSATION, organizations.get(0)), Actions.TALK_ACTION);
 				} else {
-					return createOrganization(performer, world);
+					return createProfessionOrganization(performer, world);
 				}
 			} else {
-				return createOrganization(performer, world);
+				return createProfessionOrganization(performer, world);
 			}
 		} else {
-			return createOrganization(performer, world);
+			return createProfessionOrganization(performer, world);
 		}
 	}
 
-	Integer getMostLikedLeaderId(WorldObject performer, List<WorldObject> organizations) {
-		Collections.sort(organizations, new OrganizationComparator(performer));
-		Collections.reverse(organizations);
-		Integer leaderId = organizations.get(0).getProperty(Constants.ORGANIZATION_LEADER_ID);
-		return leaderId;
-	}
-
-	private static class OrganizationComparator implements  Comparator<WorldObject> {
-
-		private final WorldObject performer;
-		
-		public OrganizationComparator(WorldObject performer) {
-			this.performer = performer;
-		}
-
-		@Override
-		public int compare(WorldObject organization1, WorldObject organization2) {
-			Integer leaderId1 = organization1.getProperty(Constants.ORGANIZATION_LEADER_ID);
-			Integer leaderId2 = organization2.getProperty(Constants.ORGANIZATION_LEADER_ID);
-			
-			int relationshipValue1 = leaderId1 != null ? performer.getProperty(Constants.RELATIONSHIPS).getValue(leaderId1) : 0;
-			int relationshipValue2 = leaderId2 != null ? performer.getProperty(Constants.RELATIONSHIPS).getValue(leaderId2) : 0;
-			
-			return Integer.compare(relationshipValue1, relationshipValue2);
-		}
-		
-	}
-	
-	private OperationInfo createOrganization(WorldObject performer, World world) {
+	private OperationInfo createProfessionOrganization(WorldObject performer, World world) {
 		WorldObject performerToFind = FacadeUtils.createFacadeForSelf(performer);
 		int professionIndex = Professions.indexOf(performerToFind.getProperty(Constants.PROFESSION));
-		int organizationIndex = getOrganizationIndex(performerToFind, world);
-		return new OperationInfo(performer, performer, new int[] {professionIndex, organizationIndex}, Actions.CREATE_ORGANIZATION_ACTION);
+		List<String> organizationNames = new OrganizationNamer().getProfessionOrganizationNames(performer.getProperty(Constants.PROFESSION), world);
+		int organizationIndex = GroupPropertyUtils.getRandomOrganizationIndex(performer, organizationNames);
+		return new OperationInfo(performer, performer, new int[] {professionIndex, organizationIndex}, Actions.CREATE_PROFESSION_ORGANIZATION_ACTION);
 	}
 
-	private int getOrganizationIndex(WorldObject performer, World world) {
-		List<String> organizationNames = new OrganizationNamer().getNames(performer.getProperty(Constants.PROFESSION), world);
-		if (organizationNames.size() == 1) {
-			return 0;
-		} else if (organizationNames.size() == 0) {
-			throw new IllegalStateException("No organization names found for profession " + performer.getProperty(Constants.PROFESSION));
-		} else {
-			Random r = new Random();
-			int low = 0;
-			int high = organizationNames.size() - 1;
-			int organizationIndex = r.nextInt(high-low) + low;
-			return organizationIndex;
-		}
-	}
-	
 	@Override
 	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
 	}
@@ -118,7 +73,7 @@ public class BecomeOrganizationMemberGoal implements Goal {
 
 	@Override
 	public String getDescription() {
-		return "looking for an organization to join";
+		return "looking for an profession organization to join";
 	}
 
 	@Override

@@ -36,6 +36,7 @@ public interface World {
 	
 	public List<WorldObject> findWorldObjects(WorldObjectCondition worldObjectCondition);
 	public<T> WorldObject findWorldObject(ManagedProperty<T> propertyKey, T value);
+	public List<WorldObject> findWorldObjectsByProperty(ManagedProperty<?> managedProperty, WorldObjectCondition worldObjectCondition);
 	
 	public int generateUniqueId();
 	public<T> void logAction(ManagedOperation managedOperation, WorldObject performer, WorldObject target, int[] args, T value);
@@ -53,4 +54,5 @@ public interface World {
 	
 	public History getHistory();
 	public void save(File fileToSave);
+	
 }

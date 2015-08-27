@@ -31,7 +31,6 @@ import org.worldgrower.conversation.UTestConversations;
 import org.worldgrower.conversation.UTestDemandsConversation;
 import org.worldgrower.conversation.UTestLocationConversation;
 import org.worldgrower.goal.UTestAbstractScribeSpellsGoal;
-import org.worldgrower.goal.UTestBecomeOrganizationMemberGoal;
 import org.worldgrower.goal.UTestBuildLocationUtils;
 import org.worldgrower.goal.UTestGoalUtils;
 import org.worldgrower.goal.UTestGroupPropertyUtils;
@@ -67,7 +66,6 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestNumberUtils.class,
 	UTestAttackUtils.class,
 	UTestGroupPropertyUtils.class,
-	UTestBecomeOrganizationMemberGoal.class,
 	UTestSkillUtils.class,
 	UTestAbstractScribeSpellsGoal.class,
 	UTestKnowledgeMap.class,
