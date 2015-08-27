@@ -95,11 +95,13 @@ public class GroupPropertyUtils {
 	
 	public static WorldObject findProfessionOrganization(WorldObject performer, World world) {
 		Profession performerProfession = performer.getProperty(Constants.PROFESSION);
-		IdList organizations = performer.getProperty(Constants.GROUP);
-		for(int organizationId : organizations.getIds()) {
-			WorldObject organisation = world.findWorldObject(Constants.ID, organizationId);
-			if (organisation.getProperty(Constants.PROFESSION) == performerProfession) {
-				return organisation;
+		if (performerProfession != null) {
+			IdList organizations = performer.getProperty(Constants.GROUP);
+			for(int organizationId : organizations.getIds()) {
+				WorldObject organisation = world.findWorldObject(Constants.ID, organizationId);
+				if (organisation.getProperty(Constants.PROFESSION) == performerProfession) {
+					return organisation;
+				}
 			}
 		}
 		return null;

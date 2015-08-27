@@ -25,6 +25,7 @@ import org.worldgrower.WorldObjectPriorities;
 import org.worldgrower.curse.Curse;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
+import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.profession.Profession;
 
 public class CommonerWorldEvaluationFunction implements WorldObjectPriorities {
@@ -34,18 +35,20 @@ public class CommonerWorldEvaluationFunction implements WorldObjectPriorities {
 		Profession profession = performer.getProperty(Constants.PROFESSION);
 		
 		final List<Goal> professionGoals;
-		final List<Goal> organizationGoals;
+		final List<Goal> professionOrganizationGoals;
 		if (profession != null) {
 			professionGoals = new ArrayList<>(profession.getProfessionGoals());
 			professionGoals.add(Goals.IMPROVE_ORGANIZATION_GOAL);
 			
-			organizationGoals = new ArrayList<>();
-			organizationGoals.add(Goals.BECOME_PROFESSION_ORGANIZATION_MEMBER_GOAL);
-			organizationGoals.add(Goals.LEARN_SKILL_GOAL);
+			professionOrganizationGoals = new ArrayList<>();
+			professionOrganizationGoals.add(Goals.BECOME_PROFESSION_ORGANIZATION_MEMBER_GOAL);
+			professionOrganizationGoals.add(Goals.LEARN_SKILL_GOAL);
 		} else {
 			professionGoals = new ArrayList<>();
-			organizationGoals = new ArrayList<>();
+			professionOrganizationGoals = new ArrayList<>();
 		}
+		
+		List<Goal> religionOrganizationGoal = getReligionOrganizationGoals(performer, world);
 		
 		
 		List<Goal> genericGoals = Arrays.asList(
@@ -79,8 +82,9 @@ public class CommonerWorldEvaluationFunction implements WorldObjectPriorities {
 		List<Goal> result = new ArrayList<>();
 		result.addAll(genericGoals);
 		result.addAll(backgroundGoals);
-		result.addAll(organizationGoals);
+		result.addAll(professionOrganizationGoals);
 		result.addAll(professionGoals);
+		result.addAll(religionOrganizationGoal);
 		result.addAll(personalGoals);
 	
 		Curse curse = performer.getProperty(Constants.CURSE);
@@ -88,5 +92,20 @@ public class CommonerWorldEvaluationFunction implements WorldObjectPriorities {
 			result = curse.getCurseGoals(result);
 		}
 		return result;
+	}
+
+	private List<Goal> getReligionOrganizationGoals(WorldObject performer, World world) {
+		List<Goal> religionOrganizationGoals = new ArrayList<>();
+		List<WorldObject> organizations = GroupPropertyUtils.getOrganizations(performer, world);
+		for(WorldObject organization : organizations) {
+			if (organization.hasProperty(Constants.DEITY)) {
+				Goal organizationGoal = organization.getProperty(Constants.ORGANIZATION_GOAL);
+				if (organizationGoal != null) {
+					religionOrganizationGoals.add(organizationGoal);
+				}
+			}
+		}
+		
+		return religionOrganizationGoals;
 	}
 }
