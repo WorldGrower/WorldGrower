@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 
 <shortcuts>
+<programGroup defaultName="WorldGrower"
+            location="applications"/>
+<shortcut
+name="WorldGrower"
+target="/usr/bin/java"
+commandLine="-jar $INSTALL_PATH/worldgrower.jar"
+description="Launch WorldGrower"
+workingDirectory="$INSTALL_PATH"
+initialState="normal"
+programGroup="yes"
+desktop="yes"
+applications="no"
+startMenu="no"
+startup="no"
+type="Application"
+terminal="true"
+encoding="UTF-8">
 
-   <shortcut
-     name="WorldGrower"
-     programGroup="no"
-     desktop="yes"
-     applications="no"
-     startMenu="no"
-     startup="no"
-     target="konqueror"
-     workingDirectory=""
-     commandLine=""
-     initialState="noShow"
-     iconFile="help"
-     iconIndex="0"
-     url="$INSTALL_PATH/release/worldgrower.sh"
-     type="Link"
-     encoding="UTF-8"
-     description="WorldGrower">
-   </shortcut>
+</shortcut>
 
 </shortcuts>
