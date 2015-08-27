@@ -72,7 +72,6 @@ task release(dependsOn: ['jar', 'test']) << {
 
 task zipRelease(type: Zip) {
 	from 'build/release'
-	fileMode 755
 }
 
 task izpack() << {
