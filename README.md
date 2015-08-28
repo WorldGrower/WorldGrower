@@ -12,15 +12,22 @@ It focuses on skills, dialogue, economy and society.
 
 ## Installation<a name="installation"></a>
 
-Binary installation
+###Binary installation
 
 *   [Download .zip file](http://worldgrower.github.io/WorldGrower/releases/worldgrower-0.0.7.zip)
 *   Extract the .zip file on the local filesystem
-*   [Make sure Java 8 is installed.](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html)
+*   Make sure [Java 8](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html) is installed.
+	If you're not sure, you can check your java version [here](https://www.java.com/verify).
 *   To run under Windows, use worldgrower.cmd.
 *   To run under Linux, use worldgrower.sh.
-    
-Source installation
+
+###Common problems with binary installation
+
+*	*'java' is not recognized as an internal or external command, operable program or batch file.*<br/> This means that no java version was installed.<br/> Make sure to download java from [here](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html).
+
+*	*Exception in thread "main" java.lang.UnsupportedClassVersionError: org/worldgrower/gui/start/StartScreen : Unsupported major.minor version 52.0*<br/> This means an older java version is installed.<br/> It's best to can check your java version [here](https://www.java.com/verify).
+
+###Source installation
 
 *   If you are installing from source code, it's recommended that you clone the master branch.
 *   Make sure Java 8 is installed
@@ -56,3 +63,6 @@ WorldGrower's documentation, included in this repo in the gh-pages branch.
 ## License<a name="license"></a>
 
 WorldGrower is under GNU General Public License, see LICENSE for more information.
+
+<a href="https://twitter.com/WorldGrower" class="twitter-follow-button" data-show-count="false">Follow @WorldGrower</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
