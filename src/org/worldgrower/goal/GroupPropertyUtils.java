@@ -37,7 +37,7 @@ import org.worldgrower.profession.Profession;
 
 public class GroupPropertyUtils {
 
-	//TODO: in longer run, merge profession and religion code. Code will be compacter with less duplication, but less readable.
+	//TODO: in longer run, merge profession and religion code. Code will be compacter with less duplication, but probably less readable.
 	
 	private static final int TAXES_PERIOD = 500;
 	
@@ -271,7 +271,20 @@ public class GroupPropertyUtils {
 		return organization.hasProperty(Constants.MINION_ORGANIZATION) && organization.getProperty(Constants.MINION_ORGANIZATION);
 	}
 	
-	public static boolean canJoinOrChangeLeaderOfOrganization(WorldObject organization) {
+	public static boolean canJoinOrganization(WorldObject personJoining, WorldObject organization) {
+		Deity organizationDeity = organization.getProperty(Constants.DEITY);
+		if (organizationDeity != null) {
+			Deity personJoiningDeity = personJoining.getProperty(Constants.DEITY);
+			if (organizationDeity == personJoiningDeity) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		return canChangeLeaderOfOrganization(organization);
+	}
+	
+	public static boolean canChangeLeaderOfOrganization(WorldObject organization) {
 		return !isMinionOrganization(organization);
 	}
 	

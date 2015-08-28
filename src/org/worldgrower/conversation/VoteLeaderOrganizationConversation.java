@@ -44,7 +44,7 @@ public class VoteLeaderOrganizationConversation implements Conversation {
 		List<Question> questions = new ArrayList<>();
 		for(int organizationId : targetOrganizations.getIds()) {
 			WorldObject organization = world.findWorldObject(Constants.ID, organizationId);
-			if (GroupPropertyUtils.canJoinOrChangeLeaderOfOrganization(organization)) {
+			if (GroupPropertyUtils.canChangeLeaderOfOrganization(organization)) {
 				if (performer.getProperty(Constants.GROUP).contains(organization)) {
 					boolean voteAlreadyInProgress = world.findWorldObjects(w -> VotingPropertyUtils.isVotingBoxForOrganization(w, organization)).size() > 0;
 					if (!voteAlreadyInProgress) {

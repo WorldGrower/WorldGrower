@@ -90,4 +90,6 @@ public class Goals {
 	public static final RevengeGoal REVENGE_GOAL = new RevengeGoal();
 	public static final BecomeReligionOrganizationMemberGoal BECOME_RELIGION_ORGANIZATION_MEMBER_GOAL = new BecomeReligionOrganizationMemberGoal();
 	public static final DestroyShrinesToOtherDeitiesGoal DESTROY_SHRINES_TO_OTHER_DEITIES_GOAL = new DestroyShrinesToOtherDeitiesGoal();
+	public static final HuntUndeadGoal HUNT_UNDEAD_GOAL = new HuntUndeadGoal();
+	public static final HealOthersGoal HEAL_OTHERS_GOAL = new HealOthersGoal();
 }

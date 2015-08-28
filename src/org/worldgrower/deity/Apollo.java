@@ -21,6 +21,8 @@ import java.util.List;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.goal.Goal;
+import org.worldgrower.goal.Goals;
 import org.worldgrower.profession.Professions;
 
 public class Apollo implements Deity {
@@ -63,5 +65,10 @@ public class Apollo implements Deity {
 	
 	@Override
 	public void onTurn(World world) {
+	}
+
+	@Override
+	public List<Goal> getOrganizationGoals() {
+		return Arrays.asList(Goals.DESTROY_SHRINES_TO_OTHER_DEITIES_GOAL, Goals.HEAL_OTHERS_GOAL);
 	}
 }
