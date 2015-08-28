@@ -43,9 +43,9 @@ It focuses on skills, dialogue, economy and society.
 
 ## Bugs and Feature Requests<a name="bugs-and-feature-requests"></a>
 
-Have a bug or a feature request?  Please search for existing and closed issues
+Have a bug or a feature request?<br/>Please search for existing and closed issues
 on the [Community
-Forum](http://worldgrower.freefo.org/index.php). If your
+Forum](http://worldgrower.freefo.org/index.php).<br/>If your
 problem or idea is not addressed yet, [please open a new
 issue](https://github.com/WorldGrower/WorldGrower/issues).
 
