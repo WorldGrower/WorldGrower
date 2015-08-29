@@ -1,3 +1,14 @@
+v0.0.8
+
+- made jar file executable
+- made installer
+- disable talk button if talking isn't possible
+- add water terrain type
+- improve shack and house images
+- add waterwalk magic spell, disguise magic spell
+- playercharacter now moves smoothly across screen
+- add functionality to create religious organizations with a goal
+
 v0.0.7
 
 - add DetectPoisonAndDiseaseAction, Lock and unlock spells
