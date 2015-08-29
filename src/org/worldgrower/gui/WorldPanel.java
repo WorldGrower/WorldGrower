@@ -152,7 +152,7 @@ public class WorldPanel extends JPanel {
         
         this.playerCharacter = playerCharacter;
         this.world = world;
-        this.backgroundPainter = new BackgroundPainter(imageInfoReader.getImage(ImageIds.GRASS_BACKGROUND, null));
+        this.backgroundPainter = new BackgroundPainter(imageInfoReader.getImage(ImageIds.GRASS_BACKGROUND, null), world);
     }
 
 	private void initializeKeyBindings(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster) {

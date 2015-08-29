@@ -21,13 +21,17 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.awt.image.FilteredImageSource;
+import java.awt.image.ImageFilter;
 import java.awt.image.ImageProducer;
 import java.awt.image.RGBImageFilter;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.worldgrower.World;
+import org.worldgrower.goal.LocationUtils;
 import org.worldgrower.terrain.Terrain;
 import org.worldgrower.terrain.TerrainType;
 
@@ -35,18 +39,45 @@ public class BackgroundPainter {
 
 	private final Map<TerrainType, Color> terrainTypesToColor = new HashMap<>();
 	private Image[] backgroundImages = new Image[TerrainType.values().length];
+	private Image[] backgroundTransitionMap = new Image[TerrainType.values().length * TerrainType.values().length * TerrainType.values().length * TerrainType.values().length];
 	
-	public BackgroundPainter(Image grassBackgroundImage) {
+	public BackgroundPainter(Image grassBackgroundImage, World world) {
 		terrainTypesToColor.put(TerrainType.WATER, new Color(0, 0, 163));
-		terrainTypesToColor.put(TerrainType.GRASLAND, new Color(110, 196, 88));
+		terrainTypesToColor.put(TerrainType.GRASLAND, calculateColorForImage(grassBackgroundImage));
 		terrainTypesToColor.put(TerrainType.PLAINS, new Color(235, 195, 75));
 		terrainTypesToColor.put(TerrainType.HILL, new Color(171, 140, 17));
 		terrainTypesToColor.put(TerrainType.MOUNTAIN, new Color(161, 161, 161));
 		
-		fillbackgroundImagesMap(grassBackgroundImage);
+		fillBackgroundImagesMap(grassBackgroundImage);
+		fillBackgroundTransitionMap(world);
 	}
 	
-	private void fillbackgroundImagesMap(Image grassBackgroundImage) {
+	private Color calculateColorForImage(Image image) {
+		BufferedImage bufferedImage = toBufferedImage(image);
+		long redBucket = 0;
+		long greenBucket = 0;
+		long blueBucket = 0;
+		long pixelCount = 0;
+
+		for (int y = 0; y < bufferedImage.getHeight(); y++) {
+		    for (int x = 0; x < bufferedImage.getWidth(); x++) {
+		        Color c = new Color(bufferedImage.getRGB(x, y));
+
+		        pixelCount++;
+		        redBucket += c.getRed();
+		        greenBucket += c.getGreen();
+		        blueBucket += c.getBlue();
+		    }
+		}
+
+		int red = (int)(redBucket / pixelCount);
+		int green = (int)(greenBucket / pixelCount);
+		int blue = (int)(blueBucket / pixelCount);
+		
+		return new Color(red, green, blue);
+	}
+	
+	private void fillBackgroundImagesMap(Image grassBackgroundImage) {
 		for(Entry<TerrainType, Color> entry : terrainTypesToColor.entrySet()) {
 			TerrainType terrainType = entry.getKey();
 			Color currentColor = entry.getValue();
@@ -65,6 +96,77 @@ public class BackgroundPainter {
 				addBackgroundImage(terrainType, cropImage(bufferedImage, 48, 48));
 			}
 		}
+	}
+
+	private void fillBackgroundTransitionMap(World world) {
+		for(int x = 0; x<world.getWidth() ;x++) {
+			for(int y = 0; y<world.getHeight(); y++) {
+				Terrain terrain = world.getTerrain();
+				TerrainType terrainType = terrain.getTerrainInfo(x, y).getTerrainType();
+				int key = getKeyForBackgroundTransitionMap(terrain, x, y, world);
+				if(backgroundTransitionMap[key] == null) {
+					final TerrainType left = getTerrainTypeFor(terrain, x-1, y, world, terrainType);
+					final TerrainType right = getTerrainTypeFor(terrain, x+1, y, world, terrainType);
+					final TerrainType up = getTerrainTypeFor(terrain, x, y-1, world, terrainType);
+					final TerrainType down = getTerrainTypeFor(terrain, x, y+1, world, terrainType);
+					
+					Image image = getBackgroundImage(terrainType);
+					Image newImage = filterImage(image, new TerrainTransitionFilter(terrainType, left, right, up, down, terrainTypesToColor));
+					BufferedImage bufferedImage = toBufferedImage(newImage); 
+										
+					backgroundTransitionMap[key] = bufferedImage;
+				}
+			}
+		}
+	}
+	
+	private int getKeyForBackgroundTransitionMap(Terrain terrain, int x, int y, World world) {
+		TerrainType terrainType = terrain.getTerrainInfo(x, y).getTerrainType();
+		
+		TerrainType left = getTerrainTypeFor(terrain, x-1, y, world, terrainType);
+		TerrainType right = getTerrainTypeFor(terrain, x+1, y, world, terrainType);
+		TerrainType up = getTerrainTypeFor(terrain, x, y-1, world, terrainType);
+		TerrainType down = getTerrainTypeFor(terrain, x, y+1, world, terrainType);
+		
+		if (surroundingTerrainHasLowerPriority(terrainType, left, right, up, down)) {
+			left = terrainType;
+			right = terrainType;
+			up = terrainType;
+			down = terrainType;
+		}
+		
+		int numberOfTerrainTypes = TerrainType.values().length;
+		return left.ordinal() 
+				+ right.ordinal() * numberOfTerrainTypes 
+				+ up.ordinal() * numberOfTerrainTypes * numberOfTerrainTypes
+				+ down.ordinal() * numberOfTerrainTypes * numberOfTerrainTypes * numberOfTerrainTypes;
+				
+	}
+	
+	private boolean surroundingTerrainHasLowerPriority(TerrainType terrainType, TerrainType left, TerrainType right, TerrainType up, TerrainType down) {
+		Set<TerrainType> terrainTypes = new HashSet<>();
+		terrainTypes.add(left);
+		terrainTypes.add(right);
+		terrainTypes.add(up);
+		terrainTypes.add(down);
+		terrainTypes.remove(terrainType);
+		
+		if (terrainTypes.size() > 1) {
+			throw new IllegalStateException("Multiple terrainTypes: "+ terrainTypes);
+		}
+		
+		return (terrainTypes.size() > 0 && terrainTypes.iterator().next().ordinal() < terrainType.ordinal());
+
+	}
+
+	private TerrainType getTerrainTypeFor(Terrain terrain, int x, int y, World world, TerrainType terrainType) {
+		final TerrainType terrainTypeForLocation;
+		if (LocationUtils.areInvalidCoordinates(x, y, world)) {
+			terrainTypeForLocation = terrainType;
+		} else {
+			terrainTypeForLocation = terrain.getTerrainInfo(x, y).getTerrainType();
+		}
+		return terrainTypeForLocation;
 	}
 	
 	private void addBackgroundImage(TerrainType terrainType, Image backgroundImage) {
@@ -105,8 +207,7 @@ public class BackgroundPainter {
 		for(int x = 0; x<world.getWidth() ;x++) {
 			for(int y = 0; y<world.getHeight(); y++) {
 				if (terrain.isExplored(x, y)) {
-					TerrainType terrainType = terrain.getTerrainInfo(x, y).getTerrainType();
-					Image image = getBackgroundImage(terrainType);
+					Image image = backgroundTransitionMap[getKeyForBackgroundTransitionMap(terrain, x, y, world)];
 					worldPanel.drawBackgroundImage(g, image, x, y);
 				} else {
 					worldPanel.drawUnexploredTerrain(g, x, y);
@@ -115,8 +216,8 @@ public class BackgroundPainter {
 		}
 	}
 	
-	private Image filterImage(Image sourceImage, ColorFilter colorFilter) {
-		ImageProducer ip = new FilteredImageSource(sourceImage.getSource(), colorFilter);
+	private Image filterImage(Image sourceImage, ImageFilter imageFilter) {
+		ImageProducer ip = new FilteredImageSource(sourceImage.getSource(), imageFilter);
 		return Toolkit.getDefaultToolkit().createImage(ip);
 	}
 
@@ -155,6 +256,87 @@ public class BackgroundPainter {
 				colorValue = 255;
 			}
 			return colorValue;
+		}
+	}
+	
+	static class TerrainTransitionFilter extends RGBImageFilter {
+		private final Color colorCurrent;
+		private final Color colorLeft;
+		private final Color colorRight;
+		private final Color colorUp;
+		private final Color colorDown;
+		
+		public TerrainTransitionFilter(TerrainType current, TerrainType left, TerrainType right, TerrainType up, TerrainType down, Map<TerrainType, Color> terrainTypesToColor) {
+			super();
+			this.colorCurrent = terrainTypesToColor.get(current);
+			this.colorLeft = terrainTypesToColor.get(left);
+			this.colorRight = terrainTypesToColor.get(right);
+			this.colorUp = terrainTypesToColor.get(up);
+			this.colorDown = terrainTypesToColor.get(down);
+			
+			canFilterIndexColorModel = true;
+		}
+		
+		@Override
+		public int filterRGB(int x, int y, int rgb) {
+			int r = ((rgb >> 16) & 0xff);
+			int g = ((rgb >> 8) & 0xff);
+			int b = ((rgb >> 0) & 0xff);
+
+			float alphaLeft = calculateAlphaLeft(x, colorCurrent, colorLeft);
+			float alphaRight = calculateAlphaRight(x, colorCurrent, colorRight);
+			float alphaUp = calculateAlphaLeft(y, colorCurrent, colorUp);
+			float alphaDown = calculateAlphaRight(y, colorCurrent, colorDown);
+			
+			float sumOfALphas = alphaLeft + alphaRight + alphaUp + alphaDown;
+			if (sumOfALphas > 1.0f) {
+				alphaLeft = alphaLeft / sumOfALphas;
+				alphaRight = alphaRight / sumOfALphas;
+				alphaUp = alphaUp / sumOfALphas;
+				alphaDown = alphaDown / sumOfALphas;
+			}
+			
+			float alpha = 1f - alphaLeft - alphaRight - alphaUp - alphaDown;
+			
+			r = (int) (alpha * r 
+					+ alphaLeft * colorLeft.getRed() 
+					+ alphaRight * colorRight.getRed() 
+					+ alphaUp * colorUp.getRed() 
+					+ alphaDown * colorDown.getRed());
+
+			g = (int) (alpha * g 
+					+ alphaLeft * colorLeft.getGreen() 
+					+ alphaRight * colorRight.getGreen() 
+					+ alphaUp * colorUp.getGreen() 
+					+ alphaDown * colorDown.getGreen());
+
+			b = (int) (alpha * b 
+					+ alphaLeft * colorLeft.getBlue() 
+					+ alphaRight * colorRight.getBlue() 
+					+ alphaUp * colorUp.getBlue() 
+					+ alphaDown * colorDown.getBlue());
+			
+			return (rgb & 0xff000000) | (r << 16) | (g << 8) | (b << 0);
+		}
+
+		private float calculateAlphaRight(int x, Color colorCurrent, Color colorRight) {
+			float alphaRight;
+			if (colorCurrent.equals(colorRight)) {
+				alphaRight = 0f;
+			} else {
+				alphaRight = Math.max((x*4 - 96.0f) / 100.0f, 0f);
+			}
+			return alphaRight;
+		}
+
+		private float calculateAlphaLeft(int x, Color colorCurrent, Color colorLeft) {
+			float alphaLeft;
+			if (colorCurrent.equals(colorLeft)) {
+				alphaLeft = 0f;
+			} else {
+				alphaLeft = (96.0f - x*2) / 100.0f;
+			}
+			return alphaLeft;
 		}
 	}
 }
