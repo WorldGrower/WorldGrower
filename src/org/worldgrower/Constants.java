@@ -16,6 +16,7 @@ package org.worldgrower;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.attribute.Background;
@@ -151,6 +152,7 @@ public class Constants {
 	public static final IdProperty ORGANIZATION_LEADER_ID = new IdProperty("leader", ALL_PROPERTIES);
 	public static final KnowledgeMapProperty KNOWLEDGE_MAP = new KnowledgeMapProperty("knowledgeMap", ALL_PROPERTIES);
 	public static final UnCheckedProperty<Goal> ORGANIZATION_GOAL = new UnCheckedProperty<>("organizationGoal", ALL_PROPERTIES);
+	public static final UnCheckedProperty<Map<ManagedOperation, Boolean>> LEGAL_ACTIONS = new UnCheckedProperty<>("legalActions", ALL_PROPERTIES);
 	
 	public static final WorldObjectProperty FACADE = new WorldObjectProperty("facade", NULLABLE, ALL_PROPERTIES);
 	public static final UnCheckedProperty<Reasons> REASONS = new UnCheckedProperty<>("reasons", ALL_PROPERTIES);

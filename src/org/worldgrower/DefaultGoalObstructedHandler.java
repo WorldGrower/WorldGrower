@@ -14,7 +14,9 @@
  *******************************************************************************/
 package org.worldgrower;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import org.worldgrower.actions.Actions;
 import org.worldgrower.condition.Condition;
@@ -52,7 +54,7 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 		performer.getProperty(Constants.RELATIONSHIPS).incrementValue(targetFacade.getProperty(Constants.ID), value);
 		target.getProperty(Constants.RELATIONSHIPS).incrementValue(performerFacade.getProperty(Constants.ID), value);
 		
-		if (performerViolatedGroupRules(managedOperation)) {
+		if (performerViolatedGroupRules(managedOperation, world)) {
 			GroupPropertyUtils.throwPerformerOutGroup(performerFacade, target);
 			
 			WorldObject realPerformer = world.findWorldObject(Constants.ID, performerFacade.getProperty(Constants.ID));
@@ -71,13 +73,19 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 				);
 	}
 	
+	public static List<ManagedOperation> getNonAttackingIllegalActions() {
+		return Arrays.asList(Actions.STEAL_ACTION);
+	}
 
-	private boolean performerViolatedGroupRules(ManagedOperation managedOperation) {
-		Class<?> actionClass = managedOperation.getClass();
-		return ((actionClass == Actions.STEAL_ACTION.getClass())
-				|| performerAttacked(managedOperation)
-				);
-		
+	private boolean performerViolatedGroupRules(ManagedOperation managedOperation, World world) {
+		WorldObject villagersOrganization = GroupPropertyUtils.getVillagersOrganization(world);
+		Map<ManagedOperation, Boolean> legalActions = villagersOrganization.getProperty(Constants.LEGAL_ACTIONS);
+		Boolean isLegal = legalActions.get(managedOperation);
+		if (isLegal != null) {
+			return !isLegal.booleanValue();
+		} else {
+			return false;
+		}
 	}
 
 	private void logToBackground(WorldObject target, WorldObject actionTarget, ManagedOperation managedOperation, int[] args, WorldObject performerFacade, World world) {

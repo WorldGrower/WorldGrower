@@ -35,6 +35,7 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.BuildAction;
 import org.worldgrower.actions.magic.ResearchSpellAction;
 import org.worldgrower.conversation.Conversations;
+import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.gui.chooseworldobject.ChooseWorldObjectAction;
 import org.worldgrower.gui.chooseworldobject.GuiDisguiseAction;
 import org.worldgrower.gui.chooseworldobject.GuiVoteAction;
@@ -144,18 +145,10 @@ public class GuiMouseListener extends MouseAdapter {
             	addRestorationActions(menu);
             	addTransmutationActions(menu);
             	addScribeMagicSpells(menu);
-            	
-            	JMenuItem restMenuItem = new JMenuItem(new RestAction(playerCharacter, imageInfoReader, world, (WorldPanel)container, dungeonMaster));
-            	restMenuItem.setText("Rest...");
-            	menu.add(restMenuItem);
-            	
-            	JMenuItem createOrganizationMenuItem = new JMenuItem(new GuiCreateOrganizationAction(playerCharacter, imageInfoReader, world, (WorldPanel)container, dungeonMaster));
-            	createOrganizationMenuItem.setText("Create Organization...");
-            	menu.add(createOrganizationMenuItem);
-            	
-            	JMenuItem chooseDeityMenuItem = new JMenuItem(new ChooseDeityAction(playerCharacter, imageInfoReader, world, (WorldPanel)container, dungeonMaster));
-            	chooseDeityMenuItem.setText("Choose Deity...");
-            	menu.add(chooseDeityMenuItem);
+            	addRestMenu(menu);
+            	addCreateOrganizationMenu(menu);
+            	addShowLegalActionsMenu(menu);
+            	addChooseDeityMenu(menu);
             	
             	menu.show(e.getComponent(), e.getX(), e.getY());
             } else {
@@ -175,6 +168,32 @@ public class GuiMouseListener extends MouseAdapter {
             }
         }
     }
+
+	private void addChooseDeityMenu(JPopupMenu menu) {
+		JMenuItem chooseDeityMenuItem = new JMenuItem(new ChooseDeityAction(playerCharacter, imageInfoReader, world, (WorldPanel)container, dungeonMaster));
+		chooseDeityMenuItem.setText("Choose Deity...");
+		menu.add(chooseDeityMenuItem);
+	}
+
+	private void addShowLegalActionsMenu(JPopupMenu menu) {
+		if (GroupPropertyUtils.performerIsLeaderOfVillagers(playerCharacter, world)) {
+			JMenuItem chooseDeityMenuItem = new JMenuItem(new GuiShowLegalActionsAction(world));
+			chooseDeityMenuItem.setText("Show legal actions...");
+			menu.add(chooseDeityMenuItem);
+		}
+	}
+
+	private void addCreateOrganizationMenu(JPopupMenu menu) {
+		JMenuItem createOrganizationMenuItem = new JMenuItem(new GuiCreateOrganizationAction(playerCharacter, imageInfoReader, world, (WorldPanel)container, dungeonMaster));
+		createOrganizationMenuItem.setText("Create Organization...");
+		menu.add(createOrganizationMenuItem);
+	}
+
+	private void addRestMenu(JPopupMenu menu) {
+		JMenuItem restMenuItem = new JMenuItem(new RestAction(playerCharacter, imageInfoReader, world, (WorldPanel)container, dungeonMaster));
+		restMenuItem.setText("Rest...");
+		menu.add(restMenuItem);
+	}
 
 	private void addCommunicationActions(JPopupMenu menu, WorldObject worldObject) {
 		if (canPlayerCharacterPerformTalkAction(worldObject, Actions.TALK_ACTION)) {

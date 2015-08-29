@@ -21,11 +21,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import org.worldgrower.Constants;
+import org.worldgrower.DefaultGoalObstructedHandler;
+import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
+import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdMap;
 import org.worldgrower.attribute.IdToIntegerMap;
@@ -184,8 +188,21 @@ public class GroupPropertyUtils {
 		organization.setProperty(Constants.HOUSE_TAX_RATE, 0);
 		organization.setProperty(Constants.TAXES_PAID_TURN, new IdToIntegerMap());
 		organization.setProperty(Constants.PAY_CHECK_PAID_TURN, new IdToIntegerMap());
+		setLegalActions(organization);
 		
 		return organization;
+	}
+
+	private static void setLegalActions(WorldObject organization) {
+		HashMap<ManagedOperation, Boolean> legalActions = new HashMap<>();
+		
+		List<ManagedOperation> defaultIllegalActions = new ArrayList<>();
+		defaultIllegalActions.addAll(Actions.ALL_ACTIONS.stream().filter(a -> DefaultGoalObstructedHandler.performerAttacked(a)).collect(Collectors.toList()));
+		defaultIllegalActions.addAll(DefaultGoalObstructedHandler.getNonAttackingIllegalActions());
+		for(ManagedOperation action : defaultIllegalActions) {
+			legalActions.put(action, Boolean.FALSE);
+		}
+		organization.setProperty(Constants.LEGAL_ACTIONS, legalActions);
 	}
 
 	public static WorldObject getVillagersOrganization(World world) {
