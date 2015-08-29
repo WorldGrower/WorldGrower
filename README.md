@@ -12,14 +12,20 @@ It focuses on skills, dialogue, economy and society.
 
 ## Installation<a name="installation"></a>
 
-###Binary installation
+###Binary installation of .zip file
 
-*   [Download .zip file](http://worldgrower.github.io/WorldGrower/releases/worldgrower-0.0.7.zip)
+*   [Download .zip file](https://github.com/WorldGrower/WorldGrower/releases/download/0.0.8/worldgrower-0.0.8.zip)
 *   Extract the .zip file on the local filesystem
 *   Make sure [Java 8](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html) is installed.
 	If you're not sure, you can check your java version [here](https://www.java.com/verify).
+*	The easiest way to start WorldGrower is to run the .jar file by double-clicking it or to open it with java 8.
 *   To run under Windows, use worldgrower.cmd.
 *   To run under Linux, use worldgrower.sh.
+
+###Binary installation using installer
+
+*	[download installer](https://github.com/WorldGrower/WorldGrower/releases/download/0.0.8/worldgrower-0.0.8-install.jar)
+*	run the installer by double-clicking it or to open it with java.
 
 ###Common problems with binary installation
 
@@ -31,7 +37,7 @@ It focuses on skills, dialogue, economy and society.
 
 *   If you are installing from source code, it's recommended that you clone the master branch.
 *   Make sure Java 8 is installed
-*   Run org.worldgrower.gui.start.StartScreen
+*   Run org.worldgrower.gui.start.StartScreen with resources directory in classpath.
 
 ## Features<a name="features"></a>
 - dynamic world that is built up from scratch
