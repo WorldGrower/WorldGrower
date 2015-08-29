@@ -51,13 +51,13 @@ public class GatherFoodGoal implements Goal {
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
-		return performerInventory.getQuantityFor(Constants.FOOD_SOURCE) > foodQuantityGoalMet;
+		return performerInventory.getQuantityFor(Constants.FOOD) > foodQuantityGoalMet;
 	}
 	
 	@Override
 	public boolean isUrgentGoalMet(WorldObject performer, World world) {
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
-		return performerInventory.getQuantityFor(Constants.FOOD_SOURCE) > 2;
+		return performerInventory.getQuantityFor(Constants.FOOD) > 2;
 	}
 
 	@Override
@@ -68,6 +68,6 @@ public class GatherFoodGoal implements Goal {
 	@Override
 	public int evaluate(WorldObject performer, World world) {
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
-		return performerInventory.getQuantityFor(Constants.FOOD_SOURCE);
+		return performerInventory.getQuantityFor(Constants.FOOD);
 	}
 }

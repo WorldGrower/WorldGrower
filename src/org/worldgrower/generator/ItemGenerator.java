@@ -117,6 +117,7 @@ public class ItemGenerator {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.NAME, "berries");
 		properties.put(Constants.PRICE, 1);
+		properties.put(Constants.FOOD, 1);
 		properties.put(Constants.SELLABLE, false);
 		properties.put(Constants.IMAGE_ID, ImageIds.BERRY);
 		return new WorldObjectImpl(properties);

@@ -68,7 +68,12 @@ public class BuildLocationUtils {
 	private static WorldObject createTargetWorldObject(WorldObject performer, int width, int height, World world, int[] bestLocation) {
 		if (bestLocation == null) {
 			bestLocation = GoalUtils.findOpenSpace(performer, width, height, world);
-			bestLocation = new int[] { performer.getProperty(Constants.X) + bestLocation[0], performer.getProperty(Constants.Y) + bestLocation[1] };
+			if (bestLocation == null) {
+				throw new IllegalStateException("No open space found for " + performer + " and width " + width + " and weight " + height);
+			}
+			int bestLocationX = performer.getProperty(Constants.X) + bestLocation[0];
+			int bestLocationY = performer.getProperty(Constants.Y) + bestLocation[1];
+			bestLocation = new int[] { bestLocationX, bestLocationY };
 		}
 		
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
