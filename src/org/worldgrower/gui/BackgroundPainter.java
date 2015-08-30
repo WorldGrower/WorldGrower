@@ -24,8 +24,10 @@ import java.awt.image.FilteredImageSource;
 import java.awt.image.ImageFilter;
 import java.awt.image.ImageProducer;
 import java.awt.image.RGBImageFilter;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -39,7 +41,7 @@ public class BackgroundPainter {
 
 	private final Map<TerrainType, Color> terrainTypesToColor = new HashMap<>();
 	private Image[] backgroundImages = new Image[TerrainType.values().length];
-	private Image[] backgroundTransitionMap = new Image[TerrainType.values().length * TerrainType.values().length * TerrainType.values().length * TerrainType.values().length];
+	private Map<BackgroundTransitionKey, Image> backgroundTransitionMap = new HashMap<>();
 	
 	public BackgroundPainter(Image grassBackgroundImage, World world) {
 		terrainTypesToColor.put(TerrainType.WATER, new Color(0, 0, 163));
@@ -103,24 +105,29 @@ public class BackgroundPainter {
 			for(int y = 0; y<world.getHeight(); y++) {
 				Terrain terrain = world.getTerrain();
 				TerrainType terrainType = terrain.getTerrainInfo(x, y).getTerrainType();
-				int key = getKeyForBackgroundTransitionMap(terrain, x, y, world);
-				if(backgroundTransitionMap[key] == null) {
+				BackgroundTransitionKey key = getKeyForBackgroundTransitionMap(terrain, x, y, world);
+				if(backgroundTransitionMap.get(key) == null) {
 					final TerrainType left = getTerrainTypeFor(terrain, x-1, y, world, terrainType);
 					final TerrainType right = getTerrainTypeFor(terrain, x+1, y, world, terrainType);
 					final TerrainType up = getTerrainTypeFor(terrain, x, y-1, world, terrainType);
 					final TerrainType down = getTerrainTypeFor(terrain, x, y+1, world, terrainType);
 					
-					Image image = getBackgroundImage(terrainType);
-					Image newImage = filterImage(image, new TerrainTransitionFilter(terrainType, left, right, up, down, terrainTypesToColor));
-					BufferedImage bufferedImage = toBufferedImage(newImage); 
-										
-					backgroundTransitionMap[key] = bufferedImage;
+					if (surroundingTerrainHasLowerPriority(terrainType, left, right, up, down)) {
+						backgroundTransitionMap.put(key, getBackgroundImage(terrainType));
+					} else {
+					
+						Image image = getBackgroundImage(terrainType);
+						Image newImage = filterImage(image, new TerrainTransitionFilter(terrainType, left, right, up, down, terrainTypesToColor));
+						BufferedImage bufferedImage = toBufferedImage(newImage); 
+		
+						backgroundTransitionMap.put(key, bufferedImage);
+					}
 				}
 			}
 		}
 	}
 	
-	private int getKeyForBackgroundTransitionMap(Terrain terrain, int x, int y, World world) {
+	private BackgroundTransitionKey getKeyForBackgroundTransitionMap(Terrain terrain, int x, int y, World world) {
 		TerrainType terrainType = terrain.getTerrainInfo(x, y).getTerrainType();
 		
 		TerrainType left = getTerrainTypeFor(terrain, x-1, y, world, terrainType);
@@ -128,19 +135,43 @@ public class BackgroundPainter {
 		TerrainType up = getTerrainTypeFor(terrain, x, y-1, world, terrainType);
 		TerrainType down = getTerrainTypeFor(terrain, x, y+1, world, terrainType);
 		
-		if (surroundingTerrainHasLowerPriority(terrainType, left, right, up, down)) {
-			left = terrainType;
-			right = terrainType;
-			up = terrainType;
-			down = terrainType;
-		}
-		
-		int numberOfTerrainTypes = TerrainType.values().length;
-		return left.ordinal() 
-				+ right.ordinal() * numberOfTerrainTypes 
-				+ up.ordinal() * numberOfTerrainTypes * numberOfTerrainTypes
-				+ down.ordinal() * numberOfTerrainTypes * numberOfTerrainTypes * numberOfTerrainTypes;
+		return new BackgroundTransitionKey(terrainType, left, right, up, down);
 				
+	}
+	
+	private static class BackgroundTransitionKey {
+		private final List<TerrainType> terrainTypes;
+
+		public BackgroundTransitionKey(TerrainType... terrainTypes) {
+			super();
+			this.terrainTypes = Arrays.asList(terrainTypes);
+		}
+
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result
+					+ ((terrainTypes == null) ? 0 : terrainTypes.hashCode());
+			return result;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			BackgroundTransitionKey other = (BackgroundTransitionKey) obj;
+			if (terrainTypes == null) {
+				if (other.terrainTypes != null)
+					return false;
+			} else if (!terrainTypes.equals(other.terrainTypes))
+				return false;
+			return true;
+		}
 	}
 	
 	private boolean surroundingTerrainHasLowerPriority(TerrainType terrainType, TerrainType left, TerrainType right, TerrainType up, TerrainType down) {
@@ -207,7 +238,7 @@ public class BackgroundPainter {
 		for(int x = 0; x<world.getWidth() ;x++) {
 			for(int y = 0; y<world.getHeight(); y++) {
 				if (terrain.isExplored(x, y)) {
-					Image image = backgroundTransitionMap[getKeyForBackgroundTransitionMap(terrain, x, y, world)];
+					Image image = backgroundTransitionMap.get(getKeyForBackgroundTransitionMap(terrain, x, y, world));
 					worldPanel.drawBackgroundImage(g, image, x, y);
 				} else {
 					worldPanel.drawUnexploredTerrain(g, x, y);
