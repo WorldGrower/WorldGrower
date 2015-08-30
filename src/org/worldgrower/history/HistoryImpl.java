@@ -37,10 +37,12 @@ public class HistoryImpl implements History, Serializable {
 	private final Map<ManagedOperation, List<HistoryItem>> historyItemsByOperations = new HashMap<>();
 	
 	private final Map<Integer, HistoryItem> lastPerformedActionMap = new HashMap<>();
+	private Object currentAdditionalValue = null;
 	
 	@Override
 	public HistoryItem actionPerformed(OperationInfo operationInfo, Turn turn) {
-		HistoryItem historyItem = new HistoryItem(currentHistoryId, operationInfo.copy(), turn);
+		HistoryItem historyItem = new HistoryItem(currentHistoryId, operationInfo.copy(), turn, currentAdditionalValue);
+		currentAdditionalValue = null;
 		
 		Integer performerId = historyItem.getOperationInfo().getPerformer().getProperty(Constants.ID);
 		addHistoryItem(historyItem);
@@ -239,5 +241,10 @@ public class HistoryImpl implements History, Serializable {
 		} else {
 			return new ArrayList<>();
 		}		
+	}
+
+	@Override
+	public void setNextAdditionalValue(Object value) {
+		this.currentAdditionalValue = value;
 	}
 }

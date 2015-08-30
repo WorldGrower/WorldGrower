@@ -15,13 +15,16 @@
 package org.worldgrower.goal;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.conversation.Conversation;
 import org.worldgrower.conversation.Conversations;
+import org.worldgrower.history.HistoryItem;
 
 public class GetHealedGoal implements Goal {
 
@@ -34,12 +37,25 @@ public class GetHealedGoal implements Goal {
 				return new RestGoal().calculateGoal(performer, world);
 			}
 		} else {
-			List<WorldObject> targets = world.findWorldObjects(w -> MagicSpellUtils.worldObjectKnowsSpell(w, Actions.MINOR_HEAL_ACTION) && !GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, w));
+			
+			List<WorldObject> targets = world.findWorldObjects(w -> isTargetForMinorHealConversation(performer, w, world));
 			if (targets.size() > 0) {
 				return new OperationInfo(performer, targets.get(0), Conversations.createArgs(Conversations.MINOR_HEAL_CONVERSATION), Actions.TALK_ACTION);
 			}
 		}
 		return null;
+	}
+	
+	private boolean isTargetForMinorHealConversation(WorldObject performer, WorldObject target, World world) {
+		List<Integer> previousResponseIds = getPreviousResponseIds(performer, target, Conversations.MINOR_HEAL_CONVERSATION, world);
+		return MagicSpellUtils.worldObjectKnowsSpell(target, Actions.MINOR_HEAL_ACTION) 
+				&& !GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, target)
+				&& !Conversations.MINOR_HEAL_CONVERSATION.previousAnswerWasGetLost(previousResponseIds);
+	}
+	
+	private List<Integer> getPreviousResponseIds(WorldObject performer, WorldObject target, Conversation conversation,World world) {
+		List<HistoryItem> historyItems = world.getHistory().findHistoryItemsForAnyPerformer(performer, target, Conversations.createArgs(conversation), Actions.TALK_ACTION);
+		return historyItems.stream().map(h -> (Integer)h.getAdditionalValue()).collect(Collectors.toList());
 	}
 	
 	@Override

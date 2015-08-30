@@ -38,7 +38,7 @@ public class UTestConversations {
 	public void testCreateArgs() {
 		assertArrayEquals(new int[] {0, -1, -1, 0}, Conversations.createArgs(Conversations.NAME_CONVERSATION));
 		assertArrayEquals(new int[] {0, 2, -1, 0}, Conversations.createArgs(Conversations.NAME_CONVERSATION, TestUtils.createWorldObject(2, "testworldobject")));
-		assertArrayEquals(new int[] {0, -1, 3, 0}, Conversations.createArgs(Conversations.NAME_CONVERSATION, new HistoryItem(3, null, new Turn())));
+		assertArrayEquals(new int[] {0, -1, 3, 0}, Conversations.createArgs(Conversations.NAME_CONVERSATION, new HistoryItem(3, null, new Turn(), null)));
 	}
 	
 	@Test

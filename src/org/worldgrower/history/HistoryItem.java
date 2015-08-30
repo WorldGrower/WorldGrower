@@ -26,11 +26,13 @@ public class HistoryItem implements Serializable {
 	private final int historyId;
 	private final OperationInfo operationInfo;
 	private final Turn turn;
+	private final Object additionalValue;
 
-	public HistoryItem(int historyId, OperationInfo operationInfo, Turn turn) {
+	public HistoryItem(int historyId, OperationInfo operationInfo, Turn turn, Object additionalValue) {
 		this.historyId = historyId;
 		this.operationInfo = operationInfo;
 		this.turn = turn;
+		this.additionalValue = additionalValue;
 	}
 	
 	public int getHistoryId() {
@@ -43,6 +45,10 @@ public class HistoryItem implements Serializable {
 
 	public Turn getTurn() {
 		return turn;
+	}
+
+	public Object getAdditionalValue() {
+		return additionalValue;
 	}
 
 	@Override

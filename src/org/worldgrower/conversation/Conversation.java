@@ -16,6 +16,7 @@ package org.worldgrower.conversation;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;

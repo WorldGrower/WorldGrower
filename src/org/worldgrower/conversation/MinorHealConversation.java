@@ -28,6 +28,7 @@ public class MinorHealConversation implements Conversation {
 
 	private static final int YES = 0;
 	private static final int NO = 1;
+	private static final int GET_LOST = 2;
 	
 	@Override
 	public Response getReplyPhrase(ConversationContext conversationContext) {
@@ -56,7 +57,8 @@ public class MinorHealConversation implements Conversation {
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
 			new Response(YES, "yes"),
-			new Response(NO, "no"));
+			new Response(NO, "no"),
+			new Response(GET_LOST, "Get lost"));
 	}
 	
 	@Override
@@ -68,8 +70,13 @@ public class MinorHealConversation implements Conversation {
 		if (replyIndex == YES) {
 			Actions.MINOR_HEAL_ACTION.execute(target, performer, new int[0], world);
 		} else if (replyIndex == NO) {
+			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -20, Actions.TALK_ACTION, Conversations.createArgs(this), world);
+		} else if (replyIndex == GET_LOST) {
 			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -50, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 		}
+		
+		//TODO: if there are more return values, set return value Object on execute method
+		world.getHistory().setNextAdditionalValue(replyIndex);
 	}
 
 	@Override
@@ -82,5 +89,9 @@ public class MinorHealConversation implements Conversation {
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, World world) {
 		return "getting healed";
+	}
+	
+	public boolean previousAnswerWasGetLost(List<Integer> previousResponseIds) {
+		return previousResponseIds.contains(GET_LOST);
 	}
 }
