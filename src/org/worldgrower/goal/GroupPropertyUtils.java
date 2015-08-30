@@ -88,7 +88,7 @@ public class GroupPropertyUtils {
 	}
 	
 	public static List<WorldObject> findOrganizationMembers(WorldObject organization, World world) {
-		List<WorldObject> members = world.findWorldObjects(w -> worldObjectIsMemberOfOrganization(organization, w));
+		List<WorldObject> members = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> worldObjectIsMemberOfOrganization(organization, w));
 		return members;
 	}
 
