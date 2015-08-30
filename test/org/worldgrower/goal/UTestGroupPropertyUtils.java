@@ -74,7 +74,7 @@ public class UTestGroupPropertyUtils {
 	public void testFindOrganizationMembers() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject member = createIntelligentWorldObject(1, Constants.GROUP, new IdList());
-		WorldObject nonMember = createIntelligentWorldObject(1, Constants.GROUP, new IdList());
+		WorldObject nonMember = createIntelligentWorldObject(2, Constants.GROUP, new IdList());
 		world.addWorldObject(member);
 		world.addWorldObject(nonMember);
 				

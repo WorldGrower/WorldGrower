@@ -69,6 +69,7 @@ public class TestUtils {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.ID, id);
 		properties.put(Constants.GROUP, new IdList().add(6));
+		properties.put(Constants.STRENGTH, 10);
 		properties.put(property, value);
 		WorldObject w1 = new WorldObjectImpl(properties, Actions.ALL_ACTIONS, null);
 		return w1;
