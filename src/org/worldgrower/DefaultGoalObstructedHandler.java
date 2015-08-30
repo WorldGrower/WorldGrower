@@ -22,6 +22,7 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.goal.FacadeUtils;
 import org.worldgrower.goal.GroupPropertyUtils;
+import org.worldgrower.goal.LegalActionsPropertyUtils;
 
 public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 
@@ -78,8 +79,7 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 	}
 
 	private boolean performerViolatedGroupRules(ManagedOperation managedOperation, World world) {
-		WorldObject villagersOrganization = GroupPropertyUtils.getVillagersOrganization(world);
-		Map<ManagedOperation, Boolean> legalActions = villagersOrganization.getProperty(Constants.LEGAL_ACTIONS);
+		Map<ManagedOperation, Boolean> legalActions = LegalActionsPropertyUtils.getLegalActions(world);
 		Boolean isLegal = legalActions.get(managedOperation);
 		if (isLegal != null) {
 			return !isLegal.booleanValue();

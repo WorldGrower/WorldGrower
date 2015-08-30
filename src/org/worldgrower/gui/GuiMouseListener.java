@@ -177,7 +177,7 @@ public class GuiMouseListener extends MouseAdapter {
 
 	private void addShowLegalActionsMenu(JPopupMenu menu) {
 		if (GroupPropertyUtils.performerIsLeaderOfVillagers(playerCharacter, world)) {
-			JMenuItem chooseDeityMenuItem = new JMenuItem(new GuiShowLegalActionsAction(world));
+			JMenuItem chooseDeityMenuItem = new JMenuItem(new GuiShowLegalActionsAction(playerCharacter, dungeonMaster, world, container));
 			chooseDeityMenuItem.setText("Show legal actions...");
 			menu.add(chooseDeityMenuItem);
 		}
