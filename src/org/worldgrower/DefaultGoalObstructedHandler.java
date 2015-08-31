@@ -85,10 +85,9 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 		if (isLegal != null) {
 			boolean violatedGroupRules = !isLegal.booleanValue();
 			if (violatedGroupRules) {
-				Boolean performerCanAttackCriminals = performer.getProperty(Constants.CAN_ATTACK_CRIMINALS);
+				boolean performerCanAttackCriminals = performerCanAttackCriminals(performer);
 				boolean actionTargetIsCriminal = actionTargetIsCriminal(actionTarget, world);
-				if (performerCanAttackCriminals != null 
-						&& performerCanAttackCriminals.booleanValue()
+				if (performerCanAttackCriminals
 						&& performerAttacked(managedOperation)
 						&& actionTargetIsCriminal) {
 					violatedGroupRules = false;
@@ -99,6 +98,11 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 		} else {
 			return false;
 		}
+	}
+
+	private boolean performerCanAttackCriminals(WorldObject performer) {
+		Boolean performerCanAttackCriminals = performer.getProperty(Constants.CAN_ATTACK_CRIMINALS);
+		return performerCanAttackCriminals != null && performerCanAttackCriminals.booleanValue();
 	}
 
 	private boolean actionTargetIsCriminal(WorldObject actionTarget, World world) {
