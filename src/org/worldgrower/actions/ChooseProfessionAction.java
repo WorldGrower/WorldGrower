@@ -87,6 +87,10 @@ public class ChooseProfessionAction implements ManagedOperation {
 			performer.setProperty(Constants.CAN_COLLECT_TAXES, Boolean.TRUE);
 		}
 		
+		if (profession == Professions.SHERIFF_PROFESSION) {
+			performer.setProperty(Constants.CAN_ATTACK_CRIMINALS, Boolean.TRUE);
+		}
+		
 		performer.setProperty(Constants.PROFESSION, profession);
 		performer.getProperty(Constants.REASONS).addReason(Constants.PROFESSION, reason);
 	}

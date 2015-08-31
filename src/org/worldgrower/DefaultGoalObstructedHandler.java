@@ -55,7 +55,7 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 		performer.getProperty(Constants.RELATIONSHIPS).incrementValue(targetFacade.getProperty(Constants.ID), value);
 		target.getProperty(Constants.RELATIONSHIPS).incrementValue(performerFacade.getProperty(Constants.ID), value);
 		
-		if (performerViolatedGroupRules(managedOperation, world)) {
+		if (performerViolatedGroupRules(performer, managedOperation, world)) {
 			GroupPropertyUtils.throwPerformerOutGroup(performerFacade, target);
 			
 			WorldObject realPerformer = world.findWorldObject(Constants.ID, performerFacade.getProperty(Constants.ID));
@@ -79,11 +79,21 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 		return Arrays.asList(Actions.STEAL_ACTION);
 	}
 
-	private boolean performerViolatedGroupRules(ManagedOperation managedOperation, World world) {
+	private boolean performerViolatedGroupRules(WorldObject performer, ManagedOperation managedOperation, World world) {
 		Map<ManagedOperation, Boolean> legalActions = LegalActionsPropertyUtils.getLegalActions(world);
 		Boolean isLegal = legalActions.get(managedOperation);
 		if (isLegal != null) {
-			return !isLegal.booleanValue();
+			boolean violatedGroupRules = !isLegal.booleanValue();
+			if (violatedGroupRules) {
+				Boolean performerCanAttackCriminals = performer.getProperty(Constants.CAN_ATTACK_CRIMINALS);
+				if (performerCanAttackCriminals != null 
+						&& performerCanAttackCriminals.booleanValue()
+						&& performerAttacked(managedOperation)) {
+					violatedGroupRules = false;
+				}
+			}
+			
+			return violatedGroupRules;
 		} else {
 			return false;
 		}
