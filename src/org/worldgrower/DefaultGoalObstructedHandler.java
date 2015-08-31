@@ -37,7 +37,7 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 				
 				logToBackground(target, actionTarget, managedOperation, args, performerFacade, world);
 				
-				alterRelationships(performer, target, managedOperation, world, value, performerFacade, targetFacade);
+				alterRelationships(performer, target, actionTarget, managedOperation, world, value, performerFacade, targetFacade);
 			}
 		}
 	}
@@ -51,11 +51,11 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 		}
 	}
 
-	private void alterRelationships(WorldObject performer, WorldObject target, ManagedOperation managedOperation, World world, int value, WorldObject performerFacade, WorldObject targetFacade) {
+	private void alterRelationships(WorldObject performer, WorldObject target, WorldObject actionTarget, ManagedOperation managedOperation, World world, int value, WorldObject performerFacade, WorldObject targetFacade) {
 		performer.getProperty(Constants.RELATIONSHIPS).incrementValue(targetFacade.getProperty(Constants.ID), value);
 		target.getProperty(Constants.RELATIONSHIPS).incrementValue(performerFacade.getProperty(Constants.ID), value);
 		
-		if (performerViolatedGroupRules(performer, managedOperation, world)) {
+		if (performerViolatedGroupRules(performer, actionTarget, managedOperation, world)) {
 			GroupPropertyUtils.throwPerformerOutGroup(performerFacade, target);
 			
 			WorldObject realPerformer = world.findWorldObject(Constants.ID, performerFacade.getProperty(Constants.ID));
@@ -79,16 +79,18 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 		return Arrays.asList(Actions.STEAL_ACTION);
 	}
 
-	private boolean performerViolatedGroupRules(WorldObject performer, ManagedOperation managedOperation, World world) {
+	private boolean performerViolatedGroupRules(WorldObject performer,WorldObject actionTarget, ManagedOperation managedOperation, World world) {
 		Map<ManagedOperation, Boolean> legalActions = LegalActionsPropertyUtils.getLegalActions(world);
 		Boolean isLegal = legalActions.get(managedOperation);
 		if (isLegal != null) {
 			boolean violatedGroupRules = !isLegal.booleanValue();
 			if (violatedGroupRules) {
 				Boolean performerCanAttackCriminals = performer.getProperty(Constants.CAN_ATTACK_CRIMINALS);
+				boolean actionTargetIsCriminal = actionTargetIsCriminal(actionTarget, world);
 				if (performerCanAttackCriminals != null 
 						&& performerCanAttackCriminals.booleanValue()
-						&& performerAttacked(managedOperation)) {
+						&& performerAttacked(managedOperation)
+						&& actionTargetIsCriminal) {
 					violatedGroupRules = false;
 				}
 			}
@@ -97,6 +99,12 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 		} else {
 			return false;
 		}
+	}
+
+	private boolean actionTargetIsCriminal(WorldObject actionTarget, World world) {
+		WorldObject villagersOrganization = GroupPropertyUtils.getVillagersOrganization(world);
+		boolean actionTargetIsCriminal = actionTarget.getProperty(Constants.GROUP).contains(villagersOrganization);
+		return actionTargetIsCriminal;
 	}
 
 	private void logToBackground(WorldObject target, WorldObject actionTarget, ManagedOperation managedOperation, int[] args, WorldObject performerFacade, World world) {
