@@ -27,6 +27,7 @@ import java.util.stream.Collectors;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.conversation.leader.CanAttackCriminalsConversation;
 import org.worldgrower.conversation.leader.CanCollectTaxesConversation;
 import org.worldgrower.conversation.leader.SetHouseTaxRateConversation;
 import org.worldgrower.conversation.leader.SetShackTaxRateConversation;
@@ -73,6 +74,7 @@ public class Conversations implements Serializable {
 	public static final MinorHealConversation MINOR_HEAL_CONVERSATION = new MinorHealConversation();
 	public static final BuyHouseConversation BUY_HOUSE_CONVERSATION = new BuyHouseConversation();
 	public static final ShareKnowledgeConversation SHARE_KNOWLEDGE_CONVERSATION = new ShareKnowledgeConversation();
+	public static final CanAttackCriminalsConversation CAN_ATTACK_CRIMINALS_CONVERSATION = new CanAttackCriminalsConversation();
 	
 	private static final List<Conversation> CONVERSATIONS = new ArrayList<>();
 	private static final Map<Conversation, ConversationCategory> CONVERSATION_CATEGORIES = new HashMap<>();
@@ -119,6 +121,7 @@ public class Conversations implements Serializable {
 		addNormalAndIntimidate(MINOR_HEAL_CONVERSATION, ConversationCategory.DEMAND);
 		add(BUY_HOUSE_CONVERSATION, ConversationCategory.DEMAND);
 		add(SHARE_KNOWLEDGE_CONVERSATION, ConversationCategory.SHARE_KNOWLEDGE);
+		add(CAN_ATTACK_CRIMINALS_CONVERSATION, ConversationCategory.LEADER);
 	}
 	
 	public static int[] createArgs(Conversation conversation) {
