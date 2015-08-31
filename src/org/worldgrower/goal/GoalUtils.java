@@ -25,6 +25,7 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.ManagedProperty;
 
 public class GoalUtils {
 
@@ -50,6 +51,10 @@ public class GoalUtils {
 	
 	public static List<WorldObject> findNearestTargets(WorldObject performer, ManagedOperation action, Predicate<WorldObject> condition, World world) {
 		return world.findWorldObjects(w -> action.isValidTarget(performer, w, world) && condition.test(w));
+	}
+	
+	public static List<WorldObject> findNearestTargetsByProperty(WorldObject performer, ManagedOperation action, ManagedProperty<?> property, Predicate<WorldObject> condition, World world) {
+		return world.findWorldObjectsByProperty(property, w -> action.isValidTarget(performer, w, world) && condition.test(w));
 	}
 	
 	public static OperationInfo createOperationInfo(WorldObject performer, ManagedOperation action, int[] args, World world) {
