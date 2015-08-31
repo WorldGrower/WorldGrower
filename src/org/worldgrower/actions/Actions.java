@@ -59,7 +59,8 @@ public class Actions {
 	public static final BuildShackAction BUILD_SHACK_ACTION = new BuildShackAction();
 	public static final BuildWellAction BUILD_WELL_ACTION = new BuildWellAction();
 	public static final TalkAction TALK_ACTION = new TalkAction();
-	public static final MeleeAttackAction MELEE_ATTACK_ACTION = new MeleeAttackAction(); 
+	public static final MeleeAttackAction MELEE_ATTACK_ACTION = new MeleeAttackAction();
+	public static final NonLethalMeleeAttackAction NON_LETHAL_MELEE_ATTACK_ACTION = new NonLethalMeleeAttackAction();
 	public static final RangedAttackAction RANGED_ATTACK_ACTION = new RangedAttackAction();
 	public static final MineStoneAction MINE_STONE_ACTION = new MineStoneAction();
 	public static final MineOreAction MINE_ORE_ACTION = new MineOreAction();
@@ -264,7 +265,8 @@ public class Actions {
 		CONSTRUCT_TRAINING_DUMMY_ACTION,
 		DETERMINE_DEATH_REASON_ACTION,
 		PLANT_NIGHT_SHADE_ACTION,
-		SET_LEGAL_ACTIONS_ACTION
+		SET_LEGAL_ACTIONS_ACTION,
+		NON_LETHAL_MELEE_ATTACK_ACTION
 	));
 	
 	static {

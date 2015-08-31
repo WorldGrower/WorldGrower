@@ -67,6 +67,7 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 	public static boolean performerAttacked(ManagedOperation managedOperation) {
 		Class<?> actionClass = managedOperation.getClass();
 		return (actionClass == Actions.MELEE_ATTACK_ACTION.getClass())
+				|| (actionClass == Actions.NON_LETHAL_MELEE_ATTACK_ACTION.getClass())
 				|| (actionClass == Actions.RANGED_ATTACK_ACTION.getClass())
 				|| (actionClass == Actions.FIRE_BOLT_ATTACK_ACTION.getClass())
 				|| (actionClass == Actions.RAY_OF_FROST_ATTACK_ACTION.getClass()

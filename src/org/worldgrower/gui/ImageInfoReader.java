@@ -260,6 +260,8 @@ public class ImageInfoReader {
 		add(ImageIds.GRASS_BACKGROUND, tileA2.getSubImage(0, 0, 2, 2));
 		
 		createCompleteHouse();
+		
+		add(ImageIds.UNCONSCIOUS_INDICATOR, sprites420.getSubImage(12, 25, 1, 1));
     }
 
 	private void createCompleteHouse() {

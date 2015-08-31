@@ -315,7 +315,9 @@ public class WorldPanel extends JPanel {
     	} else if (hasCondition(worldObject, Condition.PARALYZED_CONDITION)) {
     		return ImageIds.PARALYZED_INDICATOR;
     	} else if (hasCondition(worldObject, Condition.WATER_WALK_CONDITION)) {
-    		return ImageIds.WATER_WALK_INDICATOR;    		
+    		return ImageIds.WATER_WALK_INDICATOR;
+    	} else if (hasCondition(worldObject, Condition.UNCONSCIOUS_CONDITION)) {
+    		return ImageIds.UNCONSCIOUS_INDICATOR;
     	} else {
     		return null;
     	}

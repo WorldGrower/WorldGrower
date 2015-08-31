@@ -18,16 +18,17 @@ import java.io.ObjectStreamException;
 
 import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
+import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
 
-public class MeleeAttackAction implements DeadlyAction {
+public class NonLethalMeleeAttackAction implements ManagedOperation {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		AttackUtils.attack(this, performer, target, args, world, SkillUtils.useSkill(performer, AttackUtils.determineSkill(performer)));
+		AttackUtils.nonLethalAttack(this, performer, target, args, world, SkillUtils.useSkill(performer, AttackUtils.determineSkill(performer)));
 	}
 	
 	@Override
@@ -47,27 +48,15 @@ public class MeleeAttackAction implements DeadlyAction {
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "attacking " + target.getProperty(Constants.NAME);
+		return "attacking " + target.getProperty(Constants.NAME) + " in a non lethal manner";
 	}
 
 	@Override
 	public String getSimpleDescription() {
-		return "melee attack";
+		return "non lethal melee attack";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
-	}
-
-	@Override
-	public String getDeathDescription(WorldObject performer, WorldObject target) {
-		WorldObject leftHandEquipment = performer.getProperty(Constants.LEFT_HAND_EQUIPMENT);
-		WorldObject rightHandEquipment = performer.getProperty(Constants.RIGHT_HAND_EQUIPMENT);
-		
-		if ((leftHandEquipment == null) && (rightHandEquipment == null)) {
-			return "pummeled to death";
-		} else {
-			return "slashed by a sword";
-		}
 	}
 }

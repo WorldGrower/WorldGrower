@@ -24,6 +24,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.ArmorType;
+import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
@@ -32,6 +33,24 @@ import org.worldgrower.goal.DeathReasonPropertyUtils;
 public class AttackUtils {
 
 	public static void attack(DeadlyAction action, WorldObject performer, WorldObject target, int[] args, World world, double skillBonus) {
+		meleeAttack(action, performer, target, args, world, skillBonus, new HitPointsHandler() {
+			
+			@Override
+			public int handleHitPoints(WorldObject performer, WorldObject target, ManagedOperation action, int hitPoints) {
+				if (hitPoints <= 0) {
+					hitPoints = 0;
+					DeathReasonPropertyUtils.targetDiesByPerformerAction(performer, target, (DeadlyAction) action);
+				}
+				return hitPoints;
+			}
+		});
+	}
+	
+	private static interface HitPointsHandler {
+		public int handleHitPoints(WorldObject performer, WorldObject target, ManagedOperation action, int hitPoints);
+	}
+	
+	private static void meleeAttack(ManagedOperation action, WorldObject performer, WorldObject target, int[] args, World world, double skillBonus, HitPointsHandler hitPointsHandler) {
 		int targetHP = target.getProperty(Constants.HIT_POINTS);
 		if (target.getProperty(Constants.DAMAGE_RESIST) == null) { throw new IllegalStateException("DamageResist is null in " + target); }
 		float targetDamageResist = (float) target.getProperty(Constants.DAMAGE_RESIST);
@@ -44,13 +63,10 @@ public class AttackUtils {
 		targetHP = targetHP - damage;
 		String message = performer.getProperty(Constants.NAME) + " attacks " + target.getProperty(Constants.NAME) + ": " + damage + " damage";
 		
-		if (targetHP <= 0) {
-			targetHP = 0;
-			DeathReasonPropertyUtils.targetDiesByPerformerAction(performer, target, action);
-		}
+		targetHP = hitPointsHandler.handleHitPoints(performer, target, action, targetHP);
 		target.setProperty(Constants.HIT_POINTS, targetHP);	
 		
-		userArmorSkill(target);
+		useArmorSkill(target);
 		
 		world.logAction(action, performer, target, args, message);
 	}
@@ -77,7 +93,7 @@ public class AttackUtils {
 		}
 	}
 
-	private static void userArmorSkill(WorldObject target) {
+	private static void useArmorSkill(WorldObject target) {
 		List<WorldObject> targetEquipmentList = new ArrayList<>();
 		targetEquipmentList.add(target.getProperty(Constants.HEAD_EQUIPMENT));
 		targetEquipmentList.add(target.getProperty(Constants.TORSO_EQUIPMENT));
@@ -147,5 +163,33 @@ public class AttackUtils {
 		} else {
 			return 1;
 		}
+	}
+	
+	public static SkillProperty determineSkill(WorldObject performer) {
+		WorldObject leftHandEquipment = performer.getProperty(Constants.LEFT_HAND_EQUIPMENT);
+		WorldObject rightHandEquipment = performer.getProperty(Constants.RIGHT_HAND_EQUIPMENT);
+		
+		if ((leftHandEquipment == null) && (rightHandEquipment == null)) {
+			return Constants.HAND_TO_HAND_SKILL;
+		} else if ((leftHandEquipment != null) && (rightHandEquipment != null) && (leftHandEquipment == rightHandEquipment)) {
+			return Constants.TWO_HANDED_SKILL;
+		} else {
+			return Constants.ONE_HANDED_SKILL;
+		}
+	}
+
+	public static void nonLethalAttack(ManagedOperation action, WorldObject performer, WorldObject target, int[] args, World world, double skillBonus) {
+		meleeAttack(action, performer, target, args, world, skillBonus, new HitPointsHandler() {
+			
+			@Override
+			public int handleHitPoints(WorldObject performer, WorldObject target, ManagedOperation action, int hitPoints) {
+				if (hitPoints <= 0) {
+					hitPoints = 1;
+					target.getProperty(Constants.CONDITIONS).addCondition(Condition.UNCONSCIOUS_CONDITION, 50, world);
+				}
+				return hitPoints;
+			}
+		});
+		
 	}
 }
