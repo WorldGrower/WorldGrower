@@ -53,6 +53,7 @@ public class ImageInfoReader {
     	Sprites tileA2 = readTileA2();
     	Sprites tileB = readTileB();
     	Sprites tileC = readTileC();
+    	Sprites tileCprison = readTileCprison();
     	Sprites tileE = readTileE();
     	Sprites statues = readStatues();
     	Sprites rat = readRat();
@@ -264,9 +265,9 @@ public class ImageInfoReader {
 		add(ImageIds.UNCONSCIOUS_INDICATOR, sprites420.getSubImage(12, 25, 1, 1));
 		
 		add(ImageIds.JAIL_DOOR, pirates.getSubImage(6, 7, 1, 2));
-		add(ImageIds.JAIL_LEFT, tileC.getSubImage(8, 5, 1, 5));
-		add(ImageIds.JAIL_UP, tileC.getSubImage(9, 5, 1, 2));
-		add(ImageIds.JAIL_RIGHT, tileC.getSubImage(10, 5, 1, 5));
+		add(ImageIds.JAIL_LEFT, tileCprison.getSubImage(0, 0, 1, 3));
+		add(ImageIds.JAIL_UP, tileCprison.getSubImage(1, 0, 1, 2));
+		add(ImageIds.JAIL_RIGHT, tileCprison.getSubImage(2, 0, 1, 3));
     }
 
 	private void createCompleteHouse() {
@@ -413,6 +414,9 @@ public class ImageInfoReader {
 	
 	private static Sprites readTileC() throws IOException {
 		return readImages("tilec.png", 32, 32, 16, 16);
+	}
+	private static Sprites readTileCprison() throws IOException {
+		return readImages("tilec_prison.png", 48, 48, 3, 3);
 	}
 	
 	private static Sprites readTileE() throws IOException {
