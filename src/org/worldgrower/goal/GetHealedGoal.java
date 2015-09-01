@@ -38,7 +38,7 @@ public class GetHealedGoal implements Goal {
 			}
 		} else {
 			
-			List<WorldObject> targets = world.findWorldObjects(w -> isTargetForMinorHealConversation(performer, w, world));
+			List<WorldObject> targets = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> isTargetForMinorHealConversation(performer, w, world));
 			if (targets.size() > 0) {
 				return new OperationInfo(performer, targets.get(0), Conversations.createArgs(Conversations.MINOR_HEAL_CONVERSATION), Actions.TALK_ACTION);
 			}
@@ -47,10 +47,9 @@ public class GetHealedGoal implements Goal {
 	}
 	
 	private boolean isTargetForMinorHealConversation(WorldObject performer, WorldObject target, World world) {
-		List<Integer> previousResponseIds = getPreviousResponseIds(performer, target, Conversations.MINOR_HEAL_CONVERSATION, world);
 		return MagicSpellUtils.worldObjectKnowsSpell(target, Actions.MINOR_HEAL_ACTION) 
 				&& !GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, target)
-				&& !Conversations.MINOR_HEAL_CONVERSATION.previousAnswerWasGetLost(previousResponseIds);
+				&& !Conversations.MINOR_HEAL_CONVERSATION.previousAnswerWasGetLost(getPreviousResponseIds(performer, target, Conversations.MINOR_HEAL_CONVERSATION, world));
 	}
 	
 	private List<Integer> getPreviousResponseIds(WorldObject performer, WorldObject target, Conversation conversation,World world) {
