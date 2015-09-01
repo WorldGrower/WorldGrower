@@ -224,6 +224,7 @@ public class Constants {
 	public static final IdMapProperty PAY_CHECK_PAID_TURN = new IdMapProperty("payCheckPaidTurn", ALL_PROPERTIES);
 	public static final BooleanProperty CAN_COLLECT_TAXES = new BooleanProperty("canCollectTaxes", NOT_NULLABLE, ALL_PROPERTIES);
 	public static final BooleanProperty CAN_ATTACK_CRIMINALS = new BooleanProperty("canAttackCriminals", NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IdMapProperty TURNS_IN_JAIL = new IdMapProperty("turnsInJail", ALL_PROPERTIES);
 	
 	public static final IntProperty VAMPIRE_BLOOD_LEVEL = new IntProperty("vampireBloodLevel", 0, 1000, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final StringProperty DEATH_REASON = new StringProperty("deathReason", NOT_NULLABLE, ALL_PROPERTIES);

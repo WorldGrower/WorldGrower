@@ -25,6 +25,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.goal.GroupPropertyUtils;
 
 public class CapturePersonAction implements ManagedOperation {
 
@@ -35,6 +36,9 @@ public class CapturePersonAction implements ManagedOperation {
 		BuildingGenerator.addJailDoorIfNotPresent(jail, world);
 		target.setProperty(Constants.X, jail.getProperty(Constants.X) + 1);
 		target.setProperty(Constants.Y, jail.getProperty(Constants.Y) + 1);
+		
+		WorldObject villagersOrganization = GroupPropertyUtils.getVillagersOrganization(world);
+		villagersOrganization.getProperty(Constants.TURNS_IN_JAIL).incrementValue(target, world.getCurrentTurn().getValue());
 	}
 
 	@Override

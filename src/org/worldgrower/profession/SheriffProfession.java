@@ -42,6 +42,7 @@ public class SheriffProfession implements Profession {
 				Goals.KILL_OUTSIDERS_GOAL,
 				Goals.CATCH_THIEVES_GOAL,
 				Goals.COLLECT_PAY_CHECK_GOAL,
+				Goals.RELEASE_CAPTURED_CRIMINALS_GOAL,
 				Goals.TRAIN_GOAL
 				);
 	}
