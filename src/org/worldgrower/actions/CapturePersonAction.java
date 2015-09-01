@@ -15,6 +15,7 @@
 package org.worldgrower.actions;
 
 import java.io.ObjectStreamException;
+import java.util.List;
 
 import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
@@ -22,38 +23,44 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.condition.Condition;
+import org.worldgrower.generator.BuildingGenerator;
 
-public class NonLethalMeleeAttackAction implements ManagedOperation {
+public class CapturePersonAction implements ManagedOperation {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		AttackUtils.nonLethalAttack(this, performer, target, args, world, SkillUtils.useSkill(performer, AttackUtils.determineSkill(performer)));
-	}
-	
-	@Override
-	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return ((target.hasProperty(Constants.ARMOR)) && (target.getProperty(Constants.HIT_POINTS) > 0) && (target.hasIntelligence()));
+		List<WorldObject> jails = world.findWorldObjects(w -> BuildingGenerator.isJailLeft(w));
+		WorldObject jail = jails.get(0);
+		BuildingGenerator.addJailDoorIfNotPresent(jail, world);
+		target.setProperty(Constants.X, jail.getProperty(Constants.X) + 1);
+		target.setProperty(Constants.Y, jail.getProperty(Constants.Y) + 1);
 	}
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return Reach.evaluateTarget(performer, args, target, 1);
+		int unconsciousDistance = target.getProperty(Constants.CONDITIONS).hasCondition(Condition.UNCONSCIOUS_CONDITION) ? 0 : 1;
+		return Reach.evaluateTarget(performer, args, target, 1) + unconsciousDistance;
 	}
-	
+
 	@Override
 	public ArgumentRange[] getArgumentRanges() {
 		return ArgumentRange.EMPTY_ARGUMENT_RANGE;
 	}
+
+	@Override
+	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
+		return (target.hasIntelligence() && target.hasProperty(Constants.CONDITIONS));
+	}
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "attacking " + target.getProperty(Constants.NAME) + " in a non lethal manner";
+		return "capturing " + target.getProperty(Constants.NAME);
 	}
 
 	@Override
 	public String getSimpleDescription() {
-		return "non lethal melee attack";
+		return "capture";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {

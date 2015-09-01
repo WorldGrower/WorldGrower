@@ -92,4 +92,6 @@ public class Goals {
 	public static final DestroyShrinesToOtherDeitiesGoal DESTROY_SHRINES_TO_OTHER_DEITIES_GOAL = new DestroyShrinesToOtherDeitiesGoal();
 	public static final HuntUndeadGoal HUNT_UNDEAD_GOAL = new HuntUndeadGoal();
 	public static final HealOthersGoal HEAL_OTHERS_GOAL = new HealOthersGoal();
+	public static final JailGoal JAIL_GOAL = new JailGoal();
+	public static final CaptureCriminalsGoal CAPTURE_CRIMINALS_GOAL = new CaptureCriminalsGoal();
 }

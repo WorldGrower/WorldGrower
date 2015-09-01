@@ -18,45 +18,78 @@ import java.io.ObjectStreamException;
 
 import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
-import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.goal.GoalUtils;
 
-public class NonLethalMeleeAttackAction implements ManagedOperation {
+public class BuildJailAction implements BuildAction {
 
-	@Override
-	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		AttackUtils.nonLethalAttack(this, performer, target, args, world, SkillUtils.useSkill(performer, AttackUtils.determineSkill(performer)));
-	}
+	private static final int REQUIRED_WOOD = 8;
 	
 	@Override
+	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
+		int x = (Integer)target.getProperty(Constants.X);
+		int y = (Integer)target.getProperty(Constants.Y);
+	
+		BuildingGenerator.generateJail(x, y, world, SkillUtils.useSkill(performer, Constants.CARPENTRY_SKILL));
+		
+		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.WOOD, REQUIRED_WOOD);
+	}
+
+	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return ((target.hasProperty(Constants.ARMOR)) && (target.getProperty(Constants.HIT_POINTS) > 0) && (target.hasIntelligence()));
+		int x = (Integer)target.getProperty(Constants.X);
+		int y = (Integer)target.getProperty(Constants.Y);
+		return GoalUtils.isOpenSpace(x, y, 3, 3, world);
 	}
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return Reach.evaluateTarget(performer, args, target, 1);
+		int distanceBetweenPerformerAndTarget = Reach.evaluateTarget(performer, args, target, 1);
+		int wood = performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD);
+		if (wood < REQUIRED_WOOD) {
+			return (REQUIRED_WOOD - wood) * 1000 + distanceBetweenPerformerAndTarget;
+		} else {
+			return 0 + distanceBetweenPerformerAndTarget;
+		}
 	}
-	
+
 	@Override
 	public ArgumentRange[] getArgumentRanges() {
-		return ArgumentRange.EMPTY_ARGUMENT_RANGE;
+		ArgumentRange[] argumentRanges = new ArgumentRange[2];
+		argumentRanges[0] = new ArgumentRange(-3, 3);
+		argumentRanges[1] = new ArgumentRange(-3, 3);
+		return argumentRanges;
 	}
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "attacking " + target.getProperty(Constants.NAME) + " in a non lethal manner";
+		return "building a jail";
 	}
 
 	@Override
 	public String getSimpleDescription() {
-		return "non lethal melee attack";
+		return "build jail";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
+	}
+
+	@Override
+	public int getWidth() {
+		return 3;
+	}
+
+	@Override
+	public int getHeight() {
+		return 3;
+	}
+	
+	public static boolean hasEnoughWood(WorldObject performer) {
+		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) >= REQUIRED_WOOD;
 	}
 }

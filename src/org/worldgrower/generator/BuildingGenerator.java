@@ -15,6 +15,7 @@
 package org.worldgrower.generator;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.worldgrower.Constants;
@@ -34,6 +35,8 @@ public class BuildingGenerator {
 	private static final String HOUSE_NAME = "house";
 	private static final String TRAINING_DUMMY_NAME = "Training dummy";
 	private static final String GRAVE_NAME = "grave";
+	private static final String JAIL_LEFT = "Jail left";
+	private static final String JAIL_DOOR = "Jail door";
 	
 	public static int generateVotingBox(int x, int y, World world) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
@@ -185,5 +188,119 @@ public class BuildingGenerator {
 	
 	public static boolean isTrainingDummy(WorldObject worldObject) {
 		return worldObject.getProperty(Constants.NAME).equals(TRAINING_DUMMY_NAME);
+	}
+	
+	public static boolean isJailLeft(WorldObject worldObject) {
+		return worldObject.getProperty(Constants.NAME).equals(JAIL_LEFT);
+	}
+	
+	public static boolean isJailDoor(WorldObject worldObject) {
+		return worldObject.getProperty(Constants.NAME).equals(JAIL_DOOR);
+	}
+
+	public static void generateJail(int x, int y, World world, double useSkill) {
+		createJailLeft(x, y, world);
+		createJailUp(x, y, world);
+		createJailRight(x, y, world);
+		createJailDoor(x, y, world);
+	}
+
+	private static void createJailLeft(int x, int y, World world) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		
+		properties.put(Constants.X, x);
+		properties.put(Constants.Y, y);
+		properties.put(Constants.WIDTH, 1);
+		properties.put(Constants.HEIGHT, 4);
+		properties.put(Constants.NAME, JAIL_LEFT);
+		properties.put(Constants.ID, world.generateUniqueId());
+		properties.put(Constants.IMAGE_ID, ImageIds.JAIL_LEFT);
+		properties.put(Constants.HIT_POINTS, 50);
+		properties.put(Constants.HIT_POINTS_MAX, 50);
+		properties.put(Constants.ARMOR, 0);
+		properties.put(Constants.DAMAGE_RESIST, 0);
+		
+		WorldObject jailLeft = new WorldObjectImpl(properties);
+		world.addWorldObject(jailLeft);
+	}
+	
+	private static void createJailUp(int x, int y, World world) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		
+		properties.put(Constants.X, x+1);
+		properties.put(Constants.Y, y);
+		properties.put(Constants.WIDTH, 1);
+		properties.put(Constants.HEIGHT, 2);
+		properties.put(Constants.NAME, "Jail up");
+		properties.put(Constants.ID, world.generateUniqueId());
+		properties.put(Constants.IMAGE_ID, ImageIds.JAIL_UP);
+		properties.put(Constants.HIT_POINTS, 50);
+		properties.put(Constants.HIT_POINTS_MAX, 50);
+		properties.put(Constants.ARMOR, 0);
+		properties.put(Constants.DAMAGE_RESIST, 0);
+		
+		WorldObject jailLeft = new WorldObjectImpl(properties);
+		world.addWorldObject(jailLeft);
+	}
+	
+	private static void createJailRight(int x, int y, World world) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		
+		properties.put(Constants.X, x+2);
+		properties.put(Constants.Y, y);
+		properties.put(Constants.WIDTH, 1);
+		properties.put(Constants.HEIGHT, 4);
+		properties.put(Constants.NAME, "Jail right");
+		properties.put(Constants.ID, world.generateUniqueId());
+		properties.put(Constants.IMAGE_ID, ImageIds.JAIL_RIGHT);
+		properties.put(Constants.HIT_POINTS, 50);
+		properties.put(Constants.HIT_POINTS_MAX, 50);
+		properties.put(Constants.ARMOR, 0);
+		properties.put(Constants.DAMAGE_RESIST, 0);
+		
+		WorldObject jailLeft = new WorldObjectImpl(properties);
+		world.addWorldObject(jailLeft);
+	}
+	
+	private static void createJailDoor(int x, int y, World world) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		
+		properties.put(Constants.X, x+1);
+		properties.put(Constants.Y, y+2);
+		properties.put(Constants.WIDTH, 1);
+		properties.put(Constants.HEIGHT, 2);
+		properties.put(Constants.NAME, JAIL_DOOR);
+		properties.put(Constants.ID, world.generateUniqueId());
+		properties.put(Constants.IMAGE_ID, ImageIds.JAIL_DOOR);
+		properties.put(Constants.HIT_POINTS, 50);
+		properties.put(Constants.HIT_POINTS_MAX, 50);
+		properties.put(Constants.ARMOR, 0);
+		properties.put(Constants.DAMAGE_RESIST, 0);
+		
+		WorldObject jailLeft = new WorldObjectImpl(properties);
+		world.addWorldObject(jailLeft);
+	}
+	
+	public static void addJailDoorIfNotPresent(WorldObject jailLeft, World world) {
+		int jailLeftX = jailLeft.getProperty(Constants.X);
+		int jailLeftY = jailLeft.getProperty(Constants.Y);
+		List<WorldObject> jailDoors = world.findWorldObjects(w -> isJailDoor(w) && w.getProperty(Constants.X) == jailLeftX+1 && w.getProperty(Constants.Y) == jailLeftY + 2);
+		
+		if (jailDoors.size() == 0) {
+			createJailDoor(jailLeftX, jailLeftY, world);
+		}
+	}
+
+	public static WorldObject findEmptyJail(World world) {
+		List<WorldObject> jails = world.findWorldObjects(w -> isJailLeft(w));
+		for(WorldObject jail : jails) {
+			int jailX = jail.getProperty(Constants.X);
+			int jailY = jail.getProperty(Constants.Y);
+			List<WorldObject> prisoners = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> w.getProperty(Constants.X) == jailX+1 && w.getProperty(Constants.Y) == jailY+1);
+			if (prisoners.size() == 0) {
+				return jail;
+			}
+		}
+		return null;
 	}
 }

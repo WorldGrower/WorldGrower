@@ -20,21 +20,18 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.conversation.Conversations;
-import org.worldgrower.history.HistoryItem;
+import org.worldgrower.actions.BuildJailAction;
+import org.worldgrower.generator.BuildingGenerator;
 
-public class CatchThievesGoal implements Goal {
+public class JailGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		List<HistoryItem> theftHistoryItems = world.getHistory().findHistoryItems(Actions.STEAL_ACTION);
-		
-		if (theftHistoryItems.size() > 0) {
-			HistoryItem theftHistoryItem = theftHistoryItems.get(0);
-			int[] args = Conversations.createArgs(Conversations.BROKEN_LAW_CONVERSATION, theftHistoryItem);
-			return new OperationInfo(performer, theftHistoryItem.getOperationInfo().getPerformer(), args, Actions.TALK_ACTION);
+		if (!BuildJailAction.hasEnoughWood(performer)) {
+			return new WoodGoal().calculateGoal(performer, world);
 		} else {
-			return null;
+			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 3, 3, world);
+			return new OperationInfo(performer, target, new int[0], Actions.BUILD_JAIL_ACTION);
 		}
 	}
 
@@ -44,15 +41,14 @@ public class CatchThievesGoal implements Goal {
 	
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		List<HistoryItem> theftHistoryItems = world.getHistory().findHistoryItems(Actions.STEAL_ACTION);
-		if (theftHistoryItems.isEmpty()) {
-			return true;
-		} else {
-			//TODO: if bounty paid, return true
-			return false;
-		}
+		List<WorldObject> worldObjects = findJails(performer, world);
+		return worldObjects.size() > 0;
 	}
-	
+
+	private List<WorldObject> findJails(WorldObject performer, World world) {
+		return world.findWorldObjects(w -> BuildingGenerator.isJailLeft(w));
+	}
+
 	@Override
 	public boolean isUrgentGoalMet(WorldObject performer, World world) {
 		return isGoalMet(performer, world);
@@ -60,13 +56,12 @@ public class CatchThievesGoal implements Goal {
 
 	@Override
 	public String getDescription() {
-		return "catching thieves";
+		return "building a jail";
 	}
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		//TODO: if bounty paid, return true
-		List<HistoryItem> theftHistoryItems = world.getHistory().findHistoryItems(Actions.STEAL_ACTION);
-		return Integer.MAX_VALUE - theftHistoryItems.size();
+		List<WorldObject> worldObjects = findJails(performer, world);
+		return worldObjects.size();
 	}
 }

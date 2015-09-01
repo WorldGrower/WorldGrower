@@ -37,6 +37,8 @@ public class SheriffProfession implements Profession {
 	@Override
 	public List<Goal> getProfessionGoals() {
 		return Arrays.asList(
+				Goals.JAIL_GOAL,
+				Goals.CAPTURE_CRIMINALS_GOAL,
 				Goals.KILL_OUTSIDERS_GOAL,
 				Goals.CATCH_THIEVES_GOAL,
 				Goals.COLLECT_PAY_CHECK_GOAL,

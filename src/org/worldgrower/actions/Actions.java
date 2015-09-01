@@ -159,6 +159,9 @@ public class Actions {
 	public static final ConstructTrainingDummyAction CONSTRUCT_TRAINING_DUMMY_ACTION = new ConstructTrainingDummyAction();
 	public static final DetermineDeathReasonAction DETERMINE_DEATH_REASON_ACTION = new DetermineDeathReasonAction();
 	public static final PlantNightShadeAction PLANT_NIGHT_SHADE_ACTION = new PlantNightShadeAction();
+	public static final CapturePersonAction CAPTURE_PERSON_ACTION = new CapturePersonAction();
+	public static final BuildJailAction BUILD_JAIL_ACTION = new BuildJailAction();
+	public static final UnlockJailDoorAction UNLOCK_JAIL_DOOR_ACTION = new UnlockJailDoorAction();
 	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 
@@ -266,7 +269,10 @@ public class Actions {
 		DETERMINE_DEATH_REASON_ACTION,
 		PLANT_NIGHT_SHADE_ACTION,
 		SET_LEGAL_ACTIONS_ACTION,
-		NON_LETHAL_MELEE_ATTACK_ACTION
+		NON_LETHAL_MELEE_ATTACK_ACTION,
+		CAPTURE_PERSON_ACTION,
+		BUILD_JAIL_ACTION,
+		UNLOCK_JAIL_DOOR_ACTION
 	));
 	
 	static {

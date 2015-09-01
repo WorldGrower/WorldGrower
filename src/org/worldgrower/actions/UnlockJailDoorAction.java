@@ -22,23 +22,23 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.generator.BuildingGenerator;
 
-public class NonLethalMeleeAttackAction implements ManagedOperation {
+public class UnlockJailDoorAction implements ManagedOperation {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		AttackUtils.nonLethalAttack(this, performer, target, args, world, SkillUtils.useSkill(performer, AttackUtils.determineSkill(performer)));
+		world.removeWorldObject(target);
 	}
 	
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return ((target.hasProperty(Constants.ARMOR)) && (target.getProperty(Constants.HIT_POINTS) > 0) && (target.hasIntelligence()));
+		return (BuildingGenerator.isJailDoor(target));
 	}
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return Reach.evaluateTarget(performer, args, target, 1);
+		return Reach.distance(performer, target);
 	}
 	
 	@Override
@@ -48,12 +48,12 @@ public class NonLethalMeleeAttackAction implements ManagedOperation {
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "attacking " + target.getProperty(Constants.NAME) + " in a non lethal manner";
+		return "unlocking " + target.getProperty(Constants.NAME);
 	}
 
 	@Override
 	public String getSimpleDescription() {
-		return "non lethal melee attack";
+		return "unlock";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {
