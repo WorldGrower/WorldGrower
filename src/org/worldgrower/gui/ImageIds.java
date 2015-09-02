@@ -189,5 +189,6 @@ public enum ImageIds {
 	JAIL_UP,
 	JAIL_RIGHT, 
 	OIL_RESOURCE,
-	OIL
+	OIL,
+	SACRIFIAL_ALTAR
 }

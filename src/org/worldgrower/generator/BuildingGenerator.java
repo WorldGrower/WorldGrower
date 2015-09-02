@@ -27,6 +27,7 @@ import org.worldgrower.attribute.IdToIntegerMap;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.condition.Conditions;
+import org.worldgrower.deity.Deity;
 import org.worldgrower.gui.ImageIds;
 
 public class BuildingGenerator {
@@ -302,5 +303,29 @@ public class BuildingGenerator {
 			}
 		}
 		return null;
+	}
+
+	public static int generateSacrificialAltar(int x, int y, World world, WorldObject performer, Deity deity, double useSkill) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		int id = world.generateUniqueId();
+		
+		properties.put(Constants.X, x);
+		properties.put(Constants.Y, y);
+		properties.put(Constants.WIDTH, 1);
+		properties.put(Constants.HEIGHT, 2);
+		properties.put(Constants.NAME, "sacrificial Altar");
+		properties.put(Constants.ID, id);
+		properties.put(Constants.IMAGE_ID, ImageIds.SACRIFIAL_ALTAR);
+		properties.put(Constants.SACRIFICIAL_ALTAR_CREATOR_ID, performer.getProperty(Constants.ID));
+		properties.put(Constants.TEXT, "Sacrificial Altar to " + deity.getName());
+		properties.put(Constants.HIT_POINTS, 50);
+		properties.put(Constants.HIT_POINTS_MAX, 50);
+		properties.put(Constants.ARMOR, 0);
+		properties.put(Constants.DAMAGE_RESIST, 0);
+		
+		WorldObject altar = new WorldObjectImpl(properties);
+		world.addWorldObject(altar);
+		
+		return id;
 	}
 }

@@ -271,6 +271,7 @@ public class ImageInfoReader {
 		
 		add(ImageIds.OIL_RESOURCE, pirates.getSubImage(9, 0, 1, 1));
 		add(ImageIds.OIL, sprites420.getSubImage(6, 2, 1, 1));
+		add(ImageIds.SACRIFIAL_ALTAR, tora_vx_02.getSubImage(4, 8, 1, 2));
     }
 
 	private void createCompleteHouse() {
