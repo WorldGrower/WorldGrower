@@ -95,4 +95,5 @@ public class Goals {
 	public static final JailGoal JAIL_GOAL = new JailGoal();
 	public static final CaptureCriminalsGoal CAPTURE_CRIMINALS_GOAL = new CaptureCriminalsGoal();
 	public static final ReleaseCapturedCriminalsGoal RELEASE_CAPTURED_CRIMINALS_GOAL = new ReleaseCapturedCriminalsGoal();
+	public static final SacrificePeopleToDeityGoal SACRIFICE_PEOPLE_TO_DEITY_GOAL = new SacrificePeopleToDeityGoal();
 }

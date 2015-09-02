@@ -24,26 +24,23 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.condition.Condition;
+import org.worldgrower.goal.SacrificeUtils;
 
 public class CapturePersonForSacrificeAction implements ManagedOperation {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		List<WorldObject> sacrificialAltars = getSacrificialAltars(performer, world);
+		List<WorldObject> sacrificialAltars = SacrificeUtils.getSacrificialAltars(performer, world);
 		WorldObject sacrificialAltar = sacrificialAltars.get(0);
 		
 		target.setProperty(Constants.X, sacrificialAltar.getProperty(Constants.X));
 		target.setProperty(Constants.Y, sacrificialAltar.getProperty(Constants.Y));
 	}
 
-	private List<WorldObject> getSacrificialAltars(WorldObject performer, World world) {
-		return world.findWorldObjectsByProperty(Constants.SACRIFICIAL_ALTAR_CREATOR_ID, w -> w.getProperty(Constants.SACRIFICIAL_ALTAR_CREATOR_ID).intValue() == performer.getProperty(Constants.ID).intValue());
-	}
-
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
 		int unconsciousDistance = target.getProperty(Constants.CONDITIONS).hasCondition(Condition.UNCONSCIOUS_CONDITION) ? 0 : 1;
-		int altarDistance = getSacrificialAltars(performer, world).size() > 0 ? 0 : 1;
+		int altarDistance = SacrificeUtils.getSacrificialAltars(performer, world).size() > 0 ? 0 : 1;
 		return Reach.evaluateTarget(performer, args, target, 1) + unconsciousDistance + altarDistance;
 	}
 
