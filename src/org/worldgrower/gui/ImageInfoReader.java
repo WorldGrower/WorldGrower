@@ -268,6 +268,9 @@ public class ImageInfoReader {
 		add(ImageIds.JAIL_LEFT, tileCprison.getSubImage(0, 0, 1, 3));
 		add(ImageIds.JAIL_UP, tileCprison.getSubImage(1, 0, 1, 2));
 		add(ImageIds.JAIL_RIGHT, tileCprison.getSubImage(2, 0, 1, 3));
+		
+		add(ImageIds.OIL_RESOURCE, pirates.getSubImage(9, 0, 1, 1));
+		add(ImageIds.OIL, sprites420.getSubImage(6, 2, 1, 1));
     }
 
 	private void createCompleteHouse() {

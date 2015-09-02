@@ -80,6 +80,24 @@ public class TerrainGenerator {
 		return id;
 	}
 	
+	public static int generateOilResource(int x, int y, World world) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		int id = world.generateUniqueId();
+		
+		properties.put(Constants.X, x);
+		properties.put(Constants.Y, y);
+		properties.put(Constants.WIDTH, 1);
+		properties.put(Constants.HEIGHT, 1);
+		properties.put(Constants.ID, id);
+		properties.put(Constants.IMAGE_ID, ImageIds.OIL_RESOURCE);
+		properties.put(Constants.OIL_SOURCE, 1000);
+		properties.put(Constants.NAME, "oil resource");
+		WorldObject oilResource = new WorldObjectImpl(properties);
+		world.addWorldObject(oilResource);
+		
+		return id;
+	}
+	
 	public static int generateGrave(int x, int y, World world) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();

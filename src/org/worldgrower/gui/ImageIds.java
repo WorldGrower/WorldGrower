@@ -187,5 +187,7 @@ public enum ImageIds {
 	JAIL_DOOR,
 	JAIL_LEFT,
 	JAIL_UP,
-	JAIL_RIGHT,
+	JAIL_RIGHT, 
+	OIL_RESOURCE,
+	OIL
 }
