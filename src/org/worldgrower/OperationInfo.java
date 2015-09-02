@@ -22,7 +22,6 @@ import java.util.List;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.generator.CommonerGenerator;
 import org.worldgrower.history.HistoryItem;
-import org.worldgrower.history.Turn;
 
 /**
  * An OperationInfo instance holds all the state necessary to execute a ManagedOperation.

@@ -53,6 +53,9 @@ import org.worldgrower.gui.start.CharacterAttributes;
 import org.worldgrower.profession.PlayerCharacterProfession;
 import org.worldgrower.terrain.TerrainType;
 
+/**
+ * This class is responsible for building the world and creating the gui.
+ */
 public class Main {
 
 	private static JFrame frame = null;

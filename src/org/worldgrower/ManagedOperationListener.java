@@ -14,6 +14,10 @@
  *******************************************************************************/
 package org.worldgrower;
 
+/**
+ * A ManagedOperationListener listens to actions being executed.
+ * So that there can be reactions on those actions.
+ */
 public interface ManagedOperationListener {
 
 	public void actionPerformed(ManagedOperation managedOperation, WorldObject performer, WorldObject target, int[] args, Object value);

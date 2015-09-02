@@ -19,6 +19,9 @@ import java.net.URL;
 import java.util.Enumeration;
 import java.util.jar.Manifest;
 
+/**
+ * This class manages the version of the program, and is responsible for reading it from the .jar file. 
+ */
 public class Version {
 
 	private static String VERSION;

@@ -27,6 +27,9 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 
+/**
+ * This class holds all conditions of a WorldObjects.
+ */
 public class Conditions implements Serializable {
 
 	private final Map<Condition, ConditionInfo> conditions = new HashMap<>();

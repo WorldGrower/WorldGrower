@@ -27,6 +27,7 @@ import org.worldgrower.attribute.UTestKnowledgeMap;
 import org.worldgrower.attribute.UTestPropertyCountMap;
 import org.worldgrower.attribute.UTestSkillUtils;
 import org.worldgrower.attribute.UTestWorldObjectProperties;
+import org.worldgrower.condition.UTestConditions;
 import org.worldgrower.conversation.UTestConversations;
 import org.worldgrower.conversation.UTestDemandsConversation;
 import org.worldgrower.conversation.UTestLocationConversation;
@@ -70,7 +71,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestAbstractScribeSpellsGoal.class,
 	UTestKnowledgeMap.class,
 	UTestDemandsConversation.class,
-	UTestWorldObjectImpl.class
+	UTestWorldObjectImpl.class,
+	UTestConditions.class
 })
 public class CompleteTestSuite {
 }

@@ -14,6 +14,9 @@
  *******************************************************************************/
 package org.worldgrower;
 
+/**
+ * An OnTurn implementation that does nothing.
+ */
 public class DoNothingOnTurn implements OnTurn {
 
 	@Override

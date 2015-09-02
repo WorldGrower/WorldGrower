@@ -14,6 +14,9 @@
  *******************************************************************************/
 package org.worldgrower;
 
+/**
+ * An ArgumentRange indicates whether a ManagedOperation takes int[] args, and what the constraints are on those args.
+ */
 public final class ArgumentRange {
 
 	public static final ArgumentRange[] EMPTY_ARGUMENT_RANGE = new ArgumentRange[0];
