@@ -49,7 +49,8 @@ public class RespondToQuestionDialog extends JDialog {
 
 	public RespondToQuestionDialog(int id, int conversationId, int historyItemId, int additionalValue, Questioner questioner, Conversations conversations, ImageIds imageIdPerformer, ImageIds imageIdTarget, ImageInfoReader imageInfoReader) {
 		setModalityType(ModalityType.APPLICATION_MODAL);
-		setBounds(100, 100, 560, 300);
+		setSize(560, 300);
+		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
 		
 		KeyStroke stroke = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);

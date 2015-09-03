@@ -65,7 +65,8 @@ public class AskQuestionDialog extends JDialog implements ManagedOperationListen
 		this.answerer = answerer;
 		
 		setModalityType(ModalityType.APPLICATION_MODAL);
-		setBounds(100, 100, 650, 300);
+		this.setSize(650, 300);
+		this.setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
 		
 		KeyStroke stroke = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);

@@ -42,7 +42,8 @@ public class MagicOverviewDialog extends JDialog {
 	public MagicOverviewDialog(WorldObject playerCharacter) {
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		
-		setBounds(100, 100, 550, 525);
+		setSize(550, 525);
+		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
