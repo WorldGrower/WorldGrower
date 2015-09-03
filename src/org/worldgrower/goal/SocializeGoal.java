@@ -40,6 +40,11 @@ public class SocializeGoal implements Goal {
 				targets = GoalUtils.findNearestNewTargets(performer, Actions.TALK_ACTION, Conversations.createArgs(Conversations.FAMILY_CONVERSATION), w -> isSocializeTargetForPerformer(performer, w), world);
 				if (targets.size() > 0) {
 					return new OperationInfo(performer, targets.get(0), Conversations.createArgs(Conversations.FAMILY_CONVERSATION), Actions.TALK_ACTION);
+				} else {
+					targets = GoalUtils.findNearestNewTargets(performer, Actions.TALK_ACTION, Conversations.createArgs(Conversations.DEITY_CONVERSATION), w -> isSocializeTargetForPerformer(performer, w), world);
+					if (targets.size() > 0) {
+						return new OperationInfo(performer, targets.get(0), Conversations.createArgs(Conversations.DEITY_CONVERSATION), Actions.TALK_ACTION);
+					}	
 				}
 			}
 		}

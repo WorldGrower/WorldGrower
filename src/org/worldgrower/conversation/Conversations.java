@@ -75,6 +75,7 @@ public class Conversations implements Serializable {
 	public static final BuyHouseConversation BUY_HOUSE_CONVERSATION = new BuyHouseConversation();
 	public static final ShareKnowledgeConversation SHARE_KNOWLEDGE_CONVERSATION = new ShareKnowledgeConversation();
 	public static final CanAttackCriminalsConversation CAN_ATTACK_CRIMINALS_CONVERSATION = new CanAttackCriminalsConversation();
+	public static final DeityFollowersConversation DEITY_FOLLOWERS_CONVERSATION = new DeityFollowersConversation();
 	
 	private static final List<Conversation> CONVERSATIONS = new ArrayList<>();
 	private static final Map<Conversation, ConversationCategory> CONVERSATION_CATEGORIES = new HashMap<>();
@@ -122,6 +123,7 @@ public class Conversations implements Serializable {
 		add(BUY_HOUSE_CONVERSATION, ConversationCategory.DEMAND);
 		add(SHARE_KNOWLEDGE_CONVERSATION, ConversationCategory.SHARE_KNOWLEDGE);
 		add(CAN_ATTACK_CRIMINALS_CONVERSATION, ConversationCategory.LEADER);
+		add(DEITY_FOLLOWERS_CONVERSATION, ConversationCategory.SHARE_KNOWLEDGE);
 	}
 	
 	public static int[] createArgs(Conversation conversation) {

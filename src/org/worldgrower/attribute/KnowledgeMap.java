@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.worldgrower.Constants;
+import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 
 public class KnowledgeMap implements IdContainer, Serializable {
@@ -46,7 +47,18 @@ public class KnowledgeMap implements IdContainer, Serializable {
 
 	public void addKnowledge(WorldObject worldObject, Knowledge knowledge) {
 		idsToKnowledge.put(worldObject.getProperty(Constants.ID), knowledge);
-		
+	}
+	
+	public List<WorldObject> findWorldObjects(ManagedProperty<?> managedProperty, Object value, World world) {
+		List<WorldObject> worldObjects = new ArrayList<>();
+		for(Entry<Integer, Knowledge> entry : idsToKnowledge.entrySet()) {
+			int id = entry.getKey();
+			Knowledge knowledgeValue = entry.getValue();
+			if (knowledgeValue.getManagedProperty() == managedProperty && knowledgeValue.getValue() == value) {
+				worldObjects.add(world.findWorldObject(Constants.ID, id));
+			}
+		}
+		return worldObjects;
 	}
 	
 	public final boolean hasProperty(WorldObject worldObject, ManagedProperty<?> managedProperty) {
