@@ -52,8 +52,10 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 	}
 
 	private void alterRelationships(WorldObject performer, WorldObject target, WorldObject actionTarget, ManagedOperation managedOperation, World world, int value, WorldObject performerFacade, WorldObject targetFacade) {
-		performer.getProperty(Constants.RELATIONSHIPS).incrementValue(targetFacade.getProperty(Constants.ID), value);
-		target.getProperty(Constants.RELATIONSHIPS).incrementValue(performerFacade.getProperty(Constants.ID), value);
+		if (world.exists(performer) && world.exists(target) && world.exists(performerFacade) && world.exists(targetFacade)) {
+			performer.getProperty(Constants.RELATIONSHIPS).incrementValue(targetFacade.getProperty(Constants.ID), value);
+			target.getProperty(Constants.RELATIONSHIPS).incrementValue(performerFacade.getProperty(Constants.ID), value);
+		}
 		
 		if (performerViolatedGroupRules(performer, actionTarget, managedOperation, world)) {
 			GroupPropertyUtils.throwPerformerOutGroup(performerFacade, target);
@@ -112,8 +114,10 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 	}
 
 	private void logToBackground(WorldObject target, WorldObject actionTarget, ManagedOperation managedOperation, int[] args, WorldObject performerFacade, World world) {
-		if (target.hasProperty(Constants.BACKGROUND)) {
-			target.getProperty(Constants.BACKGROUND).addGoalObstructed(performerFacade, actionTarget, managedOperation, args, world);
+		if (world.exists(target) && world.exists(performerFacade)) {
+			if (target.hasProperty(Constants.BACKGROUND)) {
+				target.getProperty(Constants.BACKGROUND).addGoalObstructed(performerFacade, actionTarget, managedOperation, args, world);
+			}
 		}
 	}
 }
