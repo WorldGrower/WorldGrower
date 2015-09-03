@@ -14,6 +14,8 @@
  *******************************************************************************/
 package org.worldgrower;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -237,12 +239,18 @@ public class Main {
         frame.setContentPane(worldPanel);
         
         frame.pack();
+        centerFrame();
         frame.setVisible(true);
         
         ToolTipManager.sharedInstance().setDismissDelay(9999999);
         
         worldPanel.createGuiRespondToImage();
     }
+
+	private static void centerFrame() {
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
+	}
     
     public static void executeAction(WorldObject playerCharacter, ManagedOperation action, int[] args, World world, DungeonMaster dungeonMaster, WorldObject target, WorldPanel worldPanel) {
     	if (canActionExecute(playerCharacter, action, args, world, target)) {
