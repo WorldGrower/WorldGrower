@@ -34,6 +34,7 @@ public class BuildingGenerator {
 
 	private static final String SHACK_NAME = "shack";
 	private static final String HOUSE_NAME = "house";
+	private static final String WELL_NAME = "well";
 	private static final String TRAINING_DUMMY_NAME = "Training dummy";
 	private static final String GRAVE_NAME = "grave";
 	private static final String JAIL_LEFT = "Jail left";
@@ -119,6 +120,30 @@ public class BuildingGenerator {
 		return id;
 	}
 	
+	public static int buildWell(int x, int y, World world, double skillBonus) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		int id = world.generateUniqueId();
+		
+		properties.put(Constants.X, x);
+		properties.put(Constants.Y, y);
+		properties.put(Constants.WIDTH, 2);
+		properties.put(Constants.HEIGHT, 2);
+		properties.put(Constants.WATER_SOURCE, 2000);
+		properties.put(Constants.NAME, WELL_NAME);
+		
+		properties.put(Constants.ID, id);
+		properties.put(Constants.IMAGE_ID, ImageIds.WELL);
+		properties.put(Constants.HIT_POINTS, 75);
+		properties.put(Constants.HIT_POINTS_MAX, 75);
+		properties.put(Constants.ARMOR, 0);
+		properties.put(Constants.DAMAGE_RESIST, 0);
+		
+		WorldObject well = new WorldObjectImpl(properties, new WellOnTurn());
+		world.addWorldObject(well);
+		
+		return id;
+	}
+	
 	private static ImageIds generateHouseImageIds() {
 		return ImageIds.HOUSE6;
 	}
@@ -198,6 +223,10 @@ public class BuildingGenerator {
 	public static boolean isJailDoor(WorldObject worldObject) {
 		return worldObject.getProperty(Constants.NAME).equals(JAIL_DOOR);
 	}
+	
+	public static boolean isWell(WorldObject worldObject) {
+		return worldObject.getProperty(Constants.NAME).equals(WELL_NAME);
+	} 
 
 	public static void generateJail(int x, int y, World world, double useSkill) {
 		createJailLeft(x, y, world);

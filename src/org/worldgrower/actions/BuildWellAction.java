@@ -15,19 +15,15 @@
 package org.worldgrower.actions;
 
 import java.io.ObjectStreamException;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.WorldObjectImpl;
-import org.worldgrower.attribute.ManagedProperty;
-import org.worldgrower.generator.WellOnTurn;
+import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.goal.GoalUtils;
-import org.worldgrower.gui.ImageIds;
 
 public class BuildWellAction implements BuildAction {
 
@@ -36,22 +32,7 @@ public class BuildWellAction implements BuildAction {
 		int x = (Integer)target.getProperty(Constants.X);
 		int y = (Integer)target.getProperty(Constants.Y);
 		
-		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
-		properties.put(Constants.X, x);
-		properties.put(Constants.Y, y);
-		properties.put(Constants.WIDTH, 2);
-		properties.put(Constants.HEIGHT, 2);
-		properties.put(Constants.WATER_SOURCE, 2000);
-		properties.put(Constants.NAME, "well");
-		properties.put(Constants.ID, world.generateUniqueId());
-		properties.put(Constants.IMAGE_ID, ImageIds.WELL);
-		properties.put(Constants.HIT_POINTS, 75);
-		properties.put(Constants.HIT_POINTS_MAX, 75);
-		properties.put(Constants.ARMOR, 0);
-		properties.put(Constants.DAMAGE_RESIST, 0);
-		
-		WorldObject well = new WorldObjectImpl(properties, new WellOnTurn());
-		world.addWorldObject(well);
+		BuildingGenerator.buildWell(x, y, world, SkillUtils.useSkill(performer, Constants.CARPENTRY_SKILL));
 		
 		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.WOOD, 6);
 	}

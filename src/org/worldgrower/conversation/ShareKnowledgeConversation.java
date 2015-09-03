@@ -24,6 +24,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.Knowledge;
 import org.worldgrower.attribute.KnowledgeMap;
+import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
 
@@ -53,8 +54,11 @@ public class ShareKnowledgeConversation implements Conversation {
 		KnowledgeMap performerOnlyKnowledge = getPerformerOnlyKnowledge(performer, target);
 		for(int id : performerOnlyKnowledge.getIds()) {
 			WorldObject subject = world.findWorldObject(Constants.ID, id);
-			//TODO: implement fully
-			questions.add(new Question(subject, "Did you know the well is poisoned?"));
+			if (!subject.equals(target)) {
+				if (BuildingGenerator.isWell(subject) && performerOnlyKnowledge.hasProperty(id, Constants.POISON_DAMAGE)) {
+					questions.add(new Question(subject, "Did you know the well is poisoned?"));
+				}
+			}
 		}
 		return questions;
 	}
