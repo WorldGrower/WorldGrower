@@ -16,8 +16,15 @@ package org.worldgrower.attribute;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.TestUtils;
+import org.worldgrower.World;
+import org.worldgrower.WorldImpl;
+import org.worldgrower.WorldObject;
+import org.worldgrower.deity.Deity;
 
 public class UTestKnowledgeMap {
 
@@ -55,5 +62,18 @@ public class UTestKnowledgeMap {
 		assertEquals(false, subtractedKnowledgeMap.hasProperty(1, Constants.FOOD));
 		assertEquals(true, subtractedKnowledgeMap.hasProperty(1, Constants.WATER));
 		assertEquals(true, subtractedKnowledgeMap.hasProperty(2, Constants.FOOD));
+	}
+	
+	@Test
+	public void testFindWorldObjects() {
+		World world = new WorldImpl(0, 0, null, null);
+		world.addWorldObject(TestUtils.createWorldObject(1, "Test"));
+		
+		KnowledgeMap knowledgeMap = new KnowledgeMap();
+		knowledgeMap.addKnowledge(1, Constants.DEITY, Deity.APHRODITE);
+		
+		List<WorldObject> worldObjects = knowledgeMap.findWorldObjects(Constants.DEITY, Deity.APHRODITE, world);
+		assertEquals(1, worldObjects.size());
+		assertEquals(1, worldObjects.get(0).getProperty(Constants.ID).intValue());
 	}
 }
