@@ -33,6 +33,10 @@ import org.worldgrower.conversation.leader.SetHouseTaxRateConversation;
 import org.worldgrower.conversation.leader.SetShackTaxRateConversation;
 import org.worldgrower.history.HistoryItem;
 
+/**
+ * This class holds all possible conversations and handles using Conversation objects inside
+ * the TalkAction.
+ */
 public class Conversations implements Serializable {
 
 	public static final Conversation NAME_CONVERSATION = new NameConversation();
@@ -80,7 +84,11 @@ public class Conversations implements Serializable {
 	private static final List<Conversation> CONVERSATIONS = new ArrayList<>();
 	private static final Map<Conversation, ConversationCategory> CONVERSATION_CATEGORIES = new HashMap<>();
 	
-	private static final List<InterceptedConversation> INTERCEPTED_CONVERSATIONS = Arrays.asList(new WhyNotIntelligentConversation(), new SawDisguisingConversation());
+	private static final List<InterceptedConversation> INTERCEPTED_CONVERSATIONS = Arrays.asList(
+			new WhyNotIntelligentConversation(), 
+			new SawDisguisingConversation(),
+			new LookTheSameConversation()
+			);
 	
 	static {
 		addNormalAndIntimidate(NAME_CONVERSATION, ConversationCategory.PERSONAL_INFORMATION);

@@ -16,13 +16,16 @@ package org.worldgrower.conversation;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.history.HistoryItem;
 
+/**
+ * A conversation describes a dialogue between a performer and a target.
+ * It describes possible questions, possible answers and the logic to select a correct answer for an npc.
+ */
 public interface Conversation extends Serializable {
 	public Response getReplyPhrase(ConversationContext conversationContext);
 	

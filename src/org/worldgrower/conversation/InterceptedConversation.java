@@ -19,6 +19,11 @@ import java.util.List;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 
+/**
+ * An InterceptedConversation is used when the target replies something that isn't based on the question,
+ * but on the state of the performer.
+ *
+ */
 public interface InterceptedConversation {
 
 	public Response getReplyPhrase(ConversationContext conversationContext);
