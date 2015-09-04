@@ -308,4 +308,14 @@ public class ItemGenerator {
 		properties.put(Constants.IMAGE_ID, ImageIds.BED);
 		return new WorldObjectImpl(properties);
 	}
+
+	public static WorldObject generateOil() {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		properties.put(Constants.NAME, "oil");
+		properties.put(Constants.OIL, 1);
+		properties.put(Constants.PRICE, 1);
+		properties.put(Constants.SELLABLE, false);
+		properties.put(Constants.IMAGE_ID, ImageIds.OIL);
+		return new WorldObjectImpl(properties);
+	}
 }

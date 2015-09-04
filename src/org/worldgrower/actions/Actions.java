@@ -164,6 +164,7 @@ public class Actions {
 	public static final UnlockJailDoorAction UNLOCK_JAIL_DOOR_ACTION = new UnlockJailDoorAction();
 	public static final BuildSacrificalAltarAction BUILD_SACRIFICAL_ALTAR_ACTION = new BuildSacrificalAltarAction();
 	public static final CapturePersonForSacrificeAction CAPTURE_PERSON_FOR_SACRIFICE_ACTION = new CapturePersonForSacrificeAction();
+	public static final ExtractOilAction EXTRACT_OIL_ACTION = new ExtractOilAction();
 	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 
@@ -276,7 +277,8 @@ public class Actions {
 		BUILD_JAIL_ACTION,
 		UNLOCK_JAIL_DOOR_ACTION,
 		BUILD_SACRIFICAL_ALTAR_ACTION,
-		CAPTURE_PERSON_FOR_SACRIFICE_ACTION
+		CAPTURE_PERSON_FOR_SACRIFICE_ACTION,
+		EXTRACT_OIL_ACTION
 	));
 	
 	static {
