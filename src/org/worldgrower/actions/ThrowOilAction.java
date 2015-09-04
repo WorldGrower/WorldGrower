@@ -18,16 +18,15 @@ import java.io.ObjectStreamException;
 
 import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
-import org.worldgrower.Reach;
+import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.SkillUtils;
 
-public class RangedAttackAction implements DeadlyAction {
+public class ThrowOilAction implements ManagedOperation {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		AttackUtils.attack(this, performer, target, args, world, SkillUtils.useSkill(performer, Constants.ARCHERY_SKILL));
+		target.setProperty(Constants.FLAMMABLE, Boolean.TRUE);
 	}
 	
 	@Override
@@ -37,18 +36,7 @@ public class RangedAttackAction implements DeadlyAction {
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		WorldObject attackWeapon = performer.getProperty(Constants.LEFT_HAND_EQUIPMENT);
-		if (attackWeapon != null && attackWeapon.hasProperty(Constants.RANGE)) {
-			int range = attackWeapon.getProperty(Constants.RANGE);
-			int distance = Reach.distance(performer, target);
-			if (distance <= range) {
-				return 0;
-			} else {
-				return distance - range;
-			}
-		} else {
-			return 1;
-		}
+		return AttackUtils.distanceWithFreeLeftHand(performer, target, 4);
 	}
 	
 	@Override
@@ -58,20 +46,15 @@ public class RangedAttackAction implements DeadlyAction {
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "attacking " + target.getProperty(Constants.NAME);
+		return "throwing oil at " + target.getProperty(Constants.NAME);
 	}
 
 	@Override
 	public String getSimpleDescription() {
-		return "ranged attack";
+		return "throw oil";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
-	}
-
-	@Override
-	public String getDeathDescription(WorldObject performer, WorldObject target) {
-		return "shot by an arrow";
 	}
 }
