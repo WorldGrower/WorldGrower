@@ -42,7 +42,7 @@ public class DrinkWaterGoal implements Goal {
 					return new WoodGoal().calculateGoal(performer, world);
 				} else {
 					WorldObject targetLocation = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 2, 2, world);
-					List<WorldObject> existingWells = getExistingWellsNearTargetLocation(targetLocation, world);
+					List<WorldObject> existingWells = getExistingWellsNearTargetLocation(performer, targetLocation, world);
 					if (existingWells.size() > 0) {
 						return new OperationInfo(performer, existingWells.get(0), new int[0], Actions.DRINK_ACTION);
 					} else {
@@ -53,8 +53,8 @@ public class DrinkWaterGoal implements Goal {
 		}
 	}
 	
-	private List<WorldObject> getExistingWellsNearTargetLocation(WorldObject targetLocation, World world) {
-		List<WorldObject> existingWells = world.findWorldObjects(w -> w.hasProperty(Constants.WATER_SOURCE) && Reach.distance(targetLocation, w) < 10);
+	private List<WorldObject> getExistingWellsNearTargetLocation(WorldObject performer, WorldObject targetLocation, World world) {
+		List<WorldObject> existingWells = world.findWorldObjects(w -> w.hasProperty(Constants.WATER_SOURCE) && Reach.distance(targetLocation, w) < 10 && WaterPropertyUtils.isWaterSafeToDrink(performer, w));
 		return existingWells;
 	}
 	

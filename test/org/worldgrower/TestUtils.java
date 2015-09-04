@@ -14,6 +14,7 @@
  *******************************************************************************/
 package org.worldgrower;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +27,9 @@ import org.worldgrower.attribute.KnowledgeMap;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.PropertyCountMap;
 import org.worldgrower.attribute.Skill;
+import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.condition.Conditions;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.goal.Goal;
 
@@ -77,6 +81,38 @@ public class TestUtils {
 		properties.put(Constants.STRENGTH, 10);
 		properties.put(property, value);
 		WorldObject w1 = new WorldObjectImpl(properties, Actions.ALL_ACTIONS, null);
+		return w1;
+	}
+	
+	public static WorldObject createIntelligentWorldObject(int id, Goal goal) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		properties.put(Constants.ID, id);
+		properties.put(Constants.GROUP, new IdList().add(6));
+		properties.put(Constants.SOCIAL, 0);
+		properties.put(Constants.RELATIONSHIPS, new IdRelationshipMap());
+		properties.put(Constants.INVENTORY, new WorldObjectContainer());
+		properties.put(Constants.CREATURE_TYPE, CreatureType.HUMAN_CREATURE_TYPE);
+		properties.put(Constants.KNOWLEDGE_MAP, new KnowledgeMap());
+		properties.put(Constants.CONDITIONS, new Conditions());
+		properties.put(Constants.STRENGTH, 10);
+		properties.put(Constants.WATER, 10);
+		properties.put(Constants.ENERGY, 1000);
+		properties.put(Constants.WIDTH, 1);
+		properties.put(Constants.HEIGHT, 1);
+		properties.put(Constants.STRENGTH, 10);
+		properties.put(Constants.DEXTERITY, 10);
+		properties.put(Constants.CONSTITUTION, 10);
+		properties.put(Constants.INTELLIGENCE, 10);
+		properties.put(Constants.WISDOM, 10);
+		properties.put(Constants.CHARISMA, 10);
+		SkillUtils.addAllSkills(properties);
+		WorldObject w1 = new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new WorldObjectPriorities() {
+
+			@Override
+			public List<Goal> getPriorities(WorldObject performer, World world) {
+				return Arrays.asList(goal);
+			}
+		});
 		return w1;
 	}
 	

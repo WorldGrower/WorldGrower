@@ -63,7 +63,7 @@ public class DrinkFromInventoryAction implements ManagedOperation {
 	
 	@Override
 	public String getSimpleDescription() {
-		return "drink";
+		return "drink from inventory";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {

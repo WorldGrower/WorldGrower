@@ -46,7 +46,7 @@ public class DungeonMaster implements Serializable {
 		world.nextTurn();
 	}
 
-	private void runWorldObject(WorldObject worldObject, World world) {
+	void runWorldObject(WorldObject worldObject, World world) {
 		MetaInformation metaInformation = getMetaInformation(worldObject);
 		
 		World worldFacade = createWorldFacade(worldObject, world);

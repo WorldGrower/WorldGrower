@@ -29,6 +29,9 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.curse.Curse;
+import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.generator.PlantGenerator;
+import org.worldgrower.goal.Goals;
 import org.worldgrower.history.Turn;
 
 public class UTestDungeonMaster {
@@ -50,7 +53,11 @@ public class UTestDungeonMaster {
 	}
 
 	private WorldImpl createWorld() {
-		return new WorldImpl(10, 10, null, null);
+		return new WorldImpl(10, 10, dungeonMaster, null);
+	}
+	
+	private WorldImpl createWorld(DungeonMaster dungeonMaster) {
+		return new WorldImpl(10, 10, dungeonMaster, null);
 	}
 
 	@Test
@@ -97,6 +104,35 @@ public class UTestDungeonMaster {
 		OperationInfo immediateGoal = new OperationInfo(worldObject, worldObject, new int[0], Actions.CUT_WOOD_ACTION);
 		List<OperationInfo> tasks = dungeonMaster.calculateTasks(worldObject, world, immediateGoal);
 		assertEquals(0, tasks.size());
+	}
+	
+	@Test
+	public void testRunWorldObjectWithInvalidTarget() {
+		DungeonMaster dungeonMaster = new DungeonMaster();
+		World world = createWorld(dungeonMaster);
+		WorldObject commoner = TestUtils.createIntelligentWorldObject(1, Goals.DRINK_WATER_GOAL);
+		commoner.setProperty(Constants.X, 5);
+		commoner.setProperty(Constants.Y, 5);
+		world.addWorldObject(commoner);
+		int wellId = BuildingGenerator.buildWell(2, 2, world, 0f);
+		PlantGenerator.generateTree(10, 10, world);
+		
+		dungeonMaster.runWorldObject(commoner, world);
+		
+		assertEquals(4, commoner.getProperty(Constants.X).intValue());
+		assertEquals(4, commoner.getProperty(Constants.Y).intValue());
+		assertEquals(Goals.DRINK_WATER_GOAL, world.getGoal(commoner));
+		assertEquals(Actions.DRINK_ACTION, world.getImmediateGoal(commoner, world).getManagedOperation());
+		
+		commoner.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(wellId, Constants.POISON_DAMAGE, 5);
+		
+		dungeonMaster.runWorldObject(commoner, world);
+
+		assertEquals(5, commoner.getProperty(Constants.X).intValue());
+		assertEquals(5, commoner.getProperty(Constants.Y).intValue());
+		assertEquals(Goals.DRINK_WATER_GOAL, world.getGoal(commoner));
+		assertEquals(Actions.CUT_WOOD_ACTION, world.getImmediateGoal(commoner, world).getManagedOperation());
+
 	}
 	
 	private WorldObject createWorldObject() {
