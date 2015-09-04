@@ -272,6 +272,8 @@ public class ImageInfoReader {
 		add(ImageIds.OIL_RESOURCE, pirates.getSubImage(9, 0, 1, 1));
 		add(ImageIds.OIL, sprites420.getSubImage(6, 2, 1, 1));
 		add(ImageIds.SACRIFIAL_ALTAR, tora_vx_02.getSubImage(4, 8, 1, 2));
+		
+		createCompleteLibrary();
     }
 
 	private void createCompleteHouse() {
@@ -284,6 +286,20 @@ public class ImageInfoReader {
 		addStoneWindowToHouse(g2);
 		g2.dispose();
 		idToImages.put(ImageIds.HOUSE6, Arrays.asList(off_Image));
+	}
+	
+	private void createCompleteLibrary() {
+		BufferedImage libraryImage = (BufferedImage) idToImages.get(ImageIds.LIBRARY).get(0);
+		BufferedImage off_Image = new BufferedImage(libraryImage.getWidth(null) * 2, libraryImage.getHeight(null) + 16, BufferedImage.TYPE_INT_ARGB);
+		
+		Graphics2D g2 = (Graphics2D) off_Image.getGraphics();
+		g2.drawImage(libraryImage, libraryImage.getWidth(null), 16, null);
+		g2.drawImage(libraryImage, 0, 16, null);
+		Image subImage = libraryImage.getSubimage(0, 0, libraryImage.getWidth(null), 16);
+		g2.drawImage(subImage, 0, 0, null);
+		g2.drawImage(subImage, subImage.getWidth(null), 0, null);
+		g2.dispose();
+		idToImages.put(ImageIds.LIBRARY, Arrays.asList(off_Image));
 	}
     
     private void addDoorToHouse(ImageIds houseId) {

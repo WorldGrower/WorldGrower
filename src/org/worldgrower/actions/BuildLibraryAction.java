@@ -41,7 +41,7 @@ public class BuildLibraryAction implements BuildAction {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
-		properties.put(Constants.WIDTH, 1);
+		properties.put(Constants.WIDTH, 2);
 		properties.put(Constants.HEIGHT, 2);
 		properties.put(Constants.LIBRARY_QUALITY, 1);
 		properties.put(Constants.NAME, "library");
@@ -102,7 +102,7 @@ public class BuildLibraryAction implements BuildAction {
 
 	@Override
 	public int getWidth() {
-		return 1;
+		return 2;
 	}
 
 	@Override
