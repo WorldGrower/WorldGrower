@@ -244,7 +244,7 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 	
 	private void addResearchActions(JPopupMenu menu, WorldObject worldObject) {
-		if (ResearchSpellAction.isValidTarget(worldObject)) {
+		if (ResearchSpellAction.isValidTarget(worldObject) && Actions.getMagicSpellsToResearch(playerCharacter).size() > 0) {
 			JMenuItem guiResearchMagicSpellMenuItem = new JMenuItem(new GuiResearchMagicSpellAction(playerCharacter, imageInfoReader, world, container, dungeonMaster, worldObject));
 			guiResearchMagicSpellMenuItem.setText("Research multiple turns...");
 			menu.add(guiResearchMagicSpellMenuItem);

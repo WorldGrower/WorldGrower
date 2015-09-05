@@ -53,20 +53,22 @@ public class GuiResearchMagicSpellAction extends AbstractAction {
 	public void actionPerformed(ActionEvent e) {
 		
 		List<MagicSpell> magicSpellsToResearch =  Actions.getMagicSpellsToResearch(playerCharacter);
-		String[] magicSpellDescriptions = Actions.getMagicSpellDescriptions(magicSpellsToResearch).toArray(new String[0]);
-		String magicSpellDescription = (String) JOptionPane.showInputDialog(parent, "Choose Magic Spell", "Choose Magic Spell", JOptionPane.QUESTION_MESSAGE, null, magicSpellDescriptions, magicSpellDescriptions[0]);
-		if (magicSpellDescription != null) {
-			
-			int indexOfMagicSpell = Arrays.asList(magicSpellDescriptions).indexOf(magicSpellDescription);
-			MagicSpell magicSpell = magicSpellsToResearch.get(indexOfMagicSpell);
-			ResearchSpellAction researchSpellAction = Actions.getResearchSpellActionFor(magicSpell);
-			
-			String turnsString = JOptionPane.showInputDialog("Research for how many turns? (0 - " + magicSpell.getResearchCost() + ")");
-			if ((turnsString != null) && (NumberUtils.isNumeric(turnsString))) {
-				int turns = Integer.parseInt(turnsString);
+		if (magicSpellsToResearch.size() > 0) { 
+			String[] magicSpellDescriptions = Actions.getMagicSpellDescriptions(magicSpellsToResearch).toArray(new String[0]);
+			String magicSpellDescription = (String) JOptionPane.showInputDialog(parent, "Choose Magic Spell", "Choose Magic Spell", JOptionPane.QUESTION_MESSAGE, null, magicSpellDescriptions, magicSpellDescriptions[0]);
+			if (magicSpellDescription != null) {
 				
-				for(int i=0; i<turns; i++) {
-					Main.executeAction(playerCharacter, researchSpellAction, new int[0], world, dungeonMaster, target, parent);
+				int indexOfMagicSpell = Arrays.asList(magicSpellDescriptions).indexOf(magicSpellDescription);
+				MagicSpell magicSpell = magicSpellsToResearch.get(indexOfMagicSpell);
+				ResearchSpellAction researchSpellAction = Actions.getResearchSpellActionFor(magicSpell);
+				
+				String turnsString = JOptionPane.showInputDialog("Research for how many turns? (0 - " + magicSpell.getResearchCost() + ")");
+				if ((turnsString != null) && (NumberUtils.isNumeric(turnsString))) {
+					int turns = Integer.parseInt(turnsString);
+					
+					for(int i=0; i<turns; i++) {
+						Main.executeAction(playerCharacter, researchSpellAction, new int[0], world, dungeonMaster, target, parent);
+					}
 				}
 			}
 		}
