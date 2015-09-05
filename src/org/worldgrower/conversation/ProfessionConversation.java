@@ -73,6 +73,10 @@ public class ProfessionConversation implements Conversation {
 	
 	@Override
 	public void handleResponse(int replyIndex, ConversationContext conversationContext) {
+		WorldObject performer = conversationContext.getPerformer();
+		WorldObject target = conversationContext.getTarget();
+		performer.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(target, Constants.PROFESSION, target.getProperty(Constants.PROFESSION));
+
 	}
 	
 	@Override

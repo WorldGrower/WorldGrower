@@ -48,7 +48,7 @@ public class RestGoal implements Goal {
 
 	@Override
 	public String getDescription() {
-		return "resting";
+		return "regaining energy";
 	}
 
 	@Override
