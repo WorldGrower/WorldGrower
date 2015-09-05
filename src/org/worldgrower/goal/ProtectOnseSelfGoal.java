@@ -29,25 +29,27 @@ public class ProtectOnseSelfGoal implements Goal {
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		if (avoidsEnemies(performer)) {
-			List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.MELEE_ATTACK_ACTION, w -> GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, w), world);
+			List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.MELEE_ATTACK_ACTION, w -> GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, w) && Reach.distance(performer, w) < 6, world);
 			
-			Zone zone = new Zone(world.getWidth(), world.getHeight());
-			zone.addValues(targets, 5, 1);
-			
-			int lowestDangerValue = Integer.MAX_VALUE;
-			int performerX = performer.getProperty(Constants.X);
-			int performerY = performer.getProperty(Constants.Y);
-			int[] bestArgs = null;
-			for(int x : zone.getValuesX(performerX)) {
-				for(int y : zone.getValuesY(performerY)) {
-					if ((zone.value(x, y) < lowestDangerValue) && (x != 0) && (y != 0)) {
-						bestArgs = new int[]{ x - performerX, y - performerY };
+			if (targets.size() > 0) {
+				Zone zone = new Zone(world.getWidth(), world.getHeight());
+				zone.addValues(targets, 5, 1);
+				
+				int lowestDangerValue = Integer.MAX_VALUE;
+				int performerX = performer.getProperty(Constants.X);
+				int performerY = performer.getProperty(Constants.Y);
+				int[] bestArgs = null;
+				for(int x : zone.getValuesX(performerX)) {
+					for(int y : zone.getValuesY(performerY)) {
+						if ((zone.value(x, y) < lowestDangerValue) && (x != 0) && (y != 0)) {
+							bestArgs = new int[]{ x - performerX, y - performerY };
+						}
 					}
 				}
-			}
-			
-			if (bestArgs != null) {
-				return new OperationInfo(performer, performer, bestArgs, Actions.MOVE_ACTION);
+				
+				if (bestArgs != null) {
+					return new OperationInfo(performer, performer, bestArgs, Actions.MOVE_ACTION);
+				}
 			}
 		}
 		return null;
