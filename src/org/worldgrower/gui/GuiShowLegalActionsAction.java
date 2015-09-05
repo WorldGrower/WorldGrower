@@ -72,7 +72,8 @@ public class GuiShowLegalActionsAction extends AbstractAction {
 		addActionHandlers(okButton, worldModel, dialog);
 		dialog.getRootPane().setDefaultButton(okButton);
 		
-		dialog.setBounds(100,  100, 300, 800);
+		dialog.setSize(300, 800);
+		dialog.setLocationRelativeTo(null);
 		dialog.setVisible(true);
 	}
 	
