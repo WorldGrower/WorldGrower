@@ -55,51 +55,51 @@ public class CharacterCustomizationScreen extends JFrame {
 		contentPane.add(attributeLabel);
 		
 		JLabel lblStrengthDesc = new JLabel("Strength");
-		lblStrengthDesc.setBounds(12, 13, 86, 16);
+		lblStrengthDesc.setBounds(12, 13, 100, 16);
 		contentPane.add(lblStrengthDesc);
 		
 		lblStrength = new JLabel("10");
-		lblStrength.setBounds(110, 13, 24, 16);
+		lblStrength.setBounds(115, 13, 24, 16);
 		contentPane.add(lblStrength);
 		
 		JLabel lblConstitutionDesc = new JLabel("Constitution");
-		lblConstitutionDesc.setBounds(12, 51, 86, 16);
+		lblConstitutionDesc.setBounds(12, 51, 100, 16);
 		contentPane.add(lblConstitutionDesc);
 		
 		lblConstitution = new JLabel("10");
-		lblConstitution.setBounds(110, 51, 24, 16);
+		lblConstitution.setBounds(115, 51, 24, 16);
 		contentPane.add(lblConstitution);
 		
 		JLabel lblDexterityDesc = new JLabel("Dexterity");
-		lblDexterityDesc.setBounds(12, 91, 86, 16);
+		lblDexterityDesc.setBounds(12, 91, 100, 16);
 		contentPane.add(lblDexterityDesc);
 		
 		lblDexterity = new JLabel("10");
-		lblDexterity.setBounds(110, 91, 24, 16);
+		lblDexterity.setBounds(115, 91, 24, 16);
 		contentPane.add(lblDexterity);
 		
 		JLabel lblIntelligenceDesc = new JLabel("Intelligence");
-		lblIntelligenceDesc.setBounds(12, 133, 86, 16);
+		lblIntelligenceDesc.setBounds(12, 133, 100, 16);
 		contentPane.add(lblIntelligenceDesc);
 		
 		lblIntelligence = new JLabel("10");
-		lblIntelligence.setBounds(110, 133, 24, 16);
+		lblIntelligence.setBounds(115, 133, 24, 16);
 		contentPane.add(lblIntelligence);
 		
 		JLabel lblWisdomDesc = new JLabel("Wisdom");
-		lblWisdomDesc.setBounds(12, 179, 86, 16);
+		lblWisdomDesc.setBounds(12, 179, 100, 16);
 		contentPane.add(lblWisdomDesc);
 		
 		lblWisdom = new JLabel("10");
-		lblWisdom.setBounds(110, 179, 24, 16);
+		lblWisdom.setBounds(115, 179, 24, 16);
 		contentPane.add(lblWisdom);
 		
 		JLabel lblCharismaDesc = new JLabel("Charisma");
-		lblCharismaDesc.setBounds(12, 224, 86, 16);
+		lblCharismaDesc.setBounds(12, 224, 100, 16);
 		contentPane.add(lblCharismaDesc);
 		
 		lblCharisma = new JLabel("10");
-		lblCharisma.setBounds(110, 224, 24, 16);
+		lblCharisma.setBounds(115, 224, 24, 16);
 		contentPane.add(lblCharisma);
 		
 		JButton button1Plus = new JButton("+");
