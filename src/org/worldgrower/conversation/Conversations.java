@@ -208,7 +208,12 @@ public class Conversations implements Serializable {
 	public String getQuestionPhrase(int index, int subjectId, int historyItemId, WorldObject performer, WorldObject target, World world) {
 		HistoryItem questionHistoryItem = getQuestionHistoryItem(historyItemId, world);
 		List<Question> questions = CONVERSATIONS.get(index).getQuestionPhrases(performer, target, questionHistoryItem, world);
-		return questions.stream().filter(q -> q.getSubjectId() == subjectId).collect(Collectors.toList()).get(0).getQuestionPhrase();
+		List<Question> questionsBySubjectId = questions.stream().filter(q -> q.getSubjectId() == subjectId).collect(Collectors.toList());
+		if (questionsBySubjectId.size() == 0) {
+			throw new IllegalStateException("No question found for conversation " + CONVERSATIONS.get(index) + " and subjectId " + subjectId);
+		}
+		
+		return questionsBySubjectId.get(0).getQuestionPhrase();
 	}
 	
 	private HistoryItem getQuestionHistoryItem(int historyItemId, World world) {

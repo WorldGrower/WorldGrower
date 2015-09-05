@@ -1,3 +1,14 @@
+v0.0.9
+
+- provide fade transition between tiles
+- village leader can now determine which actions are legal
+- sheriff no longer kicked out of group when attacking criminals
+- playercharacter can now become a sheriff as well
+- add 'Sacrifice People To Deity' goal for Ares
+- add conversation option to find out deity followers
+- fix bug where npcs still drink from a well they know is poisoned
+- add oil resources, extract oil action and throw oil action
+
 v0.0.8
 
 - made jar file executable

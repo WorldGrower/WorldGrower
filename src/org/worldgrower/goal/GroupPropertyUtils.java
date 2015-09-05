@@ -20,7 +20,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.stream.Collectors;
 
 import org.worldgrower.Constants;
@@ -312,11 +311,13 @@ public class GroupPropertyUtils {
 		} else if (organizationNames.size() == 0) {
 			throw new IllegalStateException("No organization names found for " + performer.toString());
 		} else {
-			Random r = new Random();
+			/*Random r = new Random();
 			int low = 0;
 			int high = organizationNames.size() - 1;
 			int organizationIndex = r.nextInt(high-low) + low;
-			return organizationIndex;
+			return organizationIndex;*/
+			// for now, return 0
+			return 0;
 		}
 	}
 	

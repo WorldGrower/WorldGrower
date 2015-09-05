@@ -12,7 +12,7 @@ dependencies {
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 // for now, also change version in installer.xml
-version = '0.0.8'
+version = '0.0.9'
 archivesBaseName = 'worldgrower'
 
 jar {
