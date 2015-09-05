@@ -14,7 +14,7 @@ It focuses on skills, dialogue, economy and society.
 
 ###Binary installation of .zip file
 
-*   [Download .zip file](https://github.com/WorldGrower/WorldGrower/releases/download/0.0.8/worldgrower-0.0.8.zip)
+*   [Download .zip file](https://github.com/WorldGrower/WorldGrower/releases/download/0.0.9/worldgrower-0.0.9.zip)
 *   Extract the .zip file on the local filesystem
 *   Make sure [Java 8](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html) is installed.
 	If you're not sure, you can check your java version [here](https://www.java.com/verify).
@@ -24,7 +24,7 @@ It focuses on skills, dialogue, economy and society.
 
 ###Binary installation using installer
 
-*	[download installer](https://github.com/WorldGrower/WorldGrower/releases/download/0.0.8/worldgrower-0.0.8-install.jar)
+*	[download installer](https://github.com/WorldGrower/WorldGrower/releases/download/0.0.9/worldgrower-0.0.9-install.jar)
 *	run the installer by double-clicking it or to open it with java.
 
 ###Common problems with binary installation
