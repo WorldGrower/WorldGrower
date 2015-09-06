@@ -96,4 +96,6 @@ public class Goals {
 	public static final CaptureCriminalsGoal CAPTURE_CRIMINALS_GOAL = new CaptureCriminalsGoal();
 	public static final ReleaseCapturedCriminalsGoal RELEASE_CAPTURED_CRIMINALS_GOAL = new ReleaseCapturedCriminalsGoal();
 	public static final SacrificePeopleToDeityGoal SACRIFICE_PEOPLE_TO_DEITY_GOAL = new SacrificePeopleToDeityGoal();
+	public static final FishingPoleGoal FISHING_POLE_GOAL = new FishingPoleGoal();
+	public static final CatchFishGoal CATCH_FISH_GOAL = new CatchFishGoal();
 }

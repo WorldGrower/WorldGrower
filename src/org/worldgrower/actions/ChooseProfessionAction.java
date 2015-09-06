@@ -26,12 +26,14 @@ import java.util.stream.Collectors;
 import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
+import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.attribute.Background;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.PropertyCountMap;
+import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.history.HistoryItem;
 import org.worldgrower.profession.Profession;
@@ -52,7 +54,8 @@ public class ChooseProfessionAction implements ManagedOperation {
 			new ProfessionInfo(Professions.WEAVER_PROFESSION, 0.8, 1.0, 0.8, 1.0, 1.4, 1.1),
 			new ProfessionInfo(Professions.CARPENTER_PROFESSION, 0.8, 1.0, 0.8, 1.0, 1.4, 1.1),
 			new ProfessionInfo(Professions.WIZARD_PROFESSION, 0.8, 0.8, 1.0, 1.4, 1.1, 0.9),
-			new ProfessionInfo(Professions.NECROMANCER_PROFESSION, 0.8, 0.8, 1.0, 1.4, 1.1, 0.9)
+			new ProfessionInfo(Professions.NECROMANCER_PROFESSION, 0.8, 0.8, 1.0, 1.4, 1.1, 0.9),
+			new ProfessionInfo(Professions.FISHER_PROFESSION, 0.8, 1.0, 0.8, 1.0, 1.4, 1.1)
 			);
 	
 	@Override
@@ -219,10 +222,10 @@ public class ChooseProfessionAction implements ManagedOperation {
 			}
 		}
 		
-		return mapDemandsToProfessions(mergedDemands, world);
+		return mapDemandsToProfessions(performer, mergedDemands, world);
 	}
 
-	static List<ProfessionEvaluation> mapDemandsToProfessions(PropertyCountMap<ManagedProperty<?>> demands, World world) {
+	static List<ProfessionEvaluation> mapDemandsToProfessions(WorldObject performer, PropertyCountMap<ManagedProperty<?>> demands, World world) {
 		List<ProfessionEvaluation> result = new ArrayList<>();
 		int populationCount = getPopulationCount(world);
 		
@@ -253,6 +256,12 @@ public class ChooseProfessionAction implements ManagedOperation {
 			result.add(new ProfessionEvaluation(Professions.NECROMANCER_PROFESSION, Integer.MIN_VALUE));
 		}
 		
+		List<WorldObject> nearbyFish = world.findWorldObjectsByProperty(Constants.FOOD_SOURCE, w -> w.getProperty(Constants.CREATURE_TYPE) == CreatureType.FISH_CREATURE_TYPE && Reach.distance(performer, w) < 50);
+		if (nearbyFish.size() > 10) {
+			result.add(new ProfessionEvaluation(Professions.FISHER_PROFESSION, 1));
+		} else {
+			result.add(new ProfessionEvaluation(Professions.FISHER_PROFESSION, Integer.MIN_VALUE));
+		}
 		
 		boolean canCollectTaxes = GroupPropertyUtils.canCollectTaxes(world);
 		if (canCollectTaxes) {
