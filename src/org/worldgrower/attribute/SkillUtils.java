@@ -49,6 +49,7 @@ public class SkillUtils {
 		addSkill(Constants.TRANSMUTATION_SKILL, properties);
 		addSkill(Constants.ENCHANTMENT_SKILL, properties);
 		addSkill(Constants.NECROMANCY_SKILL, properties);
+		addSkill(Constants.FISHING_SKILL, properties);
 	}
 	
 	private static final Map<SkillProperty, IntProperty> SKILLS_TO_ATTRIBUTE_MAP = new HashMap<>();
@@ -79,6 +80,7 @@ public class SkillUtils {
 		SKILLS_TO_ATTRIBUTE_MAP.put(Constants.TRANSMUTATION_SKILL, Constants.INTELLIGENCE);
 		SKILLS_TO_ATTRIBUTE_MAP.put(Constants.ENCHANTMENT_SKILL, Constants.INTELLIGENCE);
 		SKILLS_TO_ATTRIBUTE_MAP.put(Constants.NECROMANCY_SKILL, Constants.INTELLIGENCE);
+		SKILLS_TO_ATTRIBUTE_MAP.put(Constants.FISHING_SKILL, Constants.WISDOM);
 	}
 	
 	private static void addSkill(SkillProperty skillProperty, Map<ManagedProperty<?>, Object> properties) {

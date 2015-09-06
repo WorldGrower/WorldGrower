@@ -74,12 +74,16 @@ public class WorldObjectContainer implements Serializable {
 	}
 	
 	public void addQuantity(WorldObject worldObject) {
+		addQuantity(worldObject, 1);
+	}
+	
+	public void addQuantity(WorldObject worldObject, int quantity) {
 		String name = worldObject.getProperty(Constants.NAME);
 		boolean found = false;
 		for(WorldObject object : worldObjects) {
 			if (object != null) {
 				if (object.getProperty(Constants.NAME).equals(name)) {
-					object.setProperty(Constants.QUANTITY, object.getProperty(Constants.QUANTITY) + 1);
+					object.setProperty(Constants.QUANTITY, object.getProperty(Constants.QUANTITY) + quantity);
 					found = true;
 					return;
 				}
@@ -87,7 +91,7 @@ public class WorldObjectContainer implements Serializable {
 		}
 		
 		if (!found) {
-			worldObject.setProperty(Constants.QUANTITY, 1);
+			worldObject.setProperty(Constants.QUANTITY, quantity);
 			add(worldObject);
 		}
 	}

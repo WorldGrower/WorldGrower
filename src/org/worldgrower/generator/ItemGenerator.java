@@ -318,4 +318,28 @@ public class ItemGenerator {
 		properties.put(Constants.IMAGE_ID, ImageIds.OIL);
 		return new WorldObjectImpl(properties);
 	}
+
+	public static WorldObject getFishingPole(double skillBonus) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		properties.put(Constants.NAME, "fishing pole");
+		properties.put(Constants.PRICE, 20);
+		properties.put(Constants.SELLABLE, false);
+		properties.put(Constants.DAMAGE, 1);
+		properties.put(Constants.WEIGHT, 3);
+		properties.put(Constants.EQUIPMENT_HEALTH, 1000);
+		properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
+		properties.put(Constants.FISHING_POLE_QUALITY, (int)(2 * skillBonus));
+		properties.put(Constants.IMAGE_ID, ImageIds.FISHING_POLE);
+		return new WorldObjectImpl(properties);
+	}
+
+	public static WorldObject generateFish() {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		properties.put(Constants.NAME, "fish");
+		properties.put(Constants.PRICE, 1);
+		properties.put(Constants.FOOD, 1);
+		properties.put(Constants.SELLABLE, false);
+		properties.put(Constants.IMAGE_ID, ImageIds.RAW_FISH);
+		return new WorldObjectImpl(properties);
+	}
 }

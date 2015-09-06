@@ -323,7 +323,7 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 	
 	private void addCraftActions(JPopupMenu menu) {
-		ManagedOperation[] craftActions = { Actions.CRAFT_IRON_CLAYMORE_ACTION, Actions.CRAFT_IRON_CUIRASS_ACTION, Actions.CRAFT_IRON_HELMET_ACTION, Actions.CRAFT_IRON_GAUNTLETS_ACTION, Actions.CRAFT_IRON_BOOTS_ACTION, Actions.CRAFT_LONG_BOW_ACTION, Actions.MINT_GOLD_ACTION, Actions.CREATE_PAPER_ACTION, Actions.CONSTRUCT_BED_ACTION };
+		ManagedOperation[] craftActions = { Actions.CRAFT_IRON_CLAYMORE_ACTION, Actions.CRAFT_IRON_CUIRASS_ACTION, Actions.CRAFT_IRON_HELMET_ACTION, Actions.CRAFT_IRON_GAUNTLETS_ACTION, Actions.CRAFT_IRON_BOOTS_ACTION, Actions.CRAFT_LONG_BOW_ACTION, Actions.MINT_GOLD_ACTION, Actions.CREATE_PAPER_ACTION, Actions.CONSTRUCT_BED_ACTION, Actions.CONSTRUCT_FISHING_POLE_ACTION };
 		addActions(menu, "Craft", craftActions);
 	}
 	

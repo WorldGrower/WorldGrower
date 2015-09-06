@@ -275,7 +275,9 @@ public class ImageInfoReader {
 		add(ImageIds.SACRIFIAL_ALTAR, tora_vx_02.getSubImage(4, 8, 1, 2));
 		
 		createCompleteLibrary();
-		add(ImageIds.FISH, fish.getSubImage(0, 0, 1, 1));
+		add(ImageIds.FISH_CREATURE, fish.getSubImage(0, 0, 1, 1));
+		add(ImageIds.FISHING_POLE, sprites420.getSubImage(6, 9, 1, 1));
+		add(ImageIds.RAW_FISH, sprites420.getSubImage(10, 1, 1, 1));
     }
 
 	private void createCompleteHouse() {

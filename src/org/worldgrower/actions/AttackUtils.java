@@ -24,6 +24,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.ArmorType;
+import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.condition.Condition;
@@ -154,12 +155,7 @@ public class AttackUtils {
 	public static int distanceWithFreeLeftHand(WorldObject performer, WorldObject target, int range) {
 		WorldObject attackWeapon = performer.getProperty(Constants.LEFT_HAND_EQUIPMENT);
 		if (attackWeapon == null) {
-			int distance = Reach.distance(performer, target);
-			if (distance <= range) {
-				return 0;
-			} else {
-				return distance - range;
-			}
+			return getDistanceInRange(performer, target, range);
 		} else {
 			return 1;
 		}
@@ -191,5 +187,24 @@ public class AttackUtils {
 			}
 		});
 		
+	}
+
+	public static int distanceWithLeftHandByProperty(WorldObject performer, WorldObject target, IntProperty intProperty, int range) {
+		WorldObject attackWeapon = performer.getProperty(Constants.LEFT_HAND_EQUIPMENT);
+		if (attackWeapon != null) {
+			if (attackWeapon.hasProperty(intProperty)) {
+				return getDistanceInRange(performer, target, range);
+			}
+		}
+		return 1;
+	}
+
+	private static int getDistanceInRange(WorldObject performer, WorldObject target, int range) {
+		int distance = Reach.distance(performer, target);
+		if (distance <= range) {
+			return 0;
+		} else {
+			return distance - range;
+		}
 	}
 }

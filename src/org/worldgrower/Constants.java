@@ -99,6 +99,7 @@ public class Constants {
 	public static final SkillProperty TRANSMUTATION_SKILL = new SkillProperty("transmutation", ALL_PROPERTIES);
 	public static final SkillProperty ENCHANTMENT_SKILL = new SkillProperty("enchantment", ALL_PROPERTIES);
 	public static final SkillProperty NECROMANCY_SKILL = new SkillProperty("necromancy", ALL_PROPERTIES);
+	public static final SkillProperty FISHING_SKILL = new SkillProperty("fishing", ALL_PROPERTIES);
 	
 	public static final UnCheckedProperty<CreatureType> CREATURE_TYPE = new UnCheckedProperty<CreatureType>("creatureType", ALL_PROPERTIES);
 	
@@ -175,6 +176,7 @@ public class Constants {
 	public static final IntProperty SLEEP_COMFORT = new IntProperty("sleepComfort", 0, 100, NOT_NULLABLE, ALL_PROPERTIES);
 	
 	public static final IntProperty SMITH_QUALITY = new IntProperty("smithQuality", 0, 100, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty FISHING_POLE_QUALITY = new IntProperty("fishingPoleQuality", 0, 100, NOT_NULLABLE, ALL_PROPERTIES);
 	
 	public static final IntProperty ID = new IntProperty("Id", null, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final UnCheckedProperty<ImageIds> IMAGE_ID = new UnCheckedProperty<>("ImageId", ALL_PROPERTIES);

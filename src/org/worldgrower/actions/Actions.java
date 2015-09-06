@@ -166,6 +166,8 @@ public class Actions {
 	public static final CapturePersonForSacrificeAction CAPTURE_PERSON_FOR_SACRIFICE_ACTION = new CapturePersonForSacrificeAction();
 	public static final ExtractOilAction EXTRACT_OIL_ACTION = new ExtractOilAction();
 	public static final ThrowOilAction THROW_OIL_ACTION = new ThrowOilAction();
+	public static final ConstructFishingPoleAction CONSTRUCT_FISHING_POLE_ACTION = new ConstructFishingPoleAction();
+	public static final CatchFishAction CATCH_FISH_ACTION = new CatchFishAction();
 	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 
@@ -280,7 +282,9 @@ public class Actions {
 		BUILD_SACRIFICAL_ALTAR_ACTION,
 		CAPTURE_PERSON_FOR_SACRIFICE_ACTION,
 		EXTRACT_OIL_ACTION,
-		THROW_OIL_ACTION
+		THROW_OIL_ACTION,
+		CONSTRUCT_FISHING_POLE_ACTION,
+		CATCH_FISH_ACTION
 	));
 	
 	static {

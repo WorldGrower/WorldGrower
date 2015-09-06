@@ -124,6 +124,7 @@ public class CharacterDialog extends JDialog {
 		createSkillBlock(Constants.ALCHEMY_SKILL, 12, 478);
 		createSkillBlock(Constants.ARCHERY_SKILL, 12, 508);
 		createSkillBlock(Constants.NECROMANCY_SKILL, 12, 538);
+		createSkillBlock(Constants.FISHING_SKILL, 12, 568);
 		
 		createSkillBlock(Constants.THIEVERY_SKILL, 250, 208);
 		createSkillBlock(Constants.EVOCATION_SKILL, 250, 238);

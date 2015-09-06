@@ -261,7 +261,7 @@ public class CreatureGenerator {
 		properties.put(Constants.HIT_POINTS_MAX, 3);
 		properties.put(Constants.NAME, "Fish");
 		properties.put(Constants.ID, world.generateUniqueId());
-		properties.put(Constants.IMAGE_ID, ImageIds.FISH);
+		properties.put(Constants.IMAGE_ID, ImageIds.FISH_CREATURE);
 		properties.put(Constants.FOOD, 1000);
 		properties.put(Constants.FOOD_SOURCE, 1);
 		properties.put(Constants.WATER, 1000);
