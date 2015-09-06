@@ -28,16 +28,28 @@ public class FoodGoal implements Goal {
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		boolean hasInventoryFood = performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.FOOD) > 0;
 		WorldObject target = GoalUtils.findNearestTarget(performer, Actions.EAT_ACTION, world);
-		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.FOOD, world);
-		if (targets.size() > 0) {
-			return new OperationInfo(performer, targets.get(0), new int[] { targets.get(0).getProperty(Constants.INVENTORY).getIndexFor(Constants.FOOD), 5 }, Actions.BUY_ACTION);
-		} else if (hasInventoryFood) {
+		OperationInfo buyOperationInfo = getBuyOperationInfo(performer, world);
+		if (hasInventoryFood) {
 			return new OperationInfo(performer, performer, new int[0], Actions.EAT_FROM_INVENTORY_ACTION);
+		} else if (buyOperationInfo != null) {
+			return buyOperationInfo;
 		} else if (target != null) {
 			return new OperationInfo(performer, target, new int[0], Actions.EAT_ACTION);
 		} else {
 			return null;
 		}
+	}
+	
+	private OperationInfo getBuyOperationInfo(WorldObject performer, World world) {
+		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.FOOD, world);
+		if (targets.size() > 0) {
+			WorldObject target = targets.get(0);
+			int indexOfFood = target.getProperty(Constants.INVENTORY).getIndexFor(Constants.FOOD);
+			if (BuySellUtils.performerCanBuyGoods(performer, target, indexOfFood, 5, world)) {
+				return new OperationInfo(performer, target, new int[] { indexOfFood, 5 }, Actions.BUY_ACTION);
+			}
+		}
+		return null;
 	}
 	
 	@Override

@@ -38,7 +38,8 @@ public class FisherProfession implements Profession {
 	public List<Goal> getProfessionGoals() {
 		return Arrays.asList(
 				Goals.FISHING_POLE_GOAL,
-				Goals.CATCH_FISH_GOAL
+				Goals.CATCH_FISH_GOAL,
+				Goals.MARK_FOOD_AS_SELLABLE_GOAL
 				);
 	}
 

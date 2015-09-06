@@ -98,4 +98,5 @@ public class Goals {
 	public static final SacrificePeopleToDeityGoal SACRIFICE_PEOPLE_TO_DEITY_GOAL = new SacrificePeopleToDeityGoal();
 	public static final FishingPoleGoal FISHING_POLE_GOAL = new FishingPoleGoal();
 	public static final CatchFishGoal CATCH_FISH_GOAL = new CatchFishGoal();
+	public static final MarkFoodAsSellableGoal MARK_FOOD_AS_SELLABLE_GOAL = new MarkFoodAsSellableGoal();
 }

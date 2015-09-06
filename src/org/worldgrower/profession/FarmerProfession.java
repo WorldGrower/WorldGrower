@@ -37,9 +37,11 @@ public class FarmerProfession implements Profession {
 	@Override
 	public List<Goal> getProfessionGoals() {
 		return Arrays.asList(
-				Goals.GATHER_FOOD_GOAL, 
+				Goals.GATHER_FOOD_GOAL,
+				Goals.MARK_FOOD_AS_SELLABLE_GOAL,
 				Goals.CREATE_FOOD_SOURCES_GOAL,
-				Goals.CREATE_WINE_GOAL);
+				Goals.CREATE_WINE_GOAL
+				);
 	}
 
 	@Override

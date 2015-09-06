@@ -74,6 +74,13 @@ public class BuySellUtils {
 		
 		return demandsGoods && /*!betterPriceExists &&*/ hasMoneyToBuyGoods;
 	}
+	
+	public static boolean performerCanBuyGoods(WorldObject performer, WorldObject target, int indexOfItemsToSell, int quantity, World world) {
+		WorldObject worldObject = target.getProperty(Constants.INVENTORY).get(indexOfItemsToSell);
+		int price = BuySellUtils.getPrice(target, worldObject) * quantity;
+		boolean hasMoneyToBuyGoods = (price <= performer.getProperty(Constants.GOLD));
+		return hasMoneyToBuyGoods;
+	}
 
 	//TODO: fix demands
 	private static boolean getDemandGoods(WorldObject performer, WorldObject target, WorldObject worldObject) {
