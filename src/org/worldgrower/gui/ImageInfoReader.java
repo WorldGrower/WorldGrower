@@ -62,6 +62,7 @@ public class ImageInfoReader {
     	Sprites spider = readSpritesSpider();
     	Sprites stone = readSpritesStone();
     	Sprites tora_vx_02 = readSpritesTora02();
+    	Sprites fish = readSpritesFish();
     	
     	addCharacter(ImageIds.KNIGHT, sprites, 0, 0, 1, 1);
     	addCharacter(ImageIds.GUARD, sprites, 0, 4, 1, 1);
@@ -274,6 +275,7 @@ public class ImageInfoReader {
 		add(ImageIds.SACRIFIAL_ALTAR, tora_vx_02.getSubImage(4, 8, 1, 2));
 		
 		createCompleteLibrary();
+		add(ImageIds.FISH, fish.getSubImage(0, 0, 1, 1));
     }
 
 	private void createCompleteHouse() {
@@ -469,6 +471,10 @@ public class ImageInfoReader {
 	
 	private static Sprites readSpritesTora02() throws IOException {
 		return readImages("tora_vx_02.png", 32, 32, 16, 16);
+	}
+	
+	private static Sprites readSpritesFish() throws IOException {
+		return readImages("fishcrgarpie.png", 32, 32, 4, 3);
 	}
 	
 	private static Sprites readImages(String imageFilename, int width, int height, int rows, int cols) throws IOException {

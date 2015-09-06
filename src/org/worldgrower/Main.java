@@ -80,7 +80,7 @@ public class Main {
 		addWorldListeners(world);
 		exploreWorld(playerCharacter, world);
 		
-		addEnemies(enemyDensity, world, seed);
+		addEnemiesAndFriendlyAnimals(enemyDensity, world, seed);
 		
 		createAndShowGUI(dungeonMaster, world, playerCharacter);
 	}
@@ -90,16 +90,19 @@ public class Main {
 		world.addListener(new ConditionListener(world));
 	}
 
-	private static void addEnemies(int enemyDensity, World world, int seed) {
+	private static void addEnemiesAndFriendlyAnimals(int enemyDensity, World world, int seed) {
+		WorldGenerator worldGenerator = new WorldGenerator(seed);
+		WorldObject verminOrganization = GroupPropertyUtils.create(null, "vermin", world);
+		CreatureGenerator creatureGenerator = new CreatureGenerator(verminOrganization);
+		
 		if (enemyDensity > 0) {
-			WorldGenerator worldGenerator = new WorldGenerator(seed);
-			WorldObject verminOrganization = GroupPropertyUtils.create(null, "vermin", world);
-			CreatureGenerator creatureGenerator = new CreatureGenerator(verminOrganization);
 			PlantGenerator plantGenerator = new PlantGenerator(verminOrganization);
 			worldGenerator.addWorldObjects(world, 1, 1, 5, TerrainType.GRASLAND, creatureGenerator::generateRat);
 			worldGenerator.addWorldObjects(world, 1, 1, 5, TerrainType.GRASLAND, creatureGenerator::generateSlime);
 			worldGenerator.addWorldObjects(world, 2, 2, 4, TerrainType.PLAINS, plantGenerator::generateDemonTree);
 		}
+		
+		worldGenerator.addWorldObjects(world, 1, 1, world.getWidth() / 20, TerrainType.WATER, creatureGenerator::generateFish);
 	}
 	
 	public static void load(File fileToLoad) {

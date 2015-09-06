@@ -55,7 +55,7 @@ public class SexAction implements ManagedOperation {
 
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		if (target.hasProperty(Constants.RELATIONSHIPS)) {
+		if (performer.hasProperty(Constants.RELATIONSHIPS) && target.hasProperty(Constants.RELATIONSHIPS)) {
 			WorldObject performerFacade = createFacade(performer, performer, target);
 			WorldObject targetFacade = createFacade(target, performer, target);
 			return (target.hasIntelligence() && (targetFacade.getProperty(Constants.RELATIONSHIPS).getValue(performerFacade) > 750));

@@ -241,4 +241,49 @@ public class CreatureGenerator {
 		
 		return id;
 	}
+	
+	public int generateFish(int x, int y, World world) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		int id = world.generateUniqueId();
+		
+		final String gender;
+		if (Math.random() > 0.5f) {
+			gender = "female";
+		} else {
+			gender = "male";
+		}
+		
+		properties.put(Constants.X, x);
+		properties.put(Constants.Y, y);
+		properties.put(Constants.WIDTH, 1);
+		properties.put(Constants.HEIGHT, 1);
+		properties.put(Constants.HIT_POINTS, 2);
+		properties.put(Constants.HIT_POINTS_MAX, 3);
+		properties.put(Constants.NAME, "Fish");
+		properties.put(Constants.ID, world.generateUniqueId());
+		properties.put(Constants.IMAGE_ID, ImageIds.FISH);
+		properties.put(Constants.FOOD, 1000);
+		properties.put(Constants.FOOD_SOURCE, 1);
+		properties.put(Constants.WATER, 1000);
+		properties.put(Constants.ENERGY, 1000);
+		properties.put(Constants.GROUP, new IdList().add(organization));
+		properties.put(Constants.INVENTORY, new WorldObjectContainer());
+		properties.put(Constants.GOLD, 0);
+		properties.put(Constants.DEMANDS, new PropertyCountMap<ManagedProperty<?>>());
+		properties.put(Constants.CHILDREN, new IdList());
+		properties.put(Constants.SOCIAL, 500);
+		properties.put(Constants.GENDER, gender);
+		properties.put(Constants.CREATURE_TYPE, CreatureType.FISH_CREATURE_TYPE);
+		properties.put(Constants.CONDITIONS, new Conditions());
+		
+		properties.put(Constants.ARMOR, 10);
+		
+		properties.put(Constants.DAMAGE, 2);
+		properties.put(Constants.DAMAGE_RESIST, 0);
+		
+		WorldObject fish = new WorldObjectImpl(properties, new FishOnTurn(this::generateFish));
+		world.addWorldObject(fish);
+		
+		return id;
+	}
 }
