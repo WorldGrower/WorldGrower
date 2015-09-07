@@ -56,5 +56,7 @@ public interface Condition extends Serializable {
 	public static final SleepCondition SLEEP_CONDITION = new SleepCondition();
 	public static final WaterWalkCondition WATER_WALK_CONDITION = new WaterWalkCondition();
 	public static final UnconsciousCondition UNCONSCIOUS_CONDITION = new UnconsciousCondition();
+	public static final BurdenedCondition BURDENED_CONDITION = new BurdenedCondition();
+	public static final FeatheredCondition FEATHERED_CONDITION = new FeatheredCondition();
 	
 }

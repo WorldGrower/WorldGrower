@@ -23,11 +23,13 @@ import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.magic.AnimateDeadAction;
+import org.worldgrower.actions.magic.BurdenAction;
 import org.worldgrower.actions.magic.CureDiseaseAction;
 import org.worldgrower.actions.magic.CurePoisonAction;
 import org.worldgrower.actions.magic.DetectPoisonAndDiseaseAction;
 import org.worldgrower.actions.magic.DisguiseMagicSpellAction;
 import org.worldgrower.actions.magic.EnlargeAction;
+import org.worldgrower.actions.magic.FeatherAction;
 import org.worldgrower.actions.magic.FireBoltAttackAction;
 import org.worldgrower.actions.magic.InflictWoundsAction;
 import org.worldgrower.actions.magic.InvisibilityAction;
@@ -122,6 +124,8 @@ public class Actions {
 	public static final WaterWalkAction WATER_WALK_ACTION = new WaterWalkAction();
 	public static final DisguiseMagicSpellAction DISGUISE_MAGIC_SPELL_ACTION = new DisguiseMagicSpellAction();
 	public static final LightningBoltAttackAction LIGHTNING_BOLT_ATTACK_ACTION = new LightningBoltAttackAction();
+	public static final BurdenAction BURDEN_ACTION = new BurdenAction();
+	public static final FeatherAction FEATHER_ACTION = new FeatherAction();
 	
 	public static final BuildLibraryAction BUILD_LIBRARY_ACTION = new BuildLibraryAction();
 	public static final ResearchRestorationSkillAction RESEARCH_RESTORATION_SKILL_ACTION = new ResearchRestorationSkillAction();
@@ -192,7 +196,9 @@ public class Actions {
 			LOCK_MAGIC_SPELL_ACTION,
 			WATER_WALK_ACTION,
 			DISGUISE_MAGIC_SPELL_ACTION,
-			LIGHTNING_BOLT_ATTACK_ACTION
+			LIGHTNING_BOLT_ATTACK_ACTION,
+			BURDEN_ACTION,
+			FEATHER_ACTION
 			);
 	
 	public static final List<ManagedOperation> ALL_ACTIONS = new ArrayList<>(Arrays.asList(

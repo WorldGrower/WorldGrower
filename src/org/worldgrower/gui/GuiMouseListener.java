@@ -293,7 +293,7 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 	
 	private void addTransmutationActions(JPopupMenu menu) {
-		ManagedOperation[] transmutationActions = { Actions.ENLARGE_ACTION, Actions.REDUCE_ACTION, Actions.SLEEP_MAGIC_SPELL_ACTION, Actions.WATER_WALK_ACTION };
+		ManagedOperation[] transmutationActions = { Actions.ENLARGE_ACTION, Actions.REDUCE_ACTION, Actions.SLEEP_MAGIC_SPELL_ACTION, Actions.WATER_WALK_ACTION, Actions.BURDEN_ACTION, Actions.FEATHER_ACTION };
 		addActions(menu, "Transmute", transmutationActions);
 	}
 	
