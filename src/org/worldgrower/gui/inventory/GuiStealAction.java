@@ -16,6 +16,7 @@ package org.worldgrower.gui.inventory;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.AbstractAction;
 
@@ -50,7 +51,7 @@ public class GuiStealAction extends AbstractAction {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		dialog = new InventoryDialog(new InventoryDialogModel(playerCharacter), target.getProperty(Constants.INVENTORY), new InventoryDialogStealAction(), imageInfoReader);
+		dialog = new InventoryDialog(new InventoryDialogModel(playerCharacter), target.getProperty(Constants.INVENTORY), new InventoryDialogStealAction(), imageInfoReader, new ArrayList<>());
 		dialog.showMe();
 	}
 
@@ -70,7 +71,7 @@ public class GuiStealAction extends AbstractAction {
 					int[] args = new int[] { inventoryItem.getId() };
 					steal(args);
 					
-					dialog.refresh(target.getProperty(Constants.INVENTORY), playerCharacter.getProperty(Constants.GOLD));
+					dialog.refresh(target.getProperty(Constants.INVENTORY), playerCharacter.getProperty(Constants.GOLD), new ArrayList<>());
 				}
 			};
 		}

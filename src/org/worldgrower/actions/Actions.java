@@ -201,11 +201,15 @@ public class Actions {
 			FEATHER_ACTION
 			);
 	
+	private static final List<ManagedOperation> INVENTORY_ACTIONS = Arrays.asList(
+			EAT_FROM_INVENTORY_ACTION,
+			DRINK_FROM_INVENTORY_ACTION
+			);
+	
 	public static final List<ManagedOperation> ALL_ACTIONS = new ArrayList<>(Arrays.asList(
 		MOVE_ACTION,
 		EAT_ACTION,
 		EAT_NIGHT_SHADE_ACTION,
-		EAT_FROM_INVENTORY_ACTION,
 		DRINK_ACTION,
 		CUT_WOOD_ACTION,
 		BUILD_SHACK_ACTION,
@@ -260,7 +264,6 @@ public class Actions {
 		PUT_ITEM_INTO_INVENTORY_ACTION,
 		BREW_POISON_ACTION,
 		POISON_ACTION,
-		DRINK_FROM_INVENTORY_ACTION,
 		COMMAND_GATHER_WOOD_ACTION,
 		COMMAND_GATHER_FOOD_ACTION,
 		COMMAND_GATHER_RESOURCES_ACTION,
@@ -309,6 +312,8 @@ public class Actions {
 			ScribeMagicSpellAction scribeMagicSpellAction = new ScribeMagicSpellAction(magicSpell);
 			ALL_ACTIONS.add(scribeMagicSpellAction);
 		}
+		
+		ALL_ACTIONS.addAll(INVENTORY_ACTIONS);
 	}
 	
 	public static ResearchSpellAction getResearchSpellActionFor(MagicSpell magicSpell) {
@@ -358,5 +363,9 @@ public class Actions {
 	
 	public static List<String> getMagicSpellDescriptions(List<MagicSpell> magicSpells) {
 		return magicSpells.stream().map(s -> s.getSimpleDescription()).collect(Collectors.toList());
+	}
+	
+	public static List<ManagedOperation> getInventoryActions() {
+		return INVENTORY_ACTIONS;
 	}
 }

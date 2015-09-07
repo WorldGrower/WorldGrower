@@ -16,6 +16,7 @@ package org.worldgrower.gui.inventory;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.AbstractAction;
 
@@ -51,7 +52,7 @@ public class GuiPutItemAction extends AbstractAction {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		dialog = new InventoryDialog(new InventoryDialogModel(playerCharacter), playerCharacter.getProperty(Constants.INVENTORY), new InventoryDialogSellAction(), imageInfoReader);
+		dialog = new InventoryDialog(new InventoryDialogModel(playerCharacter), playerCharacter.getProperty(Constants.INVENTORY), new InventoryDialogSellAction(), imageInfoReader, new ArrayList<>());
 		dialog.showMe();
 	}
 
@@ -72,7 +73,7 @@ public class GuiPutItemAction extends AbstractAction {
 					int[] args = new int[] { inventoryItem.getId(), price };
 					sell(args);
 					
-					dialog.refresh(playerCharacter.getProperty(Constants.INVENTORY), playerCharacter.getProperty(Constants.GOLD));
+					dialog.refresh(playerCharacter.getProperty(Constants.INVENTORY), playerCharacter.getProperty(Constants.GOLD), new ArrayList<>());
 				}
 			};
 		}

@@ -72,7 +72,7 @@ public class GuiMouseListener extends MouseAdapter {
 		this.imageInfoReader = imageInfoReader;
 		
 		characterSheetAction = new CharacterSheetAction(playerCharacter, imageInfoReader);
-		inventoryAction = new InventoryAction(playerCharacter, imageInfoReader);
+		inventoryAction = new InventoryAction(playerCharacter, imageInfoReader, world, dungeonMaster, container);
 		magicOverviewAction = new MagicOverviewAction(playerCharacter, imageInfoReader);
 		addKeyBindings();
 	}
