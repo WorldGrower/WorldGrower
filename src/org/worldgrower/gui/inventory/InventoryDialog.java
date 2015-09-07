@@ -17,7 +17,6 @@ package org.worldgrower.gui.inventory;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -85,19 +84,19 @@ public class InventoryDialog extends JDialog {
 	/**
 	 * @wbp.parser.constructor
 	 */
-	public InventoryDialog(int money, WorldObjectContainer inventory, InventoryDialogAction inventoryDialogAction, ImageInfoReader imageInfoReader) {
+	public InventoryDialog(InventoryDialogModel inventoryDialogModel, WorldObjectContainer inventory, InventoryDialogAction inventoryDialogAction, ImageInfoReader imageInfoReader) {
 		
 		if (inventoryDialogAction == null) {
 			inventoryDialogAction = new DefaultInventoryDialogAction(inventory);
 		}
 		
-		initializeGUI(money, inventory, inventoryDialogAction, imageInfoReader);
+		initializeGUI(inventoryDialogModel, inventory, inventoryDialogAction, imageInfoReader);
 		
 		okButton.addActionListener(inventoryDialogAction.getGuiAction());
 		addActions(inventoryDialogAction);
 	}
 
-	private void initializeGUI(int money, WorldObjectContainer inventory, InventoryDialogAction inventoryDialogAction, ImageInfoReader imageInfoReader) {
+	private void initializeGUI(InventoryDialogModel inventoryDialogModel, WorldObjectContainer inventory, InventoryDialogAction inventoryDialogAction, ImageInfoReader imageInfoReader) {
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		setBounds(100, 100, 550, 416);
 		getContentPane().setLayout(null);
@@ -107,7 +106,7 @@ public class InventoryDialog extends JDialog {
         rootPane.registerKeyboardAction(new CloseDialogAction(), stroke, JComponent.WHEN_IN_FOCUSED_WINDOW);
 			
 		JPanel buttonPane = new JPanel();
-		buttonPane.setBounds(235, 321, 285, 35);
+		buttonPane.setBounds(313, 321, 207, 35);
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		getContentPane().add(buttonPane);
 
@@ -128,11 +127,11 @@ public class InventoryDialog extends JDialog {
 		getContentPane().add(inventoryScrollPane);
 		
 		final JLabel moneyLabel = new JLabel("Money:");
-		moneyLabel.setBounds(12, 331, 53, 25);
+		moneyLabel.setBounds(12, 331, 64, 25);
 		getContentPane().add(moneyLabel);
 		
-		moneyValueLabel = new JLabel(Integer.toString(money));
-		moneyValueLabel.setBounds(77, 334, 100, 22);
+		moneyValueLabel = new JLabel(Integer.toString(inventoryDialogModel.getMoney()));
+		moneyValueLabel.setBounds(77, 334, 50, 22);
 		getContentPane().add(moneyValueLabel);
 		
 		detailsTextArea = new JTextArea();
@@ -157,6 +156,17 @@ public class InventoryDialog extends JDialog {
 		priceTextField.setBounds(374, 240, 50, 40);
 		getContentPane().add(priceTextField);
 		
+		JLabel lblWeight = new JLabel("Weight:");
+		lblWeight.setBounds(127, 331, 64, 25);
+		getContentPane().add(lblWeight);
+		
+		String weightString = Integer.toString(inventoryDialogModel.getWeight())
+							+ "/"
+							+Integer.toString(inventoryDialogModel.getCarryingCapacity());
+		JLabel weightLabelValue = new JLabel(weightString);
+		weightLabelValue.setBounds(203, 334, 50, 22);
+		getContentPane().add(weightLabelValue);
+		
 		if (inventoryJList.getModel().getSize() == 0) {
 			noSellRadioButton.setEnabled(false);
 			sellRadioButton.setEnabled(false);
@@ -165,8 +175,8 @@ public class InventoryDialog extends JDialog {
 		}
 	}
 	
-	public InventoryDialog(int money, WorldObjectContainer inventory, ImageInfoReader imageInfoReader) {
-		this(money, inventory, null, imageInfoReader);
+	public InventoryDialog(InventoryDialogModel inventoryDialogModel, WorldObjectContainer inventory, ImageInfoReader imageInfoReader) {
+		this(inventoryDialogModel, inventory, null, imageInfoReader);
 	}
 	
 	private class DefaultInventoryDialogAction implements InventoryDialogAction {

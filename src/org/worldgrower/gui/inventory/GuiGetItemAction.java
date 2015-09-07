@@ -51,7 +51,7 @@ public class GuiGetItemAction extends AbstractAction {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		dialog = new InventoryDialog(playerCharacter.getProperty(Constants.GOLD), target.getProperty(Constants.INVENTORY), new InventoryDialogBuyAction(), imageInfoReader);
+		dialog = new InventoryDialog(new InventoryDialogModel(playerCharacter), target.getProperty(Constants.INVENTORY), new InventoryDialogBuyAction(), imageInfoReader);
 		dialog.showMe();
 	}
 

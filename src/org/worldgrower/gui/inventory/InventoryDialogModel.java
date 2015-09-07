@@ -14,30 +14,27 @@
  *******************************************************************************/
 package org.worldgrower.gui.inventory;
 
-import java.awt.event.ActionEvent;
-
-import javax.swing.AbstractAction;
-
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
-import org.worldgrower.gui.ImageInfoReader;
+import org.worldgrower.goal.WeightPropertyUtils;
 
-public class InventoryAction extends AbstractAction {
+public class InventoryDialogModel {
 
-	private WorldObject playerCharacter;
-	private InventoryDialog dialog;
-	private ImageInfoReader imageInfoReader;
+	private final WorldObject playerCharacter;
 	
-	public InventoryAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader) {
-		super();
+	public InventoryDialogModel(WorldObject playerCharacter) {
 		this.playerCharacter = playerCharacter;
-		this.imageInfoReader = imageInfoReader;
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		
-		dialog = new InventoryDialog(new InventoryDialogModel(playerCharacter), playerCharacter.getProperty(Constants.INVENTORY), imageInfoReader);
-		dialog.showMe();
+	public int getMoney() {
+		return playerCharacter.getProperty(Constants.GOLD);
+	}
+	
+	public int getWeight() {
+		return WeightPropertyUtils.getTotalWeight(playerCharacter);
+	}
+	
+	public int getCarryingCapacity() {
+		return WeightPropertyUtils.getCarryingCapacity(playerCharacter);
 	}
 }

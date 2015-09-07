@@ -21,6 +21,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.Background;
 import org.worldgrower.goal.DrownUtils;
 import org.worldgrower.goal.GoalUtils;
+import org.worldgrower.goal.WeightPropertyUtils;
 
 public class CommonerOnTurn implements OnTurn {
 
@@ -40,6 +41,10 @@ public class CommonerOnTurn implements OnTurn {
 		worldObject.increment(Constants.ENERGY, -1);
 		
 		if (worldObject.getProperty(Constants.FOOD) < 100 || worldObject.getProperty(Constants.WATER) < 100) {
+			worldObject.increment(Constants.ENERGY, -1);
+		}
+		
+		if (WeightPropertyUtils.isCarryingTooMuch(worldObject)) {
 			worldObject.increment(Constants.ENERGY, -1);
 		}
 		

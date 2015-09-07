@@ -50,7 +50,7 @@ public class GuiStealAction extends AbstractAction {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		dialog = new InventoryDialog(playerCharacter.getProperty(Constants.GOLD), target.getProperty(Constants.INVENTORY), new InventoryDialogStealAction(), imageInfoReader);
+		dialog = new InventoryDialog(new InventoryDialogModel(playerCharacter), target.getProperty(Constants.INVENTORY), new InventoryDialogStealAction(), imageInfoReader);
 		dialog.showMe();
 	}
 

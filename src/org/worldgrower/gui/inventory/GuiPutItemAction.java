@@ -51,7 +51,7 @@ public class GuiPutItemAction extends AbstractAction {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		dialog = new InventoryDialog(playerCharacter.getProperty(Constants.GOLD), playerCharacter.getProperty(Constants.INVENTORY), new InventoryDialogSellAction(), imageInfoReader);
+		dialog = new InventoryDialog(new InventoryDialogModel(playerCharacter), playerCharacter.getProperty(Constants.INVENTORY), new InventoryDialogSellAction(), imageInfoReader);
 		dialog.showMe();
 	}
 

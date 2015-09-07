@@ -173,6 +173,7 @@ public class ItemGenerator {
 		properties.put(Constants.NAME, "water");
 		properties.put(Constants.WATER, 1);
 		properties.put(Constants.PRICE, 1);
+		properties.put(Constants.WEIGHT, 1);
 		properties.put(Constants.SELLABLE, false);
 		properties.put(Constants.IMAGE_ID, ImageIds.WATER);
 		return new WorldObjectImpl(properties);
