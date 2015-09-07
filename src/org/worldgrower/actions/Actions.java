@@ -31,6 +31,7 @@ import org.worldgrower.actions.magic.EnlargeAction;
 import org.worldgrower.actions.magic.FireBoltAttackAction;
 import org.worldgrower.actions.magic.InflictWoundsAction;
 import org.worldgrower.actions.magic.InvisibilityAction;
+import org.worldgrower.actions.magic.LightningBoltAttackAction;
 import org.worldgrower.actions.magic.LockMagicSpellAction;
 import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.actions.magic.MendAction;
@@ -120,6 +121,7 @@ public class Actions {
 	public static final LockMagicSpellAction LOCK_MAGIC_SPELL_ACTION = new LockMagicSpellAction();
 	public static final WaterWalkAction WATER_WALK_ACTION = new WaterWalkAction();
 	public static final DisguiseMagicSpellAction DISGUISE_MAGIC_SPELL_ACTION = new DisguiseMagicSpellAction();
+	public static final LightningBoltAttackAction LIGHTNING_BOLT_ATTACK_ACTION = new LightningBoltAttackAction();
 	
 	public static final BuildLibraryAction BUILD_LIBRARY_ACTION = new BuildLibraryAction();
 	public static final ResearchRestorationSkillAction RESEARCH_RESTORATION_SKILL_ACTION = new ResearchRestorationSkillAction();
@@ -189,7 +191,9 @@ public class Actions {
 			UNLOCK_MAGIC_SPELL_ACTION,
 			LOCK_MAGIC_SPELL_ACTION,
 			WATER_WALK_ACTION,
-			DISGUISE_MAGIC_SPELL_ACTION);
+			DISGUISE_MAGIC_SPELL_ACTION,
+			LIGHTNING_BOLT_ATTACK_ACTION
+			);
 	
 	public static final List<ManagedOperation> ALL_ACTIONS = new ArrayList<>(Arrays.asList(
 		MOVE_ACTION,
