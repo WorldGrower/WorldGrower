@@ -56,7 +56,7 @@ public class EatFromInventoryAction implements ManagedOperation {
 
 	@Override
 	public String getSimpleDescription() {
-		return "eat";
+		return "eat from inventory";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {
