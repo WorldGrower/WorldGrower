@@ -99,4 +99,6 @@ public class Goals {
 	public static final FishingPoleGoal FISHING_POLE_GOAL = new FishingPoleGoal();
 	public static final CatchFishGoal CATCH_FISH_GOAL = new CatchFishGoal();
 	public static final MarkFoodAsSellableGoal MARK_FOOD_AS_SELLABLE_GOAL = new MarkFoodAsSellableGoal();
+	public static final MarkWoodAsSellableGoal MARK_WOOD_AS_SELLABLE_GOAL = new MarkWoodAsSellableGoal();
+	public static final MarkStoneAsSellableGoal MARK_STONE_AS_SELLABLE_GOAL = new MarkStoneAsSellableGoal();
 }

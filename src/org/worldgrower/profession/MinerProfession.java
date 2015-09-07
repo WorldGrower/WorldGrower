@@ -38,6 +38,7 @@ public class MinerProfession implements Profession {
 	public List<Goal> getProfessionGoals() {
 		return Arrays.asList(
 				Goals.MINE_RESOURCES_GOAL,
+				Goals.MARK_STONE_AS_SELLABLE_GOAL,
 				Goals.SELL_STONE_GOAL,
 				Goals.SELL_ORE_GOAL,
 				Goals.SELL_GOLD_GOAL

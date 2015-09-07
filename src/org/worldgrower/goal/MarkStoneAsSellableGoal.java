@@ -16,9 +16,9 @@ package org.worldgrower.goal;
 
 import org.worldgrower.Constants;
 
-public class MarkFoodAsSellableGoal extends AbstractMarkAsSellableGoal {
+public class MarkStoneAsSellableGoal extends AbstractMarkAsSellableGoal {
 	
-	public MarkFoodAsSellableGoal() {
-		super(Constants.FOOD);
+	public MarkStoneAsSellableGoal() {
+		super(Constants.STONE);
 	}
 }

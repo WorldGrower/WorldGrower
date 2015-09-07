@@ -14,8 +14,6 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
-import java.util.List;
-
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
@@ -28,7 +26,7 @@ public class FoodGoal implements Goal {
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		boolean hasInventoryFood = performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.FOOD) > 0;
 		WorldObject target = GoalUtils.findNearestTarget(performer, Actions.EAT_ACTION, world);
-		OperationInfo buyOperationInfo = getBuyOperationInfo(performer, world);
+		OperationInfo buyOperationInfo = BuySellUtils.getBuyOperationInfo(performer, Constants.FOOD, world);
 		if (hasInventoryFood) {
 			return new OperationInfo(performer, performer, new int[0], Actions.EAT_FROM_INVENTORY_ACTION);
 		} else if (buyOperationInfo != null) {
@@ -38,18 +36,6 @@ public class FoodGoal implements Goal {
 		} else {
 			return null;
 		}
-	}
-	
-	private OperationInfo getBuyOperationInfo(WorldObject performer, World world) {
-		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.FOOD, world);
-		if (targets.size() > 0) {
-			WorldObject target = targets.get(0);
-			int indexOfFood = target.getProperty(Constants.INVENTORY).getIndexFor(Constants.FOOD);
-			if (BuySellUtils.performerCanBuyGoods(performer, target, indexOfFood, 5, world)) {
-				return new OperationInfo(performer, target, new int[] { indexOfFood, 5 }, Actions.BUY_ACTION);
-			}
-		}
-		return null;
 	}
 	
 	@Override

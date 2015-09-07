@@ -17,6 +17,7 @@ package org.worldgrower.goal;
 import java.util.List;
 
 import org.worldgrower.Constants;
+import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
@@ -110,5 +111,17 @@ public class BuySellUtils {
 
 	public static int getIndexFor(WorldObject target, StringProperty property, String value) {
 		return target.getProperty(Constants.INVENTORY).getIndexFor(property, value, inventoryItem -> inventoryItem.hasProperty(Constants.PRICE) && (inventoryItem.getProperty(Constants.SELLABLE)));
+	}
+	
+	public static OperationInfo getBuyOperationInfo(WorldObject performer, IntProperty propertyToBuy, World world) {
+		List<WorldObject> targets = findBuyTargets(performer, propertyToBuy, world);
+		if (targets.size() > 0) {
+			WorldObject target = targets.get(0);
+			int indexOfProperty = target.getProperty(Constants.INVENTORY).getIndexFor(propertyToBuy);
+			if (performerCanBuyGoods(performer, target, indexOfProperty, 5, world)) {
+				return new OperationInfo(performer, target, new int[] { indexOfProperty, 5 }, Actions.BUY_ACTION);
+			}
+		}
+		return null;
 	}
 }
