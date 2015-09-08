@@ -32,6 +32,7 @@ import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.goal.Goal;
+import org.worldgrower.goal.Goals;
 
 public class TestUtils {
 
@@ -94,6 +95,7 @@ public class TestUtils {
 		properties.put(Constants.CREATURE_TYPE, CreatureType.HUMAN_CREATURE_TYPE);
 		properties.put(Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		properties.put(Constants.CONDITIONS, new Conditions());
+		properties.put(Constants.DEMANDS, new PropertyCountMap<ManagedProperty<?>>());
 		properties.put(Constants.STRENGTH, 10);
 		properties.put(Constants.WATER, 10);
 		properties.put(Constants.ENERGY, 1000);
@@ -114,6 +116,12 @@ public class TestUtils {
 			}
 		});
 		return w1;
+	}
+	
+	public static WorldObject createIntelligentWorldObject(int id, String name) {
+		WorldObject worldObject = createIntelligentWorldObject(id, Goals.IDLE_GOAL);
+		worldObject.setProperty(Constants.NAME, name);
+		return worldObject;
 	}
 	
 	private static class WorldObjectPrioritiesImpl implements WorldObjectPriorities {

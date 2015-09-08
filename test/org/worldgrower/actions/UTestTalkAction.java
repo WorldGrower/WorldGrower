@@ -33,8 +33,8 @@ import org.worldgrower.conversation.Response;
 
 public class UTestTalkAction {
 
-	private WorldObject performer = TestUtils.createWorldObject(1, "performer");
-	private WorldObject target = TestUtils.createWorldObject(2, "target");
+	private WorldObject performer = TestUtils.createIntelligentWorldObject(1, "performer");
+	private WorldObject target = TestUtils.createIntelligentWorldObject(2, "target");
 	private WorldObject deity = TestUtils.createWorldObject(3, "Demeter");
 	private DungeonMaster dungeonMaster = new DungeonMaster();
 	
