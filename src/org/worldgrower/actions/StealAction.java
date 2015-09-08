@@ -24,6 +24,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.Skill;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.goal.InventoryPropertyUtils;
 
 public class StealAction implements ManagedOperation {
 
@@ -38,6 +39,8 @@ public class StealAction implements ManagedOperation {
 		//TODO: compare thievery with something to determine success
 		WorldObject stolenWorldObject = targetInventory.remove(index);
 		performerInventory.add(stolenWorldObject);
+		
+		InventoryPropertyUtils.cleanupEquipmentSlots(target);
 	}
 	
 	private int useSkill(WorldObject performer) {

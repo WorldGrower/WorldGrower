@@ -23,6 +23,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.goal.InventoryPropertyUtils;
 
 public class BuyAction implements ManagedOperation {
 
@@ -38,6 +39,8 @@ public class BuyAction implements ManagedOperation {
 		performerInventory.add(boughtWorldObject);
 		target.setProperty(Constants.GOLD, target.getProperty(Constants.GOLD) + price);
 		performer.setProperty(Constants.GOLD, performer.getProperty(Constants.GOLD) - price);
+		
+		InventoryPropertyUtils.cleanupEquipmentSlots(target);
 	}
 
 	@Override

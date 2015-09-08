@@ -232,4 +232,15 @@ public class WorldObjectContainer implements Serializable {
 		}
 		return -1;
 	}
+	
+	public boolean contains(WorldObject worldObjectToFind) {
+		for(WorldObject worldObject : worldObjects) {
+			if (worldObject != null) {
+				if (worldObject == worldObjectToFind) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 }
