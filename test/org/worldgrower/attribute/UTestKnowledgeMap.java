@@ -76,4 +76,29 @@ public class UTestKnowledgeMap {
 		assertEquals(1, worldObjects.size());
 		assertEquals(1, worldObjects.get(0).getProperty(Constants.ID).intValue());
 	}
+	
+	@Test
+	public void testFindWorldObjectsForInt() {
+		World world = new WorldImpl(0, 0, null, null);
+		world.addWorldObject(TestUtils.createIntelligentWorldObject(1, Constants.FOOD, 500));
+		
+		KnowledgeMap knowledgeMap = new KnowledgeMap();
+		knowledgeMap.addKnowledge(1, Constants.FOOD, 500);
+		
+		List<WorldObject> worldObjects = knowledgeMap.findWorldObjects(Constants.FOOD, 500, world);
+		assertEquals(1, worldObjects.size());
+		assertEquals(1, worldObjects.get(0).getProperty(Constants.ID).intValue());
+	}
+	
+	@Test
+	public void testRemoveForIdContainer() {
+		KnowledgeMap knowledgeMap = new KnowledgeMap();
+		knowledgeMap.addKnowledge(1, Constants.DEITY, Deity.APHRODITE);
+		knowledgeMap.addKnowledge(2, Constants.CHILD_BIRTH_ID, 1);
+		
+		WorldObject person = TestUtils.createIntelligentWorldObject(1, Constants.KNOWLEDGE_MAP, knowledgeMap);
+		
+		knowledgeMap.remove(person, Constants.KNOWLEDGE_MAP, 1);
+		assertEquals(false, knowledgeMap.hasKnowledge());
+	}
 }
