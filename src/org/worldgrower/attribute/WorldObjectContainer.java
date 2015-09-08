@@ -97,10 +97,16 @@ public class WorldObjectContainer implements Serializable {
 	}
 	
 	public<T> void removeQuantity(ManagedProperty<T> propertyKey, int quantity) {
-		for(WorldObject object : worldObjects) {
+		for(int i=0; i<worldObjects.size(); i++) {
+			WorldObject object = worldObjects.get(i);
 			if (object != null) {
 				if (object.hasProperty(propertyKey)) {
 					object.increment(Constants.QUANTITY, -quantity);
+					
+					if (object.getProperty(Constants.QUANTITY) == 0) {
+						worldObjects.set(i, null);
+					}
+					
 					return;
 				}
 			}
