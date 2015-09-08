@@ -29,7 +29,7 @@ import org.worldgrower.OperationInfoEvaluator;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.creaturetype.CreatureType;
+import org.worldgrower.creaturetype.CreatureTypeUtils;
 import org.worldgrower.deity.Deity;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
@@ -135,7 +135,7 @@ public class BackgroundImpl implements Background, Serializable {
 		@Override
 		public boolean evaluate(WorldObject performer, WorldObject target, int[] args, ManagedOperation managedOperation) {
 			this.attacker = performer;
-			return (target == backgroundPerformer) && (managedOperation == Actions.MELEE_ATTACK_ACTION) && (performer.getProperty(Constants.CREATURE_TYPE) == CreatureType.UNDEAD_CREATURE_TYPE);
+			return (target == backgroundPerformer) && (managedOperation == Actions.MELEE_ATTACK_ACTION) && (CreatureTypeUtils.isUndead(performer));
 		}	
 		
 		public WorldObject getAttacker() {

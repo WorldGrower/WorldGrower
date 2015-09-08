@@ -21,7 +21,7 @@ import java.util.List;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.creaturetype.CreatureType;
+import org.worldgrower.creaturetype.CreatureTypeUtils;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
 import org.worldgrower.profession.Professions;
@@ -55,7 +55,7 @@ public class Hades implements Deity {
 
 	@Override
 	public int getReasonIndex(WorldObject performer, World world) {
-		int undeadCreatureCount = world.findWorldObjects(w -> w.getProperty(Constants.CREATURE_TYPE) == CreatureType.UNDEAD_CREATURE_TYPE).size();
+		int undeadCreatureCount = world.findWorldObjects(w -> CreatureTypeUtils.isUndead(w)).size();
 		if (undeadCreatureCount > 0) {
 			return 1;
 		} else if (performer.getProperty(Constants.PROFESSION) == Professions.PRIEST_PROFESSION) {

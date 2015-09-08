@@ -217,7 +217,7 @@ public class CreatureGenerator {
 		properties.put(Constants.GROUP, new IdList().add(organization));
 		properties.put(Constants.INVENTORY, new WorldObjectContainer());
 		properties.put(Constants.GOLD, 0);
-		properties.put(Constants.CREATURE_TYPE, CreatureType.UNDEAD_CREATURE_TYPE);
+		properties.put(Constants.CREATURE_TYPE, CreatureType.MINDLESS_UNDEAD_CREATURE_TYPE);
 		properties.put(Constants.CONDITIONS, new Conditions());
 		properties.put(Constants.GOLD, 0);
 		properties.put(Constants.CREATOR_ID, performer.getProperty(Constants.ID));

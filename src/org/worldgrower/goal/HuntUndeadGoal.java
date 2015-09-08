@@ -21,7 +21,7 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.creaturetype.CreatureType;
+import org.worldgrower.creaturetype.CreatureTypeUtils;
 
 public class HuntUndeadGoal implements Goal {
 
@@ -36,7 +36,7 @@ public class HuntUndeadGoal implements Goal {
 	}
 	
 	private List<WorldObject> findUndeadCreatures(WorldObject performer, World world) {
-		List<WorldObject> undeadCreatures = world.findWorldObjectsByProperty(Constants.CREATURE_TYPE, w -> (w.getProperty(Constants.CREATURE_TYPE) == CreatureType.UNDEAD_CREATURE_TYPE));
+		List<WorldObject> undeadCreatures = world.findWorldObjectsByProperty(Constants.CREATURE_TYPE, w -> (CreatureTypeUtils.isUndead(w)));
 		return undeadCreatures;
 	}
 	
