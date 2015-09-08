@@ -24,9 +24,12 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.Knowledge;
 import org.worldgrower.attribute.KnowledgeMap;
+import org.worldgrower.deity.Deity;
 import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.goal.KnowledgePropertyUtils;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
+import org.worldgrower.profession.Profession;
 
 public class ShareKnowledgeConversation implements Conversation {
 
@@ -51,25 +54,30 @@ public class ShareKnowledgeConversation implements Conversation {
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, World world) {
 		List<Question> questions = new ArrayList<>();
-		KnowledgeMap performerOnlyKnowledge = getPerformerOnlyKnowledge(performer, target);
+		KnowledgeMap performerOnlyKnowledge = KnowledgePropertyUtils.getPerformerOnlyKnowledge(performer, target);
 		for(int id : performerOnlyKnowledge.getIds()) {
 			WorldObject subject = world.findWorldObject(Constants.ID, id);
 			if (!subject.equals(target)) {
 				if (BuildingGenerator.isWell(subject) && performerOnlyKnowledge.hasProperty(id, Constants.POISON_DAMAGE)) {
 					questions.add(new Question(subject, "Did you know the well is poisoned?"));
+				} else {
+					Knowledge knowledge = performerOnlyKnowledge.getKnowledge(subject);
+					if (knowledge.getManagedProperty() == Constants.CHILD_BIRTH_ID) {
+						WorldObject child = world.findWorldObject(Constants.ID, (Integer)knowledge.getValue());
+						questions.add(new Question(subject, "Did you know that " + subject.getProperty(Constants.NAME) + " gave birth to " + child.getProperty(Constants.NAME) + "?"));
+					} else if (knowledge.getManagedProperty() == Constants.DEITY) {
+						questions.add(new Question(subject, "Did you know " + subject.getProperty(Constants.NAME) + " worships " + ((Deity)knowledge.getValue()).getName() + "?"));
+					} else if (knowledge.getManagedProperty() == Constants.PROFESSION) {
+						questions.add(new Question(subject, "Did you know " + subject.getProperty(Constants.NAME) + " is a " + ((Profession)knowledge.getValue()).getDescription() + "?"));
+					} else {
+						throw new IllegalStateException("No mapping found for knowledge " + knowledge);
+					}
 				}
 			}
 		}
 		return questions;
 	}
 
-	private KnowledgeMap getPerformerOnlyKnowledge(WorldObject performer, WorldObject target) {
-		KnowledgeMap performerKnowledge = performer.getProperty(Constants.KNOWLEDGE_MAP);
-		KnowledgeMap targetKnowledge = target.getProperty(Constants.KNOWLEDGE_MAP);
-		KnowledgeMap performerOnlyKnowledge = performerKnowledge.subtract(targetKnowledge);
-		return performerOnlyKnowledge;
-	}
-	
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
@@ -79,9 +87,13 @@ public class ShareKnowledgeConversation implements Conversation {
 	}
 
 	@Override
-	public boolean isConversationAvailable(WorldObject performer, WorldObject target, World world) {
-		KnowledgeMap performerOnlyKnowledge = getPerformerOnlyKnowledge(performer, target);
-		return performerOnlyKnowledge.hasKnowledge();
+	public boolean isConversationAvailable(WorldObject performer, WorldObject target, WorldObject subject, World world) {
+		KnowledgeMap performerOnlyKnowledge = KnowledgePropertyUtils.getPerformerOnlyKnowledge(performer, target);
+		if (subject != null) {
+			return performerOnlyKnowledge.getKnowledge(subject.getProperty(Constants.ID)) != null;
+		} else {
+			return performerOnlyKnowledge.hasKnowledge();
+		}
 	}
 	
 	@Override

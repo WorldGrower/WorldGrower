@@ -32,7 +32,7 @@ public interface Conversation extends Serializable {
 	// number of replyphrases should remain the same: otherwise replyIndex doesn't work ==> response.isPossible flag
 	public List<Response> getReplyPhrases(ConversationContext conversationContext);
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, World world);
-	public boolean isConversationAvailable(WorldObject performer, WorldObject target, World world);
+	public boolean isConversationAvailable(WorldObject performer, WorldObject target, WorldObject subject, World world);
 	
 	public default List<HistoryItem> findSameConversation(ConversationContext conversationContext) {
 		World world = conversationContext.getWorld();

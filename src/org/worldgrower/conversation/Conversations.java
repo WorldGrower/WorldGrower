@@ -190,7 +190,7 @@ public class Conversations implements Serializable {
 		Map<ConversationCategory, List<Question>> questions = new HashMap<>();
 		for(int index = 0; index < CONVERSATIONS.size(); index++) {
 			Conversation conversation = CONVERSATIONS.get(index);
-			if (conversation.isConversationAvailable(performer, target, world)) {
+			if (conversation.isConversationAvailable(performer, target, null, world)) {
 				List<Question> questionsToBeAdded = conversation.getQuestionPhrases(performer, target, null, world);
 				for(Question question : questionsToBeAdded) {
 					question.setId(index);
@@ -212,7 +212,7 @@ public class Conversations implements Serializable {
 		List<Question> questions = CONVERSATIONS.get(index).getQuestionPhrases(performer, target, questionHistoryItem, world);
 		List<Question> questionsBySubjectId = questions.stream().filter(q -> q.getSubjectId() == subjectId).collect(Collectors.toList());
 		if (questionsBySubjectId.size() == 0) {
-			throw new IllegalStateException("No question found for conversation " + CONVERSATIONS.get(index) + " and subjectId " + subjectId);
+			throw new IllegalStateException("No question found for conversation " + CONVERSATIONS.get(index) + " and subjectId " + subjectId + " in " + CONVERSATIONS.get(index).getQuestionPhrases(performer, target, questionHistoryItem, world));
 		}
 		
 		return questionsBySubjectId.get(0).getQuestionPhrase();
@@ -298,7 +298,7 @@ public class Conversations implements Serializable {
 		return CONVERSATIONS.get(index);
 	}
 
-	public int distance(int index, WorldObject performer, WorldObject target, World world) {
-		return CONVERSATIONS.get(index).isConversationAvailable(performer, target, world) ? 0 : 1;
+	public int distance(int index, WorldObject performer, WorldObject target, WorldObject subject, World world) {
+		return CONVERSATIONS.get(index).isConversationAvailable(performer, target, subject, world) ? 0 : 1;
 	}
 }

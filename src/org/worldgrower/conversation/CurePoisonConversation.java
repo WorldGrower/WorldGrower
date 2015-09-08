@@ -74,7 +74,7 @@ public class CurePoisonConversation implements Conversation {
 	}
 
 	@Override
-	public boolean isConversationAvailable(WorldObject performer, WorldObject target, World world) {
+	public boolean isConversationAvailable(WorldObject performer, WorldObject target, WorldObject subject, World world) {
 		return performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.POISONED_CONDITION) && Actions.CURE_POISON_ACTION.hasRequiredEnergy(target);
 	}
 	

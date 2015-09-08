@@ -63,7 +63,7 @@ public class CollectPayCheckConversation implements Conversation {
 	}
 	
 	@Override
-	public boolean isConversationAvailable(WorldObject performer, WorldObject target, World world) {
+	public boolean isConversationAvailable(WorldObject performer, WorldObject target, WorldObject subject, World world) {
 		Profession performerProfession = performer.getProperty(Constants.PROFESSION);
 		return ((performerProfession != null) && (performerProfession.isPaidByVillagerLeader()) && (GroupPropertyUtils.getPayCheckAmount(performer, world) > 0));
 	}

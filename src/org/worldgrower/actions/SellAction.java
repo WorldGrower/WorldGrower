@@ -36,6 +36,8 @@ public class SellAction implements ManagedOperation {
 		WorldObjectContainer targetInventory = target.getProperty(Constants.INVENTORY);
 		
 		WorldObject soldWorldObject = performerInventory.remove(index);
+		soldWorldObject.setProperty(Constants.SELLABLE, Boolean.FALSE);
+		
 		targetInventory.add(soldWorldObject);
 		target.setProperty(Constants.GOLD, target.getProperty(Constants.GOLD) - price);
 		performer.setProperty(Constants.GOLD, performer.getProperty(Constants.GOLD) + price);

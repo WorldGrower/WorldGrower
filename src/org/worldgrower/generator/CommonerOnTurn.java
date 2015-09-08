@@ -14,8 +14,11 @@
  *******************************************************************************/
 package org.worldgrower.generator;
 
+import java.util.List;
+
 import org.worldgrower.Constants;
 import org.worldgrower.OnTurn;
+import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.Background;
@@ -69,8 +72,17 @@ public class CommonerOnTurn implements OnTurn {
 					int id = commonerGenerator.generateCommoner(position[0] + performerX, position[1] + performerY, world, organization);
 					worldObject.setProperty(Constants.PREGNANCY, null);
 					worldObject.getProperty(Constants.CHILDREN).add(id);
+					
+					everyoneInVicinityKnowsOfChild(worldObject, id, world);
 				}
 			}
+		}
+	}
+	
+	private void everyoneInVicinityKnowsOfChild(WorldObject parent, int childId, World world) {
+		List<WorldObject> peopleThatknowOfBirth = world.findWorldObjects(w -> w.hasIntelligence() && Reach.distance(parent, w) < 20);
+		for(WorldObject personThatknowsOfBirth : peopleThatknowOfBirth) {
+			personThatknowsOfBirth.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(parent, Constants.CHILD_BIRTH_ID, childId);
 		}
 	}
 }

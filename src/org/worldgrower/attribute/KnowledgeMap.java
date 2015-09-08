@@ -46,7 +46,7 @@ public class KnowledgeMap implements IdContainer, Serializable {
 	}
 
 	public void addKnowledge(WorldObject worldObject, Knowledge knowledge) {
-		idsToKnowledge.put(worldObject.getProperty(Constants.ID), knowledge);
+		idsToKnowledge.put(worldObject.getProperty(Constants.ID), new Knowledge(knowledge));
 	}
 	
 	public List<WorldObject> findWorldObjects(ManagedProperty<?> managedProperty, Object value, World world) {
@@ -54,7 +54,7 @@ public class KnowledgeMap implements IdContainer, Serializable {
 		for(Entry<Integer, Knowledge> entry : idsToKnowledge.entrySet()) {
 			int id = entry.getKey();
 			Knowledge knowledgeValue = entry.getValue();
-			if (knowledgeValue.getManagedProperty() == managedProperty && knowledgeValue.getValue() == value) {
+			if (knowledgeValue.getManagedProperty() == managedProperty && knowledgeValue.getValue().equals(value)) {
 				worldObjects.add(world.findWorldObject(Constants.ID, id));
 			}
 		}
@@ -88,9 +88,18 @@ public class KnowledgeMap implements IdContainer, Serializable {
 	}
 
 	@Override
-	public final void remove(WorldObject worldObject, ManagedProperty<?> property, int id) {
+	public final void remove(WorldObject worldObject, ManagedProperty<?> property, int idToRemove) {
 		KnowledgeMapProperty knowledgeMapProperty = (KnowledgeMapProperty) property;
-		worldObject.getProperty(knowledgeMapProperty).remove(id);
+		worldObject.getProperty(knowledgeMapProperty).remove(idToRemove);
+		
+		Iterator<Entry<Integer, Knowledge>> entryIterator = idsToKnowledge.entrySet().iterator();
+		while(entryIterator.hasNext()) {
+			Entry<Integer, Knowledge> entry = entryIterator.next();
+			Knowledge knowledgeValue = entry.getValue();
+			if (knowledgeValue.getManagedProperty() instanceof IdContainer && knowledgeValue.getValue().equals(idToRemove)) {
+				entryIterator.remove();
+			}
+		}
 	}
 	
 	public KnowledgeMap copy() {

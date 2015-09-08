@@ -93,7 +93,7 @@ public abstract class AbstractChangeOpinionConversation implements Conversation 
 	public abstract void handleYesResponse(WorldObject performer, WorldObject target, WorldObject subject, World world);
 
 	@Override
-	public final boolean isConversationAvailable(WorldObject performer, WorldObject target, World world) {
+	public final boolean isConversationAvailable(WorldObject performer, WorldObject target, WorldObject subject, World world) {
 		return true;
 	}
 

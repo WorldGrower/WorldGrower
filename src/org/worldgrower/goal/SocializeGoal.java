@@ -22,6 +22,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.IdMap;
+import org.worldgrower.attribute.KnowledgeMap;
 import org.worldgrower.conversation.Conversations;
 
 public class SocializeGoal implements Goal {
@@ -44,13 +45,35 @@ public class SocializeGoal implements Goal {
 					targets = GoalUtils.findNearestNewTargets(performer, Actions.TALK_ACTION, Conversations.createArgs(Conversations.DEITY_CONVERSATION), w -> isSocializeTargetForPerformer(performer, w), world);
 					if (targets.size() > 0) {
 						return new OperationInfo(performer, targets.get(0), Conversations.createArgs(Conversations.DEITY_CONVERSATION), Actions.TALK_ACTION);
-					}	
+					} else {
+						OperationInfo shareKnowledgeOperationInfo = getShareKnowledgeOperationInfo(performer, world);
+						if (shareKnowledgeOperationInfo != null) {
+							return shareKnowledgeOperationInfo;
+						}
+					}
 				}
 			}
 		}
 		return null;
 	}
 
+	private OperationInfo getShareKnowledgeOperationInfo(WorldObject performer, World world) {
+		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.TALK_ACTION, w -> KnowledgePropertyUtils.performerKnowsMoreThanTarget(performer, w), world);
+		for(WorldObject target : targets) {
+			if (performer.getProperty(Constants.RELATIONSHIPS).getValue(target) >= 0) {
+				KnowledgeMap performerOnlyKnowledge = KnowledgePropertyUtils.getPerformerOnlyKnowledge(performer, target);
+				for(Integer subjectId : performerOnlyKnowledge.getIds()) {
+					WorldObject subject = world.findWorldObject(Constants.ID, subjectId);
+					if (!target.equals(subject)) {
+						int[] args = Conversations.createArgs(Conversations.SHARE_KNOWLEDGE_CONVERSATION, subject);
+						return new OperationInfo(performer, target, args, Actions.TALK_ACTION);
+					}
+				}
+			}
+		}
+		return null;
+	}
+	
 	private boolean isFirstTimeSocializeTargetForPerformer(WorldObject performer, WorldObject w) {
 		IdMap relationships = performer.getProperty(Constants.RELATIONSHIPS);
 		return !relationships.contains(w) && isSocializeTargetForPerformer(performer, w);

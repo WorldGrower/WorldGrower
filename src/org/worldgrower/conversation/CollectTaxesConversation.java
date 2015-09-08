@@ -61,7 +61,7 @@ public class CollectTaxesConversation implements Conversation {
 	}
 	
 	@Override
-	public boolean isConversationAvailable(WorldObject performer, WorldObject target, World world) {
+	public boolean isConversationAvailable(WorldObject performer, WorldObject target, WorldObject subject, World world) {
 		boolean canCollectTaxes = (performer.hasProperty(Constants.CAN_COLLECT_TAXES)) && (performer.getProperty(Constants.CAN_COLLECT_TAXES));
 		return (canCollectTaxes && (GroupPropertyUtils.getAmountToCollect(target, world) > 0));
 	}

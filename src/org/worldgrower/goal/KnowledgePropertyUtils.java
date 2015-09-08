@@ -12,36 +12,22 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.attribute;
+package org.worldgrower.goal;
 
-import java.io.Serializable;
+import org.worldgrower.Constants;
+import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.KnowledgeMap;
 
-public class Knowledge implements Serializable {
-	private final ManagedProperty<?> managedProperty;
-	private final Object value;
-	
-	public Knowledge(ManagedProperty<?> managedProperty, Object value) {
-		super();
-		this.managedProperty = managedProperty;
-		this.value = value;
-	}
+public class KnowledgePropertyUtils {
 
-	public Knowledge(Knowledge knowledge) {
-		super();
-		this.managedProperty = knowledge.managedProperty;
-		this.value = knowledge.value;
-	}
-
-	public ManagedProperty<?> getManagedProperty() {
-		return managedProperty;
-	}
-
-	public Object getValue() {
-		return value;
+	public static boolean performerKnowsMoreThanTarget(WorldObject performer, WorldObject target) {
+		return getPerformerOnlyKnowledge(performer, target).hasKnowledge();
 	}
 	
-	@Override
-	public String toString() {
-		return managedProperty.getName() + ":" + value;
+	public static KnowledgeMap getPerformerOnlyKnowledge(WorldObject performer, WorldObject target) {
+		KnowledgeMap performerKnowledge = performer.getProperty(Constants.KNOWLEDGE_MAP);
+		KnowledgeMap targetKnowledge = target.getProperty(Constants.KNOWLEDGE_MAP);
+		
+		return performerKnowledge.subtract(targetKnowledge);
 	}
 }

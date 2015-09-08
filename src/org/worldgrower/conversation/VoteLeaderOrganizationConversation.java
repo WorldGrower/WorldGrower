@@ -67,7 +67,7 @@ public class VoteLeaderOrganizationConversation implements Conversation {
 	}
 
 	@Override
-	public boolean isConversationAvailable(WorldObject performer, WorldObject target, World world) {
+	public boolean isConversationAvailable(WorldObject performer, WorldObject target, WorldObject subject, World world) {
 		IdList performerOrganizations = performer.getProperty(Constants.GROUP);
 		IdList targetOrganizations = target.getProperty(Constants.GROUP);
 		return performerOrganizations.intersects(targetOrganizations);

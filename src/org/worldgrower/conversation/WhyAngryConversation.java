@@ -70,7 +70,7 @@ public class WhyAngryConversation implements Conversation {
 	}
 
 	@Override
-	public boolean isConversationAvailable(WorldObject performer, WorldObject target, World world) {
+	public boolean isConversationAvailable(WorldObject performer, WorldObject target, WorldObject subject, World world) {
 		int relationshipValue = target.getProperty(Constants.RELATIONSHIPS).getValue(performer);
 		return relationshipValue < 0;
 	}

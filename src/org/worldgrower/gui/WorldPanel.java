@@ -193,7 +193,9 @@ public class WorldPanel extends JPanel {
 		@Override
 		public void actionPerformed(ManagedOperation managedOperation, WorldObject performer, WorldObject target, int[] args, Object message) {
 			if (performer.equals(playerCharacter) || target.equals(playerCharacter)) {
-				messageTextArea.setText(message.toString());
+				if (message instanceof String) {
+					messageTextArea.setText((String) message);
+				}
 			}
 		}
     }

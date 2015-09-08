@@ -38,27 +38,38 @@ public class TalkAction implements ManagedOperation {
 		int subjectId = args[1];
 		int historyItemId = args[2];
 		int additionalValue = args[3];
+		Response answer = null;
 		
-		Response answer = conversations.getReplyPhrase(question, subjectId, historyItemId, performer, target, world, additionalValue);
-		
-		WorldObject performerFacade = createFacade(performer, performer, target);
-		WorldObject targetFacade = createFacade(target, performer, target);
-		
-		RelationshipPropertyUtils.changeRelationshipValueUsingFacades(performer, target, 1, this, args, world);
-		
-		conversations.handleResponse(answer.getId(), question, subjectId, historyItemId, performerFacade, targetFacade, world, additionalValue);
-		
-		performer.increment(Constants.SOCIAL, 70);
-		target.increment(Constants.SOCIAL, 70);
-		
+		// if target is controlled by AI, the AI will respond.
+		// otherwise, a gui will be shown to a player by world.logAction
+		if (target.isControlledByAI()) {
+			answer = conversations.getReplyPhrase(question, subjectId, historyItemId, performer, target, world, additionalValue);
+			
+			WorldObject performerFacade = createFacade(performer, performer, target);
+			WorldObject targetFacade = createFacade(target, performer, target);
+			
+			RelationshipPropertyUtils.changeRelationshipValueUsingFacades(performer, target, 1, this, args, world);
+			
+			conversations.handleResponse(answer.getId(), question, subjectId, historyItemId, performerFacade, targetFacade, world, additionalValue);
+			
+			performer.increment(Constants.SOCIAL, 70);
+			target.increment(Constants.SOCIAL, 70);
+		}
 		world.logAction(this, performer, target, args, answer);
 	}
 	
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
 		int question = args[0];
+		int subjectId = args[1];
+		final WorldObject subject;
+		if (subjectId != -1) {
+			subject = world.findWorldObject(Constants.ID, subjectId);
+		} else {
+			subject = null;
+		}
 		return Reach.evaluateTarget(performer, args, target, 10)
-				+ conversations.distance(question, performer, target, world);
+				+ conversations.distance(question, performer, target, subject, world);
 	}
 
 	@Override

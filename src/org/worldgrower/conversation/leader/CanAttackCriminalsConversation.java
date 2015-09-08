@@ -52,7 +52,7 @@ public class CanAttackCriminalsConversation implements Conversation {
 	}
 	
 	@Override
-	public boolean isConversationAvailable(WorldObject performer, WorldObject target, World world) {
+	public boolean isConversationAvailable(WorldObject performer, WorldObject target, WorldObject subject, World world) {
 		boolean canAttackCriminals = (performer.hasProperty(Constants.CAN_ATTACK_CRIMINALS)) && (performer.getProperty(Constants.CAN_ATTACK_CRIMINALS));
 		return (!canAttackCriminals && (GroupPropertyUtils.performerIsLeaderOfVillagers(target, world)));
 	}
