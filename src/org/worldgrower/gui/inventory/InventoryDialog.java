@@ -23,6 +23,7 @@ import java.awt.event.MouseEvent;
 import java.util.List;
 
 import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -90,7 +91,7 @@ public class InventoryDialog extends JDialog {
 	/**
 	 * @wbp.parser.constructor
 	 */
-	public InventoryDialog(InventoryDialogModel inventoryDialogModel, WorldObjectContainer inventory, InventoryDialogAction inventoryDialogAction, ImageInfoReader imageInfoReader, List<InventoryDialogAction> inventoryActions) {
+	public InventoryDialog(InventoryDialogModel inventoryDialogModel, WorldObjectContainer inventory, InventoryDialogAction inventoryDialogAction, ImageInfoReader imageInfoReader, List<Action> inventoryActions) {
 		
 		if (inventoryDialogAction == null) {
 			inventoryDialogAction = new DefaultInventoryDialogAction(inventory);
@@ -102,7 +103,7 @@ public class InventoryDialog extends JDialog {
 		addActions(inventoryDialogAction);
 	}
 
-	private void initializeGUI(InventoryDialogModel inventoryDialogModel, WorldObjectContainer inventory, InventoryDialogAction inventoryDialogAction, ImageInfoReader imageInfoReader, List<InventoryDialogAction> inventoryActions) {
+	private void initializeGUI(InventoryDialogModel inventoryDialogModel, WorldObjectContainer inventory, InventoryDialogAction inventoryDialogAction, ImageInfoReader imageInfoReader, List<Action> inventoryActions) {
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		setBounds(100, 100, 550, 416);
 		getContentPane().setLayout(null);
@@ -188,8 +189,7 @@ public class InventoryDialog extends JDialog {
 		}
 	}
 
-	private void setInventoryActions(
-			List<InventoryDialogAction> inventoryActions) {
+	private void setInventoryActions(List<Action> inventoryActions) {
 		if (inventoryActions.size() > 0) {
 			actionsButton.setEnabled(true);
 			addActionsToActionsButton(inventoryActions);
@@ -198,35 +198,21 @@ public class InventoryDialog extends JDialog {
 		}
 	}
 
-	private void addActionsToActionsButton(List<InventoryDialogAction> inventoryActions) {
+	private void addActionsToActionsButton(List<Action> inventoryActions) {
 		actionsButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				JPopupMenu popupMenu = new JPopupMenu();
-				for(InventoryDialogAction inventoryDialogAction : inventoryActions) {
-					popupMenu.add(new JMenuItem(new InventoryAction(inventoryDialogAction)));
+				for(Action inventoryDialogAction : inventoryActions) {
+					popupMenu.add(new JMenuItem(inventoryDialogAction));
 				}
 				popupMenu.show(actionsButton, actionsButton.getWidth(), 0);
 			}
 		});
 	}
 
-	private static class InventoryAction extends AbstractAction {
-
-		private final InventoryDialogAction inventoryDialogAction;
-
-		public InventoryAction(InventoryDialogAction inventoryDialogAction) {
-			super(inventoryDialogAction.getDescription());
-			this.inventoryDialogAction = inventoryDialogAction;
-		}
-
-		public void actionPerformed(ActionEvent e) {
-			inventoryDialogAction.getGuiAction().actionPerformed(e);
-		}
-	}
-	
-	public InventoryDialog(InventoryDialogModel inventoryDialogModel, WorldObjectContainer inventory, ImageInfoReader imageInfoReader, List<InventoryDialogAction> inventoryActions) {
+	public InventoryDialog(InventoryDialogModel inventoryDialogModel, WorldObjectContainer inventory, ImageInfoReader imageInfoReader, List<Action> inventoryActions) {
 		this(inventoryDialogModel, inventory, null, imageInfoReader, inventoryActions);
 	}
 	
@@ -287,7 +273,7 @@ public class InventoryDialog extends JDialog {
 		setVisible(true);
 	}
 
-	public void refresh(WorldObjectContainer inventory, int playerCharacterGold, List<InventoryDialogAction> inventoryActions) {
+	public void refresh(WorldObjectContainer inventory, int playerCharacterGold, List<Action> inventoryActions) {
 		inventoryJList.setModel(getInventoryListModel(inventory));
 		moneyValueLabel.setText(Integer.toString(playerCharacterGold));
 		setInventoryActions(inventoryActions);

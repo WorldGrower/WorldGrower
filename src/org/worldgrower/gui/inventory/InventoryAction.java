@@ -15,11 +15,11 @@
 package org.worldgrower.gui.inventory;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.AbstractAction;
+import javax.swing.Action;
 
 import org.worldgrower.Constants;
 import org.worldgrower.DungeonMaster;
@@ -51,45 +51,37 @@ public class InventoryAction extends AbstractAction {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		List<InventoryDialogAction> inventoryActions = getInventoryActions();
+		List<Action> inventoryActions = getInventoryActions();
 		
 		dialog = new InventoryDialog(new InventoryDialogModel(playerCharacter), playerCharacter.getProperty(Constants.INVENTORY), imageInfoReader, inventoryActions);
 		dialog.showMe();
 	}
 
-	private List<InventoryDialogAction> getInventoryActions() {
-		List<InventoryDialogAction> inventoryActions = new ArrayList<>();
+	private List<Action> getInventoryActions() {
+		List<Action> inventoryActions = new ArrayList<>();
 		
 		for(ManagedOperation action : Actions.getInventoryActions()) {
 			if (Main.canActionExecute(playerCharacter, action, new int[0], world, playerCharacter)) {
-				inventoryActions.add(new InventoryDialogAction() {
-	
-					@Override
-					public String getDescription() {
-						return action.getSimpleDescription();
-					}
-	
-					@Override
-					public ActionListener getGuiAction() {
-						return new ActionListener() {
-							
-							@Override
-							public void actionPerformed(ActionEvent e) {
-								Main.executeAction(playerCharacter, playerCharacter.getOperation(action), new int[0], world, dungeonMaster, playerCharacter, container);
-							
-								dialog.refresh(playerCharacter.getProperty(Constants.INVENTORY), playerCharacter.getProperty(Constants.GOLD), getInventoryActions());
-							}
-						};
-					}
-	
-					@Override
-					public boolean isPossible(InventoryItem inventoryItem) {
-						return false;
-					}
-					
-				});
+				inventoryActions.add(new InventoryItemAction(action));
 			}
 		}
 		return inventoryActions;
+	}
+	
+	private class InventoryItemAction extends AbstractAction {
+		
+		private final ManagedOperation action;
+		
+		public InventoryItemAction(ManagedOperation action) {
+			super(action.getSimpleDescription());
+			this.action = action;
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			Main.executeAction(playerCharacter, playerCharacter.getOperation(action), new int[0], world, dungeonMaster, playerCharacter, container);
+			
+			dialog.refresh(playerCharacter.getProperty(Constants.INVENTORY), playerCharacter.getProperty(Constants.GOLD), getInventoryActions());
+		}
 	}
 }
