@@ -15,6 +15,7 @@
 package org.worldgrower.gui.inventory;
 
 import java.awt.Component;
+import java.util.Map;
 
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
@@ -40,6 +41,17 @@ public class InventoryListCellRenderer implements ListCellRenderer<InventoryItem
 
 		renderer.setIcon(new ImageIcon(imageInfoReader.getImage(inventoryItem.getImageId(), null)));
 		renderer.setText(inventoryItem.getDescription());
+		renderer.setToolTipText(formatAdditionalProperties(inventoryItem));
 		return renderer;
+	}
+	
+	private String formatAdditionalProperties(InventoryItem inventoryItem) {
+		StringBuilder builder = new StringBuilder();
+		Map<String, String> additionalProperties = inventoryItem.getAdditionalProperties();
+		for(Map.Entry<String, String> entry : additionalProperties.entrySet()) {
+			builder.append(entry.getKey()).append(" : ").append(entry.getValue()).append("<br/>");
+		}
+		
+		return builder.toString();
 	}
 }

@@ -15,7 +15,10 @@
 package org.worldgrower.gui.inventory;
 
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
@@ -29,7 +32,7 @@ public class InventoryItem {
 	private final int price;
 	private boolean sellable;
 	private final ImageIds imageId;
-	private final String longDescription;
+	private final Map<String, String> additionalProperties;
 	
 	public InventoryItem(int id, WorldObject inventoryWorldObject) {
 		if (inventoryWorldObject == null) {
@@ -48,25 +51,27 @@ public class InventoryItem {
 		this.imageId = inventoryWorldObject.getProperty(Constants.IMAGE_ID);
 		this.sellable = inventoryWorldObject.getProperty(Constants.SELLABLE);
 		
-		this.longDescription = generateLongDescription(inventoryWorldObject);
+		this.additionalProperties = generateAdditionalProperties(inventoryWorldObject);
 	}
 
-	private String generateLongDescription(WorldObject inventoryWorldObject) {
-		StringBuilder builder = new StringBuilder();
+	private static Map<String, String> generateAdditionalProperties(WorldObject inventoryWorldObject) {
+		Map<String, String> additionalProperties = new LinkedHashMap<>();
 		
 		List<ManagedProperty<?>> propertyKeys = inventoryWorldObject.getPropertyKeys();
 		Collections.sort(propertyKeys, new PropertyComparator());
 		
 		for(ManagedProperty<?> propertyKey : propertyKeys) {
-			if ((propertyKey != Constants.IMAGE_ID) && (propertyKey != Constants.EQUIPMENT_SLOT)) {
-				String name = propertyKey.getName().toLowerCase();
-				builder.append(name);
-				builder.append(" : ");
-				builder.append(inventoryWorldObject.getProperty(propertyKey)).append("\n");
+			String name = propertyKey.getName().toLowerCase();
+			if (propertyKey == Constants.DAMAGE || propertyKey == Constants.ARMOR || propertyKey == Constants.WEIGHT || propertyKey == Constants.QUANTITY) {
+				String value = inventoryWorldObject.getProperty(propertyKey).toString();
+				additionalProperties.put(name, value);
+			} else if (propertyKey == Constants.EQUIPMENT_HEALTH) {
+				String value = inventoryWorldObject.getProperty(propertyKey).toString();
+				additionalProperties.put(name, value + "/1000");
 			}
 		}
 		
-		return builder.toString();
+		return additionalProperties;
 	}
 
 	public int getId() {
@@ -98,7 +103,7 @@ public class InventoryItem {
 		return getDescription();
 	}
 
-	public String getLongDescription() {
-		return longDescription;
+	public Map<String, String> getAdditionalProperties() {
+		return additionalProperties;
 	}
 }
