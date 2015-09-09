@@ -59,7 +59,7 @@ public class GuiShowLegalActionsAction extends AbstractAction {
 		
 		WorldModel worldModel = new WorldModel(world);
 		JTable table = new JTable(worldModel);
-		table.setBounds(50, 50, 200, 700);
+		table.setBounds(50, 50, 300, 700);
 		dialog.add(new JScrollPane(table));
 		
 		JPanel buttonPane = new JPanel();
@@ -72,7 +72,7 @@ public class GuiShowLegalActionsAction extends AbstractAction {
 		addActionHandlers(okButton, worldModel, dialog);
 		dialog.getRootPane().setDefaultButton(okButton);
 		
-		dialog.setSize(300, 800);
+		dialog.setSize(400, 800);
 		dialog.setLocationRelativeTo(null);
 		dialog.setVisible(true);
 	}

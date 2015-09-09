@@ -170,7 +170,7 @@ public class InventoryDialog extends JDialog {
 		
 		
 		actionsButton = new JButton("Actions");
-		actionsButton.setBounds(436, 25, 84, 25);
+		actionsButton.setBounds(420, 25, 100, 25);
 		getContentPane().add(actionsButton);
 		
 		setInventoryActions(inventoryActions);
@@ -259,7 +259,7 @@ public class InventoryDialog extends JDialog {
 
 		@Override
         public JToolTip createToolTip() {
-            JScrollableToolTip tip = new JScrollableToolTip(200, 80);
+            JScrollableToolTip tip = new JScrollableToolTip(250, 80);
             tip.setComponent(this);
             return tip;
         }
