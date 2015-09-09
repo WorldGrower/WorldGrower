@@ -24,15 +24,14 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.Knowledge;
 import org.worldgrower.attribute.KnowledgeMap;
-import org.worldgrower.deity.Deity;
-import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.goal.KnowledgePropertyUtils;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
-import org.worldgrower.profession.Profession;
 
 public class ShareKnowledgeConversation implements Conversation {
 
+	private KnowledgeToDescriptionMapper knowledgeToDescriptionMapper = new KnowledgeToDescriptionMapper();
+	
 	private final int THANKS = 0;
 	private final int GET_LOST = 1;
 	
@@ -58,21 +57,8 @@ public class ShareKnowledgeConversation implements Conversation {
 		for(int id : performerOnlyKnowledge.getIds()) {
 			WorldObject subject = world.findWorldObject(Constants.ID, id);
 			if (!subject.equals(target)) {
-				if (BuildingGenerator.isWell(subject) && performerOnlyKnowledge.hasProperty(id, Constants.POISON_DAMAGE)) {
-					questions.add(new Question(subject, "Did you know the well is poisoned?"));
-				} else {
-					Knowledge knowledge = performerOnlyKnowledge.getKnowledge(subject);
-					if (knowledge.getManagedProperty() == Constants.CHILD_BIRTH_ID) {
-						WorldObject child = world.findWorldObject(Constants.ID, (Integer)knowledge.getValue());
-						questions.add(new Question(subject, "Did you know that " + subject.getProperty(Constants.NAME) + " gave birth to " + child.getProperty(Constants.NAME) + "?"));
-					} else if (knowledge.getManagedProperty() == Constants.DEITY) {
-						questions.add(new Question(subject, "Did you know " + subject.getProperty(Constants.NAME) + " worships " + ((Deity)knowledge.getValue()).getName() + "?"));
-					} else if (knowledge.getManagedProperty() == Constants.PROFESSION) {
-						questions.add(new Question(subject, "Did you know " + subject.getProperty(Constants.NAME) + " is a " + ((Profession)knowledge.getValue()).getDescription() + "?"));
-					} else {
-						throw new IllegalStateException("No mapping found for knowledge " + knowledge);
-					}
-				}
+				Knowledge knowledge = performerOnlyKnowledge.getKnowledge(subject);
+				questions.add(new Question(subject, knowledgeToDescriptionMapper.getDescription(subject, knowledge.getManagedProperty(), knowledge.getValue(), world)));
 			}
 		}
 		return questions;
