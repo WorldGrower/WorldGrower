@@ -37,7 +37,11 @@ public class KnowledgeToDescriptionMapper {
 				return "Did you know " + subject.getProperty(Constants.NAME) + " doesn't worship a deity?";
 			}
 		} else if (property == Constants.PROFESSION) {
-			return "Did you know " + subject.getProperty(Constants.NAME) + " is a " + ((Profession) value).getDescription() + "?";
+			if (value != null) {
+				return "Did you know " + subject.getProperty(Constants.NAME) + " is a " + ((Profession) value).getDescription() + "?";
+			} else {
+				return "Did you know " + subject.getProperty(Constants.NAME) + " doesn't have a profession?";
+			}
 		} else {
 			throw new IllegalStateException("No mapping found for property " + property + " and value " + value);
 		}

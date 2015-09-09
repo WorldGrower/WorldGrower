@@ -57,8 +57,12 @@ public class ShareKnowledgeConversation implements Conversation {
 		for(int id : performerOnlyKnowledge.getIds()) {
 			WorldObject subject = world.findWorldObject(Constants.ID, id);
 			if (!subject.equals(target)) {
-				Knowledge knowledge = performerOnlyKnowledge.getKnowledge(subject);
-				questions.add(new Question(subject, knowledgeToDescriptionMapper.getDescription(subject, knowledge.getManagedProperty(), knowledge.getValue(), world)));
+				List<Knowledge> knowledgeList = performerOnlyKnowledge.getKnowledge(subject);
+				for(int i=0; i<knowledgeList.size(); i++) {
+					Knowledge knowledge = knowledgeList.get(i);
+					String questionphrase = knowledgeToDescriptionMapper.getDescription(subject, knowledge.getManagedProperty(), knowledge.getValue(), world);
+					questions.add(new Question(subject, questionphrase, i));
+				}
 			}
 		}
 		return questions;
@@ -76,7 +80,7 @@ public class ShareKnowledgeConversation implements Conversation {
 	public boolean isConversationAvailable(WorldObject performer, WorldObject target, WorldObject subject, World world) {
 		KnowledgeMap performerOnlyKnowledge = KnowledgePropertyUtils.getPerformerOnlyKnowledge(performer, target);
 		if (subject != null) {
-			return performerOnlyKnowledge.getKnowledge(subject.getProperty(Constants.ID)) != null;
+			return performerOnlyKnowledge.hasKnowledge(subject.getProperty(Constants.ID));
 		} else {
 			return performerOnlyKnowledge.hasKnowledge();
 		}
@@ -87,11 +91,12 @@ public class ShareKnowledgeConversation implements Conversation {
 		WorldObject performer = conversationContext.getPerformer();
 		WorldObject target = conversationContext.getTarget();
 		WorldObject subject = conversationContext.getSubject();
+		int knowledgeIndex = conversationContext.getAdditionalValue();
 		World world = conversationContext.getWorld();
 		
 		KnowledgeMap performerKnowledge = performer.getProperty(Constants.KNOWLEDGE_MAP);
-		Knowledge knowledge = performerKnowledge.getKnowledge(subject);
-		target.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(subject, knowledge);
+		List<Knowledge> knowledgeList = performerKnowledge.getKnowledge(subject);
+		target.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(subject, knowledgeList.get(knowledgeIndex));
 		
 		RelationshipPropertyUtils.changeRelationshipValue(performer, target, 50, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 	}

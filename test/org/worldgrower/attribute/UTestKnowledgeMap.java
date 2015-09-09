@@ -101,4 +101,17 @@ public class UTestKnowledgeMap {
 		knowledgeMap.remove(person, Constants.KNOWLEDGE_MAP, 1);
 		assertEquals(false, knowledgeMap.hasKnowledge());
 	}
+	
+	@Test
+	public void addMultipleKnowledgeWithSameProperty() {
+		KnowledgeMap knowledgeMap = new KnowledgeMap();
+		knowledgeMap.addKnowledge(1, Constants.FOOD, 500);
+		knowledgeMap.addKnowledge(1, Constants.FOOD, 700);
+		
+		WorldObject person = TestUtils.createIntelligentWorldObject(1, Constants.KNOWLEDGE_MAP, knowledgeMap);
+		
+		assertEquals(true, knowledgeMap.hasKnowledge());
+		assertEquals(1, knowledgeMap.getKnowledge(person).size());
+		assertEquals(700, knowledgeMap.getKnowledge(person).get(0).getValue());
+	}
 }

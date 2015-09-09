@@ -25,9 +25,13 @@ public class KnowledgePropertyUtils {
 	}
 	
 	public static KnowledgeMap getPerformerOnlyKnowledge(WorldObject performer, WorldObject target) {
-		KnowledgeMap performerKnowledge = performer.getProperty(Constants.KNOWLEDGE_MAP);
-		KnowledgeMap targetKnowledge = target.getProperty(Constants.KNOWLEDGE_MAP);
-		
-		return performerKnowledge.subtract(targetKnowledge);
+		if (!performer.equals(target)) {
+			KnowledgeMap performerKnowledge = performer.getProperty(Constants.KNOWLEDGE_MAP);
+			KnowledgeMap targetKnowledge = target.getProperty(Constants.KNOWLEDGE_MAP);
+			
+			return performerKnowledge.subtract(targetKnowledge);
+		} else {
+			return new KnowledgeMap();
+		}
 	}
 }
