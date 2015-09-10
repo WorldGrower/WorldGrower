@@ -234,4 +234,6 @@ public class Constants {
 	public static final IntProperty VAMPIRE_BLOOD_LEVEL = new IntProperty("vampireBloodLevel", 0, 1000, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final StringProperty DEATH_REASON = new StringProperty("deathReason", NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IdProperty SACRIFICIAL_ALTAR_CREATOR_ID = new IdProperty("sacrificialAltarCreatorId", ALL_PROPERTIES);
+
+	public static final IdProperty BRAWL_OPPONENT_ID = new IdProperty("brawlOpponentId", ALL_PROPERTIES);
 }

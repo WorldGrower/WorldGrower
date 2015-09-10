@@ -133,4 +133,12 @@ public class GoalUtils {
 		}
 		
 	}
+	
+	public static boolean currentGoalHasLowerPriorityThan(Goal cutOffGoal, WorldObject target, World world) {
+		Goal targetGoal = world.getGoal(target);
+		List<Goal> goals = target.getPriorities(world);
+		int indexOfGoal = goals.indexOf(targetGoal);
+		int indexOfRestGoal = goals.indexOf(cutOffGoal);
+		return (indexOfGoal > indexOfRestGoal);
+	}
 }

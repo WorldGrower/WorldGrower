@@ -27,6 +27,7 @@ import javax.swing.JFrame;
 import javax.swing.ToolTipManager;
 
 import org.worldgrower.actions.Actions;
+import org.worldgrower.actions.BrawlListener;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdRelationshipMap;
 import org.worldgrower.attribute.KnowledgeMap;
@@ -88,6 +89,7 @@ public class Main {
 	private static void addWorldListeners(World world) {
 		world.addListener(new CurseListener(world));
 		world.addListener(new ConditionListener(world));
+		world.addListener(new BrawlListener());
 	}
 
 	private static void addEnemiesAndFriendlyAnimals(int enemyDensity, World world, int seed) {

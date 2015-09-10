@@ -20,6 +20,7 @@ import java.util.Map;
 
 import org.worldgrower.actions.Actions;
 import org.worldgrower.condition.Condition;
+import org.worldgrower.goal.BrawlPropertyUtils;
 import org.worldgrower.goal.FacadeUtils;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.LegalActionsPropertyUtils;
@@ -52,17 +53,23 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 	}
 
 	private void alterRelationships(WorldObject performer, WorldObject target, WorldObject actionTarget, ManagedOperation managedOperation, World world, int value, WorldObject performerFacade, WorldObject targetFacade) {
-		if (world.exists(performer) && world.exists(target) && world.exists(performerFacade) && world.exists(targetFacade)) {
-			performer.getProperty(Constants.RELATIONSHIPS).incrementValue(targetFacade.getProperty(Constants.ID), value);
-			target.getProperty(Constants.RELATIONSHIPS).incrementValue(performerFacade.getProperty(Constants.ID), value);
-		}
-		
-		if (performerViolatedGroupRules(performer, actionTarget, managedOperation, world)) {
-			GroupPropertyUtils.throwPerformerOutGroup(performerFacade, target);
+		if (!areBrawling(performer, actionTarget, managedOperation)) {
+			if (world.exists(performer) && world.exists(target) && world.exists(performerFacade) && world.exists(targetFacade)) {
+				performer.getProperty(Constants.RELATIONSHIPS).incrementValue(targetFacade.getProperty(Constants.ID), value);
+				target.getProperty(Constants.RELATIONSHIPS).incrementValue(performerFacade.getProperty(Constants.ID), value);
+			}
 			
-			WorldObject realPerformer = world.findWorldObject(Constants.ID, performerFacade.getProperty(Constants.ID));
-			GroupPropertyUtils.throwPerformerOutGroup(realPerformer, target);
+			if (performerViolatedGroupRules(performer, actionTarget, managedOperation, world)) {
+				GroupPropertyUtils.throwPerformerOutGroup(performerFacade, target);
+				
+				WorldObject realPerformer = world.findWorldObject(Constants.ID, performerFacade.getProperty(Constants.ID));
+				GroupPropertyUtils.throwPerformerOutGroup(realPerformer, target);
+			}
 		}
+	}
+
+	private boolean areBrawling(WorldObject performer, WorldObject actionTarget, ManagedOperation managedOperation) {
+		return BrawlPropertyUtils.isBrawling(performer) && BrawlPropertyUtils.isBrawling(actionTarget) && managedOperation == Actions.NON_LETHAL_MELEE_ATTACK_ACTION;
 	}
 
 	//TODO: clean up this code
