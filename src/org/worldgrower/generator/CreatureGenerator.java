@@ -14,11 +14,11 @@
  *******************************************************************************/
 package org.worldgrower.generator;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.worldgrower.Constants;
-import org.worldgrower.DoNothingOnTurn;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
@@ -33,7 +33,7 @@ import org.worldgrower.condition.Conditions;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.gui.ImageIds;
 
-public class CreatureGenerator {
+public class CreatureGenerator implements Serializable {
 
 	private final WorldObject organization;
 	
