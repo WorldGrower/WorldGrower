@@ -140,6 +140,11 @@ public class WorldFacade implements World {
 	@Override
 	public void removeListener(ManagedOperationListener listener) {
 	}
+	
+	@Override
+	public <T> T getListenerByClass(Class<T> clazz) {
+		throw new IllegalStateException("WorldFacade is read-only, cannot return listener");
+	}
 
 	@Override
 	public int getWidth() {

@@ -160,6 +160,17 @@ public class WorldImpl implements World, Serializable {
 		listeners.remove(listener);
 	}
 	
+	@SuppressWarnings("unchecked")
+	@Override
+	public <T> T getListenerByClass(Class<T> clazz) {
+		for(ManagedOperationListener listener : listeners) {
+			if (listener.getClass() == clazz) {
+				return (T) listener;
+			}
+		}
+		throw new IllegalStateException("Listener with class " + clazz + " not found in list of listeners " + listeners);
+	}
+	
 	@Override
 	public<T> void logAction(ManagedOperation managedOperation, WorldObject performer, WorldObject target, int[] args, T value) {
 		listeners.stream().forEach(l -> l.actionPerformed(managedOperation, performer, target, args, value));

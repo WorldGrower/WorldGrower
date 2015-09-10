@@ -42,6 +42,7 @@ public interface World {
 	public<T> void logAction(ManagedOperation managedOperation, WorldObject performer, WorldObject target, int[] args, T value);
 	public void addListener(ManagedOperationListener listener);
 	public void removeListener(ManagedOperationListener listener);
+	public<T> T getListenerByClass(Class<T> clazz);
 	
 	public int getWidth();
 	public int getHeight();
@@ -54,5 +55,6 @@ public interface World {
 	
 	public History getHistory();
 	public void save(File fileToSave);
+	
 	
 }

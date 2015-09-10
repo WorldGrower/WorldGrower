@@ -51,6 +51,7 @@ import org.worldgrower.generator.WorldGenerator;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.gui.CommonerImageIds;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.WorldPanel;
 import org.worldgrower.gui.start.CharacterAttributes;
 import org.worldgrower.profession.PlayerCharacterProfession;

@@ -48,6 +48,7 @@ import org.worldgrower.actions.BuildAction;
 import org.worldgrower.attribute.LookDirection;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.gui.conversation.GuiRespondToQuestion;
+import org.worldgrower.gui.conversation.GuiShowBrawlResult;
 
 public class WorldPanel extends JPanel {
 
@@ -371,6 +372,7 @@ public class WorldPanel extends JPanel {
 	public void createGuiRespondToImage() {
 		new GuiRespondToQuestion(playerCharacter, world, imageInfoReader);
 		new GuiShowReadAction(playerCharacter, world, (JComponent) this.getParent(), imageInfoReader);
+		new GuiShowBrawlResult(imageInfoReader, world);
 	}
 
 	public void startBuildMode(BuildAction buildAction, int[] args) {

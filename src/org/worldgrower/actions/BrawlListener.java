@@ -14,6 +14,9 @@
  *******************************************************************************/
 package org.worldgrower.actions;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.ManagedOperationListener;
@@ -22,12 +25,22 @@ import org.worldgrower.goal.BrawlPropertyUtils;
 
 public class BrawlListener implements ManagedOperationListener {
 
+	public final List<BrawlFinishedListener> brawlFinishedListeners = new ArrayList<>(); 
+	
 	@Override
 	public void actionPerformed(ManagedOperation managedOperation, WorldObject performer, WorldObject target, int[] args, Object value) {
 		if (BrawlPropertyUtils.isBrawling(performer) && BrawlPropertyUtils.isBrawling(target) && managedOperation == Actions.NON_LETHAL_MELEE_ATTACK_ACTION) {
 			if (target.getProperty(Constants.HIT_POINTS) == 1) {
 				BrawlPropertyUtils.endBrawl(performer, target);
+				
+				for(BrawlFinishedListener brawlFinishedListener : brawlFinishedListeners) {
+					brawlFinishedListener.brawlFinished(performer, target);
+				}
 			}
 		}
+	}
+
+	public void addBrawlFinishedListener(BrawlFinishedListener brawlFinishedListener) {
+		brawlFinishedListeners.add(brawlFinishedListener);
 	}
 }
