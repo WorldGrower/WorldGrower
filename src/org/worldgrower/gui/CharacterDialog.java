@@ -203,7 +203,7 @@ public class CharacterDialog extends JDialog {
 		contentPanel.add(lblArmor);
 		
 		lblArmorValue = new JLabel(playerCharacter.getProperty(Constants.ARMOR).toString());
-		lblArmorValue.setBounds(740, 331, 14, 16);
+		lblArmorValue.setBounds(740, 331, 30, 16);
 		contentPanel.add(lblArmorValue);
 		
 		JLabel lblWeaponDamage = new JLabel("Weapon Damage");
@@ -211,7 +211,7 @@ public class CharacterDialog extends JDialog {
 		contentPanel.add(lblWeaponDamage);
 		
 		lblDamageValue = new JLabel(playerCharacter.getProperty(Constants.DAMAGE).toString());
-		lblDamageValue.setBounds(740, 293, 14, 16);
+		lblDamageValue.setBounds(740, 293, 30, 16);
 		contentPanel.add(lblDamageValue);
 		
 		JPanel buttonPane = new JPanel();
