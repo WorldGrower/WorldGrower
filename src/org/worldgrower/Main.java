@@ -50,6 +50,7 @@ import org.worldgrower.generator.TerrainGenerator;
 import org.worldgrower.generator.WorldGenerator;
 import org.worldgrower.goal.ArmorPropertyUtils;
 import org.worldgrower.goal.GroupPropertyUtils;
+import org.worldgrower.goal.HitPointPropertyUtils;
 import org.worldgrower.goal.MeleeDamagePropertyUtils;
 import org.worldgrower.gui.CommonerImageIds;
 import org.worldgrower.gui.ImageIds;
@@ -173,8 +174,6 @@ public class Main {
 		properties.put(Constants.Y, 5);
 		properties.put(Constants.WIDTH, 1);
 		properties.put(Constants.HEIGHT, 1);
-		properties.put(Constants.HIT_POINTS, 17);
-		properties.put(Constants.HIT_POINTS_MAX, 17);
 		properties.put(Constants.NAME, playerName);
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.KNIGHT);
@@ -222,6 +221,7 @@ public class Main {
 		properties.put(Constants.CHARISMA, characterAttributes.getCharisma());
 		
 		SkillUtils.addAllSkills(properties);
+		HitPointPropertyUtils.addHitPointProperties(properties);
 		properties.put(Constants.KNOWN_SPELLS, new ArrayList<>());
 		properties.put(Constants.STUDYING_SPELLS, new PropertyCountMap<ManagedOperation>());
 

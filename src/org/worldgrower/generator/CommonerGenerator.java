@@ -42,6 +42,7 @@ import org.worldgrower.condition.Conditions;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.curse.Curse;
 import org.worldgrower.goal.ArmorPropertyUtils;
+import org.worldgrower.goal.HitPointPropertyUtils;
 import org.worldgrower.goal.MeleeDamagePropertyUtils;
 import org.worldgrower.gui.CommonerImageIds;
 import org.worldgrower.gui.ImageIds;
@@ -87,14 +88,13 @@ public class CommonerGenerator implements Serializable {
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 1);
 		properties.put(Constants.HEIGHT, 1);
-		properties.put(Constants.HIT_POINTS, 15);
-		properties.put(Constants.HIT_POINTS_MAX, 15);
 		properties.put(Constants.NAME, name);
 		properties.put(Constants.EXPERIENCE, 0);
 		
 		new AttributeGenerator(random).addCommonerAttributes(properties);
 		
 		SkillUtils.addAllSkills(properties);
+		HitPointPropertyUtils.addHitPointProperties(properties);
 		properties.put(Constants.KNOWN_SPELLS, new ArrayList<>());
 		properties.put(Constants.STUDYING_SPELLS, new PropertyCountMap<MagicSpell>());
 		
