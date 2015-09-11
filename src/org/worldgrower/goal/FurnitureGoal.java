@@ -31,7 +31,8 @@ public class FurnitureGoal implements Goal {
 		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.SLEEP_COMFORT, world);
 		if (hasInventoryFurniture) {
 			int indexOfFurniture = performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.SLEEP_COMFORT);
-			return new OperationInfo(performer, performer, new int[] { indexOfFurniture }, Actions.PUT_ITEM_INTO_INVENTORY_ACTION);
+			WorldObject target = HousePropertyUtils.getBestHouse(performer, world);
+			return new OperationInfo(performer, target, new int[] { indexOfFurniture }, Actions.PUT_ITEM_INTO_INVENTORY_ACTION);
 		} else if (targets.size() > 0) {
 			return new OperationInfo(performer, targets.get(0), new int[] { targets.get(0).getProperty(Constants.INVENTORY).getIndexFor(Constants.SLEEP_COMFORT), 1 }, Actions.BUY_ACTION);
 		} else {
