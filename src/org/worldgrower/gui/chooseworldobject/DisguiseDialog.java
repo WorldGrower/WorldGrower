@@ -46,6 +46,7 @@ import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.WorldObjectList;
 import org.worldgrower.gui.WorldPanel;
 import org.worldgrower.gui.debug.PropertiesModel;
+import org.worldgrower.gui.util.IconUtils;
 
 public class DisguiseDialog extends JDialog {
 
@@ -118,6 +119,7 @@ public class DisguiseDialog extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
+		IconUtils.setIcon(this);
 		
 		noDisguiseRadioButton = new JRadioButton("No disguise");
 		buttonGroup.add(noDisguiseRadioButton);

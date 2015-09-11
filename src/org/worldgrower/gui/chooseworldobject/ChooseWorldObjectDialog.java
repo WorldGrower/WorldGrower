@@ -36,6 +36,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.gui.ActionContainingArgs;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.WorldObjectList;
+import org.worldgrower.gui.util.IconUtils;
 
 public class ChooseWorldObjectDialog extends JDialog {
 
@@ -67,6 +68,7 @@ public class ChooseWorldObjectDialog extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
+		IconUtils.setIcon(this);
 		
 		personList = new WorldObjectList(imageInfoReader, disguiseWorldObjects);
 		personList.setBounds(5, 5, 350, 450);

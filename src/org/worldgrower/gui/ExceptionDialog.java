@@ -44,6 +44,8 @@ import javax.swing.JTextArea;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
+import org.worldgrower.gui.util.IconUtils;
+
 public class ExceptionDialog extends JDialog {
 
 	private int dialogWidth = 500;
@@ -94,6 +96,7 @@ public class ExceptionDialog extends JDialog {
 		
 		this.setModalityType(ModalityType.APPLICATION_MODAL);
 		this.setLocationRelativeTo(findActiveFrame());
+		IconUtils.setIcon(this);
 	}
 	
 	private Frame findActiveFrame() {

@@ -37,6 +37,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.goal.LegalActionsPropertyUtils;
+import org.worldgrower.gui.util.IconUtils;
 
 public class GuiShowLegalActionsAction extends AbstractAction {
 	private final WorldObject playerCharacter;
@@ -56,6 +57,7 @@ public class GuiShowLegalActionsAction extends AbstractAction {
 	public void actionPerformed(ActionEvent e) {
 		JDialog dialog = new JDialog();
 		dialog.setModalityType(ModalityType.APPLICATION_MODAL);
+		IconUtils.setIcon(dialog);
 		
 		WorldModel worldModel = new WorldModel(world);
 		JTable table = new JTable(worldModel);
