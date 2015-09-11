@@ -27,6 +27,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.magic.MagicSpell;
+import org.worldgrower.attribute.AttributeGenerator;
 import org.worldgrower.attribute.BackgroundImpl;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdRelationshipMap;
@@ -40,6 +41,8 @@ import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.curse.Curse;
+import org.worldgrower.goal.ArmorPropertyUtils;
+import org.worldgrower.goal.MeleeDamagePropertyUtils;
 import org.worldgrower.gui.CommonerImageIds;
 import org.worldgrower.gui.ImageIds;
 
@@ -88,13 +91,8 @@ public class CommonerGenerator implements Serializable {
 		properties.put(Constants.HIT_POINTS_MAX, 15);
 		properties.put(Constants.NAME, name);
 		properties.put(Constants.EXPERIENCE, 0);
-		properties.put(Constants.ARMOR, 10);
-		properties.put(Constants.STRENGTH, 10);
-		properties.put(Constants.DEXTERITY, 10);
-		properties.put(Constants.CONSTITUTION, 10);
-		properties.put(Constants.INTELLIGENCE, 10);
-		properties.put(Constants.WISDOM, 10);
-		properties.put(Constants.CHARISMA, 10);
+		
+		new AttributeGenerator(random).addCommonerAttributes(properties);
 		
 		SkillUtils.addAllSkills(properties);
 		properties.put(Constants.KNOWN_SPELLS, new ArrayList<>());
@@ -125,10 +123,14 @@ public class CommonerGenerator implements Serializable {
 		properties.put(Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		
 		properties.put(Constants.DAMAGE, 8);
+		properties.put(Constants.ARMOR, 10);
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		
 		WorldObject creature = new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new CommonerOnTurn(this, organization), new CommonerWorldEvaluationFunction());
 		world.addWorldObject(creature);
+		
+		creature.setProperty(Constants.DAMAGE, MeleeDamagePropertyUtils.calculateMeleeDamage(creature));
+		creature.setProperty(Constants.ARMOR, ArmorPropertyUtils.calculateArmor(creature));
 		
 		return id;
 	}

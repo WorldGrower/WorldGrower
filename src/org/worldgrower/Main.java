@@ -48,7 +48,9 @@ import org.worldgrower.generator.ItemGenerator;
 import org.worldgrower.generator.PlantGenerator;
 import org.worldgrower.generator.TerrainGenerator;
 import org.worldgrower.generator.WorldGenerator;
+import org.worldgrower.goal.ArmorPropertyUtils;
 import org.worldgrower.goal.GroupPropertyUtils;
+import org.worldgrower.goal.MeleeDamagePropertyUtils;
 import org.worldgrower.gui.CommonerImageIds;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.WorldPanel;
@@ -231,6 +233,10 @@ public class Main {
 		}
 		
 		final WorldObject playerCharacter = new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new CommonerOnTurn(commonerGenerator, organization), null);
+		
+		playerCharacter.setProperty(Constants.DAMAGE, MeleeDamagePropertyUtils.calculateMeleeDamage(playerCharacter));
+		playerCharacter.setProperty(Constants.ARMOR, ArmorPropertyUtils.calculateArmor(playerCharacter));
+		
 		return playerCharacter;
 	}
 
