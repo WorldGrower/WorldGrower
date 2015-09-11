@@ -1,8 +1,20 @@
 apply plugin: 'java'
+apply plugin: 'install4j'
 
 configurations {
     izpackconf
 }
+
+buildscript {
+      repositories {
+          maven {
+              url 'http://maven.ej-technologies.com/repository'
+          }
+      }
+      dependencies {
+           classpath group: 'com.install4j', name: 'gradle-plugin', version: '6.0'
+      }
+  }
 
 dependencies {
         izpackconf group: 'org.codehaus.izpack', name:'izpack-standalone-compiler', version: '4.3.4'
@@ -74,6 +86,23 @@ task zipRelease(type: Zip) {
 	from 'build/release'
 }
 
+  if (!hasProperty('install4jHomeDir')) {
+      File propertiesFile = file("gradle.properties")
+      throw new RuntimeException("Specify install4jHomeDir in $propertiesFile")
+  }
+
+  install4j {
+        installDir = file(install4jHomeDir)
+        
+  }
+  
+  task media(type: com.install4j.gradle.Install4jTask) {
+
+      projectFile = file('installer/install4j/worldgrower.install4j')
+        release = version
+        destination = file('build/distributions')
+  }
+
 task izpack() << {
 	new File('build/izpacktemp').mkdir();
 	new File('build/distributions').mkdir();
@@ -94,4 +123,4 @@ task izpack() << {
         compressionlevel: '9')
 }
 
-release.finalizedBy zipRelease, izpack
+release.finalizedBy zipRelease, izpack, media
