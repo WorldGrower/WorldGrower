@@ -26,7 +26,7 @@ public class JScrollableToolTip extends JToolTip implements MouseWheelListener {
         setPreferredSize(new Dimension(width, height));
         setLayout(new BorderLayout());
         textPane = new JTextPane();
-        textPane.setEditable(true);
+        textPane.setEditable(false);
         textPane.setContentType("text/html");
          
         LookAndFeel.installColorsAndFont(textPane, 
