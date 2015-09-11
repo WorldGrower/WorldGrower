@@ -38,18 +38,7 @@ public class CommonerOnTurn implements OnTurn {
 
 	@Override
 	public void onTurn(WorldObject worldObject, World world) {
-		worldObject.increment(Constants.FOOD, -1);
-		worldObject.increment(Constants.WATER, -1);
-		worldObject.increment(Constants.SOCIAL, -1);
-		worldObject.increment(Constants.ENERGY, -1);
-		
-		if (worldObject.getProperty(Constants.FOOD) < 100 || worldObject.getProperty(Constants.WATER) < 100) {
-			worldObject.increment(Constants.ENERGY, -1);
-		}
-		
-		if (WeightPropertyUtils.isCarryingTooMuch(worldObject)) {
-			worldObject.increment(Constants.ENERGY, -1);
-		}
+		propertiesOnTurn(worldObject);
 		
 		worldObject.getProperty(Constants.CONDITIONS).onTurn(worldObject, world);
 		Background background = worldObject.getProperty(Constants.BACKGROUND);
@@ -59,6 +48,10 @@ public class CommonerOnTurn implements OnTurn {
 		
 		DrownUtils.checkForDrowning(worldObject, world);
 		
+		checkPregnancy(worldObject, world);
+	}
+
+	private void checkPregnancy(WorldObject worldObject, World world) {
 		Integer pregnancy = worldObject.getProperty(Constants.PREGNANCY);
 		if (pregnancy != null) {
 			pregnancy = pregnancy + 1;
@@ -76,6 +69,24 @@ public class CommonerOnTurn implements OnTurn {
 					everyoneInVicinityKnowsOfChild(worldObject, id, world);
 				}
 			}
+		}
+	}
+
+	private void propertiesOnTurn(WorldObject worldObject) {
+		worldObject.increment(Constants.FOOD, -1);
+		worldObject.increment(Constants.WATER, -1);
+		worldObject.increment(Constants.SOCIAL, -1);
+		worldObject.increment(Constants.ENERGY, -1);
+		
+		if (worldObject.getProperty(Constants.FOOD) < 100) {
+			worldObject.increment(Constants.ENERGY, -1);
+		}
+		if (worldObject.getProperty(Constants.WATER) < 100) {
+			worldObject.increment(Constants.ENERGY, -1);
+		}
+		
+		if (WeightPropertyUtils.isCarryingTooMuch(worldObject)) {
+			worldObject.increment(Constants.ENERGY, -1);
 		}
 	}
 	
