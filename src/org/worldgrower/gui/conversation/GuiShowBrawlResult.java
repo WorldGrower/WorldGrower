@@ -27,6 +27,12 @@ import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
 
 public class GuiShowBrawlResult implements BrawlFinishedListener {
+	private static final String[] RESPONSES = new String[] { 
+		"I win this brawl",
+		"Yes, I crushed you",
+		"Next time, try to be at least a bit challenging"
+	};
+	
 	private ImageInfoReader imageInfoReader;
 	
 	public GuiShowBrawlResult(ImageInfoReader imageInfoReader, World world) {
@@ -41,20 +47,19 @@ public class GuiShowBrawlResult implements BrawlFinishedListener {
 		Icon targetIcon = getWorldObjectIcon(target);
 		
 		if (!performer.isControlledByAI()) {
-			String[] responses = new String[]{ "I win this brawl" };
 			String response = (String)JOptionPane.showInputDialog(
                     null,
                     "Choose brawl ending line:",
                     "brawl result dialog",
                     JOptionPane.INFORMATION_MESSAGE,
                     targetIcon,
-                    responses,
-                    responses[0]);
+                    RESPONSES,
+                    RESPONSES[0]);
 		}
 		
 		if (!target.isControlledByAI()) {
 			JOptionPane.showMessageDialog(null,
-				    "I won this brawl",
+					RESPONSES[0],
 				    "brawl result dialog",
 				    JOptionPane.INFORMATION_MESSAGE,
 				    performerIcon);
