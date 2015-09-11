@@ -14,8 +14,11 @@
 *******************************************************************************/
 package org.worldgrower.attribute;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
@@ -81,6 +84,17 @@ public class SkillUtils {
 		SKILLS_TO_ATTRIBUTE_MAP.put(Constants.ENCHANTMENT_SKILL, Constants.INTELLIGENCE);
 		SKILLS_TO_ATTRIBUTE_MAP.put(Constants.NECROMANCY_SKILL, Constants.INTELLIGENCE);
 		SKILLS_TO_ATTRIBUTE_MAP.put(Constants.FISHING_SKILL, Constants.WISDOM);
+	}
+	
+	public static List<SkillProperty> getSkillsForAttribute(IntProperty attributeProperty) {
+		List<SkillProperty> skillProperties = new ArrayList<>();
+		for(Entry<SkillProperty, IntProperty> entry : SKILLS_TO_ATTRIBUTE_MAP.entrySet()) {
+			if (entry.getValue() == attributeProperty) {
+				skillProperties.add(entry.getKey());
+			}
+		}
+		
+		return skillProperties;
 	}
 	
 	private static void addSkill(SkillProperty skillProperty, Map<ManagedProperty<?>, Object> properties) {

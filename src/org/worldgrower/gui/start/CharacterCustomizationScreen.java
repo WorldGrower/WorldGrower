@@ -26,6 +26,11 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import org.worldgrower.Constants;
+import org.worldgrower.attribute.IntProperty;
+import org.worldgrower.attribute.SkillProperty;
+import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.gui.GuiAttributeDescription;
 import org.worldgrower.gui.util.IconUtils;
 
 public class CharacterCustomizationScreen extends JFrame {
@@ -57,52 +62,58 @@ public class CharacterCustomizationScreen extends JFrame {
 		attributeLabel.setBounds(393, 51, 56, 16);
 		contentPane.add(attributeLabel);
 		
-		JLabel lblStrengthDesc = new JLabel("Strength");
+		JLabel lblStrengthDesc = createAttributeLabel(Constants.STRENGTH, "Strength");
 		lblStrengthDesc.setBounds(12, 13, 100, 16);
 		contentPane.add(lblStrengthDesc);
 		
 		lblStrength = new JLabel("10");
 		lblStrength.setBounds(115, 13, 24, 16);
+		lblStrength.setToolTipText(lblStrengthDesc.getToolTipText());
 		contentPane.add(lblStrength);
 		
-		JLabel lblConstitutionDesc = new JLabel("Constitution");
+		JLabel lblConstitutionDesc = createAttributeLabel(Constants.CONSTITUTION, "Constitution");
 		lblConstitutionDesc.setBounds(12, 51, 100, 16);
 		contentPane.add(lblConstitutionDesc);
 		
 		lblConstitution = new JLabel("10");
 		lblConstitution.setBounds(115, 51, 24, 16);
+		lblConstitution.setToolTipText(lblConstitutionDesc.getToolTipText());
 		contentPane.add(lblConstitution);
 		
-		JLabel lblDexterityDesc = new JLabel("Dexterity");
+		JLabel lblDexterityDesc = createAttributeLabel(Constants.DEXTERITY, "Dexterity");
 		lblDexterityDesc.setBounds(12, 91, 100, 16);
 		contentPane.add(lblDexterityDesc);
 		
 		lblDexterity = new JLabel("10");
 		lblDexterity.setBounds(115, 91, 24, 16);
+		lblDexterity.setToolTipText(lblDexterityDesc.getToolTipText());
 		contentPane.add(lblDexterity);
 		
-		JLabel lblIntelligenceDesc = new JLabel("Intelligence");
+		JLabel lblIntelligenceDesc = createAttributeLabel(Constants.INTELLIGENCE, "Intelligence");
 		lblIntelligenceDesc.setBounds(12, 133, 100, 16);
 		contentPane.add(lblIntelligenceDesc);
 		
 		lblIntelligence = new JLabel("10");
 		lblIntelligence.setBounds(115, 133, 24, 16);
+		lblIntelligence.setToolTipText(lblIntelligenceDesc.getToolTipText());
 		contentPane.add(lblIntelligence);
 		
-		JLabel lblWisdomDesc = new JLabel("Wisdom");
+		JLabel lblWisdomDesc = createAttributeLabel(Constants.WISDOM, "Wisdom");
 		lblWisdomDesc.setBounds(12, 179, 100, 16);
 		contentPane.add(lblWisdomDesc);
 		
 		lblWisdom = new JLabel("10");
 		lblWisdom.setBounds(115, 179, 24, 16);
+		lblWisdom.setToolTipText(lblWisdomDesc.getToolTipText());
 		contentPane.add(lblWisdom);
 		
-		JLabel lblCharismaDesc = new JLabel("Charisma");
+		JLabel lblCharismaDesc = createAttributeLabel(Constants.CHARISMA, "Charisma");
 		lblCharismaDesc.setBounds(12, 224, 100, 16);
 		contentPane.add(lblCharismaDesc);
 		
 		lblCharisma = new JLabel("10");
 		lblCharisma.setBounds(115, 224, 24, 16);
+		lblCharisma.setToolTipText(lblCharismaDesc.getToolTipText());
 		contentPane.add(lblCharisma);
 		
 		JButton button1Plus = new JButton("+");
@@ -252,6 +263,13 @@ public class CharacterCustomizationScreen extends JFrame {
 		});
 	}
 	
+	private JLabel createAttributeLabel(IntProperty attributeProperty, String description) {
+		String tooltip = GuiAttributeDescription.createToolTipDescription(attributeProperty, description);
+		JLabel label = new JLabel(description);
+		label.setToolTipText(tooltip);
+		return label;
+	}
+
 	private void incrementAttributeValue(JLabel label, JLabel attributeLabel) {
 		int currentValue = Integer.parseInt(label.getText());
 		int newValue = currentValue + 1;

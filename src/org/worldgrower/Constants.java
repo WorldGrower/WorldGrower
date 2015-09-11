@@ -78,7 +78,7 @@ public class Constants {
 	public static final SkillProperty INSIGHT_SKILL = new SkillProperty("insight", ALL_PROPERTIES);
 	public static final SkillProperty HAND_TO_HAND_SKILL = new SkillProperty("hand-to-hand", ALL_PROPERTIES);
 	public static final SkillProperty ONE_HANDED_SKILL = new SkillProperty("one-handed", ALL_PROPERTIES);
-	public static final SkillProperty TWO_HANDED_SKILL = new SkillProperty("one-handed", ALL_PROPERTIES);
+	public static final SkillProperty TWO_HANDED_SKILL = new SkillProperty("two-handed", ALL_PROPERTIES);
 	public static final SkillProperty PERCEPTION_SKILL = new SkillProperty("perception", ALL_PROPERTIES);
 	public static final SkillProperty DIPLOMACY_SKILL = new SkillProperty("diplomacy", ALL_PROPERTIES);
 	public static final SkillProperty INTIMIDATE_SKILL = new SkillProperty("intimidate", ALL_PROPERTIES);
