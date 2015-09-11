@@ -33,9 +33,9 @@ public class UTestAttackUtils {
 		WorldObject performer = createCommoner(world);
 		WorldObject target = createCommoner(world);
 		
-		assertEquals(15, target.getProperty(Constants.HIT_POINTS).intValue());
+		assertEquals(20, target.getProperty(Constants.HIT_POINTS).intValue());
 		AttackUtils.attack(Actions.MELEE_ATTACK_ACTION, performer, target, new int[0], world, 1.0f);
-		assertEquals(13, target.getProperty(Constants.HIT_POINTS).intValue());
+		assertEquals(18, target.getProperty(Constants.HIT_POINTS).intValue());
 	}
 
 	private WorldObject createCommoner(World world) {
