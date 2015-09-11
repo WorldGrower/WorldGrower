@@ -30,6 +30,7 @@ import org.worldgrower.Main;
 import org.worldgrower.Version;
 import org.worldgrower.World;
 import org.worldgrower.gui.ExceptionHandler;
+import org.worldgrower.gui.util.IconUtils;
 
 public class StartScreen {
 
@@ -82,6 +83,7 @@ public class StartScreen {
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setModalityType(ModalityType.APPLICATION_MODAL);
 		frame.getContentPane().setLayout(null);
+		IconUtils.setIcon(frame);
 		
 		JButton btnNewGame = new JButton("New Game");
 		btnNewGame.addActionListener(new ActionListener() {

@@ -27,6 +27,7 @@ import javax.swing.JTextField;
 
 import org.worldgrower.Main;
 import org.worldgrower.gui.ExceptionHandler;
+import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.util.NumberUtils;
 
 public class OptionsScreen {
@@ -64,6 +65,7 @@ public class OptionsScreen {
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		IconUtils.setIcon(frame);
 		
 		JLabel lblPlayerName = new JLabel("Character Name:");
 		lblPlayerName.setBounds(25, 30, 191, 26);

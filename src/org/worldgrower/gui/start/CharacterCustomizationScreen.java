@@ -26,6 +26,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import org.worldgrower.gui.util.IconUtils;
+
 public class CharacterCustomizationScreen extends JFrame {
 
 	private JPanel contentPane;
@@ -48,6 +50,7 @@ public class CharacterCustomizationScreen extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
+		IconUtils.setIcon(this);
 		
 		JLabel attributeLabel = new JLabel(Integer.toString(attributePoints));
 		attributeLabel.setHorizontalAlignment(SwingConstants.RIGHT);

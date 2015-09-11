@@ -23,7 +23,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.ToolTipManager;
 
@@ -54,6 +53,7 @@ import org.worldgrower.gui.CommonerImageIds;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.WorldPanel;
 import org.worldgrower.gui.start.CharacterAttributes;
+import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.profession.PlayerCharacterProfession;
 import org.worldgrower.terrain.TerrainType;
 
@@ -240,7 +240,7 @@ public class Main {
     	}
         frame = new JFrame("World");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setIconImage(Toolkit.getDefaultToolkit().getImage(Main.class.getResource("/community.png")));
+        IconUtils.setIcon(frame);
         
         WorldPanel worldPanel = new WorldPanel(playerCharacter, world, dungeonMaster);
         worldPanel.setOpaque(true);
