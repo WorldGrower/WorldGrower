@@ -244,7 +244,7 @@ public class Main {
     	if (frame != null) {
     		frame.dispose();
     	}
-        frame = new JFrame("World");
+        frame = new JFrame("WorldGrower");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         IconUtils.setIcon(frame);
         
