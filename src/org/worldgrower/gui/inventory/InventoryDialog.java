@@ -48,6 +48,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.gui.ImageInfoReader;
+import org.worldgrower.gui.util.IconUtils;
 
 public class InventoryDialog extends JDialog {
 
@@ -107,6 +108,7 @@ public class InventoryDialog extends JDialog {
 		setBounds(100, 100, 550, 582);
 		getContentPane().setLayout(null);
 		setLocationRelativeTo(null);
+		IconUtils.setIcon(this);
 		
 		KeyStroke stroke = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
         rootPane.registerKeyboardAction(new CloseDialogAction(), stroke, JComponent.WHEN_IN_FOCUSED_WINDOW);

@@ -47,6 +47,7 @@ import org.worldgrower.conversation.Question;
 import org.worldgrower.conversation.Response;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
+import org.worldgrower.gui.util.IconUtils;
 
 public class AskQuestionDialog extends JDialog implements ManagedOperationListener {
 
@@ -68,6 +69,7 @@ public class AskQuestionDialog extends JDialog implements ManagedOperationListen
 		this.setSize(650, 300);
 		this.setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
+		IconUtils.setIcon(this);
 		
 		KeyStroke stroke = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
         rootPane.registerKeyboardAction(new CloseDialogAction(), stroke, JComponent.WHEN_IN_FOCUSED_WINDOW);

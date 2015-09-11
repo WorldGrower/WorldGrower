@@ -34,6 +34,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.attribute.PropertyCountMap;
+import org.worldgrower.gui.util.IconUtils;
 
 public class MagicOverviewDialog extends JDialog {
 
@@ -48,6 +49,7 @@ public class MagicOverviewDialog extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
+		IconUtils.setIcon(this);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(12, 13, 508, 417);

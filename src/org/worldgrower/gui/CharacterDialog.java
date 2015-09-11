@@ -36,6 +36,7 @@ import org.worldgrower.attribute.UnCheckedProperty;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.goal.ArmorPropertyUtils;
 import org.worldgrower.goal.MeleeDamagePropertyUtils;
+import org.worldgrower.gui.util.IconUtils;
 
 public class CharacterDialog extends JDialog {
 
@@ -54,6 +55,7 @@ public class CharacterDialog extends JDialog {
 
 	public CharacterDialog(WorldObject playerCharacter) {
 		setModalityType(ModalityType.APPLICATION_MODAL);
+		IconUtils.setIcon(this);
 		
 		this.playerCharacter = playerCharacter;
 		
