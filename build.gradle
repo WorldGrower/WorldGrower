@@ -86,6 +86,7 @@ task zipRelease(type: Zip) {
 	from 'build/release'
 }
 
+if (hasProperty('doRelease')) {
   if (!hasProperty('install4jHomeDir')) {
       File propertiesFile = file("gradle.properties")
       throw new RuntimeException("Specify install4jHomeDir in $propertiesFile")
@@ -102,6 +103,7 @@ task zipRelease(type: Zip) {
         release = version
         destination = file('build/distributions')
   }
+}
 
 task izpack() << {
 	new File('build/izpacktemp').mkdir();
