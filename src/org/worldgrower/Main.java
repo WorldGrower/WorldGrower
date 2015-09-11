@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.ToolTipManager;
 
@@ -239,6 +240,7 @@ public class Main {
     	}
         frame = new JFrame("World");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setIconImage(Toolkit.getDefaultToolkit().getImage(Main.class.getResource("/community.png")));
         
         WorldPanel worldPanel = new WorldPanel(playerCharacter, world, dungeonMaster);
         worldPanel.setOpaque(true);
