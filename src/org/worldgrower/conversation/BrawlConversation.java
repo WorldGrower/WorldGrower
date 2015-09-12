@@ -57,7 +57,7 @@ public class BrawlConversation implements Conversation {
 		World world = conversationContext.getWorld();
 		
 		return Arrays.asList(
-			new Response(YES, "Yes, while we brawl, only non-lethal melee attacks are allowed."),
+			new Response(YES, "Yes, while we brawl, only unarmed non-lethal melee attacks are allowed."),
 			new Response(NO, "No"),
 			new Response(LATER, "I'd love to, but I'm currently " + world.getImmediateGoal(target, world).getDescription(world))
 			);

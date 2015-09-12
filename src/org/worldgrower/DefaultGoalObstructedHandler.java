@@ -69,7 +69,11 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 	}
 
 	private boolean areBrawling(WorldObject performer, WorldObject actionTarget, ManagedOperation managedOperation) {
-		return BrawlPropertyUtils.isBrawling(performer) && BrawlPropertyUtils.isBrawling(actionTarget) && managedOperation == Actions.NON_LETHAL_MELEE_ATTACK_ACTION;
+		return BrawlPropertyUtils.isBrawling(performer) 
+				&& BrawlPropertyUtils.isBrawling(actionTarget) 
+				&& managedOperation == Actions.NON_LETHAL_MELEE_ATTACK_ACTION
+				&& performer.getProperty(Constants.LEFT_HAND_EQUIPMENT) == null
+				&& performer.getProperty(Constants.RIGHT_HAND_EQUIPMENT) == null;
 	}
 
 	//TODO: clean up this code
