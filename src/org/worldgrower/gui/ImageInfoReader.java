@@ -278,7 +278,35 @@ public class ImageInfoReader {
 		add(ImageIds.FISH_CREATURE, fish.getSubImage(0, 0, 1, 1));
 		add(ImageIds.FISHING_POLE, sprites420.getSubImage(6, 9, 1, 1));
 		add(ImageIds.RAW_FISH, sprites420.getSubImage(10, 1, 1, 1));
+		
+		add(ImageIds.ARENA_WALL, tileE.getSubImage(2, 3, 1, 1));
+		createArenaVertical();
+		createArenaHorizontal();
     }
+
+	private void createArenaVertical() {
+		Image arenaWall = idToImages.get(ImageIds.ARENA_WALL).get(0);
+		BufferedImage off_Image = new BufferedImage(48, 48 * 8, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g2 = (Graphics2D) off_Image.getGraphics();
+		for(int i=0; i<8; i++) {
+			g2.drawImage(arenaWall, 0, 48 * i, null);
+		}
+		g2.dispose();
+		idToImages.put(ImageIds.ARENA_VERTICAL, Arrays.asList(off_Image));
+		
+	}
+	
+	private void createArenaHorizontal() {
+		Image arenaWall = idToImages.get(ImageIds.ARENA_WALL).get(0);
+		BufferedImage off_Image = new BufferedImage(48 * 4, 48, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g2 = (Graphics2D) off_Image.getGraphics();
+		for(int i=0; i<4; i++) {
+			g2.drawImage(arenaWall, 48 * i, 0, null);
+		}
+		g2.dispose();
+		idToImages.put(ImageIds.ARENA_HORIZONTAL, Arrays.asList(off_Image));
+		
+	}
 
 	private void createCompleteHouse() {
 		Image houseImage = idToImages.get(ImageIds.HOUSE6).get(0);

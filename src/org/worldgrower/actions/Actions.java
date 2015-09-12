@@ -175,6 +175,7 @@ public class Actions {
 	public static final ConstructFishingPoleAction CONSTRUCT_FISHING_POLE_ACTION = new ConstructFishingPoleAction();
 	public static final CatchFishAction CATCH_FISH_ACTION = new CatchFishAction();
 	public static final MarkInventoryItemAsSellableAction MARK_INVENTORY_ITEM_AS_SELLABLE_ACTION = new MarkInventoryItemAsSellableAction();
+	public static final BuildArenaAction BUILD_ARENA_ACTION = new BuildArenaAction();
 	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 
@@ -299,7 +300,8 @@ public class Actions {
 		THROW_OIL_ACTION,
 		CONSTRUCT_FISHING_POLE_ACTION,
 		CATCH_FISH_ACTION,
-		MARK_INVENTORY_ITEM_AS_SELLABLE_ACTION
+		MARK_INVENTORY_ITEM_AS_SELLABLE_ACTION,
+		BUILD_ARENA_ACTION
 	));
 	
 	static {
