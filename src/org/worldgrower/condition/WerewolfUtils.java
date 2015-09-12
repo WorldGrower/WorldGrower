@@ -24,11 +24,13 @@ import org.worldgrower.gui.ImageIds;
 
 public class WerewolfUtils {
 
-	public static void makePersonIntoWerewolf(WorldObject worldObject) {
+	public static void makePersonIntoWerewolf(WorldObject worldObject, CreatureTypeChangedListeners creatureTypeChangedListeners) {
 		worldObject.setProperty(Constants.CREATURE_TYPE, CreatureType.WEREWOLF_CREATURE_TYPE);
 		worldObject.setProperty(Constants.CURSE, Curse.WEREWOLF_CURSE);
 		worldObject.setProperty(Constants.GROUP, new IdList());
 		worldObject.setProperty(Constants.IMAGE_ID, ImageIds.WEREWOLF);
+		
+		creatureTypeChangedListeners.fireCreatureTypeChanged(worldObject, CreatureType.WEREWOLF_CREATURE_TYPE, "Your teeth and nails grow, you are covered in fur, you must have become a werewolf");
 	}
 	
 	public static int getWerewolfCount(World world) {

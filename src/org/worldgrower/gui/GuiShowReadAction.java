@@ -14,10 +14,7 @@
  *******************************************************************************/
 package org.worldgrower.gui;
 
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JComponent;
-import javax.swing.JOptionPane;
 
 import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
@@ -25,6 +22,7 @@ import org.worldgrower.ManagedOperationListener;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.gui.util.MessageDialogUtils;
 
 public class GuiShowReadAction implements ManagedOperationListener {
 
@@ -48,22 +46,17 @@ public class GuiShowReadAction implements ManagedOperationListener {
 		if ((performer == playerCharacter) && (managedOperation == Actions.READ_ACTION)) {
 			String text = (String) value;			
 			String targetName = target.getProperty(Constants.NAME);
-			showMessage(text, "Reading " + targetName, target);
+			MessageDialogUtils.showMessage(text, "Reading " + targetName, target, container, imageInfoReader);
 		} else if ((performer == playerCharacter) && (managedOperation == Actions.DETERMINE_DEATH_REASON_ACTION)) {
 			String text = (String) value;			
 			String targetName = target.getProperty(Constants.NAME);
-			showMessage(text, "Determining cause of death for " + targetName, target);
+			MessageDialogUtils.showMessage(text, "Determining cause of death for " + targetName, target, container, imageInfoReader);
 		} else if ((performer == playerCharacter) && (managedOperation == Actions.DETECT_POISON_AND_DISEASE_ACTION)) {
 			String text = (String) value;			
 			String targetName = target.getProperty(Constants.NAME);
-			showMessage(text, "Detect poison and disease on " + targetName, target);
+			MessageDialogUtils.showMessage(text, "Detect poison and disease on " + targetName, target, container, imageInfoReader);
 		}
 	}
 	
-	private void showMessage(String text, String title, WorldObject target) {
-		ImageIds imageIdTarget = target.getProperty(Constants.IMAGE_ID);
-		Icon targetIcon = new ImageIcon(imageInfoReader.getImage(imageIdTarget, null));
-		JOptionPane.showMessageDialog(container, text, title, JOptionPane.PLAIN_MESSAGE, targetIcon);
-
-	}
+	
 }

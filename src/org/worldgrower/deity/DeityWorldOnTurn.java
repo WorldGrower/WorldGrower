@@ -16,14 +16,22 @@ package org.worldgrower.deity;
 
 import org.worldgrower.World;
 import org.worldgrower.WorldOnTurn;
+import org.worldgrower.condition.CreatureTypeChangedListener;
+import org.worldgrower.condition.CreatureTypeChangedListeners;
 
 public class DeityWorldOnTurn implements WorldOnTurn {
-
+	private final transient CreatureTypeChangedListeners creatureTypeChangedListeners = new CreatureTypeChangedListeners();
+	
 	@Override
 	public void onTurn(World world) {
 
 		for(Deity deity : Deity.ALL_DEITIES) {
-			deity.onTurn(world);
+			deity.onTurn(world, creatureTypeChangedListeners);
 		}
+	}
+	
+	@Override
+	public void addCreatureTypeChangedListener(CreatureTypeChangedListener listener) {
+		this.creatureTypeChangedListeners.addCreatureTypeChangedListener(listener);
 	}
 }

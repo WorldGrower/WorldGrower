@@ -21,8 +21,8 @@ import java.util.List;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.condition.CreatureTypeChangedListeners;
 import org.worldgrower.condition.VampireUtils;
-import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.profession.Professions;
 
 public class Dionysus implements Deity {
@@ -57,7 +57,7 @@ public class Dionysus implements Deity {
 	}
 	
 	@Override
-	public void onTurn(World world) {
+	public void onTurn(World world, CreatureTypeChangedListeners creatureTypeChangedListeners) {
 		int currentTurn = world.getCurrentTurn().getValue();
 		int totalNumberOfWorshippers = DeityPropertyUtils.getTotalNumberOfWorshippers(world);
 		
@@ -73,7 +73,7 @@ public class Dionysus implements Deity {
 				target = allWorshippers.get(indexOfChosenTarget);
 			}
 			
-			VampireUtils.vampirizePerson(target);
+			VampireUtils.vampirizePerson(target, creatureTypeChangedListeners);
 		}
 	}
 }

@@ -21,6 +21,7 @@ import java.util.List;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.condition.CreatureTypeChangedListeners;
 import org.worldgrower.condition.WerewolfUtils;
 import org.worldgrower.profession.Professions;
 
@@ -57,7 +58,7 @@ public class Artemis implements Deity {
 	}
 	
 	@Override
-	public void onTurn(World world) {
+	public void onTurn(World world, CreatureTypeChangedListeners creatureTypeChangedListeners) {
 		int currentTurn = world.getCurrentTurn().getValue();
 		int totalNumberOfWorshippers = DeityPropertyUtils.getTotalNumberOfWorshippers(world);
 		
@@ -71,7 +72,7 @@ public class Artemis implements Deity {
 			}
 			
 			if (target != null) {
-				WerewolfUtils.makePersonIntoWerewolf(target);
+				WerewolfUtils.makePersonIntoWerewolf(target, creatureTypeChangedListeners);
 			}
 		}
 	}

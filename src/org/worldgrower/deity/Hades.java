@@ -21,6 +21,7 @@ import java.util.List;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.condition.CreatureTypeChangedListeners;
 import org.worldgrower.creaturetype.CreatureTypeUtils;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
@@ -68,7 +69,7 @@ public class Hades implements Deity {
 	}
 	
 	@Override
-	public void onTurn(World world) {
+	public void onTurn(World world, CreatureTypeChangedListeners creatureTypeChangedListeners) {
 	}
 
 	@Override

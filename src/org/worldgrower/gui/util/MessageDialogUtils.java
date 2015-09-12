@@ -12,17 +12,23 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower;
+package org.worldgrower.gui.util;
 
-import java.io.Serializable;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 
-import org.worldgrower.condition.CreatureTypeChangedListener;
+import org.worldgrower.Constants;
+import org.worldgrower.WorldObject;
+import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.ImageInfoReader;
 
-/**
- * Each time a turn passes, the onTurn method is called to process ongoing effects.
- */
-public interface WorldOnTurn extends Serializable {
+public class MessageDialogUtils {
 
-	public void onTurn(World world);
-	public void addCreatureTypeChangedListener(CreatureTypeChangedListener listener);
+	public static void showMessage(String text, String title, WorldObject target, JComponent container, ImageInfoReader imageInfoReader) {
+		ImageIds imageIdTarget = target.getProperty(Constants.IMAGE_ID);
+		Icon targetIcon = new ImageIcon(imageInfoReader.getImage(imageIdTarget, null));
+		JOptionPane.showMessageDialog(container, text, title, JOptionPane.PLAIN_MESSAGE, targetIcon);
+	}
 }

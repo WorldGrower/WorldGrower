@@ -12,25 +12,36 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.condition;
+package org.worldgrower.gui;
 
-import org.worldgrower.Constants;
+import javax.swing.JComponent;
+
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.condition.CreatureTypeChangedListener;
 import org.worldgrower.creaturetype.CreatureType;
-import org.worldgrower.curse.Curse;
+import org.worldgrower.gui.util.MessageDialogUtils;
 
-public class VampireUtils {
+public class GuiShowEventHappenedAction implements CreatureTypeChangedListener {
 
-	public static void vampirizePerson(WorldObject worldObject, CreatureTypeChangedListeners creatureTypeChangedListeners) {
-		worldObject.setProperty(Constants.VAMPIRE_BLOOD_LEVEL, 0);
-		worldObject.setProperty(Constants.CREATURE_TYPE, CreatureType.UNDEAD_CREATURE_TYPE);
-		worldObject.setProperty(Constants.CURSE, Curse.VAMPIRE_CURSE);
-		
-		creatureTypeChangedListeners.fireCreatureTypeChanged(worldObject, CreatureType.UNDEAD_CREATURE_TYPE, "You crave blood, you must have become a vampire");
-	}
+	private WorldObject playerCharacter;
+	private World world;
+	private JComponent container;
+	private ImageInfoReader imageInfoReader;
 	
-	public static int getVampireCount(World world) {
-		return world.findWorldObjects(w -> w.hasProperty(Constants.CURSE) && w.getProperty(Constants.CURSE) == Curse.VAMPIRE_CURSE).size();
+	public GuiShowEventHappenedAction(WorldObject playerCharacter, World world, JComponent container, ImageInfoReader imageInfoReader) {
+		super();
+		this.playerCharacter = playerCharacter;
+		this.world = world;
+		this.container = container;
+		this.imageInfoReader = imageInfoReader;
+	}
+
+	@Override
+	public void creatureTypeChange(WorldObject worldObject, CreatureType newCreatureType, String description) {
+		if (worldObject == playerCharacter) {
+			MessageDialogUtils.showMessage(description, "Changing creature type ", worldObject, container, imageInfoReader);
+		}
+		
 	}
 }

@@ -55,6 +55,7 @@ public interface World {
 	
 	public History getHistory();
 	public void save(File fileToSave);
+	public WorldOnTurn getWorldOnTurn();
 	
 	
 }

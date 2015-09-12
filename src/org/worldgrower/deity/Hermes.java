@@ -21,6 +21,7 @@ import java.util.List;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.condition.CreatureTypeChangedListeners;
 import org.worldgrower.profession.Professions;
 
 public class Hermes implements Deity {
@@ -59,6 +60,6 @@ public class Hermes implements Deity {
 	}
 	
 	@Override
-	public void onTurn(World world) {
+	public void onTurn(World world, CreatureTypeChangedListeners creatureTypeChangedListeners) {
 	}
 }

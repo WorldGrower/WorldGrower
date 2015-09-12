@@ -396,6 +396,7 @@ public class WorldPanel extends JPanel {
 		new GuiRespondToQuestion(playerCharacter, world, imageInfoReader);
 		new GuiShowReadAction(playerCharacter, world, (JComponent) this.getParent(), imageInfoReader);
 		new GuiShowBrawlResult(imageInfoReader, world);
+		world.getWorldOnTurn().addCreatureTypeChangedListener(new GuiShowEventHappenedAction(playerCharacter, world, (JComponent) this.getParent(), imageInfoReader));
 	}
 
 	public void startBuildMode(BuildAction buildAction, int[] args) {

@@ -40,7 +40,8 @@ public class VampireBiteCondition implements Condition {
 		int currentTurn = world.getCurrentTurn().getValue();
 		
 		if (currentTurn - startTurn > 500) {
-			VampireUtils.vampirizePerson(worldObject);
+			//TODO: this method call should get proper listeners
+			VampireUtils.vampirizePerson(worldObject, null);
 			Conditions.remove(worldObject, this);
 		}
 	}

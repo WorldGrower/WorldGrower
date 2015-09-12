@@ -12,17 +12,12 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower;
+package org.worldgrower.condition;
 
-import java.io.Serializable;
+import org.worldgrower.WorldObject;
+import org.worldgrower.creaturetype.CreatureType;
 
-import org.worldgrower.condition.CreatureTypeChangedListener;
+public interface CreatureTypeChangedListener {
 
-/**
- * Each time a turn passes, the onTurn method is called to process ongoing effects.
- */
-public interface WorldOnTurn extends Serializable {
-
-	public void onTurn(World world);
-	public void addCreatureTypeChangedListener(CreatureTypeChangedListener listener);
+	public void creatureTypeChange(WorldObject worldObject, CreatureType newCreatureType, String description);
 }

@@ -245,4 +245,9 @@ public class WorldImpl implements World, Serializable {
 		worldOnTurn.onTurn(this);
 		currentTurn = currentTurn.next();
 	}
+
+	@Override
+	public WorldOnTurn getWorldOnTurn() {
+		return worldOnTurn;
+	}
 }
