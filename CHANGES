@@ -1,3 +1,19 @@
+v0.1.0
+
+- bug fix: npcs only run from enemy if it is close
+- bug fix: research multiple turns isn't available when all spells are known
+- add fish, fishing pole, fisher profession
+- add magic spell Lightning Bolt
+- add weight, encumbrance and burden and feather magic spells
+- add inventory actions (eat, drink) to inventory dialog
+- bug fix: cannot talk with mindless undead anymore
+- bug fix: equipped items which are removed from inventory are no longer equipped
+- npcs now share knowledge when socializing
+- add brawling
+- add logo for window icons
+- commoner attributes are now generated randomly
+- constitution governs starting hit points
+
 v0.0.9
 
 - provide fade transition between tiles
