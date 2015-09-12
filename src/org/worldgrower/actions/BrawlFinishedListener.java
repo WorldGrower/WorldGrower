@@ -18,6 +18,6 @@ import org.worldgrower.WorldObject;
 
 public interface BrawlFinishedListener {
 
-	public void brawlFinished(WorldObject performer, WorldObject target);
+	public void brawlFinished(WorldObject performer, WorldObject target, int goldWon);
 
 }

@@ -236,4 +236,5 @@ public class Constants {
 	public static final IdProperty SACRIFICIAL_ALTAR_CREATOR_ID = new IdProperty("sacrificialAltarCreatorId", ALL_PROPERTIES);
 
 	public static final IdProperty BRAWL_OPPONENT_ID = new IdProperty("brawlOpponentId", ALL_PROPERTIES);
+	public static final IntProperty BRAWL_STAKE_GOLD = new IntProperty("brawlStakeGold", 0, null, NULLABLE, ALL_PROPERTIES);
 }

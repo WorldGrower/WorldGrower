@@ -27,10 +27,10 @@ import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
 
 public class GuiShowBrawlResult implements BrawlFinishedListener {
-	private static final String[] RESPONSES = new String[] { 
-		"I win this brawl",
-		"Yes, I crushed you",
-		"Next time, try to be at least a bit challenging"
+	private static final String[] RESPONSE_PREFIXES = new String[] { 
+		"I win this brawl.",
+		"Yes, I crushed you.",
+		"Next time, try to be at least a bit challenging."
 	};
 	
 	private ImageInfoReader imageInfoReader;
@@ -41,10 +41,19 @@ public class GuiShowBrawlResult implements BrawlFinishedListener {
 		world.getListenerByClass(BrawlListener.class).addBrawlFinishedListener(this);
 	}
 
+	private String[] getResponses(int goldWon) {
+		String[] responses = new String[RESPONSE_PREFIXES.length];
+		for(int i=0; i<RESPONSE_PREFIXES.length; i++) {
+			responses[i] = RESPONSE_PREFIXES[i] + " I get " + goldWon + " gold from you.";
+		}
+		return responses;
+	}
+	
 	@Override
-	public void brawlFinished(WorldObject performer, WorldObject target) {
+	public void brawlFinished(WorldObject performer, WorldObject target, int goldWon) {
 		Icon performerIcon = getWorldObjectIcon(performer);
 		Icon targetIcon = getWorldObjectIcon(target);
+		String[] responses = getResponses(goldWon);
 		
 		if (!performer.isControlledByAI()) {
 			String response = (String)JOptionPane.showInputDialog(
@@ -53,13 +62,13 @@ public class GuiShowBrawlResult implements BrawlFinishedListener {
                     "brawl result dialog",
                     JOptionPane.INFORMATION_MESSAGE,
                     targetIcon,
-                    RESPONSES,
-                    RESPONSES[0]);
+                    responses,
+                    responses[0]);
 		}
 		
 		if (!target.isControlledByAI()) {
 			JOptionPane.showMessageDialog(null,
-					RESPONSES[0],
+					responses[0],
 				    "brawl result dialog",
 				    JOptionPane.INFORMATION_MESSAGE,
 				    performerIcon);

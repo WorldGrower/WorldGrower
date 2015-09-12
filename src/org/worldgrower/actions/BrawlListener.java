@@ -31,10 +31,10 @@ public class BrawlListener implements ManagedOperationListener {
 	public void actionPerformed(ManagedOperation managedOperation, WorldObject performer, WorldObject target, int[] args, Object value) {
 		if (BrawlPropertyUtils.isBrawling(performer) && BrawlPropertyUtils.isBrawling(target) && managedOperation == Actions.NON_LETHAL_MELEE_ATTACK_ACTION) {
 			if (target.getProperty(Constants.HIT_POINTS) == 1) {
-				BrawlPropertyUtils.endBrawl(performer, target);
+				int goldWon = BrawlPropertyUtils.endBrawlWithPerformerVictory(performer, target);
 				
 				for(BrawlFinishedListener brawlFinishedListener : brawlFinishedListeners) {
-					brawlFinishedListener.brawlFinished(performer, target);
+					brawlFinishedListener.brawlFinished(performer, target, goldWon);
 				}
 			}
 		}

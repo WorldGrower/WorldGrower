@@ -19,15 +19,17 @@ import org.worldgrower.WorldObject;
 
 public class BrawlPropertyUtils {
 
-	public static void startBrawl(WorldObject performer, WorldObject target) {
+	public static void startBrawl(WorldObject performer, WorldObject target, int brawlStakeGold) {
 		performer.setProperty(Constants.BRAWL_OPPONENT_ID, target.getProperty(Constants.ID));
 		target.setProperty(Constants.BRAWL_OPPONENT_ID, performer.getProperty(Constants.ID));
 		
 		performer.setProperty(Constants.LEFT_HAND_EQUIPMENT, null);
 		performer.setProperty(Constants.RIGHT_HAND_EQUIPMENT, null);
+		performer.setProperty(Constants.BRAWL_STAKE_GOLD, brawlStakeGold);
 		
 		target.setProperty(Constants.LEFT_HAND_EQUIPMENT, null);
 		target.setProperty(Constants.RIGHT_HAND_EQUIPMENT, null);
+		target.setProperty(Constants.BRAWL_STAKE_GOLD, brawlStakeGold);
 	}
 	
 	public static boolean isBrawling(WorldObject worldObject) {
@@ -35,8 +37,24 @@ public class BrawlPropertyUtils {
 		return brawlOpponentId != null;
 	}
 
-	public static void endBrawl(WorldObject performer, WorldObject target) {
+	public static int endBrawlWithPerformerVictory(WorldObject performer, WorldObject target) {
 		performer.setProperty(Constants.BRAWL_OPPONENT_ID, null);
 		target.setProperty(Constants.BRAWL_OPPONENT_ID, null);
+		
+		int goldWon = calculateGoldWon(performer, target);		
+		performer.increment(Constants.GOLD, goldWon);
+		target.increment(Constants.GOLD, -goldWon);
+		
+		performer.setProperty(Constants.BRAWL_STAKE_GOLD, null);
+		target.setProperty(Constants.BRAWL_STAKE_GOLD, null);
+		
+		return goldWon;
+	}
+
+	private static int calculateGoldWon(WorldObject performer, WorldObject target) {
+		int brawlStakeGold = performer.getProperty(Constants.BRAWL_STAKE_GOLD);
+		int targetGold = target.getProperty(Constants.GOLD);
+		int goldWon = Math.min(brawlStakeGold, targetGold);
+		return goldWon;
 	}
 }

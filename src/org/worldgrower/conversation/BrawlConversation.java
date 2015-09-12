@@ -14,9 +14,11 @@
  *******************************************************************************/
 package org.worldgrower.conversation;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.goal.BrawlPropertyUtils;
@@ -29,6 +31,7 @@ public class BrawlConversation implements Conversation {
 	private static final int YES = 0;
 	private static final int NO = 1;
 	private static final int LATER = 2;
+	private static final int NOT_ENOUGH_GOLD = 3;
 	
 	@Override
 	public Response getReplyPhrase(ConversationContext conversationContext) {
@@ -36,8 +39,11 @@ public class BrawlConversation implements Conversation {
 		
 		WorldObject target = conversationContext.getTarget();
 		World world = conversationContext.getWorld();
+		int brawlStakeGold = conversationContext.getAdditionalValue();
 
-		if (GoalUtils.currentGoalHasLowerPriorityThan(Goals.REST_GOAL, target, world)) {
+		if (target.getProperty(Constants.GOLD) < brawlStakeGold) {
+			replyId = NOT_ENOUGH_GOLD;
+		} else if (GoalUtils.currentGoalHasLowerPriorityThan(Goals.REST_GOAL, target, world)) {
 			replyId = YES;
 		} else {
 			replyId = LATER;
@@ -48,7 +54,14 @@ public class BrawlConversation implements Conversation {
 
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, World world) {
-		return Arrays.asList(new Question(null, "I want to brawl with you. Do you accept?"));
+		List<Question> questions = new ArrayList<>();
+		for(int gold = 20; gold < 100; gold += 20) {
+			questions.add(new Question(null, "I want to brawl with you and I bet " + gold + " gold that I'm going to win. Do you accept?", gold));
+		}
+		
+		questions.add(new Question(null, "I want to brawl with you. Do you accept?", 0));
+		
+		return questions;
 	}
 	
 	@Override
@@ -59,7 +72,8 @@ public class BrawlConversation implements Conversation {
 		return Arrays.asList(
 			new Response(YES, "Yes, while we brawl, only unarmed non-lethal melee attacks are allowed."),
 			new Response(NO, "No"),
-			new Response(LATER, "I'd love to, but I'm currently " + world.getImmediateGoal(target, world).getDescription(world))
+			new Response(LATER, "I'd love to, but I'm currently " + world.getImmediateGoal(target, world).getDescription(world)),
+			new Response(NOT_ENOUGH_GOLD, "Not for the moment, I can't match your bet")
 			);
 	}
 
@@ -73,8 +87,9 @@ public class BrawlConversation implements Conversation {
 		if (replyIndex == YES) {
 			WorldObject performer = conversationContext.getPerformer();
 			WorldObject target = conversationContext.getTarget();
+			int brawlStakeGold = conversationContext.getAdditionalValue();
 			
-			BrawlPropertyUtils.startBrawl(performer, target);
+			BrawlPropertyUtils.startBrawl(performer, target, brawlStakeGold);
 		}
 	}
 	
