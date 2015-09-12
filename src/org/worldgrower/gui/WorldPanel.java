@@ -49,6 +49,7 @@ import org.worldgrower.attribute.LookDirection;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.gui.conversation.GuiRespondToQuestion;
 import org.worldgrower.gui.conversation.GuiShowBrawlResult;
+import org.worldgrower.history.HistoryItem;
 
 public class WorldPanel extends JPanel {
 
@@ -229,6 +230,7 @@ public class WorldPanel extends JPanel {
 				}
 			}
 		}
+		showHitPointsOfPlayerCharacterTarget(g);
 		
 		hitPointsProgressBar.setValue(playerCharacter.getProperty(Constants.HIT_POINTS));
 		foodTextProgressBar.setValue(playerCharacter.getProperty(Constants.FOOD));
@@ -236,6 +238,27 @@ public class WorldPanel extends JPanel {
 		energyProgressBar.setValue(playerCharacter.getProperty(Constants.ENERGY));
 		buildModeOutline.repaintBuildMode(g, getMouseLocation(), offsetX, offsetY, playerCharacter, world);
     }
+
+	private void showHitPointsOfPlayerCharacterTarget(Graphics g) {
+		HistoryItem lastPerformedOperation = world.getHistory().getLastPerformedOperation(playerCharacter);
+		if (lastPerformedOperation != null) {
+			WorldObject target = lastPerformedOperation.getOperationInfo().getTarget();
+			if (target.hasProperty(Constants.HIT_POINTS)
+					&& world.exists(target)
+					&& !target.equals(playerCharacter)) {
+				target = world.findWorldObject(Constants.ID, target.getProperty(Constants.ID));
+				int targetX = target.getProperty(Constants.X);
+				int targetY = target.getProperty(Constants.Y);
+				g.setColor(Color.RED);
+				
+				int x = (targetX+offsetX) * 48;
+				int y = (targetY+offsetY) * 48;
+				float percentageHitPointsLeft = (100f * target.getProperty(Constants.HIT_POINTS)) / target.getProperty(Constants.HIT_POINTS_MAX);
+				int lineLength = (int)(48 * (percentageHitPointsLeft / 100));
+				g.drawLine(x, y, x+lineLength, y);
+			}
+		}
+	}
 
 	private void drawWorldObject(Graphics g, WorldObject worldObject, LookDirection lookDirection, Image image, int x, int y) {
 		drawWorldObjectInPixels(g, worldObject, lookDirection, image, x, y, 0, 0);
