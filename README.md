@@ -12,20 +12,22 @@ It focuses on skills, dialogue, economy and society.
 
 ## Installation<a name="installation"></a>
 
+###Binary installation using installer
+
+*   [Windows installer](https://github.com/WorldGrower/WorldGrower/releases/download/0.1.0/WorldGrower_windows_0_1_0.exe)
+*   [Linux installer](https://github.com/WorldGrower/WorldGrower/releases/download/0.1.0/WorldGrower_unix_0_1_0.sh) (requires java 8)
+*   [MacOSX installer](https://github.com/WorldGrower/WorldGrower/releases/download/0.1.0/WorldGrower_macos_0_1_0.dmg)
+*	[Java installer](https://github.com/WorldGrower/WorldGrower/releases/download/0.1.0/worldgrower-0.1.0-install.jar)
+
 ###Binary installation of .zip file
 
-*   [Download .zip file](https://github.com/WorldGrower/WorldGrower/releases/download/0.0.9/worldgrower-0.0.9.zip)
+*   [Download .zip file](https://github.com/WorldGrower/WorldGrower/releases/download/0.1.0/worldgrower-0.1.0.zip)
 *   Extract the .zip file on the local filesystem
 *   Make sure [Java 8](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html) is installed.
 	If you're not sure, you can check your java version [here](https://www.java.com/verify).
 *	The easiest way to start WorldGrower is to run the .jar file by double-clicking it or to open it with java 8.
 *   To run under Windows, use worldgrower.cmd.
 *   To run under Linux, use worldgrower.sh.
-
-###Binary installation using installer
-
-*	[download installer](https://github.com/WorldGrower/WorldGrower/releases/download/0.0.9/worldgrower-0.0.9-install.jar)
-*	run the installer by double-clicking it or to open it with java.
 
 ###Common problems with binary installation
 
