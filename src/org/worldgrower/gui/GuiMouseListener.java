@@ -177,12 +177,18 @@ public class GuiMouseListener extends MouseAdapter {
 
 	private void addShowLegalActionsMenu(JPopupMenu menu) {
 		if (GroupPropertyUtils.performerIsLeaderOfVillagers(playerCharacter, world)) {
-			JMenuItem chooseDeityMenuItem = new JMenuItem(new GuiShowLegalActionsAction(playerCharacter, dungeonMaster, world, container));
-			chooseDeityMenuItem.setText("Show legal actions...");
-			menu.add(chooseDeityMenuItem);
+			JMenuItem showLegalActionsMenuItem = new JMenuItem(new GuiShowLegalActionsAction(playerCharacter, dungeonMaster, world, container));
+			showLegalActionsMenuItem.setText("Show legal actions...");
+			menu.add(showLegalActionsMenuItem);
 		}
 	}
 
+	private void addShowOrganizationsActionMenu(JPopupMenu menu) {
+		JMenuItem showOrganizationsMenuItem = new JMenuItem(new GuiShowOrganizationsAction(playerCharacter, world, container));
+		showOrganizationsMenuItem.setText("Organization Membership Overview...");
+		menu.add(showOrganizationsMenuItem);
+	}
+	
 	private void addCreateOrganizationMenu(JPopupMenu menu) {
 		JMenuItem createOrganizationMenuItem = new JMenuItem(new GuiCreateOrganizationAction(playerCharacter, imageInfoReader, world, (WorldPanel)container, dungeonMaster));
 		createOrganizationMenuItem.setText("Create Organization...");
@@ -264,6 +270,8 @@ public class GuiMouseListener extends MouseAdapter {
 		JMenuItem magicOverviewMenuItem = new JMenuItem(magicOverviewAction);
 		magicOverviewMenuItem.setText("Magic Overview");
 		menu.add(magicOverviewMenuItem);
+		
+		addShowOrganizationsActionMenu(menu);
 	}
 
 	private void addBuildActions(JPopupMenu menu) {
