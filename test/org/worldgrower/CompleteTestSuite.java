@@ -72,7 +72,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestKnowledgeMap.class,
 	UTestDemandsConversation.class,
 	UTestWorldObjectImpl.class,
-	UTestConditions.class
+	UTestConditions.class,
+	UTestDefaultGoalObstructedHandler.class
 })
 public class CompleteTestSuite {
 }

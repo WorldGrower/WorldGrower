@@ -68,7 +68,7 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 		}
 	}
 
-	private boolean areBrawling(WorldObject performer, WorldObject actionTarget, ManagedOperation managedOperation) {
+	static boolean areBrawling(WorldObject performer, WorldObject actionTarget, ManagedOperation managedOperation) {
 		return BrawlPropertyUtils.isBrawling(performer) 
 				&& BrawlPropertyUtils.isBrawling(actionTarget) 
 				&& managedOperation == Actions.NON_LETHAL_MELEE_ATTACK_ACTION
