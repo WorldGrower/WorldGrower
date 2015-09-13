@@ -26,6 +26,7 @@ import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.WorldObjectProperties;
 import org.worldgrower.condition.Conditions;
+import org.worldgrower.condition.CreatureTypeChangedListeners;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.curse.Curse;
 import org.worldgrower.goal.Goal;
@@ -119,8 +120,8 @@ public class WorldObjectImpl implements WorldObject, Serializable {
 	}
 	
 	@Override
-	public void onTurn(World world) {
-		onTurn.onTurn(this, world);
+	public void onTurn(World world, CreatureTypeChangedListeners creatureTypeChangedListeners) {
+		onTurn.onTurn(this, world, creatureTypeChangedListeners);
 	}
 	
 	@Override

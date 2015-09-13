@@ -20,13 +20,14 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.VotingPropertyUtils;
 import org.worldgrower.attribute.IdMap;
+import org.worldgrower.condition.CreatureTypeChangedListeners;
 
 public class VotingBoxOnTurn implements OnTurn {
 
 
 	
 	@Override
-	public void onTurn(WorldObject worldObject, World world) {
+	public void onTurn(WorldObject worldObject, World world, CreatureTypeChangedListeners creatureTypeChangedListeners) {
 		
 		worldObject.increment(Constants.TURN_COUNTER, 1);
 		

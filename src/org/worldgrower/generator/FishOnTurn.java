@@ -21,6 +21,7 @@ import org.worldgrower.OnTurn;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.condition.CreatureTypeChangedListeners;
 import org.worldgrower.generator.WorldGenerator.AddWorldObjectFunction;
 import org.worldgrower.goal.GoalUtils;
 import org.worldgrower.goal.LocationUtils;
@@ -35,7 +36,7 @@ public class FishOnTurn implements OnTurn {
 	}
 	
 	@Override
-	public void onTurn(WorldObject worldObject, World world) {
+	public void onTurn(WorldObject worldObject, World world, CreatureTypeChangedListeners creatureTypeChangedListeners) {
 		
 		if (world.getCurrentTurn().getValue() % 200 == 0) {
 			int performerX = worldObject.getProperty(Constants.X);

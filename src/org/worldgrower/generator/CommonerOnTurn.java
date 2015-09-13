@@ -22,6 +22,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.Background;
+import org.worldgrower.condition.CreatureTypeChangedListeners;
 import org.worldgrower.goal.DrownUtils;
 import org.worldgrower.goal.GoalUtils;
 import org.worldgrower.goal.WeightPropertyUtils;
@@ -37,10 +38,10 @@ public class CommonerOnTurn implements OnTurn {
 	}
 
 	@Override
-	public void onTurn(WorldObject worldObject, World world) {
+	public void onTurn(WorldObject worldObject, World world, CreatureTypeChangedListeners creatureTypeChangedListeners) {
 		propertiesOnTurn(worldObject);
 		
-		worldObject.getProperty(Constants.CONDITIONS).onTurn(worldObject, world);
+		worldObject.getProperty(Constants.CONDITIONS).onTurn(worldObject, world, creatureTypeChangedListeners);
 		Background background = worldObject.getProperty(Constants.BACKGROUND);
 		if (background != null) {
 			background.checkForNewGoals(worldObject, world);

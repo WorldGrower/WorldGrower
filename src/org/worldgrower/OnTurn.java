@@ -16,10 +16,12 @@ package org.worldgrower;
 
 import java.io.Serializable;
 
+import org.worldgrower.condition.CreatureTypeChangedListeners;
+
 /**
  * Each time a turn passes, the onTurn method is called to process ongoing effects on a WorldObject.
  */
 public interface OnTurn extends Serializable {
 
-	public void onTurn(WorldObject worldObject, World world);
+	public void onTurn(WorldObject worldObject, World world, CreatureTypeChangedListeners creatureTypeChangedListeners);
 }

@@ -18,6 +18,7 @@ import java.util.List;
 
 import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.condition.CreatureTypeChangedListeners;
 import org.worldgrower.goal.Goal;
 
 /**
@@ -36,7 +37,7 @@ public interface WorldObject {
 	public ManagedOperation getOperation(ManagedOperation operation);
 	public List<ManagedOperation> getOperations();
 	
-	public void onTurn(World world);
+	public void onTurn(World world, CreatureTypeChangedListeners creatureTypeChangedListeners);
 	public boolean hasIntelligence();
 	public boolean isControlledByAI();
 	public boolean canWorldObjectPerformAction(ManagedOperation operation);

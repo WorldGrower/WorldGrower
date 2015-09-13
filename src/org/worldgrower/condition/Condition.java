@@ -31,7 +31,7 @@ public interface Condition extends Serializable {
 	public boolean canTakeAction();
 	public boolean canMove();
 	public String getDescription();
-	public void onTurn(WorldObject worldObject, World world, int startTurns);	
+	public void onTurn(WorldObject worldObject, World world, int startTurns, CreatureTypeChangedListeners creatureTypeChangedListeners);	
 	public boolean isDisease();
 	public void conditionEnds(WorldObject worldObject);
 	public void perform(WorldObject performer, WorldObject target, int[] args, ManagedOperation managedOperation, World world);

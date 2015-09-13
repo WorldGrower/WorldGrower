@@ -36,7 +36,7 @@ public class CocoonedCondition implements Condition {
 	}
 
 	@Override
-	public void onTurn(WorldObject worldObject, World world, int startTurn) {
+	public void onTurn(WorldObject worldObject, World world, int startTurn, CreatureTypeChangedListeners creatureTypeChangedListeners) {
 	}
 	
 	@Override

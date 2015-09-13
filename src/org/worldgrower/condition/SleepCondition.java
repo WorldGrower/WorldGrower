@@ -38,7 +38,7 @@ public class SleepCondition implements Condition {
 	}
 
 	@Override
-	public void onTurn(WorldObject worldObject, World world, int startTurn) {
+	public void onTurn(WorldObject worldObject, World world, int startTurn, CreatureTypeChangedListeners creatureTypeChangedListeners) {
 		Actions.REST_ACTION.execute(worldObject, worldObject, new int[0], world);
 	}
 	

@@ -39,10 +39,10 @@ public class UTestConditions {
 		World world = new WorldImpl(0, 0, null, null);
 		conditions.addCondition(Condition.COCOONED_CONDITION, 2, world);
 		
-		conditions.onTurn(null, world);
+		conditions.onTurn(null, world, null);
 		assertEquals(true, conditions.hasCondition(Condition.COCOONED_CONDITION));
 		
-		conditions.onTurn(null, world);
+		conditions.onTurn(null, world, null);
 		assertEquals(false, conditions.hasCondition(Condition.COCOONED_CONDITION));
 	}
 	

@@ -40,7 +40,7 @@ public class BurningCondition implements DeadlyCondition {
 	}
 
 	@Override
-	public void onTurn(WorldObject worldObject, World world, int startTurn) {
+	public void onTurn(WorldObject worldObject, World world, int startTurn, CreatureTypeChangedListeners creatureTypeChangedListeners) {
 		decreaseHitPoints(worldObject, this, 5);
 		
 		List<WorldObject> flammableAdjacentWorldObjects = world.findWorldObjects(w -> Reach.distance(worldObject, w) <= 2 && w.hasProperty(Constants.FLAMMABLE) && w.getProperty(Constants.FLAMMABLE));

@@ -18,6 +18,7 @@ import java.util.List;
 
 import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.condition.CreatureTypeChangedListeners;
 import org.worldgrower.goal.Goal;
 
 /**
@@ -83,8 +84,8 @@ public class WorldObjectFacade implements WorldObject {
 	}
 
 	@Override
-	public void onTurn(World world) {
-		originalWorldObject.onTurn(world);
+	public void onTurn(World world, CreatureTypeChangedListeners creatureTypeChangedListeners) {
+		originalWorldObject.onTurn(world, creatureTypeChangedListeners);
 	}
 
 	@Override

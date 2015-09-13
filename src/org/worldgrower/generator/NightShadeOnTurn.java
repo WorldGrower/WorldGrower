@@ -18,12 +18,13 @@ import org.worldgrower.Constants;
 import org.worldgrower.OnTurn;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.condition.CreatureTypeChangedListeners;
 import org.worldgrower.goal.DrownUtils;
 
 public class NightShadeOnTurn implements OnTurn {
 
 	@Override
-	public void onTurn(WorldObject worldObject, World world) {
+	public void onTurn(WorldObject worldObject, World world, CreatureTypeChangedListeners creatureTypeChangedListeners) {
 		worldObject.increment(Constants.NIGHT_SHADE_SOURCE, 1);
 		DrownUtils.checkForDrowning(worldObject, world);
 	}

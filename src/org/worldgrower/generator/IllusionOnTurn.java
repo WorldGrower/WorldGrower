@@ -18,11 +18,12 @@ import org.worldgrower.Constants;
 import org.worldgrower.OnTurn;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.condition.CreatureTypeChangedListeners;
 
 public class IllusionOnTurn implements OnTurn {
 
 	@Override
-	public void onTurn(WorldObject worldObject, World world) {
+	public void onTurn(WorldObject worldObject, World world, CreatureTypeChangedListeners creatureTypeChangedListeners) {
 		worldObject.increment(Constants.TURNS_TO_LIVE, -1);
 		
 		int turnsToLive = worldObject.getProperty(Constants.TURNS_TO_LIVE);

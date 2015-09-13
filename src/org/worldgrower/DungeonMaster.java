@@ -20,6 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.worldgrower.actions.Actions;
+import org.worldgrower.condition.CreatureTypeChangedListeners;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.history.HistoryItem;
 
@@ -32,7 +33,7 @@ public class DungeonMaster implements Serializable {
 	private final GoalCalculator goalCalculator = new GoalCalculator();
 	private TaskCalculator taskCalculator = new TaskCalculatorImpl();
 	
-	public void runWorld(World world) {
+	public void runWorld(World world, CreatureTypeChangedListeners creatureTypeChangedListeners) {
 		List<WorldObject> worldObjects = new ArrayList<>(world.getWorldObjects());
 		
 		for(WorldObject worldObject : worldObjects) {
@@ -40,7 +41,7 @@ public class DungeonMaster implements Serializable {
 				if (worldObject.hasIntelligence() && worldObject.isControlledByAI()) {
 					runWorldObject(worldObject, world);
 				}			
-				worldObject.onTurn(world);
+				worldObject.onTurn(world, creatureTypeChangedListeners);
 			}
 		}
 		world.nextTurn();
