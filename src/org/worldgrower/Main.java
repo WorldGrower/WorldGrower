@@ -59,6 +59,7 @@ import org.worldgrower.gui.WorldPanel;
 import org.worldgrower.gui.start.CharacterAttributes;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.profession.PlayerCharacterProfession;
+import org.worldgrower.profession.Professions;
 import org.worldgrower.terrain.TerrainType;
 
 /**
@@ -140,7 +141,14 @@ public class Main {
 		PlantGenerator.generateBerryBush(3, 3, world);
 		
 		for(int i=0; i<villagerCount; i++) {
-			commonerGenerator.generateCommoner(1, 1, world, organization);
+			int id = commonerGenerator.generateCommoner(1, 1, world, organization);
+			//TODO: temporary
+			if (i == 0) {
+				world.findWorldObject(Constants.ID, id).setProperty(Constants.PROFESSION, Professions.ARENA_OWNER_PROFESSION);
+			}
+			if (i == 1) {
+				world.findWorldObject(Constants.ID, id).setProperty(Constants.PROFESSION, Professions.ARENA_FIGHTER_PROFESSION);
+			}
 		}
 		
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
@@ -202,6 +210,8 @@ public class Main {
 		properties.put(Constants.CONDITIONS, new Conditions());
 		properties.put(Constants.HOUSES, new IdList());
 		properties.put(Constants.KNOWLEDGE_MAP, new KnowledgeMap());
+		properties.put(Constants.ARENA_IDS, new IdList());
+		properties.put(Constants.ARENA_FIGHTER_IDS, new IdList());
 		
 		properties.put(Constants.HEAD_EQUIPMENT, null);
 		properties.put(Constants.TORSO_EQUIPMENT, null);

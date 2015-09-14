@@ -358,24 +358,28 @@ public class BuildingGenerator {
 		return id;
 	}
 	
-	public static void generateArena(int x, int y, World world, double useSkill) {
-		createArenaVertical(x, y, world);
-		createArenaHorizontal(x+1, y, world);
-		createArenaHorizontal(x+6, y, world);
-		createArenaVertical(x+10, y, world);
-		createArenaHorizontal(x+1, y+7, world);
-		createArenaHorizontal(x+6, y+7, world);
+	public static IdList generateArena(int x, int y, World world, double useSkill) {
+		IdList idList = new IdList();
+		idList.add(createArenaVertical(x, y, world));
+		idList.add(createArenaHorizontal(x+1, y, world));
+		idList.add(createArenaHorizontal(x+6, y, world));
+		idList.add(createArenaVertical(x+10, y, world));
+		idList.add(createArenaHorizontal(x+1, y+7, world));
+		idList.add(createArenaHorizontal(x+6, y+7, world));
+		
+		return idList;
 	}
 	
-	private static void createArenaVertical(int x, int y, World world) {
+	private static int createArenaVertical(int x, int y, World world) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		int id = world.generateUniqueId();
 		
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 1);
 		properties.put(Constants.HEIGHT, 8);
 		properties.put(Constants.NAME, "Arena vertical");
-		properties.put(Constants.ID, world.generateUniqueId());
+		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.ARENA_VERTICAL);
 		properties.put(Constants.HIT_POINTS, 100);
 		properties.put(Constants.HIT_POINTS_MAX, 100);
@@ -384,17 +388,20 @@ public class BuildingGenerator {
 		
 		WorldObject arenaVertical = new WorldObjectImpl(properties);
 		world.addWorldObject(arenaVertical);
+		
+		return id;
 	}
 	
-	private static void createArenaHorizontal(int x, int y, World world) {
+	private static int createArenaHorizontal(int x, int y, World world) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		int id = world.generateUniqueId();
 		
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 4);
 		properties.put(Constants.HEIGHT, 1);
 		properties.put(Constants.NAME, "Arena horizontal");
-		properties.put(Constants.ID, world.generateUniqueId());
+		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.ARENA_HORIZONTAL);
 		properties.put(Constants.HIT_POINTS, 100);
 		properties.put(Constants.HIT_POINTS_MAX, 100);
@@ -403,5 +410,7 @@ public class BuildingGenerator {
 		
 		WorldObject arenaHorizontal = new WorldObjectImpl(properties);
 		world.addWorldObject(arenaHorizontal);
+		
+		return id;
 	}
 }

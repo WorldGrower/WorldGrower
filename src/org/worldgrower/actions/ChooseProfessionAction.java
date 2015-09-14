@@ -55,7 +55,9 @@ public class ChooseProfessionAction implements ManagedOperation {
 			new ProfessionInfo(Professions.CARPENTER_PROFESSION, 0.8, 1.0, 0.8, 1.0, 1.4, 1.1),
 			new ProfessionInfo(Professions.WIZARD_PROFESSION, 0.8, 0.8, 1.0, 1.4, 1.1, 0.9),
 			new ProfessionInfo(Professions.NECROMANCER_PROFESSION, 0.8, 0.8, 1.0, 1.4, 1.1, 0.9),
-			new ProfessionInfo(Professions.FISHER_PROFESSION, 0.8, 1.0, 0.8, 1.0, 1.4, 1.1)
+			new ProfessionInfo(Professions.FISHER_PROFESSION, 0.8, 1.0, 0.8, 1.0, 1.4, 1.1),
+			new ProfessionInfo(Professions.ARENA_OWNER_PROFESSION, 0.8, 0.8, 0.8, 1.1, 1.1, 1.4),
+			new ProfessionInfo(Professions.ARENA_FIGHTER_PROFESSION, 1.4, 1.4, 0.8, 0.8, 0.8, 0.8)
 			);
 	
 	@Override
@@ -206,7 +208,12 @@ public class ChooseProfessionAction implements ManagedOperation {
 		for(ProfessionInfo professionInfo : PROFESSION_INFOS) {
 			Integer professionCountInteger = professionCounts.get(professionInfo.getProfession());
 			int professionCount = (professionCountInteger != null ? professionCountInteger.intValue() : 0);
-			result.add(new ProfessionEvaluation(professionInfo.getProfession(), (worldObjects.size() - professionCount) * 5));
+			if (professionInfo.getProfession() == Professions.ARENA_OWNER_PROFESSION) {
+				int evaluation = professionCount > 0 ? Integer.MIN_VALUE : (worldObjects.size() - professionCount) * 5;
+				result.add(new ProfessionEvaluation(professionInfo.getProfession(), evaluation));
+			} else {
+				result.add(new ProfessionEvaluation(professionInfo.getProfession(), (worldObjects.size() - professionCount) * 5));
+			}
 		}
 		Collections.sort(result);
 		return result;
@@ -271,6 +278,7 @@ public class ChooseProfessionAction implements ManagedOperation {
 			result.add(new ProfessionEvaluation(Professions.TAX_COLLECTOR_PROFESSION, Integer.MIN_VALUE));
 			result.add(new ProfessionEvaluation(Professions.SHERIFF_PROFESSION, Integer.MIN_VALUE));
 		}
+		
 		return result;
 	}
 	

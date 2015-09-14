@@ -102,4 +102,6 @@ public class Goals {
 	public static final MarkWoodAsSellableGoal MARK_WOOD_AS_SELLABLE_GOAL = new MarkWoodAsSellableGoal();
 	public static final MarkStoneAsSellableGoal MARK_STONE_AS_SELLABLE_GOAL = new MarkStoneAsSellableGoal();
 	public static final BrawlGoal BRAWL_GOAL = new BrawlGoal();
+	public static final ArenaGoal ARENA_GOAL = new ArenaGoal();
+	public static final ArenaFightGoal ARENA_FIGHT_GOAL = new ArenaFightGoal();
 }

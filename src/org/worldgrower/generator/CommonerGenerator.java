@@ -121,6 +121,8 @@ public class CommonerGenerator implements Serializable {
 		properties.put(Constants.HOUSES, new IdList());
 		properties.put(Constants.GROUP, new IdList().add(organization));
 		properties.put(Constants.KNOWLEDGE_MAP, new KnowledgeMap());
+		properties.put(Constants.ARENA_IDS, new IdList());
+		properties.put(Constants.ARENA_FIGHTER_IDS, new IdList());
 		
 		properties.put(Constants.DAMAGE, 8);
 		properties.put(Constants.ARMOR, 10);

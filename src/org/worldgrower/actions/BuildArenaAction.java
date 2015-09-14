@@ -21,6 +21,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.goal.GoalUtils;
@@ -34,8 +35,9 @@ public class BuildArenaAction implements BuildAction {
 		int x = (Integer)target.getProperty(Constants.X);
 		int y = (Integer)target.getProperty(Constants.Y);
 	
-		BuildingGenerator.generateArena(x, y, world, SkillUtils.useSkill(performer, Constants.CARPENTRY_SKILL));
+		IdList idList = BuildingGenerator.generateArena(x, y, world, SkillUtils.useSkill(performer, Constants.CARPENTRY_SKILL));
 		
+		performer.setProperty(Constants.ARENA_IDS, idList);
 		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.STONE, REQUIRED_STONE);
 	}
 

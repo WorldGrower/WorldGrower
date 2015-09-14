@@ -82,6 +82,8 @@ public class Conversations implements Serializable {
 	public static final DeityFollowersConversation DEITY_FOLLOWERS_CONVERSATION = new DeityFollowersConversation();
 	public static final ProfessionPractitionersConversation PROFESSION_PRACTITIONERS_CONVERSATION = new ProfessionPractitionersConversation();
 	public static final BrawlConversation BRAWL_CONVERSATION = new BrawlConversation();
+	public static final BecomeArenaFighterConversation BECOME_ARENA_FIGHTER_CONVERSATION = new BecomeArenaFighterConversation();
+	public static final StartArenaFightConversation START_ARENA_FIGHT_CONVERSATION = new StartArenaFightConversation();
 	
 	private static final List<Conversation> CONVERSATIONS = new ArrayList<>();
 	private static final Map<Conversation, ConversationCategory> CONVERSATION_CATEGORIES = new HashMap<>();
@@ -136,6 +138,8 @@ public class Conversations implements Serializable {
 		add(DEITY_FOLLOWERS_CONVERSATION, ConversationCategory.SHARE_KNOWLEDGE);
 		add(PROFESSION_PRACTITIONERS_CONVERSATION, ConversationCategory.SHARE_KNOWLEDGE);
 		add(BRAWL_CONVERSATION, ConversationCategory.DEMAND);
+		add(BECOME_ARENA_FIGHTER_CONVERSATION, ConversationCategory.DEMAND);
+		add(START_ARENA_FIGHT_CONVERSATION, ConversationCategory.DEMAND);
 	}
 	
 	public static int[] createArgs(Conversation conversation) {
