@@ -61,6 +61,15 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.+'
 }
 
+jacoco {
+    applyTo run
+}
+
+task applicationCodeCoverageReport(type:JacocoReport){
+    executionData run
+    sourceSets sourceSets.main
+}
+
 jacocoTestReport {
     reports {
         xml.enabled false
