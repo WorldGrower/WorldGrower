@@ -61,18 +61,8 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.+'
 }
 
-jacocoTestReport {
-    reports {
-        xml.enabled false
-        csv.enabled false
-        html.destination "${buildDir}/jacocoHtml"
-    }
-}
-
 test {
 }
-
-test.finalizedBy jacocoTestReport
 
 task release(dependsOn: ['jar', 'test']) << {
 	File releaseDir = new File(buildDir, 'release')
