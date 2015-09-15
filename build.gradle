@@ -61,11 +61,6 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.+'
 }
 
-task applicationCodeCoverageReport(type:JacocoReport){
-    executionData run
-    sourceSets sourceSets.main
-}
-
 jacocoTestReport {
     reports {
         xml.enabled false
@@ -76,6 +71,8 @@ jacocoTestReport {
 
 test {
 }
+
+test.finalizedBy jacocoTestReport
 
 task release(dependsOn: ['jar', 'test']) << {
 	File releaseDir = new File(buildDir, 'release')
