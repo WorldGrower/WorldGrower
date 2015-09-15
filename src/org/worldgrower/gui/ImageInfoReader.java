@@ -45,6 +45,7 @@ public class ImageInfoReader {
     	Sprites sprites3d = readSprites3D();
     	Sprites sprites3e = readSprites3E();
     	Sprites sprites3f = readSprites3F();
+    	Sprites sprites3g = readSprites3G();
     	Sprites objects = readObjects();
     	Sprites monsters = readMonsters();
     	Sprites orcSoldier = readOrcSoldier();
@@ -282,6 +283,15 @@ public class ImageInfoReader {
 		add(ImageIds.ARENA_WALL, tileE.getSubImage(2, 3, 1, 1));
 		createArenaVertical();
 		createArenaHorizontal();
+		
+		addCharacter(ImageIds.MALE_3G_1, sprites3g, 0, 0, 1, 1);
+		addCharacter(ImageIds.FEMALE_3G_1, sprites3g, 3, 0, 1, 1);
+		addCharacter(ImageIds.MALE_3G_2, sprites3g, 6, 0, 1, 1);
+		addCharacter(ImageIds.FEMALE_3G_2, sprites3g, 9, 0, 1, 1);
+		addCharacter(ImageIds.MALE_3G_3, sprites3g, 0, 4, 1, 1);
+		addCharacter(ImageIds.FEMALE_3G_3, sprites3g, 3, 4, 1, 1);
+		addCharacter(ImageIds.MALE_3G_4, sprites3g, 6, 4, 1, 1);
+		addCharacter(ImageIds.FEMALE_3G_4, sprites3g, 9, 4, 1, 1);
     }
 
 	private void createArenaVertical() {
@@ -442,6 +452,10 @@ public class ImageInfoReader {
 
     private static Sprites readSprites3F() throws IOException {
 		return readImages("vx_chara03_f.png", 32, 48, 8, 12);
+	}
+    
+    private static Sprites readSprites3G() throws IOException {
+		return readImages("vx_chara03_g.png", 32, 48, 8, 12);
 	}
     
 	private static Sprites readObjects() throws IOException {

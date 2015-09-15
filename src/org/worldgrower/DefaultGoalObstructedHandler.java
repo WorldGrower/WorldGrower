@@ -20,6 +20,7 @@ import java.util.Map;
 
 import org.worldgrower.actions.Actions;
 import org.worldgrower.condition.Condition;
+import org.worldgrower.goal.ArenaPropertyUtils;
 import org.worldgrower.goal.BrawlPropertyUtils;
 import org.worldgrower.goal.FacadeUtils;
 import org.worldgrower.goal.GroupPropertyUtils;
@@ -53,7 +54,7 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 	}
 
 	private void alterRelationships(WorldObject performer, WorldObject target, WorldObject actionTarget, ManagedOperation managedOperation, World world, int value, WorldObject performerFacade, WorldObject targetFacade) {
-		if (!areBrawling(performer, actionTarget, managedOperation)) {
+		if (!areBrawling(performer, actionTarget, managedOperation) && !areFightingInArena(performer, actionTarget, managedOperation)) {
 			if (world.exists(performer) && world.exists(target) && world.exists(performerFacade) && world.exists(targetFacade)) {
 				performer.getProperty(Constants.RELATIONSHIPS).incrementValue(targetFacade.getProperty(Constants.ID), value);
 				target.getProperty(Constants.RELATIONSHIPS).incrementValue(performerFacade.getProperty(Constants.ID), value);
@@ -76,6 +77,10 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 				&& performer.getProperty(Constants.RIGHT_HAND_EQUIPMENT) == null;
 	}
 
+	static boolean areFightingInArena(WorldObject performer, WorldObject actionTarget, ManagedOperation managedOperation) {
+		return ArenaPropertyUtils.peopleAreFightingEachOther(performer, actionTarget);
+	}
+	
 	//TODO: clean up this code
 	public static boolean performerAttacked(ManagedOperation managedOperation) {
 		Class<?> actionClass = managedOperation.getClass();

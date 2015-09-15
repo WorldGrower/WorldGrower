@@ -27,6 +27,7 @@ import javax.swing.JFrame;
 import javax.swing.ToolTipManager;
 
 import org.worldgrower.actions.Actions;
+import org.worldgrower.actions.ArenaFightListener;
 import org.worldgrower.actions.BrawlListener;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdRelationshipMap;
@@ -53,7 +54,6 @@ import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.HitPointPropertyUtils;
 import org.worldgrower.goal.MeleeDamagePropertyUtils;
 import org.worldgrower.gui.CommonerImageIds;
-import org.worldgrower.gui.GuiShowEventHappenedAction;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.WorldPanel;
 import org.worldgrower.gui.start.CharacterAttributes;
@@ -96,6 +96,7 @@ public class Main {
 		world.addListener(new CurseListener(world));
 		world.addListener(new ConditionListener(world));
 		world.addListener(new BrawlListener());
+		world.addListener(new ArenaFightListener());
 	}
 
 	private static void addEnemiesAndFriendlyAnimals(int enemyDensity, World world, int seed) {

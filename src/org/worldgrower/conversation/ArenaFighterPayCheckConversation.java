@@ -25,23 +25,21 @@ import org.worldgrower.goal.ArenaPropertyUtils;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
 
-public class StartArenaFightConversation implements Conversation {
+public class ArenaFighterPayCheckConversation implements Conversation {
 
 	private static final int YES = 0;
 	private static final int NO = 1;
-	private static final int WAIT = 2;
 	
 	@Override
 	public Response getReplyPhrase(ConversationContext conversationContext) {
+		WorldObject performer = conversationContext.getPerformer();
 		WorldObject target = conversationContext.getTarget();
-		World world = conversationContext.getWorld();
 		
 		final int replyId;
-		int peopleScheduledForFight = ArenaPropertyUtils.getPeopleScheduledForArenaFight(target, world).size();
-		if (peopleScheduledForFight == 1) {
+		int payCheck = performer.getProperty(Constants.ARENA_PAY_CHECK_GOLD);
+		int targetGold = target.getProperty(Constants.GOLD);
+		if (targetGold >= payCheck) {
 			replyId = YES;
-		} else if (peopleScheduledForFight == 0) {
-			replyId = WAIT;
 		} else {
 			replyId = NO;
 		}
@@ -52,17 +50,17 @@ public class StartArenaFightConversation implements Conversation {
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, World world) {
 		return Arrays.asList(
-			new Question(null, "I would like to fight in the arena. Can I fight?")
+			new Question(null, "I'm here to receive my reward for participating in the arena")
 			);
 	}
 
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
+		WorldObject performer = conversationContext.getPerformer();
+		int payCheck = performer.getProperty(Constants.ARENA_PAY_CHECK_GOLD);
 		return Arrays.asList(
-			new Response(YES, "yes, you can start right away"),
-			new Response(NO, "no, there is already another fight"),
-			new Response(WAIT, "yes, but you'll have to wait until an opponent comes forth")
-			);
+			new Response(YES, "yes, here is your " + payCheck + " gold"),
+			new Response(NO, "no"));
 	}
 	
 	@Override
@@ -71,15 +69,14 @@ public class StartArenaFightConversation implements Conversation {
 		WorldObject target = conversationContext.getTarget();
 		World world = conversationContext.getWorld();
 		
-		List<WorldObject> peopleScheduledForFight = ArenaPropertyUtils.getPeopleScheduledForArenaFight(target, world);
 		if (replyIndex == YES) {
-			WorldObject opponent = peopleScheduledForFight.get(0);
+			int payCheck = performer.getProperty(Constants.ARENA_PAY_CHECK_GOLD);
 			
-			ArenaPropertyUtils.startArenaFight(performer, target, world, opponent);
-		} else if (replyIndex == WAIT) {
-			performer.setProperty(Constants.ARENA_OPPONENT_ID, -1);
+			performer.setProperty(Constants.ARENA_PAY_CHECK_GOLD, null);
+			performer.increment(Constants.GOLD, payCheck);
+			target.increment(Constants.GOLD, -payCheck);
 		} else if (replyIndex == NO) {
-			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -5, Actions.TALK_ACTION, Conversations.createArgs(this), world);
+			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -50, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 		}
 	}
 
@@ -87,11 +84,11 @@ public class StartArenaFightConversation implements Conversation {
 	public boolean isConversationAvailable(WorldObject performer, WorldObject target, WorldObject subject, World world) {
 		return ArenaPropertyUtils.worldObjectOwnsArena(target)
 				&& ArenaPropertyUtils.personIsArenaFighter(performer, target)
-				&& !ArenaPropertyUtils.personIsScheduledToFightInArena(performer, target);
+				&& ArenaPropertyUtils.personCanCollectPayCheck(performer);
 	}
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, World world) {
-		return "looking to start an arena fight";
+		return "looking for arena fight paycheck";
 	}
 }

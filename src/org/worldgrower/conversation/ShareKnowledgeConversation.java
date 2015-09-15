@@ -71,8 +71,8 @@ public class ShareKnowledgeConversation implements Conversation {
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
-			new Response(0, "Thanks for the information"),
-			new Response(1, "Get lost")
+			new Response(THANKS, "Thanks for the information"),
+			new Response(GET_LOST, "Get lost")
 			);
 	}
 
@@ -99,10 +99,17 @@ public class ShareKnowledgeConversation implements Conversation {
 		target.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(subject, knowledgeList.get(knowledgeIndex));
 		
 		RelationshipPropertyUtils.changeRelationshipValue(performer, target, 50, Actions.TALK_ACTION, Conversations.createArgs(this), world);
+	
+		//TODO: if there are more return values, set return value Object on execute method, search for any other TODO like this
+		world.getHistory().setNextAdditionalValue(replyIndex);
 	}
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, World world) {
 		return "sharing knowledge";
+	}
+	
+	public boolean previousAnswerWasGetLost(List<Integer> previousResponseIds) {
+		return previousResponseIds.contains(GET_LOST);
 	}
 }

@@ -173,4 +173,8 @@ public class OperationInfo implements Serializable {
 	public boolean matches(WorldObject performer, WorldObject target, ManagedOperation managedOperation) {
 		return ((this.performer.equals(performer)) && (this.target.equals(target)) && (this.managedOperation == managedOperation));
 	}
+
+	public boolean firstArgsIs(int i) {
+		return args[0] == i;
+	}
 }

@@ -75,7 +75,7 @@ public class MinorHealConversation implements Conversation {
 			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -50, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 		}
 		
-		//TODO: if there are more return values, set return value Object on execute method
+		//TODO: if there are more return values, set return value Object on execute method, search for any other TODO like this
 		world.getHistory().setNextAdditionalValue(replyIndex);
 	}
 

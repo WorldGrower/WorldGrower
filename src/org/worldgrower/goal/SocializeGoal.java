@@ -15,6 +15,7 @@
 package org.worldgrower.goal;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
@@ -23,7 +24,9 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.IdMap;
 import org.worldgrower.attribute.KnowledgeMap;
+import org.worldgrower.conversation.Conversation;
 import org.worldgrower.conversation.Conversations;
+import org.worldgrower.history.HistoryItem;
 
 public class SocializeGoal implements Goal {
 
@@ -58,7 +61,7 @@ public class SocializeGoal implements Goal {
 	}
 
 	private OperationInfo getShareKnowledgeOperationInfo(WorldObject performer, World world) {
-		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.TALK_ACTION, w -> KnowledgePropertyUtils.performerKnowsMoreThanTarget(performer, w), world);
+		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.TALK_ACTION, w -> isTargetForShareKnowledgeConversation(performer, w, world), world);
 		for(WorldObject target : targets) {
 			if (performer.getProperty(Constants.RELATIONSHIPS).getValue(target) >= 0) {
 				KnowledgeMap performerOnlyKnowledge = KnowledgePropertyUtils.getPerformerOnlyKnowledge(performer, target);
@@ -72,6 +75,17 @@ public class SocializeGoal implements Goal {
 			}
 		}
 		return null;
+	}
+
+	private boolean isTargetForShareKnowledgeConversation(WorldObject performer, WorldObject target, World world) {
+		return KnowledgePropertyUtils.performerKnowsMoreThanTarget(performer, target) 
+				&& !Conversations.SHARE_KNOWLEDGE_CONVERSATION.previousAnswerWasGetLost(getPreviousResponseIds(performer, target, Conversations.SHARE_KNOWLEDGE_CONVERSATION, world));
+	}
+	
+	private List<Integer> getPreviousResponseIds(WorldObject performer, WorldObject target, Conversation conversation, World world) {
+		List<HistoryItem> historyItems = world.getHistory().findHistoryItems(performer, target, Actions.TALK_ACTION);
+		historyItems = historyItems.stream().filter(h -> h.getOperationInfo().firstArgsIs(Conversations.createArgs(conversation)[0])).collect(Collectors.toList());
+		return historyItems.stream().map(h -> (Integer)h.getAdditionalValue()).collect(Collectors.toList());
 	}
 	
 	private boolean isFirstTimeSocializeTargetForPerformer(WorldObject performer, WorldObject w) {

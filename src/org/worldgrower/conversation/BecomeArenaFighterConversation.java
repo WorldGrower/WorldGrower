@@ -49,14 +49,14 @@ public class BecomeArenaFighterConversation implements Conversation {
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, World world) {
 		return Arrays.asList(
-			new Question(null, "Can I fight in your arena?")
+			new Question(null, "Can I become an arena fighter?")
 			);
 	}
 
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
-			new Response(YES, "yes, I'll let you know when you can fight."),
+			new Response(YES, "yes, just let me know when you want to fight."),
 			new Response(NO, "no"));
 	}
 	
@@ -75,7 +75,8 @@ public class BecomeArenaFighterConversation implements Conversation {
 
 	@Override
 	public boolean isConversationAvailable(WorldObject performer, WorldObject target, WorldObject subject, World world) {
-		return ArenaPropertyUtils.worldObjectOwnsArena(target);
+		return ArenaPropertyUtils.worldObjectOwnsArena(target)
+				&& !ArenaPropertyUtils.personIsArenaFighter(performer, target);
 	}
 	
 	@Override

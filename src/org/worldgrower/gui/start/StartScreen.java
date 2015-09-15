@@ -86,6 +86,7 @@ public class StartScreen {
 		IconUtils.setIcon(frame);
 		
 		JButton btnNewGame = new JButton("New Game");
+		btnNewGame.setToolTipText("Starts a new game");
 		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
@@ -102,6 +103,7 @@ public class StartScreen {
 		frame.getContentPane().add(btnNewGame);
 		
 		JButton btnLoadGame = new JButton("Load Game");
+		btnLoadGame.setToolTipText("Loads a game");
 		btnLoadGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JFileChooser fileChooser = new JFileChooser();
@@ -117,6 +119,7 @@ public class StartScreen {
 		frame.getContentPane().add(btnLoadGame);
 		
 		JButton btnExit = new JButton("Exit");
+		btnExit.setToolTipText("Exits program");
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
@@ -126,10 +129,12 @@ public class StartScreen {
 		frame.getContentPane().add(btnExit);
 		
 		JLabel lblVersion = new JLabel("Version " + Version.getVersion());
+		lblVersion.setToolTipText("Current version");
 		lblVersion.setBounds(83, 342, 168, 21);
 		frame.getContentPane().add(lblVersion);
 		
 		btnSaveGame = new JButton("Save Game");
+		btnSaveGame.setToolTipText("Saves current game");
 		btnSaveGame.setEnabled(false);
 		btnSaveGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

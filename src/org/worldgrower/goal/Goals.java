@@ -104,4 +104,6 @@ public class Goals {
 	public static final BrawlGoal BRAWL_GOAL = new BrawlGoal();
 	public static final ArenaGoal ARENA_GOAL = new ArenaGoal();
 	public static final ArenaFightGoal ARENA_FIGHT_GOAL = new ArenaFightGoal();
+	public static final FightInArenaGoal FIGHT_IN_ARENA_GOAL = new FightInArenaGoal();
+	public static final CollectArenaRewardGoal COLLECT_ARENA_REWARD_GOAL = new CollectArenaRewardGoal();
 }

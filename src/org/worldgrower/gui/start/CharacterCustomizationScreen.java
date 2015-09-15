@@ -28,13 +28,12 @@ import javax.swing.border.EmptyBorder;
 
 import org.worldgrower.Constants;
 import org.worldgrower.attribute.IntProperty;
-import org.worldgrower.attribute.SkillProperty;
-import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.gui.GuiAttributeDescription;
 import org.worldgrower.gui.util.IconUtils;
 
 public class CharacterCustomizationScreen extends JFrame {
 
+	private static final String ATTRIBUTE_EXPLANATION = "Shows number of attribute points that can be distributed among attributes. Attributes must be between 8 and 20";
 	private JPanel contentPane;
 	private int attributePoints = 6;
 	
@@ -58,6 +57,7 @@ public class CharacterCustomizationScreen extends JFrame {
 		IconUtils.setIcon(this);
 		
 		JLabel attributeLabel = new JLabel(Integer.toString(attributePoints));
+		attributeLabel.setToolTipText(ATTRIBUTE_EXPLANATION);
 		attributeLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		attributeLabel.setBounds(393, 51, 56, 16);
 		contentPane.add(attributeLabel);
@@ -236,7 +236,10 @@ public class CharacterCustomizationScreen extends JFrame {
 		button_9.setBounds(146, 220, 56, 25);
 		contentPane.add(button_9);
 		
+		setButtonTooltipTexts();
+		
 		JLabel lblRemainingAttributePoints = new JLabel("Remaining attribute points:");
+		lblRemainingAttributePoints.setToolTipText(ATTRIBUTE_EXPLANATION);
 		lblRemainingAttributePoints.setBounds(294, 13, 215, 25);
 		contentPane.add(lblRemainingAttributePoints);
 		
@@ -261,6 +264,16 @@ public class CharacterCustomizationScreen extends JFrame {
 				window.setVisible(true);
 			}
 		});
+	}
+
+	private void setButtonTooltipTexts() {
+		for(JButton minButton : minButtons) {
+			minButton.setToolTipText("Decrease attribute value");
+		}
+		
+		for(JButton plusButton : plusButtons) {
+			plusButton.setToolTipText("Increase attribute value");
+		}
 	}
 	
 	private JLabel createAttributeLabel(IntProperty attributeProperty, String description) {

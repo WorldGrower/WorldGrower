@@ -23,7 +23,8 @@ public enum ConversationCategory {
 	GROUP("Organization"),
 	DEITY("Deity"),
 	LEADER("Leader"), 
-	SHARE_KNOWLEDGE("Share knowledge");
+	SHARE_KNOWLEDGE("Share knowledge"),
+	ARENA("Arena");
 	
 	private final String description;
 	
