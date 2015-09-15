@@ -69,6 +69,14 @@ test {
     }
 }
 
+jacocoTestReport {
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.destination "${buildDir}/jacocoHtml"
+    }
+}
+
 task release(dependsOn: ['jar', 'test']) << {
 	File releaseDir = new File(buildDir, 'release')
 	releaseDir.mkdir()
