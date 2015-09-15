@@ -63,19 +63,25 @@ dependencies {
 
 test {
     jacoco {
+    	toolVersion = '0.7.1.201405082137'
         append = false
         destinationFile = file("$buildDir/jacoco/jacocoTest.exec")
         classDumpFile = file("$buildDir/jacoco/classpathdumps")
+        sourceDirectories = files(sourceSets.main.allSource.srcDirs)
+    	classDirectories =  files(sourceSets.main.output)
+    	executionData = files(jacocoTestReport.executionData)
     }
 }
 
 jacocoTestReport {
     reports {
-        xml.enabled false
+        xml.enabled true
         csv.enabled false
         html.destination "${buildDir}/jacocoHtml"
     }
 }
+
+test.finalizedBy jacocoTestReport
 
 task release(dependsOn: ['jar', 'test']) << {
 	File releaseDir = new File(buildDir, 'release')
