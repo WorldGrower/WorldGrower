@@ -1,6 +1,5 @@
 apply plugin: 'java'
 apply plugin: 'install4j'
-apply plugin: "jacoco"
 
 configurations {
     izpackconf
@@ -62,25 +61,7 @@ dependencies {
 }
 
 test {
-    jacoco {
-        append = false
-        destinationFile = file("$buildDir/jacoco/jacocoTest.exec")
-        classDumpFile = file("$buildDir/jacoco/classpathdumps")
-        sourceDirectories = files(sourceSets.main.allSource.srcDirs)
-    	classDirectories =  files(sourceSets.main.output)
-    	executionData = files(jacocoTestReport.executionData)
-    }
 }
-
-jacocoTestReport {
-    reports {
-        xml.enabled true
-        csv.enabled true
-        html.destination "${buildDir}/jacocoHtml"
-    }
-}
-
-test.finalizedBy jacocoTestReport
 
 task release(dependsOn: ['jar', 'test']) << {
 	File releaseDir = new File(buildDir, 'release')
