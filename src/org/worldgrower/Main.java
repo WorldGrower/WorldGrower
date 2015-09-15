@@ -27,7 +27,7 @@ import javax.swing.JFrame;
 import javax.swing.ToolTipManager;
 
 import org.worldgrower.actions.Actions;
-import org.worldgrower.actions.ArenaFightListener;
+import org.worldgrower.actions.ArenaFightOnTurn;
 import org.worldgrower.actions.BrawlListener;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdRelationshipMap;
@@ -71,7 +71,8 @@ public class Main {
 	
 	public static void run(String playerName, String playerProfession, int worldWidth, int worldHeight, int enemyDensity, int villagerCount, int seed, CharacterAttributes characterAttributes) throws Exception {
 		DungeonMaster dungeonMaster = new DungeonMaster();
-		World world = new WorldImpl(worldWidth, worldHeight, dungeonMaster, new DeityWorldOnTurn());
+		WorldOnTurnImpl worldOnTurn = new WorldOnTurnImpl(new DeityWorldOnTurn(), new ArenaFightOnTurn());
+		World world = new WorldImpl(worldWidth, worldHeight, dungeonMaster, worldOnTurn);
 		int playerCharacterId = world.generateUniqueId();
 		
 		final CommonerImageIds commonerImageIds = new CommonerImageIds();
@@ -96,7 +97,6 @@ public class Main {
 		world.addListener(new CurseListener(world));
 		world.addListener(new ConditionListener(world));
 		world.addListener(new BrawlListener());
-		world.addListener(new ArenaFightListener());
 	}
 
 	private static void addEnemiesAndFriendlyAnimals(int enemyDensity, World world, int seed) {
