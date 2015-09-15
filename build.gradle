@@ -1,5 +1,6 @@
 apply plugin: 'java'
 apply plugin: 'install4j'
+apply plugin: "jacoco"
 
 configurations {
     izpackconf
