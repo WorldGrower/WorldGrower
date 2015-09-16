@@ -242,4 +242,5 @@ public class Constants {
 	public static final IdListProperty ARENA_FIGHTER_IDS =  new IdListProperty("fighterForArenaOwnerId", ALL_PROPERTIES);
 	public static final IdProperty ARENA_OPPONENT_ID = new IdProperty("arenaOpponentId", ALL_PROPERTIES);
 	public static final IntProperty ARENA_PAY_CHECK_GOLD = new IntProperty("arenapayCheckGold", 0, null, NULLABLE, ALL_PROPERTIES);
+	public static final IdMapProperty ARENA_DONATED_TURN = new IdMapProperty("arenaDonatedTurn", ALL_PROPERTIES);
 }

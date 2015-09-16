@@ -35,7 +35,6 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.BuildAction;
 import org.worldgrower.actions.magic.ResearchSpellAction;
 import org.worldgrower.conversation.Conversations;
-import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.gui.chooseworldobject.ChooseWorldObjectAction;
 import org.worldgrower.gui.chooseworldobject.GuiDisguiseAction;
 import org.worldgrower.gui.chooseworldobject.GuiVoteAction;
@@ -62,6 +61,7 @@ public class GuiMouseListener extends MouseAdapter {
 	private final CharacterSheetAction characterSheetAction;
 	private final InventoryAction inventoryAction;
 	private final MagicOverviewAction magicOverviewAction;
+	private final RestAction restAction;
 	
     public GuiMouseListener(WorldPanel container, WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, ImageInfoReader imageInfoReader) {
 		super();
@@ -74,18 +74,21 @@ public class GuiMouseListener extends MouseAdapter {
 		characterSheetAction = new CharacterSheetAction(playerCharacter, imageInfoReader);
 		inventoryAction = new InventoryAction(playerCharacter, imageInfoReader, world, dungeonMaster, container);
 		magicOverviewAction = new MagicOverviewAction(playerCharacter, imageInfoReader);
+		restAction = new RestAction(playerCharacter, imageInfoReader, world, (WorldPanel)container, dungeonMaster);
 		addKeyBindings();
 	}
 
 	private void addKeyBindings() {
-		container.getInputMap().put(KeyStroke.getKeyStroke("C"), "characterSheetAction");
-		container.getActionMap().put("characterSheetAction", characterSheetAction);
-		
-		container.getInputMap().put(KeyStroke.getKeyStroke("I"), "inventoryAction");
-		container.getActionMap().put("inventoryAction", inventoryAction);
-
-		container.getInputMap().put(KeyStroke.getKeyStroke("M"), "magicOverviewAction");
-		container.getActionMap().put("magicOverviewAction", magicOverviewAction);
+		addKeyBindingsFor(characterSheetAction, "C");
+		addKeyBindingsFor(inventoryAction, "I");
+		addKeyBindingsFor(magicOverviewAction, "M");
+		addKeyBindingsFor(restAction, "R");
+	}
+	
+	private void addKeyBindingsFor(Action action, String binding) {
+		container.getInputMap().put(KeyStroke.getKeyStroke(binding), action.getClass().getSimpleName());
+		container.getActionMap().put(action.getClass().getSimpleName(), action);
+		action.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(binding));
 	}
 
 	public void mousePressed(MouseEvent e){
@@ -131,6 +134,8 @@ public class GuiMouseListener extends MouseAdapter {
             if (worldObject.getProperty(Constants.ID) == 0) {
             	addPlayerCharacterInformationMenus(menu);
             	
+            	JMenu organizationMenu = new JMenu("Organization");
+            	
             	JMenuItem disguiseMenuItem = new JMenuItem(new GuiDisguiseAction(playerCharacter, imageInfoReader, world, (WorldPanel)container, dungeonMaster, Actions.DISGUISE_ACTION));
             	disguiseMenuItem.setText("Disguise...");
             	menu.add(disguiseMenuItem);
@@ -146,8 +151,10 @@ public class GuiMouseListener extends MouseAdapter {
             	addTransmutationActions(menu);
             	addScribeMagicSpells(menu);
             	addRestMenu(menu);
-            	addCreateOrganizationMenu(menu);
-            	addShowLegalActionsMenu(menu);
+            	menu.add(organizationMenu);
+            	addCreateOrganizationMenu(organizationMenu);
+            	addShowLegalActionsMenu(organizationMenu);
+            	addShowOrganizationsActionMenu(organizationMenu);
             	addChooseDeityMenu(menu);
             	
             	menu.show(e.getComponent(), e.getX(), e.getY());
@@ -175,28 +182,26 @@ public class GuiMouseListener extends MouseAdapter {
 		menu.add(chooseDeityMenuItem);
 	}
 
-	private void addShowLegalActionsMenu(JPopupMenu menu) {
-		if (GroupPropertyUtils.performerIsLeaderOfVillagers(playerCharacter, world)) {
-			JMenuItem showLegalActionsMenuItem = new JMenuItem(new GuiShowLegalActionsAction(playerCharacter, dungeonMaster, world, container));
-			showLegalActionsMenuItem.setText("Show legal actions...");
-			menu.add(showLegalActionsMenuItem);
-		}
+	private void addShowLegalActionsMenu(JMenu menu) {
+		JMenuItem showLegalActionsMenuItem = new JMenuItem(new GuiShowLegalActionsAction(playerCharacter, dungeonMaster, world, container));
+		showLegalActionsMenuItem.setText("Show legal actions...");
+		menu.add(showLegalActionsMenuItem);
 	}
 
-	private void addShowOrganizationsActionMenu(JPopupMenu menu) {
+	private void addShowOrganizationsActionMenu(JMenu menu) {
 		JMenuItem showOrganizationsMenuItem = new JMenuItem(new GuiShowOrganizationsAction(playerCharacter, world, container));
-		showOrganizationsMenuItem.setText("Organization Membership Overview...");
+		showOrganizationsMenuItem.setText("Organization Membership Overview");
 		menu.add(showOrganizationsMenuItem);
 	}
 	
-	private void addCreateOrganizationMenu(JPopupMenu menu) {
+	private void addCreateOrganizationMenu(JMenu menu) {
 		JMenuItem createOrganizationMenuItem = new JMenuItem(new GuiCreateOrganizationAction(playerCharacter, imageInfoReader, world, (WorldPanel)container, dungeonMaster));
 		createOrganizationMenuItem.setText("Create Organization...");
 		menu.add(createOrganizationMenuItem);
 	}
 
 	private void addRestMenu(JPopupMenu menu) {
-		JMenuItem restMenuItem = new JMenuItem(new RestAction(playerCharacter, imageInfoReader, world, (WorldPanel)container, dungeonMaster));
+		JMenuItem restMenuItem = new JMenuItem(restAction);
 		restMenuItem.setText("Rest...");
 		menu.add(restMenuItem);
 	}
@@ -262,7 +267,6 @@ public class GuiMouseListener extends MouseAdapter {
 		characterSheetMenuItem.setText("Character Sheet");
 		menu.add(characterSheetMenuItem);
 		
-		
 		JMenuItem inventoryMenuItem = new JMenuItem(inventoryAction);
 		inventoryMenuItem.setText("Inventory");
 		menu.add(inventoryMenuItem);
@@ -270,8 +274,6 @@ public class GuiMouseListener extends MouseAdapter {
 		JMenuItem magicOverviewMenuItem = new JMenuItem(magicOverviewAction);
 		magicOverviewMenuItem.setText("Magic Overview");
 		menu.add(magicOverviewMenuItem);
-		
-		addShowOrganizationsActionMenu(menu);
 	}
 
 	private void addBuildActions(JPopupMenu menu) {

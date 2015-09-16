@@ -15,6 +15,7 @@
 package org.worldgrower;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,8 +23,10 @@ import java.util.List;
 
 import org.junit.Test;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.actions.BrawlListener;
 import org.worldgrower.attribute.IdMap;
 import org.worldgrower.attribute.IdRelationshipMap;
+import org.worldgrower.curse.CurseListener;
 import org.worldgrower.history.Turn;
 
 public class UTestWorldImpl {
@@ -169,6 +172,29 @@ public class UTestWorldImpl {
 		worldObjects = world.findWorldObjectsByProperty(Constants.FOOD, w -> w.getProperty(Constants.FOOD) > 0);
 		assertEquals(1, worldObjects.size());
 		assertEquals(6, worldObjects.get(0).getProperty(Constants.ID).intValue());
+	}
+	
+	@Test
+	public void testGetListenerByClass() {
+		World world = createWorld();
+		CurseListener curseListener = new CurseListener(world);
+		world.addListener(curseListener);
+		
+		assertEquals(curseListener, world.getListenerByClass(CurseListener.class));
+	}
+	
+	@Test
+	public void testGetListenerByClassNonExistingListener() {
+		World world = createWorld();
+		CurseListener curseListener = new CurseListener(world);
+		world.addListener(curseListener);
+		
+		try {
+			world.getListenerByClass(BrawlListener.class);
+			fail("method should fail");
+		} catch(IllegalStateException ex) {
+			assertEquals(true, ex.getMessage().startsWith("Listener with class class org.worldgrower.actions.BrawlListener not found in list of listeners"));
+		}
 	}
 
 	private WorldImpl createWorld() {

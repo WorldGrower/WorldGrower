@@ -37,6 +37,7 @@ import javax.swing.JTextArea;
 import javax.swing.KeyStroke;
 import javax.swing.SpringLayout;
 import javax.swing.SwingUtilities;
+import javax.swing.ToolTipManager;
 
 import org.worldgrower.Constants;
 import org.worldgrower.DungeonMaster;
@@ -79,6 +80,7 @@ public class WorldPanel extends JPanel {
 
         guiMouseListener = new GuiMouseListener(this, playerCharacter, world, dungeonMaster, imageInfoReader);
 		addMouseListener(guiMouseListener);
+		ToolTipManager.sharedInstance().registerComponent(this);
 
         int width = 1024;
         int height = 768;
@@ -460,5 +462,18 @@ public class WorldPanel extends JPanel {
 		int width = worldObject.getProperty(Constants.WIDTH);
 		int height = worldObject.getProperty(Constants.HEIGHT);
 		WorldPanel.this.repaint((x + offsetX) * 48 - 48, (y + offsetY) * 48 - 48, 48 * (2 + width), 48 * (2 + height));
+	}
+	
+	@Override
+	public String getToolTipText(MouseEvent e) {
+		int x = (int) e.getPoint().getX() / 48;
+        int y = (int) e.getPoint().getY() / 48;
+		
+		WorldObject worldObject = findWorldObject(x, y);
+		if (worldObject != null) {
+			return worldObject.getProperty(Constants.NAME);
+		} else {
+			return null;
+		}
 	}
 }

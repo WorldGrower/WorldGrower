@@ -106,4 +106,5 @@ public class Goals {
 	public static final ArenaFightGoal ARENA_FIGHT_GOAL = new ArenaFightGoal();
 	public static final FightInArenaGoal FIGHT_IN_ARENA_GOAL = new FightInArenaGoal();
 	public static final CollectArenaRewardGoal COLLECT_ARENA_REWARD_GOAL = new CollectArenaRewardGoal();
+	public static final DonateMoneyToArenaGoal DONATE_MONEY_TO_ARENA_GOAL = new DonateMoneyToArenaGoal();
 }

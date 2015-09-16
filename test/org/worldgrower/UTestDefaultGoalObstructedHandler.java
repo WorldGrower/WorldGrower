@@ -56,4 +56,20 @@ public class UTestDefaultGoalObstructedHandler {
 		
 		assertEquals(false, DefaultGoalObstructedHandler.areBrawling(performer, actionTarget, Actions.NON_LETHAL_MELEE_ATTACK_ACTION));
 	}
+	
+	@Test
+	public void testAreFightingInArena() {
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.ARENA_OPPONENT_ID, 2);
+		WorldObject actionTarget = TestUtils.createIntelligentWorldObject(2, Constants.ARENA_OPPONENT_ID, 1);
+		
+		assertEquals(true, DefaultGoalObstructedHandler.areFightingInArena(performer, actionTarget, null));
+	}
+	
+	@Test
+	public void testAreFightingInArenaNoFight() {
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.ARENA_OPPONENT_ID, null);
+		WorldObject actionTarget = TestUtils.createIntelligentWorldObject(2, Constants.ARENA_OPPONENT_ID, null);
+		
+		assertEquals(false, DefaultGoalObstructedHandler.areFightingInArena(performer, actionTarget, null));
+	}
 }

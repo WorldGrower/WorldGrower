@@ -111,4 +111,48 @@ public class UTestGroupPropertyUtils {
 		organizations.add(TestUtils.createIntelligentWorldObject(4, Constants.ORGANIZATION_LEADER_ID, null));
 		assertEquals(null, GroupPropertyUtils.getMostLikedLeaderId(performer, organizations));
 	}
+	
+	@Test
+	public void testPerformerIsLeaderOfVillagers() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject organization = createVillagersOrganization(world);
+		
+		WorldObject performer = TestUtils.createIntelligentWorldObject(2, "Test");
+		world.addWorldObject(performer);
+		assertEquals(false, GroupPropertyUtils.performerIsLeaderOfVillagers(performer, world));
+		
+		organization.setProperty(Constants.ORGANIZATION_LEADER_ID, 2);
+		assertEquals(true, GroupPropertyUtils.performerIsLeaderOfVillagers(performer, world));
+	}
+
+	private WorldObject createVillagersOrganization(World world) {
+		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
+		organization.setProperty(Constants.ID, 1);
+		world.addWorldObject(organization);
+		return organization;
+	}
+	
+	@Test
+	public void testGetLeaderOfVillagers() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject organization = createVillagersOrganization(world);
+		
+		WorldObject performer = TestUtils.createIntelligentWorldObject(2, "Test");
+		world.addWorldObject(performer);
+		assertEquals(null, GroupPropertyUtils.getLeaderOfVillagers(world));
+		
+		organization.setProperty(Constants.ORGANIZATION_LEADER_ID, 2);
+		assertEquals(performer, GroupPropertyUtils.getLeaderOfVillagers(world));
+	}
+	
+	@Test
+	public void testCanCollectTaxes() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject organization = createVillagersOrganization(world);
+		
+		assertEquals(false, GroupPropertyUtils.canCollectTaxes(world));
+		
+		organization.setProperty(Constants.SHACK_TAX_RATE, 1);
+		assertEquals(true, GroupPropertyUtils.canCollectTaxes(world));
+	}
 }

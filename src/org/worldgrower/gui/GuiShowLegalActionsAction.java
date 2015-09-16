@@ -36,6 +36,7 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.LegalActionsPropertyUtils;
 import org.worldgrower.gui.util.IconUtils;
 
@@ -59,7 +60,7 @@ public class GuiShowLegalActionsAction extends AbstractAction {
 		dialog.setModalityType(ModalityType.APPLICATION_MODAL);
 		IconUtils.setIcon(dialog);
 		
-		WorldModel worldModel = new WorldModel(world);
+		WorldModel worldModel = new WorldModel(playerCharacter, world);
 		JTable table = new JTable(worldModel);
 		table.setBounds(50, 50, 300, 700);
 		dialog.add(new JScrollPane(table));
@@ -95,12 +96,14 @@ public class GuiShowLegalActionsAction extends AbstractAction {
 	private static class WorldModel extends AbstractTableModel {
 
 		private Map<ManagedOperation, Boolean> legalActions;
-		List<ManagedOperation> actions;
+		private List<ManagedOperation> actions;
+		private boolean performerIsLeaderOfVillagers;
 		
-		public WorldModel(World world) {
+		public WorldModel(WorldObject playerCharacter, World world) {
 			super();
 			this.legalActions = LegalActionsPropertyUtils.getLegalActions(world);
 			this.actions = LegalActionsPropertyUtils.getLegalActionsList(world);
+			this.performerIsLeaderOfVillagers = GroupPropertyUtils.performerIsLeaderOfVillagers(playerCharacter, world);
 		}
 
 		@Override
@@ -127,7 +130,7 @@ public class GuiShowLegalActionsAction extends AbstractAction {
 			if (column == 0) {
 				return false;
 			} else {
-				return true;
+				return performerIsLeaderOfVillagers;
 			}
 		}
 		

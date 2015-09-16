@@ -88,4 +88,11 @@ public class ArenaPropertyUtils {
 		
 		worldObject.increment(Constants.ARENA_PAY_CHECK_GOLD, 5);
 	}
+	
+	public static int getTurnsSinceLastDonation(WorldObject worldObject, World world) {
+		int lastDonatedTurn = worldObject.getProperty(Constants.ARENA_DONATED_TURN).getValue(worldObject);
+		int currentTurn = world.getCurrentTurn().getValue();
+		
+		return currentTurn - lastDonatedTurn;
+	}
 }

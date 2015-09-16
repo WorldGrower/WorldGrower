@@ -79,6 +79,7 @@ public class TestUtils {
 		properties.put(Constants.GROUP, new IdList().add(6));
 		properties.put(Constants.SOCIAL, 0);
 		properties.put(Constants.RELATIONSHIPS, new IdRelationshipMap());
+		properties.put(Constants.CONDITIONS, new Conditions());
 		properties.put(Constants.STRENGTH, 10);
 		properties.put(property, value);
 		WorldObject w1 = new WorldObjectImpl(properties, Actions.ALL_ACTIONS, null);

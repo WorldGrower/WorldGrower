@@ -176,6 +176,7 @@ public class Actions {
 	public static final CatchFishAction CATCH_FISH_ACTION = new CatchFishAction();
 	public static final MarkInventoryItemAsSellableAction MARK_INVENTORY_ITEM_AS_SELLABLE_ACTION = new MarkInventoryItemAsSellableAction();
 	public static final BuildArenaAction BUILD_ARENA_ACTION = new BuildArenaAction();
+	public static final DonateMoneyAction DONATE_MONEY_ACTION = new DonateMoneyAction();
 	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 
@@ -301,7 +302,8 @@ public class Actions {
 		CONSTRUCT_FISHING_POLE_ACTION,
 		CATCH_FISH_ACTION,
 		MARK_INVENTORY_ITEM_AS_SELLABLE_ACTION,
-		BUILD_ARENA_ACTION
+		BUILD_ARENA_ACTION,
+		DONATE_MONEY_ACTION
 	));
 	
 	static {
