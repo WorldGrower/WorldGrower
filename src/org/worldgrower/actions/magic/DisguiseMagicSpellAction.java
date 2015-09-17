@@ -95,4 +95,9 @@ public class DisguiseMagicSpellAction implements MagicSpell, DisguiseTargetFacto
 		List<WorldObject> disguiseWorldObjects = world.findWorldObjects(w -> w.hasIntelligence() && w.getProperty(Constants.WIDTH) == 1 && w.getProperty(Constants.HEIGHT) == 1 && (w.getProperty(Constants.ID) != performerId));
 		return disguiseWorldObjects;
 	}
+
+	@Override
+	public String getDescription() {
+		return "disguise self as an existing person or item of similar size";
+	}
 }

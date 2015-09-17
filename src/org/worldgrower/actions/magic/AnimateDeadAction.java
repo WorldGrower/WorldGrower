@@ -96,4 +96,9 @@ public class AnimateDeadAction implements MagicSpell {
 	public int getRequiredSkillLevel() {
 		return 1;
 	}
+
+	@Override
+	public String getDescription() {
+		return "animates a corpse and turns it into a skelton which you control";
+	}
 }

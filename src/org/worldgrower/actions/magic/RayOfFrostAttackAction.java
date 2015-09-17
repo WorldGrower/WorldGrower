@@ -80,4 +80,9 @@ public class RayOfFrostAttackAction implements MagicSpell, DeadlyAction {
 	public String getDeathDescription(WorldObject performer, WorldObject target) {
 		return "frozen to death";
 	}
+
+	@Override
+	public String getDescription() {
+		return "deals damage to target";
+	}
 }

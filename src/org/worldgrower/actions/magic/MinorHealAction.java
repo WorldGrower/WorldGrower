@@ -87,4 +87,9 @@ public class MinorHealAction implements MagicSpell {
 	public boolean hasRequiredEnergy(WorldObject performer) {
 		return performer.getProperty(Constants.ENERGY) >= ENERGY_USE;
 	}
+
+	@Override
+	public String getDescription() {
+		return "restores hit points of person";
+	}
 }

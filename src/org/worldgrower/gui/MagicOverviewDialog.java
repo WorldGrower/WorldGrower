@@ -18,6 +18,7 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -28,6 +29,7 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableModel;
 
 import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
@@ -56,7 +58,7 @@ public class MagicOverviewDialog extends JDialog {
 		scrollPane.setBounds(12, 13, 508, 417);
 		contentPanel.add(scrollPane);
 		
-		JTable magicSpellsTable = new JTable(new MagicSpellTableModel(playerCharacter));
+		JTable magicSpellsTable = new MagicSpellsTable(new MagicSpellTableModel(playerCharacter));
 		magicSpellsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(magicSpellsTable);
 		{
@@ -140,5 +142,20 @@ public class MagicOverviewDialog extends JDialog {
 				return null;
 			}
 		}
+	}
+	
+	private static class MagicSpellsTable extends JTable {
+		
+		public MagicSpellsTable(TableModel tableModel) {
+			super(tableModel);
+		}
+
+		@Override
+		public String getToolTipText(MouseEvent mouseEvent) {
+			int row = rowAtPoint(mouseEvent.getPoint());
+			MagicSpell magicSpell = Actions.getMagicSpells().get(row);
+			return magicSpell.getDescription();
+		}
+		
 	}
 }

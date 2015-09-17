@@ -87,4 +87,9 @@ public class MendAction implements MagicSpell {
 	public boolean hasRequiredEnergy(WorldObject performer) {
 		return performer.getProperty(Constants.ENERGY) >= ENERGY_USE;
 	}
+
+	@Override
+	public String getDescription() {
+		return "mends and repairs a non-living item";
+	}
 }

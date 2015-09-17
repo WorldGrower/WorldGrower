@@ -102,4 +102,9 @@ public class ReduceAction implements MagicSpell {
 	public int getRequiredSkillLevel() {
 		return 1;
 	}
+
+	@Override
+	public String getDescription() {
+		return "makes target smaller, halving its size and making it weaker if it can fight";
+	}
 }

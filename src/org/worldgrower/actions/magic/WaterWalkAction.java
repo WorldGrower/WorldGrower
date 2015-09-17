@@ -80,4 +80,9 @@ public class WaterWalkAction implements MagicSpell {
 	public int getRequiredSkillLevel() {
 		return 0;
 	}
+
+	@Override
+	public String getDescription() {
+		return "allows target to walk over water for several turns";
+	}
 }

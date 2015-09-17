@@ -105,4 +105,9 @@ public class DetectPoisonAndDiseaseAction implements MagicSpell {
 	public boolean hasRequiredEnergy(WorldObject performer) {
 		return performer.getProperty(Constants.ENERGY) >= ENERGY_USE;
 	}
+
+	@Override
+	public String getDescription() {
+		return "detects presence of poison and disease on target";
+	}
 }

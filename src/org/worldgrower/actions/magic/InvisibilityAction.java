@@ -83,4 +83,9 @@ public class InvisibilityAction implements MagicSpell {
 	public int getRequiredSkillLevel() {
 		return 2;
 	}
+
+	@Override
+	public String getDescription() {
+		return "makes target invisible for a number of turns";
+	}
 }

@@ -103,4 +103,9 @@ public class LightningBoltAttackAction implements MagicSpell, DeadlyAction {
 	public boolean hasRequiredEnergy(WorldObject performer) {
 		return performer.getProperty(Constants.ENERGY) >= ENERGY_USE;
 	}
+
+	@Override
+	public String getDescription() {
+		return "deals damage to target and other targets if something conducts the electricity";
+	}
 }

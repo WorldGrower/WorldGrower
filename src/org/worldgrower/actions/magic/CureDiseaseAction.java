@@ -78,4 +78,9 @@ public class CureDiseaseAction implements MagicSpell {
 	public int getRequiredSkillLevel() {
 		return 1;
 	}
+
+	@Override
+	public String getDescription() {
+		return "cures a person of a disease";
+	}
 }

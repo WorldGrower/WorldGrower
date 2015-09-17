@@ -111,4 +111,9 @@ public class MinorIllusionAction implements BuildAction, MagicSpell {
 	public int getRequiredSkillLevel() {
 		return 1;
 	}
+
+	@Override
+	public String getDescription() {
+		return "creates a small illusion of an existing person or item";
+	}
 }

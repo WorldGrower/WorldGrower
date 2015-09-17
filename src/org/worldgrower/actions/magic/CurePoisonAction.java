@@ -85,4 +85,9 @@ public class CurePoisonAction implements MagicSpell {
 	public boolean hasRequiredEnergy(WorldObject performer) {
 		return performer.getProperty(Constants.ENERGY) >= ENERGY_USE;
 	}
+
+	@Override
+	public String getDescription() {
+		return "cures a person of poison";
+	}
 }

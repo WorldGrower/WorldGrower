@@ -81,4 +81,9 @@ public class ParalyzeSpellAction implements MagicSpell {
 	public int getRequiredSkillLevel() {
 		return 2;
 	}
+
+	@Override
+	public String getDescription() {
+		return "paralyze target for several turns";
+	}
 }

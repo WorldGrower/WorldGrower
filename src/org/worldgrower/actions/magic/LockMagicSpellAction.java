@@ -87,4 +87,9 @@ public class LockMagicSpellAction implements MagicSpell {
 	public boolean hasRequiredEnergy(WorldObject performer) {
 		return performer.getProperty(Constants.ENERGY) >= ENERGY_USE;
 	}
+
+	@Override
+	public String getDescription() {
+		return "locks a container so that only the caster has access to the container";
+	}
 }

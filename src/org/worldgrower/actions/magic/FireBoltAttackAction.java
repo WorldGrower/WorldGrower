@@ -85,4 +85,9 @@ public class FireBoltAttackAction implements MagicSpell, DeadlyAction {
 	public String getDeathDescription(WorldObject performer, WorldObject target) {
 		return "burned to death";
 	}
+
+	@Override
+	public String getDescription() {
+		return "shoots a firebolt at the target, setting it on fire if it is flammable";
+	}
 }

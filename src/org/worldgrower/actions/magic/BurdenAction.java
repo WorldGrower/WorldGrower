@@ -91,4 +91,9 @@ public class BurdenAction implements MagicSpell {
 	public int getRequiredSkillLevel() {
 		return 1;
 	}
+
+	@Override
+	public String getDescription() {
+		return "makes everything a person is carrying heavier";
+	}
 }

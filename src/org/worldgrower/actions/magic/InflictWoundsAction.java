@@ -80,4 +80,9 @@ public class InflictWoundsAction implements MagicSpell, DeadlyAction {
 	public String getDeathDescription(WorldObject performer, WorldObject target) {
 		return "killed by necrotic damage";
 	}
+
+	@Override
+	public String getDescription() {
+		return "deals damage to target";
+	}
 }

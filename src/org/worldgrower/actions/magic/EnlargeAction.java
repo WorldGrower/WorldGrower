@@ -92,4 +92,9 @@ public class EnlargeAction implements MagicSpell {
 	public int getRequiredSkillLevel() {
 		return 1;
 	}
+
+	@Override
+	public String getDescription() {
+		return "makes target larger, doubling its size and making it stronger if it can fight";
+	}
 }

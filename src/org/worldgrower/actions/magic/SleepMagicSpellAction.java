@@ -81,4 +81,9 @@ public class SleepMagicSpellAction implements MagicSpell {
 	public int getRequiredSkillLevel() {
 		return 1;
 	}
+
+	@Override
+	public String getDescription() {
+		return "puts target sleep for several turns";
+	}
 }
