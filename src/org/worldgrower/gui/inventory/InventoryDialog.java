@@ -22,10 +22,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 
+import javax.swing.AbstractAction;
 import javax.swing.Action;
-import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -33,14 +35,11 @@ import javax.swing.JList;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
-import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 import javax.swing.JToolTip;
 import javax.swing.KeyStroke;
 import javax.swing.ListModel;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -56,10 +55,11 @@ public class InventoryDialog extends JDialog {
 	private JButton okButton;
 	private JButton cancelButton;
 	private JLabel moneyValueLabel;
-	
-	private JRadioButton noSellRadioButton;
-	private JRadioButton sellRadioButton;
-	private JTextField priceTextField;
+	private JLabel weightLabelValue;
+
+	private JList<InventoryItem> targetInventoryList;
+	private JLabel targetMoney;
+	private JLabel targetWeight;
 	
 	private JButton actionsButton;
 	
@@ -91,21 +91,21 @@ public class InventoryDialog extends JDialog {
 	/**
 	 * @wbp.parser.constructor
 	 */
-	public InventoryDialog(InventoryDialogModel inventoryDialogModel, WorldObjectContainer inventory, InventoryDialogAction inventoryDialogAction, ImageInfoReader imageInfoReader, List<Action> inventoryActions) {
+	public InventoryDialog(InventoryDialogModel inventoryDialogModel, InventoryDialogAction inventoryDialogAction, ImageInfoReader imageInfoReader, List<Action> inventoryActions) {
 		
 		if (inventoryDialogAction == null) {
-			inventoryDialogAction = new DefaultInventoryDialogAction(inventory);
+			inventoryDialogAction = new DefaultInventoryDialogAction(inventoryDialogModel.getPlayerCharacterInventory());
 		}
 		
-		initializeGUI(inventoryDialogModel, inventory, inventoryDialogAction, imageInfoReader, inventoryActions);
+		initializeGUI(inventoryDialogModel, inventoryDialogAction, imageInfoReader, inventoryActions);
 		
 		okButton.addActionListener(inventoryDialogAction.getGuiAction());
 		addActions(inventoryDialogAction);
 	}
 
-	private void initializeGUI(InventoryDialogModel inventoryDialogModel, WorldObjectContainer inventory, InventoryDialogAction inventoryDialogAction, ImageInfoReader imageInfoReader, List<Action> inventoryActions) {
+	private void initializeGUI(InventoryDialogModel inventoryDialogModel, InventoryDialogAction inventoryDialogAction, ImageInfoReader imageInfoReader, List<Action> inventoryActions) {
 		setModalityType(ModalityType.APPLICATION_MODAL);
-		setBounds(100, 100, 550, 582);
+		setBounds(100, 100, 762, 690);
 		getContentPane().setLayout(null);
 		setLocationRelativeTo(null);
 		IconUtils.setIcon(this);
@@ -114,7 +114,7 @@ public class InventoryDialog extends JDialog {
         rootPane.registerKeyboardAction(new CloseDialogAction(), stroke, JComponent.WHEN_IN_FOCUSED_WINDOW);
 			
 		JPanel buttonPane = new JPanel();
-		buttonPane.setBounds(266, 487, 254, 35);
+		buttonPane.setBounds(478, 595, 254, 35);
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		getContentPane().add(buttonPane);
 
@@ -127,62 +127,132 @@ public class InventoryDialog extends JDialog {
 		cancelButton.setActionCommand("Cancel");
 		buttonPane.add(cancelButton);
 
-		inventoryJList = createInventoryList(inventory, imageInfoReader);
+		inventoryJList = createInventoryList(inventoryDialogModel.getPlayerCharacterInventory(), imageInfoReader);
 		
 		JScrollPane inventoryScrollPane = new JScrollPane();
 		inventoryScrollPane.setViewportView(inventoryJList);
-		inventoryScrollPane.setBounds(12, 27, 200, 450);
+		inventoryScrollPane.setBounds(12, 82, 200, 450);
 		getContentPane().add(inventoryScrollPane);
 		
 		final JLabel moneyLabel = new JLabel("Money:");
-		moneyLabel.setBounds(12, 497, 64, 25);
+		moneyLabel.setBounds(12, 555, 64, 25);
 		getContentPane().add(moneyLabel);
 		
-		moneyValueLabel = new JLabel(Integer.toString(inventoryDialogModel.getMoney()));
-		moneyValueLabel.setBounds(77, 500, 50, 22);
+		moneyValueLabel = new JLabel(Integer.toString(inventoryDialogModel.getPlayerCharacterMoney()));
+		moneyValueLabel.setBounds(77, 558, 50, 22);
 		getContentPane().add(moneyValueLabel);
 		
-		noSellRadioButton = new JRadioButton("Don't sell");
-		noSellRadioButton.setBounds(220, 393, 100, 40);
-		getContentPane().add(noSellRadioButton);
-		
-		sellRadioButton = new JRadioButton("Sell at price: ");
-		sellRadioButton.setBounds(220, 438, 142, 40);
-		getContentPane().add(sellRadioButton);
-		
-		ButtonGroup group = new ButtonGroup();
-		group.add(noSellRadioButton);
-		group.add(sellRadioButton);
-		
-		priceTextField = new JTextField("0");
-		priceTextField.setEditable(false);
-		priceTextField.setBounds(370, 434, 50, 40);
-		getContentPane().add(priceTextField);
-		
 		JLabel lblWeight = new JLabel("Weight:");
-		lblWeight.setBounds(127, 497, 64, 25);
+		lblWeight.setBounds(127, 555, 64, 25);
 		getContentPane().add(lblWeight);
 		
-		String weightString = Integer.toString(inventoryDialogModel.getWeight())
-							+ "/"
-							+Integer.toString(inventoryDialogModel.getCarryingCapacity());
-		JLabel weightLabelValue = new JLabel(weightString);
-		weightLabelValue.setBounds(203, 500, 64, 22);
+		String weightString = getPlayerCharacterWeight(inventoryDialogModel);
+		weightLabelValue = new JLabel(weightString);
+		weightLabelValue.setBounds(203, 558, 64, 22);
 		getContentPane().add(weightLabelValue);
 		
 		
 		actionsButton = new JButton("Actions");
-		actionsButton.setBounds(420, 25, 100, 25);
+		actionsButton.setBounds(224, 359, 100, 25);
 		getContentPane().add(actionsButton);
+
+		JLabel lblPlayercharacter = new JLabel(new ImageIcon(inventoryDialogModel.getPlayerCharacterImage(imageInfoReader)));
+		lblPlayercharacter.setBounds(12, 30, 48, 48);
+		getContentPane().add(lblPlayercharacter);
+		
+		
+
+		if (inventoryDialogModel.hasTarget()) {
+			JScrollPane scrollPane = new JScrollPane();
+			scrollPane.setBounds(532, 82, 200, 450);
+			getContentPane().add(scrollPane);
+			
+			targetInventoryList = createInventoryList(inventoryDialogModel.getTargetInventory(), imageInfoReader);
+			scrollPane.setViewportView(targetInventoryList);
+			
+			JLabel lblTarget = new JLabel(new ImageIcon(inventoryDialogModel.getTargetImage(imageInfoReader)));
+			lblTarget.setBounds(532, 30, 48, 48);
+			getContentPane().add(lblTarget);
+			
+			JLabel targetMoneyLabel = new JLabel("Money:");
+			targetMoneyLabel.setBounds(477, 557, 64, 25);
+			getContentPane().add(targetMoneyLabel);
+			
+			targetMoney = new JLabel(Integer.toString(inventoryDialogModel.getTargetMoney()));
+			targetMoney.setBounds(542, 560, 50, 22);
+			getContentPane().add(targetMoney);
+			
+			JLabel targetWeightLabel = new JLabel("Weight:");
+			targetWeightLabel.setBounds(592, 557, 64, 25);
+			getContentPane().add(targetWeightLabel);
+			
+			String targetWeightString = getTargetWeight(inventoryDialogModel);
+			targetWeight = new JLabel(targetWeightString);
+			targetWeight.setBounds(668, 560, 64, 22);
+			getContentPane().add(targetWeight);
+		}
 		
 		setInventoryActions(inventoryActions);
+		addPopupMenuToInventoryList();
 		
 		if (inventoryJList.getModel().getSize() == 0) {
-			noSellRadioButton.setEnabled(false);
-			sellRadioButton.setEnabled(false);
-			priceTextField.setEnabled(false);
 			okButton.setEnabled(false);
 		}
+	}
+	
+	private void addPopupMenuToInventoryList() {
+		inventoryJList.addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+		        if (SwingUtilities.isRightMouseButton(e)) {
+		        	int row = inventoryJList.locationToIndex(e.getPoint());
+		        	inventoryJList.setSelectedIndex(row);
+			        InventoryItem inventoryItem = inventoryJList.getSelectedValue();
+			        
+			        JPopupMenu popupMenu = new JPopupMenu();
+			        popupMenu.add(new JCheckBoxMenuItem(new SellableAction(inventoryItem)));
+			        popupMenu.show(inventoryJList, e.getX(), e.getY());
+			    }
+			}
+		});
+	}
+	
+	private class SellableAction extends AbstractAction {
+
+		public SellableAction(InventoryItem inventoryItem) {
+			super();
+			boolean sellable = inventoryItem.isSellable();
+	        int price = inventoryItem.getPrice();
+			String text = "mark as sellable for " + price + " gold";
+		
+			this.putValue(Action.NAME, text);
+			this.putValue(Action.SELECTED_KEY, sellable);
+		}
+
+
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			JCheckBoxMenuItem source = (JCheckBoxMenuItem)e.getSource();
+			inventoryJList.getSelectedValue().setSellable(source.isSelected());
+			
+		}
+		
+	}
+
+	private String getTargetWeight(InventoryDialogModel inventoryDialogModel) {
+		String targetWeightString = Integer.toString(inventoryDialogModel.getTargetWeight())
+				+ "/"
+				+Integer.toString(inventoryDialogModel.getTargetCarryingCapacity());
+		return targetWeightString;
+	}
+
+	private String getPlayerCharacterWeight(InventoryDialogModel inventoryDialogModel) {
+		String weightString = Integer.toString(inventoryDialogModel.getPlayerCharacterWeight())
+							+ "/"
+							+Integer.toString(inventoryDialogModel.getPlayerCharacterCarryingCapacity());
+		return weightString;
 	}
 
 	private void setInventoryActions(List<Action> inventoryActions) {
@@ -208,8 +278,8 @@ public class InventoryDialog extends JDialog {
 		});
 	}
 
-	public InventoryDialog(InventoryDialogModel inventoryDialogModel, WorldObjectContainer inventory, ImageInfoReader imageInfoReader, List<Action> inventoryActions) {
-		this(inventoryDialogModel, inventory, null, imageInfoReader, inventoryActions);
+	public InventoryDialog(InventoryDialogModel inventoryDialogModel, ImageInfoReader imageInfoReader, List<Action> inventoryActions) {
+		this(inventoryDialogModel, null, imageInfoReader, inventoryActions);
 	}
 	
 	private class DefaultInventoryDialogAction implements InventoryDialogAction {
@@ -239,9 +309,6 @@ public class InventoryDialog extends JDialog {
 	private void addActions(InventoryDialogAction inventoryDialogAction) {
 		cancelButton.addActionListener(new CloseDialogAction());
 		inventoryJList.addListSelectionListener(new InventoryListSelectionListener(inventoryDialogAction));
-		noSellRadioButton.addChangeListener(new NoSellRadioButtonListener());
-		priceTextField.addMouseListener(new PriceTextFieldMouseListener());
-		sellRadioButton.addChangeListener(new SellRadioButtonListener());
 		
 		inventoryJList.setSelectedIndex(0);
 	}
@@ -261,7 +328,7 @@ public class InventoryDialog extends JDialog {
 
 		@Override
         public JToolTip createToolTip() {
-            JScrollableToolTip tip = new JScrollableToolTip(250, 80);
+            JScrollableToolTip tip = new JScrollableToolTip(250, 100);
             tip.setComponent(this);
             return tip;
         }
@@ -283,9 +350,19 @@ public class InventoryDialog extends JDialog {
 		setVisible(true);
 	}
 
-	public void refresh(WorldObjectContainer inventory, int playerCharacterGold, List<Action> inventoryActions) {
-		inventoryJList.setModel(getInventoryListModel(inventory));
-		moneyValueLabel.setText(Integer.toString(playerCharacterGold));
+	public void refresh(InventoryDialogModel inventoryDialogModel, List<Action> inventoryActions) {
+		inventoryJList.setModel(getInventoryListModel(inventoryDialogModel.getPlayerCharacterInventory()));
+		moneyValueLabel.setText(Integer.toString(inventoryDialogModel.getPlayerCharacterMoney()));
+		String weightString = getPlayerCharacterWeight(inventoryDialogModel);
+		weightLabelValue.setText(weightString);
+		
+		if (inventoryDialogModel.hasTarget()) {
+			targetInventoryList.setModel(getInventoryListModel(inventoryDialogModel.getTargetInventory()));
+			targetMoney.setText(Integer.toString(inventoryDialogModel.getTargetMoney()));
+			String targetWeightString = getTargetWeight(inventoryDialogModel);
+			targetWeight.setText(targetWeightString);
+		}
+		
 		setInventoryActions(inventoryActions);
 	}
 
@@ -306,54 +383,9 @@ public class InventoryDialog extends JDialog {
 			InventoryItem inventoryItem = inventoryJList.getSelectedValue();
 			if (inventoryItem != null) {
 				okButton.setEnabled(inventoryDialogAction.isPossible(inventoryItem));
-				
-				if (inventoryItem.isSellable()) {
-					noSellRadioButton.setSelected(false);
-					sellRadioButton.setSelected(true);
-				} else {
-					noSellRadioButton.setSelected(true);
-					sellRadioButton.setSelected(false);
-				}					
-				priceTextField.setText(Integer.toString(inventoryItem.getPrice()));
 			} else {
-				noSellRadioButton.setSelected(false);
-				sellRadioButton.setSelected(false);
-				priceTextField.setText("0");
 				okButton.setEnabled(false);
 			}
 		}		
-	}
-	
-	private class PriceTextFieldMouseListener extends MouseAdapter {
-
-		@Override
-		public void mousePressed(MouseEvent e) {
-			noSellRadioButton.setSelected(false);
-			sellRadioButton.setSelected(true);
-		}
-	}
-	
-	private class NoSellRadioButtonListener implements ChangeListener {
-
-		@Override
-		public void stateChanged(ChangeEvent e) {
-			if (noSellRadioButton.isSelected()) {
-				if (inventoryJList.getSelectedValue() != null) {
-					inventoryJList.getSelectedValue().setSellable(false);
-				}
-			}
-		}
-	}
-	
-	private class SellRadioButtonListener implements ChangeListener {
-
-		@Override
-		public void stateChanged(ChangeEvent e) {
-			if (sellRadioButton.isSelected()) {
-				if (inventoryJList.getSelectedValue() != null) {
-					inventoryJList.getSelectedValue().setSellable(true);
-				}
-			}
-		}
 	}
 }

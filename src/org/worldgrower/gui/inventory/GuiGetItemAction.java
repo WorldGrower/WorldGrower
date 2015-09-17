@@ -52,7 +52,7 @@ public class GuiGetItemAction extends AbstractAction {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		dialog = new InventoryDialog(new InventoryDialogModel(playerCharacter), target.getProperty(Constants.INVENTORY), new InventoryDialogBuyAction(), imageInfoReader, new ArrayList<>());
+		dialog = new InventoryDialog(new InventoryDialogModel(playerCharacter, target), new InventoryDialogBuyAction(), imageInfoReader, new ArrayList<>());
 		dialog.showMe();
 	}
 
@@ -73,7 +73,7 @@ public class GuiGetItemAction extends AbstractAction {
 					int[] args = new int[] { inventoryItem.getId(), price };
 					buy(args);
 					
-					dialog.refresh(target.getProperty(Constants.INVENTORY), playerCharacter.getProperty(Constants.GOLD), new ArrayList<>());
+					dialog.refresh(new InventoryDialogModel(playerCharacter, target), new ArrayList<>());
 				}
 			};
 		}

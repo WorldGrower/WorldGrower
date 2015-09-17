@@ -68,6 +68,9 @@ public class InventoryItem {
 			} else if (propertyKey == Constants.EQUIPMENT_HEALTH) {
 				String value = inventoryWorldObject.getProperty(propertyKey).toString();
 				additionalProperties.put(name, value + "/1000");
+			} else if (propertyKey == Constants.SELLABLE) {
+				Boolean sellable = (Boolean) inventoryWorldObject.getProperty(propertyKey);
+				additionalProperties.put(name, sellable ? "yes" : "no");
 			}
 		}
 		

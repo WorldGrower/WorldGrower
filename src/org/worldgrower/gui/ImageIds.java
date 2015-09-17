@@ -205,4 +205,5 @@ public enum ImageIds {
 	FEMALE_3G_3,
 	MALE_3G_4,
 	FEMALE_3G_4,
+	REPAIR_HAMMER
 }

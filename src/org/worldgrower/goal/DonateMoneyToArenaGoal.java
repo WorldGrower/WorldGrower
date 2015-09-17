@@ -45,7 +45,10 @@ public class DonateMoneyToArenaGoal implements Goal {
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		return ArenaPropertyUtils.getTurnsSinceLastDonation(performer, world) < NUMBER_OF_TURNS_BETWEEN_DONATIONS;
+		int money = performer.getProperty(Constants.GOLD);
+		boolean hasInsufficientMoney = (money < 50);
+		boolean donatedRecently = ArenaPropertyUtils.getTurnsSinceLastDonation(performer, world) < NUMBER_OF_TURNS_BETWEEN_DONATIONS;
+		return hasInsufficientMoney || donatedRecently;
 	}
 	
 	@Override

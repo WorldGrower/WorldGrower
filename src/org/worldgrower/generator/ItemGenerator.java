@@ -343,4 +343,15 @@ public class ItemGenerator {
 		properties.put(Constants.IMAGE_ID, ImageIds.RAW_FISH);
 		return new WorldObjectImpl(properties);
 	}
+	
+	public static WorldObject getRepairHammer(double skillBonus) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		properties.put(Constants.NAME, "repair hammer");
+		properties.put(Constants.PRICE, 10);
+		properties.put(Constants.SELLABLE, false);
+		properties.put(Constants.WEIGHT, 1);
+		properties.put(Constants.REPAIR_QUALITY, (int)(2 * skillBonus));
+		properties.put(Constants.IMAGE_ID, ImageIds.REPAIR_HAMMER);
+		return new WorldObjectImpl(properties);
+	}
 }

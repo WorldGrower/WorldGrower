@@ -19,46 +19,50 @@ import java.io.ObjectStreamException;
 import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
-import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.ItemGenerator;
 
-public class DonateMoneyAction implements ManagedOperation {
+public class CraftRepairHammerAction implements ManagedOperation {
 
+	private static final int WOOD_REQUIRED = 2;
+	private static final int ORE_REQUIRED = 1;
+	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		int goldDonated = args[0];
-		performer.increment(Constants.GOLD, -goldDonated);
-		target.increment(Constants.GOLD, goldDonated);
+		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
 		
-		performer.setProperty(Constants.ARENA_DONATED_TURN, world.getCurrentTurn().getValue());
+		double skillBonus = CraftUtils.useSmithingSkill(performer);
+		inventory.addQuantity(ItemGenerator.getRepairHammer(skillBonus));
+
+		inventory.removeQuantity(Constants.WOOD, WOOD_REQUIRED);
+		inventory.removeQuantity(Constants.ORE, ORE_REQUIRED);
 	}
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return Reach.evaluateTarget(performer, args, target, 1);
+		return CraftUtils.distance(performer, WOOD_REQUIRED, ORE_REQUIRED);
 	}
 
 	@Override
 	public ArgumentRange[] getArgumentRanges() {
-		ArgumentRange[] argumentRanges = new ArgumentRange[1];
-		argumentRanges[0] = new ArgumentRange(0, 100);
-		return argumentRanges;
+		return ArgumentRange.EMPTY_ARGUMENT_RANGE;
 	}
 
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return (target.hasIntelligence() && target.hasProperty(Constants.INVENTORY) && target.getProperty(Constants.CREATURE_TYPE).canTrade());
+		return CraftUtils.isValidTarget(performer, target, world);
 	}
-
+	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "donating money";
+		return "crafting repair hammer";
 	}
 
 	@Override
 	public String getSimpleDescription() {
-		return "donate money";
+		return "craft repair hammer";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {

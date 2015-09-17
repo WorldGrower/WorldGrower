@@ -292,6 +292,8 @@ public class ImageInfoReader {
 		addCharacter(ImageIds.FEMALE_3G_3, sprites3g, 3, 4, 1, 1);
 		addCharacter(ImageIds.MALE_3G_4, sprites3g, 6, 4, 1, 1);
 		addCharacter(ImageIds.FEMALE_3G_4, sprites3g, 9, 4, 1, 1);
+		
+		add(ImageIds.REPAIR_HAMMER, sprites420.getSubImage(3, 9, 1, 1));
     }
 
 	private void createArenaVertical() {

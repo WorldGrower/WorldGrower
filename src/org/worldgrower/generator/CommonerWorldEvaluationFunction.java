@@ -77,6 +77,7 @@ public class CommonerWorldEvaluationFunction implements WorldObjectPriorities {
 				Goals.MATE_GOAL,
 				Goals.CHILDREN_GOAL,
 				Goals.FURNITURE_GOAL,
+				Goals.DONATE_MONEY_TO_ARENA_GOAL,
 				Goals.SEX_GOAL,
 				Goals.IDLE_GOAL);
 				

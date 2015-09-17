@@ -177,6 +177,8 @@ public class Actions {
 	public static final MarkInventoryItemAsSellableAction MARK_INVENTORY_ITEM_AS_SELLABLE_ACTION = new MarkInventoryItemAsSellableAction();
 	public static final BuildArenaAction BUILD_ARENA_ACTION = new BuildArenaAction();
 	public static final DonateMoneyAction DONATE_MONEY_ACTION = new DonateMoneyAction();
+	public static final CraftRepairHammerAction CRAFT_REPAIR_HAMMER_ACTION = new CraftRepairHammerAction();
+	public static final RepairEquipmentInInventoryAction REPAIR_EQUIPMENT_IN_INVENTORY_ACTION = new RepairEquipmentInInventoryAction();
 	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 
@@ -205,7 +207,8 @@ public class Actions {
 	
 	private static final List<ManagedOperation> INVENTORY_ACTIONS = Arrays.asList(
 			EAT_FROM_INVENTORY_ACTION,
-			DRINK_FROM_INVENTORY_ACTION
+			DRINK_FROM_INVENTORY_ACTION,
+			REPAIR_EQUIPMENT_IN_INVENTORY_ACTION
 			);
 	
 	public static final List<ManagedOperation> ALL_ACTIONS = new ArrayList<>(Arrays.asList(
@@ -303,7 +306,8 @@ public class Actions {
 		CATCH_FISH_ACTION,
 		MARK_INVENTORY_ITEM_AS_SELLABLE_ACTION,
 		BUILD_ARENA_ACTION,
-		DONATE_MONEY_ACTION
+		DONATE_MONEY_ACTION,
+		CRAFT_REPAIR_HAMMER_ACTION
 	));
 	
 	static {

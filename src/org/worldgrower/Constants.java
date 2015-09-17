@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.worldgrower.actions.magic.MagicSpell;
-import org.worldgrower.attribute.Background;
 import org.worldgrower.attribute.BackgroundProperty;
 import org.worldgrower.attribute.BooleanProperty;
 import org.worldgrower.attribute.IdListProperty;
@@ -130,6 +129,7 @@ public class Constants {
 	public static final IntProperty WEIGHT = new IntProperty("weight", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty EQUIPMENT_HEALTH = new IntProperty("equipmentHealth", 0, 1000, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty POISON_DAMAGE = new IntProperty("damage", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty REPAIR_QUALITY = new IntProperty("repairQuality", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	
 	public static final UnCheckedProperty<WorldObject> HEAD_EQUIPMENT = new UnCheckedProperty<WorldObject>("headEquipment", ALL_PROPERTIES);
 	public static final UnCheckedProperty<WorldObject> TORSO_EQUIPMENT = new UnCheckedProperty<WorldObject>("torsoEquipment", ALL_PROPERTIES);
@@ -242,5 +242,5 @@ public class Constants {
 	public static final IdListProperty ARENA_FIGHTER_IDS =  new IdListProperty("fighterForArenaOwnerId", ALL_PROPERTIES);
 	public static final IdProperty ARENA_OPPONENT_ID = new IdProperty("arenaOpponentId", ALL_PROPERTIES);
 	public static final IntProperty ARENA_PAY_CHECK_GOLD = new IntProperty("arenapayCheckGold", 0, null, NULLABLE, ALL_PROPERTIES);
-	public static final IdMapProperty ARENA_DONATED_TURN = new IdMapProperty("arenaDonatedTurn", ALL_PROPERTIES);
+	public static final IntProperty ARENA_DONATED_TURN = new IntProperty("arenaDonatedTurn", 0, null, NULLABLE, ALL_PROPERTIES);
 }

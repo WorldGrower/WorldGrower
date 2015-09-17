@@ -53,7 +53,7 @@ public class InventoryAction extends AbstractAction {
 	public void actionPerformed(ActionEvent e) {
 		List<Action> inventoryActions = getInventoryActions();
 		
-		dialog = new InventoryDialog(new InventoryDialogModel(playerCharacter), playerCharacter.getProperty(Constants.INVENTORY), imageInfoReader, inventoryActions);
+		dialog = new InventoryDialog(new InventoryDialogModel(playerCharacter), imageInfoReader, inventoryActions);
 		dialog.showMe();
 	}
 
@@ -81,7 +81,7 @@ public class InventoryAction extends AbstractAction {
 		public void actionPerformed(ActionEvent arg0) {
 			Main.executeAction(playerCharacter, playerCharacter.getOperation(action), new int[0], world, dungeonMaster, playerCharacter, container);
 			
-			dialog.refresh(playerCharacter.getProperty(Constants.INVENTORY), playerCharacter.getProperty(Constants.GOLD), getInventoryActions());
+			dialog.refresh(new InventoryDialogModel(playerCharacter), getInventoryActions());
 		}
 	}
 }

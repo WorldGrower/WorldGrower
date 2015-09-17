@@ -15,6 +15,7 @@
 package org.worldgrower.actions;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,6 +28,7 @@ import org.worldgrower.attribute.ArmorType;
 import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.attribute.UnCheckedProperty;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.goal.DeathReasonPropertyUtils;
@@ -67,11 +69,24 @@ public class AttackUtils {
 		targetHP = hitPointsHandler.handleHitPoints(performer, target, action, targetHP);
 		target.setProperty(Constants.HIT_POINTS, targetHP);	
 		
-		useArmorSkill(target);
+		decreaseWeaponHealth(performer, damage);
+		armorIsUsed(target, damage);
 		
 		world.logAction(action, performer, target, args, message);
 	}
 	
+	private static void decreaseWeaponHealth(WorldObject performer, int damage) {
+		damageEquipment(performer, Constants.LEFT_HAND_EQUIPMENT, damage);
+		damageEquipment(performer, Constants.RIGHT_HAND_EQUIPMENT, damage);
+	}
+	
+	private static void damageEquipment(WorldObject worldObject, UnCheckedProperty<WorldObject> equipmentProperty, int damage) {
+		WorldObject equipment = worldObject.getProperty(equipmentProperty);
+		if (equipment != null) {
+			equipment.increment(Constants.EQUIPMENT_HEALTH, -damage);
+		}
+	}
+
 	private static int changeForSize(int damage, WorldObject performer, WorldObject target) {
 		if (performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.ENLARGED_CONDITION)) {
 			damage *= 2;
@@ -94,13 +109,19 @@ public class AttackUtils {
 		}
 	}
 
+	private static void armorIsUsed(WorldObject target, int damage) {
+		decreaseArmorHealth(target, damage);
+		useArmorSkill(target);
+	}
+	
+	private static void decreaseArmorHealth(WorldObject target, int damage) {
+		for(UnCheckedProperty<WorldObject> equipmentProperty : getEquipmentProperties()) {
+			damageEquipment(target, equipmentProperty, damage);
+		}
+	}
+
 	private static void useArmorSkill(WorldObject target) {
-		List<WorldObject> targetEquipmentList = new ArrayList<>();
-		targetEquipmentList.add(target.getProperty(Constants.HEAD_EQUIPMENT));
-		targetEquipmentList.add(target.getProperty(Constants.TORSO_EQUIPMENT));
-		targetEquipmentList.add(target.getProperty(Constants.ARMS_EQUIPMENT));
-		targetEquipmentList.add(target.getProperty(Constants.LEGS_EQUIPMENT));
-		targetEquipmentList.add(target.getProperty(Constants.FEET_EQUIPMENT));
+		List<WorldObject> targetEquipmentList = getEquipmentList(target);
 		
 		boolean targetHasLightArmor = targetEquipmentList.stream().filter(w -> w != null && w.getProperty(Constants.ARMOR_TYPE) == ArmorType.LIGHT).collect(Collectors.toList()).size() > 0;
 		boolean targetHasHeavyArmor = targetEquipmentList.stream().filter(w -> w != null && w.getProperty(Constants.ARMOR_TYPE) == ArmorType.HEAVY).collect(Collectors.toList()).size() > 0;
@@ -115,6 +136,24 @@ public class AttackUtils {
 			SkillUtils.useSkill(target, Constants.HEAVY_ARMOR_SKILL);
 			SkillUtils.useSkill(target, Constants.HEAVY_ARMOR_SKILL);
 		}
+	}
+
+	private static List<WorldObject> getEquipmentList(WorldObject target) {
+		List<WorldObject> targetEquipmentList = new ArrayList<>();
+		for(UnCheckedProperty<WorldObject> equipmentProperty : getEquipmentProperties()) {
+			targetEquipmentList.add(target.getProperty(equipmentProperty));
+		}
+		return targetEquipmentList;
+	}
+	
+	private static List<UnCheckedProperty<WorldObject>> getEquipmentProperties() {
+		return Arrays.asList(
+				Constants.HEAD_EQUIPMENT, 
+				Constants.TORSO_EQUIPMENT, 
+				Constants.ARMS_EQUIPMENT, 
+				Constants.LEGS_EQUIPMENT, 
+				Constants.FEET_EQUIPMENT
+		);
 	}
 
 	public static void biteAttack(DeadlyAction action, WorldObject performer, WorldObject target, int[] args, World world) {

@@ -15,50 +15,55 @@
 package org.worldgrower.actions;
 
 import java.io.ObjectStreamException;
+import java.util.List;
 
 import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
-import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.WorldObjectContainer;
 
-public class DonateMoneyAction implements ManagedOperation {
+public class RepairEquipmentInInventoryAction implements ManagedOperation {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		int goldDonated = args[0];
-		performer.increment(Constants.GOLD, -goldDonated);
-		target.increment(Constants.GOLD, goldDonated);
+		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
+		List<WorldObject> damagedEquipment = inventory.getWorldObjects(Constants.EQUIPMENT_HEALTH, w -> w.getProperty(Constants.EQUIPMENT_HEALTH) < 1000);
 		
-		performer.setProperty(Constants.ARENA_DONATED_TURN, world.getCurrentTurn().getValue());
+		double skillBonus = CraftUtils.useSmithingSkill(performer);
+		damagedEquipment.get(0).increment(Constants.EQUIPMENT_HEALTH, (int)(100 * skillBonus));
+		
+		inventory.removeQuantity(Constants.REPAIR_QUALITY, 1);
 	}
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return Reach.evaluateTarget(performer, args, target, 1);
+		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
+		int numberOfRepairToolsDistance = inventory.getQuantityFor(Constants.REPAIR_QUALITY) > 0 ? 0 : 1;
+		List<WorldObject> damagedEquipmentList = inventory.getWorldObjects(Constants.EQUIPMENT_HEALTH, w -> w.getProperty(Constants.EQUIPMENT_HEALTH) < 1000);
+		int damagedEquipmentDistance = damagedEquipmentList.size() > 0 ? 0 : 1;
+		return numberOfRepairToolsDistance + damagedEquipmentDistance;
 	}
 
 	@Override
 	public ArgumentRange[] getArgumentRanges() {
-		ArgumentRange[] argumentRanges = new ArgumentRange[1];
-		argumentRanges[0] = new ArgumentRange(0, 100);
-		return argumentRanges;
+		return ArgumentRange.EMPTY_ARGUMENT_RANGE;
 	}
 
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return (target.hasIntelligence() && target.hasProperty(Constants.INVENTORY) && target.getProperty(Constants.CREATURE_TYPE).canTrade());
+		return (performer.equals(target) && (performer.hasProperty(Constants.INVENTORY)) && (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.REPAIR_QUALITY) > 0));
 	}
 
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "donating money";
+		return "repairing inventory equipment";
 	}
 
 	@Override
 	public String getSimpleDescription() {
-		return "donate money";
+		return "repair inventory equipment";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {

@@ -135,10 +135,9 @@ public class GuiMouseListener extends MouseAdapter {
             	addPlayerCharacterInformationMenus(menu);
             	
             	JMenu organizationMenu = new JMenu("Organization");
+            	JMenu miscMenu = new JMenu("Miscellaneous");
             	
-            	JMenuItem disguiseMenuItem = new JMenuItem(new GuiDisguiseAction(playerCharacter, imageInfoReader, world, (WorldPanel)container, dungeonMaster, Actions.DISGUISE_ACTION));
-            	disguiseMenuItem.setText("Disguise...");
-            	menu.add(disguiseMenuItem);
+            	addDisguiseMenu(miscMenu);
             	
             	addPropertiesMenu(menu, playerCharacter);
             	addBuildActions(menu);
@@ -155,7 +154,8 @@ public class GuiMouseListener extends MouseAdapter {
             	addCreateOrganizationMenu(organizationMenu);
             	addShowLegalActionsMenu(organizationMenu);
             	addShowOrganizationsActionMenu(organizationMenu);
-            	addChooseDeityMenu(menu);
+            	addChooseDeityMenu(miscMenu);
+            	menu.add(miscMenu);
             	
             	menu.show(e.getComponent(), e.getX(), e.getY());
             } else {
@@ -176,7 +176,13 @@ public class GuiMouseListener extends MouseAdapter {
         }
     }
 
-	private void addChooseDeityMenu(JPopupMenu menu) {
+	private void addDisguiseMenu(JMenu menu) {
+		JMenuItem disguiseMenuItem = new JMenuItem(new GuiDisguiseAction(playerCharacter, imageInfoReader, world, (WorldPanel)container, dungeonMaster, Actions.DISGUISE_ACTION));
+		disguiseMenuItem.setText("Disguise...");
+		menu.add(disguiseMenuItem);
+	}
+
+	private void addChooseDeityMenu(JMenu menu) {
 		JMenuItem chooseDeityMenuItem = new JMenuItem(new ChooseDeityAction(playerCharacter, imageInfoReader, world, (WorldPanel)container, dungeonMaster));
 		chooseDeityMenuItem.setText("Choose Deity...");
 		menu.add(chooseDeityMenuItem);
@@ -333,7 +339,7 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 	
 	private void addCraftActions(JPopupMenu menu) {
-		ManagedOperation[] craftActions = { Actions.CRAFT_IRON_CLAYMORE_ACTION, Actions.CRAFT_IRON_CUIRASS_ACTION, Actions.CRAFT_IRON_HELMET_ACTION, Actions.CRAFT_IRON_GAUNTLETS_ACTION, Actions.CRAFT_IRON_BOOTS_ACTION, Actions.CRAFT_LONG_BOW_ACTION, Actions.MINT_GOLD_ACTION, Actions.CREATE_PAPER_ACTION, Actions.CONSTRUCT_BED_ACTION, Actions.CONSTRUCT_FISHING_POLE_ACTION };
+		ManagedOperation[] craftActions = { Actions.CRAFT_IRON_CLAYMORE_ACTION, Actions.CRAFT_IRON_CUIRASS_ACTION, Actions.CRAFT_IRON_HELMET_ACTION, Actions.CRAFT_IRON_GAUNTLETS_ACTION, Actions.CRAFT_IRON_BOOTS_ACTION, Actions.CRAFT_LONG_BOW_ACTION, Actions.MINT_GOLD_ACTION, Actions.CREATE_PAPER_ACTION, Actions.CONSTRUCT_BED_ACTION, Actions.CONSTRUCT_FISHING_POLE_ACTION, Actions.CRAFT_REPAIR_HAMMER_ACTION };
 		addActions(menu, "Craft", craftActions);
 	}
 	

@@ -142,14 +142,7 @@ public class Main {
 		PlantGenerator.generateBerryBush(3, 3, world);
 		
 		for(int i=0; i<villagerCount; i++) {
-			int id = commonerGenerator.generateCommoner(1, 1, world, organization);
-			//TODO: temporary
-			if (i == 0) {
-				world.findWorldObject(Constants.ID, id).setProperty(Constants.PROFESSION, Professions.ARENA_OWNER_PROFESSION);
-			}
-			if (i == 1) {
-				world.findWorldObject(Constants.ID, id).setProperty(Constants.PROFESSION, Professions.ARENA_FIGHTER_PROFESSION);
-			}
+			commonerGenerator.generateCommoner(1, 1, world, organization);
 		}
 		
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();

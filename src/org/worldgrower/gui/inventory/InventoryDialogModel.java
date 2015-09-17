@@ -14,27 +14,73 @@
  *******************************************************************************/
 package org.worldgrower.gui.inventory;
 
+import java.awt.Image;
+
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.goal.WeightPropertyUtils;
+import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.ImageInfoReader;
 
 public class InventoryDialogModel {
 
 	private final WorldObject playerCharacter;
+	private final WorldObject target;
 	
 	public InventoryDialogModel(WorldObject playerCharacter) {
 		this.playerCharacter = playerCharacter;
+		this.target = null;
+	}
+	
+	public InventoryDialogModel(WorldObject playerCharacter, WorldObject target) {
+		this.playerCharacter = playerCharacter;
+		this.target = target;
 	}
 
-	public int getMoney() {
+	public int getPlayerCharacterMoney() {
 		return playerCharacter.getProperty(Constants.GOLD);
 	}
 	
-	public int getWeight() {
+	public int getPlayerCharacterWeight() {
 		return WeightPropertyUtils.getTotalWeight(playerCharacter);
 	}
 	
-	public int getCarryingCapacity() {
+	public int getPlayerCharacterCarryingCapacity() {
 		return WeightPropertyUtils.getCarryingCapacity(playerCharacter);
+	}
+	
+	public int getTargetMoney() {
+		return target.getProperty(Constants.GOLD);
+	}
+	
+	public int getTargetWeight() {
+		return WeightPropertyUtils.getTotalWeight(target);
+	}
+	
+	public int getTargetCarryingCapacity() {
+		return WeightPropertyUtils.getCarryingCapacity(target);
+	}
+	
+	public Image getPlayerCharacterImage(ImageInfoReader imageInfoReader) {
+		ImageIds imageIdPerformer = playerCharacter.getProperty(Constants.IMAGE_ID);
+		return imageInfoReader.getImage(imageIdPerformer, null);
+	}
+	
+	public Image getTargetImage(ImageInfoReader imageInfoReader) {
+		ImageIds imageIdPerformer = target.getProperty(Constants.IMAGE_ID);
+		return imageInfoReader.getImage(imageIdPerformer, null);
+	}
+	
+	public WorldObjectContainer getPlayerCharacterInventory() {
+		return playerCharacter.getProperty(Constants.INVENTORY);
+	}
+	
+	public WorldObjectContainer getTargetInventory() {
+		return target.getProperty(Constants.INVENTORY);
+	}
+	
+	public boolean hasTarget() {
+		return target != null;
 	}
 }
