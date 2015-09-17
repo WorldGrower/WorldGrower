@@ -29,7 +29,7 @@ public class RepairEquipmentInInventoryAction implements ManagedOperation {
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
-		List<WorldObject> damagedEquipment = inventory.getWorldObjects(Constants.EQUIPMENT_HEALTH, w -> w.getProperty(Constants.EQUIPMENT_HEALTH) < 1000);
+		List<WorldObject> damagedEquipment = getDamagedEquipment(inventory);
 		
 		double skillBonus = CraftUtils.useSmithingSkill(performer);
 		damagedEquipment.get(0).increment(Constants.EQUIPMENT_HEALTH, (int)(100 * skillBonus));
@@ -41,9 +41,14 @@ public class RepairEquipmentInInventoryAction implements ManagedOperation {
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
 		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
 		int numberOfRepairToolsDistance = inventory.getQuantityFor(Constants.REPAIR_QUALITY) > 0 ? 0 : 1;
-		List<WorldObject> damagedEquipmentList = inventory.getWorldObjects(Constants.EQUIPMENT_HEALTH, w -> w.getProperty(Constants.EQUIPMENT_HEALTH) < 1000);
+		List<WorldObject> damagedEquipmentList = getDamagedEquipment(inventory);
 		int damagedEquipmentDistance = damagedEquipmentList.size() > 0 ? 0 : 1;
 		return numberOfRepairToolsDistance + damagedEquipmentDistance;
+	}
+
+	private List<WorldObject> getDamagedEquipment(WorldObjectContainer inventory) {
+		List<WorldObject> damagedEquipmentList = inventory.getWorldObjectsByFunction(Constants.EQUIPMENT_HEALTH, w -> w.getProperty(Constants.EQUIPMENT_HEALTH) < 1000);
+		return damagedEquipmentList;
 	}
 
 	@Override

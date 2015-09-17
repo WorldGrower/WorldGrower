@@ -156,7 +156,7 @@ public class WorldObjectContainer implements Serializable {
 		return result;
 	}
 	
-	public List<WorldObject> getWorldObjects(ManagedProperty<?> propertyKey, Function<WorldObject, Boolean> testFunction) {
+	public List<WorldObject> getWorldObjectsByFunction(ManagedProperty<?> propertyKey, Function<WorldObject, Boolean> testFunction) {
 		List<WorldObject> result = new ArrayList<>();
 		for(WorldObject worldObject : worldObjects) {
 			if (worldObject != null) {
