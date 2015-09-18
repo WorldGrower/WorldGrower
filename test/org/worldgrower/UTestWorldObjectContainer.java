@@ -106,4 +106,53 @@ public class UTestWorldObjectContainer {
 		assertEquals(0, container.getIndexFor(Constants.WOOD));
 		assertEquals(-1, container.getIndexFor(Constants.STONE));
 	}
+	
+	@Test
+	public void testGetWorldObjectsByFunction() {
+		WorldObjectContainer container = new WorldObjectContainer();
+		container.addQuantity(Constants.WOOD, 1, NO_IMAGE_ID);
+		container.addQuantity(Constants.FOOD, 10, NO_IMAGE_ID);
+		
+		List<WorldObject> items = container.getWorldObjectsByFunction(Constants.WOOD, w -> w.getProperty(Constants.WOOD) > 0);
+		assertEquals(1, items.size());
+	}
+	
+	@Test
+	public void testGetIndexForWithFunction() {
+		WorldObjectContainer container = new WorldObjectContainer();
+		container.add(TestUtils.createWorldObject(1, "Test"));
+		container.addQuantity(Constants.FOOD, 10, NO_IMAGE_ID);
+		
+		assertEquals(0, container.getIndexFor(Constants.NAME, "Test", w -> w.getProperty(Constants.ID) == 1));
+	}
+	
+	@Test
+	public void testGetIndexForWithValue() {
+		WorldObjectContainer container = new WorldObjectContainer();
+		container.add(TestUtils.createWorldObject(1, "Test"));
+		container.addQuantity(Constants.FOOD, 10, NO_IMAGE_ID);
+		
+		assertEquals(1, container.getIndexFor(Constants.FOOD, 1));
+	}
+	
+	@Test
+	public void testRemoveAllQuantity() {
+		WorldObjectContainer container = new WorldObjectContainer();
+		container.addQuantity(Constants.WOOD, 1, NO_IMAGE_ID);
+		
+		container.removeAllQuantity(Constants.WOOD);
+		
+		assertEquals(null, container.get(0));
+	}
+	
+	@Test
+	public void testContains() {
+		WorldObjectContainer container = new WorldObjectContainer();
+		WorldObject worldObject1 = TestUtils.createWorldObject(1, "Test");
+		container.add(worldObject1);
+		WorldObject worldObject2 = TestUtils.createWorldObject(2, "Test2");
+		
+		assertEquals(true, container.contains(worldObject1));
+		assertEquals(false, container.contains(worldObject2));
+	}
 }

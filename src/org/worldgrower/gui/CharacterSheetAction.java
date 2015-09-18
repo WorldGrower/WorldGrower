@@ -34,7 +34,7 @@ public class CharacterSheetAction extends AbstractAction {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		dialog = new CharacterDialog(playerCharacter);
+		dialog = new CharacterDialog(playerCharacter, imageInfoReader);
 		dialog.showMe();
 	}
 }

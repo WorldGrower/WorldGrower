@@ -22,7 +22,6 @@ import java.util.Map;
 import java.util.function.Function;
 
 import org.worldgrower.Constants;
-import org.worldgrower.ManagedOperation;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.gui.ImageIds;
@@ -202,10 +201,11 @@ public class WorldObjectContainer implements Serializable {
 	}
 
 	public<T> void removeAllQuantity(ManagedProperty<T> propertyKey) {
-		for(WorldObject object : worldObjects) {
+		for(int i=0; i<worldObjects.size(); i++) {
+			WorldObject object = worldObjects.get(i);
 			if (object != null) {
 				if (object.hasProperty(propertyKey)) {
-					object.setProperty(Constants.QUANTITY, 0);
+					worldObjects.set(i, null);
 					return;
 				}
 			}

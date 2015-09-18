@@ -51,6 +51,12 @@ import org.worldgrower.gui.util.IconUtils;
 
 public class InventoryDialog extends JDialog {
 
+	private static final String MONEY_PLAYER_CHARACTER_TOOL_TIP = "shows amount of gold that the player character has";
+	private static final String WEIGHT_PLAYER_CHARACTER_TOOL_TIP = "shows current weight of things that the player character is carrying and maximum weight";
+	private static final String MONEY_TARGET_TOOL_TIP = "shows amount of gold that a character has";
+	private static final String WEIGHT_TARGET_TOOL_TIP = "shows current weight of things that a character is carrying and maximum weight";
+	private static final String ACTIONS_TOOL_TIP = "These actions modify the inventory items";
+	
 	private JList<InventoryItem> inventoryJList;
 	private JButton okButton;
 	private JButton cancelButton;
@@ -135,28 +141,34 @@ public class InventoryDialog extends JDialog {
 		getContentPane().add(inventoryScrollPane);
 		
 		final JLabel moneyLabel = new JLabel("Money:");
+		moneyLabel.setToolTipText(MONEY_PLAYER_CHARACTER_TOOL_TIP);
 		moneyLabel.setBounds(12, 555, 64, 25);
 		getContentPane().add(moneyLabel);
 		
 		moneyValueLabel = new JLabel(Integer.toString(inventoryDialogModel.getPlayerCharacterMoney()));
-		moneyValueLabel.setBounds(77, 558, 50, 22);
+		moneyValueLabel.setToolTipText(MONEY_PLAYER_CHARACTER_TOOL_TIP);
+		moneyValueLabel.setBounds(77, 555, 50, 25);
 		getContentPane().add(moneyValueLabel);
 		
 		JLabel lblWeight = new JLabel("Weight:");
+		lblWeight.setToolTipText(WEIGHT_PLAYER_CHARACTER_TOOL_TIP);
 		lblWeight.setBounds(127, 555, 64, 25);
 		getContentPane().add(lblWeight);
 		
 		String weightString = getPlayerCharacterWeight(inventoryDialogModel);
 		weightLabelValue = new JLabel(weightString);
-		weightLabelValue.setBounds(203, 558, 64, 22);
+		weightLabelValue.setToolTipText(WEIGHT_PLAYER_CHARACTER_TOOL_TIP);
+		weightLabelValue.setBounds(203, 555, 64, 25);
 		getContentPane().add(weightLabelValue);
 		
 		
 		actionsButton = new JButton("Actions");
+		actionsButton.setToolTipText(ACTIONS_TOOL_TIP);
 		actionsButton.setBounds(224, 359, 100, 25);
 		getContentPane().add(actionsButton);
 
 		JLabel lblPlayercharacter = new JLabel(new ImageIcon(inventoryDialogModel.getPlayerCharacterImage(imageInfoReader)));
+		lblPlayercharacter.setToolTipText(inventoryDialogModel.getPlayerCharacterName());
 		lblPlayercharacter.setBounds(12, 30, 48, 48);
 		getContentPane().add(lblPlayercharacter);
 		
@@ -171,24 +183,29 @@ public class InventoryDialog extends JDialog {
 			scrollPane.setViewportView(targetInventoryList);
 			
 			JLabel lblTarget = new JLabel(new ImageIcon(inventoryDialogModel.getTargetImage(imageInfoReader)));
+			lblTarget.setToolTipText(inventoryDialogModel.getTargetName());
 			lblTarget.setBounds(532, 30, 48, 48);
 			getContentPane().add(lblTarget);
 			
 			JLabel targetMoneyLabel = new JLabel("Money:");
-			targetMoneyLabel.setBounds(477, 557, 64, 25);
+			targetMoneyLabel.setToolTipText(MONEY_TARGET_TOOL_TIP);
+			targetMoneyLabel.setBounds(477, 555, 64, 25);
 			getContentPane().add(targetMoneyLabel);
 			
 			targetMoney = new JLabel(Integer.toString(inventoryDialogModel.getTargetMoney()));
-			targetMoney.setBounds(542, 560, 50, 22);
+			targetMoney.setToolTipText(MONEY_TARGET_TOOL_TIP);
+			targetMoney.setBounds(542, 555, 50, 25);
 			getContentPane().add(targetMoney);
 			
 			JLabel targetWeightLabel = new JLabel("Weight:");
-			targetWeightLabel.setBounds(592, 557, 64, 25);
+			targetWeightLabel.setToolTipText(WEIGHT_TARGET_TOOL_TIP);
+			targetWeightLabel.setBounds(592, 555, 64, 25);
 			getContentPane().add(targetWeightLabel);
 			
 			String targetWeightString = getTargetWeight(inventoryDialogModel);
 			targetWeight = new JLabel(targetWeightString);
-			targetWeight.setBounds(668, 560, 64, 22);
+			targetWeight.setToolTipText(WEIGHT_TARGET_TOOL_TIP);
+			targetWeight.setBounds(668, 555, 64, 25);
 			getContentPane().add(targetWeight);
 		}
 		

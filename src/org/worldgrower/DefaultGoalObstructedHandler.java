@@ -44,7 +44,7 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 		}
 	}
 	
-	private boolean hasAnyoneSeenAction(WorldObject performer, WorldObject actionTarget, ManagedOperation managedOperation, int[] args, World world) {
+	static boolean hasAnyoneSeenAction(WorldObject performer, WorldObject actionTarget, ManagedOperation managedOperation, int[] args, World world) {
 		if (performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.INVISIBLE_CONDITION)) {
 			return false;
 		} else {
@@ -97,7 +97,7 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 		return Arrays.asList(Actions.STEAL_ACTION);
 	}
 
-	private boolean performerViolatedGroupRules(WorldObject performer,WorldObject actionTarget, ManagedOperation managedOperation, World world) {
+	static boolean performerViolatedGroupRules(WorldObject performer,WorldObject actionTarget, ManagedOperation managedOperation, World world) {
 		Map<ManagedOperation, Boolean> legalActions = LegalActionsPropertyUtils.getLegalActions(world);
 		Boolean isLegal = legalActions.get(managedOperation);
 		if (isLegal != null) {
@@ -105,9 +105,9 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 			if (violatedGroupRules) {
 				boolean performerCanAttackCriminals = performerCanAttackCriminals(performer);
 				boolean actionTargetIsCriminal = actionTargetIsCriminal(actionTarget, world);
-				if (performerCanAttackCriminals
-						&& performerAttacked(managedOperation)
-						&& actionTargetIsCriminal) {
+				boolean sheriffAttacksCriminal = performerCanAttackCriminals && performerAttacked(managedOperation) && actionTargetIsCriminal;
+				boolean selfDefenseAgainstCriminal = performerAttacked(managedOperation) && actionTargetIsCriminal;
+				if (sheriffAttacksCriminal || selfDefenseAgainstCriminal) {
 					violatedGroupRules = false;
 				}
 			}
@@ -118,14 +118,14 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 		}
 	}
 
-	private boolean performerCanAttackCriminals(WorldObject performer) {
+	static boolean performerCanAttackCriminals(WorldObject performer) {
 		Boolean performerCanAttackCriminals = performer.getProperty(Constants.CAN_ATTACK_CRIMINALS);
 		return performerCanAttackCriminals != null && performerCanAttackCriminals.booleanValue();
 	}
 
-	private boolean actionTargetIsCriminal(WorldObject actionTarget, World world) {
+	static boolean actionTargetIsCriminal(WorldObject actionTarget, World world) {
 		WorldObject villagersOrganization = GroupPropertyUtils.getVillagersOrganization(world);
-		boolean actionTargetIsCriminal = actionTarget.getProperty(Constants.GROUP).contains(villagersOrganization);
+		boolean actionTargetIsCriminal = !actionTarget.getProperty(Constants.GROUP).contains(villagersOrganization);
 		return actionTargetIsCriminal;
 	}
 

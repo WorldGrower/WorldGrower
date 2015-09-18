@@ -15,18 +15,22 @@
 package org.worldgrower.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
+import javax.swing.ListCellRenderer;
 import javax.swing.border.EmptyBorder;
 
 import org.worldgrower.Constants;
@@ -41,6 +45,17 @@ import org.worldgrower.gui.util.IconUtils;
 
 public class CharacterDialog extends JDialog {
 
+	private static final String HEAD_TOOL_TIP = "Head equipment slot";
+	private static final String TORSO_TOOL_TIP = "Torso equipment slot";
+	private static final String ARMS_TOOL_TIP = "Arms equipment slot";
+	private static final String LEGS_TOOL_TIP = "Legs equipment slot";
+	private static final String FEET_TOOL_TIP = "Feet equipment slot";
+	private static final String LEFT_HAND_TOOL_TIP = "Left hand equipment slot";
+	private static final String RIGHT_HAND_TOOL_TIP = "Right hand equipment slot";
+	
+	private static final String ARMOR_TOOL_TIP = "Armor reduces the damage taken from non-magical attacks";
+	private static final String WEAPON_TOOL_TIP = "Damage indicates the damage done when performing melee or ranged attacks";
+	
 	private final JPanel contentPanel = new JPanel();
 	private final WorldObject playerCharacter;
 	
@@ -54,7 +69,7 @@ public class CharacterDialog extends JDialog {
 	private JComboBox<ComboBoxEquipmentItem> cmbRightHand;
 	private JLabel lblDamageValue;
 
-	public CharacterDialog(WorldObject playerCharacter) {
+	public CharacterDialog(WorldObject playerCharacter, ImageInfoReader imageInfoReader) {
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		IconUtils.setIcon(this);
 		
@@ -149,78 +164,100 @@ public class CharacterDialog extends JDialog {
 		createSkillBlock(Constants.TRANSMUTATION_SKILL, 250, 538);
 		createSkillBlock(Constants.ENCHANTMENT_SKILL, 250, 568);
 		
+		int labelLeft = 540;
+		
 		JLabel lblHead = new JLabel("Head");
-		lblHead.setBounds(500, 13, 80, 16);
+		lblHead.setToolTipText(HEAD_TOOL_TIP);
+		lblHead.setBounds(labelLeft, 35, 80, 16);
 		contentPanel.add(lblHead);
 		
 		JLabel lblTorso = new JLabel("Torso");
-		lblTorso.setBounds(500, 42, 80, 16);
+		lblTorso.setToolTipText(TORSO_TOOL_TIP);
+		lblTorso.setBounds(labelLeft, 95, 80, 16);
 		contentPanel.add(lblTorso);
 		
 		JLabel lblArms = new JLabel("Arms");
-		lblArms.setBounds(500, 71, 80, 16);
+		lblArms.setToolTipText(ARMS_TOOL_TIP);
+		lblArms.setBounds(labelLeft, 155, 80, 16);
 		contentPanel.add(lblArms);
 		
 		JLabel lblLegs = new JLabel("Legs");
-		lblLegs.setBounds(500, 100, 80, 16);
+		lblLegs.setToolTipText(LEGS_TOOL_TIP);
+		lblLegs.setBounds(labelLeft, 215, 80, 16);
 		contentPanel.add(lblLegs);
 		
 		JLabel lblFeet = new JLabel("Feet");
-		lblFeet.setBounds(500, 129, 80, 16);
+		lblFeet.setToolTipText(FEET_TOOL_TIP);
+		lblFeet.setBounds(labelLeft, 275, 80, 16);
 		contentPanel.add(lblFeet);
 		
 		JLabel lblLeftHand = new JLabel("Left Hand");
-		lblLeftHand.setBounds(500, 192, 80, 16);
+		lblLeftHand.setToolTipText(LEFT_HAND_TOOL_TIP);
+		lblLeftHand.setBounds(labelLeft, 335, 80, 16);
 		contentPanel.add(lblLeftHand);
 		
 		JLabel lblRightHand = new JLabel("Right Hand");
-		lblRightHand.setBounds(500, 221, 80, 16);
+		lblRightHand.setToolTipText(RIGHT_HAND_TOOL_TIP);
+		lblRightHand.setBounds(labelLeft, 395, 80, 16);
 		contentPanel.add(lblRightHand);
 		
 		WorldObjectContainer inventory = playerCharacter.getProperty(Constants.INVENTORY);
 		
-		cmbHead = createEquipmentComboBox(inventory, Constants.HEAD_EQUIPMENT);
-		cmbHead.setBounds(590, 13, 243, 22);
+		int equipmentLeft = 630;
+		
+		cmbHead = createEquipmentComboBox(inventory, Constants.HEAD_EQUIPMENT, imageInfoReader);
+		cmbHead.setToolTipText(HEAD_TOOL_TIP);
+		cmbHead.setBounds(equipmentLeft, 15, 243, 50);
 		contentPanel.add(cmbHead);
 		
-		cmbTorso = createEquipmentComboBox(inventory, Constants.TORSO_EQUIPMENT);
-		cmbTorso.setBounds(590, 42, 243, 22);
+		cmbTorso = createEquipmentComboBox(inventory, Constants.TORSO_EQUIPMENT, imageInfoReader);
+		cmbTorso.setToolTipText(TORSO_TOOL_TIP);
+		cmbTorso.setBounds(equipmentLeft, 75, 243, 50);
 		contentPanel.add(cmbTorso);
 		
-		cmbArms = createEquipmentComboBox(inventory, Constants.ARMS_EQUIPMENT);
-		cmbArms.setBounds(590, 71, 243, 22);
+		cmbArms = createEquipmentComboBox(inventory, Constants.ARMS_EQUIPMENT, imageInfoReader);
+		cmbArms.setToolTipText(ARMS_TOOL_TIP);
+		cmbArms.setBounds(equipmentLeft, 135, 243, 50);
 		contentPanel.add(cmbArms);
 		
-		cmbLegs = createEquipmentComboBox(inventory, Constants.LEGS_EQUIPMENT);
-		cmbLegs.setBounds(590, 100, 243, 22);
+		cmbLegs = createEquipmentComboBox(inventory, Constants.LEGS_EQUIPMENT, imageInfoReader);
+		cmbLegs.setToolTipText(LEGS_TOOL_TIP);
+		cmbLegs.setBounds(equipmentLeft, 195, 243, 50);
 		contentPanel.add(cmbLegs);
 		
-		cmbFeet = createEquipmentComboBox(inventory, Constants.FEET_EQUIPMENT);
-		cmbFeet.setBounds(590, 129, 243, 22);
+		cmbFeet = createEquipmentComboBox(inventory, Constants.FEET_EQUIPMENT, imageInfoReader);
+		cmbFeet.setToolTipText(FEET_TOOL_TIP);
+		cmbFeet.setBounds(equipmentLeft, 255, 243, 50);
 		contentPanel.add(cmbFeet);
 		
-		cmbLeftHand = createEquipmentComboBox(inventory, Constants.LEFT_HAND_EQUIPMENT);
-		cmbLeftHand.setBounds(590, 192, 243, 22);
+		cmbLeftHand = createEquipmentComboBox(inventory, Constants.LEFT_HAND_EQUIPMENT, imageInfoReader);
+		cmbLeftHand.setToolTipText(LEFT_HAND_TOOL_TIP);
+		cmbLeftHand.setBounds(equipmentLeft, 315, 243, 50);
 		contentPanel.add(cmbLeftHand);
 		
-		cmbRightHand = createEquipmentComboBox(inventory, Constants.RIGHT_HAND_EQUIPMENT);
-		cmbRightHand.setBounds(590, 221, 243, 22);
+		cmbRightHand = createEquipmentComboBox(inventory, Constants.RIGHT_HAND_EQUIPMENT, imageInfoReader);
+		cmbRightHand.setToolTipText(RIGHT_HAND_TOOL_TIP);
+		cmbRightHand.setBounds(equipmentLeft, 375, 243, 50);
 		contentPanel.add(cmbRightHand);
 		
 		JLabel lblArmor = new JLabel("Armor");
-		lblArmor.setBounds(590, 331, 150, 16);
+		lblArmor.setToolTipText(ARMOR_TOOL_TIP);
+		lblArmor.setBounds(equipmentLeft, 475, 150, 16);
 		contentPanel.add(lblArmor);
 		
 		lblArmorValue = new JLabel(playerCharacter.getProperty(Constants.ARMOR).toString());
-		lblArmorValue.setBounds(740, 331, 30, 16);
+		lblArmorValue.setToolTipText(ARMOR_TOOL_TIP);
+		lblArmorValue.setBounds(760, 475, 30, 16);
 		contentPanel.add(lblArmorValue);
 		
 		JLabel lblWeaponDamage = new JLabel("Weapon Damage");
-		lblWeaponDamage.setBounds(590, 293, 150, 16);
+		lblWeaponDamage.setToolTipText(WEAPON_TOOL_TIP);
+		lblWeaponDamage.setBounds(equipmentLeft, 495, 150, 16);
 		contentPanel.add(lblWeaponDamage);
 		
 		lblDamageValue = new JLabel(playerCharacter.getProperty(Constants.DAMAGE).toString());
-		lblDamageValue.setBounds(740, 293, 30, 16);
+		lblDamageValue.setToolTipText(WEAPON_TOOL_TIP);
+		lblDamageValue.setBounds(760, 495, 30, 16);
 		contentPanel.add(lblDamageValue);
 		
 		JPanel buttonPane = new JPanel();
@@ -258,7 +295,7 @@ public class CharacterDialog extends JDialog {
 		contentPanel.add(skillProgressBar);
 	}
 	
-	private JComboBox<ComboBoxEquipmentItem> createEquipmentComboBox(WorldObjectContainer inventory, UnCheckedProperty<WorldObject> propertyKey) {
+	private JComboBox<ComboBoxEquipmentItem> createEquipmentComboBox(WorldObjectContainer inventory, UnCheckedProperty<WorldObject> propertyKey, ImageInfoReader imageInfoReader) {
 		List<WorldObject> worldObjects = inventory.getWorldObjects(Constants.EQUIPMENT_SLOT, propertyKey);
 		List<ComboBoxEquipmentItem> equipmentWorldObjects = new ArrayList<>();
 		ComboBoxEquipmentItem noSelectedComboBoxEquipmentItem = new ComboBoxEquipmentItem(null, "");
@@ -273,6 +310,7 @@ public class CharacterDialog extends JDialog {
 		}
 		
 		JComboBox<ComboBoxEquipmentItem> equipmentComboBox = new JComboBox<ComboBoxEquipmentItem>(equipmentWorldObjects.toArray(new ComboBoxEquipmentItem[0]));
+		equipmentComboBox.setRenderer(new ComboBoxRenderer(imageInfoReader));
 		equipmentComboBox.setSelectedItem(selectedItem);
 		equipmentComboBox.addActionListener(new EquipmentChangedAction());
 		return equipmentComboBox;
@@ -345,5 +383,44 @@ public class CharacterDialog extends JDialog {
 	public void showMe() {
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setVisible(true);
+	}
+	
+	static class ComboBoxRenderer extends JLabel implements ListCellRenderer<ComboBoxEquipmentItem> {
+
+		private final ImageInfoReader imageInfoReader;
+		
+		public ComboBoxRenderer(ImageInfoReader imageInfoReader) {
+			setOpaque(true);
+			setHorizontalAlignment(CENTER);
+			setVerticalAlignment(CENTER);
+			
+			this.imageInfoReader = imageInfoReader;
+		}
+
+		public Component getListCellRendererComponent(JList list, ComboBoxEquipmentItem value, int index, boolean isSelected, boolean cellHasFocus) {
+			WorldObject equipment = value.getEquipment();
+
+			if (isSelected) {
+				setBackground(list.getSelectionBackground());
+				setForeground(list.getSelectionForeground());
+			} else {
+				setBackground(list.getBackground());
+				setForeground(list.getForeground());
+			}
+
+			final ImageIcon icon;
+			final String description;
+			if (equipment != null) {
+				icon = new ImageIcon(imageInfoReader.getImage(equipment.getProperty(Constants.IMAGE_ID), null));
+				description = equipment.getProperty(Constants.NAME);
+			} else {
+				icon = null;
+				description = "";
+			}
+			setIcon(icon);
+			setText(description);
+
+			return this;
+		}
 	}
 }

@@ -42,6 +42,10 @@ public class InventoryDialogModel {
 		return playerCharacter.getProperty(Constants.GOLD);
 	}
 	
+	public String getPlayerCharacterName() {
+		return playerCharacter.getProperty(Constants.NAME);
+	}
+	
 	public int getPlayerCharacterWeight() {
 		return WeightPropertyUtils.getTotalWeight(playerCharacter);
 	}
@@ -52,6 +56,10 @@ public class InventoryDialogModel {
 	
 	public int getTargetMoney() {
 		return target.getProperty(Constants.GOLD);
+	}
+	
+	public String getTargetName() {
+		return target.getProperty(Constants.NAME);
 	}
 	
 	public int getTargetWeight() {

@@ -90,7 +90,8 @@ public class ArenaPropertyUtils {
 	}
 	
 	public static int getTurnsSinceLastDonation(WorldObject worldObject, World world) {
-		int lastDonatedTurn = worldObject.getProperty(Constants.ARENA_DONATED_TURN);
+		Integer lastDonatedTurnInteger = worldObject.getProperty(Constants.ARENA_DONATED_TURN);
+		int lastDonatedTurn = lastDonatedTurnInteger != null ? lastDonatedTurnInteger.intValue() : 0;
 		int currentTurn = world.getCurrentTurn().getValue();
 		
 		return currentTurn - lastDonatedTurn;

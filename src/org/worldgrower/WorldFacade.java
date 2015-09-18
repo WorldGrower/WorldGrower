@@ -75,7 +75,7 @@ public class WorldFacade implements World {
 		}
 	}
 
-	private static boolean illusionIsBelievedBy(WorldObject personViewingWorld, WorldObject worldObject, World world) {
+	static boolean illusionIsBelievedBy(WorldObject personViewingWorld, WorldObject worldObject, World world) {
 		final int insight;
 		if (personViewingWorld.getProperty(Constants.INSIGHT_SKILL) == null) {
 			insight = 0;

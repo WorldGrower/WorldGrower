@@ -67,7 +67,9 @@ public class InventoryItem {
 				additionalProperties.put(name, value);
 			} else if (propertyKey == Constants.EQUIPMENT_HEALTH) {
 				String value = inventoryWorldObject.getProperty(propertyKey).toString();
-				additionalProperties.put(name, value + "/1000");
+				int intValue = Integer.parseInt(value);
+				int percentage = (100 * intValue) / 1000;
+				additionalProperties.put(name, percentage + "%");
 			} else if (propertyKey == Constants.SELLABLE) {
 				Boolean sellable = (Boolean) inventoryWorldObject.getProperty(propertyKey);
 				additionalProperties.put(name, sellable ? "yes" : "no");
