@@ -62,9 +62,11 @@ issue](https://github.com/WorldGrower/WorldGrower/issues).
 
 WorldGrower's documentation, included in this repo in the gh-pages branch.
 
-[User Manual](http://worldgrower.github.io/WorldGrower/UserManual.htm).
+[User Manual](http://worldgrower.github.io/WorldGrower/UserManual.htm)
 
-[Developer Guide](http://worldgrower.github.io/WorldGrower/DeveloperGuide.htm).
+[Developer Guide](http://worldgrower.github.io/WorldGrower/DeveloperGuide.htm)
+
+[Vision](http://worldgrower.github.io/WorldGrower/Vision.html)
 
 [Gameplay video](https://youtu.be/Mbfg2uCUvPc).
 
