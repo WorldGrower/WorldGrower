@@ -25,7 +25,7 @@ import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.ItemGenerator;
 
-public class ConstructFishingPoleAction implements ManagedOperation {
+public class ConstructFishingPoleAction implements CraftAction {
 
 	private static final int WOOD_REQUIRED = 2;
 	
@@ -42,6 +42,11 @@ public class ConstructFishingPoleAction implements ManagedOperation {
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
 		return CraftUtils.distance(performer, Constants.WOOD, WOOD_REQUIRED);
+	}
+	
+	@Override
+	public String getRequirementsDescription() {
+		return CraftUtils.getRequirementsDescription(Constants.WOOD, WOOD_REQUIRED);
 	}
 
 	@Override

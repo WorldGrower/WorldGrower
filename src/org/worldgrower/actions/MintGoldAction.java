@@ -24,7 +24,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.ItemGenerator;
 
-public class MintGoldAction implements ManagedOperation {
+public class MintGoldAction implements CraftAction {
 
 	private static final int GOLD_REQUIRED = 5;
 	
@@ -43,6 +43,11 @@ public class MintGoldAction implements ManagedOperation {
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
 		return CraftUtils.distance(performer, Constants.GOLD, GOLD_REQUIRED);
+	}
+	
+	@Override
+	public String getRequirementsDescription() {
+		return CraftUtils.getRequirementsDescription(Constants.GOLD, GOLD_REQUIRED);
 	}
 
 	@Override

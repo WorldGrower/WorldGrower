@@ -33,6 +33,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.BuildAction;
+import org.worldgrower.actions.CraftAction;
 import org.worldgrower.actions.magic.ResearchSpellAction;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.gui.chooseworldobject.ChooseWorldObjectAction;
@@ -342,12 +343,12 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 	
 	private void addCraftActions(JPopupMenu menu) {
-		ManagedOperation[] craftActions = { Actions.CRAFT_IRON_CLAYMORE_ACTION, Actions.CRAFT_IRON_CUIRASS_ACTION, Actions.CRAFT_IRON_HELMET_ACTION, Actions.CRAFT_IRON_GAUNTLETS_ACTION, Actions.CRAFT_IRON_BOOTS_ACTION, Actions.CRAFT_LONG_BOW_ACTION, Actions.MINT_GOLD_ACTION, Actions.CREATE_PAPER_ACTION, Actions.CONSTRUCT_BED_ACTION, Actions.CONSTRUCT_FISHING_POLE_ACTION, Actions.CRAFT_REPAIR_HAMMER_ACTION };
+		CraftAction[] craftActions = { Actions.CRAFT_IRON_CLAYMORE_ACTION, Actions.CRAFT_IRON_CUIRASS_ACTION, Actions.CRAFT_IRON_HELMET_ACTION, Actions.CRAFT_IRON_GAUNTLETS_ACTION, Actions.CRAFT_IRON_BOOTS_ACTION, Actions.CRAFT_LONG_BOW_ACTION, Actions.MINT_GOLD_ACTION, Actions.CREATE_PAPER_ACTION, Actions.CONSTRUCT_BED_ACTION, Actions.CONSTRUCT_FISHING_POLE_ACTION, Actions.CRAFT_REPAIR_HAMMER_ACTION };
 		addActions(menu, "Craft", craftActions);
 	}
 	
 	private void addWeaveActions(JPopupMenu menu) {
-		ManagedOperation[] weaveActions = { Actions.WEAVE_COTTON_SHIRT_ACTION, Actions.WEAVE_COTTON_HAT_ACTION, Actions.WEAVE_COTTON_BOOTS_ACTION, Actions.WEAVE_COTTON_GLOVES_ACTION, Actions.WEAVE_COTTON_PANTS_ACTION };
+		CraftAction[] weaveActions = { Actions.WEAVE_COTTON_SHIRT_ACTION, Actions.WEAVE_COTTON_HAT_ACTION, Actions.WEAVE_COTTON_BOOTS_ACTION, Actions.WEAVE_COTTON_GLOVES_ACTION, Actions.WEAVE_COTTON_PANTS_ACTION };
 		addActions(menu, "Weave", weaveActions);
 	}
 
@@ -365,13 +366,18 @@ public class GuiMouseListener extends MouseAdapter {
 
 	private void addActions(JMenu parentMenuItem, ManagedOperation[] actions) {
 		for(ManagedOperation action : actions) {
+			final JMenuItem menuItem;
 			if (canPlayerCharacterPerformBuildAction(action)) {
 				PlayerCharacterAction guiAction = new PlayerCharacterAction(playerCharacter, world, container, dungeonMaster, action, playerCharacter);
-				JMenuItem craftMenuItem = new JMenuItem(guiAction);
-				craftMenuItem.setText(action.getDescription(playerCharacter, playerCharacter, null, world) + "...");
-				parentMenuItem.add(craftMenuItem);
+				menuItem = new JMenuItem(guiAction);
+				menuItem.setText(action.getDescription(playerCharacter, playerCharacter, null, world) + "...");
+				parentMenuItem.add(menuItem);
 			} else {
-				createDisabledActionMenuItem(parentMenuItem, action);
+				menuItem = createDisabledActionMenuItem(parentMenuItem, action);
+			}
+			if (action instanceof CraftAction) {
+				CraftAction craftAction = (CraftAction) action;
+				menuItem.setToolTipText(craftAction.getRequirementsDescription());
 			}
 		}
 	}

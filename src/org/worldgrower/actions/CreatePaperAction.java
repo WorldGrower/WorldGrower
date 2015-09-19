@@ -24,7 +24,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.ItemGenerator;
 
-public class CreatePaperAction implements ManagedOperation {
+public class CreatePaperAction implements CraftAction {
 
 	private static final int WATER_REQUIRED = 1;
 	private static final int WOOD_REQUIRED = 1;
@@ -43,6 +43,11 @@ public class CreatePaperAction implements ManagedOperation {
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
 		return CraftUtils.distance(performer, Constants.WATER, WATER_REQUIRED)
 				+ CraftUtils.distance(performer, Constants.WOOD, WOOD_REQUIRED);
+	}
+	
+	@Override
+	public String getRequirementsDescription() {
+		return CraftUtils.getRequirementsDescription(Constants.WATER, WATER_REQUIRED, Constants.WOOD, WOOD_REQUIRED);
 	}
 
 	@Override

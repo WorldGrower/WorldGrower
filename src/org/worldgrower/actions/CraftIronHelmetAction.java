@@ -24,7 +24,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.ItemGenerator;
 
-public class CraftIronHelmetAction implements ManagedOperation {
+public class CraftIronHelmetAction implements CraftAction {
 
 	private static final int WOOD_REQUIRED = 4;
 	private static final int ORE_REQUIRED = 3;
@@ -43,6 +43,11 @@ public class CraftIronHelmetAction implements ManagedOperation {
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
 		return CraftUtils.distance(performer, WOOD_REQUIRED, ORE_REQUIRED);
+	}
+	
+	@Override
+	public String getRequirementsDescription() {
+		return CraftUtils.getRequirementsDescription(Constants.WOOD, WOOD_REQUIRED, Constants.ORE, ORE_REQUIRED);
 	}
 
 	@Override

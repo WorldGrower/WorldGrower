@@ -25,7 +25,7 @@ import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.ItemGenerator;
 
-public class WeaveCottonShirtAction implements ManagedOperation {
+public class WeaveCottonShirtAction implements CraftAction {
 
 	private static final int COTTON_REQUIRED = 3;
 	
@@ -42,6 +42,11 @@ public class WeaveCottonShirtAction implements ManagedOperation {
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
 		return CraftUtils.distance(performer, Constants.COTTON, COTTON_REQUIRED);
+	}
+	
+	@Override
+	public String getRequirementsDescription() {
+		return CraftUtils.getRequirementsDescription(Constants.COTTON, COTTON_REQUIRED);
 	}
 
 	@Override
