@@ -16,6 +16,7 @@ package org.worldgrower.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -415,7 +416,8 @@ public class CharacterDialog extends JDialog {
 				description = equipment.getProperty(Constants.NAME);
 			} else {
 				icon = null;
-				description = "";
+				description = " ";
+				setPreferredSize(new Dimension(getWidth(), 48));
 			}
 			setIcon(icon);
 			setText(description);
