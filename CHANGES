@@ -1,3 +1,14 @@
+v0.1.1
+
+- brawls can now be fought for money
+- brawls should be unarmed, using a weapon ends the brawl
+- add organization overview screen
+- show a red line over targets of the player - character indicating hit points
+- player is now notified when creature type changes
+- add arena functionality
+- add tooltips to start screens and info screens
+- rework inventory dialog
+
 v0.1.0
 
 - bug fix: npcs only run from enemy if it is close
