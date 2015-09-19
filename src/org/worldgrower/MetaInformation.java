@@ -19,7 +19,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+import org.worldgrower.actions.Actions;
 import org.worldgrower.goal.Goal;
+import org.worldgrower.goal.Goals;
 
 /**
  * MetaInformation holds all information of a non-player character regarding goals, actions, etc.
@@ -78,5 +80,12 @@ class MetaInformation implements Serializable {
 		
 		
 		return "finalGoal = " + finalGoal.getClass().getSimpleName() + ", currentTask = " + currentTasksBuilder.toString() + ", goalChangedReason = " + goalChangedReason;
+	}
+
+	public void setNoActionPossible() {
+		currentTask.clear();
+		currentTask.add(new OperationInfo(worldObject, worldObject, new int[0], Actions.DO_NOTHING_ACTION));
+		goalChangedReason = GoalChangedReason.NO_ACTION_POSSIBLE;
+		finalGoal = Goals.IDLE_GOAL;
 	}
 }

@@ -22,6 +22,7 @@ import java.util.List;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.condition.CreatureTypeChangedListeners;
 import org.worldgrower.goal.Goal;
+import org.worldgrower.goal.Goals;
 import org.worldgrower.history.HistoryItem;
 
 /**
@@ -114,6 +115,11 @@ public class DungeonMaster implements Serializable {
 		boolean goalFound = false;
 		List<Goal> triedGoals = new ArrayList<>();
 		
+		if (!worldObject.getProperty(Constants.CONDITIONS).canTakeAction()) {
+			metaInformation.setNoActionPossible();
+			return;
+		}
+		
 		while (!goalFound) {
 			GoalAndOperationInfo goalAndOperationInfo = goalCalculator.calculateGoal(worldObject, world, triedGoals);
 			Goal finalGoal = goalAndOperationInfo.getGoal();
@@ -125,7 +131,7 @@ public class DungeonMaster implements Serializable {
 				//	System.out.println(worldObject.getProperty(Constants.NAME) + " : final goal : " + finalGoal + " , immediateGoal : " + immediateGoal);
 			} else {
 				if (triedGoals.contains(finalGoal)) {
-					throw new IllegalStateException("TriedGoals " + triedGoals + " already containd goal " + finalGoal + " for performer " + worldObject);
+					throw new IllegalStateException("TriedGoals " + triedGoals + " already contains goal " + finalGoal + " for performer " + worldObject);
 				}
 				triedGoals.add(finalGoal);
 			}
@@ -137,7 +143,13 @@ public class DungeonMaster implements Serializable {
 			throw new IllegalStateException("WorldObject " + worldObject + " has no goal");
 		}
 		
-		List<OperationInfo> tasks = calculateTasks(worldObject, world, metaInformation.getImmediateGoal());
+		final List<OperationInfo> tasks;
+		if (worldObject.canWorldObjectPerformAction(Actions.MOVE_ACTION)) {
+			tasks = calculateTasks(worldObject, world, metaInformation.getImmediateGoal());
+		} else {
+			tasks = new ArrayList<>();
+		}
+		
 		if (tasks.size() == 0) {
 			// for now, try another goal
 			calculateGoalAndTasks(worldObject, world, metaInformation, goalChangedReason);

@@ -85,6 +85,15 @@ public class UTestWorldObjectImpl {
 	}
 	
 	@Test
+	public void testCanWorldObjectPerformActionUnconscious() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject person = TestUtils.createIntelligentWorldObject(1, Constants.CREATURE_TYPE, CreatureType.HUMAN_CREATURE_TYPE);
+
+		person.getProperty(Constants.CONDITIONS).addCondition(Condition.UNCONSCIOUS_CONDITION, 8, world);
+		assertEquals(false, person.canWorldObjectPerformAction(Actions.MOVE_ACTION));
+	}
+	
+	@Test
 	public void testCanWorldObjectPerformActionMagicSpell() {
 		WorldObject person = TestUtils.createIntelligentWorldObject(1, Constants.KNOWN_SPELLS, new ArrayList<>());
 		assertEquals(false, person.canWorldObjectPerformAction(Actions.FIRE_BOLT_ATTACK_ACTION));

@@ -163,7 +163,12 @@ public class WorldObjectImpl implements WorldObject, Serializable {
 		} else if (operation instanceof MagicSpell) {
 			return this.getProperty(Constants.KNOWN_SPELLS).contains(operation);
 		} else {
-			return true;
+			Conditions conditions = this.getProperty(Constants.CONDITIONS);
+			if (conditions == null || conditions.canTakeAction()) {
+				return true;
+			} else {
+				return false;
+			}
 		}
 	}
 	
