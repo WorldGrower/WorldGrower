@@ -53,6 +53,11 @@ public class BuildArenaAction implements BuildAction {
 		int distanceBetweenPerformerAndTarget = Reach.evaluateTarget(performer, args, target, 1);
 		return distanceBetweenPerformerAndTarget + CraftUtils.distance(performer, Constants.STONE, REQUIRED_STONE);
 	}
+	
+	@Override
+	public String getRequirementsDescription() {
+		return CraftUtils.getRequirementsDescription(Constants.STONE, REQUIRED_STONE);
+	}
 
 	@Override
 	public ArgumentRange[] getArgumentRanges() {

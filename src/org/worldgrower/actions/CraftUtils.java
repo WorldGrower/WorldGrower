@@ -63,4 +63,8 @@ public class CraftUtils {
 		int targetId = target.getProperty(Constants.ID);
 		return (performerId == targetId);
 	}
+
+	public static String getRequirementsDescription(IntProperty property, int quantity) {
+		return "Requirements " + quantity + " " + property.getName();
+	}
 }

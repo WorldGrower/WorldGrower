@@ -67,6 +67,11 @@ public class MinorIllusionAction implements BuildAction, MagicSpell {
 		return distanceBetweenPerformerAndTarget 
 				+ SkillUtils.distanceForEnergyUse(performer, getSkill(), ENERGY_USE);
 	}
+	
+	@Override
+	public String getRequirementsDescription() {
+		return "";
+	}
 
 	@Override
 	public ArgumentRange[] getArgumentRanges() {

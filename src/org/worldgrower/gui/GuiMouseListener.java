@@ -326,14 +326,17 @@ public class GuiMouseListener extends MouseAdapter {
 		JMenu parentMenuItem = new JMenu(menuTitle);
 		menu.add(parentMenuItem);
 		
+		
 		for(BuildAction buildAction : buildActions) {
+			final JMenuItem buildMenuItem;
 			if (canPlayerCharacterPerformBuildAction(buildAction)) {
-				JMenuItem buildMenuItem = new JMenuItem(guiActionBuilder.apply(buildAction));
+				buildMenuItem = new JMenuItem(guiActionBuilder.apply(buildAction));
 				buildMenuItem.setText(buildAction.getDescription(playerCharacter, null, null, world) + "...");
 				parentMenuItem.add(buildMenuItem);
 			} else {
-				createDisabledActionMenuItem(parentMenuItem, buildAction);
+				buildMenuItem = createDisabledActionMenuItem(parentMenuItem, buildAction);
 			}
+			buildMenuItem.setToolTipText(buildAction.getRequirementsDescription());
 		}
 		return parentMenuItem;
 	}
@@ -373,10 +376,11 @@ public class GuiMouseListener extends MouseAdapter {
 		}
 	}
 
-	private void createDisabledActionMenuItem(JMenuItem menu, ManagedOperation craftAction) {
-		JMenuItem craftMenuItem = new JMenuItem(craftAction.getDescription(playerCharacter, playerCharacter, null, world) + "...");
-		craftMenuItem.setEnabled(false);
-		menu.add(craftMenuItem);
+	private JMenuItem createDisabledActionMenuItem(JMenuItem menu, ManagedOperation craftAction) {
+		JMenuItem menuItem = new JMenuItem(craftAction.getDescription(playerCharacter, playerCharacter, null, world) + "...");
+		menuItem.setEnabled(false);
+		menu.add(menuItem);
+		return menuItem;
 	}
 
 	private void addAllActions(JPopupMenu menu, WorldObject worldObject) {

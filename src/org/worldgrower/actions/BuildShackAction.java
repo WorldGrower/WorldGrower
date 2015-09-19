@@ -52,6 +52,11 @@ public class BuildShackAction implements BuildAction {
 		int distanceBetweenPerformerAndTarget = Reach.evaluateTarget(performer, args, target, 1);
 		return CraftUtils.distance(performer, Constants.WOOD, REQUIRED_WOOD) + distanceBetweenPerformerAndTarget;
 	}
+	
+	@Override
+	public String getRequirementsDescription() {
+		return CraftUtils.getRequirementsDescription(Constants.WOOD, REQUIRED_WOOD);
+	}
 
 	@Override
 	public ArgumentRange[] getArgumentRanges() {

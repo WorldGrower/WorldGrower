@@ -46,6 +46,11 @@ public class CreateGraveAction implements BuildAction {
 		int remains = performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.DECEASED_WORLD_OBJECT) != -1 ? 0 : 1;
 		return Reach.evaluateTarget(performer, args, target, 1) + remains;
 	}
+	
+	@Override
+	public String getRequirementsDescription() {
+		return "";
+	}
 
 	@Override
 	public ArgumentRange[] getArgumentRanges() {

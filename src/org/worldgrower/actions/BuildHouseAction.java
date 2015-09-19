@@ -69,6 +69,11 @@ public class BuildHouseAction implements BuildAction {
 		int distanceBetweenPerformerAndTarget = Reach.evaluateTarget(performer, args, target, 1);
 		return CraftUtils.distance(performer, Constants.STONE, REQUIRED_STONE) + distanceBetweenPerformerAndTarget;
 	}
+	
+	@Override
+	public String getRequirementsDescription() {
+		return CraftUtils.getRequirementsDescription(Constants.STONE, REQUIRED_STONE);
+	}
 
 	@Override
 	public ArgumentRange[] getArgumentRanges() {

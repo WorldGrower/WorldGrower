@@ -27,7 +27,7 @@ import org.worldgrower.goal.GoalUtils;
 
 public class ConstructTrainingDummyAction implements BuildAction {
 
-	private static final int WOOD_REQUIRED = 3;
+	private static final int REQUIRED_WOOD = 3;
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
@@ -36,7 +36,7 @@ public class ConstructTrainingDummyAction implements BuildAction {
 		int y = (Integer)target.getProperty(Constants.Y);
 		
 		BuildingGenerator.generateTrainingDummy(x, y, world, skillBonus);
-		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.WOOD, WOOD_REQUIRED);
+		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.WOOD, REQUIRED_WOOD);
 	}
 
 	@Override
@@ -49,7 +49,12 @@ public class ConstructTrainingDummyAction implements BuildAction {
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
 		int distanceBetweenPerformerAndTarget = Reach.evaluateTarget(performer, args, target, 1);
-		return distanceBetweenPerformerAndTarget + CraftUtils.distance(performer, Constants.WOOD, WOOD_REQUIRED);
+		return distanceBetweenPerformerAndTarget + CraftUtils.distance(performer, Constants.WOOD, REQUIRED_WOOD);
+	}
+	
+	@Override
+	public String getRequirementsDescription() {
+		return CraftUtils.getRequirementsDescription(Constants.WOOD, REQUIRED_WOOD);
 	}
 
 	@Override
@@ -82,6 +87,6 @@ public class ConstructTrainingDummyAction implements BuildAction {
 	}
 	
 	public static boolean hasEnoughWood(WorldObject performer) {
-		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) >= WOOD_REQUIRED;
+		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) >= REQUIRED_WOOD;
 	}
 }

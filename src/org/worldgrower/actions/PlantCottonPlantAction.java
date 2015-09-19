@@ -46,6 +46,11 @@ public class PlantCottonPlantAction implements BuildAction {
 		int distanceBetweenPerformerAndTarget = Reach.evaluateTarget(performer, args, target, 1);
 		return distanceBetweenPerformerAndTarget;
 	}
+	
+	@Override
+	public String getRequirementsDescription() {
+		return "";
+	}
 
 	@Override
 	public ArgumentRange[] getArgumentRanges() {

@@ -59,6 +59,11 @@ public class BuildSacrificalAltarAction implements BuildAction {
 		int deityDistance = performer.getProperty(Constants.DEITY) != null ? 0 : 1;
 		return distanceBetweenPerformerAndTarget + stoneTarget + deityDistance;
 	}
+	
+	@Override
+	public String getRequirementsDescription() {
+		return CraftUtils.getRequirementsDescription(Constants.STONE, REQUIRED_STONE);
+	}
 
 	@Override
 	public ArgumentRange[] getArgumentRanges() {
