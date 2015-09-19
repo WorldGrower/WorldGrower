@@ -67,12 +67,7 @@ public class BuildHouseAction implements BuildAction {
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
 		int distanceBetweenPerformerAndTarget = Reach.evaluateTarget(performer, args, target, 1);
-		int stone = performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.STONE);
-		if (stone < REQUIRED_STONE) {
-			return (REQUIRED_STONE - stone) * 1000 + distanceBetweenPerformerAndTarget;
-		} else {
-			return 0 + distanceBetweenPerformerAndTarget;
-		}
+		return CraftUtils.distance(performer, Constants.STONE, REQUIRED_STONE) + distanceBetweenPerformerAndTarget;
 	}
 
 	@Override

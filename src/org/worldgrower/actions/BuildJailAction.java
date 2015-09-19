@@ -49,12 +49,7 @@ public class BuildJailAction implements BuildAction {
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
 		int distanceBetweenPerformerAndTarget = Reach.evaluateTarget(performer, args, target, 1);
-		int wood = performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD);
-		if (wood < REQUIRED_WOOD) {
-			return (REQUIRED_WOOD - wood) * 1000 + distanceBetweenPerformerAndTarget;
-		} else {
-			return 0 + distanceBetweenPerformerAndTarget;
-		}
+		return CraftUtils.distance(performer, Constants.WOOD, REQUIRED_WOOD) + distanceBetweenPerformerAndTarget;
 	}
 
 	@Override

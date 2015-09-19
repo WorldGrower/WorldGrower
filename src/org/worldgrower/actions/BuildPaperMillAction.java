@@ -31,6 +31,8 @@ import org.worldgrower.gui.ImageIds;
 
 public class BuildPaperMillAction implements BuildAction {
 
+	private static final int REQUIRED_WOOD = 4;
+	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		int x = (Integer)target.getProperty(Constants.X);
@@ -55,7 +57,7 @@ public class BuildPaperMillAction implements BuildAction {
 		WorldObject smith = new WorldObjectImpl(properties);
 		world.addWorldObject(smith);
 		
-		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.WOOD, 4);
+		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.WOOD, REQUIRED_WOOD);
 		performer.setProperty(Constants.PAPER_MILL_ID, smith.getProperty(Constants.ID));
 	}
 
@@ -73,12 +75,7 @@ public class BuildPaperMillAction implements BuildAction {
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
 		int distanceBetweenPerformerAndTarget = Reach.evaluateTarget(performer, args, target, 1);
-		int wood = performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD);
-		if (wood < 4) {
-			return (4 - wood) * 1000 + distanceBetweenPerformerAndTarget;
-		} else {
-			return 0 + distanceBetweenPerformerAndTarget;
-		}
+		return CraftUtils.distance(performer, Constants.WOOD, REQUIRED_WOOD) + distanceBetweenPerformerAndTarget;
 	}
 
 	@Override

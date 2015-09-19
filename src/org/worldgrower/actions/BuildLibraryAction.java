@@ -33,6 +33,8 @@ import org.worldgrower.gui.ImageIds;
 
 public class BuildLibraryAction implements BuildAction {
 
+	private static final int REQUIRED_WOOD = 6;
+	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		int x = (Integer)target.getProperty(Constants.X);
@@ -61,7 +63,7 @@ public class BuildLibraryAction implements BuildAction {
 		world.addWorldObject(library);
 		
 		performer.getProperty(Constants.INVENTORY).add(ItemGenerator.generateKey(library));
-		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.WOOD, 6);
+		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.WOOD, REQUIRED_WOOD);
 	}
 
 	@Override
@@ -78,12 +80,7 @@ public class BuildLibraryAction implements BuildAction {
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
 		int distanceBetweenPerformerAndTarget = Reach.evaluateTarget(performer, args, target, 1);
-		int wood = performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD);
-		if (wood < 6) {
-			return (6 - wood) * 1000 + distanceBetweenPerformerAndTarget;
-		} else {
-			return 0 + distanceBetweenPerformerAndTarget;
-		}
+		return CraftUtils.distance(performer, Constants.WOOD, REQUIRED_WOOD) + distanceBetweenPerformerAndTarget;
 	}
 
 	@Override

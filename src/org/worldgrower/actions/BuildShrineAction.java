@@ -30,6 +30,8 @@ import org.worldgrower.gui.ImageIds;
 
 public class BuildShrineAction implements BuildAction {
 
+	private static final int REQUIRED_STONE = 8;
+	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		int x = (Integer)target.getProperty(Constants.X);
@@ -55,7 +57,7 @@ public class BuildShrineAction implements BuildAction {
 		world.addWorldObject(shrine);
 		
 		performer.setProperty(Constants.PLACE_OF_WORSHIP_ID, shrine.getProperty(Constants.ID));
-		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.STONE, 8);
+		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.STONE, REQUIRED_STONE);
 	}
 
 	@Override
@@ -72,12 +74,7 @@ public class BuildShrineAction implements BuildAction {
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
 		int distanceBetweenPerformerAndTarget = Reach.evaluateTarget(performer, args, target, 1);
-		int stone = performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.STONE);
-		if (stone < 8) {
-			return (8 - stone) * 1000 + distanceBetweenPerformerAndTarget;
-		} else {
-			return 0 + distanceBetweenPerformerAndTarget;
-		}
+		return CraftUtils.distance(performer, Constants.STONE, REQUIRED_STONE) + distanceBetweenPerformerAndTarget;
 	}
 
 	@Override
