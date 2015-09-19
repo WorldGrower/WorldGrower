@@ -199,6 +199,19 @@ public class WorldObjectContainer implements Serializable {
 		}
 		return -1;
 	}
+	
+	public<T> int getIndexFor(ManagedProperty<T> propertyKey, T value, Function<WorldObject, Boolean> testFunction) {
+		int index = 0; 
+		for(WorldObject worldObject : worldObjects) {
+			if (worldObject != null) {
+				if (worldObject.hasProperty(propertyKey) && worldObject.getProperty(propertyKey) == value && testFunction.apply(worldObject)) {
+					return index;
+				}
+			}
+			index++;
+		}
+		return -1;
+	}
 
 	public<T> void removeAllQuantity(ManagedProperty<T> propertyKey) {
 		for(int i=0; i<worldObjects.size(); i++) {

@@ -27,15 +27,16 @@ import org.worldgrower.gui.ImageIds;
 
 public class ItemGenerator {
 
-	public static final String IRON_CLAYMORE_NAME = "Iron Claymore";
-	public static final String IRON_CUIRASS_NAME = "Iron Cuirass";
-	public static final String IRON_HELMET_NAME = "Iron Helmet";
-	public static final String IRON_GAUNTLETS_NAME = "Iron Gauntlets";
-	public static final String IRON_BOOTS_NAME = "Iron Gauntlets";
+	private static final String IRON_CLAYMORE_NAME = "Iron Claymore";
+	private static final String IRON_CUIRASS_NAME = "Iron Cuirass";
+	private static final String IRON_HELMET_NAME = "Iron Helmet";
+	private static final String IRON_GAUNTLETS_NAME = "Iron Gauntlets";
+	private static final String IRON_BOOTS_NAME = "Iron Gauntlets";
 	
-	public static final String LONGBOW_NAME = "Longbow";
-	public static final String POISON_NAME = "Poison";
+	private static final String LONGBOW_NAME = "Longbow";
+	private static final String POISON_NAME = "Poison";
 
+	//TODO: make name private
 	public static final String COTTON_SHIRT_NAME = "Cotton Shirt";
 	public static final String COTTON_HAT_NAME = "Cotton Hat";
 	public static final String COTTON_BOOTS_NAME = "Cotton Boots";
@@ -107,7 +108,7 @@ public class ItemGenerator {
 		properties.put(Constants.ARMOR, (int) (5 * skillBonus));
 		properties.put(Constants.WEIGHT, 12);
 		properties.put(Constants.EQUIPMENT_HEALTH, 1000);
-		properties.put(Constants.EQUIPMENT_SLOT, Constants.ARMS_EQUIPMENT);
+		properties.put(Constants.EQUIPMENT_SLOT, Constants.FEET_EQUIPMENT);
 		properties.put(Constants.IMAGE_ID, ImageIds.IRON_BOOTS);
 		properties.put(Constants.ARMOR_TYPE, ArmorType.HEAVY);
 		return new WorldObjectImpl(properties);

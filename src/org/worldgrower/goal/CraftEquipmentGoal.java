@@ -20,27 +20,33 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.WorldObjectContainer;
-import org.worldgrower.generator.ItemGenerator;
 
-public class CraftWeaponGoal implements Goal {
+public class CraftEquipmentGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) < 10) {
+		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
+		if (inventory.getQuantityFor(Constants.WOOD) < 10) {
 			return new WoodGoal().calculateGoal(performer, world);
-		} else if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.ORE) < 7) {
+		} else if (inventory.getQuantityFor(Constants.ORE) < 7) {
 			return new OreGoal().calculateGoal(performer, world);
 		} else {
-			int ironClaymoreCount = performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.NAME, ItemGenerator.IRON_CLAYMORE_NAME).size();
-			int ironCuirassCount = performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.NAME, ItemGenerator.IRON_CUIRASS_NAME).size();
-			int ironHelmetCount = performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.NAME, ItemGenerator.IRON_HELMET_NAME).size();
+			int ironClaymoreCount = inventory.getWorldObjects(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT).size();
+			int ironCuirassCount = inventory.getWorldObjects(Constants.EQUIPMENT_SLOT, Constants.TORSO_EQUIPMENT).size();
+			int ironHelmetCount = inventory.getWorldObjects(Constants.EQUIPMENT_SLOT, Constants.HEAD_EQUIPMENT).size();
+			int ironGauntletsCount = inventory.getWorldObjects(Constants.EQUIPMENT_SLOT, Constants.ARMS_EQUIPMENT).size();
+			int ironBootsCount = inventory.getWorldObjects(Constants.EQUIPMENT_SLOT, Constants.FEET_EQUIPMENT).size();
 			
 			if (ironClaymoreCount == 0){
 				return new OperationInfo(performer, performer, new int[0], Actions.CRAFT_IRON_CLAYMORE_ACTION);
-			} else if (ironClaymoreCount < ironCuirassCount) {
-				return new OperationInfo(performer, performer, new int[0], Actions.CRAFT_IRON_CLAYMORE_ACTION);
+			} else if (ironCuirassCount < ironClaymoreCount) {
+				return new OperationInfo(performer, performer, new int[0], Actions.CRAFT_IRON_CUIRASS_ACTION);
 			} else if (ironHelmetCount < ironCuirassCount) {
 				return new OperationInfo(performer, performer, new int[0], Actions.CRAFT_IRON_HELMET_ACTION);
+			} else if (ironGauntletsCount < ironHelmetCount) {
+				return new OperationInfo(performer, performer, new int[0], Actions.CRAFT_IRON_GAUNTLETS_ACTION);
+			} else if (ironBootsCount < ironGauntletsCount) {
+				return new OperationInfo(performer, performer, new int[0], Actions.CRAFT_IRON_BOOTS_ACTION);
 			} else {
 				return null;
 			}
@@ -53,8 +59,14 @@ public class CraftWeaponGoal implements Goal {
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY); 
-		return (inventory.getQuantityFor(Constants.DAMAGE) >= 10);
+		return getNumberOfEquipmentItemsInInventory(performer) >= 5;
+	}
+	
+	private int getNumberOfEquipmentItemsInInventory(WorldObject performer) {
+		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
+		int numberOfDamageItems = inventory.getQuantityFor(Constants.DAMAGE);
+		int numberOfArmorItems = inventory.getQuantityFor(Constants.ARMOR);
+		return (numberOfDamageItems + numberOfArmorItems);
 	}
 	
 	@Override
@@ -64,12 +76,11 @@ public class CraftWeaponGoal implements Goal {
 
 	@Override
 	public String getDescription() {
-		return "crafting weapons";
+		return "crafting equipment";
 	}
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY); 
-		return inventory.getQuantityFor(Constants.DAMAGE);
+		return getNumberOfEquipmentItemsInInventory(performer);
 	}
 }

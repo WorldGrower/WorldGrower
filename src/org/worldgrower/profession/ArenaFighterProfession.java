@@ -37,6 +37,7 @@ public class ArenaFighterProfession implements Profession {
 	@Override
 	public List<Goal> getProfessionGoals() {
 		return Arrays.asList(
+				Goals.EQUIPMENT_GOAL,
 				Goals.ARENA_FIGHT_GOAL,
 				Goals.COLLECT_ARENA_REWARD_GOAL
 		);

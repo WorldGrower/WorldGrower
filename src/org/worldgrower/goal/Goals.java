@@ -35,7 +35,7 @@ public class Goals {
 	public static final ChildrenGoal CHILDREN_GOAL = new ChildrenGoal();
 	public static final OffspringGoal OFFSPRING_GOAL = new OffspringGoal();
 	public static final SocializeGoal SOCIALIZE_GOAL = new SocializeGoal();
-	public static final CraftWeaponGoal CRAFT_WEAPON_GOAL = new CraftWeaponGoal();
+	public static final CraftEquipmentGoal CRAFT_EQUIPMENT_GOAL = new CraftEquipmentGoal();
 	public static final ChooseDeityGoal CHOOSE_DEITY_GOAL = new ChooseDeityGoal();
 	public static final ShrineToDeityGoal SHRINE_TO_DEITY_GOAL = new ShrineToDeityGoal();
 	public static final RestGoal REST_GOAL = new RestGoal();
@@ -107,4 +107,6 @@ public class Goals {
 	public static final FightInArenaGoal FIGHT_IN_ARENA_GOAL = new FightInArenaGoal();
 	public static final CollectArenaRewardGoal COLLECT_ARENA_REWARD_GOAL = new CollectArenaRewardGoal();
 	public static final DonateMoneyToArenaGoal DONATE_MONEY_TO_ARENA_GOAL = new DonateMoneyToArenaGoal();
+	public static final EquipmentGoal EQUIPMENT_GOAL = new EquipmentGoal();
+	public static final MarkEquipmentAsSellableGoal MARK_EQUIPMENT_AS_SELLABLE_GOAL = new MarkEquipmentAsSellableGoal();
 }

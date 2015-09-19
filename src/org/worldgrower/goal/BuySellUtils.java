@@ -24,6 +24,7 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.StringProperty;
+import org.worldgrower.attribute.UnCheckedProperty;
 
 public class BuySellUtils {
 
@@ -34,6 +35,11 @@ public class BuySellUtils {
 
 	public static List<WorldObject> findBuyTargets(WorldObject performer, StringProperty property, String value, World world) {
 		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.BUY_ACTION, w -> w.getProperty(Constants.INVENTORY).getIndexFor(property, value, inventoryItem -> inventoryItem.hasProperty(Constants.PRICE) && inventoryItem.getProperty(Constants.SELLABLE)) > 0, world);
+		return targets;
+	}
+	
+	private static List<WorldObject> findBuyTargets(WorldObject performer, UnCheckedProperty<UnCheckedProperty<WorldObject>> equipmentSlotProperty, UnCheckedProperty<WorldObject> equipmentSlot, World world) {
+		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.BUY_ACTION, w -> w.getProperty(Constants.INVENTORY).getIndexFor(equipmentSlotProperty, equipmentSlot, inventoryItem -> inventoryItem.hasProperty(Constants.PRICE) && inventoryItem.getProperty(Constants.SELLABLE)) > 0, world);
 		return targets;
 	}
 	
@@ -120,6 +126,18 @@ public class BuySellUtils {
 			int indexOfProperty = target.getProperty(Constants.INVENTORY).getIndexFor(propertyToBuy);
 			if (performerCanBuyGoods(performer, target, indexOfProperty, 5, world)) {
 				return new OperationInfo(performer, target, new int[] { indexOfProperty, 5 }, Actions.BUY_ACTION);
+			}
+		}
+		return null;
+	}
+	
+	public static OperationInfo getBuyOperationInfo(WorldObject performer, UnCheckedProperty<UnCheckedProperty<WorldObject>> equipmentSlotProperty, UnCheckedProperty<WorldObject> equipmentSlot, World world) {
+		List<WorldObject> targets = findBuyTargets(performer, equipmentSlotProperty, equipmentSlot, world);
+		if (targets.size() > 0) {
+			WorldObject target = targets.get(0);
+			int indexOfProperty = target.getProperty(Constants.INVENTORY).getIndexFor(equipmentSlotProperty, equipmentSlot);
+			if (performerCanBuyGoods(performer, target, indexOfProperty, 1, world)) {
+				return new OperationInfo(performer, target, new int[] { indexOfProperty, 1 }, Actions.BUY_ACTION);
 			}
 		}
 		return null;

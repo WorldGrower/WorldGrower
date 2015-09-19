@@ -38,7 +38,8 @@ public class BlacksmithProfession implements Profession {
 	public List<Goal> getProfessionGoals() {
 		return Arrays.asList(
 				Goals.SMITH_GOAL,
-				Goals.CRAFT_WEAPON_GOAL,
+				Goals.CRAFT_EQUIPMENT_GOAL,
+				Goals.MARK_EQUIPMENT_AS_SELLABLE_GOAL,
 				Goals.MINT_GOLD_GOAL);
 	}
 

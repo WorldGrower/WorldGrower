@@ -43,7 +43,7 @@ public class ChooseProfessionAction implements ManagedOperation {
 
 	private static final List<ProfessionInfo> PROFESSION_INFOS = Arrays.asList(
 			new ProfessionInfo(Professions.PRIEST_PROFESSION, 1.4, 1.2, 0.8, 0.8, 1.6, 1.0),
-			new ProfessionInfo(Professions.BLACKSMITH_PROFESSION, 1.2, 1.1, 0.8, 0.8, 1.2, 1.0),
+			new ProfessionInfo(Professions.BLACKSMITH_PROFESSION, 1.2, 1.1, 0.8, 0.8, 1.3, 1.0),
 			new ProfessionInfo(Professions.THIEF_PROFESSION, 0.8, 1.2, 1.4, 0.8, 0.8, 1.4),
 			new ProfessionInfo(Professions.FARMER_PROFESSION, 1.0, 1.2, 0.8, 1.0, 1.2, 1.0),
 			new ProfessionInfo(Professions.LUMBERJACK_PROFESSION, 1.2, 1.2, 1.2, 0.8, 1.0, 1.0),
