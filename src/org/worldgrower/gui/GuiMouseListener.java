@@ -377,6 +377,12 @@ public class GuiMouseListener extends MouseAdapter {
 			} else {
 				menuItem = createDisabledActionMenuItem(parentMenuItem, action);
 			}
+			addToolTips(action, menuItem);
+		}
+	}
+
+	private void addToolTips(ManagedOperation action, final JMenuItem menuItem) {
+		if (menuItem != null) {
 			if (action instanceof CraftAction) {
 				CraftAction craftAction = (CraftAction) action;
 				menuItem.setToolTipText(craftAction.getRequirementsDescription());
@@ -398,16 +404,20 @@ public class GuiMouseListener extends MouseAdapter {
 	private void addAllActions(JPopupMenu menu, WorldObject worldObject) {
 		for(ManagedOperation action : playerCharacter.getOperations()) {
 			if (action.getArgumentRanges().length == 0) {
+				final JMenuItem menuItem;
 				if (canPlayerCharacterPerformAction(worldObject, action)) {
 					PlayerCharacterAction guiAction = new PlayerCharacterAction(playerCharacter, world, container, dungeonMaster, action, worldObject);
-					JMenuItem menuItem = new JMenuItem(guiAction);
+					menuItem = new JMenuItem(guiAction);
 					menuItem.setText(action.getSimpleDescription());
 					menu.add(menuItem);
 				} else if (canPlayerCharacterPerformActionUnderCorrectCircumstances(worldObject, action)) {
-					JMenuItem menuItem = new JMenuItem(action.getSimpleDescription());
+					menuItem = new JMenuItem(action.getSimpleDescription());
 					menuItem.setEnabled(false);
 					menu.add(menuItem);
+				} else {
+					menuItem = null;
 				}
+				addToolTips(action, menuItem);
 			}
 		}
 	}
