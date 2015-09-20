@@ -30,6 +30,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdRelationshipMap;
+import org.worldgrower.deity.Deity;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.profession.Professions;
 
@@ -201,5 +202,34 @@ public class UTestGroupPropertyUtils {
 		int houseId = BuildingGenerator.generateHouse(0, 0, world, 0f);
 		
 		assertEquals(3, GroupPropertyUtils.getBaseAmountToPay(target, world));
+	}
+	
+	@Test
+	public void testCanJoinOrganization() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject personJoining = TestUtils.createIntelligentWorldObject(0, Constants.DEITY, null);
+		world.addWorldObject(personJoining);
+		
+		WorldObject organization = GroupPropertyUtils.createReligionOrganization(8, "TestOrg", Deity.HADES, null, world);
+		
+		assertEquals(false, GroupPropertyUtils.canJoinOrganization(personJoining, organization));
+		
+		personJoining.setProperty(Constants.DEITY, Deity.HADES);
+		assertEquals(true, GroupPropertyUtils.canJoinOrganization(personJoining, organization));
+	}
+	
+	@Test
+	public void testFindProfessionOrganization() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.GROUP, new IdList());
+		world.addWorldObject(performer);
+		
+		WorldObject organization = GroupPropertyUtils.createProfessionOrganization(7, "TestOrg", Professions.FARMER_PROFESSION, world);
+		
+		assertEquals(null, GroupPropertyUtils.findProfessionOrganization(performer, world));
+		
+		performer.setProperty(Constants.PROFESSION, Professions.FARMER_PROFESSION);
+		performer.getProperty(Constants.GROUP).add(organization);
+		assertEquals(organization, GroupPropertyUtils.findProfessionOrganization(performer, world));
 	}
 }

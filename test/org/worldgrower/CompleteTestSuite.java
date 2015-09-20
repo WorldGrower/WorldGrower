@@ -33,6 +33,7 @@ import org.worldgrower.conversation.UTestDemandsConversation;
 import org.worldgrower.conversation.UTestLocationConversation;
 import org.worldgrower.goal.UTestAbstractScribeSpellsGoal;
 import org.worldgrower.goal.UTestBuildLocationUtils;
+import org.worldgrower.goal.UTestBuySellUtils;
 import org.worldgrower.goal.UTestGoalUtils;
 import org.worldgrower.goal.UTestGroupPropertyUtils;
 import org.worldgrower.goal.UTestZone;
@@ -74,7 +75,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestWorldObjectImpl.class,
 	UTestConditions.class,
 	UTestDefaultGoalObstructedHandler.class,
-	UTestWorldFacade.class
+	UTestWorldFacade.class,
+	UTestBuySellUtils.class
 })
 public class CompleteTestSuite {
 }
