@@ -54,12 +54,20 @@ public class InventoryDialogModel {
 		return WeightPropertyUtils.getCarryingCapacity(playerCharacter);
 	}
 	
+	public boolean hasTargetMoney() {
+		return target.hasProperty(Constants.GOLD);
+	}
+	
 	public int getTargetMoney() {
 		return target.getProperty(Constants.GOLD);
 	}
 	
 	public String getTargetName() {
 		return target.getProperty(Constants.NAME);
+	}
+	
+	public boolean hasTargetCarryingCapacity() {
+		return target.hasProperty(Constants.STRENGTH);
 	}
 	
 	public int getTargetWeight() {

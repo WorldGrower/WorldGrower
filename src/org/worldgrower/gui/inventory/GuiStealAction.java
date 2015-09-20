@@ -67,7 +67,7 @@ public class GuiStealAction extends AbstractAction {
 			return new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent actionEvent) {
-					InventoryItem inventoryItem = dialog.getSelectedValue();
+					InventoryItem inventoryItem = getSelectedItem(dialog);
 					int[] args = new int[] { inventoryItem.getId() };
 					steal(args);
 					
@@ -79,6 +79,11 @@ public class GuiStealAction extends AbstractAction {
 		@Override
 		public boolean isPossible(InventoryItem inventoryItem) {
 			return true;
+		}
+
+		@Override
+		public InventoryItem getSelectedItem(InventoryDialog dialog) {
+			return dialog.getTargetSelectedValue();
 		}
 		
 	}

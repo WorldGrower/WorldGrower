@@ -68,7 +68,7 @@ public class GuiSellAction extends AbstractAction {
 			return new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent actionEvent) {
-					InventoryItem inventoryItem = dialog.getSelectedValue();
+					InventoryItem inventoryItem = getSelectedItem(dialog);
 					int price = BuySellUtils.getPrice(playerCharacter, inventoryItem.getId());
 					int[] args = new int[] { inventoryItem.getId(), price };
 					sell(args);
@@ -81,6 +81,11 @@ public class GuiSellAction extends AbstractAction {
 		@Override
 		public boolean isPossible(InventoryItem inventoryItem) {
 			return BuySellUtils.worldObjectWillBuyGoods(playerCharacter, target, inventoryItem.getId(), world);
+		}
+
+		@Override
+		public InventoryItem getSelectedItem(InventoryDialog dialog) {
+			return dialog.getPlayerCharacterSelectedValue();
 		}
 		
 	}

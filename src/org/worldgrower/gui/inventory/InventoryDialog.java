@@ -192,21 +192,25 @@ public class InventoryDialog extends JDialog {
 			targetMoneyLabel.setBounds(477, 555, 64, 25);
 			getContentPane().add(targetMoneyLabel);
 			
-			targetMoney = new JLabel(Integer.toString(inventoryDialogModel.getTargetMoney()));
-			targetMoney.setToolTipText(MONEY_TARGET_TOOL_TIP);
-			targetMoney.setBounds(542, 555, 50, 25);
-			getContentPane().add(targetMoney);
+			if (inventoryDialogModel.hasTargetMoney()) {
+				targetMoney = new JLabel(Integer.toString(inventoryDialogModel.getTargetMoney()));
+				targetMoney.setToolTipText(MONEY_TARGET_TOOL_TIP);
+				targetMoney.setBounds(542, 555, 50, 25);
+				getContentPane().add(targetMoney);
+			}
 			
-			JLabel targetWeightLabel = new JLabel("Weight:");
-			targetWeightLabel.setToolTipText(WEIGHT_TARGET_TOOL_TIP);
-			targetWeightLabel.setBounds(592, 555, 64, 25);
-			getContentPane().add(targetWeightLabel);
-			
-			String targetWeightString = getTargetWeight(inventoryDialogModel);
-			targetWeight = new JLabel(targetWeightString);
-			targetWeight.setToolTipText(WEIGHT_TARGET_TOOL_TIP);
-			targetWeight.setBounds(668, 555, 64, 25);
-			getContentPane().add(targetWeight);
+			if (inventoryDialogModel.hasTargetCarryingCapacity()) {
+				JLabel targetWeightLabel = new JLabel("Weight:");
+				targetWeightLabel.setToolTipText(WEIGHT_TARGET_TOOL_TIP);
+				targetWeightLabel.setBounds(592, 555, 64, 25);
+				getContentPane().add(targetWeightLabel);
+				
+				String targetWeightString = getTargetWeight(inventoryDialogModel);
+				targetWeight = new JLabel(targetWeightString);
+				targetWeight.setToolTipText(WEIGHT_TARGET_TOOL_TIP);
+				targetWeight.setBounds(668, 555, 64, 25);
+				getContentPane().add(targetWeight);
+			}
 		}
 		
 		setInventoryActions(inventoryActions);
@@ -321,13 +325,23 @@ public class InventoryDialog extends JDialog {
 		public boolean isPossible(InventoryItem inventoryItem) {
 			return true;
 		}
+
+		@Override
+		public InventoryItem getSelectedItem(InventoryDialog dialog) {
+			return InventoryDialog.this.getPlayerCharacterSelectedValue();
+		}
 	}
 
 	private void addActions(InventoryDialogAction inventoryDialogAction) {
 		cancelButton.addActionListener(new CloseDialogAction());
-		inventoryJList.addListSelectionListener(new InventoryListSelectionListener(inventoryDialogAction));
 		
+		inventoryJList.addListSelectionListener(new InventoryListSelectionListener(inventoryDialogAction));
 		inventoryJList.setSelectedIndex(0);
+
+		if (targetInventoryList != null) {
+			targetInventoryList.addListSelectionListener(new InventoryListSelectionListener(inventoryDialogAction));
+			targetInventoryList.setSelectedIndex(0);
+		}
 	}
 
 	private JList<InventoryItem> createInventoryList(WorldObjectContainer inventory, ImageInfoReader imageInfoReader) {
@@ -375,16 +389,25 @@ public class InventoryDialog extends JDialog {
 		
 		if (inventoryDialogModel.hasTarget()) {
 			targetInventoryList.setModel(getInventoryListModel(inventoryDialogModel.getTargetInventory()));
-			targetMoney.setText(Integer.toString(inventoryDialogModel.getTargetMoney()));
-			String targetWeightString = getTargetWeight(inventoryDialogModel);
-			targetWeight.setText(targetWeightString);
+			
+			if (inventoryDialogModel.hasTargetMoney()) {
+				targetMoney.setText(Integer.toString(inventoryDialogModel.getTargetMoney()));
+			}
+			if (inventoryDialogModel.hasTargetCarryingCapacity()) {
+				String targetWeightString = getTargetWeight(inventoryDialogModel);
+				targetWeight.setText(targetWeightString);
+			}
 		}
 		
 		setInventoryActions(inventoryActions);
 	}
 
-	public InventoryItem getSelectedValue() {
+	public InventoryItem getPlayerCharacterSelectedValue() {
 		return inventoryJList.getSelectedValue();
+	}
+	
+	public InventoryItem getTargetSelectedValue() {
+		return targetInventoryList.getSelectedValue();
 	}
 	
 	private class InventoryListSelectionListener implements ListSelectionListener {
@@ -397,7 +420,7 @@ public class InventoryDialog extends JDialog {
 
 		@Override
 		public void valueChanged(ListSelectionEvent e) {
-			InventoryItem inventoryItem = inventoryJList.getSelectedValue();
+			InventoryItem inventoryItem = inventoryDialogAction.getSelectedItem(InventoryDialog.this);
 			if (inventoryItem != null) {
 				okButton.setEnabled(inventoryDialogAction.isPossible(inventoryItem));
 			} else {

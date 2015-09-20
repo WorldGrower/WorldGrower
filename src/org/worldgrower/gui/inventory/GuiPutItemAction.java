@@ -20,13 +20,11 @@ import java.util.ArrayList;
 
 import javax.swing.AbstractAction;
 
-import org.worldgrower.Constants;
 import org.worldgrower.DungeonMaster;
 import org.worldgrower.Main;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.goal.BuySellUtils;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.WorldPanel;
 
@@ -68,9 +66,8 @@ public class GuiPutItemAction extends AbstractAction {
 			return new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent actionEvent) {
-					InventoryItem inventoryItem = dialog.getSelectedValue();
-					int price = BuySellUtils.getPrice(playerCharacter, inventoryItem.getId());
-					int[] args = new int[] { inventoryItem.getId(), price };
+					InventoryItem inventoryItem = getSelectedItem(dialog);
+					int[] args = new int[] { inventoryItem.getId() };
 					sell(args);
 					
 					dialog.refresh(new InventoryDialogModel(playerCharacter, target), new ArrayList<>());
@@ -81,6 +78,11 @@ public class GuiPutItemAction extends AbstractAction {
 		@Override
 		public boolean isPossible(InventoryItem inventoryItem) {
 			return true;
+		}
+
+		@Override
+		public InventoryItem getSelectedItem(InventoryDialog dialog) {
+			return dialog.getPlayerCharacterSelectedValue();
 		}
 		
 	}

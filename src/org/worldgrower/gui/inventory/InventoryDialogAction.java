@@ -20,4 +20,5 @@ public interface InventoryDialogAction {
 	public String getDescription();
 	public ActionListener getGuiAction();
 	public boolean isPossible(InventoryItem inventoryItem);
+	public InventoryItem getSelectedItem(InventoryDialog dialog);
 }
