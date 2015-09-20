@@ -24,7 +24,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.ItemGenerator;
 
-public class BrewPoisonAction implements ManagedOperation {
+public class BrewPoisonAction implements CraftAction {
 
 	private static final int NIGHT_SHADE_REQUIRED = 3;
 	
@@ -41,6 +41,11 @@ public class BrewPoisonAction implements ManagedOperation {
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
 		return CraftUtils.distance(performer, Constants.NIGHT_SHADE, NIGHT_SHADE_REQUIRED);
+	}
+	
+	@Override
+	public String getRequirementsDescription() {
+		return CraftUtils.getRequirementsDescription(Constants.NIGHT_SHADE, NIGHT_SHADE_REQUIRED);
 	}
 
 	@Override

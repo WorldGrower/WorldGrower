@@ -34,6 +34,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.BuildAction;
 import org.worldgrower.actions.CraftAction;
+import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.actions.magic.ResearchSpellAction;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.gui.chooseworldobject.ChooseWorldObjectAction;
@@ -295,22 +296,23 @@ public class GuiMouseListener extends MouseAdapter {
 	
 	private void addIllusionActions(JPopupMenu menu) {
 		BuildAction[] buildActions = { Actions.MINOR_ILLUSION_ACTION };
-		ManagedOperation[] illusionActions = { Actions.INVISIBILITY_ACTION };
+		MagicSpell[] illusionActions = { Actions.INVISIBILITY_ACTION };
 		JMenu illusionMenu = addBuildActions(menu, "Illusions", buildActions, buildAction -> new ChooseWorldObjectAction(playerCharacter, imageInfoReader, world, ((WorldPanel)container), dungeonMaster, new StartBuildModeAction(playerCharacter, imageInfoReader, ((WorldPanel)container), buildAction)));
 		addActions(illusionMenu, illusionActions);
 		
     	JMenuItem disguiseMenuItem = new JMenuItem(new GuiDisguiseAction(playerCharacter, imageInfoReader, world, (WorldPanel)container, dungeonMaster, Actions.DISGUISE_MAGIC_SPELL_ACTION));
     	disguiseMenuItem.setText("Disguise self");
+    	disguiseMenuItem.setToolTipText(Actions.DISGUISE_MAGIC_SPELL_ACTION.getDescription());
     	illusionMenu.add(disguiseMenuItem);
 	}
 	
 	private void addRestorationActions(JPopupMenu menu) {
-		ManagedOperation[] restorationActions = { Actions.MINOR_HEAL_ACTION, Actions.CURE_DISEASE_ACTION, Actions.CURE_POISON_ACTION };
+		MagicSpell[] restorationActions = { Actions.MINOR_HEAL_ACTION, Actions.CURE_DISEASE_ACTION, Actions.CURE_POISON_ACTION };
 		addActions(menu, "Restoration", restorationActions);
 	}
 	
 	private void addTransmutationActions(JPopupMenu menu) {
-		ManagedOperation[] transmutationActions = { Actions.ENLARGE_ACTION, Actions.REDUCE_ACTION, Actions.SLEEP_MAGIC_SPELL_ACTION, Actions.WATER_WALK_ACTION, Actions.BURDEN_ACTION, Actions.FEATHER_ACTION };
+		MagicSpell[] transmutationActions = { Actions.ENLARGE_ACTION, Actions.REDUCE_ACTION, Actions.SLEEP_MAGIC_SPELL_ACTION, Actions.WATER_WALK_ACTION, Actions.BURDEN_ACTION, Actions.FEATHER_ACTION };
 		addActions(menu, "Transmute", transmutationActions);
 	}
 	
@@ -353,7 +355,7 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 
 	private void addBrewActions(JPopupMenu menu) {
-		ManagedOperation[] brewActions = { Actions.BREW_WINE_ACTION, Actions.BREW_POISON_ACTION };
+		CraftAction[] brewActions = { Actions.BREW_WINE_ACTION, Actions.BREW_POISON_ACTION };
 		addActions(menu, "Brew", brewActions);
 	}
 	
@@ -378,6 +380,10 @@ public class GuiMouseListener extends MouseAdapter {
 			if (action instanceof CraftAction) {
 				CraftAction craftAction = (CraftAction) action;
 				menuItem.setToolTipText(craftAction.getRequirementsDescription());
+			}
+			if (action instanceof MagicSpell) {
+				MagicSpell magicSpell = (MagicSpell) action;
+				menuItem.setToolTipText(magicSpell.getDescription());
 			}
 		}
 	}

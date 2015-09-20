@@ -70,7 +70,7 @@ public class MinorIllusionAction implements BuildAction, MagicSpell {
 	
 	@Override
 	public String getRequirementsDescription() {
-		return "";
+		return getDescription();
 	}
 
 	@Override

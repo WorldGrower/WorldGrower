@@ -24,7 +24,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.ItemGenerator;
 
-public class BrewWineAction implements ManagedOperation {
+public class BrewWineAction implements CraftAction {
 
 	private static final int GRAPES_REQUIRED = 3;
 	
@@ -41,6 +41,11 @@ public class BrewWineAction implements ManagedOperation {
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
 		return CraftUtils.distance(performer, Constants.GRAPE, GRAPES_REQUIRED);
+	}
+	
+	@Override
+	public String getRequirementsDescription() {
+		return CraftUtils.getRequirementsDescription(Constants.GRAPE, GRAPES_REQUIRED);
 	}
 
 	@Override
