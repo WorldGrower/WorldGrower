@@ -232,6 +232,8 @@ public class ChooseProfessionAction implements ManagedOperation {
 		return mapDemandsToProfessions(performer, mergedDemands, world);
 	}
 
+	// When demands are used, they should be divided by populationCount
+	// Otherwise demands may result in 1 profession overshadowing the others
 	static List<ProfessionEvaluation> mapDemandsToProfessions(WorldObject performer, PropertyCountMap<ManagedProperty<?>> demands, World world) {
 		List<ProfessionEvaluation> result = new ArrayList<>();
 		int populationCount = getPopulationCount(world);
@@ -243,12 +245,12 @@ public class ChooseProfessionAction implements ManagedOperation {
 		//int waterDemand = demands.getQuantityFor(Constants.WATER);
 		
 		int woodDemand = demands.count(Constants.WOOD);
-		woodDemand += getRecentOperationsByNonProfessionalsCount(Actions.CUT_WOOD_ACTION, Professions.LUMBERJACK_PROFESSION, world) / (5 * populationCount);
+		woodDemand += getRecentOperationsByNonProfessionalsCount(Actions.CUT_WOOD_ACTION, Professions.LUMBERJACK_PROFESSION, world) / (4 * populationCount);
 		result.add(new ProfessionEvaluation(Professions.LUMBERJACK_PROFESSION, woodDemand));
 		
 		int stoneDemand = demands.count(Constants.STONE);
 		int oreDemand = demands.count(Constants.ORE);
-		result.add(new ProfessionEvaluation(Professions.MINER_PROFESSION, (stoneDemand + oreDemand) / 3));
+		result.add(new ProfessionEvaluation(Professions.MINER_PROFESSION, (stoneDemand + oreDemand) / populationCount));
 		
 		List<WorldObject> remains = getRemains(world);
 		if (remains.size() > 0) {
@@ -272,11 +274,17 @@ public class ChooseProfessionAction implements ManagedOperation {
 		
 		boolean canCollectTaxes = GroupPropertyUtils.canCollectTaxes(world);
 		if (canCollectTaxes) {
-			result.add(new ProfessionEvaluation(Professions.TAX_COLLECTOR_PROFESSION, 0));
+			result.add(new ProfessionEvaluation(Professions.TAX_COLLECTOR_PROFESSION, -1));
 			result.add(new ProfessionEvaluation(Professions.SHERIFF_PROFESSION, 0));
 		} else {
 			result.add(new ProfessionEvaluation(Professions.TAX_COLLECTOR_PROFESSION, Integer.MIN_VALUE));
 			result.add(new ProfessionEvaluation(Professions.SHERIFF_PROFESSION, Integer.MIN_VALUE));
+		}
+		
+		if (populationCount < 15) {
+			result.add(new ProfessionEvaluation(Professions.THIEF_PROFESSION, Integer.MIN_VALUE));
+		} else {
+			result.add(new ProfessionEvaluation(Professions.THIEF_PROFESSION, 0));
 		}
 		
 		return result;
