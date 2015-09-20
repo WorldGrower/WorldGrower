@@ -40,6 +40,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.ToolTipManager;
 
 import org.worldgrower.Constants;
+import org.worldgrower.CreaturePositionCondition;
 import org.worldgrower.DungeonMaster;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.ManagedOperationListener;
@@ -386,7 +387,7 @@ public class WorldPanel extends JPanel {
     }
     
 	public WorldObject findWorldObject(int x, int y) {
-        List<WorldObject> worldObjects = world.findWorldObjects(w -> w.getProperty(Constants.X) == (x-offsetX) && w.getProperty(Constants.Y) == (y-offsetY));
+        List<WorldObject> worldObjects = world.findWorldObjects(w -> new CreaturePositionCondition(y-offsetY, x-offsetX).isWorldObjectValid(w));
 		final WorldObject worldObject;
 		if (worldObjects.size() > 0) {
 			worldObject = worldObjects.get(0);
