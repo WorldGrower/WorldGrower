@@ -56,10 +56,10 @@ import org.worldgrower.goal.MeleeDamagePropertyUtils;
 import org.worldgrower.gui.CommonerImageIds;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.WorldPanel;
+import org.worldgrower.gui.music.BackgroundMusicUtils;
 import org.worldgrower.gui.start.CharacterAttributes;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.profession.PlayerCharacterProfession;
-import org.worldgrower.profession.Professions;
 import org.worldgrower.terrain.TerrainType;
 
 /**
@@ -264,6 +264,8 @@ public class Main {
         ToolTipManager.sharedInstance().setDismissDelay(9999999);
         
         worldPanel.createGuiRespondToImage();
+        
+        BackgroundMusicUtils.startBackgroundMusic();
     }
 
 	private static void centerFrame() {
