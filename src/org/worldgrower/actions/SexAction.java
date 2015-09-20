@@ -25,6 +25,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.goal.GenderPropertyUtils;
+import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.PregnancyPropertyUtils;
 import org.worldgrower.goal.RacePropertyUtils;
 
@@ -58,7 +59,7 @@ public class SexAction implements ManagedOperation {
 		if (performer.hasProperty(Constants.RELATIONSHIPS) && target.hasProperty(Constants.RELATIONSHIPS)) {
 			WorldObject performerFacade = createFacade(performer, performer, target);
 			WorldObject targetFacade = createFacade(target, performer, target);
-			return (target.hasIntelligence() && (targetFacade.getProperty(Constants.RELATIONSHIPS).getValue(performerFacade) > 750));
+			return (target.hasIntelligence() && (targetFacade.getProperty(Constants.RELATIONSHIPS).getValue(performerFacade) > 750) && !GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, targetFacade));
 		} else {
 			return RacePropertyUtils.hasSameRace(performer, target);
 		}

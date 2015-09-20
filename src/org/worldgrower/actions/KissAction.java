@@ -22,6 +22,7 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.RacePropertyUtils;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 
@@ -48,7 +49,7 @@ public class KissAction implements ManagedOperation {
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
 		if (target.hasProperty(Constants.RELATIONSHIPS)) {
-			return (target.hasIntelligence() && (target.getProperty(Constants.RELATIONSHIPS).getValue(performer) > 500));
+			return (target.hasIntelligence() && (target.getProperty(Constants.RELATIONSHIPS).getValue(performer) > 500)  && !GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, target));
 		} else {
 			return RacePropertyUtils.hasSameRace(performer, target);
 		}
