@@ -250,7 +250,7 @@ public class GroupPropertyUtils {
 		return amountToCollect;
 	}
 
-	private static int getBaseAmountToPay(WorldObject target, World world) {
+	static int getBaseAmountToPay(WorldObject target, World world) {
 		int amountToCollect = 0;
 		List<Integer> houseIds = target.getProperty(Constants.HOUSES).getIds();
 		if (houseIds.size() > 0) {

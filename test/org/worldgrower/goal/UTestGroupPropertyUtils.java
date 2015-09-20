@@ -30,6 +30,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdRelationshipMap;
+import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.profession.Professions;
 
 public class UTestGroupPropertyUtils {
@@ -154,5 +155,51 @@ public class UTestGroupPropertyUtils {
 		
 		organization.setProperty(Constants.SHACK_TAX_RATE, 1);
 		assertEquals(true, GroupPropertyUtils.canCollectTaxes(world));
+	}
+	
+	@Test
+	public void testFindProfessionOrganizationsInWorldNotMember() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(2, "Test");
+		world.addWorldObject(performer);
+		
+		assertEquals(new ArrayList<>(), GroupPropertyUtils.findProfessionOrganizationsInWorld(performer, world));
+	}
+	
+	@Test
+	public void testFindProfessionOrganizationsInWorldMember() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(2, Constants.PROFESSION, Professions.FARMER_PROFESSION);
+		world.addWorldObject(performer);
+		
+		assertEquals(new ArrayList<>(), GroupPropertyUtils.findProfessionOrganizationsInWorld(performer, world));
+		
+		WorldObject organization = GroupPropertyUtils.createProfessionOrganization(2, "TestOrg", Professions.FARMER_PROFESSION, world);
+		assertEquals(Arrays.asList(organization), GroupPropertyUtils.findProfessionOrganizationsInWorld(performer, world));
+	}
+	
+	@Test
+	public void testGetBaseAmountToPayNoHouses() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.HOUSES, new IdList());
+		world.addWorldObject(target);
+		
+		assertEquals(0, GroupPropertyUtils.getBaseAmountToPay(target, world));
+	}
+	
+	@Test
+	public void testGetBaseAmountToPayShackAndHouse() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject target = TestUtils.createIntelligentWorldObject(world.generateUniqueId(), Constants.HOUSES, new IdList().add(2).add(3));
+		world.addWorldObject(target);
+		
+		WorldObject villagersOrganization = createVillagersOrganization(world);
+		villagersOrganization.setProperty(Constants.SHACK_TAX_RATE, 1);
+		villagersOrganization.setProperty(Constants.HOUSE_TAX_RATE, 2);
+		
+		int shackId = BuildingGenerator.generateShack(0, 0, world, 0f);
+		int houseId = BuildingGenerator.generateHouse(0, 0, world, 0f);
+		
+		assertEquals(3, GroupPropertyUtils.getBaseAmountToPay(target, world));
 	}
 }
