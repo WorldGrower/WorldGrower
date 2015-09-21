@@ -23,6 +23,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.condition.CreatureTypeChangedListeners;
+import org.worldgrower.goal.Goal;
+import org.worldgrower.goal.Goals;
 import org.worldgrower.history.HistoryItem;
 import org.worldgrower.profession.Professions;
 
@@ -49,6 +51,11 @@ public class Demeter implements Deity {
 				"As a child, I was always scared of food running out. I worship " + getName() + " so that it never happens again.",
 				"Our existence depends on nature. That is why I worship " + getName()
 		);
+	}
+	
+	@Override
+	public List<Goal> getOrganizationGoals() {
+		return Arrays.asList(Goals.DESTROY_SHRINES_TO_OTHER_DEITIES_GOAL, Goals.FEED_OTHERS_GOAL);
 	}
 
 	@Override

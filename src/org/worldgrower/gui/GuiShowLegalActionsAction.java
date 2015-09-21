@@ -74,6 +74,7 @@ public class GuiShowLegalActionsAction extends AbstractAction {
 		buttonPane.add(okButton);
 		addActionHandlers(okButton, worldModel, dialog);
 		dialog.getRootPane().setDefaultButton(okButton);
+		SwingUtils.installEscapeCloseOperation(dialog);
 		
 		dialog.setSize(400, 800);
 		dialog.setLocationRelativeTo(null);

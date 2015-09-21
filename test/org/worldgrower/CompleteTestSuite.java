@@ -36,6 +36,7 @@ import org.worldgrower.goal.UTestBuildLocationUtils;
 import org.worldgrower.goal.UTestBuySellUtils;
 import org.worldgrower.goal.UTestGoalUtils;
 import org.worldgrower.goal.UTestGroupPropertyUtils;
+import org.worldgrower.goal.UTestHousePropertyUtils;
 import org.worldgrower.goal.UTestZone;
 import org.worldgrower.history.UTestHistoryImpl;
 import org.worldgrower.util.UTestNumberUtils;
@@ -76,7 +77,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestConditions.class,
 	UTestDefaultGoalObstructedHandler.class,
 	UTestWorldFacade.class,
-	UTestBuySellUtils.class
+	UTestBuySellUtils.class,
+	UTestHousePropertyUtils.class
 })
 public class CompleteTestSuite {
 }

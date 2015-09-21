@@ -16,11 +16,14 @@ package org.worldgrower.gui;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Function;
 
 import javax.swing.Action;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
@@ -64,6 +67,8 @@ public class GuiMouseListener extends MouseAdapter {
 	private final InventoryAction inventoryAction;
 	private final MagicOverviewAction magicOverviewAction;
 	private final RestAction restAction;
+	private final GuiAssignActionToLeftMouseAction assignActionToLeftMouseAction;
+	private ManagedOperation leftMouseClickAction;
 	
     public GuiMouseListener(WorldPanel container, WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, ImageInfoReader imageInfoReader) {
 		super();
@@ -77,6 +82,7 @@ public class GuiMouseListener extends MouseAdapter {
 		inventoryAction = new InventoryAction(playerCharacter, imageInfoReader, world, dungeonMaster, container);
 		magicOverviewAction = new MagicOverviewAction(playerCharacter, imageInfoReader);
 		restAction = new RestAction(playerCharacter, imageInfoReader, world, (WorldPanel)container, dungeonMaster);
+		assignActionToLeftMouseAction = getGuiAssignActionToLeftMouseAction();
 		addKeyBindings();
 	}
 
@@ -85,6 +91,7 @@ public class GuiMouseListener extends MouseAdapter {
 		addKeyBindingsFor(inventoryAction, "I");
 		addKeyBindingsFor(magicOverviewAction, "M");
 		addKeyBindingsFor(restAction, "R");
+		addKeyBindingsFor(assignActionToLeftMouseAction, "A");
 	}
 	
 	private void addKeyBindingsFor(Action action, String binding) {
@@ -102,6 +109,11 @@ public class GuiMouseListener extends MouseAdapter {
     }
     
     private void mouseAction(MouseEvent e) {
+        int x = (int) e.getPoint().getX() / 48;
+        int y = (int) e.getPoint().getY() / 48;
+
+		WorldObject worldObject = ((WorldPanel)container).findWorldObject(x, y);
+		
     	if (((WorldPanel)container).inBuildMode()) {
 			if (SwingUtilities.isRightMouseButton(e)) {
 				((WorldPanel)container).endBuildMode(false);
@@ -111,13 +123,23 @@ public class GuiMouseListener extends MouseAdapter {
 		} else {
 	        if (SwingUtilities.isRightMouseButton(e)) {
 	            doPop(e);
+	        } else if (SwingUtilities.isLeftMouseButton(e) && leftMouseClickAction != null && worldObject != null) {
+	        	performLeftMouseAction(worldObject);
 	        } else {
 	        	centerOnScreen(e);
 	        }
 		}
     }
 
-    private void centerOnScreen(MouseEvent e) {
+    private void performLeftMouseAction(WorldObject worldObject) {
+    	if (Main.canActionExecute(playerCharacter, leftMouseClickAction, new int[0], world, worldObject)) {
+    		Main.executeAction(playerCharacter, leftMouseClickAction, new int[0], world, dungeonMaster, worldObject, container);
+    	} else {
+    		JOptionPane.showMessageDialog(container, "Cannot execute action '" + leftMouseClickAction.getSimpleDescription() + "' on " + worldObject.getProperty(Constants.NAME));
+    	}
+	}
+
+	private void centerOnScreen(MouseEvent e) {
     	int x = (int) e.getPoint().getX() / 48;
         int y = (int) e.getPoint().getY() / 48;
         
@@ -158,6 +180,7 @@ public class GuiMouseListener extends MouseAdapter {
             	addShowOrganizationsActionMenu(organizationMenu);
             	addChooseDeityMenu(miscMenu);
             	menu.add(miscMenu);
+            	addAssignActionsToLeftMouse(menu);
             	
             	menu.show(e.getComponent(), e.getX(), e.getY());
             } else {
@@ -421,6 +444,26 @@ public class GuiMouseListener extends MouseAdapter {
 			}
 		}
 	}
+	
+	private List<ManagedOperation> getActions() {
+		List<ManagedOperation> actions = new ArrayList<>();
+		for(ManagedOperation action : playerCharacter.getOperations()) {
+			if (action.getArgumentRanges().length == 0 && !(action instanceof BuildAction) && !(Actions.getInventoryActions().contains(action))) {
+				actions.add(action);
+			}
+		}
+		return actions;
+	}
+	
+	private void addAssignActionsToLeftMouse(JPopupMenu menu) {
+		JMenuItem guiAssignActionsToLeftMouseItem = new JMenuItem(assignActionToLeftMouseAction);
+		guiAssignActionsToLeftMouseItem.setText("Assign action to left mouse click...");
+		menu.add(guiAssignActionsToLeftMouseItem);
+	}
+
+	private GuiAssignActionToLeftMouseAction getGuiAssignActionToLeftMouseAction() {
+		return new GuiAssignActionToLeftMouseAction(getActions(), container, this);
+	}
 
 	private void addPropertiesMenu(JPopupMenu menu, WorldObject worldObject) {
 		if (Boolean.getBoolean("DEBUG")) {
@@ -467,5 +510,10 @@ public class GuiMouseListener extends MouseAdapter {
 
 	public void executeBuildAction(ManagedOperation buildAction, WorldObject buildLocation, int[] args) {
 		Main.executeAction(playerCharacter, buildAction, args, world, dungeonMaster, buildLocation, container);
+	}
+
+	public void setLeftMouseClickAction(ManagedOperation action) {
+		leftMouseClickAction = action;
+		
 	}
 }

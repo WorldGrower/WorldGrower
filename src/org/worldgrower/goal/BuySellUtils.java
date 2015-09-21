@@ -72,7 +72,7 @@ public class BuySellUtils {
 	}
 	
 	public static boolean worldObjectWillBuyGoods(WorldObject performer, WorldObject target, WorldObject worldObject, World world) {
-		boolean demandsGoods = getDemandGoods(performer, target, worldObject);
+		boolean demandsGoods = hasDemandForInventoryItemGoods(target, worldObject);
 		
 		int price = BuySellUtils.getPrice(performer, worldObject);
 		/*boolean betterPriceExists = betterPriceExists(worldObject, world, price);*/
@@ -82,7 +82,7 @@ public class BuySellUtils {
 		return demandsGoods && /*!betterPriceExists &&*/ hasMoneyToBuyGoods;
 	}
 	
-	public static boolean performerCanBuyGoods(WorldObject performer, WorldObject target, int indexOfItemsToSell, int quantity, World world) {
+	public static boolean performerCanBuyGoods(WorldObject performer, WorldObject target, int indexOfItemsToSell, int quantity) {
 		WorldObject worldObject = target.getProperty(Constants.INVENTORY).get(indexOfItemsToSell);
 		int price = BuySellUtils.getPrice(target, worldObject) * quantity;
 		boolean hasMoneyToBuyGoods = (price <= performer.getProperty(Constants.GOLD));
@@ -90,8 +90,8 @@ public class BuySellUtils {
 	}
 
 	//TODO: fix demands
-	private static boolean getDemandGoods(WorldObject performer, WorldObject target, WorldObject worldObject) {
-		List<ManagedProperty<?>> propertyKeys = worldObject.getPropertyKeys();
+	static boolean hasDemandForInventoryItemGoods(WorldObject target, WorldObject inventoryItem) {
+		List<ManagedProperty<?>> propertyKeys = inventoryItem.getPropertyKeys();
 		boolean demandsGoods = false;
 		for(ManagedProperty<?> property : propertyKeys) {
 			demandsGoods = demandsGoods || target.hasProperty(Constants.DEMANDS) && target.getProperty(Constants.DEMANDS).count(property) > 0;
@@ -124,7 +124,7 @@ public class BuySellUtils {
 		if (targets.size() > 0) {
 			WorldObject target = targets.get(0);
 			int indexOfProperty = target.getProperty(Constants.INVENTORY).getIndexFor(propertyToBuy);
-			if (performerCanBuyGoods(performer, target, indexOfProperty, 5, world)) {
+			if (performerCanBuyGoods(performer, target, indexOfProperty, 5)) {
 				return new OperationInfo(performer, target, new int[] { indexOfProperty, 5 }, Actions.BUY_ACTION);
 			}
 		}
@@ -136,7 +136,7 @@ public class BuySellUtils {
 		if (targets.size() > 0) {
 			WorldObject target = targets.get(0);
 			int indexOfProperty = target.getProperty(Constants.INVENTORY).getIndexFor(equipmentSlotProperty, equipmentSlot);
-			if (performerCanBuyGoods(performer, target, indexOfProperty, 1, world)) {
+			if (performerCanBuyGoods(performer, target, indexOfProperty, 1)) {
 				return new OperationInfo(performer, target, new int[] { indexOfProperty, 1 }, Actions.BUY_ACTION);
 			}
 		}

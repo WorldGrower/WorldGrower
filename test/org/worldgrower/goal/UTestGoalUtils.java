@@ -18,12 +18,16 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.DungeonMaster;
+import org.worldgrower.MockMetaInformation;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.TestUtils;
+import org.worldgrower.TestWorldObjectPriorities;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
@@ -46,7 +50,7 @@ public class UTestGoalUtils {
 	}
 
 	private WorldImpl createWorld() {
-		return new WorldImpl(10, 10, null, null);
+		return new WorldImpl(10, 10, new DungeonMaster(), null);
 	}
 	
 	@Test
@@ -136,5 +140,31 @@ public class UTestGoalUtils {
 		world.getHistory().actionPerformed(operationInfo, new Turn());
 		
 		assertEquals(true, GoalUtils.actionAlreadyPerformed(performer, target, Actions.TALK_ACTION, Conversations.createArgs(Conversations.PROFESSION_CONVERSATION), world));
+	}
+	
+	@Test
+	public void testCanEnlarge() {
+		World world = createWorld();
+		WorldObject target = TestUtils.createWorldObject(2, 2, 1, 1, Constants.ID, 7);
+		world.addWorldObject(target);
+		
+		assertEquals(true, GoalUtils.canEnlarge(target, world));
+		
+		WorldObject obstacle = TestUtils.createWorldObject(3, 3, 1, 1, Constants.ID, 8);
+		world.addWorldObject(obstacle);
+		assertEquals(false, GoalUtils.canEnlarge(target, world));
+	}
+	
+	@Test
+	public void testCurrentGoalHasLowerPriorityThan() {
+		World world = createWorld();
+		TestWorldObjectPriorities worldObjectPriorities = new TestWorldObjectPriorities(Arrays.asList(Goals.FOOD_GOAL, Goals.REST_GOAL, Goals.DRINK_WATER_GOAL));
+		WorldObject target = TestUtils.createIntelligentWorldObject(1, Constants.FOOD, 500, worldObjectPriorities);
+		MockMetaInformation.setMetaInformation(target, Goals.REST_GOAL);
+		
+		world.addWorldObject(target);
+		
+		assertEquals(true, GoalUtils.currentGoalHasLowerPriorityThan(Goals.FOOD_GOAL, target, world));
+		assertEquals(false, GoalUtils.currentGoalHasLowerPriorityThan(Goals.DRINK_WATER_GOAL, target, world));
 	}
 }

@@ -28,7 +28,6 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
-import org.worldgrower.WorldObjectPriorities;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.goal.Goal;
 
@@ -55,20 +54,6 @@ public class UTestGoalCalculator {
 		Goal currentGoal = new TestGoal();
 		
 		assertEquals(true, goalCalculator.moreUrgentImportantGoalIsNotMet(performer, world, currentGoal));
-	}
-	
-	private static class TestWorldObjectPriorities implements WorldObjectPriorities {
-
-		private final List<Goal> goals;
-		
-		public TestWorldObjectPriorities(List<Goal> goals) {
-			this.goals = goals;
-		}
-
-		@Override
-		public List<Goal> getPriorities(WorldObject performer, World world) {
-			return goals;
-		}
 	}
 	
 	private static class TestGoal implements Goal {

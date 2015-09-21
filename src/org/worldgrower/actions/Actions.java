@@ -179,6 +179,7 @@ public class Actions {
 	public static final DonateMoneyAction DONATE_MONEY_ACTION = new DonateMoneyAction();
 	public static final CraftRepairHammerAction CRAFT_REPAIR_HAMMER_ACTION = new CraftRepairHammerAction();
 	public static final RepairEquipmentInInventoryAction REPAIR_EQUIPMENT_IN_INVENTORY_ACTION = new RepairEquipmentInInventoryAction();
+	public static final PoisonInventoryWaterAction POISON_INVENTORY_WATER_ACTION = new PoisonInventoryWaterAction();
 	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 
@@ -208,7 +209,8 @@ public class Actions {
 	private static final List<ManagedOperation> INVENTORY_ACTIONS = Arrays.asList(
 			EAT_FROM_INVENTORY_ACTION,
 			DRINK_FROM_INVENTORY_ACTION,
-			REPAIR_EQUIPMENT_IN_INVENTORY_ACTION
+			REPAIR_EQUIPMENT_IN_INVENTORY_ACTION,
+			POISON_INVENTORY_WATER_ACTION
 			);
 	
 	public static final List<ManagedOperation> ALL_ACTIONS = new ArrayList<>(Arrays.asList(

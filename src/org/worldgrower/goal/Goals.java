@@ -109,4 +109,5 @@ public class Goals {
 	public static final DonateMoneyToArenaGoal DONATE_MONEY_TO_ARENA_GOAL = new DonateMoneyToArenaGoal();
 	public static final EquipmentGoal EQUIPMENT_GOAL = new EquipmentGoal();
 	public static final MarkEquipmentAsSellableGoal MARK_EQUIPMENT_AS_SELLABLE_GOAL = new MarkEquipmentAsSellableGoal();
+	public static final FeedOthersGoal FEED_OTHERS_GOAL = new FeedOthersGoal();
 }
