@@ -452,6 +452,7 @@ public class GuiMouseListener extends MouseAdapter {
 				actions.add(action);
 			}
 		}
+		Actions.sortActionsByDescription(actions);
 		return actions;
 	}
 	

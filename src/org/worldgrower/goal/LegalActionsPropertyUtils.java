@@ -15,8 +15,6 @@
 package org.worldgrower.goal;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +22,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
 
 public class LegalActionsPropertyUtils {
 
@@ -35,8 +34,7 @@ public class LegalActionsPropertyUtils {
 
 	private static List<ManagedOperation> toList(Map<ManagedOperation, Boolean> legalActions) {
 		List<ManagedOperation> actions = new ArrayList<>(legalActions.keySet());
-		Collections.sort(actions, new ActionComparator());
-		
+		Actions.sortActionsByDescription(actions);
 		return actions;
 	}
 
@@ -54,13 +52,5 @@ public class LegalActionsPropertyUtils {
 			args[i] = legalActions.get(action).booleanValue() ? 1 : 0;
 		}
 		return args;
-	}
-	
-	private static class ActionComparator implements Comparator<ManagedOperation> {
-
-		@Override
-		public int compare(ManagedOperation o1, ManagedOperation o2) {
-			return o1.getSimpleDescription().compareTo(o2.getSimpleDescription());
-		}
 	}
 }

@@ -16,6 +16,8 @@ package org.worldgrower.actions;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -377,5 +379,17 @@ public class Actions {
 	
 	public static List<ManagedOperation> getInventoryActions() {
 		return INVENTORY_ACTIONS;
+	}
+	
+	public static void sortActionsByDescription(List<ManagedOperation> actions) {
+		Collections.sort(actions, new ActionComparator());
+	}
+	
+	private static class ActionComparator implements Comparator<ManagedOperation> {
+
+		@Override
+		public int compare(ManagedOperation o1, ManagedOperation o2) {
+			return o1.getSimpleDescription().compareTo(o2.getSimpleDescription());
+		}
 	}
 }
