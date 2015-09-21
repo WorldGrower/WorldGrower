@@ -21,6 +21,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
 
@@ -37,7 +38,7 @@ public class GiveFoodConversation implements Conversation {
 
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, World world) {
-		return Arrays.asList(new Question(null, "You are accused of the following crime: " + questionHistoryItem.getSecondPersonDescription(world)));
+		return Arrays.asList(new Question(null, "Would you like to have some food?"));
 	}
 
 	@Override
@@ -55,16 +56,29 @@ public class GiveFoodConversation implements Conversation {
 		
 		if (replyIndex == THANKS) {
 			int relationshipBonus;
-			if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.FOOD) > 0) {
+			
+			if (target.getProperty(Constants.INVENTORY).getQuantityFor(Constants.FOOD) > 0) {
 				relationshipBonus = 5;
 			} else {
 				relationshipBonus = 10;
 			}
 			
 			RelationshipPropertyUtils.changeRelationshipValue(performer, target, relationshipBonus, Actions.TALK_ACTION, Conversations.createArgs(this), world);
+			
+			performerGivesFoodToTarget(performer, target);
+			
 		} else if (replyIndex == GET_LOST) {
 			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -20, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 		}
+	}
+
+	private void performerGivesFoodToTarget(WorldObject performer, WorldObject target) {
+		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
+		int indexOfFood = performerInventory.getIndexFor(Constants.FOOD);
+		WorldObject food = performerInventory.get(indexOfFood);
+		WorldObjectContainer targetInventory = target.getProperty(Constants.INVENTORY);
+		targetInventory.addQuantity(food, 1);
+		performerInventory.removeQuantity(Constants.FOOD, 1);
 	}
 
 	@Override
