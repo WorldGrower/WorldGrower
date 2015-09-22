@@ -74,7 +74,7 @@ public class UTestBuySellUtils {
 		
 		assertEquals(null, BuySellUtils.getBuyOperationInfo(performer, Constants.FOOD, world));
 		
-		WorldObject target = TestUtils.createIntelligentWorldObject(0, Constants.INVENTORY, new WorldObjectContainer());
+		WorldObject target = TestUtils.createIntelligentWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
 		WorldObject inventoryItem = ItemGenerator.generateBerries();
 		inventoryItem.setProperty(Constants.SELLABLE, Boolean.TRUE);
 		target.getProperty(Constants.INVENTORY).addQuantity(inventoryItem);
@@ -83,4 +83,6 @@ public class UTestBuySellUtils {
 		
 		assertEquals(Actions.BUY_ACTION, BuySellUtils.getBuyOperationInfo(performer, Constants.FOOD, world).getManagedOperation());
 	}
+	
+	//TODO: worldObject cannot buy from itself
 }

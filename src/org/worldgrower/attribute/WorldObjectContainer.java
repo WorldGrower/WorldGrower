@@ -204,7 +204,7 @@ public class WorldObjectContainer implements Serializable {
 		int index = 0; 
 		for(WorldObject worldObject : worldObjects) {
 			if (worldObject != null) {
-				if (worldObject.hasProperty(propertyKey) && worldObject.getProperty(propertyKey) == value && testFunction.apply(worldObject)) {
+				if (worldObject.hasProperty(propertyKey) && (worldObject.getProperty(propertyKey) == value) && testFunction.apply(worldObject)) {
 					return index;
 				}
 			}

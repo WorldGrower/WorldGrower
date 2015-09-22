@@ -22,6 +22,7 @@ import org.junit.Test;
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.ItemGenerator;
 import org.worldgrower.gui.ImageIds;
 
 public class UTestWorldObjectContainer {
@@ -124,6 +125,15 @@ public class UTestWorldObjectContainer {
 		container.addQuantity(Constants.FOOD, 10, NO_IMAGE_ID);
 		
 		assertEquals(0, container.getIndexFor(Constants.NAME, "Test", w -> w.getProperty(Constants.ID) == 1));
+	}
+	
+	@Test
+	public void testGetIndexForWithFunctionAndEquipment() {
+		WorldObjectContainer container = new WorldObjectContainer();
+		container.add(ItemGenerator.getIronCuirass(1f));
+		container.addQuantity(Constants.FOOD, 10, NO_IMAGE_ID);
+		
+		assertEquals(0, container.getIndexFor(Constants.EQUIPMENT_SLOT, Constants.TORSO_EQUIPMENT, w -> w.getProperty(Constants.ARMOR) > 0));
 	}
 	
 	@Test

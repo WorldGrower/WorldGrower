@@ -280,7 +280,8 @@ public class ImageInfoReader {
 		add(ImageIds.FISHING_POLE, sprites420.getSubImage(6, 9, 1, 1));
 		add(ImageIds.RAW_FISH, sprites420.getSubImage(10, 1, 1, 1));
 		
-		add(ImageIds.ARENA_WALL, tileE.getSubImage(2, 3, 1, 1));
+		add(ImageIds.ARENA_WALL, tileC.getSubImage(7, 11, 1, 1));
+		createArenaWall48x48();
 		createArenaVertical();
 		createArenaHorizontal();
 		
@@ -296,6 +297,20 @@ public class ImageInfoReader {
 		add(ImageIds.REPAIR_HAMMER, sprites420.getSubImage(3, 9, 1, 1));
     }
 
+    private void createArenaWall48x48() {
+    	Image arenaWall = idToImages.get(ImageIds.ARENA_WALL).get(0);
+		BufferedImage off_Image = new BufferedImage(48, 48, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g2 = (Graphics2D) off_Image.getGraphics();
+
+		g2.drawImage(arenaWall, 0, 0, null);
+		g2.drawImage(arenaWall, 0, 32, null);
+		g2.drawImage(arenaWall, 32, 0, null);
+		g2.drawImage(arenaWall, 32, 32, null);
+
+		g2.dispose();
+		idToImages.put(ImageIds.ARENA_WALL, Arrays.asList(off_Image));
+    }
+    
 	private void createArenaVertical() {
 		Image arenaWall = idToImages.get(ImageIds.ARENA_WALL).get(0);
 		BufferedImage off_Image = new BufferedImage(48, 48 * 8, BufferedImage.TYPE_INT_ARGB);

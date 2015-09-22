@@ -100,14 +100,11 @@ public class GuiMouseListener extends MouseAdapter {
 		action.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(binding));
 	}
 
+	@Override
 	public void mousePressed(MouseEvent e){
 		mouseAction(e);
     }
-
-    public void mouseReleased(MouseEvent e){
-    	mouseAction(e);
-    }
-    
+ 
     private void mouseAction(MouseEvent e) {
         int x = (int) e.getPoint().getX() / 48;
         int y = (int) e.getPoint().getY() / 48;

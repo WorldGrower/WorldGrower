@@ -19,7 +19,6 @@ import java.util.List;
 
 import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
-import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.goal.FacadeUtils;
@@ -38,7 +37,9 @@ public class DisguiseAction implements DisguiseTargetFactory {
 
 	@Override
 	public ArgumentRange[] getArgumentRanges() {
-		return ArgumentRange.EMPTY_ARGUMENT_RANGE;
+		ArgumentRange[] argumentRanges = new ArgumentRange[1];
+		argumentRanges[0] = new ArgumentRange(0, 100);
+		return argumentRanges;
 	}
 
 	@Override

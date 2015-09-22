@@ -38,7 +38,7 @@ public class BecomeLeaderCandidateAction implements ManagedOperation {
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
 		boolean isInCandidateStage = VotingPropertyUtils.votingBoxAcceptsCandidates(target);
-		boolean isPerformerAlreadyCandidate = target.getProperty(Constants.CANDIDATES).contains(performer);
+		boolean isPerformerAlreadyCandidate = target.getProperty(Constants.CANDIDATES) != null && target.getProperty(Constants.CANDIDATES).contains(performer);
 		int targetVotingStageDistance = isInCandidateStage ? 0 : 1;
 		int performerAlreadyCandidateDistance = isPerformerAlreadyCandidate ? 1 : 0;
 		return Reach.evaluateTarget(performer, args, target, 1) + targetVotingStageDistance + performerAlreadyCandidateDistance;

@@ -232,4 +232,19 @@ public class UTestGroupPropertyUtils {
 		performer.getProperty(Constants.GROUP).add(organization);
 		assertEquals(organization, GroupPropertyUtils.findProfessionOrganization(performer, world));
 	}
+	
+	@Test
+	public void testGetOrganizations() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.GROUP, new IdList().add(7));
+		world.addWorldObject(performer);
+		
+		WorldObject organization = GroupPropertyUtils.createProfessionOrganization(7, "TestOrg", Professions.FARMER_PROFESSION, world);
+		organization.setProperty(Constants.ID, 7);
+		world.addWorldObject(organization);
+		
+		List<WorldObject> organizations = GroupPropertyUtils.getOrganizations(performer, world);
+		assertEquals(1, organizations.size());
+		assertEquals(organization, organizations.get(0));
+	}
 }

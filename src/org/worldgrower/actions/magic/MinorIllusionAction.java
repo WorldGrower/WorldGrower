@@ -75,7 +75,9 @@ public class MinorIllusionAction implements BuildAction, MagicSpell {
 
 	@Override
 	public ArgumentRange[] getArgumentRanges() {
-		return ArgumentRange.EMPTY_ARGUMENT_RANGE;
+		ArgumentRange[] argumentRanges = new ArgumentRange[1];
+		argumentRanges[0] = new ArgumentRange(0, 100);
+		return argumentRanges;
 	}
 	
 	@Override

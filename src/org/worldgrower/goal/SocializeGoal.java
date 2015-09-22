@@ -88,12 +88,12 @@ public class SocializeGoal implements Goal {
 		return historyItems.stream().map(h -> (Integer)h.getAdditionalValue()).collect(Collectors.toList());
 	}
 	
-	private boolean isFirstTimeSocializeTargetForPerformer(WorldObject performer, WorldObject w) {
+	static boolean isFirstTimeSocializeTargetForPerformer(WorldObject performer, WorldObject w) {
 		IdMap relationships = performer.getProperty(Constants.RELATIONSHIPS);
 		return !relationships.contains(w) && isSocializeTargetForPerformer(performer, w);
 	}
 	
-	private boolean isSocializeTargetForPerformer(WorldObject performer, WorldObject w) {
+	static boolean isSocializeTargetForPerformer(WorldObject performer, WorldObject w) {
 		return !GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, w);
 	}
 	

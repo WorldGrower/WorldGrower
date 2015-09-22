@@ -16,6 +16,10 @@ package org.worldgrower.attribute;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+
 import org.junit.Test;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
@@ -60,5 +64,12 @@ public class UTestSkillUtils {
 		
 		performer.setProperty(Constants.ENERGY, 50);
 		assertEquals(true, SkillUtils.distanceForEnergyUse(performer, Constants.LUMBERING_SKILL, 100) != 0);
+	}
+	
+	@Test
+	public void testGetSkillsForAttribute() {
+		List<SkillProperty> expectedSkills = Arrays.asList(Constants.LIGHT_ARMOR_SKILL, Constants.ARCHERY_SKILL, Constants.THIEVERY_SKILL);
+		List<SkillProperty> actualSkills = SkillUtils.getSkillsForAttribute(Constants.DEXTERITY);
+		assertEquals(new HashSet<>(expectedSkills), new HashSet<>(actualSkills));
 	}
 }
