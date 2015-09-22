@@ -43,7 +43,13 @@ href="http://www.oracle.com/technetwork/java/javase/documentation/codeconvtoc-13
     WorldGrower is released with Gradle 2.0.<br>
     Download Gradle from <a href="https://gradle.org/gradle-download/">https://gradle.org/gradle-download/</a><br>
     <br>
-    run 'gradle release' to create a release.<br>
+    run 'gradle -PdoRelease clean release' to create a release.<br>
+    <br>
+    When creating a new release, a local install4j installation is
+    needed.<br>
+    The gradle.properties file needs to point the install4j install
+    directory:<br>
+    install4jHomeDir=C:/Program Files/install4j6<br>
     <br>
     <h2><a name="Debugging"></a>Debugging</h2>
     <br>
@@ -65,6 +71,7 @@ href="http://www.oracle.com/technetwork/java/javase/documentation/codeconvtoc-13
     on other WorldObjects.<br>
     For example: person performs CutWoodAction on Tree<br>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
 
 
     person performs TalkAction with other person<br>
