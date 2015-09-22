@@ -22,11 +22,11 @@ import org.worldgrower.Main;
 
 public class BackgroundMusicUtils {
 
-	public static void startBackgroundMusic() {
+	public static MusicPlayer startBackgroundMusic() {
+		MusicPlayer musicPlayer = new MusicPlayer();
 		new Thread() {
         	@Override
         	public void run() {
-        		MusicPlayer musicPlayer = new MusicPlayer();
         		try {
 					musicPlayer.play(new BufferedInputStream(new GZIPInputStream(Main.class.getResourceAsStream("/woodland_fantasy_0.wav.gz"))));
 				} catch (IOException e) {
@@ -34,5 +34,6 @@ public class BackgroundMusicUtils {
 				}
         	}
         }.start();
+        return musicPlayer;
 	}
 }
