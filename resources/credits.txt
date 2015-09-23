@@ -36,3 +36,6 @@ At https://openclipart.org/detail/74185/community
 
 woodland_fantasy_0.wav: Music by Matthew Pablo, http://www.matthewpablo.com
 At http://opengameart.org/content/woodland-fantasy
+
+mackcowrecolors.png: Mack cow recolors
+At http://www.rpgmakervxace.net/topic/2399-grannys-lists-animal-sprites/

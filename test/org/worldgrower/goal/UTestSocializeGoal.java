@@ -16,12 +16,21 @@ package org.worldgrower.goal;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Arrays;
+
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.OperationInfo;
 import org.worldgrower.TestUtils;
+import org.worldgrower.World;
+import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdRelationshipMap;
+import org.worldgrower.attribute.KnowledgeMap;
+import org.worldgrower.conversation.Conversations;
+import org.worldgrower.history.Turn;
 
 public class UTestSocializeGoal {
 
@@ -49,5 +58,31 @@ public class UTestSocializeGoal {
 		
 		performer.getProperty(Constants.RELATIONSHIPS).incrementValue(target, 5);
 		assertEquals(false, SocializeGoal.isFirstTimeSocializeTargetForPerformer(performer, target));
+	}
+	
+	@Test
+	public void testIsTargetForShareKnowledgeConversation() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
+		WorldObject target = TestUtils.createIntelligentWorldObject(1, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
+		
+		assertEquals(false, SocializeGoal.isTargetForShareKnowledgeConversation(performer, target, world));
+		
+		performer.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(2, Constants.FOOD, 500);
+		assertEquals(true, SocializeGoal.isTargetForShareKnowledgeConversation(performer, target, world));
+	}
+	
+	@Test
+	public void testGetPreviousResponseIds() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
+		WorldObject target = TestUtils.createIntelligentWorldObject(1, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
+		
+		assertEquals(Arrays.asList(), SocializeGoal.getPreviousResponseIds(performer, target, Conversations.SHARE_KNOWLEDGE_CONVERSATION, world));
+		
+		world.getHistory().setNextAdditionalValue(0);
+		world.getHistory().actionPerformed(new OperationInfo(performer, target, Conversations.createArgs(Conversations.SHARE_KNOWLEDGE_CONVERSATION), Actions.TALK_ACTION), new Turn());
+		
+		assertEquals(Arrays.asList(0), SocializeGoal.getPreviousResponseIds(performer, target, Conversations.SHARE_KNOWLEDGE_CONVERSATION, world));
 	}
 }

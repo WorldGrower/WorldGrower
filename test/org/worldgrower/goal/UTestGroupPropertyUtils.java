@@ -24,6 +24,7 @@ import java.util.List;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.DoNothingWorldOnTurn;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
@@ -194,14 +195,57 @@ public class UTestGroupPropertyUtils {
 		WorldObject target = TestUtils.createIntelligentWorldObject(world.generateUniqueId(), Constants.HOUSES, new IdList().add(2).add(3));
 		world.addWorldObject(target);
 		
+		createVillagersOrganizationWithTaxRates(world);
+		BuildingGenerator.generateShack(0, 0, world, 0f);
+		BuildingGenerator.generateHouse(0, 0, world, 0f);
+		
+		assertEquals(3, GroupPropertyUtils.getBaseAmountToPay(target, world));
+	}
+
+	private WorldObject createVillagersOrganizationWithTaxRates(World world) {
 		WorldObject villagersOrganization = createVillagersOrganization(world);
 		villagersOrganization.setProperty(Constants.SHACK_TAX_RATE, 1);
 		villagersOrganization.setProperty(Constants.HOUSE_TAX_RATE, 2);
 		
-		int shackId = BuildingGenerator.generateShack(0, 0, world, 0f);
-		int houseId = BuildingGenerator.generateHouse(0, 0, world, 0f);
+		return villagersOrganization;
+	}
+	
+	@Test
+	public void testGetAmountToCollect() {
+		World world = new WorldImpl(0, 0, null, new DoNothingWorldOnTurn());
+		WorldObject target = TestUtils.createIntelligentWorldObject(world.generateUniqueId(), Constants.HOUSES, new IdList().add(2).add(3));
+		world.addWorldObject(target);
 		
-		assertEquals(3, GroupPropertyUtils.getBaseAmountToPay(target, world));
+		createVillagersOrganizationWithTaxRates(world);
+		BuildingGenerator.generateShack(0, 0, world, 0f);
+		BuildingGenerator.generateHouse(0, 0, world, 0f);
+		
+		assertEquals(0, GroupPropertyUtils.getAmountToCollect(target, world));
+		
+		for(int i=0; i<1000; i++) {
+			world.nextTurn();
+		}
+		
+		assertEquals(6, GroupPropertyUtils.getAmountToCollect(target, world));
+	}
+	
+	@Test
+	public void testGetPayCheckAmount() {
+		World world = new WorldImpl(0, 0, null, new DoNothingWorldOnTurn());
+		WorldObject target = TestUtils.createIntelligentWorldObject(world.generateUniqueId(), Constants.HOUSES, new IdList().add(2).add(3));
+		world.addWorldObject(target);
+		
+		WorldObject villagersOrganization = createVillagersOrganizationWithTaxRates(world);
+		villagersOrganization.getProperty(Constants.PAY_CHECK_PAID_TURN).incrementValue(target, 0);
+		
+		assertEquals(0, GroupPropertyUtils.getPayCheckAmount(target, world));
+		
+		for(int i=0; i<1000; i++) {
+			world.nextTurn();
+		}
+		
+		
+		assertEquals(10, GroupPropertyUtils.getPayCheckAmount(target, world));
 	}
 	
 	@Test

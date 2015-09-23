@@ -64,6 +64,7 @@ public class ImageInfoReader {
     	Sprites stone = readSpritesStone();
     	Sprites tora_vx_02 = readSpritesTora02();
     	Sprites fish = readSpritesFish();
+    	Sprites cow = readSpritesCow();
     	
     	addCharacter(ImageIds.KNIGHT, sprites, 0, 0, 1, 1);
     	addCharacter(ImageIds.GUARD, sprites, 0, 4, 1, 1);
@@ -295,6 +296,10 @@ public class ImageInfoReader {
 		addCharacter(ImageIds.FEMALE_3G_4, sprites3g, 9, 4, 1, 1);
 		
 		add(ImageIds.REPAIR_HAMMER, sprites420.getSubImage(3, 9, 1, 1));
+		
+		add(ImageIds.IRON_GREATSWORD, sprites420.getSubImage(3, 5, 1, 1));
+		add(ImageIds.COW, cow.getSubImage(0, 0, 1, 1));
+		
     }
 
     private void createArenaWall48x48() {
@@ -536,6 +541,10 @@ public class ImageInfoReader {
 	
 	private static Sprites readSpritesFish() throws IOException {
 		return readImages("fishcrgarpie.png", 32, 32, 4, 3);
+	}
+	
+	private static Sprites readSpritesCow() throws IOException {
+		return readImages("mackcowrecolors.png", 64, 48, 9, 4);
 	}
 	
 	private static Sprites readImages(String imageFilename, int width, int height, int rows, int cols) throws IOException {

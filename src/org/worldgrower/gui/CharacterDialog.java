@@ -297,7 +297,7 @@ public class CharacterDialog extends JDialog {
 	}
 	
 	private JComboBox<ComboBoxEquipmentItem> createEquipmentComboBox(WorldObjectContainer inventory, UnCheckedProperty<WorldObject> propertyKey, ImageInfoReader imageInfoReader) {
-		List<WorldObject> worldObjects = inventory.getWorldObjects(Constants.EQUIPMENT_SLOT, propertyKey);
+		List<WorldObject> worldObjects = getEquipmentItems(inventory, propertyKey);
 		List<ComboBoxEquipmentItem> equipmentWorldObjects = new ArrayList<>();
 		ComboBoxEquipmentItem noSelectedComboBoxEquipmentItem = new ComboBoxEquipmentItem(null, "");
 		equipmentWorldObjects.add(noSelectedComboBoxEquipmentItem);
@@ -315,6 +315,16 @@ public class CharacterDialog extends JDialog {
 		equipmentComboBox.setSelectedItem(selectedItem);
 		equipmentComboBox.addActionListener(new EquipmentChangedAction());
 		return equipmentComboBox;
+	}
+
+	private List<WorldObject> getEquipmentItems(WorldObjectContainer inventory, UnCheckedProperty<WorldObject> propertyKey) {
+		List<WorldObject> worldObjects = inventory.getWorldObjects(Constants.EQUIPMENT_SLOT, propertyKey);
+		
+		if (propertyKey == Constants.RIGHT_HAND_EQUIPMENT) {
+			worldObjects = inventory.getWorldObjectsByFunction(Constants.EQUIPMENT_SLOT, w -> MeleeDamagePropertyUtils.isTwoHandedWeapon(w));
+		}
+		
+		return worldObjects;
 	}
 	
 	private class EquipmentChangedAction implements ActionListener {
@@ -338,15 +348,20 @@ public class CharacterDialog extends JDialog {
 			int meleeDamage = MeleeDamagePropertyUtils.calculateMeleeDamage(playerCharacter);
 			playerCharacter.setProperty(Constants.DAMAGE, meleeDamage);
 			lblDamageValue.setText(playerCharacter.getProperty(Constants.DAMAGE).toString());
+			
+			MeleeDamagePropertyUtils.setTwoHandedWeapons(playerCharacter);
+			cmbLeftHand.setSelectedItem(findItemInHand(cmbLeftHand, playerCharacter.getProperty(Constants.LEFT_HAND_EQUIPMENT)));
+			cmbRightHand.setSelectedItem(findItemInHand(cmbRightHand, playerCharacter.getProperty(Constants.RIGHT_HAND_EQUIPMENT)));
 		}
-	}
-	
-	private ComboBoxEquipmentItem createEquipmentItem(UnCheckedProperty<WorldObject> equipmentProperty) {
-		WorldObject equipment = playerCharacter.getProperty(equipmentProperty);
-		if (equipment != null) {
-			return new ComboBoxEquipmentItem(equipment, equipment.getProperty(Constants.NAME));
-		} else {
-			return new ComboBoxEquipmentItem(null, "");
+
+		private Object findItemInHand(JComboBox<ComboBoxEquipmentItem> comboBoxEquipment, WorldObject handEquipment) {
+			for(int i=0; i<comboBoxEquipment.getModel().getSize(); i++) {
+				ComboBoxEquipmentItem comboBoxEquipmentItem = comboBoxEquipment.getModel().getElementAt(i);
+				if (comboBoxEquipmentItem.getEquipment() == handEquipment) {
+					return comboBoxEquipmentItem;
+				}
+			}
+			throw new IllegalStateException("Item " + handEquipment + " not found in cmbRightHand");
 		}
 	}
 	

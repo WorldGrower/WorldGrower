@@ -59,7 +59,7 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.HIT_POINTS, 2);
 		properties.put(Constants.HIT_POINTS_MAX, 3);
 		properties.put(Constants.NAME, "Rat");
-		properties.put(Constants.ID, world.generateUniqueId());
+		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.RAT);
 		properties.put(Constants.FOOD, 200);
 		properties.put(Constants.WATER, 200);
@@ -112,7 +112,7 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.HIT_POINTS, 9);
 		properties.put(Constants.HIT_POINTS_MAX, 10);
 		properties.put(Constants.NAME, "Spider");
-		properties.put(Constants.ID, world.generateUniqueId());
+		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.SPIDER);
 		properties.put(Constants.FOOD, 200);
 		properties.put(Constants.WATER, 200);
@@ -165,7 +165,7 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.HIT_POINTS, 15);
 		properties.put(Constants.HIT_POINTS_MAX, 20);
 		properties.put(Constants.NAME, "Slime");
-		properties.put(Constants.ID, world.generateUniqueId());
+		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.SLIME);
 		properties.put(Constants.FOOD, 500);
 		properties.put(Constants.WATER, 500);
@@ -260,7 +260,7 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.HIT_POINTS, 2);
 		properties.put(Constants.HIT_POINTS_MAX, 3);
 		properties.put(Constants.NAME, "Fish");
-		properties.put(Constants.ID, world.generateUniqueId());
+		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.FISH_CREATURE);
 		properties.put(Constants.FOOD, 1000);
 		properties.put(Constants.FOOD_SOURCE, 1);
@@ -283,6 +283,50 @@ public class CreatureGenerator implements Serializable {
 		
 		WorldObject fish = new WorldObjectImpl(properties, new FishOnTurn(this::generateFish));
 		world.addWorldObject(fish);
+		
+		return id;
+	}
+	
+	public int generateCow(int x, int y, World world) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		int id = world.generateUniqueId();
+		
+		final String gender;
+		if (Math.random() > 0.5f) {
+			gender = "female";
+		} else {
+			gender = "male";
+		}
+		
+		properties.put(Constants.X, x);
+		properties.put(Constants.Y, y);
+		properties.put(Constants.WIDTH, 2);
+		properties.put(Constants.HEIGHT, 2);
+		properties.put(Constants.HIT_POINTS, 4);
+		properties.put(Constants.HIT_POINTS_MAX, 5);
+		properties.put(Constants.NAME, "Cow");
+		properties.put(Constants.ID, id);
+		properties.put(Constants.IMAGE_ID, ImageIds.COW);
+		properties.put(Constants.FOOD, 1000);
+		properties.put(Constants.WATER, 1000);
+		properties.put(Constants.ENERGY, 1000);
+		properties.put(Constants.GROUP, new IdList().add(organization));
+		properties.put(Constants.INVENTORY, new WorldObjectContainer());
+		properties.put(Constants.GOLD, 0);
+		properties.put(Constants.DEMANDS, new PropertyCountMap<ManagedProperty<?>>());
+		properties.put(Constants.CHILDREN, new IdList());
+		properties.put(Constants.SOCIAL, 500);
+		properties.put(Constants.GENDER, gender);
+		properties.put(Constants.CREATURE_TYPE, CreatureType.COW_CREATURE_TYPE);
+		properties.put(Constants.CONDITIONS, new Conditions());
+		
+		properties.put(Constants.ARMOR, 10);
+		
+		properties.put(Constants.DAMAGE, 2);
+		properties.put(Constants.DAMAGE_RESIST, 0);
+		
+		WorldObject cow = new WorldObjectImpl(properties, new CowOnTurn(this::generateCow));
+		world.addWorldObject(cow);
 		
 		return id;
 	}

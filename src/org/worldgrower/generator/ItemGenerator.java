@@ -28,6 +28,7 @@ import org.worldgrower.gui.ImageIds;
 public class ItemGenerator {
 
 	private static final String IRON_CLAYMORE_NAME = "Iron Claymore";
+	private static final String IRON_GREATSWORD_NAME = "Iron Greatsword";
 	private static final String IRON_CUIRASS_NAME = "Iron Cuirass";
 	private static final String IRON_HELMET_NAME = "Iron Helmet";
 	private static final String IRON_GAUNTLETS_NAME = "Iron Gauntlets";
@@ -55,6 +56,20 @@ public class ItemGenerator {
 		properties.put(Constants.EQUIPMENT_HEALTH, 1000);
 		properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
 		properties.put(Constants.IMAGE_ID, ImageIds.IRON_CLAYMORE);
+		return new WorldObjectImpl(properties);
+	}
+
+	public static WorldObject getIronGreatSword(double skillBonus) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		properties.put(Constants.NAME, IRON_GREATSWORD_NAME);
+		properties.put(Constants.PRICE, 100);
+		properties.put(Constants.SELLABLE, false);
+		properties.put(Constants.DAMAGE, (int) (24 * skillBonus));
+		properties.put(Constants.WEIGHT, 40);
+		properties.put(Constants.EQUIPMENT_HEALTH, 1000);
+		properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
+		properties.put(Constants.TWO_HANDED_WEAPON, Boolean.TRUE);
+		properties.put(Constants.IMAGE_ID, ImageIds.IRON_GREATSWORD);
 		return new WorldObjectImpl(properties);
 	}
 	

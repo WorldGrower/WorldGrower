@@ -16,6 +16,7 @@ package org.worldgrower.goal;
 
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.UnCheckedProperty;
 
 public class MeleeDamagePropertyUtils {
 
@@ -28,7 +29,7 @@ public class MeleeDamagePropertyUtils {
 		}
 		
 		WorldObject rightHandEquipment = worldObject.getProperty(Constants.RIGHT_HAND_EQUIPMENT);
-		if (rightHandEquipment != null) {
+		if (rightHandEquipment != null && leftHandEquipment != rightHandEquipment) {
 			meleeDamage += rightHandEquipment.getProperty(Constants.DAMAGE);
 		}
 		
@@ -37,5 +38,30 @@ public class MeleeDamagePropertyUtils {
 		}
 		
 		return meleeDamage;
+	}
+	
+	public static void setTwoHandedWeapons(WorldObject worldObject) {
+		WorldObject leftHandEquipment = worldObject.getProperty(Constants.LEFT_HAND_EQUIPMENT);
+		WorldObject rightHandEquipment = worldObject.getProperty(Constants.RIGHT_HAND_EQUIPMENT);
+		
+		handleTwoHandedWeapons(worldObject, leftHandEquipment, rightHandEquipment, Constants.RIGHT_HAND_EQUIPMENT);
+		
+		leftHandEquipment = worldObject.getProperty(Constants.LEFT_HAND_EQUIPMENT);
+		rightHandEquipment = worldObject.getProperty(Constants.RIGHT_HAND_EQUIPMENT);
+		handleTwoHandedWeapons(worldObject, rightHandEquipment, leftHandEquipment, Constants.LEFT_HAND_EQUIPMENT);
+	}
+
+	private static void handleTwoHandedWeapons(WorldObject worldObject, WorldObject leftHandEquipment, WorldObject rightHandEquipment, UnCheckedProperty<WorldObject> propertyToSet) {
+		if (leftHandEquipment != null) {
+			if (isTwoHandedWeapon(leftHandEquipment)) {
+				worldObject.setProperty(propertyToSet, leftHandEquipment);
+			} else if (rightHandEquipment != null && isTwoHandedWeapon(rightHandEquipment)) {
+				worldObject.setProperty(propertyToSet, null);
+			}
+		}
+	}
+
+	public static boolean isTwoHandedWeapon(WorldObject leftHandEquipment) {
+		return leftHandEquipment.hasProperty(Constants.TWO_HANDED_WEAPON) && leftHandEquipment.getProperty(Constants.TWO_HANDED_WEAPON);
 	}
 }

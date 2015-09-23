@@ -77,12 +77,12 @@ public class SocializeGoal implements Goal {
 		return null;
 	}
 
-	private boolean isTargetForShareKnowledgeConversation(WorldObject performer, WorldObject target, World world) {
+	static boolean isTargetForShareKnowledgeConversation(WorldObject performer, WorldObject target, World world) {
 		return KnowledgePropertyUtils.performerKnowsMoreThanTarget(performer, target) 
 				&& !Conversations.SHARE_KNOWLEDGE_CONVERSATION.previousAnswerWasGetLost(getPreviousResponseIds(performer, target, Conversations.SHARE_KNOWLEDGE_CONVERSATION, world));
 	}
 	
-	private List<Integer> getPreviousResponseIds(WorldObject performer, WorldObject target, Conversation conversation, World world) {
+	static List<Integer> getPreviousResponseIds(WorldObject performer, WorldObject target, Conversation conversation, World world) {
 		List<HistoryItem> historyItems = world.getHistory().findHistoryItems(performer, target, Actions.TALK_ACTION);
 		historyItems = historyItems.stream().filter(h -> h.getOperationInfo().firstArgsIs(Conversations.createArgs(conversation)[0])).collect(Collectors.toList());
 		return historyItems.stream().map(h -> (Integer)h.getAdditionalValue()).collect(Collectors.toList());

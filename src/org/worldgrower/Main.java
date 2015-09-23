@@ -190,6 +190,7 @@ public class Main {
 		
 		WorldObjectContainer inventory = new WorldObjectContainer();
 		inventory.add(ItemGenerator.getIronClaymore(1.0f));
+		inventory.add(ItemGenerator.getIronGreatSword(1.0f));
 		inventory.add(ItemGenerator.getIronCuirass(1.0f));
 		inventory.add(ItemGenerator.getLongBow(1.0f));
 		properties.put(Constants.INVENTORY, inventory);

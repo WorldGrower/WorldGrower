@@ -136,10 +136,11 @@ public class Constants {
 	public static final UnCheckedProperty<WorldObject> ARMS_EQUIPMENT = new UnCheckedProperty<WorldObject>("armsEquipment", ALL_PROPERTIES);
 	public static final UnCheckedProperty<WorldObject> LEGS_EQUIPMENT = new UnCheckedProperty<WorldObject>("legsEquipment", ALL_PROPERTIES);
 	public static final UnCheckedProperty<WorldObject> FEET_EQUIPMENT = new UnCheckedProperty<WorldObject>("feetEquipment", ALL_PROPERTIES);
-	public static final UnCheckedProperty<WorldObject> LEFT_HAND_EQUIPMENT = new UnCheckedProperty<WorldObject>("handEquipment", ALL_PROPERTIES);
-	public static final UnCheckedProperty<WorldObject> RIGHT_HAND_EQUIPMENT = new UnCheckedProperty<WorldObject>("handEquipment", ALL_PROPERTIES);
+	public static final UnCheckedProperty<WorldObject> LEFT_HAND_EQUIPMENT = new UnCheckedProperty<WorldObject>("leftHandEquipment", ALL_PROPERTIES);
+	public static final UnCheckedProperty<WorldObject> RIGHT_HAND_EQUIPMENT = new UnCheckedProperty<WorldObject>("rightHandEquipment", ALL_PROPERTIES);
 	
 	public static final UnCheckedProperty<UnCheckedProperty<WorldObject>> EQUIPMENT_SLOT = new UnCheckedProperty<UnCheckedProperty<WorldObject>>("equipmentSlot", ALL_PROPERTIES);
+	public static final BooleanProperty TWO_HANDED_WEAPON = new BooleanProperty("twoHandedWeapon", NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty ARMOR_TYPE = new IntProperty("armorType", 0, 1, NOT_NULLABLE, ALL_PROPERTIES);
 	
 	public static final IdListProperty GROUP = new IdListProperty("group", ALL_PROPERTIES);

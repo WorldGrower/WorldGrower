@@ -22,8 +22,9 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.Skill;
+import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.InventoryPropertyUtils;
 
 public class StealAction implements ManagedOperation {
@@ -35,19 +36,24 @@ public class StealAction implements ManagedOperation {
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
 		WorldObjectContainer targetInventory = target.getProperty(Constants.INVENTORY);
 		
-		int thievery = useSkill(performer);
-		//TODO: compare thievery with something to determine success
-		WorldObject stolenWorldObject = targetInventory.remove(index);
-		performerInventory.add(stolenWorldObject);
+		WorldObject worldObjectToSteal = targetInventory.get(index);
+		int price = worldObjectToSteal.getProperty(Constants.PRICE);
+		Integer weightInteger = worldObjectToSteal.getProperty(Constants.WEIGHT);
+		int weight = weightInteger != null ? weightInteger.intValue() : 0;
 		
-		InventoryPropertyUtils.cleanupEquipmentSlots(target);
-	}
-	
-	private int useSkill(WorldObject performer) {
-		Skill thieverySkill = performer.getProperty(Constants.THIEVERY_SKILL);
-		int result = thieverySkill.getLevel();
-		thieverySkill.use();
-		return result;
+		SkillUtils.useSkill(performer, Constants.THIEVERY_SKILL);
+		int thievery = performer.getProperty(Constants.THIEVERY_SKILL).getLevel();
+		
+		boolean isSuccess = price + weight < thievery + 5;
+		
+		if (isSuccess) {
+			WorldObject stolenWorldObject = targetInventory.remove(index);
+			performerInventory.add(stolenWorldObject);
+			
+			InventoryPropertyUtils.cleanupEquipmentSlots(target);
+		} else {
+			GroupPropertyUtils.throwPerformerOutGroup(performer, target);
+		}
 	}
 
 	@Override

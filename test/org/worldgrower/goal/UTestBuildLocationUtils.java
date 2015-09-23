@@ -24,6 +24,7 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.IdList;
 import org.worldgrower.goal.BuildLocationUtils;
 
 public class UTestBuildLocationUtils {
@@ -39,5 +40,35 @@ public class UTestBuildLocationUtils {
 		assertEquals(0, location.getProperty(Constants.Y).intValue());
 		assertEquals(1, location.getProperty(Constants.WIDTH).intValue());
 		assertEquals(1, location.getProperty(Constants.HEIGHT).intValue());
+	}
+	
+	@Test
+	public void testFindOpenLocationNearExistingPropertyUsingPerformer() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.HOUSES, new IdList().add(3));
+		performer.setProperty(Constants.X, 4);
+		performer.setProperty(Constants.Y, 4);
+		
+		WorldObject house = TestUtils.createWorldObject(3, 3, 1, 1, Constants.ID, 3);
+		world.addWorldObject(house);
+		
+		WorldObject location = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 3, 3, world);
+		assertEquals(1, location.getProperty(Constants.X).intValue());
+		assertEquals(5, location.getProperty(Constants.Y).intValue());
+	}
+	
+	@Test
+	public void testFindOpenLocationAwayFromExistingProperty() {
+		World world = new WorldImpl(15, 15, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.HOUSES, new IdList().add(3));
+		performer.setProperty(Constants.X, 4);
+		performer.setProperty(Constants.Y, 4);
+		
+		WorldObject house = TestUtils.createWorldObject(3, 3, 1, 1, Constants.ID, 3);
+		world.addWorldObject(house);
+		
+		WorldObject location = BuildLocationUtils.findOpenLocationAwayFromExistingProperty(performer, 3, 3, world);
+		assertEquals(1, location.getProperty(Constants.X).intValue());
+		assertEquals(4, location.getProperty(Constants.Y).intValue());
 	}
 }
