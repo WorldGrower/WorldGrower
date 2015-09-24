@@ -72,7 +72,14 @@
       <application name="" id="installer" customizedId="" beanClass="com.install4j.runtime.beans.applications.InstallerApplication" enabled="true" commentSet="false" comment="" actionElevationType="none" fileset="" customIcnsFile="" customIcoFile="" macEntitlementsFile="" automaticLauncherIntegration="false" launchMode="startupFirstWindow" launchInNewProcess="false" launchSchedule="updateSchedule" allLaunchers="true">
         <serializedBean>
           <java class="java.beans.XMLDecoder">
-            <object class="com.install4j.runtime.beans.applications.InstallerApplication" />
+            <object class="com.install4j.runtime.beans.applications.InstallerApplication">
+              <void property="frameHeight">
+                <int>470</int>
+              </void>
+              <void property="frameWidth">
+                <int>550</int>
+              </void>
+            </object>
           </java>
         </serializedBean>
         <launcherIds />
