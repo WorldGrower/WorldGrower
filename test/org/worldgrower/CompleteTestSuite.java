@@ -33,12 +33,14 @@ import org.worldgrower.conversation.UTestDemandsConversation;
 import org.worldgrower.conversation.UTestLocationConversation;
 import org.worldgrower.goal.UTestAbstractScribeSpellsGoal;
 import org.worldgrower.goal.UTestArenaPropertyUtils;
+import org.worldgrower.goal.UTestArmorPropertyUtils;
 import org.worldgrower.goal.UTestBuildLocationUtils;
 import org.worldgrower.goal.UTestBuySellUtils;
 import org.worldgrower.goal.UTestGoalUtils;
 import org.worldgrower.goal.UTestGroupPropertyUtils;
 import org.worldgrower.goal.UTestHousePropertyUtils;
 import org.worldgrower.goal.UTestLocationUtils;
+import org.worldgrower.goal.UTestMeleeDamagePropertyUtils;
 import org.worldgrower.goal.UTestSocializeGoal;
 import org.worldgrower.goal.UTestZone;
 import org.worldgrower.history.UTestHistoryImpl;
@@ -84,7 +86,9 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestHousePropertyUtils.class,
 	UTestArenaPropertyUtils.class,
 	UTestSocializeGoal.class,
-	UTestLocationUtils.class
+	UTestLocationUtils.class,
+	UTestArmorPropertyUtils.class,
+	UTestMeleeDamagePropertyUtils.class
 })
 public class CompleteTestSuite {
 }

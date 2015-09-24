@@ -29,8 +29,10 @@ import org.worldgrower.Main;
 import org.worldgrower.gui.ExceptionHandler;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.util.NumberUtils;
+import javax.swing.JCheckBox;
 
 public class OptionsScreen {
+	private static final String MUSIC_TOOL_TIP = "Play background music";
 	private static final String SEED_TOOL_TIP = "The seed is used for random number generation. A different value will result in different villagers which make other decisions";
 	private static final String CHARACTER_PROFESSION_TOOL_TIP = "describes profession of player character";
 	private static final String MONSTER_DENSITY_TOOL_TIP = "indicates whether there are monsters when the game starts: 0 indicates no, more than 0 indicates yes";
@@ -49,6 +51,7 @@ public class OptionsScreen {
 	private JTextField seedTextField;
 
 	private final CharacterAttributes characterAttributes;
+	private JCheckBox chkBackgroundMusic;
 	
 	/**
 	 * Create the application.
@@ -68,7 +71,7 @@ public class OptionsScreen {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 414, 446);
+		frame.setBounds(100, 100, 414, 500);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -135,7 +138,7 @@ public class OptionsScreen {
 		frame.getContentPane().add(numberOfVillagersTextField);
 		
 		JButton btnOk = new JButton("Ok");
-		btnOk.setBounds(228, 349, 97, 25);
+		btnOk.setBounds(230, 415, 97, 25);
 		frame.getRootPane().setDefaultButton(btnOk);
 		frame.getContentPane().add(btnOk);
 		btnOk.addActionListener(new ActionListener() {
@@ -151,7 +154,8 @@ public class OptionsScreen {
 						int enemyDensity = Integer.parseInt(numberOfEnemiesTextField.getText());
 						int villagerCount = Integer.parseInt(numberOfVillagersTextField.getText());
 						int seed = Integer.parseInt(seedTextField.getText());
-						Main.run(playerNameTextField.getText(), playerProfessionTextField.getText(), worldWidth, worldHeight, enemyDensity, villagerCount, seed, characterAttributes);
+						boolean playBackgroundMusic = chkBackgroundMusic.isSelected();
+						Main.run(playerNameTextField.getText(), playerProfessionTextField.getText(), worldWidth, worldHeight, enemyDensity, villagerCount, seed, playBackgroundMusic, characterAttributes);
 					} catch (Exception e1) {
 						ExceptionHandler.handle(e1);
 					}
@@ -167,7 +171,7 @@ public class OptionsScreen {
 		});
 		
 		JButton btnCancel = new JButton("Cancel");
-		btnCancel.setBounds(119, 349, 97, 25);
+		btnCancel.setBounds(121, 415, 97, 25);
 		frame.getContentPane().add(btnCancel);
 		
 		JLabel lblPlayerProfession = new JLabel("Character Profession:");
@@ -193,6 +197,18 @@ public class OptionsScreen {
 		seedTextField.setColumns(10);
 		seedTextField.setBounds(228, 283, 137, 22);
 		frame.getContentPane().add(seedTextField);
+		
+		chkBackgroundMusic = new JCheckBox("Music");
+		chkBackgroundMusic.setToolTipText(MUSIC_TOOL_TIP);
+		chkBackgroundMusic.setSelected(true);
+		chkBackgroundMusic.setBounds(228, 340, 137, 25);
+		frame.getContentPane().add(chkBackgroundMusic);
+		
+		JLabel lblPlayBackgroundMusic = new JLabel("Play background music:");
+		lblPlayBackgroundMusic.setToolTipText(MUSIC_TOOL_TIP);
+		lblPlayBackgroundMusic.setToolTipText("The seed is used for random number generation. A different value will result in different villagers which make other decisions");
+		lblPlayBackgroundMusic.setBounds(25, 339, 191, 26);
+		frame.getContentPane().add(lblPlayBackgroundMusic);
 		btnCancel.addActionListener(new ActionListener() {
 			
 			@Override
@@ -247,6 +263,4 @@ public class OptionsScreen {
 			errors.add("World Height must be at least 100");
 		}
 	}
-	
-
 }

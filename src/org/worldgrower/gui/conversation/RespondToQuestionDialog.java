@@ -48,7 +48,7 @@ public class RespondToQuestionDialog extends JDialog {
 		}
 	}
 
-	public RespondToQuestionDialog(int id, int conversationId, int historyItemId, int additionalValue, Questioner questioner, Conversations conversations, ImageIds imageIdPerformer, ImageIds imageIdTarget, ImageInfoReader imageInfoReader) {
+	public RespondToQuestionDialog(int id, int conversationId, int historyItemId, int additionalValue, Questioner questioner, Conversations conversations, ImageIds imageIdPerformer, ImageIds imageIdTarget, String performerName, String targetName, ImageInfoReader imageInfoReader) {
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		setSize(560, 300);
 		setLocationRelativeTo(null);
@@ -73,6 +73,7 @@ public class RespondToQuestionDialog extends JDialog {
 		buttonPane.add(cancelButton);
 
 		JLabel targetLabel = new JLabel(new ImageIcon(imageInfoReader.getImage(imageIdTarget, null)));
+		targetLabel.setToolTipText(targetName);
 		targetLabel.setBounds(6, 90, 32, 48);
 		getContentPane().add(targetLabel);
 		
@@ -81,6 +82,7 @@ public class RespondToQuestionDialog extends JDialog {
 		getContentPane().add(comboBoxResponse);
 		
 		JLabel performerLabel = new JLabel(new ImageIcon(imageInfoReader.getImage(imageIdPerformer, null)));
+		performerLabel.setToolTipText(performerName);
 		performerLabel.setBounds(6, 17, 32, 48);
 		getContentPane().add(performerLabel);
 		

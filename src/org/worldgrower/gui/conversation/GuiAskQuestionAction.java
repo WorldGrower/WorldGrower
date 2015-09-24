@@ -60,6 +60,8 @@ public class GuiAskQuestionAction extends AbstractAction implements Answerer {
 	public void actionPerformed(ActionEvent e) {
 		final ImageIds imageIdPerformer = playerCharacter.getProperty(Constants.IMAGE_ID);
 		final ImageIds imageIdTarget = target.getProperty(Constants.IMAGE_ID);
+		final String performerName = playerCharacter.getProperty(Constants.NAME);
+		final String targetName = target.getProperty(Constants.NAME);
 		
 		final Map<Integer, ImageIds> subjectImageIds = createSubjectImageIdsMap();
 		
@@ -68,7 +70,7 @@ public class GuiAskQuestionAction extends AbstractAction implements Answerer {
 			
 			@Override
 			public void run() {
-				dialog = new AskQuestionDialog(GuiAskQuestionAction.this, conversations, imageIdPerformer, imageIdTarget, subjectImageIds, imageInfoReader);
+				dialog = new AskQuestionDialog(GuiAskQuestionAction.this, conversations, imageIdPerformer, imageIdTarget, performerName, targetName, subjectImageIds, imageInfoReader);
 				world.addListener(dialog);
 				dialog.showMe();
 				

@@ -23,17 +23,17 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.ItemGenerator;
 
-public class CraftIronCuirassAction implements CraftAction {
+public class CraftIronGreavesAction implements CraftAction {
 
-	private static final int WOOD_REQUIRED = 9;
-	private static final int ORE_REQUIRED = 7;
+	private static final int WOOD_REQUIRED = 7;
+	private static final int ORE_REQUIRED = 5;
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
 		
 		double skillBonus = CraftUtils.useSmithingSkill(performer);
-		inventory.addQuantity(ItemGenerator.getIronCuirass(skillBonus));
+		inventory.addQuantity(ItemGenerator.getIronGreaves(skillBonus));
 
 		inventory.removeQuantity(Constants.WOOD, WOOD_REQUIRED);
 		inventory.removeQuantity(Constants.ORE, ORE_REQUIRED);
@@ -61,12 +61,12 @@ public class CraftIronCuirassAction implements CraftAction {
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "crafting iron cuirass";
+		return "crafting iron greaves";
 	}
 
 	@Override
 	public String getSimpleDescription() {
-		return "craft iron cuirass";
+		return "craft iron greaves";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {

@@ -35,6 +35,7 @@ public class CraftEquipmentGoal implements Goal {
 			int ironCuirassCount = inventory.getWorldObjects(Constants.EQUIPMENT_SLOT, Constants.TORSO_EQUIPMENT).size();
 			int ironHelmetCount = inventory.getWorldObjects(Constants.EQUIPMENT_SLOT, Constants.HEAD_EQUIPMENT).size();
 			int ironGauntletsCount = inventory.getWorldObjects(Constants.EQUIPMENT_SLOT, Constants.ARMS_EQUIPMENT).size();
+			int ironGreavesCount = inventory.getWorldObjects(Constants.EQUIPMENT_SLOT, Constants.LEGS_EQUIPMENT).size();
 			int ironBootsCount = inventory.getWorldObjects(Constants.EQUIPMENT_SLOT, Constants.FEET_EQUIPMENT).size();
 			
 			if (ironClaymoreCount == 0){
@@ -45,6 +46,8 @@ public class CraftEquipmentGoal implements Goal {
 				return new OperationInfo(performer, performer, new int[0], Actions.CRAFT_IRON_HELMET_ACTION);
 			} else if (ironGauntletsCount < ironHelmetCount) {
 				return new OperationInfo(performer, performer, new int[0], Actions.CRAFT_IRON_GAUNTLETS_ACTION);
+			} else if (ironGreavesCount < ironGauntletsCount) {
+				return new OperationInfo(performer, performer, new int[0], Actions.CRAFT_IRON_GREAVES_ACTION);
 			} else if (ironBootsCount < ironGauntletsCount) {
 				return new OperationInfo(performer, performer, new int[0], Actions.CRAFT_IRON_BOOTS_ACTION);
 			} else {

@@ -30,6 +30,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 public class MusicPlayer implements LineListener {
 	
 	private boolean playCompleted;
+	private Clip audioClip;
 	
 	public void play(InputStream audioFilePath) {
 
@@ -38,7 +39,7 @@ public class MusicPlayer implements LineListener {
 			AudioFormat format = audioStream.getFormat();
 			DataLine.Info info = new DataLine.Info(Clip.class, format);
 			
-			Clip audioClip = (Clip) AudioSystem.getLine(info);
+			audioClip = (Clip) AudioSystem.getLine(info);
 			audioClip.addLineListener(this);
 			audioClip.open(audioStream);			
 			audioClip.loop(Clip.LOOP_CONTINUOUSLY);
@@ -69,5 +70,10 @@ public class MusicPlayer implements LineListener {
 		} else if (type == LineEvent.Type.STOP) {
 			playCompleted = true;
 		}
+	}
+
+	public void stop() {
+		audioClip.stop();
+		audioClip.close();
 	}
 }

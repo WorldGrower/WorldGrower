@@ -134,7 +134,9 @@ public class ImageInfoReader {
         
         add(ImageIds.IRON_HELMET, sprites420.getSubImage(11, 13, 1, 1));
         add(ImageIds.IRON_GAUNTLETS, sprites420.getSubImage(12, 14, 1, 1));
+        add(ImageIds.IRON_GREAVES, sprites420.getSubImage(4, 13, 1, 1));
         add(ImageIds.IRON_BOOTS, sprites420.getSubImage(4, 14, 1, 1));
+        add(ImageIds.IRON_SHIELD, sprites420.getSubImage(8, 12, 1, 1));
         add(ImageIds.LONGBOW, sprites420.getSubImage(3, 11, 1, 1));
         
         addCharacter(ImageIds.MALE_LEADER, sprites2c, 0, 0, 1, 1);

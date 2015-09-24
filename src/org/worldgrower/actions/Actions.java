@@ -87,7 +87,10 @@ public class Actions {
 	public static final CraftIronCuirassAction CRAFT_IRON_CUIRASS_ACTION = new CraftIronCuirassAction();
 	public static final CraftIronHelmetAction CRAFT_IRON_HELMET_ACTION = new CraftIronHelmetAction();
 	public static final CraftIronGauntletsAction CRAFT_IRON_GAUNTLETS_ACTION = new CraftIronGauntletsAction();
+	public static final CraftIronGreavesAction CRAFT_IRON_GREAVES_ACTION = new CraftIronGreavesAction();
 	public static final CraftIronBootsAction CRAFT_IRON_BOOTS_ACTION = new CraftIronBootsAction();
+	public static final CraftIronShieldAction CRAFT_IRON_SHIELD_ACTION = new CraftIronShieldAction();
+	public static final CraftIronGreatswordAction CRAFT_IRON_GREATSWORD_ACTION = new CraftIronGreatswordAction();
 	public static final CraftLongBowAction CRAFT_LONG_BOW_ACTION = new CraftLongBowAction();
 	public static final ChooseDeityAction CHOOSE_DEITY_ACTION = new ChooseDeityAction();
 	public static final WorshipDeityAction WORSHIP_DEITY_ACTION = new WorshipDeityAction();
@@ -245,7 +248,10 @@ public class Actions {
 		CRAFT_IRON_CUIRASS_ACTION,
 		CRAFT_IRON_HELMET_ACTION,
 		CRAFT_IRON_GAUNTLETS_ACTION,
+		CRAFT_IRON_GREAVES_ACTION,
 		CRAFT_IRON_BOOTS_ACTION,
+		CRAFT_IRON_SHIELD_ACTION,
+		CRAFT_IRON_GREATSWORD_ACTION,
 		CRAFT_LONG_BOW_ACTION,
 		CHOOSE_DEITY_ACTION,
 		WORSHIP_DEITY_ACTION,

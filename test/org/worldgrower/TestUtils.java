@@ -142,4 +142,22 @@ public class TestUtils {
 		WorldObject w1 = new WorldObjectImpl(properties, Actions.ALL_ACTIONS, worldObjectPriorities);
 		return w1;
 	}
+
+	public static WorldObject createWorldObject(int id, Map<ManagedProperty<?>, Object> properties) {
+		properties.put(Constants.ID, id);
+		return new WorldObjectImpl(properties, Actions.ALL_ACTIONS, null);
+	}
+
+	public static WorldObject createSkilledWorldObject(int id) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		properties.put(Constants.STRENGTH, 10);
+		properties.put(Constants.CONSTITUTION, 10);
+		properties.put(Constants.DEXTERITY, 10);
+		properties.put(Constants.INTELLIGENCE, 10);
+		properties.put(Constants.WISDOM, 10);
+		properties.put(Constants.CHARISMA, 10);
+		SkillUtils.addAllSkills(properties);
+		WorldObject worldObject = createWorldObject(id, properties);
+		return worldObject;
+	}
 }

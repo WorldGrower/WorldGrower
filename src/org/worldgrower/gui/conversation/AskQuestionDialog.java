@@ -62,7 +62,7 @@ public class AskQuestionDialog extends JDialog implements ManagedOperationListen
 		}
 	}
 	
-	public AskQuestionDialog(Answerer answerer, Conversations conversations, ImageIds imageIdPerformer, ImageIds imageIdTarget, Map<Integer, ImageIds> subjectImageIds, ImageInfoReader imageInfoReader) {
+	public AskQuestionDialog(Answerer answerer, Conversations conversations, ImageIds imageIdPerformer, ImageIds imageIdTarget, String performerName, String targetName, Map<Integer, ImageIds> subjectImageIds, ImageInfoReader imageInfoReader) {
 		this.answerer = answerer;
 		
 		setModalityType(ModalityType.APPLICATION_MODAL);
@@ -89,6 +89,7 @@ public class AskQuestionDialog extends JDialog implements ManagedOperationListen
 		buttonPane.add(cancelButton);
 
 		JLabel performerLabel = new JLabel(new ImageIcon(imageInfoReader.getImage(imageIdPerformer, null)));
+		performerLabel.setToolTipText(performerName);
 		performerLabel.setBounds(6, 17, 32, 48);
 		getContentPane().add(performerLabel);
 		
@@ -107,6 +108,7 @@ public class AskQuestionDialog extends JDialog implements ManagedOperationListen
 		getContentPane().add(askQuestion);
 		
 		JLabel targetLabel = new JLabel(new ImageIcon(imageInfoReader.getImage(imageIdTarget, null)));
+		targetLabel.setToolTipText(targetName);
 		targetLabel.setBounds(6, 90, 32, 48);
 		getContentPane().add(targetLabel);
 		

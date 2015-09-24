@@ -56,7 +56,9 @@ public class GuiRespondToQuestion implements Questioner, ManagedOperationListene
 			Response response = (Response) value;
 			ImageIds imageIdPerformer = performer.getProperty(Constants.IMAGE_ID);
 			ImageIds imageIdTarget = target.getProperty(Constants.IMAGE_ID);
-			RespondToQuestionDialog dialog = new RespondToQuestionDialog(args[0], args[1], args[2], args[3], GuiRespondToQuestion.this, conversations, imageIdPerformer, imageIdTarget, imageInfoReader);
+			String performerName = performer.getProperty(Constants.NAME);
+			String targetName = target.getProperty(Constants.NAME);
+			RespondToQuestionDialog dialog = new RespondToQuestionDialog(args[0], args[1], args[2], args[3], GuiRespondToQuestion.this, conversations, imageIdPerformer, imageIdTarget, performerName, targetName, imageInfoReader);
 			int selectedResponse = dialog.showMe();
 			conversations.handleResponse(selectedResponse, args[0], args[1], args[2], performer, target, world, args[3]);
 		}

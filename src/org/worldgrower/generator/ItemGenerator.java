@@ -32,7 +32,9 @@ public class ItemGenerator {
 	private static final String IRON_CUIRASS_NAME = "Iron Cuirass";
 	private static final String IRON_HELMET_NAME = "Iron Helmet";
 	private static final String IRON_GAUNTLETS_NAME = "Iron Gauntlets";
+	private static final String IRON_GREAVES_NAME = "Iron Greaves";
 	private static final String IRON_BOOTS_NAME = "Iron Gauntlets";
+	private static final String IRON_SHIELD_NAME = "Iron Shield";
 	
 	private static final String LONGBOW_NAME = "Longbow";
 	private static final String POISON_NAME = "Poison";
@@ -111,6 +113,34 @@ public class ItemGenerator {
 		properties.put(Constants.EQUIPMENT_HEALTH, 1000);
 		properties.put(Constants.EQUIPMENT_SLOT, Constants.ARMS_EQUIPMENT);
 		properties.put(Constants.IMAGE_ID, ImageIds.IRON_GAUNTLETS);
+		properties.put(Constants.ARMOR_TYPE, ArmorType.HEAVY);
+		return new WorldObjectImpl(properties);
+	}
+	
+	public static WorldObject getIronGreaves(double skillBonus) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		properties.put(Constants.NAME, IRON_GREAVES_NAME);
+		properties.put(Constants.PRICE, 100);
+		properties.put(Constants.SELLABLE, false);
+		properties.put(Constants.ARMOR, (int) (2 * skillBonus));
+		properties.put(Constants.WEIGHT, 8);
+		properties.put(Constants.EQUIPMENT_HEALTH, 1000);
+		properties.put(Constants.EQUIPMENT_SLOT, Constants.LEGS_EQUIPMENT);
+		properties.put(Constants.IMAGE_ID, ImageIds.IRON_GREAVES);
+		properties.put(Constants.ARMOR_TYPE, ArmorType.HEAVY);
+		return new WorldObjectImpl(properties);
+	}
+	
+	public static WorldObject getIronShield(double skillBonus) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		properties.put(Constants.NAME, IRON_SHIELD_NAME);
+		properties.put(Constants.PRICE, 100);
+		properties.put(Constants.SELLABLE, false);
+		properties.put(Constants.ARMOR, (int) (10 * skillBonus));
+		properties.put(Constants.WEIGHT, 10);
+		properties.put(Constants.EQUIPMENT_HEALTH, 1000);
+		properties.put(Constants.EQUIPMENT_SLOT, Constants.RIGHT_HAND_EQUIPMENT);
+		properties.put(Constants.IMAGE_ID, ImageIds.IRON_SHIELD);
 		properties.put(Constants.ARMOR_TYPE, ArmorType.HEAVY);
 		return new WorldObjectImpl(properties);
 	}

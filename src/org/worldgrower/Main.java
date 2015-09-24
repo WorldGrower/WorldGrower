@@ -71,7 +71,7 @@ public class Main {
 	private static JFrame frame = null;
 	private static MusicPlayer musicPlayer = null;
 	
-	public static void run(String playerName, String playerProfession, int worldWidth, int worldHeight, int enemyDensity, int villagerCount, int seed, CharacterAttributes characterAttributes) throws Exception {
+	public static void run(String playerName, String playerProfession, int worldWidth, int worldHeight, int enemyDensity, int villagerCount, int seed, boolean playBackgroundMusic, CharacterAttributes characterAttributes) throws Exception {
 		DungeonMaster dungeonMaster = new DungeonMaster();
 		WorldOnTurnImpl worldOnTurn = new WorldOnTurnImpl(new DeityWorldOnTurn(), new ArenaFightOnTurn());
 		World world = new WorldImpl(worldWidth, worldHeight, dungeonMaster, worldOnTurn);
@@ -92,7 +92,7 @@ public class Main {
 		
 		addEnemiesAndFriendlyAnimals(enemyDensity, world, seed);
 		
-		createAndShowGUI(dungeonMaster, world, playerCharacter);
+		createAndShowGUIInvokeLater(playerCharacter, world, dungeonMaster, playBackgroundMusic);
 	}
 
 	private static void addWorldListeners(World world) {
@@ -123,15 +123,16 @@ public class Main {
 		
 		addWorldListeners(world);
 		
-		createAndShowGUI(dungeonMaster, world, playerCharacter);
+		//TODO: load playBackgroundMusic flag from file
+		createAndShowGUIInvokeLater(playerCharacter, world, dungeonMaster, true);
 	}
 
-	private static void createAndShowGUI(DungeonMaster dungeonMaster, World world, final WorldObject playerCharacter) {
+	private static void createAndShowGUIInvokeLater(final WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, boolean playBackgroundMusic) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			@Override
             public void run() {
                 try {
-					createAndShowGUI(playerCharacter, world, dungeonMaster);
+					createAndShowGUI(playerCharacter, world, dungeonMaster, playBackgroundMusic);
 				} catch (IOException e) {
 					throw new RuntimeException(e);
 				}
@@ -248,7 +249,7 @@ public class Main {
 		return playerCharacter;
 	}
 
-    private static void createAndShowGUI(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster) throws IOException {
+    private static void createAndShowGUI(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, boolean playBackgroundMusic) throws IOException {
     	if (frame != null) {
     		frame.dispose();
     	}
@@ -268,8 +269,11 @@ public class Main {
         
         worldPanel.createGuiRespondToImage();
         
-        if (musicPlayer == null) {
+        if (musicPlayer == null && playBackgroundMusic) {
         	musicPlayer = BackgroundMusicUtils.startBackgroundMusic();
+        } else if (musicPlayer != null && !playBackgroundMusic) {
+        	musicPlayer.stop();
+        	musicPlayer = null;
         }
     }
 
