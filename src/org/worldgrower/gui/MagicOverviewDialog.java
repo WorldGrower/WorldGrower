@@ -60,6 +60,7 @@ public class MagicOverviewDialog extends JDialog {
 		
 		JTable magicSpellsTable = new MagicSpellsTable(new MagicSpellTableModel(playerCharacter));
 		magicSpellsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		magicSpellsTable.setAutoCreateRowSorter(true);
 		scrollPane.setViewportView(magicSpellsTable);
 		{
 			JPanel buttonPane = new JPanel();
