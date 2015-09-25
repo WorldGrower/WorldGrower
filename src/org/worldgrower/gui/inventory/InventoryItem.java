@@ -15,7 +15,6 @@
 package org.worldgrower.gui.inventory;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -73,6 +72,9 @@ public class InventoryItem {
 			} else if (propertyKey == Constants.SELLABLE) {
 				Boolean sellable = (Boolean) inventoryWorldObject.getProperty(propertyKey);
 				additionalProperties.put(name, sellable ? "yes" : "no");
+			} else if (propertyKey == Constants.TWO_HANDED_WEAPON) {
+				Boolean twohHanded = (Boolean) inventoryWorldObject.getProperty(propertyKey);
+				additionalProperties.put("two handed", twohHanded ? "yes" : "no");
 			}
 		}
 		

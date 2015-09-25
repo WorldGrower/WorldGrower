@@ -41,7 +41,7 @@ public abstract class AbstractScribeSpellsGoal implements Goal {
 
 	@Override
 	public final OperationInfo calculateGoal(WorldObject performer, World world) {
-		List<WorldObject> libraries = getLibraries(world);
+		List<WorldObject> libraries = LibraryUtils.getLibraries(world);
 		if (libraries.size() > 0) {
 			WorldObject library = libraries.get(0);
 			
@@ -92,7 +92,7 @@ public abstract class AbstractScribeSpellsGoal implements Goal {
 	}
 	
 	private Set<ManagedOperation> findMagicSpells(World world) {
-		List<WorldObject> libraries = getLibraries(world);
+		List<WorldObject> libraries = LibraryUtils.getLibraries(world);
 		Set<ManagedOperation> magicSpellsFound = new HashSet<>();
 		
 		for(WorldObject library : libraries) {
@@ -107,11 +107,6 @@ public abstract class AbstractScribeSpellsGoal implements Goal {
 		return magicSpellsFound;
 	}
 
-	private List<WorldObject> getLibraries(World world) {
-		List<WorldObject> libraries = world.findWorldObjects(w -> w.hasProperty(Constants.LIBRARY_QUALITY));
-		return libraries;
-	}
-	
 	@Override
 	public final boolean isUrgentGoalMet(WorldObject performer, World world) {
 		return isGoalMet(performer, world);

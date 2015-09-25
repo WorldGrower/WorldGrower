@@ -49,6 +49,7 @@ import org.worldgrower.actions.magic.ScribeMagicSpellAction;
 import org.worldgrower.actions.magic.SleepMagicSpellAction;
 import org.worldgrower.actions.magic.UnlockMagicSpellAction;
 import org.worldgrower.actions.magic.WaterWalkAction;
+import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.goal.GatherFoodGoal;
 import org.worldgrower.goal.Goals;
 
@@ -91,6 +92,8 @@ public class Actions {
 	public static final CraftIronBootsAction CRAFT_IRON_BOOTS_ACTION = new CraftIronBootsAction();
 	public static final CraftIronShieldAction CRAFT_IRON_SHIELD_ACTION = new CraftIronShieldAction();
 	public static final CraftIronGreatswordAction CRAFT_IRON_GREATSWORD_ACTION = new CraftIronGreatswordAction();
+	public static final CraftIronAxeAction CRAFT_IRON_AXE_ACTION = new CraftIronAxeAction();
+	public static final CraftIronGreataxeAction CRAFT_IRON_GREATAXE_ACTION = new CraftIronGreataxeAction();
 	public static final CraftLongBowAction CRAFT_LONG_BOW_ACTION = new CraftLongBowAction();
 	public static final ChooseDeityAction CHOOSE_DEITY_ACTION = new ChooseDeityAction();
 	public static final WorshipDeityAction WORSHIP_DEITY_ACTION = new WorshipDeityAction();
@@ -218,6 +221,12 @@ public class Actions {
 			POISON_INVENTORY_WATER_ACTION
 			);
 	
+	private static final List<ResearchKnowledgeSkillAction> RESEARCH_SKILL_ACTIONS = Arrays.asList(
+			RESEARCH_RESTORATION_SKILL_ACTION,
+			RESEARCH_ILLUSION_SKILL_ACTION,
+			RESEARCH_EVOCATION_SKILL_ACTION,
+			RESEARCH_NECROMANCY_SKILL_ACTION);
+	
 	public static final List<ManagedOperation> ALL_ACTIONS = new ArrayList<>(Arrays.asList(
 		MOVE_ACTION,
 		EAT_ACTION,
@@ -252,6 +261,8 @@ public class Actions {
 		CRAFT_IRON_BOOTS_ACTION,
 		CRAFT_IRON_SHIELD_ACTION,
 		CRAFT_IRON_GREATSWORD_ACTION,
+		CRAFT_IRON_AXE_ACTION,
+		CRAFT_IRON_GREATAXE_ACTION,
 		CRAFT_LONG_BOW_ACTION,
 		CHOOSE_DEITY_ACTION,
 		WORSHIP_DEITY_ACTION,
@@ -271,10 +282,6 @@ public class Actions {
 		CREATE_PROFESSION_ORGANIZATION_ACTION,
 		CREATE_RELIGION_ORGANIZATION_ACTION,
 		BUILD_LIBRARY_ACTION,
-		RESEARCH_RESTORATION_SKILL_ACTION,
-		RESEARCH_ILLUSION_SKILL_ACTION,
-		RESEARCH_EVOCATION_SKILL_ACTION,
-		RESEARCH_NECROMANCY_SKILL_ACTION,
 		GET_ITEM_FROM_INVENTORY_ACTION,
 		PUT_ITEM_INTO_INVENTORY_ACTION,
 		BREW_POISON_ACTION,
@@ -322,6 +329,7 @@ public class Actions {
 	
 	static {
 		ALL_ACTIONS.addAll(MAGIC_SPELLS);
+		ALL_ACTIONS.addAll(RESEARCH_SKILL_ACTIONS);
 		
 		for(MagicSpell magicSpell : MAGIC_SPELLS) {
 			ResearchSpellAction researchSpellAction = new ResearchSpellAction(magicSpell);
@@ -397,5 +405,14 @@ public class Actions {
 		public int compare(ManagedOperation o1, ManagedOperation o2) {
 			return o1.getSimpleDescription().compareTo(o2.getSimpleDescription());
 		}
+	}
+	
+	public static ResearchKnowledgeSkillAction getResearchKnowledgeSkillActionFor(SkillProperty skillProperty) {
+		for(ResearchKnowledgeSkillAction researchKnowledgeSkillAction : RESEARCH_SKILL_ACTIONS) {
+			if (researchKnowledgeSkillAction.getSkillProperty() == skillProperty) {
+				return researchKnowledgeSkillAction;
+			}
+		}
+		throw new IllegalStateException("Problem getting ResearchKnowledgeSkillAction for skillProperty " + skillProperty);
 	}
 }

@@ -14,7 +14,7 @@ import javax.swing.KeyStroke;
 public class SwingUtils {
 
 	private static final KeyStroke ESCAPE_KEY_STROKE = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
-	public static final String ESCAPE_KEY = "WorldGrower:WINDOW_CLOSING";
+	private static final String ESCAPE_KEY = "WorldGrower:WINDOW_CLOSING";
 
 	public static void installEscapeCloseOperation(final JDialog dialog) {
 		Action dispatchClosing = new AbstractAction() {

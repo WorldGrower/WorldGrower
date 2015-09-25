@@ -22,6 +22,8 @@ import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.condition.CreatureTypeChangedListeners;
+import org.worldgrower.goal.Goal;
+import org.worldgrower.goal.Goals;
 import org.worldgrower.profession.Professions;
 
 public class Athena implements Deity {
@@ -45,6 +47,11 @@ public class Athena implements Deity {
 		return Arrays.asList(
 				getName() + " is the Goddess of wisdom and reason, I see worshipping her as a sign of progress"
 		);
+	}
+	
+	@Override
+	public List<Goal> getOrganizationGoals() {
+		return Arrays.asList(Goals.DESTROY_SHRINES_TO_OTHER_DEITIES_GOAL, Goals.RESEARCH_MAGIC_SKILLS_KNOWLEDGE_GOAL);
 	}
 
 	@Override

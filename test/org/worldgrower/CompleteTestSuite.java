@@ -19,7 +19,9 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 import org.worldgrower.actions.UTestAttackUtils;
 import org.worldgrower.actions.UTestChooseProfessionAction;
+import org.worldgrower.actions.UTestCraftUtils;
 import org.worldgrower.actions.UTestTalkAction;
+import org.worldgrower.actions.UTestVotingPropertyUtils;
 import org.worldgrower.attribute.UTestIdList;
 import org.worldgrower.attribute.UTestIdMap;
 import org.worldgrower.attribute.UTestIntProperty;
@@ -88,7 +90,9 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestSocializeGoal.class,
 	UTestLocationUtils.class,
 	UTestArmorPropertyUtils.class,
-	UTestMeleeDamagePropertyUtils.class
+	UTestMeleeDamagePropertyUtils.class,
+	UTestCraftUtils.class,
+	UTestVotingPropertyUtils.class
 })
 public class CompleteTestSuite {
 }

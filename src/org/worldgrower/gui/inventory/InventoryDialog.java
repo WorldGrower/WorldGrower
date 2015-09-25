@@ -359,7 +359,7 @@ public class InventoryDialog extends JDialog {
 
 		@Override
         public JToolTip createToolTip() {
-            JScrollableToolTip tip = new JScrollableToolTip(250, 100);
+            JScrollableToolTip tip = new JScrollableToolTip(250, 130);
             tip.setComponent(this);
             return tip;
         }

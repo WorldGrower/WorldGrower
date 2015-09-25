@@ -84,7 +84,7 @@ public class OptionsScreen {
 		
 		playerNameTextField = new JTextField();
 		playerNameTextField.setToolTipText(PLAYER_NAME_TOOL_TIP);
-		playerNameTextField.setText("MyName");
+		playerNameTextField.setText(getDefaultUsername());
 		playerNameTextField.setBounds(228, 30, 137, 22);
 		frame.getContentPane().add(playerNameTextField);
 		playerNameTextField.setColumns(10);
@@ -206,7 +206,6 @@ public class OptionsScreen {
 		
 		JLabel lblPlayBackgroundMusic = new JLabel("Play background music:");
 		lblPlayBackgroundMusic.setToolTipText(MUSIC_TOOL_TIP);
-		lblPlayBackgroundMusic.setToolTipText("The seed is used for random number generation. A different value will result in different villagers which make other decisions");
 		lblPlayBackgroundMusic.setBounds(25, 339, 191, 26);
 		frame.getContentPane().add(lblPlayBackgroundMusic);
 		btnCancel.addActionListener(new ActionListener() {
@@ -218,6 +217,15 @@ public class OptionsScreen {
 				startScreen.setVisible(true);
 			}
 		});
+	}
+
+	private String getDefaultUsername() {
+		String userName = System.getProperty("user.name");
+		if (userName != null && userName.length() > 0) {
+			return userName;
+		} else {
+			return "MyName";
+		}
 	}
 	
 	private List<String> validateInput() {

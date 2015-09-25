@@ -80,19 +80,20 @@ public class AttackUtils {
 		damageEquipment(performer, Constants.RIGHT_HAND_EQUIPMENT, damage);
 	}
 	
-	private static void damageEquipment(WorldObject worldObject, UnCheckedProperty<WorldObject> equipmentProperty, int damage) {
+	static void damageEquipment(WorldObject worldObject, UnCheckedProperty<WorldObject> equipmentProperty, int damage) {
 		WorldObject equipment = worldObject.getProperty(equipmentProperty);
 		if (equipment != null) {
 			equipment.increment(Constants.EQUIPMENT_HEALTH, -damage);
 		}
 	}
 
-	private static int changeForSize(int damage, WorldObject performer, WorldObject target) {
+	static int changeForSize(int damage, WorldObject performer, WorldObject target) {
 		if (performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.ENLARGED_CONDITION)) {
 			damage *= 2;
 		} else if (performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.REDUCED_CONDITION)) {
 			damage /= 2;
-		} else if (targetHasCondition(target, Condition.ENLARGED_CONDITION)) {
+		}
+		if (targetHasCondition(target, Condition.ENLARGED_CONDITION)) {
 			damage /= 2;
 		} else if (targetHasCondition(target, Condition.REDUCED_CONDITION)) {
 			damage *= 2;

@@ -67,6 +67,7 @@ public class GuiMouseListener extends MouseAdapter {
 	private final InventoryAction inventoryAction;
 	private final MagicOverviewAction magicOverviewAction;
 	private final RestAction restAction;
+	private final GuiShowOrganizationsAction createOrganizationAction;
 	private final GuiAssignActionToLeftMouseAction assignActionToLeftMouseAction;
 	private ManagedOperation leftMouseClickAction;
 	
@@ -82,6 +83,7 @@ public class GuiMouseListener extends MouseAdapter {
 		inventoryAction = new InventoryAction(playerCharacter, imageInfoReader, world, dungeonMaster, container);
 		magicOverviewAction = new MagicOverviewAction(playerCharacter, imageInfoReader);
 		restAction = new RestAction(playerCharacter, imageInfoReader, world, (WorldPanel)container, dungeonMaster);
+		createOrganizationAction = new GuiShowOrganizationsAction(playerCharacter, world, container);
 		assignActionToLeftMouseAction = getGuiAssignActionToLeftMouseAction();
 		addKeyBindings();
 	}
@@ -91,6 +93,7 @@ public class GuiMouseListener extends MouseAdapter {
 		addKeyBindingsFor(inventoryAction, "I");
 		addKeyBindingsFor(magicOverviewAction, "M");
 		addKeyBindingsFor(restAction, "R");
+		addKeyBindingsFor(createOrganizationAction, "O");
 		addKeyBindingsFor(assignActionToLeftMouseAction, "A");
 	}
 	
@@ -217,7 +220,7 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 
 	private void addShowOrganizationsActionMenu(JMenu menu) {
-		JMenuItem showOrganizationsMenuItem = new JMenuItem(new GuiShowOrganizationsAction(playerCharacter, world, container));
+		JMenuItem showOrganizationsMenuItem = new JMenuItem(createOrganizationAction);
 		showOrganizationsMenuItem.setText("Organization Membership Overview");
 		menu.add(showOrganizationsMenuItem);
 	}
@@ -365,7 +368,7 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 	
 	private void addCraftActions(JPopupMenu menu) {
-		CraftAction[] craftActions = { Actions.CRAFT_IRON_CLAYMORE_ACTION, Actions.CRAFT_IRON_CUIRASS_ACTION, Actions.CRAFT_IRON_HELMET_ACTION, Actions.CRAFT_IRON_GAUNTLETS_ACTION, Actions.CRAFT_IRON_GREAVES_ACTION, Actions.CRAFT_IRON_BOOTS_ACTION, Actions.CRAFT_IRON_SHIELD_ACTION, Actions.CRAFT_IRON_GREATSWORD_ACTION, Actions.CRAFT_LONG_BOW_ACTION, Actions.MINT_GOLD_ACTION, Actions.CREATE_PAPER_ACTION, Actions.CONSTRUCT_BED_ACTION, Actions.CONSTRUCT_FISHING_POLE_ACTION, Actions.CRAFT_REPAIR_HAMMER_ACTION };
+		CraftAction[] craftActions = { Actions.CRAFT_IRON_CLAYMORE_ACTION, Actions.CRAFT_IRON_CUIRASS_ACTION, Actions.CRAFT_IRON_HELMET_ACTION, Actions.CRAFT_IRON_GAUNTLETS_ACTION, Actions.CRAFT_IRON_GREAVES_ACTION, Actions.CRAFT_IRON_BOOTS_ACTION, Actions.CRAFT_IRON_SHIELD_ACTION, Actions.CRAFT_IRON_GREATSWORD_ACTION, Actions.CRAFT_IRON_AXE_ACTION, Actions.CRAFT_IRON_GREATAXE_ACTION, Actions.CRAFT_LONG_BOW_ACTION, Actions.MINT_GOLD_ACTION, Actions.CREATE_PAPER_ACTION, Actions.CONSTRUCT_BED_ACTION, Actions.CONSTRUCT_FISHING_POLE_ACTION, Actions.CRAFT_REPAIR_HAMMER_ACTION };
 		addActions(menu, "Craft", craftActions);
 	}
 	

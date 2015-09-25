@@ -110,4 +110,5 @@ public class Goals {
 	public static final EquipmentGoal EQUIPMENT_GOAL = new EquipmentGoal();
 	public static final MarkEquipmentAsSellableGoal MARK_EQUIPMENT_AS_SELLABLE_GOAL = new MarkEquipmentAsSellableGoal();
 	public static final FeedOthersGoal FEED_OTHERS_GOAL = new FeedOthersGoal();
+	public static final ResearchMagicSkillsKnowledgeGoal RESEARCH_MAGIC_SKILLS_KNOWLEDGE_GOAL = new ResearchMagicSkillsKnowledgeGoal();
 }

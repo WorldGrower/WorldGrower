@@ -18,27 +18,35 @@ import java.io.ObjectStreamException;
 
 import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
-import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.SkillProperty;
+import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.ItemGenerator;
 
-public class AbstractResearchKnowledgeSkillAction implements ResearchKnowledgeSkillAction {
+public class CraftIronAxeAction implements CraftAction {
 
-	private final SkillProperty skillProperty;
+	private static final int WOOD_REQUIRED = 5;
+	private static final int ORE_REQUIRED = 3;
 	
-	public AbstractResearchKnowledgeSkillAction(SkillProperty skillProperty) {
-		this.skillProperty = skillProperty;
-	}
-
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		performer.getProperty(skillProperty).use();
+		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
+		
+		double skillBonus = CraftUtils.useSmithingSkill(performer);
+		inventory.addQuantity(ItemGenerator.getIronAxe(skillBonus));
+
+		inventory.removeQuantity(Constants.WOOD, WOOD_REQUIRED);
+		inventory.removeQuantity(Constants.ORE, ORE_REQUIRED);
 	}
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return Reach.evaluateTarget(performer, args, target, 1);
+		return CraftUtils.distance(performer, WOOD_REQUIRED, ORE_REQUIRED);
+	}
+	
+	@Override
+	public String getRequirementsDescription() {
+		return CraftUtils.getRequirementsDescription(Constants.WOOD, WOOD_REQUIRED, Constants.ORE, ORE_REQUIRED);
 	}
 
 	@Override
@@ -48,25 +56,20 @@ public class AbstractResearchKnowledgeSkillAction implements ResearchKnowledgeSk
 
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return target.hasProperty(Constants.LIBRARY_QUALITY);
+		return CraftUtils.isValidTarget(performer, target, world);
 	}
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "studying " + skillProperty.getName();
+		return "crafting iron axe";
 	}
 
 	@Override
 	public String getSimpleDescription() {
-		return "study " + skillProperty.getName();
+		return "craft iron axe";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
-	}
-
-	@Override
-	public SkillProperty getSkillProperty() {
-		return skillProperty;
 	}
 }
