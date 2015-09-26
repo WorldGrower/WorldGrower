@@ -47,11 +47,11 @@ public class UTestCraftUtils {
 	
 	@Test
 	public void testGetRequirementsDescription() {
-		assertEquals("Requirements 1 wood", CraftUtils.getRequirementsDescription(Constants.WOOD, 1));
+		assertEquals("Requirements: 1 wood", CraftUtils.getRequirementsDescription(Constants.WOOD, 1));
 	}
 	
 	@Test
 	public void testGetRequirementsDescriptionForMultiple() {
-		assertEquals("Requirements 1 wood, 2 stone", CraftUtils.getRequirementsDescription(Constants.WOOD, 1, Constants.STONE, 2));
+		assertEquals("Requirements: 1 wood, 2 stone", CraftUtils.getRequirementsDescription(Constants.WOOD, 1, Constants.STONE, 2));
 	}
 }
