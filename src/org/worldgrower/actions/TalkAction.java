@@ -71,6 +71,11 @@ public class TalkAction implements ManagedOperation {
 		return Reach.evaluateTarget(performer, args, target, 10)
 				+ conversations.distance(question, performer, target, subject, world);
 	}
+	
+	@Override
+	public String getRequirementsDescription() {
+		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, 1);
+	}
 
 	@Override
 	public ArgumentRange[] getArgumentRanges() {

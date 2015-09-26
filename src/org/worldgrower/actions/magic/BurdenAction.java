@@ -21,6 +21,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.CraftUtils;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.condition.Condition;
@@ -29,6 +30,7 @@ import org.worldgrower.condition.Conditions;
 public class BurdenAction implements MagicSpell {
 
 	private static final int ENERGY_USE = 200;
+	private static final int DISTANCE = 1;
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
@@ -53,9 +55,14 @@ public class BurdenAction implements MagicSpell {
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		int distanceBetweenPerformerAndTarget = Reach.evaluateTarget(performer, args, target, 1);
+		int distanceBetweenPerformerAndTarget = Reach.evaluateTarget(performer, args, target, DISTANCE);
 		return distanceBetweenPerformerAndTarget 
 				+ SkillUtils.distanceForEnergyUse(performer, getSkill(), ENERGY_USE);
+	}
+	
+	@Override
+	public String getRequirementsDescription() {
+		return CraftUtils.getRequirementsDescription(Constants.ENERGY, ENERGY_USE, Constants.DISTANCE, DISTANCE);
 	}
 
 	@Override

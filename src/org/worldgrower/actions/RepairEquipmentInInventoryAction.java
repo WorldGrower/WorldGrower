@@ -45,6 +45,11 @@ public class RepairEquipmentInInventoryAction implements ManagedOperation {
 		int damagedEquipmentDistance = damagedEquipmentList.size() > 0 ? 0 : 1;
 		return numberOfRepairToolsDistance + damagedEquipmentDistance;
 	}
+	
+	@Override
+	public String getRequirementsDescription() {
+		return "";
+	}
 
 	private List<WorldObject> getDamagedEquipment(WorldObjectContainer inventory) {
 		List<WorldObject> damagedEquipmentList = inventory.getWorldObjectsByFunction(Constants.EQUIPMENT_HEALTH, w -> w.getProperty(Constants.EQUIPMENT_HEALTH) < 1000);

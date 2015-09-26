@@ -41,6 +41,11 @@ public class MeleeAttackAction implements DeadlyAction {
 	}
 	
 	@Override
+	public String getRequirementsDescription() {
+		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, 1);
+	}
+	
+	@Override
 	public ArgumentRange[] getArgumentRanges() {
 		return ArgumentRange.EMPTY_ARGUMENT_RANGE;
 	}

@@ -26,6 +26,8 @@ import org.worldgrower.creaturetype.CreatureType;
 
 public class VampireBiteAction implements DeadlyAction {
 
+	private static final int DISTANCE = 1;
+	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		AttackUtils.biteAttack(this, performer, target, args, world);
@@ -44,8 +46,13 @@ public class VampireBiteAction implements DeadlyAction {
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
 		int performerIsVampireDistance = performer.hasProperty(Constants.VAMPIRE_BLOOD_LEVEL) ? 0 : 1;
-		return Reach.evaluateTarget(performer, args, target, 1)
+		return Reach.evaluateTarget(performer, args, target, DISTANCE)
 				+ performerIsVampireDistance;
+	}
+	
+	@Override
+	public String getRequirementsDescription() {
+		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, DISTANCE, "only vampires can bite others");
 	}
 	
 	@Override

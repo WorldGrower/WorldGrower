@@ -38,6 +38,7 @@ public interface ManagedOperation extends Serializable {
 	
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world);
 	public String getSimpleDescription();
+	public String getRequirementsDescription();
 	
 	public default Object readResolveImpl() throws ObjectStreamException {
 		Class<?> clazz = getClass();

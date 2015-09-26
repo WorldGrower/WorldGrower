@@ -244,4 +244,7 @@ public class Constants {
 	public static final IdProperty ARENA_OPPONENT_ID = new IdProperty("arenaOpponentId", ALL_PROPERTIES);
 	public static final IntProperty ARENA_PAY_CHECK_GOLD = new IntProperty("arenapayCheckGold", 0, null, NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty ARENA_DONATED_TURN = new IntProperty("arenaDonatedTurn", 0, null, NULLABLE, ALL_PROPERTIES);
+	
+	
+	public static final IntProperty DISTANCE = new IntProperty("distance", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 }

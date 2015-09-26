@@ -26,6 +26,8 @@ import org.worldgrower.generator.BuildingGenerator;
 
 public class MarkAsSellableAction implements ManagedOperation {
 
+	private static final int DISTANCE = 1;
+	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		target.setProperty(Constants.SELLABLE, Boolean.TRUE);
@@ -38,9 +40,14 @@ public class MarkAsSellableAction implements ManagedOperation {
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		int distanceBetweenPerformerAndTarget = Reach.evaluateTarget(performer, args, target, 1);
+		int distanceBetweenPerformerAndTarget = Reach.evaluateTarget(performer, args, target, DISTANCE);
 		int sellableDistance = target.hasProperty(Constants.SELLABLE) && target.getProperty(Constants.SELLABLE) ? 1 : 0;
 		return distanceBetweenPerformerAndTarget + sellableDistance;
+	}
+	
+	@Override
+	public String getRequirementsDescription() {
+		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, DISTANCE, "item should not already be sellable");
 	}
 
 	@Override

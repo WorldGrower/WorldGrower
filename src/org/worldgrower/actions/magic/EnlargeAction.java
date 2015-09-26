@@ -21,6 +21,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.AttackUtils;
+import org.worldgrower.actions.CraftUtils;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.condition.Condition;
@@ -30,6 +31,7 @@ import org.worldgrower.goal.GoalUtils;
 public class EnlargeAction implements MagicSpell {
 
 	private static final int ENERGY_USE = 500;
+	private static final int DISTANCE = 4;
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
@@ -51,12 +53,17 @@ public class EnlargeAction implements MagicSpell {
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
 		return (target.hasProperty(Constants.CONDITIONS) && !target.getProperty(Constants.CONDITIONS).hasCondition(Condition.ENLARGED_CONDITION) && performer.getProperty(Constants.KNOWN_SPELLS).contains(this));
 	}
-
+	
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return AttackUtils.distanceWithFreeLeftHand(performer, target, 4)
+		return AttackUtils.distanceWithFreeLeftHand(performer, target, DISTANCE)
 				+ SkillUtils.distanceForEnergyUse(performer, getSkill(), ENERGY_USE)
 				+ (GoalUtils.canEnlarge(target, world) ? 0 : 1);
+	}
+
+	@Override
+	public String getRequirementsDescription() {
+		return CraftUtils.getRequirementsDescription(Constants.ENERGY, ENERGY_USE, Constants.DISTANCE, DISTANCE, "need enough room to enlarge");
 	}
 	
 	@Override

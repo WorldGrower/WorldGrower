@@ -42,6 +42,11 @@ public class StartOrganizationVoteAction implements ManagedOperation {
 		boolean votingBoxExists = VotingPropertyUtils.votingBoxExistsForOrganization(organization, world);
 		return votingBoxExists ? 1 : 0;
 	}
+	
+	@Override
+	public String getRequirementsDescription() {
+		return "a person can only vote for an organization if a voting box exists";
+	}
 
 	@Override
 	public ArgumentRange[] getArgumentRanges() {

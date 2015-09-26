@@ -27,6 +27,8 @@ import org.worldgrower.goal.WaterPropertyUtils;
 
 public class DrinkAction implements ManagedOperation {
 
+	private static final int DISTANCE = 1;
+	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		int waterInTarget = target.getProperty(Constants.WATER_SOURCE);
@@ -43,7 +45,12 @@ public class DrinkAction implements ManagedOperation {
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return Reach.evaluateTarget(performer, args, target, 1);
+		return Reach.evaluateTarget(performer, args, target, DISTANCE);
+	}
+	
+	@Override
+	public String getRequirementsDescription() {
+		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, DISTANCE);
 	}
 
 	@Override

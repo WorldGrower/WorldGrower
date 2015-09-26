@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.actions.BuildAction;
+import org.worldgrower.actions.CraftUtils;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
@@ -32,6 +33,7 @@ import org.worldgrower.goal.GoalUtils;
 public class MinorIllusionAction implements BuildAction, MagicSpell {
 
 	private static final int ENERGY_USE = 400;
+	private static final int DISTANCE = 1;
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
@@ -63,16 +65,16 @@ public class MinorIllusionAction implements BuildAction, MagicSpell {
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		int distanceBetweenPerformerAndTarget = Reach.evaluateTarget(performer, args, target, 1);
+		int distanceBetweenPerformerAndTarget = Reach.evaluateTarget(performer, args, target, DISTANCE);
 		return distanceBetweenPerformerAndTarget 
 				+ SkillUtils.distanceForEnergyUse(performer, getSkill(), ENERGY_USE);
 	}
 	
 	@Override
 	public String getRequirementsDescription() {
-		return getDescription();
+		return CraftUtils.getRequirementsDescription(Constants.ENERGY, ENERGY_USE, Constants.DISTANCE, DISTANCE);
 	}
-
+	
 	@Override
 	public ArgumentRange[] getArgumentRanges() {
 		ArgumentRange[] argumentRanges = new ArgumentRange[1];

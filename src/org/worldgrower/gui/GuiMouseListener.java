@@ -325,7 +325,7 @@ public class GuiMouseListener extends MouseAdapter {
 		
     	JMenuItem disguiseMenuItem = new JMenuItem(new GuiDisguiseAction(playerCharacter, imageInfoReader, world, (WorldPanel)container, dungeonMaster, Actions.DISGUISE_MAGIC_SPELL_ACTION));
     	disguiseMenuItem.setText("Disguise self");
-    	disguiseMenuItem.setToolTipText(Actions.DISGUISE_MAGIC_SPELL_ACTION.getDescription());
+    	disguiseMenuItem.setToolTipText(Actions.DISGUISE_MAGIC_SPELL_ACTION.getRequirementsDescription());
     	illusionMenu.add(disguiseMenuItem);
 	}
 	
@@ -406,14 +406,7 @@ public class GuiMouseListener extends MouseAdapter {
 
 	private void addToolTips(ManagedOperation action, final JMenuItem menuItem) {
 		if (menuItem != null) {
-			if (action instanceof CraftAction) {
-				CraftAction craftAction = (CraftAction) action;
-				menuItem.setToolTipText(craftAction.getRequirementsDescription());
-			}
-			if (action instanceof MagicSpell) {
-				MagicSpell magicSpell = (MagicSpell) action;
-				menuItem.setToolTipText(magicSpell.getDescription());
-			}
+			menuItem.setToolTipText(action.getRequirementsDescription());
 		}
 	}
 

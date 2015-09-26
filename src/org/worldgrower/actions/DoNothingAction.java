@@ -34,6 +34,11 @@ public class DoNothingAction implements ManagedOperation {
 	}
 	
 	@Override
+	public String getRequirementsDescription() {
+		return "";
+	}
+	
+	@Override
 	public ArgumentRange[] getArgumentRanges() {
 		return ArgumentRange.EMPTY_ARGUMENT_RANGE;
 	}

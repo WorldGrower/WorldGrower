@@ -46,6 +46,11 @@ public class ScribeMagicSpellAction implements ManagedOperation {
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
 		return CraftUtils.distance(performer, Constants.PAPER, PAPER_REQUIRED);
 	}
+	
+	@Override
+	public String getRequirementsDescription() {
+		return CraftUtils.getRequirementsDescription(Constants.PAPER, PAPER_REQUIRED);
+	}
 
 	@Override
 	public ArgumentRange[] getArgumentRanges() {

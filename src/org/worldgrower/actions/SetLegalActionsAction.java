@@ -42,6 +42,11 @@ public class SetLegalActionsAction implements ManagedOperation {
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
 		return GroupPropertyUtils.performerIsLeaderOfVillagers(performer, world) ? 0 : 1;
 	}
+	
+	@Override
+	public String getRequirementsDescription() {
+		return "only the village leader can set legal actions";
+	}
 
 	@Override
 	public ArgumentRange[] getArgumentRanges() {

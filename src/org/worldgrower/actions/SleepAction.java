@@ -45,6 +45,11 @@ public class SleepAction implements ManagedOperation {
 		int performerOwnsTargetDistance = performer.getProperty(Constants.HOUSES).contains(target) ? 0 : 1;
 		return Reach.evaluateTarget(performer, args, target, 1) + performerOwnsTargetDistance;
 	}
+	
+	@Override
+	public String getRequirementsDescription() {
+		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, 1, "a person can only sleep in houses it owns");
+	}
 
 	@Override
 	public ArgumentRange[] getArgumentRanges() {

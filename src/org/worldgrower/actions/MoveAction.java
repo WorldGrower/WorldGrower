@@ -92,6 +92,11 @@ public class MoveAction implements ManagedOperation {
 			}
 		}
 	}
+	
+	@Override
+	public String getRequirementsDescription() {
+		return "";
+	}
 
 	@Override
 	public ArgumentRange[] getArgumentRanges() {

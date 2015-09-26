@@ -61,6 +61,11 @@ public class CreateProfessionOrganizationAction implements ManagedOperation {
 	}
 	
 	@Override
+	public String getRequirementsDescription() {
+		return "";
+	}
+	
+	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
 		return "creating a profession organization";
 	}

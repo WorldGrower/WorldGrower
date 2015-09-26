@@ -26,6 +26,8 @@ import org.worldgrower.goal.GroupPropertyUtils;
 
 public class HandoverTaxesAction implements ManagedOperation {
 
+	private static final int DISTANCE = 1;
+	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		int collectedTaxes = performer.getProperty(Constants.ORGANIZATION_GOLD);
@@ -37,7 +39,12 @@ public class HandoverTaxesAction implements ManagedOperation {
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
 		int distanceOrganizationGold = performer.getProperty(Constants.ORGANIZATION_GOLD) > 0 ? 0 : 1;
-		return Reach.evaluateTarget(performer, args, target, 1) + distanceOrganizationGold;
+		return Reach.evaluateTarget(performer, args, target, DISTANCE) + distanceOrganizationGold;
+	}
+	
+	@Override
+	public String getRequirementsDescription() {
+		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, DISTANCE, "target owes taxes");
 	}
 
 	@Override

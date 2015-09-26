@@ -28,6 +28,8 @@ import org.worldgrower.goal.LockUtils;
 
 public class PutItemIntoInventoryAction implements ManagedOperation {
 
+	private static final int DISTANCE = 1;
+	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		int index = args[0];
@@ -43,7 +45,12 @@ public class PutItemIntoInventoryAction implements ManagedOperation {
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return Reach.evaluateTarget(performer, args, target, 1) + LockUtils.distance(performer, target);
+		return Reach.evaluateTarget(performer, args, target, DISTANCE) + LockUtils.distance(performer, target);
+	}
+	
+	@Override
+	public String getRequirementsDescription() {
+		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, DISTANCE, "items cannot be put into locked containers");
 	}
 
 	@Override

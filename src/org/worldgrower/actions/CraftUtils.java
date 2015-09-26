@@ -19,7 +19,10 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.Skill;
+import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.UnconsciousCondition;
 
 public class CraftUtils {
 
@@ -65,10 +68,40 @@ public class CraftUtils {
 	}
 
 	public static String getRequirementsDescription(IntProperty property, int quantity) {
-		return "Requirements " + quantity + " " + property.getName();
+		return "Requirements: " + formatAsString(property, quantity);
+	}
+	
+	private static String formatAsString(IntProperty property, int quantity) {
+		if (property == Constants.ENERGY) {
+			return "sufficient energy";
+		} else if (property == Constants.DISTANCE) {
+			if (quantity <= 1) {
+				return "person needs to be adjacent";
+			} else {
+				return "distance to target less than " + quantity + " tiles";
+			}
+		} else {
+			return quantity + " " + property.getName();
+		}
 	}
 	
 	public static String getRequirementsDescription(IntProperty property, int quantity, IntProperty property2, int quantity2) {
-		return "Requirements " + quantity + " " + property.getName() + ", " + quantity2 + " " + property2.getName();
+		return "Requirements: " + formatAsString(property, quantity) + ", " + formatAsString(property2, quantity2);
+	}
+	
+	public static String getRequirementsDescription(IntProperty property, int quantity, IntProperty property2, int quantity2, String description) {
+		return getRequirementsDescription(property, quantity, property2, quantity2) + ", " + description;
+	}
+
+	public static String getRequirementsDescription(IntProperty property, int quantity, String description) {
+		return getRequirementsDescription(property, quantity) + ", " + description;
+	}
+	
+	public static String getRequirementsDescription(IntProperty property, int quantity, String description, String description2) {
+		return getRequirementsDescription(property, quantity) + ", " + description + ", " + description2;
+	}
+
+	public static String getRequirementsDescription(SkillProperty skill, int requiredSkillLevel, IntProperty property, int quantity) {
+		return "Requirements: skill " + skill.getName() + " " + requiredSkillLevel + ", " + formatAsString(property, quantity);
 	}
 }

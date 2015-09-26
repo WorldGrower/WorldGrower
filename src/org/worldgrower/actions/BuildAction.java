@@ -20,5 +20,4 @@ public interface BuildAction extends ManagedOperation {
 
 	public int getWidth();
 	public int getHeight();
-	public String getRequirementsDescription();
 }

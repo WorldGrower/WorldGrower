@@ -26,6 +26,8 @@ import org.worldgrower.attribute.WorldObjectContainer;
 
 public class PoisonAction implements ManagedOperation {
 
+	private static final int DISTANCE = 1;
+	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
@@ -42,7 +44,12 @@ public class PoisonAction implements ManagedOperation {
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
 		int poisonInInventory = performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.POISON_DAMAGE) > 0 ? 0 : 1;
-		return Reach.evaluateTarget(performer, args, target, 1) + poisonInInventory;
+		return Reach.evaluateTarget(performer, args, target, DISTANCE) + poisonInInventory;
+	}
+	
+	@Override
+	public String getRequirementsDescription() {
+		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, DISTANCE, "inventory must contain poison");
 	}
 
 	@Override

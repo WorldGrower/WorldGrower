@@ -42,6 +42,11 @@ public class PoisonInventoryWaterAction implements ManagedOperation {
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
 		return 0;
 	}
+	
+	@Override
+	public String getRequirementsDescription() {
+		return "";
+	}
 
 	@Override
 	public ArgumentRange[] getArgumentRanges() {

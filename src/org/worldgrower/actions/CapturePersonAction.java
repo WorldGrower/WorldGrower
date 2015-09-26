@@ -29,6 +29,8 @@ import org.worldgrower.goal.GroupPropertyUtils;
 
 public class CapturePersonAction implements ManagedOperation {
 
+	private static final int DISTANCE = 1;
+	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		List<WorldObject> jails = world.findWorldObjects(w -> BuildingGenerator.isJailLeft(w));
@@ -44,7 +46,12 @@ public class CapturePersonAction implements ManagedOperation {
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
 		int unconsciousDistance = target.getProperty(Constants.CONDITIONS).hasCondition(Condition.UNCONSCIOUS_CONDITION) ? 0 : 1;
-		return Reach.evaluateTarget(performer, args, target, 1) + unconsciousDistance;
+		return Reach.evaluateTarget(performer, args, target, DISTANCE) + unconsciousDistance;
+	}
+	
+	@Override
+	public String getRequirementsDescription() {
+		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, 1, "only unconscious people can be captures");
 	}
 
 	@Override

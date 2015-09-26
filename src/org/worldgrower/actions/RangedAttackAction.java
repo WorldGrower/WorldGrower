@@ -37,9 +37,8 @@ public class RangedAttackAction implements DeadlyAction {
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		WorldObject attackWeapon = performer.getProperty(Constants.LEFT_HAND_EQUIPMENT);
-		if (attackWeapon != null && attackWeapon.hasProperty(Constants.RANGE)) {
-			int range = attackWeapon.getProperty(Constants.RANGE);
+		int range = getRangeFromWeapon(performer);
+		if (range > 0) {
 			int distance = Reach.distance(performer, target);
 			if (distance <= range) {
 				return 0;
@@ -49,6 +48,20 @@ public class RangedAttackAction implements DeadlyAction {
 		} else {
 			return 1;
 		}
+	}
+	
+	private int getRangeFromWeapon(WorldObject performer) {
+		WorldObject attackWeapon = performer.getProperty(Constants.LEFT_HAND_EQUIPMENT);
+		if (attackWeapon != null && attackWeapon.hasProperty(Constants.RANGE)) {
+			return attackWeapon.getProperty(Constants.RANGE);
+		} else {
+			return -1;
+		}
+	}
+	
+	@Override
+	public String getRequirementsDescription() {
+		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, 4, "left hand equipment must contain ranged weapon");
 	}
 	
 	@Override

@@ -25,6 +25,8 @@ import org.worldgrower.WorldObject;
 
 public class VoteForLeaderAction implements ManagedOperation {
 
+	private static final int DISTANCE = 1;
+	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		int voteId = args[0];
@@ -41,7 +43,12 @@ public class VoteForLeaderAction implements ManagedOperation {
 		int targetVotingStageDistance = VotingPropertyUtils.votingBoxAcceptsVotes(target) ? 0 : 1;
 		boolean performerAlreadyVoted = world.getHistory().findHistoryItems(performer, target, this).size() > 0;
 		int performerAlreadyVotedDistance = performerAlreadyVoted ? 1 : 0;
-		return Reach.evaluateTarget(performer, args, target, 1) + targetVotingStageDistance + performerAlreadyVotedDistance;
+		return Reach.evaluateTarget(performer, args, target, DISTANCE) + targetVotingStageDistance + performerAlreadyVotedDistance;
+	}
+	
+	@Override
+	public String getRequirementsDescription() {
+		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, DISTANCE, "people can only vote one", "votes must be accepted");
 	}
 	
 	@Override

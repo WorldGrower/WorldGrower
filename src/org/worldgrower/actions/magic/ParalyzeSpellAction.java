@@ -21,6 +21,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.AttackUtils;
+import org.worldgrower.actions.CraftUtils;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.condition.Condition;
@@ -28,6 +29,7 @@ import org.worldgrower.condition.Condition;
 public class ParalyzeSpellAction implements MagicSpell {
 
 	private static final int ENERGY_USE = 600;
+	private static final int DISTANCE = 4;
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
@@ -44,8 +46,13 @@ public class ParalyzeSpellAction implements MagicSpell {
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return AttackUtils.distanceWithFreeLeftHand(performer, target, 4)
+		return AttackUtils.distanceWithFreeLeftHand(performer, target, DISTANCE)
 				+ SkillUtils.distanceForEnergyUse(performer, getSkill(), ENERGY_USE);
+	}
+	
+	@Override
+	public String getRequirementsDescription() {
+		return CraftUtils.getRequirementsDescription(Constants.ENERGY, ENERGY_USE, Constants.DISTANCE, DISTANCE);
 	}
 	
 	@Override

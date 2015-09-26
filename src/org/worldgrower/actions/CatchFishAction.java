@@ -29,6 +29,7 @@ import org.worldgrower.generator.ItemGenerator;
 public class CatchFishAction implements ManagedOperation {
 
 	private static final int ENERGY_USE = 50;
+	private static final int DISTANCE = 4;
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
@@ -45,8 +46,13 @@ public class CatchFishAction implements ManagedOperation {
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return AttackUtils.distanceWithLeftHandByProperty(performer, target, Constants.FISHING_POLE_QUALITY, 4)
+		return AttackUtils.distanceWithLeftHandByProperty(performer, target, Constants.FISHING_POLE_QUALITY, DISTANCE)
 				+ SkillUtils.distanceForEnergyUse(performer, Constants.FISHING_SKILL, ENERGY_USE);
+	}
+	
+	@Override
+	public String getRequirementsDescription() {
+		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, DISTANCE, Constants.FISHING_POLE_QUALITY, 1);
 	}
 
 	@Override

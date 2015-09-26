@@ -43,6 +43,11 @@ public class CapturePersonForSacrificeAction implements ManagedOperation {
 		int altarDistance = SacrificeUtils.getSacrificialAltars(performer, world).size() > 0 ? 0 : 1;
 		return Reach.evaluateTarget(performer, args, target, 1) + unconsciousDistance + altarDistance;
 	}
+	
+	@Override
+	public String getRequirementsDescription() {
+		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, 1, "only unconscious people can be captures", "a sacrificial altar needs to exist");
+	}
 
 	@Override
 	public ArgumentRange[] getArgumentRanges() {

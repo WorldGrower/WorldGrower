@@ -42,6 +42,11 @@ public class ThrowOilAction implements ManagedOperation {
 	}
 	
 	@Override
+	public String getRequirementsDescription() {
+		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, 1, "left hand must be free");
+	}
+	
+	@Override
 	public ArgumentRange[] getArgumentRanges() {
 		return ArgumentRange.EMPTY_ARGUMENT_RANGE;
 	}

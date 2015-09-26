@@ -41,6 +41,11 @@ public class HarvestGrapesAction implements ManagedOperation {
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
 		return Reach.evaluateTarget(performer, args, target, 1);
 	}
+	
+	@Override
+	public String getRequirementsDescription() {
+		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, 1);
+	}
 
 	@Override
 	public ArgumentRange[] getArgumentRanges() {

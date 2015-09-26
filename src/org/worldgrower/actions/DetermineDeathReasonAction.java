@@ -25,6 +25,8 @@ import org.worldgrower.WorldObject;
 
 public class DetermineDeathReasonAction implements ManagedOperation {
 
+	private static final int DISTANCE = 1;
+	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		world.logAction(this, performer, target, args, target.getProperty(Constants.DEATH_REASON));
@@ -32,7 +34,12 @@ public class DetermineDeathReasonAction implements ManagedOperation {
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return Reach.evaluateTarget(performer, args, target, 1);
+		return Reach.evaluateTarget(performer, args, target, DISTANCE);
+	}
+	
+	@Override
+	public String getRequirementsDescription() {
+		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, DISTANCE);
 	}
 
 	@Override

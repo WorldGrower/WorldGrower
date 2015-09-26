@@ -31,6 +31,7 @@ public class UnlockJailDoorAction implements ManagedOperation {
 		world.removeWorldObject(target);
 	}
 	
+	//TODO: anyone can open jail door?
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
 		return (BuildingGenerator.isJailDoor(target));
@@ -39,6 +40,11 @@ public class UnlockJailDoorAction implements ManagedOperation {
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
 		return Reach.distance(performer, target);
+	}
+	
+	@Override
+	public String getRequirementsDescription() {
+		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, 1);
 	}
 	
 	@Override

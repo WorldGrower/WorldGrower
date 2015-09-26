@@ -34,6 +34,11 @@ public class BecomeLeaderCandidateAction implements ManagedOperation {
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
 		return (target.hasProperty(Constants.ORGANIZATION_ID)) && (target.getProperty(Constants.ORGANIZATION_ID) != null) && (target.hasProperty(Constants.TURN_COUNTER));
 	}
+	
+	@Override
+	public String getRequirementsDescription() {
+		return "target must be voting box";
+	}
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {

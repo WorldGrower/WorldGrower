@@ -28,6 +28,7 @@ import org.worldgrower.gui.ImageIds;
 public class MineGoldAction implements ManagedOperation {
 
 	private static final int ENERGY_USE = 50;
+	private static final int DISTANCE = 1;
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
@@ -39,8 +40,13 @@ public class MineGoldAction implements ManagedOperation {
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return Reach.evaluateTarget(performer, args, target, 1)
+		return Reach.evaluateTarget(performer, args, target, DISTANCE)
 				+ SkillUtils.distanceForEnergyUse(performer, Constants.MINING_SKILL, ENERGY_USE);
+	}
+	
+	@Override
+	public String getRequirementsDescription() {
+		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, DISTANCE, Constants.ENERGY, ENERGY_USE);
 	}
 
 	@Override

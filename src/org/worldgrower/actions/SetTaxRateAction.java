@@ -36,6 +36,11 @@ public class SetTaxRateAction implements ManagedOperation {
 		boolean performerIsLeader = GroupPropertyUtils.performerIsLeaderOfVillagers(performer, world);
 		return performerIsLeader ? 0 : 1;
 	}
+	
+	@Override
+	public String getRequirementsDescription() {
+		return "only the village leader can change tax rates";
+	}
 
 	@Override
 	public ArgumentRange[] getArgumentRanges() {
