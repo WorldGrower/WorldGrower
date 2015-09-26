@@ -31,10 +31,10 @@ public class UnlockJailDoorAction implements ManagedOperation {
 		world.removeWorldObject(target);
 	}
 	
-	//TODO: anyone can open jail door?
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return (BuildingGenerator.isJailDoor(target));
+		Boolean canAttackCriminalsValue = performer.getProperty(Constants.CAN_ATTACK_CRIMINALS);
+		return (canAttackCriminalsValue != null && canAttackCriminalsValue.booleanValue() && BuildingGenerator.isJailDoor(target));
 	}
 
 	@Override
