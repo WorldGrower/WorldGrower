@@ -1,3 +1,14 @@
+v0.1.2
+
+- add tooltips for several actions
+- kiss and sex action are only possible on non-hostile persons
+- fix right-click to cover entire worldobject instead of only top-left corner
+- reworked inventory dialog
+- add background music
+- make it possible to assign action to left mouse button
+- improve arena image
+- add iron greaves, iron greatsword, iron shield, iron axe and iron greataxe
+
 v0.1.1
 
 - brawls can now be fought for money
