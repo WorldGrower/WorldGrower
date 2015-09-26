@@ -103,6 +103,14 @@ public class WhoIsLeaderOrganizationConversation implements Conversation {
 	
 	@Override
 	public void handleResponse(int replyIndex, ConversationContext conversationContext) {
+		if (replyIndex == LEADER) {
+			WorldObject performer = conversationContext.getPerformer();
+			WorldObject organization = conversationContext.getSubject();
+			World world = conversationContext.getWorld();
+			WorldObject leader = getLeader(organization, world);
+			
+			performer.getProperty(Constants.RELATIONSHIPS).incrementValue(leader, 0);
+		}
 	}
 	
 	@Override
