@@ -152,7 +152,6 @@ public class AskQuestionDialog extends JDialog implements ManagedOperationListen
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("button clicked");
 				JPopupMenu popupMenu = createQuestions(imageInfoReader, subjectImageIds, conversations, answerer);
 				popupMenu.show(askQuestion, askQuestion.getX(), askQuestion.getY());
 				
