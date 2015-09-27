@@ -14,9 +14,13 @@
  *******************************************************************************/
 package org.worldgrower.gui.conversation;
 
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -148,6 +152,7 @@ public class AskQuestionDialog extends JDialog implements ManagedOperationListen
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				System.out.println("button clicked");
 				JPopupMenu popupMenu = createQuestions(imageInfoReader, subjectImageIds, conversations, answerer);
 				popupMenu.show(askQuestion, askQuestion.getX(), askQuestion.getY());
 				
@@ -175,6 +180,17 @@ public class AskQuestionDialog extends JDialog implements ManagedOperationListen
 	        answerer.doneTalking();
 	      }
 	    });
+		
+		pressAskQuestionButtonOnVisible();
+	}
+
+	private void pressAskQuestionButtonOnVisible() {
+		ComponentListener listener = new ComponentAdapter() {
+			public void componentShown(ComponentEvent evt) {
+				askQuestion.doClick();
+			}
+		};
+		this.addComponentListener(listener);
 	}
 	
 	private JPopupMenu createQuestions(ImageInfoReader imageInfoReader, Map<Integer, ImageIds> subjectImageIds, Conversations conversations, Answerer answerer) {
