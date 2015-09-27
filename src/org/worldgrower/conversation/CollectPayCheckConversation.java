@@ -49,7 +49,7 @@ public class CollectPayCheckConversation implements Conversation {
 	}
 
 	@Override
-	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, World world) {
+	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		int amountToCollect = GroupPropertyUtils.getPayCheckAmount(performer, world);
 		return Arrays.asList(new Question(null, "I'm here to collect my pay check of " + amountToCollect + " gold. Will you pay?"));
 	}

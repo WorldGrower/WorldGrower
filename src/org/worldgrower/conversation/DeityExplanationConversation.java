@@ -45,7 +45,7 @@ public class DeityExplanationConversation implements Conversation {
 	}
 
 	@Override
-	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, World world) {
+	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		List<Question> questions = new ArrayList<>();
 		for(Deity deity : Deity.ALL_DEITIES) {
 			int indexOfDeity = Deity.ALL_DEITIES.indexOf(deity);

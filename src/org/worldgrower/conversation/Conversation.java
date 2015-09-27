@@ -31,7 +31,7 @@ public interface Conversation extends Serializable {
 	
 	// number of replyphrases should remain the same: otherwise replyIndex doesn't work ==> response.isPossible flag
 	public List<Response> getReplyPhrases(ConversationContext conversationContext);
-	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, World world);
+	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world);
 	public boolean isConversationAvailable(WorldObject performer, WorldObject target, WorldObject subject, World world);
 	
 	public default List<HistoryItem> findSameConversation(ConversationContext conversationContext) {
@@ -49,6 +49,10 @@ public interface Conversation extends Serializable {
 			}
 		}
 		throw new IllegalStateException("replyId " + replyId + " not found in responses: " + replyPhrases);
+	}
+	
+	public default List<WorldObject> getPossibleSubjects(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, World world) {
+		return null;
 	}
 	
 	public void handleResponse(int replyIndex, ConversationContext conversationContext);

@@ -27,6 +27,8 @@ import java.util.stream.Collectors;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.WorldObjectImpl;
+import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.conversation.leader.CanAttackCriminalsConversation;
 import org.worldgrower.conversation.leader.CanCollectTaxesConversation;
 import org.worldgrower.conversation.leader.SetHouseTaxRateConversation;
@@ -201,7 +203,8 @@ public class Conversations implements Serializable {
 		for(int index = 0; index < CONVERSATIONS.size(); index++) {
 			Conversation conversation = CONVERSATIONS.get(index);
 			if (conversation.isConversationAvailable(performer, target, null, world)) {
-				List<Question> questionsToBeAdded = conversation.getQuestionPhrases(performer, target, null, world);
+				WorldObject dummySubject = createDummySubject();
+				List<Question> questionsToBeAdded = conversation.getQuestionPhrases(performer, target, null, dummySubject, world);
 				for(Question question : questionsToBeAdded) {
 					question.setId(index);
 					ConversationCategory conversationCategory = CONVERSATION_CATEGORIES.get(conversation);
@@ -216,13 +219,22 @@ public class Conversations implements Serializable {
 		}
 		return questions;
 	}
+
+	private WorldObject createDummySubject() {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		properties.put(Constants.NAME, "[...]");
+		properties.put(Constants.ID, -1);
+		WorldObject dummySubject = new WorldObjectImpl(properties);
+		return dummySubject;
+	}
 	
 	public String getQuestionPhrase(int index, int subjectId, int historyItemId, WorldObject performer, WorldObject target, World world) {
 		HistoryItem questionHistoryItem = getQuestionHistoryItem(historyItemId, world);
-		List<Question> questions = CONVERSATIONS.get(index).getQuestionPhrases(performer, target, questionHistoryItem, world);
+		WorldObject subject = getSubject(subjectId, world);
+		List<Question> questions = CONVERSATIONS.get(index).getQuestionPhrases(performer, target, questionHistoryItem, subject, world);
 		List<Question> questionsBySubjectId = questions.stream().filter(q -> q.getSubjectId() == subjectId).collect(Collectors.toList());
 		if (questionsBySubjectId.size() == 0) {
-			throw new IllegalStateException("No question found for conversation " + CONVERSATIONS.get(index) + " and subjectId " + subjectId + " in " + CONVERSATIONS.get(index).getQuestionPhrases(performer, target, questionHistoryItem, world));
+			throw new IllegalStateException("No question found for conversation " + CONVERSATIONS.get(index) + " and subjectId " + subjectId + " in " + questions);
 		}
 		
 		return questionsBySubjectId.get(0).getQuestionPhrase();
@@ -310,5 +322,9 @@ public class Conversations implements Serializable {
 
 	public int distance(int index, WorldObject performer, WorldObject target, WorldObject subject, World world) {
 		return CONVERSATIONS.get(index).isConversationAvailable(performer, target, subject, world) ? 0 : 1;
+	}
+	
+	public List<WorldObject> getPossibleSubjects(int index, int historyItemId, WorldObject performer, WorldObject target, World world) {
+		return CONVERSATIONS.get(index).getPossibleSubjects(performer, target, getQuestionHistoryItem(historyItemId, world), world);
 	}
 }

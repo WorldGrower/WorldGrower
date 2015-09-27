@@ -24,7 +24,7 @@ public class NicerConversation extends AbstractChangeOpinionConversation {
 
 	@Override
 	public Question createQuestion(WorldObject performer, WorldObject target, WorldObject subject) {
-		return new Question(subject, "Can you get along with " + subject.getProperty(Constants.NAME));
+		return new Question(subject, "Can you get along with " + subject.getProperty(Constants.NAME) + " ?");
 	}
 
 	@Override

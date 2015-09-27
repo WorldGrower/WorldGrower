@@ -24,8 +24,7 @@ public class NotNicerConversation extends AbstractChangeOpinionConversation {
 
 	@Override
 	public Question createQuestion(WorldObject performer, WorldObject target, WorldObject subject) {
-		String pronoun = subject.getProperty(Constants.GENDER).equals("female") ? "She" : "He";
-		return new Question(subject, "Can you stay away from " + subject.getProperty(Constants.NAME) + "? "+pronoun+" cannot be trusted.");
+		return new Question(subject, "Can you stay away from " + subject.getProperty(Constants.NAME) + "? That person cannot be trusted.");
 	}
 
 	@Override

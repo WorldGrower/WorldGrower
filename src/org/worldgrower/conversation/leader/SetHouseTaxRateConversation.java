@@ -40,7 +40,7 @@ public class SetHouseTaxRateConversation implements Conversation {
 	}
 
 	@Override
-	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, World world) {
+	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		int[] houseTaxRates = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 		int currentHouseTaxRate = GroupPropertyUtils.getVillagersOrganization(world).getProperty(Constants.HOUSE_TAX_RATE);
 		

@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -45,8 +46,10 @@ import org.worldgrower.conversation.ConversationCategory;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.conversation.Question;
 import org.worldgrower.conversation.Response;
+import org.worldgrower.gui.ActionContainingArgs;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
+import org.worldgrower.gui.chooseworldobject.ChooseWorldObjectDialog;
 import org.worldgrower.gui.util.IconUtils;
 
 public class AskQuestionDialog extends JDialog implements ManagedOperationListener {
@@ -55,6 +58,52 @@ public class AskQuestionDialog extends JDialog implements ManagedOperationListen
 	private final JButton askQuestion;
 	private final JLabel label;
 	
+	private class ExecuteQuestionAction extends AbstractAction implements ActionContainingArgs {
+		
+		private final Question question;
+		private int subjectId = -1;
+		
+		public ExecuteQuestionAction(Question question) {
+			this.question = question;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent actionEvent) {
+			int actualSubjectId;
+			if (subjectId != -1) {
+				actualSubjectId = subjectId;
+			} else {
+				actualSubjectId = question.getSubjectId();
+			}
+			
+			int[] args = new int[] { question.getId(), actualSubjectId, question.getHistoryItemId(), question.getAdditionalValue() };
+			answerer.askQuestion(args);
+			askQuestion.setEnabled(answerer.canAskQuestion());
+		}
+
+		@Override
+		public void setArgs(int[] args) {
+			subjectId = args[0];
+		}
+	}
+	
+	private class ChooseSubjectAction implements ActionListener {
+		private final ExecuteQuestionAction executeQuestionAction;
+		private final Question question;
+		
+		public ChooseSubjectAction(ExecuteQuestionAction executeQuestionAction, Question question) {
+			super();
+			this.executeQuestionAction = executeQuestionAction;
+			this.question = question;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			ChooseWorldObjectDialog dialog = answerer.createChooseWorldObjectsDialog(executeQuestionAction, question, AskQuestionDialog.this);
+			dialog.showMe();
+		}
+	}
+
 	private final class CloseDialogAction implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -141,16 +190,16 @@ public class AskQuestionDialog extends JDialog implements ManagedOperationListen
 				if (subjectImageId != null) {
 					questionMenuItem.setIcon(new ImageIcon(imageInfoReader.getImage(subjectImageId, null)));
 				}
-				questionMenuItem.addActionListener(new ActionListener() {
-
-					@Override
-					public void actionPerformed(ActionEvent actionEvent) {
-						int[] args = new int[] { question.getId(), question.getSubjectId(), question.getHistoryItemId(), question.getAdditionalValue() };
-						answerer.askQuestion(args);
-						askQuestion.setEnabled(answerer.canAskQuestion());
-					}
-				});
-				menu.add(questionMenuItem);
+				List<WorldObject> possibleSubjects = answerer.getPossibleSubjects(question);
+				if (possibleSubjects != null && possibleSubjects.size() > 0) {
+					questionMenuItem.addActionListener(new ChooseSubjectAction(new ExecuteQuestionAction(question), question));
+					questionMenuItem.setToolTipText("click to see list of possible subjects");
+					menu.add(questionMenuItem);
+				} else if (possibleSubjects == null){
+					questionMenuItem.addActionListener(new ExecuteQuestionAction(question));
+					menu.add(questionMenuItem);
+				}
+				
 			}
 		}
 		

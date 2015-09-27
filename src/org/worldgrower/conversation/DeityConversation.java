@@ -39,7 +39,7 @@ public class DeityConversation implements Conversation {
 	}
 
 	@Override
-	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, World world) {
+	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		return Arrays.asList(new Question(null, "If you worshop a deity, which one?"));
 	}
 	

@@ -39,7 +39,7 @@ public class CanAttackCriminalsConversation implements Conversation {
 	}
 
 	@Override
-	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, World world) {
+	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		return Arrays.asList(new Question(null, "I'd like permission to attack criminals and uphold the law. In short, I want to be a sheriff. Is that ok?"));
 	}
 	

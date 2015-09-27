@@ -50,23 +50,28 @@ public abstract class AbstractChangeOpinionConversation implements Conversation 
 	public abstract Question createQuestion(WorldObject performer, WorldObject target, WorldObject subject);
 	
 	@Override
-	public final List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, World world) {
+	public final List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subject, World world) {
+		return Arrays.asList(createQuestion(performer, target, subject));
+	}
+	
+	@Override
+	public List<WorldObject> getPossibleSubjects(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, World world) {
 		IdMap relationships = performer.getProperty(Constants.RELATIONSHIPS);
 		List<Integer> subjectIds = relationships.getIdsWithoutTarget(target);
 
-		List<Question> questions = new ArrayList<>();
+		List<WorldObject> subjects = new ArrayList<>();
 		for (int subjectId : subjectIds) {
 			if (subjectId != performer.getProperty(Constants.ID)) {
 				WorldObject subject = world.findWorldObject(Constants.ID, subjectId);
 				int relationshipValuePerformer = target.getProperty(Constants.RELATIONSHIPS).getValue(performer);
 				int relationshipValueSubject = target.getProperty(Constants.RELATIONSHIPS).getValue(subject);
 				if (relationshipValueSubject < relationshipValuePerformer) {
-					questions.add(createQuestion(performer, target, subject));
+					subjects.add(subject);
 				}
 			}
 		}
 
-		return questions;
+		return subjects;
 	}
 
 	@Override

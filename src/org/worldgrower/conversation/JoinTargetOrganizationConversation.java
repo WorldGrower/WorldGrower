@@ -47,7 +47,7 @@ public class JoinTargetOrganizationConversation implements Conversation {
 	}
 
 	@Override
-	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, World world) {
+	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		IdList performerOrganizations = performer.getProperty(Constants.GROUP);
 		IdList targetOrganizations = target.getProperty(Constants.GROUP);
 		List<Integer> organizationsToJoin = targetOrganizations.getIdsNotPresentInOther(performerOrganizations);

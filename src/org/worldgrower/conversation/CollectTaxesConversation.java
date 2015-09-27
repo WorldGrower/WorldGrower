@@ -47,7 +47,7 @@ public class CollectTaxesConversation implements Conversation {
 	}
 
 	@Override
-	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, World world) {
+	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		int amountToCollect = GroupPropertyUtils.getAmountToCollect(target, world);
 		return Arrays.asList(new Question(null, "I'm here to collect your taxes. The taxes are " + amountToCollect + " gold. Will you pay your taxes?"));
 	}

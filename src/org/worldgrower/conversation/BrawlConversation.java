@@ -53,7 +53,7 @@ public class BrawlConversation implements Conversation {
 	}
 
 	@Override
-	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, World world) {
+	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		List<Question> questions = new ArrayList<>();
 		for(int gold = 20; gold < 100; gold += 20) {
 			questions.add(new Question(null, "I want to brawl with you and I bet " + gold + " gold that I'm going to win. Do you accept?", gold));

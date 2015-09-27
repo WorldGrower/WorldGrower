@@ -34,7 +34,7 @@ public class ExplainCurseConversation implements Conversation {
 	}
 
 	@Override
-	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, World world) {
+	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		return Arrays.asList(
 			new Question(null, "I need your help: " + performer.getProperty(Constants.CURSE).getExplanation())
 			);

@@ -66,8 +66,8 @@ public class IntimidateConversation implements Conversation {
 	}
 
 	@Override
-	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, World world) {
-		List<Question> parentQuestionPhrases = parentConversation.getQuestionPhrases(performer, target, questionHistoryItem, world);
+	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
+		List<Question> parentQuestionPhrases = parentConversation.getQuestionPhrases(performer, target, questionHistoryItem, subjectWorldObject, world);
 		List<Question> result = new ArrayList<>();
 		for(Question parentQuestionPhrase : parentQuestionPhrases) {
 			WorldObject subject = parentQuestionPhrase.getSubjectId() != -1 ? world.findWorldObject(Constants.ID, parentQuestionPhrase.getSubjectId()) : null;

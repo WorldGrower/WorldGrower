@@ -53,19 +53,24 @@ public class RelationshipConversation implements Conversation {
 	}
 
 	@Override
-	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, World world) {
+	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subject, World world) {
+		return Arrays.asList(new Question(subject, "What do you think about " + subject.getProperty(Constants.NAME)));
+	}
+
+	@Override
+	public List<WorldObject> getPossibleSubjects(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, World world) {
 		IdMap relationships = performer.getProperty(Constants.RELATIONSHIPS);
 		List<Integer> subjectIds = relationships.getIdsWithoutTarget(target);
 		
-		List<Question> questions = new ArrayList<>();
+		List<WorldObject> subjects = new ArrayList<>();
 		for(int subjectId : subjectIds) {
 			if (subjectId != performer.getProperty(Constants.ID)) {
 				WorldObject subject = world.findWorldObject(Constants.ID, subjectId);
-				questions.add(new Question(subject, "What do you think about " + subject.getProperty(Constants.NAME)));
+				subjects.add(subject);
 			}
 		}
 		
-		return questions;
+		return subjects;
 	}
 
 	@Override

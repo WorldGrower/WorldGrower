@@ -47,7 +47,7 @@ public class LearnSkillUsingOrganizationConversation implements Conversation {
 	}
 
 	@Override
-	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, World world) {
+	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		Profession profession = performer.getProperty(Constants.PROFESSION);
 		WorldObject organization = GroupPropertyUtils.findProfessionOrganization(performer, world);
 		

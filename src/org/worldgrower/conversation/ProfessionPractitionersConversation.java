@@ -48,7 +48,7 @@ public class ProfessionPractitionersConversation implements Conversation {
 	}
 
 	@Override
-	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, World world) {
+	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		List<Question> questions = new ArrayList<>();
 		for(Profession profession : Professions.getAllProfessions()) {
 			questions.add(new Question(null, "Do you know any people who are " + profession.getDescription() + "s?", Professions.getAllProfessions().indexOf(profession)));

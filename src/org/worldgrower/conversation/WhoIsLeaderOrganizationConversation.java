@@ -47,7 +47,7 @@ public class WhoIsLeaderOrganizationConversation implements Conversation {
 	}
 
 	@Override
-	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, World world) {
+	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		IdList targetOrganizations = target.getProperty(Constants.GROUP);
 		
 		List<Question> questions = new ArrayList<>();

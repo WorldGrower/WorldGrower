@@ -47,7 +47,7 @@ public class DeityFollowersConversation implements Conversation {
 	}
 
 	@Override
-	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, World world) {
+	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		List<Question> questions = new ArrayList<>();
 		for(Deity deity : Deity.ALL_DEITIES) {
 			questions.add(new Question(null, "Do you know any people who worship " + deity.getName() + "?", Deity.ALL_DEITIES.indexOf(deity)));

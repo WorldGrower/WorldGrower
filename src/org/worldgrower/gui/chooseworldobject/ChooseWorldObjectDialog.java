@@ -17,12 +17,12 @@ package org.worldgrower.gui.chooseworldobject;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -46,11 +46,11 @@ public class ChooseWorldObjectDialog extends JDialog {
 	
 	private WorldObject playerCharacter;
 	private World world;
-	private JComponent parent;
+	private Component parent;
 	private DungeonMaster dungeonMaster;
 	private ActionContainingArgs guiAction;
 
-	public ChooseWorldObjectDialog(WorldObject playerCharacter, ImageInfoReader imageInfoReader, List<WorldObject> disguiseWorldObjects, JComponent parent, World world, DungeonMaster dungeonMaster, ActionContainingArgs guiAction) {
+	public ChooseWorldObjectDialog(WorldObject playerCharacter, ImageInfoReader imageInfoReader, List<WorldObject> disguiseWorldObjects, Component parent, World world, DungeonMaster dungeonMaster, ActionContainingArgs guiAction) {
 		initializeGui(parent, disguiseWorldObjects, imageInfoReader);
 		
 		this.playerCharacter = playerCharacter;
@@ -69,6 +69,7 @@ public class ChooseWorldObjectDialog extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		IconUtils.setIcon(this);
+		setModalityType(ModalityType.APPLICATION_MODAL);
 		
 		personList = new WorldObjectList(imageInfoReader, disguiseWorldObjects);
 		personList.setBounds(5, 5, 350, 450);

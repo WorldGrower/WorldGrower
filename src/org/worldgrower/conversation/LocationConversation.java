@@ -15,6 +15,7 @@
 package org.worldgrower.conversation;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.worldgrower.Constants;
@@ -59,17 +60,22 @@ public class LocationConversation implements Conversation {
 	}
 
 	@Override
-	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, World world) {
+	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subject, World world) {
+		return Arrays.asList(new Question(subject, "Where is " + subject.getProperty(Constants.NAME) + "?"));
+	}
+	
+	@Override
+	public List<WorldObject> getPossibleSubjects(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, World world) {
 		IdMap relationships = performer.getProperty(Constants.RELATIONSHIPS);
 		List<Integer> subjectIds = relationships.getIdsWithoutTarget(target);
 		
-		List<Question> questions = new ArrayList<>();
+		List<WorldObject> subjects = new ArrayList<>();
 		for(int subjectId : subjectIds) {
 			WorldObject subject = world.findWorldObject(Constants.ID, subjectId);
-			questions.add(new Question(subject, "Where is " + subject.getProperty(Constants.NAME) + "?"));
+			subjects.add(subject);
 		}
 		
-		return questions;
+		return subjects;
 	}
 
 	@Override

@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.AbstractAction;
+import javax.swing.JDialog;
 import javax.swing.SwingUtilities;
 
 import org.worldgrower.Constants;
@@ -31,9 +32,11 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.conversation.ConversationCategory;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.conversation.Question;
+import org.worldgrower.gui.ActionContainingArgs;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.WorldPanel;
+import org.worldgrower.gui.chooseworldobject.ChooseWorldObjectDialog;
 
 public class GuiAskQuestionAction extends AbstractAction implements Answerer {
 
@@ -115,5 +118,15 @@ public class GuiAskQuestionAction extends AbstractAction implements Answerer {
 	@Override
 	public boolean filterMessage(WorldObject performer) {
 		return (performer == playerCharacter);
+	}
+
+	@Override
+	public List<WorldObject> getPossibleSubjects(Question question) {
+		return conversations.getPossibleSubjects(question.getId(), -1, playerCharacter, target, world);
+	}
+
+	@Override
+	public ChooseWorldObjectDialog createChooseWorldObjectsDialog(ActionContainingArgs guiAction, Question question, JDialog parentDialog) {
+		return new ChooseWorldObjectDialog(playerCharacter, imageInfoReader, getPossibleSubjects(question), parentDialog, world, dungeonMaster, guiAction);
 	}
 }

@@ -17,9 +17,13 @@ package org.worldgrower.gui.conversation;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.JDialog;
+
 import org.worldgrower.WorldObject;
 import org.worldgrower.conversation.ConversationCategory;
 import org.worldgrower.conversation.Question;
+import org.worldgrower.gui.ActionContainingArgs;
+import org.worldgrower.gui.chooseworldobject.ChooseWorldObjectDialog;
 
 public interface Answerer {
 	public void askQuestion(int[] args);
@@ -27,4 +31,7 @@ public interface Answerer {
 	public void doneTalking();
 	public boolean filterMessage(WorldObject performer);
 	public boolean canAskQuestion();
+	
+	public List<WorldObject> getPossibleSubjects(Question question);
+	public ChooseWorldObjectDialog createChooseWorldObjectsDialog(ActionContainingArgs guiAction, Question question, JDialog parentDialog);
 }
