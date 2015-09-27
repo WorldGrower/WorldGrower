@@ -86,7 +86,7 @@ public class TalkAction implements ManagedOperation {
 
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return (target.hasIntelligence() && target.getProperty(Constants.CREATURE_TYPE).canTalk());
+		return (target.hasIntelligence() && target.getProperty(Constants.CREATURE_TYPE).canTalk() && !performer.equals(target));
 	}
 	
 	@Override

@@ -14,6 +14,7 @@
  *******************************************************************************/
 package org.worldgrower.gui;
 
+import java.awt.event.InputEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -123,6 +124,8 @@ public class GuiMouseListener extends MouseAdapter {
 		} else {
 	        if (SwingUtilities.isRightMouseButton(e)) {
 	            doPop(e);
+	        } else if (SwingUtilities.isLeftMouseButton(e) && isCtrlPressed(e) && worldObject != null) {
+	        	performTalkAction(worldObject);
 	        } else if (SwingUtilities.isLeftMouseButton(e) && leftMouseClickAction != null && worldObject != null) {
 	        	performLeftMouseAction(worldObject);
 	        } else {
@@ -131,6 +134,10 @@ public class GuiMouseListener extends MouseAdapter {
 		}
     }
 
+	private boolean isCtrlPressed(MouseEvent evt) {
+		return (evt.getModifiers() & InputEvent.CTRL_DOWN_MASK) == 0;
+	}
+
     private void performLeftMouseAction(WorldObject worldObject) {
     	if (Main.canActionExecute(playerCharacter, leftMouseClickAction, new int[0], world, worldObject)) {
     		Main.executeAction(playerCharacter, leftMouseClickAction, new int[0], world, dungeonMaster, worldObject, container);
@@ -138,6 +145,13 @@ public class GuiMouseListener extends MouseAdapter {
     		JOptionPane.showMessageDialog(container, "Cannot execute action '" + leftMouseClickAction.getSimpleDescription() + "' on " + worldObject.getProperty(Constants.NAME));
     	}
 	}
+    
+    private void performTalkAction(WorldObject worldObject) {
+    	if (canPlayerCharacterPerformTalkAction(worldObject, Actions.TALK_ACTION)) {
+    		GuiAskQuestionAction guiAskQuestionAction = new GuiAskQuestionAction(playerCharacter, world, dungeonMaster, container, worldObject, imageInfoReader);
+    		guiAskQuestionAction.actionPerformed(null);
+		}
+    }
 
 	private void centerOnScreen(MouseEvent e) {
     	int x = (int) e.getPoint().getX() / 48;
