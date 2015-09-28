@@ -164,12 +164,13 @@ public class BackgroundImpl implements Background, Serializable {
 	@Override
 	public List<String> getAngryReasons(boolean firstPerson, WorldObject performer, World world) {
 		int performerId = performer.getProperty(Constants.ID);
-		List<String> angryReasonsList = angryReasons.get(performerId);
-		if (angryReasonsList != null) {
+		List<String> list = angryReasons.get(performerId);
+		List<String> angryReasonsList = new ArrayList<>(list != null ? list : new ArrayList<>()); // return copy of List
+		if (angryReasonsList.size() > 0) {
 			for(int i = 0; i< angryReasonsList.size(); i++)  {
 				String angryReason = angryReasonsList.get(i);
 				String pronoun = performer.getProperty(Constants.GENDER).equals("female") ? "She" : "He";
-				String prefix = firstPerson ? "You were " : pronoun + " was";
+				String prefix = firstPerson ? "You were " : (pronoun + " was ");
 				angryReasonsList.set(i, prefix + angryReason);
 			}
 			angryReasonsList = new ArrayList<>(new HashSet<>(angryReasonsList));

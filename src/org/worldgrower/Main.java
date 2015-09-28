@@ -148,6 +148,8 @@ public class Main {
 			commonerGenerator.generateCommoner(1, 1, world, organization);
 		}
 		
+		new CreatureGenerator(organization).generateCow(7, 2, world);
+		
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, 3);
 		properties.put(Constants.Y, 5);

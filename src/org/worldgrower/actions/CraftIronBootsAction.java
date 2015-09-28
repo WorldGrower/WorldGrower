@@ -21,6 +21,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.ItemGenerator;
 
@@ -33,7 +34,7 @@ public class CraftIronBootsAction implements CraftAction {
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
 		
-		double skillBonus = CraftUtils.useSmithingSkill(performer);
+		double skillBonus = SkillUtils.useSkill(performer, Constants.SMITHING_SKILL);
 		inventory.addQuantity(ItemGenerator.getIronBoots(skillBonus));
 
 		inventory.removeQuantity(Constants.WOOD, WOOD_REQUIRED);

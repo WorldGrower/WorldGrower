@@ -66,7 +66,7 @@ public class BuySellUtils {
 		return performer.getProperty(Constants.INVENTORY).get(inventoryIndex);
 	}
 	
-	public static boolean worldObjectWillBuyGoods(WorldObject performer, WorldObject target, int indexOfItemsToSell, World world) {
+	public static boolean targetWillBuyGoods(WorldObject performer, WorldObject target, int indexOfItemsToSell, World world) {
 		WorldObject inventoryItem = getInventoryItem(performer, indexOfItemsToSell);
 		return worldObjectWillBuyGoods(performer, target, inventoryItem, world);
 	}

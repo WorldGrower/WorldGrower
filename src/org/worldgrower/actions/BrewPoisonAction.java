@@ -18,9 +18,9 @@ import java.io.ObjectStreamException;
 
 import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
-import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.ItemGenerator;
 
@@ -32,7 +32,7 @@ public class BrewPoisonAction implements CraftAction {
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
 		
-		double skillBonus = CraftUtils.useAlchemySkill(performer);
+		double skillBonus = SkillUtils.useSkill(performer, Constants.ALCHEMY_SKILL);
 		inventory.addQuantity(ItemGenerator.generatePoison(skillBonus));
 
 		inventory.removeQuantity(Constants.NIGHT_SHADE, NIGHT_SHADE_REQUIRED);

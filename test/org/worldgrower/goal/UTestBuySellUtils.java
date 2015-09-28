@@ -84,5 +84,25 @@ public class UTestBuySellUtils {
 		assertEquals(Actions.BUY_ACTION, BuySellUtils.getBuyOperationInfo(performer, Constants.FOOD, world).getManagedOperation());
 	}
 	
+	
+	@Test
+	public void testTargetWillBuyGoods() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.INVENTORY, new WorldObjectContainer());
+		
+		WorldObject target = TestUtils.createIntelligentWorldObject(0, Constants.INVENTORY, new WorldObjectContainer());
+		target.setProperty(Constants.GOLD, 100);
+		
+		WorldObject inventoryItem = ItemGenerator.generateBerries();
+		performer.getProperty(Constants.INVENTORY).add(inventoryItem);
+		performer.setProperty(Constants.PROFIT_PERCENTAGE, 100);
+		
+		assertEquals(false, BuySellUtils.targetWillBuyGoods(performer, target, 0, world));
+		
+		target.setProperty(Constants.DEMANDS, new PropertyCountMap<>());
+		target.getProperty(Constants.DEMANDS).add(Constants.FOOD, 1);
+		assertEquals(true, BuySellUtils.targetWillBuyGoods(performer, target, 0, world));
+	}
+	
 	//TODO: worldObject cannot buy from itself
 }

@@ -22,6 +22,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 
 public class RepairEquipmentInInventoryAction implements ManagedOperation {
@@ -31,7 +32,7 @@ public class RepairEquipmentInInventoryAction implements ManagedOperation {
 		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
 		List<WorldObject> damagedEquipment = getDamagedEquipment(inventory);
 		
-		double skillBonus = CraftUtils.useSmithingSkill(performer);
+		double skillBonus = SkillUtils.useSkill(performer, Constants.SMITHING_SKILL);
 		damagedEquipment.get(0).increment(Constants.EQUIPMENT_HEALTH, (int)(100 * skillBonus));
 		
 		inventory.removeQuantity(Constants.REPAIR_QUALITY, 1);

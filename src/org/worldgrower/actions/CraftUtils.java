@@ -21,25 +21,9 @@ import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.Skill;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.WorldObjectContainer;
-import org.worldgrower.condition.Condition;
-import org.worldgrower.condition.UnconsciousCondition;
 
 public class CraftUtils {
 
-	public static double useSmithingSkill(WorldObject performer) {
-		Skill smithingSkill = performer.getProperty(Constants.SMITHING_SKILL);
-		double result = 1.0f + (smithingSkill.getLevel() / 100.0f);
-		smithingSkill.use();
-		return result;
-	}
-	
-	public static double useAlchemySkill(WorldObject performer) {
-		Skill alchemySkill = performer.getProperty(Constants.ALCHEMY_SKILL);
-		double result = 1.0f + (alchemySkill.getLevel() / 100.0f);
-		alchemySkill.use();
-		return result;
-	}
-	
 	public static int distance(WorldObject performer, int woodQuantity, int oreQuantity) {
 		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
 		int wood = inventory.getQuantityFor(Constants.WOOD);

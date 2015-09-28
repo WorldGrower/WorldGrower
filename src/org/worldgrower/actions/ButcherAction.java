@@ -18,36 +18,35 @@ import java.io.ObjectStreamException;
 
 import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
+import org.worldgrower.ManagedOperation;
+import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.ItemGenerator;
 
-public class CraftLongBowAction implements CraftAction {
+public class ButcherAction implements ManagedOperation {
 
-	private static final int WOOD_REQUIRED = 5;
-	private static final int ORE_REQUIRED = 1;
-	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
+		WorldObjectContainer inventoryPerformer = performer.getProperty(Constants.INVENTORY);
 		
-		double skillBonus = SkillUtils.useSkill(performer, Constants.SMITHING_SKILL);
-		inventory.addQuantity(ItemGenerator.getLongBow(skillBonus));
-
-		inventory.removeQuantity(Constants.WOOD, WOOD_REQUIRED);
-		inventory.removeQuantity(Constants.ORE, ORE_REQUIRED);
+		WorldObject collectedMeat = ItemGenerator.generateMeat();
+		int quantity = target.getProperty(Constants.MEAT_SOURCE);
+		
+		inventoryPerformer.addQuantity(collectedMeat, quantity);
+		
+		world.removeWorldObject(target);
 	}
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return CraftUtils.distance(performer, WOOD_REQUIRED, ORE_REQUIRED);
+		return Reach.evaluateTarget(performer, args, target, 1);
 	}
 	
 	@Override
 	public String getRequirementsDescription() {
-		return CraftUtils.getRequirementsDescription(Constants.WOOD, WOOD_REQUIRED, Constants.ORE, ORE_REQUIRED);
+		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, 1);
 	}
 
 	@Override
@@ -57,17 +56,17 @@ public class CraftLongBowAction implements CraftAction {
 
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return CraftUtils.isValidTarget(performer, target, world);
+		return (target.hasProperty(Constants.MEAT_SOURCE)) && (target.getProperty(Constants.MEAT_SOURCE) > 0);
 	}
-	
+
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "crafting longbow";
+		return "butchering a " + target.getProperty(Constants.NAME);
 	}
 
 	@Override
 	public String getSimpleDescription() {
-		return "craft longbow";
+		return "butcher";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {

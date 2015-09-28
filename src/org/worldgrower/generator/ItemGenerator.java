@@ -253,6 +253,17 @@ public class ItemGenerator {
 		properties.put(Constants.IMAGE_ID, ImageIds.WATER);
 		return new WorldObjectImpl(properties);
 	}
+	
+	public static WorldObject generateMeat() {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		properties.put(Constants.NAME, "meat");
+		properties.put(Constants.FOOD, 1);
+		properties.put(Constants.PRICE, 1);
+		properties.put(Constants.WEIGHT, 1);
+		properties.put(Constants.SELLABLE, false);
+		properties.put(Constants.IMAGE_ID, ImageIds.MEAT);
+		return new WorldObjectImpl(properties);
+	}
 
 	public static WorldObject generateSpellBook(MagicSpell magicSpell) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();

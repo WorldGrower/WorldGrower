@@ -48,10 +48,23 @@ public class UTestCraftUtils {
 	@Test
 	public void testGetRequirementsDescription() {
 		assertEquals("Requirements: 1 wood", CraftUtils.getRequirementsDescription(Constants.WOOD, 1));
+		assertEquals("Requirements: sufficient energy", CraftUtils.getRequirementsDescription(Constants.ENERGY, 1));
+		assertEquals("Requirements: person needs to be adjacent", CraftUtils.getRequirementsDescription(Constants.DISTANCE, 1));
+		assertEquals("Requirements: distance to target less than 4 tiles", CraftUtils.getRequirementsDescription(Constants.DISTANCE, 4));
 	}
 	
 	@Test
 	public void testGetRequirementsDescriptionForMultiple() {
 		assertEquals("Requirements: 1 wood, 2 stone", CraftUtils.getRequirementsDescription(Constants.WOOD, 1, Constants.STONE, 2));
+	}
+	
+	@Test
+	public void testGetRequirementsDescriptionWithDescription() {
+		assertEquals("Requirements: 1 wood, description", CraftUtils.getRequirementsDescription(Constants.WOOD, 1, "description"));
+	}
+	
+	@Test
+	public void testGetRequirementsDescriptionWithSkill() {
+		assertEquals("Requirements: skill illusion 7, 1 wood", CraftUtils.getRequirementsDescription(Constants.ILLUSION_SKILL, 7, Constants.WOOD, 1));
 	}
 }

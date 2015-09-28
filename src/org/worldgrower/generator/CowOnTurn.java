@@ -37,8 +37,13 @@ public class CowOnTurn implements OnTurn {
 	
 	@Override
 	public void onTurn(WorldObject worldObject, World world, CreatureTypeChangedListeners creatureTypeChangedListeners) {
+		int currentTurn = world.getCurrentTurn().getValue();
 		
-		if (world.getCurrentTurn().getValue() % 500 == 0) {
+		if ((currentTurn > 0) && (currentTurn % 100 == 0)) {
+			worldObject.increment(Constants.MEAT_SOURCE, 1);
+		}
+		
+		if ((currentTurn > 0) && (currentTurn % 500 == 0)) {
 			int performerX = worldObject.getProperty(Constants.X);
 			int performerY = worldObject.getProperty(Constants.Y);
 			int[] position = GoalUtils.findOpenSpace(worldObject, 1, 1, world);

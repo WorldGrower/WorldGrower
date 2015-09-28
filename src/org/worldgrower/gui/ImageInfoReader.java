@@ -303,7 +303,9 @@ public class ImageInfoReader {
 		add(ImageIds.COW, cow.getSubImage(0, 0, 1, 1));
 		add(ImageIds.IRON_AXE, sprites420.getSubImage(5, 10, 1, 1));
 		add(ImageIds.IRON_GREATAXE, sprites420.getSubImage(2, 10, 1, 1));
+		add(ImageIds.MEAT, sprites420.getSubImage(11, 1, 1, 1));
 		
+		addCharacter(ImageIds.GHOUL, monsters, 3, 4, 1, 1);
     }
 
     private void createArenaWall48x48() {

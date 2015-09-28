@@ -80,7 +80,7 @@ public class GuiSellAction extends AbstractAction {
 
 		@Override
 		public boolean isPossible(InventoryItem inventoryItem) {
-			return BuySellUtils.worldObjectWillBuyGoods(playerCharacter, target, inventoryItem.getId(), world);
+			return BuySellUtils.targetWillBuyGoods(playerCharacter, target, inventoryItem.getId(), world);
 		}
 
 		@Override

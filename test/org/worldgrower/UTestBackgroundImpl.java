@@ -17,6 +17,7 @@ package org.worldgrower;
 import static org.junit.Assert.assertEquals;
 import static org.worldgrower.TestUtils.createWorldObject;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
@@ -44,5 +45,21 @@ public class UTestBackgroundImpl {
 		List<Goal> personalGoals = background.getPersonalGoals(performer, world);
 		assertEquals(1, personalGoals.size());
 		assertEquals(RevengeGoal.class, personalGoals.get(0).getClass());
+	}
+	
+	@Test
+	public void testGetAngryReasons() {
+		Background background = new BackgroundImpl();
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createWorldObject(0, "Tom");
+		performer.setProperty(Constants.GENDER, "male");
+		WorldObject actionTarget = createWorldObject(1, "actionTarget");
+		
+		background.addGoalObstructed(performer, actionTarget, Actions.MELEE_ATTACK_ACTION, new int[0], world);
+		
+		assertEquals(Arrays.asList("You were attacking actionTarget"), background.getAngryReasons(true, performer, world));
+		assertEquals(Arrays.asList("He was attacking actionTarget"), background.getAngryReasons(false, performer, world));
+		
+		assertEquals(Arrays.asList(), background.getAngryReasons(false, actionTarget, world));
 	}
 }

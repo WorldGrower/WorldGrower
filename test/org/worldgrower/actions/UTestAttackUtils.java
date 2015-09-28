@@ -144,6 +144,23 @@ public class UTestAttackUtils {
 		AttackUtils.biteAttack(Actions.VAMPIRE_BITE_ACTION, performer, target, new int[0], world);
 		assertEquals(10, target.getProperty(Constants.HIT_POINTS).intValue());
 	}
+	
+	@Test
+	public void testNonLethalAttack() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createCommoner(world);
+		WorldObject target = createCommoner(world);
+		
+		
+		target.setProperty(Constants.HIT_POINTS, 4);
+		assertEquals(4, target.getProperty(Constants.HIT_POINTS).intValue());
+		AttackUtils.nonLethalAttack(Actions.NON_LETHAL_MELEE_ATTACK_ACTION, performer, target, new int[0], world, 1f);
+		assertEquals(2, target.getProperty(Constants.HIT_POINTS).intValue());
+		
+		AttackUtils.nonLethalAttack(Actions.NON_LETHAL_MELEE_ATTACK_ACTION, performer, target, new int[0], world, 1f);
+		assertEquals(1, target.getProperty(Constants.HIT_POINTS).intValue());
+		assertEquals(true, target.getProperty(Constants.CONDITIONS).hasCondition(Condition.UNCONSCIOUS_CONDITION));
+	}
 
 	private WorldObject createCommoner(World world) {
 		CommonerGenerator commonerGenerator = new CommonerGenerator(0, new CommonerImageIds(), new MockCommonerNameGenerator());

@@ -36,13 +36,16 @@ import org.worldgrower.conversation.UTestLocationConversation;
 import org.worldgrower.goal.UTestAbstractScribeSpellsGoal;
 import org.worldgrower.goal.UTestArenaPropertyUtils;
 import org.worldgrower.goal.UTestArmorPropertyUtils;
+import org.worldgrower.goal.UTestBrawlPropertyUtils;
 import org.worldgrower.goal.UTestBuildLocationUtils;
 import org.worldgrower.goal.UTestBuySellUtils;
+import org.worldgrower.goal.UTestFacadeUtils;
 import org.worldgrower.goal.UTestGoalUtils;
 import org.worldgrower.goal.UTestGroupPropertyUtils;
 import org.worldgrower.goal.UTestHousePropertyUtils;
 import org.worldgrower.goal.UTestLocationUtils;
 import org.worldgrower.goal.UTestMeleeDamagePropertyUtils;
+import org.worldgrower.goal.UTestRelationshipPropertyUtils;
 import org.worldgrower.goal.UTestSocializeGoal;
 import org.worldgrower.goal.UTestZone;
 import org.worldgrower.history.UTestHistoryImpl;
@@ -92,7 +95,10 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestArmorPropertyUtils.class,
 	UTestMeleeDamagePropertyUtils.class,
 	UTestCraftUtils.class,
-	UTestVotingPropertyUtils.class
+	UTestVotingPropertyUtils.class,
+	UTestFacadeUtils.class,
+	UTestBrawlPropertyUtils.class,
+	UTestRelationshipPropertyUtils.class
 })
 public class CompleteTestSuite {
 }
