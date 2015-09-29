@@ -14,72 +14,61 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
+import java.util.List;
+
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
-import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.condition.GhoulUtils;
+import org.worldgrower.creaturetype.CreatureType;
 
-public class GatherFoodGoal implements Goal {
-
-	private final int foodQuantityGoalMet;
-	
-	public GatherFoodGoal() {
-		this(10);
-	}
-
-	public GatherFoodGoal(int foodQuantityGoalMet) {
-		this.foodQuantityGoalMet = foodQuantityGoalMet;
-	}
+public class GhoulGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		WorldObject target = GoalUtils.findNearestTarget(performer, Actions.HARVEST_FOOD_ACTION, world);
-		OperationInfo butcherOperationInfo = createButcherOperationInfo(performer, world);
-		if (target != null && Reach.distance(performer, target) < 15) {
-			return new OperationInfo(performer, target, new int[0], Actions.HARVEST_FOOD_ACTION);
-		} else if (butcherOperationInfo != null) {
-			return butcherOperationInfo;
-		} else {
-			return null;
+		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
+		int indexOfMeat = performerInventory.getIndexFor(w -> isHumanMeat(w));
+		if (indexOfMeat != -1 && !performerInventory.get(indexOfMeat).getProperty(Constants.SELLABLE)) {
+			return new OperationInfo(performer, performer, new int[] {indexOfMeat}, Actions.MARK_INVENTORY_ITEM_AS_SELLABLE_ACTION);
+		} else if (performer.getProperty(Constants.HIT_POINTS) > 1) {
+			return new OperationInfo(performer, performer, new int[0], Actions.CREATE_HUMAN_MEAT_ACTION);
 		}
+		return null;
 	}
 	
-	private static OperationInfo createButcherOperationInfo(WorldObject performer, World world) {
-		WorldObject target = GoalUtils.findNearestTarget(performer, Actions.BUTCHER_ACTION, world);
-		if (target != null && Reach.distance(performer, target) < 15) {
-			return new OperationInfo(performer, target, new int[0], Actions.BUTCHER_ACTION);
-		} else {
-			return null;
-		}
+	private boolean isHumanMeat(WorldObject w) {
+		return w.hasProperty(Constants.FOOD) && w.hasProperty(Constants.CREATURE_TYPE) && w.getProperty(Constants.CREATURE_TYPE) == CreatureType.HUMAN_CREATURE_TYPE;
 	}
 	
 	@Override
 	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
 	}
-
-	@Override
-	public boolean isGoalMet(WorldObject performer, World world) {
-		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
-		return performerInventory.getQuantityFor(Constants.FOOD) > foodQuantityGoalMet;
-	}
 	
 	@Override
+	public boolean isGoalMet(WorldObject performer, World world) {
+		List<WorldObject> ghouls = findGhouls(performer, world);
+		return ghouls.size() > 0;
+	}
+
+	private List<WorldObject> findGhouls(WorldObject performer, World world) {
+		return world.findWorldObjectsByProperty(Constants.STRENGTH, w -> GhoulUtils.isGhoul(w));
+	}
+
+	@Override
 	public boolean isUrgentGoalMet(WorldObject performer, World world) {
-		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
-		return performerInventory.getQuantityFor(Constants.FOOD) > 2;
+		return isGoalMet(performer, world);
 	}
 
 	@Override
 	public String getDescription() {
-		return "harvesting food";
+		return "creating ghouls";
 	}
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
-		return performerInventory.getQuantityFor(Constants.FOOD);
+		return findGhouls(performer, world).size();
 	}
 }

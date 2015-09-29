@@ -16,26 +16,26 @@ package org.worldgrower.goal;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.List;
-
 import org.junit.Test;
 import org.worldgrower.Constants;
-import org.worldgrower.MockWorld;
 import org.worldgrower.TestUtils;
-import org.worldgrower.World;
-import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
+import org.worldgrower.generator.ItemGenerator;
 
-public class UTestLocationUtils {
+public class UTestInventoryPropertyUtils {
 
 	@Test
-	public void testFindWorldObjectsInSurroundingWater() {
-		World world = new WorldImpl(10, 10, null, null);
-		WorldObject house = TestUtils.createWorldObject(3, 3, 1, 1, Constants.ID, 7);
-		world.addWorldObject(house);
+	public void testCleanupEquipmentSlots() {
+		WorldObject performer = TestUtils.createIntelligentWorldObject(0, "Test");
 		
-		List<WorldObject> worldObjects = LocationUtils.findWorldObjectsInSurroundingWater(1, 1, new MockWorld(new MockTerrain(), world));
-		assertEquals(1, worldObjects.size());
-		assertEquals(house, worldObjects.get(0));
+		WorldObject ironCuirass = ItemGenerator.getIronCuirass(1f);
+		performer.getProperty(Constants.INVENTORY).add(ironCuirass);
+		performer.setProperty(Constants.TORSO_EQUIPMENT, ironCuirass);
+		performer.setProperty(Constants.HEAD_EQUIPMENT, ItemGenerator.getIronHelmet(1f));
+		
+		InventoryPropertyUtils.cleanupEquipmentSlots(performer);
+		
+		assertEquals("Iron Cuirass", performer.getProperty(Constants.TORSO_EQUIPMENT).getProperty(Constants.NAME));
+		assertEquals(null, performer.getProperty(Constants.HEAD_EQUIPMENT));
 	}
 }

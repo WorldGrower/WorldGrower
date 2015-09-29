@@ -16,26 +16,19 @@ package org.worldgrower.goal;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.List;
-
 import org.junit.Test;
 import org.worldgrower.Constants;
-import org.worldgrower.MockWorld;
 import org.worldgrower.TestUtils;
-import org.worldgrower.World;
-import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
+import org.worldgrower.creaturetype.CreatureType;
 
-public class UTestLocationUtils {
+public class UTestRacePropertyUtils {
 
 	@Test
-	public void testFindWorldObjectsInSurroundingWater() {
-		World world = new WorldImpl(10, 10, null, null);
-		WorldObject house = TestUtils.createWorldObject(3, 3, 1, 1, Constants.ID, 7);
-		world.addWorldObject(house);
-		
-		List<WorldObject> worldObjects = LocationUtils.findWorldObjectsInSurroundingWater(1, 1, new MockWorld(new MockTerrain(), world));
-		assertEquals(1, worldObjects.size());
-		assertEquals(house, worldObjects.get(0));
+	public void testHasSameRace() {
+		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.CREATURE_TYPE, CreatureType.HUMAN_CREATURE_TYPE);
+		WorldObject target = TestUtils.createIntelligentWorldObject(1, Constants.CREATURE_TYPE, CreatureType.HUMAN_CREATURE_TYPE);
+
+		assertEquals(true, RacePropertyUtils.hasSameRace(performer, target));
 	}
 }

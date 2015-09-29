@@ -22,6 +22,7 @@ public class CreatureTypeUtils {
 	public static boolean isUndead(WorldObject worldObject) {
 		CreatureType creatureType = worldObject.getProperty(Constants.CREATURE_TYPE);
 		return creatureType == CreatureType.UNDEAD_CREATURE_TYPE
-				 || creatureType == CreatureType.MINDLESS_UNDEAD_CREATURE_TYPE;
+				 || creatureType == CreatureType.MINDLESS_UNDEAD_CREATURE_TYPE
+				 || creatureType == CreatureType.GHOUL_CREATURE_TYPE;
 	}
 }

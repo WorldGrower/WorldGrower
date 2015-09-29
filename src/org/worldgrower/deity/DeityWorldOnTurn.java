@@ -15,9 +15,11 @@
 package org.worldgrower.deity;
 
 import org.worldgrower.World;
+import org.worldgrower.WorldObject;
 import org.worldgrower.WorldOnTurn;
 import org.worldgrower.condition.CreatureTypeChangedListener;
 import org.worldgrower.condition.CreatureTypeChangedListeners;
+import org.worldgrower.creaturetype.CreatureType;
 
 public class DeityWorldOnTurn implements WorldOnTurn {
 	private final transient CreatureTypeChangedListeners creatureTypeChangedListeners = new CreatureTypeChangedListeners();
@@ -33,5 +35,10 @@ public class DeityWorldOnTurn implements WorldOnTurn {
 	@Override
 	public void addCreatureTypeChangedListener(CreatureTypeChangedListener listener) {
 		this.creatureTypeChangedListeners.addCreatureTypeChangedListener(listener);
+	}
+
+	@Override
+	public void creatureTypeChange(WorldObject worldObject, CreatureType newCreatureType, String description) {
+		creatureTypeChangedListeners.fireCreatureTypeChanged(worldObject, newCreatureType, description);
 	}
 }

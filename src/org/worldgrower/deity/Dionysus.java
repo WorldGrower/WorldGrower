@@ -23,6 +23,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.condition.CreatureTypeChangedListeners;
 import org.worldgrower.condition.VampireUtils;
+import org.worldgrower.goal.Goal;
+import org.worldgrower.goal.Goals;
 import org.worldgrower.profession.Professions;
 
 public class Dionysus implements Deity {
@@ -56,6 +58,11 @@ public class Dionysus implements Deity {
 		return -1;
 	}
 	
+	@Override
+	public List<Goal> getOrganizationGoals() {
+		return Arrays.asList(Goals.DESTROY_SHRINES_TO_OTHER_DEITIES_GOAL, Goals.GHOUL_GOAL);
+	}
+
 	@Override
 	public void onTurn(World world, CreatureTypeChangedListeners creatureTypeChangedListeners) {
 		int currentTurn = world.getCurrentTurn().getValue();

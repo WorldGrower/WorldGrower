@@ -16,8 +16,6 @@ package org.worldgrower.goal;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.List;
-
 import org.junit.Test;
 import org.worldgrower.Constants;
 import org.worldgrower.MockWorld;
@@ -25,17 +23,18 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
+import org.worldgrower.terrain.Terrain;
 
-public class UTestLocationUtils {
+public class UTestDrownUtils {
 
 	@Test
-	public void testFindWorldObjectsInSurroundingWater() {
-		World world = new WorldImpl(10, 10, null, null);
-		WorldObject house = TestUtils.createWorldObject(3, 3, 1, 1, Constants.ID, 7);
-		world.addWorldObject(house);
+	public void testCheckForDrowning() {
+		Terrain terrain = new MockTerrain();
+		World world = new MockWorld(terrain, new WorldImpl(1, 1, null, null));
+		WorldObject performer = TestUtils.createWorldObject(0, 0, 1, 1, Constants.ID, 0);
+		performer.setProperty(Constants.HIT_POINTS, 10);
 		
-		List<WorldObject> worldObjects = LocationUtils.findWorldObjectsInSurroundingWater(1, 1, new MockWorld(new MockTerrain(), world));
-		assertEquals(1, worldObjects.size());
-		assertEquals(house, worldObjects.get(0));
+		DrownUtils.checkForDrowning(performer, world);
+		assertEquals(5, performer.getProperty(Constants.HIT_POINTS).intValue());
 	}
 }

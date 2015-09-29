@@ -189,6 +189,7 @@ public class Actions {
 	public static final RepairEquipmentInInventoryAction REPAIR_EQUIPMENT_IN_INVENTORY_ACTION = new RepairEquipmentInInventoryAction();
 	public static final PoisonInventoryWaterAction POISON_INVENTORY_WATER_ACTION = new PoisonInventoryWaterAction();
 	public static final ButcherAction BUTCHER_ACTION = new ButcherAction();
+	public static final CreateHumanMeatAction CREATE_HUMAN_MEAT_ACTION = new CreateHumanMeatAction();
 	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 
@@ -326,7 +327,8 @@ public class Actions {
 		BUILD_ARENA_ACTION,
 		DONATE_MONEY_ACTION,
 		CRAFT_REPAIR_HAMMER_ACTION,
-		BUTCHER_ACTION
+		BUTCHER_ACTION,
+		CREATE_HUMAN_MEAT_ACTION
 	));
 	
 	static {

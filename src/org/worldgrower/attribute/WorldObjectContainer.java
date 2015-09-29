@@ -174,6 +174,19 @@ public class WorldObjectContainer implements Serializable {
 		return "[" + worldObjects + "]";
 	}
 
+	public<T> int getIndexFor(Function<WorldObject, Boolean> testFunction) {
+		int index = 0; 
+		for(WorldObject worldObject : worldObjects) {
+			if (worldObject != null) {
+				if (testFunction.apply(worldObject)) {
+					return index;
+				}
+			}
+			index++;
+		}
+		return -1;
+	}
+	
 	public<T> int getIndexFor(ManagedProperty<T> propertyKey) {
 		int index = 0; 
 		for(WorldObject worldObject : worldObjects) {

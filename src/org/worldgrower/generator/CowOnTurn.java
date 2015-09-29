@@ -42,6 +42,8 @@ public class CowOnTurn implements OnTurn {
 		if ((currentTurn > 0) && (currentTurn % 100 == 0)) {
 			worldObject.increment(Constants.MEAT_SOURCE, 1);
 		}
+
+		worldObject.getProperty(Constants.CONDITIONS).onTurn(worldObject, world, creatureTypeChangedListeners);
 		
 		if ((currentTurn > 0) && (currentTurn % 500 == 0)) {
 			int performerX = worldObject.getProperty(Constants.X);
@@ -63,6 +65,6 @@ public class CowOnTurn implements OnTurn {
 	}
 	
 	private List<WorldObject> getSurroundingWorldObjects(WorldObject worldObject, World world) {
-		return world.findWorldObjectsByProperty(Constants.FOOD_SOURCE, w -> Reach.evaluateTarget(worldObject, null, w, 1) == 0);
+		return world.findWorldObjectsByProperty(Constants.MEAT_SOURCE, w -> Reach.evaluateTarget(worldObject, null, w, 1) == 0);
 	}
 }

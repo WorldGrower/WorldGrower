@@ -12,30 +12,33 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.goal;
+package org.worldgrower.creaturetype;
 
-import static org.junit.Assert.assertEquals;
-
+import java.io.ObjectStreamException;
 import java.util.List;
 
-import org.junit.Test;
-import org.worldgrower.Constants;
-import org.worldgrower.MockWorld;
-import org.worldgrower.TestUtils;
-import org.worldgrower.World;
-import org.worldgrower.WorldImpl;
-import org.worldgrower.WorldObject;
+public class GhoulCreatureType implements CreatureType {
 
-public class UTestLocationUtils {
+	public GhoulCreatureType(List<CreatureType> allCreatureTypes) {
+		allCreatureTypes.add(this);
+	}
 
-	@Test
-	public void testFindWorldObjectsInSurroundingWater() {
-		World world = new WorldImpl(10, 10, null, null);
-		WorldObject house = TestUtils.createWorldObject(3, 3, 1, 1, Constants.ID, 7);
-		world.addWorldObject(house);
-		
-		List<WorldObject> worldObjects = LocationUtils.findWorldObjectsInSurroundingWater(1, 1, new MockWorld(new MockTerrain(), world));
-		assertEquals(1, worldObjects.size());
-		assertEquals(house, worldObjects.get(0));
+	@Override
+	public boolean canTalk() {
+		return true;
+	}
+
+	@Override
+	public boolean canMove() {
+		return true;
+	}
+	
+	@Override
+	public boolean canTrade() {
+		return true;
+	}
+	
+	public Object readResolve() throws ObjectStreamException {
+		return readResolveImpl();
 	}
 }

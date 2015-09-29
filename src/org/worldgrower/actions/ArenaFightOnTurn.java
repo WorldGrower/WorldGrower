@@ -22,6 +22,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.WorldOnTurn;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.CreatureTypeChangedListener;
+import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.goal.ArenaPropertyUtils;
 
 public class ArenaFightOnTurn implements WorldOnTurn {
@@ -47,5 +48,9 @@ public class ArenaFightOnTurn implements WorldOnTurn {
 
 	@Override
 	public void addCreatureTypeChangedListener(CreatureTypeChangedListener listener) {
+	}
+
+	@Override
+	public void creatureTypeChange(WorldObject worldObject, CreatureType newCreatureType, String description) {
 	}
 }

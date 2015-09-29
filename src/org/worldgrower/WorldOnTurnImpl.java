@@ -19,6 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.worldgrower.condition.CreatureTypeChangedListener;
+import org.worldgrower.creaturetype.CreatureType;
 
 public class WorldOnTurnImpl implements WorldOnTurn {
 
@@ -37,6 +38,15 @@ public class WorldOnTurnImpl implements WorldOnTurn {
 
 	@Override
 	public void addCreatureTypeChangedListener(CreatureTypeChangedListener listener) {
+		for(WorldOnTurn worldOnTurn : worldOnTurnList) {
+			worldOnTurn.addCreatureTypeChangedListener(listener);
+		}
 	}
 
+	@Override
+	public void creatureTypeChange(WorldObject worldObject, CreatureType newCreatureType, String description) {
+		for(WorldOnTurn worldOnTurn : worldOnTurnList) {
+			worldOnTurn.creatureTypeChange(worldObject, newCreatureType, description);
+		}
+	}
 }

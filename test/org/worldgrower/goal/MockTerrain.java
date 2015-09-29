@@ -14,28 +14,33 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
-import static org.junit.Assert.assertEquals;
+import org.worldgrower.terrain.Terrain;
+import org.worldgrower.terrain.TerrainInfo;
+import org.worldgrower.terrain.TerrainType;
 
-import java.util.List;
+class MockTerrain implements Terrain {
 
-import org.junit.Test;
-import org.worldgrower.Constants;
-import org.worldgrower.MockWorld;
-import org.worldgrower.TestUtils;
-import org.worldgrower.World;
-import org.worldgrower.WorldImpl;
-import org.worldgrower.WorldObject;
+	@Override
+	public TerrainInfo getTerrainInfo(int x, int y) {
+		return new TerrainInfo(TerrainType.WATER);
+	}
 
-public class UTestLocationUtils {
+	@Override
+	public int getWidth() {
+		return 10;
+	}
 
-	@Test
-	public void testFindWorldObjectsInSurroundingWater() {
-		World world = new WorldImpl(10, 10, null, null);
-		WorldObject house = TestUtils.createWorldObject(3, 3, 1, 1, Constants.ID, 7);
-		world.addWorldObject(house);
-		
-		List<WorldObject> worldObjects = LocationUtils.findWorldObjectsInSurroundingWater(1, 1, new MockWorld(new MockTerrain(), world));
-		assertEquals(1, worldObjects.size());
-		assertEquals(house, worldObjects.get(0));
+	@Override
+	public int getHeight() {
+		return 10;
+	}
+
+	@Override
+	public boolean isExplored(int x, int y) {
+		return false;
+	}
+
+	@Override
+	public void explore(int x, int y, int radius) {
 	}
 }

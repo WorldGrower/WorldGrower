@@ -19,35 +19,34 @@ import java.io.ObjectStreamException;
 import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
-import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.ItemGenerator;
 
-public class ButcherAction implements ManagedOperation {
+public class CreateHumanMeatAction implements ManagedOperation {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		WorldObjectContainer inventoryPerformer = performer.getProperty(Constants.INVENTORY);
 		
 		WorldObject collectedMeat = ItemGenerator.generateMeat();
-		collectedMeat.setProperty(Constants.CREATURE_TYPE, target.getProperty(Constants.CREATURE_TYPE));
-		int quantity = target.getProperty(Constants.MEAT_SOURCE);
+		collectedMeat.setProperty(Constants.CREATURE_TYPE, performer.getProperty(Constants.CREATURE_TYPE));
 		
-		inventoryPerformer.addQuantity(collectedMeat, quantity);
+		inventoryPerformer.addQuantity(collectedMeat, 1);
 		
-		world.removeWorldObject(target);
+		performer.increment(Constants.HIT_POINTS, -1);
 	}
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return Reach.evaluateTarget(performer, args, target, 1);
+		int hitPointsDistance = performer.getProperty(Constants.HIT_POINTS) > 1 ? 0 : 1;
+		return hitPointsDistance;
 	}
 	
 	@Override
 	public String getRequirementsDescription() {
-		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, 1);
+		return "enough hit points to survive action";
 	}
 
 	@Override
@@ -57,17 +56,17 @@ public class ButcherAction implements ManagedOperation {
 
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return (target.hasProperty(Constants.MEAT_SOURCE)) && (target.getProperty(Constants.MEAT_SOURCE) > 0);
+		return CraftUtils.isValidTarget(performer, target, world);
 	}
 
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "butchering a " + target.getProperty(Constants.NAME);
+		return "creating human meat";
 	}
 
 	@Override
 	public String getSimpleDescription() {
-		return "butcher";
+		return "create human meat";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {

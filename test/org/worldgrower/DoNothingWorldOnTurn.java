@@ -15,6 +15,7 @@
 package org.worldgrower;
 
 import org.worldgrower.condition.CreatureTypeChangedListener;
+import org.worldgrower.creaturetype.CreatureType;
 
 public class DoNothingWorldOnTurn implements WorldOnTurn {
 
@@ -28,4 +29,8 @@ public class DoNothingWorldOnTurn implements WorldOnTurn {
 
 	}
 
+	@Override
+	public void creatureTypeChange(WorldObject worldObject, CreatureType newCreatureType, String description) {
+		
+	}
 }

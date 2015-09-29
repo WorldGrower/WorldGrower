@@ -21,6 +21,8 @@ import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.condition.GhoulUtils;
 
 public class EatFromInventoryAction implements ManagedOperation {
 
@@ -30,8 +32,12 @@ public class EatFromInventoryAction implements ManagedOperation {
 		
 		food = food + 100;
 
+		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
+		int indexOfFood = performerInventory.getIndexFor(Constants.FOOD);
+		GhoulUtils.eatFood(performer, performerInventory.get(indexOfFood), world);
+		
 		performer.setProperty(Constants.FOOD, food);
-		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.FOOD, 1);
+		performerInventory.removeQuantity(Constants.FOOD, 1);
 	}
 
 	@Override

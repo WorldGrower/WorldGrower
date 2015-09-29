@@ -193,6 +193,7 @@ public class GuiMouseListener extends MouseAdapter {
             	addShowLegalActionsMenu(organizationMenu);
             	addShowOrganizationsActionMenu(organizationMenu);
             	addChooseDeityMenu(miscMenu);
+            	addCreateHumanMeatMenu(miscMenu);
             	menu.add(miscMenu);
             	addAssignActionsToLeftMouse(menu);
             	
@@ -227,6 +228,11 @@ public class GuiMouseListener extends MouseAdapter {
 		menu.add(chooseDeityMenuItem);
 	}
 
+	private void addCreateHumanMeatMenu(JMenu menu) {
+		ManagedOperation[] actions = { Actions.CREATE_HUMAN_MEAT_ACTION };
+		addActions(menu, actions);
+	}
+	
 	private void addShowLegalActionsMenu(JMenu menu) {
 		JMenuItem showLegalActionsMenuItem = new JMenuItem(new GuiShowLegalActionsAction(playerCharacter, dungeonMaster, world, container));
 		showLegalActionsMenuItem.setText("Show legal actions...");

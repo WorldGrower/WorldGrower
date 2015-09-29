@@ -38,6 +38,8 @@ public class FishOnTurn implements OnTurn {
 	@Override
 	public void onTurn(WorldObject worldObject, World world, CreatureTypeChangedListeners creatureTypeChangedListeners) {
 		
+		worldObject.getProperty(Constants.CONDITIONS).onTurn(worldObject, world, creatureTypeChangedListeners);
+		
 		if (world.getCurrentTurn().getValue() % 200 == 0) {
 			int performerX = worldObject.getProperty(Constants.X);
 			int performerY = worldObject.getProperty(Constants.Y);
