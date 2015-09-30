@@ -14,37 +14,25 @@
  *******************************************************************************/
 package org.worldgrower.gui;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import org.worldgrower.gui.util.IconUtils;
-
-public class AssignActionLeftMouseDialog extends JDialog {
+public class AssignActionLeftMouseDialog extends AbstractDialog {
 
 	private String selectedAction = null;
 
 	public AssignActionLeftMouseDialog(String[] actionDescriptions) {
-		setBounds(100, 100, 450, 475);
-		getContentPane().setLayout(new BorderLayout());
-		getContentPane().setLayout(null);
-		
-		setModalityType(ModalityType.APPLICATION_MODAL);		
-		getContentPane().setLayout(null);
-		IconUtils.setIcon(this);
-		SwingUtils.installEscapeCloseOperation(this);
+		super(450, 475);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(32, 32, 362, 292);
-		getContentPane().add(scrollPane);
+		addComponent(scrollPane);
 		
 		JList<String> list = new JList<>(actionDescriptions);
 		list.setSelectedIndex(0);
@@ -52,11 +40,12 @@ public class AssignActionLeftMouseDialog extends JDialog {
 		
 		JLabel lblNewLabel = new JLabel("Ctrl-left mouse click to talk with a person");
 		lblNewLabel.setBounds(34, 343, 360, 24);
-		getContentPane().add(lblNewLabel);
+		addComponent(lblNewLabel);
 
 		JPanel buttonPane = new JPanel();
+		buttonPane.setOpaque(false);
 		buttonPane.setBounds(34, 373, 360, 50);
-		getContentPane().add(buttonPane);
+		addComponent(buttonPane);
 
 		JButton okButton = new JButton("OK");
 		okButton.setActionCommand("OK");
@@ -71,7 +60,6 @@ public class AssignActionLeftMouseDialog extends JDialog {
 	}
 	
 	public String showMe() {
-		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setVisible(true);
 		return selectedAction;
 	}

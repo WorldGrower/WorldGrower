@@ -14,7 +14,6 @@
  *******************************************************************************/
 package org.worldgrower.gui.conversation;
 
-import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,7 +34,6 @@ import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -50,14 +48,13 @@ import org.worldgrower.conversation.ConversationCategory;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.conversation.Question;
 import org.worldgrower.conversation.Response;
+import org.worldgrower.gui.AbstractDialog;
 import org.worldgrower.gui.ActionContainingArgs;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
-import org.worldgrower.gui.SwingUtils;
 import org.worldgrower.gui.chooseworldobject.ChooseWorldObjectDialog;
-import org.worldgrower.gui.util.IconUtils;
 
-public class AskQuestionDialog extends JDialog implements ManagedOperationListener {
+public class AskQuestionDialog extends AbstractDialog implements ManagedOperationListener {
 
 	private final Answerer answerer;
 	private final JButton askQuestion;
@@ -117,22 +114,17 @@ public class AskQuestionDialog extends JDialog implements ManagedOperationListen
 	}
 	
 	public AskQuestionDialog(Answerer answerer, Conversations conversations, ImageIds imageIdPerformer, ImageIds imageIdTarget, String performerName, String targetName, Map<Integer, ImageIds> subjectImageIds, ImageInfoReader imageInfoReader) {
+		super(650, 300);
 		this.answerer = answerer;
-		
-		setModalityType(ModalityType.APPLICATION_MODAL);
-		this.setSize(650, 300);
-		this.setLocationRelativeTo(null);
-		getContentPane().setLayout(null);
-		IconUtils.setIcon(this);
-		SwingUtils.installEscapeCloseOperation(this);
 		
 		KeyStroke stroke = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
         rootPane.registerKeyboardAction(new CloseDialogAction(), stroke, JComponent.WHEN_IN_FOCUSED_WINDOW);
 			
 		JPanel buttonPane = new JPanel();
 		buttonPane.setBounds(0, 218, 632, 35);
+		buttonPane.setOpaque(false);
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-		getContentPane().add(buttonPane);
+		addComponent(buttonPane);
 
 		JButton okButton = new JButton("OK");
 		okButton.setActionCommand("OK");
@@ -146,7 +138,7 @@ public class AskQuestionDialog extends JDialog implements ManagedOperationListen
 		JLabel performerLabel = new JLabel(new ImageIcon(imageInfoReader.getImage(imageIdPerformer, null)));
 		performerLabel.setToolTipText(performerName);
 		performerLabel.setBounds(6, 17, 32, 48);
-		getContentPane().add(performerLabel);
+		addComponent(performerLabel);
 		
 		askQuestion = new JButton("Ask Question");
 		askQuestion.setBounds(44, 27, 580, 22);
@@ -160,16 +152,16 @@ public class AskQuestionDialog extends JDialog implements ManagedOperationListen
 			}
 			
 		});
-		getContentPane().add(askQuestion);
+		addComponent(askQuestion);
 		
 		JLabel targetLabel = new JLabel(new ImageIcon(imageInfoReader.getImage(imageIdTarget, null)));
 		targetLabel.setToolTipText(targetName);
 		targetLabel.setBounds(6, 90, 32, 48);
-		getContentPane().add(targetLabel);
+		addComponent(targetLabel);
 		
 		label = new JLabel(" ");
 		label.setBounds(44, 70, 495, 200);
-		getContentPane().add(label);
+		addComponent(label);
 		
 		okButton.addActionListener(new CloseDialogAction());
 		cancelButton.addActionListener(new CloseDialogAction());
@@ -238,7 +230,6 @@ public class AskQuestionDialog extends JDialog implements ManagedOperationListen
 	}
 
 	public void showMe() {
-		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setVisible(true);
 	}
 

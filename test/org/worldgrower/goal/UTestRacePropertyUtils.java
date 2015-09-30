@@ -28,7 +28,27 @@ public class UTestRacePropertyUtils {
 	public void testHasSameRace() {
 		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.CREATURE_TYPE, CreatureType.HUMAN_CREATURE_TYPE);
 		WorldObject target = TestUtils.createIntelligentWorldObject(1, Constants.CREATURE_TYPE, CreatureType.HUMAN_CREATURE_TYPE);
+		WorldObject ghoul = TestUtils.createIntelligentWorldObject(1, Constants.CREATURE_TYPE, CreatureType.GHOUL_CREATURE_TYPE);
 
 		assertEquals(true, RacePropertyUtils.hasSameRace(performer, target));
+		assertEquals(false, RacePropertyUtils.hasSameRace(performer, ghoul));
+	}
+	
+	@Test
+	public void testCanHaveOffspring() {
+		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.CREATURE_TYPE, CreatureType.HUMAN_CREATURE_TYPE);
+		WorldObject target = TestUtils.createIntelligentWorldObject(1, Constants.CREATURE_TYPE, CreatureType.HUMAN_CREATURE_TYPE);
+		
+		performer.setProperty(Constants.GENDER, "male");
+		target.setProperty(Constants.GENDER, "female");
+		
+		assertEquals(true, RacePropertyUtils.canHaveOffspring(performer, target));
+		
+		target.setProperty(Constants.GENDER, "male");
+		assertEquals(false, RacePropertyUtils.canHaveOffspring(performer, target));
+		
+		target.setProperty(Constants.GENDER, "female");
+		target.setProperty(Constants.CREATURE_TYPE, CreatureType.GHOUL_CREATURE_TYPE);
+		assertEquals(false, RacePropertyUtils.canHaveOffspring(performer, target));
 	}
 }

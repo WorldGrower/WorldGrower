@@ -57,7 +57,7 @@ public class CharacterDialog extends JDialog {
 	private static final String ARMOR_TOOL_TIP = "Armor reduces the damage taken from non-magical attacks";
 	private static final String WEAPON_TOOL_TIP = "Damage indicates the damage done when performing melee or ranged attacks";
 	
-	private final JPanel contentPanel = new JPanel();
+	private final JPanel contentPanel = new GradientPanel();
 	private final WorldObject playerCharacter;
 	
 	private JComboBox<ComboBoxEquipmentItem> cmbHead;
@@ -73,6 +73,7 @@ public class CharacterDialog extends JDialog {
 	public CharacterDialog(WorldObject playerCharacter, ImageInfoReader imageInfoReader) {
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		IconUtils.setIcon(this);
+		setResizable(false);
 		
 		this.playerCharacter = playerCharacter;
 		
@@ -262,6 +263,7 @@ public class CharacterDialog extends JDialog {
 		contentPanel.add(lblDamageValue);
 		
 		JPanel buttonPane = new JPanel();
+		buttonPane.setOpaque(false);
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);
 		

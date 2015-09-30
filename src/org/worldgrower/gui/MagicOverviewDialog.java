@@ -41,7 +41,7 @@ import org.worldgrower.gui.util.IconUtils;
 
 public class MagicOverviewDialog extends JDialog {
 
-	private final JPanel contentPanel = new JPanel();
+	private final JPanel contentPanel = new GradientPanel();
 
 	public MagicOverviewDialog(WorldObject playerCharacter) {
 		setModalityType(ModalityType.APPLICATION_MODAL);

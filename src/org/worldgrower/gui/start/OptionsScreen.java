@@ -14,6 +14,7 @@
  *******************************************************************************/
 package org.worldgrower.gui.start;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -23,10 +24,12 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import org.worldgrower.Main;
 import org.worldgrower.gui.ExceptionHandler;
+import org.worldgrower.gui.GradientPanel;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.util.NumberUtils;
 import javax.swing.JCheckBox;
@@ -71,7 +74,12 @@ public class OptionsScreen {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 414, 500);
+		Dimension size = new Dimension(414, 500);
+		JPanel contentPanel = new GradientPanel();
+		contentPanel.setLayout(null);
+		contentPanel.setSize(size);
+		frame.add(contentPanel);
+		frame.setSize(size);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -80,67 +88,67 @@ public class OptionsScreen {
 		JLabel lblPlayerName = new JLabel("Character Name:");
 		lblPlayerName.setToolTipText(PLAYER_NAME_TOOL_TIP);
 		lblPlayerName.setBounds(25, 30, 191, 26);
-		frame.getContentPane().add(lblPlayerName);
+		contentPanel.add(lblPlayerName);
 		
 		playerNameTextField = new JTextField();
 		playerNameTextField.setToolTipText(PLAYER_NAME_TOOL_TIP);
 		playerNameTextField.setText(getDefaultUsername());
 		playerNameTextField.setBounds(228, 30, 137, 22);
-		frame.getContentPane().add(playerNameTextField);
+		contentPanel.add(playerNameTextField);
 		playerNameTextField.setColumns(10);
 		
 		JLabel lblWorldWidth = new JLabel("World Width:");
 		lblWorldWidth.setToolTipText(WORLD_WIDTH_TOOL_TIP);
 		lblWorldWidth.setBounds(25, 123, 191, 26);
-		frame.getContentPane().add(lblWorldWidth);
+		contentPanel.add(lblWorldWidth);
 		
 		worldWidthTextField = new JTextField();
 		worldWidthTextField.setToolTipText(WORLD_WIDTH_TOOL_TIP);
 		worldWidthTextField.setText("100");
 		worldWidthTextField.setBounds(228, 123, 137, 22);
-		frame.getContentPane().add(worldWidthTextField);
+		contentPanel.add(worldWidthTextField);
 		worldWidthTextField.setColumns(10);
 		
 		JLabel lblWorldHeight = new JLabel("World Height:");
 		lblWorldHeight.setToolTipText(WORLD_HEIGHT_TOOL_TIP);
 		lblWorldHeight.setBounds(25, 162, 191, 26);
-		frame.getContentPane().add(lblWorldHeight);
+		contentPanel.add(lblWorldHeight);
 		
 		worldHeightTextField = new JTextField();
 		worldHeightTextField.setToolTipText(WORLD_HEIGHT_TOOL_TIP);
 		worldHeightTextField.setText("100");
 		worldHeightTextField.setColumns(10);
 		worldHeightTextField.setBounds(228, 160, 137, 22);
-		frame.getContentPane().add(worldHeightTextField);
+		contentPanel.add(worldHeightTextField);
 		
 		JLabel lblNumberOfEnemies = new JLabel("Enemy density:");
 		lblNumberOfEnemies.setToolTipText(MONSTER_DENSITY_TOOL_TIP);
 		lblNumberOfEnemies.setBounds(25, 201, 191, 26);
-		frame.getContentPane().add(lblNumberOfEnemies);
+		contentPanel.add(lblNumberOfEnemies);
 		
 		numberOfEnemiesTextField = new JTextField();
 		numberOfEnemiesTextField.setToolTipText(MONSTER_DENSITY_TOOL_TIP);
 		numberOfEnemiesTextField.setText("0");
 		numberOfEnemiesTextField.setColumns(10);
 		numberOfEnemiesTextField.setBounds(228, 199, 137, 22);
-		frame.getContentPane().add(numberOfEnemiesTextField);
+		contentPanel.add(numberOfEnemiesTextField);
 		
 		JLabel lblNumberOfVillagers = new JLabel("Number of Villagers:");
 		lblNumberOfVillagers.setToolTipText(NUMBER_OF_VILLAGERS_TOOL_TIP);
 		lblNumberOfVillagers.setBounds(25, 241, 191, 26);
-		frame.getContentPane().add(lblNumberOfVillagers);
+		contentPanel.add(lblNumberOfVillagers);
 		
 		numberOfVillagersTextField = new JTextField();
 		numberOfVillagersTextField.setToolTipText(NUMBER_OF_VILLAGERS_TOOL_TIP);
 		numberOfVillagersTextField.setText("4");
 		numberOfVillagersTextField.setColumns(10);
 		numberOfVillagersTextField.setBounds(228, 241, 137, 22);
-		frame.getContentPane().add(numberOfVillagersTextField);
+		contentPanel.add(numberOfVillagersTextField);
 		
 		JButton btnOk = new JButton("Ok");
 		btnOk.setBounds(230, 415, 97, 25);
 		frame.getRootPane().setDefaultButton(btnOk);
-		frame.getContentPane().add(btnOk);
+		contentPanel.add(btnOk);
 		btnOk.addActionListener(new ActionListener() {
 
 			@Override
@@ -172,42 +180,43 @@ public class OptionsScreen {
 		
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.setBounds(121, 415, 97, 25);
-		frame.getContentPane().add(btnCancel);
+		contentPanel.add(btnCancel);
 		
 		JLabel lblPlayerProfession = new JLabel("Character Profession:");
 		lblPlayerProfession.setToolTipText(CHARACTER_PROFESSION_TOOL_TIP);
 		lblPlayerProfession.setBounds(25, 69, 191, 26);
-		frame.getContentPane().add(lblPlayerProfession);
+		contentPanel.add(lblPlayerProfession);
 		
 		playerProfessionTextField = new JTextField();
 		playerProfessionTextField.setToolTipText(CHARACTER_PROFESSION_TOOL_TIP);
 		playerProfessionTextField.setText("adventurer");
 		playerProfessionTextField.setColumns(10);
 		playerProfessionTextField.setBounds(228, 69, 137, 22);
-		frame.getContentPane().add(playerProfessionTextField);
+		contentPanel.add(playerProfessionTextField);
 		
 		JLabel lblSeed = new JLabel("Seed:");
 		lblSeed.setToolTipText(SEED_TOOL_TIP);
 		lblSeed.setBounds(25, 283, 191, 26);
-		frame.getContentPane().add(lblSeed);
+		contentPanel.add(lblSeed);
 		
 		seedTextField = new JTextField();
 		seedTextField.setToolTipText(SEED_TOOL_TIP);
 		seedTextField.setText("666");
 		seedTextField.setColumns(10);
 		seedTextField.setBounds(228, 283, 137, 22);
-		frame.getContentPane().add(seedTextField);
+		contentPanel.add(seedTextField);
 		
 		chkBackgroundMusic = new JCheckBox("Music");
 		chkBackgroundMusic.setToolTipText(MUSIC_TOOL_TIP);
 		chkBackgroundMusic.setSelected(true);
+		chkBackgroundMusic.setOpaque(false);
 		chkBackgroundMusic.setBounds(228, 340, 137, 25);
-		frame.getContentPane().add(chkBackgroundMusic);
+		contentPanel.add(chkBackgroundMusic);
 		
 		JLabel lblPlayBackgroundMusic = new JLabel("Play background music:");
 		lblPlayBackgroundMusic.setToolTipText(MUSIC_TOOL_TIP);
 		lblPlayBackgroundMusic.setBounds(25, 339, 191, 26);
-		frame.getContentPane().add(lblPlayBackgroundMusic);
+		contentPanel.add(lblPlayBackgroundMusic);
 		btnCancel.addActionListener(new ActionListener() {
 			
 			@Override

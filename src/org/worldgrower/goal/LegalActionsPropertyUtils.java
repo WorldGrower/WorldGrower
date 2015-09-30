@@ -32,7 +32,7 @@ public class LegalActionsPropertyUtils {
 		return toList(legalActions);
 	}
 
-	private static List<ManagedOperation> toList(Map<ManagedOperation, Boolean> legalActions) {
+	static List<ManagedOperation> toList(Map<ManagedOperation, Boolean> legalActions) {
 		List<ManagedOperation> actions = new ArrayList<>(legalActions.keySet());
 		Actions.sortActionsByDescription(actions);
 		return actions;

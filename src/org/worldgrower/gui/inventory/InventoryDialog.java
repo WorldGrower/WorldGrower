@@ -46,10 +46,11 @@ import javax.swing.event.ListSelectionListener;
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.gui.AbstractDialog;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.util.IconUtils;
 
-public class InventoryDialog extends JDialog {
+public class InventoryDialog extends AbstractDialog {
 
 	private static final String MONEY_PLAYER_CHARACTER_TOOL_TIP = "shows amount of gold that the player character has";
 	private static final String WEIGHT_PLAYER_CHARACTER_TOOL_TIP = "shows current weight of things that the player character is carrying and maximum weight";
@@ -98,7 +99,7 @@ public class InventoryDialog extends JDialog {
 	 * @wbp.parser.constructor
 	 */
 	public InventoryDialog(InventoryDialogModel inventoryDialogModel, InventoryDialogAction inventoryDialogAction, ImageInfoReader imageInfoReader, List<Action> inventoryActions) {
-		
+		super(762, 690);
 		if (inventoryDialogAction == null) {
 			inventoryDialogAction = new DefaultInventoryDialogAction(inventoryDialogModel.getPlayerCharacterInventory());
 		}
@@ -110,19 +111,14 @@ public class InventoryDialog extends JDialog {
 	}
 
 	private void initializeGUI(InventoryDialogModel inventoryDialogModel, InventoryDialogAction inventoryDialogAction, ImageInfoReader imageInfoReader, List<Action> inventoryActions) {
-		setModalityType(ModalityType.APPLICATION_MODAL);
-		setBounds(100, 100, 762, 690);
-		getContentPane().setLayout(null);
-		setLocationRelativeTo(null);
-		IconUtils.setIcon(this);
-		
 		KeyStroke stroke = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
         rootPane.registerKeyboardAction(new CloseDialogAction(), stroke, JComponent.WHEN_IN_FOCUSED_WINDOW);
 			
 		JPanel buttonPane = new JPanel();
+		buttonPane.setOpaque(false);
 		buttonPane.setBounds(478, 595, 254, 35);
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-		getContentPane().add(buttonPane);
+		addComponent(buttonPane);
 
 		okButton = new JButton(inventoryDialogAction.getDescription());
 		okButton.setActionCommand("OK");
@@ -138,46 +134,46 @@ public class InventoryDialog extends JDialog {
 		JScrollPane inventoryScrollPane = new JScrollPane();
 		inventoryScrollPane.setViewportView(inventoryJList);
 		inventoryScrollPane.setBounds(12, 82, 200, 450);
-		getContentPane().add(inventoryScrollPane);
+		addComponent(inventoryScrollPane);
 		
 		final JLabel moneyLabel = new JLabel("Money:");
 		moneyLabel.setToolTipText(MONEY_PLAYER_CHARACTER_TOOL_TIP);
 		moneyLabel.setBounds(12, 555, 64, 25);
-		getContentPane().add(moneyLabel);
+		addComponent(moneyLabel);
 		
 		moneyValueLabel = new JLabel(Integer.toString(inventoryDialogModel.getPlayerCharacterMoney()));
 		moneyValueLabel.setToolTipText(MONEY_PLAYER_CHARACTER_TOOL_TIP);
 		moneyValueLabel.setBounds(77, 555, 50, 25);
-		getContentPane().add(moneyValueLabel);
+		addComponent(moneyValueLabel);
 		
 		JLabel lblWeight = new JLabel("Weight:");
 		lblWeight.setToolTipText(WEIGHT_PLAYER_CHARACTER_TOOL_TIP);
 		lblWeight.setBounds(127, 555, 64, 25);
-		getContentPane().add(lblWeight);
+		addComponent(lblWeight);
 		
 		String weightString = getPlayerCharacterWeight(inventoryDialogModel);
 		weightLabelValue = new JLabel(weightString);
 		weightLabelValue.setToolTipText(WEIGHT_PLAYER_CHARACTER_TOOL_TIP);
 		weightLabelValue.setBounds(203, 555, 64, 25);
-		getContentPane().add(weightLabelValue);
+		addComponent(weightLabelValue);
 		
 		
 		actionsButton = new JButton("Actions");
 		actionsButton.setToolTipText(ACTIONS_TOOL_TIP);
 		actionsButton.setBounds(224, 359, 100, 25);
-		getContentPane().add(actionsButton);
+		addComponent(actionsButton);
 
 		JLabel lblPlayercharacter = new JLabel(new ImageIcon(inventoryDialogModel.getPlayerCharacterImage(imageInfoReader)));
 		lblPlayercharacter.setToolTipText(inventoryDialogModel.getPlayerCharacterName());
 		lblPlayercharacter.setBounds(12, 30, 48, 48);
-		getContentPane().add(lblPlayercharacter);
+		addComponent(lblPlayercharacter);
 		
 		
 
 		if (inventoryDialogModel.hasTarget()) {
 			JScrollPane scrollPane = new JScrollPane();
 			scrollPane.setBounds(532, 82, 200, 450);
-			getContentPane().add(scrollPane);
+			addComponent(scrollPane);
 			
 			targetInventoryList = createInventoryList(inventoryDialogModel.getTargetInventory(), imageInfoReader);
 			scrollPane.setViewportView(targetInventoryList);
@@ -185,31 +181,31 @@ public class InventoryDialog extends JDialog {
 			JLabel lblTarget = new JLabel(new ImageIcon(inventoryDialogModel.getTargetImage(imageInfoReader)));
 			lblTarget.setToolTipText(inventoryDialogModel.getTargetName());
 			lblTarget.setBounds(532, 30, 48, 48);
-			getContentPane().add(lblTarget);
+			addComponent(lblTarget);
 			
 			JLabel targetMoneyLabel = new JLabel("Money:");
 			targetMoneyLabel.setToolTipText(MONEY_TARGET_TOOL_TIP);
 			targetMoneyLabel.setBounds(477, 555, 64, 25);
-			getContentPane().add(targetMoneyLabel);
+			addComponent(targetMoneyLabel);
 			
 			if (inventoryDialogModel.hasTargetMoney()) {
 				targetMoney = new JLabel(Integer.toString(inventoryDialogModel.getTargetMoney()));
 				targetMoney.setToolTipText(MONEY_TARGET_TOOL_TIP);
 				targetMoney.setBounds(542, 555, 50, 25);
-				getContentPane().add(targetMoney);
+				addComponent(targetMoney);
 			}
 			
 			if (inventoryDialogModel.hasTargetCarryingCapacity()) {
 				JLabel targetWeightLabel = new JLabel("Weight:");
 				targetWeightLabel.setToolTipText(WEIGHT_TARGET_TOOL_TIP);
 				targetWeightLabel.setBounds(592, 555, 64, 25);
-				getContentPane().add(targetWeightLabel);
+				addComponent(targetWeightLabel);
 				
 				String targetWeightString = getTargetWeight(inventoryDialogModel);
 				targetWeight = new JLabel(targetWeightString);
 				targetWeight.setToolTipText(WEIGHT_TARGET_TOOL_TIP);
 				targetWeight.setBounds(668, 555, 64, 25);
-				getContentPane().add(targetWeight);
+				addComponent(targetWeight);
 			}
 		}
 		

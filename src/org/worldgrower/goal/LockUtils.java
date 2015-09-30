@@ -33,12 +33,12 @@ public class LockUtils {
 		}
 	}
 
-	private static boolean performerHasKey(WorldObject performer, WorldObject target) {
+	static boolean performerHasKey(WorldObject performer, WorldObject target) {
 		List<WorldObject> keys = performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.LOCK_ID, target.getProperty(Constants.ID));
 		return keys.size() > 0;
 	}
 	
-	private static boolean performerIsMagicLockCreator(WorldObject performer, WorldObject target) {
+	static boolean performerIsMagicLockCreator(WorldObject performer, WorldObject target) {
 		if (target.getProperty(Constants.MAGIC_LOCK_CREATOR_ID) != null) {
 			int magicLockCreatorId = target.getProperty(Constants.MAGIC_LOCK_CREATOR_ID);
 			if (performer.getProperty(Constants.ID).intValue() == magicLockCreatorId) {

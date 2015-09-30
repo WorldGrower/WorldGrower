@@ -28,6 +28,7 @@ import javax.swing.border.EmptyBorder;
 
 import org.worldgrower.Constants;
 import org.worldgrower.attribute.IntProperty;
+import org.worldgrower.gui.GradientPanel;
 import org.worldgrower.gui.GuiAttributeDescription;
 import org.worldgrower.gui.util.IconUtils;
 
@@ -49,7 +50,8 @@ public class CharacterCustomizationScreen extends JFrame {
 	public CharacterCustomizationScreen() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 539, 310);
-		contentPane = new JPanel();
+		setResizable(false);
+		contentPane = new GradientPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);

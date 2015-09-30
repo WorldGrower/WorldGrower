@@ -46,4 +46,19 @@ public class UTestMeleeDamagePropertyUtils {
 		assertEquals(null, performer.getProperty(Constants.LEFT_HAND_EQUIPMENT));
 		assertEquals(null, performer.getProperty(Constants.RIGHT_HAND_EQUIPMENT));
 	}
+	
+	@Test
+	public void testSetTwoHandedWeaponsRemoveTwoHandedWeapon() {
+		WorldObject performer = TestUtils.createSkilledWorldObject(1);
+		
+		WorldObject twoHandedGreatsword = ItemGenerator.getIronGreatSword(1f);
+		WorldObject oneHandedClaymore = ItemGenerator.getIronClaymore(1f);
+		oneHandedClaymore.setProperty(Constants.ID, 3);
+		performer.setProperty(Constants.LEFT_HAND_EQUIPMENT, oneHandedClaymore);
+		performer.setProperty(Constants.RIGHT_HAND_EQUIPMENT, twoHandedGreatsword);
+		
+		MeleeDamagePropertyUtils.setTwoHandedWeapons(performer);
+		assertEquals(oneHandedClaymore, performer.getProperty(Constants.LEFT_HAND_EQUIPMENT));
+		assertEquals(null, performer.getProperty(Constants.RIGHT_HAND_EQUIPMENT));
+	}
 }

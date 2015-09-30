@@ -45,7 +45,9 @@ import org.worldgrower.goal.UTestGoalUtils;
 import org.worldgrower.goal.UTestGroupPropertyUtils;
 import org.worldgrower.goal.UTestHousePropertyUtils;
 import org.worldgrower.goal.UTestInventoryPropertyUtils;
+import org.worldgrower.goal.UTestLegalActionsPropertyUtils;
 import org.worldgrower.goal.UTestLocationUtils;
+import org.worldgrower.goal.UTestLockUtils;
 import org.worldgrower.goal.UTestMeleeDamagePropertyUtils;
 import org.worldgrower.goal.UTestRacePropertyUtils;
 import org.worldgrower.goal.UTestRelationshipPropertyUtils;
@@ -106,7 +108,9 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestDrownUtils.class,
 	UTestWeightPropertyUtils.class,
 	UTestInventoryPropertyUtils.class,
-	UTestRacePropertyUtils.class
+	UTestRacePropertyUtils.class,
+	UTestLegalActionsPropertyUtils.class,
+	UTestLockUtils.class
 })
 public class CompleteTestSuite {
 }

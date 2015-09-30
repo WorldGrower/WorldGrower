@@ -32,4 +32,22 @@ public class UTestBrawlPropertyUtils {
 		assertEquals(1, performer.getProperty(Constants.BRAWL_OPPONENT_ID).intValue());
 		assertEquals(0, target.getProperty(Constants.BRAWL_OPPONENT_ID).intValue());
 	}
+	
+	@Test
+	public void testEndBrawlWithPerformerVictory() {
+		WorldObject performer = TestUtils.createSkilledWorldObject(0);
+		WorldObject target = TestUtils.createSkilledWorldObject(1);
+		
+		performer.setProperty(Constants.GOLD, 100);
+		target.setProperty(Constants.GOLD, 100);
+		
+		BrawlPropertyUtils.startBrawl(performer, target, 10);
+		BrawlPropertyUtils.endBrawlWithPerformerVictory(performer, target);
+		
+		assertEquals(null, performer.getProperty(Constants.BRAWL_OPPONENT_ID));
+		assertEquals(null, target.getProperty(Constants.BRAWL_OPPONENT_ID));
+		
+		assertEquals(110, performer.getProperty(Constants.GOLD).intValue());
+		assertEquals(90, target.getProperty(Constants.GOLD).intValue());
+	}
 }

@@ -14,14 +14,12 @@
  *******************************************************************************/
 package org.worldgrower.gui.start;
 
-import java.awt.Dialog.ModalityType;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -29,12 +27,12 @@ import javax.swing.JLabel;
 import org.worldgrower.Main;
 import org.worldgrower.Version;
 import org.worldgrower.World;
+import org.worldgrower.gui.AbstractDialog;
 import org.worldgrower.gui.ExceptionHandler;
-import org.worldgrower.gui.util.IconUtils;
 
 public class StartScreen {
 
-	private JDialog frame;
+	private StartScreenDialog frame;
 
 	private JButton btnSaveGame;
 
@@ -77,13 +75,7 @@ public class StartScreen {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JDialog();
-		frame.setBounds(100, 100, 337, 438);
-		frame.setLocationRelativeTo(null);
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.setModalityType(ModalityType.APPLICATION_MODAL);
-		frame.getContentPane().setLayout(null);
-		IconUtils.setIcon(frame);
+		frame = new StartScreenDialog();
 		
 		JButton btnNewGame = new JButton("New Game");
 		btnNewGame.setToolTipText("Starts a new game");
@@ -100,7 +92,7 @@ public class StartScreen {
 		});
 		btnNewGame.setBounds(78, 81, 157, 44);
 		frame.getRootPane().setDefaultButton(btnNewGame);
-		frame.getContentPane().add(btnNewGame);
+		frame.addComponent(btnNewGame);
 		
 		JButton btnLoadGame = new JButton("Load Game");
 		btnLoadGame.setToolTipText("Loads a game");
@@ -116,7 +108,7 @@ public class StartScreen {
 			}
 		});
 		btnLoadGame.setBounds(78, 138, 157, 44);
-		frame.getContentPane().add(btnLoadGame);
+		frame.addComponent(btnLoadGame);
 		
 		JButton btnExit = new JButton("Exit");
 		btnExit.setToolTipText("Exits program");
@@ -126,12 +118,12 @@ public class StartScreen {
 			}
 		});
 		btnExit.setBounds(78, 266, 157, 44);
-		frame.getContentPane().add(btnExit);
+		frame.addComponent(btnExit);
 		
 		JLabel lblVersion = new JLabel("Version " + Version.getVersion());
 		lblVersion.setToolTipText("Current version");
 		lblVersion.setBounds(83, 342, 168, 21);
-		frame.getContentPane().add(lblVersion);
+		frame.addComponent(lblVersion);
 		
 		btnSaveGame = new JButton("Save Game");
 		btnSaveGame.setToolTipText("Saves current game");
@@ -152,7 +144,7 @@ public class StartScreen {
 			}
 		});
 		btnSaveGame.setBounds(78, 195, 157, 44);
-		frame.getContentPane().add(btnSaveGame);
+		frame.addComponent(btnSaveGame);
 	}
 	
 	private void loadGame(File selectedFile) {
@@ -170,5 +162,12 @@ public class StartScreen {
 
 	public void enableSaveButton(boolean enabled) {
 		btnSaveGame.setEnabled(enabled);
+	}
+	
+	private static class StartScreenDialog extends AbstractDialog {
+
+		public StartScreenDialog() {
+			super(337, 438);
+		}
 	}
 }
