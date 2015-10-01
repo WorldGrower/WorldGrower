@@ -25,6 +25,7 @@ import org.worldgrower.actions.CraftUtils;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.condition.Condition;
+import org.worldgrower.gui.ImageIds;
 
 public class ParalyzeSpellAction implements MagicSpell {
 
@@ -92,5 +93,10 @@ public class ParalyzeSpellAction implements MagicSpell {
 	@Override
 	public String getDescription() {
 		return "paralyze target for several turns";
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.PARALYZED_INDICATOR;
 	}
 }

@@ -65,7 +65,9 @@ public class MagicOverviewDialog extends JDialog {
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			buttonPane.setOpaque(false);
+			buttonPane.setBounds(12, 435, 508, 75);
+			contentPanel.add(buttonPane);
 			{
 				JButton okButton = new JButton("OK");
 				okButton.setActionCommand("OK");
@@ -76,7 +78,10 @@ public class MagicOverviewDialog extends JDialog {
 				SwingUtils.installEscapeCloseOperation(this);
 			}
 		}
+		SwingUtils.makeTransparant(magicSpellsTable, scrollPane);
 	}
+	
+	
 	
 	private final class CloseDialogAction implements ActionListener {
 		@Override

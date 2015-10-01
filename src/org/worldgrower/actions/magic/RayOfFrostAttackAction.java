@@ -25,6 +25,7 @@ import org.worldgrower.actions.CraftUtils;
 import org.worldgrower.actions.DeadlyAction;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.gui.ImageIds;
 
 public class RayOfFrostAttackAction implements MagicSpell, DeadlyAction {
 
@@ -92,5 +93,10 @@ public class RayOfFrostAttackAction implements MagicSpell, DeadlyAction {
 	@Override
 	public String getDescription() {
 		return "deals damage to target";
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.RAY_OF_FROST;
 	}
 }

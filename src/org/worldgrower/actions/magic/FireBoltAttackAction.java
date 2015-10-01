@@ -26,6 +26,7 @@ import org.worldgrower.actions.DeadlyAction;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.condition.Condition;
+import org.worldgrower.gui.ImageIds;
 
 public class FireBoltAttackAction implements MagicSpell, DeadlyAction {
 
@@ -97,5 +98,10 @@ public class FireBoltAttackAction implements MagicSpell, DeadlyAction {
 	@Override
 	public String getDescription() {
 		return "shoots a firebolt at the target, setting it on fire if it is flammable";
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.FIRE_BOLT;
 	}
 }

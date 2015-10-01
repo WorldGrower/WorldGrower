@@ -52,28 +52,28 @@ public class GuiShowOrganizationsAction extends AbstractAction {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		JDialog dialog = new JDialog();
-		dialog.setModalityType(ModalityType.APPLICATION_MODAL);
-		IconUtils.setIcon(dialog);
+		OrganizationsDialog dialog = new OrganizationsDialog(400, 800);
 		
 		OrganizationsModel worldModel = new OrganizationsModel(playerCharacter, world);
 		JTable table = new JTable(worldModel);
-		table.setBounds(50, 50, 300, 700);
-		dialog.add(new JScrollPane(table));
+		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane.setBounds(15, 15, 365, 700);
+		dialog.addComponent(scrollPane);
 		
 		JPanel buttonPane = new JPanel();
+		buttonPane.setOpaque(false);
+		buttonPane.setBounds(0, 725, 385, 75);
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-		dialog.add(buttonPane, BorderLayout.SOUTH);
+		dialog.addComponent(buttonPane);
 		
 		JButton okButton = new JButton("OK");
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		addActionHandlers(okButton, dialog);
 		dialog.getRootPane().setDefaultButton(okButton);
-		SwingUtils.installEscapeCloseOperation(dialog);
 		
-		dialog.setSize(400, 800);
-		dialog.setLocationRelativeTo(null);
+		SwingUtils.makeTransparant(table, scrollPane);
+		
 		dialog.setVisible(true);
 	}
 	
@@ -142,6 +142,13 @@ public class GuiShowOrganizationsAction extends AbstractAction {
 			} else {
 				return null;
 			}
+		}
+	}
+	
+	private static class OrganizationsDialog extends AbstractDialog {
+
+		public OrganizationsDialog(int width, int height) {
+			super(width, height);
 		}
 	}
 }

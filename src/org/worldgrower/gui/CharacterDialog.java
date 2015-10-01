@@ -264,8 +264,9 @@ public class CharacterDialog extends JDialog {
 		
 		JPanel buttonPane = new JPanel();
 		buttonPane.setOpaque(false);
+		buttonPane.setBounds(0, 620, 880, 75);
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-		getContentPane().add(buttonPane, BorderLayout.SOUTH);
+		contentPanel.add(buttonPane);
 		
 		JButton okButton = new JButton("OK");
 		okButton.setActionCommand("OK");

@@ -24,46 +24,25 @@ import org.worldgrower.actions.AttackUtils;
 import org.worldgrower.actions.CraftUtils;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
-import org.worldgrower.condition.Condition;
-import org.worldgrower.condition.Conditions;
-import org.worldgrower.gui.ImageIds;
 
-public class ReduceAction implements MagicSpell {
+public class DisintegrateArmorAction implements MagicSpell {
 
-	private static final int ENERGY_USE = 500;
 	private static final int DISTANCE = 4;
+	private static final int ENERGY_USE = 300;
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		if (target.getProperty(Constants.CONDITIONS).hasCondition(Condition.ENLARGED_CONDITION)) {
-			Conditions.remove(target, Condition.ENLARGED_CONDITION);
-		} else {
-			target.setProperty(Constants.ORIGINAL_HEIGHT, target.getProperty(Constants.HEIGHT));
-			target.setProperty(Constants.ORIGINAL_WIDTH, target.getProperty(Constants.WIDTH));
-			
-			int height = halveDimension(target.getProperty(Constants.HEIGHT));
-			target.setProperty(Constants.HEIGHT, height);
-			
-			int width = halveDimension(target.getProperty(Constants.WIDTH));
-			target.setProperty(Constants.WIDTH, width);
-			
-			int turns = (int)(8 * SkillUtils.getSkillBonus(performer, getSkill()));
-			target.getProperty(Constants.CONDITIONS).addCondition(Condition.REDUCED_CONDITION, turns, world);
-		}		
+		double skillBonus = SkillUtils.getSkillBonus(performer, getSkill());
+	
+		int damage = (int)(100 * skillBonus);
+		AttackUtils.decreaseArmorHealth(target, damage);
+		
 		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE);
-	}
-
-	private int halveDimension(int dimension) {
-		dimension = dimension / 2;
-		if (dimension < 1) {
-			dimension = 1;
-		}
-		return dimension;
 	}
 	
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return (target.hasProperty(Constants.CONDITIONS) && !target.getProperty(Constants.CONDITIONS).hasCondition(Condition.REDUCED_CONDITION) && performer.getProperty(Constants.KNOWN_SPELLS).contains(this));
+		return ((target.hasProperty(Constants.ARMOR)) && performer.getProperty(Constants.KNOWN_SPELLS).contains(this));
 	}
 
 	@Override
@@ -74,7 +53,7 @@ public class ReduceAction implements MagicSpell {
 	
 	@Override
 	public String getRequirementsDescription() {
-		return CraftUtils.getRequirementsDescription(Constants.ENERGY, ENERGY_USE, Constants.DISTANCE, DISTANCE);
+		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, DISTANCE, Constants.ENERGY, ENERGY_USE);
 	}
 	
 	@Override
@@ -84,12 +63,12 @@ public class ReduceAction implements MagicSpell {
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "reducing " + target.getProperty(Constants.NAME);
+		return "disintegrating armor on " + target.getProperty(Constants.NAME);
 	}
 
 	@Override
 	public String getSimpleDescription() {
-		return "reduce";
+		return "disintegrate armor";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {
@@ -103,21 +82,16 @@ public class ReduceAction implements MagicSpell {
 
 	@Override
 	public SkillProperty getSkill() {
-		return Constants.TRANSMUTATION_SKILL;
+		return Constants.EVOCATION_SKILL;
 	}
 
 	@Override
 	public int getRequiredSkillLevel() {
-		return 1;
+		return 2;
 	}
 
 	@Override
 	public String getDescription() {
-		return "makes target smaller, halving its size and making it weaker if it can fight";
-	}
-	
-	@Override
-	public ImageIds getImageIds() {
-		return ImageIds.REDUCE_MAGIC_SPELL;
+		return "damages the equipment health of the equipment worn by the target";
 	}
 }

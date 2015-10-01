@@ -115,7 +115,7 @@ public class AttackUtils {
 		useArmorSkill(target);
 	}
 	
-	private static void decreaseArmorHealth(WorldObject target, int damage) {
+	public static void decreaseArmorHealth(WorldObject target, int damage) {
 		for(UnCheckedProperty<WorldObject> equipmentProperty : getEquipmentProperties()) {
 			damageEquipment(target, equipmentProperty, damage);
 		}

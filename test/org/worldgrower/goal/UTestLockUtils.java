@@ -35,4 +35,29 @@ public class UTestLockUtils {
 		performer.getProperty(Constants.INVENTORY).add(ItemGenerator.generateKey(target));
 		assertEquals(true, LockUtils.performerHasKey(performer, target));
 	}
+	
+	@Test
+	public void testPerformerIsMagicLockCreator() {
+		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.INVENTORY, new WorldObjectContainer());
+		WorldObject target = TestUtils.createWorldObject(1, "Test2");
+		
+		assertEquals(false, LockUtils.performerIsMagicLockCreator(performer, target));
+		
+		target.setProperty(Constants.MAGIC_LOCK_CREATOR_ID, 0);
+		assertEquals(true, LockUtils.performerIsMagicLockCreator(performer, target));
+	}
+	
+	@Test
+	public void testDistance() {
+		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.INVENTORY, new WorldObjectContainer());
+		WorldObject target = TestUtils.createWorldObject(1, "Test2");
+		
+		assertEquals(0, LockUtils.distance(performer, target));
+		
+		target.setProperty(Constants.LOCKED, Boolean.TRUE);
+		assertEquals(1, LockUtils.distance(performer, target));
+		
+		target.setProperty(Constants.MAGIC_LOCK_CREATOR_ID, 0);
+		assertEquals(0, LockUtils.distance(performer, target));
+	}
 }

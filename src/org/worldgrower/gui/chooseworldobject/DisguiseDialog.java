@@ -42,7 +42,9 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.gui.GradientPanel;
 import org.worldgrower.gui.ImageInfoReader;
+import org.worldgrower.gui.SwingUtils;
 import org.worldgrower.gui.WorldObjectList;
 import org.worldgrower.gui.WorldPanel;
 import org.worldgrower.gui.debug.PropertiesModel;
@@ -50,7 +52,7 @@ import org.worldgrower.gui.util.IconUtils;
 
 public class DisguiseDialog extends JDialog {
 
-	private final JPanel contentPanel = new JPanel();
+	private final JPanel contentPanel = new GradientPanel();
 	private JTable table;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JRadioButton noDisguiseRadioButton;
@@ -122,16 +124,19 @@ public class DisguiseDialog extends JDialog {
 		IconUtils.setIcon(this);
 		
 		noDisguiseRadioButton = new JRadioButton("No disguise");
+		noDisguiseRadioButton.setOpaque(false);
 		buttonGroup.add(noDisguiseRadioButton);
 		noDisguiseRadioButton.setBounds(21, 19, 231, 25);
 		contentPanel.add(noDisguiseRadioButton);
 		
 		chooseExistingPersonRadioButton = new JRadioButton("Choose existing Person:");
+		chooseExistingPersonRadioButton.setOpaque(false);
 		buttonGroup.add(chooseExistingPersonRadioButton);
 		chooseExistingPersonRadioButton.setBounds(21, 49, 299, 25);
 		contentPanel.add(chooseExistingPersonRadioButton);
 		
 		createNewPersonRadioButton = new JRadioButton("Create new Person:");
+		createNewPersonRadioButton.setOpaque(false);
 		buttonGroup.add(createNewPersonRadioButton);
 		createNewPersonRadioButton.setBounds(21, 239, 299, 25);
 		contentPanel.add(createNewPersonRadioButton);
@@ -148,14 +153,18 @@ public class DisguiseDialog extends JDialog {
 		contentPanel.add(personList);
 		
 		JPanel buttonPane = new JPanel();
+		buttonPane.setOpaque(false);
+		buttonPane.setBounds(0, 415, 614, 44);
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-		getContentPane().add(buttonPane, BorderLayout.SOUTH);
+		contentPanel.add(buttonPane);
 		
 		okButton = new JButton("OK");
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
-				
+
+		SwingUtils.makeTransparant(table, scrollPane_1);
+		
 		// temporary disable
 		createNewPersonRadioButton.setEnabled(false);
 		table.setEnabled(false);

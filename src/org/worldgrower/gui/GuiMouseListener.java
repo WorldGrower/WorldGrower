@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.function.Function;
 
 import javax.swing.Action;
+import javax.swing.ImageIcon;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -253,8 +254,13 @@ public class GuiMouseListener extends MouseAdapter {
 
 	private void addRestMenu(JPopupMenu menu) {
 		JMenuItem restMenuItem = new JMenuItem(restAction);
+		setMenuIcon(restMenuItem, ImageIds.SLEEPING_INDICATOR);
 		restMenuItem.setText("Rest...");
 		menu.add(restMenuItem);
+	}
+
+	private void setMenuIcon(JMenuItem menuItem, ImageIds imageIds) {
+		menuItem.setIcon(new ImageIcon(imageInfoReader.getImage(imageIds, null)));
 	}
 
 	private void addCommunicationActions(JPopupMenu menu, WorldObject worldObject) {
@@ -421,6 +427,16 @@ public class GuiMouseListener extends MouseAdapter {
 				menuItem = createDisabledActionMenuItem(parentMenuItem, action);
 			}
 			addToolTips(action, menuItem);
+			addImageIcon(action, menuItem);
+		}
+	}
+
+	private void addImageIcon(ManagedOperation action, JMenuItem menuItem) {
+		if (menuItem != null) {
+			if (action instanceof MagicSpell) {
+				MagicSpell magicSpell = (MagicSpell) action;
+				setMenuIcon(menuItem, magicSpell.getImageIds());
+			}
 		}
 	}
 
@@ -454,6 +470,7 @@ public class GuiMouseListener extends MouseAdapter {
 					menuItem = null;
 				}
 				addToolTips(action, menuItem);
+				addImageIcon(action, menuItem);
 			}
 		}
 	}

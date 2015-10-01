@@ -20,6 +20,7 @@ import org.junit.runners.Suite.SuiteClasses;
 import org.worldgrower.actions.UTestAttackUtils;
 import org.worldgrower.actions.UTestChooseProfessionAction;
 import org.worldgrower.actions.UTestCraftUtils;
+import org.worldgrower.actions.UTestOrganizationNamer;
 import org.worldgrower.actions.UTestTalkAction;
 import org.worldgrower.actions.UTestVotingPropertyUtils;
 import org.worldgrower.attribute.UTestIdList;
@@ -33,6 +34,7 @@ import org.worldgrower.condition.UTestConditions;
 import org.worldgrower.conversation.UTestConversations;
 import org.worldgrower.conversation.UTestDemandsConversation;
 import org.worldgrower.conversation.UTestLocationConversation;
+import org.worldgrower.conversation.UTestWhoIsLeaderOrganizationConversation;
 import org.worldgrower.goal.UTestAbstractScribeSpellsGoal;
 import org.worldgrower.goal.UTestArenaPropertyUtils;
 import org.worldgrower.goal.UTestArmorPropertyUtils;
@@ -110,7 +112,9 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestInventoryPropertyUtils.class,
 	UTestRacePropertyUtils.class,
 	UTestLegalActionsPropertyUtils.class,
-	UTestLockUtils.class
+	UTestLockUtils.class,
+	UTestOrganizationNamer.class,
+	UTestWhoIsLeaderOrganizationConversation.class
 })
 public class CompleteTestSuite {
 }

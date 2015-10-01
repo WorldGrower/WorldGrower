@@ -29,6 +29,7 @@ import org.worldgrower.Version;
 import org.worldgrower.World;
 import org.worldgrower.gui.AbstractDialog;
 import org.worldgrower.gui.ExceptionHandler;
+import org.worldgrower.gui.SwingUtils;
 
 public class StartScreen {
 
@@ -90,9 +91,10 @@ public class StartScreen {
 				}
 			}
 		});
-		btnNewGame.setBounds(78, 81, 157, 44);
+		
 		frame.getRootPane().setDefaultButton(btnNewGame);
 		frame.addComponent(btnNewGame);
+		SwingUtils.setBoundsAndCenterHorizontally(btnNewGame, 78, 81, 157, 44);
 		
 		JButton btnLoadGame = new JButton("Load Game");
 		btnLoadGame.setToolTipText("Loads a game");
@@ -107,8 +109,8 @@ public class StartScreen {
 				}
 			}
 		});
-		btnLoadGame.setBounds(78, 138, 157, 44);
 		frame.addComponent(btnLoadGame);
+		SwingUtils.setBoundsAndCenterHorizontally(btnLoadGame, 78, 138, 157, 44);
 		
 		JButton btnExit = new JButton("Exit");
 		btnExit.setToolTipText("Exits program");
@@ -117,13 +119,13 @@ public class StartScreen {
 				System.exit(0);
 			}
 		});
-		btnExit.setBounds(78, 266, 157, 44);
 		frame.addComponent(btnExit);
+		SwingUtils.setBoundsAndCenterHorizontally(btnExit, 78, 266, 157, 44);
 		
 		JLabel lblVersion = new JLabel("Version " + Version.getVersion());
 		lblVersion.setToolTipText("Current version");
-		lblVersion.setBounds(83, 342, 168, 21);
 		frame.addComponent(lblVersion);
+		SwingUtils.setBoundsAndCenterHorizontally(lblVersion, 83, 342, 157, 21);
 		
 		btnSaveGame = new JButton("Save Game");
 		btnSaveGame.setToolTipText("Saves current game");
@@ -143,8 +145,8 @@ public class StartScreen {
 				}
 			}
 		});
-		btnSaveGame.setBounds(78, 195, 157, 44);
 		frame.addComponent(btnSaveGame);
+		SwingUtils.setBoundsAndCenterHorizontally(btnSaveGame, 78, 195, 157, 44);
 	}
 	
 	private void loadGame(File selectedFile) {

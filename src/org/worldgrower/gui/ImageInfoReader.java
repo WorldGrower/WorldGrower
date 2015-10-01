@@ -306,6 +306,14 @@ public class ImageInfoReader {
 		add(ImageIds.MEAT, sprites420.getSubImage(11, 1, 1, 1));
 		
 		addCharacter(ImageIds.GHOUL, monsters, 3, 4, 1, 1);
+		add(ImageIds.LIGHTNING_BOLT, sprites420.getSubImage(0, 23, 1, 1));
+		add(ImageIds.ENLARGE_MAGIC_SPELL, sprites420.getSubImage(13, 26, 1, 1));
+		add(ImageIds.REDUCE_MAGIC_SPELL, sprites420.getSubImage(12, 26, 1, 1));
+		add(ImageIds.RAY_OF_FROST, sprites420.getSubImage(10, 23, 1, 1));
+		add(ImageIds.MINOR_HEAL, sprites420.getSubImage(7, 22, 1, 1));
+		add(ImageIds.FIRE_BOLT, sprites420.getSubImage(0, 20, 1, 1));
+		
+		
     }
 
     private void createArenaWall48x48() {

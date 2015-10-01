@@ -27,6 +27,7 @@ import org.worldgrower.actions.DeadlyAction;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.goal.LocationUtils;
+import org.worldgrower.gui.ImageIds;
 import org.worldgrower.terrain.TerrainType;
 
 public class LightningBoltAttackAction implements MagicSpell, DeadlyAction {
@@ -114,5 +115,10 @@ public class LightningBoltAttackAction implements MagicSpell, DeadlyAction {
 	@Override
 	public String getDescription() {
 		return "deals damage to target and other targets if something conducts the electricity";
+	}
+
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.LIGHTNING_BOLT;
 	}
 }

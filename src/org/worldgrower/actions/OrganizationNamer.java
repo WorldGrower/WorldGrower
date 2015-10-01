@@ -33,18 +33,19 @@ public class OrganizationNamer {
 	
 	
 	public List<String> getProfessionOrganizationNames(Profession profession, World world) {
-		return getOrganizationNames(profession.getDescription(), world, PROFESSION_PREFIXES, PROFESSION_SUFFIXES);
+		return getOrganizationNames(profession.getDescription(), world, PROFESSION_PREFIXES, PROFESSION_SUFFIXES, true);
 	}
 	
 	public List<String> getDeityOrganizationNames(Deity deity, World world) {
-		return getOrganizationNames(deity.getName(), world, DEITY_PREFIXES, DEITY_SUFFIXES);
+		return getOrganizationNames(deity.getName(), world, DEITY_PREFIXES, DEITY_SUFFIXES, false);
 	}
 	
-	private List<String> getOrganizationNames(String description, World world, String[] prefixes, String[] suffixes) {
+	private List<String> getOrganizationNames(String description, World world, String[] prefixes, String[] suffixes, boolean appendSToDescriptionForPrefixes) {
 		List<String> result = new ArrayList<>();
 		
 		for(String prefix : prefixes) {
-			result.add(prefix + " of " + description);
+			String appendedSuffix = appendSToDescriptionForPrefixes ? "s" : "";
+			result.add(prefix + " of " + description + appendedSuffix);
 		}
 		
 		for(String suffix : suffixes) {

@@ -54,4 +54,44 @@ public class UTestVotingPropertyUtils {
 		votingBox.setProperty(Constants.ORGANIZATION_ID, organization.getProperty(Constants.ID));
 		assertEquals(true, VotingPropertyUtils.isVotingBoxForOrganization(votingBox, organization));
 	}
+	
+	@Test
+	public void testVotingBoxAcceptsCandidates() {
+		WorldObject votingBox = createVotingBox();
+		
+		assertEquals(true, VotingPropertyUtils.votingBoxAcceptsCandidates(votingBox));
+		
+		votingBox.setProperty(Constants.TURN_COUNTER, 5000);
+		assertEquals(false, VotingPropertyUtils.votingBoxAcceptsCandidates(votingBox));
+	}
+	
+	@Test
+	public void testVotingBoxAcceptsVotes() {
+		WorldObject votingBox = createVotingBox();
+		
+		assertEquals(false, VotingPropertyUtils.votingBoxAcceptsVotes(votingBox));
+		
+		votingBox.setProperty(Constants.TURN_COUNTER, 400);
+		assertEquals(true, VotingPropertyUtils.votingBoxAcceptsVotes(votingBox));
+		
+		votingBox.setProperty(Constants.TURN_COUNTER, 5000);
+		assertEquals(false, VotingPropertyUtils.votingBoxAcceptsVotes(votingBox));
+	}
+	
+	@Test
+	public void testIsVotingDone() {
+		WorldObject votingBox = createVotingBox();
+		
+		assertEquals(false, VotingPropertyUtils.isVotingdone(votingBox));
+		
+		votingBox.setProperty(Constants.TURN_COUNTER, 5000);
+		assertEquals(true, VotingPropertyUtils.isVotingdone(votingBox));
+	}
+
+	private WorldObject createVotingBox() {
+		World world = new WorldImpl(0, 0, null, null);
+		int votingBoxId = BuildingGenerator.generateVotingBox(0, 0, world);
+		WorldObject votingBox = world.findWorldObject(Constants.ID, votingBoxId);
+		return votingBox;
+	}
 }

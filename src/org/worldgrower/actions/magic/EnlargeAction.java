@@ -27,6 +27,7 @@ import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.goal.GoalUtils;
+import org.worldgrower.gui.ImageIds;
 
 public class EnlargeAction implements MagicSpell {
 
@@ -103,5 +104,10 @@ public class EnlargeAction implements MagicSpell {
 	@Override
 	public String getDescription() {
 		return "makes target larger, doubling its size and making it stronger if it can fight";
+	}
+
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.ENLARGE_MAGIC_SPELL;
 	}
 }

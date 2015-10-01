@@ -56,18 +56,21 @@ public class GuiShowLegalActionsAction extends AbstractAction {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		JDialog dialog = new JDialog();
+		LegalActionsDialog dialog = new LegalActionsDialog(400, 800);
 		dialog.setModalityType(ModalityType.APPLICATION_MODAL);
 		IconUtils.setIcon(dialog);
 		
 		WorldModel worldModel = new WorldModel(playerCharacter, world);
 		JTable table = new JTable(worldModel);
-		table.setBounds(50, 50, 300, 700);
-		dialog.add(new JScrollPane(table));
+		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane.setBounds(15, 15, 368, 700);
+		dialog.addComponent(scrollPane);
 		
 		JPanel buttonPane = new JPanel();
+		buttonPane.setOpaque(false);
+		buttonPane.setBounds(0, 720, 378, 75);
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-		dialog.add(buttonPane, BorderLayout.SOUTH);
+		dialog.addComponent(buttonPane);
 		
 		JButton okButton = new JButton("OK");
 		okButton.setActionCommand("OK");
@@ -76,7 +79,8 @@ public class GuiShowLegalActionsAction extends AbstractAction {
 		dialog.getRootPane().setDefaultButton(okButton);
 		SwingUtils.installEscapeCloseOperation(dialog);
 		
-		dialog.setSize(400, 800);
+		SwingUtils.makeTransparant(table, scrollPane);
+		
 		dialog.setLocationRelativeTo(null);
 		dialog.setVisible(true);
 	}
@@ -165,5 +169,13 @@ public class GuiShowLegalActionsAction extends AbstractAction {
 		public Map<ManagedOperation, Boolean> getLegalActions() {
 			return legalActions;
 		}
+	}
+	
+	private static class LegalActionsDialog extends AbstractDialog {
+
+		public LegalActionsDialog(int width, int height) {
+			super(width, height);
+		}
+		
 	}
 }

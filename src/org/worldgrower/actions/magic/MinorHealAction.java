@@ -24,6 +24,7 @@ import org.worldgrower.actions.AttackUtils;
 import org.worldgrower.actions.CraftUtils;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.gui.ImageIds;
 
 public class MinorHealAction implements MagicSpell {
 
@@ -98,5 +99,10 @@ public class MinorHealAction implements MagicSpell {
 	@Override
 	public String getDescription() {
 		return "restores hit points of person";
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.MINOR_HEAL;
 	}
 }
