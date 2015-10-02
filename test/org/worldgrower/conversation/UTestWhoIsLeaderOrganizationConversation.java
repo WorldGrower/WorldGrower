@@ -24,12 +24,13 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdRelationshipMap;
 import org.worldgrower.goal.GroupPropertyUtils;
 
 public class UTestWhoIsLeaderOrganizationConversation {
 
-	private final WhoIsLeaderOrganizationConversation conversation = new WhoIsLeaderOrganizationConversation();
+	private final WhoIsLeaderOrganizationConversation conversation = Conversations.WHO_IS_LEADER_ORGANIZATION_CONVERSATION;
 	
 	@Test
 	public void testGetReplyPhrases() {
@@ -57,5 +58,54 @@ public class UTestWhoIsLeaderOrganizationConversation {
 		
 		target.getProperty(Constants.RELATIONSHIPS).incrementValue(performer, -1000);
 		assertEquals(1, conversation.getReplyPhrase(context).getId());
+	}
+	
+	@Test
+	public void testGetQuestionPhrases() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.GROUP, new IdList());
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.GROUP, new IdList().add(0));
+		world.addWorldObject(performer);
+		world.addWorldObject(target);
+		WorldObject organization = GroupPropertyUtils.create(null, "OrgName", world);
+		
+		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, null, world);
+		assertEquals(1, questions.size());
+		assertEquals("Who leads the OrgName ?", questions.get(0).getQuestionPhrase());
+	}
+	
+	@Test
+	public void testHandleResponse0() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		world.addWorldObject(performer);
+		world.addWorldObject(target);
+		WorldObject organization = GroupPropertyUtils.create(null, "OrgName", world);
+		
+		ConversationContext context = new ConversationContext(performer, target, organization, null, world, 0);
+		
+		conversation.handleResponse(0, context);
+		assertEquals(false, performer.getProperty(Constants.RELATIONSHIPS).contains(target));
+		
+		organization.setProperty(Constants.ORGANIZATION_LEADER_ID, 2);
+		conversation.handleResponse(0, context);
+		assertEquals(true, performer.getProperty(Constants.RELATIONSHIPS).contains(target));
+	}
+	
+	@Test
+	public void testHandleResponse1() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		world.addWorldObject(performer);
+		world.addWorldObject(target);
+		WorldObject organization = GroupPropertyUtils.create(null, "OrgName", world);
+		
+		ConversationContext context = new ConversationContext(performer, target, organization, null, world, 0);
+		
+		conversation.handleResponse(1, context);
+		assertEquals(-10, performer.getProperty(Constants.RELATIONSHIPS).getValue(target));
+		assertEquals(-5, target.getProperty(Constants.RELATIONSHIPS).getValue(performer));
 	}
 }

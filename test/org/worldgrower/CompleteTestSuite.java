@@ -32,6 +32,7 @@ import org.worldgrower.attribute.UTestSkillUtils;
 import org.worldgrower.attribute.UTestWorldObjectProperties;
 import org.worldgrower.condition.UTestConditions;
 import org.worldgrower.conversation.UTestConversations;
+import org.worldgrower.conversation.UTestDemandMoneyConversation;
 import org.worldgrower.conversation.UTestDemandsConversation;
 import org.worldgrower.conversation.UTestLocationConversation;
 import org.worldgrower.conversation.UTestWhoIsLeaderOrganizationConversation;
@@ -114,7 +115,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestLegalActionsPropertyUtils.class,
 	UTestLockUtils.class,
 	UTestOrganizationNamer.class,
-	UTestWhoIsLeaderOrganizationConversation.class
+	UTestWhoIsLeaderOrganizationConversation.class,
+	UTestDemandMoneyConversation.class
 })
 public class CompleteTestSuite {
 }

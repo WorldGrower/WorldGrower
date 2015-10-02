@@ -21,8 +21,10 @@ import java.util.List;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.goal.GroupPropertyUtils;
+import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
 
 public class WhoIsLeaderOrganizationConversation implements Conversation {
@@ -109,7 +111,15 @@ public class WhoIsLeaderOrganizationConversation implements Conversation {
 			World world = conversationContext.getWorld();
 			WorldObject leader = getLeader(organization, world);
 			
-			performer.getProperty(Constants.RELATIONSHIPS).incrementValue(leader, 0);
+			if (leader != null) {
+				performer.getProperty(Constants.RELATIONSHIPS).incrementValue(leader, 0);
+			}
+		} else if (replyIndex == NONE_OF) {
+			WorldObject performer = conversationContext.getPerformer();
+			WorldObject target = conversationContext.getTarget();
+			World world = conversationContext.getWorld();
+			
+			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -10, -5, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 		}
 	}
 	

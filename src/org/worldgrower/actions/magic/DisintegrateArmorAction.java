@@ -24,6 +24,7 @@ import org.worldgrower.actions.AttackUtils;
 import org.worldgrower.actions.CraftUtils;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.gui.ImageIds;
 
 public class DisintegrateArmorAction implements MagicSpell {
 
@@ -93,5 +94,10 @@ public class DisintegrateArmorAction implements MagicSpell {
 	@Override
 	public String getDescription() {
 		return "damages the equipment health of the equipment worn by the target";
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.DISINTEGRATE_ARMOR;
 	}
 }

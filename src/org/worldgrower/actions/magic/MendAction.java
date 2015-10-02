@@ -24,6 +24,7 @@ import org.worldgrower.actions.AttackUtils;
 import org.worldgrower.actions.CraftUtils;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.gui.ImageIds;
 
 public class MendAction implements MagicSpell {
 
@@ -98,5 +99,10 @@ public class MendAction implements MagicSpell {
 	@Override
 	public String getDescription() {
 		return "mends and repairs a non-living item";
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.MEND_MAGIC_SPELL;
 	}
 }

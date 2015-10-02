@@ -45,7 +45,7 @@ public class DemandMoneyConversation implements Conversation {
 			replyId = SURE;
 		} else if (relationshipValue < 500) {
 			replyId = NO;
-		} else if (relationshipValue > 500 && target.getProperty(Constants.GOLD) < 100) {
+		} else if (relationshipValue > 500 && target.getProperty(Constants.GOLD) < 100 && target.getProperty(Constants.GOLD) > 0) {
 			replyId = I_CAN_ONLY;
 		} else {
 			replyId = NO;
@@ -65,7 +65,7 @@ public class DemandMoneyConversation implements Conversation {
 			new Response(GET_LOST, "Get lost"),
 			new Response(SURE, "I'll give you the money"),
 			new Response(NO, "No"),
-			new Response(I_CAN_ONLY, "I can  only spare a bit of gold")
+			new Response(I_CAN_ONLY, "I can only spare a bit of gold")
 		);
 	}
 
@@ -89,10 +89,10 @@ public class DemandMoneyConversation implements Conversation {
 			target.increment(Constants.GOLD, -100);
 			
 		} else if (replyIndex == NO) {
-			RelationshipPropertyUtils.changeRelationshipValue(performer, target, 50, -50, Actions.TALK_ACTION, Conversations.createArgs(this), world);
+			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -50, -10, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 			
 		} else if (replyIndex == I_CAN_ONLY) {
-			RelationshipPropertyUtils.changeRelationshipValue(performer, target, 20, -20, Actions.TALK_ACTION, Conversations.createArgs(this), world);
+			RelationshipPropertyUtils.changeRelationshipValue(performer, target, 20, -5, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 			
 			int goldQuantity = target.getProperty(Constants.GOLD);
 			performer.increment(Constants.GOLD, goldQuantity);

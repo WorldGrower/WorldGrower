@@ -55,7 +55,7 @@ public class Conversations implements Serializable {
 	public static final Conversation COMPLIMENT_CONVERSATION = new ComplimentConversation();
 	public static final Conversation EXPLAIN_CURSE_CONVERSATION = new ExplainCurseConversation();
 	public static final Conversation LOCATION_CONVERSATION = new LocationConversation();
-	public static final Conversation DEMAND_MONEY_CONVERSATION = new DemandMoneyConversation();
+	public static final DemandMoneyConversation DEMAND_MONEY_CONVERSATION = new DemandMoneyConversation();
 	public static final Conversation PROPOSE_MATE_CONVERSATION = new ProposeMateConversation();
 	public static final Conversation FAMILY_CONVERSATION = new FamilyConversation();
 	public static final Conversation KISS_CONVERSATION = new KissConversation();
@@ -69,7 +69,7 @@ public class Conversations implements Serializable {
 	public static final Conversation LEARN_SKILLS_USING_ORGANIZATION = new LearnSkillUsingOrganizationConversation();
 	public static final Conversation SET_ORGANIZATION_PROFIT_PERCENTAGE = new SetOrganizationProfitPercentageConversation();
 	public static final Conversation CURE_POISON_CONVERSATION = new CurePoisonConversation();
-	public static final Conversation WHO_IS_LEADER_ORGANIZATION_CONVERSATION = new WhoIsLeaderOrganizationConversation();
+	public static final WhoIsLeaderOrganizationConversation WHO_IS_LEADER_ORGANIZATION_CONVERSATION = new WhoIsLeaderOrganizationConversation();
 	public static final Conversation VOTE_LEADER_ORGANIZATION_CONVERSATION = new VoteLeaderOrganizationConversation();
 	public static final SetShackTaxRateConversation SET_SHACK_TAX_RATE_CONVERSATION = new SetShackTaxRateConversation();
 	public static final SetHouseTaxRateConversation SET_HOUSE_TAX_RATE_CONVERSATION = new SetHouseTaxRateConversation();

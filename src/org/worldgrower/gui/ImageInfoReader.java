@@ -312,6 +312,20 @@ public class ImageInfoReader {
 		add(ImageIds.RAY_OF_FROST, sprites420.getSubImage(10, 23, 1, 1));
 		add(ImageIds.MINOR_HEAL, sprites420.getSubImage(7, 22, 1, 1));
 		add(ImageIds.FIRE_BOLT, sprites420.getSubImage(0, 20, 1, 1));
+		add(ImageIds.ANIMATE_DEAD, sprites420.getSubImage(13, 25, 1, 1));
+		add(ImageIds.BURDEN_MAGIC_SPELL, sprites420.getSubImage(2, 26, 1, 1));
+		add(ImageIds.FEATHER_MAGIC_SPELL, sprites420.getSubImage(0, 26, 1, 1));
+		add(ImageIds.CURE_DISEASE, sprites420.getSubImage(9, 22, 1, 1));
+		add(ImageIds.CURE_POISON, sprites420.getSubImage(10, 22, 1, 1));
+		add(ImageIds.DETECT_POISON_AND_DISEASE, sprites420.getSubImage(12, 22, 1, 1));
+		add(ImageIds.DISGUISE_MAGIC_SPELL, sprites420.getSubImage(6, 21, 1, 1));
+		add(ImageIds.DISINTEGRATE_ARMOR, sprites420.getSubImage(4, 25, 1, 1));
+		add(ImageIds.INFLICT_WOUNDS_MAGIC_SPELL, sprites420.getSubImage(3, 24, 1, 1));
+		add(ImageIds.LOCK_MAGIC_SPELL, sprites420.getSubImage(11, 16, 1, 1));
+		add(ImageIds.UNLOCK_MAGIC_SPELL, sprites420.getSubImage(11, 16, 1, 1));
+		add(ImageIds.MEND_MAGIC_SPELL, sprites420.getSubImage(2, 17, 1, 1));
+		add(ImageIds.MINOR_ILLUSION_MAGIC_SPELL, sprites420.getSubImage(10, 24, 1, 1));
+		
 		
 		
     }

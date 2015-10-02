@@ -27,6 +27,7 @@ import org.worldgrower.actions.DisguiseTargetFactory;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.goal.FacadeUtils;
+import org.worldgrower.gui.ImageIds;
 
 public class DisguiseMagicSpellAction implements MagicSpell, DisguiseTargetFactory {
 
@@ -108,5 +109,10 @@ public class DisguiseMagicSpellAction implements MagicSpell, DisguiseTargetFacto
 	@Override
 	public String getDescription() {
 		return "disguise self as an existing person or item of similar size";
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.DISGUISE_MAGIC_SPELL;
 	}
 }

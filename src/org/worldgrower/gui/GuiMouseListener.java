@@ -352,6 +352,7 @@ public class GuiMouseListener extends MouseAdapter {
     	JMenuItem disguiseMenuItem = new JMenuItem(new GuiDisguiseAction(playerCharacter, imageInfoReader, world, (WorldPanel)container, dungeonMaster, Actions.DISGUISE_MAGIC_SPELL_ACTION));
     	disguiseMenuItem.setText("Disguise self");
     	disguiseMenuItem.setToolTipText(Actions.DISGUISE_MAGIC_SPELL_ACTION.getRequirementsDescription());
+    	setMenuIcon(disguiseMenuItem, Actions.DISGUISE_MAGIC_SPELL_ACTION.getImageIds());
     	illusionMenu.add(disguiseMenuItem);
 	}
 	
@@ -389,6 +390,7 @@ public class GuiMouseListener extends MouseAdapter {
 				buildMenuItem = createDisabledActionMenuItem(parentMenuItem, buildAction);
 			}
 			buildMenuItem.setToolTipText(buildAction.getRequirementsDescription());
+			addImageIcon(buildAction, buildMenuItem);
 		}
 		return parentMenuItem;
 	}

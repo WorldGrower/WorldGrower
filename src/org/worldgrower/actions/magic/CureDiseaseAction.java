@@ -24,6 +24,7 @@ import org.worldgrower.actions.AttackUtils;
 import org.worldgrower.actions.CraftUtils;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.gui.ImageIds;
 
 public class CureDiseaseAction implements MagicSpell {
 
@@ -89,5 +90,10 @@ public class CureDiseaseAction implements MagicSpell {
 	@Override
 	public String getDescription() {
 		return "cures a person of a disease";
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.CURE_DISEASE;
 	}
 }

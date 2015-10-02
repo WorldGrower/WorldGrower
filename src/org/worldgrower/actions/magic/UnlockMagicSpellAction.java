@@ -24,6 +24,7 @@ import org.worldgrower.actions.AttackUtils;
 import org.worldgrower.actions.CraftUtils;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.gui.ImageIds;
 
 public class UnlockMagicSpellAction implements MagicSpell {
 
@@ -98,5 +99,10 @@ public class UnlockMagicSpellAction implements MagicSpell {
 	@Override
 	public String getDescription() {
 		return "unlocks a container so that everyone has access to the container";
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.UNLOCK_MAGIC_SPELL;
 	}
 }

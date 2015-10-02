@@ -84,6 +84,24 @@ public class UTestBuySellUtils {
 		assertEquals(Actions.BUY_ACTION, BuySellUtils.getBuyOperationInfo(performer, Constants.FOOD, world).getManagedOperation());
 	}
 	
+	@Test
+	public void testGetBuyOperationInfoForEquipment() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.INVENTORY, new WorldObjectContainer());
+		performer.setProperty(Constants.GOLD, 100);
+		
+		assertEquals(null, BuySellUtils.getBuyOperationInfo(performer, Constants.FOOD, world));
+		
+		WorldObject target = TestUtils.createIntelligentWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
+		WorldObject inventoryItem = ItemGenerator.getIronCuirass(1f);
+		inventoryItem.setProperty(Constants.SELLABLE, Boolean.TRUE);
+		target.getProperty(Constants.INVENTORY).addQuantity(inventoryItem);
+		target.setProperty(Constants.PROFIT_PERCENTAGE, 100);
+		world.addWorldObject(target);
+		
+		//TODO: fix bug
+		assertEquals(false, BuySellUtils.hasSellableEquipment(Constants.EQUIPMENT_SLOT, Constants.TORSO_EQUIPMENT, target));
+	}
 	
 	@Test
 	public void testTargetWillBuyGoods() {

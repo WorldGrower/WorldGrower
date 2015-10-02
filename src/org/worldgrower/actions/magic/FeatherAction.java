@@ -26,6 +26,7 @@ import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
+import org.worldgrower.gui.ImageIds;
 
 public class FeatherAction implements MagicSpell {
 
@@ -102,5 +103,10 @@ public class FeatherAction implements MagicSpell {
 	@Override
 	public String getDescription() {
 		return "makes everything a person is carrying lighter";
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.FEATHER_MAGIC_SPELL;
 	}
 }

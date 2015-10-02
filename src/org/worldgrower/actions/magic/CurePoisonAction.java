@@ -26,6 +26,7 @@ import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
+import org.worldgrower.gui.ImageIds;
 
 public class CurePoisonAction implements MagicSpell {
 
@@ -96,5 +97,10 @@ public class CurePoisonAction implements MagicSpell {
 	@Override
 	public String getDescription() {
 		return "cures a person of poison";
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.CURE_POISON;
 	}
 }

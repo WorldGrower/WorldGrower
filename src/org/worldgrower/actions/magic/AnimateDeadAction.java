@@ -27,6 +27,7 @@ import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.generator.CreatureGenerator;
 import org.worldgrower.goal.GroupPropertyUtils;
+import org.worldgrower.gui.ImageIds;
 
 public class AnimateDeadAction implements MagicSpell {
 
@@ -111,5 +112,10 @@ public class AnimateDeadAction implements MagicSpell {
 	@Override
 	public String getDescription() {
 		return "animates a corpse and turns it into a skelton which you control";
+	}
+
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.ANIMATE_DEAD;
 	}
 }

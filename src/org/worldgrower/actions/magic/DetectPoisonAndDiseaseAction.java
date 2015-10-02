@@ -27,6 +27,7 @@ import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
+import org.worldgrower.gui.ImageIds;
 
 public class DetectPoisonAndDiseaseAction implements MagicSpell {
 
@@ -116,5 +117,10 @@ public class DetectPoisonAndDiseaseAction implements MagicSpell {
 	@Override
 	public String getDescription() {
 		return "detects presence of poison and disease on target";
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.DETECT_POISON_AND_DISEASE;
 	}
 }

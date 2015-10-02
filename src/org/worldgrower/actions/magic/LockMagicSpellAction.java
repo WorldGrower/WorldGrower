@@ -24,6 +24,7 @@ import org.worldgrower.actions.AttackUtils;
 import org.worldgrower.actions.CraftUtils;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.gui.ImageIds;
 
 public class LockMagicSpellAction implements MagicSpell {
 
@@ -98,5 +99,10 @@ public class LockMagicSpellAction implements MagicSpell {
 	@Override
 	public String getDescription() {
 		return "locks a container so that only the caster has access to the container";
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.LOCK_MAGIC_SPELL;
 	}
 }

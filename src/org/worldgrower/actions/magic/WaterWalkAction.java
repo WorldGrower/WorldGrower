@@ -25,6 +25,7 @@ import org.worldgrower.actions.CraftUtils;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.condition.Condition;
+import org.worldgrower.gui.ImageIds;
 
 public class WaterWalkAction implements MagicSpell {
 
@@ -91,5 +92,10 @@ public class WaterWalkAction implements MagicSpell {
 	@Override
 	public String getDescription() {
 		return "allows target to walk over water for several turns";
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.WATER_WALK_INDICATOR;
 	}
 }

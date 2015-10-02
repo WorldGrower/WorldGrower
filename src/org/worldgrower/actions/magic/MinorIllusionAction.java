@@ -29,6 +29,7 @@ import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.IllusionOnTurn;
 import org.worldgrower.goal.GoalUtils;
+import org.worldgrower.gui.ImageIds;
 
 public class MinorIllusionAction implements BuildAction, MagicSpell {
 
@@ -124,5 +125,10 @@ public class MinorIllusionAction implements BuildAction, MagicSpell {
 	@Override
 	public String getDescription() {
 		return "creates a small illusion of an existing person or item";
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.MINOR_ILLUSION_MAGIC_SPELL;
 	}
 }

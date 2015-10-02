@@ -26,6 +26,7 @@ import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
+import org.worldgrower.gui.ImageIds;
 
 public class BurdenAction implements MagicSpell {
 
@@ -102,5 +103,10 @@ public class BurdenAction implements MagicSpell {
 	@Override
 	public String getDescription() {
 		return "makes everything a person is carrying heavier";
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.BURDEN_MAGIC_SPELL;
 	}
 }

@@ -34,13 +34,21 @@ public class BuySellUtils {
 	}
 
 	public static List<WorldObject> findBuyTargets(WorldObject performer, StringProperty property, String value, World world) {
-		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.BUY_ACTION, w -> w.getProperty(Constants.INVENTORY).getIndexFor(property, value, inventoryItem -> inventoryItem.hasProperty(Constants.PRICE) && inventoryItem.getProperty(Constants.SELLABLE)) > 0, world);
+		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.BUY_ACTION, w -> w.getProperty(Constants.INVENTORY).getIndexFor(property, value, inventoryItem -> isInventoryItemSellable(inventoryItem)) > 0, world);
 		return targets;
 	}
 	
 	private static List<WorldObject> findBuyTargets(WorldObject performer, UnCheckedProperty<UnCheckedProperty<WorldObject>> equipmentSlotProperty, UnCheckedProperty<WorldObject> equipmentSlot, World world) {
-		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.BUY_ACTION, w -> w.getProperty(Constants.INVENTORY).getIndexFor(equipmentSlotProperty, equipmentSlot, inventoryItem -> inventoryItem.hasProperty(Constants.PRICE) && inventoryItem.getProperty(Constants.SELLABLE)) > 0, world);
+		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.BUY_ACTION, w -> hasSellableEquipment(equipmentSlotProperty, equipmentSlot, w), world);
 		return targets;
+	}
+
+	static boolean hasSellableEquipment(UnCheckedProperty<UnCheckedProperty<WorldObject>> equipmentSlotProperty, UnCheckedProperty<WorldObject> equipmentSlot, WorldObject w) {
+		return w.getProperty(Constants.INVENTORY).getIndexFor(equipmentSlotProperty, equipmentSlot, inventoryItem -> isInventoryItemSellable(inventoryItem)) > 0;
+	}
+	
+	static boolean isInventoryItemSellable(WorldObject inventoryItem) {
+		return inventoryItem.hasProperty(Constants.PRICE) && inventoryItem.getProperty(Constants.SELLABLE);
 	}
 	
 	public static int getPrice(WorldObject performer, int inventoryIndex) {
@@ -116,7 +124,7 @@ public class BuySellUtils {
 	}*/
 
 	public static int getIndexFor(WorldObject target, StringProperty property, String value) {
-		return target.getProperty(Constants.INVENTORY).getIndexFor(property, value, inventoryItem -> inventoryItem.hasProperty(Constants.PRICE) && (inventoryItem.getProperty(Constants.SELLABLE)));
+		return target.getProperty(Constants.INVENTORY).getIndexFor(property, value, inventoryItem -> isInventoryItemSellable(inventoryItem));
 	}
 	
 	public static OperationInfo getBuyOperationInfo(WorldObject performer, IntProperty propertyToBuy, World world) {
