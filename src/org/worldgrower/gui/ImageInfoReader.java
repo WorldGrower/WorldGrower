@@ -319,7 +319,7 @@ public class ImageInfoReader {
 		add(ImageIds.CURE_POISON, sprites420.getSubImage(10, 22, 1, 1));
 		add(ImageIds.DETECT_POISON_AND_DISEASE, sprites420.getSubImage(12, 22, 1, 1));
 		add(ImageIds.DISGUISE_MAGIC_SPELL, sprites420.getSubImage(6, 21, 1, 1));
-		add(ImageIds.DISINTEGRATE_ARMOR, sprites420.getSubImage(4, 25, 1, 1));
+		add(ImageIds.DISINTEGRATE_ARMOR, sprites420.getSubImage(5, 21, 1, 1));
 		add(ImageIds.INFLICT_WOUNDS_MAGIC_SPELL, sprites420.getSubImage(3, 24, 1, 1));
 		add(ImageIds.LOCK_MAGIC_SPELL, sprites420.getSubImage(11, 16, 1, 1));
 		add(ImageIds.UNLOCK_MAGIC_SPELL, sprites420.getSubImage(11, 16, 1, 1));
@@ -329,7 +329,7 @@ public class ImageInfoReader {
 		add(ImageIds.WOODEN_SHIELD, sprites420.getSubImage(2, 12, 1, 1));
 		add(ImageIds.CHEST, sprites420.getSubImage(7, 29, 1, 1));
 		add(ImageIds.MAGIC_ICON, sprites420.getSubImage(7, 24, 1, 1));
-		
+		add(ImageIds.DISINTEGRATE_WEAPON, sprites420.getSubImage(4, 25, 1, 1));
     }
 
     private void createArenaWall48x48() {

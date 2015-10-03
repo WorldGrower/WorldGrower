@@ -31,6 +31,7 @@ import org.worldgrower.actions.magic.CurePoisonAction;
 import org.worldgrower.actions.magic.DetectPoisonAndDiseaseAction;
 import org.worldgrower.actions.magic.DisguiseMagicSpellAction;
 import org.worldgrower.actions.magic.DisintegrateArmorAction;
+import org.worldgrower.actions.magic.DisintegrateWeaponAction;
 import org.worldgrower.actions.magic.EnlargeAction;
 import org.worldgrower.actions.magic.FeatherAction;
 import org.worldgrower.actions.magic.FireBoltAttackAction;
@@ -136,6 +137,7 @@ public class Actions {
 	public static final BurdenAction BURDEN_ACTION = new BurdenAction();
 	public static final FeatherAction FEATHER_ACTION = new FeatherAction();
 	public static final DisintegrateArmorAction DISINTEGRATE_ARMOR_ACTION = new DisintegrateArmorAction();
+	public static final DisintegrateWeaponAction DISINTEGRATE_WEAPON_ACTION = new DisintegrateWeaponAction();
 	
 	public static final BuildLibraryAction BUILD_LIBRARY_ACTION = new BuildLibraryAction();
 	public static final ResearchRestorationSkillAction RESEARCH_RESTORATION_SKILL_ACTION = new ResearchRestorationSkillAction();
@@ -216,7 +218,8 @@ public class Actions {
 			LIGHTNING_BOLT_ATTACK_ACTION,
 			BURDEN_ACTION,
 			FEATHER_ACTION,
-			DISINTEGRATE_ARMOR_ACTION
+			DISINTEGRATE_ARMOR_ACTION,
+			DISINTEGRATE_WEAPON_ACTION
 			);
 	
 	private static final List<ManagedOperation> INVENTORY_ACTIONS = Arrays.asList(

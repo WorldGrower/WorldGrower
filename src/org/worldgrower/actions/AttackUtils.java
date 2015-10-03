@@ -75,7 +75,7 @@ public class AttackUtils {
 		world.logAction(action, performer, target, args, message);
 	}
 	
-	private static void decreaseWeaponHealth(WorldObject performer, int damage) {
+	public static void decreaseWeaponHealth(WorldObject performer, int damage) {
 		damageEquipment(performer, Constants.LEFT_HAND_EQUIPMENT, damage);
 		damageEquipment(performer, Constants.RIGHT_HAND_EQUIPMENT, damage);
 	}
