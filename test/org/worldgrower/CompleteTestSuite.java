@@ -36,6 +36,7 @@ import org.worldgrower.conversation.UTestConversations;
 import org.worldgrower.conversation.UTestDemandMoneyConversation;
 import org.worldgrower.conversation.UTestDemandsConversation;
 import org.worldgrower.conversation.UTestLocationConversation;
+import org.worldgrower.conversation.UTestProfessionPractitionersConversation;
 import org.worldgrower.conversation.UTestWhoIsLeaderOrganizationConversation;
 import org.worldgrower.goal.UTestAbstractScribeSpellsGoal;
 import org.worldgrower.goal.UTestArenaPropertyUtils;
@@ -118,7 +119,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestOrganizationNamer.class,
 	UTestWhoIsLeaderOrganizationConversation.class,
 	UTestDemandMoneyConversation.class,
-	UTestComplimentConversation.class
+	UTestComplimentConversation.class,
+	UTestProfessionPractitionersConversation.class
 })
 public class CompleteTestSuite {
 }

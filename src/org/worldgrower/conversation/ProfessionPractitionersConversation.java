@@ -65,23 +65,25 @@ public class ProfessionPractitionersConversation implements Conversation {
 	
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
-		String followersDescription = getProfessionPractitionersDescription(conversationContext);
-		
-		Profession profession = Professions.getAllProfessions().get(conversationContext.getAdditionalValue());
 		return Arrays.asList(
-			new Response(YES, "I know that " + followersDescription + " are " + profession.getDescription() + "s"),
+			new Response(YES, getProfessionPractitionersDescription(conversationContext)),
 			new Response(NO, "No")
 			);
 	}
 
 	private String getProfessionPractitionersDescription(ConversationContext conversationContext) {
 		List<WorldObject> professionPractitioners = getProfessionPractitioners(conversationContext);
+		Profession profession = Professions.getAllProfessions().get(conversationContext.getAdditionalValue());
 		
-		StringBuilder followersDescription = new StringBuilder();
-		for(WorldObject follower : professionPractitioners) {
-			followersDescription.append(follower.getProperty(Constants.NAME)).append(", ");
+		if (professionPractitioners.size() > 0) {
+			StringBuilder followersDescription = new StringBuilder();
+			for(WorldObject follower : professionPractitioners) {
+				followersDescription.append(follower.getProperty(Constants.NAME)).append(", ");
+			}
+			return "I know that " + followersDescription.toString() + " are " + profession.getDescription() + "s";
+		} else {
+			return "I know no-one that is a " + profession.getDescription();
 		}
-		return followersDescription.toString();
 	}
 
 	@Override
