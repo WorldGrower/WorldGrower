@@ -57,7 +57,7 @@ public class Conversations implements Serializable {
 	public static final Conversation LOCATION_CONVERSATION = new LocationConversation();
 	public static final DemandMoneyConversation DEMAND_MONEY_CONVERSATION = new DemandMoneyConversation();
 	public static final Conversation PROPOSE_MATE_CONVERSATION = new ProposeMateConversation();
-	public static final Conversation FAMILY_CONVERSATION = new FamilyConversation();
+	public static final FamilyConversation FAMILY_CONVERSATION = new FamilyConversation();
 	public static final Conversation KISS_CONVERSATION = new KissConversation();
 	public static final Conversation WHY_ANGRY_CONVERSATION = new WhyAngryConversation();
 	public static final Conversation WHY_ANGRY_OTHER_CONVERSATION = new WhyAngryOtherConversation();

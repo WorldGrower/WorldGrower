@@ -36,6 +36,7 @@ import org.worldgrower.conversation.UTestConversations;
 import org.worldgrower.conversation.UTestDeityFollowersConversation;
 import org.worldgrower.conversation.UTestDemandMoneyConversation;
 import org.worldgrower.conversation.UTestDemandsConversation;
+import org.worldgrower.conversation.UTestFamilyConversation;
 import org.worldgrower.conversation.UTestLocationConversation;
 import org.worldgrower.conversation.UTestProfessionPractitionersConversation;
 import org.worldgrower.conversation.UTestShareKnowledgeConversation;
@@ -124,7 +125,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestComplimentConversation.class,
 	UTestProfessionPractitionersConversation.class,
 	UTestDeityFollowersConversation.class,
-	UTestShareKnowledgeConversation.class
+	UTestShareKnowledgeConversation.class,
+	UTestFamilyConversation.class
 })
 public class CompleteTestSuite {
 }

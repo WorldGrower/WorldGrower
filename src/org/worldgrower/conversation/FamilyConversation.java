@@ -70,7 +70,10 @@ public class FamilyConversation implements Conversation {
 		} else {
 			responseBuilder.append("I don't have a mate");
 		}
-		if (target.getProperty(Constants.CHILDREN).size() > 0) {
+		if (target.getProperty(Constants.CHILDREN).size() == 1) {
+			responseBuilder.append(" and I have 1 child");
+			numberOfYesResponses++;
+		} else if (target.getProperty(Constants.CHILDREN).size() > 0) {
 			responseBuilder.append(" and I have ").append(target.getProperty(Constants.CHILDREN).size()).append(" children");
 			numberOfYesResponses++;
 		} else {
