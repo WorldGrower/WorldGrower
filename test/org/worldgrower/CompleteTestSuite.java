@@ -33,10 +33,12 @@ import org.worldgrower.attribute.UTestWorldObjectProperties;
 import org.worldgrower.condition.UTestConditions;
 import org.worldgrower.conversation.UTestComplimentConversation;
 import org.worldgrower.conversation.UTestConversations;
+import org.worldgrower.conversation.UTestDeityFollowersConversation;
 import org.worldgrower.conversation.UTestDemandMoneyConversation;
 import org.worldgrower.conversation.UTestDemandsConversation;
 import org.worldgrower.conversation.UTestLocationConversation;
 import org.worldgrower.conversation.UTestProfessionPractitionersConversation;
+import org.worldgrower.conversation.UTestShareKnowledgeConversation;
 import org.worldgrower.conversation.UTestWhoIsLeaderOrganizationConversation;
 import org.worldgrower.goal.UTestAbstractScribeSpellsGoal;
 import org.worldgrower.goal.UTestArenaPropertyUtils;
@@ -120,7 +122,9 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestWhoIsLeaderOrganizationConversation.class,
 	UTestDemandMoneyConversation.class,
 	UTestComplimentConversation.class,
-	UTestProfessionPractitionersConversation.class
+	UTestProfessionPractitionersConversation.class,
+	UTestDeityFollowersConversation.class,
+	UTestShareKnowledgeConversation.class
 })
 public class CompleteTestSuite {
 }

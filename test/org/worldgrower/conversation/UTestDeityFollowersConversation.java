@@ -27,11 +27,11 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdRelationshipMap;
 import org.worldgrower.attribute.KnowledgeMap;
-import org.worldgrower.profession.Professions;
+import org.worldgrower.deity.Deity;
 
-public class UTestProfessionPractitionersConversation {
+public class UTestDeityFollowersConversation {
 
-	private final ProfessionPractitionersConversation conversation = Conversations.PROFESSION_PRACTITIONERS_CONVERSATION;
+	private final DeityFollowersConversation conversation = Conversations.DEITY_FOLLOWERS_CONVERSATION;
 	
 	@Test
 	public void testGetReplyPhrases() {
@@ -39,26 +39,26 @@ public class UTestProfessionPractitionersConversation {
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		
-		int indexOfProfession = Professions.indexOf(Professions.FISHER_PROFESSION);
-		ConversationContext context = new ConversationContext(performer, target, null, null, world, indexOfProfession);
+		int indexOfDeity = Deity.ALL_DEITIES.indexOf(Deity.HADES);
+		ConversationContext context = new ConversationContext(performer, target, null, null, world, indexOfDeity);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
 		assertEquals(true, replyPhrases.size() == 2);
-		assertEquals("I know no-one that is a fisher", replyPhrases.get(0).getResponsePhrase());
+		assertEquals("I know no-one that is a worshipper of Hades", replyPhrases.get(0).getResponsePhrase());
 		assertEquals("No", replyPhrases.get(1).getResponsePhrase());
 		
 		WorldObject subject = TestUtils.createIntelligentWorldObject(3, Constants.NAME, "subject");
 		world.addWorldObject(subject);
-		target.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(subject, Constants.PROFESSION, Professions.FISHER_PROFESSION);
+		target.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(subject, Constants.DEITY, Deity.HADES);
 		
 		replyPhrases = conversation.getReplyPhrases(context);
-		assertEquals("I know that subject is a fisher", replyPhrases.get(0).getResponsePhrase());
+		assertEquals("I know that subject is a worshipper of Hades", replyPhrases.get(0).getResponsePhrase());
 	
 		WorldObject subject2 = TestUtils.createIntelligentWorldObject(4, Constants.NAME, "subject2");
 		world.addWorldObject(subject2);
-		target.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(subject2, Constants.PROFESSION, Professions.FISHER_PROFESSION);
+		target.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(subject2, Constants.DEITY, Deity.HADES);
 	
 		replyPhrases = conversation.getReplyPhrases(context);
-		assertEquals("I know that subject, subject2 are fishers", replyPhrases.get(0).getResponsePhrase());
+		assertEquals("I know that subject, subject2 are worshippers of Hades", replyPhrases.get(0).getResponsePhrase());
 
 	}
 
@@ -68,13 +68,13 @@ public class UTestProfessionPractitionersConversation {
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		
-		int indexOfProfession = Professions.indexOf(Professions.FISHER_PROFESSION);
-		ConversationContext context = new ConversationContext(performer, target, null, null, world, indexOfProfession);
+		int indexOfDeity = Deity.ALL_DEITIES.indexOf(Deity.HADES);
+		ConversationContext context = new ConversationContext(performer, target, null, null, world, indexOfDeity);
 		assertEquals(1, conversation.getReplyPhrase(context).getId());
 		
 		WorldObject subject = TestUtils.createIntelligentWorldObject(3, Constants.NAME, "subject");
 		world.addWorldObject(subject);
-		target.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(subject, Constants.PROFESSION, Professions.FISHER_PROFESSION);
+		target.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(subject, Constants.DEITY, Deity.HADES);
 
 		assertEquals(0, conversation.getReplyPhrase(context).getId());
 	}
@@ -86,7 +86,7 @@ public class UTestProfessionPractitionersConversation {
 		
 		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, null, null);
 		assertEquals(true, questions.size() > 0);
-		assertEquals("Do you know any people who are farmers?", questions.get(0).getQuestionPhrase());
+		assertEquals("Do you know any people who worship Demeter?", questions.get(0).getQuestionPhrase());
 	}
 	
 	@Test

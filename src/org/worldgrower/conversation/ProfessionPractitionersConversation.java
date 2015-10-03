@@ -75,10 +75,16 @@ public class ProfessionPractitionersConversation implements Conversation {
 		List<WorldObject> professionPractitioners = getProfessionPractitioners(conversationContext);
 		Profession profession = Professions.getAllProfessions().get(conversationContext.getAdditionalValue());
 		
-		if (professionPractitioners.size() > 0) {
+		if (professionPractitioners.size() == 1) {
+			return "I know that " + professionPractitioners.get(0).getProperty(Constants.NAME) + " is a " + profession.getDescription();
+		} else if (professionPractitioners.size() > 0) {
 			StringBuilder followersDescription = new StringBuilder();
-			for(WorldObject follower : professionPractitioners) {
-				followersDescription.append(follower.getProperty(Constants.NAME)).append(", ");
+			for(int i=0; i<professionPractitioners.size(); i++) {
+				WorldObject follower = professionPractitioners.get(i);
+				followersDescription.append(follower.getProperty(Constants.NAME));
+				if (i < professionPractitioners.size() - 1) {
+					followersDescription.append(", ");
+				}
 			}
 			return "I know that " + followersDescription.toString() + " are " + profession.getDescription() + "s";
 		} else {

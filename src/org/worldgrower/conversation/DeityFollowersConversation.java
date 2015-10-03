@@ -64,23 +64,31 @@ public class DeityFollowersConversation implements Conversation {
 	
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
-		String followersDescription = getFollowersDescription(conversationContext);
-		
-		Deity deity = Deity.ALL_DEITIES.get(conversationContext.getAdditionalValue());
 		return Arrays.asList(
-			new Response(YES, "I know that " + followersDescription + " are worshippers of " + deity.getName()),
+			new Response(YES, getFollowersDescription(conversationContext)),
 			new Response(NO, "No")
 			);
 	}
 
 	private String getFollowersDescription(ConversationContext conversationContext) {
 		List<WorldObject> followersForDeity = getFollowersForDeity(conversationContext);
+		Deity deity = Deity.ALL_DEITIES.get(conversationContext.getAdditionalValue());
 		
-		StringBuilder followersDescription = new StringBuilder();
-		for(WorldObject follower : followersForDeity) {
-			followersDescription.append(follower.getProperty(Constants.NAME)).append(", ");
+		if (followersForDeity.size() == 1) {
+			return "I know that " + followersForDeity.get(0).getProperty(Constants.NAME) + " is a worshipper of " + deity.getName();
+		} else if (followersForDeity.size() > 0) {
+			StringBuilder followersDescription = new StringBuilder();
+			for(int i=0; i<followersForDeity.size(); i++) {
+				WorldObject follower = followersForDeity.get(i);
+				followersDescription.append(follower.getProperty(Constants.NAME));
+				if (i < followersForDeity.size() - 1) {
+					followersDescription.append(", ");
+				}
+			}
+			return "I know that " + followersDescription.toString() + " are worshippers of " + deity.getName();
+		} else {
+			return "I know no-one that is a worshipper of " + deity.getName();
 		}
-		return followersDescription.toString();
 	}
 
 	@Override

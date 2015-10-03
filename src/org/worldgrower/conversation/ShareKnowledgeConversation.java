@@ -97,8 +97,12 @@ public class ShareKnowledgeConversation implements Conversation {
 		KnowledgeMap performerKnowledge = performer.getProperty(Constants.KNOWLEDGE_MAP);
 		List<Knowledge> knowledgeList = performerKnowledge.getKnowledge(subject);
 		target.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(subject, knowledgeList.get(knowledgeIndex));
-		
-		RelationshipPropertyUtils.changeRelationshipValue(performer, target, 50, Actions.TALK_ACTION, Conversations.createArgs(this), world);
+
+		if (replyIndex == THANKS) {
+			RelationshipPropertyUtils.changeRelationshipValue(performer, target, 50, Actions.TALK_ACTION, Conversations.createArgs(this), world);
+		} else if (replyIndex == GET_LOST) {
+			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -50, -5, Actions.TALK_ACTION, Conversations.createArgs(this), world);
+		}
 	
 		//TODO: if there are more return values, set return value Object on execute method, search for any other TODO like this
 		world.getHistory().setNextAdditionalValue(replyIndex);
