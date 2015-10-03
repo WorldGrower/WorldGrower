@@ -1,3 +1,15 @@
+v0.1.3
+
+- all actions now have requirement tooltip
+- bug fix: only sheriffs can open jail doors
+- if someone asks about village leader, that person is known to the performer
+- rework dialogue system to allow list of subjects
+- add ctrl-left mouse click functionality to talk
+- add meat and butcher action
+- people become ghouls by eating human flesh
+- add gradient to screens
+- add icons to all magic spells
+
 v0.1.2
 
 - add tooltips for several actions
