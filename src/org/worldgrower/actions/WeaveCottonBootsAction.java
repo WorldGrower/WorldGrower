@@ -24,6 +24,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.ItemGenerator;
+import org.worldgrower.gui.ImageIds;
 
 public class WeaveCottonBootsAction implements CraftAction {
 
@@ -71,5 +72,10 @@ public class WeaveCottonBootsAction implements CraftAction {
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.COTTON_BOOTS;
 	}
 }

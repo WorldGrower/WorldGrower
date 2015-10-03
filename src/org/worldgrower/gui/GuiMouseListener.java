@@ -14,9 +14,12 @@
  *******************************************************************************/
 package org.worldgrower.gui;
 
+import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.event.InputEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
@@ -41,6 +44,7 @@ import org.worldgrower.actions.BuildAction;
 import org.worldgrower.actions.CraftAction;
 import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.actions.magic.ResearchSpellAction;
+import org.worldgrower.actions.magic.ScribeMagicSpellAction;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.gui.chooseworldobject.ChooseWorldObjectAction;
 import org.worldgrower.gui.chooseworldobject.GuiDisguiseAction;
@@ -260,8 +264,19 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 
 	private void setMenuIcon(JMenuItem menuItem, ImageIds imageIds) {
-		menuItem.setIcon(new ImageIcon(imageInfoReader.getImage(imageIds, null)));
+		Image image = imageInfoReader.getImage(imageIds, null);
+		int imageWidth = image.getWidth(null);
+		int imageHeight = image.getHeight(null);
+		if (imageWidth > 96 || imageHeight > 96) {
+			image = cropImage((BufferedImage)image, Math.min(imageWidth, 96), Math.min(imageHeight, 96));
+		}
+		menuItem.setIcon(new ImageIcon(image));
 	}
+	
+	private BufferedImage cropImage(BufferedImage src, int width, int height) {
+	      BufferedImage dest = src.getSubimage(0, 0, width, height);
+	      return dest; 
+	   }
 
 	private void addCommunicationActions(JPopupMenu menu, WorldObject worldObject) {
 		if (canPlayerCharacterPerformTalkAction(worldObject, Actions.TALK_ACTION)) {
@@ -322,13 +337,16 @@ public class GuiMouseListener extends MouseAdapter {
 	private void addPlayerCharacterInformationMenus(JPopupMenu menu) {
 		JMenuItem characterSheetMenuItem = new JMenuItem(characterSheetAction);
 		characterSheetMenuItem.setText("Character Sheet");
+		setMenuIcon(characterSheetMenuItem, ImageIds.WOODEN_SHIELD);
 		menu.add(characterSheetMenuItem);
 		
 		JMenuItem inventoryMenuItem = new JMenuItem(inventoryAction);
+		setMenuIcon(inventoryMenuItem, ImageIds.CHEST);
 		inventoryMenuItem.setText("Inventory");
 		menu.add(inventoryMenuItem);
 		
 		JMenuItem magicOverviewMenuItem = new JMenuItem(magicOverviewAction);
+		setMenuIcon(magicOverviewMenuItem, ImageIds.MAGIC_ICON);
 		magicOverviewMenuItem.setText("Magic Overview");
 		menu.add(magicOverviewMenuItem);
 	}
@@ -436,9 +454,22 @@ public class GuiMouseListener extends MouseAdapter {
 
 	private void addImageIcon(ManagedOperation action, JMenuItem menuItem) {
 		if (menuItem != null) {
+			//TODO: remove instanceof's when getImageIds is on ManagedOperation
 			if (action instanceof MagicSpell) {
 				MagicSpell magicSpell = (MagicSpell) action;
 				setMenuIcon(menuItem, magicSpell.getImageIds());
+			}
+			if (action instanceof CraftAction) {
+				CraftAction craftAction = (CraftAction) action;
+				setMenuIcon(menuItem, craftAction.getImageIds());
+			}
+			if (action instanceof BuildAction) {
+				BuildAction buildAction = (BuildAction) action;
+				setMenuIcon(menuItem, buildAction.getImageIds());
+			}
+			if (action instanceof ScribeMagicSpellAction) {
+				ScribeMagicSpellAction scribeMagicSpellAction = (ScribeMagicSpellAction) action;
+				setMenuIcon(menuItem, scribeMagicSpellAction.getSpell().getImageIds());
 			}
 		}
 	}

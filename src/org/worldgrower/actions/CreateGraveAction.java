@@ -24,6 +24,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.goal.GoalUtils;
+import org.worldgrower.gui.ImageIds;
 
 public class CreateGraveAction implements BuildAction {
 
@@ -90,5 +91,10 @@ public class CreateGraveAction implements BuildAction {
 	@Override
 	public int getHeight() {
 		return 1;
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.GRAVE;
 	}
 }

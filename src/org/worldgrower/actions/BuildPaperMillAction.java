@@ -111,4 +111,9 @@ public class BuildPaperMillAction implements BuildAction {
 	public String getSimpleDescription() {
 		return "build papermill";
 	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.PAPER_MILL;
+	}
 }

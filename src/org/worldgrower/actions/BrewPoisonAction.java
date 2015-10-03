@@ -23,6 +23,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.ItemGenerator;
+import org.worldgrower.gui.ImageIds;
 
 public class BrewPoisonAction implements CraftAction {
 
@@ -70,5 +71,10 @@ public class BrewPoisonAction implements CraftAction {
 	@Override
 	public String getSimpleDescription() {
 		return "brew poison";
+	}
+
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.POISON;
 	}
 }

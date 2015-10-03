@@ -110,4 +110,9 @@ public class BuildShrineAction implements BuildAction {
 	public int getHeight() {
 		return 2;
 	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.STATUE_OF_DEITY;
+	}
 }

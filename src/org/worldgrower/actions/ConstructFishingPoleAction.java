@@ -24,6 +24,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.ItemGenerator;
+import org.worldgrower.gui.ImageIds;
 
 public class ConstructFishingPoleAction implements CraftAction {
 
@@ -75,5 +76,10 @@ public class ConstructFishingPoleAction implements CraftAction {
 
 	public static boolean hasEnoughWood(WorldObject performer) {
 		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) >= WOOD_REQUIRED;
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.FISHING_POLE;
 	}
 }

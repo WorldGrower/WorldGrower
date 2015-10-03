@@ -108,4 +108,9 @@ public class BuildSmithAction implements BuildAction {
 	public int getHeight() {
 		return 2;
 	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.SMITH;
+	}
 }

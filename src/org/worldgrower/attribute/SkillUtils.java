@@ -130,6 +130,13 @@ public class SkillUtils {
 		return result;
 	}
 
+	public static int useSkillLevel(WorldObject performer, SkillProperty skillProperty) {
+		Skill skill = performer.getProperty(skillProperty);
+		int level = skill.getLevel();
+		skill.use();
+		return level;
+	}
+	
 	public static double getSkillBonus(WorldObject performer, SkillProperty skill) {
 		double result = 1.0f + (performer.getProperty(skill).getLevel() / 100.0f);
 		return result;

@@ -24,6 +24,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.generator.PlantGenerator;
 import org.worldgrower.goal.GoalUtils;
+import org.worldgrower.gui.ImageIds;
 
 public class PlantBerryBushAction implements BuildAction {
 
@@ -83,5 +84,10 @@ public class PlantBerryBushAction implements BuildAction {
 	@Override
 	public int getHeight() {
 		return 1;
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.BUSH;
 	}
 }

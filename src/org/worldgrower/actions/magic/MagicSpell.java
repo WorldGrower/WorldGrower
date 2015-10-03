@@ -10,9 +10,5 @@ public interface MagicSpell extends ManagedOperation {
 	public SkillProperty getSkill();
 	public int getRequiredSkillLevel();
 	public String getDescription();
-	
-	//default is temporary
-	public default ImageIds getImageIds() {
-		return ImageIds.SPELL_BOOK;
-	}
+	public ImageIds getImageIds();
 }

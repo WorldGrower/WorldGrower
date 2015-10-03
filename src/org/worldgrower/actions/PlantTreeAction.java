@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.generator.PlantGenerator;
 import org.worldgrower.goal.GoalUtils;
+import org.worldgrower.gui.ImageIds;
 
 public class PlantTreeAction implements BuildAction {
 
@@ -79,5 +80,10 @@ public class PlantTreeAction implements BuildAction {
 	@Override
 	public int getHeight() {
 		return 2;
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.TREE;
 	}
 }

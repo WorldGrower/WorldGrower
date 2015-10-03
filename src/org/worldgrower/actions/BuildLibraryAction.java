@@ -117,4 +117,9 @@ public class BuildLibraryAction implements BuildAction {
 	public String getSimpleDescription() {
 		return "build library";
 	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.LIBRARY;
+	}
 }

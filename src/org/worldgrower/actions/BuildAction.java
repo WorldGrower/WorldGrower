@@ -15,9 +15,11 @@
 package org.worldgrower.actions;
 
 import org.worldgrower.ManagedOperation;
+import org.worldgrower.gui.ImageIds;
 
 public interface BuildAction extends ManagedOperation {
 
 	public int getWidth();
 	public int getHeight();
+	public ImageIds getImageIds();
 }

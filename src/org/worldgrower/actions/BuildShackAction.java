@@ -24,6 +24,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.goal.GoalUtils;
+import org.worldgrower.gui.ImageIds;
 
 public class BuildShackAction implements BuildAction {
 
@@ -92,5 +93,10 @@ public class BuildShackAction implements BuildAction {
 	
 	public static boolean hasEnoughWood(WorldObject performer) {
 		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) >= REQUIRED_WOOD;
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.SHACK;
 	}
 }

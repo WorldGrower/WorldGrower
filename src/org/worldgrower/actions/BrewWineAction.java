@@ -23,6 +23,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.ItemGenerator;
+import org.worldgrower.gui.ImageIds;
 
 public class BrewWineAction implements CraftAction {
 
@@ -70,5 +71,10 @@ public class BrewWineAction implements CraftAction {
 	@Override
 	public String getSimpleDescription() {
 		return "brew wine";
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.WINE;
 	}
 }

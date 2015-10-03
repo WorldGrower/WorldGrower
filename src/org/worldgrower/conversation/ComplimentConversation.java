@@ -21,12 +21,16 @@ import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.attribute.Skill;
+import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
 
 public class ComplimentConversation implements Conversation {
 
+	private static final int THANKS = 0;
+	private static final int STOP = 1;
+	private static final int GET_LOST = 2;
+	
 	@Override
 	public Response getReplyPhrase(ConversationContext conversationContext) {
 		WorldObject performer = conversationContext.getPerformer();
@@ -35,11 +39,11 @@ public class ComplimentConversation implements Conversation {
 		final int replyId;
 		int relationshipValue = target.getProperty(Constants.RELATIONSHIPS).getValue(performer);
 		if (relationshipValue >= 0 && findSameConversation(conversationContext).size() == 0) {
-			replyId = 0;
+			replyId = THANKS;
 		} else if (relationshipValue >= 0) {
-			replyId = 1;
+			replyId = STOP;
 		} else {
-			replyId = 2;
+			replyId = GET_LOST;
 		}
 		
 		return getReply(getReplyPhrases(conversationContext), replyId);
@@ -47,28 +51,14 @@ public class ComplimentConversation implements Conversation {
 
 	private double getDiplomacyBonus(ConversationContext conversationContext) {
 		double diplomacyBonus = 1.0f;
-		int performerDiplomacy = useDiplomacySkill(conversationContext);
-		int targetInsight = useInsightSkill(conversationContext);
+		int performerDiplomacy = SkillUtils.useSkillLevel(conversationContext.getPerformer(), Constants.DIPLOMACY_SKILL);
+		int targetInsight = SkillUtils.useSkillLevel(conversationContext.getTarget(), Constants.INSIGHT_SKILL);
 		if (performerDiplomacy > targetInsight) {
 			diplomacyBonus += (performerDiplomacy - targetInsight) / 100.0f;
 		}
 		return diplomacyBonus;
 	}
 
-	private int useInsightSkill(ConversationContext conversationContext) {
-		Skill insightSkill = conversationContext.getTarget().getProperty(Constants.INSIGHT_SKILL);
-		int level = insightSkill.getLevel();
-		insightSkill.use();
-		return level;
-	}
-
-	private int useDiplomacySkill(ConversationContext conversationContext) {
-		Skill diplomacySkill = conversationContext.getPerformer().getProperty(Constants.DIPLOMACY_SKILL);
-		int level = diplomacySkill.getLevel();
-		diplomacySkill.use();
-		return level;
-	}
-	
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		return Arrays.asList(
@@ -80,9 +70,9 @@ public class ComplimentConversation implements Conversation {
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
-			new Response(0, "Thanks, you too"),
-			new Response(1, "Stop doing that"),
-			new Response(2, "Get lost"));
+			new Response(THANKS, "Thanks, you too"),
+			new Response(STOP, "Stop doing that"),
+			new Response(GET_LOST, "Get lost"));
 	}
 	
 	@Override
@@ -91,10 +81,12 @@ public class ComplimentConversation implements Conversation {
 		WorldObject target = conversationContext.getTarget();
 		World world = conversationContext.getWorld();
 		
-		if (replyIndex == 0) {
+		if (replyIndex == THANKS) {
 			double diplomacyBonus = getDiplomacyBonus(conversationContext);
 			RelationshipPropertyUtils.changeRelationshipValue(performer, target, (int) (50 * diplomacyBonus), Actions.TALK_ACTION, Conversations.createArgs(this), world);
-		} else if (replyIndex == 2) {
+		} else if (replyIndex == STOP) {
+			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -5, Actions.TALK_ACTION, Conversations.createArgs(this), world);
+		} else if (replyIndex == GET_LOST) {
 			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -50, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 		}
 	}
@@ -106,6 +98,6 @@ public class ComplimentConversation implements Conversation {
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, World world) {
-		return "accusing " + target.getProperty(Constants.NAME) + " of a crime";
+		return "complimenting " + target.getProperty(Constants.NAME);
 	}
 }

@@ -23,6 +23,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.ItemGenerator;
+import org.worldgrower.gui.ImageIds;
 
 public class CraftIronAxeAction implements CraftAction {
 
@@ -72,5 +73,10 @@ public class CraftIronAxeAction implements CraftAction {
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.IRON_AXE;
 	}
 }

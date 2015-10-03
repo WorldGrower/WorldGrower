@@ -26,6 +26,7 @@ import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.ItemGenerator;
 import org.worldgrower.goal.GoalUtils;
+import org.worldgrower.gui.ImageIds;
 
 public class BuildHouseAction implements BuildAction {
 
@@ -106,5 +107,10 @@ public class BuildHouseAction implements BuildAction {
 	
 	public static boolean hasEnoughStone(WorldObject performer) {
 		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.STONE) >= REQUIRED_STONE;
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.HOUSE;
 	}
 }

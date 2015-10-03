@@ -24,6 +24,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.generator.PlantGenerator;
 import org.worldgrower.goal.GoalUtils;
+import org.worldgrower.gui.ImageIds;
 
 public class PlantGrapeVineAction implements BuildAction {
 
@@ -82,5 +83,10 @@ public class PlantGrapeVineAction implements BuildAction {
 	@Override
 	public int getHeight() {
 		return 2;
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.GRAPE_VINE;
 	}
 }

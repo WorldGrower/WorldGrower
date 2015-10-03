@@ -24,6 +24,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.goal.GoalUtils;
+import org.worldgrower.gui.ImageIds;
 
 public class BuildWellAction implements BuildAction {
 
@@ -87,5 +88,10 @@ public class BuildWellAction implements BuildAction {
 	@Override
 	public int getHeight() {
 		return 2;
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.WELL;
 	}
 }

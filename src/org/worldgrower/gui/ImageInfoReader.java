@@ -326,7 +326,9 @@ public class ImageInfoReader {
 		add(ImageIds.MEND_MAGIC_SPELL, sprites420.getSubImage(2, 17, 1, 1));
 		add(ImageIds.MINOR_ILLUSION_MAGIC_SPELL, sprites420.getSubImage(10, 24, 1, 1));
 		
-		
+		add(ImageIds.WOODEN_SHIELD, sprites420.getSubImage(2, 12, 1, 1));
+		add(ImageIds.CHEST, sprites420.getSubImage(7, 29, 1, 1));
+		add(ImageIds.MAGIC_ICON, sprites420.getSubImage(7, 24, 1, 1));
 		
     }
 
