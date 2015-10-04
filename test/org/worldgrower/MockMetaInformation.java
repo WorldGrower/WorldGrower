@@ -14,6 +14,9 @@
  *******************************************************************************/
 package org.worldgrower;
 
+import java.util.Arrays;
+
+import org.worldgrower.actions.Actions;
 import org.worldgrower.goal.Goal;
 
 public class MockMetaInformation {
@@ -21,5 +24,8 @@ public class MockMetaInformation {
 	public static void setMetaInformation(WorldObject worldObject, Goal goal) {
 		worldObject.setProperty(Constants.META_INFORMATION, new MetaInformation(worldObject));
 		worldObject.getProperty(Constants.META_INFORMATION).setFinalGoal(goal);
+		
+		OperationInfo operationInfo = new OperationInfo(TestUtils.createSkilledWorldObject(1), TestUtils.createSkilledWorldObject(2), new int[0], Actions.MELEE_ATTACK_ACTION);
+		worldObject.getProperty(Constants.META_INFORMATION).setCurrentTask(Arrays.asList(operationInfo), GoalChangedReason.EMPTY_META_INFORMATION);
 	}
 }

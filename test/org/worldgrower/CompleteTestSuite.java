@@ -31,6 +31,7 @@ import org.worldgrower.attribute.UTestPropertyCountMap;
 import org.worldgrower.attribute.UTestSkillUtils;
 import org.worldgrower.attribute.UTestWorldObjectProperties;
 import org.worldgrower.condition.UTestConditions;
+import org.worldgrower.conversation.UTestBrawlConversation;
 import org.worldgrower.conversation.UTestComplimentConversation;
 import org.worldgrower.conversation.UTestConversations;
 import org.worldgrower.conversation.UTestDeityFollowersConversation;
@@ -130,7 +131,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestShareKnowledgeConversation.class,
 	UTestFamilyConversation.class,
 	UTestWhyAngryOtherConversation.class,
-	UTestWhyAngryConversation.class
+	UTestWhyAngryConversation.class,
+	UTestBrawlConversation.class
 })
 public class CompleteTestSuite {
 }
