@@ -20,6 +20,8 @@ import java.util.List;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
+import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
 
 public class WhyAngryConversation implements Conversation {
@@ -46,11 +48,19 @@ public class WhyAngryConversation implements Conversation {
 		WorldObject target = conversationContext.getTarget();
 		World world = conversationContext.getWorld();
 		
-		List<String> angryReasons = target.getProperty(Constants.BACKGROUND).getAngryReasons(true, performer, world);
-		
+		List<String> angryReasons = target.getProperty(Constants.BACKGROUND).getAngryReasons(true, target.getProperty(Constants.ID), performer, world);
 		StringBuilder angryReasonBuilder = new StringBuilder();
-		for(String angryReason : angryReasons) {
-			angryReasonBuilder.append(angryReason).append("; ");
+		
+		if (angryReasons.size() > 0) {
+			for(int i=0; i<angryReasons.size(); i++) {
+				String angryReason = angryReasons.get(i);
+				angryReasonBuilder.append(angryReason);
+				if (i < angryReasons.size() -1) {
+					angryReasonBuilder.append("; ");	
+				}
+			}
+		} else {
+			angryReasonBuilder.append("I don't remember");
 		}
 		
 		return Arrays.asList(
@@ -63,9 +73,13 @@ public class WhyAngryConversation implements Conversation {
 	public void handleResponse(int replyIndex, ConversationContext conversationContext) {
 		WorldObject performer = conversationContext.getPerformer();
 		WorldObject target = conversationContext.getTarget();
+		World world = conversationContext.getWorld();
+		
 		if (replyIndex == REAL_REASON) {
 			performer.getProperty(Constants.RELATIONSHIPS).incrementValue(target, 10);
 			target.getProperty(Constants.RELATIONSHIPS).incrementValue(performer, 10);
+		} else if (replyIndex == GET_LOST) {
+			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -20, -5, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 		}
 	}
 

@@ -57,9 +57,9 @@ public class UTestBackgroundImpl {
 		
 		background.addGoalObstructed(performer, actionTarget, Actions.MELEE_ATTACK_ACTION, new int[0], world);
 		
-		assertEquals(Arrays.asList("You were attacking actionTarget"), background.getAngryReasons(true, performer, world));
-		assertEquals(Arrays.asList("He was attacking actionTarget"), background.getAngryReasons(false, performer, world));
+		assertEquals(Arrays.asList("You were attacking actionTarget"), background.getAngryReasons(true, 7, performer, world));
+		assertEquals(Arrays.asList("He was attacking actionTarget"), background.getAngryReasons(false, 7, performer, world));
 		
-		assertEquals(Arrays.asList(), background.getAngryReasons(false, actionTarget, world));
+		assertEquals(Arrays.asList(), background.getAngryReasons(false, 7, actionTarget, world));
 	}
 }

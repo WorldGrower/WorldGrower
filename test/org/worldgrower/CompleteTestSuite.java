@@ -41,6 +41,7 @@ import org.worldgrower.conversation.UTestLocationConversation;
 import org.worldgrower.conversation.UTestProfessionPractitionersConversation;
 import org.worldgrower.conversation.UTestShareKnowledgeConversation;
 import org.worldgrower.conversation.UTestWhoIsLeaderOrganizationConversation;
+import org.worldgrower.conversation.UTestWhyAngryConversation;
 import org.worldgrower.conversation.UTestWhyAngryOtherConversation;
 import org.worldgrower.goal.UTestAbstractScribeSpellsGoal;
 import org.worldgrower.goal.UTestArenaPropertyUtils;
@@ -128,7 +129,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestDeityFollowersConversation.class,
 	UTestShareKnowledgeConversation.class,
 	UTestFamilyConversation.class,
-	UTestWhyAngryOtherConversation.class
+	UTestWhyAngryOtherConversation.class,
+	UTestWhyAngryConversation.class
 })
 public class CompleteTestSuite {
 }

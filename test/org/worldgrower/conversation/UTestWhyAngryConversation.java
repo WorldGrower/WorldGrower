@@ -29,33 +29,33 @@ import org.worldgrower.attribute.BackgroundImpl;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdRelationshipMap;
 
-public class UTestWhyAngryOtherConversation {
+public class UTestWhyAngryConversation {
 
-	private final WhyAngryOtherConversation conversation = Conversations.WHY_ANGRY_OTHER_CONVERSATION;
+	private final WhyAngryConversation conversation = Conversations.WHY_ANGRY_CONVERSATION;
 	
 	@Test
 	public void testGetReplyPhrases() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.BACKGROUND, new BackgroundImpl());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.BACKGROUND, new BackgroundImpl());
-		WorldObject subject = TestUtils.createIntelligentWorldObject(3, Constants.GENDER, "female");
 
+		performer.setProperty(Constants.GENDER, "male");
 		performer.setProperty(Constants.NAME, "performerName");
 		target.setProperty(Constants.NAME, "targetname");
 		
-		ConversationContext context = new ConversationContext(performer, target, subject, null, world, 0);
+		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
 		assertEquals(true, replyPhrases.size() == 2);
 		assertEquals("I don't remember", replyPhrases.get(0).getResponsePhrase());
 		assertEquals("Get lost", replyPhrases.get(1).getResponsePhrase());
 		
-		target.getProperty(Constants.BACKGROUND).addGoalObstructed(subject, target, Actions.MELEE_ATTACK_ACTION, new int[0], world);
+		target.getProperty(Constants.BACKGROUND).addGoalObstructed(performer, target, Actions.MELEE_ATTACK_ACTION, new int[0], world);
 		replyPhrases = conversation.getReplyPhrases(context);
-		assertEquals("She was attacking me", replyPhrases.get(0).getResponsePhrase());
+		assertEquals("You were attacking me", replyPhrases.get(0).getResponsePhrase());
 
-		target.getProperty(Constants.BACKGROUND).addGoalObstructed(subject, performer, Actions.PARALYZE_SPELL_ACTION, new int[0], world);
+		target.getProperty(Constants.BACKGROUND).addGoalObstructed(performer, target, Actions.PARALYZE_SPELL_ACTION, new int[0], world);
 		replyPhrases = conversation.getReplyPhrases(context);
-		assertEquals("She was attacking me; She was casting paralyze on performerName", replyPhrases.get(0).getResponsePhrase());
+		assertEquals("You were attacking me; You were casting paralyze on me", replyPhrases.get(0).getResponsePhrase());
 	}
 
 	@Test
@@ -72,30 +72,10 @@ public class UTestWhyAngryOtherConversation {
 	public void testGetQuestionPhrases() {
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.CHILDREN, new IdList());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.CHILDREN, new IdList());
-		WorldObject subject = TestUtils.createIntelligentWorldObject(3, Constants.NAME, "subject");
 		
-		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, subject, null);
+		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, null, null);
 		assertEquals(1, questions.size());
-		assertEquals("Why are you angry with subject ?", questions.get(0).getQuestionPhrase());
-	}
-	
-	@Test
-	public void testGetPossibleSubjects() {
-		World world = new WorldImpl(0, 0, null, null);
-		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
-		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
-		WorldObject subject = TestUtils.createIntelligentWorldObject(3, Constants.RELATIONSHIPS, new IdRelationshipMap());
-		
-		world.addWorldObject(subject);
-		
-		performer.getProperty(Constants.RELATIONSHIPS).incrementValue(subject, -2000);
-		
-		target.getProperty(Constants.RELATIONSHIPS).incrementValue(subject, -2000);
-		target.getProperty(Constants.RELATIONSHIPS).incrementValue(performer, -2000);
-		
-		List<WorldObject> subjects = conversation.getPossibleSubjects(performer, target, null, world);
-		assertEquals(1, subjects.size());
-		assertEquals(subject, subjects.get(0));
+		assertEquals("Why are you angry with me?", questions.get(0).getQuestionPhrase());
 	}
 	
 	@Test
@@ -103,9 +83,8 @@ public class UTestWhyAngryOtherConversation {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
-		WorldObject subject = TestUtils.createIntelligentWorldObject(3, Constants.NAME, "subject");
 		
-		ConversationContext context = new ConversationContext(performer, target, subject, null, world, 0);
+		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
 		
 		conversation.handleResponse(0, context);
 		assertEquals(10, performer.getProperty(Constants.RELATIONSHIPS).getValue(target));
@@ -117,12 +96,22 @@ public class UTestWhyAngryOtherConversation {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
-		WorldObject subject = TestUtils.createIntelligentWorldObject(3, Constants.NAME, "subject");
 		
-		ConversationContext context = new ConversationContext(performer, target, subject, null, world, 0);
+		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
 		
 		conversation.handleResponse(1, context);
 		assertEquals(-20, performer.getProperty(Constants.RELATIONSHIPS).getValue(target));
 		assertEquals(-5, target.getProperty(Constants.RELATIONSHIPS).getValue(performer));
+	}
+	
+	@Test
+	public void testIsConversationAvailable() {
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		
+		assertEquals(false, conversation.isConversationAvailable(performer, target, null, null));
+		
+		target.getProperty(Constants.RELATIONSHIPS).incrementValue(performer, -2000);
+		assertEquals(true, conversation.isConversationAvailable(performer, target, null, null));
 	}
 }

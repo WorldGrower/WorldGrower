@@ -59,7 +59,7 @@ public class Conversations implements Serializable {
 	public static final Conversation PROPOSE_MATE_CONVERSATION = new ProposeMateConversation();
 	public static final FamilyConversation FAMILY_CONVERSATION = new FamilyConversation();
 	public static final Conversation KISS_CONVERSATION = new KissConversation();
-	public static final Conversation WHY_ANGRY_CONVERSATION = new WhyAngryConversation();
+	public static final WhyAngryConversation WHY_ANGRY_CONVERSATION = new WhyAngryConversation();
 	public static final WhyAngryOtherConversation WHY_ANGRY_OTHER_CONVERSATION = new WhyAngryOtherConversation();
 	public static final Conversation NICER_CONVERSATION = new NicerConversation();
 	public static final Conversation NOT_NICER_CONVERSATION = new NotNicerConversation();

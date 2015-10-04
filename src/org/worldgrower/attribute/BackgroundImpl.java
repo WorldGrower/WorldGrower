@@ -38,7 +38,7 @@ import org.worldgrower.history.HistoryItem;
 public class BackgroundImpl implements Background, Serializable {
 
 	private final List<Goal> importantUnmetGoals = new ArrayList<>();
-	private final Map<Integer, List<String>> angryReasons = new HashMap<>();
+	private final Map<Integer, List<AngryReason>> angryReasons = new HashMap<>();
 	private final List<Integer> revengeTargets = new ArrayList<>();
 	
 	@Override
@@ -152,30 +152,45 @@ public class BackgroundImpl implements Background, Serializable {
 	public void addGoalObstructed(WorldObject performer, WorldObject actionTarget, ManagedOperation managedOperation, int[] args, World world) {
 		int performerId = performer.getProperty(Constants.ID);
 		
-		List<String> angryReasonList = angryReasons.get(performerId);
+		List<AngryReason> angryReasonList = angryReasons.get(performerId);
 		if (angryReasonList == null) {
 			angryReasonList = new ArrayList<>();
 			angryReasons.put(performerId, angryReasonList);
 		}
 		
-		angryReasonList.add(managedOperation.getDescription(performer, actionTarget, args, world));
+		String angryReason = managedOperation.getDescription(performer, actionTarget, args, world);
+		
+		WorldObject copyTarget = actionTarget.deepCopy();
+		copyTarget.setProperty(Constants.NAME, "me");
+		String angryReasonWithTargetTalking = managedOperation.getDescription(performer, copyTarget, args, world);
+		
+		angryReasonList.add(new AngryReason(angryReason, angryReasonWithTargetTalking, actionTarget.getProperty(Constants.ID)));
 	}
 	
 	@Override
-	public List<String> getAngryReasons(boolean firstPerson, WorldObject performer, World world) {
+	public List<String> getAngryReasons(boolean firstPerson, int personTalkingId, WorldObject performer, World world) {
+		List<String> result = new ArrayList<>();
 		int performerId = performer.getProperty(Constants.ID);
-		List<String> list = angryReasons.get(performerId);
-		List<String> angryReasonsList = new ArrayList<>(list != null ? list : new ArrayList<>()); // return copy of List
+		List<AngryReason> list = angryReasons.get(performerId);
+		List<AngryReason> angryReasonsList = new ArrayList<>(list != null ? list : new ArrayList<>()); // return copy of List
 		if (angryReasonsList.size() > 0) {
 			for(int i = 0; i< angryReasonsList.size(); i++)  {
-				String angryReason = angryReasonsList.get(i);
+				AngryReason angryReason = angryReasonsList.get(i);
+				
+				String angryReasonDescription;
+				if (personTalkingId == angryReason.getTargetId()) {
+					angryReasonDescription = angryReason.getAngryReasonWithTargetTalking();
+				} else {
+					angryReasonDescription = angryReason.getAngryReason();
+				}
+				
 				String pronoun = performer.getProperty(Constants.GENDER).equals("female") ? "She" : "He";
 				String prefix = firstPerson ? "You were " : (pronoun + " was ");
-				angryReasonsList.set(i, prefix + angryReason);
+				result.add(i, prefix + angryReasonDescription);
 			}
 			angryReasonsList = new ArrayList<>(new HashSet<>(angryReasonsList));
 			
-			return angryReasonsList;
+			return result;
 		} else {
 			return new ArrayList<>();
 		}
@@ -207,5 +222,29 @@ public class BackgroundImpl implements Background, Serializable {
 		backgroundImpl.angryReasons.putAll(angryReasons);
 		backgroundImpl.revengeTargets.addAll(revengeTargets);
 		return backgroundImpl;
+	}
+	
+	private static class AngryReason implements Serializable {
+		private final String angryReason;
+		private final String angryReasonWithTargetTalking;
+		private final int targetId;
+		
+		public AngryReason(String angryReason, String angryReasonWithTargetTalking, int targetId) {
+			this.angryReason = angryReason;
+			this.angryReasonWithTargetTalking = angryReasonWithTargetTalking;
+			this.targetId = targetId;
+		}
+
+		public String getAngryReason() {
+			return angryReason;
+		}
+
+		public String getAngryReasonWithTargetTalking() {
+			return angryReasonWithTargetTalking;
+		}
+
+		public int getTargetId() {
+			return targetId;
+		}
 	}
 }
