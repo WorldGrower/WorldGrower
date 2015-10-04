@@ -56,8 +56,8 @@ public class MinorHealConversation implements Conversation {
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
-			new Response(YES, "yes"),
-			new Response(NO, "no"),
+			new Response(YES, "Yes"),
+			new Response(NO, "No"),
 			new Response(GET_LOST, "Get lost"));
 	}
 	

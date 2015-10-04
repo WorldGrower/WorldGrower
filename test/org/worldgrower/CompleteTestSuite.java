@@ -39,6 +39,7 @@ import org.worldgrower.conversation.UTestDemandMoneyConversation;
 import org.worldgrower.conversation.UTestDemandsConversation;
 import org.worldgrower.conversation.UTestFamilyConversation;
 import org.worldgrower.conversation.UTestLocationConversation;
+import org.worldgrower.conversation.UTestMinorHealConversation;
 import org.worldgrower.conversation.UTestProfessionPractitionersConversation;
 import org.worldgrower.conversation.UTestShareKnowledgeConversation;
 import org.worldgrower.conversation.UTestWhoIsLeaderOrganizationConversation;
@@ -132,7 +133,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestFamilyConversation.class,
 	UTestWhyAngryOtherConversation.class,
 	UTestWhyAngryConversation.class,
-	UTestBrawlConversation.class
+	UTestBrawlConversation.class,
+	UTestMinorHealConversation.class
 })
 public class CompleteTestSuite {
 }

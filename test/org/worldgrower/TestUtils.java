@@ -160,4 +160,10 @@ public class TestUtils {
 		WorldObject worldObject = createWorldObject(id, properties);
 		return worldObject;
 	}
+	
+	public static<T> WorldObject createSkilledWorldObject(int id, ManagedProperty<T> propertyKey, T value) {
+		WorldObject worldObject = createSkilledWorldObject(id);
+		worldObject.setProperty(propertyKey, value);
+		return worldObject;
+	}
 }
