@@ -30,6 +30,7 @@ import org.worldgrower.condition.CreatureTypeChangedListeners;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.curse.Curse;
 import org.worldgrower.goal.Goal;
+import org.worldgrower.goal.MagicSpellUtils;
 
 public class WorldObjectImpl implements WorldObject, Serializable {
 	private final WorldObjectProperties properties;
@@ -161,7 +162,7 @@ public class WorldObjectImpl implements WorldObject, Serializable {
 			//TODO
 			return this.getProperty(Constants.NAME).equals("Spider");
 		} else if (operation instanceof MagicSpell) {
-			return this.getProperty(Constants.KNOWN_SPELLS).contains(operation);
+			return MagicSpellUtils.canCast(this, (MagicSpell)operation);
 		} else {
 			Conditions conditions = this.getProperty(Constants.CONDITIONS);
 			if (conditions == null || conditions.canTakeAction()) {

@@ -24,6 +24,7 @@ import org.worldgrower.actions.AttackUtils;
 import org.worldgrower.actions.CraftUtils;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
 
 public class CureDiseaseAction implements MagicSpell {
@@ -39,7 +40,7 @@ public class CureDiseaseAction implements MagicSpell {
 	
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return ((target.hasProperty(Constants.CONDITIONS)) && target.hasIntelligence() && performer.getProperty(Constants.KNOWN_SPELLS).contains(this));
+		return ((target.hasProperty(Constants.CONDITIONS)) && target.hasIntelligence() && MagicSpellUtils.canCast(performer, this));
 	}
 
 	@Override

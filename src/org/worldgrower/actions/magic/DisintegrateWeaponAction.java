@@ -24,6 +24,7 @@ import org.worldgrower.actions.AttackUtils;
 import org.worldgrower.actions.CraftUtils;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
 
 public class DisintegrateWeaponAction implements MagicSpell {
@@ -43,7 +44,7 @@ public class DisintegrateWeaponAction implements MagicSpell {
 	
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return ((target.hasProperty(Constants.ARMOR)) && performer.getProperty(Constants.KNOWN_SPELLS).contains(this));
+		return ((target.hasProperty(Constants.ARMOR)) && MagicSpellUtils.canCast(performer, this));
 	}
 
 	@Override

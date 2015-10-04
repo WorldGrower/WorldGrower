@@ -26,6 +26,7 @@ import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
+import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
 
 public class FeatherAction implements MagicSpell {
@@ -51,7 +52,7 @@ public class FeatherAction implements MagicSpell {
 				&& target.hasProperty(Constants.CONDITIONS)
 				&& !target.getProperty(Constants.CONDITIONS).hasCondition(Condition.FEATHERED_CONDITION)
 				&& (target.hasIntelligence()) 
-				&& performer.getProperty(Constants.KNOWN_SPELLS).contains(this));
+				&& MagicSpellUtils.canCast(performer, this));
 	}
 
 	@Override

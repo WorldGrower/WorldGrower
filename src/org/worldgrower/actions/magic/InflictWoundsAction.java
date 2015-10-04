@@ -25,6 +25,7 @@ import org.worldgrower.actions.CraftUtils;
 import org.worldgrower.actions.DeadlyAction;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
 
 public class InflictWoundsAction implements MagicSpell, DeadlyAction {
@@ -38,7 +39,7 @@ public class InflictWoundsAction implements MagicSpell, DeadlyAction {
 	
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return ((target.hasProperty(Constants.ARMOR)) && (target.getProperty(Constants.HIT_POINTS) > 0) && target.hasIntelligence() && performer.getProperty(Constants.KNOWN_SPELLS).contains(this));
+		return ((target.hasProperty(Constants.ARMOR)) && (target.getProperty(Constants.HIT_POINTS) > 0) && target.hasIntelligence() && MagicSpellUtils.canCast(performer, this));
 	}
 
 	@Override

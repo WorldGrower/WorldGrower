@@ -20,7 +20,7 @@ import org.worldgrower.actions.magic.MagicSpell;
 
 public class MagicSpellUtils {
 
-	public static boolean worldObjectKnowsSpell(WorldObject w, MagicSpell magicSpell) {
+	public static boolean canCast(WorldObject w, MagicSpell magicSpell) {
 		return w.hasProperty(Constants.KNOWN_SPELLS) && w.getProperty(Constants.KNOWN_SPELLS).contains(magicSpell);
 	}
 }

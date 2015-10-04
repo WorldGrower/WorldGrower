@@ -25,6 +25,7 @@ import org.worldgrower.actions.CraftUtils;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.condition.Condition;
+import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
 
 public class InvisibilityAction implements MagicSpell {
@@ -43,7 +44,7 @@ public class InvisibilityAction implements MagicSpell {
 	
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return target.hasProperty(Constants.CONDITIONS) && performer.getProperty(Constants.KNOWN_SPELLS).contains(this);
+		return target.hasProperty(Constants.CONDITIONS) && MagicSpellUtils.canCast(performer, this);
 	}
 
 	@Override

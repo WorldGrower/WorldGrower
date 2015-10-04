@@ -27,6 +27,7 @@ import org.worldgrower.actions.DeadlyAction;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.goal.LocationUtils;
+import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.terrain.TerrainType;
 
@@ -55,7 +56,7 @@ public class LightningBoltAttackAction implements MagicSpell, DeadlyAction {
 	
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return ((target.hasProperty(Constants.ARMOR)) && (target.getProperty(Constants.HIT_POINTS) > 0) && performer.getProperty(Constants.KNOWN_SPELLS).contains(this));
+		return ((target.hasProperty(Constants.ARMOR)) && (target.getProperty(Constants.HIT_POINTS) > 0) && MagicSpellUtils.canCast(performer, this));
 	}
 
 	@Override

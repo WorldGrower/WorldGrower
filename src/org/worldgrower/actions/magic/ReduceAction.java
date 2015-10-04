@@ -26,6 +26,7 @@ import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
+import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
 
 public class ReduceAction implements MagicSpell {
@@ -63,7 +64,7 @@ public class ReduceAction implements MagicSpell {
 	
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return (target.hasProperty(Constants.CONDITIONS) && !target.getProperty(Constants.CONDITIONS).hasCondition(Condition.REDUCED_CONDITION) && performer.getProperty(Constants.KNOWN_SPELLS).contains(this));
+		return (target.hasProperty(Constants.CONDITIONS) && !target.getProperty(Constants.CONDITIONS).hasCondition(Condition.REDUCED_CONDITION) && MagicSpellUtils.canCast(performer, this));
 	}
 
 	@Override

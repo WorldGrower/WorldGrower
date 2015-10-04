@@ -27,6 +27,7 @@ import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.goal.GoalUtils;
+import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
 
 public class EnlargeAction implements MagicSpell {
@@ -52,7 +53,7 @@ public class EnlargeAction implements MagicSpell {
 	
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return (target.hasProperty(Constants.CONDITIONS) && !target.getProperty(Constants.CONDITIONS).hasCondition(Condition.ENLARGED_CONDITION) && performer.getProperty(Constants.KNOWN_SPELLS).contains(this));
+		return (target.hasProperty(Constants.CONDITIONS) && !target.getProperty(Constants.CONDITIONS).hasCondition(Condition.ENLARGED_CONDITION) && MagicSpellUtils.canCast(performer, this));
 	}
 	
 	@Override
