@@ -93,6 +93,8 @@ public class WhyAngryOtherConversation implements Conversation {
 		
 		if (replyIndex == REAL_REASON) {
 			RelationshipPropertyUtils.changeRelationshipValue(performer, target, 10, Actions.TALK_ACTION, Conversations.createArgs(this), world);
+		} else if (replyIndex == GET_LOST) {
+			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -20, -5, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 		}
 	}
 
