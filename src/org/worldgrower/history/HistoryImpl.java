@@ -100,9 +100,14 @@ public class HistoryImpl implements History, Serializable {
 	
 	@Override
 	public List<HistoryItem> findHistoryItemsForAnyPerformer(WorldObject performer, WorldObject target, int[] args, ManagedOperation managedOperation) {
-		OperationInfo searchOperationInfo = new OperationInfo(performer, target, args, managedOperation);
-		List<HistoryItem> foundItems = historyItems.stream().filter(h -> h.getOperationInfo().searchAnyPerformer(searchOperationInfo)).collect(Collectors.toList());
-		return foundItems;
+		Integer performerId = performer.getProperty(Constants.ID);
+		HistoryItemsForTarget historyItemsForTarget = historyItemsByPerformer.get(performerId);
+		if (historyItemsForTarget != null) {
+			List<HistoryItem> foundItems = historyItemsForTarget.findHistoryItemsForAnyPerformer(performer, target, args, managedOperation);
+			return foundItems;			
+		} else {
+			return new ArrayList<>();
+		}
 	}
 	
 	@Override
@@ -155,6 +160,16 @@ public class HistoryImpl implements History, Serializable {
 			historyItemsByTargetList.addHistoryItem(historyItem);
 		}
 		
+		public List<HistoryItem> findHistoryItemsForAnyPerformer(WorldObject performer, WorldObject target, int[] args, ManagedOperation action) {
+			HistoryItemsForAction historyItemsByTargetList = getHistoryItemsByTargetList(target);
+			if (historyItemsByTargetList != null) {
+				List<HistoryItem> foundItems = historyItemsByTargetList.findHistoryItemsForAnyPerformer(performer, target, args, action);
+				return foundItems;			
+			} else {
+				return new ArrayList<>();
+			}
+		}
+
 		public List<HistoryItem> findHistoryItems(WorldObject performer, WorldObject target, int[] args, ManagedOperation action) {
 			HistoryItemsForAction historyItemsByTargetList = getHistoryItemsByTargetList(target);
 			if (historyItemsByTargetList != null) {
@@ -196,6 +211,18 @@ public class HistoryImpl implements History, Serializable {
 			historyItemsByActionList.add(historyItem);
 		}
 		
+		public List<HistoryItem> findHistoryItemsForAnyPerformer(WorldObject performer, WorldObject target, int[] args, ManagedOperation action) {
+			OperationInfo searchOperationInfo = new OperationInfo(performer, target, args, action);
+			
+			List<HistoryItem> historyItemsByTargetList = getHistoryItemsByActionList(action);
+			if (historyItemsByTargetList != null) {
+				List<HistoryItem> foundItems = historyItemsByTargetList.stream().filter(h -> h.getOperationInfo().searchAnyPerformer(searchOperationInfo)).collect(Collectors.toList());
+				return foundItems;			
+			} else {
+				return new ArrayList<>();
+			}
+		}
+
 		public List<HistoryItem> findHistoryItems(WorldObject performer, WorldObject target, int[] args, ManagedOperation action) {
 			OperationInfo searchOperationInfo = new OperationInfo(performer, target, args, action);
 			
