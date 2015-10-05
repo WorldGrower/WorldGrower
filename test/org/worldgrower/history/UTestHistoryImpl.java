@@ -24,6 +24,7 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.TestUtils;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.goal.FacadeUtils;
 
 public class UTestHistoryImpl {
 
@@ -88,5 +89,24 @@ public class UTestHistoryImpl {
 	@Test
 	public void testGetHistoryItem() {
 		assertEquals(Actions.CUT_WOOD_ACTION, history.getHistoryItem(0).getOperationInfo().getManagedOperation());
+	}
+	
+	@Test
+	public void testFindHistoryItemsForAnyPerformer() {
+		List<HistoryItem> historyItems = history.findHistoryItemsForAnyPerformer(performer, target, new int[0], Actions.CUT_WOOD_ACTION);
+		assertEquals(1, historyItems.size());
+		assertEquals(6, historyItems.get(0).getOperationInfo().getPerformer().getProperty(Constants.ID).intValue());
+
+	}
+	
+	@Test
+	public void testFindHistoryItemsForAnyPerformerFacade() {
+		WorldObject person = TestUtils.createWorldObject(8, "Test3");
+		person.setProperty(Constants.FACADE, performer);
+		WorldObject facade = FacadeUtils.createFacadeForSelf(person);
+		List<HistoryItem> historyItems = history.findHistoryItemsForAnyPerformer(facade, target, new int[0], Actions.CUT_WOOD_ACTION);
+		assertEquals(1, historyItems.size());
+		assertEquals(6, historyItems.get(0).getOperationInfo().getPerformer().getProperty(Constants.ID).intValue());
+
 	}
 }
