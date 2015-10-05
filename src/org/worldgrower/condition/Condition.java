@@ -58,5 +58,6 @@ public interface Condition extends Serializable {
 	public static final UnconsciousCondition UNCONSCIOUS_CONDITION = new UnconsciousCondition();
 	public static final BurdenedCondition BURDENED_CONDITION = new BurdenedCondition();
 	public static final FeatheredCondition FEATHERED_CONDITION = new FeatheredCondition();
+	public static final SoulTrappedCondition SOUL_TRAPPED_CONDITION = new SoulTrappedCondition();
 	
 }

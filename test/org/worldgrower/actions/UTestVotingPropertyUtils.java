@@ -87,6 +87,34 @@ public class UTestVotingPropertyUtils {
 		votingBox.setProperty(Constants.TURN_COUNTER, 5000);
 		assertEquals(true, VotingPropertyUtils.isVotingdone(votingBox));
 	}
+	
+	@Test
+	public void testCreateVotingBox() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject target = TestUtils.createSkilledWorldObject(1);
+		WorldObject organization = GroupPropertyUtils.createProfessionOrganization(1, "TestOrg", Professions.FARMER_PROFESSION, world);
+		
+		target.setProperty(Constants.X, 0);
+		target.setProperty(Constants.Y, 0);
+		
+		int votingBoxId = VotingPropertyUtils.createVotingBox(target, organization, world);
+		WorldObject votingBox = world.findWorldObject(Constants.ID, votingBoxId);
+		assertEquals(organization.getProperty(Constants.ID).intValue(), votingBox.getProperty(Constants.ORGANIZATION_ID).intValue());
+	}
+	
+	@Test
+	public void testVotingBoxExistsForOrganization() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject organization = GroupPropertyUtils.createProfessionOrganization(1, "TestOrg", Professions.FARMER_PROFESSION, world);
+		
+		assertEquals(false, VotingPropertyUtils.votingBoxExistsForOrganization(organization, world));
+		
+		WorldObject target = TestUtils.createSkilledWorldObject(1);
+		target.setProperty(Constants.X, 0);
+		target.setProperty(Constants.Y, 0);
+		VotingPropertyUtils.createVotingBox(target, organization, world);
+		assertEquals(true, VotingPropertyUtils.votingBoxExistsForOrganization(organization, world));
+	}
 
 	private WorldObject createVotingBox() {
 		World world = new WorldImpl(0, 0, null, null);

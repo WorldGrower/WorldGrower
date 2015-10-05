@@ -46,6 +46,18 @@ public class UTestCraftUtils {
 	}
 	
 	@Test
+	public void testDistanceForWoodAndOre() {
+		WorldObject performer = TestUtils.createSkilledWorldObject(1);
+		performer.setProperty(Constants.INVENTORY, new WorldObjectContainer());
+		
+		assertEquals(2000, CraftUtils.distance(performer, 1, 1));
+		
+		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.WOOD, 1, null);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.ORE, 1, null);
+		assertEquals(0, CraftUtils.distance(performer, 1, 1));
+	}
+	
+	@Test
 	public void testGetRequirementsDescription() {
 		assertEquals("Requirements: 1 wood", CraftUtils.getRequirementsDescription(Constants.WOOD, 1));
 		assertEquals("Requirements: sufficient energy", CraftUtils.getRequirementsDescription(Constants.ENERGY, 1));

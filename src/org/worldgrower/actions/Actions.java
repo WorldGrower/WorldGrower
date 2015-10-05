@@ -49,6 +49,7 @@ import org.worldgrower.actions.magic.ReduceAction;
 import org.worldgrower.actions.magic.ResearchSpellAction;
 import org.worldgrower.actions.magic.ScribeMagicSpellAction;
 import org.worldgrower.actions.magic.SleepMagicSpellAction;
+import org.worldgrower.actions.magic.SoulTrapAction;
 import org.worldgrower.actions.magic.UnlockMagicSpellAction;
 import org.worldgrower.actions.magic.WaterWalkAction;
 import org.worldgrower.attribute.SkillProperty;
@@ -138,6 +139,7 @@ public class Actions {
 	public static final FeatherAction FEATHER_ACTION = new FeatherAction();
 	public static final DisintegrateArmorAction DISINTEGRATE_ARMOR_ACTION = new DisintegrateArmorAction();
 	public static final DisintegrateWeaponAction DISINTEGRATE_WEAPON_ACTION = new DisintegrateWeaponAction();
+	public static final SoulTrapAction SOUL_TRAP_ACTION = new SoulTrapAction();
 	
 	public static final BuildLibraryAction BUILD_LIBRARY_ACTION = new BuildLibraryAction();
 	public static final ResearchRestorationSkillAction RESEARCH_RESTORATION_SKILL_ACTION = new ResearchRestorationSkillAction();
@@ -219,7 +221,8 @@ public class Actions {
 			BURDEN_ACTION,
 			FEATHER_ACTION,
 			DISINTEGRATE_ARMOR_ACTION,
-			DISINTEGRATE_WEAPON_ACTION
+			DISINTEGRATE_WEAPON_ACTION,
+			SOUL_TRAP_ACTION
 			);
 	
 	private static final List<ManagedOperation> INVENTORY_ACTIONS = Arrays.asList(

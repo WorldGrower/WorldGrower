@@ -64,10 +64,10 @@ public class Conversations implements Serializable {
 	public static final Conversation NICER_CONVERSATION = new NicerConversation();
 	public static final Conversation NOT_NICER_CONVERSATION = new NotNicerConversation();
 	public static final Conversation ORGANIZATION_CONVERSATION = new OrganizationConversation();
-	public static final Conversation JOIN_PERFORMER_ORGANIZATION_CONVERSATION = new JoinPerformerOrganizationConversation();
+	public static final JoinPerformerOrganizationConversation JOIN_PERFORMER_ORGANIZATION_CONVERSATION = new JoinPerformerOrganizationConversation();
 	public static final Conversation JOIN_TARGET_ORGANIZATION_CONVERSATION = new JoinTargetOrganizationConversation();
 	public static final Conversation LEARN_SKILLS_USING_ORGANIZATION = new LearnSkillUsingOrganizationConversation();
-	public static final Conversation SET_ORGANIZATION_PROFIT_PERCENTAGE = new SetOrganizationProfitPercentageConversation();
+	public static final SetOrganizationProfitPercentageConversation SET_ORGANIZATION_PROFIT_PERCENTAGE = new SetOrganizationProfitPercentageConversation();
 	public static final Conversation CURE_POISON_CONVERSATION = new CurePoisonConversation();
 	public static final WhoIsLeaderOrganizationConversation WHO_IS_LEADER_ORGANIZATION_CONVERSATION = new WhoIsLeaderOrganizationConversation();
 	public static final Conversation VOTE_LEADER_ORGANIZATION_CONVERSATION = new VoteLeaderOrganizationConversation();

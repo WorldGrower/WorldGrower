@@ -70,6 +70,39 @@ public class UTestHousePropertyUtils {
 	}
 	
 	@Test
+	public void testGetBestHouseNotOwner() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.HOUSES, new IdList());
+		
+		assertEquals(null, HousePropertyUtils.getBestHouse(performer, world));
+	}
+	
+	@Test
+	public void testGetBestHouseOwnsOneHouse() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.HOUSES, new IdList().add(2));
+		
+		WorldObject house = TestUtils.createIntelligentWorldObject(2, Constants.SLEEP_COMFORT, 5);
+		world.addWorldObject(house);
+		
+		assertEquals(house, HousePropertyUtils.getBestHouse(performer, world));
+	}
+	
+	@Test
+	public void testGetBestHouseOwnsTwoHouses() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.HOUSES, new IdList().add(2).add(3));
+		
+		WorldObject house = TestUtils.createIntelligentWorldObject(2, Constants.SLEEP_COMFORT, 5);
+		world.addWorldObject(house);
+		
+		WorldObject house2 = TestUtils.createIntelligentWorldObject(3, Constants.SLEEP_COMFORT, 8);
+		world.addWorldObject(house2);
+		
+		assertEquals(house2, HousePropertyUtils.getBestHouse(performer, world));
+	}
+	
+	@Test
 	public void testHasHouseWithBed() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.HOUSES, new IdList());

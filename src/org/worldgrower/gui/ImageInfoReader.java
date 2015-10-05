@@ -330,6 +330,8 @@ public class ImageInfoReader {
 		add(ImageIds.CHEST, sprites420.getSubImage(7, 29, 1, 1));
 		add(ImageIds.MAGIC_ICON, sprites420.getSubImage(7, 24, 1, 1));
 		add(ImageIds.DISINTEGRATE_WEAPON, sprites420.getSubImage(4, 25, 1, 1));
+		add(ImageIds.SOUL_TRAPPED_INDICATOR, sprites420.getSubImage(3, 21, 1, 1));
+		add(ImageIds.SOUL_GEM, sprites420.getSubImage(3, 17, 1, 1));
     }
 
     private void createArenaWall48x48() {

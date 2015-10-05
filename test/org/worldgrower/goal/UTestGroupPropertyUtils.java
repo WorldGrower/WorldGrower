@@ -169,6 +169,15 @@ public class UTestGroupPropertyUtils {
 	}
 	
 	@Test
+	public void testFindReligionOrganizationsInWorldNotMember() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(2, "Test");
+		world.addWorldObject(performer);
+		
+		assertEquals(new ArrayList<>(), GroupPropertyUtils.findReligionOrganizationsInWorld(performer, world));
+	}
+	
+	@Test
 	public void testFindProfessionOrganizationsInWorldMember() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(2, Constants.PROFESSION, Professions.FARMER_PROFESSION);
@@ -178,6 +187,18 @@ public class UTestGroupPropertyUtils {
 		
 		WorldObject organization = GroupPropertyUtils.createProfessionOrganization(2, "TestOrg", Professions.FARMER_PROFESSION, world);
 		assertEquals(Arrays.asList(organization), GroupPropertyUtils.findProfessionOrganizationsInWorld(performer, world));
+	}
+	
+	@Test
+	public void testFindReligionOrganizationsInWorldMember() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(2, Constants.DEITY, Deity.HADES);
+		world.addWorldObject(performer);
+		
+		assertEquals(new ArrayList<>(), GroupPropertyUtils.findReligionOrganizationsInWorld(performer, world));
+		
+		WorldObject organization = GroupPropertyUtils.createReligionOrganization(2, "TestOrg", Deity.HADES, Goals.DESTROY_SHRINES_TO_OTHER_DEITIES_GOAL, world);
+		assertEquals(Arrays.asList(organization), GroupPropertyUtils.findReligionOrganizationsInWorld(performer, world));
 	}
 	
 	@Test
@@ -275,6 +296,21 @@ public class UTestGroupPropertyUtils {
 		performer.setProperty(Constants.PROFESSION, Professions.FARMER_PROFESSION);
 		performer.getProperty(Constants.GROUP).add(organization);
 		assertEquals(organization, GroupPropertyUtils.findProfessionOrganization(performer, world));
+	}
+	
+	@Test
+	public void testFindReligionOrganization() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.GROUP, new IdList());
+		world.addWorldObject(performer);
+		
+		WorldObject organization = GroupPropertyUtils.createReligionOrganization(7, "TestOrg", Deity.HADES, Goals.DESTROY_SHRINES_TO_OTHER_DEITIES_GOAL, world);
+		
+		assertEquals(null, GroupPropertyUtils.findReligionOrganization(performer, world));
+		
+		performer.setProperty(Constants.DEITY, Deity.HADES);
+		performer.getProperty(Constants.GROUP).add(organization);
+		assertEquals(organization, GroupPropertyUtils.findReligionOrganization(performer, world));
 	}
 	
 	@Test

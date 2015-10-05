@@ -38,13 +38,16 @@ import org.worldgrower.conversation.UTestDeityFollowersConversation;
 import org.worldgrower.conversation.UTestDemandMoneyConversation;
 import org.worldgrower.conversation.UTestDemandsConversation;
 import org.worldgrower.conversation.UTestFamilyConversation;
+import org.worldgrower.conversation.UTestJoinPerformerOrganizationConversation;
 import org.worldgrower.conversation.UTestLocationConversation;
 import org.worldgrower.conversation.UTestMinorHealConversation;
 import org.worldgrower.conversation.UTestProfessionPractitionersConversation;
+import org.worldgrower.conversation.UTestSetOrganizationProfitPercentageConversation;
 import org.worldgrower.conversation.UTestShareKnowledgeConversation;
 import org.worldgrower.conversation.UTestWhoIsLeaderOrganizationConversation;
 import org.worldgrower.conversation.UTestWhyAngryConversation;
 import org.worldgrower.conversation.UTestWhyAngryOtherConversation;
+import org.worldgrower.generator.UTestCreatureGenerator;
 import org.worldgrower.goal.UTestAbstractScribeSpellsGoal;
 import org.worldgrower.goal.UTestArenaPropertyUtils;
 import org.worldgrower.goal.UTestArmorPropertyUtils;
@@ -134,7 +137,10 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestWhyAngryOtherConversation.class,
 	UTestWhyAngryConversation.class,
 	UTestBrawlConversation.class,
-	UTestMinorHealConversation.class
+	UTestMinorHealConversation.class,
+	UTestSetOrganizationProfitPercentageConversation.class,
+	UTestJoinPerformerOrganizationConversation.class,
+	UTestCreatureGenerator.class
 })
 public class CompleteTestSuite {
 }
