@@ -228,7 +228,7 @@ public class WorldPanel extends JPanel {
 			int y = worldObject.getProperty(Constants.Y);
 			
 			if (worldObject.getProperty(Constants.ID) == 0) {
-				moveMode.drawPlayerCharacter(g, this, worldObject, imageInfoReader);
+				moveMode.drawWorldObject(g, this, worldObject, imageInfoReader);
 			} else {
 				if (world.getTerrain().isExplored(x, y) && isWorldObjectVisible(worldObject)) {
 					drawWorldObject(g, worldObject, lookDirection, image, x, y);
@@ -349,6 +349,8 @@ public class WorldPanel extends JPanel {
     		return ImageIds.WATER_WALK_INDICATOR;
     	} else if (hasCondition(worldObject, Condition.UNCONSCIOUS_CONDITION)) {
     		return ImageIds.UNCONSCIOUS_INDICATOR;
+    	} else if (hasCondition(worldObject, Condition.SOUL_TRAPPED_CONDITION)) {
+    		return ImageIds.SOUL_TRAPPED_INDICATOR;
     	} else {
     		return null;
     	}

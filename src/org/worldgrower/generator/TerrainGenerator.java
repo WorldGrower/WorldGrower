@@ -37,6 +37,7 @@ public class TerrainGenerator {
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.STONE_RESOURCE);
 		properties.put(Constants.STONE_SOURCE, 9000);
+		properties.put(Constants.SOUL_GEM_SOURCE, 1000);
 		properties.put(Constants.NAME, "stone resource");
 		WorldObject tree = new WorldObjectImpl(properties);
 		world.addWorldObject(tree);

@@ -56,8 +56,8 @@ public class CurePoisonConversation implements Conversation {
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
-			new Response(YES, "yes"),
-			new Response(NO, "no"));
+			new Response(YES, "Yes"),
+			new Response(NO, "No"));
 	}
 	
 	@Override

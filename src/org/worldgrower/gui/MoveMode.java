@@ -34,7 +34,7 @@ public class MoveMode {
 		worldPanel.repaintAround(x, y, worldObject);
 	}
 	
-	public void drawPlayerCharacter(Graphics g, WorldPanel worldPanel, WorldObject worldObject, ImageInfoReader imageInfoReader) {
+	public void drawWorldObject(Graphics g, WorldPanel worldPanel, WorldObject worldObject, ImageInfoReader imageInfoReader) {
 		
 		ImageIds id = worldPanel.getImageId(worldObject);
 		LookDirection lookDirection = worldPanel.getLookDirection(worldObject);

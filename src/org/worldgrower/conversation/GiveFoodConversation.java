@@ -78,7 +78,7 @@ public class GiveFoodConversation implements Conversation {
 		WorldObject food = performerInventory.get(indexOfFood);
 		WorldObjectContainer targetInventory = target.getProperty(Constants.INVENTORY);
 		targetInventory.addQuantity(food, 1);
-		performerInventory.removeQuantity(Constants.FOOD, 1);
+		performerInventory.remove(indexOfFood);
 	}
 
 	@Override

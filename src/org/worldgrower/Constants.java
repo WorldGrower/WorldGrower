@@ -188,10 +188,13 @@ public class Constants {
 	public static final IntProperty STONE = new IntProperty("stone", 0, 15, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty ORE = new IntProperty("ore", 0, 15, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty OIL = new IntProperty("oil", 0, 1000, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty SOUL_GEM = new IntProperty("soulGem", 0, 1000, NOT_NULLABLE, ALL_PROPERTIES);
+	
 	public static final IntProperty STONE_SOURCE = new IntProperty("stoneSource", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty ORE_SOURCE = new IntProperty("oreSource", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty GOLD_SOURCE = new IntProperty("goldSource", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty OIL_SOURCE = new IntProperty("oilSource", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty SOUL_GEM_SOURCE = new IntProperty("soulGemSource", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	
 	public static final UnCheckedProperty<Curse> CURSE = new UnCheckedProperty<Curse>("curse", ALL_PROPERTIES);
 	public static final UnCheckedProperty<Conditions> CONDITIONS = new UnCheckedProperty<>("conditions", ALL_PROPERTIES);

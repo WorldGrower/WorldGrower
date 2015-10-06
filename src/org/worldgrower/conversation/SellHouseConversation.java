@@ -57,8 +57,8 @@ public class SellHouseConversation implements Conversation {
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
-			new Response(0, "yes"),
-			new Response(1, "no")
+			new Response(0, "Yes"),
+			new Response(1, "No")
 			);
 	}
 

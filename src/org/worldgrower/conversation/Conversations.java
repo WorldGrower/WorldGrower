@@ -61,14 +61,14 @@ public class Conversations implements Serializable {
 	public static final Conversation KISS_CONVERSATION = new KissConversation();
 	public static final WhyAngryConversation WHY_ANGRY_CONVERSATION = new WhyAngryConversation();
 	public static final WhyAngryOtherConversation WHY_ANGRY_OTHER_CONVERSATION = new WhyAngryOtherConversation();
-	public static final Conversation NICER_CONVERSATION = new NicerConversation();
+	public static final NicerConversation NICER_CONVERSATION = new NicerConversation();
 	public static final Conversation NOT_NICER_CONVERSATION = new NotNicerConversation();
 	public static final Conversation ORGANIZATION_CONVERSATION = new OrganizationConversation();
 	public static final JoinPerformerOrganizationConversation JOIN_PERFORMER_ORGANIZATION_CONVERSATION = new JoinPerformerOrganizationConversation();
-	public static final Conversation JOIN_TARGET_ORGANIZATION_CONVERSATION = new JoinTargetOrganizationConversation();
+	public static final JoinTargetOrganizationConversation JOIN_TARGET_ORGANIZATION_CONVERSATION = new JoinTargetOrganizationConversation();
 	public static final Conversation LEARN_SKILLS_USING_ORGANIZATION = new LearnSkillUsingOrganizationConversation();
 	public static final SetOrganizationProfitPercentageConversation SET_ORGANIZATION_PROFIT_PERCENTAGE = new SetOrganizationProfitPercentageConversation();
-	public static final Conversation CURE_POISON_CONVERSATION = new CurePoisonConversation();
+	public static final CurePoisonConversation CURE_POISON_CONVERSATION = new CurePoisonConversation();
 	public static final WhoIsLeaderOrganizationConversation WHO_IS_LEADER_ORGANIZATION_CONVERSATION = new WhoIsLeaderOrganizationConversation();
 	public static final Conversation VOTE_LEADER_ORGANIZATION_CONVERSATION = new VoteLeaderOrganizationConversation();
 	public static final SetShackTaxRateConversation SET_SHACK_TAX_RATE_CONVERSATION = new SetShackTaxRateConversation();
@@ -326,5 +326,14 @@ public class Conversations implements Serializable {
 	
 	public List<WorldObject> getPossibleSubjects(int index, int historyItemId, WorldObject performer, WorldObject target, World world) {
 		return CONVERSATIONS.get(index).getPossibleSubjects(performer, target, getQuestionHistoryItem(historyItemId, world), world);
+	}
+	
+	Conversation getIntimidateConversation() {
+		for(Conversation conversation : CONVERSATIONS) {
+			if (conversation instanceof IntimidateConversation) {
+				return conversation;
+			}
+		}
+		throw new IllegalStateException("No IntimidateConversation found in " + CONVERSATIONS);
 	}
 }

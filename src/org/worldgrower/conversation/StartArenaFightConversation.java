@@ -59,9 +59,9 @@ public class StartArenaFightConversation implements Conversation {
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
-			new Response(YES, "yes, you can start right away"),
-			new Response(NO, "no, there is already another fight"),
-			new Response(WAIT, "yes, but you'll have to wait until an opponent comes forth")
+			new Response(YES, "Yes, you can start right away"),
+			new Response(NO, "No, there is already another fight"),
+			new Response(WAIT, "Yes, but you'll have to wait until an opponent comes forth")
 			);
 	}
 	

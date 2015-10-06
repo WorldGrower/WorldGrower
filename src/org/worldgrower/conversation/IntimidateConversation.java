@@ -22,7 +22,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.attribute.Skill;
+import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
 
@@ -39,8 +39,8 @@ public class IntimidateConversation implements Conversation {
 	
 	@Override
 	public Response getReplyPhrase(ConversationContext conversationContext) {
-		int performerIntimidate = useIntimidateSkill(conversationContext);
-		int targetInsight = useInsightSkill(conversationContext);
+		int performerIntimidate = SkillUtils.useSkillLevel(conversationContext.getPerformer(), Constants.INTIMIDATE_SKILL);
+		int targetInsight = SkillUtils.useSkillLevel(conversationContext.getTarget(), Constants.INSIGHT_SKILL);
 		
 		if (performerIntimidate > targetInsight) {
 			conversationContext.getTarget().getProperty(Constants.RELATIONSHIPS).incrementValue(conversationContext.getPerformer(), 1000);
@@ -49,20 +49,6 @@ public class IntimidateConversation implements Conversation {
 		} else {
 			return getReply(getReplyPhrases(conversationContext), GET_LOST);
 		}
-	}
-
-	private int useInsightSkill(ConversationContext conversationContext) {
-		Skill insightSkill = conversationContext.getTarget().getProperty(Constants.INSIGHT_SKILL);
-		int level = insightSkill.getLevel();
-		insightSkill.use();
-		return level;
-	}
-
-	private int useIntimidateSkill(ConversationContext conversationContext) {
-		Skill intimidateSkill = conversationContext.getPerformer().getProperty(Constants.INTIMIDATE_SKILL);
-		int level = intimidateSkill.getLevel();
-		intimidateSkill.use();
-		return level;
 	}
 
 	@Override
@@ -95,7 +81,11 @@ public class IntimidateConversation implements Conversation {
 		WorldObject target = conversationContext.getTarget();
 		World world = conversationContext.getWorld();
 		
-		RelationshipPropertyUtils.changeRelationshipValue(performer, target, 50, -1000, Actions.TALK_ACTION, Conversations.createArgs(this), world);
+		if (replyIndex == GET_LOST) {
+			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -50, -50, Actions.TALK_ACTION, Conversations.createArgs(this), world);
+		} else if (replyIndex == I_LL_COMPLY) {
+			RelationshipPropertyUtils.changeRelationshipValue(performer, target, 50, -1000, Actions.TALK_ACTION, Conversations.createArgs(this), world);
+		}
 	}
 	
 	@Override

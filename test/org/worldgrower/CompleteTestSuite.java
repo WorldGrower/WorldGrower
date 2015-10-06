@@ -31,19 +31,27 @@ import org.worldgrower.attribute.UTestPropertyCountMap;
 import org.worldgrower.attribute.UTestSkillUtils;
 import org.worldgrower.attribute.UTestWorldObjectProperties;
 import org.worldgrower.condition.UTestConditions;
+import org.worldgrower.conversation.UTestArenaFighterPayCheckConversation;
 import org.worldgrower.conversation.UTestBrawlConversation;
 import org.worldgrower.conversation.UTestComplimentConversation;
 import org.worldgrower.conversation.UTestConversations;
+import org.worldgrower.conversation.UTestCurePoisonConversation;
 import org.worldgrower.conversation.UTestDeityFollowersConversation;
 import org.worldgrower.conversation.UTestDemandMoneyConversation;
 import org.worldgrower.conversation.UTestDemandsConversation;
 import org.worldgrower.conversation.UTestFamilyConversation;
+import org.worldgrower.conversation.UTestGiveFoodConversation;
+import org.worldgrower.conversation.UTestIntimidateConversation;
 import org.worldgrower.conversation.UTestJoinPerformerOrganizationConversation;
+import org.worldgrower.conversation.UTestJoinTargetOrganizationConversation;
 import org.worldgrower.conversation.UTestLocationConversation;
 import org.worldgrower.conversation.UTestMinorHealConversation;
+import org.worldgrower.conversation.UTestNicerConversation;
 import org.worldgrower.conversation.UTestProfessionPractitionersConversation;
+import org.worldgrower.conversation.UTestSellHouseConversation;
 import org.worldgrower.conversation.UTestSetOrganizationProfitPercentageConversation;
 import org.worldgrower.conversation.UTestShareKnowledgeConversation;
+import org.worldgrower.conversation.UTestStartArenaFightConversation;
 import org.worldgrower.conversation.UTestWhoIsLeaderOrganizationConversation;
 import org.worldgrower.conversation.UTestWhyAngryConversation;
 import org.worldgrower.conversation.UTestWhyAngryOtherConversation;
@@ -140,7 +148,15 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestMinorHealConversation.class,
 	UTestSetOrganizationProfitPercentageConversation.class,
 	UTestJoinPerformerOrganizationConversation.class,
-	UTestCreatureGenerator.class
+	UTestCreatureGenerator.class,
+	UTestArenaFighterPayCheckConversation.class,
+	UTestJoinTargetOrganizationConversation.class,
+	UTestGiveFoodConversation.class,
+	UTestSellHouseConversation.class,
+	UTestNicerConversation.class,
+	UTestCurePoisonConversation.class,
+	UTestIntimidateConversation.class,
+	UTestStartArenaFightConversation.class
 })
 public class CompleteTestSuite {
 }
