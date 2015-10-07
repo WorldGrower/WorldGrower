@@ -47,7 +47,7 @@ public class DeityReasonConversation implements Conversation {
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		Deity deity = target.getProperty(Constants.DEITY);
-		return Arrays.asList(new Question(null, "Why did you choose to follow " + deity.getName() + " ?"));
+		return Arrays.asList(new Question(null, "Why did you choose to follow " + deity.getName() + "?"));
 	}
 	
 	@Override

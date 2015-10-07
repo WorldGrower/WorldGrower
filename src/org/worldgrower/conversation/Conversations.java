@@ -43,12 +43,12 @@ public class Conversations implements Serializable {
 
 	public static final Conversation NAME_CONVERSATION = new NameConversation();
 	public static final Conversation GOAL_CONVERSATION = new GoalConversation();
-	public static final Conversation IMMEDIATE_GOAL_CONVERSATION = new ImmediateGoalConversation();
+	public static final ImmediateGoalConversation IMMEDIATE_GOAL_CONVERSATION = new ImmediateGoalConversation();
 	public static final Conversation RELATIONSHIP_CONVERSATION = new RelationshipConversation();
 	public static final Conversation PROFESSION_CONVERSATION = new ProfessionConversation();
 	public static final Conversation DEITY_CONVERSATION = new DeityConversation();
 	public static final Conversation DEITY_EXPLANATION_CONVERSATION = new DeityExplanationConversation();
-	public static final Conversation DEITY_REASON_CONVERSATION = new DeityReasonConversation();
+	public static final DeityReasonConversation DEITY_REASON_CONVERSATION = new DeityReasonConversation();
 	public static final Conversation PROFESSION_REASON_CONVERSATION = new ProfessionReasonConversation();
 	public static final Conversation DEMANDS_CONVERSATION = new DemandsConversation();
 	public static final Conversation BROKEN_LAW_CONVERSATION = new BrokenLawConversation();
@@ -63,7 +63,7 @@ public class Conversations implements Serializable {
 	public static final WhyAngryOtherConversation WHY_ANGRY_OTHER_CONVERSATION = new WhyAngryOtherConversation();
 	public static final NicerConversation NICER_CONVERSATION = new NicerConversation();
 	public static final Conversation NOT_NICER_CONVERSATION = new NotNicerConversation();
-	public static final Conversation ORGANIZATION_CONVERSATION = new OrganizationConversation();
+	public static final OrganizationConversation ORGANIZATION_CONVERSATION = new OrganizationConversation();
 	public static final JoinPerformerOrganizationConversation JOIN_PERFORMER_ORGANIZATION_CONVERSATION = new JoinPerformerOrganizationConversation();
 	public static final JoinTargetOrganizationConversation JOIN_TARGET_ORGANIZATION_CONVERSATION = new JoinTargetOrganizationConversation();
 	public static final Conversation LEARN_SKILLS_USING_ORGANIZATION = new LearnSkillUsingOrganizationConversation();

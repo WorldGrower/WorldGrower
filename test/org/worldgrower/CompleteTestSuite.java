@@ -37,16 +37,19 @@ import org.worldgrower.conversation.UTestComplimentConversation;
 import org.worldgrower.conversation.UTestConversations;
 import org.worldgrower.conversation.UTestCurePoisonConversation;
 import org.worldgrower.conversation.UTestDeityFollowersConversation;
+import org.worldgrower.conversation.UTestDeityReasonConversation;
 import org.worldgrower.conversation.UTestDemandMoneyConversation;
 import org.worldgrower.conversation.UTestDemandsConversation;
 import org.worldgrower.conversation.UTestFamilyConversation;
 import org.worldgrower.conversation.UTestGiveFoodConversation;
+import org.worldgrower.conversation.UTestImmediateGoalConversation;
 import org.worldgrower.conversation.UTestIntimidateConversation;
 import org.worldgrower.conversation.UTestJoinPerformerOrganizationConversation;
 import org.worldgrower.conversation.UTestJoinTargetOrganizationConversation;
 import org.worldgrower.conversation.UTestLocationConversation;
 import org.worldgrower.conversation.UTestMinorHealConversation;
 import org.worldgrower.conversation.UTestNicerConversation;
+import org.worldgrower.conversation.UTestOrganizationConversation;
 import org.worldgrower.conversation.UTestProfessionPractitionersConversation;
 import org.worldgrower.conversation.UTestSellHouseConversation;
 import org.worldgrower.conversation.UTestSetOrganizationProfitPercentageConversation;
@@ -156,7 +159,10 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestNicerConversation.class,
 	UTestCurePoisonConversation.class,
 	UTestIntimidateConversation.class,
-	UTestStartArenaFightConversation.class
+	UTestStartArenaFightConversation.class,
+	UTestDeityReasonConversation.class,
+	UTestOrganizationConversation.class,
+	UTestImmediateGoalConversation.class
 })
 public class CompleteTestSuite {
 }

@@ -348,13 +348,28 @@ public class CharacterDialog extends JDialog {
 			playerCharacter.setProperty(Constants.ARMOR, armor);
 			lblArmorValue.setText(playerCharacter.getProperty(Constants.ARMOR).toString());
 			
+			UnCheckedProperty<WorldObject> lastModifiedHandEquipmentProperty = getLastModifiedHandEquipmentProperty(e);
+			
+			MeleeDamagePropertyUtils.setTwoHandedWeapons(playerCharacter, lastModifiedHandEquipmentProperty);
+			cmbLeftHand.setSelectedItem(findItemInHand(cmbLeftHand, playerCharacter.getProperty(Constants.LEFT_HAND_EQUIPMENT)));
+			cmbRightHand.setSelectedItem(findItemInHand(cmbRightHand, playerCharacter.getProperty(Constants.RIGHT_HAND_EQUIPMENT)));
+			
 			int meleeDamage = MeleeDamagePropertyUtils.calculateMeleeDamage(playerCharacter);
 			playerCharacter.setProperty(Constants.DAMAGE, meleeDamage);
 			lblDamageValue.setText(playerCharacter.getProperty(Constants.DAMAGE).toString());
-			
-			MeleeDamagePropertyUtils.setTwoHandedWeapons(playerCharacter);
-			cmbLeftHand.setSelectedItem(findItemInHand(cmbLeftHand, playerCharacter.getProperty(Constants.LEFT_HAND_EQUIPMENT)));
-			cmbRightHand.setSelectedItem(findItemInHand(cmbRightHand, playerCharacter.getProperty(Constants.RIGHT_HAND_EQUIPMENT)));
+		}
+
+		private UnCheckedProperty<WorldObject> getLastModifiedHandEquipmentProperty(ActionEvent e) {
+			UnCheckedProperty<WorldObject> lastModifiedHandEquipmentProperty;
+			JComboBox<ComboBoxEquipmentItem> source = (JComboBox<ComboBoxEquipmentItem>) e.getSource();
+			if (source == cmbLeftHand) {
+				lastModifiedHandEquipmentProperty = Constants.LEFT_HAND_EQUIPMENT;
+			} else if (source == cmbRightHand) {
+				lastModifiedHandEquipmentProperty = Constants.RIGHT_HAND_EQUIPMENT;
+			} else {
+				return null;
+			}
+			return lastModifiedHandEquipmentProperty;
 		}
 
 		private Object findItemInHand(JComboBox<ComboBoxEquipmentItem> comboBoxEquipment, WorldObject handEquipment) {

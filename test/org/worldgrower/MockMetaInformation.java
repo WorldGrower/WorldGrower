@@ -25,7 +25,8 @@ public class MockMetaInformation {
 		worldObject.setProperty(Constants.META_INFORMATION, new MetaInformation(worldObject));
 		worldObject.getProperty(Constants.META_INFORMATION).setFinalGoal(goal);
 		
-		OperationInfo operationInfo = new OperationInfo(TestUtils.createSkilledWorldObject(1), TestUtils.createSkilledWorldObject(2), new int[0], Actions.MELEE_ATTACK_ACTION);
+		WorldObject target = TestUtils.createSkilledWorldObject(2, Constants.NAME, "targetName");
+		OperationInfo operationInfo = new OperationInfo(TestUtils.createSkilledWorldObject(1), target, new int[0], Actions.MELEE_ATTACK_ACTION);
 		worldObject.getProperty(Constants.META_INFORMATION).setCurrentTask(Arrays.asList(operationInfo), GoalChangedReason.EMPTY_META_INFORMATION);
 	}
 }

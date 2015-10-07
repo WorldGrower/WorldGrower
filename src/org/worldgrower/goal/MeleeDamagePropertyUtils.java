@@ -40,9 +40,16 @@ public class MeleeDamagePropertyUtils {
 		return meleeDamage;
 	}
 	
-	public static void setTwoHandedWeapons(WorldObject worldObject) {
+	public static void setTwoHandedWeapons(WorldObject worldObject, UnCheckedProperty<WorldObject> lastModifiedHandEquipmentProperty) {
 		WorldObject leftHandEquipment = worldObject.getProperty(Constants.LEFT_HAND_EQUIPMENT);
 		WorldObject rightHandEquipment = worldObject.getProperty(Constants.RIGHT_HAND_EQUIPMENT);
+		
+		if (lastModifiedHandEquipmentProperty == Constants.LEFT_HAND_EQUIPMENT && rightHandEquipment != null && isTwoHandedWeapon(rightHandEquipment)) {
+			worldObject.setProperty(Constants.RIGHT_HAND_EQUIPMENT, null);
+		}
+		if (lastModifiedHandEquipmentProperty == Constants.RIGHT_HAND_EQUIPMENT && leftHandEquipment != null && isTwoHandedWeapon(leftHandEquipment)) {
+			worldObject.setProperty(Constants.LEFT_HAND_EQUIPMENT, null);
+		}
 		
 		handleTwoHandedWeapons(worldObject, leftHandEquipment, rightHandEquipment, Constants.RIGHT_HAND_EQUIPMENT);
 		
@@ -52,6 +59,9 @@ public class MeleeDamagePropertyUtils {
 	}
 
 	private static void handleTwoHandedWeapons(WorldObject worldObject, WorldObject leftHandEquipment, WorldObject rightHandEquipment, UnCheckedProperty<WorldObject> propertyToSet) {
+		
+		
+		
 		if (leftHandEquipment != null) {
 			if (isTwoHandedWeapon(leftHandEquipment)) {
 				worldObject.setProperty(propertyToSet, leftHandEquipment);

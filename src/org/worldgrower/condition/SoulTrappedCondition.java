@@ -19,6 +19,7 @@ import org.worldgrower.DefaultGoalObstructedHandler;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.WorldObjectContainer;
 
 public class SoulTrappedCondition implements Condition {
 
@@ -56,7 +57,14 @@ public class SoulTrappedCondition implements Condition {
 			if (target.getProperty(Constants.HIT_POINTS) <= 1) {
 				// capture soul
 				System.out.println("capture soul");
+				WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
+				int indexOfEmptySoulGem = performerInventory.getIndexFor(w -> isEmptySoulGem(w));
+				
 			}
 		}
+	}
+
+	private boolean isEmptySoulGem(WorldObject w) {
+		return w.hasProperty(Constants.SOUL_GEM) && (!w.hasProperty(Constants.SOUL_GEM_FILLED) || !w.getProperty(Constants.SOUL_GEM_FILLED));
 	}
 }

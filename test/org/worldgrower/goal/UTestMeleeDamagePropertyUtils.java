@@ -42,7 +42,7 @@ public class UTestMeleeDamagePropertyUtils {
 	@Test
 	public void testSetTwoHandedWeapons() {
 		WorldObject performer = TestUtils.createSkilledWorldObject(1);
-		MeleeDamagePropertyUtils.setTwoHandedWeapons(performer);
+		MeleeDamagePropertyUtils.setTwoHandedWeapons(performer, Constants.LEFT_HAND_EQUIPMENT);
 		assertEquals(null, performer.getProperty(Constants.LEFT_HAND_EQUIPMENT));
 		assertEquals(null, performer.getProperty(Constants.RIGHT_HAND_EQUIPMENT));
 	}
@@ -57,7 +57,7 @@ public class UTestMeleeDamagePropertyUtils {
 		performer.setProperty(Constants.LEFT_HAND_EQUIPMENT, oneHandedClaymore);
 		performer.setProperty(Constants.RIGHT_HAND_EQUIPMENT, twoHandedGreatsword);
 		
-		MeleeDamagePropertyUtils.setTwoHandedWeapons(performer);
+		MeleeDamagePropertyUtils.setTwoHandedWeapons(performer, Constants.LEFT_HAND_EQUIPMENT);
 		assertEquals(oneHandedClaymore, performer.getProperty(Constants.LEFT_HAND_EQUIPMENT));
 		assertEquals(null, performer.getProperty(Constants.RIGHT_HAND_EQUIPMENT));
 	}

@@ -53,9 +53,17 @@ public class OrganizationConversation implements Conversation {
 		
 		StringBuilder organizationsBuilder = new StringBuilder();
 		IdList organizations = target.getProperty(Constants.GROUP);
-		for(int organizationId : organizations.getIds()) {
-			WorldObject organization = world.findWorldObject(Constants.ID, organizationId);
-			organizationsBuilder.append("the ").append(organization.getProperty(Constants.NAME)).append(" ;");
+		if (organizations.size() > 0) {
+			for(int i=0; i<organizations.getIds().size(); i++) {
+				int organizationId = organizations.getIds().get(i);
+				WorldObject organization = world.findWorldObject(Constants.ID, organizationId);
+				organizationsBuilder.append("the ").append(organization.getProperty(Constants.NAME));
+				if (i < organizations.getIds().size() - 1) {
+					organizationsBuilder.append(", ");
+				}
+			}
+		} else {
+			organizationsBuilder.append("no organization");
 		}
 		
 		return Arrays.asList(

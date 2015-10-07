@@ -48,7 +48,7 @@ public class UTestBrawlConversation {
 		assertEquals(true, replyPhrases.size() == 4);
 		assertEquals("Yes, while we brawl, only unarmed non-lethal melee attacks are allowed.", replyPhrases.get(0).getResponsePhrase());
 		assertEquals("No", replyPhrases.get(1).getResponsePhrase());
-		assertEquals("I'd love to, but I'm currently attacking null", replyPhrases.get(2).getResponsePhrase());
+		assertEquals("I'd love to, but I'm currently attacking targetName", replyPhrases.get(2).getResponsePhrase());
 		assertEquals("Not for the moment, I can't match your bet", replyPhrases.get(3).getResponsePhrase());
 	}
 	
