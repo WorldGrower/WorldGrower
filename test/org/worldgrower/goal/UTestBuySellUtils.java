@@ -16,6 +16,8 @@ package org.worldgrower.goal;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
@@ -99,8 +101,7 @@ public class UTestBuySellUtils {
 		target.setProperty(Constants.PROFIT_PERCENTAGE, 100);
 		world.addWorldObject(target);
 		
-		//TODO: fix bug
-		assertEquals(false, BuySellUtils.hasSellableEquipment(Constants.EQUIPMENT_SLOT, Constants.TORSO_EQUIPMENT, target));
+		assertEquals(true, BuySellUtils.hasSellableEquipment(Constants.EQUIPMENT_SLOT, Constants.TORSO_EQUIPMENT, target));
 	}
 	
 	@Test
@@ -123,4 +124,20 @@ public class UTestBuySellUtils {
 	}
 	
 	//TODO: worldObject cannot buy from itself
+	
+	
+	@Test
+	public void testFindBuyTargets() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
+		world.addWorldObject(target);
+		WorldObject cottonShirt = ItemGenerator.getCottonShirt(1f);
+		cottonShirt.setProperty(Constants.SELLABLE, Boolean.TRUE);
+		target.getProperty(Constants.INVENTORY).add(cottonShirt);
+		
+		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.NAME, ItemGenerator.COTTON_SHIRT_NAME, world);
+		assertEquals(1, targets.size());
+		assertEquals(target, targets.get(0));
+	}
 }

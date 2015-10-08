@@ -32,7 +32,10 @@ import org.worldgrower.attribute.UTestSkillUtils;
 import org.worldgrower.attribute.UTestWorldObjectProperties;
 import org.worldgrower.condition.UTestConditions;
 import org.worldgrower.conversation.UTestArenaFighterPayCheckConversation;
+import org.worldgrower.conversation.UTestBecomeArenaFighterConversation;
 import org.worldgrower.conversation.UTestBrawlConversation;
+import org.worldgrower.conversation.UTestBuyHouseConversation;
+import org.worldgrower.conversation.UTestCollectTaxesConversation;
 import org.worldgrower.conversation.UTestComplimentConversation;
 import org.worldgrower.conversation.UTestConversations;
 import org.worldgrower.conversation.UTestCurePoisonConversation;
@@ -51,6 +54,7 @@ import org.worldgrower.conversation.UTestMinorHealConversation;
 import org.worldgrower.conversation.UTestNicerConversation;
 import org.worldgrower.conversation.UTestOrganizationConversation;
 import org.worldgrower.conversation.UTestProfessionPractitionersConversation;
+import org.worldgrower.conversation.UTestProposeMateConversation;
 import org.worldgrower.conversation.UTestSellHouseConversation;
 import org.worldgrower.conversation.UTestSetOrganizationProfitPercentageConversation;
 import org.worldgrower.conversation.UTestShareKnowledgeConversation;
@@ -64,6 +68,7 @@ import org.worldgrower.goal.UTestArenaPropertyUtils;
 import org.worldgrower.goal.UTestArmorPropertyUtils;
 import org.worldgrower.goal.UTestBrawlPropertyUtils;
 import org.worldgrower.goal.UTestBuildLocationUtils;
+import org.worldgrower.goal.UTestBuyClothesGoal;
 import org.worldgrower.goal.UTestBuySellUtils;
 import org.worldgrower.goal.UTestDrownUtils;
 import org.worldgrower.goal.UTestFacadeUtils;
@@ -162,7 +167,12 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestStartArenaFightConversation.class,
 	UTestDeityReasonConversation.class,
 	UTestOrganizationConversation.class,
-	UTestImmediateGoalConversation.class
+	UTestImmediateGoalConversation.class,
+	UTestBecomeArenaFighterConversation.class,
+	UTestProposeMateConversation.class,
+	UTestBuyClothesGoal.class,
+	UTestBuyHouseConversation.class,
+	UTestCollectTaxesConversation.class
 })
 public class CompleteTestSuite {
 }

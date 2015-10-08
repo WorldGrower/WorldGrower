@@ -46,14 +46,14 @@ public class WorldObjectContainer implements Serializable {
 		return worldObjects.get(index);
 	}
 	
-	public<T> void addQuantity(IntProperty propertyKey, int quantity, ImageIds initialImageId) {
+	public<T> WorldObject addQuantity(IntProperty propertyKey, int quantity, ImageIds initialImageId) {
 		boolean found = false;
 		for(WorldObject object : worldObjects) {
 			if (object != null) {
 				if (object.hasProperty(propertyKey)) {
 					object.increment(Constants.QUANTITY, quantity);
 					found = true;
-					return;
+					return object;
 				}
 			}
 		}
@@ -69,7 +69,14 @@ public class WorldObjectContainer implements Serializable {
 			properties.put(Constants.IMAGE_ID, initialImageId);
 			WorldObject worldObject = new WorldObjectImpl(properties);
 			add(worldObject);
+			return worldObject;
+		} else {
+			return null;
 		}
+	}
+	
+	public void addQuantity(int index) {
+		addQuantity(get(index));
 	}
 	
 	public void addQuantity(WorldObject worldObject) {

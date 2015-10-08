@@ -20,6 +20,7 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.gui.ImageIds;
 
 public class SoulTrappedCondition implements Condition {
 
@@ -59,12 +60,27 @@ public class SoulTrappedCondition implements Condition {
 				System.out.println("capture soul");
 				WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
 				int indexOfEmptySoulGem = performerInventory.getIndexFor(w -> isEmptySoulGem(w));
-				
+				int indexOfFilledSoulGem = performerInventory.getIndexFor(w -> isFilledSoulGem(w));
+			
+				if (indexOfEmptySoulGem != -1) {
+					performerInventory.removeQuantity(Constants.SOUL_GEM, -1);
+					
+					if (indexOfFilledSoulGem != -1) {
+						performerInventory.addQuantity(indexOfFilledSoulGem);
+					} else {
+						WorldObject worldObject = performerInventory.addQuantity(Constants.SOUL_GEM, 1, ImageIds.FILLED_SOUL_GEM);
+						worldObject.setProperty(Constants.SOUL_GEM_FILLED, Boolean.TRUE);
+					}
+				}
 			}
 		}
 	}
 
 	private boolean isEmptySoulGem(WorldObject w) {
 		return w.hasProperty(Constants.SOUL_GEM) && (!w.hasProperty(Constants.SOUL_GEM_FILLED) || !w.getProperty(Constants.SOUL_GEM_FILLED));
+	}
+	
+	private boolean isFilledSoulGem(WorldObject w) {
+		return w.hasProperty(Constants.SOUL_GEM) && w.hasProperty(Constants.SOUL_GEM_FILLED) && w.getProperty(Constants.SOUL_GEM_FILLED);
 	}
 }
