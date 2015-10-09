@@ -129,7 +129,7 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 		return actionTargetIsCriminal;
 	}
 
-	private void logToBackground(WorldObject target, WorldObject actionTarget, ManagedOperation managedOperation, int[] args, WorldObject performerFacade, World world) {
+	static void logToBackground(WorldObject target, WorldObject actionTarget, ManagedOperation managedOperation, int[] args, WorldObject performerFacade, World world) {
 		if (world.exists(target) && world.exists(performerFacade)) {
 			if (target.hasProperty(Constants.BACKGROUND)) {
 				target.getProperty(Constants.BACKGROUND).addGoalObstructed(performerFacade, actionTarget, managedOperation, args, world);

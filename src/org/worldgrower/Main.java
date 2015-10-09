@@ -14,53 +14,34 @@
  *******************************************************************************/
 package org.worldgrower;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.swing.JFrame;
 import javax.swing.ToolTipManager;
 
-import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.ArenaFightOnTurn;
 import org.worldgrower.actions.BrawlListener;
-import org.worldgrower.attribute.IdList;
-import org.worldgrower.attribute.IdRelationshipMap;
-import org.worldgrower.attribute.KnowledgeMap;
-import org.worldgrower.attribute.LookDirection;
 import org.worldgrower.attribute.ManagedProperty;
-import org.worldgrower.attribute.PropertyCountMap;
-import org.worldgrower.attribute.SkillUtils;
-import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.condition.ConditionListener;
-import org.worldgrower.condition.Conditions;
-import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.curse.CurseListener;
 import org.worldgrower.deity.DeityWorldOnTurn;
 import org.worldgrower.generator.CommonerGenerator;
-import org.worldgrower.generator.CommonerOnTurn;
 import org.worldgrower.generator.CreatureGenerator;
-import org.worldgrower.generator.ItemGenerator;
 import org.worldgrower.generator.PlantGenerator;
 import org.worldgrower.generator.TerrainGenerator;
 import org.worldgrower.generator.WorldGenerator;
-import org.worldgrower.goal.ArmorPropertyUtils;
 import org.worldgrower.goal.GroupPropertyUtils;
-import org.worldgrower.goal.HitPointPropertyUtils;
-import org.worldgrower.goal.MeleeDamagePropertyUtils;
 import org.worldgrower.gui.CommonerImageIds;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.SwingUtils;
 import org.worldgrower.gui.WorldPanel;
 import org.worldgrower.gui.music.BackgroundMusicUtils;
 import org.worldgrower.gui.music.MusicPlayer;
 import org.worldgrower.gui.start.CharacterAttributes;
 import org.worldgrower.gui.util.IconUtils;
-import org.worldgrower.profession.PlayerCharacterProfession;
 import org.worldgrower.terrain.TerrainType;
 
 /**
@@ -71,7 +52,7 @@ public class Main {
 	private static JFrame frame = null;
 	private static MusicPlayer musicPlayer = null;
 	
-	public static void run(String playerName, String playerProfession, int worldWidth, int worldHeight, int enemyDensity, int villagerCount, int seed, boolean playBackgroundMusic, CharacterAttributes characterAttributes) throws Exception {
+	public static void run(String playerName, String playerProfession, String gender, int worldWidth, int worldHeight, int enemyDensity, int villagerCount, int seed, boolean playBackgroundMusic, CharacterAttributes characterAttributes) throws Exception {
 		DungeonMaster dungeonMaster = new DungeonMaster();
 		WorldOnTurnImpl worldOnTurn = new WorldOnTurnImpl(new DeityWorldOnTurn(), new ArenaFightOnTurn());
 		World world = new WorldImpl(worldWidth, worldHeight, dungeonMaster, worldOnTurn);
@@ -82,7 +63,7 @@ public class Main {
 		final WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
 		final CommonerGenerator commonerGenerator = new CommonerGenerator(seed, commonerImageIds, commonerNameGenerator);
 		
-		final WorldObject playerCharacter = createPlayerCharacter(playerCharacterId, playerName, playerProfession, world, commonerGenerator, organization, characterAttributes);
+		final WorldObject playerCharacter = CommonerGenerator.createPlayerCharacter(playerCharacterId, playerName, playerProfession, gender, world, commonerGenerator, organization, characterAttributes);
 		world.addWorldObject(playerCharacter);
 		
 		addDefaultWorldObjects(world, commonerGenerator, organization, villagerCount, seed);
@@ -175,81 +156,7 @@ public class Main {
 		worldGenerator.addWorldObjects(world, 1, 1, 20, TerrainType.PLAINS, PlantGenerator::generateBerryBush);
 	}
 
-	private static WorldObject createPlayerCharacter(int id, String playerName, String playerProfession, World world, CommonerGenerator commonerGenerator, WorldObject organization, CharacterAttributes characterAttributes) {
-		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
-		
-		properties.put(Constants.X, 5);
-		properties.put(Constants.Y, 5);
-		properties.put(Constants.WIDTH, 1);
-		properties.put(Constants.HEIGHT, 1);
-		properties.put(Constants.NAME, playerName);
-		properties.put(Constants.ID, id);
-		properties.put(Constants.IMAGE_ID, ImageIds.KNIGHT);
-		properties.put(Constants.LOOK_DIRECTION, LookDirection.SOUTH);
-		properties.put(Constants.FOOD, 500);
-		properties.put(Constants.WATER, 500);
-		properties.put(Constants.ENERGY, 1000);
-		properties.put(Constants.GROUP, new IdList().add(organization));
-		
-		WorldObjectContainer inventory = new WorldObjectContainer();
-		inventory.add(ItemGenerator.getIronClaymore(1.0f));
-		inventory.add(ItemGenerator.getIronGreatSword(1.0f));
-		inventory.add(ItemGenerator.getIronCuirass(1.0f));
-		inventory.add(ItemGenerator.getLongBow(1.0f));
-		properties.put(Constants.INVENTORY, inventory);
-		properties.put(Constants.GOLD, 100);
-		properties.put(Constants.ORGANIZATION_GOLD, 0);
-		properties.put(Constants.PROFIT_PERCENTAGE, 0);
-		
-		properties.put(Constants.PROFESSION, new PlayerCharacterProfession(playerProfession));
-		properties.put(Constants.RELATIONSHIPS, new IdRelationshipMap());
-		properties.put(Constants.CHILDREN, new IdList());
-		properties.put(Constants.SOCIAL, 0);
-		properties.put(Constants.GENDER, "male");
-		properties.put(Constants.CREATURE_TYPE, CreatureType.HUMAN_CREATURE_TYPE);
-		properties.put(Constants.CONDITIONS, new Conditions());
-		properties.put(Constants.HOUSES, new IdList());
-		properties.put(Constants.KNOWLEDGE_MAP, new KnowledgeMap());
-		properties.put(Constants.ARENA_IDS, new IdList());
-		properties.put(Constants.ARENA_FIGHTER_IDS, new IdList());
-		
-		properties.put(Constants.HEAD_EQUIPMENT, null);
-		properties.put(Constants.TORSO_EQUIPMENT, null);
-		properties.put(Constants.ARMS_EQUIPMENT, null);
-		properties.put(Constants.LEGS_EQUIPMENT, null);
-		properties.put(Constants.FEET_EQUIPMENT, null);
-		properties.put(Constants.LEFT_HAND_EQUIPMENT, null);
-		properties.put(Constants.RIGHT_HAND_EQUIPMENT, null);
-		
-		properties.put(Constants.EXPERIENCE, 0);
-		properties.put(Constants.ARMOR, 0);
-		
-		properties.put(Constants.STRENGTH, characterAttributes.getStrength());
-		properties.put(Constants.DEXTERITY, characterAttributes.getDexterity());
-		properties.put(Constants.CONSTITUTION, characterAttributes.getConstitution());
-		properties.put(Constants.INTELLIGENCE, characterAttributes.getIntelligence());
-		properties.put(Constants.WISDOM, characterAttributes.getWisdom());
-		properties.put(Constants.CHARISMA, characterAttributes.getCharisma());
-		
-		SkillUtils.addAllSkills(properties);
-		HitPointPropertyUtils.addHitPointProperties(properties);
-		properties.put(Constants.KNOWN_SPELLS, new ArrayList<>());
-		properties.put(Constants.STUDYING_SPELLS, new PropertyCountMap<ManagedOperation>());
 
-		properties.put(Constants.DAMAGE, 2);
-		properties.put(Constants.DAMAGE_RESIST, 10);
-		
-		if (Boolean.getBoolean("DEBUG")) {
-			((List<Object>)properties.get(Constants.KNOWN_SPELLS)).addAll(Actions.getMagicSpells());
-		}
-		
-		final WorldObject playerCharacter = new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new CommonerOnTurn(commonerGenerator, organization), null);
-		
-		playerCharacter.setProperty(Constants.DAMAGE, MeleeDamagePropertyUtils.calculateMeleeDamage(playerCharacter));
-		playerCharacter.setProperty(Constants.ARMOR, ArmorPropertyUtils.calculateArmor(playerCharacter));
-		
-		return playerCharacter;
-	}
 
     private static void createAndShowGUI(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, boolean playBackgroundMusic) throws IOException {
     	if (frame != null) {
@@ -264,7 +171,7 @@ public class Main {
         frame.setContentPane(worldPanel);
         
         frame.pack();
-        centerFrame();
+        SwingUtils.centerFrame(frame);
         frame.setVisible(true);
         
         ToolTipManager.sharedInstance().setDismissDelay(9999999);
@@ -279,11 +186,6 @@ public class Main {
         }
     }
 
-	private static void centerFrame() {
-		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
-	}
-    
     public static void executeAction(WorldObject playerCharacter, ManagedOperation action, int[] args, World world, DungeonMaster dungeonMaster, WorldObject target, WorldPanel worldPanel) {
     	if (canActionExecute(playerCharacter, action, args, world, target)) {
     		dungeonMaster.executeAction(action, playerCharacter, target, args, world);

@@ -17,6 +17,7 @@ package org.worldgrower;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
+import org.worldgrower.actions.UTestActions;
 import org.worldgrower.actions.UTestAttackUtils;
 import org.worldgrower.actions.UTestChooseProfessionAction;
 import org.worldgrower.actions.UTestCraftUtils;
@@ -54,14 +55,20 @@ import org.worldgrower.conversation.UTestMinorHealConversation;
 import org.worldgrower.conversation.UTestNicerConversation;
 import org.worldgrower.conversation.UTestOrganizationConversation;
 import org.worldgrower.conversation.UTestProfessionPractitionersConversation;
+import org.worldgrower.conversation.UTestProfessionReasonConversation;
 import org.worldgrower.conversation.UTestProposeMateConversation;
+import org.worldgrower.conversation.UTestRelationshipConversation;
 import org.worldgrower.conversation.UTestSellHouseConversation;
 import org.worldgrower.conversation.UTestSetOrganizationProfitPercentageConversation;
 import org.worldgrower.conversation.UTestShareKnowledgeConversation;
 import org.worldgrower.conversation.UTestStartArenaFightConversation;
+import org.worldgrower.conversation.UTestVoteLeaderOrganizationConversation;
 import org.worldgrower.conversation.UTestWhoIsLeaderOrganizationConversation;
 import org.worldgrower.conversation.UTestWhyAngryConversation;
 import org.worldgrower.conversation.UTestWhyAngryOtherConversation;
+import org.worldgrower.conversation.UTestWhyNotIntelligentConversation;
+import org.worldgrower.deity.UTestDeityPropertyUtils;
+import org.worldgrower.generator.UTestCommonerGenerator;
 import org.worldgrower.generator.UTestCreatureGenerator;
 import org.worldgrower.goal.UTestAbstractScribeSpellsGoal;
 import org.worldgrower.goal.UTestArenaPropertyUtils;
@@ -172,7 +179,14 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestProposeMateConversation.class,
 	UTestBuyClothesGoal.class,
 	UTestBuyHouseConversation.class,
-	UTestCollectTaxesConversation.class
+	UTestCollectTaxesConversation.class,
+	UTestVoteLeaderOrganizationConversation.class,
+	UTestRelationshipConversation.class,
+	UTestProfessionReasonConversation.class,
+	UTestDeityPropertyUtils.class,
+	UTestCommonerGenerator.class,
+	UTestWhyNotIntelligentConversation.class,
+	UTestActions.class
 })
 public class CompleteTestSuite {
 }

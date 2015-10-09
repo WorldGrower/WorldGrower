@@ -39,7 +39,7 @@ public class UTestStartArenaFightConversation {
 		
 		ConversationContext context = new ConversationContext(performer, target, null, null, null, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
-		assertEquals(true, replyPhrases.size() == 3);
+		assertEquals(3, replyPhrases.size());
 		assertEquals("Yes, you can start right away", replyPhrases.get(0).getResponsePhrase());
 		assertEquals("No, there is already another fight", replyPhrases.get(1).getResponsePhrase());
 		assertEquals("Yes, but you'll have to wait until an opponent comes forth", replyPhrases.get(2).getResponsePhrase());
@@ -71,5 +71,51 @@ public class UTestStartArenaFightConversation {
 		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, null, null);
 		assertEquals(1, questions.size());
 		assertEquals("I would like to fight in the arena. Can I fight?", questions.get(0).getQuestionPhrase());
+	}
+	
+	@Test
+	public void testHandleResponse0() {
+		World world = new WorldImpl(0, 0, new DungeonMaster(), null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.GROUP, new IdList());
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.ARENA_IDS, new IdList().add(3));
+		
+		target.setProperty(Constants.ARENA_FIGHTER_IDS, new IdList().add(3));
+		
+		WorldObject subject = TestUtils.createWorldObject(0, 0, 1, 1, Constants.ID, 3);
+		world.addWorldObject(subject);
+		subject.setProperty(Constants.ARENA_OPPONENT_ID, -1);
+		
+		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
+		conversation.handleResponse(0, context);
+		
+		assertEquals(1, subject.getProperty(Constants.ARENA_OPPONENT_ID).intValue());
+		assertEquals(3, performer.getProperty(Constants.ARENA_OPPONENT_ID).intValue());
+	}
+	
+	@Test
+	public void testHandleResponse1() {
+		World world = new WorldImpl(0, 0, new DungeonMaster(), null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.GROUP, new IdList());
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.ARENA_IDS, new IdList().add(3));
+		target.setProperty(Constants.ARENA_FIGHTER_IDS, new IdList());
+		
+		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
+		conversation.handleResponse(1, context);
+		
+		assertEquals(-5, performer.getProperty(Constants.RELATIONSHIPS).getValue(target));
+		assertEquals(-5, target.getProperty(Constants.RELATIONSHIPS).getValue(performer));
+	}
+	
+	@Test
+	public void testHandleResponse2() {
+		World world = new WorldImpl(0, 0, new DungeonMaster(), null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.GROUP, new IdList());
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.ARENA_IDS, new IdList().add(3));
+		target.setProperty(Constants.ARENA_FIGHTER_IDS, new IdList());
+		
+		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
+		conversation.handleResponse(2, context);
+		
+		assertEquals(-1, performer.getProperty(Constants.ARENA_OPPONENT_ID).intValue());
 	}
 }

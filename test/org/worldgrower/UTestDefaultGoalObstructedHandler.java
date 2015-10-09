@@ -16,8 +16,11 @@ package org.worldgrower;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.BackgroundImpl;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.generator.ItemGenerator;
@@ -152,7 +155,7 @@ public class UTestDefaultGoalObstructedHandler {
 	
 	@Test
 	public void testHasAnyoneSeenActionInvisible() {
-		World world = new WorldImpl(10, 10, null, null);
+		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.GROUP, new IdList().add(1));
 		WorldObject actionTarget = TestUtils.createIntelligentWorldObject(2, Constants.GROUP, new IdList().add(1));
 		world.addWorldObject(performer);
@@ -167,6 +170,21 @@ public class UTestDefaultGoalObstructedHandler {
 		actionTarget.setProperty(Constants.Y, 2);
 		
 		assertEquals(false, DefaultGoalObstructedHandler.hasAnyoneSeenAction(performer, actionTarget, Actions.TALK_ACTION, new int[0], world));
+	}
+	
+	@Test
+	public void testLogToBackground() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.GENDER, "male");
+		WorldObject actionTarget = TestUtils.createIntelligentWorldObject(2, Constants.GROUP, new IdList());
+		world.addWorldObject(performer);
+		world.addWorldObject(actionTarget);
+		
+		actionTarget.setProperty(Constants.BACKGROUND, new BackgroundImpl());
+		
+		DefaultGoalObstructedHandler.logToBackground(actionTarget, actionTarget, Actions.MELEE_ATTACK_ACTION, new int[0], performer, world);
+		List<String> angryReasons = actionTarget.getProperty(Constants.BACKGROUND).getAngryReasons(true, 2, performer, world);
+		assertEquals(1, angryReasons.size());
 	}
 
 	private WorldObject createVillagersOrganization(World world) {

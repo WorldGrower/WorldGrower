@@ -54,6 +54,16 @@ public class UTestWorldObjectContainer {
 	}
 	
 	@Test
+	public void testAddQuantityByIndex() {
+		WorldObjectContainer container = new WorldObjectContainer();
+		container.addQuantity(Constants.WOOD, 2, NO_IMAGE_ID);
+		container.addQuantity(0);
+		
+		assertEquals(1, container.size());
+		assertEquals(3, container.get(0).getProperty(Constants.QUANTITY).intValue());
+	}
+	
+	@Test
 	public void testAddQuantityByWorldObject() {
 		WorldObjectContainer container = new WorldObjectContainer();
 		container.addQuantity(TestUtils.createWorldObject(0, "Weapon"));
@@ -134,6 +144,15 @@ public class UTestWorldObjectContainer {
 		container.addQuantity(Constants.FOOD, 10, NO_IMAGE_ID);
 		
 		assertEquals(0, container.getIndexFor(Constants.EQUIPMENT_SLOT, Constants.TORSO_EQUIPMENT, w -> w.getProperty(Constants.ARMOR) > 0));
+	}
+	
+	@Test
+	public void testGetIndexForFunction() {
+		WorldObjectContainer container = new WorldObjectContainer();
+		container.add(TestUtils.createWorldObject(1, "Test"));
+		container.addQuantity(Constants.FOOD, 10, NO_IMAGE_ID);
+		
+		assertEquals(0, container.getIndexFor(w -> w.getProperty(Constants.ID) == 1));
 	}
 	
 	@Test

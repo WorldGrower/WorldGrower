@@ -19,8 +19,12 @@ import static org.junit.Assert.assertEquals;
 import java.util.Arrays;
 
 import org.junit.Test;
+import org.worldgrower.Constants;
+import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
+import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
 
 public class UTestConditions {
 
@@ -81,5 +85,30 @@ public class UTestConditions {
 		conditions.addCondition(Condition.VAMPIRE_BITE_CONDITION, 2, world);
 		
 		assertEquals(Arrays.asList(Condition.VAMPIRE_BITE_CONDITION), conditions.getDiseaseConditions());
+	}
+	
+	@Test
+	public void testRemoveAllDiseases() {
+		Conditions conditions = new Conditions();
+		World world = new WorldImpl(0, 0, null, null);
+		conditions.addCondition(Condition.VAMPIRE_BITE_CONDITION, 2, world);
+	
+		assertEquals(true, conditions.hasDiseaseCondition());
+		
+		conditions.removeAllDiseases();
+		assertEquals(false, conditions.hasDiseaseCondition());
+	}
+	
+	@Test
+	public void testPerform() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, "Test");
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, "Test");
+		
+		Conditions targetConditions = target.getProperty(Constants.CONDITIONS);
+		targetConditions.addCondition(Condition.SLEEP_CONDITION, 2, world);
+		
+		targetConditions.perform(performer, target, null, Actions.MELEE_ATTACK_ACTION, world);
+		assertEquals(false, targetConditions.hasCondition(Condition.SLEEP_CONDITION));
 	}
 }

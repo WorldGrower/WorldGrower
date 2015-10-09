@@ -114,4 +114,15 @@ public class UTestKnowledgeMap {
 		assertEquals(1, knowledgeMap.getKnowledge(person).size());
 		assertEquals(700, knowledgeMap.getKnowledge(person).get(0).getValue());
 	}
+	
+	@Test
+	public void testHasKnowledge() {
+		KnowledgeMap knowledgeMap = new KnowledgeMap();
+		knowledgeMap.addKnowledge(1, Constants.FOOD, 500);
+		
+		assertEquals(true, knowledgeMap.hasKnowledge(1));
+		
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.FOOD, 500);
+		assertEquals(false, knowledgeMap.hasKnowledge(target));
+	}
 }

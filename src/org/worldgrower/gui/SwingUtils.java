@@ -1,6 +1,8 @@
 package org.worldgrower.gui;
 
 import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
@@ -9,6 +11,7 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JRootPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -47,5 +50,10 @@ public class SwingUtils {
 		int paddingOnBothSides = parentWidth - width;
 		x = paddingOnBothSides / 2;
 		component.setBounds(x, y, width, height);
+	}
+	
+	public static void centerFrame(JFrame frame) {
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
 	}
 }

@@ -44,12 +44,12 @@ public class Conversations implements Serializable {
 	public static final Conversation NAME_CONVERSATION = new NameConversation();
 	public static final Conversation GOAL_CONVERSATION = new GoalConversation();
 	public static final ImmediateGoalConversation IMMEDIATE_GOAL_CONVERSATION = new ImmediateGoalConversation();
-	public static final Conversation RELATIONSHIP_CONVERSATION = new RelationshipConversation();
+	public static final RelationshipConversation RELATIONSHIP_CONVERSATION = new RelationshipConversation();
 	public static final Conversation PROFESSION_CONVERSATION = new ProfessionConversation();
 	public static final Conversation DEITY_CONVERSATION = new DeityConversation();
 	public static final Conversation DEITY_EXPLANATION_CONVERSATION = new DeityExplanationConversation();
 	public static final DeityReasonConversation DEITY_REASON_CONVERSATION = new DeityReasonConversation();
-	public static final Conversation PROFESSION_REASON_CONVERSATION = new ProfessionReasonConversation();
+	public static final ProfessionReasonConversation PROFESSION_REASON_CONVERSATION = new ProfessionReasonConversation();
 	public static final Conversation DEMANDS_CONVERSATION = new DemandsConversation();
 	public static final Conversation BROKEN_LAW_CONVERSATION = new BrokenLawConversation();
 	public static final ComplimentConversation COMPLIMENT_CONVERSATION = new ComplimentConversation();
@@ -70,7 +70,7 @@ public class Conversations implements Serializable {
 	public static final SetOrganizationProfitPercentageConversation SET_ORGANIZATION_PROFIT_PERCENTAGE = new SetOrganizationProfitPercentageConversation();
 	public static final CurePoisonConversation CURE_POISON_CONVERSATION = new CurePoisonConversation();
 	public static final WhoIsLeaderOrganizationConversation WHO_IS_LEADER_ORGANIZATION_CONVERSATION = new WhoIsLeaderOrganizationConversation();
-	public static final Conversation VOTE_LEADER_ORGANIZATION_CONVERSATION = new VoteLeaderOrganizationConversation();
+	public static final VoteLeaderOrganizationConversation VOTE_LEADER_ORGANIZATION_CONVERSATION = new VoteLeaderOrganizationConversation();
 	public static final SetShackTaxRateConversation SET_SHACK_TAX_RATE_CONVERSATION = new SetShackTaxRateConversation();
 	public static final SetHouseTaxRateConversation SET_HOUSE_TAX_RATE_CONVERSATION = new SetHouseTaxRateConversation();
 	public static final CollectTaxesConversation COLLECT_TAXES_CONVERSATION = new CollectTaxesConversation();

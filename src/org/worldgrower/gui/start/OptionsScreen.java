@@ -20,11 +20,13 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 import org.worldgrower.Main;
@@ -35,6 +37,7 @@ import org.worldgrower.util.NumberUtils;
 import javax.swing.JCheckBox;
 
 public class OptionsScreen {
+	private static final String GENDER_TOOL_TIP = "choose gender of player character";
 	private static final String MUSIC_TOOL_TIP = "Play background music";
 	private static final String SEED_TOOL_TIP = "The seed is used for random number generation. A different value will result in different villagers which make other decisions";
 	private static final String CHARACTER_PROFESSION_TOOL_TIP = "describes profession of player character";
@@ -46,6 +49,8 @@ public class OptionsScreen {
 	
 	private JFrame frame;
 	private JTextField playerNameTextField;
+	private JRadioButton maleRadioButton;
+	private JRadioButton femaleRadioButton;
 	private JTextField worldWidthTextField;
 	private JTextField worldHeightTextField;
 	private JTextField numberOfEnemiesTextField;
@@ -74,6 +79,7 @@ public class OptionsScreen {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setResizable(false);
 		Dimension size = new Dimension(414, 500);
 		JPanel contentPanel = new GradientPanel();
 		contentPanel.setLayout(null);
@@ -96,53 +102,74 @@ public class OptionsScreen {
 		playerNameTextField.setBounds(228, 30, 137, 22);
 		contentPanel.add(playerNameTextField);
 		playerNameTextField.setColumns(10);
+		playerNameTextField.selectAll();
+		
+		JLabel lblGender = new JLabel("Gender:");
+		lblGender.setToolTipText(GENDER_TOOL_TIP);
+		lblGender.setBounds(25, 113, 191, 26);
+		contentPanel.add(lblGender);
+		
+		maleRadioButton = new JRadioButton("male");
+		maleRadioButton.setSelected(true);
+		maleRadioButton.setToolTipText(GENDER_TOOL_TIP);
+		maleRadioButton.setBounds(228, 113, 80, 22);
+		contentPanel.add(maleRadioButton);
+		
+		femaleRadioButton = new JRadioButton("female");
+		femaleRadioButton.setToolTipText(GENDER_TOOL_TIP);
+		femaleRadioButton.setBounds(308, 113, 80, 22);
+		contentPanel.add(femaleRadioButton);
+		
+		ButtonGroup buttonGroup = new ButtonGroup();
+		buttonGroup.add(maleRadioButton);
+		buttonGroup.add(femaleRadioButton);
 		
 		JLabel lblWorldWidth = new JLabel("World Width:");
 		lblWorldWidth.setToolTipText(WORLD_WIDTH_TOOL_TIP);
-		lblWorldWidth.setBounds(25, 123, 191, 26);
+		lblWorldWidth.setBounds(25, 163, 191, 26);
 		contentPanel.add(lblWorldWidth);
 		
 		worldWidthTextField = new JTextField();
 		worldWidthTextField.setToolTipText(WORLD_WIDTH_TOOL_TIP);
 		worldWidthTextField.setText("100");
-		worldWidthTextField.setBounds(228, 123, 137, 22);
+		worldWidthTextField.setBounds(228, 163, 137, 22);
 		contentPanel.add(worldWidthTextField);
 		worldWidthTextField.setColumns(10);
 		
 		JLabel lblWorldHeight = new JLabel("World Height:");
 		lblWorldHeight.setToolTipText(WORLD_HEIGHT_TOOL_TIP);
-		lblWorldHeight.setBounds(25, 162, 191, 26);
+		lblWorldHeight.setBounds(25, 202, 191, 26);
 		contentPanel.add(lblWorldHeight);
 		
 		worldHeightTextField = new JTextField();
 		worldHeightTextField.setToolTipText(WORLD_HEIGHT_TOOL_TIP);
 		worldHeightTextField.setText("100");
 		worldHeightTextField.setColumns(10);
-		worldHeightTextField.setBounds(228, 160, 137, 22);
+		worldHeightTextField.setBounds(228, 200, 137, 22);
 		contentPanel.add(worldHeightTextField);
 		
 		JLabel lblNumberOfEnemies = new JLabel("Enemy density:");
 		lblNumberOfEnemies.setToolTipText(MONSTER_DENSITY_TOOL_TIP);
-		lblNumberOfEnemies.setBounds(25, 201, 191, 26);
+		lblNumberOfEnemies.setBounds(25, 239, 191, 26);
 		contentPanel.add(lblNumberOfEnemies);
 		
 		numberOfEnemiesTextField = new JTextField();
 		numberOfEnemiesTextField.setToolTipText(MONSTER_DENSITY_TOOL_TIP);
 		numberOfEnemiesTextField.setText("0");
 		numberOfEnemiesTextField.setColumns(10);
-		numberOfEnemiesTextField.setBounds(228, 199, 137, 22);
+		numberOfEnemiesTextField.setBounds(228, 239, 137, 22);
 		contentPanel.add(numberOfEnemiesTextField);
 		
 		JLabel lblNumberOfVillagers = new JLabel("Number of Villagers:");
 		lblNumberOfVillagers.setToolTipText(NUMBER_OF_VILLAGERS_TOOL_TIP);
-		lblNumberOfVillagers.setBounds(25, 241, 191, 26);
+		lblNumberOfVillagers.setBounds(25, 281, 191, 26);
 		contentPanel.add(lblNumberOfVillagers);
 		
 		numberOfVillagersTextField = new JTextField();
 		numberOfVillagersTextField.setToolTipText(NUMBER_OF_VILLAGERS_TOOL_TIP);
 		numberOfVillagersTextField.setText("4");
 		numberOfVillagersTextField.setColumns(10);
-		numberOfVillagersTextField.setBounds(228, 241, 137, 22);
+		numberOfVillagersTextField.setBounds(228, 281, 137, 22);
 		contentPanel.add(numberOfVillagersTextField);
 		
 		JButton btnOk = new JButton("Ok");
@@ -163,7 +190,11 @@ public class OptionsScreen {
 						int villagerCount = Integer.parseInt(numberOfVillagersTextField.getText());
 						int seed = Integer.parseInt(seedTextField.getText());
 						boolean playBackgroundMusic = chkBackgroundMusic.isSelected();
-						Main.run(playerNameTextField.getText(), playerProfessionTextField.getText(), worldWidth, worldHeight, enemyDensity, villagerCount, seed, playBackgroundMusic, characterAttributes);
+						
+						String gender = maleRadioButton.isSelected() ? "male" : "female";
+						
+						
+						Main.run(playerNameTextField.getText(), playerProfessionTextField.getText(), gender, worldWidth, worldHeight, enemyDensity, villagerCount, seed, playBackgroundMusic, characterAttributes);
 					} catch (Exception e1) {
 						ExceptionHandler.handle(e1);
 					}
@@ -196,26 +227,26 @@ public class OptionsScreen {
 		
 		JLabel lblSeed = new JLabel("Seed:");
 		lblSeed.setToolTipText(SEED_TOOL_TIP);
-		lblSeed.setBounds(25, 283, 191, 26);
+		lblSeed.setBounds(25, 323, 191, 26);
 		contentPanel.add(lblSeed);
 		
 		seedTextField = new JTextField();
 		seedTextField.setToolTipText(SEED_TOOL_TIP);
 		seedTextField.setText("666");
 		seedTextField.setColumns(10);
-		seedTextField.setBounds(228, 283, 137, 22);
+		seedTextField.setBounds(228, 323, 137, 22);
 		contentPanel.add(seedTextField);
 		
 		chkBackgroundMusic = new JCheckBox("Music");
 		chkBackgroundMusic.setToolTipText(MUSIC_TOOL_TIP);
 		chkBackgroundMusic.setSelected(true);
 		chkBackgroundMusic.setOpaque(false);
-		chkBackgroundMusic.setBounds(228, 340, 137, 25);
+		chkBackgroundMusic.setBounds(228, 360, 137, 25);
 		contentPanel.add(chkBackgroundMusic);
 		
 		JLabel lblPlayBackgroundMusic = new JLabel("Play background music:");
 		lblPlayBackgroundMusic.setToolTipText(MUSIC_TOOL_TIP);
-		lblPlayBackgroundMusic.setBounds(25, 339, 191, 26);
+		lblPlayBackgroundMusic.setBounds(25, 360, 191, 26);
 		contentPanel.add(lblPlayBackgroundMusic);
 		btnCancel.addActionListener(new ActionListener() {
 			

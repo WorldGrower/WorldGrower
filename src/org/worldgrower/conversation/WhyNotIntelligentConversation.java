@@ -56,7 +56,7 @@ public class WhyNotIntelligentConversation implements InterceptedConversation {
 		
 		if (isConversationAvailable(performer, target, world)) {
 			return Arrays.asList(
-					new Response(WHY_NOT_INTELLIGENT, "My name is " + "What are you? Why am I talking with a " + performer.getProperty(Constants.NAME) + "?"),
+					new Response(WHY_NOT_INTELLIGENT, "What are you? Why am I talking with a " + performer.getProperty(Constants.NAME) + "?"),
 					new Response(SEE_THROUGH, "A good try, " + performer.getProperty(Constants.NAME) + ", but I see through your disguise")
 				);
 		} else {

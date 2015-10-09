@@ -17,11 +17,13 @@ package org.worldgrower.generator;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
 import org.worldgrower.CommonerNameGenerator;
 import org.worldgrower.Constants;
+import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
@@ -46,6 +48,8 @@ import org.worldgrower.goal.HitPointPropertyUtils;
 import org.worldgrower.goal.MeleeDamagePropertyUtils;
 import org.worldgrower.gui.CommonerImageIds;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.start.CharacterAttributes;
+import org.worldgrower.profession.PlayerCharacterProfession;
 
 public class CommonerGenerator implements Serializable {
 
@@ -135,6 +139,82 @@ public class CommonerGenerator implements Serializable {
 		creature.setProperty(Constants.ARMOR, ArmorPropertyUtils.calculateArmor(creature));
 		
 		return id;
+	}
+	
+	public static WorldObject createPlayerCharacter(int id, String playerName, String playerProfession, String gender, World world, CommonerGenerator commonerGenerator, WorldObject organization, CharacterAttributes characterAttributes) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		
+		properties.put(Constants.X, 5);
+		properties.put(Constants.Y, 5);
+		properties.put(Constants.WIDTH, 1);
+		properties.put(Constants.HEIGHT, 1);
+		properties.put(Constants.NAME, playerName);
+		properties.put(Constants.ID, id);
+		properties.put(Constants.IMAGE_ID, ImageIds.KNIGHT);
+		properties.put(Constants.LOOK_DIRECTION, LookDirection.SOUTH);
+		properties.put(Constants.FOOD, 500);
+		properties.put(Constants.WATER, 500);
+		properties.put(Constants.ENERGY, 1000);
+		properties.put(Constants.GROUP, new IdList().add(organization));
+		
+		WorldObjectContainer inventory = new WorldObjectContainer();
+		inventory.add(ItemGenerator.getIronClaymore(1.0f));
+		inventory.add(ItemGenerator.getIronGreatSword(1.0f));
+		inventory.add(ItemGenerator.getIronCuirass(1.0f));
+		inventory.add(ItemGenerator.getLongBow(1.0f));
+		properties.put(Constants.INVENTORY, inventory);
+		properties.put(Constants.GOLD, 100);
+		properties.put(Constants.ORGANIZATION_GOLD, 0);
+		properties.put(Constants.PROFIT_PERCENTAGE, 0);
+		
+		properties.put(Constants.PROFESSION, new PlayerCharacterProfession(playerProfession));
+		properties.put(Constants.RELATIONSHIPS, new IdRelationshipMap());
+		properties.put(Constants.CHILDREN, new IdList());
+		properties.put(Constants.SOCIAL, 0);
+		properties.put(Constants.GENDER, gender);
+		properties.put(Constants.CREATURE_TYPE, CreatureType.HUMAN_CREATURE_TYPE);
+		properties.put(Constants.CONDITIONS, new Conditions());
+		properties.put(Constants.HOUSES, new IdList());
+		properties.put(Constants.KNOWLEDGE_MAP, new KnowledgeMap());
+		properties.put(Constants.ARENA_IDS, new IdList());
+		properties.put(Constants.ARENA_FIGHTER_IDS, new IdList());
+		
+		properties.put(Constants.HEAD_EQUIPMENT, null);
+		properties.put(Constants.TORSO_EQUIPMENT, null);
+		properties.put(Constants.ARMS_EQUIPMENT, null);
+		properties.put(Constants.LEGS_EQUIPMENT, null);
+		properties.put(Constants.FEET_EQUIPMENT, null);
+		properties.put(Constants.LEFT_HAND_EQUIPMENT, null);
+		properties.put(Constants.RIGHT_HAND_EQUIPMENT, null);
+		
+		properties.put(Constants.EXPERIENCE, 0);
+		properties.put(Constants.ARMOR, 0);
+		
+		properties.put(Constants.STRENGTH, characterAttributes.getStrength());
+		properties.put(Constants.DEXTERITY, characterAttributes.getDexterity());
+		properties.put(Constants.CONSTITUTION, characterAttributes.getConstitution());
+		properties.put(Constants.INTELLIGENCE, characterAttributes.getIntelligence());
+		properties.put(Constants.WISDOM, characterAttributes.getWisdom());
+		properties.put(Constants.CHARISMA, characterAttributes.getCharisma());
+		
+		SkillUtils.addAllSkills(properties);
+		HitPointPropertyUtils.addHitPointProperties(properties);
+		properties.put(Constants.KNOWN_SPELLS, new ArrayList<>());
+		properties.put(Constants.STUDYING_SPELLS, new PropertyCountMap<ManagedOperation>());
+
+		properties.put(Constants.DAMAGE, 2);
+		properties.put(Constants.DAMAGE_RESIST, 10);
+		
+		if (Boolean.getBoolean("DEBUG")) {
+			((List<Object>)properties.get(Constants.KNOWN_SPELLS)).addAll(Actions.getMagicSpells());
+		}
+		
+		final WorldObject playerCharacter = new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new CommonerOnTurn(commonerGenerator, organization), null);
+		
+		playerCharacter.setProperty(Constants.DAMAGE, MeleeDamagePropertyUtils.calculateMeleeDamage(playerCharacter));
+		playerCharacter.setProperty(Constants.ARMOR, ArmorPropertyUtils.calculateArmor(playerCharacter));
+		
+		return playerCharacter;
 	}
 	
 	public static int generateSkeletalRemains(WorldObject originalWorldObject, World world) {

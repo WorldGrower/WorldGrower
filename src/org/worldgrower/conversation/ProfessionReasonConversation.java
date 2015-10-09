@@ -25,6 +25,9 @@ import org.worldgrower.history.HistoryItem;
 
 public class ProfessionReasonConversation implements Conversation {
 
+	private final int REASON = 0;
+	private final int NO_PROFESSION = 1;
+	
 	@Override
 	public Response getReplyPhrase(ConversationContext conversationContext) {
 		WorldObject target = conversationContext.getTarget();
@@ -34,9 +37,9 @@ public class ProfessionReasonConversation implements Conversation {
 		
 		final int replyId;
 		if (reason != null) {
-			replyId = 0;
+			replyId = REASON;
 		} else {
-			replyId = 1;
+			replyId = NO_PROFESSION;
 		}
 		
 		return getReply(getReplyPhrases(conversationContext), replyId);
@@ -54,8 +57,8 @@ public class ProfessionReasonConversation implements Conversation {
 		Reasons reasons = target.getProperty(Constants.REASONS);
 		String reason = reasons.getReason(Constants.PROFESSION);
 		return Arrays.asList(
-			new Response(0, reason),
-			new Response(1, "I don't have a profession")
+			new Response(REASON, reason),
+			new Response(NO_PROFESSION, "I don't have a profession")
 			);
 	}
 	
