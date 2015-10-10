@@ -63,10 +63,10 @@ public class ExceptionDialog extends JDialog {
 	private JTextArea exceptionTextArea = new JTextArea("");
 	private JScrollPane exceptionTextAreaSP = new JScrollPane();
 
-	private JButton okButton = new JButton("OK");
-	private JButton viewButton = new JButton("View Error");
-	private JButton copyButton = new JButton("Copy Error to Clipboard");
-	private JButton emailButton = new JButton("Email Error");
+	private JButton okButton = ButtonFactory.createButton("OK");
+	private JButton viewButton = ButtonFactory.createButton("View Error");
+	private JButton copyButton = ButtonFactory.createButton("Copy Error to Clipboard");
+	private JButton emailButton = ButtonFactory.createButton("Email Error");
 
 	private JPanel topPanel = new JPanel(new BorderLayout());
 

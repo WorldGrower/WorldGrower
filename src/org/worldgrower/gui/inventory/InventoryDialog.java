@@ -47,6 +47,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.gui.AbstractDialog;
+import org.worldgrower.gui.ButtonFactory;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.util.IconUtils;
 
@@ -120,12 +121,12 @@ public class InventoryDialog extends AbstractDialog {
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		addComponent(buttonPane);
 
-		okButton = new JButton(inventoryDialogAction.getDescription());
+		okButton = ButtonFactory.createButton(inventoryDialogAction.getDescription());
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
 
-		cancelButton = new JButton("Cancel");
+		cancelButton = ButtonFactory.createButton("Cancel");
 		cancelButton.setActionCommand("Cancel");
 		buttonPane.add(cancelButton);
 
@@ -158,7 +159,7 @@ public class InventoryDialog extends AbstractDialog {
 		addComponent(weightLabelValue);
 		
 		
-		actionsButton = new JButton("Actions");
+		actionsButton = ButtonFactory.createButton("Actions");
 		actionsButton.setToolTipText(ACTIONS_TOOL_TIP);
 		actionsButton.setBounds(224, 359, 100, 25);
 		addComponent(actionsButton);

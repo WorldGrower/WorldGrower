@@ -47,12 +47,12 @@ public class AssignActionLeftMouseDialog extends AbstractDialog {
 		buttonPane.setBounds(34, 373, 360, 50);
 		addComponent(buttonPane);
 
-		JButton okButton = new JButton("OK");
+		JButton okButton = ButtonFactory.createButton("OK");
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
 
-		JButton cancelButton = new JButton("Cancel");
+		JButton cancelButton = ButtonFactory.createButton("Cancel");
 		cancelButton.setActionCommand("Cancel");
 		buttonPane.add(cancelButton);
 		

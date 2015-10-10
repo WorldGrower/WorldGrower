@@ -30,10 +30,12 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 import org.worldgrower.Main;
+import org.worldgrower.gui.ButtonFactory;
 import org.worldgrower.gui.ExceptionHandler;
 import org.worldgrower.gui.GradientPanel;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.util.NumberUtils;
+
 import javax.swing.JCheckBox;
 
 public class OptionsScreen {
@@ -172,7 +174,7 @@ public class OptionsScreen {
 		numberOfVillagersTextField.setBounds(228, 281, 137, 22);
 		contentPanel.add(numberOfVillagersTextField);
 		
-		JButton btnOk = new JButton("Ok");
+		JButton btnOk = ButtonFactory.createButton("Ok");
 		btnOk.setBounds(230, 415, 97, 25);
 		frame.getRootPane().setDefaultButton(btnOk);
 		contentPanel.add(btnOk);
@@ -209,7 +211,7 @@ public class OptionsScreen {
 			}
 		});
 		
-		JButton btnCancel = new JButton("Cancel");
+		JButton btnCancel = ButtonFactory.createButton("Cancel");
 		btnCancel.setBounds(121, 415, 97, 25);
 		contentPanel.add(btnCancel);
 		

@@ -66,7 +66,7 @@ public class GuiShowOrganizationsAction extends AbstractAction {
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		dialog.addComponent(buttonPane);
 		
-		JButton okButton = new JButton("OK");
+		JButton okButton = ButtonFactory.createButton("OK");
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		addActionHandlers(okButton, dialog);

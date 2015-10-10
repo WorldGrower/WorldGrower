@@ -31,7 +31,9 @@ import org.worldgrower.Main;
 import org.worldgrower.Version;
 import org.worldgrower.World;
 import org.worldgrower.gui.AbstractDialog;
+import org.worldgrower.gui.ButtonFactory;
 import org.worldgrower.gui.ExceptionHandler;
+import org.worldgrower.gui.RoundedBorder;
 import org.worldgrower.gui.SwingUtils;
 import org.worldgrower.gui.util.IconUtils;
 
@@ -82,7 +84,7 @@ public class StartScreen {
 	private void initialize() {
 		frame = new StartScreenDialog();
 		
-		JButton btnNewGame = new JButton("New Game", IconUtils.getNewIcon());
+		JButton btnNewGame = ButtonFactory.createButton("New Game", IconUtils.getNewIcon());
 		btnNewGame.setHorizontalAlignment(SwingConstants.LEFT);
 		btnNewGame.setHorizontalTextPosition(SwingConstants.RIGHT);
 		btnNewGame.setToolTipText("Starts a new game");
@@ -102,7 +104,7 @@ public class StartScreen {
 		frame.addComponent(btnNewGame);
 		SwingUtils.setBoundsAndCenterHorizontally(btnNewGame, 80, 81, 167, 60);
 		
-		JButton btnLoadGame = new JButton("Load Game", IconUtils.getLoadIcon());
+		JButton btnLoadGame = ButtonFactory.createButton("Load Game", IconUtils.getLoadIcon());
 		btnLoadGame.setHorizontalAlignment(SwingConstants.LEFT);
 		btnLoadGame.setHorizontalTextPosition(SwingConstants.RIGHT);
 		btnLoadGame.setToolTipText("Loads a game");
@@ -120,7 +122,7 @@ public class StartScreen {
 		frame.addComponent(btnLoadGame);
 		SwingUtils.setBoundsAndCenterHorizontally(btnLoadGame, 78, 150, 167, 60);
 		
-		JButton btnExit = new JButton("Exit", IconUtils.getExitIcon());
+		JButton btnExit = ButtonFactory.createButton("Exit", IconUtils.getExitIcon());
 		btnExit.setHorizontalAlignment(SwingConstants.LEFT);
 		btnExit.setHorizontalTextPosition(SwingConstants.RIGHT);
 		btnExit.setToolTipText("Exits program");
@@ -137,7 +139,7 @@ public class StartScreen {
 		frame.addComponent(lblVersion);
 		SwingUtils.setBoundsAndCenterHorizontally(lblVersion, 83, 370, 167, 21);
 		
-		btnSaveGame = new JButton("Save Game", IconUtils.getSaveIcon());
+		btnSaveGame = ButtonFactory.createButton("Save Game", IconUtils.getSaveIcon());
 		btnSaveGame.setHorizontalAlignment(SwingConstants.LEFT);
 		btnSaveGame.setHorizontalTextPosition(SwingConstants.RIGHT);
 		btnSaveGame.setToolTipText("Saves current game");

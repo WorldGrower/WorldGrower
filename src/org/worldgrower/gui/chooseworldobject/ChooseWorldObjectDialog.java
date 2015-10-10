@@ -34,6 +34,7 @@ import org.worldgrower.DungeonMaster;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.gui.ActionContainingArgs;
+import org.worldgrower.gui.ButtonFactory;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.WorldObjectList;
 import org.worldgrower.gui.util.IconUtils;
@@ -79,7 +80,7 @@ public class ChooseWorldObjectDialog extends JDialog {
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);
 		
-		okButton = new JButton("OK");
+		okButton = ButtonFactory.createButton("OK");
 		okButton.setActionCommand("OK");
 		okButton.setEnabled(false);
 		buttonPane.add(okButton);
