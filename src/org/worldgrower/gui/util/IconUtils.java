@@ -18,17 +18,47 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.Window;
 
+import javax.swing.ImageIcon;
+
 import org.worldgrower.Main;
 
 public class IconUtils {
 
 	private static final Image IMAGE_ICON;
+	private static final Image NEW_ICON;
+	private static final Image LOAD_ICON;
+	private static final Image SAVE_ICON;
+	private static final Image EXIT_ICON;
 	
 	static {
-		IMAGE_ICON = Toolkit.getDefaultToolkit().getImage(Main.class.getResource("/community.png"));
+		IMAGE_ICON = getImage("/community.png");
+		NEW_ICON = getImage("/new.png");
+		LOAD_ICON = getImage("/load.png");
+		SAVE_ICON = getImage("/save.png");
+		EXIT_ICON = getImage("/exit.png");
+	}
+
+	private static Image getImage(String imageURL) {
+		return Toolkit.getDefaultToolkit().getImage(Main.class.getResource(imageURL));
 	}
 	
 	public static void setIcon(Window frame) {
 		frame.setIconImage(IMAGE_ICON);
+	}
+
+	public static ImageIcon getNewIcon() {
+		return new ImageIcon(NEW_ICON);
+	}
+
+	public static ImageIcon getLoadIcon() {
+		return new ImageIcon(LOAD_ICON);
+	}
+
+	public static ImageIcon getSaveIcon() {
+		return new ImageIcon(SAVE_ICON);
+	}
+
+	public static ImageIcon getExitIcon() {
+		return new ImageIcon(EXIT_ICON);
 	}
 }

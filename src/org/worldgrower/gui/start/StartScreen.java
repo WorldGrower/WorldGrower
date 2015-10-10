@@ -14,7 +14,9 @@
  *******************************************************************************/
 package org.worldgrower.gui.start;
 
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -23,6 +25,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
 import org.worldgrower.Main;
 import org.worldgrower.Version;
@@ -30,6 +33,7 @@ import org.worldgrower.World;
 import org.worldgrower.gui.AbstractDialog;
 import org.worldgrower.gui.ExceptionHandler;
 import org.worldgrower.gui.SwingUtils;
+import org.worldgrower.gui.util.IconUtils;
 
 public class StartScreen {
 
@@ -78,7 +82,9 @@ public class StartScreen {
 	private void initialize() {
 		frame = new StartScreenDialog();
 		
-		JButton btnNewGame = new JButton("New Game");
+		JButton btnNewGame = new JButton("New Game", IconUtils.getNewIcon());
+		btnNewGame.setHorizontalAlignment(SwingConstants.LEFT);
+		btnNewGame.setHorizontalTextPosition(SwingConstants.RIGHT);
 		btnNewGame.setToolTipText("Starts a new game");
 		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -94,9 +100,11 @@ public class StartScreen {
 		
 		frame.getRootPane().setDefaultButton(btnNewGame);
 		frame.addComponent(btnNewGame);
-		SwingUtils.setBoundsAndCenterHorizontally(btnNewGame, 78, 81, 157, 44);
+		SwingUtils.setBoundsAndCenterHorizontally(btnNewGame, 80, 81, 167, 60);
 		
-		JButton btnLoadGame = new JButton("Load Game");
+		JButton btnLoadGame = new JButton("Load Game", IconUtils.getLoadIcon());
+		btnLoadGame.setHorizontalAlignment(SwingConstants.LEFT);
+		btnLoadGame.setHorizontalTextPosition(SwingConstants.RIGHT);
 		btnLoadGame.setToolTipText("Loads a game");
 		btnLoadGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -110,9 +118,11 @@ public class StartScreen {
 			}
 		});
 		frame.addComponent(btnLoadGame);
-		SwingUtils.setBoundsAndCenterHorizontally(btnLoadGame, 78, 138, 157, 44);
+		SwingUtils.setBoundsAndCenterHorizontally(btnLoadGame, 78, 150, 167, 60);
 		
-		JButton btnExit = new JButton("Exit");
+		JButton btnExit = new JButton("Exit", IconUtils.getExitIcon());
+		btnExit.setHorizontalAlignment(SwingConstants.LEFT);
+		btnExit.setHorizontalTextPosition(SwingConstants.RIGHT);
 		btnExit.setToolTipText("Exits program");
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -120,14 +130,16 @@ public class StartScreen {
 			}
 		});
 		frame.addComponent(btnExit);
-		SwingUtils.setBoundsAndCenterHorizontally(btnExit, 78, 266, 157, 44);
+		SwingUtils.setBoundsAndCenterHorizontally(btnExit, 78, 290, 167, 60);
 		
 		JLabel lblVersion = new JLabel("Version " + Version.getVersion());
 		lblVersion.setToolTipText("Current version");
 		frame.addComponent(lblVersion);
-		SwingUtils.setBoundsAndCenterHorizontally(lblVersion, 83, 342, 157, 21);
+		SwingUtils.setBoundsAndCenterHorizontally(lblVersion, 83, 370, 167, 21);
 		
-		btnSaveGame = new JButton("Save Game");
+		btnSaveGame = new JButton("Save Game", IconUtils.getSaveIcon());
+		btnSaveGame.setHorizontalAlignment(SwingConstants.LEFT);
+		btnSaveGame.setHorizontalTextPosition(SwingConstants.RIGHT);
 		btnSaveGame.setToolTipText("Saves current game");
 		btnSaveGame.setEnabled(false);
 		btnSaveGame.addActionListener(new ActionListener() {
@@ -146,7 +158,7 @@ public class StartScreen {
 			}
 		});
 		frame.addComponent(btnSaveGame);
-		SwingUtils.setBoundsAndCenterHorizontally(btnSaveGame, 78, 195, 157, 44);
+		SwingUtils.setBoundsAndCenterHorizontally(btnSaveGame, 78, 220, 167, 60);
 	}
 	
 	private void loadGame(File selectedFile) {
@@ -169,7 +181,7 @@ public class StartScreen {
 	private static class StartScreenDialog extends AbstractDialog {
 
 		public StartScreenDialog() {
-			super(337, 438);
+			super(337, 490);
 		}
 	}
 }
