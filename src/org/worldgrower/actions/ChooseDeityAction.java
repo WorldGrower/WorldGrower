@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.ReasonsImpl;
 import org.worldgrower.deity.Deity;
+import org.worldgrower.gui.ImageIds;
 import org.worldgrower.profession.Professions;
 
 public class ChooseDeityAction implements ManagedOperation {
@@ -88,5 +89,10 @@ public class ChooseDeityAction implements ManagedOperation {
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.BLACK_CROSS;
 	}
 }

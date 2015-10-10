@@ -22,6 +22,7 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.gui.ImageIds;
 
 public class ReadAction implements ManagedOperation {
 
@@ -62,5 +63,10 @@ public class ReadAction implements ManagedOperation {
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.SPELL_BOOK;
 	}
 }

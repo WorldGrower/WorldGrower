@@ -23,6 +23,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.gui.ImageIds;
 
 public class GatherRemainsAction implements ManagedOperation {
 
@@ -66,5 +67,10 @@ public class GatherRemainsAction implements ManagedOperation {
 	@Override
 	public String getSimpleDescription() {
 		return "gather remains";
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.SKELETAL_REMAINS;
 	}
 }

@@ -333,6 +333,12 @@ public class ImageInfoReader {
 		add(ImageIds.SOUL_TRAPPED_INDICATOR, sprites420.getSubImage(3, 21, 1, 1));
 		add(ImageIds.SOUL_GEM, sprites420.getSubImage(3, 17, 1, 1));
 		add(ImageIds.FILLED_SOUL_GEM, sprites420.getSubImage(6, 17, 1, 1));
+		add(ImageIds.GOLD_COIN, sprites420.getSubImage(10, 15, 1, 1));
+		add(ImageIds.SILVER_COIN, sprites420.getSubImage(11, 15, 1, 1));
+		add(ImageIds.CAPTURE, sprites420.getSubImage(1, 19, 1, 1));
+		add(ImageIds.HEART, sprites420.getSubImage(8, 22, 1, 1));
+		add(ImageIds.BLOOD, sprites420.getSubImage(6, 25, 1, 1));
+		add(ImageIds.GOLD_RING, sprites420.getSubImage(2, 19, 1, 1));
     }
 
     private void createArenaWall48x48() {

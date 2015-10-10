@@ -24,6 +24,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.CraftUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.ItemGenerator;
+import org.worldgrower.gui.ImageIds;
 
 public class ScribeMagicSpellAction implements ManagedOperation {
 
@@ -78,5 +79,10 @@ public class ScribeMagicSpellAction implements ManagedOperation {
 	
 	public MagicSpell getSpell() {
 		return magicSpell;
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return magicSpell.getImageIds();
 	}
 }

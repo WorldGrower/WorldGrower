@@ -25,6 +25,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.goal.SacrificeUtils;
+import org.worldgrower.gui.ImageIds;
 
 public class CapturePersonForSacrificeAction implements ManagedOperation {
 
@@ -71,5 +72,10 @@ public class CapturePersonForSacrificeAction implements ManagedOperation {
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.CAPTURE;
 	}
 }

@@ -23,6 +23,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.gui.ImageIds;
 
 public class MarkAsSellableAction implements ManagedOperation {
 
@@ -68,5 +69,10 @@ public class MarkAsSellableAction implements ManagedOperation {
 	@Override
 	public String getSimpleDescription() {
 		return "mark for sale";
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.SILVER_COIN;
 	}
 }

@@ -28,6 +28,7 @@ import org.worldgrower.goal.GenderPropertyUtils;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.PregnancyPropertyUtils;
 import org.worldgrower.goal.RacePropertyUtils;
+import org.worldgrower.gui.ImageIds;
 
 public class SexAction implements ManagedOperation {
 
@@ -82,5 +83,10 @@ public class SexAction implements ManagedOperation {
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.HEART;
 	}
 }

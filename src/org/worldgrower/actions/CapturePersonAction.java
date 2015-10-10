@@ -26,6 +26,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.goal.GroupPropertyUtils;
+import org.worldgrower.gui.ImageIds;
 
 public class CapturePersonAction implements ManagedOperation {
 
@@ -76,5 +77,10 @@ public class CapturePersonAction implements ManagedOperation {
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.CAPTURE;
 	}
 }

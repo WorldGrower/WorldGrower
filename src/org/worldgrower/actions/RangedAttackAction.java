@@ -22,6 +22,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.gui.ImageIds;
 
 public class RangedAttackAction implements DeadlyAction {
 
@@ -86,5 +87,10 @@ public class RangedAttackAction implements DeadlyAction {
 	@Override
 	public String getDeathDescription(WorldObject performer, WorldObject target) {
 		return "shot by an arrow";
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.LONGBOW;
 	}
 }

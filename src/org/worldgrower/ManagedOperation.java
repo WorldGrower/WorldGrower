@@ -19,6 +19,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.worldgrower.actions.Actions;
+import org.worldgrower.gui.ImageIds;
 
 /**
  * A ManagedOperation described an action that a WorldObject performs on another WorldObject.
@@ -39,6 +40,7 @@ public interface ManagedOperation extends Serializable {
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world);
 	public String getSimpleDescription();
 	public String getRequirementsDescription();
+	public ImageIds getImageIds();
 	
 	public default Object readResolveImpl() throws ObjectStreamException {
 		Class<?> clazz = getClass();

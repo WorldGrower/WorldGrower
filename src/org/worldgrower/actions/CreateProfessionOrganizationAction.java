@@ -23,6 +23,7 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.goal.GroupPropertyUtils;
+import org.worldgrower.gui.ImageIds;
 import org.worldgrower.profession.Profession;
 import org.worldgrower.profession.Professions;
 
@@ -77,5 +78,10 @@ public class CreateProfessionOrganizationAction implements ManagedOperation {
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.BLACK_CROSS;
 	}
 }

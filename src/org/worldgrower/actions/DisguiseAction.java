@@ -22,6 +22,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.goal.FacadeUtils;
+import org.worldgrower.gui.ImageIds;
 
 public class DisguiseAction implements DisguiseTargetFactory {
 
@@ -73,5 +74,10 @@ public class DisguiseAction implements DisguiseTargetFactory {
 		int performerId = performer.getProperty(Constants.ID);
 		List<WorldObject> disguiseWorldObjects = world.findWorldObjects(w -> w.getProperty(Constants.WIDTH) == 1 && w.getProperty(Constants.HEIGHT) == 1 && (w.getProperty(Constants.ID) != performerId));
 		return disguiseWorldObjects;
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.DISGUISE_MAGIC_SPELL;
 	}
 }

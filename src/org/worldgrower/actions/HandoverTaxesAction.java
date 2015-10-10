@@ -23,6 +23,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.goal.GroupPropertyUtils;
+import org.worldgrower.gui.ImageIds;
 
 public class HandoverTaxesAction implements ManagedOperation {
 
@@ -69,5 +70,10 @@ public class HandoverTaxesAction implements ManagedOperation {
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.SILVER_COIN;
 	}
 }

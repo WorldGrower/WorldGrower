@@ -72,4 +72,9 @@ public class MineSoulGemsAction implements ManagedOperation {
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
 	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.SOUL_GEM;
+	}
 }

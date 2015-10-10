@@ -25,6 +25,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.RacePropertyUtils;
 import org.worldgrower.goal.RelationshipPropertyUtils;
+import org.worldgrower.gui.ImageIds;
 
 public class KissAction implements ManagedOperation {
 
@@ -72,5 +73,10 @@ public class KissAction implements ManagedOperation {
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.HEART;
 	}
 }

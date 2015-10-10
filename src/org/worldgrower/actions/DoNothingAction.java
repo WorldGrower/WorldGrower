@@ -21,6 +21,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.gui.ImageIds;
 
 public class DoNothingAction implements ManagedOperation {
 
@@ -62,5 +63,10 @@ public class DoNothingAction implements ManagedOperation {
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return null;
 	}
 }

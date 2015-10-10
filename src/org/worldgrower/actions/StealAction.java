@@ -26,6 +26,7 @@ import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.InventoryPropertyUtils;
+import org.worldgrower.gui.ImageIds;
 
 public class StealAction implements ManagedOperation {
 
@@ -90,5 +91,10 @@ public class StealAction implements ManagedOperation {
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.IRON_GAUNTLETS;
 	}
 }

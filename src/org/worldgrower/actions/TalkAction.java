@@ -27,6 +27,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.conversation.Response;
 import org.worldgrower.goal.RelationshipPropertyUtils;
+import org.worldgrower.gui.ImageIds;
 
 public class TalkAction implements ManagedOperation {
 
@@ -102,5 +103,10 @@ public class TalkAction implements ManagedOperation {
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.GOLD_RING;
 	}
 }

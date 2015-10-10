@@ -22,6 +22,7 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.gui.ImageIds;
 
 public class EatAction implements ManagedOperation {
 
@@ -68,5 +69,10 @@ public class EatAction implements ManagedOperation {
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.BERRY;
 	}
 }

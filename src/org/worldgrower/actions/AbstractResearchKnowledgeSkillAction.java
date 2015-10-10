@@ -22,6 +22,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillProperty;
+import org.worldgrower.gui.ImageIds;
 
 public class AbstractResearchKnowledgeSkillAction implements ResearchKnowledgeSkillAction {
 
@@ -73,5 +74,10 @@ public class AbstractResearchKnowledgeSkillAction implements ResearchKnowledgeSk
 	@Override
 	public SkillProperty getSkillProperty() {
 		return skillProperty;
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.SPELL_BOOK;
 	}
 }

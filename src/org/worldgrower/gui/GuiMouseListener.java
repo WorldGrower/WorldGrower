@@ -15,7 +15,6 @@
 package org.worldgrower.gui;
 
 import java.awt.Image;
-import java.awt.Rectangle;
 import java.awt.event.InputEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -44,7 +43,6 @@ import org.worldgrower.actions.BuildAction;
 import org.worldgrower.actions.CraftAction;
 import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.actions.magic.ResearchSpellAction;
-import org.worldgrower.actions.magic.ScribeMagicSpellAction;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.gui.chooseworldobject.ChooseWorldObjectAction;
 import org.worldgrower.gui.chooseworldobject.GuiDisguiseAction;
@@ -224,12 +222,14 @@ public class GuiMouseListener extends MouseAdapter {
 	private void addDisguiseMenu(JMenu menu) {
 		JMenuItem disguiseMenuItem = new JMenuItem(new GuiDisguiseAction(playerCharacter, imageInfoReader, world, (WorldPanel)container, dungeonMaster, Actions.DISGUISE_ACTION));
 		disguiseMenuItem.setText("Disguise...");
+		setMenuIcon(disguiseMenuItem, Actions.DISGUISE_ACTION.getImageIds());
 		menu.add(disguiseMenuItem);
 	}
 
 	private void addChooseDeityMenu(JMenu menu) {
 		JMenuItem chooseDeityMenuItem = new JMenuItem(new ChooseDeityAction(playerCharacter, imageInfoReader, world, (WorldPanel)container, dungeonMaster));
 		chooseDeityMenuItem.setText("Choose Deity...");
+		setMenuIcon(chooseDeityMenuItem, Actions.CHOOSE_DEITY_ACTION.getImageIds());
 		menu.add(chooseDeityMenuItem);
 	}
 
@@ -241,18 +241,21 @@ public class GuiMouseListener extends MouseAdapter {
 	private void addShowLegalActionsMenu(JMenu menu) {
 		JMenuItem showLegalActionsMenuItem = new JMenuItem(new GuiShowLegalActionsAction(playerCharacter, dungeonMaster, world, container));
 		showLegalActionsMenuItem.setText("Show legal actions...");
+		setMenuIcon(showLegalActionsMenuItem, Actions.SET_LEGAL_ACTIONS_ACTION.getImageIds());
 		menu.add(showLegalActionsMenuItem);
 	}
 
 	private void addShowOrganizationsActionMenu(JMenu menu) {
 		JMenuItem showOrganizationsMenuItem = new JMenuItem(createOrganizationAction);
 		showOrganizationsMenuItem.setText("Organization Membership Overview");
+		setMenuIcon(showOrganizationsMenuItem, ImageIds.BLACK_CROSS);
 		menu.add(showOrganizationsMenuItem);
 	}
 	
 	private void addCreateOrganizationMenu(JMenu menu) {
 		JMenuItem createOrganizationMenuItem = new JMenuItem(new GuiCreateOrganizationAction(playerCharacter, imageInfoReader, world, (WorldPanel)container, dungeonMaster));
 		createOrganizationMenuItem.setText("Create Organization...");
+		setMenuIcon(createOrganizationMenuItem, Actions.CREATE_PROFESSION_ORGANIZATION_ACTION.getImageIds());
 		menu.add(createOrganizationMenuItem);
 	}
 
@@ -454,23 +457,7 @@ public class GuiMouseListener extends MouseAdapter {
 
 	private void addImageIcon(ManagedOperation action, JMenuItem menuItem) {
 		if (menuItem != null) {
-			//TODO: remove instanceof's when getImageIds is on ManagedOperation
-			if (action instanceof MagicSpell) {
-				MagicSpell magicSpell = (MagicSpell) action;
-				setMenuIcon(menuItem, magicSpell.getImageIds());
-			}
-			if (action instanceof CraftAction) {
-				CraftAction craftAction = (CraftAction) action;
-				setMenuIcon(menuItem, craftAction.getImageIds());
-			}
-			if (action instanceof BuildAction) {
-				BuildAction buildAction = (BuildAction) action;
-				setMenuIcon(menuItem, buildAction.getImageIds());
-			}
-			if (action instanceof ScribeMagicSpellAction) {
-				ScribeMagicSpellAction scribeMagicSpellAction = (ScribeMagicSpellAction) action;
-				setMenuIcon(menuItem, scribeMagicSpellAction.getSpell().getImageIds());
-			}
+			setMenuIcon(menuItem, action.getImageIds());
 		}
 	}
 

@@ -20,5 +20,4 @@ import org.worldgrower.gui.ImageIds;
 public interface CraftAction extends ManagedOperation {
 
 	public String getRequirementsDescription();
-	public ImageIds getImageIds();
 }

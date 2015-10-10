@@ -72,4 +72,9 @@ public class MineStoneAction implements ManagedOperation {
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
 	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.STONE;
+	}
 }

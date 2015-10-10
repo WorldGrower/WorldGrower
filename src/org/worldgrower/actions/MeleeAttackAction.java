@@ -22,6 +22,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.gui.ImageIds;
 
 public class MeleeAttackAction implements DeadlyAction {
 
@@ -74,5 +75,10 @@ public class MeleeAttackAction implements DeadlyAction {
 		} else {
 			return "slashed by a sword";
 		}
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.IRON_CLAYMORE;
 	}
 }

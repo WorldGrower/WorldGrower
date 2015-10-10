@@ -21,6 +21,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.gui.ImageIds;
 
 public class StartOrganizationVoteAction implements ManagedOperation {
 
@@ -70,5 +71,10 @@ public class StartOrganizationVoteAction implements ManagedOperation {
 	@Override
 	public String getSimpleDescription() {
 		return "start organization vote";
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.BLACK_CROSS;
 	}
 }

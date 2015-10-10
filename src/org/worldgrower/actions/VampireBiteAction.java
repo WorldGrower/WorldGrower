@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.creaturetype.CreatureType;
+import org.worldgrower.gui.ImageIds;
 
 public class VampireBiteAction implements DeadlyAction {
 
@@ -77,5 +78,10 @@ public class VampireBiteAction implements DeadlyAction {
 	@Override
 	public String getDeathDescription(WorldObject performer, WorldObject target) {
 		return "drained of blood";
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.BLOOD;
 	}
 }

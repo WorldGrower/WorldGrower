@@ -26,6 +26,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.LookDirection;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.goal.LocationUtils;
+import org.worldgrower.gui.ImageIds;
 import org.worldgrower.terrain.TerrainType;
 
 public class MoveAction implements ManagedOperation {
@@ -125,5 +126,10 @@ public class MoveAction implements ManagedOperation {
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.COTTON_BOOTS;
 	}
 }

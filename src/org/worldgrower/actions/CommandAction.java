@@ -23,6 +23,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.goal.Goal;
+import org.worldgrower.gui.ImageIds;
 
 public class CommandAction implements ManagedOperation {
 
@@ -71,5 +72,10 @@ public class CommandAction implements ManagedOperation {
 	@Override
 	public String getSimpleDescription() {
 		return "command: " + commandDescription;
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.SKELETON;
 	}
 }

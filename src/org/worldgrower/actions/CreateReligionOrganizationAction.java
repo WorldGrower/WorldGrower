@@ -25,6 +25,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.deity.Deity;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.GroupPropertyUtils;
+import org.worldgrower.gui.ImageIds;
 
 public class CreateReligionOrganizationAction implements ManagedOperation {
 
@@ -78,5 +79,10 @@ public class CreateReligionOrganizationAction implements ManagedOperation {
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.BLACK_CROSS;
 	}
 }

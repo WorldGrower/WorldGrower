@@ -25,6 +25,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.goal.InventoryPropertyUtils;
 import org.worldgrower.goal.LockUtils;
+import org.worldgrower.gui.ImageIds;
 
 public class PutItemIntoInventoryAction implements ManagedOperation {
 
@@ -77,5 +78,10 @@ public class PutItemIntoInventoryAction implements ManagedOperation {
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.CHEST;
 	}
 }

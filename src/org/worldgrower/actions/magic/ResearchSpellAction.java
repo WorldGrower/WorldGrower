@@ -23,6 +23,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.CraftUtils;
+import org.worldgrower.gui.ImageIds;
 
 public class ResearchSpellAction implements ManagedOperation {
 
@@ -83,5 +84,10 @@ public class ResearchSpellAction implements ManagedOperation {
 	
 	public static boolean isValidTarget(WorldObject target) {
 		return target.hasProperty(Constants.LIBRARY_QUALITY);
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.SPELL_BOOK;
 	}
 }

@@ -25,6 +25,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.LegalActionsPropertyUtils;
+import org.worldgrower.gui.ImageIds;
 
 public class SetLegalActionsAction implements ManagedOperation {
 
@@ -72,5 +73,10 @@ public class SetLegalActionsAction implements ManagedOperation {
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.IRON_CLAYMORE;
 	}
 }

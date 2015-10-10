@@ -24,6 +24,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.ItemGenerator;
+import org.worldgrower.gui.ImageIds;
 
 public class ExtractOilAction implements ManagedOperation {
 
@@ -69,5 +70,10 @@ public class ExtractOilAction implements ManagedOperation {
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.OIL;
 	}
 }

@@ -35,6 +35,7 @@ import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.PropertyCountMap;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.goal.GroupPropertyUtils;
+import org.worldgrower.gui.ImageIds;
 import org.worldgrower.history.HistoryItem;
 import org.worldgrower.profession.Profession;
 import org.worldgrower.profession.Professions;
@@ -447,5 +448,10 @@ public class ChooseProfessionAction implements ManagedOperation {
 		List<HistoryItem> historyItems = world.getHistory().findHistoryItems(managedOperation);
 		List<HistoryItem> filteredHistoryItems = historyItems.stream().filter(h -> isNonProfessional(h, profession)).collect(Collectors.toList());
 		return filteredHistoryItems.size();
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.BLACK_CROSS;
 	}
 }

@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.condition.GhoulUtils;
+import org.worldgrower.gui.ImageIds;
 
 public class EatFromInventoryAction implements ManagedOperation {
 
@@ -72,5 +73,10 @@ public class EatFromInventoryAction implements ManagedOperation {
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.BERRY;
 	}
 }

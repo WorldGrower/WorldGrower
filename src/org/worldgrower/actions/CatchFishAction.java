@@ -25,6 +25,7 @@ import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.generator.ItemGenerator;
+import org.worldgrower.gui.ImageIds;
 
 public class CatchFishAction implements ManagedOperation {
 
@@ -77,5 +78,10 @@ public class CatchFishAction implements ManagedOperation {
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.RAW_FISH;
 	}
 }
