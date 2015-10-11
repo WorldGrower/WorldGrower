@@ -41,6 +41,6 @@ public interface History {
 	public List<HistoryItem> findHistoryItems(WorldObject performer, ManagedOperation managedOperation);
 
 	public void setNextAdditionalValue(Object value);
-
+	public int getNextHistoryId();
 	
 }

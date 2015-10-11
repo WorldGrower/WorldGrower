@@ -47,7 +47,20 @@ public class KnowledgeMap implements IdContainer, Serializable {
 			knowledgeList = new ArrayList<>();
 			idsToKnowledge.put(id, knowledgeList);
 		}
-		addKnowledge(knowledgeList, new Knowledge(managedProperty, value));
+		addKnowledge(knowledgeList, new PropertyKnowledge(managedProperty, value));
+	}
+	
+	public final void addKnowledge(WorldObject worldObject, World world) {
+		addKnowledge(worldObject.getProperty(Constants.ID), world);
+	}
+	
+	public final void addKnowledge(int id, World world) {
+		List<Knowledge> knowledgeList = idsToKnowledge.get(id);
+		if (knowledgeList == null) {
+			knowledgeList = new ArrayList<>();
+			idsToKnowledge.put(id, knowledgeList);
+		}
+		addKnowledge(knowledgeList, new EventKnowledge(world));
 	}
 
 	public void addKnowledge(WorldObject worldObject, Knowledge knowledge) {
@@ -57,15 +70,14 @@ public class KnowledgeMap implements IdContainer, Serializable {
 			knowledgeList = new ArrayList<>();
 			idsToKnowledge.put(id, knowledgeList);
 		}
-		addKnowledge(knowledgeList, new Knowledge(knowledge));
+		addKnowledge(knowledgeList, knowledge.copy());
 	}
 	
 	private void addKnowledge(List<Knowledge> knowledgeList, Knowledge knowledge) {
-		ManagedProperty<?> property = knowledge.getManagedProperty();
 		boolean knowledgeAdded = false;
 		
 		for(int i=0; i<knowledgeList.size(); i++) {
-			if (knowledgeList.get(i).getManagedProperty() == property) {
+			if (knowledgeList.get(i).refersToSameKnowledge(knowledge)) {
 				knowledgeList.set(i, knowledge);
 				knowledgeAdded = true;
 			}
@@ -82,7 +94,7 @@ public class KnowledgeMap implements IdContainer, Serializable {
 			int id = entry.getKey();
 			List<Knowledge> knowledgeValues = entry.getValue();
 			for(Knowledge knowledgeValue : knowledgeValues) {
-				if (knowledgeValue.getManagedProperty() == managedProperty && knowledgeValue.getValue().equals(value)) {
+				if (knowledgeValue.hasPropertyValue(managedProperty, value)) {
 					worldObjects.add(world.findWorldObject(Constants.ID, id));
 				}
 			}
@@ -98,7 +110,7 @@ public class KnowledgeMap implements IdContainer, Serializable {
 		List<Knowledge> knowledgeList = idsToKnowledge.get(id);
 		if (knowledgeList != null) {
 			for(Knowledge knowledge : knowledgeList) {
-				if (knowledge.getManagedProperty() == managedProperty) {
+				if (knowledge.hasProperty(managedProperty)) {
 					return true;
 				}
 			}
@@ -145,7 +157,7 @@ public class KnowledgeMap implements IdContainer, Serializable {
 			Iterator<Knowledge> knowledgeIterator = knowledgeValues.iterator();
 			while (knowledgeIterator.hasNext()) {
 				Knowledge knowledge = knowledgeIterator.next();
-				if (knowledgeContainsId(idToRemove, knowledge)) {
+				if (knowledge.knowledgeContainsId(idToRemove)) {
 					knowledgeIterator.remove();
 					if (knowledgeValues.size() == 0) {
 						entryIterator.remove();
@@ -155,10 +167,6 @@ public class KnowledgeMap implements IdContainer, Serializable {
 		}
 	}
 
-	private boolean knowledgeContainsId(int idToRemove, Knowledge knowledge) {
-		return ((knowledge.getManagedProperty() instanceof IdContainer) && (knowledge.getValue().equals(idToRemove)));
-	}
-	
 	public KnowledgeMap copy() {
 		KnowledgeMap copy = new KnowledgeMap(idsToKnowledge);
 		return copy;
@@ -182,12 +190,11 @@ public class KnowledgeMap implements IdContainer, Serializable {
 		Iterator<Knowledge> knowledgeIterator = entry.getValue().iterator();
 		while(knowledgeIterator.hasNext()) {
 			Knowledge knowledge = knowledgeIterator.next();
-			ManagedProperty<?> property = knowledge.getManagedProperty();
 			
 			List<Knowledge> knowledgeListToSubtract = knowledgeMapToSubtract.idsToKnowledge.get(id);
 			if (knowledgeListToSubtract != null) {
 				for(Knowledge knowledgeToSubtract : knowledgeListToSubtract) {
-					if (knowledgeToSubtract.getManagedProperty() == property) {
+					if (knowledgeToSubtract.refersToSameKnowledge(knowledge)) {
 						knowledgeIterator.remove();
 					}
 				}

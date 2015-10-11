@@ -22,7 +22,7 @@ import java.util.Map;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdRelationshipMap;
-import org.worldgrower.attribute.Knowledge;
+import org.worldgrower.attribute.PropertyKnowledge;
 import org.worldgrower.attribute.KnowledgeMap;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.PropertyCountMap;

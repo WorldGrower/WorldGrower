@@ -274,4 +274,9 @@ public class HistoryImpl implements History, Serializable {
 	public void setNextAdditionalValue(Object value) {
 		this.currentAdditionalValue = value;
 	}
+	
+	@Override
+	public int getNextHistoryId() {
+		return this.currentHistoryId;
+	}
 }

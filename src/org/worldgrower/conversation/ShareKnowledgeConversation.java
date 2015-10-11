@@ -60,7 +60,7 @@ public class ShareKnowledgeConversation implements Conversation {
 				List<Knowledge> knowledgeList = performerOnlyKnowledge.getKnowledge(subject);
 				for(int i=0; i<knowledgeList.size(); i++) {
 					Knowledge knowledge = knowledgeList.get(i);
-					String questionphrase = knowledgeToDescriptionMapper.getDescription(subject, knowledge.getManagedProperty(), knowledge.getValue(), world);
+					String questionphrase = knowledgeToDescriptionMapper.getDescription(subject, knowledge, world);
 					questions.add(new Question(subject, questionphrase, i));
 				}
 			}

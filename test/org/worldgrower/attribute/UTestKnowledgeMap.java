@@ -112,7 +112,7 @@ public class UTestKnowledgeMap {
 		
 		assertEquals(true, knowledgeMap.hasKnowledge());
 		assertEquals(1, knowledgeMap.getKnowledge(person).size());
-		assertEquals(700, knowledgeMap.getKnowledge(person).get(0).getValue());
+		assertEquals(700, ((PropertyKnowledge)knowledgeMap.getKnowledge(person).get(0)).getValue());
 	}
 	
 	@Test
