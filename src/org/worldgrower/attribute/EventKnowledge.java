@@ -55,4 +55,8 @@ public class EventKnowledge implements Knowledge, Serializable {
 	public boolean hasPropertyValue(ManagedProperty<?> managedProperty, Object value) {
 		return false;
 	}
+
+	public int getHistoryId() {
+		return historyId;
+	}
 }

@@ -17,11 +17,13 @@ package org.worldgrower.conversation;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.EventKnowledge;
 import org.worldgrower.attribute.Knowledge;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.PropertyKnowledge;
 import org.worldgrower.deity.Deity;
 import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.history.HistoryItem;
 import org.worldgrower.profession.Profession;
 
 public class KnowledgeToDescriptionMapper {
@@ -51,6 +53,11 @@ public class KnowledgeToDescriptionMapper {
 			} else {
 				throw new IllegalStateException("No mapping found for property " + property + " and value " + value);
 			}
+		} else if (knowledge instanceof EventKnowledge) {
+			EventKnowledge eventKnowledge = (EventKnowledge) knowledge;
+			int historyId = eventKnowledge.getHistoryId();
+			HistoryItem historyItem = world.getHistory().getHistoryItem(historyId);
+			return "Did you know " + historyItem.getOperationInfo().getThirdPersonDescription(world) + "?";
 		} else {
 			throw new IllegalStateException("No mapping found for knowledge " + knowledge);
 		}

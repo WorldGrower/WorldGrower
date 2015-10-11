@@ -146,6 +146,10 @@ public class OperationInfo implements Serializable {
 	public String getSecondPersonDescription(World world) {
 		return "You were " + managedOperation.getDescription(performer, target, args, world);
 	}
+	
+	public String getThirdPersonDescription(World world) {
+		return performer.getProperty(Constants.NAME) + " was " + managedOperation.getDescription(performer, target, args, world);
+	}
 
 	public boolean targetMoved(World world) {
 		if (target.hasIntelligence() && !performer.equals(target)) {

@@ -71,8 +71,16 @@ public class AttackUtils {
 		
 		decreaseWeaponHealth(performer, damage);
 		armorIsUsed(target, damage);
+		everyoneInVicinityKnowsOfAttack(performer, target, world);
 		
 		world.logAction(action, performer, target, args, message);
+	}
+	
+	private static void everyoneInVicinityKnowsOfAttack(WorldObject performer, WorldObject target, World world) {
+		List<WorldObject> peopleThatknowOfAttack = world.findWorldObjects(w -> w.hasIntelligence() && Reach.distance(performer, w) < 20);
+		for(WorldObject personThatknowsOfAttack : peopleThatknowOfAttack) {
+			personThatknowsOfAttack.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(target, world);
+		}
 	}
 	
 	public static void decreaseWeaponHealth(WorldObject performer, int damage) {
