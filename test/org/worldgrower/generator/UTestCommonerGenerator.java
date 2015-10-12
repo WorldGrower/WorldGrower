@@ -18,10 +18,12 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.MockCommonerNameGenerator;
+import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.gui.CommonerImageIds;
 import org.worldgrower.gui.start.CharacterAttributes;
@@ -51,5 +53,27 @@ public class UTestCommonerGenerator {
 
 		assertEquals(true, commoner.isControlledByAI());
 		assertEquals(true, commoner.hasIntelligence());
+	}
+	
+	@Test
+	public void testGenerateSkeletalRemains() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject originalWorldObject = TestUtils.createSkilledWorldObject(1);
+		
+		originalWorldObject.setProperty(Constants.X, 5);
+		originalWorldObject.setProperty(Constants.Y, 5);
+		originalWorldObject.setProperty(Constants.WIDTH, 1);
+		originalWorldObject.setProperty(Constants.HEIGHT, 1);
+		originalWorldObject.setProperty(Constants.INVENTORY, new WorldObjectContainer());
+		originalWorldObject.setProperty(Constants.GOLD, 50);
+		originalWorldObject.setProperty(Constants.DEATH_REASON, "dead");
+		
+		int skeletalRemainsId = CommonerGenerator.generateSkeletalRemains(originalWorldObject, world);
+		WorldObject skeletalRemains = world.findWorldObject(Constants.ID, skeletalRemainsId);
+		
+		assertEquals(true, skeletalRemains.getProperty(Constants.DECEASED_WORLD_OBJECT));
+		assertEquals(5, skeletalRemains.getProperty(Constants.X).intValue());
+		assertEquals(5, skeletalRemains.getProperty(Constants.Y).intValue());
+		assertEquals(50, skeletalRemains.getProperty(Constants.GOLD).intValue());
 	}
 }

@@ -35,7 +35,7 @@ public class WorldObjectContainerProperty implements ManagedProperty<WorldObject
 	@Override
 	public void checkValue(WorldObjectContainer value) {
 		if (value == null) {
-			throw new IllegalStateException("value " + value + " is null");
+			throw new IllegalStateException("value " + value + " is null for property " + name);
 		}		
 	}
 

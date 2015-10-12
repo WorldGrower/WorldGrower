@@ -58,7 +58,7 @@ public class Conversations implements Serializable {
 	public static final DemandMoneyConversation DEMAND_MONEY_CONVERSATION = new DemandMoneyConversation();
 	public static final ProposeMateConversation PROPOSE_MATE_CONVERSATION = new ProposeMateConversation();
 	public static final FamilyConversation FAMILY_CONVERSATION = new FamilyConversation();
-	public static final Conversation KISS_CONVERSATION = new KissConversation();
+	public static final KissConversation KISS_CONVERSATION = new KissConversation();
 	public static final WhyAngryConversation WHY_ANGRY_CONVERSATION = new WhyAngryConversation();
 	public static final WhyAngryOtherConversation WHY_ANGRY_OTHER_CONVERSATION = new WhyAngryOtherConversation();
 	public static final NicerConversation NICER_CONVERSATION = new NicerConversation();
@@ -66,7 +66,7 @@ public class Conversations implements Serializable {
 	public static final OrganizationConversation ORGANIZATION_CONVERSATION = new OrganizationConversation();
 	public static final JoinPerformerOrganizationConversation JOIN_PERFORMER_ORGANIZATION_CONVERSATION = new JoinPerformerOrganizationConversation();
 	public static final JoinTargetOrganizationConversation JOIN_TARGET_ORGANIZATION_CONVERSATION = new JoinTargetOrganizationConversation();
-	public static final Conversation LEARN_SKILLS_USING_ORGANIZATION = new LearnSkillUsingOrganizationConversation();
+	public static final LearnSkillUsingOrganizationConversation LEARN_SKILLS_USING_ORGANIZATION = new LearnSkillUsingOrganizationConversation();
 	public static final SetOrganizationProfitPercentageConversation SET_ORGANIZATION_PROFIT_PERCENTAGE = new SetOrganizationProfitPercentageConversation();
 	public static final CurePoisonConversation CURE_POISON_CONVERSATION = new CurePoisonConversation();
 	public static final WhoIsLeaderOrganizationConversation WHO_IS_LEADER_ORGANIZATION_CONVERSATION = new WhoIsLeaderOrganizationConversation();

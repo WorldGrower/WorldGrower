@@ -129,4 +129,9 @@ public class GuiAskQuestionAction extends AbstractAction implements Answerer {
 	public ChooseWorldObjectDialog createChooseWorldObjectsDialog(ActionContainingArgs guiAction, Question question, JDialog parentDialog) {
 		return new ChooseWorldObjectDialog(playerCharacter, imageInfoReader, getPossibleSubjects(question), parentDialog, world, dungeonMaster, guiAction);
 	}
+
+	@Override
+	public String getDescription(int worldObjectId) {
+		return world.findWorldObject(Constants.ID, worldObjectId).getProperty(Constants.NAME);
+	}
 }

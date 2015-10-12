@@ -26,6 +26,7 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -194,26 +195,67 @@ public class AskQuestionDialog extends AbstractDialog implements ManagedOperatio
 			JMenu menu = new JMenu(entry.getKey().getDescription());
 			popupMenu.add(menu);
 			
-			for(Question question : entry.getValue()) {
-				JMenuItem questionMenuItem = new JMenuItem(question.getQuestionPhrase());
-				ImageIds subjectImageId = subjectImageIds.get(question.getSubjectId());
-				if (subjectImageId != null) {
-					questionMenuItem.setIcon(new ImageIcon(imageInfoReader.getImage(subjectImageId, null)));
-				}
-				List<WorldObject> possibleSubjects = answerer.getPossibleSubjects(question);
-				if (possibleSubjects != null && possibleSubjects.size() > 0) {
-					questionMenuItem.addActionListener(new ChooseSubjectAction(new ExecuteQuestionAction(question), question));
-					questionMenuItem.setToolTipText("click to see list of possible subjects");
-					menu.add(questionMenuItem);
-				} else if (possibleSubjects == null){
-					questionMenuItem.addActionListener(new ExecuteQuestionAction(question));
-					menu.add(questionMenuItem);
-				}
+			if (entry.getValue().size() > 20 && entry.getValue().get(0).getSubjectId() != -1) {
+				Map<Integer, JMenu> subMenus = new HashMap<>();
 				
+				fillSubMenu(answerer, entry, menu, subMenus);
+				addQuestionsToSubMenu(imageInfoReader, subjectImageIds, entry, menu, subMenus);
+				
+ 			} else {
+				for(Question question : entry.getValue()) {
+					JMenuItem questionMenuItem = createQuestionMenuItem(imageInfoReader, subjectImageIds, question);
+					List<WorldObject> possibleSubjects = answerer.getPossibleSubjects(question);
+					if (possibleSubjects != null && possibleSubjects.size() > 0) {
+						questionMenuItem.addActionListener(new ChooseSubjectAction(new ExecuteQuestionAction(question), question));
+						questionMenuItem.setToolTipText("click to see list of possible subjects");
+						menu.add(questionMenuItem);
+					} else if (possibleSubjects == null){
+						questionMenuItem.addActionListener(new ExecuteQuestionAction(question));
+						menu.add(questionMenuItem);
+					}
+					
+				}
 			}
 		}
 		
 		return popupMenu;
+	}
+
+	private void addQuestionsToSubMenu(ImageInfoReader imageInfoReader, Map<Integer, ImageIds> subjectImageIds, Entry<ConversationCategory, List<Question>> entry, JMenu menu, Map<Integer, JMenu> subMenus) {
+		for(Question question : entry.getValue()) {
+			JMenuItem questionMenuItem = createQuestionMenuItem(imageInfoReader, subjectImageIds, question);
+			questionMenuItem.addActionListener(new ExecuteQuestionAction(question));
+			int subjectId = question.getSubjectId();
+			if (subjectId != -1) {
+				subMenus.get(subjectId).add(questionMenuItem);
+			} else {
+				menu.add(questionMenuItem);
+			}
+		}
+	}
+
+	private void fillSubMenu(Answerer answerer, Entry<ConversationCategory, List<Question>> entry, JMenu menu, Map<Integer, JMenu> subMenus) {
+		for(Question question : entry.getValue()) {
+			int subjectId = question.getSubjectId();
+			if (subjectId != -1) {
+				if (!subMenus.containsKey(subjectId)) {
+					String name = answerer.getDescription(subjectId);
+					JMenu subMenu = new JMenu(name);
+					subMenus.put(subjectId, subMenu);
+					menu.add(subMenu);
+				}
+			}
+		}
+	}
+
+	private JMenuItem createQuestionMenuItem(ImageInfoReader imageInfoReader, Map<Integer, ImageIds> subjectImageIds, Question question) {
+		JMenuItem questionMenuItem = new JMenuItem(question.getQuestionPhrase());
+		int subjectId = question.getSubjectId();
+		ImageIds subjectImageId = subjectImageIds.get(subjectId);
+		if (subjectImageId != null) {
+			questionMenuItem.setIcon(new ImageIcon(imageInfoReader.getImage(subjectImageId, null)));
+		}
+		return questionMenuItem;
 	}
 
 	private List<Entry<ConversationCategory, List<Question>>> getQuestions(Map<ConversationCategory, List<Question>> questionsMap) {

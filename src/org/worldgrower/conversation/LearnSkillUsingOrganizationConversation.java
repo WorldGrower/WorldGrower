@@ -20,9 +20,11 @@ import java.util.List;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.goal.GroupPropertyUtils;
+import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
 import org.worldgrower.profession.Profession;
 
@@ -81,6 +83,11 @@ public class LearnSkillUsingOrganizationConversation implements Conversation {
 			SkillProperty skillProperty = performerProfession.getSkillProperty();
 			
 			SkillUtils.teachSkill(performer, skillProperty);
+		} else if (replyIndex == NO) {
+			WorldObject performer = conversationContext.getPerformer();
+			WorldObject target = conversationContext.getTarget();
+			World world = conversationContext.getWorld();
+			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -10, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 		}
 	}
 	

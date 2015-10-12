@@ -50,7 +50,10 @@ import org.worldgrower.conversation.UTestImmediateGoalConversation;
 import org.worldgrower.conversation.UTestIntimidateConversation;
 import org.worldgrower.conversation.UTestJoinPerformerOrganizationConversation;
 import org.worldgrower.conversation.UTestJoinTargetOrganizationConversation;
+import org.worldgrower.conversation.UTestKissConversation;
+import org.worldgrower.conversation.UTestLearnSkillUsingOrganizationConversation;
 import org.worldgrower.conversation.UTestLocationConversation;
+import org.worldgrower.conversation.UTestLookTheSameConversation;
 import org.worldgrower.conversation.UTestMinorHealConversation;
 import org.worldgrower.conversation.UTestNicerConversation;
 import org.worldgrower.conversation.UTestOrganizationConversation;
@@ -186,7 +189,10 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestDeityPropertyUtils.class,
 	UTestCommonerGenerator.class,
 	UTestWhyNotIntelligentConversation.class,
-	UTestActions.class
+	UTestActions.class,
+	UTestKissConversation.class,
+	UTestLearnSkillUsingOrganizationConversation.class,
+	UTestLookTheSameConversation.class
 })
 public class CompleteTestSuite {
 }

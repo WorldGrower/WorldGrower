@@ -186,6 +186,24 @@ public class UTestDefaultGoalObstructedHandler {
 		List<String> angryReasons = actionTarget.getProperty(Constants.BACKGROUND).getAngryReasons(true, 2, performer, world);
 		assertEquals(1, angryReasons.size());
 	}
+	
+	@Test
+	public void testAlterRelationships() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.GENDER, "male");
+		WorldObject actionTarget = TestUtils.createIntelligentWorldObject(2, Constants.GROUP, new IdList());
+		world.addWorldObject(performer);
+		world.addWorldObject(actionTarget);
+		WorldObject villagersOrganization = createVillagersOrganization(world);
+		
+		performer.setProperty(Constants.GROUP, new IdList().add(villagersOrganization));
+		
+		DefaultGoalObstructedHandler.alterRelationships(performer, actionTarget, actionTarget, Actions.MELEE_ATTACK_ACTION, world, -10, performer, actionTarget);
+		
+		assertEquals(-10, performer.getProperty(Constants.RELATIONSHIPS).getValue(actionTarget));
+		assertEquals(-10, actionTarget.getProperty(Constants.RELATIONSHIPS).getValue(performer));
+		assertEquals(true, actionTarget.getProperty(Constants.GROUP).getIds().isEmpty());
+	}
 
 	private WorldObject createVillagersOrganization(World world) {
 		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
