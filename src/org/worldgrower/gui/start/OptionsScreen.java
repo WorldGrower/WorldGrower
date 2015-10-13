@@ -22,6 +22,8 @@ import java.util.List;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -33,10 +35,10 @@ import org.worldgrower.Main;
 import org.worldgrower.gui.ButtonFactory;
 import org.worldgrower.gui.ExceptionHandler;
 import org.worldgrower.gui.GradientPanel;
+import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.util.NumberUtils;
-
-import javax.swing.JCheckBox;
 
 public class OptionsScreen {
 	private static final String GENDER_TOOL_TIP = "choose gender of player character";
@@ -62,14 +64,13 @@ public class OptionsScreen {
 
 	private final CharacterAttributes characterAttributes;
 	private JCheckBox chkBackgroundMusic;
+	private final ImageInfoReader imageInfoReader;
+	private JComboBox<ImageIds> cmbImage;
 	
-	/**
-	 * Create the application.
-	 * @param characterAttributes 
-	 */
-	public OptionsScreen(CharacterAttributes characterAttributes) {
-		initialize();
+	public OptionsScreen(CharacterAttributes characterAttributes, ImageInfoReader imageInfoReader) {
+		initialize(imageInfoReader);
 		this.characterAttributes = characterAttributes;
+		this.imageInfoReader = imageInfoReader;
 	}
 	
 	public void setVisible(boolean visible) {
@@ -79,15 +80,15 @@ public class OptionsScreen {
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize(ImageInfoReader imageInfoReader) {
 		frame = new JFrame();
 		frame.setResizable(false);
-		Dimension size = new Dimension(414, 500);
 		JPanel contentPanel = new GradientPanel();
+		contentPanel.setLocation(0, 0);
 		contentPanel.setLayout(null);
-		contentPanel.setSize(size);
-		frame.add(contentPanel);
-		frame.setSize(size);
+		contentPanel.setSize(new Dimension(414, 563));
+		frame.getContentPane().add(contentPanel);
+		frame.setSize(new Dimension(414, 578));
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -128,54 +129,54 @@ public class OptionsScreen {
 		
 		JLabel lblWorldWidth = new JLabel("World Width:");
 		lblWorldWidth.setToolTipText(WORLD_WIDTH_TOOL_TIP);
-		lblWorldWidth.setBounds(25, 163, 191, 26);
+		lblWorldWidth.setBounds(25, 234, 191, 26);
 		contentPanel.add(lblWorldWidth);
 		
 		worldWidthTextField = new JTextField();
 		worldWidthTextField.setToolTipText(WORLD_WIDTH_TOOL_TIP);
 		worldWidthTextField.setText("100");
-		worldWidthTextField.setBounds(228, 163, 137, 22);
+		worldWidthTextField.setBounds(228, 234, 137, 22);
 		contentPanel.add(worldWidthTextField);
 		worldWidthTextField.setColumns(10);
 		
 		JLabel lblWorldHeight = new JLabel("World Height:");
 		lblWorldHeight.setToolTipText(WORLD_HEIGHT_TOOL_TIP);
-		lblWorldHeight.setBounds(25, 202, 191, 26);
+		lblWorldHeight.setBounds(25, 273, 191, 26);
 		contentPanel.add(lblWorldHeight);
 		
 		worldHeightTextField = new JTextField();
 		worldHeightTextField.setToolTipText(WORLD_HEIGHT_TOOL_TIP);
 		worldHeightTextField.setText("100");
 		worldHeightTextField.setColumns(10);
-		worldHeightTextField.setBounds(228, 200, 137, 22);
+		worldHeightTextField.setBounds(228, 271, 137, 22);
 		contentPanel.add(worldHeightTextField);
 		
 		JLabel lblNumberOfEnemies = new JLabel("Enemy density:");
 		lblNumberOfEnemies.setToolTipText(MONSTER_DENSITY_TOOL_TIP);
-		lblNumberOfEnemies.setBounds(25, 239, 191, 26);
+		lblNumberOfEnemies.setBounds(25, 310, 191, 26);
 		contentPanel.add(lblNumberOfEnemies);
 		
 		numberOfEnemiesTextField = new JTextField();
 		numberOfEnemiesTextField.setToolTipText(MONSTER_DENSITY_TOOL_TIP);
 		numberOfEnemiesTextField.setText("0");
 		numberOfEnemiesTextField.setColumns(10);
-		numberOfEnemiesTextField.setBounds(228, 239, 137, 22);
+		numberOfEnemiesTextField.setBounds(228, 310, 137, 22);
 		contentPanel.add(numberOfEnemiesTextField);
 		
 		JLabel lblNumberOfVillagers = new JLabel("Number of Villagers:");
 		lblNumberOfVillagers.setToolTipText(NUMBER_OF_VILLAGERS_TOOL_TIP);
-		lblNumberOfVillagers.setBounds(25, 281, 191, 26);
+		lblNumberOfVillagers.setBounds(25, 352, 191, 26);
 		contentPanel.add(lblNumberOfVillagers);
 		
 		numberOfVillagersTextField = new JTextField();
 		numberOfVillagersTextField.setToolTipText(NUMBER_OF_VILLAGERS_TOOL_TIP);
 		numberOfVillagersTextField.setText("4");
 		numberOfVillagersTextField.setColumns(10);
-		numberOfVillagersTextField.setBounds(228, 281, 137, 22);
+		numberOfVillagersTextField.setBounds(228, 352, 137, 22);
 		contentPanel.add(numberOfVillagersTextField);
 		
 		JButton btnOk = ButtonFactory.createButton("Ok");
-		btnOk.setBounds(230, 415, 97, 25);
+		btnOk.setBounds(230, 486, 97, 25);
 		frame.getRootPane().setDefaultButton(btnOk);
 		contentPanel.add(btnOk);
 		btnOk.addActionListener(new ActionListener() {
@@ -196,7 +197,7 @@ public class OptionsScreen {
 						String gender = maleRadioButton.isSelected() ? "male" : "female";
 						
 						
-						Main.run(playerNameTextField.getText(), playerProfessionTextField.getText(), gender, worldWidth, worldHeight, enemyDensity, villagerCount, seed, playBackgroundMusic, characterAttributes);
+						Main.run(playerNameTextField.getText(), playerProfessionTextField.getText(), gender, worldWidth, worldHeight, enemyDensity, villagerCount, seed, playBackgroundMusic, characterAttributes, imageInfoReader, (ImageIds)cmbImage.getSelectedItem());
 					} catch (Exception e1) {
 						ExceptionHandler.handle(e1);
 					}
@@ -212,7 +213,7 @@ public class OptionsScreen {
 		});
 		
 		JButton btnCancel = ButtonFactory.createButton("Cancel");
-		btnCancel.setBounds(121, 415, 97, 25);
+		btnCancel.setBounds(121, 486, 97, 25);
 		contentPanel.add(btnCancel);
 		
 		JLabel lblPlayerProfession = new JLabel("Character Profession:");
@@ -229,38 +230,50 @@ public class OptionsScreen {
 		
 		JLabel lblSeed = new JLabel("Seed:");
 		lblSeed.setToolTipText(SEED_TOOL_TIP);
-		lblSeed.setBounds(25, 323, 191, 26);
+		lblSeed.setBounds(25, 394, 191, 26);
 		contentPanel.add(lblSeed);
 		
 		seedTextField = new JTextField();
 		seedTextField.setToolTipText(SEED_TOOL_TIP);
 		seedTextField.setText("666");
 		seedTextField.setColumns(10);
-		seedTextField.setBounds(228, 323, 137, 22);
+		seedTextField.setBounds(228, 394, 137, 22);
 		contentPanel.add(seedTextField);
 		
 		chkBackgroundMusic = new JCheckBox("Music");
 		chkBackgroundMusic.setToolTipText(MUSIC_TOOL_TIP);
 		chkBackgroundMusic.setSelected(true);
 		chkBackgroundMusic.setOpaque(false);
-		chkBackgroundMusic.setBounds(228, 360, 137, 25);
+		chkBackgroundMusic.setBounds(228, 431, 137, 25);
 		contentPanel.add(chkBackgroundMusic);
 		
 		JLabel lblPlayBackgroundMusic = new JLabel("Play background music:");
 		lblPlayBackgroundMusic.setToolTipText(MUSIC_TOOL_TIP);
-		lblPlayBackgroundMusic.setBounds(25, 360, 191, 26);
+		lblPlayBackgroundMusic.setBounds(25, 431, 191, 26);
 		contentPanel.add(lblPlayBackgroundMusic);
+		
+		JLabel lblCharacterImage = new JLabel("Character image:");
+		lblCharacterImage.setToolTipText("choose gender of player character");
+		lblCharacterImage.setBounds(25, 152, 191, 26);
+		contentPanel.add(lblCharacterImage);
+		
+		cmbImage = new JComboBox<>();
+		cmbImage.setModel(new ImageComboBoxModel(imageInfoReader));
+		cmbImage.setRenderer(new ImageComboBoxCellRenderer(imageInfoReader));
+		cmbImage.setSelectedIndex(0);
+		cmbImage.setBounds(228, 160, 137, 58);
+		contentPanel.add(cmbImage);
 		btnCancel.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
-				StartScreen startScreen = new StartScreen();
+				StartScreen startScreen = new StartScreen(imageInfoReader);
 				startScreen.setVisible(true);
 			}
 		});
 	}
-
+	
 	private String getDefaultUsername() {
 		String userName = System.getProperty("user.name");
 		if (userName != null && userName.length() > 0) {

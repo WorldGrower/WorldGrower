@@ -12,28 +12,18 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.gui;
+package org.worldgrower.generator;
 
-import java.awt.event.ActionEvent;
+import org.worldgrower.Constants;
+import org.worldgrower.OnTurn;
+import org.worldgrower.World;
+import org.worldgrower.WorldObject;
+import org.worldgrower.condition.CreatureTypeChangedListeners;
 
-import javax.swing.AbstractAction;
-
-import org.worldgrower.gui.start.StartScreen;
-
-public class ShowStartScreenAction extends AbstractAction {
-
-	private final ImageInfoReader imageInfoReader;
+public class ConstructOnTurn implements OnTurn {
 	
-	public ShowStartScreenAction(ImageInfoReader imageInfoReader) {
-		super();
-		this.imageInfoReader = imageInfoReader;
-	}
-
 	@Override
-	public void actionPerformed(ActionEvent actionEvent) {
-		StartScreen startScreen = new StartScreen(imageInfoReader);
-		startScreen.enableSaveButton(true);
-		startScreen.setVisible(true);
+	public void onTurn(WorldObject worldObject, World world, CreatureTypeChangedListeners creatureTypeChangedListeners) {	
+		worldObject.setProperty(Constants.ENERGY, 1000);
 	}
-
 }

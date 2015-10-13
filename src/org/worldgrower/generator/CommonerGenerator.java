@@ -141,7 +141,7 @@ public class CommonerGenerator implements Serializable {
 		return id;
 	}
 	
-	public static WorldObject createPlayerCharacter(int id, String playerName, String playerProfession, String gender, World world, CommonerGenerator commonerGenerator, WorldObject organization, CharacterAttributes characterAttributes) {
+	public static WorldObject createPlayerCharacter(int id, String playerName, String playerProfession, String gender, World world, CommonerGenerator commonerGenerator, WorldObject organization, CharacterAttributes characterAttributes, ImageIds playerCharacterImageId) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		
 		properties.put(Constants.X, 5);
@@ -150,7 +150,7 @@ public class CommonerGenerator implements Serializable {
 		properties.put(Constants.HEIGHT, 1);
 		properties.put(Constants.NAME, playerName);
 		properties.put(Constants.ID, id);
-		properties.put(Constants.IMAGE_ID, ImageIds.KNIGHT);
+		properties.put(Constants.IMAGE_ID, playerCharacterImageId);
 		properties.put(Constants.LOOK_DIRECTION, LookDirection.SOUTH);
 		properties.put(Constants.FOOD, 500);
 		properties.put(Constants.WATER, 500);

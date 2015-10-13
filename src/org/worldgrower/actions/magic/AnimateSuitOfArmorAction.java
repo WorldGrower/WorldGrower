@@ -20,7 +20,6 @@ import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.actions.AttackUtils;
 import org.worldgrower.actions.CraftUtils;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
@@ -28,10 +27,9 @@ import org.worldgrower.generator.CreatureGenerator;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.gui.ImageIds;
 
-public class AnimateDeadAction implements MagicSpell {
+public class AnimateSuitOfArmorAction implements MagicSpell {
 
 	private static final int ENERGY_USE = 200;
-	private static final int DISTANCE = 4;
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
@@ -42,28 +40,31 @@ public class AnimateDeadAction implements MagicSpell {
 		CreatureGenerator creatureGenerator = new CreatureGenerator(minionOrganization);
 		Integer targetX = target.getProperty(Constants.X);
 		Integer targetY = target.getProperty(Constants.Y);
-		int skeletonId = creatureGenerator.generateSkeleton(targetX, targetY, world, performer);
-		WorldObject skeleton = world.findWorldObject(Constants.ID, skeletonId);
+		int animatedSuitOfArmorId = creatureGenerator.generateAnimatedSuitOfArmor(targetX, targetY, world, performer);
+		WorldObject skeleton = world.findWorldObject(Constants.ID, animatedSuitOfArmorId);
 		skeleton.getProperty(Constants.GROUP).addAll(performer.getProperty(Constants.GROUP));
 		
-		world.removeWorldObject(target);
+		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.SOUL_GEM_FILLED, 1);
+		performer.getProperty(Constants.INVENTORY).remove(performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.EQUIPMENT_SLOT, Constants.TORSO_EQUIPMENT));
 		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE);
 	}
 	
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return ((target.hasProperty(Constants.DECEASED_WORLD_OBJECT)) && target.getProperty(Constants.DECEASED_WORLD_OBJECT));
+		return (performer.equals(target) 
+				&& (performer.hasProperty(Constants.INVENTORY)) 
+				&& (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.SOUL_GEM_FILLED) > 0)
+				&& (performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.EQUIPMENT_SLOT, Constants.TORSO_EQUIPMENT).size() > 0));
 	}
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return AttackUtils.distanceWithFreeLeftHand(performer, target, DISTANCE)
-				+ SkillUtils.distanceForEnergyUse(performer, getSkill(), ENERGY_USE);
+		return SkillUtils.distanceForEnergyUse(performer, getSkill(), ENERGY_USE);
 	}
 	
 	@Override
 	public String getRequirementsDescription() {
-		return CraftUtils.getRequirementsDescription(Constants.ENERGY, ENERGY_USE, Constants.DISTANCE, DISTANCE);
+		return CraftUtils.getRequirementsDescription(Constants.ENERGY, ENERGY_USE, "has torso equipment and a soulgem in inventory");
 	}
 	
 	@Override
@@ -73,12 +74,12 @@ public class AnimateDeadAction implements MagicSpell {
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "animating " + target.getProperty(Constants.NAME);
+		return "animating a suit of armor";
 	}
 
 	@Override
 	public String getSimpleDescription() {
-		return "animate";
+		return "animate suit of armor";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {
@@ -87,7 +88,7 @@ public class AnimateDeadAction implements MagicSpell {
 
 	@Override
 	public int getResearchCost() {
-		return 20;
+		return 40;
 	}
 
 	@Override
@@ -97,16 +98,16 @@ public class AnimateDeadAction implements MagicSpell {
 
 	@Override
 	public int getRequiredSkillLevel() {
-		return 1;
+		return 3;
 	}
 
 	@Override
 	public String getDescription() {
-		return "animates a corpse and turns it into a skeleton which you control";
+		return "animates a suit of armor which you control";
 	}
 
 	@Override
 	public ImageIds getImageIds() {
-		return ImageIds.ANIMATE_DEAD;
+		return ImageIds.ANIMATED_SUIT_OF_ARMOR;
 	}
 }

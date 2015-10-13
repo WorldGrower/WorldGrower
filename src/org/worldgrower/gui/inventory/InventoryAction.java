@@ -20,8 +20,8 @@ import java.util.List;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.ImageIcon;
 
-import org.worldgrower.Constants;
 import org.worldgrower.DungeonMaster;
 import org.worldgrower.Main;
 import org.worldgrower.ManagedOperation;
@@ -73,7 +73,7 @@ public class InventoryAction extends AbstractAction {
 		private final ManagedOperation action;
 		
 		public InventoryItemAction(ManagedOperation action) {
-			super(action.getSimpleDescription());
+			super(action.getSimpleDescription(), new ImageIcon(imageInfoReader.getImage(action.getImageIds(), null)));
 			this.action = action;
 		}
 		

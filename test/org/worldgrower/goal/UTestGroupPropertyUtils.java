@@ -327,4 +327,19 @@ public class UTestGroupPropertyUtils {
 		assertEquals(1, organizations.size());
 		assertEquals(organization, organizations.get(0));
 	}
+	
+	@Test
+	public void testCreateMinionOrganization() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.GROUP, new IdList());
+		world.addWorldObject(performer);
+		
+		WorldObject organization = GroupPropertyUtils.createMinionOrganization(performer, world);
+		assertEquals(true, organization.getProperty(Constants.MINION_ORGANIZATION));
+		assertEquals(true, performer.getProperty(Constants.GROUP).contains(organization));
+		assertEquals(0, organization.getProperty(Constants.ID).intValue());
+		
+		organization = GroupPropertyUtils.createMinionOrganization(performer, world);
+		assertEquals(0, organization.getProperty(Constants.ID).intValue());
+	}
 }

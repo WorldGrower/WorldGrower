@@ -62,7 +62,7 @@ public class Conversations implements Serializable {
 	public static final WhyAngryConversation WHY_ANGRY_CONVERSATION = new WhyAngryConversation();
 	public static final WhyAngryOtherConversation WHY_ANGRY_OTHER_CONVERSATION = new WhyAngryOtherConversation();
 	public static final NicerConversation NICER_CONVERSATION = new NicerConversation();
-	public static final Conversation NOT_NICER_CONVERSATION = new NotNicerConversation();
+	public static final NotNicerConversation NOT_NICER_CONVERSATION = new NotNicerConversation();
 	public static final OrganizationConversation ORGANIZATION_CONVERSATION = new OrganizationConversation();
 	public static final JoinPerformerOrganizationConversation JOIN_PERFORMER_ORGANIZATION_CONVERSATION = new JoinPerformerOrganizationConversation();
 	public static final JoinTargetOrganizationConversation JOIN_TARGET_ORGANIZATION_CONVERSATION = new JoinTargetOrganizationConversation();

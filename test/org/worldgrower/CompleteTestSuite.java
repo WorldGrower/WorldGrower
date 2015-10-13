@@ -56,6 +56,7 @@ import org.worldgrower.conversation.UTestLocationConversation;
 import org.worldgrower.conversation.UTestLookTheSameConversation;
 import org.worldgrower.conversation.UTestMinorHealConversation;
 import org.worldgrower.conversation.UTestNicerConversation;
+import org.worldgrower.conversation.UTestNotNicerConversation;
 import org.worldgrower.conversation.UTestOrganizationConversation;
 import org.worldgrower.conversation.UTestProfessionPractitionersConversation;
 import org.worldgrower.conversation.UTestProfessionReasonConversation;
@@ -192,7 +193,9 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestActions.class,
 	UTestKissConversation.class,
 	UTestLearnSkillUsingOrganizationConversation.class,
-	UTestLookTheSameConversation.class
+	UTestLookTheSameConversation.class,
+	UTestNotNicerConversation.class,
+	UTestOperationInfo.class
 })
 public class CompleteTestSuite {
 }

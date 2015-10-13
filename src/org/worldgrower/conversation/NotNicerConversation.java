@@ -29,7 +29,7 @@ public class NotNicerConversation extends AbstractChangeOpinionConversation {
 
 	@Override
 	public void handleYesResponse(WorldObject performer, WorldObject target, WorldObject subject, World world) {
-		RelationshipPropertyUtils.changeRelationshipValue(performer, target, 50, -50, Actions.TALK_ACTION, Conversations.createArgs(this), world);
+		RelationshipPropertyUtils.changeRelationshipValue(target, subject, -50, 0, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 	}
 	
 	@Override

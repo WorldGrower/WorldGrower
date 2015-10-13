@@ -49,7 +49,6 @@ import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.gui.AbstractDialog;
 import org.worldgrower.gui.ButtonFactory;
 import org.worldgrower.gui.ImageInfoReader;
-import org.worldgrower.gui.util.IconUtils;
 
 public class InventoryDialog extends AbstractDialog {
 

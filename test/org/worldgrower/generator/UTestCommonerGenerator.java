@@ -26,6 +26,7 @@ import org.worldgrower.actions.MockCommonerNameGenerator;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.gui.CommonerImageIds;
+import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.start.CharacterAttributes;
 
 public class UTestCommonerGenerator {
@@ -38,7 +39,7 @@ public class UTestCommonerGenerator {
 		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
 		
 		CharacterAttributes characterAttributes = new CharacterAttributes(10, 10, 10, 10, 10, 10);
-		WorldObject playerCharacter = CommonerGenerator.createPlayerCharacter(0, "player", "adventurer" , "female", world, commonerGenerator, organization, characterAttributes );
+		WorldObject playerCharacter = CommonerGenerator.createPlayerCharacter(0, "player", "adventurer" , "female", world, commonerGenerator, organization, characterAttributes, ImageIds.KNIGHT);
 		
 		assertEquals(false, playerCharacter.isControlledByAI());
 		assertEquals(true, playerCharacter.hasIntelligence());

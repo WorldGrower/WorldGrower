@@ -14,12 +14,11 @@
  *******************************************************************************/
 package org.worldgrower.gui.start;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -33,27 +32,28 @@ import org.worldgrower.World;
 import org.worldgrower.gui.AbstractDialog;
 import org.worldgrower.gui.ButtonFactory;
 import org.worldgrower.gui.ExceptionHandler;
-import org.worldgrower.gui.RoundedBorder;
+import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.SwingUtils;
 import org.worldgrower.gui.util.IconUtils;
 
 public class StartScreen {
 
 	private StartScreenDialog frame;
-
 	private JButton btnSaveGame;
-
 	private World world;
+	
+	private static ImageInfoReader imageInfoReader = null;
 	
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		ExceptionHandler.registerExceptionHandler();
+		loadImagesInBackGround();
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					StartScreen window = new StartScreen();
+					StartScreen window = new StartScreen(imageInfoReader);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					ExceptionHandler.handle(e);
@@ -61,17 +61,23 @@ public class StartScreen {
 			}
 		});
 	}
-
-	/**
-	 * Create the application.
-	 */
-	public StartScreen() {
-		initialize();
-	}
 	
-	public StartScreen(World world) {
-		this();
-		this.world = world;
+	private static void loadImagesInBackGround() {
+		new Thread() {
+			@Override
+			public void run() {
+				try {
+					imageInfoReader = new ImageInfoReader();
+				} catch (IOException e) {
+					throw new IllegalStateException(e);
+				}
+			}
+		}.start();
+	}
+
+	public StartScreen(ImageInfoReader imageInfoReaderValue) {
+		initialize();
+		imageInfoReader = imageInfoReaderValue;
 	}
 	
 	public void setVisible(boolean visible) {
@@ -92,7 +98,7 @@ public class StartScreen {
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
 				try {
-					CharacterCustomizationScreen characterCustomizationScreen = new CharacterCustomizationScreen();
+					CharacterCustomizationScreen characterCustomizationScreen = new CharacterCustomizationScreen(imageInfoReader);
 					characterCustomizationScreen.setVisible(true);
 				} catch (Exception e1) {
 					ExceptionHandler.handle(e1);
@@ -164,7 +170,7 @@ public class StartScreen {
 	}
 	
 	private void loadGame(File selectedFile) {
-		Main.load(selectedFile);
+		Main.load(selectedFile, imageInfoReader);
 		setVisible(false);
 	}
 	

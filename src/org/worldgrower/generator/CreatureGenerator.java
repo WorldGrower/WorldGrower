@@ -330,4 +330,41 @@ public class CreatureGenerator implements Serializable {
 		
 		return id;
 	}
+	
+	public int generateAnimatedSuitOfArmor(int x, int y, World world, WorldObject performer) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		int id = world.generateUniqueId();
+		
+		properties.put(Constants.X, x);
+		properties.put(Constants.Y, y);
+		properties.put(Constants.WIDTH, 1);
+		properties.put(Constants.HEIGHT, 1);
+		properties.put(Constants.HIT_POINTS, 15);
+		properties.put(Constants.HIT_POINTS_MAX, 15);
+		properties.put(Constants.NAME, "Animated Suit of Armor");
+		properties.put(Constants.ID, id);
+		properties.put(Constants.IMAGE_ID, ImageIds.ANIMATED_SUIT_OF_ARMOR);
+		properties.put(Constants.FOOD, 1000);
+		properties.put(Constants.WATER, 1000);
+		properties.put(Constants.ENERGY, 1000);
+		properties.put(Constants.GROUP, new IdList().add(organization));
+		properties.put(Constants.GOLD, 0);
+		properties.put(Constants.DEMANDS, new PropertyCountMap<ManagedProperty<?>>());
+		properties.put(Constants.CHILDREN, new IdList());
+		properties.put(Constants.SOCIAL, 500);
+		properties.put(Constants.CREATURE_TYPE, CreatureType.CONSTRUCT_CREATURE_TYPE);
+		properties.put(Constants.CONDITIONS, new Conditions());
+		properties.put(Constants.CREATOR_ID, performer.getProperty(Constants.ID));
+		properties.put(Constants.GIVEN_ORDER, null);
+		
+		properties.put(Constants.ARMOR, 10);
+		
+		properties.put(Constants.DAMAGE, 2);
+		properties.put(Constants.DAMAGE_RESIST, 0);
+		
+		WorldObject construct = new WorldObjectImpl(properties, new ConstructOnTurn());
+		world.addWorldObject(construct);
+		
+		return id;
+	}
 }

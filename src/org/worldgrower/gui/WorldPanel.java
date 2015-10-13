@@ -59,7 +59,7 @@ public class WorldPanel extends JPanel {
 
 	private WorldObject playerCharacter;
 	private World world;
-	private ImageInfoReader imageInfoReader = new ImageInfoReader();
+	private final ImageInfoReader imageInfoReader;
 	private GuiMouseListener guiMouseListener;
 	private int offsetX = 0;
 	private int offsetY = 0;
@@ -76,8 +76,9 @@ public class WorldPanel extends JPanel {
 	private final MoveMode moveMode = new MoveMode();
 	private final BackgroundPainter backgroundPainter;
 	
-    public WorldPanel(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster) throws IOException {
+    public WorldPanel(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, ImageInfoReader imageInfoReader) throws IOException {
         super(new BorderLayout());
+        this.imageInfoReader = imageInfoReader;
 
         guiMouseListener = new GuiMouseListener(this, playerCharacter, world, dungeonMaster, imageInfoReader);
 		addMouseListener(guiMouseListener);
@@ -164,7 +165,7 @@ public class WorldPanel extends JPanel {
 
 	private void initializeKeyBindings(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster) {
 		getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "Cancel");
-        getActionMap().put("Cancel", new ShowStartScreenAction(world));
+        getActionMap().put("Cancel", new ShowStartScreenAction(imageInfoReader));
         
         getInputMap().put(KeyStroke.getKeyStroke("UP"), "up");
         getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD8, 0), "up");

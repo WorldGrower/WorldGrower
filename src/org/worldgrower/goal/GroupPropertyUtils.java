@@ -348,4 +348,17 @@ public class GroupPropertyUtils {
 		}
 		
 	}
+	
+	public static WorldObject createMinionOrganization(WorldObject performer, World world) {
+		final WorldObject minionOrganization;
+		List<WorldObject> minionOrganizations = world.findWorldObjects(w -> GroupPropertyUtils.isMinionOrganization(w) && GroupPropertyUtils.performerIsLeaderOfOrganization(performer, w, world));
+		if (minionOrganizations.size() > 0) {
+			minionOrganization = minionOrganizations.get(0);
+		} else {
+			minionOrganization = GroupPropertyUtils.create(performer.getProperty(Constants.ID), "minions of " + performer.getProperty(Constants.NAME), world);
+			minionOrganization.setProperty(Constants.MINION_ORGANIZATION, Boolean.TRUE);
+			performer.getProperty(Constants.GROUP).add(minionOrganization);
+		}
+		return minionOrganization;
+	}
 }

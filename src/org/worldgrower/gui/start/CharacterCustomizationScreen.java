@@ -31,6 +31,7 @@ import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.gui.ButtonFactory;
 import org.worldgrower.gui.GradientPanel;
 import org.worldgrower.gui.GuiAttributeDescription;
+import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.util.IconUtils;
 
 public class CharacterCustomizationScreen extends JFrame {
@@ -47,8 +48,8 @@ public class CharacterCustomizationScreen extends JFrame {
 	private JLabel lblIntelligence;
 	private JLabel lblWisdom;
 	private JLabel lblCharisma;
-
-	public CharacterCustomizationScreen() {
+	
+	public CharacterCustomizationScreen(ImageInfoReader imageInfoReader) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 539, 310);
 		setResizable(false);
@@ -263,7 +264,7 @@ public class CharacterCustomizationScreen extends JFrame {
 						Integer.parseInt(lblCharisma.getText())
 						);
 				
-				OptionsScreen window = new OptionsScreen(characterAttributes);
+				OptionsScreen window = new OptionsScreen(characterAttributes, imageInfoReader);
 				window.setVisible(true);
 			}
 		});

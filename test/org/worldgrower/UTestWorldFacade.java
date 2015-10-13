@@ -54,6 +54,20 @@ public class UTestWorldFacade {
 	}
 	
 	@Test
+	public void testIllusionIsBelievedByUnskilled() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject personViewingWorld = TestUtils.createWorldObject(1, "performer");
+		WorldObject worldObject = TestUtils.createIntelligentWorldObject(2, Constants.ILLUSION_CREATOR_ID, 3);
+		WorldObject illusionCreator = TestUtils.createIntelligentWorldObject(3, Constants.ILLUSION_SKILL, new Skill(0));
+		
+		world.addWorldObject(personViewingWorld);
+		world.addWorldObject(worldObject);
+		world.addWorldObject(illusionCreator);
+		
+		assertEquals(false, WorldFacade.illusionIsBelievedBy(personViewingWorld, worldObject, world));
+	}
+	
+	@Test
 	public void testFindWorldObject() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject personViewingWorld = TestUtils.createIntelligentWorldObject(1, Constants.INSIGHT_SKILL, new Skill(10));
@@ -106,5 +120,13 @@ public class UTestWorldFacade {
 		
 		illusionCreator.setProperty(Constants.ILLUSION_SKILL, new Skill(0));
 		assertEquals(Arrays.asList(), worldFacade.findWorldObjectsByProperty(Constants.ID, w -> w.getProperty(Constants.ID).intValue() == 2));
+	}
+	
+	@Test
+	public void testGetCurrentTurn() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject personViewingWorld = TestUtils.createIntelligentWorldObject(1, "person");
+		WorldFacade worldFacade = new WorldFacade(personViewingWorld, world);
+		assertEquals(0, worldFacade.getCurrentTurn().getValue());
 	}
 }

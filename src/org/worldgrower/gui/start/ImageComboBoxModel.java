@@ -12,28 +12,30 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.gui;
+package org.worldgrower.gui.start;
 
-import java.awt.event.ActionEvent;
+import java.util.List;
 
-import javax.swing.AbstractAction;
+import javax.swing.DefaultComboBoxModel;
 
-import org.worldgrower.gui.start.StartScreen;
+import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.ImageInfoReader;
 
-public class ShowStartScreenAction extends AbstractAction {
+class ImageComboBoxModel extends DefaultComboBoxModel<ImageIds> {
 
-	private final ImageInfoReader imageInfoReader;
+	private final List<ImageIds> characterImageIds;
 	
-	public ShowStartScreenAction(ImageInfoReader imageInfoReader) {
-		super();
-		this.imageInfoReader = imageInfoReader;
+	public ImageComboBoxModel(ImageInfoReader imageInfoReader) {
+		characterImageIds = imageInfoReader.getCharacterImageIds();
+	}
+	
+	@Override
+	public ImageIds getElementAt(int index) {
+		return characterImageIds.get(index);
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent actionEvent) {
-		StartScreen startScreen = new StartScreen(imageInfoReader);
-		startScreen.enableSaveButton(true);
-		startScreen.setVisible(true);
+	public int getSize() {
+		return characterImageIds.size();
 	}
-
 }

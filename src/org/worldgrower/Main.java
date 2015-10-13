@@ -36,6 +36,7 @@ import org.worldgrower.generator.WorldGenerator;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.gui.CommonerImageIds;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.SwingUtils;
 import org.worldgrower.gui.WorldPanel;
 import org.worldgrower.gui.music.BackgroundMusicUtils;
@@ -52,7 +53,7 @@ public class Main {
 	private static JFrame frame = null;
 	private static MusicPlayer musicPlayer = null;
 	
-	public static void run(String playerName, String playerProfession, String gender, int worldWidth, int worldHeight, int enemyDensity, int villagerCount, int seed, boolean playBackgroundMusic, CharacterAttributes characterAttributes) throws Exception {
+	public static void run(String playerName, String playerProfession, String gender, int worldWidth, int worldHeight, int enemyDensity, int villagerCount, int seed, boolean playBackgroundMusic, CharacterAttributes characterAttributes, ImageInfoReader imageInfoReader, ImageIds playerCharacterImageId) throws Exception {
 		DungeonMaster dungeonMaster = new DungeonMaster();
 		WorldOnTurnImpl worldOnTurn = new WorldOnTurnImpl(new DeityWorldOnTurn(), new ArenaFightOnTurn());
 		World world = new WorldImpl(worldWidth, worldHeight, dungeonMaster, worldOnTurn);
@@ -63,7 +64,7 @@ public class Main {
 		final WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
 		final CommonerGenerator commonerGenerator = new CommonerGenerator(seed, commonerImageIds, commonerNameGenerator);
 		
-		final WorldObject playerCharacter = CommonerGenerator.createPlayerCharacter(playerCharacterId, playerName, playerProfession, gender, world, commonerGenerator, organization, characterAttributes);
+		final WorldObject playerCharacter = CommonerGenerator.createPlayerCharacter(playerCharacterId, playerName, playerProfession, gender, world, commonerGenerator, organization, characterAttributes, playerCharacterImageId);
 		world.addWorldObject(playerCharacter);
 		
 		addDefaultWorldObjects(world, commonerGenerator, organization, villagerCount, seed);
@@ -73,7 +74,7 @@ public class Main {
 		
 		addEnemiesAndFriendlyAnimals(enemyDensity, world, seed);
 		
-		createAndShowGUIInvokeLater(playerCharacter, world, dungeonMaster, playBackgroundMusic);
+		createAndShowGUIInvokeLater(playerCharacter, world, dungeonMaster, playBackgroundMusic, imageInfoReader);
 	}
 
 	private static void addWorldListeners(World world) {
@@ -97,7 +98,7 @@ public class Main {
 		worldGenerator.addWorldObjects(world, 1, 1, world.getWidth() / 20, TerrainType.WATER, creatureGenerator::generateFish);
 	}
 	
-	public static void load(File fileToLoad) {
+	public static void load(File fileToLoad, ImageInfoReader imageInfoReader) {
 		DungeonMaster dungeonMaster = new DungeonMaster();
 		World world = WorldImpl.load(fileToLoad);
 		final WorldObject playerCharacter = world.findWorldObject(Constants.ID, 0);
@@ -105,15 +106,15 @@ public class Main {
 		addWorldListeners(world);
 		
 		//TODO: load playBackgroundMusic flag from file
-		createAndShowGUIInvokeLater(playerCharacter, world, dungeonMaster, true);
+		createAndShowGUIInvokeLater(playerCharacter, world, dungeonMaster, true, imageInfoReader);
 	}
 
-	private static void createAndShowGUIInvokeLater(final WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, boolean playBackgroundMusic) {
+	private static void createAndShowGUIInvokeLater(final WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, boolean playBackgroundMusic, ImageInfoReader imageInfoReader) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			@Override
             public void run() {
                 try {
-					createAndShowGUI(playerCharacter, world, dungeonMaster, playBackgroundMusic);
+					createAndShowGUI(playerCharacter, world, dungeonMaster, playBackgroundMusic, imageInfoReader);
 				} catch (IOException e) {
 					throw new RuntimeException(e);
 				}
@@ -158,7 +159,7 @@ public class Main {
 
 
 
-    private static void createAndShowGUI(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, boolean playBackgroundMusic) throws IOException {
+    private static void createAndShowGUI(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, boolean playBackgroundMusic, ImageInfoReader imageInfoReader) throws IOException {
     	if (frame != null) {
     		frame.dispose();
     	}
@@ -166,7 +167,7 @@ public class Main {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         IconUtils.setIcon(frame);
         
-        WorldPanel worldPanel = new WorldPanel(playerCharacter, world, dungeonMaster);
+        WorldPanel worldPanel = new WorldPanel(playerCharacter, world, dungeonMaster, imageInfoReader);
         worldPanel.setOpaque(true);
         frame.setContentPane(worldPanel);
         

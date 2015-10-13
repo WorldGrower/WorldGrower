@@ -25,6 +25,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.magic.AnimateDeadAction;
+import org.worldgrower.actions.magic.AnimateSuitOfArmorAction;
 import org.worldgrower.actions.magic.BurdenAction;
 import org.worldgrower.actions.magic.CureDiseaseAction;
 import org.worldgrower.actions.magic.CurePoisonAction;
@@ -150,6 +151,7 @@ public class Actions {
 	public static final PutItemIntoInventoryAction PUT_ITEM_INTO_INVENTORY_ACTION = new PutItemIntoInventoryAction();
 	public static final PoisonAction POISON_ACTION = new PoisonAction();
 	public static final DrinkFromInventoryAction DRINK_FROM_INVENTORY_ACTION = new DrinkFromInventoryAction();
+	public static final AnimateSuitOfArmorAction ANIMATE_SUIT_OF_ARMOR_ACTION = new AnimateSuitOfArmorAction();
 	
 	public static final AnimateDeadAction ANIMATE_DEAD_ACTION = new AnimateDeadAction();
 	public static final CommandAction COMMAND_GATHER_WOOD_ACTION = new CommandAction(Goals.CREATE_WOOD_GOAL, "gather wood");
@@ -223,14 +225,16 @@ public class Actions {
 			FEATHER_ACTION,
 			DISINTEGRATE_ARMOR_ACTION,
 			DISINTEGRATE_WEAPON_ACTION,
-			SOUL_TRAP_ACTION
+			SOUL_TRAP_ACTION,
+			ANIMATE_SUIT_OF_ARMOR_ACTION
 			);
 	
 	private static final List<ManagedOperation> INVENTORY_ACTIONS = Arrays.asList(
 			EAT_FROM_INVENTORY_ACTION,
 			DRINK_FROM_INVENTORY_ACTION,
 			REPAIR_EQUIPMENT_IN_INVENTORY_ACTION,
-			POISON_INVENTORY_WATER_ACTION
+			POISON_INVENTORY_WATER_ACTION,
+			ANIMATE_SUIT_OF_ARMOR_ACTION
 			);
 	
 	private static final List<ResearchKnowledgeSkillAction> RESEARCH_SKILL_ACTIONS = Arrays.asList(

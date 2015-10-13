@@ -38,6 +38,7 @@ public interface CreatureType extends Serializable {
 	public static final WerewolfCreatureType WEREWOLF_CREATURE_TYPE = new WerewolfCreatureType(ALL_CREATURE_TYPES);
 	public static final FishCreatureType FISH_CREATURE_TYPE = new FishCreatureType(ALL_CREATURE_TYPES);
 	public static final CowCreatureType COW_CREATURE_TYPE = new CowCreatureType(ALL_CREATURE_TYPES);
+	public static final ConstructCreatureType CONSTRUCT_CREATURE_TYPE = new ConstructCreatureType(ALL_CREATURE_TYPES);
 	
 	public default Object readResolveImpl() throws ObjectStreamException {
 		Class<?> clazz = getClass();

@@ -72,7 +72,7 @@ public class OperationInfo implements Serializable {
 		goalChangedCalculator.recordEndState(performer, target, managedOperation, args, world);
 	}
 	
-	private void removeDeadWorldObjects(World world) {
+	static void removeDeadWorldObjects(World world) {
 		List<WorldObject> worldObjects = new ArrayList<WorldObject>(world.getWorldObjects());
 		
 		for(WorldObject worldObject : worldObjects) {

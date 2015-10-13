@@ -20,6 +20,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +32,7 @@ import org.worldgrower.attribute.LookDirection;
 public class ImageInfoReader {
 
 	private final Map<ImageIds, List<Image>> idToImages = new HashMap<>();
+	private final List<ImageIds> characterImageIds = new ArrayList<>();
 	
     public ImageInfoReader() throws IOException {
     	Sprites sprites = readSprites();
@@ -339,6 +341,8 @@ public class ImageInfoReader {
 		add(ImageIds.HEART, sprites420.getSubImage(8, 22, 1, 1));
 		add(ImageIds.BLOOD, sprites420.getSubImage(6, 25, 1, 1));
 		add(ImageIds.GOLD_RING, sprites420.getSubImage(2, 19, 1, 1));
+		
+		addCharacter(ImageIds.ANIMATED_SUIT_OF_ARMOR, monsters, 6, 4, 1, 1);
     }
 
     private void createArenaWall48x48() {
@@ -448,7 +452,7 @@ public class ImageInfoReader {
     	images.add(sprites.getSubImage(x + 2, y + 3, width, height));
     	
     	idToImages.put(imageId, images);
-		
+    	characterImageIds.add(imageId);
 	}
 
 	private void add(ImageIds id, Image image) {
@@ -459,7 +463,11 @@ public class ImageInfoReader {
     	idToImages.put(id, Arrays.asList(image));
     }
 	
-    private static Sprites readOrcSoldier() throws IOException {
+    public List<ImageIds> getCharacterImageIds() {
+		return Collections.unmodifiableList(characterImageIds);
+	}
+
+	private static Sprites readOrcSoldier() throws IOException {
 		return readImages("orcsoldier_a.png", 32, 32, 4, 3);
 	}
     
@@ -597,6 +605,10 @@ public class ImageInfoReader {
    
    public Image getImage(ImageIds id, LookDirection lookDirection, int moveIndex) {
 	   List<Image> images = idToImages.get(id);
+	   
+	   if (images == null) {
+		   throw new IllegalStateException("No image found for imageId " + id);
+	   }
 	   
 	   int index;
 	   if ((lookDirection != null) && (images.size() > 1)) {

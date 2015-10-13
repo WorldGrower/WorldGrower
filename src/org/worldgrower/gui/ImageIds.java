@@ -245,5 +245,6 @@ public enum ImageIds {
 	CAPTURE,
 	HEART,
 	BLOOD,
-	GOLD_RING
+	GOLD_RING,
+	ANIMATED_SUIT_OF_ARMOR
 }

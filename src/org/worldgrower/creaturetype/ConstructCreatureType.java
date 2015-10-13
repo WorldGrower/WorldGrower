@@ -12,28 +12,33 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.gui;
+package org.worldgrower.creaturetype;
 
-import java.awt.event.ActionEvent;
+import java.io.ObjectStreamException;
+import java.util.List;
 
-import javax.swing.AbstractAction;
+public class ConstructCreatureType implements CreatureType {
 
-import org.worldgrower.gui.start.StartScreen;
-
-public class ShowStartScreenAction extends AbstractAction {
-
-	private final ImageInfoReader imageInfoReader;
-	
-	public ShowStartScreenAction(ImageInfoReader imageInfoReader) {
-		super();
-		this.imageInfoReader = imageInfoReader;
+	public ConstructCreatureType(List<CreatureType> allCreatureTypes) {
+		allCreatureTypes.add(this);
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent actionEvent) {
-		StartScreen startScreen = new StartScreen(imageInfoReader);
-		startScreen.enableSaveButton(true);
-		startScreen.setVisible(true);
+	public boolean canTalk() {
+		return false;
 	}
 
+	@Override
+	public boolean canMove() {
+		return true;
+	}
+	
+	@Override
+	public boolean canTrade() {
+		return false;
+	}
+	
+	public Object readResolve() throws ObjectStreamException {
+		return readResolveImpl();
+	}
 }
