@@ -343,6 +343,8 @@ public class ImageInfoReader {
 		add(ImageIds.GOLD_RING, sprites420.getSubImage(2, 19, 1, 1));
 		
 		addCharacter(ImageIds.ANIMATED_SUIT_OF_ARMOR, monsters, 6, 4, 1, 1);
+		add(ImageIds.DISPEL_MAGIC_SPELL, sprites420.getSubImage(8, 24, 1, 1));
+		add(ImageIds.SILENCED_CONDITION, sprites420.getSubImage(11, 21, 1, 1));
     }
 
     private void createArenaWall48x48() {

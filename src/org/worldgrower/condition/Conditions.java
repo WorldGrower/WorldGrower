@@ -21,6 +21,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.function.Function;
 
 import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
@@ -48,13 +49,7 @@ public class Conditions implements Serializable {
 	}
 	
 	public void removeAllDiseases() {
-		Iterator<Entry<Condition, ConditionInfo>> conditionIterator = conditions.entrySet().iterator();
-		while (conditionIterator.hasNext()) {
-			Entry<Condition, ConditionInfo> conditionEntry = conditionIterator.next();
-			if (conditionEntry.getKey().isDisease()) {
-				conditionIterator.remove();
-			}
-		}
+		removeAll(c -> c.isDisease());
 	}
 	
 	public boolean canTakeAction() {
@@ -144,5 +139,19 @@ public class Conditions implements Serializable {
 			}
 		}
 		return diseases;
+	}
+
+	public void removeAllMagicEffects() {
+		removeAll(c -> c.isMagicEffect());
+	}
+	
+	private void removeAll(Function<Condition, Boolean> function) {
+		Iterator<Entry<Condition, ConditionInfo>> conditionIterator = conditions.entrySet().iterator();
+		while (conditionIterator.hasNext()) {
+			Entry<Condition, ConditionInfo> conditionEntry = conditionIterator.next();
+			if (function.apply(conditionEntry.getKey())) {
+				conditionIterator.remove();
+			}
+		}
 	}
 }

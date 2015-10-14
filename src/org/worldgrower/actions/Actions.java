@@ -33,6 +33,7 @@ import org.worldgrower.actions.magic.DetectPoisonAndDiseaseAction;
 import org.worldgrower.actions.magic.DisguiseMagicSpellAction;
 import org.worldgrower.actions.magic.DisintegrateArmorAction;
 import org.worldgrower.actions.magic.DisintegrateWeaponAction;
+import org.worldgrower.actions.magic.DispelMagicAction;
 import org.worldgrower.actions.magic.EnlargeAction;
 import org.worldgrower.actions.magic.FeatherAction;
 import org.worldgrower.actions.magic.FireBoltAttackAction;
@@ -49,6 +50,7 @@ import org.worldgrower.actions.magic.RayOfFrostAttackAction;
 import org.worldgrower.actions.magic.ReduceAction;
 import org.worldgrower.actions.magic.ResearchSpellAction;
 import org.worldgrower.actions.magic.ScribeMagicSpellAction;
+import org.worldgrower.actions.magic.SilenceMagicAction;
 import org.worldgrower.actions.magic.SleepMagicSpellAction;
 import org.worldgrower.actions.magic.SoulTrapAction;
 import org.worldgrower.actions.magic.UnlockMagicSpellAction;
@@ -141,6 +143,8 @@ public class Actions {
 	public static final DisintegrateArmorAction DISINTEGRATE_ARMOR_ACTION = new DisintegrateArmorAction();
 	public static final DisintegrateWeaponAction DISINTEGRATE_WEAPON_ACTION = new DisintegrateWeaponAction();
 	public static final SoulTrapAction SOUL_TRAP_ACTION = new SoulTrapAction();
+	public static final DispelMagicAction DISPEL_MAGIC_ACTION = new DispelMagicAction();
+	public static final SilenceMagicAction SILENCE_MAGIC_ACTION = new SilenceMagicAction();
 	
 	public static final BuildLibraryAction BUILD_LIBRARY_ACTION = new BuildLibraryAction();
 	public static final ResearchRestorationSkillAction RESEARCH_RESTORATION_SKILL_ACTION = new ResearchRestorationSkillAction();
@@ -226,7 +230,9 @@ public class Actions {
 			DISINTEGRATE_ARMOR_ACTION,
 			DISINTEGRATE_WEAPON_ACTION,
 			SOUL_TRAP_ACTION,
-			ANIMATE_SUIT_OF_ARMOR_ACTION
+			ANIMATE_SUIT_OF_ARMOR_ACTION,
+			DISPEL_MAGIC_ACTION,
+			SILENCE_MAGIC_ACTION
 			);
 	
 	private static final List<ManagedOperation> INVENTORY_ACTIONS = Arrays.asList(

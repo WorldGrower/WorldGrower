@@ -33,6 +33,7 @@ public interface Condition extends Serializable {
 	public String getDescription();
 	public void onTurn(WorldObject worldObject, World world, int startTurns, CreatureTypeChangedListeners creatureTypeChangedListeners);	
 	public boolean isDisease();
+	public boolean isMagicEffect();
 	public void conditionEnds(WorldObject worldObject);
 	public void perform(WorldObject performer, WorldObject target, int[] args, ManagedOperation managedOperation, World world);
 	
@@ -59,5 +60,6 @@ public interface Condition extends Serializable {
 	public static final BurdenedCondition BURDENED_CONDITION = new BurdenedCondition();
 	public static final FeatheredCondition FEATHERED_CONDITION = new FeatheredCondition();
 	public static final SoulTrappedCondition SOUL_TRAPPED_CONDITION = new SoulTrappedCondition();
+	public static final SilencedCondition SILENCED_CONDITION = new SilencedCondition();
 	
 }

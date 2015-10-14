@@ -62,6 +62,7 @@ import org.worldgrower.conversation.UTestProfessionPractitionersConversation;
 import org.worldgrower.conversation.UTestProfessionReasonConversation;
 import org.worldgrower.conversation.UTestProposeMateConversation;
 import org.worldgrower.conversation.UTestRelationshipConversation;
+import org.worldgrower.conversation.UTestSawDisguisingConversation;
 import org.worldgrower.conversation.UTestSellHouseConversation;
 import org.worldgrower.conversation.UTestSetOrganizationProfitPercentageConversation;
 import org.worldgrower.conversation.UTestShareKnowledgeConversation;
@@ -81,6 +82,7 @@ import org.worldgrower.goal.UTestBrawlPropertyUtils;
 import org.worldgrower.goal.UTestBuildLocationUtils;
 import org.worldgrower.goal.UTestBuyClothesGoal;
 import org.worldgrower.goal.UTestBuySellUtils;
+import org.worldgrower.goal.UTestChildrenGoal;
 import org.worldgrower.goal.UTestDrownUtils;
 import org.worldgrower.goal.UTestFacadeUtils;
 import org.worldgrower.goal.UTestGoalUtils;
@@ -91,8 +93,10 @@ import org.worldgrower.goal.UTestLegalActionsPropertyUtils;
 import org.worldgrower.goal.UTestLocationUtils;
 import org.worldgrower.goal.UTestLockUtils;
 import org.worldgrower.goal.UTestMeleeDamagePropertyUtils;
+import org.worldgrower.goal.UTestProtectOneSelfGoal;
 import org.worldgrower.goal.UTestRacePropertyUtils;
 import org.worldgrower.goal.UTestRelationshipPropertyUtils;
+import org.worldgrower.goal.UTestSacrificePeopleToDeityGoal;
 import org.worldgrower.goal.UTestSocializeGoal;
 import org.worldgrower.goal.UTestWeightPropertyUtils;
 import org.worldgrower.goal.UTestZone;
@@ -195,7 +199,11 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestLearnSkillUsingOrganizationConversation.class,
 	UTestLookTheSameConversation.class,
 	UTestNotNicerConversation.class,
-	UTestOperationInfo.class
+	UTestOperationInfo.class,
+	UTestSawDisguisingConversation.class,
+	UTestSacrificePeopleToDeityGoal.class,
+	UTestProtectOneSelfGoal.class,
+	UTestChildrenGoal.class
 })
 public class CompleteTestSuite {
 }

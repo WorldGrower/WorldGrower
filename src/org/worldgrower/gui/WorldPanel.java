@@ -352,6 +352,8 @@ public class WorldPanel extends JPanel {
     		return ImageIds.UNCONSCIOUS_INDICATOR;
     	} else if (hasCondition(worldObject, Condition.SOUL_TRAPPED_CONDITION)) {
     		return ImageIds.SOUL_TRAPPED_INDICATOR;
+    	} else if (hasCondition(worldObject, Condition.SILENCED_CONDITION)) {
+    		return ImageIds.SILENCED_CONDITION;
     	} else {
     		return null;
     	}

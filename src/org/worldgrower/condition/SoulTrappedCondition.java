@@ -83,4 +83,9 @@ public class SoulTrappedCondition implements Condition {
 	private boolean isFilledSoulGem(WorldObject w) {
 		return w.hasProperty(Constants.SOUL_GEM) && w.hasProperty(Constants.SOUL_GEM_FILLED) && w.getProperty(Constants.SOUL_GEM_FILLED);
 	}
+	
+	@Override
+	public boolean isMagicEffect() {
+		return true;
+	}
 }

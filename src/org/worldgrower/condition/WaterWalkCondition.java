@@ -51,4 +51,9 @@ public class WaterWalkCondition implements Condition {
 	@Override
 	public void perform(WorldObject performer, WorldObject target, int[] args, ManagedOperation managedOperation, World world) {
 	}
+	
+	@Override
+	public boolean isMagicEffect() {
+		return true;
+	}
 }

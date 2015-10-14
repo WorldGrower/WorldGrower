@@ -59,6 +59,17 @@ public class TestUtils {
 		return w1;
 	}
 	
+	public static WorldObject createIntelligentWorldObject(int x, int y, int width, int height, ManagedProperty<?> property, Object value) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		properties.put(Constants.X, x);
+		properties.put(Constants.Y, y);
+		properties.put(Constants.WIDTH, width);
+		properties.put(Constants.HEIGHT, height);
+		properties.put(property, value);
+		WorldObject w1 = new WorldObjectImpl(properties, Actions.ALL_ACTIONS, null);
+		return w1;
+	}
+	
 	public static WorldObject createWorldObject(int id, String name) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.NAME, name);

@@ -57,4 +57,9 @@ public class SleepCondition implements Condition {
 			Conditions.remove(target, this);
 		}
 	}
+	
+	@Override
+	public boolean isMagicEffect() {
+		return true;
+	}
 }

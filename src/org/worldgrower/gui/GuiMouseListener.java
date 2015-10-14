@@ -379,7 +379,7 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 	
 	private void addRestorationActions(JPopupMenu menu) {
-		MagicSpell[] restorationActions = { Actions.MINOR_HEAL_ACTION, Actions.CURE_DISEASE_ACTION, Actions.CURE_POISON_ACTION };
+		MagicSpell[] restorationActions = { Actions.MINOR_HEAL_ACTION, Actions.CURE_DISEASE_ACTION, Actions.CURE_POISON_ACTION, Actions.DISPEL_MAGIC_ACTION, Actions.SILENCE_MAGIC_ACTION };
 		addActions(menu, "Restoration", restorationActions);
 	}
 	

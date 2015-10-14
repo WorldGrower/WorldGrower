@@ -68,4 +68,9 @@ public class BurningCondition implements DeadlyCondition {
 	public String getDeathDescription() {
 		return "burned to death";
 	}
+	
+	@Override
+	public boolean isMagicEffect() {
+		return false;
+	}
 }

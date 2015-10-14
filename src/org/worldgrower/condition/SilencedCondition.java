@@ -18,7 +18,7 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 
-public class PoisonedCondition implements DeadlyCondition {
+public class SilencedCondition implements Condition {
 
 	@Override
 	public boolean canTakeAction() {
@@ -32,12 +32,11 @@ public class PoisonedCondition implements DeadlyCondition {
 
 	@Override
 	public String getDescription() {
-		return "poisoned";
+		return "silenced";
 	}
 
 	@Override
 	public void onTurn(WorldObject worldObject, World world, int startTurn, CreatureTypeChangedListeners creatureTypeChangedListeners) {
-		decreaseHitPoints(worldObject, this, 5);
 	}
 	
 	@Override
@@ -52,14 +51,9 @@ public class PoisonedCondition implements DeadlyCondition {
 	@Override
 	public void perform(WorldObject performer, WorldObject target, int[] args, ManagedOperation managedOperation, World world) {
 	}
-
-	@Override
-	public String getDeathDescription() {
-		return "killed by poison";
-	}
 	
 	@Override
 	public boolean isMagicEffect() {
-		return false;
+		return true;
 	}
 }
