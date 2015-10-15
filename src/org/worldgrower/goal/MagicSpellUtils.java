@@ -17,10 +17,13 @@ package org.worldgrower.goal;
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.magic.MagicSpell;
+import org.worldgrower.condition.Condition;
 
 public class MagicSpellUtils {
 
 	public static boolean canCast(WorldObject w, MagicSpell magicSpell) {
-		return w.hasProperty(Constants.KNOWN_SPELLS) && w.getProperty(Constants.KNOWN_SPELLS).contains(magicSpell);
+		return w.hasProperty(Constants.KNOWN_SPELLS) 
+				&& w.getProperty(Constants.KNOWN_SPELLS).contains(magicSpell)
+				&& !w.getProperty(Constants.CONDITIONS).hasCondition(Condition.SILENCED_CONDITION);
 	}
 }

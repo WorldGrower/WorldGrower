@@ -53,7 +53,7 @@ public class UTestBuildLocationUtils {
 		world.addWorldObject(house);
 		
 		WorldObject location = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 3, 3, world);
-		assertEquals(1, location.getProperty(Constants.X).intValue());
+		assertEquals(5, location.getProperty(Constants.X).intValue());
 		assertEquals(5, location.getProperty(Constants.Y).intValue());
 	}
 	
@@ -68,7 +68,7 @@ public class UTestBuildLocationUtils {
 		world.addWorldObject(house);
 		
 		WorldObject location = BuildLocationUtils.findOpenLocationAwayFromExistingProperty(performer, 3, 3, world);
-		assertEquals(1, location.getProperty(Constants.X).intValue());
+		assertEquals(4, location.getProperty(Constants.X).intValue());
 		assertEquals(4, location.getProperty(Constants.Y).intValue());
 	}
 }

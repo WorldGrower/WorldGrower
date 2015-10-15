@@ -28,7 +28,7 @@ public class GetPoisonCuredGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		if (performer.getProperty(Constants.KNOWN_SPELLS).contains(Actions.CURE_POISON_ACTION)) {
+		if (MagicSpellUtils.canCast(performer, Actions.CURE_POISON_ACTION)) {
 			if (Actions.CURE_POISON_ACTION.hasRequiredEnergy(performer)) {
 				return new OperationInfo(performer, performer, new int[0], Actions.CURE_POISON_ACTION);
 			} else {

@@ -34,9 +34,13 @@ public class BuildLocationUtils {
 		height++;
 		
 		WorldObject target = findOpenLocationNearExistingProperty(performer, width, height, world, housing);
-		target.increment(Constants.X, 1);
-		target.increment(Constants.Y, 1);
-		return target;
+		if (target != null) {
+			target.increment(Constants.X, 1);
+			target.increment(Constants.Y, 1);
+			return target;
+		} else {
+			return target;
+		}
 	}
 	
 	private static List<WorldObject> getHousing(WorldObject performer, World world) {
@@ -69,7 +73,7 @@ public class BuildLocationUtils {
 		if (bestLocation == null) {
 			bestLocation = GoalUtils.findOpenSpace(performer, width, height, world);
 			if (bestLocation == null) {
-				throw new IllegalStateException("No open space found for " + performer + " and width " + width + " and weight " + height);
+				return null;
 			}
 			int bestLocationX = performer.getProperty(Constants.X) + bestLocation[0];
 			int bestLocationY = performer.getProperty(Constants.Y) + bestLocation[1];

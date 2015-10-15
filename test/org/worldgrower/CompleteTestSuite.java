@@ -83,8 +83,12 @@ import org.worldgrower.goal.UTestBuildLocationUtils;
 import org.worldgrower.goal.UTestBuyClothesGoal;
 import org.worldgrower.goal.UTestBuySellUtils;
 import org.worldgrower.goal.UTestChildrenGoal;
+import org.worldgrower.goal.UTestCottonGoal;
+import org.worldgrower.goal.UTestCraftEquipmentGoal;
 import org.worldgrower.goal.UTestDrownUtils;
+import org.worldgrower.goal.UTestEquipmentGoal;
 import org.worldgrower.goal.UTestFacadeUtils;
+import org.worldgrower.goal.UTestGetPoisonCuredGoal;
 import org.worldgrower.goal.UTestGoalUtils;
 import org.worldgrower.goal.UTestGroupPropertyUtils;
 import org.worldgrower.goal.UTestHousePropertyUtils;
@@ -92,12 +96,16 @@ import org.worldgrower.goal.UTestInventoryPropertyUtils;
 import org.worldgrower.goal.UTestLegalActionsPropertyUtils;
 import org.worldgrower.goal.UTestLocationUtils;
 import org.worldgrower.goal.UTestLockUtils;
+import org.worldgrower.goal.UTestMateGoal;
 import org.worldgrower.goal.UTestMeleeDamagePropertyUtils;
+import org.worldgrower.goal.UTestMineResourceGoal;
 import org.worldgrower.goal.UTestProtectOneSelfGoal;
 import org.worldgrower.goal.UTestRacePropertyUtils;
 import org.worldgrower.goal.UTestRelationshipPropertyUtils;
 import org.worldgrower.goal.UTestSacrificePeopleToDeityGoal;
+import org.worldgrower.goal.UTestShrineToDeityGoal;
 import org.worldgrower.goal.UTestSocializeGoal;
+import org.worldgrower.goal.UTestWeaveClothesGoal;
 import org.worldgrower.goal.UTestWeightPropertyUtils;
 import org.worldgrower.goal.UTestZone;
 import org.worldgrower.history.UTestHistoryImpl;
@@ -203,7 +211,15 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestSawDisguisingConversation.class,
 	UTestSacrificePeopleToDeityGoal.class,
 	UTestProtectOneSelfGoal.class,
-	UTestChildrenGoal.class
+	UTestChildrenGoal.class,
+	UTestMineResourceGoal.class,
+	UTestCraftEquipmentGoal.class,
+	UTestCottonGoal.class,
+	UTestMateGoal.class,
+	UTestEquipmentGoal.class,
+	UTestWeaveClothesGoal.class,
+	UTestGetPoisonCuredGoal.class,
+	UTestShrineToDeityGoal.class
 })
 public class CompleteTestSuite {
 }

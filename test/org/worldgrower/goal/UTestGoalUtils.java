@@ -61,8 +61,8 @@ public class UTestGoalUtils {
 		int[] position = GoalUtils.findOpenSpace(performer, 1, 1, world);
 		
 		assertEquals(2, position.length);
-		assertEquals(-1, position[0]);
-		assertEquals(-1, position[1]);
+		assertEquals(0, position[0]);
+		assertEquals(1, position[1]);
 	}
 	
 	@Test

@@ -35,10 +35,11 @@ public class ShrineToDeityGoal implements Goal {
 				return new StoneGoal().calculateGoal(performer, world);
 		} else if (targets.size() == 0) {
 			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 2, 3, world);
-			return new OperationInfo(performer, target, new int[0], Actions.BUILD_SHRINE_ACTION);
-		} else {
-			return null;
+			if (target != null) {
+				return new OperationInfo(performer, target, new int[0], Actions.BUILD_SHRINE_ACTION);
+			}
 		}
+		return null;
 	}
 	
 	@Override

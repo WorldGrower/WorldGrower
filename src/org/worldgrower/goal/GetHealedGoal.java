@@ -30,7 +30,7 @@ public class GetHealedGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		if (performer.getProperty(Constants.KNOWN_SPELLS).contains(Actions.MINOR_HEAL_ACTION)) {
+		if (MagicSpellUtils.canCast(performer, Actions.MINOR_HEAL_ACTION)) {
 			if (Actions.MINOR_HEAL_ACTION.hasRequiredEnergy(performer)) {
 				return new OperationInfo(performer, performer, new int[0], Actions.MINOR_HEAL_ACTION);
 			} else {

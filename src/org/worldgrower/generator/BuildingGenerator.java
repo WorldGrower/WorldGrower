@@ -196,6 +196,31 @@ public class BuildingGenerator {
 		return id;
 	}
 	
+	public static int generateShrine(int x, int y, World world, WorldObject performer) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		int id = world.generateUniqueId();
+		
+		properties.put(Constants.X, x);
+		properties.put(Constants.Y, y);
+		properties.put(Constants.WIDTH, 1);
+		properties.put(Constants.HEIGHT, 2);
+		properties.put(Constants.DEITY, performer.getProperty(Constants.DEITY));
+		properties.put(Constants.NAME, "shrine to " + performer.getProperty(Constants.DEITY).getName());
+		properties.put(Constants.TEXT, "shrine to " + performer.getProperty(Constants.DEITY).getName());
+		properties.put(Constants.ID, id);
+		properties.put(Constants.IMAGE_ID, ImageIds.STATUE_OF_DEITY);
+		properties.put(Constants.CAN_BE_WORSHIPPED, Boolean.TRUE);
+		properties.put(Constants.HIT_POINTS, 150);
+		properties.put(Constants.HIT_POINTS_MAX, 150);
+		properties.put(Constants.ARMOR, 0);
+		properties.put(Constants.DAMAGE_RESIST, 0);
+		
+		WorldObject shrine = new WorldObjectImpl(properties);
+		world.addWorldObject(shrine);
+		
+		return id;
+	}
+	
 	public static boolean isShack(WorldObject worldObject) {
 		return worldObject.getProperty(Constants.NAME).equals(SHACK_NAME);
 	}

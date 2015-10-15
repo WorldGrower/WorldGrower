@@ -14,44 +14,37 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
-import org.worldgrower.OperationInfo;
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+import org.worldgrower.Constants;
+import org.worldgrower.TestUtils;
 import org.worldgrower.World;
+import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.WorldObjectContainer;
 
-public class CreateWoodGoal implements Goal {
+public class UTestWeaveClothesGoal {
 
-	@Override
-	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		WorldObject target = GoalUtils.findNearestTarget(performer, Actions.CUT_WOOD_ACTION, world);
-		if (target != null) {
-			return new OperationInfo(performer, target, new int[0], Actions.CUT_WOOD_ACTION);
-		} else {
-			return null;
-		}
-	}
-
-	@Override
-	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
+	private WeaveClothesGoal goal = Goals.WEAVE_CLOTHES_GOAL;
+	
+	@Test
+	public void testCalculateGoalNull() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer();
+		
+		assertEquals(Actions.PLANT_COTTON_PLANT_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
 	
-	@Override
-	public boolean isGoalMet(WorldObject performer, World world) {
-		return false;
-	}
 	
-	@Override
-	public boolean isUrgentGoalMet(WorldObject performer, World world) {
-		return isGoalMet(performer, world);
-	}
 
-	@Override
-	public String getDescription() {
-		return "looking for wood";
-	}
-
-	@Override
-	public int evaluate(WorldObject performer, World world) {
-		return 0;
+	private WorldObject createPerformer() {
+		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
+		performer.setProperty(Constants.X, 0);
+		performer.setProperty(Constants.Y, 0);
+		performer.setProperty(Constants.WIDTH, 1);
+		performer.setProperty(Constants.HEIGHT, 1);
+		return performer;
 	}
 }

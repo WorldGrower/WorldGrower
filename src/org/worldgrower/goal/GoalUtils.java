@@ -70,11 +70,13 @@ public class GoalUtils {
 		int performerY = performer.getProperty(Constants.Y);
 		for(int x=-width; x<=width; x++) {
 			for(int y=-height; y<=height; y++) {
-				int openSpaceX = performerX + x;
-				int openSpaceY = performerY + y;
-				
-				if (isOpenSpace(openSpaceX, openSpaceY, width, height, world)) {
-					return new int[] { x, y };
+				if (!LocationUtils.areInvalidCoordinates(x, y, world)) {
+					int openSpaceX = performerX + x;
+					int openSpaceY = performerY + y;
+					
+					if (isOpenSpace(openSpaceX, openSpaceY, width, height, world)) {
+						return new int[] { x, y };
+					}
 				}
 			}
 		}
