@@ -1,0 +1,139 @@
+/*******************************************************************************
+ *     This program is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU General Public License as published by
+ *     the Free Software Foundation, either version 3 of the License, or
+ *     (at your option) any later version.
+ *
+ *     This program is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU General Public License for more details.
+ *
+ *     You should have received a copy of the GNU General Public License
+ *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *******************************************************************************/
+package org.worldgrower.goal;
+
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+import org.worldgrower.Constants;
+import org.worldgrower.OperationInfo;
+import org.worldgrower.World;
+import org.worldgrower.WorldImpl;
+import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
+import org.worldgrower.actions.MockCommonerNameGenerator;
+import org.worldgrower.conversation.Conversation;
+import org.worldgrower.conversation.Conversations;
+import org.worldgrower.generator.CommonerGenerator;
+import org.worldgrower.gui.CommonerImageIds;
+import org.worldgrower.history.Turn;
+
+public class UTestImproveRelationshipGoal {
+	
+	private final CommonerGenerator commonerGenerator = new CommonerGenerator(666, new CommonerImageIds(), new MockCommonerNameGenerator());
+	
+	@Test
+	public void testCalculateGoal() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		WorldObject target = createCommoner(world, organization);
+		ImproveRelationshipGoal goal = new ImproveRelationshipGoal(target.getProperty(Constants.ID), 500, world);
+		WorldObject performer = createCommoner(world, organization);
+		
+		assertEquals(Actions.TALK_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+		assertConversation(goal.calculateGoal(performer, world), Conversations.COMPLIMENT_CONVERSATION);
+	}
+	
+	@Test
+	public void testCalculateGoalFamilyConversation() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		WorldObject target = createCommoner(world, organization);
+		ImproveRelationshipGoal goal = new ImproveRelationshipGoal(target.getProperty(Constants.ID), 500, world);
+		WorldObject performer = createCommoner(world, organization);
+		
+		addActionToHistory(world, performer, target, Conversations.COMPLIMENT_CONVERSATION);
+		
+		assertEquals(Actions.TALK_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+		assertConversation(goal.calculateGoal(performer, world), Conversations.FAMILY_CONVERSATION);
+	}
+	
+	
+	@Test
+	public void testCalculateGoalProfessionConversation() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		WorldObject target = createCommoner(world, organization);
+		ImproveRelationshipGoal goal = new ImproveRelationshipGoal(target.getProperty(Constants.ID), 500, world);
+		WorldObject performer = createCommoner(world, organization);
+		
+		addActionToHistory(world, performer, target, Conversations.COMPLIMENT_CONVERSATION);
+		addActionToHistory(world, performer, target, Conversations.FAMILY_CONVERSATION);
+		
+		assertEquals(Actions.TALK_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+		assertConversation(goal.calculateGoal(performer, world), Conversations.PROFESSION_CONVERSATION);
+	}
+	
+	@Test
+	public void testCalculateGoalKissConversation() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		WorldObject target = createCommoner(world, organization);
+		ImproveRelationshipGoal goal = new ImproveRelationshipGoal(target.getProperty(Constants.ID), 500, world);
+		WorldObject performer = createCommoner(world, organization);
+		
+		addActionToHistory(world, performer, target, Conversations.COMPLIMENT_CONVERSATION);
+		addActionToHistory(world, performer, target, Conversations.FAMILY_CONVERSATION);
+		addActionToHistory(world, performer, target, Conversations.PROFESSION_CONVERSATION);
+		
+		assertEquals(Actions.TALK_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+		assertConversation(goal.calculateGoal(performer, world), Conversations.KISS_CONVERSATION);
+	}
+	
+	@Test
+	public void testCalculateGoalRepeatedKiss() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		WorldObject target = createCommoner(world, organization);
+		ImproveRelationshipGoal goal = new ImproveRelationshipGoal(target.getProperty(Constants.ID), 500, world);
+		WorldObject performer = createCommoner(world, organization);
+		
+		addActionToHistory(world, performer, target, Conversations.COMPLIMENT_CONVERSATION);
+		addActionToHistory(world, performer, target, Conversations.FAMILY_CONVERSATION);
+		addActionToHistory(world, performer, target, Conversations.PROFESSION_CONVERSATION);
+		addActionToHistory(world, performer, target, Conversations.KISS_CONVERSATION);
+		
+		assertEquals(Actions.KISS_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+
+
+	private void addActionToHistory(World world, WorldObject performer, WorldObject target, Conversation conversation) {
+		world.getHistory().actionPerformed(new OperationInfo(performer, target, Conversations.createArgs(conversation), Actions.TALK_ACTION), new Turn());
+	}
+	
+	private void assertConversation(OperationInfo operationInfo, Conversation conversation) {
+		assertEquals(true, operationInfo.firstArgsIs(Conversations.createArgs(conversation)[0]));
+	}
+	
+	@Test
+	public void testIsGoalMet() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		WorldObject target = createCommoner(world, organization);
+		ImproveRelationshipGoal goal = new ImproveRelationshipGoal(target.getProperty(Constants.ID), 500, world);
+		WorldObject performer = createCommoner(world, organization);
+		
+		assertEquals(false, goal.isGoalMet(performer, world));
+		
+		performer.getProperty(Constants.RELATIONSHIPS).incrementValue(target, 1000);
+		assertEquals(true, goal.isGoalMet(performer, world));
+	}
+
+	private WorldObject createCommoner(World world, WorldObject organization) {
+		int commonerId = commonerGenerator.generateCommoner(0, 0, world, organization);
+		WorldObject commoner = world.findWorldObject(Constants.ID, commonerId);
+		return commoner;
+	}
+}

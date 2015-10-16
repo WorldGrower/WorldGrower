@@ -345,6 +345,14 @@ public class ImageInfoReader {
 		addCharacter(ImageIds.ANIMATED_SUIT_OF_ARMOR, monsters, 6, 4, 1, 1);
 		add(ImageIds.DISPEL_MAGIC_SPELL, sprites420.getSubImage(8, 24, 1, 1));
 		add(ImageIds.SILENCED_CONDITION, sprites420.getSubImage(11, 21, 1, 1));
+		
+		add(ImageIds.SMALL_FLOWERS, tileA2.getSubImage(1, 3, 1, 1));
+		add(ImageIds.LARGE_FLOWERS, tileA2.getSubImage(0, 4, 2, 2));
+		add(ImageIds.SMALL_GRASS, tileA2.getSubImage(2, 3, 1, 1));
+		add(ImageIds.LARGE_GRASS, tileA2.getSubImage(2, 4, 2, 2));
+		add(ImageIds.SMALL_DIRT, tileA2.getSubImage(4, 3, 1, 1));
+		add(ImageIds.LARGE_DIRT, tileA2.getSubImage(4, 4, 2, 2));
+		
     }
 
     private void createArenaWall48x48() {

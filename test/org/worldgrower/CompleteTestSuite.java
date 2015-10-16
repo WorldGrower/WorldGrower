@@ -83,15 +83,20 @@ import org.worldgrower.goal.UTestBuildLocationUtils;
 import org.worldgrower.goal.UTestBuyClothesGoal;
 import org.worldgrower.goal.UTestBuySellUtils;
 import org.worldgrower.goal.UTestChildrenGoal;
+import org.worldgrower.goal.UTestCollectWaterGoal;
 import org.worldgrower.goal.UTestCottonGoal;
 import org.worldgrower.goal.UTestCraftEquipmentGoal;
+import org.worldgrower.goal.UTestDrinkWaterGoal;
 import org.worldgrower.goal.UTestDrownUtils;
 import org.worldgrower.goal.UTestEquipmentGoal;
 import org.worldgrower.goal.UTestFacadeUtils;
+import org.worldgrower.goal.UTestFishingPoleGoal;
 import org.worldgrower.goal.UTestGetPoisonCuredGoal;
+import org.worldgrower.goal.UTestGhoulGoal;
 import org.worldgrower.goal.UTestGoalUtils;
 import org.worldgrower.goal.UTestGroupPropertyUtils;
 import org.worldgrower.goal.UTestHousePropertyUtils;
+import org.worldgrower.goal.UTestImproveRelationshipGoal;
 import org.worldgrower.goal.UTestInventoryPropertyUtils;
 import org.worldgrower.goal.UTestLegalActionsPropertyUtils;
 import org.worldgrower.goal.UTestLocationUtils;
@@ -219,7 +224,12 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestEquipmentGoal.class,
 	UTestWeaveClothesGoal.class,
 	UTestGetPoisonCuredGoal.class,
-	UTestShrineToDeityGoal.class
+	UTestShrineToDeityGoal.class,
+	UTestDrinkWaterGoal.class,
+	UTestCollectWaterGoal.class,
+	UTestGhoulGoal.class,
+	UTestImproveRelationshipGoal.class,
+	UTestFishingPoleGoal.class
 })
 public class CompleteTestSuite {
 }
