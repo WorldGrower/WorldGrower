@@ -1,3 +1,14 @@
+v0.1.5
+
+- npcs no longer build buildings outside of world bounds
+- add images for all actions
+- make all buttons rounded and add a gradient to them
+- group questions by subject
+- add start screen icons
+- add animate suit of armor magic spell
+- add dispel magic spell
+- add silence magic spell
+
 v0.1.4
 
 - adding image icons to more actions
