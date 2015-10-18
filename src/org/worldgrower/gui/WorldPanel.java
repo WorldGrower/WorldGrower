@@ -219,6 +219,20 @@ public class WorldPanel extends JPanel {
         
         backgroundPainter.paint(g, world, this);
         
+		paintStaticWorldObjects(g);
+		
+		moveMode.drawWorldObjects(g, this, imageInfoReader, world);
+		
+		showHitPointsOfPlayerCharacterTarget(g);
+		
+		hitPointsProgressBar.setValue(playerCharacter.getProperty(Constants.HIT_POINTS));
+		foodTextProgressBar.setValue(playerCharacter.getProperty(Constants.FOOD));
+		waterProgressBar.setValue(playerCharacter.getProperty(Constants.WATER));
+		energyProgressBar.setValue(playerCharacter.getProperty(Constants.ENERGY));
+		buildModeOutline.repaintBuildMode(g, getMouseLocation(), offsetX, offsetY, playerCharacter, world);
+    }
+
+	private void paintStaticWorldObjects(Graphics g) {
 		List<WorldObject> worldObjects = world.getWorldObjects();
 		for(WorldObject worldObject : new ArrayList<>(worldObjects)) {
 			ImageIds id = getImageId(worldObject);
@@ -228,22 +242,13 @@ public class WorldPanel extends JPanel {
 			int x = worldObject.getProperty(Constants.X);
 			int y = worldObject.getProperty(Constants.Y);
 			
-			if (worldObject.getProperty(Constants.ID) == 0) {
-				moveMode.drawWorldObject(g, this, worldObject, imageInfoReader);
-			} else {
+			if (!worldObject.hasIntelligence()) {
 				if (world.getTerrain().isExplored(x, y) && isWorldObjectVisible(worldObject)) {
 					drawWorldObject(g, worldObject, lookDirection, image, x, y);
 				}
 			}
 		}
-		showHitPointsOfPlayerCharacterTarget(g);
-		
-		hitPointsProgressBar.setValue(playerCharacter.getProperty(Constants.HIT_POINTS));
-		foodTextProgressBar.setValue(playerCharacter.getProperty(Constants.FOOD));
-		waterProgressBar.setValue(playerCharacter.getProperty(Constants.WATER));
-		energyProgressBar.setValue(playerCharacter.getProperty(Constants.ENERGY));
-		buildModeOutline.repaintBuildMode(g, getMouseLocation(), offsetX, offsetY, playerCharacter, world);
-    }
+	}
 
 	private void showHitPointsOfPlayerCharacterTarget(Graphics g) {
 		HistoryItem lastPerformedOperation = world.getHistory().getLastPerformedOperation(playerCharacter);
@@ -461,7 +466,7 @@ public class WorldPanel extends JPanel {
 	}
 
 	public void movePlayerCharacter(int[] args, ActionListener guiMoveAction) {
-		moveMode.startMove(this, args, guiMoveAction, playerCharacter);
+		moveMode.startMove(this, args, guiMoveAction, playerCharacter, world);
 	}
 
 	public void repaintAround(int x, int y, WorldObject worldObject) {
