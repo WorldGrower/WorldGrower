@@ -41,8 +41,14 @@ public class JGradientButton extends JButton {
 
 	@Override
 	protected void paintComponent(Graphics g) {
+
 		Graphics2D g2 = (Graphics2D) g.create();
-		g2.setPaint(new GradientPaint(new Point(0, 0), Color.WHITE, new Point(0, getHeight()), Color.PINK.darker()));
+		if (getModel().isPressed()) {
+			g2.setPaint(new GradientPaint(new Point(0, 0), Color.PINK.brighter(), new Point(0, getHeight()), Color.PINK));
+		} else {
+			g2.setPaint(new GradientPaint(new Point(0, 0), Color.WHITE, new Point(0, getHeight()), Color.PINK.darker()));
+		}
+		
 		g2.fillRect(0, 0, getWidth(), getHeight());
 		g2.dispose();
 
