@@ -21,6 +21,7 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.actions.ConstructBedAction;
 import org.worldgrower.generator.ItemGenerator;
 
 public class FurnitureGoal implements Goal {
@@ -32,11 +33,17 @@ public class FurnitureGoal implements Goal {
 		if (hasInventoryFurniture) {
 			int indexOfFurniture = performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.SLEEP_COMFORT);
 			WorldObject target = HousePropertyUtils.getBestHouse(performer, world);
-			return new OperationInfo(performer, target, new int[] { indexOfFurniture }, Actions.PUT_ITEM_INTO_INVENTORY_ACTION);
+			if (target != null) {
+				return new OperationInfo(performer, target, new int[] { indexOfFurniture }, Actions.PUT_ITEM_INTO_INVENTORY_ACTION);
+			} else {
+				return new HouseGoal().calculateGoal(performer, world);
+			}
 		} else if (targets.size() > 0) {
 			return new OperationInfo(performer, targets.get(0), new int[] { targets.get(0).getProperty(Constants.INVENTORY).getIndexFor(Constants.SLEEP_COMFORT), 1 }, Actions.BUY_ACTION);
-		} else {
+		} else if (ConstructBedAction.hasEnoughWood(performer)) {
 			return new OperationInfo(performer, performer, new int[0], Actions.CONSTRUCT_BED_ACTION);
+		} else {
+			return new WoodGoal().calculateGoal(performer, world);
 		}
 	}
 	

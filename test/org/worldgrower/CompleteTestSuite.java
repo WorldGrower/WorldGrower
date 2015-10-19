@@ -91,6 +91,10 @@ import org.worldgrower.goal.UTestDrownUtils;
 import org.worldgrower.goal.UTestEquipmentGoal;
 import org.worldgrower.goal.UTestFacadeUtils;
 import org.worldgrower.goal.UTestFishingPoleGoal;
+import org.worldgrower.goal.UTestFoodGoal;
+import org.worldgrower.goal.UTestFurnitureGoal;
+import org.worldgrower.goal.UTestGatherFoodGoal;
+import org.worldgrower.goal.UTestGetHealedGoal;
 import org.worldgrower.goal.UTestGetPoisonCuredGoal;
 import org.worldgrower.goal.UTestGhoulGoal;
 import org.worldgrower.goal.UTestGoalUtils;
@@ -229,7 +233,11 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestCollectWaterGoal.class,
 	UTestGhoulGoal.class,
 	UTestImproveRelationshipGoal.class,
-	UTestFishingPoleGoal.class
+	UTestFishingPoleGoal.class,
+	UTestFurnitureGoal.class,
+	UTestGetHealedGoal.class,
+	UTestFoodGoal.class,
+	UTestGatherFoodGoal.class
 })
 public class CompleteTestSuite {
 }
