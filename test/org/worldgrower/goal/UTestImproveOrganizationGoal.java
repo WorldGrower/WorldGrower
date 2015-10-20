@@ -27,65 +27,74 @@ import org.worldgrower.actions.MockCommonerNameGenerator;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.generator.CommonerGenerator;
 import org.worldgrower.gui.CommonerImageIds;
+import org.worldgrower.profession.Professions;
 
-public class UTestMateGoal {
+public class UTestImproveOrganizationGoal {
 
-	private MateGoal goal = Goals.MATE_GOAL;
+	private ImproveOrganizationGoal goal = Goals.IMPROVE_ORGANIZATION_GOAL;
 	private final CommonerGenerator commonerGenerator = new CommonerGenerator(666, new CommonerImageIds(), new MockCommonerNameGenerator());
 	
 	@Test
-	public void testCalculateGoal() {
+	public void testCalculateGoalNull() {
 		World world = new WorldImpl(0, 0, null, null);
-		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		WorldObject organization = GroupPropertyUtils.createProfessionOrganization(1, "TestOrg", Professions.FARMER_PROFESSION, world);
 		WorldObject performer = createCommoner(world, organization);
+		performer.setProperty(Constants.PROFESSION, Professions.FARMER_PROFESSION);
+		
+		performer.getProperty(Constants.GROUP).add(organization);
 		
 		assertEquals(null, goal.calculateGoal(performer, world));
 	}
 	
 	@Test
-	public void testCalculateGoalOneTarget() {
+	public void testCalculateGoalOrganizationProfit() {
 		World world = new WorldImpl(0, 0, null, null);
-		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		WorldObject organization = GroupPropertyUtils.createProfessionOrganization(1, "TestOrg", Professions.FARMER_PROFESSION, world);
 		WorldObject performer = createCommoner(world, organization);
-		WorldObject target = createCommoner(world, organization);
+		performer.setProperty(Constants.PROFESSION, Professions.FARMER_PROFESSION);
+		performer.getProperty(Constants.GROUP).add(organization);
 		
-		performer.getProperty(Constants.RELATIONSHIPS).incrementValue(target, 1);
-		performer.setProperty(Constants.GENDER, "male");
-		target.setProperty(Constants.GENDER, "female");
+		WorldObject target = createCommoner(world, organization);
+		target.setProperty(Constants.PROFESSION, Professions.FARMER_PROFESSION);
+		target.getProperty(Constants.GROUP).add(organization);
 		
 		assertEquals(Actions.TALK_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
-		assertEquals(target, goal.calculateGoal(performer, world).getTarget());
+		AssertUtils.assertConversation(goal.calculateGoal(performer, world), Conversations.SET_ORGANIZATION_PROFIT_PERCENTAGE);
+	}
+	
+	@Test
+	public void testCalculateGoalJoinUnfriendlyTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject organization = GroupPropertyUtils.createProfessionOrganization(1, "TestOrg", Professions.FARMER_PROFESSION, world);
+		WorldObject performer = createCommoner(world, organization);
+		performer.setProperty(Constants.PROFESSION, Professions.FARMER_PROFESSION);
+		performer.getProperty(Constants.GROUP).add(organization);
+		
+		WorldObject target = createCommoner(world, organization);
+		target.setProperty(Constants.PROFESSION, Professions.FARMER_PROFESSION);
+		target.getProperty(Constants.GROUP).removeAll();
+		
+		assertEquals(Actions.TALK_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 		AssertUtils.assertConversation(goal.calculateGoal(performer, world), Conversations.COMPLIMENT_CONVERSATION);
 	}
-	
+
 	@Test
-	public void testCalculateGoalOneTargetWithGoodRelationship() {
+	public void testCalculateGoalJoinFriendlyTarget() {
 		World world = new WorldImpl(0, 0, null, null);
-		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		WorldObject organization = GroupPropertyUtils.createProfessionOrganization(1, "TestOrg", Professions.FARMER_PROFESSION, world);
 		WorldObject performer = createCommoner(world, organization);
-		WorldObject target = createCommoner(world, organization);
+		performer.setProperty(Constants.PROFESSION, Professions.FARMER_PROFESSION);
+		performer.getProperty(Constants.GROUP).add(organization);
 		
-		performer.getProperty(Constants.RELATIONSHIPS).incrementValue(target, 900);
-		performer.setProperty(Constants.GENDER, "male");
-		target.setProperty(Constants.GENDER, "female");
+		WorldObject target = createCommoner(world, organization);
+		target.setProperty(Constants.PROFESSION, Professions.FARMER_PROFESSION);
+		target.getProperty(Constants.GROUP).removeAll();
+		target.getProperty(Constants.RELATIONSHIPS).incrementValue(performer, 1000);
 		
 		assertEquals(Actions.TALK_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
-		assertEquals(target, goal.calculateGoal(performer, world).getTarget());
-		AssertUtils.assertConversation(goal.calculateGoal(performer, world), Conversations.PROPOSE_MATE_CONVERSATION);
+		AssertUtils.assertConversation(goal.calculateGoal(performer, world), Conversations.JOIN_PERFORMER_ORGANIZATION_CONVERSATION);
 	}
 	
-	@Test
-	public void testIsGoalMet() {
-		World world = new WorldImpl(0, 0, null, null);
-		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
-		WorldObject performer = createCommoner(world, organization);
-		
-		assertEquals(false, goal.isGoalMet(performer, world));
-		
-		performer.setProperty(Constants.MATE_ID, 7);
-		assertEquals(true, goal.isGoalMet(performer, world));
-	}
-
 	private WorldObject createCommoner(World world, WorldObject organization) {
 		int commonerId = commonerGenerator.generateCommoner(0, 0, world, organization);
 		WorldObject commoner = world.findWorldObject(Constants.ID, commonerId);

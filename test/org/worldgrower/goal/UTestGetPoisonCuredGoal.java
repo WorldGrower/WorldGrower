@@ -17,18 +17,16 @@ package org.worldgrower.goal;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.AssertUtils;
 import org.worldgrower.Constants;
-import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.MockCommonerNameGenerator;
-import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.generator.CommonerGenerator;
-import org.worldgrower.generator.TerrainGenerator;
 import org.worldgrower.gui.CommonerImageIds;
 
 public class UTestGetPoisonCuredGoal {
@@ -82,7 +80,7 @@ public class UTestGetPoisonCuredGoal {
 		assertEquals(Actions.TALK_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 		assertEquals(performer, goal.calculateGoal(performer, world).getPerformer());
 		assertEquals(target, goal.calculateGoal(performer, world).getTarget());
-		assertEquals(true, goal.calculateGoal(performer, world).firstArgsIs(Conversations.createArgs(Conversations.CURE_POISON_CONVERSATION)[0]));
+		AssertUtils.assertConversation(goal.calculateGoal(performer, world), Conversations.CURE_POISON_CONVERSATION);
 	}
 	
 	@Test

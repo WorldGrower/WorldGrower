@@ -17,24 +17,24 @@ package org.worldgrower.goal;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import org.worldgrower.AssertUtils;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.MockCommonerNameGenerator;
-import org.worldgrower.conversation.Conversations;
+import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.CommonerGenerator;
+import org.worldgrower.generator.TerrainGenerator;
 import org.worldgrower.gui.CommonerImageIds;
 
-public class UTestMateGoal {
+public class UTestSmithGoal {
 
-	private MateGoal goal = Goals.MATE_GOAL;
+	private SmithGoal goal = Goals.SMITH_GOAL;
 	private final CommonerGenerator commonerGenerator = new CommonerGenerator(666, new CommonerImageIds(), new MockCommonerNameGenerator());
 	
 	@Test
-	public void testCalculateGoal() {
+	public void testCalculateGoalNull() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
@@ -43,46 +43,48 @@ public class UTestMateGoal {
 	}
 	
 	@Test
-	public void testCalculateGoalOneTarget() {
-		World world = new WorldImpl(0, 0, null, null);
+	public void testCalculateStone() {
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
-		WorldObject target = createCommoner(world, organization);
 		
-		performer.getProperty(Constants.RELATIONSHIPS).incrementValue(target, 1);
-		performer.setProperty(Constants.GENDER, "male");
-		target.setProperty(Constants.GENDER, "female");
+		TerrainGenerator.generateStoneResource(5, 5, world);
 		
-		assertEquals(Actions.TALK_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
-		assertEquals(target, goal.calculateGoal(performer, world).getTarget());
-		AssertUtils.assertConversation(goal.calculateGoal(performer, world), Conversations.COMPLIMENT_CONVERSATION);
+		assertEquals(Actions.MINE_STONE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
 	
 	@Test
-	public void testCalculateGoalOneTargetWithGoodRelationship() {
+	public void testCalculateGoalNoRoomForSmith() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
-		WorldObject target = createCommoner(world, organization);
 		
-		performer.getProperty(Constants.RELATIONSHIPS).incrementValue(target, 900);
-		performer.setProperty(Constants.GENDER, "male");
-		target.setProperty(Constants.GENDER, "female");
+		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.STONE, 20, null);
 		
-		assertEquals(Actions.TALK_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
-		assertEquals(target, goal.calculateGoal(performer, world).getTarget());
-		AssertUtils.assertConversation(goal.calculateGoal(performer, world), Conversations.PROPOSE_MATE_CONVERSATION);
+		assertEquals(null, goal.calculateGoal(performer, world));
+	}
+	
+	@Test
+	public void testCalculateGoalBuildSmith() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		WorldObject performer = createCommoner(world, organization);
+		
+		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.STONE, 20, null);
+		
+		assertEquals(Actions.BUILD_SMITH_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
 	
 	@Test
 	public void testIsGoalMet() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
 		
 		assertEquals(false, goal.isGoalMet(performer, world));
 		
-		performer.setProperty(Constants.MATE_ID, 7);
+		int smithId = BuildingGenerator.generateSmith(5, 5, world);
+		performer.setProperty(Constants.SMITH_ID, smithId);
 		assertEquals(true, goal.isGoalMet(performer, world));
 	}
 

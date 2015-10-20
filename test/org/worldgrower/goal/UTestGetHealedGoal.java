@@ -17,14 +17,13 @@ package org.worldgrower.goal;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.AssertUtils;
 import org.worldgrower.Constants;
-import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.MockCommonerNameGenerator;
-import org.worldgrower.conversation.Conversation;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.generator.CommonerGenerator;
 import org.worldgrower.gui.CommonerImageIds;
@@ -53,7 +52,7 @@ public class UTestGetHealedGoal {
 		target.getProperty(Constants.KNOWN_SPELLS).add(Actions.MINOR_HEAL_ACTION);
 		
 		assertEquals(Actions.TALK_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
-		assertConversation(goal.calculateGoal(performer, world), Conversations.MINOR_HEAL_CONVERSATION);
+		AssertUtils.assertConversation(goal.calculateGoal(performer, world), Conversations.MINOR_HEAL_CONVERSATION);
 	}
 	
 	@Test
@@ -91,10 +90,6 @@ public class UTestGetHealedGoal {
 		assertEquals(false, goal.isGoalMet(performer, world));
 	}
 
-	private void assertConversation(OperationInfo operationInfo, Conversation conversation) {
-		assertEquals(true, operationInfo.firstArgsIs(Conversations.createArgs(conversation)[0]));
-	}
-	
 	private WorldObject createCommoner(World world, WorldObject organization) {
 		int commonerId = commonerGenerator.generateCommoner(0, 0, world, organization);
 		WorldObject commoner = world.findWorldObject(Constants.ID, commonerId);

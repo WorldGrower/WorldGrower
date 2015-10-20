@@ -32,7 +32,7 @@ public class UTestLockUtils {
 		
 		assertEquals(false, LockUtils.performerHasKey(performer, target));
 		
-		performer.getProperty(Constants.INVENTORY).add(ItemGenerator.generateKey(target));
+		performer.getProperty(Constants.INVENTORY).add(ItemGenerator.generateKey(target.getProperty(Constants.ID)));
 		assertEquals(true, LockUtils.performerHasKey(performer, target));
 	}
 	

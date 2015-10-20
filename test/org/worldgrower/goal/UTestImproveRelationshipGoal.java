@@ -17,6 +17,7 @@ package org.worldgrower.goal;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.AssertUtils;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
@@ -43,7 +44,7 @@ public class UTestImproveRelationshipGoal {
 		WorldObject performer = createCommoner(world, organization);
 		
 		assertEquals(Actions.TALK_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
-		assertConversation(goal.calculateGoal(performer, world), Conversations.COMPLIMENT_CONVERSATION);
+		AssertUtils.assertConversation(goal.calculateGoal(performer, world), Conversations.COMPLIMENT_CONVERSATION);
 	}
 	
 	@Test
@@ -57,7 +58,7 @@ public class UTestImproveRelationshipGoal {
 		addActionToHistory(world, performer, target, Conversations.COMPLIMENT_CONVERSATION);
 		
 		assertEquals(Actions.TALK_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
-		assertConversation(goal.calculateGoal(performer, world), Conversations.FAMILY_CONVERSATION);
+		AssertUtils.assertConversation(goal.calculateGoal(performer, world), Conversations.FAMILY_CONVERSATION);
 	}
 	
 	
@@ -73,7 +74,7 @@ public class UTestImproveRelationshipGoal {
 		addActionToHistory(world, performer, target, Conversations.FAMILY_CONVERSATION);
 		
 		assertEquals(Actions.TALK_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
-		assertConversation(goal.calculateGoal(performer, world), Conversations.PROFESSION_CONVERSATION);
+		AssertUtils.assertConversation(goal.calculateGoal(performer, world), Conversations.PROFESSION_CONVERSATION);
 	}
 	
 	@Test
@@ -89,7 +90,7 @@ public class UTestImproveRelationshipGoal {
 		addActionToHistory(world, performer, target, Conversations.PROFESSION_CONVERSATION);
 		
 		assertEquals(Actions.TALK_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
-		assertConversation(goal.calculateGoal(performer, world), Conversations.KISS_CONVERSATION);
+		AssertUtils.assertConversation(goal.calculateGoal(performer, world), Conversations.KISS_CONVERSATION);
 	}
 	
 	@Test
@@ -111,10 +112,6 @@ public class UTestImproveRelationshipGoal {
 
 	private void addActionToHistory(World world, WorldObject performer, WorldObject target, Conversation conversation) {
 		world.getHistory().actionPerformed(new OperationInfo(performer, target, Conversations.createArgs(conversation), Actions.TALK_ACTION), new Turn());
-	}
-	
-	private void assertConversation(OperationInfo operationInfo, Conversation conversation) {
-		assertEquals(true, operationInfo.firstArgsIs(Conversations.createArgs(conversation)[0]));
 	}
 	
 	@Test

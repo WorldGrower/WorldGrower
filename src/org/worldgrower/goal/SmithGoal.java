@@ -28,7 +28,11 @@ public class SmithGoal implements Goal {
 			return new StoneGoal().calculateGoal(performer, world);
 		} else {
 			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 2, 3, world);
-			return new OperationInfo(performer, target, new int[0], Actions.BUILD_SMITH_ACTION);
+			if (target != null) {
+				return new OperationInfo(performer, target, new int[0], Actions.BUILD_SMITH_ACTION);
+			} else {
+				return null;
+			}
 		}
 	}
 	

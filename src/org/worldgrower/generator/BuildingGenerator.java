@@ -438,4 +438,80 @@ public class BuildingGenerator {
 		
 		return id;
 	}
+	
+	public static int generateLibrary(int x, int y, World world) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		int id = world.generateUniqueId();
+		
+		properties.put(Constants.X, x);
+		properties.put(Constants.Y, y);
+		properties.put(Constants.WIDTH, 2);
+		properties.put(Constants.HEIGHT, 2);
+		properties.put(Constants.LIBRARY_QUALITY, 1);
+		properties.put(Constants.NAME, "library");
+		
+		properties.put(Constants.ID, id);
+		properties.put(Constants.IMAGE_ID, ImageIds.LIBRARY);
+		properties.put(Constants.HIT_POINTS, 50);
+		properties.put(Constants.HIT_POINTS_MAX, 50);
+		properties.put(Constants.FLAMMABLE, Boolean.TRUE);
+		properties.put(Constants.CONDITIONS, new Conditions());
+		properties.put(Constants.ARMOR, 0);
+		properties.put(Constants.DAMAGE_RESIST, 0);
+		properties.put(Constants.INVENTORY, new WorldObjectContainer());
+		properties.put(Constants.LOCK_STRENGTH, 2);
+		properties.put(Constants.LOCKED, Boolean.TRUE);
+		
+		WorldObject library = new WorldObjectImpl(properties);
+		world.addWorldObject(library);
+		return id;
+	}
+	
+	public static int generatePaperMill(int x, int y, World world) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		int id = world.generateUniqueId();
+		
+		properties.put(Constants.X, x);
+		properties.put(Constants.Y, y);
+		properties.put(Constants.WIDTH, 1);
+		properties.put(Constants.HEIGHT, 1);
+		properties.put(Constants.PAPER_MILL_QUALITY, 5);
+		properties.put(Constants.NAME, "papermill");
+		properties.put(Constants.ID, id);
+		properties.put(Constants.IMAGE_ID, ImageIds.PAPER_MILL);
+		properties.put(Constants.HIT_POINTS, 50);
+		properties.put(Constants.HIT_POINTS_MAX, 50);
+		properties.put(Constants.FLAMMABLE, Boolean.TRUE);
+		properties.put(Constants.CONDITIONS, new Conditions());
+		properties.put(Constants.ARMOR, 0);
+		properties.put(Constants.DAMAGE_RESIST, 0);
+		
+		WorldObject paperMill = new WorldObjectImpl(properties);
+		world.addWorldObject(paperMill);
+		
+		return id;
+	}
+	
+	public static int generateSmith(int x, int y, World world) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		int id = world.generateUniqueId();
+
+		properties.put(Constants.X, x);
+		properties.put(Constants.Y, y);
+		properties.put(Constants.WIDTH, 1);
+		properties.put(Constants.HEIGHT, 2);
+		properties.put(Constants.SMITH_QUALITY, 5);
+		properties.put(Constants.NAME, "smithy");
+		properties.put(Constants.ID, id);
+		properties.put(Constants.IMAGE_ID, ImageIds.SMITH);
+		properties.put(Constants.HIT_POINTS, 100);
+		properties.put(Constants.HIT_POINTS_MAX, 100);
+		properties.put(Constants.ARMOR, 0);
+		properties.put(Constants.DAMAGE_RESIST, 0);
+		
+		WorldObject smith = new WorldObjectImpl(properties);
+		world.addWorldObject(smith);
+	
+		return id;
+	}
 }

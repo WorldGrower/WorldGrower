@@ -15,16 +15,13 @@
 package org.worldgrower.actions;
 
 import java.io.ObjectStreamException;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.WorldObjectImpl;
-import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.goal.GoalUtils;
 import org.worldgrower.gui.ImageIds;
 
@@ -37,25 +34,10 @@ public class BuildSmithAction implements BuildAction {
 		int x = (Integer)target.getProperty(Constants.X);
 		int y = (Integer)target.getProperty(Constants.Y);
 		
-		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
-		properties.put(Constants.X, x);
-		properties.put(Constants.Y, y);
-		properties.put(Constants.WIDTH, 1);
-		properties.put(Constants.HEIGHT, 2);
-		properties.put(Constants.SMITH_QUALITY, 5);
-		properties.put(Constants.NAME, "smithy");
-		properties.put(Constants.ID, world.generateUniqueId());
-		properties.put(Constants.IMAGE_ID, ImageIds.SMITH);
-		properties.put(Constants.HIT_POINTS, 100);
-		properties.put(Constants.HIT_POINTS_MAX, 100);
-		properties.put(Constants.ARMOR, 0);
-		properties.put(Constants.DAMAGE_RESIST, 0);
-		
-		WorldObject smith = new WorldObjectImpl(properties);
-		world.addWorldObject(smith);
+		int smithId = BuildingGenerator.generateSmith(x, y, world);
 		
 		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.STONE, REQUIRED_STONE);
-		performer.setProperty(Constants.SMITH_ID, smith.getProperty(Constants.ID));
+		performer.setProperty(Constants.SMITH_ID, smithId);
 	}
 
 	@Override

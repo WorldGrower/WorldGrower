@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
@@ -35,16 +36,13 @@ public class ImproveOrganizationGoal implements Goal {
 		
 		for(WorldObject organization : organizations) {
 			Profession profession = organization.getProperty(Constants.PROFESSION);
-			List<WorldObject> totalPersonsWithProfession = world.findWorldObjects(w -> w.getProperty(Constants.PROFESSION) == profession);
+			List<WorldObject> totalPersonsWithProfession = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> w.getProperty(Constants.PROFESSION) == profession);
 			List<WorldObject> members = GroupPropertyUtils.findOrganizationMembers(organization, world);
 			
 			if (members.size() > (totalPersonsWithProfession.size() * 0.8)) {
-				int profitPercentage = 50;
-				return new OperationInfo(performer, members.get(0), Conversations.createArgs(Conversations.SET_ORGANIZATION_PROFIT_PERCENTAGE, organizations.get(0), profitPercentage), Actions.TALK_ACTION);
+				return createProfitPercentageOperationInfo(performer, organizations, members);
 			} else {
-				List<WorldObject> nonMembers = new ArrayList<>(totalPersonsWithProfession);
-				nonMembers.removeAll(members);
-				Collections.sort(nonMembers, new RelationshipComparator(performer));
+				List<WorldObject> nonMembers = getNonMembers(performer, totalPersonsWithProfession, members);
 				
 				if (nonMembers.size() > 0) {
 					WorldObject target = nonMembers.get(0);
@@ -58,6 +56,24 @@ public class ImproveOrganizationGoal implements Goal {
 			}
 		}
 		return null;
+	}
+
+	private List<WorldObject> getNonMembers(WorldObject performer, List<WorldObject> totalPersonsWithProfession, List<WorldObject> members) {
+		List<WorldObject> nonMembers = new ArrayList<>(totalPersonsWithProfession);
+		nonMembers.removeAll(members);
+		Collections.sort(nonMembers, new RelationshipComparator(performer));
+		return nonMembers;
+	}
+
+	private OperationInfo createProfitPercentageOperationInfo(WorldObject performer, List<WorldObject> organizations, List<WorldObject> members) {
+		int profitPercentage = 50;
+		members = members.stream().filter(w -> !w.equals(performer)).collect(Collectors.toList());
+		if (members.size() > 0) {
+			WorldObject target = members.get(0);
+			return new OperationInfo(performer, target, Conversations.createArgs(Conversations.SET_ORGANIZATION_PROFIT_PERCENTAGE, organizations.get(0), profitPercentage), Actions.TALK_ACTION);
+		} else {
+			return null;
+		}
 	}
 
 	private static class RelationshipComparator implements  Comparator<WorldObject> {

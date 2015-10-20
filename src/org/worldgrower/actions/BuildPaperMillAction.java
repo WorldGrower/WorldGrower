@@ -26,6 +26,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.condition.Conditions;
+import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.goal.GoalUtils;
 import org.worldgrower.gui.ImageIds;
 
@@ -38,27 +39,10 @@ public class BuildPaperMillAction implements BuildAction {
 		int x = (Integer)target.getProperty(Constants.X);
 		int y = (Integer)target.getProperty(Constants.Y);
 		
-		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
-		properties.put(Constants.X, x);
-		properties.put(Constants.Y, y);
-		properties.put(Constants.WIDTH, 1);
-		properties.put(Constants.HEIGHT, 1);
-		properties.put(Constants.PAPER_MILL_QUALITY, 5);
-		properties.put(Constants.NAME, "papermill");
-		properties.put(Constants.ID, world.generateUniqueId());
-		properties.put(Constants.IMAGE_ID, ImageIds.PAPER_MILL);
-		properties.put(Constants.HIT_POINTS, 50);
-		properties.put(Constants.HIT_POINTS_MAX, 50);
-		properties.put(Constants.FLAMMABLE, Boolean.TRUE);
-		properties.put(Constants.CONDITIONS, new Conditions());
-		properties.put(Constants.ARMOR, 0);
-		properties.put(Constants.DAMAGE_RESIST, 0);
-		
-		WorldObject smith = new WorldObjectImpl(properties);
-		world.addWorldObject(smith);
+		int paperMillId = BuildingGenerator.generatePaperMill(x, y, world);
 		
 		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.WOOD, REQUIRED_WOOD);
-		performer.setProperty(Constants.PAPER_MILL_ID, smith.getProperty(Constants.ID));
+		performer.setProperty(Constants.PAPER_MILL_ID, paperMillId);
 	}
 
 	@Override

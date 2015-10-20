@@ -48,6 +48,7 @@ public class CharacterCustomizationScreen extends JFrame {
 	private JLabel lblIntelligence;
 	private JLabel lblWisdom;
 	private JLabel lblCharisma;
+	private JButton btnOk;
 	
 	public CharacterCustomizationScreen(ImageInfoReader imageInfoReader) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -247,7 +248,7 @@ public class CharacterCustomizationScreen extends JFrame {
 		lblRemainingAttributePoints.setBounds(294, 13, 215, 25);
 		contentPane.add(lblRemainingAttributePoints);
 		
-		JButton btnOk = ButtonFactory.createButton("Ok");
+		btnOk = ButtonFactory.createButton("Ok");
 		btnOk.setBounds(412, 224, 97, 25);
 		getRootPane().setDefaultButton(btnOk);
 		contentPane.add(btnOk);
@@ -268,6 +269,12 @@ public class CharacterCustomizationScreen extends JFrame {
 				window.setVisible(true);
 			}
 		});
+	}
+	
+	@Override
+	public void setVisible(boolean visible) {
+		super.setVisible(visible);
+		btnOk.requestFocusInWindow();
 	}
 
 	private void setButtonTooltipTexts() {

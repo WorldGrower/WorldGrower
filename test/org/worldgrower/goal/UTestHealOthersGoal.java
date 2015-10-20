@@ -17,24 +17,22 @@ package org.worldgrower.goal;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import org.worldgrower.AssertUtils;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.MockCommonerNameGenerator;
-import org.worldgrower.conversation.Conversations;
 import org.worldgrower.generator.CommonerGenerator;
 import org.worldgrower.gui.CommonerImageIds;
 
-public class UTestMateGoal {
+public class UTestHealOthersGoal {
 
-	private MateGoal goal = Goals.MATE_GOAL;
+	private HealOthersGoal goal = Goals.HEAL_OTHERS_GOAL;
 	private final CommonerGenerator commonerGenerator = new CommonerGenerator(666, new CommonerImageIds(), new MockCommonerNameGenerator());
 	
 	@Test
-	public void testCalculateGoal() {
+	public void testCalculateGoalNull() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
@@ -43,35 +41,30 @@ public class UTestMateGoal {
 	}
 	
 	@Test
-	public void testCalculateGoalOneTarget() {
+	public void testCalculateGoalHealTarget() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
 		WorldObject target = createCommoner(world, organization);
 		
-		performer.getProperty(Constants.RELATIONSHIPS).incrementValue(target, 1);
-		performer.setProperty(Constants.GENDER, "male");
-		target.setProperty(Constants.GENDER, "female");
+		target.setProperty(Constants.HIT_POINTS, 1);
+		performer.getProperty(Constants.KNOWN_SPELLS).add(Actions.MINOR_HEAL_ACTION);
 		
-		assertEquals(Actions.TALK_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
-		assertEquals(target, goal.calculateGoal(performer, world).getTarget());
-		AssertUtils.assertConversation(goal.calculateGoal(performer, world), Conversations.COMPLIMENT_CONVERSATION);
+		assertEquals(Actions.MINOR_HEAL_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
 	
 	@Test
-	public void testCalculateGoalOneTargetWithGoodRelationship() {
+	public void testCalculateGoalHealTargetNotEnoughEnergy() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
 		WorldObject target = createCommoner(world, organization);
 		
-		performer.getProperty(Constants.RELATIONSHIPS).incrementValue(target, 900);
-		performer.setProperty(Constants.GENDER, "male");
-		target.setProperty(Constants.GENDER, "female");
+		target.setProperty(Constants.HIT_POINTS, 1);
+		performer.getProperty(Constants.KNOWN_SPELLS).add(Actions.MINOR_HEAL_ACTION);
+		performer.setProperty(Constants.ENERGY, 0);
 		
-		assertEquals(Actions.TALK_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
-		assertEquals(target, goal.calculateGoal(performer, world).getTarget());
-		AssertUtils.assertConversation(goal.calculateGoal(performer, world), Conversations.PROPOSE_MATE_CONVERSATION);
+		assertEquals(Actions.REST_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
 	
 	@Test
@@ -80,10 +73,10 @@ public class UTestMateGoal {
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
 		
-		assertEquals(false, goal.isGoalMet(performer, world));
-		
-		performer.setProperty(Constants.MATE_ID, 7);
 		assertEquals(true, goal.isGoalMet(performer, world));
+		
+		performer.setProperty(Constants.HIT_POINTS, 1);
+		assertEquals(false, goal.isGoalMet(performer, world));
 	}
 
 	private WorldObject createCommoner(World world, WorldObject organization) {

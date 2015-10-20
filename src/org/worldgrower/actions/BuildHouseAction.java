@@ -48,8 +48,7 @@ public class BuildHouseAction implements BuildAction {
 			}
 		}
 		
-		WorldObject house = world.findWorldObject(Constants.ID, id);
-		performer.getProperty(Constants.INVENTORY).add(ItemGenerator.generateKey(house));
+		performer.getProperty(Constants.INVENTORY).add(ItemGenerator.generateKey(id));
 		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.STONE, REQUIRED_STONE);
 		performer.getProperty(Constants.HOUSES).add(id);
 	}

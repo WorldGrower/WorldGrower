@@ -28,7 +28,11 @@ public class PaperMillGoal implements Goal {
 			return new WoodGoal().calculateGoal(performer, world);
 		} else {
 			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 2, 2, world);
-			return new OperationInfo(performer, target, new int[0], Actions.BUILD_PAPER_MILL_ACTION);
+			if (target != null) {
+				return new OperationInfo(performer, target, new int[0], Actions.BUILD_PAPER_MILL_ACTION);
+			} else {
+				return null;
+			}
 		}
 	}
 	

@@ -82,10 +82,13 @@ import org.worldgrower.goal.UTestBrawlPropertyUtils;
 import org.worldgrower.goal.UTestBuildLocationUtils;
 import org.worldgrower.goal.UTestBuyClothesGoal;
 import org.worldgrower.goal.UTestBuySellUtils;
+import org.worldgrower.goal.UTestCaptureCriminalsGoal;
 import org.worldgrower.goal.UTestChildrenGoal;
 import org.worldgrower.goal.UTestCollectWaterGoal;
 import org.worldgrower.goal.UTestCottonGoal;
 import org.worldgrower.goal.UTestCraftEquipmentGoal;
+import org.worldgrower.goal.UTestCreateFoodSourcesGoal;
+import org.worldgrower.goal.UTestCreateWineGoal;
 import org.worldgrower.goal.UTestDrinkWaterGoal;
 import org.worldgrower.goal.UTestDrownUtils;
 import org.worldgrower.goal.UTestEquipmentGoal;
@@ -99,21 +102,28 @@ import org.worldgrower.goal.UTestGetPoisonCuredGoal;
 import org.worldgrower.goal.UTestGhoulGoal;
 import org.worldgrower.goal.UTestGoalUtils;
 import org.worldgrower.goal.UTestGroupPropertyUtils;
+import org.worldgrower.goal.UTestHealOthersGoal;
 import org.worldgrower.goal.UTestHousePropertyUtils;
+import org.worldgrower.goal.UTestImproveOrganizationGoal;
 import org.worldgrower.goal.UTestImproveRelationshipGoal;
 import org.worldgrower.goal.UTestInventoryPropertyUtils;
 import org.worldgrower.goal.UTestLegalActionsPropertyUtils;
+import org.worldgrower.goal.UTestLibraryGoal;
 import org.worldgrower.goal.UTestLocationUtils;
 import org.worldgrower.goal.UTestLockUtils;
 import org.worldgrower.goal.UTestMateGoal;
 import org.worldgrower.goal.UTestMeleeDamagePropertyUtils;
 import org.worldgrower.goal.UTestMineResourceGoal;
+import org.worldgrower.goal.UTestPaperMillGoal;
 import org.worldgrower.goal.UTestProtectOneSelfGoal;
 import org.worldgrower.goal.UTestRacePropertyUtils;
 import org.worldgrower.goal.UTestRelationshipPropertyUtils;
 import org.worldgrower.goal.UTestSacrificePeopleToDeityGoal;
 import org.worldgrower.goal.UTestShrineToDeityGoal;
+import org.worldgrower.goal.UTestSmithGoal;
 import org.worldgrower.goal.UTestSocializeGoal;
+import org.worldgrower.goal.UTestSubdueOutsidersGoal;
+import org.worldgrower.goal.UTestTrainGoal;
 import org.worldgrower.goal.UTestWeaveClothesGoal;
 import org.worldgrower.goal.UTestWeightPropertyUtils;
 import org.worldgrower.goal.UTestZone;
@@ -237,7 +247,17 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestFurnitureGoal.class,
 	UTestGetHealedGoal.class,
 	UTestFoodGoal.class,
-	UTestGatherFoodGoal.class
+	UTestGatherFoodGoal.class,
+	UTestCreateFoodSourcesGoal.class,
+	UTestImproveOrganizationGoal.class,
+	UTestSubdueOutsidersGoal.class,
+	UTestCaptureCriminalsGoal.class,
+	UTestTrainGoal.class,
+	UTestCreateWineGoal.class,
+	UTestHealOthersGoal.class,
+	UTestLibraryGoal.class,
+	UTestPaperMillGoal.class,
+	UTestSmithGoal.class
 })
 public class CompleteTestSuite {
 }
