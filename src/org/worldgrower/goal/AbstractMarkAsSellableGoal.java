@@ -32,7 +32,11 @@ public abstract class AbstractMarkAsSellableGoal implements Goal {
 	@Override
 	public final OperationInfo calculateGoal(WorldObject performer, World world) {
 		int indexOfProperty = indexOfProperty(performer);
-		return new OperationInfo(performer, performer, new int[] { indexOfProperty }, Actions.MARK_INVENTORY_ITEM_AS_SELLABLE_ACTION);
+		if (indexOfProperty != -1) {
+			return new OperationInfo(performer, performer, new int[] { indexOfProperty }, Actions.MARK_INVENTORY_ITEM_AS_SELLABLE_ACTION);
+		} else {
+			return null;
+		}
 	}
 	
 	@Override

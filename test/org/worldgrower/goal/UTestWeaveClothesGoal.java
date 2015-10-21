@@ -24,6 +24,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.ItemGenerator;
 
 public class UTestWeaveClothesGoal {
 
@@ -37,14 +38,79 @@ public class UTestWeaveClothesGoal {
 		assertEquals(Actions.PLANT_COTTON_PLANT_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
 	
+	@Test
+	public void testCalculateGoalCottonShirt() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer();
+		
+		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
+		performerInventory.addQuantity(Constants.COTTON, 20, null);
+		
+		assertEquals(Actions.WEAVE_COTTON_SHIRT_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
 	
+	@Test
+	public void testCalculateGoalCottonPants() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer();
+		
+		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
+		performerInventory.addQuantity(Constants.COTTON, 20, null);
+		performerInventory.addQuantity(ItemGenerator.getCottonShirt(1f));
+		
+		assertEquals(Actions.WEAVE_COTTON_PANTS_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+	@Test
+	public void testCalculateGoalCottonBoots() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer();
+		
+		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
+		performerInventory.addQuantity(Constants.COTTON, 20, null);
+		performerInventory.addQuantity(ItemGenerator.getCottonShirt(1f));
+		performerInventory.addQuantity(ItemGenerator.getCottonPants(1f));
+		
+		assertEquals(Actions.WEAVE_COTTON_BOOTS_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
 
+	@Test
+	public void testCalculateGoalCottonBootsNothing() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer();
+		
+		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
+		performerInventory.addQuantity(Constants.COTTON, 20, null);
+		performerInventory.addQuantity(ItemGenerator.getCottonShirt(1f));
+		performerInventory.addQuantity(ItemGenerator.getCottonPants(1f));
+		performerInventory.addQuantity(ItemGenerator.getCottonBoots(1f));
+		
+		assertEquals(null, goal.calculateGoal(performer, world));
+	}
+	
+	@Test
+	public void testIsGoalMet() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer();
+		
+		assertEquals(false, goal.isGoalMet(performer, world));
+		
+		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
+		
+		for(int i=0; i<10; i++) {
+			performerInventory.addQuantity(ItemGenerator.getCottonShirt(1f));
+		}
+		
+		assertEquals(true, goal.isGoalMet(performer, world));
+	}
+	
 	private WorldObject createPerformer() {
 		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.X, 0);
 		performer.setProperty(Constants.Y, 0);
 		performer.setProperty(Constants.WIDTH, 1);
 		performer.setProperty(Constants.HEIGHT, 1);
+		performer.setProperty(Constants.INVENTORY, new WorldObjectContainer());
 		return performer;
 	}
 }
