@@ -88,8 +88,11 @@ import org.worldgrower.goal.UTestCollectWaterGoal;
 import org.worldgrower.goal.UTestCottonGoal;
 import org.worldgrower.goal.UTestCraftEquipmentGoal;
 import org.worldgrower.goal.UTestCreateFoodSourcesGoal;
+import org.worldgrower.goal.UTestCreateFurnitureGoal;
+import org.worldgrower.goal.UTestCreateGraveGoal;
 import org.worldgrower.goal.UTestCreateHouseGoal;
 import org.worldgrower.goal.UTestCreateWineGoal;
+import org.worldgrower.goal.UTestDestroyShrinesToOtherDeitiesGoal;
 import org.worldgrower.goal.UTestDrinkWaterGoal;
 import org.worldgrower.goal.UTestDrownUtils;
 import org.worldgrower.goal.UTestEquipmentGoal;
@@ -106,9 +109,11 @@ import org.worldgrower.goal.UTestGoalUtils;
 import org.worldgrower.goal.UTestGroupPropertyUtils;
 import org.worldgrower.goal.UTestHealOthersGoal;
 import org.worldgrower.goal.UTestHousePropertyUtils;
+import org.worldgrower.goal.UTestHuntUndeadGoal;
 import org.worldgrower.goal.UTestImproveOrganizationGoal;
 import org.worldgrower.goal.UTestImproveRelationshipGoal;
 import org.worldgrower.goal.UTestInventoryPropertyUtils;
+import org.worldgrower.goal.UTestKillVillagersGoal;
 import org.worldgrower.goal.UTestLegalActionsPropertyUtils;
 import org.worldgrower.goal.UTestLibraryGoal;
 import org.worldgrower.goal.UTestLocationUtils;
@@ -117,7 +122,10 @@ import org.worldgrower.goal.UTestMarkFoodAsSellableGoal;
 import org.worldgrower.goal.UTestMateGoal;
 import org.worldgrower.goal.UTestMeleeDamagePropertyUtils;
 import org.worldgrower.goal.UTestMineResourceGoal;
+import org.worldgrower.goal.UTestMintGoldGoal;
 import org.worldgrower.goal.UTestOrganizationCandidateGoal;
+import org.worldgrower.goal.UTestOrganizationVoteGoal;
+import org.worldgrower.goal.UTestPaperGoal;
 import org.worldgrower.goal.UTestPaperMillGoal;
 import org.worldgrower.goal.UTestProtectOneSelfGoal;
 import org.worldgrower.goal.UTestRacePropertyUtils;
@@ -271,7 +279,15 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestMarkFoodAsSellableGoal.class,
 	UTestStartOrganizationVoteGoal.class,
 	UTestOrganizationCandidateGoal.class,
-	UTestShackGoal.class
+	UTestShackGoal.class,
+	UTestOrganizationVoteGoal.class,
+	UTestKillVillagersGoal.class,
+	UTestHuntUndeadGoal.class,
+	UTestCreateFurnitureGoal.class,
+	UTestPaperGoal.class,
+	UTestMintGoldGoal.class,
+	UTestCreateGraveGoal.class,
+	UTestDestroyShrinesToOtherDeitiesGoal.class
 })
 public class CompleteTestSuite {
 }

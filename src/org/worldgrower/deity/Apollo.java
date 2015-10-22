@@ -24,6 +24,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.condition.CreatureTypeChangedListeners;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
+import org.worldgrower.gui.ImageIds;
 import org.worldgrower.profession.Professions;
 
 public class Apollo implements Deity {
@@ -71,5 +72,11 @@ public class Apollo implements Deity {
 	@Override
 	public List<Goal> getOrganizationGoals() {
 		return Arrays.asList(Goals.DESTROY_SHRINES_TO_OTHER_DEITIES_GOAL, Goals.HEAL_OTHERS_GOAL);
+	}
+	
+
+	@Override
+	public ImageIds getStatueImageId() {
+		return ImageIds.STATUE_OF_APOLLO;
 	}
 }

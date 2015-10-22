@@ -25,6 +25,7 @@ import org.worldgrower.condition.CreatureTypeChangedListeners;
 import org.worldgrower.creaturetype.CreatureTypeUtils;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
+import org.worldgrower.gui.ImageIds;
 import org.worldgrower.profession.Professions;
 
 public class Hades implements Deity {
@@ -77,5 +78,8 @@ public class Hades implements Deity {
 		return Arrays.asList(Goals.DESTROY_SHRINES_TO_OTHER_DEITIES_GOAL, Goals.HUNT_UNDEAD_GOAL);
 	}
 	
-	
+	@Override
+	public ImageIds getStatueImageId() {
+		return ImageIds.STATUE_OF_HADES;
+	}
 }

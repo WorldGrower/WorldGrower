@@ -353,6 +353,17 @@ public class ImageInfoReader {
 		add(ImageIds.SMALL_DIRT, tileA2.getSubImage(4, 3, 1, 1));
 		add(ImageIds.LARGE_DIRT, tileA2.getSubImage(4, 4, 2, 2));
 		
+		add(ImageIds.STATUE_OF_DEMETER, statues.getSubImage(3, 1, 1, 2));
+		add(ImageIds.STATUE_OF_HEPHAESTUS, statues.getSubImage(2, 1, 1, 2));
+		add(ImageIds.STATUE_OF_HADES, statues.getSubImage(1, 1, 1, 2));
+		add(ImageIds.STATUE_OF_APHRODITE, statues.getSubImage(4, 3, 1, 2));
+		add(ImageIds.STATUE_OF_APOLLO, statues.getSubImage(2, 1, 1, 2));
+		add(ImageIds.STATUE_OF_DIONYSUS, statues.getSubImage(14, 2, 1, 2));
+		add(ImageIds.STATUE_OF_ARES, statues.getSubImage(7, 1, 1, 2));
+		add(ImageIds.STATUE_OF_ARTEMIS, statues.getSubImage(10, 8, 1, 2));
+		add(ImageIds.STATUE_OF_HERMES, statues.getSubImage(4, 1, 1, 2));
+		add(ImageIds.STATUE_OF_ATHENA, statues.getSubImage(5, 1, 1, 2));
+
     }
 
     private void createArenaWall48x48() {

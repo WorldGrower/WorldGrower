@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.condition.CreatureTypeChangedListeners;
 import org.worldgrower.condition.WerewolfUtils;
+import org.worldgrower.gui.ImageIds;
 import org.worldgrower.profession.Professions;
 
 public class Artemis implements Deity {
@@ -75,5 +76,11 @@ public class Artemis implements Deity {
 				WerewolfUtils.makePersonIntoWerewolf(target, creatureTypeChangedListeners);
 			}
 		}
+	}
+	
+
+	@Override
+	public ImageIds getStatueImageId() {
+		return ImageIds.STATUE_OF_ARTEMIS;
 	}
 }

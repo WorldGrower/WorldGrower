@@ -22,6 +22,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.condition.CreatureTypeChangedListeners;
+import org.worldgrower.gui.ImageIds;
 import org.worldgrower.profession.Professions;
 
 public class Hephaestus implements Deity {
@@ -64,5 +65,11 @@ public class Hephaestus implements Deity {
 	
 	@Override
 	public void onTurn(World world, CreatureTypeChangedListeners creatureTypeChangedListeners) {
+	}
+	
+
+	@Override
+	public ImageIds getStatueImageId() {
+		return ImageIds.STATUE_OF_HEPHAESTUS;
 	}
 }

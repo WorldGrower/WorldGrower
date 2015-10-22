@@ -19,8 +19,6 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.attribute.WorldObjectContainer;
-import org.worldgrower.generator.ItemGenerator;
 
 public class MintGoldGoal implements Goal {
 
@@ -32,7 +30,7 @@ public class MintGoldGoal implements Goal {
 			int gold = performer.getProperty(Constants.GOLD);
 			
 			if (gold < 500){
-				return new OperationInfo(performer, performer, new int[0], Actions.CRAFT_IRON_CLAYMORE_ACTION);
+				return new OperationInfo(performer, performer, new int[0], Actions.MINT_GOLD_ACTION);
 			} else {
 				return null;
 			}

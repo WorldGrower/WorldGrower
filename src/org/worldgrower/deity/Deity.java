@@ -25,6 +25,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.condition.CreatureTypeChangedListeners;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
+import org.worldgrower.gui.ImageIds;
 
 public interface Deity extends Serializable {
 
@@ -33,6 +34,7 @@ public interface Deity extends Serializable {
 	public List<String> getReasons();
 	public int getReasonIndex(WorldObject performer, World world);
 	public void onTurn(World world, CreatureTypeChangedListeners creatureTypeChangedListeners);
+	public ImageIds getStatueImageId();
 	
 	public static final Demeter DEMETER = new Demeter();
 	public static final Hephaestus HEPHAESTUS = new Hephaestus();

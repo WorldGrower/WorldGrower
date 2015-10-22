@@ -24,6 +24,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.condition.CreatureTypeChangedListeners;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
+import org.worldgrower.gui.ImageIds;
 import org.worldgrower.profession.Professions;
 
 public class Athena implements Deity {
@@ -65,5 +66,11 @@ public class Athena implements Deity {
 	
 	@Override
 	public void onTurn(World world, CreatureTypeChangedListeners creatureTypeChangedListeners) {
+	}
+	
+
+	@Override
+	public ImageIds getStatueImageId() {
+		return ImageIds.STATUE_OF_ATHENA;
 	}
 }

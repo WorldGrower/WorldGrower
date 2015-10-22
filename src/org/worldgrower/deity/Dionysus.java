@@ -25,6 +25,7 @@ import org.worldgrower.condition.CreatureTypeChangedListeners;
 import org.worldgrower.condition.VampireUtils;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
+import org.worldgrower.gui.ImageIds;
 import org.worldgrower.profession.Professions;
 
 public class Dionysus implements Deity {
@@ -82,5 +83,11 @@ public class Dionysus implements Deity {
 			
 			VampireUtils.vampirizePerson(target, creatureTypeChangedListeners);
 		}
+	}
+	
+
+	@Override
+	public ImageIds getStatueImageId() {
+		return ImageIds.STATUE_OF_DIONYSUS;
 	}
 }

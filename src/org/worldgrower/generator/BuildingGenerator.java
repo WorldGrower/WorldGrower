@@ -208,7 +208,7 @@ public class BuildingGenerator {
 		properties.put(Constants.NAME, "shrine to " + performer.getProperty(Constants.DEITY).getName());
 		properties.put(Constants.TEXT, "shrine to " + performer.getProperty(Constants.DEITY).getName());
 		properties.put(Constants.ID, id);
-		properties.put(Constants.IMAGE_ID, ImageIds.STATUE_OF_DEITY);
+		properties.put(Constants.IMAGE_ID, performer.getProperty(Constants.DEITY).getStatueImageId());
 		properties.put(Constants.CAN_BE_WORSHIPPED, Boolean.TRUE);
 		properties.put(Constants.HIT_POINTS, 150);
 		properties.put(Constants.HIT_POINTS_MAX, 150);

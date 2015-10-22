@@ -24,6 +24,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.condition.CreatureTypeChangedListeners;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
+import org.worldgrower.gui.ImageIds;
 import org.worldgrower.profession.Professions;
 
 public class Ares implements Deity {
@@ -67,5 +68,9 @@ public class Ares implements Deity {
 		return Arrays.asList(Goals.DESTROY_SHRINES_TO_OTHER_DEITIES_GOAL, Goals.SACRIFICE_PEOPLE_TO_DEITY_GOAL);
 	}
 	
-	
+
+	@Override
+	public ImageIds getStatueImageId() {
+		return ImageIds.STATUE_OF_ARES;
+	}
 }
