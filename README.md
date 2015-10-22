@@ -18,6 +18,8 @@ It focuses on skills, dialogue, economy and society.
 *   [Linux installer](https://github.com/WorldGrower/WorldGrower/releases/download/0.1.5/WorldGrower_unix_0_1_5.sh) (requires java 8)
 *   [MacOSX installer](https://github.com/WorldGrower/WorldGrower/releases/download/0.1.5/WorldGrower_macos_0_1_5.dmg)
 
+*These installers contain the game and will install the game when executed.*
+
 ###Binary installation of .zip file
 
 *   [Download .zip file](https://github.com/WorldGrower/WorldGrower/releases/download/0.1.5/worldgrower-0.1.5.zip)
