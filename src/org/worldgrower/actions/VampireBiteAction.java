@@ -41,7 +41,8 @@ public class VampireBiteAction implements DeadlyAction {
 		return ((target.hasProperty(Constants.ARMOR)) 
 				&& (target.getProperty(Constants.HIT_POINTS) > 0) 
 				&& target.hasIntelligence() 
-				&& target.getProperty(Constants.CREATURE_TYPE) == CreatureType.HUMAN_CREATURE_TYPE);
+				&& target.getProperty(Constants.CREATURE_TYPE) == CreatureType.HUMAN_CREATURE_TYPE)
+				&& !performer.equals(target);
 	}
 
 	@Override

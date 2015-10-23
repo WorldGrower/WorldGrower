@@ -91,7 +91,9 @@ import org.worldgrower.goal.UTestCreateFoodSourcesGoal;
 import org.worldgrower.goal.UTestCreateFurnitureGoal;
 import org.worldgrower.goal.UTestCreateGraveGoal;
 import org.worldgrower.goal.UTestCreateHouseGoal;
+import org.worldgrower.goal.UTestCreateOrPlantWoodGoal;
 import org.worldgrower.goal.UTestCreateWineGoal;
+import org.worldgrower.goal.UTestDeathReasonPropertyUtils;
 import org.worldgrower.goal.UTestDestroyShrinesToOtherDeitiesGoal;
 import org.worldgrower.goal.UTestDrinkWaterGoal;
 import org.worldgrower.goal.UTestDrownUtils;
@@ -114,6 +116,7 @@ import org.worldgrower.goal.UTestImproveOrganizationGoal;
 import org.worldgrower.goal.UTestImproveRelationshipGoal;
 import org.worldgrower.goal.UTestInventoryPropertyUtils;
 import org.worldgrower.goal.UTestKillVillagersGoal;
+import org.worldgrower.goal.UTestLearnSkillGoal;
 import org.worldgrower.goal.UTestLegalActionsPropertyUtils;
 import org.worldgrower.goal.UTestLibraryGoal;
 import org.worldgrower.goal.UTestLocationUtils;
@@ -130,6 +133,7 @@ import org.worldgrower.goal.UTestPaperMillGoal;
 import org.worldgrower.goal.UTestProtectOneSelfGoal;
 import org.worldgrower.goal.UTestRacePropertyUtils;
 import org.worldgrower.goal.UTestRelationshipPropertyUtils;
+import org.worldgrower.goal.UTestRestGoal;
 import org.worldgrower.goal.UTestSacrificePeopleToDeityGoal;
 import org.worldgrower.goal.UTestSexGoal;
 import org.worldgrower.goal.UTestShackGoal;
@@ -139,6 +143,7 @@ import org.worldgrower.goal.UTestSocializeGoal;
 import org.worldgrower.goal.UTestStartOrganizationVoteGoal;
 import org.worldgrower.goal.UTestSubdueOutsidersGoal;
 import org.worldgrower.goal.UTestTrainGoal;
+import org.worldgrower.goal.UTestVampireBiteGoal;
 import org.worldgrower.goal.UTestWeaveClothesGoal;
 import org.worldgrower.goal.UTestWeightPropertyUtils;
 import org.worldgrower.goal.UTestZone;
@@ -287,7 +292,12 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestPaperGoal.class,
 	UTestMintGoldGoal.class,
 	UTestCreateGraveGoal.class,
-	UTestDestroyShrinesToOtherDeitiesGoal.class
+	UTestDestroyShrinesToOtherDeitiesGoal.class,
+	UTestLearnSkillGoal.class,
+	UTestCreateOrPlantWoodGoal.class,
+	UTestDeathReasonPropertyUtils.class,
+	UTestVampireBiteGoal.class,
+	UTestRestGoal.class
 })
 public class CompleteTestSuite {
 }
