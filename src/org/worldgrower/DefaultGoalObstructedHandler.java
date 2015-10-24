@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.worldgrower.actions.Actions;
+import org.worldgrower.actions.legal.ActionLegalHandler;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.goal.ArenaPropertyUtils;
 import org.worldgrower.goal.BrawlPropertyUtils;
@@ -39,7 +40,7 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 				
 				logToBackground(target, actionTarget, managedOperation, args, performerFacade, world);
 				
-				alterRelationships(performer, target, actionTarget, managedOperation, world, value, performerFacade, targetFacade);
+				alterRelationships(performer, target, actionTarget, args, managedOperation, world, value, performerFacade, targetFacade);
 			}
 		}
 	}
@@ -53,14 +54,14 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 		}
 	}
 
-	static void alterRelationships(WorldObject performer, WorldObject target, WorldObject actionTarget, ManagedOperation managedOperation, World world, int value, WorldObject performerFacade, WorldObject targetFacade) {
+	static void alterRelationships(WorldObject performer, WorldObject target, WorldObject actionTarget, int[] args, ManagedOperation managedOperation, World world, int value, WorldObject performerFacade, WorldObject targetFacade) {
 		if (!areBrawling(performer, actionTarget, managedOperation) && !areFightingInArena(performer, actionTarget, managedOperation)) {
 			if (world.exists(performer) && world.exists(target) && world.exists(performerFacade) && world.exists(targetFacade)) {
 				performer.getProperty(Constants.RELATIONSHIPS).incrementValue(targetFacade.getProperty(Constants.ID), value);
 				target.getProperty(Constants.RELATIONSHIPS).incrementValue(performerFacade.getProperty(Constants.ID), value);
 			}
 			
-			if (performerViolatedGroupRules(performer, actionTarget, managedOperation, world)) {
+			if (performerViolatedGroupRules(performer, actionTarget, args, managedOperation, world)) {
 				GroupPropertyUtils.throwPerformerOutGroup(performerFacade, target);
 				
 				WorldObject realPerformer = world.findWorldObject(Constants.ID, performerFacade.getProperty(Constants.ID));
@@ -97,9 +98,10 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 		return Arrays.asList(Actions.STEAL_ACTION);
 	}
 
-	static boolean performerViolatedGroupRules(WorldObject performer,WorldObject actionTarget, ManagedOperation managedOperation, World world) {
-		Map<ManagedOperation, Boolean> legalActions = LegalActionsPropertyUtils.getLegalActions(world);
-		Boolean isLegal = legalActions.get(managedOperation);
+	static boolean performerViolatedGroupRules(WorldObject performer, WorldObject actionTarget, int[] args, ManagedOperation managedOperation, World world) {
+		Map<ManagedOperation, ActionLegalHandler> legalActions = LegalActionsPropertyUtils.getLegalActions(world);
+		ActionLegalHandler actionLegalHandler = legalActions.get(managedOperation);
+		Boolean isLegal = actionLegalHandler != null ? actionLegalHandler.isActionLegal(performer, actionTarget, args) : null;
 		if (isLegal != null) {
 			boolean violatedGroupRules = !isLegal.booleanValue();
 			if (violatedGroupRules) {

@@ -14,7 +14,6 @@
  *******************************************************************************/
 package org.worldgrower.gui;
 
-import java.awt.BorderLayout;
 import java.awt.Dialog.ModalityType;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -36,6 +35,8 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.actions.legal.ActionLegalHandler;
+import org.worldgrower.actions.legal.DefaultActionLegalHandler;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.LegalActionsPropertyUtils;
 import org.worldgrower.gui.util.IconUtils;
@@ -100,7 +101,7 @@ public class GuiShowLegalActionsAction extends AbstractAction {
 
 	private static class WorldModel extends AbstractTableModel {
 
-		private Map<ManagedOperation, Boolean> legalActions;
+		private Map<ManagedOperation, ActionLegalHandler> legalActions;
 		private List<ManagedOperation> actions;
 		private boolean performerIsLeaderOfVillagers;
 		
@@ -141,7 +142,7 @@ public class GuiShowLegalActionsAction extends AbstractAction {
 		
 		@Override
 		public void setValueAt(Object value, int row, int column) {
-			legalActions.put(actions.get(row), (Boolean)value);
+			legalActions.put(actions.get(row), new DefaultActionLegalHandler((Boolean)value));
 		}
 
 		@Override
@@ -166,7 +167,7 @@ public class GuiShowLegalActionsAction extends AbstractAction {
 			}
 		}
 
-		public Map<ManagedOperation, Boolean> getLegalActions() {
+		public Map<ManagedOperation, ActionLegalHandler> getLegalActions() {
 			return legalActions;
 		}
 	}

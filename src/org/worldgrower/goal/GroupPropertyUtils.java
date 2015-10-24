@@ -29,6 +29,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.actions.legal.ActionLegalHandler;
+import org.worldgrower.actions.legal.DefaultActionLegalHandler;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdMap;
 import org.worldgrower.attribute.IdToIntegerMap;
@@ -194,13 +196,13 @@ public class GroupPropertyUtils {
 	}
 
 	private static void setLegalActions(WorldObject organization) {
-		HashMap<ManagedOperation, Boolean> legalActions = new HashMap<>();
+		HashMap<ManagedOperation, ActionLegalHandler> legalActions = new HashMap<>();
 		
 		List<ManagedOperation> defaultIllegalActions = new ArrayList<>();
 		defaultIllegalActions.addAll(Actions.ALL_ACTIONS.stream().filter(a -> DefaultGoalObstructedHandler.performerAttacked(a)).collect(Collectors.toList()));
 		defaultIllegalActions.addAll(DefaultGoalObstructedHandler.getNonAttackingIllegalActions());
 		for(ManagedOperation action : defaultIllegalActions) {
-			legalActions.put(action, Boolean.FALSE);
+			legalActions.put(action, new DefaultActionLegalHandler(Boolean.FALSE));
 		}
 		organization.setProperty(Constants.LEGAL_ACTIONS, legalActions);
 	}

@@ -108,8 +108,8 @@ public class UTestDefaultGoalObstructedHandler {
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.GROUP, new IdList().add(1));
 		WorldObject actionTarget = TestUtils.createIntelligentWorldObject(2, Constants.GROUP, new IdList().add(1));
 		
-		assertEquals(false, DefaultGoalObstructedHandler.performerViolatedGroupRules(performer, actionTarget, Actions.TALK_ACTION, world));
-		assertEquals(true, DefaultGoalObstructedHandler.performerViolatedGroupRules(performer, actionTarget, Actions.MELEE_ATTACK_ACTION, world));
+		assertEquals(false, DefaultGoalObstructedHandler.performerViolatedGroupRules(performer, actionTarget, null, Actions.TALK_ACTION, world));
+		assertEquals(true, DefaultGoalObstructedHandler.performerViolatedGroupRules(performer, actionTarget, null, Actions.MELEE_ATTACK_ACTION, world));
 	}
 	
 	@Test
@@ -119,7 +119,7 @@ public class UTestDefaultGoalObstructedHandler {
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.GROUP, new IdList().add(1));
 		WorldObject actionTarget = TestUtils.createIntelligentWorldObject(2, Constants.GROUP, new IdList());
 		
-		assertEquals(false, DefaultGoalObstructedHandler.performerViolatedGroupRules(performer, actionTarget, Actions.MELEE_ATTACK_ACTION, world));
+		assertEquals(false, DefaultGoalObstructedHandler.performerViolatedGroupRules(performer, actionTarget, null, Actions.MELEE_ATTACK_ACTION, world));
 	}
 	
 	@Test
@@ -198,7 +198,7 @@ public class UTestDefaultGoalObstructedHandler {
 		
 		performer.setProperty(Constants.GROUP, new IdList().add(villagersOrganization));
 		
-		DefaultGoalObstructedHandler.alterRelationships(performer, actionTarget, actionTarget, Actions.MELEE_ATTACK_ACTION, world, -10, performer, actionTarget);
+		DefaultGoalObstructedHandler.alterRelationships(performer, actionTarget, actionTarget, null, Actions.MELEE_ATTACK_ACTION, world, -10, performer, actionTarget);
 		
 		assertEquals(-10, performer.getProperty(Constants.RELATIONSHIPS).getValue(actionTarget));
 		assertEquals(-10, actionTarget.getProperty(Constants.RELATIONSHIPS).getValue(performer));

@@ -23,14 +23,16 @@ import java.util.Map;
 import org.junit.Test;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.actions.legal.ActionLegalHandler;
+import org.worldgrower.actions.legal.DefaultActionLegalHandler;
 
 public class UTestLegalActionsPropertyUtils {
 
 	@Test
 	public void testToList() {
-		Map<ManagedOperation, Boolean> legalActions = new HashMap<>();
-		legalActions.put(Actions.MELEE_ATTACK_ACTION, Boolean.TRUE);
-		legalActions.put(Actions.FIRE_BOLT_ATTACK_ACTION, Boolean.FALSE);
+		Map<ManagedOperation, ActionLegalHandler> legalActions = new HashMap<>();
+		legalActions.put(Actions.MELEE_ATTACK_ACTION, new DefaultActionLegalHandler(Boolean.TRUE));
+		legalActions.put(Actions.FIRE_BOLT_ATTACK_ACTION, new DefaultActionLegalHandler(Boolean.FALSE));
 		List<ManagedOperation> legalActionsList = LegalActionsPropertyUtils.toList(legalActions);
 		
 		assertEquals(2, legalActionsList.size());
@@ -40,9 +42,9 @@ public class UTestLegalActionsPropertyUtils {
 	
 	@Test
 	public void testLegalActionsToArgs() {
-		Map<ManagedOperation, Boolean> legalActions = new HashMap<>();
-		legalActions.put(Actions.MELEE_ATTACK_ACTION, Boolean.TRUE);
-		legalActions.put(Actions.FIRE_BOLT_ATTACK_ACTION, Boolean.FALSE);
+		Map<ManagedOperation, ActionLegalHandler> legalActions = new HashMap<>();
+		legalActions.put(Actions.MELEE_ATTACK_ACTION, new DefaultActionLegalHandler(Boolean.TRUE));
+		legalActions.put(Actions.FIRE_BOLT_ATTACK_ACTION, new DefaultActionLegalHandler(Boolean.FALSE));
 		int[] legalActionsToArgs = LegalActionsPropertyUtils.legalActionsToArgs(legalActions);
 		assertEquals(2, legalActionsToArgs.length);
 		assertEquals(0, legalActionsToArgs[0]);

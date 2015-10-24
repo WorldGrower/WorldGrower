@@ -23,33 +23,34 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.actions.legal.ActionLegalHandler;
 
 public class LegalActionsPropertyUtils {
 
 	public static List<ManagedOperation> getLegalActionsList(World world) {
-		Map<ManagedOperation, Boolean> legalActions = getLegalActions(world);
+		Map<ManagedOperation, ActionLegalHandler> legalActions = getLegalActions(world);
 		
 		return toList(legalActions);
 	}
 
-	static List<ManagedOperation> toList(Map<ManagedOperation, Boolean> legalActions) {
+	static List<ManagedOperation> toList(Map<ManagedOperation, ActionLegalHandler> legalActions) {
 		List<ManagedOperation> actions = new ArrayList<>(legalActions.keySet());
 		Actions.sortActionsByDescription(actions);
 		return actions;
 	}
 
-	public static Map<ManagedOperation, Boolean> getLegalActions(World world) {
+	public static Map<ManagedOperation, ActionLegalHandler> getLegalActions(World world) {
 		WorldObject villagersOrganization = GroupPropertyUtils.getVillagersOrganization(world);
-		Map<ManagedOperation, Boolean> legalActions = villagersOrganization.getProperty(Constants.LEGAL_ACTIONS);
+		Map<ManagedOperation, ActionLegalHandler> legalActions = villagersOrganization.getProperty(Constants.LEGAL_ACTIONS);
 		return legalActions;
 	}
 	
-	public static int[] legalActionsToArgs(Map<ManagedOperation, Boolean> legalActions) {
+	public static int[] legalActionsToArgs(Map<ManagedOperation, ActionLegalHandler> legalActions) {
 		List<ManagedOperation> actions = toList(legalActions);
 		int[] args = new int[actions.size()];
 		for(int i=0; i<actions.size(); i++) {
 			ManagedOperation action = actions.get(i);
-			args[i] = legalActions.get(action).booleanValue() ? 1 : 0;
+			args[i] = legalActions.get(action).getLegalFlag() ? 1 : 0;
 		}
 		return args;
 	}
