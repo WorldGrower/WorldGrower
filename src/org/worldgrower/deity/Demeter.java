@@ -100,4 +100,11 @@ public class Demeter implements Deity {
 	public ImageIds getStatueImageId() {
 		return ImageIds.STATUE_OF_DEMETER;
 	}
+	
+	@Override
+	public void worship(WorldObject performer, WorldObject target, int worshipCount, World world) {
+		if (worshipCount == 5) {
+			performer.getProperty(Constants.FARMING_SKILL).use(30);
+		}
+	}
 }

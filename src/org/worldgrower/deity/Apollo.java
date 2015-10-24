@@ -79,4 +79,11 @@ public class Apollo implements Deity {
 	public ImageIds getStatueImageId() {
 		return ImageIds.STATUE_OF_APOLLO;
 	}
+	
+	@Override
+	public void worship(WorldObject performer, WorldObject target, int worshipCount, World world) {
+		if (worshipCount == 5) {
+			performer.getProperty(Constants.RESTORATION_SKILL).use(30);
+		}
+	}
 }

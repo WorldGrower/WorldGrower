@@ -83,4 +83,11 @@ public class Artemis implements Deity {
 	public ImageIds getStatueImageId() {
 		return ImageIds.STATUE_OF_ARTEMIS;
 	}
+	
+	@Override
+	public void worship(WorldObject performer, WorldObject target, int worshipCount, World world) {
+		if (worshipCount == 5) {
+			performer.getProperty(Constants.ARCHERY_SKILL).use(30);
+		}
+	}
 }

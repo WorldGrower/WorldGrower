@@ -68,4 +68,11 @@ public class Aphrodite implements Deity {
 	public ImageIds getStatueImageId() {
 		return ImageIds.STATUE_OF_APHRODITE;
 	}
+
+	@Override
+	public void worship(WorldObject performer, WorldObject target, int worshipCount, World world) {
+		if (worshipCount == 5) {
+			performer.getProperty(Constants.DIPLOMACY_SKILL).use(30);
+		}
+	}
 }

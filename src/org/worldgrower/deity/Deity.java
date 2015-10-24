@@ -35,6 +35,7 @@ public interface Deity extends Serializable {
 	public int getReasonIndex(WorldObject performer, World world);
 	public void onTurn(World world, CreatureTypeChangedListeners creatureTypeChangedListeners);
 	public ImageIds getStatueImageId();
+	public void worship(WorldObject performer, WorldObject target, int worshipCount, World world);
 	
 	public static final Demeter DEMETER = new Demeter();
 	public static final Hephaestus HEPHAESTUS = new Hephaestus();

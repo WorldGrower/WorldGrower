@@ -54,12 +54,13 @@ public class BuildShrineAction implements BuildAction {
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
 		int distanceBetweenPerformerAndTarget = Reach.evaluateTarget(performer, args, target, 1);
-		return CraftUtils.distance(performer, Constants.STONE, REQUIRED_STONE) + distanceBetweenPerformerAndTarget;
+		int deityDistance = (performer.getProperty(Constants.DEITY) != null ? 0 : 1);
+		return CraftUtils.distance(performer, Constants.STONE, REQUIRED_STONE) + distanceBetweenPerformerAndTarget + deityDistance;
 	}
 	
 	@Override
 	public String getRequirementsDescription() {
-		return CraftUtils.getRequirementsDescription(Constants.STONE, REQUIRED_STONE);
+		return CraftUtils.getRequirementsDescription(Constants.STONE, REQUIRED_STONE, "must worship a deity");
 	}
 
 	@Override

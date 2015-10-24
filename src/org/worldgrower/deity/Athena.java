@@ -73,4 +73,11 @@ public class Athena implements Deity {
 	public ImageIds getStatueImageId() {
 		return ImageIds.STATUE_OF_ATHENA;
 	}
+	
+	@Override
+	public void worship(WorldObject performer, WorldObject target, int worshipCount, World world) {
+		if (worshipCount == 5) {
+			performer.getProperty(Constants.CARPENTRY_SKILL).use(30);
+		}
+	}
 }

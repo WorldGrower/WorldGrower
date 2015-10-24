@@ -69,4 +69,11 @@ public class Hermes implements Deity {
 	public ImageIds getStatueImageId() {
 		return ImageIds.STATUE_OF_HERMES;
 	}
+	
+	@Override
+	public void worship(WorldObject performer, WorldObject target, int worshipCount, World world) {
+		if (worshipCount == 5) {
+			performer.getProperty(Constants.LIGHT_ARMOR_SKILL).use(30);
+		}
+	}
 }

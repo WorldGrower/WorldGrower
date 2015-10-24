@@ -73,4 +73,11 @@ public class Ares implements Deity {
 	public ImageIds getStatueImageId() {
 		return ImageIds.STATUE_OF_ARES;
 	}
+	
+	@Override
+	public void worship(WorldObject performer, WorldObject target, int worshipCount, World world) {
+		if (worshipCount == 5) {
+			performer.getProperty(Constants.HAND_TO_HAND_SKILL).use(30);
+		}
+	}
 }

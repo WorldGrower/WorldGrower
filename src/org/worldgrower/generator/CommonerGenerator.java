@@ -127,6 +127,7 @@ public class CommonerGenerator implements Serializable {
 		properties.put(Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		properties.put(Constants.ARENA_IDS, new IdList());
 		properties.put(Constants.ARENA_FIGHTER_IDS, new IdList());
+		properties.put(Constants.WORSHIP_COUNTER, 0);
 		
 		properties.put(Constants.DAMAGE, 8);
 		properties.put(Constants.ARMOR, 10);
@@ -178,6 +179,7 @@ public class CommonerGenerator implements Serializable {
 		properties.put(Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		properties.put(Constants.ARENA_IDS, new IdList());
 		properties.put(Constants.ARENA_FIGHTER_IDS, new IdList());
+		properties.put(Constants.WORSHIP_COUNTER, 0);
 		
 		properties.put(Constants.HEAD_EQUIPMENT, null);
 		properties.put(Constants.TORSO_EQUIPMENT, null);

@@ -28,12 +28,15 @@ public class WorshipDeityAction implements ManagedOperation {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		//TODO: implement
+		performer.increment(Constants.WORSHIP_COUNTER, 1);
+		
+		performer.getProperty(Constants.DEITY).worship(performer, target, performer.getProperty(Constants.WORSHIP_COUNTER), world);
 	}
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return Reach.evaluateTarget(performer, args, target, 1);
+		int deityDistance = (performer.getProperty(Constants.DEITY) == target.getProperty(Constants.DEITY) ? 0 : 1);
+		return Reach.evaluateTarget(performer, args, target, 1) + deityDistance;
 	}
 	
 	@Override

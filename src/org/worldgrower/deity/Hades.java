@@ -82,4 +82,11 @@ public class Hades implements Deity {
 	public ImageIds getStatueImageId() {
 		return ImageIds.STATUE_OF_HADES;
 	}
+	
+	@Override
+	public void worship(WorldObject performer, WorldObject target, int worshipCount, World world) {
+		if (worshipCount == 5) {
+			performer.getProperty(Constants.EVOCATION_SKILL).use(30);
+		}
+	}
 }

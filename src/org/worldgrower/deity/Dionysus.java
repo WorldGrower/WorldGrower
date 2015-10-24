@@ -90,4 +90,11 @@ public class Dionysus implements Deity {
 	public ImageIds getStatueImageId() {
 		return ImageIds.STATUE_OF_DIONYSUS;
 	}
+	
+	@Override
+	public void worship(WorldObject performer, WorldObject target, int worshipCount, World world) {
+		if (worshipCount == 5) {
+			performer.getProperty(Constants.ALCHEMY_SKILL).use(30);
+		}
+	}
 }

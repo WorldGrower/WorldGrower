@@ -62,6 +62,12 @@ public class Skill implements Serializable {
 		}
 	}
 	
+	public void use(int count) {
+		for(int i=0; i<count; i++) {
+			use();
+		}
+	}
+	
 	public int getLevel() {
 		return level;
 	}
