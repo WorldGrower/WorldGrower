@@ -1,3 +1,12 @@
+v0.1.6
+- moving npcs are now animated
+- buttons have a different gradient color when pressed
+  and it is shown when they have focus
+- npcs can handle not having enough place to build something
+- deities now have their own unique shrines
+- when npcs try to mint gold, they actually mint gold
+- a vampire cannot bite itself
+
 v0.1.5
 
 - npcs no longer build buildings outside of world bounds
