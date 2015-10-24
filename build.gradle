@@ -70,15 +70,7 @@ task release(dependsOn: ['jar', 'test']) << {
 	copy {
         from 'build/libs'
         into 'build/release'
-        rename { String fileName -> fileName.replace("-" + version, "")
-  }
-    }
-    
-    copy {
-        from 'scripts'
-        into 'build/release'
-        include '**/*.sh'
-        include '**/*.cmd'
+        rename { String fileName -> fileName.replace("-" + version, "") }
     }
 }
 
