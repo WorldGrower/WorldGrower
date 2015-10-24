@@ -28,7 +28,11 @@ public class ArenaGoal implements Goal {
 			return new StoneGoal().calculateGoal(performer, world);
 		} else {
 			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 10, 11, world);
-			return new OperationInfo(performer, target, new int[0], Actions.BUILD_ARENA_ACTION);
+			if (target != null) {
+				return new OperationInfo(performer, target, new int[0], Actions.BUILD_ARENA_ACTION);
+			} else {
+				return null;
+			}
 		}
 	}
 	

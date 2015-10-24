@@ -76,6 +76,7 @@ import org.worldgrower.deity.UTestDeityPropertyUtils;
 import org.worldgrower.generator.UTestCommonerGenerator;
 import org.worldgrower.generator.UTestCreatureGenerator;
 import org.worldgrower.goal.UTestAbstractScribeSpellsGoal;
+import org.worldgrower.goal.UTestArenaGoal;
 import org.worldgrower.goal.UTestArenaPropertyUtils;
 import org.worldgrower.goal.UTestArmorPropertyUtils;
 import org.worldgrower.goal.UTestBrawlPropertyUtils;
@@ -104,6 +105,7 @@ import org.worldgrower.goal.UTestFishingPoleGoal;
 import org.worldgrower.goal.UTestFoodGoal;
 import org.worldgrower.goal.UTestFurnitureGoal;
 import org.worldgrower.goal.UTestGatherFoodGoal;
+import org.worldgrower.goal.UTestGatherRemainsGoal;
 import org.worldgrower.goal.UTestGetHealedGoal;
 import org.worldgrower.goal.UTestGetPoisonCuredGoal;
 import org.worldgrower.goal.UTestGhoulGoal;
@@ -115,6 +117,7 @@ import org.worldgrower.goal.UTestHuntUndeadGoal;
 import org.worldgrower.goal.UTestImproveOrganizationGoal;
 import org.worldgrower.goal.UTestImproveRelationshipGoal;
 import org.worldgrower.goal.UTestInventoryPropertyUtils;
+import org.worldgrower.goal.UTestJailGoal;
 import org.worldgrower.goal.UTestKillVillagersGoal;
 import org.worldgrower.goal.UTestLearnSkillGoal;
 import org.worldgrower.goal.UTestLegalActionsPropertyUtils;
@@ -124,6 +127,7 @@ import org.worldgrower.goal.UTestLockUtils;
 import org.worldgrower.goal.UTestMarkFoodAsSellableGoal;
 import org.worldgrower.goal.UTestMateGoal;
 import org.worldgrower.goal.UTestMeleeDamagePropertyUtils;
+import org.worldgrower.goal.UTestMineGoldGoal;
 import org.worldgrower.goal.UTestMineResourceGoal;
 import org.worldgrower.goal.UTestMintGoldGoal;
 import org.worldgrower.goal.UTestOrganizationCandidateGoal;
@@ -135,6 +139,7 @@ import org.worldgrower.goal.UTestRacePropertyUtils;
 import org.worldgrower.goal.UTestRelationshipPropertyUtils;
 import org.worldgrower.goal.UTestRestGoal;
 import org.worldgrower.goal.UTestSacrificePeopleToDeityGoal;
+import org.worldgrower.goal.UTestScribeWizardSpellsGoal;
 import org.worldgrower.goal.UTestSexGoal;
 import org.worldgrower.goal.UTestShackGoal;
 import org.worldgrower.goal.UTestShrineToDeityGoal;
@@ -297,7 +302,12 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestCreateOrPlantWoodGoal.class,
 	UTestDeathReasonPropertyUtils.class,
 	UTestVampireBiteGoal.class,
-	UTestRestGoal.class
+	UTestRestGoal.class,
+	UTestArenaGoal.class,
+	UTestJailGoal.class,
+	UTestGatherRemainsGoal.class,
+	UTestMineGoldGoal.class,
+	UTestScribeWizardSpellsGoal.class
 })
 public class CompleteTestSuite {
 }

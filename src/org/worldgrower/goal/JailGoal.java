@@ -31,7 +31,11 @@ public class JailGoal implements Goal {
 			return new WoodGoal().calculateGoal(performer, world);
 		} else {
 			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 3, 3, world);
-			return new OperationInfo(performer, target, new int[0], Actions.BUILD_JAIL_ACTION);
+			if (target != null) {
+				return new OperationInfo(performer, target, new int[0], Actions.BUILD_JAIL_ACTION);
+			} else {
+				return null;
+			}
 		}
 	}
 
