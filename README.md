@@ -14,15 +14,15 @@ It focuses on skills, dialogue, economy and society.
 
 ###Binary installation using installer
 
-*   [Windows installer](https://github.com/WorldGrower/WorldGrower/releases/download/0.1.5/WorldGrower_windows_0_1_5.exe)
-*   [Linux installer](https://github.com/WorldGrower/WorldGrower/releases/download/0.1.5/WorldGrower_unix_0_1_5.sh) (requires java 8)
-*   [MacOSX installer](https://github.com/WorldGrower/WorldGrower/releases/download/0.1.5/WorldGrower_macos_0_1_5.dmg)
+*   [Windows installer](https://github.com/WorldGrower/WorldGrower/releases/download/0.1.6/WorldGrower_windows_0_1_6.exe)
+*   [Linux installer](https://github.com/WorldGrower/WorldGrower/releases/download/0.1.6/WorldGrower_unix_0_1_6.sh) (requires java 8)
+*   [MacOSX installer](https://github.com/WorldGrower/WorldGrower/releases/download/0.1.6/WorldGrower_macos_0_1_6.dmg)
 
 *These installers contain the game and will install the game when executed.*
 
 ###Binary installation of .zip file
 
-*   [Download .zip file](https://github.com/WorldGrower/WorldGrower/releases/download/0.1.5/worldgrower-0.1.5.zip)
+*   [Download .zip file](https://github.com/WorldGrower/WorldGrower/releases/download/0.1.6/worldgrower-0.1.6.zip)
 *   Extract the .zip file on the local filesystem
 *   Make sure [Java 8](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html) is installed.
 	If you're not sure, you can check your java version [here](https://www.java.com/verify).
