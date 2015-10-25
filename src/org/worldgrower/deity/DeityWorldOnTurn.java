@@ -14,6 +14,8 @@
  *******************************************************************************/
 package org.worldgrower.deity;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.List;
 
 import org.worldgrower.ManagedOperation;
@@ -27,7 +29,7 @@ import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.creaturetype.CreatureType;
 
 public class DeityWorldOnTurn implements WorldOnTurn {
-	private final transient WorldStateChangedListeners worldStateChangedListeners = new WorldStateChangedListeners();
+	private transient WorldStateChangedListeners worldStateChangedListeners = new WorldStateChangedListeners();
 	
 	@Override
 	public void onTurn(World world) {
@@ -60,5 +62,10 @@ public class DeityWorldOnTurn implements WorldOnTurn {
 	@Override
 	public void thrownOutOfGroup(WorldObject worldObject, WorldObject target, int[] args, ManagedOperation action, IdList oldGroup, IdList newGroup) {
 		worldStateChangedListeners.thrownOutOfGroup(worldObject, target, args, action, oldGroup, newGroup);
+	}
+	
+	private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+	    ois.defaultReadObject();
+	    worldStateChangedListeners = new WorldStateChangedListeners();
 	}
 }

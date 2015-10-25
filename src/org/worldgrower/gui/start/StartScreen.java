@@ -182,8 +182,9 @@ public class StartScreen {
 		world.save(fileToSave);
 	}
 
-	public void enableSaveButton(boolean enabled) {
-		btnSaveGame.setEnabled(enabled);
+	public void enableSave(boolean enabled, World world) {
+		this.btnSaveGame.setEnabled(enabled);
+		this.world = world;
 	}
 	
 	private static class StartScreenDialog extends AbstractDialog {

@@ -165,7 +165,7 @@ public class WorldPanel extends JPanel {
 
 	private void initializeKeyBindings(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster) {
 		getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "Cancel");
-        getActionMap().put("Cancel", new ShowStartScreenAction(imageInfoReader));
+        getActionMap().put("Cancel", new ShowStartScreenAction(imageInfoReader, world));
         
         getInputMap().put(KeyStroke.getKeyStroke("UP"), "up");
         getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD8, 0), "up");

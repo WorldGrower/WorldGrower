@@ -18,21 +18,24 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 
+import org.worldgrower.World;
 import org.worldgrower.gui.start.StartScreen;
 
 public class ShowStartScreenAction extends AbstractAction {
 
 	private final ImageInfoReader imageInfoReader;
+	private final World world;
 	
-	public ShowStartScreenAction(ImageInfoReader imageInfoReader) {
+	public ShowStartScreenAction(ImageInfoReader imageInfoReader, World world) {
 		super();
 		this.imageInfoReader = imageInfoReader;
+		this.world = world;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent actionEvent) {
 		StartScreen startScreen = new StartScreen(imageInfoReader);
-		startScreen.enableSaveButton(true);
+		startScreen.enableSave(true, world);
 		startScreen.setVisible(true);
 	}
 
