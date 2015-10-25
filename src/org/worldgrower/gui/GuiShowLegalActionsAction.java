@@ -35,8 +35,7 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.actions.legal.ActionLegalHandler;
-import org.worldgrower.actions.legal.DefaultActionLegalHandler;
+import org.worldgrower.actions.legal.LegalActions;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.LegalActionsPropertyUtils;
 import org.worldgrower.gui.util.IconUtils;
@@ -91,24 +90,24 @@ public class GuiShowLegalActionsAction extends AbstractAction {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				int[] args = LegalActionsPropertyUtils.legalActionsToArgs(worldModel.getLegalActions());
+				int[] args = worldModel.getArgs();
 				Main.executeAction(playerCharacter, Actions.SET_LEGAL_ACTIONS_ACTION, args, world, dungeonMaster, playerCharacter, parent);
 				dialog.dispose();
 			}
 		});
-		
 	}
 
 	private static class WorldModel extends AbstractTableModel {
-
-		private Map<ManagedOperation, ActionLegalHandler> legalActions;
+		private LegalActions legalActions;
+		private Map<ManagedOperation, Boolean> legalFlags;
 		private List<ManagedOperation> actions;
 		private boolean performerIsLeaderOfVillagers;
 		
 		public WorldModel(WorldObject playerCharacter, World world) {
 			super();
 			this.legalActions = LegalActionsPropertyUtils.getLegalActions(world);
-			this.actions = LegalActionsPropertyUtils.getLegalActionsList(world);
+			this.legalFlags = legalActions.getLegalFlags();
+			this.actions = legalActions.toList();
 			this.performerIsLeaderOfVillagers = GroupPropertyUtils.performerIsLeaderOfVillagers(playerCharacter, world);
 		}
 
@@ -119,7 +118,7 @@ public class GuiShowLegalActionsAction extends AbstractAction {
 
 		@Override
 		public int getRowCount() {
-			return legalActions.size();
+			return legalFlags.size();
 		}
 		
 		@Override
@@ -142,7 +141,7 @@ public class GuiShowLegalActionsAction extends AbstractAction {
 		
 		@Override
 		public void setValueAt(Object value, int row, int column) {
-			legalActions.put(actions.get(row), new DefaultActionLegalHandler((Boolean)value));
+			legalFlags.put(actions.get(row), (Boolean)value);
 		}
 
 		@Override
@@ -161,14 +160,14 @@ public class GuiShowLegalActionsAction extends AbstractAction {
 			if (columnIndex == 0) {
 				return actions.get(rowIndex).getSimpleDescription();
 			} else if (columnIndex == 1) {
-				return legalActions.get(actions.get(rowIndex));
+				return legalFlags.get(actions.get(rowIndex));
 			} else {
 				return null;
 			}
 		}
 
-		public Map<ManagedOperation, ActionLegalHandler> getLegalActions() {
-			return legalActions;
+		public int[] getArgs() {
+			return LegalActions.legalFlagsToArgs(legalFlags);
 		}
 	}
 	

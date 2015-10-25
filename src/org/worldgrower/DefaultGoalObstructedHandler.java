@@ -16,10 +16,9 @@ package org.worldgrower;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import org.worldgrower.actions.Actions;
-import org.worldgrower.actions.legal.ActionLegalHandler;
+import org.worldgrower.actions.legal.LegalActions;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.goal.ArenaPropertyUtils;
 import org.worldgrower.goal.BrawlPropertyUtils;
@@ -99,9 +98,8 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 	}
 
 	static boolean performerViolatedGroupRules(WorldObject performer, WorldObject actionTarget, int[] args, ManagedOperation managedOperation, World world) {
-		Map<ManagedOperation, ActionLegalHandler> legalActions = LegalActionsPropertyUtils.getLegalActions(world);
-		ActionLegalHandler actionLegalHandler = legalActions.get(managedOperation);
-		Boolean isLegal = actionLegalHandler != null ? actionLegalHandler.isActionLegal(performer, actionTarget, args) : null;
+		LegalActions legalActions = LegalActionsPropertyUtils.getLegalActions(world);
+		Boolean isLegal = legalActions.isLegalAction(performer, actionTarget, args, managedOperation);
 		if (isLegal != null) {
 			boolean violatedGroupRules = !isLegal.booleanValue();
 			if (violatedGroupRules) {

@@ -17,14 +17,22 @@ package org.worldgrower.actions.legal;
 
 public abstract class AbstractActionLegalHandler implements ActionLegalHandler {
 
-	private final boolean legalFlag;
+	private boolean legalFlag;
 
 	public AbstractActionLegalHandler(boolean legalFlag) {
 		this.legalFlag = legalFlag;
 	}
 
 	@Override
-	public boolean getLegalFlag() {
+	public final boolean getLegalFlag() {
 		return legalFlag;
 	}
+
+	@Override
+	public final ActionLegalHandler setLegalFlag(boolean legalFlag) {
+		this.legalFlag = legalFlag;
+		return this;
+	}
+	
+	
 }

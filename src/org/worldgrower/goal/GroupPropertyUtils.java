@@ -31,6 +31,8 @@ import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.legal.ActionLegalHandler;
 import org.worldgrower.actions.legal.DefaultActionLegalHandler;
+import org.worldgrower.actions.legal.LegalActions;
+import org.worldgrower.actions.legal.WorshipDeityLegalHandler;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdMap;
 import org.worldgrower.attribute.IdToIntegerMap;
@@ -204,7 +206,12 @@ public class GroupPropertyUtils {
 		for(ManagedOperation action : defaultIllegalActions) {
 			legalActions.put(action, new DefaultActionLegalHandler(Boolean.FALSE));
 		}
-		organization.setProperty(Constants.LEGAL_ACTIONS, legalActions);
+		
+		for(Deity deity : Deity.ALL_DEITIES) {
+			legalActions.put(Actions.WORSHIP_DEITY_ACTION, new WorshipDeityLegalHandler(Boolean.TRUE, deity));
+		}
+		
+		organization.setProperty(Constants.LEGAL_ACTIONS, new LegalActions(legalActions));
 	}
 
 	public static WorldObject getVillagersOrganization(World world) {

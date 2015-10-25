@@ -14,10 +14,13 @@
  *******************************************************************************/
 package org.worldgrower.actions.legal;
 
+import java.io.Serializable;
+
 import org.worldgrower.WorldObject;
 
-public interface ActionLegalHandler {
+public interface ActionLegalHandler extends Serializable {
 
 	public boolean isActionLegal(WorldObject performer, WorldObject target, int[] args);
 	public boolean getLegalFlag();
+	public ActionLegalHandler setLegalFlag(boolean legalFlag);
 }

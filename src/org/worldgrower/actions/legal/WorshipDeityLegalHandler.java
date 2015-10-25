@@ -12,17 +12,22 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.goal;
+package org.worldgrower.actions.legal;
 
-import org.worldgrower.Constants;
-import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.actions.legal.LegalActions;
+import org.worldgrower.deity.Deity;
 
-public class LegalActionsPropertyUtils {
+public class WorshipDeityLegalHandler extends AbstractActionLegalHandler {
+	
+	private final Deity deity;
+	
+	public WorshipDeityLegalHandler(boolean legalFlag, Deity deity) {
+		super(legalFlag);
+		this.deity = deity;
+	}
 
-	public static LegalActions getLegalActions(World world) {
-		WorldObject villagersOrganization = GroupPropertyUtils.getVillagersOrganization(world);
-		return villagersOrganization.getProperty(Constants.LEGAL_ACTIONS);
+	@Override
+	public boolean isActionLegal(WorldObject performer, WorldObject target, int[] args) {
+		return getLegalFlag();
 	}
 }

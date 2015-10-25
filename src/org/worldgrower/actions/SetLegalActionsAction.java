@@ -16,15 +16,13 @@ package org.worldgrower.actions;
 
 import java.io.ObjectStreamException;
 import java.util.List;
-import java.util.Map;
 
 import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.actions.legal.ActionLegalHandler;
-import org.worldgrower.actions.legal.DefaultActionLegalHandler;
+import org.worldgrower.actions.legal.LegalActions;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.LegalActionsPropertyUtils;
 import org.worldgrower.gui.ImageIds;
@@ -33,12 +31,11 @@ public class SetLegalActionsAction implements ManagedOperation {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		Map<ManagedOperation, ActionLegalHandler> legalActions = LegalActionsPropertyUtils.getLegalActions(world);
-		List<ManagedOperation> legalActionsList = LegalActionsPropertyUtils.getLegalActionsList(world);
+		LegalActions legalActions = LegalActionsPropertyUtils.getLegalActions(world);
+		List<ManagedOperation> legalActionsList = legalActions.toList();
 		for(int i=0; i<legalActionsList.size(); i++) {
 			ManagedOperation action = legalActionsList.get(i);
-			//TODO: not all legal actions are default actionlegalhandlers
-			legalActions.put(action, new DefaultActionLegalHandler(args[i] == 1));
+			legalActions.setLegalFlag(action, args[i] == 1);
 		}
 	}
 
