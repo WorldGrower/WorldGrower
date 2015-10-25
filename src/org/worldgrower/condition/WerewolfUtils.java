@@ -24,7 +24,7 @@ import org.worldgrower.gui.ImageIds;
 
 public class WerewolfUtils {
 
-	public static void makePersonIntoWerewolf(WorldObject worldObject, CreatureTypeChangedListeners creatureTypeChangedListeners) {
+	public static void makePersonIntoWerewolf(WorldObject worldObject, WorldStateChangedListeners creatureTypeChangedListeners) {
 		worldObject.setProperty(Constants.CREATURE_TYPE, CreatureType.WEREWOLF_CREATURE_TYPE);
 		worldObject.setProperty(Constants.CURSE, Curse.WEREWOLF_CURSE);
 		worldObject.setProperty(Constants.GROUP, new IdList());

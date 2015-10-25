@@ -49,8 +49,8 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.BuildAction;
 import org.worldgrower.attribute.LookDirection;
 import org.worldgrower.condition.Condition;
-import org.worldgrower.condition.CreatureTypeChangedListener;
-import org.worldgrower.condition.CreatureTypeChangedListeners;
+import org.worldgrower.condition.WorldStateChangedListener;
+import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.gui.conversation.GuiRespondToQuestion;
 import org.worldgrower.gui.conversation.GuiShowBrawlResult;
 import org.worldgrower.history.HistoryItem;
@@ -411,15 +411,15 @@ public class WorldPanel extends JPanel {
 		new GuiRespondToQuestion(playerCharacter, world, imageInfoReader);
 		new GuiShowReadAction(playerCharacter, world, (JComponent) this.getParent(), imageInfoReader);
 		new GuiShowBrawlResult(imageInfoReader, world);
-		world.getWorldOnTurn().addCreatureTypeChangedListener(createCreatureTypeChangedListener());
+		world.getWorldOnTurn().addWorldStateChangedListener(createCreatureTypeChangedListener());
 	}
 	
-	private CreatureTypeChangedListener createCreatureTypeChangedListener() {
+	private WorldStateChangedListener createCreatureTypeChangedListener() {
 		return new GuiShowEventHappenedAction(playerCharacter, world, (JComponent) this.getParent(), imageInfoReader);
 	}
 	
-	public CreatureTypeChangedListeners getCreatureTypeChangedListeners() {
-		CreatureTypeChangedListeners creatureTypeChangedListeners = new CreatureTypeChangedListeners();
+	public WorldStateChangedListeners getCreatureTypeChangedListeners() {
+		WorldStateChangedListeners creatureTypeChangedListeners = new WorldStateChangedListeners();
 		creatureTypeChangedListeners.addCreatureTypeChangedListener(createCreatureTypeChangedListener());
 		return creatureTypeChangedListeners;
 	}

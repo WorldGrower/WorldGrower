@@ -21,7 +21,7 @@ import java.util.List;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.condition.CreatureTypeChangedListeners;
+import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.condition.VampireUtils;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
@@ -65,7 +65,7 @@ public class Dionysus implements Deity {
 	}
 
 	@Override
-	public void onTurn(World world, CreatureTypeChangedListeners creatureTypeChangedListeners) {
+	public void onTurn(World world, WorldStateChangedListeners creatureTypeChangedListeners) {
 		int currentTurn = world.getCurrentTurn().getValue();
 		int totalNumberOfWorshippers = DeityPropertyUtils.getTotalNumberOfWorshippers(world);
 		

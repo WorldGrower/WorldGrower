@@ -14,7 +14,7 @@
  *******************************************************************************/
 package org.worldgrower;
 
-import org.worldgrower.condition.CreatureTypeChangedListener;
+import org.worldgrower.condition.WorldStateChangedListener;
 import org.worldgrower.creaturetype.CreatureType;
 
 public class DoNothingWorldOnTurn implements WorldOnTurn {
@@ -25,12 +25,17 @@ public class DoNothingWorldOnTurn implements WorldOnTurn {
 	}
 
 	@Override
-	public void addCreatureTypeChangedListener(CreatureTypeChangedListener listener) {
+	public void addWorldStateChangedListener(WorldStateChangedListener listener) {
 
 	}
 
 	@Override
 	public void creatureTypeChange(WorldObject worldObject, CreatureType newCreatureType, String description) {
+		
+	}
+
+	@Override
+	public void electionFinished(WorldObject winner, WorldObject organization) {
 		
 	}
 }

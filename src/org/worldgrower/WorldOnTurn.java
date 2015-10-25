@@ -16,7 +16,7 @@ package org.worldgrower;
 
 import java.io.Serializable;
 
-import org.worldgrower.condition.CreatureTypeChangedListener;
+import org.worldgrower.condition.WorldStateChangedListener;
 import org.worldgrower.creaturetype.CreatureType;
 
 /**
@@ -25,6 +25,7 @@ import org.worldgrower.creaturetype.CreatureType;
 public interface WorldOnTurn extends Serializable {
 
 	public void onTurn(World world);
-	public void addCreatureTypeChangedListener(CreatureTypeChangedListener listener);
+	public void addWorldStateChangedListener(WorldStateChangedListener listener);
 	public void creatureTypeChange(WorldObject worldObject, CreatureType newCreatureType, String description);
+	public void electionFinished(WorldObject winner, WorldObject organization);
 }

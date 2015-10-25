@@ -16,9 +16,7 @@ package org.worldgrower;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import org.worldgrower.actions.legal.ActionLegalHandler;
 import org.worldgrower.actions.legal.LegalActions;
 import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.attribute.BackgroundProperty;

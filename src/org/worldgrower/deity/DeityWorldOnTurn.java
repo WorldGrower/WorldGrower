@@ -17,12 +17,12 @@ package org.worldgrower.deity;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldOnTurn;
-import org.worldgrower.condition.CreatureTypeChangedListener;
-import org.worldgrower.condition.CreatureTypeChangedListeners;
+import org.worldgrower.condition.WorldStateChangedListener;
+import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.creaturetype.CreatureType;
 
 public class DeityWorldOnTurn implements WorldOnTurn {
-	private final transient CreatureTypeChangedListeners creatureTypeChangedListeners = new CreatureTypeChangedListeners();
+	private final transient WorldStateChangedListeners creatureTypeChangedListeners = new WorldStateChangedListeners();
 	
 	@Override
 	public void onTurn(World world) {
@@ -33,12 +33,16 @@ public class DeityWorldOnTurn implements WorldOnTurn {
 	}
 	
 	@Override
-	public void addCreatureTypeChangedListener(CreatureTypeChangedListener listener) {
+	public void addWorldStateChangedListener(WorldStateChangedListener listener) {
 		this.creatureTypeChangedListeners.addCreatureTypeChangedListener(listener);
 	}
 
 	@Override
 	public void creatureTypeChange(WorldObject worldObject, CreatureType newCreatureType, String description) {
 		creatureTypeChangedListeners.fireCreatureTypeChanged(worldObject, newCreatureType, description);
+	}
+
+	@Override
+	public void electionFinished(WorldObject winner, WorldObject organization) {
 	}
 }

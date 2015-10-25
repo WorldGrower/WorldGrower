@@ -22,7 +22,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.condition.CreatureTypeChangedListeners;
+import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
 import org.worldgrower.gui.ImageIds;
@@ -92,7 +92,7 @@ public class Demeter implements Deity {
 	}
 	
 	@Override
-	public void onTurn(World world, CreatureTypeChangedListeners creatureTypeChangedListeners) {
+	public void onTurn(World world, WorldStateChangedListeners creatureTypeChangedListeners) {
 	}
 	
 

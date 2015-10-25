@@ -70,7 +70,7 @@ public class Conditions implements Serializable {
 		return true;
 	}
 	
-	public void onTurn(WorldObject worldObject, World world, CreatureTypeChangedListeners creatureTypeChangedListeners) {
+	public void onTurn(WorldObject worldObject, World world, WorldStateChangedListeners creatureTypeChangedListeners) {
 		for(Entry<Condition, ConditionInfo> entry : conditions.entrySet()) {
 			int startTurns = entry.getValue().getStartTurn();
 			entry.getKey().onTurn(worldObject, world, startTurns, creatureTypeChangedListeners);

@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.worldgrower.condition.CreatureTypeChangedListener;
+import org.worldgrower.condition.WorldStateChangedListener;
 import org.worldgrower.creaturetype.CreatureType;
 
 public class WorldOnTurnImpl implements WorldOnTurn {
@@ -37,9 +37,9 @@ public class WorldOnTurnImpl implements WorldOnTurn {
 	}
 
 	@Override
-	public void addCreatureTypeChangedListener(CreatureTypeChangedListener listener) {
+	public void addWorldStateChangedListener(WorldStateChangedListener listener) {
 		for(WorldOnTurn worldOnTurn : worldOnTurnList) {
-			worldOnTurn.addCreatureTypeChangedListener(listener);
+			worldOnTurn.addWorldStateChangedListener(listener);
 		}
 	}
 
@@ -47,6 +47,13 @@ public class WorldOnTurnImpl implements WorldOnTurn {
 	public void creatureTypeChange(WorldObject worldObject, CreatureType newCreatureType, String description) {
 		for(WorldOnTurn worldOnTurn : worldOnTurnList) {
 			worldOnTurn.creatureTypeChange(worldObject, newCreatureType, description);
+		}
+	}
+
+	@Override
+	public void electionFinished(WorldObject winner, WorldObject organization) {
+		for(WorldOnTurn worldOnTurn : worldOnTurnList) {
+			worldOnTurn.electionFinished(winner, organization);
 		}
 	}
 }

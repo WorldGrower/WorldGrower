@@ -19,29 +19,42 @@ import org.worldgrower.OnTurn;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.VotingPropertyUtils;
+import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdMap;
-import org.worldgrower.condition.CreatureTypeChangedListeners;
+import org.worldgrower.condition.WorldStateChangedListeners;
 
 public class VotingBoxOnTurn implements OnTurn {
 
-
-	
 	@Override
-	public void onTurn(WorldObject worldObject, World world, CreatureTypeChangedListeners creatureTypeChangedListeners) {
+	public void onTurn(WorldObject worldObject, World world, WorldStateChangedListeners worldStateChangedListeners) {
 		
 		worldObject.increment(Constants.TURN_COUNTER, 1);
 		
 		if (VotingPropertyUtils.isVotingdone(worldObject)) {
-			IdMap votes = worldObject.getProperty(Constants.VOTES);
-			int newLeaderId = votes.findBestId(w -> true, world);
-			int organizationId = worldObject.getProperty(Constants.ORGANIZATION_ID);
-			WorldObject organization = world.findWorldObject(Constants.ID, organizationId);
-			if (newLeaderId != -1) {
-				organization.setProperty(Constants.ORGANIZATION_LEADER_ID, newLeaderId);
-			} else {
-				organization.setProperty(Constants.ORGANIZATION_LEADER_ID, null);
-			}
+			int newLeaderId = getLeaderId(worldObject, world);
+			WorldObject organization = setLeaderOfOrganization(worldObject, world, newLeaderId);
+			IdList candidates = worldObject.getProperty(Constants.CANDIDATES);
 			world.removeWorldObject(worldObject);
+			
+			WorldObject winner = world.findWorldObject(Constants.ID, newLeaderId);
+			worldStateChangedListeners.fireElectionFinished(winner, organization, candidates.copy());
 		}
+	}
+
+	private WorldObject setLeaderOfOrganization(WorldObject worldObject, World world, int newLeaderId) {
+		int organizationId = worldObject.getProperty(Constants.ORGANIZATION_ID);
+		WorldObject organization = world.findWorldObject(Constants.ID, organizationId);
+		if (newLeaderId != -1) {
+			organization.setProperty(Constants.ORGANIZATION_LEADER_ID, newLeaderId);
+		} else {
+			organization.setProperty(Constants.ORGANIZATION_LEADER_ID, null);
+		}
+		return organization;
+	}
+
+	private int getLeaderId(WorldObject worldObject, World world) {
+		IdMap votes = worldObject.getProperty(Constants.VOTES);
+		int newLeaderId = votes.findBestId(w -> true, world);
+		return newLeaderId;
 	}
 }

@@ -16,13 +16,15 @@ package org.worldgrower.gui;
 
 import javax.swing.JComponent;
 
+import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.condition.CreatureTypeChangedListener;
+import org.worldgrower.attribute.IdList;
+import org.worldgrower.condition.WorldStateChangedListener;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.gui.util.MessageDialogUtils;
 
-public class GuiShowEventHappenedAction implements CreatureTypeChangedListener {
+public class GuiShowEventHappenedAction implements WorldStateChangedListener {
 
 	private WorldObject playerCharacter;
 	private World world;
@@ -40,8 +42,23 @@ public class GuiShowEventHappenedAction implements CreatureTypeChangedListener {
 	@Override
 	public void creatureTypeChange(WorldObject worldObject, CreatureType newCreatureType, String description) {
 		if (worldObject == playerCharacter) {
-			MessageDialogUtils.showMessage(description, "Changing creature type ", worldObject, container, imageInfoReader);
+			MessageDialogUtils.showMessage(description, "Changing creature type", worldObject, container, imageInfoReader);
 		}
+	}
+
+	@Override
+	public void electionFinished(WorldObject winner, WorldObject organization, IdList candidates) {
+		int winnerId = winner.getProperty(Constants.ID);
+		int playerId = playerCharacter.getProperty(Constants.ID);
 		
+		if (candidates.contains(playerId)) {
+			final String description;
+			if (playerId == winnerId) {
+				description = "Congratulations, you are the new leader of the " + organization.getProperty(Constants.NAME);
+			} else {
+				description = winner.getProperty(Constants.NAME) + " is the new leader of the " + organization.getProperty(Constants.NAME);
+			}
+			MessageDialogUtils.showMessage(description, "Election finished", winner, container, imageInfoReader);
+		}
 	}
 }

@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.condition.CreatureTypeChangedListeners;
+import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
 import org.worldgrower.gui.ImageIds;
@@ -33,7 +33,7 @@ public interface Deity extends Serializable {
 	public String getExplanation();
 	public List<String> getReasons();
 	public int getReasonIndex(WorldObject performer, World world);
-	public void onTurn(World world, CreatureTypeChangedListeners creatureTypeChangedListeners);
+	public void onTurn(World world, WorldStateChangedListeners creatureTypeChangedListeners);
 	public ImageIds getStatueImageId();
 	public void worship(WorldObject performer, WorldObject target, int worshipCount, World world);
 	

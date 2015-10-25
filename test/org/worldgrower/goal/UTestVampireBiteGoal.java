@@ -23,7 +23,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.MockCommonerNameGenerator;
-import org.worldgrower.condition.CreatureTypeChangedListeners;
+import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.condition.VampireUtils;
 import org.worldgrower.generator.CommonerGenerator;
 import org.worldgrower.gui.CommonerImageIds;
@@ -52,7 +52,7 @@ public class UTestVampireBiteGoal {
 		world.addWorldObject(performer);
 		world.addWorldObject(target);
 		
-		VampireUtils.vampirizePerson(performer, new CreatureTypeChangedListeners());
+		VampireUtils.vampirizePerson(performer, new WorldStateChangedListeners());
 		
 		assertEquals(Actions.VAMPIRE_BITE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
@@ -62,7 +62,7 @@ public class UTestVampireBiteGoal {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
-		VampireUtils.vampirizePerson(performer, new CreatureTypeChangedListeners());
+		VampireUtils.vampirizePerson(performer, new WorldStateChangedListeners());
 		
 		assertEquals(false, goal.isGoalMet(performer, world));
 		

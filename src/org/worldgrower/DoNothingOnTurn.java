@@ -14,7 +14,7 @@
  *******************************************************************************/
 package org.worldgrower;
 
-import org.worldgrower.condition.CreatureTypeChangedListeners;
+import org.worldgrower.condition.WorldStateChangedListeners;
 
 /**
  * An OnTurn implementation that does nothing.
@@ -22,6 +22,6 @@ import org.worldgrower.condition.CreatureTypeChangedListeners;
 public class DoNothingOnTurn implements OnTurn {
 
 	@Override
-	public void onTurn(WorldObject worldObject, World world, CreatureTypeChangedListeners creatureTypeChangedListeners) {
+	public void onTurn(WorldObject worldObject, World world, WorldStateChangedListeners creatureTypeChangedListeners) {
 	}
 }

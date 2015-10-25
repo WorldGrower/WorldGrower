@@ -18,19 +18,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.IdList;
 import org.worldgrower.creaturetype.CreatureType;
 
-public class CreatureTypeChangedListeners {
+public class WorldStateChangedListeners {
 
-	private final List<CreatureTypeChangedListener> creatureTypeChangedListeners = new ArrayList<>();
+	private final List<WorldStateChangedListener> worldStateChangedListeners = new ArrayList<>();
 	
-	public void addCreatureTypeChangedListener(CreatureTypeChangedListener listener) {
-		creatureTypeChangedListeners.add(listener);
+	public void addCreatureTypeChangedListener(WorldStateChangedListener listener) {
+		worldStateChangedListeners.add(listener);
 	}
 	
 	public void fireCreatureTypeChanged(WorldObject worldObject, CreatureType newCreatureType, String description) {
-		for(CreatureTypeChangedListener creatureTypeChangedListener : creatureTypeChangedListeners) {
-			creatureTypeChangedListener.creatureTypeChange(worldObject, newCreatureType, description);
+		for(WorldStateChangedListener worldStateChangedListener : worldStateChangedListeners) {
+			worldStateChangedListener.creatureTypeChange(worldObject, newCreatureType, description);
+		}
+	}
+	
+	public void fireElectionFinished(WorldObject winner, WorldObject organization, IdList candidates) {
+		for(WorldStateChangedListener worldStateChangedListener : worldStateChangedListeners) {
+			worldStateChangedListener.electionFinished(winner, organization, candidates);
 		}
 	}
 }

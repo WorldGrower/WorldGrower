@@ -15,9 +15,11 @@
 package org.worldgrower.condition;
 
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.IdList;
 import org.worldgrower.creaturetype.CreatureType;
 
-public interface CreatureTypeChangedListener {
+public interface WorldStateChangedListener {
 
 	public void creatureTypeChange(WorldObject worldObject, CreatureType newCreatureType, String description);
+	public void electionFinished(WorldObject winner, WorldObject organization, IdList candidates);
 }

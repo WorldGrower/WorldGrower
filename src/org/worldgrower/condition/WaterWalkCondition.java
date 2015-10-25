@@ -36,7 +36,7 @@ public class WaterWalkCondition implements Condition {
 	}
 
 	@Override
-	public void onTurn(WorldObject worldObject, World world, int startTurn, CreatureTypeChangedListeners creatureTypeChangedListeners) {
+	public void onTurn(WorldObject worldObject, World world, int startTurn, WorldStateChangedListeners creatureTypeChangedListeners) {
 	}
 	
 	@Override

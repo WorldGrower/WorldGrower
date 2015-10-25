@@ -20,7 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.worldgrower.actions.Actions;
-import org.worldgrower.condition.CreatureTypeChangedListeners;
+import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
 import org.worldgrower.history.HistoryItem;
@@ -34,7 +34,7 @@ public class DungeonMaster implements Serializable {
 	private final GoalCalculator goalCalculator = new GoalCalculator();
 	private TaskCalculator taskCalculator = new TaskCalculatorImpl();
 	
-	public void runWorld(World world, CreatureTypeChangedListeners creatureTypeChangedListeners) {
+	public void runWorld(World world, WorldStateChangedListeners creatureTypeChangedListeners) {
 		List<WorldObject> worldObjects = new ArrayList<>(world.getWorldObjects());
 		
 		for(WorldObject worldObject : worldObjects) {

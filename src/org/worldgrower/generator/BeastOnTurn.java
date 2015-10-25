@@ -18,7 +18,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.OnTurn;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.condition.CreatureTypeChangedListeners;
+import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.generator.WorldGenerator.AddWorldObjectFunction;
 import org.worldgrower.goal.GoalUtils;
 
@@ -31,7 +31,7 @@ public class BeastOnTurn implements OnTurn {
 	}
 	
 	@Override
-	public void onTurn(WorldObject worldObject, World world, CreatureTypeChangedListeners creatureTypeChangedListeners) {
+	public void onTurn(WorldObject worldObject, World world, WorldStateChangedListeners creatureTypeChangedListeners) {
 		
 		worldObject.increment(Constants.FOOD, -1);
 		worldObject.increment(Constants.ENERGY, -1);

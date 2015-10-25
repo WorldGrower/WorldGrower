@@ -23,7 +23,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.MockCommonerNameGenerator;
-import org.worldgrower.condition.CreatureTypeChangedListeners;
+import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.condition.VampireUtils;
 import org.worldgrower.generator.CommonerGenerator;
 import org.worldgrower.gui.CommonerImageIds;
@@ -48,7 +48,7 @@ public class UTestHuntUndeadGoal {
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
 		WorldObject target = createCommoner(world, organization);
-		VampireUtils.vampirizePerson(target, new CreatureTypeChangedListeners());
+		VampireUtils.vampirizePerson(target, new WorldStateChangedListeners());
 		
 		assertEquals(Actions.MELEE_ATTACK_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
@@ -62,7 +62,7 @@ public class UTestHuntUndeadGoal {
 		assertEquals(true, goal.isGoalMet(performer, world));
 
 		WorldObject target = createCommoner(world, organization);
-		VampireUtils.vampirizePerson(target, new CreatureTypeChangedListeners());
+		VampireUtils.vampirizePerson(target, new WorldStateChangedListeners());
 		assertEquals(false, goal.isGoalMet(performer, world));
 	}
 

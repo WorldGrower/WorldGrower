@@ -21,7 +21,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldOnTurn;
 import org.worldgrower.condition.Condition;
-import org.worldgrower.condition.CreatureTypeChangedListener;
+import org.worldgrower.condition.WorldStateChangedListener;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.goal.ArenaPropertyUtils;
 
@@ -47,10 +47,14 @@ public class ArenaFightOnTurn implements WorldOnTurn {
 	}
 
 	@Override
-	public void addCreatureTypeChangedListener(CreatureTypeChangedListener listener) {
+	public void addWorldStateChangedListener(WorldStateChangedListener listener) {
 	}
 
 	@Override
 	public void creatureTypeChange(WorldObject worldObject, CreatureType newCreatureType, String description) {
+	}
+
+	@Override
+	public void electionFinished(WorldObject winner, WorldObject organization) {
 	}
 }
