@@ -78,6 +78,10 @@ public class LegalActions implements Serializable {
 		return isLegal;
 	}
 
+	public boolean getLegalFlag(LegalAction legalAction) {
+		return legalActions.get(legalAction);
+	}
+	
 	public void setLegalFlag(LegalAction legalAction, boolean legalFlag) {
 		legalActions.put(legalAction, legalFlag);
 		

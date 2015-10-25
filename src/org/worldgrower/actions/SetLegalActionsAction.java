@@ -15,6 +15,7 @@
 package org.worldgrower.actions;
 
 import java.io.ObjectStreamException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.worldgrower.ArgumentRange;
@@ -34,10 +35,19 @@ public class SetLegalActionsAction implements ManagedOperation {
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		LegalActions legalActions = LegalActionsPropertyUtils.getLegalActions(world);
 		List<LegalAction> legalActionsList = legalActions.toList();
+		List<LegalAction> changedLegalActions = new ArrayList<>();
 		for(int i=0; i<legalActionsList.size(); i++) {
 			LegalAction legalAction = legalActionsList.get(i);
-			legalActions.setLegalFlag(legalAction, args[i] == 1);
+			boolean oldLegalFlag = legalActions.getLegalFlag(legalAction);
+			boolean newLegalFlag = args[i] == 1;
+			legalActions.setLegalFlag(legalAction, newLegalFlag);
+			
+			if (oldLegalFlag != newLegalFlag) {
+				changedLegalActions.add(legalAction);
+			}
 		}
+		
+		world.getWorldOnTurn().legalActionsChanged(changedLegalActions, performer);
 	}
 
 	@Override

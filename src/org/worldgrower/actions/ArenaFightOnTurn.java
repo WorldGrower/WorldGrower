@@ -20,6 +20,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldOnTurn;
+import org.worldgrower.actions.legal.LegalAction;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.WorldStateChangedListener;
 import org.worldgrower.creaturetype.CreatureType;
@@ -56,5 +57,9 @@ public class ArenaFightOnTurn implements WorldOnTurn {
 
 	@Override
 	public void electionFinished(WorldObject winner, WorldObject organization) {
+	}
+
+	@Override
+	public void legalActionsChanged(List<LegalAction> changedLegalActions, WorldObject villagerLeader) {
 	}
 }

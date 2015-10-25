@@ -14,11 +14,14 @@
  *******************************************************************************/
 package org.worldgrower.gui;
 
+import java.util.List;
+
 import javax.swing.JComponent;
 
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.legal.LegalAction;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.condition.WorldStateChangedListener;
 import org.worldgrower.creaturetype.CreatureType;
@@ -59,6 +62,18 @@ public class GuiShowEventHappenedAction implements WorldStateChangedListener {
 				description = winner.getProperty(Constants.NAME) + " is the new leader of the " + organization.getProperty(Constants.NAME);
 			}
 			MessageDialogUtils.showMessage(description, "Election finished", winner, container, imageInfoReader);
+		}
+	}
+
+	@Override
+	public void legalActionsChanged(List<LegalAction> changedLegalActions, WorldObject villagerLeader) {
+		if (!villagerLeader.equals(playerCharacter)) {
+			String description = villagerLeader.getProperty(Constants.NAME) + " changed the following laws:<br/>";
+			for(LegalAction legalAction : changedLegalActions) {
+				description += legalAction.getDescription() + "<br/>";
+			}
+			
+			MessageDialogUtils.showMessage(description, "Legal Actions changed", villagerLeader, container, imageInfoReader);
 		}
 	}
 }

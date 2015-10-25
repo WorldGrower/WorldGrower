@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.legal.LegalAction;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.creaturetype.CreatureType;
 
@@ -38,6 +39,12 @@ public class WorldStateChangedListeners {
 	public void fireElectionFinished(WorldObject winner, WorldObject organization, IdList candidates) {
 		for(WorldStateChangedListener worldStateChangedListener : worldStateChangedListeners) {
 			worldStateChangedListener.electionFinished(winner, organization, candidates);
+		}
+	}
+	
+	public void legalActionsChanged(List<LegalAction> changedLegalActions, WorldObject villagerLeader) {
+		for(WorldStateChangedListener worldStateChangedListener : worldStateChangedListeners) {
+			worldStateChangedListener.legalActionsChanged(changedLegalActions, villagerLeader);
 		}
 	}
 }

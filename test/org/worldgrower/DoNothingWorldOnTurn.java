@@ -14,6 +14,9 @@
  *******************************************************************************/
 package org.worldgrower;
 
+import java.util.List;
+
+import org.worldgrower.actions.legal.LegalAction;
 import org.worldgrower.condition.WorldStateChangedListener;
 import org.worldgrower.creaturetype.CreatureType;
 
@@ -36,6 +39,11 @@ public class DoNothingWorldOnTurn implements WorldOnTurn {
 
 	@Override
 	public void electionFinished(WorldObject winner, WorldObject organization) {
+		
+	}
+
+	@Override
+	public void legalActionsChanged(List<LegalAction> changedLegalActions, WorldObject villagerLeader) {
 		
 	}
 }
