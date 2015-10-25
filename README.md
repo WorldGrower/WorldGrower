@@ -27,8 +27,6 @@ It focuses on skills, dialogue, economy and society.
 *   Make sure [Java 8](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html) is installed.
 	If you're not sure, you can check your java version [here](https://www.java.com/verify).
 *	The easiest way to start WorldGrower is to run the .jar file by double-clicking it or to open it with java 8.
-*   To run under Windows, use worldgrower.cmd.
-*   To run under Linux, use worldgrower.sh.
 
 ###Common problems with binary installation
 
