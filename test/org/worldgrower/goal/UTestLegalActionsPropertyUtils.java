@@ -21,32 +21,31 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
-import org.worldgrower.ManagedOperation;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.actions.legal.ActionLegalHandler;
 import org.worldgrower.actions.legal.DefaultActionLegalHandler;
+import org.worldgrower.actions.legal.LegalAction;
 import org.worldgrower.actions.legal.LegalActions;
 
 public class UTestLegalActionsPropertyUtils {
 
 	@Test
 	public void testToList() {
-		Map<ManagedOperation, ActionLegalHandler> legalActionsMap = new HashMap<>();
-		legalActionsMap.put(Actions.MELEE_ATTACK_ACTION, new DefaultActionLegalHandler(Boolean.TRUE));
-		legalActionsMap.put(Actions.FIRE_BOLT_ATTACK_ACTION, new DefaultActionLegalHandler(Boolean.FALSE));
+		Map<LegalAction, Boolean> legalActionsMap = new HashMap<>();
+		legalActionsMap.put(new LegalAction(Actions.MELEE_ATTACK_ACTION, new DefaultActionLegalHandler()), Boolean.TRUE);
+		legalActionsMap.put(new LegalAction(Actions.FIRE_BOLT_ATTACK_ACTION, new DefaultActionLegalHandler()), Boolean.FALSE);
 		LegalActions legalActions = new LegalActions(legalActionsMap);
-		List<ManagedOperation> legalActionsList = legalActions.toList();
+		List<LegalAction> legalActionsList = legalActions.toList();
 		
 		assertEquals(2, legalActionsList.size());
-		assertEquals(Actions.FIRE_BOLT_ATTACK_ACTION, legalActionsList.get(0));
-		assertEquals(Actions.MELEE_ATTACK_ACTION, legalActionsList.get(1));
+		assertEquals(Actions.FIRE_BOLT_ATTACK_ACTION, legalActionsList.get(0).getAction());
+		assertEquals(Actions.MELEE_ATTACK_ACTION, legalActionsList.get(1).getAction());
 	}
 	
 	@Test
 	public void testLegalActionsToArgs() {
-		Map<ManagedOperation, Boolean> legalFlagsMap = new HashMap<>();
-		legalFlagsMap.put(Actions.MELEE_ATTACK_ACTION, Boolean.TRUE);
-		legalFlagsMap.put(Actions.FIRE_BOLT_ATTACK_ACTION, Boolean.FALSE);
+		Map<LegalAction, Boolean> legalFlagsMap = new HashMap<>();
+		legalFlagsMap.put(new LegalAction(Actions.MELEE_ATTACK_ACTION, new DefaultActionLegalHandler()), Boolean.TRUE);
+		legalFlagsMap.put(new LegalAction(Actions.FIRE_BOLT_ATTACK_ACTION, new DefaultActionLegalHandler()), Boolean.FALSE);
 		int[] legalActionsToArgs = LegalActions.legalFlagsToArgs(legalFlagsMap);
 		assertEquals(2, legalActionsToArgs.length);
 		assertEquals(0, legalActionsToArgs[0]);

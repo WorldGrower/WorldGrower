@@ -42,11 +42,15 @@ public class DrinkWaterGoal implements Goal {
 					return new WoodGoal().calculateGoal(performer, world);
 				} else {
 					WorldObject targetLocation = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 2, 2, world);
-					List<WorldObject> existingWells = getExistingWellsNearTargetLocation(performer, targetLocation, world);
-					if (existingWells.size() > 0) {
-						return new OperationInfo(performer, existingWells.get(0), new int[0], Actions.DRINK_ACTION);
+					if (targetLocation != null) {
+						List<WorldObject> existingWells = getExistingWellsNearTargetLocation(performer, targetLocation, world);
+						if (existingWells.size() > 0) {
+							return new OperationInfo(performer, existingWells.get(0), new int[0], Actions.DRINK_ACTION);
+						} else {
+							return new OperationInfo(performer, targetLocation, new int[0], Actions.BUILD_WELL_ACTION);
+						}
 					} else {
-						return new OperationInfo(performer, targetLocation, new int[0], Actions.BUILD_WELL_ACTION);
+						return null;
 					}
 				}
 			}

@@ -29,8 +29,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.actions.legal.ActionLegalHandler;
 import org.worldgrower.actions.legal.DefaultActionLegalHandler;
+import org.worldgrower.actions.legal.LegalAction;
 import org.worldgrower.actions.legal.LegalActions;
 import org.worldgrower.actions.legal.WorshipDeityLegalHandler;
 import org.worldgrower.attribute.IdList;
@@ -198,17 +198,19 @@ public class GroupPropertyUtils {
 	}
 
 	private static void setLegalActions(WorldObject organization) {
-		HashMap<ManagedOperation, ActionLegalHandler> legalActions = new HashMap<>();
+		Map<LegalAction, Boolean> legalActions = new HashMap<>();
 		
 		List<ManagedOperation> defaultIllegalActions = new ArrayList<>();
 		defaultIllegalActions.addAll(Actions.ALL_ACTIONS.stream().filter(a -> DefaultGoalObstructedHandler.performerAttacked(a)).collect(Collectors.toList()));
 		defaultIllegalActions.addAll(DefaultGoalObstructedHandler.getNonAttackingIllegalActions());
 		for(ManagedOperation action : defaultIllegalActions) {
-			legalActions.put(action, new DefaultActionLegalHandler(Boolean.FALSE));
+			LegalAction legalAction = new LegalAction(action, new DefaultActionLegalHandler());
+			legalActions.put(legalAction, Boolean.FALSE);
 		}
 		
 		for(Deity deity : Deity.ALL_DEITIES) {
-			legalActions.put(Actions.WORSHIP_DEITY_ACTION, new WorshipDeityLegalHandler(Boolean.TRUE, deity));
+			LegalAction legalAction = new LegalAction(Actions.WORSHIP_DEITY_ACTION, new WorshipDeityLegalHandler(deity));
+			legalActions.put(legalAction, Boolean.TRUE);
 		}
 		
 		organization.setProperty(Constants.LEGAL_ACTIONS, new LegalActions(legalActions));

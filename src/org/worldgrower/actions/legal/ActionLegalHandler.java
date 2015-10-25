@@ -20,7 +20,6 @@ import org.worldgrower.WorldObject;
 
 public interface ActionLegalHandler extends Serializable {
 
-	public boolean isActionLegal(WorldObject performer, WorldObject target, int[] args);
-	public boolean getLegalFlag();
-	public ActionLegalHandler setLegalFlag(boolean legalFlag);
+	public boolean isApplicable(WorldObject performer, WorldObject target, int[] args);
+	public String getSimpleDescription();
 }

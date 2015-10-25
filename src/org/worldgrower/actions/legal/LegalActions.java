@@ -16,61 +16,74 @@ package org.worldgrower.actions.legal;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.WorldObject;
-import org.worldgrower.actions.Actions;
 
 public class LegalActions implements Serializable {
 
-	private final Map<ManagedOperation, ActionLegalHandler> legalActions = new HashMap<>();
+	private final Map<LegalAction, Boolean> legalActions = new HashMap<>();
 	
-	public LegalActions(Map<ManagedOperation, ActionLegalHandler> legalActions) {
+	public LegalActions(Map<LegalAction, Boolean> legalActions) {
 		this.legalActions.putAll(legalActions);
 	}
 
-	public List<ManagedOperation> toList() {
-		List<ManagedOperation> actions = new ArrayList<>(legalActions.keySet());
-		Actions.sortActionsByDescription(actions);
+	public List<LegalAction> toList() {
+		List<LegalAction> actions = new ArrayList<>(legalActions.keySet());
+		sortLegalActionsByDescription(actions);
 		return actions;
 	}
 	
-	private static List<ManagedOperation> toList(Map<ManagedOperation, Boolean> legalFlags) {
-		List<ManagedOperation> actions = new ArrayList<>(legalFlags.keySet());
-		Actions.sortActionsByDescription(actions);
+	private static void sortLegalActionsByDescription(List<LegalAction> actions) {
+		Collections.sort(actions, new LegalActionComparator());
+	}
+	
+	private static class LegalActionComparator implements Comparator<LegalAction> {
+
+		@Override
+		public int compare(LegalAction o1, LegalAction o2) {
+			return o1.getAction().getSimpleDescription().compareTo(o2.getAction().getSimpleDescription());
+		}
+	}
+	
+	private static List<LegalAction> toList(Map<LegalAction, Boolean> legalFlags) {
+		List<LegalAction> actions = new ArrayList<>(legalFlags.keySet());
+		sortLegalActionsByDescription(actions);
 		return actions;
 	}
 	
-	public static int[] legalFlagsToArgs(Map<ManagedOperation, Boolean> legalFlags) {
-		List<ManagedOperation> actions = toList(legalFlags);
+	public static int[] legalFlagsToArgs(Map<LegalAction, Boolean> legalFlags) {
+		List<LegalAction> actions = toList(legalFlags);
 		int[] args = new int[actions.size()];
 		for(int i=0; i<actions.size(); i++) {
-			ManagedOperation action = actions.get(i);
-			args[i] = legalFlags.get(action) ? 1 : 0;
+			LegalAction legalAction = actions.get(i);
+			args[i] = legalFlags.get(legalAction) ? 1 : 0;
 		}
 		return args;
 	}
 	
 	public Boolean isLegalAction(WorldObject performer, WorldObject actionTarget, int[] args, ManagedOperation managedOperation) {
-		ActionLegalHandler actionLegalHandler = legalActions.get(managedOperation);
-		Boolean isLegal = actionLegalHandler != null ? actionLegalHandler.isActionLegal(performer, actionTarget, args) : null;
+		LegalAction actionLegalHandler = null;
+		for(LegalAction legalAction : legalActions.keySet()) {
+			if (legalAction.getAction() == managedOperation && legalAction.getActionLegalHandler().isApplicable(performer, actionTarget, args)) {
+				actionLegalHandler = legalAction;
+			}
+		}
+		Boolean isLegal = actionLegalHandler != null ? legalActions.get(actionLegalHandler) : Boolean.TRUE;
 		return isLegal;
 	}
 
-	public void setLegalFlag(ManagedOperation action, boolean legalFlag) {
-		legalActions.put(action, legalActions.get(action).setLegalFlag(legalFlag));
+	public void setLegalFlag(LegalAction legalAction, boolean legalFlag) {
+		legalActions.put(legalAction, legalFlag);
 		
 	}
 
-	public Map<ManagedOperation, Boolean> getLegalFlags() {
-		Map<ManagedOperation, Boolean> legalFlags = new HashMap<>();
-		for(Entry<ManagedOperation, ActionLegalHandler> entry : legalActions.entrySet()) {
-			legalFlags.put(entry.getKey(), entry.getValue().getLegalFlag());
-		}
-		return legalFlags;
+	public Map<LegalAction, Boolean> getLegalActions() {
+		return new HashMap<>(legalActions);
 	}
 }

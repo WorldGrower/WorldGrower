@@ -14,20 +14,25 @@
  *******************************************************************************/
 package org.worldgrower.actions.legal;
 
+import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
 import org.worldgrower.deity.Deity;
 
-public class WorshipDeityLegalHandler extends AbstractActionLegalHandler {
+public class WorshipDeityLegalHandler implements ActionLegalHandler {
 	
 	private final Deity deity;
 	
-	public WorshipDeityLegalHandler(boolean legalFlag, Deity deity) {
-		super(legalFlag);
+	public WorshipDeityLegalHandler(Deity deity) {
 		this.deity = deity;
 	}
 
 	@Override
-	public boolean isActionLegal(WorldObject performer, WorldObject target, int[] args) {
-		return getLegalFlag();
+	public boolean isApplicable(WorldObject performer, WorldObject target, int[] args) {
+		return performer.getProperty(Constants.DEITY) == deity;
+	}
+
+	@Override
+	public String getSimpleDescription() {
+		return deity.getName();
 	}
 }

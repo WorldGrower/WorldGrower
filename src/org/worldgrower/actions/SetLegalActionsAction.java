@@ -22,6 +22,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.legal.LegalAction;
 import org.worldgrower.actions.legal.LegalActions;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.LegalActionsPropertyUtils;
@@ -32,10 +33,10 @@ public class SetLegalActionsAction implements ManagedOperation {
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		LegalActions legalActions = LegalActionsPropertyUtils.getLegalActions(world);
-		List<ManagedOperation> legalActionsList = legalActions.toList();
+		List<LegalAction> legalActionsList = legalActions.toList();
 		for(int i=0; i<legalActionsList.size(); i++) {
-			ManagedOperation action = legalActionsList.get(i);
-			legalActions.setLegalFlag(action, args[i] == 1);
+			LegalAction legalAction = legalActionsList.get(i);
+			legalActions.setLegalFlag(legalAction, args[i] == 1);
 		}
 	}
 

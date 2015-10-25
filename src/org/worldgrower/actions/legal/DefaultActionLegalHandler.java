@@ -16,14 +16,15 @@ package org.worldgrower.actions.legal;
 
 import org.worldgrower.WorldObject;
 
-public class DefaultActionLegalHandler extends AbstractActionLegalHandler {
+public class DefaultActionLegalHandler implements ActionLegalHandler {
 	
-	public DefaultActionLegalHandler(boolean legalFlag) {
-		super(legalFlag);
+	@Override
+	public boolean isApplicable(WorldObject performer, WorldObject target, int[] args) {
+		return true;
 	}
 
 	@Override
-	public boolean isActionLegal(WorldObject performer, WorldObject target, int[] args) {
-		return getLegalFlag();
+	public String getSimpleDescription() {
+		return "";
 	}
 }
