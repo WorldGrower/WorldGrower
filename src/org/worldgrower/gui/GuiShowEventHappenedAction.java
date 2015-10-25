@@ -19,6 +19,7 @@ import java.util.List;
 import javax.swing.JComponent;
 
 import org.worldgrower.Constants;
+import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.legal.LegalAction;
@@ -68,12 +69,26 @@ public class GuiShowEventHappenedAction implements WorldStateChangedListener {
 	@Override
 	public void legalActionsChanged(List<LegalAction> changedLegalActions, WorldObject villagerLeader) {
 		if (!villagerLeader.equals(playerCharacter)) {
-			String description = villagerLeader.getProperty(Constants.NAME) + " changed the following laws:<br/>";
+			String description = villagerLeader.getProperty(Constants.NAME) + " changed the following laws:\n";
 			for(LegalAction legalAction : changedLegalActions) {
-				description += legalAction.getDescription() + "<br/>";
+				description += legalAction.getDescription() + "\n";
 			}
 			
 			MessageDialogUtils.showMessage(description, "Legal Actions changed", villagerLeader, container, imageInfoReader);
+		}
+	}
+
+	@Override
+	public void thrownOutOfGroup(WorldObject worldObject, WorldObject target, int[] args, ManagedOperation action, IdList oldGroup, IdList newGroup) {
+		if (worldObject.equals(playerCharacter)) {
+			String description = "You have been thrown out of the following groups:\n";
+			List<Integer> thrownOutGroups = oldGroup.getIdsNotPresentInOther(newGroup);
+			for(int groupId : thrownOutGroups) {
+				WorldObject organization = world.findWorldObject(Constants.ID, groupId);
+				description += organization.getProperty(Constants.NAME) + "\n";
+			}
+			
+			MessageDialogUtils.showMessage(description, "Thrown out of group(s)", playerCharacter, container, imageInfoReader);
 		}
 	}
 }

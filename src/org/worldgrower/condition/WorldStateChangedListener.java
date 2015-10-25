@@ -16,6 +16,7 @@ package org.worldgrower.condition;
 
 import java.util.List;
 
+import org.worldgrower.ManagedOperation;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.legal.LegalAction;
 import org.worldgrower.attribute.IdList;
@@ -26,4 +27,5 @@ public interface WorldStateChangedListener {
 	public void creatureTypeChange(WorldObject worldObject, CreatureType newCreatureType, String description);
 	public void electionFinished(WorldObject winner, WorldObject organization, IdList candidates);
 	public void legalActionsChanged(List<LegalAction> changedLegalActions, WorldObject villagerLeader);
+	public void thrownOutOfGroup(WorldObject worldObject, WorldObject target, int[] args, ManagedOperation action, IdList oldGroup, IdList newGroup);
 }

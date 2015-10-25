@@ -34,7 +34,7 @@ public class DungeonMaster implements Serializable {
 	private final GoalCalculator goalCalculator = new GoalCalculator();
 	private TaskCalculator taskCalculator = new TaskCalculatorImpl();
 	
-	public void runWorld(World world, WorldStateChangedListeners creatureTypeChangedListeners) {
+	public void runWorld(World world, WorldStateChangedListeners worldStateChangedListeners) {
 		List<WorldObject> worldObjects = new ArrayList<>(world.getWorldObjects());
 		
 		for(WorldObject worldObject : worldObjects) {
@@ -42,7 +42,7 @@ public class DungeonMaster implements Serializable {
 				if (worldObject.hasIntelligence() && worldObject.isControlledByAI()) {
 					runWorldObject(worldObject, world);
 				}			
-				worldObject.onTurn(world, creatureTypeChangedListeners);
+				worldObject.onTurn(world, worldStateChangedListeners);
 			}
 		}
 		world.nextTurn();

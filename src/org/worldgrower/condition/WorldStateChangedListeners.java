@@ -17,6 +17,7 @@ package org.worldgrower.condition;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.worldgrower.ManagedOperation;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.legal.LegalAction;
 import org.worldgrower.attribute.IdList;
@@ -26,7 +27,7 @@ public class WorldStateChangedListeners {
 
 	private final List<WorldStateChangedListener> worldStateChangedListeners = new ArrayList<>();
 	
-	public void addCreatureTypeChangedListener(WorldStateChangedListener listener) {
+	public void addWorldStateChangedListener(WorldStateChangedListener listener) {
 		worldStateChangedListeners.add(listener);
 	}
 	
@@ -45,6 +46,12 @@ public class WorldStateChangedListeners {
 	public void legalActionsChanged(List<LegalAction> changedLegalActions, WorldObject villagerLeader) {
 		for(WorldStateChangedListener worldStateChangedListener : worldStateChangedListeners) {
 			worldStateChangedListener.legalActionsChanged(changedLegalActions, villagerLeader);
+		}
+	}
+	
+	public void thrownOutOfGroup(WorldObject worldObject, WorldObject target, int[] args, ManagedOperation action, IdList oldGroup, IdList newGroup) {
+		for(WorldStateChangedListener worldStateChangedListener : worldStateChangedListeners) {
+			worldStateChangedListener.thrownOutOfGroup(worldObject, target, args, action, oldGroup, newGroup);
 		}
 	}
 }

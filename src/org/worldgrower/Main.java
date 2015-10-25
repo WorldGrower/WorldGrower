@@ -190,7 +190,7 @@ public class Main {
     public static void executeAction(WorldObject playerCharacter, ManagedOperation action, int[] args, World world, DungeonMaster dungeonMaster, WorldObject target, WorldPanel worldPanel) {
     	if (canActionExecute(playerCharacter, action, args, world, target)) {
     		dungeonMaster.executeAction(action, playerCharacter, target, args, world);
-    		dungeonMaster.runWorld(world, worldPanel.getCreatureTypeChangedListeners());
+    		dungeonMaster.runWorld(world, worldPanel.getWorldStateChangedListeners());
     		exploreWorld(playerCharacter, world);
     		worldPanel.centerViewOnPlayerCharacter();
     		worldPanel.repaint();

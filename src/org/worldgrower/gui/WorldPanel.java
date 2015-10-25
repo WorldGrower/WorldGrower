@@ -411,17 +411,17 @@ public class WorldPanel extends JPanel {
 		new GuiRespondToQuestion(playerCharacter, world, imageInfoReader);
 		new GuiShowReadAction(playerCharacter, world, (JComponent) this.getParent(), imageInfoReader);
 		new GuiShowBrawlResult(imageInfoReader, world);
-		world.getWorldOnTurn().addWorldStateChangedListener(createCreatureTypeChangedListener());
+		world.getWorldOnTurn().addWorldStateChangedListener(createWorldStateChangedListener());
 	}
 	
-	private WorldStateChangedListener createCreatureTypeChangedListener() {
+	private WorldStateChangedListener createWorldStateChangedListener() {
 		return new GuiShowEventHappenedAction(playerCharacter, world, (JComponent) this.getParent(), imageInfoReader);
 	}
 	
-	public WorldStateChangedListeners getCreatureTypeChangedListeners() {
-		WorldStateChangedListeners creatureTypeChangedListeners = new WorldStateChangedListeners();
-		creatureTypeChangedListeners.addCreatureTypeChangedListener(createCreatureTypeChangedListener());
-		return creatureTypeChangedListeners;
+	public WorldStateChangedListeners getWorldStateChangedListeners() {
+		WorldStateChangedListeners worldStateChangedListeners = new WorldStateChangedListeners();
+		worldStateChangedListeners.addWorldStateChangedListener(createWorldStateChangedListener());
+		return worldStateChangedListeners;
 	}
 
 	public void startBuildMode(BuildAction buildAction, int[] args) {

@@ -19,6 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.worldgrower.actions.legal.LegalAction;
+import org.worldgrower.attribute.IdList;
 import org.worldgrower.condition.WorldStateChangedListener;
 import org.worldgrower.creaturetype.CreatureType;
 
@@ -52,9 +53,9 @@ public class WorldOnTurnImpl implements WorldOnTurn {
 	}
 
 	@Override
-	public void electionFinished(WorldObject winner, WorldObject organization) {
+	public void electionFinished(WorldObject winner, WorldObject organization, IdList candidates) {
 		for(WorldOnTurn worldOnTurn : worldOnTurnList) {
-			worldOnTurn.electionFinished(winner, organization);
+			worldOnTurn.electionFinished(winner, organization, candidates);
 		}
 	}
 
@@ -62,6 +63,13 @@ public class WorldOnTurnImpl implements WorldOnTurn {
 	public void legalActionsChanged(List<LegalAction> changedLegalActions, WorldObject villagerLeader) {
 		for(WorldOnTurn worldOnTurn : worldOnTurnList) {
 			worldOnTurn.legalActionsChanged(changedLegalActions, villagerLeader);
+		}
+	}
+
+	@Override
+	public void thrownOutOfGroup(WorldObject worldObject, WorldObject target, int[] args, ManagedOperation action, IdList oldGroup, IdList newGroup) {
+		for(WorldOnTurn worldOnTurn : worldOnTurnList) {
+			worldOnTurn.thrownOutOfGroup(worldObject, target, args, action, oldGroup, newGroup);
 		}
 	}
 }

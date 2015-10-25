@@ -19,6 +19,7 @@ import java.util.List;
 
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.legal.LegalActions;
+import org.worldgrower.attribute.IdList;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.goal.ArenaPropertyUtils;
 import org.worldgrower.goal.BrawlPropertyUtils;
@@ -61,10 +62,14 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 			}
 			
 			if (performerViolatedGroupRules(performer, actionTarget, args, managedOperation, world)) {
+				IdList oldGroup = performer.getProperty(Constants.GROUP).copy();
 				GroupPropertyUtils.throwPerformerOutGroup(performerFacade, target);
 				
 				WorldObject realPerformer = world.findWorldObject(Constants.ID, performerFacade.getProperty(Constants.ID));
 				GroupPropertyUtils.throwPerformerOutGroup(realPerformer, target);
+				
+				IdList newGroup = performer.getProperty(Constants.GROUP).copy();
+				world.getWorldOnTurn().thrownOutOfGroup(performer, actionTarget, args, managedOperation, oldGroup, newGroup);
 			}
 		}
 	}
