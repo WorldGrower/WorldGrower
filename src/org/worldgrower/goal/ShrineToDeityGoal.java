@@ -73,6 +73,14 @@ public class ShrineToDeityGoal implements Goal {
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		return (performer.getProperty(Constants.PLACE_OF_WORSHIP_ID) != null) ? 1 : 0;
+		int placeOfWorshipEvaluation = (performer.getProperty(Constants.PLACE_OF_WORSHIP_ID) != null) ? 1 : 0;
+		Deity performerDeity = performer.getProperty(Constants.DEITY);
+		final int worshipAllowedEvaluation;
+		if (performerDeity != null) {
+			worshipAllowedEvaluation = isWorshipAllowed(performerDeity, world) ? 1 : 0;
+		} else {
+			worshipAllowedEvaluation = 1;
+		}
+		return placeOfWorshipEvaluation + worshipAllowedEvaluation;
 	}
 }
