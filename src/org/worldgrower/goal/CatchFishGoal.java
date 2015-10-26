@@ -24,6 +24,7 @@ public class CatchFishGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
+		//TODO: leftHand should contain fishing pole
 		WorldObject target = GoalUtils.findNearestTarget(performer, Actions.CATCH_FISH_ACTION, world);
 		if (target != null) {
 			return new OperationInfo(performer, target, new int[0], Actions.CATCH_FISH_ACTION);

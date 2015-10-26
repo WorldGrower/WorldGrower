@@ -84,6 +84,7 @@ import org.worldgrower.goal.UTestBuildLocationUtils;
 import org.worldgrower.goal.UTestBuyClothesGoal;
 import org.worldgrower.goal.UTestBuySellUtils;
 import org.worldgrower.goal.UTestCaptureCriminalsGoal;
+import org.worldgrower.goal.UTestCatchFishGoal;
 import org.worldgrower.goal.UTestChildrenGoal;
 import org.worldgrower.goal.UTestCollectWaterGoal;
 import org.worldgrower.goal.UTestCottonGoal;
@@ -307,7 +308,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestJailGoal.class,
 	UTestGatherRemainsGoal.class,
 	UTestMineGoldGoal.class,
-	UTestScribeWizardSpellsGoal.class
+	UTestScribeWizardSpellsGoal.class,
+	UTestCatchFishGoal.class
 })
 public class CompleteTestSuite {
 }
