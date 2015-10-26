@@ -27,4 +27,14 @@ public class DefaultActionLegalHandler implements ActionLegalHandler {
 	public String getSimpleDescription() {
 		return "";
 	}
+	
+	@Override
+	public int hashCode() {
+		return 5;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		return (obj instanceof DefaultActionLegalHandler);
+	}
 }

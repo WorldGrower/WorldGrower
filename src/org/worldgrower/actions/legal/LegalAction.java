@@ -55,7 +55,7 @@ public final class LegalAction implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		LegalAction other = (LegalAction) obj;
-		return (this.action == other.action) && (this.actionLegalHandler == other.actionLegalHandler);
+		return (this.action == other.action) && (this.actionLegalHandler.equals(other.actionLegalHandler));
 	}
 
 	public String getDescription() {

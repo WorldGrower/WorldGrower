@@ -35,4 +35,19 @@ public class WorshipDeityLegalHandler implements ActionLegalHandler {
 	public String getSimpleDescription() {
 		return deity.getName();
 	}
+	
+	@Override
+	public int hashCode() {
+		return deity.hashCode();
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof WorshipDeityLegalHandler) {
+			WorshipDeityLegalHandler other = (WorshipDeityLegalHandler) obj;
+			return this.deity == other.deity;
+		} else {
+			return false;
+		}
+	}
 }

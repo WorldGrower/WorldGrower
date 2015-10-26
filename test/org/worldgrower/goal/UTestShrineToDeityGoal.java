@@ -24,6 +24,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.deity.Deity;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.TerrainGenerator;
@@ -35,7 +36,11 @@ public class UTestShrineToDeityGoal {
 	@Test
 	public void testCalculateGoalNull() {
 		World world = new WorldImpl(0, 0, null, null);
-		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
+		WorldObject performer = createPerformer();
+		performer.setProperty(Constants.DEITY, Deity.HADES);
+		world.addWorldObject(performer);
+		
+		createVillagersOrganization(world);
 		
 		assertEquals(null, goal.calculateGoal(performer, world));
 	}
@@ -76,11 +81,21 @@ public class UTestShrineToDeityGoal {
 	public void testCalculateGoalWorshipAtShrine() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
+		performer.setProperty(Constants.ID, 7);
 		performer.setProperty(Constants.DEITY, Deity.HADES);
+		world.addWorldObject(performer);
 		
 		BuildingGenerator.generateShrine(5, 5, world, performer);
 		
+		createVillagersOrganization(world);
+		
 		assertEquals(Actions.WORSHIP_DEITY_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+
+	private void createVillagersOrganization(World world) {
+		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
+		organization.setProperty(Constants.ID, 1);
+		world.addWorldObject(organization);
 	}
 	
 	@Test
@@ -95,11 +110,12 @@ public class UTestShrineToDeityGoal {
 	}
 
 	private WorldObject createPerformer() {
-		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
+		WorldObject performer = TestUtils.createSkilledWorldObject(7, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.X, 0);
 		performer.setProperty(Constants.Y, 0);
 		performer.setProperty(Constants.WIDTH, 1);
 		performer.setProperty(Constants.HEIGHT, 1);
+		performer.setProperty(Constants.CREATURE_TYPE, CreatureType.HUMAN_CREATURE_TYPE);
 		return performer;
 	}
 }
