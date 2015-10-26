@@ -58,10 +58,10 @@ public class UTestCreateOrPlantWoodGoal {
 	
 	@Test
 	public void testCalculateGoalFarAwayTree() {
-		World world = new WorldImpl(10, 10, null, null);
+		World world = new WorldImpl(1, 30, null, null);
 		WorldObject performer = createPerformer();
 		
-		PlantGenerator.generateTree(50, 50, world);
+		PlantGenerator.generateTree(0, 25, world);
 		
 		assertEquals(Actions.PLANT_TREE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}

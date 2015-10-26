@@ -28,6 +28,7 @@ import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.terrain.TerrainType;
 
 public class PlantGenerator {
 
@@ -107,12 +108,14 @@ public class PlantGenerator {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();
 		
+		final ImageIds imageId = getTreeImageId(x, y, world);
+		
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 2);
 		properties.put(Constants.HEIGHT, 2);
 		properties.put(Constants.ID, id);
-		properties.put(Constants.IMAGE_ID, ImageIds.TREE);
+		properties.put(Constants.IMAGE_ID, imageId);
 		properties.put(Constants.NAME, "tree");
 		properties.put(Constants.WOOD_SOURCE, 50);
 		properties.put(Constants.FLAMMABLE, Boolean.TRUE);
@@ -125,6 +128,17 @@ public class PlantGenerator {
 		world.addWorldObject(tree);
 		
 		return id;
+	}
+
+	private static ImageIds getTreeImageId(int x, int y, World world) {
+		final ImageIds imageId;
+		TerrainType terrainType = world.getTerrain().getTerrainInfo(x, y).getTerrainType();
+		if (terrainType == TerrainType.HILL || terrainType == TerrainType.MOUNTAIN) {
+			imageId = ImageIds.BOREAL_TREE;
+		} else {
+			imageId = ImageIds.TREE;
+		}
+		return imageId;
 	}
 	
 	public int generateDemonTree(int x, int y, World world) {

@@ -364,6 +364,7 @@ public class ImageInfoReader {
 		add(ImageIds.STATUE_OF_HERMES, statues.getSubImage(4, 1, 1, 2));
 		add(ImageIds.STATUE_OF_ATHENA, statues.getSubImage(5, 1, 1, 2));
 
+		add(ImageIds.BOREAL_TREE, objects.getSubImage(0, 9, 2, 2));
     }
 
     private void createArenaWall48x48() {
