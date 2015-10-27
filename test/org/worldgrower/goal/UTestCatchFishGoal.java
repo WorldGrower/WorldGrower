@@ -25,6 +25,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.CreatureGenerator;
+import org.worldgrower.generator.ItemGenerator;
 
 public class UTestCatchFishGoal {
 
@@ -47,7 +48,19 @@ public class UTestCatchFishGoal {
 		CreatureGenerator creatureGenerator = new CreatureGenerator(verminOrganization);
 		creatureGenerator.generateFish(5, 5, world);
 		
+		performer.setProperty(Constants.LEFT_HAND_EQUIPMENT, ItemGenerator.getFishingPole(1f));
+		
 		assertEquals(Actions.CATCH_FISH_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+	@Test
+	public void testCalculateGoalPlaceFishingPoleInLeftHand() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer();
+		
+		performer.getProperty(Constants.INVENTORY).addQuantity(ItemGenerator.getFishingPole(1f));
+		
+		assertEquals(Actions.EQUIP_INVENTORY_ITEM_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
 	
 	@Test

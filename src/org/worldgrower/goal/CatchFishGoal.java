@@ -24,13 +24,23 @@ public class CatchFishGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		//TODO: leftHand should contain fishing pole
-		WorldObject target = GoalUtils.findNearestTarget(performer, Actions.CATCH_FISH_ACTION, world);
-		if (target != null) {
-			return new OperationInfo(performer, target, new int[0], Actions.CATCH_FISH_ACTION);
+		WorldObject leftHandEquipment = performer.getProperty(Constants.LEFT_HAND_EQUIPMENT);
+		boolean leftHandContainsFishingPole = leftHandEquipment != null ? leftHandEquipment.hasProperty(Constants.FISHING_POLE_QUALITY) : false;
+		if (leftHandContainsFishingPole) {
+			WorldObject target = GoalUtils.findNearestTarget(performer, Actions.CATCH_FISH_ACTION, world);
+			if (target != null) {
+				return new OperationInfo(performer, target, new int[0], Actions.CATCH_FISH_ACTION);
+			}
 		} else {
-			return null;
+			if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.FISHING_POLE_QUALITY) > 0) {
+				int indexOfFishingPole = performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.FISHING_POLE_QUALITY);
+				return new OperationInfo(performer, performer, new int[] { indexOfFishingPole }, Actions.EQUIP_INVENTORY_ITEM_ACTION);
+			} else {
+				return new FishingPoleGoal().calculateGoal(performer, world);
+			}
 		}
+		
+		return null;
 	}
 	
 	@Override
