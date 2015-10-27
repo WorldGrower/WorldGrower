@@ -55,6 +55,7 @@ sourceSets {
 }
 
 findbugs.toolVersion = '3.0.0'
+pmd.toolVersion='5.1.2'
 
 findbugsMain {
     ignoreFailures = true
