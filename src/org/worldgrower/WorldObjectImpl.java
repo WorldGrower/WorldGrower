@@ -174,6 +174,11 @@ public class WorldObjectImpl implements WorldObject, Serializable {
 	}
 	
 	@Override
+	public int hashCode() {
+		return this.getProperty(Constants.ID).intValue();
+	}
+	
+	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof WorldObject) {
 			WorldObject other = (WorldObject) obj;

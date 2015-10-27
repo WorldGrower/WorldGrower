@@ -15,7 +15,6 @@
 package org.worldgrower.actions;
 
 import org.worldgrower.ManagedOperation;
-import org.worldgrower.gui.ImageIds;
 
 public interface CraftAction extends ManagedOperation {
 

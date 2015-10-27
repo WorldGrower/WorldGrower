@@ -22,7 +22,6 @@ import java.util.List;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.goal.Goal;
-import org.worldgrower.goal.Goals;
 import org.worldgrower.history.HistoryItem;
 
 /**

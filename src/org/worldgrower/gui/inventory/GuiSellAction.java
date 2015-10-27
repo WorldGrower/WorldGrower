@@ -20,7 +20,6 @@ import java.util.ArrayList;
 
 import javax.swing.AbstractAction;
 
-import org.worldgrower.Constants;
 import org.worldgrower.DungeonMaster;
 import org.worldgrower.Main;
 import org.worldgrower.World;

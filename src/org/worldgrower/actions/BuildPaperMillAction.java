@@ -15,17 +15,12 @@
 package org.worldgrower.actions;
 
 import java.io.ObjectStreamException;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.WorldObjectImpl;
-import org.worldgrower.attribute.ManagedProperty;
-import org.worldgrower.condition.Conditions;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.goal.GoalUtils;
 import org.worldgrower.gui.ImageIds;

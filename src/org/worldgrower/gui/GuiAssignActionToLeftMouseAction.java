@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.swing.AbstractAction;
-import javax.swing.JOptionPane;
 
 import org.worldgrower.ManagedOperation;
 

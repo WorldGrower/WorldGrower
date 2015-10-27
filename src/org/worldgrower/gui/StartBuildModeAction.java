@@ -18,7 +18,6 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 
-import org.worldgrower.ManagedOperation;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.BuildAction;
 

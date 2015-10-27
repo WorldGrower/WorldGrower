@@ -1,5 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'install4j'
+apply plugin: 'findbugs'
+apply plugin: 'pmd'
 
 configurations {
     izpackconf
@@ -50,6 +52,27 @@ sourceSets {
     		srcDir 'test'
     	}
     }
+}
+
+findbugs.toolVersion = '3.0.0'
+
+findbugsMain {
+    ignoreFailures = true
+    reportLevel = "high"
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+}
+
+findbugsTest {
+    ignoreFailures = true
+}
+
+pmdMain {
+    ignoreFailures = true
+    ruleSetFiles = files(new File(rootDir, 'pmd.xml'))
+    ruleSets = []
 }
 
 repositories {

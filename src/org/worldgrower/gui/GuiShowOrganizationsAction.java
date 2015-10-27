@@ -14,8 +14,6 @@
  *******************************************************************************/
 package org.worldgrower.gui;
 
-import java.awt.BorderLayout;
-import java.awt.Dialog.ModalityType;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -36,7 +34,6 @@ import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.goal.GroupPropertyUtils;
-import org.worldgrower.gui.util.IconUtils;
 
 public class GuiShowOrganizationsAction extends AbstractAction {
 	private final WorldObject playerCharacter;

@@ -109,6 +109,11 @@ public class WorldObjectFacade implements WorldObject {
 	}
 
 	@Override
+	public int hashCode() {
+		return this.getProperty(Constants.ID).intValue();
+	}
+	
+	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof WorldObject) {
 			WorldObject other = (WorldObject) obj;

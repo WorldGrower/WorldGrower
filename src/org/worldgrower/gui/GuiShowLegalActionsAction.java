@@ -32,7 +32,6 @@ import javax.swing.table.AbstractTableModel;
 
 import org.worldgrower.DungeonMaster;
 import org.worldgrower.Main;
-import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
