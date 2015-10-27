@@ -47,7 +47,7 @@ public class BuildSmithAction implements BuildAction {
 		} else {
 			int x = (Integer)target.getProperty(Constants.X);
 			int y = (Integer)target.getProperty(Constants.Y);
-			return GoalUtils.isOpenSpace(x, y, 2, 4, world);
+			return GoalUtils.isOpenSpace(x, y, 3, 4, world);
 		}
 	}
 

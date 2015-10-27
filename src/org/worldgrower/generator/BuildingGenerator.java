@@ -498,7 +498,7 @@ public class BuildingGenerator {
 
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
-		properties.put(Constants.WIDTH, 1);
+		properties.put(Constants.WIDTH, 2);
 		properties.put(Constants.HEIGHT, 2);
 		properties.put(Constants.SMITH_QUALITY, 5);
 		properties.put(Constants.NAME, "smithy");

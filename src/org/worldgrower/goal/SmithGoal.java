@@ -27,7 +27,7 @@ public class SmithGoal implements Goal {
 		if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.STONE) < 4) {
 			return new StoneGoal().calculateGoal(performer, world);
 		} else {
-			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 2, 3, world);
+			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 3, 4, world);
 			if (target != null) {
 				return new OperationInfo(performer, target, new int[0], Actions.BUILD_SMITH_ACTION);
 			} else {

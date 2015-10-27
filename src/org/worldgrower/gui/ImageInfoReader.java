@@ -67,6 +67,7 @@ public class ImageInfoReader {
     	Sprites tora_vx_02 = readSpritesTora02();
     	Sprites fish = readSpritesFish();
     	Sprites cow = readSpritesCow();
+    	Sprites forge = readSpritesForge();
     	
     	addCharacter(ImageIds.KNIGHT, sprites, 0, 0, 1, 1);
     	addCharacter(ImageIds.GUARD, sprites, 0, 4, 1, 1);
@@ -92,7 +93,7 @@ public class ImageInfoReader {
         add(ImageIds.HOUSE7, houses.getSubImage(12, 0, 2, 4));
         add(ImageIds.HOUSE8, houses.getSubImage(14, 0, 2, 4));
         
-        add(ImageIds.SMITH, tileE.getSubImage(2, 8, 1, 2));
+        add(ImageIds.SMITH, forge.getSubImage(0, 0, 1, 1));
         addCharacter(ImageIds.BLUE_HAIRED_COMMONER, sprites, 6, 0, 1, 1);
         addCharacter(ImageIds.TULBAN_MALE_COMMONER, sprites, 9, 0, 1, 1);
         addCharacter(ImageIds.GREEN_HAIRED_COMMONER, sprites, 3, 4, 1, 1);
@@ -629,6 +630,10 @@ public class ImageInfoReader {
 	
 	private static Sprites readSpritesCow() throws IOException {
 		return readImages("mackcowrecolors.png", 64, 48, 9, 4);
+	}
+	
+	private static Sprites readSpritesForge() throws IOException {
+		return readImages("forge.png", 64, 91, 1, 1);
 	}
 	
 	private static Sprites readImages(String imageFilename, int width, int height, int rows, int cols) throws IOException {

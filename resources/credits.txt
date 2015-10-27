@@ -51,3 +51,5 @@ new.png: GNU/PGL at http://findicons.com/icon/238210/document_new?id=240920
 load.png: created by Bdate Kaspar/Franziska, licensed under Creative Commons at http://findicons.com/icon/84694/load?id=85046
 save.png: created by VisualPharm (Ivan Boyko), licensed under Creative Commons at http://findicons.com/icon/51057/save?id=51128
 exit.png: GNU/PGL at http://findicons.com/icon/169617/exit
+
+forge.png: created by SD-Arius at http://www.rpgmakervx-fr.com/t2647-tiles-lair
