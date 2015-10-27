@@ -77,7 +77,7 @@ public class BackgroundPainter {
 	}
 	
 	private boolean terrainTypeHasFlowers(TerrainType terrainType) {
-		return terrainType == TerrainType.GRASLAND || terrainType == TerrainType.PLAINS;
+		return terrainType == TerrainType.GRASLAND;
 	}
 	
 	private Color calculateColorForImage(Image image) {
