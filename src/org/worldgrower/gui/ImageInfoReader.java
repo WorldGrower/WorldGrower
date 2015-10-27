@@ -352,6 +352,7 @@ public class ImageInfoReader {
 		add(ImageIds.LARGE_GRASS, tileA2.getSubImage(2, 4, 2, 2));
 		add(ImageIds.SMALL_DIRT, tileA2.getSubImage(4, 3, 1, 1));
 		add(ImageIds.LARGE_DIRT, tileA2.getSubImage(4, 4, 2, 2));
+		resizeSmallFlowers();
 		
 		add(ImageIds.STATUE_OF_DEMETER, statues.getSubImage(3, 1, 1, 2));
 		add(ImageIds.STATUE_OF_HEPHAESTUS, statues.getSubImage(2, 1, 1, 2));
@@ -367,6 +368,20 @@ public class ImageInfoReader {
 		add(ImageIds.BOREAL_TREE, objects.getSubImage(0, 9, 2, 2));
     }
 
+    private void resizeSmallFlowers() {
+    	Image smallFlowers = idToImages.get(ImageIds.SMALL_FLOWERS).get(0);
+    	Image grassBackground = idToImages.get(ImageIds.GRASS_BACKGROUND).get(0);
+    	
+    	BufferedImage off_Image = new BufferedImage(48, 48, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g2 = (Graphics2D) off_Image.getGraphics();
+
+		g2.drawImage(grassBackground, 0, 0, null);
+		g2.drawImage(smallFlowers, 0, 0, null);
+
+		g2.dispose();
+		idToImages.put(ImageIds.SMALL_FLOWERS, Arrays.asList(off_Image));
+    }
+    
     private void createArenaWall48x48() {
     	Image arenaWall = idToImages.get(ImageIds.ARENA_WALL).get(0);
 		BufferedImage off_Image = new BufferedImage(48, 48, BufferedImage.TYPE_INT_ARGB);

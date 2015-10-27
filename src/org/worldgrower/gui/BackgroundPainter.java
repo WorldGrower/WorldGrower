@@ -43,15 +43,41 @@ public class BackgroundPainter {
 	private Image[] backgroundImages = new Image[TerrainType.values().length];
 	private Map<BackgroundTransitionKey, Image> backgroundTransitionMap = new HashMap<>();
 	
-	public BackgroundPainter(Image grassBackgroundImage, World world) {
+	private boolean[][] hasFlowers;
+	private Image[] flowerImages = new Image[TerrainType.values().length];
+	
+	public BackgroundPainter(Image grassBackgroundImage, Image grassFlowerImage, World world) {
 		terrainTypesToColor.put(TerrainType.WATER, new Color(0, 0, 163));
 		terrainTypesToColor.put(TerrainType.GRASLAND, calculateColorForImage(grassBackgroundImage));
 		terrainTypesToColor.put(TerrainType.PLAINS, new Color(235, 195, 75));
 		terrainTypesToColor.put(TerrainType.HILL, new Color(171, 140, 17));
 		terrainTypesToColor.put(TerrainType.MOUNTAIN, new Color(161, 161, 161));
 		
-		fillBackgroundImagesMap(grassBackgroundImage);
+		fillBackgroundImagesMap(grassBackgroundImage, grassFlowerImage);
 		fillBackgroundTransitionMap(world);
+		fillFlowersMap(world);
+	}
+
+	private void fillFlowersMap(World world) {
+		hasFlowers = new boolean[world.getWidth()][world.getHeight()];
+		for(int x = 0; x<world.getWidth() ;x++) {
+			for(int y = 0; y<world.getHeight(); y++) {
+				TerrainType terrainType = world.getTerrain().getTerrainInfo(x, y).getTerrainType();
+				if (terrainTypeHasFlowers(terrainType) && surroundingTilesHaveSameType(world.getTerrain(), x, y, world)) {
+					if (Math.random() < 0.07f) {
+						hasFlowers[x][y] = true;
+					} else {
+						hasFlowers[x][y] = false;
+					}
+				} else {
+					hasFlowers[x][y] = false;
+				}
+			}
+		}
+	}
+	
+	private boolean terrainTypeHasFlowers(TerrainType terrainType) {
+		return terrainType == TerrainType.GRASLAND || terrainType == TerrainType.PLAINS;
 	}
 	
 	private Color calculateColorForImage(Image image) {
@@ -79,13 +105,14 @@ public class BackgroundPainter {
 		return new Color(red, green, blue);
 	}
 	
-	private void fillBackgroundImagesMap(Image grassBackgroundImage) {
+	private void fillBackgroundImagesMap(Image grassBackgroundImage, Image grassFlowerImage) {
 		for(Entry<TerrainType, Color> entry : terrainTypesToColor.entrySet()) {
 			TerrainType terrainType = entry.getKey();
 			Color currentColor = entry.getValue();
 			
 			if (terrainType == TerrainType.GRASLAND) {
 				addBackgroundImage(terrainType, cropImage(toBufferedImage(grassBackgroundImage), 48, 48));
+				addFlowerImage(terrainType, grassFlowerImage);
 			} else {
 				Color grassColor = terrainTypesToColor.get(TerrainType.GRASLAND);
 				
@@ -96,6 +123,10 @@ public class BackgroundPainter {
 				Image filteredImage = filterImage(grassBackgroundImage, new ColorFilter(deltaRed, deltaGreen, deltaBlue));
 				BufferedImage bufferedImage = toBufferedImage(filteredImage); 
 				addBackgroundImage(terrainType, cropImage(bufferedImage, 48, 48));
+				
+				Image flowerImage = filterImage(grassFlowerImage, new ColorFilter(deltaRed, deltaGreen, deltaBlue));
+				bufferedImage = toBufferedImage(flowerImage); 
+				addFlowerImage(terrainType, cropImage(bufferedImage, 48, 48));
 			}
 		}
 	}
@@ -137,6 +168,17 @@ public class BackgroundPainter {
 		
 		return new BackgroundTransitionKey(terrainType, left, right, up, down);
 				
+	}
+	
+	private boolean surroundingTilesHaveSameType(Terrain terrain, int x, int y, World world) {
+		TerrainType terrainType = terrain.getTerrainInfo(x, y).getTerrainType();
+		
+		TerrainType left = getTerrainTypeFor(terrain, x-1, y, world, terrainType);
+		TerrainType right = getTerrainTypeFor(terrain, x+1, y, world, terrainType);
+		TerrainType up = getTerrainTypeFor(terrain, x, y-1, world, terrainType);
+		TerrainType down = getTerrainTypeFor(terrain, x, y+1, world, terrainType);
+		
+		return terrainType == left && terrainType == right && terrainType == up && terrainType == down;
 	}
 	
 	private static class BackgroundTransitionKey {
@@ -204,6 +246,14 @@ public class BackgroundPainter {
 		backgroundImages[terrainType.ordinal()] = backgroundImage;
 	}
 	
+	private void addFlowerImage(TerrainType terrainType, Image flowerImage) {
+		flowerImages[terrainType.ordinal()] = flowerImage;
+	}
+	
+	private Image getFlowerImage(TerrainType terrainType) {
+		return flowerImages[terrainType.ordinal()];
+	}
+	
 	private Image getBackgroundImage(TerrainType terrainType) {
 		return backgroundImages[terrainType.ordinal()];
 	}
@@ -238,8 +288,12 @@ public class BackgroundPainter {
 		for(int x = 0; x<world.getWidth() ;x++) {
 			for(int y = 0; y<world.getHeight(); y++) {
 				if (terrain.isExplored(x, y)) {
-					Image image = backgroundTransitionMap.get(getKeyForBackgroundTransitionMap(terrain, x, y, world));
-					worldPanel.drawBackgroundImage(g, image, x, y);
+					if (hasFlowers[x][y]) {
+						worldPanel.drawBackgroundImage(g, getFlowerImage(terrain.getTerrainInfo(x, y).getTerrainType()), x, y);
+					} else {
+						Image image = backgroundTransitionMap.get(getKeyForBackgroundTransitionMap(terrain, x, y, world));
+						worldPanel.drawBackgroundImage(g, image, x, y);
+					}
 				} else {
 					worldPanel.drawUnexploredTerrain(g, x, y);
 				}
