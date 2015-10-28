@@ -76,6 +76,7 @@ import org.worldgrower.deity.UTestDeityPropertyUtils;
 import org.worldgrower.generator.UTestCommonerGenerator;
 import org.worldgrower.generator.UTestCreatureGenerator;
 import org.worldgrower.goal.UTestAbstractScribeSpellsGoal;
+import org.worldgrower.goal.UTestArenaFightGoal;
 import org.worldgrower.goal.UTestArenaGoal;
 import org.worldgrower.goal.UTestArenaPropertyUtils;
 import org.worldgrower.goal.UTestArmorPropertyUtils;
@@ -315,7 +316,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestCatchFishGoal.class,
 	UTestCollectArenaRewardGoal.class,
 	UTestSetTaxesGoal.class,
-	UTestFightInArenaGoal.class
+	UTestFightInArenaGoal.class,
+	UTestArenaFightGoal.class
 })
 public class CompleteTestSuite {
 }
