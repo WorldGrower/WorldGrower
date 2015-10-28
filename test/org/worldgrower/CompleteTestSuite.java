@@ -142,6 +142,7 @@ import org.worldgrower.goal.UTestRelationshipPropertyUtils;
 import org.worldgrower.goal.UTestRestGoal;
 import org.worldgrower.goal.UTestSacrificePeopleToDeityGoal;
 import org.worldgrower.goal.UTestScribeWizardSpellsGoal;
+import org.worldgrower.goal.UTestSetTaxesGoal;
 import org.worldgrower.goal.UTestSexGoal;
 import org.worldgrower.goal.UTestShackGoal;
 import org.worldgrower.goal.UTestShrineToDeityGoal;
@@ -311,7 +312,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestMineGoldGoal.class,
 	UTestScribeWizardSpellsGoal.class,
 	UTestCatchFishGoal.class,
-	UTestCollectArenaRewardGoal.class
+	UTestCollectArenaRewardGoal.class,
+	UTestSetTaxesGoal.class
 })
 public class CompleteTestSuite {
 }
