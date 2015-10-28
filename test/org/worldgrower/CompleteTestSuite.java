@@ -103,6 +103,7 @@ import org.worldgrower.goal.UTestDrownUtils;
 import org.worldgrower.goal.UTestEquipmentGoal;
 import org.worldgrower.goal.UTestFacadeUtils;
 import org.worldgrower.goal.UTestFeedOthersGoal;
+import org.worldgrower.goal.UTestFightInArenaGoal;
 import org.worldgrower.goal.UTestFishingPoleGoal;
 import org.worldgrower.goal.UTestFoodGoal;
 import org.worldgrower.goal.UTestFurnitureGoal;
@@ -313,7 +314,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestScribeWizardSpellsGoal.class,
 	UTestCatchFishGoal.class,
 	UTestCollectArenaRewardGoal.class,
-	UTestSetTaxesGoal.class
+	UTestSetTaxesGoal.class,
+	UTestFightInArenaGoal.class
 })
 public class CompleteTestSuite {
 }
