@@ -62,7 +62,7 @@ public class RespondToQuestionDialog extends JDialog {
         rootPane.registerKeyboardAction(new CloseDialogAction(), stroke, JComponent.WHEN_IN_FOCUSED_WINDOW);
 			
 		JPanel buttonPane = new JPanel();
-		buttonPane.setBounds(0, 218, 519, 35);
+		buttonPane.setBounds(430, 205, 112, 48);
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		getContentPane().add(buttonPane);
 
@@ -95,11 +95,11 @@ public class RespondToQuestionDialog extends JDialog {
 		
 		JLabel relationshipLabel = new JLabel("Relationship:");
 		relationshipLabel.setToolTipText("Relationship with " + performerName);
-		relationshipLabel.setBounds(6, 179, 100, 30);
+		relationshipLabel.setBounds(6, 210, 100, 30);
 		getContentPane().add(relationshipLabel);
 		
 		relationshipProgresBar = new JProgressBar(-1000, 1000);
-		relationshipProgresBar.setBounds(109, 179, 300, 30);
+		relationshipProgresBar.setBounds(109, 210, 300, 30);
 		relationshipProgresBar.setValue(questioner.getRelationshipValue());
 		relationshipProgresBar.setToolTipText("Relationship with " + performerName);
 		getContentPane().add(relationshipProgresBar);
