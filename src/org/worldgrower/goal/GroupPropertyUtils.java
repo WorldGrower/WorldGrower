@@ -372,4 +372,40 @@ public class GroupPropertyUtils {
 		}
 		return minionOrganization;
 	}
+
+	public static List<WorldObject> getMatchingOrganizationsUsingLeader(WorldObject performer, WorldObject target, World world) {
+		List<WorldObject> performerOrganizations = GroupPropertyUtils.findOrganizationsUsingLeader(performer, world);
+		List<WorldObject> targetOrganizations = GroupPropertyUtils.findOrganizationsUsingLeader(target, world);
+		List<WorldObject> organizations = new ArrayList<>();
+		
+		for(WorldObject performerOrganization : performerOrganizations) {
+			for(WorldObject targetOrganization : targetOrganizations) {
+				if (organizationsMatch(performerOrganization, targetOrganization)) {
+					organizations.add(performerOrganization);
+				}
+			}
+		}
+		return organizations;
+	}
+	
+	private static boolean organizationsMatch(WorldObject performerOrganization, WorldObject targetOrganization) {
+		if (performerOrganization.getProperty(Constants.PROFESSION) != null) {
+			return performerOrganization.getProperty(Constants.PROFESSION) == targetOrganization.getProperty(Constants.PROFESSION);
+		}
+		if (performerOrganization.getProperty(Constants.DEITY) != null) {
+			return performerOrganization.getProperty(Constants.DEITY) == targetOrganization.getProperty(Constants.DEITY);
+		}
+		return false;
+	}
+
+	public static WorldObject findMatchingOrganization(WorldObject target, WorldObject performerOrganization, World world) {
+		IdList organizations = target.getProperty(Constants.GROUP);
+		for(int organizationId : organizations.getIds()) {
+			WorldObject targetOrganization = world.findWorldObject(Constants.ID, organizationId);
+			if (organizationsMatch(performerOrganization, targetOrganization)) {
+				return targetOrganization;
+			}
+		}
+		return null;
+	}
 }
