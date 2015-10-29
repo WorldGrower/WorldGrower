@@ -35,4 +35,5 @@ public interface Answerer {
 	public List<WorldObject> getPossibleSubjects(Question question);
 	public ChooseWorldObjectDialog createChooseWorldObjectsDialog(ActionContainingArgs guiAction, Question question, JDialog parentDialog);
 	public String getDescription(int worldObjectId);
+	public int getRelationshipValue();
 }

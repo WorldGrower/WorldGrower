@@ -68,4 +68,9 @@ public class GuiRespondToQuestion implements Questioner, ManagedOperationListene
 	public String getQuestionPhrase() {
 		return conversations.getQuestionPhrase(args[0], args[1], args[2], performer, playerCharacter, world);
 	}
+
+	@Override
+	public int getRelationshipValue() {
+		return performer.getProperty(Constants.RELATIONSHIPS).getValue(playerCharacter);
+	}
 }

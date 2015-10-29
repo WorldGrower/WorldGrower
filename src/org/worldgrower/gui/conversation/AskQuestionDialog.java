@@ -40,6 +40,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.JProgressBar;
 import javax.swing.KeyStroke;
 
 import org.worldgrower.ManagedOperation;
@@ -61,6 +62,7 @@ public class AskQuestionDialog extends AbstractDialog implements ManagedOperatio
 	private final Answerer answerer;
 	private final JButton askQuestion;
 	private final JLabel label;
+	private final JProgressBar relationshipProgresBar;
 	
 	private class ExecuteQuestionAction extends AbstractAction implements ActionContainingArgs {
 		
@@ -162,8 +164,19 @@ public class AskQuestionDialog extends AbstractDialog implements ManagedOperatio
 		addComponent(targetLabel);
 		
 		label = new JLabel(" ");
-		label.setBounds(44, 70, 495, 200);
+		label.setBounds(44, 50, 495, 200);
 		addComponent(label);
+		
+		JLabel relationshipLabel = new JLabel("Relationship:");
+		relationshipLabel.setToolTipText("Relationship with " + targetName);
+		relationshipLabel.setBounds(6, 220, 100, 30);
+		addComponent(relationshipLabel);
+		
+		relationshipProgresBar = new JProgressBar(-1000, 1000);
+		relationshipProgresBar.setBounds(110, 220, 300, 30);
+		relationshipProgresBar.setValue(answerer.getRelationshipValue());
+		relationshipProgresBar.setToolTipText("Relationship with " + targetName);
+		addComponent(relationshipProgresBar);
 		
 		okButton.addActionListener(new CloseDialogAction());
 		cancelButton.addActionListener(new CloseDialogAction());
@@ -281,6 +294,7 @@ public class AskQuestionDialog extends AbstractDialog implements ManagedOperatio
 		if (answerer.filterMessage(performer)) {
 			Response response = (Response) value;
 			label.setText("<html>" + response.getResponsePhrase() + "</html>");
+			relationshipProgresBar.setValue(answerer.getRelationshipValue());
 		}
 	}
 }

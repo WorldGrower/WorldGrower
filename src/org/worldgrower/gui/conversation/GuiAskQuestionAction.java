@@ -134,4 +134,9 @@ public class GuiAskQuestionAction extends AbstractAction implements Answerer {
 	public String getDescription(int worldObjectId) {
 		return world.findWorldObject(Constants.ID, worldObjectId).getProperty(Constants.NAME);
 	}
+
+	@Override
+	public int getRelationshipValue() {
+		return target.getProperty(Constants.RELATIONSHIPS).getValue(playerCharacter);
+	}
 }

@@ -27,6 +27,7 @@ import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.KeyStroke;
 
 import org.worldgrower.conversation.Conversations;
@@ -41,6 +42,7 @@ public class RespondToQuestionDialog extends JDialog {
 	private final JComboBox<Response> comboBoxResponse;
 	private final JLabel label;
 	private int selectedResponse = -1;
+	private final JProgressBar relationshipProgresBar;
 	
 	private final class CloseDialogAction implements ActionListener {
 		@Override
@@ -90,6 +92,17 @@ public class RespondToQuestionDialog extends JDialog {
 		label = new JLabel("<html>"+ questioner.getQuestionPhrase() +"</html>");
 		label.setBounds(44, 27, 475, 46);
 		getContentPane().add(label);
+		
+		JLabel relationshipLabel = new JLabel("Relationship:");
+		relationshipLabel.setToolTipText("Relationship with " + performerName);
+		relationshipLabel.setBounds(6, 179, 100, 30);
+		getContentPane().add(relationshipLabel);
+		
+		relationshipProgresBar = new JProgressBar(-1000, 1000);
+		relationshipProgresBar.setBounds(109, 179, 300, 30);
+		relationshipProgresBar.setValue(questioner.getRelationshipValue());
+		relationshipProgresBar.setToolTipText("Relationship with " + performerName);
+		getContentPane().add(relationshipProgresBar);
 		
 		okButton.addActionListener(new ActionListener() {
 
