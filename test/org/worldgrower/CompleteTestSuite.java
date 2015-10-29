@@ -80,6 +80,7 @@ import org.worldgrower.goal.UTestArenaFightGoal;
 import org.worldgrower.goal.UTestArenaGoal;
 import org.worldgrower.goal.UTestArenaPropertyUtils;
 import org.worldgrower.goal.UTestArmorPropertyUtils;
+import org.worldgrower.goal.UTestBrawlGoal;
 import org.worldgrower.goal.UTestBrawlPropertyUtils;
 import org.worldgrower.goal.UTestBuildLocationUtils;
 import org.worldgrower.goal.UTestBuyClothesGoal;
@@ -317,7 +318,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestCollectArenaRewardGoal.class,
 	UTestSetTaxesGoal.class,
 	UTestFightInArenaGoal.class,
-	UTestArenaFightGoal.class
+	UTestArenaFightGoal.class,
+	UTestBrawlGoal.class
 })
 public class CompleteTestSuite {
 }
