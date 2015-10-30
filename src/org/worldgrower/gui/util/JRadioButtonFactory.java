@@ -14,16 +14,15 @@
  *******************************************************************************/
 package org.worldgrower.gui.util;
 
-import javax.swing.JProgressBar;
+import javax.swing.JRadioButton;
 
 import org.worldgrower.gui.ColorPalette;
 
-public class JProgressBarFactory {
+public class JRadioButtonFactory {
 
-	public static JProgressBar createJProgressBar(int min, int max) {
-		JProgressBar progressBar = new JProgressBar(min, max);
-		progressBar.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
-		progressBar.setForeground(ColorPalette.FOREGROUND_COLOR);
-		return progressBar;
+	public static JRadioButton createJRadioButton(String description) {
+		JRadioButton radioButton = new JRadioButton(description);
+		radioButton.setForeground(ColorPalette.FOREGROUND_COLOR);
+		return radioButton;
 	}
 }

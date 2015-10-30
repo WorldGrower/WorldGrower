@@ -21,13 +21,18 @@ public class ButtonFactory {
 
 	public static JButton createButton(String text, ImageIcon icon) {
 		JButton button = new JGradientButton(text, icon);
-		button.setBorder(new RoundedBorder(5));
+		setButtonProperties(button);
+		return button;
+	}
+
+	public static JButton createButton(String text) {
+		JButton button = new JGradientButton(text);
+		setButtonProperties(button);
 		return button;
 	}
 	
-	public static JButton createButton(String text) {
-		JButton button = new JGradientButton(text);
+	private static void setButtonProperties(JButton button) {
 		button.setBorder(new RoundedBorder(5));
-		return button;
+		button.setForeground(ColorPalette.FOREGROUND_COLOR);
 	}
 }

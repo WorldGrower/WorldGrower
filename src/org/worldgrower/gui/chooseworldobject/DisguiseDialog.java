@@ -50,6 +50,7 @@ import org.worldgrower.gui.WorldObjectList;
 import org.worldgrower.gui.WorldPanel;
 import org.worldgrower.gui.debug.PropertiesModel;
 import org.worldgrower.gui.util.IconUtils;
+import org.worldgrower.gui.util.JRadioButtonFactory;
 
 public class DisguiseDialog extends JDialog {
 
@@ -124,19 +125,19 @@ public class DisguiseDialog extends JDialog {
 		contentPanel.setLayout(null);
 		IconUtils.setIcon(this);
 		
-		noDisguiseRadioButton = new JRadioButton("No disguise");
+		noDisguiseRadioButton = JRadioButtonFactory.createJRadioButton("No disguise");
 		noDisguiseRadioButton.setOpaque(false);
 		buttonGroup.add(noDisguiseRadioButton);
 		noDisguiseRadioButton.setBounds(21, 19, 231, 25);
 		contentPanel.add(noDisguiseRadioButton);
 		
-		chooseExistingPersonRadioButton = new JRadioButton("Choose existing Person:");
+		chooseExistingPersonRadioButton = JRadioButtonFactory.createJRadioButton("Choose existing Person:");
 		chooseExistingPersonRadioButton.setOpaque(false);
 		buttonGroup.add(chooseExistingPersonRadioButton);
 		chooseExistingPersonRadioButton.setBounds(21, 49, 299, 25);
 		contentPanel.add(chooseExistingPersonRadioButton);
 		
-		createNewPersonRadioButton = new JRadioButton("Create new Person:");
+		createNewPersonRadioButton = JRadioButtonFactory.createJRadioButton("Create new Person:");
 		createNewPersonRadioButton.setOpaque(false);
 		buttonGroup.add(createNewPersonRadioButton);
 		createNewPersonRadioButton.setBounds(21, 239, 299, 25);

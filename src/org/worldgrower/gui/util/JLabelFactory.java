@@ -19,10 +19,14 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+import org.worldgrower.gui.ColorPalette;
+
 public class JLabelFactory {
 
 	public static JLabel createJLabel(String description) {
-		return new JLabel(description);
+		JLabel label = new JLabel(description);
+		setLabelProperties(label);
+		return label;
 	}
 	
 	public static JLabel createJLabel(int value) {
@@ -30,6 +34,12 @@ public class JLabelFactory {
 	}
 	
 	public static JLabel createJLabel(Image image) {
-		return new JLabel(new ImageIcon(image));
+		JLabel label = new JLabel(new ImageIcon(image));
+		setLabelProperties(label);
+		return label;
+	}
+
+	private static void setLabelProperties(JLabel label) {
+		label.setForeground(ColorPalette.FOREGROUND_COLOR);
 	}
 }

@@ -57,6 +57,7 @@ import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.chooseworldobject.ChooseWorldObjectDialog;
 import org.worldgrower.gui.util.JLabelFactory;
+import org.worldgrower.gui.util.MenuFactory;
 import org.worldgrower.gui.util.JProgressBarFactory;
 
 public class AskQuestionDialog extends AbstractDialog implements ManagedOperationListener {
@@ -205,9 +206,9 @@ public class AskQuestionDialog extends AbstractDialog implements ManagedOperatio
 	
 	private JPopupMenu createQuestions(ImageInfoReader imageInfoReader, Map<Integer, ImageIds> subjectImageIds, Conversations conversations, Answerer answerer) {
 		Map<ConversationCategory, List<Question>> questions = answerer.getQuestionPhrases();
-		JPopupMenu popupMenu = new JPopupMenu();
+		JPopupMenu popupMenu = MenuFactory.createJPopupMenu();
 		for(Entry<ConversationCategory, List<Question>> entry : getQuestions(questions)) {
-			JMenu menu = new JMenu(entry.getKey().getDescription());
+			JMenu menu = MenuFactory.createJMenu(entry.getKey().getDescription());
 			popupMenu.add(menu);
 			
 			if (entry.getValue().size() > 20 && entry.getValue().get(0).getSubjectId() != -1) {
@@ -255,7 +256,7 @@ public class AskQuestionDialog extends AbstractDialog implements ManagedOperatio
 			if (subjectId != -1) {
 				if (!subMenus.containsKey(subjectId)) {
 					String name = answerer.getDescription(subjectId);
-					JMenu subMenu = new JMenu(name);
+					JMenu subMenu = MenuFactory.createJMenu(name);
 					subMenus.put(subjectId, subMenu);
 					menu.add(subMenu);
 				}
@@ -264,7 +265,7 @@ public class AskQuestionDialog extends AbstractDialog implements ManagedOperatio
 	}
 
 	private JMenuItem createQuestionMenuItem(ImageInfoReader imageInfoReader, Map<Integer, ImageIds> subjectImageIds, Question question) {
-		JMenuItem questionMenuItem = new JMenuItem(question.getQuestionPhrase());
+		JMenuItem questionMenuItem = MenuFactory.createJMenuItem(question.getQuestionPhrase());
 		int subjectId = question.getSubjectId();
 		ImageIds subjectImageId = subjectImageIds.get(subjectId);
 		if (subjectImageId != null) {

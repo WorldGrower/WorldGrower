@@ -14,16 +14,15 @@
  *******************************************************************************/
 package org.worldgrower.gui.util;
 
-import javax.swing.JProgressBar;
+import javax.swing.JCheckBox;
 
 import org.worldgrower.gui.ColorPalette;
 
-public class JProgressBarFactory {
+public class JCheckBoxFactory {
 
-	public static JProgressBar createJProgressBar(int min, int max) {
-		JProgressBar progressBar = new JProgressBar(min, max);
-		progressBar.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
-		progressBar.setForeground(ColorPalette.FOREGROUND_COLOR);
-		return progressBar;
+	public static JCheckBox createJCheckBox(String description) {
+		JCheckBox checkBox = new JCheckBox(description);
+		checkBox.setForeground(ColorPalette.FOREGROUND_COLOR);
+		return checkBox;
 	}
 }

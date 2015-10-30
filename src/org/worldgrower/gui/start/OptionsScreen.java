@@ -38,7 +38,9 @@ import org.worldgrower.gui.GradientPanel;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.util.IconUtils;
+import org.worldgrower.gui.util.JCheckBoxFactory;
 import org.worldgrower.gui.util.JLabelFactory;
+import org.worldgrower.gui.util.JRadioButtonFactory;
 import org.worldgrower.util.NumberUtils;
 
 public class OptionsScreen {
@@ -113,15 +115,17 @@ public class OptionsScreen {
 		lblGender.setBounds(25, 113, 191, 26);
 		contentPanel.add(lblGender);
 		
-		maleRadioButton = new JRadioButton("male");
+		maleRadioButton = JRadioButtonFactory.createJRadioButton("male");
 		maleRadioButton.setSelected(true);
 		maleRadioButton.setToolTipText(GENDER_TOOL_TIP);
 		maleRadioButton.setBounds(228, 113, 80, 22);
+		maleRadioButton.setOpaque(false);
 		contentPanel.add(maleRadioButton);
 		
-		femaleRadioButton = new JRadioButton("female");
+		femaleRadioButton = JRadioButtonFactory.createJRadioButton("female");
 		femaleRadioButton.setToolTipText(GENDER_TOOL_TIP);
 		femaleRadioButton.setBounds(308, 113, 80, 22);
+		femaleRadioButton.setOpaque(false);
 		contentPanel.add(femaleRadioButton);
 		
 		ButtonGroup buttonGroup = new ButtonGroup();
@@ -241,7 +245,7 @@ public class OptionsScreen {
 		seedTextField.setBounds(228, 394, 137, 22);
 		contentPanel.add(seedTextField);
 		
-		chkBackgroundMusic = new JCheckBox("Music");
+		chkBackgroundMusic = JCheckBoxFactory.createJCheckBox("Music");
 		chkBackgroundMusic.setToolTipText(MUSIC_TOOL_TIP);
 		chkBackgroundMusic.setSelected(true);
 		chkBackgroundMusic.setOpaque(false);

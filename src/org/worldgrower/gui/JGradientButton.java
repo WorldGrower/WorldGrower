@@ -49,9 +49,9 @@ public class JGradientButton extends JButton {
 
 		Graphics2D g2 = (Graphics2D) g.create();
 		if (getModel().isPressed()) {
-			g2.setPaint(new GradientPaint(new Point(0, 0), Color.PINK.brighter(), new Point(0, getHeight()), Color.PINK));
+			g2.setPaint(new GradientPaint(new Point(0, 0), ColorPalette.LIGHT_BACKGROUND_COLOR, new Point(0, getHeight()), ColorPalette.LIGHT_BACKGROUND_COLOR.brighter()));
 		} else {
-			g2.setPaint(new GradientPaint(new Point(0, 0), Color.WHITE, new Point(0, getHeight()), Color.PINK.darker()));
+			g2.setPaint(new GradientPaint(new Point(0, 0), ColorPalette.DARK_BACKGROUND_COLOR, new Point(0, getHeight()), ColorPalette.DARK_BACKGROUND_COLOR.brighter()));
 		}
 		
 		g2.fillRect(0, 0, getWidth(), getHeight());
@@ -72,7 +72,7 @@ public class JGradientButton extends JButton {
        
         Stroke dashed = new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[]{3}, 0);
         g2.setStroke(dashed);
-        g2.setColor(Color.BLACK);
+        g2.setColor(ColorPalette.FOREGROUND_COLOR);
         g2.drawLine(x1, y1, x2, y2);
 	}
 }

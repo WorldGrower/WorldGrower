@@ -12,18 +12,12 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.gui.util;
+package org.worldgrower.gui;
 
-import javax.swing.JProgressBar;
+import java.awt.Color;
 
-import org.worldgrower.gui.ColorPalette;
-
-public class JProgressBarFactory {
-
-	public static JProgressBar createJProgressBar(int min, int max) {
-		JProgressBar progressBar = new JProgressBar(min, max);
-		progressBar.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
-		progressBar.setForeground(ColorPalette.FOREGROUND_COLOR);
-		return progressBar;
-	}
+public class ColorPalette {
+	public static final Color DARK_BACKGROUND_COLOR = new Color(7, 133, 171);
+	public static final Color LIGHT_BACKGROUND_COLOR = new Color(12, 167, 211);
+	public static final Color FOREGROUND_COLOR = new Color(255, 255, 255);
 }

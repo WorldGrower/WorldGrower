@@ -49,6 +49,7 @@ import org.worldgrower.gui.AbstractDialog;
 import org.worldgrower.gui.ButtonFactory;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.util.JLabelFactory;
+import org.worldgrower.gui.util.MenuFactory;
 
 public class InventoryDialog extends AbstractDialog {
 
@@ -227,7 +228,7 @@ public class InventoryDialog extends AbstractDialog {
 		        	inventoryJList.setSelectedIndex(row);
 			        InventoryItem inventoryItem = inventoryJList.getSelectedValue();
 			        
-			        JPopupMenu popupMenu = new JPopupMenu();
+			        JPopupMenu popupMenu = MenuFactory.createJPopupMenu();
 			        popupMenu.add(new JCheckBoxMenuItem(new SellableAction(inventoryItem)));
 			        popupMenu.show(inventoryJList, e.getX(), e.getY());
 			    }
@@ -286,9 +287,9 @@ public class InventoryDialog extends AbstractDialog {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JPopupMenu popupMenu = new JPopupMenu();
+				JPopupMenu popupMenu = MenuFactory.createJPopupMenu();
 				for(Action inventoryDialogAction : inventoryActions) {
-					popupMenu.add(new JMenuItem(inventoryDialogAction));
+					popupMenu.add(MenuFactory.createJMenuItem(inventoryDialogAction));
 				}
 				popupMenu.show(actionsButton, actionsButton.getWidth(), 0);
 			}

@@ -9,8 +9,8 @@ import javax.swing.JPanel;
   
 public class GradientPanel extends JPanel {
 
-	private final Color color1 = Color.WHITE;
-	private final Color color2 = Color.LIGHT_GRAY;
+	private final Color color1 = ColorPalette.LIGHT_BACKGROUND_COLOR;
+	private final Color color2 = ColorPalette.DARK_BACKGROUND_COLOR;
   
     public GradientPanel() {
         super();
