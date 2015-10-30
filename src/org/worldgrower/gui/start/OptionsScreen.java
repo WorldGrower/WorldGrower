@@ -41,6 +41,7 @@ import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.JCheckBoxFactory;
 import org.worldgrower.gui.util.JLabelFactory;
 import org.worldgrower.gui.util.JRadioButtonFactory;
+import org.worldgrower.gui.util.JTextFieldFactory;
 import org.worldgrower.util.NumberUtils;
 
 public class OptionsScreen {
@@ -102,7 +103,7 @@ public class OptionsScreen {
 		lblPlayerName.setBounds(25, 30, 191, 26);
 		contentPanel.add(lblPlayerName);
 		
-		playerNameTextField = new JTextField();
+		playerNameTextField = JTextFieldFactory.createJTextField();
 		playerNameTextField.setToolTipText(PLAYER_NAME_TOOL_TIP);
 		playerNameTextField.setText(getDefaultUsername());
 		playerNameTextField.setBounds(228, 30, 137, 22);
@@ -137,7 +138,7 @@ public class OptionsScreen {
 		lblWorldWidth.setBounds(25, 234, 191, 26);
 		contentPanel.add(lblWorldWidth);
 		
-		worldWidthTextField = new JTextField();
+		worldWidthTextField = JTextFieldFactory.createJTextField();
 		worldWidthTextField.setToolTipText(WORLD_WIDTH_TOOL_TIP);
 		worldWidthTextField.setText("100");
 		worldWidthTextField.setBounds(228, 234, 137, 22);
@@ -149,7 +150,7 @@ public class OptionsScreen {
 		lblWorldHeight.setBounds(25, 273, 191, 26);
 		contentPanel.add(lblWorldHeight);
 		
-		worldHeightTextField = new JTextField();
+		worldHeightTextField = JTextFieldFactory.createJTextField();
 		worldHeightTextField.setToolTipText(WORLD_HEIGHT_TOOL_TIP);
 		worldHeightTextField.setText("100");
 		worldHeightTextField.setColumns(10);
@@ -161,7 +162,7 @@ public class OptionsScreen {
 		lblNumberOfEnemies.setBounds(25, 310, 191, 26);
 		contentPanel.add(lblNumberOfEnemies);
 		
-		numberOfEnemiesTextField = new JTextField();
+		numberOfEnemiesTextField = JTextFieldFactory.createJTextField();
 		numberOfEnemiesTextField.setToolTipText(MONSTER_DENSITY_TOOL_TIP);
 		numberOfEnemiesTextField.setText("0");
 		numberOfEnemiesTextField.setColumns(10);
@@ -173,7 +174,7 @@ public class OptionsScreen {
 		lblNumberOfVillagers.setBounds(25, 352, 191, 26);
 		contentPanel.add(lblNumberOfVillagers);
 		
-		numberOfVillagersTextField = new JTextField();
+		numberOfVillagersTextField = JTextFieldFactory.createJTextField();
 		numberOfVillagersTextField.setToolTipText(NUMBER_OF_VILLAGERS_TOOL_TIP);
 		numberOfVillagersTextField.setText("4");
 		numberOfVillagersTextField.setColumns(10);
@@ -226,7 +227,7 @@ public class OptionsScreen {
 		lblPlayerProfession.setBounds(25, 69, 191, 26);
 		contentPanel.add(lblPlayerProfession);
 		
-		playerProfessionTextField = new JTextField();
+		playerProfessionTextField = JTextFieldFactory.createJTextField();
 		playerProfessionTextField.setToolTipText(CHARACTER_PROFESSION_TOOL_TIP);
 		playerProfessionTextField.setText("adventurer");
 		playerProfessionTextField.setColumns(10);
@@ -238,7 +239,7 @@ public class OptionsScreen {
 		lblSeed.setBounds(25, 394, 191, 26);
 		contentPanel.add(lblSeed);
 		
-		seedTextField = new JTextField();
+		seedTextField = JTextFieldFactory.createJTextField();
 		seedTextField.setToolTipText(SEED_TOOL_TIP);
 		seedTextField.setText("666");
 		seedTextField.setColumns(10);
