@@ -38,6 +38,7 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.attribute.PropertyCountMap;
 import org.worldgrower.gui.util.IconUtils;
+import org.worldgrower.gui.util.JTableFactory;
 
 public class MagicOverviewDialog extends JDialog {
 
@@ -154,6 +155,7 @@ public class MagicOverviewDialog extends JDialog {
 		
 		public MagicSpellsTable(TableModel tableModel) {
 			super(tableModel);
+			JTableFactory.setTableProperties(this);
 		}
 
 		@Override

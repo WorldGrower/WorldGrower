@@ -34,6 +34,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.goal.GroupPropertyUtils;
+import org.worldgrower.gui.util.JTableFactory;
 
 public class GuiShowOrganizationsAction extends AbstractAction {
 	private final WorldObject playerCharacter;
@@ -52,7 +53,7 @@ public class GuiShowOrganizationsAction extends AbstractAction {
 		OrganizationsDialog dialog = new OrganizationsDialog(400, 800);
 		
 		OrganizationsModel worldModel = new OrganizationsModel(playerCharacter, world);
-		JTable table = new JTable(worldModel);
+		JTable table = JTableFactory.createJTable(worldModel);
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(15, 15, 365, 700);
 		dialog.addComponent(scrollPane);

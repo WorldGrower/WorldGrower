@@ -51,6 +51,7 @@ import org.worldgrower.gui.WorldPanel;
 import org.worldgrower.gui.debug.PropertiesModel;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.JRadioButtonFactory;
+import org.worldgrower.gui.util.JTableFactory;
 
 public class DisguiseDialog extends JDialog {
 
@@ -147,7 +148,7 @@ public class DisguiseDialog extends JDialog {
 		scrollPane_1.setBounds(340, 243, 259, 164);
 		contentPanel.add(scrollPane_1);
 		
-		table = new JTable();
+		table = JTableFactory.createJTable();
 		scrollPane_1.setViewportView(table);
 		
 		personList = new WorldObjectList(imageInfoReader, disguiseWorldObjects);

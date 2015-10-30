@@ -23,6 +23,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
+import org.worldgrower.gui.ColorPalette;
 import org.worldgrower.gui.ImageInfoReader;
 
 public class InventoryListCellRenderer implements ListCellRenderer<InventoryItem> {
@@ -42,6 +43,8 @@ public class InventoryListCellRenderer implements ListCellRenderer<InventoryItem
 		renderer.setIcon(new ImageIcon(imageInfoReader.getImage(inventoryItem.getImageId(), null)));
 		renderer.setText(inventoryItem.getDescription());
 		renderer.setToolTipText(formatAdditionalProperties(inventoryItem));
+		renderer.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
+		renderer.setForeground(ColorPalette.FOREGROUND_COLOR);
 		return renderer;
 	}
 	

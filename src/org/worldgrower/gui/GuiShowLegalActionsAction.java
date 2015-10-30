@@ -40,6 +40,7 @@ import org.worldgrower.actions.legal.LegalActions;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.LegalActionsPropertyUtils;
 import org.worldgrower.gui.util.IconUtils;
+import org.worldgrower.gui.util.JTableFactory;
 
 public class GuiShowLegalActionsAction extends AbstractAction {
 	private final WorldObject playerCharacter;
@@ -62,7 +63,7 @@ public class GuiShowLegalActionsAction extends AbstractAction {
 		IconUtils.setIcon(dialog);
 		
 		WorldModel worldModel = new WorldModel(playerCharacter, world);
-		JTable table = new JTable(worldModel);
+		JTable table = JTableFactory.createJTable(worldModel);
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(15, 15, 368, 700);
 		dialog.addComponent(scrollPane);
