@@ -12,27 +12,11 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.gui;
+package org.worldgrower.gui.font;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
+import java.awt.Font;
 
-public class ButtonFactory {
+public class Fonts {
 
-	public static JButton createButton(String text, ImageIcon icon) {
-		JButton button = new JGradientButton(text, icon);
-		setButtonProperties(button);
-		return button;
-	}
-
-	public static JButton createButton(String text) {
-		JButton button = new JGradientButton(text);
-		setButtonProperties(button);
-		return button;
-	}
-	
-	private static void setButtonProperties(JButton button) {
-		button.setBorder(new RoundedBorder(5));
-		button.setForeground(ColorPalette.FOREGROUND_COLOR);
-	}
+	public static final Font FONT = new Font("Dialog", Font.PLAIN, 14);
 }

@@ -20,6 +20,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 import org.worldgrower.gui.ColorPalette;
+import org.worldgrower.gui.font.Fonts;
 
 public class JLabelFactory {
 
@@ -41,5 +42,6 @@ public class JLabelFactory {
 
 	private static void setLabelProperties(JLabel label) {
 		label.setForeground(ColorPalette.FOREGROUND_COLOR);
+		label.setFont(Fonts.FONT);
 	}
 }

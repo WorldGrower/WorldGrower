@@ -28,10 +28,10 @@ import javax.swing.border.EmptyBorder;
 
 import org.worldgrower.Constants;
 import org.worldgrower.attribute.IntProperty;
-import org.worldgrower.gui.ButtonFactory;
 import org.worldgrower.gui.GradientPanel;
 import org.worldgrower.gui.GuiAttributeDescription;
 import org.worldgrower.gui.ImageInfoReader;
+import org.worldgrower.gui.util.ButtonFactory;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.JLabelFactory;
 

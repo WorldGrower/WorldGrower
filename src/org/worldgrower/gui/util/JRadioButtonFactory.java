@@ -17,12 +17,14 @@ package org.worldgrower.gui.util;
 import javax.swing.JRadioButton;
 
 import org.worldgrower.gui.ColorPalette;
+import org.worldgrower.gui.font.Fonts;
 
 public class JRadioButtonFactory {
 
 	public static JRadioButton createJRadioButton(String description) {
 		JRadioButton radioButton = new JRadioButton(description);
 		radioButton.setForeground(ColorPalette.FOREGROUND_COLOR);
+		radioButton.setFont(Fonts.FONT);
 		return radioButton;
 	}
 }

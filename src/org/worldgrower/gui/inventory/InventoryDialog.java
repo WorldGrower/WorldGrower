@@ -46,8 +46,8 @@ import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.gui.AbstractDialog;
-import org.worldgrower.gui.ButtonFactory;
 import org.worldgrower.gui.ImageInfoReader;
+import org.worldgrower.gui.util.ButtonFactory;
 import org.worldgrower.gui.util.JLabelFactory;
 import org.worldgrower.gui.util.MenuFactory;
 

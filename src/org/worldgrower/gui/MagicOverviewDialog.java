@@ -37,6 +37,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.attribute.PropertyCountMap;
+import org.worldgrower.gui.util.ButtonFactory;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.JTableFactory;
 

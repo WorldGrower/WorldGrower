@@ -14,17 +14,31 @@
  *******************************************************************************/
 package org.worldgrower.gui.util;
 
-import javax.swing.JCheckBox;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 
 import org.worldgrower.gui.ColorPalette;
+import org.worldgrower.gui.JGradientButton;
+import org.worldgrower.gui.RoundedBorder;
 import org.worldgrower.gui.font.Fonts;
 
-public class JCheckBoxFactory {
+public class ButtonFactory {
 
-	public static JCheckBox createJCheckBox(String description) {
-		JCheckBox checkBox = new JCheckBox(description);
-		checkBox.setForeground(ColorPalette.FOREGROUND_COLOR);
-		checkBox.setFont(Fonts.FONT);
-		return checkBox;
+	public static JButton createButton(String text, ImageIcon icon) {
+		JButton button = new JGradientButton(text, icon);
+		setButtonProperties(button);
+		return button;
+	}
+
+	public static JButton createButton(String text) {
+		JButton button = new JGradientButton(text);
+		setButtonProperties(button);
+		return button;
+	}
+	
+	private static void setButtonProperties(JButton button) {
+		button.setBorder(new RoundedBorder(5));
+		button.setForeground(ColorPalette.FOREGROUND_COLOR);
+		button.setFont(Fonts.FONT);
 	}
 }

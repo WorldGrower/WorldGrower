@@ -32,9 +32,9 @@ import javax.swing.KeyStroke;
 
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.conversation.Response;
-import org.worldgrower.gui.ButtonFactory;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
+import org.worldgrower.gui.util.ButtonFactory;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.JLabelFactory;
 import org.worldgrower.gui.util.JProgressBarFactory;

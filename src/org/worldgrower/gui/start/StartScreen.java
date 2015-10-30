@@ -30,10 +30,10 @@ import org.worldgrower.Main;
 import org.worldgrower.Version;
 import org.worldgrower.World;
 import org.worldgrower.gui.AbstractDialog;
-import org.worldgrower.gui.ButtonFactory;
 import org.worldgrower.gui.ExceptionHandler;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.SwingUtils;
+import org.worldgrower.gui.util.ButtonFactory;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.JLabelFactory;
 

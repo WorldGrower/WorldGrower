@@ -18,6 +18,7 @@ import javax.swing.JTable;
 import javax.swing.table.TableModel;
 
 import org.worldgrower.gui.ColorPalette;
+import org.worldgrower.gui.font.Fonts;
 
 public class JTableFactory {
 
@@ -30,6 +31,7 @@ public class JTableFactory {
 	public static void setTableProperties(JTable table) {
 		table.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
 		table.setForeground(ColorPalette.FOREGROUND_COLOR);
+		table.setFont(Fonts.FONT);
 	}
 
 	public static JTable createJTable(TableModel model) {

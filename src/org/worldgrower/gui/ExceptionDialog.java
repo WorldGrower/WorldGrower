@@ -44,6 +44,7 @@ import javax.swing.JTextArea;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
+import org.worldgrower.gui.util.ButtonFactory;
 import org.worldgrower.gui.util.IconUtils;
 
 public class ExceptionDialog extends JDialog {

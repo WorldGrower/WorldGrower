@@ -39,6 +39,7 @@ import org.worldgrower.actions.legal.LegalAction;
 import org.worldgrower.actions.legal.LegalActions;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.LegalActionsPropertyUtils;
+import org.worldgrower.gui.util.ButtonFactory;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.JTableFactory;
 

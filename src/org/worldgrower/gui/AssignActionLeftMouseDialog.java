@@ -23,6 +23,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import org.worldgrower.gui.util.ButtonFactory;
 import org.worldgrower.gui.util.JLabelFactory;
 
 public class AssignActionLeftMouseDialog extends AbstractDialog {

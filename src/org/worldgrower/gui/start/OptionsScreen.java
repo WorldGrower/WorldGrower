@@ -32,11 +32,11 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 import org.worldgrower.Main;
-import org.worldgrower.gui.ButtonFactory;
 import org.worldgrower.gui.ExceptionHandler;
 import org.worldgrower.gui.GradientPanel;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
+import org.worldgrower.gui.util.ButtonFactory;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.JCheckBoxFactory;
 import org.worldgrower.gui.util.JLabelFactory;

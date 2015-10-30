@@ -42,6 +42,7 @@ import org.worldgrower.attribute.UnCheckedProperty;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.goal.ArmorPropertyUtils;
 import org.worldgrower.goal.MeleeDamagePropertyUtils;
+import org.worldgrower.gui.util.ButtonFactory;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.JLabelFactory;
 import org.worldgrower.gui.util.JProgressBarFactory;

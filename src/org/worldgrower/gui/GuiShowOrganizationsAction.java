@@ -34,6 +34,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.goal.GroupPropertyUtils;
+import org.worldgrower.gui.util.ButtonFactory;
 import org.worldgrower.gui.util.JTableFactory;
 
 public class GuiShowOrganizationsAction extends AbstractAction {

@@ -20,6 +20,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
 import org.worldgrower.gui.ColorPalette;
+import org.worldgrower.gui.font.Fonts;
 
 public class MenuFactory {
 
@@ -27,6 +28,7 @@ public class MenuFactory {
 		JPopupMenu popupMenu = new JPopupMenu();
 		popupMenu.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
 		popupMenu.setForeground(ColorPalette.FOREGROUND_COLOR);
+		popupMenu.setFont(Fonts.FONT);
 		return popupMenu;
 	}
 	
@@ -45,12 +47,14 @@ public class MenuFactory {
 	private static void setMenuProperties(JMenuItem menuItem) {
 		menuItem.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
 		menuItem.setForeground(ColorPalette.FOREGROUND_COLOR);
+		menuItem.setFont(Fonts.FONT);
 	}
 	
 	public static JMenu createJMenu(String description) {
 		JMenu menu = new JMenu(description);
 		menu.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
 		menu.setForeground(ColorPalette.FOREGROUND_COLOR);
+		menu.setFont(Fonts.FONT);
 		return menu;
 	}
 }

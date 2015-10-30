@@ -34,9 +34,9 @@ import org.worldgrower.DungeonMaster;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.gui.ActionContainingArgs;
-import org.worldgrower.gui.ButtonFactory;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.WorldObjectList;
+import org.worldgrower.gui.util.ButtonFactory;
 import org.worldgrower.gui.util.IconUtils;
 
 public class ChooseWorldObjectDialog extends JDialog {
