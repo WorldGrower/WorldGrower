@@ -56,6 +56,7 @@ import org.worldgrower.gui.ButtonFactory;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.chooseworldobject.ChooseWorldObjectDialog;
+import org.worldgrower.gui.util.JProgressBarFactory;
 
 public class AskQuestionDialog extends AbstractDialog implements ManagedOperationListener {
 
@@ -172,7 +173,7 @@ public class AskQuestionDialog extends AbstractDialog implements ManagedOperatio
 		relationshipLabel.setBounds(6, 220, 100, 30);
 		addComponent(relationshipLabel);
 		
-		relationshipProgresBar = new JProgressBar(-1000, 1000);
+		relationshipProgresBar = JProgressBarFactory.createJProgressBar(-1000, 1000);
 		relationshipProgresBar.setBounds(110, 220, 300, 30);
 		relationshipProgresBar.setValue(answerer.getRelationshipValue());
 		relationshipProgresBar.setToolTipText("Relationship with " + targetName);

@@ -36,6 +36,7 @@ import org.worldgrower.gui.ButtonFactory;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.util.IconUtils;
+import org.worldgrower.gui.util.JProgressBarFactory;
 
 public class RespondToQuestionDialog extends JDialog {
 
@@ -98,7 +99,7 @@ public class RespondToQuestionDialog extends JDialog {
 		relationshipLabel.setBounds(6, 210, 100, 30);
 		getContentPane().add(relationshipLabel);
 		
-		relationshipProgresBar = new JProgressBar(-1000, 1000);
+		relationshipProgresBar = JProgressBarFactory.createJProgressBar(-1000, 1000);
 		relationshipProgresBar.setBounds(109, 210, 300, 30);
 		relationshipProgresBar.setValue(questioner.getRelationshipValue());
 		relationshipProgresBar.setToolTipText("Relationship with " + performerName);

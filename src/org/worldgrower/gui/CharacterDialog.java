@@ -43,6 +43,7 @@ import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.goal.ArmorPropertyUtils;
 import org.worldgrower.goal.MeleeDamagePropertyUtils;
 import org.worldgrower.gui.util.IconUtils;
+import org.worldgrower.gui.util.JProgressBarFactory;
 
 public class CharacterDialog extends JDialog {
 
@@ -293,7 +294,7 @@ public class CharacterDialog extends JDialog {
 		lblSkillValue.setBounds(x + 105, y, 15, 16);
 		contentPanel.add(lblSkillValue);
 		
-		JProgressBar skillProgressBar = new JProgressBar(0, 100);
+		JProgressBar skillProgressBar = JProgressBarFactory.createJProgressBar(0, 100);
 		skillProgressBar.setBounds(x + 120, y, 100, 20);
 		skillProgressBar.setValue(playerCharacter.getProperty(skillProperty).getPercentageUntilNextLevelUp());
 		contentPanel.add(skillProgressBar);
