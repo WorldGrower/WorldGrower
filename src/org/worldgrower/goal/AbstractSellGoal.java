@@ -31,7 +31,7 @@ public abstract class AbstractSellGoal implements Goal {
 	}
 
 	@Override
-	public OperationInfo calculateGoal(WorldObject performer, World world) {
+	public final OperationInfo calculateGoal(WorldObject performer, World world) {
 		int indexOfItemsToSell = performer.getProperty(Constants.INVENTORY).getIndexFor(propertyToSell);
 		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.SELL_ACTION, w -> BuySellUtils.targetWillBuyGoods(performer, w, indexOfItemsToSell, world) , world);
 		if (targets.size() > 0) {
