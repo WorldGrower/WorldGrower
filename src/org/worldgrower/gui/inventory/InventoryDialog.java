@@ -25,7 +25,6 @@ import java.util.List;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.DefaultListModel;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JComponent;
@@ -49,6 +48,7 @@ import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.gui.AbstractDialog;
 import org.worldgrower.gui.ButtonFactory;
 import org.worldgrower.gui.ImageInfoReader;
+import org.worldgrower.gui.util.JLabelFactory;
 
 public class InventoryDialog extends AbstractDialog {
 
@@ -136,23 +136,23 @@ public class InventoryDialog extends AbstractDialog {
 		inventoryScrollPane.setBounds(12, 82, 200, 450);
 		addComponent(inventoryScrollPane);
 		
-		final JLabel moneyLabel = new JLabel("Money:");
+		final JLabel moneyLabel = JLabelFactory.createJLabel("Money:");
 		moneyLabel.setToolTipText(MONEY_PLAYER_CHARACTER_TOOL_TIP);
 		moneyLabel.setBounds(12, 555, 64, 25);
 		addComponent(moneyLabel);
 		
-		moneyValueLabel = new JLabel(Integer.toString(inventoryDialogModel.getPlayerCharacterMoney()));
+		moneyValueLabel = JLabelFactory.createJLabel(inventoryDialogModel.getPlayerCharacterMoney());
 		moneyValueLabel.setToolTipText(MONEY_PLAYER_CHARACTER_TOOL_TIP);
 		moneyValueLabel.setBounds(77, 555, 50, 25);
 		addComponent(moneyValueLabel);
 		
-		JLabel lblWeight = new JLabel("Weight:");
+		JLabel lblWeight = JLabelFactory.createJLabel("Weight:");
 		lblWeight.setToolTipText(WEIGHT_PLAYER_CHARACTER_TOOL_TIP);
 		lblWeight.setBounds(127, 555, 64, 25);
 		addComponent(lblWeight);
 		
 		String weightString = getPlayerCharacterWeight(inventoryDialogModel);
-		weightLabelValue = new JLabel(weightString);
+		weightLabelValue = JLabelFactory.createJLabel(weightString);
 		weightLabelValue.setToolTipText(WEIGHT_PLAYER_CHARACTER_TOOL_TIP);
 		weightLabelValue.setBounds(203, 555, 64, 25);
 		addComponent(weightLabelValue);
@@ -163,7 +163,7 @@ public class InventoryDialog extends AbstractDialog {
 		actionsButton.setBounds(224, 359, 100, 25);
 		addComponent(actionsButton);
 
-		JLabel lblPlayercharacter = new JLabel(new ImageIcon(inventoryDialogModel.getPlayerCharacterImage(imageInfoReader)));
+		JLabel lblPlayercharacter = JLabelFactory.createJLabel(inventoryDialogModel.getPlayerCharacterImage(imageInfoReader));
 		lblPlayercharacter.setToolTipText(inventoryDialogModel.getPlayerCharacterName());
 		lblPlayercharacter.setBounds(12, 30, 48, 48);
 		addComponent(lblPlayercharacter);
@@ -178,31 +178,31 @@ public class InventoryDialog extends AbstractDialog {
 			targetInventoryList = createInventoryList(inventoryDialogModel.getTargetInventory(), imageInfoReader);
 			scrollPane.setViewportView(targetInventoryList);
 			
-			JLabel lblTarget = new JLabel(new ImageIcon(inventoryDialogModel.getTargetImage(imageInfoReader)));
+			JLabel lblTarget = JLabelFactory.createJLabel(inventoryDialogModel.getTargetImage(imageInfoReader));
 			lblTarget.setToolTipText(inventoryDialogModel.getTargetName());
 			lblTarget.setBounds(532, 30, 48, 48);
 			addComponent(lblTarget);
 			
-			JLabel targetMoneyLabel = new JLabel("Money:");
+			JLabel targetMoneyLabel = JLabelFactory.createJLabel("Money:");
 			targetMoneyLabel.setToolTipText(MONEY_TARGET_TOOL_TIP);
 			targetMoneyLabel.setBounds(477, 555, 64, 25);
 			addComponent(targetMoneyLabel);
 			
 			if (inventoryDialogModel.hasTargetMoney()) {
-				targetMoney = new JLabel(Integer.toString(inventoryDialogModel.getTargetMoney()));
+				targetMoney = JLabelFactory.createJLabel(inventoryDialogModel.getTargetMoney());
 				targetMoney.setToolTipText(MONEY_TARGET_TOOL_TIP);
 				targetMoney.setBounds(542, 555, 50, 25);
 				addComponent(targetMoney);
 			}
 			
 			if (inventoryDialogModel.hasTargetCarryingCapacity()) {
-				JLabel targetWeightLabel = new JLabel("Weight:");
+				JLabel targetWeightLabel = JLabelFactory.createJLabel("Weight:");
 				targetWeightLabel.setToolTipText(WEIGHT_TARGET_TOOL_TIP);
 				targetWeightLabel.setBounds(592, 555, 64, 25);
 				addComponent(targetWeightLabel);
 				
 				String targetWeightString = getTargetWeight(inventoryDialogModel);
-				targetWeight = new JLabel(targetWeightString);
+				targetWeight = JLabelFactory.createJLabel(targetWeightString);
 				targetWeight.setToolTipText(WEIGHT_TARGET_TOOL_TIP);
 				targetWeight.setBounds(668, 555, 64, 25);
 				addComponent(targetWeight);

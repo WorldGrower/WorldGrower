@@ -23,6 +23,8 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import org.worldgrower.gui.util.JLabelFactory;
+
 public class AssignActionLeftMouseDialog extends AbstractDialog {
 
 	private String selectedAction = null;
@@ -38,7 +40,7 @@ public class AssignActionLeftMouseDialog extends AbstractDialog {
 		list.setSelectedIndex(0);
 		scrollPane.setViewportView(list);
 		
-		JLabel lblNewLabel = new JLabel("Ctrl-left mouse click to talk with a person");
+		JLabel lblNewLabel = JLabelFactory.createJLabel("Ctrl-left mouse click to talk with a person");
 		lblNewLabel.setBounds(34, 343, 360, 24);
 		addComponent(lblNewLabel);
 

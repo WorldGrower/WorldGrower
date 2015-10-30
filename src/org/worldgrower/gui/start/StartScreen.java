@@ -35,6 +35,7 @@ import org.worldgrower.gui.ExceptionHandler;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.SwingUtils;
 import org.worldgrower.gui.util.IconUtils;
+import org.worldgrower.gui.util.JLabelFactory;
 
 public class StartScreen {
 
@@ -140,7 +141,7 @@ public class StartScreen {
 		frame.addComponent(btnExit);
 		SwingUtils.setBoundsAndCenterHorizontally(btnExit, 78, 290, 167, 60);
 		
-		JLabel lblVersion = new JLabel("Version " + Version.getVersion());
+		JLabel lblVersion = JLabelFactory.createJLabel("Version " + Version.getVersion());
 		lblVersion.setToolTipText("Current version");
 		frame.addComponent(lblVersion);
 		SwingUtils.setBoundsAndCenterHorizontally(lblVersion, 83, 370, 167, 21);

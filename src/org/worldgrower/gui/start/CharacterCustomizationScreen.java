@@ -33,6 +33,7 @@ import org.worldgrower.gui.GradientPanel;
 import org.worldgrower.gui.GuiAttributeDescription;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.util.IconUtils;
+import org.worldgrower.gui.util.JLabelFactory;
 
 public class CharacterCustomizationScreen extends JFrame {
 
@@ -61,7 +62,7 @@ public class CharacterCustomizationScreen extends JFrame {
 		setLocationRelativeTo(null);
 		IconUtils.setIcon(this);
 		
-		JLabel attributeLabel = new JLabel(Integer.toString(attributePoints));
+		JLabel attributeLabel = JLabelFactory.createJLabel(attributePoints);
 		attributeLabel.setToolTipText(ATTRIBUTE_EXPLANATION);
 		attributeLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		attributeLabel.setBounds(393, 51, 56, 16);
@@ -71,7 +72,7 @@ public class CharacterCustomizationScreen extends JFrame {
 		lblStrengthDesc.setBounds(12, 13, 100, 16);
 		contentPane.add(lblStrengthDesc);
 		
-		lblStrength = new JLabel("10");
+		lblStrength = JLabelFactory.createJLabel("10");
 		lblStrength.setBounds(115, 13, 24, 16);
 		lblStrength.setToolTipText(lblStrengthDesc.getToolTipText());
 		contentPane.add(lblStrength);
@@ -80,7 +81,7 @@ public class CharacterCustomizationScreen extends JFrame {
 		lblConstitutionDesc.setBounds(12, 51, 100, 16);
 		contentPane.add(lblConstitutionDesc);
 		
-		lblConstitution = new JLabel("10");
+		lblConstitution = JLabelFactory.createJLabel("10");
 		lblConstitution.setBounds(115, 51, 24, 16);
 		lblConstitution.setToolTipText(lblConstitutionDesc.getToolTipText());
 		contentPane.add(lblConstitution);
@@ -89,7 +90,7 @@ public class CharacterCustomizationScreen extends JFrame {
 		lblDexterityDesc.setBounds(12, 91, 100, 16);
 		contentPane.add(lblDexterityDesc);
 		
-		lblDexterity = new JLabel("10");
+		lblDexterity = JLabelFactory.createJLabel("10");
 		lblDexterity.setBounds(115, 91, 24, 16);
 		lblDexterity.setToolTipText(lblDexterityDesc.getToolTipText());
 		contentPane.add(lblDexterity);
@@ -98,7 +99,7 @@ public class CharacterCustomizationScreen extends JFrame {
 		lblIntelligenceDesc.setBounds(12, 133, 100, 16);
 		contentPane.add(lblIntelligenceDesc);
 		
-		lblIntelligence = new JLabel("10");
+		lblIntelligence = JLabelFactory.createJLabel("10");
 		lblIntelligence.setBounds(115, 133, 24, 16);
 		lblIntelligence.setToolTipText(lblIntelligenceDesc.getToolTipText());
 		contentPane.add(lblIntelligence);
@@ -107,7 +108,7 @@ public class CharacterCustomizationScreen extends JFrame {
 		lblWisdomDesc.setBounds(12, 179, 100, 16);
 		contentPane.add(lblWisdomDesc);
 		
-		lblWisdom = new JLabel("10");
+		lblWisdom = JLabelFactory.createJLabel("10");
 		lblWisdom.setBounds(115, 179, 24, 16);
 		lblWisdom.setToolTipText(lblWisdomDesc.getToolTipText());
 		contentPane.add(lblWisdom);
@@ -116,7 +117,7 @@ public class CharacterCustomizationScreen extends JFrame {
 		lblCharismaDesc.setBounds(12, 224, 100, 16);
 		contentPane.add(lblCharismaDesc);
 		
-		lblCharisma = new JLabel("10");
+		lblCharisma = JLabelFactory.createJLabel("10");
 		lblCharisma.setBounds(115, 224, 24, 16);
 		lblCharisma.setToolTipText(lblCharismaDesc.getToolTipText());
 		contentPane.add(lblCharisma);
@@ -243,7 +244,7 @@ public class CharacterCustomizationScreen extends JFrame {
 		
 		setButtonTooltipTexts();
 		
-		JLabel lblRemainingAttributePoints = new JLabel("Remaining attribute points:");
+		JLabel lblRemainingAttributePoints = JLabelFactory.createJLabel("Remaining attribute points:");
 		lblRemainingAttributePoints.setToolTipText(ATTRIBUTE_EXPLANATION);
 		lblRemainingAttributePoints.setBounds(294, 13, 215, 25);
 		contentPane.add(lblRemainingAttributePoints);
@@ -289,7 +290,7 @@ public class CharacterCustomizationScreen extends JFrame {
 	
 	private JLabel createAttributeLabel(IntProperty attributeProperty, String description) {
 		String tooltip = GuiAttributeDescription.createToolTipDescription(attributeProperty, description);
-		JLabel label = new JLabel(description);
+		JLabel label = JLabelFactory.createJLabel(description);
 		label.setToolTipText(tooltip);
 		return label;
 	}

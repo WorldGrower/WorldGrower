@@ -38,6 +38,7 @@ import org.worldgrower.gui.GradientPanel;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.util.IconUtils;
+import org.worldgrower.gui.util.JLabelFactory;
 import org.worldgrower.util.NumberUtils;
 
 public class OptionsScreen {
@@ -94,7 +95,7 @@ public class OptionsScreen {
 		frame.getContentPane().setLayout(null);
 		IconUtils.setIcon(frame);
 		
-		JLabel lblPlayerName = new JLabel("Character Name:");
+		JLabel lblPlayerName = JLabelFactory.createJLabel("Character Name:");
 		lblPlayerName.setToolTipText(PLAYER_NAME_TOOL_TIP);
 		lblPlayerName.setBounds(25, 30, 191, 26);
 		contentPanel.add(lblPlayerName);
@@ -107,7 +108,7 @@ public class OptionsScreen {
 		playerNameTextField.setColumns(10);
 		playerNameTextField.selectAll();
 		
-		JLabel lblGender = new JLabel("Gender:");
+		JLabel lblGender = JLabelFactory.createJLabel("Gender:");
 		lblGender.setToolTipText(GENDER_TOOL_TIP);
 		lblGender.setBounds(25, 113, 191, 26);
 		contentPanel.add(lblGender);
@@ -127,7 +128,7 @@ public class OptionsScreen {
 		buttonGroup.add(maleRadioButton);
 		buttonGroup.add(femaleRadioButton);
 		
-		JLabel lblWorldWidth = new JLabel("World Width:");
+		JLabel lblWorldWidth = JLabelFactory.createJLabel("World Width:");
 		lblWorldWidth.setToolTipText(WORLD_WIDTH_TOOL_TIP);
 		lblWorldWidth.setBounds(25, 234, 191, 26);
 		contentPanel.add(lblWorldWidth);
@@ -139,7 +140,7 @@ public class OptionsScreen {
 		contentPanel.add(worldWidthTextField);
 		worldWidthTextField.setColumns(10);
 		
-		JLabel lblWorldHeight = new JLabel("World Height:");
+		JLabel lblWorldHeight = JLabelFactory.createJLabel("World Height:");
 		lblWorldHeight.setToolTipText(WORLD_HEIGHT_TOOL_TIP);
 		lblWorldHeight.setBounds(25, 273, 191, 26);
 		contentPanel.add(lblWorldHeight);
@@ -151,7 +152,7 @@ public class OptionsScreen {
 		worldHeightTextField.setBounds(228, 271, 137, 22);
 		contentPanel.add(worldHeightTextField);
 		
-		JLabel lblNumberOfEnemies = new JLabel("Enemy density:");
+		JLabel lblNumberOfEnemies = JLabelFactory.createJLabel("Enemy density:");
 		lblNumberOfEnemies.setToolTipText(MONSTER_DENSITY_TOOL_TIP);
 		lblNumberOfEnemies.setBounds(25, 310, 191, 26);
 		contentPanel.add(lblNumberOfEnemies);
@@ -163,7 +164,7 @@ public class OptionsScreen {
 		numberOfEnemiesTextField.setBounds(228, 310, 137, 22);
 		contentPanel.add(numberOfEnemiesTextField);
 		
-		JLabel lblNumberOfVillagers = new JLabel("Number of Villagers:");
+		JLabel lblNumberOfVillagers = JLabelFactory.createJLabel("Number of Villagers:");
 		lblNumberOfVillagers.setToolTipText(NUMBER_OF_VILLAGERS_TOOL_TIP);
 		lblNumberOfVillagers.setBounds(25, 352, 191, 26);
 		contentPanel.add(lblNumberOfVillagers);
@@ -216,7 +217,7 @@ public class OptionsScreen {
 		btnCancel.setBounds(121, 486, 97, 25);
 		contentPanel.add(btnCancel);
 		
-		JLabel lblPlayerProfession = new JLabel("Character Profession:");
+		JLabel lblPlayerProfession = JLabelFactory.createJLabel("Character Profession:");
 		lblPlayerProfession.setToolTipText(CHARACTER_PROFESSION_TOOL_TIP);
 		lblPlayerProfession.setBounds(25, 69, 191, 26);
 		contentPanel.add(lblPlayerProfession);
@@ -228,7 +229,7 @@ public class OptionsScreen {
 		playerProfessionTextField.setBounds(228, 69, 137, 22);
 		contentPanel.add(playerProfessionTextField);
 		
-		JLabel lblSeed = new JLabel("Seed:");
+		JLabel lblSeed = JLabelFactory.createJLabel("Seed:");
 		lblSeed.setToolTipText(SEED_TOOL_TIP);
 		lblSeed.setBounds(25, 394, 191, 26);
 		contentPanel.add(lblSeed);
@@ -247,12 +248,12 @@ public class OptionsScreen {
 		chkBackgroundMusic.setBounds(228, 431, 137, 25);
 		contentPanel.add(chkBackgroundMusic);
 		
-		JLabel lblPlayBackgroundMusic = new JLabel("Play background music:");
+		JLabel lblPlayBackgroundMusic = JLabelFactory.createJLabel("Play background music:");
 		lblPlayBackgroundMusic.setToolTipText(MUSIC_TOOL_TIP);
 		lblPlayBackgroundMusic.setBounds(25, 431, 191, 26);
 		contentPanel.add(lblPlayBackgroundMusic);
 		
-		JLabel lblCharacterImage = new JLabel("Character image:");
+		JLabel lblCharacterImage = JLabelFactory.createJLabel("Character image:");
 		lblCharacterImage.setToolTipText("choose gender of player character");
 		lblCharacterImage.setBounds(25, 152, 191, 26);
 		contentPanel.add(lblCharacterImage);

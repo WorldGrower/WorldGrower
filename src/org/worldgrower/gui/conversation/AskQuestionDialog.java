@@ -56,6 +56,7 @@ import org.worldgrower.gui.ButtonFactory;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.chooseworldobject.ChooseWorldObjectDialog;
+import org.worldgrower.gui.util.JLabelFactory;
 import org.worldgrower.gui.util.JProgressBarFactory;
 
 public class AskQuestionDialog extends AbstractDialog implements ManagedOperationListener {
@@ -140,7 +141,7 @@ public class AskQuestionDialog extends AbstractDialog implements ManagedOperatio
 		cancelButton.setActionCommand("Cancel");
 		buttonPane.add(cancelButton);
 
-		JLabel performerLabel = new JLabel(new ImageIcon(imageInfoReader.getImage(imageIdPerformer, null)));
+		JLabel performerLabel = JLabelFactory.createJLabel(imageInfoReader.getImage(imageIdPerformer, null));
 		performerLabel.setToolTipText(performerName);
 		performerLabel.setBounds(6, 17, 32, 48);
 		addComponent(performerLabel);
@@ -159,16 +160,16 @@ public class AskQuestionDialog extends AbstractDialog implements ManagedOperatio
 		});
 		addComponent(askQuestion);
 		
-		JLabel targetLabel = new JLabel(new ImageIcon(imageInfoReader.getImage(imageIdTarget, null)));
+		JLabel targetLabel = JLabelFactory.createJLabel(imageInfoReader.getImage(imageIdTarget, null));
 		targetLabel.setToolTipText(targetName);
 		targetLabel.setBounds(6, 90, 32, 48);
 		addComponent(targetLabel);
 		
-		label = new JLabel(" ");
+		label = JLabelFactory.createJLabel(" ");
 		label.setBounds(44, 50, 495, 200);
 		addComponent(label);
 		
-		JLabel relationshipLabel = new JLabel("Relationship:");
+		JLabel relationshipLabel = JLabelFactory.createJLabel("Relationship:");
 		relationshipLabel.setToolTipText("Relationship with " + targetName);
 		relationshipLabel.setBounds(6, 220, 100, 30);
 		addComponent(relationshipLabel);

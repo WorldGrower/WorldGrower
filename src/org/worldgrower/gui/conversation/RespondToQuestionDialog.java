@@ -36,6 +36,7 @@ import org.worldgrower.gui.ButtonFactory;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.util.IconUtils;
+import org.worldgrower.gui.util.JLabelFactory;
 import org.worldgrower.gui.util.JProgressBarFactory;
 
 public class RespondToQuestionDialog extends JDialog {
@@ -76,7 +77,7 @@ public class RespondToQuestionDialog extends JDialog {
 		cancelButton.setActionCommand("Cancel");
 		buttonPane.add(cancelButton);
 
-		JLabel targetLabel = new JLabel(new ImageIcon(imageInfoReader.getImage(imageIdTarget, null)));
+		JLabel targetLabel = JLabelFactory.createJLabel(imageInfoReader.getImage(imageIdTarget, null));
 		targetLabel.setToolTipText(targetName);
 		targetLabel.setBounds(6, 90, 32, 48);
 		getContentPane().add(targetLabel);
@@ -85,16 +86,16 @@ public class RespondToQuestionDialog extends JDialog {
 		comboBoxResponse.setBounds(44, 86, 475, 80);
 		getContentPane().add(comboBoxResponse);
 		
-		JLabel performerLabel = new JLabel(new ImageIcon(imageInfoReader.getImage(imageIdPerformer, null)));
+		JLabel performerLabel = JLabelFactory.createJLabel(imageInfoReader.getImage(imageIdPerformer, null));
 		performerLabel.setToolTipText(performerName);
 		performerLabel.setBounds(6, 17, 32, 48);
 		getContentPane().add(performerLabel);
 		
-		label = new JLabel("<html>"+ questioner.getQuestionPhrase() +"</html>");
+		label = JLabelFactory.createJLabel("<html>"+ questioner.getQuestionPhrase() +"</html>");
 		label.setBounds(44, 27, 475, 46);
 		getContentPane().add(label);
 		
-		JLabel relationshipLabel = new JLabel("Relationship:");
+		JLabel relationshipLabel = JLabelFactory.createJLabel("Relationship:");
 		relationshipLabel.setToolTipText("Relationship with " + performerName);
 		relationshipLabel.setBounds(6, 210, 100, 30);
 		getContentPane().add(relationshipLabel);
