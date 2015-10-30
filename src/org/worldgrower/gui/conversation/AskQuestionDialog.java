@@ -128,7 +128,7 @@ public class AskQuestionDialog extends AbstractDialog implements ManagedOperatio
         rootPane.registerKeyboardAction(new CloseDialogAction(), stroke, JComponent.WHEN_IN_FOCUSED_WINDOW);
 			
 		JPanel buttonPane = new JPanel();
-		buttonPane.setBounds(0, 218, 632, 35);
+		buttonPane.setBounds(0, 218, 632, 40);
 		buttonPane.setOpaque(false);
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		addComponent(buttonPane);

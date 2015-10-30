@@ -88,56 +88,56 @@ public class CharacterDialog extends JDialog {
 		contentPanel.setLayout(null);
 
 		JLabel lblStrength = createAttributeLabel(Constants.STRENGTH, "Strength");
-		lblStrength.setBounds(12, 13, 120, 16);
+		lblStrength.setBounds(12, 13, 120, 20);
 		contentPanel.add(lblStrength);
 		
 		JLabel lblConstitution = createAttributeLabel(Constants.CONSTITUTION, "Constitution");
-		lblConstitution.setBounds(12, 42, 120, 16);
+		lblConstitution.setBounds(12, 42, 120, 20);
 		contentPanel.add(lblConstitution);
 		
 		JLabel lblDexterity = createAttributeLabel(Constants.DEXTERITY, "Dexterity");
-		lblDexterity.setBounds(12, 71, 120, 16);
+		lblDexterity.setBounds(12, 71, 120, 20);
 		contentPanel.add(lblDexterity);
 		
 		JLabel lblIntelligence = createAttributeLabel(Constants.INTELLIGENCE, "Intelligence");
-		lblIntelligence.setBounds(12, 100, 120, 16);
+		lblIntelligence.setBounds(12, 100, 120, 20);
 		contentPanel.add(lblIntelligence);
 		
 		JLabel lblWisdom = createAttributeLabel(Constants.WISDOM, "Wisdom");
-		lblWisdom.setBounds(12, 129, 120, 16);
+		lblWisdom.setBounds(12, 129, 120, 20);
 		contentPanel.add(lblWisdom);
 		
 		JLabel lblCharisma = createAttributeLabel(Constants.CHARISMA, "Charisma");
-		lblCharisma.setBounds(12, 158, 120, 16);
+		lblCharisma.setBounds(12, 158, 120, 20);
 		contentPanel.add(lblCharisma);
 		
 		JLabel lblStrengthValue = JLabelFactory.createJLabel(playerCharacter.getProperty(Constants.STRENGTH).toString());
-		lblStrengthValue.setBounds(150, 13, 20, 16);
+		lblStrengthValue.setBounds(150, 13, 20, 20);
 		lblStrengthValue.setToolTipText(lblStrength.getToolTipText());
 		contentPanel.add(lblStrengthValue);
 		
 		JLabel lblConstitutionValue = JLabelFactory.createJLabel(playerCharacter.getProperty(Constants.CONSTITUTION).toString());
-		lblConstitutionValue.setBounds(150, 42, 20, 16);
+		lblConstitutionValue.setBounds(150, 42, 20, 20);
 		lblConstitutionValue.setToolTipText(lblConstitution.getToolTipText());
 		contentPanel.add(lblConstitutionValue);
 		
 		JLabel lblDexterityValue = JLabelFactory.createJLabel(playerCharacter.getProperty(Constants.DEXTERITY).toString());
-		lblDexterityValue.setBounds(150, 71, 20, 16);
+		lblDexterityValue.setBounds(150, 71, 20, 20);
 		lblDexterityValue.setToolTipText(lblDexterity.getToolTipText());
 		contentPanel.add(lblDexterityValue);
 		
 		JLabel lblIntelligenceValue = JLabelFactory.createJLabel(playerCharacter.getProperty(Constants.INTELLIGENCE).toString());
-		lblIntelligenceValue.setBounds(150, 100, 20, 16);
+		lblIntelligenceValue.setBounds(150, 100, 20, 20);
 		lblIntelligenceValue.setToolTipText(lblIntelligence.getToolTipText());
 		contentPanel.add(lblIntelligenceValue);
 		
 		JLabel lblWisdomValue = JLabelFactory.createJLabel(playerCharacter.getProperty(Constants.WISDOM).toString());
-		lblWisdomValue.setBounds(150, 129, 20, 16);
+		lblWisdomValue.setBounds(150, 129, 20, 20);
 		lblWisdomValue.setToolTipText(lblWisdom.getToolTipText());
 		contentPanel.add(lblWisdomValue);
 		
 		JLabel lblCharismaValue = JLabelFactory.createJLabel(playerCharacter.getProperty(Constants.CHARISMA).toString());
-		lblCharismaValue.setBounds(150, 158, 20, 16);
+		lblCharismaValue.setBounds(150, 158, 20, 20);
 		lblCharismaValue.setToolTipText(lblCharisma.getToolTipText());
 		contentPanel.add(lblCharismaValue);
 
@@ -173,37 +173,37 @@ public class CharacterDialog extends JDialog {
 		
 		JLabel lblHead = JLabelFactory.createJLabel("Head");
 		lblHead.setToolTipText(HEAD_TOOL_TIP);
-		lblHead.setBounds(labelLeft, 35, 80, 16);
+		lblHead.setBounds(labelLeft, 35, 80, 20);
 		contentPanel.add(lblHead);
 		
 		JLabel lblTorso = JLabelFactory.createJLabel("Torso");
 		lblTorso.setToolTipText(TORSO_TOOL_TIP);
-		lblTorso.setBounds(labelLeft, 95, 80, 16);
+		lblTorso.setBounds(labelLeft, 95, 80, 20);
 		contentPanel.add(lblTorso);
 		
 		JLabel lblArms = JLabelFactory.createJLabel("Arms");
 		lblArms.setToolTipText(ARMS_TOOL_TIP);
-		lblArms.setBounds(labelLeft, 155, 80, 16);
+		lblArms.setBounds(labelLeft, 155, 80, 20);
 		contentPanel.add(lblArms);
 		
 		JLabel lblLegs = JLabelFactory.createJLabel("Legs");
 		lblLegs.setToolTipText(LEGS_TOOL_TIP);
-		lblLegs.setBounds(labelLeft, 215, 80, 16);
+		lblLegs.setBounds(labelLeft, 215, 80, 20);
 		contentPanel.add(lblLegs);
 		
 		JLabel lblFeet = JLabelFactory.createJLabel("Feet");
 		lblFeet.setToolTipText(FEET_TOOL_TIP);
-		lblFeet.setBounds(labelLeft, 275, 80, 16);
+		lblFeet.setBounds(labelLeft, 275, 80, 20);
 		contentPanel.add(lblFeet);
 		
 		JLabel lblLeftHand = JLabelFactory.createJLabel("Left Hand");
 		lblLeftHand.setToolTipText(LEFT_HAND_TOOL_TIP);
-		lblLeftHand.setBounds(labelLeft, 335, 80, 16);
+		lblLeftHand.setBounds(labelLeft, 335, 80, 20);
 		contentPanel.add(lblLeftHand);
 		
 		JLabel lblRightHand = JLabelFactory.createJLabel("Right Hand");
 		lblRightHand.setToolTipText(RIGHT_HAND_TOOL_TIP);
-		lblRightHand.setBounds(labelLeft, 395, 80, 16);
+		lblRightHand.setBounds(labelLeft, 395, 80, 20);
 		contentPanel.add(lblRightHand);
 		
 		WorldObjectContainer inventory = playerCharacter.getProperty(Constants.INVENTORY);
@@ -247,22 +247,22 @@ public class CharacterDialog extends JDialog {
 		
 		JLabel lblArmor = JLabelFactory.createJLabel("Armor");
 		lblArmor.setToolTipText(ARMOR_TOOL_TIP);
-		lblArmor.setBounds(equipmentLeft, 475, 150, 16);
+		lblArmor.setBounds(equipmentLeft, 475, 150, 20);
 		contentPanel.add(lblArmor);
 		
 		lblArmorValue = JLabelFactory.createJLabel(playerCharacter.getProperty(Constants.ARMOR).toString());
 		lblArmorValue.setToolTipText(ARMOR_TOOL_TIP);
-		lblArmorValue.setBounds(760, 475, 30, 16);
+		lblArmorValue.setBounds(760, 475, 30, 20);
 		contentPanel.add(lblArmorValue);
 		
 		JLabel lblWeaponDamage = JLabelFactory.createJLabel("Weapon Damage");
 		lblWeaponDamage.setToolTipText(WEAPON_TOOL_TIP);
-		lblWeaponDamage.setBounds(equipmentLeft, 495, 150, 16);
+		lblWeaponDamage.setBounds(equipmentLeft, 495, 150, 20);
 		contentPanel.add(lblWeaponDamage);
 		
 		lblDamageValue = JLabelFactory.createJLabel(playerCharacter.getProperty(Constants.DAMAGE).toString());
 		lblDamageValue.setToolTipText(WEAPON_TOOL_TIP);
-		lblDamageValue.setBounds(760, 495, 30, 16);
+		lblDamageValue.setBounds(760, 495, 30, 20);
 		contentPanel.add(lblDamageValue);
 		
 		JPanel buttonPane = new JPanel();
@@ -289,11 +289,11 @@ public class CharacterDialog extends JDialog {
 	private void createSkillBlock(SkillProperty skillProperty, int x, int y) {
 		
 		JLabel lblSkill = JLabelFactory.createJLabel(skillProperty.getName());
-		lblSkill.setBounds(x, y, 100, 16);
+		lblSkill.setBounds(x, y, 100, 20);
 		contentPanel.add(lblSkill);
 		
 		JLabel lblSkillValue = JLabelFactory.createJLabel(playerCharacter.getProperty(skillProperty).toString());
-		lblSkillValue.setBounds(x + 105, y, 15, 16);
+		lblSkillValue.setBounds(x + 105, y, 15, 20);
 		contentPanel.add(lblSkillValue);
 		
 		JProgressBar skillProgressBar = JProgressBarFactory.createJProgressBar(0, 100);

@@ -117,7 +117,7 @@ public class InventoryDialog extends AbstractDialog {
 			
 		JPanel buttonPane = new JPanel();
 		buttonPane.setOpaque(false);
-		buttonPane.setBounds(478, 595, 254, 35);
+		buttonPane.setBounds(478, 595, 254, 40);
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		addComponent(buttonPane);
 

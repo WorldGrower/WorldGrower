@@ -65,60 +65,60 @@ public class CharacterCustomizationScreen extends JFrame {
 		JLabel attributeLabel = JLabelFactory.createJLabel(attributePoints);
 		attributeLabel.setToolTipText(ATTRIBUTE_EXPLANATION);
 		attributeLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		attributeLabel.setBounds(393, 51, 56, 16);
+		attributeLabel.setBounds(393, 51, 56, 20);
 		contentPane.add(attributeLabel);
 		
 		JLabel lblStrengthDesc = createAttributeLabel(Constants.STRENGTH, "Strength");
-		lblStrengthDesc.setBounds(12, 13, 100, 16);
+		lblStrengthDesc.setBounds(12, 13, 100, 20);
 		contentPane.add(lblStrengthDesc);
 		
 		lblStrength = JLabelFactory.createJLabel("10");
-		lblStrength.setBounds(115, 13, 24, 16);
+		lblStrength.setBounds(115, 13, 24, 20);
 		lblStrength.setToolTipText(lblStrengthDesc.getToolTipText());
 		contentPane.add(lblStrength);
 		
 		JLabel lblConstitutionDesc = createAttributeLabel(Constants.CONSTITUTION, "Constitution");
-		lblConstitutionDesc.setBounds(12, 51, 100, 16);
+		lblConstitutionDesc.setBounds(12, 51, 100, 20);
 		contentPane.add(lblConstitutionDesc);
 		
 		lblConstitution = JLabelFactory.createJLabel("10");
-		lblConstitution.setBounds(115, 51, 24, 16);
+		lblConstitution.setBounds(115, 51, 24, 20);
 		lblConstitution.setToolTipText(lblConstitutionDesc.getToolTipText());
 		contentPane.add(lblConstitution);
 		
 		JLabel lblDexterityDesc = createAttributeLabel(Constants.DEXTERITY, "Dexterity");
-		lblDexterityDesc.setBounds(12, 91, 100, 16);
+		lblDexterityDesc.setBounds(12, 91, 100, 20);
 		contentPane.add(lblDexterityDesc);
 		
 		lblDexterity = JLabelFactory.createJLabel("10");
-		lblDexterity.setBounds(115, 91, 24, 16);
+		lblDexterity.setBounds(115, 91, 24, 20);
 		lblDexterity.setToolTipText(lblDexterityDesc.getToolTipText());
 		contentPane.add(lblDexterity);
 		
 		JLabel lblIntelligenceDesc = createAttributeLabel(Constants.INTELLIGENCE, "Intelligence");
-		lblIntelligenceDesc.setBounds(12, 133, 100, 16);
+		lblIntelligenceDesc.setBounds(12, 133, 100, 20);
 		contentPane.add(lblIntelligenceDesc);
 		
 		lblIntelligence = JLabelFactory.createJLabel("10");
-		lblIntelligence.setBounds(115, 133, 24, 16);
+		lblIntelligence.setBounds(115, 133, 24, 20);
 		lblIntelligence.setToolTipText(lblIntelligenceDesc.getToolTipText());
 		contentPane.add(lblIntelligence);
 		
 		JLabel lblWisdomDesc = createAttributeLabel(Constants.WISDOM, "Wisdom");
-		lblWisdomDesc.setBounds(12, 179, 100, 16);
+		lblWisdomDesc.setBounds(12, 179, 100, 20);
 		contentPane.add(lblWisdomDesc);
 		
 		lblWisdom = JLabelFactory.createJLabel("10");
-		lblWisdom.setBounds(115, 179, 24, 16);
+		lblWisdom.setBounds(115, 179, 24, 20);
 		lblWisdom.setToolTipText(lblWisdomDesc.getToolTipText());
 		contentPane.add(lblWisdom);
 		
 		JLabel lblCharismaDesc = createAttributeLabel(Constants.CHARISMA, "Charisma");
-		lblCharismaDesc.setBounds(12, 224, 100, 16);
+		lblCharismaDesc.setBounds(12, 224, 100, 20);
 		contentPane.add(lblCharismaDesc);
 		
 		lblCharisma = JLabelFactory.createJLabel("10");
-		lblCharisma.setBounds(115, 224, 24, 16);
+		lblCharisma.setBounds(115, 224, 24, 20);
 		lblCharisma.setToolTipText(lblCharismaDesc.getToolTipText());
 		contentPane.add(lblCharisma);
 		

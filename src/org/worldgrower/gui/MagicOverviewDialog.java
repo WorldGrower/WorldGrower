@@ -48,7 +48,7 @@ public class MagicOverviewDialog extends JDialog {
 	public MagicOverviewDialog(WorldObject playerCharacter) {
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		
-		setSize(550, 525);
+		setSize(650, 650);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -57,18 +57,26 @@ public class MagicOverviewDialog extends JDialog {
 		IconUtils.setIcon(this);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(12, 13, 508, 417);
+		scrollPane.setBounds(12, 13, 608, 517);
 		contentPanel.add(scrollPane);
 		
 		JTable magicSpellsTable = new MagicSpellsTable(new MagicSpellTableModel(playerCharacter));
 		magicSpellsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		magicSpellsTable.setAutoCreateRowSorter(true);
+		
+		magicSpellsTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		magicSpellsTable.getColumnModel().getColumn(0).setPreferredWidth(250);
+		magicSpellsTable.getColumnModel().getColumn(1).setPreferredWidth(100);
+		magicSpellsTable.getColumnModel().getColumn(2).setPreferredWidth(150);
+		magicSpellsTable.getColumnModel().getColumn(3).setPreferredWidth(100);
+		
+		
 		scrollPane.setViewportView(magicSpellsTable);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			buttonPane.setOpaque(false);
-			buttonPane.setBounds(12, 435, 508, 75);
+			buttonPane.setBounds(12, 535, 608, 75);
 			contentPanel.add(buttonPane);
 			{
 				JButton okButton = ButtonFactory.createButton("OK");
@@ -115,7 +123,7 @@ public class MagicOverviewDialog extends JDialog {
 				return null;
 			}
 		}
-
+		
 		@Override
 		public int getColumnCount() {
 			return 4;
