@@ -1,3 +1,18 @@
+v0.1.7
+- cleanup .zip file in release
+- implement worship actions for deities
+- worshipping deities can be made illegal by village leader
+- add feedback when elections are finished.
+- message is shown when player character is thrown out of group
+- bugfix for save/load
+- trees are boreal trees in hills and mountains
+- fixed CatchFishGoal: fishing pole gets equipped if not already
+- improve smith image
+- generate flowers on grassland tiles
+- add conversation to merge organizations
+- add relationship value to conversation dialogs
+- made game more skinnable and changed color palette to blue/white
+
 v0.1.6
 - moving npcs are now animated
 - buttons have a different gradient color when pressed
