@@ -32,7 +32,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JComponent;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JTextArea;
@@ -55,6 +54,7 @@ import org.worldgrower.condition.WorldStateChangedListener;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.gui.conversation.GuiRespondToQuestion;
 import org.worldgrower.gui.conversation.GuiShowBrawlResult;
+import org.worldgrower.gui.status.StatusMessageDialog;
 import org.worldgrower.gui.util.JTextAreaFactory;
 import org.worldgrower.history.HistoryItem;
 
@@ -106,7 +106,7 @@ public class WorldPanel extends JPanel {
         
         messageTextArea = JTextAreaFactory.createJTextArea(3, 30);
         messageTextArea.setEditable(false);
-        setStatusMessage("Welcome to WorldGrower.\nThis component displays status messages.");
+        setStatusMessage("Welcome to WorldGrower. \nThis component displays status messages.");
         messageTextArea.setToolTipText("This area displays messages like combat or dialogues. Click to show previous messages.");
         makeUnfocussable(messageTextArea);
         world.addListener(new MessageManagedOperationListener());
@@ -231,12 +231,7 @@ public class WorldPanel extends JPanel {
 
 		@Override
 		public void mouseClicked(MouseEvent arg0) {
-			StringBuilder builder = new StringBuilder();
-			for(String message : statusMessages) {
-				builder.append(message).append("\n\n");
-			}
-			
-			JOptionPane.showMessageDialog(WorldPanel.this, builder.toString(), "Status messages", JOptionPane.INFORMATION_MESSAGE);
+			new StatusMessageDialog(statusMessages).showMe();
 		}
     }
     
