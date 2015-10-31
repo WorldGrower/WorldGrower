@@ -23,6 +23,7 @@ import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.event.MouseMotionListener;
@@ -31,6 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JTextArea;
@@ -53,6 +55,7 @@ import org.worldgrower.condition.WorldStateChangedListener;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.gui.conversation.GuiRespondToQuestion;
 import org.worldgrower.gui.conversation.GuiShowBrawlResult;
+import org.worldgrower.gui.util.JTextAreaFactory;
 import org.worldgrower.history.HistoryItem;
 
 public class WorldPanel extends JPanel {
@@ -75,6 +78,8 @@ public class WorldPanel extends JPanel {
 	
 	private final MoveMode moveMode = new MoveMode();
 	private final BackgroundPainter backgroundPainter;
+	
+	private final List<String> statusMessages = new ArrayList<>();
 	
     public WorldPanel(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, ImageInfoReader imageInfoReader) throws IOException {
         super(new BorderLayout());
@@ -99,11 +104,13 @@ public class WorldPanel extends JPanel {
 		infoPanel.setLayout(layout);
 		makeUnfocussable(infoPanel);
         
-        messageTextArea = new JTextArea(3, 30);
+        messageTextArea = JTextAreaFactory.createJTextArea(3, 30);
         messageTextArea.setEditable(false);
-        messageTextArea.setToolTipText("This area displays messages like combat or dialogues");
+        setStatusMessage("Welcome to WorldGrower.\nThis component displays status messages.");
+        messageTextArea.setToolTipText("This area displays messages like combat or dialogues. Click to show previous messages.");
         makeUnfocussable(messageTextArea);
         world.addListener(new MessageManagedOperationListener());
+        messageTextArea.addMouseListener(new MessageTextAreaMouseListener());
         
         hitPointsProgressBar = new JProgressBar(JProgressBar.VERTICAL, 0, playerCharacter.getProperty(Constants.HIT_POINTS_MAX));
         hitPointsProgressBar.setBackground(Color.BLACK);
@@ -204,15 +211,33 @@ public class WorldPanel extends JPanel {
 		public void actionPerformed(ManagedOperation managedOperation, WorldObject performer, WorldObject target, int[] args, Object message) {
 			if (performer.equals(playerCharacter) || target.equals(playerCharacter)) {
 				if (message instanceof String) {
-					messageTextArea.setText((String) message);
+					setStatusMessage((String) message);
 				}
 			}
 		}
     }
     
+    private void setStatusMessage(String message) {
+    	statusMessages.add(message);
+    	messageTextArea.setText(message);
+    }
+    
     private void makeUnfocussable(JComponent component) {
     	component.setRequestFocusEnabled(false);
     	component.setFocusable(false);
+    }
+    
+    private class MessageTextAreaMouseListener extends MouseAdapter {
+
+		@Override
+		public void mouseClicked(MouseEvent arg0) {
+			StringBuilder builder = new StringBuilder();
+			for(String message : statusMessages) {
+				builder.append(message).append("\n\n");
+			}
+			
+			JOptionPane.showMessageDialog(WorldPanel.this, builder.toString(), "Status messages", JOptionPane.INFORMATION_MESSAGE);
+		}
     }
     
     @Override
