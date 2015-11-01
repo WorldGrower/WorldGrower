@@ -28,10 +28,10 @@ public class GuiShowReadAction implements ManagedOperationListener {
 
 	private WorldObject playerCharacter;
 	private World world;
-	private JComponent container;
+	private WorldPanel container;
 	private ImageInfoReader imageInfoReader;
 	
-	public GuiShowReadAction(WorldObject playerCharacter, World world, JComponent container, ImageInfoReader imageInfoReader) {
+	public GuiShowReadAction(WorldObject playerCharacter, World world, WorldPanel container, ImageInfoReader imageInfoReader) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.world = world;

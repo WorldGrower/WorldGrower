@@ -16,8 +16,6 @@ package org.worldgrower.gui;
 
 import java.util.List;
 
-import javax.swing.JComponent;
-
 import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
@@ -32,10 +30,10 @@ public class GuiShowEventHappenedAction implements WorldStateChangedListener {
 
 	private WorldObject playerCharacter;
 	private World world;
-	private JComponent container;
+	private WorldPanel container;
 	private ImageInfoReader imageInfoReader;
 	
-	public GuiShowEventHappenedAction(WorldObject playerCharacter, World world, JComponent container, ImageInfoReader imageInfoReader) {
+	public GuiShowEventHappenedAction(WorldObject playerCharacter, World world, WorldPanel container, ImageInfoReader imageInfoReader) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.world = world;

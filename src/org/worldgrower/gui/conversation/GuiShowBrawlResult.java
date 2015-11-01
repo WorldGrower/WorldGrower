@@ -25,6 +25,7 @@ import org.worldgrower.actions.BrawlFinishedListener;
 import org.worldgrower.actions.BrawlListener;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
+import org.worldgrower.gui.WorldPanel;
 
 public class GuiShowBrawlResult implements BrawlFinishedListener {
 	private static final String[] RESPONSE_PREFIXES = new String[] { 
@@ -34,9 +35,11 @@ public class GuiShowBrawlResult implements BrawlFinishedListener {
 	};
 	
 	private ImageInfoReader imageInfoReader;
+	private WorldPanel container;
 	
-	public GuiShowBrawlResult(ImageInfoReader imageInfoReader, World world) {
+	public GuiShowBrawlResult(ImageInfoReader imageInfoReader, WorldPanel container, World world) {
 		this.imageInfoReader = imageInfoReader;
+		this.container = container;
 		
 		world.getListenerByClass(BrawlListener.class).addBrawlFinishedListener(this);
 	}
@@ -67,11 +70,7 @@ public class GuiShowBrawlResult implements BrawlFinishedListener {
 		}
 		
 		if (!target.isControlledByAI()) {
-			JOptionPane.showMessageDialog(null,
-					responses[0],
-				    "brawl result dialog",
-				    JOptionPane.INFORMATION_MESSAGE,
-				    performerIcon);
+			container.setStatusMessage(performerIcon, responses[0]);
 		}
 		
 	}

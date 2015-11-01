@@ -31,6 +31,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.Icon;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
@@ -106,7 +107,7 @@ public class WorldPanel extends JPanel {
         
         messageTextArea = JTextAreaFactory.createJTextArea(3, 30);
         messageTextArea.setEditable(false);
-        setStatusMessage("Welcome to WorldGrower. \nThis component displays status messages.");
+        setStatusMessage("Welcome to WorldGrower. \nThis component displays messages. (S)");
         messageTextArea.setToolTipText("This area displays messages like combat or dialogues. Click to show previous messages.");
         makeUnfocussable(messageTextArea);
         world.addListener(new MessageManagedOperationListener());
@@ -217,7 +218,12 @@ public class WorldPanel extends JPanel {
 		}
     }
     
-    private void setStatusMessage(String message) {
+    public void setStatusMessage(String message) {
+    	statusMessages.add(message);
+    	messageTextArea.setText(message);
+    }
+    
+    public void setStatusMessage(Icon icon, String message) {
     	statusMessages.add(message);
     	messageTextArea.setText(message);
     }
@@ -230,9 +236,13 @@ public class WorldPanel extends JPanel {
     private class MessageTextAreaMouseListener extends MouseAdapter {
 
 		@Override
-		public void mouseClicked(MouseEvent arg0) {
-			new StatusMessageDialog(statusMessages).showMe();
+		public void mouseClicked(MouseEvent event) {
+			showStatusMessageDialog();
 		}
+    }
+    
+    public void showStatusMessageDialog() {
+    	new StatusMessageDialog(statusMessages).showMe();
     }
     
     @Override
@@ -431,13 +441,13 @@ public class WorldPanel extends JPanel {
 
 	public void createGuiRespondToImage() {
 		new GuiRespondToQuestion(playerCharacter, world, imageInfoReader);
-		new GuiShowReadAction(playerCharacter, world, (JComponent) this.getParent(), imageInfoReader);
-		new GuiShowBrawlResult(imageInfoReader, world);
+		new GuiShowReadAction(playerCharacter, world, this, imageInfoReader);
+		new GuiShowBrawlResult(imageInfoReader, this, world);
 		world.getWorldOnTurn().addWorldStateChangedListener(createWorldStateChangedListener());
 	}
 	
 	private WorldStateChangedListener createWorldStateChangedListener() {
-		return new GuiShowEventHappenedAction(playerCharacter, world, (JComponent) this.getParent(), imageInfoReader);
+		return new GuiShowEventHappenedAction(playerCharacter, world, this, imageInfoReader);
 	}
 	
 	public WorldStateChangedListeners getWorldStateChangedListeners() {

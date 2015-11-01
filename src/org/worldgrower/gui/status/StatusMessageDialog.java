@@ -40,6 +40,7 @@ public class StatusMessageDialog extends AbstractDialog {
 		JList<String> list = new JList<>(statusMessages.toArray(new String[0]));
 		list.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
 		list.setForeground(ColorPalette.FOREGROUND_COLOR);
+		list.setSelectedIndex(statusMessages.size() - 1);
 		scrollPane.setViewportView(list);
 		
 		JPanel buttonPane = new JPanel();

@@ -74,6 +74,7 @@ public class GuiMouseListener extends MouseAdapter {
 	private final RestAction restAction;
 	private final GuiShowOrganizationsAction createOrganizationAction;
 	private final GuiAssignActionToLeftMouseAction assignActionToLeftMouseAction;
+	private final ShowStatusMessagesAction showStatusMessagesAction;
 	private ManagedOperation leftMouseClickAction;
 	
     public GuiMouseListener(WorldPanel container, WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, ImageInfoReader imageInfoReader) {
@@ -89,6 +90,7 @@ public class GuiMouseListener extends MouseAdapter {
 		magicOverviewAction = new MagicOverviewAction(playerCharacter, imageInfoReader);
 		restAction = new RestAction(playerCharacter, imageInfoReader, world, (WorldPanel)container, dungeonMaster);
 		createOrganizationAction = new GuiShowOrganizationsAction(playerCharacter, world, container);
+		showStatusMessagesAction = new ShowStatusMessagesAction(container);
 		assignActionToLeftMouseAction = getGuiAssignActionToLeftMouseAction();
 		addKeyBindings();
 	}
@@ -99,6 +101,7 @@ public class GuiMouseListener extends MouseAdapter {
 		addKeyBindingsFor(magicOverviewAction, "M");
 		addKeyBindingsFor(restAction, "R");
 		addKeyBindingsFor(createOrganizationAction, "O");
+		addKeyBindingsFor(showStatusMessagesAction, "S");
 		addKeyBindingsFor(assignActionToLeftMouseAction, "A");
 	}
 	

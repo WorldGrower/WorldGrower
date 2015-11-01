@@ -12,22 +12,23 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.gui.util;
+package org.worldgrower.gui;
 
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
+import java.awt.event.ActionEvent;
 
-import org.worldgrower.Constants;
-import org.worldgrower.WorldObject;
-import org.worldgrower.gui.ImageIds;
-import org.worldgrower.gui.ImageInfoReader;
-import org.worldgrower.gui.WorldPanel;
+import javax.swing.AbstractAction;
 
-public class MessageDialogUtils {
+public class ShowStatusMessagesAction extends AbstractAction {
 
-	public static void showMessage(String text, String title, WorldObject target, WorldPanel container, ImageInfoReader imageInfoReader) {
-		ImageIds imageIdTarget = target.getProperty(Constants.IMAGE_ID);
-		Icon targetIcon = new ImageIcon(imageInfoReader.getImage(imageIdTarget, null));
-		container.setStatusMessage(targetIcon, text);
+	private WorldPanel parent;
+	
+	public ShowStatusMessagesAction(WorldPanel parent) {
+		super();
+		this.parent = parent;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		parent.showStatusMessageDialog();
 	}
 }
