@@ -39,6 +39,7 @@ import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.util.ButtonFactory;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.JCheckBoxFactory;
+import org.worldgrower.gui.util.JComboBoxFactory;
 import org.worldgrower.gui.util.JLabelFactory;
 import org.worldgrower.gui.util.JRadioButtonFactory;
 import org.worldgrower.gui.util.JTextFieldFactory;
@@ -263,7 +264,7 @@ public class OptionsScreen {
 		lblCharacterImage.setBounds(25, 152, 191, 26);
 		contentPanel.add(lblCharacterImage);
 		
-		cmbImage = new JComboBox<>();
+		cmbImage = JComboBoxFactory.createJComboBox();
 		cmbImage.setModel(new ImageComboBoxModel(imageInfoReader));
 		cmbImage.setRenderer(new ImageComboBoxCellRenderer(imageInfoReader));
 		cmbImage.setSelectedIndex(0);

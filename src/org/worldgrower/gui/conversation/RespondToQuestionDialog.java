@@ -35,6 +35,7 @@ import org.worldgrower.gui.AbstractDialog;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.util.ButtonFactory;
+import org.worldgrower.gui.util.JComboBoxFactory;
 import org.worldgrower.gui.util.JLabelFactory;
 import org.worldgrower.gui.util.JProgressBarFactory;
 
@@ -115,7 +116,7 @@ public class RespondToQuestionDialog extends AbstractDialog {
 	}
 	
 	private JComboBox<Response> createResponseComboBox(int id, int subjectId, int historyItemId, Conversations conversations, Questioner questioner, int additionalValue) {
-		JComboBox<Response> responseComboBox = new JComboBox<Response>();
+		JComboBox<Response> responseComboBox = JComboBoxFactory.createJComboBox();
 		List<Response> responses = questioner.getResponsePhrases(id, subjectId, historyItemId, additionalValue);
 		for(Response response : responses) {
 			responseComboBox.addItem(response);

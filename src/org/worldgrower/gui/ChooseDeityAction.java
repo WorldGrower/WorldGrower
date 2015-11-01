@@ -18,7 +18,6 @@ import java.awt.event.ActionEvent;
 import java.util.Arrays;
 
 import javax.swing.AbstractAction;
-import javax.swing.JOptionPane;
 
 import org.worldgrower.DungeonMaster;
 import org.worldgrower.Main;
@@ -47,7 +46,7 @@ public class ChooseDeityAction extends AbstractAction {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String[] deityNames = Deity.getAllDeityNames().toArray(new String[0]);
-		String deityName = (String) JOptionPane.showInputDialog(parent, "Choose Deity", "Choose Deity", JOptionPane.QUESTION_MESSAGE, null, deityNames, deityNames[0]);
+		String deityName = new ListInputDialog("Choose Deity", deityNames).showMe();
 		if (deityName != null) {
 			int indexOfDeity = Arrays.asList(deityNames).indexOf(deityName);
 			

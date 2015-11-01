@@ -44,6 +44,7 @@ import org.worldgrower.goal.ArmorPropertyUtils;
 import org.worldgrower.goal.MeleeDamagePropertyUtils;
 import org.worldgrower.gui.util.ButtonFactory;
 import org.worldgrower.gui.util.IconUtils;
+import org.worldgrower.gui.util.JComboBoxFactory;
 import org.worldgrower.gui.util.JLabelFactory;
 import org.worldgrower.gui.util.JProgressBarFactory;
 
@@ -316,7 +317,7 @@ public class CharacterDialog extends JDialog {
 			equipmentWorldObjects.add(comboBoxEquipmentItem);
 		}
 		
-		JComboBox<ComboBoxEquipmentItem> equipmentComboBox = new JComboBox<ComboBoxEquipmentItem>(equipmentWorldObjects.toArray(new ComboBoxEquipmentItem[0]));
+		JComboBox<ComboBoxEquipmentItem> equipmentComboBox = JComboBoxFactory.createJComboBox(equipmentWorldObjects.toArray(new ComboBoxEquipmentItem[0]));
 		equipmentComboBox.setRenderer(new ComboBoxRenderer(imageInfoReader));
 		equipmentComboBox.setSelectedItem(selectedItem);
 		equipmentComboBox.addActionListener(new EquipmentChangedAction());
