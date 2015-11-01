@@ -35,7 +35,7 @@ public class BuildShackAction implements BuildAction {
 		int x = (Integer)target.getProperty(Constants.X);
 		int y = (Integer)target.getProperty(Constants.Y);
 	
-		int id = BuildingGenerator.generateShack(x, y, world, SkillUtils.useSkill(performer, Constants.CARPENTRY_SKILL));
+		int id = BuildingGenerator.generateShack(x, y, world, SkillUtils.useSkill(performer, Constants.CARPENTRY_SKILL, world.getWorldStateChangedListeners()));
 		
 		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.WOOD, REQUIRED_WOOD);
 		performer.getProperty(Constants.HOUSES).add(id);

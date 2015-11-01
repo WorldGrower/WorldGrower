@@ -21,6 +21,8 @@ import java.util.List;
 
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.WorldStateChangedListener;
+import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.history.History;
 import org.worldgrower.history.Turn;
@@ -193,5 +195,14 @@ public class WorldFacade implements World {
 	@Override
 	public WorldOnTurn getWorldOnTurn() {
 		throw new IllegalStateException("WorldFacade is read-only, getWorldOnTurn should not be called");
+	}
+
+	@Override
+	public WorldStateChangedListeners getWorldStateChangedListeners() {
+		return world.getWorldStateChangedListeners();
+	}
+
+	@Override
+	public void addWorldStateChangedListener(WorldStateChangedListener worldStateChangedListener) {
 	}
 }

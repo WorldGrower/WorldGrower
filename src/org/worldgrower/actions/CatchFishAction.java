@@ -42,7 +42,7 @@ public class CatchFishAction implements ManagedOperation {
 
 		world.removeWorldObject(target);
 		
-		SkillUtils.useEnergy(performer, Constants.FISHING_SKILL, ENERGY_USE);
+		SkillUtils.useEnergy(performer, Constants.FISHING_SKILL, ENERGY_USE, world.getWorldStateChangedListeners());
 	}
 
 	@Override

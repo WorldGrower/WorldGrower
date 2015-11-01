@@ -40,7 +40,7 @@ public class MendAction implements MagicSpell {
 			target.setProperty(Constants.HIT_POINTS, target.getProperty(Constants.HIT_POINTS_MAX));
 		}
 		
-		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE);
+		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE, world.getWorldStateChangedListeners());
 	}
 	
 	@Override

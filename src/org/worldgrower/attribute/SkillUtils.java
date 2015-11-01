@@ -22,6 +22,7 @@ import java.util.Map.Entry;
 
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
+import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.profession.Profession;
 
 public class SkillUtils {
@@ -118,22 +119,22 @@ public class SkillUtils {
 		return false;
 	}
 	
-	public static void teachSkill(WorldObject performer, SkillProperty skillProperty) {
+	public static void teachSkill(WorldObject performer, SkillProperty skillProperty, WorldStateChangedListeners worldStateChangedListeners) {
 		for(int i=0; i<10; i++) {
-			performer.getProperty(skillProperty).use();
+			performer.getProperty(skillProperty).use(performer, skillProperty, worldStateChangedListeners);
 		}
 	}
 	
-	public static double useSkill(WorldObject performer, SkillProperty skill) {
+	public static double useSkill(WorldObject performer, SkillProperty skill, WorldStateChangedListeners worldStateChangedListeners) {
 		double result = getSkillBonus(performer, skill);
-		performer.getProperty(skill).use();
+		performer.getProperty(skill).use(performer, skill, worldStateChangedListeners);
 		return result;
 	}
 
-	public static int useSkillLevel(WorldObject performer, SkillProperty skillProperty) {
+	public static int useSkillLevel(WorldObject performer, SkillProperty skillProperty, WorldStateChangedListeners worldStateChangedListeners) {
 		Skill skill = performer.getProperty(skillProperty);
 		int level = skill.getLevel();
-		skill.use();
+		skill.use(performer, skillProperty, worldStateChangedListeners);
 		return level;
 	}
 	
@@ -146,8 +147,8 @@ public class SkillUtils {
 		return (int)(energyUse / (getSkillBonus(performer, skill)));
 	}
 	
-	public static void useEnergy(WorldObject performer, SkillProperty skill, int energyUse) {
-		performer.increment(Constants.ENERGY, -(int)(energyUse / useSkill(performer, skill)));
+	public static void useEnergy(WorldObject performer, SkillProperty skill, int energyUse, WorldStateChangedListeners worldStateChangedListeners) {
+		performer.increment(Constants.ENERGY, -(int)(energyUse / useSkill(performer, skill, worldStateChangedListeners)));
 	}
 	
 	public static int distanceForEnergyUse(WorldObject performer, SkillProperty skill, int energyUse) {
@@ -156,5 +157,10 @@ public class SkillUtils {
 		} else {
 			return getRealEnergyUse(performer, skill,energyUse) - performer.getProperty(Constants.ENERGY);
 		}
+	}
+
+	public static void useSkill(WorldObject performer, SkillProperty skill, int count, WorldStateChangedListeners worldStateChangedListeners) {
+		performer.getProperty(skill).use(count, performer, skill, worldStateChangedListeners);
+		
 	}
 }

@@ -46,8 +46,8 @@ public class TalkAction implements ManagedOperation {
 		if (target.isControlledByAI()) {
 			answer = conversations.getReplyPhrase(question, subjectId, historyItemId, performer, target, world, additionalValue);
 			
-			WorldObject performerFacade = createFacade(performer, performer, target);
-			WorldObject targetFacade = createFacade(target, performer, target);
+			WorldObject performerFacade = createFacade(performer, performer, target, world);
+			WorldObject targetFacade = createFacade(target, performer, target, world);
 			
 			RelationshipPropertyUtils.changeRelationshipValueUsingFacades(performer, target, 1, this, args, world);
 			

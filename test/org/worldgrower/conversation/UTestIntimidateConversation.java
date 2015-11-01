@@ -45,10 +45,11 @@ public class UTestIntimidateConversation {
 	
 	@Test
 	public void testGetReplyPhrase() {
+		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(1);
 		WorldObject target = TestUtils.createSkilledWorldObject(2);
 		
-		ConversationContext context = new ConversationContext(performer, target, null, null, null, 0);
+		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
 		assertEquals(-999, conversation.getReplyPhrase(context).getId());
 	}
 	

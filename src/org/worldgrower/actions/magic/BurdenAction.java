@@ -43,7 +43,7 @@ public class BurdenAction implements MagicSpell {
 			target.getProperty(Constants.CONDITIONS).addCondition(Condition.BURDENED_CONDITION, turns, world);
 		}
 		
-		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE);
+		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE, world.getWorldStateChangedListeners());
 	}
 	
 	@Override

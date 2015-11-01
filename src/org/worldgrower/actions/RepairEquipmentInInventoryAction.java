@@ -33,7 +33,7 @@ public class RepairEquipmentInInventoryAction implements ManagedOperation {
 		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
 		List<WorldObject> damagedEquipment = getDamagedEquipment(inventory);
 		
-		double skillBonus = SkillUtils.useSkill(performer, Constants.SMITHING_SKILL);
+		double skillBonus = SkillUtils.useSkill(performer, Constants.SMITHING_SKILL, world.getWorldStateChangedListeners());
 		damagedEquipment.get(0).increment(Constants.EQUIPMENT_HEALTH, (int)(100 * skillBonus));
 		
 		inventory.removeQuantity(Constants.REPAIR_QUALITY, 1);

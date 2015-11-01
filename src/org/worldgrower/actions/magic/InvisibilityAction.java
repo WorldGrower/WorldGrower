@@ -39,7 +39,7 @@ public class InvisibilityAction implements MagicSpell {
 		int turns = (int)(8 * SkillUtils.getSkillBonus(performer, getSkill()));
 		target.getProperty(Constants.CONDITIONS).addCondition(Condition.INVISIBLE_CONDITION, turns, world);
 		
-		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE);
+		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE, world.getWorldStateChangedListeners());
 	}
 	
 	@Override

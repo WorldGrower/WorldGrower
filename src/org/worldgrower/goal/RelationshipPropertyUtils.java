@@ -24,8 +24,8 @@ import org.worldgrower.WorldObject;
 public class RelationshipPropertyUtils {
 
 	public static void changeRelationshipValueUsingFacades(WorldObject performer, WorldObject target, int value, ManagedOperation managedOperation, int[] args, World world) {
-		WorldObject performerFacade = createFacade(performer, performer, target);
-		WorldObject targetFacade = createFacade(target, performer, target);
+		WorldObject performerFacade = createFacade(performer, performer, target, world);
+		WorldObject targetFacade = createFacade(target, performer, target, world);
 		performer.getProperty(Constants.RELATIONSHIPS).incrementValue(targetFacade.getProperty(Constants.ID), value);
 		target.getProperty(Constants.RELATIONSHIPS).incrementValue(performerFacade.getProperty(Constants.ID), value);
 

@@ -39,7 +39,7 @@ public class DisintegrateWeaponAction implements MagicSpell {
 		int damage = (int)(100 * skillBonus);
 		AttackUtils.decreaseWeaponHealth(target, damage);
 		
-		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE);
+		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE, world.getWorldStateChangedListeners());
 	}
 	
 	@Override

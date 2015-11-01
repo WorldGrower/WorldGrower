@@ -50,9 +50,10 @@ public class ComplimentConversation implements Conversation {
 	}
 
 	private double getDiplomacyBonus(ConversationContext conversationContext) {
+		World world = conversationContext.getWorld();
 		double diplomacyBonus = 1.0f;
-		int performerDiplomacy = SkillUtils.useSkillLevel(conversationContext.getPerformer(), Constants.DIPLOMACY_SKILL);
-		int targetInsight = SkillUtils.useSkillLevel(conversationContext.getTarget(), Constants.INSIGHT_SKILL);
+		int performerDiplomacy = SkillUtils.useSkillLevel(conversationContext.getPerformer(), Constants.DIPLOMACY_SKILL, world.getWorldStateChangedListeners());
+		int targetInsight = SkillUtils.useSkillLevel(conversationContext.getTarget(), Constants.INSIGHT_SKILL, world.getWorldStateChangedListeners());
 		if (performerDiplomacy > targetInsight) {
 			diplomacyBonus += (performerDiplomacy - targetInsight) / 100.0f;
 		}

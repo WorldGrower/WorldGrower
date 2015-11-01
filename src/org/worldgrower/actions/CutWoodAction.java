@@ -35,7 +35,7 @@ public class CutWoodAction implements ManagedOperation {
 		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.WOOD, 1, ImageIds.WOOD);
 		target.increment(Constants.WOOD_SOURCE, - 1);
 		
-		SkillUtils.useEnergy(performer, Constants.LUMBERING_SKILL, ENERGY_USE);
+		SkillUtils.useEnergy(performer, Constants.LUMBERING_SKILL, ENERGY_USE, world.getWorldStateChangedListeners());
 	}
 
 	@Override

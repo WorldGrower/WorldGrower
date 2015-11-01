@@ -18,6 +18,8 @@ import java.io.File;
 import java.util.List;
 
 import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.condition.WorldStateChangedListener;
+import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.history.History;
 import org.worldgrower.history.Turn;
@@ -158,6 +160,18 @@ public class MockWorld implements World {
 	public WorldOnTurn getWorldOnTurn() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public WorldStateChangedListeners getWorldStateChangedListeners() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void addWorldStateChangedListener(WorldStateChangedListener worldStateChangedListener) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

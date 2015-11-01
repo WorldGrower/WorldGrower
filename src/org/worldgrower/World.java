@@ -18,6 +18,8 @@ import java.io.File;
 import java.util.List;
 
 import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.condition.WorldStateChangedListener;
+import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.history.History;
 import org.worldgrower.history.Turn;
@@ -56,6 +58,8 @@ public interface World {
 	public History getHistory();
 	public void save(File fileToSave);
 	public WorldOnTurn getWorldOnTurn();
+	public WorldStateChangedListeners getWorldStateChangedListeners();
+	public void addWorldStateChangedListener(WorldStateChangedListener worldStateChangedListener);
 	
 	
 }

@@ -55,7 +55,7 @@ public class MinorIllusionAction implements BuildAction, MagicSpell {
 		
 		world.addWorldObject(illusionWorldObject);
 		
-		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE);
+		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE, world.getWorldStateChangedListeners());
 	}
 	
 	@Override

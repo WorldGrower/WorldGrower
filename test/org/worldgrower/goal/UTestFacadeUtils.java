@@ -31,19 +31,20 @@ public class UTestFacadeUtils {
 
 	@Test
 	public void testCreateFacade() {
+		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(0);
 		WorldObject worldObject = TestUtils.createSkilledWorldObject(1);
 		WorldObject target = TestUtils.createSkilledWorldObject(2);
 		target.setProperty(Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		
-		assertEquals(WorldObjectImpl.class, FacadeUtils.createFacade(worldObject, performer, target).getClass());
+		assertEquals(WorldObjectImpl.class, FacadeUtils.createFacade(worldObject, performer, target, world).getClass());
 		
 		WorldObject facade = TestUtils.createWorldObject(3, "facade");
 		worldObject.setProperty(Constants.FACADE, facade);
-		assertEquals(WorldObjectImpl.class, FacadeUtils.createFacade(worldObject, performer, target).getClass());
+		assertEquals(WorldObjectImpl.class, FacadeUtils.createFacade(worldObject, performer, target, world).getClass());
 		
 		performer.setProperty(Constants.BLUFF_SKILL, new Skill(20));
-		assertEquals(WorldObjectFacade.class, FacadeUtils.createFacade(worldObject, performer, target).getClass());
+		assertEquals(WorldObjectFacade.class, FacadeUtils.createFacade(worldObject, performer, target, world).getClass());
 	}
 	
 	@Test

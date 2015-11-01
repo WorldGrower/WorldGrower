@@ -30,6 +30,8 @@ import java.util.stream.Collectors;
 
 import org.worldgrower.attribute.IdContainer;
 import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.condition.WorldStateChangedListener;
+import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.history.History;
 import org.worldgrower.history.HistoryImpl;
@@ -49,6 +51,7 @@ public class WorldImpl implements World, Serializable {
 	private final History history = new HistoryImpl();
 	private Turn currentTurn = new Turn();
 	private final WorldOnTurn worldOnTurn;
+	private transient WorldStateChangedListeners worldStateChangedListeners = new WorldStateChangedListeners();
 	
 	public WorldImpl(int width, int height, DungeonMaster dungeonMaster, WorldOnTurn worldOnTurn) {
 		this(new TerrainImpl(width, height), dungeonMaster, worldOnTurn);
@@ -228,6 +231,7 @@ public class WorldImpl implements World, Serializable {
 			
 			WorldImpl world = (WorldImpl) objectInputStream.readObject();
 			world.listeners = new ArrayList<>();
+			world.worldStateChangedListeners = new WorldStateChangedListeners();
 			return world;
 			
 		} catch(IOException | ClassNotFoundException ex) {
@@ -249,5 +253,15 @@ public class WorldImpl implements World, Serializable {
 	@Override
 	public WorldOnTurn getWorldOnTurn() {
 		return worldOnTurn;
+	}
+	
+	@Override
+	public WorldStateChangedListeners getWorldStateChangedListeners() {
+		return worldStateChangedListeners;
+	}
+	
+	@Override
+	public void addWorldStateChangedListener(WorldStateChangedListener worldStateChangedListener) {
+		worldStateChangedListeners.addWorldStateChangedListener(worldStateChangedListener);
 	}
 }

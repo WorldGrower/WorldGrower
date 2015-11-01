@@ -32,7 +32,7 @@ public class ConstructTrainingDummyAction implements BuildAction {
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		double skillBonus = SkillUtils.useSkill(performer, Constants.CARPENTRY_SKILL);
+		double skillBonus = SkillUtils.useSkill(performer, Constants.CARPENTRY_SKILL, world.getWorldStateChangedListeners());
 		int x = (Integer)target.getProperty(Constants.X);
 		int y = (Integer)target.getProperty(Constants.Y);
 		

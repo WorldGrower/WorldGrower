@@ -40,7 +40,7 @@ public class UnlockMagicSpellAction implements MagicSpell {
 			target.setProperty(Constants.LOCKED, Boolean.FALSE);
 		}
 		
-		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE);
+		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE, world.getWorldStateChangedListeners());
 	}
 	
 	@Override

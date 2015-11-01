@@ -82,7 +82,8 @@ public class LearnSkillUsingOrganizationConversation implements Conversation {
 			Profession performerProfession = performer.getProperty(Constants.PROFESSION);
 			SkillProperty skillProperty = performerProfession.getSkillProperty();
 			
-			SkillUtils.teachSkill(performer, skillProperty);
+			World world = conversationContext.getWorld();
+			SkillUtils.teachSkill(performer, skillProperty, world.getWorldStateChangedListeners());
 		} else if (replyIndex == NO) {
 			WorldObject performer = conversationContext.getPerformer();
 			WorldObject target = conversationContext.getTarget();

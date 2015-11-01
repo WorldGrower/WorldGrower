@@ -63,8 +63,9 @@ public class SexAction implements ManagedOperation {
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
 		if (performer.hasProperty(Constants.RELATIONSHIPS) && target.hasProperty(Constants.RELATIONSHIPS)) {
-			WorldObject performerFacade = createFacade(performer, performer, target);
-			WorldObject targetFacade = createFacade(target, performer, target);
+			//TODO: this method indirectly invokes skill:use method, which shoumdn't be the case
+			WorldObject performerFacade = createFacade(performer, performer, target, world);
+			WorldObject targetFacade = createFacade(target, performer, target, world);
 			return (target.hasIntelligence() && (targetFacade.getProperty(Constants.RELATIONSHIPS).getValue(performerFacade) > 750) && !GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, targetFacade));
 		} else {
 			return RacePropertyUtils.hasSameRace(performer, target);

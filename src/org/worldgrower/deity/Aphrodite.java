@@ -21,6 +21,7 @@ import java.util.List;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.profession.Professions;
@@ -72,7 +73,7 @@ public class Aphrodite implements Deity {
 	@Override
 	public void worship(WorldObject performer, WorldObject target, int worshipCount, World world) {
 		if (worshipCount == 5) {
-			performer.getProperty(Constants.DIPLOMACY_SKILL).use(30);
+			SkillUtils.useSkill(performer, Constants.DIPLOMACY_SKILL, 30, world.getWorldStateChangedListeners());
 		}
 	}
 }

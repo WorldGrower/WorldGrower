@@ -35,8 +35,8 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 			if (hasAnyoneSeenAction(performer, actionTarget, managedOperation, args, world)) {
 				int value = -100 * stepsUntilLastGoal;
 				
-				WorldObject performerFacade = FacadeUtils.createFacade(performer, performer, target);
-				WorldObject targetFacade = FacadeUtils.createFacade(target, performer, target);
+				WorldObject performerFacade = FacadeUtils.createFacade(performer, performer, target, world);
+				WorldObject targetFacade = FacadeUtils.createFacade(target, performer, target, world);
 				
 				logToBackground(target, actionTarget, managedOperation, args, performerFacade, world);
 				
@@ -69,7 +69,7 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 				GroupPropertyUtils.throwPerformerOutGroup(realPerformer, target);
 				
 				IdList newGroup = performer.getProperty(Constants.GROUP).copy();
-				world.getWorldOnTurn().thrownOutOfGroup(performer, actionTarget, args, managedOperation, oldGroup, newGroup);
+				world.getWorldStateChangedListeners().thrownOutOfGroup(performer, actionTarget, args, managedOperation, oldGroup, newGroup);
 			}
 		}
 	}

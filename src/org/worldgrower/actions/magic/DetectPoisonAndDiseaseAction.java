@@ -58,7 +58,7 @@ public class DetectPoisonAndDiseaseAction implements MagicSpell {
 			world.logAction(this, performer, target, args, "Nothing was detected");
 		}
 		
-		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE);
+		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE, world.getWorldStateChangedListeners());
 	}
 	
 	@Override

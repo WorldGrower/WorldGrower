@@ -28,7 +28,7 @@ public class RangedAttackAction implements DeadlyAction {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		AttackUtils.attack(this, performer, target, args, world, SkillUtils.useSkill(performer, Constants.ARCHERY_SKILL));
+		AttackUtils.attack(this, performer, target, args, world, SkillUtils.useSkill(performer, Constants.ARCHERY_SKILL, world.getWorldStateChangedListeners()));
 	}
 	
 	@Override

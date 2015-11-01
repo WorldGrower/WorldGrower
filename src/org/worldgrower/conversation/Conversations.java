@@ -253,8 +253,8 @@ public class Conversations implements Serializable {
 	public Response getReplyPhrase(int index, int subjectId, int historyItemId, WorldObject performer, WorldObject target, World world, int additionalValue) {
 		WorldObject subject = getSubject(subjectId, world);
 		HistoryItem questionHistoryItem = getQuestionHistoryItem(historyItemId, world);
-		WorldObject performerFacade = createFacade(performer, performer, target);
-		WorldObject targetFacade = createFacade(target, performer, target);
+		WorldObject performerFacade = createFacade(performer, performer, target, world);
+		WorldObject targetFacade = createFacade(target, performer, target, world);
 		ConversationContext conversationContext = new ConversationContext(performerFacade, targetFacade, subject, questionHistoryItem, world, additionalValue);
 		Response response = getReplyPhrase(index, conversationContext);
 		return response;
@@ -281,8 +281,8 @@ public class Conversations implements Serializable {
 	public List<Response> getReplyPhrases(int index, int subjectId, int historyItemId, WorldObject performer, WorldObject target, World world, int additionalValue) {
 		WorldObject subject = getSubject(subjectId, world);
 		HistoryItem questionHistoryItem = getQuestionHistoryItem(historyItemId, world);
-		WorldObject performerFacade = createFacade(performer, performer, target);
-		WorldObject targetFacade = createFacade(target, performer, target);
+		WorldObject performerFacade = createFacade(performer, performer, target, world);
+		WorldObject targetFacade = createFacade(target, performer, target, world);
 		ConversationContext conversationContext = new ConversationContext(performerFacade, targetFacade, subject, questionHistoryItem, world, additionalValue);
 		List<Response> responses = getReplyPhrases(index, conversationContext);
 		

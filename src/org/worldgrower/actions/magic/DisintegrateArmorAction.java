@@ -39,7 +39,7 @@ public class DisintegrateArmorAction implements MagicSpell {
 		int damage = (int)(100 * skillBonus);
 		AttackUtils.decreaseArmorHealth(target, damage);
 		
-		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE);
+		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE, world.getWorldStateChangedListeners());
 	}
 	
 	@Override

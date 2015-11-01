@@ -51,7 +51,7 @@ public class LightningBoltAttackAction implements MagicSpell, DeadlyAction {
 			}
 		}
 		
-		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE);
+		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE, world.getWorldStateChangedListeners());
 	}
 	
 	@Override

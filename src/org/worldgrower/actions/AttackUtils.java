@@ -31,6 +31,7 @@ import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.UnCheckedProperty;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
+import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.goal.DeathReasonPropertyUtils;
 
 public class AttackUtils {
@@ -70,7 +71,7 @@ public class AttackUtils {
 		target.setProperty(Constants.HIT_POINTS, targetHP);	
 		
 		decreaseWeaponHealth(performer, damage);
-		armorIsUsed(target, damage);
+		armorIsUsed(target, damage, world.getWorldStateChangedListeners());
 		everyoneInVicinityKnowsOfAttack(performer, target, world);
 		
 		world.logAction(action, performer, target, args, message);
@@ -118,9 +119,9 @@ public class AttackUtils {
 		}
 	}
 
-	private static void armorIsUsed(WorldObject target, int damage) {
+	private static void armorIsUsed(WorldObject target, int damage, WorldStateChangedListeners worldStateChangedListeners) {
 		decreaseArmorHealth(target, damage);
-		useArmorSkill(target);
+		useArmorSkill(target, worldStateChangedListeners);
 	}
 	
 	public static void decreaseArmorHealth(WorldObject target, int damage) {
@@ -129,21 +130,21 @@ public class AttackUtils {
 		}
 	}
 
-	private static void useArmorSkill(WorldObject target) {
+	private static void useArmorSkill(WorldObject target, WorldStateChangedListeners worldStateChangedListeners) {
 		List<WorldObject> targetEquipmentList = getEquipmentList(target);
 		
 		boolean targetHasLightArmor = targetEquipmentList.stream().filter(w -> w != null && w.getProperty(Constants.ARMOR_TYPE) == ArmorType.LIGHT).collect(Collectors.toList()).size() > 0;
 		boolean targetHasHeavyArmor = targetEquipmentList.stream().filter(w -> w != null && w.getProperty(Constants.ARMOR_TYPE) == ArmorType.HEAVY).collect(Collectors.toList()).size() > 0;
 		
 		if (targetHasLightArmor && targetHasHeavyArmor) {
-			SkillUtils.useSkill(target, Constants.LIGHT_ARMOR_SKILL);
-			SkillUtils.useSkill(target, Constants.HEAVY_ARMOR_SKILL);
+			SkillUtils.useSkill(target, Constants.LIGHT_ARMOR_SKILL, worldStateChangedListeners);
+			SkillUtils.useSkill(target, Constants.HEAVY_ARMOR_SKILL, worldStateChangedListeners);
 		} else if(targetHasLightArmor) {
-			SkillUtils.useSkill(target, Constants.LIGHT_ARMOR_SKILL);
-			SkillUtils.useSkill(target, Constants.LIGHT_ARMOR_SKILL);
+			SkillUtils.useSkill(target, Constants.LIGHT_ARMOR_SKILL, worldStateChangedListeners);
+			SkillUtils.useSkill(target, Constants.LIGHT_ARMOR_SKILL, worldStateChangedListeners);
 		} else if (targetHasHeavyArmor) {
-			SkillUtils.useSkill(target, Constants.HEAVY_ARMOR_SKILL);
-			SkillUtils.useSkill(target, Constants.HEAVY_ARMOR_SKILL);
+			SkillUtils.useSkill(target, Constants.HEAVY_ARMOR_SKILL, worldStateChangedListeners);
+			SkillUtils.useSkill(target, Constants.HEAVY_ARMOR_SKILL, worldStateChangedListeners);
 		}
 	}
 

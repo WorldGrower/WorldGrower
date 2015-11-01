@@ -35,7 +35,7 @@ public class PlantGrapeVineAction implements BuildAction {
 		
 		int grapeVineId = PlantGenerator.generateGrapeVine(x, y, world);
 		WorldObject grapeVine = world.findWorldObject(Constants.ID, grapeVineId);
-		grapeVine.increment(Constants.GRAPE_SOURCE, (int)(10 * SkillUtils.useSkill(performer, Constants.FARMING_SKILL)));
+		grapeVine.increment(Constants.GRAPE_SOURCE, (int)(10 * SkillUtils.useSkill(performer, Constants.FARMING_SKILL, world.getWorldStateChangedListeners())));
 	}
 	
 	@Override

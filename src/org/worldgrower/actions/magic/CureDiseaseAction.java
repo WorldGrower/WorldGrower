@@ -35,7 +35,7 @@ public class CureDiseaseAction implements MagicSpell {
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		target.getProperty(Constants.CONDITIONS).removeAllDiseases();
-		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE);
+		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE, world.getWorldStateChangedListeners());
 	}
 	
 	@Override

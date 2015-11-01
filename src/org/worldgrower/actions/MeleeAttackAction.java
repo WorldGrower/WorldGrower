@@ -28,7 +28,7 @@ public class MeleeAttackAction implements DeadlyAction {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		AttackUtils.attack(this, performer, target, args, world, SkillUtils.useSkill(performer, AttackUtils.determineSkill(performer)));
+		AttackUtils.attack(this, performer, target, args, world, SkillUtils.useSkill(performer, AttackUtils.determineSkill(performer), world.getWorldStateChangedListeners()));
 	}
 	
 	@Override

@@ -39,8 +39,9 @@ public class IntimidateConversation implements Conversation {
 	
 	@Override
 	public Response getReplyPhrase(ConversationContext conversationContext) {
-		int performerIntimidate = SkillUtils.useSkillLevel(conversationContext.getPerformer(), Constants.INTIMIDATE_SKILL);
-		int targetInsight = SkillUtils.useSkillLevel(conversationContext.getTarget(), Constants.INSIGHT_SKILL);
+		World world = conversationContext.getWorld();
+		int performerIntimidate = SkillUtils.useSkillLevel(conversationContext.getPerformer(), Constants.INTIMIDATE_SKILL, world.getWorldStateChangedListeners());
+		int targetInsight = SkillUtils.useSkillLevel(conversationContext.getTarget(), Constants.INSIGHT_SKILL, world.getWorldStateChangedListeners());
 		
 		if (performerIntimidate > targetInsight) {
 			conversationContext.getTarget().getProperty(Constants.RELATIONSHIPS).incrementValue(conversationContext.getPerformer(), 1000);

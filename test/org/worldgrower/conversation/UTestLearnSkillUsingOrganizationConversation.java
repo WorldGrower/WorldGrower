@@ -77,11 +77,12 @@ public class UTestLearnSkillUsingOrganizationConversation {
 	
 	@Test
 	public void testHandleResponse0() {
+		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.PROFESSION, Professions.FARMER_PROFESSION);
 		WorldObject target = TestUtils.createSkilledWorldObject(2, Constants.PROFESSION, Professions.FARMER_PROFESSION);
 		target.setProperty(Constants.FARMING_SKILL, new Skill(20));
 		
-		ConversationContext context = new ConversationContext(performer, target, null, null, null, 0);
+		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
 		conversation.handleResponse(0, context);
 		conversation.handleResponse(0, context);
 		assertEquals(1, performer.getProperty(Constants.FARMING_SKILL).getLevel());

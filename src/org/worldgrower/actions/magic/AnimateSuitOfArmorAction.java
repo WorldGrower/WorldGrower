@@ -33,8 +33,6 @@ public class AnimateSuitOfArmorAction implements MagicSpell {
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		double skillBonus = SkillUtils.useSkill(performer, getSkill());
-		
 		WorldObject minionOrganization = GroupPropertyUtils.createMinionOrganization(performer, world);
 		
 		CreatureGenerator creatureGenerator = new CreatureGenerator(minionOrganization);
@@ -46,7 +44,7 @@ public class AnimateSuitOfArmorAction implements MagicSpell {
 		
 		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.SOUL_GEM_FILLED, 1);
 		performer.getProperty(Constants.INVENTORY).remove(performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.EQUIPMENT_SLOT, Constants.TORSO_EQUIPMENT));
-		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE);
+		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE, world.getWorldStateChangedListeners());
 	}
 	
 	@Override

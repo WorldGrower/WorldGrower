@@ -21,6 +21,7 @@ import java.util.List;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.condition.VampireUtils;
 import org.worldgrower.goal.Goal;
@@ -94,7 +95,7 @@ public class Dionysus implements Deity {
 	@Override
 	public void worship(WorldObject performer, WorldObject target, int worshipCount, World world) {
 		if (worshipCount == 5) {
-			performer.getProperty(Constants.ALCHEMY_SKILL).use(30);
+			SkillUtils.useSkill(performer, Constants.ALCHEMY_SKILL, 30, world.getWorldStateChangedListeners());
 		}
 	}
 }

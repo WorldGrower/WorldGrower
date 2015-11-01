@@ -37,7 +37,7 @@ public class BuildSacrificalAltarAction implements BuildAction {
 		int y = (Integer)target.getProperty(Constants.Y);
 	
 		Deity deity = performer.getProperty(Constants.DEITY);
-		BuildingGenerator.generateSacrificialAltar(x, y, world, performer, deity, SkillUtils.useSkill(performer, Constants.CARPENTRY_SKILL));
+		BuildingGenerator.generateSacrificialAltar(x, y, world, performer, deity, SkillUtils.useSkill(performer, Constants.CARPENTRY_SKILL, world.getWorldStateChangedListeners()));
 		
 		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.STONE, REQUIRED_STONE);
 	}

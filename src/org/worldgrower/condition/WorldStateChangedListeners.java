@@ -21,7 +21,9 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.legal.LegalAction;
 import org.worldgrower.attribute.IdList;
+import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.creaturetype.CreatureType;
+import org.worldgrower.creaturetype.GhoulCreatureType;
 
 public class WorldStateChangedListeners {
 
@@ -52,6 +54,12 @@ public class WorldStateChangedListeners {
 	public void thrownOutOfGroup(WorldObject worldObject, WorldObject target, int[] args, ManagedOperation action, IdList oldGroup, IdList newGroup) {
 		for(WorldStateChangedListener worldStateChangedListener : worldStateChangedListeners) {
 			worldStateChangedListener.thrownOutOfGroup(worldObject, target, args, action, oldGroup, newGroup);
+		}
+	}
+	
+	public void skillIncreased(WorldObject worldObject, SkillProperty skillProperty, int oldValue, int newValue) {
+		for(WorldStateChangedListener worldStateChangedListener : worldStateChangedListeners) {
+			worldStateChangedListener.skillIncreased(worldObject, skillProperty, oldValue, newValue);
 		}
 	}
 }

@@ -34,7 +34,7 @@ public class CraftIronGreataxeAction implements CraftAction {
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
 		
-		double skillBonus = SkillUtils.useSkill(performer, Constants.SMITHING_SKILL);
+		double skillBonus = SkillUtils.useSkill(performer, Constants.SMITHING_SKILL, world.getWorldStateChangedListeners());
 		inventory.addQuantity(ItemGenerator.getIronGreatAxe(skillBonus));
 
 		inventory.removeQuantity(Constants.WOOD, WOOD_REQUIRED);

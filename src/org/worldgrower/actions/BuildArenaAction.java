@@ -36,7 +36,7 @@ public class BuildArenaAction implements BuildAction {
 		int x = (Integer)target.getProperty(Constants.X);
 		int y = (Integer)target.getProperty(Constants.Y);
 	
-		IdList idList = BuildingGenerator.generateArena(x, y, world, SkillUtils.useSkill(performer, Constants.CARPENTRY_SKILL));
+		IdList idList = BuildingGenerator.generateArena(x, y, world, SkillUtils.useSkill(performer, Constants.CARPENTRY_SKILL, world.getWorldStateChangedListeners()));
 		
 		performer.setProperty(Constants.ARENA_IDS, idList);
 		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.STONE, REQUIRED_STONE);

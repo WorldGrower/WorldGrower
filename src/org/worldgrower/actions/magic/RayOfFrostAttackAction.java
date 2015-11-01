@@ -34,7 +34,7 @@ public class RayOfFrostAttackAction implements MagicSpell, DeadlyAction {
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		AttackUtils.magicAttack(5, this, performer, target, args, world, SkillUtils.useSkill(performer, Constants.EVOCATION_SKILL));
+		AttackUtils.magicAttack(5, this, performer, target, args, world, SkillUtils.useSkill(performer, Constants.EVOCATION_SKILL, world.getWorldStateChangedListeners()));
 	}
 	
 	@Override

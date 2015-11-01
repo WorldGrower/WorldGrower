@@ -29,7 +29,7 @@ public class NonLethalMeleeAttackAction implements ManagedOperation {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		AttackUtils.nonLethalAttack(this, performer, target, args, world, SkillUtils.useSkill(performer, AttackUtils.determineSkill(performer)));
+		AttackUtils.nonLethalAttack(this, performer, target, args, world, SkillUtils.useSkill(performer, AttackUtils.determineSkill(performer), world.getWorldStateChangedListeners()));
 	}
 	
 	@Override

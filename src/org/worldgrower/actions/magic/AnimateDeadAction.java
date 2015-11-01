@@ -35,8 +35,6 @@ public class AnimateDeadAction implements MagicSpell {
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		double skillBonus = SkillUtils.useSkill(performer, getSkill());
-		
 		WorldObject minionOrganization = GroupPropertyUtils.createMinionOrganization(performer, world);
 		
 		CreatureGenerator creatureGenerator = new CreatureGenerator(minionOrganization);
@@ -47,7 +45,7 @@ public class AnimateDeadAction implements MagicSpell {
 		skeleton.getProperty(Constants.GROUP).addAll(performer.getProperty(Constants.GROUP));
 		
 		world.removeWorldObject(target);
-		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE);
+		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE, world.getWorldStateChangedListeners());
 	}
 	
 	@Override

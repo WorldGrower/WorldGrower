@@ -22,6 +22,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillProperty;
+import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.gui.ImageIds;
 
 public class AbstractResearchKnowledgeSkillAction implements ResearchKnowledgeSkillAction {
@@ -34,7 +35,7 @@ public class AbstractResearchKnowledgeSkillAction implements ResearchKnowledgeSk
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		performer.getProperty(skillProperty).use();
+		SkillUtils.useSkill(performer, skillProperty, world.getWorldStateChangedListeners());
 	}
 
 	@Override

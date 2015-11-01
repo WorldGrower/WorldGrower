@@ -16,6 +16,9 @@ package org.worldgrower.attribute;
 
 import java.io.Serializable;
 
+import org.worldgrower.WorldObject;
+import org.worldgrower.condition.WorldStateChangedListeners;
+
 public class Skill implements Serializable {
 
 	private static final int USAGE_OFFSET = 22;
@@ -52,19 +55,20 @@ public class Skill implements Serializable {
 		return 3 * level * level + usageOffset;
 	}
 	
-	public void use() {
+	public void use(WorldObject worldObject, SkillProperty skillProperty, WorldStateChangedListeners worldStateChangedListeners) {
 		currentUsageCount++;
 		
 		if (currentUsageCount >= maxUsageCount) {
 			level++;
 			currentUsageCount = 0;
 			maxUsageCount = calculateMaxUsageCount();
+			worldStateChangedListeners.skillIncreased(worldObject, skillProperty, level-1, level);
 		}
 	}
 	
-	public void use(int count) {
+	public void use(int count, WorldObject worldObject, SkillProperty skillProperty, WorldStateChangedListeners worldStateChangedListeners) {
 		for(int i=0; i<count; i++) {
-			use();
+			use(worldObject, skillProperty, worldStateChangedListeners);
 		}
 	}
 	

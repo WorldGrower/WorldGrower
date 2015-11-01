@@ -47,7 +47,7 @@ public class SetLegalActionsAction implements ManagedOperation {
 			}
 		}
 		
-		world.getWorldOnTurn().legalActionsChanged(changedLegalActions, performer);
+		world.getWorldStateChangedListeners().legalActionsChanged(changedLegalActions, performer);
 	}
 
 	@Override

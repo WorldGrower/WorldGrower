@@ -37,7 +37,7 @@ public class WaterWalkAction implements MagicSpell {
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		int turns = (int)(20 * SkillUtils.getSkillBonus(performer, getSkill()));
 		target.getProperty(Constants.CONDITIONS).addCondition(Condition.WATER_WALK_CONDITION, turns, world);
-		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE);
+		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE, world.getWorldStateChangedListeners());
 	}
 	
 	@Override

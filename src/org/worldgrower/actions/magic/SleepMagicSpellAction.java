@@ -38,7 +38,7 @@ public class SleepMagicSpellAction implements MagicSpell {
 		int turns = (int)(10 * SkillUtils.getSkillBonus(performer, getSkill()));
 		target.getProperty(Constants.CONDITIONS).addCondition(Condition.SLEEP_CONDITION, turns, world);
 
-		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE);
+		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE, world.getWorldStateChangedListeners());
 	}
 	
 	@Override

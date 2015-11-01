@@ -22,6 +22,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.legal.LegalAction;
 import org.worldgrower.attribute.IdList;
+import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.condition.WorldStateChangedListener;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.gui.util.MessageDialogUtils;
@@ -88,5 +89,14 @@ public class GuiShowEventHappenedAction implements WorldStateChangedListener {
 			
 			MessageDialogUtils.showMessage(description, "Thrown out of group(s)", playerCharacter, container, imageInfoReader);
 		}
+	}
+
+	@Override
+	public void skillIncreased(WorldObject worldObject, SkillProperty skillProperty, int oldValue, int newValue) {
+		if (worldObject.equals(playerCharacter)) {
+			String description = "Skill " + skillProperty.getName() + " increased from " + oldValue + " to " + newValue;
+			MessageDialogUtils.showMessage(description, "Thrown out of group(s)", playerCharacter, container, imageInfoReader);
+		}
+		
 	}
 }

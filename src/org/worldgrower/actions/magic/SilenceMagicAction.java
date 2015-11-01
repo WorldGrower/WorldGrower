@@ -37,7 +37,7 @@ public class SilenceMagicAction implements MagicSpell {
 		int turns = (int)(6 * SkillUtils.getSkillBonus(performer, getSkill()));
 		target.getProperty(Constants.CONDITIONS).addCondition(Condition.SILENCED_CONDITION, turns, world);
 		
-		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE);
+		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE, world.getWorldStateChangedListeners());
 	}
 	
 	@Override

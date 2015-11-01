@@ -21,15 +21,16 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectFacade;
+import org.worldgrower.attribute.SkillUtils;
 
 public class FacadeUtils {
 
-	public static WorldObject createFacade(WorldObject worldObject, WorldObject performer, WorldObject target) {
+	public static WorldObject createFacade(WorldObject worldObject, WorldObject performer, WorldObject target, World world) {
 		if (worldObject != null) {
 			WorldObject facade = worldObject.getProperty(Constants.FACADE);
 						
 			if ((facade != null) && (facadeIsBelieved(performer, target))) {
-				performer.getProperty(Constants.BLUFF_SKILL).use();
+				SkillUtils.useSkill(performer, Constants.BLUFF_SKILL, world.getWorldStateChangedListeners());
 				return new WorldObjectFacade(worldObject, facade);
 			} else {
 				return worldObject;

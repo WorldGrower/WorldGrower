@@ -43,7 +43,7 @@ public class FeatherAction implements MagicSpell {
 			target.getProperty(Constants.CONDITIONS).addCondition(Condition.FEATHERED_CONDITION, turns, world);
 		}
 		
-		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE);
+		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE, world.getWorldStateChangedListeners());
 	}
 	
 	@Override

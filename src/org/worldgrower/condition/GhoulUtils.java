@@ -38,7 +38,7 @@ public class GhoulUtils {
 		worldObject.setProperty(Constants.GROUP, new IdList());
 		worldObject.setProperty(Constants.IMAGE_ID, ImageIds.GHOUL);
 		
-		world.getWorldOnTurn().creatureTypeChange(worldObject, CreatureType.GHOUL_CREATURE_TYPE, "You crave human flesh, you must have become a ghoul");
+		world.getWorldStateChangedListeners().fireCreatureTypeChanged(worldObject, CreatureType.GHOUL_CREATURE_TYPE, "You crave human flesh, you must have become a ghoul");
 	}
 
 	public static boolean isGhoul(WorldObject w) {

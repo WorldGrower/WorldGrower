@@ -51,7 +51,7 @@ public class ReduceAction implements MagicSpell {
 			int turns = (int)(8 * SkillUtils.getSkillBonus(performer, getSkill()));
 			target.getProperty(Constants.CONDITIONS).addCondition(Condition.REDUCED_CONDITION, turns, world);
 		}		
-		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE);
+		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE, world.getWorldStateChangedListeners());
 	}
 
 	private int halveDimension(int dimension) {

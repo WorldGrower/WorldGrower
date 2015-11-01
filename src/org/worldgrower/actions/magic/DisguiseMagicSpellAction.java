@@ -38,7 +38,7 @@ public class DisguiseMagicSpellAction implements MagicSpell, DisguiseTargetFacto
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		FacadeUtils.disguise(performer, args[0], world);
 		
-		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE);
+		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE, world.getWorldStateChangedListeners());
 	}
 
 	@Override

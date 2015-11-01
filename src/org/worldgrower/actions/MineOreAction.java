@@ -35,7 +35,7 @@ public class MineOreAction implements ManagedOperation {
 		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.ORE, 1, ImageIds.IRON);
 		target.increment(Constants.ORE_SOURCE, - 1);
 		
-		SkillUtils.useEnergy(performer, Constants.MINING_SKILL, ENERGY_USE);
+		SkillUtils.useEnergy(performer, Constants.MINING_SKILL, ENERGY_USE, world.getWorldStateChangedListeners());
 	}
 
 	@Override

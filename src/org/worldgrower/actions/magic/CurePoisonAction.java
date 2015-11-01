@@ -38,7 +38,7 @@ public class CurePoisonAction implements MagicSpell {
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		Conditions.remove(target, Condition.POISONED_CONDITION);
 		
-		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE);
+		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE, world.getWorldStateChangedListeners());
 	}
 	
 	@Override

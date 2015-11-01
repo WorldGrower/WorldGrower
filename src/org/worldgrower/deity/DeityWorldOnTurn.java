@@ -14,58 +14,16 @@
  *******************************************************************************/
 package org.worldgrower.deity;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.util.List;
-
-import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
-import org.worldgrower.WorldObject;
 import org.worldgrower.WorldOnTurn;
-import org.worldgrower.actions.legal.LegalAction;
-import org.worldgrower.attribute.IdList;
-import org.worldgrower.condition.WorldStateChangedListener;
-import org.worldgrower.condition.WorldStateChangedListeners;
-import org.worldgrower.creaturetype.CreatureType;
 
 public class DeityWorldOnTurn implements WorldOnTurn {
-	private transient WorldStateChangedListeners worldStateChangedListeners = new WorldStateChangedListeners();
 	
 	@Override
 	public void onTurn(World world) {
 
 		for(Deity deity : Deity.ALL_DEITIES) {
-			deity.onTurn(world, worldStateChangedListeners);
+			deity.onTurn(world, world.getWorldStateChangedListeners());
 		}
-	}
-	
-	@Override
-	public void addWorldStateChangedListener(WorldStateChangedListener listener) {
-		this.worldStateChangedListeners.addWorldStateChangedListener(listener);
-	}
-
-	@Override
-	public void creatureTypeChange(WorldObject worldObject, CreatureType newCreatureType, String description) {
-		worldStateChangedListeners.fireCreatureTypeChanged(worldObject, newCreatureType, description);
-	}
-
-	@Override
-	public void electionFinished(WorldObject winner, WorldObject organization, IdList candidates) {
-		worldStateChangedListeners.fireElectionFinished(winner, organization, candidates);
-	}
-
-	@Override
-	public void legalActionsChanged(List<LegalAction> changedLegalActions, WorldObject villagerLeader) {
-		worldStateChangedListeners.legalActionsChanged(changedLegalActions, villagerLeader);
-	}
-
-	@Override
-	public void thrownOutOfGroup(WorldObject worldObject, WorldObject target, int[] args, ManagedOperation action, IdList oldGroup, IdList newGroup) {
-		worldStateChangedListeners.thrownOutOfGroup(worldObject, target, args, action, oldGroup, newGroup);
-	}
-	
-	private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
-	    ois.defaultReadObject();
-	    worldStateChangedListeners = new WorldStateChangedListeners();
 	}
 }

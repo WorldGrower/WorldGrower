@@ -443,7 +443,7 @@ public class WorldPanel extends JPanel {
 		new GuiRespondToQuestion(playerCharacter, world, imageInfoReader);
 		new GuiShowReadAction(playerCharacter, world, this, imageInfoReader);
 		new GuiShowBrawlResult(imageInfoReader, this, world);
-		world.getWorldOnTurn().addWorldStateChangedListener(createWorldStateChangedListener());
+		world.addWorldStateChangedListener(createWorldStateChangedListener());
 	}
 	
 	private WorldStateChangedListener createWorldStateChangedListener() {

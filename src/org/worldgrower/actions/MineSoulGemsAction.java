@@ -35,7 +35,7 @@ public class MineSoulGemsAction implements ManagedOperation {
 		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.SOUL_GEM, 1, ImageIds.SOUL_GEM);
 		target.increment(Constants.SOUL_GEM_SOURCE, - 1);
 		
-		SkillUtils.useEnergy(performer, Constants.MINING_SKILL, ENERGY_USE);
+		SkillUtils.useEnergy(performer, Constants.MINING_SKILL, ENERGY_USE, world.getWorldStateChangedListeners());
 	}
 	
 	@Override

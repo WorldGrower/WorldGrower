@@ -34,7 +34,7 @@ public class InflictWoundsAction implements MagicSpell, DeadlyAction {
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		AttackUtils.magicAttack(4, this, performer, target, args, world, SkillUtils.useSkill(performer, getSkill()));
+		AttackUtils.magicAttack(4, this, performer, target, args, world, SkillUtils.useSkill(performer, getSkill(), world.getWorldStateChangedListeners()));
 	}
 	
 	@Override
