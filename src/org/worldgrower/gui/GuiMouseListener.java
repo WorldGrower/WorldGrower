@@ -59,6 +59,7 @@ import org.worldgrower.gui.inventory.GuiPutItemAction;
 import org.worldgrower.gui.inventory.GuiSellAction;
 import org.worldgrower.gui.inventory.GuiStealAction;
 import org.worldgrower.gui.inventory.InventoryAction;
+import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.MenuFactory;
 
 public class GuiMouseListener extends MouseAdapter {
@@ -514,6 +515,7 @@ public class GuiMouseListener extends MouseAdapter {
 	private void addAssignActionsToLeftMouse(JPopupMenu menu) {
 		JMenuItem guiAssignActionsToLeftMouseItem = MenuFactory.createJMenuItem(assignActionToLeftMouseAction);
 		guiAssignActionsToLeftMouseItem.setText("Assign action to left mouse click...");
+		guiAssignActionsToLeftMouseItem.setIcon(IconUtils.getMouseIcon());
 		menu.add(guiAssignActionsToLeftMouseItem);
 	}
 

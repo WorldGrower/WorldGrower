@@ -53,3 +53,5 @@ save.png: created by VisualPharm (Ivan Boyko), licensed under Creative Commons a
 exit.png: GNU/PGL at http://findicons.com/icon/169617/exit
 
 forge.png: created by SD-Arius at http://www.rpgmakervx-fr.com/t2647-tiles-lair
+
+cursor.png: created by http://www.elegantthemes.com from http://www.flaticon.com is licensed under http://creativecommons.org/licenses/by/3.0/

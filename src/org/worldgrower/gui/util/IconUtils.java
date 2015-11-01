@@ -29,6 +29,7 @@ public class IconUtils {
 	private static final Image LOAD_ICON;
 	private static final Image SAVE_ICON;
 	private static final Image EXIT_ICON;
+	private static final Image MOUSE_ICON;
 	
 	static {
 		IMAGE_ICON = getImage("/community.png");
@@ -36,6 +37,7 @@ public class IconUtils {
 		LOAD_ICON = getImage("/load.png");
 		SAVE_ICON = getImage("/save.png");
 		EXIT_ICON = getImage("/exit.png");
+		MOUSE_ICON = getImage("/cursor.png");
 	}
 
 	private static Image getImage(String imageURL) {
@@ -60,5 +62,9 @@ public class IconUtils {
 
 	public static ImageIcon getExitIcon() {
 		return new ImageIcon(EXIT_ICON);
+	}
+	
+	public static ImageIcon getMouseIcon() {
+		return new ImageIcon(MOUSE_ICON);
 	}
 }
