@@ -19,7 +19,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.AbstractAction;
-import javax.swing.JOptionPane;
 
 import org.worldgrower.DungeonMaster;
 import org.worldgrower.Main;
@@ -51,7 +50,7 @@ public class GuiCreateOrganizationAction extends AbstractAction {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String[] organizationTypes = { "profession", "religion" };
-		String organizationType = (String) JOptionPane.showInputDialog(parent, "Choose Organization Type", "Organization Type", JOptionPane.QUESTION_MESSAGE, null, organizationTypes, organizationTypes[0]);
+		String organizationType = new ListInputDialog("Choose Organization Type", organizationTypes).showMe();
 		if (organizationType != null) {
 			if (organizationType.equals(organizationTypes[0])) {
 				createProfessionOrganization();
@@ -63,13 +62,13 @@ public class GuiCreateOrganizationAction extends AbstractAction {
 
 	private void createProfessionOrganization() {
 		String[] professionNames = Professions.getDescriptions().toArray(new String[0]);
-		String professionName = (String) JOptionPane.showInputDialog(parent, "Choose Profession", "Choose Profession", JOptionPane.QUESTION_MESSAGE, null, professionNames, professionNames[0]);
+		String professionName = new ListInputDialog("Choose Profession", professionNames).showMe();
 		if (professionName != null) {
 			Profession profession = Professions.getProfessionByDescription(professionName);
 			int professionIndex = Professions.indexOf(profession);
 			
 			String[] organizationNames = new OrganizationNamer().getProfessionOrganizationNames(profession, world).toArray(new String[0]);
-			String organizationName = (String) JOptionPane.showInputDialog(parent, "Choose Organization name", "Choose Organization name", JOptionPane.QUESTION_MESSAGE, null, organizationNames, organizationNames[0]);
+			String organizationName = new ListInputDialog("Choose Organization name", organizationNames).showMe();
 			
 			if (organizationName != null) {
 				int indexOfOrganization = Arrays.asList(organizationNames).indexOf(organizationName);
@@ -81,13 +80,13 @@ public class GuiCreateOrganizationAction extends AbstractAction {
 	
 	private void createReligionOrganization() {
 		String[] deityNames = Deity.getNames().toArray(new String[0]);
-		String deityName = (String) JOptionPane.showInputDialog(parent, "Choose Deity", "Choose Deity", JOptionPane.QUESTION_MESSAGE, null, deityNames, deityNames[0]);
+		String deityName = new ListInputDialog("Choose Deity", deityNames).showMe();
 		if (deityName != null) {
 			Deity deity = Deity.getDeityByDescription(deityName);
 			int deityIndex = Deity.ALL_DEITIES.indexOf(deity);
 			
 			String[] organizationNames = new OrganizationNamer().getDeityOrganizationNames(deity, world).toArray(new String[0]);
-			String organizationName = (String) JOptionPane.showInputDialog(parent, "Choose Organization name", "Choose Organization name", JOptionPane.QUESTION_MESSAGE, null, organizationNames, organizationNames[0]);
+			String organizationName = new ListInputDialog("Choose Organization name", organizationNames).showMe();
 			
 			if (organizationName != null) {
 				int indexOfOrganization = Arrays.asList(organizationNames).indexOf(organizationName);
@@ -95,7 +94,7 @@ public class GuiCreateOrganizationAction extends AbstractAction {
 				List<String> possibleGoalsList = deity.getOrganizationGoalDescriptions();
 				possibleGoalsList.add(0, "No goal");
 				String[] possibleGoals = possibleGoalsList.toArray(new String[0]);
-				String possibleGoal = (String) JOptionPane.showInputDialog(parent, "Choose Goal", "Choose Goal", JOptionPane.QUESTION_MESSAGE, null, possibleGoals, possibleGoals[0]);
+				String possibleGoal = new ListInputDialog("Choose Goal", possibleGoals).showMe();
 				if (possibleGoal != null) {
 					int indexOfGoal = deity.getOrganizationGoalDescriptions().indexOf(possibleGoal);
 					Main.executeAction(playerCharacter, Actions.CREATE_RELIGION_ORGANIZATION_ACTION, new int[] { deityIndex, indexOfOrganization, indexOfGoal}, world, dungeonMaster, playerCharacter, parent);

@@ -18,6 +18,7 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -33,6 +34,11 @@ public class ListInputDialog extends AbstractDialog {
 	private JComboBox<String> comboBox;
 	
 	public ListInputDialog(String question, String[] list) {
+		this(question, null, list);
+	}
+	
+	//TODO: use icon
+	public ListInputDialog(String question, Icon icon, String[] list) {
 		super(450, 210);
 		
 		JLabel label = JLabelFactory.createJLabel(question);

@@ -16,7 +16,6 @@ package org.worldgrower.gui.conversation;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
 
 import org.worldgrower.Constants;
 import org.worldgrower.World;
@@ -25,6 +24,7 @@ import org.worldgrower.actions.BrawlFinishedListener;
 import org.worldgrower.actions.BrawlListener;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
+import org.worldgrower.gui.ListInputDialog;
 import org.worldgrower.gui.WorldPanel;
 
 public class GuiShowBrawlResult implements BrawlFinishedListener {
@@ -59,14 +59,8 @@ public class GuiShowBrawlResult implements BrawlFinishedListener {
 		String[] responses = getResponses(goldWon);
 		
 		if (!performer.isControlledByAI()) {
-			String response = (String)JOptionPane.showInputDialog(
-                    null,
-                    "Choose brawl ending line:",
-                    "brawl result dialog",
-                    JOptionPane.INFORMATION_MESSAGE,
-                    targetIcon,
-                    responses,
-                    responses[0]);
+			//TODO: handle response
+			String response = new ListInputDialog("Choose brawl ending line:", targetIcon, responses).showMe();
 		}
 		
 		if (!target.isControlledByAI()) {

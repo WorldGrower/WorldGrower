@@ -19,7 +19,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.AbstractAction;
-import javax.swing.JOptionPane;
 
 import org.worldgrower.DungeonMaster;
 import org.worldgrower.Main;
@@ -55,14 +54,14 @@ public class GuiResearchMagicSpellAction extends AbstractAction {
 		List<MagicSpell> magicSpellsToResearch =  Actions.getMagicSpellsToResearch(playerCharacter);
 		if (magicSpellsToResearch.size() > 0) { 
 			String[] magicSpellDescriptions = Actions.getMagicSpellDescriptions(magicSpellsToResearch).toArray(new String[0]);
-			String magicSpellDescription = (String) JOptionPane.showInputDialog(parent, "Choose Magic Spell", "Choose Magic Spell", JOptionPane.QUESTION_MESSAGE, null, magicSpellDescriptions, magicSpellDescriptions[0]);
+			String magicSpellDescription = new ListInputDialog("Choose Magic Spell", magicSpellDescriptions).showMe();
 			if (magicSpellDescription != null) {
 				
 				int indexOfMagicSpell = Arrays.asList(magicSpellDescriptions).indexOf(magicSpellDescription);
 				MagicSpell magicSpell = magicSpellsToResearch.get(indexOfMagicSpell);
 				ResearchSpellAction researchSpellAction = Actions.getResearchSpellActionFor(magicSpell);
 				
-				String turnsString = JOptionPane.showInputDialog("Research for how many turns? (0 - " + magicSpell.getResearchCost() + ")");
+				String turnsString = new TextInputDialog("Research for how many turns? (0 - " + magicSpell.getResearchCost() + ")").showMe();
 				if ((turnsString != null) && (NumberUtils.isNumeric(turnsString))) {
 					int turns = Integer.parseInt(turnsString);
 					
