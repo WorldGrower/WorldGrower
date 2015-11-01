@@ -26,7 +26,6 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -43,6 +42,7 @@ import org.worldgrower.gui.util.JComboBoxFactory;
 import org.worldgrower.gui.util.JLabelFactory;
 import org.worldgrower.gui.util.JRadioButtonFactory;
 import org.worldgrower.gui.util.JTextFieldFactory;
+import org.worldgrower.gui.util.ShowTextDialog;
 import org.worldgrower.util.NumberUtils;
 
 public class OptionsScreen {
@@ -214,7 +214,7 @@ public class OptionsScreen {
 					for(String error : errors) {
 						buffer.append(error).append("\n");
 					}
-					JOptionPane.showMessageDialog(OptionsScreen.this.frame, buffer.toString());
+					new ShowTextDialog(buffer.toString()).showMe();
 				}
 			}
 		});

@@ -12,7 +12,7 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.gui;
+package org.worldgrower.gui.util;
 
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -23,9 +23,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import org.worldgrower.gui.util.ButtonFactory;
-import org.worldgrower.gui.util.JLabelFactory;
-import org.worldgrower.gui.util.JTextFieldFactory;
+import org.worldgrower.gui.AbstractDialog;
 
 public class TextInputDialog extends AbstractDialog {
 

@@ -24,6 +24,7 @@ import org.worldgrower.Main;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.gui.util.TextInputDialog;
 import org.worldgrower.util.NumberUtils;
 
 public class RestAction extends AbstractAction {

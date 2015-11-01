@@ -27,7 +27,6 @@ import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
@@ -61,6 +60,7 @@ import org.worldgrower.gui.inventory.GuiStealAction;
 import org.worldgrower.gui.inventory.InventoryAction;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.MenuFactory;
+import org.worldgrower.gui.util.ShowTextDialog;
 
 public class GuiMouseListener extends MouseAdapter {
 	private WorldPanel container;
@@ -150,7 +150,7 @@ public class GuiMouseListener extends MouseAdapter {
     	if (Main.canActionExecute(playerCharacter, leftMouseClickAction, new int[0], world, worldObject)) {
     		Main.executeAction(playerCharacter, leftMouseClickAction, new int[0], world, dungeonMaster, worldObject, container);
     	} else {
-    		JOptionPane.showMessageDialog(container, "Cannot execute action '" + leftMouseClickAction.getSimpleDescription() + "' on " + worldObject.getProperty(Constants.NAME));
+    		new ShowTextDialog("Cannot execute action '" + leftMouseClickAction.getSimpleDescription() + "' on " + worldObject.getProperty(Constants.NAME)).showMe();
     	}
 	}
     

@@ -27,6 +27,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.OrganizationNamer;
 import org.worldgrower.deity.Deity;
+import org.worldgrower.gui.util.ListInputDialog;
 import org.worldgrower.profession.Profession;
 import org.worldgrower.profession.Professions;
 

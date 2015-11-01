@@ -24,8 +24,8 @@ import org.worldgrower.actions.BrawlFinishedListener;
 import org.worldgrower.actions.BrawlListener;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
-import org.worldgrower.gui.ListInputDialog;
 import org.worldgrower.gui.WorldPanel;
+import org.worldgrower.gui.util.ListInputDialog;
 
 public class GuiShowBrawlResult implements BrawlFinishedListener {
 	private static final String[] RESPONSE_PREFIXES = new String[] { 

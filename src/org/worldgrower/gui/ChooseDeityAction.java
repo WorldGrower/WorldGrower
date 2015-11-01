@@ -25,6 +25,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.deity.Deity;
+import org.worldgrower.gui.util.ListInputDialog;
 
 public class ChooseDeityAction extends AbstractAction {
 
