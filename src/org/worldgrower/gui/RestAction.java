@@ -17,7 +17,6 @@ package org.worldgrower.gui;
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
-import javax.swing.JOptionPane;
 
 import org.worldgrower.Constants;
 import org.worldgrower.DungeonMaster;
@@ -47,7 +46,7 @@ public class RestAction extends AbstractAction {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		String turnsString = JOptionPane.showInputDialog("Rest how many turns?");
+		String turnsString = new TextInputDialog("Rest how many turns?").showMe();
 		if ((turnsString != null) && (NumberUtils.isNumeric(turnsString))) {
 			int turns = Integer.parseInt(turnsString);
 			

@@ -40,7 +40,6 @@ public class GuiAssignActionToLeftMouseAction extends AbstractAction {
 	public void actionPerformed(ActionEvent e) {
 		
 		String[] actionDescriptions = getActionDescriptions().toArray(new String[0]);
-		//String actionDescription = (String) JOptionPane.showInputDialog(parent, "Choose Action", "Choose Action", JOptionPane.QUESTION_MESSAGE, null, actionDescriptions, actionDescriptions[0]);
 		
 		AssignActionLeftMouseDialog assignActionLeftMouseDialog = new AssignActionLeftMouseDialog(actionDescriptions);
 		String actionDescription = assignActionLeftMouseDialog.showMe();
