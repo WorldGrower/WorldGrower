@@ -80,6 +80,8 @@ import org.worldgrower.goal.UTestArenaFightGoal;
 import org.worldgrower.goal.UTestArenaGoal;
 import org.worldgrower.goal.UTestArenaPropertyUtils;
 import org.worldgrower.goal.UTestArmorPropertyUtils;
+import org.worldgrower.goal.UTestBecomeProfessionsOrganizationMemberGoal;
+import org.worldgrower.goal.UTestBecomeReligionOrganizationMemberGoal;
 import org.worldgrower.goal.UTestBrawlGoal;
 import org.worldgrower.goal.UTestBrawlPropertyUtils;
 import org.worldgrower.goal.UTestBuildLocationUtils;
@@ -100,6 +102,7 @@ import org.worldgrower.goal.UTestCreateOrPlantWoodGoal;
 import org.worldgrower.goal.UTestCreateWineGoal;
 import org.worldgrower.goal.UTestDeathReasonPropertyUtils;
 import org.worldgrower.goal.UTestDestroyShrinesToOtherDeitiesGoal;
+import org.worldgrower.goal.UTestDonateMoneyToArenaGoal;
 import org.worldgrower.goal.UTestDrinkWaterGoal;
 import org.worldgrower.goal.UTestDrownUtils;
 import org.worldgrower.goal.UTestEquipmentGoal;
@@ -142,6 +145,7 @@ import org.worldgrower.goal.UTestPaperMillGoal;
 import org.worldgrower.goal.UTestProtectOneSelfGoal;
 import org.worldgrower.goal.UTestRacePropertyUtils;
 import org.worldgrower.goal.UTestRelationshipPropertyUtils;
+import org.worldgrower.goal.UTestResearchMagicSkillsKnowledgeGoal;
 import org.worldgrower.goal.UTestRestGoal;
 import org.worldgrower.goal.UTestSacrificePeopleToDeityGoal;
 import org.worldgrower.goal.UTestScribeWizardSpellsGoal;
@@ -321,7 +325,11 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestFightInArenaGoal.class,
 	UTestArenaFightGoal.class,
 	UTestBrawlGoal.class,
-	UTestSellWoodGoal.class
+	UTestSellWoodGoal.class,
+	UTestDonateMoneyToArenaGoal.class,
+	UTestBecomeReligionOrganizationMemberGoal.class,
+	UTestBecomeProfessionsOrganizationMemberGoal.class,
+	UTestResearchMagicSkillsKnowledgeGoal.class
 })
 public class CompleteTestSuite {
 }

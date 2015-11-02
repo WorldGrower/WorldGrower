@@ -25,28 +25,26 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import org.worldgrower.gui.AbstractDialog;
-import org.worldgrower.gui.ColorPalette;
 import org.worldgrower.gui.util.ButtonFactory;
+import org.worldgrower.gui.util.JListFactory;
 
 public class StatusMessageDialog extends AbstractDialog {
 
 	public StatusMessageDialog(List<String> statusMessages) {
-		super(450, 475);
+		super(500, 475);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(16, 16, 412, 340);
+		scrollPane.setBounds(16, 16, 462, 340);
 		addComponent(scrollPane);
 		
-		JList<String> list = new JList<>(statusMessages.toArray(new String[0]));
-		list.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
-		list.setForeground(ColorPalette.FOREGROUND_COLOR);
+		JList<String> list = JListFactory.createJList(statusMessages.toArray(new String[0]));
 		list.setSelectedIndex(statusMessages.size() - 1);
 		scrollPane.setViewportView(list);
 		
 		JPanel buttonPane = new JPanel();
 		buttonPane.setLayout(new BorderLayout());
 		buttonPane.setOpaque(false);
-		buttonPane.setBounds(16, 380, 415, 50);
+		buttonPane.setBounds(16, 380, 465, 50);
 		addComponent(buttonPane);
 
 		JButton okButton = ButtonFactory.createButton(" OK ");

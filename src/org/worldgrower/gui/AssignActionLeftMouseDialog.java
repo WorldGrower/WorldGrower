@@ -25,6 +25,7 @@ import javax.swing.JScrollPane;
 
 import org.worldgrower.gui.util.ButtonFactory;
 import org.worldgrower.gui.util.JLabelFactory;
+import org.worldgrower.gui.util.JListFactory;
 
 public class AssignActionLeftMouseDialog extends AbstractDialog {
 
@@ -37,7 +38,7 @@ public class AssignActionLeftMouseDialog extends AbstractDialog {
 		scrollPane.setBounds(32, 32, 362, 292);
 		addComponent(scrollPane);
 		
-		JList<String> list = new JList<>(actionDescriptions);
+		JList<String> list = JListFactory.createJList(actionDescriptions);
 		list.setSelectedIndex(0);
 		scrollPane.setViewportView(list);
 		

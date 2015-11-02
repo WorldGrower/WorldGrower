@@ -228,7 +228,7 @@ public class InventoryDialog extends AbstractDialog {
 			        InventoryItem inventoryItem = inventoryJList.getSelectedValue();
 			        
 			        JPopupMenu popupMenu = MenuFactory.createJPopupMenu();
-			        popupMenu.add(new JCheckBoxMenuItem(new SellableAction(inventoryItem)));
+			        popupMenu.add(MenuFactory.createJCheckBoxMenuItem(new SellableAction(inventoryItem)));
 			        popupMenu.show(inventoryJList, e.getX(), e.getY());
 			    }
 			}

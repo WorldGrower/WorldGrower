@@ -15,6 +15,7 @@
 package org.worldgrower.gui.util;
 
 import javax.swing.Action;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -56,5 +57,11 @@ public class MenuFactory {
 		menu.setForeground(ColorPalette.FOREGROUND_COLOR);
 		menu.setFont(Fonts.FONT);
 		return menu;
+	}
+	
+	public static JCheckBoxMenuItem createJCheckBoxMenuItem(Action action) {
+		JCheckBoxMenuItem checkBoxMenuItem = new JCheckBoxMenuItem(action);
+		setMenuProperties(checkBoxMenuItem);
+		return checkBoxMenuItem;
 	}
 }

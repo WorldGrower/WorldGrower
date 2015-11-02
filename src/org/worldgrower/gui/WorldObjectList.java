@@ -29,6 +29,7 @@ import javax.swing.event.ListSelectionListener;
 
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
+import org.worldgrower.gui.util.JListFactory;
 
 public class WorldObjectList extends JScrollPane {
 
@@ -43,8 +44,7 @@ public class WorldObjectList extends JScrollPane {
 	}
 
 	private void initializeGui(List<WorldObject> worldObjects) {
-		worldObjectList = new JList<>();
-		worldObjectList.setListData(worldObjects.toArray(new WorldObject[0]));
+		worldObjectList = JListFactory.createJList(worldObjects.toArray(new WorldObject[0]));
 		worldObjectList.setCellRenderer(new ListRenderer());
 		this.setViewportView(worldObjectList);
 	}
