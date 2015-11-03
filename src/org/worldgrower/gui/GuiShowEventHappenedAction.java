@@ -23,6 +23,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.legal.LegalAction;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.SkillProperty;
+import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.WorldStateChangedListener;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.gui.util.MessageDialogUtils;
@@ -98,5 +99,21 @@ public class GuiShowEventHappenedAction implements WorldStateChangedListener {
 			MessageDialogUtils.showMessage(description, "Thrown out of group(s)", playerCharacter, container, imageInfoReader);
 		}
 		
+	}
+
+	@Override
+	public void conditionGained(WorldObject worldObject, Condition condition) {
+		if (worldObject.equals(playerCharacter)) {
+			String description = playerCharacter.getProperty(Constants.NAME) + " gained condition '" + condition.getDescription() + "'";
+			MessageDialogUtils.showMessage(description, "Condition Gained", playerCharacter, container, imageInfoReader);
+		}
+	}
+
+	@Override
+	public void conditionLost(WorldObject worldObject, Condition condition) {
+		if (worldObject.equals(playerCharacter)) {
+			String description = "Condition '" + condition.getDescription() + "' ended on " + playerCharacter.getProperty(Constants.NAME);
+			MessageDialogUtils.showMessage(description, "Condition Lost", playerCharacter, container, imageInfoReader);
+		}
 	}
 }

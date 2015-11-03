@@ -23,6 +23,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.Conditions;
 import org.worldgrower.goal.WaterPropertyUtils;
 import org.worldgrower.gui.ImageIds;
 
@@ -39,7 +40,7 @@ public class DrinkAction implements ManagedOperation {
 		target.increment(Constants.WATER_SOURCE, -waterDrunk);
 		
 		if (target.hasProperty(Constants.POISON_DAMAGE) && target.getProperty(Constants.POISON_DAMAGE) > 0) {
-			performer.getProperty(Constants.CONDITIONS).addCondition(Condition.POISONED_CONDITION, 20, world);
+			Conditions.add(performer, Condition.POISONED_CONDITION, 20, world);
 			WaterPropertyUtils.everyoneInVicinityKnowsOfPoisoning(performer, target, world);
 		}
 	}

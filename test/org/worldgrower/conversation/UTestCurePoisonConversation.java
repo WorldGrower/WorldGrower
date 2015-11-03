@@ -76,7 +76,7 @@ public class UTestCurePoisonConversation {
 		WorldObject target = TestUtils.createSkilledWorldObject(2, Constants.ENERGY, 1000);
 		
 		performer.setProperty(Constants.CONDITIONS, new Conditions());
-		performer.getProperty(Constants.CONDITIONS).addCondition(Condition.POISONED_CONDITION, 8, world);
+		Conditions.add(performer, Condition.POISONED_CONDITION, 8, world);
 		
 		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
 		
@@ -107,7 +107,7 @@ public class UTestCurePoisonConversation {
 		
 		assertEquals(false, conversation.isConversationAvailable(performer, target, null, null));
 		
-		performer.getProperty(Constants.CONDITIONS).addCondition(Condition.POISONED_CONDITION, 8, world);
+		Conditions.add(performer, Condition.POISONED_CONDITION, 8, world);
 		assertEquals(true, conversation.isConversationAvailable(performer, target, null, null));
 	}
 }

@@ -32,7 +32,7 @@ public class UTestConditions {
 	public void testaddCondition() {
 		Conditions conditions = new Conditions();
 		World world = new WorldImpl(0, 0, null, null);
-		conditions.addCondition(Condition.COCOONED_CONDITION, 8, world);
+		conditions.addCondition(null, Condition.COCOONED_CONDITION, 8, world);
 		
 		assertEquals(true, conditions.hasCondition(Condition.COCOONED_CONDITION));
 	}
@@ -41,7 +41,7 @@ public class UTestConditions {
 	public void testOnTurn() {
 		Conditions conditions = new Conditions();
 		World world = new WorldImpl(0, 0, null, null);
-		conditions.addCondition(Condition.COCOONED_CONDITION, 2, world);
+		conditions.addCondition(null, Condition.COCOONED_CONDITION, 2, world);
 		
 		conditions.onTurn(null, world, null);
 		assertEquals(true, conditions.hasCondition(Condition.COCOONED_CONDITION));
@@ -54,7 +54,7 @@ public class UTestConditions {
 	public void testCanTakeAction() {
 		Conditions conditions = new Conditions();
 		World world = new WorldImpl(0, 0, null, null);
-		conditions.addCondition(Condition.COCOONED_CONDITION, 2, world);
+		conditions.addCondition(null, Condition.COCOONED_CONDITION, 2, world);
 		
 		assertEquals(false, conditions.canTakeAction());
 	}
@@ -63,7 +63,7 @@ public class UTestConditions {
 	public void testCanMove() {
 		Conditions conditions = new Conditions();
 		World world = new WorldImpl(0, 0, null, null);
-		conditions.addCondition(Condition.COCOONED_CONDITION, 2, world);
+		conditions.addCondition(null, Condition.COCOONED_CONDITION, 2, world);
 		
 		assertEquals(false, conditions.canMove());
 	}
@@ -72,7 +72,7 @@ public class UTestConditions {
 	public void testHasDiseaseCondition() {
 		Conditions conditions = new Conditions();
 		World world = new WorldImpl(0, 0, null, null);
-		conditions.addCondition(Condition.VAMPIRE_BITE_CONDITION, 2, world);
+		conditions.addCondition(null, Condition.VAMPIRE_BITE_CONDITION, 2, world);
 		
 		assertEquals(true, conditions.hasDiseaseCondition());
 	}
@@ -81,8 +81,8 @@ public class UTestConditions {
 	public void testGetDiseaseConditions() {
 		Conditions conditions = new Conditions();
 		World world = new WorldImpl(0, 0, null, null);
-		conditions.addCondition(Condition.COCOONED_CONDITION, 2, world);
-		conditions.addCondition(Condition.VAMPIRE_BITE_CONDITION, 2, world);
+		conditions.addCondition(null, Condition.COCOONED_CONDITION, 2, world);
+		conditions.addCondition(null, Condition.VAMPIRE_BITE_CONDITION, 2, world);
 		
 		assertEquals(Arrays.asList(Condition.VAMPIRE_BITE_CONDITION), conditions.getDiseaseConditions());
 	}
@@ -91,11 +91,11 @@ public class UTestConditions {
 	public void testRemoveAllDiseases() {
 		Conditions conditions = new Conditions();
 		World world = new WorldImpl(0, 0, null, null);
-		conditions.addCondition(Condition.VAMPIRE_BITE_CONDITION, 2, world);
+		conditions.addCondition(null, Condition.VAMPIRE_BITE_CONDITION, 2, world);
 	
 		assertEquals(true, conditions.hasDiseaseCondition());
 		
-		conditions.removeAllDiseases();
+		conditions.removeAllDiseases(null, new WorldStateChangedListeners());
 		assertEquals(false, conditions.hasDiseaseCondition());
 	}
 	
@@ -106,7 +106,7 @@ public class UTestConditions {
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, "Test");
 		
 		Conditions targetConditions = target.getProperty(Constants.CONDITIONS);
-		targetConditions.addCondition(Condition.SLEEP_CONDITION, 2, world);
+		targetConditions.addCondition(null, Condition.SLEEP_CONDITION, 2, world);
 		
 		targetConditions.perform(performer, target, null, Actions.MELEE_ATTACK_ACTION, world);
 		assertEquals(false, targetConditions.hasCondition(Condition.SLEEP_CONDITION));

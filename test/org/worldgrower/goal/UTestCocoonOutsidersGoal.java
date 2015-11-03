@@ -23,59 +23,75 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.attribute.WorldObjectContainer;
-import org.worldgrower.generator.ItemGenerator;
-import org.worldgrower.generator.PlantGenerator;
+import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.Conditions;
 
-public class UTestCreateFurnitureGoal {
+public class UTestCocoonOutsidersGoal {
 
-	private CreateFurnitureGoal goal = Goals.CREATE_FURNITURE_GOAL;
+	private CocoonOutsidersGoal goal = Goals.COCOON_OUTSIDERS_GOAL;
 	
 	@Test
 	public void testCalculateGoalNull() {
 		World world = new WorldImpl(0, 0, null, null);
-		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
+		WorldObject performer = createPerformer(2);
 		
 		assertEquals(null, goal.calculateGoal(performer, world));
 	}
 	
 	@Test
-	public void testCalculateGoalWood() {
+	public void testCalculateGoalCocoonOutsider() {
 		World world = new WorldImpl(10, 10, null, null);
-		WorldObject performer = createPerformer();
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
 		
-		PlantGenerator.generateTree(5, 5, world);
+		world.addWorldObject(performer);
+		world.addWorldObject(target);
 		
-		assertEquals(Actions.CUT_WOOD_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+		target.getProperty(Constants.GROUP).removeAll();
+		Conditions.add(target, Condition.PARALYZED_CONDITION, 8, world);
+		
+		assertEquals(Actions.COCOON_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
 	
 	@Test
-	public void testCalculateGoalConstructBed() {
+	public void testCalculateGoalAlreadyCocooned() {
 		World world = new WorldImpl(10, 10, null, null);
-		WorldObject performer = createPerformer();
-		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.WOOD, 20, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
 		
-		assertEquals(Actions.CONSTRUCT_BED_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+		world.addWorldObject(performer);
+		world.addWorldObject(target);
+		
+		target.getProperty(Constants.GROUP).removeAll();
+		Conditions.add(target, Condition.COCOONED_CONDITION, 8, world);
+		
+		assertEquals(null, goal.calculateGoal(performer, world));
 	}
 	
 	@Test
 	public void testIsGoalMet() {
 		World world = new WorldImpl(10, 10, null, null);
-		WorldObject performer = createPerformer();
+		WorldObject performer = createPerformer(2);
+		world.addWorldObject(performer);
 		
-		assertEquals(false, goal.isGoalMet(performer, world));
-		
-		performer.getProperty(Constants.INVENTORY).add(ItemGenerator.getBed(1f));
-		performer.getProperty(Constants.INVENTORY).add(ItemGenerator.getBed(1f));
 		assertEquals(true, goal.isGoalMet(performer, world));
+		
+		WorldObject target = createPerformer(3);
+		world.addWorldObject(target);
+		target.getProperty(Constants.GROUP).removeAll();
+		Conditions.add(target, Condition.PARALYZED_CONDITION, 8, world);
+		assertEquals(false, goal.isGoalMet(performer, world));
 	}
-	
-	private WorldObject createPerformer() {
-		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
+
+	private WorldObject createPerformer(int id) {
+		WorldObject performer = TestUtils.createIntelligentWorldObject(id, "person");
 		performer.setProperty(Constants.X, 0);
 		performer.setProperty(Constants.Y, 0);
 		performer.setProperty(Constants.WIDTH, 1);
 		performer.setProperty(Constants.HEIGHT, 1);
+		performer.setProperty(Constants.ARMOR, 1);
+		performer.setProperty(Constants.HIT_POINTS, 1);
+		performer.setProperty(Constants.CONDITIONS, new Conditions());
 		return performer;
 	}
 }

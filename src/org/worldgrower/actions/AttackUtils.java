@@ -230,7 +230,7 @@ public class AttackUtils {
 			public int handleHitPoints(WorldObject performer, WorldObject target, ManagedOperation action, int hitPoints) {
 				if (hitPoints <= 0) {
 					hitPoints = 1;
-					target.getProperty(Constants.CONDITIONS).addCondition(Condition.UNCONSCIOUS_CONDITION, 50, world);
+					Conditions.add(target, Condition.UNCONSCIOUS_CONDITION, 50, world);
 				}
 				return hitPoints;
 			}

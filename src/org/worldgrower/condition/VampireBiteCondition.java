@@ -41,7 +41,7 @@ public class VampireBiteCondition implements Condition {
 		
 		if (currentTurn - startTurn > 500) {
 			VampireUtils.vampirizePerson(worldObject, creatureTypeChangedListeners);
-			Conditions.remove(worldObject, this);
+			Conditions.remove(worldObject, this, world);
 		}
 	}
 	

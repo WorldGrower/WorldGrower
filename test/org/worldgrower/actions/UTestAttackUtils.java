@@ -62,18 +62,18 @@ public class UTestAttackUtils {
 		
 		assertEquals(5, AttackUtils.changeForSize(5, performer, target));
 		
-		performer.getProperty(Constants.CONDITIONS).addCondition(Condition.ENLARGED_CONDITION, 8, world);
+		Conditions.add(performer, Condition.ENLARGED_CONDITION, 8, world);
 		assertEquals(10, AttackUtils.changeForSize(5, performer, target));
 		
-		target.getProperty(Constants.CONDITIONS).addCondition(Condition.REDUCED_CONDITION, 8, world);
+		Conditions.add(target, Condition.REDUCED_CONDITION, 8, world);
 		assertEquals(20, AttackUtils.changeForSize(5, performer, target));
 		
 		target.setProperty(Constants.CONDITIONS, new Conditions());
-		target.getProperty(Constants.CONDITIONS).addCondition(Condition.ENLARGED_CONDITION, 8, world);
+		Conditions.add(target, Condition.ENLARGED_CONDITION, 8, world);
 		assertEquals(5, AttackUtils.changeForSize(5, performer, target));
 		
 		performer.setProperty(Constants.CONDITIONS, new Conditions());
-		performer.getProperty(Constants.CONDITIONS).addCondition(Condition.REDUCED_CONDITION, 8, world);
+		Conditions.add(performer, Condition.REDUCED_CONDITION, 8, world);
 		target.setProperty(Constants.CONDITIONS, new Conditions());
 		assertEquals(2, AttackUtils.changeForSize(5, performer, target));
 	}

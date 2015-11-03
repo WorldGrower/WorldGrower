@@ -22,6 +22,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.Conditions;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.gui.ImageIds;
 
@@ -33,7 +34,7 @@ public class VampireBiteAction implements DeadlyAction {
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		AttackUtils.biteAttack(this, performer, target, args, world);
 		performer.increment(Constants.VAMPIRE_BLOOD_LEVEL, 500);
-		target.getProperty(Constants.CONDITIONS).addCondition(Condition.VAMPIRE_BITE_CONDITION, Integer.MAX_VALUE, world);
+		Conditions.add(target, Condition.VAMPIRE_BITE_CONDITION, Integer.MAX_VALUE, world);
 	}
 	
 	@Override

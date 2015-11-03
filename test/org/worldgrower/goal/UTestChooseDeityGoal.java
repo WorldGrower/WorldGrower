@@ -24,38 +24,29 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.WorldObjectContainer;
-import org.worldgrower.generator.ItemGenerator;
-import org.worldgrower.generator.PlantGenerator;
+import org.worldgrower.deity.Deity;
+import org.worldgrower.profession.Professions;
 
-public class UTestCreateFurnitureGoal {
+public class UTestChooseDeityGoal {
 
-	private CreateFurnitureGoal goal = Goals.CREATE_FURNITURE_GOAL;
+	private ChooseDeityGoal goal = Goals.CHOOSE_DEITY_GOAL;
 	
 	@Test
-	public void testCalculateGoalNull() {
+	public void testCalculateGoalChooseDeity() {
 		World world = new WorldImpl(0, 0, null, null);
-		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
+		WorldObject performer = createPerformer();
 		
-		assertEquals(null, goal.calculateGoal(performer, world));
+		assertEquals(Actions.CHOOSE_DEITY_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
 	
 	@Test
-	public void testCalculateGoalWood() {
-		World world = new WorldImpl(10, 10, null, null);
+	public void testCalculateGoalChooseFarmerDeity() {
+		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = createPerformer();
+		performer.setProperty(Constants.PROFESSION, Professions.FARMER_PROFESSION);
 		
-		PlantGenerator.generateTree(5, 5, world);
-		
-		assertEquals(Actions.CUT_WOOD_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
-	}
-	
-	@Test
-	public void testCalculateGoalConstructBed() {
-		World world = new WorldImpl(10, 10, null, null);
-		WorldObject performer = createPerformer();
-		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.WOOD, 20, null);
-		
-		assertEquals(Actions.CONSTRUCT_BED_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+		assertEquals(Actions.CHOOSE_DEITY_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+		assertEquals(true, goal.calculateGoal(performer, world).firstArgsIs(Deity.ALL_DEITIES.indexOf(Deity.DEMETER)));
 	}
 	
 	@Test
@@ -65,11 +56,10 @@ public class UTestCreateFurnitureGoal {
 		
 		assertEquals(false, goal.isGoalMet(performer, world));
 		
-		performer.getProperty(Constants.INVENTORY).add(ItemGenerator.getBed(1f));
-		performer.getProperty(Constants.INVENTORY).add(ItemGenerator.getBed(1f));
+		performer.setProperty(Constants.DEITY, Deity.ARES);
 		assertEquals(true, goal.isGoalMet(performer, world));
 	}
-	
+
 	private WorldObject createPerformer() {
 		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.X, 0);

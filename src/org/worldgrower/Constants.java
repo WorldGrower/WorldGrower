@@ -64,6 +64,7 @@ public class Constants {
 	public static final StringProperty NAME = new StringProperty("NAME", NOT_NULLABLE, ALL_PROPERTIES);
 	public static final UnCheckedProperty<MetaInformation> META_INFORMATION = new UnCheckedProperty<>("metaInformation", ALL_PROPERTIES); 
 	
+	//TODO: unused
 	public static final IntProperty EXPERIENCE = new IntProperty("xp", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	
 	public static final IntProperty STRENGTH = new IntProperty("STR", 0, 20, NOT_NULLABLE, ALL_PROPERTIES);

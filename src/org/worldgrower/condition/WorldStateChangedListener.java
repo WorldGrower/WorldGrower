@@ -30,4 +30,6 @@ public interface WorldStateChangedListener {
 	public void legalActionsChanged(List<LegalAction> changedLegalActions, WorldObject villagerLeader);
 	public void thrownOutOfGroup(WorldObject worldObject, WorldObject target, int[] args, ManagedOperation action, IdList oldGroup, IdList newGroup);
 	public void skillIncreased(WorldObject worldObject, SkillProperty skillProperty, int oldValue, int newValue);
+	public void conditionGained(WorldObject worldObject, Condition condition);
+	public void conditionLost(WorldObject worldObject, Condition condition);
 }

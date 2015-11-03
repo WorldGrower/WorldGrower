@@ -59,7 +59,7 @@ public class UTestSacrificePeopleToDeityGoal {
 		target.setProperty(Constants.DEITY, Deity.APHRODITE);
 		target.setProperty(Constants.STRENGTH, 20);
 		target.setProperty(Constants.CONDITIONS, new Conditions());
-		target.getProperty(Constants.CONDITIONS).addCondition(Condition.UNCONSCIOUS_CONDITION, 8, world);
+		Conditions.add(target, Condition.UNCONSCIOUS_CONDITION, 8, world);
 		world.addWorldObject(target);
 		BuildingGenerator.generateSacrificialAltar(0, 0, world, performer, Deity.HADES, 1f);
 		

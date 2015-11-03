@@ -10,6 +10,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.MockCommonerNameGenerator;
 import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.Conditions;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.CommonerGenerator;
 import org.worldgrower.gui.CommonerImageIds;
@@ -48,7 +49,7 @@ public class UTestCaptureCriminalsGoal {
 		WorldObject performer = createCommoner(world, organization);
 		WorldObject target = createCommoner(world, organization);
 		target.getProperty(Constants.GROUP).removeAll();
-		target.getProperty(Constants.CONDITIONS).addCondition(Condition.UNCONSCIOUS_CONDITION, 8, world);
+		Conditions.add(target, Condition.UNCONSCIOUS_CONDITION, 8, world);
 		
 		BuildingGenerator.generateJail(5, 5, world, 1f);
 		

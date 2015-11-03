@@ -22,6 +22,7 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.Conditions;
 import org.worldgrower.gui.ImageIds;
 
 public class DrinkFromInventoryAction implements ManagedOperation {
@@ -36,7 +37,7 @@ public class DrinkFromInventoryAction implements ManagedOperation {
 		
 		int indexOfWater = performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.WATER);
 		if (performer.getProperty(Constants.INVENTORY).get(indexOfWater).hasProperty(Constants.POISON_DAMAGE) && performer.getProperty(Constants.INVENTORY).get(indexOfWater).getProperty(Constants.POISON_DAMAGE) > 0) {
-			performer.getProperty(Constants.CONDITIONS).addCondition(Condition.POISONED_CONDITION, 20, world);
+			Conditions.add(performer, Condition.POISONED_CONDITION, 20, world);
 		}
 		
 		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.WATER, 1);

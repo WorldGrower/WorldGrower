@@ -23,13 +23,14 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.Conditions;
 import org.worldgrower.gui.ImageIds;
 
 public class CocoonAction implements ManagedOperation {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		target.getProperty(Constants.CONDITIONS).addCondition(Condition.COCOONED_CONDITION, 5, world);
+		Conditions.add(target, Condition.COCOONED_CONDITION, 5, world);
 	
 		world.logAction(this, performer, target, args, "");
 	}

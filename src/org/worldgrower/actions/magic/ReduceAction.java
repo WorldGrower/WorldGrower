@@ -37,7 +37,7 @@ public class ReduceAction implements MagicSpell {
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		if (target.getProperty(Constants.CONDITIONS).hasCondition(Condition.ENLARGED_CONDITION)) {
-			Conditions.remove(target, Condition.ENLARGED_CONDITION);
+			Conditions.remove(target, Condition.ENLARGED_CONDITION, world);
 		} else {
 			target.setProperty(Constants.ORIGINAL_HEIGHT, target.getProperty(Constants.HEIGHT));
 			target.setProperty(Constants.ORIGINAL_WIDTH, target.getProperty(Constants.WIDTH));
@@ -49,7 +49,7 @@ public class ReduceAction implements MagicSpell {
 			target.setProperty(Constants.WIDTH, width);
 			
 			int turns = (int)(8 * SkillUtils.getSkillBonus(performer, getSkill()));
-			target.getProperty(Constants.CONDITIONS).addCondition(Condition.REDUCED_CONDITION, turns, world);
+			Conditions.add(target, Condition.REDUCED_CONDITION, turns, world);
 		}		
 		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE, world.getWorldStateChangedListeners());
 	}

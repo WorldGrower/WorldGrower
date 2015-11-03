@@ -25,6 +25,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.MockCommonerNameGenerator;
 import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.Conditions;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.generator.CommonerGenerator;
 import org.worldgrower.gui.CommonerImageIds;
@@ -91,7 +92,7 @@ public class UTestGetPoisonCuredGoal {
 		
 		assertEquals(true, goal.isGoalMet(performer, world));
 		
-		performer.getProperty(Constants.CONDITIONS).addCondition(Condition.POISONED_CONDITION, 8, world);
+		Conditions.add(performer, Condition.POISONED_CONDITION, 8, world);
 		assertEquals(false, goal.isGoalMet(performer, world));
 	}
 

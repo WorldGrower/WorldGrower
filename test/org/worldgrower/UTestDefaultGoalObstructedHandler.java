@@ -23,6 +23,7 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.BackgroundImpl;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.Conditions;
 import org.worldgrower.generator.ItemGenerator;
 import org.worldgrower.goal.GroupPropertyUtils;
 
@@ -161,7 +162,7 @@ public class UTestDefaultGoalObstructedHandler {
 		world.addWorldObject(performer);
 		world.addWorldObject(actionTarget);
 		
-		performer.getProperty(Constants.CONDITIONS).addCondition(Condition.INVISIBLE_CONDITION, 8, world);
+		Conditions.add(performer, Condition.INVISIBLE_CONDITION, 8, world);
 		
 		performer.setProperty(Constants.X, 1);
 		performer.setProperty(Constants.Y, 1);

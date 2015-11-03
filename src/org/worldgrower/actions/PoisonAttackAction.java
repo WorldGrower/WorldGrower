@@ -23,6 +23,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.Conditions;
 import org.worldgrower.gui.ImageIds;
 
 public class PoisonAttackAction implements ManagedOperation {
@@ -37,7 +38,7 @@ public class PoisonAttackAction implements ManagedOperation {
 		
 		if (targetHP < 1) {
 			targetHP = 1;
-			target.getProperty(Constants.CONDITIONS).addCondition(Condition.PARALYZED_CONDITION, 5, world);
+			Conditions.add(target, Condition.PARALYZED_CONDITION, 5, world);
 		}
 		target.setProperty(Constants.HIT_POINTS, targetHP);	
 		

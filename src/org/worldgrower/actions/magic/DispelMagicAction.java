@@ -34,7 +34,7 @@ public class DispelMagicAction implements MagicSpell {
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		target.getProperty(Constants.CONDITIONS).removeAllMagicEffects();
+		target.getProperty(Constants.CONDITIONS).removeAllMagicEffects(target, world.getWorldStateChangedListeners());
 		
 		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE, world.getWorldStateChangedListeners());
 	}

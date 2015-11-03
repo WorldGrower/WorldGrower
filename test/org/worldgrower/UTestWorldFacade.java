@@ -21,6 +21,7 @@ import java.util.Arrays;
 import org.junit.Test;
 import org.worldgrower.attribute.Skill;
 import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.Conditions;
 
 public class UTestWorldFacade {
 
@@ -97,7 +98,7 @@ public class UTestWorldFacade {
 		world.addWorldObject(worldObject);
 		world.addWorldObject(illusionCreator);
 		
-		worldObject.getProperty(Constants.CONDITIONS).addCondition(Condition.INVISIBLE_CONDITION, 8, world);
+		Conditions.add(worldObject, Condition.INVISIBLE_CONDITION, 8, world);
 		
 		WorldFacade worldFacade = new WorldFacade(personViewingWorld, world);
 		assertEquals(null, worldFacade.findWorldObject(Constants.ID, 2));

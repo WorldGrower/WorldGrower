@@ -44,11 +44,11 @@ public class UTestWeightPropertyUtils {
 		performer.getProperty(Constants.INVENTORY).add(ItemGenerator.getIronCuirass(1f));
 		assertEquals(30, WeightPropertyUtils.getTotalWeight(performer));
 		
-		performer.getProperty(Constants.CONDITIONS).addCondition(Condition.BURDENED_CONDITION, 8, world);
+		Conditions.add(performer, Condition.BURDENED_CONDITION, 8, world);
 		assertEquals(60, WeightPropertyUtils.getTotalWeight(performer));
 		
-		Conditions.remove(performer, Condition.BURDENED_CONDITION);
-		performer.getProperty(Constants.CONDITIONS).addCondition(Condition.FEATHERED_CONDITION, 8, world);
+		Conditions.remove(performer, Condition.BURDENED_CONDITION, world);
+		Conditions.add(performer, Condition.FEATHERED_CONDITION, 8, world);
 		assertEquals(15, WeightPropertyUtils.getTotalWeight(performer));
 	}
 	

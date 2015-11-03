@@ -90,6 +90,8 @@ import org.worldgrower.goal.UTestBuySellUtils;
 import org.worldgrower.goal.UTestCaptureCriminalsGoal;
 import org.worldgrower.goal.UTestCatchFishGoal;
 import org.worldgrower.goal.UTestChildrenGoal;
+import org.worldgrower.goal.UTestChooseDeityGoal;
+import org.worldgrower.goal.UTestCocoonOutsidersGoal;
 import org.worldgrower.goal.UTestCollectArenaRewardGoal;
 import org.worldgrower.goal.UTestCollectWaterGoal;
 import org.worldgrower.goal.UTestCottonGoal;
@@ -126,6 +128,7 @@ import org.worldgrower.goal.UTestImproveOrganizationGoal;
 import org.worldgrower.goal.UTestImproveRelationshipGoal;
 import org.worldgrower.goal.UTestInventoryPropertyUtils;
 import org.worldgrower.goal.UTestJailGoal;
+import org.worldgrower.goal.UTestKillOutsidersGoal;
 import org.worldgrower.goal.UTestKillVillagersGoal;
 import org.worldgrower.goal.UTestLearnSkillGoal;
 import org.worldgrower.goal.UTestLegalActionsPropertyUtils;
@@ -329,7 +332,10 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestDonateMoneyToArenaGoal.class,
 	UTestBecomeReligionOrganizationMemberGoal.class,
 	UTestBecomeProfessionsOrganizationMemberGoal.class,
-	UTestResearchMagicSkillsKnowledgeGoal.class
+	UTestResearchMagicSkillsKnowledgeGoal.class,
+	UTestKillOutsidersGoal.class,
+	UTestChooseDeityGoal.class,
+	UTestCocoonOutsidersGoal.class
 })
 public class CompleteTestSuite {
 }

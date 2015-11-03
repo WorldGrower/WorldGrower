@@ -23,6 +23,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.Conditions;
 import org.worldgrower.gui.ImageIds;
 
 public class EatNightShadeAction implements ManagedOperation {
@@ -37,7 +38,7 @@ public class EatNightShadeAction implements ManagedOperation {
 		performer.setProperty(Constants.FOOD, food);
 		target.setProperty(Constants.NIGHT_SHADE_SOURCE, foodInTarget - 10);
 		
-		performer.getProperty(Constants.CONDITIONS).addCondition(Condition.POISONED_CONDITION, 20, world);
+		Conditions.add(performer, Condition.POISONED_CONDITION, 20, world);
 	}
 
 	@Override

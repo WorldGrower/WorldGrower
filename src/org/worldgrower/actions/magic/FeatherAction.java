@@ -37,10 +37,10 @@ public class FeatherAction implements MagicSpell {
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		if (target.getProperty(Constants.CONDITIONS).hasCondition(Condition.BURDENED_CONDITION)) {
-			Conditions.remove(target, Condition.BURDENED_CONDITION);
+			Conditions.remove(target, Condition.BURDENED_CONDITION, world);
 		} else {
 			int turns = (int)(20 * SkillUtils.getSkillBonus(performer, getSkill()));
-			target.getProperty(Constants.CONDITIONS).addCondition(Condition.FEATHERED_CONDITION, turns, world);
+			Conditions.add(target, Condition.FEATHERED_CONDITION, turns, world);
 		}
 		
 		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE, world.getWorldStateChangedListeners());

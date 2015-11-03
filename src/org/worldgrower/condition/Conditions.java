@@ -35,21 +35,27 @@ public class Conditions implements Serializable {
 
 	private final Map<Condition, ConditionInfo> conditions = new HashMap<>();
 	
-	public void addCondition(Condition condition, int turns, World world) {
+	void addCondition(WorldObject worldObject, Condition condition, int turns, World world) {
 		conditions.put(condition, new ConditionInfo(turns, world.getCurrentTurn().getValue()));
+		conditionGained(worldObject, condition, world.getWorldStateChangedListeners());
 	}
 	
-	private void removeConditionFromWorldObject(WorldObject worldObject, Condition condition) {
+	private void removeConditionFromWorldObject(WorldObject worldObject, Condition condition, WorldStateChangedListeners worldStateChangedListeners) {
 		conditions.remove(condition);
 		condition.conditionEnds(worldObject);
+		conditionLost(worldObject, condition, worldStateChangedListeners);
 	}
 	
-	public static void remove(WorldObject worldObject, Condition condition) {
-		worldObject.getProperty(Constants.CONDITIONS).removeConditionFromWorldObject(worldObject, condition);
+	public static void add(WorldObject worldObject, Condition condition, int turns, World world) {
+		worldObject.getProperty(Constants.CONDITIONS).addCondition(worldObject, condition, turns, world);
 	}
 	
-	public void removeAllDiseases() {
-		removeAll(c -> c.isDisease());
+	public static void remove(WorldObject worldObject, Condition condition, World world) {
+		worldObject.getProperty(Constants.CONDITIONS).removeConditionFromWorldObject(worldObject, condition, world.getWorldStateChangedListeners());
+	}
+	
+	public void removeAllDiseases(WorldObject worldObject, WorldStateChangedListeners worldStateChangedListeners) {
+		removeAll(worldObject, c -> c.isDisease(), worldStateChangedListeners);
 	}
 	
 	public boolean canTakeAction() {
@@ -79,7 +85,7 @@ public class Conditions implements Serializable {
 			if (turnsItWillLast != 0) {
 				entry.getValue().setTurnsItWillLast(turnsItWillLast);
 			} else {
-				removeConditionFromWorldObject(worldObject, entry.getKey());
+				removeConditionFromWorldObject(worldObject, entry.getKey(), world.getWorldStateChangedListeners());
 			}
 		}
 	}
@@ -141,17 +147,26 @@ public class Conditions implements Serializable {
 		return diseases;
 	}
 
-	public void removeAllMagicEffects() {
-		removeAll(c -> c.isMagicEffect());
+	public void removeAllMagicEffects(WorldObject worldObject, WorldStateChangedListeners worldStateChangedListeners) {
+		removeAll(worldObject, c -> c.isMagicEffect(), worldStateChangedListeners);
 	}
 	
-	private void removeAll(Function<Condition, Boolean> function) {
+	private void removeAll(WorldObject worldObject, Function<Condition, Boolean> function, WorldStateChangedListeners worldStateChangedListeners) {
 		Iterator<Entry<Condition, ConditionInfo>> conditionIterator = conditions.entrySet().iterator();
 		while (conditionIterator.hasNext()) {
 			Entry<Condition, ConditionInfo> conditionEntry = conditionIterator.next();
 			if (function.apply(conditionEntry.getKey())) {
+				conditionLost(worldObject, conditionEntry.getKey(), worldStateChangedListeners);
 				conditionIterator.remove();
 			}
 		}
+	}
+	
+	private void conditionGained(WorldObject worldObject, Condition condition, WorldStateChangedListeners worldStateChangedListeners) {
+		worldStateChangedListeners.conditionGained(worldObject, condition);
+	}
+	
+	private void conditionLost(WorldObject worldObject, Condition condition, WorldStateChangedListeners worldStateChangedListeners) {
+		worldStateChangedListeners.conditionLost(worldObject, condition);
 	}
 }

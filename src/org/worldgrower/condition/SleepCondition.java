@@ -54,7 +54,7 @@ public class SleepCondition implements Condition {
 	@Override
 	public void perform(WorldObject performer, WorldObject target, int[] args, ManagedOperation managedOperation, World world) {
 		if (DefaultGoalObstructedHandler.performerAttacked(managedOperation)) {
-			Conditions.remove(target, this);
+			Conditions.remove(target, this, world);
 		}
 	}
 	

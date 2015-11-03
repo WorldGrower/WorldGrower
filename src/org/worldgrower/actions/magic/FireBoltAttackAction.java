@@ -26,6 +26,7 @@ import org.worldgrower.actions.DeadlyAction;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.Conditions;
 import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
 
@@ -38,7 +39,7 @@ public class FireBoltAttackAction implements MagicSpell, DeadlyAction {
 		AttackUtils.magicAttack(5, this, performer, target, args, world, SkillUtils.useSkill(performer, getSkill(), world.getWorldStateChangedListeners()));
 	
 		if (target.hasProperty(Constants.FLAMMABLE) && target.getProperty(Constants.FLAMMABLE)) {
-			target.getProperty(Constants.CONDITIONS).addCondition(Condition.BURNING_CONDITION, 100, world);
+			Conditions.add(target, Condition.BURNING_CONDITION, 100, world);
 		}
 	}
 	

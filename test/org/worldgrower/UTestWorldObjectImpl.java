@@ -25,6 +25,7 @@ import org.junit.Test;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.Conditions;
 import org.worldgrower.creaturetype.CreatureType;
 
 public class UTestWorldObjectImpl {
@@ -80,7 +81,7 @@ public class UTestWorldObjectImpl {
 		WorldObject person = TestUtils.createIntelligentWorldObject(1, Constants.CREATURE_TYPE, CreatureType.HUMAN_CREATURE_TYPE);
 		assertEquals(true, person.canWorldObjectPerformAction(Actions.MOVE_ACTION));
 		
-		person.getProperty(Constants.CONDITIONS).addCondition(Condition.PARALYZED_CONDITION, 8, world);
+		Conditions.add(person, Condition.PARALYZED_CONDITION, 8, world);
 		assertEquals(false, person.canWorldObjectPerformAction(Actions.MOVE_ACTION));
 	}
 	
@@ -89,7 +90,7 @@ public class UTestWorldObjectImpl {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject person = TestUtils.createIntelligentWorldObject(1, Constants.CREATURE_TYPE, CreatureType.HUMAN_CREATURE_TYPE);
 
-		person.getProperty(Constants.CONDITIONS).addCondition(Condition.UNCONSCIOUS_CONDITION, 8, world);
+		Conditions.add(person, Condition.UNCONSCIOUS_CONDITION, 8, world);
 		assertEquals(false, person.canWorldObjectPerformAction(Actions.MOVE_ACTION));
 	}
 	

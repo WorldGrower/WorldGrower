@@ -62,4 +62,16 @@ public class WorldStateChangedListeners {
 			worldStateChangedListener.skillIncreased(worldObject, skillProperty, oldValue, newValue);
 		}
 	}
+	
+	public void conditionGained(WorldObject worldObject, Condition condition) {
+		for(WorldStateChangedListener worldStateChangedListener : worldStateChangedListeners) {
+			worldStateChangedListener.conditionGained(worldObject, condition);
+		}
+	}
+	
+	public void conditionLost(WorldObject worldObject, Condition condition) {
+		for(WorldStateChangedListener worldStateChangedListener : worldStateChangedListeners) {
+			worldStateChangedListener.conditionLost(worldObject, condition);
+		}
+	}
 }
