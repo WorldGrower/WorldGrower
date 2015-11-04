@@ -122,6 +122,7 @@ import org.worldgrower.goal.UTestGhoulGoal;
 import org.worldgrower.goal.UTestGoalUtils;
 import org.worldgrower.goal.UTestGroupPropertyUtils;
 import org.worldgrower.goal.UTestHealOthersGoal;
+import org.worldgrower.goal.UTestHouseGoal;
 import org.worldgrower.goal.UTestHousePropertyUtils;
 import org.worldgrower.goal.UTestHuntUndeadGoal;
 import org.worldgrower.goal.UTestImproveOrganizationGoal;
@@ -136,6 +137,7 @@ import org.worldgrower.goal.UTestLibraryGoal;
 import org.worldgrower.goal.UTestLocationUtils;
 import org.worldgrower.goal.UTestLockUtils;
 import org.worldgrower.goal.UTestMarkFoodAsSellableGoal;
+import org.worldgrower.goal.UTestMarkHouseAsSellableGoal;
 import org.worldgrower.goal.UTestMateGoal;
 import org.worldgrower.goal.UTestMeleeDamagePropertyUtils;
 import org.worldgrower.goal.UTestMineGoldGoal;
@@ -148,6 +150,7 @@ import org.worldgrower.goal.UTestPaperMillGoal;
 import org.worldgrower.goal.UTestProtectOneSelfGoal;
 import org.worldgrower.goal.UTestRacePropertyUtils;
 import org.worldgrower.goal.UTestRelationshipPropertyUtils;
+import org.worldgrower.goal.UTestReleaseCapturedCriminalsGoal;
 import org.worldgrower.goal.UTestResearchMagicSkillsKnowledgeGoal;
 import org.worldgrower.goal.UTestRestGoal;
 import org.worldgrower.goal.UTestSacrificePeopleToDeityGoal;
@@ -335,7 +338,10 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestResearchMagicSkillsKnowledgeGoal.class,
 	UTestKillOutsidersGoal.class,
 	UTestChooseDeityGoal.class,
-	UTestCocoonOutsidersGoal.class
+	UTestCocoonOutsidersGoal.class,
+	UTestReleaseCapturedCriminalsGoal.class,
+	UTestHouseGoal.class,
+	UTestMarkHouseAsSellableGoal.class
 })
 public class CompleteTestSuite {
 }

@@ -388,7 +388,7 @@ public class GroupPropertyUtils {
 		return organizations;
 	}
 	
-	private static boolean organizationsMatch(WorldObject performerOrganization, WorldObject targetOrganization) {
+	static boolean organizationsMatch(WorldObject performerOrganization, WorldObject targetOrganization) {
 		if (performerOrganization.getProperty(Constants.PROFESSION) != null) {
 			return performerOrganization.getProperty(Constants.PROFESSION) == targetOrganization.getProperty(Constants.PROFESSION);
 		}

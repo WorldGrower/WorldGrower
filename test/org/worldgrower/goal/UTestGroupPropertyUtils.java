@@ -342,4 +342,95 @@ public class UTestGroupPropertyUtils {
 		organization = GroupPropertyUtils.createMinionOrganization(performer, world);
 		assertEquals(0, organization.getProperty(Constants.ID).intValue());
 	}
+	
+	@Test
+	public void testFindMatchingOrganizationNull() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.GROUP, new IdList());
+		WorldObject performerOrganization = GroupPropertyUtils.createProfessionOrganization(null, "TestOrg", Professions.FARMER_PROFESSION, world);
+		performer.getProperty(Constants.GROUP).add(performerOrganization);
+		world.addWorldObject(performer);
+		
+		WorldObject target = TestUtils.createIntelligentWorldObject(8, Constants.GROUP, new IdList());
+		assertEquals(null, GroupPropertyUtils.findMatchingOrganization(target, performerOrganization, world));
+	}
+	
+	@Test
+	public void testFindMatchingOrganizationInSelf() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.GROUP, new IdList());
+		WorldObject performerOrganization = GroupPropertyUtils.createProfessionOrganization(null, "TestOrg", Professions.FARMER_PROFESSION, world);
+		performer.getProperty(Constants.GROUP).add(performerOrganization);
+		world.addWorldObject(performer);
+		
+		assertEquals(performerOrganization, GroupPropertyUtils.findMatchingOrganization(performer, performerOrganization, world));
+	}
+	
+	@Test
+	public void testFindMatchingOrganizationInTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.GROUP, new IdList());
+		WorldObject performerOrganization = GroupPropertyUtils.createProfessionOrganization(null, "TestOrg", Professions.FARMER_PROFESSION, world);
+		performer.getProperty(Constants.GROUP).add(performerOrganization);
+		world.addWorldObject(performer);
+		
+		WorldObject target = TestUtils.createIntelligentWorldObject(8, Constants.GROUP, new IdList());
+		WorldObject targetOrganization = GroupPropertyUtils.createProfessionOrganization(null, "TestOrg", Professions.FARMER_PROFESSION, world);
+		target.getProperty(Constants.GROUP).add(targetOrganization);
+		assertEquals(targetOrganization, GroupPropertyUtils.findMatchingOrganization(target, performerOrganization, world));
+	}
+	
+	@Test
+	public void testOrganizationsMatchSameProfession() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performerOrganization = GroupPropertyUtils.createProfessionOrganization(null, "TestOrg", Professions.FARMER_PROFESSION, world);
+		WorldObject targetOrganization = GroupPropertyUtils.createProfessionOrganization(null, "TestOrg", Professions.FARMER_PROFESSION, world);
+		assertEquals(true, GroupPropertyUtils.organizationsMatch(performerOrganization, targetOrganization));
+	}
+	
+	@Test
+	public void testOrganizationsMatchDifferentProfession() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performerOrganization = GroupPropertyUtils.createProfessionOrganization(null, "TestOrg", Professions.FARMER_PROFESSION, world);
+		WorldObject targetOrganization = GroupPropertyUtils.createProfessionOrganization(null, "TestOrg", Professions.FISHER_PROFESSION, world);
+		assertEquals(false, GroupPropertyUtils.organizationsMatch(performerOrganization, targetOrganization));
+	}
+	
+	@Test
+	public void testOrganizationsMatchSameDeity() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performerOrganization = GroupPropertyUtils.createReligionOrganization(null, "TestOrg", Deity.ARES, Goals.IDLE_GOAL, world);
+		WorldObject targetOrganization = GroupPropertyUtils.createReligionOrganization(null, "TestOrg", Deity.ARES, Goals.IDLE_GOAL, world);
+		assertEquals(true, GroupPropertyUtils.organizationsMatch(performerOrganization, targetOrganization));
+	}
+	
+	@Test
+	public void testOrganizationsMatchDifferentDeity() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performerOrganization = GroupPropertyUtils.createReligionOrganization(null, "TestOrg", Deity.ARES, Goals.IDLE_GOAL, world);
+		WorldObject targetOrganization = GroupPropertyUtils.createReligionOrganization(null, "TestOrg", Deity.HERMES, Goals.IDLE_GOAL, world);
+		assertEquals(false, GroupPropertyUtils.organizationsMatch(performerOrganization, targetOrganization));
+	}
+	
+	@Test
+	public void testOrganizationsMatchFalse() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performerOrganization = GroupPropertyUtils.create(null, "TestOrg", world);
+		WorldObject targetOrganization = GroupPropertyUtils.create(null, "TestOrg", world);
+		assertEquals(false, GroupPropertyUtils.organizationsMatch(performerOrganization, targetOrganization));
+	}
+	
+	@Test
+	public void testGetMatchingOrganizationsUsingLeader() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.GROUP, new IdList());
+		WorldObject performerOrganization = GroupPropertyUtils.createProfessionOrganization(performer.getProperty(Constants.ID), "TestOrg", Professions.FARMER_PROFESSION, world);
+		performer.getProperty(Constants.GROUP).add(performerOrganization);
+		world.addWorldObject(performer);
+		
+		WorldObject target = TestUtils.createIntelligentWorldObject(8, Constants.GROUP, new IdList());
+		WorldObject targetOrganization = GroupPropertyUtils.createProfessionOrganization(target.getProperty(Constants.ID), "TestOrg", Professions.FARMER_PROFESSION, world);
+		target.getProperty(Constants.GROUP).add(targetOrganization);
+		assertEquals(Arrays.asList(performerOrganization), GroupPropertyUtils.getMatchingOrganizationsUsingLeader(performer, target, world));
+	}
 }
