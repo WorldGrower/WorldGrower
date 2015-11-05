@@ -367,6 +367,9 @@ public class ImageInfoReader {
 		add(ImageIds.STATUE_OF_ATHENA, statues.getSubImage(5, 1, 1, 2));
 
 		add(ImageIds.BOREAL_TREE, objects.getSubImage(0, 9, 2, 2));
+		add(ImageIds.INN, tileC.getSubImage(0, 0, 4, 6));
+		add(ImageIds.STONE_WALL, houses.getSubImage(0, 4, 2, 4));
+		createInnImage();
     }
 
     private void resizeSmallFlowers() {
@@ -381,6 +384,25 @@ public class ImageInfoReader {
 
 		g2.dispose();
 		idToImages.put(ImageIds.SMALL_FLOWERS, Arrays.asList(off_Image));
+    }
+    
+    private void createInnImage() {
+    	Image innImage = idToImages.get(ImageIds.INN).get(0);
+    	Image stoneWallImage = idToImages.get(ImageIds.STONE_WALL).get(0);
+		BufferedImage off_Image = new BufferedImage(48 * 6, 48 * 8, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g2 = (Graphics2D) off_Image.getGraphics();
+		
+		g2.drawImage(stoneWallImage, 0, 0, null);
+		g2.drawImage(stoneWallImage, stoneWallImage.getWidth(null), 0, null);
+		g2.drawImage(stoneWallImage, 0, stoneWallImage.getHeight(null), null);
+		g2.drawImage(stoneWallImage, stoneWallImage.getWidth(null), stoneWallImage.getHeight(null), null);
+		
+		g2.drawImage(innImage, 0, 0, null);
+		
+		addStoneDoorToInn(g2);
+		
+		g2.dispose();
+		idToImages.put(ImageIds.INN, Arrays.asList(off_Image));
     }
     
     private void createArenaWall48x48() {
@@ -466,6 +488,11 @@ public class ImageInfoReader {
     private void addStoneDoorToHouse(Graphics2D g2) {
 		Image doorImage =  idToImages.get(ImageIds.STONE_DOOR).get(0);
 		g2.drawImage(doorImage, 16, 82, null);
+    }
+    
+    private void addStoneDoorToInn(Graphics2D g2) {
+		Image doorImage =  idToImages.get(ImageIds.STONE_DOOR).get(0);
+		g2.drawImage(doorImage, 16, 128, null);
     }
     
     private void addCharacter(ImageIds imageId, Sprites sprites, int x, int y, int width, int height) {

@@ -514,4 +514,32 @@ public class BuildingGenerator {
 	
 		return id;
 	}
+
+	public static int generateInn(int x, int y, World world, double skillBonus) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		int id = world.generateUniqueId();
+		
+		properties.put(Constants.X, x);
+		properties.put(Constants.Y, y);
+		properties.put(Constants.WIDTH, 6);
+		properties.put(Constants.HEIGHT, 8);
+		properties.put(Constants.SLEEP_COMFORT, (int)(5 * skillBonus));
+		properties.put(Constants.NAME, "Inn");
+		properties.put(Constants.ID, id);
+		properties.put(Constants.IMAGE_ID, ImageIds.INN);
+		properties.put(Constants.CONDITIONS, new Conditions());
+		properties.put(Constants.HIT_POINTS, 200);
+		properties.put(Constants.HIT_POINTS_MAX, 200);
+		properties.put(Constants.ARMOR, 0);
+		properties.put(Constants.DAMAGE_RESIST, 0);
+		properties.put(Constants.PRICE, 200);
+		properties.put(Constants.INVENTORY, new WorldObjectContainer());
+		properties.put(Constants.LOCK_STRENGTH, 2);
+		properties.put(Constants.LOCKED, Boolean.TRUE);
+		
+		WorldObject house = new WorldObjectImpl(properties);
+		world.addWorldObject(house);
+		
+		return id;
+	}
 }

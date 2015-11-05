@@ -16,21 +16,21 @@ package org.worldgrower.goal;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Test;
+import org.worldgrower.AssertUtils;
 import org.worldgrower.Constants;
+import org.worldgrower.DoNothingWorldOnTurn;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.IdList;
+import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.conversation.Conversations;
 
-public class UTestCollectTaxesGoal {
+public class UTestCollectPayCheckGoal {
 
-	private CollectTaxesGoal goal = new CollectTaxesGoal();
+	private CollectPayCheckGoal goal = Goals.COLLECT_PAY_CHECK_GOAL;
 	
 	@Test
 	public void testCalculateGoalNull() {
@@ -40,6 +40,53 @@ public class UTestCollectTaxesGoal {
 		createVillagersOrganization(world);
 		
 		assertEquals(null, goal.calculateGoal(performer, world));
+	}
+	
+	@Test
+	public void testCalculateGoalPerformerIsLeader() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		world.addWorldObject(performer);
+		
+		WorldObject organization = createVillagersOrganization(world);
+		organization.setProperty(Constants.ORGANIZATION_LEADER_ID, performer.getProperty(Constants.ID));
+		
+		assertEquals(null, goal.calculateGoal(performer, world));
+	}
+	
+	@Test
+	public void testCalculateGoalHandoverTaxes() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		
+		world.addWorldObject(performer);
+		world.addWorldObject(target);
+		
+		WorldObject organization = createVillagersOrganization(world);
+		organization.setProperty(Constants.ORGANIZATION_LEADER_ID, target.getProperty(Constants.ID));
+		
+		assertEquals(Actions.TALK_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+		AssertUtils.assertConversation(goal.calculateGoal(performer, world), Conversations.COLLECT_PAY_CHECK_CONVERSATION);
+	}
+	
+	@Test
+	public void testIsGoalMet() {
+		World world = new WorldImpl(10, 10, null, new DoNothingWorldOnTurn());
+		WorldObject performer = createPerformer(2);
+		performer.setProperty(Constants.ORGANIZATION_GOLD, 0);
+		WorldObject target = createPerformer(3);
+		
+		world.addWorldObject(performer);
+		world.addWorldObject(target);
+		
+		WorldObject organization = createVillagersOrganization(world);
+		
+		assertEquals(true, goal.isGoalMet(performer, world));
+		
+		organization.setProperty(Constants.ORGANIZATION_LEADER_ID, target.getProperty(Constants.ID));
+		for(int i=0; i<5000; i++) { world.nextTurn(); }
+		assertEquals(false, goal.isGoalMet(performer, world));
 	}
 	
 	private WorldObject createVillagersOrganization(World world) {
@@ -56,29 +103,5 @@ public class UTestCollectTaxesGoal {
 		performer.setProperty(Constants.WIDTH, 1);
 		performer.setProperty(Constants.HEIGHT, 1);
 		return performer;
-	}
-	
-	@Test
-	public void testSortTargets() {
-		World world = new WorldImpl(10, 10, null, null);
-		world.addWorldObject(TestUtils.createIntelligentWorldObject(1, Constants.HOUSES, new IdList().add(3)));
-		world.addWorldObject(TestUtils.createIntelligentWorldObject(2, Constants.HOUSES, new IdList().add(4)));
-		
-		List<WorldObject> targets = new ArrayList<>(world.getWorldObjects());
-		
-		goal.sortTargets(targets, world, this::getAmount);
-		
-		assertEquals(2, targets.get(0).getProperty(Constants.ID).intValue());
-		assertEquals(1, targets.get(1).getProperty(Constants.ID).intValue());
-	}
-	
-	private int getAmount(WorldObject w, World world) {
-		if (w.getProperty(Constants.ID) == 1) {
-			return 100;
-		} else if (w.getProperty(Constants.ID) == 2) {
-			return 150;
-		} else {
-			return 0;
-		}
 	}
 }

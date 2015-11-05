@@ -25,7 +25,11 @@ public class HandoverTaxesGoal implements Goal {
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		WorldObject target = GroupPropertyUtils.getLeaderOfVillagers(world);
-		return new OperationInfo(performer, target, new int[0], Actions.HANDOVER_TAXES_ACTION);
+		if (target != null && !target.equals(performer)) {
+			return new OperationInfo(performer, target, new int[0], Actions.HANDOVER_TAXES_ACTION);
+		} else {
+			return null;
+		}
 	}
 	
 	@Override

@@ -16,21 +16,18 @@ package org.worldgrower.goal;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Test;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.IdList;
+import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.WorldObjectContainer;
 
-public class UTestCollectTaxesGoal {
+public class UTestHandoverTaxesGoal {
 
-	private CollectTaxesGoal goal = new CollectTaxesGoal();
+	private HandoverTaxesGoal goal = Goals.HANDOVER_TAXES_GOAL;
 	
 	@Test
 	public void testCalculateGoalNull() {
@@ -40,6 +37,52 @@ public class UTestCollectTaxesGoal {
 		createVillagersOrganization(world);
 		
 		assertEquals(null, goal.calculateGoal(performer, world));
+	}
+	
+	@Test
+	public void testCalculateGoalPerformerIsLeader() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		world.addWorldObject(performer);
+		
+		WorldObject organization = createVillagersOrganization(world);
+		organization.setProperty(Constants.ORGANIZATION_LEADER_ID, performer.getProperty(Constants.ID));
+		
+		assertEquals(null, goal.calculateGoal(performer, world));
+	}
+	
+	@Test
+	public void testCalculateGoalHandoverTaxes() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		
+		world.addWorldObject(performer);
+		world.addWorldObject(target);
+		
+		WorldObject organization = createVillagersOrganization(world);
+		organization.setProperty(Constants.ORGANIZATION_LEADER_ID, target.getProperty(Constants.ID));
+		
+		assertEquals(Actions.HANDOVER_TAXES_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+	@Test
+	public void testIsGoalMet() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		performer.setProperty(Constants.ORGANIZATION_GOLD, 0);
+		WorldObject target = createPerformer(3);
+		
+		world.addWorldObject(performer);
+		world.addWorldObject(target);
+		
+		WorldObject organization = createVillagersOrganization(world);
+		
+		assertEquals(true, goal.isGoalMet(performer, world));
+		
+		performer.setProperty(Constants.ORGANIZATION_GOLD, 500);
+		organization.setProperty(Constants.ORGANIZATION_LEADER_ID, target.getProperty(Constants.ID));
+		assertEquals(false, goal.isGoalMet(performer, world));
 	}
 	
 	private WorldObject createVillagersOrganization(World world) {
@@ -56,29 +99,5 @@ public class UTestCollectTaxesGoal {
 		performer.setProperty(Constants.WIDTH, 1);
 		performer.setProperty(Constants.HEIGHT, 1);
 		return performer;
-	}
-	
-	@Test
-	public void testSortTargets() {
-		World world = new WorldImpl(10, 10, null, null);
-		world.addWorldObject(TestUtils.createIntelligentWorldObject(1, Constants.HOUSES, new IdList().add(3)));
-		world.addWorldObject(TestUtils.createIntelligentWorldObject(2, Constants.HOUSES, new IdList().add(4)));
-		
-		List<WorldObject> targets = new ArrayList<>(world.getWorldObjects());
-		
-		goal.sortTargets(targets, world, this::getAmount);
-		
-		assertEquals(2, targets.get(0).getProperty(Constants.ID).intValue());
-		assertEquals(1, targets.get(1).getProperty(Constants.ID).intValue());
-	}
-	
-	private int getAmount(WorldObject w, World world) {
-		if (w.getProperty(Constants.ID) == 1) {
-			return 100;
-		} else if (w.getProperty(Constants.ID) == 2) {
-			return 150;
-		} else {
-			return 0;
-		}
 	}
 }

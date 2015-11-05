@@ -93,6 +93,8 @@ import org.worldgrower.goal.UTestChildrenGoal;
 import org.worldgrower.goal.UTestChooseDeityGoal;
 import org.worldgrower.goal.UTestCocoonOutsidersGoal;
 import org.worldgrower.goal.UTestCollectArenaRewardGoal;
+import org.worldgrower.goal.UTestCollectPayCheckGoal;
+import org.worldgrower.goal.UTestCollectTaxesGoal;
 import org.worldgrower.goal.UTestCollectWaterGoal;
 import org.worldgrower.goal.UTestCottonGoal;
 import org.worldgrower.goal.UTestCraftEquipmentGoal;
@@ -121,6 +123,7 @@ import org.worldgrower.goal.UTestGetPoisonCuredGoal;
 import org.worldgrower.goal.UTestGhoulGoal;
 import org.worldgrower.goal.UTestGoalUtils;
 import org.worldgrower.goal.UTestGroupPropertyUtils;
+import org.worldgrower.goal.UTestHandoverTaxesGoal;
 import org.worldgrower.goal.UTestHealOthersGoal;
 import org.worldgrower.goal.UTestHouseGoal;
 import org.worldgrower.goal.UTestHousePropertyUtils;
@@ -143,6 +146,7 @@ import org.worldgrower.goal.UTestMeleeDamagePropertyUtils;
 import org.worldgrower.goal.UTestMineGoldGoal;
 import org.worldgrower.goal.UTestMineResourceGoal;
 import org.worldgrower.goal.UTestMintGoldGoal;
+import org.worldgrower.goal.UTestOffspringGoal;
 import org.worldgrower.goal.UTestOrganizationCandidateGoal;
 import org.worldgrower.goal.UTestOrganizationVoteGoal;
 import org.worldgrower.goal.UTestPaperGoal;
@@ -341,7 +345,11 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestCocoonOutsidersGoal.class,
 	UTestReleaseCapturedCriminalsGoal.class,
 	UTestHouseGoal.class,
-	UTestMarkHouseAsSellableGoal.class
+	UTestMarkHouseAsSellableGoal.class,
+	UTestOffspringGoal.class,
+	UTestHandoverTaxesGoal.class,
+	UTestCollectPayCheckGoal.class,
+	UTestCollectTaxesGoal.class
 })
 public class CompleteTestSuite {
 }

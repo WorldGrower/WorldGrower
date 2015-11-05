@@ -25,7 +25,11 @@ public class CollectPayCheckGoal implements Goal {
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		WorldObject target = GroupPropertyUtils.getLeaderOfVillagers(world);
-		return new OperationInfo(performer, target, Conversations.createArgs(Conversations.COLLECT_PAY_CHECK_CONVERSATION), Actions.TALK_ACTION);
+		if (target != null && !target.equals(performer)) {
+			return new OperationInfo(performer, target, Conversations.createArgs(Conversations.COLLECT_PAY_CHECK_CONVERSATION), Actions.TALK_ACTION);
+		} else {
+			return null;
+		}
 	}
 	
 	@Override

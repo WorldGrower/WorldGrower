@@ -433,4 +433,18 @@ public class UTestGroupPropertyUtils {
 		target.getProperty(Constants.GROUP).add(targetOrganization);
 		assertEquals(Arrays.asList(performerOrganization), GroupPropertyUtils.getMatchingOrganizationsUsingLeader(performer, target, world));
 	}
+	
+	@Test
+	public void testThrowPerformerOutGroup() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.GROUP, new IdList());
+		WorldObject performerOrganization = GroupPropertyUtils.createProfessionOrganization(performer.getProperty(Constants.ID), "TestOrg", Professions.FARMER_PROFESSION, world);
+		performer.getProperty(Constants.GROUP).add(performerOrganization);
+		
+		WorldObject target = TestUtils.createIntelligentWorldObject(8, Constants.GROUP, new IdList());
+		target.getProperty(Constants.GROUP).add(performerOrganization);
+		
+		GroupPropertyUtils.throwPerformerOutGroup(performer, target);
+		assertEquals(0, performer.getProperty(Constants.GROUP).size());
+	}
 }
