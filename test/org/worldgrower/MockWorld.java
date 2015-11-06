@@ -38,7 +38,7 @@ public class MockWorld implements World {
 
 	@Override
 	public void addWorldObject(WorldObject worldObject) {
-		// TODO Auto-generated method stub
+		world.addWorldObject(worldObject);
 		
 	}
 
@@ -50,8 +50,7 @@ public class MockWorld implements World {
 
 	@Override
 	public List<WorldObject> getWorldObjects() {
-		// TODO Auto-generated method stub
-		return null;
+		return world.getWorldObjects();
 	}
 
 	@Override
@@ -134,14 +133,12 @@ public class MockWorld implements World {
 
 	@Override
 	public Turn getCurrentTurn() {
-		// TODO Auto-generated method stub
-		return null;
+		return world.getCurrentTurn();
 	}
 
 	@Override
 	public void nextTurn() {
-		// TODO Auto-generated method stub
-		
+		world.nextTurn();
 	}
 
 	@Override

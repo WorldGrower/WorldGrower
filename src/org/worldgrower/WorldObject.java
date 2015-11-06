@@ -37,7 +37,7 @@ public interface WorldObject {
 	public ManagedOperation getOperation(ManagedOperation operation);
 	public List<ManagedOperation> getOperations();
 	
-	public void onTurn(World world, WorldStateChangedListeners creatureTypeChangedListeners);
+	public void onTurn(World world, WorldStateChangedListeners worldStateChangedListeners);
 	public boolean hasIntelligence();
 	public boolean isControlledByAI();
 	public boolean canWorldObjectPerformAction(ManagedOperation operation);

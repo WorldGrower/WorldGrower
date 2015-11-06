@@ -69,6 +69,8 @@ public class CommonerOnTurn implements OnTurn {
 					
 					everyoneInVicinityKnowsOfChild(worldObject, id, world);
 				}
+				
+				worldObject.setProperty(Constants.PREGNANCY, pregnancy - 201);
 			}
 		}
 	}

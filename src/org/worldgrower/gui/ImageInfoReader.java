@@ -68,6 +68,7 @@ public class ImageInfoReader {
     	Sprites fish = readSpritesFish();
     	Sprites cow = readSpritesCow();
     	Sprites forge = readSpritesForge();
+    	Sprites terrainTransitions = readTerrainTransitions();
     	
     	addCharacter(ImageIds.KNIGHT, sprites, 0, 0, 1, 1);
     	addCharacter(ImageIds.GUARD, sprites, 0, 4, 1, 1);
@@ -370,6 +371,15 @@ public class ImageInfoReader {
 		add(ImageIds.INN, tileC.getSubImage(0, 0, 4, 6));
 		add(ImageIds.STONE_WALL, houses.getSubImage(0, 4, 2, 4));
 		createInnImage();
+
+		add(ImageIds.TRANSITION_TOP_LEFT, terrainTransitions.getSubImage(0, 0, 1, 1));
+		add(ImageIds.TRANSITION_TOP_RIGHT, terrainTransitions.getSubImage(1, 0, 1, 1));
+		add(ImageIds.TRANSITION_DOWN_LEFT, terrainTransitions.getSubImage(0, 1, 1, 1));
+		add(ImageIds.TRANSITION_DOWN_RIGHT, terrainTransitions.getSubImage(1, 1, 1, 1));
+		add(ImageIds.TRANSITION_LEFT, terrainTransitions.getSubImage(2, 0, 1, 1));
+		add(ImageIds.TRANSITION_RIGHT, terrainTransitions.getSubImage(2, 1, 1, 1));
+		add(ImageIds.TRANSITION_TOP, terrainTransitions.getSubImage(3, 0, 1, 1));
+		add(ImageIds.TRANSITION_BOTTOM, terrainTransitions.getSubImage(3, 1, 1, 1));
     }
 
     private void resizeSmallFlowers() {
@@ -661,6 +671,10 @@ public class ImageInfoReader {
 	
 	private static Sprites readSpritesForge() throws IOException {
 		return readImages("forge.png", 64, 91, 1, 1);
+	}
+	
+	private static Sprites readTerrainTransitions() throws IOException {
+		return readImages("terrain_transitions.png", 48, 48, 4, 2);
 	}
 	
 	private static Sprites readImages(String imageFilename, int width, int height, int rows, int cols) throws IOException {

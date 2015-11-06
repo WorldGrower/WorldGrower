@@ -42,16 +42,19 @@ public class BackgroundPainter {
 	private final Map<TerrainType, Color> terrainTypesToColor = new HashMap<>();
 	private Image[] backgroundImages = new Image[TerrainType.values().length];
 	private Map<BackgroundTransitionKey, Image> backgroundTransitionMap = new HashMap<>();
+	private final ImageInfoReader imageInfoReader;
 	
 	private boolean[][] hasFlowers;
 	private Image[] flowerImages = new Image[TerrainType.values().length];
 	
-	public BackgroundPainter(Image grassBackgroundImage, Image grassFlowerImage, World world) {
+	public BackgroundPainter(Image grassBackgroundImage, Image grassFlowerImage, ImageInfoReader imageInfoReader, World world) {
 		terrainTypesToColor.put(TerrainType.WATER, new Color(0, 0, 163));
 		terrainTypesToColor.put(TerrainType.GRASLAND, calculateColorForImage(grassBackgroundImage));
 		terrainTypesToColor.put(TerrainType.PLAINS, new Color(235, 195, 75));
 		terrainTypesToColor.put(TerrainType.HILL, new Color(171, 140, 17));
 		terrainTypesToColor.put(TerrainType.MOUNTAIN, new Color(161, 161, 161));
+		
+		this.imageInfoReader = imageInfoReader;
 		
 		fillBackgroundImagesMap(grassBackgroundImage, grassFlowerImage);
 		fillBackgroundTransitionMap(world);
@@ -148,7 +151,8 @@ public class BackgroundPainter {
 					} else {
 					
 						Image image = getBackgroundImage(terrainType);
-						Image newImage = filterImage(image, new TerrainTransitionFilter(terrainType, left, right, up, down, terrainTypesToColor));
+						//Image newImage = filterImage(image, new TerrainTransitionFilter(terrainType, left, right, up, down, terrainTypesToColor));
+						Image newImage = createTransitionImage(image, terrainType, left, right, up, down, terrainTypesToColor);
 						BufferedImage bufferedImage = toBufferedImage(newImage); 
 		
 						backgroundTransitionMap.put(key, bufferedImage);
@@ -158,6 +162,61 @@ public class BackgroundPainter {
 		}
 	}
 	
+	private Image createTransitionImage(Image sourceImage, TerrainType current, TerrainType left, TerrainType right, TerrainType up, TerrainType down, Map<TerrainType, Color> terrainTypesToColor) {
+		if (left == current && right != current) {
+		    return createCombinedImage(sourceImage, right, ImageIds.TRANSITION_LEFT);
+		} else if (right == current && left != current) {
+			    return createCombinedImage(sourceImage, left, ImageIds.TRANSITION_RIGHT);
+		} else {
+			return sourceImage;
+		}
+		
+	}
+
+	private Image createCombinedImage(Image sourceImage, TerrainType terrainType, ImageIds imageId) {
+		BufferedImage bimage = new BufferedImage(sourceImage.getWidth(null), sourceImage.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+
+		Graphics2D bGr = bimage.createGraphics();
+		bGr.drawImage(getBackgroundImage(terrainType), 0, 0, null);
+		bGr.drawImage(createTransition(sourceImage, terrainType, imageId), 0, 0, null);
+		bGr.dispose();
+		return bimage;
+	}
+	
+	private Image createTransition(Image sourceImage, TerrainType other, ImageIds imageId) {
+		BufferedImage blackWhiteImage = (BufferedImage)imageInfoReader.getImage(imageId, null);
+
+		BufferedImage combined = new BufferedImage(sourceImage.getWidth(null), sourceImage.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+
+		{
+		Graphics g = combined.getGraphics();
+		g.drawImage(sourceImage, 0, 0, null);
+		g.dispose();
+		}
+		
+		double maxDistance = Math.sqrt(pow(255) * 3);
+		for(int x=0; x<48; x++) {
+			for(int y=0; y<48; y++) {
+				Color oldColor = new Color(combined.getRGB(x, y));
+				Color colorOfBlackWhiteImage = new Color(blackWhiteImage.getRGB(x, y));
+				double distance = Math.sqrt(pow(colorOfBlackWhiteImage.getRed() - Color.WHITE.getRed()) + pow(colorOfBlackWhiteImage.getGreen() - Color.WHITE.getGreen()) + pow(colorOfBlackWhiteImage.getBlue() - Color.WHITE.getBlue()));
+				
+				int a = (int)(255 * distance / maxDistance);
+				int r = oldColor.getRed();
+				int g = oldColor.getGreen();
+				int b = oldColor.getBlue();
+
+				int color = (a << 24) | (r << 16) | (g << 8) | b;
+				combined.setRGB(x, y, color);
+			}
+		}
+		return combined;
+	}
+	
+	private int pow(int value) {
+		return value * value;
+	}
+
 	private BackgroundTransitionKey getKeyForBackgroundTransitionMap(Terrain terrain, int x, int y, World world) {
 		TerrainType terrainType = terrain.getTerrainInfo(x, y).getTerrainType();
 		

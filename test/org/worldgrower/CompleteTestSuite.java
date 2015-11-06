@@ -74,7 +74,10 @@ import org.worldgrower.conversation.UTestWhyAngryOtherConversation;
 import org.worldgrower.conversation.UTestWhyNotIntelligentConversation;
 import org.worldgrower.deity.UTestDeityPropertyUtils;
 import org.worldgrower.generator.UTestCommonerGenerator;
+import org.worldgrower.generator.UTestCommonerOnTurn;
+import org.worldgrower.generator.UTestCowOnTurn;
 import org.worldgrower.generator.UTestCreatureGenerator;
+import org.worldgrower.generator.UTestFishOnTurn;
 import org.worldgrower.goal.UTestAbstractScribeSpellsGoal;
 import org.worldgrower.goal.UTestArenaFightGoal;
 import org.worldgrower.goal.UTestArenaGoal;
@@ -349,7 +352,10 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestOffspringGoal.class,
 	UTestHandoverTaxesGoal.class,
 	UTestCollectPayCheckGoal.class,
-	UTestCollectTaxesGoal.class
+	UTestCollectTaxesGoal.class,
+	UTestCommonerOnTurn.class,
+	UTestCowOnTurn.class,
+	UTestFishOnTurn.class
 })
 public class CompleteTestSuite {
 }
