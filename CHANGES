@@ -1,3 +1,13 @@
+v0.1.8
+- can recall previous status messages.
+- add mouse icon for assign action
+- player is notified when a skill increases
+- user interface is now moved to new colorpalette
+- report to player when condition is gained and when it ends
+- improve terrain transitions
+- bug fix for pregnancy: birth rate has been normalized
+- bug fix: do nothing if no leader is elected for villagers if npc wants to collect paycheck or handover taxes.
+
 v0.1.7
 - cleanup .zip file in release
 - implement worship actions for deities
