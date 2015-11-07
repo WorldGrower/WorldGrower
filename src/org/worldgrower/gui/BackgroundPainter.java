@@ -163,10 +163,22 @@ public class BackgroundPainter {
 	}
 	
 	private Image createTransitionImage(Image sourceImage, TerrainType current, TerrainType left, TerrainType right, TerrainType up, TerrainType down, Map<TerrainType, Color> terrainTypesToColor) {
-		if (left == current && right != current) {
+		if (left == current && right != current && up == current && down == current) {
 		    return createCombinedImage(sourceImage, right, ImageIds.TRANSITION_LEFT);
-		} else if (right == current && left != current) {
-			    return createCombinedImage(sourceImage, left, ImageIds.TRANSITION_RIGHT);
+		} else if (right == current && left != current && up == current && down == current) {
+			return createCombinedImage(sourceImage, left, ImageIds.TRANSITION_RIGHT);
+		} else if (right == current && left == current && up == current && down != current) {
+			return createCombinedImage(sourceImage, down, ImageIds.TRANSITION_TOP);
+		} else if (right == current && left == current && up != current && down == current) {
+			return createCombinedImage(sourceImage, up, ImageIds.TRANSITION_DOWN);
+		} else if (right == current && left != current && up == current && down != current) {
+			return createCombinedImage(sourceImage, down, ImageIds.TRANSITION_TOP_RIGHT);
+		} else if (right == current && left != current && up != current && down == current) {
+			return createCombinedImage(sourceImage, up, ImageIds.TRANSITION_DOWN_RIGHT);
+		} else if (right != current && left == current && up != current && down == current) {
+			return createCombinedImage(sourceImage, up, ImageIds.TRANSITION_DOWN_LEFT);
+		} else if (right != current && left == current && up == current && down != current) {
+			return createCombinedImage(sourceImage, down, ImageIds.TRANSITION_TOP_LEFT);
 		} else {
 			return sourceImage;
 		}
