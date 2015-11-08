@@ -115,6 +115,7 @@ public class BackgroundPainter {
 			
 			if (terrainType == TerrainType.GRASLAND) {
 				addBackgroundImage(terrainType, cropImage(toBufferedImage(grassBackgroundImage), 48, 48));
+				grassFlowerImage = toBufferedImage(filterImage(grassFlowerImage, new AddNoiseFilter()));
 				addFlowerImage(terrainType, grassFlowerImage);
 			} else {
 				Color grassColor = terrainTypesToColor.get(TerrainType.GRASLAND);
@@ -139,7 +140,8 @@ public class BackgroundPainter {
 			for(int y = 0; y<world.getHeight(); y++) {
 				Terrain terrain = world.getTerrain();
 				TerrainType terrainType = terrain.getTerrainInfo(x, y).getTerrainType();
-				BackgroundTransitionKey key = getKeyForBackgroundTransitionMap(terrain, x, y, world);
+				int index = calculateIndex(x, y);
+				BackgroundTransitionKey key = getKeyForBackgroundTransitionMap(index, terrain, x, y, world);
 				if(backgroundTransitionMap.get(key) == null) {
 					TerrainType left = getTerrainTypeFor(terrain, x-1, y, world, terrainType);
 					TerrainType right = getTerrainTypeFor(terrain, x+1, y, world, terrainType);
@@ -150,8 +152,11 @@ public class BackgroundPainter {
 					TerrainType downLeft = getTerrainTypeFor(terrain, x-1, y+1, world, terrainType);
 					TerrainType downRight = getTerrainTypeFor(terrain, x+1, y+1, world, terrainType);
 					
+					//TODO: code ends up in else too much
 					if (surroundingTerrainHasLowerPriority(terrainType, left, right, up, down)) {
-						backgroundTransitionMap.put(key, getBackgroundImage(terrainType));
+						Image image = getBackgroundImage(terrainType);
+						image = filterImage(image, new AddNoiseFilter());
+						backgroundTransitionMap.put(key, image);
 					} else {
 					
 						Image image = getBackgroundImage(terrainType);
@@ -159,6 +164,7 @@ public class BackgroundPainter {
 						Image newImage = createTransitionImage(image, terrainType, left, right, up, down, leftUp, rightUp, downLeft, downRight, terrainTypesToColor);
 						BufferedImage bufferedImage = toBufferedImage(newImage); 
 		
+						bufferedImage = toBufferedImage(filterImage(bufferedImage, new AddNoiseFilter()));
 						backgroundTransitionMap.put(key, bufferedImage);
 					}
 				}
@@ -167,7 +173,7 @@ public class BackgroundPainter {
 	}
 	
 	private Image createTransitionImage(Image sourceImage, TerrainType current, TerrainType left, TerrainType right, TerrainType up, TerrainType down, TerrainType leftUp, TerrainType rightUp, TerrainType downLeft, TerrainType downRight, Map<TerrainType, Color> terrainTypesToColor) {
-		if (left == current && right != current && up == current && down == current) {
+		/*if (left == current && right != current && up == current && down == current) {
 		    return createCombinedImage(sourceImage, right, ImageIds.TRANSITION_LEFT);
 		} else if (right == current && left != current && up == current && down == current) {
 			return createCombinedImage(sourceImage, left, ImageIds.TRANSITION_RIGHT);
@@ -186,6 +192,11 @@ public class BackgroundPainter {
 		
 		//} else if (leftUp == current && rightUp == current && downLeft != current && downRight == current) {
 		//	return createCombinedImage(sourceImage, downLeft, ImageIds.TRANSITION_TOP_RIGHT);
+		 */
+		if (left == current && right != current) {
+		    return createCombinedImage(sourceImage, right, ImageIds.TRANSITION_LEFT);
+		} else if (right == current && left != current) {
+			return createCombinedImage(sourceImage, left, ImageIds.TRANSITION_RIGHT);
 		} else {
 			return sourceImage;
 		}
@@ -236,7 +247,7 @@ public class BackgroundPainter {
 		return value * value;
 	}
 
-	private BackgroundTransitionKey getKeyForBackgroundTransitionMap(Terrain terrain, int x, int y, World world) {
+	private BackgroundTransitionKey getKeyForBackgroundTransitionMap(int index, Terrain terrain, int x, int y, World world) {
 		TerrainType terrainType = terrain.getTerrainInfo(x, y).getTerrainType();
 		
 		TerrainType left = getTerrainTypeFor(terrain, x-1, y, world, terrainType);
@@ -248,7 +259,7 @@ public class BackgroundPainter {
 		TerrainType leftDown = getTerrainTypeFor(terrain, x, y-1, world, terrainType);
 		TerrainType rightDown = getTerrainTypeFor(terrain, x, y+1, world, terrainType);
 		
-		return new BackgroundTransitionKey(terrainType, left, right, up, down, leftUp, rightUp, leftDown, rightDown);
+		return new BackgroundTransitionKey(index, terrainType, left, right, up, down, leftUp, rightUp, leftDown, rightDown);
 				
 	}
 	
@@ -265,9 +276,11 @@ public class BackgroundPainter {
 	
 	private static class BackgroundTransitionKey {
 		private final List<TerrainType> terrainTypes;
+		private final int index;
 
-		public BackgroundTransitionKey(TerrainType... terrainTypes) {
+		public BackgroundTransitionKey(int index, TerrainType... terrainTypes) {
 			super();
+			this.index = index;
 			this.terrainTypes = Arrays.asList(terrainTypes);
 		}
 
@@ -275,6 +288,7 @@ public class BackgroundPainter {
 		public int hashCode() {
 			final int prime = 31;
 			int result = 1;
+			result += index;
 			result = prime * result
 					+ ((terrainTypes == null) ? 0 : terrainTypes.hashCode());
 			return result;
@@ -289,6 +303,9 @@ public class BackgroundPainter {
 			if (getClass() != obj.getClass())
 				return false;
 			BackgroundTransitionKey other = (BackgroundTransitionKey) obj;
+			if (this.index != other.index) {
+				return false;
+			}
 			if (terrainTypes == null) {
 				if (other.terrainTypes != null)
 					return false;
@@ -369,7 +386,8 @@ public class BackgroundPainter {
 					if (hasFlowers[x][y]) {
 						worldPanel.drawBackgroundImage(g, getFlowerImage(terrain.getTerrainInfo(x, y).getTerrainType()), x, y);
 					} else {
-						Image image = backgroundTransitionMap.get(getKeyForBackgroundTransitionMap(terrain, x, y, world));
+						int index = calculateIndex(x, y);
+						Image image = backgroundTransitionMap.get(getKeyForBackgroundTransitionMap(index, terrain, x, y, world));
 						worldPanel.drawBackgroundImage(g, image, x, y);
 					}
 				} else {
@@ -377,6 +395,10 @@ public class BackgroundPainter {
 				}
 			}
 		}
+	}
+
+	private int calculateIndex(int x, int y) {
+		return (x+y) % 40;
 	}
 	
 	private Image filterImage(Image sourceImage, ImageFilter imageFilter) {
@@ -410,15 +432,42 @@ public class BackgroundPainter {
 			
 			return (rgb & 0xff000000) | (r << 16) | (g << 8) | (b << 0);
 		}
+	}
+	
+	static class AddNoiseFilter extends RGBImageFilter {
 
-		private int normalize(int colorValue) {
-			if (colorValue < 0) {
-				colorValue = 0;
-			}
-			if (colorValue > 255) {
-				colorValue = 255;
-			}
-			return colorValue;
+		public AddNoiseFilter() {
+			super();
+
+			canFilterIndexColorModel = true;
 		}
+
+		@Override
+		public int filterRGB(int x, int y, int rgb) {
+			int r = ((rgb >> 16) & 0xff);
+			int g = ((rgb >> 8) & 0xff);
+			int b = ((rgb >> 0) & 0xff);
+
+			int range = 30;
+			r += (int)(Math.random() * range * 2 - range);
+			g += (int)(Math.random() * range * 2 - range);
+			b += (int)(Math.random() * range * 2 - range);
+			
+			r = normalize(r);
+			g = normalize(g);
+			b = normalize(b);
+			
+			return (rgb & 0xff000000) | (r << 16) | (g << 8) | (b << 0);
+		}
+	}
+	
+	private static int normalize(int colorValue) {
+		if (colorValue < 0) {
+			colorValue = 0;
+		}
+		if (colorValue > 255) {
+			colorValue = 255;
+		}
+		return colorValue;
 	}
 }
