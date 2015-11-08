@@ -78,6 +78,7 @@ import org.worldgrower.generator.UTestCommonerOnTurn;
 import org.worldgrower.generator.UTestCowOnTurn;
 import org.worldgrower.generator.UTestCreatureGenerator;
 import org.worldgrower.generator.UTestFishOnTurn;
+import org.worldgrower.generator.UTestVotingOnTurn;
 import org.worldgrower.goal.UTestAbstractScribeSpellsGoal;
 import org.worldgrower.goal.UTestArenaFightGoal;
 import org.worldgrower.goal.UTestArenaGoal;
@@ -355,7 +356,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestCollectTaxesGoal.class,
 	UTestCommonerOnTurn.class,
 	UTestCowOnTurn.class,
-	UTestFishOnTurn.class
+	UTestFishOnTurn.class,
+	UTestVotingOnTurn.class
 })
 public class CompleteTestSuite {
 }
