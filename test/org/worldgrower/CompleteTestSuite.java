@@ -78,6 +78,8 @@ import org.worldgrower.generator.UTestCommonerOnTurn;
 import org.worldgrower.generator.UTestCowOnTurn;
 import org.worldgrower.generator.UTestCreatureGenerator;
 import org.worldgrower.generator.UTestFishOnTurn;
+import org.worldgrower.generator.UTestPlantOnTurn;
+import org.worldgrower.generator.UTestSkeletonEvaluationFunction;
 import org.worldgrower.generator.UTestVotingOnTurn;
 import org.worldgrower.goal.UTestAbstractScribeSpellsGoal;
 import org.worldgrower.goal.UTestArenaFightGoal;
@@ -357,7 +359,9 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestCommonerOnTurn.class,
 	UTestCowOnTurn.class,
 	UTestFishOnTurn.class,
-	UTestVotingOnTurn.class
+	UTestVotingOnTurn.class,
+	UTestPlantOnTurn.class,
+	UTestSkeletonEvaluationFunction.class
 })
 public class CompleteTestSuite {
 }
