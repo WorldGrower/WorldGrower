@@ -16,22 +16,18 @@ package org.worldgrower;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.swing.JFrame;
 import javax.swing.ToolTipManager;
 
 import org.worldgrower.actions.ArenaFightOnTurn;
 import org.worldgrower.actions.BrawlListener;
-import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.condition.ConditionListener;
 import org.worldgrower.curse.CurseListener;
 import org.worldgrower.deity.DeityWorldOnTurn;
 import org.worldgrower.generator.CommonerGenerator;
 import org.worldgrower.generator.CreatureGenerator;
 import org.worldgrower.generator.PlantGenerator;
-import org.worldgrower.generator.TerrainGenerator;
 import org.worldgrower.generator.WorldGenerator;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.gui.CommonerImageIds;
@@ -53,10 +49,11 @@ public class Main {
 	private static JFrame frame = null;
 	private static MusicPlayer musicPlayer = null;
 	
-	public static void run(String playerName, String playerProfession, String gender, int worldWidth, int worldHeight, int enemyDensity, int villagerCount, int seed, boolean playBackgroundMusic, CharacterAttributes characterAttributes, ImageInfoReader imageInfoReader, ImageIds playerCharacterImageId) throws Exception {
+	public static void run(CharacterAttributes characterAttributes, ImageInfoReader imageInfoReader, ImageIds playerCharacterImageId, GameParameters gameParameters) throws Exception {
+		int seed = gameParameters.getSeed();
 		DungeonMaster dungeonMaster = new DungeonMaster();
 		WorldOnTurnImpl worldOnTurn = new WorldOnTurnImpl(new DeityWorldOnTurn(), new ArenaFightOnTurn());
-		World world = new WorldImpl(worldWidth, worldHeight, dungeonMaster, worldOnTurn);
+		World world = new WorldImpl(gameParameters.getWorldWidth(), gameParameters.getWorldHeight(), dungeonMaster, worldOnTurn);
 		int playerCharacterId = world.generateUniqueId();
 		
 		final CommonerImageIds commonerImageIds = new CommonerImageIds();
@@ -64,17 +61,17 @@ public class Main {
 		final WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
 		final CommonerGenerator commonerGenerator = new CommonerGenerator(seed, commonerImageIds, commonerNameGenerator);
 		
-		final WorldObject playerCharacter = CommonerGenerator.createPlayerCharacter(playerCharacterId, playerName, playerProfession, gender, world, commonerGenerator, organization, characterAttributes, playerCharacterImageId);
+		final WorldObject playerCharacter = CommonerGenerator.createPlayerCharacter(playerCharacterId, gameParameters.getPlayerName(), gameParameters.getPlayerProfession(), gameParameters.getGender(), world, commonerGenerator, organization, characterAttributes, playerCharacterImageId);
 		world.addWorldObject(playerCharacter);
 		
-		addDefaultWorldObjects(world, commonerGenerator, organization, villagerCount, seed);
+		gameParameters.addDefaultWorldObjects(world, commonerGenerator, organization, gameParameters.getVillagerCount(), seed);
 		
 		addWorldListeners(world);
 		exploreWorld(playerCharacter, world);
 		
-		addEnemiesAndFriendlyAnimals(enemyDensity, world, seed);
+		addEnemiesAndFriendlyAnimals(gameParameters.getEnemyDensity(), world, seed);
 		
-		createAndShowGUIInvokeLater(playerCharacter, world, dungeonMaster, playBackgroundMusic, imageInfoReader);
+		createAndShowGUIInvokeLater(playerCharacter, world, dungeonMaster, gameParameters.getPlayBackgroundMusic(), imageInfoReader, gameParameters.getInitialStatusMessage());
 	}
 
 	private static void addWorldListeners(World world) {
@@ -106,15 +103,15 @@ public class Main {
 		addWorldListeners(world);
 		
 		//TODO: load playBackgroundMusic flag from file
-		createAndShowGUIInvokeLater(playerCharacter, world, dungeonMaster, true, imageInfoReader);
+		createAndShowGUIInvokeLater(playerCharacter, world, dungeonMaster, true, imageInfoReader, StatusMessages.WELCOME);
 	}
 
-	private static void createAndShowGUIInvokeLater(final WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, boolean playBackgroundMusic, ImageInfoReader imageInfoReader) {
+	private static void createAndShowGUIInvokeLater(final WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, boolean playBackgroundMusic, ImageInfoReader imageInfoReader, String initialStatusMessage) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			@Override
             public void run() {
                 try {
-					createAndShowGUI(playerCharacter, world, dungeonMaster, playBackgroundMusic, imageInfoReader);
+					createAndShowGUI(playerCharacter, world, dungeonMaster, playBackgroundMusic, imageInfoReader, initialStatusMessage);
 				} catch (IOException e) {
 					throw new RuntimeException(e);
 				}
@@ -122,44 +119,7 @@ public class Main {
         });
 	}
 
-	private static void addDefaultWorldObjects(World world, CommonerGenerator commonerGenerator, WorldObject organization, int villagerCount, int seed) {
-	
-		PlantGenerator.generateBerryBush(3, 3, world);
-		
-		for(int i=0; i<villagerCount; i++) {
-			commonerGenerator.generateCommoner(1, 1, world, organization);
-		}
-		
-		new CreatureGenerator(organization).generateCow(7, 2, world);
-		
-		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
-		properties.put(Constants.X, 3);
-		properties.put(Constants.Y, 5);
-		properties.put(Constants.WIDTH, 1);
-		properties.put(Constants.HEIGHT, 1);
-		properties.put(Constants.ID, world.generateUniqueId());
-		properties.put(Constants.WOOD_SOURCE, 4);
-		properties.put(Constants.IMAGE_ID, ImageIds.TRUNK);
-		properties.put(Constants.NAME, "tree trunk");
-		WorldObject treeStump = new WorldObjectImpl(properties);
-		world.addWorldObject(treeStump);
-		
-		PlantGenerator.generateTree(3, 8, world);
-
-		WorldGenerator worldGenerator = new WorldGenerator(seed);
-		worldGenerator.addWorldObjects(world, 2, 2, PlantGenerator::generateTree);
-		worldGenerator.addWorldObjects(world, 2, 2, world.getWidth() / 10, TerrainType.HILL, TerrainGenerator::generateStoneResource);
-		worldGenerator.addWorldObjects(world, 2, 2, world.getWidth() / 10, TerrainType.MOUNTAIN, TerrainGenerator::generateOreResource);
-		worldGenerator.addWorldObjects(world, 2, 2, world.getWidth() / 20, TerrainType.MOUNTAIN, TerrainGenerator::generateGoldResource);
-		worldGenerator.addWorldObjects(world, 1, 1, world.getWidth() / 50, TerrainType.GRASLAND, PlantGenerator::generateNightShade);
-		worldGenerator.addWorldObjects(world, 1, 1, world.getWidth() / 50, TerrainType.PLAINS, TerrainGenerator::generateOilResource);
-		
-		worldGenerator.addWorldObjects(world, 1, 1, 20, TerrainType.PLAINS, PlantGenerator::generateBerryBush);
-	}
-
-
-
-    private static void createAndShowGUI(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, boolean playBackgroundMusic, ImageInfoReader imageInfoReader) throws IOException {
+    private static void createAndShowGUI(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, boolean playBackgroundMusic, ImageInfoReader imageInfoReader, String initialStatusMessage) throws IOException {
     	if (frame != null) {
     		frame.dispose();
     	}
@@ -167,7 +127,7 @@ public class Main {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         IconUtils.setIcon(frame);
         
-        WorldPanel worldPanel = new WorldPanel(playerCharacter, world, dungeonMaster, imageInfoReader);
+        WorldPanel worldPanel = new WorldPanel(playerCharacter, world, dungeonMaster, imageInfoReader, initialStatusMessage);
         worldPanel.setOpaque(true);
         frame.setContentPane(worldPanel);
         

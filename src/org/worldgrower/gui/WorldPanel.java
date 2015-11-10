@@ -82,7 +82,7 @@ public class WorldPanel extends JPanel {
 	
 	private final List<String> statusMessages = new ArrayList<>();
 	
-    public WorldPanel(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, ImageInfoReader imageInfoReader) throws IOException {
+    public WorldPanel(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, ImageInfoReader imageInfoReader, String initialStatusMessage) throws IOException {
         super(new BorderLayout());
         this.imageInfoReader = imageInfoReader;
 
@@ -107,7 +107,7 @@ public class WorldPanel extends JPanel {
         
         messageTextArea = JTextAreaFactory.createJTextArea(3, 30);
         messageTextArea.setEditable(false);
-        setStatusMessage("Welcome to WorldGrower. \nThis component displays messages. (S)");
+        setStatusMessage(initialStatusMessage);
         messageTextArea.setToolTipText("This area displays messages like combat or dialogues. Click to show previous messages.");
         makeUnfocussable(messageTextArea);
         world.addListener(new MessageManagedOperationListener());

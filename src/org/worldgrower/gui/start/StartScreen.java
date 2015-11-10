@@ -15,27 +15,35 @@
 package org.worldgrower.gui.start;
 
 import java.awt.EventQueue;
+import java.awt.MouseInfo;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
+import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPopupMenu;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 
 import org.worldgrower.Main;
+import org.worldgrower.TutorialGameParameters;
 import org.worldgrower.Version;
 import org.worldgrower.World;
 import org.worldgrower.gui.AbstractDialog;
 import org.worldgrower.gui.ExceptionHandler;
+import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.SwingUtils;
 import org.worldgrower.gui.util.ButtonFactory;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.JLabelFactory;
+import org.worldgrower.gui.util.MenuFactory;
 
 public class StartScreen {
 
@@ -85,9 +93,52 @@ public class StartScreen {
 		frame.setVisible(visible);
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
+	private void showNewGamePopupMenu() {
+		JPopupMenu popupMenu = MenuFactory.createJPopupMenu();
+		
+		popupMenu.add(MenuFactory.createJMenuItem(new TutorialAction()));
+		popupMenu.add(MenuFactory.createJMenuItem(new CustomGameAction()));
+		
+		Point mouseLocation = MouseInfo.getPointerInfo().getLocation();
+		SwingUtilities.convertPointFromScreen(mouseLocation, frame);
+		popupMenu.show(frame, mouseLocation.x, mouseLocation.y);
+	}
+	
+	private class TutorialAction extends AbstractAction {
+
+		public TutorialAction() {
+			super("Tutorial");
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent event) {
+			frame.setVisible(false);
+			try {
+				Main.run(new CharacterAttributes(10, 10, 10, 10, 10, 10), imageInfoReader, ImageIds.KNIGHT, new TutorialGameParameters());
+			} catch (Exception e1) {
+				ExceptionHandler.handle(e1);
+			}
+		}
+	}
+	
+	private class CustomGameAction extends AbstractAction {
+
+		public CustomGameAction() {
+			super("Custom Game");
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent event) {
+			frame.setVisible(false);
+			try {
+				CharacterCustomizationScreen characterCustomizationScreen = new CharacterCustomizationScreen(imageInfoReader);
+				characterCustomizationScreen.setVisible(true);
+			} catch (Exception e1) {
+				ExceptionHandler.handle(e1);
+			}
+		}
+	}
+	
 	private void initialize() {
 		frame = new StartScreenDialog();
 		
@@ -97,13 +148,7 @@ public class StartScreen {
 		btnNewGame.setToolTipText("Starts a new game");
 		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frame.setVisible(false);
-				try {
-					CharacterCustomizationScreen characterCustomizationScreen = new CharacterCustomizationScreen(imageInfoReader);
-					characterCustomizationScreen.setVisible(true);
-				} catch (Exception e1) {
-					ExceptionHandler.handle(e1);
-				}
+				showNewGamePopupMenu();
 			}
 		});
 		
