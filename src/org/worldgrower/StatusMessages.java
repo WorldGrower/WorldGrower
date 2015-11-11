@@ -17,5 +17,5 @@ package org.worldgrower;
 public class StatusMessages {
 
 	public static final String WELCOME = "Welcome to WorldGrower. \nThis component displays messages. (S)";
-	public static final String WELCOME_TUTORIAL = "Welcome to the WorldGrower Tutorial. \nRight-click on the sign on the screen to start the tutorial.";
+	public static final String WELCOME_TUTORIAL = "Welcome to the WorldGrower Tutorial. \nRight-click on the sign post on the screen and hoose to read it to start the tutorial.";
 }

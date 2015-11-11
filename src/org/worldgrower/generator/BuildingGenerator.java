@@ -542,4 +542,29 @@ public class BuildingGenerator {
 		
 		return id;
 	}
+	
+	public static int generateSignPost(int x, int y, World world, String text) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		int id = world.generateUniqueId();
+		
+		properties.put(Constants.X, x);
+		properties.put(Constants.Y, y);
+		properties.put(Constants.WIDTH, 1);
+		properties.put(Constants.HEIGHT, 1);
+		properties.put(Constants.NAME, "sign post");
+		properties.put(Constants.ID, id);
+		properties.put(Constants.IMAGE_ID, ImageIds.SIGN_POST);
+		properties.put(Constants.CONDITIONS, new Conditions());
+		properties.put(Constants.FLAMMABLE, Boolean.TRUE);
+		properties.put(Constants.TEXT, text);
+		properties.put(Constants.HIT_POINTS, 20);
+		properties.put(Constants.HIT_POINTS_MAX, 20);
+		properties.put(Constants.ARMOR, 0);
+		properties.put(Constants.DAMAGE_RESIST, 0);
+		
+		WorldObject signPost = new WorldObjectImpl(properties);
+		world.addWorldObject(signPost);
+		
+		return id;
+	}
 }

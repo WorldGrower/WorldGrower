@@ -380,6 +380,8 @@ public class ImageInfoReader {
 		add(ImageIds.TRANSITION_RIGHT, terrainTransitions.getSubImage(2, 1, 1, 1));
 		add(ImageIds.TRANSITION_TOP, terrainTransitions.getSubImage(3, 0, 1, 1));
 		add(ImageIds.TRANSITION_DOWN, terrainTransitions.getSubImage(3, 1, 1, 1));
+    
+		add(ImageIds.SIGN_POST, tileE.getSubImage(2, 14, 1, 1));
     }
 
     private void resizeSmallFlowers() {

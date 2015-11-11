@@ -14,7 +14,9 @@
  *******************************************************************************/
 package org.worldgrower;
 
+import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.CommonerGenerator;
+import org.worldgrower.generator.PlantGenerator;
 
 public class TutorialGameParameters implements GameParameters {
 
@@ -26,6 +28,9 @@ public class TutorialGameParameters implements GameParameters {
 	@Override
 	public void addDefaultWorldObjects(World world, CommonerGenerator commonerGenerator, WorldObject organization, int villagerCount, int seed) {
 
+		BuildingGenerator.generateSignPost(5, 4, world, "Well done. Now press the right arrow key to move your player character to the right, next to the tree.\n Then right-click on the tree to cut wood from it.");
+		
+		PlantGenerator.generateTree(9, 5, world);
 	}
 
 	@Override
@@ -45,12 +50,12 @@ public class TutorialGameParameters implements GameParameters {
 
 	@Override
 	public int getWorldWidth() {
-		return 10;
+		return 12;
 	}
 
 	@Override
 	public int getWorldHeight() {
-		return 10;
+		return 12;
 	}
 
 	@Override
