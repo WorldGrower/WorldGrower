@@ -73,12 +73,14 @@ import org.worldgrower.conversation.UTestWhyAngryConversation;
 import org.worldgrower.conversation.UTestWhyAngryOtherConversation;
 import org.worldgrower.conversation.UTestWhyNotIntelligentConversation;
 import org.worldgrower.deity.UTestDeityPropertyUtils;
+import org.worldgrower.generator.UTestBerryBushOnTurn;
 import org.worldgrower.generator.UTestCommonerGenerator;
 import org.worldgrower.generator.UTestCommonerOnTurn;
 import org.worldgrower.generator.UTestCowOnTurn;
 import org.worldgrower.generator.UTestCreatureGenerator;
 import org.worldgrower.generator.UTestFishOnTurn;
 import org.worldgrower.generator.UTestIllusionOnTurn;
+import org.worldgrower.generator.UTestNightShadeOnTurn;
 import org.worldgrower.generator.UTestPlantOnTurn;
 import org.worldgrower.generator.UTestSkeletonEvaluationFunction;
 import org.worldgrower.generator.UTestVotingOnTurn;
@@ -363,7 +365,9 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestVotingOnTurn.class,
 	UTestPlantOnTurn.class,
 	UTestSkeletonEvaluationFunction.class,
-	UTestIllusionOnTurn.class
+	UTestIllusionOnTurn.class,
+	UTestNightShadeOnTurn.class,
+	UTestBerryBushOnTurn.class
 })
 public class CompleteTestSuite {
 }
