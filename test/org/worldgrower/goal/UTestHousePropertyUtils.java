@@ -27,6 +27,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.ItemGenerator;
 
 public class UTestHousePropertyUtils {
@@ -116,5 +117,38 @@ public class UTestHousePropertyUtils {
 		world.addWorldObject(house);
 		
 		assertEquals(true, HousePropertyUtils.hasHouseWithBed(performer, world));
+	}
+	
+	@Test
+	public void testAllHousesButFirstSellableNoHouses() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.HOUSES, new IdList());
+
+		assertEquals(true, HousePropertyUtils.allHousesButFirstSellable(performer, world));
+	}
+	
+	@Test
+	public void testAllHousesButFirstSellableOneHouse() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.HOUSES, new IdList());
+
+		int houseId = BuildingGenerator.generateHouse(0, 0, world, 1f);
+		performer.getProperty(Constants.HOUSES).add(houseId);
+		
+		assertEquals(true, HousePropertyUtils.allHousesButFirstSellable(performer, world));
+	}
+	
+	@Test
+	public void testAllHousesButFirstSellableTwoHouses() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.HOUSES, new IdList());
+
+		int houseId = BuildingGenerator.generateHouse(0, 0, world, 1f);
+		performer.getProperty(Constants.HOUSES).add(houseId);
+		
+		int houseId2 = BuildingGenerator.generateHouse(0, 0, world, 1f);
+		performer.getProperty(Constants.HOUSES).add(houseId2);
+		
+		assertEquals(false, HousePropertyUtils.allHousesButFirstSellable(performer, world));
 	}
 }
