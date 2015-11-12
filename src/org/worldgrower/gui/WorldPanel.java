@@ -41,6 +41,7 @@ import javax.swing.SpringLayout;
 import javax.swing.SwingUtilities;
 import javax.swing.ToolTipManager;
 
+import org.worldgrower.AdditionalManagedOperationListenerFactory;
 import org.worldgrower.Constants;
 import org.worldgrower.CreaturePositionCondition;
 import org.worldgrower.DungeonMaster;
@@ -439,11 +440,16 @@ public class WorldPanel extends JPanel {
 		return worldObject;
 	}
 
-	public void createGuiRespondToImage() {
+	public void addGuiListeners(AdditionalManagedOperationListenerFactory additionalManagedOperationListenerFactory) {
 		new GuiRespondToQuestion(playerCharacter, world, imageInfoReader);
 		new GuiShowReadAction(playerCharacter, world, this, imageInfoReader);
 		new GuiShowBrawlResult(imageInfoReader, this, world);
 		world.addWorldStateChangedListener(createWorldStateChangedListener());
+		
+		List<ManagedOperationListener> additionalManagedOperationListeners = additionalManagedOperationListenerFactory.create(world, this, imageInfoReader);
+		for(ManagedOperationListener additionalManagedOperationListener : additionalManagedOperationListeners) {
+			world.addListener(additionalManagedOperationListener);
+		}
 	}
 	
 	private WorldStateChangedListener createWorldStateChangedListener() {

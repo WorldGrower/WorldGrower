@@ -40,7 +40,7 @@ public class GuiRespondToQuestion implements Questioner, ManagedOperationListene
 		this.world = world;
 		this.imageInfoReader = imageInfoReader;
 	
-		world.addListener(this);       
+		world.addListener(this);
 	}
 
 	@Override

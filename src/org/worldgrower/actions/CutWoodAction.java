@@ -36,6 +36,7 @@ public class CutWoodAction implements ManagedOperation {
 		target.increment(Constants.WOOD_SOURCE, - 1);
 		
 		SkillUtils.useEnergy(performer, Constants.LUMBERING_SKILL, ENERGY_USE, world.getWorldStateChangedListeners());
+		world.logAction(this, performer, target, args, null);
 	}
 
 	@Override

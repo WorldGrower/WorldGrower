@@ -77,4 +77,9 @@ public class TutorialGameParameters implements GameParameters {
 	public boolean getPlayBackgroundMusic() {
 		return true;
 	}
+
+	@Override
+	public AdditionalManagedOperationListenerFactory getAdditionalManagedOperationListenerFactory() {
+		return new TutorialAdditionalManagedOperationListenerFactory();
+	}
 }

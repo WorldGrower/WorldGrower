@@ -71,7 +71,7 @@ public class Main {
 		
 		addEnemiesAndFriendlyAnimals(gameParameters.getEnemyDensity(), world, seed);
 		
-		createAndShowGUIInvokeLater(playerCharacter, world, dungeonMaster, gameParameters.getPlayBackgroundMusic(), imageInfoReader, gameParameters.getInitialStatusMessage());
+		createAndShowGUIInvokeLater(playerCharacter, world, dungeonMaster, gameParameters.getPlayBackgroundMusic(), imageInfoReader, gameParameters.getInitialStatusMessage(), gameParameters.getAdditionalManagedOperationListenerFactory());
 	}
 
 	private static void addWorldListeners(World world) {
@@ -103,15 +103,15 @@ public class Main {
 		addWorldListeners(world);
 		
 		//TODO: load playBackgroundMusic flag from file
-		createAndShowGUIInvokeLater(playerCharacter, world, dungeonMaster, true, imageInfoReader, StatusMessages.WELCOME);
+		createAndShowGUIInvokeLater(playerCharacter, world, dungeonMaster, true, imageInfoReader, StatusMessages.WELCOME, new NullAdditionalManagedOperationListenerFactory());
 	}
 
-	private static void createAndShowGUIInvokeLater(final WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, boolean playBackgroundMusic, ImageInfoReader imageInfoReader, String initialStatusMessage) {
+	private static void createAndShowGUIInvokeLater(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, boolean playBackgroundMusic, ImageInfoReader imageInfoReader, String initialStatusMessage, AdditionalManagedOperationListenerFactory additionalManagedOperationListenerFactory) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			@Override
             public void run() {
                 try {
-					createAndShowGUI(playerCharacter, world, dungeonMaster, playBackgroundMusic, imageInfoReader, initialStatusMessage);
+					createAndShowGUI(playerCharacter, world, dungeonMaster, playBackgroundMusic, imageInfoReader, initialStatusMessage, additionalManagedOperationListenerFactory);
 				} catch (IOException e) {
 					throw new RuntimeException(e);
 				}
@@ -119,7 +119,7 @@ public class Main {
         });
 	}
 
-    private static void createAndShowGUI(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, boolean playBackgroundMusic, ImageInfoReader imageInfoReader, String initialStatusMessage) throws IOException {
+    private static void createAndShowGUI(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, boolean playBackgroundMusic, ImageInfoReader imageInfoReader, String initialStatusMessage, AdditionalManagedOperationListenerFactory additionalManagedOperationListenerFactory) throws IOException {
     	if (frame != null) {
     		frame.dispose();
     	}
@@ -137,7 +137,7 @@ public class Main {
         
         ToolTipManager.sharedInstance().setDismissDelay(9999999);
         
-        worldPanel.createGuiRespondToImage();
+        worldPanel.addGuiListeners(additionalManagedOperationListenerFactory);
         
         if (musicPlayer == null && playBackgroundMusic) {
         	musicPlayer = BackgroundMusicUtils.startBackgroundMusic();

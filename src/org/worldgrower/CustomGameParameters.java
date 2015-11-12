@@ -135,4 +135,9 @@ public class CustomGameParameters implements GameParameters {
 	public boolean getPlayBackgroundMusic() {
 		return playBackgroundMusic;
 	}
+
+	@Override
+	public AdditionalManagedOperationListenerFactory getAdditionalManagedOperationListenerFactory() {
+		return new NullAdditionalManagedOperationListenerFactory();
+	}
 }
