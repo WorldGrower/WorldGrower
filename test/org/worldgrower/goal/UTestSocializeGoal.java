@@ -19,6 +19,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.Arrays;
 
 import org.junit.Test;
+import org.worldgrower.AssertUtils;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.TestUtils;
@@ -34,6 +35,8 @@ import org.worldgrower.history.Turn;
 
 public class UTestSocializeGoal {
 
+	private final SocializeGoal goal = new SocializeGoal();
+	
 	@Test
 	public void testIsSocializeTargetForPerformer() {
 		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.GROUP, new IdList());
@@ -84,5 +87,32 @@ public class UTestSocializeGoal {
 		world.getHistory().actionPerformed(new OperationInfo(performer, target, Conversations.createArgs(Conversations.SHARE_KNOWLEDGE_CONVERSATION), Actions.TALK_ACTION), new Turn());
 		
 		assertEquals(Arrays.asList(0), SocializeGoal.getPreviousResponseIds(performer, target, Conversations.SHARE_KNOWLEDGE_CONVERSATION, world));
+	}
+	
+	@Test
+	public void testGetShareKnowledgeOperationInfoNoTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
+		
+		assertEquals(null, goal.getShareKnowledgeOperationInfo(performer, world));
+	}
+	
+	@Test
+	public void testGetShareKnowledgeOperationInfoShareToTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
+		WorldObject target = TestUtils.createIntelligentWorldObject(1, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
+
+		performer.getProperty(Constants.GROUP).add(6);
+		target.getProperty(Constants.GROUP).add(6);
+		
+		world.addWorldObject(performer);
+		world.addWorldObject(target);
+		
+		performer.getProperty(Constants.RELATIONSHIPS).incrementValue(target, 5);
+		performer.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(0, Constants.FOOD, 500);
+		
+		assertEquals(Actions.TALK_ACTION, goal.getShareKnowledgeOperationInfo(performer, world).getManagedOperation());
+		AssertUtils.assertConversation(goal.getShareKnowledgeOperationInfo(performer, world), Conversations.SHARE_KNOWLEDGE_CONVERSATION);
 	}
 }

@@ -43,13 +43,25 @@ public class UTestKillVillagersGoal {
 	}
 	
 	@Test
-	public void testCalculateGoalCreatePoison() {
+	public void testCalculateGoalPlantNightShade() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
 		WorldObject target = createCommoner(world, organization);
 		
 		assertEquals(Actions.PLANT_NIGHT_SHADE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+	@Test
+	public void testCalculateGoalBrewPoison() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		WorldObject performer = createCommoner(world, organization);
+		WorldObject target = createCommoner(world, organization);
+		
+		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.NIGHT_SHADE, 10, null);
+		
+		assertEquals(Actions.BREW_POISON_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
 	
 	@Test
