@@ -14,6 +14,8 @@
  *******************************************************************************/
 package org.worldgrower;
 
+import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.Conditions;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.CommonerGenerator;
 import org.worldgrower.generator.PlantGenerator;
@@ -33,6 +35,10 @@ public class TutorialGameParameters implements GameParameters {
 		PlantGenerator.generateTree(9, 5, world);
 		
 		PlantGenerator.generateBerryBush(8, 11, world);
+		
+		int commonerId = commonerGenerator.generateCommoner(0, 10, world, organization);
+		WorldObject commoner = world.findWorldObject(Constants.ID, commonerId);
+		Conditions.add(commoner, Condition.PARALYZED_CONDITION, Integer.MAX_VALUE, world);
 	}
 
 	@Override

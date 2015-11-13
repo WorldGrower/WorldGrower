@@ -52,7 +52,9 @@ public class TutorialAdditionalManagedOperationListenerFactory implements Additi
 			} else if (managedOperation == Actions.HARVEST_FOOD_ACTION) {
 				MessageDialogUtils.showMessage("Harvested food is stored in the inventory. Press the I key or right-click on the character and choose inventory to show the inventory. \nIn the inventory screen, click the Actions button to eat the berry. Eating restores food, which keeps up energy. Food is indicated by the yellow bar at the lower right of the screen.", "Eating food", target, container, imageInfoReader);
 			} else if (managedOperation == Actions.EAT_FROM_INVENTORY_ACTION) {
-				MessageDialogUtils.showMessage("Now use the left arrow to move left to the other character.\n Then right-click on it to talk with it.", "Talking", target, container, imageInfoReader);
+				MessageDialogUtils.showMessage("Now use the left arrow to move left to the other character.\n Then right-click on it to talk with it and ask its name.", "Talking", target, container, imageInfoReader);
+			} else if (managedOperation == Actions.TALK_ACTION) {
+				MessageDialogUtils.showMessage("Now that you know the basic actions, you can start a new game. \nClose the talk dialog, press the escape key to bring up the main menu and start a non-tutorial game.", "Talking", target, container, imageInfoReader);
 			}
 		}
 	}
