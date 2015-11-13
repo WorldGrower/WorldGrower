@@ -41,7 +41,6 @@ import javax.swing.SpringLayout;
 import javax.swing.SwingUtilities;
 import javax.swing.ToolTipManager;
 
-import org.worldgrower.AdditionalManagedOperationListenerFactory;
 import org.worldgrower.Constants;
 import org.worldgrower.CreaturePositionCondition;
 import org.worldgrower.DungeonMaster;

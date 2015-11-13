@@ -31,8 +31,6 @@ import javax.swing.JPopupMenu;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
-import org.worldgrower.Main;
-import org.worldgrower.TutorialGameParameters;
 import org.worldgrower.Version;
 import org.worldgrower.World;
 import org.worldgrower.gui.AbstractDialog;
@@ -114,7 +112,7 @@ public class StartScreen {
 		public void actionPerformed(ActionEvent event) {
 			frame.setVisible(false);
 			try {
-				Main.run(new CharacterAttributes(10, 10, 10, 10, 10, 10), imageInfoReader, ImageIds.KNIGHT, new TutorialGameParameters());
+				Game.run(new CharacterAttributes(10, 10, 10, 10, 10, 10), imageInfoReader, ImageIds.KNIGHT, new TutorialGameParameters());
 			} catch (Exception e1) {
 				ExceptionHandler.handle(e1);
 			}
@@ -216,7 +214,7 @@ public class StartScreen {
 	}
 	
 	private void loadGame(File selectedFile) {
-		Main.load(selectedFile, imageInfoReader);
+		Game.load(selectedFile, imageInfoReader);
 		setVisible(false);
 	}
 	

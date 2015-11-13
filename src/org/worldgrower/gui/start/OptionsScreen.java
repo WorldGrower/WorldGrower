@@ -30,8 +30,6 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
-import org.worldgrower.CustomGameParameters;
-import org.worldgrower.Main;
 import org.worldgrower.gui.ExceptionHandler;
 import org.worldgrower.gui.GradientPanel;
 import org.worldgrower.gui.ImageIds;
@@ -206,7 +204,7 @@ public class OptionsScreen {
 						
 						
 						CustomGameParameters customGameParameters = new CustomGameParameters(playerNameTextField.getText(), playerProfessionTextField.getText(), gender, worldWidth, worldHeight, enemyDensity, villagerCount, seed, playBackgroundMusic);
-						Main.run(characterAttributes, imageInfoReader, (ImageIds)cmbImage.getSelectedItem(), customGameParameters);
+						Game.run(characterAttributes, imageInfoReader, (ImageIds)cmbImage.getSelectedItem(), customGameParameters);
 					} catch (Exception e1) {
 						ExceptionHandler.handle(e1);
 					}

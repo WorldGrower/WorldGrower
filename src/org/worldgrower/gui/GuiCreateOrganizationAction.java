@@ -21,12 +21,12 @@ import java.util.List;
 import javax.swing.AbstractAction;
 
 import org.worldgrower.DungeonMaster;
-import org.worldgrower.Main;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.OrganizationNamer;
 import org.worldgrower.deity.Deity;
+import org.worldgrower.gui.start.Game;
 import org.worldgrower.gui.util.ListInputDialog;
 import org.worldgrower.profession.Profession;
 import org.worldgrower.profession.Professions;
@@ -74,7 +74,7 @@ public class GuiCreateOrganizationAction extends AbstractAction {
 			if (organizationName != null) {
 				int indexOfOrganization = Arrays.asList(organizationNames).indexOf(organizationName);
 				
-				Main.executeAction(playerCharacter, Actions.CREATE_PROFESSION_ORGANIZATION_ACTION, new int[] { professionIndex, indexOfOrganization}, world, dungeonMaster, playerCharacter, parent);
+				Game.executeAction(playerCharacter, Actions.CREATE_PROFESSION_ORGANIZATION_ACTION, new int[] { professionIndex, indexOfOrganization}, world, dungeonMaster, playerCharacter, parent);
 			}
 		}
 	}
@@ -98,7 +98,7 @@ public class GuiCreateOrganizationAction extends AbstractAction {
 				String possibleGoal = new ListInputDialog("Choose Goal", possibleGoals).showMe();
 				if (possibleGoal != null) {
 					int indexOfGoal = deity.getOrganizationGoalDescriptions().indexOf(possibleGoal);
-					Main.executeAction(playerCharacter, Actions.CREATE_RELIGION_ORGANIZATION_ACTION, new int[] { deityIndex, indexOfOrganization, indexOfGoal}, world, dungeonMaster, playerCharacter, parent);
+					Game.executeAction(playerCharacter, Actions.CREATE_RELIGION_ORGANIZATION_ACTION, new int[] { deityIndex, indexOfOrganization, indexOfGoal}, world, dungeonMaster, playerCharacter, parent);
 				}
 			}
 		}

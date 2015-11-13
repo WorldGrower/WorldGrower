@@ -20,10 +20,10 @@ import javax.swing.AbstractAction;
 
 import org.worldgrower.Constants;
 import org.worldgrower.DungeonMaster;
-import org.worldgrower.Main;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.gui.start.Game;
 import org.worldgrower.gui.util.TextInputDialog;
 import org.worldgrower.util.NumberUtils;
 
@@ -53,7 +53,7 @@ public class RestAction extends AbstractAction {
 			
 			for(int i=0; i<turns; i++) {
 				int hitPointsBeforeRest = playerCharacter.getProperty(Constants.HIT_POINTS);
-				Main.executeAction(playerCharacter, Actions.REST_ACTION, new int[0], world, dungeonMaster, playerCharacter, parent);
+				Game.executeAction(playerCharacter, Actions.REST_ACTION, new int[0], world, dungeonMaster, playerCharacter, parent);
 				int hitPointsAfterRest = playerCharacter.getProperty(Constants.HIT_POINTS);
 				
 				if (hitPointsAfterRest < hitPointsBeforeRest) {

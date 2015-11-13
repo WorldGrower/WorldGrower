@@ -12,13 +12,17 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower;
+package org.worldgrower.gui.start;
 
+import org.worldgrower.Constants;
+import org.worldgrower.World;
+import org.worldgrower.WorldObject;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.CommonerGenerator;
 import org.worldgrower.generator.PlantGenerator;
+import org.worldgrower.gui.AdditionalManagedOperationListenerFactory;
 
 public class TutorialGameParameters implements GameParameters {
 

@@ -21,12 +21,12 @@ import java.util.ArrayList;
 import javax.swing.AbstractAction;
 
 import org.worldgrower.DungeonMaster;
-import org.worldgrower.Main;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.WorldPanel;
+import org.worldgrower.gui.start.Game;
 
 public class GuiStealAction extends AbstractAction {
 
@@ -77,7 +77,7 @@ public class GuiStealAction extends AbstractAction {
 
 		@Override
 		public boolean isPossible(InventoryItem inventoryItem) {
-			return Main.canActionExecute(playerCharacter, playerCharacter.getOperation(Actions.STEAL_ACTION), new int[0], world, target);
+			return Game.canActionExecute(playerCharacter, playerCharacter.getOperation(Actions.STEAL_ACTION), new int[0], world, target);
 		}
 
 		@Override
@@ -88,6 +88,6 @@ public class GuiStealAction extends AbstractAction {
 	}
 	
 	public void steal(int[] args) {
-		Main.executeAction(playerCharacter, playerCharacter.getOperation(Actions.STEAL_ACTION), args, world, dungeonMaster, target, container);
+		Game.executeAction(playerCharacter, playerCharacter.getOperation(Actions.STEAL_ACTION), args, world, dungeonMaster, target, container);
 	}
 }

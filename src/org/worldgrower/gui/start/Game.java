@@ -12,7 +12,7 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower;
+package org.worldgrower.gui.start;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,6 +20,15 @@ import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.ToolTipManager;
 
+import org.worldgrower.CommonerNameGenerator;
+import org.worldgrower.CommonerNameGeneratorImpl;
+import org.worldgrower.Constants;
+import org.worldgrower.DungeonMaster;
+import org.worldgrower.ManagedOperation;
+import org.worldgrower.World;
+import org.worldgrower.WorldImpl;
+import org.worldgrower.WorldObject;
+import org.worldgrower.WorldOnTurnImpl;
 import org.worldgrower.actions.ArenaFightOnTurn;
 import org.worldgrower.actions.BrawlListener;
 import org.worldgrower.condition.ConditionListener;
@@ -30,6 +39,7 @@ import org.worldgrower.generator.CreatureGenerator;
 import org.worldgrower.generator.PlantGenerator;
 import org.worldgrower.generator.WorldGenerator;
 import org.worldgrower.goal.GroupPropertyUtils;
+import org.worldgrower.gui.AdditionalManagedOperationListenerFactory;
 import org.worldgrower.gui.CommonerImageIds;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
@@ -37,14 +47,13 @@ import org.worldgrower.gui.SwingUtils;
 import org.worldgrower.gui.WorldPanel;
 import org.worldgrower.gui.music.BackgroundMusicUtils;
 import org.worldgrower.gui.music.MusicPlayer;
-import org.worldgrower.gui.start.CharacterAttributes;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.terrain.TerrainType;
 
 /**
  * This class is responsible for building the world and creating the gui.
  */
-public class Main {
+public class Game {
 
 	private static JFrame frame = null;
 	private static MusicPlayer musicPlayer = null;

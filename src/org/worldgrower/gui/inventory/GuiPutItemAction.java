@@ -21,12 +21,12 @@ import java.util.ArrayList;
 import javax.swing.AbstractAction;
 
 import org.worldgrower.DungeonMaster;
-import org.worldgrower.Main;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.WorldPanel;
+import org.worldgrower.gui.start.Game;
 
 public class GuiPutItemAction extends AbstractAction {
 
@@ -88,6 +88,6 @@ public class GuiPutItemAction extends AbstractAction {
 	}
 	
 	public void sell(int[] args) {
-		Main.executeAction(playerCharacter, playerCharacter.getOperation(Actions.PUT_ITEM_INTO_INVENTORY_ACTION), args, world, dungeonMaster, target, container);
+		Game.executeAction(playerCharacter, playerCharacter.getOperation(Actions.PUT_ITEM_INTO_INVENTORY_ACTION), args, world, dungeonMaster, target, container);
 	}
 }

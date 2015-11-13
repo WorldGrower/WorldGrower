@@ -21,7 +21,6 @@ import javax.swing.AbstractAction;
 
 import org.worldgrower.Constants;
 import org.worldgrower.DungeonMaster;
-import org.worldgrower.Main;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
@@ -29,6 +28,7 @@ import org.worldgrower.attribute.IdList;
 import org.worldgrower.gui.ActionContainingArgs;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.WorldPanel;
+import org.worldgrower.gui.start.Game;
 
 public class GuiVoteAction extends AbstractAction {
 
@@ -66,7 +66,7 @@ public class GuiVoteAction extends AbstractAction {
 		
 		@Override
 		public void actionPerformed(ActionEvent actionEvent) {
-			Main.executeAction(playerCharacter, Actions.VOTE_FOR_LEADER_ACTION, args, world, dungeonMaster, worldObject, parent);
+			Game.executeAction(playerCharacter, Actions.VOTE_FOR_LEADER_ACTION, args, world, dungeonMaster, worldObject, parent);
 		}
 
 		@Override

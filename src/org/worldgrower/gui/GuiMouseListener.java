@@ -33,7 +33,6 @@ import javax.swing.SwingUtilities;
 
 import org.worldgrower.Constants;
 import org.worldgrower.DungeonMaster;
-import org.worldgrower.Main;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
@@ -58,6 +57,7 @@ import org.worldgrower.gui.inventory.GuiPutItemAction;
 import org.worldgrower.gui.inventory.GuiSellAction;
 import org.worldgrower.gui.inventory.GuiStealAction;
 import org.worldgrower.gui.inventory.InventoryAction;
+import org.worldgrower.gui.start.Game;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.MenuFactory;
 import org.worldgrower.gui.util.ShowTextDialog;
@@ -147,8 +147,8 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 
     private void performLeftMouseAction(WorldObject worldObject) {
-    	if (Main.canActionExecute(playerCharacter, leftMouseClickAction, new int[0], world, worldObject)) {
-    		Main.executeAction(playerCharacter, leftMouseClickAction, new int[0], world, dungeonMaster, worldObject, container);
+    	if (Game.canActionExecute(playerCharacter, leftMouseClickAction, new int[0], world, worldObject)) {
+    		Game.executeAction(playerCharacter, leftMouseClickAction, new int[0], world, dungeonMaster, worldObject, container);
     	} else {
     		new ShowTextDialog("Cannot execute action '" + leftMouseClickAction.getSimpleDescription() + "' on " + worldObject.getProperty(Constants.NAME)).showMe();
     	}
@@ -567,7 +567,7 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 
 	public void executeBuildAction(ManagedOperation buildAction, WorldObject buildLocation, int[] args) {
-		Main.executeAction(playerCharacter, buildAction, args, world, dungeonMaster, buildLocation, container);
+		Game.executeAction(playerCharacter, buildAction, args, world, dungeonMaster, buildLocation, container);
 	}
 
 	public void setLeftMouseClickAction(ManagedOperation action) {

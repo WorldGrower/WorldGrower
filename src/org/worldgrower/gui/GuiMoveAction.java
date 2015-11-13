@@ -20,10 +20,10 @@ import java.awt.event.ActionListener;
 import javax.swing.AbstractAction;
 
 import org.worldgrower.DungeonMaster;
-import org.worldgrower.Main;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.gui.start.Game;
 
 public class GuiMoveAction extends AbstractAction {
 	private int[] args;
@@ -43,12 +43,12 @@ public class GuiMoveAction extends AbstractAction {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (Main.canActionExecute(playerCharacter, playerCharacter.getOperation(Actions.MOVE_ACTION), args, world, playerCharacter)) {
+		if (Game.canActionExecute(playerCharacter, playerCharacter.getOperation(Actions.MOVE_ACTION), args, world, playerCharacter)) {
 			container.movePlayerCharacter(args, new ActionListener() {
 	
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					Main.executeAction(playerCharacter, playerCharacter.getOperation(Actions.MOVE_ACTION), args, world, dungeonMaster, playerCharacter, container);
+					Game.executeAction(playerCharacter, playerCharacter.getOperation(Actions.MOVE_ACTION), args, world, dungeonMaster, playerCharacter, container);
 					
 				}
 				

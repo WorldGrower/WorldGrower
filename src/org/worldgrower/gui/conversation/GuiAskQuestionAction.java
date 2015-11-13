@@ -25,7 +25,6 @@ import javax.swing.SwingUtilities;
 
 import org.worldgrower.Constants;
 import org.worldgrower.DungeonMaster;
-import org.worldgrower.Main;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
@@ -37,6 +36,7 @@ import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.WorldPanel;
 import org.worldgrower.gui.chooseworldobject.ChooseWorldObjectDialog;
+import org.worldgrower.gui.start.Game;
 
 public class GuiAskQuestionAction extends AbstractAction implements Answerer {
 
@@ -97,12 +97,12 @@ public class GuiAskQuestionAction extends AbstractAction implements Answerer {
 
 	@Override
 	public void askQuestion(int[] args) {
-		Main.executeAction(playerCharacter, playerCharacter.getOperation(Actions.TALK_ACTION), args, world, dungeonMaster, target, container);
+		Game.executeAction(playerCharacter, playerCharacter.getOperation(Actions.TALK_ACTION), args, world, dungeonMaster, target, container);
 	}
 	
 	@Override
 	public boolean canAskQuestion() {
-		return Main.canActionExecute(playerCharacter, Actions.TALK_ACTION, Conversations.createArgs(Conversations.NAME_CONVERSATION), world, target);
+		return Game.canActionExecute(playerCharacter, Actions.TALK_ACTION, Conversations.createArgs(Conversations.NAME_CONVERSATION), world, target);
 	}
 
 	@Override

@@ -12,14 +12,26 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower;
+package org.worldgrower.gui.start;
 
-import java.util.List;
+import org.worldgrower.World;
+import org.worldgrower.WorldObject;
+import org.worldgrower.generator.CommonerGenerator;
+import org.worldgrower.gui.AdditionalManagedOperationListenerFactory;
 
-import org.worldgrower.gui.ImageInfoReader;
-import org.worldgrower.gui.WorldPanel;
+public interface GameParameters {
 
-public interface AdditionalManagedOperationListenerFactory {
-
-	public List<ManagedOperationListener> create(World world, WorldPanel container, ImageInfoReader imageInfoReader);
+	public String getPlayerName();
+	public String getPlayerProfession();
+	public String getGender();
+	public int getWorldWidth();
+	public int getWorldHeight();
+	public int getEnemyDensity();
+	public int getVillagerCount();
+	public int getSeed();
+	public boolean getPlayBackgroundMusic();
+	
+	public String getInitialStatusMessage();
+	public void addDefaultWorldObjects(World world, CommonerGenerator commonerGenerator, WorldObject organization, int villagerCount, int seed);
+	public AdditionalManagedOperationListenerFactory getAdditionalManagedOperationListenerFactory();
 }

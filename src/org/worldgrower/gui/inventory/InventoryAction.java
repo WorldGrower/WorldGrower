@@ -23,13 +23,13 @@ import javax.swing.Action;
 import javax.swing.ImageIcon;
 
 import org.worldgrower.DungeonMaster;
-import org.worldgrower.Main;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.WorldPanel;
+import org.worldgrower.gui.start.Game;
 
 public class InventoryAction extends AbstractAction {
 
@@ -61,7 +61,7 @@ public class InventoryAction extends AbstractAction {
 		List<Action> inventoryActions = new ArrayList<>();
 		
 		for(ManagedOperation action : Actions.getInventoryActions()) {
-			if (Main.canActionExecute(playerCharacter, action, new int[0], world, playerCharacter)) {
+			if (Game.canActionExecute(playerCharacter, action, new int[0], world, playerCharacter)) {
 				inventoryActions.add(new InventoryItemAction(action));
 			}
 		}
@@ -79,7 +79,7 @@ public class InventoryAction extends AbstractAction {
 		
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			Main.executeAction(playerCharacter, playerCharacter.getOperation(action), new int[0], world, dungeonMaster, playerCharacter, container);
+			Game.executeAction(playerCharacter, playerCharacter.getOperation(action), new int[0], world, dungeonMaster, playerCharacter, container);
 			
 			dialog.refresh(new InventoryDialogModel(playerCharacter), getInventoryActions());
 		}

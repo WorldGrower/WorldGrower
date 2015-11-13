@@ -18,7 +18,7 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.util.zip.GZIPInputStream;
 
-import org.worldgrower.Main;
+import org.worldgrower.gui.start.Game;
 
 public class BackgroundMusicUtils {
 
@@ -28,7 +28,7 @@ public class BackgroundMusicUtils {
         	@Override
         	public void run() {
         		try {
-					musicPlayer.play(new BufferedInputStream(new GZIPInputStream(Main.class.getResourceAsStream("/woodland_fantasy_0.wav.gz"))));
+					musicPlayer.play(new BufferedInputStream(new GZIPInputStream(Game.class.getResourceAsStream("/woodland_fantasy_0.wav.gz"))));
 				} catch (IOException e) {
 					throw new IllegalStateException(e);
 				}

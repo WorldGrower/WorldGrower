@@ -21,12 +21,12 @@ import java.util.List;
 import javax.swing.AbstractAction;
 
 import org.worldgrower.DungeonMaster;
-import org.worldgrower.Main;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.actions.magic.ResearchSpellAction;
+import org.worldgrower.gui.start.Game;
 import org.worldgrower.gui.util.ListInputDialog;
 import org.worldgrower.gui.util.TextInputDialog;
 import org.worldgrower.util.NumberUtils;
@@ -68,7 +68,7 @@ public class GuiResearchMagicSpellAction extends AbstractAction {
 					int turns = Integer.parseInt(turnsString);
 					
 					for(int i=0; i<turns; i++) {
-						Main.executeAction(playerCharacter, researchSpellAction, new int[0], world, dungeonMaster, target, parent);
+						Game.executeAction(playerCharacter, researchSpellAction, new int[0], world, dungeonMaster, target, parent);
 					}
 				}
 			}

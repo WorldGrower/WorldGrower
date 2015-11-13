@@ -12,10 +12,21 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower;
+package org.worldgrower.gui.start;
 
-public class StatusMessages {
+import java.util.ArrayList;
+import java.util.List;
 
-	public static final String WELCOME = "Welcome to WorldGrower. \nThis component displays messages. (S)";
-	public static final String WELCOME_TUTORIAL = "Welcome to the WorldGrower Tutorial. \nRight-click on the sign post on the screen and hoose to read it to start the tutorial.";
+import org.worldgrower.ManagedOperationListener;
+import org.worldgrower.World;
+import org.worldgrower.gui.AdditionalManagedOperationListenerFactory;
+import org.worldgrower.gui.ImageInfoReader;
+import org.worldgrower.gui.WorldPanel;
+
+public class NullAdditionalManagedOperationListenerFactory implements AdditionalManagedOperationListenerFactory {
+
+	@Override
+	public List<ManagedOperationListener> create(World world, WorldPanel container, ImageInfoReader imageInfoReader) {
+		return new ArrayList<>();
+	}
 }

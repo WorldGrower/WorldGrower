@@ -31,7 +31,6 @@ import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
 import org.worldgrower.DungeonMaster;
-import org.worldgrower.Main;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
@@ -39,6 +38,7 @@ import org.worldgrower.actions.legal.LegalAction;
 import org.worldgrower.actions.legal.LegalActions;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.LegalActionsPropertyUtils;
+import org.worldgrower.gui.start.Game;
 import org.worldgrower.gui.util.ButtonFactory;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.JTableFactory;
@@ -94,7 +94,7 @@ public class GuiShowLegalActionsAction extends AbstractAction {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				int[] args = worldModel.getArgs();
-				Main.executeAction(playerCharacter, Actions.SET_LEGAL_ACTIONS_ACTION, args, world, dungeonMaster, playerCharacter, parent);
+				Game.executeAction(playerCharacter, Actions.SET_LEGAL_ACTIONS_ACTION, args, world, dungeonMaster, playerCharacter, parent);
 				dialog.dispose();
 			}
 		});

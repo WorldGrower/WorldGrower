@@ -20,7 +20,7 @@ import java.awt.Window;
 
 import javax.swing.ImageIcon;
 
-import org.worldgrower.Main;
+import org.worldgrower.gui.start.Game;
 
 public class IconUtils {
 
@@ -41,7 +41,7 @@ public class IconUtils {
 	}
 
 	private static Image getImage(String imageURL) {
-		return Toolkit.getDefaultToolkit().getImage(Main.class.getResource(imageURL));
+		return Toolkit.getDefaultToolkit().getImage(Game.class.getResource(imageURL));
 	}
 	
 	public static void setIcon(Window frame) {

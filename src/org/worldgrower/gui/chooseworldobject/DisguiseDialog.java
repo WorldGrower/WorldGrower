@@ -36,7 +36,6 @@ import javax.swing.border.EmptyBorder;
 
 import org.worldgrower.Constants;
 import org.worldgrower.DungeonMaster;
-import org.worldgrower.Main;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
@@ -48,6 +47,7 @@ import org.worldgrower.gui.SwingUtils;
 import org.worldgrower.gui.WorldObjectList;
 import org.worldgrower.gui.WorldPanel;
 import org.worldgrower.gui.debug.PropertiesModel;
+import org.worldgrower.gui.start.Game;
 import org.worldgrower.gui.util.ButtonFactory;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.JRadioButtonFactory;
@@ -205,7 +205,7 @@ public class DisguiseDialog extends JDialog {
 				
 				playerCharacter.setProperty(Constants.FACADE, facade);
 				
-				Main.executeAction(playerCharacter, disguiseAction, args, world, dungeonMaster, playerCharacter, parent);
+				Game.executeAction(playerCharacter, disguiseAction, args, world, dungeonMaster, playerCharacter, parent);
 				
 				DisguiseDialog.this.dispose();
 			}

@@ -23,12 +23,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.worldgrower.Constants;
-import org.worldgrower.Main;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.actions.BuildAction;
 import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.gui.start.Game;
 
 public class BuildModeOutline {
 
@@ -55,7 +55,7 @@ public class BuildModeOutline {
 	}
 
 	private boolean isbuildActionPossible(WorldObject playerCharacter, World world, WorldObject buildLocation) {
-		return Main.canActionExecute(playerCharacter, buildAction, args, world, buildLocation);
+		return Game.canActionExecute(playerCharacter, buildAction, args, world, buildLocation);
 	}
 	
 	public void repaintBuildMode(Graphics g, Point mouseLocation, int offsetX, int offsetY, WorldObject playerCharacter, World world) {

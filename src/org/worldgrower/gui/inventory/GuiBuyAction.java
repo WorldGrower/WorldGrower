@@ -22,13 +22,13 @@ import javax.swing.AbstractAction;
 
 import org.worldgrower.Constants;
 import org.worldgrower.DungeonMaster;
-import org.worldgrower.Main;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.goal.BuySellUtils;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.WorldPanel;
+import org.worldgrower.gui.start.Game;
 
 public class GuiBuyAction extends AbstractAction {
 
@@ -92,6 +92,6 @@ public class GuiBuyAction extends AbstractAction {
 	}
 	
 	public void buy(int[] args) {
-		Main.executeAction(playerCharacter, playerCharacter.getOperation(Actions.BUY_ACTION), args, world, dungeonMaster, target, container);
+		Game.executeAction(playerCharacter, playerCharacter.getOperation(Actions.BUY_ACTION), args, world, dungeonMaster, target, container);
 	}
 }

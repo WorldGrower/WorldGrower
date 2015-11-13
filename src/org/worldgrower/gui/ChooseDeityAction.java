@@ -20,11 +20,11 @@ import java.util.Arrays;
 import javax.swing.AbstractAction;
 
 import org.worldgrower.DungeonMaster;
-import org.worldgrower.Main;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.deity.Deity;
+import org.worldgrower.gui.start.Game;
 import org.worldgrower.gui.util.ListInputDialog;
 
 public class ChooseDeityAction extends AbstractAction {
@@ -51,7 +51,7 @@ public class ChooseDeityAction extends AbstractAction {
 		if (deityName != null) {
 			int indexOfDeity = Arrays.asList(deityNames).indexOf(deityName);
 			
-			Main.executeAction(playerCharacter, Actions.CHOOSE_DEITY_ACTION, new int[] { indexOfDeity, -1 }, world, dungeonMaster, playerCharacter, parent);
+			Game.executeAction(playerCharacter, Actions.CHOOSE_DEITY_ACTION, new int[] { indexOfDeity, -1 }, world, dungeonMaster, playerCharacter, parent);
 		}
 	}
 }
