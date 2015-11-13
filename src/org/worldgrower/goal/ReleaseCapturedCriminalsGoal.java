@@ -35,13 +35,17 @@ public class ReleaseCapturedCriminalsGoal implements Goal {
 			for(WorldObject criminalToBeReleased : criminalsToBeReleased) {
 				int criminalX = criminalToBeReleased.getProperty(Constants.X);
 				int criminalY = criminalToBeReleased.getProperty(Constants.Y);
-				List<WorldObject> jailDoors = world.findWorldObjects(w -> BuildingGenerator.isJailDoor(w) && w.getProperty(Constants.X) == criminalX && w.getProperty(Constants.Y) == criminalY+1);
+				List<WorldObject> jailDoors = world.findWorldObjects(w -> isJailDoor(criminalX, criminalY, w));
 				if (jailDoors.size() > 0) {
 					return new OperationInfo(performer, jailDoors.get(0), new int[0], Actions.UNLOCK_JAIL_DOOR_ACTION);
 				}
 			}
 		}
 		return null;
+	}
+
+	private boolean isJailDoor(int criminalX, int criminalY, WorldObject w) {
+		return BuildingGenerator.isJailDoor(w) && w.getProperty(Constants.X) == criminalX && w.getProperty(Constants.Y) == criminalY+1;
 	}
 
 	@Override

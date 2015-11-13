@@ -18,11 +18,14 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.DoNothingWorldOnTurn;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.BuildingGenerator;
 
 public class UTestReleaseCapturedCriminalsGoal {
 
@@ -36,11 +39,32 @@ public class UTestReleaseCapturedCriminalsGoal {
 		
 		assertEquals(null, goal.calculateGoal(performer, world));
 	}
+	
+	@Test
+	public void testCalculateGoalReleaseTarget() {
+		World world = new WorldImpl(0, 0, null, new DoNothingWorldOnTurn());
+		WorldObject performer = createPerformer(7);
+		WorldObject target = createPerformer(8);
+		world.addWorldObject(target);
+		
+		BuildingGenerator.generateJail(0, 0, world, 1f);
+		
+		target.setProperty(Constants.X, 1);
+		target.setProperty(Constants.Y, 1);
+		
+		WorldObject organization = createVillagersOrganization(world);
+		organization.getProperty(Constants.TURNS_IN_JAIL).incrementValue(target, 0);
+		
+		for(int i=0; i<1000; i++) { world.nextTurn(); }
+		
+		assertEquals(Actions.UNLOCK_JAIL_DOOR_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
 
-	private void createVillagersOrganization(World world) {
+	private WorldObject createVillagersOrganization(World world) {
 		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
 		organization.setProperty(Constants.ID, 1);
 		world.addWorldObject(organization);
+		return organization;
 	}
 	
 	private WorldObject createPerformer(int id) {
@@ -49,6 +73,7 @@ public class UTestReleaseCapturedCriminalsGoal {
 		performer.setProperty(Constants.Y, 0);
 		performer.setProperty(Constants.WIDTH, 1);
 		performer.setProperty(Constants.HEIGHT, 1);
+		performer.setProperty(Constants.NAME, "name");
 		return performer;
 	}
 }

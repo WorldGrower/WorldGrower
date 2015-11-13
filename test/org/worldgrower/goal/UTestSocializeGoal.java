@@ -115,4 +115,24 @@ public class UTestSocializeGoal {
 		assertEquals(Actions.TALK_ACTION, goal.getShareKnowledgeOperationInfo(performer, world).getManagedOperation());
 		AssertUtils.assertConversation(goal.getShareKnowledgeOperationInfo(performer, world), Conversations.SHARE_KNOWLEDGE_CONVERSATION);
 	}
+	
+	@Test
+	public void testIsGoalMet() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, "performer");
+		
+		assertEquals(false, goal.isGoalMet(performer, world));
+		
+		performer.increment(Constants.SOCIAL, 1000);
+		assertEquals(true, goal.isGoalMet(performer, world));
+	}
+	
+	@Test
+	public void testCalculateGoalNull() {
+		
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, "performer");
+		
+		assertEquals(null, goal.calculateGoal(performer, world));
+	}
 }
