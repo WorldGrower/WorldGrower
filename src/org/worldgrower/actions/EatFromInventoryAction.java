@@ -39,6 +39,8 @@ public class EatFromInventoryAction implements ManagedOperation {
 		
 		performer.setProperty(Constants.FOOD, food);
 		performerInventory.removeQuantity(Constants.FOOD, 1);
+		
+		world.logAction(this, performer, target, args, null);
 	}
 
 	@Override

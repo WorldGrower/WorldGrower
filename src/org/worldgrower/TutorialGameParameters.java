@@ -28,9 +28,11 @@ public class TutorialGameParameters implements GameParameters {
 	@Override
 	public void addDefaultWorldObjects(World world, CommonerGenerator commonerGenerator, WorldObject organization, int villagerCount, int seed) {
 
-		BuildingGenerator.generateSignPost(5, 4, world, "Well done. Now press the right arrow key to move your player character to the right, next to the tree.\n Then right-click on the tree to cut wood from it.");
+		BuildingGenerator.generateSignPost(5, 4, world, "Well done. Now use the right arrow key to move your player character to the right, next to the tree.\n Then right-click on the tree to cut wood from it.");
 		
 		PlantGenerator.generateTree(9, 5, world);
+		
+		PlantGenerator.generateBerryBush(8, 11, world);
 	}
 
 	@Override

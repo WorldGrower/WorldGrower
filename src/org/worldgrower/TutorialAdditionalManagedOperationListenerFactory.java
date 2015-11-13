@@ -48,7 +48,11 @@ public class TutorialAdditionalManagedOperationListenerFactory implements Additi
 			} else if (managedOperation == Actions.CUT_WOOD_ACTION && performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) >= 6) {
 				MessageDialogUtils.showMessage("Now right-click on your character and choose build - build shack. \nChoose an empty space around your character and place the shack. \nNow Right-click on the shack to rest in it.", "Building Shack", target, container, imageInfoReader);
 			} else if (managedOperation == Actions.SLEEP_ACTION) {
-				MessageDialogUtils.showMessage("Resting restores energy, which is used for some actions like cutting wood. \nEnergy is indicated by the green bar at the lower right of the screen. \n", "Resting", target, container, imageInfoReader);
+				MessageDialogUtils.showMessage("Resting restores energy, which is used for some actions like cutting wood. Energy is indicated by the green bar at the lower right of the screen. \nNow use the down arrow to move down to the berry bush.\n Then right-click on the berry bush to harvest food from it.", "Harvesting food", target, container, imageInfoReader);
+			} else if (managedOperation == Actions.HARVEST_FOOD_ACTION) {
+				MessageDialogUtils.showMessage("Harvested food is stored in the inventory. Press the I key or right-click on the character and choose inventory to show the inventory. \nIn the inventory screen, click the Actions button to eat the berry. Eating restores food, which keeps up energy. Food is indicated by the yellow bar at the lower right of the screen.", "Eating food", target, container, imageInfoReader);
+			} else if (managedOperation == Actions.EAT_FROM_INVENTORY_ACTION) {
+				MessageDialogUtils.showMessage("Now use the left arrow to move left to the other character.\n Then right-click on it to talk with it.", "Talking", target, container, imageInfoReader);
 			}
 		}
 	}
