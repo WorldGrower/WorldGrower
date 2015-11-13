@@ -44,9 +44,7 @@ public class BuildArenaAction implements BuildAction {
 
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		int x = (Integer)target.getProperty(Constants.X);
-		int y = (Integer)target.getProperty(Constants.Y);
-		return GoalUtils.isOpenSpace(x, y, 10, 11, world);
+		return CraftUtils.isValidBuildTarget(this, performer, target, world);
 	}
 
 	@Override

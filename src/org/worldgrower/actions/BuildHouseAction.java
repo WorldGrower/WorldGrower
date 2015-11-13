@@ -25,7 +25,6 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.ItemGenerator;
-import org.worldgrower.goal.GoalUtils;
 import org.worldgrower.gui.ImageIds;
 
 public class BuildHouseAction implements BuildAction {
@@ -55,13 +54,7 @@ public class BuildHouseAction implements BuildAction {
 
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		if (target.hasProperty(Constants.ID)) {
-			return false;
-		} else {
-			int x = (Integer)target.getProperty(Constants.X);
-			int y = (Integer)target.getProperty(Constants.Y);
-			return GoalUtils.isOpenSpace(x, y, 4, 4, world);
-		}
+		return CraftUtils.isValidBuildTarget(this, performer, target, world);
 	}
 
 	@Override

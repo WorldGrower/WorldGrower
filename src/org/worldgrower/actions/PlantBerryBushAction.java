@@ -23,7 +23,6 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.generator.PlantGenerator;
-import org.worldgrower.goal.GoalUtils;
 import org.worldgrower.gui.ImageIds;
 
 public class PlantBerryBushAction implements BuildAction {
@@ -41,9 +40,7 @@ public class PlantBerryBushAction implements BuildAction {
 	
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		int x = (Integer)target.getProperty(Constants.X);
-		int y = (Integer)target.getProperty(Constants.Y);
-		return GoalUtils.isOpenSpace(x, y, 1, 1, world) && !target.hasProperty(Constants.ID);
+		return CraftUtils.isValidBuildTarget(this, performer, target, world);
 	}
 
 	@Override

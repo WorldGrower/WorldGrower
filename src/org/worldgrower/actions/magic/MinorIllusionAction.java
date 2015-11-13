@@ -28,7 +28,6 @@ import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.IllusionOnTurn;
-import org.worldgrower.goal.GoalUtils;
 import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
 
@@ -60,9 +59,7 @@ public class MinorIllusionAction implements BuildAction, MagicSpell {
 	
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		int x = (Integer)target.getProperty(Constants.X);
-		int y = (Integer)target.getProperty(Constants.Y);
-		return GoalUtils.isOpenSpace(x, y, 1, 1, world) && !target.hasProperty(Constants.ID) && MagicSpellUtils.canCast(performer, this);
+		return CraftUtils.isValidBuildTarget(this, performer, target, world) && MagicSpellUtils.canCast(performer, this);
 	}
 
 	@Override

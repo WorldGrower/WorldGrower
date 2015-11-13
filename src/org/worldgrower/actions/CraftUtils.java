@@ -20,6 +20,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.goal.GoalUtils;
 
 public class CraftUtils {
 
@@ -66,6 +67,12 @@ public class CraftUtils {
 		} else {
 			return quantity + " " + property.getName();
 		}
+	}
+	
+	public static boolean isValidBuildTarget(BuildAction buildAction, WorldObject performer, WorldObject target, World world) {
+		int x = (Integer)target.getProperty(Constants.X);
+		int y = (Integer)target.getProperty(Constants.Y);
+		return GoalUtils.isOpenSpace(x, y, buildAction.getWidth(), buildAction.getHeight(), world);
 	}
 	
 	public static String getRequirementsDescription(IntProperty property, int quantity, IntProperty property2, int quantity2) {
