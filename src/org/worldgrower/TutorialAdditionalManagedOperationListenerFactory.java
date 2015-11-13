@@ -43,8 +43,12 @@ public class TutorialAdditionalManagedOperationListenerFactory implements Additi
 
 		@Override
 		public void actionPerformed(ManagedOperation managedOperation, WorldObject performer, WorldObject target, int[] args, Object value) {
-			if (managedOperation == Actions.CUT_WOOD_ACTION) {
-				MessageDialogUtils.showMessage("You can keep cutting wood four times, so that you can build somewhere to sleep.", "Cutting Wood", target, container, imageInfoReader);
+			if (managedOperation == Actions.CUT_WOOD_ACTION && performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) < 6) {
+				MessageDialogUtils.showMessage("You can keep cutting wood six times, so that you can build somewhere to sleep.", "Cutting Wood", target, container, imageInfoReader);
+			} else if (managedOperation == Actions.CUT_WOOD_ACTION && performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) >= 6) {
+				MessageDialogUtils.showMessage("Now right-click on your character and choose build - build shack. \nChoose an empty space around your character and place the shack. \nNow Right-click on the shack to rest in it.", "Building Shack", target, container, imageInfoReader);
+			} else if (managedOperation == Actions.SLEEP_ACTION) {
+				MessageDialogUtils.showMessage("Resting restores energy, which is used for some actions like cutting wood. \nEnergy is indicated by the green bar at the lower right of the screen. \n", "Resting", target, container, imageInfoReader);
 			}
 		}
 	}
