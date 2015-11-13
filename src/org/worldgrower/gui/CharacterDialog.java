@@ -88,57 +88,67 @@ public class CharacterDialog extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 
+		JLabel lblName = JLabelFactory.createJLabel(playerCharacter.getProperty(Constants.NAME));
+		lblName.setBounds(12, 13, 120, 20);
+		lblName.setToolTipText("displays character name");
+		contentPanel.add(lblName);
+		
+		JLabel lblProfession = JLabelFactory.createJLabel(playerCharacter.getProperty(Constants.PROFESSION).getDescription());
+		lblProfession.setBounds(12, 42, 120, 20);
+		lblProfession.setToolTipText("displays character profession");
+		contentPanel.add(lblProfession);
+		
 		JLabel lblStrength = createAttributeLabel(Constants.STRENGTH, "Strength");
-		lblStrength.setBounds(12, 13, 120, 20);
+		lblStrength.setBounds(150, 13, 120, 20);
 		contentPanel.add(lblStrength);
 		
 		JLabel lblConstitution = createAttributeLabel(Constants.CONSTITUTION, "Constitution");
-		lblConstitution.setBounds(12, 42, 120, 20);
+		lblConstitution.setBounds(150, 42, 120, 20);
 		contentPanel.add(lblConstitution);
 		
 		JLabel lblDexterity = createAttributeLabel(Constants.DEXTERITY, "Dexterity");
-		lblDexterity.setBounds(12, 71, 120, 20);
+		lblDexterity.setBounds(150, 71, 120, 20);
 		contentPanel.add(lblDexterity);
 		
 		JLabel lblIntelligence = createAttributeLabel(Constants.INTELLIGENCE, "Intelligence");
-		lblIntelligence.setBounds(12, 100, 120, 20);
+		lblIntelligence.setBounds(150, 100, 120, 20);
 		contentPanel.add(lblIntelligence);
 		
 		JLabel lblWisdom = createAttributeLabel(Constants.WISDOM, "Wisdom");
-		lblWisdom.setBounds(12, 129, 120, 20);
+		lblWisdom.setBounds(150, 129, 120, 20);
 		contentPanel.add(lblWisdom);
 		
 		JLabel lblCharisma = createAttributeLabel(Constants.CHARISMA, "Charisma");
-		lblCharisma.setBounds(12, 158, 120, 20);
+		lblCharisma.setBounds(150, 158, 120, 20);
 		contentPanel.add(lblCharisma);
 		
 		JLabel lblStrengthValue = JLabelFactory.createJLabel(playerCharacter.getProperty(Constants.STRENGTH).toString());
-		lblStrengthValue.setBounds(150, 13, 20, 20);
+		lblStrengthValue.setBounds(300, 13, 20, 20);
 		lblStrengthValue.setToolTipText(lblStrength.getToolTipText());
 		contentPanel.add(lblStrengthValue);
 		
 		JLabel lblConstitutionValue = JLabelFactory.createJLabel(playerCharacter.getProperty(Constants.CONSTITUTION).toString());
-		lblConstitutionValue.setBounds(150, 42, 20, 20);
+		lblConstitutionValue.setBounds(300, 42, 20, 20);
 		lblConstitutionValue.setToolTipText(lblConstitution.getToolTipText());
 		contentPanel.add(lblConstitutionValue);
 		
 		JLabel lblDexterityValue = JLabelFactory.createJLabel(playerCharacter.getProperty(Constants.DEXTERITY).toString());
-		lblDexterityValue.setBounds(150, 71, 20, 20);
+		lblDexterityValue.setBounds(300, 71, 20, 20);
 		lblDexterityValue.setToolTipText(lblDexterity.getToolTipText());
 		contentPanel.add(lblDexterityValue);
 		
 		JLabel lblIntelligenceValue = JLabelFactory.createJLabel(playerCharacter.getProperty(Constants.INTELLIGENCE).toString());
-		lblIntelligenceValue.setBounds(150, 100, 20, 20);
+		lblIntelligenceValue.setBounds(300, 100, 20, 20);
 		lblIntelligenceValue.setToolTipText(lblIntelligence.getToolTipText());
 		contentPanel.add(lblIntelligenceValue);
 		
 		JLabel lblWisdomValue = JLabelFactory.createJLabel(playerCharacter.getProperty(Constants.WISDOM).toString());
-		lblWisdomValue.setBounds(150, 129, 20, 20);
+		lblWisdomValue.setBounds(300, 129, 20, 20);
 		lblWisdomValue.setToolTipText(lblWisdom.getToolTipText());
 		contentPanel.add(lblWisdomValue);
 		
 		JLabel lblCharismaValue = JLabelFactory.createJLabel(playerCharacter.getProperty(Constants.CHARISMA).toString());
-		lblCharismaValue.setBounds(150, 158, 20, 20);
+		lblCharismaValue.setBounds(300, 158, 20, 20);
 		lblCharismaValue.setToolTipText(lblCharisma.getToolTipText());
 		contentPanel.add(lblCharismaValue);
 
