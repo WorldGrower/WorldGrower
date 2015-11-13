@@ -22,7 +22,9 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.ItemGenerator;
 
 public class UTestEquipmentGoal {
 
@@ -34,5 +36,28 @@ public class UTestEquipmentGoal {
 		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
 		
 		assertEquals(null, goal.calculateGoal(performer, world));
+	}
+	
+	@Test
+	public void testCalculateGoalIronClaymore() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
+
+		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.WOOD, 20, null);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.ORE, 20, null);
+		
+		assertEquals(Actions.CRAFT_IRON_CLAYMORE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+	@Test
+	public void testCalculateGoalIronCuirass() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
+
+		performer.getProperty(Constants.INVENTORY).addQuantity(ItemGenerator.getIronClaymore(1f));
+		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.WOOD, 20, null);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.ORE, 20, null);
+		
+		assertEquals(Actions.CRAFT_IRON_CUIRASS_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
 }
