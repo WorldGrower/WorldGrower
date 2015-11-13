@@ -83,12 +83,12 @@ public class BuildShackAction implements BuildAction {
 
 	@Override
 	public int getWidth() {
-		return 2;
+		return 3;
 	}
 
 	@Override
 	public int getHeight() {
-		return 2;
+		return 4;
 	}
 	
 	public static boolean hasEnoughWood(WorldObject performer) {
