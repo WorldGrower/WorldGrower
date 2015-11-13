@@ -39,6 +39,7 @@ public class SleepAction implements ManagedOperation {
 		}
 		
 		performer.increment(Constants.ENERGY, energyIncrease);
+		world.logAction(this, performer, target, args, null);
 	}
 
 	@Override
