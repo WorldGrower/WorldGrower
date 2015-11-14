@@ -101,7 +101,7 @@ public class BackgroundImpl implements Background, Serializable {
 	private void handlePerformerWasAttacked(WorldObject backgroundPerformer, OperationInfo operationInfo) {
 		PerformerWasAttacked performerWasAttacked = new PerformerWasAttacked(backgroundPerformer);
 		if (operationInfo.evaluate(performerWasAttacked)) {
-			revengeTargets.add(operationInfo.getTarget().getProperty(Constants.ID));
+			revengeTargets.add(operationInfo.getPerformer().getProperty(Constants.ID));
 		}
 	}
 	
@@ -202,6 +202,11 @@ public class BackgroundImpl implements Background, Serializable {
 		worldObject.getProperty(backgroundProperty).remove(id);
 	}
 
+	@Override
+	public boolean hasRevengeTarget(World world) {
+		return revengeTargets.size() > 0;
+	}
+	
 	@Override
 	public WorldObject getRevengeTarget(World world) {
 		int id = revengeTargets.get(0);

@@ -272,7 +272,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestNightShadeOnTurn.class,
 	UTestBerryBushOnTurn.class,
 	UTestWaterPropertyUtils.class,
-	UTestSellHouseGoal.class
+	UTestSellHouseGoal.class,
+	UTestRevengeGoal.class
 })
 public class CompleteTestSuite {
 }

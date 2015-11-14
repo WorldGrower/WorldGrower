@@ -35,9 +35,9 @@ public class UTestBackgroundImpl {
 		Background background = new BackgroundImpl();
 		World world = new WorldImpl(10, 10, null, null);
 		
-		
 		WorldObject performer = createWorldObject(0, "Tom");
 		WorldObject attacker = createWorldObject(1, "attacker");
+		world.addWorldObject(attacker);
 		world.getHistory().actionPerformed(new OperationInfo(attacker, performer, new int[0], Actions.MELEE_ATTACK_ACTION), new Turn());
 		
 		background.checkForNewGoals(performer, world);
@@ -45,6 +45,7 @@ public class UTestBackgroundImpl {
 		List<Goal> personalGoals = background.getPersonalGoals(performer, world);
 		assertEquals(1, personalGoals.size());
 		assertEquals(RevengeGoal.class, personalGoals.get(0).getClass());
+		assertEquals(attacker, background.getRevengeTarget(world));
 	}
 	
 	@Test

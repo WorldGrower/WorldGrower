@@ -81,6 +81,18 @@ public class UTestCraftEquipmentGoal {
 		
 		assertEquals(Actions.CRAFT_IRON_CUIRASS_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
+	
+	@Test
+	public void testCalculateGoalIronHelmet() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer();
+		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.WOOD, 20, null);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.ORE, 10, null);
+		performer.getProperty(Constants.INVENTORY).addQuantity(ItemGenerator.getIronClaymore(1f));
+		performer.getProperty(Constants.INVENTORY).addQuantity(ItemGenerator.getIronCuirass(1f));
+		
+		assertEquals(Actions.CRAFT_IRON_HELMET_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
 
 	private WorldObject createPerformer() {
 		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());

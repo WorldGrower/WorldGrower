@@ -37,7 +37,7 @@ public class RevengeGoal implements Goal {
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		return (getTarget(performer, world).getOperations().size() == 0);
+		return !performer.getProperty(Constants.BACKGROUND).hasRevengeTarget(world);
 	}
 	
 	@Override
