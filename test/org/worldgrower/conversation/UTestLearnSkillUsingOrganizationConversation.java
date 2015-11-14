@@ -85,7 +85,7 @@ public class UTestLearnSkillUsingOrganizationConversation {
 		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
 		conversation.handleResponse(0, context);
 		conversation.handleResponse(0, context);
-		assertEquals(1, performer.getProperty(Constants.FARMING_SKILL).getLevel());
+		assertEquals(1, Constants.FARMING_SKILL.getLevel(performer));
 	}
 	
 	@Test
@@ -95,7 +95,7 @@ public class UTestLearnSkillUsingOrganizationConversation {
 		
 		ConversationContext context = new ConversationContext(performer, target, null, null, null, 0);
 		conversation.handleResponse(1, context);
-		assertEquals(0, performer.getProperty(Constants.FARMING_SKILL).getLevel());
+		assertEquals(0, Constants.FARMING_SKILL.getLevel(performer));
 		assertEquals(-10, performer.getProperty(Constants.RELATIONSHIPS).getValue(target));
 		assertEquals(-10, target.getProperty(Constants.RELATIONSHIPS).getValue(performer));
 	}

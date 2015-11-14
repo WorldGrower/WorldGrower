@@ -54,7 +54,7 @@ public class TrainGoal implements Goal {
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		return performer.getProperty(Constants.HAND_TO_HAND_SKILL).getLevel() > 15;
+		return Constants.HAND_TO_HAND_SKILL.getLevel(performer) > 15;
 	}
 	
 	@Override

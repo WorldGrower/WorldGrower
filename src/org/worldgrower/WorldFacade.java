@@ -82,12 +82,12 @@ public class WorldFacade implements World {
 		if (personViewingWorld.getProperty(Constants.INSIGHT_SKILL) == null) {
 			insight = 0;
 		} else {
-			insight = personViewingWorld.getProperty(Constants.INSIGHT_SKILL).getLevel();
+			insight = Constants.INSIGHT_SKILL.getLevel(personViewingWorld);
 		}
 				
 		int illusionCreatorId = worldObject.getProperty(Constants.ILLUSION_CREATOR_ID);
 		WorldObject illusionCreator = world.findWorldObject(Constants.ID, illusionCreatorId);
-		int illusion = illusionCreator.getProperty(Constants.ILLUSION_SKILL).getLevel();
+		int illusion = Constants.ILLUSION_SKILL.getLevel(illusionCreator);
 		
 		return (illusion > insight);
 	}

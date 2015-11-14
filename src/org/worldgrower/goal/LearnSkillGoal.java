@@ -52,7 +52,7 @@ public class LearnSkillGoal implements Goal {
 	public boolean isGoalMet(WorldObject performer, World world) {
 		Profession performerProfession = performer.getProperty(Constants.PROFESSION);		
 		SkillProperty skillProperty = performerProfession.getSkillProperty();
-		return performer.getProperty(skillProperty).getLevel() > 2;
+		return skillProperty.getLevel(performer) > 2;
 	}
 	
 	@Override
@@ -69,6 +69,6 @@ public class LearnSkillGoal implements Goal {
 	public int evaluate(WorldObject performer, World world) {
 		Profession performerProfession = performer.getProperty(Constants.PROFESSION);		
 		SkillProperty skillProperty = performerProfession.getSkillProperty();
-		return performer.getProperty(skillProperty).getLevel();
+		return skillProperty.getLevel(performer);
 	}
 }

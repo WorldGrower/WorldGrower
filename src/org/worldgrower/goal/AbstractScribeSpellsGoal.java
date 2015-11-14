@@ -55,7 +55,7 @@ public abstract class AbstractScribeSpellsGoal implements Goal {
 				List<WorldObject> knownSpellsInInventory = getKnownSpellsInInventory(performer, missingSpell);
 				int performerPaperQuantity = performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.PAPER);
 				
-				if (performer.getProperty(skillPropery).getLevel() < missingSpell.getRequiredSkillLevel()) {
+				if (skillPropery.getLevel(performer) < missingSpell.getRequiredSkillLevel()) {
 					return new OperationInfo(performer, library, new int[0], researchSkillAction);
 				} else if (!performer.getProperty(Constants.KNOWN_SPELLS).contains(missingSpell)) {
 					return new OperationInfo(performer, library, new int[0], Actions.getResearchSpellActionFor(missingSpell));

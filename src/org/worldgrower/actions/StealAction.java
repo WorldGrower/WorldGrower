@@ -43,7 +43,7 @@ public class StealAction implements ManagedOperation {
 		int weight = weightInteger != null ? weightInteger.intValue() : 0;
 		
 		SkillUtils.useSkill(performer, Constants.THIEVERY_SKILL, world.getWorldStateChangedListeners());
-		int thievery = performer.getProperty(Constants.THIEVERY_SKILL).getLevel();
+		int thievery = Constants.THIEVERY_SKILL.getLevel(performer);
 		
 		boolean isSuccess = price + weight < thievery + 5;
 		

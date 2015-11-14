@@ -34,7 +34,7 @@ public class LockMagicSpellAction implements MagicSpell {
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		int level = performer.getProperty(getSkill()).getLevel();
+		int level = getSkill().getLevel(performer);
 		
 		target.setProperty(Constants.LOCK_STRENGTH, level);
 		target.setProperty(Constants.LOCKED, Boolean.TRUE);

@@ -110,8 +110,8 @@ public class SkillUtils {
 		if (performerProfession != null) {
 			SkillProperty skillProperty = performerProfession.getSkillProperty();
 			if (skillProperty != null) {
-				int performerSkillLevel = performer.getProperty(skillProperty).getLevel();
-				int targetSkillLevel = target.getProperty(skillProperty).getLevel();
+				int performerSkillLevel = skillProperty.getLevel(performer);
+				int targetSkillLevel = skillProperty.getLevel(target);
 				
 				return (performerSkillLevel + 5 < targetSkillLevel);
 			}
@@ -133,13 +133,13 @@ public class SkillUtils {
 
 	public static int useSkillLevel(WorldObject performer, SkillProperty skillProperty, WorldStateChangedListeners worldStateChangedListeners) {
 		Skill skill = performer.getProperty(skillProperty);
-		int level = skill.getLevel();
+		int level = skillProperty.getLevel(performer);
 		skill.use(performer, skillProperty, worldStateChangedListeners);
 		return level;
 	}
 	
 	public static double getSkillBonus(WorldObject performer, SkillProperty skill) {
-		double result = 1.0f + (performer.getProperty(skill).getLevel() / 100.0f);
+		double result = 1.0f + (skill.getLevel(performer) / 100.0f);
 		return result;
 	}
 	

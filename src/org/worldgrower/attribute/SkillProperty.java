@@ -17,6 +17,8 @@ package org.worldgrower.attribute;
 import java.io.ObjectStreamException;
 import java.util.List;
 
+import org.worldgrower.WorldObject;
+
 public class SkillProperty implements ManagedProperty<Skill> {
 	
 	private final String name;
@@ -42,6 +44,10 @@ public class SkillProperty implements ManagedProperty<Skill> {
 	@Override
 	public String toString() {
 		return name;
+	}
+	
+	public int getLevel(WorldObject worldObject) {
+		return worldObject.getProperty(this).getLevel(worldObject);
 	}
 
 	@Override

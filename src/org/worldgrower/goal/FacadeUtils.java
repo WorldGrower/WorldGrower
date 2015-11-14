@@ -51,8 +51,8 @@ public class FacadeUtils {
 	}
 
 	private static boolean facadeIsBelieved(WorldObject performer, WorldObject target) {
-		int bluffSkill = performer.getProperty(Constants.BLUFF_SKILL).getLevel();
-		int insightSkill = target.getProperty(Constants.INSIGHT_SKILL).getLevel();
+		int bluffSkill = Constants.BLUFF_SKILL.getLevel(performer);
+		int insightSkill = Constants.INSIGHT_SKILL.getLevel(target);
 		
 		if (target.getProperty(Constants.KNOWLEDGE_MAP).hasProperty(performer, Constants.FACADE)) {
 			insightSkill += 5;

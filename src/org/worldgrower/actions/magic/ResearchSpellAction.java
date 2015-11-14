@@ -45,7 +45,7 @@ public class ResearchSpellAction implements ManagedOperation {
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		int skillLevelMet = (performer.getProperty(spell.getSkill()).getLevel() >= spell.getRequiredSkillLevel()) ? 0 : 1;
+		int skillLevelMet = (spell.getSkill().getLevel(performer) >= spell.getRequiredSkillLevel()) ? 0 : 1;
 		return Reach.evaluateTarget(performer, args, target, DISTANCE) + skillLevelMet;
 	}
 	

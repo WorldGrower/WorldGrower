@@ -16,7 +16,10 @@ package org.worldgrower.attribute;
 
 import java.io.Serializable;
 
+import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
+import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.Conditions;
 import org.worldgrower.condition.WorldStateChangedListeners;
 
 public class Skill implements Serializable {
@@ -72,8 +75,13 @@ public class Skill implements Serializable {
 		}
 	}
 	
-	public int getLevel() {
-		return level;
+	public int getLevel(WorldObject worldObject) {
+		Conditions conditions = worldObject.getProperty(Constants.CONDITIONS);
+		if (conditions != null && conditions.hasCondition(Condition.INTOXICATED_CONDITION)) {
+			return level / 2;
+		} else {
+			return level;
+		}
 	}
 	
 	public int getPercentageUntilNextLevelUp() {

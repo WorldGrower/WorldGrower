@@ -35,7 +35,7 @@ public class ResearchMagicSkillsKnowledgeGoal implements Goal {
 			WorldObject library = libraries.get(0);
 			
 			for(SkillProperty skillProperty : MAGIC_SKILLS) {
-				if (performer.getProperty(skillProperty).getLevel() < 10) {
+				if (skillProperty.getLevel(performer) < 10) {
 					ResearchKnowledgeSkillAction researchKnowledgeSkillAction = Actions.getResearchKnowledgeSkillActionFor(skillProperty);
 					return new OperationInfo(performer, library, new int[0], researchKnowledgeSkillAction);
 				}
@@ -54,7 +54,7 @@ public class ResearchMagicSkillsKnowledgeGoal implements Goal {
 	public boolean isGoalMet(WorldObject performer, World world) {
 		boolean allSkillsAre10OrHigher = false;
 		for(SkillProperty skillProperty : MAGIC_SKILLS) {
-			if (performer.getProperty(skillProperty).getLevel() >= 10) {
+			if (skillProperty.getLevel(performer) >= 10) {
 				allSkillsAre10OrHigher = true;
 			}
 		}
@@ -75,7 +75,7 @@ public class ResearchMagicSkillsKnowledgeGoal implements Goal {
 	public int evaluate(WorldObject performer, World world) {
 		int sumOfSkillLevels = 0;
 		for(SkillProperty skillProperty : MAGIC_SKILLS) {
-			sumOfSkillLevels += performer.getProperty(skillProperty).getLevel();
+			sumOfSkillLevels += skillProperty.getLevel(performer);
 		}
 		return sumOfSkillLevels;
 	}

@@ -55,7 +55,7 @@ public class Apollo implements Deity {
 
 	@Override
 	public int getReasonIndex(WorldObject performer, World world) {
-		if (performer.getProperty(Constants.ARCHERY_SKILL).getLevel() > 0) {
+		if (Constants.ARCHERY_SKILL.getLevel(performer) > 0) {
 			return 0;
 		} else if (performer.getProperty(Constants.PROFESSION) == Professions.LUMBERJACK_PROFESSION) {
 			return 1;
