@@ -1,3 +1,10 @@
+v0.1.9
+- add noise to background tiles
+- made terrain transitions better
+- add tutorial
+- fixed build actions: shown size drawn in red/green rectangle now matches real size
+- add character name and character profession to character dialog
+
 v0.1.8
 - can recall previous status messages.
 - add mouse icon for assign action
