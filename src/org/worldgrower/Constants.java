@@ -252,5 +252,8 @@ public class Constants {
 	public static final IntProperty ARENA_DONATED_TURN = new IntProperty("arenaDonatedTurn", 0, null, NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty WORSHIP_COUNTER = new IntProperty("worshipCounter", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	
+	public static final IntProperty ALCOHOL_LEVEL = new IntProperty("alcoholLevel", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
+	
+	//special property not used in WorldObject
 	public static final IntProperty DISTANCE = new IntProperty("distance", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 }

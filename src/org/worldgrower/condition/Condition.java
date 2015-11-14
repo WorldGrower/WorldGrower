@@ -61,5 +61,6 @@ public interface Condition extends Serializable {
 	public static final FeatheredCondition FEATHERED_CONDITION = new FeatheredCondition();
 	public static final SoulTrappedCondition SOUL_TRAPPED_CONDITION = new SoulTrappedCondition();
 	public static final SilencedCondition SILENCED_CONDITION = new SilencedCondition();
+	public static final IntoxicatedCondition INTOXICATED_CONDITION = new IntoxicatedCondition();
 	
 }

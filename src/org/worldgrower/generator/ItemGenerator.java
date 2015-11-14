@@ -213,6 +213,7 @@ public class ItemGenerator {
 		properties.put(Constants.NAME, "wine");
 		properties.put(Constants.WINE, 1);
 		properties.put(Constants.WATER, (int) (10 * skillBonus));
+		properties.put(Constants.ALCOHOL_LEVEL, (int) (5 * skillBonus));
 		properties.put(Constants.IMAGE_ID, ImageIds.WINE);
 		properties.put(Constants.PRICE, 1);
 		properties.put(Constants.SELLABLE, false);

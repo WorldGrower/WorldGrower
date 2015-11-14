@@ -391,6 +391,8 @@ public class WorldPanel extends JPanel {
     		return ImageIds.SOUL_TRAPPED_INDICATOR;
     	} else if (hasCondition(worldObject, Condition.SILENCED_CONDITION)) {
     		return ImageIds.SILENCED_CONDITION;
+    	} else if (hasCondition(worldObject, Condition.INTOXICATED_CONDITION)) {
+    		return ImageIds.INTOXICATED_CONDITION;
     	} else {
     		return null;
     	}

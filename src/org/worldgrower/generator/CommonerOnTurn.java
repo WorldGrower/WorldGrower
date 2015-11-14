@@ -22,6 +22,8 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.Background;
+import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.Conditions;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.goal.DrownUtils;
 import org.worldgrower.goal.GoalUtils;
@@ -39,7 +41,7 @@ public class CommonerOnTurn implements OnTurn {
 
 	@Override
 	public void onTurn(WorldObject worldObject, World world, WorldStateChangedListeners creatureTypeChangedListeners) {
-		propertiesOnTurn(worldObject);
+		propertiesOnTurn(worldObject, world);
 		
 		worldObject.getProperty(Constants.CONDITIONS).onTurn(worldObject, world, creatureTypeChangedListeners);
 		Background background = worldObject.getProperty(Constants.BACKGROUND);
@@ -75,11 +77,12 @@ public class CommonerOnTurn implements OnTurn {
 		}
 	}
 
-	private void propertiesOnTurn(WorldObject worldObject) {
+	private void propertiesOnTurn(WorldObject worldObject, World world) {
 		worldObject.increment(Constants.FOOD, -1);
 		worldObject.increment(Constants.WATER, -1);
 		worldObject.increment(Constants.SOCIAL, -1);
 		worldObject.increment(Constants.ENERGY, -1);
+		worldObject.increment(Constants.ALCOHOL_LEVEL, -1);
 		
 		if (worldObject.getProperty(Constants.FOOD) < 100) {
 			worldObject.increment(Constants.ENERGY, -1);

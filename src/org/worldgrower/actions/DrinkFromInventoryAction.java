@@ -23,21 +23,26 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
+import org.worldgrower.goal.AlcoholLevelPropertyUtils;
 import org.worldgrower.gui.ImageIds;
 
 public class DrinkFromInventoryAction implements ManagedOperation {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		int water = performer.getProperty(Constants.WATER);
-		
-		water = water + 100;
-
-		performer.setProperty(Constants.WATER, water);
+		performer.increment(Constants.WATER, 100);
 		
 		int indexOfWater = performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.WATER);
-		if (performer.getProperty(Constants.INVENTORY).get(indexOfWater).hasProperty(Constants.POISON_DAMAGE) && performer.getProperty(Constants.INVENTORY).get(indexOfWater).getProperty(Constants.POISON_DAMAGE) > 0) {
+		WorldObject waterTarget = performer.getProperty(Constants.INVENTORY).get(indexOfWater);
+		if (waterTarget.hasProperty(Constants.POISON_DAMAGE) && performer.getProperty(Constants.INVENTORY).get(indexOfWater).getProperty(Constants.POISON_DAMAGE) > 0) {
 			Conditions.add(performer, Condition.POISONED_CONDITION, 20, world);
+		}
+		
+		if (waterTarget.hasProperty(Constants.ALCOHOL_LEVEL)) {
+			performer.increment(Constants.ALCOHOL_LEVEL, waterTarget.getProperty(Constants.ALCOHOL_LEVEL));
+			if (performer.getProperty(Constants.ALCOHOL_LEVEL) > AlcoholLevelPropertyUtils.getIntoxicatedLimit(performer)) {
+				Conditions.add(performer, Condition.INTOXICATED_CONDITION, Integer.MAX_VALUE, world);
+			}
 		}
 		
 		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.WATER, 1);
