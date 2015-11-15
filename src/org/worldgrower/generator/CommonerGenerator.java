@@ -160,10 +160,10 @@ public class CommonerGenerator implements Serializable {
 		properties.put(Constants.GROUP, new IdList().add(organization));
 		
 		WorldObjectContainer inventory = new WorldObjectContainer();
-		inventory.add(ItemGenerator.getIronClaymore(1.0f));
-		inventory.add(ItemGenerator.getIronGreatSword(1.0f));
-		inventory.add(ItemGenerator.getIronCuirass(1.0f));
-		inventory.add(ItemGenerator.getLongBow(1.0f));
+		inventory.add(Item.IRON_CLAYMORE.generate(1f));
+		inventory.add(Item.IRON_GREATSWORD.generate(1f));
+		inventory.add(Item.IRON_CUIRASS.generate(1f));
+		inventory.add(Item.LONGBOW.generate(1f));
 		properties.put(Constants.INVENTORY, inventory);
 		properties.put(Constants.GOLD, 100);
 		properties.put(Constants.ORGANIZATION_GOLD, 0);

@@ -20,7 +20,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.WorldObjectContainer;
-import org.worldgrower.generator.ItemGenerator;
+import org.worldgrower.generator.Item;
 
 public class WeaveClothesGoal implements Goal {
 
@@ -29,9 +29,9 @@ public class WeaveClothesGoal implements Goal {
 		if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.COTTON) < 10) {
 			return new CottonGoal().calculateGoal(performer, world);
 		} else {
-			int cottonShirtCount = performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.NAME, ItemGenerator.COTTON_SHIRT_NAME).size();
-			int cottonPantsCount = performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.NAME, ItemGenerator.COTTON_PANTS_NAME).size();
-			int cottonBootsCount = performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.NAME, ItemGenerator.COTTON_BOOTS_NAME).size();
+			int cottonShirtCount = performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.NAME, Item.COTTON_SHIRT_NAME).size();
+			int cottonPantsCount = performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.NAME, Item.COTTON_PANTS_NAME).size();
+			int cottonBootsCount = performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.NAME, Item.COTTON_BOOTS_NAME).size();
 			
 			if (cottonShirtCount == 0){
 				return new OperationInfo(performer, performer, new int[0], Actions.WEAVE_COTTON_SHIRT_ACTION);

@@ -20,7 +20,7 @@ import org.junit.Test;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.WorldObject;
-import org.worldgrower.generator.ItemGenerator;
+import org.worldgrower.generator.Item;
 
 public class UTestMeleeDamagePropertyUtils {
 
@@ -30,10 +30,10 @@ public class UTestMeleeDamagePropertyUtils {
 		
 		assertEquals(2, MeleeDamagePropertyUtils.calculateMeleeDamage(performer));
 		
-		performer.setProperty(Constants.LEFT_HAND_EQUIPMENT, ItemGenerator.getIronClaymore(1f));
+		performer.setProperty(Constants.LEFT_HAND_EQUIPMENT, Item.IRON_CLAYMORE.generate(1f));
 		assertEquals(12, MeleeDamagePropertyUtils.calculateMeleeDamage(performer));
 		
-		WorldObject twoHandedGreatsword = ItemGenerator.getIronGreatSword(1f);
+		WorldObject twoHandedGreatsword = Item.IRON_GREATSWORD.generate(1f);
 		performer.setProperty(Constants.LEFT_HAND_EQUIPMENT, twoHandedGreatsword);
 		performer.setProperty(Constants.RIGHT_HAND_EQUIPMENT, twoHandedGreatsword);
 		assertEquals(24, MeleeDamagePropertyUtils.calculateMeleeDamage(performer));
@@ -51,8 +51,8 @@ public class UTestMeleeDamagePropertyUtils {
 	public void testSetTwoHandedWeaponsRemoveTwoHandedWeapon() {
 		WorldObject performer = TestUtils.createSkilledWorldObject(1);
 		
-		WorldObject twoHandedGreatsword = ItemGenerator.getIronGreatSword(1f);
-		WorldObject oneHandedClaymore = ItemGenerator.getIronClaymore(1f);
+		WorldObject twoHandedGreatsword = Item.IRON_GREATSWORD.generate(1f);
+		WorldObject oneHandedClaymore = Item.IRON_CLAYMORE.generate(1f);
 		oneHandedClaymore.setProperty(Constants.ID, 3);
 		performer.setProperty(Constants.LEFT_HAND_EQUIPMENT, oneHandedClaymore);
 		performer.setProperty(Constants.RIGHT_HAND_EQUIPMENT, twoHandedGreatsword);

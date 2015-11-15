@@ -24,7 +24,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.creaturetype.CreatureType;
-import org.worldgrower.generator.ItemGenerator;
+import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
 
 public class CatchFishAction implements ManagedOperation {
@@ -36,7 +36,7 @@ public class CatchFishAction implements ManagedOperation {
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		WorldObjectContainer inventoryPerformer = performer.getProperty(Constants.INVENTORY);
 		
-		WorldObject harvestedFood = ItemGenerator.generateFish();
+		WorldObject harvestedFood = Item.FISH.generate(1f);
 		int quantity = performer.getProperty(Constants.LEFT_HAND_EQUIPMENT).getProperty(Constants.FISHING_POLE_QUALITY) * 4;
 		inventoryPerformer.addQuantity(harvestedFood, quantity);
 

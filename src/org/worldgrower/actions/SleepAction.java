@@ -23,7 +23,7 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.generator.ItemGenerator;
+import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
 
 public class SleepAction implements ManagedOperation {
@@ -33,7 +33,7 @@ public class SleepAction implements ManagedOperation {
 		int sleepComfort = target.getProperty(Constants.SLEEP_COMFORT);
 		int energyIncrease = 7 + sleepComfort;
 		
-		List<WorldObject> beds = target.getProperty(Constants.INVENTORY).getWorldObjects(Constants.NAME, ItemGenerator.BED_NAME);
+		List<WorldObject> beds = target.getProperty(Constants.INVENTORY).getWorldObjects(Constants.NAME, Item.BED_NAME);
 		if (beds.size() > 0) {
 			energyIncrease += beds.get(0).getProperty(Constants.SLEEP_COMFORT);
 		}

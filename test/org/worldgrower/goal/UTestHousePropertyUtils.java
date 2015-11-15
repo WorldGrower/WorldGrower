@@ -28,7 +28,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.BuildingGenerator;
-import org.worldgrower.generator.ItemGenerator;
+import org.worldgrower.generator.Item;
 
 public class UTestHousePropertyUtils {
 
@@ -113,7 +113,7 @@ public class UTestHousePropertyUtils {
 		performer.getProperty(Constants.HOUSES).add(2);
 		
 		WorldObject house = TestUtils.createIntelligentWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
-		house.getProperty(Constants.INVENTORY).add(ItemGenerator.getBed(1f));
+		house.getProperty(Constants.INVENTORY).add(Item.BED.generate(1f));
 		world.addWorldObject(house);
 		
 		assertEquals(true, HousePropertyUtils.hasHouseWithBed(performer, world));

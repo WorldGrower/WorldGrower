@@ -22,13 +22,13 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.ConstructBedAction;
-import org.worldgrower.generator.ItemGenerator;
+import org.worldgrower.generator.Item;
 
 public class FurnitureGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		boolean hasInventoryFurniture = performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.NAME, ItemGenerator.BED_NAME).size() > 0;
+		boolean hasInventoryFurniture = performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.NAME, Item.BED_NAME).size() > 0;
 		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.SLEEP_COMFORT, world);
 		if (hasInventoryFurniture) {
 			int indexOfFurniture = performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.SLEEP_COMFORT);
@@ -75,7 +75,7 @@ public class FurnitureGoal implements Goal {
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		boolean hasInventoryFurniture = performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.NAME, ItemGenerator.BED_NAME).size() > 0;
+		boolean hasInventoryFurniture = performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.NAME, Item.BED_NAME).size() > 0;
 		boolean hasHouseWithBed = HousePropertyUtils.hasHouseWithBed(performer, world);
 		
 		int inventoryFurnitureEvaluation = hasInventoryFurniture ? 1 : 0;

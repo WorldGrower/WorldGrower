@@ -24,7 +24,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
-import org.worldgrower.generator.ItemGenerator;
+import org.worldgrower.generator.Item;
 
 public class UTestWeightPropertyUtils {
 
@@ -41,7 +41,7 @@ public class UTestWeightPropertyUtils {
 		
 		assertEquals(0, WeightPropertyUtils.getTotalWeight(performer));
 		
-		performer.getProperty(Constants.INVENTORY).add(ItemGenerator.getIronCuirass(1f));
+		performer.getProperty(Constants.INVENTORY).add(Item.IRON_CUIRASS.generate(1f));
 		assertEquals(30, WeightPropertyUtils.getTotalWeight(performer));
 		
 		Conditions.add(performer, Condition.BURDENED_CONDITION, 8, world);
@@ -58,10 +58,10 @@ public class UTestWeightPropertyUtils {
 		
 		assertEquals(false, WeightPropertyUtils.isCarryingTooMuch(performer));
 		
-		performer.getProperty(Constants.INVENTORY).add(ItemGenerator.getIronCuirass(1f));
-		performer.getProperty(Constants.INVENTORY).add(ItemGenerator.getIronCuirass(1f));
-		performer.getProperty(Constants.INVENTORY).add(ItemGenerator.getIronCuirass(1f));
-		performer.getProperty(Constants.INVENTORY).add(ItemGenerator.getIronCuirass(1f));
+		performer.getProperty(Constants.INVENTORY).add(Item.IRON_CUIRASS.generate(1f));
+		performer.getProperty(Constants.INVENTORY).add(Item.IRON_CUIRASS.generate(1f));
+		performer.getProperty(Constants.INVENTORY).add(Item.IRON_CUIRASS.generate(1f));
+		performer.getProperty(Constants.INVENTORY).add(Item.IRON_CUIRASS.generate(1f));
 		assertEquals(true, WeightPropertyUtils.isCarryingTooMuch(performer));
 	}
 }

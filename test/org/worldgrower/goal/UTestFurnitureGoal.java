@@ -26,7 +26,7 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.BuildingGenerator;
-import org.worldgrower.generator.ItemGenerator;
+import org.worldgrower.generator.Item;
 import org.worldgrower.generator.PlantGenerator;
 
 public class UTestFurnitureGoal {
@@ -64,7 +64,7 @@ public class UTestFurnitureGoal {
 	public void testCalculateGoalPutBedIntoHouseNull() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
-		performer.getProperty(Constants.INVENTORY).add(ItemGenerator.getBed(1f));
+		performer.getProperty(Constants.INVENTORY).add(Item.BED.generate(1f));
 		performer.setProperty(Constants.HOUSES, new IdList());
 		
 		assertEquals(null, goal.calculateGoal(performer, world));
@@ -74,7 +74,7 @@ public class UTestFurnitureGoal {
 	public void testCalculateGoalPutBedIntoHouse() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
-		performer.getProperty(Constants.INVENTORY).add(ItemGenerator.getBed(1f));
+		performer.getProperty(Constants.INVENTORY).add(Item.BED.generate(1f));
 		performer.setProperty(Constants.HOUSES, new IdList());
 		
 		int houseId = BuildingGenerator.generateHouse(5, 5, world, 1f);

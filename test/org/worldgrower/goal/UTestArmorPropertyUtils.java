@@ -20,7 +20,7 @@ import org.junit.Test;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.WorldObject;
-import org.worldgrower.generator.ItemGenerator;
+import org.worldgrower.generator.Item;
 
 public class UTestArmorPropertyUtils {
 
@@ -30,11 +30,11 @@ public class UTestArmorPropertyUtils {
 		
 		assertEquals(0, ArmorPropertyUtils.calculateArmor(performer));
 		
-		performer.setProperty(Constants.HEAD_EQUIPMENT, ItemGenerator.getIronHelmet(1f));
-		performer.setProperty(Constants.TORSO_EQUIPMENT, ItemGenerator.getIronCuirass(1f));
-		performer.setProperty(Constants.ARMS_EQUIPMENT, ItemGenerator.getIronGauntlets(1f));
-		performer.setProperty(Constants.LEGS_EQUIPMENT, ItemGenerator.getIronGreaves(1f));
-		performer.setProperty(Constants.FEET_EQUIPMENT, ItemGenerator.getIronBoots(1f));
+		performer.setProperty(Constants.HEAD_EQUIPMENT, Item.IRON_HELMET.generate(1f));
+		performer.setProperty(Constants.TORSO_EQUIPMENT, Item.IRON_CUIRASS.generate(1f));
+		performer.setProperty(Constants.ARMS_EQUIPMENT, Item.IRON_GAUNTLETS.generate(1f));
+		performer.setProperty(Constants.LEGS_EQUIPMENT, Item.IRON_GREAVES.generate(1f));
+		performer.setProperty(Constants.FEET_EQUIPMENT, Item.IRON_BOOTS.generate(1f));
 		
 		assertEquals(26, ArmorPropertyUtils.calculateArmor(performer));
 	}

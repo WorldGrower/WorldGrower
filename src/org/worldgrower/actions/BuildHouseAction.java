@@ -24,7 +24,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.generator.BuildingGenerator;
-import org.worldgrower.generator.ItemGenerator;
+import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
 
 public class BuildHouseAction implements BuildAction {
@@ -47,7 +47,7 @@ public class BuildHouseAction implements BuildAction {
 			}
 		}
 		
-		performer.getProperty(Constants.INVENTORY).add(ItemGenerator.generateKey(id));
+		performer.getProperty(Constants.INVENTORY).add(Item.generateKey(id));
 		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.STONE, REQUIRED_STONE);
 		performer.getProperty(Constants.HOUSES).add(id);
 	}

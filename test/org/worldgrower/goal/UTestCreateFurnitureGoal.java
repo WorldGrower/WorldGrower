@@ -24,7 +24,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.WorldObjectContainer;
-import org.worldgrower.generator.ItemGenerator;
+import org.worldgrower.generator.Item;
 import org.worldgrower.generator.PlantGenerator;
 
 public class UTestCreateFurnitureGoal {
@@ -65,8 +65,8 @@ public class UTestCreateFurnitureGoal {
 		
 		assertEquals(false, goal.isGoalMet(performer, world));
 		
-		performer.getProperty(Constants.INVENTORY).add(ItemGenerator.getBed(1f));
-		performer.getProperty(Constants.INVENTORY).add(ItemGenerator.getBed(1f));
+		performer.getProperty(Constants.INVENTORY).add(Item.BED.generate(1f));
+		performer.getProperty(Constants.INVENTORY).add(Item.BED.generate(1f));
 		assertEquals(true, goal.isGoalMet(performer, world));
 	}
 	

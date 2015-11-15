@@ -22,7 +22,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
-import org.worldgrower.generator.ItemGenerator;
+import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
 
 public class WeaveCottonBootsAction implements CraftAction {
@@ -34,7 +34,7 @@ public class WeaveCottonBootsAction implements CraftAction {
 		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
 		
 		double skillBonus = SkillUtils.useSkill(performer, Constants.WEAVING_SKILL, world.getWorldStateChangedListeners());
-		inventory.addQuantity(ItemGenerator.getCottonBoots(skillBonus));
+		inventory.addQuantity(Item.COTTON_BOOTS.generate(skillBonus));
 
 		inventory.removeQuantity(Constants.COTTON, COTTON_REQUIRED);
 	}

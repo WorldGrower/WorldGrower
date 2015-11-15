@@ -22,7 +22,6 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
-import org.worldgrower.generator.ItemGenerator;
 import org.worldgrower.gui.ImageIds;
 
 public class MintGoldAction implements CraftAction {
@@ -34,7 +33,6 @@ public class MintGoldAction implements CraftAction {
 		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
 		
 		double skillBonus = SkillUtils.useSkill(performer, Constants.SMITHING_SKILL, world.getWorldStateChangedListeners());
-		inventory.addQuantity(ItemGenerator.getIronBoots(skillBonus));
 		int goldMinted = (int) (20 * skillBonus);
 		performer.increment(Constants.GOLD, goldMinted);
 

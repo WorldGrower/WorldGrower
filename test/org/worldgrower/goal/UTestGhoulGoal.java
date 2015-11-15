@@ -26,7 +26,7 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.MockCommonerNameGenerator;
 import org.worldgrower.condition.GhoulUtils;
 import org.worldgrower.generator.CommonerGenerator;
-import org.worldgrower.generator.ItemGenerator;
+import org.worldgrower.generator.Item;
 import org.worldgrower.gui.CommonerImageIds;
 
 public class UTestGhoulGoal {
@@ -59,7 +59,7 @@ public class UTestGhoulGoal {
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
 		
-		WorldObject collectedMeat = ItemGenerator.generateMeat();
+		WorldObject collectedMeat = Item.MEAT.generate(1f);
 		collectedMeat.setProperty(Constants.CREATURE_TYPE, performer.getProperty(Constants.CREATURE_TYPE));
 		performer.getProperty(Constants.INVENTORY).add(collectedMeat);
 		

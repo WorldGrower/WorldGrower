@@ -25,7 +25,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.generator.CommonerGenerator;
-import org.worldgrower.generator.ItemGenerator;
+import org.worldgrower.generator.Item;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.gui.CommonerImageIds;
 
@@ -49,7 +49,7 @@ public class UTestAttackUtils {
 		AttackUtils.damageEquipment(performer, Constants.TORSO_EQUIPMENT, 5);
 		assertEquals(null, performer.getProperty(Constants.TORSO_EQUIPMENT));
 		
-		performer.setProperty(Constants.TORSO_EQUIPMENT, ItemGenerator.getIronCuirass(1f));
+		performer.setProperty(Constants.TORSO_EQUIPMENT, Item.IRON_CUIRASS.generate(1f));
 		AttackUtils.damageEquipment(performer, Constants.TORSO_EQUIPMENT, 5);
 		assertEquals(995, performer.getProperty(Constants.TORSO_EQUIPMENT).getProperty(Constants.EQUIPMENT_HEALTH).intValue());
 	}
@@ -85,7 +85,7 @@ public class UTestAttackUtils {
 		
 		assertEquals(1, AttackUtils.distanceWithLeftHandByProperty(performer, target, Constants.FISHING_POLE_QUALITY, 5));
 		
-		performer.setProperty(Constants.LEFT_HAND_EQUIPMENT, ItemGenerator.getFishingPole(1f));
+		performer.setProperty(Constants.LEFT_HAND_EQUIPMENT, Item.FISHING_POLE.generate(1f));
 		assertEquals(0, AttackUtils.distanceWithLeftHandByProperty(performer, target, Constants.FISHING_POLE_QUALITY, 5));
 		
 		target.setProperty(Constants.X, 10);
@@ -100,7 +100,7 @@ public class UTestAttackUtils {
 		
 		assertEquals(0, AttackUtils.distanceWithFreeLeftHand(performer, target, 5));
 		
-		performer.setProperty(Constants.LEFT_HAND_EQUIPMENT, ItemGenerator.getIronClaymore(1f));
+		performer.setProperty(Constants.LEFT_HAND_EQUIPMENT, Item.IRON_CLAYMORE.generate(1f));
 		assertEquals(1, AttackUtils.distanceWithFreeLeftHand(performer, target, 5));
 		
 		target.setProperty(Constants.X, 10);
@@ -114,10 +114,10 @@ public class UTestAttackUtils {
 		
 		assertEquals(Constants.HAND_TO_HAND_SKILL, AttackUtils.determineSkill(performer));
 		
-		performer.setProperty(Constants.LEFT_HAND_EQUIPMENT, ItemGenerator.getIronClaymore(1f));
+		performer.setProperty(Constants.LEFT_HAND_EQUIPMENT, Item.IRON_CLAYMORE.generate(1f));
 		assertEquals(Constants.ONE_HANDED_SKILL, AttackUtils.determineSkill(performer));
 		
-		WorldObject ironGreatSword = ItemGenerator.getIronGreatSword(1f);
+		WorldObject ironGreatSword = Item.IRON_GREATSWORD.generate(1f);
 		performer.setProperty(Constants.LEFT_HAND_EQUIPMENT, ironGreatSword);
 		performer.setProperty(Constants.RIGHT_HAND_EQUIPMENT, ironGreatSword);
 		assertEquals(Constants.TWO_HANDED_SKILL, AttackUtils.determineSkill(performer));

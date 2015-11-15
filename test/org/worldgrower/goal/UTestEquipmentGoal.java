@@ -24,7 +24,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.WorldObjectContainer;
-import org.worldgrower.generator.ItemGenerator;
+import org.worldgrower.generator.Item;
 
 public class UTestEquipmentGoal {
 
@@ -54,7 +54,7 @@ public class UTestEquipmentGoal {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
 
-		performer.getProperty(Constants.INVENTORY).addQuantity(ItemGenerator.getIronClaymore(1f));
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_CLAYMORE.generate(1f));
 		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.WOOD, 20, null);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.ORE, 20, null);
 		

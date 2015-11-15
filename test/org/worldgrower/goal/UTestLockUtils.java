@@ -21,7 +21,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
-import org.worldgrower.generator.ItemGenerator;
+import org.worldgrower.generator.Item;
 
 public class UTestLockUtils {
 
@@ -32,7 +32,7 @@ public class UTestLockUtils {
 		
 		assertEquals(false, LockUtils.performerHasKey(performer, target));
 		
-		performer.getProperty(Constants.INVENTORY).add(ItemGenerator.generateKey(target.getProperty(Constants.ID)));
+		performer.getProperty(Constants.INVENTORY).add(Item.generateKey(target.getProperty(Constants.ID)));
 		assertEquals(true, LockUtils.performerHasKey(performer, target));
 	}
 	

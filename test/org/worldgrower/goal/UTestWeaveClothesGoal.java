@@ -24,7 +24,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.WorldObjectContainer;
-import org.worldgrower.generator.ItemGenerator;
+import org.worldgrower.generator.Item;
 
 public class UTestWeaveClothesGoal {
 
@@ -56,7 +56,7 @@ public class UTestWeaveClothesGoal {
 		
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
 		performerInventory.addQuantity(Constants.COTTON, 20, null);
-		performerInventory.addQuantity(ItemGenerator.getCottonShirt(1f));
+		performerInventory.addQuantity(Item.COTTON_SHIRT.generate(1f));
 		
 		assertEquals(Actions.WEAVE_COTTON_PANTS_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
@@ -68,8 +68,8 @@ public class UTestWeaveClothesGoal {
 		
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
 		performerInventory.addQuantity(Constants.COTTON, 20, null);
-		performerInventory.addQuantity(ItemGenerator.getCottonShirt(1f));
-		performerInventory.addQuantity(ItemGenerator.getCottonPants(1f));
+		performerInventory.addQuantity(Item.COTTON_SHIRT.generate(1f));
+		performerInventory.addQuantity(Item.COTTON_PANTS.generate(1f));
 		
 		assertEquals(Actions.WEAVE_COTTON_BOOTS_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
@@ -81,9 +81,9 @@ public class UTestWeaveClothesGoal {
 		
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
 		performerInventory.addQuantity(Constants.COTTON, 20, null);
-		performerInventory.addQuantity(ItemGenerator.getCottonShirt(1f));
-		performerInventory.addQuantity(ItemGenerator.getCottonPants(1f));
-		performerInventory.addQuantity(ItemGenerator.getCottonBoots(1f));
+		performerInventory.addQuantity(Item.COTTON_SHIRT.generate(1f));
+		performerInventory.addQuantity(Item.COTTON_PANTS.generate(1f));
+		performerInventory.addQuantity(Item.COTTON_BOOTS.generate(1f));
 		
 		assertEquals(null, goal.calculateGoal(performer, world));
 	}
@@ -98,7 +98,7 @@ public class UTestWeaveClothesGoal {
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
 		
 		for(int i=0; i<10; i++) {
-			performerInventory.addQuantity(ItemGenerator.getCottonShirt(1f));
+			performerInventory.addQuantity(Item.COTTON_SHIRT.generate(1f));
 		}
 		
 		assertEquals(true, goal.isGoalMet(performer, world));

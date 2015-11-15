@@ -23,7 +23,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
-import org.worldgrower.generator.ItemGenerator;
+import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
 
 public class ExtractOilAction implements ManagedOperation {
@@ -32,7 +32,7 @@ public class ExtractOilAction implements ManagedOperation {
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		WorldObjectContainer inventoryPerformer = performer.getProperty(Constants.INVENTORY);
 		
-		WorldObject harvestedOil = ItemGenerator.generateOil(); 
+		WorldObject harvestedOil = Item.OIL.generate(1f); 
 		inventoryPerformer.addQuantity(harvestedOil);
 
 		target.increment(Constants.OIL_SOURCE, -10);

@@ -28,14 +28,14 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.PropertyCountMap;
 import org.worldgrower.attribute.WorldObjectContainer;
-import org.worldgrower.generator.ItemGenerator;
+import org.worldgrower.generator.Item;
 
 public class UTestBuySellUtils {
 
 	@Test
 	public void testGetPrice() {
 		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.INVENTORY, new WorldObjectContainer());
-		performer.getProperty(Constants.INVENTORY).add(ItemGenerator.getIronCuirass(0f));
+		performer.getProperty(Constants.INVENTORY).add(Item.IRON_CUIRASS.generate(0f));
 		performer.setProperty(Constants.PROFIT_PERCENTAGE, 100);
 		
 		assertEquals(600, BuySellUtils.getPrice(performer, 0));
@@ -44,7 +44,7 @@ public class UTestBuySellUtils {
 	@Test
 	public void testGetDemandGoods() {
 		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.DEMANDS, new PropertyCountMap<ManagedProperty<?>>());
-		WorldObject inventoryItem = ItemGenerator.generateBerries();
+		WorldObject inventoryItem = Item.BERRIES.generate(1f);
 		
 		assertEquals(false, BuySellUtils.hasDemandForInventoryItemGoods(performer, inventoryItem));
 		
@@ -58,7 +58,7 @@ public class UTestBuySellUtils {
 		performer.setProperty(Constants.GOLD, 0);
 		
 		WorldObject target = TestUtils.createIntelligentWorldObject(0, Constants.INVENTORY, new WorldObjectContainer());
-		WorldObject inventoryItem = ItemGenerator.generateBerries();
+		WorldObject inventoryItem = Item.BERRIES.generate(1f);
 		target.getProperty(Constants.INVENTORY).add(inventoryItem);
 		target.setProperty(Constants.PROFIT_PERCENTAGE, 100);
 		
@@ -77,7 +77,7 @@ public class UTestBuySellUtils {
 		assertEquals(null, BuySellUtils.getBuyOperationInfo(performer, Constants.FOOD, world));
 		
 		WorldObject target = TestUtils.createIntelligentWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
-		WorldObject inventoryItem = ItemGenerator.generateBerries();
+		WorldObject inventoryItem = Item.BERRIES.generate(1f);
 		inventoryItem.setProperty(Constants.SELLABLE, Boolean.TRUE);
 		target.getProperty(Constants.INVENTORY).addQuantity(inventoryItem);
 		target.setProperty(Constants.PROFIT_PERCENTAGE, 100);
@@ -95,7 +95,7 @@ public class UTestBuySellUtils {
 		assertEquals(null, BuySellUtils.getBuyOperationInfo(performer, Constants.FOOD, world));
 		
 		WorldObject target = TestUtils.createIntelligentWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
-		WorldObject inventoryItem = ItemGenerator.getIronCuirass(1f);
+		WorldObject inventoryItem = Item.IRON_CUIRASS.generate(1f);
 		inventoryItem.setProperty(Constants.SELLABLE, Boolean.TRUE);
 		target.getProperty(Constants.INVENTORY).addQuantity(inventoryItem);
 		target.setProperty(Constants.PROFIT_PERCENTAGE, 100);
@@ -112,7 +112,7 @@ public class UTestBuySellUtils {
 		WorldObject target = TestUtils.createIntelligentWorldObject(0, Constants.INVENTORY, new WorldObjectContainer());
 		target.setProperty(Constants.GOLD, 100);
 		
-		WorldObject inventoryItem = ItemGenerator.generateBerries();
+		WorldObject inventoryItem = Item.BERRIES.generate(1f);
 		performer.getProperty(Constants.INVENTORY).add(inventoryItem);
 		performer.setProperty(Constants.PROFIT_PERCENTAGE, 100);
 		
@@ -132,11 +132,11 @@ public class UTestBuySellUtils {
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
 		world.addWorldObject(target);
-		WorldObject cottonShirt = ItemGenerator.getCottonShirt(1f);
+		WorldObject cottonShirt = Item.COTTON_SHIRT.generate(1f);
 		cottonShirt.setProperty(Constants.SELLABLE, Boolean.TRUE);
 		target.getProperty(Constants.INVENTORY).add(cottonShirt);
 		
-		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.NAME, ItemGenerator.COTTON_SHIRT_NAME, world);
+		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.NAME, Item.COTTON_SHIRT_NAME, world);
 		assertEquals(1, targets.size());
 		assertEquals(target, targets.get(0));
 	}

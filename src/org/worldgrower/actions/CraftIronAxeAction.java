@@ -22,7 +22,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
-import org.worldgrower.generator.ItemGenerator;
+import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
 
 public class CraftIronAxeAction implements CraftAction {
@@ -35,7 +35,7 @@ public class CraftIronAxeAction implements CraftAction {
 		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
 		
 		double skillBonus = SkillUtils.useSkill(performer, Constants.SMITHING_SKILL, world.getWorldStateChangedListeners());
-		inventory.addQuantity(ItemGenerator.getIronAxe(skillBonus));
+		inventory.addQuantity(Item.IRON_AXE.generate(skillBonus));
 
 		inventory.removeQuantity(Constants.WOOD, WOOD_REQUIRED);
 		inventory.removeQuantity(Constants.ORE, ORE_REQUIRED);

@@ -27,7 +27,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.BuildingGenerator;
-import org.worldgrower.generator.ItemGenerator;
+import org.worldgrower.generator.Item;
 import org.worldgrower.generator.PlantGenerator;
 
 public class UTestScribeWizardSpellsGoal {
@@ -89,8 +89,8 @@ public class UTestScribeWizardSpellsGoal {
 		int libraryId = BuildingGenerator.generateLibrary(5, 5, world);
 		WorldObject library = world.findWorldObject(Constants.ID, libraryId);
 		
-		library.getProperty(Constants.INVENTORY).add(ItemGenerator.generateSpellBook(Actions.FIRE_BOLT_ATTACK_ACTION));
-		library.getProperty(Constants.INVENTORY).add(ItemGenerator.generateSpellBook(Actions.RAY_OF_FROST_ATTACK_ACTION));
+		library.getProperty(Constants.INVENTORY).add(Item.generateSpellBook(Actions.FIRE_BOLT_ATTACK_ACTION));
+		library.getProperty(Constants.INVENTORY).add(Item.generateSpellBook(Actions.RAY_OF_FROST_ATTACK_ACTION));
 		assertEquals(true, goal.isGoalMet(performer, world));
 	}
 

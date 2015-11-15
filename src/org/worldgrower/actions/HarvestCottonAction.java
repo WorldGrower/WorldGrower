@@ -23,7 +23,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
-import org.worldgrower.generator.ItemGenerator;
+import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
 
 public class HarvestCottonAction implements ManagedOperation {
@@ -32,7 +32,7 @@ public class HarvestCottonAction implements ManagedOperation {
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		WorldObjectContainer inventoryPerformer = performer.getProperty(Constants.INVENTORY);
 		
-		WorldObject harvestedCotton = ItemGenerator.generateCotton(); 
+		WorldObject harvestedCotton = Item.COTTON.generate(1f);
 		inventoryPerformer.addQuantity(harvestedCotton);
 
 		target.increment(Constants.COTTON_SOURCE, -20);

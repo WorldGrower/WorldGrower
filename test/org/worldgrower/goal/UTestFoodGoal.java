@@ -24,7 +24,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.WorldObjectContainer;
-import org.worldgrower.generator.ItemGenerator;
+import org.worldgrower.generator.Item;
 import org.worldgrower.generator.PlantGenerator;
 
 public class UTestFoodGoal {
@@ -43,7 +43,7 @@ public class UTestFoodGoal {
 	public void testCalculateGoalInventoryFood() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
-		performer.getProperty(Constants.INVENTORY).addQuantity(ItemGenerator.generateBerries());
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.BERRIES.generate(1f));
 		
 		assertEquals(Actions.EAT_FROM_INVENTORY_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}

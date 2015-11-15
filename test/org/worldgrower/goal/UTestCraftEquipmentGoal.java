@@ -24,7 +24,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.WorldObjectContainer;
-import org.worldgrower.generator.ItemGenerator;
+import org.worldgrower.generator.Item;
 import org.worldgrower.generator.PlantGenerator;
 import org.worldgrower.generator.TerrainGenerator;
 
@@ -77,7 +77,7 @@ public class UTestCraftEquipmentGoal {
 		WorldObject performer = createPerformer();
 		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.WOOD, 20, null);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.ORE, 10, null);
-		performer.getProperty(Constants.INVENTORY).addQuantity(ItemGenerator.getIronClaymore(1f));
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_CLAYMORE.generate(1f));
 		
 		assertEquals(Actions.CRAFT_IRON_CUIRASS_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
@@ -88,8 +88,8 @@ public class UTestCraftEquipmentGoal {
 		WorldObject performer = createPerformer();
 		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.WOOD, 20, null);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.ORE, 10, null);
-		performer.getProperty(Constants.INVENTORY).addQuantity(ItemGenerator.getIronClaymore(1f));
-		performer.getProperty(Constants.INVENTORY).addQuantity(ItemGenerator.getIronCuirass(1f));
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_CLAYMORE.generate(1f));
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_CUIRASS.generate(1f));
 		
 		assertEquals(Actions.CRAFT_IRON_HELMET_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}

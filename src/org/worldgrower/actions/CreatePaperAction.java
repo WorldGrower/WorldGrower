@@ -21,7 +21,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
-import org.worldgrower.generator.ItemGenerator;
+import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
 
 public class CreatePaperAction implements CraftAction {
@@ -33,7 +33,7 @@ public class CreatePaperAction implements CraftAction {
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
 		
-		inventory.addQuantity(ItemGenerator.generatePaper());
+		inventory.addQuantity(Item.PAPER.generate(1f));
 		
 		inventory.removeQuantity(Constants.WATER, WATER_REQUIRED);
 		inventory.removeQuantity(Constants.WOOD, WOOD_REQUIRED);

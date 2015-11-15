@@ -23,7 +23,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
-import org.worldgrower.generator.ItemGenerator;
+import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
 
 public class ButcherAction implements ManagedOperation {
@@ -32,7 +32,7 @@ public class ButcherAction implements ManagedOperation {
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		WorldObjectContainer inventoryPerformer = performer.getProperty(Constants.INVENTORY);
 		
-		WorldObject collectedMeat = ItemGenerator.generateMeat();
+		WorldObject collectedMeat = Item.MEAT.generate(1f);
 		collectedMeat.setProperty(Constants.CREATURE_TYPE, target.getProperty(Constants.CREATURE_TYPE));
 		int quantity = target.getProperty(Constants.MEAT_SOURCE);
 		

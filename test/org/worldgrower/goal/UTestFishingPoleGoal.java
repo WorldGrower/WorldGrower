@@ -24,7 +24,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.WorldObjectContainer;
-import org.worldgrower.generator.ItemGenerator;
+import org.worldgrower.generator.Item;
 import org.worldgrower.generator.PlantGenerator;
 
 public class UTestFishingPoleGoal {
@@ -65,7 +65,7 @@ public class UTestFishingPoleGoal {
 		
 		assertEquals(false, goal.isGoalMet(performer, world));
 		
-		performer.getProperty(Constants.INVENTORY).addQuantity(ItemGenerator.getFishingPole(1f));
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.FISHING_POLE.generate(1f));
 		assertEquals(true, goal.isGoalMet(performer, world));
 	}
 

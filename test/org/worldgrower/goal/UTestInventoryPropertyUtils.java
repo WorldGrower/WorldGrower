@@ -20,7 +20,7 @@ import org.junit.Test;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.WorldObject;
-import org.worldgrower.generator.ItemGenerator;
+import org.worldgrower.generator.Item;
 
 public class UTestInventoryPropertyUtils {
 
@@ -28,10 +28,10 @@ public class UTestInventoryPropertyUtils {
 	public void testCleanupEquipmentSlots() {
 		WorldObject performer = TestUtils.createIntelligentWorldObject(0, "Test");
 		
-		WorldObject ironCuirass = ItemGenerator.getIronCuirass(1f);
+		WorldObject ironCuirass = Item.IRON_CUIRASS.generate(1f);
 		performer.getProperty(Constants.INVENTORY).add(ironCuirass);
 		performer.setProperty(Constants.TORSO_EQUIPMENT, ironCuirass);
-		performer.setProperty(Constants.HEAD_EQUIPMENT, ItemGenerator.getIronHelmet(1f));
+		performer.setProperty(Constants.HEAD_EQUIPMENT, Item.IRON_HELMET.generate(1f));
 		
 		InventoryPropertyUtils.cleanupEquipmentSlots(performer);
 		

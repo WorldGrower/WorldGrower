@@ -24,7 +24,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.WorldObjectContainer;
-import org.worldgrower.generator.ItemGenerator;
+import org.worldgrower.generator.Item;
 
 public class UTestBuyClothesGoal {
 
@@ -44,7 +44,7 @@ public class UTestBuyClothesGoal {
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
 		world.addWorldObject(target);
-		WorldObject cottonShirt = ItemGenerator.getCottonShirt(1f);
+		WorldObject cottonShirt = Item.COTTON_SHIRT.generate(1f);
 		cottonShirt.setProperty(Constants.SELLABLE, Boolean.TRUE);
 		target.getProperty(Constants.INVENTORY).add(cottonShirt);
 		
@@ -58,10 +58,10 @@ public class UTestBuyClothesGoal {
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
 		world.addWorldObject(target);
 		
-		WorldObject cottonShirt = ItemGenerator.getCottonShirt(1f);
+		WorldObject cottonShirt = Item.COTTON_SHIRT.generate(1f);
 		performer.getProperty(Constants.INVENTORY).add(cottonShirt);
 		
-		WorldObject cottonPants = ItemGenerator.getCottonPants(1f);
+		WorldObject cottonPants = Item.COTTON_PANTS.generate(1f);
 		cottonPants.setProperty(Constants.SELLABLE, Boolean.TRUE);
 		target.getProperty(Constants.INVENTORY).add(cottonPants);
 		

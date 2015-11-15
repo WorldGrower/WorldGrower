@@ -19,10 +19,8 @@ import static org.junit.Assert.assertEquals;
 import java.util.List;
 
 import org.junit.Test;
-import org.worldgrower.Constants;
-import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
-import org.worldgrower.generator.ItemGenerator;
+import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
 
 public class UTestWorldObjectContainer {
@@ -140,7 +138,7 @@ public class UTestWorldObjectContainer {
 	@Test
 	public void testGetIndexForWithFunctionAndEquipment() {
 		WorldObjectContainer container = new WorldObjectContainer();
-		container.add(ItemGenerator.getIronCuirass(1f));
+		container.add(Item.IRON_CUIRASS.generate(1f));
 		container.addQuantity(Constants.FOOD, 10, NO_IMAGE_ID);
 		
 		assertEquals(0, container.getIndexFor(Constants.EQUIPMENT_SLOT, Constants.TORSO_EQUIPMENT, w -> w.getProperty(Constants.ARMOR) > 0));

@@ -27,7 +27,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdRelationshipMap;
 import org.worldgrower.attribute.WorldObjectContainer;
-import org.worldgrower.generator.ItemGenerator;
+import org.worldgrower.generator.Item;
 import org.worldgrower.goal.GroupPropertyUtils;
 
 public class UTestGiveFoodConversation {
@@ -74,7 +74,7 @@ public class UTestGiveFoodConversation {
 		WorldObject target = TestUtils.createSkilledWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		
 		performer.setProperty(Constants.INVENTORY, new WorldObjectContainer());
-		performer.getProperty(Constants.INVENTORY).add(ItemGenerator.generateBerries());
+		performer.getProperty(Constants.INVENTORY).add(Item.BERRIES.generate(1f));
 		target.setProperty(Constants.INVENTORY, new WorldObjectContainer());
 		
 		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
@@ -107,7 +107,7 @@ public class UTestGiveFoodConversation {
 		
 		assertEquals(false, conversation.isConversationAvailable(performer, target, null, world));
 		
-		performer.getProperty(Constants.INVENTORY).addQuantity(ItemGenerator.generateBerries());
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.BERRIES.generate(1f));
 		assertEquals(true, conversation.isConversationAvailable(performer, target, null, world));
 	}
 }

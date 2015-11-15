@@ -22,7 +22,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.generator.BuildingGenerator;
-import org.worldgrower.generator.ItemGenerator;
+import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
 
 public class BuildLibraryAction implements BuildAction {
@@ -36,7 +36,7 @@ public class BuildLibraryAction implements BuildAction {
 		
 		int libraryId = BuildingGenerator.generateLibrary(x, y, world);
 		
-		performer.getProperty(Constants.INVENTORY).add(ItemGenerator.generateKey(libraryId));
+		performer.getProperty(Constants.INVENTORY).add(Item.generateKey(libraryId));
 		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.WOOD, REQUIRED_WOOD);
 	}
 
