@@ -40,6 +40,19 @@ public class UTestArenaPropertyUtils {
 	}
 	
 	@Test
+	public void testPeopleAreScheduledToFightInArena() {
+		World world = new WorldImpl(0, 0, null, new DoNothingWorldOnTurn());
+		WorldObject arenaOwner = TestUtils.createIntelligentWorldObject(1, Constants.ARENA_FIGHTER_IDS, new IdList());
+		
+		assertEquals(false, ArenaPropertyUtils.peopleAreScheduledToFightInArena(arenaOwner, world));
+		
+		WorldObject fighter = TestUtils.createIntelligentWorldObject(2, Constants.ARENA_OPPONENT_ID, 3);
+		world.addWorldObject(fighter);
+		arenaOwner.getProperty(Constants.ARENA_FIGHTER_IDS).add(fighter);
+		assertEquals(true, ArenaPropertyUtils.peopleAreScheduledToFightInArena(arenaOwner, world));
+	}
+	
+	@Test
 	public void testPersonCanCollectPayCheck() {
 		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.GROUP, new IdList());
 		assertEquals(false, ArenaPropertyUtils.personCanCollectPayCheck(performer));

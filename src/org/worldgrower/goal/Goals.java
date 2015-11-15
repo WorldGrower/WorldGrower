@@ -112,4 +112,5 @@ public class Goals {
 	public static final FeedOthersGoal FEED_OTHERS_GOAL = new FeedOthersGoal();
 	public static final ResearchMagicSkillsKnowledgeGoal RESEARCH_MAGIC_SKILLS_KNOWLEDGE_GOAL = new ResearchMagicSkillsKnowledgeGoal();
 	public static final GhoulGoal GHOUL_GOAL = new GhoulGoal();
+	public static final CreatePoisonGoal CREATE_POISON_GOAL = new CreatePoisonGoal();
 }
