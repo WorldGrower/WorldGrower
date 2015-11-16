@@ -23,15 +23,21 @@ public class Question {
 	private final String questionPhrase;
 	private int historyItemId = -1;
 	private final int additionalValue;
+	private final int additionalValue2;
 	
 	public Question(WorldObject subject, String questionPhrase) {
 		this(subject, questionPhrase, 0);
 	}
 	
 	public Question(WorldObject subject, String questionPhrase, int additionalValue) {
+		this(subject, questionPhrase, additionalValue, 0);
+	}
+	
+	public Question(WorldObject subject, String questionPhrase, int additionalValue, int additionalValue2) {
 		this.subjectId = (subject != null ? subject.getProperty(Constants.ID) : -1);
 		this.questionPhrase = questionPhrase;
 		this.additionalValue = additionalValue;
+		this.additionalValue2 = additionalValue2;
 	}
 
 	public int getId() {
@@ -60,6 +66,10 @@ public class Question {
 
 	public int getAdditionalValue() {
 		return additionalValue;
+	}
+
+	public int getAdditionalValue2() {
+		return additionalValue2;
 	}
 
 	@Override

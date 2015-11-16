@@ -121,7 +121,7 @@ public class CommonerGenerator implements Serializable {
 		properties.put(Constants.BACKGROUND, new BackgroundImpl());
 		properties.put(Constants.GOLD, 100);
 		properties.put(Constants.ORGANIZATION_GOLD, 0);
-		properties.put(Constants.PROFIT_PERCENTAGE, 0);
+		properties.put(Constants.PRICES, new HashMap<>());
 		properties.put(Constants.HOUSES, new IdList());
 		properties.put(Constants.GROUP, new IdList().add(organization));
 		properties.put(Constants.KNOWLEDGE_MAP, new KnowledgeMap());
@@ -167,7 +167,7 @@ public class CommonerGenerator implements Serializable {
 		properties.put(Constants.INVENTORY, inventory);
 		properties.put(Constants.GOLD, 100);
 		properties.put(Constants.ORGANIZATION_GOLD, 0);
-		properties.put(Constants.PROFIT_PERCENTAGE, 0);
+		properties.put(Constants.PRICES, new HashMap<>());
 		
 		properties.put(Constants.PROFESSION, new PlayerCharacterProfession(playerProfession));
 		properties.put(Constants.RELATIONSHIPS, new IdRelationshipMap());

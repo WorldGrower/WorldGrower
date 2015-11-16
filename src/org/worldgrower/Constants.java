@@ -16,6 +16,7 @@ package org.worldgrower;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.worldgrower.actions.legal.LegalActions;
 import org.worldgrower.actions.magic.MagicSpell;
@@ -28,6 +29,7 @@ import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.KnowledgeMapProperty;
 import org.worldgrower.attribute.LookDirection;
 import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.attribute.PropertyCountMap;
 import org.worldgrower.attribute.PropertyCountMapProperty;
 import org.worldgrower.attribute.Reasons;
 import org.worldgrower.attribute.SkillProperty;
@@ -39,6 +41,7 @@ import org.worldgrower.condition.Conditions;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.curse.Curse;
 import org.worldgrower.deity.Deity;
+import org.worldgrower.generator.Item;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.profession.Profession;
@@ -165,7 +168,7 @@ public class Constants {
 
 	public static final WorldObjectContainerProperty INVENTORY = new WorldObjectContainerProperty("inventory", ALL_PROPERTIES);
 	public static final IntProperty PRICE = new IntProperty("price", 0, null, NULLABLE, ALL_PROPERTIES);
-	public static final IntProperty PROFIT_PERCENTAGE = new IntProperty("profitPercentage", null, null, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final UnCheckedProperty<Map<Item, Integer>> PRICES = new UnCheckedProperty<Map<Item, Integer>>("prices", ALL_PROPERTIES);
 	public static final BooleanProperty SELLABLE = new BooleanProperty("sellable", NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty QUANTITY = new IntProperty("quantity", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty GOLD = new IntProperty("gold", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
@@ -253,6 +256,7 @@ public class Constants {
 	public static final IntProperty WORSHIP_COUNTER = new IntProperty("worshipCounter", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	
 	public static final IntProperty ALCOHOL_LEVEL = new IntProperty("alcoholLevel", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final UnCheckedProperty<Item> ITEM_ID = new UnCheckedProperty<>("itemId", ALL_PROPERTIES);
 	
 	//special property not used in WorldObject
 	public static final IntProperty DISTANCE = new IntProperty("distance", 0, null, NOT_NULLABLE, ALL_PROPERTIES);

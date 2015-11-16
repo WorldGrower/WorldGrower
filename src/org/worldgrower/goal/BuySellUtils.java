@@ -15,6 +15,7 @@
 package org.worldgrower.goal;
 
 import java.util.List;
+import java.util.Map;
 
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
@@ -25,6 +26,7 @@ import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.StringProperty;
 import org.worldgrower.attribute.UnCheckedProperty;
+import org.worldgrower.generator.Item;
 
 public class BuySellUtils {
 
@@ -69,8 +71,11 @@ public class BuySellUtils {
 			throw new IllegalStateException("WorldObject " + worldObject + " has no price");
 		}
 		int price = worldObject.getProperty(Constants.PRICE);
-		int profitPercentage = performer.getProperty(Constants.PROFIT_PERCENTAGE);
-		price = price + ((price * profitPercentage) / 100);
+		Map<Item, Integer> prices = performer.getProperty(Constants.PRICES);
+		Item key = worldObject.getProperty(Constants.ITEM_ID);
+		if (prices.containsKey(key)) {
+				price = prices.get(key);
+		}
 		return price;
 	}
 

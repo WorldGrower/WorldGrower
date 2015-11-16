@@ -39,19 +39,20 @@ public class TalkAction implements ManagedOperation {
 		int subjectId = args[1];
 		int historyItemId = args[2];
 		int additionalValue = args[3];
+		int additionalValue2 = args[4];
 		Response answer = null;
 		
 		// if target is controlled by AI, the AI will respond.
 		// otherwise, a gui will be shown to a player by world.logAction
 		if (target.isControlledByAI()) {
-			answer = conversations.getReplyPhrase(question, subjectId, historyItemId, performer, target, world, additionalValue);
+			answer = conversations.getReplyPhrase(question, subjectId, historyItemId, performer, target, world, additionalValue, additionalValue2);
 			
 			WorldObject performerFacade = createFacade(performer, performer, target, world);
 			WorldObject targetFacade = createFacade(target, performer, target, world);
 			
 			RelationshipPropertyUtils.changeRelationshipValueUsingFacades(performer, target, 1, this, args, world);
 			
-			conversations.handleResponse(answer.getId(), question, subjectId, historyItemId, performerFacade, targetFacade, world, additionalValue);
+			conversations.handleResponse(answer.getId(), question, subjectId, historyItemId, performerFacade, targetFacade, world, additionalValue, additionalValue2);
 			
 			performer.increment(Constants.SOCIAL, 70);
 			target.increment(Constants.SOCIAL, 70);

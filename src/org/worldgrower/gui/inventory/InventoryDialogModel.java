@@ -15,10 +15,12 @@
 package org.worldgrower.gui.inventory;
 
 import java.awt.Image;
+import java.util.Map;
 
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.Item;
 import org.worldgrower.goal.WeightPropertyUtils;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
@@ -98,5 +100,9 @@ public class InventoryDialogModel {
 	
 	public boolean hasTarget() {
 		return target != null;
+	}
+
+	public Map<Item, Integer> getPlayerCharacterPrices() {
+		return playerCharacter.getProperty(Constants.PRICES);
 	}
 }

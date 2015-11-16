@@ -50,8 +50,6 @@ public class UTestSellHouseConversation {
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.HOUSES, new IdList().add(3));
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.GOLD, 100);
 		
-		performer.setProperty(Constants.PROFIT_PERCENTAGE, 0);
-		
 		WorldObject house = TestUtils.createWorldObject(3, "house");
 		house.setProperty(Constants.PRICE, 100);
 		world.addWorldObject(house);
@@ -76,7 +74,6 @@ public class UTestSellHouseConversation {
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.HOUSES, new IdList().add(3));
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.HOUSES, new IdList());
 		
-		performer.setProperty(Constants.PROFIT_PERCENTAGE, 0);
 		performer.setProperty(Constants.GOLD, 0);
 		target.setProperty(Constants.GOLD, 200);
 		

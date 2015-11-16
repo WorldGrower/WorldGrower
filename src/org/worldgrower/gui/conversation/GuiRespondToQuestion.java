@@ -44,8 +44,8 @@ public class GuiRespondToQuestion implements Questioner, ManagedOperationListene
 	}
 
 	@Override
-	public List<Response> getResponsePhrases(int id, int subjectId, int historyItemId, int additionalValue) {
-		return conversations.getReplyPhrases(id, subjectId, historyItemId, performer, playerCharacter, world, additionalValue);
+	public List<Response> getResponsePhrases(int id, int subjectId, int historyItemId, int additionalValue, int additionalValue2) {
+		return conversations.getReplyPhrases(id, subjectId, historyItemId, performer, playerCharacter, world, additionalValue, additionalValue2);
 	}
 
 	@Override
@@ -58,9 +58,9 @@ public class GuiRespondToQuestion implements Questioner, ManagedOperationListene
 			ImageIds imageIdTarget = target.getProperty(Constants.IMAGE_ID);
 			String performerName = performer.getProperty(Constants.NAME);
 			String targetName = target.getProperty(Constants.NAME);
-			RespondToQuestionDialog dialog = new RespondToQuestionDialog(args[0], args[1], args[2], args[3], GuiRespondToQuestion.this, conversations, imageIdPerformer, imageIdTarget, performerName, targetName, imageInfoReader);
+			RespondToQuestionDialog dialog = new RespondToQuestionDialog(args[0], args[1], args[2], args[3], args[4], GuiRespondToQuestion.this, conversations, imageIdPerformer, imageIdTarget, performerName, targetName, imageInfoReader);
 			int selectedResponse = dialog.showMe();
-			conversations.handleResponse(selectedResponse, args[0], args[1], args[2], performer, target, world, args[3]);
+			conversations.handleResponse(selectedResponse, args[0], args[1], args[2], performer, target, world, args[3], args[4]);
 		}
 	}
 

@@ -36,9 +36,9 @@ public class UTestBuySellUtils {
 	public void testGetPrice() {
 		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.INVENTORY, new WorldObjectContainer());
 		performer.getProperty(Constants.INVENTORY).add(Item.IRON_CUIRASS.generate(0f));
-		performer.setProperty(Constants.PROFIT_PERCENTAGE, 100);
+		performer.getProperty(Constants.PRICES).put(Item.IRON_CUIRASS, 200);
 		
-		assertEquals(600, BuySellUtils.getPrice(performer, 0));
+		assertEquals(200, BuySellUtils.getPrice(performer, 0));
 	}
 	
 	@Test
@@ -60,7 +60,7 @@ public class UTestBuySellUtils {
 		WorldObject target = TestUtils.createIntelligentWorldObject(0, Constants.INVENTORY, new WorldObjectContainer());
 		WorldObject inventoryItem = Item.BERRIES.generate(1f);
 		target.getProperty(Constants.INVENTORY).add(inventoryItem);
-		target.setProperty(Constants.PROFIT_PERCENTAGE, 100);
+		target.getProperty(Constants.PRICES).put(Item.BERRIES, 2);
 		
 		assertEquals(false, BuySellUtils.performerCanBuyGoods(performer, target, 0, 1));
 		
@@ -80,7 +80,7 @@ public class UTestBuySellUtils {
 		WorldObject inventoryItem = Item.BERRIES.generate(1f);
 		inventoryItem.setProperty(Constants.SELLABLE, Boolean.TRUE);
 		target.getProperty(Constants.INVENTORY).addQuantity(inventoryItem);
-		target.setProperty(Constants.PROFIT_PERCENTAGE, 100);
+		target.getProperty(Constants.PRICES).put(Item.BERRIES, 2);
 		world.addWorldObject(target);
 		
 		assertEquals(Actions.BUY_ACTION, BuySellUtils.getBuyOperationInfo(performer, Constants.FOOD, world).getManagedOperation());
@@ -98,7 +98,7 @@ public class UTestBuySellUtils {
 		WorldObject inventoryItem = Item.IRON_CUIRASS.generate(1f);
 		inventoryItem.setProperty(Constants.SELLABLE, Boolean.TRUE);
 		target.getProperty(Constants.INVENTORY).addQuantity(inventoryItem);
-		target.setProperty(Constants.PROFIT_PERCENTAGE, 100);
+		target.getProperty(Constants.PRICES).put(Item.IRON_CUIRASS, 200);
 		world.addWorldObject(target);
 		
 		assertEquals(true, BuySellUtils.hasSellableEquipment(Constants.EQUIPMENT_SLOT, Constants.TORSO_EQUIPMENT, target));
@@ -114,7 +114,7 @@ public class UTestBuySellUtils {
 		
 		WorldObject inventoryItem = Item.BERRIES.generate(1f);
 		performer.getProperty(Constants.INVENTORY).add(inventoryItem);
-		performer.setProperty(Constants.PROFIT_PERCENTAGE, 100);
+		performer.getProperty(Constants.PRICES).put(Item.BERRIES, 2);
 		
 		assertEquals(false, BuySellUtils.targetWillBuyGoods(performer, target, 0, world));
 		

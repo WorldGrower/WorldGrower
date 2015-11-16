@@ -53,7 +53,7 @@ public class RespondToQuestionDialog extends AbstractDialog {
 		}
 	}
 
-	public RespondToQuestionDialog(int id, int conversationId, int historyItemId, int additionalValue, Questioner questioner, Conversations conversations, ImageIds imageIdPerformer, ImageIds imageIdTarget, String performerName, String targetName, ImageInfoReader imageInfoReader) {
+	public RespondToQuestionDialog(int id, int conversationId, int historyItemId, int additionalValue, int additionalValue2, Questioner questioner, Conversations conversations, ImageIds imageIdPerformer, ImageIds imageIdTarget, String performerName, String targetName, ImageInfoReader imageInfoReader) {
 		super(560, 300);
 		
 		KeyStroke stroke = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
@@ -79,7 +79,7 @@ public class RespondToQuestionDialog extends AbstractDialog {
 		targetLabel.setBounds(6, 90, 32, 48);
 		addComponent(targetLabel);
 		
-		comboBoxResponse = createResponseComboBox(id, conversationId, historyItemId, conversations, questioner, additionalValue);
+		comboBoxResponse = createResponseComboBox(id, conversationId, historyItemId, conversations, questioner, additionalValue, additionalValue2);
 		comboBoxResponse.setBounds(44, 86, 475, 80);
 		addComponent(comboBoxResponse);
 		
@@ -115,9 +115,9 @@ public class RespondToQuestionDialog extends AbstractDialog {
 		cancelButton.addActionListener(new CloseDialogAction());		
 	}
 	
-	private JComboBox<Response> createResponseComboBox(int id, int subjectId, int historyItemId, Conversations conversations, Questioner questioner, int additionalValue) {
+	private JComboBox<Response> createResponseComboBox(int id, int subjectId, int historyItemId, Conversations conversations, Questioner questioner, int additionalValue, int additionalValue2) {
 		JComboBox<Response> responseComboBox = JComboBoxFactory.createJComboBox();
-		List<Response> responses = questioner.getResponsePhrases(id, subjectId, historyItemId, additionalValue);
+		List<Response> responses = questioner.getResponsePhrases(id, subjectId, historyItemId, additionalValue, additionalValue2);
 		for(Response response : responses) {
 			responseComboBox.addItem(response);
 		}

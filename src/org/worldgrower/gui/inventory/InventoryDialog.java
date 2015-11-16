@@ -21,6 +21,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -44,6 +45,7 @@ import javax.swing.event.ListSelectionListener;
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.Item;
 import org.worldgrower.gui.AbstractDialog;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.util.ButtonFactory;
@@ -57,6 +59,7 @@ public class InventoryDialog extends AbstractDialog {
 	private static final String MONEY_TARGET_TOOL_TIP = "shows amount of gold that a character has";
 	private static final String WEIGHT_TARGET_TOOL_TIP = "shows current weight of things that a character is carrying and maximum weight";
 	private static final String ACTIONS_TOOL_TIP = "These actions modify the inventory items";
+	private static final String PRICES_TOOL_TIP = "show list of items with associated prices. These prices are used instead of the default prices when an item is sold by the player character";
 	
 	private JList<InventoryItem> inventoryJList;
 	private JButton okButton;
@@ -69,6 +72,7 @@ public class InventoryDialog extends AbstractDialog {
 	private JLabel targetWeight;
 	
 	private JButton actionsButton;
+	private JButton pricesButton;
 	
 	private final class CloseDialogAction implements ActionListener {
 		@Override
@@ -162,6 +166,12 @@ public class InventoryDialog extends AbstractDialog {
 		actionsButton.setToolTipText(ACTIONS_TOOL_TIP);
 		actionsButton.setBounds(224, 359, 100, 25);
 		addComponent(actionsButton);
+		
+		
+		pricesButton = ButtonFactory.createButton("Prices");
+		pricesButton.setToolTipText(PRICES_TOOL_TIP);
+		pricesButton.setBounds(224, 399, 100, 25);
+		addComponent(pricesButton);
 
 		JLabel lblPlayercharacter = JLabelFactory.createJLabel(inventoryDialogModel.getPlayerCharacterImage(imageInfoReader));
 		lblPlayercharacter.setToolTipText(inventoryDialogModel.getPlayerCharacterName());
@@ -209,7 +219,7 @@ public class InventoryDialog extends AbstractDialog {
 			}
 		}
 		
-		setInventoryActions(inventoryActions);
+		setInventoryActions(inventoryActions, inventoryDialogModel.getPlayerCharacterPrices());
 		addPopupMenuToInventoryList();
 		
 		if (inventoryJList.getModel().getSize() == 0) {
@@ -272,13 +282,14 @@ public class InventoryDialog extends AbstractDialog {
 		return weightString;
 	}
 
-	private void setInventoryActions(List<Action> inventoryActions) {
+	private void setInventoryActions(List<Action> inventoryActions,Map<Item, Integer> pricesOnPlayer) {
 		if (inventoryActions.size() > 0) {
 			actionsButton.setEnabled(true);
 			addActionsToActionsButton(inventoryActions);
 		} else {
 			actionsButton.setEnabled(false);
 		}
+		pricesButton.addActionListener(e -> new PricesDialog(pricesOnPlayer).showMe());
 	}
 
 	private void addActionsToActionsButton(List<Action> inventoryActions) {
@@ -338,6 +349,17 @@ public class InventoryDialog extends AbstractDialog {
 			targetInventoryList.addListSelectionListener(new InventoryListSelectionListener(inventoryDialogAction));
 			targetInventoryList.setSelectedIndex(0);
 		}
+		
+		pricesButton.addActionListener(new ShowPriceDialogAction());
+	}
+	
+	private static class ShowPriceDialogAction extends AbstractAction {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			
+		}
+		
 	}
 
 	private JList<InventoryItem> createInventoryList(WorldObjectContainer inventory, ImageInfoReader imageInfoReader) {
@@ -395,7 +417,7 @@ public class InventoryDialog extends AbstractDialog {
 			}
 		}
 		
-		setInventoryActions(inventoryActions);
+		setInventoryActions(inventoryActions, inventoryDialogModel.getPlayerCharacterPrices());
 	}
 
 	public InventoryItem getPlayerCharacterSelectedValue() {

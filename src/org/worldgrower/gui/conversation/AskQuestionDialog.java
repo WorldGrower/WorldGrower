@@ -85,7 +85,7 @@ public class AskQuestionDialog extends AbstractDialog implements ManagedOperatio
 				actualSubjectId = question.getSubjectId();
 			}
 			
-			int[] args = new int[] { question.getId(), actualSubjectId, question.getHistoryItemId(), question.getAdditionalValue() };
+			int[] args = new int[] { question.getId(), actualSubjectId, question.getHistoryItemId(), question.getAdditionalValue(), question.getAdditionalValue2() };
 			answerer.askQuestion(args);
 			askQuestion.setEnabled(answerer.canAskQuestion());
 		}

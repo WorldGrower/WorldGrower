@@ -27,6 +27,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdRelationshipMap;
+import org.worldgrower.generator.Item;
 import org.worldgrower.goal.Goals;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.profession.Professions;
@@ -45,7 +46,7 @@ public class UTestSetOrganizationProfitPercentageConversation {
 		ConversationContext context = new ConversationContext(performer, target,subject, null, world, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
 		assertEquals(true, replyPhrases.size() == 2);
-		assertEquals("Yes, I'll set the profit percentage for the TestOrg to 0%", replyPhrases.get(0).getResponsePhrase());
+		assertEquals("Yes, I'll set the price for a Iron Claymore to 0.", replyPhrases.get(0).getResponsePhrase());
 		assertEquals("No", replyPhrases.get(1).getResponsePhrase());
 	}
 	
@@ -74,8 +75,8 @@ public class UTestSetOrganizationProfitPercentageConversation {
 		world.addWorldObject(organization);
 		
 		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, null, world);
-		assertEquals(5, questions.size());
-		assertEquals("I'd like to set the profit percentage for TestOrg to -100%, can you take care of this?", questions.get(0).getQuestionPhrase());
+		assertEquals(160, questions.size());
+		assertEquals("I'd like to set the price for Iron Claymore for TestOrg to 0, can you take care of this?", questions.get(0).getQuestionPhrase());
 	}
 	
 	@Test
@@ -91,10 +92,10 @@ public class UTestSetOrganizationProfitPercentageConversation {
 		organization.setProperty(Constants.ID, 3);
 		world.addWorldObject(organization);
 		
-		ConversationContext context = new ConversationContext(performer, target, organization, null, world, 50);
+		ConversationContext context = new ConversationContext(performer, target, organization, null, world, Item.BERRIES.ordinal(), 3);
 		
 		conversation.handleResponse(0, context);
-		assertEquals(50, performer.getProperty(Constants.PROFIT_PERCENTAGE).intValue());
-		assertEquals(50, target.getProperty(Constants.PROFIT_PERCENTAGE).intValue());
+		assertEquals(3, performer.getProperty(Constants.PRICES).get(Item.BERRIES).intValue());
+		assertEquals(3, target.getProperty(Constants.PRICES).get(Item.BERRIES).intValue());
 	}
 }

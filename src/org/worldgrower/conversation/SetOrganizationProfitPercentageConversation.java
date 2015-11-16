@@ -21,6 +21,7 @@ import java.util.List;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.generator.Item;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.history.HistoryItem;
 
@@ -45,7 +46,11 @@ public class SetOrganizationProfitPercentageConversation implements Conversation
 				if (!isVillagersOrganization(organization, world)) {
 					if (target.getProperty(Constants.GROUP).contains(organization)) {
 						for(int profitPercentage = -100; profitPercentage<=100; profitPercentage+=50) {
-							questions.add(new Question(organization, "I'd like to set the profit percentage for " + organization.getProperty(Constants.NAME) + " to " + profitPercentage + "%, can you take care of this?", profitPercentage));
+							for(Item item : Item.values()) {
+								int itemIndex = item.ordinal();
+								int price = item.getPrice() * (1 + profitPercentage/100);
+								questions.add(new Question(organization, "I'd like to set the price for " + item.getDescription() + " for " + organization.getProperty(Constants.NAME) + " to " + price + ", can you take care of this?", itemIndex, price));
+							}
 						}		
 					}
 				}
@@ -63,10 +68,11 @@ public class SetOrganizationProfitPercentageConversation implements Conversation
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		WorldObject organization = conversationContext.getSubject();
-		int profitPercentage = conversationContext.getAdditionalValue();
+		int itemIndex = conversationContext.getAdditionalValue();
+		int price = conversationContext.getAdditionalValue2();
 		
 		return Arrays.asList(
-			new Response(YES, "Yes, I'll set the profit percentage for the " + organization.getProperty(Constants.NAME) + " to " + profitPercentage + "%"),
+			new Response(YES, "Yes, I'll set the price for a " + Item.value(itemIndex).getDescription() + " to " + price + "."),
 			new Response(NO, "No")
 			);
 	}
@@ -81,18 +87,19 @@ public class SetOrganizationProfitPercentageConversation implements Conversation
 		if (replyIndex == YES) {
 			WorldObject organization = conversationContext.getSubject();
 			World world = conversationContext.getWorld();
-			int profitPercentage = conversationContext.getAdditionalValue();
+			int itemIndex = conversationContext.getAdditionalValue();
+			int price = conversationContext.getAdditionalValue2();
 			
 			List<WorldObject> members = GroupPropertyUtils.findOrganizationMembers(organization, world);
 			
 			for(WorldObject member : members) {
-				member.setProperty(Constants.PROFIT_PERCENTAGE, profitPercentage);
+				member.getProperty(Constants.PRICES).put(Item.value(itemIndex), price);
 			}
 		}
 	}
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, World world) {
-		return "talking about setting the profit percentage for an organization";
+		return "talking about setting the price of a product for an organization";
 	}
 }

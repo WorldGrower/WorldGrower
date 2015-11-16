@@ -59,7 +59,9 @@ public enum Item {
 	}
 	
 	public WorldObject generate(double skillBonus) {
-		return ITEMS.get(this).apply(skillBonus);
+		WorldObject item = ITEMS.get(this).apply(skillBonus);
+		item.setProperty(Constants.ITEM_ID, this);
+		return item;
 	}
 	
 	static {
@@ -465,5 +467,17 @@ public enum Item {
 		WorldObject key = Item.KEY.generate(1f);
 		key.setProperty(Constants.LOCK_ID, structureToLockId);
 		return key;
+	}
+	
+	public String getDescription() {
+		return generate(1f).getProperty(Constants.NAME);
+	}
+	
+	public int getPrice() {
+		return generate(1f).getProperty(Constants.PRICE);
+	}
+	
+	public static Item value(int index) {
+		return Item.values()[index];
 	}
 }

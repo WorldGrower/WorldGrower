@@ -93,6 +93,7 @@ public class TestUtils {
 		properties.put(Constants.CONDITIONS, new Conditions());
 		properties.put(Constants.STRENGTH, 10);
 		properties.put(Constants.CREATURE_TYPE, CreatureType.HUMAN_CREATURE_TYPE);
+		properties.put(Constants.PRICES, new HashMap<>());
 		properties.put(property, value);
 		WorldObject w1 = new WorldObjectImpl(properties, Actions.ALL_ACTIONS, null);
 		return w1;
@@ -167,6 +168,7 @@ public class TestUtils {
 		properties.put(Constants.INTELLIGENCE, 10);
 		properties.put(Constants.WISDOM, 10);
 		properties.put(Constants.CHARISMA, 10);
+		properties.put(Constants.PRICES, new HashMap<>());
 		SkillUtils.addAllSkills(properties);
 		WorldObject worldObject = createWorldObject(id, properties);
 		return worldObject;

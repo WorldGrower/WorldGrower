@@ -14,6 +14,7 @@
  *******************************************************************************/
 package org.worldgrower.conversation;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -48,7 +49,12 @@ public class SwitchDeityConversation implements Conversation {
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		Deity performerDeity = performer.getProperty(Constants.DEITY);
 		Deity targetDeity = target.getProperty(Constants.DEITY);
-		return Arrays.asList(new Question(null, "Would you like to worship " + performerDeity.getName() + " instead of your current deity?"));
+		
+		List<Question> questions = new ArrayList<>();
+		if (performerDeity != null) {
+			questions.add(new Question(null, "Would you like to worship " + performerDeity.getName() + " instead of your current deity?"));
+		}
+		return questions;
 	}
 	
 	@Override

@@ -154,7 +154,7 @@ public class Conversations implements Serializable {
 	
 	public static int[] createArgs(Conversation conversation) {
 		int id = indexOf(conversation);
-		return new int[] { id, -1, -1, 0 };
+		return new int[] { id, -1, -1, 0, 0 };
 	}
 
 	private static int indexOf(Conversation conversation) {
@@ -168,27 +168,27 @@ public class Conversations implements Serializable {
 	public static int[] createArgs(Conversation conversation, WorldObject subject) {
 		int id = indexOf(conversation);
 		if (subject != null) {
-			return new int[] { id, subject.getProperty(Constants.ID), -1, 0 };
+			return new int[] { id, subject.getProperty(Constants.ID), -1, 0, 0 };
 		} else {
-			return new int[] { id, -1, -1, 0 };
+			return new int[] { id, -1, -1, 0, 0 };
 		}
 	}
 	
 	public static int[] createArgs(Conversation conversation, WorldObject subject, int additionalValue) {
 		int id = indexOf(conversation);
 		if (subject != null) {
-			return new int[] { id, subject.getProperty(Constants.ID), -1, additionalValue };
+			return new int[] { id, subject.getProperty(Constants.ID), -1, additionalValue, 0 };
 		} else {
-			return new int[] { id, -1, -1, additionalValue };
+			return new int[] { id, -1, -1, additionalValue, 0 };
 		}
 	}
 	
 	public static int[] createArgs(Conversation conversation, HistoryItem historyItem) {
 		int id = indexOf(conversation);
 		if (historyItem != null) {
-			return new int[] { id, -1, historyItem.getHistoryId(), 0 };
+			return new int[] { id, -1, historyItem.getHistoryId(), 0, 0 };
 		} else {
-			return new int[] { id, -1, -1, 0 };
+			return new int[] { id, -1, -1, 0, 0 };
 		}
 	}
 
@@ -252,12 +252,12 @@ public class Conversations implements Serializable {
 		}
 	}
 
-	public Response getReplyPhrase(int index, int subjectId, int historyItemId, WorldObject performer, WorldObject target, World world, int additionalValue) {
+	public Response getReplyPhrase(int index, int subjectId, int historyItemId, WorldObject performer, WorldObject target, World world, int additionalValue, int additionalValue2) {
 		WorldObject subject = getSubject(subjectId, world);
 		HistoryItem questionHistoryItem = getQuestionHistoryItem(historyItemId, world);
 		WorldObject performerFacade = createFacade(performer, performer, target, world);
 		WorldObject targetFacade = createFacade(target, performer, target, world);
-		ConversationContext conversationContext = new ConversationContext(performerFacade, targetFacade, subject, questionHistoryItem, world, additionalValue);
+		ConversationContext conversationContext = new ConversationContext(performerFacade, targetFacade, subject, questionHistoryItem, world, additionalValue, additionalValue2);
 		Response response = getReplyPhrase(index, conversationContext);
 		return response;
 	}
@@ -280,12 +280,12 @@ public class Conversations implements Serializable {
 		}
 	}
 
-	public List<Response> getReplyPhrases(int index, int subjectId, int historyItemId, WorldObject performer, WorldObject target, World world, int additionalValue) {
+	public List<Response> getReplyPhrases(int index, int subjectId, int historyItemId, WorldObject performer, WorldObject target, World world, int additionalValue, int additionalValue2) {
 		WorldObject subject = getSubject(subjectId, world);
 		HistoryItem questionHistoryItem = getQuestionHistoryItem(historyItemId, world);
 		WorldObject performerFacade = createFacade(performer, performer, target, world);
 		WorldObject targetFacade = createFacade(target, performer, target, world);
-		ConversationContext conversationContext = new ConversationContext(performerFacade, targetFacade, subject, questionHistoryItem, world, additionalValue);
+		ConversationContext conversationContext = new ConversationContext(performerFacade, targetFacade, subject, questionHistoryItem, world, additionalValue, additionalValue2);
 		List<Response> responses = getReplyPhrases(index, conversationContext);
 		
 		return responses;
@@ -301,10 +301,10 @@ public class Conversations implements Serializable {
 		return responses;
 	}
 	
-	public void handleResponse(int replyIndex, int index, int subjectId, int historyItemId, WorldObject performer, WorldObject target, World world, int additionalValue) {
+	public void handleResponse(int replyIndex, int index, int subjectId, int historyItemId, WorldObject performer, WorldObject target, World world, int additionalValue, int additionalValue2) {
 		WorldObject subject = getSubject(subjectId, world);
 		HistoryItem questionHistoryItem = getQuestionHistoryItem(historyItemId, world);
-		ConversationContext conversationContext = new ConversationContext(performer, target, subject, questionHistoryItem, world, additionalValue);
+		ConversationContext conversationContext = new ConversationContext(performer, target, subject, questionHistoryItem, world, additionalValue, additionalValue2);
 		handleResponse(replyIndex, index, conversationContext);
 	}
 

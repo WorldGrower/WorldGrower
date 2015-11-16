@@ -78,7 +78,6 @@ public class UTestSellWoodGoal {
 		performer.setProperty(Constants.HEIGHT, 1);
 		performer.setProperty(Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.CREATURE_TYPE, CreatureType.HUMAN_CREATURE_TYPE);
-		performer.setProperty(Constants.PROFIT_PERCENTAGE, 0);
 		return performer;
 	}
 }
