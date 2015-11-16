@@ -17,7 +17,7 @@ package org.worldgrower.gui;
 import java.awt.Color;
 
 public class ColorPalette {
-	public static final Color DARK_BACKGROUND_COLOR = new Color(7, 133, 171);
-	public static final Color LIGHT_BACKGROUND_COLOR = new Color(12, 167, 211);
+	public static final Color DARK_BACKGROUND_COLOR = new Color(7, 133, 171).darker();
+	public static final Color LIGHT_BACKGROUND_COLOR = new Color(12, 167, 211).darker();
 	public static final Color FOREGROUND_COLOR = new Color(255, 255, 255);
 }
