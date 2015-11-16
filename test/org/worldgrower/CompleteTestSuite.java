@@ -67,6 +67,7 @@ import org.worldgrower.conversation.UTestSellHouseConversation;
 import org.worldgrower.conversation.UTestSetOrganizationProfitPercentageConversation;
 import org.worldgrower.conversation.UTestShareKnowledgeConversation;
 import org.worldgrower.conversation.UTestStartArenaFightConversation;
+import org.worldgrower.conversation.UTestSwitchDeityConversation;
 import org.worldgrower.conversation.UTestVoteLeaderOrganizationConversation;
 import org.worldgrower.conversation.UTestWhoIsLeaderOrganizationConversation;
 import org.worldgrower.conversation.UTestWhyAngryConversation;
@@ -277,7 +278,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestChooseProfessionGoal.class,
 	UTestCreatePaperGoal.class,
 	UTestCreatePoisonGoal.class,
-	UTestPregnancyPropertyUtils.class
+	UTestPregnancyPropertyUtils.class,
+	UTestSwitchDeityConversation.class
 })
 public class CompleteTestSuite {
 }
