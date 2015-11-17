@@ -14,17 +14,12 @@
  *******************************************************************************/
 package org.worldgrower.actions;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
-import org.worldgrower.WorldObject;
-import org.worldgrower.generator.Item;
 import org.worldgrower.history.HistoryItem;
 import org.worldgrower.profession.Profession;
 
@@ -58,32 +53,5 @@ public class OperationStatistics {
 		List<HistoryItem> historyItems = world.getHistory().findHistoryItems(managedOperation);
 		List<HistoryItem> filteredHistoryItems = historyItems.stream().filter(h -> isNonProfessional(h, profession)).collect(Collectors.toList());
 		return filteredHistoryItems.size();
-	}
-	
-	public static Map<Item, Integer> getItemsSold(WorldObject performer, World world) {
-		Map<Item, Integer> itemsSold = new HashMap<>();
-		
-		List<HistoryItem> buyActions = getRecentOperations(Actions.BUY_ACTION, world);
-		buyActions = buyActions.stream().filter(h -> performer.equals(h.getOperationInfo().getTarget())).collect(Collectors.toList());
-		
-		addToItemsSold(itemsSold, buyActions, h -> h.getOperationInfo().getTarget());
-		
-		List<HistoryItem> sellActions = getRecentOperations(Actions.SELL_ACTION, world);
-		sellActions = sellActions.stream().filter(h -> performer.equals(h.getOperationInfo().getPerformer())).collect(Collectors.toList());
-		addToItemsSold(itemsSold, sellActions, h -> h.getOperationInfo().getPerformer());
-		
-		return itemsSold;
-	}
-
-	private static void addToItemsSold(Map<Item, Integer> itemsSold, List<HistoryItem> buyActions, Function<HistoryItem, WorldObject> inventoryTargetFunction) {
-		for(HistoryItem buyAction : buyActions) {
-			int index = buyAction.getOperationInfo().getArgs()[0];
-			WorldObject inventoryTarget = inventoryTargetFunction.apply(buyAction);
-			Item item = inventoryTarget.getProperty(Constants.INVENTORY).get(index).getProperty(Constants.ITEM_ID);
-			if (!itemsSold.containsKey(item)) {
-				itemsSold.put(item, 0);
-			}
-			itemsSold.put(item, itemsSold.get(item) + 1);
-		}
 	}
 }
