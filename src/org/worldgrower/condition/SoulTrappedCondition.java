@@ -20,6 +20,7 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
 
 public class SoulTrappedCondition implements Condition {
@@ -57,7 +58,7 @@ public class SoulTrappedCondition implements Condition {
 		if (DefaultGoalObstructedHandler.performerAttacked(managedOperation)) {
 			if (target.getProperty(Constants.HIT_POINTS) <= 1) {
 				// capture soul
-				System.out.println("capture soul");
+
 				WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
 				int indexOfEmptySoulGem = performerInventory.getIndexFor(w -> isEmptySoulGem(w));
 				int indexOfFilledSoulGem = performerInventory.getIndexFor(w -> isFilledSoulGem(w));
@@ -68,8 +69,11 @@ public class SoulTrappedCondition implements Condition {
 					if (indexOfFilledSoulGem != -1) {
 						performerInventory.addQuantity(indexOfFilledSoulGem);
 					} else {
-						WorldObject worldObject = performerInventory.addQuantity(Constants.SOUL_GEM, 1, ImageIds.FILLED_SOUL_GEM);
+						WorldObject worldObject = Item.SOUL_GEM.generate(1f);
+						performerInventory.addQuantity(worldObject);
 						worldObject.setProperty(Constants.SOUL_GEM_FILLED, Boolean.TRUE);
+						//TODO: should be different type in Item
+						worldObject.setProperty(Constants.IMAGE_ID, ImageIds.FILLED_SOUL_GEM);
 					}
 				}
 			}

@@ -34,6 +34,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.creaturetype.CreatureType;
+import org.worldgrower.generator.PlantGenerator;
 import org.worldgrower.goal.GoalUtils;
 import org.worldgrower.history.Turn;
 
@@ -166,5 +167,22 @@ public class UTestGoalUtils {
 		
 		assertEquals(true, GoalUtils.currentGoalHasLowerPriorityThan(Goals.FOOD_GOAL, target, world));
 		assertEquals(false, GoalUtils.currentGoalHasLowerPriorityThan(Goals.DRINK_WATER_GOAL, target, world));
+	}
+	
+	@Test
+	public void testCreateOperationInfoNull() {
+		World world = createWorld();
+		WorldObject performer = TestUtils.createWorldObject(2, 2, 1, 1, Constants.ID, 7);
+		assertEquals(null, GoalUtils.createOperationInfo(performer, Actions.CUT_WOOD_ACTION, new int[0], world));
+	}
+
+	@Test
+	public void testCreateOperationInfoTarget() {
+		World world = createWorld();
+		WorldObject performer = TestUtils.createWorldObject(2, 2, 1, 1, Constants.ID, 7);
+		int treeId = PlantGenerator.generateTree(5, 5, world);
+		OperationInfo operationInfo = GoalUtils.createOperationInfo(performer, Actions.CUT_WOOD_ACTION, new int[0], world);
+		assertEquals(Actions.CUT_WOOD_ACTION, operationInfo.getManagedOperation());
+		assertEquals(treeId, operationInfo.getTarget().getProperty(Constants.ID).intValue());
 	}
 }

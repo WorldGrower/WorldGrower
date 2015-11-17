@@ -27,6 +27,7 @@ import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.generator.Item;
 import org.worldgrower.generator.PlantGenerator;
 
 public class UTestResearchMagicSkillsKnowledgeGoal {
@@ -56,7 +57,7 @@ public class UTestResearchMagicSkillsKnowledgeGoal {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
 		
-		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.WOOD, 20, null);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
 		
 		assertEquals(Actions.BUILD_LIBRARY_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}

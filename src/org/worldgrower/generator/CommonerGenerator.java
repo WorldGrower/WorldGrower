@@ -33,6 +33,7 @@ import org.worldgrower.attribute.AttributeGenerator;
 import org.worldgrower.attribute.BackgroundImpl;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdRelationshipMap;
+import org.worldgrower.attribute.ItemCountMap;
 import org.worldgrower.attribute.KnowledgeMap;
 import org.worldgrower.attribute.LookDirection;
 import org.worldgrower.attribute.ManagedProperty;
@@ -129,6 +130,7 @@ public class CommonerGenerator implements Serializable {
 		properties.put(Constants.ARENA_FIGHTER_IDS, new IdList());
 		properties.put(Constants.WORSHIP_COUNTER, 0);
 		properties.put(Constants.ALCOHOL_LEVEL, 0);
+		properties.put(Constants.ITEMS_SOLD, new ItemCountMap());
 		
 		properties.put(Constants.DAMAGE, 8);
 		properties.put(Constants.ARMOR, 10);
@@ -182,6 +184,7 @@ public class CommonerGenerator implements Serializable {
 		properties.put(Constants.ARENA_FIGHTER_IDS, new IdList());
 		properties.put(Constants.WORSHIP_COUNTER, 0);
 		properties.put(Constants.ALCOHOL_LEVEL, 0);
+		properties.put(Constants.ITEMS_SOLD, new ItemCountMap());
 		
 		properties.put(Constants.HEAD_EQUIPMENT, null);
 		properties.put(Constants.TORSO_EQUIPMENT, null);

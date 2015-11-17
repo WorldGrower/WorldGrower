@@ -53,7 +53,7 @@ public class UTestCreateFurnitureGoal {
 	public void testCalculateGoalConstructBed() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
-		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.WOOD, 20, null);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
 		
 		assertEquals(Actions.CONSTRUCT_BED_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}

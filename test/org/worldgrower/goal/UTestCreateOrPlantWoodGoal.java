@@ -24,6 +24,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.Item;
 import org.worldgrower.generator.PlantGenerator;
 
 public class UTestCreateOrPlantWoodGoal {
@@ -73,7 +74,7 @@ public class UTestCreateOrPlantWoodGoal {
 		
 		assertEquals(false, goal.isGoalMet(performer, world));
 		
-		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.WOOD, 20, null);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
 		assertEquals(true, goal.isGoalMet(performer, world));
 	}
 

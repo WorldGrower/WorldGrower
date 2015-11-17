@@ -44,7 +44,7 @@ public class UTestWeaveClothesGoal {
 		WorldObject performer = createPerformer();
 		
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
-		performerInventory.addQuantity(Constants.COTTON, 20, null);
+		performerInventory.addQuantity(Item.COTTON.generate(1f), 20);
 		
 		assertEquals(Actions.WEAVE_COTTON_SHIRT_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
@@ -55,7 +55,7 @@ public class UTestWeaveClothesGoal {
 		WorldObject performer = createPerformer();
 		
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
-		performerInventory.addQuantity(Constants.COTTON, 20, null);
+		performerInventory.addQuantity(Item.COTTON.generate(1f), 20);
 		performerInventory.addQuantity(Item.COTTON_SHIRT.generate(1f));
 		
 		assertEquals(Actions.WEAVE_COTTON_PANTS_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
@@ -67,7 +67,7 @@ public class UTestWeaveClothesGoal {
 		WorldObject performer = createPerformer();
 		
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
-		performerInventory.addQuantity(Constants.COTTON, 20, null);
+		performerInventory.addQuantity(Item.COTTON.generate(1f), 20);
 		performerInventory.addQuantity(Item.COTTON_SHIRT.generate(1f));
 		performerInventory.addQuantity(Item.COTTON_PANTS.generate(1f));
 		
@@ -80,7 +80,7 @@ public class UTestWeaveClothesGoal {
 		WorldObject performer = createPerformer();
 		
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
-		performerInventory.addQuantity(Constants.COTTON, 20, null);
+		performerInventory.addQuantity(Item.COTTON.generate(1f), 20);
 		performerInventory.addQuantity(Item.COTTON_SHIRT.generate(1f));
 		performerInventory.addQuantity(Item.COTTON_PANTS.generate(1f));
 		performerInventory.addQuantity(Item.COTTON_BOOTS.generate(1f));

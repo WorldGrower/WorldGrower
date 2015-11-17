@@ -26,6 +26,7 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.KnowledgeMap;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.generator.Item;
 import org.worldgrower.generator.PlantGenerator;
 
 public class UTestCollectWaterGoal {
@@ -54,7 +55,7 @@ public class UTestCollectWaterGoal {
 	public void testCalculateGoalBuildWell() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
-		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.WOOD, 10, null);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 10);
 		
 		assertEquals(Actions.BUILD_WELL_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}

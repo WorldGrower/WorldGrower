@@ -23,6 +23,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
 
 public class CutWoodAction implements ManagedOperation {
@@ -32,7 +33,7 @@ public class CutWoodAction implements ManagedOperation {
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.WOOD, 1, ImageIds.WOOD);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f));
 		target.increment(Constants.WOOD_SOURCE, - 1);
 		
 		SkillUtils.useEnergy(performer, Constants.LUMBERING_SKILL, ENERGY_USE, world.getWorldStateChangedListeners());

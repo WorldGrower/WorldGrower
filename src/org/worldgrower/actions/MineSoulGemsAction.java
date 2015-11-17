@@ -23,6 +23,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
 
 public class MineSoulGemsAction implements ManagedOperation {
@@ -32,7 +33,7 @@ public class MineSoulGemsAction implements ManagedOperation {
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.SOUL_GEM, 1, ImageIds.SOUL_GEM);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.SOUL_GEM.generate(1f));
 		target.increment(Constants.SOUL_GEM_SOURCE, - 1);
 		
 		SkillUtils.useEnergy(performer, Constants.MINING_SKILL, ENERGY_USE, world.getWorldStateChangedListeners());

@@ -21,6 +21,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.Item;
 
 public class UTestCraftUtils {
 
@@ -41,7 +42,7 @@ public class UTestCraftUtils {
 		
 		assertEquals(1000, CraftUtils.distance(performer, Constants.WOOD, 1));
 		
-		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.WOOD, 1, null);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 1);
 		assertEquals(0, CraftUtils.distance(performer, Constants.WOOD, 1));
 	}
 	
@@ -52,8 +53,8 @@ public class UTestCraftUtils {
 		
 		assertEquals(2000, CraftUtils.distance(performer, 1, 1));
 		
-		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.WOOD, 1, null);
-		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.ORE, 1, null);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 1);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.ORE.generate(1f), 1);
 		assertEquals(0, CraftUtils.distance(performer, 1, 1));
 	}
 	

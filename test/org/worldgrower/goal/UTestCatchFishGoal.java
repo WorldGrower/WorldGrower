@@ -70,7 +70,7 @@ public class UTestCatchFishGoal {
 		
 		assertEquals(false, goal.isGoalMet(performer, world));
 		
-		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.FOOD, 50, null);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.FISH.generate(1f), 50);
 		assertEquals(true, goal.isGoalMet(performer, world));
 	}
 

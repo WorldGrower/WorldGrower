@@ -21,7 +21,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
@@ -36,7 +35,6 @@ import org.worldgrower.attribute.PropertyCountMap;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.gui.ImageIds;
-import org.worldgrower.history.HistoryItem;
 import org.worldgrower.profession.Profession;
 import org.worldgrower.profession.Professions;
 
@@ -237,16 +235,16 @@ public class ChooseProfessionAction implements ManagedOperation {
 	// Otherwise demands may result in 1 profession overshadowing the others
 	static List<ProfessionEvaluation> mapDemandsToProfessions(WorldObject performer, PropertyCountMap<ManagedProperty<?>> demands, World world) {
 		List<ProfessionEvaluation> result = new ArrayList<>();
-		int populationCount = getPopulationCount(world);
+		int populationCount = OperationStatistics.getPopulationCount(world);
 		
 		int foodDemand = demands.count(Constants.FOOD);
-		foodDemand += getRecentOperationsByNonProfessionalsCount(Actions.EAT_ACTION, Professions.FARMER_PROFESSION, world) / (5 * populationCount);
+		foodDemand += OperationStatistics.getRecentOperationsByNonProfessionalsCount(Actions.EAT_ACTION, Professions.FARMER_PROFESSION, world) / (5 * populationCount);
 		result.add(new ProfessionEvaluation(Professions.FARMER_PROFESSION, foodDemand));
 		
 		//int waterDemand = demands.getQuantityFor(Constants.WATER);
 		
 		int woodDemand = demands.count(Constants.WOOD);
-		woodDemand += getRecentOperationsByNonProfessionalsCount(Actions.CUT_WOOD_ACTION, Professions.LUMBERJACK_PROFESSION, world) / (4 * populationCount);
+		woodDemand += OperationStatistics.getRecentOperationsByNonProfessionalsCount(Actions.CUT_WOOD_ACTION, Professions.LUMBERJACK_PROFESSION, world) / (4 * populationCount);
 		result.add(new ProfessionEvaluation(Professions.LUMBERJACK_PROFESSION, woodDemand));
 		
 		int stoneDemand = demands.count(Constants.STONE);
@@ -423,31 +421,6 @@ public class ChooseProfessionAction implements ManagedOperation {
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
-	}
-	
-	public static int getRecentOperationsCount(ManagedOperation managedOperation, World world) {
-		List<HistoryItem> historyItems = world.getHistory().findHistoryItems(managedOperation);
-		List<HistoryItem> filteredHistoryItems = historyItems.stream().filter(h -> isRecent(h, world) ).collect(Collectors.toList());
-		return filteredHistoryItems.size();
-	}
-	
-	private static boolean isRecent(HistoryItem historyItem, World world) {
-		return historyItem.getTurn().isWithin1000Turns(world.getCurrentTurn());
-	}
-	
-	private static boolean isNonProfessional(HistoryItem historyItem, Profession profession) {
-		Profession performerProfession = historyItem.getOperationInfo().getPerformer().getProperty(Constants.PROFESSION);
-		return performerProfession == null || performerProfession != profession;
-	}
-	
-	private static int getPopulationCount(World world) {
-		return world.findWorldObjects(w -> w.hasIntelligence()).size();
-	}
-	
-	public static int getRecentOperationsByNonProfessionalsCount(ManagedOperation managedOperation, Profession profession, World world) {
-		List<HistoryItem> historyItems = world.getHistory().findHistoryItems(managedOperation);
-		List<HistoryItem> filteredHistoryItems = historyItems.stream().filter(h -> isNonProfessional(h, profession)).collect(Collectors.toList());
-		return filteredHistoryItems.size();
 	}
 	
 	@Override

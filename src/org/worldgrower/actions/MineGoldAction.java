@@ -23,6 +23,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
 
 public class MineGoldAction implements ManagedOperation {
@@ -32,7 +33,7 @@ public class MineGoldAction implements ManagedOperation {
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.GOLD, 1, ImageIds.GOLD);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.GOLD.generate(1f));
 		target.increment(Constants.GOLD_SOURCE, - 1);
 		
 		SkillUtils.useEnergy(performer, Constants.MINING_SKILL, ENERGY_USE, world.getWorldStateChangedListeners());

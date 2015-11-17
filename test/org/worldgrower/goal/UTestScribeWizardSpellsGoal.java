@@ -73,7 +73,7 @@ public class UTestScribeWizardSpellsGoal {
 		BuildingGenerator.generateLibrary(5, 5, world);
 		PlantGenerator.generateTree(5, 5, world);
 		
-		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.PAPER, 20, null);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.PAPER.generate(1f), 20);
 		performer.getProperty(Constants.KNOWN_SPELLS).add(Actions.FIRE_BOLT_ATTACK_ACTION);
 		
 		assertEquals(Actions.getScribeMagicSpellActionFor(Actions.FIRE_BOLT_ATTACK_ACTION), goal.calculateGoal(performer, world).getManagedOperation());

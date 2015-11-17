@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.Item;
 
 public class UTestCreatePaperGoal {
 
@@ -35,7 +36,7 @@ public class UTestCreatePaperGoal {
 		
 		assertEquals(false, goal.isGoalMet(performer, world));
 		
-		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.PAPER, 20, null);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.PAPER.generate(1f), 20);
 		assertEquals(true, goal.isGoalMet(performer, world));
 	}
 

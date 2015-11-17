@@ -26,6 +26,7 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.KnowledgeMap;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.generator.Item;
 import org.worldgrower.generator.PlantGenerator;
 
 public class UTestPaperGoal {
@@ -65,7 +66,7 @@ public class UTestPaperGoal {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
 		
-		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.WATER, 20, null);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WATER.generate(1f), 20);
 		PlantGenerator.generateTree(5, 5, world);
 		
 		assertEquals(Actions.CUT_WOOD_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
@@ -76,8 +77,8 @@ public class UTestPaperGoal {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
 		
-		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.WATER, 20, null);
-		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.WOOD, 20, null);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WATER.generate(1f), 20);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
 		
 		assertEquals(Actions.CREATE_PAPER_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}

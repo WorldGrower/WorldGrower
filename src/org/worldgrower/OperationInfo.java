@@ -181,4 +181,8 @@ public class OperationInfo implements Serializable {
 	public boolean firstArgsIs(int i) {
 		return args[0] == i;
 	}
+
+	public int[] getArgs() {
+		return args;
+	}
 }

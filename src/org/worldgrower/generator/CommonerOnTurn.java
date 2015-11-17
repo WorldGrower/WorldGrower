@@ -15,6 +15,7 @@
 package org.worldgrower.generator;
 
 import java.util.List;
+import java.util.Map;
 
 import org.worldgrower.Constants;
 import org.worldgrower.OnTurn;
@@ -22,8 +23,8 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.Background;
-import org.worldgrower.condition.Condition;
-import org.worldgrower.condition.Conditions;
+import org.worldgrower.attribute.ItemCountMap;
+import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.goal.DrownUtils;
 import org.worldgrower.goal.GoalUtils;
@@ -50,8 +51,65 @@ public class CommonerOnTurn implements OnTurn {
 		}
 		
 		DrownUtils.checkForDrowning(worldObject, world);
-		
 		checkPregnancy(worldObject, world);
+		adjustPrices(worldObject, world);
+	}
+
+	private void adjustPrices(WorldObject worldObject, World world) {
+		if (worldObject.isControlledByAI()) {
+			if (world.getCurrentTurn().getValue() % 200 == 0) {
+				Map<Item, Integer> prices = worldObject.getProperty(Constants.PRICES);
+				ItemCountMap itemsSold = worldObject.getProperty(Constants.ITEMS_SOLD);
+				
+				for(Item itemSold : itemsSold.getItems()) {
+					int soldCount = itemsSold.get(itemSold);
+					WorldObjectContainer inventory = worldObject.getProperty(Constants.INVENTORY);
+					int indexOfItemSold = inventory.getIndexFor(w -> w.getProperty(Constants.ITEM_ID) == itemSold);
+					int inventoryCount = getInventoryCount(inventory, indexOfItemSold);
+					
+					Integer oldPrice = calculateOldPrice(prices, itemSold);
+					Integer newPrice = calculateNewPrice(soldCount, inventoryCount, oldPrice);
+					if (newPrice != null) {
+						prices.put(itemSold, newPrice);
+						//System.out.println("price changed for " + itemSold + ": " + oldPrice + " --> " + newPrice);
+					}
+				}
+				itemsSold.clear();
+			}
+		}
+	}
+
+	private int getInventoryCount(WorldObjectContainer inventory, int indexOfItemSold) {
+		int inventoryCount;
+		if (indexOfItemSold != -1) {
+			inventoryCount = inventory.get(indexOfItemSold).getProperty(Constants.QUANTITY);
+		} else {
+			inventoryCount = 0;
+		}
+		return inventoryCount;
+	}
+
+	private Integer calculateOldPrice(Map<Item, Integer> prices, Item itemSold) {
+		Integer oldPrice = prices.get(itemSold);
+		if (oldPrice == null) {
+			oldPrice = itemSold.getPrice();
+		}
+		return oldPrice;
+	}
+
+	private Integer calculateNewPrice(int soldCount, int inventoryCount, int oldPrice) {
+		Integer newPrice = null;
+		if (inventoryCount == 0) {
+			newPrice = oldPrice * 2;
+		} else if (soldCount > inventoryCount) {
+			newPrice = oldPrice + (oldPrice / 10 + 1);
+		} else if (soldCount < inventoryCount) {
+			newPrice = oldPrice - (oldPrice / 10 + 1);
+			if (newPrice <= 0) {
+				newPrice = 1;
+			}
+		}
+		return newPrice;
 	}
 
 	private void checkPregnancy(WorldObject worldObject, World world) {

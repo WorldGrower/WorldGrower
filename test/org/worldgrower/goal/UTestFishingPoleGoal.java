@@ -53,7 +53,7 @@ public class UTestFishingPoleGoal {
 	public void testCalculateGoalCreateFishingPole() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
-		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.WOOD, 10, null);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 10);
 		
 		assertEquals(Actions.CONSTRUCT_FISHING_POLE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}

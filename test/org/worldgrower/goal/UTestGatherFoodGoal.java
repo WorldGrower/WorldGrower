@@ -25,6 +25,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.CreatureGenerator;
+import org.worldgrower.generator.Item;
 import org.worldgrower.generator.PlantGenerator;
 
 public class UTestGatherFoodGoal {
@@ -97,7 +98,7 @@ public class UTestGatherFoodGoal {
 		
 		assertEquals(false, goal.isGoalMet(performer, world));
 		
-		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.FOOD, 50, null);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.BERRIES.generate(1f), 50);
 		assertEquals(true, goal.isGoalMet(performer, world));
 	}
 

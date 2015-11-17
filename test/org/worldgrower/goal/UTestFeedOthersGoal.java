@@ -26,6 +26,7 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.MockCommonerNameGenerator;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.generator.CommonerGenerator;
+import org.worldgrower.generator.Item;
 import org.worldgrower.generator.PlantGenerator;
 import org.worldgrower.gui.CommonerImageIds;
 
@@ -51,7 +52,7 @@ public class UTestFeedOthersGoal {
 		WorldObject target = createCommoner(world, organization);
 		
 		target.setProperty(Constants.FOOD, 0);
-		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.FOOD, 20, null);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.BERRIES.generate(1f), 20);
 		
 		assertEquals(Actions.TALK_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 		AssertUtils.assertConversation(goal.calculateGoal(performer, world), Conversations.GIVE_FOOD_CONVERSATION);

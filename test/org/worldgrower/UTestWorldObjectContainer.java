@@ -21,12 +21,9 @@ import java.util.List;
 import org.junit.Test;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
-import org.worldgrower.gui.ImageIds;
 
 public class UTestWorldObjectContainer {
 
-	private static final ImageIds NO_IMAGE_ID = null;
-	
 	@Test
 	public void testAddRemove() {
 		WorldObjectContainer container = new WorldObjectContainer();
@@ -44,8 +41,8 @@ public class UTestWorldObjectContainer {
 	@Test
 	public void testAddQuantity() {
 		WorldObjectContainer container = new WorldObjectContainer();
-		container.addQuantity(Constants.WOOD, 2, NO_IMAGE_ID);
-		container.addQuantity(Constants.WOOD, 3, NO_IMAGE_ID);
+		container.addQuantity(Item.WOOD.generate(1f), 2);
+		container.addQuantity(Item.WOOD.generate(1f), 3);
 		
 		assertEquals(1, container.size());
 		assertEquals(5, container.get(0).getProperty(Constants.QUANTITY).intValue());
@@ -54,7 +51,7 @@ public class UTestWorldObjectContainer {
 	@Test
 	public void testAddQuantityByIndex() {
 		WorldObjectContainer container = new WorldObjectContainer();
-		container.addQuantity(Constants.WOOD, 2, NO_IMAGE_ID);
+		container.addQuantity(Item.WOOD.generate(1f), 2);
 		container.addQuantity(0);
 		
 		assertEquals(1, container.size());
@@ -76,7 +73,7 @@ public class UTestWorldObjectContainer {
 	@Test
 	public void testRemoveQuantity() {
 		WorldObjectContainer container = new WorldObjectContainer();
-		container.addQuantity(Constants.WOOD, 4, NO_IMAGE_ID);
+		container.addQuantity(Item.WOOD.generate(1f), 4);
 		container.removeQuantity(Constants.WOOD, 1);
 		
 		assertEquals(1, container.size());
@@ -86,7 +83,7 @@ public class UTestWorldObjectContainer {
 	@Test
 	public void testGetQuantityFor() {
 		WorldObjectContainer container = new WorldObjectContainer();
-		container.addQuantity(Constants.WOOD, 4, NO_IMAGE_ID);
+		container.addQuantity(Item.WOOD.generate(1f), 4);
 		
 		assertEquals(4, container.getQuantityFor(Constants.WOOD));
 		assertEquals(0, container.getQuantityFor(Constants.STONE));
@@ -110,7 +107,7 @@ public class UTestWorldObjectContainer {
 	@Test
 	public void testGetIndexFor() {
 		WorldObjectContainer container = new WorldObjectContainer();
-		container.addQuantity(Constants.WOOD, 1, NO_IMAGE_ID);
+		container.addQuantity(Item.WOOD.generate(1f), 1);
 		
 		assertEquals(0, container.getIndexFor(Constants.WOOD));
 		assertEquals(-1, container.getIndexFor(Constants.STONE));
@@ -119,8 +116,8 @@ public class UTestWorldObjectContainer {
 	@Test
 	public void testGetWorldObjectsByFunction() {
 		WorldObjectContainer container = new WorldObjectContainer();
-		container.addQuantity(Constants.WOOD, 1, NO_IMAGE_ID);
-		container.addQuantity(Constants.FOOD, 10, NO_IMAGE_ID);
+		container.addQuantity(Item.WOOD.generate(1f), 1);
+		container.addQuantity(Item.BERRIES.generate(1f), 10);
 		
 		List<WorldObject> items = container.getWorldObjectsByFunction(Constants.WOOD, w -> w.getProperty(Constants.WOOD) > 0);
 		assertEquals(1, items.size());
@@ -130,7 +127,7 @@ public class UTestWorldObjectContainer {
 	public void testGetIndexForWithFunction() {
 		WorldObjectContainer container = new WorldObjectContainer();
 		container.add(TestUtils.createWorldObject(1, "Test"));
-		container.addQuantity(Constants.FOOD, 10, NO_IMAGE_ID);
+		container.addQuantity(Item.BERRIES.generate(1f), 10);
 		
 		assertEquals(0, container.getIndexFor(Constants.NAME, "Test", w -> w.getProperty(Constants.ID) == 1));
 	}
@@ -139,7 +136,7 @@ public class UTestWorldObjectContainer {
 	public void testGetIndexForWithFunctionAndEquipment() {
 		WorldObjectContainer container = new WorldObjectContainer();
 		container.add(Item.IRON_CUIRASS.generate(1f));
-		container.addQuantity(Constants.FOOD, 10, NO_IMAGE_ID);
+		container.addQuantity(Item.BERRIES.generate(1f), 10);
 		
 		assertEquals(0, container.getIndexFor(Constants.EQUIPMENT_SLOT, Constants.TORSO_EQUIPMENT, w -> w.getProperty(Constants.ARMOR) > 0));
 	}
@@ -148,7 +145,7 @@ public class UTestWorldObjectContainer {
 	public void testGetIndexForFunction() {
 		WorldObjectContainer container = new WorldObjectContainer();
 		container.add(TestUtils.createWorldObject(1, "Test"));
-		container.addQuantity(Constants.FOOD, 10, NO_IMAGE_ID);
+		container.addQuantity(Item.BERRIES.generate(1f), 10);
 		
 		assertEquals(0, container.getIndexFor(w -> w.getProperty(Constants.ID) == 1));
 	}
@@ -157,7 +154,7 @@ public class UTestWorldObjectContainer {
 	public void testGetIndexForWithValue() {
 		WorldObjectContainer container = new WorldObjectContainer();
 		container.add(TestUtils.createWorldObject(1, "Test"));
-		container.addQuantity(Constants.FOOD, 10, NO_IMAGE_ID);
+		container.addQuantity(Item.BERRIES.generate(1f), 10);
 		
 		assertEquals(1, container.getIndexFor(Constants.FOOD, 1));
 	}
@@ -165,7 +162,7 @@ public class UTestWorldObjectContainer {
 	@Test
 	public void testRemoveAllQuantity() {
 		WorldObjectContainer container = new WorldObjectContainer();
-		container.addQuantity(Constants.WOOD, 1, NO_IMAGE_ID);
+		container.addQuantity(Item.WOOD.generate(1f), 1);
 		
 		container.removeAllQuantity(Constants.WOOD);
 		

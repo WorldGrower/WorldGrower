@@ -25,6 +25,7 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.MockCommonerNameGenerator;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.CommonerGenerator;
+import org.worldgrower.generator.Item;
 import org.worldgrower.generator.PlantGenerator;
 import org.worldgrower.gui.CommonerImageIds;
 
@@ -59,7 +60,7 @@ public class UTestLibraryGoal {
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
 		
-		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.WOOD, 20, null);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
 		
 		assertEquals(null, goal.calculateGoal(performer, world));
 	}
@@ -70,7 +71,7 @@ public class UTestLibraryGoal {
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
 		
-		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.WOOD, 20, null);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
 		
 		assertEquals(Actions.BUILD_LIBRARY_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}

@@ -23,11 +23,12 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.attribute.ArmorType;
+import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.gui.ImageIds;
 
 public enum Item {
-	IRON_CLAYMORE, IRON_GREATSWORD, IRON_AXE, IRON_GREATAXE, IRON_CUIRASS, IRON_HELMET, IRON_GAUNTLETS, IRON_GREAVES, IRON_SHIELD, IRON_BOOTS, BERRIES, GRAPES, WINE, LONGBOW, PAPER, WATER, MEAT, SPELLBOOK, KEY, NIGHT_SHADE, POISON, COTTON, COTTON_SHIRT, COTTON_HAT, COTTON_BOOTS, COTTON_GLOVES, COTTON_PANTS, BED, OIL, FISHING_POLE, FISH, REPAIR_HAMMER;
+	IRON_CLAYMORE, IRON_GREATSWORD, IRON_AXE, IRON_GREATAXE, IRON_CUIRASS, IRON_HELMET, IRON_GAUNTLETS, IRON_GREAVES, IRON_SHIELD, IRON_BOOTS, BERRIES, GRAPES, WINE, LONGBOW, PAPER, WATER, MEAT, SPELLBOOK, KEY, NIGHT_SHADE, POISON, COTTON, COTTON_SHIRT, COTTON_HAT, COTTON_BOOTS, COTTON_GLOVES, COTTON_PANTS, BED, OIL, FISHING_POLE, FISH, REPAIR_HAMMER, WOOD, STONE, GOLD, ORE, SOUL_GEM;
 
 	private static final String IRON_CLAYMORE_NAME = "Iron Claymore";
 	private static final String IRON_AXE_NAME = "Iron Axe";
@@ -454,8 +455,40 @@ public enum Item {
 			properties.put(Constants.IMAGE_ID, ImageIds.REPAIR_HAMMER);
 			return new WorldObjectImpl(properties);
 		});
-	
+		
+		addItem(Item.WOOD, new DefaultItemGenerator(Constants.WOOD, 1, ImageIds.WOOD)::addDefault);
+		addItem(Item.STONE, new DefaultItemGenerator(Constants.STONE, 1, ImageIds.STONE)::addDefault);
+		addItem(Item.GOLD, new DefaultItemGenerator(Constants.GOLD, 1, ImageIds.GOLD)::addDefault);
+		addItem(Item.ORE, new DefaultItemGenerator(Constants.ORE, 1, ImageIds.IRON)::addDefault);
+		addItem(Item.SOUL_GEM, new DefaultItemGenerator(Constants.SOUL_GEM, 1, ImageIds.SOUL_GEM)::addDefault);
 	}
+	
+	private static class DefaultItemGenerator {
+		private final IntProperty propertyKey;
+		private final int quantity;
+		private final ImageIds initialImageId;
+		
+		public DefaultItemGenerator(IntProperty propertyKey, int quantity, ImageIds initialImageId) {
+			super();
+			this.propertyKey = propertyKey;
+			this.quantity = quantity;
+			this.initialImageId = initialImageId;
+		}
+
+		private WorldObject addDefault(double skillBonus) {
+			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+			properties.put(Constants.QUANTITY, quantity);
+			properties.put(Constants.PRICE, 1);
+			properties.put(propertyKey, 1);
+			properties.put(Constants.SELLABLE, false);
+			properties.put(Constants.NAME, propertyKey.getName());
+			properties.put(Constants.IMAGE_ID, initialImageId);
+			WorldObject worldObject = new WorldObjectImpl(properties);
+			return worldObject;
+		}
+	}
+	
+	
 	
 	public static WorldObject generateSpellBook(MagicSpell magicSpell) {
 		WorldObject spellBook = Item.SPELLBOOK.generate(1f);

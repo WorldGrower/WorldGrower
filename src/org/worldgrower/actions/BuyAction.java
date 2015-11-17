@@ -41,8 +41,8 @@ public class BuyAction implements ManagedOperation {
 		//TODO: boughtWorldObject shouldn't be null
 		if (boughtWorldObject != null) {
 			boughtWorldObject.setProperty(Constants.SELLABLE, Boolean.FALSE);
+			target.getProperty(Constants.ITEMS_SOLD).add(boughtWorldObject);
 		}
-		
 		
 		performerInventory.add(boughtWorldObject);
 		target.setProperty(Constants.GOLD, target.getProperty(Constants.GOLD) + price);

@@ -24,6 +24,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.Item;
 import org.worldgrower.generator.PlantGenerator;
 
 public class UTestCreateWineGoal {
@@ -63,7 +64,7 @@ public class UTestCreateWineGoal {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
 		
-		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.GRAPE, 20, null);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.GRAPES.generate(1f), 20);
 		
 		assertEquals(Actions.BREW_WINE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
@@ -75,7 +76,7 @@ public class UTestCreateWineGoal {
 		
 		assertEquals(false, goal.isGoalMet(performer, world));
 		
-		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.WINE, 10, null);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WINE.generate(1f), 10);
 		assertEquals(true, goal.isGoalMet(performer, world));
 	}
 

@@ -54,7 +54,7 @@ public class UTestCraftEquipmentGoal {
 	public void testCalculateGoalStone() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
-		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.WOOD, 20, null);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
 		
 		TerrainGenerator.generateOreResource(5, 5, world);
 		
@@ -65,8 +65,8 @@ public class UTestCraftEquipmentGoal {
 	public void testCalculateGoalIronClaymore() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
-		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.WOOD, 20, null);
-		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.ORE, 10, null);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.ORE.generate(1f), 10);
 		
 		assertEquals(Actions.CRAFT_IRON_CLAYMORE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
@@ -75,8 +75,8 @@ public class UTestCraftEquipmentGoal {
 	public void testCalculateGoalIronCuirass() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
-		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.WOOD, 20, null);
-		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.ORE, 10, null);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.ORE.generate(1f), 10);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_CLAYMORE.generate(1f));
 		
 		assertEquals(Actions.CRAFT_IRON_CUIRASS_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
@@ -86,8 +86,8 @@ public class UTestCraftEquipmentGoal {
 	public void testCalculateGoalIronHelmet() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
-		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.WOOD, 20, null);
-		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.ORE, 10, null);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.ORE.generate(1f), 10);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_CLAYMORE.generate(1f));
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_CUIRASS.generate(1f));
 		

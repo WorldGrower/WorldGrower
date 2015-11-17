@@ -26,6 +26,7 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.MockCommonerNameGenerator;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.CommonerGenerator;
+import org.worldgrower.generator.Item;
 import org.worldgrower.gui.CommonerImageIds;
 
 public class UTestKillVillagersGoal {
@@ -59,7 +60,7 @@ public class UTestKillVillagersGoal {
 		WorldObject performer = createCommoner(world, organization);
 		WorldObject target = createCommoner(world, organization);
 		
-		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.NIGHT_SHADE, 10, null);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.NIGHT_SHADE.generate(1f), 10);
 		
 		assertEquals(Actions.BREW_POISON_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
@@ -72,7 +73,7 @@ public class UTestKillVillagersGoal {
 		WorldObject target = createCommoner(world, organization);
 		
 		BuildingGenerator.buildWell(5, 5, world, 1f);
-		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.POISON_DAMAGE, 10, null);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.POISON.generate(1f), 10);
 		
 		assertEquals(Actions.POISON_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
@@ -84,7 +85,7 @@ public class UTestKillVillagersGoal {
 		WorldObject performer = createCommoner(world, organization);
 		WorldObject target = createCommoner(world, organization);
 		
-		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.POISON_DAMAGE, 10, null);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.POISON.generate(1f), 10);
 		
 		assertEquals(null, goal.calculateGoal(performer, world));
 	}

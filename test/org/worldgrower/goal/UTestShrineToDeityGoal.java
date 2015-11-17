@@ -27,6 +27,7 @@ import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.deity.Deity;
 import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.generator.Item;
 import org.worldgrower.generator.TerrainGenerator;
 
 public class UTestShrineToDeityGoal {
@@ -61,7 +62,7 @@ public class UTestShrineToDeityGoal {
 		WorldObject performer = createPerformer();
 		
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
-		performerInventory.addQuantity(Constants.STONE, 10, null);
+		performerInventory.addQuantity(Item.STONE.generate(1f), 10);
 		
 		assertEquals(null, goal.calculateGoal(performer, world));
 	}
@@ -72,7 +73,7 @@ public class UTestShrineToDeityGoal {
 		WorldObject performer = createPerformer();
 		
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
-		performerInventory.addQuantity(Constants.STONE, 10, null);
+		performerInventory.addQuantity(Item.STONE.generate(1f), 10);
 		
 		assertEquals(Actions.BUILD_SHRINE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}

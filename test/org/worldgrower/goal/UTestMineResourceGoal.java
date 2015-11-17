@@ -24,6 +24,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.Item;
 import org.worldgrower.generator.TerrainGenerator;
 
 public class UTestMineResourceGoal {
@@ -76,9 +77,9 @@ public class UTestMineResourceGoal {
 		assertEquals(false, goal.isGoalMet(performer, world));
 		
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
-		performerInventory.addQuantity(Constants.STONE, 10, null);
-		performerInventory.addQuantity(Constants.ORE, 10, null);
-		performerInventory.addQuantity(Constants.GOLD, 10, null);
+		performerInventory.addQuantity(Item.STONE.generate(1f), 10);
+		performerInventory.addQuantity(Item.ORE.generate(1f), 10);
+		performerInventory.addQuantity(Item.GOLD.generate(1f), 10);
 		assertEquals(true, goal.isGoalMet(performer, world));
 	}
 

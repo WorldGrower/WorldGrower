@@ -16,15 +16,11 @@ package org.worldgrower.attribute;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Function;
 
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
-import org.worldgrower.WorldObjectImpl;
-import org.worldgrower.gui.ImageIds;
 
 public class WorldObjectContainer implements Serializable {
 
@@ -44,35 +40,6 @@ public class WorldObjectContainer implements Serializable {
 
 	public WorldObject get(int index) {
 		return worldObjects.get(index);
-	}
-	
-	public<T> WorldObject addQuantity(IntProperty propertyKey, int quantity, ImageIds initialImageId) {
-		boolean found = false;
-		for(WorldObject object : worldObjects) {
-			if (object != null) {
-				if (object.hasProperty(propertyKey)) {
-					object.increment(Constants.QUANTITY, quantity);
-					found = true;
-					return object;
-				}
-			}
-		}
-		
-		if (!found) {
-			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
-			properties.put(propertyKey, 0);
-			properties.put(Constants.QUANTITY, quantity);
-			properties.put(Constants.PRICE, 1);
-			properties.put(propertyKey, 1);
-			properties.put(Constants.SELLABLE, false);
-			properties.put(Constants.NAME, propertyKey.getName());
-			properties.put(Constants.IMAGE_ID, initialImageId);
-			WorldObject worldObject = new WorldObjectImpl(properties);
-			add(worldObject);
-			return worldObject;
-		} else {
-			return null;
-		}
 	}
 	
 	public void addQuantity(int index) {

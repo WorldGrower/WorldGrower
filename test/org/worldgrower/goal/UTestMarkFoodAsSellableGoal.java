@@ -24,6 +24,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.Item;
 
 public class UTestMarkFoodAsSellableGoal {
 
@@ -42,7 +43,7 @@ public class UTestMarkFoodAsSellableGoal {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = createPerformer();
 		
-		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.FOOD, 10, null);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.BERRIES.generate(1f), 10);
 		
 		assertEquals(Actions.MARK_INVENTORY_ITEM_AS_SELLABLE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 		assertEquals(true, goal.calculateGoal(performer, world).firstArgsIs(0));
@@ -56,7 +57,7 @@ public class UTestMarkFoodAsSellableGoal {
 		assertEquals(true, goal.isGoalMet(performer, world));
 		
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
-		performerInventory.addQuantity(Constants.FOOD, 10, null);
+		performerInventory.addQuantity(Item.BERRIES.generate(1f), 10);
 		assertEquals(false, goal.isGoalMet(performer, world));
 		
 		int indexOfFood = performerInventory.getIndexFor(Constants.FOOD);

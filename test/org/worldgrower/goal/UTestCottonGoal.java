@@ -24,6 +24,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.Item;
 import org.worldgrower.generator.PlantGenerator;
 
 public class UTestCottonGoal {
@@ -65,7 +66,7 @@ public class UTestCottonGoal {
 		
 		assertEquals(false, goal.isGoalMet(performer, world));
 		
-		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.COTTON, 10, null);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.COTTON.generate(1f), 10);
 		assertEquals(true, goal.isGoalMet(performer, world));
 	}
 

@@ -26,6 +26,7 @@ import org.worldgrower.attribute.IdListProperty;
 import org.worldgrower.attribute.IdMapProperty;
 import org.worldgrower.attribute.IdProperty;
 import org.worldgrower.attribute.IntProperty;
+import org.worldgrower.attribute.ItemCountMap;
 import org.worldgrower.attribute.KnowledgeMapProperty;
 import org.worldgrower.attribute.LookDirection;
 import org.worldgrower.attribute.ManagedProperty;
@@ -257,6 +258,7 @@ public class Constants {
 	
 	public static final IntProperty ALCOHOL_LEVEL = new IntProperty("alcoholLevel", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final UnCheckedProperty<Item> ITEM_ID = new UnCheckedProperty<>("itemId", ALL_PROPERTIES);
+	public static final UnCheckedProperty<ItemCountMap> ITEMS_SOLD = new UnCheckedProperty<>("itemsSold", ALL_PROPERTIES);
 	
 	//special property not used in WorldObject
 	public static final IntProperty DISTANCE = new IntProperty("distance", 0, null, NOT_NULLABLE, ALL_PROPERTIES);

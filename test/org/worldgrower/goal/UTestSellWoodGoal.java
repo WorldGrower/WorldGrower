@@ -26,6 +26,7 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.PropertyCountMap;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.creaturetype.CreatureType;
+import org.worldgrower.generator.Item;
 
 public class UTestSellWoodGoal {
 
@@ -49,7 +50,7 @@ public class UTestSellWoodGoal {
 		world.addWorldObject(target);
 		
 		performer.setProperty(Constants.GOLD, 100);
-		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.WOOD, 20, null);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
 		
 		target.setProperty(Constants.GOLD, 100);
 		target.setProperty(Constants.DEMANDS, new PropertyCountMap<>());
@@ -66,7 +67,7 @@ public class UTestSellWoodGoal {
 		
 		assertEquals(true, goal.isGoalMet(performer, world));
 		
-		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.WOOD, 10, null);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 10);
 		assertEquals(false, goal.isGoalMet(performer, world));
 	}
 

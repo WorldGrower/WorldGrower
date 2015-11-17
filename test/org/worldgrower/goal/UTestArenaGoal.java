@@ -26,6 +26,7 @@ import org.worldgrower.actions.MockCommonerNameGenerator;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.CommonerGenerator;
+import org.worldgrower.generator.Item;
 import org.worldgrower.generator.TerrainGenerator;
 import org.worldgrower.gui.CommonerImageIds;
 
@@ -60,7 +61,7 @@ public class UTestArenaGoal {
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
 
-		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.STONE, 20, null);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.STONE.generate(1f), 20);
 		
 		assertEquals(Actions.BUILD_ARENA_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
@@ -71,7 +72,7 @@ public class UTestArenaGoal {
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
 
-		performer.getProperty(Constants.INVENTORY).addQuantity(Constants.STONE, 20, null);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.STONE.generate(1f), 20);
 		
 		assertEquals(null, goal.calculateGoal(performer, world));
 	}
