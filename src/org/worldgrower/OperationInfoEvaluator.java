@@ -14,6 +14,9 @@
  *******************************************************************************/
 package org.worldgrower;
 
+/**
+ * This class is used to evaluate the OperationInfo fields to indicate whether some condition holds
+ */
 public interface OperationInfoEvaluator {
 
 	boolean evaluate(

@@ -30,7 +30,6 @@ import org.worldgrower.attribute.ItemCountMap;
 import org.worldgrower.attribute.KnowledgeMapProperty;
 import org.worldgrower.attribute.LookDirection;
 import org.worldgrower.attribute.ManagedProperty;
-import org.worldgrower.attribute.PropertyCountMap;
 import org.worldgrower.attribute.PropertyCountMapProperty;
 import org.worldgrower.attribute.Reasons;
 import org.worldgrower.attribute.SkillProperty;

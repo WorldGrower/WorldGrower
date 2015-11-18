@@ -44,7 +44,6 @@ public class MockWorld implements World {
 
 	@Override
 	public void removeWorldObject(WorldObject worldObject) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -55,7 +54,6 @@ public class MockWorld implements World {
 
 	@Override
 	public boolean exists(WorldObject worldObject) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -76,31 +74,26 @@ public class MockWorld implements World {
 
 	@Override
 	public int generateUniqueId() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public <T> void logAction(ManagedOperation managedOperation, WorldObject performer, WorldObject target, int[] args, T value) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void addListener(ManagedOperationListener listener) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void removeListener(ManagedOperationListener listener) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public <T> T getListenerByClass(Class<T> clazz) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -121,13 +114,11 @@ public class MockWorld implements World {
 
 	@Override
 	public Goal getGoal(WorldObject worldObject) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public OperationInfo getImmediateGoal(WorldObject worldObject, World world) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -143,31 +134,26 @@ public class MockWorld implements World {
 
 	@Override
 	public History getHistory() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void save(File fileToSave) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public WorldOnTurn getWorldOnTurn() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public WorldStateChangedListeners getWorldStateChangedListeners() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void addWorldStateChangedListener(WorldStateChangedListener worldStateChangedListener) {
-		// TODO Auto-generated method stub
 		
 	}
 

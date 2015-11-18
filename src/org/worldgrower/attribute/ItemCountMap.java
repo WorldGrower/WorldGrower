@@ -59,4 +59,8 @@ public class ItemCountMap implements Serializable {
 	public int get(Item item) {
 		return itemCount.get(item);
 	}
+
+	public boolean contains(Item item) {
+		return itemCount.containsKey(item);
+	}
 }

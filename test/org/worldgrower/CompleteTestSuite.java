@@ -19,14 +19,18 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 import org.worldgrower.actions.UTestActions;
 import org.worldgrower.actions.UTestAttackUtils;
+import org.worldgrower.actions.UTestBuildHouseAction;
+import org.worldgrower.actions.UTestBuildShackAction;
 import org.worldgrower.actions.UTestChooseProfessionAction;
 import org.worldgrower.actions.UTestCraftUtils;
+import org.worldgrower.actions.UTestDrinkWaterAction;
 import org.worldgrower.actions.UTestOrganizationNamer;
 import org.worldgrower.actions.UTestTalkAction;
 import org.worldgrower.actions.UTestVotingPropertyUtils;
 import org.worldgrower.attribute.UTestIdList;
 import org.worldgrower.attribute.UTestIdMap;
 import org.worldgrower.attribute.UTestIntProperty;
+import org.worldgrower.attribute.UTestItemCountMap;
 import org.worldgrower.attribute.UTestKnowledgeMap;
 import org.worldgrower.attribute.UTestPropertyCountMap;
 import org.worldgrower.attribute.UTestSkillUtils;
@@ -74,7 +78,9 @@ import org.worldgrower.conversation.UTestWhyAngryConversation;
 import org.worldgrower.conversation.UTestWhyAngryOtherConversation;
 import org.worldgrower.conversation.UTestWhyNotIntelligentConversation;
 import org.worldgrower.deity.UTestDeityPropertyUtils;
+import org.worldgrower.generator.UTestBeastOnTurn;
 import org.worldgrower.generator.UTestBerryBushOnTurn;
+import org.worldgrower.generator.UTestBuildingGenerator;
 import org.worldgrower.generator.UTestCommonerGenerator;
 import org.worldgrower.generator.UTestCommonerOnTurn;
 import org.worldgrower.generator.UTestCowOnTurn;
@@ -279,7 +285,13 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestCreatePaperGoal.class,
 	UTestCreatePoisonGoal.class,
 	UTestPregnancyPropertyUtils.class,
-	UTestSwitchDeityConversation.class
+	UTestSwitchDeityConversation.class,
+	UTestItemCountMap.class,
+	UTestBeastOnTurn.class,
+	UTestBuildingGenerator.class,
+	UTestBuildHouseAction.class,
+	UTestBuildShackAction.class,
+	UTestDrinkWaterAction.class
 })
 public class CompleteTestSuite {
 }

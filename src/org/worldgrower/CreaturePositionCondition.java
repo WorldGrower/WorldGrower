@@ -14,6 +14,9 @@
  *******************************************************************************/
 package org.worldgrower;
 
+/**
+ * Convenience class that checks whether a worldObject occupies a certain position
+ */
 public class CreaturePositionCondition implements WorldObjectCondition {
 	private final int row;
 	private final int column;

@@ -28,8 +28,7 @@ import org.worldgrower.gui.ImageIds;
 
 public class BuildInnAction implements BuildAction {
 
-	//TODO
-	private static final int REQUIRED_STONE = 0;
+	private static final int REQUIRED_STONE = 10;
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {

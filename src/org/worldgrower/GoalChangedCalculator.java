@@ -21,6 +21,10 @@ import java.util.Map;
 
 import org.worldgrower.goal.Goal;
 
+/**
+ * This code checks whether any goals of a npc have gotten worde.
+ * And if that's the case how the npc is going to react.
+ */
 public class GoalChangedCalculator {
 
 	private final GoalObstructedHandler goalObstructedHandler;

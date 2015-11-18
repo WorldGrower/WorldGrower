@@ -110,6 +110,7 @@ public class TestUtils {
 		properties.put(Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		properties.put(Constants.CONDITIONS, new Conditions());
 		properties.put(Constants.DEMANDS, new PropertyCountMap<ManagedProperty<?>>());
+		properties.put(Constants.PRICES, new HashMap<>());
 		properties.put(Constants.STRENGTH, 10);
 		properties.put(Constants.WATER, 10);
 		properties.put(Constants.ENERGY, 1000);

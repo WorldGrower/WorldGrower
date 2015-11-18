@@ -55,7 +55,7 @@ public class CommonerOnTurn implements OnTurn {
 		adjustPrices(worldObject, world);
 	}
 
-	private void adjustPrices(WorldObject worldObject, World world) {
+	void adjustPrices(WorldObject worldObject, World world) {
 		if (worldObject.isControlledByAI()) {
 			if (world.getCurrentTurn().getValue() % 200 == 0) {
 				Map<Item, Integer> prices = worldObject.getProperty(Constants.PRICES);
@@ -79,7 +79,7 @@ public class CommonerOnTurn implements OnTurn {
 		}
 	}
 
-	private int getInventoryCount(WorldObjectContainer inventory, int indexOfItemSold) {
+	int getInventoryCount(WorldObjectContainer inventory, int indexOfItemSold) {
 		int inventoryCount;
 		if (indexOfItemSold != -1) {
 			inventoryCount = inventory.get(indexOfItemSold).getProperty(Constants.QUANTITY);
@@ -89,7 +89,7 @@ public class CommonerOnTurn implements OnTurn {
 		return inventoryCount;
 	}
 
-	private Integer calculateOldPrice(Map<Item, Integer> prices, Item itemSold) {
+	Integer calculateOldPrice(Map<Item, Integer> prices, Item itemSold) {
 		Integer oldPrice = prices.get(itemSold);
 		if (oldPrice == null) {
 			oldPrice = itemSold.getPrice();
@@ -97,7 +97,7 @@ public class CommonerOnTurn implements OnTurn {
 		return oldPrice;
 	}
 
-	private Integer calculateNewPrice(int soldCount, int inventoryCount, int oldPrice) {
+	Integer calculateNewPrice(int soldCount, int inventoryCount, int oldPrice) {
 		Integer newPrice = null;
 		if (inventoryCount == 0) {
 			newPrice = oldPrice * 2;
@@ -119,6 +119,8 @@ public class CommonerOnTurn implements OnTurn {
 			worldObject.setProperty(Constants.PREGNANCY, pregnancy);
 			
 			if (pregnancy > 200) {
+				worldObject.setProperty(Constants.PREGNANCY, pregnancy - 201);
+				
 				int performerX = worldObject.getProperty(Constants.X);
 				int performerY = worldObject.getProperty(Constants.Y);
 				int[] position = GoalUtils.findOpenSpace(worldObject, 1, 1, world);
@@ -129,8 +131,6 @@ public class CommonerOnTurn implements OnTurn {
 					
 					everyoneInVicinityKnowsOfChild(worldObject, id, world);
 				}
-				
-				worldObject.setProperty(Constants.PREGNANCY, pregnancy - 201);
 			}
 		}
 	}

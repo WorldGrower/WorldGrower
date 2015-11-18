@@ -124,7 +124,7 @@ public class UTestBuySellUtils {
 	}
 	
 	//TODO: worldObject cannot buy from itself
-	
+	//TODO: worldObject may not buy null object
 	
 	@Test
 	public void testFindBuyTargets() {
@@ -139,5 +139,27 @@ public class UTestBuySellUtils {
 		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.NAME, Item.COTTON_SHIRT_NAME, world);
 		assertEquals(1, targets.size());
 		assertEquals(target, targets.get(0));
+	}
+	
+	@Test
+	public void testBetterPriceExistsNull() {
+		World world = new WorldImpl(0, 0, null, null);
+		assertEquals(false, BuySellUtils.betterPriceExists(Item.BERRIES.generate(1f), world, 1));
+	}
+	
+	@Test
+	public void testBetterPriceExistsTrue() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject worldObjectToBuy = Item.BERRIES.generate(1f);
+		worldObjectToBuy.setProperty(Constants.PRICE, 10);
+		
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, "target");
+		WorldObject otherBerries = Item.BERRIES.generate(1f);
+		otherBerries.setProperty(Constants.PRICE, 2);
+		otherBerries.setProperty(Constants.SELLABLE, Boolean.TRUE);
+		target.getProperty(Constants.INVENTORY).addQuantity(otherBerries);
+		world.addWorldObject(target);
+		
+		assertEquals(true, BuySellUtils.betterPriceExists(worldObjectToBuy, world, 10));
 	}
 }

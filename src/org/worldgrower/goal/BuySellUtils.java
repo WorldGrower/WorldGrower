@@ -26,6 +26,7 @@ import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.StringProperty;
 import org.worldgrower.attribute.UnCheckedProperty;
+import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
 
 public class BuySellUtils {
@@ -88,15 +89,15 @@ public class BuySellUtils {
 		return worldObjectWillBuyGoods(performer, target, inventoryItem, world);
 	}
 	
-	public static boolean worldObjectWillBuyGoods(WorldObject performer, WorldObject target, WorldObject worldObject, World world) {
-		boolean demandsGoods = hasDemandForInventoryItemGoods(target, worldObject);
+	public static boolean worldObjectWillBuyGoods(WorldObject performer, WorldObject target, WorldObject worldObjectToBuy, World world) {
+		boolean demandsGoods = hasDemandForInventoryItemGoods(target, worldObjectToBuy);
 		
-		int price = BuySellUtils.getPrice(performer, worldObject);
-		/*boolean betterPriceExists = betterPriceExists(worldObject, world, price);*/
+		int price = BuySellUtils.getPrice(performer, worldObjectToBuy);
+		boolean betterPriceExists = betterPriceExists(worldObjectToBuy, world, price);
 		
 		boolean hasMoneyToBuyGoods = (price <= target.getProperty(Constants.GOLD));
 		
-		return demandsGoods && /*!betterPriceExists &&*/ hasMoneyToBuyGoods;
+		return demandsGoods && !betterPriceExists && hasMoneyToBuyGoods;
 	}
 	
 	public static boolean performerCanBuyGoods(WorldObject performer, WorldObject target, int indexOfItemsToSell, int quantity) {
@@ -116,21 +117,27 @@ public class BuySellUtils {
 		return demandsGoods;
 	}
 
-	//TODO: fix
-	/*private static boolean betterPriceExists(int indexOfPropertyToSell, World world, int price) {
+
+	static boolean betterPriceExists(WorldObject worldObjectToBuy, World world, int price) {
+		Item itemToBuy = worldObjectToBuy.getProperty(Constants.ITEM_ID);
 		boolean betterPriceExists = false;
-		List<WorldObject> targets = world.findWorldObjects(w -> w.hasProperty(Constants.INVENTORY) && w.getProperty(Constants.INVENTORY).getWorldObjects(Constants.SELLABLE, Boolean.TRUE).size() > 0);
+		List<WorldObject> targets = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> hasSellableItem(w));
 		for(WorldObject target : targets) {
 			WorldObjectContainer targetInventory = target.getProperty(Constants.INVENTORY);
-			if (targetInventory.get(indexOfPropertyToSell).getProperty(Constants.SELLABLE)) {
-				int priceTarget = getPrice(target, indexOfPropertyToSell);
+			int indexForItem = targetInventory.getIndexFor(Constants.ITEM_ID, itemToBuy, w -> w.getProperty(Constants.SELLABLE));
+			if (indexForItem != -1) {
+				int priceTarget = getPrice(target, indexForItem);
 				if (priceTarget < price) {
 					betterPriceExists = true;
 				}
 			}
 		}
 		return betterPriceExists;
-	}*/
+	}
+
+	private static boolean hasSellableItem(WorldObject w) {
+		return  w.hasProperty(Constants.INVENTORY) && w.getProperty(Constants.INVENTORY).getWorldObjects(Constants.SELLABLE, Boolean.TRUE).size() > 0;
+	}
 
 	public static int getIndexFor(WorldObject target, StringProperty property, String value) {
 		return target.getProperty(Constants.INVENTORY).getIndexFor(property, value, inventoryItem -> isInventoryItemSellable(inventoryItem));

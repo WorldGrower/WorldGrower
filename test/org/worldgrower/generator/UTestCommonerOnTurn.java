@@ -16,12 +16,15 @@ package org.worldgrower.generator;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Map;
+
 import org.junit.Test;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.MockCommonerNameGenerator;
+import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.gui.CommonerImageIds;
@@ -72,6 +75,11 @@ public class UTestCommonerOnTurn {
 		return playerCharacter;
 	}
 	
+	private WorldObject createCommoner(World world, WorldObject organization) {
+		int commonerId = commonerGenerator.generateCommoner(0, 0, world, organization);
+		return world.findWorldObject(Constants.ID, commonerId);
+	}
+	
 	@Test
 	public void testGiveBirth() {
 		World world = new WorldImpl(10, 10, null, null);
@@ -83,8 +91,69 @@ public class UTestCommonerOnTurn {
 		playerCharacter.setProperty(Constants.PREGNANCY, 500);
 		playerCharacter.onTurn(world, new WorldStateChangedListeners());
 		
-		assertEquals(300, playerCharacter.getProperty(Constants.PREGNANCY).intValue());
+		assertEquals(null, playerCharacter.getProperty(Constants.PREGNANCY));
 		assertEquals(1, playerCharacter.getProperty(Constants.CHILDREN).size());
+	}
+	
+	@Test
+	public void testGetInventoryCount() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
 		
+		WorldObject playerCharacter = createPlayerCharacter(world, organization);
+		WorldObjectContainer inventory = playerCharacter.getProperty(Constants.INVENTORY);
+		inventory.addQuantity(Item.BERRIES.generate(1f));
+		
+		assertEquals(1, new CommonerOnTurn(commonerGenerator, organization).getInventoryCount(inventory, inventory.getIndexFor(Constants.FOOD)));
+		assertEquals(0, new CommonerOnTurn(commonerGenerator, organization).getInventoryCount(inventory, -1));
+	}
+	
+	@Test
+	public void testCalculateOldPrice() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
+		
+		WorldObject playerCharacter = createPlayerCharacter(world, organization);
+		Map<Item, Integer> prices = playerCharacter.getProperty(Constants.PRICES);
+		assertEquals(1, new CommonerOnTurn(commonerGenerator, organization).calculateOldPrice(prices, Item.BERRIES).intValue());
+		
+		prices.put(Item.BERRIES, 5);
+		assertEquals(5, new CommonerOnTurn(commonerGenerator, organization).calculateOldPrice(prices, Item.BERRIES).intValue());
+	}
+	
+	@Test
+	public void testCalculateNewPrice() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
+		
+		int soldCount = 0;
+		int inventoryCount = 0;
+		int oldPrice = 1;
+		assertEquals(2, new CommonerOnTurn(commonerGenerator, organization).calculateNewPrice(soldCount, inventoryCount, oldPrice).intValue());
+		
+		inventoryCount = 10;
+		assertEquals(1, new CommonerOnTurn(commonerGenerator, organization).calculateNewPrice(soldCount, inventoryCount, oldPrice).intValue());
+		
+		soldCount = 10;
+		assertEquals(null, new CommonerOnTurn(commonerGenerator, organization).calculateNewPrice(soldCount, inventoryCount, oldPrice));
+		
+		soldCount = 20;
+		assertEquals(2, new CommonerOnTurn(commonerGenerator, organization).calculateNewPrice(soldCount, inventoryCount, oldPrice).intValue());
+	}
+	
+	@Test
+	public void testAdjustPrices() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
+		
+		WorldObject commoner = createCommoner(world, organization);
+		commoner.getProperty(Constants.ITEMS_SOLD).add(Item.BERRIES, 20);
+		Map<Item, Integer> prices = commoner.getProperty(Constants.PRICES);
+		
+		assertEquals(null, prices.get(Item.BERRIES));
+		new CommonerOnTurn(commonerGenerator, organization).adjustPrices(commoner, world);
+		assertEquals(2, prices.get(Item.BERRIES).intValue());
+		
+		assertEquals(false, commoner.getProperty(Constants.ITEMS_SOLD).contains(Item.BERRIES));
 	}
 }

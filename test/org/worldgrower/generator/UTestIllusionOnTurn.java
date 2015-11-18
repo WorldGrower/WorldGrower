@@ -32,11 +32,7 @@ public class UTestIllusionOnTurn {
 	@Test
 	public void testOnTurn() {
 		World world = new WorldImpl(0, 0, null, new DoNothingWorldOnTurn());
-		WorldObject performer = TestUtils.createWorldObject(0, 0, 1, 1, Constants.ID, 2);
-		performer.setProperty(Constants.ILLUSION_SKILL, new Skill(20));
-		performer.setProperty(Constants.ENERGY, 1000);
-		world.addWorldObject(performer);
-		Actions.MINOR_ILLUSION_ACTION.execute(performer, performer, new int[]{2}, world);
+		createIllusion(world);
 		
 		WorldObject illusion = world.findWorldObject(Constants.ID, 0);
 		assertEquals(11, illusion.getProperty(Constants.TURNS_TO_LIVE).intValue());
@@ -45,5 +41,23 @@ public class UTestIllusionOnTurn {
 		assertEquals(10, illusion.getProperty(Constants.TURNS_TO_LIVE).intValue());
 	}
 	
-	
+	@Test
+	public void testOnTurnRemove() {
+		World world = new WorldImpl(0, 0, null, new DoNothingWorldOnTurn());
+		createIllusion(world);
+		
+		WorldObject illusion = world.findWorldObject(Constants.ID, 0);
+		illusion.setProperty(Constants.TURNS_TO_LIVE, 1);
+		
+		illusion.onTurn(world, new WorldStateChangedListeners());
+		assertEquals(false, world.exists(illusion));
+	}
+
+	private void createIllusion(World world) {
+		WorldObject performer = TestUtils.createWorldObject(0, 0, 1, 1, Constants.ID, 2);
+		performer.setProperty(Constants.ILLUSION_SKILL, new Skill(20));
+		performer.setProperty(Constants.ENERGY, 1000);
+		world.addWorldObject(performer);
+		Actions.MINOR_ILLUSION_ACTION.execute(performer, performer, new int[]{2}, world);
+	}
 }
