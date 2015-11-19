@@ -78,7 +78,7 @@ public class AttackUtils {
 	}
 	
 	private static void everyoneInVicinityKnowsOfAttack(WorldObject performer, WorldObject target, World world) {
-		List<WorldObject> peopleThatknowOfAttack = world.findWorldObjects(w -> w.hasIntelligence() && Reach.distance(performer, w) < 20);
+		List<WorldObject> peopleThatknowOfAttack = world.findWorldObjects(w -> w.hasIntelligence() && w.hasProperty(Constants.KNOWLEDGE_MAP) && Reach.distance(performer, w) < 20);
 		for(WorldObject personThatknowsOfAttack : peopleThatknowOfAttack) {
 			personThatknowsOfAttack.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(target, world);
 		}

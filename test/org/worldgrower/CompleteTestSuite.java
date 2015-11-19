@@ -21,10 +21,18 @@ import org.worldgrower.actions.UTestActions;
 import org.worldgrower.actions.UTestAttackUtils;
 import org.worldgrower.actions.UTestBuildHouseAction;
 import org.worldgrower.actions.UTestBuildShackAction;
+import org.worldgrower.actions.UTestBuyAction;
 import org.worldgrower.actions.UTestChooseProfessionAction;
+import org.worldgrower.actions.UTestCollectWaterAction;
 import org.worldgrower.actions.UTestCraftUtils;
-import org.worldgrower.actions.UTestDrinkWaterAction;
+import org.worldgrower.actions.UTestDrinkAction;
+import org.worldgrower.actions.UTestDrinkFromInventoryAction;
+import org.worldgrower.actions.UTestEatNightShadeAction;
 import org.worldgrower.actions.UTestOrganizationNamer;
+import org.worldgrower.actions.UTestSellAction;
+import org.worldgrower.actions.UTestSetLegalActionsAction;
+import org.worldgrower.actions.UTestSleepAction;
+import org.worldgrower.actions.UTestStealAction;
 import org.worldgrower.actions.UTestTalkAction;
 import org.worldgrower.actions.UTestVotingPropertyUtils;
 import org.worldgrower.attribute.UTestIdList;
@@ -291,7 +299,15 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestBuildingGenerator.class,
 	UTestBuildHouseAction.class,
 	UTestBuildShackAction.class,
-	UTestDrinkWaterAction.class
+	UTestDrinkAction.class,
+	UTestDrinkFromInventoryAction.class,
+	UTestBuyAction.class,
+	UTestSellAction.class,
+	UTestSleepAction.class,
+	UTestCollectWaterAction.class,
+	UTestStealAction.class,
+	UTestEatNightShadeAction.class,
+	UTestSetLegalActionsAction.class
 })
 public class CompleteTestSuite {
 }

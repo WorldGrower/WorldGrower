@@ -40,6 +40,8 @@ public class CollectWaterAction implements ManagedOperation {
 			int indexOfWater = inventoryPerformer.getIndexFor(Constants.WATER);
 			inventoryPerformer.get(indexOfWater).setProperty(Constants.POISON_DAMAGE, target.getProperty(Constants.POISON_DAMAGE));
 		}
+		
+		//TODO :alcohol level?
 
 		target.increment(Constants.WATER_SOURCE, -1);
 	}

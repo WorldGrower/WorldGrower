@@ -36,9 +36,8 @@ public class HarvestFoodAction implements ManagedOperation {
 		inventoryPerformer.addQuantity(harvestedFood);
 
 		target.increment(Constants.FOOD_SOURCE, -20);
+		world.logAction(this, performer, target, args, null);
 	}
-
-
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {

@@ -30,13 +30,11 @@ public class EatNightShadeAction implements ManagedOperation {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		int food = performer.getProperty(Constants.FOOD);
-		
 		int foodInTarget = target.getProperty(Constants.NIGHT_SHADE_SOURCE);
-		food = food + Math.min(10, foodInTarget);
+		int foodIncrease = Math.min(10, foodInTarget);
 
-		performer.setProperty(Constants.FOOD, food);
-		target.setProperty(Constants.NIGHT_SHADE_SOURCE, foodInTarget - 10);
+		performer.increment(Constants.FOOD, foodIncrease);
+		target.increment(Constants.NIGHT_SHADE_SOURCE, -10);
 		
 		Conditions.add(performer, Condition.POISONED_CONDITION, 20, world);
 	}

@@ -25,20 +25,18 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
-import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.generator.Item;
 
-public class UTestDrinkWaterAction {
+public class UTestDrinkFromInventoryAction {
 
 	@Test
 	public void testExecuteDrinkWater() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = createPerformer(2);
-		
-		int wellId = BuildingGenerator.buildWell(0, 0, world, 1f);
-		WorldObject well = world.findWorldObject(Constants.ID, wellId);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WATER.generate(1f));
 		
 		assertEquals(800, performer.getProperty(Constants.WATER).intValue());
-		Actions.DRINK_ACTION.execute(performer, well, new int[0], world);
+		Actions.DRINK_FROM_INVENTORY_ACTION.execute(performer, performer, new int[0], world);
 		
 		assertEquals(900, performer.getProperty(Constants.WATER).intValue());
 	}
@@ -48,12 +46,12 @@ public class UTestDrinkWaterAction {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = createPerformer(2);
 		
-		int wellId = BuildingGenerator.buildWell(0, 0, world, 1f);
-		WorldObject well = world.findWorldObject(Constants.ID, wellId);
-		well.setProperty(Constants.ALCOHOL_LEVEL, 9000);
+		WorldObject wine = Item.WINE.generate(1f);
+		wine.setProperty(Constants.ALCOHOL_LEVEL, 9000);
+		performer.getProperty(Constants.INVENTORY).addQuantity(wine);
 		
 		assertEquals(800, performer.getProperty(Constants.WATER).intValue());
-		Actions.DRINK_ACTION.execute(performer, well, new int[0], world);
+		Actions.DRINK_FROM_INVENTORY_ACTION.execute(performer, performer, new int[0], world);
 		
 		assertEquals(true, performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.INTOXICATED_CONDITION));
 	}
@@ -63,12 +61,12 @@ public class UTestDrinkWaterAction {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = createPerformer(2);
 		
-		int wellId = BuildingGenerator.buildWell(0, 0, world, 1f);
-		WorldObject well = world.findWorldObject(Constants.ID, wellId);
-		well.setProperty(Constants.POISON_DAMAGE, 10);
+		WorldObject water = Item.WATER.generate(1f);
+		water.setProperty(Constants.POISON_DAMAGE, 10);
+		performer.getProperty(Constants.INVENTORY).addQuantity(water);
 		
 		assertEquals(800, performer.getProperty(Constants.WATER).intValue());
-		Actions.DRINK_ACTION.execute(performer, well, new int[0], world);
+		Actions.DRINK_FROM_INVENTORY_ACTION.execute(performer, performer, new int[0], world);
 		
 		assertEquals(true, performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.POISONED_CONDITION));
 	}

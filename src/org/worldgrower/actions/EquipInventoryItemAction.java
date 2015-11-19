@@ -34,6 +34,7 @@ public class EquipInventoryItemAction implements ManagedOperation {
 		WorldObject itemToEquip = inventory.get(index);
 
 		performer.setProperty(Constants.LEFT_HAND_EQUIPMENT, itemToEquip);
+		world.logAction(this, performer, target, args, null);
 	}
 
 	@Override

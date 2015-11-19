@@ -155,7 +155,8 @@ public class CommonerOnTurn implements OnTurn {
 	}
 	
 	private void everyoneInVicinityKnowsOfChild(WorldObject parent, int childId, World world) {
-		List<WorldObject> peopleThatknowOfBirth = world.findWorldObjects(w -> w.hasIntelligence() && Reach.distance(parent, w) < 20);
+		//TODO: remove code duplication
+		List<WorldObject> peopleThatknowOfBirth = world.findWorldObjects(w -> w.hasIntelligence()&& w.hasProperty(Constants.KNOWLEDGE_MAP) && Reach.distance(parent, w) < 20);
 		for(WorldObject personThatknowsOfBirth : peopleThatknowOfBirth) {
 			personThatknowsOfBirth.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(parent, Constants.CHILD_BIRTH_ID, childId);
 		}
