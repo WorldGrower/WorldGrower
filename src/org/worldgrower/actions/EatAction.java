@@ -28,12 +28,8 @@ public class EatAction implements ManagedOperation {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		int food = performer.getProperty(Constants.FOOD);
-		
 		int foodInTarget = target.getProperty(Constants.FOOD_SOURCE);
-		food = food + Math.min(100, foodInTarget);
-
-		performer.setProperty(Constants.FOOD, food);
+		performer.increment(Constants.FOOD, Math.min(100, foodInTarget));
 		target.setProperty(Constants.FOOD_SOURCE, foodInTarget - 100);
 	}
 

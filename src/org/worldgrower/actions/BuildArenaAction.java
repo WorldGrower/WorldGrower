@@ -24,7 +24,6 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.generator.BuildingGenerator;
-import org.worldgrower.goal.GoalUtils;
 import org.worldgrower.gui.ImageIds;
 
 public class BuildArenaAction implements BuildAction {
