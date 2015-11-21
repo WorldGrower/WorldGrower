@@ -1,3 +1,17 @@
+v0.2.0
+- add intoxicated condition
+- add intoxicated condition: intoxicated characters have their skills halved
+- add SwitchDeityConversation
+- fixed bug in Background: revenge target is now correct
+- allow setting price per item
+- make color scheme darker
+- npcs now charge dynamic prices based on demand and buyers look for lowest prices
+- fix pregnancy: pregnancy is now reset after child birth
+- improve tutorial
+- fixed IntProperty overflows in EatNightShadeAction
+- fixed exception in case of knowledge around monsters
+- fix EatAction overflow
+
 v0.1.9
 - add noise to background tiles
 - made terrain transitions better
