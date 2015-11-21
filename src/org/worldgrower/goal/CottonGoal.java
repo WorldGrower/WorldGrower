@@ -24,6 +24,10 @@ import org.worldgrower.actions.Actions;
 
 public class CottonGoal implements Goal {
 
+	public CottonGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
+
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		WorldObject target = GoalUtils.findNearestTarget(performer, Actions.HARVEST_COTTON_ACTION, world);

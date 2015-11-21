@@ -26,6 +26,10 @@ import org.worldgrower.profession.Profession;
 
 public class ProtectOnseSelfGoal implements Goal {
 
+	public ProtectOnseSelfGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
+
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		if (avoidsEnemies(performer)) {

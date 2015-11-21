@@ -24,6 +24,10 @@ import org.worldgrower.actions.Actions;
 
 public class KillOutsidersGoal implements Goal {
 
+	public KillOutsidersGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
+
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.MELEE_ATTACK_ACTION, w -> GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, w), world);

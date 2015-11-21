@@ -27,6 +27,10 @@ import org.worldgrower.profession.Professions;
 
 public class BecomeProfessionOrganizationMemberGoal implements Goal {
 
+	public BecomeProfessionOrganizationMemberGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
+
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		WorldObject performerFacade = FacadeUtils.createFacadeForSelf(performer);

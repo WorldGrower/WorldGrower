@@ -27,4 +27,9 @@ public class ScribeClericSpellsGoal extends AbstractScribeSpellsGoal {
 	public ScribeClericSpellsGoal() {
 		super(CLERIC_SPELLS, Actions.RESEARCH_RESTORATION_SKILL_ACTION);
 	}
+
+	public ScribeClericSpellsGoal(List<Goal> allGoals) {
+		this();
+		allGoals.add(this);
+	}
 }

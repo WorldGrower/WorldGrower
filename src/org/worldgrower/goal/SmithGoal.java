@@ -14,6 +14,8 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
+import java.util.List;
+
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
@@ -22,10 +24,14 @@ import org.worldgrower.actions.Actions;
 
 public class SmithGoal implements Goal {
 
+	public SmithGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
+
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.STONE) < 4) {
-			return new StoneGoal().calculateGoal(performer, world);
+			return Goals.STONE_GOAL.calculateGoal(performer, world);
 		} else {
 			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 3, 4, world);
 			if (target != null) {

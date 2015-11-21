@@ -27,4 +27,9 @@ public class ScribeNecromancerSpellsGoal extends AbstractScribeSpellsGoal {
 	public ScribeNecromancerSpellsGoal() {
 		super(NECROMANCER_SPELLS, Actions.RESEARCH_NECROMANCY_SKILL_ACTION);
 	}
+
+	public ScribeNecromancerSpellsGoal(List<Goal> allGoals) {
+		this();
+		allGoals.add(this);
+	}
 }

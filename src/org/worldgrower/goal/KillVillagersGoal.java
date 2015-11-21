@@ -25,10 +25,14 @@ import org.worldgrower.generator.BuildingGenerator;
 
 public class KillVillagersGoal implements Goal {
 
+	public KillVillagersGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
+
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.POISON_DAMAGE) == 0) {
-			return new CreatePoisonGoal().calculateGoal(performer, world);
+			return Goals.CREATE_POISON_GOAL.calculateGoal(performer, world);
 		} else {
 			List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.POISON_ACTION, w -> !w.hasIntelligence(), world);
 			if (targets.size() > 0) {

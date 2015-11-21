@@ -27,6 +27,10 @@ import org.worldgrower.creaturetype.CreatureType;
 
 public class GhoulGoal implements Goal {
 
+	public GhoulGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
+
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);

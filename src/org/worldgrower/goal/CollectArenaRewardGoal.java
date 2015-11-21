@@ -25,6 +25,10 @@ import org.worldgrower.conversation.Conversations;
 
 public class CollectArenaRewardGoal implements Goal {
 
+	public CollectArenaRewardGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
+
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		List<WorldObject> targets = world.findWorldObjectsByProperty(Constants.ARENA_FIGHTER_IDS, w -> w.getProperty(Constants.ARENA_FIGHTER_IDS).contains(performer));

@@ -26,6 +26,10 @@ import org.worldgrower.deity.Deity;
 
 public class ChooseDeityGoal implements Goal {
 
+	public ChooseDeityGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
+
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		List<DeityReason> deityReasons = new ArrayList<>();

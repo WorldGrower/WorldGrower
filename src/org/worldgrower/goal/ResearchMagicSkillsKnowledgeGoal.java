@@ -28,6 +28,10 @@ public class ResearchMagicSkillsKnowledgeGoal implements Goal {
 	
 	private static final SkillProperty[] MAGIC_SKILLS = { Constants.EVOCATION_SKILL, Constants.RESTORATION_SKILL, Constants.NECROMANCY_SKILL, Constants.ILLUSION_SKILL };
 
+	public ResearchMagicSkillsKnowledgeGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
+
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		List<WorldObject> libraries = LibraryUtils.getLibraries(world);
@@ -41,7 +45,7 @@ public class ResearchMagicSkillsKnowledgeGoal implements Goal {
 				}
 			}
 		} else {
-			return new LibraryGoal().calculateGoal(performer, world);
+			return Goals.LIBRARY_GOAL.calculateGoal(performer, world);
 		}
 		return null;
 	}

@@ -25,6 +25,10 @@ import org.worldgrower.deity.Deity;
 
 public class DestroyShrinesToOtherDeitiesGoal implements Goal {
 
+	public DestroyShrinesToOtherDeitiesGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
+
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		List<WorldObject> targets = findShrinesToOtherDeities(performer, world);

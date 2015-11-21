@@ -14,11 +14,18 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
+import java.util.List;
+
 import org.worldgrower.Constants;
 
 public class MarkStoneAsSellableGoal extends AbstractMarkAsSellableGoal {
 	
 	public MarkStoneAsSellableGoal() {
 		super(Constants.STONE);
+	}
+
+	public MarkStoneAsSellableGoal(List<Goal> allGoals) {
+		this();
+		allGoals.add(this);
 	}
 }

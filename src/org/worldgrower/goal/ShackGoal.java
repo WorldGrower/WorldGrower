@@ -14,6 +14,8 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
+import java.util.List;
+
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
@@ -23,10 +25,14 @@ import org.worldgrower.actions.BuildShackAction;
 
 public class ShackGoal implements Goal {
 
+	public ShackGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
+
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		if (!BuildShackAction.hasEnoughWood(performer)) {
-			return new WoodGoal().calculateGoal(performer, world);
+			return Goals.WOOD_GOAL.calculateGoal(performer, world);
 		} else {
 			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 3, 4, world);
 			if (target != null) {

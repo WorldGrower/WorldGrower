@@ -14,6 +14,8 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
+import java.util.List;
+
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
@@ -22,6 +24,10 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.IdMap;
 
 public class SexGoal implements Goal {
+
+	public SexGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {

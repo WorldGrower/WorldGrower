@@ -14,6 +14,8 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
+import java.util.List;
+
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
@@ -22,6 +24,10 @@ import org.worldgrower.attribute.UnCheckedProperty;
 import org.worldgrower.attribute.WorldObjectContainer;
 
 public class EquipmentGoal implements Goal {
+
+	public EquipmentGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
@@ -52,7 +58,7 @@ public class EquipmentGoal implements Goal {
 		if (buyOperationInfo != null) {
 			return buyOperationInfo;
 		} else {
-			return new CraftEquipmentGoal().calculateGoal(performer, world);
+			return Goals.CRAFT_EQUIPMENT_GOAL.calculateGoal(performer, world);
 		}
 	}
 	

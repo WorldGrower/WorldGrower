@@ -30,6 +30,10 @@ import org.worldgrower.history.Turn;
 
 public class CollectTaxesGoal implements Goal {
 
+	public CollectTaxesGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
+
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		List<WorldObject> targets = getCollectTaxesTargets(performer, world);

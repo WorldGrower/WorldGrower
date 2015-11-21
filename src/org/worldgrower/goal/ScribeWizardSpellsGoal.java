@@ -27,4 +27,9 @@ public class ScribeWizardSpellsGoal extends AbstractScribeSpellsGoal {
 	public ScribeWizardSpellsGoal() {
 		super(WIZARD_SPELLS, Actions.RESEARCH_EVOCATION_SKILL_ACTION);
 	}
+
+	public ScribeWizardSpellsGoal(List<Goal> allGoals) {
+		this();
+		allGoals.add(this);
+	}
 }

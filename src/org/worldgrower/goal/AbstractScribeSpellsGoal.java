@@ -60,7 +60,7 @@ public abstract class AbstractScribeSpellsGoal implements Goal {
 				} else if (!performer.getProperty(Constants.KNOWN_SPELLS).contains(missingSpell)) {
 					return new OperationInfo(performer, library, new int[0], Actions.getResearchSpellActionFor(missingSpell));
 				} else if (knownSpellsInInventory.size() == 0 && performerPaperQuantity < 5) {
-					return new PaperGoal().calculateGoal(performer, world);
+					return Goals.PAPER_GOAL.calculateGoal(performer, world);
 				} else if (knownSpellsInInventory.size() == 0) {
 					return new OperationInfo(performer, performer, new int[0], Actions.getScribeMagicSpellActionFor(missingSpell));
 				} else if (knownSpellsInInventory.size() > 0) {
@@ -69,7 +69,7 @@ public abstract class AbstractScribeSpellsGoal implements Goal {
 				}
 			}
 		} else {
-			return new LibraryGoal().calculateGoal(performer, world);
+			return Goals.LIBRARY_GOAL.calculateGoal(performer, world);
 		}
 		
 		return null;

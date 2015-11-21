@@ -14,6 +14,8 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
+import java.util.List;
+
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
@@ -23,13 +25,17 @@ import org.worldgrower.attribute.WorldObjectContainer;
 
 public class CraftEquipmentGoal implements Goal {
 
+	public CraftEquipmentGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
+
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
 		if (inventory.getQuantityFor(Constants.WOOD) < 10) {
-			return new WoodGoal().calculateGoal(performer, world);
+			return Goals.WOOD_GOAL.calculateGoal(performer, world);
 		} else if (inventory.getQuantityFor(Constants.ORE) < 7) {
-			return new OreGoal().calculateGoal(performer, world);
+			return Goals.ORE_GOAL.calculateGoal(performer, world);
 		} else {
 			int ironClaymoreCount = inventory.getWorldObjects(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT).size();
 			int ironCuirassCount = inventory.getWorldObjects(Constants.EQUIPMENT_SLOT, Constants.TORSO_EQUIPMENT).size();

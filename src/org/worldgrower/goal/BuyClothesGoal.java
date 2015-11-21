@@ -27,6 +27,10 @@ import org.worldgrower.generator.Item;
 
 public class BuyClothesGoal implements Goal {
 
+	public BuyClothesGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
+
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY); 

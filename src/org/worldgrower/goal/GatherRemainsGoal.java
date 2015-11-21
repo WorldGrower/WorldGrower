@@ -24,6 +24,10 @@ import org.worldgrower.actions.Actions;
 
 public class GatherRemainsGoal implements Goal {
 
+	public GatherRemainsGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
+
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		

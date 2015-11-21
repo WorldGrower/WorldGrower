@@ -25,6 +25,10 @@ import org.worldgrower.conversation.Conversations;
 
 public class FeedOthersGoal implements Goal {
 
+	public FeedOthersGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
+
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.FOOD) < 6) {

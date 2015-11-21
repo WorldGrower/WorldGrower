@@ -25,6 +25,10 @@ import org.worldgrower.actions.Actions;
 
 public class CreateWineGoal implements Goal {
 
+	public CreateWineGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
+
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.GRAPE) < 5) {

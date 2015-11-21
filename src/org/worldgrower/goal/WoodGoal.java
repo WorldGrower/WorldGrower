@@ -14,6 +14,8 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
+import java.util.List;
+
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
@@ -21,13 +23,17 @@ import org.worldgrower.WorldObject;
 
 public class WoodGoal implements Goal {
 
+	public WoodGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
+
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		OperationInfo buyOperationInfo = BuySellUtils.getBuyOperationInfo(performer, Constants.WOOD, world);
 		if (buyOperationInfo != null) {
 			return buyOperationInfo;
 		} else {
-			return new CreateWoodGoal().calculateGoal(performer, world);
+			return Goals.CREATE_WOOD_GOAL.calculateGoal(performer, world);
 		}
 	}
 

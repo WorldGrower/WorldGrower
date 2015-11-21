@@ -28,6 +28,10 @@ import org.worldgrower.generator.BuildingGenerator;
 
 public class CaptureCriminalsGoal implements Goal {
 
+	public CaptureCriminalsGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
+
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		WorldObject jail = BuildingGenerator.findEmptyJail(world);
@@ -42,7 +46,7 @@ public class CaptureCriminalsGoal implements Goal {
 				}
 			}
 		} else {
-			return new JailGoal().calculateGoal(performer, world);
+			return Goals.JAIL_GOAL.calculateGoal(performer, world);
 		}
 		return null;
 	}

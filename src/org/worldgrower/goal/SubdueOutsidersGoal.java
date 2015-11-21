@@ -25,6 +25,10 @@ import org.worldgrower.actions.Actions;
 
 public class SubdueOutsidersGoal implements Goal {
 
+	public SubdueOutsidersGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
+
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.POISON_ATTACK_ACTION, w -> GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, w) && Reach.distance(performer, w) < 10 && w.getProperty(Constants.CONDITIONS).canTakeAction(), world);

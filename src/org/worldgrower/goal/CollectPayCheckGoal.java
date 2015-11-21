@@ -14,6 +14,8 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
+import java.util.List;
+
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
@@ -21,6 +23,10 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.conversation.Conversations;
 
 public class CollectPayCheckGoal implements Goal {
+
+	public CollectPayCheckGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {

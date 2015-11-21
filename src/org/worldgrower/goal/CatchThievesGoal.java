@@ -25,6 +25,10 @@ import org.worldgrower.history.HistoryItem;
 
 public class CatchThievesGoal implements Goal {
 
+	public CatchThievesGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
+
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		List<HistoryItem> theftHistoryItems = world.getHistory().findHistoryItems(Actions.STEAL_ACTION);

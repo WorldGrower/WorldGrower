@@ -25,6 +25,10 @@ import org.worldgrower.conversation.Conversations;
 
 public class SellHouseGoal implements Goal {
 	
+	public SellHouseGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
+
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		List<Integer> houseIds = performer.getProperty(Constants.HOUSES).getIds();

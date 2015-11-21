@@ -24,6 +24,10 @@ import org.worldgrower.actions.Actions;
 
 public class CollectWaterGoal implements Goal {
 
+	public CollectWaterGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
+
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.WATER, world);
@@ -35,7 +39,7 @@ public class CollectWaterGoal implements Goal {
 				return new OperationInfo(performer, waterSourcetarget, new int[0], Actions.COLLECT_WATER_ACTION);
 			} else {
 				if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) < 6) {
-					return new WoodGoal().calculateGoal(performer, world);
+					return Goals.WOOD_GOAL.calculateGoal(performer, world);
 				} else {
 					WorldObject targetLocation = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 2, 2, world);
 					return new OperationInfo(performer, targetLocation, new int[0], Actions.BUILD_WELL_ACTION);

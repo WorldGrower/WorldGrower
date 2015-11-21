@@ -26,13 +26,17 @@ import org.worldgrower.conversation.Conversations;
 
 public class GetPoisonCuredGoal implements Goal {
 
+	public GetPoisonCuredGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
+
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		if (MagicSpellUtils.canCast(performer, Actions.CURE_POISON_ACTION)) {
 			if (Actions.CURE_POISON_ACTION.hasRequiredEnergy(performer)) {
 				return new OperationInfo(performer, performer, new int[0], Actions.CURE_POISON_ACTION);
 			} else {
-				return new RestGoal().calculateGoal(performer, world);
+				return Goals.REST_GOAL.calculateGoal(performer, world);
 			}
 		} else {
 			List<WorldObject> targets = world.findWorldObjects(w -> MagicSpellUtils.canCast(w, Actions.CURE_POISON_ACTION)  && !GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, w));

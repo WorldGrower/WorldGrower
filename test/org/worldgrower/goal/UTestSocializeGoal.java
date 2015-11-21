@@ -35,7 +35,7 @@ import org.worldgrower.history.Turn;
 
 public class UTestSocializeGoal {
 
-	private final SocializeGoal goal = new SocializeGoal();
+	private final SocializeGoal goal = Goals.SOCIALIZE_GOAL;
 	
 	@Test
 	public void testIsSocializeTargetForPerformer() {

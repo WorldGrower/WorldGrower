@@ -24,6 +24,10 @@ import org.worldgrower.actions.Actions;
 
 public class OffspringGoal implements Goal {
 
+	public OffspringGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
+
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.SEX_ACTION, w -> RacePropertyUtils.canHaveOffspring(performer, w), world);

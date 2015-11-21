@@ -26,6 +26,10 @@ import org.worldgrower.generator.BuildingGenerator;
 
 public class TrainGoal implements Goal {
 
+	public TrainGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
+
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.MELEE_ATTACK_ACTION, w -> BuildingGenerator.isTrainingDummy(w), world);
@@ -33,7 +37,7 @@ public class TrainGoal implements Goal {
 			return new OperationInfo(performer, targets.get(0), new int[] { 0 }, Actions.MELEE_ATTACK_ACTION);
 		} else {
 			if (!ConstructTrainingDummyAction.hasEnoughWood(performer)) {
-				return new WoodGoal().calculateGoal(performer, world);
+				return Goals.WOOD_GOAL.calculateGoal(performer, world);
 			} else {
 				WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 2, 3, world);
 				return new OperationInfo(performer, target, new int[0], Actions.CONSTRUCT_TRAINING_DUMMY_ACTION);

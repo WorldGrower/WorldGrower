@@ -27,6 +27,10 @@ import org.worldgrower.generator.BuildingGenerator;
 
 public class ReleaseCapturedCriminalsGoal implements Goal {
 
+	public ReleaseCapturedCriminalsGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
+
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		List<WorldObject> criminalsToBeReleased = findCriminalsToBeReleased(performer, world);

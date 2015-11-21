@@ -25,6 +25,10 @@ import org.worldgrower.actions.VotingPropertyUtils;
 
 public class OrganizationCandidateGoal implements Goal {
 
+	public OrganizationCandidateGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
+
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		WorldObject votingBox = VotingPropertyUtils.getVotingBox(performer, world);

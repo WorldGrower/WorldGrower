@@ -14,6 +14,8 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
+import java.util.List;
+
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
@@ -24,10 +26,14 @@ import org.worldgrower.generator.Item;
 
 public class CreateFurnitureGoal implements Goal {
 
+	public CreateFurnitureGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
+
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		if (!ConstructBedAction.hasEnoughWood(performer)) {
-			return new CreateWoodGoal().calculateGoal(performer, world);
+			return Goals.WOOD_GOAL.calculateGoal(performer, world);
 		} else {
 			return new OperationInfo(performer, performer, new int[0], Actions.CONSTRUCT_BED_ACTION);
 		}

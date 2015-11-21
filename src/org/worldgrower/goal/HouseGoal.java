@@ -26,13 +26,17 @@ import org.worldgrower.generator.BuildingGenerator;
 
 public class HouseGoal implements Goal {
 
+	public HouseGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
+
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		List<WorldObject> targets = world.findWorldObjects(w -> HousePropertyUtils.hasHouseForSale(w, world));
 		if (targets.size() > 0) {
 			return new OperationInfo(performer, targets.get(0), Conversations.createArgs(Conversations.BUY_HOUSE_CONVERSATION), Actions.TALK_ACTION);
 		} else { 
-			return new CreateHouseGoal().calculateGoal(performer, world);
+			return Goals.CREATE_HOUSE_GOAL.calculateGoal(performer, world);
 		}
 	}
 

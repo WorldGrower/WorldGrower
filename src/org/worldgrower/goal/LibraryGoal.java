@@ -24,10 +24,14 @@ import org.worldgrower.actions.Actions;
 
 public class LibraryGoal implements Goal {
 
+	public LibraryGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
+
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) < 6) {
-			return new WoodGoal().calculateGoal(performer, world);
+			return Goals.WOOD_GOAL.calculateGoal(performer, world);
 		} else {
 			WorldObject targetLocation = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 2, 3, world);
 			if (targetLocation != null) {

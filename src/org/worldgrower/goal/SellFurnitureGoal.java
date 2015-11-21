@@ -14,12 +14,19 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
+import java.util.List;
+
 import org.worldgrower.Constants;
 
 public class SellFurnitureGoal extends AbstractSellGoal {
 
 	public SellFurnitureGoal() {
 		super(Constants.SLEEP_COMFORT);
+	}
+
+	public SellFurnitureGoal(List<Goal> allGoals) {
+		this();
+		allGoals.add(this);
 	}
 
 	@Override

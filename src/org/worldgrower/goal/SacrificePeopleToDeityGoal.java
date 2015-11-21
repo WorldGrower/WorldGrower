@@ -27,6 +27,10 @@ import org.worldgrower.deity.Deity;
 
 public class SacrificePeopleToDeityGoal implements Goal {
 
+	public SacrificePeopleToDeityGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
+
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		List<WorldObject> sacrificialAltars = SacrificeUtils.getSacrificialAltars(performer, world);

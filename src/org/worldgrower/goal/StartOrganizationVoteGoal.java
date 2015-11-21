@@ -14,6 +14,8 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
+import java.util.List;
+
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
@@ -23,6 +25,10 @@ import org.worldgrower.actions.VotingPropertyUtils;
 import org.worldgrower.attribute.IdList;
 
 public class StartOrganizationVoteGoal implements Goal {
+
+	public StartOrganizationVoteGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {

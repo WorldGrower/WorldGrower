@@ -14,6 +14,8 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
+import java.util.List;
+
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
@@ -21,6 +23,10 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 
 public class BrawlGoal implements Goal {
+
+	public BrawlGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {

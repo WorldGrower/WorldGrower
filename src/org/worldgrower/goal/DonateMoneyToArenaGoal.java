@@ -26,6 +26,10 @@ public class DonateMoneyToArenaGoal implements Goal {
 
 	private static final int NUMBER_OF_TURNS_BETWEEN_DONATIONS = 200;
 	
+	public DonateMoneyToArenaGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
+
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		List<WorldObject> targets = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> ArenaPropertyUtils.worldObjectOwnsArena(w));

@@ -27,6 +27,10 @@ import org.worldgrower.deity.Deity;
 
 public class BecomeReligionOrganizationMemberGoal implements Goal {
 
+	public BecomeReligionOrganizationMemberGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
+
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		List<WorldObject> organizations = GroupPropertyUtils.findReligionOrganizationsInWorld(performer, world);

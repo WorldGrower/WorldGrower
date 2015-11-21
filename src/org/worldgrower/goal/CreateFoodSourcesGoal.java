@@ -25,6 +25,10 @@ import org.worldgrower.actions.Actions;
 
 public class CreateFoodSourcesGoal implements Goal {
 
+	public CreateFoodSourcesGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
+
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		

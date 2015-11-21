@@ -24,6 +24,10 @@ import org.worldgrower.actions.Actions;
 
 public class HealOthersGoal implements Goal {
 
+	public HealOthersGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
+
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		if (MagicSpellUtils.canCast(performer, Actions.MINOR_HEAL_ACTION)) {
@@ -33,7 +37,7 @@ public class HealOthersGoal implements Goal {
 					return new OperationInfo(performer, performer, new int[0], Actions.MINOR_HEAL_ACTION);
 				}
 			} else {
-				return new RestGoal().calculateGoal(performer, world);
+				return Goals.REST_GOAL.calculateGoal(performer, world);
 			}
 		} else {
 			return new ScribeClericSpellsGoal().calculateGoal(performer, world);

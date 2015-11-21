@@ -14,6 +14,8 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
+import java.util.List;
+
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.Reach;
@@ -32,6 +34,11 @@ public class GatherFoodGoal implements Goal {
 
 	public GatherFoodGoal(int foodQuantityGoalMet) {
 		this.foodQuantityGoalMet = foodQuantityGoalMet;
+	}
+
+	public GatherFoodGoal(List<Goal> allGoals) {
+		this();
+		allGoals.add(this);
 	}
 
 	@Override

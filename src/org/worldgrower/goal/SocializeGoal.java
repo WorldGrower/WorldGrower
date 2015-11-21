@@ -30,6 +30,10 @@ import org.worldgrower.history.HistoryItem;
 
 public class SocializeGoal implements Goal {
 
+	public SocializeGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
+
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		

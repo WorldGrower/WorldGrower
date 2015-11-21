@@ -26,6 +26,10 @@ import org.worldgrower.condition.Condition;
 
 public class CocoonOutsidersGoal implements Goal {
 
+	public CocoonOutsidersGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
+
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.COCOON_ACTION, w -> GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, w) && Reach.distance(performer, w) < 10 && w.getProperty(Constants.CONDITIONS).hasCondition(Condition.PARALYZED_CONDITION) && !w.getProperty(Constants.CONDITIONS).hasCondition(Condition.COCOONED_CONDITION), world);

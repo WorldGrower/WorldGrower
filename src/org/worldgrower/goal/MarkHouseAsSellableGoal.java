@@ -24,6 +24,10 @@ import org.worldgrower.actions.Actions;
 
 public class MarkHouseAsSellableGoal implements Goal {
 	
+	public MarkHouseAsSellableGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
+
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		List<WorldObject> houses = performer.getProperty(Constants.HOUSES).mapToWorldObjects(world, w -> !w.hasProperty(Constants.SELLABLE) || !w.getProperty(Constants.SELLABLE));

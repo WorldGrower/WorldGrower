@@ -30,6 +30,10 @@ import org.worldgrower.profession.Profession;
 
 public class ImproveOrganizationGoal implements Goal {
 
+	public ImproveOrganizationGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
+
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		List<WorldObject> organizations = GroupPropertyUtils.findOrganizationsUsingLeader(performer, world);

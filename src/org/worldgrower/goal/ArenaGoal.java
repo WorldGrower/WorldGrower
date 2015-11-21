@@ -14,6 +14,8 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
+import java.util.List;
+
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
@@ -22,10 +24,14 @@ import org.worldgrower.actions.BuildArenaAction;
 
 public class ArenaGoal implements Goal {
 
+	public ArenaGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
+
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		if (!BuildArenaAction.hasEnoughStone(performer)) {
-			return new StoneGoal().calculateGoal(performer, world);
+			return Goals.STONE_GOAL.calculateGoal(performer, world);
 		} else {
 			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 10, 11, world);
 			if (target != null) {

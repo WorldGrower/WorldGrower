@@ -14,12 +14,19 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
+import java.util.List;
+
 import org.worldgrower.Constants;
 
 public class SellWoodGoal extends AbstractSellGoal {
 	
 	public SellWoodGoal() {
 		super(Constants.WOOD);
+	}
+
+	public SellWoodGoal(List<Goal> allGoals) {
+		this();
+		allGoals.add(this);
 	}
 
 	@Override

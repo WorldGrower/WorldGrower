@@ -28,6 +28,10 @@ import org.worldgrower.deity.Deity;
 
 public class ShrineToDeityGoal implements Goal {
 
+	public ShrineToDeityGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
+
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		Deity performerDeity = performer.getProperty(Constants.DEITY);
@@ -36,7 +40,7 @@ public class ShrineToDeityGoal implements Goal {
 		if (targets.size() > 0 && notWorshippedYet && isWorshipAllowed(performerDeity, world)) {
 			return new OperationInfo(performer, targets.get(0), new int[0], Actions.WORSHIP_DEITY_ACTION);
 		} else if ((targets.size() == 0) && performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.STONE) < 8) {
-				return new StoneGoal().calculateGoal(performer, world);
+				return Goals.STONE_GOAL.calculateGoal(performer, world);
 		} else if (targets.size() == 0) {
 			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 2, 3, world);
 			if (target != null) {

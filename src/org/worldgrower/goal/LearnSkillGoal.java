@@ -28,6 +28,10 @@ import org.worldgrower.profession.Profession;
 
 public class LearnSkillGoal implements Goal {
 
+	public LearnSkillGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
+
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		WorldObject organization = GroupPropertyUtils.findProfessionOrganization(performer, world);

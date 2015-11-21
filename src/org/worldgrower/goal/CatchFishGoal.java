@@ -14,6 +14,8 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
+import java.util.List;
+
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
@@ -21,6 +23,10 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 
 public class CatchFishGoal implements Goal {
+
+	public CatchFishGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
@@ -36,7 +42,7 @@ public class CatchFishGoal implements Goal {
 				int indexOfFishingPole = performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.FISHING_POLE_QUALITY);
 				return new OperationInfo(performer, performer, new int[] { indexOfFishingPole }, Actions.EQUIP_INVENTORY_ITEM_ACTION);
 			} else {
-				return new FishingPoleGoal().calculateGoal(performer, world);
+				return Goals.FISHING_POLE_GOAL.calculateGoal(performer, world);
 			}
 		}
 		

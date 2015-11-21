@@ -25,10 +25,14 @@ import org.worldgrower.generator.BuildingGenerator;
 
 public class JailGoal implements Goal {
 
+	public JailGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
+
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		if (!BuildJailAction.hasEnoughWood(performer)) {
-			return new WoodGoal().calculateGoal(performer, world);
+			return Goals.WOOD_GOAL.calculateGoal(performer, world);
 		} else {
 			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 3, 3, world);
 			if (target != null) {

@@ -24,6 +24,10 @@ import org.worldgrower.actions.Actions;
 
 public class OreGoal implements Goal {
 
+	public OreGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
+
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.ORE, world);

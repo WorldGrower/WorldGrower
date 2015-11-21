@@ -25,6 +25,10 @@ import org.worldgrower.creaturetype.CreatureTypeUtils;
 
 public class HuntUndeadGoal implements Goal {
 
+	public HuntUndeadGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
+
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		List<WorldObject> targets = findUndeadCreatures(performer, world);

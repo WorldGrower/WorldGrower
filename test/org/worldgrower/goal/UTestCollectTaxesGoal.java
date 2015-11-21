@@ -30,7 +30,7 @@ import org.worldgrower.attribute.WorldObjectContainer;
 
 public class UTestCollectTaxesGoal {
 
-	private CollectTaxesGoal goal = new CollectTaxesGoal();
+	private CollectTaxesGoal goal = Goals.COLLECT_TAXES_GOAL;
 	
 	@Test
 	public void testCalculateGoalNull() {

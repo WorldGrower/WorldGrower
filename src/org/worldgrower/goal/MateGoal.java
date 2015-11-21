@@ -26,6 +26,10 @@ import org.worldgrower.conversation.Conversations;
 
 public class MateGoal implements Goal {
 
+	public MateGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
+
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		IdMap relationships = performer.getProperty(Constants.RELATIONSHIPS);

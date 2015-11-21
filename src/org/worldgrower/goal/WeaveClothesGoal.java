@@ -14,6 +14,8 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
+import java.util.List;
+
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
@@ -24,10 +26,14 @@ import org.worldgrower.generator.Item;
 
 public class WeaveClothesGoal implements Goal {
 
+	public WeaveClothesGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
+
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.COTTON) < 10) {
-			return new CottonGoal().calculateGoal(performer, world);
+			return Goals.COTTON_GOAL.calculateGoal(performer, world);
 		} else {
 			int cottonShirtCount = performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.NAME, Item.COTTON_SHIRT_NAME).size();
 			int cottonPantsCount = performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.NAME, Item.COTTON_PANTS_NAME).size();
