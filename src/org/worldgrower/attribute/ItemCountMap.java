@@ -63,4 +63,13 @@ public class ItemCountMap implements Serializable {
 	public boolean contains(Item item) {
 		return itemCount.containsKey(item);
 	}
+
+	public boolean isEmpty() {
+		return itemCount.size() == 0;
+	}
+	
+	@Override
+	public String toString() {
+		return itemCount.toString();
+	}
 }
