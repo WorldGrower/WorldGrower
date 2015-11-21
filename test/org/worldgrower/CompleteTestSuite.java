@@ -23,10 +23,12 @@ import org.worldgrower.actions.UTestBuildArenaAction;
 import org.worldgrower.actions.UTestBuildHouseAction;
 import org.worldgrower.actions.UTestBuildInnAction;
 import org.worldgrower.actions.UTestBuildJailAction;
+import org.worldgrower.actions.UTestBuildLibraryAction;
 import org.worldgrower.actions.UTestBuildPaperMillAction;
 import org.worldgrower.actions.UTestBuildSacrificialAltarAction;
 import org.worldgrower.actions.UTestBuildShackAction;
 import org.worldgrower.actions.UTestBuildShrineAction;
+import org.worldgrower.actions.UTestBuildSmithAction;
 import org.worldgrower.actions.UTestBuildWellAction;
 import org.worldgrower.actions.UTestBuyAction;
 import org.worldgrower.actions.UTestChooseProfessionAction;
@@ -39,6 +41,7 @@ import org.worldgrower.actions.UTestDrinkFromInventoryAction;
 import org.worldgrower.actions.UTestEatAction;
 import org.worldgrower.actions.UTestEatNightShadeAction;
 import org.worldgrower.actions.UTestOrganizationNamer;
+import org.worldgrower.actions.UTestPlantBerryBushAction;
 import org.worldgrower.actions.UTestSellAction;
 import org.worldgrower.actions.UTestSetLegalActionsAction;
 import org.worldgrower.actions.UTestSleepAction;
@@ -327,7 +330,10 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestBuildPaperMillAction.class,
 	UTestCreateGraveAction.class,
 	UTestConstructTrainingDummyAction.class,
-	UTestEatAction.class
+	UTestEatAction.class,
+	UTestBuildSmithAction.class,
+	UTestBuildLibraryAction.class,
+	UTestPlantBerryBushAction.class
 })
 public class CompleteTestSuite {
 }
