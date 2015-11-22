@@ -205,42 +205,101 @@ public class AskQuestionDialog extends AbstractDialog implements ManagedOperatio
 	}
 	
 	private JPopupMenu createQuestions(ImageInfoReader imageInfoReader, Map<Integer, ImageIds> subjectImageIds, Conversations conversations, Answerer answerer) {
-		Map<ConversationCategory, List<Question>> questions = answerer.getQuestionPhrases();
+		Map<ConversationCategory, List<Question>> questionsMap = answerer.getQuestionPhrases();
 		JPopupMenu popupMenu = MenuFactory.createJPopupMenu();
-		for(Entry<ConversationCategory, List<Question>> entry : getQuestions(questions)) {
+		for(Entry<ConversationCategory, List<Question>> entry : getQuestions(questionsMap)) {
 			JMenu menu = MenuFactory.createJMenu(entry.getKey().getDescription());
 			popupMenu.add(menu);
 			
-			if (entry.getValue().size() > 20 && entry.getValue().get(0).getSubjectId() != -1) {
+			List<Question> questions = entry.getValue();
+			if (questions.size() > 20 && questions.get(0).getSubjectId() != -1) {
 				Map<Integer, JMenu> subMenus = new HashMap<>();
 				
 				fillSubMenu(answerer, entry, menu, subMenus);
 				addQuestionsToSubMenu(imageInfoReader, subjectImageIds, entry, menu, subMenus);
 				
  			} else {
-				for(Question question : entry.getValue()) {
-					JMenuItem questionMenuItem = createQuestionMenuItem(imageInfoReader, subjectImageIds, question);
-					List<WorldObject> possibleSubjects = answerer.getPossibleSubjects(question);
-					if (possibleSubjects != null && possibleSubjects.size() > 0) {
-						questionMenuItem.addActionListener(new ChooseSubjectAction(new ExecuteQuestionAction(question), question));
-						questionMenuItem.setToolTipText("click to see list of possible subjects");
-						menu.add(questionMenuItem);
-					} else if (possibleSubjects == null){
-						questionMenuItem.addActionListener(new ExecuteQuestionAction(question));
-						menu.add(questionMenuItem);
-					}
-					
-				}
+ 				if (questions.size() < 20) {
+ 					addQuestionsToMenu(imageInfoReader, subjectImageIds, answerer, menu, questions);
+ 				} else {
+ 					List<List<Question>> questionParts = splitList(questions, 20);
+ 					for(List<Question> questionPart : questionParts) {
+ 						JMenu menuPart = MenuFactory.createJMenu(getDescriptionForQuestions(questionPart));
+ 						addQuestionsToMenu(imageInfoReader, subjectImageIds, answerer, menuPart, questionPart);
+ 						menu.add(menuPart);
+ 					}
+ 				}
 			}
 		}
 		
 		return popupMenu;
 	}
+	
+	private String getDescriptionForQuestions(List<Question> questions) {
+		String firstQuestion = questions.get(0).getQuestionPhrase();
+		String lastQuestion = questions.get(questions.size()-1).getQuestionPhrase();
+		int indexOfFirstDifferingCharacter = indexOfFirstDifferingCharacter(firstQuestion, lastQuestion);
+		if (indexOfFirstDifferingCharacter != -1) {
+			int firstQuestionEndIndex = Math.min(indexOfFirstDifferingCharacter+15, firstQuestion.length());
+			int lastQuestionEndIndex = Math.min(indexOfFirstDifferingCharacter+15, lastQuestion.length());
+			return "..."
+					+ firstQuestion.substring(indexOfFirstDifferingCharacter, firstQuestionEndIndex) 
+					+ " ... " 
+					+ lastQuestion.substring(indexOfFirstDifferingCharacter, lastQuestionEndIndex)
+					+ "...";
+		} else {
+			return firstQuestion + " ... " + lastQuestion;
+		}
+	}
+	
+	private int indexOfFirstDifferingCharacter(String s1, String s2) {
+		int length = Math.min(s1.length(), s2.length());
+		for(int i=0; i<length; i++) {
+			if (s1.charAt(i) != s2.charAt(i)) {
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	static <T> List<List<T>> splitList(List<T> list, final int listSize) {
+	    List<List<T>> parts = new ArrayList<List<T>>();
+	    final int totalListSize = list.size();
+	    for (int i = 0; i < totalListSize; i += listSize) {
+	        parts.add(new ArrayList<T>(list.subList(i, Math.min(totalListSize, i + listSize))));
+	    }
+	    return parts;
+	}
+
+	private void addQuestionsToMenu(ImageInfoReader imageInfoReader, Map<Integer, ImageIds> subjectImageIds, Answerer answerer, JMenu menu, List<Question> questions) {
+		for(Question question : questions) {
+			List<WorldObject> possibleSubjects = answerer.getPossibleSubjects(question);
+			if (possibleSubjects != null && possibleSubjects.size() > 0) {
+				JMenuItem questionMenuItem = createSubjectListMenuItem(imageInfoReader, subjectImageIds, question);
+				menu.add(questionMenuItem);
+			} else if (possibleSubjects == null) {
+				JMenuItem questionMenuItem = createAskQuestionMenuItem(imageInfoReader, subjectImageIds, question);
+				menu.add(questionMenuItem);
+			}
+		}
+	}
+
+	private JMenuItem createAskQuestionMenuItem(ImageInfoReader imageInfoReader, Map<Integer, ImageIds> subjectImageIds, Question question) {
+		JMenuItem questionMenuItem = createQuestionMenuItem(imageInfoReader, subjectImageIds, question);
+		questionMenuItem.addActionListener(new ExecuteQuestionAction(question));
+		return questionMenuItem;
+	}
+
+	private JMenuItem createSubjectListMenuItem(ImageInfoReader imageInfoReader, Map<Integer, ImageIds> subjectImageIds, Question question) {
+		JMenuItem questionMenuItem = createQuestionMenuItem(imageInfoReader, subjectImageIds, question);
+		questionMenuItem.addActionListener(new ChooseSubjectAction(new ExecuteQuestionAction(question), question));
+		questionMenuItem.setToolTipText("click to see list of possible subjects");
+		return questionMenuItem;
+	}
 
 	private void addQuestionsToSubMenu(ImageInfoReader imageInfoReader, Map<Integer, ImageIds> subjectImageIds, Entry<ConversationCategory, List<Question>> entry, JMenu menu, Map<Integer, JMenu> subMenus) {
 		for(Question question : entry.getValue()) {
-			JMenuItem questionMenuItem = createQuestionMenuItem(imageInfoReader, subjectImageIds, question);
-			questionMenuItem.addActionListener(new ExecuteQuestionAction(question));
+			JMenuItem questionMenuItem = createAskQuestionMenuItem(imageInfoReader, subjectImageIds, question);
 			int subjectId = question.getSubjectId();
 			if (subjectId != -1) {
 				subMenus.get(subjectId).add(questionMenuItem);
