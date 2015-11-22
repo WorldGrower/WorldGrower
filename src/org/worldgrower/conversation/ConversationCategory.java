@@ -24,7 +24,8 @@ public enum ConversationCategory {
 	DEITY("Deity"),
 	LEADER("Leader"), 
 	SHARE_KNOWLEDGE("Share knowledge"),
-	ARENA("Arena");
+	ARENA("Arena"),
+	REQUEST_ACTION("Request action");
 	
 	private final String description;
 	

@@ -91,6 +91,7 @@ public class Conversations implements Serializable {
 	public static final MergeOrganizationsConversation MERGE_ORGANIZATIONS_CONVERSATION = new MergeOrganizationsConversation();
 	public static final SwitchDeityConversation SWITCH_DEITY_CONVERSATION = new SwitchDeityConversation();
 	public static final StopSellingConversation STOP_SELLING_CONVERSATION = new StopSellingConversation();
+	public static final AskGoalConversation ASK_GOAL_CONVERSATION = new AskGoalConversation();
 	
 	private static final List<Conversation> CONVERSATIONS = new ArrayList<>();
 	private static final Map<Conversation, ConversationCategory> CONVERSATION_CATEGORIES = new HashMap<>();
@@ -152,6 +153,7 @@ public class Conversations implements Serializable {
 		addNormalAndIntimidate(MERGE_ORGANIZATIONS_CONVERSATION, ConversationCategory.LEADER);
 		addNormalAndIntimidate(SWITCH_DEITY_CONVERSATION, ConversationCategory.DEITY);
 		addNormalAndIntimidate(STOP_SELLING_CONVERSATION, ConversationCategory.DEMAND);
+		addNormalAndIntimidate(ASK_GOAL_CONVERSATION, ConversationCategory.REQUEST_ACTION);
 	}
 	
 	public static int[] createArgs(Conversation conversation) {
