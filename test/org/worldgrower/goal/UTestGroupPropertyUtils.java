@@ -360,10 +360,11 @@ public class UTestGroupPropertyUtils {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.GROUP, new IdList());
 		WorldObject performerOrganization = GroupPropertyUtils.createProfessionOrganization(null, "TestOrg", Professions.FARMER_PROFESSION, world);
-		performer.getProperty(Constants.GROUP).add(performerOrganization);
+		WorldObject targetOrganization = GroupPropertyUtils.createProfessionOrganization(null, "TestOrgTarget", Professions.FARMER_PROFESSION, world);
+		performer.getProperty(Constants.GROUP).add(performerOrganization).add(targetOrganization);
 		world.addWorldObject(performer);
 		
-		assertEquals(performerOrganization, GroupPropertyUtils.findMatchingOrganization(performer, performerOrganization, world));
+		assertEquals(targetOrganization, GroupPropertyUtils.findMatchingOrganization(performer, performerOrganization, world));
 	}
 	
 	@Test

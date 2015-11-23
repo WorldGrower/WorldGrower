@@ -31,25 +31,13 @@ import org.worldgrower.profession.Profession;
 public class CommonerWorldEvaluationFunction implements WorldObjectPriorities {
 
 	@Override
-	public List<Goal> getPriorities(WorldObject performer, World world) {	
-		Profession profession = performer.getProperty(Constants.PROFESSION);
+	public List<Goal> getPriorities(WorldObject performer, World world) {
+		ProfessionalGoals professionalGoals = new ProfessionalGoals(performer);
 		
-		final List<Goal> professionGoals;
-		final List<Goal> professionOrganizationGoals;
-		if (profession != null) {
-			professionGoals = new ArrayList<>(profession.getProfessionGoals());
-			professionGoals.add(Goals.IMPROVE_ORGANIZATION_GOAL);
-			
-			professionOrganizationGoals = new ArrayList<>();
-			professionOrganizationGoals.add(Goals.BECOME_PROFESSION_ORGANIZATION_MEMBER_GOAL);
-			professionOrganizationGoals.add(Goals.LEARN_SKILL_GOAL);
-		} else {
-			professionGoals = new ArrayList<>();
-			professionOrganizationGoals = new ArrayList<>();
-		}
+		List<Goal> professionGoals = professionalGoals.getProfessionGoals();
+		List<Goal> professionOrganizationGoals = professionalGoals.getProfessionOrganizationGoals();
 		
 		List<Goal> religionOrganizationGoal = getReligionOrganizationGoals(performer, world);
-		
 		
 		List<Goal> genericGoals = Arrays.asList(
 				Goals.BRAWL_GOAL,
@@ -70,6 +58,8 @@ public class CommonerWorldEvaluationFunction implements WorldObjectPriorities {
 				Goals.SET_TAXES_GOAL,
 				Goals.BUY_CLOTHES_GOAL);
 		
+		List<Goal> givenOrderGoals = getGivenOrderGoals(performer, world);
+		
 		List<Goal> backgroundGoals = performer.getProperty(Constants.BACKGROUND).getPersonalGoals(performer, world);
 		
 		List<Goal> personalGoals = Arrays.asList(
@@ -84,6 +74,7 @@ public class CommonerWorldEvaluationFunction implements WorldObjectPriorities {
 		
 		List<Goal> result = new ArrayList<>();
 		result.addAll(genericGoals);
+		result.addAll(givenOrderGoals);
 		result.addAll(backgroundGoals);
 		result.addAll(professionOrganizationGoals);
 		result.addAll(professionGoals);
@@ -95,6 +86,15 @@ public class CommonerWorldEvaluationFunction implements WorldObjectPriorities {
 			result = curse.getCurseGoals(result);
 		}
 		return result;
+	}
+
+	private List<Goal> getGivenOrderGoals(WorldObject performer, World world) {
+		Goal givenOrder = performer.getProperty(Constants.GIVEN_ORDER);
+		if (givenOrder != null) {
+			return Arrays.asList(givenOrder);
+		} else {
+			return Arrays.asList();
+		}
 	}
 
 	private List<Goal> getReligionOrganizationGoals(WorldObject performer, World world) {
@@ -110,5 +110,35 @@ public class CommonerWorldEvaluationFunction implements WorldObjectPriorities {
 		}
 		
 		return religionOrganizationGoals;
+	}
+	
+	private static class ProfessionalGoals {
+		private final List<Goal> professionGoals;
+		private final List<Goal> professionOrganizationGoals;
+		
+		
+		public ProfessionalGoals(WorldObject performer) {
+			Profession profession = performer.getProperty(Constants.PROFESSION);
+			
+			if (profession != null) {
+				professionGoals = new ArrayList<>(profession.getProfessionGoals());
+				professionGoals.add(Goals.IMPROVE_ORGANIZATION_GOAL);
+				
+				professionOrganizationGoals = new ArrayList<>();
+				professionOrganizationGoals.add(Goals.BECOME_PROFESSION_ORGANIZATION_MEMBER_GOAL);
+				professionOrganizationGoals.add(Goals.LEARN_SKILL_GOAL);
+			} else {
+				professionGoals = new ArrayList<>();
+				professionOrganizationGoals = new ArrayList<>();
+			}
+		}
+
+		public List<Goal> getProfessionGoals() {
+			return professionGoals;
+		}
+
+		public List<Goal> getProfessionOrganizationGoals() {
+			return professionOrganizationGoals;
+		}
 	}
 }

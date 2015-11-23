@@ -402,7 +402,7 @@ public class GroupPropertyUtils {
 		IdList organizations = target.getProperty(Constants.GROUP);
 		for(int organizationId : organizations.getIds()) {
 			WorldObject targetOrganization = world.findWorldObject(Constants.ID, organizationId);
-			if (organizationsMatch(performerOrganization, targetOrganization)) {
+			if (organizationsMatch(performerOrganization, targetOrganization) && !performerOrganization.equals(targetOrganization)) {
 				return targetOrganization;
 			}
 		}

@@ -36,12 +36,19 @@ import org.worldgrower.actions.UTestCollectWaterAction;
 import org.worldgrower.actions.UTestConstructTrainingDummyAction;
 import org.worldgrower.actions.UTestCraftUtils;
 import org.worldgrower.actions.UTestCreateGraveAction;
+import org.worldgrower.actions.UTestCutWoodAction;
 import org.worldgrower.actions.UTestDrinkAction;
 import org.worldgrower.actions.UTestDrinkFromInventoryAction;
 import org.worldgrower.actions.UTestEatAction;
 import org.worldgrower.actions.UTestEatNightShadeAction;
+import org.worldgrower.actions.UTestHarvestFoodAction;
+import org.worldgrower.actions.UTestHarvestGrapesAction;
+import org.worldgrower.actions.UTestMineOreAction;
+import org.worldgrower.actions.UTestMineSoulGemsAction;
+import org.worldgrower.actions.UTestMineStoneAction;
 import org.worldgrower.actions.UTestOrganizationNamer;
 import org.worldgrower.actions.UTestPlantBerryBushAction;
+import org.worldgrower.actions.UTestRepairEquipmentInInventoryAction;
 import org.worldgrower.actions.UTestSellAction;
 import org.worldgrower.actions.UTestSetLegalActionsAction;
 import org.worldgrower.actions.UTestSleepAction;
@@ -79,6 +86,7 @@ import org.worldgrower.conversation.UTestKissConversation;
 import org.worldgrower.conversation.UTestLearnSkillUsingOrganizationConversation;
 import org.worldgrower.conversation.UTestLocationConversation;
 import org.worldgrower.conversation.UTestLookTheSameConversation;
+import org.worldgrower.conversation.UTestMergeOrganizationsConversation;
 import org.worldgrower.conversation.UTestMinorHealConversation;
 import org.worldgrower.conversation.UTestNicerConversation;
 import org.worldgrower.conversation.UTestNotNicerConversation;
@@ -333,7 +341,15 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestEatAction.class,
 	UTestBuildSmithAction.class,
 	UTestBuildLibraryAction.class,
-	UTestPlantBerryBushAction.class
+	UTestPlantBerryBushAction.class,
+	UTestMineOreAction.class,
+	UTestMineStoneAction.class,
+	UTestMineSoulGemsAction.class,
+	UTestCutWoodAction.class,
+	UTestHarvestFoodAction.class,
+	UTestHarvestGrapesAction.class,
+	UTestRepairEquipmentInInventoryAction.class,
+	UTestMergeOrganizationsConversation.class
 })
 public class CompleteTestSuite {
 }
