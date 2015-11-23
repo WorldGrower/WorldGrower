@@ -22,6 +22,9 @@ import java.util.function.Function;
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
 
+/**
+ * A WorldObjectContainer holds a list of WorldObjects and provides methods for manipulating them.
+ */
 public class WorldObjectContainer implements Serializable {
 
 	private final List<WorldObject> worldObjects = new ArrayList<>(); 
