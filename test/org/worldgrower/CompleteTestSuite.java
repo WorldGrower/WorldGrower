@@ -31,23 +31,30 @@ import org.worldgrower.actions.UTestBuildShrineAction;
 import org.worldgrower.actions.UTestBuildSmithAction;
 import org.worldgrower.actions.UTestBuildWellAction;
 import org.worldgrower.actions.UTestBuyAction;
+import org.worldgrower.actions.UTestCatchFishAction;
 import org.worldgrower.actions.UTestChooseProfessionAction;
 import org.worldgrower.actions.UTestCollectWaterAction;
 import org.worldgrower.actions.UTestConstructTrainingDummyAction;
 import org.worldgrower.actions.UTestCraftUtils;
 import org.worldgrower.actions.UTestCreateGraveAction;
 import org.worldgrower.actions.UTestCutWoodAction;
+import org.worldgrower.actions.UTestDonateMoneyAction;
 import org.worldgrower.actions.UTestDrinkAction;
 import org.worldgrower.actions.UTestDrinkFromInventoryAction;
 import org.worldgrower.actions.UTestEatAction;
+import org.worldgrower.actions.UTestEatFromInventoryAction;
 import org.worldgrower.actions.UTestEatNightShadeAction;
+import org.worldgrower.actions.UTestExtractOilAction;
 import org.worldgrower.actions.UTestHarvestFoodAction;
 import org.worldgrower.actions.UTestHarvestGrapesAction;
+import org.worldgrower.actions.UTestHarvestNightShadeAction;
+import org.worldgrower.actions.UTestMineGoldAction;
 import org.worldgrower.actions.UTestMineOreAction;
 import org.worldgrower.actions.UTestMineSoulGemsAction;
 import org.worldgrower.actions.UTestMineStoneAction;
 import org.worldgrower.actions.UTestOrganizationNamer;
 import org.worldgrower.actions.UTestPlantBerryBushAction;
+import org.worldgrower.actions.UTestPlantGrapeVineAction;
 import org.worldgrower.actions.UTestRepairEquipmentInInventoryAction;
 import org.worldgrower.actions.UTestSellAction;
 import org.worldgrower.actions.UTestSetLegalActionsAction;
@@ -65,6 +72,7 @@ import org.worldgrower.attribute.UTestSkillUtils;
 import org.worldgrower.attribute.UTestWorldObjectProperties;
 import org.worldgrower.condition.UTestConditions;
 import org.worldgrower.conversation.UTestArenaFighterPayCheckConversation;
+import org.worldgrower.conversation.UTestAskGoalConversation;
 import org.worldgrower.conversation.UTestBecomeArenaFighterConversation;
 import org.worldgrower.conversation.UTestBrawlConversation;
 import org.worldgrower.conversation.UTestBuyHouseConversation;
@@ -100,6 +108,7 @@ import org.worldgrower.conversation.UTestSellHouseConversation;
 import org.worldgrower.conversation.UTestSetOrganizationProfitPercentageConversation;
 import org.worldgrower.conversation.UTestShareKnowledgeConversation;
 import org.worldgrower.conversation.UTestStartArenaFightConversation;
+import org.worldgrower.conversation.UTestStopSellingConversation;
 import org.worldgrower.conversation.UTestSwitchDeityConversation;
 import org.worldgrower.conversation.UTestVoteLeaderOrganizationConversation;
 import org.worldgrower.conversation.UTestWhoIsLeaderOrganizationConversation;
@@ -349,7 +358,16 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestHarvestFoodAction.class,
 	UTestHarvestGrapesAction.class,
 	UTestRepairEquipmentInInventoryAction.class,
-	UTestMergeOrganizationsConversation.class
+	UTestMergeOrganizationsConversation.class,
+	UTestAskGoalConversation.class,
+	UTestStopSellingConversation.class,
+	UTestEatFromInventoryAction.class,
+	UTestPlantGrapeVineAction.class,
+	UTestDonateMoneyAction.class,
+	UTestHarvestNightShadeAction.class,
+	UTestMineGoldAction.class,
+	UTestCatchFishAction.class,
+	UTestExtractOilAction.class
 })
 public class CompleteTestSuite {
 }

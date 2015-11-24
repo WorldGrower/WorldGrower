@@ -25,24 +25,24 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.IdRelationshipMap;
-import org.worldgrower.goal.Goals;
+import org.worldgrower.attribute.ItemCountMap;
+import org.worldgrower.generator.Item;
+import org.worldgrower.profession.Professions;
 
-public class UTestAskGoalConversation {
+public class UTestStopSellingConversation {
 
-	private final AskGoalConversation conversation = Conversations.ASK_GOAL_CONVERSATION;
+	private final StopSellingConversation conversation = Conversations.STOP_SELLING_CONVERSATION;
 
 	@Test
 	public void testGetReplyPhrases() {
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		
-		//TODO: some goal descriptions can be improved upon
 		ConversationContext context = new ConversationContext(performer, target, null, null, null, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
-		assertEquals(3, replyPhrases.size());
-		assertEquals("Yes, I'll start hungry and looking for food", replyPhrases.get(0).getResponsePhrase());
-		assertEquals("I don't know what I would gain with additional hungry and looking for food", replyPhrases.get(1).getResponsePhrase());
-		assertEquals("No", replyPhrases.get(2).getResponsePhrase());
+		assertEquals(2, replyPhrases.size());
+		assertEquals("Yes, I'll stop selling Iron Claymores", replyPhrases.get(0).getResponsePhrase());
+		assertEquals("No", replyPhrases.get(1).getResponsePhrase());
 	}
 	
 	@Test
@@ -52,13 +52,9 @@ public class UTestAskGoalConversation {
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.FOOD, 0);
 		
 		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
-		assertEquals(2, conversation.getReplyPhrase(context).getId());
-		
-		target.setProperty(Constants.FOOD, 1000);
 		assertEquals(1, conversation.getReplyPhrase(context).getId());
 		
 		target.getProperty(Constants.RELATIONSHIPS).incrementValue(performer, 1000);
-		target.setProperty(Constants.FOOD, 0);
 		assertEquals(0, conversation.getReplyPhrase(context).getId());
 	}
 	
@@ -66,11 +62,13 @@ public class UTestAskGoalConversation {
 	public void testGetQuestionPhrases() {
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.NAME, "performer");
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.NAME, "target");
-		WorldObject subject = TestUtils.createIntelligentWorldObject(3, Constants.NAME, "subject");
 		
-		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, subject, null);
-		assertEquals(true, questions.size() > 0);
-		assertEquals("Can you go start hungry and looking for food?", questions.get(0).getQuestionPhrase());
+		target.setProperty(Constants.ITEMS_SOLD, new ItemCountMap());
+		target.getProperty(Constants.ITEMS_SOLD).add(Item.BED, 10);
+		
+		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, null, null);
+		assertEquals(1, questions.size());
+		assertEquals("You recently sold Beds. Can you stop doing that?", questions.get(0).getQuestionPhrase());
 	}
 	
 	@Test
@@ -79,11 +77,12 @@ public class UTestAskGoalConversation {
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		
 		ConversationContext context = new ConversationContext(performer, target, null, null, null, 0);
+		target.setProperty(Constants.PROFESSION, Professions.FARMER_PROFESSION);
 		
 		conversation.handleResponse(0, context);
 		assertEquals(50, performer.getProperty(Constants.RELATIONSHIPS).getValue(target));
 		assertEquals(50, target.getProperty(Constants.RELATIONSHIPS).getValue(performer));
-		assertEquals(Goals.FOOD_GOAL, target.getProperty(Constants.GIVEN_ORDER));
+		assertEquals(null, target.getProperty(Constants.PROFESSION));
 	}
 	
 	@Test
@@ -94,19 +93,7 @@ public class UTestAskGoalConversation {
 		ConversationContext context = new ConversationContext(performer, target, null, null, null, 0);
 		
 		conversation.handleResponse(1, context);
-		assertEquals(-5, performer.getProperty(Constants.RELATIONSHIPS).getValue(target));
-		assertEquals(-5, target.getProperty(Constants.RELATIONSHIPS).getValue(performer));
+		assertEquals(-100, performer.getProperty(Constants.RELATIONSHIPS).getValue(target));
+		assertEquals(-100, target.getProperty(Constants.RELATIONSHIPS).getValue(performer));
 	}
-	
-	@Test
-	public void testHandleResponse2() {
-		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
-		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
-		
-		ConversationContext context = new ConversationContext(performer, target, null, null, null, 0);
-		
-		conversation.handleResponse(2, context);
-		assertEquals(-50, performer.getProperty(Constants.RELATIONSHIPS).getValue(target));
-		assertEquals(-50, target.getProperty(Constants.RELATIONSHIPS).getValue(performer));
-	}	
 }

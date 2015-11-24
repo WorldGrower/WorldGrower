@@ -19,6 +19,8 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
+import org.worldgrower.World;
+import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
@@ -79,5 +81,13 @@ public class UTestCraftUtils {
 	@Test
 	public void testGetRequirementsDescriptionWithSkill() {
 		assertEquals("Requirements: skill illusion 7, 1 wood", CraftUtils.getRequirementsDescription(Constants.ILLUSION_SKILL, 7, Constants.WOOD, 1));
+	}
+	
+	@Test
+	public void testIsValidBuildTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(1);
+		WorldObject target = TestUtils.createWorldObject(0, 0, 1, 1);
+		assertEquals(true, CraftUtils.isValidBuildTarget(Actions.BUILD_SHRINE_ACTION, performer, target, world));
 	}
 }
