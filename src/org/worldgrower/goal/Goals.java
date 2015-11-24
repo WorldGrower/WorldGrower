@@ -62,7 +62,7 @@ public class Goals {
 	public static final CreatePaperGoal CREATE_PAPER_GOAL = new CreatePaperGoal(ALL_GOALS);
 	public static final BecomeProfessionOrganizationMemberGoal BECOME_PROFESSION_ORGANIZATION_MEMBER_GOAL = new BecomeProfessionOrganizationMemberGoal(ALL_GOALS);
 	public static final LearnSkillGoal LEARN_SKILL_GOAL = new LearnSkillGoal(ALL_GOALS);
-	public static final ImproveOrganizationGoal IMPROVE_ORGANIZATION_GOAL = new ImproveOrganizationGoal(ALL_GOALS);
+	public static final StopSellingGoal STOP_SELLING_GOAL = new StopSellingGoal(ALL_GOALS);
 	public static final LibraryGoal LIBRARY_GOAL = new LibraryGoal(ALL_GOALS);
 	public static final ScribeClericSpellsGoal SCRIBE_CLERIC_SPELLS_GOAL = new ScribeClericSpellsGoal(ALL_GOALS);
 	public static final ScribeWizardSpellsGoal SCRIBE_WIZARD_SPELLS_GOAL = new ScribeWizardSpellsGoal(ALL_GOALS);
@@ -118,4 +118,5 @@ public class Goals {
 	public static final ResearchMagicSkillsKnowledgeGoal RESEARCH_MAGIC_SKILLS_KNOWLEDGE_GOAL = new ResearchMagicSkillsKnowledgeGoal(ALL_GOALS);
 	public static final GhoulGoal GHOUL_GOAL = new GhoulGoal(ALL_GOALS);
 	public static final CreatePoisonGoal CREATE_POISON_GOAL = new CreatePoisonGoal(ALL_GOALS);
+	public static final RecruitProfessionOrganizationMembersGoal RECRUIT_PROFESSION_ORGANIZATION_MEMBERS_GOAL = new RecruitProfessionOrganizationMembersGoal(ALL_GOALS);
 }

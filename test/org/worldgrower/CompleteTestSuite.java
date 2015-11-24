@@ -252,7 +252,7 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestFoodGoal.class,
 	UTestGatherFoodGoal.class,
 	UTestCreateFoodSourcesGoal.class,
-	UTestImproveOrganizationGoal.class,
+	UTestRecruitProfessionOrganizationMembersGoal.class,
 	UTestSubdueOutsidersGoal.class,
 	UTestCaptureCriminalsGoal.class,
 	UTestTrainGoal.class,

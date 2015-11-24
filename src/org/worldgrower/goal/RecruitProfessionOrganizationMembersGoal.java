@@ -28,9 +28,9 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.profession.Profession;
 
-public class ImproveOrganizationGoal implements Goal {
+public class RecruitProfessionOrganizationMembersGoal implements Goal {
 
-	public ImproveOrganizationGoal(List<Goal> allGoals) {
+	public RecruitProfessionOrganizationMembersGoal(List<Goal> allGoals) {
 		allGoals.add(this);
 	}
 
@@ -113,7 +113,7 @@ public class ImproveOrganizationGoal implements Goal {
 
 	@Override
 	public String getDescription() {
-		return "looking to improve organization";
+		return "recruiting new profession organization members";
 	}
 
 	@Override

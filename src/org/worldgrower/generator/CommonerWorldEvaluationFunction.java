@@ -122,7 +122,7 @@ public class CommonerWorldEvaluationFunction implements WorldObjectPriorities {
 			
 			if (profession != null) {
 				professionGoals = new ArrayList<>(profession.getProfessionGoals());
-				professionGoals.add(Goals.IMPROVE_ORGANIZATION_GOAL);
+				professionGoals.add(Goals.RECRUIT_PROFESSION_ORGANIZATION_MEMBERS_GOAL);
 				
 				professionOrganizationGoals = new ArrayList<>();
 				professionOrganizationGoals.add(Goals.BECOME_PROFESSION_ORGANIZATION_MEMBER_GOAL);

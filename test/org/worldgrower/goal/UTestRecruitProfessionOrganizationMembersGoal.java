@@ -29,9 +29,9 @@ import org.worldgrower.generator.CommonerGenerator;
 import org.worldgrower.gui.CommonerImageIds;
 import org.worldgrower.profession.Professions;
 
-public class UTestImproveOrganizationGoal {
+public class UTestRecruitProfessionOrganizationMembersGoal {
 
-	private ImproveOrganizationGoal goal = Goals.IMPROVE_ORGANIZATION_GOAL;
+	private RecruitProfessionOrganizationMembersGoal goal = Goals.RECRUIT_PROFESSION_ORGANIZATION_MEMBERS_GOAL;
 	private final CommonerGenerator commonerGenerator = new CommonerGenerator(666, new CommonerImageIds(), new MockCommonerNameGenerator());
 	
 	@Test
