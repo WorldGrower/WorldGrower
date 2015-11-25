@@ -111,4 +111,16 @@ public class UTestConditions {
 		targetConditions.perform(performer, target, null, Actions.MELEE_ATTACK_ACTION, world);
 		assertEquals(false, targetConditions.hasCondition(Condition.SLEEP_CONDITION));
 	}
+	
+	@Test
+	public void testremoveAllMagicEffects() {
+		Conditions conditions = new Conditions();
+		World world = new WorldImpl(0, 0, null, null);
+		conditions.addCondition(null, Condition.ENLARGED_CONDITION, 2, world);
+	
+		assertEquals(true, conditions.hasCondition(Condition.ENLARGED_CONDITION));
+		
+		conditions.removeAllMagicEffects(null, new WorldStateChangedListeners());
+		assertEquals(false, conditions.hasCondition(Condition.ENLARGED_CONDITION));
+	}
 }

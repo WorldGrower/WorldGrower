@@ -45,6 +45,7 @@ import org.worldgrower.actions.UTestEatAction;
 import org.worldgrower.actions.UTestEatFromInventoryAction;
 import org.worldgrower.actions.UTestEatNightShadeAction;
 import org.worldgrower.actions.UTestExtractOilAction;
+import org.worldgrower.actions.UTestGetItemFromInventoryAction;
 import org.worldgrower.actions.UTestHarvestFoodAction;
 import org.worldgrower.actions.UTestHarvestGrapesAction;
 import org.worldgrower.actions.UTestHarvestNightShadeAction;
@@ -55,6 +56,7 @@ import org.worldgrower.actions.UTestMineStoneAction;
 import org.worldgrower.actions.UTestOrganizationNamer;
 import org.worldgrower.actions.UTestPlantBerryBushAction;
 import org.worldgrower.actions.UTestPlantGrapeVineAction;
+import org.worldgrower.actions.UTestPutItemInInventoryAction;
 import org.worldgrower.actions.UTestRepairEquipmentInInventoryAction;
 import org.worldgrower.actions.UTestSellAction;
 import org.worldgrower.actions.UTestSetLegalActionsAction;
@@ -62,6 +64,14 @@ import org.worldgrower.actions.UTestSleepAction;
 import org.worldgrower.actions.UTestStealAction;
 import org.worldgrower.actions.UTestTalkAction;
 import org.worldgrower.actions.UTestVotingPropertyUtils;
+import org.worldgrower.actions.magic.UTestBurdenAction;
+import org.worldgrower.actions.magic.UTestDisintegrateArmorAction;
+import org.worldgrower.actions.magic.UTestDisintegrateWeaponAction;
+import org.worldgrower.actions.magic.UTestDispelMagicAction;
+import org.worldgrower.actions.magic.UTestEnlargeAction;
+import org.worldgrower.actions.magic.UTestFeatherAction;
+import org.worldgrower.actions.magic.UTestMendAction;
+import org.worldgrower.actions.magic.UTestReduceAction;
 import org.worldgrower.attribute.UTestIdList;
 import org.worldgrower.attribute.UTestIdMap;
 import org.worldgrower.attribute.UTestIntProperty;
@@ -367,7 +377,17 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestHarvestNightShadeAction.class,
 	UTestMineGoldAction.class,
 	UTestCatchFishAction.class,
-	UTestExtractOilAction.class
+	UTestExtractOilAction.class,
+	UTestPutItemInInventoryAction.class,
+	UTestGetItemFromInventoryAction.class,
+	UTestReduceAction.class,
+	UTestEnlargeAction.class,
+	UTestMendAction.class,
+	UTestBurdenAction.class,
+	UTestFeatherAction.class,
+	UTestDisintegrateArmorAction.class,
+	UTestDisintegrateWeaponAction.class,
+	UTestDispelMagicAction.class
 })
 public class CompleteTestSuite {
 }
