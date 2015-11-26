@@ -12,17 +12,24 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.goal;
+package org.worldgrower;
 
 import org.worldgrower.terrain.Terrain;
 import org.worldgrower.terrain.TerrainInfo;
 import org.worldgrower.terrain.TerrainType;
 
-class MockTerrain implements Terrain {
+public class MockTerrain implements Terrain {
+
+	private final TerrainType terrainType;
+	
+	public MockTerrain(TerrainType terrainType) {
+		super();
+		this.terrainType = terrainType;
+	}
 
 	@Override
 	public TerrainInfo getTerrainInfo(int x, int y) {
-		return new TerrainInfo(TerrainType.WATER);
+		return new TerrainInfo(terrainType);
 	}
 
 	@Override

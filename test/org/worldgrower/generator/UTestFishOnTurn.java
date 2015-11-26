@@ -19,6 +19,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.worldgrower.Constants;
 import org.worldgrower.DoNothingWorldOnTurn;
+import org.worldgrower.MockTerrain;
 import org.worldgrower.MockWorld;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;

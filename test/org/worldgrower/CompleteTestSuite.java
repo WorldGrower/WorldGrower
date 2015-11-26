@@ -64,14 +64,27 @@ import org.worldgrower.actions.UTestSleepAction;
 import org.worldgrower.actions.UTestStealAction;
 import org.worldgrower.actions.UTestTalkAction;
 import org.worldgrower.actions.UTestVotingPropertyUtils;
+import org.worldgrower.actions.magic.UTestAnimateSuitOfArmorAction;
 import org.worldgrower.actions.magic.UTestBurdenAction;
+import org.worldgrower.actions.magic.UTestCureDiseaseAction;
 import org.worldgrower.actions.magic.UTestDisintegrateArmorAction;
 import org.worldgrower.actions.magic.UTestDisintegrateWeaponAction;
 import org.worldgrower.actions.magic.UTestDispelMagicAction;
 import org.worldgrower.actions.magic.UTestEnlargeAction;
 import org.worldgrower.actions.magic.UTestFeatherAction;
+import org.worldgrower.actions.magic.UTestFireBoltAttackAction;
+import org.worldgrower.actions.magic.UTestInflictWoundsAction;
+import org.worldgrower.actions.magic.UTestInvisibilityAction;
+import org.worldgrower.actions.magic.UTestLightningBoltAttackAction;
+import org.worldgrower.actions.magic.UTestLockMagicSpellAction;
 import org.worldgrower.actions.magic.UTestMendAction;
+import org.worldgrower.actions.magic.UTestRayOfFrostAttackAction;
 import org.worldgrower.actions.magic.UTestReduceAction;
+import org.worldgrower.actions.magic.UTestSilenceMagicAction;
+import org.worldgrower.actions.magic.UTestSleepMagicAction;
+import org.worldgrower.actions.magic.UTestSoulTrapAction;
+import org.worldgrower.actions.magic.UTestUnlockMagicSpellAction;
+import org.worldgrower.actions.magic.UTestWaterWalkAction;
 import org.worldgrower.attribute.UTestIdList;
 import org.worldgrower.attribute.UTestIdMap;
 import org.worldgrower.attribute.UTestIntProperty;
@@ -387,7 +400,20 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestFeatherAction.class,
 	UTestDisintegrateArmorAction.class,
 	UTestDisintegrateWeaponAction.class,
-	UTestDispelMagicAction.class
+	UTestDispelMagicAction.class,
+	UTestFireBoltAttackAction.class,
+	UTestInflictWoundsAction.class,
+	UTestRayOfFrostAttackAction.class,
+	UTestSilenceMagicAction.class,
+	UTestSleepMagicAction.class,
+	UTestWaterWalkAction.class,
+	UTestInvisibilityAction.class,
+	UTestSoulTrapAction.class,
+	UTestCureDiseaseAction.class,
+	UTestLockMagicSpellAction.class,
+	UTestUnlockMagicSpellAction.class,
+	UTestLightningBoltAttackAction.class,
+	UTestAnimateSuitOfArmorAction.class
 })
 public class CompleteTestSuite {
 }
