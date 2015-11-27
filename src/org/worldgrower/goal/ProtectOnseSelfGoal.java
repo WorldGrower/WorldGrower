@@ -74,8 +74,12 @@ public class ProtectOnseSelfGoal implements Goal {
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		List<WorldObject> worldObjects = world.findWorldObjects(w -> GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, w) && Reach.distance(performer, w) < 10);
+		List<WorldObject> worldObjects = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> isEnemyWithinReach(performer, w));
 		return worldObjects.isEmpty();
+	}
+
+	private boolean isEnemyWithinReach(WorldObject performer, WorldObject w) {
+		return GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, w) && Reach.distance(performer, w) < 10;
 	}
 	
 	@Override

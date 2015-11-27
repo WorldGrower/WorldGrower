@@ -16,8 +16,8 @@ package org.worldgrower.condition;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -33,7 +33,7 @@ import org.worldgrower.WorldObject;
  */
 public class Conditions implements Serializable {
 
-	private final Map<Condition, ConditionInfo> conditions = new HashMap<>();
+	private final Map<Condition, ConditionInfo> conditions = new LinkedHashMap<>();
 	
 	void addCondition(WorldObject worldObject, Condition condition, int turns, World world) {
 		conditions.put(condition, new ConditionInfo(turns, world.getCurrentTurn().getValue()));

@@ -19,6 +19,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 import org.worldgrower.actions.UTestActions;
 import org.worldgrower.actions.UTestAttackUtils;
+import org.worldgrower.actions.UTestBecomeLeaderCandidateAction;
 import org.worldgrower.actions.UTestBuildArenaAction;
 import org.worldgrower.actions.UTestBuildHouseAction;
 import org.worldgrower.actions.UTestBuildInnAction;
@@ -61,8 +62,10 @@ import org.worldgrower.actions.UTestRepairEquipmentInInventoryAction;
 import org.worldgrower.actions.UTestSellAction;
 import org.worldgrower.actions.UTestSetLegalActionsAction;
 import org.worldgrower.actions.UTestSleepAction;
+import org.worldgrower.actions.UTestStartOrganizationVoteAction;
 import org.worldgrower.actions.UTestStealAction;
 import org.worldgrower.actions.UTestTalkAction;
+import org.worldgrower.actions.UTestVoteForLeaderAction;
 import org.worldgrower.actions.UTestVotingPropertyUtils;
 import org.worldgrower.actions.magic.UTestAnimateDeadAction;
 import org.worldgrower.actions.magic.UTestAnimateSuitOfArmorAction;
@@ -421,7 +424,10 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestResearchSpellAction.class,
 	UTestAnimateDeadAction.class,
 	UTestDetectPoisonAndDiseaseAction.class,
-	UTestDetectMagicAction.class
+	UTestDetectMagicAction.class,
+	UTestVoteForLeaderAction.class,
+	UTestBecomeLeaderCandidateAction.class,
+	UTestStartOrganizationVoteAction.class
 })
 public class CompleteTestSuite {
 }

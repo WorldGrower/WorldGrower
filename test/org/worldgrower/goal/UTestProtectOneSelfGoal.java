@@ -10,6 +10,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.MockCommonerNameGenerator;
+import org.worldgrower.attribute.IdList;
 import org.worldgrower.generator.CommonerGenerator;
 import org.worldgrower.gui.CommonerImageIds;
 
@@ -31,11 +32,26 @@ public class UTestProtectOneSelfGoal {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		int performerId = commonerGenerator.generateCommoner(5, 5, world, organization);
-		int targetId = commonerGenerator.generateCommoner(7, 7, world, organization);
+		commonerGenerator.generateCommoner(7, 7, world, organization);
 		WorldObject performer = world.findWorldObject(Constants.ID, performerId);
 		performer.getProperty(Constants.GROUP).removeAll();
 		
 		assertEquals(Actions.MOVE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 		assertEquals(true, goal.calculateGoal(performer, world).firstArgsIs(1));
+	}
+	
+	@Test
+	public void testIsGoalMet() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		int performerId = commonerGenerator.generateCommoner(5, 5, world, organization);
+		WorldObject performer = world.findWorldObject(Constants.ID, performerId);
+		
+		assertEquals(true, goal.isGoalMet(performer, world));
+		
+		int targetId = commonerGenerator.generateCommoner(7, 7, world, organization);
+		WorldObject target = world.findWorldObject(Constants.ID, targetId);
+		target.setProperty(Constants.GROUP, new IdList());
+		assertEquals(false, goal.isGoalMet(performer, world));
 	}
 }
