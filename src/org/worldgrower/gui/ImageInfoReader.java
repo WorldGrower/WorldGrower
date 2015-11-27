@@ -383,6 +383,7 @@ public class ImageInfoReader {
     
 		add(ImageIds.SIGN_POST, tileE.getSubImage(2, 14, 1, 1));
 		add(ImageIds.INTOXICATED_CONDITION, sprites420.getSubImage(12, 24, 1, 1));
+		add(ImageIds.DETECT_MAGIC, sprites420.getSubImage(0, 15, 1, 1));
     }
 
     private void resizeSmallFlowers() {

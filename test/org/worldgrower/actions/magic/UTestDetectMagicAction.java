@@ -27,10 +27,10 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
 
-public class UTestDetectPoisonAndDiseaseAction {
+public class UTestDetectMagicAction {
 
 	@Test
-	public void testExecuteNothing() {
+	public void testExecuteNoMagic() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
@@ -38,7 +38,7 @@ public class UTestDetectPoisonAndDiseaseAction {
 		WorldListener listener = new WorldListener();
 		world.addListener(listener);
 		
-		Actions.DETECT_POISON_AND_DISEASE_ACTION.execute(performer, target, new int[0], world);
+		Actions.DETECT_MAGIC_ACTION.execute(performer, target, new int[0], world);
 		
 		assertEquals("Nothing was detected", listener.getMessage());
 	}
@@ -51,30 +51,13 @@ public class UTestDetectPoisonAndDiseaseAction {
 		
 		target.setProperty(Constants.NAME, "target");
 		
-		Conditions.add(target, Condition.VAMPIRE_BITE_CONDITION, 8, world);
+		Conditions.add(target, Condition.ENLARGED_CONDITION, 8, world);
 		WorldListener listener = new WorldListener();
 		world.addListener(listener);
 		
-		Actions.DETECT_POISON_AND_DISEASE_ACTION.execute(performer, target, new int[0], world);
+		Actions.DETECT_MAGIC_ACTION.execute(performer, target, new int[0], world);
 		
-		assertEquals("target has the following conditions: bitten by a vampire", listener.getMessage());
-	}
-	
-	@Test
-	public void testExecutePoisoned() {
-		World world = new WorldImpl(0, 0, null, null);
-		WorldObject performer = createPerformer(2);
-		WorldObject target = createPerformer(3);
-		
-		target.setProperty(Constants.NAME, "target");
-		
-		Conditions.add(target, Condition.POISONED_CONDITION, 8, world);
-		WorldListener listener = new WorldListener();
-		world.addListener(listener);
-		
-		Actions.DETECT_POISON_AND_DISEASE_ACTION.execute(performer, target, new int[0], world);
-		
-		assertEquals("target has the following conditions: poisoned", listener.getMessage());
+		assertEquals("target has the following conditions: enlarged", listener.getMessage());
 	}
 	
 	@Test
@@ -85,14 +68,15 @@ public class UTestDetectPoisonAndDiseaseAction {
 		
 		target.setProperty(Constants.NAME, "target");
 		
-		Conditions.add(target, Condition.POISONED_CONDITION, 8, world);
+		Conditions.add(target, Condition.ENLARGED_CONDITION, 8, world);
+		Conditions.add(target, Condition.INVISIBLE_CONDITION, 8, world);
 		Conditions.add(target, Condition.VAMPIRE_BITE_CONDITION, 8, world);
 		WorldListener listener = new WorldListener();
 		world.addListener(listener);
 		
-		Actions.DETECT_POISON_AND_DISEASE_ACTION.execute(performer, target, new int[0], world);
+		Actions.DETECT_MAGIC_ACTION.execute(performer, target, new int[0], world);
 		
-		assertEquals("target has the following conditions: poisoned, bitten by a vampire", listener.getMessage());
+		assertEquals("target has the following conditions: enlarged, invisible", listener.getMessage());
 	}
 	
 	private WorldObject createPerformer(int id) {

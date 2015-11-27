@@ -113,7 +113,7 @@ public class UTestConditions {
 	}
 	
 	@Test
-	public void testremoveAllMagicEffects() {
+	public void testRemoveAllMagicEffects() {
 		Conditions conditions = new Conditions();
 		World world = new WorldImpl(0, 0, null, null);
 		conditions.addCondition(null, Condition.ENLARGED_CONDITION, 2, world);
@@ -123,4 +123,14 @@ public class UTestConditions {
 		conditions.removeAllMagicEffects(null, new WorldStateChangedListeners());
 		assertEquals(false, conditions.hasCondition(Condition.ENLARGED_CONDITION));
 	}
+	
+	@Test
+	public void testGetMagicConditions() {
+		Conditions conditions = new Conditions();
+		World world = new WorldImpl(0, 0, null, null);
+		conditions.addCondition(null, Condition.COCOONED_CONDITION, 2, world);
+		conditions.addCondition(null, Condition.ENLARGED_CONDITION, 2, world);
+		
+		assertEquals(Arrays.asList(Condition.ENLARGED_CONDITION), conditions.getMagicConditions());
+	}	
 }

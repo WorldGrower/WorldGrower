@@ -29,6 +29,7 @@ import org.worldgrower.actions.magic.AnimateSuitOfArmorAction;
 import org.worldgrower.actions.magic.BurdenAction;
 import org.worldgrower.actions.magic.CureDiseaseAction;
 import org.worldgrower.actions.magic.CurePoisonAction;
+import org.worldgrower.actions.magic.DetectMagicAction;
 import org.worldgrower.actions.magic.DetectPoisonAndDiseaseAction;
 import org.worldgrower.actions.magic.DisguiseMagicSpellAction;
 import org.worldgrower.actions.magic.DisintegrateArmorAction;
@@ -145,6 +146,7 @@ public class Actions {
 	public static final SoulTrapAction SOUL_TRAP_ACTION = new SoulTrapAction();
 	public static final DispelMagicAction DISPEL_MAGIC_ACTION = new DispelMagicAction();
 	public static final SilenceMagicAction SILENCE_MAGIC_ACTION = new SilenceMagicAction();
+	public static final DetectMagicAction DETECT_MAGIC_ACTION = new DetectMagicAction();
 	
 	public static final BuildLibraryAction BUILD_LIBRARY_ACTION = new BuildLibraryAction();
 	public static final ResearchRestorationSkillAction RESEARCH_RESTORATION_SKILL_ACTION = new ResearchRestorationSkillAction();
@@ -234,7 +236,8 @@ public class Actions {
 			SOUL_TRAP_ACTION,
 			ANIMATE_SUIT_OF_ARMOR_ACTION,
 			DISPEL_MAGIC_ACTION,
-			SILENCE_MAGIC_ACTION
+			SILENCE_MAGIC_ACTION,
+			DETECT_MAGIC_ACTION
 			);
 	
 	private static final List<ManagedOperation> INVENTORY_ACTIONS = Arrays.asList(

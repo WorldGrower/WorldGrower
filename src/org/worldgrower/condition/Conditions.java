@@ -169,4 +169,14 @@ public class Conditions implements Serializable {
 	private void conditionLost(WorldObject worldObject, Condition condition, WorldStateChangedListeners worldStateChangedListeners) {
 		worldStateChangedListeners.conditionLost(worldObject, condition);
 	}
+
+	public List<Condition> getMagicConditions() {
+		List<Condition> magicConditions = new ArrayList<>();
+		for(Condition condition : conditions.keySet()) {
+			if (condition.isMagicEffect()) {
+				magicConditions.add(condition);
+			}
+		}
+		return magicConditions;
+	}
 }

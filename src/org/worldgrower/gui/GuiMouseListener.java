@@ -194,6 +194,7 @@ public class GuiMouseListener extends MouseAdapter {
             	addIllusionActions(menu);
             	addRestorationActions(menu);
             	addTransmutationActions(menu);
+            	addEvocationActions(menu);
             	addScribeMagicSpells(menu);
             	addRestMenu(menu);
             	menu.add(organizationMenu);
@@ -391,6 +392,11 @@ public class GuiMouseListener extends MouseAdapter {
 	private void addTransmutationActions(JPopupMenu menu) {
 		MagicSpell[] transmutationActions = { Actions.ENLARGE_ACTION, Actions.REDUCE_ACTION, Actions.SLEEP_MAGIC_SPELL_ACTION, Actions.WATER_WALK_ACTION, Actions.BURDEN_ACTION, Actions.FEATHER_ACTION };
 		addActions(menu, "Transmute", transmutationActions);
+	}
+	
+	private void addEvocationActions(JPopupMenu menu) {
+		MagicSpell[] actions = { Actions.DETECT_MAGIC_ACTION, Actions.DETECT_POISON_AND_DISEASE_ACTION };
+		addActions(menu, "Evocation", actions);
 	}
 	
 	private void addScribeMagicSpells(JPopupMenu menu) {
