@@ -43,12 +43,19 @@ public class DetectPoisonAndDiseaseAction implements MagicSpell {
 		
 		StringBuilder message = new StringBuilder().append(target.getProperty(Constants.NAME)).append(" has the following conditions: ");
 		if (isPoisoned) {
-			message.append("poisoned, ");
+			message.append("poisoned");
+			if (hasDisease) {
+				message.append(", ");
+			}
 		}
 		if (hasDisease) {
 			List<Condition> diseases = conditions.getDiseaseConditions();
-			for(Condition disease : diseases) {
-				message.append(disease.getDescription()).append(", ");
+			for(int i=0; i<diseases.size(); i++) {
+				Condition disease = diseases.get(i);
+				message.append(disease.getDescription());
+				if (i < diseases.size() - 1) {
+					message.append(", ");
+				}
 			}
 		}
 		

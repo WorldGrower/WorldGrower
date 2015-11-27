@@ -64,9 +64,11 @@ import org.worldgrower.actions.UTestSleepAction;
 import org.worldgrower.actions.UTestStealAction;
 import org.worldgrower.actions.UTestTalkAction;
 import org.worldgrower.actions.UTestVotingPropertyUtils;
+import org.worldgrower.actions.magic.UTestAnimateDeadAction;
 import org.worldgrower.actions.magic.UTestAnimateSuitOfArmorAction;
 import org.worldgrower.actions.magic.UTestBurdenAction;
 import org.worldgrower.actions.magic.UTestCureDiseaseAction;
+import org.worldgrower.actions.magic.UTestDetectPoisonAndDiseaseAction;
 import org.worldgrower.actions.magic.UTestDisintegrateArmorAction;
 import org.worldgrower.actions.magic.UTestDisintegrateWeaponAction;
 import org.worldgrower.actions.magic.UTestDispelMagicAction;
@@ -80,6 +82,7 @@ import org.worldgrower.actions.magic.UTestLockMagicSpellAction;
 import org.worldgrower.actions.magic.UTestMendAction;
 import org.worldgrower.actions.magic.UTestRayOfFrostAttackAction;
 import org.worldgrower.actions.magic.UTestReduceAction;
+import org.worldgrower.actions.magic.UTestResearchSpellAction;
 import org.worldgrower.actions.magic.UTestSilenceMagicAction;
 import org.worldgrower.actions.magic.UTestSleepMagicAction;
 import org.worldgrower.actions.magic.UTestSoulTrapAction;
@@ -413,7 +416,10 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestLockMagicSpellAction.class,
 	UTestUnlockMagicSpellAction.class,
 	UTestLightningBoltAttackAction.class,
-	UTestAnimateSuitOfArmorAction.class
+	UTestAnimateSuitOfArmorAction.class,
+	UTestResearchSpellAction.class,
+	UTestAnimateDeadAction.class,
+	UTestDetectPoisonAndDiseaseAction.class
 })
 public class CompleteTestSuite {
 }
