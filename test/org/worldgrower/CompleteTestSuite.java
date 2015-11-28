@@ -36,6 +36,13 @@ import org.worldgrower.actions.UTestCatchFishAction;
 import org.worldgrower.actions.UTestChooseProfessionAction;
 import org.worldgrower.actions.UTestCollectWaterAction;
 import org.worldgrower.actions.UTestConstructTrainingDummyAction;
+import org.worldgrower.actions.UTestCraftIronAxeAction;
+import org.worldgrower.actions.UTestCraftIronBootsAction;
+import org.worldgrower.actions.UTestCraftIronClaymoreAction;
+import org.worldgrower.actions.UTestCraftIronCuirassAction;
+import org.worldgrower.actions.UTestCraftIronGauntletsAction;
+import org.worldgrower.actions.UTestCraftIronGreavesAction;
+import org.worldgrower.actions.UTestCraftIronShieldAction;
 import org.worldgrower.actions.UTestCraftUtils;
 import org.worldgrower.actions.UTestCreateGraveAction;
 import org.worldgrower.actions.UTestCutWoodAction;
@@ -427,7 +434,14 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestDetectMagicAction.class,
 	UTestVoteForLeaderAction.class,
 	UTestBecomeLeaderCandidateAction.class,
-	UTestStartOrganizationVoteAction.class
+	UTestStartOrganizationVoteAction.class,
+	UTestCraftIronAxeAction.class,
+	UTestCraftIronCuirassAction.class,
+	UTestCraftIronBootsAction.class,
+	UTestCraftIronClaymoreAction.class,
+	UTestCraftIronGauntletsAction.class,
+	UTestCraftIronGreavesAction.class,
+	UTestCraftIronShieldAction.class
 })
 public class CompleteTestSuite {
 }
