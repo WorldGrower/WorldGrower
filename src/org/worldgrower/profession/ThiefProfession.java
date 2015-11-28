@@ -16,10 +16,13 @@ package org.worldgrower.profession;
 
 import java.io.ObjectStreamException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.worldgrower.Constants;
+import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.SkillProperty;
+import org.worldgrower.generator.Item;
 import org.worldgrower.goal.Goal;
 
 public class ThiefProfession implements Profession {
@@ -55,5 +58,10 @@ public class ThiefProfession implements Profession {
 	@Override
 	public boolean avoidEnemies() {
 		return true;
+	}
+
+	@Override
+	public List<Item> getSellItems() {
+		return Arrays.asList();
 	}
 }

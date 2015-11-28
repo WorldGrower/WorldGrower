@@ -19,7 +19,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.worldgrower.Constants;
+import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.SkillProperty;
+import org.worldgrower.generator.Item;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
 
@@ -38,7 +40,8 @@ public class WeaverProfession implements Profession {
 	public List<Goal> getProfessionGoals() {
 		return Arrays.asList(
 				Goals.COTTON_GOAL,
-				Goals.WEAVE_CLOTHES_GOAL);
+				Goals.WEAVE_CLOTHES_GOAL,
+				Goals.MARK_CLOTHES_AS_SELLABLE_GOAL);
 	}
 
 	@Override
@@ -58,5 +61,10 @@ public class WeaverProfession implements Profession {
 	@Override
 	public boolean avoidEnemies() {
 		return true;
+	}
+
+	@Override
+	public List<Item> getSellItems() {
+		return Arrays.asList(Item.COTTON_BOOTS, Item.COTTON_GLOVES, Item.COTTON_HAT, Item.COTTON_PANTS, Item.COTTON_SHIRT);
 	}
 }

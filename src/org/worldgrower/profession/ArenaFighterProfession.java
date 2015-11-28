@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.worldgrower.Constants;
 import org.worldgrower.attribute.SkillProperty;
+import org.worldgrower.generator.Item;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
 
@@ -60,5 +61,10 @@ public class ArenaFighterProfession implements Profession {
 	@Override
 	public boolean avoidEnemies() {
 		return false;
+	}
+	
+	@Override
+	public List<Item> getSellItems() {
+		return Arrays.asList();
 	}
 }

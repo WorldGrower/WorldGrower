@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.worldgrower.Constants;
 import org.worldgrower.attribute.SkillProperty;
+import org.worldgrower.generator.Item;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
 
@@ -59,5 +60,11 @@ public class WizardProfession implements Profession {
 	@Override
 	public boolean avoidEnemies() {
 		return true;
+	}
+	
+	//TODO: sell spell books or services
+	@Override
+	public List<Item> getSellItems() {
+		return Arrays.asList();
 	}
 }

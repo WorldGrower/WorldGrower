@@ -19,12 +19,14 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.worldgrower.attribute.SkillProperty;
+import org.worldgrower.generator.Item;
 import org.worldgrower.goal.Goal;
 
 public interface Profession extends Serializable {
 	public String getDescription();
 	public List<Goal> getProfessionGoals();
 	public SkillProperty getSkillProperty();
+	public List<Item> getSellItems();
 	
 	public default Object readResolveImpl() throws ObjectStreamException {
 		Class<?> clazz = getClass();

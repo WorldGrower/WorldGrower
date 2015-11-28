@@ -19,7 +19,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.worldgrower.Constants;
+import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.SkillProperty;
+import org.worldgrower.generator.Item;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
 
@@ -39,6 +41,8 @@ public class MinerProfession implements Profession {
 		return Arrays.asList(
 				Goals.MINE_RESOURCES_GOAL,
 				Goals.MARK_STONE_AS_SELLABLE_GOAL,
+				Goals.MARK_ORE_AS_SELLABLE_GOAL,
+				Goals.MARK_GOLD_AS_SELLABLE_GOAL,
 				Goals.SELL_STONE_GOAL,
 				Goals.SELL_ORE_GOAL,
 				Goals.SELL_GOLD_GOAL
@@ -62,5 +66,10 @@ public class MinerProfession implements Profession {
 	@Override
 	public boolean avoidEnemies() {
 		return true;
+	}
+
+	@Override
+	public List<Item> getSellItems() {
+		return Arrays.asList(Item.STONE, Item.GOLD, Item.ORE);
 	}
 }

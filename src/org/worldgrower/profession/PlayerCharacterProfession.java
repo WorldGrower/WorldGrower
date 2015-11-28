@@ -16,9 +16,12 @@ package org.worldgrower.profession;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.SkillProperty;
+import org.worldgrower.generator.Item;
 import org.worldgrower.goal.Goal;
 
 public class PlayerCharacterProfession implements Profession, Serializable {
@@ -52,5 +55,11 @@ public class PlayerCharacterProfession implements Profession, Serializable {
 	@Override
 	public boolean avoidEnemies() {
 		return false;
+	}
+
+
+	@Override
+	public List<Item> getSellItems() {
+		return Arrays.asList();
 	}
 }

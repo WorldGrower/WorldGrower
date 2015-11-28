@@ -106,6 +106,8 @@ public class Goals {
 	public static final MarkFoodAsSellableGoal MARK_FOOD_AS_SELLABLE_GOAL = new MarkFoodAsSellableGoal(ALL_GOALS);
 	public static final MarkWoodAsSellableGoal MARK_WOOD_AS_SELLABLE_GOAL = new MarkWoodAsSellableGoal(ALL_GOALS);
 	public static final MarkStoneAsSellableGoal MARK_STONE_AS_SELLABLE_GOAL = new MarkStoneAsSellableGoal(ALL_GOALS);
+	public static final MarkOreAsSellableGoal MARK_ORE_AS_SELLABLE_GOAL = new MarkOreAsSellableGoal(ALL_GOALS);
+	public static final MarkGoldAsSellableGoal MARK_GOLD_AS_SELLABLE_GOAL = new MarkGoldAsSellableGoal(ALL_GOALS);
 	public static final BrawlGoal BRAWL_GOAL = new BrawlGoal(ALL_GOALS);
 	public static final ArenaGoal ARENA_GOAL = new ArenaGoal(ALL_GOALS);
 	public static final ArenaFightGoal ARENA_FIGHT_GOAL = new ArenaFightGoal(ALL_GOALS);
@@ -119,4 +121,5 @@ public class Goals {
 	public static final GhoulGoal GHOUL_GOAL = new GhoulGoal(ALL_GOALS);
 	public static final CreatePoisonGoal CREATE_POISON_GOAL = new CreatePoisonGoal(ALL_GOALS);
 	public static final RecruitProfessionOrganizationMembersGoal RECRUIT_PROFESSION_ORGANIZATION_MEMBERS_GOAL = new RecruitProfessionOrganizationMembersGoal(ALL_GOALS);
+	public static final MarkClothesAsSellableGoal MARK_CLOTHES_AS_SELLABLE_GOAL = new MarkClothesAsSellableGoal(ALL_GOALS);
 }
