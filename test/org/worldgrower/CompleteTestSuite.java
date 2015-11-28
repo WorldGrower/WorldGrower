@@ -41,10 +41,15 @@ import org.worldgrower.actions.UTestCraftIronBootsAction;
 import org.worldgrower.actions.UTestCraftIronClaymoreAction;
 import org.worldgrower.actions.UTestCraftIronCuirassAction;
 import org.worldgrower.actions.UTestCraftIronGauntletsAction;
+import org.worldgrower.actions.UTestCraftIronGreataxeAction;
+import org.worldgrower.actions.UTestCraftIronGreatswordAction;
 import org.worldgrower.actions.UTestCraftIronGreavesAction;
 import org.worldgrower.actions.UTestCraftIronShieldAction;
+import org.worldgrower.actions.UTestCraftLongBowAction;
+import org.worldgrower.actions.UTestCraftRepairHammerAction;
 import org.worldgrower.actions.UTestCraftUtils;
 import org.worldgrower.actions.UTestCreateGraveAction;
+import org.worldgrower.actions.UTestCreateHumanMeatAction;
 import org.worldgrower.actions.UTestCutWoodAction;
 import org.worldgrower.actions.UTestDonateMoneyAction;
 import org.worldgrower.actions.UTestDrinkAction;
@@ -441,7 +446,12 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestCraftIronClaymoreAction.class,
 	UTestCraftIronGauntletsAction.class,
 	UTestCraftIronGreavesAction.class,
-	UTestCraftIronShieldAction.class
+	UTestCraftIronShieldAction.class,
+	UTestCraftIronGreataxeAction.class,
+	UTestCraftIronGreatswordAction.class,
+	UTestCraftLongBowAction.class,
+	UTestCraftRepairHammerAction.class,
+	UTestCreateHumanMeatAction.class
 })
 public class CompleteTestSuite {
 }
