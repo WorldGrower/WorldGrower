@@ -1,3 +1,12 @@
+v0.2.1
+- add StopSellingConversation
+- add AskGoalConversation
+- split long question lists in different parts
+- bugfix: findMatchingOrganization doesn't match itself
+- bugfix: fix detect poison and disease
+- add detect magic action
+- Improve performance of ProtectOneSelfGoal
+
 v0.2.0
 - add intoxicated condition
 - add intoxicated condition: intoxicated characters have their skills halved
