@@ -36,10 +36,7 @@ public class WaterPropertyUtils {
 	}
 
 	public static void everyoneInVicinityKnowsOfPoisoning(WorldObject performer, WorldObject target, World world) {
-		List<WorldObject> peopleThatknowOfPoisoning = world.findWorldObjects(w -> w.hasIntelligence() && w.hasProperty(Constants.KNOWLEDGE_MAP) && Reach.distance(performer, w) < 20);
-		for(WorldObject personThatknowsOfPoisoning : peopleThatknowOfPoisoning) {
-			personThatknowsOfPoisoning.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(target, Constants.POISON_DAMAGE, target.getProperty(Constants.POISON_DAMAGE));
-		}
+		KnowledgeMapPropertyUtils.everyoneInVicinityKnowsOfProperty(performer, target, Constants.POISON_DAMAGE, target.getProperty(Constants.POISON_DAMAGE), world);
 	}
 
 	public static boolean isWaterSafeToDrink(WorldObject performer, WorldObject target) {

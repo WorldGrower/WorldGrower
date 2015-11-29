@@ -14,10 +14,7 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
-import java.util.List;
-
 import org.worldgrower.Constants;
-import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectFacade;
@@ -81,9 +78,6 @@ public class FacadeUtils {
 	}
 	
 	private static void everyoneInVicinityKnowsOfFacade(WorldObject performer, World world) {
-		List<WorldObject> peopleThatknowOfDisguise = world.findWorldObjects(w -> w.hasIntelligence() && Reach.distance(performer, w) < 20);
-		for(WorldObject personThatknowsOfDisguise : peopleThatknowOfDisguise) {
-			personThatknowsOfDisguise.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(performer, Constants.FACADE, performer.getProperty(Constants.FACADE));
-		}
+		KnowledgeMapPropertyUtils.everyoneInVicinityKnowsOfProperty(performer, performer, Constants.FACADE, performer.getProperty(Constants.FACADE), world);
 	}
 }

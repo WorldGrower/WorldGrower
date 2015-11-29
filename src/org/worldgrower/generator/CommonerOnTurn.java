@@ -14,12 +14,10 @@
  *******************************************************************************/
 package org.worldgrower.generator;
 
-import java.util.List;
 import java.util.Map;
 
 import org.worldgrower.Constants;
 import org.worldgrower.OnTurn;
-import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.Background;
@@ -28,6 +26,7 @@ import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.goal.DrownUtils;
 import org.worldgrower.goal.GoalUtils;
+import org.worldgrower.goal.KnowledgeMapPropertyUtils;
 import org.worldgrower.goal.WeightPropertyUtils;
 
 public class CommonerOnTurn implements OnTurn {
@@ -155,10 +154,6 @@ public class CommonerOnTurn implements OnTurn {
 	}
 	
 	private void everyoneInVicinityKnowsOfChild(WorldObject parent, int childId, World world) {
-		//TODO: remove code duplication
-		List<WorldObject> peopleThatknowOfBirth = world.findWorldObjects(w -> w.hasIntelligence()&& w.hasProperty(Constants.KNOWLEDGE_MAP) && Reach.distance(parent, w) < 20);
-		for(WorldObject personThatknowsOfBirth : peopleThatknowOfBirth) {
-			personThatknowsOfBirth.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(parent, Constants.CHILD_BIRTH_ID, childId);
-		}
+		KnowledgeMapPropertyUtils.everyoneInVicinityKnowsOfProperty(parent, parent, Constants.CHILD_BIRTH_ID, childId, world);
 	}
 }

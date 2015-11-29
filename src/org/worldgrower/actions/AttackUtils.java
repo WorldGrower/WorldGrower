@@ -33,6 +33,7 @@ import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.goal.DeathReasonPropertyUtils;
+import org.worldgrower.goal.KnowledgeMapPropertyUtils;
 
 public class AttackUtils {
 
@@ -72,16 +73,9 @@ public class AttackUtils {
 		
 		decreaseWeaponHealth(performer, damage);
 		armorIsUsed(target, damage, world.getWorldStateChangedListeners());
-		everyoneInVicinityKnowsOfAttack(performer, target, world);
+		KnowledgeMapPropertyUtils.everyoneInVicinityKnowsOfEvent(performer, target, world);
 		
 		world.logAction(action, performer, target, args, message);
-	}
-	
-	private static void everyoneInVicinityKnowsOfAttack(WorldObject performer, WorldObject target, World world) {
-		List<WorldObject> peopleThatknowOfAttack = world.findWorldObjects(w -> w.hasIntelligence() && w.hasProperty(Constants.KNOWLEDGE_MAP) && Reach.distance(performer, w) < 20);
-		for(WorldObject personThatknowsOfAttack : peopleThatknowOfAttack) {
-			personThatknowsOfAttack.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(target, world);
-		}
 	}
 	
 	public static void decreaseWeaponHealth(WorldObject performer, int damage) {
