@@ -451,7 +451,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestCraftIronGreatswordAction.class,
 	UTestCraftLongBowAction.class,
 	UTestCraftRepairHammerAction.class,
-	UTestCreateHumanMeatAction.class
+	UTestCreateHumanMeatAction.class,
+	UTestStopSellingGoal.class
 })
 public class CompleteTestSuite {
 }

@@ -64,5 +64,14 @@ public class UTestItemCountMap {
 		itemCountMap.add(Item.BERRIES, 5);
 		assertEquals(Arrays.asList(Item.BERRIES), itemCountMap.getItems());
 	}
+	
+	@Test
+	public void testContainsAny() {
+		ItemCountMap itemCountMap = new ItemCountMap();
+		itemCountMap.add(Item.BERRIES, 5);
+		
+		assertEquals(true, itemCountMap.containsAny(Arrays.asList(Item.BERRIES, Item.BED)));
+		assertEquals(false, itemCountMap.containsAny(Arrays.asList(Item.COTTON, Item.BED)));
+	}
 }
 

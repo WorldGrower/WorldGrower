@@ -72,4 +72,13 @@ public class ItemCountMap implements Serializable {
 	public String toString() {
 		return itemCount.toString();
 	}
+
+	public boolean containsAny(List<Item> items) {
+		for(Item item : items) {
+			if (itemCount.containsKey(item)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

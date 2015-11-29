@@ -23,8 +23,9 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.conversation.Conversations;
+import org.worldgrower.generator.Item;
+import org.worldgrower.profession.Profession;
 
-//TODO: check if already asked, goalMet/evaluate should be fast
 public class StopSellingGoal implements Goal {
 
 	public StopSellingGoal(List<Goal> allGoals) {
@@ -34,22 +35,31 @@ public class StopSellingGoal implements Goal {
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		for(WorldObject nonMember : getNonMembersSellingItems(performer, world)) {
-			return new OperationInfo(performer, nonMember, Conversations.createArgs(Conversations.STOP_SELLING_CONVERSATION), Actions.TALK_ACTION);
+			boolean actionAlreadyPerformed = world.getHistory().findHistoryItems(performer, nonMember, Conversations.createArgs(Conversations.STOP_SELLING_CONVERSATION), Actions.TALK_ACTION).size() > 0;
+			if (!actionAlreadyPerformed) {
+				return new OperationInfo(performer, nonMember, Conversations.createArgs(Conversations.STOP_SELLING_CONVERSATION), Actions.TALK_ACTION);
+			}
 		}
 		return null;
 	}
 
 	private List<WorldObject> getNonMembersSellingItems(WorldObject performer, World world) {
 		List<WorldObject> organizations = GroupPropertyUtils.findOrganizationsUsingLeader(performer, world);
-		
-		for(WorldObject organization : organizations) {
-			return world.findWorldObjectsByProperty(Constants.STRENGTH, w -> nonMemberSoldItem(organization, w));
+		Profession profession = performer.getProperty(Constants.PROFESSION);
+		if (profession != null) {
+			List<Item> itemsSoldByProfession = profession.getSellItems();
+			for(WorldObject organization : organizations) {
+				return world.findWorldObjectsByProperty(Constants.STRENGTH, w -> nonMemberSoldItem(organization, w, itemsSoldByProfession));
+			}
 		}
 		return new ArrayList<>();
 	}
 	
-	private boolean nonMemberSoldItem(WorldObject organization, WorldObject w) {
-		return w.hasProperty(Constants.ITEMS_SOLD) && !w.getProperty(Constants.ITEMS_SOLD).isEmpty() && !w.getProperty(Constants.GROUP).contains(organization);
+	private boolean nonMemberSoldItem(WorldObject organization, WorldObject w, List<Item> items) {
+		return w.hasProperty(Constants.ITEMS_SOLD) 
+				&& !w.getProperty(Constants.ITEMS_SOLD).isEmpty()
+				&& w.getProperty(Constants.ITEMS_SOLD).containsAny(items)
+				&& !w.getProperty(Constants.GROUP).contains(organization);
 	}
 
 	@Override
@@ -58,7 +68,8 @@ public class StopSellingGoal implements Goal {
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		return GroupPropertyUtils.isPerformerMemberOfProfessionOrganization(FacadeUtils.createFacadeForSelf(performer), world);
+		List<WorldObject> nonMembers = getNonMembersSellingItems(performer, world);
+		return nonMembers.size() == 0;
 	}
 	
 	@Override
