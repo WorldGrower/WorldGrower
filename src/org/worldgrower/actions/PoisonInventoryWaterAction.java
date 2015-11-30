@@ -36,7 +36,7 @@ public class PoisonInventoryWaterAction implements ManagedOperation {
 		int poisonDamage = inventory.get(indexOfPoison).getProperty(Constants.POISON_DAMAGE);
 		inventory.get(indexOfWater).setProperty(Constants.POISON_DAMAGE, poisonDamage);
 		
-		inventory.removeQuantity(Constants.POISON_DAMAGE, 1);
+		inventory.removeQuantity(indexOfPoison, 1);
 	}
 
 	@Override

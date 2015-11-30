@@ -179,4 +179,16 @@ public class UTestWorldObjectContainer {
 		assertEquals(true, container.contains(worldObject1));
 		assertEquals(false, container.contains(worldObject2));
 	}
+	
+	@Test
+	public void testRemoveQuantityByIndex() {
+		WorldObjectContainer container = new WorldObjectContainer();
+		container.addQuantity(Item.WOOD.generate(1f), 2);
+		
+		container.removeQuantity(0, 1);
+		assertEquals(1, container.get(0).getProperty(Constants.QUANTITY).intValue());
+		
+		container.removeQuantity(0, 1);
+		assertEquals(null, container.get(0));
+	}
 }

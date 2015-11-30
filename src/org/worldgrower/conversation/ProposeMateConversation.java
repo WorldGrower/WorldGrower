@@ -21,6 +21,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.goal.KnowledgeMapPropertyUtils;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
 
@@ -75,6 +76,8 @@ public class ProposeMateConversation implements Conversation {
 		} else if (replyIndex == NO) {
 			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -50, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 		}
+		
+		KnowledgeMapPropertyUtils.everyoneInVicinityKnowsOfEvent(performer, target, world);
 	}
 	
 	@Override

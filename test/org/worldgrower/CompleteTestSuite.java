@@ -18,6 +18,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 import org.worldgrower.actions.UTestActions;
+import org.worldgrower.actions.UTestArenaFightOnTurn;
 import org.worldgrower.actions.UTestAttackUtils;
 import org.worldgrower.actions.UTestBecomeLeaderCandidateAction;
 import org.worldgrower.actions.UTestBuildArenaAction;
@@ -31,8 +32,10 @@ import org.worldgrower.actions.UTestBuildShackAction;
 import org.worldgrower.actions.UTestBuildShrineAction;
 import org.worldgrower.actions.UTestBuildSmithAction;
 import org.worldgrower.actions.UTestBuildWellAction;
+import org.worldgrower.actions.UTestButcherAction;
 import org.worldgrower.actions.UTestBuyAction;
 import org.worldgrower.actions.UTestCatchFishAction;
+import org.worldgrower.actions.UTestChooseDeityAction;
 import org.worldgrower.actions.UTestChooseProfessionAction;
 import org.worldgrower.actions.UTestCollectWaterAction;
 import org.worldgrower.actions.UTestConstructTrainingDummyAction;
@@ -50,6 +53,8 @@ import org.worldgrower.actions.UTestCraftRepairHammerAction;
 import org.worldgrower.actions.UTestCraftUtils;
 import org.worldgrower.actions.UTestCreateGraveAction;
 import org.worldgrower.actions.UTestCreateHumanMeatAction;
+import org.worldgrower.actions.UTestCreateProfessionOrganizationAction;
+import org.worldgrower.actions.UTestCreateReligionOrganizationAction;
 import org.worldgrower.actions.UTestCutWoodAction;
 import org.worldgrower.actions.UTestDonateMoneyAction;
 import org.worldgrower.actions.UTestDrinkAction;
@@ -62,6 +67,7 @@ import org.worldgrower.actions.UTestGetItemFromInventoryAction;
 import org.worldgrower.actions.UTestHarvestFoodAction;
 import org.worldgrower.actions.UTestHarvestGrapesAction;
 import org.worldgrower.actions.UTestHarvestNightShadeAction;
+import org.worldgrower.actions.UTestMeleeAttackAction;
 import org.worldgrower.actions.UTestMineGoldAction;
 import org.worldgrower.actions.UTestMineOreAction;
 import org.worldgrower.actions.UTestMineSoulGemsAction;
@@ -69,14 +75,18 @@ import org.worldgrower.actions.UTestMineStoneAction;
 import org.worldgrower.actions.UTestOrganizationNamer;
 import org.worldgrower.actions.UTestPlantBerryBushAction;
 import org.worldgrower.actions.UTestPlantGrapeVineAction;
+import org.worldgrower.actions.UTestPoisonInventoryWaterAction;
 import org.worldgrower.actions.UTestPutItemInInventoryAction;
+import org.worldgrower.actions.UTestRangedAttackAction;
 import org.worldgrower.actions.UTestRepairEquipmentInInventoryAction;
 import org.worldgrower.actions.UTestSellAction;
 import org.worldgrower.actions.UTestSetLegalActionsAction;
+import org.worldgrower.actions.UTestSexAction;
 import org.worldgrower.actions.UTestSleepAction;
 import org.worldgrower.actions.UTestStartOrganizationVoteAction;
 import org.worldgrower.actions.UTestStealAction;
 import org.worldgrower.actions.UTestTalkAction;
+import org.worldgrower.actions.UTestThrowOilAction;
 import org.worldgrower.actions.UTestVoteForLeaderAction;
 import org.worldgrower.actions.UTestVotingPropertyUtils;
 import org.worldgrower.actions.magic.UTestAnimateDeadAction;
@@ -133,6 +143,7 @@ import org.worldgrower.conversation.UTestIntimidateConversation;
 import org.worldgrower.conversation.UTestJoinPerformerOrganizationConversation;
 import org.worldgrower.conversation.UTestJoinTargetOrganizationConversation;
 import org.worldgrower.conversation.UTestKissConversation;
+import org.worldgrower.conversation.UTestKnowledgeToDescriptionMapper;
 import org.worldgrower.conversation.UTestLearnSkillUsingOrganizationConversation;
 import org.worldgrower.conversation.UTestLocationConversation;
 import org.worldgrower.conversation.UTestLookTheSameConversation;
@@ -452,7 +463,18 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestCraftLongBowAction.class,
 	UTestCraftRepairHammerAction.class,
 	UTestCreateHumanMeatAction.class,
-	UTestStopSellingGoal.class
+	UTestStopSellingGoal.class,
+	UTestCreateReligionOrganizationAction.class,
+	UTestCreateProfessionOrganizationAction.class,
+	UTestChooseDeityAction.class,
+	UTestKnowledgeToDescriptionMapper.class,
+	UTestMeleeAttackAction.class,
+	UTestRangedAttackAction.class,
+	UTestPoisonInventoryWaterAction.class,
+	UTestArenaFightOnTurn.class,
+	UTestThrowOilAction.class,
+	UTestButcherAction.class,
+	UTestSexAction.class
 })
 public class CompleteTestSuite {
 }

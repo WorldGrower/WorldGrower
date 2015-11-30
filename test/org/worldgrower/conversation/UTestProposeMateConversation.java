@@ -21,6 +21,8 @@ import java.util.List;
 import org.junit.Test;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
+import org.worldgrower.World;
+import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.IdRelationshipMap;
 
@@ -65,10 +67,11 @@ public class UTestProposeMateConversation {
 	
 	@Test
 	public void testHandleResponse0() {
+		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		
-		ConversationContext context = new ConversationContext(performer, target, null, null, null, 0);
+		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
 		
 		conversation.handleResponse(0, context);
 		assertEquals(2, performer.getProperty(Constants.MATE_ID).intValue());
@@ -77,10 +80,11 @@ public class UTestProposeMateConversation {
 	
 	@Test
 	public void testHandleResponse1() {
+		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		
-		ConversationContext context = new ConversationContext(performer, target, null, null, null, 0);
+		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
 		
 		conversation.handleResponse(1, context);
 		assertEquals(-50, performer.getProperty(Constants.RELATIONSHIPS).getValue(target));

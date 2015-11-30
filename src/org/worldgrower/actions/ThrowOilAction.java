@@ -28,6 +28,8 @@ public class ThrowOilAction implements ManagedOperation {
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		target.setProperty(Constants.FLAMMABLE, Boolean.TRUE);
+		
+		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.OIL, 1);
 	}
 	
 	@Override

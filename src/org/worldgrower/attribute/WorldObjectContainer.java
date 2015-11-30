@@ -260,4 +260,13 @@ public class WorldObjectContainer implements Serializable {
 		}
 		return false;
 	}
+
+	public void removeQuantity(int index, int quantity) {
+		WorldObject object = worldObjects.get(index);
+		object.increment(Constants.QUANTITY, -quantity);
+			
+		if (object.getProperty(Constants.QUANTITY) == 0) {
+			worldObjects.set(index, null);
+		}
+	}
 }
