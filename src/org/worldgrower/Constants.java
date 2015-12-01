@@ -247,6 +247,8 @@ public class Constants {
 
 	public static final IdProperty BRAWL_OPPONENT_ID = new IdProperty("brawlOpponentId", ALL_PROPERTIES);
 	public static final IntProperty BRAWL_STAKE_GOLD = new IntProperty("brawlStakeGold", 0, null, NULLABLE, ALL_PROPERTIES);
+	public static final IdProperty DRINKING_CONTEST_OPPONENT_ID = new IdProperty("brawlOpponentId", ALL_PROPERTIES);
+	public static final IntProperty DRINKING_CONTEST_STAKE_GOLD = new IntProperty("brawlStakeGold", 0, null, NULLABLE, ALL_PROPERTIES);
 	
 	public static final IdListProperty ARENA_IDS = new IdListProperty("ArenaIds", ALL_PROPERTIES);
 	public static final IdListProperty ARENA_FIGHTER_IDS =  new IdListProperty("fighterForArenaOwnerId", ALL_PROPERTIES);

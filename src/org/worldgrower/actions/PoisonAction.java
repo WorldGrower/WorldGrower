@@ -35,7 +35,7 @@ public class PoisonAction implements ManagedOperation {
 		int indexOfPoison = performerInventory.getIndexFor(Constants.POISON_DAMAGE);
 		WorldObject poison = performerInventory.get(indexOfPoison);
 		
-		performerInventory.remove(indexOfPoison);
+		performerInventory.removeQuantity(indexOfPoison, 1);
 		
 		Integer poisonDamage = poison.getProperty(Constants.POISON_DAMAGE);
 		target.setProperty(Constants.POISON_DAMAGE, poisonDamage);

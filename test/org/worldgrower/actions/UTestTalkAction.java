@@ -113,6 +113,53 @@ public class UTestTalkAction {
 		assertEquals("I don't know more about Demeter", reply);		
 	}
 	
+	@Test
+	public void testDistance0() {
+		World world = new WorldImpl(0, 0, dungeonMaster, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, "performer");
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, "target");
+		
+		performer.setProperty(Constants.X, 0);
+		performer.setProperty(Constants.Y, 0);
+		
+		target.setProperty(Constants.X, 0);
+		target.setProperty(Constants.Y, 0);
+		
+		assertEquals(0, Actions.TALK_ACTION.distance(performer, target, new int[] { 0, -1 }, world));
+	}
+	
+	@Test
+	public void testDistanceWithSubject() {
+		World world = new WorldImpl(0, 0, dungeonMaster, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, "performer");
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, "target");
+		WorldObject subject = TestUtils.createIntelligentWorldObject(3, "subject");
+		world.addWorldObject(subject);
+		
+		performer.setProperty(Constants.X, 0);
+		performer.setProperty(Constants.Y, 0);
+		
+		target.setProperty(Constants.X, 0);
+		target.setProperty(Constants.Y, 0);
+		
+		assertEquals(0, Actions.TALK_ACTION.distance(performer, target, new int[] { 0, 3 }, world));
+	}
+	
+	@Test
+	public void testDistance10() {
+		World world = new WorldImpl(0, 0, dungeonMaster, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, "performer");
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, "target");
+		
+		performer.setProperty(Constants.X, 0);
+		performer.setProperty(Constants.Y, 0);
+		
+		target.setProperty(Constants.X, 10);
+		target.setProperty(Constants.Y, 10);
+		
+		assertEquals(200, Actions.TALK_ACTION.distance(performer, target, new int[] { 0, -1 }, world));
+	}
+	
 	private World createWorld() {
 		World world = new WorldImpl(0, 0, dungeonMaster, null);
 		world.addWorldObject(performer);

@@ -21,6 +21,7 @@ import org.worldgrower.actions.UTestActions;
 import org.worldgrower.actions.UTestArenaFightOnTurn;
 import org.worldgrower.actions.UTestAttackUtils;
 import org.worldgrower.actions.UTestBecomeLeaderCandidateAction;
+import org.worldgrower.actions.UTestBrawlListener;
 import org.worldgrower.actions.UTestBuildArenaAction;
 import org.worldgrower.actions.UTestBuildHouseAction;
 import org.worldgrower.actions.UTestBuildInnAction;
@@ -34,6 +35,8 @@ import org.worldgrower.actions.UTestBuildSmithAction;
 import org.worldgrower.actions.UTestBuildWellAction;
 import org.worldgrower.actions.UTestButcherAction;
 import org.worldgrower.actions.UTestBuyAction;
+import org.worldgrower.actions.UTestCapturePersonAction;
+import org.worldgrower.actions.UTestCapturePersonForSacrificeAction;
 import org.worldgrower.actions.UTestCatchFishAction;
 import org.worldgrower.actions.UTestChooseDeityAction;
 import org.worldgrower.actions.UTestChooseProfessionAction;
@@ -64,6 +67,7 @@ import org.worldgrower.actions.UTestEatFromInventoryAction;
 import org.worldgrower.actions.UTestEatNightShadeAction;
 import org.worldgrower.actions.UTestExtractOilAction;
 import org.worldgrower.actions.UTestGetItemFromInventoryAction;
+import org.worldgrower.actions.UTestHandoverTaxesAction;
 import org.worldgrower.actions.UTestHarvestFoodAction;
 import org.worldgrower.actions.UTestHarvestGrapesAction;
 import org.worldgrower.actions.UTestHarvestNightShadeAction;
@@ -72,9 +76,12 @@ import org.worldgrower.actions.UTestMineGoldAction;
 import org.worldgrower.actions.UTestMineOreAction;
 import org.worldgrower.actions.UTestMineSoulGemsAction;
 import org.worldgrower.actions.UTestMineStoneAction;
+import org.worldgrower.actions.UTestMintGoldAction;
+import org.worldgrower.actions.UTestOperationStatistics;
 import org.worldgrower.actions.UTestOrganizationNamer;
 import org.worldgrower.actions.UTestPlantBerryBushAction;
 import org.worldgrower.actions.UTestPlantGrapeVineAction;
+import org.worldgrower.actions.UTestPoisonAction;
 import org.worldgrower.actions.UTestPoisonInventoryWaterAction;
 import org.worldgrower.actions.UTestPutItemInInventoryAction;
 import org.worldgrower.actions.UTestRangedAttackAction;
@@ -474,7 +481,14 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestArenaFightOnTurn.class,
 	UTestThrowOilAction.class,
 	UTestButcherAction.class,
-	UTestSexAction.class
+	UTestSexAction.class,
+	UTestBrawlListener.class,
+	UTestMintGoldAction.class,
+	UTestHandoverTaxesAction.class,
+	UTestCapturePersonAction.class,
+	UTestCapturePersonForSacrificeAction.class,
+	UTestPoisonAction.class,
+	UTestOperationStatistics.class
 })
 public class CompleteTestSuite {
 }
