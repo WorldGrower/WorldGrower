@@ -18,16 +18,16 @@ import javax.swing.Icon;
 
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.actions.BrawlFinishedListener;
-import org.worldgrower.actions.BrawlListener;
+import org.worldgrower.actions.DrinkingContestFinishedListener;
+import org.worldgrower.actions.DrinkingContestListener;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.WorldPanel;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.ListInputDialog;
 
-public class GuiShowBrawlResult implements BrawlFinishedListener {
+public class GuiShowDrinkingContestResult implements DrinkingContestFinishedListener {
 	private static final String[] RESPONSE_PREFIXES = new String[] { 
-		"I win this brawl.",
+		"I win this drinking contest.",
 		"Yes, I crushed you.",
 		"Next time, try to be at least a bit challenging."
 	};
@@ -35,11 +35,11 @@ public class GuiShowBrawlResult implements BrawlFinishedListener {
 	private ImageInfoReader imageInfoReader;
 	private WorldPanel container;
 	
-	public GuiShowBrawlResult(ImageInfoReader imageInfoReader, WorldPanel container, World world) {
+	public GuiShowDrinkingContestResult(ImageInfoReader imageInfoReader, WorldPanel container, World world) {
 		this.imageInfoReader = imageInfoReader;
 		this.container = container;
 		
-		world.getListenerByClass(BrawlListener.class).addBrawlFinishedListener(this);
+		world.getListenerByClass(DrinkingContestListener.class).addDrinkingContestFinishedListener(this);
 	}
 
 	private String[] getResponses(int goldWon) {
@@ -51,14 +51,14 @@ public class GuiShowBrawlResult implements BrawlFinishedListener {
 	}
 	
 	@Override
-	public void brawlFinished(WorldObject performer, WorldObject target, int goldWon) {
+	public void drinkingContestFinished(WorldObject performer, WorldObject target, int goldWon) {
 		Icon performerIcon = IconUtils.getWorldObjectIcon(performer, imageInfoReader);
 		Icon targetIcon = IconUtils.getWorldObjectIcon(target, imageInfoReader);
 		String[] responses = getResponses(goldWon);
 		
 		if (!performer.isControlledByAI()) {
 			//TODO: handle response
-			String response = new ListInputDialog("Choose brawl ending line:", targetIcon, responses).showMe();
+			String response = new ListInputDialog("Choose drinking contest ending line:", targetIcon, responses).showMe();
 		}
 		
 		if (!target.isControlledByAI()) {

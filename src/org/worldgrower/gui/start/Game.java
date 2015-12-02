@@ -31,6 +31,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.WorldOnTurnImpl;
 import org.worldgrower.actions.ArenaFightOnTurn;
 import org.worldgrower.actions.BrawlListener;
+import org.worldgrower.actions.DrinkingContestListener;
 import org.worldgrower.condition.ConditionListener;
 import org.worldgrower.curse.CurseListener;
 import org.worldgrower.deity.DeityWorldOnTurn;
@@ -87,6 +88,7 @@ public class Game {
 		world.addListener(new CurseListener(world));
 		world.addListener(new ConditionListener(world));
 		world.addListener(new BrawlListener());
+		world.addListener(new DrinkingContestListener());
 	}
 
 	private static void addEnemiesAndFriendlyAnimals(int enemyDensity, World world, int seed) {

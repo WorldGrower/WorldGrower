@@ -18,8 +18,13 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.Window;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
+import org.worldgrower.Constants;
+import org.worldgrower.WorldObject;
+import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.start.Game;
 
 public class IconUtils {
@@ -66,5 +71,11 @@ public class IconUtils {
 	
 	public static ImageIcon getMouseIcon() {
 		return new ImageIcon(MOUSE_ICON);
+	}
+	
+	public static Icon getWorldObjectIcon(WorldObject performer, ImageInfoReader imageInfoReader) {
+		ImageIds performerImageIds = performer.getProperty(Constants.IMAGE_ID);
+		Icon performerIcon = new ImageIcon(imageInfoReader.getImage(performerImageIds, null));
+		return performerIcon;
 	}
 }

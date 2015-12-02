@@ -55,6 +55,7 @@ import org.worldgrower.condition.WorldStateChangedListener;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.gui.conversation.GuiRespondToQuestion;
 import org.worldgrower.gui.conversation.GuiShowBrawlResult;
+import org.worldgrower.gui.conversation.GuiShowDrinkingContestResult;
 import org.worldgrower.gui.status.StatusMessageDialog;
 import org.worldgrower.gui.util.JTextAreaFactory;
 import org.worldgrower.history.HistoryItem;
@@ -445,6 +446,7 @@ public class WorldPanel extends JPanel {
 		new GuiRespondToQuestion(playerCharacter, world, imageInfoReader);
 		new GuiShowReadAction(playerCharacter, world, this, imageInfoReader);
 		new GuiShowBrawlResult(imageInfoReader, this, world);
+		new GuiShowDrinkingContestResult(imageInfoReader, this, world);
 		world.addWorldStateChangedListener(createWorldStateChangedListener());
 		
 		List<ManagedOperationListener> additionalManagedOperationListeners = additionalManagedOperationListenerFactory.create(world, this, imageInfoReader);

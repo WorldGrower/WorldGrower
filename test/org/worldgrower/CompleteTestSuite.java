@@ -62,6 +62,7 @@ import org.worldgrower.actions.UTestCutWoodAction;
 import org.worldgrower.actions.UTestDonateMoneyAction;
 import org.worldgrower.actions.UTestDrinkAction;
 import org.worldgrower.actions.UTestDrinkFromInventoryAction;
+import org.worldgrower.actions.UTestDrinkingContestListener;
 import org.worldgrower.actions.UTestEatAction;
 import org.worldgrower.actions.UTestEatFromInventoryAction;
 import org.worldgrower.actions.UTestEatNightShadeAction;
@@ -82,6 +83,7 @@ import org.worldgrower.actions.UTestOrganizationNamer;
 import org.worldgrower.actions.UTestPlantBerryBushAction;
 import org.worldgrower.actions.UTestPlantGrapeVineAction;
 import org.worldgrower.actions.UTestPoisonAction;
+import org.worldgrower.actions.UTestPoisonAttackAction;
 import org.worldgrower.actions.UTestPoisonInventoryWaterAction;
 import org.worldgrower.actions.UTestPutItemInInventoryAction;
 import org.worldgrower.actions.UTestRangedAttackAction;
@@ -113,6 +115,7 @@ import org.worldgrower.actions.magic.UTestInvisibilityAction;
 import org.worldgrower.actions.magic.UTestLightningBoltAttackAction;
 import org.worldgrower.actions.magic.UTestLockMagicSpellAction;
 import org.worldgrower.actions.magic.UTestMendAction;
+import org.worldgrower.actions.magic.UTestParalyzeAction;
 import org.worldgrower.actions.magic.UTestRayOfFrostAttackAction;
 import org.worldgrower.actions.magic.UTestReduceAction;
 import org.worldgrower.actions.magic.UTestResearchSpellAction;
@@ -143,6 +146,7 @@ import org.worldgrower.conversation.UTestDeityFollowersConversation;
 import org.worldgrower.conversation.UTestDeityReasonConversation;
 import org.worldgrower.conversation.UTestDemandMoneyConversation;
 import org.worldgrower.conversation.UTestDemandsConversation;
+import org.worldgrower.conversation.UTestDrinkingContestConversation;
 import org.worldgrower.conversation.UTestFamilyConversation;
 import org.worldgrower.conversation.UTestGiveFoodConversation;
 import org.worldgrower.conversation.UTestImmediateGoalConversation;
@@ -488,7 +492,11 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestCapturePersonAction.class,
 	UTestCapturePersonForSacrificeAction.class,
 	UTestPoisonAction.class,
-	UTestOperationStatistics.class
+	UTestOperationStatistics.class,
+	UTestPoisonAttackAction.class,
+	UTestDrinkingContestListener.class,
+	UTestDrinkingContestConversation.class,
+	UTestParalyzeAction.class
 })
 public class CompleteTestSuite {
 }
