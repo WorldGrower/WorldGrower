@@ -43,6 +43,18 @@ public class UTestAttackUtils {
 	}
 	
 	@Test
+	public void testKill() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createCommoner(world);
+		WorldObject target = createCommoner(world);
+		
+		target.setProperty(Constants.HIT_POINTS, 1);
+		AttackUtils.attack(Actions.MELEE_ATTACK_ACTION, performer, target, new int[0], world, 1.0f);
+		assertEquals(0, target.getProperty(Constants.HIT_POINTS).intValue());
+		assertEquals("Test was pummeled to death", target.getProperty(Constants.DEATH_REASON));
+	}
+	
+	@Test
 	public void testDamageEquipment() {
 		WorldObject performer = TestUtils.createSkilledWorldObject(1);
 		
