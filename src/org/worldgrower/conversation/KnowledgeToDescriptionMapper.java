@@ -50,6 +50,14 @@ public class KnowledgeToDescriptionMapper {
 				} else {
 					return "Did you know " + subject.getProperty(Constants.NAME) + " doesn't have a profession?";
 				}
+			} else if (property == Constants.ORGANIZATION_LEADER_ID) {
+				if (value != null) {
+					int leaderId = (Integer) value;
+					WorldObject leader = world.findWorldObject(Constants.ID, leaderId);
+					return "Did you know that " + leader.getProperty(Constants.NAME) + " is the leader of the " + subject.getProperty(Constants.NAME) + "?";
+				} else {
+					return "Did you know the " + subject.getProperty(Constants.NAME) + " doesn't have a leader?";
+				}
 			} else {
 				throw new IllegalStateException("No mapping found for property " + property + " and value " + value);
 			}

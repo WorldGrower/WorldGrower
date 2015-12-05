@@ -98,4 +98,15 @@ public class UTestKnowledgeToDescriptionMapper {
 		PropertyKnowledge knowledge = new PropertyKnowledge(Constants.PROFESSION, Professions.FARMER_PROFESSION);
 		assertEquals("Did you know subject is a farmer?", mapper.getDescription(subject, knowledge, world));
 	}
+	
+	@Test
+	public void testMapOrganizationLeader() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject subject = TestUtils.createIntelligentWorldObject(3, Constants.NAME, "subject");
+		WorldObject leader = TestUtils.createIntelligentWorldObject(4, Constants.NAME, "leader");
+		world.addWorldObject(leader);
+		
+		PropertyKnowledge knowledge = new PropertyKnowledge(Constants.ORGANIZATION_LEADER_ID, leader.getProperty(Constants.ID));
+		assertEquals("Did you know that leader is the leader of the subject?", mapper.getDescription(subject, knowledge, world));
+	}
 }

@@ -20,6 +20,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.IdProperty;
 import org.worldgrower.attribute.ManagedProperty;
 
 public class KnowledgeMapPropertyUtils {
@@ -34,6 +35,12 @@ public class KnowledgeMapPropertyUtils {
 	public static void everyoneInVicinityKnowsOfProperty(WorldObject performer, WorldObject target, ManagedProperty<?> managedProperty, Object value, World world) {
 		List<WorldObject> peopleThatknow = world.findWorldObjects(w -> w.hasIntelligence() && w.hasProperty(Constants.KNOWLEDGE_MAP) && Reach.distance(performer, w) < 20);
 		for(WorldObject personThatknows : peopleThatknow) {
+			personThatknows.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(target, managedProperty, value);
+		}
+	}
+
+	public static void peopleKnowOfProperty(List<WorldObject> people, WorldObject target, IdProperty managedProperty, Object value, World world) {
+		for(WorldObject personThatknows : people) {
 			personThatknows.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(target, managedProperty, value);
 		}
 	}
