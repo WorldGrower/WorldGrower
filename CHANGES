@@ -1,3 +1,10 @@
+v0.2.2
+- improve StopSellingGoal
+- Fix PoisonInventoryWaterAction: poison is consumed
+- Fix ThrowOilAction: oil is consumed
+- fix poison action: not all poisons are removed
+- add DrinkingContestConversation
+
 v0.2.1
 - add StopSellingConversation
 - add AskGoalConversation
