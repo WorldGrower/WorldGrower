@@ -27,6 +27,8 @@ import org.worldgrower.generator.Item;
 
 public class UTestRepairEquipmentInInventoryAction {
 
+	private final RepairEquipmentInInventoryAction action = Actions.REPAIR_EQUIPMENT_IN_INVENTORY_ACTION;
+	
 	@Test
 	public void testExecute() {
 		World world = new WorldImpl(10, 10, null, null);
@@ -36,9 +38,30 @@ public class UTestRepairEquipmentInInventoryAction {
 		
 		performer.getProperty(Constants.INVENTORY).addQuantity(ironCuirass);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.REPAIR_HAMMER.generate(1f), 10);
-		Actions.REPAIR_EQUIPMENT_IN_INVENTORY_ACTION.execute(performer, performer, new int[0], world);
+		action.execute(performer, performer, new int[0], world);
 		
 		assertEquals(100, ironCuirass.getProperty(Constants.EQUIPMENT_HEALTH).intValue());
+	}
+	
+	@Test
+	public void testDistanceNoRepairHammers() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		
+		assertEquals(true, action.distance(performer, performer, new int[0], world) > 0);
+	}
+	
+	@Test
+	public void testDistanceRepairHammers() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject ironCuirass = Item.IRON_CUIRASS.generate(1f);
+		ironCuirass.setProperty(Constants.EQUIPMENT_HEALTH, 0);
+		
+		performer.getProperty(Constants.INVENTORY).addQuantity(ironCuirass);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.REPAIR_HAMMER.generate(1f), 10);
+		
+		assertEquals(0, action.distance(performer, performer, new int[0], world));
 	}
 	
 	private WorldObject createPerformer(int id) {

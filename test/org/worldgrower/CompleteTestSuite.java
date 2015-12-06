@@ -439,7 +439,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestGatherRemainsAction.class,
 	UTestCommandAction.class,
 	UTestKissAction.class,
-	UTestKnowledgeSorter.class
+	UTestKnowledgeSorter.class,
+	UTestMarkAsSellableAction.class
 })
 public class CompleteTestSuite {
 }
