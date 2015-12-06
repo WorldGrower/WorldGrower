@@ -15,6 +15,14 @@
 package org.worldgrower.attribute;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.worldgrower.GoalAndOperationInfo;
+import org.worldgrower.GoalCalculator;
+import org.worldgrower.World;
+import org.worldgrower.WorldObject;
+import org.worldgrower.goal.Goal;
 
 public class PropertyKnowledge implements Serializable, Knowledge {
 	private final ManagedProperty<?> managedProperty;
@@ -103,5 +111,15 @@ public class PropertyKnowledge implements Serializable, Knowledge {
 	@Override
 	public String toString() {
 		return managedProperty.getName() + ":" + value;
+	}
+
+	@Override
+	public int evaluate(WorldObject performer, World world) {
+		WorldObject copyOfPerformer = performer.deepCopy();
+		copyOfPerformer.setProperty((ManagedProperty<Object>)managedProperty, value);
+		GoalCalculator goalCalculator = new GoalCalculator();
+		GoalAndOperationInfo goalAndOperationInfo = goalCalculator.calculateGoal(copyOfPerformer, world, new ArrayList<>());
+		List<Goal> prioritizedGoals = performer.getPriorities(world);
+		return prioritizedGoals.indexOf(goalAndOperationInfo.getGoal());
 	}
 }

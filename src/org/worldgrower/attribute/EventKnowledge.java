@@ -17,6 +17,7 @@ package org.worldgrower.attribute;
 import java.io.Serializable;
 
 import org.worldgrower.World;
+import org.worldgrower.WorldObject;
 
 public class EventKnowledge implements Knowledge, Serializable {
 
@@ -58,5 +59,10 @@ public class EventKnowledge implements Knowledge, Serializable {
 
 	public int getHistoryId() {
 		return historyId;
+	}
+
+	@Override
+	public int evaluate(WorldObject performer, World world) {
+		return Integer.MIN_VALUE + historyId;
 	}
 }

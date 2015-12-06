@@ -74,6 +74,7 @@ import org.worldgrower.conversation.UTestIntimidateConversation;
 import org.worldgrower.conversation.UTestJoinPerformerOrganizationConversation;
 import org.worldgrower.conversation.UTestJoinTargetOrganizationConversation;
 import org.worldgrower.conversation.UTestKissConversation;
+import org.worldgrower.conversation.UTestKnowledgeSorter;
 import org.worldgrower.conversation.UTestKnowledgeToDescriptionMapper;
 import org.worldgrower.conversation.UTestLearnSkillUsingOrganizationConversation;
 import org.worldgrower.conversation.UTestLocationConversation;
@@ -437,7 +438,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestMarkInventoryItemAsSellableAction.class,
 	UTestGatherRemainsAction.class,
 	UTestCommandAction.class,
-	UTestKissAction.class
+	UTestKissAction.class,
+	UTestKnowledgeSorter.class
 })
 public class CompleteTestSuite {
 }

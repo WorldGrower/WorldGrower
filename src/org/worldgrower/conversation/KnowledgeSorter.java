@@ -12,19 +12,36 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.attribute;
+package org.worldgrower.conversation;
+
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.Knowledge;
 
-public interface Knowledge {
+public class KnowledgeSorter {
 
-	public boolean refersToSameKnowledge(Knowledge knowledge);
-	public boolean knowledgeContainsId(int idToRemove);
-	public Knowledge copy();
+	public void sort(WorldObject performer, List<Knowledge> knowledgeList, World world) {
+		Collections.sort(knowledgeList, new KnowledgeComparator(performer, world));
+	}
 	
-	public boolean hasProperty(ManagedProperty<?> managedProperty);
-	public boolean hasPropertyValue(ManagedProperty<?> managedProperty, Object value);
+	private static class KnowledgeComparator implements Comparator<Knowledge> {
 
-	public int evaluate(WorldObject performer, World world);
+		private final WorldObject performer;
+		private final World world;
+		
+		public KnowledgeComparator(WorldObject performer, World world) {
+			super();
+			this.performer = performer;
+			this.world = world;
+		}
+
+		@Override
+		public int compare(Knowledge o1, Knowledge o2) {
+			return Integer.compare(o1.evaluate(performer, world), o2.evaluate(performer, world));
+		}
+	}
 }
