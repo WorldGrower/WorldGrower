@@ -43,10 +43,10 @@ public class UTestKnowledgeSorter {
 		WorldObject performer = createCommoner(world, organization);
 		
 		List<Knowledge> knowledgeList = new ArrayList<>();
-		knowledgeList.add(new PropertyKnowledge(Constants.FOOD, 500));
-		knowledgeList.add(new EventKnowledge(world));
-		knowledgeList.add(new PropertyKnowledge(Constants.WATER, 500));
-		knowledgeList.add(new EventKnowledge(world));
+		knowledgeList.add(new PropertyKnowledge(0, Constants.FOOD, 500));
+		knowledgeList.add(new EventKnowledge(0, world));
+		knowledgeList.add(new PropertyKnowledge(0, Constants.WATER, 500));
+		knowledgeList.add(new EventKnowledge(0, world));
 		
 		new KnowledgeSorter().sort(performer, knowledgeList, world);
 		assertEquals(4, knowledgeList.size());

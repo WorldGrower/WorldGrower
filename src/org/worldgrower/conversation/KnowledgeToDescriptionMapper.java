@@ -28,7 +28,8 @@ import org.worldgrower.profession.Profession;
 
 public class KnowledgeToDescriptionMapper {
 
-	public String getDescription(WorldObject subject, Knowledge knowledge, World world) {
+	public String getDescription(Knowledge knowledge, World world) {
+		WorldObject subject = world.findWorldObject(Constants.ID, knowledge.getSubjectId());
 		if (knowledge instanceof PropertyKnowledge) {
 			PropertyKnowledge propertyKnowledge = (PropertyKnowledge) knowledge;
 			ManagedProperty<?> property = propertyKnowledge.getManagedProperty();

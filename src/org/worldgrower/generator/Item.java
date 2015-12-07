@@ -15,20 +15,26 @@
 package org.worldgrower.generator;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import org.worldgrower.Constants;
+import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.attribute.ArmorType;
 import org.worldgrower.attribute.IntProperty;
+import org.worldgrower.attribute.Knowledge;
 import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.conversation.KnowledgeToDescriptionMapper;
 import org.worldgrower.gui.ImageIds;
 
 public enum Item {
-	IRON_CLAYMORE, IRON_GREATSWORD, IRON_AXE, IRON_GREATAXE, IRON_CUIRASS, IRON_HELMET, IRON_GAUNTLETS, IRON_GREAVES, IRON_SHIELD, IRON_BOOTS, BERRIES, GRAPES, WINE, LONGBOW, PAPER, WATER, MEAT, SPELLBOOK, KEY, NIGHT_SHADE, POISON, COTTON, COTTON_SHIRT, COTTON_HAT, COTTON_BOOTS, COTTON_GLOVES, COTTON_PANTS, BED, OIL, FISHING_POLE, FISH, REPAIR_HAMMER, WOOD, STONE, GOLD, ORE, SOUL_GEM;
+	IRON_CLAYMORE, IRON_GREATSWORD, IRON_AXE, IRON_GREATAXE, IRON_CUIRASS, IRON_HELMET, IRON_GAUNTLETS, IRON_GREAVES, IRON_SHIELD, IRON_BOOTS, BERRIES, GRAPES, WINE, LONGBOW, PAPER, WATER, MEAT, SPELLBOOK, KEY, NIGHT_SHADE, POISON, COTTON, COTTON_SHIRT, COTTON_HAT, COTTON_BOOTS, COTTON_GLOVES, COTTON_PANTS, BED, OIL, FISHING_POLE, FISH, REPAIR_HAMMER, WOOD, STONE, GOLD, ORE, SOUL_GEM, NEWS_PAPER;
 
 	private static final String IRON_CLAYMORE_NAME = "Iron Claymore";
 	private static final String IRON_AXE_NAME = "Iron Axe";
@@ -456,6 +462,16 @@ public enum Item {
 			return new WorldObjectImpl(properties);
 		});
 		
+		addItem(Item.NEWS_PAPER, skillBonus -> {
+			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+			properties.put(Constants.NAME, "news paper");
+			properties.put(Constants.PRICE, 1);
+			properties.put(Constants.SELLABLE, false);
+			properties.put(Constants.WEIGHT, 1);
+			properties.put(Constants.IMAGE_ID, ImageIds.NEWS_PAPER);
+			return new WorldObjectImpl(properties);
+		});
+		
 		addItem(Item.WOOD, new DefaultItemGenerator(Constants.WOOD, 1, ImageIds.WOOD)::addDefault);
 		addItem(Item.STONE, new DefaultItemGenerator(Constants.STONE, 1, ImageIds.STONE)::addDefault);
 		addItem(Item.GOLD, new DefaultItemGenerator(Constants.GOLD, 1, ImageIds.GOLD)::addDefault);
@@ -500,6 +516,26 @@ public enum Item {
 		WorldObject key = Item.KEY.generate(1f);
 		key.setProperty(Constants.LOCK_ID, structureToLockId);
 		return key;
+	}
+	
+	public static WorldObject generateNewsPaper(List<Knowledge> knowledgeList, int[] knowledgeIds, World world) {
+		WorldObject newsPaper = Item.NEWS_PAPER.generate(1f);
+		String newsPaperText = generateNewsPaperText(knowledgeList, knowledgeIds, world);
+		newsPaper.setProperty(Constants.TEXT, newsPaperText.toString());
+		return newsPaper;
+	}
+
+	private static String generateNewsPaperText(List<Knowledge> knowledgeList, int[] knowledgeIds, World world) {
+		StringBuilder builder = new StringBuilder();
+		KnowledgeToDescriptionMapper mapper = new KnowledgeToDescriptionMapper();
+		List<Integer> knowledgeInts = IntStream.of(knowledgeIds).boxed().collect(Collectors.toList());
+		for(int i=0; i<knowledgeList.size(); i++) {
+			if (knowledgeInts.contains(i)) {
+				Knowledge knowledge = knowledgeList.get(i);
+				builder.append(mapper.getDescription(knowledge, world)).append("\n");
+			}
+		}
+		return builder.toString();
 	}
 	
 	public String getDescription() {

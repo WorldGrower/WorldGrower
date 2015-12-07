@@ -53,16 +53,13 @@ public class ShareKnowledgeConversation implements Conversation {
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		List<Question> questions = new ArrayList<>();
-		KnowledgeMap performerOnlyKnowledge = KnowledgePropertyUtils.getPerformerOnlyKnowledge(performer, target);
-		for(int id : performerOnlyKnowledge.getIds()) {
-			WorldObject subject = world.findWorldObject(Constants.ID, id);
+		List<Knowledge> knowledgeList = getKnowledgeList(performer, target, world);
+		for(int i=0; i<knowledgeList.size(); i++) {
+			Knowledge knowledge = knowledgeList.get(i);
+			WorldObject subject = world.findWorldObject(Constants.ID, knowledge.getSubjectId());
 			if (!subject.equals(target)) {
-				List<Knowledge> knowledgeList = performerOnlyKnowledge.getKnowledge(subject);
-				for(int i=0; i<knowledgeList.size(); i++) {
-					Knowledge knowledge = knowledgeList.get(i);
-					String questionphrase = knowledgeToDescriptionMapper.getDescription(subject, knowledge, world);
-					questions.add(new Question(subject, questionphrase, i));
-				}
+				String questionphrase = knowledgeToDescriptionMapper.getDescription(knowledge, world);
+				questions.add(new Question(subject, questionphrase, i));
 			}
 		}
 		return questions;
@@ -94,8 +91,7 @@ public class ShareKnowledgeConversation implements Conversation {
 		int knowledgeIndex = conversationContext.getAdditionalValue();
 		World world = conversationContext.getWorld();
 		
-		KnowledgeMap performerKnowledge = performer.getProperty(Constants.KNOWLEDGE_MAP);
-		List<Knowledge> knowledgeList = performerKnowledge.getKnowledge(subject);
+		List<Knowledge> knowledgeList = getKnowledgeList(performer, target, world);
 		target.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(subject, knowledgeList.get(knowledgeIndex));
 
 		if (replyIndex == THANKS) {
@@ -106,6 +102,12 @@ public class ShareKnowledgeConversation implements Conversation {
 	
 		//TODO: if there are more return values, set return value Object on execute method, search for any other TODO like this
 		world.getHistory().setNextAdditionalValue(replyIndex);
+	}
+
+	private List<Knowledge> getKnowledgeList(WorldObject performer, WorldObject target, World world) {
+		KnowledgeMap performerOnlyKnowledge = KnowledgePropertyUtils.getPerformerOnlyKnowledge(performer, target);
+		List<Knowledge> knowledgeList = performerOnlyKnowledge.getSortedKnowledge(performer, world);
+		return knowledgeList;
 	}
 	
 	@Override

@@ -25,6 +25,7 @@ import java.util.Map.Entry;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.conversation.KnowledgeSorter;
 
 public class KnowledgeMap implements IdContainer, Serializable {
 
@@ -47,7 +48,7 @@ public class KnowledgeMap implements IdContainer, Serializable {
 			knowledgeList = new ArrayList<>();
 			idsToKnowledge.put(id, knowledgeList);
 		}
-		addKnowledge(knowledgeList, new PropertyKnowledge(managedProperty, value));
+		addKnowledge(knowledgeList, new PropertyKnowledge(id, managedProperty, value));
 	}
 	
 	public final void addKnowledge(WorldObject worldObject, World world) {
@@ -60,7 +61,7 @@ public class KnowledgeMap implements IdContainer, Serializable {
 			knowledgeList = new ArrayList<>();
 			idsToKnowledge.put(id, knowledgeList);
 		}
-		addKnowledge(knowledgeList, new EventKnowledge(world));
+		addKnowledge(knowledgeList, new EventKnowledge(id, world));
 	}
 
 	public void addKnowledge(WorldObject worldObject, Knowledge knowledge) {
@@ -208,5 +209,17 @@ public class KnowledgeMap implements IdContainer, Serializable {
 
 	public List<Integer> getIds() {
 		return new ArrayList<>(idsToKnowledge.keySet());
+	}
+	
+	public List<Knowledge> getSortedKnowledge(WorldObject performer, World world) {
+		List<Knowledge> result = new ArrayList<>();
+		Iterator<Entry<Integer, List<Knowledge>>> entrySetIterator = idsToKnowledge.entrySet().iterator();
+		while(entrySetIterator.hasNext()) {
+			Entry<Integer, List<Knowledge>> entry = entrySetIterator.next();
+			result.addAll(entry.getValue());
+		}
+		
+		new KnowledgeSorter().sort(performer, result, world);
+		return result;
 	}
 }

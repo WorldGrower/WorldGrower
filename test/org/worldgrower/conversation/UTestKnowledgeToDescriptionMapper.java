@@ -40,11 +40,12 @@ public class UTestKnowledgeToDescriptionMapper {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.NAME, "performer");
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.NAME, "target");
+		world.addWorldObject(performer);
 		
-		EventKnowledge knowledge = new EventKnowledge(world);
+		EventKnowledge knowledge = new EventKnowledge(1, world);
 		world.getHistory().actionPerformed(new OperationInfo(performer, target, new int[0], Actions.VAMPIRE_BITE_ACTION), new Turn());
 		
-		assertEquals("Did you know performer was biting target?", mapper.getDescription(performer, knowledge, world));
+		assertEquals("Did you know performer was biting target?", mapper.getDescription(knowledge, world));
 	}
 	
 	//TODO: better description
@@ -53,11 +54,12 @@ public class UTestKnowledgeToDescriptionMapper {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.NAME, "performer");
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.NAME, "target");
+		world.addWorldObject(performer);
 		
-		EventKnowledge knowledge = new EventKnowledge(world);
+		EventKnowledge knowledge = new EventKnowledge(1, world);
 		world.getHistory().actionPerformed(new OperationInfo(performer, target, Conversations.createArgs(Conversations.PROPOSE_MATE_CONVERSATION), Actions.TALK_ACTION), new Turn());
 		
-		assertEquals("Did you know performer was talking about becoming a mate for someone?", mapper.getDescription(performer, knowledge, world));
+		assertEquals("Did you know performer was talking about becoming a mate for someone?", mapper.getDescription(knowledge, world));
 	}
 	
 	@Test
@@ -65,9 +67,10 @@ public class UTestKnowledgeToDescriptionMapper {
 		World world = new WorldImpl(0, 0, null, null);
 		int id = BuildingGenerator.buildWell(0, 0, world, 1f);
 		WorldObject subject = world.findWorldObject(Constants.ID, id);
+		world.addWorldObject(subject);
 		
-		PropertyKnowledge knowledge = new PropertyKnowledge(Constants.POISON_DAMAGE, 10);
-		assertEquals("Did you know the well is poisoned?", mapper.getDescription(subject, knowledge, world));
+		PropertyKnowledge knowledge = new PropertyKnowledge(subject.getProperty(Constants.ID), Constants.POISON_DAMAGE, 10);
+		assertEquals("Did you know the well is poisoned?", mapper.getDescription(knowledge, world));
 	}
 	
 	@Test
@@ -76,27 +79,30 @@ public class UTestKnowledgeToDescriptionMapper {
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.NAME, "target");
 		world.addWorldObject(target);
 		WorldObject subject = TestUtils.createIntelligentWorldObject(3, Constants.NAME, "subject");
+		world.addWorldObject(subject);
 		
-		PropertyKnowledge knowledge = new PropertyKnowledge(Constants.CHILD_BIRTH_ID, 2);
-		assertEquals("Did you know that subject gave birth to target?", mapper.getDescription(subject, knowledge, world));
+		PropertyKnowledge knowledge = new PropertyKnowledge(subject.getProperty(Constants.ID), Constants.CHILD_BIRTH_ID, 2);
+		assertEquals("Did you know that subject gave birth to target?", mapper.getDescription(knowledge, world));
 	}
 
 	@Test
 	public void testMapEventKnowledgeDeity() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject subject = TestUtils.createIntelligentWorldObject(3, Constants.NAME, "subject");
+		world.addWorldObject(subject);
 		
-		PropertyKnowledge knowledge = new PropertyKnowledge(Constants.DEITY, Deity.HADES);
-		assertEquals("Did you know subject worships Hades?", mapper.getDescription(subject, knowledge, world));
+		PropertyKnowledge knowledge = new PropertyKnowledge(subject.getProperty(Constants.ID), Constants.DEITY, Deity.HADES);
+		assertEquals("Did you know subject worships Hades?", mapper.getDescription(knowledge, world));
 	}
 	
 	@Test
 	public void testMapEventKnowledgeProfession() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject subject = TestUtils.createIntelligentWorldObject(3, Constants.NAME, "subject");
+		world.addWorldObject(subject);
 		
-		PropertyKnowledge knowledge = new PropertyKnowledge(Constants.PROFESSION, Professions.FARMER_PROFESSION);
-		assertEquals("Did you know subject is a farmer?", mapper.getDescription(subject, knowledge, world));
+		PropertyKnowledge knowledge = new PropertyKnowledge(subject.getProperty(Constants.ID), Constants.PROFESSION, Professions.FARMER_PROFESSION);
+		assertEquals("Did you know subject is a farmer?", mapper.getDescription(knowledge, world));
 	}
 	
 	@Test
@@ -104,9 +110,10 @@ public class UTestKnowledgeToDescriptionMapper {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject subject = TestUtils.createIntelligentWorldObject(3, Constants.NAME, "subject");
 		WorldObject leader = TestUtils.createIntelligentWorldObject(4, Constants.NAME, "leader");
+		world.addWorldObject(subject);
 		world.addWorldObject(leader);
 		
-		PropertyKnowledge knowledge = new PropertyKnowledge(Constants.ORGANIZATION_LEADER_ID, leader.getProperty(Constants.ID));
-		assertEquals("Did you know that leader is the leader of the subject?", mapper.getDescription(subject, knowledge, world));
+		PropertyKnowledge knowledge = new PropertyKnowledge(subject.getProperty(Constants.ID), Constants.ORGANIZATION_LEADER_ID, leader.getProperty(Constants.ID));
+		assertEquals("Did you know that leader is the leader of the subject?", mapper.getDescription(knowledge, world));
 	}
 }

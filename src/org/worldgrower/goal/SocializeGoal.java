@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.IdMap;
+import org.worldgrower.attribute.Knowledge;
 import org.worldgrower.attribute.KnowledgeMap;
 import org.worldgrower.conversation.Conversation;
 import org.worldgrower.conversation.Conversations;
@@ -68,17 +69,24 @@ public class SocializeGoal implements Goal {
 		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.TALK_ACTION, w -> isTargetForShareKnowledgeConversation(performer, w, world), world);
 		for(WorldObject target : targets) {
 			if (performer.getProperty(Constants.RELATIONSHIPS).getValue(target) >= 0) {
-				KnowledgeMap performerOnlyKnowledge = KnowledgePropertyUtils.getPerformerOnlyKnowledge(performer, target);
-				for(Integer subjectId : performerOnlyKnowledge.getIds()) {
-					WorldObject subject = world.findWorldObject(Constants.ID, subjectId);
+				List<Knowledge> knowledgeList = getKnowledgeList(performer, target, world);
+				for(int i=0; i<knowledgeList.size(); i++) {
+					Knowledge knowledge = knowledgeList.get(i);
+					WorldObject subject = world.findWorldObject(Constants.ID, knowledge.getSubjectId());
 					if (!target.equals(subject)) {
-						int[] args = Conversations.createArgs(Conversations.SHARE_KNOWLEDGE_CONVERSATION, subject);
+						int[] args = Conversations.createArgs(Conversations.SHARE_KNOWLEDGE_CONVERSATION, subject, i);
 						return new OperationInfo(performer, target, args, Actions.TALK_ACTION);
 					}
 				}
 			}
 		}
 		return null;
+	}
+	
+	private List<Knowledge> getKnowledgeList(WorldObject performer, WorldObject target, World world) {
+		KnowledgeMap performerOnlyKnowledge = KnowledgePropertyUtils.getPerformerOnlyKnowledge(performer, target);
+		List<Knowledge> knowledgeList = performerOnlyKnowledge.getSortedKnowledge(performer, world);
+		return knowledgeList;
 	}
 
 	static boolean isTargetForShareKnowledgeConversation(WorldObject performer, WorldObject target, World world) {

@@ -207,6 +207,7 @@ public class Actions {
 	public static final MineSoulGemsAction MINE_SOUL_GEMS_ACTION = new MineSoulGemsAction();
 	public static final EquipInventoryItemAction EQUIP_INVENTORY_ITEM_ACTION = new EquipInventoryItemAction();
 	public static final BuildInnAction BUILD_INN_ACTION = new BuildInnAction();
+	public static final CreateNewsPaperAction CREATE_NEWS_PAPER_ACTION = new CreateNewsPaperAction();
 	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 
@@ -356,7 +357,8 @@ public class Actions {
 		CREATE_HUMAN_MEAT_ACTION,
 		MINE_SOUL_GEMS_ACTION,
 		EQUIP_INVENTORY_ITEM_ACTION,
-		BUILD_INN_ACTION
+		BUILD_INN_ACTION,
+		CREATE_NEWS_PAPER_ACTION
 	));
 	
 	static {

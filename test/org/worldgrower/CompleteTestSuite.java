@@ -110,6 +110,7 @@ import org.worldgrower.generator.UTestCowOnTurn;
 import org.worldgrower.generator.UTestCreatureGenerator;
 import org.worldgrower.generator.UTestFishOnTurn;
 import org.worldgrower.generator.UTestIllusionOnTurn;
+import org.worldgrower.generator.UTestItem;
 import org.worldgrower.generator.UTestNightShadeOnTurn;
 import org.worldgrower.generator.UTestPlantOnTurn;
 import org.worldgrower.generator.UTestSkeletonEvaluationFunction;
@@ -440,7 +441,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestCommandAction.class,
 	UTestKissAction.class,
 	UTestKnowledgeSorter.class,
-	UTestMarkAsSellableAction.class
+	UTestMarkAsSellableAction.class,
+	UTestItem.class
 })
 public class CompleteTestSuite {
 }

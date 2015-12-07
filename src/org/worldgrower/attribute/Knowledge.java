@@ -22,6 +22,7 @@ public interface Knowledge {
 	public boolean refersToSameKnowledge(Knowledge knowledge);
 	public boolean knowledgeContainsId(int idToRemove);
 	public Knowledge copy();
+	public int getSubjectId();
 	
 	public boolean hasProperty(ManagedProperty<?> managedProperty);
 	public boolean hasPropertyValue(ManagedProperty<?> managedProperty, Object value);

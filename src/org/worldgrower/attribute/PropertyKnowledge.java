@@ -25,17 +25,20 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.goal.Goal;
 
 public class PropertyKnowledge implements Serializable, Knowledge {
+	private final int subjectId;
 	private final ManagedProperty<?> managedProperty;
 	private final Object value;
 	
-	public PropertyKnowledge(ManagedProperty<?> managedProperty, Object value) {
+	public PropertyKnowledge(int subjectId, ManagedProperty<?> managedProperty, Object value) {
 		super();
+		this.subjectId = subjectId;
 		this.managedProperty = managedProperty;
 		this.value = value;
 	}
 
 	public PropertyKnowledge(PropertyKnowledge knowledge) {
 		super();
+		this.subjectId = knowledge.subjectId;
 		this.managedProperty = knowledge.managedProperty;
 		this.value = knowledge.value;
 	}
@@ -64,7 +67,7 @@ public class PropertyKnowledge implements Serializable, Knowledge {
 	
 	@Override
 	public Knowledge copy() {
-		return new PropertyKnowledge(managedProperty, value);
+		return new PropertyKnowledge(subjectId, managedProperty, value);
 	}
 	
 	@Override
@@ -121,5 +124,10 @@ public class PropertyKnowledge implements Serializable, Knowledge {
 		GoalAndOperationInfo goalAndOperationInfo = goalCalculator.calculateGoal(copyOfPerformer, world, new ArrayList<>());
 		List<Goal> prioritizedGoals = performer.getPriorities(world);
 		return prioritizedGoals.indexOf(goalAndOperationInfo.getGoal());
+	}
+
+	@Override
+	public int getSubjectId() {
+		return subjectId;
 	}
 }
