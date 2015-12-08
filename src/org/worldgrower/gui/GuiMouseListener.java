@@ -57,6 +57,7 @@ import org.worldgrower.gui.inventory.GuiPutItemAction;
 import org.worldgrower.gui.inventory.GuiSellAction;
 import org.worldgrower.gui.inventory.GuiStealAction;
 import org.worldgrower.gui.inventory.InventoryAction;
+import org.worldgrower.gui.knowledge.GuiCreateNewsPaperAction;
 import org.worldgrower.gui.start.Game;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.MenuFactory;
@@ -430,7 +431,19 @@ public class GuiMouseListener extends MouseAdapter {
 	
 	private void addCraftActions(JPopupMenu menu) {
 		CraftAction[] craftActions = { Actions.CRAFT_IRON_CLAYMORE_ACTION, Actions.CRAFT_IRON_CUIRASS_ACTION, Actions.CRAFT_IRON_HELMET_ACTION, Actions.CRAFT_IRON_GAUNTLETS_ACTION, Actions.CRAFT_IRON_GREAVES_ACTION, Actions.CRAFT_IRON_BOOTS_ACTION, Actions.CRAFT_IRON_SHIELD_ACTION, Actions.CRAFT_IRON_GREATSWORD_ACTION, Actions.CRAFT_IRON_AXE_ACTION, Actions.CRAFT_IRON_GREATAXE_ACTION, Actions.CRAFT_LONG_BOW_ACTION, Actions.MINT_GOLD_ACTION, Actions.CREATE_PAPER_ACTION, Actions.CONSTRUCT_BED_ACTION, Actions.CONSTRUCT_FISHING_POLE_ACTION, Actions.CRAFT_REPAIR_HAMMER_ACTION };
-		addActions(menu, "Craft", craftActions);
+		JMenu parentMenu = addActions(menu, "Craft", craftActions);
+		
+		addNewsPaperAction(parentMenu);
+	}
+	
+	private void addNewsPaperAction(JMenu menu) {
+		JMenuItem guiCreateNewsPaperMenuItem = MenuFactory.createJMenuItem(new GuiCreateNewsPaperAction(playerCharacter, imageInfoReader, world, container, dungeonMaster));
+		guiCreateNewsPaperMenuItem.setText("Create newspaper...");
+		boolean enabled = (Game.canActionExecute(playerCharacter, Actions.CREATE_NEWS_PAPER_ACTION, new int[0], world, playerCharacter));
+		guiCreateNewsPaperMenuItem.setEnabled(enabled);
+		addToolTips(Actions.CREATE_NEWS_PAPER_ACTION, guiCreateNewsPaperMenuItem);
+		addImageIcon(Actions.CREATE_NEWS_PAPER_ACTION, guiCreateNewsPaperMenuItem);
+		menu.add(guiCreateNewsPaperMenuItem);
 	}
 	
 	private void addWeaveActions(JPopupMenu menu) {
@@ -443,11 +456,12 @@ public class GuiMouseListener extends MouseAdapter {
 		addActions(menu, "Brew", brewActions);
 	}
 	
-	private void addActions(JPopupMenu menu, String menuTitle, ManagedOperation[] actions) {
+	private JMenu addActions(JPopupMenu menu, String menuTitle, ManagedOperation[] actions) {
 		JMenu parentMenuItem = MenuFactory.createJMenu(menuTitle);
 		menu.add(parentMenuItem);
 		
 		addActions(parentMenuItem, actions);
+		return parentMenuItem;
 	}
 
 	private void addActions(JMenu parentMenuItem, ManagedOperation[] actions) {

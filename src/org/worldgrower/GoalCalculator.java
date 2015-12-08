@@ -59,4 +59,15 @@ public class GoalCalculator implements Serializable {
 		
 		throw new IllegalStateException("Current goal " + currentGoal + " is not a possible goal for  " + performer);
 	}
+	
+	public int getIndexOfLastGoalMet(WorldObject performer, World world) {
+		List<Goal> prioritizedGoals = performer.getPriorities(world);
+		for(int i=0; i<prioritizedGoals.size(); i++) {
+			Goal goal = prioritizedGoals.get(i);
+			if (!goal.isGoalMet(performer, world)) {
+				return i;
+			}
+		}
+		return prioritizedGoals.size() - 1;
+	}
 }

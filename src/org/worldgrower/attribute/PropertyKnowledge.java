@@ -15,14 +15,10 @@
 package org.worldgrower.attribute;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
-import org.worldgrower.GoalAndOperationInfo;
 import org.worldgrower.GoalCalculator;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.goal.Goal;
 
 public class PropertyKnowledge implements Serializable, Knowledge {
 	private final int subjectId;
@@ -118,12 +114,14 @@ public class PropertyKnowledge implements Serializable, Knowledge {
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		WorldObject copyOfPerformer = performer.deepCopy();
-		copyOfPerformer.setProperty((ManagedProperty<Object>)managedProperty, value);
-		GoalCalculator goalCalculator = new GoalCalculator();
-		GoalAndOperationInfo goalAndOperationInfo = goalCalculator.calculateGoal(copyOfPerformer, world, new ArrayList<>());
-		List<Goal> prioritizedGoals = performer.getPriorities(world);
-		return prioritizedGoals.indexOf(goalAndOperationInfo.getGoal());
+		if (performer.isControlledByAI()) {
+			WorldObject copyOfPerformer = performer.deepCopy();
+			copyOfPerformer.setProperty((ManagedProperty<Object>)managedProperty, value);
+			GoalCalculator goalCalculator = new GoalCalculator();
+			return goalCalculator.getIndexOfLastGoalMet(copyOfPerformer, world);
+		} else {
+			return managedProperty.getOrdinal();
+		}
 	}
 
 	@Override
