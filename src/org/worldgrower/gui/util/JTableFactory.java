@@ -31,6 +31,8 @@ public class JTableFactory {
 	public static void setTableProperties(JTable table) {
 		table.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
 		table.setForeground(ColorPalette.FOREGROUND_COLOR);
+		table.setSelectionBackground(ColorPalette.DARK_BACKGROUND_COLOR.brighter());
+		table.setSelectionForeground(ColorPalette.FOREGROUND_COLOR.brighter());
 		table.setFont(Fonts.FONT);
 	}
 

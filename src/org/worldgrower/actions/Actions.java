@@ -208,6 +208,7 @@ public class Actions {
 	public static final EquipInventoryItemAction EQUIP_INVENTORY_ITEM_ACTION = new EquipInventoryItemAction();
 	public static final BuildInnAction BUILD_INN_ACTION = new BuildInnAction();
 	public static final CreateNewsPaperAction CREATE_NEWS_PAPER_ACTION = new CreateNewsPaperAction();
+	public static final ReadItemInInventoryAction READ_ITEM_IN_INVENTORY_ACTION = new ReadItemInInventoryAction();
 	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 

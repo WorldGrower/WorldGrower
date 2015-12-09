@@ -30,6 +30,7 @@ import org.worldgrower.attribute.KnowledgeMap;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.deity.Deity;
 import org.worldgrower.gui.ActionContainingArgs;
+import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.WorldPanel;
 import org.worldgrower.gui.start.Game;
@@ -80,6 +81,7 @@ public class GuiCreateNewsPaperAction extends AbstractAction {
 		HashMap<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		properties.put(Constants.ID, 3);
+		properties.put(Constants.IMAGE_ID, ImageIds.KNIGHT);
 		properties.put(Constants.NAME, "performer");
 		WorldObject playerCharacter = new WorldObjectImpl(properties);
 		world.addWorldObject(playerCharacter);
