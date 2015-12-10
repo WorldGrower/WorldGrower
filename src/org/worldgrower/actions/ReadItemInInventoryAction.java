@@ -27,7 +27,12 @@ public class ReadItemInInventoryAction implements ManagedOperation {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		world.logAction(this, performer, target, args, target.getProperty(Constants.TEXT));
+		int indexOfText = performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.TEXT);
+		WorldObject textTarget = performer.getProperty(Constants.INVENTORY).get(indexOfText);
+
+		performer.getProperty(Constants.KNOWLEDGE_MAP).add(textTarget.getProperty(Constants.KNOWLEDGE_MAP));
+		
+		world.logAction(this, performer, target, args, textTarget.getProperty(Constants.TEXT));
 	}
 
 	@Override
@@ -47,7 +52,7 @@ public class ReadItemInInventoryAction implements ManagedOperation {
 
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return target.hasProperty(Constants.TEXT);
+		return (performer.hasProperty(Constants.INVENTORY)) && (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.TEXT) > 0);
 	}
 
 	@Override

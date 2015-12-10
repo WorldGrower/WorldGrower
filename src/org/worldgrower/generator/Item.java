@@ -29,6 +29,7 @@ import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.attribute.ArmorType;
 import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.Knowledge;
+import org.worldgrower.attribute.KnowledgeMap;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.conversation.KnowledgeToDescriptionMapper;
 import org.worldgrower.gui.ImageIds;
@@ -522,6 +523,7 @@ public enum Item {
 		WorldObject newsPaper = Item.NEWS_PAPER.generate(1f);
 		String newsPaperText = generateNewsPaperText(knowledgeList, knowledgeIds, world);
 		newsPaper.setProperty(Constants.TEXT, newsPaperText.toString());
+		newsPaper.setProperty(Constants.KNOWLEDGE_MAP, new KnowledgeMap(knowledgeList));
 		return newsPaper;
 	}
 

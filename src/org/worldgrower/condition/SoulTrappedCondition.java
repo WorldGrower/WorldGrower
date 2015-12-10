@@ -64,16 +64,18 @@ public class SoulTrappedCondition implements Condition {
 				int indexOfFilledSoulGem = performerInventory.getIndexFor(w -> isFilledSoulGem(w));
 			
 				if (indexOfEmptySoulGem != -1) {
-					performerInventory.removeQuantity(Constants.SOUL_GEM, -1);
+					performerInventory.removeQuantity(Constants.SOUL_GEM, 1);
 					
 					if (indexOfFilledSoulGem != -1) {
 						performerInventory.addQuantity(indexOfFilledSoulGem);
 					} else {
 						WorldObject worldObject = Item.SOUL_GEM.generate(1f);
-						performerInventory.addQuantity(worldObject);
 						worldObject.setProperty(Constants.SOUL_GEM_FILLED, Boolean.TRUE);
 						//TODO: should be different type in Item
 						worldObject.setProperty(Constants.IMAGE_ID, ImageIds.FILLED_SOUL_GEM);
+						
+						performerInventory.addQuantity(worldObject);
+						
 					}
 				}
 			}

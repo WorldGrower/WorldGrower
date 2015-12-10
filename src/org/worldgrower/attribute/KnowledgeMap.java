@@ -38,6 +38,18 @@ public class KnowledgeMap implements IdContainer, Serializable {
 		idsToKnowledge.putAll(resultMap);
 	}
 
+	public KnowledgeMap(List<Knowledge> knowledgeListToAdd) {
+		for(Knowledge knowledge : knowledgeListToAdd) {
+			int id = knowledge.getSubjectId();
+			List<Knowledge> knowledgeList = idsToKnowledge.get(id);
+			if (knowledgeList == null) {
+				knowledgeList = new ArrayList<>();
+				idsToKnowledge.put(id, knowledgeList);
+			}
+			addKnowledge(knowledgeList, knowledge);
+		}
+	}
+
 	public final void addKnowledge(WorldObject worldObject, ManagedProperty<?> managedProperty, Object value) {
 		addKnowledge(worldObject.getProperty(Constants.ID), managedProperty, value);
 	}
@@ -221,5 +233,21 @@ public class KnowledgeMap implements IdContainer, Serializable {
 		
 		new KnowledgeSorter().sort(performer, result, world);
 		return result;
+	}
+
+	public void add(KnowledgeMap knowledgeMap) {
+		for(Entry<Integer, List<Knowledge>> entry : knowledgeMap.idsToKnowledge.entrySet()) {
+			int id = entry.getKey();
+			
+			List<Knowledge> knowledgeList = idsToKnowledge.get(id);
+			if (knowledgeList == null) {
+				knowledgeList = new ArrayList<>();
+				idsToKnowledge.put(id, knowledgeList);
+			}
+			
+			for(Knowledge knowledge : entry.getValue()) {
+				addKnowledge(knowledgeList, knowledge);
+			}
+		}
 	}
 }

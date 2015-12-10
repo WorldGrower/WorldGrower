@@ -16,6 +16,7 @@ package org.worldgrower.attribute;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
@@ -124,5 +125,39 @@ public class UTestKnowledgeMap {
 		
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.FOOD, 500);
 		assertEquals(false, knowledgeMap.hasKnowledge(target));
+	}
+	
+	@Test
+	public void testAdd() {
+		KnowledgeMap knowledgeMap = new KnowledgeMap();
+		knowledgeMap.addKnowledge(1, Constants.FOOD, 500);
+		
+		KnowledgeMap knowledgeMap2 = new KnowledgeMap();
+		knowledgeMap2.addKnowledge(1, Constants.WATER, 500);
+		
+		knowledgeMap.add(knowledgeMap2);
+		
+		assertEquals(true, knowledgeMap.hasKnowledge(1));
+		List<PropertyKnowledge> expectedKnowledge = Arrays.asList(
+				new PropertyKnowledge(1, Constants.FOOD, 500),
+				new PropertyKnowledge(1, Constants.WATER, 500)
+				);
+		assertEquals(expectedKnowledge, knowledgeMap.getKnowledge(TestUtils.createIntelligentWorldObject(1, "")));
+	}
+	
+	@Test
+	public void testAddNoExistingKnowledge() {
+		KnowledgeMap knowledgeMap = new KnowledgeMap();
+		
+		KnowledgeMap knowledgeMap2 = new KnowledgeMap();
+		knowledgeMap2.addKnowledge(1, Constants.WATER, 500);
+		
+		knowledgeMap.add(knowledgeMap2);
+		
+		assertEquals(true, knowledgeMap.hasKnowledge(1));
+		List<PropertyKnowledge> expectedKnowledge = Arrays.asList(
+				new PropertyKnowledge(1, Constants.WATER, 500)
+				);
+		assertEquals(expectedKnowledge, knowledgeMap.getKnowledge(TestUtils.createIntelligentWorldObject(1, "")));
 	}
 }

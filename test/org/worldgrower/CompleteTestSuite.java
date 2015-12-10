@@ -24,6 +24,7 @@ import org.worldgrower.actions.magic.UTestBurdenAction;
 import org.worldgrower.actions.magic.UTestCureDiseaseAction;
 import org.worldgrower.actions.magic.UTestDetectMagicAction;
 import org.worldgrower.actions.magic.UTestDetectPoisonAndDiseaseAction;
+import org.worldgrower.actions.magic.UTestDisguiseMagicSpellAction;
 import org.worldgrower.actions.magic.UTestDisintegrateArmorAction;
 import org.worldgrower.actions.magic.UTestDisintegrateWeaponAction;
 import org.worldgrower.actions.magic.UTestDispelMagicAction;
@@ -53,6 +54,8 @@ import org.worldgrower.attribute.UTestPropertyCountMap;
 import org.worldgrower.attribute.UTestSkillUtils;
 import org.worldgrower.attribute.UTestWorldObjectProperties;
 import org.worldgrower.condition.UTestConditions;
+import org.worldgrower.condition.UTestSoulTrappedCondition;
+import org.worldgrower.condition.UTestWerewolfUtils;
 import org.worldgrower.conversation.UTestArenaFighterPayCheckConversation;
 import org.worldgrower.conversation.UTestAskGoalConversation;
 import org.worldgrower.conversation.UTestBecomeArenaFighterConversation;
@@ -442,7 +445,12 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestKissAction.class,
 	UTestKnowledgeSorter.class,
 	UTestMarkAsSellableAction.class,
-	UTestItem.class
+	UTestItem.class,
+	UTestCreateNewsPaperAction.class,
+	UTestReadItemInInventoryAction.class,
+	UTestDisguiseMagicSpellAction.class,
+	UTestSoulTrappedCondition.class,
+	UTestWerewolfUtils.class
 })
 public class CompleteTestSuite {
 }

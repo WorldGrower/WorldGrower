@@ -81,19 +81,21 @@ public class MoveMode {
 			int x = worldObject.getProperty(Constants.X);
 			int y = worldObject.getProperty(Constants.Y);
 			
-			if (moveMode && moveStep < 48) {
-				
-				paintMovingPlayerCharacter(g, worldPanel, worldObject, imageInfoReader, id, lookDirection, i, moveStep, moveIndex);
-				
-				if (moveStep % 16 == 0) {
-					moveIndex = (moveIndex + 1) % 3;
-				}
-			} else {
-				//System.out.println("drawWorldObjects.notMoving: moveStep = " + moveStep + ", moveMode = " + moveMode);
-				if (!moveMode) {
-					worldPanel.drawWorldObjectInPixels(g, worldObject, lookDirection, image, x, y, 0, 0);
-				} else {
+			if (world.getTerrain().isExplored(x, y)) {
+				if (moveMode && moveStep < 48) {
+					
 					paintMovingPlayerCharacter(g, worldPanel, worldObject, imageInfoReader, id, lookDirection, i, moveStep, moveIndex);
+					
+					if (moveStep % 16 == 0) {
+						moveIndex = (moveIndex + 1) % 3;
+					}
+				} else {
+					//System.out.println("drawWorldObjects.notMoving: moveStep = " + moveStep + ", moveMode = " + moveMode);
+					if (!moveMode) {
+						worldPanel.drawWorldObjectInPixels(g, worldObject, lookDirection, image, x, y, 0, 0);
+					} else {
+						paintMovingPlayerCharacter(g, worldPanel, worldObject, imageInfoReader, id, lookDirection, i, moveStep, moveIndex);
+					}
 				}
 			}
 		}
