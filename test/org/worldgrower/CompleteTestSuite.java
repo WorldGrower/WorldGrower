@@ -54,7 +54,9 @@ import org.worldgrower.attribute.UTestPropertyCountMap;
 import org.worldgrower.attribute.UTestSkillUtils;
 import org.worldgrower.attribute.UTestWorldObjectProperties;
 import org.worldgrower.condition.UTestConditions;
+import org.worldgrower.condition.UTestIntoxicatedCondition;
 import org.worldgrower.condition.UTestSoulTrappedCondition;
+import org.worldgrower.condition.UTestVampireBiteCondition;
 import org.worldgrower.condition.UTestWerewolfUtils;
 import org.worldgrower.conversation.UTestArenaFighterPayCheckConversation;
 import org.worldgrower.conversation.UTestAskGoalConversation;
@@ -450,7 +452,9 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestReadItemInInventoryAction.class,
 	UTestDisguiseMagicSpellAction.class,
 	UTestSoulTrappedCondition.class,
-	UTestWerewolfUtils.class
+	UTestWerewolfUtils.class,
+	UTestIntoxicatedCondition.class,
+	UTestVampireBiteCondition.class
 })
 public class CompleteTestSuite {
 }
