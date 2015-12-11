@@ -74,7 +74,7 @@ public class SocializeGoal implements Goal {
 					Knowledge knowledge = knowledgeList.get(i);
 					WorldObject subject = world.findWorldObject(Constants.ID, knowledge.getSubjectId());
 					if (!target.equals(subject)) {
-						int[] args = Conversations.createArgs(Conversations.SHARE_KNOWLEDGE_CONVERSATION, subject, i);
+						int[] args = Conversations.createArgs(Conversations.SHARE_KNOWLEDGE_CONVERSATION, subject, knowledge.getId());
 						return new OperationInfo(performer, target, args, Actions.TALK_ACTION);
 					}
 				}

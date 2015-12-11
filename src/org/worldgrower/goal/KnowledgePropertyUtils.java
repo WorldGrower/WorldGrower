@@ -14,8 +14,11 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
+import java.util.List;
+
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.Knowledge;
 import org.worldgrower.attribute.KnowledgeMap;
 
 public class KnowledgePropertyUtils {
@@ -33,5 +36,14 @@ public class KnowledgePropertyUtils {
 		} else {
 			return new KnowledgeMap();
 		}
+	}
+	
+	public static Knowledge find(List<Knowledge> knowledgeList, int id) {
+		for(Knowledge knowledge : knowledgeList) {
+			if (knowledge.getId() == id) {
+				return knowledge;
+			}
+		}
+		throw new IllegalStateException("Id " + id + " not found in " + knowledgeList);
 	}
 }

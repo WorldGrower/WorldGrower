@@ -59,7 +59,7 @@ public class ShareKnowledgeConversation implements Conversation {
 			WorldObject subject = world.findWorldObject(Constants.ID, knowledge.getSubjectId());
 			if (!subject.equals(target)) {
 				String questionphrase = knowledgeToDescriptionMapper.getDescription(knowledge, world);
-				questions.add(new Question(subject, questionphrase, i));
+				questions.add(new Question(subject, questionphrase, knowledge.getId()));
 			}
 		}
 		return questions;
@@ -88,11 +88,11 @@ public class ShareKnowledgeConversation implements Conversation {
 		WorldObject performer = conversationContext.getPerformer();
 		WorldObject target = conversationContext.getTarget();
 		WorldObject subject = conversationContext.getSubject();
-		int knowledgeIndex = conversationContext.getAdditionalValue();
+		int knowledgeId = conversationContext.getAdditionalValue();
 		World world = conversationContext.getWorld();
 		
 		List<Knowledge> knowledgeList = getKnowledgeList(performer, target, world);
-		target.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(subject, knowledgeList.get(knowledgeIndex));
+		target.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(subject, KnowledgePropertyUtils.find(knowledgeList, knowledgeId));
 
 		if (replyIndex == THANKS) {
 			RelationshipPropertyUtils.changeRelationshipValue(performer, target, 50, Actions.TALK_ACTION, Conversations.createArgs(this), world);

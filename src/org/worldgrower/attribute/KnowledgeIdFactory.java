@@ -14,19 +14,12 @@
  *******************************************************************************/
 package org.worldgrower.attribute;
 
-import org.worldgrower.World;
-import org.worldgrower.WorldObject;
+public class KnowledgeIdFactory {
 
-public interface Knowledge {
-
-	public boolean refersToSameKnowledge(Knowledge knowledge);
-	public boolean knowledgeContainsId(int idToRemove);
-	public Knowledge copy();
-	public int getId();
-	public int getSubjectId();
+	private static int nextId = 0;
 	
-	public boolean hasProperty(ManagedProperty<?> managedProperty);
-	public boolean hasPropertyValue(ManagedProperty<?> managedProperty, Object value);
-
-	public int evaluate(WorldObject performer, World world);
+	public static int getNextId() {
+		return nextId++;
+	}
+	
 }

@@ -21,22 +21,17 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 
 public class PropertyKnowledge implements Serializable, Knowledge {
+	private final int id;
 	private final int subjectId;
 	private final ManagedProperty<?> managedProperty;
 	private final Object value;
 	
 	public PropertyKnowledge(int subjectId, ManagedProperty<?> managedProperty, Object value) {
 		super();
+		this.id = KnowledgeIdFactory.getNextId();
 		this.subjectId = subjectId;
 		this.managedProperty = managedProperty;
 		this.value = value;
-	}
-
-	public PropertyKnowledge(PropertyKnowledge knowledge) {
-		super();
-		this.subjectId = knowledge.subjectId;
-		this.managedProperty = knowledge.managedProperty;
-		this.value = knowledge.value;
 	}
 
 	public ManagedProperty<?> getManagedProperty() {
@@ -127,5 +122,10 @@ public class PropertyKnowledge implements Serializable, Knowledge {
 	@Override
 	public int getSubjectId() {
 		return subjectId;
+	}
+
+	@Override
+	public int getId() {
+		return id;
 	}
 }

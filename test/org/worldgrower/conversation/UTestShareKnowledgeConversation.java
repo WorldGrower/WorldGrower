@@ -85,8 +85,8 @@ public class UTestShareKnowledgeConversation {
 		target.setProperty(Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		
 		WorldObject subject = TestUtils.createIntelligentWorldObject(3, Constants.NAME, "subject");
-		performer.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(subject, Constants.DEITY, Deity.HADES);
-		ConversationContext context = new ConversationContext(performer, target, subject, null, world, 0);
+		int knowledgeId = performer.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(subject, Constants.DEITY, Deity.HADES);
+		ConversationContext context = new ConversationContext(performer, target, subject, null, world, knowledgeId);
 		
 		conversation.handleResponse(0, context);
 		assertEquals(50, performer.getProperty(Constants.RELATIONSHIPS).getValue(target));
@@ -103,8 +103,8 @@ public class UTestShareKnowledgeConversation {
 		target.setProperty(Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		
 		WorldObject subject = TestUtils.createIntelligentWorldObject(3, Constants.NAME, "subject");
-		performer.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(subject, Constants.DEITY, Deity.HADES);
-		ConversationContext context = new ConversationContext(performer, target, subject, null, world, 0);
+		int knowledgeId = performer.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(subject, Constants.DEITY, Deity.HADES);
+		ConversationContext context = new ConversationContext(performer, target, subject, null, world, knowledgeId);
 		
 		conversation.handleResponse(1, context);
 		assertEquals(-50, performer.getProperty(Constants.RELATIONSHIPS).getValue(target));

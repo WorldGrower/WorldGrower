@@ -50,17 +50,17 @@ public class KnowledgeMap implements IdContainer, Serializable {
 		}
 	}
 
-	public final void addKnowledge(WorldObject worldObject, ManagedProperty<?> managedProperty, Object value) {
-		addKnowledge(worldObject.getProperty(Constants.ID), managedProperty, value);
+	public final int addKnowledge(WorldObject worldObject, ManagedProperty<?> managedProperty, Object value) {
+		return addKnowledge(worldObject.getProperty(Constants.ID), managedProperty, value);
 	}
 	
-	public final void addKnowledge(int id, ManagedProperty<?> managedProperty, Object value) {
-		List<Knowledge> knowledgeList = idsToKnowledge.get(id);
+	public final int addKnowledge(int subjectId, ManagedProperty<?> managedProperty, Object value) {
+		List<Knowledge> knowledgeList = idsToKnowledge.get(subjectId);
 		if (knowledgeList == null) {
 			knowledgeList = new ArrayList<>();
-			idsToKnowledge.put(id, knowledgeList);
+			idsToKnowledge.put(subjectId, knowledgeList);
 		}
-		addKnowledge(knowledgeList, new PropertyKnowledge(id, managedProperty, value));
+		return addKnowledge(knowledgeList, new PropertyKnowledge(subjectId, managedProperty, value));
 	}
 	
 	public final void addKnowledge(WorldObject worldObject, World world) {
@@ -86,7 +86,7 @@ public class KnowledgeMap implements IdContainer, Serializable {
 		addKnowledge(knowledgeList, knowledge.copy());
 	}
 	
-	private void addKnowledge(List<Knowledge> knowledgeList, Knowledge knowledge) {
+	private int addKnowledge(List<Knowledge> knowledgeList, Knowledge knowledge) {
 		boolean knowledgeAdded = false;
 		
 		for(int i=0; i<knowledgeList.size(); i++) {
@@ -99,6 +99,7 @@ public class KnowledgeMap implements IdContainer, Serializable {
 		if (!knowledgeAdded) {
 			knowledgeList.add(knowledge);
 		}
+		return knowledge.getId();
 	}
 	
 	public List<WorldObject> findWorldObjects(ManagedProperty<?> managedProperty, Object value, World world) {
@@ -249,5 +250,5 @@ public class KnowledgeMap implements IdContainer, Serializable {
 				addKnowledge(knowledgeList, knowledge);
 			}
 		}
-	}
+	}	
 }

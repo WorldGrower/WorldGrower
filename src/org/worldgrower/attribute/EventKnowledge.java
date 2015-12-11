@@ -20,11 +20,12 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 
 public class EventKnowledge implements Knowledge, Serializable {
-
+	private final int id;
 	private final int subjectId;
 	private final int historyId;
 	
 	public EventKnowledge(int subjectId, World world) {
+		this.id = KnowledgeIdFactory.getNextId();
 		this.subjectId = subjectId;
 		this.historyId = world.getHistory().getNextHistoryId();
 	}
@@ -71,5 +72,10 @@ public class EventKnowledge implements Knowledge, Serializable {
 	@Override
 	public int getSubjectId() {
 		return subjectId;
+	}
+
+	@Override
+	public int getId() {
+		return id;
 	}
 }
