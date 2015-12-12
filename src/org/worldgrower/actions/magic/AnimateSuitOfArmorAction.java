@@ -16,23 +16,24 @@ package org.worldgrower.actions.magic;
 
 import java.io.ObjectStreamException;
 
-import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.actions.CraftUtils;
+import org.worldgrower.actions.InventoryAction;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.CreatureGenerator;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.gui.ImageIds;
 
-public class AnimateSuitOfArmorAction implements MagicSpell {
+public class AnimateSuitOfArmorAction extends InventoryAction implements MagicSpell {
 
 	private static final int ENERGY_USE = 200;
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
+		int inventoryIndex = args[0];
 		WorldObject minionOrganization = GroupPropertyUtils.createMinionOrganization(performer, world);
 		
 		CreatureGenerator creatureGenerator = new CreatureGenerator(minionOrganization);
@@ -42,32 +43,23 @@ public class AnimateSuitOfArmorAction implements MagicSpell {
 		WorldObject skeleton = world.findWorldObject(Constants.ID, animatedSuitOfArmorId);
 		skeleton.getProperty(Constants.GROUP).addAll(performer.getProperty(Constants.GROUP));
 		
-		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.SOUL_GEM_FILLED, 1);
-		performer.getProperty(Constants.INVENTORY).remove(performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.EQUIPMENT_SLOT, Constants.TORSO_EQUIPMENT));
+		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
+		performerInventory.removeQuantity(Constants.SOUL_GEM_FILLED, 1);
+		performerInventory.remove(inventoryIndex);
 		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE, world.getWorldStateChangedListeners());
 	}
 	
 	@Override
-	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return (performer.equals(target) 
-				&& (performer.hasProperty(Constants.INVENTORY)) 
-				&& (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.SOUL_GEM_FILLED) > 0)
-				&& (performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.EQUIPMENT_SLOT, Constants.TORSO_EQUIPMENT).size() > 0));
-	}
-
-	@Override
-	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return SkillUtils.distanceForEnergyUse(performer, getSkill(), ENERGY_USE);
+	public boolean isValidInventoryItem(WorldObject inventoryItem, WorldObjectContainer inventory, WorldObject performer) {
+		int energyUseDistance = SkillUtils.distanceForEnergyUse(performer, getSkill(), ENERGY_USE);
+		boolean hasFilledSoulGem = (inventory.getQuantityFor(Constants.SOUL_GEM_FILLED) > 0);
+		boolean isTorsoEquipment = inventoryItem.hasProperty(Constants.EQUIPMENT_SLOT) && inventoryItem.getProperty(Constants.EQUIPMENT_SLOT) == Constants.TORSO_EQUIPMENT;
+		return hasFilledSoulGem && isTorsoEquipment && energyUseDistance == 0;
 	}
 	
 	@Override
 	public String getRequirementsDescription() {
-		return CraftUtils.getRequirementsDescription(Constants.ENERGY, ENERGY_USE, "has torso equipment and a soulgem in inventory");
-	}
-	
-	@Override
-	public ArgumentRange[] getArgumentRanges() {
-		return ArgumentRange.EMPTY_ARGUMENT_RANGE;
+		return "Requirements: filled soul gem : 1, torso equipment : 1, enough energy to cast spell";
 	}
 	
 	@Override

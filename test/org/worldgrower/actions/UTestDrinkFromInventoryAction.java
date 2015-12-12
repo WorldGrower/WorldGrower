@@ -36,7 +36,7 @@ public class UTestDrinkFromInventoryAction {
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WATER.generate(1f));
 		
 		assertEquals(800, performer.getProperty(Constants.WATER).intValue());
-		Actions.DRINK_FROM_INVENTORY_ACTION.execute(performer, performer, new int[0], world);
+		Actions.DRINK_FROM_INVENTORY_ACTION.execute(performer, performer, new int[] {0}, world);
 		
 		assertEquals(900, performer.getProperty(Constants.WATER).intValue());
 	}
@@ -51,7 +51,7 @@ public class UTestDrinkFromInventoryAction {
 		performer.getProperty(Constants.INVENTORY).addQuantity(wine);
 		
 		assertEquals(800, performer.getProperty(Constants.WATER).intValue());
-		Actions.DRINK_FROM_INVENTORY_ACTION.execute(performer, performer, new int[0], world);
+		Actions.DRINK_FROM_INVENTORY_ACTION.execute(performer, performer, new int[] {0}, world);
 		
 		assertEquals(true, performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.INTOXICATED_CONDITION));
 	}
@@ -66,7 +66,7 @@ public class UTestDrinkFromInventoryAction {
 		performer.getProperty(Constants.INVENTORY).addQuantity(water);
 		
 		assertEquals(800, performer.getProperty(Constants.WATER).intValue());
-		Actions.DRINK_FROM_INVENTORY_ACTION.execute(performer, performer, new int[0], world);
+		Actions.DRINK_FROM_INVENTORY_ACTION.execute(performer, performer, new int[] {0}, world);
 		
 		assertEquals(true, performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.POISONED_CONDITION));
 	}

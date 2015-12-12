@@ -16,51 +16,40 @@ package org.worldgrower.actions;
 
 import java.io.ObjectStreamException;
 
-import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
-import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.condition.GhoulUtils;
 import org.worldgrower.gui.ImageIds;
 
-public class EatFromInventoryAction implements ManagedOperation {
+public class EatFromInventoryAction extends InventoryAction {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
+		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
+		int inventoryIndex = args[0];
 		int food = performer.getProperty(Constants.FOOD);
 		
 		food = food + 100;
 
-		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
-		int indexOfFood = performerInventory.getIndexFor(Constants.FOOD);
-		GhoulUtils.eatFood(performer, performerInventory.get(indexOfFood), world);
+		
+		GhoulUtils.eatFood(performer, performerInventory.get(inventoryIndex), world);
 		
 		performer.setProperty(Constants.FOOD, food);
 		performerInventory.removeQuantity(Constants.FOOD, 1);
 		
 		world.logAction(this, performer, target, args, null);
 	}
-
+	
 	@Override
-	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return 0;
+	public boolean isValidInventoryItem(WorldObject inventoryItem, WorldObjectContainer inventory, WorldObject performer) {
+		return inventoryItem.hasProperty(Constants.FOOD);
 	}
 	
 	@Override
 	public String getRequirementsDescription() {
-		return "";
-	}
-
-	@Override
-	public ArgumentRange[] getArgumentRanges() {
-		return ArgumentRange.EMPTY_ARGUMENT_RANGE;
-	}
-
-	@Override
-	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return (performer.equals(target) && (performer.hasProperty(Constants.INVENTORY)) && (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.FOOD) > 0));
+		return CraftUtils.getRequirementsDescription(Constants.FOOD, 1);
 	}
 
 	@Override

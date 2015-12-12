@@ -16,43 +16,32 @@ package org.worldgrower.actions;
 
 import java.io.ObjectStreamException;
 
-import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
-import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.gui.ImageIds;
 
-public class ReadItemInInventoryAction implements ManagedOperation {
+public class ReadItemInInventoryAction extends InventoryAction {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		int indexOfText = performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.TEXT);
-		WorldObject textTarget = performer.getProperty(Constants.INVENTORY).get(indexOfText);
+		int inventoryIndex = args[0];
+		WorldObject textTarget = performer.getProperty(Constants.INVENTORY).get(inventoryIndex);
 
 		performer.getProperty(Constants.KNOWLEDGE_MAP).add(textTarget.getProperty(Constants.KNOWLEDGE_MAP));
 		
 		world.logAction(this, performer, target, args, textTarget.getProperty(Constants.TEXT));
 	}
-
+	
 	@Override
-	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return 0;
+	public boolean isValidInventoryItem(WorldObject inventoryItem, WorldObjectContainer inventory, WorldObject performer) {
+		return inventoryItem.hasProperty(Constants.TEXT);
 	}
 	
 	@Override
 	public String getRequirementsDescription() {
-		return "";
-	}
-
-	@Override
-	public ArgumentRange[] getArgumentRanges() {
-		return ArgumentRange.EMPTY_ARGUMENT_RANGE;
-	}
-
-	@Override
-	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return (performer.hasProperty(Constants.INVENTORY)) && (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.TEXT) > 0);
+		return "Readable text";
 	}
 
 	@Override

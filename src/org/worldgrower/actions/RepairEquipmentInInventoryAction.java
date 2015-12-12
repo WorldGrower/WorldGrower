@@ -15,57 +15,38 @@
 package org.worldgrower.actions;
 
 import java.io.ObjectStreamException;
-import java.util.List;
 
-import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
-import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.gui.ImageIds;
 
-public class RepairEquipmentInInventoryAction implements ManagedOperation {
+public class RepairEquipmentInInventoryAction extends InventoryAction {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
+		int inventoryIndex = args[0];
 		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
-		List<WorldObject> damagedEquipment = getDamagedEquipment(inventory);
+		WorldObject damagedEquipment = inventory.get(inventoryIndex);
 		
 		double skillBonus = SkillUtils.useSkill(performer, Constants.SMITHING_SKILL, world.getWorldStateChangedListeners());
-		damagedEquipment.get(0).increment(Constants.EQUIPMENT_HEALTH, (int)(100 * skillBonus));
+		damagedEquipment.increment(Constants.EQUIPMENT_HEALTH, (int)(100 * skillBonus));
 		
 		inventory.removeQuantity(Constants.REPAIR_QUALITY, 1);
 	}
 
 	@Override
-	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
-		int numberOfRepairToolsDistance = inventory.getQuantityFor(Constants.REPAIR_QUALITY) > 0 ? 0 : 1;
-		List<WorldObject> damagedEquipmentList = getDamagedEquipment(inventory);
-		int damagedEquipmentDistance = damagedEquipmentList.size() > 0 ? 0 : 1;
-		return numberOfRepairToolsDistance + damagedEquipmentDistance;
+	public boolean isValidInventoryItem(WorldObject inventoryItem, WorldObjectContainer inventory, WorldObject performer) {
+		int numberOfRepairTools = inventory.getQuantityFor(Constants.REPAIR_QUALITY);
+		boolean damagedEquipment = inventoryItem.hasProperty(Constants.EQUIPMENT_HEALTH) && inventoryItem.getProperty(Constants.EQUIPMENT_HEALTH) < 1000;
+		return numberOfRepairTools > 0 && damagedEquipment;
 	}
 	
 	@Override
 	public String getRequirementsDescription() {
-		return "";
-	}
-
-	private List<WorldObject> getDamagedEquipment(WorldObjectContainer inventory) {
-		List<WorldObject> damagedEquipmentList = inventory.getWorldObjectsByFunction(Constants.EQUIPMENT_HEALTH, w -> w.getProperty(Constants.EQUIPMENT_HEALTH) < 1000);
-		return damagedEquipmentList;
-	}
-
-	@Override
-	public ArgumentRange[] getArgumentRanges() {
-		return ArgumentRange.EMPTY_ARGUMENT_RANGE;
-	}
-
-	@Override
-	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return (performer.equals(target) && (performer.hasProperty(Constants.INVENTORY)) && (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.REPAIR_QUALITY) > 0));
+		return "Requirements: repair hammer : 1, damaged equipment";
 	}
 
 	@Override

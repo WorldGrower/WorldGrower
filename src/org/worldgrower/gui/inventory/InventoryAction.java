@@ -61,9 +61,7 @@ public class InventoryAction extends AbstractAction {
 		List<Action> inventoryActions = new ArrayList<>();
 		
 		for(ManagedOperation action : Actions.getInventoryActions()) {
-			if (Game.canActionExecute(playerCharacter, action, new int[0], world, playerCharacter)) {
-				inventoryActions.add(new InventoryItemAction(action));
-			}
+			inventoryActions.add(new InventoryItemAction(action));
 		}
 		return inventoryActions;
 	}
@@ -75,13 +73,27 @@ public class InventoryAction extends AbstractAction {
 		public InventoryItemAction(ManagedOperation action) {
 			super(action.getSimpleDescription(), new ImageIcon(imageInfoReader.getImage(action.getImageIds(), null)));
 			this.action = action;
+			this.putValue(Action.LONG_DESCRIPTION, action.getRequirementsDescription());
 		}
 		
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			Game.executeAction(playerCharacter, playerCharacter.getOperation(action), new int[0], world, dungeonMaster, playerCharacter, container);
+			int index = getIndex();
+			Game.executeAction(playerCharacter, playerCharacter.getOperation(action), new int[] { index }, world, dungeonMaster, playerCharacter, container);
 			
 			dialog.refresh(new InventoryDialogModel(playerCharacter), getInventoryActions());
+		}
+
+		private int getIndex() {
+			InventoryItem inventoryItem = dialog.getPlayerCharacterSelectedValue();
+			int index = inventoryItem.getId();
+			return index;
+		}
+
+		@Override
+		public boolean isEnabled() {
+			int index = getIndex();
+			return Game.canActionExecute(playerCharacter, action, new int[] { index }, world, playerCharacter);
 		}
 	}
 }

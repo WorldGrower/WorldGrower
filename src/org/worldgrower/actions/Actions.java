@@ -236,13 +236,12 @@ public class Actions {
 			DISINTEGRATE_ARMOR_ACTION,
 			DISINTEGRATE_WEAPON_ACTION,
 			SOUL_TRAP_ACTION,
-			ANIMATE_SUIT_OF_ARMOR_ACTION,
 			DISPEL_MAGIC_ACTION,
 			SILENCE_MAGIC_ACTION,
 			DETECT_MAGIC_ACTION
 			);
 	
-	private static final List<ManagedOperation> INVENTORY_ACTIONS = Arrays.asList(
+	private static final List<InventoryAction> INVENTORY_ACTIONS = Arrays.asList(
 			EAT_FROM_INVENTORY_ACTION,
 			DRINK_FROM_INVENTORY_ACTION,
 			REPAIR_EQUIPMENT_IN_INVENTORY_ACTION,
@@ -427,7 +426,7 @@ public class Actions {
 		return magicSpells.stream().map(s -> s.getSimpleDescription()).collect(Collectors.toList());
 	}
 	
-	public static List<ManagedOperation> getInventoryActions() {
+	public static List<InventoryAction> getInventoryActions() {
 		return INVENTORY_ACTIONS;
 	}
 	

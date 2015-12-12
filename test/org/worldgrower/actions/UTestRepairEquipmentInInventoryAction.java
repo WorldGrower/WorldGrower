@@ -38,7 +38,7 @@ public class UTestRepairEquipmentInInventoryAction {
 		
 		performer.getProperty(Constants.INVENTORY).addQuantity(ironCuirass);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.REPAIR_HAMMER.generate(1f), 10);
-		action.execute(performer, performer, new int[0], world);
+		action.execute(performer, performer, new int[] {0}, world);
 		
 		assertEquals(100, ironCuirass.getProperty(Constants.EQUIPMENT_HEALTH).intValue());
 	}
@@ -48,7 +48,10 @@ public class UTestRepairEquipmentInInventoryAction {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		
-		assertEquals(true, action.distance(performer, performer, new int[0], world) > 0);
+		WorldObject ironCuirass = Item.IRON_CUIRASS.generate(1f);
+		performer.getProperty(Constants.INVENTORY).addQuantity(ironCuirass);
+		
+		assertEquals(true, action.distance(performer, performer, new int[] {0}, world) > 0);
 	}
 	
 	@Test
@@ -61,7 +64,7 @@ public class UTestRepairEquipmentInInventoryAction {
 		performer.getProperty(Constants.INVENTORY).addQuantity(ironCuirass);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.REPAIR_HAMMER.generate(1f), 10);
 		
-		assertEquals(0, action.distance(performer, performer, new int[0], world));
+		assertEquals(0, action.distance(performer, performer, new int[] {0}, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

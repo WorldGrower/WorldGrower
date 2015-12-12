@@ -26,12 +26,14 @@ import java.util.Map;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
@@ -47,6 +49,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.AbstractDialog;
+import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.util.ButtonFactory;
 import org.worldgrower.gui.util.JLabelFactory;
@@ -58,8 +61,10 @@ public class InventoryDialog extends AbstractDialog {
 	private static final String WEIGHT_PLAYER_CHARACTER_TOOL_TIP = "shows current weight of things that the player character is carrying and maximum weight";
 	private static final String MONEY_TARGET_TOOL_TIP = "shows amount of gold that a character has";
 	private static final String WEIGHT_TARGET_TOOL_TIP = "shows current weight of things that a character is carrying and maximum weight";
-	private static final String ACTIONS_TOOL_TIP = "These actions modify the inventory items";
 	private static final String PRICES_TOOL_TIP = "show list of items with associated prices. These prices are used instead of the default prices when an item is sold by the player character";
+	
+	private final List<Action> inventoryActions;
+	private final ImageInfoReader imageInfoReader;
 	
 	private JList<InventoryItem> inventoryJList;
 	private JButton okButton;
@@ -71,7 +76,6 @@ public class InventoryDialog extends AbstractDialog {
 	private JLabel targetMoney;
 	private JLabel targetWeight;
 	
-	private JButton actionsButton;
 	private JButton pricesButton;
 	
 	private final class CloseDialogAction implements ActionListener {
@@ -104,6 +108,8 @@ public class InventoryDialog extends AbstractDialog {
 	 */
 	public InventoryDialog(InventoryDialogModel inventoryDialogModel, InventoryDialogAction inventoryDialogAction, ImageInfoReader imageInfoReader, List<Action> inventoryActions) {
 		super(762, 690);
+		this.inventoryActions = inventoryActions;
+		this.imageInfoReader = imageInfoReader;
 		if (inventoryDialogAction == null) {
 			inventoryDialogAction = new DefaultInventoryDialogAction(inventoryDialogModel.getPlayerCharacterInventory());
 		}
@@ -160,13 +166,6 @@ public class InventoryDialog extends AbstractDialog {
 		weightLabelValue.setToolTipText(WEIGHT_PLAYER_CHARACTER_TOOL_TIP);
 		weightLabelValue.setBounds(203, 555, 64, 25);
 		addComponent(weightLabelValue);
-		
-		
-		actionsButton = ButtonFactory.createButton("Actions");
-		actionsButton.setToolTipText(ACTIONS_TOOL_TIP);
-		actionsButton.setBounds(224, 359, 100, 25);
-		addComponent(actionsButton);
-		
 		
 		pricesButton = ButtonFactory.createButton("Prices");
 		pricesButton.setToolTipText(PRICES_TOOL_TIP);
@@ -238,9 +237,18 @@ public class InventoryDialog extends AbstractDialog {
 			        InventoryItem inventoryItem = inventoryJList.getSelectedValue();
 			        
 			        JPopupMenu popupMenu = MenuFactory.createJPopupMenu();
-			        popupMenu.add(MenuFactory.createJCheckBoxMenuItem(new SellableAction(inventoryItem)));
+			        JCheckBoxMenuItem sellableMenuItem = createSellableMenuItem(inventoryItem);
+					popupMenu.add(sellableMenuItem);
+			        addMenuActions(popupMenu);
 			        popupMenu.show(inventoryJList, e.getX(), e.getY());
 			    }
+			}
+
+			private JCheckBoxMenuItem createSellableMenuItem(InventoryItem inventoryItem) {
+				JCheckBoxMenuItem sellableMenuItem = MenuFactory.createJCheckBoxMenuItem(new SellableAction(inventoryItem));
+				sellableMenuItem.setIcon(new ImageIcon(imageInfoReader.getImage(ImageIds.SILVER_COIN, null)));
+				sellableMenuItem.setToolTipText("marks inventory item as sellable");
+				return sellableMenuItem;
 			}
 		});
 	}
@@ -257,16 +265,14 @@ public class InventoryDialog extends AbstractDialog {
 			this.putValue(Action.SELECTED_KEY, sellable);
 		}
 
-
-
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			JCheckBoxMenuItem source = (JCheckBoxMenuItem)e.getSource();
 			inventoryJList.getSelectedValue().setSellable(source.isSelected());
-			
 		}
-		
 	}
+	
+
 
 	private String getTargetWeight(InventoryDialogModel inventoryDialogModel) {
 		String targetWeightString = Integer.toString(inventoryDialogModel.getTargetWeight())
@@ -283,27 +289,15 @@ public class InventoryDialog extends AbstractDialog {
 	}
 
 	private void setInventoryActions(List<Action> inventoryActions,Map<Item, Integer> pricesOnPlayer) {
-		if (inventoryActions.size() > 0) {
-			actionsButton.setEnabled(true);
-			addActionsToActionsButton(inventoryActions);
-		} else {
-			actionsButton.setEnabled(false);
-		}
 		pricesButton.addActionListener(e -> new PricesDialog(pricesOnPlayer).showMe());
 	}
 
-	private void addActionsToActionsButton(List<Action> inventoryActions) {
-		actionsButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				JPopupMenu popupMenu = MenuFactory.createJPopupMenu();
-				for(Action inventoryDialogAction : inventoryActions) {
-					popupMenu.add(MenuFactory.createJMenuItem(inventoryDialogAction));
-				}
-				popupMenu.show(actionsButton, actionsButton.getWidth(), 0);
-			}
-		});
+	private void addMenuActions(JPopupMenu popupMenu) {
+		for(Action inventoryDialogAction : inventoryActions) {
+			JMenuItem actionMenuItem = MenuFactory.createJMenuItem(inventoryDialogAction);
+			actionMenuItem.setToolTipText((String) inventoryDialogAction.getValue(Action.LONG_DESCRIPTION));
+			popupMenu.add(actionMenuItem);
+		}
 	}
 
 	public InventoryDialog(InventoryDialogModel inventoryDialogModel, ImageInfoReader imageInfoReader, List<Action> inventoryActions) {

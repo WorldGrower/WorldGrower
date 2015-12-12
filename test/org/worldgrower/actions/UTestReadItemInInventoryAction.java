@@ -45,7 +45,7 @@ public class UTestReadItemInInventoryAction {
 		int[] knowledgeIds = { 0 };
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.generateNewsPaper(knowledgeList, knowledgeIds, world));
 		
-		Actions.READ_ITEM_IN_INVENTORY_ACTION.execute(performer, performer, new int[0], world);
+		Actions.READ_ITEM_IN_INVENTORY_ACTION.execute(performer, performer, new int[] {0}, world);
 		
 		assertEquals(true, performer.getProperty(Constants.KNOWLEDGE_MAP).hasKnowledge(1));
 	}

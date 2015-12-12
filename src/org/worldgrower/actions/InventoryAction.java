@@ -14,33 +14,32 @@
  *******************************************************************************/
 package org.worldgrower.actions;
 
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Test;
+import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
-import org.worldgrower.TestUtils;
+import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
-import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
-import org.worldgrower.generator.Item;
 
-public class UTestPoisonInventoryWaterAction {
+public abstract class InventoryAction implements ManagedOperation {
 
-	@Test
-	public void testExecuteLastPoison() {
-		World world = new WorldImpl(0, 0, null, null);
-		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
+	@Override
+	public final int distance(WorldObject performer, WorldObject target, int[] args, World world) {
+		int index = args[0];
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
-		performerInventory.addQuantity(Item.WATER.generate(1f));
-		performerInventory.addQuantity(Item.POISON.generate(1f));
-		
-		assertEquals(false, performerInventory.get(0).hasProperty(Constants.POISON_DAMAGE));
-		Actions.POISON_INVENTORY_WATER_ACTION.execute(performer, performer, new int[] {0}, world);
-		
-		assertEquals(1, performerInventory.getQuantityFor(Constants.POISON_DAMAGE));
-		int indexOfPoison = performerInventory.getIndexFor(Constants.POISON_DAMAGE);
-		assertEquals(0, indexOfPoison);
-		assertEquals(true, performerInventory.get(indexOfPoison).hasProperty(Constants.WATER));
+		WorldObject worldObject = performerInventory.get(index);
+		return isValidInventoryItem(worldObject, performerInventory, performer) ? 0 : 1;
+	}
+	
+	public abstract boolean isValidInventoryItem(WorldObject inventoryItem, WorldObjectContainer inventory, WorldObject performer);
+	
+	@Override
+	public final ArgumentRange[] getArgumentRanges() {
+		return new ArgumentRange[1];
+	}
+
+	@Override
+	public final boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
+		return (performer.equals(target) && (performer.hasProperty(Constants.INVENTORY)));
 	}
 }

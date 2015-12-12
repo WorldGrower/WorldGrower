@@ -16,50 +16,36 @@ package org.worldgrower.actions;
 
 import java.io.ObjectStreamException;
 
-import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
-import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.gui.ImageIds;
 
-public class PoisonInventoryWaterAction implements ManagedOperation {
+public class PoisonInventoryWaterAction extends InventoryAction {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
+		int inventoryIndex = args[0];
 		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
 		
-		int indexOfWater = inventory.getIndexFor(Constants.WATER);
 		int indexOfPoison = inventory.getIndexFor(Constants.POISON_DAMAGE);
 		
 		int poisonDamage = inventory.get(indexOfPoison).getProperty(Constants.POISON_DAMAGE);
-		inventory.get(indexOfWater).setProperty(Constants.POISON_DAMAGE, poisonDamage);
+		inventory.get(inventoryIndex).setProperty(Constants.POISON_DAMAGE, poisonDamage);
 		
 		inventory.removeQuantity(indexOfPoison, 1);
 	}
-
+	
 	@Override
-	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return 0;
+	public boolean isValidInventoryItem(WorldObject inventoryItem, WorldObjectContainer inventory, WorldObject performer) {
+		boolean inventoryContainsPoison = inventory.getQuantityFor(Constants.POISON_DAMAGE) > 0;
+		return inventoryItem.hasProperty(Constants.WATER) && inventoryContainsPoison;
 	}
 	
 	@Override
 	public String getRequirementsDescription() {
-		return "";
-	}
-
-	@Override
-	public ArgumentRange[] getArgumentRanges() {
-		return ArgumentRange.EMPTY_ARGUMENT_RANGE;
-	}
-
-	@Override
-	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return (performer.equals(target) 
-				&& (performer.hasProperty(Constants.INVENTORY)) 
-				&& (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WATER) > 0)
-				&& (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.POISON_DAMAGE) > 0));
+		return CraftUtils.getRequirementsDescription(Constants.WATER, 1);
 	}
 
 	@Override

@@ -35,7 +35,7 @@ public class UTestEatFromInventoryAction {
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.BERRIES.generate(1f));
 		performer.setProperty(Constants.FOOD, 800);
 		
-		Actions.EAT_FROM_INVENTORY_ACTION.execute(performer, performer, new int[0], world);
+		Actions.EAT_FROM_INVENTORY_ACTION.execute(performer, performer, new int[] {0}, world);
 		
 		assertEquals(900, performer.getProperty(Constants.FOOD).intValue());
 		assertEquals(0, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.FOOD));

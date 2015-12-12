@@ -16,25 +16,25 @@ package org.worldgrower.actions;
 
 import java.io.ObjectStreamException;
 
-import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
-import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.goal.AlcoholLevelPropertyUtils;
 import org.worldgrower.gui.ImageIds;
 
-public class DrinkFromInventoryAction implements ManagedOperation {
+public class DrinkFromInventoryAction extends InventoryAction {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
+		int inventoryIndex = args[0];
+		
 		performer.increment(Constants.WATER, 100);
 		
-		int indexOfWater = performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.WATER);
-		WorldObject waterTarget = performer.getProperty(Constants.INVENTORY).get(indexOfWater);
-		if (waterTarget.hasProperty(Constants.POISON_DAMAGE) && performer.getProperty(Constants.INVENTORY).get(indexOfWater).getProperty(Constants.POISON_DAMAGE) > 0) {
+		WorldObject waterTarget = performer.getProperty(Constants.INVENTORY).get(inventoryIndex);
+		if (waterTarget.hasProperty(Constants.POISON_DAMAGE) && waterTarget.getProperty(Constants.POISON_DAMAGE) > 0) {
 			Conditions.add(performer, Condition.POISONED_CONDITION, 20, world);
 		}
 		
@@ -49,25 +49,15 @@ public class DrinkFromInventoryAction implements ManagedOperation {
 	}
 
 	@Override
-	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return 0;
+	public boolean isValidInventoryItem(WorldObject inventoryItem, WorldObjectContainer inventory, WorldObject performer) {
+		return inventoryItem.hasProperty(Constants.WATER);
 	}
 	
 	@Override
 	public String getRequirementsDescription() {
-		return "";
+		return CraftUtils.getRequirementsDescription(Constants.WATER, 1);
 	}
 
-	@Override
-	public ArgumentRange[] getArgumentRanges() {
-		return ArgumentRange.EMPTY_ARGUMENT_RANGE;
-	}
-
-	@Override
-	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return (performer.hasProperty(Constants.INVENTORY)) && (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WATER) > 0);
-	}
-	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
 		return "drinking from " + target.getProperty(Constants.NAME);

@@ -38,7 +38,7 @@ public class UTestAnimateSuitOfArmorAction {
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_CUIRASS.generate(1f));
 		assertEquals(1, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.ARMOR));
 		
-		Actions.ANIMATE_SUIT_OF_ARMOR_ACTION.execute(performer, performer, new int[0], world);
+		Actions.ANIMATE_SUIT_OF_ARMOR_ACTION.execute(performer, performer, new int[] {0}, world);
 		
 		assertEquals(2, world.getWorldObjects().size());
 		assertEquals(0, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.ARMOR));
