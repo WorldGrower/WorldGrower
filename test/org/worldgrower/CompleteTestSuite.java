@@ -105,6 +105,8 @@ import org.worldgrower.conversation.UTestWhoIsLeaderOrganizationConversation;
 import org.worldgrower.conversation.UTestWhyAngryConversation;
 import org.worldgrower.conversation.UTestWhyAngryOtherConversation;
 import org.worldgrower.conversation.UTestWhyNotIntelligentConversation;
+import org.worldgrower.conversation.leader.UTestCanAttackCriminalsConversation;
+import org.worldgrower.conversation.leader.UTestSetHouseTaxRateConversation;
 import org.worldgrower.conversation.leader.UTestSetShackTaxRateConversation;
 import org.worldgrower.deity.UTestDeityPropertyUtils;
 import org.worldgrower.generator.UTestBeastOnTurn;
@@ -456,7 +458,9 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestWerewolfUtils.class,
 	UTestIntoxicatedCondition.class,
 	UTestVampireBiteCondition.class,
-	UTestSetShackTaxRateConversation.class
+	UTestSetShackTaxRateConversation.class,
+	UTestSetHouseTaxRateConversation.class,
+	UTestCanAttackCriminalsConversation.class
 })
 public class CompleteTestSuite {
 }
