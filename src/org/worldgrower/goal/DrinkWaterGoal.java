@@ -38,7 +38,8 @@ public class DrinkWaterGoal implements Goal {
 			boolean hasInventoryWater = performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WATER) > 0;
 			WorldObject waterSourcetarget = WaterPropertyUtils.findWaterSource(performer, world);
 			if (hasInventoryWater) {
-				return new OperationInfo(performer, performer, new int[0], Actions.DRINK_FROM_INVENTORY_ACTION);
+				int indexOfWater = performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.WATER);
+				return new OperationInfo(performer, performer, new int[]{indexOfWater}, Actions.DRINK_FROM_INVENTORY_ACTION);
 			} else if (waterSourcetarget != null) {
 				return new OperationInfo(performer, waterSourcetarget, new int[0], Actions.DRINK_ACTION);
 			} else {

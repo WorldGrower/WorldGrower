@@ -34,7 +34,8 @@ public class FoodGoal implements Goal {
 		WorldObject target = GoalUtils.findNearestTarget(performer, Actions.EAT_ACTION, world);
 		OperationInfo buyOperationInfo = BuySellUtils.getBuyOperationInfo(performer, Constants.FOOD, world);
 		if (hasInventoryFood) {
-			return new OperationInfo(performer, performer, new int[0], Actions.EAT_FROM_INVENTORY_ACTION);
+			int indexOfFood = performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.FOOD);
+			return new OperationInfo(performer, performer, new int[] {indexOfFood}, Actions.EAT_FROM_INVENTORY_ACTION);
 		} else if (buyOperationInfo != null) {
 			return buyOperationInfo;
 		} else if (target != null) {
