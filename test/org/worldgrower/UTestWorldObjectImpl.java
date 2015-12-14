@@ -67,12 +67,24 @@ public class UTestWorldObjectImpl {
 	}
 	
 	@Test
-	public void testequals() {
+	public void testEquals() {
 		WorldObject person1 = TestUtils.createIntelligentWorldObject(1, Constants.FOOD, 500);
 		WorldObject person2 = TestUtils.createIntelligentWorldObject(2, Constants.FOOD, 500);
 		
 		assertEquals(false, person1.equals(person2));
 		assertEquals(true, person1.equals(person1));
+	}
+	
+	@Test
+	public void testHasIntelligence() {
+		WorldObject person1 = TestUtils.createIntelligentWorldObject(1, Constants.FOOD, 500);
+		WorldObject person2 = TestUtils.createWorldObject(0, 0, 1, 1);
+		
+		assertEquals(true, person1.hasIntelligence());
+		assertEquals(false, person2.hasIntelligence());
+		
+		person1.setProperty(Constants.ILLUSION_CREATOR_ID, 5);
+		assertEquals(false, person1.hasIntelligence());
 	}
 	
 	@Test
@@ -101,5 +113,22 @@ public class UTestWorldObjectImpl {
 		
 		person.getProperty(Constants.KNOWN_SPELLS).add(Actions.FIRE_BOLT_ATTACK_ACTION);
 		assertEquals(true, person.canWorldObjectPerformAction(Actions.FIRE_BOLT_ATTACK_ACTION));
+	}
+	
+	@Test
+	public void testCanWorldObjectPerformActionSilencedCondition() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject person = TestUtils.createIntelligentWorldObject(1, Constants.KNOWN_SPELLS, new ArrayList<>());
+		person.getProperty(Constants.KNOWN_SPELLS).add(Actions.FIRE_BOLT_ATTACK_ACTION);
+		assertEquals(true, person.canWorldObjectPerformAction(Actions.FIRE_BOLT_ATTACK_ACTION));
+		
+		Conditions.add(person, Condition.SILENCED_CONDITION, 8, world);
+		assertEquals(false, person.canWorldObjectPerformAction(Actions.FIRE_BOLT_ATTACK_ACTION));
+	}
+	
+	@Test
+	public void testCanWorldObjectPerformActionCutWood() {
+		WorldObject person = TestUtils.createIntelligentWorldObject(1, Constants.KNOWN_SPELLS, new ArrayList<>());
+		assertEquals(true, person.canWorldObjectPerformAction(Actions.CUT_WOOD_ACTION));
 	}
 }

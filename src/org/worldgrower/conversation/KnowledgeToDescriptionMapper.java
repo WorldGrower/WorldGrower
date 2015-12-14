@@ -29,11 +29,15 @@ import org.worldgrower.profession.Profession;
 public class KnowledgeToDescriptionMapper {
 
 	public String getDescription(Knowledge knowledge, World world) {
-		WorldObject subject = world.findWorldObject(Constants.ID, knowledge.getSubjectId());
 		if (knowledge instanceof PropertyKnowledge) {
 			PropertyKnowledge propertyKnowledge = (PropertyKnowledge) knowledge;
 			ManagedProperty<?> property = propertyKnowledge.getManagedProperty();
 			Object value = propertyKnowledge.getValue();
+			if (property == Constants.DEATH_REASON) {
+				return "Did you know that " + value + "?";
+			}
+			
+			WorldObject subject = world.findWorldObject(Constants.ID, knowledge.getSubjectId());
 			if (BuildingGenerator.isWell(subject) && property == Constants.POISON_DAMAGE) {
 				return "Did you know the well is poisoned?";
 			} else if (property == Constants.CHILD_BIRTH_ID) {

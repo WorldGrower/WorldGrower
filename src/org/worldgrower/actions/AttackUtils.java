@@ -44,7 +44,7 @@ public class AttackUtils {
 			public int handleHitPoints(WorldObject performer, WorldObject target, ManagedOperation action, int hitPoints) {
 				if (hitPoints <= 0) {
 					hitPoints = 0;
-					DeathReasonPropertyUtils.targetDiesByPerformerAction(performer, target, (DeadlyAction) action);
+					DeathReasonPropertyUtils.targetDiesByPerformerAction(performer, target, (DeadlyAction) action, world);
 				}
 				return hitPoints;
 			}
@@ -172,7 +172,7 @@ public class AttackUtils {
 		
 		if (targetHP <= 0) {
 			targetHP = 0;
-			DeathReasonPropertyUtils.targetDiesByPerformerAction(performer, target, action);
+			DeathReasonPropertyUtils.targetDiesByPerformerAction(performer, target, action, world);
 		}
 		target.setProperty(Constants.HIT_POINTS, targetHP);	
 		
@@ -188,7 +188,7 @@ public class AttackUtils {
 		
 		if (targetHP <= 0) {
 			targetHP = 0;
-			DeathReasonPropertyUtils.targetDiesByPerformerAction(performer, target, action);
+			DeathReasonPropertyUtils.targetDiesByPerformerAction(performer, target, action, world);
 		}
 		target.setProperty(Constants.HIT_POINTS, targetHP);	
 		

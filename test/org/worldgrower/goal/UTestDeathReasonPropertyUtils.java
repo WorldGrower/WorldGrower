@@ -20,6 +20,8 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
+import org.worldgrower.World;
+import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.condition.Condition;
@@ -28,26 +30,29 @@ public class UTestDeathReasonPropertyUtils {
 
 	@Test
 	public void testDrowning() {
+		World world = new WorldImpl(0, 0,  null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.NAME, "performer");
 		
-		DeathReasonPropertyUtils.targetDiesByDrowning(performer);
+		DeathReasonPropertyUtils.targetDiesByDrowning(performer, world);
 		assertEquals("performer was killed by drowning", performer.getProperty(Constants.DEATH_REASON));
 	}
 	
 	@Test
 	public void testCondition() {
+		World world = new WorldImpl(0, 0,  null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.NAME, "performer");
 		
-		DeathReasonPropertyUtils.targetDiesByCondition(Condition.BURNING_CONDITION, performer);
+		DeathReasonPropertyUtils.targetDiesByCondition(Condition.BURNING_CONDITION, performer, world);
 		assertEquals("performer was burned to death", performer.getProperty(Constants.DEATH_REASON));
 	}
 	
 	@Test
 	public void testAction() {
+		World world = new WorldImpl(0, 0,  null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.NAME, "performer");
 		WorldObject target = TestUtils.createIntelligentWorldObject(0, Constants.NAME, "target");
 		
-		DeathReasonPropertyUtils.targetDiesByPerformerAction(performer, target, Actions.MELEE_ATTACK_ACTION);
+		DeathReasonPropertyUtils.targetDiesByPerformerAction(performer, target, Actions.MELEE_ATTACK_ACTION, world);
 		assertEquals("target was pummeled to death", target.getProperty(Constants.DEATH_REASON));
 	}
 }

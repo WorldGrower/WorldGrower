@@ -37,12 +37,12 @@ public interface Condition extends Serializable {
 	public void conditionEnds(WorldObject worldObject);
 	public void perform(WorldObject performer, WorldObject target, int[] args, ManagedOperation managedOperation, World world);
 	
-	public default void decreaseHitPoints(WorldObject worldObject, DeadlyCondition deadlyCondition, int value) {
+	public default void decreaseHitPoints(WorldObject worldObject, DeadlyCondition deadlyCondition, int value, World world) {
 		worldObject.increment(Constants.HIT_POINTS, -value);
 		
 		int hitPoints = worldObject.getProperty(Constants.HIT_POINTS);
 		if (hitPoints == 0) {
-			DeathReasonPropertyUtils.targetDiesByCondition(deadlyCondition, worldObject);
+			DeathReasonPropertyUtils.targetDiesByCondition(deadlyCondition, worldObject, world);
 		}
 	}
 	

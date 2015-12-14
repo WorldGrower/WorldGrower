@@ -36,7 +36,7 @@ public class DrownUtils {
 					worldObject.increment(Constants.HIT_POINTS, -5);
 					if (worldObject.getProperty(Constants.HIT_POINTS) == 0) {
 						if (worldObject.hasProperty(Constants.CONDITIONS)) {
-							DeathReasonPropertyUtils.targetDiesByDrowning(worldObject);
+							DeathReasonPropertyUtils.targetDiesByDrowning(worldObject, world);
 						}
 					}
 				}

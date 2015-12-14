@@ -460,7 +460,9 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestVampireBiteCondition.class,
 	UTestSetShackTaxRateConversation.class,
 	UTestSetHouseTaxRateConversation.class,
-	UTestCanAttackCriminalsConversation.class
+	UTestCanAttackCriminalsConversation.class,
+	UTestCommonerNameGeneratorImpl.class,
+	UTestMetaInformation.class
 })
 public class CompleteTestSuite {
 }

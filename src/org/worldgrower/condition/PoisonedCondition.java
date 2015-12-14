@@ -37,7 +37,7 @@ public class PoisonedCondition implements DeadlyCondition {
 
 	@Override
 	public void onTurn(WorldObject worldObject, World world, int startTurn, WorldStateChangedListeners creatureTypeChangedListeners) {
-		decreaseHitPoints(worldObject, this, 5);
+		decreaseHitPoints(worldObject, this, 5, world);
 	}
 	
 	@Override

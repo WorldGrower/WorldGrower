@@ -15,21 +15,27 @@
 package org.worldgrower.goal;
 
 import org.worldgrower.Constants;
+import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.DeadlyAction;
 import org.worldgrower.condition.DeadlyCondition;
 
 public class DeathReasonPropertyUtils {
 
-	public static void targetDiesByPerformerAction(WorldObject performer, WorldObject target, DeadlyAction action) {
-		target.setProperty(Constants.DEATH_REASON, target.getProperty(Constants.NAME) + " was " + action.getDeathDescription(performer, target));
+	public static void targetDiesByPerformerAction(WorldObject performer, WorldObject target, DeadlyAction action, World world) {
+		setDeathReason(target, target.getProperty(Constants.NAME) + " was " + action.getDeathDescription(performer, target), world);
 	}
 
-	public static void targetDiesByCondition(DeadlyCondition condition, WorldObject target) {
-		target.setProperty(Constants.DEATH_REASON, target.getProperty(Constants.NAME) + " was " + condition.getDeathDescription());
+	public static void targetDiesByCondition(DeadlyCondition condition, WorldObject target, World world) {
+		setDeathReason(target, target.getProperty(Constants.NAME) + " was " + condition.getDeathDescription(), world);
 	}
 	
-	public static void targetDiesByDrowning(WorldObject target) {
-		target.setProperty(Constants.DEATH_REASON, target.getProperty(Constants.NAME) + " was killed by drowning");
+	public static void targetDiesByDrowning(WorldObject target, World world) {
+		setDeathReason(target, target.getProperty(Constants.NAME) + " was killed by drowning", world);
+	}
+	
+	private static void setDeathReason(WorldObject target, String reason, World world) {
+		target.setProperty(Constants.DEATH_REASON, reason);
+		KnowledgeMapPropertyUtils.everyoneInVicinityKnowsOfProperty(target, target, Constants.DEATH_REASON, reason, world);
 	}
 }

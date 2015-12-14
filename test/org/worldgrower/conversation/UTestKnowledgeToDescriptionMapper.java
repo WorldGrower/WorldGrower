@@ -84,6 +84,18 @@ public class UTestKnowledgeToDescriptionMapper {
 		PropertyKnowledge knowledge = new PropertyKnowledge(subject.getProperty(Constants.ID), Constants.CHILD_BIRTH_ID, 2);
 		assertEquals("Did you know that subject gave birth to target?", mapper.getDescription(knowledge, world));
 	}
+	
+	@Test
+	public void testMapEventKnowledgeDeathReason() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject subject = TestUtils.createIntelligentWorldObject(3, Constants.NAME, "subject");
+		String deathReason = "subject died by drowning";
+		subject.setProperty(Constants.DEATH_REASON, deathReason);
+		world.addWorldObject(subject);
+		
+		PropertyKnowledge knowledge = new PropertyKnowledge(subject.getProperty(Constants.ID), Constants.DEATH_REASON, deathReason);
+		assertEquals("Did you know that subject died by drowning?", mapper.getDescription(knowledge, world));
+	}
 
 	@Test
 	public void testMapEventKnowledgeDeity() {

@@ -29,6 +29,7 @@ import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdRelationshipMap;
 import org.worldgrower.conversation.ConversationContext;
 import org.worldgrower.conversation.Conversations;
+import org.worldgrower.conversation.Question;
 import org.worldgrower.conversation.Response;
 import org.worldgrower.goal.GroupPropertyUtils;
 
@@ -58,6 +59,19 @@ public class UTestSetShackTaxRateConversation {
 				
 		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
 		assertEquals(0, conversation.getReplyPhrase(context).getId());
+	}
+	
+	@Test
+	public void testGetQuestionPhrases() {
+		World world = new WorldImpl(0, 0, null, new DoNothingWorldOnTurn());
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.NAME, "performer");
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.NAME, "target");
+		
+		createVillagersOrganization(world);
+		
+		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, null, world);
+		assertEquals(true, questions.size() > 0);
+		assertEquals("I want to change the shack tax rate from 0 to 1 gold pieces per 100 turns", questions.get(0).getQuestionPhrase());
 	}
 
 	private WorldObject createVillagersOrganization(World world) {
