@@ -51,12 +51,14 @@ import org.worldgrower.attribute.UTestIntProperty;
 import org.worldgrower.attribute.UTestItemCountMap;
 import org.worldgrower.attribute.UTestKnowledgeMap;
 import org.worldgrower.attribute.UTestPropertyCountMap;
+import org.worldgrower.attribute.UTestSkill;
 import org.worldgrower.attribute.UTestSkillUtils;
 import org.worldgrower.attribute.UTestWorldObjectProperties;
 import org.worldgrower.condition.UTestConditions;
 import org.worldgrower.condition.UTestIntoxicatedCondition;
 import org.worldgrower.condition.UTestSoulTrappedCondition;
 import org.worldgrower.condition.UTestVampireBiteCondition;
+import org.worldgrower.condition.UTestVampireUtils;
 import org.worldgrower.condition.UTestWerewolfUtils;
 import org.worldgrower.conversation.UTestArenaFighterPayCheckConversation;
 import org.worldgrower.conversation.UTestAskGoalConversation;
@@ -108,7 +110,13 @@ import org.worldgrower.conversation.UTestWhyNotIntelligentConversation;
 import org.worldgrower.conversation.leader.UTestCanAttackCriminalsConversation;
 import org.worldgrower.conversation.leader.UTestSetHouseTaxRateConversation;
 import org.worldgrower.conversation.leader.UTestSetShackTaxRateConversation;
+import org.worldgrower.deity.UTestAphrodite;
+import org.worldgrower.deity.UTestAres;
+import org.worldgrower.deity.UTestDeity;
 import org.worldgrower.deity.UTestDeityPropertyUtils;
+import org.worldgrower.deity.UTestDemeter;
+import org.worldgrower.deity.UTestDionysus;
+import org.worldgrower.deity.UTestHades;
 import org.worldgrower.generator.UTestBeastOnTurn;
 import org.worldgrower.generator.UTestBerryBushOnTurn;
 import org.worldgrower.generator.UTestBuildingGenerator;
@@ -125,6 +133,7 @@ import org.worldgrower.generator.UTestSkeletonEvaluationFunction;
 import org.worldgrower.generator.UTestVotingOnTurn;
 import org.worldgrower.goal.*;
 import org.worldgrower.history.UTestHistoryImpl;
+import org.worldgrower.profession.UTestProfessions;
 import org.worldgrower.util.UTestNumberUtils;
 
 @RunWith(Suite.class)
@@ -462,7 +471,16 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestSetHouseTaxRateConversation.class,
 	UTestCanAttackCriminalsConversation.class,
 	UTestCommonerNameGeneratorImpl.class,
-	UTestMetaInformation.class
+	UTestMetaInformation.class,
+	UTestProfessions.class,
+	UTestSkill.class,
+	UTestVampireUtils.class,
+	UTestDeity.class,
+	UTestDionysus.class,
+	UTestAres.class,
+	UTestAphrodite.class,
+	UTestDemeter.class,
+	UTestHades.class
 })
 public class CompleteTestSuite {
 }

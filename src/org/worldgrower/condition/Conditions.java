@@ -179,4 +179,10 @@ public class Conditions implements Serializable {
 		}
 		return magicConditions;
 	}
+
+	public Conditions copy() {
+		Conditions copy = new Conditions();
+		copy.conditions.putAll(conditions);
+		return copy;
+	}
 }

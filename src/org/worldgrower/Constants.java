@@ -22,6 +22,7 @@ import org.worldgrower.actions.legal.LegalActions;
 import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.attribute.BackgroundProperty;
 import org.worldgrower.attribute.BooleanProperty;
+import org.worldgrower.attribute.ConditionsProperty;
 import org.worldgrower.attribute.IdListProperty;
 import org.worldgrower.attribute.IdMapProperty;
 import org.worldgrower.attribute.IdProperty;
@@ -202,7 +203,7 @@ public class Constants {
 	public static final IntProperty SOUL_GEM_SOURCE = new IntProperty("soulGemSource", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	
 	public static final UnCheckedProperty<Curse> CURSE = new UnCheckedProperty<Curse>("curse", ALL_PROPERTIES);
-	public static final UnCheckedProperty<Conditions> CONDITIONS = new UnCheckedProperty<>("conditions", ALL_PROPERTIES);
+	public static final ConditionsProperty CONDITIONS = new ConditionsProperty("conditions", ALL_PROPERTIES);
 	
 	public static final IntProperty RELATIONSHIP_VALUE = new IntProperty("relationshipValue", -1000, 1000, NOT_NULLABLE, ALL_PROPERTIES);
 	
