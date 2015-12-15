@@ -110,6 +110,9 @@ import org.worldgrower.conversation.UTestWhyNotIntelligentConversation;
 import org.worldgrower.conversation.leader.UTestCanAttackCriminalsConversation;
 import org.worldgrower.conversation.leader.UTestSetHouseTaxRateConversation;
 import org.worldgrower.conversation.leader.UTestSetShackTaxRateConversation;
+import org.worldgrower.deity.UTestApollo;
+import org.worldgrower.deity.UTestArtemis;
+import org.worldgrower.deity.UTestAthena;
 import org.worldgrower.deity.UTestAphrodite;
 import org.worldgrower.deity.UTestAres;
 import org.worldgrower.deity.UTestDeity;
@@ -117,6 +120,8 @@ import org.worldgrower.deity.UTestDeityPropertyUtils;
 import org.worldgrower.deity.UTestDemeter;
 import org.worldgrower.deity.UTestDionysus;
 import org.worldgrower.deity.UTestHades;
+import org.worldgrower.deity.UTestHephaestus;
+import org.worldgrower.deity.UTestHermes;
 import org.worldgrower.generator.UTestBeastOnTurn;
 import org.worldgrower.generator.UTestBerryBushOnTurn;
 import org.worldgrower.generator.UTestBuildingGenerator;
@@ -480,7 +485,12 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestAres.class,
 	UTestAphrodite.class,
 	UTestDemeter.class,
-	UTestHades.class
+	UTestHades.class,
+	UTestHermes.class,
+	UTestAthena.class,
+	UTestHephaestus.class,
+	UTestArtemis.class,
+	UTestApollo.class
 })
 public class CompleteTestSuite {
 }
