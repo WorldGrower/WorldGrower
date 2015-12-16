@@ -108,6 +108,7 @@ import org.worldgrower.conversation.UTestWhyAngryConversation;
 import org.worldgrower.conversation.UTestWhyAngryOtherConversation;
 import org.worldgrower.conversation.UTestWhyNotIntelligentConversation;
 import org.worldgrower.conversation.leader.UTestCanAttackCriminalsConversation;
+import org.worldgrower.conversation.leader.UTestCanCollectTaxesConversation;
 import org.worldgrower.conversation.leader.UTestSetHouseTaxRateConversation;
 import org.worldgrower.conversation.leader.UTestSetShackTaxRateConversation;
 import org.worldgrower.deity.UTestApollo;
@@ -490,7 +491,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestAthena.class,
 	UTestHephaestus.class,
 	UTestArtemis.class,
-	UTestApollo.class
+	UTestApollo.class,
+	UTestCanCollectTaxesConversation.class
 })
 public class CompleteTestSuite {
 }

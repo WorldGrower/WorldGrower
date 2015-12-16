@@ -29,6 +29,7 @@ import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdRelationshipMap;
 import org.worldgrower.conversation.ConversationContext;
 import org.worldgrower.conversation.Conversations;
+import org.worldgrower.conversation.Question;
 import org.worldgrower.conversation.Response;
 import org.worldgrower.goal.GroupPropertyUtils;
 
@@ -58,6 +59,42 @@ public class UTestCanAttackCriminalsConversation {
 				
 		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
 		assertEquals(0, conversation.getReplyPhrase(context).getId());
+	}
+	
+	@Test
+	public void testGetQuestionPhrases() {
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.NAME, "performer");
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.NAME, "target");
+		
+		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, null, null);
+		assertEquals(1, questions.size());
+		assertEquals("I'd like permission to attack criminals and uphold the law. In short, I want to be a sheriff. Is that ok?", questions.get(0).getQuestionPhrase());
+	}
+	
+	@Test
+	public void testIsConversationAvailable() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(2, Constants.NAME, "performer");
+		WorldObject target = TestUtils.createIntelligentWorldObject(3, Constants.NAME, "target");
+		
+		WorldObject organization = createVillagersOrganization(world);
+		
+		assertEquals(false,  conversation.isConversationAvailable(performer, target, null, world));
+		
+		organization.setProperty(Constants.ORGANIZATION_LEADER_ID, target.getProperty(Constants.ID));
+		assertEquals(true,  conversation.isConversationAvailable(performer, target, null, world));
+	}
+	
+	@Test
+	public void testHandleResponse0() {
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		assertEquals(null, performer.getProperty(Constants.CAN_ATTACK_CRIMINALS));
+		
+		ConversationContext context = new ConversationContext(performer, target, null, null, null, 0);
+		
+		conversation.handleResponse(0, context);
+		assertEquals(Boolean.TRUE, performer.getProperty(Constants.CAN_ATTACK_CRIMINALS));
 	}
 
 	private WorldObject createVillagersOrganization(World world) {

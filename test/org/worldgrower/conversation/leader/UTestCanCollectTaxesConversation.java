@@ -33,9 +33,9 @@ import org.worldgrower.conversation.Question;
 import org.worldgrower.conversation.Response;
 import org.worldgrower.goal.GroupPropertyUtils;
 
-public class UTestSetShackTaxRateConversation {
+public class UTestCanCollectTaxesConversation {
 
-	private final SetShackTaxRateConversation conversation = Conversations.SET_SHACK_TAX_RATE_CONVERSATION;
+	private final CanCollectTaxesConversation conversation = Conversations.CAN_COLLECT_TAXES_CONVERSATION;
 	
 	@Test
 	public void testGetReplyPhrases() {
@@ -45,8 +45,8 @@ public class UTestSetShackTaxRateConversation {
 		ConversationContext context = new ConversationContext(performer, target, null, null, null, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
 		assertEquals(2, replyPhrases.size());
-		assertEquals("Ok", replyPhrases.get(0).getResponsePhrase());
-		assertEquals("That's not possible", replyPhrases.get(1).getResponsePhrase());
+		assertEquals("Yes, you may collect taxes", replyPhrases.get(0).getResponsePhrase());
+		assertEquals("No, you may not collect taxes", replyPhrases.get(1).getResponsePhrase());
 	}
 	
 	@Test
@@ -63,15 +63,12 @@ public class UTestSetShackTaxRateConversation {
 	
 	@Test
 	public void testGetQuestionPhrases() {
-		World world = new WorldImpl(0, 0, null, new DoNothingWorldOnTurn());
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.NAME, "performer");
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.NAME, "target");
 		
-		createVillagersOrganization(world);
-		
-		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, null, world);
-		assertEquals(true, questions.size() > 0);
-		assertEquals("I want to change the shack tax rate from 0 to 1 gold pieces per 100 turns", questions.get(0).getQuestionPhrase());
+		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, null, null);
+		assertEquals(1, questions.size());
+		assertEquals("I'd like permission to collect taxes. Is that ok?", questions.get(0).getQuestionPhrase());
 	}
 	
 	@Test
@@ -84,21 +81,20 @@ public class UTestSetShackTaxRateConversation {
 		
 		assertEquals(false,  conversation.isConversationAvailable(performer, target, null, world));
 		
-		organization.setProperty(Constants.ORGANIZATION_LEADER_ID, performer.getProperty(Constants.ID));
+		organization.setProperty(Constants.ORGANIZATION_LEADER_ID, target.getProperty(Constants.ID));
 		assertEquals(true,  conversation.isConversationAvailable(performer, target, null, world));
 	}
 	
 	@Test
 	public void testHandleResponse0() {
-		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		assertEquals(null, performer.getProperty(Constants.CAN_COLLECT_TAXES));
 		
-		WorldObject organization = createVillagersOrganization(world);
-		ConversationContext context = new ConversationContext(performer, target, null, null, world, 10);
+		ConversationContext context = new ConversationContext(performer, target, null, null, null, 0);
 		
 		conversation.handleResponse(0, context);
-		assertEquals(10, organization.getProperty(Constants.SHACK_TAX_RATE).intValue());
+		assertEquals(Boolean.TRUE, performer.getProperty(Constants.CAN_COLLECT_TAXES));
 	}
 
 	private WorldObject createVillagersOrganization(World world) {

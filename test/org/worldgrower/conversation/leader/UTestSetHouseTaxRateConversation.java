@@ -73,6 +73,33 @@ public class UTestSetHouseTaxRateConversation {
 		assertEquals(true, questions.size() > 0);
 		assertEquals("I want to change the house tax rate from 0 to 1 gold pieces per 100 turns", questions.get(0).getQuestionPhrase());
 	}
+	
+	@Test
+	public void testIsConversationAvailable() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(2, Constants.NAME, "performer");
+		WorldObject target = TestUtils.createIntelligentWorldObject(3, Constants.NAME, "target");
+		
+		WorldObject organization = createVillagersOrganization(world);
+		
+		assertEquals(false,  conversation.isConversationAvailable(performer, target, null, world));
+		
+		organization.setProperty(Constants.ORGANIZATION_LEADER_ID, performer.getProperty(Constants.ID));
+		assertEquals(true,  conversation.isConversationAvailable(performer, target, null, world));
+	}
+	
+	@Test
+	public void testHandleResponse0() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		
+		WorldObject organization = createVillagersOrganization(world);
+		ConversationContext context = new ConversationContext(performer, target, null, null, world, 10);
+		
+		conversation.handleResponse(0, context);
+		assertEquals(10, organization.getProperty(Constants.HOUSE_TAX_RATE).intValue());
+	}
 
 	private WorldObject createVillagersOrganization(World world) {
 		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
