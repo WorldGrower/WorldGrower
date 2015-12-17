@@ -26,6 +26,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.deity.Deity;
+import org.worldgrower.profession.Professions;
 
 public class UTestKnowledgeMap {
 
@@ -36,6 +37,25 @@ public class UTestKnowledgeMap {
 		
 		assertEquals(true, knowledgeMap.hasKnowledge());
 		assertEquals(true, knowledgeMap.hasProperty(1, Constants.FOOD));
+	}
+	
+	@Test
+	public void testSwitchProfession() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject subject = TestUtils.createWorldObject(1, "Test");
+		world.addWorldObject(subject);
+		
+		KnowledgeMap knowledgeMap = new KnowledgeMap();
+		knowledgeMap.addKnowledge(subject, Constants.PROFESSION, Professions.FARMER_PROFESSION);
+		
+		PropertyKnowledge expectedKnowledge = new PropertyKnowledge(1, Constants.PROFESSION, Professions.FARMER_PROFESSION);
+		assertEquals(Arrays.asList(expectedKnowledge), knowledgeMap.getKnowledge(subject));
+		
+		
+		knowledgeMap.addKnowledge(subject, Constants.PROFESSION, Professions.FISHER_PROFESSION);
+		
+		expectedKnowledge = new PropertyKnowledge(1, Constants.PROFESSION, Professions.FISHER_PROFESSION);
+		assertEquals(Arrays.asList(expectedKnowledge), knowledgeMap.getKnowledge(subject));
 	}
 	
 	@Test
