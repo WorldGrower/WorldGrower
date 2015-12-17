@@ -122,4 +122,5 @@ public class Goals {
 	public static final CreatePoisonGoal CREATE_POISON_GOAL = new CreatePoisonGoal(ALL_GOALS);
 	public static final RecruitProfessionOrganizationMembersGoal RECRUIT_PROFESSION_ORGANIZATION_MEMBERS_GOAL = new RecruitProfessionOrganizationMembersGoal(ALL_GOALS);
 	public static final MarkClothesAsSellableGoal MARK_CLOTHES_AS_SELLABLE_GOAL = new MarkClothesAsSellableGoal(ALL_GOALS);
+	public static final CreateNewsPaperGoal CREATE_NEWS_PAPER_GOAL = new CreateNewsPaperGoal(ALL_GOALS);
 }

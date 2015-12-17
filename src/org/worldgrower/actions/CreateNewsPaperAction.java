@@ -83,4 +83,8 @@ public class CreateNewsPaperAction implements ManagedOperation {
 	public ImageIds getImageIds() {
 		return ImageIds.NEWS_PAPER;
 	}
+	
+	public static boolean hasEnoughPaper(WorldObject performer) {
+		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.PAPER) >= PAPER_REQUIRED;
+	}
 }

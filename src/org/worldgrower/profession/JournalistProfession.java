@@ -24,30 +24,27 @@ import org.worldgrower.generator.Item;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
 
-public class FarmerProfession implements Profession {
+public class JournalistProfession implements Profession {
 
-	public FarmerProfession(List<Profession> allProfessions) {
+	public JournalistProfession(List<Profession> allProfessions) {
 		allProfessions.add(this);
 	}
 
 	@Override
 	public String getDescription() {
-		return "farmer";
+		return "journalist";
 	}
 
 	@Override
 	public List<Goal> getProfessionGoals() {
 		return Arrays.asList(
-				Goals.GATHER_FOOD_GOAL,
-				Goals.MARK_FOOD_AS_SELLABLE_GOAL,
-				Goals.CREATE_FOOD_SOURCES_GOAL,
-				Goals.CREATE_WINE_GOAL
+				Goals.CREATE_NEWS_PAPER_GOAL
 				);
 	}
 
 	@Override
 	public SkillProperty getSkillProperty() {
-		return Constants.FARMING_SKILL;
+		return Constants.DIPLOMACY_SKILL;
 	}
 	
 	public Object readResolve() throws ObjectStreamException {
@@ -66,6 +63,6 @@ public class FarmerProfession implements Profession {
 
 	@Override
 	public List<Item> getSellItems() {
-		return Arrays.asList(Item.BERRIES, Item.MEAT);
+		return Arrays.asList(Item.NEWS_PAPER);
 	}
 }
