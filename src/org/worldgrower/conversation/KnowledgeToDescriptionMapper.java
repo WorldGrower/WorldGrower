@@ -28,40 +28,44 @@ import org.worldgrower.profession.Profession;
 
 public class KnowledgeToDescriptionMapper {
 
-	public String getDescription(Knowledge knowledge, World world) {
+	public String getQuestionDescription(Knowledge knowledge, World world) {
+		return "Did you know that " + getDescription(knowledge, world) + "?";
+	}
+
+	private String getDescription(Knowledge knowledge, World world) {
 		if (knowledge instanceof PropertyKnowledge) {
 			PropertyKnowledge propertyKnowledge = (PropertyKnowledge) knowledge;
 			ManagedProperty<?> property = propertyKnowledge.getManagedProperty();
 			Object value = propertyKnowledge.getValue();
 			if (property == Constants.DEATH_REASON) {
-				return "Did you know that " + value + "?";
+				return (String)value;
 			}
 			
 			WorldObject subject = world.findWorldObject(Constants.ID, knowledge.getSubjectId());
 			if (BuildingGenerator.isWell(subject) && property == Constants.POISON_DAMAGE) {
-				return "Did you know the well is poisoned?";
+				return "the well is poisoned";
 			} else if (property == Constants.CHILD_BIRTH_ID) {
 				WorldObject child = world.findWorldObject(Constants.ID, (Integer) value);
-				return "Did you know that " + subject.getProperty(Constants.NAME) + " gave birth to " + child.getProperty(Constants.NAME) + "?";
+				return subject.getProperty(Constants.NAME) + " gave birth to " + child.getProperty(Constants.NAME);
 			} else if (property == Constants.DEITY) {
 				if (value != null) {
-					return "Did you know " + subject.getProperty(Constants.NAME) + " worships " + ((Deity) value).getName() + "?";
+					return subject.getProperty(Constants.NAME) + " worships " + ((Deity) value).getName();
 				} else {
-					return "Did you know " + subject.getProperty(Constants.NAME) + " doesn't worship a deity?";
+					return subject.getProperty(Constants.NAME) + " doesn't worship a deity";
 				}
 			} else if (property == Constants.PROFESSION) {
 				if (value != null) {
-					return "Did you know " + subject.getProperty(Constants.NAME) + " is a " + ((Profession) value).getDescription() + "?";
+					return subject.getProperty(Constants.NAME) + " is a " + ((Profession) value).getDescription();
 				} else {
-					return "Did you know " + subject.getProperty(Constants.NAME) + " doesn't have a profession?";
+					return subject.getProperty(Constants.NAME) + " doesn't have a profession";
 				}
 			} else if (property == Constants.ORGANIZATION_LEADER_ID) {
 				if (value != null) {
 					int leaderId = (Integer) value;
 					WorldObject leader = world.findWorldObject(Constants.ID, leaderId);
-					return "Did you know that " + leader.getProperty(Constants.NAME) + " is the leader of the " + subject.getProperty(Constants.NAME) + "?";
+					return leader.getProperty(Constants.NAME) + " is the leader of the " + subject.getProperty(Constants.NAME);
 				} else {
-					return "Did you know the " + subject.getProperty(Constants.NAME) + " doesn't have a leader?";
+					return subject.getProperty(Constants.NAME) + " doesn't have a leader";
 				}
 			} else {
 				throw new IllegalStateException("No mapping found for property " + property + " and value " + value);
@@ -70,9 +74,13 @@ public class KnowledgeToDescriptionMapper {
 			EventKnowledge eventKnowledge = (EventKnowledge) knowledge;
 			int historyId = eventKnowledge.getHistoryId();
 			HistoryItem historyItem = world.getHistory().getHistoryItem(historyId);
-			return "Did you know " + historyItem.getOperationInfo().getThirdPersonDescription(world) + "?";
+			return historyItem.getOperationInfo().getThirdPersonDescription(world);
 		} else {
 			throw new IllegalStateException("No mapping found for knowledge " + knowledge);
 		}
+	}
+	
+	public String getStatementDescription(Knowledge knowledge, World world) {
+		return getDescription(knowledge, world);
 	}
 }
