@@ -22,6 +22,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.CreateNewsPaperAction;
+import org.worldgrower.attribute.Knowledge;
 
 public class CreateNewsPaperGoal implements Goal {
 
@@ -32,8 +33,11 @@ public class CreateNewsPaperGoal implements Goal {
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		
-		if (CreateNewsPaperAction.hasEnoughPaper(performer)) {
-			int[] args = null;
+		List<Knowledge> sortedPerformerKnowledge = performer.getProperty(Constants.KNOWLEDGE_MAP).getSortedKnowledge(performer, world);
+		if (sortedPerformerKnowledge.size() < 5) {
+			return null;
+		} else if (CreateNewsPaperAction.hasEnoughPaper(performer)) {
+			int[] args = KnowledgePropertyUtils.createArgs(sortedPerformerKnowledge, 5);
 			return new OperationInfo(performer, performer, args, Actions.CREATE_NEWS_PAPER_ACTION);
 		} else {
 			return Goals.PAPER_GOAL.calculateGoal(performer, world);

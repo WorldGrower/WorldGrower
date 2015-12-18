@@ -46,4 +46,12 @@ public class KnowledgePropertyUtils {
 		}
 		throw new IllegalStateException("Id " + id + " not found in " + knowledgeList);
 	}
+	
+	public static int[] createArgs(List<Knowledge> sortedKnowledge, int count) {
+		int[] result = new int[count];
+		for(int i=0; i<count; i++) {
+			result[i] = sortedKnowledge.get(i).getId();
+		}
+		return result;
+	}
 }

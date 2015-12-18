@@ -492,7 +492,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestHephaestus.class,
 	UTestArtemis.class,
 	UTestApollo.class,
-	UTestCanCollectTaxesConversation.class
+	UTestCanCollectTaxesConversation.class,
+	UTestKnowledgePropertyUtils.class
 })
 public class CompleteTestSuite {
 }
