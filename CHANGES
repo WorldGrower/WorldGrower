@@ -1,3 +1,10 @@
+v0.2.4
+- introduce InventoryActions to allow actions on specific inventory items
+- fix typos in tutorial and change inventory actions in tutorial
+- add death knowledge
+- conditions are no longer shared between WorldObject and illusion of it
+- fix knowledge descriptions: no more questions when creating newspaper
+
 v0.2.3
 - add organization leader knowledge
 - add newspaper item
