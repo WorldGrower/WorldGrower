@@ -38,7 +38,8 @@ public class JournalistProfession implements Profession {
 	@Override
 	public List<Goal> getProfessionGoals() {
 		return Arrays.asList(
-				Goals.CREATE_NEWS_PAPER_GOAL
+				Goals.CREATE_NEWS_PAPER_GOAL,
+				Goals.SELL_NEWS_PAPER_GOAL
 				);
 	}
 

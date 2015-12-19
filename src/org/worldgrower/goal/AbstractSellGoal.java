@@ -21,12 +21,12 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.attribute.IntProperty;
+import org.worldgrower.attribute.ManagedProperty;
 public abstract class AbstractSellGoal implements Goal {
 
-	private final IntProperty propertyToSell;
+	private final ManagedProperty<?> propertyToSell;
 	
-	public AbstractSellGoal(IntProperty propertyToSell) {
+	public AbstractSellGoal(ManagedProperty<?> propertyToSell) {
 		this.propertyToSell = propertyToSell;
 	}
 
