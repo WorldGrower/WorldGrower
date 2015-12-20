@@ -37,6 +37,7 @@ import org.worldgrower.gui.ImageIds;
 public enum Item {
 	IRON_CLAYMORE, IRON_GREATSWORD, IRON_AXE, IRON_GREATAXE, IRON_CUIRASS, IRON_HELMET, IRON_GAUNTLETS, IRON_GREAVES, IRON_SHIELD, IRON_BOOTS, BERRIES, GRAPES, WINE, LONGBOW, PAPER, WATER, MEAT, SPELLBOOK, KEY, NIGHT_SHADE, POISON, COTTON, COTTON_SHIRT, COTTON_HAT, COTTON_BOOTS, COTTON_GLOVES, COTTON_PANTS, BED, OIL, FISHING_POLE, FISH, REPAIR_HAMMER, WOOD, STONE, GOLD, ORE, SOUL_GEM, NEWS_PAPER;
 
+	public static final String NEWS_PAPER_NAME = "news paper";
 	private static final String IRON_CLAYMORE_NAME = "Iron Claymore";
 	private static final String IRON_AXE_NAME = "Iron Axe";
 	private static final String IRON_GREATSWORD_NAME = "Iron Greatsword";
@@ -465,7 +466,7 @@ public enum Item {
 		
 		addItem(Item.NEWS_PAPER, skillBonus -> {
 			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
-			properties.put(Constants.NAME, "news paper");
+			properties.put(Constants.NAME, NEWS_PAPER_NAME);
 			properties.put(Constants.PRICE, 1);
 			properties.put(Constants.SELLABLE, false);
 			properties.put(Constants.WEIGHT, 1);

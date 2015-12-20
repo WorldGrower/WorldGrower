@@ -250,5 +250,31 @@ public class KnowledgeMap implements IdContainer, Serializable {
 				addKnowledge(knowledgeList, knowledge);
 			}
 		}
+	}
+
+	public boolean hasKnowledge(int subjectId, int knowledgeId) {
+		List<Knowledge> knowledgeList = idsToKnowledge.get(subjectId);
+		for(Knowledge knowledge : knowledgeList) {
+			if (knowledge.getId() == knowledgeId) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean hasAllKnowledge(KnowledgeMap otherKnowledgeMap) {
+		for(Entry<Integer, List<Knowledge>> entry : otherKnowledgeMap.idsToKnowledge.entrySet()) {
+			int subjectId = entry.getKey();
+			
+			List<Knowledge> knowledgeList = entry.getValue();
+			if (knowledgeList != null) {
+				for(Knowledge knowledge : knowledgeList) {
+					if (!hasKnowledge(subjectId, knowledge.getId())) {
+						return false;
+					}
+				}
+			}
+		}
+		return true;
 	}	
 }
