@@ -83,7 +83,10 @@ public class ReadNewsPaperGoal implements Goal {
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
 		int performerGold = performer.getProperty(Constants.GOLD);
-		return performerGold < 100;
+		Integer newspaperReadTurnInt = performer.getProperty(Constants.NEWSPAPER_READ_TURN);
+		int newspaperReadTurn = (newspaperReadTurnInt != null ? newspaperReadTurnInt.intValue() : 0);
+		int currentTurn = world.getCurrentTurn().getValue();
+		return (performerGold < 100) || (currentTurn - newspaperReadTurn < 500);
 	}
 	
 	@Override

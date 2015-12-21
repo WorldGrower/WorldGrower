@@ -252,11 +252,13 @@ public class KnowledgeMap implements IdContainer, Serializable {
 		}
 	}
 
-	public boolean hasKnowledge(int subjectId, int knowledgeId) {
+	boolean hasKnowledge(int subjectId, Knowledge knowledgeToFind) {
 		List<Knowledge> knowledgeList = idsToKnowledge.get(subjectId);
-		for(Knowledge knowledge : knowledgeList) {
-			if (knowledge.getId() == knowledgeId) {
-				return true;
+		if (knowledgeList != null) {
+			for(Knowledge knowledge : knowledgeList) {
+				if (knowledge.refersToSameKnowledge(knowledgeToFind)) {
+					return true;
+				}
 			}
 		}
 		return false;
@@ -269,7 +271,7 @@ public class KnowledgeMap implements IdContainer, Serializable {
 			List<Knowledge> knowledgeList = entry.getValue();
 			if (knowledgeList != null) {
 				for(Knowledge knowledge : knowledgeList) {
-					if (!hasKnowledge(subjectId, knowledge.getId())) {
+					if (!hasKnowledge(subjectId, knowledge)) {
 						return false;
 					}
 				}

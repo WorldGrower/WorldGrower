@@ -30,6 +30,7 @@ public class ReadItemInInventoryAction extends InventoryAction {
 		WorldObject textTarget = performer.getProperty(Constants.INVENTORY).get(inventoryIndex);
 
 		performer.getProperty(Constants.KNOWLEDGE_MAP).add(textTarget.getProperty(Constants.KNOWLEDGE_MAP));
+		performer.setProperty(Constants.NEWSPAPER_READ_TURN, world.getCurrentTurn().getValue());
 		
 		world.logAction(this, performer, target, args, textTarget.getProperty(Constants.TEXT));
 	}

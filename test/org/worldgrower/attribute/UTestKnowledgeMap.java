@@ -26,6 +26,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.deity.Deity;
+import org.worldgrower.generator.Item;
 import org.worldgrower.profession.Professions;
 
 public class UTestKnowledgeMap {
@@ -179,5 +180,35 @@ public class UTestKnowledgeMap {
 				new PropertyKnowledge(1, Constants.WATER, 500)
 				);
 		assertEquals(expectedKnowledge, knowledgeMap.getKnowledge(TestUtils.createIntelligentWorldObject(1, "")));
+	}
+	
+	@Test
+	public void testHasKnowledgeByIds() {
+		KnowledgeMap knowledgeMap = new KnowledgeMap();
+		WorldObject performer = TestUtils.createIntelligentWorldObject(2, Constants.FOOD, 500);
+		Knowledge knowledge = new PropertyKnowledge(performer.getProperty(Constants.ID), Constants.FOOD, 500);
+		Knowledge otherKnowledge = new PropertyKnowledge(performer.getProperty(Constants.ID), Constants.WATER, 500);
+		knowledgeMap.addKnowledge(performer, knowledge);
+		
+		assertEquals(true, knowledgeMap.hasKnowledge(performer.getProperty(Constants.ID), knowledge));
+		assertEquals(false, knowledgeMap.hasKnowledge(performer.getProperty(Constants.ID)+1, knowledge));
+		assertEquals(false, knowledgeMap.hasKnowledge(performer.getProperty(Constants.ID), otherKnowledge));
+	}
+	
+	@Test
+	public void testHasAllKnowledge() {
+		KnowledgeMap knowledgeMap = new KnowledgeMap();
+		KnowledgeMap otherKnowledgeMap = new KnowledgeMap();
+		assertEquals(true, knowledgeMap.hasAllKnowledge(otherKnowledgeMap));
+		
+		Knowledge knowledge = new PropertyKnowledge(1, Constants.FOOD, 500);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(2, Constants.FOOD, 500);
+		knowledgeMap.addKnowledge(performer, knowledge);
+		otherKnowledgeMap.addKnowledge(performer, knowledge);
+		assertEquals(true, knowledgeMap.hasAllKnowledge(otherKnowledgeMap));
+		
+		Knowledge otherKnowledge = new PropertyKnowledge(1, Constants.WATER, 500);
+		otherKnowledgeMap.addKnowledge(performer, otherKnowledge);
+		assertEquals(false, knowledgeMap.hasAllKnowledge(otherKnowledgeMap));
 	}
 }

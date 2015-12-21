@@ -520,18 +520,18 @@ public enum Item {
 		return key;
 	}
 	
-	public static WorldObject generateNewsPaper(List<Knowledge> knowledgeList, int[] knowledgeIds, World world) {
+	public static WorldObject generateNewsPaper(List<Knowledge> knowledgeList, int[] knowledgeIndices, World world) {
 		WorldObject newsPaper = Item.NEWS_PAPER.generate(1f);
-		String newsPaperText = generateNewsPaperText(knowledgeList, knowledgeIds, world);
+		String newsPaperText = generateNewsPaperText(knowledgeList, knowledgeIndices, world);
 		newsPaper.setProperty(Constants.TEXT, newsPaperText.toString());
 		newsPaper.setProperty(Constants.KNOWLEDGE_MAP, new KnowledgeMap(knowledgeList));
 		return newsPaper;
 	}
 
-	private static String generateNewsPaperText(List<Knowledge> knowledgeList, int[] knowledgeIds, World world) {
+	private static String generateNewsPaperText(List<Knowledge> knowledgeList, int[] knowledgeIndices, World world) {
 		StringBuilder builder = new StringBuilder();
 		KnowledgeToDescriptionMapper mapper = new KnowledgeToDescriptionMapper();
-		List<Integer> knowledgeInts = IntStream.of(knowledgeIds).boxed().collect(Collectors.toList());
+		List<Integer> knowledgeInts = IntStream.of(knowledgeIndices).boxed().collect(Collectors.toList());
 		for(int i=0; i<knowledgeList.size(); i++) {
 			if (knowledgeInts.contains(i)) {
 				Knowledge knowledge = knowledgeList.get(i);

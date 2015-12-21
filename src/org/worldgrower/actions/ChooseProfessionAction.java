@@ -56,7 +56,8 @@ public class ChooseProfessionAction implements ManagedOperation {
 			new ProfessionInfo(Professions.NECROMANCER_PROFESSION, 0.8, 0.8, 1.0, 1.4, 1.1, 0.9),
 			new ProfessionInfo(Professions.FISHER_PROFESSION, 0.8, 1.0, 0.8, 1.0, 1.4, 1.1),
 			new ProfessionInfo(Professions.ARENA_OWNER_PROFESSION, 0.8, 0.8, 0.8, 1.1, 1.1, 1.4),
-			new ProfessionInfo(Professions.ARENA_FIGHTER_PROFESSION, 1.4, 1.4, 0.8, 0.8, 0.8, 0.8)
+			new ProfessionInfo(Professions.ARENA_FIGHTER_PROFESSION, 1.4, 1.4, 0.8, 0.8, 0.8, 0.8),
+			new ProfessionInfo(Professions.JOURNALIST_PROFESSION, 0.8, 0.8, 0.8, 1.2, 1.2, 1.4)
 			);
 	
 	@Override
@@ -284,6 +285,12 @@ public class ChooseProfessionAction implements ManagedOperation {
 			result.add(new ProfessionEvaluation(Professions.THIEF_PROFESSION, Integer.MIN_VALUE));
 		} else {
 			result.add(new ProfessionEvaluation(Professions.THIEF_PROFESSION, 0));
+		}
+		
+		if (populationCount < 20) {
+			result.add(new ProfessionEvaluation(Professions.JOURNALIST_PROFESSION, Integer.MIN_VALUE));
+		} else {
+			result.add(new ProfessionEvaluation(Professions.JOURNALIST_PROFESSION, -1));
 		}
 		
 		return result;
