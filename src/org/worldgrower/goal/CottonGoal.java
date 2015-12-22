@@ -49,13 +49,7 @@ public class CottonGoal implements Goal {
 	
 	@Override
 	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
-		if (performer.hasProperty(Constants.DEMANDS)) {
-			if (goalMet) {
-				performer.getProperty(Constants.DEMANDS).remove(Constants.COTTON);
-			} else {
-				performer.getProperty(Constants.DEMANDS).add(Constants.COTTON, 1);
-			}
-		}
+		defaultGoalMetOrNot(performer, world, goalMet, Constants.COTTON);
 	}
 
 	@Override

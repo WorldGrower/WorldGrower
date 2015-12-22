@@ -21,38 +21,31 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.actions.ConstructTrainingDummyAction;
-import org.worldgrower.generator.BuildingGenerator;
 
-public class TrainGoal implements Goal {
+public class WineGoal implements Goal {
 
-	public TrainGoal(List<Goal> allGoals) {
+	public WineGoal(List<Goal> allGoals) {
 		allGoals.add(this);
 	}
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.MELEE_ATTACK_ACTION, w -> BuildingGenerator.isTrainingDummy(w), world);
+		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.ALCOHOL_LEVEL, world);
 		if (targets.size() > 0) {
-			return new OperationInfo(performer, targets.get(0), new int[] { 0 }, Actions.MELEE_ATTACK_ACTION);
+			return new OperationInfo(performer, targets.get(0), new int[] { targets.get(0).getProperty(Constants.INVENTORY).getIndexFor(Constants.ALCOHOL_LEVEL), 5 }, Actions.BUY_ACTION);
 		} else {
-			if (!ConstructTrainingDummyAction.hasEnoughWood(performer)) {
-				return Goals.WOOD_GOAL.calculateGoal(performer, world);
-			} else {
-				WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 2, 3, world);
-				return new OperationInfo(performer, target, new int[0], Actions.CONSTRUCT_TRAINING_DUMMY_ACTION);
-			}
+			return Goals.CREATE_WINE_GOAL.calculateGoal(performer, world);
 		}
 	}
 	
 	@Override
 	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
-		defaultGoalMetOrNot(performer, world, goalMet, Constants.ORE);
+		defaultGoalMetOrNot(performer, world, goalMet, Constants.ALCOHOL_LEVEL);
 	}
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		return Constants.HAND_TO_HAND_SKILL.getLevel(performer) > 15;
+		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.ALCOHOL_LEVEL) > 5;
 	}
 	
 	@Override
@@ -62,11 +55,11 @@ public class TrainGoal implements Goal {
 
 	@Override
 	public String getDescription() {
-		return "training";
+		return "obtaining wine";
 	}
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		return 0;
+		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.ALCOHOL_LEVEL);
 	}
 }

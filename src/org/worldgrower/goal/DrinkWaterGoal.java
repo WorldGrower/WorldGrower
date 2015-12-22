@@ -69,13 +69,7 @@ public class DrinkWaterGoal implements Goal {
 	
 	@Override
 	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
-		if (performer.hasProperty(Constants.DEMANDS)) {
-			if (goalMet) {
-				performer.getProperty(Constants.DEMANDS).remove(Constants.WATER);
-			} else {
-				performer.getProperty(Constants.DEMANDS).add(Constants.WATER, 1);
-			}
-		}
+		defaultGoalMetOrNot(performer, world, goalMet, Constants.WATER);
 	}
 
 	@Override

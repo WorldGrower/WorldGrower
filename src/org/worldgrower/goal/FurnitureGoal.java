@@ -53,13 +53,7 @@ public class FurnitureGoal implements Goal {
 	
 	@Override
 	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
-		if (performer.hasProperty(Constants.DEMANDS)) {
-			if (goalMet) {
-				performer.getProperty(Constants.DEMANDS).remove(Constants.SLEEP_COMFORT);
-			} else {
-				performer.getProperty(Constants.DEMANDS).add(Constants.SLEEP_COMFORT, 1);
-			}
-		}
+		defaultGoalMetOrNot(performer, world, goalMet, Constants.SLEEP_COMFORT);
 	}
 
 	@Override

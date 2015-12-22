@@ -45,13 +45,7 @@ public class FishingPoleGoal implements Goal {
 	
 	@Override
 	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
-		if (performer.hasProperty(Constants.DEMANDS)) {
-			if (goalMet) {
-				performer.getProperty(Constants.DEMANDS).remove(Constants.FISHING_POLE_QUALITY);
-			} else {
-				performer.getProperty(Constants.DEMANDS).add(Constants.FISHING_POLE_QUALITY, 1);
-			}
-		}
+		defaultGoalMetOrNot(performer, world, goalMet, Constants.FISHING_POLE_QUALITY);
 	}
 
 	@Override

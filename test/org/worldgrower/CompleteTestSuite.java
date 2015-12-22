@@ -55,6 +55,7 @@ import org.worldgrower.attribute.UTestSkill;
 import org.worldgrower.attribute.UTestSkillUtils;
 import org.worldgrower.attribute.UTestWorldObjectProperties;
 import org.worldgrower.condition.UTestConditions;
+import org.worldgrower.condition.UTestGhoulUtils;
 import org.worldgrower.condition.UTestIntoxicatedCondition;
 import org.worldgrower.condition.UTestSoulTrappedCondition;
 import org.worldgrower.condition.UTestVampireBiteCondition;
@@ -495,7 +496,11 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestCanCollectTaxesConversation.class,
 	UTestKnowledgePropertyUtils.class,
 	UTestReadNewsPaperGoal.class,
-	UTestCreateNewsPaperGoal.class
+	UTestCreateNewsPaperGoal.class,
+	UTestWineGoal.class,
+	UTestGoal.class,
+	UTestVampireBiteAction.class,
+	UTestGhoulUtils.class
 })
 public class CompleteTestSuite {
 }

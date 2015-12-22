@@ -16,9 +16,11 @@ package org.worldgrower.goal;
 
 import java.io.Serializable;
 
+import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.ManagedProperty;
 
 /**
  * A Goal describes something a non-player character wants to achieve.
@@ -32,4 +34,14 @@ public interface Goal extends Serializable {
 	
 	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet);
 	public int evaluate(WorldObject performer, World world);
+	
+	public default void defaultGoalMetOrNot(WorldObject performer, World world, boolean goalMet, ManagedProperty<?> property) {
+		if (performer.hasProperty(Constants.DEMANDS)) {
+			if (goalMet) {
+				performer.getProperty(Constants.DEMANDS).remove(property);
+			} else {
+				performer.getProperty(Constants.DEMANDS).add(property, 1);
+			}
+		}
+	}
 }
