@@ -14,10 +14,15 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.DeadlyAction;
+import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.DeadlyCondition;
 
 public class DeathReasonPropertyUtils {
@@ -37,5 +42,13 @@ public class DeathReasonPropertyUtils {
 	private static void setDeathReason(WorldObject target, String reason, World world) {
 		target.setProperty(Constants.DEATH_REASON, reason);
 		KnowledgeMapPropertyUtils.everyoneInVicinityKnowsOfProperty(target, target, Constants.DEATH_REASON, reason, world);
+	}
+	
+	public static List<String> getAllDeathReasons() {
+		List<String> allDeathReasons = new ArrayList<>();
+		allDeathReasons.addAll(Actions.getDeadlyActionDescriptions());
+		allDeathReasons.addAll(Condition.getDeadlyConditions());
+		allDeathReasons.add("drowning");
+		return allDeathReasons;
 	}
 }

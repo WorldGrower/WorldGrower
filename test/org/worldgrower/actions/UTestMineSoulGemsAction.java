@@ -41,6 +41,20 @@ public class UTestMineSoulGemsAction {
 		assertEquals(999, target.getProperty(Constants.SOUL_GEM_SOURCE).intValue());
 	}
 	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		int stoneResourceId = TerrainGenerator.generateStoneResource(0, 0, world);
+		WorldObject target = world.findWorldObject(Constants.ID, stoneResourceId);
+		
+		assertEquals(true, Actions.MINE_SOUL_GEMS_ACTION.isValidTarget(performer, target, world));
+		assertEquals(false, Actions.MINE_SOUL_GEMS_ACTION.isValidTarget(performer, performer, world));
+		
+		target.setProperty(Constants.SOUL_GEM_SOURCE, 0);
+		assertEquals(false, Actions.MINE_SOUL_GEMS_ACTION.isValidTarget(performer, target, world));
+	}
+	
 	private WorldObject createPerformer(int id) {
 		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.X, 0);

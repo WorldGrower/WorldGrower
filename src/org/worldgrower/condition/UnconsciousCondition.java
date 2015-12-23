@@ -14,12 +14,18 @@
  *******************************************************************************/
 package org.worldgrower.condition;
 
+import java.util.List;
+
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 
 public class UnconsciousCondition implements Condition {
+
+	public UnconsciousCondition(List<Condition> allConditions) {
+		allConditions.add(this);
+	}
 
 	@Override
 	public boolean canTakeAction() {

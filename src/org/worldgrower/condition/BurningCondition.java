@@ -24,6 +24,10 @@ import org.worldgrower.WorldObject;
 
 public class BurningCondition implements DeadlyCondition {
 
+	public BurningCondition(List<Condition> allConditions) {
+		allConditions.add(this);
+	}
+
 	@Override
 	public boolean canTakeAction() {
 		return true;

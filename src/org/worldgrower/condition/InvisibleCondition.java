@@ -14,11 +14,17 @@
  *******************************************************************************/
 package org.worldgrower.condition;
 
+import java.util.List;
+
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 
 public class InvisibleCondition implements Condition {
+
+	public InvisibleCondition(List<Condition> allConditions) {
+		allConditions.add(this);
+	}
 
 	@Override
 	public boolean canTakeAction() {

@@ -16,6 +16,7 @@ package org.worldgrower.actions;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -209,6 +210,7 @@ public class Actions {
 	public static final BuildInnAction BUILD_INN_ACTION = new BuildInnAction();
 	public static final CreateNewsPaperAction CREATE_NEWS_PAPER_ACTION = new CreateNewsPaperAction();
 	public static final ReadItemInInventoryAction READ_ITEM_IN_INVENTORY_ACTION = new ReadItemInInventoryAction();
+	public static final ObfuscateDeathReasonAction OBFUSCATE_DEATH_REASON_ACTION = new ObfuscateDeathReasonAction();
 	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 
@@ -359,7 +361,8 @@ public class Actions {
 		MINE_SOUL_GEMS_ACTION,
 		EQUIP_INVENTORY_ITEM_ACTION,
 		BUILD_INN_ACTION,
-		CREATE_NEWS_PAPER_ACTION
+		CREATE_NEWS_PAPER_ACTION,
+		OBFUSCATE_DEATH_REASON_ACTION
 	));
 	
 	static {
@@ -449,5 +452,9 @@ public class Actions {
 			}
 		}
 		throw new IllegalStateException("Problem getting ResearchKnowledgeSkillAction for skillProperty " + skillProperty);
+	}
+
+	public static List<String> getDeadlyActionDescriptions() {
+		return ALL_ACTIONS.stream().filter(operation -> operation.getClass() == DeadlyAction.class).map(operation -> operation.getSimpleDescription()).collect(Collectors.toList());
 	}
 }

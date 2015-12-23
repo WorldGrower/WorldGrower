@@ -23,36 +23,33 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
-import org.worldgrower.generator.TerrainGenerator;
+import org.worldgrower.deity.Deity;
+import org.worldgrower.generator.BuildingGenerator;
 
-public class UTestMineGoldAction {
+public class UTestWorshipDeityAction {
 
 	@Test
 	public void testExecute() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = createPerformer(2);
-		int id = TerrainGenerator.generateGoldResource(0, 0, world);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		performer.setProperty(Constants.WORSHIP_COUNTER, 0);
+		performer.setProperty(Constants.DEITY, Deity.ARES);
 		
-		assertEquals(9000, target.getProperty(Constants.GOLD_SOURCE).intValue());
-		Actions.MINE_GOLD_ACTION.execute(performer, target, new int[0], world);
+		Actions.WORSHIP_DEITY_ACTION.execute(performer, performer, new int[0], world);
 		
-		assertEquals(1, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.GOLD));
-		assertEquals(8999, target.getProperty(Constants.GOLD_SOURCE).intValue());
+		assertEquals(1, performer.getProperty(Constants.WORSHIP_COUNTER).intValue());
 	}
 	
 	@Test
 	public void testIsValidTarget() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = createPerformer(2);
-		int stoneResourceId = TerrainGenerator.generateGoldResource(0, 0, world);
-		WorldObject target = world.findWorldObject(Constants.ID, stoneResourceId);
+		performer.setProperty(Constants.DEITY, Deity.ARES);
+		int id = BuildingGenerator.generateShrine(0, 0, world, performer);
+		WorldObject target = world.findWorldObject(Constants.ID, id);
 		
-		assertEquals(true, Actions.MINE_GOLD_ACTION.isValidTarget(performer, target, world));
-		assertEquals(false, Actions.MINE_GOLD_ACTION.isValidTarget(performer, performer, world));
-		
-		target.setProperty(Constants.GOLD_SOURCE, 0);
-		assertEquals(false, Actions.MINE_GOLD_ACTION.isValidTarget(performer, target, world));
+		assertEquals(true, Actions.WORSHIP_DEITY_ACTION.isValidTarget(performer, target, world));
+		assertEquals(false, Actions.WORSHIP_DEITY_ACTION.isValidTarget(performer, performer, world));
 	}
 	
 	private WorldObject createPerformer(int id) {
@@ -61,7 +58,6 @@ public class UTestMineGoldAction {
 		performer.setProperty(Constants.Y, 0);
 		performer.setProperty(Constants.WIDTH, 1);
 		performer.setProperty(Constants.HEIGHT, 1);
-		performer.setProperty(Constants.ENERGY, 1000);
 		return performer;
 	}
 }

@@ -41,6 +41,20 @@ public class UTestMineOreAction {
 		assertEquals(8999, target.getProperty(Constants.ORE_SOURCE).intValue());
 	}
 	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		int stoneResourceId = TerrainGenerator.generateOreResource(0, 0, world);
+		WorldObject target = world.findWorldObject(Constants.ID, stoneResourceId);
+		
+		assertEquals(true, Actions.MINE_ORE_ACTION.isValidTarget(performer, target, world));
+		assertEquals(false, Actions.MINE_ORE_ACTION.isValidTarget(performer, performer, world));
+		
+		target.setProperty(Constants.ORE_SOURCE, 0);
+		assertEquals(false, Actions.MINE_ORE_ACTION.isValidTarget(performer, target, world));
+	}
+	
 	private WorldObject createPerformer(int id) {
 		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.X, 0);

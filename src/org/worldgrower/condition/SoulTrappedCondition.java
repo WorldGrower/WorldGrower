@@ -14,6 +14,8 @@
  *******************************************************************************/
 package org.worldgrower.condition;
 
+import java.util.List;
+
 import org.worldgrower.Constants;
 import org.worldgrower.DefaultGoalObstructedHandler;
 import org.worldgrower.ManagedOperation;
@@ -24,6 +26,10 @@ import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
 
 public class SoulTrappedCondition implements Condition {
+
+	public SoulTrappedCondition(List<Condition> allConditions) {
+		allConditions.add(this);
+	}
 
 	@Override
 	public boolean canTakeAction() {

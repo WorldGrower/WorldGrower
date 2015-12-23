@@ -12,54 +12,27 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.condition;
+package org.worldgrower.actions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.worldgrower.ManagedOperation;
-import org.worldgrower.World;
+import org.worldgrower.ManagedOperationListener;
 import org.worldgrower.WorldObject;
 
-public class ParalyzedCondition implements Condition {
+public class MockManagedOperationListener implements ManagedOperationListener {
 
-	public ParalyzedCondition(List<Condition> allConditions) {
-		allConditions.add(this);
-	}
-
-	@Override
-	public boolean canTakeAction() {
-		return false;
-	}
-
-	@Override
-	public boolean canMove() {
-		return false;
-	}
-
-	@Override
-	public String getDescription() {
-		return "paralyzed";
-	}
-
-	@Override
-	public void onTurn(WorldObject worldObject, World world, int startTurn, WorldStateChangedListeners creatureTypeChangedListeners) {
-	}
+	private final List<String> messages = new ArrayList<>();
 	
 	@Override
-	public boolean isDisease() {
-		return false;
+	public void actionPerformed(ManagedOperation managedOperation, WorldObject performer, WorldObject target, int[] args, Object message) {
+			if (message instanceof String) {
+				messages.add((String)message);
+			}
 	}
 
-	@Override
-	public void conditionEnds(WorldObject worldObject) {
-	}
-	
-	@Override
-	public void perform(WorldObject performer, WorldObject target, int[] args, ManagedOperation managedOperation, World world) {
-	}
-	
-	@Override
-	public boolean isMagicEffect() {
-		return true;
+	public List<String> getMessages() {
+		return messages;
 	}
 }

@@ -15,6 +15,9 @@
 package org.worldgrower.condition;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
@@ -46,21 +49,26 @@ public interface Condition extends Serializable {
 		}
 	}
 	
-	public static final ParalyzedCondition PARALYZED_CONDITION = new ParalyzedCondition();
-	public static final CocoonedCondition COCOONED_CONDITION = new CocoonedCondition();
-	public static final BurningCondition BURNING_CONDITION = new BurningCondition();
-	public static final PoisonedCondition POISONED_CONDITION = new PoisonedCondition();
-	public static final VampireBiteCondition VAMPIRE_BITE_CONDITION = new VampireBiteCondition();
-	public static final InvisibleCondition INVISIBLE_CONDITION = new InvisibleCondition();
-	public static final EnlargedCondition ENLARGED_CONDITION = new EnlargedCondition();
-	public static final ReducedCondition REDUCED_CONDITION = new ReducedCondition();
-	public static final SleepCondition SLEEP_CONDITION = new SleepCondition();
-	public static final WaterWalkCondition WATER_WALK_CONDITION = new WaterWalkCondition();
-	public static final UnconsciousCondition UNCONSCIOUS_CONDITION = new UnconsciousCondition();
-	public static final BurdenedCondition BURDENED_CONDITION = new BurdenedCondition();
-	public static final FeatheredCondition FEATHERED_CONDITION = new FeatheredCondition();
-	public static final SoulTrappedCondition SOUL_TRAPPED_CONDITION = new SoulTrappedCondition();
-	public static final SilencedCondition SILENCED_CONDITION = new SilencedCondition();
-	public static final IntoxicatedCondition INTOXICATED_CONDITION = new IntoxicatedCondition();
+	static final List<Condition> ALL_CONDITIONS = new ArrayList<>();
 	
+	public static final ParalyzedCondition PARALYZED_CONDITION = new ParalyzedCondition(ALL_CONDITIONS);
+	public static final CocoonedCondition COCOONED_CONDITION = new CocoonedCondition(ALL_CONDITIONS);
+	public static final BurningCondition BURNING_CONDITION = new BurningCondition(ALL_CONDITIONS);
+	public static final PoisonedCondition POISONED_CONDITION = new PoisonedCondition(ALL_CONDITIONS);
+	public static final VampireBiteCondition VAMPIRE_BITE_CONDITION = new VampireBiteCondition(ALL_CONDITIONS);
+	public static final InvisibleCondition INVISIBLE_CONDITION = new InvisibleCondition(ALL_CONDITIONS);
+	public static final EnlargedCondition ENLARGED_CONDITION = new EnlargedCondition(ALL_CONDITIONS);
+	public static final ReducedCondition REDUCED_CONDITION = new ReducedCondition(ALL_CONDITIONS);
+	public static final SleepCondition SLEEP_CONDITION = new SleepCondition(ALL_CONDITIONS);
+	public static final WaterWalkCondition WATER_WALK_CONDITION = new WaterWalkCondition(ALL_CONDITIONS);
+	public static final UnconsciousCondition UNCONSCIOUS_CONDITION = new UnconsciousCondition(ALL_CONDITIONS);
+	public static final BurdenedCondition BURDENED_CONDITION = new BurdenedCondition(ALL_CONDITIONS);
+	public static final FeatheredCondition FEATHERED_CONDITION = new FeatheredCondition(ALL_CONDITIONS);
+	public static final SoulTrappedCondition SOUL_TRAPPED_CONDITION = new SoulTrappedCondition(ALL_CONDITIONS);
+	public static final SilencedCondition SILENCED_CONDITION = new SilencedCondition(ALL_CONDITIONS);
+	public static final IntoxicatedCondition INTOXICATED_CONDITION = new IntoxicatedCondition(ALL_CONDITIONS);
+	
+	public static List<String> getDeadlyConditions() {
+			return ALL_CONDITIONS.stream().filter(condition -> condition.getClass() == DeadlyCondition.class).map(condition -> condition.getDescription()).collect(Collectors.toList());
+	}
 }

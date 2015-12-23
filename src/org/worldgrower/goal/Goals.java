@@ -126,4 +126,5 @@ public class Goals {
 	public static final SellNewsPaperGoal SELL_NEWS_PAPER_GOAL = new SellNewsPaperGoal(ALL_GOALS);
 	public static final ReadNewsPaperGoal READ_NEWS_PAPER_GOAL = new ReadNewsPaperGoal(ALL_GOALS);
 	public static final WineGoal WINE_GOAL = new WineGoal(ALL_GOALS);
+	public static final StartBrawlGoal START_BRAWL_GOAL = new StartBrawlGoal(ALL_GOALS);
 }

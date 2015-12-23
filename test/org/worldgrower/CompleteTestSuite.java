@@ -141,6 +141,7 @@ import org.worldgrower.generator.UTestVotingOnTurn;
 import org.worldgrower.goal.*;
 import org.worldgrower.history.UTestHistoryImpl;
 import org.worldgrower.profession.UTestProfessions;
+import org.worldgrower.terrain.UTestTerrainImpl;
 import org.worldgrower.util.UTestNumberUtils;
 
 @RunWith(Suite.class)
@@ -500,7 +501,11 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestWineGoal.class,
 	UTestGoal.class,
 	UTestVampireBiteAction.class,
-	UTestGhoulUtils.class
+	UTestGhoulUtils.class,
+	UTestStartBrawlGoal.class,
+	UTestTerrainImpl.class,
+	UTestWorshipDeityAction.class,
+	UTestDetermineDeathReasonAction.class
 })
 public class CompleteTestSuite {
 }

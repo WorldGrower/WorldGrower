@@ -23,7 +23,6 @@ import org.worldgrower.ManagedOperationListener;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.condition.WerewolfUtils;
 import org.worldgrower.generator.CreatureGenerator;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.gui.AdditionalManagedOperationListenerFactory;

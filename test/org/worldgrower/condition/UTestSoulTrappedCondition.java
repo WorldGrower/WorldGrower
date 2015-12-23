@@ -27,7 +27,7 @@ import org.worldgrower.generator.Item;
 
 public class UTestSoulTrappedCondition {
 
-	private final SoulTrappedCondition condition = new SoulTrappedCondition();
+	private final SoulTrappedCondition condition = Condition.SOUL_TRAPPED_CONDITION;
 	
 	@Test
 	public void testFillSoulGem() {

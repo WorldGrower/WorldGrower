@@ -12,7 +12,7 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.actions;
+package org.worldgrower.goal;
 
 import static org.junit.Assert.assertEquals;
 
@@ -22,46 +22,67 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.WorldObjectContainer;
-import org.worldgrower.generator.TerrainGenerator;
 
-public class UTestMineGoldAction {
+public class UTestStartBrawlGoal {
 
+	private StartBrawlGoal goal = Goals.START_BRAWL_GOAL;
+	
 	@Test
-	public void testExecute() {
+	public void testCalculateNotTalented() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = createPerformer(2);
-		int id = TerrainGenerator.generateGoldResource(0, 0, world);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		performer.setProperty(Constants.STRENGTH, 8);
+		performer.setProperty(Constants.CONSTITUTION, 8);
 		
-		assertEquals(9000, target.getProperty(Constants.GOLD_SOURCE).intValue());
-		Actions.MINE_GOLD_ACTION.execute(performer, target, new int[0], world);
-		
-		assertEquals(1, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.GOLD));
-		assertEquals(8999, target.getProperty(Constants.GOLD_SOURCE).intValue());
+		assertEquals(null, goal.calculateGoal(performer, world));
 	}
 	
 	@Test
-	public void testIsValidTarget() {
+	public void testCalculateNotAtFullHitPoints() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = createPerformer(2);
-		int stoneResourceId = TerrainGenerator.generateGoldResource(0, 0, world);
-		WorldObject target = world.findWorldObject(Constants.ID, stoneResourceId);
+		performer.setProperty(Constants.STRENGTH, 18);
+		performer.setProperty(Constants.CONSTITUTION, 18);
+		performer.setProperty(Constants.HIT_POINTS, 1);
+		performer.setProperty(Constants.HIT_POINTS_MAX, 8);
 		
-		assertEquals(true, Actions.MINE_GOLD_ACTION.isValidTarget(performer, target, world));
-		assertEquals(false, Actions.MINE_GOLD_ACTION.isValidTarget(performer, performer, world));
-		
-		target.setProperty(Constants.GOLD_SOURCE, 0);
-		assertEquals(false, Actions.MINE_GOLD_ACTION.isValidTarget(performer, target, world));
+		assertEquals(null, goal.calculateGoal(performer, world));
 	}
 	
+	@Test
+	public void testCalculate() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		world.addWorldObject(performer);
+		world.addWorldObject(target);
+		performer.setProperty(Constants.STRENGTH, 18);
+		performer.setProperty(Constants.CONSTITUTION, 18);
+		performer.setProperty(Constants.HIT_POINTS, 8);
+		performer.setProperty(Constants.HIT_POINTS_MAX, 8);
+		
+		assertEquals(Actions.TALK_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+	@Test
+	public void testIsGoalMet() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		
+		assertEquals(false, goal.isGoalMet(performer, world));
+		
+		performer.setProperty(Constants.BRAWL_OPPONENT_ID, 3);
+		assertEquals(true, goal.isGoalMet(performer, world));
+	}
+
 	private WorldObject createPerformer(int id) {
 		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.X, 0);
 		performer.setProperty(Constants.Y, 0);
 		performer.setProperty(Constants.WIDTH, 1);
 		performer.setProperty(Constants.HEIGHT, 1);
-		performer.setProperty(Constants.ENERGY, 1000);
 		return performer;
 	}
 }
