@@ -518,6 +518,24 @@ public class GuiMouseListener extends MouseAdapter {
 				addToolTips(action, menuItem);
 				addImageIcon(action, menuItem);
 			}
+			
+			if (action == Actions.OBFUSCATE_DEATH_REASON_ACTION) {
+				final JMenuItem menuItem;
+				if (canPlayerCharacterPerformAction(worldObject, action)) {
+					ChooseDeathReasonAction guiAction = new ChooseDeathReasonAction(playerCharacter, imageInfoReader, world, container, dungeonMaster, worldObject);
+					menuItem = MenuFactory.createJMenuItem(guiAction);
+					menuItem.setText(action.getSimpleDescription());
+					menu.add(menuItem);
+				} else if (canPlayerCharacterPerformActionUnderCorrectCircumstances(worldObject, action)) {
+					menuItem = MenuFactory.createJMenuItem(action.getSimpleDescription());
+					menuItem.setEnabled(false);
+					menu.add(menuItem);
+				} else {
+					menuItem = null;
+				}
+				addToolTips(action, menuItem);
+				addImageIcon(action, menuItem);
+			}
 		}
 	}
 	

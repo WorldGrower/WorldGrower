@@ -455,6 +455,6 @@ public class Actions {
 	}
 
 	public static List<String> getDeadlyActionDescriptions() {
-		return ALL_ACTIONS.stream().filter(operation -> operation.getClass() == DeadlyAction.class).map(operation -> operation.getSimpleDescription()).collect(Collectors.toList());
+		return ALL_ACTIONS.stream().filter(operation -> operation instanceof DeadlyAction).map(operation -> operation.getSimpleDescription()).collect(Collectors.toList());
 	}
 }

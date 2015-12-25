@@ -55,4 +55,9 @@ public class UTestDeathReasonPropertyUtils {
 		DeathReasonPropertyUtils.targetDiesByPerformerAction(performer, target, Actions.MELEE_ATTACK_ACTION, world);
 		assertEquals("target was pummeled to death", target.getProperty(Constants.DEATH_REASON));
 	}
+	
+	@Test
+	public void testGetAllDeathReasons() {
+		assertEquals(10, DeathReasonPropertyUtils.getAllDeathReasons().size());
+	}
 }

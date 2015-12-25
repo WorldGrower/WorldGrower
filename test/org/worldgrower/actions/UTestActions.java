@@ -59,4 +59,9 @@ public class UTestActions {
 		ResearchKnowledgeSkillAction researchKnowledgeSkillAction = Actions.getResearchKnowledgeSkillActionFor(Constants.RESTORATION_SKILL);
 		assertEquals(Constants.RESTORATION_SKILL, researchKnowledgeSkillAction.getSkillProperty());
 	}
+	
+	@Test
+	public void testGetDeadlyActionDescriptions() {
+		assertEquals(true, Actions.getDeadlyActionDescriptions().size() > 0);
+	}
 }

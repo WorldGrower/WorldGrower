@@ -34,7 +34,7 @@ public class UTestObfuscateDeathReasonAction {
 
 		Actions.OBFUSCATE_DEATH_REASON_ACTION.execute(performer, target, new int[] {0}, world);
 		
-		assertEquals("drowning", target.getProperty(Constants.DEATH_REASON));
+		assertEquals("melee attack", target.getProperty(Constants.DEATH_REASON));
 	}
 	
 	private WorldObject createPerformer(int id) {

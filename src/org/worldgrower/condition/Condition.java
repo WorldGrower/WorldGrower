@@ -69,6 +69,6 @@ public interface Condition extends Serializable {
 	public static final IntoxicatedCondition INTOXICATED_CONDITION = new IntoxicatedCondition(ALL_CONDITIONS);
 	
 	public static List<String> getDeadlyConditions() {
-			return ALL_CONDITIONS.stream().filter(condition -> condition.getClass() == DeadlyCondition.class).map(condition -> condition.getDescription()).collect(Collectors.toList());
+			return ALL_CONDITIONS.stream().filter(condition -> condition instanceof DeadlyCondition).map(condition -> condition.getDescription()).collect(Collectors.toList());
 	}
 }
