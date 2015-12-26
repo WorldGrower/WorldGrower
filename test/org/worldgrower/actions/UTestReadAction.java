@@ -22,39 +22,42 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.WorldObjectContainer;
-import org.worldgrower.generator.BuildingGenerator;
 
-public class UTestMarkAsSellableAction {
+public class UTestReadAction {
 
 	@Test
 	public void testExecute() {
 		World world = new WorldImpl(0, 0, null, null);
-		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		target.setProperty(Constants.TEXT, "text");
 		
-		int id = BuildingGenerator.generateHouse(0, 0, world, 1f);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		MockManagedOperationListener listener = new MockManagedOperationListener();
+		world.addListener(listener);
+		Actions.READ_ACTION.execute(performer, target, new int[0], world);
 		
-		Actions.MARK_AS_SELLABLE_ACTION.execute(performer, target, new int[] {0}, world);
-		
-		assertEquals(true, target.getProperty(Constants.SELLABLE));
+		assertEquals(1, listener.getMessages().size());
+		assertEquals("text", listener.getMessages().get(0));
 	}
 	
-	@Test
+    @Test
 	public void testIsValidTarget() {
 		World world = new WorldImpl(0, 0, null, null);
-		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.HOUSES, new IdList());
-		performer.setProperty(Constants.NAME, "performer");
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		target.setProperty(Constants.TEXT, "text");
 		
-		int id = BuildingGenerator.generateHouse(0, 0, world, 1f);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
-		performer.getProperty(Constants.HOUSES).add(target);
-		assertEquals(true, Actions.MARK_AS_SELLABLE_ACTION.isValidTarget(performer, target, world));
-		
-		assertEquals(false, Actions.MARK_AS_SELLABLE_ACTION.isValidTarget(performer, performer, world));
-		
-		performer.getProperty(Constants.HOUSES).remove(target);
-		assertEquals(false, Actions.MARK_AS_SELLABLE_ACTION.isValidTarget(performer, target, world));
+		assertEquals(true, Actions.READ_ACTION.isValidTarget(performer, target, world));
+		assertEquals(false, Actions.READ_ACTION.isValidTarget(performer, performer, world));
+	}
+	
+	private WorldObject createPerformer(int id) {
+		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.INVENTORY, new WorldObjectContainer());
+		performer.setProperty(Constants.X, 0);
+		performer.setProperty(Constants.Y, 0);
+		performer.setProperty(Constants.WIDTH, 1);
+		performer.setProperty(Constants.HEIGHT, 1);
+		return performer;
 	}
 }
