@@ -23,6 +23,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.generator.Item;
 import org.worldgrower.generator.PlantGenerator;
 
 public class UTestHarvestNightShadeAction {
@@ -39,6 +41,18 @@ public class UTestHarvestNightShadeAction {
 		
 		assertEquals(1, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.NIGHT_SHADE));
 		assertEquals(90, target.getProperty(Constants.NIGHT_SHADE_SOURCE).intValue());
+	}
+	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		int id = PlantGenerator.generateNightShade(0, 0, world);
+		WorldObject target = world.findWorldObject(Constants.ID, id);
+		target.setProperty(Constants.NIGHT_SHADE_SOURCE, 100);
+		
+		assertEquals(true, Actions.HARVEST_NIGHT_SHADE_ACTION.isValidTarget(performer, target, world));
+		assertEquals(false, Actions.HARVEST_NIGHT_SHADE_ACTION.isValidTarget(performer, performer, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

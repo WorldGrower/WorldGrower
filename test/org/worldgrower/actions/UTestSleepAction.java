@@ -57,6 +57,17 @@ public class UTestSleepAction {
 		assertEquals(514, performer.getProperty(Constants.ENERGY).intValue());
 	}
 	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		int houseId = BuildingGenerator.generateHouse(0, 0, world, 1f);
+		WorldObject house = world.findWorldObject(Constants.ID, houseId);
+		
+		assertEquals(true, Actions.SLEEP_ACTION.isValidTarget(performer, house, world));
+		assertEquals(false, Actions.SLEEP_ACTION.isValidTarget(performer, performer, world));
+	}
+	
 	private WorldObject createPerformer(int id) {
 		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.X, 0);
