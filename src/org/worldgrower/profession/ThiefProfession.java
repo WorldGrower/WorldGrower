@@ -15,15 +15,14 @@
 package org.worldgrower.profession;
 
 import java.io.ObjectStreamException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import org.worldgrower.Constants;
-import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.generator.Item;
 import org.worldgrower.goal.Goal;
+import org.worldgrower.goal.Goals;
 
 public class ThiefProfession implements Profession {
 
@@ -38,7 +37,7 @@ public class ThiefProfession implements Profession {
 
 	@Override
 	public List<Goal> getProfessionGoals() {
-		return new ArrayList<>();
+		return Arrays.asList(Goals.STEAL_GOAL);
 	}
 
 	@Override

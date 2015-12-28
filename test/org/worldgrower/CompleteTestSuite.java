@@ -507,7 +507,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestWorshipDeityAction.class,
 	UTestDetermineDeathReasonAction.class,
 	UTestObfuscateDeathReasonAction.class,
-	UTestReadAction.class
+	UTestReadAction.class,
+	UTestStealGoal.class
 })
 public class CompleteTestSuite {
 }
