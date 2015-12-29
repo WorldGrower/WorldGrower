@@ -27,15 +27,32 @@ import org.worldgrower.goal.Goals;
 
 public class UTestCommandAction {
 
+	private CommandAction commandAction = new CommandAction(Goals.FOOD_GOAL, "gathering food");
+	
 	@Test
 	public void testExecute() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
-
-		new CommandAction(Goals.FOOD_GOAL, "gathering food").execute(performer, target, new int[0], world);
+		
+		commandAction.execute(performer, target, new int[0], world);
 		
 		assertEquals(Goals.FOOD_GOAL, target.getProperty(Constants.GIVEN_ORDER));
+	}
+	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		
+		assertEquals(false, commandAction.isValidTarget(performer, target, world));
+		
+		target.setProperty(Constants.CREATOR_ID, 77);
+		assertEquals(false, commandAction.isValidTarget(performer, target, world));
+		
+		target.setProperty(Constants.CREATOR_ID, 2);
+		assertEquals(true, commandAction.isValidTarget(performer, target, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

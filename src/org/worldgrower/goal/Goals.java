@@ -128,4 +128,5 @@ public class Goals {
 	public static final WineGoal WINE_GOAL = new WineGoal(ALL_GOALS);
 	public static final StartBrawlGoal START_BRAWL_GOAL = new StartBrawlGoal(ALL_GOALS);
 	public static final StealGoal STEAL_GOAL = new StealGoal(ALL_GOALS);
+	public static final SellStolenGoodsGoal SELL_STOLEN_GOODS_GOAL = new SellStolenGoodsGoal(ALL_GOALS);
 }

@@ -118,6 +118,19 @@ public class UTestKnowledgeToDescriptionMapper {
 	}
 	
 	@Test
+	public void testMapEventKnowledgeStealing() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.NAME, "performer");
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.NAME, "target");
+		world.addWorldObject(performer);
+		
+		EventKnowledge knowledge = new EventKnowledge(1, world);
+		world.getHistory().actionPerformed(new OperationInfo(performer, target, new int[0], Actions.STEAL_ACTION), new Turn());
+		
+		assertEquals("Did you know that performer was stealing from target?", mapper.getQuestionDescription(knowledge, world));
+	}
+	
+	@Test
 	public void testMapOrganizationLeader() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject subject = TestUtils.createIntelligentWorldObject(3, Constants.NAME, "subject");

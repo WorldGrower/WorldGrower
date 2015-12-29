@@ -26,6 +26,8 @@ import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.InventoryPropertyUtils;
+import org.worldgrower.goal.KnowledgeMapPropertyUtils;
+import org.worldgrower.goal.KnowledgePropertyUtils;
 import org.worldgrower.gui.ImageIds;
 
 public class StealAction implements ManagedOperation {
@@ -38,14 +40,7 @@ public class StealAction implements ManagedOperation {
 		WorldObjectContainer targetInventory = target.getProperty(Constants.INVENTORY);
 		
 		WorldObject worldObjectToSteal = targetInventory.get(index);
-		int price = worldObjectToSteal.getProperty(Constants.PRICE);
-		Integer weightInteger = worldObjectToSteal.getProperty(Constants.WEIGHT);
-		int weight = weightInteger != null ? weightInteger.intValue() : 0;
-		
-		SkillUtils.useSkill(performer, Constants.THIEVERY_SKILL, world.getWorldStateChangedListeners());
-		int thievery = Constants.THIEVERY_SKILL.getLevel(performer);
-		
-		boolean isSuccess = price + weight < thievery + 5;
+		boolean isSuccess = isThieverySuccess(performer, world, worldObjectToSteal);
 		
 		if (isSuccess) {
 			WorldObject stolenWorldObject = targetInventory.remove(index);
@@ -53,8 +48,29 @@ public class StealAction implements ManagedOperation {
 			
 			InventoryPropertyUtils.cleanupEquipmentSlots(target);
 		} else {
+			addThievingKnowledge(performer, target, world);
 			GroupPropertyUtils.throwPerformerOutGroup(performer, target);
 		}
+	}
+
+	private void addThievingKnowledge(WorldObject performer, WorldObject target, World world) {
+		KnowledgeMapPropertyUtils.everyoneInVicinityKnowsOfEvent(performer, target, world);
+		
+	}
+
+	private boolean isThieverySuccess(WorldObject performer, World world, WorldObject worldObjectToSteal) {
+		int price = worldObjectToSteal.getProperty(Constants.PRICE);
+		int weight = getWeight(worldObjectToSteal);
+		
+		SkillUtils.useSkill(performer, Constants.THIEVERY_SKILL, world.getWorldStateChangedListeners());
+		int thievery = Constants.THIEVERY_SKILL.getLevel(performer);
+		
+		return price + weight < thievery + 5;
+	}
+
+	private int getWeight(WorldObject worldObjectToSteal) {
+		Integer weightInteger = worldObjectToSteal.getProperty(Constants.WEIGHT);
+		return weightInteger != null ? weightInteger.intValue() : 0;
 	}
 
 	@Override
