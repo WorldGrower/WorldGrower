@@ -118,4 +118,15 @@ public class UTestChooseProfessionAction {
 		assertEquals(expectedProfession, actualProfessionEvaluation.getProfession());
 		assertEquals(expectedEvaluation, actualProfessionEvaluation.getEvaluation());
 	}
+	
+	@Test
+	public void testGetRemains() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject target1 = TestUtils.createWorldObject(1, "target1");
+		WorldObject target2 = TestUtils.createWorldObject(1, "target2");
+		target2.setProperty(Constants.DECEASED_WORLD_OBJECT, Boolean.TRUE);
+		world.addWorldObject(target1);
+		world.addWorldObject(target2);
+		assertEquals(Arrays.asList(target2), ChooseProfessionAction.getRemains(world));
+	}
 }

@@ -296,7 +296,7 @@ public class ChooseProfessionAction implements ManagedOperation {
 		return result;
 	}
 	
-	private static List<WorldObject> getRemains(World world) {
+	static List<WorldObject> getRemains(World world) {
 		return world.findWorldObjects(w -> w.hasProperty(Constants.DECEASED_WORLD_OBJECT) && w.getProperty(Constants.DECEASED_WORLD_OBJECT));
 	}
 

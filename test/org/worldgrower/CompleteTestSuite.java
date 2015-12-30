@@ -510,7 +510,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestReadAction.class,
 	UTestStealGoal.class,
 	UTestSellStolenGoodsGoal.class,
-	UTestEquipmentPropertyUtils.class
+	UTestEquipmentPropertyUtils.class,
+	UTestDisguiseAction.class
 })
 public class CompleteTestSuite {
 }

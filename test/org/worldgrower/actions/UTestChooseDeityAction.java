@@ -24,6 +24,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.deity.Deity;
+import org.worldgrower.profession.Professions;
 
 public class UTestChooseDeityAction {
 
@@ -34,5 +35,17 @@ public class UTestChooseDeityAction {
 		Actions.CHOOSE_DEITY_ACTION.execute(performer, performer, new int[] { 0, -1 }, world);
 		
 		assertEquals(Deity.DEMETER, performer.getProperty(Constants.DEITY));
+	}
+	
+	@Test
+	public void testExecuteThief() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.GROUP, new IdList());
+		performer.setProperty(Constants.PROFESSION, Professions.THIEF_PROFESSION);
+		performer.setProperty(Constants.FACADE, TestUtils.createSkilledWorldObject(3, Constants.GROUP, new IdList()));
+		Actions.CHOOSE_DEITY_ACTION.execute(performer, performer, new int[] { 1, -1 }, world);
+		
+		assertEquals(Deity.HEPHAESTUS, performer.getProperty(Constants.DEITY));
+		assertEquals(Deity.DEMETER, performer.getProperty(Constants.FACADE).getProperty(Constants.DEITY));
 	}
 }
