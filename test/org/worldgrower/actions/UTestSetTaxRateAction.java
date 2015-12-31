@@ -22,46 +22,46 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.IdList;
-import org.worldgrower.attribute.IdRelationshipMap;
-import org.worldgrower.creaturetype.CreatureType;
+import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.goal.GroupPropertyUtils;
 
-public class UTestKissAction {
+public class UTestSetTaxRateAction {
 
 	@Test
 	public void testExecute() {
-		World world = new WorldImpl(10, 10, null, null);
-		WorldObject performer = createPerformer(2);
-		WorldObject target = createPerformer(3);
-
-		Actions.KISS_ACTION.execute(performer, target, new int[0], world);
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(3);
+		WorldObject villagersOrganization = createVillagersOrganization(world);
 		
-		assertEquals(50, performer.getProperty(Constants.RELATIONSHIPS).getValue(target));
-		assertEquals(50, target.getProperty(Constants.RELATIONSHIPS).getValue(performer));
+		Actions.SET_TAX_RATE_ACTION.execute(performer, performer, new int[] {5, 6}, world);
+		
+		assertEquals(5, villagersOrganization.getProperty(Constants.SHACK_TAX_RATE).intValue());
+		assertEquals(6, villagersOrganization.getProperty(Constants.HOUSE_TAX_RATE).intValue());
 	}
 	
 	@Test
 	public void testIsValidTarget() {
-		World world = new WorldImpl(10, 10, null, null);
-		WorldObject performer = createPerformer(2);
-		WorldObject target = createPerformer(3);
-
-		performer.setProperty(Constants.GROUP, new IdList().add(5));
-		target.setProperty(Constants.GROUP, new IdList().add(5));
-		performer.getProperty(Constants.RELATIONSHIPS).incrementValue(target, 1000);
-		target.getProperty(Constants.RELATIONSHIPS).incrementValue(performer, 1000);
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(3);
+		WorldObject target = createPerformer(4);
 		
-		assertEquals(true, Actions.KISS_ACTION.isValidTarget(performer, target, world));
-		assertEquals(false, Actions.KISS_ACTION.isValidTarget(performer, performer, world));
+		assertEquals(false, Actions.SET_TAX_RATE_ACTION.isValidTarget(performer, target, world));
+		assertEquals(true, Actions.SET_TAX_RATE_ACTION.isValidTarget(performer, performer, world));
+	}
+
+	private WorldObject createVillagersOrganization(World world) {
+		WorldObject villagersOrganization = GroupPropertyUtils.createVillagersOrganization(world);
+		villagersOrganization.setProperty(Constants.ID, 1);
+		world.addWorldObject(villagersOrganization);
+		return villagersOrganization;
 	}
 	
 	private WorldObject createPerformer(int id) {
-		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.X, 0);
 		performer.setProperty(Constants.Y, 0);
 		performer.setProperty(Constants.WIDTH, 1);
 		performer.setProperty(Constants.HEIGHT, 1);
-		performer.setProperty(Constants.CREATURE_TYPE, CreatureType.HUMAN_CREATURE_TYPE);
 		return performer;
 	}
 }
