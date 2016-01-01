@@ -116,4 +116,22 @@ public class TerrainGenerator {
 		
 		return id;
 	}
+	
+	public static int generateFireTrap(int x, int y, World world, double skillBonus) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		int id = world.generateUniqueId();
+		
+		properties.put(Constants.X, x);
+		properties.put(Constants.Y, y);
+		properties.put(Constants.WIDTH, 1);
+		properties.put(Constants.HEIGHT, 1);
+		properties.put(Constants.DAMAGE, (int)(2 * skillBonus));
+		properties.put(Constants.ID, id);
+		properties.put(Constants.IMAGE_ID, ImageIds.FIRE_TRAP);
+		properties.put(Constants.NAME, "fire trap");
+		WorldObject tree = new WorldObjectImpl(properties);
+		world.addWorldObject(tree);
+		
+		return id;
+	}
 }

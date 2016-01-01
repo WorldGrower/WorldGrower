@@ -397,7 +397,8 @@ public class GuiMouseListener extends MouseAdapter {
 	
 	private void addEvocationActions(JPopupMenu menu) {
 		MagicSpell[] actions = { Actions.DETECT_MAGIC_ACTION, Actions.DETECT_POISON_AND_DISEASE_ACTION };
-		addActions(menu, "Evocation", actions);
+		JMenu evocationMenu = addActions(menu, "Evocation", actions);
+		addBuildAction(evocationMenu, Actions.FIRE_TRAP_ACTION, startBuildMode());
 	}
 	
 	private void addScribeMagicSpells(JPopupMenu menu) {
@@ -406,7 +407,11 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 	
 	private void addBuildActions(JPopupMenu menu, String menuTitle, BuildAction[] buildActions) {
-		addBuildActions(menu, menuTitle, buildActions, buildAction -> new StartBuildModeAction(playerCharacter, imageInfoReader, ((WorldPanel)container), buildAction));
+		addBuildActions(menu, menuTitle, buildActions, startBuildMode());
+	}
+
+	private Function<BuildAction, Action> startBuildMode() {
+		return buildAction -> new StartBuildModeAction(playerCharacter, imageInfoReader, ((WorldPanel)container), buildAction);
 	}
 	
 	private JMenu addBuildActions(JPopupMenu menu, String menuTitle, BuildAction[] buildActions, Function<BuildAction, Action> guiActionBuilder) {
@@ -415,18 +420,22 @@ public class GuiMouseListener extends MouseAdapter {
 		
 		
 		for(BuildAction buildAction : buildActions) {
-			final JMenuItem buildMenuItem;
-			if (canPlayerCharacterPerformBuildAction(buildAction)) {
-				buildMenuItem = MenuFactory.createJMenuItem(guiActionBuilder.apply(buildAction));
-				buildMenuItem.setText(buildAction.getDescription(playerCharacter, null, null, world) + "...");
-				parentMenuItem.add(buildMenuItem);
-			} else {
-				buildMenuItem = createDisabledActionMenuItem(parentMenuItem, buildAction);
-			}
-			buildMenuItem.setToolTipText(buildAction.getRequirementsDescription());
-			addImageIcon(buildAction, buildMenuItem);
+			addBuildAction(parentMenuItem, buildAction, guiActionBuilder);
 		}
 		return parentMenuItem;
+	}
+
+	private void addBuildAction(JMenu parentMenuItem, BuildAction buildAction, Function<BuildAction, Action> guiActionBuilder) {
+		final JMenuItem buildMenuItem;
+		if (canPlayerCharacterPerformBuildAction(buildAction)) {
+			buildMenuItem = MenuFactory.createJMenuItem(guiActionBuilder.apply(buildAction));
+			buildMenuItem.setText(buildAction.getDescription(playerCharacter, null, null, world) + "...");
+			parentMenuItem.add(buildMenuItem);
+		} else {
+			buildMenuItem = createDisabledActionMenuItem(parentMenuItem, buildAction);
+		}
+		buildMenuItem.setToolTipText(buildAction.getRequirementsDescription());
+		addImageIcon(buildAction, buildMenuItem);
 	}
 	
 	private void addCraftActions(JPopupMenu menu) {

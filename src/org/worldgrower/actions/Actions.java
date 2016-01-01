@@ -39,6 +39,7 @@ import org.worldgrower.actions.magic.DispelMagicAction;
 import org.worldgrower.actions.magic.EnlargeAction;
 import org.worldgrower.actions.magic.FeatherAction;
 import org.worldgrower.actions.magic.FireBoltAttackAction;
+import org.worldgrower.actions.magic.FireTrapAction;
 import org.worldgrower.actions.magic.InflictWoundsAction;
 import org.worldgrower.actions.magic.InvisibilityAction;
 import org.worldgrower.actions.magic.LightningBoltAttackAction;
@@ -211,6 +212,7 @@ public class Actions {
 	public static final CreateNewsPaperAction CREATE_NEWS_PAPER_ACTION = new CreateNewsPaperAction();
 	public static final ReadItemInInventoryAction READ_ITEM_IN_INVENTORY_ACTION = new ReadItemInInventoryAction();
 	public static final ObfuscateDeathReasonAction OBFUSCATE_DEATH_REASON_ACTION = new ObfuscateDeathReasonAction();
+	public static final FireTrapAction FIRE_TRAP_ACTION = new FireTrapAction();
 	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 
@@ -240,7 +242,8 @@ public class Actions {
 			SOUL_TRAP_ACTION,
 			DISPEL_MAGIC_ACTION,
 			SILENCE_MAGIC_ACTION,
-			DETECT_MAGIC_ACTION
+			DETECT_MAGIC_ACTION,
+			FIRE_TRAP_ACTION
 			);
 	
 	private static final List<InventoryAction> INVENTORY_ACTIONS = Arrays.asList(
