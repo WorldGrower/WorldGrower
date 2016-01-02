@@ -19,8 +19,8 @@ import java.util.List;
 
 import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
-import org.worldgrower.CreaturePositionCondition;
 import org.worldgrower.ManagedOperation;
+import org.worldgrower.UnpassableCreaturePositionCondition;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.LookDirection;
@@ -80,7 +80,7 @@ public class MoveAction implements ManagedOperation {
 					return 1;
 				}
 			} else {
-				List<WorldObject> actors = world.findWorldObjects(new CreaturePositionCondition(performer.getProperty(Constants.Y) + args[1], performer.getProperty(Constants.X) + args[0]));
+				List<WorldObject> actors = world.findWorldObjects(new UnpassableCreaturePositionCondition(performer.getProperty(Constants.Y) + args[1], performer.getProperty(Constants.X) + args[0]));
 				if (actors.size() == 1) {
 					if (actors.get(0).equals(performer)) {
 						return 0;

@@ -262,6 +262,7 @@ public class Constants {
 	public static final UnCheckedProperty<ItemCountMap> ITEMS_SOLD = new UnCheckedProperty<>("itemsSold", ALL_PROPERTIES);
 	
 	public static final IntProperty NEWSPAPER_READ_TURN = new IntProperty("newsPaperReadTurn", 0, null, NULLABLE, ALL_PROPERTIES);
+	public static final BooleanProperty PASSABLE = new BooleanProperty("passable", NOT_NULLABLE, ALL_PROPERTIES);
 	
 	//special property not used in WorldObject
 	public static final IntProperty DISTANCE = new IntProperty("distance", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
