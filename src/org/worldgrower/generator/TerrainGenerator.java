@@ -130,7 +130,7 @@ public class TerrainGenerator {
 		properties.put(Constants.IMAGE_ID, ImageIds.FIRE_TRAP);
 		properties.put(Constants.PASSABLE, Boolean.TRUE);
 		properties.put(Constants.NAME, "fire trap");
-		WorldObject tree = new WorldObjectImpl(properties);
+		WorldObject tree = new WorldObjectImpl(properties, new FireTrapOnTurn());
 		world.addWorldObject(tree);
 		
 		return id;
