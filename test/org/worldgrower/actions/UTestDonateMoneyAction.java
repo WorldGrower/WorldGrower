@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.creaturetype.CreatureType;
 
 public class UTestDonateMoneyAction {
 
@@ -35,6 +36,27 @@ public class UTestDonateMoneyAction {
 		
 		assertEquals(90, performer.getProperty(Constants.GOLD).intValue());
 		assertEquals(110, target.getProperty(Constants.GOLD).intValue());
+	}
+	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		performer.setProperty(Constants.CREATURE_TYPE, CreatureType.COW_CREATURE_TYPE);
+		target.setProperty(Constants.CREATURE_TYPE, CreatureType.HUMAN_CREATURE_TYPE);
+		
+		assertEquals(true, Actions.DONATE_MONEY_ACTION.isValidTarget(performer, target, world));
+		assertEquals(false, Actions.DONATE_MONEY_ACTION.isValidTarget(performer, performer, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		
+		assertEquals(0, Actions.DONATE_MONEY_ACTION.distance(performer, target, new int[0], world));
 	}
 	
 	private WorldObject createPerformer(int id) {

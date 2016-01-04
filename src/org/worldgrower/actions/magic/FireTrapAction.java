@@ -26,7 +26,6 @@ import org.worldgrower.actions.CraftUtils;
 import org.worldgrower.actions.DeadlyAction;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
-import org.worldgrower.generator.TerrainGenerator;
 import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
 
@@ -39,8 +38,10 @@ public class FireTrapAction implements MagicSpell, DeadlyAction, BuildAction {
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		int x = (Integer)target.getProperty(Constants.X);
 		int y = (Integer)target.getProperty(Constants.Y);
-		
-		TerrainGenerator.generateFireTrap(x, y, world, SkillUtils.getSkillBonus(performer, getSkill()));		
+		/*
+		int id = TerrainGenerator.generateFireTrap(x, y, world, SkillUtils.getSkillBonus(performer, getSkill()));
+		KnowledgeMapPropertyUtils.everyoneInVicinityKnowsOfProperty(performer, performer, managedProperty, value, world);
+		*/
 	}
 	
 	@Override

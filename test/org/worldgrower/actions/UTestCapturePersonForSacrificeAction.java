@@ -23,6 +23,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.Conditions;
 import org.worldgrower.deity.Deity;
 
 public class UTestCapturePersonForSacrificeAction {
@@ -43,6 +45,31 @@ public class UTestCapturePersonForSacrificeAction {
 		
 		assertEquals(0, target.getProperty(Constants.X).intValue());
 		assertEquals(0, target.getProperty(Constants.Y).intValue());
+	}
+	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		target.setProperty(Constants.CONDITIONS, new Conditions());
+		
+		assertEquals(true, Actions.CAPTURE_PERSON_FOR_SACRIFICE_ACTION.isValidTarget(performer, target, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		
+		performer.setProperty(Constants.DEITY, Deity.HADES);
+		Actions.BUILD_SACRIFICAL_ALTAR_ACTION.execute(performer, target, new int[0], world);
+		
+		target.setProperty(Constants.CONDITIONS, new Conditions());
+		Conditions.add(target, Condition.UNCONSCIOUS_CONDITION, 8, world);
+		
+		assertEquals(0, Actions.CAPTURE_PERSON_FOR_SACRIFICE_ACTION.distance(performer, target, new int[0], world));
 	}
 	
 	private WorldObject createPerformer(int id) {

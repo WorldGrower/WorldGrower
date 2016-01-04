@@ -31,10 +31,30 @@ public class UTestObfuscateDeathReasonAction {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(2);
-
+		
 		Actions.OBFUSCATE_DEATH_REASON_ACTION.execute(performer, target, new int[] {0}, world);
 		
 		assertEquals("melee attack", target.getProperty(Constants.DEATH_REASON));
+	}
+	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(2);
+		target.setProperty(Constants.DEATH_REASON, "");
+		
+		assertEquals(true, Actions.OBFUSCATE_DEATH_REASON_ACTION.isValidTarget(performer, target, world));
+		assertEquals(false, Actions.OBFUSCATE_DEATH_REASON_ACTION.isValidTarget(performer, performer, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(2);
+		
+		assertEquals(0, Actions.OBFUSCATE_DEATH_REASON_ACTION.distance(performer, target, new int[0], world));
 	}
 	
 	private WorldObject createPerformer(int id) {

@@ -45,6 +45,28 @@ public class UTestPoisonAction {
 		assertEquals(true, well.hasProperty(Constants.POISON_DAMAGE));
 	}
 	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		int wellId = BuildingGenerator.buildWell(0, 0, world, 1f);
+		WorldObject target = world.findWorldObject(Constants.ID, wellId);
+		
+		assertEquals(true, Actions.POISON_ACTION.isValidTarget(performer, target, world));
+		assertEquals(false, Actions.POISON_ACTION.isValidTarget(performer, performer, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		int wellId = BuildingGenerator.buildWell(0, 0, world, 1f);
+		WorldObject target = world.findWorldObject(Constants.ID, wellId);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.POISON.generate(1f), 10);
+		
+		assertEquals(0, Actions.POISON_ACTION.distance(performer, target, new int[0], world));
+	}
+	
 	private WorldObject createPerformer(int id) {
 		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.X, 0);

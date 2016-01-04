@@ -513,7 +513,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestEquipmentPropertyUtils.class,
 	UTestDisguiseAction.class,
 	UTestSetTaxRateAction.class,
-	UTestUnpassableCreaturePositionCondition.class
+	UTestUnpassableCreaturePositionCondition.class,
+	UTestNonLethalMeleeAttackAction.class
 })
 public class CompleteTestSuite {
 }
