@@ -22,6 +22,7 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.KnowledgeMap;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
@@ -71,6 +72,30 @@ public class UTestDrinkAction {
 		Actions.DRINK_ACTION.execute(performer, well, new int[0], world);
 		
 		assertEquals(true, performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.POISONED_CONDITION));
+	}
+	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		performer.setProperty(Constants.KNOWLEDGE_MAP, new KnowledgeMap());
+		
+		int wellId = BuildingGenerator.buildWell(0, 0, world, 1f);
+		WorldObject well = world.findWorldObject(Constants.ID, wellId);
+		
+		assertEquals(true, Actions.DRINK_ACTION.isValidTarget(performer, well, world));
+		assertEquals(false, Actions.DRINK_ACTION.isValidTarget(performer, performer, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		
+		int wellId = BuildingGenerator.buildWell(0, 0, world, 1f);
+		WorldObject well = world.findWorldObject(Constants.ID, wellId);
+		
+		assertEquals(0, Actions.DRINK_ACTION.distance(performer, well, new int[0], world));
 	}
 	
 	private WorldObject createPerformer(int id) {

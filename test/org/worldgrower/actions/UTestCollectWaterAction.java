@@ -70,6 +70,29 @@ public class UTestCollectWaterAction {
 		assertEquals(10, performer.getProperty(Constants.INVENTORY).get(0).getProperty(Constants.POISON_DAMAGE).intValue());
 	}
 	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		
+		int wellId = BuildingGenerator.buildWell(0, 0, world, 1f);
+		WorldObject well = world.findWorldObject(Constants.ID, wellId);
+		
+		assertEquals(true, Actions.COLLECT_WATER_ACTION.isValidTarget(performer, well, world));
+		assertEquals(false, Actions.COLLECT_WATER_ACTION.isValidTarget(performer, performer, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		
+		int wellId = BuildingGenerator.buildWell(0, 0, world, 1f);
+		WorldObject well = world.findWorldObject(Constants.ID, wellId);
+		
+		assertEquals(0, Actions.COLLECT_WATER_ACTION.distance(performer, well, new int[0],  world));
+	}
+	
 	private WorldObject createPerformer(int id) {
 		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.X, 0);

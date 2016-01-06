@@ -51,14 +51,17 @@ public class Zone {
 	
 	public void addSquaresOccupiedData(List<WorldObject> worldObjects) {
 		for(WorldObject target : worldObjects) {
-			int targetX = target.getProperty(Constants.X);
-			int targetY = target.getProperty(Constants.Y);
-			int width = target.getProperty(Constants.WIDTH);
-			int height = target.getProperty(Constants.HEIGHT);
-			
-			for(int x=Math.max(0, targetX); x<Math.min(worldWidth, targetX+width); x++) {
-				for(int y=Math.max(0, targetY); y<Math.min(worldHeight, targetY+height); y++) {
-					zone[x][y]++;
+			boolean passable = target.hasProperty(Constants.PASSABLE) && target.getProperty(Constants.PASSABLE);
+			if (!passable) {
+				int targetX = target.getProperty(Constants.X);
+				int targetY = target.getProperty(Constants.Y);
+				int width = target.getProperty(Constants.WIDTH);
+				int height = target.getProperty(Constants.HEIGHT);
+				
+				for(int x=Math.max(0, targetX); x<Math.min(worldWidth, targetX+width); x++) {
+					for(int y=Math.max(0, targetY); y<Math.min(worldHeight, targetY+height); y++) {
+						zone[x][y]++;
+					}
 				}
 			}
 		}

@@ -115,6 +115,24 @@ public class UTestTaskCalculator {
 		assertContains(tasks.get(6).toString(), CutWoodAction.class.getName());
 	}
 	
+	@Test
+	public void testPathFindingPassableObstacle() {
+		WorldObject performer = createWorldObject(5, 5, 1, 1);
+		WorldObject target = createWorldObject(2, 2, 1, 1);
+		WorldObject obstacle = createWorldObject(3, 3, 1, 1);
+		obstacle.setProperty(Constants.PASSABLE, Boolean.TRUE);
+		World world = createWorld();
+		world.addWorldObject(performer);
+		world.addWorldObject(target);
+		world.addWorldObject(obstacle);
+		List<OperationInfo> tasks = taskCalculator.calculateTask(performer, world, new OperationInfo(performer, target, new int[0], new CutWoodAction()));
+		
+		assertEquals(3, tasks.size());
+		assertContains(tasks.get(0).toString(), "args=[-1, -1]");
+		assertContains(tasks.get(1).toString(), "args=[-1, -1]");
+		assertContains(tasks.get(2).toString(), CutWoodAction.class.getName());
+	}
+	
 	private static void assertContains(String value, String substring) {
 		assertTrue(value + " doesn't contain substring " + substring, value.contains(substring));
 	}

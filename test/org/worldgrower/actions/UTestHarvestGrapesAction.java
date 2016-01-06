@@ -41,6 +41,31 @@ public class UTestHarvestGrapesAction {
 		assertEquals(80, target.getProperty(Constants.GRAPE_SOURCE).intValue());
 	}
 	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		int id = PlantGenerator.generateGrapeVine(0, 0, world);
+		WorldObject target = world.findWorldObject(Constants.ID, id);
+		
+		assertEquals(false, Actions.HARVEST_GRAPES_ACTION.isValidTarget(performer, target, world));
+		
+		target.setProperty(Constants.GRAPE_SOURCE, 100);
+		assertEquals(true, Actions.HARVEST_GRAPES_ACTION.isValidTarget(performer, target, world));
+		
+		assertEquals(false, Actions.HARVEST_GRAPES_ACTION.isValidTarget(performer, performer, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		int id = PlantGenerator.generateGrapeVine(0, 0, world);
+		WorldObject target = world.findWorldObject(Constants.ID, id);
+		
+		assertEquals(0, Actions.HARVEST_GRAPES_ACTION.distance(performer, target, new int[0], world));
+	}
+	
 	private WorldObject createPerformer(int id) {
 		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.X, 0);
