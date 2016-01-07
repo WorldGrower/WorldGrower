@@ -29,6 +29,7 @@ import org.worldgrower.attribute.IdProperty;
 import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.ItemCountMap;
 import org.worldgrower.attribute.KnowledgeMapProperty;
+import org.worldgrower.attribute.Location;
 import org.worldgrower.attribute.LookDirection;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.PropertyCountMapProperty;
@@ -263,6 +264,7 @@ public class Constants {
 	
 	public static final IntProperty NEWSPAPER_READ_TURN = new IntProperty("newsPaperReadTurn", 0, null, NULLABLE, ALL_PROPERTIES);
 	public static final BooleanProperty PASSABLE = new BooleanProperty("passable", NOT_NULLABLE, ALL_PROPERTIES);
+	public static final UnCheckedProperty<Location> LOCATION = new UnCheckedProperty<>("location", ALL_PROPERTIES);
 	
 	//special property not used in WorldObject
 	public static final IntProperty DISTANCE = new IntProperty("distance", 0, null, NOT_NULLABLE, ALL_PROPERTIES);

@@ -18,6 +18,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
@@ -97,6 +98,17 @@ public class UTestRangedAttackAction {
 		target.setProperty(Constants.Y, 20);
 		
 		assertEquals(16, Actions.RANGED_ATTACK_ACTION.distance(performer, target, new int[0], world));
+	}
+	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		WorldObject performer = createPerformer(world, organization);
+		WorldObject target = createPerformer(world, organization);
+		
+		assertEquals(true, Actions.RANGED_ATTACK_ACTION.isValidTarget(performer, target, world));
+		assertEquals(false, Actions.RANGED_ATTACK_ACTION.isValidTarget(performer, TestUtils.createWorldObject(7, "name"), world));
 	}
 	
 	private WorldObject createPerformer(World world, WorldObject organization) {

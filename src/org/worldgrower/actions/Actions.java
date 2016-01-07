@@ -213,6 +213,7 @@ public class Actions {
 	public static final ReadItemInInventoryAction READ_ITEM_IN_INVENTORY_ACTION = new ReadItemInInventoryAction();
 	public static final ObfuscateDeathReasonAction OBFUSCATE_DEATH_REASON_ACTION = new ObfuscateDeathReasonAction();
 	public static final FireTrapAction FIRE_TRAP_ACTION = new FireTrapAction();
+	public static final InvestigateAction INVESTIGATE_ACTION = new InvestigateAction();
 	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 
@@ -365,7 +366,8 @@ public class Actions {
 		EQUIP_INVENTORY_ITEM_ACTION,
 		BUILD_INN_ACTION,
 		CREATE_NEWS_PAPER_ACTION,
-		OBFUSCATE_DEATH_REASON_ACTION
+		OBFUSCATE_DEATH_REASON_ACTION,
+		INVESTIGATE_ACTION
 	));
 	
 	static {

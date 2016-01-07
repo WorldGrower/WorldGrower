@@ -22,6 +22,7 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
@@ -66,6 +67,18 @@ public class UTestSleepAction {
 		
 		assertEquals(true, Actions.SLEEP_ACTION.isValidTarget(performer, house, world));
 		assertEquals(false, Actions.SLEEP_ACTION.isValidTarget(performer, performer, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		int houseId = BuildingGenerator.generateHouse(0, 0, world, 1f);
+		WorldObject house = world.findWorldObject(Constants.ID, houseId);
+		
+		performer.setProperty(Constants.HOUSES, new IdList().add(house));
+		
+		assertEquals(0, Actions.SLEEP_ACTION.distance(performer, house, new int[0], world));
 	}
 	
 	private WorldObject createPerformer(int id) {

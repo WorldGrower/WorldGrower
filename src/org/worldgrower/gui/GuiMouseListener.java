@@ -204,6 +204,7 @@ public class GuiMouseListener extends MouseAdapter {
             	addShowOrganizationsActionMenu(organizationMenu);
             	addChooseDeityMenu(miscMenu);
             	addCreateHumanMeatMenu(miscMenu);
+            	addInvestigateMenu(miscMenu);
             	menu.add(miscMenu);
             	addAssignActionsToLeftMouse(menu);
             	
@@ -242,6 +243,11 @@ public class GuiMouseListener extends MouseAdapter {
 
 	private void addCreateHumanMeatMenu(JMenu menu) {
 		ManagedOperation[] actions = { Actions.CREATE_HUMAN_MEAT_ACTION };
+		addActions(menu, actions);
+	}
+	
+	private void addInvestigateMenu(JMenu menu) {
+		ManagedOperation[] actions = { Actions.INVESTIGATE_ACTION };
 		addActions(menu, actions);
 	}
 	

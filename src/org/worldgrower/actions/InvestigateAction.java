@@ -15,6 +15,8 @@
 package org.worldgrower.actions;
 
 import java.io.ObjectStreamException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
@@ -22,6 +24,8 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.Location;
+import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.gui.ImageIds;
 
 public class InvestigateAction implements ManagedOperation {
@@ -30,7 +34,25 @@ public class InvestigateAction implements ManagedOperation {
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		//TODO: how to store trap knowledge?
+		double skillBonus = SkillUtils.useSkill(performer, Constants.PERCEPTION_SKILL, world.getWorldStateChangedListeners());
+		int range = (int)(5 * skillBonus + 1);
+		List<WorldObject> surroundingWorldObjects = world.findWorldObjects(w -> Reach.distance(performer, w) <= range);
+		
+		List<WorldObject> newlyDiscoveredWorldObjects = getNewlyDiscoveredWorldObjects(performer, surroundingWorldObjects);
+		for(WorldObject newlyDiscoveredWorldObject : newlyDiscoveredWorldObjects) {
+			int subjectId = newlyDiscoveredWorldObject.getProperty(Constants.ID);
+			int x = newlyDiscoveredWorldObject.getProperty(Constants.X);
+			int y = newlyDiscoveredWorldObject.getProperty(Constants.Y);
+			
+			performer.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(subjectId, Constants.LOCATION, new Location(x, y));
+			world.logAction(this, performer, target, args, newlyDiscoveredWorldObject.getProperty(Constants.NAME) + " has been discovered");
+		}
+	}
+
+	private List<WorldObject> getNewlyDiscoveredWorldObjects(WorldObject performer, List<WorldObject> surroundingWorldObjects) {
+		List<WorldObject> newlyDiscoveredWorldObjects = new ArrayList<>();
+		
+		return newlyDiscoveredWorldObjects;
 	}
 
 	@Override
