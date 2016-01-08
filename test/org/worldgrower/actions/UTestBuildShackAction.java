@@ -24,6 +24,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.Item;
 
 public class UTestBuildShackAction {
 
@@ -36,6 +37,24 @@ public class UTestBuildShackAction {
 		
 		assertEquals(1, world.getWorldObjects().size());
 		assertEquals("shack", world.getWorldObjects().get(0).getProperty(Constants.NAME));
+	}
+	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		assertEquals(true, Actions.BUILD_SHACK_ACTION.isValidTarget(performer, target, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 10);
+		assertEquals(0, Actions.BUILD_SHACK_ACTION.distance(performer, target, new int[0], world));
 	}
 	
 	private WorldObject createPerformer(int id) {

@@ -19,6 +19,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.EventKnowledge;
 import org.worldgrower.attribute.Knowledge;
+import org.worldgrower.attribute.Location;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.PropertyKnowledge;
 import org.worldgrower.deity.Deity;
@@ -67,6 +68,9 @@ public class KnowledgeToDescriptionMapper {
 				} else {
 					return subject.getProperty(Constants.NAME) + " doesn't have a leader";
 				}
+			} else if (property == Constants.LOCATION) {
+				Location location = (Location) value;
+				return subject.getProperty(Constants.NAME) + " is located at x " + location.getX() + " and y " + location.getY();
 			} else {
 				throw new IllegalStateException("No mapping found for property " + property + " and value " + value);
 			}

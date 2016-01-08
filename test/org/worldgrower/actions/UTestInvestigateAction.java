@@ -22,48 +22,62 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.IdList;
-import org.worldgrower.attribute.WorldObjectContainer;
-import org.worldgrower.generator.Item;
+import org.worldgrower.attribute.KnowledgeMap;
+import org.worldgrower.generator.TerrainGenerator;
 
-public class UTestBuildWellAction {
+public class UTestInvestigateAction {
 
 	@Test
 	public void testExecute() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = createPerformer(2);
-		WorldObject target = createPerformer(3);
-		Actions.BUILD_WELL_ACTION.execute(performer, target, new int[0], world);
+		int id = TerrainGenerator.generateFireTrap(0, 0, world, 1f);
+		WorldObject target = world.findWorldObject(Constants.ID, id);
 		
-		assertEquals(1, world.getWorldObjects().size());
-		assertEquals("well", world.getWorldObjects().get(0).getProperty(Constants.NAME));
+		Actions.INVESTIGATE_ACTION.execute(performer, target, new int[0], world);
+		
+		assertEquals(true, performer.getProperty(Constants.KNOWLEDGE_MAP).hasKnowledge(target));
+	}
+
+	@Test
+	public void testExecuteAlreadyKnown() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		int id = TerrainGenerator.generateFireTrap(0, 0, world, 1f);
+		WorldObject target = world.findWorldObject(Constants.ID, id);
+		
+		Actions.INVESTIGATE_ACTION.execute(performer, target, new int[0], world);
+		Actions.INVESTIGATE_ACTION.execute(performer, target, new int[0], world);
+		
+		assertEquals(true, performer.getProperty(Constants.KNOWLEDGE_MAP).hasKnowledge(target));
+		assertEquals(1, performer.getProperty(Constants.KNOWLEDGE_MAP).getKnowledge(target).size());
 	}
 	
 	@Test
 	public void testIsValidTarget() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = createPerformer(2);
-		WorldObject target = createPerformer(3);
-		assertEquals(true, Actions.BUILD_WELL_ACTION.isValidTarget(performer, target, world));
+		int id = TerrainGenerator.generateFireTrap(0, 0, world, 1f);
+		WorldObject target = world.findWorldObject(Constants.ID, id);
+		
+		assertEquals(true, Actions.INVESTIGATE_ACTION.isValidTarget(performer, performer, world));
+		assertEquals(false, Actions.INVESTIGATE_ACTION.isValidTarget(performer, target, world));
 	}
 	
 	@Test
 	public void testDistance() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = createPerformer(2);
-		WorldObject target = createPerformer(3);
-		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 10);
 		
-		assertEquals(0, Actions.BUILD_WELL_ACTION.distance(performer, target, new int[0], world));
+		assertEquals(0, Actions.INVESTIGATE_ACTION.distance(performer, performer, new int[0], world));
 	}
 	
 	private WorldObject createPerformer(int id) {
-		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.INVENTORY, new WorldObjectContainer());
+		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		performer.setProperty(Constants.X, 0);
 		performer.setProperty(Constants.Y, 0);
 		performer.setProperty(Constants.WIDTH, 1);
 		performer.setProperty(Constants.HEIGHT, 1);
-		performer.setProperty(Constants.HOUSES, new IdList());
 		return performer;
 	}
 }

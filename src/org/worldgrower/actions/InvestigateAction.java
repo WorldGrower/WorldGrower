@@ -24,6 +24,7 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.KnowledgeMap;
 import org.worldgrower.attribute.Location;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.gui.ImageIds;
@@ -50,7 +51,15 @@ public class InvestigateAction implements ManagedOperation {
 	}
 
 	private List<WorldObject> getNewlyDiscoveredWorldObjects(WorldObject performer, List<WorldObject> surroundingWorldObjects) {
+		KnowledgeMap performerKnowledgeMap = performer.getProperty(Constants.KNOWLEDGE_MAP);
 		List<WorldObject> newlyDiscoveredWorldObjects = new ArrayList<>();
+		for(WorldObject surroundingWorldObject : surroundingWorldObjects) {
+			if (surroundingWorldObject.hasProperty(Constants.PASSABLE)) {
+				if (!performerKnowledgeMap.hasKnowledge(surroundingWorldObject)) {
+					newlyDiscoveredWorldObjects.add(surroundingWorldObject);
+				}
+			}
+		}
 		
 		return newlyDiscoveredWorldObjects;
 	}

@@ -43,6 +43,31 @@ public class UTestGetItemFromInventoryAction {
 		assertEquals(1, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.FOOD));
 	}
 	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		int id = BuildingGenerator.generateHouse(0, 0, world, 1f);
+		WorldObject target = world.findWorldObject(Constants.ID, id);
+		
+		target.getProperty(Constants.INVENTORY).addQuantity(Item.BERRIES.generate(1f));
+		
+		assertEquals(true, Actions.GET_ITEM_FROM_INVENTORY_ACTION.isValidTarget(performer, target, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		int id = BuildingGenerator.generateHouse(0, 0, world, 1f);
+		WorldObject target = world.findWorldObject(Constants.ID, id);
+		
+		target.getProperty(Constants.INVENTORY).addQuantity(Item.BERRIES.generate(1f));
+		target.setProperty(Constants.LOCKED, Boolean.FALSE);
+		
+		assertEquals(0, Actions.GET_ITEM_FROM_INVENTORY_ACTION.distance(performer, target, new int[] { 0 }, world));
+	}
+	
 	private WorldObject createPerformer(int id) {
 		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.X, 0);
