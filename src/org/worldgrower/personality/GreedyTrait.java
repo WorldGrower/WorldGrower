@@ -18,14 +18,26 @@ public class GreedyTrait extends AbstractPersonalityTrait {
 
 	@Override
 	public String getAdjective(int relationshipValue) {
-		if (relationshipValue < 0) {
-			return "miserly";
-		} else if (relationshipValue < 250) {
-			return "stingy";
-		} else if (relationshipValue < 500) {
-			return "greedy";
+		if (getValue() > 0) {
+			if (relationshipValue < 0) {
+				return "miserly";
+			} else if (relationshipValue < 250) {
+				return "stingy";
+			} else if (relationshipValue < 500) {
+				return "greedy";
+			} else {
+				return "insatiable";
+			}
 		} else {
-			return "insatiable";
+			if (relationshipValue < 0) {
+				return "compassionate";
+			} else if (relationshipValue < 250) {
+				return "kind";
+			} else if (relationshipValue < 500) {
+				return "charitable";
+			} else {
+				return "generous";
+			}
 		}
 	}
 }

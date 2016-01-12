@@ -31,8 +31,8 @@ abstract class AbstractPersonalityTrait implements PersonalityTrait {
 	public final void changeValue(int value, String reason) {
 		this.value += value;
 		
-		if (this.value < 0) {
-			this.value = 0;
+		if (this.value < -1000) {
+			this.value = -1000;
 		}
 		
 		if (this.value > 1000) {
