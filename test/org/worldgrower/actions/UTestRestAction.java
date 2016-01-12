@@ -37,4 +37,22 @@ public class UTestRestAction {
 		
 		assertEquals(505, performer.getProperty(Constants.ENERGY).intValue());
 	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
+		
+		assertEquals(0, Actions.REST_ACTION.distance(performer, performer, new int[0], world));
+	}
+	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
+		WorldObject target = TestUtils.createSkilledWorldObject(3, Constants.INVENTORY, new WorldObjectContainer());
+		
+		assertEquals(false, Actions.REST_ACTION.isValidTarget(performer, target, world));
+		assertEquals(true, Actions.REST_ACTION.isValidTarget(performer, performer, world));
+	}
 }

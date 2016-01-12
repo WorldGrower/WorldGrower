@@ -47,9 +47,7 @@ public class RestAction implements ManagedOperation {
 
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		int performerId = performer.getProperty(Constants.ID);
-		int targetId = target.getProperty(Constants.ID);
-		return (performerId == targetId);
+		return CraftUtils.isValidTarget(performer, target, world);
 	}
 
 	@Override
