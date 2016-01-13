@@ -140,6 +140,7 @@ import org.worldgrower.generator.UTestSkeletonEvaluationFunction;
 import org.worldgrower.generator.UTestVotingOnTurn;
 import org.worldgrower.goal.*;
 import org.worldgrower.history.UTestHistoryImpl;
+import org.worldgrower.personality.UTestAbstractPersonalityTrait;
 import org.worldgrower.profession.UTestProfessions;
 import org.worldgrower.terrain.UTestTerrainImpl;
 import org.worldgrower.util.UTestNumberUtils;
@@ -515,7 +516,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestSetTaxRateAction.class,
 	UTestUnpassableCreaturePositionCondition.class,
 	UTestNonLethalMeleeAttackAction.class,
-	UTestInvestigateAction.class
+	UTestInvestigateAction.class,
+	UTestAbstractPersonalityTrait.class
 })
 public class CompleteTestSuite {
 }

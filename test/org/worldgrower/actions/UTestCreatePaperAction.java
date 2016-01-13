@@ -42,6 +42,25 @@ public class UTestCreatePaperAction {
 		assertEquals(1, performerInventory.getQuantityFor(Constants.PAPER));
 	}
 	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+
+		assertEquals(true, Actions.CREATE_PAPER_ACTION.isValidTarget(performer, performer, world));
+	}
+
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
+		performerInventory.addQuantity(Item.WOOD.generate(1f), 10);
+		performerInventory.addQuantity(Item.WATER.generate(1f), 10);
+		
+		assertEquals(0, Actions.CREATE_PAPER_ACTION.distance(performer, performer, new int[0], world));
+	}
+	
 	private WorldObject createPerformer(int id) {
 		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.X, 0);

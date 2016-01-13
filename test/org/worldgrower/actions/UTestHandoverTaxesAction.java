@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.goal.GroupPropertyUtils;
 
 public class UTestHandoverTaxesAction {
 
@@ -38,6 +39,32 @@ public class UTestHandoverTaxesAction {
 		
 		assertEquals(0, performer.getProperty(Constants.ORGANIZATION_GOLD).intValue());
 		assertEquals(200, target.getProperty(Constants.ORGANIZATION_GOLD).intValue());
+	}
+	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		
+		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
+		organization.setProperty(Constants.ID, 1);
+		organization.setProperty(Constants.ORGANIZATION_LEADER_ID, 3);
+		world.addWorldObject(organization);
+		
+		performer.setProperty(Constants.ORGANIZATION_GOLD, 100);
+		target.setProperty(Constants.ORGANIZATION_GOLD, 100);
+		assertEquals(true, Actions.HANDOVER_TAXES_ACTION.isValidTarget(performer, target, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+
+		performer.setProperty(Constants.ORGANIZATION_GOLD, 100);
+		assertEquals(0, Actions.HANDOVER_TAXES_ACTION.distance(performer, target, new int[0], world));
 	}
 	
 	private WorldObject createPerformer(int id) {
