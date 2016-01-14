@@ -18,11 +18,11 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-public class UTestAbstractPersonalityTrait {
+public class UTestPersonalityTraitValue {
 
 	@Test
 	public void testChangeValue() {
-		PersonalityTrait trait = new GreedyTrait();
+		PersonalityTraitValue trait = new PersonalityTraitValue(PersonalityTrait.GREEDY);
 		
 		trait.changeValue(2000, "reason");
 		assertEquals(1000, trait.getValue());
