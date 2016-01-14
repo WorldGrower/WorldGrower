@@ -14,12 +14,15 @@
  *******************************************************************************/
 package org.worldgrower.personality;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-public interface PersonalityTrait {
+public interface PersonalityTrait extends Serializable {
 
-	public int getValue();
-	public void changeValue(int value, String reason);
-	public List<String> getReasons();
-	public String getAdjective(int relationshipValue);
+	public static final List<PersonalityTrait> ALL_TRAITS = new ArrayList<>();
+	
+	public String getAdjective(int value, int relationshipValue);
+	
+	public static final PersonalityTrait GREEDY = new GreedyTrait(ALL_TRAITS);
 }

@@ -14,36 +14,44 @@
  *******************************************************************************/
 package org.worldgrower.personality;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-public class GreedyTrait implements PersonalityTrait {
-
-	public GreedyTrait(List<PersonalityTrait> allTraits) {
-		allTraits.add(this);
+class PersonalityTraitValue implements Serializable {
+	private final PersonalityTrait personalityTrait;
+	
+	public PersonalityTraitValue(PersonalityTrait personalityTrait) {
+		super();
+		this.personalityTrait = personalityTrait;
 	}
 
-	@Override
-	public String getAdjective(int value, int relationshipValue) {
-		if (value > 0) {
-			if (relationshipValue < 0) {
-				return "miserly";
-			} else if (relationshipValue < 250) {
-				return "stingy";
-			} else if (relationshipValue < 500) {
-				return "greedy";
-			} else {
-				return "insatiable";
-			}
-		} else {
-			if (relationshipValue < 0) {
-				return "compassionate";
-			} else if (relationshipValue < 250) {
-				return "kind";
-			} else if (relationshipValue < 500) {
-				return "charitable";
-			} else {
-				return "generous";
-			}
+	private int value;
+	private List<String> reasons = new ArrayList<>();
+	
+	public final int getValue() {
+		return value;
+	}
+
+	public final void changeValue(int value, String reason) {
+		this.value += value;
+		
+		if (this.value < -1000) {
+			this.value = -1000;
 		}
+		
+		if (this.value > 1000) {
+			this.value = 1000;
+		}
+		
+		reasons.add(reason);
+	}
+
+	public final List<String> getReasons() {
+		return reasons;
+	}
+
+	public PersonalityTrait getPersonalityTrait() {
+		return personalityTrait;
 	}
 }

@@ -55,6 +55,16 @@ public class UTestMineOreAction {
 		assertEquals(false, Actions.MINE_ORE_ACTION.isValidTarget(performer, target, world));
 	}
 	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		int stoneResourceId = TerrainGenerator.generateOreResource(0, 0, world);
+		WorldObject target = world.findWorldObject(Constants.ID, stoneResourceId);
+		
+		assertEquals(0, Actions.MINE_ORE_ACTION.distance(performer, target, new int[0], world));
+	}
+	
 	private WorldObject createPerformer(int id) {
 		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.X, 0);

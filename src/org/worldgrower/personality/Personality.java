@@ -14,36 +14,31 @@
  *******************************************************************************/
 package org.worldgrower.personality;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-abstract class AbstractPersonalityTrait implements PersonalityTrait {
+public class Personality implements Serializable {
 
-	private int value;
-	private List<String> reasons = new ArrayList<>();
+	private final List<PersonalityTraitValue> personalityTraitValues = new ArrayList<>();
 	
-	@Override
-	public final int getValue() {
-		return value;
+	public Personality() {
+		super();
+		for(PersonalityTrait personalityTrait : PersonalityTrait.ALL_TRAITS) {
+			personalityTraitValues.add(new PersonalityTraitValue(personalityTrait));
+		}
 	}
 
-	@Override
-	public final void changeValue(int value, String reason) {
-		this.value += value;
-		
-		if (this.value < -1000) {
-			this.value = -1000;
-		}
-		
-		if (this.value > 1000) {
-			this.value = 1000;
-		}
-		
-		reasons.add(reason);
+	public void changeValue(PersonalityTrait personalityTrait, int value, String reason) {
+		getPersonalityTraitValue(personalityTrait).changeValue(value, reason);
 	}
-
-	@Override
-	public final List<String> getReasons() {
-		return reasons;
+	
+	private PersonalityTraitValue getPersonalityTraitValue(PersonalityTrait personalityTrait) {
+		for(PersonalityTraitValue personalityTraitValue : personalityTraitValues) {
+			if (personalityTraitValue.getPersonalityTrait() == personalityTrait) {
+				return personalityTraitValue;
+			}
+		}
+		throw new IllegalStateException("PersonalityTrait " + personalityTrait + " not found in " + personalityTraitValues);
 	}
 }
