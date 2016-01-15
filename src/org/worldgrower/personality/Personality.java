@@ -41,4 +41,16 @@ public class Personality implements Serializable {
 		}
 		throw new IllegalStateException("PersonalityTrait " + personalityTrait + " not found in " + personalityTraitValues);
 	}
+
+	public int getValue(PersonalityTrait personalityTrait) {
+		return getPersonalityTraitValue(personalityTrait).getValue();
+	}
+
+	public Personality copy() {
+		Personality copyPersonality = new Personality();
+		for(PersonalityTraitValue personalityTraitValue : copyPersonality.personalityTraitValues) {
+			personalityTraitValue.copy(getPersonalityTraitValue(personalityTraitValue.getPersonalityTrait()));
+		}
+		return copyPersonality;
+	}
 }

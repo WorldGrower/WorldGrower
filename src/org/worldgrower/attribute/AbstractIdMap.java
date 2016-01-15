@@ -15,6 +15,7 @@
 package org.worldgrower.attribute;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -74,6 +75,23 @@ public abstract class AbstractIdMap implements IdMap {
 		}
 		
 		return bestId;
+	}
+	
+	@Override
+	public final int findBestId(Predicate<WorldObject> predicate, Comparator<WorldObject> comparator,  World world) {
+		WorldObject bestPerson = null;
+		for(Entry<Integer, Integer> entry : idsToValue.entrySet()) {
+			int id = entry.getKey();
+			WorldObject person = world.findWorldObject(Constants.ID, id);
+			
+			if (predicate.test(person)) {
+				if (bestPerson == null || comparator.compare(bestPerson, person) < 0) {
+					bestPerson = person;
+				}
+			}
+		}
+		
+		return bestPerson.getProperty(Constants.ID);
 	}
 	
 	@Override

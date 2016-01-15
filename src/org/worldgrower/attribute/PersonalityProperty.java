@@ -14,31 +14,49 @@
  *******************************************************************************/
 package org.worldgrower.attribute;
 
-import java.io.Serializable;
-import java.util.Comparator;
+import java.io.ObjectStreamException;
 import java.util.List;
-import java.util.function.Predicate;
 
-import org.worldgrower.World;
-import org.worldgrower.WorldObject;
+import org.worldgrower.personality.Personality;
 
-public interface IdMap extends Serializable, IdContainer {
+public class PersonalityProperty implements ManagedProperty<Personality> {
 
-	public void incrementValue(int id, int value);
-	public void incrementValue(WorldObject worldObject, int value);
-	public int getValue(int id);
-	public int getValue(WorldObject worldObject);
+	private final String name;
+	private final int ordinal = OrdinalGenerator.getNextOrdinal();
 	
-	public int findBestId(Predicate<WorldObject> predicate, World world);
-	public int findBestId(Predicate<WorldObject> predicate, Comparator<WorldObject> comparator,  World world);
-	public List<Integer> getIds();
-	public List<Integer> getIdsWithoutTarget(WorldObject target);
-	public boolean contains(WorldObject worldObject);
-	
-	public String toString();
-	
-	public IdMap copy();
+	public PersonalityProperty(String name, List<ManagedProperty<?>> allProperties) {
+		this.name = name;
+		allProperties.add(this);
+	}
 
-	public void remove(int id);
-	public void remove(WorldObject worldObject);
+	@Override
+	public String getName() {
+		return name;
+	}
+
+	@Override
+	public void checkValue(Personality value) {
+		if (value == null) {
+			throw new IllegalStateException("value " + value + " is null");
+		}		
+	}
+
+	@Override
+	public String toString() {
+		return name;
+	}
+	
+	@Override
+	public int getOrdinal() {
+		return ordinal;
+	}
+	
+	public Object readResolve() throws ObjectStreamException {
+		return readResolveImpl();
+	}
+
+	@Override
+	public Personality copy(Object value) {
+		return ((Personality) value).copy();
+	}
 }

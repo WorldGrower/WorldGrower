@@ -32,6 +32,7 @@ import org.worldgrower.attribute.KnowledgeMapProperty;
 import org.worldgrower.attribute.Location;
 import org.worldgrower.attribute.LookDirection;
 import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.attribute.PersonalityProperty;
 import org.worldgrower.attribute.PropertyCountMapProperty;
 import org.worldgrower.attribute.Reasons;
 import org.worldgrower.attribute.SkillProperty;
@@ -204,6 +205,7 @@ public class Constants {
 	
 	public static final UnCheckedProperty<Curse> CURSE = new UnCheckedProperty<Curse>("curse", ALL_PROPERTIES);
 	public static final ConditionsProperty CONDITIONS = new ConditionsProperty("conditions", ALL_PROPERTIES);
+	public static final PersonalityProperty PERSONALITY = new PersonalityProperty("personality", ALL_PROPERTIES);
 	
 	public static final IntProperty RELATIONSHIP_VALUE = new IntProperty("relationshipValue", -1000, 1000, NOT_NULLABLE, ALL_PROPERTIES);
 	

@@ -50,6 +50,7 @@ import org.worldgrower.goal.MeleeDamagePropertyUtils;
 import org.worldgrower.gui.CommonerImageIds;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.start.CharacterAttributes;
+import org.worldgrower.personality.Personality;
 import org.worldgrower.profession.PlayerCharacterProfession;
 
 public class CommonerGenerator implements Serializable {
@@ -131,6 +132,7 @@ public class CommonerGenerator implements Serializable {
 		properties.put(Constants.WORSHIP_COUNTER, 0);
 		properties.put(Constants.ALCOHOL_LEVEL, 0);
 		properties.put(Constants.ITEMS_SOLD, new ItemCountMap());
+		properties.put(Constants.PERSONALITY, new Personality());
 		
 		properties.put(Constants.DAMAGE, 8);
 		properties.put(Constants.ARMOR, 10);

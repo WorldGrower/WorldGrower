@@ -17,6 +17,7 @@ package org.worldgrower.attribute;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
+import java.util.Comparator;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
@@ -52,6 +53,36 @@ public class UTestIdMap {
 		
 		assertEquals(2, idMap.findBestId(w -> true, world));
 		assertEquals(1, idMap.findBestId(w -> w.getProperty(Constants.GOLD) > 0, world));
+	}
+	
+	@Test
+	public void testFindBestIdWithComparator() {
+		IdMap idMap = new IdToIntegerMap();
+		World world = new WorldImpl(0, 0, null, null);
+		
+		WorldObject person1 = TestUtils.createIntelligentWorldObject(1, Constants.GOLD, 10);
+		WorldObject person2 = TestUtils.createIntelligentWorldObject(2, Constants.GOLD, 0);
+		
+		world.addWorldObject(person1);
+		world.addWorldObject(person2);
+		
+		idMap.incrementValue(person1, 60);
+		idMap.incrementValue(person2, 80);
+		
+		assertEquals(1, idMap.findBestId(w -> true,  new WorldObjectComparator(), world));
+		assertEquals(1, idMap.findBestId(w -> w.getProperty(Constants.GOLD) > 0,  new WorldObjectComparator(), world));
+		
+		person2.setProperty(Constants.GOLD, 100);
+		assertEquals(2, idMap.findBestId(w -> true,  new WorldObjectComparator(), world));
+	}
+	
+	private static class WorldObjectComparator implements Comparator<WorldObject> {
+
+		@Override
+		public int compare(WorldObject o1, WorldObject o2) {
+			return Integer.compare(o1.getProperty(Constants.GOLD), o2.getProperty(Constants.GOLD));
+		}
+		
 	}
 	
 	@Test

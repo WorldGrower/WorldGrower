@@ -54,4 +54,9 @@ class PersonalityTraitValue implements Serializable {
 	public PersonalityTrait getPersonalityTrait() {
 		return personalityTrait;
 	}
+
+	public void copy(PersonalityTraitValue other) {
+		this.value = other.value;
+		this.reasons.addAll(other.getReasons());
+	}
 }
