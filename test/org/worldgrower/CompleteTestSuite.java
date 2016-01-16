@@ -31,6 +31,7 @@ import org.worldgrower.actions.magic.UTestDispelMagicAction;
 import org.worldgrower.actions.magic.UTestEnlargeAction;
 import org.worldgrower.actions.magic.UTestFeatherAction;
 import org.worldgrower.actions.magic.UTestFireBoltAttackAction;
+import org.worldgrower.actions.magic.UTestFireTrapAction;
 import org.worldgrower.actions.magic.UTestInflictWoundsAction;
 import org.worldgrower.actions.magic.UTestInvisibilityAction;
 import org.worldgrower.actions.magic.UTestLightningBoltAttackAction;
@@ -519,7 +520,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestNonLethalMeleeAttackAction.class,
 	UTestInvestigateAction.class,
 	UTestPersonalityTraitValue.class,
-	UTestPersonality.class
+	UTestPersonality.class,
+	UTestFireTrapAction.class
 })
 public class CompleteTestSuite {
 }

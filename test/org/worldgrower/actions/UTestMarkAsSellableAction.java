@@ -57,4 +57,18 @@ public class UTestMarkAsSellableAction {
 		performer.getProperty(Constants.HOUSES).remove(target);
 		assertEquals(false, Actions.MARK_AS_SELLABLE_ACTION.isValidTarget(performer, target, world));
 	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.HOUSES, new IdList());
+		performer.setProperty(Constants.X, 0);
+		performer.setProperty(Constants.Y, 0);
+		performer.setProperty(Constants.NAME, "performer");
+		
+		int id = BuildingGenerator.generateHouse(0, 0, world, 1f);
+		WorldObject target = world.findWorldObject(Constants.ID, id);
+		performer.getProperty(Constants.HOUSES).add(target);
+		assertEquals(0, Actions.MARK_AS_SELLABLE_ACTION.distance(performer, target, new int[0], world));
+	}
 }
