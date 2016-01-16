@@ -14,6 +14,7 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
+import java.util.Comparator;
 import java.util.List;
 
 import org.worldgrower.Constants;
@@ -23,6 +24,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.IdMap;
 import org.worldgrower.conversation.Conversations;
+import org.worldgrower.personality.PersonalityTrait;
 
 public class MateGoal implements Goal {
 
@@ -52,6 +54,33 @@ public class MateGoal implements Goal {
 				return new ImproveRelationshipGoal(target.getProperty(Constants.ID), 750, world).calculateGoal(performer, world);
 			} else {
 				return null;
+			}
+		}
+	}
+	
+	private static class MateComparator implements Comparator<WorldObject> {
+
+		private final WorldObject performer;
+		
+		public MateComparator(WorldObject performer) {
+			this.performer = performer;
+		}
+
+		@Override
+		public int compare(WorldObject w1, WorldObject w2) {
+			int houseCount1 = w1.getProperty(Constants.HOUSES).size();
+			int houseCount2 = w2.getProperty(Constants.HOUSES).size();
+			
+			if (houseCount1 == houseCount2) {
+				boolean performerIsGreedy = performer.getProperty(Constants.PERSONALITY).getValue(PersonalityTrait.GREEDY) > 100;
+				if (performerIsGreedy) {
+					return Integer.compare(w1.getProperty(Constants.GOLD), w2.getProperty(Constants.GOLD));
+				} else {
+					IdMap performerRelationships = performer.getProperty(Constants.RELATIONSHIPS);
+					return Integer.compare(performerRelationships.getValue(w1), performerRelationships.getValue(w2));
+				}
+			} else {
+				return Integer.compare(houseCount1, houseCount2);
 			}
 		}
 	}
