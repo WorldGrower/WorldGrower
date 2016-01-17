@@ -22,6 +22,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.personality.PersonalityTrait;
 
 public class DrinkWaterGoal implements Goal {
 
@@ -70,6 +71,7 @@ public class DrinkWaterGoal implements Goal {
 	@Override
 	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
 		defaultGoalMetOrNot(performer, world, goalMet, Constants.WATER);
+		changePersonality(performer, PersonalityTrait.GREEDY, 10, goalMet, "thirsty", world);
 	}
 
 	@Override

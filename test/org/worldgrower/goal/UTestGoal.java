@@ -23,7 +23,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.PropertyCountMap;
-import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.personality.Personality;
+import org.worldgrower.personality.PersonalityTrait;
 
 public class UTestGoal {
 
@@ -41,9 +42,56 @@ public class UTestGoal {
 		goal.defaultGoalMetOrNot(performer, world, true, Constants.FOOD);
 		assertEquals(0, performer.getProperty(Constants.DEMANDS).count(Constants.FOOD));
 	}
+	
+	@Test
+	public void testCalculateSign() {
+		WorldObject performer = createPerformer();
+		performer.setProperty(Constants.NAME, "performer");
+		
+		assertEquals(-1, goal.calculateSign(performer, PersonalityTrait.GREEDY));
+		
+		performer.setProperty(Constants.NAME, "qerformer");
+		assertEquals(1, goal.calculateSign(performer, PersonalityTrait.GREEDY));
+	}
+	
+	@Test
+	public void testChangePersonality() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer();
+		performer.setProperty(Constants.NAME, "performer");
+		performer.setProperty(Constants.FOOD, 0);
+		
+		goal.changePersonality(performer, PersonalityTrait.GREEDY, 10, false, "hungry", world);
+		
+		assertEquals(-10, performer.getProperty(Constants.PERSONALITY).getValue(PersonalityTrait.GREEDY));
+	}
+	
+	@Test
+	public void testChangePersonalityGoalMet() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer();
+		performer.setProperty(Constants.NAME, "performer");
+		performer.setProperty(Constants.FOOD, 0);
+		
+		goal.changePersonality(performer, PersonalityTrait.GREEDY, 10, true, "hungry", world);
+		
+		assertEquals(0, performer.getProperty(Constants.PERSONALITY).getValue(PersonalityTrait.GREEDY));
+	}
+	
+	@Test
+	public void testChangePersonalityUrgentGoalMet() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer();
+		performer.setProperty(Constants.NAME, "performer");
+		performer.setProperty(Constants.FOOD, 500);
+		
+		goal.changePersonality(performer, PersonalityTrait.GREEDY, 10, false, "hungry", world);
+		
+		assertEquals(0, performer.getProperty(Constants.PERSONALITY).getValue(PersonalityTrait.GREEDY));
+	}
 
 	private WorldObject createPerformer() {
-		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
+		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.PERSONALITY, new Personality());
 		performer.setProperty(Constants.X, 0);
 		performer.setProperty(Constants.Y, 0);
 		performer.setProperty(Constants.WIDTH, 1);

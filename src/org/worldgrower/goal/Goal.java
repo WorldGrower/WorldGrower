@@ -21,6 +21,7 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.personality.PersonalityTrait;
 
 /**
  * A Goal describes something a non-player character wants to achieve.
@@ -43,5 +44,19 @@ public interface Goal extends Serializable {
 				performer.getProperty(Constants.DEMANDS).add(property, 1);
 			}
 		}
+	}
+	
+	public default void changePersonality(WorldObject performer, PersonalityTrait personalityTrait, int value, boolean goalMet, String reason, World world) {
+		if (!goalMet && !isUrgentGoalMet(performer, world)) {
+			int sign = calculateSign(performer, personalityTrait);
+			performer.getProperty(Constants.PERSONALITY).changeValue(personalityTrait, sign * value, reason);
+		}
+	}
+
+	public default int calculateSign(WorldObject performer, PersonalityTrait personalityTrait) {
+		String performerName = performer.getProperty(Constants.NAME);
+		String traitName = personalityTrait.getClass().getSimpleName();
+		int firstChars = performerName.charAt(0) + traitName.charAt(0);
+		return firstChars % 2 == 0 ? 1 : -1;
 	}
 }

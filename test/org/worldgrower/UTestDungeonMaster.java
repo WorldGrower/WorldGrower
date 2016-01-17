@@ -33,6 +33,7 @@ import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.PlantGenerator;
 import org.worldgrower.goal.Goals;
 import org.worldgrower.history.Turn;
+import org.worldgrower.personality.Personality;
 
 public class UTestDungeonMaster {
 
@@ -111,6 +112,8 @@ public class UTestDungeonMaster {
 		DungeonMaster dungeonMaster = new DungeonMaster();
 		World world = createWorld(dungeonMaster);
 		WorldObject commoner = TestUtils.createIntelligentWorldObject(1, Goals.DRINK_WATER_GOAL);
+		commoner.setProperty(Constants.NAME, "performer");
+		commoner.setProperty(Constants.PERSONALITY, new Personality());
 		commoner.setProperty(Constants.X, 5);
 		commoner.setProperty(Constants.Y, 5);
 		world.addWorldObject(commoner);
