@@ -21,6 +21,7 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.personality.PersonalityTrait;
 
 public class FoodGoal implements Goal {
 
@@ -48,6 +49,20 @@ public class FoodGoal implements Goal {
 	@Override
 	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
 		defaultGoalMetOrNot(performer, world, goalMet, Constants.FOOD);
+		changePersonality(performer, world, goalMet);
+	}
+	
+	private void changePersonality(WorldObject performer, World world, boolean goalMet) {
+		if (!goalMet) {
+			int sign = calculateSign(performer);
+			performer.getProperty(Constants.PERSONALITY).changeValue(PersonalityTrait.GREEDY, sign * 10, "hungry");
+		}
+	}
+
+	private int calculateSign(WorldObject performer) {
+		String performerName = performer.getProperty(Constants.NAME);
+		char firstChar = performerName.charAt(0);
+		return (int) firstChar % 2 == 0 ? 1 : -1;
 	}
 
 	@Override

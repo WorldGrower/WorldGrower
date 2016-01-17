@@ -91,7 +91,11 @@ public abstract class AbstractIdMap implements IdMap {
 			}
 		}
 		
-		return bestPerson.getProperty(Constants.ID);
+		if (bestPerson != null) {
+			return bestPerson.getProperty(Constants.ID);
+		} else {
+			return -1;
+		}
 	}
 	
 	@Override

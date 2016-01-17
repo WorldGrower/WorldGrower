@@ -35,12 +35,7 @@ public class MateGoal implements Goal {
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		IdMap relationships = performer.getProperty(Constants.RELATIONSHIPS);
-				
-		int bestId = relationships.findBestId(w -> RacePropertyUtils.canHaveOffspring(performer, w) && (w.getProperty(Constants.HOUSES).size() > 0), world);
-		
-		if (bestId == -1) {
-			bestId = relationships.findBestId(w -> RacePropertyUtils.canHaveOffspring(performer, w), world);
-		}
+		int bestId = getBestMate(performer, world);
 		
 		if ((bestId != -1) && (relationships.getValue(bestId) > 750)) {
 			WorldObject target = world.findWorldObject(Constants.ID, bestId);
@@ -48,7 +43,7 @@ public class MateGoal implements Goal {
 		} else if (bestId != -1) {
 			return new ImproveRelationshipGoal(bestId, 750, world).calculateGoal(performer, world);
 		} else {
-			List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.SEX_ACTION, w -> RacePropertyUtils.canHaveOffspring(performer, w) ,world);
+			List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.SEX_ACTION, w -> isPotentialMate(performer, w) ,world);
 			if (targets.size() > 0) {
 				WorldObject target = targets.get(0);
 				return new ImproveRelationshipGoal(target.getProperty(Constants.ID), 750, world).calculateGoal(performer, world);
@@ -56,6 +51,15 @@ public class MateGoal implements Goal {
 				return null;
 			}
 		}
+	}
+	
+	static int getBestMate(WorldObject performer, World world) {
+		IdMap relationships = performer.getProperty(Constants.RELATIONSHIPS);
+		return relationships.findBestId(w -> isPotentialMate(performer, w), new MateComparator(performer), world);
+	}
+
+	private static boolean isPotentialMate(WorldObject performer, WorldObject w) {
+		return RacePropertyUtils.canHaveOffspring(performer, w);
 	}
 	
 	private static class MateComparator implements Comparator<WorldObject> {
