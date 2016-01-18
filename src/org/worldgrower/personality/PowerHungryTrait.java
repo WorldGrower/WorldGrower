@@ -17,10 +17,11 @@ package org.worldgrower.personality;
 import java.util.List;
 
 import org.worldgrower.WorldObject;
+import org.worldgrower.goal.Goals;
 
-public class GreedyTrait implements PersonalityTrait {
+public class PowerHungryTrait implements PersonalityTrait {
 
-	public GreedyTrait(List<PersonalityTrait> allTraits) {
+	public PowerHungryTrait(List<PersonalityTrait> allTraits) {
 		allTraits.add(this);
 	}
 
@@ -28,29 +29,30 @@ public class GreedyTrait implements PersonalityTrait {
 	public String getAdjective(int value, int relationshipValue) {
 		if (value > 0) {
 			if (relationshipValue < 0) {
-				return "miserly";
+				return "power hungry";
 			} else if (relationshipValue < 250) {
-				return "stingy";
+				return "power-loving";
 			} else if (relationshipValue < 500) {
-				return "greedy";
+				return "determined";
 			} else {
-				return "insatiable";
+				return "ambitious";
 			}
 		} else {
 			if (relationshipValue < 0) {
-				return "compassionate";
+				return "lazy";
 			} else if (relationshipValue < 250) {
-				return "kind";
+				return "relaxed";
 			} else if (relationshipValue < 500) {
-				return "charitable";
+				return "calm";
 			} else {
-				return "generous";
+				return "easy-going";
 			}
 		}
 	}
 
 	@Override
 	public int calculateInitialValue(WorldObject performer) {
-		return 0;
+		int sign = Goals.FOOD_GOAL.calculateSign(performer, this);
+		return sign * 500;
 	}
 }

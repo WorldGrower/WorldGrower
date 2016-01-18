@@ -18,6 +18,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.worldgrower.WorldObject;
+
 class PersonalityTraitValue implements Serializable {
 	private final PersonalityTrait personalityTrait;
 	
@@ -58,5 +60,9 @@ class PersonalityTraitValue implements Serializable {
 	public void copy(PersonalityTraitValue other) {
 		this.value = other.value;
 		this.reasons.addAll(other.getReasons());
+	}
+
+	public void initialize(WorldObject performer) {
+		this.value = personalityTrait.calculateInitialValue(performer);
 	}
 }

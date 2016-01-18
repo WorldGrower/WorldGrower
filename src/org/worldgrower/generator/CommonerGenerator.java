@@ -132,7 +132,8 @@ public class CommonerGenerator implements Serializable {
 		properties.put(Constants.WORSHIP_COUNTER, 0);
 		properties.put(Constants.ALCOHOL_LEVEL, 0);
 		properties.put(Constants.ITEMS_SOLD, new ItemCountMap());
-		properties.put(Constants.PERSONALITY, new Personality());
+		Personality personality = new Personality();
+		properties.put(Constants.PERSONALITY, personality);
 		
 		properties.put(Constants.DAMAGE, 8);
 		properties.put(Constants.ARMOR, 10);
@@ -143,6 +144,7 @@ public class CommonerGenerator implements Serializable {
 		
 		creature.setProperty(Constants.DAMAGE, MeleeDamagePropertyUtils.calculateMeleeDamage(creature));
 		creature.setProperty(Constants.ARMOR, ArmorPropertyUtils.calculateArmor(creature));
+		personality.initialize(creature);
 		
 		return id;
 	}

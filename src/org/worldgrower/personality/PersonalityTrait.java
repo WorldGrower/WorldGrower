@@ -18,6 +18,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.worldgrower.WorldObject;
+
 public interface PersonalityTrait extends Serializable {
 
 	public static final List<PersonalityTrait> ALL_TRAITS = new ArrayList<>();
@@ -25,4 +27,7 @@ public interface PersonalityTrait extends Serializable {
 	public String getAdjective(int value, int relationshipValue);
 	
 	public static final PersonalityTrait GREEDY = new GreedyTrait(ALL_TRAITS);
+	public static final PersonalityTrait POWER_HUNGRY = new PowerHungryTrait(ALL_TRAITS);
+
+	public int calculateInitialValue(WorldObject performer);
 }

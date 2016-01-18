@@ -25,6 +25,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.deity.Deity;
+import org.worldgrower.generator.Item;
 
 public class UTestBuildShrineAction {
 
@@ -41,6 +42,27 @@ public class UTestBuildShrineAction {
 		assertEquals(1, world.getWorldObjects().size());
 		assertEquals("shrine to Ares", world.getWorldObjects().get(0).getProperty(Constants.NAME));
 		assertEquals(Deity.ARES, world.getWorldObjects().get(0).getProperty(Constants.DEITY));
+	}
+	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		
+		performer.setProperty(Constants.DEITY, Deity.ARES);
+		assertEquals(true, Actions.BUILD_SHRINE_ACTION.isValidTarget(performer, target, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.STONE.generate(1f), 20);
+		performer.setProperty(Constants.DEITY, Deity.ARES);
+		assertEquals(0, Actions.BUILD_SHRINE_ACTION.distance(performer, target, new int[0], world));
 	}
 	
 	private WorldObject createPerformer(int id) {

@@ -18,6 +18,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.worldgrower.WorldObject;
+
 public class Personality implements Serializable {
 
 	private final List<PersonalityTraitValue> personalityTraitValues = new ArrayList<>();
@@ -26,6 +28,12 @@ public class Personality implements Serializable {
 		super();
 		for(PersonalityTrait personalityTrait : PersonalityTrait.ALL_TRAITS) {
 			personalityTraitValues.add(new PersonalityTraitValue(personalityTrait));
+		}
+	}
+	
+	public void initialize(WorldObject performer) {
+		for(PersonalityTraitValue personalityTraitValue : personalityTraitValues) {
+			personalityTraitValue.initialize(performer);
 		}
 	}
 
