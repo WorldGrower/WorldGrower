@@ -22,6 +22,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.VotingPropertyUtils;
+import org.worldgrower.personality.PersonalityTrait;
 
 public class OrganizationCandidateGoal implements Goal {
 
@@ -47,14 +48,27 @@ public class OrganizationCandidateGoal implements Goal {
 		WorldObject organization = world.findWorldObject(Constants.ID, organizationId);
 		List<WorldObject> organizationMembers = GroupPropertyUtils.findOrganizationMembers(organization, world);
 		
-		Integer organizationLeaderId = organization.getProperty(Constants.ORGANIZATION_LEADER_ID);
-		if ((organizationLeaderId != null) && (organizationLeaderId.intValue() == performer.getProperty(Constants.ID))) {
+		if (isCurrentLeader(performer, organization)) {
 			return true;
 		} else if (hasBestRelationshipWithMembers(performer, organizationMembers)) {
+			return true;
+		} else if (wantsToTry(performer, votingBox)) {
 			return true;
 		} else {
 			return false;
 		}
+	}
+
+	private boolean isCurrentLeader(WorldObject performer, WorldObject organization) {
+		Integer organizationLeaderId = organization.getProperty(Constants.ORGANIZATION_LEADER_ID);
+		return (organizationLeaderId != null) && (organizationLeaderId.intValue() == performer.getProperty(Constants.ID));
+	}
+	
+	private boolean wantsToTry(WorldObject performer, WorldObject votingBox) {
+		boolean isPowerHungry = performer.getProperty(Constants.PERSONALITY).getValue(PersonalityTrait.POWER_HUNGRY) > 100;
+		int currentNumberOfCandidates = votingBox.getProperty(Constants.CANDIDATES).size();
+		
+		return isPowerHungry && currentNumberOfCandidates < 3;
 	}
 	
 	private boolean hasBestRelationshipWithMembers(WorldObject target, List<WorldObject> worldObjects) {

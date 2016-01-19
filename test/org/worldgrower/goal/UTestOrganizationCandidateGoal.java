@@ -26,6 +26,7 @@ import org.worldgrower.actions.MockCommonerNameGenerator;
 import org.worldgrower.actions.VotingPropertyUtils;
 import org.worldgrower.generator.CommonerGenerator;
 import org.worldgrower.gui.CommonerImageIds;
+import org.worldgrower.personality.PersonalityTrait;
 import org.worldgrower.profession.Professions;
 
 public class UTestOrganizationCandidateGoal {
@@ -49,6 +50,7 @@ public class UTestOrganizationCandidateGoal {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject organization = GroupPropertyUtils.createProfessionOrganization(null, "TestOrg", Professions.FARMER_PROFESSION, world);
 		WorldObject performer = createCommoner(world, organization);
+		performer.getProperty(Constants.PERSONALITY).changeValue(PersonalityTrait.POWER_HUNGRY, -1000, "reason");
 		performer.setProperty(Constants.PROFESSION, Professions.FARMER_PROFESSION);
 		VotingPropertyUtils.createVotingBox(performer, organization, world);
 		
@@ -56,6 +58,21 @@ public class UTestOrganizationCandidateGoal {
 		target.getProperty(Constants.RELATIONSHIPS).incrementValue(performer, -1000);
 		
 		assertEquals(null, goal.calculateGoal(performer, world));
+	}
+	
+	@Test
+	public void testCalculateGoalUnpopularPowerHungryCandidate() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject organization = GroupPropertyUtils.createProfessionOrganization(null, "TestOrg", Professions.FARMER_PROFESSION, world);
+		WorldObject performer = createCommoner(world, organization);
+		performer.getProperty(Constants.PERSONALITY).changeValue(PersonalityTrait.POWER_HUNGRY, 1000, "reason");
+		performer.setProperty(Constants.PROFESSION, Professions.FARMER_PROFESSION);
+		VotingPropertyUtils.createVotingBox(performer, organization, world);
+		
+		WorldObject target = createCommoner(world, organization);
+		target.getProperty(Constants.RELATIONSHIPS).incrementValue(performer, -1000);
+		
+		assertEquals(Actions.BECOME_LEADER_CANDIDATE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
 	
 	@Test
@@ -97,6 +114,7 @@ public class UTestOrganizationCandidateGoal {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject organization = GroupPropertyUtils.createProfessionOrganization(null, "TestOrg", Professions.FARMER_PROFESSION, world);
 		WorldObject performer = createCommoner(world, organization);
+		performer.getProperty(Constants.PERSONALITY).changeValue(PersonalityTrait.POWER_HUNGRY, -1000, "reason");
 		performer.setProperty(Constants.PROFESSION, Professions.FARMER_PROFESSION);
 		VotingPropertyUtils.createVotingBox(performer, organization, world);
 		
