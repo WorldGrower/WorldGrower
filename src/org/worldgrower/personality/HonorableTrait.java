@@ -14,20 +14,45 @@
  *******************************************************************************/
 package org.worldgrower.personality;
 
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.worldgrower.WorldObject;
+import org.worldgrower.goal.Goals;
 
-public interface PersonalityTrait extends Serializable {
+public class HonorableTrait implements PersonalityTrait {
 
-	public static final List<PersonalityTrait> ALL_TRAITS = new ArrayList<>();
-	
-	public String getAdjective(int value, int relationshipValue);
-	public int calculateInitialValue(WorldObject performer);
-	
-	public static final PersonalityTrait GREEDY = new GreedyTrait(ALL_TRAITS);
-	public static final PersonalityTrait POWER_HUNGRY = new PowerHungryTrait(ALL_TRAITS);
-	public static final PersonalityTrait HONORABLE = new HonorableTrait(ALL_TRAITS);
+	public HonorableTrait(List<PersonalityTrait> allTraits) {
+		allTraits.add(this);
+	}
+
+	@Override
+	public String getAdjective(int value, int relationshipValue) {
+		if (value > 0) {
+			if (relationshipValue < 0) {
+				return "straight";
+			} else if (relationshipValue < 250) {
+				return "just";
+			} else if (relationshipValue < 500) {
+				return "honest";
+			} else {
+				return "honorable";
+			}
+		} else {
+			if (relationshipValue < 0) {
+				return "corrupt";
+			} else if (relationshipValue < 250) {
+				return "sly";
+			} else if (relationshipValue < 500) {
+				return "devious";
+			} else {
+				return "tricky";
+			}
+		}
+	}
+
+	@Override
+	public int calculateInitialValue(WorldObject performer) {
+		int sign = Goals.FOOD_GOAL.calculateSign(performer, this);
+		return sign * 500;
+	}
 }

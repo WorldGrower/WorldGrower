@@ -59,7 +59,12 @@ public class MateGoal implements Goal {
 	}
 
 	private static boolean isPotentialMate(WorldObject performer, WorldObject w) {
-		return RacePropertyUtils.canHaveOffspring(performer, w);
+		boolean performerIsHonorable = performer.getProperty(Constants.PERSONALITY).getValue(PersonalityTrait.HONORABLE) > 0;
+		if (performerIsHonorable) {
+			return RacePropertyUtils.canHaveOffspring(performer, w) && w.getProperty(Constants.MATE_ID) == null;
+		} else {
+			return RacePropertyUtils.canHaveOffspring(performer, w);
+		}
 	}
 	
 	private static class MateComparator implements Comparator<WorldObject> {

@@ -40,4 +40,15 @@ public class UTestPersonality {
 		assertEquals(1000, personality.getValue(PersonalityTrait.GREEDY));
 		assertEquals(-1000, copy.getValue(PersonalityTrait.GREEDY));
 	}
+	
+	@Test
+	public void testGetMostExtremePersonalityTrait() {
+		Personality personality = new Personality();
+		for(PersonalityTrait personalityTrait : PersonalityTrait.ALL_TRAITS) {
+			personality.changeValue(personalityTrait, -10000, "");
+			personality.changeValue(personalityTrait, 1000, "");
+		}
+		personality.changeValue(PersonalityTrait.GREEDY, 10000, "");
+		assertEquals(PersonalityTrait.GREEDY, personality.getMostExtremePersonalityTrait());
+	}
 }

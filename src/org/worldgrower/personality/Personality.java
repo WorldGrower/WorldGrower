@@ -61,4 +61,15 @@ public class Personality implements Serializable {
 		}
 		return copyPersonality;
 	}
+	
+	public PersonalityTrait getMostExtremePersonalityTrait() {
+		PersonalityTraitValue mostExtremePersonalityTraitValue = personalityTraitValues.get(0);
+		
+		for(PersonalityTraitValue personalityTraitValue : personalityTraitValues) {
+			if (Math.abs(personalityTraitValue.getValue()) > mostExtremePersonalityTraitValue.getValue()) {
+				mostExtremePersonalityTraitValue = personalityTraitValue;
+			}
+		}
+		return mostExtremePersonalityTraitValue.getPersonalityTrait();
+	}
 }
