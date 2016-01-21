@@ -25,33 +25,25 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.attribute.WorldObjectContainer;
-import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
 
-public class UTestFeatherAction {
+public class UTestMinorHealAction {
 
 	@Test
 	public void testExecute() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
 		
-		Actions.FEATHER_ACTION.execute(performer, performer, new int[0], world);
+		target.setProperty(Constants.HIT_POINTS, 1);
+		target.setProperty(Constants.HIT_POINTS_MAX, 8);
 		
-		assertEquals(true, performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.FEATHERED_CONDITION));
-	}
-	
-	@Test
-	public void testExecuteReduced() {
-		World world = new WorldImpl(0, 0, null, null);
-		WorldObject performer = createPerformer(2);
+		Actions.MINOR_HEAL_ACTION.execute(performer, target, new int[0], world);
 		
-		Actions.BURDEN_ACTION.execute(performer, performer, new int[0], world);
+		assertEquals(6, target.getProperty(Constants.HIT_POINTS).intValue());
 		
-		Actions.FEATHER_ACTION.execute(performer, performer, new int[0], world);
-		
-		assertEquals(false, performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.BURDENED_CONDITION));
-		assertEquals(false, performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.FEATHERED_CONDITION));
+		Actions.MINOR_HEAL_ACTION.execute(performer, target, new int[0], world);
+		assertEquals(8, target.getProperty(Constants.HIT_POINTS).intValue());
 	}
 	
 	@Test
@@ -60,19 +52,22 @@ public class UTestFeatherAction {
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
-		performer.setProperty(Constants.KNOWN_SPELLS, Arrays.asList(Actions.FEATHER_ACTION));
-		target.setProperty(Constants.INVENTORY, new WorldObjectContainer());
+		performer.setProperty(Constants.KNOWN_SPELLS, Arrays.asList(Actions.MINOR_HEAL_ACTION));
 		
-		assertEquals(true, Actions.FEATHER_ACTION.isValidTarget(performer, target, world));
+		target.setProperty(Constants.ARMOR, 1);
+		target.setProperty(Constants.HIT_POINTS, 1);
+		target.setProperty(Constants.HIT_POINTS_MAX, 8);
+		
+		assertEquals(true, Actions.MINOR_HEAL_ACTION.isValidTarget(performer, target, world));
 	}
 	
 	@Test
 	public void testDistance() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = createPerformer(2);
-		WorldObject target = createPerformer(3);
+		WorldObject target = TestUtils.createWorldObject(0, 0, 1, 1);
 		
-		assertEquals(0, Actions.FEATHER_ACTION.distance(performer, target, new int[0], world));
+		assertEquals(0, Actions.MINOR_HEAL_ACTION.distance(performer, target, new int[0], world));
 	}
 	
 	private WorldObject createPerformer(int id) {

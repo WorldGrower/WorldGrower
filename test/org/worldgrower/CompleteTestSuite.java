@@ -37,6 +37,7 @@ import org.worldgrower.actions.magic.UTestInvisibilityAction;
 import org.worldgrower.actions.magic.UTestLightningBoltAttackAction;
 import org.worldgrower.actions.magic.UTestLockMagicSpellAction;
 import org.worldgrower.actions.magic.UTestMendAction;
+import org.worldgrower.actions.magic.UTestMinorHealAction;
 import org.worldgrower.actions.magic.UTestParalyzeAction;
 import org.worldgrower.actions.magic.UTestRayOfFrostAttackAction;
 import org.worldgrower.actions.magic.UTestReduceAction;
@@ -521,7 +522,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestInvestigateAction.class,
 	UTestPersonalityTraitValue.class,
 	UTestPersonality.class,
-	UTestFireTrapAction.class
+	UTestFireTrapAction.class,
+	UTestMinorHealAction.class
 })
 public class CompleteTestSuite {
 }

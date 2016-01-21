@@ -16,6 +16,8 @@ package org.worldgrower.actions.magic;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Arrays;
+
 import org.junit.Test;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
@@ -42,6 +44,30 @@ public class UTestMendAction {
 		
 		Actions.MEND_ACTION.execute(performer, target, new int[0], world);
 		assertEquals(8, target.getProperty(Constants.HIT_POINTS).intValue());
+	}
+	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = TestUtils.createWorldObject(0, 0, 1, 1);
+		
+		performer.setProperty(Constants.KNOWN_SPELLS, Arrays.asList(Actions.MEND_ACTION));
+		
+		target.setProperty(Constants.ARMOR, 1);
+		target.setProperty(Constants.HIT_POINTS, 1);
+		target.setProperty(Constants.HIT_POINTS_MAX, 8);
+		
+		assertEquals(true, Actions.MEND_ACTION.isValidTarget(performer, target, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = TestUtils.createWorldObject(0, 0, 1, 1);
+		
+		assertEquals(0, Actions.MEND_ACTION.distance(performer, target, new int[0], world));
 	}
 	
 	private WorldObject createPerformer(int id) {
