@@ -47,6 +47,9 @@ public interface Deity extends Serializable {
 	public static final Artemis ARTEMIS = new Artemis();
 	public static final Hermes HERMES = new Hermes();
 	public static final Athena ATHENA = new Athena();
+	public static final Zeus ZEUS = new Zeus();
+	public static final Hera HERA = new Hera();
+	public static final Poseidon POSEIDON = new Poseidon();
 	
 	public static final List<Deity> ALL_DEITIES = Arrays.asList(
 			DEMETER,
@@ -58,7 +61,10 @@ public interface Deity extends Serializable {
 			ARES,
 			ARTEMIS,
 			HERMES,
-			ATHENA
+			ATHENA,
+			ZEUS,
+			HERA,
+			POSEIDON
 			);
 
 	public static List<String> getAllDeityNames() {

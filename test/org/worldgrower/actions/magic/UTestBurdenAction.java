@@ -16,6 +16,8 @@ package org.worldgrower.actions.magic;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Arrays;
+
 import org.junit.Test;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
@@ -23,6 +25,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
 
@@ -50,6 +53,25 @@ public class UTestBurdenAction {
 		assertEquals(false, performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.BURDENED_CONDITION));
 		assertEquals(false, performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.FEATHERED_CONDITION));
 	}
+	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		performer.setProperty(Constants.KNOWN_SPELLS, Arrays.asList(Actions.BURDEN_ACTION));
+		performer.setProperty(Constants.INVENTORY, new WorldObjectContainer());
+		
+		assertEquals(true, Actions.BURDEN_ACTION.isValidTarget(performer, performer, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		
+		assertEquals(0, Actions.BURDEN_ACTION.distance(performer, performer, new int[0], world));
+	}
+	
 	
 	private WorldObject createPerformer(int id) {
 		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.CONDITIONS, new Conditions());

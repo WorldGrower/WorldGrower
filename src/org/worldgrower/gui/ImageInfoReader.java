@@ -387,6 +387,9 @@ public class ImageInfoReader {
 		add(ImageIds.NEWS_PAPER, sprites420.getSubImage(11, 17, 1, 1));
 		add(ImageIds.FIRE_TRAP, sprites420.getSubImage(1, 20, 1, 1));
 		add(ImageIds.INVESTIGATE, sprites420.getSubImage(12, 17, 1, 1));
+		add(ImageIds.STATUE_OF_ZEUS, statues.getSubImage(3, 5, 1, 2));
+		add(ImageIds.STATUE_OF_HERA, statues.getSubImage(14, 8, 1, 2));
+		add(ImageIds.STATUE_OF_POSEIDON, statues.getSubImage(12, 8, 1, 2));
     }
 
     private void resizeSmallFlowers() {

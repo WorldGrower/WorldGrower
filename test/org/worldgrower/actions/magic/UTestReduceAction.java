@@ -16,6 +16,8 @@ package org.worldgrower.actions.magic;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Arrays;
+
 import org.junit.Test;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
@@ -49,6 +51,23 @@ public class UTestReduceAction {
 		
 		assertEquals(false, performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.ENLARGED_CONDITION));
 		assertEquals(false, performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.REDUCED_CONDITION));
+	}
+	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		performer.setProperty(Constants.KNOWN_SPELLS, Arrays.asList(Actions.REDUCE_ACTION));
+		
+		assertEquals(true, Actions.REDUCE_ACTION.isValidTarget(performer, performer, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		
+		assertEquals(0, Actions.REDUCE_ACTION.distance(performer, performer, new int[0], world));
 	}
 	
 	private WorldObject createPerformer(int id) {
