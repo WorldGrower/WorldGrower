@@ -20,6 +20,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.UnCheckedProperty;
 import org.worldgrower.attribute.WorldObjectContainer;
 
@@ -39,27 +40,52 @@ public class EquipmentGoal implements Goal {
 		int ironBootsCount = inventory.getWorldObjects(Constants.EQUIPMENT_SLOT, Constants.FEET_EQUIPMENT).size();
 			
 		if (ironClaymoreCount == 0) {
-			return getOperationInfoForEquipment(performer, Constants.LEFT_HAND_EQUIPMENT, world);
+			return getEquipment(performer, Constants.LEFT_HAND_EQUIPMENT, world);
+		} else if (hasUnusedEquipment(performer, Constants.LEFT_HAND_EQUIPMENT)) {
+			return equipUnusedEquipment(performer, Constants.LEFT_HAND_EQUIPMENT, world);
 		} else if (ironCuirassCount == 0) {
-			return getOperationInfoForEquipment(performer, Constants.TORSO_EQUIPMENT, world);
+			return getEquipment(performer, Constants.TORSO_EQUIPMENT, world);
 		} else if (ironHelmetCount == 0) {
-			return getOperationInfoForEquipment(performer, Constants.HEAD_EQUIPMENT, world);
+			return getEquipment(performer, Constants.HEAD_EQUIPMENT, world);
 		} else if (ironGauntletsCount == 0) {
-			return getOperationInfoForEquipment(performer, Constants.ARMS_EQUIPMENT, world);
+			return getEquipment(performer, Constants.ARMS_EQUIPMENT, world);
 		} else if (ironBootsCount == 0) {
-			return getOperationInfoForEquipment(performer, Constants.FEET_EQUIPMENT, world);
+			return getEquipment(performer, Constants.FEET_EQUIPMENT, world);
 		} else {
 			return null;
 		}
 	}
 
-	private OperationInfo getOperationInfoForEquipment(WorldObject performer, UnCheckedProperty<WorldObject> equipmentSlot, World world) {
+	private OperationInfo getEquipment(WorldObject performer, UnCheckedProperty<WorldObject> equipmentSlot, World world) {
 		OperationInfo buyOperationInfo = BuySellUtils.getBuyOperationInfo(performer, Constants.EQUIPMENT_SLOT, equipmentSlot, world);
 		if (buyOperationInfo != null) {
 			return buyOperationInfo;
 		} else {
 			return Goals.CRAFT_EQUIPMENT_GOAL.calculateGoal(performer, world);
 		}
+	}
+	
+	private OperationInfo equipUnusedEquipment(WorldObject performer, UnCheckedProperty<WorldObject> equipmentSlotProperty, World world) {
+		int index = getIndexOfUnusedEquipment(performer, equipmentSlotProperty);
+		int[] args = new int[] { index };
+		return new OperationInfo(performer, performer, args, Actions.EQUIP_INVENTORY_ITEM_ACTION);
+	}
+	
+	private int getIndexOfUnusedEquipment(WorldObject performer, UnCheckedProperty<WorldObject> equipmentSlotProperty) {
+		WorldObject equipmentSlot = performer.getProperty(equipmentSlotProperty);
+		
+		if (equipmentSlot == null) {
+			WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
+			int index = inventory.getIndexFor(Constants.EQUIPMENT_SLOT, equipmentSlotProperty);
+			if (index != -1) {
+				return index;
+			}
+		}
+		return -1;
+	}
+	
+	private boolean hasUnusedEquipment(WorldObject performer, UnCheckedProperty<WorldObject> equipmentSlotProperty) {
+		return getIndexOfUnusedEquipment(performer, equipmentSlotProperty) != -1;
 	}
 	
 	@Override

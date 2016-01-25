@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.UnCheckedProperty;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
 
@@ -55,10 +56,19 @@ public class UTestEquipmentGoal {
 		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
 
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_CLAYMORE.generate(1f));
+		equip(performer, Item.IRON_CLAYMORE);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.ORE.generate(1f), 20);
 		
 		assertEquals(Actions.CRAFT_IRON_CUIRASS_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+	private void equip(WorldObject performer, Item item) {
+		WorldObject equipment = item.generate(1f);
+		UnCheckedProperty<WorldObject> equipmentSlot = equipment.getProperty(Constants.EQUIPMENT_SLOT);
+		
+		performer.getProperty(Constants.INVENTORY).addQuantity(equipment);
+		performer.setProperty(equipmentSlot, equipment);
 	}
 	
 	@Test
@@ -66,7 +76,7 @@ public class UTestEquipmentGoal {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
 
-		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_CLAYMORE.generate(1f));
+		equip(performer, Item.IRON_CLAYMORE);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_CUIRASS.generate(1f));
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.ORE.generate(1f), 20);
@@ -79,7 +89,7 @@ public class UTestEquipmentGoal {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
 
-		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_CLAYMORE.generate(1f));
+		equip(performer, Item.IRON_CLAYMORE);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_CUIRASS.generate(1f));
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_HELMET.generate(1f));
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
@@ -93,7 +103,7 @@ public class UTestEquipmentGoal {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
 
-		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_CLAYMORE.generate(1f));
+		equip(performer, Item.IRON_CLAYMORE);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_CUIRASS.generate(1f));
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_HELMET.generate(1f));
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_GAUNTLETS.generate(1f));
@@ -108,7 +118,7 @@ public class UTestEquipmentGoal {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
 
-		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_CLAYMORE.generate(1f));
+		equip(performer, Item.IRON_CLAYMORE);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_CUIRASS.generate(1f));
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_HELMET.generate(1f));
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_GAUNTLETS.generate(1f));
@@ -117,7 +127,7 @@ public class UTestEquipmentGoal {
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.ORE.generate(1f), 20);
 		
-		//TODO: should be null & add equipping the items & light/heavy armor split
-		assertEquals(Actions.CRAFT_IRON_BOOTS_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+		//TODO: should be null & add equipping the items & light/heavy armor split & equip now only works with LEFT_HAND weapon
+		assertEquals(null, goal.calculateGoal(performer, world));
 	}
 }

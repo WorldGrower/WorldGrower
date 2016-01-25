@@ -46,7 +46,7 @@ public enum Item {
 	private static final String IRON_HELMET_NAME = "Iron Helmet";
 	private static final String IRON_GAUNTLETS_NAME = "Iron Gauntlets";
 	private static final String IRON_GREAVES_NAME = "Iron Greaves";
-	private static final String IRON_BOOTS_NAME = "Iron Gauntlets";
+	private static final String IRON_BOOTS_NAME = "Iron boots";
 	private static final String IRON_SHIELD_NAME = "Iron Shield";
 	
 	private static final String LONGBOW_NAME = "Longbow";
