@@ -23,22 +23,21 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.attribute.UnCheckedProperty;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
 
 public class UTestEquipmentGoal {
 
 	private EquipmentGoal goal = Goals.EQUIPMENT_GOAL;
-	
+
 	@Test
 	public void testCalculateGoalNull() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
-		
+
 		assertEquals(null, goal.calculateGoal(performer, world));
 	}
-	
+
 	@Test
 	public void testCalculateGoalIronClaymore() {
 		World world = new WorldImpl(10, 10, null, null);
@@ -46,88 +45,83 @@ public class UTestEquipmentGoal {
 
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.ORE.generate(1f), 20);
-		
+
 		assertEquals(Actions.CRAFT_IRON_CLAYMORE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
-	
+
 	@Test
 	public void testCalculateGoalIronCuirass() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
 
-		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_CLAYMORE.generate(1f));
 		equip(performer, Item.IRON_CLAYMORE);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.ORE.generate(1f), 20);
-		
+
 		assertEquals(Actions.CRAFT_IRON_CUIRASS_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
-	
+
 	private void equip(WorldObject performer, Item item) {
-		WorldObject equipment = item.generate(1f);
-		UnCheckedProperty<WorldObject> equipmentSlot = equipment.getProperty(Constants.EQUIPMENT_SLOT);
-		
-		performer.getProperty(Constants.INVENTORY).addQuantity(equipment);
-		performer.setProperty(equipmentSlot, equipment);
+		EquipmentPropertyUtils.equip(performer, item);
 	}
-	
+
 	@Test
 	public void testCalculateGoalIronHelmet() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
 
 		equip(performer, Item.IRON_CLAYMORE);
-		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_CUIRASS.generate(1f));
+		equip(performer, Item.IRON_CUIRASS);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.ORE.generate(1f), 20);
-		
+
 		assertEquals(Actions.CRAFT_IRON_HELMET_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
-	
+
 	@Test
 	public void testCalculateGoalIronGauntlets() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
 
 		equip(performer, Item.IRON_CLAYMORE);
-		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_CUIRASS.generate(1f));
-		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_HELMET.generate(1f));
+		equip(performer, Item.IRON_CUIRASS);
+		equip(performer, Item.IRON_HELMET);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.ORE.generate(1f), 20);
-		
+
 		assertEquals(Actions.CRAFT_IRON_GAUNTLETS_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
-	
+
 	@Test
 	public void testCalculateGoalIronBoots() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
 
 		equip(performer, Item.IRON_CLAYMORE);
-		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_CUIRASS.generate(1f));
-		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_HELMET.generate(1f));
-		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_GAUNTLETS.generate(1f));
+		equip(performer, Item.IRON_CUIRASS);
+		equip(performer, Item.IRON_HELMET);
+		equip(performer, Item.IRON_GAUNTLETS);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.ORE.generate(1f), 20);
-		
+
 		assertEquals(Actions.CRAFT_IRON_GREAVES_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
-	
+
 	@Test
 	public void testCalculateGoalCompletelyEquipped() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
 
 		equip(performer, Item.IRON_CLAYMORE);
-		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_CUIRASS.generate(1f));
-		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_HELMET.generate(1f));
-		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_GAUNTLETS.generate(1f));
-		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_BOOTS.generate(1f));
-		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_GREAVES.generate(1f));
+		equip(performer, Item.IRON_CUIRASS);
+		equip(performer, Item.IRON_HELMET);
+		equip(performer, Item.IRON_GAUNTLETS);
+		equip(performer, Item.IRON_BOOTS);
+		equip(performer, Item.IRON_GREAVES);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.ORE.generate(1f), 20);
-		
-		//TODO: should be null & add equipping the items & light/heavy armor split & equip now only works with LEFT_HAND weapon
+
+		// TODO: light/heavy armor
 		assertEquals(null, goal.calculateGoal(performer, world));
 	}
 }

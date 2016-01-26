@@ -45,12 +45,20 @@ public class EquipmentGoal implements Goal {
 			return equipUnusedEquipment(performer, Constants.LEFT_HAND_EQUIPMENT, world);
 		} else if (ironCuirassCount == 0) {
 			return getEquipment(performer, Constants.TORSO_EQUIPMENT, world);
+		} else if (hasUnusedEquipment(performer, Constants.TORSO_EQUIPMENT)) {
+			return equipUnusedEquipment(performer, Constants.TORSO_EQUIPMENT, world);
 		} else if (ironHelmetCount == 0) {
 			return getEquipment(performer, Constants.HEAD_EQUIPMENT, world);
+		} else if (hasUnusedEquipment(performer, Constants.HEAD_EQUIPMENT)) {
+			return equipUnusedEquipment(performer, Constants.HEAD_EQUIPMENT, world);
 		} else if (ironGauntletsCount == 0) {
 			return getEquipment(performer, Constants.ARMS_EQUIPMENT, world);
+		} else if (hasUnusedEquipment(performer, Constants.ARMS_EQUIPMENT)) {
+			return equipUnusedEquipment(performer, Constants.ARMS_EQUIPMENT, world);
 		} else if (ironBootsCount == 0) {
 			return getEquipment(performer, Constants.FEET_EQUIPMENT, world);
+		} else if (hasUnusedEquipment(performer, Constants.FEET_EQUIPMENT)) {
+			return equipUnusedEquipment(performer, Constants.FEET_EQUIPMENT, world);
 		} else {
 			return null;
 		}

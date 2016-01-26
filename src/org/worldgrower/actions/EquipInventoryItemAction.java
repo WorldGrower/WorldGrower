@@ -21,6 +21,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.UnCheckedProperty;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.gui.ImageIds;
 
@@ -33,7 +34,8 @@ public class EquipInventoryItemAction implements ManagedOperation {
 		int index = args[0];
 		WorldObject itemToEquip = inventory.get(index);
 
-		performer.setProperty(Constants.LEFT_HAND_EQUIPMENT, itemToEquip);
+		UnCheckedProperty<WorldObject> equipmentSlot = itemToEquip.getProperty(Constants.EQUIPMENT_SLOT);
+		performer.setProperty(equipmentSlot, itemToEquip);
 		world.logAction(this, performer, target, args, null);
 	}
 

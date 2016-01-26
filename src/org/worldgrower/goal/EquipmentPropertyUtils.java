@@ -17,6 +17,7 @@ package org.worldgrower.goal;
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.UnCheckedProperty;
+import org.worldgrower.generator.Item;
 
 public class EquipmentPropertyUtils {
 
@@ -28,5 +29,13 @@ public class EquipmentPropertyUtils {
 		} else {
 			return false;
 		}
+	}
+	
+	public static void equip(WorldObject performer, Item item) {
+		WorldObject equipment = item.generate(1f);
+		UnCheckedProperty<WorldObject> equipmentSlot = equipment.getProperty(Constants.EQUIPMENT_SLOT);
+
+		performer.getProperty(Constants.INVENTORY).addQuantity(equipment);
+		performer.setProperty(equipmentSlot, equipment);
 	}
 }
