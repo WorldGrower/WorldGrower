@@ -34,6 +34,7 @@ public class UTestEquipmentGoal {
 	public void testCalculateGoalNull() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
+		performer.setProperty(Constants.STRENGTH, 20);
 
 		assertEquals(null, goal.calculateGoal(performer, world));
 	}
@@ -42,6 +43,7 @@ public class UTestEquipmentGoal {
 	public void testCalculateGoalIronClaymore() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
+		performer.setProperty(Constants.STRENGTH, 20);
 
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.ORE.generate(1f), 20);
@@ -53,12 +55,25 @@ public class UTestEquipmentGoal {
 	public void testCalculateGoalIronCuirass() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
+		performer.setProperty(Constants.STRENGTH, 20);
 
 		equip(performer, Item.IRON_CLAYMORE);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.ORE.generate(1f), 20);
 
 		assertEquals(Actions.CRAFT_IRON_CUIRASS_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+	@Test
+	public void testCalculateGoalCottonShirt() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
+		performer.setProperty(Constants.STRENGTH, 8);
+
+		equip(performer, Item.IRON_CLAYMORE);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.COTTON.generate(1f), 20);
+
+		assertEquals(Actions.WEAVE_COTTON_SHIRT_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
 
 	private void equip(WorldObject performer, Item item) {
@@ -69,6 +84,7 @@ public class UTestEquipmentGoal {
 	public void testCalculateGoalIronHelmet() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
+		performer.setProperty(Constants.STRENGTH, 20);
 
 		equip(performer, Item.IRON_CLAYMORE);
 		equip(performer, Item.IRON_CUIRASS);
@@ -82,6 +98,7 @@ public class UTestEquipmentGoal {
 	public void testCalculateGoalIronGauntlets() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
+		performer.setProperty(Constants.STRENGTH, 20);
 
 		equip(performer, Item.IRON_CLAYMORE);
 		equip(performer, Item.IRON_CUIRASS);
@@ -96,6 +113,7 @@ public class UTestEquipmentGoal {
 	public void testCalculateGoalIronBoots() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
+		performer.setProperty(Constants.STRENGTH, 20);
 
 		equip(performer, Item.IRON_CLAYMORE);
 		equip(performer, Item.IRON_CUIRASS);
@@ -111,6 +129,7 @@ public class UTestEquipmentGoal {
 	public void testCalculateGoalCompletelyEquipped() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
+		performer.setProperty(Constants.STRENGTH, 20);
 
 		equip(performer, Item.IRON_CLAYMORE);
 		equip(performer, Item.IRON_CUIRASS);
@@ -121,7 +140,6 @@ public class UTestEquipmentGoal {
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.ORE.generate(1f), 20);
 
-		// TODO: light/heavy armor
 		assertEquals(null, goal.calculateGoal(performer, world));
 	}
 }

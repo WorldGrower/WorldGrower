@@ -65,12 +65,22 @@ public class EquipmentGoal implements Goal {
 	}
 
 	private OperationInfo getEquipment(WorldObject performer, UnCheckedProperty<WorldObject> equipmentSlot, World world) {
+		//TODO: buy items should work with light/heavy armor
 		OperationInfo buyOperationInfo = BuySellUtils.getBuyOperationInfo(performer, Constants.EQUIPMENT_SLOT, equipmentSlot, world);
 		if (buyOperationInfo != null) {
 			return buyOperationInfo;
 		} else {
-			return Goals.CRAFT_EQUIPMENT_GOAL.calculateGoal(performer, world);
+			if (craftHeavyArmor(performer)) {
+				return Goals.CRAFT_EQUIPMENT_GOAL.calculateGoal(performer, world);
+			} else {
+				return Goals.WEAVE_CLOTHES_GOAL.calculateGoal(performer, world);
+			}
 		}
+	}
+	
+	private boolean craftHeavyArmor(WorldObject performer) {
+		int strength = performer.getProperty(Constants.STRENGTH);
+		return strength >= 12;
 	}
 	
 	private OperationInfo equipUnusedEquipment(WorldObject performer, UnCheckedProperty<WorldObject> equipmentSlotProperty, World world) {

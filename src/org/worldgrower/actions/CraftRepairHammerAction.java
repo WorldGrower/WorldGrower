@@ -79,4 +79,12 @@ public class CraftRepairHammerAction implements CraftAction {
 	public ImageIds getImageIds() {
 		return ImageIds.REPAIR_HAMMER;
 	}
+
+	public int getWoodRequired() {
+		return WOOD_REQUIRED;
+	}
+
+	public int getOreRequired() {
+		return ORE_REQUIRED;
+	}
 }
