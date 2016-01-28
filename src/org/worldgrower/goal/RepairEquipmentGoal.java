@@ -34,7 +34,8 @@ public class RepairEquipmentGoal implements Goal {
 		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
 		int numberOfRepairHammersInInventory = inventory.getQuantityFor(Constants.REPAIR_QUALITY);
 		if (numberOfRepairHammersInInventory > 0) {
-			return new OperationInfo(performer, performer, new int[] { inventory.getIndexFor(Constants.REPAIR_QUALITY) }, Actions.REPAIR_EQUIPMENT_IN_INVENTORY_ACTION);
+			int indexOfDamagedEquipment = inventory.getIndexFor(w -> w.hasProperty(Constants.EQUIPMENT_HEALTH) && w.getProperty(Constants.EQUIPMENT_HEALTH).intValue() < 1000);
+			return new OperationInfo(performer, performer, new int[] { indexOfDamagedEquipment }, Actions.REPAIR_EQUIPMENT_IN_INVENTORY_ACTION);
 		} else {
 			return Goals.REPAIR_HAMMER_GOAL.calculateGoal(performer, world);
 		}

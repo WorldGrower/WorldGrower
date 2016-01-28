@@ -523,7 +523,9 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestPersonalityTraitValue.class,
 	UTestPersonality.class,
 	UTestFireTrapAction.class,
-	UTestMinorHealAction.class
+	UTestMinorHealAction.class,
+	UTestRepairHammerGoal.class,
+	UTestRepairEquipmentGoal.class
 })
 public class CompleteTestSuite {
 }

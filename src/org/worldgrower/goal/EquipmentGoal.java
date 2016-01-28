@@ -117,9 +117,7 @@ public class EquipmentGoal implements Goal {
 	
 	private int getNumberOfEquipmentItemsInInventory(WorldObject performer) {
 		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
-		int numberOfDamageItems = inventory.getQuantityFor(Constants.DAMAGE);
-		int numberOfArmorItems = inventory.getQuantityFor(Constants.ARMOR);
-		return (numberOfDamageItems + numberOfArmorItems);
+		return inventory.getWorldObjectsByFunction(Constants.EQUIPMENT_HEALTH, w -> true).size();
 	}
 	
 	@Override

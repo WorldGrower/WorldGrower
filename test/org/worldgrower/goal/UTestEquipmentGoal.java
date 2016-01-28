@@ -142,4 +142,21 @@ public class UTestEquipmentGoal {
 
 		assertEquals(null, goal.calculateGoal(performer, world));
 	}
+	
+	@Test
+	public void testIsGoalMet() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
+		
+		assertEquals(false, goal.isGoalMet(performer, world));
+		
+		equip(performer, Item.IRON_CLAYMORE);
+		equip(performer, Item.IRON_CUIRASS);
+		equip(performer, Item.IRON_HELMET);
+		equip(performer, Item.IRON_GAUNTLETS);
+		equip(performer, Item.IRON_BOOTS);
+		equip(performer, Item.IRON_GREAVES);
+		
+		assertEquals(true, goal.isGoalMet(performer, world));
+	}
 }
