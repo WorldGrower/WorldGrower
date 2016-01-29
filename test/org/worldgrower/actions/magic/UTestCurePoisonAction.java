@@ -25,48 +25,47 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
-import org.worldgrower.generator.BuildingGenerator;
 
-public class UTestLockMagicSpellAction {
+public class UTestCurePoisonAction {
 
 	@Test
 	public void testExecute() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = createPerformer(2);
-		int id = BuildingGenerator.generateHouse(0, 0, world, 1f);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = createPerformer(3);
 		
-		target.setProperty(Constants.LOCKED, Boolean.FALSE);
+		Conditions.add(target, Condition.POISONED_CONDITION, 8, world);
+		assertEquals(true, target.getProperty(Constants.CONDITIONS).hasCondition(Condition.POISONED_CONDITION));
 		
-		Actions.LOCK_MAGIC_SPELL_ACTION.execute(performer, target, new int[0], world);
+		Actions.CURE_POISON_ACTION.execute(performer, target, new int[0], world);
 		
-		assertEquals(true, target.getProperty(Constants.LOCKED));
+		assertEquals(false, target.getProperty(Constants.CONDITIONS).hasCondition(Condition.POISONED_CONDITION));
 	}
 	
 	@Test
 	public void testIsValidTarget() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = createPerformer(2);
-		int id = BuildingGenerator.generateHouse(0, 0, world, 1f);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = createPerformer(3);
 		
-		assertEquals(false, Actions.LOCK_MAGIC_SPELL_ACTION.isValidTarget(performer, target, world));
+		assertEquals(false, Actions.CURE_POISON_ACTION.isValidTarget(performer, target, world));
 		
-		performer.setProperty(Constants.KNOWN_SPELLS, Arrays.asList(Actions.LOCK_MAGIC_SPELL_ACTION));
-		target.setProperty(Constants.LOCKED, Boolean.FALSE);
+		performer.setProperty(Constants.KNOWN_SPELLS, Arrays.asList(Actions.CURE_POISON_ACTION));
+		target.setProperty(Constants.HIT_POINTS, 1);
+		target.setProperty(Constants.ARMOR, 1);
 		
-		assertEquals(true, Actions.LOCK_MAGIC_SPELL_ACTION.isValidTarget(performer, target, world));
+		assertEquals(true, Actions.CURE_POISON_ACTION.isValidTarget(performer, target, world));
 	}
 	
 	@Test
 	public void testDistance() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = createPerformer(2);
-		int id = BuildingGenerator.generateHouse(0, 0, world, 1f);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = createPerformer(3);
 		
-		assertEquals(0, Actions.LOCK_MAGIC_SPELL_ACTION.distance(performer, target, new int[0], world));
+		assertEquals(0, Actions.CURE_POISON_ACTION.distance(performer, target, new int[0], world));
 	}
 	
 	private WorldObject createPerformer(int id) {

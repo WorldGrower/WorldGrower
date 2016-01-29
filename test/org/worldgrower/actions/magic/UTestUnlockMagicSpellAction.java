@@ -16,6 +16,8 @@ package org.worldgrower.actions.magic;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Arrays;
+
 import org.junit.Test;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
@@ -43,6 +45,31 @@ public class UTestUnlockMagicSpellAction {
 		Actions.UNLOCK_MAGIC_SPELL_ACTION.execute(performer, target, new int[0], world);
 		
 		assertEquals(false, target.getProperty(Constants.LOCKED));
+	}
+	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		int id = BuildingGenerator.generateHouse(0, 0, world, 1f);
+		WorldObject target = world.findWorldObject(Constants.ID, id);
+		
+		assertEquals(false, Actions.UNLOCK_MAGIC_SPELL_ACTION.isValidTarget(performer, target, world));
+		
+		performer.setProperty(Constants.KNOWN_SPELLS, Arrays.asList(Actions.UNLOCK_MAGIC_SPELL_ACTION));
+		target.setProperty(Constants.LOCKED, Boolean.TRUE);
+		
+		assertEquals(true, Actions.UNLOCK_MAGIC_SPELL_ACTION.isValidTarget(performer, target, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		int id = BuildingGenerator.generateHouse(0, 0, world, 1f);
+		WorldObject target = world.findWorldObject(Constants.ID, id);
+		
+		assertEquals(0, Actions.UNLOCK_MAGIC_SPELL_ACTION.distance(performer, target, new int[0], world));
 	}
 	
 	private WorldObject createPerformer(int id) {

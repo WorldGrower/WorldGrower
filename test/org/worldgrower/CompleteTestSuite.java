@@ -22,6 +22,7 @@ import org.worldgrower.actions.magic.UTestAnimateDeadAction;
 import org.worldgrower.actions.magic.UTestAnimateSuitOfArmorAction;
 import org.worldgrower.actions.magic.UTestBurdenAction;
 import org.worldgrower.actions.magic.UTestCureDiseaseAction;
+import org.worldgrower.actions.magic.UTestCurePoisonAction;
 import org.worldgrower.actions.magic.UTestDetectMagicAction;
 import org.worldgrower.actions.magic.UTestDetectPoisonAndDiseaseAction;
 import org.worldgrower.actions.magic.UTestDisguiseMagicSpellAction;
@@ -525,7 +526,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestFireTrapAction.class,
 	UTestMinorHealAction.class,
 	UTestRepairHammerGoal.class,
-	UTestRepairEquipmentGoal.class
+	UTestRepairEquipmentGoal.class,
+	UTestCurePoisonAction.class
 })
 public class CompleteTestSuite {
 }
