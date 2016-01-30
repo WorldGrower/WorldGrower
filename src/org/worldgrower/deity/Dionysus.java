@@ -62,7 +62,7 @@ public class Dionysus implements Deity {
 	
 	@Override
 	public List<Goal> getOrganizationGoals() {
-		return Arrays.asList(Goals.DESTROY_SHRINES_TO_OTHER_DEITIES_GOAL, Goals.GHOUL_GOAL);
+		return Arrays.asList(Goals.DESTROY_SHRINES_TO_OTHER_DEITIES_GOAL, Goals.GHOUL_GOAL, Goals.START_DRINKING_CONTEST_GOAL);
 	}
 
 	@Override
