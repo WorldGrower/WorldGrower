@@ -527,7 +527,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestMinorHealAction.class,
 	UTestRepairHammerGoal.class,
 	UTestRepairEquipmentGoal.class,
-	UTestCurePoisonAction.class
+	UTestCurePoisonAction.class,
+	UTestStartDrinkingContestGoal.class
 })
 public class CompleteTestSuite {
 }
