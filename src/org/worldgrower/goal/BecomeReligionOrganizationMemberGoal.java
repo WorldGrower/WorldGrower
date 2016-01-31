@@ -53,10 +53,12 @@ public class BecomeReligionOrganizationMemberGoal implements Goal {
 	}
 
 	private OperationInfo createReligionOrganization(WorldObject performer, World world) {
-		int deityIndex = Deity.ALL_DEITIES.indexOf(performer.getProperty(Constants.DEITY));
-		List<String> organizationNames = new OrganizationNamer().getDeityOrganizationNames(performer.getProperty(Constants.DEITY), world);
+		Deity deity = performer.getProperty(Constants.DEITY);
+		int deityIndex = Deity.ALL_DEITIES.indexOf(deity);
+		List<String> organizationNames = new OrganizationNamer().getDeityOrganizationNames(deity, world);
 		int organizationIndex = GroupPropertyUtils.getRandomOrganizationIndex(performer, organizationNames);
-		return new OperationInfo(performer, performer, new int[] {deityIndex, organizationIndex, -1}, Actions.CREATE_RELIGION_ORGANIZATION_ACTION);
+		int organizationGoalIndex = deity.getOrganizationGoalIndex(performer, world);
+		return new OperationInfo(performer, performer, new int[] {deityIndex, organizationIndex, organizationGoalIndex}, Actions.CREATE_RELIGION_ORGANIZATION_ACTION);
 	}
 
 	@Override

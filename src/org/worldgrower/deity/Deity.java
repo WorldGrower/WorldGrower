@@ -76,6 +76,11 @@ public interface Deity extends Serializable {
 		return Arrays.asList(Goals.DESTROY_SHRINES_TO_OTHER_DEITIES_GOAL);
 	}
 	
+	//For now, default implementation
+	public default int getOrganizationGoalIndex(WorldObject performer, World world) {
+		return -1;
+	}
+	
 	public default List<String> getOrganizationGoalDescriptions() {
 		return getOrganizationGoals().stream().map(g -> g.getDescription()).collect(Collectors.toList());
 	}
