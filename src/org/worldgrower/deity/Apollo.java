@@ -26,6 +26,7 @@ import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.personality.PersonalityTrait;
 import org.worldgrower.profession.Professions;
 
 public class Apollo implements Deity {
@@ -73,6 +74,14 @@ public class Apollo implements Deity {
 	@Override
 	public List<Goal> getOrganizationGoals() {
 		return Arrays.asList(Goals.DESTROY_SHRINES_TO_OTHER_DEITIES_GOAL, Goals.HEAL_OTHERS_GOAL);
+	}
+	
+	@Override
+	public int getOrganizationGoalIndex(WorldObject performer, World world) {
+		if (performer.getProperty(Constants.PERSONALITY).getValue(PersonalityTrait.GREEDY) < -500) {
+			return getOrganizationGoals().indexOf(Goals.HEAL_OTHERS_GOAL);
+		}
+		return -1;
 	}
 	
 

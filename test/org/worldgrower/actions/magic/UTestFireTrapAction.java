@@ -16,6 +16,8 @@ package org.worldgrower.actions.magic;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Arrays;
+
 import org.junit.Test;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
@@ -24,6 +26,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.KnowledgeMap;
+import org.worldgrower.condition.Conditions;
 
 public class UTestFireTrapAction {
 
@@ -38,6 +41,28 @@ public class UTestFireTrapAction {
 		assertEquals("fire trap", world.findWorldObject(Constants.PASSABLE, Boolean.TRUE).getProperty(Constants.NAME));
 	}
 	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		
+		assertEquals(false, Actions.FIRE_TRAP_ACTION.isValidTarget(performer, target, world));
+		
+		performer.setProperty(Constants.KNOWN_SPELLS, Arrays.asList(Actions.FIRE_TRAP_ACTION));
+		
+		assertEquals(true, Actions.FIRE_TRAP_ACTION.isValidTarget(performer, target, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		
+		assertEquals(0, Actions.FIRE_TRAP_ACTION.distance(performer, target, new int[0], world));
+	}
+	
 	private WorldObject createPerformer(int id) {
 		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		performer.setProperty(Constants.X, 0);
@@ -45,6 +70,7 @@ public class UTestFireTrapAction {
 		performer.setProperty(Constants.WIDTH, 1);
 		performer.setProperty(Constants.HEIGHT, 1);
 		performer.setProperty(Constants.ENERGY, 1000);
+		performer.setProperty(Constants.CONDITIONS, new Conditions());
 		return performer;
 	}
 }

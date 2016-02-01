@@ -36,4 +36,23 @@ public class UTestCreateHumanMeatAction {
 		
 		assertEquals(1, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.CREATURE_TYPE));
 	}
+	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
+		WorldObject target = TestUtils.createSkilledWorldObject(3, Constants.INVENTORY, new WorldObjectContainer());
+		
+		assertEquals(false, Actions.CREATE_HUMAN_MEAT_ACTION.isValidTarget(performer, target, world));
+		assertEquals(true, Actions.CREATE_HUMAN_MEAT_ACTION.isValidTarget(performer, performer, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
+		performer.setProperty(Constants.HIT_POINTS, 10);
+		
+		assertEquals(0, Actions.CREATE_HUMAN_MEAT_ACTION.distance(performer, performer, new int[0], world));
+	}
 }

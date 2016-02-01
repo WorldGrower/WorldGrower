@@ -28,6 +28,7 @@ import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.history.HistoryItem;
+import org.worldgrower.personality.PersonalityTrait;
 import org.worldgrower.profession.Professions;
 
 public class Demeter implements Deity {
@@ -58,6 +59,16 @@ public class Demeter implements Deity {
 	@Override
 	public List<Goal> getOrganizationGoals() {
 		return Arrays.asList(Goals.DESTROY_SHRINES_TO_OTHER_DEITIES_GOAL, Goals.FEED_OTHERS_GOAL);
+	}
+	
+	
+
+	@Override
+	public int getOrganizationGoalIndex(WorldObject performer, World world) {
+		if (performer.getProperty(Constants.PERSONALITY).getValue(PersonalityTrait.GREEDY) < -500) {
+			return getOrganizationGoals().indexOf(Goals.FEED_OTHERS_GOAL);
+		}
+		return -1;
 	}
 
 	@Override

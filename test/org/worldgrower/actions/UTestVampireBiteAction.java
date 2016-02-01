@@ -50,6 +50,30 @@ public class UTestVampireBiteAction {
 		assertEquals(500, performer.getProperty(Constants.VAMPIRE_BLOOD_LEVEL).intValue());
 	}
 	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		WorldObject performer = createPerformer(world, organization);
+		WorldObject target = createPerformer(world, organization);
+		
+		assertEquals(true, Actions.VAMPIRE_BITE_ACTION.isValidTarget(performer, target, world));
+		
+		VampireUtils.vampirizePerson(target, new WorldStateChangedListeners());
+		assertEquals(false, Actions.VAMPIRE_BITE_ACTION.isValidTarget(performer, target, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		WorldObject performer = createPerformer(world, organization);
+		WorldObject target = createPerformer(world, organization);
+		VampireUtils.vampirizePerson(performer, new WorldStateChangedListeners());
+		
+		assertEquals(0, Actions.VAMPIRE_BITE_ACTION.distance(performer, target, new int[0], world));
+	}
+	
 	private WorldObject createPerformer(World world, WorldObject organization) {
 		int performerId = commonerGenerator.generateCommoner(0, 0, world, organization);
 		WorldObject performer = world.findWorldObject(Constants.ID, performerId);

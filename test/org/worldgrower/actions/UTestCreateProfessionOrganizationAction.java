@@ -36,6 +36,24 @@ public class UTestCreateProfessionOrganizationAction {
 		assertEquals("Alliance of farmers", world.getWorldObjects().get(0).getProperty(Constants.NAME));
 	}
 	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		
+		assertEquals(true, Actions.CREATE_PROFESSION_ORGANIZATION_ACTION.isValidTarget(performer, performer, world));
+		assertEquals(false, Actions.CREATE_PROFESSION_ORGANIZATION_ACTION.isValidTarget(performer, target, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		
+		assertEquals(0, Actions.CREATE_PROFESSION_ORGANIZATION_ACTION.distance(performer, performer, new int[0], world));
+	}
+	
 	private WorldObject createPerformer(int id) {
 		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.GROUP, new IdList());
 		performer.setProperty(Constants.X, 0);

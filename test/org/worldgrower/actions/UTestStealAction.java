@@ -58,7 +58,26 @@ public class UTestStealAction {
 		assertEquals(-1, performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.EQUIPMENT_SLOT));
 		assertEquals(0, target.getProperty(Constants.INVENTORY).getIndexFor(Constants.EQUIPMENT_SLOT));
 		assertEquals(0, performer.getProperty(Constants.GROUP).size());
+	}
+	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
 
+		assertEquals(true, Actions.STEAL_ACTION.isValidTarget(performer, target, world));
+		
+		assertEquals(false, Actions.STEAL_ACTION.isValidTarget(performer, TestUtils.createWorldObject(4, "target"), world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+
+		assertEquals(0, Actions.STEAL_ACTION.distance(performer, target, new int[0], world));
 	}
 	
 	private WorldObject createPerformer(int id) {
