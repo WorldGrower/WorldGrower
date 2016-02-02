@@ -16,6 +16,8 @@ package org.worldgrower.actions.magic;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Arrays;
+
 import org.junit.Test;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
@@ -37,6 +39,28 @@ public class UTestSoulTrapAction {
 		Actions.SOUL_TRAP_ACTION.execute(performer, target, new int[0], world);
 		
 		assertEquals(true, target.getProperty(Constants.CONDITIONS).hasCondition(Condition.SOUL_TRAPPED_CONDITION));
+	}
+	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		
+		assertEquals(false, Actions.SOUL_TRAP_ACTION.isValidTarget(performer, target, world));
+		
+		performer.setProperty(Constants.KNOWN_SPELLS, Arrays.asList(Actions.SOUL_TRAP_ACTION));
+		
+		assertEquals(true, Actions.SOUL_TRAP_ACTION.isValidTarget(performer, target, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		
+		assertEquals(0, Actions.SOUL_TRAP_ACTION.distance(performer, target, new int[0], world));
 	}
 	
 	private WorldObject createPerformer(int id) {
