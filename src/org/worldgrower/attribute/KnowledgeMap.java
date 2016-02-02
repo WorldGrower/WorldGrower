@@ -21,10 +21,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.function.Function;
 
 import org.worldgrower.Constants;
+import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.KissAction;
+import org.worldgrower.actions.SexAction;
 import org.worldgrower.conversation.KnowledgeSorter;
 
 public class KnowledgeMap implements IdContainer, Serializable {
@@ -278,5 +282,10 @@ public class KnowledgeMap implements IdContainer, Serializable {
 			}
 		}
 		return true;
+	}
+
+	public boolean hasEvent(WorldObject worldObject, Function<Integer, Boolean> turnFunction, ManagedOperation... actions) {
+		// TODO Auto-generated method stub
+		return false;
 	}	
 }
