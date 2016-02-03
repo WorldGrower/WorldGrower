@@ -284,8 +284,15 @@ public class KnowledgeMap implements IdContainer, Serializable {
 		return true;
 	}
 
-	public boolean hasEvent(WorldObject worldObject, Function<Integer, Boolean> turnFunction, ManagedOperation... actions) {
-		// TODO Auto-generated method stub
+	public boolean hasEvent(WorldObject worldObject, Function<Integer, Boolean> turnFunction, World world, ManagedOperation... actions) {
+		List<Knowledge> knowledgeList = idsToKnowledge.get(worldObject.getProperty(Constants.ID));
+		if (knowledgeList != null) {
+			for(Knowledge knowledge : knowledgeList) {
+				if (knowledge.hasEvent(turnFunction, world, actions)) {
+					return true;
+				}
+			}
+		}
 		return false;
 	}	
 }

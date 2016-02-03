@@ -14,6 +14,9 @@
  *******************************************************************************/
 package org.worldgrower.attribute;
 
+import java.util.function.Function;
+
+import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 
@@ -28,5 +31,7 @@ public interface Knowledge {
 	public boolean hasProperty(ManagedProperty<?> managedProperty);
 	public boolean hasPropertyValue(ManagedProperty<?> managedProperty, Object value);
 
+	public boolean hasEvent(Function<Integer, Boolean> turnFunction, World world, ManagedOperation... actions);
+	
 	public int evaluate(WorldObject performer, World world);
 }

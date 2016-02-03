@@ -34,15 +34,40 @@ public class UTestCatchFishAction {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = createPerformer(2);
 		performer.setProperty(Constants.LEFT_HAND_EQUIPMENT, Item.FISHING_POLE.generate(1f));
-		WorldObject organization = GroupPropertyUtils.create(null, "vermin", world);
-		int id = new CreatureGenerator(organization).generateFish(0, 0, world);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = createFish(world);
 		
 		assertEquals(1, target.getProperty(Constants.FOOD_SOURCE).intValue());
 		Actions.CATCH_FISH_ACTION.execute(performer, target, new int[0], world);
 		
 		assertEquals(8, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.FOOD));
 		assertEquals(false, world.exists(target));
+	}
+	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createFish(world);
+		
+		assertEquals(false, Actions.CATCH_FISH_ACTION.isValidTarget(performer, performer, world));
+		assertEquals(true, Actions.CATCH_FISH_ACTION.isValidTarget(performer, target, world));
+	}
+
+	private WorldObject createFish(World world) {
+		WorldObject organization = GroupPropertyUtils.create(null, "vermin", world);
+		int id = new CreatureGenerator(organization).generateFish(0, 0, world);
+		WorldObject target = world.findWorldObject(Constants.ID, id);
+		return target;
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createFish(world);
+		performer.setProperty(Constants.LEFT_HAND_EQUIPMENT, Item.FISHING_POLE.generate(1f));
+		
+		assertEquals(0, Actions.CATCH_FISH_ACTION.distance(performer, target, new int[0], world));
 	}
 	
 	private WorldObject createPerformer(int id) {

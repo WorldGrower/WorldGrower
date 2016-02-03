@@ -15,8 +15,10 @@
 package org.worldgrower.attribute;
 
 import java.io.Serializable;
+import java.util.function.Function;
 
 import org.worldgrower.GoalCalculator;
+import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 
@@ -127,5 +129,10 @@ public class PropertyKnowledge implements Serializable, Knowledge {
 	@Override
 	public int getId() {
 		return id;
+	}
+
+	@Override
+	public boolean hasEvent(Function<Integer, Boolean> turnFunction, World world, ManagedOperation... actions) {
+		return false;
 	}
 }

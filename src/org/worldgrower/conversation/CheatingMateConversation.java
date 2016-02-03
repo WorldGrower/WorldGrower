@@ -25,6 +25,7 @@ import org.worldgrower.attribute.KnowledgeMap;
 import org.worldgrower.goal.KnowledgeMapPropertyUtils;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
+import org.worldgrower.personality.PersonalityTrait;
 
 public class CheatingMateConversation implements Conversation {
 
@@ -33,12 +34,11 @@ public class CheatingMateConversation implements Conversation {
 	
 	@Override
 	public Response getReplyPhrase(ConversationContext conversationContext) {
-		WorldObject performer = conversationContext.getPerformer();
 		WorldObject target = conversationContext.getTarget();
 		
 		final int replyId;
-		int relationshipValue = target.getProperty(Constants.RELATIONSHIPS).getValue(performer);
-		if (relationshipValue >= 750) {
+		boolean targetIsHonorable = target.getProperty(Constants.PERSONALITY).getValue(PersonalityTrait.HONORABLE) > 100;
+		if (targetIsHonorable) {
 			replyId = YES;
 		} else {
 			replyId = NO;
@@ -64,7 +64,7 @@ public class CheatingMateConversation implements Conversation {
 	public boolean isConversationAvailable(WorldObject performer, WorldObject target, WorldObject subject, World world) {
 		int becomeMateTurn = 0; //TODO
 		KnowledgeMap knowledgeMap = performer.getProperty(Constants.KNOWLEDGE_MAP);
-		return knowledgeMap.hasEvent(target, t -> t > becomeMateTurn, Actions.KISS_ACTION, Actions.SEX_ACTION);
+		return knowledgeMap.hasEvent(target, t -> t > becomeMateTurn, world, Actions.KISS_ACTION, Actions.SEX_ACTION);
 	}
 	
 	@Override

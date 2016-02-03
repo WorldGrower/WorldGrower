@@ -48,4 +48,14 @@ public class UTestChooseDeityAction {
 		assertEquals(Deity.HEPHAESTUS, performer.getProperty(Constants.DEITY));
 		assertEquals(Deity.DEMETER, performer.getProperty(Constants.FACADE).getProperty(Constants.DEITY));
 	}
+	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.GROUP, new IdList());
+		WorldObject target = TestUtils.createSkilledWorldObject(3, Constants.GROUP, new IdList());
+		
+		assertEquals(true, Actions.CHOOSE_DEITY_ACTION.isValidTarget(performer, performer, world));
+		assertEquals(false, Actions.CHOOSE_DEITY_ACTION.isValidTarget(performer, target, world));
+	}
 }

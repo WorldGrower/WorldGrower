@@ -15,9 +15,13 @@
 package org.worldgrower.attribute;
 
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.function.Function;
 
+import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.history.HistoryItem;
 
 public class EventKnowledge implements Knowledge, Serializable {
 	private final int id;
@@ -77,5 +81,16 @@ public class EventKnowledge implements Knowledge, Serializable {
 	@Override
 	public int getId() {
 		return id;
+	}
+
+	@Override
+	public boolean hasEvent(Function<Integer, Boolean> turnFunction, World world, ManagedOperation... actions) {
+		HistoryItem historyItem = world.getHistory().getHistoryItem(historyId);
+		int turn = historyItem.getTurn().getValue();
+		if (turnFunction.apply(turn)) {
+			return Arrays.asList(actions).contains(historyItem.getOperationInfo().getManagedOperation());
+		} else {
+			return false;
+		}
 	}
 }

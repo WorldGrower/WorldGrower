@@ -21,12 +21,15 @@ import java.util.List;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.OperationInfo;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
 import org.worldgrower.deity.Deity;
 import org.worldgrower.generator.Item;
+import org.worldgrower.history.Turn;
 import org.worldgrower.profession.Professions;
 
 public class UTestKnowledgeMap {
@@ -210,5 +213,31 @@ public class UTestKnowledgeMap {
 		Knowledge otherKnowledge = new PropertyKnowledge(1, Constants.WATER, 500);
 		otherKnowledgeMap.addKnowledge(performer, otherKnowledge);
 		assertEquals(false, knowledgeMap.hasAllKnowledge(otherKnowledgeMap));
+	}
+	
+	@Test
+	public void testHasEvent() {
+		World world = new WorldImpl(0, 0, null, null);
+		KnowledgeMap knowledgeMap = new KnowledgeMap();
+		WorldObject worldObject = TestUtils.createSkilledWorldObject(1, Constants.FOOD, 500);
+		
+		assertEquals(false, knowledgeMap.hasEvent(worldObject, t -> true, world, Actions.CUT_WOOD_ACTION));
+		
+		knowledgeMap.addKnowledge(worldObject, world);
+		world.getHistory().actionPerformed(new OperationInfo(worldObject, worldObject, new int[0], Actions.CUT_WOOD_ACTION), new Turn());
+		
+		assertEquals(true, knowledgeMap.hasEvent(worldObject, t -> true, world, Actions.CUT_WOOD_ACTION));
+	}
+	
+	@Test
+	public void testHasEventTimeCondition() {
+		World world = new WorldImpl(0, 0, null, null);
+		KnowledgeMap knowledgeMap = new KnowledgeMap();
+		WorldObject worldObject = TestUtils.createSkilledWorldObject(1, Constants.FOOD, 500);
+	
+		knowledgeMap.addKnowledge(worldObject, world);
+		world.getHistory().actionPerformed(new OperationInfo(worldObject, worldObject, new int[0], Actions.CUT_WOOD_ACTION), new Turn());
+		
+		assertEquals(false, knowledgeMap.hasEvent(worldObject, t -> t > 100, world, Actions.CUT_WOOD_ACTION));
 	}
 }
