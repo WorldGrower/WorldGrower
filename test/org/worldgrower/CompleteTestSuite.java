@@ -68,6 +68,7 @@ import org.worldgrower.conversation.UTestArenaFighterPayCheckConversation;
 import org.worldgrower.conversation.UTestAskGoalConversation;
 import org.worldgrower.conversation.UTestBecomeArenaFighterConversation;
 import org.worldgrower.conversation.UTestBrawlConversation;
+import org.worldgrower.conversation.UTestBreakupWithMateConversation;
 import org.worldgrower.conversation.UTestBuyHouseConversation;
 import org.worldgrower.conversation.UTestCollectTaxesConversation;
 import org.worldgrower.conversation.UTestComplimentConversation;
@@ -528,7 +529,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestRepairHammerGoal.class,
 	UTestRepairEquipmentGoal.class,
 	UTestCurePoisonAction.class,
-	UTestStartDrinkingContestGoal.class
+	UTestStartDrinkingContestGoal.class,
+	UTestBreakupWithMateConversation.class
 })
 public class CompleteTestSuite {
 }

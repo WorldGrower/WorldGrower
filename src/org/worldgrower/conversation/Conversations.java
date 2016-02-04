@@ -93,6 +93,7 @@ public class Conversations implements Serializable {
 	public static final StopSellingConversation STOP_SELLING_CONVERSATION = new StopSellingConversation();
 	public static final AskGoalConversation ASK_GOAL_CONVERSATION = new AskGoalConversation();
 	public static final DrinkingContestConversation DRINKING_CONTEST_CONVERSATION = new DrinkingContestConversation();
+	public static final BreakupWithMateConversation BREAKUP_WITH_MATE_CONVERSATION = new BreakupWithMateConversation();
 	
 	private static final List<Conversation> CONVERSATIONS = new ArrayList<>();
 	private static final Map<Conversation, ConversationCategory> CONVERSATION_CATEGORIES = new HashMap<>();
@@ -156,6 +157,7 @@ public class Conversations implements Serializable {
 		addNormalAndIntimidate(STOP_SELLING_CONVERSATION, ConversationCategory.DEMAND);
 		addNormalAndIntimidate(ASK_GOAL_CONVERSATION, ConversationCategory.REQUEST_ACTION);
 		add(DRINKING_CONTEST_CONVERSATION, ConversationCategory.DEMAND);
+		add(BREAKUP_WITH_MATE_CONVERSATION, ConversationCategory.DEMAND);
 	}
 	
 	public static int[] createArgs(Conversation conversation) {
