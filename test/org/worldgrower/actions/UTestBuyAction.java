@@ -24,6 +24,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.ItemCountMap;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.generator.Item;
 
 public class UTestBuyAction {
@@ -44,6 +45,28 @@ public class UTestBuyAction {
 		assertEquals(110, target.getProperty(Constants.GOLD).intValue());
 		assertEquals(0, performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.WATER));
 		assertEquals(-1, target.getProperty(Constants.INVENTORY).getIndexFor(Constants.WATER));
+	}
+	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		
+		target.setProperty(Constants.CREATURE_TYPE, CreatureType.HUMAN_CREATURE_TYPE);
+		assertEquals(true, Actions.BUY_ACTION.isValidTarget(performer, target, world));
+		
+		target.setProperty(Constants.CREATURE_TYPE, CreatureType.FISH_CREATURE_TYPE);
+		assertEquals(false, Actions.BUY_ACTION.isValidTarget(performer, target, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		
+		assertEquals(0, Actions.BUY_ACTION.distance(performer, target, new int[0], world));
 	}
 	
 	private WorldObject createPerformer(int id) {

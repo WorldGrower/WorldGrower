@@ -14,7 +14,6 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
-import java.util.Comparator;
 import java.util.List;
 
 import org.worldgrower.Constants;
@@ -25,7 +24,6 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.IdMap;
 import org.worldgrower.attribute.KnowledgeMap;
 import org.worldgrower.conversation.Conversations;
-import org.worldgrower.personality.PersonalityTrait;
 
 public class BreakupWithMateGoal implements Goal {
 
@@ -35,29 +33,21 @@ public class BreakupWithMateGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		/*
+		WorldObject target = world.findWorldObject(Constants.ID, performer.getProperty(Constants.MATE_ID));
+		IdMap relationships = performer.getProperty(Constants.RELATIONSHIPS);
+		
+		if ((relationships.getValue(target) < 0) || mateHasCheated(performer, target, world)) {
+			return new OperationInfo(performer, target, Conversations.createArgs(Conversations.BREAKUP_WITH_MATE_CONVERSATION), Actions.TALK_ACTION);
+		} else {
+			return null;
+		}
+	}
+	
+	private boolean mateHasCheated(WorldObject performer, WorldObject target, World world) {
+		//TODO: actions with mate should be excluded
 		int becomeMateTurn = 0; //TODO
 		KnowledgeMap knowledgeMap = performer.getProperty(Constants.KNOWLEDGE_MAP);
 		return knowledgeMap.hasEvent(target, t -> t > becomeMateTurn, world, Actions.KISS_ACTION, Actions.SEX_ACTION);
-		*/
-		
-		IdMap relationships = performer.getProperty(Constants.RELATIONSHIPS);
-		int bestId = 0;
-		
-		if ((bestId != -1) && (relationships.getValue(bestId) > 750)) {
-			WorldObject target = world.findWorldObject(Constants.ID, bestId);
-			return new OperationInfo(performer, target, Conversations.createArgs(Conversations.PROPOSE_MATE_CONVERSATION), Actions.TALK_ACTION);
-		} else if (bestId != -1) {
-			return new ImproveRelationshipGoal(bestId, 750, world).calculateGoal(performer, world);
-		} else {
-			List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.SEX_ACTION, w -> true ,world);
-			if (targets.size() > 0) {
-				WorldObject target = targets.get(0);
-				return new ImproveRelationshipGoal(target.getProperty(Constants.ID), 750, world).calculateGoal(performer, world);
-			} else {
-				return null;
-			}
-		}
 	}
 	
 	@Override
