@@ -221,12 +221,12 @@ public class UTestKnowledgeMap {
 		KnowledgeMap knowledgeMap = new KnowledgeMap();
 		WorldObject worldObject = TestUtils.createSkilledWorldObject(1, Constants.FOOD, 500);
 		
-		assertEquals(false, knowledgeMap.hasEvent(worldObject, t -> true, world, Actions.CUT_WOOD_ACTION));
+		assertEquals(false, knowledgeMap.hasEvent(worldObject, t -> true, w -> true, world, Actions.CUT_WOOD_ACTION));
 		
 		knowledgeMap.addKnowledge(worldObject, world);
 		world.getHistory().actionPerformed(new OperationInfo(worldObject, worldObject, new int[0], Actions.CUT_WOOD_ACTION), new Turn());
 		
-		assertEquals(true, knowledgeMap.hasEvent(worldObject, t -> true, world, Actions.CUT_WOOD_ACTION));
+		assertEquals(true, knowledgeMap.hasEvent(worldObject, t -> true, w -> true, world, Actions.CUT_WOOD_ACTION));
 	}
 	
 	@Test
@@ -238,6 +238,6 @@ public class UTestKnowledgeMap {
 		knowledgeMap.addKnowledge(worldObject, world);
 		world.getHistory().actionPerformed(new OperationInfo(worldObject, worldObject, new int[0], Actions.CUT_WOOD_ACTION), new Turn());
 		
-		assertEquals(false, knowledgeMap.hasEvent(worldObject, t -> t > 100, world, Actions.CUT_WOOD_ACTION));
+		assertEquals(false, knowledgeMap.hasEvent(worldObject, t -> t > 100, w -> true, world, Actions.CUT_WOOD_ACTION));
 	}
 }

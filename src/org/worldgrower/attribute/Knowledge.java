@@ -31,7 +31,7 @@ public interface Knowledge {
 	public boolean hasProperty(ManagedProperty<?> managedProperty);
 	public boolean hasPropertyValue(ManagedProperty<?> managedProperty, Object value);
 
-	public boolean hasEvent(Function<Integer, Boolean> turnFunction, World world, ManagedOperation... actions);
+	public boolean hasEvent(Function<Integer, Boolean> turnFunction, Function<WorldObject, Boolean> targetFunction, World world, ManagedOperation... actions);
 	
 	public int evaluate(WorldObject performer, World world);
 }

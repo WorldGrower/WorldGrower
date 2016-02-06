@@ -47,6 +47,19 @@ public class UTestCreateGraveAction {
 		assertEquals("grave", world.getWorldObjects().get(0).getProperty(Constants.NAME));
 	}
 	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		
+		world.addWorldObject(target);
+		assertEquals(false, Actions.CREATE_GRAVE_ACTION.isValidTarget(performer, performer, world));
+		
+		world.removeWorldObject(target);
+		assertEquals(true, Actions.CREATE_GRAVE_ACTION.isValidTarget(performer, target, world));
+	}
+	
 	private WorldObject createPerformer(int id) {
 		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.X, 0);

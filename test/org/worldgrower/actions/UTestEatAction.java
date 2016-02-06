@@ -34,13 +34,39 @@ public class UTestEatAction {
 		
 		performer.setProperty(Constants.FOOD, 800);
 		
-		int berryBushId = PlantGenerator.generateBerryBush(0, 0, world);
-		WorldObject berryBush = world.findWorldObject(Constants.ID, berryBushId);
-		berryBush.setProperty(Constants.FOOD_SOURCE, 300);
+		WorldObject berryBush = createBerryBush(world);
 		Actions.EAT_ACTION.execute(performer, berryBush, new int[0], world);
 		
 		assertEquals(900, performer.getProperty(Constants.FOOD).intValue());
 		assertEquals(200, berryBush.getProperty(Constants.FOOD_SOURCE).intValue());
+	}
+	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		
+		WorldObject berryBush = createBerryBush(world);
+		assertEquals(true, Actions.EAT_ACTION.isValidTarget(performer, berryBush, world));
+		
+		berryBush.setProperty(Constants.FOOD_SOURCE, 0);
+		assertEquals(false, Actions.EAT_ACTION.isValidTarget(performer, berryBush, world));
+	}
+
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		
+		WorldObject berryBush = createBerryBush(world);
+		assertEquals(0, Actions.EAT_ACTION.distance(performer, berryBush, new int[0], world));
+	}
+	
+	private WorldObject createBerryBush(World world) {
+		int berryBushId = PlantGenerator.generateBerryBush(0, 0, world);
+		WorldObject berryBush = world.findWorldObject(Constants.ID, berryBushId);
+		berryBush.setProperty(Constants.FOOD_SOURCE, 300);
+		return berryBush;
 	}
 	
 	private WorldObject createPerformer(int id) {

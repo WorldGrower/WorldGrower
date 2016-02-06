@@ -132,7 +132,7 @@ public class PropertyKnowledge implements Serializable, Knowledge {
 	}
 
 	@Override
-	public boolean hasEvent(Function<Integer, Boolean> turnFunction, World world, ManagedOperation... actions) {
+	public boolean hasEvent(Function<Integer, Boolean> turnFunction, Function<WorldObject, Boolean> targetFunction, World world, ManagedOperation... actions) {
 		return false;
 	}
 }

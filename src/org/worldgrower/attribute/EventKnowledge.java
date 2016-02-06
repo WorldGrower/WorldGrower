@@ -84,11 +84,12 @@ public class EventKnowledge implements Knowledge, Serializable {
 	}
 
 	@Override
-	public boolean hasEvent(Function<Integer, Boolean> turnFunction, World world, ManagedOperation... actions) {
+	public boolean hasEvent(Function<Integer, Boolean> turnFunction, Function<WorldObject, Boolean> targetFunction, World world, ManagedOperation... actions) {
 		HistoryItem historyItem = world.getHistory().getHistoryItem(historyId);
 		int turn = historyItem.getTurn().getValue();
 		if (turnFunction.apply(turn)) {
-			return Arrays.asList(actions).contains(historyItem.getOperationInfo().getManagedOperation());
+			return Arrays.asList(actions).contains(historyItem.getOperationInfo().getManagedOperation())
+					&& targetFunction.apply(historyItem.getOperationInfo().getTarget());
 		} else {
 			return false;
 		}

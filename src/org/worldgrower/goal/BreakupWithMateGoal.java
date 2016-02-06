@@ -47,7 +47,7 @@ public class BreakupWithMateGoal implements Goal {
 		//TODO: actions with mate should be excluded
 		int becomeMateTurn = 0; //TODO
 		KnowledgeMap knowledgeMap = performer.getProperty(Constants.KNOWLEDGE_MAP);
-		return knowledgeMap.hasEvent(target, t -> t > becomeMateTurn, world, Actions.KISS_ACTION, Actions.SEX_ACTION);
+		return knowledgeMap.hasEvent(target, t -> t > becomeMateTurn, w -> !w.equals(performer) ,world, Actions.KISS_ACTION, Actions.SEX_ACTION);
 	}
 	
 	@Override
