@@ -530,7 +530,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestRepairEquipmentGoal.class,
 	UTestCurePoisonAction.class,
 	UTestStartDrinkingContestGoal.class,
-	UTestBreakupWithMateConversation.class
+	UTestBreakupWithMateConversation.class,
+	UTestBreakupWithMateGoal.class
 })
 public class CompleteTestSuite {
 }

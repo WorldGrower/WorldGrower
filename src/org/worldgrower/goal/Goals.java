@@ -132,4 +132,5 @@ public class Goals {
 	public static final RepairHammerGoal REPAIR_HAMMER_GOAL = new RepairHammerGoal(ALL_GOALS);
 	public static final RepairEquipmentGoal REPAIR_EQUIPMENT_GOAL = new RepairEquipmentGoal(ALL_GOALS);
 	public static final StartDrinkingContestGoal START_DRINKING_CONTEST_GOAL = new StartDrinkingContestGoal(ALL_GOALS);
+	public static final BreakupWithMateGoal BREAKUP_WITH_MATE_GOAL = new BreakupWithMateGoal(ALL_GOALS);
 }

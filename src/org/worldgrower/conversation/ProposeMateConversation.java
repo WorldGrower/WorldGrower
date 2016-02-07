@@ -73,6 +73,8 @@ public class ProposeMateConversation implements Conversation {
 		if (replyIndex == YES) {
 			performer.setProperty(Constants.MATE_ID, target.getProperty(Constants.ID));
 			target.setProperty(Constants.MATE_ID, performer.getProperty(Constants.ID));
+			performer.setProperty(Constants.MATE_TURN, world.getCurrentTurn().getValue());
+			target.setProperty(Constants.MATE_TURN, world.getCurrentTurn().getValue());
 		} else if (replyIndex == NO) {
 			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -50, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 		}

@@ -33,19 +33,23 @@ public class BreakupWithMateGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		WorldObject target = world.findWorldObject(Constants.ID, performer.getProperty(Constants.MATE_ID));
-		IdMap relationships = performer.getProperty(Constants.RELATIONSHIPS);
-		
-		if ((relationships.getValue(target) < 0) || mateHasCheated(performer, target, world)) {
-			return new OperationInfo(performer, target, Conversations.createArgs(Conversations.BREAKUP_WITH_MATE_CONVERSATION), Actions.TALK_ACTION);
+		Integer performerMateId = performer.getProperty(Constants.MATE_ID);
+		if (performerMateId != null) {
+			WorldObject target = world.findWorldObject(Constants.ID, performerMateId);
+			IdMap relationships = performer.getProperty(Constants.RELATIONSHIPS);
+			
+			if ((relationships.getValue(target) < 0) || mateHasCheated(performer, target, world)) {
+				return new OperationInfo(performer, target, Conversations.createArgs(Conversations.BREAKUP_WITH_MATE_CONVERSATION), Actions.TALK_ACTION);
+			} else {
+				return null;
+			}
 		} else {
 			return null;
 		}
 	}
 	
-	private boolean mateHasCheated(WorldObject performer, WorldObject target, World world) {
-		//TODO: actions with mate should be excluded
-		int becomeMateTurn = 0; //TODO
+	boolean mateHasCheated(WorldObject performer, WorldObject target, World world) {
+		int becomeMateTurn = performer.getProperty(Constants.MATE_TURN).intValue();
 		KnowledgeMap knowledgeMap = performer.getProperty(Constants.KNOWLEDGE_MAP);
 		return knowledgeMap.hasEvent(target, t -> t > becomeMateTurn, w -> !w.equals(performer) ,world, Actions.KISS_ACTION, Actions.SEX_ACTION);
 	}

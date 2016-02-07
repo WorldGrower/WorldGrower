@@ -27,8 +27,6 @@ import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.actions.KissAction;
-import org.worldgrower.actions.SexAction;
 import org.worldgrower.conversation.KnowledgeSorter;
 
 public class KnowledgeMap implements IdContainer, Serializable {

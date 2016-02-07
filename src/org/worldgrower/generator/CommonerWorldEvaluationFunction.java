@@ -66,6 +66,7 @@ public class CommonerWorldEvaluationFunction implements WorldObjectPriorities {
 		List<Goal> personalGoals = Arrays.asList(
 				Goals.SOCIALIZE_GOAL,
 				Goals.MATE_GOAL,
+				Goals.BREAKUP_WITH_MATE_GOAL,
 				Goals.CHILDREN_GOAL,
 				Goals.FURNITURE_GOAL,
 				Goals.DONATE_MONEY_TO_ARENA_GOAL,

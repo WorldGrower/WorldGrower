@@ -153,6 +153,7 @@ public class Constants {
 	public static final IdListProperty GROUP = new IdListProperty("group", ALL_PROPERTIES);
 	public static final IdMapProperty RELATIONSHIPS = new IdMapProperty("relationships", ALL_PROPERTIES);
 	public static final IdProperty MATE_ID = new IdProperty("mate", ALL_PROPERTIES);
+	public static final IntProperty MATE_TURN = new IntProperty("mateTurn", 0, null, NULLABLE, ALL_PROPERTIES);
 	public static final IdListProperty CHILDREN = new IdListProperty("children", ALL_PROPERTIES);
 	public static final IdProperty CHILD_BIRTH_ID = new IdProperty("childBirthId", ALL_PROPERTIES);
 	public static final StringProperty GENDER = new StringProperty("gender", NOT_NULLABLE, ALL_PROPERTIES);
