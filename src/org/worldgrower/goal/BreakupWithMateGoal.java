@@ -38,7 +38,7 @@ public class BreakupWithMateGoal implements Goal {
 			WorldObject target = world.findWorldObject(Constants.ID, performerMateId);
 			IdMap relationships = performer.getProperty(Constants.RELATIONSHIPS);
 			
-			if ((relationships.getValue(target) < 0) || mateHasCheated(performer, target, world)) {
+			if ((relationships.getValue(target) < -500) || mateHasCheated(performer, target, world)) {
 				return new OperationInfo(performer, target, Conversations.createArgs(Conversations.BREAKUP_WITH_MATE_CONVERSATION), Actions.TALK_ACTION);
 			} else {
 				return null;
