@@ -41,6 +41,29 @@ public class UTestButcherAction {
 		assertEquals(1, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.FOOD));
 	}
 	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		int id = new CreatureGenerator(GroupPropertyUtils.create(null, "CowOrg", world)).generateCow(0, 0, world);
+		WorldObject target = world.findWorldObject(Constants.ID, id);
+		
+		assertEquals(true, Actions.BUTCHER_ACTION.isValidTarget(performer, target, world));
+		
+		target.setProperty(Constants.MEAT_SOURCE, 0);
+		assertEquals(false, Actions.BUTCHER_ACTION.isValidTarget(performer, target, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		int id = new CreatureGenerator(GroupPropertyUtils.create(null, "CowOrg", world)).generateCow(0, 0, world);
+		WorldObject target = world.findWorldObject(Constants.ID, id);
+		
+		assertEquals(0, Actions.BUTCHER_ACTION.distance(performer, target, new int[0], world));
+	}
+	
 	private WorldObject createPerformer(int id) {
 		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.X, 0);

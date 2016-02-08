@@ -40,4 +40,33 @@ public class UTestHarvestCottonAction {
 		assertEquals(1, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.COTTON));
 		assertEquals(80, target.getProperty(Constants.COTTON_SOURCE).intValue());
 	}
+	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
+		int id = PlantGenerator.generateCottonPlant(0, 0, world);
+		WorldObject target = world.findWorldObject(Constants.ID, id);
+		
+		target.setProperty(Constants.COTTON_SOURCE, 100);
+		assertEquals(true, Actions.HARVEST_COTTON_ACTION.isValidTarget(performer, target, world));
+		
+		target.setProperty(Constants.COTTON_SOURCE, 0);
+		assertEquals(false, Actions.HARVEST_COTTON_ACTION.isValidTarget(performer, target, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
+		int id = PlantGenerator.generateCottonPlant(0, 0, world);
+		WorldObject target = world.findWorldObject(Constants.ID, id);
+		
+		performer.setProperty(Constants.X, 0);
+		performer.setProperty(Constants.Y, 0);
+		performer.setProperty(Constants.WIDTH, 1);
+		performer.setProperty(Constants.HEIGHT, 1);
+		
+		assertEquals(0, Actions.HARVEST_COTTON_ACTION.distance(performer, target, new int[0], world));
+	}
 }

@@ -17,6 +17,8 @@ package org.worldgrower.gui.util;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -57,6 +59,12 @@ public class TextInputDialog extends AbstractDialog {
 		buttonPane.add(cancelButton);
 		
 		addActions(okButton, cancelButton);
+		
+		this.addWindowListener(new WindowAdapter() {
+		    public void windowOpened(WindowEvent e) {
+		    	textField.requestFocus();
+		    }
+		}); 
 	}
 	
 	public String showMe() {

@@ -51,6 +51,16 @@ public class UTestReadAction {
 		assertEquals(true, Actions.READ_ACTION.isValidTarget(performer, target, world));
 		assertEquals(false, Actions.READ_ACTION.isValidTarget(performer, performer, world));
 	}
+    
+    @Test
+	public void testDistance() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		target.setProperty(Constants.TEXT, "text");
+		
+		assertEquals(0, Actions.READ_ACTION.distance(performer, target, new int[0], world));
+	}
 	
 	private WorldObject createPerformer(int id) {
 		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.INVENTORY, new WorldObjectContainer());

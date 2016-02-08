@@ -24,4 +24,9 @@ public class UTestProfessions {
 	public void testGetProfessionByDescription() {
 		assertEquals(Professions.FARMER_PROFESSION, Professions.getProfessionByDescription("farmer"));
 	}
+	
+	@Test
+	public void testGetDescriptions() {
+		assertEquals("farmer", Professions.getDescriptions().get(0));
+	}
 }

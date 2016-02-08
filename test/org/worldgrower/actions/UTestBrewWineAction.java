@@ -40,6 +40,24 @@ public class UTestBrewWineAction {
 		assertEquals(1, performerInventory.getQuantityFor(Constants.WINE));
 	}
 	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+
+		assertEquals(true, Actions.BREW_WINE_ACTION.isValidTarget(performer, performer, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
+		performerInventory.addQuantity(Item.GRAPES.generate(1f), 10);
+
+		assertEquals(0, Actions.BREW_WINE_ACTION.distance(performer, performer, new int[0], world));
+	}
+	
 	private WorldObject createPerformer(int id) {
 		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.X, 0);

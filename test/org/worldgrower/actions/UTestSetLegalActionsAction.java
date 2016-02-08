@@ -49,11 +49,36 @@ public class UTestSetLegalActionsAction {
 		legalActions = LegalActionsPropertyUtils.getLegalActions(world);
 		assertEquals(false, legalActions.getLegalFlag(new LegalAction(Actions.MELEE_ATTACK_ACTION, new DefaultActionLegalHandler())));
 	}
+	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		world.addWorldObject(performer);
+		createVillagersOrganization(world);
+			
+		assertEquals(true, Actions.SET_LEGAL_ACTIONS_ACTION.isValidTarget(performer, performer, world));
+		assertEquals(false, Actions.SET_LEGAL_ACTIONS_ACTION.isValidTarget(performer, target, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		world.addWorldObject(performer);
+		WorldObject villagersOrganization = createVillagersOrganization(world);
+		villagersOrganization.setProperty(Constants.ORGANIZATION_LEADER_ID, performer.getProperty(Constants.ID));
+			
+		assertEquals(0, Actions.SET_LEGAL_ACTIONS_ACTION.distance(performer, performer, new int[0], world));
+	}
 
-	private void createVillagersOrganization(World world) {
+
+	private WorldObject createVillagersOrganization(World world) {
 		WorldObject villagersOrganization = GroupPropertyUtils.createVillagersOrganization(world);
 		villagersOrganization.setProperty(Constants.ID, 1);
 		world.addWorldObject(villagersOrganization);
+		return villagersOrganization;
 	}
 	
 	private WorldObject createPerformer(int id) {
