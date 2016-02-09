@@ -40,6 +40,26 @@ public class UTestBrewPoisonAction {
 		assertEquals(1, performerInventory.getQuantityFor(Constants.POISON_DAMAGE));
 	}
 	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+
+		assertEquals(true, Actions.BREW_POISON_ACTION.isValidTarget(performer, performer, world));
+		assertEquals(false, Actions.BREW_POISON_ACTION.isValidTarget(performer, target, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
+		performerInventory.addQuantity(Item.NIGHT_SHADE.generate(1f), 10);
+		
+		assertEquals(0, Actions.BREW_POISON_ACTION.distance(performer, performer, new int[0], world));
+	}
+	
 	private WorldObject createPerformer(int id) {
 		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.X, 0);

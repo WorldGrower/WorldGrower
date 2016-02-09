@@ -51,6 +51,15 @@ public class UTestDetermineDeathReasonAction {
 		assertEquals(true, Actions.DETERMINE_DEATH_REASON_ACTION.isValidTarget(performer, target, world));
 		assertEquals(false, Actions.DETERMINE_DEATH_REASON_ACTION.isValidTarget(performer, performer, world));
 	}
+    
+    @Test
+	public void testDistance() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		
+		assertEquals(0, Actions.DETERMINE_DEATH_REASON_ACTION.distance(performer, target, new int[0], world));
+	}
 	
 	private WorldObject createPerformer(int id) {
 		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.INVENTORY, new WorldObjectContainer());
