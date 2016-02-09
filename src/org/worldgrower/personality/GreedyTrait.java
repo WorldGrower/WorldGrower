@@ -14,6 +14,7 @@
  *******************************************************************************/
 package org.worldgrower.personality;
 
+import java.io.ObjectStreamException;
 import java.util.List;
 
 import org.worldgrower.WorldObject;
@@ -52,5 +53,9 @@ public class GreedyTrait implements PersonalityTrait {
 	@Override
 	public int calculateInitialValue(WorldObject performer) {
 		return 0;
+	}
+	
+	public Object readResolve() throws ObjectStreamException {
+		return readResolveImpl();
 	}
 }

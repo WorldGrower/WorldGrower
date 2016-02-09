@@ -14,6 +14,7 @@
  *******************************************************************************/
 package org.worldgrower.personality;
 
+import java.io.ObjectStreamException;
 import java.util.List;
 
 import org.worldgrower.WorldObject;
@@ -54,5 +55,9 @@ public class PowerHungryTrait implements PersonalityTrait {
 	public int calculateInitialValue(WorldObject performer) {
 		int sign = Goals.FOOD_GOAL.calculateSign(performer, this);
 		return sign * 500;
+	}
+	
+	public Object readResolve() throws ObjectStreamException {
+		return readResolveImpl();
 	}
 }

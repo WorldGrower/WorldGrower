@@ -71,5 +71,5 @@ public class Personality implements Serializable {
 			}
 		}
 		return mostExtremePersonalityTraitValue.getPersonalityTrait();
-	}
+	}	
 }

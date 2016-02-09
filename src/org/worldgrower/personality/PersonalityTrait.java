@@ -14,6 +14,7 @@
  *******************************************************************************/
 package org.worldgrower.personality;
 
+import java.io.ObjectStreamException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,19 @@ public interface PersonalityTrait extends Serializable {
 	
 	public String getAdjective(int value, int relationshipValue);
 	public int calculateInitialValue(WorldObject performer);
+	
+	public default Object readResolveImpl() throws ObjectStreamException {
+		Class<?> clazz = getClass();
+		List<PersonalityTrait> allPersonalityTraits = PersonalityTrait.ALL_TRAITS;
+		
+		for(PersonalityTrait personalityTrait : allPersonalityTraits) {
+			if (personalityTrait.getClass() == clazz) {
+				return personalityTrait;
+			}
+		}
+		
+		throw new IllegalStateException("Profession with class " + clazz + " not found");
+	}
 	
 	public static final PersonalityTrait GREEDY = new GreedyTrait(ALL_TRAITS);
 	public static final PersonalityTrait POWER_HUNGRY = new PowerHungryTrait(ALL_TRAITS);
