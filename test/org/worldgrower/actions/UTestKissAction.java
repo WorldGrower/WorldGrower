@@ -55,6 +55,15 @@ public class UTestKissAction {
 		assertEquals(false, Actions.KISS_ACTION.isValidTarget(performer, performer, world));
 	}
 	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		
+		assertEquals(0, Actions.KISS_ACTION.distance(performer, target, new int[0], world));
+	}
+	
 	private WorldObject createPerformer(int id) {
 		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		performer.setProperty(Constants.X, 0);

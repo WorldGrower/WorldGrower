@@ -15,6 +15,7 @@
 package org.worldgrower.curse;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.worldgrower.ManagedOperation;
@@ -28,7 +29,7 @@ public class VampireCurse implements Curse {
 	@Override
 	public List<Goal> getCurseGoals(List<Goal> normalGoals) {
 		List<Goal> allGoals = new ArrayList<>(normalGoals);
-		allGoals.add(0, Goals.VAMPIRE_BITE_GOAL);
+		allGoals.addAll(0, Arrays.asList(Goals.VAMPIRE_BITE_GOAL, Goals.LEGALIZE_VAMPIRISM_GOAL));
 		return allGoals;
 	}
 	

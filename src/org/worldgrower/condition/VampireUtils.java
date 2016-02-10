@@ -17,8 +17,12 @@ package org.worldgrower.condition;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
+import org.worldgrower.actions.legal.DefaultActionLegalHandler;
+import org.worldgrower.actions.legal.LegalAction;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.curse.Curse;
+import org.worldgrower.goal.LegalActionsPropertyUtils;
 
 public class VampireUtils {
 
@@ -32,5 +36,9 @@ public class VampireUtils {
 	
 	public static int getVampireCount(World world) {
 		return world.findWorldObjects(w -> w.hasProperty(Constants.CURSE) && w.getProperty(Constants.CURSE) == Curse.VAMPIRE_CURSE).size();
+	}
+	
+	public static boolean isBitingPeopleLegal(World world) {
+		return LegalActionsPropertyUtils.getLegalActions(world).getLegalActions().get(new LegalAction(Actions.VAMPIRE_BITE_ACTION, new DefaultActionLegalHandler()));
 	}
 }

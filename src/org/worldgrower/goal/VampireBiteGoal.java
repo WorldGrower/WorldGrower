@@ -24,6 +24,7 @@ import org.worldgrower.actions.Actions;
 
 public class VampireBiteGoal implements Goal {
 
+	//TODO: rename to VampireBloodLevelGoal
 	public VampireBiteGoal(List<Goal> allGoals) {
 		allGoals.add(this);
 	}

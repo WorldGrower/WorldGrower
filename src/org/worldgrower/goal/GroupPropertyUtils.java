@@ -213,6 +213,9 @@ public class GroupPropertyUtils {
 			legalActions.put(legalAction, Boolean.TRUE);
 		}
 		
+		//TODO: VAMPIRE_BITE_ACTION needs to be added to legal actions, and AI needs to work around illegality
+		legalActions.put(new LegalAction(Actions.VAMPIRE_BITE_ACTION,  new DefaultActionLegalHandler()), Boolean.TRUE);
+		
 		organization.setProperty(Constants.LEGAL_ACTIONS, new LegalActions(legalActions));
 	}
 

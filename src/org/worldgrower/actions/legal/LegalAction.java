@@ -60,5 +60,10 @@ public final class LegalAction implements Serializable {
 
 	public String getDescription() {
 		return action.getSimpleDescription() + " " + actionLegalHandler.getSimpleDescription();
-	}	
+	}
+	
+	@Override
+	public String toString() {
+		return getDescription();
+	}
 }

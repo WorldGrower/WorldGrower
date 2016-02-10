@@ -17,6 +17,7 @@ package org.worldgrower.goal;
 import java.util.List;
 import java.util.Map;
 
+import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
@@ -24,6 +25,10 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.legal.DefaultActionLegalHandler;
 import org.worldgrower.actions.legal.LegalAction;
 import org.worldgrower.actions.legal.LegalActions;
+import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.Conditions;
+import org.worldgrower.condition.VampireUtils;
+import org.worldgrower.creaturetype.CreatureType;
 
 public class LegalizeVampirismGoal implements Goal {
 
@@ -38,18 +43,14 @@ public class LegalizeVampirismGoal implements Goal {
 		} else {
 			WorldObject leaderOfVillagers = GroupPropertyUtils.getLeaderOfVillagers(world);
 			if (leaderOfVillagers != null) {
-				
-			} else {
-				
+				CreatureType leaderCreatureType = leaderOfVillagers.getProperty(Constants.CREATURE_TYPE);
+				Conditions leaderConditions = leaderOfVillagers.getProperty(Constants.CONDITIONS);
+				if (leaderCreatureType != CreatureType.UNDEAD_CREATURE_TYPE && !leaderConditions.hasCondition(Condition.VAMPIRE_BITE_CONDITION)) {
+					return new OperationInfo(performer, leaderOfVillagers, new int[0], Actions.VAMPIRE_BITE_ACTION);
+				}
 			}
-					
 		}
-		WorldObject target = GoalUtils.findNearestTarget(performer, Actions.VAMPIRE_BITE_ACTION, world);
-		if (target != null) {
-			return new OperationInfo(performer, target, new int[0], Actions.VAMPIRE_BITE_ACTION);
-		} else {
-			return null;
-		}
+		return null;
 	}
 
 	private OperationInfo legalizeVampireBiteAction(WorldObject performer, World world) {
@@ -66,7 +67,7 @@ public class LegalizeVampirismGoal implements Goal {
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		return LegalActionsPropertyUtils.getLegalActions(world).getLegalActions().get(Actions.VAMPIRE_BITE_ACTION);
+		return VampireUtils.isBitingPeopleLegal(world);
 	}
 	
 	@Override
@@ -81,6 +82,6 @@ public class LegalizeVampirismGoal implements Goal {
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		return LegalActionsPropertyUtils.getLegalActions(world).getLegalActions().get(Actions.VAMPIRE_BITE_ACTION) ? 1 : 0;
+		return VampireUtils.isBitingPeopleLegal(world) ? 1 : 0;
 	}
 }
