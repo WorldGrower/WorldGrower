@@ -40,6 +40,25 @@ public class UTestMintGoldAction {
 		assertEquals(20, performer.getProperty(Constants.GOLD).intValue());
 	}
 	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+
+		assertEquals(true, Actions.MINT_GOLD_ACTION.isValidTarget(performer, performer, world));
+		assertEquals(false, Actions.MINT_GOLD_ACTION.isValidTarget(performer, target, world));
+	}
+
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.GOLD.generate(1f), 20);
+
+		assertEquals(0, Actions.MINT_GOLD_ACTION.distance(performer, performer, new int[0], world));
+	}
+	
 	private WorldObject createPerformer(int id) {
 		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.X, 0);

@@ -16,6 +16,9 @@ package org.worldgrower.actions.magic;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import org.junit.Test;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
@@ -37,6 +40,28 @@ public class UTestWaterWalkAction {
 		Actions.WATER_WALK_ACTION.execute(performer, target, new int[0], world);
 		
 		assertEquals(true, target.getProperty(Constants.CONDITIONS).hasCondition(Condition.WATER_WALK_CONDITION));
+	}
+	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		
+		performer.setProperty(Constants.KNOWN_SPELLS, new ArrayList<>());
+		assertEquals(false, Actions.WATER_WALK_ACTION.isValidTarget(performer, target, world));
+		
+		performer.setProperty(Constants.KNOWN_SPELLS, Arrays.asList(Actions.WATER_WALK_ACTION));
+		assertEquals(true, Actions.WATER_WALK_ACTION.isValidTarget(performer, target, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+
+		assertEquals(0, Actions.WATER_WALK_ACTION.distance(performer, target, new int[0], world));
 	}
 	
 	private WorldObject createPerformer(int id) {

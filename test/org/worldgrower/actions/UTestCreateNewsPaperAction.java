@@ -30,7 +30,7 @@ public class UTestCreateNewsPaperAction {
 
 	@Test
 	public void testExecute() {
-		World world = new WorldImpl(10, 10, null, null);
+		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = createPerformer(2);
 		performer.setProperty(Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
@@ -40,6 +40,26 @@ public class UTestCreateNewsPaperAction {
 		
 		assertEquals(8, performerInventory.getQuantityFor(Constants.PAPER));
 		assertEquals(1, performerInventory.getQuantityFor(Constants.TEXT));
+	}
+	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+
+		assertEquals(true, Actions.CREATE_NEWS_PAPER_ACTION.isValidTarget(performer, performer, world));
+		assertEquals(false, Actions.CREATE_NEWS_PAPER_ACTION.isValidTarget(performer, target, world));
+	}
+
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
+		performerInventory.addQuantity(Item.PAPER.generate(1f), 10);
+		
+		assertEquals(0, Actions.CREATE_NEWS_PAPER_ACTION.distance(performer, performer, new int[0], world));
 	}
 	
 	private WorldObject createPerformer(int id) {
