@@ -29,7 +29,7 @@ public class VampireCurse implements Curse {
 	@Override
 	public List<Goal> getCurseGoals(List<Goal> normalGoals) {
 		List<Goal> allGoals = new ArrayList<>(normalGoals);
-		allGoals.addAll(0, Arrays.asList(Goals.VAMPIRE_BITE_GOAL, Goals.LEGALIZE_VAMPIRISM_GOAL));
+		allGoals.addAll(0, Arrays.asList(Goals.VAMPIRE_BLOOD_LEVEL_GOAL, Goals.LEGALIZE_VAMPIRISM_GOAL));
 		return allGoals;
 	}
 	

@@ -21,22 +21,29 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.condition.VampireUtils;
 
-public class VampireBiteGoal implements Goal {
+public class VampireBloodLevelGoal implements Goal {
 
-	//TODO: rename to VampireBloodLevelGoal
-	public VampireBiteGoal(List<Goal> allGoals) {
+	public VampireBloodLevelGoal(List<Goal> allGoals) {
 		allGoals.add(this);
 	}
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		WorldObject target = GoalUtils.findNearestTarget(performer, Actions.VAMPIRE_BITE_ACTION, world);
-		if (target != null) {
-			return new OperationInfo(performer, target, new int[0], Actions.VAMPIRE_BITE_ACTION);
+		boolean isVampireBiteLegal = VampireUtils.isBitingPeopleLegal(world);
+		if (isVampireBiteLegal) {
+			WorldObject target = GoalUtils.findNearestTarget(performer, Actions.VAMPIRE_BITE_ACTION, world);
+			if (target != null) {
+				return new OperationInfo(performer, target, new int[0], Actions.VAMPIRE_BITE_ACTION);
+			}
 		} else {
-			return null;
+			WorldObject target = LocationUtils.findIsolatedPerson(performer, world);
+			if (target != null) {
+				return new OperationInfo(performer, target, new int[0], Actions.VAMPIRE_BITE_ACTION);
+			}
 		}
+		return null;
 	}
 	
 	@Override

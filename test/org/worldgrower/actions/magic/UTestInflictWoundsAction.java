@@ -16,6 +16,8 @@ package org.worldgrower.actions.magic;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Arrays;
+
 import org.junit.Test;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
@@ -39,6 +41,32 @@ public class UTestInflictWoundsAction {
 		Actions.INFLICT_WOUNDS_ACTION.execute(performer, target, new int[0], world);
 		
 		assertEquals(6, target.getProperty(Constants.HIT_POINTS).intValue());
+	}
+	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		performer.setProperty(Constants.KNOWN_SPELLS, Arrays.asList(Actions.INFLICT_WOUNDS_ACTION));
+		
+		target.setProperty(Constants.ARMOR, 10);
+		target.setProperty(Constants.HIT_POINTS, 10);
+		target.setProperty(Constants.HIT_POINTS_MAX, 10);
+		assertEquals(true, Actions.INFLICT_WOUNDS_ACTION.isValidTarget(performer, target, world));
+		
+		target.setProperty(Constants.HIT_POINTS, 0);
+		target.setProperty(Constants.HIT_POINTS_MAX, 0);
+		assertEquals(false, Actions.INFLICT_WOUNDS_ACTION.isValidTarget(performer, target, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		
+		assertEquals(0, Actions.INFLICT_WOUNDS_ACTION.distance(performer, target, new int[0], world));
 	}
 	
 	private WorldObject createPerformer(int id) {

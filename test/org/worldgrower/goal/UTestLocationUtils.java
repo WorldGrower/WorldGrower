@@ -26,6 +26,7 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.terrain.TerrainType;
 
 public class UTestLocationUtils {
@@ -39,5 +40,37 @@ public class UTestLocationUtils {
 		List<WorldObject> worldObjects = LocationUtils.findWorldObjectsInSurroundingWater(1, 1, new MockWorld(new MockTerrain(TerrainType.WATER), world));
 		assertEquals(1, worldObjects.size());
 		assertEquals(house, worldObjects.get(0));
+	}
+	
+	@Test
+	public void testFindIsolatedPersonNull() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerson(2);
+		
+		assertEquals(null, LocationUtils.findIsolatedPerson(performer, world));
+	}
+	
+	@Test
+	public void testFindIsolatedPersonPossibleTarget() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerson(2);
+		WorldObject target = createPerson(2);
+		
+		target.setProperty(Constants.X, 10);
+		target.setProperty(Constants.Y, 10);
+		
+		world.addWorldObject(performer);
+		world.addWorldObject(target);
+		
+		assertEquals(target, LocationUtils.findIsolatedPerson(performer, world));
+	}
+	
+	private WorldObject createPerson(int id) {
+		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.INVENTORY, new WorldObjectContainer());
+		performer.setProperty(Constants.X, 0);
+		performer.setProperty(Constants.Y, 0);
+		performer.setProperty(Constants.WIDTH, 1);
+		performer.setProperty(Constants.HEIGHT, 1);
+		return performer;
 	}
 }

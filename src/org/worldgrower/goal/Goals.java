@@ -80,7 +80,7 @@ public class Goals {
 	public static final CottonGoal COTTON_GOAL = new CottonGoal(ALL_GOALS);
 	public static final WeaveClothesGoal WEAVE_CLOTHES_GOAL = new WeaveClothesGoal(ALL_GOALS);
 	public static final BuyClothesGoal BUY_CLOTHES_GOAL = new BuyClothesGoal(ALL_GOALS);
-	public static final VampireBiteGoal VAMPIRE_BITE_GOAL = new VampireBiteGoal(ALL_GOALS);
+	public static final VampireBloodLevelGoal VAMPIRE_BLOOD_LEVEL_GOAL = new VampireBloodLevelGoal(ALL_GOALS);
 	public static final CreateHouseGoal CREATE_HOUSE_GOAL = new CreateHouseGoal(ALL_GOALS);
 	public static final GetHealedGoal GET_HEALED_GOAL = new GetHealedGoal(ALL_GOALS);
 	public static final SellHouseGoal SELL_HOUSE_GOAL = new SellHouseGoal(ALL_GOALS);

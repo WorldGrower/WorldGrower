@@ -17,7 +17,9 @@ package org.worldgrower.goal;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.worldgrower.Constants;
 import org.worldgrower.CreaturePositionCondition;
+import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.terrain.TerrainType;
@@ -122,5 +124,16 @@ public class LocationUtils {
 		}
 		
 		
+	}
+
+	public static WorldObject findIsolatedPerson(WorldObject performer,	World world) {
+		List<WorldObject> targets = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> Reach.distance(performer, w) < 20);
+		for(WorldObject target : targets) {
+			List<WorldObject> peopleSurroundingTarget = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> Reach.distance(target, w) < 20 && !w.equals(performer) && !w.equals(target));
+			if (peopleSurroundingTarget.size() == 0) {
+				return target;
+			}
+		}
+		return null;
 	}
 }

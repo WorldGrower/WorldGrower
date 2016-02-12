@@ -23,6 +23,8 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.MockCommonerNameGenerator;
+import org.worldgrower.actions.legal.DefaultActionLegalHandler;
+import org.worldgrower.actions.legal.LegalAction;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.condition.VampireUtils;
 import org.worldgrower.generator.CommonerGenerator;
@@ -30,7 +32,7 @@ import org.worldgrower.gui.CommonerImageIds;
 
 public class UTestVampireBiteGoal {
 
-	private VampireBiteGoal goal = Goals.VAMPIRE_BITE_GOAL;
+	private VampireBloodLevelGoal goal = Goals.VAMPIRE_BLOOD_LEVEL_GOAL;
 	private final CommonerGenerator commonerGenerator = new CommonerGenerator(666, new CommonerImageIds(), new MockCommonerNameGenerator());
 	
 	@Test
@@ -38,6 +40,7 @@ public class UTestVampireBiteGoal {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
+		createVillagersOrganization(world);
 		
 		assertEquals(null, goal.calculateGoal(performer, world));
 	}
@@ -45,16 +48,33 @@ public class UTestVampireBiteGoal {
 	@Test
 	public void testCalculateGoalBite() {
 		World world = new WorldImpl(10, 10, null, null);
-		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		WorldObject organization = createVillagersOrganization(world);
+		
 		WorldObject performer = createCommoner(world, organization);
 		WorldObject target = createCommoner(world, organization);
-		
-		world.addWorldObject(performer);
-		world.addWorldObject(target);
 		
 		VampireUtils.vampirizePerson(performer, new WorldStateChangedListeners());
 		
 		assertEquals(Actions.VAMPIRE_BITE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+		assertEquals(target, goal.calculateGoal(performer, world).getTarget());
+	}
+	
+	@Test
+	public void testCalculateGoalBiteIllegal() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject organization = createVillagersOrganization(world);
+		
+		WorldObject performer = createCommoner(world, organization);
+		WorldObject target = createCommoner(world, organization);
+		
+		target.setProperty(Constants.X, 10);
+		target.setProperty(Constants.Y, 10);
+		
+		VampireUtils.vampirizePerson(performer, new WorldStateChangedListeners());
+		
+		LegalActionsPropertyUtils.getLegalActions(world).setLegalFlag(new LegalAction(Actions.VAMPIRE_BITE_ACTION, new DefaultActionLegalHandler()), Boolean.FALSE);
+		assertEquals(Actions.VAMPIRE_BITE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+		assertEquals(target, goal.calculateGoal(performer, world).getTarget());
 	}
 	
 	@Test
@@ -62,6 +82,7 @@ public class UTestVampireBiteGoal {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
+		createVillagersOrganization(world);
 		VampireUtils.vampirizePerson(performer, new WorldStateChangedListeners());
 		
 		assertEquals(false, goal.isGoalMet(performer, world));
@@ -74,5 +95,14 @@ public class UTestVampireBiteGoal {
 		int commonerId = commonerGenerator.generateCommoner(0, 0, world, organization);
 		WorldObject commoner = world.findWorldObject(Constants.ID, commonerId);
 		return commoner;
+	}
+	
+	private WorldObject createVillagersOrganization(World world) {
+		WorldObject villagersOrganization = GroupPropertyUtils.createVillagersOrganization(world);
+
+		villagersOrganization.setProperty(Constants.ID, 1);
+		world.addWorldObject(villagersOrganization);
+		world.generateUniqueId();world.generateUniqueId();
+		return villagersOrganization;
 	}
 }
