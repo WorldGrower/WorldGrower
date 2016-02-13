@@ -26,6 +26,7 @@ import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
+import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
 
 public class SilenceMagicAction implements MagicSpell {
@@ -43,7 +44,7 @@ public class SilenceMagicAction implements MagicSpell {
 	
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return (target.hasProperty(Constants.CONDITIONS) && target.hasIntelligence());
+		return (target.hasProperty(Constants.CONDITIONS) && target.hasIntelligence() && MagicSpellUtils.canCast(performer, this));
 	}
 
 	@Override
