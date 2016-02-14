@@ -38,6 +38,8 @@ public class BuildLibraryAction implements BuildAction {
 		
 		performer.getProperty(Constants.INVENTORY).add(Item.generateKey(libraryId));
 		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.WOOD, REQUIRED_WOOD);
+		
+		world.logAction(this, performer, target, args, null);
 	}
 
 	@Override

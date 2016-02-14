@@ -51,9 +51,9 @@ public class TutorialAdditionalManagedOperationListenerFactory implements Additi
 
 		@Override
 		public void actionPerformed(ManagedOperation managedOperation, WorldObject performer, WorldObject target, int[] args, Object value) {
-			if (managedOperation == Actions.CUT_WOOD_ACTION && performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) < 6) {
+			if (managedOperation == Actions.CUT_WOOD_ACTION && performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) < 6 && performer.getProperty(Constants.HOUSES).size() == 0) {
 				MessageDialogUtils.showMessage("You can keep cutting wood six times, so that you can build somewhere to sleep.", "Cutting Wood", target, container, imageInfoReader);
-			} else if (managedOperation == Actions.CUT_WOOD_ACTION && performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) >= 6) {
+			} else if (managedOperation == Actions.CUT_WOOD_ACTION && performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) >= 6 && performer.getProperty(Constants.HOUSES).size() == 0) {
 				MessageDialogUtils.showMessage("Now right-click on your character and choose build - build shack. \nChoose an empty space around your character and place the shack. \nMove next to the shack and right-click on it to rest in it.", "Building Shack", target, container, imageInfoReader);
 			} else if (managedOperation == Actions.SLEEP_ACTION) {
 				MessageDialogUtils.showMessage("Resting restores energy, which is used for some actions like cutting wood. Energy is indicated by the green bar at the lower right of the screen. \nNow use the down arrow to move down to the berry bush.\n Then right-click on the berry bush to harvest food from it.", "Harvesting food", target, container, imageInfoReader);
@@ -65,7 +65,13 @@ public class TutorialAdditionalManagedOperationListenerFactory implements Additi
 				switchToHostileRat();
 				MessageDialogUtils.showMessage("A hostile rat has been added. Press the C key or right-click on the character and choose character screen to equip weapons and armor. \n In the character screen, equip an iron cuirass as equipment and an iron claymore as a weapon. \nThen move next to the rat and right-click on it to attack it until it is dead.", "Equiping", target, container, imageInfoReader);
 			} else if (managedOperation == Actions.MELEE_ATTACK_ACTION && !performer.isControlledByAI()) {
-				MessageDialogUtils.showMessage("Now that you know the basic actions, you can start a new game. \nClose the talk dialog, press the escape key to bring up the main menu and start a non-tutorial game.", "Talking", target, container, imageInfoReader);
+				MessageDialogUtils.showMessage("To learn magic spells, build a library. \nTo build a library wood move your character next to the tree to cut wood. \nWhen you have gathered 6 wood, right-click on your character and choose build - build library", "Eating food", target, container, imageInfoReader);
+			} else if (managedOperation == Actions.BUILD_LIBRARY_ACTION) {	
+				MessageDialogUtils.showMessage("Let's learn firebolt, move next to the library and right-click and choose research firebolt", "Researching firebolt", performer, container, imageInfoReader);
+			} else if (managedOperation == Actions.getResearchSpellActionFor(Actions.FIRE_BOLT_ATTACK_ACTION)) {
+				MessageDialogUtils.showMessage("Spells known to your characters are shown in the magic overview. \nPress the M key or right-click on the character and choose Magic Overview to show the magic overview. \nOnce you've learned firebolt, shoot a firebolt at the tree.", "Eating food", performer, container, imageInfoReader);
+			} else if (managedOperation == Actions.FIRE_BOLT_ATTACK_ACTION) {
+				MessageDialogUtils.showMessage("Now that you know the basic actions, you can start a new game. \nClose any dialog windows, press the escape key to bring up the main menu and start a non-tutorial game.", "Talking", target, container, imageInfoReader);
 			}
 		}
 

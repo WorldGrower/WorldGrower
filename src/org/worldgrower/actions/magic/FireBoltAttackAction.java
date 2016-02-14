@@ -41,6 +41,8 @@ public class FireBoltAttackAction implements MagicSpell, DeadlyAction {
 		if (target.hasProperty(Constants.FLAMMABLE) && target.getProperty(Constants.FLAMMABLE)) {
 			Conditions.add(target, Condition.BURNING_CONDITION, 100, world);
 		}
+		
+		world.logAction(this, performer, target, args, null);
 	}
 	
 	@Override

@@ -41,6 +41,7 @@ public class ResearchSpellAction implements ManagedOperation {
 		if (performer.getProperty(Constants.STUDYING_SPELLS).count(spell) > spell.getResearchCost()) {
 			performer.getProperty(Constants.KNOWN_SPELLS).add(spell);
 		}
+		world.logAction(this, performer, target, args, null);
 	}
 
 	@Override
