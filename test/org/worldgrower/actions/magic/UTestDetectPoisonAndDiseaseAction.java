@@ -16,6 +16,9 @@ package org.worldgrower.actions.magic;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import org.junit.Test;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
@@ -93,6 +96,28 @@ public class UTestDetectPoisonAndDiseaseAction {
 		Actions.DETECT_POISON_AND_DISEASE_ACTION.execute(performer, target, new int[0], world);
 		
 		assertEquals("target has the following conditions: poisoned, bitten by a vampire", listener.getMessage());
+	}
+	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		
+		performer.setProperty(Constants.KNOWN_SPELLS, new ArrayList<>());
+		assertEquals(false, Actions.DETECT_POISON_AND_DISEASE_ACTION.isValidTarget(performer, target, world));
+		
+		performer.setProperty(Constants.KNOWN_SPELLS, Arrays.asList(Actions.DETECT_POISON_AND_DISEASE_ACTION));
+		assertEquals(true, Actions.DETECT_POISON_AND_DISEASE_ACTION.isValidTarget(performer, target, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		
+		assertEquals(0, Actions.DETECT_POISON_AND_DISEASE_ACTION.distance(performer, target, new int[0], world));
 	}
 	
 	private WorldObject createPerformer(int id) {

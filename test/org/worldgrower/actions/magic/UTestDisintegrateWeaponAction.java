@@ -16,6 +16,9 @@ package org.worldgrower.actions.magic;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import org.junit.Test;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
@@ -24,6 +27,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.condition.Conditions;
 import org.worldgrower.generator.Item;
 
 public class UTestDisintegrateWeaponAction {
@@ -42,6 +46,30 @@ public class UTestDisintegrateWeaponAction {
 		Actions.DISINTEGRATE_WEAPON_ACTION.execute(performer, target, new int[0], world);
 		
 		assertEquals(900, target.getProperty(Constants.INVENTORY).get(0).getProperty(Constants.EQUIPMENT_HEALTH).intValue());
+	}
+	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		performer.setProperty(Constants.CONDITIONS, new Conditions());
+
+		performer.setProperty(Constants.KNOWN_SPELLS, new ArrayList<>());
+		assertEquals(false, Actions.DISINTEGRATE_WEAPON_ACTION.isValidTarget(performer, target, world));
+		
+		performer.setProperty(Constants.KNOWN_SPELLS, Arrays.asList(Actions.DISINTEGRATE_WEAPON_ACTION));
+		target.setProperty(Constants.ARMOR, 10);
+		assertEquals(true, Actions.DISINTEGRATE_WEAPON_ACTION.isValidTarget(performer, target, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+
+		assertEquals(0, Actions.DISINTEGRATE_WEAPON_ACTION.distance(performer, target, new int[0], world));
 	}
 	
 	private WorldObject createPerformer(int id) {

@@ -38,6 +38,24 @@ public class UTestDisguiseMagicSpellAction {
 		
 		assertEquals(3, performer.getProperty(Constants.FACADE).getProperty(Constants.ID).intValue());
 	}
+
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		
+		assertEquals(true, Actions.DISGUISE_MAGIC_SPELL_ACTION.isValidTarget(performer, performer, world));
+		assertEquals(false, Actions.DISGUISE_MAGIC_SPELL_ACTION.isValidTarget(performer, target, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		
+		assertEquals(0, Actions.DISGUISE_MAGIC_SPELL_ACTION.distance(performer, performer, new int[0], world));
+	}
 	
 	private WorldObject createPerformer(int id) {
 		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.CONDITIONS, new Conditions());
