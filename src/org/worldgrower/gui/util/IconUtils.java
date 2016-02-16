@@ -35,6 +35,7 @@ public class IconUtils {
 	private static final Image SAVE_ICON;
 	private static final Image EXIT_ICON;
 	private static final Image MOUSE_ICON;
+	private static final Image CONTROLS_ICON;
 	
 	static {
 		IMAGE_ICON = getImage("/community.png");
@@ -43,6 +44,7 @@ public class IconUtils {
 		SAVE_ICON = getImage("/save.png");
 		EXIT_ICON = getImage("/exit.png");
 		MOUSE_ICON = getImage("/cursor.png");
+		CONTROLS_ICON = getImage("/controls.png");
 	}
 
 	private static Image getImage(String imageURL) {
@@ -77,5 +79,9 @@ public class IconUtils {
 		ImageIds performerImageIds = performer.getProperty(Constants.IMAGE_ID);
 		Icon performerIcon = new ImageIcon(imageInfoReader.getImage(performerImageIds, null));
 		return performerIcon;
+	}
+
+	public static ImageIcon getControlsIcon() {
+		return new ImageIcon(CONTROLS_ICON);
 	}
 }

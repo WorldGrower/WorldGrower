@@ -47,6 +47,7 @@ public class StartScreen {
 
 	private StartScreenDialog frame;
 	private JButton btnSaveGame;
+	private JButton btnControlsGame;
 	private World world;
 	
 	private static ImageInfoReader imageInfoReader = null;
@@ -140,55 +141,24 @@ public class StartScreen {
 	private void initialize() {
 		frame = new StartScreenDialog();
 		
-		JButton btnNewGame = ButtonFactory.createButton("New Game", IconUtils.getNewIcon());
-		btnNewGame.setHorizontalAlignment(SwingConstants.LEFT);
-		btnNewGame.setHorizontalTextPosition(SwingConstants.RIGHT);
-		btnNewGame.setToolTipText("Starts a new game");
-		btnNewGame.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				showNewGamePopupMenu();
-			}
-		});
+		addNewButton();
+		addLoadButton();
+		addExitButton();
 		
-		frame.getRootPane().setDefaultButton(btnNewGame);
-		frame.addComponent(btnNewGame);
-		SwingUtils.setBoundsAndCenterHorizontally(btnNewGame, 80, 81, 167, 60);
+		addVersionLabel();
 		
-		JButton btnLoadGame = ButtonFactory.createButton("Load Game", IconUtils.getLoadIcon());
-		btnLoadGame.setHorizontalAlignment(SwingConstants.LEFT);
-		btnLoadGame.setHorizontalTextPosition(SwingConstants.RIGHT);
-		btnLoadGame.setToolTipText("Loads a game");
-		btnLoadGame.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				JFileChooser fileChooser = new JFileChooser();
-				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
-				int result = fileChooser.showOpenDialog(frame);
-				if (result == JFileChooser.APPROVE_OPTION) {
-				    File selectedFile = fileChooser.getSelectedFile();
-				    loadGame(selectedFile);
-				}
-			}
-		});
-		frame.addComponent(btnLoadGame);
-		SwingUtils.setBoundsAndCenterHorizontally(btnLoadGame, 78, 150, 167, 60);
-		
-		JButton btnExit = ButtonFactory.createButton("Exit", IconUtils.getExitIcon());
-		btnExit.setHorizontalAlignment(SwingConstants.LEFT);
-		btnExit.setHorizontalTextPosition(SwingConstants.RIGHT);
-		btnExit.setToolTipText("Exits program");
-		btnExit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
-		frame.addComponent(btnExit);
-		SwingUtils.setBoundsAndCenterHorizontally(btnExit, 78, 290, 167, 60);
-		
+		addSaveButton();
+		addControlsButton();
+	}
+
+	private void addVersionLabel() {
 		JLabel lblVersion = JLabelFactory.createJLabel("Version " + Version.getVersion());
 		lblVersion.setToolTipText("Current version");
 		frame.addComponent(lblVersion);
-		SwingUtils.setBoundsAndCenterHorizontally(lblVersion, 83, 370, 167, 21);
-		
+		SwingUtils.setBoundsAndCenterHorizontally(lblVersion, 83, 450, 167, 21);
+	}
+
+	private void addSaveButton() {
 		btnSaveGame = ButtonFactory.createButton("Save Game", IconUtils.getSaveIcon());
 		btnSaveGame.setHorizontalAlignment(SwingConstants.LEFT);
 		btnSaveGame.setHorizontalTextPosition(SwingConstants.RIGHT);
@@ -213,6 +183,81 @@ public class StartScreen {
 		SwingUtils.setBoundsAndCenterHorizontally(btnSaveGame, 78, 220, 167, 60);
 	}
 	
+	private void addControlsButton() {
+		btnControlsGame = ButtonFactory.createButton("Controls", IconUtils.getControlsIcon());
+		btnControlsGame.setHorizontalAlignment(SwingConstants.LEFT);
+		btnControlsGame.setHorizontalTextPosition(SwingConstants.RIGHT);
+		btnControlsGame.setToolTipText("View and change game controls");
+		btnControlsGame.setEnabled(true);
+		btnControlsGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFrame parentFrame = new JFrame();
+
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setDialogTitle("Specify a file to save");    
+
+				int userSelection = fileChooser.showSaveDialog(parentFrame);
+
+				if (userSelection == JFileChooser.APPROVE_OPTION) {
+				    File fileToSave = fileChooser.getSelectedFile();
+				    saveGame(fileToSave);
+				}
+			}
+		});
+		frame.addComponent(btnControlsGame);
+		SwingUtils.setBoundsAndCenterHorizontally(btnControlsGame, 78, 290, 167, 60);
+	}
+
+	private void addExitButton() {
+		JButton btnExit = ButtonFactory.createButton("Exit", IconUtils.getExitIcon());
+		btnExit.setHorizontalAlignment(SwingConstants.LEFT);
+		btnExit.setHorizontalTextPosition(SwingConstants.RIGHT);
+		btnExit.setToolTipText("Exits program");
+		btnExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		frame.addComponent(btnExit);
+		SwingUtils.setBoundsAndCenterHorizontally(btnExit, 78, 360, 167, 60);
+	}
+
+	private void addNewButton() {
+		JButton btnNewGame = ButtonFactory.createButton("New Game", IconUtils.getNewIcon());
+		btnNewGame.setHorizontalAlignment(SwingConstants.LEFT);
+		btnNewGame.setHorizontalTextPosition(SwingConstants.RIGHT);
+		btnNewGame.setToolTipText("Starts a new game");
+		btnNewGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				showNewGamePopupMenu();
+			}
+		});
+		
+		frame.getRootPane().setDefaultButton(btnNewGame);
+		frame.addComponent(btnNewGame);
+		SwingUtils.setBoundsAndCenterHorizontally(btnNewGame, 80, 81, 167, 60);
+	}
+
+	private void addLoadButton() {
+		JButton btnLoadGame = ButtonFactory.createButton("Load Game", IconUtils.getLoadIcon());
+		btnLoadGame.setHorizontalAlignment(SwingConstants.LEFT);
+		btnLoadGame.setHorizontalTextPosition(SwingConstants.RIGHT);
+		btnLoadGame.setToolTipText("Loads a game");
+		btnLoadGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+				int result = fileChooser.showOpenDialog(frame);
+				if (result == JFileChooser.APPROVE_OPTION) {
+				    File selectedFile = fileChooser.getSelectedFile();
+				    loadGame(selectedFile);
+				}
+			}
+		});
+		frame.addComponent(btnLoadGame);
+		SwingUtils.setBoundsAndCenterHorizontally(btnLoadGame, 78, 150, 167, 60);
+	}
+	
 	private void loadGame(File selectedFile) {
 		Game.load(selectedFile, imageInfoReader);
 		setVisible(false);
@@ -234,7 +279,7 @@ public class StartScreen {
 	private static class StartScreenDialog extends AbstractDialog {
 
 		public StartScreenDialog() {
-			super(337, 490);
+			super(337, 520);
 		}
 	}
 }
