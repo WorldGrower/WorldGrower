@@ -21,6 +21,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
@@ -49,6 +50,7 @@ public class StartScreen {
 	private JButton btnSaveGame;
 	private JButton btnControlsGame;
 	private World world;
+	private final KeyBindings keyBindings;
 	
 	private static ImageInfoReader imageInfoReader = null;
 	
@@ -86,8 +88,17 @@ public class StartScreen {
 	public StartScreen(ImageInfoReader imageInfoReaderValue) {
 		initialize();
 		imageInfoReader = imageInfoReaderValue;
+		keyBindings = createKeyBindings();
 	}
 	
+	private KeyBindings createKeyBindings() {
+		char[] values = new char[GuiAction.values().length];
+		for(int i=0; i<values.length; i++) {
+			values[i] = GuiAction.values()[i].getDefaultValue();
+		}
+		return new KeyBindings(Arrays.asList(GuiAction.values()), values);
+	}
+
 	public void setVisible(boolean visible) {
 		frame.setVisible(visible);
 	}
@@ -191,17 +202,8 @@ public class StartScreen {
 		btnControlsGame.setEnabled(true);
 		btnControlsGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFrame parentFrame = new JFrame();
-
-				JFileChooser fileChooser = new JFileChooser();
-				fileChooser.setDialogTitle("Specify a file to save");    
-
-				int userSelection = fileChooser.showSaveDialog(parentFrame);
-
-				if (userSelection == JFileChooser.APPROVE_OPTION) {
-				    File fileToSave = fileChooser.getSelectedFile();
-				    saveGame(fileToSave);
-				}
+				ControlsDialog controlsDialog = new ControlsDialog(keyBindings);
+				controlsDialog.showMe();
 			}
 		});
 		frame.addComponent(btnControlsGame);
