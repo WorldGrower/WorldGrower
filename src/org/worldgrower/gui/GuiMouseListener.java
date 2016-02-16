@@ -15,6 +15,9 @@
 package org.worldgrower.gui;
 
 import java.awt.Image;
+import java.awt.MouseInfo;
+import java.awt.Point;
+import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -23,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
+import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JMenu;
@@ -78,6 +82,7 @@ public class GuiMouseListener extends MouseAdapter {
 	private final GuiAssignActionToLeftMouseAction assignActionToLeftMouseAction;
 	private final ShowStatusMessagesAction showStatusMessagesAction;
 	private ManagedOperation leftMouseClickAction;
+	private final ShowCharacterActionsAction showCharacterActionsAction;
 	
     public GuiMouseListener(WorldPanel container, WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, ImageInfoReader imageInfoReader) {
 		super();
@@ -94,6 +99,7 @@ public class GuiMouseListener extends MouseAdapter {
 		createOrganizationAction = new GuiShowOrganizationsAction(playerCharacter, world, container);
 		showStatusMessagesAction = new ShowStatusMessagesAction(container);
 		assignActionToLeftMouseAction = getGuiAssignActionToLeftMouseAction();
+		showCharacterActionsAction = new ShowCharacterActionsAction();
 		addKeyBindings();
 	}
 
@@ -105,6 +111,7 @@ public class GuiMouseListener extends MouseAdapter {
 		addKeyBindingsFor(createOrganizationAction, "O");
 		addKeyBindingsFor(showStatusMessagesAction, "S");
 		addKeyBindingsFor(assignActionToLeftMouseAction, "A");
+		addKeyBindingsFor(showCharacterActionsAction, "W");
 	}
 	
 	private void addKeyBindingsFor(Action action, String binding) {
@@ -171,7 +178,6 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 
 	private void doPop(MouseEvent e){
-    	JPopupMenu menu = MenuFactory.createJPopupMenu();
         int x = (int) e.getPoint().getX() / 48;
         int y = (int) e.getPoint().getY() / 48;
 
@@ -179,37 +185,9 @@ public class GuiMouseListener extends MouseAdapter {
 		
         if (worldObject != null) {
             if (worldObject.getProperty(Constants.ID) == 0) {
-            	addPlayerCharacterInformationMenus(menu);
-            	
-            	JMenu organizationMenu = MenuFactory.createJMenu("Organization");
-            	JMenu miscMenu = MenuFactory.createJMenu("Miscellaneous");
-            	
-            	addDisguiseMenu(miscMenu);
-            	
-            	addPropertiesMenu(menu, playerCharacter);
-            	addBuildActions(menu);
-            	addCraftActions(menu);
-            	addWeaveActions(menu);
-            	addBrewActions(menu);
-            	addPlantActions(menu);
-            	addIllusionActions(menu);
-            	addRestorationActions(menu);
-            	addTransmutationActions(menu);
-            	addEvocationActions(menu);
-            	addScribeMagicSpells(menu);
-            	addRestMenu(menu);
-            	menu.add(organizationMenu);
-            	addCreateOrganizationMenu(organizationMenu);
-            	addShowLegalActionsMenu(organizationMenu);
-            	addShowOrganizationsActionMenu(organizationMenu);
-            	addChooseDeityMenu(miscMenu);
-            	addCreateHumanMeatMenu(miscMenu);
-            	addInvestigateMenu(miscMenu);
-            	menu.add(miscMenu);
-            	addAssignActionsToLeftMouse(menu);
-            	
-            	menu.show(e.getComponent(), e.getX(), e.getY());
+            	showPlayerCharacterMenu(e.getX(), e.getY());
             } else {
+            	JPopupMenu menu = MenuFactory.createJPopupMenu();
             	if (worldObject.hasIntelligence()) {
             		addCommunicationActions(menu, worldObject);
             	} else {
@@ -226,6 +204,40 @@ public class GuiMouseListener extends MouseAdapter {
             }
         }
     }
+
+	private void showPlayerCharacterMenu(int x, int y) {
+		JPopupMenu menu = MenuFactory.createJPopupMenu();
+		addPlayerCharacterInformationMenus(menu);
+		
+		JMenu organizationMenu = MenuFactory.createJMenu("Organization");
+		JMenu miscMenu = MenuFactory.createJMenu("Miscellaneous");
+		
+		addDisguiseMenu(miscMenu);
+		
+		addPropertiesMenu(menu, playerCharacter);
+		addBuildActions(menu);
+		addCraftActions(menu);
+		addWeaveActions(menu);
+		addBrewActions(menu);
+		addPlantActions(menu);
+		addIllusionActions(menu);
+		addRestorationActions(menu);
+		addTransmutationActions(menu);
+		addEvocationActions(menu);
+		addScribeMagicSpells(menu);
+		addRestMenu(menu);
+		menu.add(organizationMenu);
+		addCreateOrganizationMenu(organizationMenu);
+		addShowLegalActionsMenu(organizationMenu);
+		addShowOrganizationsActionMenu(organizationMenu);
+		addChooseDeityMenu(miscMenu);
+		addCreateHumanMeatMenu(miscMenu);
+		addInvestigateMenu(miscMenu);
+		menu.add(miscMenu);
+		addAssignActionsToLeftMouse(menu);
+		
+		menu.show(container, x, y);
+	}
 
 	private void addDisguiseMenu(JMenu menu) {
 		JMenuItem disguiseMenuItem = MenuFactory.createJMenuItem(new GuiDisguiseAction(playerCharacter, imageInfoReader, world, (WorldPanel)container, dungeonMaster, Actions.DISGUISE_ACTION));
@@ -625,6 +637,17 @@ public class GuiMouseListener extends MouseAdapter {
 
 	public void setLeftMouseClickAction(ManagedOperation action) {
 		leftMouseClickAction = action;
-		
+	}
+	
+	private class ShowCharacterActionsAction extends AbstractAction {
+
+		@Override
+		public void actionPerformed(ActionEvent actionEvent) {
+			Point location = MouseInfo.getPointerInfo().getLocation();
+			SwingUtilities.convertPointFromScreen(location, container);
+			int x = location.x;
+			int y = location.y;
+			showPlayerCharacterMenu(x, y);
+		}
 	}
 }
