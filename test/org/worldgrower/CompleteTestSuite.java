@@ -39,10 +39,12 @@ import org.worldgrower.actions.magic.UTestLightningBoltAttackAction;
 import org.worldgrower.actions.magic.UTestLockMagicSpellAction;
 import org.worldgrower.actions.magic.UTestMendAction;
 import org.worldgrower.actions.magic.UTestMinorHealAction;
+import org.worldgrower.actions.magic.UTestMinorIllusionAction;
 import org.worldgrower.actions.magic.UTestParalyzeAction;
 import org.worldgrower.actions.magic.UTestRayOfFrostAttackAction;
 import org.worldgrower.actions.magic.UTestReduceAction;
 import org.worldgrower.actions.magic.UTestResearchSpellAction;
+import org.worldgrower.actions.magic.UTestScribeMagicSpellAction;
 import org.worldgrower.actions.magic.UTestSilenceMagicAction;
 import org.worldgrower.actions.magic.UTestSleepMagicAction;
 import org.worldgrower.actions.magic.UTestSoulTrapAction;
@@ -532,7 +534,9 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestStartDrinkingContestGoal.class,
 	UTestBreakupWithMateConversation.class,
 	UTestBreakupWithMateGoal.class,
-	UTestLegalizeVampirismGoal.class
+	UTestLegalizeVampirismGoal.class,
+	UTestMinorIllusionAction.class,
+	UTestScribeMagicSpellAction.class
 })
 public class CompleteTestSuite {
 }

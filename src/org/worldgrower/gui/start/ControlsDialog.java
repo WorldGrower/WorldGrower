@@ -19,12 +19,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.DefaultCellEditor;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
 import org.worldgrower.gui.AbstractDialog;
@@ -42,6 +45,15 @@ public class ControlsDialog extends AbstractDialog {
 		JComboBox<Character> comboBox = JComboBoxFactory.createJComboBox(new Character[]{'A', 'B', 'C'});
         table.getColumnModel().getColumn(1).setCellEditor(new DefaultCellEditor(comboBox));
 		
+        table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent event) {
+                if (table.getSelectedRow() > -1) {
+                	comboBox.setModel(new DefaultComboBoxModel<>(keyBindings.getPossibleValues(table.getSelectedRow()).toArray(new Character[0])));
+                }
+            }
+        });
+        
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(15, 15, 368, 700);
 		addComponent(scrollPane);

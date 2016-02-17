@@ -44,6 +44,23 @@ public class KeyBindings {
 		keyBindings.get(index).setValue(value);
 	}
 	
+	public List<Character> getPossibleValues(int index) {
+		String str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		ArrayList<Character> chars = new ArrayList<>();
+		for (char c : str.toCharArray()) {
+			if (c == getValue(index) || !valueAlreadyUsed(c)) {
+				chars.add(c);
+			}
+		}
+		
+		return chars;
+	}
+	
+	private boolean valueAlreadyUsed(char c) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 	private static class GuiActionValue {
 		private final GuiAction guiAction;
 		private char value;
