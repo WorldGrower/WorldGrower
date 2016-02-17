@@ -50,6 +50,7 @@ public class ControlsDialog extends AbstractDialog {
             public void valueChanged(ListSelectionEvent event) {
                 if (table.getSelectedRow() > -1) {
                 	comboBox.setModel(new DefaultComboBoxModel<>(keyBindings.getPossibleValues(table.getSelectedRow()).toArray(new Character[0])));
+                	comboBox.setSelectedItem(table.getValueAt(table.getSelectedRow(), 1));
                 }
             }
         });

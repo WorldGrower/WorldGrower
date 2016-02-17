@@ -45,10 +45,11 @@ public class KeyBindings {
 	}
 	
 	public List<Character> getPossibleValues(int index) {
+		char currentChar = getValue(index);
 		String str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 		ArrayList<Character> chars = new ArrayList<>();
 		for (char c : str.toCharArray()) {
-			if (c == getValue(index) || !valueAlreadyUsed(c)) {
+			if (c == currentChar || !valueAlreadyUsed(c)) {
 				chars.add(c);
 			}
 		}
@@ -57,7 +58,11 @@ public class KeyBindings {
 	}
 	
 	private boolean valueAlreadyUsed(char c) {
-		// TODO Auto-generated method stub
+		for(GuiActionValue guiActionValue : keyBindings) {
+			if (guiActionValue.getValue() == c) {
+				return true;
+			}
+		}
 		return false;
 	}
 
