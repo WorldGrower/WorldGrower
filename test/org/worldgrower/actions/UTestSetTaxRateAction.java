@@ -48,6 +48,17 @@ public class UTestSetTaxRateAction {
 		assertEquals(false, Actions.SET_TAX_RATE_ACTION.isValidTarget(performer, target, world));
 		assertEquals(true, Actions.SET_TAX_RATE_ACTION.isValidTarget(performer, performer, world));
 	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(3);
+		WorldObject target = createPerformer(4);
+		WorldObject villagersOrganization = createVillagersOrganization(world);
+		villagersOrganization.setProperty(Constants.ORGANIZATION_LEADER_ID, performer.getProperty(Constants.ID));
+		
+		assertEquals(0, Actions.SET_TAX_RATE_ACTION.distance(performer, target, new int[0], world));
+	}
 
 	private WorldObject createVillagersOrganization(World world) {
 		WorldObject villagersOrganization = GroupPropertyUtils.createVillagersOrganization(world);

@@ -56,6 +56,7 @@ import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.gui.conversation.GuiRespondToQuestion;
 import org.worldgrower.gui.conversation.GuiShowBrawlResult;
 import org.worldgrower.gui.conversation.GuiShowDrinkingContestResult;
+import org.worldgrower.gui.start.KeyBindings;
 import org.worldgrower.gui.status.StatusMessageDialog;
 import org.worldgrower.gui.util.JTextAreaFactory;
 import org.worldgrower.history.HistoryItem;
@@ -83,11 +84,11 @@ public class WorldPanel extends JPanel {
 	
 	private final List<String> statusMessages = new ArrayList<>();
 	
-    public WorldPanel(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, ImageInfoReader imageInfoReader, String initialStatusMessage) throws IOException {
+    public WorldPanel(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, ImageInfoReader imageInfoReader, String initialStatusMessage, KeyBindings keyBindings) throws IOException {
         super(new BorderLayout());
         this.imageInfoReader = imageInfoReader;
 
-        guiMouseListener = new GuiMouseListener(this, playerCharacter, world, dungeonMaster, imageInfoReader);
+        guiMouseListener = new GuiMouseListener(this, playerCharacter, world, dungeonMaster, imageInfoReader, keyBindings);
 		addMouseListener(guiMouseListener);
 		ToolTipManager.sharedInstance().registerComponent(this);
 

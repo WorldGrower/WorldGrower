@@ -51,7 +51,9 @@ public class CharacterCustomizationScreen extends JFrame {
 	private JLabel lblCharisma;
 	private JButton btnOk;
 	
-	public CharacterCustomizationScreen(ImageInfoReader imageInfoReader) {
+	private final KeyBindings keyBindings;
+	
+	public CharacterCustomizationScreen(ImageInfoReader imageInfoReader, KeyBindings keyBindings) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 539, 310);
 		setResizable(false);
@@ -61,6 +63,8 @@ public class CharacterCustomizationScreen extends JFrame {
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
 		IconUtils.setIcon(this);
+		
+		this.keyBindings = keyBindings;
 		
 		JLabel attributeLabel = JLabelFactory.createJLabel(attributePoints);
 		attributeLabel.setToolTipText(ATTRIBUTE_EXPLANATION);
@@ -266,7 +270,7 @@ public class CharacterCustomizationScreen extends JFrame {
 						Integer.parseInt(lblCharisma.getText())
 						);
 				
-				OptionsScreen window = new OptionsScreen(characterAttributes, imageInfoReader);
+				OptionsScreen window = new OptionsScreen(characterAttributes, imageInfoReader, keyBindings);
 				window.setVisible(true);
 			}
 		});

@@ -27,6 +27,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.PropertyCountMap;
 import org.worldgrower.condition.Conditions;
+import org.worldgrower.generator.BuildingGenerator;
 
 public class UTestResearchSpellAction {
 
@@ -56,6 +57,18 @@ public class UTestResearchSpellAction {
 		}
 		
 		assertEquals(true, performer.getProperty(Constants.KNOWN_SPELLS).contains(Actions.BURDEN_ACTION));
+	}
+	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		
+		assertEquals(false, researchSpellAction.isValidTarget(performer, performer, world));
+		
+		int targetId = BuildingGenerator.generateLibrary(0, 0, world);
+		WorldObject target = world.findWorldObject(Constants.ID, targetId);
+		assertEquals(true, researchSpellAction.isValidTarget(performer, target, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

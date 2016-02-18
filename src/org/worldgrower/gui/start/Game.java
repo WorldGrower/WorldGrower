@@ -59,7 +59,7 @@ public class Game {
 	private static JFrame frame = null;
 	private static MusicPlayer musicPlayer = null;
 	
-	public static void run(CharacterAttributes characterAttributes, ImageInfoReader imageInfoReader, ImageIds playerCharacterImageId, GameParameters gameParameters) throws Exception {
+	public static void run(CharacterAttributes characterAttributes, ImageInfoReader imageInfoReader, ImageIds playerCharacterImageId, GameParameters gameParameters, KeyBindings keyBindings) throws Exception {
 		int seed = gameParameters.getSeed();
 		DungeonMaster dungeonMaster = new DungeonMaster();
 		WorldOnTurnImpl worldOnTurn = new WorldOnTurnImpl(new DeityWorldOnTurn(), new ArenaFightOnTurn());
@@ -81,7 +81,7 @@ public class Game {
 		
 		addEnemiesAndFriendlyAnimals(gameParameters.getEnemyDensity(), world, seed);
 		
-		createAndShowGUIInvokeLater(playerCharacter, world, dungeonMaster, gameParameters.getPlayBackgroundMusic(), imageInfoReader, gameParameters.getInitialStatusMessage(), gameParameters.getAdditionalManagedOperationListenerFactory());
+		createAndShowGUIInvokeLater(playerCharacter, world, dungeonMaster, gameParameters.getPlayBackgroundMusic(), imageInfoReader, gameParameters.getInitialStatusMessage(), gameParameters.getAdditionalManagedOperationListenerFactory(), keyBindings);
 	}
 
 	private static void addWorldListeners(World world) {
@@ -106,7 +106,7 @@ public class Game {
 		worldGenerator.addWorldObjects(world, 1, 1, world.getWidth() / 20, TerrainType.WATER, creatureGenerator::generateFish);
 	}
 	
-	public static void load(File fileToLoad, ImageInfoReader imageInfoReader) {
+	public static void load(File fileToLoad, ImageInfoReader imageInfoReader, KeyBindings keyBindings) {
 		DungeonMaster dungeonMaster = new DungeonMaster();
 		World world = WorldImpl.load(fileToLoad);
 		final WorldObject playerCharacter = world.findWorldObject(Constants.ID, 0);
@@ -114,15 +114,15 @@ public class Game {
 		addWorldListeners(world);
 		
 		//TODO: load playBackgroundMusic flag from file
-		createAndShowGUIInvokeLater(playerCharacter, world, dungeonMaster, true, imageInfoReader, StatusMessages.WELCOME, new NullAdditionalManagedOperationListenerFactory());
+		createAndShowGUIInvokeLater(playerCharacter, world, dungeonMaster, true, imageInfoReader, StatusMessages.WELCOME, new NullAdditionalManagedOperationListenerFactory(), keyBindings);
 	}
 
-	private static void createAndShowGUIInvokeLater(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, boolean playBackgroundMusic, ImageInfoReader imageInfoReader, String initialStatusMessage, AdditionalManagedOperationListenerFactory additionalManagedOperationListenerFactory) {
+	private static void createAndShowGUIInvokeLater(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, boolean playBackgroundMusic, ImageInfoReader imageInfoReader, String initialStatusMessage, AdditionalManagedOperationListenerFactory additionalManagedOperationListenerFactory, KeyBindings keyBindings) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			@Override
             public void run() {
                 try {
-					createAndShowGUI(playerCharacter, world, dungeonMaster, playBackgroundMusic, imageInfoReader, initialStatusMessage, additionalManagedOperationListenerFactory);
+					createAndShowGUI(playerCharacter, world, dungeonMaster, playBackgroundMusic, imageInfoReader, initialStatusMessage, additionalManagedOperationListenerFactory, keyBindings);
 				} catch (IOException e) {
 					throw new RuntimeException(e);
 				}
@@ -130,7 +130,7 @@ public class Game {
         });
 	}
 
-    private static void createAndShowGUI(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, boolean playBackgroundMusic, ImageInfoReader imageInfoReader, String initialStatusMessage, AdditionalManagedOperationListenerFactory additionalManagedOperationListenerFactory) throws IOException {
+    private static void createAndShowGUI(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, boolean playBackgroundMusic, ImageInfoReader imageInfoReader, String initialStatusMessage, AdditionalManagedOperationListenerFactory additionalManagedOperationListenerFactory, KeyBindings keyBindings) throws IOException {
     	if (frame != null) {
     		frame.dispose();
     	}
@@ -138,7 +138,7 @@ public class Game {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         IconUtils.setIcon(frame);
         
-        WorldPanel worldPanel = new WorldPanel(playerCharacter, world, dungeonMaster, imageInfoReader, initialStatusMessage);
+        WorldPanel worldPanel = new WorldPanel(playerCharacter, world, dungeonMaster, imageInfoReader, initialStatusMessage, keyBindings);
         worldPanel.setOpaque(true);
         frame.setContentPane(worldPanel);
         

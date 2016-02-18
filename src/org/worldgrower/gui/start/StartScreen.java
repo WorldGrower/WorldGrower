@@ -124,7 +124,7 @@ public class StartScreen {
 		public void actionPerformed(ActionEvent event) {
 			frame.setVisible(false);
 			try {
-				Game.run(new CharacterAttributes(10, 10, 10, 10, 10, 10), imageInfoReader, ImageIds.KNIGHT, new TutorialGameParameters());
+				Game.run(new CharacterAttributes(10, 10, 10, 10, 10, 10), imageInfoReader, ImageIds.KNIGHT, new TutorialGameParameters(), keyBindings);
 			} catch (Exception e1) {
 				ExceptionHandler.handle(e1);
 			}
@@ -141,7 +141,7 @@ public class StartScreen {
 		public void actionPerformed(ActionEvent event) {
 			frame.setVisible(false);
 			try {
-				CharacterCustomizationScreen characterCustomizationScreen = new CharacterCustomizationScreen(imageInfoReader);
+				CharacterCustomizationScreen characterCustomizationScreen = new CharacterCustomizationScreen(imageInfoReader, keyBindings);
 				characterCustomizationScreen.setVisible(true);
 			} catch (Exception e1) {
 				ExceptionHandler.handle(e1);
@@ -261,7 +261,7 @@ public class StartScreen {
 	}
 	
 	private void loadGame(File selectedFile) {
-		Game.load(selectedFile, imageInfoReader);
+		Game.load(selectedFile, imageInfoReader, keyBindings);
 		setVisible(false);
 	}
 	

@@ -145,6 +145,7 @@ import org.worldgrower.generator.UTestPlantOnTurn;
 import org.worldgrower.generator.UTestSkeletonEvaluationFunction;
 import org.worldgrower.generator.UTestVotingOnTurn;
 import org.worldgrower.goal.*;
+import org.worldgrower.gui.UTestImageInfoReader;
 import org.worldgrower.history.UTestHistoryImpl;
 import org.worldgrower.personality.UTestPersonality;
 import org.worldgrower.personality.UTestPersonalityTraitValue;
@@ -536,7 +537,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestBreakupWithMateGoal.class,
 	UTestLegalizeVampirismGoal.class,
 	UTestMinorIllusionAction.class,
-	UTestScribeMagicSpellAction.class
+	UTestScribeMagicSpellAction.class,
+	UTestImageInfoReader.class
 })
 public class CompleteTestSuite {
 }

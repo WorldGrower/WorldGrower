@@ -70,11 +70,13 @@ public class OptionsScreen {
 	private JCheckBox chkBackgroundMusic;
 	private final ImageInfoReader imageInfoReader;
 	private JComboBox<ImageIds> cmbImage;
+	private final KeyBindings keyBindings;
 	
-	public OptionsScreen(CharacterAttributes characterAttributes, ImageInfoReader imageInfoReader) {
+	public OptionsScreen(CharacterAttributes characterAttributes, ImageInfoReader imageInfoReader, KeyBindings keyBindings) {
 		initialize(imageInfoReader);
 		this.characterAttributes = characterAttributes;
 		this.imageInfoReader = imageInfoReader;
+		this.keyBindings = keyBindings;
 	}
 	
 	public void setVisible(boolean visible) {
@@ -204,7 +206,7 @@ public class OptionsScreen {
 						
 						
 						CustomGameParameters customGameParameters = new CustomGameParameters(playerNameTextField.getText(), playerProfessionTextField.getText(), gender, worldWidth, worldHeight, enemyDensity, villagerCount, seed, playBackgroundMusic);
-						Game.run(characterAttributes, imageInfoReader, (ImageIds)cmbImage.getSelectedItem(), customGameParameters);
+						Game.run(characterAttributes, imageInfoReader, (ImageIds)cmbImage.getSelectedItem(), customGameParameters, keyBindings);
 					} catch (Exception e1) {
 						ExceptionHandler.handle(e1);
 					}

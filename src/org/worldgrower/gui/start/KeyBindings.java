@@ -87,4 +87,13 @@ public class KeyBindings {
 			return guiAction;
 		}
 	}
+
+	public char getValue(GuiAction guiAction) {
+		for(GuiActionValue guiActionValue : keyBindings) {
+			if (guiActionValue.getGuiAction() == guiAction) {
+				return guiActionValue.getValue();
+			}
+		}
+		throw new IllegalStateException("GuiAction " + guiAction + " not found in " + keyBindings);
+	}
 }
