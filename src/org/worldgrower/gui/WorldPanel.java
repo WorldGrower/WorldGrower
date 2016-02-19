@@ -81,12 +81,14 @@ public class WorldPanel extends JPanel {
 	
 	private final MoveMode moveMode = new MoveMode();
 	private final BackgroundPainter backgroundPainter;
+	private final KeyBindings keyBindings;
 	
 	private final List<String> statusMessages = new ArrayList<>();
 	
     public WorldPanel(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, ImageInfoReader imageInfoReader, String initialStatusMessage, KeyBindings keyBindings) throws IOException {
         super(new BorderLayout());
         this.imageInfoReader = imageInfoReader;
+        this.keyBindings = keyBindings;
 
         guiMouseListener = new GuiMouseListener(this, playerCharacter, world, dungeonMaster, imageInfoReader, keyBindings);
 		addMouseListener(guiMouseListener);
@@ -177,7 +179,7 @@ public class WorldPanel extends JPanel {
 
 	private void initializeKeyBindings(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster) {
 		getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "Cancel");
-        getActionMap().put("Cancel", new ShowStartScreenAction(imageInfoReader, world));
+        getActionMap().put("Cancel", new ShowStartScreenAction(this, imageInfoReader, keyBindings, world));
         
         getInputMap().put(KeyStroke.getKeyStroke("UP"), "up");
         getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD8, 0), "up");
@@ -218,6 +220,10 @@ public class WorldPanel extends JPanel {
 				}
 			}
 		}
+    }
+    
+    public void initializeKeyBindings() {
+    	guiMouseListener.initializeKeyBindings();
     }
     
     public void setStatusMessage(String message) {

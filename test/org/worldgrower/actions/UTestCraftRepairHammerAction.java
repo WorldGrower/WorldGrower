@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.Item;
 
 public class UTestCraftRepairHammerAction {
 
@@ -33,5 +34,25 @@ public class UTestCraftRepairHammerAction {
 		Actions.CRAFT_REPAIR_HAMMER_ACTION.execute(performer, performer, new int[0], world);
 		
 		assertEquals(1, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.REPAIR_QUALITY));
+	}
+	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
+		WorldObject target = TestUtils.createSkilledWorldObject(3, Constants.INVENTORY, new WorldObjectContainer());
+		
+		assertEquals(true, Actions.CRAFT_REPAIR_HAMMER_ACTION.isValidTarget(performer, performer, world));
+		assertEquals(false, Actions.CRAFT_REPAIR_HAMMER_ACTION.isValidTarget(performer, target, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.ORE.generate(1f), 20);
+		
+		assertEquals(0, Actions.CRAFT_REPAIR_HAMMER_ACTION.distance(performer, performer, new int[0], world));
 	}
 }

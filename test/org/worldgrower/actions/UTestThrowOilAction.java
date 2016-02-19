@@ -55,6 +55,16 @@ public class UTestThrowOilAction {
 		assertEquals(true, Actions.THROW_OIL_ACTION.isValidTarget(performer, target, world));
 		assertEquals(false, Actions.THROW_OIL_ACTION.isValidTarget(performer, performer, world));
 	}
+
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		int id = BuildingGenerator.buildWell(0, 0, world, 1f);
+		WorldObject target = world.findWorldObject(Constants.ID, id);
+		
+		assertEquals(0, Actions.THROW_OIL_ACTION.distance(performer, target, new int[0], world));
+	}
 	
 	private WorldObject createPerformer(int id) {
 		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.INVENTORY, new WorldObjectContainer());

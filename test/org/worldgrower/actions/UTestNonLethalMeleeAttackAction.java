@@ -18,6 +18,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
@@ -40,6 +41,27 @@ public class UTestNonLethalMeleeAttackAction {
 		Actions.NON_LETHAL_MELEE_ATTACK_ACTION.execute(performer, target, new int[0], world);
 		
 		assertEquals(24, target.getProperty(Constants.HIT_POINTS).intValue());
+	}
+	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		WorldObject performer = createPerformer(world, organization);
+		WorldObject target = createPerformer(world, organization);
+		
+		assertEquals(true, Actions.NON_LETHAL_MELEE_ATTACK_ACTION.isValidTarget(performer, target, world));
+		assertEquals(false, Actions.NON_LETHAL_MELEE_ATTACK_ACTION.isValidTarget(performer, TestUtils.createWorldObject(0, 0, 1, 1), world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		WorldObject performer = createPerformer(world, organization);
+		WorldObject target = createPerformer(world, organization);
+		
+		assertEquals(0, Actions.NON_LETHAL_MELEE_ATTACK_ACTION.distance(performer, target, new int[0], world));
 	}
 	
 	private WorldObject createPerformer(World world, WorldObject organization) {

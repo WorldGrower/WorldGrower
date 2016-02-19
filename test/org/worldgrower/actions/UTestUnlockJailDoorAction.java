@@ -22,25 +22,22 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.WorldObjectContainer;
-import org.worldgrower.generator.CommonerGenerator;
+import org.worldgrower.generator.BuildingGenerator;
 
-public class UTestGatherRemainsAction {
+public class UTestUnlockJailDoorAction {
 
 	@Test
 	public void testExecute() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		world.addWorldObject(performer);
+		world.addWorldObject(target);
+		Actions.UNLOCK_JAIL_DOOR_ACTION.execute(performer, target, new int[0], world);
 		
-		int id = CommonerGenerator.generateSkeletalRemains(createPerformer(3), world);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
-		assertEquals("skeletal remains of null", target.getProperty(Constants.NAME));
-		
-		Actions.GATHER_REMAINS_ACTION.execute(performer, target, new int[0], world);
-		
-		assertEquals(1, performer.getProperty(Constants.INVENTORY).size());
-		assertEquals(1000, performer.getProperty(Constants.INVENTORY).get(0).getProperty(Constants.GOLD).intValue());
+		assertEquals(1, world.getWorldObjects().size());
+		assertEquals(2, world.getWorldObjects().get(0).getProperty(Constants.ID).intValue());
 	}
 	
 	@Test
@@ -48,34 +45,30 @@ public class UTestGatherRemainsAction {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = createPerformer(2);
 		
-		int id = CommonerGenerator.generateSkeletalRemains(createPerformer(3), world);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		BuildingGenerator.generateJail(0, 0, world, 1f);
+		WorldObject target = world.findWorldObjects(w -> BuildingGenerator.isJailDoor(w)).get(0);
 		
-		assertEquals(true, Actions.GATHER_REMAINS_ACTION.isValidTarget(performer, target, world));
-		assertEquals(false, Actions.GATHER_REMAINS_ACTION.isValidTarget(performer, performer, world));
+		assertEquals(false, Actions.UNLOCK_JAIL_DOOR_ACTION.isValidTarget(performer, target, world));
+		
+		performer.setProperty(Constants.CAN_ATTACK_CRIMINALS, Boolean.TRUE);
+		assertEquals(true, Actions.UNLOCK_JAIL_DOOR_ACTION.isValidTarget(performer, target, world));
 	}
 	
 	@Test
 	public void testDistance() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
 		
-		int id = CommonerGenerator.generateSkeletalRemains(createPerformer(3), world);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
-		
-		assertEquals(0, Actions.GATHER_REMAINS_ACTION.distance(performer, target, new int[0], world));
+		assertEquals(0, Actions.UNLOCK_JAIL_DOOR_ACTION.distance(performer, target, new int[0], world));
 	}
 	
 	private WorldObject createPerformer(int id) {
-		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.GROUP, new IdList());
+		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.X, 0);
 		performer.setProperty(Constants.Y, 0);
 		performer.setProperty(Constants.WIDTH, 1);
 		performer.setProperty(Constants.HEIGHT, 1);
-		performer.setProperty(Constants.ENERGY, 1000);
-		performer.setProperty(Constants.INVENTORY, new WorldObjectContainer());
-		performer.setProperty(Constants.GOLD, 1000);
-		performer.setProperty(Constants.DEATH_REASON, "");
 		return performer;
 	}
 }

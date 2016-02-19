@@ -43,4 +43,25 @@ public class UTestPoisonInventoryWaterAction {
 		assertEquals(0, indexOfPoison);
 		assertEquals(true, performerInventory.get(indexOfPoison).hasProperty(Constants.WATER));
 	}
+	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
+		WorldObject target = TestUtils.createSkilledWorldObject(3, Constants.INVENTORY, new WorldObjectContainer());
+		
+		assertEquals(true, Actions.POISON_INVENTORY_WATER_ACTION.isValidTarget(performer, performer, world));
+		assertEquals(false, Actions.POISON_INVENTORY_WATER_ACTION.isValidTarget(performer, target, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
+		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
+		performerInventory.addQuantity(Item.WATER.generate(1f));
+		performerInventory.addQuantity(Item.POISON.generate(1f));
+		
+		assertEquals(0, Actions.POISON_INVENTORY_WATER_ACTION.distance(performer, performer, new int[] {0}, world));
+	}
 }

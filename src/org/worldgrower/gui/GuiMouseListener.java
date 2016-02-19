@@ -75,6 +75,7 @@ public class GuiMouseListener extends MouseAdapter {
 	private World world;
 	private DungeonMaster dungeonMaster;
 	private ImageInfoReader imageInfoReader;
+	private KeyBindings keyBindings;
 	
 	private final CharacterSheetAction characterSheetAction;
 	private final InventoryAction inventoryAction;
@@ -93,6 +94,7 @@ public class GuiMouseListener extends MouseAdapter {
 		this.world = world;
 		this.dungeonMaster = dungeonMaster;
 		this.imageInfoReader = imageInfoReader;
+		this.keyBindings = keyBindings;
 		
 		characterSheetAction = new CharacterSheetAction(playerCharacter, imageInfoReader);
 		inventoryAction = new InventoryAction(playerCharacter, imageInfoReader, world, dungeonMaster, container);
@@ -105,6 +107,10 @@ public class GuiMouseListener extends MouseAdapter {
 		addKeyBindings(keyBindings);
 	}
 
+    public void initializeKeyBindings() {
+    	addKeyBindings(keyBindings);
+    }
+    
 	private void addKeyBindings(KeyBindings keyBindings) {
 		addKeyBindingsFor(characterSheetAction, keyBindings.getValue(GuiAction.SHOW_CHARACTER_SHEET));
 		addKeyBindingsFor(inventoryAction, keyBindings.getValue(GuiAction.SHOW_INVENTORY));

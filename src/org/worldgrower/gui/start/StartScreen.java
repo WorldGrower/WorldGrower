@@ -88,7 +88,13 @@ public class StartScreen {
 	public StartScreen(ImageInfoReader imageInfoReaderValue) {
 		initialize();
 		imageInfoReader = imageInfoReaderValue;
-		keyBindings = createKeyBindings();
+		this.keyBindings = createKeyBindings();
+	}
+	
+	public StartScreen(ImageInfoReader imageInfoReaderValue, KeyBindings keyBindings) {
+		initialize();
+		imageInfoReader = imageInfoReaderValue;
+		this.keyBindings = keyBindings;
 	}
 	
 	private KeyBindings createKeyBindings() {
