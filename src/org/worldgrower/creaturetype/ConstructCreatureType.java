@@ -38,6 +38,11 @@ public class ConstructCreatureType implements CreatureType {
 		return false;
 	}
 	
+	@Override
+	public boolean hasBlood() {
+		return false;
+	}
+	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
 	}

@@ -24,6 +24,10 @@ public interface CreatureType extends Serializable {
 	public boolean canMove();
 	public boolean canTrade();
 	
+	public default boolean hasBlood() {
+		return true;
+	}
+	
 	public static final List<CreatureType> ALL_CREATURE_TYPES = new ArrayList<>();
 	
 	public static final UndeadCreatureType UNDEAD_CREATURE_TYPE = new UndeadCreatureType(ALL_CREATURE_TYPES);
@@ -51,4 +55,5 @@ public interface CreatureType extends Serializable {
 		}
 		throw new IllegalStateException("CreatureType with class " + clazz + " not found");
 	}
+	
 }
