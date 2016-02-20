@@ -44,6 +44,28 @@ public class UTestStartOrganizationVoteAction {
 		assertEquals("voting box", world.getWorldObjects().get(2).getProperty(Constants.NAME));
 	}
 	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		int id = commonerGenerator.generateCommoner(0, 0, world, organization);
+		WorldObject performer = world.findWorldObject(Constants.ID, id);
+		WorldObject target = createPerformer(3);
+		
+		assertEquals(true, Actions.START_ORGANIZATION_VOTE_ACTION.isValidTarget(performer, performer, world));
+		assertEquals(false, Actions.START_ORGANIZATION_VOTE_ACTION.isValidTarget(performer, target, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		int id = commonerGenerator.generateCommoner(0, 0, world, organization);
+		WorldObject performer = world.findWorldObject(Constants.ID, id);
+		
+		assertEquals(0, Actions.START_ORGANIZATION_VOTE_ACTION.distance(performer, performer, new int[] { 0 }, world));
+	}
+	
 	private WorldObject createPerformer(int id) {
 		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.X, 0);
