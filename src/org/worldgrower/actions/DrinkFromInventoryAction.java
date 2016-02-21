@@ -45,6 +45,10 @@ public class DrinkFromInventoryAction extends InventoryAction {
 			}
 		}
 		
+		if (waterTarget.hasProperty(Constants.VAMPIRE_BLOOD_LEVEL)) {
+			performer.increment(Constants.VAMPIRE_BLOOD_LEVEL, waterTarget.getProperty(Constants.VAMPIRE_BLOOD_LEVEL));
+		}
+		
 		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.WATER, 1);
 	}
 

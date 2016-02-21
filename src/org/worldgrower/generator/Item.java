@@ -477,6 +477,8 @@ public enum Item {
 		addItem(Item.BLOOD, skillBonus -> {
 			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 			properties.put(Constants.NAME, "Blood");
+			properties.put(Constants.WATER, (int) (10 * skillBonus));
+			properties.put(Constants.VAMPIRE_BLOOD_LEVEL, (int) (10 * skillBonus));
 			properties.put(Constants.PRICE, 1);
 			properties.put(Constants.SELLABLE, false);
 			properties.put(Constants.WEIGHT, 1);
