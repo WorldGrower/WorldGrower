@@ -18,6 +18,7 @@ import java.util.List;
 
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
+import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
@@ -40,13 +41,31 @@ public class VampireBloodLevelGoal implements Goal {
 			}
 		} else {
 			boolean performerIsHonorable = performer.getProperty(Constants.PERSONALITY).getValue(PersonalityTrait.HONORABLE) > 0;
-			//TODO: implement
-			WorldObject target = LocationUtils.findIsolatedPerson(performer, world);
+			final WorldObject target;
+			if (performerIsHonorable) {
+				target = getNearbyNonIntelligentTarget(performer, world);
+			} else {
+				target = LocationUtils.findIsolatedPerson(performer, world);
+			}
+				
 			if (target != null) {
 				return new OperationInfo(performer, target, new int[0], Actions.VAMPIRE_BITE_ACTION);
 			}
 		}
 		return null;
+	}
+
+	private WorldObject getNearbyNonIntelligentTarget(WorldObject performer, World world) {
+		WorldObject target = null;
+		List<WorldObject> targets = world.findWorldObjectsByProperty(Constants.CREATURE_TYPE, w -> isNearbyNonIntelligentBloodSource(performer, w));
+		if (targets.size() > 0) {
+			target = targets.get(0);
+		}
+		return target;
+	}
+
+	private boolean isNearbyNonIntelligentBloodSource(WorldObject performer, WorldObject w){
+		return w.hasProperty(Constants.CREATURE_TYPE) && w.getProperty(Constants.CREATURE_TYPE).hasBlood() && Reach.distance(performer, w) < 20;
 	}
 	
 	@Override

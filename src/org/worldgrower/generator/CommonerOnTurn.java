@@ -151,6 +151,13 @@ public class CommonerOnTurn implements OnTurn {
 		if (WeightPropertyUtils.isCarryingTooMuch(worldObject)) {
 			worldObject.increment(Constants.ENERGY, -1);
 		}
+		
+		if (worldObject.hasProperty(Constants.VAMPIRE_BLOOD_LEVEL)) {
+			if (worldObject.getProperty(Constants.VAMPIRE_BLOOD_LEVEL) < 10) {
+				worldObject.increment(Constants.ENERGY, -5);
+			}
+			worldObject.increment(Constants.VAMPIRE_BLOOD_LEVEL, -1);
+		}
 	}
 	
 	private void everyoneInVicinityKnowsOfChild(WorldObject parent, int childId, World world) {
