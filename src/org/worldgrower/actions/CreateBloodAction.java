@@ -19,6 +19,7 @@ import java.io.ObjectStreamException;
 import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
+import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
@@ -27,6 +28,8 @@ import org.worldgrower.gui.ImageIds;
 
 public class CreateBloodAction implements ManagedOperation {
 
+	private static final int DISTANCE = 1;
+	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		WorldObjectContainer inventoryPerformer = performer.getProperty(Constants.INVENTORY);
@@ -42,7 +45,10 @@ public class CreateBloodAction implements ManagedOperation {
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
 		int hitPointsDistance = performer.getProperty(Constants.HIT_POINTS) > 1 ? 0 : 1;
-		return hitPointsDistance;
+		int performerIsVampireDistance = performer.hasProperty(Constants.VAMPIRE_BLOOD_LEVEL) ? 0 : 1;
+		return Reach.evaluateTarget(performer, args, target, DISTANCE)
+				+ performerIsVampireDistance
+				+ hitPointsDistance;
 	}
 	
 	@Override

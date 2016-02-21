@@ -22,6 +22,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.condition.VampireUtils;
+import org.worldgrower.personality.PersonalityTrait;
 
 public class VampireBloodLevelGoal implements Goal {
 
@@ -38,6 +39,8 @@ public class VampireBloodLevelGoal implements Goal {
 				return new OperationInfo(performer, target, new int[0], Actions.VAMPIRE_BITE_ACTION);
 			}
 		} else {
+			boolean performerIsHonorable = performer.getProperty(Constants.PERSONALITY).getValue(PersonalityTrait.HONORABLE) > 0;
+			//TODO: implement
 			WorldObject target = LocationUtils.findIsolatedPerson(performer, world);
 			if (target != null) {
 				return new OperationInfo(performer, target, new int[0], Actions.VAMPIRE_BITE_ACTION);

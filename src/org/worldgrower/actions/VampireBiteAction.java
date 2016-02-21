@@ -23,7 +23,6 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
-import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.goal.KnowledgeMapPropertyUtils;
 import org.worldgrower.gui.ImageIds;
 
@@ -45,7 +44,7 @@ public class VampireBiteAction implements DeadlyAction {
 		return ((target.hasProperty(Constants.ARMOR)) 
 				&& (target.getProperty(Constants.HIT_POINTS) > 0) 
 				&& target.hasIntelligence() 
-				&& target.getProperty(Constants.CREATURE_TYPE) == CreatureType.HUMAN_CREATURE_TYPE)
+				&& target.getProperty(Constants.CREATURE_TYPE).hasBlood())
 				&& !performer.equals(target);
 	}
 

@@ -16,7 +16,6 @@ package org.worldgrower.actions;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -214,6 +213,7 @@ public class Actions {
 	public static final ObfuscateDeathReasonAction OBFUSCATE_DEATH_REASON_ACTION = new ObfuscateDeathReasonAction();
 	public static final FireTrapAction FIRE_TRAP_ACTION = new FireTrapAction();
 	public static final InvestigateAction INVESTIGATE_ACTION = new InvestigateAction();
+	public static final CreateBloodAction CREATE_BLOOD_ACTION = new CreateBloodAction();
 	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 
@@ -367,7 +367,8 @@ public class Actions {
 		BUILD_INN_ACTION,
 		CREATE_NEWS_PAPER_ACTION,
 		OBFUSCATE_DEATH_REASON_ACTION,
-		INVESTIGATE_ACTION
+		INVESTIGATE_ACTION,
+		CREATE_BLOOD_ACTION
 	));
 	
 	static {
