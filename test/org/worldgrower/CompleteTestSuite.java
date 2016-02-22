@@ -539,7 +539,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestMinorIllusionAction.class,
 	UTestScribeMagicSpellAction.class,
 	UTestImageInfoReader.class,
-	UTestUnlockJailDoorAction.class
+	UTestUnlockJailDoorAction.class,
+	UTestCreateBloodAction.class
 })
 public class CompleteTestSuite {
 }

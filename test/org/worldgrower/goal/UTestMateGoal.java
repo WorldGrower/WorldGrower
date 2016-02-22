@@ -16,6 +16,10 @@ package org.worldgrower.goal;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import org.junit.Test;
 import org.worldgrower.AssertUtils;
 import org.worldgrower.Constants;
@@ -84,6 +88,23 @@ public class UTestMateGoal {
 		
 		performer.setProperty(Constants.MATE_ID, 7);
 		assertEquals(true, goal.isGoalMet(performer, world));
+	}
+	
+	@Test
+	public void testGetBestMate() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		WorldObject performer = createCommoner(world, organization);
+		WorldObject target1 = createCommoner(world, organization);
+		WorldObject target2 = createCommoner(world, organization);
+		
+		target2.getProperty(Constants.HOUSES).add(7);
+		target2.increment(Constants.GOLD, 1000);
+		
+		performer.getProperty(Constants.RELATIONSHIPS).incrementValue(target1, 0);
+		performer.getProperty(Constants.RELATIONSHIPS).incrementValue(target2, 0);
+		
+		assertEquals(target2.getProperty(Constants.ID).intValue(), MateGoal.getBestMate(performer, world));
 	}
 
 	private WorldObject createCommoner(World world, WorldObject organization) {

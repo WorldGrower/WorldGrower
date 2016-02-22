@@ -69,6 +69,7 @@ public class ImageInfoReader {
     	Sprites cow = readSpritesCow();
     	Sprites forge = readSpritesForge();
     	Sprites terrainTransitions = readTerrainTransitions();
+    	Sprites vampire = readSpritesVampire();
     	
     	addCharacter(ImageIds.KNIGHT, sprites, 0, 0, 1, 1);
     	addCharacter(ImageIds.GUARD, sprites, 0, 4, 1, 1);
@@ -390,6 +391,8 @@ public class ImageInfoReader {
 		add(ImageIds.STATUE_OF_ZEUS, statues.getSubImage(3, 5, 1, 2));
 		add(ImageIds.STATUE_OF_HERA, statues.getSubImage(14, 8, 1, 2));
 		add(ImageIds.STATUE_OF_POSEIDON, statues.getSubImage(12, 8, 1, 2));
+		
+		addCharacter(ImageIds.LICH, vampire, 0, 0, 1, 1);
     }
 
     private void resizeSmallFlowers() {
@@ -685,6 +688,10 @@ public class ImageInfoReader {
 	
 	private static Sprites readTerrainTransitions() throws IOException {
 		return readImages("terrain_transitions.png", 48, 48, 4, 2);
+	}
+	
+	private static Sprites readSpritesVampire() throws IOException {
+		return readImages("vampire_a.png", 48, 48, 4, 3);
 	}
 	
 	private static Sprites readImages(String imageFilename, int width, int height, int rows, int cols) throws IOException {
