@@ -12,27 +12,21 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.curse;
+package org.worldgrower.condition;
 
-import java.io.Serializable;
-import java.util.List;
-
-import org.worldgrower.ManagedOperation;
-import org.worldgrower.World;
+import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
-import org.worldgrower.goal.Goal;
+import org.worldgrower.creaturetype.CreatureType;
+import org.worldgrower.curse.Curse;
+import org.worldgrower.gui.ImageIds;
 
-public interface Curse extends Serializable {
+public class LichUtils {
 
-	public List<Goal> getCurseGoals(List<Goal> normalGoals);
-	public void perform(WorldObject performer, WorldObject target, int[] args, ManagedOperation managedOperation, World world);
-	public boolean canMove();
-	public boolean canTalk();
-	public String getExplanation();
-	
-	public static final SirenCurse SIREN_CURSE = new SirenCurse();
-	public static final ToadCurse TOAD_CURSE = new ToadCurse();
-	public static final VampireCurse VAMPIRE_CURSE = new VampireCurse();
-	public static final WerewolfCurse WEREWOLF_CURSE = new WerewolfCurse();
-	public static final LichCurse LICH_CURSE = new LichCurse();
+	public static void lichifyPerson(WorldObject worldObject, WorldStateChangedListeners creatureTypeChangedListeners) {
+		worldObject.setProperty(Constants.IMAGE_ID, ImageIds.LICH);
+		worldObject.setProperty(Constants.CREATURE_TYPE, CreatureType.UNDEAD_CREATURE_TYPE);
+		worldObject.setProperty(Constants.CURSE, Curse.LICH_CURSE);
+		
+		creatureTypeChangedListeners.fireCreatureTypeChanged(worldObject, CreatureType.UNDEAD_CREATURE_TYPE, "You crave blood, you must have become a vampire");
+	}
 }

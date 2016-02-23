@@ -24,6 +24,7 @@ import org.worldgrower.attribute.Background;
 import org.worldgrower.attribute.ItemCountMap;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.condition.WorldStateChangedListeners;
+import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.goal.DrownUtils;
 import org.worldgrower.goal.GoalUtils;
 import org.worldgrower.goal.KnowledgeMapPropertyUtils;
@@ -135,8 +136,14 @@ public class CommonerOnTurn implements OnTurn {
 	}
 
 	private void propertiesOnTurn(WorldObject worldObject, World world) {
-		worldObject.increment(Constants.FOOD, -1);
-		worldObject.increment(Constants.WATER, -1);
+		boolean isUndead = worldObject.getProperty(Constants.CREATURE_TYPE) == CreatureType.UNDEAD_CREATURE_TYPE;
+		if (isUndead) {
+			worldObject.increment(Constants.FOOD, 1000);
+			worldObject.increment(Constants.WATER, 1000);
+		} else {
+			worldObject.increment(Constants.FOOD, -1);
+			worldObject.increment(Constants.WATER, -1);
+		}
 		worldObject.increment(Constants.SOCIAL, -1);
 		worldObject.increment(Constants.ENERGY, -1);
 		worldObject.increment(Constants.ALCOHOL_LEVEL, -1);
