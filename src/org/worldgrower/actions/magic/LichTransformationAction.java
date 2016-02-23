@@ -16,61 +16,62 @@ package org.worldgrower.actions.magic;
 
 import java.io.ObjectStreamException;
 
+import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.actions.InventoryAction;
+import org.worldgrower.actions.CraftUtils;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
-import org.worldgrower.generator.CreatureGenerator;
-import org.worldgrower.goal.GroupPropertyUtils;
+import org.worldgrower.condition.LichUtils;
 import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
 
-public class AnimateSuitOfArmorAction extends InventoryAction implements MagicSpell {
-
-	private static final int ENERGY_USE = 200;
+public class LichTransformationAction implements MagicSpell {
+	private static final int SOUL_GEM_COUNT = 3;
+	private static final int ENERGY_USE = 1000;
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		int inventoryIndex = args[0];
-		WorldObject minionOrganization = GroupPropertyUtils.createMinionOrganization(performer, world);
-		
-		CreatureGenerator creatureGenerator = new CreatureGenerator(minionOrganization);
-		Integer targetX = target.getProperty(Constants.X);
-		Integer targetY = target.getProperty(Constants.Y);
-		int animatedSuitOfArmorId = creatureGenerator.generateAnimatedSuitOfArmor(targetX, targetY, world, performer);
-		WorldObject skeleton = world.findWorldObject(Constants.ID, animatedSuitOfArmorId);
-		skeleton.getProperty(Constants.GROUP).addAll(performer.getProperty(Constants.GROUP));
+		LichUtils.lichifyPerson(performer, world.getWorldStateChangedListeners());
 		
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
-		performerInventory.removeQuantity(Constants.SOUL_GEM_FILLED, 1);
-		performerInventory.remove(inventoryIndex);
+		performerInventory.removeQuantity(Constants.SOUL_GEM_FILLED, SOUL_GEM_COUNT);
+		
 		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE, world.getWorldStateChangedListeners());
 	}
 	
 	@Override
-	public boolean isValidInventoryItem(WorldObject inventoryItem, WorldObjectContainer inventory, WorldObject performer) {
-		int energyUseDistance = SkillUtils.distanceForEnergyUse(performer, getSkill(), ENERGY_USE);
-		boolean hasFilledSoulGem = (inventory.getQuantityFor(Constants.SOUL_GEM_FILLED) > 0);
-		boolean isTorsoEquipment = inventoryItem.hasProperty(Constants.EQUIPMENT_SLOT) && inventoryItem.getProperty(Constants.EQUIPMENT_SLOT) == Constants.TORSO_EQUIPMENT;
-		return hasFilledSoulGem && isTorsoEquipment && energyUseDistance == 0 && MagicSpellUtils.canCast(performer, this);
+	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
+		return CraftUtils.isValidTarget(performer, target, world) && MagicSpellUtils.canCast(performer, this);
+	}
+
+	@Override
+	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
+		int filledSoulGem = performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.SOUL_GEM_FILLED);
+		return (filledSoulGem >= SOUL_GEM_COUNT ? 0 : 1)
+				+ SkillUtils.distanceForEnergyUse(performer, getSkill(), ENERGY_USE);
 	}
 	
 	@Override
 	public String getRequirementsDescription() {
-		return "Requirements: filled soul gem : 1, torso equipment : 1, enough energy to cast spell";
+		return CraftUtils.getRequirementsDescription(Constants.ENERGY, ENERGY_USE, "Filled soulgems: " + SOUL_GEM_COUNT);
+	}
+	
+	@Override
+	public ArgumentRange[] getArgumentRanges() {
+		return ArgumentRange.EMPTY_ARGUMENT_RANGE;
 	}
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "animating a suit of armor";
+		return "casting lich transformation";
 	}
 
 	@Override
 	public String getSimpleDescription() {
-		return "animate suit of armor";
+		return "lich transformation";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {
@@ -79,7 +80,7 @@ public class AnimateSuitOfArmorAction extends InventoryAction implements MagicSp
 
 	@Override
 	public int getResearchCost() {
-		return 40;
+		return 100;
 	}
 
 	@Override
@@ -89,16 +90,16 @@ public class AnimateSuitOfArmorAction extends InventoryAction implements MagicSp
 
 	@Override
 	public int getRequiredSkillLevel() {
-		return 3;
+		return 5;
 	}
 
 	@Override
 	public String getDescription() {
-		return "animates a suit of armor which you control";
+		return "transforms caster into a lich";
 	}
 
 	@Override
 	public ImageIds getImageIds() {
-		return ImageIds.ANIMATED_SUIT_OF_ARMOR;
+		return ImageIds.LICH;
 	}
 }
