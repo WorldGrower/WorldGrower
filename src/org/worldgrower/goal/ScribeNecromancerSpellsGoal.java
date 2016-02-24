@@ -22,7 +22,7 @@ import org.worldgrower.actions.magic.MagicSpell;
 
 public class ScribeNecromancerSpellsGoal extends AbstractScribeSpellsGoal {
 
-	private static final List<MagicSpell> NECROMANCER_SPELLS = Arrays.asList(Actions.INFLICT_WOUNDS_ACTION, Actions.ANIMATE_DEAD_ACTION);
+	private static final List<MagicSpell> NECROMANCER_SPELLS = Arrays.asList(Actions.INFLICT_WOUNDS_ACTION, Actions.ANIMATE_DEAD_ACTION, Actions.SOUL_TRAP_ACTION);
 	
 	public ScribeNecromancerSpellsGoal() {
 		super(NECROMANCER_SPELLS, Actions.RESEARCH_NECROMANCY_SKILL_ACTION);

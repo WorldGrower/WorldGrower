@@ -35,6 +35,7 @@ import org.worldgrower.actions.magic.UTestFireBoltAttackAction;
 import org.worldgrower.actions.magic.UTestFireTrapAction;
 import org.worldgrower.actions.magic.UTestInflictWoundsAction;
 import org.worldgrower.actions.magic.UTestInvisibilityAction;
+import org.worldgrower.actions.magic.UTestLichTransformationAction;
 import org.worldgrower.actions.magic.UTestLightningBoltAttackAction;
 import org.worldgrower.actions.magic.UTestLockMagicSpellAction;
 import org.worldgrower.actions.magic.UTestMendAction;
@@ -540,7 +541,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestScribeMagicSpellAction.class,
 	UTestImageInfoReader.class,
 	UTestUnlockJailDoorAction.class,
-	UTestCreateBloodAction.class
+	UTestCreateBloodAction.class,
+	UTestLichTransformationAction.class
 })
 public class CompleteTestSuite {
 }

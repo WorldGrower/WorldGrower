@@ -233,6 +233,7 @@ public class GuiMouseListener extends MouseAdapter {
 		addRestorationActions(menu);
 		addTransmutationActions(menu);
 		addEvocationActions(menu);
+		addNecromancyActions(menu);
 		addScribeMagicSpells(menu);
 		addRestMenu(menu);
 		menu.add(organizationMenu);
@@ -426,6 +427,11 @@ public class GuiMouseListener extends MouseAdapter {
 		MagicSpell[] actions = { Actions.DETECT_MAGIC_ACTION, Actions.DETECT_POISON_AND_DISEASE_ACTION };
 		JMenu evocationMenu = addActions(menu, "Evocation", actions);
 		addBuildAction(evocationMenu, Actions.FIRE_TRAP_ACTION, startBuildMode());
+	}
+	
+	private void addNecromancyActions(JPopupMenu menu) {
+		MagicSpell[] actions = { Actions.LICH_TRANSFORMATION_ACTION };
+		addActions(menu, "Necromancy", actions);
 	}
 	
 	private void addScribeMagicSpells(JPopupMenu menu) {

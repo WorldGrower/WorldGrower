@@ -41,6 +41,7 @@ import org.worldgrower.actions.magic.FireBoltAttackAction;
 import org.worldgrower.actions.magic.FireTrapAction;
 import org.worldgrower.actions.magic.InflictWoundsAction;
 import org.worldgrower.actions.magic.InvisibilityAction;
+import org.worldgrower.actions.magic.LichTransformationAction;
 import org.worldgrower.actions.magic.LightningBoltAttackAction;
 import org.worldgrower.actions.magic.LockMagicSpellAction;
 import org.worldgrower.actions.magic.MagicSpell;
@@ -214,6 +215,7 @@ public class Actions {
 	public static final FireTrapAction FIRE_TRAP_ACTION = new FireTrapAction();
 	public static final InvestigateAction INVESTIGATE_ACTION = new InvestigateAction();
 	public static final CreateBloodAction CREATE_BLOOD_ACTION = new CreateBloodAction();
+	public static final LichTransformationAction LICH_TRANSFORMATION_ACTION = new LichTransformationAction();
 	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 
@@ -244,7 +246,8 @@ public class Actions {
 			DISPEL_MAGIC_ACTION,
 			SILENCE_MAGIC_ACTION,
 			DETECT_MAGIC_ACTION,
-			FIRE_TRAP_ACTION
+			FIRE_TRAP_ACTION,
+			LICH_TRANSFORMATION_ACTION
 			);
 	
 	private static final List<InventoryAction> INVENTORY_ACTIONS = Arrays.asList(
