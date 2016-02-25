@@ -31,7 +31,7 @@ import org.worldgrower.gui.ImageIds;
 
 public class LichTransformationAction implements MagicSpell {
 	private static final int SOUL_GEM_COUNT = 3;
-	private static final int ENERGY_USE = 1000;
+	private static final int ENERGY_USE = 600;
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
@@ -102,5 +102,13 @@ public class LichTransformationAction implements MagicSpell {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.LICH;
+	}
+	
+	public boolean hasRequiredEnergy(WorldObject performer) {
+		return performer.getProperty(Constants.ENERGY) >= ENERGY_USE;
+	}
+	
+	public boolean hasRequiredSoulGems(WorldObject performer) {
+		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.SOUL_GEM_FILLED) >= SOUL_GEM_COUNT;
 	}
 }

@@ -40,7 +40,9 @@ public class NecromancerProfession implements Profession {
 		return Arrays.asList(
 				Goals.LIBRARY_GOAL,
 				Goals.SCRIBE_NECROMANCER_SPELLS_GOAL,
-				Goals.KILL_VILLAGERS_GOAL
+				Goals.KILL_VILLAGERS_GOAL,
+				Goals.FILL_SOUL_GEM_GOAL,
+				Goals.BECOME_LICH_GOAL
 				);
 	}
 

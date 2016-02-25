@@ -16,35 +16,28 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
-import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.attribute.WorldObjectContainer;
-import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.LichUtils;
 
-public class FillSoulGemGoal implements Goal {
+public class BecomeLichGoal implements Goal {
 
-	private static final int SOUL_GEM_COUNT = 3;
-	
-	public FillSoulGemGoal(List<Goal> allGoals) {
+	public BecomeLichGoal(List<Goal> allGoals) {
 		allGoals.add(this);
 	}
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
-		if (performerInventory.getQuantityFor(Constants.SOUL_GEM) < SOUL_GEM_COUNT) {
-			return Goals.SOUL_GEM_GOAL.calculateGoal(performer, world);
-		} else if (performer.getProperty(Constants.KNOWN_SPELLS).contains(Actions.SOUL_TRAP_ACTION) 
-				&& Actions.SOUL_TRAP_ACTION.hasRequiredEnergy(performer)) {
-			List<WorldObject> poisonedVillagers = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> w.getProperty(Constants.CONDITIONS).hasCondition(Condition.POISONED_CONDITION));
-			if (poisonedVillagers.size() > 0) {
-				return new OperationInfo(performer, poisonedVillagers.get(0), new int[0], Actions.SOUL_TRAP_ACTION);
-			}
+		if (!Actions.LICH_TRANSFORMATION_ACTION.hasRequiredSoulGems(performer)) {
+			return Goals.FILL_SOUL_GEM_GOAL.calculateGoal(performer, world);
+		} else if (!Actions.LICH_TRANSFORMATION_ACTION.hasRequiredEnergy(performer)) {
+			return Goals.REST_GOAL.calculateGoal(performer, world);
+		} else {
+			//TODO: knowledge that someone is lich? And transform in isolation?
+			return new OperationInfo(performer, performer, new int[0], Actions.LICH_TRANSFORMATION_ACTION);
 		}
-		return null;
 	}
 
 	@Override
@@ -53,7 +46,7 @@ public class FillSoulGemGoal implements Goal {
 	
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.SOUL_GEM_FILLED) >= SOUL_GEM_COUNT;
+		return LichUtils.isLich(performer);
 	}
 	
 	@Override
@@ -63,11 +56,13 @@ public class FillSoulGemGoal implements Goal {
 
 	@Override
 	public String getDescription() {
-		return "filling soulgems";
+		return "becoming a lich";
 	}
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.SOUL_GEM_FILLED);
+		return LichUtils.isLich(performer) ? 1 : 0;
 	}
+
+
 }

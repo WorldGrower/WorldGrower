@@ -101,4 +101,8 @@ public class SoulTrapAction implements MagicSpell {
 	public ImageIds getImageIds() {
 		return ImageIds.SOUL_TRAPPED_INDICATOR;
 	}
+	
+	public boolean hasRequiredEnergy(WorldObject performer) {
+		return performer.getProperty(Constants.ENERGY) >= ENERGY_USE;
+	}
 }

@@ -134,4 +134,7 @@ public class Goals {
 	public static final StartDrinkingContestGoal START_DRINKING_CONTEST_GOAL = new StartDrinkingContestGoal(ALL_GOALS);
 	public static final BreakupWithMateGoal BREAKUP_WITH_MATE_GOAL = new BreakupWithMateGoal(ALL_GOALS);
 	public static final LegalizeVampirismGoal LEGALIZE_VAMPIRISM_GOAL = new LegalizeVampirismGoal(ALL_GOALS);
+	public static final SoulGemGoal SOUL_GEM_GOAL = new SoulGemGoal(ALL_GOALS);
+	public static final FillSoulGemGoal FILL_SOUL_GEM_GOAL = new FillSoulGemGoal(ALL_GOALS);
+	public static final BecomeLichGoal BECOME_LICH_GOAL = new BecomeLichGoal(ALL_GOALS);
 }

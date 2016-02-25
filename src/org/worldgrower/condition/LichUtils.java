@@ -29,4 +29,8 @@ public class LichUtils {
 		
 		creatureTypeChangedListeners.fireCreatureTypeChanged(worldObject, CreatureType.UNDEAD_CREATURE_TYPE, "You crave blood, you must have become a vampire");
 	}
+	
+	public static boolean isLich(WorldObject performer) {
+		return performer.getProperty(Constants.CURSE) == Curse.LICH_CURSE;
+	}
 }
