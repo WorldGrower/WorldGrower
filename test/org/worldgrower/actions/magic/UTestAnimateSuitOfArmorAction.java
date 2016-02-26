@@ -16,6 +16,8 @@ package org.worldgrower.actions.magic;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Arrays;
+
 import org.junit.Test;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
@@ -25,6 +27,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.condition.Conditions;
 import org.worldgrower.generator.Item;
 
 public class UTestAnimateSuitOfArmorAction {
@@ -42,6 +45,33 @@ public class UTestAnimateSuitOfArmorAction {
 		
 		assertEquals(2, world.getWorldObjects().size());
 		assertEquals(0, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.ARMOR));
+	}
+	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		
+		assertEquals(true, Actions.ANIMATE_SUIT_OF_ARMOR_ACTION.isValidTarget(performer, performer, world));
+		assertEquals(false, Actions.ANIMATE_SUIT_OF_ARMOR_ACTION.isValidTarget(performer, target, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		
+		performer.setProperty(Constants.CONDITIONS, new Conditions());
+		performer.setProperty(Constants.KNOWN_SPELLS, Arrays.asList(Actions.ANIMATE_SUIT_OF_ARMOR_ACTION));
+		performer.setProperty(Constants.GROUP, new IdList());
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_CUIRASS.generate(1f));
+		
+		WorldObject soulGem = Item.SOUL_GEM.generate(1f);
+		soulGem.setProperty(Constants.SOUL_GEM_FILLED, Boolean.TRUE);
+		performer.getProperty(Constants.INVENTORY).addQuantity(soulGem);
+		
+		assertEquals(0, Actions.ANIMATE_SUIT_OF_ARMOR_ACTION.distance(performer, performer, new int[] {0}, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

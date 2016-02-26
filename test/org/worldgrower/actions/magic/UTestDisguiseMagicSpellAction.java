@@ -16,6 +16,9 @@ package org.worldgrower.actions.magic;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import org.junit.Test;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
@@ -55,6 +58,23 @@ public class UTestDisguiseMagicSpellAction {
 		WorldObject performer = createPerformer(2);
 		
 		assertEquals(0, Actions.DISGUISE_MAGIC_SPELL_ACTION.distance(performer, performer, new int[0], world));
+	}
+	
+	@Test
+	public void testGetDisguiseTargets() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		
+		assertEquals(new ArrayList<>(), Actions.DISGUISE_MAGIC_SPELL_ACTION.getDisguiseTargets(performer, world));
+		
+		WorldObject target = createPerformer(3);
+		world.addWorldObject(target);
+		
+		WorldObject target2 = createPerformer(3);
+		target2.setProperty(Constants.WIDTH, 2);
+		target2.setProperty(Constants.HEIGHT, 2);
+		world.addWorldObject(target2);
+		assertEquals(Arrays.asList(target), Actions.DISGUISE_MAGIC_SPELL_ACTION.getDisguiseTargets(performer, world));
 	}
 	
 	private WorldObject createPerformer(int id) {
