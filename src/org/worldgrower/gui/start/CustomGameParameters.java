@@ -41,9 +41,10 @@ public class CustomGameParameters implements GameParameters {
 	private final int enemyDensity;
 	private final int villagerCount;
 	private final int seed;
+	private final int startTurn;
 	private final boolean playBackgroundMusic; 
 	
-	public CustomGameParameters(String playerName, String playerProfession, String gender, int worldWidth, int worldHeight, int enemyDensity, int villagerCount, int seed, boolean playBackgroundMusic) {
+	public CustomGameParameters(String playerName, String playerProfession, String gender, int worldWidth, int worldHeight, int enemyDensity, int villagerCount, int seed, int startTurn, boolean playBackgroundMusic) {
 		this.playerName = playerName;
 		this.playerProfession = playerProfession;
 		this.gender = gender;
@@ -52,6 +53,7 @@ public class CustomGameParameters implements GameParameters {
 		this.enemyDensity = enemyDensity;
 		this.villagerCount = villagerCount;
 		this.seed = seed;
+		this.startTurn = startTurn;
 		this.playBackgroundMusic = playBackgroundMusic;
 	}
 
@@ -134,6 +136,11 @@ public class CustomGameParameters implements GameParameters {
 	@Override
 	public int getSeed() {
 		return seed;
+	}
+	
+	@Override
+	public int getStartTurn() {
+		return startTurn;
 	}
 
 	@Override

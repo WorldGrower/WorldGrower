@@ -54,6 +54,7 @@ public class OptionsScreen {
 	private static final String PLAYER_NAME_TOOL_TIP = "Sets player character name";
 	private static final String WORLD_WIDTH_TOOL_TIP = "Sets width of world in number of tiles";
 	private static final String WORLD_HEIGHT_TOOL_TIP = "Sets height of world in number of tiles";
+	private static final String START_TURN_TOOL_TIP = "Sets turn on which the player character enters the world";
 	
 	private JFrame frame;
 	private JTextField playerNameTextField;
@@ -71,6 +72,7 @@ public class OptionsScreen {
 	private final ImageInfoReader imageInfoReader;
 	private JComboBox<ImageIds> cmbImage;
 	private final KeyBindings keyBindings;
+	private JTextField startTurnTextField;
 	
 	public OptionsScreen(CharacterAttributes characterAttributes, ImageInfoReader imageInfoReader, KeyBindings keyBindings) {
 		initialize(imageInfoReader);
@@ -92,9 +94,9 @@ public class OptionsScreen {
 		JPanel contentPanel = new GradientPanel();
 		contentPanel.setLocation(0, 0);
 		contentPanel.setLayout(null);
-		contentPanel.setSize(new Dimension(414, 563));
+		contentPanel.setSize(new Dimension(414, 605));
 		frame.getContentPane().add(contentPanel);
-		frame.setSize(new Dimension(414, 578));
+		frame.setSize(new Dimension(414, 640));
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -184,7 +186,7 @@ public class OptionsScreen {
 		contentPanel.add(numberOfVillagersTextField);
 		
 		JButton btnOk = ButtonFactory.createButton("Ok");
-		btnOk.setBounds(230, 486, 97, 25);
+		btnOk.setBounds(230, 538, 97, 25);
 		frame.getRootPane().setDefaultButton(btnOk);
 		contentPanel.add(btnOk);
 		btnOk.addActionListener(new ActionListener() {
@@ -200,12 +202,13 @@ public class OptionsScreen {
 						int enemyDensity = Integer.parseInt(numberOfEnemiesTextField.getText());
 						int villagerCount = Integer.parseInt(numberOfVillagersTextField.getText());
 						int seed = Integer.parseInt(seedTextField.getText());
+						int startTurn = Integer.parseInt(startTurnTextField.getText());
 						boolean playBackgroundMusic = chkBackgroundMusic.isSelected();
 						
 						String gender = maleRadioButton.isSelected() ? "male" : "female";
 						
 						
-						CustomGameParameters customGameParameters = new CustomGameParameters(playerNameTextField.getText(), playerProfessionTextField.getText(), gender, worldWidth, worldHeight, enemyDensity, villagerCount, seed, playBackgroundMusic);
+						CustomGameParameters customGameParameters = new CustomGameParameters(playerNameTextField.getText(), playerProfessionTextField.getText(), gender, worldWidth, worldHeight, enemyDensity, villagerCount, seed, startTurn, playBackgroundMusic);
 						Game.run(characterAttributes, imageInfoReader, (ImageIds)cmbImage.getSelectedItem(), customGameParameters, keyBindings);
 					} catch (Exception e1) {
 						ExceptionHandler.handle(e1);
@@ -222,7 +225,7 @@ public class OptionsScreen {
 		});
 		
 		JButton btnCancel = ButtonFactory.createButton("Cancel");
-		btnCancel.setBounds(121, 486, 97, 25);
+		btnCancel.setBounds(119, 538, 97, 25);
 		contentPanel.add(btnCancel);
 		
 		JLabel lblPlayerProfession = JLabelFactory.createJLabel("Character Profession:");
@@ -253,12 +256,12 @@ public class OptionsScreen {
 		chkBackgroundMusic.setToolTipText(MUSIC_TOOL_TIP);
 		chkBackgroundMusic.setSelected(true);
 		chkBackgroundMusic.setOpaque(false);
-		chkBackgroundMusic.setBounds(228, 431, 137, 25);
+		chkBackgroundMusic.setBounds(228, 478, 137, 25);
 		contentPanel.add(chkBackgroundMusic);
 		
 		JLabel lblPlayBackgroundMusic = JLabelFactory.createJLabel("Play background music:");
 		lblPlayBackgroundMusic.setToolTipText(MUSIC_TOOL_TIP);
-		lblPlayBackgroundMusic.setBounds(25, 431, 191, 26);
+		lblPlayBackgroundMusic.setBounds(25, 478, 191, 26);
 		contentPanel.add(lblPlayBackgroundMusic);
 		
 		JLabel lblCharacterImage = JLabelFactory.createJLabel("Character image:");
@@ -272,6 +275,19 @@ public class OptionsScreen {
 		cmbImage.setSelectedIndex(0);
 		cmbImage.setBounds(228, 160, 137, 58);
 		contentPanel.add(cmbImage);
+		
+		JLabel lblStartTurn = JLabelFactory.createJLabel("Seed:");
+		lblStartTurn.setText("Start turn:");
+		lblStartTurn.setToolTipText(START_TURN_TOOL_TIP);
+		lblStartTurn.setBounds(25, 433, 191, 26);
+		contentPanel.add(lblStartTurn);
+		
+		startTurnTextField = JTextFieldFactory.createJTextField();
+		startTurnTextField.setToolTipText(START_TURN_TOOL_TIP);
+		startTurnTextField.setText("0");
+		startTurnTextField.setColumns(10);
+		startTurnTextField.setBounds(228, 433, 137, 22);
+		contentPanel.add(startTurnTextField);
 		btnCancel.addActionListener(new ActionListener() {
 			
 			@Override
@@ -315,6 +331,14 @@ public class OptionsScreen {
 		
 		if (!NumberUtils.isNumeric(seedTextField.getText())) {
 			errors.add("Seed must be numeric");
+		}
+		
+		if (!NumberUtils.isNumeric(startTurnTextField.getText())) {
+			errors.add("Start turn must be numeric");
+		}
+		
+		if (Integer.parseInt(startTurnTextField.getText()) < 0) {
+			errors.add("Start turn must be 0 or greater");
 		}
 		
 		return errors;

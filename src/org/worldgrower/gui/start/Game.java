@@ -33,6 +33,7 @@ import org.worldgrower.actions.ArenaFightOnTurn;
 import org.worldgrower.actions.BrawlListener;
 import org.worldgrower.actions.DrinkingContestListener;
 import org.worldgrower.condition.ConditionListener;
+import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.curse.CurseListener;
 import org.worldgrower.deity.DeityWorldOnTurn;
 import org.worldgrower.generator.CommonerGenerator;
@@ -61,6 +62,7 @@ public class Game {
 	
 	public static void run(CharacterAttributes characterAttributes, ImageInfoReader imageInfoReader, ImageIds playerCharacterImageId, GameParameters gameParameters, KeyBindings keyBindings) throws Exception {
 		int seed = gameParameters.getSeed();
+		int startTurn = gameParameters.getStartTurn();
 		DungeonMaster dungeonMaster = new DungeonMaster();
 		WorldOnTurnImpl worldOnTurn = new WorldOnTurnImpl(new DeityWorldOnTurn(), new ArenaFightOnTurn());
 		World world = new WorldImpl(gameParameters.getWorldWidth(), gameParameters.getWorldHeight(), dungeonMaster, worldOnTurn);
@@ -71,17 +73,32 @@ public class Game {
 		final WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
 		final CommonerGenerator commonerGenerator = new CommonerGenerator(seed, commonerImageIds, commonerNameGenerator);
 		
-		final WorldObject playerCharacter = CommonerGenerator.createPlayerCharacter(playerCharacterId, gameParameters.getPlayerName(), gameParameters.getPlayerProfession(), gameParameters.getGender(), world, commonerGenerator, organization, characterAttributes, playerCharacterImageId);
-		world.addWorldObject(playerCharacter);
-		
 		gameParameters.addDefaultWorldObjects(world, commonerGenerator, organization, gameParameters.getVillagerCount(), seed);
 		
 		addWorldListeners(world);
-		exploreWorld(playerCharacter, world);
 		
 		addEnemiesAndFriendlyAnimals(gameParameters.getEnemyDensity(), world, seed);
+
+		runWorld(startTurn, dungeonMaster, world);
+		
+		final WorldObject playerCharacter = addPlayerCharacter(characterAttributes, playerCharacterImageId, gameParameters, world, playerCharacterId, organization, commonerGenerator);
+		exploreWorld(playerCharacter, world);
 		
 		createAndShowGUIInvokeLater(playerCharacter, world, dungeonMaster, gameParameters.getPlayBackgroundMusic(), imageInfoReader, gameParameters.getInitialStatusMessage(), gameParameters.getAdditionalManagedOperationListenerFactory(), keyBindings);
+	}
+
+	private static void runWorld(int startTurn, DungeonMaster dungeonMaster, World world) {
+		for(int i=0; i<startTurn ;i++) {
+			dungeonMaster.runWorld(world, new WorldStateChangedListeners());
+		}
+	}
+
+	private static WorldObject addPlayerCharacter(CharacterAttributes characterAttributes, ImageIds playerCharacterImageId,
+			GameParameters gameParameters, World world, int playerCharacterId, final WorldObject organization,
+			final CommonerGenerator commonerGenerator) {
+		final WorldObject playerCharacter = CommonerGenerator.createPlayerCharacter(playerCharacterId, gameParameters.getPlayerName(), gameParameters.getPlayerProfession(), gameParameters.getGender(), world, commonerGenerator, organization, characterAttributes, playerCharacterImageId);
+		world.addWorldObject(playerCharacter);
+		return playerCharacter;
 	}
 
 	private static void addWorldListeners(World world) {

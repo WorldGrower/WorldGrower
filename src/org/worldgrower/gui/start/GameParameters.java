@@ -29,6 +29,7 @@ public interface GameParameters {
 	public int getEnemyDensity();
 	public int getVillagerCount();
 	public int getSeed();
+	public int getStartTurn();
 	public boolean getPlayBackgroundMusic();
 	
 	public String getInitialStatusMessage();

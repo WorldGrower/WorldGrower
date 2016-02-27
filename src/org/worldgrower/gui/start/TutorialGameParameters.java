@@ -94,4 +94,9 @@ public class TutorialGameParameters implements GameParameters {
 	public AdditionalManagedOperationListenerFactory getAdditionalManagedOperationListenerFactory() {
 		return new TutorialAdditionalManagedOperationListenerFactory();
 	}
+
+	@Override
+	public int getStartTurn() {
+		return 0;
+	}
 }
