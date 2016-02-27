@@ -16,8 +16,11 @@ package org.worldgrower.gui.start;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
 import javax.swing.ToolTipManager;
 
 import org.worldgrower.CommonerNameGenerator;
@@ -50,6 +53,7 @@ import org.worldgrower.gui.WorldPanel;
 import org.worldgrower.gui.music.BackgroundMusicUtils;
 import org.worldgrower.gui.music.MusicPlayer;
 import org.worldgrower.gui.util.IconUtils;
+import org.worldgrower.gui.util.ProgressDialog;
 import org.worldgrower.terrain.TerrainType;
 
 /**
@@ -79,18 +83,67 @@ public class Game {
 		
 		addEnemiesAndFriendlyAnimals(gameParameters.getEnemyDensity(), world, seed);
 
-		runWorld(startTurn, dungeonMaster, world);
+		//runWorld(startTurn, dungeonMaster, world);
+		RunWorldSwingWorker runWorldSwingWorker = new RunWorldSwingWorker(startTurn, dungeonMaster, world);
+		runWorldSwingWorker.execute();
+		runWorldSwingWorker.get();
 		
 		final WorldObject playerCharacter = addPlayerCharacter(characterAttributes, playerCharacterImageId, gameParameters, world, playerCharacterId, organization, commonerGenerator);
 		exploreWorld(playerCharacter, world);
 		
 		createAndShowGUIInvokeLater(playerCharacter, world, dungeonMaster, gameParameters.getPlayBackgroundMusic(), imageInfoReader, gameParameters.getInitialStatusMessage(), gameParameters.getAdditionalManagedOperationListenerFactory(), keyBindings);
 	}
+	
+	private static class RunWorldSwingWorker extends SwingWorker<Integer, Integer> {
 
-	private static void runWorld(int startTurn, DungeonMaster dungeonMaster, World world) {
-		for(int i=0; i<startTurn ;i++) {
-			dungeonMaster.runWorld(world, new WorldStateChangedListeners());
+		private final int startTurn;
+		private final DungeonMaster dungeonMaster;
+		private final World world;
+		
+		private final ProgressDialog progressDialog;
+		
+		public RunWorldSwingWorker(int startTurn, DungeonMaster dungeonMaster, World world) {
+			super();
+			this.startTurn = startTurn;
+			this.dungeonMaster = dungeonMaster;
+			this.world = world;
+			
+			this.progressDialog = new ProgressDialog("Processing turns...", startTurn);
+			if (startTurn > 1000) {
+				progressDialog.showMe();
+			}
 		}
+
+		@Override
+		protected Integer doInBackground() throws Exception {
+			for(int i=0; i<startTurn; i++) {
+				dungeonMaster.runWorld(world, new WorldStateChangedListeners());
+				publish(i);
+				final int value = i;
+				SwingUtilities.invokeLater(new Runnable() {
+					
+					@Override
+					public void run() {
+						progressDialog.setValue(value);
+					}
+				});
+			}
+			progressDialog.close();
+			
+			return 0;
+		}
+
+		@Override
+		protected void done() {
+			progressDialog.close();
+		}
+
+		@Override
+		protected void process(List<Integer> chunks) {
+			progressDialog.setValue(chunks.get(0));
+		}
+		
+		
 	}
 
 	private static WorldObject addPlayerCharacter(CharacterAttributes characterAttributes, ImageIds playerCharacterImageId,

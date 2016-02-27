@@ -209,7 +209,15 @@ public class OptionsScreen {
 						
 						
 						CustomGameParameters customGameParameters = new CustomGameParameters(playerNameTextField.getText(), playerProfessionTextField.getText(), gender, worldWidth, worldHeight, enemyDensity, villagerCount, seed, startTurn, playBackgroundMusic);
-						Game.run(characterAttributes, imageInfoReader, (ImageIds)cmbImage.getSelectedItem(), customGameParameters, keyBindings);
+						new Thread() {
+							public void run() {
+								try {
+									Game.run(characterAttributes, imageInfoReader, (ImageIds)cmbImage.getSelectedItem(), customGameParameters, keyBindings);
+								} catch (Exception e) {
+									ExceptionHandler.handle(e);
+								}
+							}
+						}.start();
 					} catch (Exception e1) {
 						ExceptionHandler.handle(e1);
 					}

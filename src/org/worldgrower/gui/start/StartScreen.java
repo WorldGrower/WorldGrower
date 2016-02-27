@@ -129,11 +129,15 @@ public class StartScreen {
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			frame.setVisible(false);
-			try {
-				Game.run(new CharacterAttributes(10, 10, 10, 10, 10, 10), imageInfoReader, ImageIds.KNIGHT, new TutorialGameParameters(), keyBindings);
-			} catch (Exception e1) {
-				ExceptionHandler.handle(e1);
-			}
+			new Thread() {
+				public void run() {
+					try {
+						Game.run(new CharacterAttributes(10, 10, 10, 10, 10, 10), imageInfoReader, ImageIds.KNIGHT, new TutorialGameParameters(), keyBindings);
+					} catch (Exception e1) {
+						ExceptionHandler.handle(e1);
+					}
+				}
+			}.start();
 		}
 	}
 	
