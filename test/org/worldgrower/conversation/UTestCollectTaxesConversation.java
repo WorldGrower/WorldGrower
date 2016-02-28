@@ -65,6 +65,38 @@ public class UTestCollectTaxesConversation {
 		target.setProperty(Constants.GOLD, 0);
 		assertEquals(1, conversation.getReplyPhrase(context).getId());
 	}
+	
+	@Test
+	public void testGetQuestionPhrases() {
+		World world = new WorldImpl(0, 0, null, new DoNothingWorldOnTurn());
+		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.HOUSES, new IdList());
+		WorldObject target = TestUtils.createIntelligentWorldObject(8, Constants.HOUSES, new IdList());
+
+		createDefaultVillagersOrganization(world, target);
+		
+		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, null, world);
+		assertEquals(1, questions.size());
+		assertEquals("I'm here to collect your taxes. The taxes are 0 gold. Will you pay your taxes?", questions.get(0).getQuestionPhrase());
+	}
+	
+	@Test
+	public void testIsConversationAvailable() {
+		World world = new WorldImpl(0, 0, null, new DoNothingWorldOnTurn());
+		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.HOUSES, new IdList());
+		WorldObject target = TestUtils.createIntelligentWorldObject(8, Constants.HOUSES, new IdList());
+		int houseId = BuildingGenerator.generateHouse(0, 0, world, 1f);
+		target.getProperty(Constants.HOUSES).add(houseId);
+		target.setProperty(Constants.GOLD, 200);
+		
+		createDefaultVillagersOrganization(world, target);
+		
+		assertEquals(false, conversation.isConversationAvailable(performer, target, null, world));
+		
+		performer.setProperty(Constants.CAN_COLLECT_TAXES, Boolean.TRUE);
+
+		moveTurnsForword(world, 2000);
+		assertEquals(true, conversation.isConversationAvailable(performer, target, null, world));
+	}
 
 	private void createDefaultVillagersOrganization(World world, WorldObject target) {
 		WorldObject organization = createVillagersOrganization(world);
