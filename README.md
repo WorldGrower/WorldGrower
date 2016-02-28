@@ -1,6 +1,6 @@
 # WorldGrower
 
-WorldGrower is a 2D turn-based top-down rpg with creating a detailed world, in which actions have consequences.
+WorldGrower is a 2D turn-based simulator rpg focused on creating a detailed world, in which actions have consequences.
 It focuses on skills, dialogue, economy and society.
 
 ## Table of contents
@@ -38,7 +38,7 @@ It focuses on skills, dialogue, economy and society.
 
 *   If you are installing from source code, it's recommended that you clone the master branch.
 *   Make sure Java 8 is installed
-*   Run org.worldgrower.gui.start.StartScreen with resources directory in classpath.
+*   Run org.worldgrower.gui.start.StartScreen with resources directory in the classpath.
 
 ## Features<a name="features"></a>
 - dynamic world that is built up from scratch
@@ -47,6 +47,7 @@ It focuses on skills, dialogue, economy and society.
 - mislead enemies with disguises and illusions
 - use character skills to build up an economy from the ground up 
 - found organizations and use their influence to further your own goals
+- spread gossip and print newspapers
 
 ## Bugs and Feature Requests<a name="bugs-and-feature-requests"></a>
 
