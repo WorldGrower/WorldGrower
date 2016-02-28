@@ -73,6 +73,7 @@ import org.worldgrower.conversation.UTestBecomeArenaFighterConversation;
 import org.worldgrower.conversation.UTestBrawlConversation;
 import org.worldgrower.conversation.UTestBreakupWithMateConversation;
 import org.worldgrower.conversation.UTestBuyHouseConversation;
+import org.worldgrower.conversation.UTestCollectPayCheckConversation;
 import org.worldgrower.conversation.UTestCollectTaxesConversation;
 import org.worldgrower.conversation.UTestComplimentConversation;
 import org.worldgrower.conversation.UTestConversations;
@@ -544,7 +545,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestCreateBloodAction.class,
 	UTestLichTransformationAction.class,
 	UTestFillSoulGemGoal.class,
-	UTestBecomeLichGoal.class
+	UTestBecomeLichGoal.class,
+	UTestCollectPayCheckConversation.class
 })
 public class CompleteTestSuite {
 }
