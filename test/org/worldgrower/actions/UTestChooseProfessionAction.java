@@ -27,6 +27,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.ChooseProfessionAction;
+import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.profession.Profession;
 import org.worldgrower.profession.Professions;
 
@@ -128,5 +129,28 @@ public class UTestChooseProfessionAction {
 		world.addWorldObject(target1);
 		world.addWorldObject(target2);
 		assertEquals(Arrays.asList(target2), ChooseProfessionAction.getRemains(world));
+	}
+	
+	@Test
+	public void testGetProfessionEvaluationsByDemand() {
+		World world = new WorldImpl(10, 10, null, null);
+		world.addWorldObject(TestUtils.createIntelligentWorldObject(1, Constants.PROFESSION, Professions.FARMER_PROFESSION));
+
+		WorldObject performer = TestUtils.createWorldObject(1, "jobseeker");
+		performer.getProperty(Constants.DEMANDS).add(Constants.FOOD, 20);
+		world.addWorldObject(performer);
+		
+		createVillagersOrganization(world);
+		
+		List<ProfessionEvaluation> professionEvaluations = ChooseProfessionAction.getProfessionEvaluationsByDemand(performer, world);
+		
+		assertEquals(true, professionEvaluations.size() > 0);
+		assertProfessionEvaluation(professionEvaluations.get(0), Professions.FARMER_PROFESSION, 20);
+	}
+
+	private void createVillagersOrganization(World world) {
+		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
+		organization.setProperty(Constants.ID, 1);
+		world.addWorldObject(organization);
 	}
 }

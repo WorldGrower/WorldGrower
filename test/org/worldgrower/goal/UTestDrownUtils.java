@@ -24,6 +24,7 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
+import org.worldgrower.condition.Conditions;
 import org.worldgrower.terrain.Terrain;
 import org.worldgrower.terrain.TerrainType;
 
@@ -38,5 +39,19 @@ public class UTestDrownUtils {
 		
 		DrownUtils.checkForDrowning(performer, world);
 		assertEquals(5, performer.getProperty(Constants.HIT_POINTS).intValue());
+	}
+	
+	@Test
+	public void testCheckForDrowningDeath() {
+		Terrain terrain = new MockTerrain(TerrainType.WATER);
+		World world = new MockWorld(terrain, new WorldImpl(1, 1, null, null));
+		WorldObject performer = TestUtils.createWorldObject(0, 0, 1, 1, Constants.ID, 0);
+		performer.setProperty(Constants.HIT_POINTS, 5);
+		performer.setProperty(Constants.CONDITIONS, new Conditions());
+		performer.setProperty(Constants.NAME, "performer");
+		
+		DrownUtils.checkForDrowning(performer, world);
+		assertEquals(0, performer.getProperty(Constants.HIT_POINTS).intValue());
+		assertEquals("performer was killed by drowning", performer.getProperty(Constants.DEATH_REASON));
 	}
 }

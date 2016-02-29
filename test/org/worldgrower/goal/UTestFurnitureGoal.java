@@ -83,6 +83,22 @@ public class UTestFurnitureGoal {
 		assertEquals(Actions.PUT_ITEM_INTO_INVENTORY_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
 	
+	@Test
+	public void testIsGoalMet() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer();
+		performer.setProperty(Constants.HOUSES, new IdList());
+		
+		assertEquals(false, goal.isGoalMet(performer, world));
+		
+		int houseId = BuildingGenerator.generateHouse(5, 5, world, 1f);
+		performer.getProperty(Constants.HOUSES).add(houseId);
+		WorldObject house = world.findWorldObject(Constants.ID, houseId);
+		house.getProperty(Constants.INVENTORY).add(Item.BED.generate(1f));
+		
+		assertEquals(true, goal.isGoalMet(performer, world));
+	}
+	
 	private WorldObject createPerformer() {
 		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.X, 0);
