@@ -190,7 +190,7 @@ public class ChooseProfessionAction implements ManagedOperation {
 		return -1;
 	}
 	
-	private List<ProfessionEvaluation> getProfessionEvaluationsByPerformer(WorldObject performer) {
+	static List<ProfessionEvaluation> getProfessionEvaluationsByPerformer(WorldObject performer) {
 		List<ProfessionEvaluation> result = new ArrayList<>();
 		for(ProfessionInfo professionInfo : PROFESSION_INFOS) {
 			result.add(new ProfessionEvaluation(professionInfo.getProfession(), professionInfo.evaluate(performer)));
@@ -401,9 +401,7 @@ public class ChooseProfessionAction implements ManagedOperation {
 
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		int performerId = performer.getProperty(Constants.ID);
-		int targetId = target.getProperty(Constants.ID);
-		return (performerId == targetId);
+		return CraftUtils.isValidTarget(performer, target, world);
 	}
 
 	@Override

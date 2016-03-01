@@ -36,6 +36,8 @@ import static org.worldgrower.actions.ChooseProfessionAction.ProfessionEvaluatio
 
 public class UTestChooseProfessionAction {
 
+	private ChooseProfessionAction action = Actions.CHOOSE_PROFESSION_ACTION;
+	
 	@Test
 	public void testProfessionEvaluationAdd() {
 		ProfessionEvaluation professionEvaluation1 = new ProfessionEvaluation(Professions.FARMER_PROFESSION, 10);
@@ -146,6 +148,36 @@ public class UTestChooseProfessionAction {
 		
 		assertEquals(true, professionEvaluations.size() > 0);
 		assertProfessionEvaluation(professionEvaluations.get(0), Professions.FARMER_PROFESSION, 20);
+	}
+	
+	@Test
+	public void testGetProfessionEvaluationsByPerformer() {
+		World world = new WorldImpl(10, 10, null, null);
+		world.addWorldObject(TestUtils.createIntelligentWorldObject(1, Constants.PROFESSION, Professions.FARMER_PROFESSION));
+
+		WorldObject performer = TestUtils.createWorldObject(1, "jobseeker");
+		performer.setProperty(Constants.STRENGTH, 8);
+		performer.setProperty(Constants.CONSTITUTION, 8);
+		performer.setProperty(Constants.DEXTERITY, 8);
+		performer.setProperty(Constants.INTELLIGENCE, 20);
+		performer.setProperty(Constants.WISDOM, 8);
+		performer.setProperty(Constants.CHARISMA, 8);
+		world.addWorldObject(performer);
+		
+		List<ProfessionEvaluation> professionEvaluations = ChooseProfessionAction.getProfessionEvaluationsByPerformer(performer);
+		
+		assertEquals(true, professionEvaluations.size() > 0);
+		assertProfessionEvaluation(professionEvaluations.get(0), Professions.PRIEST_PROFESSION, 64);
+	}
+	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = TestUtils.createWorldObject(1, "jobseeker");
+		WorldObject target = TestUtils.createWorldObject(2, "jobseeker");
+		
+		assertEquals(true, action.isValidTarget(performer, performer, world));
+		assertEquals(false, action.isValidTarget(performer, target, world));
 	}
 
 	private void createVillagersOrganization(World world) {
