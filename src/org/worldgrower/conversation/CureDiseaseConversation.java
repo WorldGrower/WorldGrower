@@ -25,7 +25,7 @@ import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
 
-public class MinorHealConversation implements Conversation {
+public class CureDiseaseConversation implements Conversation {
 
 	private static final int YES = 0;
 	private static final int NO = 1;
@@ -50,7 +50,7 @@ public class MinorHealConversation implements Conversation {
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		return Arrays.asList(
-			new Question(null, "Can you heal me?")
+			new Question(null, "Can you cure my diseases?")
 			);
 	}
 
@@ -69,7 +69,7 @@ public class MinorHealConversation implements Conversation {
 		World world = conversationContext.getWorld();
 		
 		if (replyIndex == YES) {
-			Actions.MINOR_HEAL_ACTION.execute(target, performer, new int[0], world);
+			Actions.CURE_DISEASE_ACTION.execute(target, performer, new int[0], world);
 		} else if (replyIndex == NO) {
 			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -20, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 		} else if (replyIndex == GET_LOST) {
@@ -82,14 +82,13 @@ public class MinorHealConversation implements Conversation {
 
 	@Override
 	public boolean isConversationAvailable(WorldObject performer, WorldObject target, WorldObject subject, World world) {
-		int hitPoints = performer.getProperty(Constants.HIT_POINTS).intValue();
-		int maxHitPoints = performer.getProperty(Constants.HIT_POINTS_MAX).intValue();
-		return (hitPoints < maxHitPoints) && Actions.MINOR_HEAL_ACTION.hasRequiredEnergy(target) && MagicSpellUtils.canCast(target, Actions.MINOR_HEAL_ACTION);
+		boolean performerIsDiseased = performer.getProperty(Constants.CONDITIONS).hasDiseaseCondition();
+		return performerIsDiseased && Actions.CURE_DISEASE_ACTION.hasRequiredEnergy(target) && MagicSpellUtils.canCast(target, Actions.CURE_DISEASE_ACTION);
 	}
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, World world) {
-		return "getting healed";
+		return "getting diseases cured";
 	}
 	
 	public boolean previousAnswerWasGetLost(List<Integer> previousResponseIds) {

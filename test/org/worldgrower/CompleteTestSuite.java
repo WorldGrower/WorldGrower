@@ -77,6 +77,7 @@ import org.worldgrower.conversation.UTestCollectPayCheckConversation;
 import org.worldgrower.conversation.UTestCollectTaxesConversation;
 import org.worldgrower.conversation.UTestComplimentConversation;
 import org.worldgrower.conversation.UTestConversations;
+import org.worldgrower.conversation.UTestCureDiseaseConversation;
 import org.worldgrower.conversation.UTestCurePoisonConversation;
 import org.worldgrower.conversation.UTestDeityFollowersConversation;
 import org.worldgrower.conversation.UTestDeityReasonConversation;
@@ -546,7 +547,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestLichTransformationAction.class,
 	UTestFillSoulGemGoal.class,
 	UTestBecomeLichGoal.class,
-	UTestCollectPayCheckConversation.class
+	UTestCollectPayCheckConversation.class,
+	UTestCureDiseaseConversation.class
 })
 public class CompleteTestSuite {
 }

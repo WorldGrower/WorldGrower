@@ -97,4 +97,8 @@ public class CureDiseaseAction implements MagicSpell {
 	public ImageIds getImageIds() {
 		return ImageIds.CURE_DISEASE;
 	}
+	
+	public boolean hasRequiredEnergy(WorldObject performer) {
+		return performer.getProperty(Constants.ENERGY) >= ENERGY_USE;
+	}
 }
