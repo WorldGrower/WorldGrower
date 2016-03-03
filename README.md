@@ -1,6 +1,6 @@
 # WorldGrower
 
-WorldGrower is a 2D turn-based simulator rpg focused on creating a detailed world, in which actions have consequences.
+WorldGrower is a 2D turn-based rpg simulator focused on creating a detailed world, in which actions have consequences.
 It focuses on skills, dialogue, economy and society.
 
 ## Table of contents
