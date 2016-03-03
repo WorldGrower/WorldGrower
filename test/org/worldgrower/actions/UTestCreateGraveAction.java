@@ -34,17 +34,21 @@ public class UTestCreateGraveAction {
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
+		addSkeletonToInventory(performer, world);
+		
+		Actions.CREATE_GRAVE_ACTION.execute(performer, target, new int[0], world);
+		
+		assertEquals(1, world.getWorldObjects().size());
+		assertEquals("grave", world.getWorldObjects().get(0).getProperty(Constants.NAME));
+	}
+
+	private void addSkeletonToInventory(WorldObject performer, World world) {
 		WorldObject skeletonWorldObject = createPerformer(8);
 		skeletonWorldObject.setProperty(Constants.DEATH_REASON, "");
 		int skeletonId = CommonerGenerator.generateSkeletalRemains(skeletonWorldObject, world);
 		WorldObject skeleton = world.findWorldObject(Constants.ID, skeletonId);
 		performer.getProperty(Constants.INVENTORY).add(skeleton);
 		world.removeWorldObject(skeleton);
-		
-		Actions.CREATE_GRAVE_ACTION.execute(performer, target, new int[0], world);
-		
-		assertEquals(1, world.getWorldObjects().size());
-		assertEquals("grave", world.getWorldObjects().get(0).getProperty(Constants.NAME));
 	}
 	
 	@Test
@@ -58,6 +62,16 @@ public class UTestCreateGraveAction {
 		
 		world.removeWorldObject(target);
 		assertEquals(true, Actions.CREATE_GRAVE_ACTION.isValidTarget(performer, target, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		
+		addSkeletonToInventory(performer, world);
+		
+		assertEquals(0, Actions.CREATE_GRAVE_ACTION.distance(performer, performer, new int[0], world));
 	}
 	
 	private WorldObject createPerformer(int id) {

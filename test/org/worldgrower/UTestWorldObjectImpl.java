@@ -27,6 +27,7 @@ import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.creaturetype.CreatureType;
+import org.worldgrower.curse.Curse;
 
 public class UTestWorldObjectImpl {
 
@@ -130,5 +131,19 @@ public class UTestWorldObjectImpl {
 	public void testCanWorldObjectPerformActionCutWood() {
 		WorldObject person = TestUtils.createIntelligentWorldObject(1, Constants.KNOWN_SPELLS, new ArrayList<>());
 		assertEquals(true, person.canWorldObjectPerformAction(Actions.CUT_WOOD_ACTION));
+	}
+	
+	@Test
+	public void testCanWorldObjectPerformTalkWhileCursed() {
+		WorldObject person = TestUtils.createIntelligentWorldObject(1, Constants.KNOWN_SPELLS, new ArrayList<>());
+		
+		person.setProperty(Constants.CURSE, Curse.WEREWOLF_CURSE);
+		assertEquals(false, person.canWorldObjectPerformAction(Actions.TALK_ACTION));
+		
+		person.setProperty(Constants.CURSE, Curse.VAMPIRE_CURSE);
+		assertEquals(true, person.canWorldObjectPerformAction(Actions.TALK_ACTION));
+		
+		person.setProperty(Constants.CURSE, null);
+		assertEquals(true, person.canWorldObjectPerformAction(Actions.TALK_ACTION));
 	}
 }

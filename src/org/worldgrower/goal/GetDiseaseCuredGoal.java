@@ -23,34 +23,33 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.conversation.Conversations;
 
-public class GetHealedGoal implements Goal {
+public class GetDiseaseCuredGoal implements Goal {
 
-	public GetHealedGoal(List<Goal> allGoals) {
+	public GetDiseaseCuredGoal(List<Goal> allGoals) {
 		allGoals.add(this);
 	}
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		if (MagicSpellUtils.canCast(performer, Actions.MINOR_HEAL_ACTION)) {
-			if (Actions.MINOR_HEAL_ACTION.hasRequiredEnergy(performer)) {
-				return new OperationInfo(performer, performer, new int[0], Actions.MINOR_HEAL_ACTION);
+		if (MagicSpellUtils.canCast(performer, Actions.CURE_DISEASE_ACTION)) {
+			if (Actions.CURE_DISEASE_ACTION.hasRequiredEnergy(performer)) {
+				return new OperationInfo(performer, performer, new int[0], Actions.CURE_DISEASE_ACTION);
 			} else {
 				return Goals.REST_GOAL.calculateGoal(performer, world);
 			}
 		} else {
-			
-			List<WorldObject> targets = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> isTargetForMinorHealConversation(performer, w, world));
+			List<WorldObject> targets = world.findWorldObjects(w -> isTargetForCureDiseaseConversation(performer, w, world));
 			if (targets.size() > 0) {
-				return new OperationInfo(performer, targets.get(0), Conversations.createArgs(Conversations.MINOR_HEAL_CONVERSATION), Actions.TALK_ACTION);
+				return new OperationInfo(performer, targets.get(0), Conversations.createArgs(Conversations.CURE_DISEASE_CONVERSATION), Actions.TALK_ACTION);
 			}
 		}
 		return null;
 	}
 	
-	private boolean isTargetForMinorHealConversation(WorldObject performer, WorldObject target, World world) {
-		return MagicSpellUtils.canCast(target, Actions.MINOR_HEAL_ACTION) 
+	private boolean isTargetForCureDiseaseConversation(WorldObject performer, WorldObject target, World world) {
+		return MagicSpellUtils.canCast(target, Actions.CURE_DISEASE_ACTION) 
 				&& !GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, target)
-				&& !Conversations.MINOR_HEAL_CONVERSATION.previousAnswerWasGetLost(Conversations.MINOR_HEAL_CONVERSATION.getPreviousResponseIds(performer, target, world));
+				&& !Conversations.CURE_DISEASE_CONVERSATION.previousAnswerWasGetLost(Conversations.CURE_DISEASE_CONVERSATION.getPreviousResponseIds(performer, target, world));
 	}
 	
 	@Override
@@ -59,9 +58,7 @@ public class GetHealedGoal implements Goal {
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		int hitPoints = performer.getProperty(Constants.HIT_POINTS).intValue();
-		int maxHitPoints = performer.getProperty(Constants.HIT_POINTS_MAX).intValue();
-		return hitPoints == maxHitPoints;
+		return !performer.getProperty(Constants.CONDITIONS).hasDiseaseCondition();
 	}
 	
 	@Override
@@ -71,11 +68,11 @@ public class GetHealedGoal implements Goal {
 
 	@Override
 	public String getDescription() {
-		return "looking to get healed";
+		return "looking to have diseases cured";
 	}
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		return performer.getProperty(Constants.HIT_POINTS).intValue();
+		return (!performer.getProperty(Constants.CONDITIONS).hasDiseaseCondition()) ? 1 : 0;
 	}
 }

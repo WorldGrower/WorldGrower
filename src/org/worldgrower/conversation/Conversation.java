@@ -16,6 +16,7 @@ package org.worldgrower.conversation;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
@@ -58,4 +59,9 @@ public interface Conversation extends Serializable {
 	public void handleResponse(int replyIndex, ConversationContext conversationContext);
 
 	public String getDescription(WorldObject performer, WorldObject target, World world);
+	
+	public default List<Integer> getPreviousResponseIds(WorldObject performer, WorldObject target, World world) {
+		List<HistoryItem> historyItems = world.getHistory().findHistoryItemsForAnyPerformer(performer, target, Conversations.createArgs(this), Actions.TALK_ACTION);
+		return historyItems.stream().map(h -> (Integer)h.getAdditionalValue()).collect(Collectors.toList());
+	}
 }

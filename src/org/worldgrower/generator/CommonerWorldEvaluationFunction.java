@@ -44,6 +44,7 @@ public class CommonerWorldEvaluationFunction implements WorldObjectPriorities {
 				Goals.FIGHT_IN_ARENA_GOAL,
 				Goals.GET_POISON_CURED_GOAL,
 				Goals.GET_HEALED_GOAL,
+				Goals.GET_DISEASE_CURED_GOAL,
 				Goals.PROTECT_ONSE_SELF_GOAL, 
 				Goals.FOOD_GOAL, 
 				Goals.DRINK_WATER_GOAL,
