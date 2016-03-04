@@ -73,7 +73,7 @@ public class Apollo implements Deity {
 
 	@Override
 	public List<Goal> getOrganizationGoals() {
-		return Arrays.asList(Goals.DESTROY_SHRINES_TO_OTHER_DEITIES_GOAL, Goals.HEAL_OTHERS_GOAL);
+		return addDefaultOrganizationGoals(Goals.HEAL_OTHERS_GOAL);
 	}
 	
 	@Override

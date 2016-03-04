@@ -53,7 +53,7 @@ public class Athena implements Deity {
 	
 	@Override
 	public List<Goal> getOrganizationGoals() {
-		return Arrays.asList(Goals.DESTROY_SHRINES_TO_OTHER_DEITIES_GOAL, Goals.RESEARCH_MAGIC_SKILLS_KNOWLEDGE_GOAL);
+		return addDefaultOrganizationGoals(Goals.RESEARCH_MAGIC_SKILLS_KNOWLEDGE_GOAL);
 	}
 
 	@Override

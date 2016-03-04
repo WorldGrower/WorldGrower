@@ -58,7 +58,7 @@ public class Demeter implements Deity {
 	
 	@Override
 	public List<Goal> getOrganizationGoals() {
-		return Arrays.asList(Goals.DESTROY_SHRINES_TO_OTHER_DEITIES_GOAL, Goals.FEED_OTHERS_GOAL);
+		return addDefaultOrganizationGoals(Goals.FEED_OTHERS_GOAL);
 	}
 	
 	

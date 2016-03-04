@@ -76,7 +76,7 @@ public class Hades implements Deity {
 
 	@Override
 	public List<Goal> getOrganizationGoals() {
-		return Arrays.asList(Goals.DESTROY_SHRINES_TO_OTHER_DEITIES_GOAL, Goals.HUNT_UNDEAD_GOAL);
+		return addDefaultOrganizationGoals(Goals.HUNT_UNDEAD_GOAL);
 	}
 	
 	@Override

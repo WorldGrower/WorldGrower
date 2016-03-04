@@ -66,7 +66,7 @@ public class Ares implements Deity {
 
 	@Override
 	public List<Goal> getOrganizationGoals() {
-		return Arrays.asList(Goals.DESTROY_SHRINES_TO_OTHER_DEITIES_GOAL, Goals.SACRIFICE_PEOPLE_TO_DEITY_GOAL);
+		return addDefaultOrganizationGoals(Goals.SACRIFICE_PEOPLE_TO_DEITY_GOAL);
 	}
 	
 

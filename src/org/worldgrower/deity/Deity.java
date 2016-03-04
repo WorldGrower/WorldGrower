@@ -16,6 +16,7 @@ package org.worldgrower.deity;
 
 import java.io.ObjectStreamException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -73,7 +74,14 @@ public interface Deity extends Serializable {
 	
 	//For now, default implementation
 	public default List<Goal> getOrganizationGoals() {
-		return Arrays.asList(Goals.DESTROY_SHRINES_TO_OTHER_DEITIES_GOAL);
+		return addDefaultOrganizationGoals();
+	}
+	
+	public default List<Goal> addDefaultOrganizationGoals(Goal... goals) {
+		List<Goal> goalsList = new ArrayList<>(Arrays.asList(goals));
+		goalsList.add(Goals.DESTROY_SHRINES_TO_OTHER_DEITIES_GOAL);
+		goalsList.add(Goals.SWITCH_DEITY_GOAL);
+		return goalsList;
 	}
 	
 	//For now, default implementation
