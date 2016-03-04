@@ -138,4 +138,5 @@ public class Goals {
 	public static final FillSoulGemGoal FILL_SOUL_GEM_GOAL = new FillSoulGemGoal(ALL_GOALS);
 	public static final BecomeLichGoal BECOME_LICH_GOAL = new BecomeLichGoal(ALL_GOALS);
 	public static final GetDiseaseCuredGoal GET_DISEASE_CURED_GOAL = new GetDiseaseCuredGoal(ALL_GOALS);
+	public static final SwitchDeityGoal SWITCH_DEITY_GOAL = new SwitchDeityGoal(ALL_GOALS);
 }

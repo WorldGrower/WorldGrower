@@ -47,6 +47,47 @@ public class UTestWhoIsLeaderOrganizationConversation {
 	}
 	
 	@Test
+	public void testGetReplyPhrasesPerformerLeader() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		WorldObject organization = GroupPropertyUtils.create(performer.getProperty(Constants.ID), "OrgName", world);
+		world.addWorldObject(performer);
+		
+		ConversationContext context = new ConversationContext(performer, target, organization, null, world, 0);
+		List<Response> replyPhrases = conversation.getReplyPhrases(context);
+		assertEquals("You are the leader of the OrgName", replyPhrases.get(0).getResponsePhrase());
+	}
+	
+	@Test
+	public void testGetReplyPhrasesTargetLeader() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		WorldObject organization = GroupPropertyUtils.create(target.getProperty(Constants.ID), "OrgName", world);
+		world.addWorldObject(target);
+		
+		ConversationContext context = new ConversationContext(performer, target, organization, null, world, 0);
+		List<Response> replyPhrases = conversation.getReplyPhrases(context);
+		assertEquals("I'm the leader of the OrgName", replyPhrases.get(0).getResponsePhrase());
+	}
+	
+	@Test
+	public void testGetReplyPhrasesLeader() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		WorldObject leader = TestUtils.createIntelligentWorldObject(3, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		leader.setProperty(Constants.NAME, "leader");
+		WorldObject organization = GroupPropertyUtils.create(leader.getProperty(Constants.ID), "OrgName", world);
+		world.addWorldObject(leader);
+		
+		ConversationContext context = new ConversationContext(performer, target, organization, null, world, 0);
+		List<Response> replyPhrases = conversation.getReplyPhrases(context);
+		assertEquals("leader is the leader of the OrgName", replyPhrases.get(0).getResponsePhrase());
+	}
+	
+	@Test
 	public void testGetReplyPhrase() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());

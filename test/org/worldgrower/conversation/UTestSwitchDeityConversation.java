@@ -93,4 +93,16 @@ public class UTestSwitchDeityConversation {
 		assertEquals(-50, performer.getProperty(Constants.RELATIONSHIPS).getValue(target));
 		assertEquals(-50, target.getProperty(Constants.RELATIONSHIPS).getValue(performer));
 	}
+	
+	@Test
+	public void testIsConversationAvailable() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.DEITY, Deity.HADES);
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.DEITY, Deity.DEMETER);
+		
+		assertEquals(true, conversation.isConversationAvailable(performer, target, null, world));
+		
+		target.setProperty(Constants.DEITY, Deity.HADES);
+		assertEquals(false, conversation.isConversationAvailable(performer, target, null, world));
+	}
 }
