@@ -23,7 +23,9 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.condition.WorldStateChangedListeners;
+import org.worldgrower.goal.Goals;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.personality.PersonalityTrait;
 import org.worldgrower.profession.Professions;
 
 public class Poseidon implements Deity {
@@ -55,6 +57,14 @@ public class Poseidon implements Deity {
 			return 0;
 		}
 		
+		return -1;
+	}
+	
+	@Override
+	public int getOrganizationGoalIndex(WorldObject performer, World world) {
+		if (performer.getProperty(Constants.PERSONALITY).getValue(PersonalityTrait.POWER_HUNGRY) > 0) {
+			return getOrganizationGoals().indexOf(Goals.SWITCH_DEITY_GOAL);
+		}
 		return -1;
 	}
 	

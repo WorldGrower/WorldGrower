@@ -44,4 +44,5 @@ public interface PersonalityTrait extends Serializable {
 	public static final PersonalityTrait GREEDY = new GreedyTrait(ALL_TRAITS);
 	public static final PersonalityTrait POWER_HUNGRY = new PowerHungryTrait(ALL_TRAITS);
 	public static final PersonalityTrait HONORABLE = new HonorableTrait(ALL_TRAITS);
+	public static final PersonalityTrait FORGIVING = new ForgivingTrait(ALL_TRAITS);
 }
