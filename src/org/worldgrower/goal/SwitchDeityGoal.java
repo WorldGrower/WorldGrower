@@ -40,16 +40,18 @@ public class SwitchDeityGoal implements Goal {
 	}
 	
 	private List<WorldObject> findPotentialTargets(WorldObject performer, World world) {
-		List<WorldObject> potentialTargets = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> isPotentialTarget(performer, w));
+		List<WorldObject> potentialTargets = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> isPotentialTarget(performer, w, world));
 		return potentialTargets;
 	}
 	
-	private boolean isPotentialTarget(WorldObject performer, WorldObject w) {
+	private boolean isPotentialTarget(WorldObject performer, WorldObject w, World world) {
 		return performer.getProperty(Constants.DEITY) != null
 				&& w.getProperty(Constants.DEITY) != null
-				&& performer.getProperty(Constants.DEITY) != w.getProperty(Constants.DEITY);
+				&& performer.getProperty(Constants.DEITY) != w.getProperty(Constants.DEITY)
+				&& !GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, w)
+				&& !Conversations.SWITCH_DEITY_CONVERSATION.previousAnswerWasGetLost(Conversations.SWITCH_DEITY_CONVERSATION.getPreviousResponseIds(performer, w, world));
 	}
-
+	
 	@Override
 	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
 	}

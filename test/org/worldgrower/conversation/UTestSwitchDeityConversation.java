@@ -24,8 +24,6 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.IdList;
-import org.worldgrower.attribute.IdRelationshipMap;
 import org.worldgrower.deity.Deity;
 
 public class UTestSwitchDeityConversation {
@@ -40,9 +38,10 @@ public class UTestSwitchDeityConversation {
 		
 		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
-		assertEquals(2, replyPhrases.size());
+		assertEquals(3, replyPhrases.size());
 		assertEquals("Yes, I'll worship Hades instead of Demeter.", replyPhrases.get(0).getResponsePhrase());
 		assertEquals("No", replyPhrases.get(1).getResponsePhrase());
+		assertEquals("Get lost", replyPhrases.get(2).getResponsePhrase());
 	}
 
 	@Test
@@ -92,6 +91,19 @@ public class UTestSwitchDeityConversation {
 		conversation.handleResponse(1, context);
 		assertEquals(-50, performer.getProperty(Constants.RELATIONSHIPS).getValue(target));
 		assertEquals(-50, target.getProperty(Constants.RELATIONSHIPS).getValue(performer));
+	}
+	
+	@Test
+	public void testHandleResponse2() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.DEITY, Deity.HADES);
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.DEITY, Deity.DEMETER);
+		
+		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
+		
+		conversation.handleResponse(2, context);
+		assertEquals(-100, performer.getProperty(Constants.RELATIONSHIPS).getValue(target));
+		assertEquals(-100, target.getProperty(Constants.RELATIONSHIPS).getValue(performer));
 	}
 	
 	@Test

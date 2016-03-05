@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.deity.Deity;
 
@@ -70,6 +71,7 @@ public class UTestSwitchDeityGoal {
 		performer.setProperty(Constants.Y, 0);
 		performer.setProperty(Constants.WIDTH, 1);
 		performer.setProperty(Constants.HEIGHT, 1);
+		performer.setProperty(Constants.GROUP, new IdList().add(7));
 		return performer;
 	}
 }
