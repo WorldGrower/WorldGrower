@@ -65,7 +65,7 @@ public class EnlargeAction implements MagicSpell {
 
 	@Override
 	public String getRequirementsDescription() {
-		return CraftUtils.getRequirementsDescription(Constants.ENERGY, ENERGY_USE, Constants.DISTANCE, DISTANCE, "need enough room to enlarge");
+		return CraftUtils.getRequirementsDescription(Constants.ENERGY, ENERGY_USE, Constants.DISTANCE, DISTANCE, "need enough room to enlarge", "free left hand");
 	}
 	
 	@Override

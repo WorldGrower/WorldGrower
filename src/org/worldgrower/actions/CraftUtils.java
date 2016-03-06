@@ -82,6 +82,10 @@ public class CraftUtils {
 	public static String getRequirementsDescription(IntProperty property, int quantity, IntProperty property2, int quantity2, String description) {
 		return getRequirementsDescription(property, quantity, property2, quantity2) + ", " + description;
 	}
+	
+	public static String getRequirementsDescription(IntProperty property, int quantity, IntProperty property2, int quantity2, String description, String description2) {
+		return getRequirementsDescription(property, quantity, property2, quantity2) + ", " + description + ", " + description2;
+	}
 
 	public static String getRequirementsDescription(IntProperty property, int quantity, String description) {
 		return getRequirementsDescription(property, quantity) + ", " + description;

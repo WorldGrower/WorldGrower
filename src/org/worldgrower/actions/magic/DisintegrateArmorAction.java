@@ -55,7 +55,7 @@ public class DisintegrateArmorAction implements MagicSpell {
 	
 	@Override
 	public String getRequirementsDescription() {
-		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, DISTANCE, Constants.ENERGY, ENERGY_USE);
+		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, DISTANCE, Constants.ENERGY, ENERGY_USE, "free left hand");
 	}
 	
 	@Override

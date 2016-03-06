@@ -49,7 +49,7 @@ public class RayOfFrostAttackAction implements MagicSpell, DeadlyAction {
 	
 	@Override
 	public String getRequirementsDescription() {
-		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, DISTANCE);
+		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, DISTANCE, "free left hand");
 	}
 	
 	@Override

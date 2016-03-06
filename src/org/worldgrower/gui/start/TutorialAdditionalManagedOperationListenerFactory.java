@@ -69,7 +69,7 @@ public class TutorialAdditionalManagedOperationListenerFactory implements Additi
 			} else if (managedOperation == Actions.BUILD_LIBRARY_ACTION) {	
 				MessageDialogUtils.showMessage("Let's learn firebolt, move next to the library and right-click and choose research firebolt", "Researching firebolt", performer, container, imageInfoReader);
 			} else if (managedOperation == Actions.getResearchSpellActionFor(Actions.FIRE_BOLT_ATTACK_ACTION)) {
-				MessageDialogUtils.showMessage("Spells known to your characters are shown in the magic overview. \nPress the M key or right-click on the character and choose Magic Overview to show the magic overview. \nOnce you've learned firebolt, shoot a firebolt at the tree.", "Eating food", performer, container, imageInfoReader);
+				MessageDialogUtils.showMessage("Spells known to your characters are shown in the magic overview. \nPress the M key or right-click on the character and choose Magic Overview to show the magic overview. \nOnce you've learned firebolt and have no weapon equiped, shoot a firebolt at the tree.", "Eating food", performer, container, imageInfoReader);
 			} else if (managedOperation == Actions.FIRE_BOLT_ATTACK_ACTION) {
 				MessageDialogUtils.showMessage("Now that you know the basic actions, you can start a new game. \nClose any dialog windows, press the escape key to bring up the main menu and start a non-tutorial game.", "Talking", target, container, imageInfoReader);
 			}
