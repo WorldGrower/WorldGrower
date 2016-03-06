@@ -18,6 +18,9 @@ import java.io.Serializable;
 
 import org.worldgrower.ManagedOperation;
 
+/**
+ * A LegalAction describes whether a certain action is legal
+ */
 public final class LegalAction implements Serializable {
 
 	private final ManagedOperation action;

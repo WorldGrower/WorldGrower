@@ -21,6 +21,9 @@ import java.util.List;
 
 import org.worldgrower.WorldObject;
 
+/**
+ * A PersonalityTrait indicates how an NPC goes about achieving its goal.
+ */
 public interface PersonalityTrait extends Serializable {
 
 	public static final List<PersonalityTrait> ALL_TRAITS = new ArrayList<>();
@@ -44,5 +47,7 @@ public interface PersonalityTrait extends Serializable {
 	public static final PersonalityTrait GREEDY = new GreedyTrait(ALL_TRAITS);
 	public static final PersonalityTrait POWER_HUNGRY = new PowerHungryTrait(ALL_TRAITS);
 	public static final PersonalityTrait HONORABLE = new HonorableTrait(ALL_TRAITS);
+	
+	//TODO: implement
 	public static final PersonalityTrait FORGIVING = new ForgivingTrait(ALL_TRAITS);
 }

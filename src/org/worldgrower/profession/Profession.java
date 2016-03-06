@@ -22,6 +22,9 @@ import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.generator.Item;
 import org.worldgrower.goal.Goal;
 
+/**
+ * A profession describes the activities and skills an NPC possesses in order to contribute to society
+ */
 public interface Profession extends Serializable {
 	public String getDescription();
 	public List<Goal> getProfessionGoals();

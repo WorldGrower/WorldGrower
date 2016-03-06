@@ -25,6 +25,9 @@ import java.util.Map;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.WorldObject;
 
+/**
+ * LegalActions determine for each LegalAction whether it is legal or not
+ */
 public class LegalActions implements Serializable {
 
 	private final Map<LegalAction, Boolean> legalActions = new HashMap<>();

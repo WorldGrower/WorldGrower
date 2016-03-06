@@ -18,6 +18,9 @@ import java.io.Serializable;
 
 import org.worldgrower.WorldObject;
 
+/**
+ * An ActionLegalHandler determines how a performed action maps to a legal action.
+ */
 public interface ActionLegalHandler extends Serializable {
 
 	public boolean isApplicable(WorldObject performer, WorldObject target, int[] args);

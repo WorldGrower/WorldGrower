@@ -20,6 +20,9 @@ import java.util.List;
 
 import org.worldgrower.WorldObject;
 
+/**
+ * A Personality describes the personality traits of an NPC.
+ */
 public class Personality implements Serializable {
 
 	private final List<PersonalityTraitValue> personalityTraitValues = new ArrayList<>();

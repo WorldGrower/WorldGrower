@@ -28,6 +28,9 @@ import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
 import org.worldgrower.gui.ImageIds;
 
+/**
+ * A Deity is an entity which can be worshiped and has represents aspects of reality.
+ */
 public interface Deity extends Serializable {
 
 	public String getName();
