@@ -31,6 +31,7 @@ import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdRelationshipMap;
 import org.worldgrower.attribute.KnowledgeMap;
 import org.worldgrower.conversation.Conversations;
+import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.history.Turn;
 
 public class UTestSocializeGoal {
@@ -129,10 +130,28 @@ public class UTestSocializeGoal {
 	
 	@Test
 	public void testCalculateGoalNull() {
-		
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, "performer");
 		
 		assertEquals(null, goal.calculateGoal(performer, world));
+	}
+	
+	@Test
+	public void testCalculateGoalFirstConversation() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, "performer");
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, "target");
+		
+		performer.setProperty(Constants.GROUP, new IdList().add(7));
+		target.setProperty(Constants.GROUP, new IdList().add(7));
+		
+		performer.setProperty(Constants.CREATURE_TYPE, CreatureType.HUMAN_CREATURE_TYPE);
+		target.setProperty(Constants.CREATURE_TYPE, CreatureType.HUMAN_CREATURE_TYPE);
+		
+		world.addWorldObject(performer);
+		world.addWorldObject(target);
+		
+		assertEquals(Actions.TALK_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+		AssertUtils.assertConversation(goal.calculateGoal(performer, world), Conversations.NAME_CONVERSATION);
 	}
 }
