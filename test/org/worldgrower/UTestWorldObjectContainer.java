@@ -130,6 +130,8 @@ public class UTestWorldObjectContainer {
 		container.addQuantity(Item.BERRIES.generate(1f), 10);
 		
 		assertEquals(0, container.getIndexFor(Constants.NAME, "Test", w -> w.getProperty(Constants.ID) == 1));
+		assertEquals(-1, container.getIndexFor(Constants.NAME, "Test2", w -> w.getProperty(Constants.ID) == 1));
+		assertEquals(-1, container.getIndexFor(Constants.NAME, "Test", w -> w.getProperty(Constants.ID) != 1));
 	}
 	
 	@Test
@@ -139,6 +141,8 @@ public class UTestWorldObjectContainer {
 		container.addQuantity(Item.BERRIES.generate(1f), 10);
 		
 		assertEquals(0, container.getIndexFor(Constants.EQUIPMENT_SLOT, Constants.TORSO_EQUIPMENT, w -> w.getProperty(Constants.ARMOR) > 0));
+		assertEquals(-1, container.getIndexFor(Constants.NAME, "Test", w -> w.getProperty(Constants.ARMOR) > 0));
+		assertEquals(-1, container.getIndexFor(Constants.EQUIPMENT_SLOT, Constants.TORSO_EQUIPMENT, w -> w.getProperty(Constants.ARMOR) == 0));
 	}
 	
 	@Test
@@ -190,5 +194,16 @@ public class UTestWorldObjectContainer {
 		
 		container.removeQuantity(0, 1);
 		assertEquals(null, container.get(0));
+	}
+	
+	@Test
+	public void testSetProperty() {
+		WorldObjectContainer container = new WorldObjectContainer();
+		container.addQuantity(Item.WOOD.generate(1f), 2);
+		
+		assertEquals(1, container.get(0).getProperty(Constants.PRICE).intValue());
+		
+		container.setProperty(0, Constants.PRICE, 2);
+		assertEquals(2, container.get(0).getProperty(Constants.PRICE).intValue());
 	}
 }

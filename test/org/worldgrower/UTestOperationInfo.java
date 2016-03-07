@@ -33,6 +33,41 @@ public class UTestOperationInfo {
 	}
 	
 	@Test
+	public void testConstructorTargetNull() {
+		try {
+			WorldObject performer = TestUtils.createIntelligentWorldObject(1, "performer");
+			new OperationInfo(performer, null, null, null);
+			fail("method should fail");
+		} catch(IllegalArgumentException ex) {
+			assertEquals("target is null", ex.getMessage());
+		}
+	}
+	
+	@Test
+	public void testConstructorArgsNull() {
+		try {
+			WorldObject performer = TestUtils.createIntelligentWorldObject(1, "performer");
+			WorldObject target = TestUtils.createIntelligentWorldObject(2, "target");
+			new OperationInfo(performer, target, null, null);
+			fail("method should fail");
+		} catch(IllegalArgumentException ex) {
+			assertEquals("args is null", ex.getMessage());
+		}
+	}
+	
+	@Test
+	public void testConstructorActionNull() {
+		try {
+			WorldObject performer = TestUtils.createIntelligentWorldObject(1, "performer");
+			WorldObject target = TestUtils.createIntelligentWorldObject(2, "target");
+			new OperationInfo(performer, target, new int[0], null);
+			fail("method should fail");
+		} catch(IllegalArgumentException ex) {
+			assertEquals("managedOperation is null", ex.getMessage());
+		}
+	}
+	
+	@Test
 	public void testSearchAnyPerformer() {
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, "performer");
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, "target");

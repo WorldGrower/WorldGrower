@@ -19,6 +19,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.WorldObject;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 import static org.worldgrower.TestUtils.createWorldObject;
 
 public class UTestReach {
@@ -68,5 +69,45 @@ public class UTestReach {
 		assertEquals(1, Reach.distance(performer, createWorldObject(2, 3, 1, 1)));
 		assertEquals(1, Reach.distance(performer, createWorldObject(3, 3, 1, 1)));
 		assertEquals(2, Reach.distance(performer, createWorldObject(4, 4, 1, 1)));
+	}
+	
+	@Test
+	public void testEvaluateTargetPerformerNull() {
+		try {
+			assertEquals(0, Reach.evaluateTarget(null, null, createWorldObject(3, 3, 1, 1), 1));
+			fail("method should fail");
+		} catch(IllegalArgumentException e) {
+			assertEquals("performer is null", e.getMessage());
+		}
+	}
+	
+	@Test
+	public void testEvaluateTargetTargetNull() {
+		try {
+			assertEquals(0, Reach.evaluateTarget(createWorldObject(3, 3, 1, 1), null, null, 1));
+			fail("method should fail");
+		} catch(IllegalArgumentException e) {
+			assertEquals("target is null", e.getMessage());
+		}
+	}
+	
+	@Test
+	public void testDistancePerformerNull() {
+		try {
+			assertEquals(0, Reach.distance(null, createWorldObject(2, 2, 1, 1)));
+			fail("method should fail");
+		} catch(IllegalArgumentException e) {
+			assertEquals("performer is null", e.getMessage());
+		}
+	}
+	
+	@Test
+	public void testDistanceTargetNull() {
+		try {
+			assertEquals(0, Reach.distance(createWorldObject(2, 2, 1, 1), null));
+			fail("method should fail");
+		} catch(IllegalArgumentException e) {
+			assertEquals("target is null", e.getMessage());
+		}
 	}
 }
