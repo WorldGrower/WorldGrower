@@ -121,6 +121,8 @@ import org.worldgrower.conversation.leader.UTestCanAttackCriminalsConversation;
 import org.worldgrower.conversation.leader.UTestCanCollectTaxesConversation;
 import org.worldgrower.conversation.leader.UTestSetHouseTaxRateConversation;
 import org.worldgrower.conversation.leader.UTestSetShackTaxRateConversation;
+import org.worldgrower.curse.UTestVampireCurse;
+import org.worldgrower.curse.UTestWerewolfCurse;
 import org.worldgrower.deity.UTestApollo;
 import org.worldgrower.deity.UTestArtemis;
 import org.worldgrower.deity.UTestAthena;
@@ -550,7 +552,9 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestCollectPayCheckConversation.class,
 	UTestCureDiseaseConversation.class,
 	UTestGetDiseaseCuredGoal.class,
-	UTestSwitchDeityGoal.class
+	UTestSwitchDeityGoal.class,
+	UTestVampireCurse.class,
+	UTestWerewolfCurse.class
 })
 public class CompleteTestSuite {
 }
