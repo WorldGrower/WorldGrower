@@ -179,6 +179,61 @@ public class UTestChooseProfessionAction {
 		assertEquals(true, action.isValidTarget(performer, performer, world));
 		assertEquals(false, action.isValidTarget(performer, target, world));
 	}
+	
+	@Test
+	public void testGetReasonNoProfessionEvaluation() {
+		List<ProfessionEvaluation> professionEvaluationsByPerformer = new ArrayList<>();
+		List<ProfessionEvaluation> professionEvaluationsByCompetition = new ArrayList<>();
+		List<ProfessionEvaluation> professionEvaluationsByDemand = new ArrayList<>();
+		List<ProfessionEvaluation> professionEvaluationsByBackground = new ArrayList<>();
+		
+		assertEquals("It just seemed like a good idea to become a farmer", ChooseProfessionAction.getReason(Professions.FARMER_PROFESSION, professionEvaluationsByPerformer, professionEvaluationsByCompetition, professionEvaluationsByDemand, professionEvaluationsByBackground));
+	}
+	
+	@Test
+	public void testGetReasonSkilled() {
+		List<ProfessionEvaluation> professionEvaluationsByPerformer = new ArrayList<>();
+		List<ProfessionEvaluation> professionEvaluationsByCompetition = new ArrayList<>();
+		List<ProfessionEvaluation> professionEvaluationsByDemand = new ArrayList<>();
+		List<ProfessionEvaluation> professionEvaluationsByBackground = new ArrayList<>();
+		
+		professionEvaluationsByPerformer.add(new ProfessionEvaluation(Professions.FARMER_PROFESSION, 5));
+		assertEquals("I choose to become a farmer because I'm good at it", ChooseProfessionAction.getReason(Professions.FARMER_PROFESSION, professionEvaluationsByPerformer, professionEvaluationsByCompetition, professionEvaluationsByDemand, professionEvaluationsByBackground));
+	}
+	
+	@Test
+	public void testGetReasonNoCompetition() {
+		List<ProfessionEvaluation> professionEvaluationsByPerformer = new ArrayList<>();
+		List<ProfessionEvaluation> professionEvaluationsByCompetition = new ArrayList<>();
+		List<ProfessionEvaluation> professionEvaluationsByDemand = new ArrayList<>();
+		List<ProfessionEvaluation> professionEvaluationsByBackground = new ArrayList<>();
+		
+		professionEvaluationsByCompetition.add(new ProfessionEvaluation(Professions.FARMER_PROFESSION, 5));
+		assertEquals("I choose to become a farmer because there isn't much competition for it", ChooseProfessionAction.getReason(Professions.FARMER_PROFESSION, professionEvaluationsByPerformer, professionEvaluationsByCompetition, professionEvaluationsByDemand, professionEvaluationsByBackground));
+	}
+	
+	@Test
+	public void testGetReasonDemand() {
+		List<ProfessionEvaluation> professionEvaluationsByPerformer = new ArrayList<>();
+		List<ProfessionEvaluation> professionEvaluationsByCompetition = new ArrayList<>();
+		List<ProfessionEvaluation> professionEvaluationsByDemand = new ArrayList<>();
+		List<ProfessionEvaluation> professionEvaluationsByBackground = new ArrayList<>();
+		
+		professionEvaluationsByDemand.add(new ProfessionEvaluation(Professions.FARMER_PROFESSION, 5));
+		assertEquals("I choose to become a farmer because there is a demand for it", ChooseProfessionAction.getReason(Professions.FARMER_PROFESSION, professionEvaluationsByPerformer, professionEvaluationsByCompetition, professionEvaluationsByDemand, professionEvaluationsByBackground));
+	}
+	
+	@Test
+	public void testGetReasonSkilledAndNoCompetition() {
+		List<ProfessionEvaluation> professionEvaluationsByPerformer = new ArrayList<>();
+		List<ProfessionEvaluation> professionEvaluationsByCompetition = new ArrayList<>();
+		List<ProfessionEvaluation> professionEvaluationsByDemand = new ArrayList<>();
+		List<ProfessionEvaluation> professionEvaluationsByBackground = new ArrayList<>();
+		
+		professionEvaluationsByPerformer.add(new ProfessionEvaluation(Professions.FARMER_PROFESSION, 5));
+		professionEvaluationsByCompetition.add(new ProfessionEvaluation(Professions.FARMER_PROFESSION, 5));
+		assertEquals("I choose to become a farmer because there isn't much competition for that profession and I'm good at it", ChooseProfessionAction.getReason(Professions.FARMER_PROFESSION, professionEvaluationsByPerformer, professionEvaluationsByCompetition, professionEvaluationsByDemand, professionEvaluationsByBackground));
+	}
 
 	private void createVillagersOrganization(World world) {
 		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);

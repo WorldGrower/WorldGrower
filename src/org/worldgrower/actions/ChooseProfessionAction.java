@@ -135,7 +135,7 @@ public class ChooseProfessionAction implements ManagedOperation {
 		}
 	}
 	
-	private String getReason(
+	static String getReason(
 			Profession bestProfession,
 			List<ProfessionEvaluation> professionEvaluationsByPerformer,
 			List<ProfessionEvaluation> professionEvaluationsByCompetition,
@@ -147,12 +147,17 @@ public class ChooseProfessionAction implements ManagedOperation {
 		int indexOfBestProfessionByDemand = findIndexOfName(bestProfession.getDescription(), professionEvaluationsByDemand);
 		int indexOfBestProfessionByBackground = findIndexOfName(bestProfession.getDescription(), professionEvaluationsByBackground);
 		
+		indexOfBestProfessionByPerformer = normalizeIndex(indexOfBestProfessionByPerformer);
+		indexOfBestProfessionByCompetition = normalizeIndex(indexOfBestProfessionByCompetition);
+		indexOfBestProfessionByDemand = normalizeIndex(indexOfBestProfessionByDemand);
+		indexOfBestProfessionByBackground = normalizeIndex(indexOfBestProfessionByBackground);
+		
 		//TODO: compare with professionEvaluationsByDemand
 		if (indexOfBestProfessionByBackground == 0) {
 			return "I choose to become a " + bestProfession.getDescription() + " because of my background";
 		} else if (indexOfBestProfessionByPerformer == 0 && indexOfBestProfessionByCompetition == 0) {
 			return "I choose to become a " + bestProfession.getDescription() + " because there isn't much competition for that profession and I'm good at it";
-		} else if (indexOfBestProfessionByPerformer < indexOfBestProfessionByCompetition) {
+		} else if (indexOfBestProfessionByPerformer < indexOfBestProfessionByCompetition || (indexOfBestProfessionByPerformer == 0)) {
 			return "I choose to become a " + bestProfession.getDescription() + " because I'm good at it";
 		} else if (indexOfBestProfessionByCompetition < indexOfBestProfessionByPerformer) {
 			return "I choose to become a " + bestProfession.getDescription() + " because there isn't much competition for it";
@@ -161,6 +166,10 @@ public class ChooseProfessionAction implements ManagedOperation {
 		}
 		
 		return "It just seemed like a good idea to become a " + bestProfession.getDescription();
+	}
+	
+	private static int normalizeIndex(int index) {
+		return (index != -1 ? index : Integer.MAX_VALUE);
 	}
 
 	static List<ProfessionEvaluation> merge(List<ProfessionEvaluation> list1, List<ProfessionEvaluation> list2) {
