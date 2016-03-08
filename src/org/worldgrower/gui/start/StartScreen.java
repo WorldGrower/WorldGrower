@@ -21,7 +21,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
@@ -190,7 +192,9 @@ public class StartScreen {
 				JFrame parentFrame = new JFrame();
 
 				JFileChooser fileChooser = new JFileChooser();
-				fileChooser.setDialogTitle("Specify a file to save");    
+				fileChooser.setDialogTitle("Specify a file to save");
+				String defaultFilename = getDefaultFilename();
+				fileChooser.setSelectedFile(new File(defaultFilename));
 
 				int userSelection = fileChooser.showSaveDialog(parentFrame);
 
@@ -198,6 +202,12 @@ public class StartScreen {
 				    File fileToSave = fileChooser.getSelectedFile();
 				    saveGame(fileToSave);
 				}
+			}
+
+			private String getDefaultFilename() {
+				Date currentTime = new Date();
+				SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
+				return format.format(currentTime) + ".sav";
 			}
 		});
 		frame.addComponent(btnSaveGame);
