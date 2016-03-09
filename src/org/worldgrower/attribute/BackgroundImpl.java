@@ -30,46 +30,35 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.creaturetype.CreatureTypeUtils;
-import org.worldgrower.deity.Deity;
+import org.worldgrower.goal.ChildrenPropertyUtils;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
 import org.worldgrower.history.HistoryItem;
+import org.worldgrower.profession.Professions;
 
 public class BackgroundImpl implements Background, Serializable {
 
-	private final List<Goal> importantUnmetGoals = new ArrayList<>();
 	private final Map<Integer, List<AngryReason>> angryReasons = new HashMap<>();
 	private final List<Integer> revengeTargets = new ArrayList<>();
 	
 	@Override
-	public <T> T chooseValue(WorldObject backgroundPerformer, ManagedProperty<T> property, World world) {
-		Deity demeter = Deity.DEMETER;
-		Deity hephaestus = Deity.HEPHAESTUS;
-		Deity hades = Deity.HADES;
-		
-		if (property == Constants.DEITY) {
-			if (importantUnmetGoals.contains(Goals.FOOD_GOAL)) {
-				return (T)demeter;
-			}
-			
-			List<HistoryItem> importantHistoryItems = world.getHistory().findHistoryItems(Actions.MELEE_ATTACK_ACTION);
-			for(HistoryItem historyItem : importantHistoryItems) {
-				OperationInfo operationInfo = historyItem.getOperationInfo();
-				if (operationInfo.evaluate(new PerformerWasAttackedByUndead(backgroundPerformer))) {
-					return (T)hades;
-				}
-				
-			}
+	public ProfessionExplanation chooseProfession(WorldObject performer, World world) {
+		if (hasFoodDemand(performer)) {
+			return new ProfessionExplanation(Professions.FARMER_PROFESSION, "I was hungry in the past");
 		}
-		
-		if (property == Constants.PROFESSION) {
-			if (importantUnmetGoals.contains(Goals.FOOD_GOAL)) {
-				return (T)"farmer";
-			}
+
+		List<WorldObject> parents = ChildrenPropertyUtils.getParents(performer, world);
+		if (parents.size() < 2) {
+			return new ProfessionExplanation(Professions.GRAVE_DIGGER_PROFESSION, "one of my parents died");
+		} else {
+			// TODO: traditional personality trait, authority following?
 		}
-		
-		
+
 		return null;
+	}
+	
+	private boolean hasFoodDemand(WorldObject performer) {
+		return performer.getProperty(Constants.DEMANDS).count(Constants.FOOD) > 0;
 	}
 
 	@Override
@@ -143,11 +132,6 @@ public class BackgroundImpl implements Background, Serializable {
 		}
 	}
 	
-	@Override
-	public String toString() {
-		return "importantUnmetGoals = " + importantUnmetGoals;
-	}
-
 	@Override
 	public void addGoalObstructed(WorldObject performer, WorldObject actionTarget, ManagedOperation managedOperation, int[] args, World world) {
 		int performerId = performer.getProperty(Constants.ID);
@@ -223,7 +207,6 @@ public class BackgroundImpl implements Background, Serializable {
 	@Override
 	public Background copy() {
 		BackgroundImpl backgroundImpl = new BackgroundImpl();
-		backgroundImpl.importantUnmetGoals.addAll(importantUnmetGoals);
 		backgroundImpl.angryReasons.putAll(angryReasons);
 		backgroundImpl.revengeTargets.addAll(revengeTargets);
 		return backgroundImpl;

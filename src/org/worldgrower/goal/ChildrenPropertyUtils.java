@@ -12,25 +12,17 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.attribute;
+package org.worldgrower.goal;
 
 import java.util.List;
 
-import org.worldgrower.ManagedOperation;
+import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.goal.Goal;
 
-public interface Background extends IdContainer {
+public class ChildrenPropertyUtils {
 
-	public ProfessionExplanation chooseProfession(WorldObject performer, World world);
-	public List<Goal> getPersonalGoals(WorldObject performer, World world);
-	
-	public void addGoalObstructed(WorldObject performer, WorldObject actionTarget, ManagedOperation managedOperation, int[] args, World world);
-	public List<String> getAngryReasons(boolean firstPerson, int personTalkingId, WorldObject performer, World world);
-	public boolean hasRevengeTarget(World world);
-	public WorldObject getRevengeTarget(World world);
-	public void checkForNewGoals(WorldObject performer, World world);
-	public void remove(int id);
-	public Background copy();
+	public static List<WorldObject> getParents(WorldObject performer, World world) {
+		return world.findWorldObjectsByProperty(Constants.STRENGTH, w -> w.getProperty(Constants.CHILDREN).contains(performer));
+	}
 }

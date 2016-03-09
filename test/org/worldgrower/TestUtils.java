@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.BackgroundImpl;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdRelationshipMap;
 import org.worldgrower.attribute.KnowledgeMap;
@@ -79,6 +80,7 @@ public class TestUtils {
 		properties.put(Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		properties.put(Constants.CREATURE_TYPE,CreatureType.HUMAN_CREATURE_TYPE);
 		properties.put(Constants.DEMANDS, new PropertyCountMap<ManagedProperty<?>>());
+		properties.put(Constants.BACKGROUND, new BackgroundImpl());
 		WorldObject w1 = new WorldObjectImpl(properties, Actions.ALL_ACTIONS, null);
 		return w1;
 	}

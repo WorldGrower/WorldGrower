@@ -234,6 +234,28 @@ public class UTestChooseProfessionAction {
 		professionEvaluationsByCompetition.add(new ProfessionEvaluation(Professions.FARMER_PROFESSION, 5));
 		assertEquals("I choose to become a farmer because there isn't much competition for that profession and I'm good at it", ChooseProfessionAction.getReason(Professions.FARMER_PROFESSION, professionEvaluationsByPerformer, professionEvaluationsByCompetition, professionEvaluationsByDemand, professionEvaluationsByBackground));
 	}
+	
+	@Test
+	public void testGetReasonBackground() {
+		List<ProfessionEvaluation> professionEvaluationsByPerformer = new ArrayList<>();
+		List<ProfessionEvaluation> professionEvaluationsByCompetition = new ArrayList<>();
+		List<ProfessionEvaluation> professionEvaluationsByDemand = new ArrayList<>();
+		List<ProfessionEvaluation> professionEvaluationsByBackground = new ArrayList<>();
+		
+		professionEvaluationsByBackground.add(new ProfessionEvaluation(Professions.FARMER_PROFESSION, 5, "I was hungry in the past"));
+		assertEquals("I choose to become a farmer because I was hungry in the past", ChooseProfessionAction.getReason(Professions.FARMER_PROFESSION, professionEvaluationsByPerformer, professionEvaluationsByCompetition, professionEvaluationsByDemand, professionEvaluationsByBackground));
+	}
+	
+	@Test
+	public void testGetProfessionEvaluationsByBackground() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = TestUtils.createWorldObject(1, "jobseeker");
+		
+		performer.getProperty(Constants.DEMANDS).add(Constants.FOOD, 10);
+		List<ProfessionEvaluation> professionEvaluationsByBackground = ChooseProfessionAction.getProfessionEvaluationsByBackground(performer, world);
+		assertEquals(1, professionEvaluationsByBackground.size());
+		assertEquals(Professions.FARMER_PROFESSION, professionEvaluationsByBackground.get(0).getProfession());
+	}
 
 	private void createVillagersOrganization(World world) {
 		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);

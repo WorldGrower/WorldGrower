@@ -554,7 +554,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestGetDiseaseCuredGoal.class,
 	UTestSwitchDeityGoal.class,
 	UTestVampireCurse.class,
-	UTestWerewolfCurse.class
+	UTestWerewolfCurse.class,
+	UTestChildrenPropertyUtils.class
 })
 public class CompleteTestSuite {
 }

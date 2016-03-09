@@ -14,23 +14,23 @@
  *******************************************************************************/
 package org.worldgrower.attribute;
 
-import java.util.List;
+import org.worldgrower.profession.Profession;
 
-import org.worldgrower.ManagedOperation;
-import org.worldgrower.World;
-import org.worldgrower.WorldObject;
-import org.worldgrower.goal.Goal;
-
-public interface Background extends IdContainer {
-
-	public ProfessionExplanation chooseProfession(WorldObject performer, World world);
-	public List<Goal> getPersonalGoals(WorldObject performer, World world);
+public class ProfessionExplanation {
+	private final Profession profession;
+	private final String explanation;
 	
-	public void addGoalObstructed(WorldObject performer, WorldObject actionTarget, ManagedOperation managedOperation, int[] args, World world);
-	public List<String> getAngryReasons(boolean firstPerson, int personTalkingId, WorldObject performer, World world);
-	public boolean hasRevengeTarget(World world);
-	public WorldObject getRevengeTarget(World world);
-	public void checkForNewGoals(WorldObject performer, World world);
-	public void remove(int id);
-	public Background copy();
+	public ProfessionExplanation(Profession profession, String explanation) {
+		super();
+		this.profession = profession;
+		this.explanation = explanation;
+	}
+
+	public Profession getProfession() {
+		return profession;
+	}
+
+	public String getExplanation() {
+		return explanation;
+	}
 }

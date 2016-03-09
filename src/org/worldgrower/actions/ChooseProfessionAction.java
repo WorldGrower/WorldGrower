@@ -31,6 +31,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.attribute.Background;
 import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.attribute.ProfessionExplanation;
 import org.worldgrower.attribute.PropertyCountMap;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.goal.GroupPropertyUtils;
@@ -154,7 +155,7 @@ public class ChooseProfessionAction implements ManagedOperation {
 		
 		//TODO: compare with professionEvaluationsByDemand
 		if (indexOfBestProfessionByBackground == 0) {
-			return "I choose to become a " + bestProfession.getDescription() + " because of my background";
+			return "I choose to become a " + bestProfession.getDescription() + " because " + professionEvaluationsByBackground.get(0).getExplanation();
 		} else if (indexOfBestProfessionByPerformer == 0 && indexOfBestProfessionByCompetition == 0) {
 			return "I choose to become a " + bestProfession.getDescription() + " because there isn't much competition for that profession and I'm good at it";
 		} else if (indexOfBestProfessionByPerformer < indexOfBestProfessionByCompetition || (indexOfBestProfessionByPerformer == 0)) {
@@ -324,11 +325,11 @@ public class ChooseProfessionAction implements ManagedOperation {
 		return professionCounts;
 	}
 	
-	private List<ProfessionEvaluation> getProfessionEvaluationsByBackground(WorldObject performer, World world) {
+	static List<ProfessionEvaluation> getProfessionEvaluationsByBackground(WorldObject performer, World world) {
 		Background background = performer.getProperty(Constants.BACKGROUND);
-		Profession backgroundProfession = background.chooseValue(performer, Constants.PROFESSION, world);
-		if (backgroundProfession != null) {
-			return Arrays.asList(new ProfessionEvaluation(backgroundProfession, 10));
+		ProfessionExplanation professionExplanation = background.chooseProfession(performer, world);
+		if (professionExplanation != null) {
+			return Arrays.asList(new ProfessionEvaluation(professionExplanation.getProfession(), 10, professionExplanation.getExplanation()));
 		} else {
 			return new ArrayList<>();
 		}
@@ -337,11 +338,17 @@ public class ChooseProfessionAction implements ManagedOperation {
 	static class ProfessionEvaluation implements Comparable<ProfessionEvaluation> {
 		private final Profession profession;
 		private final int evaluation;
+		private final String explanation;
 		
 		public ProfessionEvaluation(Profession profession, int evaluation) {
+			this(profession, evaluation, null);
+		}
+		
+		public ProfessionEvaluation(Profession profession, int evaluation, String explanation) {
 			if (profession == null) { throw new IllegalStateException("profession is null"); }
 			this.profession = profession;
 			this.evaluation = evaluation;
+			this.explanation = explanation;
 		}
 
 		public Profession getProfession() {
@@ -352,6 +359,10 @@ public class ChooseProfessionAction implements ManagedOperation {
 			return evaluation;
 		}
 		
+		public String getExplanation() {
+			return explanation;
+		}
+
 		public ProfessionEvaluation add(ProfessionEvaluation other) {
 			return new ProfessionEvaluation(profession, evaluation + other.evaluation);
 		}

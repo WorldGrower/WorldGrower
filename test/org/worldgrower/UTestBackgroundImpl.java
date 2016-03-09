@@ -24,9 +24,11 @@ import org.junit.Test;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.Background;
 import org.worldgrower.attribute.BackgroundImpl;
+import org.worldgrower.attribute.ProfessionExplanation;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.RevengeGoal;
 import org.worldgrower.history.Turn;
+import org.worldgrower.profession.Professions;
 
 public class UTestBackgroundImpl {
 	
@@ -62,5 +64,32 @@ public class UTestBackgroundImpl {
 		assertEquals(Arrays.asList("He was attacking actionTarget"), background.getAngryReasons(false, 7, performer, world));
 		
 		assertEquals(Arrays.asList(), background.getAngryReasons(false, 7, actionTarget, world));
+	}
+	
+	@Test
+	public void testChooseProfessionDeadParent() {
+		Background background = new BackgroundImpl();
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createWorldObject(0, "Tom");
+		world.addWorldObject(performer);
+
+		ProfessionExplanation professionExplanation = background.chooseProfession(performer, world);
+		assertEquals(Professions.GRAVE_DIGGER_PROFESSION, professionExplanation.getProfession());
+		assertEquals("one of my parents died", professionExplanation.getExplanation());
+	}
+	
+	@Test
+	public void testRemove() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createWorldObject(0, "Tom");
+		performer.setProperty(Constants.GENDER, "male");
+		WorldObject target = createWorldObject(1, "target");
+		
+		Background background = performer.getProperty(Constants.BACKGROUND);
+		background.addGoalObstructed(performer, target, Actions.MELEE_ATTACK_ACTION, new int[0], world);
+		assertEquals(1, background.getAngryReasons(true, 1, performer, world).size());
+		background.remove(performer, Constants.BACKGROUND, 0);
+		
+		assertEquals(0, background.getAngryReasons(true, 1, performer, world).size());
 	}
 }
