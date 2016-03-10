@@ -39,6 +39,7 @@ public class UTestBackgroundImpl {
 		
 		WorldObject performer = createWorldObject(0, "Tom");
 		WorldObject attacker = createWorldObject(1, "attacker");
+		world.addWorldObject(performer);
 		world.addWorldObject(attacker);
 		world.getHistory().actionPerformed(new OperationInfo(attacker, performer, new int[0], Actions.MELEE_ATTACK_ACTION), new Turn());
 		
@@ -91,5 +92,23 @@ public class UTestBackgroundImpl {
 		background.remove(performer, Constants.BACKGROUND, 0);
 		
 		assertEquals(0, background.getAngryReasons(true, 1, performer, world).size());
+	}
+	
+	@Test
+	public void testRemoveRevengeTargets() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createWorldObject(0, "Tom");
+		WorldObject target = createWorldObject(1, "target");
+		
+		world.addWorldObject(performer);
+		world.addWorldObject(target);
+		
+		world.getHistory().actionPerformed(new OperationInfo(target, performer, new int[0], Actions.MELEE_ATTACK_ACTION), new Turn());
+		Background background = performer.getProperty(Constants.BACKGROUND);
+		background.checkForNewGoals(performer, world);
+		assertEquals(true, background.hasRevengeTarget(world));
+		background.remove(performer, Constants.BACKGROUND, 1);
+		
+		assertEquals(false, background.hasRevengeTarget(world));
 	}
 }

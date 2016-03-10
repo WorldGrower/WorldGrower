@@ -95,4 +95,8 @@ public class MinorHealConversation implements Conversation {
 	public boolean previousAnswerWasGetLost(List<Integer> previousResponseIds) {
 		return previousResponseIds.contains(GET_LOST);
 	}
+	
+	public boolean previousAnswerWasNegative(List<Integer> previousResponseIds) {
+		return previousResponseIds.contains(NO) || previousResponseIds.contains(GET_LOST);
+	}
 }

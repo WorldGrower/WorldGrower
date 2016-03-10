@@ -58,6 +58,6 @@ public class RevengeGoal implements Goal {
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		return Integer.MAX_VALUE - getTarget(performer, world).getOperations().size();
+		return 0;
 	}
 }

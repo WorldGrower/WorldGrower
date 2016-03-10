@@ -53,6 +53,9 @@ public class WorldImpl implements World, Serializable {
 	private final WorldOnTurn worldOnTurn;
 	private transient WorldStateChangedListeners worldStateChangedListeners = new WorldStateChangedListeners();
 	
+	//TODO: temporary for debugging purposes
+	private final transient List<Integer> removedIds = new ArrayList<>();
+	
 	public WorldImpl(int width, int height, DungeonMaster dungeonMaster, WorldOnTurn worldOnTurn) {
 		this(new TerrainImpl(width, height), dungeonMaster, worldOnTurn);
 	}
@@ -78,6 +81,8 @@ public class WorldImpl implements World, Serializable {
 		removeIdContainers(worldObjectToRemove);
 		
 		propertyCache.idRemoved(worldObjectToRemove);
+		
+		removedIds.add(worldObjectToRemove.getProperty(Constants.ID));
 	}
 
 	private void removeIdContainers(WorldObject worldObjectToRemove) {
@@ -139,15 +144,19 @@ public class WorldImpl implements World, Serializable {
 	}
 	
 	private WorldObject findWorldObjectById(int id) {
-		int index = idToIndexMapping.getIndex(id);
-		return worldObjects.get(index);
+		try {
+			int index = idToIndexMapping.getIndex(id);
+			return worldObjects.get(index);
+		} catch(IllegalStateException ex) {
+			throw new IllegalStateException("Problem retrieving id " + id + ": " + ex.getMessage() + "; removed ids = " + removedIds);
+		}
 	}
 	
 	@Override
 	public boolean exists(WorldObject worldObject) {
 		return idToIndexMapping.idExists(worldObject.getProperty(Constants.ID));
 	}
-
+	
 	@Override
 	public int generateUniqueId() {
 		return nextId++;

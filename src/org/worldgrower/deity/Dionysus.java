@@ -72,20 +72,11 @@ public class Dionysus implements Deity {
 		
 		if ((currentTurn % 1000 == 0) && (totalNumberOfWorshippers > 10) && (VampireUtils.getVampireCount(world) == 0)) {
 			List<WorldObject> targets = DeityPropertyUtils.getWorshippersFor(this, world);
-			final WorldObject target;
 			if (targets.size() > 0) {
-				target = targets.get(0);
-			} else {
-				List<WorldObject> allWorshippers = DeityPropertyUtils.getAllWorshippers(world);
-				
-				int indexOfChosenTarget = (int) (Math.random() * allWorshippers.size());
-				target = allWorshippers.get(indexOfChosenTarget);
+				VampireUtils.vampirizePerson(targets.get(0), creatureTypeChangedListeners);
 			}
-			
-			VampireUtils.vampirizePerson(target, creatureTypeChangedListeners);
 		}
 	}
-	
 
 	@Override
 	public ImageIds getStatueImageId() {

@@ -40,10 +40,12 @@ public class VotingBoxOnTurn implements OnTurn {
 			
 			world.removeWorldObject(worldObject);
 			
-			fireElectionFinished(worldObject, world, worldStateChangedListeners, newLeaderId, organization);
-			
-			List<WorldObject> organizationMembers = GroupPropertyUtils.findOrganizationMembers(organization, world);
-			KnowledgeMapPropertyUtils.peopleKnowOfProperty(organizationMembers, organization, Constants.ORGANIZATION_LEADER_ID, newLeaderId, world);
+			if (newLeaderId != -1) {
+				fireElectionFinished(worldObject, world, worldStateChangedListeners, newLeaderId, organization);
+				
+				List<WorldObject> organizationMembers = GroupPropertyUtils.findOrganizationMembers(organization, world);
+				KnowledgeMapPropertyUtils.peopleKnowOfProperty(organizationMembers, organization, Constants.ORGANIZATION_LEADER_ID, newLeaderId, world);
+			}
 		}
 	}
 

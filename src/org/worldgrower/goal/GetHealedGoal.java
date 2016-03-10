@@ -50,7 +50,7 @@ public class GetHealedGoal implements Goal {
 	private boolean isTargetForMinorHealConversation(WorldObject performer, WorldObject target, World world) {
 		return MagicSpellUtils.canCast(target, Actions.MINOR_HEAL_ACTION) 
 				&& !GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, target)
-				&& !Conversations.MINOR_HEAL_CONVERSATION.previousAnswerWasGetLost(Conversations.MINOR_HEAL_CONVERSATION.getPreviousResponseIds(performer, target, world));
+				&& !Conversations.MINOR_HEAL_CONVERSATION.previousAnswerWasNegative(Conversations.MINOR_HEAL_CONVERSATION.getPreviousResponseIds(performer, target, world));
 	}
 	
 	@Override

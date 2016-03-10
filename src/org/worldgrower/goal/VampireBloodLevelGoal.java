@@ -84,7 +84,7 @@ public class VampireBloodLevelGoal implements Goal {
 
 	@Override
 	public String getDescription() {
-		return "looking to bite people";
+		return "thirsty for blood";
 	}
 
 	@Override
