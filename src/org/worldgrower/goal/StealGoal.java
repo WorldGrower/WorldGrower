@@ -138,7 +138,7 @@ public class StealGoal implements Goal {
 
 	@Override
 	public String getDescription() {
-		return "stealing";
+		return "in need of gold";
 	}
 
 	@Override

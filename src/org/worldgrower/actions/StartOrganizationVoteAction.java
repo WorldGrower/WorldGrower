@@ -61,7 +61,7 @@ public class StartOrganizationVoteAction implements ManagedOperation {
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "starting organization vote";
+		return "starting an organization vote";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {

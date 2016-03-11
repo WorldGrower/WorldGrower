@@ -75,18 +75,11 @@ public class ChooseProfessionAction implements ManagedOperation {
 		Profession profession = bestProfession.getProfession();
 		
 		if (profession == Professions.THIEF_PROFESSION) {
-			
-			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
-			properties.put(Constants.PROFESSION, Professions.FARMER_PROFESSION);
-			WorldObject facade = new WorldObjectImpl(properties);
-			performer.setProperty(Constants.FACADE, facade);
+			createThiefFacade(performer);
 		}
 		
 		if (profession == Professions.NECROMANCER_PROFESSION) {
-			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
-			properties.put(Constants.PROFESSION, Professions.WIZARD_PROFESSION);
-			WorldObject facade = new WorldObjectImpl(properties);
-			performer.setProperty(Constants.FACADE, facade);
+			createNecromancerFacade(performer);
 		}
 		
 		if (profession == Professions.TAX_COLLECTOR_PROFESSION) {
@@ -99,6 +92,20 @@ public class ChooseProfessionAction implements ManagedOperation {
 		
 		performer.setProperty(Constants.PROFESSION, profession);
 		performer.getProperty(Constants.REASONS).addReason(Constants.PROFESSION, reason);
+	}
+
+	public static void createNecromancerFacade(WorldObject performer) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		properties.put(Constants.PROFESSION, Professions.WIZARD_PROFESSION);
+		WorldObject facade = new WorldObjectImpl(properties);
+		performer.setProperty(Constants.FACADE, facade);
+	}
+
+	public static void createThiefFacade(WorldObject performer) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		properties.put(Constants.PROFESSION, Professions.FARMER_PROFESSION);
+		WorldObject facade = new WorldObjectImpl(properties);
+		performer.setProperty(Constants.FACADE, facade);
 	}
 
 	private ProfessionResult getProfessionResult(WorldObject performer, World world) {

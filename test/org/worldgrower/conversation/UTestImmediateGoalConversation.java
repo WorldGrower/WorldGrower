@@ -28,9 +28,14 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.actions.ChooseProfessionAction;
+import org.worldgrower.attribute.KnowledgeMap;
+import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.deity.Deity;
+import org.worldgrower.goal.FacadeUtils;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
+import org.worldgrower.profession.Professions;
 
 public class UTestImmediateGoalConversation {
 
@@ -66,6 +71,27 @@ public class UTestImmediateGoalConversation {
 		assertReplyPhrase("I'm animating targetName because I'm looking to have a mate", Goals.MATE_GOAL, Actions.ANIMATE_DEAD_ACTION);
 		assertReplyPhrase("I'm mining targetName because I'm looking for gold", Goals.MINE_GOLD_GOAL, Actions.MINE_GOLD_ACTION);
 		assertReplyPhrase("I'm constructing fishing pole because I'm looking to gather fish", Goals.CATCH_FISH_GOAL, Actions.CONSTRUCT_FISHING_POLE_ACTION);
+		assertReplyPhrase("I'm studying necromancy because I'm becoming a lich", Goals.BECOME_LICH_GOAL, Actions.RESEARCH_NECROMANCY_SKILL_ACTION);
+		assertReplyPhrase("I'm crafting iron boots because I'm looking to get equipment", Goals.CRAFT_EQUIPMENT_GOAL, Actions.CRAFT_IRON_BOOTS_ACTION);
+		assertReplyPhrase("I'm brewing poison because I'm looking to breakup with a mate", Goals.BREAKUP_WITH_MATE_GOAL, Actions.BREW_POISON_ACTION);
+		assertReplyPhrase("I'm attacking targetName in a non lethal manner because I'm brawling", Goals.BRAWL_GOAL, Actions.NON_LETHAL_MELEE_ATTACK_ACTION);
+		assertReplyPhrase("I'm becoming a leader candidate because I'm collecting a pay check", Goals.COLLECT_PAY_CHECK_GOAL, Actions.BECOME_LEADER_CANDIDATE_ACTION);
+		assertReplyPhrase("I'm voting for a leader because I'm collecting taxes", Goals.COLLECT_TAXES_GOAL, Actions.VOTE_FOR_LEADER_ACTION);
+		assertReplyPhrase("I'm creating a religion organization because I'm looking for an religion organization to belong to", Goals.BECOME_RELIGION_ORGANIZATION_MEMBER_GOAL, Actions.CREATE_RELIGION_ORGANIZATION_ACTION);
+		assertReplyPhrase("I'm creating a profession organization because I'm looking for an profession organization to belong to", Goals.BECOME_PROFESSION_ORGANIZATION_MEMBER_GOAL, Actions.CREATE_PROFESSION_ORGANIZATION_ACTION);
+		assertReplyPhrase("I'm choosing a deity because I'm looking for a deity to worship", Goals.CHOOSE_DEITY_GOAL, Actions.CHOOSE_DEITY_ACTION);
+		assertReplyPhrase("I'm choosing a profession because I'm looking for a profession", Goals.CHOOSE_PROFESSION_GOAL, Actions.CHOOSE_PROFESSION_ACTION);
+		assertReplyPhrase("I'm planting cotton plant because I'm looking for cotton", Goals.COTTON_GOAL, Actions.PLANT_COTTON_PLANT_ACTION);
+		assertReplyPhrase("I'm voting for a leader because I'm concerned about the organization leadership", Goals.ORGANIZATION_VOTE_GOAL, Actions.VOTE_FOR_LEADER_ACTION);
+		assertReplyPhrase("I'm becoming a leader candidate because I'm concerned about the organization leadership", Goals.ORGANIZATION_CANDIDATE_GOAL, Actions.BECOME_LEADER_CANDIDATE_ACTION);
+		assertReplyPhrase("I'm starting an organization vote because I'm looking for a new leader for an organization", Goals.START_ORGANIZATION_VOTE_GOAL, Actions.START_ORGANIZATION_VOTE_ACTION);
+		assertReplyPhrase("I'm creating a newspaper because I'm recruiting new profession organization members", Goals.RECRUIT_PROFESSION_ORGANIZATION_MEMBERS_GOAL, Actions.CREATE_NEWS_PAPER_ACTION);
+		assertReplyPhrase("I'm equiping an inventory item because I'm looking to brawl", Goals.START_BRAWL_GOAL, Actions.EQUIP_INVENTORY_ITEM_ACTION);
+		assertReplyPhrase("I'm crafting a repair hammer because I'm repairing equipment", Goals.REPAIR_EQUIPMENT_GOAL, Actions.CRAFT_REPAIR_HAMMER_ACTION);
+		assertReplyPhrase("I'm poisoning inventory water because I'm creating poison", Goals.CREATE_POISON_GOAL, Actions.POISON_INVENTORY_WATER_ACTION);
+		assertReplyPhrase("I'm weaving cotton boots because I'm looking to weave clothes", Goals.WEAVE_CLOTHES_GOAL, Actions.WEAVE_COTTON_BOOTS_ACTION);
+		assertReplyPhrase("I'm creating paper because I'm looking to have paper", Goals.CREATE_PAPER_GOAL, Actions.CREATE_PAPER_ACTION);
+		assertReplyPhrase("I'm stealing from targetName because I'm in need of gold", Goals.STEAL_GOAL, Actions.STEAL_ACTION);
 	}
 	
 	private void assertReplyPhrase(String replyPhrase, Goal goal, ManagedOperation action) {
@@ -78,6 +104,25 @@ public class UTestImmediateGoalConversation {
 		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
 		assertEquals(replyPhrase, replyPhrases.get(0).getResponsePhrase());
+	}
+	
+	@Test
+	public void testGetReplyPhraseThief() {
+		World world = new WorldImpl(0, 0, new DungeonMaster(), null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.PROFESSION, Professions.FARMER_PROFESSION);
+		WorldObject target = TestUtils.createSkilledWorldObject(2, Constants.PROFESSION, Professions.THIEF_PROFESSION);
+
+		performer.setProperty(Constants.KNOWLEDGE_MAP, new KnowledgeMap());
+		target.setProperty(Constants.KNOWLEDGE_MAP, new KnowledgeMap());
+		
+		MockMetaInformation.setMetaInformation(target, Goals.STEAL_GOAL, Actions.STEAL_ACTION);
+		target.getProperty(Constants.BLUFF_SKILL).use(100, target, Constants.BLUFF_SKILL, new WorldStateChangedListeners());
+		target = FacadeUtils.createFacade(target, target, performer, world);
+		
+		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
+		List<Response> replyPhrases = conversation.getReplyPhrases(context);
+		//TODO: fixme
+		assertEquals("I'm stealing from targetName because I'm in need of gold", replyPhrases.get(0).getResponsePhrase());
 	}
 
 	@Test

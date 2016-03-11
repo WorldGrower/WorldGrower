@@ -77,7 +77,7 @@ public class BecomeProfessionOrganizationMemberGoal implements Goal {
 
 	@Override
 	public String getDescription() {
-		return "looking for an profession organization to join";
+		return "looking for an profession organization to belong to";
 	}
 
 	@Override

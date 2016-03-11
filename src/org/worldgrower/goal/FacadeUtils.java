@@ -55,7 +55,7 @@ public class FacadeUtils {
 			insightSkill += 5;
 		}
 		
-		return bluffSkill > insightSkill;
+		return bluffSkill >= insightSkill;
 	}
 	
 	public static boolean performerIsSuccessFullyDisguised(WorldObject performer) {

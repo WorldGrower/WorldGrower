@@ -59,12 +59,12 @@ public class VoteForLeaderAction implements ManagedOperation {
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "voting for leader";
+		return "voting for a leader";
 	}
 
 	@Override
 	public String getSimpleDescription() {
-		return "vote for leader";
+		return "vote for a leader";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {

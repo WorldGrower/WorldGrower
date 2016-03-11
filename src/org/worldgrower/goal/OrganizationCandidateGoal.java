@@ -119,7 +119,7 @@ public class OrganizationCandidateGoal implements Goal {
 
 	@Override
 	public String getDescription() {
-		return "voting for an organization";
+		return "concerned about the organization leadership";
 	}
 
 	@Override

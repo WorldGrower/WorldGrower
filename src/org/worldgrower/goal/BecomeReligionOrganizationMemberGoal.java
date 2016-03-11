@@ -77,7 +77,7 @@ public class BecomeReligionOrganizationMemberGoal implements Goal {
 
 	@Override
 	public String getDescription() {
-		return "looking for an religion organization to join";
+		return "looking for an religion organization to belong to";
 	}
 
 	@Override

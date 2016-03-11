@@ -56,7 +56,7 @@ public class CreatePaperGoal implements Goal {
 
 	@Override
 	public String getDescription() {
-		return "creating paper";
+		return "looking to have paper";
 	}
 
 	@Override

@@ -60,7 +60,7 @@ public class CollectPayCheckGoal implements Goal {
 
 	@Override
 	public String getDescription() {
-		return "collecting pay check";
+		return "collecting a pay check";
 	}
 
 	@Override

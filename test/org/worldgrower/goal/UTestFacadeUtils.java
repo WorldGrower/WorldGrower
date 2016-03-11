@@ -41,6 +41,7 @@ public class UTestFacadeUtils {
 		
 		WorldObject facade = TestUtils.createWorldObject(3, "facade");
 		worldObject.setProperty(Constants.FACADE, facade);
+		target.setProperty(Constants.INSIGHT_SKILL, new Skill(14));
 		assertEquals(WorldObjectImpl.class, FacadeUtils.createFacade(worldObject, performer, target, world).getClass());
 		
 		performer.setProperty(Constants.BLUFF_SKILL, new Skill(20));

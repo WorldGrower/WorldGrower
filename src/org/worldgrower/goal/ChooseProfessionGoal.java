@@ -49,7 +49,7 @@ public class ChooseProfessionGoal implements Goal {
 
 	@Override
 	public String getDescription() {
-		return "choosing a profession";
+		return "looking for a profession";
 	}
 
 	@Override

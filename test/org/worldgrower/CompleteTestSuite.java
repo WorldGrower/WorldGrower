@@ -101,6 +101,7 @@ import org.worldgrower.conversation.UTestMinorHealConversation;
 import org.worldgrower.conversation.UTestNicerConversation;
 import org.worldgrower.conversation.UTestNotNicerConversation;
 import org.worldgrower.conversation.UTestOrganizationConversation;
+import org.worldgrower.conversation.UTestProfessionConversation;
 import org.worldgrower.conversation.UTestProfessionPractitionersConversation;
 import org.worldgrower.conversation.UTestProfessionReasonConversation;
 import org.worldgrower.conversation.UTestProposeMateConversation;
@@ -142,6 +143,7 @@ import org.worldgrower.generator.UTestCommonerGenerator;
 import org.worldgrower.generator.UTestCommonerOnTurn;
 import org.worldgrower.generator.UTestCowOnTurn;
 import org.worldgrower.generator.UTestCreatureGenerator;
+import org.worldgrower.generator.UTestFiretrapOnTurn;
 import org.worldgrower.generator.UTestFishOnTurn;
 import org.worldgrower.generator.UTestIllusionOnTurn;
 import org.worldgrower.generator.UTestItem;
@@ -555,7 +557,9 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestSwitchDeityGoal.class,
 	UTestVampireCurse.class,
 	UTestWerewolfCurse.class,
-	UTestChildrenPropertyUtils.class
+	UTestChildrenPropertyUtils.class,
+	UTestProfessionConversation.class,
+	UTestFiretrapOnTurn.class
 })
 public class CompleteTestSuite {
 }

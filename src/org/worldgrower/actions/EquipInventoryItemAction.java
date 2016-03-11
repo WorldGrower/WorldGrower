@@ -63,7 +63,7 @@ public class EquipInventoryItemAction implements ManagedOperation {
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "equiping inventory item";
+		return "equiping an inventory item";
 	}
 
 	@Override

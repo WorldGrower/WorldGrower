@@ -76,7 +76,7 @@ public class ChooseDeityGoal implements Goal {
 
 	@Override
 	public String getDescription() {
-		return "choosing a deity";
+		return "looking for a deity to worship";
 	}
 
 	@Override

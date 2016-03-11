@@ -57,12 +57,12 @@ public class BecomeLeaderCandidateAction implements ManagedOperation {
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "becoming leader candidate";
+		return "becoming a leader candidate";
 	}
 
 	@Override
 	public String getSimpleDescription() {
-		return "become leader candidate";
+		return "become a leader candidate";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {

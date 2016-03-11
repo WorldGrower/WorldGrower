@@ -63,7 +63,7 @@ public class CraftRepairHammerAction implements CraftAction {
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "crafting repair hammer";
+		return "crafting a repair hammer";
 	}
 
 	@Override

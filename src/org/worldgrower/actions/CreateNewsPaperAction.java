@@ -66,7 +66,7 @@ public class CreateNewsPaperAction implements ManagedOperation {
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "creating newspaper";
+		return "creating a newspaper";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {

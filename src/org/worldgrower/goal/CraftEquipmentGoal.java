@@ -85,7 +85,7 @@ public class CraftEquipmentGoal implements Goal {
 
 	@Override
 	public String getDescription() {
-		return "crafting equipment";
+		return "looking to get equipment";
 	}
 
 	@Override

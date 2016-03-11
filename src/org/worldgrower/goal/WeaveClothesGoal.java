@@ -68,7 +68,7 @@ public class WeaveClothesGoal implements Goal {
 
 	@Override
 	public String getDescription() {
-		return "weaving clothes";
+		return "looking to weave clothes";
 	}
 
 	@Override

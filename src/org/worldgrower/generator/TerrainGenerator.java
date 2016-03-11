@@ -99,24 +99,6 @@ public class TerrainGenerator {
 		return id;
 	}
 	
-	public static int generateGrave(int x, int y, World world) {
-		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
-		int id = world.generateUniqueId();
-		
-		properties.put(Constants.X, x);
-		properties.put(Constants.Y, y);
-		properties.put(Constants.WIDTH, 1);
-		properties.put(Constants.HEIGHT, 1);
-		properties.put(Constants.ID, id);
-		properties.put(Constants.IMAGE_ID, ImageIds.GRAVE);
-		properties.put(Constants.TEXT, "Here lies T");
-		properties.put(Constants.NAME, "grave");
-		WorldObject tree = new WorldObjectImpl(properties);
-		world.addWorldObject(tree);
-		
-		return id;
-	}
-	
 	public static int generateFireTrap(int x, int y, World world, double skillBonus) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();

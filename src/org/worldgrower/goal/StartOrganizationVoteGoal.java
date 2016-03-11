@@ -71,7 +71,7 @@ public class StartOrganizationVoteGoal implements Goal {
 
 	@Override
 	public String getDescription() {
-		return "start electing a new leader for an organization";
+		return "looking for a new leader for an organization";
 	}
 
 	@Override
