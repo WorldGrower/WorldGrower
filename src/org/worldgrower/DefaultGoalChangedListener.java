@@ -18,21 +18,26 @@ import java.util.Arrays;
 
 import org.worldgrower.actions.Actions;
 import org.worldgrower.goal.Goal;
+import org.worldgrower.goal.Goals;
 
-public class MockMetaInformation {
+class DefaultGoalChangedListener implements GoalChangedListener {
 
-	public static void setMetaInformation(WorldObject worldObject, Goal goal) {
-		setMetaInformation(worldObject, goal, Actions.MELEE_ATTACK_ACTION);
-	}
-	
-	public static void setMetaInformation(WorldObject worldObject, Goal goal, ManagedOperation action) {
-		MetaInformation metaInformation = new MetaInformation(worldObject);
-		metaInformation.addGoalChangedListeners(new DefaultGoalChangedListener());
-		worldObject.setProperty(Constants.META_INFORMATION, metaInformation);
-		worldObject.getProperty(Constants.META_INFORMATION).setFinalGoal(goal);
-		
-		WorldObject target = TestUtils.createSkilledWorldObject(2, Constants.NAME, "targetName");
-		OperationInfo operationInfo = new OperationInfo(TestUtils.createSkilledWorldObject(1), target, new int[0], action);
-		worldObject.getProperty(Constants.META_INFORMATION).setCurrentTask(Arrays.asList(operationInfo), GoalChangedReason.EMPTY_META_INFORMATION);
+	@Override
+	public void goalChanged(WorldObject performer, Goal oldGoal, Goal newGoal) {
+		if (performer.hasProperty(Constants.FACADE)) {
+			WorldObject facade = performer.getProperty(Constants.FACADE);
+			if (facade != null) {
+				MetaInformation metaInformation = facade.getProperty(Constants.META_INFORMATION);
+				if (metaInformation == null) {
+					metaInformation = new MetaInformation(performer);
+					facade.setProperty(Constants.META_INFORMATION, metaInformation);
+				}
+				
+				if (newGoal == Goals.STEAL_GOAL) {
+					metaInformation.setFinalGoal(Goals.FOOD_GOAL);
+					metaInformation.setCurrentTask(Arrays.asList(new OperationInfo(performer, performer, new int[0], Actions.EAT_FROM_INVENTORY_ACTION)), GoalChangedReason.EMPTY_META_INFORMATION);
+				}
+			}
+		}
 	}
 }

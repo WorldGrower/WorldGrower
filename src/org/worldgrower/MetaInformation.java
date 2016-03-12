@@ -15,6 +15,7 @@
 package org.worldgrower;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -32,6 +33,8 @@ class MetaInformation implements Serializable {
 	private GoalChangedReason goalChangedReason;
 	private Goal finalGoal;
 	private final WorldObject worldObject;
+	
+	private final List<GoalChangedListener> goalChangedListeners = new ArrayList<>();
 	
 	public MetaInformation(WorldObject worldObject) {
 		this.worldObject = worldObject;
@@ -64,6 +67,10 @@ class MetaInformation implements Serializable {
 	}
 
 	public void setFinalGoal(Goal finalGoal) {
+		for(GoalChangedListener goalChangedListener : goalChangedListeners) {
+			goalChangedListener.goalChanged(worldObject, this.finalGoal, finalGoal);
+		}
+		
 		this.finalGoal = finalGoal;
 	}
 	
@@ -87,5 +94,9 @@ class MetaInformation implements Serializable {
 		currentTask.add(new OperationInfo(worldObject, worldObject, new int[0], Actions.DO_NOTHING_ACTION));
 		goalChangedReason = GoalChangedReason.NO_ACTION_POSSIBLE;
 		finalGoal = Goals.IDLE_GOAL;
+	}
+	
+	public void addGoalChangedListeners(GoalChangedListener goalChangedListener) {
+		goalChangedListeners.add(goalChangedListener);
 	}
 }

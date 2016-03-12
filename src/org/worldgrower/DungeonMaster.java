@@ -105,6 +105,7 @@ public class DungeonMaster implements Serializable {
 		MetaInformation metaInformation = worldObject.getProperty(Constants.META_INFORMATION);
 		if (metaInformation == null) {
 			metaInformation = new MetaInformation(worldObject);
+			metaInformation.addGoalChangedListeners(new DefaultGoalChangedListener());
 			worldObject.setProperty(Constants.META_INFORMATION, metaInformation);
 		}
 		return metaInformation;

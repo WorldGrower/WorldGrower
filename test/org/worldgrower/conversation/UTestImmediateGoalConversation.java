@@ -27,6 +27,7 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
+import org.worldgrower.WorldObjectFacade;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.ChooseProfessionAction;
 import org.worldgrower.attribute.KnowledgeMap;
@@ -115,14 +116,14 @@ public class UTestImmediateGoalConversation {
 		performer.setProperty(Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		target.setProperty(Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		
+		target.setProperty(Constants.FACADE, TestUtils.createWorldObject(2, "facade"));
 		MockMetaInformation.setMetaInformation(target, Goals.STEAL_GOAL, Actions.STEAL_ACTION);
 		target.getProperty(Constants.BLUFF_SKILL).use(100, target, Constants.BLUFF_SKILL, new WorldStateChangedListeners());
 		target = FacadeUtils.createFacade(target, target, performer, world);
 		
 		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
-		//TODO: fixme
-		assertEquals("I'm stealing from targetName because I'm in need of gold", replyPhrases.get(0).getResponsePhrase());
+		assertEquals("I'm eating null because I'm hungry and looking for food", replyPhrases.get(0).getResponsePhrase());
 	}
 
 	@Test
