@@ -559,7 +559,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestWerewolfCurse.class,
 	UTestChildrenPropertyUtils.class,
 	UTestProfessionConversation.class,
-	UTestFiretrapOnTurn.class
+	UTestFiretrapOnTurn.class,
+	UTestDefaultGoalChangedListener.class
 })
 public class CompleteTestSuite {
 }

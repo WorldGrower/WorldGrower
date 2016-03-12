@@ -14,14 +14,27 @@
  *******************************************************************************/
 package org.worldgrower;
 
+import java.io.Serializable;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.worldgrower.actions.Actions;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
 
+/**
+ * default implementation if a goal changes:
+ * if the npc wants to hide the goal, a better goal is added to the facade.
+ */
 class DefaultGoalChangedListener implements GoalChangedListener {
 
+	private Map<Goal, GoalChangedHandler> goalChangedMap = new HashMap<>();
+	
+	public DefaultGoalChangedListener() {
+		goalChangedMap.put(Goals.STEAL_GOAL, new GoalChangedHandler(Goals.FOOD_GOAL, Actions.EAT_FROM_INVENTORY_ACTION));
+	}
+	
 	@Override
 	public void goalChanged(WorldObject performer, Goal oldGoal, Goal newGoal) {
 		if (performer.hasProperty(Constants.FACADE)) {
@@ -33,11 +46,27 @@ class DefaultGoalChangedListener implements GoalChangedListener {
 					facade.setProperty(Constants.META_INFORMATION, metaInformation);
 				}
 				
-				if (newGoal == Goals.STEAL_GOAL) {
-					metaInformation.setFinalGoal(Goals.FOOD_GOAL);
-					metaInformation.setCurrentTask(Arrays.asList(new OperationInfo(performer, performer, new int[0], Actions.EAT_FROM_INVENTORY_ACTION)), GoalChangedReason.EMPTY_META_INFORMATION);
+				GoalChangedHandler goalChangedHandler = goalChangedMap.get(newGoal);
+				if (goalChangedHandler != null) {
+					goalChangedHandler.setGoalAndTasks(performer, metaInformation);
 				}
 			}
+		}
+	}
+	
+	private static class GoalChangedHandler implements Serializable {
+		
+		private final Goal goal;
+		private final ManagedOperation action;
+		
+		public GoalChangedHandler(Goal goal, ManagedOperation action) {
+			this.goal = goal;
+			this.action = action;
+		}
+
+		public void setGoalAndTasks(WorldObject performer, MetaInformation metaInformation) {
+			metaInformation.setFinalGoal(goal);
+			metaInformation.setCurrentTask(Arrays.asList(new OperationInfo(performer, performer, new int[0], action)), GoalChangedReason.EMPTY_META_INFORMATION);
 		}
 	}
 }
