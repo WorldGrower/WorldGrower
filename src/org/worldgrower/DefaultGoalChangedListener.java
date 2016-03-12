@@ -32,7 +32,18 @@ class DefaultGoalChangedListener implements GoalChangedListener {
 	private Map<Goal, GoalChangedHandler> goalChangedMap = new HashMap<>();
 	
 	public DefaultGoalChangedListener() {
+		goalChangedMap.put(Goals.BECOME_LICH_GOAL, new GoalChangedHandler(Goals.RESEARCH_MAGIC_SKILLS_KNOWLEDGE_GOAL, Actions.RESEARCH_EVOCATION_SKILL_ACTION));
+		goalChangedMap.put(Goals.CREATE_POISON_GOAL, new GoalChangedHandler(Goals.CREATE_WINE_GOAL, Actions.BREW_WINE_ACTION));
+		goalChangedMap.put(Goals.DESTROY_SHRINES_TO_OTHER_DEITIES_GOAL, new GoalChangedHandler(Goals.SHRINE_TO_DEITY_GOAL, Actions.BUILD_SHRINE_ACTION));
+		goalChangedMap.put(Goals.FILL_SOUL_GEM_GOAL, new GoalChangedHandler(Goals.MINT_GOLD_GOAL, Actions.MINE_GOLD_ACTION));
+		goalChangedMap.put(Goals.GHOUL_GOAL, new GoalChangedHandler(Goals.HEAL_OTHERS_GOAL, Actions.MINOR_HEAL_ACTION));
+		goalChangedMap.put(Goals.KILL_VILLAGERS_GOAL, new GoalChangedHandler(Goals.HOUSE_GOAL, Actions.BUILD_HOUSE_ACTION));
+		goalChangedMap.put(Goals.LEGALIZE_VAMPIRISM_GOAL, new GoalChangedHandler(Goals.BECOME_PROFESSION_ORGANIZATION_MEMBER_GOAL, Actions.VOTE_FOR_LEADER_ACTION));
+		goalChangedMap.put(Goals.SACRIFICE_PEOPLE_TO_DEITY_GOAL, new GoalChangedHandler(Goals.SHRINE_TO_DEITY_GOAL, Actions.BUILD_SHRINE_ACTION));
+		goalChangedMap.put(Goals.SCRIBE_NECROMANCER_SPELLS_GOAL, new GoalChangedHandler(Goals.SCRIBE_WIZARD_SPELLS_GOAL, Actions.RESEARCH_EVOCATION_SKILL_ACTION));
+		goalChangedMap.put(Goals.SOUL_GEM_GOAL, new GoalChangedHandler(Goals.STONE_GOAL, Actions.MINE_STONE_ACTION));
 		goalChangedMap.put(Goals.STEAL_GOAL, new GoalChangedHandler(Goals.FOOD_GOAL, Actions.EAT_FROM_INVENTORY_ACTION));
+		goalChangedMap.put(Goals.VAMPIRE_BLOOD_LEVEL_GOAL, new GoalChangedHandler(Goals.WINE_GOAL, Actions.BREW_WINE_ACTION));
 	}
 	
 	@Override
