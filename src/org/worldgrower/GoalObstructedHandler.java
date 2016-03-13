@@ -14,10 +14,12 @@
  *******************************************************************************/
 package org.worldgrower;
 
+import org.worldgrower.goal.Goal;
+
 /**
  * When a npc has a goal obstructed, this method is called.
  */
 public interface GoalObstructedHandler {
 
-	public void goalHindered(WorldObject performer, WorldObject target, int stepsUntilLastGoal, int goalEvaluationDecrease, WorldObject actionTarget, ManagedOperation managedOperation, int[] args, World world);
+	public void goalHindered(Goal obstructedGoal, WorldObject performer, WorldObject target, int stepsUntilLastGoal, int goalEvaluationDecrease, WorldObject actionTarget, ManagedOperation managedOperation, int[] args, World world);
 }

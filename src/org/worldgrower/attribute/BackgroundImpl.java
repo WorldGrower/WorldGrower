@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.worldgrower.Constants;
+import org.worldgrower.DefaultGoalChangedListener;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.OperationInfoEvaluator;
@@ -135,7 +136,7 @@ public class BackgroundImpl implements Background, Serializable {
 	}
 	
 	@Override
-	public void addGoalObstructed(WorldObject performer, WorldObject actionTarget, ManagedOperation managedOperation, int[] args, World world) {
+	public void addGoalObstructed(Goal obstructedGoal, WorldObject performer, WorldObject actionTarget, ManagedOperation managedOperation, int[] args, World world) {
 		int performerId = performer.getProperty(Constants.ID);
 		
 		List<AngryReason> angryReasonList = angryReasons.get(performerId);
@@ -150,7 +151,7 @@ public class BackgroundImpl implements Background, Serializable {
 		copyTarget.setProperty(Constants.NAME, "me");
 		String angryReasonWithTargetTalking = managedOperation.getDescription(performer, copyTarget, args, world);
 		
-		angryReasonList.add(new AngryReason(angryReason, angryReasonWithTargetTalking, actionTarget.getProperty(Constants.ID)));
+		angryReasonList.add(new AngryReason(angryReason, angryReasonWithTargetTalking, actionTarget.getProperty(Constants.ID), obstructedGoal));
 	}
 	
 	@Override
@@ -162,17 +163,18 @@ public class BackgroundImpl implements Background, Serializable {
 		if (angryReasonsList.size() > 0) {
 			for(int i = 0; i< angryReasonsList.size(); i++)  {
 				AngryReason angryReason = angryReasonsList.get(i);
-				
-				String angryReasonDescription;
-				if (personTalkingId == angryReason.getTargetId()) {
-					angryReasonDescription = angryReason.getAngryReasonWithTargetTalking();
-				} else {
-					angryReasonDescription = angryReason.getAngryReason();
+				if (!DefaultGoalChangedListener.wantsToKeepGoalHidden(performer, angryReason.getObstructedGoal())) {
+					String angryReasonDescription;
+					if (personTalkingId == angryReason.getTargetId()) {
+						angryReasonDescription = angryReason.getAngryReasonWithTargetTalking();
+					} else {
+						angryReasonDescription = angryReason.getAngryReason();
+					}
+					
+					String pronoun = performer.getProperty(Constants.GENDER).equals("female") ? "She" : "He";
+					String prefix = firstPerson ? "You were " : (pronoun + " was ");
+					result.add(prefix + angryReasonDescription);
 				}
-				
-				String pronoun = performer.getProperty(Constants.GENDER).equals("female") ? "She" : "He";
-				String prefix = firstPerson ? "You were " : (pronoun + " was ");
-				result.add(i, prefix + angryReasonDescription);
 			}
 			angryReasonsList = new ArrayList<>(new HashSet<>(angryReasonsList));
 			
@@ -237,11 +239,13 @@ public class BackgroundImpl implements Background, Serializable {
 		private final String angryReason;
 		private final String angryReasonWithTargetTalking;
 		private final int targetId;
+		private final Goal obstructedGoal;
 		
-		public AngryReason(String angryReason, String angryReasonWithTargetTalking, int targetId) {
+		public AngryReason(String angryReason, String angryReasonWithTargetTalking, int targetId, Goal obstructedGoal) {
 			this.angryReason = angryReason;
 			this.angryReasonWithTargetTalking = angryReasonWithTargetTalking;
 			this.targetId = targetId;
+			this.obstructedGoal = obstructedGoal;
 		}
 
 		public String getAngryReason() {
@@ -254,6 +258,10 @@ public class BackgroundImpl implements Background, Serializable {
 
 		public int getTargetId() {
 			return targetId;
+		}
+
+		public Goal getObstructedGoal() {
+			return obstructedGoal;
 		}
 	}
 }

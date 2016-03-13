@@ -25,6 +25,7 @@ import org.worldgrower.attribute.IdList;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.generator.Item;
+import org.worldgrower.goal.Goals;
 import org.worldgrower.goal.GroupPropertyUtils;
 
 public class UTestDefaultGoalObstructedHandler {
@@ -183,7 +184,7 @@ public class UTestDefaultGoalObstructedHandler {
 		
 		actionTarget.setProperty(Constants.BACKGROUND, new BackgroundImpl());
 		
-		DefaultGoalObstructedHandler.logToBackground(actionTarget, actionTarget, Actions.MELEE_ATTACK_ACTION, new int[0], performer, world);
+		DefaultGoalObstructedHandler.logToBackground(Goals.PROTECT_ONSE_SELF_GOAL, actionTarget, actionTarget, Actions.MELEE_ATTACK_ACTION, new int[0], performer, world);
 		List<String> angryReasons = actionTarget.getProperty(Constants.BACKGROUND).getAngryReasons(true, 2, performer, world);
 		assertEquals(1, angryReasons.size());
 	}

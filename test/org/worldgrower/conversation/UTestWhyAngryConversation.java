@@ -28,6 +28,7 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.BackgroundImpl;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdRelationshipMap;
+import org.worldgrower.goal.Goals;
 
 public class UTestWhyAngryConversation {
 
@@ -49,11 +50,11 @@ public class UTestWhyAngryConversation {
 		assertEquals("I don't remember", replyPhrases.get(0).getResponsePhrase());
 		assertEquals("Get lost", replyPhrases.get(1).getResponsePhrase());
 		
-		target.getProperty(Constants.BACKGROUND).addGoalObstructed(performer, target, Actions.MELEE_ATTACK_ACTION, new int[0], world);
+		target.getProperty(Constants.BACKGROUND).addGoalObstructed(Goals.PROTECT_ONSE_SELF_GOAL, performer, target, Actions.MELEE_ATTACK_ACTION, new int[0], world);
 		replyPhrases = conversation.getReplyPhrases(context);
 		assertEquals("You were attacking me", replyPhrases.get(0).getResponsePhrase());
 
-		target.getProperty(Constants.BACKGROUND).addGoalObstructed(performer, target, Actions.PARALYZE_SPELL_ACTION, new int[0], world);
+		target.getProperty(Constants.BACKGROUND).addGoalObstructed(Goals.PROTECT_ONSE_SELF_GOAL, performer, target, Actions.PARALYZE_SPELL_ACTION, new int[0], world);
 		replyPhrases = conversation.getReplyPhrases(context);
 		assertEquals("You were attacking me; You were casting paralyze on me", replyPhrases.get(0).getResponsePhrase());
 	}

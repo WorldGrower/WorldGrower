@@ -24,13 +24,14 @@ import org.worldgrower.condition.Condition;
 import org.worldgrower.goal.ArenaPropertyUtils;
 import org.worldgrower.goal.BrawlPropertyUtils;
 import org.worldgrower.goal.FacadeUtils;
+import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.LegalActionsPropertyUtils;
 
 public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 
 	@Override
-	public void goalHindered(WorldObject performer, WorldObject target, int stepsUntilLastGoal, int goalEvaluationDecrease, WorldObject actionTarget, ManagedOperation managedOperation, int[] args, World world) {
+	public void goalHindered(Goal obstructedGoal, WorldObject performer, WorldObject target, int stepsUntilLastGoal, int goalEvaluationDecrease, WorldObject actionTarget, ManagedOperation managedOperation, int[] args, World world) {
 		if (performer.hasProperty(Constants.RELATIONSHIPS) && target.hasProperty(Constants.RELATIONSHIPS)) {
 			if (hasAnyoneSeenAction(performer, actionTarget, managedOperation, args, world)) {
 				int value = -100 * stepsUntilLastGoal;
@@ -38,7 +39,7 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 				WorldObject performerFacade = FacadeUtils.createFacade(performer, performer, target, world);
 				WorldObject targetFacade = FacadeUtils.createFacade(target, performer, target, world);
 				
-				logToBackground(target, actionTarget, managedOperation, args, performerFacade, world);
+				logToBackground(obstructedGoal, target, actionTarget, managedOperation, args, performerFacade, world);
 				
 				alterRelationships(performer, target, actionTarget, args, managedOperation, world, value, performerFacade, targetFacade);
 			}
@@ -136,10 +137,10 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 		return actionTargetIsCriminal;
 	}
 
-	static void logToBackground(WorldObject target, WorldObject actionTarget, ManagedOperation managedOperation, int[] args, WorldObject performerFacade, World world) {
+	static void logToBackground(Goal obstructedGoal, WorldObject target, WorldObject actionTarget, ManagedOperation managedOperation, int[] args, WorldObject performerFacade, World world) {
 		if (world.exists(target) && world.exists(performerFacade)) {
 			if (target.hasProperty(Constants.BACKGROUND)) {
-				target.getProperty(Constants.BACKGROUND).addGoalObstructed(performerFacade, actionTarget, managedOperation, args, world);
+				target.getProperty(Constants.BACKGROUND).addGoalObstructed(obstructedGoal, performerFacade, actionTarget, managedOperation, args, world);
 			}
 		}
 	}

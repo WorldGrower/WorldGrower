@@ -26,7 +26,7 @@ public interface Background extends IdContainer {
 	public ProfessionExplanation chooseProfession(WorldObject performer, World world);
 	public List<Goal> getPersonalGoals(WorldObject performer, World world);
 	
-	public void addGoalObstructed(WorldObject performer, WorldObject actionTarget, ManagedOperation managedOperation, int[] args, World world);
+	public void addGoalObstructed(Goal obstructedGoal, WorldObject performer, WorldObject actionTarget, ManagedOperation managedOperation, int[] args, World world);
 	public List<String> getAngryReasons(boolean firstPerson, int personTalkingId, WorldObject performer, World world);
 	public String getConcatenatedAngryReasons(boolean firstPerson, int personTalkingId, WorldObject performer, World world);
 	public boolean hasRevengeTarget(World world);

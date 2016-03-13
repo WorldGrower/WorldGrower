@@ -68,7 +68,7 @@ public class GoalChangedCalculator {
 						int newGoalEvaluation = targetGoal.evaluate(actor, world);
 						
 						if (newGoalEvaluation < oldGoalEvaluation) {
-							goalObstructedHandler.goalHindered(performer, actor, targetGoals.size() - i, oldGoalEvaluation - newGoalEvaluation, target, managedOperation, args, world);
+							goalObstructedHandler.goalHindered(targetGoal, performer, actor, targetGoals.size() - i, oldGoalEvaluation - newGoalEvaluation, target, managedOperation, args, world);
 						}
 					}
 				}

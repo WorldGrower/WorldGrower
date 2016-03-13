@@ -26,6 +26,7 @@ import org.worldgrower.attribute.Background;
 import org.worldgrower.attribute.BackgroundImpl;
 import org.worldgrower.attribute.ProfessionExplanation;
 import org.worldgrower.goal.Goal;
+import org.worldgrower.goal.Goals;
 import org.worldgrower.goal.RevengeGoal;
 import org.worldgrower.history.Turn;
 import org.worldgrower.profession.Professions;
@@ -59,10 +60,27 @@ public class UTestBackgroundImpl {
 		performer.setProperty(Constants.GENDER, "male");
 		WorldObject actionTarget = createWorldObject(1, "actionTarget");
 		
-		background.addGoalObstructed(performer, actionTarget, Actions.MELEE_ATTACK_ACTION, new int[0], world);
+		background.addGoalObstructed(Goals.PROTECT_ONSE_SELF_GOAL, performer, actionTarget, Actions.MELEE_ATTACK_ACTION, new int[0], world);
 		
 		assertEquals(Arrays.asList("You were attacking actionTarget"), background.getAngryReasons(true, 7, performer, world));
 		assertEquals(Arrays.asList("He was attacking actionTarget"), background.getAngryReasons(false, 7, performer, world));
+		
+		assertEquals(Arrays.asList(), background.getAngryReasons(false, 7, actionTarget, world));
+	}
+	
+	@Test
+	public void testGetAngryReasonsHidden() {
+		Background background = new BackgroundImpl();
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createWorldObject(0, "Tom");
+		performer.setProperty(Constants.GENDER, "male");
+		WorldObject actionTarget = createWorldObject(1, "actionTarget");
+		
+		background.addGoalObstructed(Goals.STEAL_GOAL, performer, actionTarget, Actions.MELEE_ATTACK_ACTION, new int[0], world);
+		background.addGoalObstructed(Goals.FOOD_GOAL, performer, actionTarget, Actions.EAT_ACTION, new int[0], world);
+		
+		assertEquals(Arrays.asList("You were eating actionTarget"), background.getAngryReasons(true, 7, performer, world));
+		assertEquals(Arrays.asList("He was eating actionTarget"), background.getAngryReasons(false, 7, performer, world));
 		
 		assertEquals(Arrays.asList(), background.getAngryReasons(false, 7, actionTarget, world));
 	}
@@ -87,7 +105,7 @@ public class UTestBackgroundImpl {
 		WorldObject target = createWorldObject(1, "target");
 		
 		Background background = performer.getProperty(Constants.BACKGROUND);
-		background.addGoalObstructed(performer, target, Actions.MELEE_ATTACK_ACTION, new int[0], world);
+		background.addGoalObstructed(Goals.PROTECT_ONSE_SELF_GOAL, performer, target, Actions.MELEE_ATTACK_ACTION, new int[0], world);
 		assertEquals(1, background.getAngryReasons(true, 1, performer, world).size());
 		background.remove(performer, Constants.BACKGROUND, 0);
 		

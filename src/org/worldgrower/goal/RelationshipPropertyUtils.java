@@ -30,7 +30,7 @@ public class RelationshipPropertyUtils {
 		target.getProperty(Constants.RELATIONSHIPS).incrementValue(performerFacade.getProperty(Constants.ID), value);
 
 		if (target.hasProperty(Constants.BACKGROUND) && value < 0) {
-			target.getProperty(Constants.BACKGROUND).addGoalObstructed(performerFacade, target, managedOperation, args, world);
+			target.getProperty(Constants.BACKGROUND).addGoalObstructed(Goals.FOOD_GOAL, performerFacade, target, managedOperation, args, world);
 		}
 	}
 	
@@ -39,7 +39,7 @@ public class RelationshipPropertyUtils {
 		target.getProperty(Constants.RELATIONSHIPS).incrementValue(performer.getProperty(Constants.ID), value);
 
 		if (target.hasProperty(Constants.BACKGROUND) && value < 0) {
-			target.getProperty(Constants.BACKGROUND).addGoalObstructed(performer, target, managedOperation, args, world);
+			target.getProperty(Constants.BACKGROUND).addGoalObstructed(Goals.FOOD_GOAL, performer, target, managedOperation, args, world);
 		}
 	}
 	
@@ -48,7 +48,7 @@ public class RelationshipPropertyUtils {
 		target.getProperty(Constants.RELATIONSHIPS).incrementValue(performer.getProperty(Constants.ID), targetValue);
 
 		if (target.hasProperty(Constants.BACKGROUND) && targetValue < 0) {
-			target.getProperty(Constants.BACKGROUND).addGoalObstructed(performer, target, managedOperation, args, world);
+			target.getProperty(Constants.BACKGROUND).addGoalObstructed(Goals.FOOD_GOAL, performer, target, managedOperation, args, world);
 		}
 	}
 }

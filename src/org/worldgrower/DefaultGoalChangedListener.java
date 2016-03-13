@@ -27,7 +27,7 @@ import org.worldgrower.goal.Goals;
  * default implementation if a goal changes:
  * if the npc wants to hide the goal, a better goal is added to the facade.
  */
-class DefaultGoalChangedListener implements GoalChangedListener {
+public class DefaultGoalChangedListener implements GoalChangedListener {
 
 	private Map<Goal, GoalChangedHandler> goalChangedMap = new HashMap<>();
 	
@@ -79,5 +79,15 @@ class DefaultGoalChangedListener implements GoalChangedListener {
 			metaInformation.setFinalGoal(goal);
 			metaInformation.setCurrentTask(Arrays.asList(new OperationInfo(performer, performer, new int[0], action)), GoalChangedReason.EMPTY_META_INFORMATION);
 		}
+	}
+	
+	public boolean wantsGoalHidden(WorldObject performer, Goal goal) {
+		return goalChangedMap.containsKey(goal);
+	}
+	
+	private static DefaultGoalChangedListener INSTANCE = new DefaultGoalChangedListener();
+	
+	public static boolean wantsToKeepGoalHidden(WorldObject performer, Goal goal) {
+		return INSTANCE.wantsGoalHidden(performer, goal);
 	}
 }

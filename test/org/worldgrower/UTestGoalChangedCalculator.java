@@ -17,6 +17,7 @@ package org.worldgrower;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.goal.Goal;
 
 public class UTestGoalChangedCalculator {
 
@@ -38,7 +39,7 @@ public class UTestGoalChangedCalculator {
 		private boolean goalHindered = false;
 		
 		@Override
-		public void goalHindered(WorldObject performer, WorldObject target, int stepsUntilLastGoal, int goalEvaluationDecrease, WorldObject actionTarget, ManagedOperation managedOperation, int[] args, World world) {
+		public void goalHindered(Goal obstructedGoal, WorldObject performer, WorldObject target, int stepsUntilLastGoal, int goalEvaluationDecrease, WorldObject actionTarget, ManagedOperation managedOperation, int[] args, World world) {
 			goalHindered = true;
 		}
 
