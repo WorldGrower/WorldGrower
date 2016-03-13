@@ -181,6 +181,25 @@ public class BackgroundImpl implements Background, Serializable {
 			return new ArrayList<>();
 		}
 	}
+	
+	@Override
+	public String getConcatenatedAngryReasons(boolean firstPerson, int personTalkingId, WorldObject performer, World world) {
+		StringBuilder angryReasonBuilder = new StringBuilder();
+		List<String> angryReasons = getAngryReasons(firstPerson, personTalkingId, performer, world);
+		
+		if (angryReasons.size() > 0) {
+			for(int i=0; i<angryReasons.size(); i++) {
+				String angryReason = angryReasons.get(i);
+				angryReasonBuilder.append(angryReason);
+				if (i < angryReasons.size() -1) {
+					angryReasonBuilder.append("; ");	
+				}
+			}
+		} else {
+			angryReasonBuilder.append("I don't remember");
+		}
+		return angryReasonBuilder.toString();
+	}
 
 	@Override
 	public void remove(WorldObject worldObject, ManagedProperty<?> property, int id) {

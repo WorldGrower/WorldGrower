@@ -67,24 +67,10 @@ public class WhyAngryOtherConversation implements Conversation {
 		World world = conversationContext.getWorld();
 		WorldObject subject = conversationContext.getSubject();
 		
-		List<String> angryReasons = target.getProperty(Constants.BACKGROUND).getAngryReasons(false, target.getProperty(Constants.ID), subject, world);
-		
-		StringBuilder angryReasonBuilder = new StringBuilder();
-		if (angryReasons.size() > 0) {
-			
-			for(int i=0; i<angryReasons.size(); i++) {
-				String angryReason = angryReasons.get(i);
-				angryReasonBuilder.append(angryReason);
-				if (i < angryReasons.size() -1) {
-					angryReasonBuilder.append("; ");	
-				}
-			}
-		} else {
-			angryReasonBuilder.append("I don't remember");
-		}
+		String concatenatedAngryReasons = target.getProperty(Constants.BACKGROUND).getConcatenatedAngryReasons(false, target.getProperty(Constants.ID), subject, world);
 		
 		return Arrays.asList(
-			new Response(REAL_REASON, angryReasonBuilder.toString()),
+			new Response(REAL_REASON, concatenatedAngryReasons),
 			new Response(GET_LOST, "Get lost")
 		);
 	}
