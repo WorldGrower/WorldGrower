@@ -59,6 +59,8 @@ public class EquipmentGoal implements Goal {
 			return getEquipment(performer, Constants.FEET_EQUIPMENT, world);
 		} else if (hasUnusedEquipment(performer, Constants.FEET_EQUIPMENT)) {
 			return equipUnusedEquipment(performer, Constants.FEET_EQUIPMENT, world);
+		} else if (hasUnusedEquipment(performer, Constants.LEGS_EQUIPMENT)) {
+			return equipUnusedEquipment(performer, Constants.LEGS_EQUIPMENT, world);
 		} else {
 			return null;
 		}

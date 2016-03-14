@@ -59,6 +59,17 @@ public class UTestCollectTaxesGoal {
 	}
 	
 	@Test
+	public void testIsGoalMet() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		
+		createVillagersOrganization(world);
+		
+		assertEquals(true, goal.isGoalMet(performer, world));
+	}
+	
+	
+	@Test
 	public void testSortTargets() {
 		World world = new WorldImpl(10, 10, null, null);
 		world.addWorldObject(TestUtils.createIntelligentWorldObject(1, Constants.HOUSES, new IdList().add(3)));

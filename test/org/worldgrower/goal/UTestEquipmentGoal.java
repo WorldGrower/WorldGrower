@@ -126,6 +126,88 @@ public class UTestEquipmentGoal {
 	}
 
 	@Test
+	public void testCalculateGoalEquipClaymore() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
+		performer.setProperty(Constants.STRENGTH, 20);
+
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_CLAYMORE.generate(1f), 20);
+
+		assertEquals(Actions.EQUIP_INVENTORY_ITEM_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+	@Test
+	public void testCalculateGoalEquipIronCuirass() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
+		performer.setProperty(Constants.STRENGTH, 20);
+
+		equip(performer, Item.IRON_CLAYMORE);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_CUIRASS.generate(1f), 20);
+
+		assertEquals(Actions.EQUIP_INVENTORY_ITEM_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+	@Test
+	public void testCalculateGoalEquipIronHelmet() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
+		performer.setProperty(Constants.STRENGTH, 20);
+
+		equip(performer, Item.IRON_CLAYMORE);
+		equip(performer, Item.IRON_CUIRASS);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_HELMET.generate(1f), 20);
+
+		assertEquals(Actions.EQUIP_INVENTORY_ITEM_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+	@Test
+	public void testCalculateGoalEquipIronGauntlets() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
+		performer.setProperty(Constants.STRENGTH, 20);
+
+		equip(performer, Item.IRON_CLAYMORE);
+		equip(performer, Item.IRON_CUIRASS);
+		equip(performer, Item.IRON_HELMET);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_GAUNTLETS.generate(1f), 20);
+
+		assertEquals(Actions.EQUIP_INVENTORY_ITEM_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+	@Test
+	public void testCalculateGoalEquipIronBoots() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
+		performer.setProperty(Constants.STRENGTH, 20);
+
+		equip(performer, Item.IRON_CLAYMORE);
+		equip(performer, Item.IRON_CUIRASS);
+		equip(performer, Item.IRON_HELMET);
+		equip(performer, Item.IRON_GAUNTLETS);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_BOOTS.generate(1f), 20);
+
+		assertEquals(Actions.EQUIP_INVENTORY_ITEM_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+
+	@Test
+	public void testCalculateGoalEquipIronGreaves() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
+		performer.setProperty(Constants.STRENGTH, 20);
+
+		equip(performer, Item.IRON_CLAYMORE);
+		equip(performer, Item.IRON_CUIRASS);
+		equip(performer, Item.IRON_HELMET);
+		equip(performer, Item.IRON_GAUNTLETS);
+		equip(performer, Item.IRON_BOOTS);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_GREAVES.generate(1f), 20);
+
+		assertEquals(Actions.EQUIP_INVENTORY_ITEM_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+	@Test
 	public void testCalculateGoalCompletelyEquipped() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());

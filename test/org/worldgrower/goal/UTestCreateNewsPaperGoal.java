@@ -16,6 +16,8 @@ package org.worldgrower.goal;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
+
 import org.junit.Test;
 import org.worldgrower.Constants;
 import org.worldgrower.DoNothingWorldOnTurn;
@@ -29,6 +31,7 @@ import org.worldgrower.attribute.PropertyKnowledge;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.deity.Deity;
 import org.worldgrower.generator.Item;
+import org.worldgrower.generator.PlantGenerator;
 import org.worldgrower.profession.Professions;
 
 public class UTestCreateNewsPaperGoal {
@@ -65,11 +68,34 @@ public class UTestCreateNewsPaperGoal {
 	}
 	
 	@Test
+	public void testCalculateGoalCreatePaper() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer();
+		performer.setProperty(Constants.KNOWLEDGE_MAP, new KnowledgeMap());
+		performer.setProperty(Constants.NAME, "performer");
+		//world.addWorldObject(performer);
+		
+		PlantGenerator.generateTree(0, 0, world);
+		
+		Integer performerId = performer.getProperty(Constants.ID);
+		performer.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(performer, new PropertyKnowledge(performerId, Constants.PROFESSION, Professions.FARMER_PROFESSION));
+		performer.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(performer, new PropertyKnowledge(performerId, Constants.DEITY, Deity.ARES));
+		performer.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(performer, new PropertyKnowledge(performerId, Constants.DEATH_REASON, ""));
+		performer.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(performer, new PropertyKnowledge(performerId, Constants.CHILD_BIRTH_ID, performerId));
+		performer.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(performer, new PropertyKnowledge(performerId, Constants.ORGANIZATION_LEADER_ID, performerId));
+		
+		assertEquals(Actions.CUT_WOOD_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+	@Test
 	public void testCalculateIsGoalMet() {
 		World world = new WorldImpl(0, 0, null, new DoNothingWorldOnTurn());
 		WorldObject performer = createPerformer();
 		
 		assertEquals(false, goal.isGoalMet(performer, world));
+		
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.generateNewsPaper(new ArrayList<>(), new int[0], world), 20);
+		assertEquals(true, goal.isGoalMet(performer, world));
 	}
 	
 	private WorldObject createPerformer() {

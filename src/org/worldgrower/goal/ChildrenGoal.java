@@ -41,7 +41,7 @@ public class ChildrenGoal implements Goal {
 		} else if (bestId != -1) {
 			return new ImproveRelationshipGoal(bestId, 750, world).calculateGoal(performer, world);
 		} else {
-			List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.SEX_ACTION, w -> RacePropertyUtils.canHaveOffspring(performer, w) ,world);
+			List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.TALK_ACTION, w -> RacePropertyUtils.canHaveOffspring(performer, w) ,world);
 			if (targets.size() > 0) {
 				WorldObject target = targets.get(0);
 				return new ImproveRelationshipGoal(target.getProperty(Constants.ID), 750, world).calculateGoal(performer, world);

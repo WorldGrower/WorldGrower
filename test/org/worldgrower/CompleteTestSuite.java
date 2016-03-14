@@ -560,7 +560,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestChildrenPropertyUtils.class,
 	UTestProfessionConversation.class,
 	UTestFiretrapOnTurn.class,
-	UTestDefaultGoalChangedListener.class
+	UTestDefaultGoalChangedListener.class,
+	UTestOreGoal.class
 })
 public class CompleteTestSuite {
 }

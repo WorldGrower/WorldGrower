@@ -16,10 +16,6 @@ package org.worldgrower.goal;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
 import org.junit.Test;
 import org.worldgrower.AssertUtils;
 import org.worldgrower.Constants;
@@ -76,6 +72,22 @@ public class UTestMateGoal {
 		assertEquals(Actions.TALK_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 		assertEquals(target, goal.calculateGoal(performer, world).getTarget());
 		AssertUtils.assertConversation(goal.calculateGoal(performer, world), Conversations.PROPOSE_MATE_CONVERSATION);
+	}
+	
+	@Test
+	public void testCalculateGoalUnknownTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		WorldObject performer = createCommoner(world, organization);
+		WorldObject target = createCommoner(world, organization);
+		
+		performer.setProperty(Constants.GENDER, "male");
+		target.setProperty(Constants.GENDER, "female");
+		world.addWorldObject(target);
+		
+		assertEquals(Actions.TALK_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+		assertEquals(target, goal.calculateGoal(performer, world).getTarget());
+		AssertUtils.assertConversation(goal.calculateGoal(performer, world), Conversations.COMPLIMENT_CONVERSATION);
 	}
 	
 	@Test

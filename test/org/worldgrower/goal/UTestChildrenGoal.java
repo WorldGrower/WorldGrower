@@ -75,6 +75,35 @@ public class UTestChildrenGoal {
 		assertEquals(Actions.SEX_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
 	
+	@Test
+	public void testCalculateGoalOneMateUnknown() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		WorldObject performer = createPerformer(world, organization);
+		performer.setProperty(Constants.GENDER, "female");
+		
+		WorldObject target = createPerformer(world, organization);
+		target.setProperty(Constants.GENDER, "male");
+		target.getProperty(Constants.HOUSES).add(7);
+		world.addWorldObject(target);
+		
+		assertEquals(Actions.TALK_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+		AssertUtils.assertConversation(goal.calculateGoal(performer, world), Conversations.COMPLIMENT_CONVERSATION);
+	}
+	
+	@Test
+	public void testIsGoalMet() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		WorldObject performer = createPerformer(world, organization);
+		
+		assertEquals(false, goal.isGoalMet(performer, world));
+		
+		performer.getProperty(Constants.CHILDREN).add(7).add(8).add(9).add(10);
+		
+		assertEquals(true, goal.isGoalMet(performer, world));
+	}
+	
 	private WorldObject createPerformer(World world, WorldObject organization) {
 		int performerId = commonerGenerator.generateCommoner(0, 0, world, organization);
 		WorldObject performer = world.findWorldObject(Constants.ID, performerId);
