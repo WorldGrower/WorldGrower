@@ -60,4 +60,9 @@ public class PowerHungryTrait implements PersonalityTrait {
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
 	}
+	
+	@Override
+	public String getDescription() {
+		return "Power hungry";
+	}
 }

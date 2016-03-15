@@ -30,6 +30,7 @@ public interface PersonalityTrait extends Serializable {
 	
 	public String getAdjective(int value, int relationshipValue);
 	public int calculateInitialValue(WorldObject performer);
+	public String getDescription();
 	
 	public default Object readResolveImpl() throws ObjectStreamException {
 		Class<?> clazz = getClass();

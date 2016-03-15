@@ -52,6 +52,7 @@ import org.worldgrower.gui.chooseworldobject.GuiVoteAction;
 import org.worldgrower.gui.conversation.GuiAskQuestionAction;
 import org.worldgrower.gui.debug.GuiShowCommonersOverviewAction;
 import org.worldgrower.gui.debug.GuiShowEconomicOverviewAction;
+import org.worldgrower.gui.debug.GuiShowPersonalitiesOverviewAction;
 import org.worldgrower.gui.debug.GuiShowPropertiesAction;
 import org.worldgrower.gui.debug.GuiShowSkillOverviewAction;
 import org.worldgrower.gui.debug.ShowPerformedActionsAction;
@@ -619,7 +620,13 @@ public class GuiMouseListener extends MouseAdapter {
 			
 			JMenuItem guiShowSkillOverviewItem = MenuFactory.createJMenuItem(new GuiShowSkillOverviewAction(world));
 			guiShowSkillOverviewItem.setText("Show Skill Overview...");
-			menu.add(guiShowSkillOverviewItem);			
+			menu.add(guiShowSkillOverviewItem);
+			
+			JMenuItem guiShowPersonalityOverviewItem = MenuFactory.createJMenuItem(new GuiShowPersonalitiesOverviewAction(world));
+			guiShowPersonalityOverviewItem.setText("Show Personality Overview...");
+			menu.add(guiShowPersonalityOverviewItem);
+			
+			
 		}
 	}
 	
