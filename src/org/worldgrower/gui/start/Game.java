@@ -200,10 +200,14 @@ public class Game {
         });
 	}
 
-    private static void createAndShowGUI(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, boolean playBackgroundMusic, ImageInfoReader imageInfoReader, String initialStatusMessage, AdditionalManagedOperationListenerFactory additionalManagedOperationListenerFactory, KeyBindings keyBindings) throws IOException {
+	public static void closeMainPanel() {
     	if (frame != null) {
     		frame.dispose();
     	}
+	}
+	
+    private static void createAndShowGUI(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, boolean playBackgroundMusic, ImageInfoReader imageInfoReader, String initialStatusMessage, AdditionalManagedOperationListenerFactory additionalManagedOperationListenerFactory, KeyBindings keyBindings) throws IOException {
+    	closeMainPanel();
         frame = new JFrame("WorldGrower");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         IconUtils.setIcon(frame);

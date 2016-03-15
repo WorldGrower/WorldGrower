@@ -102,7 +102,13 @@ public class GuiAskQuestionAction extends AbstractAction implements Answerer {
 	
 	@Override
 	public boolean canAskQuestion() {
-		return Game.canActionExecute(playerCharacter, Actions.TALK_ACTION, Conversations.createArgs(Conversations.NAME_CONVERSATION), world, target);
+		return world.exists(target) 
+				&& Game.canActionExecute(
+						playerCharacter, 
+						Actions.TALK_ACTION, 
+						Conversations.createArgs(Conversations.NAME_CONVERSATION), 
+						world, 
+						target);
 	}
 
 	@Override

@@ -454,6 +454,7 @@ public class WorldPanel extends JPanel {
 		new GuiShowReadAction(playerCharacter, world, this, imageInfoReader);
 		new GuiShowBrawlResult(imageInfoReader, this, world);
 		new GuiShowDrinkingContestResult(imageInfoReader, this, world);
+		new GuiGameOverAction(playerCharacter, world, this, imageInfoReader, keyBindings);
 		world.addWorldStateChangedListener(createWorldStateChangedListener());
 		
 		List<ManagedOperationListener> additionalManagedOperationListeners = additionalManagedOperationListenerFactory.create(world, this, imageInfoReader);
