@@ -47,11 +47,11 @@ public class TrainGoal implements Goal {
 	
 	@Override
 	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
-		defaultGoalMetOrNot(performer, world, goalMet, Constants.ORE);
 	}
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
+		//TODO: skill isn't always hand to hand, see AttackTargetGoal
 		return Constants.HAND_TO_HAND_SKILL.getLevel(performer) > 15;
 	}
 	

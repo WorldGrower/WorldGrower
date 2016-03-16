@@ -38,4 +38,12 @@ public class EquipmentPropertyUtils {
 		performer.getProperty(Constants.INVENTORY).addQuantity(equipment);
 		performer.setProperty(equipmentSlot, equipment);
 	}
+	
+	public static boolean isMeleeWeapon(WorldObject worldObject) {
+		return (worldObject != null && worldObject.hasProperty(Constants.DAMAGE) && !worldObject.hasProperty(Constants.RANGE));
+	}
+	
+	public static boolean isRangedWeapon(WorldObject worldObject) {
+		return (worldObject != null && worldObject.hasProperty(Constants.DAMAGE) && worldObject.hasProperty(Constants.RANGE));
+	}
 }

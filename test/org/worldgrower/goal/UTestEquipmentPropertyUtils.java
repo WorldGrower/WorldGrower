@@ -43,4 +43,20 @@ public class UTestEquipmentPropertyUtils {
 		
 		assertEquals(true, EquipmentPropertyUtils.isEquipmentWorn(performer, worldObject));		
 	}
+	
+	@Test
+	public void testIsMeleeWeapon() {
+		assertEquals(false, EquipmentPropertyUtils.isMeleeWeapon(null));
+		assertEquals(false, EquipmentPropertyUtils.isMeleeWeapon(Item.IRON_CUIRASS.generate(1f)));
+		assertEquals(true, EquipmentPropertyUtils.isMeleeWeapon(Item.IRON_CLAYMORE.generate(1f)));
+		assertEquals(false, EquipmentPropertyUtils.isMeleeWeapon(Item.LONGBOW.generate(1f)));
+	}
+	
+	@Test
+	public void testIsRangedWeapon() {
+		assertEquals(false, EquipmentPropertyUtils.isRangedWeapon(null));
+		assertEquals(false, EquipmentPropertyUtils.isRangedWeapon(Item.IRON_CUIRASS.generate(1f)));
+		assertEquals(false, EquipmentPropertyUtils.isRangedWeapon(Item.IRON_CLAYMORE.generate(1f)));
+		assertEquals(true, EquipmentPropertyUtils.isRangedWeapon(Item.LONGBOW.generate(1f)));
+	}
 }

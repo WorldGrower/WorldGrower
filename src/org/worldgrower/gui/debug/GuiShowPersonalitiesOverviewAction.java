@@ -42,6 +42,13 @@ public class GuiShowPersonalitiesOverviewAction extends AbstractAction {
 		
 		JTable table = new JTable(new WorldModel(world));
 		table.setBounds(50, 50, 700, 700);
+		for(int i=1; i<table.getColumnCount() -1; i++) {
+			table.getColumnModel().getColumn(i).setPreferredWidth(10);
+		}		
+		table.getColumnModel().getColumn(table.getColumnCount() -1).setPreferredWidth(600);
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		
+		
 		frame.add(new JScrollPane(table));
 		
 		frame.setBounds(100,  100, 800, 800);
@@ -93,7 +100,7 @@ public class GuiShowPersonalitiesOverviewAction extends AbstractAction {
 				PersonalityTrait personalityTrait = getPersonalityTrait(columnIndex);
 				return npc.getProperty(Constants.PERSONALITY).getValue(personalityTrait);
 			} else if (columnIsAngryReason(columnIndex)) {
-				return npc.getProperty(Constants.BACKGROUND).getConcatenatedAngryReasons(false, 0, npc, world);
+				return npc.getProperty(Constants.BACKGROUND).toStringAngryReasons();
 			} else {
 				return null;
 			}

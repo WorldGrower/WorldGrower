@@ -20,7 +20,6 @@ import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.actions.Actions;
 
 public class RevengeGoal implements Goal {
 
@@ -30,7 +29,7 @@ public class RevengeGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		return new OperationInfo(performer, getTarget(performer, world), new int[0], Actions.MELEE_ATTACK_ACTION);
+		return new AttackTargetGoal(getTarget(performer, world)).calculateGoal(performer, world);
 	}
 	
 	private WorldObject getTarget(WorldObject performer, World world) {

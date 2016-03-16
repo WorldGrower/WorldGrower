@@ -14,42 +14,44 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
-import java.util.List;
-
+import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
-import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 
-public class KillOutsidersGoal implements Goal {
+public class AttackTargetGoal implements Goal {
 
-	public KillOutsidersGoal(List<Goal> allGoals) {
-		allGoals.add(this);
+	private final WorldObject target;
+	
+	public AttackTargetGoal(WorldObject target) {
+		this.target = target;
 	}
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.MELEE_ATTACK_ACTION, w -> GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, w), world);
-		if (targets.size() > 0) {
-			return new AttackTargetGoal(targets.get(0)).calculateGoal(performer, world);
+		WorldObject leftHandEquipment = performer.getProperty(Constants.LEFT_HAND_EQUIPMENT);
+		boolean hasFreeHands = (leftHandEquipment == null);
+		if (EquipmentPropertyUtils.isMeleeWeapon(leftHandEquipment)) {
+			return new OperationInfo(performer, target, new int[0], Actions.MELEE_ATTACK_ACTION);
+		} else if (EquipmentPropertyUtils.isRangedWeapon(leftHandEquipment)) {
+			return new OperationInfo(performer, target, new int[0], Actions.RANGED_ATTACK_ACTION);
+		} else if (hasFreeHands && MagicSpellUtils.canCast(performer, Actions.FIRE_BOLT_ATTACK_ACTION)) {
+			return new OperationInfo(performer, target, new int[0], Actions.FIRE_BOLT_ATTACK_ACTION);
+		} else if (hasFreeHands && MagicSpellUtils.canCast(performer, Actions.INFLICT_WOUNDS_ACTION)) {
+			return new OperationInfo(performer, target, new int[0], Actions.INFLICT_WOUNDS_ACTION);
 		} else {
-			return null;
+			return new OperationInfo(performer, target, new int[0], Actions.MELEE_ATTACK_ACTION);
 		}
-	}
-
-	@Override
-	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
 	}
 	
 	@Override
-	public boolean isGoalMet(WorldObject performer, World world) {
-		List<WorldObject> worldObjects = findOutsiders(performer, world);
-		return worldObjects.isEmpty();
+	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
 	}
 
-	private List<WorldObject> findOutsiders(WorldObject performer, World world) {
-		return world.findWorldObjects(w -> GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, w) && Reach.distance(performer, w) < 10);
+	@Override
+	public boolean isGoalMet(WorldObject performer, World world) {
+		return true;
 	}
 	
 	@Override
@@ -59,12 +61,11 @@ public class KillOutsidersGoal implements Goal {
 
 	@Override
 	public String getDescription() {
-		return "killing an outsider";
+		return "attacking " + target.getProperty(Constants.NAME);
 	}
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		List<WorldObject> worldObjects = findOutsiders(performer, world);
-		return Integer.MAX_VALUE - worldObjects.size();
+		return 0;
 	}
 }

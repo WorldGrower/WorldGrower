@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.worldgrower.Constants;
 import org.worldgrower.DefaultGoalChangedListener;
@@ -233,6 +234,21 @@ public class BackgroundImpl implements Background, Serializable {
 		backgroundImpl.angryReasons.putAll(angryReasons);
 		backgroundImpl.revengeTargets.addAll(revengeTargets);
 		return backgroundImpl;
+	}
+	
+	@Override
+	public String toStringAngryReasons() {
+		StringBuilder angryReasonsStringBuilder = new StringBuilder();
+		for(Entry<Integer, List<AngryReason>> entry : angryReasons.entrySet()) {
+			int id = entry.getKey();
+			angryReasonsStringBuilder.append("id = ").append(id).append(":");
+			List<AngryReason> angryReasonsList = entry.getValue();
+			for(AngryReason angryReason : angryReasonsList) {
+				angryReasonsStringBuilder.append(angryReason.getAngryReason()).append("<--").append(angryReason.getObstructedGoal().getDescription()).append("|");
+			}
+		}
+		
+		return angryReasonsStringBuilder.toString();
 	}
 	
 	private static class AngryReason implements Serializable {

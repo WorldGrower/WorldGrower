@@ -68,16 +68,6 @@ public class CreateFoodSourcesGoal implements Goal {
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		List<WorldObject> targets = GoalUtils.findNearestTargetsByProperty(
-				performer, 
-				Actions.HARVEST_FOOD_ACTION, 
-				Constants.FOOD_SOURCE,
-				w -> (Reach.distance(performer, w) < 20), 
-				world);
-		int eval = 0;
-		for(WorldObject target : targets) {
-			eval += target.getProperty(Constants.FOOD_SOURCE);
-		}
-		return eval;
+		return 0;
 	}
 }

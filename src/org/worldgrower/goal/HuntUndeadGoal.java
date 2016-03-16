@@ -20,7 +20,6 @@ import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.actions.Actions;
 import org.worldgrower.creaturetype.CreatureTypeUtils;
 
 public class HuntUndeadGoal implements Goal {
@@ -33,7 +32,7 @@ public class HuntUndeadGoal implements Goal {
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		List<WorldObject> targets = findUndeadCreatures(performer, world);
 		if (targets.size() > 0) {
-			return new OperationInfo(performer, targets.get(0), new int[0], Actions.MELEE_ATTACK_ACTION);
+			return new AttackTargetGoal(targets.get(0)).calculateGoal(performer, world);
 		} else {
 			return null;
 		}

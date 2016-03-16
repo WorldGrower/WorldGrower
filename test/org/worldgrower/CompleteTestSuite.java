@@ -561,7 +561,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestProfessionConversation.class,
 	UTestFiretrapOnTurn.class,
 	UTestDefaultGoalChangedListener.class,
-	UTestOreGoal.class
+	UTestOreGoal.class,
+	UTestAttackTargetGoal.class
 })
 public class CompleteTestSuite {
 }

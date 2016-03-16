@@ -20,7 +20,6 @@ import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.actions.Actions;
 import org.worldgrower.deity.Deity;
 
 public class DestroyShrinesToOtherDeitiesGoal implements Goal {
@@ -33,7 +32,7 @@ public class DestroyShrinesToOtherDeitiesGoal implements Goal {
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		List<WorldObject> targets = findShrinesToOtherDeities(performer, world);
 		if (targets.size() > 0) {
-			return new OperationInfo(performer, targets.get(0), new int[0], Actions.MELEE_ATTACK_ACTION);
+			return new AttackTargetGoal(targets.get(0)).calculateGoal(performer, world);
 		} else {
 			return null;
 		}

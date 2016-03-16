@@ -37,7 +37,7 @@ public class SacrificePeopleToDeityGoal implements Goal {
 		if (sacrificialAltars.size() > 0) {
 			WorldObject personOnAltar = getPersonOnAltars(sacrificialAltars, world);
 			if (personOnAltar != null) {
-				return new OperationInfo(performer, personOnAltar, new int[0], Actions.MELEE_ATTACK_ACTION);
+				return new AttackTargetGoal(personOnAltar).calculateGoal(performer, world);
 			} else {
 				List<WorldObject> peopleToSacrifice = getPeopleToSacrifice(performer, world);
 				if (peopleToSacrifice.size() > 0) {
