@@ -18,10 +18,12 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.generator.CommonerGenerator;
+import org.worldgrower.generator.Item;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.gui.CommonerImageIds;
 
@@ -40,6 +42,61 @@ public class UTestMeleeAttackAction {
 		Actions.MELEE_ATTACK_ACTION.execute(performer, target, new int[0], world);
 		
 		assertEquals(24, target.getProperty(Constants.HIT_POINTS).intValue());
+	}
+	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		WorldObject performer = createPerformer(world, organization);
+		WorldObject target = createPerformer(world, organization);
+		
+		assertEquals(true, Actions.MELEE_ATTACK_ACTION.isValidTarget(performer, target, world));
+		assertEquals(false, Actions.MELEE_ATTACK_ACTION.isValidTarget(performer, TestUtils.createWorldObject(7, "target"), world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		WorldObject performer = createPerformer(world, organization);
+		WorldObject target = createPerformer(world, organization);
+		
+		assertEquals(0, Actions.MELEE_ATTACK_ACTION.distance(performer, target, new int[0], world));
+	}
+	
+	@Test
+	public void testGetDeathDescriptionUnarmed() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		WorldObject performer = createPerformer(world, organization);
+		WorldObject target = createPerformer(world, organization);
+		
+		assertEquals("pummeled to death", Actions.MELEE_ATTACK_ACTION.getDeathDescription(performer, target));
+	}
+	
+	@Test
+	public void testGetDeathDescriptionSword() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		WorldObject performer = createPerformer(world, organization);
+		WorldObject target = createPerformer(world, organization);
+		
+		performer.setProperty(Constants.LEFT_HAND_EQUIPMENT, Item.IRON_CLAYMORE.generate(1f));
+		
+		assertEquals("slashed to death", Actions.MELEE_ATTACK_ACTION.getDeathDescription(performer, target));
+	}
+	
+	@Test
+	public void testGetDeathDescriptionMace() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		WorldObject performer = createPerformer(world, organization);
+		WorldObject target = createPerformer(world, organization);
+		
+		performer.setProperty(Constants.LEFT_HAND_EQUIPMENT, Item.IRON_MACE.generate(1f));
+		
+		assertEquals("bludgeoned to death", Actions.MELEE_ATTACK_ACTION.getDeathDescription(performer, target));
 	}
 	
 	private WorldObject createPerformer(World world, WorldObject organization) {

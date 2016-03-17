@@ -27,6 +27,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.attribute.ArmorType;
+import org.worldgrower.attribute.DamageType;
 import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.Knowledge;
 import org.worldgrower.attribute.KnowledgeMap;
@@ -35,7 +36,7 @@ import org.worldgrower.conversation.KnowledgeToDescriptionMapper;
 import org.worldgrower.gui.ImageIds;
 
 public enum Item {
-	IRON_CLAYMORE, IRON_GREATSWORD, IRON_AXE, IRON_GREATAXE, IRON_CUIRASS, IRON_HELMET, IRON_GAUNTLETS, IRON_GREAVES, IRON_SHIELD, IRON_BOOTS, BERRIES, GRAPES, WINE, LONGBOW, PAPER, WATER, MEAT, SPELLBOOK, KEY, NIGHT_SHADE, POISON, COTTON, COTTON_SHIRT, COTTON_HAT, COTTON_BOOTS, COTTON_GLOVES, COTTON_PANTS, BED, OIL, FISHING_POLE, FISH, REPAIR_HAMMER, WOOD, STONE, GOLD, ORE, SOUL_GEM, NEWS_PAPER, BLOOD;
+	IRON_CLAYMORE, IRON_GREATSWORD, IRON_AXE, IRON_GREATAXE, IRON_CUIRASS, IRON_HELMET, IRON_GAUNTLETS, IRON_GREAVES, IRON_SHIELD, IRON_BOOTS, BERRIES, GRAPES, WINE, LONGBOW, PAPER, WATER, MEAT, SPELLBOOK, KEY, NIGHT_SHADE, POISON, COTTON, COTTON_SHIRT, COTTON_HAT, COTTON_BOOTS, COTTON_GLOVES, COTTON_PANTS, BED, OIL, FISHING_POLE, FISH, REPAIR_HAMMER, WOOD, STONE, GOLD, ORE, SOUL_GEM, NEWS_PAPER, BLOOD, IRON_MACE;
 
 	public static final String NEWS_PAPER_NAME = "news paper";
 	private static final String IRON_CLAYMORE_NAME = "Iron Claymore";
@@ -48,6 +49,7 @@ public enum Item {
 	private static final String IRON_GREAVES_NAME = "Iron Greaves";
 	private static final String IRON_BOOTS_NAME = "Iron boots";
 	private static final String IRON_SHIELD_NAME = "Iron Shield";
+	private static final String IRON_MACE_NAME = "Iron Mace";
 	
 	private static final String LONGBOW_NAME = "Longbow";
 	private static final String POISON_NAME = "Poison";
@@ -80,6 +82,7 @@ public enum Item {
 			properties.put(Constants.PRICE, 50);
 			properties.put(Constants.SELLABLE, false);
 			properties.put(Constants.DAMAGE, (int) (12 * skillBonus));
+			properties.put(Constants.DAMAGE_TYPE, DamageType.SLASHING);
 			properties.put(Constants.WEIGHT, 22);
 			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
@@ -93,6 +96,7 @@ public enum Item {
 			properties.put(Constants.PRICE, 100);
 			properties.put(Constants.SELLABLE, false);
 			properties.put(Constants.DAMAGE, (int) (24 * skillBonus));
+			properties.put(Constants.DAMAGE_TYPE, DamageType.SLASHING);
 			properties.put(Constants.WEIGHT, 40);
 			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
@@ -107,6 +111,7 @@ public enum Item {
 			properties.put(Constants.PRICE, 50);
 			properties.put(Constants.SELLABLE, false);
 			properties.put(Constants.DAMAGE, (int) (12 * skillBonus));
+			properties.put(Constants.DAMAGE_TYPE, DamageType.SLASHING);
 			properties.put(Constants.WEIGHT, 22);
 			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
@@ -120,6 +125,7 @@ public enum Item {
 			properties.put(Constants.PRICE, 100);
 			properties.put(Constants.SELLABLE, false);
 			properties.put(Constants.DAMAGE, (int) (24 * skillBonus));
+			properties.put(Constants.DAMAGE_TYPE, DamageType.SLASHING);
 			properties.put(Constants.WEIGHT, 40);
 			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
@@ -483,6 +489,20 @@ public enum Item {
 			properties.put(Constants.SELLABLE, false);
 			properties.put(Constants.WEIGHT, 1);
 			properties.put(Constants.IMAGE_ID, ImageIds.BLOOD);
+			return new WorldObjectImpl(properties);
+		});
+		
+		addItem(Item.IRON_MACE, skillBonus -> {
+			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+			properties.put(Constants.NAME, IRON_MACE_NAME);
+			properties.put(Constants.PRICE, 50);
+			properties.put(Constants.SELLABLE, false);
+			properties.put(Constants.DAMAGE, (int) (12 * skillBonus));
+			properties.put(Constants.DAMAGE_TYPE, DamageType.BLUDGEONING);
+			properties.put(Constants.WEIGHT, 22);
+			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
+			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
+			properties.put(Constants.IMAGE_ID, ImageIds.IRON_MACE);
 			return new WorldObjectImpl(properties);
 		});
 		

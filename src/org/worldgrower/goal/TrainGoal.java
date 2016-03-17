@@ -16,12 +16,13 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
-import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.actions.AttackUtils;
 import org.worldgrower.actions.ConstructTrainingDummyAction;
+import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.generator.BuildingGenerator;
 
 public class TrainGoal implements Goal {
@@ -51,8 +52,8 @@ public class TrainGoal implements Goal {
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		//TODO: skill isn't always hand to hand, see AttackTargetGoal
-		return Constants.HAND_TO_HAND_SKILL.getLevel(performer) > 15;
+		SkillProperty skillProperty = AttackUtils.determineSkill(performer);
+		return performer.getProperty(skillProperty).getLevel(performer) > 15;
 	}
 	
 	@Override

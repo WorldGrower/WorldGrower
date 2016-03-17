@@ -216,6 +216,7 @@ public class Actions {
 	public static final InvestigateAction INVESTIGATE_ACTION = new InvestigateAction();
 	public static final CreateBloodAction CREATE_BLOOD_ACTION = new CreateBloodAction();
 	public static final LichTransformationAction LICH_TRANSFORMATION_ACTION = new LichTransformationAction();
+	public static final CraftIronMaceAction CRAFT_IRON_MACE_ACTION = new CraftIronMaceAction();
 	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 
@@ -371,7 +372,8 @@ public class Actions {
 		CREATE_NEWS_PAPER_ACTION,
 		OBFUSCATE_DEATH_REASON_ACTION,
 		INVESTIGATE_ACTION,
-		CREATE_BLOOD_ACTION
+		CREATE_BLOOD_ACTION,
+		CRAFT_IRON_MACE_ACTION
 	));
 	
 	static {
