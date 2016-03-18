@@ -562,7 +562,10 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestFiretrapOnTurn.class,
 	UTestDefaultGoalChangedListener.class,
 	UTestOreGoal.class,
-	UTestAttackTargetGoal.class
+	UTestAttackTargetGoal.class,
+	UTestCraftIronMaceAction.class,
+	UTestDoNothingAction.class,
+	UTestMoveAction.class
 })
 public class CompleteTestSuite {
 }

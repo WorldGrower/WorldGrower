@@ -468,4 +468,8 @@ public class Actions {
 	public static List<String> getDeadlyActionDescriptions() {
 		return ALL_ACTIONS.stream().filter(operation -> operation instanceof DeadlyAction).map(operation -> operation.getSimpleDescription()).collect(Collectors.toList());
 	}
+	
+	public static boolean isMutuallyAgreedAction(ManagedOperation action) {
+		return ((action == BUY_ACTION) || (action == SELL_ACTION));
+	}
 }

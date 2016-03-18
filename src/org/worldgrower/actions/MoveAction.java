@@ -42,7 +42,7 @@ public class MoveAction implements ManagedOperation {
 		setLookDirection(performer, args);
 	}
 
-	private void setLookDirection(WorldObject performer, int[] args) {
+	void setLookDirection(WorldObject performer, int[] args) {
 		if (performer.hasProperty(Constants.LOOK_DIRECTION)) {
 			if (args[0] == 0) {
 				if (args[1] > 0) {
@@ -109,9 +109,7 @@ public class MoveAction implements ManagedOperation {
 
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		int performerId = performer.getProperty(Constants.ID);
-		int targetId = target.getProperty(Constants.ID);
-		return (performerId == targetId);
+		return CraftUtils.isValidTarget(performer, target, world);
 	}
 	
 	@Override

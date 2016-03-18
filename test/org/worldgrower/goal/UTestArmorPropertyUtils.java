@@ -38,4 +38,11 @@ public class UTestArmorPropertyUtils {
 		
 		assertEquals(26, ArmorPropertyUtils.calculateArmor(performer));
 	}
+	
+	@Test
+	public void testGetSkillBonus() {
+		WorldObject performer = TestUtils.createSkilledWorldObject(1);
+		assertEquals(1.0, ArmorPropertyUtils.getSkillBonus(performer, Item.IRON_CUIRASS.generate(1f)), 0.1);
+		assertEquals(1.0, ArmorPropertyUtils.getSkillBonus(performer, Item.COTTON_SHIRT.generate(1f)), 0.1);
+	}
 }
