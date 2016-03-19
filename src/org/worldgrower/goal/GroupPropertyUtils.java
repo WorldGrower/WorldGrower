@@ -322,13 +322,17 @@ public class GroupPropertyUtils {
 		} else if (organizationNames.size() == 0) {
 			throw new IllegalStateException("No organization names found for " + performer.toString());
 		} else {
-			/*Random r = new Random();
-			int low = 0;
-			int high = organizationNames.size() - 1;
-			int organizationIndex = r.nextInt(high-low) + low;
-			return organizationIndex;*/
-			// for now, return 0
-			return 0;
+			String performerName = performer.getProperty(Constants.NAME);
+			if (performerName.length() > 0) {
+				performerName = performerName.toUpperCase();
+				char firstLetter = performerName.charAt(0);
+				int charOffset = 'Z' - firstLetter;
+				
+				int organizationIndex = charOffset % organizationNames.size();
+				return organizationIndex;
+			} else {
+				return 0;
+			}
 		}
 	}
 	

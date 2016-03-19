@@ -15,6 +15,7 @@
 package org.worldgrower.goal;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 import static org.worldgrower.TestUtils.createIntelligentWorldObject;
 import static org.worldgrower.goal.GroupPropertyUtils.createProfessionOrganization;
 
@@ -447,5 +448,28 @@ public class UTestGroupPropertyUtils {
 		
 		GroupPropertyUtils.throwPerformerOutGroup(performer, target);
 		assertEquals(0, performer.getProperty(Constants.GROUP).size());
+	}
+	
+	@Test
+	public void testGetRandomOrganizationIndex() {
+		WorldObject performer = TestUtils.createWorldObject(2, "performer");
+		assertEquals(0, GroupPropertyUtils.getRandomOrganizationIndex(performer, Arrays.asList("Org1")));
+		
+		performer.setProperty(Constants.NAME, "Y");
+		assertEquals(1, GroupPropertyUtils.getRandomOrganizationIndex(performer, Arrays.asList("Org1", "Org2")));
+		
+		performer.setProperty(Constants.NAME, "");
+		assertEquals(0, GroupPropertyUtils.getRandomOrganizationIndex(performer, Arrays.asList("Org1", "Org2")));
+	}
+	
+	@Test
+	public void testGetRandomOrganizationIndexError() {
+		try {
+			WorldObject performer = TestUtils.createWorldObject(2, "performer");
+			GroupPropertyUtils.getRandomOrganizationIndex(performer, new ArrayList<>());
+			fail("method should fail");
+		} catch(IllegalStateException ex) {
+			assertEquals(true, ex.getMessage().startsWith("No organization names found for"));
+		}
 	}
 }
