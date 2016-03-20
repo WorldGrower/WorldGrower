@@ -100,7 +100,7 @@ public class AssassinateTargetConversation implements Conversation {
 		World world = conversationContext.getWorld();
 		
 		if (replyIndex == YES) {
-			
+			target.setProperty(Constants.ASSASSINATE_TARGET_ID, subject.getProperty(Constants.ID));
 		} else if (replyIndex == NO) {
 			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -50, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 		}
