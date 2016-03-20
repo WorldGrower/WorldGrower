@@ -32,6 +32,7 @@ public class DefaultGoalChangedListener implements GoalChangedListener {
 	private Map<Goal, GoalChangedHandler> goalChangedMap = new HashMap<>();
 	
 	public DefaultGoalChangedListener() {
+		goalChangedMap.put(Goals.ASSASSINATE_TARGET_GOAL, new GoalChangedHandler(Goals.HEAL_OTHERS_GOAL, Actions.MINOR_HEAL_ACTION));
 		goalChangedMap.put(Goals.BECOME_LICH_GOAL, new GoalChangedHandler(Goals.RESEARCH_MAGIC_SKILLS_KNOWLEDGE_GOAL, Actions.RESEARCH_EVOCATION_SKILL_ACTION));
 		goalChangedMap.put(Goals.CREATE_POISON_GOAL, new GoalChangedHandler(Goals.CREATE_WINE_GOAL, Actions.BREW_WINE_ACTION));
 		goalChangedMap.put(Goals.DESTROY_SHRINES_TO_OTHER_DEITIES_GOAL, new GoalChangedHandler(Goals.SHRINE_TO_DEITY_GOAL, Actions.BUILD_SHRINE_ACTION));
