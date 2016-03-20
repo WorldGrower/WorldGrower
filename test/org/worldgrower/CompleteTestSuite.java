@@ -69,6 +69,7 @@ import org.worldgrower.condition.UTestVampireUtils;
 import org.worldgrower.condition.UTestWerewolfUtils;
 import org.worldgrower.conversation.UTestArenaFighterPayCheckConversation;
 import org.worldgrower.conversation.UTestAskGoalConversation;
+import org.worldgrower.conversation.UTestAssassinateTargetConversation;
 import org.worldgrower.conversation.UTestBecomeArenaFighterConversation;
 import org.worldgrower.conversation.UTestBrawlConversation;
 import org.worldgrower.conversation.UTestBreakupWithMateConversation;
@@ -565,7 +566,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestAttackTargetGoal.class,
 	UTestCraftIronMaceAction.class,
 	UTestDoNothingAction.class,
-	UTestMoveAction.class
+	UTestMoveAction.class,
+	UTestAssassinateTargetConversation.class
 })
 public class CompleteTestSuite {
 }
