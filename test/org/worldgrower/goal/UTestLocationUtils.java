@@ -54,7 +54,7 @@ public class UTestLocationUtils {
 	public void testFindIsolatedPersonPossibleTarget() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerson(2);
-		WorldObject target = createPerson(2);
+		WorldObject target = createPerson(3);
 		
 		target.setProperty(Constants.X, 10);
 		target.setProperty(Constants.Y, 10);
@@ -63,6 +63,26 @@ public class UTestLocationUtils {
 		world.addWorldObject(target);
 		
 		assertEquals(target, LocationUtils.findIsolatedPerson(performer, world));
+	}
+	
+	@Test
+	public void testIsPersonIsolated() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerson(2);
+		WorldObject target = createPerson(3);
+		
+		target.setProperty(Constants.X, 10);
+		target.setProperty(Constants.Y, 10);
+		world.addWorldObject(performer);
+		world.addWorldObject(target);
+		
+		assertEquals(true, LocationUtils.isPersonIsolated(performer, target, world));
+		
+		WorldObject subject = createPerson(4);
+		subject.setProperty(Constants.X, 9);
+		subject.setProperty(Constants.Y, 9);
+		world.addWorldObject(subject);
+		assertEquals(false, LocationUtils.isPersonIsolated(performer, target, world));
 	}
 	
 	private WorldObject createPerson(int id) {

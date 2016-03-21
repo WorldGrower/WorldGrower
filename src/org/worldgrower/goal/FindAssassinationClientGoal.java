@@ -21,21 +21,15 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 
-public class AssassinateTargetGoal implements Goal {
+public class FindAssassinationClientGoal implements Goal {
 
-	public AssassinateTargetGoal(List<Goal> allGoals) {
+	public FindAssassinationClientGoal(List<Goal> allGoals) {
 		allGoals.add(this);
 	}
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		Integer assassinateTargetId = performer.getProperty(Constants.ASSASSINATE_TARGET_ID);
-		if (assassinateTargetId != null) {
-			WorldObject assassinateTarget = world.findWorldObject(Constants.ID, assassinateTargetId);
-			if (LocationUtils.isPersonIsolated(performer, assassinateTarget, world)) {
-				return new AttackTargetGoal(assassinateTarget).calculateGoal(performer, world);
-			}
-		}
+
 		return null;
 	}
 
@@ -45,7 +39,7 @@ public class AssassinateTargetGoal implements Goal {
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		return performer.getProperty(Constants.ASSASSINATE_TARGET_ID) == null;
+		return performer.getProperty(Constants.ASSASSINATE_TARGET_ID) != null;
 	}
 	
 	@Override
@@ -55,11 +49,11 @@ public class AssassinateTargetGoal implements Goal {
 
 	@Override
 	public String getDescription() {
-		return "assassinating someone";
+		return "finding an assassination client";
 	}
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		return performer.getProperty(Constants.ASSASSINATE_TARGET_ID) == null ? 1 : 0;
+		return performer.getProperty(Constants.ASSASSINATE_TARGET_ID) != null ? 1 : 0;
 	}
 }

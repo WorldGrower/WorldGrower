@@ -129,11 +129,20 @@ public class LocationUtils {
 	public static WorldObject findIsolatedPerson(WorldObject performer,	World world) {
 		List<WorldObject> targets = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> Reach.distance(performer, w) < 20);
 		for(WorldObject target : targets) {
-			List<WorldObject> peopleSurroundingTarget = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> Reach.distance(target, w) < 20 && !w.equals(performer) && !w.equals(target));
+			List<WorldObject> peopleSurroundingTarget = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> isWorldObjectNearTarget(performer, target, w));
 			if (peopleSurroundingTarget.size() == 0) {
 				return target;
 			}
 		}
 		return null;
+	}
+
+	private static boolean isWorldObjectNearTarget(WorldObject performer, WorldObject target, WorldObject w) {
+		return Reach.distance(target, w) < 20 && !w.equals(performer) && !w.equals(target);
+	}
+
+	public static boolean isPersonIsolated(WorldObject performer, WorldObject target, World world) {
+		List<WorldObject> peopleSurroundingTarget = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> isWorldObjectNearTarget(performer, target, w));
+		return (peopleSurroundingTarget.size() == 0);
 	}
 }

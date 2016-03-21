@@ -140,4 +140,5 @@ public class Goals {
 	public static final GetDiseaseCuredGoal GET_DISEASE_CURED_GOAL = new GetDiseaseCuredGoal(ALL_GOALS);
 	public static final SwitchDeityGoal SWITCH_DEITY_GOAL = new SwitchDeityGoal(ALL_GOALS);
 	public static final AssassinateTargetGoal ASSASSINATE_TARGET_GOAL = new AssassinateTargetGoal(ALL_GOALS);
+	public static final FindAssassinationClientGoal FIND_ASSASSINATION_CLIENT_GOAL = new FindAssassinationClientGoal(ALL_GOALS);
 }

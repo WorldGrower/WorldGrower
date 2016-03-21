@@ -74,6 +74,24 @@ public class UTestAssassinateTargetConversation {
 	}
 	
 	@Test
+	public void testGetPossibleSubjects() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.GROUP, new IdList());
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.GROUP, new IdList().add(0));
+		WorldObject subject = TestUtils.createIntelligentWorldObject(3, Constants.NAME, "subject");
+		
+		world.addWorldObject(subject);
+		
+		performer.getProperty(Constants.RELATIONSHIPS).incrementValue(subject, 1000);
+		performer.getProperty(Constants.RELATIONSHIPS).incrementValue(target, 1000);
+		target.getProperty(Constants.RELATIONSHIPS).incrementValue(subject, 1000);
+		
+		List<WorldObject> possibleSubjects = conversation.getPossibleSubjects(performer, target, null, world);
+		assertEquals(1, possibleSubjects.size());
+		assertEquals(subject, possibleSubjects.get(0));
+	}
+	
+	@Test
 	public void testHandleResponse0() {
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.ARENA_FIGHTER_IDS, new IdList());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.ARENA_FIGHTER_IDS, new IdList());

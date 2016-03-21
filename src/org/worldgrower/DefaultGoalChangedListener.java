@@ -37,6 +37,7 @@ public class DefaultGoalChangedListener implements GoalChangedListener {
 		goalChangedMap.put(Goals.CREATE_POISON_GOAL, new GoalChangedHandler(Goals.CREATE_WINE_GOAL, Actions.BREW_WINE_ACTION));
 		goalChangedMap.put(Goals.DESTROY_SHRINES_TO_OTHER_DEITIES_GOAL, new GoalChangedHandler(Goals.SHRINE_TO_DEITY_GOAL, Actions.BUILD_SHRINE_ACTION));
 		goalChangedMap.put(Goals.FILL_SOUL_GEM_GOAL, new GoalChangedHandler(Goals.MINT_GOLD_GOAL, Actions.MINE_GOLD_ACTION));
+		goalChangedMap.put(Goals.FIND_ASSASSINATION_CLIENT_GOAL, new GoalChangedHandler(Goals.BECOME_PROFESSION_ORGANIZATION_MEMBER_GOAL, Actions.VOTE_FOR_LEADER_ACTION));
 		goalChangedMap.put(Goals.GHOUL_GOAL, new GoalChangedHandler(Goals.HEAL_OTHERS_GOAL, Actions.MINOR_HEAL_ACTION));
 		goalChangedMap.put(Goals.KILL_VILLAGERS_GOAL, new GoalChangedHandler(Goals.HOUSE_GOAL, Actions.BUILD_HOUSE_ACTION));
 		goalChangedMap.put(Goals.LEGALIZE_VAMPIRISM_GOAL, new GoalChangedHandler(Goals.BECOME_PROFESSION_ORGANIZATION_MEMBER_GOAL, Actions.VOTE_FOR_LEADER_ACTION));
