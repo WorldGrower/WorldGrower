@@ -58,7 +58,8 @@ public class ChooseProfessionAction implements ManagedOperation {
 			new ProfessionInfo(Professions.FISHER_PROFESSION, 0.8, 1.0, 0.8, 1.0, 1.4, 1.1),
 			new ProfessionInfo(Professions.ARENA_OWNER_PROFESSION, 0.8, 0.8, 0.8, 1.1, 1.1, 1.4),
 			new ProfessionInfo(Professions.ARENA_FIGHTER_PROFESSION, 1.4, 1.4, 0.8, 0.8, 0.8, 0.8),
-			new ProfessionInfo(Professions.JOURNALIST_PROFESSION, 0.8, 0.8, 0.8, 1.2, 1.2, 1.4)
+			new ProfessionInfo(Professions.JOURNALIST_PROFESSION, 0.8, 0.8, 0.8, 1.2, 1.2, 1.4),
+			new ProfessionInfo(Professions.ASSASSIN_PROFESSION, 1.4, 1.2, 0.8, 0.8, 1.0, 1.4)
 			);
 	
 	@Override
@@ -80,6 +81,10 @@ public class ChooseProfessionAction implements ManagedOperation {
 		
 		if (profession == Professions.NECROMANCER_PROFESSION) {
 			createNecromancerFacade(performer);
+		}
+		
+		if (profession == Professions.ASSASSIN_PROFESSION) {
+			createAssassinFacade(performer);
 		}
 		
 		if (profession == Professions.TAX_COLLECTOR_PROFESSION) {
@@ -104,6 +109,13 @@ public class ChooseProfessionAction implements ManagedOperation {
 	public static void createThiefFacade(WorldObject performer) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.PROFESSION, Professions.FARMER_PROFESSION);
+		WorldObject facade = new WorldObjectImpl(properties);
+		performer.setProperty(Constants.FACADE, facade);
+	}
+	
+	public static void createAssassinFacade(WorldObject performer) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		properties.put(Constants.PROFESSION, Professions.CARPENTER_PROFESSION);
 		WorldObject facade = new WorldObjectImpl(properties);
 		performer.setProperty(Constants.FACADE, facade);
 	}
@@ -280,6 +292,12 @@ public class ChooseProfessionAction implements ManagedOperation {
 			result.add(new ProfessionEvaluation(Professions.NECROMANCER_PROFESSION, -1));
 		} else {
 			result.add(new ProfessionEvaluation(Professions.NECROMANCER_PROFESSION, Integer.MIN_VALUE));
+		}
+		
+		if (populationCount > 15) {
+			result.add(new ProfessionEvaluation(Professions.ASSASSIN_PROFESSION, -1));
+		} else {
+			result.add(new ProfessionEvaluation(Professions.ASSASSIN_PROFESSION, Integer.MIN_VALUE));
 		}
 		
 		List<WorldObject> nearbyFish = world.findWorldObjectsByProperty(Constants.FOOD_SOURCE, w -> w.getProperty(Constants.CREATURE_TYPE) == CreatureType.FISH_CREATURE_TYPE && Reach.distance(performer, w) < 50);
