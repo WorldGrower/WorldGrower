@@ -56,6 +56,23 @@ public class UTestIdMap {
 	}
 	
 	@Test
+	public void testFindWorstId() {
+		IdMap idMap = new IdToIntegerMap();
+		World world = new WorldImpl(0, 0, null, null);
+		
+		WorldObject person1 = TestUtils.createIntelligentWorldObject(1, Constants.GOLD, 10);
+		WorldObject person2 = TestUtils.createIntelligentWorldObject(2, Constants.GOLD, 0);
+		
+		world.addWorldObject(person1);
+		world.addWorldObject(person2);
+		
+		idMap.incrementValue(person1, 60);
+		idMap.incrementValue(person2, 80);
+		
+		assertEquals(1, idMap.findWorstId(world));
+	}
+	
+	@Test
 	public void testFindBestIdWithComparator() {
 		IdMap idMap = new IdToIntegerMap();
 		World world = new WorldImpl(0, 0, null, null);
