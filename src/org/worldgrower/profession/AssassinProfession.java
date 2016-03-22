@@ -38,7 +38,8 @@ public class AssassinProfession implements Profession {
 	@Override
 	public List<Goal> getProfessionGoals() {
 		return Arrays.asList(
-				Goals.EQUIPMENT_GOAL
+				Goals.EQUIPMENT_GOAL,
+				Goals.FIND_ASSASSINATION_CLIENT_GOAL
 		);
 	}
 

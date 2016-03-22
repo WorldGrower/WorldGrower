@@ -78,6 +78,23 @@ public abstract class AbstractIdMap implements IdMap {
 	}
 	
 	@Override
+	public final int findWorstId(World world) {
+		int worstId = -1;
+		int worstRelationshipValue = Integer.MAX_VALUE;
+		for(Entry<Integer, Integer> entry : idsToValue.entrySet()) {
+			int id = entry.getKey();
+			int relationshipValue = entry.getValue();
+			
+			if (relationshipValue < worstRelationshipValue) {
+				worstRelationshipValue = relationshipValue;
+				worstId = id;
+			}
+		}
+		
+		return worstId;
+	}
+	
+	@Override
 	public final int findBestId(Predicate<WorldObject> predicate, Comparator<WorldObject> comparator,  World world) {
 		WorldObject bestPerson = null;
 		for(Entry<Integer, Integer> entry : idsToValue.entrySet()) {

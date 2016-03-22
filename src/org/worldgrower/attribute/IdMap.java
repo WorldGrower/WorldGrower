@@ -31,6 +31,7 @@ public interface IdMap extends Serializable, IdContainer {
 	
 	public int findBestId(Predicate<WorldObject> predicate, World world);
 	public int findBestId(Predicate<WorldObject> predicate, Comparator<WorldObject> comparator,  World world);
+	public int findWorstId(World world);
 	public List<Integer> getIds();
 	public List<Integer> getIdsWithoutTarget(WorldObject target);
 	public boolean contains(WorldObject worldObject);

@@ -568,7 +568,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestDoNothingAction.class,
 	UTestMoveAction.class,
 	UTestAssassinateTargetConversation.class,
-	UTestAssassinateTargetGoal.class
+	UTestAssassinateTargetGoal.class,
+	UTestFindAssassinationGoal.class
 })
 public class CompleteTestSuite {
 }
