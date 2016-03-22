@@ -33,8 +33,7 @@ public class FindAssassinationClientGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		IdMap performerRelationShips = performer.getProperty(Constants.RELATIONSHIPS);
-		int bestId = performer.getProperty(Constants.RELATIONSHIPS).findBestId(w -> performerRelationShips.getValue(w) > 100, new AssassinClientComparator(world), world);
+		int bestId = performer.getProperty(Constants.RELATIONSHIPS).findBestId(w -> isTargetForFindAssassinationClientConversation(performer, w, world), new AssassinClientComparator(world), world);
 		if (bestId != -1) {
 			WorldObject target = world.findWorldObject(Constants.ID, bestId);
 			int worstTargetId = target.getProperty(Constants.RELATIONSHIPS).findWorstId(world);
@@ -42,6 +41,13 @@ public class FindAssassinationClientGoal implements Goal {
 			return new OperationInfo(performer, target, Conversations.createArgs(Conversations.ASSASSINATE_TARGET_CONVERSATION, subject), Actions.TALK_ACTION);
 		}
 		return null;
+	}
+	
+	private boolean isTargetForFindAssassinationClientConversation(WorldObject performer, WorldObject target, World world) {
+		IdMap performerRelationShips = performer.getProperty(Constants.RELATIONSHIPS);
+		return performerRelationShips.getValue(target) > 100 &&
+				!GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, target)
+				&& !Conversations.ASSASSINATE_TARGET_CONVERSATION.previousAnswerWasNegative(Conversations.ASSASSINATE_TARGET_CONVERSATION.getPreviousResponseIds(performer, target, world));
 	}
 
 	private static class AssassinClientComparator implements Comparator<WorldObject> {

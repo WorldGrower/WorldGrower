@@ -110,4 +110,8 @@ public class AssassinateTargetConversation implements Conversation {
 	public String getDescription(WorldObject performer, WorldObject target, World world) {
 		return "talking about assassinating someone";
 	}
+	
+	public boolean previousAnswerWasNegative(List<Integer> previousResponseIds) {
+		return previousResponseIds.contains(NO);
+	}
 }
