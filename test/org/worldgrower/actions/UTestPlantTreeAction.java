@@ -38,6 +38,27 @@ public class UTestPlantTreeAction {
 		assertEquals("tree", world.getWorldObjects().get(0).getProperty(Constants.NAME));
 	}
 	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		
+		assertEquals(true, Actions.PLANT_TREE_ACTION.isValidTarget(performer, target, world));
+		
+		world.addWorldObject(target);
+		assertEquals(false, Actions.PLANT_TREE_ACTION.isValidTarget(performer, target, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		
+		assertEquals(0, Actions.PLANT_TREE_ACTION.distance(performer, target, new int[0], world));
+	}
+	
 	private WorldObject createPerformer(int id) {
 		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.X, 0);
