@@ -27,6 +27,8 @@ import org.worldgrower.generator.Item;
 
 public class BuyClothesGoal implements Goal {
 
+	private static final int QUANTITY_TO_BUY = 1;
+	
 	public BuyClothesGoal(List<Goal> allGoals) {
 		allGoals.add(this);
 	}
@@ -44,21 +46,21 @@ public class BuyClothesGoal implements Goal {
 			if (!hasCottonShirt) {
 				int targetInventoryIndex = BuySellUtils.getIndexFor(targets.get(0), Constants.NAME, Item.COTTON_SHIRT_NAME);
 				if (targetInventoryIndex != -1) {
-					return new OperationInfo(performer, targets.get(0), new int[] { targetInventoryIndex, 1 }, Actions.BUY_ACTION);
+					return new OperationInfo(performer, targets.get(0), new int[] { targetInventoryIndex, QUANTITY_TO_BUY }, Actions.BUY_ACTION);
 				}
 			}
 			
 			if (!hasCottonPants) {
 				int targetInventoryIndex = BuySellUtils.getIndexFor(targets.get(0), Constants.NAME, Item.COTTON_PANTS_NAME);
 				if (targetInventoryIndex != -1) {
-					return new OperationInfo(performer, targets.get(0), new int[] { targetInventoryIndex, 1 }, Actions.BUY_ACTION);
+					return new OperationInfo(performer, targets.get(0), new int[] { targetInventoryIndex, QUANTITY_TO_BUY }, Actions.BUY_ACTION);
 				}
 			}
 			
 			if (!hasCottonBoots) {
 				int targetInventoryIndex = BuySellUtils.getIndexFor(targets.get(0), Constants.NAME, Item.COTTON_BOOTS_NAME);
 				if (targetInventoryIndex != -1) {
-					return new OperationInfo(performer, targets.get(0), new int[] { targetInventoryIndex, 1 }, Actions.BUY_ACTION);
+					return new OperationInfo(performer, targets.get(0), new int[] { targetInventoryIndex, QUANTITY_TO_BUY }, Actions.BUY_ACTION);
 				}
 			}
 		}
@@ -87,15 +89,15 @@ public class BuyClothesGoal implements Goal {
 	
 	private List<WorldObject> getTargetsToBuyFrom(WorldObject performer, World world, boolean hasCottonShirt, boolean hasCottonPants, boolean hasCottonBoots) {
 		if (!hasCottonShirt) {
-			return BuySellUtils.findBuyTargets(performer, Constants.NAME, Item.COTTON_SHIRT_NAME, world);
+			return BuySellUtils.findBuyTargets(performer, Constants.NAME, Item.COTTON_SHIRT_NAME, QUANTITY_TO_BUY, world);
 		}
 		
 		if (!hasCottonPants) {
-			return BuySellUtils.findBuyTargets(performer, Constants.NAME, Item.COTTON_PANTS_NAME, world);
+			return BuySellUtils.findBuyTargets(performer, Constants.NAME, Item.COTTON_PANTS_NAME, QUANTITY_TO_BUY, world);
 		}
 		
 		if (!hasCottonBoots) {
-			return BuySellUtils.findBuyTargets(performer, Constants.NAME, Item.COTTON_BOOTS_NAME, world);
+			return BuySellUtils.findBuyTargets(performer, Constants.NAME, Item.COTTON_BOOTS_NAME, QUANTITY_TO_BUY, world);
 		}
 		
 		return new ArrayList<>();

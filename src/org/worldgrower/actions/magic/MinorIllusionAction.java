@@ -16,7 +16,6 @@ package org.worldgrower.actions.magic;
 
 import java.io.ObjectStreamException;
 
-import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
@@ -75,10 +74,8 @@ public class MinorIllusionAction implements BuildAction, MagicSpell {
 	}
 	
 	@Override
-	public ArgumentRange[] getArgumentRanges() {
-		ArgumentRange[] argumentRanges = new ArgumentRange[1];
-		argumentRanges[0] = new ArgumentRange(0, 100);
-		return argumentRanges;
+	public boolean requiresArguments() {
+		return true;
 	}
 	
 	@Override

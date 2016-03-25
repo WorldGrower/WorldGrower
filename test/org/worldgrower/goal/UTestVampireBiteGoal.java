@@ -25,8 +25,8 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.MockCommonerNameGenerator;
 import org.worldgrower.actions.legal.DefaultActionLegalHandler;
 import org.worldgrower.actions.legal.LegalAction;
-import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.condition.VampireUtils;
+import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.generator.CommonerGenerator;
 import org.worldgrower.gui.CommonerImageIds;
 

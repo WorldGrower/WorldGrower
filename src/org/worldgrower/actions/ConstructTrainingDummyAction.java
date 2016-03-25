@@ -16,7 +16,6 @@ package org.worldgrower.actions;
 
 import java.io.ObjectStreamException;
 
-import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
@@ -56,8 +55,8 @@ public class ConstructTrainingDummyAction implements BuildAction {
 	}
 
 	@Override
-	public ArgumentRange[] getArgumentRanges() {
-		return ArgumentRange.EMPTY_ARGUMENT_RANGE;
+	public boolean requiresArguments() {
+		return false;
 	}
 
 	@Override

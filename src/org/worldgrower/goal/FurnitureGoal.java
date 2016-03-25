@@ -26,6 +26,8 @@ import org.worldgrower.generator.Item;
 
 public class FurnitureGoal implements Goal {
 
+	private static final int QUANTITY_TO_BUY = 1;
+	
 	public FurnitureGoal(List<Goal> allGoals) {
 		allGoals.add(this);
 	}
@@ -33,7 +35,7 @@ public class FurnitureGoal implements Goal {
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		boolean hasInventoryFurniture = performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.NAME, Item.BED_NAME).size() > 0;
-		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.SLEEP_COMFORT, world);
+		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.SLEEP_COMFORT, QUANTITY_TO_BUY, world);
 		if (hasInventoryFurniture) {
 			int indexOfFurniture = performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.SLEEP_COMFORT);
 			WorldObject target = HousePropertyUtils.getBestHouse(performer, world);
@@ -43,7 +45,7 @@ public class FurnitureGoal implements Goal {
 				return Goals.HOUSE_GOAL.calculateGoal(performer, world);
 			}
 		} else if (targets.size() > 0) {
-			return new OperationInfo(performer, targets.get(0), new int[] { targets.get(0).getProperty(Constants.INVENTORY).getIndexFor(Constants.SLEEP_COMFORT), 1 }, Actions.BUY_ACTION);
+			return new OperationInfo(performer, targets.get(0), new int[] { targets.get(0).getProperty(Constants.INVENTORY).getIndexFor(Constants.SLEEP_COMFORT), QUANTITY_TO_BUY }, Actions.BUY_ACTION);
 		} else if (ConstructBedAction.hasEnoughWood(performer)) {
 			return new OperationInfo(performer, performer, new int[0], Actions.CONSTRUCT_BED_ACTION);
 		} else {

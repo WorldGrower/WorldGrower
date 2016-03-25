@@ -28,7 +28,6 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.deity.Deity;
-import org.worldgrower.generator.Item;
 import org.worldgrower.history.Turn;
 import org.worldgrower.profession.Professions;
 

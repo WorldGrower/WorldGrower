@@ -14,13 +14,11 @@
  *******************************************************************************/
 package org.worldgrower;
 
-import org.junit.Test;
-import org.worldgrower.Reach;
-import org.worldgrower.WorldObject;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import static org.worldgrower.TestUtils.createWorldObject;
+
+import org.junit.Test;
 
 public class UTestReach {
 

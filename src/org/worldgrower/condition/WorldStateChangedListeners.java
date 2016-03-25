@@ -23,7 +23,6 @@ import org.worldgrower.actions.legal.LegalAction;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.creaturetype.CreatureType;
-import org.worldgrower.creaturetype.GhoulCreatureType;
 
 public class WorldStateChangedListeners {
 

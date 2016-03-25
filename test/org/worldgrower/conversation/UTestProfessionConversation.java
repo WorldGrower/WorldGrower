@@ -20,7 +20,6 @@ import java.util.List;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
-import org.worldgrower.MockMetaInformation;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
@@ -103,5 +102,23 @@ public class UTestProfessionConversation {
 		ConversationContext context = new ConversationContext(performer, target, null, null, null, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
 		assertEquals("I'm a wizard", replyPhrases.get(0).getResponsePhrase());
+	}
+	
+	@Test
+	public void testGetReplyPhrasesForAssassin() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.PROFESSION, Professions.FARMER_PROFESSION);
+		WorldObject target = TestUtils.createSkilledWorldObject(2, Constants.PROFESSION, Professions.NECROMANCER_PROFESSION);
+
+		performer.setProperty(Constants.KNOWLEDGE_MAP, new KnowledgeMap());
+		target.setProperty(Constants.KNOWLEDGE_MAP, new KnowledgeMap());
+		
+		ChooseProfessionAction.createAssassinFacade(target);
+		target.getProperty(Constants.BLUFF_SKILL).use(100, target, Constants.BLUFF_SKILL, new WorldStateChangedListeners());
+		target = FacadeUtils.createFacade(target, target, performer, world);
+		
+		ConversationContext context = new ConversationContext(performer, target, null, null, null, 0);
+		List<Response> replyPhrases = conversation.getReplyPhrases(context);
+		assertEquals("I'm a carpenter", replyPhrases.get(0).getResponsePhrase());
 	}
 }

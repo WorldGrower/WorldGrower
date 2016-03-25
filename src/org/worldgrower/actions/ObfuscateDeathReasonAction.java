@@ -17,7 +17,6 @@ package org.worldgrower.actions;
 import java.io.ObjectStreamException;
 import java.util.List;
 
-import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
@@ -48,8 +47,8 @@ public class ObfuscateDeathReasonAction implements ManagedOperation {
 	}
 
 	@Override
-	public ArgumentRange[] getArgumentRanges() {
-		return new ArgumentRange[] { new ArgumentRange(0, 100) };
+	public boolean requiresArguments() {
+		return true;
 	}
 
 	@Override

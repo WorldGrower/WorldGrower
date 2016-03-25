@@ -22,8 +22,6 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
-import org.worldgrower.conversation.Conversations;
-import org.worldgrower.conversation.Response;
 import org.worldgrower.history.HistoryItem;
 import org.worldgrower.history.Turn;
 

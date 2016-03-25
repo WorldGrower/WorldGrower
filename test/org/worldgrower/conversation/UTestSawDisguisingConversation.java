@@ -27,7 +27,6 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.IdRelationshipMap;
 import org.worldgrower.attribute.KnowledgeMap;
-import org.worldgrower.goal.FacadeUtils;
 
 public class UTestSawDisguisingConversation {
 

@@ -23,7 +23,6 @@ import java.util.List;
 import org.junit.Test;
 import org.worldgrower.TestUtils;
 import org.worldgrower.WorldObject;
-import org.worldgrower.goal.Zone;
 
 public class UTestZone {
 

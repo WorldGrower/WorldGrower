@@ -21,12 +21,6 @@ import static org.worldgrower.TestUtils.createWorldObject;
 import java.util.List;
 
 import org.junit.Test;
-import org.worldgrower.OperationInfo;
-import org.worldgrower.TaskCalculator;
-import org.worldgrower.TaskCalculatorImpl;
-import org.worldgrower.World;
-import org.worldgrower.WorldImpl;
-import org.worldgrower.WorldObject;
 import org.worldgrower.actions.CutWoodAction;
 
 public class UTestTaskCalculator {

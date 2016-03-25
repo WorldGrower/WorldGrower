@@ -17,10 +17,12 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.ManagedOperation;
 import org.worldgrower.TestUtils;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.magic.MagicSpell;
@@ -63,5 +65,21 @@ public class UTestActions {
 	@Test
 	public void testGetDeadlyActionDescriptions() {
 		assertEquals(true, Actions.getDeadlyActionDescriptions().size() > 0);
+	}
+	
+	@Test
+	public void testIsMutuallyAgreedAction() {
+		assertEquals(true, Actions.isMutuallyAgreedAction(Actions.BUY_ACTION));
+		assertEquals(true, Actions.isMutuallyAgreedAction(Actions.SELL_ACTION));
+		assertEquals(false, Actions.isMutuallyAgreedAction(Actions.MELEE_ATTACK_ACTION));
+	}
+	
+	@Test
+	public void testSortActionsByDescription() {
+		List<ManagedOperation> actions = Arrays.asList(Actions.WORSHIP_DEITY_ACTION, Actions.ANIMATE_DEAD_ACTION);
+		Actions.sortActionsByDescription(actions);
+		
+		assertEquals(Actions.ANIMATE_DEAD_ACTION, actions.get(0));
+		assertEquals(Actions.WORSHIP_DEITY_ACTION, actions.get(1));
 	}
 }

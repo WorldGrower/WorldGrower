@@ -14,10 +14,16 @@
  *******************************************************************************/
 package org.worldgrower.gui.inventory;
 
-import java.awt.*;
-import java.awt.event.*;
-  
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
+
+import javax.swing.JComponent;
+import javax.swing.JScrollPane;
+import javax.swing.JTextPane;
+import javax.swing.JToolTip;
+import javax.swing.LookAndFeel;
   
 public class JScrollableToolTip extends JToolTip implements MouseWheelListener {
     private JTextPane textPane;

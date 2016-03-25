@@ -25,7 +25,6 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.IdList;
-import org.worldgrower.goal.BuildLocationUtils;
 
 public class UTestBuildLocationUtils {
 

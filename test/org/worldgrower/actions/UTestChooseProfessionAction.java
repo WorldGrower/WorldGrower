@@ -14,6 +14,8 @@
  *******************************************************************************/
 package org.worldgrower.actions;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -26,13 +28,10 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
-import org.worldgrower.actions.ChooseProfessionAction;
+import org.worldgrower.actions.ChooseProfessionAction.ProfessionEvaluation;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.profession.Profession;
 import org.worldgrower.profession.Professions;
-
-import static org.junit.Assert.assertEquals;
-import static org.worldgrower.actions.ChooseProfessionAction.ProfessionEvaluation;
 
 public class UTestChooseProfessionAction {
 

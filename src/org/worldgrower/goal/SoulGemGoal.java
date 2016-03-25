@@ -24,13 +24,15 @@ import org.worldgrower.actions.Actions;
 
 public class SoulGemGoal implements Goal {
 
+	private static final int QUANTITY_TO_BUY = 5;
+	
 	public SoulGemGoal(List<Goal> allGoals) {
 		allGoals.add(this);
 	}
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		OperationInfo buyOperationInfo = BuySellUtils.getBuyOperationInfo(performer, Constants.SOUL_GEM, world);
+		OperationInfo buyOperationInfo = BuySellUtils.getBuyOperationInfo(performer, Constants.SOUL_GEM, QUANTITY_TO_BUY, world);
 		if (buyOperationInfo != null) {
 			return buyOperationInfo;
 		} else {

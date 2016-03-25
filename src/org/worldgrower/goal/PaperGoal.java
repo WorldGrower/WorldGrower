@@ -24,15 +24,17 @@ import org.worldgrower.actions.Actions;
 
 public class PaperGoal implements Goal {
 
+	private static final int QUANTITY_TO_BUY = 5;
+	
 	public PaperGoal(List<Goal> allGoals) {
 		allGoals.add(this);
 	}
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.PAPER, world);
+		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.PAPER, QUANTITY_TO_BUY, world);
 		if (targets.size() > 0) {
-			return new OperationInfo(performer, targets.get(0), new int[] { targets.get(0).getProperty(Constants.INVENTORY).getIndexFor(Constants.PAPER), 5 }, Actions.BUY_ACTION);
+			return new OperationInfo(performer, targets.get(0), new int[] { targets.get(0).getProperty(Constants.INVENTORY).getIndexFor(Constants.PAPER), QUANTITY_TO_BUY }, Actions.BUY_ACTION);
 		} else {
 			return Goals.CREATE_PAPER_GOAL.calculateGoal(performer, world);
 		}

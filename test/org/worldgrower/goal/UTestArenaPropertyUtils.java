@@ -23,7 +23,6 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
-import org.worldgrower.WorldOnTurn;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.generator.BuildingGenerator;
 

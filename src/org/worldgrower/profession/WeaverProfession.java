@@ -19,7 +19,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.worldgrower.Constants;
-import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.generator.Item;
 import org.worldgrower.goal.Goal;

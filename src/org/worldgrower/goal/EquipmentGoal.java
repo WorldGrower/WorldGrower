@@ -68,7 +68,7 @@ public class EquipmentGoal implements Goal {
 
 	private OperationInfo getEquipment(WorldObject performer, UnCheckedProperty<WorldObject> equipmentSlot, World world) {
 		//TODO: buy items should work with light/heavy armor
-		OperationInfo buyOperationInfo = BuySellUtils.getBuyOperationInfo(performer, Constants.EQUIPMENT_SLOT, equipmentSlot, world);
+		OperationInfo buyOperationInfo = BuySellUtils.getBuyOperationInfo(performer, Constants.EQUIPMENT_SLOT, equipmentSlot, 1, world);
 		if (buyOperationInfo != null) {
 			return buyOperationInfo;
 		} else {

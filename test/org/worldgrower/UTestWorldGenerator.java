@@ -22,11 +22,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
-import org.worldgrower.Constants;
-import org.worldgrower.World;
-import org.worldgrower.WorldImpl;
-import org.worldgrower.WorldObject;
-import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.generator.WorldGenerator;
 import org.worldgrower.generator.WorldGenerator.AddWorldObjectFunction;

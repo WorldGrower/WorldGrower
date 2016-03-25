@@ -25,6 +25,8 @@ import org.worldgrower.personality.PersonalityTrait;
 
 public class FoodGoal implements Goal {
 
+	private static final int QUANTITY_TO_BUY = 5;
+	
 	public FoodGoal(List<Goal> allGoals) {
 		allGoals.add(this);
 	}
@@ -33,7 +35,7 @@ public class FoodGoal implements Goal {
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		boolean hasInventoryFood = performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.FOOD) > 0;
 		WorldObject target = GoalUtils.findNearestTarget(performer, Actions.EAT_ACTION, world);
-		OperationInfo buyOperationInfo = BuySellUtils.getBuyOperationInfo(performer, Constants.FOOD, world);
+		OperationInfo buyOperationInfo = BuySellUtils.getBuyOperationInfo(performer, Constants.FOOD, QUANTITY_TO_BUY, world);
 		if (hasInventoryFood) {
 			int indexOfFood = performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.FOOD);
 			return new OperationInfo(performer, performer, new int[] {indexOfFood}, Actions.EAT_FROM_INVENTORY_ACTION);

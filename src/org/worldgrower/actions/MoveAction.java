@@ -17,7 +17,6 @@ package org.worldgrower.actions;
 import java.io.ObjectStreamException;
 import java.util.List;
 
-import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.UnpassableCreaturePositionCondition;
@@ -100,11 +99,8 @@ public class MoveAction implements ManagedOperation {
 	}
 
 	@Override
-	public ArgumentRange[] getArgumentRanges() {
-		ArgumentRange[] argumentRanges = new ArgumentRange[2];
-		argumentRanges[0] = new ArgumentRange(-1, 1);
-		argumentRanges[1] = new ArgumentRange(-1, 1);
-		return argumentRanges;
+	public boolean requiresArguments() {
+		return true;
 	}
 
 	@Override

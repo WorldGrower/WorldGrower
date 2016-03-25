@@ -25,9 +25,6 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
-import org.worldgrower.actions.Actions;
-import org.worldgrower.actions.TalkAction;
-import org.worldgrower.attribute.KnowledgeMap;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.conversation.Response;
 

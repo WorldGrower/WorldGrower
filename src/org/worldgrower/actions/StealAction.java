@@ -16,7 +16,6 @@ package org.worldgrower.actions;
 
 import java.io.ObjectStreamException;
 
-import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
@@ -27,7 +26,6 @@ import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.InventoryPropertyUtils;
 import org.worldgrower.goal.KnowledgeMapPropertyUtils;
-import org.worldgrower.goal.KnowledgePropertyUtils;
 import org.worldgrower.gui.ImageIds;
 
 public class StealAction implements ManagedOperation {
@@ -84,10 +82,8 @@ public class StealAction implements ManagedOperation {
 	}
 
 	@Override
-	public ArgumentRange[] getArgumentRanges() {
-		ArgumentRange[] argumentRanges = new ArgumentRange[1];
-		argumentRanges[0] = new ArgumentRange(0, 100);
-		return argumentRanges;
+	public boolean requiresArguments() {
+		return true;
 	}
 
 	@Override

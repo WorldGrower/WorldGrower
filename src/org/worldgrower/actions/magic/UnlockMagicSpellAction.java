@@ -16,7 +16,6 @@ package org.worldgrower.actions.magic;
 
 import java.io.ObjectStreamException;
 
-import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
@@ -60,8 +59,8 @@ public class UnlockMagicSpellAction implements MagicSpell {
 	}
 	
 	@Override
-	public ArgumentRange[] getArgumentRanges() {
-		return ArgumentRange.EMPTY_ARGUMENT_RANGE;
+	public boolean requiresArguments() {
+		return false;
 	}
 	
 	@Override

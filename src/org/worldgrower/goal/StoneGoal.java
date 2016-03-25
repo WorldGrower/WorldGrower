@@ -24,13 +24,15 @@ import org.worldgrower.actions.Actions;
 
 public class StoneGoal implements Goal {
 
+	private static final int QUANTITY_TO_BUY = 5;
+	
 	public StoneGoal(List<Goal> allGoals) {
 		allGoals.add(this);
 	}
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		OperationInfo buyOperationInfo = BuySellUtils.getBuyOperationInfo(performer, Constants.STONE, world);
+		OperationInfo buyOperationInfo = BuySellUtils.getBuyOperationInfo(performer, Constants.STONE, QUANTITY_TO_BUY, world);
 		if (buyOperationInfo != null) {
 			return buyOperationInfo;
 		} else {

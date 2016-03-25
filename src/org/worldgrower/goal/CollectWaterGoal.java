@@ -24,15 +24,17 @@ import org.worldgrower.actions.Actions;
 
 public class CollectWaterGoal implements Goal {
 
+	private static final int QUANTITY_TO_BUY = 5;
+	
 	public CollectWaterGoal(List<Goal> allGoals) {
 		allGoals.add(this);
 	}
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.WATER, world);
+		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.WATER, QUANTITY_TO_BUY, world);
 		if (targets.size() > 0) {
-			return new OperationInfo(performer, targets.get(0), new int[] { targets.get(0).getProperty(Constants.INVENTORY).getIndexFor(Constants.WATER), 5 }, Actions.BUY_ACTION);
+			return new OperationInfo(performer, targets.get(0), new int[] { targets.get(0).getProperty(Constants.INVENTORY).getIndexFor(Constants.WATER), QUANTITY_TO_BUY }, Actions.BUY_ACTION);
 		} else {
 			WorldObject waterSourcetarget = WaterPropertyUtils.findWaterSource(performer, world);
 			if (waterSourcetarget != null) {

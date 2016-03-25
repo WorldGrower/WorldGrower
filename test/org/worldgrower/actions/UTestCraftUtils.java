@@ -22,6 +22,7 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
 
@@ -81,6 +82,21 @@ public class UTestCraftUtils {
 	@Test
 	public void testGetRequirementsDescriptionWithSkill() {
 		assertEquals("Requirements: skill illusion 7, 1 wood", CraftUtils.getRequirementsDescription(Constants.ILLUSION_SKILL, 7, Constants.WOOD, 1));
+	}
+	
+	@Test
+	public void testGetRequirementsDescriptionWithTwoProperties() {
+		assertEquals("Requirements: 1 wood, 3 stone, description", CraftUtils.getRequirementsDescription(Constants.WOOD, 1, Constants.STONE, 3, "description"));
+	}
+	
+	@Test
+	public void testGetRequirementsDescriptionWithTwoPropertiesAndTwoDescriptions() {
+		assertEquals("Requirements: 1 wood, 3 stone, description, description2", CraftUtils.getRequirementsDescription(Constants.WOOD, 1, Constants.STONE, 3, "description", "description2"));
+	}
+	
+	@Test
+	public void testGetRequirementsDescriptionWithOnePropertyAndTwoDescriptions() {
+		assertEquals("Requirements: 1 wood, description, description2", CraftUtils.getRequirementsDescription(Constants.WOOD, 1, "description", "description2"));
 	}
 	
 	@Test

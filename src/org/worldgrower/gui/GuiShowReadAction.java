@@ -14,8 +14,6 @@
  *******************************************************************************/
 package org.worldgrower.gui;
 
-import javax.swing.JComponent;
-
 import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.ManagedOperationListener;

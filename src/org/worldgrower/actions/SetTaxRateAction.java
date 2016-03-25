@@ -16,7 +16,6 @@ package org.worldgrower.actions;
 
 import java.io.ObjectStreamException;
 
-import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
@@ -44,8 +43,8 @@ public class SetTaxRateAction implements ManagedOperation {
 	}
 
 	@Override
-	public ArgumentRange[] getArgumentRanges() {
-		return new ArgumentRange[] {new ArgumentRange(0, 100), new ArgumentRange(0, 100) };
+	public boolean requiresArguments() {
+		return true;
 	}
 
 	@Override

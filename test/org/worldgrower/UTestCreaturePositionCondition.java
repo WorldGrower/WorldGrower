@@ -19,8 +19,6 @@ import static org.junit.Assert.assertTrue;
 import static org.worldgrower.TestUtils.createWorldObject;
 
 import org.junit.Test;
-import org.worldgrower.CreaturePositionCondition;
-import org.worldgrower.WorldObject;
 
 public class UTestCreaturePositionCondition {
 

@@ -74,7 +74,7 @@ public class UTestBuySellUtils {
 		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.GOLD, 100);
 		
-		assertEquals(null, BuySellUtils.getBuyOperationInfo(performer, Constants.FOOD, world));
+		assertEquals(null, BuySellUtils.getBuyOperationInfo(performer, Constants.FOOD, 5, world));
 		
 		WorldObject target = TestUtils.createIntelligentWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
 		WorldObject inventoryItem = Item.BERRIES.generate(1f);
@@ -83,7 +83,7 @@ public class UTestBuySellUtils {
 		target.getProperty(Constants.PRICES).put(Item.BERRIES, 2);
 		world.addWorldObject(target);
 		
-		assertEquals(Actions.BUY_ACTION, BuySellUtils.getBuyOperationInfo(performer, Constants.FOOD, world).getManagedOperation());
+		assertEquals(Actions.BUY_ACTION, BuySellUtils.getBuyOperationInfo(performer, Constants.FOOD, 5, world).getManagedOperation());
 	}
 	
 	@Test
@@ -92,7 +92,7 @@ public class UTestBuySellUtils {
 		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.GOLD, 100);
 		
-		assertEquals(null, BuySellUtils.getBuyOperationInfo(performer, Constants.FOOD, world));
+		assertEquals(null, BuySellUtils.getBuyOperationInfo(performer, Constants.FOOD, 5, world));
 		
 		WorldObject target = TestUtils.createIntelligentWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
 		WorldObject inventoryItem = Item.IRON_CUIRASS.generate(1f);
@@ -132,11 +132,12 @@ public class UTestBuySellUtils {
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
 		world.addWorldObject(target);
+		performer.setProperty(Constants.GOLD, 2000);
 		WorldObject cottonShirt = Item.COTTON_SHIRT.generate(1f);
 		cottonShirt.setProperty(Constants.SELLABLE, Boolean.TRUE);
 		target.getProperty(Constants.INVENTORY).add(cottonShirt);
 		
-		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.NAME, Item.COTTON_SHIRT_NAME, world);
+		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.NAME, Item.COTTON_SHIRT_NAME, 5, world);
 		assertEquals(1, targets.size());
 		assertEquals(target, targets.get(0));
 	}

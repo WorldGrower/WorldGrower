@@ -31,22 +31,32 @@ import org.worldgrower.generator.Item;
 
 public class BuySellUtils {
 
-	public static List<WorldObject> findBuyTargets(WorldObject performer, IntProperty property, World world) {
-		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.BUY_ACTION, w -> w.getProperty(Constants.INVENTORY).getQuantityFor(property, Constants.PRICE, inventoryItem -> inventoryItem.getProperty(Constants.SELLABLE)) > 0, world);
+	public static List<WorldObject> findBuyTargets(WorldObject performer, IntProperty property, int quantity, World world) {
+		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.BUY_ACTION, w -> w.getProperty(Constants.INVENTORY).getQuantityFor(property, Constants.PRICE, inventoryItem -> inventoryItem.getProperty(Constants.SELLABLE)) > 0 && performerCanPay(performer, w, property, quantity), world);
 		return targets;
 	}
 
-	public static List<WorldObject> findBuyTargets(WorldObject performer, StringProperty property, String value, World world) {
-		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.BUY_ACTION, w -> targetHasSellableItem(w, property, value), world);
+	public static List<WorldObject> findBuyTargets(WorldObject performer, StringProperty property, String value, int quantity, World world) {
+		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.BUY_ACTION, w -> targetHasSellableItem(w, property, value) && performerCanPay(performer, w, property, quantity), world);
 		return targets;
+	}
+	
+	private static boolean performerCanPay(WorldObject performer, WorldObject target, ManagedProperty property, int quantity) {
+		int indexOfItemToSell = target.getProperty(Constants.INVENTORY).getIndexFor(property);
+		if (indexOfItemToSell != -1) {
+			int performerGold = performer.getProperty(Constants.GOLD);
+			return performerGold >= getPrice(target, indexOfItemToSell) * quantity;
+		} else {
+			return false;
+		}
 	}
 	
 	private static boolean targetHasSellableItem(WorldObject w, StringProperty property, String value) {
 		return w.getProperty(Constants.INVENTORY).getIndexFor(property, value, inventoryItem -> isInventoryItemSellable(inventoryItem)) >= 0;
 	}
 	
-	private static List<WorldObject> findBuyTargets(WorldObject performer, UnCheckedProperty<UnCheckedProperty<WorldObject>> equipmentSlotProperty, UnCheckedProperty<WorldObject> equipmentSlot, World world) {
-		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.BUY_ACTION, w -> hasSellableEquipment(equipmentSlotProperty, equipmentSlot, w), world);
+	private static List<WorldObject> findBuyTargets(WorldObject performer, UnCheckedProperty<UnCheckedProperty<WorldObject>> equipmentSlotProperty, UnCheckedProperty<WorldObject> equipmentSlot, int quantity, World world) {
+		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.BUY_ACTION, w -> hasSellableEquipment(equipmentSlotProperty, equipmentSlot, w) && performerCanPay(performer, w, equipmentSlot, quantity), world);
 		return targets;
 	}
 
@@ -143,25 +153,25 @@ public class BuySellUtils {
 		return target.getProperty(Constants.INVENTORY).getIndexFor(property, value, inventoryItem -> isInventoryItemSellable(inventoryItem));
 	}
 	
-	public static OperationInfo getBuyOperationInfo(WorldObject performer, IntProperty propertyToBuy, World world) {
-		List<WorldObject> targets = findBuyTargets(performer, propertyToBuy, world);
+	public static OperationInfo getBuyOperationInfo(WorldObject performer, IntProperty propertyToBuy, int quantity, World world) {
+		List<WorldObject> targets = findBuyTargets(performer, propertyToBuy, quantity, world);
 		if (targets.size() > 0) {
 			WorldObject target = targets.get(0);
 			int indexOfProperty = target.getProperty(Constants.INVENTORY).getIndexFor(propertyToBuy);
-			if (performerCanBuyGoods(performer, target, indexOfProperty, 5)) {
-				return new OperationInfo(performer, target, new int[] { indexOfProperty, 5 }, Actions.BUY_ACTION);
+			if (performerCanBuyGoods(performer, target, indexOfProperty, quantity)) {
+				return new OperationInfo(performer, target, new int[] { indexOfProperty, quantity }, Actions.BUY_ACTION);
 			}
 		}
 		return null;
 	}
 	
-	public static OperationInfo getBuyOperationInfo(WorldObject performer, UnCheckedProperty<UnCheckedProperty<WorldObject>> equipmentSlotProperty, UnCheckedProperty<WorldObject> equipmentSlot, World world) {
-		List<WorldObject> targets = findBuyTargets(performer, equipmentSlotProperty, equipmentSlot, world);
+	public static OperationInfo getBuyOperationInfo(WorldObject performer, UnCheckedProperty<UnCheckedProperty<WorldObject>> equipmentSlotProperty, UnCheckedProperty<WorldObject> equipmentSlot, int quantity, World world) {
+		List<WorldObject> targets = findBuyTargets(performer, equipmentSlotProperty, equipmentSlot, quantity, world);
 		if (targets.size() > 0) {
 			WorldObject target = targets.get(0);
 			int indexOfProperty = target.getProperty(Constants.INVENTORY).getIndexFor(equipmentSlotProperty, equipmentSlot);
-			if (performerCanBuyGoods(performer, target, indexOfProperty, 1)) {
-				return new OperationInfo(performer, target, new int[] { indexOfProperty, 1 }, Actions.BUY_ACTION);
+			if (performerCanBuyGoods(performer, target, indexOfProperty, quantity)) {
+				return new OperationInfo(performer, target, new int[] { indexOfProperty, quantity }, Actions.BUY_ACTION);
 			}
 		}
 		return null;

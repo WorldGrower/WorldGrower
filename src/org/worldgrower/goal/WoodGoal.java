@@ -23,13 +23,15 @@ import org.worldgrower.WorldObject;
 
 public class WoodGoal implements Goal {
 
+	private static final int QUANTITY_TO_BUY = 5;
+	
 	public WoodGoal(List<Goal> allGoals) {
 		allGoals.add(this);
 	}
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		OperationInfo buyOperationInfo = BuySellUtils.getBuyOperationInfo(performer, Constants.WOOD, world);
+		OperationInfo buyOperationInfo = BuySellUtils.getBuyOperationInfo(performer, Constants.WOOD, QUANTITY_TO_BUY, world);
 		if (buyOperationInfo != null) {
 			return buyOperationInfo;
 		} else {

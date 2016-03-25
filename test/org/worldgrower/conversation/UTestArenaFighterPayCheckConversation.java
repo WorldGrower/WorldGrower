@@ -27,7 +27,6 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdRelationshipMap;
-import org.worldgrower.goal.BrawlPropertyUtils;
 import org.worldgrower.goal.Goals;
 
 public class UTestArenaFighterPayCheckConversation {

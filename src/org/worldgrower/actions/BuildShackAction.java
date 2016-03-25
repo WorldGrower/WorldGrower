@@ -16,7 +16,6 @@ package org.worldgrower.actions;
 
 import java.io.ObjectStreamException;
 
-import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
@@ -57,11 +56,8 @@ public class BuildShackAction implements BuildAction {
 	}
 
 	@Override
-	public ArgumentRange[] getArgumentRanges() {
-		ArgumentRange[] argumentRanges = new ArgumentRange[2];
-		argumentRanges[0] = new ArgumentRange(-3, 3);
-		argumentRanges[1] = new ArgumentRange(-3, 3);
-		return argumentRanges;
+	public boolean requiresArguments() {
+		return true;
 	}
 	
 	@Override

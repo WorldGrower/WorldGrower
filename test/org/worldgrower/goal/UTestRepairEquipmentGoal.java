@@ -27,8 +27,6 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
-import org.worldgrower.generator.PlantGenerator;
-import org.worldgrower.generator.TerrainGenerator;
 
 public class UTestRepairEquipmentGoal {
 

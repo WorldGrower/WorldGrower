@@ -22,8 +22,8 @@ import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
-import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.condition.WerewolfUtils;
+import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.profession.Professions;
 

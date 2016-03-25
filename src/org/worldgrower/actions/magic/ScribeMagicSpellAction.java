@@ -16,7 +16,6 @@ package org.worldgrower.actions.magic;
 
 import java.io.ObjectStreamException;
 
-import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
@@ -54,8 +53,8 @@ public class ScribeMagicSpellAction implements ManagedOperation {
 	}
 
 	@Override
-	public ArgumentRange[] getArgumentRanges() {
-		return ArgumentRange.EMPTY_ARGUMENT_RANGE;
+	public boolean requiresArguments() {
+		return false;
 	}
 
 	@Override

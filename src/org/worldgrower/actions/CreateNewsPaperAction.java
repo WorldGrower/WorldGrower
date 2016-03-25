@@ -17,12 +17,10 @@ package org.worldgrower.actions;
 import java.io.ObjectStreamException;
 import java.util.List;
 
-import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.actions.CraftUtils;
 import org.worldgrower.attribute.Knowledge;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
@@ -55,8 +53,8 @@ public class CreateNewsPaperAction implements ManagedOperation {
 	}
 
 	@Override
-	public ArgumentRange[] getArgumentRanges() {
-		return new ArgumentRange[1];
+	public boolean requiresArguments() {
+		return true;
 	}
 
 	@Override

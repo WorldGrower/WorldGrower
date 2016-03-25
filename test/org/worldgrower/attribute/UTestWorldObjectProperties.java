@@ -14,6 +14,8 @@
 *******************************************************************************/
 package org.worldgrower.attribute;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -22,8 +24,6 @@ import java.util.Map.Entry;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
-
-import static org.junit.Assert.assertEquals;
 
 public class UTestWorldObjectProperties {
 

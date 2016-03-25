@@ -57,8 +57,8 @@ import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.chooseworldobject.ChooseWorldObjectDialog;
 import org.worldgrower.gui.util.ButtonFactory;
 import org.worldgrower.gui.util.JLabelFactory;
-import org.worldgrower.gui.util.MenuFactory;
 import org.worldgrower.gui.util.JProgressBarFactory;
+import org.worldgrower.gui.util.MenuFactory;
 
 public class AskQuestionDialog extends AbstractDialog implements ManagedOperationListener {
 

@@ -25,15 +25,17 @@ import org.worldgrower.actions.ConstructFishingPoleAction;
 
 public class FishingPoleGoal implements Goal {
 
+	private static final int QUANTITY_TO_BUY = 1;
+	
 	public FishingPoleGoal(List<Goal> allGoals) {
 		allGoals.add(this);
 	}
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.FISHING_POLE_QUALITY, world);
+		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.FISHING_POLE_QUALITY, QUANTITY_TO_BUY, world);
 		if (targets.size() > 0) {
-			return new OperationInfo(performer, targets.get(0), new int[] { targets.get(0).getProperty(Constants.INVENTORY).getIndexFor(Constants.FISHING_POLE_QUALITY), 1 }, Actions.BUY_ACTION);
+			return new OperationInfo(performer, targets.get(0), new int[] { targets.get(0).getProperty(Constants.INVENTORY).getIndexFor(Constants.FISHING_POLE_QUALITY), QUANTITY_TO_BUY }, Actions.BUY_ACTION);
 		} else {
 			if (ConstructFishingPoleAction.hasEnoughWood(performer)) {
 				return new OperationInfo(performer, performer, new int[0], Actions.CONSTRUCT_FISHING_POLE_ACTION);

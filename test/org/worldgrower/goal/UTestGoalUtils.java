@@ -35,7 +35,6 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.generator.PlantGenerator;
-import org.worldgrower.goal.GoalUtils;
 import org.worldgrower.history.Turn;
 
 public class UTestGoalUtils {

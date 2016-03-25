@@ -14,7 +14,6 @@
  *******************************************************************************/
 package org.worldgrower.actions;
 
-import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
@@ -34,8 +33,8 @@ public abstract class InventoryAction implements ManagedOperation {
 	public abstract boolean isValidInventoryItem(WorldObject inventoryItem, WorldObjectContainer inventory, WorldObject performer);
 	
 	@Override
-	public final ArgumentRange[] getArgumentRanges() {
-		return new ArgumentRange[1];
+	public boolean requiresArguments() {
+		return true;
 	}
 
 	@Override

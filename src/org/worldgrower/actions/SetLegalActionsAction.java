@@ -18,7 +18,6 @@ import java.io.ObjectStreamException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.worldgrower.ArgumentRange;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
@@ -60,8 +59,8 @@ public class SetLegalActionsAction implements ManagedOperation {
 	}
 
 	@Override
-	public ArgumentRange[] getArgumentRanges() {
-		return new ArgumentRange[] { new ArgumentRange(0, 100) };
+	public boolean requiresArguments() {
+		return true;
 	}
 
 	@Override

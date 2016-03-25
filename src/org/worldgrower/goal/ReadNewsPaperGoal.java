@@ -29,6 +29,8 @@ import org.worldgrower.generator.Item;
 
 public class ReadNewsPaperGoal implements Goal {
 
+	private static final int QUANTITY_TO_BUY = 1;
+	
 	public ReadNewsPaperGoal(List<Goal> allGoals) {
 		allGoals.add(this);
 	}
@@ -40,10 +42,10 @@ public class ReadNewsPaperGoal implements Goal {
 		if (unreadNewsPapers.size() > 0) {
 			return new OperationInfo(performer, unreadNewsPapers.get(0), new int[] { performerInventory.getIndexFor(Constants.KNOWLEDGE_MAP) }, Actions.READ_ITEM_IN_INVENTORY_ACTION);
 		} else {
-			List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.NAME, Item.NEWS_PAPER_NAME, world);
+			List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.NAME, Item.NEWS_PAPER_NAME, QUANTITY_TO_BUY, world);
 			targets = filterTargetsOnNewInformationInNewsPaper(performer, targets);
 			if (targets.size() > 0) {
-				return new OperationInfo(performer, targets.get(0), new int[] { targets.get(0).getProperty(Constants.INVENTORY).getIndexFor(Constants.KNOWLEDGE_MAP), 1 }, Actions.BUY_ACTION);
+				return new OperationInfo(performer, targets.get(0), new int[] { targets.get(0).getProperty(Constants.INVENTORY).getIndexFor(Constants.KNOWLEDGE_MAP), QUANTITY_TO_BUY }, Actions.BUY_ACTION);
 			} else {
 				return null;
 			}

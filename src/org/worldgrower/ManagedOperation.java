@@ -31,7 +31,7 @@ public interface ManagedOperation extends Serializable {
 	public default boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
 		return distance(performer, target, args, world) == 0;
 	}
-	public ArgumentRange[] getArgumentRanges();
+	public boolean requiresArguments();
 	
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world);
 	

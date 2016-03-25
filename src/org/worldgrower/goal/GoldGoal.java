@@ -24,11 +24,13 @@ import org.worldgrower.actions.Actions;
 
 public class GoldGoal implements Goal {
 
+	private static final int QUANTITY_TO_BUY = 5;
+	
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.GOLD, world);
+		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.GOLD, QUANTITY_TO_BUY, world);
 		if (targets.size() > 0) {
-			return new OperationInfo(performer, targets.get(0), new int[] { targets.get(0).getProperty(Constants.INVENTORY).getIndexFor(Constants.GOLD), 5 }, Actions.BUY_ACTION);
+			return new OperationInfo(performer, targets.get(0), new int[] { targets.get(0).getProperty(Constants.INVENTORY).getIndexFor(Constants.GOLD), QUANTITY_TO_BUY }, Actions.BUY_ACTION);
 		} else {
 			WorldObject target = GoalUtils.findNearestTarget(performer, Actions.MINE_GOLD_ACTION, world);
 			if (target != null) {

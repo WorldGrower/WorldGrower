@@ -544,7 +544,7 @@ public class GuiMouseListener extends MouseAdapter {
 
 	private void addAllActions(JPopupMenu menu, WorldObject worldObject) {
 		for(ManagedOperation action : playerCharacter.getOperations()) {
-			if (action.getArgumentRanges().length == 0) {
+			if (!action.requiresArguments()) {
 				final JMenuItem menuItem;
 				if (canPlayerCharacterPerformAction(worldObject, action)) {
 					PlayerCharacterAction guiAction = new PlayerCharacterAction(playerCharacter, world, container, dungeonMaster, action, worldObject);
@@ -585,7 +585,7 @@ public class GuiMouseListener extends MouseAdapter {
 	private List<ManagedOperation> getActions() {
 		List<ManagedOperation> actions = new ArrayList<>();
 		for(ManagedOperation action : playerCharacter.getOperations()) {
-			if (action.getArgumentRanges().length == 0 && !(action instanceof BuildAction) && !(Actions.getInventoryActions().contains(action))) {
+			if (!action.requiresArguments() && !(action instanceof BuildAction) && !(Actions.getInventoryActions().contains(action))) {
 				actions.add(action);
 			}
 		}

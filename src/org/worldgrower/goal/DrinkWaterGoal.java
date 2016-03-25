@@ -26,15 +26,17 @@ import org.worldgrower.personality.PersonalityTrait;
 
 public class DrinkWaterGoal implements Goal {
 
+	private static final int QUANTITY_TO_BUY = 5;
+	
 	public DrinkWaterGoal(List<Goal> allGoals) {
 		allGoals.add(this);
 	}
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.WATER, world);
+		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.WATER, QUANTITY_TO_BUY, world);
 		if (targets.size() > 0) {
-			return new OperationInfo(performer, targets.get(0), new int[] { targets.get(0).getProperty(Constants.INVENTORY).getIndexFor(Constants.WATER), 5 }, Actions.BUY_ACTION);
+			return new OperationInfo(performer, targets.get(0), new int[] { targets.get(0).getProperty(Constants.INVENTORY).getIndexFor(Constants.WATER), QUANTITY_TO_BUY }, Actions.BUY_ACTION);
 		} else {
 			boolean hasInventoryWater = performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WATER) > 0;
 			WorldObject waterSourcetarget = WaterPropertyUtils.findWaterSource(performer, world);

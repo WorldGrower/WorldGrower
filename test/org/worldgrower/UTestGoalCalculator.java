@@ -21,13 +21,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
-import org.worldgrower.Constants;
-import org.worldgrower.GoalAndOperationInfo;
-import org.worldgrower.GoalCalculator;
-import org.worldgrower.OperationInfo;
-import org.worldgrower.World;
-import org.worldgrower.WorldImpl;
-import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.goal.Goal;
 

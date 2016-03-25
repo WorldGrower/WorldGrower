@@ -16,7 +16,6 @@ package org.worldgrower.actions;
 
 import java.io.ObjectStreamException;
 
-import org.worldgrower.ArgumentRange;
 import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
@@ -55,10 +54,8 @@ public class PutItemIntoInventoryAction implements ManagedOperation {
 	}
 
 	@Override
-	public ArgumentRange[] getArgumentRanges() {
-		ArgumentRange[] argumentRanges = new ArgumentRange[1];
-		argumentRanges[0] = new ArgumentRange(0, 100);
-		return argumentRanges;
+	public boolean requiresArguments() {
+		return true;
 	}
 
 	@Override

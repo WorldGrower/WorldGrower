@@ -14,16 +14,16 @@
 *******************************************************************************/
 package org.worldgrower.attribute;
 
+import static org.junit.Assert.assertEquals;
+
+import java.util.List;
+
 import org.junit.Test;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
-
-import static org.junit.Assert.assertEquals;
-
-import java.util.List;
 
 public class UTestIdList {
 
