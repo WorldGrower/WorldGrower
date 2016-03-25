@@ -41,6 +41,31 @@ public class UTestHarvestFoodAction {
 		assertEquals(80, target.getProperty(Constants.FOOD_SOURCE).intValue());
 	}
 	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		int id = PlantGenerator.generateBerryBush(0, 0, world);
+		WorldObject target = world.findWorldObject(Constants.ID, id);
+		
+		target.setProperty(Constants.FOOD_SOURCE, 100);
+		assertEquals(true, Actions.HARVEST_FOOD_ACTION.isValidTarget(performer, target, world));
+		
+		target.setProperty(Constants.FOOD_SOURCE, 0);
+		assertEquals(false, Actions.HARVEST_FOOD_ACTION.isValidTarget(performer, target, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		int id = PlantGenerator.generateBerryBush(0, 0, world);
+		WorldObject target = world.findWorldObject(Constants.ID, id);
+		
+		target.setProperty(Constants.FOOD_SOURCE, 100);
+		assertEquals(0, Actions.HARVEST_FOOD_ACTION.distance(performer, target, new int[0], world));
+	}
+	
 	private WorldObject createPerformer(int id) {
 		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.X, 0);

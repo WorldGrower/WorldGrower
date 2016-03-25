@@ -56,7 +56,7 @@ public class BuySellUtils {
 	}
 	
 	private static List<WorldObject> findBuyTargets(WorldObject performer, UnCheckedProperty<UnCheckedProperty<WorldObject>> equipmentSlotProperty, UnCheckedProperty<WorldObject> equipmentSlot, int quantity, World world) {
-		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.BUY_ACTION, w -> hasSellableEquipment(equipmentSlotProperty, equipmentSlot, w) && performerCanPay(performer, w, equipmentSlot, quantity), world);
+		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.BUY_ACTION, w -> hasSellableEquipment(equipmentSlotProperty, equipmentSlot, w) && performerCanPay(performer, w, equipmentSlotProperty, quantity), world);
 		return targets;
 	}
 

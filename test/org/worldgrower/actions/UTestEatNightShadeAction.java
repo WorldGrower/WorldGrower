@@ -61,6 +61,20 @@ public class UTestEatNightShadeAction {
 
 	}
 	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		performer.setProperty(Constants.FOOD, 800);
+		
+		int nightShadeId = PlantGenerator.generateNightShade(0, 0, world);
+		WorldObject nightShade = world.findWorldObject(Constants.ID, nightShadeId);
+		nightShade.setProperty(Constants.NIGHT_SHADE_SOURCE, 100);
+		
+		assertEquals(0, Actions.EAT_NIGHT_SHADE_ACTION.distance(performer, nightShade, new int[0], world));
+
+	}
+	
 	private WorldObject createPerformer(int id) {
 		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.X, 0);

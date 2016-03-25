@@ -78,6 +78,24 @@ public class UTestVampireBiteGoal {
 	}
 	
 	@Test
+	public void testCalculateGoalBiteLegal() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject organization = createVillagersOrganization(world);
+		
+		WorldObject performer = createCommoner(world, organization);
+		WorldObject target = createCommoner(world, organization);
+		
+		target.setProperty(Constants.X, 10);
+		target.setProperty(Constants.Y, 10);
+		
+		VampireUtils.vampirizePerson(performer, new WorldStateChangedListeners());
+		
+		LegalActionsPropertyUtils.getLegalActions(world).setLegalFlag(new LegalAction(Actions.VAMPIRE_BITE_ACTION, new DefaultActionLegalHandler()), Boolean.TRUE);
+		assertEquals(Actions.VAMPIRE_BITE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+		assertEquals(target, goal.calculateGoal(performer, world).getTarget());
+	}
+	
+	@Test
 	public void testIsGoalMet() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);

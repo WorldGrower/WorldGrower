@@ -99,6 +99,18 @@ public class UTestMeleeAttackAction {
 		assertEquals("bludgeoned to death", Actions.MELEE_ATTACK_ACTION.getDeathDescription(performer, target));
 	}
 	
+	@Test
+	public void testGetDeathDescriptionKatar() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		WorldObject performer = createPerformer(world, organization);
+		WorldObject target = createPerformer(world, organization);
+		
+		performer.setProperty(Constants.LEFT_HAND_EQUIPMENT, Item.IRON_KATAR.generate(1f));
+		
+		assertEquals("having internal organs pierced to death", Actions.MELEE_ATTACK_ACTION.getDeathDescription(performer, target));
+	}
+	
 	private WorldObject createPerformer(World world, WorldObject organization) {
 		int performerId = commonerGenerator.generateCommoner(0, 0, world, organization);
 		WorldObject performer = world.findWorldObject(Constants.ID, performerId);

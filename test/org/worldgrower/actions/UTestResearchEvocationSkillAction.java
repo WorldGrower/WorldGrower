@@ -23,39 +23,45 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.BuildingGenerator;
 
-public class UTestPlantCottonPlantAction {
+public class UTestResearchEvocationSkillAction {
 
 	@Test
 	public void testExecute() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
-		Actions.PLANT_COTTON_PLANT_ACTION.execute(performer, target, new int[0], world);
+		target.setProperty(Constants.TEXT, "text");
 		
-		assertEquals(1, world.getWorldObjects().size());
-		assertEquals("cotton plant", world.getWorldObjects().get(0).getProperty(Constants.NAME));
+		for(int i=0; i<200; i++) {
+			Actions.RESEARCH_EVOCATION_SKILL_ACTION.execute(performer, target, new int[0], world);
+		}
+		
+		assertEquals(5, performer.getProperty(Constants.EVOCATION_SKILL).getLevel(performer));
 	}
 	
-	@Test
+    @Test
 	public void testIsValidTarget() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = createPerformer(2);
-		WorldObject target = createPerformer(3);
 		
-		assertEquals(true, Actions.PLANT_COTTON_PLANT_ACTION.isValidTarget(performer, target, world));
+		int targetId = BuildingGenerator.generateLibrary(0, 0, world);
+		WorldObject target = world.findWorldObject(Constants.ID, targetId);
 		
-		world.addWorldObject(target);
-		assertEquals(false, Actions.PLANT_COTTON_PLANT_ACTION.isValidTarget(performer, target, world));
+		assertEquals(true, Actions.RESEARCH_EVOCATION_SKILL_ACTION.isValidTarget(performer, target, world));
+		assertEquals(false, Actions.RESEARCH_EVOCATION_SKILL_ACTION.isValidTarget(performer, performer, world));
 	}
-	
-	@Test
+    
+    @Test
 	public void testDistance() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = createPerformer(2);
-		WorldObject target = createPerformer(3);
 		
-		assertEquals(0, Actions.PLANT_COTTON_PLANT_ACTION.distance(performer, target, new int[0], world));
+		int targetId = BuildingGenerator.generateLibrary(0, 0, world);
+		WorldObject target = world.findWorldObject(Constants.ID, targetId);
+		
+		assertEquals(0, Actions.RESEARCH_EVOCATION_SKILL_ACTION.distance(performer, target, new int[0], world));
 	}
 	
 	private WorldObject createPerformer(int id) {

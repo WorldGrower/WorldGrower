@@ -23,47 +23,36 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.Item;
 
-public class UTestPlantCottonPlantAction {
+public class UTestCraftIronKatarAction {
 
 	@Test
 	public void testExecute() {
 		World world = new WorldImpl(0, 0, null, null);
-		WorldObject performer = createPerformer(2);
-		WorldObject target = createPerformer(3);
-		Actions.PLANT_COTTON_PLANT_ACTION.execute(performer, target, new int[0], world);
+		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
+		Actions.CRAFT_IRON_KATAR_ACTION.execute(performer, performer, new int[0], world);
 		
-		assertEquals(1, world.getWorldObjects().size());
-		assertEquals("cotton plant", world.getWorldObjects().get(0).getProperty(Constants.NAME));
+		assertEquals(1, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.DAMAGE));
 	}
 	
 	@Test
 	public void testIsValidTarget() {
 		World world = new WorldImpl(0, 0, null, null);
-		WorldObject performer = createPerformer(2);
-		WorldObject target = createPerformer(3);
+		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
+		WorldObject target = TestUtils.createSkilledWorldObject(3, Constants.INVENTORY, new WorldObjectContainer());
 		
-		assertEquals(true, Actions.PLANT_COTTON_PLANT_ACTION.isValidTarget(performer, target, world));
-		
-		world.addWorldObject(target);
-		assertEquals(false, Actions.PLANT_COTTON_PLANT_ACTION.isValidTarget(performer, target, world));
+		assertEquals(true, Actions.CRAFT_IRON_KATAR_ACTION.isValidTarget(performer, performer, world));
+		assertEquals(false, Actions.CRAFT_IRON_KATAR_ACTION.isValidTarget(performer, target, world));
 	}
 	
 	@Test
 	public void testDistance() {
 		World world = new WorldImpl(0, 0, null, null);
-		WorldObject performer = createPerformer(2);
-		WorldObject target = createPerformer(3);
+		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.ORE.generate(1f), 20);
 		
-		assertEquals(0, Actions.PLANT_COTTON_PLANT_ACTION.distance(performer, target, new int[0], world));
-	}
-	
-	private WorldObject createPerformer(int id) {
-		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.INVENTORY, new WorldObjectContainer());
-		performer.setProperty(Constants.X, 0);
-		performer.setProperty(Constants.Y, 0);
-		performer.setProperty(Constants.WIDTH, 1);
-		performer.setProperty(Constants.HEIGHT, 1);
-		return performer;
+		assertEquals(0, Actions.CRAFT_IRON_KATAR_ACTION.distance(performer, performer, new int[0], world));
 	}
 }

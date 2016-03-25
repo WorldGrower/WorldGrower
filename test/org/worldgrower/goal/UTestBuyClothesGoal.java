@@ -60,14 +60,37 @@ public class UTestBuyClothesGoal {
 		world.addWorldObject(target);
 		performer.setProperty(Constants.GOLD, 2000);
 		
-		WorldObject cottonShirt = Item.COTTON_SHIRT.generate(1f);
-		performer.getProperty(Constants.INVENTORY).add(cottonShirt);
+		performer.getProperty(Constants.INVENTORY).add(Item.COTTON_SHIRT.generate(1f));
+		addCottonPants(target);
 		
+		assertEquals(Actions.BUY_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+	@Test
+	public void testCalculateGoalOneBootsSeller() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
+		world.addWorldObject(target);
+		performer.setProperty(Constants.GOLD, 2000);
+		
+		performer.getProperty(Constants.INVENTORY).add(Item.COTTON_SHIRT.generate(1f));
+		performer.getProperty(Constants.INVENTORY).add(Item.COTTON_PANTS.generate(1f));
+		addCottonBoots(target);
+		
+		assertEquals(Actions.BUY_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+
+	private void addCottonPants(WorldObject target) {
 		WorldObject cottonPants = Item.COTTON_PANTS.generate(1f);
 		cottonPants.setProperty(Constants.SELLABLE, Boolean.TRUE);
 		target.getProperty(Constants.INVENTORY).add(cottonPants);
-		
-		assertEquals(Actions.BUY_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+	private void addCottonBoots(WorldObject target) {
+		WorldObject cottonPants = Item.COTTON_BOOTS.generate(1f);
+		cottonPants.setProperty(Constants.SELLABLE, Boolean.TRUE);
+		target.getProperty(Constants.INVENTORY).add(cottonPants);
 	}
 	
 	@Test

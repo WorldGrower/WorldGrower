@@ -87,7 +87,7 @@ public class UTestBuySellUtils {
 	}
 	
 	@Test
-	public void testGetBuyOperationInfoForEquipment() {
+	public void testGetBuyOperationInfoForEquipmentNull() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.GOLD, 100);
@@ -162,5 +162,23 @@ public class UTestBuySellUtils {
 		world.addWorldObject(target);
 		
 		assertEquals(true, BuySellUtils.betterPriceExists(worldObjectToBuy, world, 10));
+	}
+	
+	@Test
+	public void testGetBuyOperationInfoForEquipment() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.INVENTORY, new WorldObjectContainer());
+		performer.setProperty(Constants.GOLD, 1000);
+		
+		assertEquals(null, BuySellUtils.getBuyOperationInfo(performer, Constants.FOOD, 5, world));
+		
+		WorldObject target = TestUtils.createIntelligentWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
+		WorldObject inventoryItem = Item.IRON_CUIRASS.generate(1f);
+		inventoryItem.setProperty(Constants.SELLABLE, Boolean.TRUE);
+		target.getProperty(Constants.INVENTORY).addQuantity(inventoryItem);
+		target.getProperty(Constants.PRICES).put(Item.IRON_CUIRASS, 200);
+		world.addWorldObject(target);
+		
+		assertEquals(Actions.BUY_ACTION, BuySellUtils.getBuyOperationInfo(performer, Constants.EQUIPMENT_SLOT, Constants.TORSO_EQUIPMENT, 1, world).getManagedOperation());
 	}
 }
