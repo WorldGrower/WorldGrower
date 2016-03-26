@@ -27,6 +27,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.conversation.Response;
+import org.worldgrower.profession.Professions;
 
 public class UTestTalkAction {
 
@@ -76,14 +77,39 @@ public class UTestTalkAction {
 	}
 	
 	@Test
-	public void testAskProfession() {
+	public void testAskProfessionNull() {
 		World world = createWorld();
 		
 		String reply = talk(world, Conversations.createArgs(Conversations.PROFESSION_CONVERSATION));
 		assertEquals("I don't have a profession", reply);
 		
 		reply = talk(world, Conversations.createArgs(Conversations.PROFESSION_CONVERSATION));
-		assertEquals("I don't have a profession", reply);
+		assertEquals("It's still the same as the last time you asked, namely I don't have a profession", reply);
+	}
+	
+	@Test
+	public void testAskProfessionFarmer() {
+		World world = createWorld();
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, "target");
+		target.setProperty(Constants.PROFESSION, Professions.FARMER_PROFESSION);
+		
+		String reply = talk(target, world, Conversations.createArgs(Conversations.PROFESSION_CONVERSATION));
+		assertEquals("I'm a farmer", reply);
+		
+		reply = talk(target, world, Conversations.createArgs(Conversations.PROFESSION_CONVERSATION));
+		assertEquals("It's still the same as the last time you asked, namely farmer", reply);
+	}
+	
+	@Test
+	public void testAskProfessionChanged() {
+		World world = createWorld();
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, "target");
+		
+		String reply = talk(target, world, Conversations.createArgs(Conversations.PROFESSION_CONVERSATION));
+		
+		target.setProperty(Constants.PROFESSION, Professions.FARMER_PROFESSION);		
+		reply = talk(target, world, Conversations.createArgs(Conversations.PROFESSION_CONVERSATION));
+		assertEquals("I'm a farmer now", reply);
 	}
 
 	@Test
@@ -166,13 +192,17 @@ public class UTestTalkAction {
 	}
 
 	private String talk(World world, int[] args) {
+		return talk(target, world, args);
+	}
+
+	private String talk(WorldObject target, World world, int[] args) {
 		TalkAction talkAction = Actions.TALK_ACTION;
 		WorldListener listener = new WorldListener();
 		world.addListener(listener);
 		dungeonMaster.executeAction(talkAction, performer, target, args, world);
 		return listener.getMessage();
 	}
-
+	
 	private static class WorldListener implements ManagedOperationListener {
 
 		private String message;

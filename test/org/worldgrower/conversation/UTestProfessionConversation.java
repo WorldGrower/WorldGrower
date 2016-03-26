@@ -41,17 +41,18 @@ public class UTestProfessionConversation {
 		
 		ConversationContext context = new ConversationContext(performer, target, null, null, null, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
-		assertEquals(2, replyPhrases.size());
+		assertEquals(4, replyPhrases.size());
 		assertEquals("I'm a farmer", replyPhrases.get(0).getResponsePhrase());
 		assertEquals("I don't have a profession", replyPhrases.get(1).getResponsePhrase());
 	}
 	
 	@Test
 	public void testGetReplyPhrase() {
+		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.PROFESSION, Professions.FARMER_PROFESSION);
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.PROFESSION, Professions.FARMER_PROFESSION);
 		
-		ConversationContext context = new ConversationContext(performer, target, null, null, null, 0);
+		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
 		assertEquals(0, conversation.getReplyPhrase(context).getId());
 	
 		target.setProperty(Constants.PROFESSION, null);

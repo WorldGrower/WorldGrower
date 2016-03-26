@@ -27,15 +27,29 @@ public class ProfessionConversation implements Conversation {
 
 	private static final int MY_PROFESSION = 0;
 	private static final int NO_PROFESSION = 1;
+	private static final int STILL_THE_SAME = 2;
+	private static final int NEW_PROFESSION = 3;
 	
 	@Override
 	public Response getReplyPhrase(ConversationContext conversationContext) {
+		List<HistoryItem> historyItems = this.findSameConversation(conversationContext);
 		WorldObject target = conversationContext.getTarget();
+		Profession targetProfession = target.getProperty(Constants.PROFESSION);
 		final int replyId;
-		if (target.getProperty(Constants.PROFESSION) != null) {
-			replyId = MY_PROFESSION;
+		if (historyItems.size() == 0) {
+			if (targetProfession != null) {
+				replyId = MY_PROFESSION;
+			} else {
+				replyId = NO_PROFESSION;
+			}
 		} else {
-			replyId = NO_PROFESSION;
+			HistoryItem lastHistoryItem = historyItems.get(historyItems.size() - 1);
+			Profession professionInLastConversation = lastHistoryItem.getOperationInfo().getTarget().getProperty(Constants.PROFESSION);
+			if (targetProfession == professionInLastConversation) {
+				replyId = STILL_THE_SAME;
+			} else {
+				replyId = NEW_PROFESSION;
+			}
 		}
 		
 		return getReply(getReplyPhrases(conversationContext), replyId);
@@ -49,17 +63,29 @@ public class ProfessionConversation implements Conversation {
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		WorldObject target = conversationContext.getTarget();
-		Profession profession = target.getProperty(Constants.PROFESSION);
-		String professionDescription = (profession != null ? profession.getDescription() : "");
+		String professionDescription = getProfessionDescription(target);
+		String article = getArticle(professionDescription);
 		
+		return Arrays.asList(
+			new Response(MY_PROFESSION, "I'm " + article + " " + professionDescription),
+			new Response(NO_PROFESSION, "I don't have a profession"),
+			new Response(STILL_THE_SAME, "It's still the same as the last time you asked, namely " + (professionDescription.length() > 0 ? professionDescription : "I don't have a profession")),
+			new Response(NEW_PROFESSION, "I'm " + article + " " + professionDescription + " now")
+			);
+	}
+
+	private String getArticle(String professionDescription) {
 		String article = "a";
 		if ( (professionDescription.length() > 0) && (isVowel(professionDescription.charAt(0)))) {
 			article = "an";
 		}
-		return Arrays.asList(
-			new Response(MY_PROFESSION, "I'm " + article + " " + professionDescription),
-			new Response(NO_PROFESSION, "I don't have a profession")
-			);
+		return article;
+	}
+
+	private String getProfessionDescription(WorldObject target) {
+		Profession profession = target.getProperty(Constants.PROFESSION);
+		String professionDescription = (profession != null ? profession.getDescription() : "");
+		return professionDescription;
 	}
 	
 	public static boolean isVowel(char c) {
@@ -76,7 +102,6 @@ public class ProfessionConversation implements Conversation {
 		WorldObject performer = conversationContext.getPerformer();
 		WorldObject target = conversationContext.getTarget();
 		performer.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(target, Constants.PROFESSION, target.getProperty(Constants.PROFESSION));
-
 	}
 	
 	@Override
