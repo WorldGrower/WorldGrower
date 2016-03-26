@@ -22,24 +22,38 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.Reasons;
 import org.worldgrower.history.HistoryItem;
+import org.worldgrower.profession.Profession;
 
 public class ProfessionReasonConversation implements Conversation {
 
-	private final int REASON = 0;
-	private final int NO_PROFESSION = 1;
+	private static final int REASON = 0;
+	private static final int NO_PROFESSION = 1;
+	private static final int STILL_THE_SAME = 2;
+	private static final int NEW_PROFESSION = 3;
 	
 	@Override
 	public Response getReplyPhrase(ConversationContext conversationContext) {
+		List<HistoryItem> historyItems = this.findSameConversation(conversationContext);
 		WorldObject target = conversationContext.getTarget();
-		
+		Profession targetProfession = target.getProperty(Constants.PROFESSION);
 		Reasons reasons = target.getProperty(Constants.REASONS);
 		String reason = reasons.getReason(Constants.PROFESSION);
 		
 		final int replyId;
-		if (reason != null) {
-			replyId = REASON;
+		if (historyItems.size() == 0) {
+			if (reason != null) {
+				replyId = REASON;
+			} else {
+				replyId = NO_PROFESSION;
+			}
 		} else {
-			replyId = NO_PROFESSION;
+			HistoryItem lastHistoryItem = historyItems.get(historyItems.size() - 1);
+			Profession professionInLastConversation = lastHistoryItem.getOperationInfo().getTarget().getProperty(Constants.PROFESSION);
+			if (targetProfession == professionInLastConversation) {
+				replyId = STILL_THE_SAME;
+			} else {
+				replyId = NEW_PROFESSION;
+			}
 		}
 		
 		return getReply(getReplyPhrases(conversationContext), replyId);
@@ -58,7 +72,9 @@ public class ProfessionReasonConversation implements Conversation {
 		String reason = reasons.getReason(Constants.PROFESSION);
 		return Arrays.asList(
 			new Response(REASON, reason),
-			new Response(NO_PROFESSION, "I don't have a profession")
+			new Response(NO_PROFESSION, "I don't have a profession"),
+			new Response(STILL_THE_SAME, "It's still the same as the last time you asked, " + (reason != null ? reason : "I don't have a profession")),
+			new Response(NEW_PROFESSION, "Like I said before, " + reason)
 			);
 	}
 	
