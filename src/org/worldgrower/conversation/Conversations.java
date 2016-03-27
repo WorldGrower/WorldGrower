@@ -46,7 +46,7 @@ public class Conversations implements Serializable {
 	public static final ImmediateGoalConversation IMMEDIATE_GOAL_CONVERSATION = new ImmediateGoalConversation();
 	public static final RelationshipConversation RELATIONSHIP_CONVERSATION = new RelationshipConversation();
 	public static final ProfessionConversation PROFESSION_CONVERSATION = new ProfessionConversation();
-	public static final Conversation DEITY_CONVERSATION = new DeityConversation();
+	public static final DeityConversation DEITY_CONVERSATION = new DeityConversation();
 	public static final Conversation DEITY_EXPLANATION_CONVERSATION = new DeityExplanationConversation();
 	public static final DeityReasonConversation DEITY_REASON_CONVERSATION = new DeityReasonConversation();
 	public static final ProfessionReasonConversation PROFESSION_REASON_CONVERSATION = new ProfessionReasonConversation();

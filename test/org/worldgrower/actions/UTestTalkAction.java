@@ -27,6 +27,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.conversation.Response;
+import org.worldgrower.deity.Deity;
 import org.worldgrower.profession.Professions;
 
 public class UTestTalkAction {
@@ -121,11 +122,39 @@ public class UTestTalkAction {
 	}
 	
 	@Test
-	public void testAskDeity() {
+	public void testAskDeityNull() {
 		World world = createWorld();
 		
 		String reply = talk(world, Conversations.createArgs(Conversations.DEITY_CONVERSATION));
 		assertEquals("I don't worship a deity", reply);
+		
+		reply = talk(world, Conversations.createArgs(Conversations.DEITY_CONVERSATION));
+		assertEquals("I still worship no one", reply);
+	}
+	
+	@Test
+	public void testAskDeityNotNull() {
+		World world = createWorld();
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, "target");
+		target.setProperty(Constants.DEITY, Deity.HADES);
+		
+		String reply = talk(target, world, Conversations.createArgs(Conversations.DEITY_CONVERSATION));
+		assertEquals("I worship Hades", reply);
+		
+		reply = talk(target, world, Conversations.createArgs(Conversations.DEITY_CONVERSATION));
+		assertEquals("I still worship Hades", reply);
+	}
+	
+	@Test
+	public void testAskDeityChanged() {
+		World world = createWorld();
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, "target");
+		
+		String reply = talk(target, world, Conversations.createArgs(Conversations.DEITY_CONVERSATION));
+		
+		target.setProperty(Constants.DEITY, Deity.HADES);
+		reply = talk(target, world, Conversations.createArgs(Conversations.DEITY_CONVERSATION));
+		assertEquals("I now worship Hades", reply);
 	}
 	
 	@Test

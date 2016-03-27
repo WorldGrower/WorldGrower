@@ -25,15 +25,31 @@ import org.worldgrower.history.HistoryItem;
 
 public class DeityConversation implements Conversation {
 
+	private static final int I_WORSHIP = 0;
+	private static final int I_DONT_WORSHIP = 1;
+	private static final int ALREADY_ASKED = 2;
+	private static final int DEITY_CHANGED = 3;
+	
 	@Override
 	public Response getReplyPhrase(ConversationContext conversationContext) {
+		List<HistoryItem> historyItems = this.findSameConversation(conversationContext);
 		WorldObject target = conversationContext.getTarget();
 		final int replyId;
 		Deity deity = target.getProperty(Constants.DEITY);
-		if (deity != null) {
-			replyId = 0;
+		if (historyItems.size() == 0) {
+			if (deity != null) {
+				replyId = I_WORSHIP;
+			} else {
+				replyId = I_DONT_WORSHIP;
+			}
 		} else {
-			replyId = 1;
+			HistoryItem lastHistoryItem = historyItems.get(historyItems.size() - 1);
+			Deity deityInLastConversation = lastHistoryItem.getOperationInfo().getTarget().getProperty(Constants.DEITY);
+			if (deity == deityInLastConversation) {
+				replyId = ALREADY_ASKED;
+			} else {
+				replyId = DEITY_CHANGED;
+			}
 		}
 		return getReply(getReplyPhrases(conversationContext), replyId);
 	}
@@ -49,8 +65,10 @@ public class DeityConversation implements Conversation {
 		Deity deity = target.getProperty(Constants.DEITY);
 		String deityName = (deity != null ? deity.getName() : "no one");
 		return Arrays.asList(
-			new Response(0, "I worship " + deityName),
-			new Response(1, "I don't worship a deity")
+			new Response(I_WORSHIP, "I worship " + deityName),
+			new Response(I_DONT_WORSHIP, "I don't worship a deity"),
+			new Response(ALREADY_ASKED, "I still worship " + deityName),
+			new Response(DEITY_CHANGED, "I now worship " + deityName)
 			);
 	}
 
