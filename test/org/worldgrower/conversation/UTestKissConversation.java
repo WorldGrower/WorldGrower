@@ -20,9 +20,14 @@ import java.util.List;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.OperationInfo;
 import org.worldgrower.TestUtils;
+import org.worldgrower.World;
+import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.IdRelationshipMap;
+import org.worldgrower.history.Turn;
 
 public class UTestKissConversation {
 
@@ -35,21 +40,39 @@ public class UTestKissConversation {
 		
 		ConversationContext context = new ConversationContext(performer, target, null, null, null, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
-		assertEquals(2, replyPhrases.size());
+		assertEquals(4, replyPhrases.size());
 		assertEquals("Yes", replyPhrases.get(0).getResponsePhrase());
 		assertEquals("No", replyPhrases.get(1).getResponsePhrase());
+		assertEquals("My answer is still the same as the last time you asked, no", replyPhrases.get(2).getResponsePhrase());
+		assertEquals("This time my answer is no", replyPhrases.get(3).getResponsePhrase());
 	}
 	
 	@Test
 	public void testGetReplyPhrase() {
+		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		
-		ConversationContext context = new ConversationContext(performer, target, null, null, null, 0);
+		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
 		assertEquals(1, conversation.getReplyPhrase(context).getId());
 		
 		target.getProperty(Constants.RELATIONSHIPS).incrementValue(performer, 1000);
 		assertEquals(0, conversation.getReplyPhrase(context).getId());
+	}
+	
+	@Test
+	public void testGetReplyPhraseAlreadySaid() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		
+		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
+		world.getHistory().actionPerformed(new OperationInfo(performer, target, Conversations.createArgs(conversation), Actions.TALK_ACTION), new Turn());
+		
+		assertEquals(2, conversation.getReplyPhrase(context).getId());
+		
+		target.getProperty(Constants.RELATIONSHIPS).incrementValue(performer, 1000);
+		assertEquals(3, conversation.getReplyPhrase(context).getId());
 	}
 	
 	@Test
