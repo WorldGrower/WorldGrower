@@ -27,18 +27,37 @@ public class OrganizationConversation implements Conversation {
 
 	private static final int MY_GROUP = 0;
 	private static final int NO_GROUP = 1;
+	private static final int ALREADY_ASKED_SAME = 2;
+	private static final int ALREADY_ASKED_DIFFERENT = 3;
 	
 	@Override
 	public Response getReplyPhrase(ConversationContext conversationContext) {
 		WorldObject target = conversationContext.getTarget();
+		World world = conversationContext.getWorld();
+		List<HistoryItem> historyItems = findSameConversation(conversationContext);
 		final int replyId;
-		if (target.getProperty(Constants.GROUP).size() > 0) {
-			replyId = MY_GROUP;
+		if (historyItems.size() == 0) {
+			if (target.getProperty(Constants.GROUP).size() > 0) {
+				replyId = MY_GROUP;
+			} else {
+				replyId = NO_GROUP;
+			}
 		} else {
-			replyId = NO_GROUP;
+			HistoryItem lastHistoryItem = historyItems.get(historyItems.size() - 1);
+			if (organizationDesciptionRemainsSame(lastHistoryItem, target, world)) {
+				replyId = ALREADY_ASKED_SAME;
+			} else {
+				replyId = ALREADY_ASKED_DIFFERENT;
+			}
 		}
 		
 		return getReply(getReplyPhrases(conversationContext), replyId);
+	}
+	
+	private boolean organizationDesciptionRemainsSame(HistoryItem lastHistoryItem, WorldObject target, World world) {
+		String organizationsDescription = getOrganizationsDescription(target, world);
+		String lastOrganizationsDescription = getOrganizationsDescription(lastHistoryItem.getOperationInfo().getTarget(), world);
+		return organizationsDescription.equals(lastOrganizationsDescription);
 	}
 
 	@Override
@@ -51,6 +70,17 @@ public class OrganizationConversation implements Conversation {
 		WorldObject target = conversationContext.getTarget();
 		World world = conversationContext.getWorld();
 		
+		String organizationsDescription = getOrganizationsDescription(target, world);
+		
+		return Arrays.asList(
+			new Response(MY_GROUP, "I belong to " + organizationsDescription),
+			new Response(NO_GROUP, "I don't belong to any organizations"),
+			new Response(ALREADY_ASKED_SAME, "I still belong to the same organizations, " + organizationsDescription),
+			new Response(ALREADY_ASKED_DIFFERENT, "Now I belong to " + organizationsDescription)
+			);
+	}
+
+	private String getOrganizationsDescription(WorldObject target, World world) {
 		StringBuilder organizationsBuilder = new StringBuilder();
 		IdList organizations = target.getProperty(Constants.GROUP);
 		if (organizations.size() > 0) {
@@ -65,11 +95,7 @@ public class OrganizationConversation implements Conversation {
 		} else {
 			organizationsBuilder.append("no organization");
 		}
-		
-		return Arrays.asList(
-			new Response(MY_GROUP, "I belong to " + organizationsBuilder.toString()),
-			new Response(NO_GROUP, "I don't belong to any organizations")
-			);
+		return organizationsBuilder.toString();
 	}
 	
 	@Override

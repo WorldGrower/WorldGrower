@@ -20,14 +20,17 @@ import java.util.List;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.OperationInfo;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.deity.Deity;
 import org.worldgrower.goal.Goals;
 import org.worldgrower.goal.GroupPropertyUtils;
+import org.worldgrower.history.Turn;
 import org.worldgrower.profession.Professions;
 
 public class UTestOrganizationConversation {
@@ -42,7 +45,7 @@ public class UTestOrganizationConversation {
 		
 		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
-		assertEquals(2, replyPhrases.size());
+		assertEquals(4, replyPhrases.size());
 		assertEquals("I belong to no organization", replyPhrases.get(0).getResponsePhrase());
 		assertEquals("I don't belong to any organizations", replyPhrases.get(1).getResponsePhrase());
 		
@@ -73,6 +76,23 @@ public class UTestOrganizationConversation {
 		target.getProperty(Constants.GROUP).add(organization);
 		
 		assertEquals(0, conversation.getReplyPhrase(context).getId());
+	}
+	
+	@Test
+	public void testGetReplyPhraseAlreadyAsked() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.GROUP, new IdList());
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.GROUP, new IdList());
+		
+		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
+		world.getHistory().actionPerformed(new OperationInfo(performer, target, Conversations.createArgs(conversation), Actions.TALK_ACTION), new Turn());
+		
+		assertEquals(2, conversation.getReplyPhrase(context).getId());
+		
+		WorldObject organization = GroupPropertyUtils.createProfessionOrganization(null, "Alliance of Farmers", Professions.FARMER_PROFESSION, world);
+		target.getProperty(Constants.GROUP).add(organization);
+		
+		assertEquals(3, conversation.getReplyPhrase(context).getId());
 	}
 	
 	@Test

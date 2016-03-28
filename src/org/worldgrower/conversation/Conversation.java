@@ -64,4 +64,14 @@ public interface Conversation extends Serializable {
 		List<HistoryItem> historyItems = world.getHistory().findHistoryItemsForAnyPerformer(performer, target, Conversations.createArgs(this), Actions.TALK_ACTION);
 		return historyItems.stream().map(h -> (Integer)h.getAdditionalValue()).collect(Collectors.toList());
 	}
+	
+	/*
+	public default int getNumberOfTurnsSinceSameConversation(ConversationContext conversationContext) {
+		List<HistoryItem> historyItems = findSameConversation(conversationContext);
+		if (historyItems.size() > 0) {
+			return historyItems.get(historyItems.size() - 1).getTurn().getValue();
+		} else {
+			return Integer.MAX_VALUE;
+		}
+	}*/
 }
