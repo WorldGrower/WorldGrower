@@ -396,6 +396,7 @@ public class ImageInfoReader {
 		
 		add(ImageIds.IRON_MACE, sprites420.getSubImage(4, 9, 1, 1));
 		add(ImageIds.IRON_KATAR, sprites420.getSubImage(8, 6, 1, 1));
+		add(ImageIds.SLEEPING_POTION, sprites420.getSubImage(1, 2, 1, 1));
     }
 
     private void resizeSmallFlowers() {

@@ -271,6 +271,7 @@ public class Constants {
 	public static final BooleanProperty PASSABLE = new BooleanProperty("passable", NOT_NULLABLE, ALL_PROPERTIES);
 	public static final UnCheckedProperty<Location> LOCATION = new UnCheckedProperty<>("location", ALL_PROPERTIES);
 	public static final IdProperty ASSASSINATE_TARGET_ID = new IdProperty("assassinateTargetId", ALL_PROPERTIES);
+	public static final IntProperty SLEEP_INDUCING_DRUG_STRENGTH = new IntProperty("sleepInducingDrugStrength", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	
 	//special property not used in WorldObject
 	public static final IntProperty DISTANCE = new IntProperty("distance", 0, null, NOT_NULLABLE, ALL_PROPERTIES);

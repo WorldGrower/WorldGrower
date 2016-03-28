@@ -36,7 +36,7 @@ import org.worldgrower.conversation.KnowledgeToDescriptionMapper;
 import org.worldgrower.gui.ImageIds;
 
 public enum Item {
-	IRON_CLAYMORE, IRON_GREATSWORD, IRON_AXE, IRON_GREATAXE, IRON_CUIRASS, IRON_HELMET, IRON_GAUNTLETS, IRON_GREAVES, IRON_SHIELD, IRON_BOOTS, BERRIES, GRAPES, WINE, LONGBOW, PAPER, WATER, MEAT, SPELLBOOK, KEY, NIGHT_SHADE, POISON, COTTON, COTTON_SHIRT, COTTON_HAT, COTTON_BOOTS, COTTON_GLOVES, COTTON_PANTS, BED, OIL, FISHING_POLE, FISH, REPAIR_HAMMER, WOOD, STONE, GOLD, ORE, SOUL_GEM, NEWS_PAPER, BLOOD, IRON_MACE, IRON_KATAR;
+	IRON_CLAYMORE, IRON_GREATSWORD, IRON_AXE, IRON_GREATAXE, IRON_CUIRASS, IRON_HELMET, IRON_GAUNTLETS, IRON_GREAVES, IRON_SHIELD, IRON_BOOTS, BERRIES, GRAPES, WINE, LONGBOW, PAPER, WATER, MEAT, SPELLBOOK, KEY, NIGHT_SHADE, POISON, COTTON, COTTON_SHIRT, COTTON_HAT, COTTON_BOOTS, COTTON_GLOVES, COTTON_PANTS, BED, OIL, FISHING_POLE, FISH, REPAIR_HAMMER, WOOD, STONE, GOLD, ORE, SOUL_GEM, NEWS_PAPER, BLOOD, IRON_MACE, IRON_KATAR, SLEEPING_POTION;
 
 	public static final String NEWS_PAPER_NAME = "news paper";
 	private static final String IRON_CLAYMORE_NAME = "Iron Claymore";
@@ -518,6 +518,18 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
 			properties.put(Constants.IMAGE_ID, ImageIds.IRON_KATAR);
+			return new WorldObjectImpl(properties);
+		});
+		
+		addItem(Item.SLEEPING_POTION, skillBonus -> {
+			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+			properties.put(Constants.NAME, "Sleeping Potion");
+			properties.put(Constants.WATER, (int) (10 * skillBonus));
+			properties.put(Constants.SLEEP_INDUCING_DRUG_STRENGTH, (int) (3 * skillBonus));
+			properties.put(Constants.PRICE, 1);
+			properties.put(Constants.SELLABLE, false);
+			properties.put(Constants.WEIGHT, 1);
+			properties.put(Constants.IMAGE_ID, ImageIds.SLEEPING_POTION);
 			return new WorldObjectImpl(properties);
 		});
 		
