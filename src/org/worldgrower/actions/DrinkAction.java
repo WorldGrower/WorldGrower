@@ -21,9 +21,6 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.condition.Condition;
-import org.worldgrower.condition.Conditions;
-import org.worldgrower.goal.AlcoholLevelPropertyUtils;
 import org.worldgrower.goal.WaterPropertyUtils;
 import org.worldgrower.gui.ImageIds;
 
@@ -39,18 +36,7 @@ public class DrinkAction implements ManagedOperation {
 		performer.increment(Constants.WATER, waterDrunk);
 		target.increment(Constants.WATER_SOURCE, -waterDrunk);
 		
-		//TODO: refactor out poison & alcohol code with DrinkFromInventoryAction
-		if (target.hasProperty(Constants.POISON_DAMAGE) && target.getProperty(Constants.POISON_DAMAGE) > 0) {
-			Conditions.add(performer, Condition.POISONED_CONDITION, 20, world);
-			WaterPropertyUtils.everyoneInVicinityKnowsOfPoisoning(performer, target, world);
-		}
-		
-		if (target.hasProperty(Constants.ALCOHOL_LEVEL)) {
-			performer.increment(Constants.ALCOHOL_LEVEL, target.getProperty(Constants.ALCOHOL_LEVEL));
-			if (performer.getProperty(Constants.ALCOHOL_LEVEL) > AlcoholLevelPropertyUtils.getIntoxicatedLimit(performer)) {
-				Conditions.add(performer, Condition.INTOXICATED_CONDITION, Integer.MAX_VALUE, world);
-			}
-		}
+		WaterPropertyUtils.drink(performer, target, world);
 	}
 
 	@Override

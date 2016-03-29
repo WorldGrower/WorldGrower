@@ -20,9 +20,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
-import org.worldgrower.condition.Condition;
-import org.worldgrower.condition.Conditions;
-import org.worldgrower.goal.AlcoholLevelPropertyUtils;
+import org.worldgrower.goal.WaterPropertyUtils;
 import org.worldgrower.gui.ImageIds;
 
 public class DrinkFromInventoryAction extends InventoryAction {
@@ -34,20 +32,7 @@ public class DrinkFromInventoryAction extends InventoryAction {
 		performer.increment(Constants.WATER, 100);
 		
 		WorldObject waterTarget = performer.getProperty(Constants.INVENTORY).get(inventoryIndex);
-		if (waterTarget.hasProperty(Constants.POISON_DAMAGE) && waterTarget.getProperty(Constants.POISON_DAMAGE) > 0) {
-			Conditions.add(performer, Condition.POISONED_CONDITION, 20, world);
-		}
-		
-		if (waterTarget.hasProperty(Constants.ALCOHOL_LEVEL)) {
-			performer.increment(Constants.ALCOHOL_LEVEL, waterTarget.getProperty(Constants.ALCOHOL_LEVEL));
-			if (performer.getProperty(Constants.ALCOHOL_LEVEL) > AlcoholLevelPropertyUtils.getIntoxicatedLimit(performer)) {
-				Conditions.add(performer, Condition.INTOXICATED_CONDITION, Integer.MAX_VALUE, world);
-			}
-		}
-		
-		if (waterTarget.hasProperty(Constants.VAMPIRE_BLOOD_LEVEL)) {
-			performer.increment(Constants.VAMPIRE_BLOOD_LEVEL, waterTarget.getProperty(Constants.VAMPIRE_BLOOD_LEVEL));
-		}
+		WaterPropertyUtils.drink(performer, waterTarget, world);
 		
 		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.WATER, 1);
 	}

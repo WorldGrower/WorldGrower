@@ -22,6 +22,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.KnowledgeMap;
+import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.Conditions;
 
 public class WaterPropertyUtils {
 
@@ -42,5 +44,38 @@ public class WaterPropertyUtils {
 	public static boolean isWaterSafeToDrink(WorldObject performer, WorldObject target) {
 		KnowledgeMap knowledgeMap = performer.getProperty(Constants.KNOWLEDGE_MAP);
 		return (!knowledgeMap.hasProperty(target, Constants.POISON_DAMAGE));
+	}
+	
+	public static void drink(WorldObject performer, WorldObject waterTarget, World world) {
+		if (isWaterPoisoned(waterTarget)) {
+			Conditions.add(performer, Condition.POISONED_CONDITION, 20, world);
+			
+			if (isWorldObject(waterTarget, world)) {
+				WaterPropertyUtils.everyoneInVicinityKnowsOfPoisoning(performer, waterTarget, world);
+			}
+		}
+		
+		if (waterTarget.hasProperty(Constants.ALCOHOL_LEVEL)) {
+			performer.increment(Constants.ALCOHOL_LEVEL, waterTarget.getProperty(Constants.ALCOHOL_LEVEL));
+			if (performer.getProperty(Constants.ALCOHOL_LEVEL) > AlcoholLevelPropertyUtils.getIntoxicatedLimit(performer)) {
+				Conditions.add(performer, Condition.INTOXICATED_CONDITION, Integer.MAX_VALUE, world);
+			}
+		}
+		
+		if (waterTarget.hasProperty(Constants.VAMPIRE_BLOOD_LEVEL)) {
+			performer.increment(Constants.VAMPIRE_BLOOD_LEVEL, waterTarget.getProperty(Constants.VAMPIRE_BLOOD_LEVEL));
+		}
+		
+		if (waterTarget.hasProperty(Constants.SLEEP_INDUCING_DRUG_STRENGTH)) {
+			Conditions.add(performer, Condition.UNCONSCIOUS_CONDITION, 20, world);
+		}
+	}
+
+	private static boolean isWorldObject(WorldObject waterTarget, World world) {
+		return waterTarget.hasProperty(Constants.ID) && world.exists(waterTarget);
+	}
+
+	private static boolean isWaterPoisoned(WorldObject waterTarget) {
+		return waterTarget.hasProperty(Constants.POISON_DAMAGE) && waterTarget.getProperty(Constants.POISON_DAMAGE) > 0;
 	}
 }
