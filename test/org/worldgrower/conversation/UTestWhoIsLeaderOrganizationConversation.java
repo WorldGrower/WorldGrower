@@ -20,13 +20,16 @@ import java.util.List;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.OperationInfo;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdRelationshipMap;
 import org.worldgrower.goal.GroupPropertyUtils;
+import org.worldgrower.history.Turn;
 
 public class UTestWhoIsLeaderOrganizationConversation {
 
@@ -41,7 +44,7 @@ public class UTestWhoIsLeaderOrganizationConversation {
 		
 		ConversationContext context = new ConversationContext(performer, target, organization, null, null, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
-		assertEquals(true, replyPhrases.size() == 2);
+		assertEquals(3, replyPhrases.size());
 		assertEquals("OrgName has no leader at the moment", replyPhrases.get(0).getResponsePhrase());
 		assertEquals("That's none of your business", replyPhrases.get(1).getResponsePhrase());
 	}
@@ -94,11 +97,15 @@ public class UTestWhoIsLeaderOrganizationConversation {
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject organization = GroupPropertyUtils.create(null, "OrgName", world);
 		
-		ConversationContext context = new ConversationContext(performer, target, organization, null, null, 0);
+		ConversationContext context = new ConversationContext(performer, target, organization, null, world, 0);
 		assertEquals(0, conversation.getReplyPhrase(context).getId());
 		
 		target.getProperty(Constants.RELATIONSHIPS).incrementValue(performer, -1000);
 		assertEquals(1, conversation.getReplyPhrase(context).getId());
+		
+		target.getProperty(Constants.RELATIONSHIPS).incrementValue(performer, 4000);
+		world.getHistory().actionPerformed(new OperationInfo(performer, target, Conversations.createArgs(conversation, organization), Actions.TALK_ACTION), new Turn());
+		assertEquals(2, conversation.getReplyPhrase(context).getId());
 	}
 	
 	@Test

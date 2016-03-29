@@ -31,21 +31,29 @@ public class WhoIsLeaderOrganizationConversation implements Conversation {
 
 	private static final int LEADER = 0;
 	private static final int NONE_OF = 1;
+	private static final int ALREADY_ASKED = 2;
 	
 	@Override
 	public Response getReplyPhrase(ConversationContext conversationContext) {
+		List<HistoryItem> historyItems = this.findSameConversation(conversationContext);
 		WorldObject performer = conversationContext.getPerformer();
 		WorldObject target = conversationContext.getTarget();
 		
 		final int replyId;
-		int relationshipValue = target.getProperty(Constants.RELATIONSHIPS).getValue(performer);
-		if (relationshipValue >= 0) {
+		if (givesAnswer(target, performer) && historyItems.size() == 0) {
 			replyId = LEADER;
+		} else if (givesAnswer(target, performer) && historyItems.size() > 0) {
+			replyId = ALREADY_ASKED;
 		} else {
 			replyId = NONE_OF;
 		}
 		
 		return getReply(getReplyPhrases(conversationContext), replyId);
+	}
+
+	private boolean givesAnswer(WorldObject target, WorldObject performer) {
+		int relationshipValue = target.getProperty(Constants.RELATIONSHIPS).getValue(performer);
+		return relationshipValue >= 0;
 	}
 
 	@Override
@@ -72,6 +80,16 @@ public class WhoIsLeaderOrganizationConversation implements Conversation {
 		
 		WorldObject leader = getLeader(organization, world);
 		
+		String leaderDescription = getLeaderDescription(organization, performer, target, leader);
+		
+		return Arrays.asList(
+			new Response(LEADER, leaderDescription),
+			new Response(NONE_OF, "That's none of your business"),
+			new Response(ALREADY_ASKED, "At this moment, " + leaderDescription)
+			);
+	}
+
+	private String getLeaderDescription(WorldObject organization, WorldObject performer, WorldObject target, WorldObject leader) {
 		StringBuilder leaderBuilder = new StringBuilder();
 		if (leader != null && leader.equals(target)) {
 			leaderBuilder.append("I'm the leader of the ").append(organization.getProperty(Constants.NAME));
@@ -82,11 +100,7 @@ public class WhoIsLeaderOrganizationConversation implements Conversation {
 		} else {
 			leaderBuilder.append(organization.getProperty(Constants.NAME)).append(" has no leader at the moment");
 		}
-		
-		return Arrays.asList(
-			new Response(LEADER, leaderBuilder.toString()),
-			new Response(NONE_OF, "That's none of your business")
-			);
+		return leaderBuilder.toString();
 	}
 
 	private WorldObject getLeader(WorldObject organization, World world) {
@@ -105,7 +119,7 @@ public class WhoIsLeaderOrganizationConversation implements Conversation {
 	
 	@Override
 	public void handleResponse(int replyIndex, ConversationContext conversationContext) {
-		if (replyIndex == LEADER) {
+		if (replyIndex == LEADER || replyIndex == ALREADY_ASKED) {
 			WorldObject performer = conversationContext.getPerformer();
 			WorldObject organization = conversationContext.getSubject();
 			World world = conversationContext.getWorld();
