@@ -18,12 +18,13 @@ import java.util.Map;
 
 import org.worldgrower.Constants;
 import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.generator.Item;
 
 public class HitPointPropertyUtils {
 
 	public static void addHitPointProperties(Map<ManagedProperty<?>, Object> properties) {
 		int constitution = (int) properties.get(Constants.CONSTITUTION);
-		int hitPoints = 10 + constitution;
+		int hitPoints = (10 + constitution) * Item.COMBAT_MULTIPLIER;
 		
 		properties.put(Constants.HIT_POINTS, hitPoints);
 		properties.put(Constants.HIT_POINTS_MAX, hitPoints);

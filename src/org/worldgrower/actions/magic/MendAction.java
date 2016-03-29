@@ -23,6 +23,7 @@ import org.worldgrower.actions.AttackUtils;
 import org.worldgrower.actions.CraftUtils;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.generator.Item;
 import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
 
@@ -33,7 +34,7 @@ public class MendAction implements MagicSpell {
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		int hitPointsRestored = (int)(5 * SkillUtils.getSkillBonus(performer, getSkill()));
+		int hitPointsRestored = (int)(5 * Item.COMBAT_MULTIPLIER * SkillUtils.getSkillBonus(performer, getSkill()));
 		target.increment(Constants.HIT_POINTS, hitPointsRestored);
 		if (target.getProperty(Constants.HIT_POINTS) > target.getProperty(Constants.HIT_POINTS_MAX)) {
 			target.setProperty(Constants.HIT_POINTS, target.getProperty(Constants.HIT_POINTS_MAX));

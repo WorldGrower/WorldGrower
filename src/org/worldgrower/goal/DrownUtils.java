@@ -19,6 +19,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
+import org.worldgrower.generator.Item;
 import org.worldgrower.terrain.TerrainType;
 
 public class DrownUtils {
@@ -33,7 +34,7 @@ public class DrownUtils {
 				Conditions conditions = worldObject.getProperty(Constants.CONDITIONS);
 				boolean hasWaterWalkCondition = conditions != null ? conditions.hasCondition(Condition.WATER_WALK_CONDITION) : false;
 				if (!hasWaterWalkCondition) {
-					worldObject.increment(Constants.HIT_POINTS, -5);
+					worldObject.increment(Constants.HIT_POINTS, -5 * Item.COMBAT_MULTIPLIER);
 					if (worldObject.getProperty(Constants.HIT_POINTS) == 0) {
 						if (worldObject.hasProperty(Constants.CONDITIONS)) {
 							DeathReasonPropertyUtils.targetDiesByDrowning(worldObject, world);

@@ -24,6 +24,7 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.condition.GhoulUtils;
 import org.worldgrower.creaturetype.CreatureType;
+import org.worldgrower.generator.Item;
 
 public class GhoulGoal implements Goal {
 
@@ -37,7 +38,7 @@ public class GhoulGoal implements Goal {
 		int indexOfMeat = performerInventory.getIndexFor(w -> isHumanMeat(w));
 		if (indexOfMeat != -1 && !performerInventory.get(indexOfMeat).getProperty(Constants.SELLABLE)) {
 			return new OperationInfo(performer, performer, new int[] {indexOfMeat}, Actions.MARK_INVENTORY_ITEM_AS_SELLABLE_ACTION);
-		} else if (performer.getProperty(Constants.HIT_POINTS) > 1) {
+		} else if (performer.getProperty(Constants.HIT_POINTS) > 1 * Item.COMBAT_MULTIPLIER) {
 			return new OperationInfo(performer, performer, new int[0], Actions.CREATE_HUMAN_MEAT_ACTION);
 		}
 		return null;

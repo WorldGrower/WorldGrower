@@ -107,7 +107,7 @@ public class TerrainGenerator {
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 1);
 		properties.put(Constants.HEIGHT, 1);
-		properties.put(Constants.DAMAGE, (int)(2 * skillBonus));
+		properties.put(Constants.DAMAGE, (int)(2 * Item.COMBAT_MULTIPLIER * skillBonus));
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.FIRE_TRAP);
 		properties.put(Constants.PASSABLE, Boolean.TRUE);

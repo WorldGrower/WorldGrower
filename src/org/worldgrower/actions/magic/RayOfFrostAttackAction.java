@@ -24,6 +24,7 @@ import org.worldgrower.actions.CraftUtils;
 import org.worldgrower.actions.DeadlyAction;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.generator.Item;
 import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
 
@@ -33,7 +34,7 @@ public class RayOfFrostAttackAction implements MagicSpell, DeadlyAction {
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		AttackUtils.magicAttack(5, this, performer, target, args, world, SkillUtils.useSkill(performer, Constants.EVOCATION_SKILL, world.getWorldStateChangedListeners()));
+		AttackUtils.magicAttack(5 * Item.COMBAT_MULTIPLIER, this, performer, target, args, world, SkillUtils.useSkill(performer, Constants.EVOCATION_SKILL, world.getWorldStateChangedListeners()));
 	}
 	
 	@Override

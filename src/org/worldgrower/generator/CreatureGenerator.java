@@ -56,8 +56,8 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 1);
 		properties.put(Constants.HEIGHT, 1);
-		properties.put(Constants.HIT_POINTS, 2);
-		properties.put(Constants.HIT_POINTS_MAX, 3);
+		properties.put(Constants.HIT_POINTS, 2 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.HIT_POINTS_MAX, 3 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.NAME, "Rat");
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.RAT);
@@ -85,7 +85,7 @@ public class CreatureGenerator implements Serializable {
 		
 		properties.put(Constants.HAND_TO_HAND_SKILL, new Skill(10));
 		
-		properties.put(Constants.DAMAGE, 2);
+		properties.put(Constants.DAMAGE, 2 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		
 		WorldObject rat = new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new BeastOnTurn(this::generateRat), new RatWorldEvaluationFunction());
@@ -109,8 +109,8 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 1);
 		properties.put(Constants.HEIGHT, 1);
-		properties.put(Constants.HIT_POINTS, 9);
-		properties.put(Constants.HIT_POINTS_MAX, 10);
+		properties.put(Constants.HIT_POINTS, 9 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.HIT_POINTS_MAX, 10 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.NAME, "Spider");
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.SPIDER);
@@ -138,7 +138,7 @@ public class CreatureGenerator implements Serializable {
 		
 		properties.put(Constants.HAND_TO_HAND_SKILL, new Skill(10));
 		
-		properties.put(Constants.DAMAGE, 5);
+		properties.put(Constants.DAMAGE, 5 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.DAMAGE_RESIST, 10);
 		
 		WorldObject spider = new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new BeastOnTurn(this::generateSpider), new SpiderWorldEvaluationFunction());
@@ -162,8 +162,8 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 1);
 		properties.put(Constants.HEIGHT, 1);
-		properties.put(Constants.HIT_POINTS, 15);
-		properties.put(Constants.HIT_POINTS_MAX, 20);
+		properties.put(Constants.HIT_POINTS, 15 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.HIT_POINTS_MAX, 20 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.NAME, "Slime");
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.SLIME);
@@ -191,7 +191,7 @@ public class CreatureGenerator implements Serializable {
 		
 		properties.put(Constants.HAND_TO_HAND_SKILL, new Skill(10));
 		
-		properties.put(Constants.DAMAGE, 3);
+		properties.put(Constants.DAMAGE, 3 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.DAMAGE_RESIST, 8);
 		
 		WorldObject slime = new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new BeastOnTurn(this::generateSlime), new SlimeWorldEvaluationFunction());
@@ -208,8 +208,8 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 1);
 		properties.put(Constants.HEIGHT, 1);
-		properties.put(Constants.HIT_POINTS, 15);
-		properties.put(Constants.HIT_POINTS_MAX, 15);
+		properties.put(Constants.HIT_POINTS, 15 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.HIT_POINTS_MAX, 15 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.NAME, "Skeleton");
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.SKELETON);
@@ -233,7 +233,7 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.CHARISMA, 6);
 		SkillUtils.addAllSkills(properties);
 		
-		properties.put(Constants.DAMAGE, 5);
+		properties.put(Constants.DAMAGE, 5 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.DAMAGE_RESIST, 10);
 		
 		WorldObject skeleton = new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new SkeletonOnTurn(), new SkeletonWorldEvaluationFunction());
@@ -257,8 +257,8 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 1);
 		properties.put(Constants.HEIGHT, 1);
-		properties.put(Constants.HIT_POINTS, 2);
-		properties.put(Constants.HIT_POINTS_MAX, 3);
+		properties.put(Constants.HIT_POINTS, 2 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.HIT_POINTS_MAX, 3 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.NAME, "Fish");
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.FISH_CREATURE);
@@ -278,7 +278,7 @@ public class CreatureGenerator implements Serializable {
 		
 		properties.put(Constants.ARMOR, 10);
 		
-		properties.put(Constants.DAMAGE, 2);
+		properties.put(Constants.DAMAGE, 2 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		
 		WorldObject fish = new WorldObjectImpl(properties, new FishOnTurn(this::generateFish));
@@ -302,8 +302,8 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 1);
 		properties.put(Constants.HEIGHT, 1);
-		properties.put(Constants.HIT_POINTS, 4);
-		properties.put(Constants.HIT_POINTS_MAX, 5);
+		properties.put(Constants.HIT_POINTS, 4 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.HIT_POINTS_MAX, 5 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.NAME, "Cow");
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.COW);
@@ -322,7 +322,7 @@ public class CreatureGenerator implements Serializable {
 		
 		properties.put(Constants.ARMOR, 10);
 		
-		properties.put(Constants.DAMAGE, 2);
+		properties.put(Constants.DAMAGE, 2 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		
 		WorldObject cow = new WorldObjectImpl(properties, new CowOnTurn(this::generateCow));
@@ -339,8 +339,8 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 1);
 		properties.put(Constants.HEIGHT, 1);
-		properties.put(Constants.HIT_POINTS, 15);
-		properties.put(Constants.HIT_POINTS_MAX, 15);
+		properties.put(Constants.HIT_POINTS, 15 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.HIT_POINTS_MAX, 15 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.NAME, "Animated Suit of Armor");
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.ANIMATED_SUIT_OF_ARMOR);
@@ -359,7 +359,7 @@ public class CreatureGenerator implements Serializable {
 		
 		properties.put(Constants.ARMOR, 10);
 		
-		properties.put(Constants.DAMAGE, 2);
+		properties.put(Constants.DAMAGE, 2 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		
 		WorldObject construct = new WorldObjectImpl(properties, new ConstructOnTurn());

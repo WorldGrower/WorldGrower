@@ -22,6 +22,7 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.generator.Item;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
 
@@ -40,7 +41,7 @@ public class SirenCurse implements Curse {
 			}
 			
 			if (target.getProperty(Constants.CURSE) == this) {
-				performer.increment(Constants.HIT_POINTS, -100);
+				performer.increment(Constants.HIT_POINTS, -100 * Item.COMBAT_MULTIPLIER);
 			}
 		}
 	}

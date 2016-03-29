@@ -38,12 +38,12 @@ public class CreateBloodAction implements ManagedOperation {
 		
 		inventoryPerformer.addQuantity(collectedBlood, 1);
 		
-		target.increment(Constants.HIT_POINTS, -1);
+		target.increment(Constants.HIT_POINTS, -1 * Item.COMBAT_MULTIPLIER);
 	}
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		int hitPointsDistance = target.getProperty(Constants.HIT_POINTS) > 1 ? 0 : 1;
+		int hitPointsDistance = target.getProperty(Constants.HIT_POINTS) > 1 * Item.COMBAT_MULTIPLIER ? 0 : 1;
 		int performerIsVampireDistance = performer.hasProperty(Constants.VAMPIRE_BLOOD_LEVEL) ? 0 : 1;
 		return Reach.evaluateTarget(performer, args, target, DISTANCE)
 				+ performerIsVampireDistance

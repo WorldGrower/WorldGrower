@@ -35,12 +35,12 @@ public class CreateHumanMeatAction implements ManagedOperation {
 		
 		inventoryPerformer.addQuantity(collectedMeat, 1);
 		
-		performer.increment(Constants.HIT_POINTS, -1);
+		performer.increment(Constants.HIT_POINTS, -1 * Item.COMBAT_MULTIPLIER);
 	}
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		int hitPointsDistance = performer.getProperty(Constants.HIT_POINTS) > 1 ? 0 : 1;
+		int hitPointsDistance = performer.getProperty(Constants.HIT_POINTS) > 1 * Item.COMBAT_MULTIPLIER ? 0 : 1;
 		return hitPointsDistance;
 	}
 	

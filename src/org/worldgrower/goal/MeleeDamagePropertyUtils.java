@@ -17,6 +17,7 @@ package org.worldgrower.goal;
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.UnCheckedProperty;
+import org.worldgrower.generator.Item;
 
 public class MeleeDamagePropertyUtils {
 
@@ -34,7 +35,7 @@ public class MeleeDamagePropertyUtils {
 		}
 		
 		if (meleeDamage == 0) {
-			meleeDamage = 2;
+			meleeDamage = 2 * Item.COMBAT_MULTIPLIER;
 		}
 		
 		return meleeDamage;

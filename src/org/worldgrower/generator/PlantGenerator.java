@@ -49,8 +49,8 @@ public class PlantGenerator {
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.BUSH);
 		properties.put(Constants.FOOD_SOURCE, 1);
-		properties.put(Constants.HIT_POINTS, 15);
-		properties.put(Constants.HIT_POINTS_MAX, 15);
+		properties.put(Constants.HIT_POINTS, 15 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.HIT_POINTS_MAX, 15 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		properties.put(Constants.NAME, "berry bush");
@@ -71,8 +71,8 @@ public class PlantGenerator {
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.GRAPE_VINE);
 		properties.put(Constants.GRAPE_SOURCE, 1);
-		properties.put(Constants.HIT_POINTS, 15);
-		properties.put(Constants.HIT_POINTS_MAX, 15);
+		properties.put(Constants.HIT_POINTS, 15 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.HIT_POINTS_MAX, 15 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		properties.put(Constants.NAME, "grape vine");
@@ -93,8 +93,8 @@ public class PlantGenerator {
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.NIGHT_SHADE_PLANT);
 		properties.put(Constants.NIGHT_SHADE_SOURCE, 1);
-		properties.put(Constants.HIT_POINTS, 15);
-		properties.put(Constants.HIT_POINTS_MAX, 15);
+		properties.put(Constants.HIT_POINTS, 15 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.HIT_POINTS_MAX, 15 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		properties.put(Constants.NAME, "nightshade");
@@ -120,8 +120,8 @@ public class PlantGenerator {
 		properties.put(Constants.WOOD_SOURCE, 50);
 		properties.put(Constants.FLAMMABLE, Boolean.TRUE);
 		properties.put(Constants.CONDITIONS, new Conditions());
-		properties.put(Constants.HIT_POINTS, 200);
-		properties.put(Constants.HIT_POINTS_MAX, 200);
+		properties.put(Constants.HIT_POINTS, 200 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.HIT_POINTS_MAX, 200 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		WorldObject tree = new WorldObjectImpl(properties, new PlantOnTurn());
@@ -149,8 +149,8 @@ public class PlantGenerator {
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 2);
 		properties.put(Constants.HEIGHT, 2);
-		properties.put(Constants.HIT_POINTS, 15);
-		properties.put(Constants.HIT_POINTS_MAX, 15);
+		properties.put(Constants.HIT_POINTS, 15 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.HIT_POINTS_MAX, 15 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.NAME, "DemonTree");
 		properties.put(Constants.ID, world.generateUniqueId());
 		properties.put(Constants.IMAGE_ID, ImageIds.TREE);
@@ -169,7 +169,7 @@ public class PlantGenerator {
 		properties.put(Constants.WISDOM, 12);
 		properties.put(Constants.CHARISMA, 6);
 		
-		properties.put(Constants.DAMAGE, 6);
+		properties.put(Constants.DAMAGE, 6 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		
 		WorldObject demonTree = new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new DoNothingOnTurn(), new DemonTreeWorldEvaluationFunction());
@@ -189,8 +189,8 @@ public class PlantGenerator {
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.COTTON_PLANT);
 		properties.put(Constants.COTTON_SOURCE, 1);
-		properties.put(Constants.HIT_POINTS, 15);
-		properties.put(Constants.HIT_POINTS_MAX, 15);
+		properties.put(Constants.HIT_POINTS, 15 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.HIT_POINTS_MAX, 15 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		properties.put(Constants.NAME, "cotton plant");

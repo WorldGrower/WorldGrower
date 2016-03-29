@@ -21,6 +21,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldOnTurn;
 import org.worldgrower.condition.Condition;
+import org.worldgrower.generator.Item;
 import org.worldgrower.goal.ArenaPropertyUtils;
 
 public class ArenaFightOnTurn implements WorldOnTurn {
@@ -31,7 +32,7 @@ public class ArenaFightOnTurn implements WorldOnTurn {
 		for(WorldObject worldObject : worldObjects) {
 			Integer opponentId = worldObject.getProperty(Constants.ARENA_OPPONENT_ID);
 			if (opponentId.intValue() != -1) {
-				if (worldObject.getProperty(Constants.HIT_POINTS).intValue() <= 1 || worldObject.getProperty(Constants.CONDITIONS).hasCondition(Condition.UNCONSCIOUS_CONDITION)) {
+				if (worldObject.getProperty(Constants.HIT_POINTS).intValue() <= 1 * Item.COMBAT_MULTIPLIER || worldObject.getProperty(Constants.CONDITIONS).hasCondition(Condition.UNCONSCIOUS_CONDITION)) {
 					
 					WorldObject opponent = world.findWorldObject(Constants.ID, opponentId);
 					ArenaPropertyUtils.addPayCheck(worldObject);

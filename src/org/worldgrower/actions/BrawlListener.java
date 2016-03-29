@@ -21,6 +21,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.ManagedOperationListener;
 import org.worldgrower.WorldObject;
+import org.worldgrower.generator.Item;
 import org.worldgrower.goal.BrawlPropertyUtils;
 
 public class BrawlListener implements ManagedOperationListener {
@@ -30,7 +31,7 @@ public class BrawlListener implements ManagedOperationListener {
 	@Override
 	public void actionPerformed(ManagedOperation managedOperation, WorldObject performer, WorldObject target, int[] args, Object value) {
 		if (BrawlPropertyUtils.isBrawling(performer) && BrawlPropertyUtils.isBrawling(target) && managedOperation == Actions.NON_LETHAL_MELEE_ATTACK_ACTION) {
-			if (target.getProperty(Constants.HIT_POINTS) == 1) {
+			if (target.getProperty(Constants.HIT_POINTS) == 1 * Item.COMBAT_MULTIPLIER) {
 				int goldWon = BrawlPropertyUtils.endBrawlWithPerformerVictory(performer, target);
 				
 				for(BrawlFinishedListener brawlFinishedListener : brawlFinishedListeners) {

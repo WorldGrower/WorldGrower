@@ -72,8 +72,8 @@ public class BuildingGenerator {
 		properties.put(Constants.NAME, SHACK_NAME);
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.SHACK);
-		properties.put(Constants.HIT_POINTS, 100);
-		properties.put(Constants.HIT_POINTS_MAX, 100);
+		properties.put(Constants.HIT_POINTS, 100 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.HIT_POINTS_MAX, 100 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.FLAMMABLE, Boolean.TRUE);
 		properties.put(Constants.CONDITIONS, new Conditions());
 		properties.put(Constants.ARMOR, 0);
@@ -105,8 +105,8 @@ public class BuildingGenerator {
 		properties.put(Constants.IMAGE_ID, houseImageId);
 		properties.put(Constants.FLAMMABLE, Boolean.TRUE);
 		properties.put(Constants.CONDITIONS, new Conditions());
-		properties.put(Constants.HIT_POINTS, 200);
-		properties.put(Constants.HIT_POINTS_MAX, 200);
+		properties.put(Constants.HIT_POINTS, 200 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.HIT_POINTS_MAX, 200 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		properties.put(Constants.PRICE, 50);
@@ -133,8 +133,8 @@ public class BuildingGenerator {
 		
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.WELL);
-		properties.put(Constants.HIT_POINTS, 75);
-		properties.put(Constants.HIT_POINTS_MAX, 75);
+		properties.put(Constants.HIT_POINTS, 75 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.HIT_POINTS_MAX, 75 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		
@@ -162,8 +162,8 @@ public class BuildingGenerator {
 		properties.put(Constants.IMAGE_ID, ImageIds.TRAINING_DUMMY);
 		properties.put(Constants.FLAMMABLE, Boolean.TRUE);
 		properties.put(Constants.CONDITIONS, new Conditions());
-		properties.put(Constants.HIT_POINTS, hitPoints);
-		properties.put(Constants.HIT_POINTS_MAX, hitPoints);
+		properties.put(Constants.HIT_POINTS, hitPoints * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.HIT_POINTS_MAX, hitPoints * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		
@@ -185,8 +185,8 @@ public class BuildingGenerator {
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.GRAVE);
 		properties.put(Constants.TEXT, "Here are the " + deceasedWorldObject.getProperty(Constants.NAME) + " buried");
-		properties.put(Constants.HIT_POINTS, 50);
-		properties.put(Constants.HIT_POINTS_MAX, 50);
+		properties.put(Constants.HIT_POINTS, 50 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.HIT_POINTS_MAX, 50 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		
@@ -210,8 +210,8 @@ public class BuildingGenerator {
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, performer.getProperty(Constants.DEITY).getStatueImageId());
 		properties.put(Constants.CAN_BE_WORSHIPPED, Boolean.TRUE);
-		properties.put(Constants.HIT_POINTS, 150);
-		properties.put(Constants.HIT_POINTS_MAX, 150);
+		properties.put(Constants.HIT_POINTS, 150 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.HIT_POINTS_MAX, 150 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		
@@ -270,8 +270,8 @@ public class BuildingGenerator {
 		properties.put(Constants.NAME, JAIL_LEFT);
 		properties.put(Constants.ID, world.generateUniqueId());
 		properties.put(Constants.IMAGE_ID, ImageIds.JAIL_LEFT);
-		properties.put(Constants.HIT_POINTS, 50);
-		properties.put(Constants.HIT_POINTS_MAX, 50);
+		properties.put(Constants.HIT_POINTS, 50 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.HIT_POINTS_MAX, 50 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		
@@ -289,8 +289,8 @@ public class BuildingGenerator {
 		properties.put(Constants.NAME, "Jail up");
 		properties.put(Constants.ID, world.generateUniqueId());
 		properties.put(Constants.IMAGE_ID, ImageIds.JAIL_UP);
-		properties.put(Constants.HIT_POINTS, 50);
-		properties.put(Constants.HIT_POINTS_MAX, 50);
+		properties.put(Constants.HIT_POINTS, 50 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.HIT_POINTS_MAX, 50 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		
@@ -308,8 +308,8 @@ public class BuildingGenerator {
 		properties.put(Constants.NAME, "Jail right");
 		properties.put(Constants.ID, world.generateUniqueId());
 		properties.put(Constants.IMAGE_ID, ImageIds.JAIL_RIGHT);
-		properties.put(Constants.HIT_POINTS, 50);
-		properties.put(Constants.HIT_POINTS_MAX, 50);
+		properties.put(Constants.HIT_POINTS, 50 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.HIT_POINTS_MAX, 50 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		
@@ -327,8 +327,8 @@ public class BuildingGenerator {
 		properties.put(Constants.NAME, JAIL_DOOR);
 		properties.put(Constants.ID, world.generateUniqueId());
 		properties.put(Constants.IMAGE_ID, ImageIds.JAIL_DOOR);
-		properties.put(Constants.HIT_POINTS, 50);
-		properties.put(Constants.HIT_POINTS_MAX, 50);
+		properties.put(Constants.HIT_POINTS, 50 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.HIT_POINTS_MAX, 50 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		
@@ -372,8 +372,8 @@ public class BuildingGenerator {
 		properties.put(Constants.IMAGE_ID, ImageIds.SACRIFIAL_ALTAR);
 		properties.put(Constants.SACRIFICIAL_ALTAR_CREATOR_ID, performer.getProperty(Constants.ID));
 		properties.put(Constants.TEXT, "Sacrificial Altar to " + deity.getName());
-		properties.put(Constants.HIT_POINTS, 50);
-		properties.put(Constants.HIT_POINTS_MAX, 50);
+		properties.put(Constants.HIT_POINTS, 50 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.HIT_POINTS_MAX, 50 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		
@@ -406,8 +406,8 @@ public class BuildingGenerator {
 		properties.put(Constants.NAME, "Arena vertical");
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.ARENA_VERTICAL);
-		properties.put(Constants.HIT_POINTS, 100);
-		properties.put(Constants.HIT_POINTS_MAX, 100);
+		properties.put(Constants.HIT_POINTS, 100 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.HIT_POINTS_MAX, 100 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		
@@ -428,8 +428,8 @@ public class BuildingGenerator {
 		properties.put(Constants.NAME, "Arena horizontal");
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.ARENA_HORIZONTAL);
-		properties.put(Constants.HIT_POINTS, 100);
-		properties.put(Constants.HIT_POINTS_MAX, 100);
+		properties.put(Constants.HIT_POINTS, 100 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.HIT_POINTS_MAX, 100 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		
@@ -452,8 +452,8 @@ public class BuildingGenerator {
 		
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.LIBRARY);
-		properties.put(Constants.HIT_POINTS, 50);
-		properties.put(Constants.HIT_POINTS_MAX, 50);
+		properties.put(Constants.HIT_POINTS, 50 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.HIT_POINTS_MAX, 50 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.FLAMMABLE, Boolean.TRUE);
 		properties.put(Constants.CONDITIONS, new Conditions());
 		properties.put(Constants.ARMOR, 0);
@@ -479,8 +479,8 @@ public class BuildingGenerator {
 		properties.put(Constants.NAME, "papermill");
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.PAPER_MILL);
-		properties.put(Constants.HIT_POINTS, 50);
-		properties.put(Constants.HIT_POINTS_MAX, 50);
+		properties.put(Constants.HIT_POINTS, 50 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.HIT_POINTS_MAX, 50 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.FLAMMABLE, Boolean.TRUE);
 		properties.put(Constants.CONDITIONS, new Conditions());
 		properties.put(Constants.ARMOR, 0);
@@ -504,8 +504,8 @@ public class BuildingGenerator {
 		properties.put(Constants.NAME, "smithy");
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.SMITH);
-		properties.put(Constants.HIT_POINTS, 100);
-		properties.put(Constants.HIT_POINTS_MAX, 100);
+		properties.put(Constants.HIT_POINTS, 100 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.HIT_POINTS_MAX, 100 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		
@@ -528,8 +528,8 @@ public class BuildingGenerator {
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.INN);
 		properties.put(Constants.CONDITIONS, new Conditions());
-		properties.put(Constants.HIT_POINTS, 200);
-		properties.put(Constants.HIT_POINTS_MAX, 200);
+		properties.put(Constants.HIT_POINTS, 200 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.HIT_POINTS_MAX, 200 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		properties.put(Constants.PRICE, 200);
@@ -557,8 +557,8 @@ public class BuildingGenerator {
 		properties.put(Constants.CONDITIONS, new Conditions());
 		properties.put(Constants.FLAMMABLE, Boolean.TRUE);
 		properties.put(Constants.TEXT, text);
-		properties.put(Constants.HIT_POINTS, 20);
-		properties.put(Constants.HIT_POINTS_MAX, 20);
+		properties.put(Constants.HIT_POINTS, 20 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.HIT_POINTS_MAX, 20 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		
