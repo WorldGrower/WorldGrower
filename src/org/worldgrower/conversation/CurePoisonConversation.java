@@ -29,6 +29,7 @@ public class CurePoisonConversation implements Conversation {
 
 	private static final int YES = 0;
 	private static final int NO = 1;
+	private static final int GET_LOST = 2;
 	
 	@Override
 	public Response getReplyPhrase(ConversationContext conversationContext) {
@@ -57,7 +58,8 @@ public class CurePoisonConversation implements Conversation {
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
 			new Response(YES, "Yes"),
-			new Response(NO, "No"));
+			new Response(NO, "No"),
+			new Response(GET_LOST, "Get lost"));
 	}
 	
 	@Override
@@ -70,6 +72,8 @@ public class CurePoisonConversation implements Conversation {
 			Actions.CURE_POISON_ACTION.execute(target, performer, new int[0], world);
 		} else if (replyIndex == NO) {
 			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -50, Actions.TALK_ACTION, Conversations.createArgs(this), world);
+		} else if (replyIndex == GET_LOST) {
+			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -70, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 		}
 	}
 
@@ -81,5 +85,9 @@ public class CurePoisonConversation implements Conversation {
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, World world) {
 		return "curing poisoned condition of " + target.getProperty(Constants.NAME);
+	}
+	
+	public boolean previousAnswerWasNegative(List<Integer> previousResponseIds) {
+		return previousResponseIds.contains(NO) || previousResponseIds.contains(GET_LOST);
 	}
 }

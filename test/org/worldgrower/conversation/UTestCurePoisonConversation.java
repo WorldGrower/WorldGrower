@@ -41,9 +41,10 @@ public class UTestCurePoisonConversation {
 		
 		ConversationContext context = new ConversationContext(performer, target, null, null, null, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
-		assertEquals(true, replyPhrases.size() == 2);
+		assertEquals(3, replyPhrases.size());
 		assertEquals("Yes", replyPhrases.get(0).getResponsePhrase());
 		assertEquals("No", replyPhrases.get(1).getResponsePhrase());
+		assertEquals("Get lost", replyPhrases.get(2).getResponsePhrase());
 	}
 	
 	@Test
@@ -95,6 +96,19 @@ public class UTestCurePoisonConversation {
 		conversation.handleResponse(1, context);
 		assertEquals(-50, performer.getProperty(Constants.RELATIONSHIPS).getValue(target));
 		assertEquals(-50, target.getProperty(Constants.RELATIONSHIPS).getValue(performer));
+	}
+	
+	@Test
+	public void testHandleResponse2() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		
+		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
+		
+		conversation.handleResponse(2, context);
+		assertEquals(-70, performer.getProperty(Constants.RELATIONSHIPS).getValue(target));
+		assertEquals(-70, target.getProperty(Constants.RELATIONSHIPS).getValue(performer));
 	}
 	
 	@Test
