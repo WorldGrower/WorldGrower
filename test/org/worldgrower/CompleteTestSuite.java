@@ -571,7 +571,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestAssassinateTargetGoal.class,
 	UTestFindAssassinationGoal.class,
 	UTestResearchEvocationSkillAction.class,
-	UTestCraftIronKatarAction.class
+	UTestCraftIronKatarAction.class,
+	UTestBrewSleepingPotionAction.class
 })
 public class CompleteTestSuite {
 }
