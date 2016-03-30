@@ -59,6 +59,7 @@ public class CharacterDialog extends JDialog {
 	private static final String RIGHT_HAND_TOOL_TIP = "Right hand equipment slot";
 	
 	private static final String ARMOR_TOOL_TIP = "Armor reduces the damage taken from non-magical attacks";
+	private static final String DAMAGE_RESIST_TOOL_TIP = "Damage from weapon attacks is reduced by this percentage";
 	private static final String WEAPON_TOOL_TIP = "Damage indicates the damage done when performing melee or ranged attacks";
 	
 	private final JPanel contentPanel = new GradientPanel();
@@ -70,6 +71,7 @@ public class CharacterDialog extends JDialog {
 	private JComboBox<ComboBoxEquipmentItem> cmbLegs;
 	private JComboBox<ComboBoxEquipmentItem> cmbFeet;
 	private JLabel lblArmorValue;
+	private JLabel lblDamageResist;
 	private JComboBox<ComboBoxEquipmentItem> cmbLeftHand;
 	private JComboBox<ComboBoxEquipmentItem> cmbRightHand;
 	private JLabel lblDamageValue;
@@ -266,14 +268,24 @@ public class CharacterDialog extends JDialog {
 		lblArmorValue.setBounds(760, 475, 30, 20);
 		contentPanel.add(lblArmorValue);
 		
+		JLabel lblDamageResistValue = JLabelFactory.createJLabel("Damage Resist");
+		lblDamageResistValue.setToolTipText(DAMAGE_RESIST_TOOL_TIP);
+		lblDamageResistValue.setBounds(equipmentLeft, 495, 150, 20);
+		contentPanel.add(lblDamageResistValue);
+		
+		lblDamageResist = JLabelFactory.createJLabel(playerCharacter.getProperty(Constants.DAMAGE_RESIST).toString() + "%");
+		lblDamageResist.setToolTipText(DAMAGE_RESIST_TOOL_TIP);
+		lblDamageResist.setBounds(760, 495, 30, 20);
+		contentPanel.add(lblDamageResist);
+		
 		JLabel lblWeaponDamage = JLabelFactory.createJLabel("Weapon Damage");
 		lblWeaponDamage.setToolTipText(WEAPON_TOOL_TIP);
-		lblWeaponDamage.setBounds(equipmentLeft, 495, 150, 20);
+		lblWeaponDamage.setBounds(equipmentLeft, 515, 150, 20);
 		contentPanel.add(lblWeaponDamage);
 		
 		lblDamageValue = JLabelFactory.createJLabel(playerCharacter.getProperty(Constants.DAMAGE).toString());
 		lblDamageValue.setToolTipText(WEAPON_TOOL_TIP);
-		lblDamageValue.setBounds(760, 495, 30, 20);
+		lblDamageValue.setBounds(760, 515, 30, 20);
 		contentPanel.add(lblDamageValue);
 		
 		JPanel buttonPane = new JPanel();
@@ -364,6 +376,7 @@ public class CharacterDialog extends JDialog {
 
 			int damageResist = ArmorPropertyUtils.calculateDamageResist(playerCharacter);
 			playerCharacter.setProperty(Constants.DAMAGE_RESIST, damageResist);
+			lblDamageResist.setText(playerCharacter.getProperty(Constants.DAMAGE_RESIST).toString() + "%");
 			
 			UnCheckedProperty<WorldObject> lastModifiedHandEquipmentProperty = getLastModifiedHandEquipmentProperty(e);
 			
