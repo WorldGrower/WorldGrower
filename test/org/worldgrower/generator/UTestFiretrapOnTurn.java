@@ -35,7 +35,7 @@ public class UTestFiretrapOnTurn {
 		int id = TerrainGenerator.generateFireTrap(rat.getProperty(Constants.X), rat.getProperty(Constants.Y), world, 1);
 		
 	
-		assertEquals(2, rat.getProperty(Constants.HIT_POINTS).intValue());
+		assertEquals(2 * Item.COMBAT_MULTIPLIER, rat.getProperty(Constants.HIT_POINTS).intValue());
 		
 		WorldObject firetrap = world.findWorldObject(Constants.ID, id);
 		firetrap.onTurn(world, new WorldStateChangedListeners());

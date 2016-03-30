@@ -28,6 +28,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.condition.Conditions;
+import org.worldgrower.generator.Item;
 import org.worldgrower.terrain.TerrainType;
 
 public class UTestLightningBoltAttackAction {
@@ -38,12 +39,12 @@ public class UTestLightningBoltAttackAction {
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
-		target.setProperty(Constants.HIT_POINTS, 10);
-		target.setProperty(Constants.HIT_POINTS_MAX, 10);
+		target.setProperty(Constants.HIT_POINTS, 10 * Item.COMBAT_MULTIPLIER);
+		target.setProperty(Constants.HIT_POINTS_MAX, 10 * Item.COMBAT_MULTIPLIER);
 		
 		Actions.LIGHTNING_BOLT_ATTACK_ACTION.execute(performer, target, new int[0], world);
 		
-		assertEquals(5, target.getProperty(Constants.HIT_POINTS).intValue());
+		assertEquals(5 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
 	}
 	
 	@Test

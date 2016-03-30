@@ -19,6 +19,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.ArmorType;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.generator.Item;
 
 public class ArmorPropertyUtils {
 
@@ -57,6 +58,11 @@ public class ArmorPropertyUtils {
 		}
 		
 		return armor;
+	}
+	
+	public static int calculateDamageResist(WorldObject worldObject) {
+		int armor = calculateArmor(worldObject);
+		return (int) Math.log((1000 * armor) / Item.COMBAT_MULTIPLIER + 1);
 	}
 	
 	public static double getSkillBonus(WorldObject worldObject, WorldObject equipment) {

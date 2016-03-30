@@ -37,9 +37,23 @@ public class UTestAttackUtils {
 		WorldObject performer = createCommoner(world);
 		WorldObject target = createCommoner(world);
 		
-		assertEquals(20, target.getProperty(Constants.HIT_POINTS).intValue());
+		assertEquals(20 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
 		AttackUtils.attack(Actions.MELEE_ATTACK_ACTION, performer, target, new int[0], world, 1.0f);
-		assertEquals(18, target.getProperty(Constants.HIT_POINTS).intValue());
+		assertEquals(18 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
+	}
+	
+	@Test
+	public void testAttackDamageResist() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createCommoner(world);
+		WorldObject target = createCommoner(world);
+		
+		performer.setProperty(Constants.DAMAGE, 6 * Item.COMBAT_MULTIPLIER);
+		target.setProperty(Constants.DAMAGE_RESIST, 50);
+		
+		assertEquals(20 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
+		AttackUtils.attack(Actions.MELEE_ATTACK_ACTION, performer, target, new int[0], world, 1.0f);
+		assertEquals(17 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
 	}
 	
 	@Test
@@ -141,9 +155,9 @@ public class UTestAttackUtils {
 		WorldObject performer = createCommoner(world);
 		WorldObject target = createCommoner(world);
 		
-		assertEquals(20, target.getProperty(Constants.HIT_POINTS).intValue());
-		AttackUtils.magicAttack(5, Actions.FIRE_BOLT_ATTACK_ACTION, performer, target, new int[0], world, 1f);
-		assertEquals(15, target.getProperty(Constants.HIT_POINTS).intValue());
+		assertEquals(20 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
+		AttackUtils.magicAttack(5 * Item.COMBAT_MULTIPLIER, Actions.FIRE_BOLT_ATTACK_ACTION, performer, target, new int[0], world, 1f);
+		assertEquals(15 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
 	}
 	
 	@Test
@@ -152,9 +166,9 @@ public class UTestAttackUtils {
 		WorldObject performer = createCommoner(world);
 		WorldObject target = createCommoner(world);
 		
-		assertEquals(20, target.getProperty(Constants.HIT_POINTS).intValue());
+		assertEquals(20 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
 		AttackUtils.biteAttack(Actions.VAMPIRE_BITE_ACTION, performer, target, new int[0], world);
-		assertEquals(10, target.getProperty(Constants.HIT_POINTS).intValue());
+		assertEquals(10 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
 	}
 	
 	@Test
@@ -164,10 +178,10 @@ public class UTestAttackUtils {
 		WorldObject target = createCommoner(world);
 		
 		
-		target.setProperty(Constants.HIT_POINTS, 4);
-		assertEquals(4, target.getProperty(Constants.HIT_POINTS).intValue());
+		target.setProperty(Constants.HIT_POINTS, 4 * Item.COMBAT_MULTIPLIER);
+		assertEquals(4 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
 		AttackUtils.nonLethalAttack(Actions.NON_LETHAL_MELEE_ATTACK_ACTION, performer, target, new int[0], world, 1f);
-		assertEquals(2, target.getProperty(Constants.HIT_POINTS).intValue());
+		assertEquals(2 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
 		
 		AttackUtils.nonLethalAttack(Actions.NON_LETHAL_MELEE_ATTACK_ACTION, performer, target, new int[0], world, 1f);
 		assertEquals(1, target.getProperty(Constants.HIT_POINTS).intValue());

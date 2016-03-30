@@ -25,6 +25,7 @@ import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.VampireUtils;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.generator.CommonerGenerator;
+import org.worldgrower.generator.Item;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.gui.CommonerImageIds;
 
@@ -40,12 +41,12 @@ public class UTestVampireBiteAction {
 		WorldObject target = createPerformer(world, organization);
 		VampireUtils.vampirizePerson(performer, new WorldStateChangedListeners());
 		
-		assertEquals(26, target.getProperty(Constants.HIT_POINTS).intValue());
+		assertEquals(26 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
 		assertEquals(0, performer.getProperty(Constants.VAMPIRE_BLOOD_LEVEL).intValue());
 		
 		Actions.VAMPIRE_BITE_ACTION.execute(performer, target, new int[0], world);
 		
-		assertEquals(16, target.getProperty(Constants.HIT_POINTS).intValue());
+		assertEquals(16 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
 		assertEquals(true, target.getProperty(Constants.CONDITIONS).hasCondition(Condition.VAMPIRE_BITE_CONDITION));
 		assertEquals(500, performer.getProperty(Constants.VAMPIRE_BLOOD_LEVEL).intValue());
 	}

@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.generator.CommonerGenerator;
+import org.worldgrower.generator.Item;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.gui.CommonerImageIds;
 
@@ -37,10 +38,10 @@ public class UTestNonLethalMeleeAttackAction {
 		WorldObject performer = createPerformer(world, organization);
 		WorldObject target = createPerformer(world, organization);
 		
-		assertEquals(26, target.getProperty(Constants.HIT_POINTS).intValue());
+		assertEquals(26 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
 		Actions.NON_LETHAL_MELEE_ATTACK_ACTION.execute(performer, target, new int[0], world);
 		
-		assertEquals(24, target.getProperty(Constants.HIT_POINTS).intValue());
+		assertEquals(24 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
 	}
 	
 	@Test

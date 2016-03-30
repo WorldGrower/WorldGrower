@@ -24,6 +24,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.condition.VampireUtils;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.generator.CommonerGenerator;
+import org.worldgrower.generator.Item;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.gui.CommonerImageIds;
 
@@ -39,11 +40,11 @@ public class UTestCreateBloodAction {
 		WorldObject target = createPerformer(world, organization);
 		VampireUtils.vampirizePerson(performer, new WorldStateChangedListeners());
 		
-		assertEquals(26, target.getProperty(Constants.HIT_POINTS).intValue());
+		assertEquals(26 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
 		
 		Actions.CREATE_BLOOD_ACTION.execute(performer, target, new int[0], world);
 		
-		assertEquals(25, target.getProperty(Constants.HIT_POINTS).intValue());
+		assertEquals(25 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
 		assertEquals(1, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WATER));
 	}
 	

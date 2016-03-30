@@ -26,6 +26,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.condition.Conditions;
+import org.worldgrower.generator.Item;
 
 public class UTestMinorHealAction {
 
@@ -35,15 +36,15 @@ public class UTestMinorHealAction {
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
-		target.setProperty(Constants.HIT_POINTS, 1);
-		target.setProperty(Constants.HIT_POINTS_MAX, 8);
+		target.setProperty(Constants.HIT_POINTS, 1 * Item.COMBAT_MULTIPLIER);
+		target.setProperty(Constants.HIT_POINTS_MAX, 8 * Item.COMBAT_MULTIPLIER);
 		
 		Actions.MINOR_HEAL_ACTION.execute(performer, target, new int[0], world);
 		
-		assertEquals(6, target.getProperty(Constants.HIT_POINTS).intValue());
+		assertEquals(6 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
 		
 		Actions.MINOR_HEAL_ACTION.execute(performer, target, new int[0], world);
-		assertEquals(8, target.getProperty(Constants.HIT_POINTS).intValue());
+		assertEquals(8 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
 	}
 	
 	@Test

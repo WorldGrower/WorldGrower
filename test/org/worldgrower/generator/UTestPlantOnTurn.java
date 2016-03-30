@@ -34,10 +34,10 @@ public class UTestPlantOnTurn {
 		
 		int treeId = PlantGenerator.generateTree(5, 5, world);
 		WorldObject tree = world.findWorldObject(Constants.ID, treeId);
-		assertEquals(200, tree.getProperty(Constants.HIT_POINTS).intValue());
+		assertEquals(200 * Item.COMBAT_MULTIPLIER, tree.getProperty(Constants.HIT_POINTS).intValue());
 		
 		Conditions.add(tree, Condition.BURNING_CONDITION, 8, world);
 		tree.onTurn(world, new WorldStateChangedListeners());
-		assertEquals(195, tree.getProperty(Constants.HIT_POINTS).intValue());
+		assertEquals(195 * Item.COMBAT_MULTIPLIER, tree.getProperty(Constants.HIT_POINTS).intValue());
 	}
 }

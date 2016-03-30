@@ -22,6 +22,9 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.Skill;
+import org.worldgrower.condition.WorldStateChangedListeners;
+import org.worldgrower.profession.Professions;
 
 public class UTestApollo {
 
@@ -39,5 +42,23 @@ public class UTestApollo {
 		deity.worship(performer, target, 5, world);
 		
 		assertEquals(2, performer.getProperty(Constants.RESTORATION_SKILL).getLevel(performer));
+	}
+	
+	@Test
+	public void testGetReasonIndex() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(2);
+		
+		assertEquals(-1, Deity.APOLLO.getReasonIndex(performer, world));
+		
+		performer.getProperty(Constants.ARCHERY_SKILL).use(100, performer, Constants.ARCHERY_SKILL, new WorldStateChangedListeners());
+		assertEquals(0, Deity.APOLLO.getReasonIndex(performer, world));
+		
+		performer.setProperty(Constants.ARCHERY_SKILL, new Skill(10));
+		performer.setProperty(Constants.PROFESSION, Professions.LUMBERJACK_PROFESSION);
+		assertEquals(1, Deity.APOLLO.getReasonIndex(performer, world));
+		
+		performer.setProperty(Constants.PROFESSION, Professions.PRIEST_PROFESSION);
+		assertEquals(2, Deity.APOLLO.getReasonIndex(performer, world));
 	}
 }

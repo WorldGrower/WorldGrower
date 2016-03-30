@@ -38,10 +38,10 @@ public class UTestRangedAttackAction {
 		WorldObject performer = createPerformer(world, organization);
 		WorldObject target = createPerformer(world, organization);
 		
-		assertEquals(26, target.getProperty(Constants.HIT_POINTS).intValue());
+		assertEquals(26 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
 		Actions.RANGED_ATTACK_ACTION.execute(performer, target, new int[0], world);
 		
-		assertEquals(24, target.getProperty(Constants.HIT_POINTS).intValue());
+		assertEquals(24 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
 	}
 	
 	@Test

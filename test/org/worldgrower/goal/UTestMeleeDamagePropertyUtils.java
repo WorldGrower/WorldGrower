@@ -28,15 +28,26 @@ public class UTestMeleeDamagePropertyUtils {
 	public void testCalculateMeleeDamage() {
 		WorldObject performer = TestUtils.createSkilledWorldObject(1);
 		
-		assertEquals(2, MeleeDamagePropertyUtils.calculateMeleeDamage(performer));
+		assertEquals(2 * Item.COMBAT_MULTIPLIER, MeleeDamagePropertyUtils.calculateMeleeDamage(performer));
 		
 		performer.setProperty(Constants.LEFT_HAND_EQUIPMENT, Item.IRON_CLAYMORE.generate(1f));
-		assertEquals(12, MeleeDamagePropertyUtils.calculateMeleeDamage(performer));
+		assertEquals(12 * Item.COMBAT_MULTIPLIER, MeleeDamagePropertyUtils.calculateMeleeDamage(performer));
 		
 		WorldObject twoHandedGreatsword = Item.IRON_GREATSWORD.generate(1f);
 		performer.setProperty(Constants.LEFT_HAND_EQUIPMENT, twoHandedGreatsword);
 		performer.setProperty(Constants.RIGHT_HAND_EQUIPMENT, twoHandedGreatsword);
-		assertEquals(24, MeleeDamagePropertyUtils.calculateMeleeDamage(performer));
+		assertEquals(24 * Item.COMBAT_MULTIPLIER, MeleeDamagePropertyUtils.calculateMeleeDamage(performer));
+	}
+	
+	@Test
+	public void testCalculateMeleeDamageDualWielding() {
+		WorldObject performer = TestUtils.createSkilledWorldObject(1);
+		
+		assertEquals(2 * Item.COMBAT_MULTIPLIER, MeleeDamagePropertyUtils.calculateMeleeDamage(performer));
+		
+		performer.setProperty(Constants.LEFT_HAND_EQUIPMENT, Item.IRON_CLAYMORE.generate(1f));
+		performer.setProperty(Constants.RIGHT_HAND_EQUIPMENT, Item.IRON_CLAYMORE.generate(1f));
+		assertEquals(24 * Item.COMBAT_MULTIPLIER, MeleeDamagePropertyUtils.calculateMeleeDamage(performer));
 	}
 	
 	@Test

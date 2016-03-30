@@ -32,6 +32,7 @@ import org.worldgrower.attribute.UnCheckedProperty;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.condition.WorldStateChangedListeners;
+import org.worldgrower.generator.Item;
 import org.worldgrower.goal.DeathReasonPropertyUtils;
 import org.worldgrower.goal.KnowledgeMapPropertyUtils;
 
@@ -63,7 +64,7 @@ public class AttackUtils {
 		int performerDamage = performer.getProperty(Constants.DAMAGE);
 		float performerEnergy = (float) performer.getProperty(Constants.ENERGY);
 		
-		int damage = (int) (performerDamage * skillBonus * (performerEnergy / 1000) * ((1000 - targetDamageResist) / 1000));
+		int damage = (int) (performerDamage * skillBonus * (performerEnergy / 1000) * ((100 - targetDamageResist) / 100));
 		damage = changeForSize(damage, performer, target);
 		targetHP = targetHP - damage;
 		String message = performer.getProperty(Constants.NAME) + " attacks " + target.getProperty(Constants.NAME) + ": " + damage + " damage";
@@ -163,7 +164,7 @@ public class AttackUtils {
 	public static void biteAttack(DeadlyAction action, WorldObject performer, WorldObject target, int[] args, World world) {
 		int targetHP = target.getProperty(Constants.HIT_POINTS);
 		
-		int performerDamage = 10;
+		int performerDamage = 10 * Item.COMBAT_MULTIPLIER;
 		float performerEnergy = (float) performer.getProperty(Constants.ENERGY);
 		
 		int damage = (int) (performerDamage * (performerEnergy / 1000));

@@ -21,6 +21,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.Item;
 import org.worldgrower.goal.BrawlPropertyUtils;
 
 public class UTestBrawlListener {
@@ -32,7 +33,7 @@ public class UTestBrawlListener {
 		
 		BrawlPropertyUtils.startBrawl(performer, target, 100);
 		
-		target.setProperty(Constants.HIT_POINTS, 1);
+		target.setProperty(Constants.HIT_POINTS, 1 * Item.COMBAT_MULTIPLIER);
 		
 		new BrawlListener().actionPerformed(Actions.NON_LETHAL_MELEE_ATTACK_ACTION, performer, target, null, null);
 		

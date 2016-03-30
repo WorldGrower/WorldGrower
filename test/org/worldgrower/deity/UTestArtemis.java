@@ -22,6 +22,9 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.Skill;
+import org.worldgrower.condition.WorldStateChangedListeners;
+import org.worldgrower.profession.Professions;
 
 public class UTestArtemis {
 
@@ -39,5 +42,16 @@ public class UTestArtemis {
 		deity.worship(performer, target, 5, world);
 		
 		assertEquals(2, performer.getProperty(Constants.ARCHERY_SKILL).getLevel(performer));
+	}
+	
+	@Test
+	public void testGetReasonIndex() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(2);
+		
+		assertEquals(-1, deity.getReasonIndex(performer, world));
+		
+		performer.setProperty(Constants.PROFESSION, Professions.PRIEST_PROFESSION);
+		assertEquals(0, deity.getReasonIndex(performer, world));
 	}
 }

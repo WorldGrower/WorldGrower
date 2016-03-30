@@ -144,6 +144,7 @@ public class CommonerGenerator implements Serializable {
 		
 		creature.setProperty(Constants.DAMAGE, MeleeDamagePropertyUtils.calculateMeleeDamage(creature));
 		creature.setProperty(Constants.ARMOR, ArmorPropertyUtils.calculateArmor(creature));
+		creature.setProperty(Constants.DAMAGE_RESIST, ArmorPropertyUtils.calculateDamageResist(creature));
 		personality.initialize(creature);
 		
 		return id;
@@ -224,6 +225,7 @@ public class CommonerGenerator implements Serializable {
 		
 		playerCharacter.setProperty(Constants.DAMAGE, MeleeDamagePropertyUtils.calculateMeleeDamage(playerCharacter));
 		playerCharacter.setProperty(Constants.ARMOR, ArmorPropertyUtils.calculateArmor(playerCharacter));
+		playerCharacter.setProperty(Constants.DAMAGE_RESIST, ArmorPropertyUtils.calculateDamageResist(playerCharacter));
 		
 		return playerCharacter;
 	}

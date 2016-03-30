@@ -36,7 +36,30 @@ public class UTestArmorPropertyUtils {
 		performer.setProperty(Constants.LEGS_EQUIPMENT, Item.IRON_GREAVES.generate(1f));
 		performer.setProperty(Constants.FEET_EQUIPMENT, Item.IRON_BOOTS.generate(1f));
 		
-		assertEquals(26, ArmorPropertyUtils.calculateArmor(performer));
+		assertEquals(26 * Item.COMBAT_MULTIPLIER, ArmorPropertyUtils.calculateArmor(performer));
+	}
+	
+	@Test
+	public void testCalculateDamageResist() {
+		WorldObject performer = TestUtils.createSkilledWorldObject(1);
+		
+		assertEquals(0, ArmorPropertyUtils.calculateDamageResist(performer));
+		
+		performer.setProperty(Constants.HEAD_EQUIPMENT, Item.IRON_HELMET.generate(1f));
+		performer.setProperty(Constants.TORSO_EQUIPMENT, Item.IRON_CUIRASS.generate(1f));
+		performer.setProperty(Constants.ARMS_EQUIPMENT, Item.IRON_GAUNTLETS.generate(1f));
+		performer.setProperty(Constants.LEGS_EQUIPMENT, Item.IRON_GREAVES.generate(1f));
+		performer.setProperty(Constants.FEET_EQUIPMENT, Item.IRON_BOOTS.generate(1f));
+		
+		assertEquals(10, ArmorPropertyUtils.calculateDamageResist(performer));
+		
+		performer.setProperty(Constants.HEAD_EQUIPMENT, Item.COTTON_HAT.generate(1f));
+		performer.setProperty(Constants.TORSO_EQUIPMENT, Item.COTTON_SHIRT.generate(1f));
+		performer.setProperty(Constants.ARMS_EQUIPMENT, Item.COTTON_GLOVES.generate(1f));
+		performer.setProperty(Constants.LEGS_EQUIPMENT, Item.COTTON_PANTS.generate(1f));
+		performer.setProperty(Constants.FEET_EQUIPMENT, Item.COTTON_BOOTS.generate(1f));
+		
+		assertEquals(6, ArmorPropertyUtils.calculateDamageResist(performer));
 	}
 	
 	@Test

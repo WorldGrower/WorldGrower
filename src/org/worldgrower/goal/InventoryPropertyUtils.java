@@ -44,11 +44,9 @@ public class InventoryPropertyUtils {
 			}
 		}
 		
-		int armor = ArmorPropertyUtils.calculateArmor(worldObject);
-		worldObject.setProperty(Constants.ARMOR, armor);
-		
-		int meleeDamage = MeleeDamagePropertyUtils.calculateMeleeDamage(worldObject);
-		worldObject.setProperty(Constants.DAMAGE, meleeDamage);
+		worldObject.setProperty(Constants.ARMOR, ArmorPropertyUtils.calculateArmor(worldObject));
+		worldObject.setProperty(Constants.DAMAGE, MeleeDamagePropertyUtils.calculateMeleeDamage(worldObject));
+		worldObject.setProperty(Constants.DAMAGE_RESIST, ArmorPropertyUtils.calculateDamageResist(worldObject));
 	}
 	
 }

@@ -21,6 +21,7 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.generator.Item;
 
 public class BurningCondition implements DeadlyCondition {
 
@@ -45,7 +46,7 @@ public class BurningCondition implements DeadlyCondition {
 
 	@Override
 	public void onTurn(WorldObject worldObject, World world, int startTurn, WorldStateChangedListeners creatureTypeChangedListeners) {
-		decreaseHitPoints(worldObject, this, 5, world);
+		decreaseHitPoints(worldObject, this, 5 * Item.COMBAT_MULTIPLIER, world);
 		
 		List<WorldObject> flammableAdjacentWorldObjects = world.findWorldObjects(w -> Reach.distance(worldObject, w) <= 2 && w.hasProperty(Constants.FLAMMABLE) && w.getProperty(Constants.FLAMMABLE));
 		for(WorldObject flammableAdjacentWorldObject : flammableAdjacentWorldObjects) {

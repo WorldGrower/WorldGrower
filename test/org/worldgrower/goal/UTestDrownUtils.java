@@ -25,6 +25,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.condition.Conditions;
+import org.worldgrower.generator.Item;
 import org.worldgrower.terrain.Terrain;
 import org.worldgrower.terrain.TerrainType;
 
@@ -35,10 +36,10 @@ public class UTestDrownUtils {
 		Terrain terrain = new MockTerrain(TerrainType.WATER);
 		World world = new MockWorld(terrain, new WorldImpl(1, 1, null, null));
 		WorldObject performer = TestUtils.createWorldObject(0, 0, 1, 1, Constants.ID, 0);
-		performer.setProperty(Constants.HIT_POINTS, 10);
+		performer.setProperty(Constants.HIT_POINTS, 10 * Item.COMBAT_MULTIPLIER);
 		
 		DrownUtils.checkForDrowning(performer, world);
-		assertEquals(5, performer.getProperty(Constants.HIT_POINTS).intValue());
+		assertEquals(5 * Item.COMBAT_MULTIPLIER, performer.getProperty(Constants.HIT_POINTS).intValue());
 	}
 	
 	@Test

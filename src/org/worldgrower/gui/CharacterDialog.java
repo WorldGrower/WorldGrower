@@ -361,6 +361,9 @@ public class CharacterDialog extends JDialog {
 			
 			playerCharacter.setProperty(Constants.ARMOR, armor);
 			lblArmorValue.setText(playerCharacter.getProperty(Constants.ARMOR).toString());
+
+			int damageResist = ArmorPropertyUtils.calculateDamageResist(playerCharacter);
+			playerCharacter.setProperty(Constants.DAMAGE_RESIST, damageResist);
 			
 			UnCheckedProperty<WorldObject> lastModifiedHandEquipmentProperty = getLastModifiedHandEquipmentProperty(e);
 			
