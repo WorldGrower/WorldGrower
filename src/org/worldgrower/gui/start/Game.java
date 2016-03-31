@@ -54,6 +54,7 @@ import org.worldgrower.gui.music.BackgroundMusicUtils;
 import org.worldgrower.gui.music.MusicPlayer;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.ProgressDialog;
+import org.worldgrower.gui.util.ShowTextDialog;
 import org.worldgrower.terrain.TerrainType;
 
 /**
@@ -235,11 +236,16 @@ public class Game {
     public static void executeAction(WorldObject playerCharacter, ManagedOperation action, int[] args, World world, DungeonMaster dungeonMaster, WorldObject target, WorldPanel worldPanel) {
     	if (canActionExecute(playerCharacter, action, args, world, target)) {
     		dungeonMaster.executeAction(action, playerCharacter, target, args, world);
-    		dungeonMaster.runWorld(world, worldPanel.getWorldStateChangedListeners());
-    		exploreWorld(playerCharacter, world);
-    		worldPanel.centerViewOnPlayerCharacter();
-    		worldPanel.repaint();
+    		runWorld(playerCharacter, world, dungeonMaster, worldPanel);
+    		checkToSkipTurn(playerCharacter, world, dungeonMaster, worldPanel);
     	}
+	}
+
+	private static void runWorld(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, WorldPanel worldPanel) {
+		dungeonMaster.runWorld(world, worldPanel.getWorldStateChangedListeners());
+		exploreWorld(playerCharacter, world);
+		worldPanel.centerViewOnPlayerCharacter();
+		worldPanel.repaint();
 	}
     
     public static boolean canActionExecute(WorldObject playerCharacter, ManagedOperation action, int[] args, World world, WorldObject target) {
@@ -252,5 +258,13 @@ public class Game {
 		int x = playerCharacter.getProperty(Constants.X);
 		int y = playerCharacter.getProperty(Constants.Y);
 		world.getTerrain().explore(x, y, 10);
+	}
+	
+	private static void checkToSkipTurn(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, WorldPanel worldPanel) {
+		while (!playerCharacter.getProperty(Constants.CONDITIONS).canTakeAction()) {
+			String text = "You can't take any actions. Your player character will skip its turn.";			
+			new ShowTextDialog(text).showMe();
+			runWorld(playerCharacter, world, dungeonMaster, worldPanel);
+		}
 	}
 }

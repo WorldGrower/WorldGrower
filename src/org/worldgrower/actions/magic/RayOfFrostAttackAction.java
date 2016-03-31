@@ -30,11 +30,12 @@ import org.worldgrower.gui.ImageIds;
 
 public class RayOfFrostAttackAction implements MagicSpell, DeadlyAction {
 
+	private static final int BASE_DAMAGE = 5 * Item.COMBAT_MULTIPLIER;
 	private static final int DISTANCE = 4;
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		AttackUtils.magicAttack(5 * Item.COMBAT_MULTIPLIER, this, performer, target, args, world, SkillUtils.useSkill(performer, Constants.EVOCATION_SKILL, world.getWorldStateChangedListeners()));
+		AttackUtils.magicAttack(BASE_DAMAGE, this, performer, target, args, world, SkillUtils.useSkill(performer, Constants.EVOCATION_SKILL, world.getWorldStateChangedListeners()));
 	}
 	
 	@Override
@@ -93,7 +94,7 @@ public class RayOfFrostAttackAction implements MagicSpell, DeadlyAction {
 
 	@Override
 	public String getDescription() {
-		return "deals damage to target";
+		return "deals " + BASE_DAMAGE + " damage to target";
 	}
 	
 	@Override

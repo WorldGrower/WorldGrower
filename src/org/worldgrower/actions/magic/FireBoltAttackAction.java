@@ -32,11 +32,12 @@ import org.worldgrower.gui.ImageIds;
 
 public class FireBoltAttackAction implements MagicSpell, DeadlyAction {
 
+	private static final int BASE_DAMAGE = 5 * Item.COMBAT_MULTIPLIER;
 	private static final int DISTANCE = 4;
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		AttackUtils.magicAttack(5 * Item.COMBAT_MULTIPLIER, this, performer, target, args, world, SkillUtils.useSkill(performer, getSkill(), world.getWorldStateChangedListeners()));
+		AttackUtils.magicAttack(BASE_DAMAGE, this, performer, target, args, world, SkillUtils.useSkill(performer, getSkill(), world.getWorldStateChangedListeners()));
 	
 		if (target.hasProperty(Constants.FLAMMABLE) && target.getProperty(Constants.FLAMMABLE)) {
 			Conditions.add(target, Condition.BURNING_CONDITION, 100, world);
@@ -101,7 +102,7 @@ public class FireBoltAttackAction implements MagicSpell, DeadlyAction {
 
 	@Override
 	public String getDescription() {
-		return "shoots a firebolt at the target, setting it on fire if it is flammable";
+		return "shoots a firebolt at the target dealing " + BASE_DAMAGE + " damage, setting it on fire if it is flammable";
 	}
 	
 	@Override

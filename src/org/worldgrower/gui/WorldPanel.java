@@ -63,6 +63,10 @@ import org.worldgrower.history.HistoryItem;
 
 public class WorldPanel extends JPanel {
 
+	private static final String ENERGY_TOOL_TIP = "energy";
+	private static final String WATER_TOOL_TIP = "water";
+	private static final String FOOD_TOOL_TIP = "food";
+	private static final String HIT_POINTS_TOOL_TIP = "hit points";
 	private WorldObject playerCharacter;
 	private World world;
 	private final ImageInfoReader imageInfoReader;
@@ -120,7 +124,7 @@ public class WorldPanel extends JPanel {
         hitPointsProgressBar = new JProgressBar(JProgressBar.VERTICAL, 0, playerCharacter.getProperty(Constants.HIT_POINTS_MAX));
         hitPointsProgressBar.setBackground(Color.BLACK);
         hitPointsProgressBar.setForeground(Color.RED);
-        hitPointsProgressBar.setToolTipText("hit points");
+        hitPointsProgressBar.setToolTipText(HIT_POINTS_TOOL_TIP);
         makeUnfocussable(hitPointsProgressBar);
         
         infoPanel.add(hitPointsProgressBar);
@@ -131,7 +135,7 @@ public class WorldPanel extends JPanel {
         foodTextProgressBar = new JProgressBar(JProgressBar.VERTICAL, 0, 1000);
         foodTextProgressBar.setBackground(Color.BLACK);
         foodTextProgressBar.setForeground(Color.YELLOW);
-        foodTextProgressBar.setToolTipText("food");
+        foodTextProgressBar.setToolTipText(FOOD_TOOL_TIP);
         makeUnfocussable(foodTextProgressBar);
         
         infoPanel.add(foodTextProgressBar);
@@ -142,7 +146,7 @@ public class WorldPanel extends JPanel {
         waterProgressBar = new JProgressBar(JProgressBar.VERTICAL, 0, 1000);
         waterProgressBar.setBackground(Color.BLACK);
         waterProgressBar.setForeground(Color.BLUE);
-        waterProgressBar.setToolTipText("water");
+        waterProgressBar.setToolTipText(WATER_TOOL_TIP);
         makeUnfocussable(waterProgressBar);
         
         infoPanel.add(waterProgressBar);
@@ -153,7 +157,7 @@ public class WorldPanel extends JPanel {
         energyProgressBar = new JProgressBar(JProgressBar.VERTICAL, 0, 1000);
         energyProgressBar.setBackground(Color.BLACK);
         energyProgressBar.setForeground(Color.GREEN);
-        energyProgressBar.setToolTipText("energy");
+        energyProgressBar.setToolTipText(ENERGY_TOOL_TIP);
         makeUnfocussable(energyProgressBar);
         
         infoPanel.add(energyProgressBar);
@@ -270,6 +274,14 @@ public class WorldPanel extends JPanel {
 		waterProgressBar.setValue(playerCharacter.getProperty(Constants.WATER));
 		energyProgressBar.setValue(playerCharacter.getProperty(Constants.ENERGY));
 		buildModeOutline.repaintBuildMode(g, getMouseLocation(), offsetX, offsetY, playerCharacter, world);
+		updateToolTips();
+    }
+    
+    private void updateToolTips() {
+    	hitPointsProgressBar.setToolTipText(HIT_POINTS_TOOL_TIP + " " + playerCharacter.getProperty(Constants.HIT_POINTS) + "/" + playerCharacter.getProperty(Constants.HIT_POINTS_MAX));
+		foodTextProgressBar.setToolTipText(FOOD_TOOL_TIP + " " + playerCharacter.getProperty(Constants.FOOD) + "/1000");
+		waterProgressBar.setToolTipText(WATER_TOOL_TIP + " " + playerCharacter.getProperty(Constants.WATER) + "/1000");
+		energyProgressBar.setToolTipText(ENERGY_TOOL_TIP + " " + playerCharacter.getProperty(Constants.ENERGY) + "/1000");
     }
 
 	private void paintStaticWorldObjects(Graphics g) {

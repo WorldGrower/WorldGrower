@@ -39,7 +39,7 @@ public class UTestVampireBiteCondition {
 		
 		assertEquals(true, performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.VAMPIRE_BITE_CONDITION));
 		
-		for(int i=0; i<1000; i++) { world.nextTurn(); }
+		for(int i=0; i<2000; i++) { world.nextTurn(); }
 		condition.onTurn(performer, world, 100, new WorldStateChangedListeners());
 		assertEquals(false, performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.VAMPIRE_BITE_CONDITION));
 		assertEquals(CreatureType.UNDEAD_CREATURE_TYPE, performer.getProperty(Constants.CREATURE_TYPE));

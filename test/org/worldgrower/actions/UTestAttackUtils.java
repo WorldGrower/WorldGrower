@@ -169,6 +169,13 @@ public class UTestAttackUtils {
 		assertEquals(20 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
 		AttackUtils.biteAttack(Actions.VAMPIRE_BITE_ACTION, performer, target, new int[0], world);
 		assertEquals(10 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
+		
+		AttackUtils.biteAttack(Actions.VAMPIRE_BITE_ACTION, performer, target, new int[0], world);
+		AttackUtils.biteAttack(Actions.VAMPIRE_BITE_ACTION, performer, target, new int[0], world);
+		AttackUtils.biteAttack(Actions.VAMPIRE_BITE_ACTION, performer, target, new int[0], world);
+		
+		assertEquals(0, target.getProperty(Constants.HIT_POINTS).intValue());
+		assertEquals("Test was drained of blood", target.getProperty(Constants.DEATH_REASON));
 	}
 	
 	@Test

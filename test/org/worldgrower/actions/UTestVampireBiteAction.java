@@ -48,7 +48,7 @@ public class UTestVampireBiteAction {
 		
 		assertEquals(16 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
 		assertEquals(true, target.getProperty(Constants.CONDITIONS).hasCondition(Condition.VAMPIRE_BITE_CONDITION));
-		assertEquals(500, performer.getProperty(Constants.VAMPIRE_BLOOD_LEVEL).intValue());
+		assertEquals(750, performer.getProperty(Constants.VAMPIRE_BLOOD_LEVEL).intValue());
 	}
 	
 	@Test

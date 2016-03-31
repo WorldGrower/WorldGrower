@@ -32,7 +32,7 @@ public class VampireBiteAction implements DeadlyAction {
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		AttackUtils.biteAttack(this, performer, target, args, world);
-		performer.increment(Constants.VAMPIRE_BLOOD_LEVEL, 500);
+		performer.increment(Constants.VAMPIRE_BLOOD_LEVEL, 750);
 		Conditions.add(target, Condition.VAMPIRE_BITE_CONDITION, Integer.MAX_VALUE, world);
 		
 		KnowledgeMapPropertyUtils.everyoneInVicinityKnowsOfEvent(performer, target, world);

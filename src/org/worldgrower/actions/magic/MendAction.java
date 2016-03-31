@@ -29,12 +29,13 @@ import org.worldgrower.gui.ImageIds;
 
 public class MendAction implements MagicSpell {
 
+	private static final int BASE_AMOUNT = 5 * Item.COMBAT_MULTIPLIER;
 	private static final int ENERGY_USE = 100;
 	private static final int DISTANCE = 4;
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		int hitPointsRestored = (int)(5 * Item.COMBAT_MULTIPLIER * SkillUtils.getSkillBonus(performer, getSkill()));
+		int hitPointsRestored = (int)(BASE_AMOUNT * SkillUtils.getSkillBonus(performer, getSkill()));
 		target.increment(Constants.HIT_POINTS, hitPointsRestored);
 		if (target.getProperty(Constants.HIT_POINTS) > target.getProperty(Constants.HIT_POINTS_MAX)) {
 			target.setProperty(Constants.HIT_POINTS, target.getProperty(Constants.HIT_POINTS_MAX));
@@ -99,7 +100,7 @@ public class MendAction implements MagicSpell {
 
 	@Override
 	public String getDescription() {
-		return "mends and repairs a non-living item";
+		return "mends and repairs a non-living item for " + BASE_AMOUNT + " hit points";
 	}
 	
 	@Override

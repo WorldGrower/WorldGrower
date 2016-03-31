@@ -33,12 +33,13 @@ import org.worldgrower.terrain.TerrainType;
 
 public class LightningBoltAttackAction implements MagicSpell, DeadlyAction {
 
+	private static final int BASE_DAMAGE = 5 * Item.COMBAT_MULTIPLIER;
 	private static final int ENERGY_USE = 600;
 	private static final int DISTANCE = 4;
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		AttackUtils.magicAttack(5 * Item.COMBAT_MULTIPLIER, this, performer, target, args, world, SkillUtils.getSkillBonus(performer, getSkill()));
+		AttackUtils.magicAttack(BASE_DAMAGE, this, performer, target, args, world, SkillUtils.getSkillBonus(performer, getSkill()));
 	
 		int targetX = target.getProperty(Constants.X);
 		int targetY = target.getProperty(Constants.Y);
@@ -115,7 +116,7 @@ public class LightningBoltAttackAction implements MagicSpell, DeadlyAction {
 
 	@Override
 	public String getDescription() {
-		return "deals damage to target and other targets if something conducts the electricity";
+		return "deals " + BASE_DAMAGE + " damage to target and other targets if something conducts the electricity";
 	}
 
 	@Override

@@ -104,7 +104,7 @@ public class FireTrapAction implements MagicSpell, DeadlyAction, BuildAction {
 
 	@Override
 	public String getDescription() {
-		return "creates a firetrap which explodes if anyone steps on it";
+		return "creates a firetrap which explodes if anyone steps on it, dealing " + TerrainGenerator.getFireTrapBaseDamage() + " damage";
 	}
 	
 	@Override

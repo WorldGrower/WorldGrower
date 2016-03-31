@@ -99,6 +99,8 @@ public class TerrainGenerator {
 		return id;
 	}
 	
+	private static final int FIRE_TRAP_BASE_DAMAGE = 2 * Item.COMBAT_MULTIPLIER;
+	
 	public static int generateFireTrap(int x, int y, World world, double skillBonus) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();
@@ -107,7 +109,7 @@ public class TerrainGenerator {
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 1);
 		properties.put(Constants.HEIGHT, 1);
-		properties.put(Constants.DAMAGE, (int)(2 * Item.COMBAT_MULTIPLIER * skillBonus));
+		properties.put(Constants.DAMAGE, (int)(FIRE_TRAP_BASE_DAMAGE * skillBonus));
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.FIRE_TRAP);
 		properties.put(Constants.PASSABLE, Boolean.TRUE);
@@ -116,5 +118,9 @@ public class TerrainGenerator {
 		world.addWorldObject(tree);
 		
 		return id;
+	}
+	
+	public static int getFireTrapBaseDamage() {
+		return FIRE_TRAP_BASE_DAMAGE;
 	}
 }
