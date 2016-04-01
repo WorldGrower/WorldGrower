@@ -107,9 +107,7 @@ public interface Deity extends Serializable {
 		
 		throw new IllegalStateException("Profession with class " + clazz + " not found");
 	}
-	public static List<String> getNames() {
-		return ALL_DEITIES.stream().map(d -> d.getName()).collect(Collectors.toList());
-	}
+
 	public static Deity getDeityByDescription(String deityName) {
 		for(Deity deity : ALL_DEITIES) {
 			if (deity.getName().equals(deityName)) {

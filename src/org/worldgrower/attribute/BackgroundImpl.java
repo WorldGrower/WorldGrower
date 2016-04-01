@@ -85,7 +85,7 @@ public class BackgroundImpl implements Background, Serializable {
 			OperationInfo operationInfo = historyItem.getOperationInfo();
 			// performer should exist, this method can be called in the onTurn method
 			// during the onTurn method the performer may have been deleted
-			if (operationInfo.getTarget().equals(backgroundPerformer) && world.exists(backgroundPerformer)) {
+			if (operationInfo.getTarget().equals(backgroundPerformer) && world.exists(backgroundPerformer) && world.exists(operationInfo.getPerformer())) {
 				handlePerformerWasAttacked(backgroundPerformer, operationInfo);
 			}
 		}

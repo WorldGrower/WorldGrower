@@ -18,10 +18,14 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.OperationInfo;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
+import org.worldgrower.history.Turn;
+import org.worldgrower.profession.Professions;
 
 public class UTestDemeter {
 
@@ -39,5 +43,24 @@ public class UTestDemeter {
 		deity.worship(performer, target, 5, world);
 		
 		assertEquals(2, performer.getProperty(Constants.FARMING_SKILL).getLevel(performer));
+	}
+	
+	@Test
+	public void testGetReasonIndex() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(2);
+		
+		assertEquals(-1, deity.getReasonIndex(performer, world));
+		
+		performer.setProperty(Constants.PROFESSION, Professions.FARMER_PROFESSION);
+		assertEquals(0, deity.getReasonIndex(performer, world));
+		
+		performer.setProperty(Constants.PROFESSION, Professions.PRIEST_PROFESSION);
+		assertEquals(2, deity.getReasonIndex(performer, world));
+		
+		performer.setProperty(Constants.PROFESSION, null);
+		performer.setProperty(Constants.FOOD, 0);
+		world.getHistory().actionPerformed(new OperationInfo(performer, performer, new int[0], Actions.EAT_ACTION), new Turn());
+		assertEquals(1, deity.getReasonIndex(performer, world));
 	}
 }

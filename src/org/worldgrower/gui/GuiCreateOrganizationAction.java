@@ -80,7 +80,7 @@ public class GuiCreateOrganizationAction extends AbstractAction {
 	}
 	
 	private void createReligionOrganization() {
-		String[] deityNames = Deity.getNames().toArray(new String[0]);
+		String[] deityNames = Deity.getAllDeityNames().toArray(new String[0]);
 		String deityName = new ListInputDialog("Choose Deity", deityNames).showMe();
 		if (deityName != null) {
 			Deity deity = Deity.getDeityByDescription(deityName);

@@ -18,12 +18,13 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.DoNothingWorldOnTurn;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.Skill;
 import org.worldgrower.condition.WorldStateChangedListeners;
+import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.profession.Professions;
 
 public class UTestArtemis {
@@ -53,5 +54,27 @@ public class UTestArtemis {
 		
 		performer.setProperty(Constants.PROFESSION, Professions.PRIEST_PROFESSION);
 		assertEquals(0, deity.getReasonIndex(performer, world));
+	}
+	
+	@Test
+	public void testOnTurn() {
+		World world = new WorldImpl(0, 0, null, new DoNothingWorldOnTurn());
+		WorldObject performer = TestUtils.createSkilledWorldObject(2);
+		performer.setProperty(Constants.DEITY, Deity.APHRODITE);
+		performer.setProperty(Constants.CREATURE_TYPE, CreatureType.HUMAN_CREATURE_TYPE);
+		world.addWorldObject(performer);
+		
+		for(int i=0; i<20; i++) {
+			WorldObject worshipper = TestUtils.createSkilledWorldObject(i + 10);
+			worshipper.setProperty(Constants.DEITY, Deity.HADES);
+			world.addWorldObject(worshipper);
+		}
+		
+		for(int i=0; i<5000; i++) {
+			world.nextTurn();
+			deity.onTurn(world, new WorldStateChangedListeners());
+		}
+		
+		assertEquals(CreatureType.WEREWOLF_CREATURE_TYPE, performer.getProperty(Constants.CREATURE_TYPE));
 	}
 }

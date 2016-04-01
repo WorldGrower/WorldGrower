@@ -24,4 +24,10 @@ public class UTestDeity {
 	public void testGetDeityByDescription() {
 		assertEquals(Deity.ARES, Deity.getDeityByDescription("Ares"));
 	}
+	
+	@Test
+	public void testGetAllDeityNames() {
+		assertEquals(13, Deity.getAllDeityNames().size());
+		assertEquals("Demeter", Deity.getAllDeityNames().get(0));
+	}
 }
