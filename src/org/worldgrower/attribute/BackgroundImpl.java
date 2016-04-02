@@ -25,6 +25,7 @@ import java.util.Map.Entry;
 
 import org.worldgrower.Constants;
 import org.worldgrower.DefaultGoalChangedListener;
+import org.worldgrower.DefaultGoalObstructedHandler;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.OperationInfoEvaluator;
@@ -109,7 +110,7 @@ public class BackgroundImpl implements Background, Serializable {
 		@Override
 		public boolean evaluate(WorldObject performer, WorldObject target, int[] args, ManagedOperation managedOperation) {
 			this.attacker = performer;
-			return (target.equals(backgroundPerformer)) && (managedOperation == Actions.MELEE_ATTACK_ACTION);
+			return (target.equals(backgroundPerformer)) && (DefaultGoalObstructedHandler.performerAttacked(managedOperation));
 		}	
 		
 		public WorldObject getAttacker() {
@@ -128,7 +129,7 @@ public class BackgroundImpl implements Background, Serializable {
 		@Override
 		public boolean evaluate(WorldObject performer, WorldObject target, int[] args, ManagedOperation managedOperation) {
 			this.attacker = performer;
-			return (target == backgroundPerformer) && (managedOperation == Actions.MELEE_ATTACK_ACTION) && (CreatureTypeUtils.isUndead(performer));
+			return (target == backgroundPerformer) && (DefaultGoalObstructedHandler.performerAttacked(managedOperation)) && (CreatureTypeUtils.isUndead(performer));
 		}	
 		
 		public WorldObject getAttacker() {
