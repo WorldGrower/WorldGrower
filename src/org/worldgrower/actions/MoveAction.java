@@ -79,15 +79,15 @@ public class MoveAction implements ManagedOperation {
 					return 1;
 				}
 			} else {
-				List<WorldObject> actors = world.findWorldObjects(new UnpassableCreaturePositionCondition(performer.getProperty(Constants.Y) + args[1], performer.getProperty(Constants.X) + args[0]));
-				if (actors.size() == 1) {
-					if (actors.get(0).equals(performer)) {
+				List<WorldObject> obstacles = world.findWorldObjects(new UnpassableCreaturePositionCondition(performer.getProperty(Constants.Y) + args[1], performer.getProperty(Constants.X) + args[0]));
+				if (obstacles.size() == 1) {
+					if (obstacles.get(0).equals(performer)) {
 						return 0;
 					} else {
 						return 1;
 					}
 				} else {
-					return actors.size();
+					return obstacles.size();
 				}
 			}
 		}
