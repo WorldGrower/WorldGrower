@@ -56,6 +56,11 @@ public class MockWorld implements World {
 	public boolean exists(WorldObject worldObject) {
 		return false;
 	}
+	
+	@Override
+	public boolean exists(int id) {
+		return false;
+	}
 
 	@Override
 	public List<WorldObject> findWorldObjects(WorldObjectCondition worldObjectCondition) {

@@ -100,23 +100,23 @@ public class UTestBackgroundImpl {
 	@Test
 	public void testRemove() {
 		World world = new WorldImpl(0, 0, null, null);
-		WorldObject performer = createWorldObject(0, "Tom");
+		WorldObject performer = createWorldObject(7, "Tom");
 		performer.setProperty(Constants.GENDER, "male");
-		WorldObject target = createWorldObject(1, "target");
+		WorldObject target = createWorldObject(8, "target");
 		
 		Background background = performer.getProperty(Constants.BACKGROUND);
 		background.addGoalObstructed(Goals.PROTECT_ONSE_SELF_GOAL, performer, target, Actions.MELEE_ATTACK_ACTION, Args.EMPTY, world);
-		assertEquals(1, background.getAngryReasons(true, 1, performer, world).size());
-		background.remove(performer, Constants.BACKGROUND, 0);
+		assertEquals(1, background.getAngryReasons(true, 8, performer, world).size());
+		background.remove(performer, Constants.BACKGROUND, 7);
 		
-		assertEquals(0, background.getAngryReasons(true, 1, performer, world).size());
+		assertEquals(0, background.getAngryReasons(true, 8, performer, world).size());
 	}
 	
 	@Test
 	public void testRemoveRevengeTargets() {
 		World world = new WorldImpl(0, 0, null, null);
-		WorldObject performer = createWorldObject(0, "Tom");
-		WorldObject target = createWorldObject(1, "target");
+		WorldObject performer = createWorldObject(7, "Tom");
+		WorldObject target = createWorldObject(8, "target");
 		
 		world.addWorldObject(performer);
 		world.addWorldObject(target);
@@ -125,7 +125,7 @@ public class UTestBackgroundImpl {
 		Background background = performer.getProperty(Constants.BACKGROUND);
 		background.checkForNewGoals(performer, world);
 		assertEquals(true, background.hasRevengeTarget(world));
-		background.remove(performer, Constants.BACKGROUND, 1);
+		background.remove(performer, Constants.BACKGROUND, 8);
 		
 		assertEquals(false, background.hasRevengeTarget(world));
 	}

@@ -26,7 +26,7 @@ import org.worldgrower.history.Turn;
 import org.worldgrower.terrain.Terrain;
 
 /** 
- * A world contains a collection of WorldObects, as well as the history of performed actions and the world terrain. 
+ * A world contains a collection of WorldObjects, as well as the history of performed actions and the world terrain. 
  * It contains all the state for this program.
  */
 public interface World {
@@ -35,6 +35,7 @@ public interface World {
 	public void removeWorldObject(WorldObject worldObject);
 	public List<WorldObject> getWorldObjects();
 	public boolean exists(WorldObject worldObject);
+	public boolean exists(int id);
 	
 	public List<WorldObject> findWorldObjects(WorldObjectCondition worldObjectCondition);
 	public<T> WorldObject findWorldObject(ManagedProperty<T> propertyKey, T value);

@@ -158,6 +158,11 @@ public class WorldImpl implements World, Serializable {
 	}
 	
 	@Override
+	public boolean exists(int id) {
+		return idToIndexMapping.idExists(id);
+	}
+	
+	@Override
 	public int generateUniqueId() {
 		return nextId++;
 	}

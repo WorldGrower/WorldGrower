@@ -125,6 +125,11 @@ public class WorldFacade implements World {
 	public boolean exists(WorldObject worldObject) {
 		throw new IllegalStateException("WorldFacade is read-only, exists should not be called");
 	}
+	
+	@Override
+	public boolean exists(int id) {
+		throw new IllegalStateException("WorldFacade is read-only, exists should not be called");
+	}
 
 	@Override
 	public int generateUniqueId() {

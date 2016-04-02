@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -31,8 +32,6 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.OperationInfoEvaluator;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.actions.Actions;
-import org.worldgrower.creaturetype.CreatureTypeUtils;
 import org.worldgrower.goal.ChildrenPropertyUtils;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
@@ -90,6 +89,18 @@ public class BackgroundImpl implements Background, Serializable {
 				handlePerformerWasAttacked(backgroundPerformer, operationInfo);
 			}
 		}
+		cleanupRevengeTargets(world);
+	}
+
+	private void cleanupRevengeTargets(World world) {
+		Iterator<Integer> revengeTargetIterator = revengeTargets.iterator();
+		while (revengeTargetIterator.hasNext()) {
+			int revengeTarget = revengeTargetIterator.next();
+			if (!world.exists(revengeTarget)) {
+				revengeTargetIterator.remove();
+			}
+		}
+		
 	}
 
 	private void handlePerformerWasAttacked(WorldObject backgroundPerformer, OperationInfo operationInfo) {
@@ -111,25 +122,6 @@ public class BackgroundImpl implements Background, Serializable {
 		public boolean evaluate(WorldObject performer, WorldObject target, int[] args, ManagedOperation managedOperation) {
 			this.attacker = performer;
 			return (target.equals(backgroundPerformer)) && (DefaultGoalObstructedHandler.performerAttacked(managedOperation));
-		}	
-		
-		public WorldObject getAttacker() {
-			return attacker;
-		}
-	}
-	
-	private static class PerformerWasAttackedByUndead implements OperationInfoEvaluator {
-		private final WorldObject backgroundPerformer;
-		private WorldObject attacker;
-		
-		public PerformerWasAttackedByUndead(WorldObject backgroundPerformer) {
-			this.backgroundPerformer = backgroundPerformer;
-		}
-
-		@Override
-		public boolean evaluate(WorldObject performer, WorldObject target, int[] args, ManagedOperation managedOperation) {
-			this.attacker = performer;
-			return (target == backgroundPerformer) && (DefaultGoalObstructedHandler.performerAttacked(managedOperation)) && (CreatureTypeUtils.isUndead(performer));
 		}	
 		
 		public WorldObject getAttacker() {
