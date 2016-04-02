@@ -25,13 +25,13 @@ import org.worldgrower.World;
 public class HistoryItem implements Serializable {
 	private final int historyId;
 	private final OperationInfo operationInfo;
-	private final Turn turn;
+	private final int turnValue;
 	private final Object additionalValue;
 
 	public HistoryItem(int historyId, OperationInfo operationInfo, Turn turn, Object additionalValue) {
 		this.historyId = historyId;
 		this.operationInfo = operationInfo;
-		this.turn = turn;
+		this.turnValue = turn.getValue();
 		this.additionalValue = additionalValue;
 	}
 	
@@ -44,7 +44,7 @@ public class HistoryItem implements Serializable {
 	}
 
 	public Turn getTurn() {
-		return turn;
+		return Turn.valueOf(turnValue);
 	}
 
 	public Object getAdditionalValue() {
@@ -53,7 +53,7 @@ public class HistoryItem implements Serializable {
 
 	@Override
 	public String toString() {
-		return "HistoryItem [operationInfo=" + operationInfo + ", turn=" + turn + "]";
+		return "HistoryItem [operationInfo=" + operationInfo + ", turn=" + turnValue + "]";
 	}
 
 	public String getSecondPersonDescription(World world) {

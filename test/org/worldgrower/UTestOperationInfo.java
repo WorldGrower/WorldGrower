@@ -19,6 +19,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.history.Turn;
 
 public class UTestOperationInfo {
 	
@@ -107,7 +108,7 @@ public class UTestOperationInfo {
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, "target");
 		OperationInfo info = createOperationInfo(performer, target);
 		
-		world.getHistory().actionPerformed(new OperationInfo(target, target, Args.EMPTY, Actions.MOVE_ACTION), null);
+		world.getHistory().actionPerformed(new OperationInfo(target, target, Args.EMPTY, Actions.MOVE_ACTION), new Turn());
 		assertEquals(true, info.targetMoved(world));
 	}
 	

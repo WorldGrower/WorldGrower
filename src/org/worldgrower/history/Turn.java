@@ -39,4 +39,8 @@ public class Turn implements Serializable {
 	public int getValue() {
 		return turn;
 	}
+
+	public static Turn valueOf(int turnValue) {
+		return new Turn(turnValue);
+	}
 }
