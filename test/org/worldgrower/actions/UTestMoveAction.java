@@ -17,13 +17,19 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
+import org.worldgrower.MockTerrain;
+import org.worldgrower.MockWorld;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.LookDirection;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.Conditions;
+import org.worldgrower.terrain.TerrainType;
 
 public class UTestMoveAction {
 
@@ -68,6 +74,68 @@ public class UTestMoveAction {
 		
 		assertEquals(false, Actions.MOVE_ACTION.isValidTarget(performer, target, world));
 		assertEquals(true, Actions.MOVE_ACTION.isValidTarget(performer, performer, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		performer.setProperty(Constants.CONDITIONS, new Conditions());
+		
+		assertEquals(0, Actions.MOVE_ACTION.distance(performer, performer, new int[] {1, 1}, world));
+	}
+	
+	@Test
+	public void testDistanceMapEdge() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		performer.setProperty(Constants.CONDITIONS, new Conditions());
+		
+		assertEquals(true, Actions.MOVE_ACTION.distance(performer, performer, new int[] {1, 1}, world) > 0);
+	}
+	
+	@Test
+	public void testDistanceWater() {
+		World world = new MockWorld(new MockTerrain(TerrainType.WATER), new WorldImpl(10, 10, null, null));
+		WorldObject performer = createPerformer(2);
+		performer.setProperty(Constants.CONDITIONS, new Conditions());
+		
+		assertEquals(true, Actions.MOVE_ACTION.distance(performer, performer, new int[] {1, 1}, world) > 0);
+	}
+	
+	@Test
+	public void testDistanceWaterWalking() {
+		World world = new MockWorld(new MockTerrain(TerrainType.WATER), new WorldImpl(10, 10, null, null));
+		WorldObject performer = createPerformer(2);
+		performer.setProperty(Constants.CONDITIONS, new Conditions());
+		Conditions.add(performer, Condition.WATER_WALK_CONDITION, 8, world);
+		
+		assertEquals(0, Actions.MOVE_ACTION.distance(performer, performer, new int[] {1, 1}, world));
+	}
+	
+	@Test
+	public void testDistanceObstacle() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		performer.setProperty(Constants.CONDITIONS, new Conditions());
+
+		WorldObject target = createPerformer(3);
+		target.setProperty(Constants.X, 1);
+		target.setProperty(Constants.Y, 1);
+		world.addWorldObject(target);
+		
+		assertEquals(true, Actions.MOVE_ACTION.distance(performer, performer, new int[] {1, 1}, world) > 0);
+	}
+	
+	@Test
+	public void testDistanceEnlarged() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		performer.setProperty(Constants.CONDITIONS, new Conditions());
+
+		Conditions.add(performer, Condition.ENLARGED_CONDITION, 8, world);
+		
+		assertEquals(0, Actions.MOVE_ACTION.distance(performer, performer, new int[] {1, 1}, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

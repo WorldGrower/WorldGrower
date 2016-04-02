@@ -154,7 +154,7 @@ public class MockWorld implements World {
 
 	@Override
 	public WorldStateChangedListeners getWorldStateChangedListeners() {
-		return null;
+		return new WorldStateChangedListeners();
 	}
 
 	@Override
