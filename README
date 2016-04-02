@@ -4,8 +4,7 @@ It is open source software which is licensed under GPL (see LICENSE).
 Installation instructions
   Download and extract the .zip file on the local filesystem
   Make sure Java 8 is installed.
-  To run under Windows, use worldgrower.cmd.
-  To run under Linux, use worldgrower.sh.
+  execute the .jar file, or run it using java -jar command.
 
 Controls
   left, up, right, down or numeric keyboard: move character
