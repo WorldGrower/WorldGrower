@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -35,7 +36,7 @@ public class UTestResearchEvocationSkillAction {
 		target.setProperty(Constants.TEXT, "text");
 		
 		for(int i=0; i<200; i++) {
-			Actions.RESEARCH_EVOCATION_SKILL_ACTION.execute(performer, target, new int[0], world);
+			Actions.RESEARCH_EVOCATION_SKILL_ACTION.execute(performer, target, Args.EMPTY, world);
 		}
 		
 		assertEquals(5, performer.getProperty(Constants.EVOCATION_SKILL).getLevel(performer));
@@ -61,7 +62,7 @@ public class UTestResearchEvocationSkillAction {
 		int targetId = BuildingGenerator.generateLibrary(0, 0, world);
 		WorldObject target = world.findWorldObject(Constants.ID, targetId);
 		
-		assertEquals(0, Actions.RESEARCH_EVOCATION_SKILL_ACTION.distance(performer, target, new int[0], world));
+		assertEquals(0, Actions.RESEARCH_EVOCATION_SKILL_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

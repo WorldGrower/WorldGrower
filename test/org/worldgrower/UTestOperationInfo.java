@@ -60,7 +60,7 @@ public class UTestOperationInfo {
 		try {
 			WorldObject performer = TestUtils.createIntelligentWorldObject(1, "performer");
 			WorldObject target = TestUtils.createIntelligentWorldObject(2, "target");
-			new OperationInfo(performer, target, new int[0], null);
+			new OperationInfo(performer, target, Args.EMPTY, null);
 			fail("method should fail");
 		} catch(IllegalArgumentException ex) {
 			assertEquals("managedOperation is null", ex.getMessage());
@@ -107,7 +107,7 @@ public class UTestOperationInfo {
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, "target");
 		OperationInfo info = createOperationInfo(performer, target);
 		
-		world.getHistory().actionPerformed(new OperationInfo(target, target, new int[0], Actions.MOVE_ACTION), null);
+		world.getHistory().actionPerformed(new OperationInfo(target, target, Args.EMPTY, Actions.MOVE_ACTION), null);
 		assertEquals(true, info.targetMoved(world));
 	}
 	
@@ -184,7 +184,7 @@ public class UTestOperationInfo {
 
 	private OperationInfo createOperationInfo(WorldObject performer, WorldObject target) {
 		
-		OperationInfo info = new OperationInfo(performer, target, new int[0], Actions.MELEE_ATTACK_ACTION);
+		OperationInfo info = new OperationInfo(performer, target, Args.EMPTY, Actions.MELEE_ATTACK_ACTION);
 		return info;
 	}
 }

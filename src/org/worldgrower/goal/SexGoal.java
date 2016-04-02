@@ -16,6 +16,7 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
@@ -38,10 +39,10 @@ public class SexGoal implements Goal {
 		
 		if ((mateId != null)) {
 			WorldObject target = world.findWorldObject(Constants.ID, mateId);
-			return new OperationInfo(performer, target, new int[0], Actions.SEX_ACTION);
+			return new OperationInfo(performer, target, Args.EMPTY, Actions.SEX_ACTION);
 		} else if (bestId != -1 && relationships.getValue(bestId) > 750) {
 			WorldObject target = world.findWorldObject(Constants.ID, bestId);
-			return new OperationInfo(performer, target, new int[0], Actions.SEX_ACTION);
+			return new OperationInfo(performer, target, Args.EMPTY, Actions.SEX_ACTION);
 		} else if (bestId != -1) {
 			return new ImproveRelationshipGoal(bestId, 750, world).calculateGoal(performer, world);
 		} else {

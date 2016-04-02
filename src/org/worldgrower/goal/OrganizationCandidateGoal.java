@@ -16,6 +16,7 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
@@ -37,7 +38,7 @@ public class OrganizationCandidateGoal implements Goal {
 		boolean performerWantsToBecomeCandidate = performerWantsToBecomeCandidate(performer, votingBox, world);
 		
 		if (performerWantsToBecomeCandidate) {
-			return new OperationInfo(performer, votingBox, new int[0] , Actions.BECOME_LEADER_CANDIDATE_ACTION);
+			return new OperationInfo(performer, votingBox, Args.EMPTY , Actions.BECOME_LEADER_CANDIDATE_ACTION);
 		} else {
 			return null;
 		}

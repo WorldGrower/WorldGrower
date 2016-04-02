@@ -16,6 +16,7 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
@@ -33,7 +34,7 @@ public class MarkHouseAsSellableGoal implements Goal {
 		List<WorldObject> houses = performer.getProperty(Constants.HOUSES).mapToWorldObjects(world, w -> !w.hasProperty(Constants.SELLABLE) || !w.getProperty(Constants.SELLABLE));
 		if (houses.size() > 1) {
 			WorldObject house = houses.get(1);
-			return new OperationInfo(performer, house, new int[0], Actions.MARK_AS_SELLABLE_ACTION);
+			return new OperationInfo(performer, house, Args.EMPTY, Actions.MARK_AS_SELLABLE_ACTION);
 		}
 		return null;
 	}

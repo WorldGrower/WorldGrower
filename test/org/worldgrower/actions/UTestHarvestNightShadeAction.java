@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -35,7 +36,7 @@ public class UTestHarvestNightShadeAction {
 		WorldObject target = world.findWorldObject(Constants.ID, id);
 		
 		target.setProperty(Constants.NIGHT_SHADE_SOURCE, 100);
-		Actions.HARVEST_NIGHT_SHADE_ACTION.execute(performer, target, new int[0], world);
+		Actions.HARVEST_NIGHT_SHADE_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(1, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.NIGHT_SHADE));
 		assertEquals(90, target.getProperty(Constants.NIGHT_SHADE_SOURCE).intValue());

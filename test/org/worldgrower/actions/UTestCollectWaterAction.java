@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -35,7 +36,7 @@ public class UTestCollectWaterAction {
 		int wellId = BuildingGenerator.buildWell(0, 0, world, 1f);
 		WorldObject well = world.findWorldObject(Constants.ID, wellId);
 		
-		Actions.COLLECT_WATER_ACTION.execute(performer, well, new int[0], world);
+		Actions.COLLECT_WATER_ACTION.execute(performer, well, Args.EMPTY, world);
 		
 		assertEquals(1, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WATER));
 	}
@@ -51,7 +52,7 @@ public class UTestCollectWaterAction {
 		WorldObject well = world.findWorldObject(Constants.ID, wellId);
 		well.setProperty(Constants.ALCOHOL_LEVEL, 9000);
 		
-		Actions.COLLECT_WATER_ACTION.execute(performer, well, new int[0], world);
+		Actions.COLLECT_WATER_ACTION.execute(performer, well, Args.EMPTY, world);
 		
 		assertEquals(1, performer.getProperty(Constants.INVENTORY).get(0).getProperty(Constants.ALCOHOL_LEVEL).intValue());
 	}
@@ -65,7 +66,7 @@ public class UTestCollectWaterAction {
 		WorldObject well = world.findWorldObject(Constants.ID, wellId);
 		well.setProperty(Constants.POISON_DAMAGE, 10);
 		
-		Actions.COLLECT_WATER_ACTION.execute(performer, well, new int[0], world);
+		Actions.COLLECT_WATER_ACTION.execute(performer, well, Args.EMPTY, world);
 		
 		assertEquals(10, performer.getProperty(Constants.INVENTORY).get(0).getProperty(Constants.POISON_DAMAGE).intValue());
 	}
@@ -90,7 +91,7 @@ public class UTestCollectWaterAction {
 		int wellId = BuildingGenerator.buildWell(0, 0, world, 1f);
 		WorldObject well = world.findWorldObject(Constants.ID, wellId);
 		
-		assertEquals(0, Actions.COLLECT_WATER_ACTION.distance(performer, well, new int[0],  world));
+		assertEquals(0, Actions.COLLECT_WATER_ACTION.distance(performer, well, Args.EMPTY,  world));
 	}
 	
 	private WorldObject createPerformer(int id) {

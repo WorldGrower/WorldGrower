@@ -19,6 +19,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.Arrays;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -36,7 +37,7 @@ public class UTestFeatherAction {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = createPerformer(2);
 		
-		Actions.FEATHER_ACTION.execute(performer, performer, new int[0], world);
+		Actions.FEATHER_ACTION.execute(performer, performer, Args.EMPTY, world);
 		
 		assertEquals(true, performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.FEATHERED_CONDITION));
 	}
@@ -46,9 +47,9 @@ public class UTestFeatherAction {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = createPerformer(2);
 		
-		Actions.BURDEN_ACTION.execute(performer, performer, new int[0], world);
+		Actions.BURDEN_ACTION.execute(performer, performer, Args.EMPTY, world);
 		
-		Actions.FEATHER_ACTION.execute(performer, performer, new int[0], world);
+		Actions.FEATHER_ACTION.execute(performer, performer, Args.EMPTY, world);
 		
 		assertEquals(false, performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.BURDENED_CONDITION));
 		assertEquals(false, performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.FEATHERED_CONDITION));
@@ -72,7 +73,7 @@ public class UTestFeatherAction {
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
-		assertEquals(0, Actions.FEATHER_ACTION.distance(performer, target, new int[0], world));
+		assertEquals(0, Actions.FEATHER_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

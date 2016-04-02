@@ -16,6 +16,7 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
@@ -38,13 +39,13 @@ public class CollectWaterGoal implements Goal {
 		} else {
 			WorldObject waterSourcetarget = WaterPropertyUtils.findWaterSource(performer, world);
 			if (waterSourcetarget != null) {
-				return new OperationInfo(performer, waterSourcetarget, new int[0], Actions.COLLECT_WATER_ACTION);
+				return new OperationInfo(performer, waterSourcetarget, Args.EMPTY, Actions.COLLECT_WATER_ACTION);
 			} else {
 				if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) < 6) {
 					return Goals.WOOD_GOAL.calculateGoal(performer, world);
 				} else {
 					WorldObject targetLocation = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 2, 2, world);
-					return new OperationInfo(performer, targetLocation, new int[0], Actions.BUILD_WELL_ACTION);
+					return new OperationInfo(performer, targetLocation, Args.EMPTY, Actions.BUILD_WELL_ACTION);
 				}
 			}
 		}

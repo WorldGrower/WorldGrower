@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -34,7 +35,7 @@ public class UTestExtractOilAction {
 		int id = TerrainGenerator.generateOilResource(0, 0, world);
 		WorldObject target = world.findWorldObject(Constants.ID, id);
 		
-		Actions.EXTRACT_OIL_ACTION.execute(performer, target, new int[0], world);
+		Actions.EXTRACT_OIL_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(1, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.OIL));
 		assertEquals(990, target.getProperty(Constants.OIL_SOURCE).intValue());
@@ -58,7 +59,7 @@ public class UTestExtractOilAction {
 		int id = TerrainGenerator.generateOilResource(0, 0, world);
 		WorldObject target = world.findWorldObject(Constants.ID, id);
 		
-		assertEquals(0, Actions.EXTRACT_OIL_ACTION.distance(performer, target, new int[0], world));
+		assertEquals(0, Actions.EXTRACT_OIL_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

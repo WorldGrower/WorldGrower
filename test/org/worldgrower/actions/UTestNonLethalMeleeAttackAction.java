@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -39,7 +40,7 @@ public class UTestNonLethalMeleeAttackAction {
 		WorldObject target = createPerformer(world, organization);
 		
 		assertEquals(26 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
-		Actions.NON_LETHAL_MELEE_ATTACK_ACTION.execute(performer, target, new int[0], world);
+		Actions.NON_LETHAL_MELEE_ATTACK_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(24 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
 	}
@@ -62,7 +63,7 @@ public class UTestNonLethalMeleeAttackAction {
 		WorldObject performer = createPerformer(world, organization);
 		WorldObject target = createPerformer(world, organization);
 		
-		assertEquals(0, Actions.NON_LETHAL_MELEE_ATTACK_ACTION.distance(performer, target, new int[0], world));
+		assertEquals(0, Actions.NON_LETHAL_MELEE_ATTACK_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(World world, WorldObject organization) {

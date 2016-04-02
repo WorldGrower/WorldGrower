@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -66,7 +67,7 @@ public class UTestSellAction {
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
-		assertEquals(0, Actions.SELL_ACTION.distance(performer, target, new int[0], world));
+		assertEquals(0, Actions.SELL_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

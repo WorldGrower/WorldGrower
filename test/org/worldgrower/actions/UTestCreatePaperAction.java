@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -35,7 +36,7 @@ public class UTestCreatePaperAction {
 		performerInventory.addQuantity(Item.WOOD.generate(1f), 10);
 		performerInventory.addQuantity(Item.WATER.generate(1f), 10);
 
-		Actions.CREATE_PAPER_ACTION.execute(performer, performer, new int[0], world);
+		Actions.CREATE_PAPER_ACTION.execute(performer, performer, Args.EMPTY, world);
 		
 		assertEquals(9, performerInventory.getQuantityFor(Constants.WOOD));
 		assertEquals(9, performerInventory.getQuantityFor(Constants.WATER));
@@ -58,7 +59,7 @@ public class UTestCreatePaperAction {
 		performerInventory.addQuantity(Item.WOOD.generate(1f), 10);
 		performerInventory.addQuantity(Item.WATER.generate(1f), 10);
 		
-		assertEquals(0, Actions.CREATE_PAPER_ACTION.distance(performer, performer, new int[0], world));
+		assertEquals(0, Actions.CREATE_PAPER_ACTION.distance(performer, performer, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

@@ -16,6 +16,7 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
@@ -34,7 +35,7 @@ public class GoldGoal implements Goal {
 		} else {
 			WorldObject target = GoalUtils.findNearestTarget(performer, Actions.MINE_GOLD_ACTION, world);
 			if (target != null) {
-				return new OperationInfo(performer, target, new int[0], Actions.MINE_GOLD_ACTION);
+				return new OperationInfo(performer, target, Args.EMPTY, Actions.MINE_GOLD_ACTION);
 			} else {
 				return null;
 			}

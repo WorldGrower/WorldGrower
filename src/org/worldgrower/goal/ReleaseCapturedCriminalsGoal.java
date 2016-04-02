@@ -17,6 +17,7 @@ package org.worldgrower.goal;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
@@ -41,7 +42,7 @@ public class ReleaseCapturedCriminalsGoal implements Goal {
 				int criminalY = criminalToBeReleased.getProperty(Constants.Y);
 				List<WorldObject> jailDoors = world.findWorldObjects(w -> isJailDoor(criminalX, criminalY, w));
 				if (jailDoors.size() > 0) {
-					return new OperationInfo(performer, jailDoors.get(0), new int[0], Actions.UNLOCK_JAIL_DOOR_ACTION);
+					return new OperationInfo(performer, jailDoors.get(0), Args.EMPTY, Actions.UNLOCK_JAIL_DOOR_ACTION);
 				}
 			}
 		}

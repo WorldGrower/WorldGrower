@@ -19,6 +19,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.Arrays;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -39,7 +40,7 @@ public class UTestRayOfFrostAttackAction {
 		target.setProperty(Constants.HIT_POINTS, 10 * Item.COMBAT_MULTIPLIER);
 		target.setProperty(Constants.HIT_POINTS_MAX, 10 * Item.COMBAT_MULTIPLIER);
 		
-		Actions.RAY_OF_FROST_ATTACK_ACTION.execute(performer, target, new int[0], world);
+		Actions.RAY_OF_FROST_ATTACK_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(5 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
 	}
@@ -65,7 +66,7 @@ public class UTestRayOfFrostAttackAction {
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
-		assertEquals(0, Actions.RAY_OF_FROST_ATTACK_ACTION.distance(performer, target, new int[0], world));
+		assertEquals(0, Actions.RAY_OF_FROST_ATTACK_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

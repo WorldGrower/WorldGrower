@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -35,7 +36,7 @@ public class UTestHarvestCottonAction {
 		WorldObject target = world.findWorldObject(Constants.ID, id);
 		
 		target.setProperty(Constants.COTTON_SOURCE, 100);
-		Actions.HARVEST_COTTON_ACTION.execute(performer, target, new int[0], world);
+		Actions.HARVEST_COTTON_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(1, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.COTTON));
 		assertEquals(80, target.getProperty(Constants.COTTON_SOURCE).intValue());
@@ -67,6 +68,6 @@ public class UTestHarvestCottonAction {
 		performer.setProperty(Constants.WIDTH, 1);
 		performer.setProperty(Constants.HEIGHT, 1);
 		
-		assertEquals(0, Actions.HARVEST_COTTON_ACTION.distance(performer, target, new int[0], world));
+		assertEquals(0, Actions.HARVEST_COTTON_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 }

@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -39,7 +40,7 @@ public class UTestEatNightShadeAction {
 		WorldObject nightShade = world.findWorldObject(Constants.ID, nightShadeId);
 		nightShade.setProperty(Constants.NIGHT_SHADE_SOURCE, 100);
 		
-		Actions.EAT_NIGHT_SHADE_ACTION.execute(performer, nightShade, new int[0], world);
+		Actions.EAT_NIGHT_SHADE_ACTION.execute(performer, nightShade, Args.EMPTY, world);
 		
 		assertEquals(810, performer.getProperty(Constants.FOOD).intValue());
 		assertEquals(true, performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.POISONED_CONDITION));
@@ -71,7 +72,7 @@ public class UTestEatNightShadeAction {
 		WorldObject nightShade = world.findWorldObject(Constants.ID, nightShadeId);
 		nightShade.setProperty(Constants.NIGHT_SHADE_SOURCE, 100);
 		
-		assertEquals(0, Actions.EAT_NIGHT_SHADE_ACTION.distance(performer, nightShade, new int[0], world));
+		assertEquals(0, Actions.EAT_NIGHT_SHADE_ACTION.distance(performer, nightShade, Args.EMPTY, world));
 
 	}
 	

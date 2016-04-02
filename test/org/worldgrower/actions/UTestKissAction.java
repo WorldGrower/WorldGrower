@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -34,7 +35,7 @@ public class UTestKissAction {
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 
-		Actions.KISS_ACTION.execute(performer, target, new int[0], world);
+		Actions.KISS_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(50, performer.getProperty(Constants.RELATIONSHIPS).getValue(target));
 		assertEquals(50, target.getProperty(Constants.RELATIONSHIPS).getValue(performer));
@@ -61,7 +62,7 @@ public class UTestKissAction {
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
-		assertEquals(0, Actions.KISS_ACTION.distance(performer, target, new int[0], world));
+		assertEquals(0, Actions.KISS_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

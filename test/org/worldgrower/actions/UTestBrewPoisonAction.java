@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -34,7 +35,7 @@ public class UTestBrewPoisonAction {
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
 		performerInventory.addQuantity(Item.NIGHT_SHADE.generate(1f), 10);
 
-		Actions.BREW_POISON_ACTION.execute(performer, performer, new int[0], world);
+		Actions.BREW_POISON_ACTION.execute(performer, performer, Args.EMPTY, world);
 		
 		assertEquals(7, performerInventory.getQuantityFor(Constants.NIGHT_SHADE));
 		assertEquals(1, performerInventory.getQuantityFor(Constants.POISON_DAMAGE));
@@ -57,7 +58,7 @@ public class UTestBrewPoisonAction {
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
 		performerInventory.addQuantity(Item.NIGHT_SHADE.generate(1f), 10);
 		
-		assertEquals(0, Actions.BREW_POISON_ACTION.distance(performer, performer, new int[0], world));
+		assertEquals(0, Actions.BREW_POISON_ACTION.distance(performer, performer, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

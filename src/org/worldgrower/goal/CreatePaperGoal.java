@@ -16,6 +16,7 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
@@ -37,7 +38,7 @@ public class CreatePaperGoal implements Goal {
 			return Goals.WOOD_GOAL.calculateGoal(performer, world);
 		}
 
-		return new OperationInfo(performer, performer, new int[0], Actions.CREATE_PAPER_ACTION);
+		return new OperationInfo(performer, performer, Args.EMPTY, Actions.CREATE_PAPER_ACTION);
 	}
 	
 	@Override

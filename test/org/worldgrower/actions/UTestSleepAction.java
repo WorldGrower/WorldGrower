@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -38,7 +39,7 @@ public class UTestSleepAction {
 		
 		int houseId = BuildingGenerator.generateHouse(0, 0, world, 1f);
 		WorldObject house = world.findWorldObject(Constants.ID, houseId);
-		Actions.SLEEP_ACTION.execute(performer, house, new int[0], world);
+		Actions.SLEEP_ACTION.execute(performer, house, Args.EMPTY, world);
 		
 		assertEquals(512, performer.getProperty(Constants.ENERGY).intValue());
 	}
@@ -53,7 +54,7 @@ public class UTestSleepAction {
 		int houseId = BuildingGenerator.generateHouse(0, 0, world, 1f);
 		WorldObject house = world.findWorldObject(Constants.ID, houseId);
 		house.getProperty(Constants.INVENTORY).add(Item.BED.generate(1f));
-		Actions.SLEEP_ACTION.execute(performer, house, new int[0], world);
+		Actions.SLEEP_ACTION.execute(performer, house, Args.EMPTY, world);
 		
 		assertEquals(514, performer.getProperty(Constants.ENERGY).intValue());
 	}
@@ -78,7 +79,7 @@ public class UTestSleepAction {
 		
 		performer.setProperty(Constants.HOUSES, new IdList().add(house));
 		
-		assertEquals(0, Actions.SLEEP_ACTION.distance(performer, house, new int[0], world));
+		assertEquals(0, Actions.SLEEP_ACTION.distance(performer, house, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

@@ -12,27 +12,12 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.actions;
+package org.worldgrower;
 
-import static org.junit.Assert.assertEquals;
+/**
+ * Args contains constants for arguments given to a ManagedOperation.
+ */
+public class Args {
 
-import org.junit.Test;
-import org.worldgrower.Args;
-import org.worldgrower.Constants;
-import org.worldgrower.TestUtils;
-import org.worldgrower.World;
-import org.worldgrower.WorldImpl;
-import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.WorldObjectContainer;
-
-public class UTestWeaveCottonShirtAction {
-
-	@Test
-	public void testExecute() {
-		World world = new WorldImpl(0, 0, null, null);
-		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
-		Actions.WEAVE_COTTON_SHIRT_ACTION.execute(performer, performer, Args.EMPTY, world);
-		
-		assertEquals(1, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.ARMOR));
-	}
+	public static final int[] EMPTY = new int[0];
 }

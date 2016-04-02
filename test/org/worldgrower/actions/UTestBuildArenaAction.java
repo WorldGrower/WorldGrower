@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -33,7 +34,7 @@ public class UTestBuildArenaAction {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
-		Actions.BUILD_ARENA_ACTION.execute(performer, target, new int[0], world);
+		Actions.BUILD_ARENA_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(6, world.getWorldObjects().size());
 		assertEquals("Arena vertical", world.getWorldObjects().get(0).getProperty(Constants.NAME));
@@ -54,7 +55,7 @@ public class UTestBuildArenaAction {
 		WorldObject target = createPerformer(3);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.STONE.generate(1f), 10);
 		
-		assertEquals(0, Actions.BUILD_ARENA_ACTION.distance(performer, target, new int[0], world));
+		assertEquals(0, Actions.BUILD_ARENA_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

@@ -17,6 +17,7 @@ package org.worldgrower.goal;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.AssertUtils;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
@@ -74,7 +75,7 @@ public class UTestBreakupWithMateGoal {
 		WorldObject subject = createCommoner(world, organization);
 		
 		performer.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(target, world);
-		world.getHistory().actionPerformed(new OperationInfo(target, subject, new int[0], Actions.SEX_ACTION), new Turn().next());
+		world.getHistory().actionPerformed(new OperationInfo(target, subject, Args.EMPTY, Actions.SEX_ACTION), new Turn().next());
 		assertEquals(true, goal.mateHasCheated(performer, target, world));
 	}
 	

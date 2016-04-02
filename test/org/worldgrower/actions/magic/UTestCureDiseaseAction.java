@@ -19,6 +19,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.Arrays;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -39,7 +40,7 @@ public class UTestCureDiseaseAction {
 		Conditions.add(target, Condition.VAMPIRE_BITE_CONDITION, 8, world);
 		assertEquals(true, target.getProperty(Constants.CONDITIONS).hasCondition(Condition.VAMPIRE_BITE_CONDITION));
 		
-		Actions.CURE_DISEASE_ACTION.execute(performer, target, new int[0], world);
+		Actions.CURE_DISEASE_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(false, target.getProperty(Constants.CONDITIONS).hasCondition(Condition.VAMPIRE_BITE_CONDITION));
 	}
@@ -63,7 +64,7 @@ public class UTestCureDiseaseAction {
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
-		assertEquals(0, Actions.CURE_DISEASE_ACTION.distance(performer, target, new int[0], world));
+		assertEquals(0, Actions.CURE_DISEASE_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

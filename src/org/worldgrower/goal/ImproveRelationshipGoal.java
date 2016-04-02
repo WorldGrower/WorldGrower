@@ -14,6 +14,7 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
@@ -44,7 +45,7 @@ public class ImproveRelationshipGoal implements Goal {
 		} else if (!GoalUtils.actionAlreadyPerformed(performer, target, Actions.TALK_ACTION, Conversations.createArgs(Conversations.KISS_CONVERSATION), world)) {
 			return new OperationInfo(performer, target, Conversations.createArgs(Conversations.KISS_CONVERSATION), Actions.TALK_ACTION);
 		} else {
-			return new OperationInfo(performer, target, new int[0], Actions.KISS_ACTION);
+			return new OperationInfo(performer, target, Args.EMPTY, Actions.KISS_ACTION);
 		}
 	}
 	

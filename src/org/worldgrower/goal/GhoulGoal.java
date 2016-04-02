@@ -16,6 +16,7 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
@@ -39,7 +40,7 @@ public class GhoulGoal implements Goal {
 		if (indexOfMeat != -1 && !performerInventory.get(indexOfMeat).getProperty(Constants.SELLABLE)) {
 			return new OperationInfo(performer, performer, new int[] {indexOfMeat}, Actions.MARK_INVENTORY_ITEM_AS_SELLABLE_ACTION);
 		} else if (performer.getProperty(Constants.HIT_POINTS) > 1 * Item.COMBAT_MULTIPLIER) {
-			return new OperationInfo(performer, performer, new int[0], Actions.CREATE_HUMAN_MEAT_ACTION);
+			return new OperationInfo(performer, performer, Args.EMPTY, Actions.CREATE_HUMAN_MEAT_ACTION);
 		}
 		return null;
 	}

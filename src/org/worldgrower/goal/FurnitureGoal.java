@@ -16,6 +16,7 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
@@ -47,7 +48,7 @@ public class FurnitureGoal implements Goal {
 		} else if (targets.size() > 0) {
 			return new OperationInfo(performer, targets.get(0), new int[] { targets.get(0).getProperty(Constants.INVENTORY).getIndexFor(Constants.SLEEP_COMFORT), QUANTITY_TO_BUY }, Actions.BUY_ACTION);
 		} else if (ConstructBedAction.hasEnoughWood(performer)) {
-			return new OperationInfo(performer, performer, new int[0], Actions.CONSTRUCT_BED_ACTION);
+			return new OperationInfo(performer, performer, Args.EMPTY, Actions.CONSTRUCT_BED_ACTION);
 		} else {
 			return Goals.WOOD_GOAL.calculateGoal(performer, world);
 		}

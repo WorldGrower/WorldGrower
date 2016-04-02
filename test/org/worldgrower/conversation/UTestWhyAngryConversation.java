@@ -19,6 +19,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.List;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -50,11 +51,11 @@ public class UTestWhyAngryConversation {
 		assertEquals("I don't remember", replyPhrases.get(0).getResponsePhrase());
 		assertEquals("Get lost", replyPhrases.get(1).getResponsePhrase());
 		
-		target.getProperty(Constants.BACKGROUND).addGoalObstructed(Goals.PROTECT_ONSE_SELF_GOAL, performer, target, Actions.MELEE_ATTACK_ACTION, new int[0], world);
+		target.getProperty(Constants.BACKGROUND).addGoalObstructed(Goals.PROTECT_ONSE_SELF_GOAL, performer, target, Actions.MELEE_ATTACK_ACTION, Args.EMPTY, world);
 		replyPhrases = conversation.getReplyPhrases(context);
 		assertEquals("You were attacking me", replyPhrases.get(0).getResponsePhrase());
 
-		target.getProperty(Constants.BACKGROUND).addGoalObstructed(Goals.PROTECT_ONSE_SELF_GOAL, performer, target, Actions.PARALYZE_SPELL_ACTION, new int[0], world);
+		target.getProperty(Constants.BACKGROUND).addGoalObstructed(Goals.PROTECT_ONSE_SELF_GOAL, performer, target, Actions.PARALYZE_SPELL_ACTION, Args.EMPTY, world);
 		replyPhrases = conversation.getReplyPhrases(context);
 		assertEquals("You were attacking me; You were casting paralyze on me", replyPhrases.get(0).getResponsePhrase());
 	}

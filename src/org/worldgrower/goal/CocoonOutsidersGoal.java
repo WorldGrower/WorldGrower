@@ -16,6 +16,7 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.Reach;
@@ -34,7 +35,7 @@ public class CocoonOutsidersGoal implements Goal {
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.COCOON_ACTION, w -> GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, w) && Reach.distance(performer, w) < 10 && w.getProperty(Constants.CONDITIONS).hasCondition(Condition.PARALYZED_CONDITION) && !w.getProperty(Constants.CONDITIONS).hasCondition(Condition.COCOONED_CONDITION), world);
 		if (targets.size() > 0) {
-			return new OperationInfo(performer, targets.get(0), new int[0], Actions.COCOON_ACTION);
+			return new OperationInfo(performer, targets.get(0), Args.EMPTY, Actions.COCOON_ACTION);
 		} else {
 			return null;
 		}

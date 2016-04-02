@@ -20,6 +20,7 @@ import java.util.List;
 
 import javax.swing.AbstractAction;
 
+import org.worldgrower.Args;
 import org.worldgrower.DungeonMaster;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
@@ -68,7 +69,7 @@ public class GuiResearchMagicSpellAction extends AbstractAction {
 					int turns = Integer.parseInt(turnsString);
 					
 					for(int i=0; i<turns; i++) {
-						Game.executeAction(playerCharacter, researchSpellAction, new int[0], world, dungeonMaster, target, parent);
+						Game.executeAction(playerCharacter, researchSpellAction, Args.EMPTY, world, dungeonMaster, target, parent);
 					}
 				}
 			}

@@ -16,6 +16,7 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
@@ -35,7 +36,7 @@ public class CatchFishGoal implements Goal {
 		if (leftHandContainsFishingPole) {
 			WorldObject target = GoalUtils.findNearestTarget(performer, Actions.CATCH_FISH_ACTION, world);
 			if (target != null) {
-				return new OperationInfo(performer, target, new int[0], Actions.CATCH_FISH_ACTION);
+				return new OperationInfo(performer, target, Args.EMPTY, Actions.CATCH_FISH_ACTION);
 			}
 		} else {
 			if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.FISHING_POLE_QUALITY) > 0) {

@@ -19,6 +19,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.Arrays;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -39,11 +40,11 @@ public class UTestMendAction {
 		target.setProperty(Constants.HIT_POINTS, 1 * Item.COMBAT_MULTIPLIER);
 		target.setProperty(Constants.HIT_POINTS_MAX, 8 * Item.COMBAT_MULTIPLIER);
 		
-		Actions.MEND_ACTION.execute(performer, target, new int[0], world);
+		Actions.MEND_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(6 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
 		
-		Actions.MEND_ACTION.execute(performer, target, new int[0], world);
+		Actions.MEND_ACTION.execute(performer, target, Args.EMPTY, world);
 		assertEquals(8 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
 	}
 	
@@ -68,7 +69,7 @@ public class UTestMendAction {
 		WorldObject performer = createPerformer(2);
 		WorldObject target = TestUtils.createWorldObject(0, 0, 1, 1);
 		
-		assertEquals(0, Actions.MEND_ACTION.distance(performer, target, new int[0], world));
+		assertEquals(0, Actions.MEND_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

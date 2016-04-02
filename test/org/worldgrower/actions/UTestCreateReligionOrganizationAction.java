@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -51,7 +52,7 @@ public class UTestCreateReligionOrganizationAction {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = createPerformer(2);
 		
-		assertEquals(0, Actions.CREATE_RELIGION_ORGANIZATION_ACTION.distance(performer, performer, new int[0], world));
+		assertEquals(0, Actions.CREATE_RELIGION_ORGANIZATION_ACTION.distance(performer, performer, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

@@ -16,6 +16,7 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
@@ -30,7 +31,7 @@ public class ChooseProfessionGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		return new OperationInfo(performer, performer, new int[0], Actions.CHOOSE_PROFESSION_ACTION);
+		return new OperationInfo(performer, performer, Args.EMPTY, Actions.CHOOSE_PROFESSION_ACTION);
 	}
 	
 	@Override

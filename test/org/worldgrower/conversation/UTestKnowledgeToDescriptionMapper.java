@@ -17,6 +17,7 @@ package org.worldgrower.conversation;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.TestUtils;
@@ -43,7 +44,7 @@ public class UTestKnowledgeToDescriptionMapper {
 		world.addWorldObject(performer);
 		
 		EventKnowledge knowledge = new EventKnowledge(1, world);
-		world.getHistory().actionPerformed(new OperationInfo(performer, target, new int[0], Actions.VAMPIRE_BITE_ACTION), new Turn());
+		world.getHistory().actionPerformed(new OperationInfo(performer, target, Args.EMPTY, Actions.VAMPIRE_BITE_ACTION), new Turn());
 		
 		assertEquals("Did you know that performer was biting target?", mapper.getQuestionDescription(knowledge, world));
 	}
@@ -125,7 +126,7 @@ public class UTestKnowledgeToDescriptionMapper {
 		world.addWorldObject(performer);
 		
 		EventKnowledge knowledge = new EventKnowledge(1, world);
-		world.getHistory().actionPerformed(new OperationInfo(performer, target, new int[0], Actions.STEAL_ACTION), new Turn());
+		world.getHistory().actionPerformed(new OperationInfo(performer, target, Args.EMPTY, Actions.STEAL_ACTION), new Turn());
 		
 		assertEquals("Did you know that performer was stealing from target?", mapper.getQuestionDescription(knowledge, world));
 	}

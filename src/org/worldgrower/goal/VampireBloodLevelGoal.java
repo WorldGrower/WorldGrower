@@ -16,6 +16,7 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.Reach;
@@ -37,7 +38,7 @@ public class VampireBloodLevelGoal implements Goal {
 		if (isVampireBiteLegal) {
 			WorldObject target = GoalUtils.findNearestTarget(performer, Actions.VAMPIRE_BITE_ACTION, world);
 			if (target != null) {
-				return new OperationInfo(performer, target, new int[0], Actions.VAMPIRE_BITE_ACTION);
+				return new OperationInfo(performer, target, Args.EMPTY, Actions.VAMPIRE_BITE_ACTION);
 			}
 		} else {
 			boolean performerIsHonorable = performer.getProperty(Constants.PERSONALITY).getValue(PersonalityTrait.HONORABLE) > 0;
@@ -49,7 +50,7 @@ public class VampireBloodLevelGoal implements Goal {
 			}
 				
 			if (target != null) {
-				return new OperationInfo(performer, target, new int[0], Actions.VAMPIRE_BITE_ACTION);
+				return new OperationInfo(performer, target, Args.EMPTY, Actions.VAMPIRE_BITE_ACTION);
 			}
 		}
 		return null;

@@ -17,6 +17,7 @@ package org.worldgrower.condition;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -39,7 +40,7 @@ public class UTestSoulTrappedCondition {
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.SOUL_GEM.generate(1f));
 		Conditions.add(target, Condition.SOUL_TRAPPED_CONDITION, 8, world);
 		
-		condition.perform(performer, target, new int[0], Actions.MELEE_ATTACK_ACTION, world);
+		condition.perform(performer, target, Args.EMPTY, Actions.MELEE_ATTACK_ACTION, world);
 		
 		assertEquals(1, performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.SOUL_GEM_FILLED));
 	}

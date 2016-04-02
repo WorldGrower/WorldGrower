@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -37,11 +38,11 @@ public class UTestCapturePersonForSacrificeAction {
 		
 		performer.setProperty(Constants.DEITY, Deity.HADES);
 		
-		Actions.BUILD_SACRIFICAL_ALTAR_ACTION.execute(performer, target, new int[0], world);
+		Actions.BUILD_SACRIFICAL_ALTAR_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		target.setProperty(Constants.X, 10);
 		target.setProperty(Constants.Y, 10);
-		Actions.CAPTURE_PERSON_FOR_SACRIFICE_ACTION.execute(performer, target, new int[0], world);
+		Actions.CAPTURE_PERSON_FOR_SACRIFICE_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(0, target.getProperty(Constants.X).intValue());
 		assertEquals(0, target.getProperty(Constants.Y).intValue());
@@ -64,12 +65,12 @@ public class UTestCapturePersonForSacrificeAction {
 		WorldObject target = createPerformer(3);
 		
 		performer.setProperty(Constants.DEITY, Deity.HADES);
-		Actions.BUILD_SACRIFICAL_ALTAR_ACTION.execute(performer, target, new int[0], world);
+		Actions.BUILD_SACRIFICAL_ALTAR_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		target.setProperty(Constants.CONDITIONS, new Conditions());
 		Conditions.add(target, Condition.UNCONSCIOUS_CONDITION, 8, world);
 		
-		assertEquals(0, Actions.CAPTURE_PERSON_FOR_SACRIFICE_ACTION.distance(performer, target, new int[0], world));
+		assertEquals(0, Actions.CAPTURE_PERSON_FOR_SACRIFICE_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

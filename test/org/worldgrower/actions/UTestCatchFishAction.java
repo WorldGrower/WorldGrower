@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -37,7 +38,7 @@ public class UTestCatchFishAction {
 		WorldObject target = createFish(world);
 		
 		assertEquals(1, target.getProperty(Constants.FOOD_SOURCE).intValue());
-		Actions.CATCH_FISH_ACTION.execute(performer, target, new int[0], world);
+		Actions.CATCH_FISH_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(8, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.FOOD));
 		assertEquals(false, world.exists(target));
@@ -67,7 +68,7 @@ public class UTestCatchFishAction {
 		WorldObject target = createFish(world);
 		performer.setProperty(Constants.LEFT_HAND_EQUIPMENT, Item.FISHING_POLE.generate(1f));
 		
-		assertEquals(0, Actions.CATCH_FISH_ACTION.distance(performer, target, new int[0], world));
+		assertEquals(0, Actions.CATCH_FISH_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

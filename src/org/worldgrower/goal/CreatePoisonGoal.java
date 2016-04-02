@@ -16,6 +16,7 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
@@ -34,12 +35,12 @@ public class CreatePoisonGoal implements Goal {
 			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 2, 2, world);
 	
 			if (target != null) {
-				return new OperationInfo(performer, target, new int[0], Actions.PLANT_NIGHT_SHADE_ACTION);
+				return new OperationInfo(performer, target, Args.EMPTY, Actions.PLANT_NIGHT_SHADE_ACTION);
 			} else {
 				return null;
 			}
 		} else {
-			return new OperationInfo(performer, performer, new int[0], Actions.BREW_POISON_ACTION);
+			return new OperationInfo(performer, performer, Args.EMPTY, Actions.BREW_POISON_ACTION);
 		}
 	}
 	

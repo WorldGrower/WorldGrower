@@ -91,7 +91,7 @@ class MetaInformation implements Serializable {
 
 	public void setNoActionPossible() {
 		currentTask.clear();
-		currentTask.add(new OperationInfo(worldObject, worldObject, new int[0], Actions.DO_NOTHING_ACTION));
+		currentTask.add(new OperationInfo(worldObject, worldObject, Args.EMPTY, Actions.DO_NOTHING_ACTION));
 		goalChangedReason = GoalChangedReason.NO_ACTION_POSSIBLE;
 		finalGoal = Goals.IDLE_GOAL;
 	}

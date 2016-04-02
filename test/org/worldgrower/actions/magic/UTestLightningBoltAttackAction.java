@@ -19,6 +19,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.Arrays;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.MockTerrain;
 import org.worldgrower.MockWorld;
@@ -42,7 +43,7 @@ public class UTestLightningBoltAttackAction {
 		target.setProperty(Constants.HIT_POINTS, 10 * Item.COMBAT_MULTIPLIER);
 		target.setProperty(Constants.HIT_POINTS_MAX, 10 * Item.COMBAT_MULTIPLIER);
 		
-		Actions.LIGHTNING_BOLT_ATTACK_ACTION.execute(performer, target, new int[0], world);
+		Actions.LIGHTNING_BOLT_ATTACK_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(5 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
 	}
@@ -62,7 +63,7 @@ public class UTestLightningBoltAttackAction {
 		world.addWorldObject(performer);
 		world.addWorldObject(target);
 		
-		Actions.LIGHTNING_BOLT_ATTACK_ACTION.execute(performer, target, new int[0], world);
+		Actions.LIGHTNING_BOLT_ATTACK_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(5, performer.getProperty(Constants.HIT_POINTS).intValue());
 		assertEquals(0, target.getProperty(Constants.HIT_POINTS).intValue());
@@ -89,7 +90,7 @@ public class UTestLightningBoltAttackAction {
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
-		assertEquals(0, Actions.LIGHTNING_BOLT_ATTACK_ACTION.distance(performer, target, new int[0], world));
+		assertEquals(0, Actions.LIGHTNING_BOLT_ATTACK_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

@@ -42,7 +42,7 @@ public class UTestBackgroundImpl {
 		WorldObject attacker = createWorldObject(1, "attacker");
 		world.addWorldObject(performer);
 		world.addWorldObject(attacker);
-		world.getHistory().actionPerformed(new OperationInfo(attacker, performer, new int[0], Actions.MELEE_ATTACK_ACTION), new Turn());
+		world.getHistory().actionPerformed(new OperationInfo(attacker, performer, Args.EMPTY, Actions.MELEE_ATTACK_ACTION), new Turn());
 		
 		background.checkForNewGoals(performer, world);
 		
@@ -60,7 +60,7 @@ public class UTestBackgroundImpl {
 		performer.setProperty(Constants.GENDER, "male");
 		WorldObject actionTarget = createWorldObject(1, "actionTarget");
 		
-		background.addGoalObstructed(Goals.PROTECT_ONSE_SELF_GOAL, performer, actionTarget, Actions.MELEE_ATTACK_ACTION, new int[0], world);
+		background.addGoalObstructed(Goals.PROTECT_ONSE_SELF_GOAL, performer, actionTarget, Actions.MELEE_ATTACK_ACTION, Args.EMPTY, world);
 		
 		assertEquals(Arrays.asList("You were attacking actionTarget"), background.getAngryReasons(true, 7, performer, world));
 		assertEquals(Arrays.asList("He was attacking actionTarget"), background.getAngryReasons(false, 7, performer, world));
@@ -76,8 +76,8 @@ public class UTestBackgroundImpl {
 		performer.setProperty(Constants.GENDER, "male");
 		WorldObject actionTarget = createWorldObject(1, "actionTarget");
 		
-		background.addGoalObstructed(Goals.STEAL_GOAL, performer, actionTarget, Actions.MELEE_ATTACK_ACTION, new int[0], world);
-		background.addGoalObstructed(Goals.FOOD_GOAL, performer, actionTarget, Actions.EAT_ACTION, new int[0], world);
+		background.addGoalObstructed(Goals.STEAL_GOAL, performer, actionTarget, Actions.MELEE_ATTACK_ACTION, Args.EMPTY, world);
+		background.addGoalObstructed(Goals.FOOD_GOAL, performer, actionTarget, Actions.EAT_ACTION, Args.EMPTY, world);
 		
 		assertEquals(Arrays.asList("You were eating actionTarget"), background.getAngryReasons(true, 7, performer, world));
 		assertEquals(Arrays.asList("He was eating actionTarget"), background.getAngryReasons(false, 7, performer, world));
@@ -105,7 +105,7 @@ public class UTestBackgroundImpl {
 		WorldObject target = createWorldObject(1, "target");
 		
 		Background background = performer.getProperty(Constants.BACKGROUND);
-		background.addGoalObstructed(Goals.PROTECT_ONSE_SELF_GOAL, performer, target, Actions.MELEE_ATTACK_ACTION, new int[0], world);
+		background.addGoalObstructed(Goals.PROTECT_ONSE_SELF_GOAL, performer, target, Actions.MELEE_ATTACK_ACTION, Args.EMPTY, world);
 		assertEquals(1, background.getAngryReasons(true, 1, performer, world).size());
 		background.remove(performer, Constants.BACKGROUND, 0);
 		
@@ -121,7 +121,7 @@ public class UTestBackgroundImpl {
 		world.addWorldObject(performer);
 		world.addWorldObject(target);
 		
-		world.getHistory().actionPerformed(new OperationInfo(target, performer, new int[0], Actions.MELEE_ATTACK_ACTION), new Turn());
+		world.getHistory().actionPerformed(new OperationInfo(target, performer, Args.EMPTY, Actions.MELEE_ATTACK_ACTION), new Turn());
 		Background background = performer.getProperty(Constants.BACKGROUND);
 		background.checkForNewGoals(performer, world);
 		assertEquals(true, background.hasRevengeTarget(world));

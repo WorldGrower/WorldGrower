@@ -16,6 +16,7 @@ package org.worldgrower.generator;
 
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OnTurn;
 import org.worldgrower.UnpassableCreaturePositionCondition;
@@ -36,7 +37,7 @@ public class FireTrapOnTurn implements OnTurn {
 		
 		if (targets.size() > 0) {
 			int damage = worldObject.getProperty(Constants.DAMAGE);
-			AttackUtils.magicAttack(damage, Actions.FIRE_TRAP_ACTION, worldObject, targets.get(0), new int[0], world, 1.0f);
+			AttackUtils.magicAttack(damage, Actions.FIRE_TRAP_ACTION, worldObject, targets.get(0), Args.EMPTY, world, 1.0f);
 			world.removeWorldObject(worldObject);
 		}
 	}

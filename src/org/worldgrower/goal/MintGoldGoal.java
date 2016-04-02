@@ -16,6 +16,7 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
@@ -36,7 +37,7 @@ public class MintGoldGoal implements Goal {
 			int gold = performer.getProperty(Constants.GOLD);
 			
 			if (gold < 500){
-				return new OperationInfo(performer, performer, new int[0], Actions.MINT_GOLD_ACTION);
+				return new OperationInfo(performer, performer, Args.EMPTY, Actions.MINT_GOLD_ACTION);
 			} else {
 				return null;
 			}

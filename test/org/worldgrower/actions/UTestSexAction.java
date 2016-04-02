@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -36,7 +37,7 @@ public class UTestSexAction {
 		target.setProperty(Constants.GENDER, "male");
 		
 		assertEquals(null, performer.getProperty(Constants.PREGNANCY));
-		Actions.SEX_ACTION.execute(performer, target, new int[0], world);
+		Actions.SEX_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(0, performer.getProperty(Constants.PREGNANCY).intValue());
 	}
@@ -51,7 +52,7 @@ public class UTestSexAction {
 		target.setProperty(Constants.GENDER, "female");
 		
 		assertEquals(null, target.getProperty(Constants.PREGNANCY));
-		Actions.SEX_ACTION.execute(performer, target, new int[0], world);
+		Actions.SEX_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(0, target.getProperty(Constants.PREGNANCY).intValue());
 	}
@@ -71,7 +72,7 @@ public class UTestSexAction {
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
-		assertEquals(0, Actions.SEX_ACTION.distance(performer, target, new int[0], world));
+		assertEquals(0, Actions.SEX_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

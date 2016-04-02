@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -33,7 +34,7 @@ public class UTestCreateHumanMeatAction {
 		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.HIT_POINTS, 10 * Item.COMBAT_MULTIPLIER);
 		
-		Actions.CREATE_HUMAN_MEAT_ACTION.execute(performer, performer, new int[0], world);
+		Actions.CREATE_HUMAN_MEAT_ACTION.execute(performer, performer, Args.EMPTY, world);
 		
 		assertEquals(1, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.CREATURE_TYPE));
 	}
@@ -54,6 +55,6 @@ public class UTestCreateHumanMeatAction {
 		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.HIT_POINTS, 10 * Item.COMBAT_MULTIPLIER);
 		
-		assertEquals(0, Actions.CREATE_HUMAN_MEAT_ACTION.distance(performer, performer, new int[0], world));
+		assertEquals(0, Actions.CREATE_HUMAN_MEAT_ACTION.distance(performer, performer, Args.EMPTY, world));
 	}
 }

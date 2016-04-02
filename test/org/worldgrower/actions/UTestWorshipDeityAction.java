@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -35,7 +36,7 @@ public class UTestWorshipDeityAction {
 		performer.setProperty(Constants.WORSHIP_COUNTER, 0);
 		performer.setProperty(Constants.DEITY, Deity.ARES);
 		
-		Actions.WORSHIP_DEITY_ACTION.execute(performer, performer, new int[0], world);
+		Actions.WORSHIP_DEITY_ACTION.execute(performer, performer, Args.EMPTY, world);
 		
 		assertEquals(1, performer.getProperty(Constants.WORSHIP_COUNTER).intValue());
 	}
@@ -60,7 +61,7 @@ public class UTestWorshipDeityAction {
 		int id = BuildingGenerator.generateShrine(0, 0, world, performer);
 		WorldObject target = world.findWorldObject(Constants.ID, id);
 		
-		assertEquals(0, Actions.WORSHIP_DEITY_ACTION.distance(performer, target, new int[0], world));
+		assertEquals(0, Actions.WORSHIP_DEITY_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

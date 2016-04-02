@@ -17,6 +17,7 @@ package org.worldgrower.goal;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -32,7 +33,7 @@ public class UTestRelationshipPropertyUtils {
 		WorldObject performer = TestUtils.createWorldObject(0, "Test");
 		WorldObject target = TestUtils.createWorldObject(1, "Test");
 		
-		RelationshipPropertyUtils.changeRelationshipValue(performer, target, 5, Actions.DONATE_MONEY_ACTION, new int[0], world);
+		RelationshipPropertyUtils.changeRelationshipValue(performer, target, 5, Actions.DONATE_MONEY_ACTION, Args.EMPTY, world);
 		
 		assertEquals(5, performer.getProperty(Constants.RELATIONSHIPS).getValue(target));
 		assertEquals(5, target.getProperty(Constants.RELATIONSHIPS).getValue(performer));
@@ -44,7 +45,7 @@ public class UTestRelationshipPropertyUtils {
 		WorldObject performer = TestUtils.createWorldObject(0, "Test");
 		WorldObject target = TestUtils.createWorldObject(1, "Test");
 		
-		RelationshipPropertyUtils.changeRelationshipValue(performer, target, 5, 10, Actions.DONATE_MONEY_ACTION, new int[0], world);
+		RelationshipPropertyUtils.changeRelationshipValue(performer, target, 5, 10, Actions.DONATE_MONEY_ACTION, Args.EMPTY, world);
 		
 		assertEquals(5, performer.getProperty(Constants.RELATIONSHIPS).getValue(target));
 		assertEquals(10, target.getProperty(Constants.RELATIONSHIPS).getValue(performer));

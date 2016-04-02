@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -43,7 +44,7 @@ public class UTestDisintegrateArmorAction {
 		target.setProperty(Constants.TORSO_EQUIPMENT, ironCuirass);
 		assertEquals(1000, target.getProperty(Constants.INVENTORY).get(0).getProperty(Constants.EQUIPMENT_HEALTH).intValue());
 		
-		Actions.DISINTEGRATE_ARMOR_ACTION.execute(performer, target, new int[0], world);
+		Actions.DISINTEGRATE_ARMOR_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(900, target.getProperty(Constants.INVENTORY).get(0).getProperty(Constants.EQUIPMENT_HEALTH).intValue());
 	}
@@ -69,7 +70,7 @@ public class UTestDisintegrateArmorAction {
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
-		assertEquals(0, Actions.DISINTEGRATE_ARMOR_ACTION.distance(performer, target, new int[0], world));
+		assertEquals(0, Actions.DISINTEGRATE_ARMOR_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

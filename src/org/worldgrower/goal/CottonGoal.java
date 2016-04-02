@@ -16,6 +16,7 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
@@ -37,12 +38,12 @@ public class CottonGoal implements Goal {
 		if (targets.size() > 0) {
 			return new OperationInfo(performer, targets.get(0), new int[] { targets.get(0).getProperty(Constants.INVENTORY).getIndexFor(Constants.COTTON), QUANTITY_TO_BUY }, Actions.BUY_ACTION);
 		} else if (target != null) {
-			return new OperationInfo(performer, target, new int[0], Actions.HARVEST_COTTON_ACTION);
+			return new OperationInfo(performer, target, Args.EMPTY, Actions.HARVEST_COTTON_ACTION);
 		} else {
 			WorldObject buildLocation = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 2, 3, world);
 			
 			if (buildLocation != null) {
-				return new OperationInfo(performer, buildLocation, new int[0], Actions.PLANT_COTTON_PLANT_ACTION);
+				return new OperationInfo(performer, buildLocation, Args.EMPTY, Actions.PLANT_COTTON_PLANT_ACTION);
 			} else {
 				return null;
 			}

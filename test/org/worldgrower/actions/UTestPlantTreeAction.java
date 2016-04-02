@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -32,7 +33,7 @@ public class UTestPlantTreeAction {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
-		Actions.PLANT_TREE_ACTION.execute(performer, target, new int[0], world);
+		Actions.PLANT_TREE_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(1, world.getWorldObjects().size());
 		assertEquals("tree", world.getWorldObjects().get(0).getProperty(Constants.NAME));
@@ -56,7 +57,7 @@ public class UTestPlantTreeAction {
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
-		assertEquals(0, Actions.PLANT_TREE_ACTION.distance(performer, target, new int[0], world));
+		assertEquals(0, Actions.PLANT_TREE_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

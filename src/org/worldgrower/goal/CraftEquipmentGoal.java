@@ -16,6 +16,7 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
@@ -45,17 +46,17 @@ public class CraftEquipmentGoal implements Goal {
 			int ironBootsCount = inventory.getWorldObjects(Constants.EQUIPMENT_SLOT, Constants.FEET_EQUIPMENT).size();
 			
 			if (ironClaymoreCount == 0){
-				return new OperationInfo(performer, performer, new int[0], Actions.CRAFT_IRON_CLAYMORE_ACTION);
+				return new OperationInfo(performer, performer, Args.EMPTY, Actions.CRAFT_IRON_CLAYMORE_ACTION);
 			} else if (ironCuirassCount < ironClaymoreCount) {
-				return new OperationInfo(performer, performer, new int[0], Actions.CRAFT_IRON_CUIRASS_ACTION);
+				return new OperationInfo(performer, performer, Args.EMPTY, Actions.CRAFT_IRON_CUIRASS_ACTION);
 			} else if (ironHelmetCount < ironCuirassCount) {
-				return new OperationInfo(performer, performer, new int[0], Actions.CRAFT_IRON_HELMET_ACTION);
+				return new OperationInfo(performer, performer, Args.EMPTY, Actions.CRAFT_IRON_HELMET_ACTION);
 			} else if (ironGauntletsCount < ironHelmetCount) {
-				return new OperationInfo(performer, performer, new int[0], Actions.CRAFT_IRON_GAUNTLETS_ACTION);
+				return new OperationInfo(performer, performer, Args.EMPTY, Actions.CRAFT_IRON_GAUNTLETS_ACTION);
 			} else if (ironGreavesCount < ironGauntletsCount) {
-				return new OperationInfo(performer, performer, new int[0], Actions.CRAFT_IRON_GREAVES_ACTION);
+				return new OperationInfo(performer, performer, Args.EMPTY, Actions.CRAFT_IRON_GREAVES_ACTION);
 			} else if (ironBootsCount < ironGauntletsCount) {
-				return new OperationInfo(performer, performer, new int[0], Actions.CRAFT_IRON_BOOTS_ACTION);
+				return new OperationInfo(performer, performer, Args.EMPTY, Actions.CRAFT_IRON_BOOTS_ACTION);
 			} else {
 				return null;
 			}

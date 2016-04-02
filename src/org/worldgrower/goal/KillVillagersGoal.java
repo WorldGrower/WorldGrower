@@ -16,6 +16,7 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
@@ -36,7 +37,7 @@ public class KillVillagersGoal implements Goal {
 		} else {
 			List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.POISON_ACTION, w -> !w.hasIntelligence(), world);
 			if (targets.size() > 0) {
-				return new OperationInfo(performer, targets.get(0), new int[0], Actions.POISON_ACTION);
+				return new OperationInfo(performer, targets.get(0), Args.EMPTY, Actions.POISON_ACTION);
 			} else {
 				return null;
 			}

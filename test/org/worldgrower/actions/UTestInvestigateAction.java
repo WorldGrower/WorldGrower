@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -34,7 +35,7 @@ public class UTestInvestigateAction {
 		int id = TerrainGenerator.generateFireTrap(0, 0, world, 1f);
 		WorldObject target = world.findWorldObject(Constants.ID, id);
 		
-		Actions.INVESTIGATE_ACTION.execute(performer, target, new int[0], world);
+		Actions.INVESTIGATE_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(true, performer.getProperty(Constants.KNOWLEDGE_MAP).hasKnowledge(target));
 	}
@@ -46,8 +47,8 @@ public class UTestInvestigateAction {
 		int id = TerrainGenerator.generateFireTrap(0, 0, world, 1f);
 		WorldObject target = world.findWorldObject(Constants.ID, id);
 		
-		Actions.INVESTIGATE_ACTION.execute(performer, target, new int[0], world);
-		Actions.INVESTIGATE_ACTION.execute(performer, target, new int[0], world);
+		Actions.INVESTIGATE_ACTION.execute(performer, target, Args.EMPTY, world);
+		Actions.INVESTIGATE_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(true, performer.getProperty(Constants.KNOWLEDGE_MAP).hasKnowledge(target));
 		assertEquals(1, performer.getProperty(Constants.KNOWLEDGE_MAP).getKnowledge(target).size());
@@ -69,7 +70,7 @@ public class UTestInvestigateAction {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = createPerformer(2);
 		
-		assertEquals(0, Actions.INVESTIGATE_ACTION.distance(performer, performer, new int[0], world));
+		assertEquals(0, Actions.INVESTIGATE_ACTION.distance(performer, performer, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

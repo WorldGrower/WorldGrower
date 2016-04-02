@@ -22,6 +22,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.DungeonMaster;
 import org.worldgrower.MockMetaInformation;
@@ -172,7 +173,7 @@ public class UTestGoalUtils {
 	public void testCreateOperationInfoNull() {
 		World world = createWorld();
 		WorldObject performer = TestUtils.createWorldObject(2, 2, 1, 1, Constants.ID, 7);
-		assertEquals(null, GoalUtils.createOperationInfo(performer, Actions.CUT_WOOD_ACTION, new int[0], world));
+		assertEquals(null, GoalUtils.createOperationInfo(performer, Actions.CUT_WOOD_ACTION, Args.EMPTY, world));
 	}
 
 	@Test
@@ -180,7 +181,7 @@ public class UTestGoalUtils {
 		World world = createWorld();
 		WorldObject performer = TestUtils.createWorldObject(2, 2, 1, 1, Constants.ID, 7);
 		int treeId = PlantGenerator.generateTree(5, 5, world);
-		OperationInfo operationInfo = GoalUtils.createOperationInfo(performer, Actions.CUT_WOOD_ACTION, new int[0], world);
+		OperationInfo operationInfo = GoalUtils.createOperationInfo(performer, Actions.CUT_WOOD_ACTION, Args.EMPTY, world);
 		assertEquals(Actions.CUT_WOOD_ACTION, operationInfo.getManagedOperation());
 		assertEquals(treeId, operationInfo.getTarget().getProperty(Constants.ID).intValue());
 	}

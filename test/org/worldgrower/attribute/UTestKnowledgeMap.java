@@ -20,6 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.TestUtils;
@@ -223,7 +224,7 @@ public class UTestKnowledgeMap {
 		assertEquals(false, knowledgeMap.hasEvent(worldObject, t -> true, w -> true, world, Actions.CUT_WOOD_ACTION));
 		
 		knowledgeMap.addKnowledge(worldObject, world);
-		world.getHistory().actionPerformed(new OperationInfo(worldObject, worldObject, new int[0], Actions.CUT_WOOD_ACTION), new Turn());
+		world.getHistory().actionPerformed(new OperationInfo(worldObject, worldObject, Args.EMPTY, Actions.CUT_WOOD_ACTION), new Turn());
 		
 		assertEquals(true, knowledgeMap.hasEvent(worldObject, t -> true, w -> true, world, Actions.CUT_WOOD_ACTION));
 	}
@@ -235,7 +236,7 @@ public class UTestKnowledgeMap {
 		WorldObject worldObject = TestUtils.createSkilledWorldObject(1, Constants.FOOD, 500);
 	
 		knowledgeMap.addKnowledge(worldObject, world);
-		world.getHistory().actionPerformed(new OperationInfo(worldObject, worldObject, new int[0], Actions.CUT_WOOD_ACTION), new Turn());
+		world.getHistory().actionPerformed(new OperationInfo(worldObject, worldObject, Args.EMPTY, Actions.CUT_WOOD_ACTION), new Turn());
 		
 		assertEquals(false, knowledgeMap.hasEvent(worldObject, t -> t > 100, w -> true, world, Actions.CUT_WOOD_ACTION));
 	}

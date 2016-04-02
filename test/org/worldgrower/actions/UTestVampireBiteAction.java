@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
@@ -44,7 +45,7 @@ public class UTestVampireBiteAction {
 		assertEquals(26 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
 		assertEquals(0, performer.getProperty(Constants.VAMPIRE_BLOOD_LEVEL).intValue());
 		
-		Actions.VAMPIRE_BITE_ACTION.execute(performer, target, new int[0], world);
+		Actions.VAMPIRE_BITE_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(16 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
 		assertEquals(true, target.getProperty(Constants.CONDITIONS).hasCondition(Condition.VAMPIRE_BITE_CONDITION));
@@ -72,7 +73,7 @@ public class UTestVampireBiteAction {
 		WorldObject target = createPerformer(world, organization);
 		VampireUtils.vampirizePerson(performer, new WorldStateChangedListeners());
 		
-		assertEquals(0, Actions.VAMPIRE_BITE_ACTION.distance(performer, target, new int[0], world));
+		assertEquals(0, Actions.VAMPIRE_BITE_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(World world, WorldObject organization) {

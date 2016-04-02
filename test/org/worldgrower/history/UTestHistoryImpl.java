@@ -19,6 +19,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.List;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.TestUtils;
@@ -34,26 +35,26 @@ public class UTestHistoryImpl {
 	
 	public UTestHistoryImpl() {
 		history = new HistoryImpl();
-		history.actionPerformed(new OperationInfo(performer, target, new int[0], Actions.CUT_WOOD_ACTION), new Turn());
+		history.actionPerformed(new OperationInfo(performer, target, Args.EMPTY, Actions.CUT_WOOD_ACTION), new Turn());
 	}
 	
 	@Test
 	public void testfindHistoryItem() {
-		HistoryItem historyItem = history.findHistoryItem(performer, target, new int[0], Actions.CUT_WOOD_ACTION);
+		HistoryItem historyItem = history.findHistoryItem(performer, target, Args.EMPTY, Actions.CUT_WOOD_ACTION);
 		assertEquals(true, historyItem != null);
 		assertEquals(6, historyItem.getOperationInfo().getPerformer().getProperty(Constants.ID).intValue());
 	}
 	
 	@Test
 	public void testFindHistoryItems() {
-		List<HistoryItem> historyItems = history.findHistoryItems(performer, target, new int[0], Actions.CUT_WOOD_ACTION);
+		List<HistoryItem> historyItems = history.findHistoryItems(performer, target, Args.EMPTY, Actions.CUT_WOOD_ACTION);
 		assertEquals(1, historyItems.size());
 		assertEquals(6, historyItems.get(0).getOperationInfo().getPerformer().getProperty(Constants.ID).intValue());
 	}
 	
 	@Test
 	public void testFindHistoryItemsNoResult() {
-		List<HistoryItem> historyItems = history.findHistoryItems(performer, performer, new int[0], Actions.CUT_WOOD_ACTION);
+		List<HistoryItem> historyItems = history.findHistoryItems(performer, performer, Args.EMPTY, Actions.CUT_WOOD_ACTION);
 		assertEquals(0, historyItems.size());
 	}
 	
@@ -75,13 +76,13 @@ public class UTestHistoryImpl {
 	public void testGetLastPerformedOperationOverwrite() {
 		History history = new HistoryImpl();
 		
-		history.actionPerformed(new OperationInfo(performer, target, new int[0], Actions.CUT_WOOD_ACTION), new Turn());
+		history.actionPerformed(new OperationInfo(performer, target, Args.EMPTY, Actions.CUT_WOOD_ACTION), new Turn());
 		assertEquals(Actions.CUT_WOOD_ACTION, history.getLastPerformedOperation(performer).getOperationInfo().getManagedOperation());
 		
-		history.actionPerformed(new OperationInfo(performer, target, new int[0], Actions.MINE_ORE_ACTION), new Turn());
+		history.actionPerformed(new OperationInfo(performer, target, Args.EMPTY, Actions.MINE_ORE_ACTION), new Turn());
 		assertEquals(Actions.MINE_ORE_ACTION, history.getLastPerformedOperation(performer).getOperationInfo().getManagedOperation());
 		
-		history.actionPerformed(new OperationInfo(performer, target, new int[0], Actions.MOVE_ACTION), new Turn());
+		history.actionPerformed(new OperationInfo(performer, target, Args.EMPTY, Actions.MOVE_ACTION), new Turn());
 		assertEquals(Actions.MOVE_ACTION, history.getLastPerformedOperation(performer).getOperationInfo().getManagedOperation());
 		
 	}
@@ -93,7 +94,7 @@ public class UTestHistoryImpl {
 	
 	@Test
 	public void testFindHistoryItemsForAnyPerformer() {
-		List<HistoryItem> historyItems = history.findHistoryItemsForAnyPerformer(performer, target, new int[0], Actions.CUT_WOOD_ACTION);
+		List<HistoryItem> historyItems = history.findHistoryItemsForAnyPerformer(performer, target, Args.EMPTY, Actions.CUT_WOOD_ACTION);
 		assertEquals(1, historyItems.size());
 		assertEquals(6, historyItems.get(0).getOperationInfo().getPerformer().getProperty(Constants.ID).intValue());
 
@@ -104,7 +105,7 @@ public class UTestHistoryImpl {
 		WorldObject person = TestUtils.createWorldObject(8, "Test3");
 		person.setProperty(Constants.FACADE, performer);
 		WorldObject facade = FacadeUtils.createFacadeForSelf(person);
-		List<HistoryItem> historyItems = history.findHistoryItemsForAnyPerformer(facade, target, new int[0], Actions.CUT_WOOD_ACTION);
+		List<HistoryItem> historyItems = history.findHistoryItemsForAnyPerformer(facade, target, Args.EMPTY, Actions.CUT_WOOD_ACTION);
 		assertEquals(1, historyItems.size());
 		assertEquals(6, historyItems.get(0).getOperationInfo().getPerformer().getProperty(Constants.ID).intValue());
 

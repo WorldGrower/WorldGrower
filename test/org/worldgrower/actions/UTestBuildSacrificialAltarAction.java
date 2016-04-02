@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -36,7 +37,7 @@ public class UTestBuildSacrificialAltarAction {
 		WorldObject target = createPerformer(3);
 		
 		performer.setProperty(Constants.DEITY, Deity.ARES);
-		Actions.BUILD_SACRIFICAL_ALTAR_ACTION.execute(performer, target, new int[0], world);
+		Actions.BUILD_SACRIFICAL_ALTAR_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(1, world.getWorldObjects().size());
 		assertEquals("sacrificial Altar", world.getWorldObjects().get(0).getProperty(Constants.NAME));
@@ -61,7 +62,7 @@ public class UTestBuildSacrificialAltarAction {
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.STONE.generate(1f), 10);
 		performer.setProperty(Constants.DEITY, Deity.ARES);
 
-		assertEquals(0, Actions.BUILD_SACRIFICAL_ALTAR_ACTION.distance(performer, target, new int[0], world));
+		assertEquals(0, Actions.BUILD_SACRIFICAL_ALTAR_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

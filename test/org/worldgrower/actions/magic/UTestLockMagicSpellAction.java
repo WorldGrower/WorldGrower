@@ -19,6 +19,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.Arrays;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -39,7 +40,7 @@ public class UTestLockMagicSpellAction {
 		
 		target.setProperty(Constants.LOCKED, Boolean.FALSE);
 		
-		Actions.LOCK_MAGIC_SPELL_ACTION.execute(performer, target, new int[0], world);
+		Actions.LOCK_MAGIC_SPELL_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(true, target.getProperty(Constants.LOCKED));
 	}
@@ -66,7 +67,7 @@ public class UTestLockMagicSpellAction {
 		int id = BuildingGenerator.generateHouse(0, 0, world, 1f);
 		WorldObject target = world.findWorldObject(Constants.ID, id);
 		
-		assertEquals(0, Actions.LOCK_MAGIC_SPELL_ACTION.distance(performer, target, new int[0], world));
+		assertEquals(0, Actions.LOCK_MAGIC_SPELL_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

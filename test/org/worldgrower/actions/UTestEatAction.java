@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -35,7 +36,7 @@ public class UTestEatAction {
 		performer.setProperty(Constants.FOOD, 800);
 		
 		WorldObject berryBush = createBerryBush(world);
-		Actions.EAT_ACTION.execute(performer, berryBush, new int[0], world);
+		Actions.EAT_ACTION.execute(performer, berryBush, Args.EMPTY, world);
 		
 		assertEquals(900, performer.getProperty(Constants.FOOD).intValue());
 		assertEquals(200, berryBush.getProperty(Constants.FOOD_SOURCE).intValue());
@@ -59,7 +60,7 @@ public class UTestEatAction {
 		WorldObject performer = createPerformer(2);
 		
 		WorldObject berryBush = createBerryBush(world);
-		assertEquals(0, Actions.EAT_ACTION.distance(performer, berryBush, new int[0], world));
+		assertEquals(0, Actions.EAT_ACTION.distance(performer, berryBush, Args.EMPTY, world));
 	}
 	
 	private WorldObject createBerryBush(World world) {

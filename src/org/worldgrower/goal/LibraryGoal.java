@@ -16,6 +16,7 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
@@ -35,7 +36,7 @@ public class LibraryGoal implements Goal {
 		} else {
 			WorldObject targetLocation = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 2, 3, world);
 			if (targetLocation != null) {
-				return new OperationInfo(performer, targetLocation, new int[0], Actions.BUILD_LIBRARY_ACTION);
+				return new OperationInfo(performer, targetLocation, Args.EMPTY, Actions.BUILD_LIBRARY_ACTION);
 			} else {
 				return null;
 			}

@@ -16,6 +16,7 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
@@ -33,7 +34,7 @@ public class GetDiseaseCuredGoal implements Goal {
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		if (MagicSpellUtils.canCast(performer, Actions.CURE_DISEASE_ACTION)) {
 			if (Actions.CURE_DISEASE_ACTION.hasRequiredEnergy(performer)) {
-				return new OperationInfo(performer, performer, new int[0], Actions.CURE_DISEASE_ACTION);
+				return new OperationInfo(performer, performer, Args.EMPTY, Actions.CURE_DISEASE_ACTION);
 			} else {
 				return Goals.REST_GOAL.calculateGoal(performer, world);
 			}

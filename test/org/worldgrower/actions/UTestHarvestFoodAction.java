@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -35,7 +36,7 @@ public class UTestHarvestFoodAction {
 		WorldObject target = world.findWorldObject(Constants.ID, id);
 		
 		target.setProperty(Constants.FOOD_SOURCE, 100);
-		Actions.HARVEST_FOOD_ACTION.execute(performer, target, new int[0], world);
+		Actions.HARVEST_FOOD_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(1, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.FOOD));
 		assertEquals(80, target.getProperty(Constants.FOOD_SOURCE).intValue());
@@ -63,7 +64,7 @@ public class UTestHarvestFoodAction {
 		WorldObject target = world.findWorldObject(Constants.ID, id);
 		
 		target.setProperty(Constants.FOOD_SOURCE, 100);
-		assertEquals(0, Actions.HARVEST_FOOD_ACTION.distance(performer, target, new int[0], world));
+		assertEquals(0, Actions.HARVEST_FOOD_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

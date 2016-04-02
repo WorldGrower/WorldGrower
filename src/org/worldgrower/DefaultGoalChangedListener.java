@@ -79,7 +79,7 @@ public class DefaultGoalChangedListener implements GoalChangedListener {
 
 		public void setGoalAndTasks(WorldObject performer, MetaInformation metaInformation) {
 			metaInformation.setFinalGoal(goal);
-			metaInformation.setCurrentTask(Arrays.asList(new OperationInfo(performer, performer, new int[0], action)), GoalChangedReason.EMPTY_META_INFORMATION);
+			metaInformation.setCurrentTask(Arrays.asList(new OperationInfo(performer, performer, Args.EMPTY, action)), GoalChangedReason.EMPTY_META_INFORMATION);
 		}
 	}
 	

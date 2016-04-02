@@ -16,6 +16,7 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
@@ -39,7 +40,7 @@ public class RepairHammerGoal implements Goal {
 		} else if (ore < Actions.CRAFT_REPAIR_HAMMER_ACTION.getOreRequired()) {
 			return Goals.ORE_GOAL.calculateGoal(performer, world);
 		} else {
-			return new OperationInfo(performer, performer, new int[0], Actions.CRAFT_REPAIR_HAMMER_ACTION);
+			return new OperationInfo(performer, performer, Args.EMPTY, Actions.CRAFT_REPAIR_HAMMER_ACTION);
 		}
 	}
 

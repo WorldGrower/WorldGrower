@@ -16,6 +16,7 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
@@ -33,7 +34,7 @@ public class OffspringGoal implements Goal {
 		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.SEX_ACTION, w -> RacePropertyUtils.canHaveOffspring(performer, w), world);
 		if (targets.size() > 0) {
 			WorldObject target = targets.get(0);
-			return new OperationInfo(performer, target, new int[0], Actions.SEX_ACTION);
+			return new OperationInfo(performer, target, Args.EMPTY, Actions.SEX_ACTION);
 		} else {
 			return null;
 		}

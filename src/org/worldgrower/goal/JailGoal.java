@@ -16,6 +16,7 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
@@ -36,7 +37,7 @@ public class JailGoal implements Goal {
 		} else {
 			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 3, 3, world);
 			if (target != null) {
-				return new OperationInfo(performer, target, new int[0], Actions.BUILD_JAIL_ACTION);
+				return new OperationInfo(performer, target, Args.EMPTY, Actions.BUILD_JAIL_ACTION);
 			} else {
 				return null;
 			}

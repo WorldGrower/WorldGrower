@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -37,7 +38,7 @@ public class UTestBuildShrineAction {
 		
 		
 		performer.setProperty(Constants.DEITY, Deity.ARES);
-		Actions.BUILD_SHRINE_ACTION.execute(performer, target, new int[0], world);
+		Actions.BUILD_SHRINE_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(1, world.getWorldObjects().size());
 		assertEquals("shrine to Ares", world.getWorldObjects().get(0).getProperty(Constants.NAME));
@@ -62,7 +63,7 @@ public class UTestBuildShrineAction {
 		
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.STONE.generate(1f), 20);
 		performer.setProperty(Constants.DEITY, Deity.ARES);
-		assertEquals(0, Actions.BUILD_SHRINE_ACTION.distance(performer, target, new int[0], world));
+		assertEquals(0, Actions.BUILD_SHRINE_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

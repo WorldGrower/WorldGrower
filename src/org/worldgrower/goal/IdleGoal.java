@@ -16,6 +16,7 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
@@ -29,7 +30,7 @@ public class IdleGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		return new OperationInfo(performer, performer, new int[0], Actions.DO_NOTHING_ACTION);
+		return new OperationInfo(performer, performer, Args.EMPTY, Actions.DO_NOTHING_ACTION);
 	}
 	
 	@Override

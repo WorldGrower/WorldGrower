@@ -16,6 +16,7 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
@@ -36,7 +37,7 @@ public class BecomeLichGoal implements Goal {
 			return Goals.REST_GOAL.calculateGoal(performer, world);
 		} else {
 			//TODO: knowledge that someone is lich? And transform in isolation?
-			return new OperationInfo(performer, performer, new int[0], Actions.LICH_TRANSFORMATION_ACTION);
+			return new OperationInfo(performer, performer, Args.EMPTY, Actions.LICH_TRANSFORMATION_ACTION);
 		}
 	}
 

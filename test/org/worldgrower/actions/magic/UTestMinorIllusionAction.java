@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -49,7 +50,7 @@ public class UTestMinorIllusionAction {
 		WorldObject performer = createPerformer(2);
 		WorldObject target = TestUtils.createWorldObject(0, 0, 1, 1);
 		
-		assertEquals(0, Actions.MINOR_ILLUSION_ACTION.distance(performer, target, new int[0], world));
+		assertEquals(0, Actions.MINOR_ILLUSION_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

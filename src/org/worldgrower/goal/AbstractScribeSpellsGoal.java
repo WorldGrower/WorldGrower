@@ -19,6 +19,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.OperationInfo;
@@ -56,13 +57,13 @@ public abstract class AbstractScribeSpellsGoal implements Goal {
 				int performerPaperQuantity = performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.PAPER);
 				
 				if (skillPropery.getLevel(performer) < missingSpell.getRequiredSkillLevel()) {
-					return new OperationInfo(performer, library, new int[0], researchSkillAction);
+					return new OperationInfo(performer, library, Args.EMPTY, researchSkillAction);
 				} else if (!performer.getProperty(Constants.KNOWN_SPELLS).contains(missingSpell)) {
-					return new OperationInfo(performer, library, new int[0], Actions.getResearchSpellActionFor(missingSpell));
+					return new OperationInfo(performer, library, Args.EMPTY, Actions.getResearchSpellActionFor(missingSpell));
 				} else if (knownSpellsInInventory.size() == 0 && performerPaperQuantity < 5) {
 					return Goals.PAPER_GOAL.calculateGoal(performer, world);
 				} else if (knownSpellsInInventory.size() == 0) {
-					return new OperationInfo(performer, performer, new int[0], Actions.getScribeMagicSpellActionFor(missingSpell));
+					return new OperationInfo(performer, performer, Args.EMPTY, Actions.getScribeMagicSpellActionFor(missingSpell));
 				} else if (knownSpellsInInventory.size() > 0) {
 					int indexOfSpellBook = performerInventory.getIndexFor(Constants.MAGIC_SPELL, missingSpell);
 					return new OperationInfo(performer, library, new int[] {indexOfSpellBook}, Actions.PUT_ITEM_INTO_INVENTORY_ACTION);

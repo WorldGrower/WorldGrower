@@ -16,6 +16,7 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
@@ -36,15 +37,15 @@ public class ShrineToDeityGoal implements Goal {
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		Deity performerDeity = performer.getProperty(Constants.DEITY);
 		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.WORSHIP_DEITY_ACTION, w -> w.getProperty(Constants.DEITY) == performerDeity, world);
-		boolean notWorshippedYet = targets.size() > 0 ? !GoalUtils.actionAlreadyPerformed(performer, targets.get(0), Actions.WORSHIP_DEITY_ACTION, new int[0], world) : true;
+		boolean notWorshippedYet = targets.size() > 0 ? !GoalUtils.actionAlreadyPerformed(performer, targets.get(0), Actions.WORSHIP_DEITY_ACTION, Args.EMPTY, world) : true;
 		if (targets.size() > 0 && notWorshippedYet && isWorshipAllowed(performerDeity, world)) {
-			return new OperationInfo(performer, targets.get(0), new int[0], Actions.WORSHIP_DEITY_ACTION);
+			return new OperationInfo(performer, targets.get(0), Args.EMPTY, Actions.WORSHIP_DEITY_ACTION);
 		} else if ((targets.size() == 0) && performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.STONE) < 8) {
 				return Goals.STONE_GOAL.calculateGoal(performer, world);
 		} else if (targets.size() == 0) {
 			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 2, 3, world);
 			if (target != null) {
-				return new OperationInfo(performer, target, new int[0], Actions.BUILD_SHRINE_ACTION);
+				return new OperationInfo(performer, target, Args.EMPTY, Actions.BUILD_SHRINE_ACTION);
 			}
 		}
 		return null;

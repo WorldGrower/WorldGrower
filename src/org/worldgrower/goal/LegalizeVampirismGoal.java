@@ -17,6 +17,7 @@ package org.worldgrower.goal;
 import java.util.List;
 import java.util.Map;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
@@ -46,7 +47,7 @@ public class LegalizeVampirismGoal implements Goal {
 				CreatureType leaderCreatureType = leaderOfVillagers.getProperty(Constants.CREATURE_TYPE);
 				Conditions leaderConditions = leaderOfVillagers.getProperty(Constants.CONDITIONS);
 				if (leaderCreatureType != CreatureType.UNDEAD_CREATURE_TYPE && !leaderConditions.hasCondition(Condition.VAMPIRE_BITE_CONDITION)) {
-					return new OperationInfo(performer, leaderOfVillagers, new int[0], Actions.VAMPIRE_BITE_ACTION);
+					return new OperationInfo(performer, leaderOfVillagers, Args.EMPTY, Actions.VAMPIRE_BITE_ACTION);
 				}
 			}
 		}

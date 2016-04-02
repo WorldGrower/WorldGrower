@@ -17,6 +17,7 @@ package org.worldgrower.conversation;
 import java.util.Arrays;
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
@@ -69,7 +70,7 @@ public class CureDiseaseConversation implements Conversation {
 		World world = conversationContext.getWorld();
 		
 		if (replyIndex == YES) {
-			Actions.CURE_DISEASE_ACTION.execute(target, performer, new int[0], world);
+			Actions.CURE_DISEASE_ACTION.execute(target, performer, Args.EMPTY, world);
 		} else if (replyIndex == NO) {
 			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -20, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 		} else if (replyIndex == GET_LOST) {

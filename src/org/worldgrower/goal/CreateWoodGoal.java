@@ -16,6 +16,7 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
@@ -31,7 +32,7 @@ public class CreateWoodGoal implements Goal {
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		WorldObject target = GoalUtils.findNearestTarget(performer, Actions.CUT_WOOD_ACTION, world);
 		if (target != null) {
-			return new OperationInfo(performer, target, new int[0], Actions.CUT_WOOD_ACTION);
+			return new OperationInfo(performer, target, Args.EMPTY, Actions.CUT_WOOD_ACTION);
 		} else {
 			return null;
 		}

@@ -16,6 +16,7 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
@@ -33,7 +34,7 @@ public class BrawlGoal implements Goal {
 		Integer brawlOpponentId = performer.getProperty(Constants.BRAWL_OPPONENT_ID);
 		
 		WorldObject target = world.findWorldObject(Constants.ID, brawlOpponentId);
-		return new OperationInfo(performer, target, new int[0], Actions.NON_LETHAL_MELEE_ATTACK_ACTION);
+		return new OperationInfo(performer, target, Args.EMPTY, Actions.NON_LETHAL_MELEE_ATTACK_ACTION);
 	}
 	
 	@Override

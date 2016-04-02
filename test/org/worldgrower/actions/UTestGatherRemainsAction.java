@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -37,7 +38,7 @@ public class UTestGatherRemainsAction {
 		WorldObject target = world.findWorldObject(Constants.ID, id);
 		assertEquals("skeletal remains of null", target.getProperty(Constants.NAME));
 		
-		Actions.GATHER_REMAINS_ACTION.execute(performer, target, new int[0], world);
+		Actions.GATHER_REMAINS_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(1, performer.getProperty(Constants.INVENTORY).size());
 		assertEquals(1000, performer.getProperty(Constants.INVENTORY).get(0).getProperty(Constants.GOLD).intValue());
@@ -63,7 +64,7 @@ public class UTestGatherRemainsAction {
 		int id = CommonerGenerator.generateSkeletalRemains(createPerformer(3), world);
 		WorldObject target = world.findWorldObject(Constants.ID, id);
 		
-		assertEquals(0, Actions.GATHER_REMAINS_ACTION.distance(performer, target, new int[0], world));
+		assertEquals(0, Actions.GATHER_REMAINS_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

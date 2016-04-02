@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -41,7 +42,7 @@ public class UTestDetectPoisonAndDiseaseAction {
 		WorldListener listener = new WorldListener();
 		world.addListener(listener);
 		
-		Actions.DETECT_POISON_AND_DISEASE_ACTION.execute(performer, target, new int[0], world);
+		Actions.DETECT_POISON_AND_DISEASE_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals("Nothing was detected", listener.getMessage());
 	}
@@ -58,7 +59,7 @@ public class UTestDetectPoisonAndDiseaseAction {
 		WorldListener listener = new WorldListener();
 		world.addListener(listener);
 		
-		Actions.DETECT_POISON_AND_DISEASE_ACTION.execute(performer, target, new int[0], world);
+		Actions.DETECT_POISON_AND_DISEASE_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals("target has the following conditions: bitten by a vampire", listener.getMessage());
 	}
@@ -75,7 +76,7 @@ public class UTestDetectPoisonAndDiseaseAction {
 		WorldListener listener = new WorldListener();
 		world.addListener(listener);
 		
-		Actions.DETECT_POISON_AND_DISEASE_ACTION.execute(performer, target, new int[0], world);
+		Actions.DETECT_POISON_AND_DISEASE_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals("target has the following conditions: poisoned", listener.getMessage());
 	}
@@ -93,7 +94,7 @@ public class UTestDetectPoisonAndDiseaseAction {
 		WorldListener listener = new WorldListener();
 		world.addListener(listener);
 		
-		Actions.DETECT_POISON_AND_DISEASE_ACTION.execute(performer, target, new int[0], world);
+		Actions.DETECT_POISON_AND_DISEASE_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals("target has the following conditions: poisoned, bitten by a vampire", listener.getMessage());
 	}
@@ -117,7 +118,7 @@ public class UTestDetectPoisonAndDiseaseAction {
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
-		assertEquals(0, Actions.DETECT_POISON_AND_DISEASE_ACTION.distance(performer, target, new int[0], world));
+		assertEquals(0, Actions.DETECT_POISON_AND_DISEASE_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

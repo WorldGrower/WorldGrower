@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -34,7 +35,7 @@ public class UTestUnlockJailDoorAction {
 		WorldObject target = createPerformer(3);
 		world.addWorldObject(performer);
 		world.addWorldObject(target);
-		Actions.UNLOCK_JAIL_DOOR_ACTION.execute(performer, target, new int[0], world);
+		Actions.UNLOCK_JAIL_DOOR_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(1, world.getWorldObjects().size());
 		assertEquals(2, world.getWorldObjects().get(0).getProperty(Constants.ID).intValue());
@@ -60,7 +61,7 @@ public class UTestUnlockJailDoorAction {
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
-		assertEquals(0, Actions.UNLOCK_JAIL_DOOR_ACTION.distance(performer, target, new int[0], world));
+		assertEquals(0, Actions.UNLOCK_JAIL_DOOR_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

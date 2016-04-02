@@ -138,7 +138,7 @@ public class UTestDefaultGoalObstructedHandler {
 		actionTarget.setProperty(Constants.X, 2);
 		actionTarget.setProperty(Constants.Y, 2);
 		
-		assertEquals(true, DefaultGoalObstructedHandler.hasAnyoneSeenAction(performer, actionTarget, Actions.TALK_ACTION, new int[0], world));
+		assertEquals(true, DefaultGoalObstructedHandler.hasAnyoneSeenAction(performer, actionTarget, Actions.TALK_ACTION, Args.EMPTY, world));
 	}
 	
 	@Test
@@ -152,7 +152,7 @@ public class UTestDefaultGoalObstructedHandler {
 		performer.setProperty(Constants.X, 1);
 		performer.setProperty(Constants.Y, 1);
 		
-		assertEquals(false, DefaultGoalObstructedHandler.hasAnyoneSeenAction(performer, actionTarget, Actions.TALK_ACTION, new int[0], world));
+		assertEquals(false, DefaultGoalObstructedHandler.hasAnyoneSeenAction(performer, actionTarget, Actions.TALK_ACTION, Args.EMPTY, world));
 	}
 	
 	@Test
@@ -171,7 +171,7 @@ public class UTestDefaultGoalObstructedHandler {
 		actionTarget.setProperty(Constants.X, 2);
 		actionTarget.setProperty(Constants.Y, 2);
 		
-		assertEquals(false, DefaultGoalObstructedHandler.hasAnyoneSeenAction(performer, actionTarget, Actions.TALK_ACTION, new int[0], world));
+		assertEquals(false, DefaultGoalObstructedHandler.hasAnyoneSeenAction(performer, actionTarget, Actions.TALK_ACTION, Args.EMPTY, world));
 	}
 	
 	@Test
@@ -184,7 +184,7 @@ public class UTestDefaultGoalObstructedHandler {
 		
 		actionTarget.setProperty(Constants.BACKGROUND, new BackgroundImpl());
 		
-		DefaultGoalObstructedHandler.logToBackground(Goals.PROTECT_ONSE_SELF_GOAL, actionTarget, actionTarget, Actions.MELEE_ATTACK_ACTION, new int[0], performer, world);
+		DefaultGoalObstructedHandler.logToBackground(Goals.PROTECT_ONSE_SELF_GOAL, actionTarget, actionTarget, Actions.MELEE_ATTACK_ACTION, Args.EMPTY, performer, world);
 		List<String> angryReasons = actionTarget.getProperty(Constants.BACKGROUND).getAngryReasons(true, 2, performer, world);
 		assertEquals(1, angryReasons.size());
 	}

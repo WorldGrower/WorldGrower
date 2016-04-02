@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -36,7 +37,7 @@ public class UTestCreateGraveAction {
 		
 		addSkeletonToInventory(performer, world);
 		
-		Actions.CREATE_GRAVE_ACTION.execute(performer, target, new int[0], world);
+		Actions.CREATE_GRAVE_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(1, world.getWorldObjects().size());
 		assertEquals("grave", world.getWorldObjects().get(0).getProperty(Constants.NAME));
@@ -71,7 +72,7 @@ public class UTestCreateGraveAction {
 		
 		addSkeletonToInventory(performer, world);
 		
-		assertEquals(0, Actions.CREATE_GRAVE_ACTION.distance(performer, performer, new int[0], world));
+		assertEquals(0, Actions.CREATE_GRAVE_ACTION.distance(performer, performer, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

@@ -17,6 +17,7 @@ package org.worldgrower.deity;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.TestUtils;
@@ -60,7 +61,7 @@ public class UTestDemeter {
 		
 		performer.setProperty(Constants.PROFESSION, null);
 		performer.setProperty(Constants.FOOD, 0);
-		world.getHistory().actionPerformed(new OperationInfo(performer, performer, new int[0], Actions.EAT_ACTION), new Turn());
+		world.getHistory().actionPerformed(new OperationInfo(performer, performer, Args.EMPTY, Actions.EAT_ACTION), new Turn());
 		assertEquals(1, deity.getReasonIndex(performer, world));
 	}
 }

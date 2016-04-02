@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -42,7 +43,7 @@ public class UTestFireBoltAttackAction {
 		target.setProperty(Constants.HIT_POINTS, 10 * Item.COMBAT_MULTIPLIER);
 		target.setProperty(Constants.HIT_POINTS_MAX, 10 * Item.COMBAT_MULTIPLIER);
 		
-		Actions.FIRE_BOLT_ATTACK_ACTION.execute(performer, target, new int[0], world);
+		Actions.FIRE_BOLT_ATTACK_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(5 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
 	}
@@ -54,7 +55,7 @@ public class UTestFireBoltAttackAction {
 		int id = BuildingGenerator.generateShack(0, 0, world, 1f);
 		WorldObject target = world.findWorldObject(Constants.ID, id);
 		
-		Actions.FIRE_BOLT_ATTACK_ACTION.execute(performer, target, new int[0], world);
+		Actions.FIRE_BOLT_ATTACK_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(true, target.getProperty(Constants.CONDITIONS).hasCondition(Condition.BURNING_CONDITION));
 	}
@@ -81,7 +82,7 @@ public class UTestFireBoltAttackAction {
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
-		assertEquals(0, Actions.FIRE_BOLT_ATTACK_ACTION.distance(performer, target, new int[0], world));
+		assertEquals(0, Actions.FIRE_BOLT_ATTACK_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

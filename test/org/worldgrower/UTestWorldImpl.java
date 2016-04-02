@@ -107,7 +107,7 @@ public class UTestWorldImpl {
 		world.addWorldObject(house);
 		world.addWorldObject(person);
 		
-		world.getHistory().actionPerformed(new OperationInfo(person, house, new int[0], Actions.CUT_WOOD_ACTION), new Turn());
+		world.getHistory().actionPerformed(new OperationInfo(person, house, Args.EMPTY, Actions.CUT_WOOD_ACTION), new Turn());
 		
 		world.save(fileToSave);
 		world = WorldImpl.load(fileToSave);

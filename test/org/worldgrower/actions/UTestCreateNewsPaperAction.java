@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -36,7 +37,7 @@ public class UTestCreateNewsPaperAction {
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
 		performerInventory.addQuantity(Item.PAPER.generate(1f), 10);
 
-		Actions.CREATE_NEWS_PAPER_ACTION.execute(performer, performer, new int[0], world);
+		Actions.CREATE_NEWS_PAPER_ACTION.execute(performer, performer, Args.EMPTY, world);
 		
 		assertEquals(8, performerInventory.getQuantityFor(Constants.PAPER));
 		assertEquals(1, performerInventory.getQuantityFor(Constants.TEXT));
@@ -59,7 +60,7 @@ public class UTestCreateNewsPaperAction {
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
 		performerInventory.addQuantity(Item.PAPER.generate(1f), 10);
 		
-		assertEquals(0, Actions.CREATE_NEWS_PAPER_ACTION.distance(performer, performer, new int[0], world));
+		assertEquals(0, Actions.CREATE_NEWS_PAPER_ACTION.distance(performer, performer, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

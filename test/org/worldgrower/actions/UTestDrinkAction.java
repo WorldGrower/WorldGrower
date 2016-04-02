@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -39,7 +40,7 @@ public class UTestDrinkAction {
 		WorldObject well = world.findWorldObject(Constants.ID, wellId);
 		
 		assertEquals(800, performer.getProperty(Constants.WATER).intValue());
-		Actions.DRINK_ACTION.execute(performer, well, new int[0], world);
+		Actions.DRINK_ACTION.execute(performer, well, Args.EMPTY, world);
 		
 		assertEquals(900, performer.getProperty(Constants.WATER).intValue());
 	}
@@ -54,7 +55,7 @@ public class UTestDrinkAction {
 		well.setProperty(Constants.ALCOHOL_LEVEL, 9000);
 		
 		assertEquals(800, performer.getProperty(Constants.WATER).intValue());
-		Actions.DRINK_ACTION.execute(performer, well, new int[0], world);
+		Actions.DRINK_ACTION.execute(performer, well, Args.EMPTY, world);
 		
 		assertEquals(true, performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.INTOXICATED_CONDITION));
 	}
@@ -69,7 +70,7 @@ public class UTestDrinkAction {
 		well.setProperty(Constants.POISON_DAMAGE, 10);
 		
 		assertEquals(800, performer.getProperty(Constants.WATER).intValue());
-		Actions.DRINK_ACTION.execute(performer, well, new int[0], world);
+		Actions.DRINK_ACTION.execute(performer, well, Args.EMPTY, world);
 		
 		assertEquals(true, performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.POISONED_CONDITION));
 	}
@@ -95,7 +96,7 @@ public class UTestDrinkAction {
 		int wellId = BuildingGenerator.buildWell(0, 0, world, 1f);
 		WorldObject well = world.findWorldObject(Constants.ID, wellId);
 		
-		assertEquals(0, Actions.DRINK_ACTION.distance(performer, well, new int[0], world));
+		assertEquals(0, Actions.DRINK_ACTION.distance(performer, well, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

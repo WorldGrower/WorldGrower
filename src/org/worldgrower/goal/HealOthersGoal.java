@@ -16,6 +16,7 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
@@ -34,7 +35,7 @@ public class HealOthersGoal implements Goal {
 			if (Actions.MINOR_HEAL_ACTION.hasRequiredEnergy(performer)) {
 				List<WorldObject> healTargets = findTargetsToHeal(performer, world);
 				if (healTargets.size()  > 0) {
-					return new OperationInfo(performer, performer, new int[0], Actions.MINOR_HEAL_ACTION);
+					return new OperationInfo(performer, performer, Args.EMPTY, Actions.MINOR_HEAL_ACTION);
 				}
 			} else {
 				return Goals.REST_GOAL.calculateGoal(performer, world);

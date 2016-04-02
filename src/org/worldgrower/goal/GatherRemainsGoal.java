@@ -16,6 +16,7 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
@@ -34,7 +35,7 @@ public class GatherRemainsGoal implements Goal {
 		List<WorldObject> targets = getRemains(world);
 
 		if (targets.size() > 0) {
-			return new OperationInfo(performer, targets.get(0), new int[0], Actions.GATHER_REMAINS_ACTION);
+			return new OperationInfo(performer, targets.get(0), Args.EMPTY, Actions.GATHER_REMAINS_ACTION);
 		} else {
 			return null;
 		}

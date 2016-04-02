@@ -16,6 +16,7 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
@@ -41,7 +42,7 @@ public class ResearchMagicSkillsKnowledgeGoal implements Goal {
 			for(SkillProperty skillProperty : MAGIC_SKILLS) {
 				if (skillProperty.getLevel(performer) < 10) {
 					ResearchKnowledgeSkillAction researchKnowledgeSkillAction = Actions.getResearchKnowledgeSkillActionFor(skillProperty);
-					return new OperationInfo(performer, library, new int[0], researchKnowledgeSkillAction);
+					return new OperationInfo(performer, library, Args.EMPTY, researchKnowledgeSkillAction);
 				}
 			}
 		} else {

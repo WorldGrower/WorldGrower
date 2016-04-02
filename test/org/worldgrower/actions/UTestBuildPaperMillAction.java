@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -33,7 +34,7 @@ public class UTestBuildPaperMillAction {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
-		Actions.BUILD_PAPER_MILL_ACTION.execute(performer, target, new int[0], world);
+		Actions.BUILD_PAPER_MILL_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(1, world.getWorldObjects().size());
 		assertEquals("papermill", world.getWorldObjects().get(0).getProperty(Constants.NAME));
@@ -55,7 +56,7 @@ public class UTestBuildPaperMillAction {
 		WorldObject target = createPerformer(3);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
 		
-		assertEquals(0, Actions.BUILD_PAPER_MILL_ACTION.distance(performer, target, new int[0], world));
+		assertEquals(0, Actions.BUILD_PAPER_MILL_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

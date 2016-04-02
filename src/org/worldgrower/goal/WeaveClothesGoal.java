@@ -16,6 +16,7 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
@@ -40,11 +41,11 @@ public class WeaveClothesGoal implements Goal {
 			int cottonBootsCount = performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.NAME, Item.COTTON_BOOTS_NAME).size();
 			
 			if (cottonShirtCount == 0){
-				return new OperationInfo(performer, performer, new int[0], Actions.WEAVE_COTTON_SHIRT_ACTION);
+				return new OperationInfo(performer, performer, Args.EMPTY, Actions.WEAVE_COTTON_SHIRT_ACTION);
 			} else if (cottonPantsCount < cottonShirtCount) {
-				return new OperationInfo(performer, performer, new int[0], Actions.WEAVE_COTTON_PANTS_ACTION);
+				return new OperationInfo(performer, performer, Args.EMPTY, Actions.WEAVE_COTTON_PANTS_ACTION);
 			} else if (cottonBootsCount < cottonShirtCount) {
-				return new OperationInfo(performer, performer, new int[0], Actions.WEAVE_COTTON_BOOTS_ACTION);
+				return new OperationInfo(performer, performer, Args.EMPTY, Actions.WEAVE_COTTON_BOOTS_ACTION);
 			} else {
 				return null;
 			}

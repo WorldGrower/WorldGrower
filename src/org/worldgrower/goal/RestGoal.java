@@ -16,6 +16,7 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
@@ -32,9 +33,9 @@ public class RestGoal implements Goal {
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		if (performer.hasProperty(Constants.HOUSES) && performer.getProperty(Constants.HOUSES) != null && performer.getProperty(Constants.HOUSES).size() > 0) {
 			WorldObject bestHouse = HousePropertyUtils.getBestHouse(performer, world);
-			return new OperationInfo(performer, bestHouse, new int[0], Actions.SLEEP_ACTION);
+			return new OperationInfo(performer, bestHouse, Args.EMPTY, Actions.SLEEP_ACTION);
 		} else {
-			return new OperationInfo(performer, performer, new int[0], Actions.REST_ACTION);
+			return new OperationInfo(performer, performer, Args.EMPTY, Actions.REST_ACTION);
 		}
 	}
 	

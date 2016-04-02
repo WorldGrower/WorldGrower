@@ -35,6 +35,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.DungeonMaster;
 import org.worldgrower.ManagedOperation;
@@ -165,8 +166,8 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 
     private void performLeftMouseAction(WorldObject worldObject) {
-    	if (Game.canActionExecute(playerCharacter, leftMouseClickAction, new int[0], world, worldObject)) {
-    		Game.executeAction(playerCharacter, leftMouseClickAction, new int[0], world, dungeonMaster, worldObject, container);
+    	if (Game.canActionExecute(playerCharacter, leftMouseClickAction, Args.EMPTY, world, worldObject)) {
+    		Game.executeAction(playerCharacter, leftMouseClickAction, Args.EMPTY, world, dungeonMaster, worldObject, container);
     	} else {
     		new ShowTextDialog("Cannot execute action '" + leftMouseClickAction.getSimpleDescription() + "' on " + worldObject.getProperty(Constants.NAME)).showMe();
     	}
@@ -482,7 +483,7 @@ public class GuiMouseListener extends MouseAdapter {
 	private void addNewsPaperAction(JMenu menu) {
 		JMenuItem guiCreateNewsPaperMenuItem = MenuFactory.createJMenuItem(new GuiCreateNewsPaperAction(playerCharacter, imageInfoReader, world, container, dungeonMaster));
 		guiCreateNewsPaperMenuItem.setText("Create newspaper...");
-		boolean enabled = (Game.canActionExecute(playerCharacter, Actions.CREATE_NEWS_PAPER_ACTION, new int[0], world, playerCharacter));
+		boolean enabled = (Game.canActionExecute(playerCharacter, Actions.CREATE_NEWS_PAPER_ACTION, Args.EMPTY, world, playerCharacter));
 		guiCreateNewsPaperMenuItem.setEnabled(enabled);
 		addToolTips(Actions.CREATE_NEWS_PAPER_ACTION, guiCreateNewsPaperMenuItem);
 		addImageIcon(Actions.CREATE_NEWS_PAPER_ACTION, guiCreateNewsPaperMenuItem);
@@ -639,7 +640,7 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 
 	private boolean canPlayerCharacterPerformAction(WorldObject worldObject, ManagedOperation action) {
-		return canPlayerCharacterPerformActionUnderCorrectCircumstances(worldObject, action) && action.isActionPossible(playerCharacter, worldObject, new int[0], world);
+		return canPlayerCharacterPerformActionUnderCorrectCircumstances(worldObject, action) && action.isActionPossible(playerCharacter, worldObject, Args.EMPTY, world);
 	}
 	private boolean canPlayerCharacterPerformTalkAction(WorldObject worldObject, ManagedOperation action) {
 		return canPlayerCharacterPerformActionUnderCorrectCircumstances(worldObject, action) && action.isActionPossible(playerCharacter, worldObject, Conversations.createArgs(Conversations.NAME_CONVERSATION), world);
@@ -650,7 +651,7 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 	
 	private boolean canPlayerCharacterPerformBuildAction(ManagedOperation action) {
-		return action.isActionPossible(playerCharacter, playerCharacter, new int[0], world) && playerCharacter.canWorldObjectPerformAction(action);
+		return action.isActionPossible(playerCharacter, playerCharacter, Args.EMPTY, world) && playerCharacter.canWorldObjectPerformAction(action);
 	}
 
 	public void executeBuildAction(ManagedOperation buildAction, WorldObject buildLocation, int[] args) {

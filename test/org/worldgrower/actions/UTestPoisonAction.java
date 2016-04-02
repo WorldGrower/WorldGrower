@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -39,7 +40,7 @@ public class UTestPoisonAction {
 		
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.POISON.generate(1f), 10);
 		performer.setProperty(Constants.KNOWLEDGE_MAP, new KnowledgeMap());
-		Actions.POISON_ACTION.execute(performer, well, new int[0], world);
+		Actions.POISON_ACTION.execute(performer, well, Args.EMPTY, world);
 		
 		assertEquals(9, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.POISON_DAMAGE));
 		assertEquals(true, well.hasProperty(Constants.POISON_DAMAGE));
@@ -64,7 +65,7 @@ public class UTestPoisonAction {
 		WorldObject target = world.findWorldObject(Constants.ID, wellId);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.POISON.generate(1f), 10);
 		
-		assertEquals(0, Actions.POISON_ACTION.distance(performer, target, new int[0], world));
+		assertEquals(0, Actions.POISON_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

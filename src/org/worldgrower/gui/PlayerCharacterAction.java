@@ -18,6 +18,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 
+import org.worldgrower.Args;
 import org.worldgrower.DungeonMaster;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
@@ -44,6 +45,6 @@ public class PlayerCharacterAction extends AbstractAction {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Game.executeAction(playerCharacter, action, new int[0], world, dungeonMaster, target, container);
+		Game.executeAction(playerCharacter, action, Args.EMPTY, world, dungeonMaster, target, container);
 	}
 }

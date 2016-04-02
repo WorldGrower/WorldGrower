@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -35,7 +36,7 @@ public class UTestMineStoneAction {
 		WorldObject target = world.findWorldObject(Constants.ID, stoneResourceId);
 		
 		assertEquals(9000, target.getProperty(Constants.STONE_SOURCE).intValue());
-		Actions.MINE_STONE_ACTION.execute(performer, target, new int[0], world);
+		Actions.MINE_STONE_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(1, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.STONE));
 		assertEquals(8999, target.getProperty(Constants.STONE_SOURCE).intValue());
@@ -62,7 +63,7 @@ public class UTestMineStoneAction {
 		int stoneResourceId = TerrainGenerator.generateStoneResource(0, 0, world);
 		WorldObject target = world.findWorldObject(Constants.ID, stoneResourceId);
 		
-		assertEquals(0, Actions.MINE_STONE_ACTION.distance(performer, target, new int[0], world));
+		assertEquals(0, Actions.MINE_STONE_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

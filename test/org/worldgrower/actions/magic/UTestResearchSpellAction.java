@@ -19,6 +19,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -40,7 +41,7 @@ public class UTestResearchSpellAction {
 		
 		assertEquals(0, performer.getProperty(Constants.STUDYING_SPELLS).count(Actions.BURDEN_ACTION));
 		
-		researchSpellAction.execute(performer, performer, new int[0], world);
+		researchSpellAction.execute(performer, performer, Args.EMPTY, world);
 		
 		assertEquals(1, performer.getProperty(Constants.STUDYING_SPELLS).count(Actions.BURDEN_ACTION));
 	}
@@ -53,7 +54,7 @@ public class UTestResearchSpellAction {
 		assertEquals(0, performer.getProperty(Constants.STUDYING_SPELLS).count(Actions.BURDEN_ACTION));
 		
 		for(int i=0; i<100; i++) {
-			researchSpellAction.execute(performer, performer, new int[0], world);
+			researchSpellAction.execute(performer, performer, Args.EMPTY, world);
 		}
 		
 		assertEquals(true, performer.getProperty(Constants.KNOWN_SPELLS).contains(Actions.BURDEN_ACTION));

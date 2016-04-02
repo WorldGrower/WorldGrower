@@ -16,6 +16,7 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
@@ -41,7 +42,7 @@ public class TrainGoal implements Goal {
 				return Goals.WOOD_GOAL.calculateGoal(performer, world);
 			} else {
 				WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 2, 3, world);
-				return new OperationInfo(performer, target, new int[0], Actions.CONSTRUCT_TRAINING_DUMMY_ACTION);
+				return new OperationInfo(performer, target, Args.EMPTY, Actions.CONSTRUCT_TRAINING_DUMMY_ACTION);
 			}
 		}
 	}

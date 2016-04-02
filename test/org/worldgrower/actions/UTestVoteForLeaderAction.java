@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -60,7 +61,7 @@ public class UTestVoteForLeaderAction {
 		target.setProperty(Constants.ORGANIZATION_ID, 7);
 		target.setProperty(Constants.TURN_COUNTER, 450);
 		
-		assertEquals(0, Actions.VOTE_FOR_LEADER_ACTION.distance(performer, target, new int[0], world));
+		assertEquals(0, Actions.VOTE_FOR_LEADER_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

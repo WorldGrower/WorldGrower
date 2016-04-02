@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -35,7 +36,7 @@ public class UTestCutWoodAction {
 		WorldObject target = world.findWorldObject(Constants.ID, treeId);
 		
 		assertEquals(50, target.getProperty(Constants.WOOD_SOURCE).intValue());
-		Actions.CUT_WOOD_ACTION.execute(performer, target, new int[0], world);
+		Actions.CUT_WOOD_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(1, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD));
 		assertEquals(49, target.getProperty(Constants.WOOD_SOURCE).intValue());

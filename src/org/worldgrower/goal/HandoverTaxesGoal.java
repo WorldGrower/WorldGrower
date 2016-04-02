@@ -16,6 +16,7 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
@@ -32,7 +33,7 @@ public class HandoverTaxesGoal implements Goal {
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		WorldObject target = GroupPropertyUtils.getLeaderOfVillagers(world);
 		if (target != null && !target.equals(performer)) {
-			return new OperationInfo(performer, target, new int[0], Actions.HANDOVER_TAXES_ACTION);
+			return new OperationInfo(performer, target, Args.EMPTY, Actions.HANDOVER_TAXES_ACTION);
 		} else {
 			return null;
 		}

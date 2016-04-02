@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -35,7 +36,7 @@ public class UTestButcherAction {
 		int id = new CreatureGenerator(GroupPropertyUtils.create(null, "CowOrg", world)).generateCow(0, 0, world);
 		WorldObject target = world.findWorldObject(Constants.ID, id);
 		
-		Actions.BUTCHER_ACTION.execute(performer, target, new int[0], world);
+		Actions.BUTCHER_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(false, world.exists(target));
 		assertEquals(1, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.FOOD));
@@ -61,7 +62,7 @@ public class UTestButcherAction {
 		int id = new CreatureGenerator(GroupPropertyUtils.create(null, "CowOrg", world)).generateCow(0, 0, world);
 		WorldObject target = world.findWorldObject(Constants.ID, id);
 		
-		assertEquals(0, Actions.BUTCHER_ACTION.distance(performer, target, new int[0], world));
+		assertEquals(0, Actions.BUTCHER_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

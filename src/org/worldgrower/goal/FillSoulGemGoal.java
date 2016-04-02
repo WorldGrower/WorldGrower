@@ -16,6 +16,7 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
@@ -41,7 +42,7 @@ public class FillSoulGemGoal implements Goal {
 				&& Actions.SOUL_TRAP_ACTION.hasRequiredEnergy(performer)) {
 			List<WorldObject> poisonedVillagers = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> w.getProperty(Constants.CONDITIONS).hasCondition(Condition.POISONED_CONDITION));
 			if (poisonedVillagers.size() > 0) {
-				return new OperationInfo(performer, poisonedVillagers.get(0), new int[0], Actions.SOUL_TRAP_ACTION);
+				return new OperationInfo(performer, poisonedVillagers.get(0), Args.EMPTY, Actions.SOUL_TRAP_ACTION);
 			}
 		}
 		return null;

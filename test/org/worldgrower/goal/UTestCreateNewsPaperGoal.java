@@ -19,6 +19,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.DoNothingWorldOnTurn;
 import org.worldgrower.TestUtils;
@@ -94,7 +95,7 @@ public class UTestCreateNewsPaperGoal {
 		
 		assertEquals(false, goal.isGoalMet(performer, world));
 		
-		performer.getProperty(Constants.INVENTORY).addQuantity(Item.generateNewsPaper(new ArrayList<>(), new int[0], world), 20);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.generateNewsPaper(new ArrayList<>(), Args.EMPTY, world), 20);
 		assertEquals(true, goal.isGoalMet(performer, world));
 	}
 	

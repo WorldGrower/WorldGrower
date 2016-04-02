@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -37,7 +38,7 @@ public class UTestWaterWalkAction {
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
-		Actions.WATER_WALK_ACTION.execute(performer, target, new int[0], world);
+		Actions.WATER_WALK_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(true, target.getProperty(Constants.CONDITIONS).hasCondition(Condition.WATER_WALK_CONDITION));
 	}
@@ -61,7 +62,7 @@ public class UTestWaterWalkAction {
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 
-		assertEquals(0, Actions.WATER_WALK_ACTION.distance(performer, target, new int[0], world));
+		assertEquals(0, Actions.WATER_WALK_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

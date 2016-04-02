@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -35,7 +36,7 @@ public class UTestPoisonAttackAction {
 		
 		performer.setProperty(Constants.DAMAGE, 5);
 		target.setProperty(Constants.HIT_POINTS, 10);
-		Actions.POISON_ATTACK_ACTION.execute(performer, target, new int[0], world);
+		Actions.POISON_ATTACK_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(5, target.getProperty(Constants.HIT_POINTS).intValue());
 	}
@@ -48,7 +49,7 @@ public class UTestPoisonAttackAction {
 		
 		performer.setProperty(Constants.DAMAGE, 5);
 		target.setProperty(Constants.HIT_POINTS, 2);
-		Actions.POISON_ATTACK_ACTION.execute(performer, target, new int[0], world);
+		Actions.POISON_ATTACK_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(1, target.getProperty(Constants.HIT_POINTS).intValue());
 		assertEquals(true, target.getProperty(Constants.CONDITIONS).hasCondition(Condition.PARALYZED_CONDITION));

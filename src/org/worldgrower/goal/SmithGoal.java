@@ -16,6 +16,7 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
@@ -35,7 +36,7 @@ public class SmithGoal implements Goal {
 		} else {
 			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 3, 4, world);
 			if (target != null) {
-				return new OperationInfo(performer, target, new int[0], Actions.BUILD_SMITH_ACTION);
+				return new OperationInfo(performer, target, Args.EMPTY, Actions.BUILD_SMITH_ACTION);
 			} else {
 				return null;
 			}

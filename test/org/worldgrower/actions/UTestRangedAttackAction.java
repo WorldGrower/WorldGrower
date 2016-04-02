@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -39,7 +40,7 @@ public class UTestRangedAttackAction {
 		WorldObject target = createPerformer(world, organization);
 		
 		assertEquals(26 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
-		Actions.RANGED_ATTACK_ACTION.execute(performer, target, new int[0], world);
+		Actions.RANGED_ATTACK_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(24 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
 	}
@@ -51,7 +52,7 @@ public class UTestRangedAttackAction {
 		WorldObject performer = createPerformer(world, organization);
 		WorldObject target = createPerformer(world, organization);
 		
-		assertEquals(1, Actions.RANGED_ATTACK_ACTION.distance(performer, target, new int[0], world));
+		assertEquals(1, Actions.RANGED_ATTACK_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 	
 	@Test
@@ -63,7 +64,7 @@ public class UTestRangedAttackAction {
 		
 		performer.setProperty(Constants.LEFT_HAND_EQUIPMENT, Item.IRON_GREATAXE.generate(1f));
 		
-		assertEquals(1, Actions.RANGED_ATTACK_ACTION.distance(performer, target, new int[0], world));
+		assertEquals(1, Actions.RANGED_ATTACK_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 	
 	@Test
@@ -80,7 +81,7 @@ public class UTestRangedAttackAction {
 		target.setProperty(Constants.X, 0);
 		target.setProperty(Constants.Y, 1);
 		
-		assertEquals(0, Actions.RANGED_ATTACK_ACTION.distance(performer, target, new int[0], world));
+		assertEquals(0, Actions.RANGED_ATTACK_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 	
 	@Test
@@ -97,7 +98,7 @@ public class UTestRangedAttackAction {
 		target.setProperty(Constants.X, 0);
 		target.setProperty(Constants.Y, 20);
 		
-		assertEquals(16, Actions.RANGED_ATTACK_ACTION.distance(performer, target, new int[0], world));
+		assertEquals(16, Actions.RANGED_ATTACK_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 	
 	@Test

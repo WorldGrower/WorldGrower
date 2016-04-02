@@ -34,7 +34,7 @@ public class UTestTaskCalculator {
 		World world = createWorld();
 		world.addWorldObject(performer);
 		world.addWorldObject(target);
-		List<OperationInfo> tasks = taskCalculator.calculateTask(performer, world, new OperationInfo(performer, target, new int[0], new CutWoodAction()));
+		List<OperationInfo> tasks = taskCalculator.calculateTask(performer, world, new OperationInfo(performer, target, Args.EMPTY, new CutWoodAction()));
 		
 		assertEquals(3, tasks.size());
 		assertContains(tasks.get(0).toString(), "args=[-1, -1]");
@@ -55,7 +55,7 @@ public class UTestTaskCalculator {
 		world.addWorldObject(performer);
 		world.addWorldObject(target);
 		world.addWorldObject(obstacle);
-		List<OperationInfo> tasks = taskCalculator.calculateTask(performer, world, new OperationInfo(performer, target, new int[0], new CutWoodAction()));
+		List<OperationInfo> tasks = taskCalculator.calculateTask(performer, world, new OperationInfo(performer, target, Args.EMPTY, new CutWoodAction()));
 		
 		assertEquals(4, tasks.size());
 		assertContains(tasks.get(0).toString(), "args=[-1, -1]");
@@ -77,7 +77,7 @@ public class UTestTaskCalculator {
 		world.addWorldObject(obstacle1);
 		world.addWorldObject(obstacle2);
 		world.addWorldObject(obstacle3);
-		List<OperationInfo> tasks = taskCalculator.calculateTask(performer, world, new OperationInfo(performer, target, new int[0], new CutWoodAction()));
+		List<OperationInfo> tasks = taskCalculator.calculateTask(performer, world, new OperationInfo(performer, target, Args.EMPTY, new CutWoodAction()));
 		
 		assertEquals(4, tasks.size());
 		assertContains(tasks.get(0).toString(), "args=[-1, 0]");
@@ -98,7 +98,7 @@ public class UTestTaskCalculator {
 		world.addWorldObject(target);
 		world.addWorldObject(obstacle1);
 		world.addWorldObject(obstacle2);
-		List<OperationInfo> tasks = taskCalculator.calculateTask(performer, world, new OperationInfo(performer, target, new int[0], new CutWoodAction()));
+		List<OperationInfo> tasks = taskCalculator.calculateTask(performer, world, new OperationInfo(performer, target, Args.EMPTY, new CutWoodAction()));
 		
 		assertEquals(7, tasks.size());
 		assertContains(tasks.get(0).toString(), "args=[1, 1]");
@@ -119,7 +119,7 @@ public class UTestTaskCalculator {
 		world.addWorldObject(performer);
 		world.addWorldObject(target);
 		world.addWorldObject(obstacle);
-		List<OperationInfo> tasks = taskCalculator.calculateTask(performer, world, new OperationInfo(performer, target, new int[0], new CutWoodAction()));
+		List<OperationInfo> tasks = taskCalculator.calculateTask(performer, world, new OperationInfo(performer, target, Args.EMPTY, new CutWoodAction()));
 		
 		assertEquals(3, tasks.size());
 		assertContains(tasks.get(0).toString(), "args=[-1, -1]");

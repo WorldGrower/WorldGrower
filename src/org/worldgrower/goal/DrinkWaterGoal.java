@@ -16,6 +16,7 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.Reach;
@@ -44,7 +45,7 @@ public class DrinkWaterGoal implements Goal {
 				int indexOfWater = performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.WATER);
 				return new OperationInfo(performer, performer, new int[]{indexOfWater}, Actions.DRINK_FROM_INVENTORY_ACTION);
 			} else if (waterSourcetarget != null) {
-				return new OperationInfo(performer, waterSourcetarget, new int[0], Actions.DRINK_ACTION);
+				return new OperationInfo(performer, waterSourcetarget, Args.EMPTY, Actions.DRINK_ACTION);
 			} else {
 				if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) < 6) {
 					return Goals.WOOD_GOAL.calculateGoal(performer, world);
@@ -53,9 +54,9 @@ public class DrinkWaterGoal implements Goal {
 					if (targetLocation != null) {
 						List<WorldObject> existingWells = getExistingWellsNearTargetLocation(performer, targetLocation, world);
 						if (existingWells.size() > 0) {
-							return new OperationInfo(performer, existingWells.get(0), new int[0], Actions.DRINK_ACTION);
+							return new OperationInfo(performer, existingWells.get(0), Args.EMPTY, Actions.DRINK_ACTION);
 						} else {
-							return new OperationInfo(performer, targetLocation, new int[0], Actions.BUILD_WELL_ACTION);
+							return new OperationInfo(performer, targetLocation, Args.EMPTY, Actions.BUILD_WELL_ACTION);
 						}
 					} else {
 						return null;

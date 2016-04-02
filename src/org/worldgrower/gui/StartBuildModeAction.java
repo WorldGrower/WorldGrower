@@ -18,6 +18,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 
+import org.worldgrower.Args;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.BuildAction;
 
@@ -28,7 +29,7 @@ public class StartBuildModeAction extends AbstractAction implements ActionContai
 	private ImageInfoReader imageInfoReader;
 	private WorldPanel worldPanel;
 	private BuildAction buildAction;
-	private int[] args = new int[0];
+	private int[] args = Args.EMPTY;
 	
 	public StartBuildModeAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, WorldPanel worldPanel, BuildAction buildAction) {
 		super();

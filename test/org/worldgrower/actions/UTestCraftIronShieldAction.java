@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -30,7 +31,7 @@ public class UTestCraftIronShieldAction {
 	public void testExecute() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
-		Actions.CRAFT_IRON_SHIELD_ACTION.execute(performer, performer, new int[0], world);
+		Actions.CRAFT_IRON_SHIELD_ACTION.execute(performer, performer, Args.EMPTY, world);
 		
 		assertEquals(1, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.ARMOR));
 	}

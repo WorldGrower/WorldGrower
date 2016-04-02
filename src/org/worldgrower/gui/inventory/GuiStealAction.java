@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
 import javax.swing.AbstractAction;
 
+import org.worldgrower.Args;
 import org.worldgrower.DungeonMaster;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
@@ -77,7 +78,7 @@ public class GuiStealAction extends AbstractAction {
 
 		@Override
 		public boolean isPossible(InventoryItem inventoryItem) {
-			return Game.canActionExecute(playerCharacter, playerCharacter.getOperation(Actions.STEAL_ACTION), new int[0], world, target);
+			return Game.canActionExecute(playerCharacter, playerCharacter.getOperation(Actions.STEAL_ACTION), Args.EMPTY, world, target);
 		}
 
 		@Override

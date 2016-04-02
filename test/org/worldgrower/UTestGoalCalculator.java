@@ -53,7 +53,7 @@ public class UTestGoalCalculator {
 
 		@Override
 		public OperationInfo calculateGoal(WorldObject performer, World world) {
-			return new OperationInfo(performer, performer, new int[0], Actions.CUT_WOOD_ACTION);
+			return new OperationInfo(performer, performer, Args.EMPTY, Actions.CUT_WOOD_ACTION);
 		}
 
 		@Override

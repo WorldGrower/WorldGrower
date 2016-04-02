@@ -17,6 +17,7 @@ package org.worldgrower.goal;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.TestUtils;
@@ -40,7 +41,7 @@ public class UTestRevengeGoal {
 		
 		WorldObject target = createPerformer(3);
 		world.addWorldObject(target);
-		world.getHistory().actionPerformed(new OperationInfo(target, performer, new int[0], Actions.MELEE_ATTACK_ACTION), new Turn());
+		world.getHistory().actionPerformed(new OperationInfo(target, performer, Args.EMPTY, Actions.MELEE_ATTACK_ACTION), new Turn());
 		performer.getProperty(Constants.BACKGROUND).checkForNewGoals(performer, world);
 		
 		assertEquals(Actions.MELEE_ATTACK_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
@@ -54,7 +55,7 @@ public class UTestRevengeGoal {
 		
 		WorldObject target = createPerformer(3);
 		world.addWorldObject(target);
-		world.getHistory().actionPerformed(new OperationInfo(target, performer, new int[0], Actions.MELEE_ATTACK_ACTION), new Turn());
+		world.getHistory().actionPerformed(new OperationInfo(target, performer, Args.EMPTY, Actions.MELEE_ATTACK_ACTION), new Turn());
 		performer.getProperty(Constants.BACKGROUND).checkForNewGoals(performer, world);
 		assertEquals(false, goal.isGoalMet(performer, world));
 		

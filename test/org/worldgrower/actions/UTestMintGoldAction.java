@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -34,7 +35,7 @@ public class UTestMintGoldAction {
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.GOLD.generate(1f), 20);
 		
 		performer.setProperty(Constants.GOLD, 0);
-		Actions.MINT_GOLD_ACTION.execute(performer, performer, new int[0], world);
+		Actions.MINT_GOLD_ACTION.execute(performer, performer, Args.EMPTY, world);
 		
 		assertEquals(15, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.GOLD));
 		assertEquals(20, performer.getProperty(Constants.GOLD).intValue());
@@ -56,7 +57,7 @@ public class UTestMintGoldAction {
 		WorldObject performer = createPerformer(2);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.GOLD.generate(1f), 20);
 
-		assertEquals(0, Actions.MINT_GOLD_ACTION.distance(performer, performer, new int[0], world));
+		assertEquals(0, Actions.MINT_GOLD_ACTION.distance(performer, performer, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

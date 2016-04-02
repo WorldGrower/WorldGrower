@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -35,7 +36,7 @@ public class UTestHandoverTaxesAction {
 		
 		performer.setProperty(Constants.ORGANIZATION_GOLD, 100);
 		target.setProperty(Constants.ORGANIZATION_GOLD, 100);
-		Actions.HANDOVER_TAXES_ACTION.execute(performer, target, new int[0], world);
+		Actions.HANDOVER_TAXES_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(0, performer.getProperty(Constants.ORGANIZATION_GOLD).intValue());
 		assertEquals(200, target.getProperty(Constants.ORGANIZATION_GOLD).intValue());
@@ -64,7 +65,7 @@ public class UTestHandoverTaxesAction {
 		WorldObject target = createPerformer(3);
 
 		performer.setProperty(Constants.ORGANIZATION_GOLD, 100);
-		assertEquals(0, Actions.HANDOVER_TAXES_ACTION.distance(performer, target, new int[0], world));
+		assertEquals(0, Actions.HANDOVER_TAXES_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

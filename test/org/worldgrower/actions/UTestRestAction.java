@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -33,7 +34,7 @@ public class UTestRestAction {
 		
 		performer.setProperty(Constants.ENERGY, 500);
 		
-		Actions.REST_ACTION.execute(performer, performer, new int[0], world);
+		Actions.REST_ACTION.execute(performer, performer, Args.EMPTY, world);
 		
 		assertEquals(505, performer.getProperty(Constants.ENERGY).intValue());
 	}
@@ -43,7 +44,7 @@ public class UTestRestAction {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
 		
-		assertEquals(0, Actions.REST_ACTION.distance(performer, performer, new int[0], world));
+		assertEquals(0, Actions.REST_ACTION.distance(performer, performer, Args.EMPTY, world));
 	}
 	
 	@Test

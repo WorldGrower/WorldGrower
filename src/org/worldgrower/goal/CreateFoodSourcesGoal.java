@@ -16,6 +16,7 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.Reach;
@@ -35,7 +36,7 @@ public class CreateFoodSourcesGoal implements Goal {
 		WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 2, 2, world);
 
 		if (target != null) {
-			return new OperationInfo(performer, target, new int[0], Actions.PLANT_BERRY_BUSH_ACTION);
+			return new OperationInfo(performer, target, Args.EMPTY, Actions.PLANT_BERRY_BUSH_ACTION);
 		} else {
 			return null;
 		}

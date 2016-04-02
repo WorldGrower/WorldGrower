@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -69,6 +70,6 @@ public class UTestMarkAsSellableAction {
 		int id = BuildingGenerator.generateHouse(0, 0, world, 1f);
 		WorldObject target = world.findWorldObject(Constants.ID, id);
 		performer.getProperty(Constants.HOUSES).add(target);
-		assertEquals(0, Actions.MARK_AS_SELLABLE_ACTION.distance(performer, target, new int[0], world));
+		assertEquals(0, Actions.MARK_AS_SELLABLE_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 }

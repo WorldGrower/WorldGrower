@@ -19,6 +19,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.Arrays;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -35,7 +36,7 @@ public class UTestEnlargeAction {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = createPerformer(2);
 		
-		Actions.ENLARGE_ACTION.execute(performer, performer, new int[0], world);
+		Actions.ENLARGE_ACTION.execute(performer, performer, Args.EMPTY, world);
 		
 		assertEquals(true, performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.ENLARGED_CONDITION));
 	}
@@ -45,9 +46,9 @@ public class UTestEnlargeAction {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = createPerformer(2);
 		
-		Actions.REDUCE_ACTION.execute(performer, performer, new int[0], world);
+		Actions.REDUCE_ACTION.execute(performer, performer, Args.EMPTY, world);
 		
-		Actions.ENLARGE_ACTION.execute(performer, performer, new int[0], world);
+		Actions.ENLARGE_ACTION.execute(performer, performer, Args.EMPTY, world);
 		
 		assertEquals(false, performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.ENLARGED_CONDITION));
 		assertEquals(false, performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.REDUCED_CONDITION));
@@ -67,7 +68,7 @@ public class UTestEnlargeAction {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = createPerformer(2);
 		
-		assertEquals(0, Actions.ENLARGE_ACTION.distance(performer, performer, new int[0], world));
+		assertEquals(0, Actions.ENLARGE_ACTION.distance(performer, performer, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

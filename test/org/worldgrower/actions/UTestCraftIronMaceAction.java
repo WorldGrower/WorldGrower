@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -31,7 +32,7 @@ public class UTestCraftIronMaceAction {
 	public void testExecute() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
-		Actions.CRAFT_IRON_MACE_ACTION.execute(performer, performer, new int[0], world);
+		Actions.CRAFT_IRON_MACE_ACTION.execute(performer, performer, Args.EMPTY, world);
 		
 		assertEquals(1, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.DAMAGE));
 	}
@@ -53,6 +54,6 @@ public class UTestCraftIronMaceAction {
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.ORE.generate(1f), 20);
 		
-		assertEquals(0, Actions.CRAFT_IRON_MACE_ACTION.distance(performer, performer, new int[0], world));
+		assertEquals(0, Actions.CRAFT_IRON_MACE_ACTION.distance(performer, performer, Args.EMPTY, world));
 	}
 }

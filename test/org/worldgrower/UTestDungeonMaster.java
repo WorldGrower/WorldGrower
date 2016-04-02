@@ -58,7 +58,7 @@ public class UTestDungeonMaster {
 	public void testGetImmediateGoalAnImmediateGoal() {
 		World world = createWorld();
 		WorldObject worldObject = createWorldObject();
-		OperationInfo operationInfo = new OperationInfo(worldObject, worldObject, new int[0], Actions.CUT_WOOD_ACTION);
+		OperationInfo operationInfo = new OperationInfo(worldObject, worldObject, Args.EMPTY, Actions.CUT_WOOD_ACTION);
 		worldObject.getProperty(Constants.META_INFORMATION).setCurrentTask(Arrays.asList(operationInfo), GoalChangedReason.EMPTY_META_INFORMATION);
 		world.addWorldObject(worldObject);
 		
@@ -71,7 +71,7 @@ public class UTestDungeonMaster {
 		World world = createWorld();
 		WorldObject worldObject = createWorldObject();
 		world.addWorldObject(worldObject);
-		OperationInfo operationInfo = new OperationInfo(worldObject, worldObject, new int[0], Actions.CUT_WOOD_ACTION);
+		OperationInfo operationInfo = new OperationInfo(worldObject, worldObject, Args.EMPTY, Actions.CUT_WOOD_ACTION);
 		world.getHistory().actionPerformed(operationInfo, new Turn());
 		
 		assertEquals("[CutWoodAction([])]", dungeonMaster.getImmediateGoal(worldObject, world).toShortString());
@@ -82,7 +82,7 @@ public class UTestDungeonMaster {
 		World world = createWorld();
 		WorldObject worldObject = createWorldObject();
 		world.addWorldObject(worldObject);
-		OperationInfo immediateGoal = new OperationInfo(worldObject, worldObject, new int[0], Actions.CUT_WOOD_ACTION);
+		OperationInfo immediateGoal = new OperationInfo(worldObject, worldObject, Args.EMPTY, Actions.CUT_WOOD_ACTION);
 		List<OperationInfo> tasks = dungeonMaster.calculateTasks(worldObject, world, immediateGoal);
 		assertEquals(2, tasks.size());
 		assertEquals("[CutWoodAction([])]", tasks.get(0).toShortString());
@@ -95,7 +95,7 @@ public class UTestDungeonMaster {
 		WorldObject worldObject = createWorldObject();
 		worldObject.setProperty(Constants.CURSE, Curse.SIREN_CURSE);
 		world.addWorldObject(worldObject);
-		OperationInfo immediateGoal = new OperationInfo(worldObject, worldObject, new int[0], Actions.CUT_WOOD_ACTION);
+		OperationInfo immediateGoal = new OperationInfo(worldObject, worldObject, Args.EMPTY, Actions.CUT_WOOD_ACTION);
 		List<OperationInfo> tasks = dungeonMaster.calculateTasks(worldObject, world, immediateGoal);
 		assertEquals(0, tasks.size());
 	}

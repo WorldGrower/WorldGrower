@@ -19,6 +19,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.Arrays;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -36,7 +37,7 @@ public class UTestSilenceMagicAction {
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
-		Actions.SILENCE_MAGIC_ACTION.execute(performer, target, new int[0], world);
+		Actions.SILENCE_MAGIC_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(true, target.getProperty(Constants.CONDITIONS).hasCondition(Condition.SILENCED_CONDITION));
 	}
@@ -58,7 +59,7 @@ public class UTestSilenceMagicAction {
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
-		assertEquals(0, Actions.SILENCE_MAGIC_ACTION.distance(performer, target, new int[0], world));
+		assertEquals(0, Actions.SILENCE_MAGIC_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

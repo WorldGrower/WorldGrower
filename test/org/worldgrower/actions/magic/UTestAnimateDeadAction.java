@@ -17,6 +17,7 @@ package org.worldgrower.actions.magic;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -38,7 +39,7 @@ public class UTestAnimateDeadAction {
 		WorldObject target = world.findWorldObject(Constants.ID, id);
 		assertEquals("skeletal remains of null", target.getProperty(Constants.NAME));
 		
-		Actions.ANIMATE_DEAD_ACTION.execute(performer, target, new int[0], world);
+		Actions.ANIMATE_DEAD_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(2, world.getWorldObjects().size());
 		assertEquals("Skeleton", world.getWorldObjects().get(1).getProperty(Constants.NAME));
@@ -64,7 +65,7 @@ public class UTestAnimateDeadAction {
 		int id = CommonerGenerator.generateSkeletalRemains(createPerformer(3), world);
 		WorldObject target = world.findWorldObject(Constants.ID, id);
 		
-		assertEquals(0, Actions.ANIMATE_DEAD_ACTION.distance(performer, target, new int[0], world));
+		assertEquals(0, Actions.ANIMATE_DEAD_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

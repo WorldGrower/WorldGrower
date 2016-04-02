@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
@@ -42,7 +43,7 @@ public class UTestCreateBloodAction {
 		
 		assertEquals(26 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
 		
-		Actions.CREATE_BLOOD_ACTION.execute(performer, target, new int[0], world);
+		Actions.CREATE_BLOOD_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(25 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
 		assertEquals(1, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WATER));
@@ -69,7 +70,7 @@ public class UTestCreateBloodAction {
 		WorldObject target = createPerformer(world, organization);
 		VampireUtils.vampirizePerson(performer, new WorldStateChangedListeners());
 		
-		assertEquals(0, Actions.CREATE_BLOOD_ACTION.distance(performer, target, new int[0], world));
+		assertEquals(0, Actions.CREATE_BLOOD_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(World world, WorldObject organization) {

@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -66,7 +67,7 @@ public class UTestLichTransformationAction {
 			performer.getProperty(Constants.INVENTORY).addQuantity(soulGem);
 		}
 		
-		assertEquals(0, Actions.LICH_TRANSFORMATION_ACTION.distance(performer, performer, new int[0], world));
+		assertEquals(0, Actions.LICH_TRANSFORMATION_ACTION.distance(performer, performer, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

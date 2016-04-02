@@ -16,6 +16,7 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.Reach;
@@ -38,11 +39,11 @@ public class CaptureCriminalsGoal implements Goal {
 		if (jail != null) {
 			List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.CAPTURE_PERSON_ACTION, w -> isCriminal(performer, w) && w.getProperty(Constants.CONDITIONS).hasCondition(Condition.UNCONSCIOUS_CONDITION), world);
 			if (targets.size() > 0) {
-				return new OperationInfo(performer, targets.get(0), new int[0], Actions.CAPTURE_PERSON_ACTION);
+				return new OperationInfo(performer, targets.get(0), Args.EMPTY, Actions.CAPTURE_PERSON_ACTION);
 			} else {
 				targets = GoalUtils.findNearestTargets(performer, Actions.NON_LETHAL_MELEE_ATTACK_ACTION, w -> isCriminal(performer, w), world);
 				if (targets.size() > 0) {
-					return new OperationInfo(performer, targets.get(0), new int[0], Actions.NON_LETHAL_MELEE_ATTACK_ACTION);
+					return new OperationInfo(performer, targets.get(0), Args.EMPTY, Actions.NON_LETHAL_MELEE_ATTACK_ACTION);
 				}
 			}
 		} else {

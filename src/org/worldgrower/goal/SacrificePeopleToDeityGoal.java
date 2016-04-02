@@ -17,6 +17,7 @@ package org.worldgrower.goal;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
@@ -43,9 +44,9 @@ public class SacrificePeopleToDeityGoal implements Goal {
 				if (peopleToSacrifice.size() > 0) {
 					List<WorldObject> unconsciousPeople = peopleToSacrifice.stream().filter(w -> w.getProperty(Constants.CONDITIONS).hasCondition(Condition.UNCONSCIOUS_CONDITION)).collect(Collectors.toList());
 					if (unconsciousPeople.size() > 0) {
-						return new OperationInfo(performer, unconsciousPeople.get(0), new int[0], Actions.CAPTURE_PERSON_FOR_SACRIFICE_ACTION);
+						return new OperationInfo(performer, unconsciousPeople.get(0), Args.EMPTY, Actions.CAPTURE_PERSON_FOR_SACRIFICE_ACTION);
 					} else {
-						return new OperationInfo(performer, peopleToSacrifice.get(0), new int[0], Actions.NON_LETHAL_MELEE_ATTACK_ACTION);
+						return new OperationInfo(performer, peopleToSacrifice.get(0), Args.EMPTY, Actions.NON_LETHAL_MELEE_ATTACK_ACTION);
 					}
 				} else {
 					return null;
@@ -53,7 +54,7 @@ public class SacrificePeopleToDeityGoal implements Goal {
 			}
 		} else {
 			WorldObject target = BuildLocationUtils.findOpenLocationAwayFromExistingProperty(performer, 1, 2, world);
-			return new OperationInfo(performer, target, new int[0], Actions.BUILD_SACRIFICAL_ALTAR_ACTION);
+			return new OperationInfo(performer, target, Args.EMPTY, Actions.BUILD_SACRIFICAL_ALTAR_ACTION);
 		}
 	}
 	

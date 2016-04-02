@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.TestUtils;
@@ -34,7 +35,7 @@ public class UTestOperationStatistics {
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
-		world.getHistory().actionPerformed(new OperationInfo(performer, target, new int[0], Actions.CUT_WOOD_ACTION), new Turn());
+		world.getHistory().actionPerformed(new OperationInfo(performer, target, Args.EMPTY, Actions.CUT_WOOD_ACTION), new Turn());
 		
 		assertEquals(1, OperationStatistics.getRecentOperationsCount(Actions.CUT_WOOD_ACTION, world));
 	}

@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -57,7 +58,7 @@ public class UTestSetTaxRateAction {
 		WorldObject villagersOrganization = createVillagersOrganization(world);
 		villagersOrganization.setProperty(Constants.ORGANIZATION_LEADER_ID, performer.getProperty(Constants.ID));
 		
-		assertEquals(0, Actions.SET_TAX_RATE_ACTION.distance(performer, target, new int[0], world));
+		assertEquals(0, Actions.SET_TAX_RATE_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 
 	private WorldObject createVillagersOrganization(World world) {

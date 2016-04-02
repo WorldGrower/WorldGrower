@@ -19,6 +19,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.Arrays;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -39,7 +40,7 @@ public class UTestInflictWoundsAction {
 		target.setProperty(Constants.HIT_POINTS, 10 * Item.COMBAT_MULTIPLIER);
 		target.setProperty(Constants.HIT_POINTS_MAX, 10 * Item.COMBAT_MULTIPLIER);
 		
-		Actions.INFLICT_WOUNDS_ACTION.execute(performer, target, new int[0], world);
+		Actions.INFLICT_WOUNDS_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(6 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
 	}
@@ -67,7 +68,7 @@ public class UTestInflictWoundsAction {
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
-		assertEquals(0, Actions.INFLICT_WOUNDS_ACTION.distance(performer, target, new int[0], world));
+		assertEquals(0, Actions.INFLICT_WOUNDS_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

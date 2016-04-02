@@ -21,6 +21,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.WorldObject;
@@ -435,7 +436,7 @@ public class Actions {
 		
 		allSpells.removeAll(knownSpells);
 		
-		allSpells = allSpells.stream().filter(s -> getResearchSpellActionFor(s).distance(performer, performer, new int[0], null) == 0).collect(Collectors.toList());
+		allSpells = allSpells.stream().filter(s -> getResearchSpellActionFor(s).distance(performer, performer, Args.EMPTY, null) == 0).collect(Collectors.toList());
 		
 		return allSpells;
 	}

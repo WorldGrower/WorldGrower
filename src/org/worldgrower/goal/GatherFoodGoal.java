@@ -16,6 +16,7 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.Reach;
@@ -46,7 +47,7 @@ public class GatherFoodGoal implements Goal {
 		WorldObject target = GoalUtils.findNearestTarget(performer, Actions.HARVEST_FOOD_ACTION, world);
 		OperationInfo butcherOperationInfo = createButcherOperationInfo(performer, world);
 		if (target != null && Reach.distance(performer, target) < 15) {
-			return new OperationInfo(performer, target, new int[0], Actions.HARVEST_FOOD_ACTION);
+			return new OperationInfo(performer, target, Args.EMPTY, Actions.HARVEST_FOOD_ACTION);
 		} else if (butcherOperationInfo != null) {
 			return butcherOperationInfo;
 		} else {
@@ -57,7 +58,7 @@ public class GatherFoodGoal implements Goal {
 	private static OperationInfo createButcherOperationInfo(WorldObject performer, World world) {
 		WorldObject target = GoalUtils.findNearestTarget(performer, Actions.BUTCHER_ACTION, world);
 		if (target != null && Reach.distance(performer, target) < 15) {
-			return new OperationInfo(performer, target, new int[0], Actions.BUTCHER_ACTION);
+			return new OperationInfo(performer, target, Args.EMPTY, Actions.BUTCHER_ACTION);
 		} else {
 			return null;
 		}

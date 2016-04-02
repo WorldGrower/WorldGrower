@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -37,7 +38,7 @@ public class UTestThrowOilAction {
 		WorldObject target = world.findWorldObject(Constants.ID, id);
 		
 		assertEquals(null, target.getProperty(Constants.FLAMMABLE));
-		Actions.THROW_OIL_ACTION.execute(performer, target, new int[0], world);
+		Actions.THROW_OIL_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(true, target.getProperty(Constants.FLAMMABLE));
 		assertEquals(9, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.OIL));
@@ -63,7 +64,7 @@ public class UTestThrowOilAction {
 		int id = BuildingGenerator.buildWell(0, 0, world, 1f);
 		WorldObject target = world.findWorldObject(Constants.ID, id);
 		
-		assertEquals(0, Actions.THROW_OIL_ACTION.distance(performer, target, new int[0], world));
+		assertEquals(0, Actions.THROW_OIL_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {
