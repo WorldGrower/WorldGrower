@@ -23,7 +23,7 @@ import org.worldgrower.WorldObject;
 public class LibraryUtils {
 
 	public static List<WorldObject> getLibraries(World world) {
-		List<WorldObject> libraries = world.findWorldObjects(w -> w.hasProperty(Constants.LIBRARY_QUALITY));
+		List<WorldObject> libraries = world.findWorldObjectsByProperty(Constants.LIBRARY_QUALITY, w -> true);
 		return libraries;
 	}
 }
