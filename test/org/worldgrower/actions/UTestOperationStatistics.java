@@ -35,9 +35,9 @@ public class UTestOperationStatistics {
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
-		world.getHistory().actionPerformed(new OperationInfo(performer, target, Args.EMPTY, Actions.CUT_WOOD_ACTION), new Turn());
+		world.getHistory().actionPerformed(new OperationInfo(performer, target, Args.EMPTY, Actions.MELEE_ATTACK_ACTION), new Turn());
 		
-		assertEquals(1, OperationStatistics.getRecentOperationsCount(Actions.CUT_WOOD_ACTION, world));
+		assertEquals(1, OperationStatistics.getRecentOperationsCount(Actions.MELEE_ATTACK_ACTION, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

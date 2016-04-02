@@ -55,7 +55,7 @@ public class HistoryImpl implements History, Serializable {
 
 	private void addHistoryItem(HistoryItem historyItem) {
 		ManagedOperation action = historyItem.getOperationInfo().getManagedOperation();
-		if (action != Actions.MOVE_ACTION && action != Actions.REST_ACTION && action != Actions.SLEEP_ACTION) {
+		if (shouldLogAction(action)) {
 			historyItems.add(historyItem);
 			
 			Integer performerId = historyItem.getOperationInfo().getPerformer().getProperty(Constants.ID);
@@ -73,6 +73,15 @@ public class HistoryImpl implements History, Serializable {
 			}
 			historyItemsByOperationsList.add(historyItem);
 		}
+	}
+
+	private boolean shouldLogAction(ManagedOperation action) {
+		return action != Actions.MOVE_ACTION 
+				&& action != Actions.REST_ACTION 
+				&& action != Actions.SLEEP_ACTION
+				&& action != Actions.CUT_WOOD_ACTION
+				&& action != Actions.MINE_STONE_ACTION
+				&& action != Actions.MINE_ORE_ACTION;
 	}
 	
 	@Override

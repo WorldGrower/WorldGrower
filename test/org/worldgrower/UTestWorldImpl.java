@@ -107,13 +107,13 @@ public class UTestWorldImpl {
 		world.addWorldObject(house);
 		world.addWorldObject(person);
 		
-		world.getHistory().actionPerformed(new OperationInfo(person, house, Args.EMPTY, Actions.CUT_WOOD_ACTION), new Turn());
+		world.getHistory().actionPerformed(new OperationInfo(person, house, Args.EMPTY, Actions.MELEE_ATTACK_ACTION), new Turn());
 		
 		world.save(fileToSave);
 		world = WorldImpl.load(fileToSave);
 		
 		assertEquals(2, world.getWorldObjects().size());
-		assertEquals(Actions.CUT_WOOD_ACTION, world.getHistory().getHistoryItem(0).getOperationInfo().getManagedOperation());
+		assertEquals(Actions.MELEE_ATTACK_ACTION, world.getHistory().getHistoryItem(0).getOperationInfo().getManagedOperation());
 	}
 	
 	@Test

@@ -221,12 +221,12 @@ public class UTestKnowledgeMap {
 		KnowledgeMap knowledgeMap = new KnowledgeMap();
 		WorldObject worldObject = TestUtils.createSkilledWorldObject(1, Constants.FOOD, 500);
 		
-		assertEquals(false, knowledgeMap.hasEvent(worldObject, t -> true, w -> true, world, Actions.CUT_WOOD_ACTION));
+		assertEquals(false, knowledgeMap.hasEvent(worldObject, t -> true, w -> true, world, Actions.MELEE_ATTACK_ACTION));
 		
 		knowledgeMap.addKnowledge(worldObject, world);
-		world.getHistory().actionPerformed(new OperationInfo(worldObject, worldObject, Args.EMPTY, Actions.CUT_WOOD_ACTION), new Turn());
+		world.getHistory().actionPerformed(new OperationInfo(worldObject, worldObject, Args.EMPTY, Actions.MELEE_ATTACK_ACTION), new Turn());
 		
-		assertEquals(true, knowledgeMap.hasEvent(worldObject, t -> true, w -> true, world, Actions.CUT_WOOD_ACTION));
+		assertEquals(true, knowledgeMap.hasEvent(worldObject, t -> true, w -> true, world, Actions.MELEE_ATTACK_ACTION));
 	}
 	
 	@Test
@@ -236,8 +236,8 @@ public class UTestKnowledgeMap {
 		WorldObject worldObject = TestUtils.createSkilledWorldObject(1, Constants.FOOD, 500);
 	
 		knowledgeMap.addKnowledge(worldObject, world);
-		world.getHistory().actionPerformed(new OperationInfo(worldObject, worldObject, Args.EMPTY, Actions.CUT_WOOD_ACTION), new Turn());
+		world.getHistory().actionPerformed(new OperationInfo(worldObject, worldObject, Args.EMPTY, Actions.MELEE_ATTACK_ACTION), new Turn());
 		
-		assertEquals(false, knowledgeMap.hasEvent(worldObject, t -> t > 100, w -> true, world, Actions.CUT_WOOD_ACTION));
+		assertEquals(false, knowledgeMap.hasEvent(worldObject, t -> t > 100, w -> true, world, Actions.MELEE_ATTACK_ACTION));
 	}
 }
