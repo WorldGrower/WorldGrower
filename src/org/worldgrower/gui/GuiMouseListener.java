@@ -165,12 +165,12 @@ public class GuiMouseListener extends MouseAdapter {
 				((WorldPanel)container).endBuildMode(true);
 		    }
 		} else {
-	        if (isDefaultRightMouseButton(e)) {
-	            doPop(e);
-	        } else if (isDefaultLeftMouseButton(e) && isCtrlPressed(e) && worldObject != null) {
+	        if (SwingUtilities.isLeftMouseButton(e) && isCtrlPressed(e) && worldObject != null) {
 	        	performTalkAction(worldObject);
-	        } else if (isDefaultLeftMouseButton(e) && leftMouseClickAction != null && worldObject != null) {
+	        } else if (SwingUtilities.isLeftMouseButton(e) && leftMouseClickAction != null && worldObject != null) {
 	        	performLeftMouseAction(worldObject);
+	        } else if (isDefaultRightMouseButton(e)) {
+		            doPop(e);
 	        } else {
 	        	centerOnScreen(e);
 	        }
