@@ -75,6 +75,17 @@ public class UTestKnowledgeToDescriptionMapper {
 	}
 	
 	@Test
+	public void testMapEventKnowledgeSleepingPotionInWell() {
+		World world = new WorldImpl(0, 0, null, null);
+		int id = BuildingGenerator.buildWell(0, 0, world, 1f);
+		WorldObject subject = world.findWorldObject(Constants.ID, id);
+		world.addWorldObject(subject);
+		
+		PropertyKnowledge knowledge = new PropertyKnowledge(subject.getProperty(Constants.ID), Constants.SLEEP_INDUCING_DRUG_STRENGTH, 10);
+		assertEquals("Did you know that the well contains sleeping potion?", mapper.getQuestionDescription(knowledge, world));
+	}
+	
+	@Test
 	public void testMapEventKnowledgeChildBirth() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.NAME, "target");

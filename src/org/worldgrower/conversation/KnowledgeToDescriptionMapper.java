@@ -45,6 +45,8 @@ public class KnowledgeToDescriptionMapper {
 			WorldObject subject = world.findWorldObject(Constants.ID, knowledge.getSubjectId());
 			if (BuildingGenerator.isWell(subject) && property == Constants.POISON_DAMAGE) {
 				return "the well is poisoned";
+			} else if (BuildingGenerator.isWell(subject) && property == Constants.SLEEP_INDUCING_DRUG_STRENGTH) {
+				return "the well contains sleeping potion";
 			} else if (property == Constants.CHILD_BIRTH_ID) {
 				WorldObject child = world.findWorldObject(Constants.ID, (Integer) value);
 				return subject.getProperty(Constants.NAME) + " gave birth to " + child.getProperty(Constants.NAME);
