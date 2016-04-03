@@ -92,4 +92,16 @@ public class WaterPropertyUtils {
 			performer.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(waterTarget, Constants.POISON_DAMAGE, poisonDamage);
 		}
 	}
+	
+	public static void addSleepingPotionToWaterSource(WorldObject performer, WorldObject waterTarget, int[] args, World world) {
+		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
+		int indexOfSleepingPotion = performerInventory.getIndexFor(Constants.SLEEP_INDUCING_DRUG_STRENGTH);
+		int sleepingPotionStrength = performerInventory.get(indexOfSleepingPotion).getProperty(Constants.SLEEP_INDUCING_DRUG_STRENGTH);
+		waterTarget.setProperty(Constants.SLEEP_INDUCING_DRUG_STRENGTH, sleepingPotionStrength);
+		
+		performerInventory.removeQuantity(indexOfSleepingPotion, 1);
+		if (isWorldObject(waterTarget, world)) {
+			performer.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(waterTarget, Constants.SLEEP_INDUCING_DRUG_STRENGTH, sleepingPotionStrength);
+		}
+	}
 }

@@ -21,7 +21,7 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.goal.WaterPropertyUtils;
 import org.worldgrower.gui.ImageIds;
 
 public class SleepingPoisonAction implements ManagedOperation {
@@ -30,15 +30,7 @@ public class SleepingPoisonAction implements ManagedOperation {
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
-		int indexOfSleepingPotion = performerInventory.getIndexFor(Constants.SLEEP_INDUCING_DRUG_STRENGTH);
-		WorldObject sleepingPotion = performerInventory.get(indexOfSleepingPotion);
-		
-		performerInventory.removeQuantity(indexOfSleepingPotion, 1);
-		
-		Integer sleepingPoisonStrength = sleepingPotion.getProperty(Constants.SLEEP_INDUCING_DRUG_STRENGTH);
-		target.setProperty(Constants.SLEEP_INDUCING_DRUG_STRENGTH, sleepingPoisonStrength);
-		performer.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(target, Constants.SLEEP_INDUCING_DRUG_STRENGTH, sleepingPoisonStrength);
+		WaterPropertyUtils.addSleepingPotionToWaterSource(performer, target, args, world);
 	}
 
 	@Override

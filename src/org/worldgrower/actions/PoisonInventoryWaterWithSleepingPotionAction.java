@@ -20,6 +20,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.goal.WaterPropertyUtils;
 import org.worldgrower.gui.ImageIds;
 
 public class PoisonInventoryWaterWithSleepingPotionAction extends InventoryAction {
@@ -27,14 +28,9 @@ public class PoisonInventoryWaterWithSleepingPotionAction extends InventoryActio
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		int inventoryIndex = args[0];
-		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
+		WorldObject waterTarget = performer.getProperty(Constants.INVENTORY).get(inventoryIndex);
 		
-		int indexOfSleepingPotion = inventory.getIndexFor(Constants.SLEEP_INDUCING_DRUG_STRENGTH);
-		
-		int sleepingPotionStrength = inventory.get(indexOfSleepingPotion).getProperty(Constants.SLEEP_INDUCING_DRUG_STRENGTH);
-		inventory.get(inventoryIndex).setProperty(Constants.SLEEP_INDUCING_DRUG_STRENGTH, sleepingPotionStrength);
-		
-		inventory.removeQuantity(indexOfSleepingPotion, 1);
+		WaterPropertyUtils.addSleepingPotionToWaterSource(performer, waterTarget, args, world);
 	}
 	
 	@Override
