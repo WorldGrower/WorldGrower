@@ -19,6 +19,7 @@ import java.util.List;
 
 public class KeyBindings {
 	private List<GuiActionValue> keyBindings = new ArrayList<>();
+	private boolean leftMouseClickCentersMap;
 	
 	public KeyBindings(List<GuiAction> guiActions, char... values) {
 		int index = 0;
@@ -26,10 +27,19 @@ public class KeyBindings {
 			keyBindings.add(new GuiActionValue(guiAction, values[index]));
 			index++;
 		}
+		leftMouseClickCentersMap = true;
 	}
 	
 	public int size() {
 		return keyBindings.size();
+	}
+	
+	public boolean leftMouseClickCentersMap() {
+		return leftMouseClickCentersMap;
+	}
+	
+	public void setLeftMouseClickCentersMap(boolean leftMouseClickCentersMap) {
+		this.leftMouseClickCentersMap = leftMouseClickCentersMap;
 	}
 	
 	public String getDescription(int index) {

@@ -17,6 +17,8 @@ package org.worldgrower.gui.start;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultCellEditor;
@@ -45,7 +47,7 @@ public class ControlsDialog extends AbstractDialog {
 		super(400, 800);
 		
 		addKeyBindingsTable(keyBindings);
-		addMouseControlPanel();
+		addMouseControlPanel(keyBindings);
 		addButtonPane();
 	}
 
@@ -71,7 +73,7 @@ public class ControlsDialog extends AbstractDialog {
 		SwingUtils.makeTransparant(table, scrollPane);
 	}
 
-	private void addMouseControlPanel() {
+	private void addMouseControlPanel(KeyBindings keyBindings) {
 		JPanel mouseControlPanel = new JPanel();
 		
 		mouseControlPanel.setOpaque(false);
@@ -79,12 +81,12 @@ public class ControlsDialog extends AbstractDialog {
 		mouseControlPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		
 		JRadioButton defaultMouseControl = JRadioButtonFactory.createJRadioButton("left-click: center map, right-click: show possible actions");
-		defaultMouseControl.setSelected(true);
+		defaultMouseControl.setSelected(keyBindings.leftMouseClickCentersMap());
 		defaultMouseControl.setOpaque(false);
 		mouseControlPanel.add(defaultMouseControl);
 		
 		JRadioButton alternateMouseControl = JRadioButtonFactory.createJRadioButton("right-click: center map, left-click: show possible actions");
-		alternateMouseControl.setSelected(false);
+		alternateMouseControl.setSelected(!keyBindings.leftMouseClickCentersMap());
 		alternateMouseControl.setOpaque(false);
 		mouseControlPanel.add(alternateMouseControl);
 		
@@ -93,6 +95,14 @@ public class ControlsDialog extends AbstractDialog {
 		buttonGroup.add(alternateMouseControl);
 		
 		addComponent(mouseControlPanel);
+		
+		defaultMouseControl.addItemListener(new ItemListener() {
+			
+			@Override
+			public void itemStateChanged(ItemEvent itemEvent) {
+				keyBindings.setLeftMouseClickCentersMap(defaultMouseControl.isSelected());
+			}
+		});
 	}
 
 	private void addButtonPane() {

@@ -136,6 +136,22 @@ public class GuiMouseListener extends MouseAdapter {
 		mouseAction(e);
     }
  
+	private boolean isDefaultLeftMouseButton(MouseEvent e) {
+		if (keyBindings.leftMouseClickCentersMap()) {
+			return SwingUtilities.isLeftMouseButton(e);
+		} else {
+			return SwingUtilities.isRightMouseButton(e);
+		}
+	}
+	
+	private boolean isDefaultRightMouseButton(MouseEvent e) {
+		if (keyBindings.leftMouseClickCentersMap()) {
+			return SwingUtilities.isRightMouseButton(e);
+		} else {
+			return SwingUtilities.isLeftMouseButton(e);
+		}
+	}
+	
     private void mouseAction(MouseEvent e) {
         int x = (int) e.getPoint().getX() / 48;
         int y = (int) e.getPoint().getY() / 48;
@@ -143,17 +159,17 @@ public class GuiMouseListener extends MouseAdapter {
 		WorldObject worldObject = ((WorldPanel)container).findWorldObject(x, y);
 		
     	if (((WorldPanel)container).inBuildMode()) {
-			if (SwingUtilities.isRightMouseButton(e)) {
+			if (isDefaultRightMouseButton(e)) {
 				((WorldPanel)container).endBuildMode(false);
 			} else {
 				((WorldPanel)container).endBuildMode(true);
 		    }
 		} else {
-	        if (SwingUtilities.isRightMouseButton(e)) {
+	        if (isDefaultRightMouseButton(e)) {
 	            doPop(e);
-	        } else if (SwingUtilities.isLeftMouseButton(e) && isCtrlPressed(e) && worldObject != null) {
+	        } else if (isDefaultLeftMouseButton(e) && isCtrlPressed(e) && worldObject != null) {
 	        	performTalkAction(worldObject);
-	        } else if (SwingUtilities.isLeftMouseButton(e) && leftMouseClickAction != null && worldObject != null) {
+	        } else if (isDefaultLeftMouseButton(e) && leftMouseClickAction != null && worldObject != null) {
 	        	performLeftMouseAction(worldObject);
 	        } else {
 	        	centerOnScreen(e);
