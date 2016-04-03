@@ -18,12 +18,14 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ButtonGroup;
 import javax.swing.DefaultCellEditor;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
@@ -34,6 +36,7 @@ import org.worldgrower.gui.AbstractDialog;
 import org.worldgrower.gui.SwingUtils;
 import org.worldgrower.gui.util.ButtonFactory;
 import org.worldgrower.gui.util.JComboBoxFactory;
+import org.worldgrower.gui.util.JRadioButtonFactory;
 import org.worldgrower.gui.util.JTableFactory;
 
 public class ControlsDialog extends AbstractDialog {
@@ -41,6 +44,12 @@ public class ControlsDialog extends AbstractDialog {
 	public ControlsDialog(KeyBindings keyBindings) {
 		super(400, 800);
 		
+		addKeyBindingsTable(keyBindings);
+		addMouseControlPanel();
+		addButtonPane();
+	}
+
+	private void addKeyBindingsTable(KeyBindings keyBindings) {
 		JTable table = JTableFactory.createJTable(new ControlsTableModel(keyBindings));
 		JComboBox<Character> comboBox = JComboBoxFactory.createJComboBox(new Character[]{'A', 'B', 'C'});
         table.getColumnModel().getColumn(1).setCellEditor(new DefaultCellEditor(comboBox));
@@ -56,9 +65,37 @@ public class ControlsDialog extends AbstractDialog {
         });
         
 		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(15, 15, 368, 700);
+		scrollPane.setBounds(15, 15, 368, 600);
 		addComponent(scrollPane);
 		
+		SwingUtils.makeTransparant(table, scrollPane);
+	}
+
+	private void addMouseControlPanel() {
+		JPanel mouseControlPanel = new JPanel();
+		
+		mouseControlPanel.setOpaque(false);
+		mouseControlPanel.setBounds(0, 620, 378, 75);
+		mouseControlPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		
+		JRadioButton defaultMouseControl = JRadioButtonFactory.createJRadioButton("left-click: center map, right-click: show possible actions");
+		defaultMouseControl.setSelected(true);
+		defaultMouseControl.setOpaque(false);
+		mouseControlPanel.add(defaultMouseControl);
+		
+		JRadioButton alternateMouseControl = JRadioButtonFactory.createJRadioButton("right-click: center map, left-click: show possible actions");
+		alternateMouseControl.setSelected(false);
+		alternateMouseControl.setOpaque(false);
+		mouseControlPanel.add(alternateMouseControl);
+		
+		ButtonGroup buttonGroup = new ButtonGroup();
+		buttonGroup.add(defaultMouseControl);
+		buttonGroup.add(alternateMouseControl);
+		
+		addComponent(mouseControlPanel);
+	}
+
+	private void addButtonPane() {
 		JPanel buttonPane = new JPanel();
 		buttonPane.setOpaque(false);
 		buttonPane.setBounds(0, 720, 378, 75);
@@ -70,8 +107,6 @@ public class ControlsDialog extends AbstractDialog {
 		buttonPane.add(okButton);
 		addActionHandlers(okButton, this);
 		getRootPane().setDefaultButton(okButton);
-		
-		SwingUtils.makeTransparant(table, scrollPane);
 	}
 	
 	public void showMe() {
