@@ -22,6 +22,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.KnowledgeMap;
+import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
 
@@ -78,5 +79,17 @@ public class WaterPropertyUtils {
 
 	private static boolean isWaterPoisoned(WorldObject waterTarget) {
 		return waterTarget.hasProperty(Constants.POISON_DAMAGE) && waterTarget.getProperty(Constants.POISON_DAMAGE) > 0;
+	}
+	
+	public static void poisonWaterSource(WorldObject performer, WorldObject waterTarget, int[] args, World world) {
+		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
+		int indexOfPoison = performerInventory.getIndexFor(Constants.POISON_DAMAGE);
+		int poisonDamage = performerInventory.get(indexOfPoison).getProperty(Constants.POISON_DAMAGE);
+		waterTarget.setProperty(Constants.POISON_DAMAGE, poisonDamage);
+		
+		performerInventory.removeQuantity(indexOfPoison, 1);
+		if (isWorldObject(waterTarget, world)) {
+			performer.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(waterTarget, Constants.POISON_DAMAGE, poisonDamage);
+		}
 	}
 }

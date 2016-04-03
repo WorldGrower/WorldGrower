@@ -21,7 +21,7 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.goal.WaterPropertyUtils;
 import org.worldgrower.gui.ImageIds;
 
 public class PoisonAction implements ManagedOperation {
@@ -30,15 +30,7 @@ public class PoisonAction implements ManagedOperation {
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
-		int indexOfPoison = performerInventory.getIndexFor(Constants.POISON_DAMAGE);
-		WorldObject poison = performerInventory.get(indexOfPoison);
-		
-		performerInventory.removeQuantity(indexOfPoison, 1);
-		
-		Integer poisonDamage = poison.getProperty(Constants.POISON_DAMAGE);
-		target.setProperty(Constants.POISON_DAMAGE, poisonDamage);
-		performer.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(target, Constants.POISON_DAMAGE, poisonDamage);
+		WaterPropertyUtils.poisonWaterSource(performer, target, args, world);
 	}
 
 	@Override

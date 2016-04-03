@@ -20,6 +20,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.goal.WaterPropertyUtils;
 import org.worldgrower.gui.ImageIds;
 
 public class PoisonInventoryWaterAction extends InventoryAction {
@@ -27,14 +28,9 @@ public class PoisonInventoryWaterAction extends InventoryAction {
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		int inventoryIndex = args[0];
-		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
+		WorldObject waterTarget = performer.getProperty(Constants.INVENTORY).get(inventoryIndex);
 		
-		int indexOfPoison = inventory.getIndexFor(Constants.POISON_DAMAGE);
-		
-		int poisonDamage = inventory.get(indexOfPoison).getProperty(Constants.POISON_DAMAGE);
-		inventory.get(inventoryIndex).setProperty(Constants.POISON_DAMAGE, poisonDamage);
-		
-		inventory.removeQuantity(indexOfPoison, 1);
+		WaterPropertyUtils.poisonWaterSource(performer, waterTarget, args, world);
 	}
 	
 	@Override
