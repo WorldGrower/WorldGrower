@@ -43,7 +43,8 @@ public class WaterPropertyUtils {
 
 	public static boolean isWaterSafeToDrink(WorldObject performer, WorldObject target) {
 		KnowledgeMap knowledgeMap = performer.getProperty(Constants.KNOWLEDGE_MAP);
-		return (!knowledgeMap.hasProperty(target, Constants.POISON_DAMAGE));
+		return (!knowledgeMap.hasProperty(target, Constants.POISON_DAMAGE)
+				&& !knowledgeMap.hasProperty(target, Constants.SLEEP_INDUCING_DRUG_STRENGTH));
 	}
 	
 	public static void drink(WorldObject performer, WorldObject waterTarget, World world) {
