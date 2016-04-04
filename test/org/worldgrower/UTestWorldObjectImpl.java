@@ -74,6 +74,7 @@ public class UTestWorldObjectImpl {
 		
 		assertEquals(false, person1.equals(person2));
 		assertEquals(true, person1.equals(person1));
+		assertEquals(false, person1.equals(new Object()));
 	}
 	
 	@Test

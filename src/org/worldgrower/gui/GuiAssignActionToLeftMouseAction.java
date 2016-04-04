@@ -25,6 +25,8 @@ import org.worldgrower.ManagedOperation;
 
 public class GuiAssignActionToLeftMouseAction extends AbstractAction {
 
+	private static final String NO_ACTION = "<no action>";
+	
 	private List<ManagedOperation> actions;
 	private WorldPanel parent;
 	private GuiMouseListener guiMouseListener;
@@ -44,14 +46,18 @@ public class GuiAssignActionToLeftMouseAction extends AbstractAction {
 		AssignActionLeftMouseDialog assignActionLeftMouseDialog = new AssignActionLeftMouseDialog(actionDescriptions);
 		String actionDescription = assignActionLeftMouseDialog.showMe();
 		
-		if (actionDescription != null) {
+		if (actionDescription != null && !actionDescription.equals(NO_ACTION)) {
 			int indexOfAction = Arrays.asList(actionDescriptions).indexOf(actionDescription);
 			ManagedOperation action = actions.get(indexOfAction);
 			guiMouseListener.setLeftMouseClickAction(action);
+		} else {
+			guiMouseListener.setLeftMouseClickAction(null);
 		}
 	}
 	
 	private List<String> getActionDescriptions() {
-		return actions.stream().map(a -> a.getSimpleDescription()).collect(Collectors.toList());
+		List<String> actionDescriptions = actions.stream().map(a -> a.getSimpleDescription()).collect(Collectors.toList());
+		actionDescriptions.add(NO_ACTION);
+		return actionDescriptions;
 	}
 }

@@ -22,14 +22,13 @@ import org.worldgrower.WorldObject;
 
 class PersonalityTraitValue implements Serializable {
 	private final PersonalityTrait personalityTrait;
-	
+	private int value;
+	private List<String> reasons = new ArrayList<>();
+
 	public PersonalityTraitValue(PersonalityTrait personalityTrait) {
 		super();
 		this.personalityTrait = personalityTrait;
 	}
-
-	private int value;
-	private List<String> reasons = new ArrayList<>();
 	
 	public final int getValue() {
 		return value;

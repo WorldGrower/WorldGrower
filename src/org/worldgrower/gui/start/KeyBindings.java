@@ -16,6 +16,7 @@ package org.worldgrower.gui.start;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.prefs.Preferences;
 
 public class KeyBindings {
 	private List<GuiActionValue> keyBindings = new ArrayList<>();
@@ -105,5 +106,12 @@ public class KeyBindings {
 			}
 		}
 		throw new IllegalStateException("GuiAction " + guiAction + " not found in " + keyBindings);
+	}
+	
+	public void saveSettings(Preferences preferences) {
+		for(GuiActionValue guiActionValue : keyBindings) {
+			preferences.put(guiActionValue.getGuiAction().name(), Character.toString(guiActionValue.getValue()));
+		}
+		preferences.putBoolean("leftMouseClickCentersMap", leftMouseClickCentersMap);
 	}
 }
