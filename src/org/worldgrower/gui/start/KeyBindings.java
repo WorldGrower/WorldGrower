@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.prefs.Preferences;
 
 public class KeyBindings {
+	private static final String LEFT_MOUSE_CLICK_CENTERS_MAP = "leftMouseClickCentersMap";
 	private List<GuiActionValue> keyBindings = new ArrayList<>();
 	private boolean leftMouseClickCentersMap;
 	
@@ -112,6 +113,14 @@ public class KeyBindings {
 		for(GuiActionValue guiActionValue : keyBindings) {
 			preferences.put(guiActionValue.getGuiAction().name(), Character.toString(guiActionValue.getValue()));
 		}
-		preferences.putBoolean("leftMouseClickCentersMap", leftMouseClickCentersMap);
+		preferences.putBoolean(LEFT_MOUSE_CLICK_CENTERS_MAP, leftMouseClickCentersMap);
+	}
+	
+	public void loadSettings(Preferences preferences) {
+		for(GuiActionValue guiActionValue : keyBindings) {
+			String value = preferences.get(guiActionValue.getGuiAction().name(), Character.toString(guiActionValue.getValue()));
+			guiActionValue.setValue(value.charAt(0));
+		}
+		leftMouseClickCentersMap = preferences.getBoolean(LEFT_MOUSE_CLICK_CENTERS_MAP, leftMouseClickCentersMap);
 	}
 }
