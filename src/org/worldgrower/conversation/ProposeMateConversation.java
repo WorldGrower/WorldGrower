@@ -97,15 +97,23 @@ public class ProposeMateConversation implements Conversation {
 		boolean targetAccepts = (replyIndex == YES || (targetAccepts(target, performer) && alreadyAsked));
 		boolean targetDeclines = (replyIndex == NO || (!targetAccepts(target, performer) && alreadyAsked));
 		if (targetAccepts) {
-			performer.setProperty(Constants.MATE_ID, target.getProperty(Constants.ID));
-			target.setProperty(Constants.MATE_ID, performer.getProperty(Constants.ID));
-			performer.setProperty(Constants.MATE_TURN, world.getCurrentTurn().getValue());
-			target.setProperty(Constants.MATE_TURN, world.getCurrentTurn().getValue());
+			makeMates(performer, target, world);
 		} else if (targetDeclines) {
 			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -50, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 		}
 		
 		KnowledgeMapPropertyUtils.everyoneInVicinityKnowsOfEvent(performer, target, world);
+	}
+
+	private void makeMates(WorldObject performer, WorldObject target, World world) {
+		performer.setProperty(Constants.MATE_ID, target.getProperty(Constants.ID));
+		target.setProperty(Constants.MATE_ID, performer.getProperty(Constants.ID));
+		performer.setProperty(Constants.MATE_TURN, world.getCurrentTurn().getValue());
+		target.setProperty(Constants.MATE_TURN, world.getCurrentTurn().getValue());
+		
+		// mate reason
+		// performer ~ MateGoal
+		// target ~ relationship > 750
 	}
 	
 	@Override
