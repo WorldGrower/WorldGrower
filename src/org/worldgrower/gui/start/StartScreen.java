@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.prefs.Preferences;
 
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
@@ -53,6 +54,7 @@ public class StartScreen {
 	private JButton btnControlsGame;
 	private World world;
 	private final KeyBindings keyBindings;
+	private final Preferences preferences = Preferences.userNodeForPackage(getClass());
 	
 	private static ImageInfoReader imageInfoReader = null;
 	
@@ -90,7 +92,7 @@ public class StartScreen {
 	public StartScreen(ImageInfoReader imageInfoReaderValue) {
 		initialize();
 		imageInfoReader = imageInfoReaderValue;
-		this.keyBindings = createKeyBindings();
+		this.keyBindings = createKeyBindings(preferences);
 	}
 	
 	public StartScreen(ImageInfoReader imageInfoReaderValue, KeyBindings keyBindings) {
@@ -99,12 +101,14 @@ public class StartScreen {
 		this.keyBindings = keyBindings;
 	}
 	
-	private KeyBindings createKeyBindings() {
+	private static KeyBindings createKeyBindings(Preferences preferences) {
 		char[] values = new char[GuiAction.values().length];
 		for(int i=0; i<values.length; i++) {
 			values[i] = GuiAction.values()[i].getDefaultValue();
 		}
-		return new KeyBindings(Arrays.asList(GuiAction.values()), values);
+		KeyBindings keyBindings = new KeyBindings(Arrays.asList(GuiAction.values()), values);
+		keyBindings.loadSettings(preferences);
+		return keyBindings;
 	}
 
 	public void setVisible(boolean visible) {
@@ -224,6 +228,7 @@ public class StartScreen {
 			public void actionPerformed(ActionEvent e) {
 				ControlsDialog controlsDialog = new ControlsDialog(keyBindings);
 				controlsDialog.showMe();
+				keyBindings.saveSettings(preferences);
 			}
 		});
 		frame.addComponent(btnControlsGame);
