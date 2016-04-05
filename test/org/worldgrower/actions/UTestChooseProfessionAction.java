@@ -185,8 +185,9 @@ public class UTestChooseProfessionAction {
 		List<ProfessionEvaluation> professionEvaluationsByCompetition = new ArrayList<>();
 		List<ProfessionEvaluation> professionEvaluationsByDemand = new ArrayList<>();
 		List<ProfessionEvaluation> professionEvaluationsByBackground = new ArrayList<>();
+		List<ProfessionEvaluation> professionEvaluationsByParents = new ArrayList<>();
 		
-		assertEquals("It just seemed like a good idea to become a farmer", ChooseProfessionAction.getReason(Professions.FARMER_PROFESSION, professionEvaluationsByPerformer, professionEvaluationsByCompetition, professionEvaluationsByDemand, professionEvaluationsByBackground));
+		assertEquals("It just seemed like a good idea to become a farmer", ChooseProfessionAction.getReason(Professions.FARMER_PROFESSION, professionEvaluationsByPerformer, professionEvaluationsByCompetition, professionEvaluationsByDemand, professionEvaluationsByBackground, professionEvaluationsByParents));
 	}
 	
 	@Test
@@ -195,9 +196,10 @@ public class UTestChooseProfessionAction {
 		List<ProfessionEvaluation> professionEvaluationsByCompetition = new ArrayList<>();
 		List<ProfessionEvaluation> professionEvaluationsByDemand = new ArrayList<>();
 		List<ProfessionEvaluation> professionEvaluationsByBackground = new ArrayList<>();
+		List<ProfessionEvaluation> professionEvaluationsByParents = new ArrayList<>();
 		
 		professionEvaluationsByPerformer.add(new ProfessionEvaluation(Professions.FARMER_PROFESSION, 5));
-		assertEquals("I choose to become a farmer because I'm good at it", ChooseProfessionAction.getReason(Professions.FARMER_PROFESSION, professionEvaluationsByPerformer, professionEvaluationsByCompetition, professionEvaluationsByDemand, professionEvaluationsByBackground));
+		assertEquals("I choose to become a farmer because I'm good at it", ChooseProfessionAction.getReason(Professions.FARMER_PROFESSION, professionEvaluationsByPerformer, professionEvaluationsByCompetition, professionEvaluationsByDemand, professionEvaluationsByBackground, professionEvaluationsByParents));
 	}
 	
 	@Test
@@ -206,9 +208,10 @@ public class UTestChooseProfessionAction {
 		List<ProfessionEvaluation> professionEvaluationsByCompetition = new ArrayList<>();
 		List<ProfessionEvaluation> professionEvaluationsByDemand = new ArrayList<>();
 		List<ProfessionEvaluation> professionEvaluationsByBackground = new ArrayList<>();
+		List<ProfessionEvaluation> professionEvaluationsByParents = new ArrayList<>();
 		
 		professionEvaluationsByCompetition.add(new ProfessionEvaluation(Professions.FARMER_PROFESSION, 5));
-		assertEquals("I choose to become a farmer because there isn't much competition for it", ChooseProfessionAction.getReason(Professions.FARMER_PROFESSION, professionEvaluationsByPerformer, professionEvaluationsByCompetition, professionEvaluationsByDemand, professionEvaluationsByBackground));
+		assertEquals("I choose to become a farmer because there isn't much competition for it", ChooseProfessionAction.getReason(Professions.FARMER_PROFESSION, professionEvaluationsByPerformer, professionEvaluationsByCompetition, professionEvaluationsByDemand, professionEvaluationsByBackground, professionEvaluationsByParents));
 	}
 	
 	@Test
@@ -217,9 +220,10 @@ public class UTestChooseProfessionAction {
 		List<ProfessionEvaluation> professionEvaluationsByCompetition = new ArrayList<>();
 		List<ProfessionEvaluation> professionEvaluationsByDemand = new ArrayList<>();
 		List<ProfessionEvaluation> professionEvaluationsByBackground = new ArrayList<>();
+		List<ProfessionEvaluation> professionEvaluationsByParents = new ArrayList<>();
 		
 		professionEvaluationsByDemand.add(new ProfessionEvaluation(Professions.FARMER_PROFESSION, 5));
-		assertEquals("I choose to become a farmer because there is a demand for it", ChooseProfessionAction.getReason(Professions.FARMER_PROFESSION, professionEvaluationsByPerformer, professionEvaluationsByCompetition, professionEvaluationsByDemand, professionEvaluationsByBackground));
+		assertEquals("I choose to become a farmer because there is a demand for it", ChooseProfessionAction.getReason(Professions.FARMER_PROFESSION, professionEvaluationsByPerformer, professionEvaluationsByCompetition, professionEvaluationsByDemand, professionEvaluationsByBackground, professionEvaluationsByParents));
 	}
 	
 	@Test
@@ -228,10 +232,11 @@ public class UTestChooseProfessionAction {
 		List<ProfessionEvaluation> professionEvaluationsByCompetition = new ArrayList<>();
 		List<ProfessionEvaluation> professionEvaluationsByDemand = new ArrayList<>();
 		List<ProfessionEvaluation> professionEvaluationsByBackground = new ArrayList<>();
+		List<ProfessionEvaluation> professionEvaluationsByParents = new ArrayList<>();
 		
 		professionEvaluationsByPerformer.add(new ProfessionEvaluation(Professions.FARMER_PROFESSION, 5));
 		professionEvaluationsByCompetition.add(new ProfessionEvaluation(Professions.FARMER_PROFESSION, 5));
-		assertEquals("I choose to become a farmer because there isn't much competition for that profession and I'm good at it", ChooseProfessionAction.getReason(Professions.FARMER_PROFESSION, professionEvaluationsByPerformer, professionEvaluationsByCompetition, professionEvaluationsByDemand, professionEvaluationsByBackground));
+		assertEquals("I choose to become a farmer because there isn't much competition for that profession and I'm good at it", ChooseProfessionAction.getReason(Professions.FARMER_PROFESSION, professionEvaluationsByPerformer, professionEvaluationsByCompetition, professionEvaluationsByDemand, professionEvaluationsByBackground, professionEvaluationsByParents));
 	}
 	
 	@Test
@@ -240,9 +245,10 @@ public class UTestChooseProfessionAction {
 		List<ProfessionEvaluation> professionEvaluationsByCompetition = new ArrayList<>();
 		List<ProfessionEvaluation> professionEvaluationsByDemand = new ArrayList<>();
 		List<ProfessionEvaluation> professionEvaluationsByBackground = new ArrayList<>();
+		List<ProfessionEvaluation> professionEvaluationsByParents = new ArrayList<>();
 		
 		professionEvaluationsByBackground.add(new ProfessionEvaluation(Professions.FARMER_PROFESSION, 5, "I was hungry in the past"));
-		assertEquals("I choose to become a farmer because I was hungry in the past", ChooseProfessionAction.getReason(Professions.FARMER_PROFESSION, professionEvaluationsByPerformer, professionEvaluationsByCompetition, professionEvaluationsByDemand, professionEvaluationsByBackground));
+		assertEquals("I choose to become a farmer because I was hungry in the past", ChooseProfessionAction.getReason(Professions.FARMER_PROFESSION, professionEvaluationsByPerformer, professionEvaluationsByCompetition, professionEvaluationsByDemand, professionEvaluationsByBackground, professionEvaluationsByParents));
 	}
 	
 	@Test
@@ -254,6 +260,18 @@ public class UTestChooseProfessionAction {
 		List<ProfessionEvaluation> professionEvaluationsByBackground = ChooseProfessionAction.getProfessionEvaluationsByBackground(performer, world);
 		assertEquals(1, professionEvaluationsByBackground.size());
 		assertEquals(Professions.FARMER_PROFESSION, professionEvaluationsByBackground.get(0).getProfession());
+	}
+	
+	@Test
+	public void testGetReasonParents() {
+		List<ProfessionEvaluation> professionEvaluationsByPerformer = new ArrayList<>();
+		List<ProfessionEvaluation> professionEvaluationsByCompetition = new ArrayList<>();
+		List<ProfessionEvaluation> professionEvaluationsByDemand = new ArrayList<>();
+		List<ProfessionEvaluation> professionEvaluationsByBackground = new ArrayList<>();
+		List<ProfessionEvaluation> professionEvaluationsByParents = new ArrayList<>();
+		
+		professionEvaluationsByParents.add(new ProfessionEvaluation(Professions.FARMER_PROFESSION, 5));
+		assertEquals("I choose to become a farmer because my parents are farmers", ChooseProfessionAction.getReason(Professions.FARMER_PROFESSION, professionEvaluationsByPerformer, professionEvaluationsByCompetition, professionEvaluationsByDemand, professionEvaluationsByBackground, professionEvaluationsByParents));
 	}
 
 	private void createVillagersOrganization(World world) {

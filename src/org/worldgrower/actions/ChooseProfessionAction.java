@@ -33,6 +33,7 @@ import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.ProfessionExplanation;
 import org.worldgrower.attribute.PropertyCountMap;
 import org.worldgrower.creaturetype.CreatureType;
+import org.worldgrower.goal.ChildrenPropertyUtils;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.profession.Profession;
@@ -124,14 +125,16 @@ public class ChooseProfessionAction implements ManagedOperation {
 		List<ProfessionEvaluation> professionEvaluationsByCompetition = getProfessionEvaluationsByCompetition(performer, world);
 		List<ProfessionEvaluation> professionEvaluationsByDemand = getProfessionEvaluationsByDemand(performer, world);
 		List<ProfessionEvaluation> professionEvaluationsByBackground = getProfessionEvaluationsByBackground(performer, world);
+		List<ProfessionEvaluation> professionEvaluationsByParents = getProfessionEvaluationsByParents(performer, world);
 		
 		List<ProfessionEvaluation> mergedProfessionEvaluations = merge(professionEvaluationsByPerformer, professionEvaluationsByCompetition);
 		mergedProfessionEvaluations = merge(mergedProfessionEvaluations, professionEvaluationsByDemand);
 		mergedProfessionEvaluations = merge(mergedProfessionEvaluations, professionEvaluationsByBackground);
+		mergedProfessionEvaluations = merge(mergedProfessionEvaluations, professionEvaluationsByParents);
 		Collections.sort(mergedProfessionEvaluations);
 		
 		ProfessionEvaluation bestProfession = mergedProfessionEvaluations.get(0);	
-		String reason = getReason(bestProfession.getProfession(), professionEvaluationsByPerformer, professionEvaluationsByCompetition, professionEvaluationsByDemand, professionEvaluationsByBackground);
+		String reason = getReason(bestProfession.getProfession(), professionEvaluationsByPerformer, professionEvaluationsByCompetition, professionEvaluationsByDemand, professionEvaluationsByBackground, professionEvaluationsByParents);
 		
 		return new ProfessionResult(bestProfession, reason);
 	}
@@ -159,12 +162,14 @@ public class ChooseProfessionAction implements ManagedOperation {
 			List<ProfessionEvaluation> professionEvaluationsByPerformer,
 			List<ProfessionEvaluation> professionEvaluationsByCompetition,
 			List<ProfessionEvaluation> professionEvaluationsByDemand,
-			List<ProfessionEvaluation> professionEvaluationsByBackground) {
+			List<ProfessionEvaluation> professionEvaluationsByBackground,
+			List<ProfessionEvaluation> professionEvaluationsByParents) {
 		
 		int indexOfBestProfessionByPerformer = findIndexOfName(bestProfession.getDescription(), professionEvaluationsByPerformer);
 		int indexOfBestProfessionByCompetition = findIndexOfName(bestProfession.getDescription(), professionEvaluationsByCompetition);
 		int indexOfBestProfessionByDemand = findIndexOfName(bestProfession.getDescription(), professionEvaluationsByDemand);
 		int indexOfBestProfessionByBackground = findIndexOfName(bestProfession.getDescription(), professionEvaluationsByBackground);
+		int indexOfBestProfessionEvaluationsByParents = findIndexOfName(bestProfession.getDescription(), professionEvaluationsByParents);
 		
 		indexOfBestProfessionByPerformer = normalizeIndex(indexOfBestProfessionByPerformer);
 		indexOfBestProfessionByCompetition = normalizeIndex(indexOfBestProfessionByCompetition);
@@ -182,6 +187,8 @@ public class ChooseProfessionAction implements ManagedOperation {
 			return "I choose to become a " + bestProfession.getDescription() + " because there isn't much competition for it";
 		} else if (indexOfBestProfessionByDemand < indexOfBestProfessionByPerformer) {
 			return "I choose to become a " + bestProfession.getDescription() + " because there is a demand for it";
+		} else if (indexOfBestProfessionEvaluationsByParents == 0) {
+			return "I choose to become a " + bestProfession.getDescription() + " because my parents are " + bestProfession.getDescription() + "s";
 		}
 		
 		return "It just seemed like a good idea to become a " + bestProfession.getDescription();
@@ -357,6 +364,18 @@ public class ChooseProfessionAction implements ManagedOperation {
 		} else {
 			return new ArrayList<>();
 		}
+	}
+	
+	static List<ProfessionEvaluation> getProfessionEvaluationsByParents(WorldObject performer, World world) {
+		List<ProfessionEvaluation> result = new ArrayList<>();
+		List<WorldObject> parents = ChildrenPropertyUtils.getParents(performer, world);
+		for(WorldObject parent : parents) {
+			Profession parentProfession = parent.getProperty(Constants.PROFESSION);
+			if (parentProfession != null) {
+				result.add(new ProfessionEvaluation(parentProfession, 8));
+			}
+		}
+		return result;
 	}
 	
 	static class ProfessionEvaluation implements Comparable<ProfessionEvaluation> {
