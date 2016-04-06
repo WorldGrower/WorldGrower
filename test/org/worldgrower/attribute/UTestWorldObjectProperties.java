@@ -40,6 +40,18 @@ public class UTestWorldObjectProperties {
 	}
 	
 	@Test
+	public void testRemove() {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		properties.put(Constants.NAME, "Test");
+		WorldObjectProperties worldObjectProperties = new WorldObjectProperties(properties);
+		
+		assertEquals("Test", worldObjectProperties.get(Constants.NAME));
+		
+		worldObjectProperties.remove(Constants.NAME);
+		assertEquals(null, worldObjectProperties.get(Constants.NAME));
+	}
+	
+	@Test
 	public void testContainsKey() {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.NAME, "Test");

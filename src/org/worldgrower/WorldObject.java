@@ -32,6 +32,7 @@ public interface WorldObject {
 	public List<ManagedProperty<?>> getPropertyKeys();
 	public<T> void setProperty(ManagedProperty<T> propertyKey, T value);
 	public<T> void setPropertyUnchecked(ManagedProperty<T> propertyKey, T value);
+	public<T> void removeProperty(ManagedProperty<T> propertyKey);
 	
 	public void increment(IntProperty propertyKey, int incrementValue);
 	public ManagedOperation getOperation(ManagedOperation operation);

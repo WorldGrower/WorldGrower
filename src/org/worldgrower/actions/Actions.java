@@ -222,6 +222,7 @@ public class Actions {
 	public static final BrewSleepingPotionAction BREW_SLEEPING_POTION_ACTION = new BrewSleepingPotionAction();
 	public static final SleepingPoisonAction SLEEPING_POISON_ACTION = new SleepingPoisonAction();
 	public static final PoisonInventoryWaterWithSleepingPotionAction POISON_INVENTORY_WATER_WITH_SLEEPING_POTION_ACTION = new PoisonInventoryWaterWithSleepingPotionAction();
+	public static final PoisonWeaponAction POISON_WEAPON_ACTION = new PoisonWeaponAction();
 	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 
@@ -263,7 +264,8 @@ public class Actions {
 			POISON_INVENTORY_WATER_ACTION,
 			ANIMATE_SUIT_OF_ARMOR_ACTION,
 			READ_ITEM_IN_INVENTORY_ACTION,
-			POISON_INVENTORY_WATER_WITH_SLEEPING_POTION_ACTION
+			POISON_INVENTORY_WATER_WITH_SLEEPING_POTION_ACTION,
+			POISON_WEAPON_ACTION
 			);
 	
 	private static final List<ResearchKnowledgeSkillAction> RESEARCH_SKILL_ACTIONS = Arrays.asList(

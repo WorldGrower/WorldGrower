@@ -197,6 +197,7 @@ public class StartScreen {
 
 				JFileChooser fileChooser = new JFileChooser();
 				fileChooser.setDialogTitle("Specify a file to save");
+				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
 				String defaultFilename = getDefaultFilename();
 				fileChooser.setSelectedFile(new File(defaultFilename));
 

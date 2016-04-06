@@ -104,6 +104,11 @@ public class WorldObjectImpl implements WorldObject, Serializable {
 	}
 	
 	@Override
+	public<T> void removeProperty(ManagedProperty<T> propertyKey) {
+		properties.remove(propertyKey);
+	}
+	
+	@Override
 	public void increment(IntProperty propertyKey, int incrementValue) {
 		int currentValue = this.getProperty(propertyKey) + incrementValue;
 		currentValue = propertyKey.normalize(currentValue);

@@ -29,6 +29,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.ChooseProfessionAction.ProfessionEvaluation;
+import org.worldgrower.attribute.IdList;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.profession.Profession;
 import org.worldgrower.profession.Professions;
@@ -272,6 +273,24 @@ public class UTestChooseProfessionAction {
 		
 		professionEvaluationsByParents.add(new ProfessionEvaluation(Professions.FARMER_PROFESSION, 5));
 		assertEquals("I choose to become a farmer because my parents are farmers", ChooseProfessionAction.getReason(Professions.FARMER_PROFESSION, professionEvaluationsByPerformer, professionEvaluationsByCompetition, professionEvaluationsByDemand, professionEvaluationsByBackground, professionEvaluationsByParents));
+	}
+	
+	@Test
+	public void testGetProfessionEvaluationsByParents() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, "jobseeker");
+		
+		List<ProfessionEvaluation> professionEvaluationsByParents = ChooseProfessionAction.getProfessionEvaluationsByParents(performer, world);
+		assertEquals(0, professionEvaluationsByParents.size());
+		
+		WorldObject parent = TestUtils.createIntelligentWorldObject(2, "parent");
+		parent.setProperty(Constants.CHILDREN, new IdList().add(performer));
+		parent.setProperty(Constants.PROFESSION, Professions.BLACKSMITH_PROFESSION);
+		world.addWorldObject(parent);
+		
+		professionEvaluationsByParents = ChooseProfessionAction.getProfessionEvaluationsByParents(performer, world);
+		assertEquals(1, professionEvaluationsByParents.size());
+		assertEquals(Professions.BLACKSMITH_PROFESSION, professionEvaluationsByParents.get(0).getProfession());
 	}
 
 	private void createVillagersOrganization(World world) {

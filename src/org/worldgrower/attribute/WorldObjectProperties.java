@@ -125,4 +125,10 @@ public class WorldObjectProperties implements Serializable {
 		public ManagedProperty<?> managedProperty;
 		public Object value;
 	}
+
+
+
+	public<T> void remove(ManagedProperty<T> propertyKey) {
+		this.properties[propertyKey.getOrdinal()] = null;
+	}
 }

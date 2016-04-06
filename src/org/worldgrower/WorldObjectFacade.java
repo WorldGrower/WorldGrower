@@ -67,6 +67,11 @@ public class WorldObjectFacade implements WorldObject {
 	public <T> void setPropertyUnchecked(ManagedProperty<T> propertyKey, T value) {
 		originalWorldObject.setPropertyUnchecked(propertyKey, value);
 	}
+	
+	@Override
+	public <T> void removeProperty(ManagedProperty<T> propertyKey) {
+		originalWorldObject.removeProperty(propertyKey);
+	}
 
 	@Override
 	public void increment(IntProperty propertyKey, int incrementValue) {

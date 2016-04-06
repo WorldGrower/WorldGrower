@@ -40,6 +40,7 @@ public class Professions {
 	public static final ArenaFighterProfession ARENA_FIGHTER_PROFESSION = new ArenaFighterProfession(ALL_PROFESSIONS);
 	public static final JournalistProfession JOURNALIST_PROFESSION = new JournalistProfession(ALL_PROFESSIONS);
 	public static final AssassinProfession ASSASSIN_PROFESSION = new AssassinProfession(ALL_PROFESSIONS);
+	public static final AlchemistProfession ALCHEMIST_PROFESSION = new AlchemistProfession(ALL_PROFESSIONS);
 	
 	public static List<String> getDescriptions() {
 		return ALL_PROFESSIONS.stream().map(p -> p.getDescription()).collect(Collectors.toList());

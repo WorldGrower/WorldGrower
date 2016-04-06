@@ -195,6 +195,41 @@ public class UTestAttackUtils {
 		assertEquals(1, target.getProperty(Constants.HIT_POINTS).intValue());
 		assertEquals(true, target.getProperty(Constants.CONDITIONS).hasCondition(Condition.UNCONSCIOUS_CONDITION));
 	}
+	
+	@Test
+	public void testPoisonTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createCommoner(world);
+		WorldObject target = createCommoner(world);
+		
+		WorldObject ironClaymore = Item.IRON_CLAYMORE.generate(1f);
+		ironClaymore.setProperty(Constants.POISON_DAMAGE, 5);
+		performer.setProperty(Constants.LEFT_HAND_EQUIPMENT, ironClaymore);
+		
+		AttackUtils.poisonTarget(performer, target, world);
+		assertEquals(true, target.getProperty(Constants.CONDITIONS).hasCondition(Condition.POISONED_CONDITION));
+		assertEquals(null, ironClaymore.getProperty(Constants.POISON_DAMAGE));
+	}
+	
+	@Test
+	public void testPoisonTargetDualWield() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createCommoner(world);
+		WorldObject target = createCommoner(world);
+		
+		WorldObject ironClaymore1 = Item.IRON_CLAYMORE.generate(1f);
+		ironClaymore1.setProperty(Constants.POISON_DAMAGE, 5);
+		performer.setProperty(Constants.LEFT_HAND_EQUIPMENT, ironClaymore1);
+
+		WorldObject ironClaymore2 = Item.IRON_CLAYMORE.generate(1f);
+		ironClaymore2.setProperty(Constants.POISON_DAMAGE, 5);
+		performer.setProperty(Constants.RIGHT_HAND_EQUIPMENT, ironClaymore2);
+		
+		AttackUtils.poisonTarget(performer, target, world);
+		assertEquals(true, target.getProperty(Constants.CONDITIONS).hasCondition(Condition.POISONED_CONDITION));
+		assertEquals(null, ironClaymore1.getProperty(Constants.POISON_DAMAGE));
+		assertEquals(null, ironClaymore2.getProperty(Constants.POISON_DAMAGE));
+	}
 
 	private WorldObject createCommoner(World world) {
 		CommonerGenerator commonerGenerator = new CommonerGenerator(0, new CommonerImageIds(), new MockCommonerNameGenerator());

@@ -72,6 +72,7 @@ public class AttackUtils {
 		targetHP = hitPointsHandler.handleHitPoints(performer, target, action, targetHP);
 		target.setProperty(Constants.HIT_POINTS, targetHP);	
 		
+		poisonTarget(performer, target, world);
 		decreaseWeaponHealth(performer, damage);
 		armorIsUsed(target, damage, world.getWorldStateChangedListeners());
 		KnowledgeMapPropertyUtils.everyoneInVicinityKnowsOfEvent(performer, target, world);
@@ -82,6 +83,23 @@ public class AttackUtils {
 	public static void decreaseWeaponHealth(WorldObject performer, int damage) {
 		damageEquipment(performer, Constants.LEFT_HAND_EQUIPMENT, damage);
 		damageEquipment(performer, Constants.RIGHT_HAND_EQUIPMENT, damage);
+	}
+	
+	static void poisonTarget(WorldObject performer, WorldObject target, World world) {
+		WorldObject leftHandEquipment = performer.getProperty(Constants.LEFT_HAND_EQUIPMENT);
+		WorldObject rightHandEquipment = performer.getProperty(Constants.RIGHT_HAND_EQUIPMENT);
+		boolean leftHandEquipmentIsPoisoned = leftHandEquipment != null && leftHandEquipment.getProperty(Constants.POISON_DAMAGE) != null;
+		boolean rightHandEquipmentIsPoisoned = rightHandEquipment != null && rightHandEquipment.getProperty(Constants.POISON_DAMAGE) != null;
+		if (leftHandEquipmentIsPoisoned || rightHandEquipmentIsPoisoned) {
+			Conditions.add(target, Condition.POISONED_CONDITION, 8, world);
+			
+			if (leftHandEquipment != null) {
+				leftHandEquipment.removeProperty(Constants.POISON_DAMAGE);
+			}
+			if (rightHandEquipment != null) {
+				rightHandEquipment.removeProperty(Constants.POISON_DAMAGE);
+			}
+		}
 	}
 	
 	static void damageEquipment(WorldObject worldObject, UnCheckedProperty<WorldObject> equipmentProperty, int damage) {
