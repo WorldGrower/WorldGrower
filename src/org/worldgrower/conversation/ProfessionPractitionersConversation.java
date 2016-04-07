@@ -58,8 +58,9 @@ public class ProfessionPractitionersConversation implements Conversation {
 	
 	private List<WorldObject> getProfessionPractitioners(ConversationContext conversationContext) {
 		WorldObject target = conversationContext.getTarget();
-		Profession profession = Professions.getAllProfessions().get(conversationContext.getAdditionalValue());
 		World world = conversationContext.getWorld();
+		
+		Profession profession = Professions.getAllProfessions().get(conversationContext.getAdditionalValue());
 		return target.getProperty(Constants.KNOWLEDGE_MAP).findWorldObjects(Constants.PROFESSION, profession, world);
 	}
 	
