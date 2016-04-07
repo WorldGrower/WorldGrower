@@ -43,6 +43,10 @@ public interface Conversation extends Serializable {
 		return world.getHistory().findHistoryItemsForAnyPerformer(performer, target, Conversations.createArgs(this, subject), Actions.TALK_ACTION);
 	}
 	
+	public default boolean additionalValuesValid(WorldObject performer, WorldObject target, int additionalValue, int additionalValue2, World world) {
+		return true;
+	}
+	
 	public default Response getReply(List<Response> replyPhrases, int replyId) {
 		for(Response response : replyPhrases) {
 			if (response.getId() == replyId) {

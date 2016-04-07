@@ -54,4 +54,13 @@ public class KnowledgePropertyUtils {
 		}
 		return result;
 	}
+
+	public static boolean exists(List<Knowledge> knowledgeList, int id) {
+		for(Knowledge knowledge : knowledgeList) {
+			if (knowledge.getId() == id) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

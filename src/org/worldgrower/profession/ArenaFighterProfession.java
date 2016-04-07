@@ -40,7 +40,8 @@ public class ArenaFighterProfession implements Profession {
 		return Arrays.asList(
 				Goals.ARENA_FIGHT_GOAL,
 				Goals.COLLECT_ARENA_REWARD_GOAL,
-				Goals.EQUIPMENT_GOAL
+				Goals.EQUIPMENT_GOAL,
+				Goals.POISON_WEAPON_GOAL
 		);
 	}
 

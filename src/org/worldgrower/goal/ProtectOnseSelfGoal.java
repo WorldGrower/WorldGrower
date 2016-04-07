@@ -26,6 +26,8 @@ import org.worldgrower.profession.Profession;
 
 public class ProtectOnseSelfGoal implements Goal {
 
+	private static final int RANGE = 10;
+	
 	public ProtectOnseSelfGoal(List<Goal> allGoals) {
 		allGoals.add(this);
 	}
@@ -33,11 +35,11 @@ public class ProtectOnseSelfGoal implements Goal {
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		if (avoidsEnemies(performer)) {
-			List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.MELEE_ATTACK_ACTION, w -> GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, w) && Reach.distance(performer, w) < 6, world);
+			List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.MELEE_ATTACK_ACTION, w -> GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, w) && Reach.distance(performer, w) < RANGE, world);
 			
 			if (targets.size() > 0) {
 				Zone zone = new Zone(world.getWidth(), world.getHeight());
-				zone.addValues(targets, 5, 1);
+				zone.addValues(targets, RANGE / 2, 1);
 				
 				int lowestDangerValue = Integer.MAX_VALUE;
 				int performerX = performer.getProperty(Constants.X);
@@ -45,8 +47,8 @@ public class ProtectOnseSelfGoal implements Goal {
 				int[] bestArgs = null;
 				for(int x : zone.getValuesX(performerX)) {
 					for(int y : zone.getValuesY(performerY)) {
-						if ((zone.value(x, y) < lowestDangerValue) && (x != 0) && (y != 0)) {
-							bestArgs = new int[]{ x - performerX, y - performerY };
+						if ((zone.value(x, y) < lowestDangerValue) && (x != 0) && (y != 0) && movementIsPossible(performer, x, y, world)) {
+							bestArgs = createArgs(performerX, performerY, x, y);
 						}
 					}
 				}
@@ -58,7 +60,17 @@ public class ProtectOnseSelfGoal implements Goal {
 		}
 		return null;
 	}
+
+	private int[] createArgs(int performerX, int performerY, int x, int y) {
+		return new int[]{ x - performerX, y - performerY };
+	}
 	
+	private boolean movementIsPossible(WorldObject performer, int x, int y, World world) {
+		int performerX = performer.getProperty(Constants.X);
+		int performerY = performer.getProperty(Constants.Y);
+		return Actions.MOVE_ACTION.distance(performer, performer, createArgs(performerX, performerY, x, y), world) == 0;
+	}
+
 	private boolean avoidsEnemies(WorldObject performer) {
 		Profession profession = performer.getProperty(Constants.PROFESSION);
 		if (profession != null) {
@@ -79,7 +91,7 @@ public class ProtectOnseSelfGoal implements Goal {
 	}
 
 	private boolean isEnemyWithinReach(WorldObject performer, WorldObject w) {
-		return GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, w) && Reach.distance(performer, w) < 10;
+		return GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, w) && Reach.distance(performer, w) < RANGE;
 	}
 	
 	@Override

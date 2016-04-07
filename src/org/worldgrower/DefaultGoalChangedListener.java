@@ -62,6 +62,8 @@ public class DefaultGoalChangedListener implements GoalChangedListener {
 				GoalChangedHandler goalChangedHandler = goalChangedMap.get(newGoal);
 				if (goalChangedHandler != null) {
 					goalChangedHandler.setGoalAndTasks(performer, metaInformation);
+				} else {
+					facade.removeProperty(Constants.META_INFORMATION);
 				}
 			}
 		}

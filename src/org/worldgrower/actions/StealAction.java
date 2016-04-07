@@ -38,16 +38,19 @@ public class StealAction implements ManagedOperation {
 		WorldObjectContainer targetInventory = target.getProperty(Constants.INVENTORY);
 		
 		WorldObject worldObjectToSteal = targetInventory.get(index);
-		boolean isSuccess = isThieverySuccess(performer, world, worldObjectToSteal);
-		
-		if (isSuccess) {
-			WorldObject stolenWorldObject = targetInventory.remove(index);
-			performerInventory.add(stolenWorldObject);
+		//TODO: worldObjectToSteal shouldn't be null
+		if (worldObjectToSteal != null) {
+			boolean isSuccess = isThieverySuccess(performer, world, worldObjectToSteal);
 			
-			InventoryPropertyUtils.cleanupEquipmentSlots(target);
-		} else {
-			addThievingKnowledge(performer, target, world);
-			GroupPropertyUtils.throwPerformerOutGroup(performer, target);
+			if (isSuccess) {
+				WorldObject stolenWorldObject = targetInventory.remove(index);
+				performerInventory.add(stolenWorldObject);
+				
+				InventoryPropertyUtils.cleanupEquipmentSlots(target);
+			} else {
+				addThievingKnowledge(performer, target, world);
+				GroupPropertyUtils.throwPerformerOutGroup(performer, target);
+			}
 		}
 	}
 

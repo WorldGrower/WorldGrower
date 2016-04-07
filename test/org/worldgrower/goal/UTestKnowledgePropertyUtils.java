@@ -38,4 +38,14 @@ public class UTestKnowledgePropertyUtils {
 		assertEquals(sortedKnowledge.get(0).getId(), args[0]);
 		assertEquals(sortedKnowledge.get(1).getId(), args[1]);
 	}
+	
+	@Test
+	public void testExists() {
+		List<Knowledge> sortedKnowledge = new ArrayList<>();
+		PropertyKnowledge id = new PropertyKnowledge(1, Constants.FOOD, 500);
+		sortedKnowledge.add(id);
+		
+		assertEquals(true, KnowledgePropertyUtils.exists(sortedKnowledge, id.getId()));
+		assertEquals(false, KnowledgePropertyUtils.exists(sortedKnowledge, id.getId() + 7));
+	}
 }

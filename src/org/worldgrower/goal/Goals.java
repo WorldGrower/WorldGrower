@@ -144,4 +144,5 @@ public class Goals {
 	public static final CreateSleepingPotionGoal CREATE_SLEEPING_POTION_GOAL = new CreateSleepingPotionGoal(ALL_GOALS);
 	public static final SellPoisonGoal SELL_POISON_GOAL = new SellPoisonGoal(ALL_GOALS);
 	public static final SellSleepingPotionGoal SELL_SLEEPING_POTION_GOAL = new SellSleepingPotionGoal(ALL_GOALS);
+	public static final PoisonWeaponGoal POISON_WEAPON_GOAL = new PoisonWeaponGoal(ALL_GOALS);
 }

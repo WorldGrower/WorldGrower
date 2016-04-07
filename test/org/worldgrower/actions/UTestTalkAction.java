@@ -177,7 +177,7 @@ public class UTestTalkAction {
 		target.setProperty(Constants.X, 0);
 		target.setProperty(Constants.Y, 0);
 		
-		assertEquals(0, Actions.TALK_ACTION.distance(performer, target, new int[] { 0, -1 }, world));
+		assertEquals(0, Actions.TALK_ACTION.distance(performer, target, new int[] { 0, -1, 0, 0, 0 }, world));
 	}
 	
 	@Test
@@ -194,7 +194,7 @@ public class UTestTalkAction {
 		target.setProperty(Constants.X, 0);
 		target.setProperty(Constants.Y, 0);
 		
-		assertEquals(0, Actions.TALK_ACTION.distance(performer, target, new int[] { 0, 3 }, world));
+		assertEquals(0, Actions.TALK_ACTION.distance(performer, target, new int[] { 0, 3, 0, 0, 0 }, world));
 	}
 	
 	@Test
@@ -209,7 +209,7 @@ public class UTestTalkAction {
 		target.setProperty(Constants.X, 10);
 		target.setProperty(Constants.Y, 10);
 		
-		assertEquals(200, Actions.TALK_ACTION.distance(performer, target, new int[] { 0, -1 }, world));
+		assertEquals(200, Actions.TALK_ACTION.distance(performer, target, new int[] { 0, -1, 0, 0, 0 }, world));
 	}
 	
 	private World createWorld() {

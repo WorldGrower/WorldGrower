@@ -340,6 +340,10 @@ public class Conversations implements Serializable {
 		return CONVERSATIONS.get(index).isConversationAvailable(performer, target, subject, world) ? 0 : 1;
 	}
 	
+	public int additionalValueDistance(int index, WorldObject performer, WorldObject target, int additionalValue, int additionalValue2, World world) {
+		return CONVERSATIONS.get(index).additionalValuesValid(performer, target, additionalValue, additionalValue2, world) ? 0 : 1;
+	}
+	
 	public List<WorldObject> getPossibleSubjects(int index, int historyItemId, WorldObject performer, WorldObject target, World world) {
 		return CONVERSATIONS.get(index).getPossibleSubjects(performer, target, getQuestionHistoryItem(historyItemId, world), world);
 	}

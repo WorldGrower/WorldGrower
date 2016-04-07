@@ -24,31 +24,40 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.WorldObjectContainer;
-import org.worldgrower.deity.Deity;
-import org.worldgrower.profession.Professions;
+import org.worldgrower.generator.Item;
 
-public class UTestChooseDeityGoal {
+public class UTestPoisonWeaponGoal {
 
-	private ChooseDeityGoal goal = Goals.CHOOSE_DEITY_GOAL;
+	private PoisonWeaponGoal goal = Goals.POISON_WEAPON_GOAL;
 	
 	@Test
-	public void testCalculateGoalChooseDeity() {
+	public void testCalculateGoalNull() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = createPerformer();
-		performer.setProperty(Constants.NAME, "Test");
 		
-		assertEquals(Actions.CHOOSE_DEITY_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+		assertEquals(null, goal.calculateGoal(performer, world));
 	}
 	
 	@Test
-	public void testCalculateGoalChooseFarmerDeity() {
-		World world = new WorldImpl(0, 0, null, null);
+	public void testCalculateGoalNoWeapon() {
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
-		performer.setProperty(Constants.PROFESSION, Professions.FARMER_PROFESSION);
-		performer.setProperty(Constants.NAME, "Test");
 		
-		assertEquals(Actions.CHOOSE_DEITY_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
-		assertEquals(true, goal.calculateGoal(performer, world).firstArgsIs(Deity.ALL_DEITIES.indexOf(Deity.DEMETER)));
+		assertEquals(null, goal.calculateGoal(performer, world));
+	}
+	
+	@Test
+	public void testCalculateGoalPoisonWeapon() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer();
+		
+		WorldObject ironClaymore = Item.IRON_CLAYMORE.generate(1f);
+		performer.getProperty(Constants.INVENTORY).add(ironClaymore);
+		performer.setProperty(Constants.LEFT_HAND_EQUIPMENT, ironClaymore);
+		
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.POISON.generate(1f), 20);
+		
+		assertEquals(Actions.POISON_WEAPON_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
 	
 	@Test
@@ -56,10 +65,13 @@ public class UTestChooseDeityGoal {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
 		
-		assertEquals(false, goal.isGoalMet(performer, world));
-		
-		performer.setProperty(Constants.DEITY, Deity.ARES);
 		assertEquals(true, goal.isGoalMet(performer, world));
+		
+		WorldObject ironClaymore = Item.IRON_CLAYMORE.generate(1f);
+		performer.getProperty(Constants.INVENTORY).add(ironClaymore);
+		performer.setProperty(Constants.LEFT_HAND_EQUIPMENT, ironClaymore);
+		
+		assertEquals(false, goal.isGoalMet(performer, world));
 	}
 
 	private WorldObject createPerformer() {

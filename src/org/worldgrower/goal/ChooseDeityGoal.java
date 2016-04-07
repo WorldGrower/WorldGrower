@@ -42,12 +42,12 @@ public class ChooseDeityGoal implements Goal {
 		final int indexOfDeity;
 		final int reasonIndex;
 		if (deityReasons.size() > 0) {
-			int randomDeityIndex = getRandomValue(0, deityReasons.size() - 1);
+			int randomDeityIndex = getRandomValue(performer, 0, deityReasons.size() - 1);
 			Deity randomDeity = deityReasons.get(randomDeityIndex).getDeity();
 			indexOfDeity = Deity.ALL_DEITIES.indexOf(randomDeity);
 			reasonIndex = deityReasons.get(randomDeityIndex).getReasonIndex();
 		} else {
-			int randomDeityIndex = getRandomValue(0, Deity.ALL_DEITIES.size() - 1);
+			int randomDeityIndex = getRandomValue(performer, 0, Deity.ALL_DEITIES.size() - 1);
 			indexOfDeity = randomDeityIndex;
 			reasonIndex = -1;
 		}
@@ -55,9 +55,20 @@ public class ChooseDeityGoal implements Goal {
 		return new OperationInfo(performer, performer, new int[] { indexOfDeity, reasonIndex }, Actions.CHOOSE_DEITY_ACTION);
 	}
 	
-	private int getRandomValue(int min, int max) {
-		int range = (max - min) + 1;     
-		return (int)(Math.random() * range) + min;
+	private int getRandomValue(WorldObject performer, int min, int max) {
+		int range = (max - min) + 1;
+		
+		String performerName = performer.getProperty(Constants.NAME);
+		if (performerName.length() > 0) {
+			performerName = performerName.toUpperCase();
+			char firstLetter = performerName.charAt(0);
+			int charOffset = 'Z' - firstLetter;
+			
+			int index = charOffset % range;
+			return index + min;
+		} else {
+			return 0;
+		}
 	}
 	
 	@Override

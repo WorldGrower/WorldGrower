@@ -63,6 +63,8 @@ public class TalkAction implements ManagedOperation {
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
 		int question = args[0];
 		int subjectId = args[1];
+		int additionalValue = args[3];
+		int additionalValue2 = args[4];
 		final WorldObject subject;
 		if (subjectId != -1) {
 			subject = world.findWorldObject(Constants.ID, subjectId);
@@ -70,7 +72,8 @@ public class TalkAction implements ManagedOperation {
 			subject = null;
 		}
 		return Reach.evaluateTarget(performer, args, target, 10)
-				+ conversations.distance(question, performer, target, subject, world);
+				+ conversations.distance(question, performer, target, subject, world)
+				+ conversations.additionalValueDistance(question, performer, target, additionalValue, additionalValue2, world);
 	}
 	
 	@Override

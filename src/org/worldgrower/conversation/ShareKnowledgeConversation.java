@@ -84,6 +84,13 @@ public class ShareKnowledgeConversation implements Conversation {
 	}
 	
 	@Override
+	public boolean additionalValuesValid(WorldObject performer, WorldObject target, int additionalValue, int additionalValue2, World world) {
+		List<Knowledge> knowledgeList = getKnowledgeList(performer, target, world);
+		int knowledgeId = additionalValue;
+		return KnowledgePropertyUtils.exists(knowledgeList, knowledgeId);
+	}
+	
+	@Override
 	public void handleResponse(int replyIndex, ConversationContext conversationContext) {
 		WorldObject performer = conversationContext.getPerformer();
 		WorldObject target = conversationContext.getTarget();
