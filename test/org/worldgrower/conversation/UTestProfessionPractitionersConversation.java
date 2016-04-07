@@ -42,7 +42,7 @@ public class UTestProfessionPractitionersConversation {
 		int indexOfProfession = Professions.indexOf(Professions.FISHER_PROFESSION);
 		ConversationContext context = new ConversationContext(performer, target, null, null, world, indexOfProfession);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
-		assertEquals(true, replyPhrases.size() == 2);
+		assertEquals(2, replyPhrases.size());
 		assertEquals("I know no-one that is a fisher", replyPhrases.get(0).getResponsePhrase());
 		assertEquals("No", replyPhrases.get(1).getResponsePhrase());
 		
@@ -59,7 +59,20 @@ public class UTestProfessionPractitionersConversation {
 	
 		replyPhrases = conversation.getReplyPhrases(context);
 		assertEquals("I know that subject, subject2 are fishers", replyPhrases.get(0).getResponsePhrase());
-
+	}
+	
+	@Test
+	public void testGetReplyPhrasesTargetHasProfession() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
+		target.setProperty(Constants.PROFESSION, Professions.FISHER_PROFESSION);
+		
+		int indexOfProfession = Professions.indexOf(Professions.FISHER_PROFESSION);
+		ConversationContext context = new ConversationContext(performer, target, null, null, world, indexOfProfession);
+		List<Response> replyPhrases = conversation.getReplyPhrases(context);
+		assertEquals(2, replyPhrases.size());
+		assertEquals("I'm a fisher", replyPhrases.get(0).getResponsePhrase());
 	}
 
 	@Test

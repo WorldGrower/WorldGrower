@@ -73,10 +73,13 @@ public class ProfessionPractitionersConversation implements Conversation {
 	}
 
 	private String getProfessionPractitionersDescription(ConversationContext conversationContext) {
+		WorldObject target = conversationContext.getTarget();
 		List<WorldObject> professionPractitioners = getProfessionPractitioners(conversationContext);
 		Profession profession = Professions.getAllProfessions().get(conversationContext.getAdditionalValue());
-		
-		if (professionPractitioners.size() == 1) {
+
+		if (target.getProperty(Constants.PROFESSION) == profession) {
+			return "I'm a " + profession.getDescription();
+		} else if (professionPractitioners.size() == 1) {
 			return "I know that " + professionPractitioners.get(0).getProperty(Constants.NAME) + " is a " + profession.getDescription();
 		} else if (professionPractitioners.size() > 0) {
 			StringBuilder followersDescription = new StringBuilder();
