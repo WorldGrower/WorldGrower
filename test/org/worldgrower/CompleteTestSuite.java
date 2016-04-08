@@ -576,7 +576,9 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestSleepingPoisonAction.class,
 	UTestPoisonInventoryWaterWithSleepingPotionAction.class,
 	UTestWorldObjectFacade.class,
-	UTestCreateSleepingPotionGoal.class
+	UTestCreateSleepingPotionGoal.class,
+	UTestClaimHouseAction.class,
+	UTestPoisonWeaponAction.class
 })
 public class CompleteTestSuite {
 }

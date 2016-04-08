@@ -223,6 +223,7 @@ public class Actions {
 	public static final SleepingPoisonAction SLEEPING_POISON_ACTION = new SleepingPoisonAction();
 	public static final PoisonInventoryWaterWithSleepingPotionAction POISON_INVENTORY_WATER_WITH_SLEEPING_POTION_ACTION = new PoisonInventoryWaterWithSleepingPotionAction();
 	public static final PoisonWeaponAction POISON_WEAPON_ACTION = new PoisonWeaponAction();
+	public static final ClaimHouseAction CLAIM_HOUSE_ACTION = new ClaimHouseAction();
 	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 
@@ -384,7 +385,8 @@ public class Actions {
 		CRAFT_IRON_MACE_ACTION,
 		CRAFT_IRON_KATAR_ACTION,
 		BREW_SLEEPING_POTION_ACTION,
-		SLEEPING_POISON_ACTION
+		SLEEPING_POISON_ACTION,
+		CLAIM_HOUSE_ACTION
 	));
 	
 	static {

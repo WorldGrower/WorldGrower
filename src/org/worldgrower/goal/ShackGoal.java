@@ -32,7 +32,9 @@ public class ShackGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		if (!BuildShackAction.hasEnoughWood(performer)) {
+		if (!GroupPropertyUtils.hasMoneyToPayShackTaxes(performer, world)) {
+			return null;
+		} else if (!BuildShackAction.hasEnoughWood(performer)) {
 			return Goals.WOOD_GOAL.calculateGoal(performer, world);
 		} else {
 			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 3, 4, world);

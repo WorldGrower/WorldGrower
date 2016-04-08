@@ -276,7 +276,18 @@ public class GroupPropertyUtils {
 		}
 		return amountToCollect;
 	}
+
+	public static boolean hasMoneyToPayShackTaxes(WorldObject performer, World world) {
+		int performerGold = performer.getProperty(Constants.GOLD);
+		int baseTaxRate = GroupPropertyUtils.getVillagersOrganization(world).getProperty(Constants.SHACK_TAX_RATE);
+		return performerGold > baseTaxRate * 3;
+	}
 	
+	public static boolean hasMoneyToPayHouseTaxes(WorldObject performer, World world) {
+		int performerGold = performer.getProperty(Constants.GOLD);
+		int baseTaxRate = GroupPropertyUtils.getVillagersOrganization(world).getProperty(Constants.HOUSE_TAX_RATE);
+		return performerGold > baseTaxRate * 3;
+	}
 	
 	public static int getPayCheckAmount(WorldObject target, World world) {
 		WorldObject villagersOrganization = getVillagersOrganization(world);

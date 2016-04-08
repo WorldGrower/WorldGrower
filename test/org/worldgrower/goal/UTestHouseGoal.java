@@ -38,6 +38,7 @@ public class UTestHouseGoal {
 	public void testCalculateGoalNull() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = createPerformer(2);
+		createVillagersOrganization(world);
 		
 		assertEquals(null, goal.calculateGoal(performer, world));
 	}
@@ -46,8 +47,11 @@ public class UTestHouseGoal {
 	public void testCalculateGoalMineStone() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
+		performer.setProperty(Constants.GOLD, 100);
 		
 		TerrainGenerator.generateStoneResource(5, 5, world);
+		
+		createVillagersOrganization(world);
 		
 		assertEquals(Actions.MINE_STONE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
@@ -56,6 +60,7 @@ public class UTestHouseGoal {
 	public void testCalculateGoalBuyHouse() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
+		performer.setProperty(Constants.GOLD, 100);
 		WorldObject target = createPerformer(3);
 		
 		int houseId = BuildingGenerator.generateHouse(5, 5, world, 1f);
@@ -64,6 +69,8 @@ public class UTestHouseGoal {
 		
 		WorldObject house = world.findWorldObject(Constants.ID, houseId);
 		house.setProperty(Constants.SELLABLE, Boolean.TRUE);
+		
+		createVillagersOrganization(world);
 		
 		assertEquals(Actions.TALK_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 		AssertUtils.assertConversation(goal.calculateGoal(performer, world), Conversations.BUY_HOUSE_CONVERSATION);
@@ -88,6 +95,14 @@ public class UTestHouseGoal {
 		performer.setProperty(Constants.Y, 0);
 		performer.setProperty(Constants.WIDTH, 1);
 		performer.setProperty(Constants.HEIGHT, 1);
+		performer.setProperty(Constants.GOLD, 0);
 		return performer;
+	}
+	
+	private WorldObject createVillagersOrganization(World world) {
+		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
+		organization.setProperty(Constants.ID, 1);
+		world.addWorldObject(organization);
+		return organization;
 	}
 }

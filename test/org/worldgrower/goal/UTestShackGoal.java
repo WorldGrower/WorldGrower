@@ -39,6 +39,7 @@ public class UTestShackGoal {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
+		createVillagersOrganization(world);
 		
 		assertEquals(null, goal.calculateGoal(performer, world));
 	}
@@ -48,6 +49,7 @@ public class UTestShackGoal {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
+		createVillagersOrganization(world);
 		
 		PlantGenerator.generateTree(5, 5, world);
 		
@@ -59,6 +61,7 @@ public class UTestShackGoal {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
+		createVillagersOrganization(world);
 
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
 		
@@ -70,6 +73,7 @@ public class UTestShackGoal {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
+		createVillagersOrganization(world);
 
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
 		
@@ -95,5 +99,12 @@ public class UTestShackGoal {
 		int commonerId = commonerGenerator.generateCommoner(0, 0, world, organization);
 		WorldObject commoner = world.findWorldObject(Constants.ID, commonerId);
 		return commoner;
+	}
+	
+	private WorldObject createVillagersOrganization(World world) {
+		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
+		organization.setProperty(Constants.ID, 1);
+		world.addWorldObject(organization);
+		return organization;
 	}
 }

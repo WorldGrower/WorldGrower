@@ -35,20 +35,26 @@ public class ProtectOnseSelfGoal implements Goal {
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		if (avoidsEnemies(performer)) {
-			List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.MELEE_ATTACK_ACTION, w -> GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, w) && Reach.distance(performer, w) < RANGE, world);
+			List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.MELEE_ATTACK_ACTION, w -> isEnemyWithinRange(performer, w, world), world);
 			
 			if (targets.size() > 0) {
 				Zone zone = new Zone(world.getWidth(), world.getHeight());
-				zone.addValues(targets, RANGE / 2, 1);
+				for(int i=1; i<RANGE / 2; i++) {
+					zone.addValues(targets, i, 1);
+				}
 				
 				int lowestDangerValue = Integer.MAX_VALUE;
 				int performerX = performer.getProperty(Constants.X);
 				int performerY = performer.getProperty(Constants.Y);
 				int[] bestArgs = null;
-				for(int x : zone.getValuesX(performerX)) {
-					for(int y : zone.getValuesY(performerY)) {
-						if ((zone.value(x, y) < lowestDangerValue) && (x != 0) && (y != 0) && movementIsPossible(performer, x, y, world)) {
-							bestArgs = createArgs(performerX, performerY, x, y);
+				for(int x : zone.getValuesX(performerX)) { // x = performerX -1 to performerX +1
+					for(int y : zone.getValuesY(performerY)) { // y = performerY -1 to performerY +1
+						if ((x != performerX) && (y != performerY)) {
+							if ((zone.value(x, y) < lowestDangerValue) && movementIsPossible(performer, x, y, world)) {
+								bestArgs = createArgs(performerX, performerY, x, y);
+								lowestDangerValue = zone.value(x, y);
+								//System.out.println("x=" + x + ",y="+y+",lowestDangerValue="+lowestDangerValue);
+							}
 						}
 					}
 				}
@@ -59,6 +65,15 @@ public class ProtectOnseSelfGoal implements Goal {
 			}
 		}
 		return null;
+	}
+
+	private boolean isEnemyWithinRange(WorldObject performer, WorldObject w, World world) {
+		WorldObject villagersOrganization = GroupPropertyUtils.getVillagersOrganization(world);
+		if (performer.getProperty(Constants.GROUP).contains(villagersOrganization)) {
+			return GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, w) && Reach.distance(performer, w) < RANGE;
+		} else {
+			return performer.getProperty(Constants.RELATIONSHIPS).getValue(w) < 0 && Reach.distance(performer, w) < RANGE;
+		}
 	}
 
 	private int[] createArgs(int performerX, int performerY, int x, int y) {
@@ -86,14 +101,10 @@ public class ProtectOnseSelfGoal implements Goal {
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		List<WorldObject> worldObjects = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> isEnemyWithinReach(performer, w));
+		List<WorldObject> worldObjects = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> isEnemyWithinRange(performer, w, world));
 		return worldObjects.isEmpty();
 	}
 
-	private boolean isEnemyWithinReach(WorldObject performer, WorldObject w) {
-		return GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, w) && Reach.distance(performer, w) < RANGE;
-	}
-	
 	@Override
 	public boolean isUrgentGoalMet(WorldObject performer, World world) {
 		return isGoalMet(performer, world);

@@ -55,10 +55,30 @@ public class BackgroundImpl implements Background, Serializable {
 		} else {
 			// TODO: traditional personality trait, authority following?
 		}
+		
+		if (isHarmed(performer)) {
+			if (performer.getProperty(Constants.WISDOM) > performer.getProperty(Constants.STRENGTH)) {
+				return new ProfessionExplanation(Professions.PRIEST_PROFESSION, "I wanted to be able to heal myself");
+			} else {
+				return new ProfessionExplanation(Professions.SHERIFF_PROFESSION, "I wanted to be able to protect myself");
+			}
+		}
+		
+		if (hasDiseases(performer)) {
+			return new ProfessionExplanation(Professions.PRIEST_PROFESSION, "I wanted to be able to cure my diseases");
+		}
 
 		return null;
 	}
 	
+	private boolean hasDiseases(WorldObject performer) {
+		return performer.getProperty(Constants.CONDITIONS).hasDiseaseCondition();
+	}
+
+	private boolean isHarmed(WorldObject performer) {
+		return performer.getProperty(Constants.HIT_POINTS) < performer.getProperty(Constants.HIT_POINTS_MAX);
+	}
+
 	private boolean hasFoodDemand(WorldObject performer) {
 		return performer.getProperty(Constants.DEMANDS).count(Constants.FOOD) > 0;
 	}

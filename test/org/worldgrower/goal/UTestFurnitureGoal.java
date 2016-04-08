@@ -66,6 +66,9 @@ public class UTestFurnitureGoal {
 		WorldObject performer = createPerformer();
 		performer.getProperty(Constants.INVENTORY).add(Item.BED.generate(1f));
 		performer.setProperty(Constants.HOUSES, new IdList());
+		performer.setProperty(Constants.GOLD, 0);
+		
+		createVillagersOrganization(world);
 		
 		assertEquals(null, goal.calculateGoal(performer, world));
 	}
@@ -106,5 +109,12 @@ public class UTestFurnitureGoal {
 		performer.setProperty(Constants.WIDTH, 1);
 		performer.setProperty(Constants.HEIGHT, 1);
 		return performer;
+	}
+	
+	private WorldObject createVillagersOrganization(World world) {
+		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
+		organization.setProperty(Constants.ID, 1);
+		world.addWorldObject(organization);
+		return organization;
 	}
 }
