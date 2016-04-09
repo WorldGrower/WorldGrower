@@ -222,6 +222,7 @@ public class GuiMouseListener extends MouseAdapter {
             		addInventoryActions(menu, worldObject);
             		addVoteActions(menu, worldObject);
             		addResearchActions(menu, worldObject);
+            		addRestActions(menu, worldObject);
             	}
             	addAllActions(menu, worldObject);
             	
@@ -388,6 +389,14 @@ public class GuiMouseListener extends MouseAdapter {
 			JMenuItem guiResearchMagicSpellMenuItem = MenuFactory.createJMenuItem(new GuiResearchMagicSpellAction(playerCharacter, imageInfoReader, world, container, dungeonMaster, worldObject));
 			guiResearchMagicSpellMenuItem.setText("Research multiple turns...");
 			menu.add(guiResearchMagicSpellMenuItem);
+		}
+	}
+	
+	private void addRestActions(JPopupMenu menu, WorldObject worldObject) {
+		if (Game.canActionExecute(playerCharacter, Actions.SLEEP_ACTION, Args.EMPTY, world, worldObject)) {
+			JMenuItem restMultipleTurnsMenuItem = MenuFactory.createJMenuItem(new GuiRestMultipleTurnsAction(playerCharacter, imageInfoReader, world, container, dungeonMaster, worldObject));
+			restMultipleTurnsMenuItem.setText("Sleep multiple turns...");
+			menu.add(restMultipleTurnsMenuItem);
 		}
 	}
 

@@ -64,13 +64,12 @@ public class SleepAction implements ManagedOperation {
 
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "resting at " + target.getProperty(Constants.NAME);
+		return "sleeping in " + target.getProperty(Constants.NAME);
 	}
-	
 
 	@Override
 	public String getSimpleDescription() {
-		return "rest";
+		return "sleep";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {
