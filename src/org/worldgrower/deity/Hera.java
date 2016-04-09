@@ -47,14 +47,19 @@ public class Hera implements Deity {
 	@Override
 	public List<String> getReasons() {
 		return Arrays.asList(
-				"As a priest of " + getName() + ", I want to honor the queen of the Gods"
+				"As a priest of " + getName() + ", I want to honor the queen of the Gods",
+				"I worship " + getName() + " because I value family life"
 		);
 	}
 
 	@Override
 	public int getReasonIndex(WorldObject performer, World world) {
+		boolean hasChildren = performer.getProperty(Constants.CHILDREN).size() > 0;
+		boolean hasMate = performer.getProperty(Constants.MATE_ID) != null;
 		if (performer.getProperty(Constants.PROFESSION) == Professions.PRIEST_PROFESSION) {
 			return 0;
+		} else if (hasChildren && !hasMate) {
+			return 1;
 		}
 		
 		return -1;

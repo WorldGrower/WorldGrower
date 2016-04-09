@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.deity.Deity;
 import org.worldgrower.profession.Professions;
@@ -36,6 +37,7 @@ public class UTestChooseDeityGoal {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = createPerformer();
 		performer.setProperty(Constants.NAME, "Test");
+		performer.setProperty(Constants.CHILDREN, new IdList());
 		
 		assertEquals(Actions.CHOOSE_DEITY_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
@@ -46,6 +48,7 @@ public class UTestChooseDeityGoal {
 		WorldObject performer = createPerformer();
 		performer.setProperty(Constants.PROFESSION, Professions.FARMER_PROFESSION);
 		performer.setProperty(Constants.NAME, "Test");
+		performer.setProperty(Constants.CHILDREN, new IdList());
 		
 		assertEquals(Actions.CHOOSE_DEITY_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 		assertEquals(true, goal.calculateGoal(performer, world).firstArgsIs(Deity.ALL_DEITIES.indexOf(Deity.DEMETER)));

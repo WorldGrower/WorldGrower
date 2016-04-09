@@ -47,7 +47,8 @@ public class Zeus implements Deity {
 	@Override
 	public List<String> getReasons() {
 		return Arrays.asList(
-				"As a priest of " + getName() + ", I want to honor the king of the Gods"
+				"As a priest of " + getName() + ", I want to honor the king of the Gods",
+				"I worship " + getName() +" because I want to uphold the law"
 		);
 	}
 
@@ -55,6 +56,8 @@ public class Zeus implements Deity {
 	public int getReasonIndex(WorldObject performer, World world) {
 		if (performer.getProperty(Constants.PROFESSION) == Professions.PRIEST_PROFESSION) {
 			return 0;
+		} else if (performer.getProperty(Constants.PROFESSION) == Professions.SHERIFF_PROFESSION) {
+			return 1;
 		}
 		
 		return -1;
