@@ -40,6 +40,7 @@ public class CommonerWorldEvaluationFunction implements WorldObjectPriorities {
 		List<Goal> religionOrganizationGoal = getReligionOrganizationGoals(performer, world);
 		
 		List<Goal> genericGoals = Arrays.asList(
+				Goals.STAND_STILL_TO_TALK_GOAL,
 				Goals.BRAWL_GOAL,
 				Goals.FIGHT_IN_ARENA_GOAL,
 				Goals.GET_POISON_CURED_GOAL,

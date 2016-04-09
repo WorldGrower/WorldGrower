@@ -578,7 +578,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestWorldObjectFacade.class,
 	UTestCreateSleepingPotionGoal.class,
 	UTestClaimHouseAction.class,
-	UTestPoisonWeaponAction.class
+	UTestPoisonWeaponAction.class,
+	UTestStandStillToTalkGoal.class
 })
 public class CompleteTestSuite {
 }
