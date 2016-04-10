@@ -49,6 +49,10 @@ public class BuyAction implements ManagedOperation {
 		performer.setProperty(Constants.GOLD, performer.getProperty(Constants.GOLD) - price);
 		
 		InventoryPropertyUtils.cleanupEquipmentSlots(target);
+		
+		int quantity = 1;
+		String description = boughtWorldObject != null ? boughtWorldObject.getProperty(Constants.NAME) : "nothing";
+		world.logAction(this, performer, target, args, performer.getProperty(Constants.NAME) + " bought " + quantity + " " + description);
 	}
 
 	@Override
