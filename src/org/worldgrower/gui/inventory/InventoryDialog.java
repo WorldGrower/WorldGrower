@@ -46,6 +46,7 @@ import javax.swing.event.ListSelectionListener;
 
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.Prices;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.AbstractDialog;
@@ -288,7 +289,7 @@ public class InventoryDialog extends AbstractDialog {
 		return weightString;
 	}
 
-	private void setInventoryActions(List<Action> inventoryActions,Map<Item, Integer> pricesOnPlayer) {
+	private void setInventoryActions(List<Action> inventoryActions, Prices pricesOnPlayer) {
 		pricesButton.addActionListener(e -> new PricesDialog(pricesOnPlayer).showMe());
 	}
 

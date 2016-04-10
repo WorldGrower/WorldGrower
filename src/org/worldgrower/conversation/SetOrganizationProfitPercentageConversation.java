@@ -93,7 +93,7 @@ public class SetOrganizationProfitPercentageConversation implements Conversation
 			List<WorldObject> members = GroupPropertyUtils.findOrganizationMembers(organization, world);
 			
 			for(WorldObject member : members) {
-				member.getProperty(Constants.PRICES).put(Item.value(itemIndex), price);
+				member.getProperty(Constants.PRICES).setPrice(Item.value(itemIndex), price);
 			}
 		}
 	}

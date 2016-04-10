@@ -23,6 +23,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.generator.Item;
 import org.worldgrower.personality.PersonalityTrait;
 
 public class DrinkWaterGoal implements Goal {
@@ -37,7 +38,7 @@ public class DrinkWaterGoal implements Goal {
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.WATER, QUANTITY_TO_BUY, world);
 		if (targets.size() > 0) {
-			return new OperationInfo(performer, targets.get(0), new int[] { targets.get(0).getProperty(Constants.INVENTORY).getIndexFor(Constants.WATER), QUANTITY_TO_BUY }, Actions.BUY_ACTION);
+			return BuySellUtils.create(performer, targets.get(0), Item.WATER, QUANTITY_TO_BUY);
 		} else {
 			boolean hasInventoryWater = performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WATER) > 0;
 			WorldObject waterSourcetarget = WaterPropertyUtils.findWaterSource(performer, world);

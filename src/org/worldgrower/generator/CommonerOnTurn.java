@@ -14,14 +14,13 @@
  *******************************************************************************/
 package org.worldgrower.generator;
 
-import java.util.Map;
-
 import org.worldgrower.Constants;
 import org.worldgrower.OnTurn;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.Background;
 import org.worldgrower.attribute.ItemCountMap;
+import org.worldgrower.attribute.Prices;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.creaturetype.CreatureType;
@@ -58,7 +57,7 @@ public class CommonerOnTurn implements OnTurn {
 	void adjustPrices(WorldObject worldObject, World world) {
 		if (worldObject.isControlledByAI()) {
 			if (world.getCurrentTurn().getValue() % 200 == 0) {
-				Map<Item, Integer> prices = worldObject.getProperty(Constants.PRICES);
+				Prices prices = worldObject.getProperty(Constants.PRICES);
 				ItemCountMap itemsSold = worldObject.getProperty(Constants.ITEMS_SOLD);
 				
 				for(Item itemSold : itemsSold.getItems()) {
@@ -67,10 +66,10 @@ public class CommonerOnTurn implements OnTurn {
 					int indexOfItemSold = inventory.getIndexFor(w -> w.getProperty(Constants.ITEM_ID) == itemSold);
 					int inventoryCount = getInventoryCount(inventory, indexOfItemSold);
 					
-					Integer oldPrice = calculateOldPrice(prices, itemSold);
+					Integer oldPrice = prices.getPrice(itemSold);
 					Integer newPrice = calculateNewPrice(soldCount, inventoryCount, oldPrice);
 					if (newPrice != null) {
-						prices.put(itemSold, newPrice);
+						prices.setPrice(itemSold, newPrice);
 						//System.out.println("price changed for " + itemSold + ": " + oldPrice + " --> " + newPrice);
 					}
 				}
@@ -87,14 +86,6 @@ public class CommonerOnTurn implements OnTurn {
 			inventoryCount = 0;
 		}
 		return inventoryCount;
-	}
-
-	Integer calculateOldPrice(Map<Item, Integer> prices, Item itemSold) {
-		Integer oldPrice = prices.get(itemSold);
-		if (oldPrice == null) {
-			oldPrice = itemSold.getPrice();
-		}
-		return oldPrice;
 	}
 
 	Integer calculateNewPrice(int soldCount, int inventoryCount, int oldPrice) {

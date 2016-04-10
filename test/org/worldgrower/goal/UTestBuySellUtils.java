@@ -36,7 +36,7 @@ public class UTestBuySellUtils {
 	public void testGetPrice() {
 		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.INVENTORY, new WorldObjectContainer());
 		performer.getProperty(Constants.INVENTORY).add(Item.IRON_CUIRASS.generate(0f));
-		performer.getProperty(Constants.PRICES).put(Item.IRON_CUIRASS, 200);
+		performer.getProperty(Constants.PRICES).setPrice(Item.IRON_CUIRASS, 200);
 		
 		assertEquals(200, BuySellUtils.getPrice(performer, 0));
 	}
@@ -60,7 +60,7 @@ public class UTestBuySellUtils {
 		WorldObject target = TestUtils.createIntelligentWorldObject(0, Constants.INVENTORY, new WorldObjectContainer());
 		WorldObject inventoryItem = Item.BERRIES.generate(1f);
 		target.getProperty(Constants.INVENTORY).add(inventoryItem);
-		target.getProperty(Constants.PRICES).put(Item.BERRIES, 2);
+		target.getProperty(Constants.PRICES).setPrice(Item.BERRIES, 2);
 		
 		assertEquals(false, BuySellUtils.performerCanBuyGoods(performer, target, 0, 1));
 		
@@ -80,7 +80,7 @@ public class UTestBuySellUtils {
 		WorldObject inventoryItem = Item.BERRIES.generate(1f);
 		inventoryItem.setProperty(Constants.SELLABLE, Boolean.TRUE);
 		target.getProperty(Constants.INVENTORY).addQuantity(inventoryItem);
-		target.getProperty(Constants.PRICES).put(Item.BERRIES, 2);
+		target.getProperty(Constants.PRICES).setPrice(Item.BERRIES, 2);
 		world.addWorldObject(target);
 		
 		assertEquals(Actions.BUY_ACTION, BuySellUtils.getBuyOperationInfo(performer, Constants.FOOD, 5, world).getManagedOperation());
@@ -98,7 +98,7 @@ public class UTestBuySellUtils {
 		WorldObject inventoryItem = Item.IRON_CUIRASS.generate(1f);
 		inventoryItem.setProperty(Constants.SELLABLE, Boolean.TRUE);
 		target.getProperty(Constants.INVENTORY).addQuantity(inventoryItem);
-		target.getProperty(Constants.PRICES).put(Item.IRON_CUIRASS, 200);
+		target.getProperty(Constants.PRICES).setPrice(Item.IRON_CUIRASS, 200);
 		world.addWorldObject(target);
 		
 		assertEquals(true, BuySellUtils.hasSellableEquipment(Constants.EQUIPMENT_SLOT, Constants.TORSO_EQUIPMENT, target));
@@ -114,7 +114,7 @@ public class UTestBuySellUtils {
 		
 		WorldObject inventoryItem = Item.BERRIES.generate(1f);
 		performer.getProperty(Constants.INVENTORY).add(inventoryItem);
-		performer.getProperty(Constants.PRICES).put(Item.BERRIES, 2);
+		performer.getProperty(Constants.PRICES).setPrice(Item.BERRIES, 2);
 		
 		assertEquals(false, BuySellUtils.targetWillBuyGoods(performer, target, 0, world));
 		
@@ -176,7 +176,7 @@ public class UTestBuySellUtils {
 		WorldObject inventoryItem = Item.IRON_CUIRASS.generate(1f);
 		inventoryItem.setProperty(Constants.SELLABLE, Boolean.TRUE);
 		target.getProperty(Constants.INVENTORY).addQuantity(inventoryItem);
-		target.getProperty(Constants.PRICES).put(Item.IRON_CUIRASS, 200);
+		target.getProperty(Constants.PRICES).setPrice(Item.IRON_CUIRASS, 200);
 		world.addWorldObject(target);
 		
 		assertEquals(Actions.BUY_ACTION, BuySellUtils.getBuyOperationInfo(performer, Constants.EQUIPMENT_SLOT, Constants.TORSO_EQUIPMENT, 1, world).getManagedOperation());

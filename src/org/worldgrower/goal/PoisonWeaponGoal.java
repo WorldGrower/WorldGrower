@@ -23,6 +23,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.UnCheckedProperty;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.Item;
 
 public class PoisonWeaponGoal implements Goal {
 
@@ -51,7 +52,7 @@ public class PoisonWeaponGoal implements Goal {
 		} else {
 			List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.POISON_DAMAGE, QUANTITY_TO_BUY, world);
 			if (targets.size() > 0) {
-				return new OperationInfo(performer, targets.get(0), new int[] { targets.get(0).getProperty(Constants.INVENTORY).getIndexFor(Constants.POISON_DAMAGE), QUANTITY_TO_BUY }, Actions.BUY_ACTION);
+				return BuySellUtils.create(performer, targets.get(0), Item.POISON, QUANTITY_TO_BUY);
 			} else {
 				return null;
 			}

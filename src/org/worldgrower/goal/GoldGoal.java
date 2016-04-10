@@ -22,6 +22,7 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.generator.Item;
 
 public class GoldGoal implements Goal {
 
@@ -31,7 +32,7 @@ public class GoldGoal implements Goal {
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.GOLD, QUANTITY_TO_BUY, world);
 		if (targets.size() > 0) {
-			return new OperationInfo(performer, targets.get(0), new int[] { targets.get(0).getProperty(Constants.INVENTORY).getIndexFor(Constants.GOLD), QUANTITY_TO_BUY }, Actions.BUY_ACTION);
+			return BuySellUtils.create(performer, targets.get(0), Item.GOLD, QUANTITY_TO_BUY);
 		} else {
 			WorldObject target = GoalUtils.findNearestTarget(performer, Actions.MINE_GOLD_ACTION, world);
 			if (target != null) {

@@ -76,7 +76,7 @@ public class SellHouseConversation implements Conversation {
 		if (replyIndex == YES) {
 			int houseId = performer.getProperty(Constants.HOUSES).getIds().get(0);
 			WorldObject house = world.findWorldObject(Constants.ID, houseId);
-			int price = BuySellUtils.getPrice(performer, house);
+			int price = house.getProperty(Constants.PRICE);
 			
 			performer.getProperty(Constants.HOUSES).remove(houseId);
 			target.getProperty(Constants.HOUSES).add(houseId);

@@ -22,6 +22,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.goal.BuySellUtils;
 import org.worldgrower.goal.InventoryPropertyUtils;
 import org.worldgrower.gui.ImageIds;
 
@@ -31,7 +32,8 @@ public class BuyAction implements ManagedOperation {
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		int index = args[0];
-		int price = args[1]; 
+		int price = args[1];
+		int quantity = args[2];
 		
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
 		WorldObjectContainer targetInventory = target.getProperty(Constants.INVENTORY);
@@ -50,14 +52,33 @@ public class BuyAction implements ManagedOperation {
 		
 		InventoryPropertyUtils.cleanupEquipmentSlots(target);
 		
-		int quantity = 1;
 		String description = boughtWorldObject != null ? boughtWorldObject.getProperty(Constants.NAME) : "nothing";
 		world.logAction(this, performer, target, args, performer.getProperty(Constants.NAME) + " bought " + quantity + " " + description);
 	}
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return Reach.evaluateTarget(performer, args, target, 1);
+		int index = args[0];
+		int price = args[1];
+		int quantity = args[2];
+		
+		int buyDistance = calculateBuyDistance(performer, target, index, quantity);
+		return Reach.evaluateTarget(performer, args, target, 1) + buyDistance;
+	}
+
+	private int calculateBuyDistance(WorldObject performer, WorldObject target, int index, int quantity) {
+		final int buyDistance;
+		WorldObject worldObjectToBuy = target.getProperty(Constants.INVENTORY).get(index);
+		if (worldObjectToBuy != null) {
+			if (BuySellUtils.performerCanBuyGoods(performer, target, index, quantity)) {
+				buyDistance = 0;
+			} else {
+				buyDistance = 100;
+			}
+		} else {
+			buyDistance = 1000;
+		}
+		return buyDistance;
 	}
 	
 	@Override

@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.Prices;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
 
@@ -44,6 +45,8 @@ public class UTestBuyClothesGoal {
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
 		world.addWorldObject(target);
+		addPrices(target);
+		
 		performer.setProperty(Constants.GOLD, 2000);
 		WorldObject cottonShirt = Item.COTTON_SHIRT.generate(1f);
 		cottonShirt.setProperty(Constants.SELLABLE, Boolean.TRUE);
@@ -62,6 +65,7 @@ public class UTestBuyClothesGoal {
 		
 		performer.getProperty(Constants.INVENTORY).add(Item.COTTON_SHIRT.generate(1f));
 		addCottonPants(target);
+		addPrices(target);
 		
 		assertEquals(Actions.BUY_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
@@ -72,6 +76,7 @@ public class UTestBuyClothesGoal {
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
 		world.addWorldObject(target);
+		addPrices(target);
 		performer.setProperty(Constants.GOLD, 2000);
 		
 		performer.getProperty(Constants.INVENTORY).add(Item.COTTON_SHIRT.generate(1f));
@@ -79,6 +84,10 @@ public class UTestBuyClothesGoal {
 		addCottonBoots(target);
 		
 		assertEquals(Actions.BUY_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+
+	private void addPrices(WorldObject target) {
+		target.setProperty(Constants.PRICES, new Prices());
 	}
 
 	private void addCottonPants(WorldObject target) {

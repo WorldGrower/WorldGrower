@@ -25,6 +25,7 @@ import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdRelationshipMap;
 import org.worldgrower.attribute.KnowledgeMap;
 import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.attribute.Prices;
 import org.worldgrower.attribute.PropertyCountMap;
 import org.worldgrower.attribute.Skill;
 import org.worldgrower.attribute.SkillUtils;
@@ -94,7 +95,7 @@ public class TestUtils {
 		properties.put(Constants.CONDITIONS, new Conditions());
 		properties.put(Constants.STRENGTH, 10);
 		properties.put(Constants.CREATURE_TYPE, CreatureType.HUMAN_CREATURE_TYPE);
-		properties.put(Constants.PRICES, new HashMap<>());
+		properties.put(Constants.PRICES, new Prices());
 		properties.put(property, value);
 		WorldObject w1 = new WorldObjectImpl(properties, Actions.ALL_ACTIONS, null);
 		return w1;
@@ -111,7 +112,7 @@ public class TestUtils {
 		properties.put(Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		properties.put(Constants.CONDITIONS, new Conditions());
 		properties.put(Constants.DEMANDS, new PropertyCountMap<ManagedProperty<?>>());
-		properties.put(Constants.PRICES, new HashMap<>());
+		properties.put(Constants.PRICES, new Prices());
 		properties.put(Constants.STRENGTH, 10);
 		properties.put(Constants.WATER, 10);
 		properties.put(Constants.ENERGY, 1000);
@@ -170,7 +171,7 @@ public class TestUtils {
 		properties.put(Constants.INTELLIGENCE, 10);
 		properties.put(Constants.WISDOM, 10);
 		properties.put(Constants.CHARISMA, 10);
-		properties.put(Constants.PRICES, new HashMap<>());
+		properties.put(Constants.PRICES, new Prices());
 		SkillUtils.addAllSkills(properties);
 		WorldObject worldObject = createWorldObject(id, properties);
 		return worldObject;

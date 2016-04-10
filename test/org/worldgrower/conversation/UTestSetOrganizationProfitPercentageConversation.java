@@ -95,7 +95,7 @@ public class UTestSetOrganizationProfitPercentageConversation {
 		ConversationContext context = new ConversationContext(performer, target, organization, null, world, Item.BERRIES.ordinal(), 3);
 		
 		conversation.handleResponse(0, context);
-		assertEquals(3, performer.getProperty(Constants.PRICES).get(Item.BERRIES).intValue());
-		assertEquals(3, target.getProperty(Constants.PRICES).get(Item.BERRIES).intValue());
+		assertEquals(3, performer.getProperty(Constants.PRICES).getPrice(Item.BERRIES));
+		assertEquals(3, target.getProperty(Constants.PRICES).getPrice(Item.BERRIES));
 	}
 }

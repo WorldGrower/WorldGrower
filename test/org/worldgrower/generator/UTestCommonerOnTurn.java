@@ -24,6 +24,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.MockCommonerNameGenerator;
+import org.worldgrower.attribute.Prices;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.goal.GroupPropertyUtils;
@@ -109,19 +110,6 @@ public class UTestCommonerOnTurn {
 	}
 	
 	@Test
-	public void testCalculateOldPrice() {
-		World world = new WorldImpl(0, 0, null, null);
-		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
-		
-		WorldObject playerCharacter = createPlayerCharacter(world, organization);
-		Map<Item, Integer> prices = playerCharacter.getProperty(Constants.PRICES);
-		assertEquals(1, new CommonerOnTurn(commonerGenerator, organization).calculateOldPrice(prices, Item.BERRIES).intValue());
-		
-		prices.put(Item.BERRIES, 5);
-		assertEquals(5, new CommonerOnTurn(commonerGenerator, organization).calculateOldPrice(prices, Item.BERRIES).intValue());
-	}
-	
-	@Test
 	public void testCalculateNewPrice() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
@@ -148,11 +136,11 @@ public class UTestCommonerOnTurn {
 		
 		WorldObject commoner = createCommoner(world, organization);
 		commoner.getProperty(Constants.ITEMS_SOLD).add(Item.BERRIES, 20);
-		Map<Item, Integer> prices = commoner.getProperty(Constants.PRICES);
+		Prices prices = commoner.getProperty(Constants.PRICES);
 		
-		assertEquals(null, prices.get(Item.BERRIES));
+		assertEquals(1, prices.getPrice(Item.BERRIES));
 		new CommonerOnTurn(commonerGenerator, organization).adjustPrices(commoner, world);
-		assertEquals(2, prices.get(Item.BERRIES).intValue());
+		assertEquals(2, prices.getPrice(Item.BERRIES));
 		
 		assertEquals(false, commoner.getProperty(Constants.ITEMS_SOLD).contains(Item.BERRIES));
 	}

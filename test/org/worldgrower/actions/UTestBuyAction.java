@@ -40,7 +40,7 @@ public class UTestBuyAction {
 		assertEquals(100, performer.getProperty(Constants.GOLD).intValue());
 		assertEquals(100, target.getProperty(Constants.GOLD).intValue());
 		int indexOfWater = target.getProperty(Constants.INVENTORY).getIndexFor(Constants.WATER);
-		Actions.BUY_ACTION.execute(performer, target, new int[] { indexOfWater, 10 }, world);
+		Actions.BUY_ACTION.execute(performer, target, new int[] { indexOfWater, 10, 1 }, world);
 		
 		assertEquals(90, performer.getProperty(Constants.GOLD).intValue());
 		assertEquals(110, target.getProperty(Constants.GOLD).intValue());
@@ -67,7 +67,9 @@ public class UTestBuyAction {
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
-		assertEquals(0, Actions.BUY_ACTION.distance(performer, target, Args.EMPTY, world));
+		target.getProperty(Constants.INVENTORY).addQuantity(Item.WATER.generate(1f));
+		int indexOfWater = target.getProperty(Constants.INVENTORY).getIndexFor(Constants.WATER);
+		assertEquals(0, Actions.BUY_ACTION.distance(performer, target, new int[] { indexOfWater, 10, 1 }, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

@@ -21,6 +21,7 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.generator.Item;
 
 public class PaperGoal implements Goal {
 
@@ -34,7 +35,7 @@ public class PaperGoal implements Goal {
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.PAPER, QUANTITY_TO_BUY, world);
 		if (targets.size() > 0) {
-			return new OperationInfo(performer, targets.get(0), new int[] { targets.get(0).getProperty(Constants.INVENTORY).getIndexFor(Constants.PAPER), QUANTITY_TO_BUY }, Actions.BUY_ACTION);
+			return BuySellUtils.create(performer, targets.get(0), Item.PAPER, QUANTITY_TO_BUY);
 		} else {
 			return Goals.CREATE_PAPER_GOAL.calculateGoal(performer, world);
 		}

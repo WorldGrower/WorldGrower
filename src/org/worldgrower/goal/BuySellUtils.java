@@ -15,7 +15,6 @@
 package org.worldgrower.goal;
 
 import java.util.List;
-import java.util.Map;
 
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
@@ -24,6 +23,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.attribute.Prices;
 import org.worldgrower.attribute.StringProperty;
 import org.worldgrower.attribute.UnCheckedProperty;
 import org.worldgrower.attribute.WorldObjectContainer;
@@ -81,13 +81,14 @@ public class BuySellUtils {
 		if (worldObject.getProperty(Constants.PRICE) == null) {
 			throw new IllegalStateException("WorldObject " + worldObject + " has no price");
 		}
-		int price = worldObject.getProperty(Constants.PRICE);
-		Map<Item, Integer> prices = performer.getProperty(Constants.PRICES);
+		Prices prices = performer.getProperty(Constants.PRICES);
 		Item key = worldObject.getProperty(Constants.ITEM_ID);
-		if (prices.containsKey(key)) {
-				price = prices.get(key);
+		if (key != null) {
+			return prices.getPrice(key);
+		} else {
+			//TODO: temporary for houses
+			return worldObject.getProperty(Constants.PRICE);
 		}
-		return price;
 	}
 
 	private static WorldObject getInventoryItem(WorldObject performer, int inventoryIndex) {
@@ -159,7 +160,8 @@ public class BuySellUtils {
 			WorldObject target = targets.get(0);
 			int indexOfProperty = target.getProperty(Constants.INVENTORY).getIndexFor(propertyToBuy);
 			if (performerCanBuyGoods(performer, target, indexOfProperty, quantity)) {
-				return new OperationInfo(performer, target, new int[] { indexOfProperty, quantity }, Actions.BUY_ACTION);
+				int price = calculatePrice(target, indexOfProperty);
+				return new OperationInfo(performer, target, new int[] { indexOfProperty, price, quantity }, Actions.BUY_ACTION);
 			}
 		}
 		return null;
@@ -171,9 +173,22 @@ public class BuySellUtils {
 			WorldObject target = targets.get(0);
 			int indexOfProperty = target.getProperty(Constants.INVENTORY).getIndexFor(equipmentSlotProperty, equipmentSlot);
 			if (performerCanBuyGoods(performer, target, indexOfProperty, quantity)) {
-				return new OperationInfo(performer, target, new int[] { indexOfProperty, quantity }, Actions.BUY_ACTION);
+				int price = calculatePrice(target, indexOfProperty);
+				return new OperationInfo(performer, target, new int[] { indexOfProperty, price, quantity }, Actions.BUY_ACTION);
 			}
 		}
 		return null;
+	}
+
+	private static int calculatePrice(WorldObject target, int indexOfProperty) {
+		Item item = target.getProperty(Constants.INVENTORY).get(indexOfProperty).getProperty(Constants.ITEM_ID);
+		int price = target.getProperty(Constants.PRICES).getPrice(item);
+		return price;
+	}
+	
+	public static OperationInfo create(WorldObject performer, WorldObject target, Item item, int quantity) {
+		int targetInventoryIndex = target.getProperty(Constants.INVENTORY).getIndexFor(w -> w.getProperty(Constants.ITEM_ID) == item);
+		int price = target.getProperty(Constants.PRICES).getPrice(item);
+		return new OperationInfo(performer, target, new int[] { targetInventoryIndex, price, quantity }, Actions.BUY_ACTION);
 	}
 }

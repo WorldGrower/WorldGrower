@@ -22,6 +22,7 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.generator.Item;
 
 public class CottonGoal implements Goal {
 
@@ -36,7 +37,7 @@ public class CottonGoal implements Goal {
 		WorldObject target = GoalUtils.findNearestTarget(performer, Actions.HARVEST_COTTON_ACTION, world);
 		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.COTTON, QUANTITY_TO_BUY, world);
 		if (targets.size() > 0) {
-			return new OperationInfo(performer, targets.get(0), new int[] { targets.get(0).getProperty(Constants.INVENTORY).getIndexFor(Constants.COTTON), QUANTITY_TO_BUY }, Actions.BUY_ACTION);
+			return BuySellUtils.create(performer, targets.get(0), Item.COTTON, QUANTITY_TO_BUY);
 		} else if (target != null) {
 			return new OperationInfo(performer, target, Args.EMPTY, Actions.HARVEST_COTTON_ACTION);
 		} else {

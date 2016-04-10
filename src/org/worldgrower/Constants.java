@@ -34,6 +34,7 @@ import org.worldgrower.attribute.Location;
 import org.worldgrower.attribute.LookDirection;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.PersonalityProperty;
+import org.worldgrower.attribute.Prices;
 import org.worldgrower.attribute.PropertyCountMapProperty;
 import org.worldgrower.attribute.Reasons;
 import org.worldgrower.attribute.SkillProperty;
@@ -173,7 +174,7 @@ public class Constants {
 
 	public static final WorldObjectContainerProperty INVENTORY = new WorldObjectContainerProperty("inventory", ALL_PROPERTIES);
 	public static final IntProperty PRICE = new IntProperty("price", 0, null, NULLABLE, ALL_PROPERTIES);
-	public static final UnCheckedProperty<Map<Item, Integer>> PRICES = new UnCheckedProperty<Map<Item, Integer>>("prices", ALL_PROPERTIES);
+	public static final UnCheckedProperty<Prices> PRICES = new UnCheckedProperty<Prices>("prices", ALL_PROPERTIES);
 	public static final BooleanProperty SELLABLE = new BooleanProperty("sellable", NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty QUANTITY = new IntProperty("quantity", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty GOLD = new IntProperty("gold", 0, null, NOT_NULLABLE, ALL_PROPERTIES);

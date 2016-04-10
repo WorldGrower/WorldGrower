@@ -46,7 +46,7 @@ public class FurnitureGoal implements Goal {
 				return Goals.HOUSE_GOAL.calculateGoal(performer, world);
 			}
 		} else if (targets.size() > 0) {
-			return new OperationInfo(performer, targets.get(0), new int[] { targets.get(0).getProperty(Constants.INVENTORY).getIndexFor(Constants.SLEEP_COMFORT), QUANTITY_TO_BUY }, Actions.BUY_ACTION);
+			return BuySellUtils.create(performer, targets.get(0), Item.BED, QUANTITY_TO_BUY);
 		} else if (ConstructBedAction.hasEnoughWood(performer)) {
 			return new OperationInfo(performer, performer, Args.EMPTY, Actions.CONSTRUCT_BED_ACTION);
 		} else {

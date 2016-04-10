@@ -19,7 +19,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -28,6 +27,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
+import org.worldgrower.attribute.Prices;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.AbstractDialog;
 import org.worldgrower.gui.SwingUtils;
@@ -35,9 +35,9 @@ import org.worldgrower.gui.util.ButtonFactory;
 import org.worldgrower.gui.util.JTableFactory;
 
 public class PricesDialog extends AbstractDialog {
-	private final Map<Item, Integer> pricesOnPlayer;
+	private final Prices pricesOnPlayer;
 	
-	public PricesDialog(Map<Item, Integer> pricesOnPlayer) {
+	public PricesDialog(Prices pricesOnPlayer) {
 		super(400, 800);
 		this.pricesOnPlayer = pricesOnPlayer;
 		
@@ -71,16 +71,16 @@ public class PricesDialog extends AbstractDialog {
 		setVisible(true);
 	}
 	
-	private void addActionHandlers(JButton okButton, PricesModel model, JDialog dialog, Map<Item, Integer> pricesOnPlayer) {
+	private void addActionHandlers(JButton okButton, PricesModel model, JDialog dialog, Prices pricesOnPlayer) {
 		okButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				int[] args = model.getArgs();
-				Map<Item, Integer> prices = pricesOnPlayer;
+				Prices prices = pricesOnPlayer;
 				for(int i=0; i<args.length; i++) {
 					Item item = Item.value(i);
-					prices.put(item, args[i]);
+					prices.setPrice(item, args[i]);
 				}
 				//Game.executeAction(playerCharacter, Actions.SET_PRICES_ACTION, args, world, dungeonMaster, playerCharacter, parent);
 				dialog.dispose();
@@ -91,13 +91,10 @@ public class PricesDialog extends AbstractDialog {
 	private static class PricesModel extends AbstractTableModel {
 		private List<ItemPrice> prices = new ArrayList<>();
 		
-		public PricesModel(Map<Item, Integer> pricesOnPlayer) {
+		public PricesModel(Prices pricesOnPlayer) {
 			super();
 			for(Item item : Item.values()) {
-				int price = item.getPrice();
-				if (pricesOnPlayer.containsKey(item)) {
-					price = pricesOnPlayer.get(item);
-				}
+				int price = pricesOnPlayer.getPrice(item);
 				prices.add(new ItemPrice(item, price));
 			}
 		}
@@ -164,8 +161,6 @@ public class PricesDialog extends AbstractDialog {
 				return null;
 			}
 		}
-
-		
 	}
 	
 	private static class ItemPrice {

@@ -70,7 +70,7 @@ public class GuiBuyAction extends AbstractAction {
 				public void actionPerformed(ActionEvent actionEvent) {
 					InventoryItem inventoryItem = getSelectedItem(dialog);
 					int price = BuySellUtils.getPrice(target, inventoryItem.getId());
-					int[] args = new int[] { inventoryItem.getId(), price };
+					int[] args = new int[] { inventoryItem.getId(), price, 1 };
 					buy(args);
 					
 					dialog.refresh(new InventoryDialogModel(playerCharacter, target), new ArrayList<>());
