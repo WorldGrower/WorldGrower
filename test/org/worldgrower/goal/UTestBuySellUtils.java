@@ -79,7 +79,7 @@ public class UTestBuySellUtils {
 		WorldObject target = TestUtils.createIntelligentWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
 		WorldObject inventoryItem = Item.BERRIES.generate(1f);
 		inventoryItem.setProperty(Constants.SELLABLE, Boolean.TRUE);
-		target.getProperty(Constants.INVENTORY).addQuantity(inventoryItem);
+		target.getProperty(Constants.INVENTORY).addQuantity(inventoryItem, 5);
 		target.getProperty(Constants.PRICES).setPrice(Item.BERRIES, 2);
 		world.addWorldObject(target);
 		

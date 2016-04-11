@@ -28,7 +28,6 @@ import org.worldgrower.gui.ImageIds;
 
 public class BuyAction implements ManagedOperation {
 
-	//TODO: BuyAction should use quantity
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		int index = args[0];
@@ -38,22 +37,21 @@ public class BuyAction implements ManagedOperation {
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
 		WorldObjectContainer targetInventory = target.getProperty(Constants.INVENTORY);
 		
-		WorldObject boughtWorldObject = targetInventory.remove(index);
+		WorldObject boughtWorldObject = targetInventory.get(index).deepCopy();
+		targetInventory.removeQuantity(index, quantity);
 		
-		//TODO: boughtWorldObject shouldn't be null
-		if (boughtWorldObject != null) {
-			boughtWorldObject.setProperty(Constants.SELLABLE, Boolean.FALSE);
-			target.getProperty(Constants.ITEMS_SOLD).add(boughtWorldObject);
-		}
+		boughtWorldObject.setProperty(Constants.SELLABLE, Boolean.FALSE);
+		target.getProperty(Constants.ITEMS_SOLD).add(boughtWorldObject);
 		
-		performerInventory.add(boughtWorldObject);
-		target.setProperty(Constants.GOLD, target.getProperty(Constants.GOLD) + price);
-		performer.setProperty(Constants.GOLD, performer.getProperty(Constants.GOLD) - price);
+		performerInventory.addQuantity(boughtWorldObject, quantity);
+		int goldPaid = price * quantity;
+		target.setProperty(Constants.GOLD, target.getProperty(Constants.GOLD) + goldPaid);
+		performer.setProperty(Constants.GOLD, performer.getProperty(Constants.GOLD) - goldPaid);
 		
 		InventoryPropertyUtils.cleanupEquipmentSlots(target);
 		
-		String description = boughtWorldObject != null ? boughtWorldObject.getProperty(Constants.NAME) : "nothing";
-		world.logAction(this, performer, target, args, performer.getProperty(Constants.NAME) + " bought " + quantity + " " + description);
+		String description = boughtWorldObject.getProperty(Constants.NAME);
+		world.logAction(this, performer, target, args, performer.getProperty(Constants.NAME) + " bought " + quantity + " " + description + " at " + price + " gold a piece for a total of " + goldPaid + " gold");
 	}
 
 	@Override

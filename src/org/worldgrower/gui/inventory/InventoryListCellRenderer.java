@@ -41,11 +41,24 @@ public class InventoryListCellRenderer implements ListCellRenderer<InventoryItem
 				.getListCellRendererComponent(list, inventoryItem, index, isSelected, cellHasFocus);
 
 		renderer.setIcon(new ImageIcon(imageInfoReader.getImage(inventoryItem.getImageId(), null)));
-		renderer.setText(inventoryItem.getDescription());
+		String itemText = generateItemText(inventoryItem);
+		renderer.setText(itemText);
 		renderer.setToolTipText(formatAdditionalProperties(inventoryItem));
 		renderer.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
 		renderer.setForeground(ColorPalette.FOREGROUND_COLOR);
 		return renderer;
+	}
+
+	private String generateItemText(InventoryItem inventoryItem) {
+		String itemText = inventoryItem.getDescription();
+		int quantity = inventoryItem.getQuantity();
+		boolean sellable = inventoryItem.isSellable();
+		if (sellable) {
+			itemText += " (" + quantity + ", sellable: yes)";
+		} else {
+			itemText += " (" + quantity + ")";
+		}
+		return itemText;
 	}
 	
 	private String formatAdditionalProperties(InventoryItem inventoryItem) {

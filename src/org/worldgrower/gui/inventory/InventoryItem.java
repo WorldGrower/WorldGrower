@@ -89,6 +89,16 @@ public class InventoryItem {
 		return description;
 	}	
 	
+	public int getQuantity() {
+		String quantityKey = Constants.QUANTITY.getName().toLowerCase();
+		String quantity = additionalProperties.get(quantityKey);
+		if (quantity != null) {
+			return Integer.parseInt(quantity);
+		} else {
+			return 1;
+		}
+	}
+	
 	public int getPrice() {
 		return price;
 	}

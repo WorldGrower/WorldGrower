@@ -17,7 +17,6 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -49,6 +48,20 @@ public class UTestBuyAction {
 	}
 	
 	@Test
+	public void testExecuteDecreaseQuantity() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		target.getProperty(Constants.INVENTORY).addQuantity(Item.WATER.generate(1f), 20);
+		
+		int indexOfWater = target.getProperty(Constants.INVENTORY).getIndexFor(Constants.WATER);
+		Actions.BUY_ACTION.execute(performer, target, new int[] { indexOfWater, 10, 1 }, world);
+		
+		assertEquals(1, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WATER));
+		assertEquals(19, target.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WATER));
+	}
+	
+	@Test
 	public void testIsValidTarget() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = createPerformer(2);
@@ -70,6 +83,30 @@ public class UTestBuyAction {
 		target.getProperty(Constants.INVENTORY).addQuantity(Item.WATER.generate(1f));
 		int indexOfWater = target.getProperty(Constants.INVENTORY).getIndexFor(Constants.WATER);
 		assertEquals(0, Actions.BUY_ACTION.distance(performer, target, new int[] { indexOfWater, 10, 1 }, world));
+	}
+	
+	@Test
+	public void testDistanceAlreadySold() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		
+		target.getProperty(Constants.INVENTORY).addQuantity(Item.WATER.generate(1f));
+		int indexOfWater = target.getProperty(Constants.INVENTORY).getIndexFor(Constants.WATER);
+		target.getProperty(Constants.INVENTORY).remove(indexOfWater);
+		assertEquals(true, Actions.BUY_ACTION.distance(performer, target, new int[] { indexOfWater, 10, 1 }, world) > 0);
+	}
+	
+	@Test
+	public void testDistancePerformerCannotBuyGoods() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		performer.setProperty(Constants.GOLD, 0);
+		
+		target.getProperty(Constants.INVENTORY).addQuantity(Item.WATER.generate(1f));
+		int indexOfWater = target.getProperty(Constants.INVENTORY).getIndexFor(Constants.WATER);
+		assertEquals(true, Actions.BUY_ACTION.distance(performer, target, new int[] { indexOfWater, 10, 1 }, world) > 0);
 	}
 	
 	private WorldObject createPerformer(int id) {

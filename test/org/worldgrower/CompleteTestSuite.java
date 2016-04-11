@@ -56,6 +56,7 @@ import org.worldgrower.attribute.UTestIdMap;
 import org.worldgrower.attribute.UTestIntProperty;
 import org.worldgrower.attribute.UTestItemCountMap;
 import org.worldgrower.attribute.UTestKnowledgeMap;
+import org.worldgrower.attribute.UTestPrices;
 import org.worldgrower.attribute.UTestPropertyCountMap;
 import org.worldgrower.attribute.UTestSkill;
 import org.worldgrower.attribute.UTestSkillUtils;
@@ -136,7 +137,10 @@ import org.worldgrower.deity.UTestDemeter;
 import org.worldgrower.deity.UTestDionysus;
 import org.worldgrower.deity.UTestHades;
 import org.worldgrower.deity.UTestHephaestus;
+import org.worldgrower.deity.UTestHera;
 import org.worldgrower.deity.UTestHermes;
+import org.worldgrower.deity.UTestPoseidon;
+import org.worldgrower.deity.UTestZeus;
 import org.worldgrower.generator.UTestBeastOnTurn;
 import org.worldgrower.generator.UTestBerryBushOnTurn;
 import org.worldgrower.generator.UTestBuildingGenerator;
@@ -579,7 +583,12 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestCreateSleepingPotionGoal.class,
 	UTestClaimHouseAction.class,
 	UTestPoisonWeaponAction.class,
-	UTestStandStillToTalkGoal.class
+	UTestStandStillToTalkGoal.class,
+	UTestPrices.class,
+	UTestPoisonWeaponGoal.class,
+	UTestHera.class,
+	UTestZeus.class,
+	UTestPoseidon.class
 })
 public class CompleteTestSuite {
 }

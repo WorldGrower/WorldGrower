@@ -32,7 +32,7 @@ import org.worldgrower.generator.Item;
 public class BuySellUtils {
 
 	public static List<WorldObject> findBuyTargets(WorldObject performer, IntProperty property, int quantity, World world) {
-		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.BUY_ACTION, w -> w.getProperty(Constants.INVENTORY).getQuantityFor(property, Constants.PRICE, inventoryItem -> inventoryItem.getProperty(Constants.SELLABLE)) > 0 && performerCanPay(performer, w, property, quantity), world);
+		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.BUY_ACTION, w -> w.getProperty(Constants.INVENTORY).getQuantityFor(property, Constants.PRICE, inventoryItem -> inventoryItem.getProperty(Constants.SELLABLE)) >= quantity && performerCanPay(performer, w, property, quantity), world);
 		return targets;
 	}
 
