@@ -40,6 +40,7 @@ import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.UnCheckedProperty;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.CommonerOnTurn;
 import org.worldgrower.goal.ArmorPropertyUtils;
 import org.worldgrower.goal.MeleeDamagePropertyUtils;
 import org.worldgrower.gui.util.ButtonFactory;
@@ -182,6 +183,8 @@ public class CharacterDialog extends JDialog {
 		createSkillBlock(Constants.TRANSMUTATION_SKILL, 250, 538);
 		createSkillBlock(Constants.ENCHANTMENT_SKILL, 250, 568);
 		
+		addPregnancyBlock(12, 598);
+		
 		int labelLeft = 540;
 		
 		JLabel lblHead = JLabelFactory.createJLabel("Head");
@@ -302,6 +305,20 @@ public class CharacterDialog extends JDialog {
 		SwingUtils.installEscapeCloseOperation(this);
 	}
 	
+	private void addPregnancyBlock(int x, int y) {
+		Integer pregnancyCounter = playerCharacter.getProperty(Constants.PREGNANCY);
+		if (pregnancyCounter != null) {
+			JLabel lblPregnancy = JLabelFactory.createJLabel("Pregnancy");
+			lblPregnancy.setBounds(x, y, 100, 20);
+			contentPanel.add(lblPregnancy);
+			
+			JProgressBar pregnancyProgressBar = JProgressBarFactory.createJProgressBar(0, CommonerOnTurn.PREGNANCY_DURATION);
+			pregnancyProgressBar.setBounds(x + 120, y, 100, 20);
+			pregnancyProgressBar.setValue(pregnancyCounter);
+			contentPanel.add(pregnancyProgressBar);
+		}
+	}
+
 	private JLabel createAttributeLabel(IntProperty attributeProperty, String description) {
 		String tooltip = GuiAttributeDescription.createToolTipDescription(attributeProperty, description);
 		JLabel label = JLabelFactory.createJLabel(description);

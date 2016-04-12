@@ -18,6 +18,7 @@ import static org.worldgrower.goal.FacadeUtils.createFacade;
 
 import java.io.ObjectStreamException;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
@@ -36,12 +37,18 @@ public class SexAction implements ManagedOperation {
 		if (!GenderPropertyUtils.hasSameGender(performer, target)) {
 			if (performer.getProperty(Constants.GENDER).equals("female")) {
 				PregnancyPropertyUtils.makePregnant(performer);
+				logPregnancy(performer, target, performer, world);
 			}
 			
 			if (target.getProperty(Constants.GENDER).equals("female")) {
 				PregnancyPropertyUtils.makePregnant(target);
+				logPregnancy(performer, target, target, world);
 			}
 		}
+	}
+	
+	private void logPregnancy(WorldObject performer, WorldObject target, WorldObject pregnantPerson, World world) {
+		world.logAction(this, performer, target, Args.EMPTY, pregnantPerson.getProperty(Constants.NAME) + " is pregnant");
 	}
 
 	@Override

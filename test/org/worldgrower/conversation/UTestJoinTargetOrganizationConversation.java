@@ -68,6 +68,8 @@ public class UTestJoinTargetOrganizationConversation {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.GROUP, new IdList());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.GROUP, new IdList().add(3));
+		performer.setProperty(Constants.PROFESSION, Professions.FARMER_PROFESSION);
+		target.setProperty(Constants.PROFESSION, Professions.FARMER_PROFESSION);
 		
 		world.addWorldObject(performer);
 		world.addWorldObject(target);

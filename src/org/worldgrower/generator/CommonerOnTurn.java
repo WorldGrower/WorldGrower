@@ -14,10 +14,12 @@
  *******************************************************************************/
 package org.worldgrower.generator;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OnTurn;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.Background;
 import org.worldgrower.attribute.ItemCountMap;
 import org.worldgrower.attribute.Prices;
@@ -31,6 +33,8 @@ import org.worldgrower.goal.WeightPropertyUtils;
 
 public class CommonerOnTurn implements OnTurn {
 
+	public static final int PREGNANCY_DURATION = 200;
+	
 	private final CommonerGenerator commonerGenerator;
 	private final WorldObject organization;
 	
@@ -109,7 +113,7 @@ public class CommonerOnTurn implements OnTurn {
 			pregnancy = pregnancy + 1;
 			worldObject.setProperty(Constants.PREGNANCY, pregnancy);
 			
-			if (pregnancy > 200) {
+			if (pregnancy > PREGNANCY_DURATION) {
 				worldObject.setProperty(Constants.PREGNANCY, pregnancy - 201);
 				
 				int performerX = worldObject.getProperty(Constants.X);
@@ -121,9 +125,17 @@ public class CommonerOnTurn implements OnTurn {
 					worldObject.getProperty(Constants.CHILDREN).add(id);
 					
 					everyoneInVicinityKnowsOfChild(worldObject, id, world);
+					
+					logChildBirth(worldObject, world, id);
 				}
 			}
 		}
+	}
+
+	private void logChildBirth(WorldObject worldObject, World world, int id) {
+		WorldObject child = world.findWorldObject(Constants.ID, id);
+		String message = worldObject.getProperty(Constants.NAME) + " has given birth to " + child.getProperty(Constants.NAME);
+		world.logAction(Actions.DO_NOTHING_ACTION, worldObject, worldObject, Args.EMPTY, message);
 	}
 
 	private void propertiesOnTurn(WorldObject worldObject, World world) {

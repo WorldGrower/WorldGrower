@@ -320,6 +320,15 @@ public class GroupPropertyUtils {
 				return false;
 			}
 		}
+		Profession organizationProfession = organization.getProperty(Constants.PROFESSION);
+		if (organizationProfession != null) {
+			Profession personJoiningProfession = personJoining.getProperty(Constants.PROFESSION);
+			if (organizationProfession == personJoiningProfession) {
+				return true;
+			} else {
+				return false;
+			}
+		}
 		return canChangeLeaderOfOrganization(organization);
 	}
 	

@@ -217,7 +217,7 @@ public class CommonerGenerator implements Serializable {
 
 		properties.put(Constants.DAMAGE, 2);
 		properties.put(Constants.DAMAGE_RESIST, 10);
-		
+
 		if (Boolean.getBoolean("DEBUG")) {
 			((List<Object>)properties.get(Constants.KNOWN_SPELLS)).addAll(Actions.getMagicSpells());
 		}
