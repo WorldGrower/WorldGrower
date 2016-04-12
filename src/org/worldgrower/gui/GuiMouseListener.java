@@ -349,7 +349,7 @@ public class GuiMouseListener extends MouseAdapter {
 			menu.add(guiSellMenuItem);
 		}
 		
-		if (canPlayerCharacterPerformAction(worldObject, Actions.BUY_ACTION)) {
+		if (canPlayerCharacterPerformBuyAction(worldObject, Actions.BUY_ACTION)) {
 			JMenuItem guiBuyMenuItem = MenuFactory.createJMenuItem(new GuiBuyAction(playerCharacter, world, dungeonMaster, container, worldObject, imageInfoReader));
 			guiBuyMenuItem.setText("Buy...");
 			menu.add(guiBuyMenuItem);
@@ -670,6 +670,11 @@ public class GuiMouseListener extends MouseAdapter {
 	private boolean canPlayerCharacterPerformAction(WorldObject worldObject, ManagedOperation action) {
 		return canPlayerCharacterPerformActionUnderCorrectCircumstances(worldObject, action) && action.isActionPossible(playerCharacter, worldObject, Args.EMPTY, world);
 	}
+	
+	private boolean canPlayerCharacterPerformBuyAction(WorldObject worldObject, ManagedOperation action) {
+		return canPlayerCharacterPerformActionUnderCorrectCircumstances(worldObject, action);
+	}
+	
 	private boolean canPlayerCharacterPerformTalkAction(WorldObject worldObject, ManagedOperation action) {
 		return canPlayerCharacterPerformActionUnderCorrectCircumstances(worldObject, action) && action.isActionPossible(playerCharacter, worldObject, Conversations.createArgs(Conversations.NAME_CONVERSATION), world);
 	}

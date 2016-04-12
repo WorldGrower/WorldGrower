@@ -24,6 +24,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.generator.Item;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.history.HistoryItem;
+import org.worldgrower.profession.Profession;
 
 public class SetOrganizationProfitPercentageConversation implements Conversation {
 
@@ -45,13 +46,16 @@ public class SetOrganizationProfitPercentageConversation implements Conversation
 			if (GroupPropertyUtils.canChangeLeaderOfOrganization(organization)) {
 				if (!isVillagersOrganization(organization, world)) {
 					if (target.getProperty(Constants.GROUP).contains(organization)) {
-						for(int profitPercentage = -100; profitPercentage<=100; profitPercentage+=50) {
-							for(Item item : Item.values()) {
-								int itemIndex = item.ordinal();
-								int price = item.getPrice() * (1 + profitPercentage/100);
-								questions.add(new Question(organization, "I'd like to set the price for " + item.getDescription() + " for " + organization.getProperty(Constants.NAME) + " to " + price + ", can you take care of this?", itemIndex, price));
+						Profession profession = organization.getProperty(Constants.PROFESSION);
+						if (profession != null) {
+							for(int profitPercentage = -100; profitPercentage<=100; profitPercentage+=50) {
+								for(Item item : profession.getSellItems()) {
+									int itemIndex = item.ordinal();
+									int price = item.getPrice() * (1 + profitPercentage/100);
+									questions.add(new Question(organization, "I'd like to set the price for " + item.getDescription() + " for " + organization.getProperty(Constants.NAME) + " to " + price + ", can you take care of this?", itemIndex, price));
+								}
 							}
-						}		
+						}
 					}
 				}
 			}
