@@ -37,9 +37,13 @@ public class ProfessionPractitionersConversation implements Conversation {
 		WorldObject performer = conversationContext.getPerformer();
 		WorldObject target = conversationContext.getTarget();
 		int relationshipValue = target.getProperty(Constants.RELATIONSHIPS).getValue(performer);
+		Profession profession = Professions.getAllProfessions().get(conversationContext.getAdditionalValue());
+		boolean targetHasProfession = (target.getProperty(Constants.PROFESSION) == profession);
+		boolean hasOtherPractitioners = getProfessionPractitioners(conversationContext).size() > 0;
+		boolean replyYes = targetHasProfession || hasOtherPractitioners;
 		
 		final int replyId;
-		if (relationshipValue >= 0 && getProfessionPractitioners(conversationContext).size() > 0) {
+		if (relationshipValue >= 0 && replyYes) {
 			replyId = YES;
 		} else {
 			replyId = NO;

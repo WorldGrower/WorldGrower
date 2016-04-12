@@ -284,8 +284,7 @@ public class OptionsScreen {
 		cmbImage.setBounds(228, 160, 137, 58);
 		contentPanel.add(cmbImage);
 		
-		JLabel lblStartTurn = JLabelFactory.createJLabel("Seed:");
-		lblStartTurn.setText("Start turn:");
+		JLabel lblStartTurn = JLabelFactory.createJLabel("Start turn:");
 		lblStartTurn.setToolTipText(START_TURN_TOOL_TIP);
 		lblStartTurn.setBounds(25, 433, 191, 26);
 		contentPanel.add(lblStartTurn);
@@ -345,7 +344,7 @@ public class OptionsScreen {
 			errors.add("Start turn must be numeric");
 		}
 		
-		if (Integer.parseInt(startTurnTextField.getText()) < 0) {
+		if (NumberUtils.isNumeric(startTurnTextField.getText()) && Integer.parseInt(startTurnTextField.getText()) < 0) {
 			errors.add("Start turn must be 0 or greater");
 		}
 		
