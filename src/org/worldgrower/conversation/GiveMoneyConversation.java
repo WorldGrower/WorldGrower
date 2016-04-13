@@ -21,11 +21,10 @@ import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
 
-public class GiveFoodConversation implements Conversation {
+public class GiveMoneyConversation implements Conversation {
 
 	private static final int THANKS = 0;
 	private static final int GET_LOST = 1;
@@ -38,7 +37,7 @@ public class GiveFoodConversation implements Conversation {
 
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
-		return Arrays.asList(new Question(null, "Would you like to have some food?"));
+		return Arrays.asList(new Question(null, "Would you like to have 100 gold?"));
 	}
 
 	@Override
@@ -57,7 +56,7 @@ public class GiveFoodConversation implements Conversation {
 		if (replyIndex == THANKS) {
 			int relationshipBonus;
 			
-			if (target.getProperty(Constants.INVENTORY).getQuantityFor(Constants.FOOD) > 0) {
+			if (target.getProperty(Constants.GOLD) >= 100) {
 				relationshipBonus = 5;
 			} else {
 				relationshipBonus = 10;
@@ -65,30 +64,25 @@ public class GiveFoodConversation implements Conversation {
 			
 			RelationshipPropertyUtils.changeRelationshipValue(performer, target, relationshipBonus, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 			
-			performerGivesFoodToTarget(performer, target);
+			performerGivesMoneyToTarget(performer, target, 100);
 			
 		} else if (replyIndex == GET_LOST) {
 			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -20, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 		}
 	}
 
-	private void performerGivesFoodToTarget(WorldObject performer, WorldObject target) {
-		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
-		int indexOfFood = performerInventory.getIndexFor(Constants.FOOD);
-		WorldObject food = performerInventory.get(indexOfFood).deepCopy();
-		performerInventory.removeQuantity(indexOfFood, 1);
-		
-		WorldObjectContainer targetInventory = target.getProperty(Constants.INVENTORY);
-		targetInventory.addQuantity(food, 1);
+	private void performerGivesMoneyToTarget(WorldObject performer, WorldObject target, int amount) {
+		performer.increment(Constants.GOLD, -amount);
+		target.increment(Constants.GOLD, amount);
 	}
 
 	@Override
 	public boolean isConversationAvailable(WorldObject performer, WorldObject target, WorldObject subject, World world) {
-		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.FOOD) > 0;
+		return performer.getProperty(Constants.GOLD) >= 100;
 	}
 
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, World world) {
-		return "giving " + target.getProperty(Constants.NAME) + " some food";
+		return "giving " + target.getProperty(Constants.NAME) + " some money";
 	}
 }

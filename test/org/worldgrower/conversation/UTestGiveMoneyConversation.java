@@ -27,12 +27,11 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdRelationshipMap;
 import org.worldgrower.attribute.WorldObjectContainer;
-import org.worldgrower.generator.Item;
 import org.worldgrower.goal.GroupPropertyUtils;
 
-public class UTestGiveFoodConversation {
+public class UTestGiveMoneyConversation {
 
-	private final GiveFoodConversation conversation = Conversations.GIVE_FOOD_CONVERSATION;
+	private final GiveMoneyConversation conversation = Conversations.GIVE_MONEY_CONVERSATION;
 	
 	@Test
 	public void testGetReplyPhrases() {
@@ -64,24 +63,7 @@ public class UTestGiveFoodConversation {
 		
 		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, null, null);
 		assertEquals(1, questions.size());
-		assertEquals("Would you like to have some food?", questions.get(0).getQuestionPhrase());
-	}
-	
-	@Test
-	public void testHandleResponse0Quantities() {
-		World world = new WorldImpl(0, 0, null, null);
-		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
-		WorldObject target = TestUtils.createSkilledWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
-		
-		performer.setProperty(Constants.INVENTORY, new WorldObjectContainer());
-		performer.getProperty(Constants.INVENTORY).addQuantity(Item.BERRIES.generate(1f), 20);
-		target.setProperty(Constants.INVENTORY, new WorldObjectContainer());
-		
-		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
-		
-		conversation.handleResponse(0, context);
-		assertEquals(19, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.FOOD));
-		assertEquals(1, target.getProperty(Constants.INVENTORY).getQuantityFor(Constants.FOOD));
+		assertEquals("Would you like to have 100 gold?", questions.get(0).getQuestionPhrase());
 	}
 	
 	@Test
@@ -90,17 +72,16 @@ public class UTestGiveFoodConversation {
 		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createSkilledWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		
-		performer.setProperty(Constants.INVENTORY, new WorldObjectContainer());
-		performer.getProperty(Constants.INVENTORY).addQuantity(Item.BERRIES.generate(1f));
-		target.setProperty(Constants.INVENTORY, new WorldObjectContainer());
+		performer.setProperty(Constants.GOLD, 200);
+		target.setProperty(Constants.GOLD, 200);
 		
 		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
 		
 		conversation.handleResponse(0, context);
-		assertEquals(10, performer.getProperty(Constants.RELATIONSHIPS).getValue(target));
-		assertEquals(10, target.getProperty(Constants.RELATIONSHIPS).getValue(performer));
-		assertEquals(0, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.FOOD));
-		assertEquals(1, target.getProperty(Constants.INVENTORY).getQuantityFor(Constants.FOOD));
+		assertEquals(5, performer.getProperty(Constants.RELATIONSHIPS).getValue(target));
+		assertEquals(5, target.getProperty(Constants.RELATIONSHIPS).getValue(performer));
+		assertEquals(100, performer.getProperty(Constants.GOLD).intValue());
+		assertEquals(300, target.getProperty(Constants.GOLD).intValue());
 	}
 
 	@Test
@@ -122,9 +103,10 @@ public class UTestGiveFoodConversation {
 		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
 		WorldObject target = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
 		
+		performer.setProperty(Constants.GOLD, 0);
 		assertEquals(false, conversation.isConversationAvailable(performer, target, null, world));
 		
-		performer.getProperty(Constants.INVENTORY).addQuantity(Item.BERRIES.generate(1f));
+		performer.setProperty(Constants.GOLD, 200);
 		assertEquals(true, conversation.isConversationAvailable(performer, target, null, world));
 	}
 }

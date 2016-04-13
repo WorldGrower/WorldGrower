@@ -49,6 +49,20 @@ public class UTestSellAction {
 	}
 	
 	@Test
+	public void testExecuteSellQuantity() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WATER.generate(1f), 20);
+		
+		int indexOfWater = performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.WATER);
+		Actions.SELL_ACTION.execute(performer, target, new int[] { indexOfWater, 1 }, world);
+		
+		assertEquals(19, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WATER));
+		assertEquals(1, target.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WATER));
+	}
+	
+	@Test
 	public void testIsValidTarget() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = createPerformer(2);

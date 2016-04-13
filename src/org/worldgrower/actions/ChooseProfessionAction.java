@@ -60,7 +60,8 @@ public class ChooseProfessionAction implements ManagedOperation {
 			new ProfessionInfo(Professions.ARENA_FIGHTER_PROFESSION, 1.4, 1.4, 0.8, 0.8, 0.8, 0.8),
 			new ProfessionInfo(Professions.JOURNALIST_PROFESSION, 0.8, 0.8, 0.8, 1.2, 1.2, 1.4),
 			new ProfessionInfo(Professions.ASSASSIN_PROFESSION, 1.4, 1.2, 0.8, 0.8, 1.0, 1.4),
-			new ProfessionInfo(Professions.ALCHEMIST_PROFESSION, 0.8, 1.0, 0.8, 1.0, 1.4, 1.1)
+			new ProfessionInfo(Professions.ALCHEMIST_PROFESSION, 0.8, 1.0, 0.8, 1.0, 1.4, 1.1),
+			new ProfessionInfo(Professions.BREWER_PROFESSION, 0.8, 1.0, 0.8, 1.0, 1.4, 1.1)
 			);
 	
 	@Override

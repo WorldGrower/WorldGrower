@@ -88,6 +88,7 @@ import org.worldgrower.conversation.UTestDemandsConversation;
 import org.worldgrower.conversation.UTestDrinkingContestConversation;
 import org.worldgrower.conversation.UTestFamilyConversation;
 import org.worldgrower.conversation.UTestGiveFoodConversation;
+import org.worldgrower.conversation.UTestGiveMoneyConversation;
 import org.worldgrower.conversation.UTestImmediateGoalConversation;
 import org.worldgrower.conversation.UTestIntimidateConversation;
 import org.worldgrower.conversation.UTestJoinPerformerOrganizationConversation;
@@ -588,7 +589,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestPoisonWeaponGoal.class,
 	UTestHera.class,
 	UTestZeus.class,
-	UTestPoseidon.class
+	UTestPoseidon.class,
+	UTestGiveMoneyConversation.class
 })
 public class CompleteTestSuite {
 }

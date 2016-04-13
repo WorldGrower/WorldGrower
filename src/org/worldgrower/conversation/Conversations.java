@@ -96,6 +96,7 @@ public class Conversations implements Serializable {
 	public static final BreakupWithMateConversation BREAKUP_WITH_MATE_CONVERSATION = new BreakupWithMateConversation();
 	public static final CureDiseaseConversation CURE_DISEASE_CONVERSATION = new CureDiseaseConversation();
 	public static final AssassinateTargetConversation ASSASSINATE_TARGET_CONVERSATION = new AssassinateTargetConversation();
+	public static final GiveMoneyConversation GIVE_MONEY_CONVERSATION = new GiveMoneyConversation();
 	
 	private static final List<Conversation> CONVERSATIONS = new ArrayList<>();
 	private static final Map<Conversation, ConversationCategory> CONVERSATION_CATEGORIES = new HashMap<>();
@@ -154,6 +155,7 @@ public class Conversations implements Serializable {
 		add(START_ARENA_FIGHT_CONVERSATION, ConversationCategory.ARENA);
 		add(ARENA_FIGHTER_PAY_CHECK_CONVERSATION, ConversationCategory.ARENA);
 		add(GIVE_FOOD_CONVERSATION, ConversationCategory.DIPLOMACY_TARGET);
+		add(GIVE_MONEY_CONVERSATION, ConversationCategory.DIPLOMACY_TARGET);
 		addNormalAndIntimidate(MERGE_ORGANIZATIONS_CONVERSATION, ConversationCategory.LEADER);
 		addNormalAndIntimidate(SWITCH_DEITY_CONVERSATION, ConversationCategory.DEITY);
 		addNormalAndIntimidate(STOP_SELLING_CONVERSATION, ConversationCategory.DEMAND);
