@@ -15,12 +15,18 @@
 package org.worldgrower.goal;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.conversation.Conversation;
+import org.worldgrower.conversation.Conversations;
+import org.worldgrower.history.HistoryItem;
 import org.worldgrower.personality.PersonalityTrait;
 
 /**
@@ -58,5 +64,11 @@ public interface Goal extends Serializable {
 		String traitName = personalityTrait.getClass().getSimpleName();
 		int firstChars = performerName.charAt(0) + traitName.charAt(0);
 		return firstChars % 2 == 0 ? 1 : -1;
+	}
+	
+	public default List<Integer> getPreviousResponseIds(WorldObject performer, WorldObject target, Conversation conversation, World world) {
+		List<HistoryItem> historyItems = world.getHistory().findHistoryItems(performer, target, Actions.TALK_ACTION);
+		historyItems = historyItems.stream().filter(h -> h.getOperationInfo().firstArgsIs(Conversations.createArgs(conversation)[0])).collect(Collectors.toList());
+		return historyItems.stream().map(h -> (Integer)h.getAdditionalValue()).collect(Collectors.toList());
 	}
 }

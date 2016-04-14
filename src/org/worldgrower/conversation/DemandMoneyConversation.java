@@ -104,4 +104,8 @@ public class DemandMoneyConversation implements Conversation {
 	public String getDescription(WorldObject performer, WorldObject target, World world) {
 		return "demanding money";
 	}
+
+	public boolean previousAnswerWasNegative(List<Integer> previousResponseIds) {
+		return previousResponseIds.contains(GET_LOST) || previousResponseIds.contains(NO);
+	}
 }

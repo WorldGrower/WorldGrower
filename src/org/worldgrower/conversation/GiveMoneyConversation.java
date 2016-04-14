@@ -85,4 +85,8 @@ public class GiveMoneyConversation implements Conversation {
 	public String getDescription(WorldObject performer, WorldObject target, World world) {
 		return "giving " + target.getProperty(Constants.NAME) + " some money";
 	}
+
+	public boolean previousAnswerWasNegative(List<Integer> previousResponseIds) {
+		return previousResponseIds.contains(GET_LOST);
+	}
 }

@@ -58,10 +58,10 @@ public class UTestSocializeGoal {
 		performer.getProperty(Constants.GROUP).add(6);
 		target.getProperty(Constants.GROUP).add(6);
 		
-		assertEquals(true, SocializeGoal.isFirstTimeSocializeTargetForPerformer(performer, target));
+		assertEquals(true, goal.isFirstTimeSocializeTargetForPerformer(performer, target));
 		
 		performer.getProperty(Constants.RELATIONSHIPS).incrementValue(target, 5);
-		assertEquals(false, SocializeGoal.isFirstTimeSocializeTargetForPerformer(performer, target));
+		assertEquals(false, goal.isFirstTimeSocializeTargetForPerformer(performer, target));
 	}
 	
 	@Test
@@ -70,10 +70,10 @@ public class UTestSocializeGoal {
 		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(1, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		
-		assertEquals(false, SocializeGoal.isTargetForShareKnowledgeConversation(performer, target, world));
+		assertEquals(false, goal.isTargetForShareKnowledgeConversation(performer, target, world));
 		
 		performer.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(2, Constants.FOOD, 500);
-		assertEquals(true, SocializeGoal.isTargetForShareKnowledgeConversation(performer, target, world));
+		assertEquals(true, goal.isTargetForShareKnowledgeConversation(performer, target, world));
 	}
 	
 	@Test
@@ -82,12 +82,12 @@ public class UTestSocializeGoal {
 		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(1, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		
-		assertEquals(Arrays.asList(), SocializeGoal.getPreviousResponseIds(performer, target, Conversations.SHARE_KNOWLEDGE_CONVERSATION, world));
+		assertEquals(Arrays.asList(), goal.getPreviousResponseIds(performer, target, Conversations.SHARE_KNOWLEDGE_CONVERSATION, world));
 		
 		world.getHistory().setNextAdditionalValue(0);
 		world.getHistory().actionPerformed(new OperationInfo(performer, target, Conversations.createArgs(Conversations.SHARE_KNOWLEDGE_CONVERSATION), Actions.TALK_ACTION), new Turn());
 		
-		assertEquals(Arrays.asList(0), SocializeGoal.getPreviousResponseIds(performer, target, Conversations.SHARE_KNOWLEDGE_CONVERSATION, world));
+		assertEquals(Arrays.asList(0), goal.getPreviousResponseIds(performer, target, Conversations.SHARE_KNOWLEDGE_CONVERSATION, world));
 	}
 	
 	@Test
