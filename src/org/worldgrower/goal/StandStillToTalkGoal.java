@@ -92,6 +92,6 @@ public class StandStillToTalkGoal implements Goal {
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.FOOD);
+		return 0;
 	}
 }

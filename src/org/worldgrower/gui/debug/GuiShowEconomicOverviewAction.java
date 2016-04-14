@@ -27,6 +27,7 @@ import javax.swing.table.AbstractTableModel;
 import org.worldgrower.World;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.OperationStatistics;
+import org.worldgrower.generator.Item;
 import org.worldgrower.profession.Professions;
 
 public class GuiShowEconomicOverviewAction extends AbstractAction {
@@ -76,7 +77,7 @@ public class GuiShowEconomicOverviewAction extends AbstractAction {
 
 		@Override
 		public int getRowCount() {
-			return 17;
+			return 17 + Item.values().length - 1;
 		}
 
 		@Override
@@ -128,7 +129,7 @@ public class GuiShowEconomicOverviewAction extends AbstractAction {
 				} else if (rowIndex == 16) {
 					return "ConstructBedAction by non-professionals";
 				} else {
-					return null;
+					return Item.values()[rowIndex - 16].name() + " (current price/default price)";
 				}
 			} else if (columnIndex == 1) {
 				if (rowIndex == 0) {
@@ -166,7 +167,8 @@ public class GuiShowEconomicOverviewAction extends AbstractAction {
 				} else if (rowIndex == 16) {
 					return OperationStatistics.getRecentOperationsByNonProfessionalsCount(Actions.CONSTRUCT_BED_ACTION, Professions.CARPENTER_PROFESSION, world);
 				} else {
-					return null;
+					Item item = Item.values()[rowIndex - 16];
+					return OperationStatistics.getPrice(item, world) + "/" + item.getPrice();
 				}
 			} else {
 				return null;

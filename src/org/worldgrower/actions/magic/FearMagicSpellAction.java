@@ -17,79 +17,87 @@ package org.worldgrower.actions.magic;
 import java.io.ObjectStreamException;
 
 import org.worldgrower.Constants;
-import org.worldgrower.ManagedOperation;
-import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.AttackUtils;
 import org.worldgrower.actions.CraftUtils;
+import org.worldgrower.attribute.SkillProperty;
+import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.Conditions;
+import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
 
-public class ResearchSpellAction implements ManagedOperation {
+public class FearMagicSpellAction implements MagicSpell {
 
-	private static final int DISTANCE = 1;
-	private final MagicSpell spell;
+	private static final int ENERGY_USE = 400;
+	private static final int DISTANCE = 4;
 	
-	public ResearchSpellAction(MagicSpell spell) {
-		this.spell = spell;
-	}
-
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		performer.getProperty(Constants.STUDYING_SPELLS).add(spell, 1);
+		int turns = (int)(10 * SkillUtils.getSkillBonus(performer, getSkill()));
+		Conditions.add(target, Condition.SLEEP_CONDITION, turns, world);
 
-		if (performer.getProperty(Constants.STUDYING_SPELLS).count(spell) > spell.getResearchCost()) {
-			performer.getProperty(Constants.KNOWN_SPELLS).add(spell);
-			
-			String message = performer.getProperty(Constants.NAME) + " has learned spell '" + spell.getSimpleDescription() + "'";
-			world.logAction(this, performer, target, args, message);
-		}
+		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE, world.getWorldStateChangedListeners());
+	}
+	
+	@Override
+	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
+		return (target.hasProperty(Constants.CONDITIONS) && target.hasIntelligence() && MagicSpellUtils.canCast(performer, this));
 	}
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		int skillLevelMet = (spell.getSkill().getLevel(performer) >= spell.getRequiredSkillLevel()) ? 0 : 1;
-		return Reach.evaluateTarget(performer, args, target, DISTANCE) + skillLevelMet;
+		return AttackUtils.distanceWithFreeLeftHand(performer, target, DISTANCE)
+				+ SkillUtils.distanceForEnergyUse(performer, getSkill(), ENERGY_USE);
 	}
 	
 	@Override
 	public String getRequirementsDescription() {
-		return CraftUtils.getRequirementsDescription(spell.getSkill(), spell.getRequiredSkillLevel(), Constants.DISTANCE, DISTANCE);
+		return CraftUtils.getRequirementsDescription(Constants.ENERGY, ENERGY_USE, Constants.DISTANCE, DISTANCE, "free left hand");
 	}
-
+	
 	@Override
 	public boolean requiresArguments() {
 		return false;
 	}
-
-	@Override
-	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return isValidTarget(target) && !performer.getProperty(Constants.KNOWN_SPELLS).contains(spell);
-	}
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "studying spell '" + spell.getSimpleDescription() + "'";
+		return "casting fear on " + target.getProperty(Constants.NAME);
 	}
 
 	@Override
 	public String getSimpleDescription() {
-		return "study spell '" + spell.getSimpleDescription() + "'";
+		return "cast fear";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
 	}
 
-	public MagicSpell getSpell() {
-		return spell;
+	@Override
+	public int getResearchCost() {
+		return 50;
 	}
-	
-	public static boolean isValidTarget(WorldObject target) {
-		return target.hasProperty(Constants.LIBRARY_QUALITY);
+
+	@Override
+	public SkillProperty getSkill() {
+		return Constants.ENCHANTMENT_SKILL;
+	}
+
+	@Override
+	public int getRequiredSkillLevel() {
+		return 2;
+	}
+
+	@Override
+	public String getDescription() {
+		return "makes target fear the spell caster for several turns";
 	}
 	
 	@Override
 	public ImageIds getImageIds() {
-		return ImageIds.SPELL_BOOK;
+		return ImageIds.FEAR_INDICATOR;
 	}
 }

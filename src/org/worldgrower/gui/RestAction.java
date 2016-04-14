@@ -19,7 +19,6 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 
 import org.worldgrower.Args;
-import org.worldgrower.Constants;
 import org.worldgrower.DungeonMaster;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
@@ -52,15 +51,7 @@ public class RestAction extends AbstractAction {
 		if ((turnsString != null) && (NumberUtils.isNumeric(turnsString) && turnsString.length() > 0)) {
 			int turns = Integer.parseInt(turnsString);
 			
-			for(int i=0; i<turns; i++) {
-				int hitPointsBeforeRest = playerCharacter.getProperty(Constants.HIT_POINTS);
-				Game.executeAction(playerCharacter, Actions.REST_ACTION, Args.EMPTY, world, dungeonMaster, playerCharacter, parent);
-				int hitPointsAfterRest = playerCharacter.getProperty(Constants.HIT_POINTS);
-				
-				if (hitPointsAfterRest < hitPointsBeforeRest) {
-					break;
-				}
-			}
+			Game.executeMultipleTurns(playerCharacter, Actions.REST_ACTION, Args.EMPTY, world, dungeonMaster, playerCharacter, parent, turns);
 		}
 	}
 }

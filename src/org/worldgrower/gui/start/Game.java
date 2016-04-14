@@ -23,6 +23,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import javax.swing.ToolTipManager;
 
+import org.worldgrower.Args;
 import org.worldgrower.CommonerNameGenerator;
 import org.worldgrower.CommonerNameGeneratorImpl;
 import org.worldgrower.Constants;
@@ -32,6 +33,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldOnTurnImpl;
+import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.ArenaFightOnTurn;
 import org.worldgrower.actions.BrawlListener;
 import org.worldgrower.actions.DrinkingContestListener;
@@ -239,6 +241,18 @@ public class Game {
     		runWorld(playerCharacter, world, dungeonMaster, worldPanel);
     		checkToSkipTurn(playerCharacter, world, dungeonMaster, worldPanel);
     	}
+	}
+    
+    public static void executeMultipleTurns(WorldObject playerCharacter, ManagedOperation action, int[] args, World world, DungeonMaster dungeonMaster, WorldObject target, WorldPanel worldPanel, int turns) {
+    	for(int i=0; i<turns; i++) {
+			int hitPointsBeforeRest = playerCharacter.getProperty(Constants.HIT_POINTS);
+			Game.executeAction(playerCharacter, action, args, world, dungeonMaster, target, worldPanel);
+			int hitPointsAfterRest = playerCharacter.getProperty(Constants.HIT_POINTS);
+			
+			if (hitPointsAfterRest < hitPointsBeforeRest) {
+				break;
+			}
+		}
 	}
 
 	private static void runWorld(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, WorldPanel worldPanel) {

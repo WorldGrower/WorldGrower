@@ -19,7 +19,6 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 
 import org.worldgrower.Args;
-import org.worldgrower.Constants;
 import org.worldgrower.DungeonMaster;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
@@ -54,15 +53,7 @@ public class GuiRestMultipleTurnsAction extends AbstractAction {
 		if ((turnsString != null) && (NumberUtils.isNumeric(turnsString) && turnsString.length() > 0)) {
 			int turns = Integer.parseInt(turnsString);
 			
-			for(int i=0; i<turns; i++) {
-				int hitPointsBeforeRest = playerCharacter.getProperty(Constants.HIT_POINTS);
-				Game.executeAction(playerCharacter, Actions.SLEEP_ACTION, Args.EMPTY, world, dungeonMaster, target, parent);
-				int hitPointsAfterRest = playerCharacter.getProperty(Constants.HIT_POINTS);
-				
-				if (hitPointsAfterRest < hitPointsBeforeRest) {
-					break;
-				}
-			}
+			Game.executeMultipleTurns(playerCharacter, Actions.SLEEP_ACTION, Args.EMPTY, world, dungeonMaster, target, parent, turns);
 		}
 	}
 }

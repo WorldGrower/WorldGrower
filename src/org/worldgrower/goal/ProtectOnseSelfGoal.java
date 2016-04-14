@@ -39,7 +39,7 @@ public class ProtectOnseSelfGoal implements Goal {
 			
 			if (targets.size() > 0) {
 				Zone zone = new Zone(world.getWidth(), world.getHeight());
-				for(int i=1; i<RANGE / 2; i++) {
+				for(int i=1; i<RANGE; i++) {
 					zone.addValues(targets, i, 1);
 				}
 				
@@ -49,11 +49,12 @@ public class ProtectOnseSelfGoal implements Goal {
 				int[] bestArgs = null;
 				for(int x : zone.getValuesX(performerX)) { // x = performerX -1 to performerX +1
 					for(int y : zone.getValuesY(performerY)) { // y = performerY -1 to performerY +1
-						if ((x != performerX) && (y != performerY)) {
+						if (!((x == performerX) && (y == performerY))) {
+							//System.out.println("x=" + x + ",y="+y+",zone.value(x, y)="+zone.value(x, y));
 							if ((zone.value(x, y) < lowestDangerValue) && movementIsPossible(performer, x, y, world)) {
 								bestArgs = createArgs(performerX, performerY, x, y);
 								lowestDangerValue = zone.value(x, y);
-								//System.out.println("x=" + x + ",y="+y+",lowestDangerValue="+lowestDangerValue);
+								//System.out.println("x=" + x + ",y="+y+",lowestDangerValue="+lowestDangerValue+",bestArgs="+bestArgs[0]+","+bestArgs[1]);
 							}
 						}
 					}

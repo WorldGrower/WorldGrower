@@ -14,12 +14,17 @@
  *******************************************************************************/
 package org.worldgrower.actions;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+
 
 import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
+import org.worldgrower.WorldObject;
+import org.worldgrower.generator.Item;
 import org.worldgrower.history.HistoryItem;
 import org.worldgrower.profession.Profession;
 
@@ -53,5 +58,22 @@ public class OperationStatistics {
 		List<HistoryItem> historyItems = world.getHistory().findHistoryItems(managedOperation);
 		List<HistoryItem> filteredHistoryItems = historyItems.stream().filter(h -> isNonProfessional(h, profession)).collect(Collectors.toList());
 		return filteredHistoryItems.size();
+	}
+
+	public static int getPrice(Item item, World world) {
+		List<WorldObject> sellers = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> w.getProperty(Constants.PROFESSION) != null && w.getProperty(Constants.PROFESSION).getSellItems().contains(item));
+		if (sellers.size() > 0) {
+			int totalPrice = 0;
+			for(WorldObject seller : sellers) {
+				totalPrice += seller.getProperty(Constants.PRICES).getPrice(item);
+			}
+			int sellerCount = sellers.size();
+			if (sellerCount == 0) {
+				sellerCount = 1;
+			}
+			return totalPrice / sellerCount;
+		} else {
+			return item.getPrice();
+		}
 	}
 }

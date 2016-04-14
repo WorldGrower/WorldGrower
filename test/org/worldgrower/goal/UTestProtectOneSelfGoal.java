@@ -59,6 +59,45 @@ public class UTestProtectOneSelfGoal {
 	}
 	
 	@Test
+	public void testCalculateGoalOneEnemyAtMediumDistance() {
+		World world = new WorldImpl(15, 15, null, null);
+		WorldObject organization = createVillagersOrganization(world);
+		int performerId = commonerGenerator.generateCommoner(1, 9, world, organization);
+		generateEnemy(1, 1, organization, world);
+		WorldObject performer = world.findWorldObject(Constants.ID, performerId);
+		
+		assertEquals(Actions.MOVE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+		assertEquals(-1, goal.calculateGoal(performer, world).getArgs()[0]);
+		assertEquals(1, goal.calculateGoal(performer, world).getArgs()[1]);
+	}
+	
+	@Test
+	public void testCalculateGoalOneEnemyAtShortDistance() {
+		World world = new WorldImpl(15, 15, null, null);
+		WorldObject organization = createVillagersOrganization(world);
+		int performerId = commonerGenerator.generateCommoner(0, 1, world, organization);
+		generateEnemy(2, 0, organization, world);
+		WorldObject performer = world.findWorldObject(Constants.ID, performerId);
+		
+		assertEquals(Actions.MOVE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+		assertEquals(0, goal.calculateGoal(performer, world).getArgs()[0]);
+		assertEquals(-1, goal.calculateGoal(performer, world).getArgs()[1]);
+	}
+	
+	@Test
+	public void testCalculateGoalOneEnemyAtShortDistance2() {
+		World world = new WorldImpl(15, 15, null, null);
+		WorldObject organization = createVillagersOrganization(world);
+		int performerId = commonerGenerator.generateCommoner(1, 2, world, organization);
+		generateEnemy(3, 1, organization, world);
+		WorldObject performer = world.findWorldObject(Constants.ID, performerId);
+		
+		assertEquals(Actions.MOVE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+		assertEquals(-1, goal.calculateGoal(performer, world).getArgs()[0]);
+		assertEquals(-1, goal.calculateGoal(performer, world).getArgs()[1]);
+	}
+	
+	@Test
 	public void testCalculateGoalOneEnemyAtEdge() {
 		World world = new WorldImpl(15, 15, null, null);
 		WorldObject organization = createVillagersOrganization(world);
