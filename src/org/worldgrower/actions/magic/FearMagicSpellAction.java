@@ -35,9 +35,10 @@ public class FearMagicSpellAction implements MagicSpell {
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		int turns = (int)(10 * SkillUtils.getSkillBonus(performer, getSkill()));
-		Conditions.add(target, Condition.SLEEP_CONDITION, turns, world);
-
+		int turns = (int)(5 * SkillUtils.getSkillBonus(performer, getSkill()));
+		Conditions.add(target, Condition.FEAR_CONDITION, turns, world);
+		target.setProperty(Constants.FEAR_CASTER_ID, performer.getProperty(Constants.ID));
+		
 		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE, world.getWorldStateChangedListeners());
 	}
 	

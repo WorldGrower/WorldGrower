@@ -38,34 +38,38 @@ public class ProtectOnseSelfGoal implements Goal {
 			List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.MELEE_ATTACK_ACTION, w -> isEnemyWithinRange(performer, w, world), world);
 			
 			if (targets.size() > 0) {
-				Zone zone = new Zone(world.getWidth(), world.getHeight());
-				for(int i=1; i<RANGE; i++) {
-					zone.addValues(targets, i, 1);
-				}
-				
-				int lowestDangerValue = Integer.MAX_VALUE;
-				int performerX = performer.getProperty(Constants.X);
-				int performerY = performer.getProperty(Constants.Y);
-				int[] bestArgs = null;
-				for(int x : zone.getValuesX(performerX)) { // x = performerX -1 to performerX +1
-					for(int y : zone.getValuesY(performerY)) { // y = performerY -1 to performerY +1
-						if (!((x == performerX) && (y == performerY))) {
-							//System.out.println("x=" + x + ",y="+y+",zone.value(x, y)="+zone.value(x, y));
-							if ((zone.value(x, y) < lowestDangerValue) && movementIsPossible(performer, x, y, world)) {
-								bestArgs = createArgs(performerX, performerY, x, y);
-								lowestDangerValue = zone.value(x, y);
-								//System.out.println("x=" + x + ",y="+y+",lowestDangerValue="+lowestDangerValue+",bestArgs="+bestArgs[0]+","+bestArgs[1]);
-							}
-						}
-					}
-				}
-				
+				int[] bestArgs = calculateMoveArgs(performer, world, targets);
 				if (bestArgs != null) {
 					return new OperationInfo(performer, performer, bestArgs, Actions.MOVE_ACTION);
 				}
 			}
 		}
 		return null;
+	}
+
+	public int[] calculateMoveArgs(WorldObject performer, World world, List<WorldObject> targets) {
+		Zone zone = new Zone(world.getWidth(), world.getHeight());
+		for(int i=1; i<RANGE; i++) {
+			zone.addValues(targets, i, 1);
+		}
+		
+		int lowestDangerValue = Integer.MAX_VALUE;
+		int performerX = performer.getProperty(Constants.X);
+		int performerY = performer.getProperty(Constants.Y);
+		int[] bestArgs = null;
+		for(int x : zone.getValuesX(performerX)) { // x = performerX -1 to performerX +1
+			for(int y : zone.getValuesY(performerY)) { // y = performerY -1 to performerY +1
+				if (!((x == performerX) && (y == performerY))) {
+					//System.out.println("x=" + x + ",y="+y+",zone.value(x, y)="+zone.value(x, y));
+					if ((zone.value(x, y) < lowestDangerValue) && movementIsPossible(performer, x, y, world)) {
+						bestArgs = createArgs(performerX, performerY, x, y);
+						lowestDangerValue = zone.value(x, y);
+						//System.out.println("x=" + x + ",y="+y+",lowestDangerValue="+lowestDangerValue+",bestArgs="+bestArgs[0]+","+bestArgs[1]);
+					}
+				}
+			}
+		}
+		return bestArgs;
 	}
 
 	private boolean isEnemyWithinRange(WorldObject performer, WorldObject w, World world) {

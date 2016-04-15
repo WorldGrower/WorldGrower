@@ -23,6 +23,8 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.IdList;
+import org.worldgrower.attribute.IdRelationshipMap;
 import org.worldgrower.attribute.WorldObjectContainer;
 
 public class UTestSexAction {
@@ -58,10 +60,30 @@ public class UTestSexAction {
 	}
 	
 	@Test
-	public void testIsValidTarget() {
+	public void testIsValidTargetNoRelationships() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
+		
+		assertEquals(true, Actions.SEX_ACTION.isValidTarget(performer, target, world));
+	}
+	
+	@Test
+	public void testIsValidTargetRelationships() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		
+		performer.setProperty(Constants.RELATIONSHIPS, new IdRelationshipMap());
+		target.setProperty(Constants.RELATIONSHIPS, new IdRelationshipMap());
+		
+		assertEquals(false, Actions.SEX_ACTION.isValidTarget(performer, target, world));
+		
+		performer.getProperty(Constants.RELATIONSHIPS).incrementValue(target, 1000);
+		target.getProperty(Constants.RELATIONSHIPS).incrementValue(performer, 1000);
+		
+		performer.setProperty(Constants.GROUP, new IdList().add(1));
+		target.setProperty(Constants.GROUP, new IdList().add(1));
 		
 		assertEquals(true, Actions.SEX_ACTION.isValidTarget(performer, target, world));
 	}

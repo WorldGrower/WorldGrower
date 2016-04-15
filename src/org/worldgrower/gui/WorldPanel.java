@@ -413,6 +413,8 @@ public class WorldPanel extends JPanel {
     		return ImageIds.SILENCED_CONDITION;
     	} else if (hasCondition(worldObject, Condition.INTOXICATED_CONDITION)) {
     		return ImageIds.INTOXICATED_CONDITION;
+    	} else if (hasCondition(worldObject, Condition.FEAR_CONDITION)) {
+    		return ImageIds.FEAR_INDICATOR;
     	} else {
     		return null;
     	}

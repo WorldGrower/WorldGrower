@@ -67,6 +67,7 @@ public interface Condition extends Serializable {
 	public static final SoulTrappedCondition SOUL_TRAPPED_CONDITION = new SoulTrappedCondition(ALL_CONDITIONS);
 	public static final SilencedCondition SILENCED_CONDITION = new SilencedCondition(ALL_CONDITIONS);
 	public static final IntoxicatedCondition INTOXICATED_CONDITION = new IntoxicatedCondition(ALL_CONDITIONS);
+	public static final FearCondition FEAR_CONDITION = new FearCondition(ALL_CONDITIONS);
 	
 	public static List<String> getDeadlyConditions() {
 			return ALL_CONDITIONS.stream().filter(condition -> condition instanceof DeadlyCondition).map(condition -> condition.getDescription()).collect(Collectors.toList());

@@ -147,4 +147,5 @@ public class Goals {
 	public static final PoisonWeaponGoal POISON_WEAPON_GOAL = new PoisonWeaponGoal(ALL_GOALS);
 	public static final StandStillToTalkGoal STAND_STILL_TO_TALK_GOAL = new StandStillToTalkGoal(ALL_GOALS);
 	public static final SellWineGoal SELL_WINE_GOAL = new SellWineGoal(ALL_GOALS);
+	public static final RedistributeGoldAmongFamilyGoal REDISTRIBUTE_GOLD_AMONG_FAMILY_GOAL = new RedistributeGoldAmongFamilyGoal(ALL_GOALS);
 }

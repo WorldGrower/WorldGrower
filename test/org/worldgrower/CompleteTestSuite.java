@@ -30,6 +30,7 @@ import org.worldgrower.actions.magic.UTestDisintegrateArmorAction;
 import org.worldgrower.actions.magic.UTestDisintegrateWeaponAction;
 import org.worldgrower.actions.magic.UTestDispelMagicAction;
 import org.worldgrower.actions.magic.UTestEnlargeAction;
+import org.worldgrower.actions.magic.UTestFearMagicSpellAction;
 import org.worldgrower.actions.magic.UTestFeatherAction;
 import org.worldgrower.actions.magic.UTestFireBoltAttackAction;
 import org.worldgrower.actions.magic.UTestFireTrapAction;
@@ -590,7 +591,9 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestHera.class,
 	UTestZeus.class,
 	UTestPoseidon.class,
-	UTestGiveMoneyConversation.class
+	UTestGiveMoneyConversation.class,
+	UTestRedistributeGoldAmongFamilyGoal.class,
+	UTestFearMagicSpellAction.class
 })
 public class CompleteTestSuite {
 }
