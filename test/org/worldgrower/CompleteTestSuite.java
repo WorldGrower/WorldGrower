@@ -593,7 +593,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestPoseidon.class,
 	UTestGiveMoneyConversation.class,
 	UTestRedistributeGoldAmongFamilyGoal.class,
-	UTestFearMagicSpellAction.class
+	UTestFearMagicSpellAction.class,
+	UTestEnergyPropertyUtils.class
 })
 public class CompleteTestSuite {
 }
