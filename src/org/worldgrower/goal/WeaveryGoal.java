@@ -22,37 +22,41 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.actions.BuildWeaveryAction;
 
-public class RepairHammerGoal implements Goal {
+public class WeaveryGoal implements Goal {
 
-	public RepairHammerGoal(List<Goal> allGoals) {
+	public WeaveryGoal(List<Goal> allGoals) {
 		allGoals.add(this);
 	}
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
-		int wood = inventory.getQuantityFor(Constants.WOOD);
-		int ore = inventory.getQuantityFor(Constants.ORE);
-		if (wood < Actions.CRAFT_REPAIR_HAMMER_ACTION.getWoodRequired()) {
+		if (BuildWeaveryAction.hasEnoughWood(performer)) {
 			return Goals.WOOD_GOAL.calculateGoal(performer, world);
-		} else if (ore < Actions.CRAFT_REPAIR_HAMMER_ACTION.getOreRequired()) {
-			return Goals.ORE_GOAL.calculateGoal(performer, world);
 		} else {
-			Integer smithId = performer.getProperty(Constants.SMITH_ID);
-			WorldObject smith = world.findWorldObject(Constants.ID, smithId);
-			return new OperationInfo(performer, smith, Args.EMPTY, Actions.CRAFT_REPAIR_HAMMER_ACTION);
+			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 3, 3, world);
+			if (target != null) {
+				return new OperationInfo(performer, target, Args.EMPTY, Actions.BUILD_WEAVERY_ACTION);
+			} else {
+				return null;
+			}
 		}
-	}
-
-	@Override
-	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
 	}
 	
 	@Override
+	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
+	}
+
+	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		return getNumberOfRepairHammers(performer) > 2;
+		Integer weaveryId = performer.getProperty(Constants.WEAVERY_ID);
+		if (weaveryId != null) {
+			WorldObject weavery = world.findWorldObject(Constants.ID, weaveryId);
+			return (weavery.getProperty(Constants.WEAVERY_QUALITY) > 0);
+		} else {
+			return false;
+		}
 	}
 	
 	@Override
@@ -62,16 +66,11 @@ public class RepairHammerGoal implements Goal {
 
 	@Override
 	public String getDescription() {
-		return "crafting repair hammers";
+		return "building a weavery";
 	}
-	
-	private int getNumberOfRepairHammers(WorldObject performer) {
-		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
-		return inventory.getQuantityFor(Constants.REPAIR_QUALITY);
-	}
-	
+
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		return getNumberOfRepairHammers(performer);
+		return (performer.getProperty(Constants.WEAVERY_ID) != null) ? 1 : 0;
 	}
 }

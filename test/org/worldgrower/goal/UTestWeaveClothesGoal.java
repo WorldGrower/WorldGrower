@@ -24,6 +24,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
 
 public class UTestWeaveClothesGoal {
@@ -43,6 +44,9 @@ public class UTestWeaveClothesGoal {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = createPerformer();
 		
+		int weaveryId = BuildingGenerator.generateWeavery(0, 0, world);
+		performer.setProperty(Constants.WEAVERY_ID, weaveryId);
+		
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
 		performerInventory.addQuantity(Item.COTTON.generate(1f), 20);
 		
@@ -53,6 +57,9 @@ public class UTestWeaveClothesGoal {
 	public void testCalculateGoalCottonPants() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = createPerformer();
+		
+		int weaveryId = BuildingGenerator.generateWeavery(0, 0, world);
+		performer.setProperty(Constants.WEAVERY_ID, weaveryId);
 		
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
 		performerInventory.addQuantity(Item.COTTON.generate(1f), 20);
@@ -66,6 +73,9 @@ public class UTestWeaveClothesGoal {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = createPerformer();
 		
+		int weaveryId = BuildingGenerator.generateWeavery(0, 0, world);
+		performer.setProperty(Constants.WEAVERY_ID, weaveryId);
+		
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
 		performerInventory.addQuantity(Item.COTTON.generate(1f), 20);
 		performerInventory.addQuantity(Item.COTTON_SHIRT.generate(1f));
@@ -78,6 +88,9 @@ public class UTestWeaveClothesGoal {
 	public void testCalculateGoalCottonBootsNothing() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = createPerformer();
+		
+		int weaveryId = BuildingGenerator.generateWeavery(0, 0, world);
+		performer.setProperty(Constants.WEAVERY_ID, weaveryId);
 		
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
 		performerInventory.addQuantity(Item.COTTON.generate(1f), 20);

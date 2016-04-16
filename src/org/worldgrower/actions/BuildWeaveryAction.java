@@ -87,4 +87,8 @@ public class BuildWeaveryAction implements BuildAction {
 	public ImageIds getImageIds() {
 		return ImageIds.WEAVERY;
 	}
+
+	public static boolean hasEnoughWood(WorldObject performer) {
+		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) < REQUIRED_WOOD;
+	}
 }

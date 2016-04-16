@@ -24,6 +24,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
 
 public class UTestEquipmentGoal {
@@ -48,6 +49,9 @@ public class UTestEquipmentGoal {
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.ORE.generate(1f), 20);
 
+		int smithId = BuildingGenerator.generateSmith(0, 0, world);
+		performer.setProperty(Constants.SMITH_ID, smithId);
+		
 		assertEquals(Actions.CRAFT_IRON_CLAYMORE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
 
@@ -61,6 +65,9 @@ public class UTestEquipmentGoal {
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.ORE.generate(1f), 20);
 
+		int smithId = BuildingGenerator.generateSmith(0, 0, world);
+		performer.setProperty(Constants.SMITH_ID, smithId);
+		
 		assertEquals(Actions.CRAFT_IRON_CUIRASS_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
 	
@@ -69,6 +76,9 @@ public class UTestEquipmentGoal {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.STRENGTH, 8);
+		
+		int weaveryId = BuildingGenerator.generateWeavery(0, 0, world);
+		performer.setProperty(Constants.WEAVERY_ID, weaveryId);
 
 		equip(performer, Item.IRON_CLAYMORE);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.COTTON.generate(1f), 20);
@@ -91,6 +101,9 @@ public class UTestEquipmentGoal {
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.ORE.generate(1f), 20);
 
+		int smithId = BuildingGenerator.generateSmith(0, 0, world);
+		performer.setProperty(Constants.SMITH_ID, smithId);
+		
 		assertEquals(Actions.CRAFT_IRON_HELMET_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
 
@@ -106,6 +119,9 @@ public class UTestEquipmentGoal {
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.ORE.generate(1f), 20);
 
+		int smithId = BuildingGenerator.generateSmith(0, 0, world);
+		performer.setProperty(Constants.SMITH_ID, smithId);
+		
 		assertEquals(Actions.CRAFT_IRON_GAUNTLETS_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
 
@@ -122,6 +138,9 @@ public class UTestEquipmentGoal {
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.ORE.generate(1f), 20);
 
+		int smithId = BuildingGenerator.generateSmith(0, 0, world);
+		performer.setProperty(Constants.SMITH_ID, smithId);
+		
 		assertEquals(Actions.CRAFT_IRON_GREAVES_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
 

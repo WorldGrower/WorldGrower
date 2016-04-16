@@ -87,4 +87,8 @@ public class BuildSmithAction implements BuildAction {
 	public ImageIds getImageIds() {
 		return ImageIds.SMITH;
 	}
+	
+	public static boolean hasEnoughStone(WorldObject performer) {
+		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.STONE) > REQUIRED_STONE;
+	}
 }

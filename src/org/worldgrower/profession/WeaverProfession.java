@@ -38,6 +38,7 @@ public class WeaverProfession implements Profession {
 	@Override
 	public List<Goal> getProfessionGoals() {
 		return Arrays.asList(
+				Goals.WEAVERY_GOAL,
 				Goals.COTTON_GOAL,
 				Goals.WEAVE_CLOTHES_GOAL,
 				Goals.MARK_CLOTHES_AS_SELLABLE_GOAL);

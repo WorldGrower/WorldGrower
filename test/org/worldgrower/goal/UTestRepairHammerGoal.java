@@ -24,6 +24,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
 import org.worldgrower.generator.PlantGenerator;
 import org.worldgrower.generator.TerrainGenerator;
@@ -77,6 +78,9 @@ public class UTestRepairHammerGoal {
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.ORE.generate(1f), 20);
 
+		int smithId = BuildingGenerator.generateSmith(0, 0, world);
+		performer.setProperty(Constants.SMITH_ID, smithId);
+		
 		assertEquals(Actions.CRAFT_REPAIR_HAMMER_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
 	

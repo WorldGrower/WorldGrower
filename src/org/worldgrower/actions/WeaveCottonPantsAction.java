@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import java.io.ObjectStreamException;
 
 import org.worldgrower.Constants;
+import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
@@ -25,7 +26,7 @@ import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
 
 public class WeaveCottonPantsAction implements CraftAction {
-
+	private static final int DISTANCE = 1;
 	private static final int COTTON_REQUIRED = 2;
 	
 	@Override
@@ -40,12 +41,13 @@ public class WeaveCottonPantsAction implements CraftAction {
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return CraftUtils.distance(performer, Constants.COTTON, COTTON_REQUIRED);
+		return CraftUtils.distance(performer, Constants.COTTON, COTTON_REQUIRED)
+				+ Reach.evaluateTarget(performer, args, target, DISTANCE);
 	}
 	
 	@Override
 	public String getRequirementsDescription() {
-		return CraftUtils.getRequirementsDescription(Constants.COTTON, COTTON_REQUIRED);
+		return CraftUtils.getRequirementsDescription(Constants.COTTON, COTTON_REQUIRED, Constants.DISTANCE, DISTANCE);
 	}
 
 	@Override
@@ -55,7 +57,7 @@ public class WeaveCottonPantsAction implements CraftAction {
 
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return CraftUtils.isValidTarget(performer, target, world);
+		return target.hasProperty(Constants.WEAVERY_QUALITY);
 	}
 	
 	@Override

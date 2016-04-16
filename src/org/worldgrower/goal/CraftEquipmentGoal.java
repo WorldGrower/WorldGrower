@@ -32,35 +32,36 @@ public class CraftEquipmentGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
+		Integer smithId = performer.getProperty(Constants.SMITH_ID);
 		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
 		if (inventory.getQuantityFor(Constants.WOOD) < 10) {
 			return Goals.WOOD_GOAL.calculateGoal(performer, world);
 		} else if (inventory.getQuantityFor(Constants.ORE) < 7) {
 			return Goals.ORE_GOAL.calculateGoal(performer, world);
-		} else {
+		} else if (smithId != null) {
 			int ironClaymoreCount = inventory.getWorldObjects(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT).size();
 			int ironCuirassCount = inventory.getWorldObjects(Constants.EQUIPMENT_SLOT, Constants.TORSO_EQUIPMENT).size();
 			int ironHelmetCount = inventory.getWorldObjects(Constants.EQUIPMENT_SLOT, Constants.HEAD_EQUIPMENT).size();
 			int ironGauntletsCount = inventory.getWorldObjects(Constants.EQUIPMENT_SLOT, Constants.ARMS_EQUIPMENT).size();
 			int ironGreavesCount = inventory.getWorldObjects(Constants.EQUIPMENT_SLOT, Constants.LEGS_EQUIPMENT).size();
 			int ironBootsCount = inventory.getWorldObjects(Constants.EQUIPMENT_SLOT, Constants.FEET_EQUIPMENT).size();
+			WorldObject smith = world.findWorldObject(Constants.ID, smithId);
 			
 			if (ironClaymoreCount == 0){
-				return new OperationInfo(performer, performer, Args.EMPTY, Actions.CRAFT_IRON_CLAYMORE_ACTION);
+				return new OperationInfo(performer, smith, Args.EMPTY, Actions.CRAFT_IRON_CLAYMORE_ACTION);
 			} else if (ironCuirassCount < ironClaymoreCount) {
-				return new OperationInfo(performer, performer, Args.EMPTY, Actions.CRAFT_IRON_CUIRASS_ACTION);
+				return new OperationInfo(performer, smith, Args.EMPTY, Actions.CRAFT_IRON_CUIRASS_ACTION);
 			} else if (ironHelmetCount < ironCuirassCount) {
-				return new OperationInfo(performer, performer, Args.EMPTY, Actions.CRAFT_IRON_HELMET_ACTION);
+				return new OperationInfo(performer, smith, Args.EMPTY, Actions.CRAFT_IRON_HELMET_ACTION);
 			} else if (ironGauntletsCount < ironHelmetCount) {
-				return new OperationInfo(performer, performer, Args.EMPTY, Actions.CRAFT_IRON_GAUNTLETS_ACTION);
+				return new OperationInfo(performer, smith, Args.EMPTY, Actions.CRAFT_IRON_GAUNTLETS_ACTION);
 			} else if (ironGreavesCount < ironGauntletsCount) {
-				return new OperationInfo(performer, performer, Args.EMPTY, Actions.CRAFT_IRON_GREAVES_ACTION);
+				return new OperationInfo(performer, smith, Args.EMPTY, Actions.CRAFT_IRON_GREAVES_ACTION);
 			} else if (ironBootsCount < ironGauntletsCount) {
-				return new OperationInfo(performer, performer, Args.EMPTY, Actions.CRAFT_IRON_BOOTS_ACTION);
-			} else {
-				return null;
+				return new OperationInfo(performer, smith, Args.EMPTY, Actions.CRAFT_IRON_BOOTS_ACTION);
 			}
 		}
+		return null;
 	}
 	
 	@Override

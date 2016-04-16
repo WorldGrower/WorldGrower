@@ -22,6 +22,7 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.actions.BuildSmithAction;
 
 public class SmithGoal implements Goal {
 
@@ -31,7 +32,7 @@ public class SmithGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.STONE) < 4) {
+		if (!BuildSmithAction.hasEnoughStone(performer)) {
 			return Goals.STONE_GOAL.calculateGoal(performer, world);
 		} else {
 			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 3, 4, world);
@@ -51,7 +52,7 @@ public class SmithGoal implements Goal {
 	public boolean isGoalMet(WorldObject performer, World world) {
 		Integer smithId = performer.getProperty(Constants.SMITH_ID);
 		if (smithId != null) {
-			WorldObject smith = world.findWorldObjects(w -> w.getProperty(Constants.ID).intValue() == smithId.intValue()).get(0);
+			WorldObject smith = world.findWorldObject(Constants.ID, smithId.intValue());
 			return (smith.getProperty(Constants.SMITH_QUALITY) > 0);
 		} else {
 			return false;

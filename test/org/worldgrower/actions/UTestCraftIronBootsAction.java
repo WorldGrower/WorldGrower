@@ -24,6 +24,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
 
 public class UTestCraftIronBootsAction {
@@ -41,20 +42,33 @@ public class UTestCraftIronBootsAction {
 	public void testIsValidTarget() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
-		WorldObject target = TestUtils.createSkilledWorldObject(3, Constants.INVENTORY, new WorldObjectContainer());
+
+		int smithId = BuildingGenerator.generateSmith(0, 0, world);
+		WorldObject target = world.findWorldObject(Constants.ID, smithId);
 		
-		assertEquals(true, Actions.CRAFT_IRON_BOOTS_ACTION.isValidTarget(performer, performer, world));
-		assertEquals(false, Actions.CRAFT_IRON_BOOTS_ACTION.isValidTarget(performer, target, world));
+		assertEquals(false, Actions.CRAFT_IRON_BOOTS_ACTION.isValidTarget(performer, performer, world));
+		assertEquals(true, Actions.CRAFT_IRON_BOOTS_ACTION.isValidTarget(performer, target, world));
 	}
 	
 	@Test
 	public void testDistance() {
 		World world = new WorldImpl(0, 0, null, null);
-		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
-		
+		WorldObject performer = createPerformer(2);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.ORE.generate(1f), 20);
+
+		int smithId = BuildingGenerator.generateSmith(0, 0, world);
+		WorldObject target = world.findWorldObject(Constants.ID, smithId);
 		
-		assertEquals(0, Actions.CRAFT_IRON_BOOTS_ACTION.distance(performer, performer, Args.EMPTY, world));
+		assertEquals(0, Actions.CRAFT_IRON_BOOTS_ACTION.distance(performer, target, Args.EMPTY, world));
+	}
+	
+	private WorldObject createPerformer(int id) {
+		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.INVENTORY, new WorldObjectContainer());
+		performer.setProperty(Constants.X, 0);
+		performer.setProperty(Constants.Y, 0);
+		performer.setProperty(Constants.WIDTH, 1);
+		performer.setProperty(Constants.HEIGHT, 1);
+		return performer;
 	}
 }

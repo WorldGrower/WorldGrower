@@ -246,7 +246,6 @@ public class GuiMouseListener extends MouseAdapter {
 		addPropertiesMenu(menu, playerCharacter);
 		addBuildActions(menu);
 		addCraftActions(menu);
-		addWeaveActions(menu);
 		addBrewActions(menu);
 		addPlantActions(menu);
 		addIllusionActions(menu);
@@ -500,7 +499,7 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 	
 	private void addCraftActions(JPopupMenu menu) {
-		CraftAction[] craftActions = { Actions.CRAFT_IRON_CLAYMORE_ACTION, Actions.CRAFT_IRON_CUIRASS_ACTION, Actions.CRAFT_IRON_HELMET_ACTION, Actions.CRAFT_IRON_GAUNTLETS_ACTION, Actions.CRAFT_IRON_GREAVES_ACTION, Actions.CRAFT_IRON_BOOTS_ACTION, Actions.CRAFT_IRON_SHIELD_ACTION, Actions.CRAFT_IRON_GREATSWORD_ACTION, Actions.CRAFT_IRON_AXE_ACTION, Actions.CRAFT_IRON_GREATAXE_ACTION, Actions.CRAFT_LONG_BOW_ACTION, Actions.MINT_GOLD_ACTION, Actions.CREATE_PAPER_ACTION, Actions.CONSTRUCT_BED_ACTION, Actions.CONSTRUCT_FISHING_POLE_ACTION, Actions.CRAFT_REPAIR_HAMMER_ACTION, Actions.CRAFT_IRON_MACE_ACTION, Actions.CRAFT_IRON_KATAR_ACTION };
+		CraftAction[] craftActions = { Actions.CRAFT_LONG_BOW_ACTION, Actions.MINT_GOLD_ACTION, Actions.CREATE_PAPER_ACTION, Actions.CONSTRUCT_BED_ACTION, Actions.CONSTRUCT_FISHING_POLE_ACTION };
 		JMenu parentMenu = addActions(menu, "Craft", craftActions);
 		
 		addNewsPaperAction(parentMenu);
@@ -516,11 +515,6 @@ public class GuiMouseListener extends MouseAdapter {
 		menu.add(guiCreateNewsPaperMenuItem);
 	}
 	
-	private void addWeaveActions(JPopupMenu menu) {
-		CraftAction[] weaveActions = { Actions.WEAVE_COTTON_SHIRT_ACTION, Actions.WEAVE_COTTON_HAT_ACTION, Actions.WEAVE_COTTON_BOOTS_ACTION, Actions.WEAVE_COTTON_GLOVES_ACTION, Actions.WEAVE_COTTON_PANTS_ACTION };
-		addActions(menu, "Weave", weaveActions);
-	}
-
 	private void addBrewActions(JPopupMenu menu) {
 		CraftAction[] brewActions = { Actions.BREW_WINE_ACTION, Actions.BREW_POISON_ACTION, Actions.BREW_SLEEPING_POTION_ACTION };
 		addActions(menu, "Brew", brewActions);

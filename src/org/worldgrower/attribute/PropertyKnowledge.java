@@ -70,8 +70,19 @@ public class PropertyKnowledge implements Serializable, Knowledge {
 	
 	@Override
 	public boolean hasPropertyValue(ManagedProperty<?> managedProperty, Object value) {
-		return this.managedProperty == managedProperty && this.value.equals(value);
+		return this.managedProperty == managedProperty && equals(this.value, value);
 	}
+	
+	private static boolean equals(final Object object1, final Object object2) {
+        if (object1 == object2) {
+            return true;
+        }
+        if (object1 == null || object2 == null) {
+            return false;
+        }
+        return object1.equals(object2);
+    }
+
 	
 	@Override
 	public int hashCode() {

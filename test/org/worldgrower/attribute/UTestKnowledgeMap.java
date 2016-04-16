@@ -103,6 +103,19 @@ public class UTestKnowledgeMap {
 	}
 	
 	@Test
+	public void testFindWorldObjectsNull() {
+		World world = new WorldImpl(0, 0, null, null);
+		world.addWorldObject(TestUtils.createWorldObject(1, "Test"));
+		
+		KnowledgeMap knowledgeMap = new KnowledgeMap();
+		knowledgeMap.addKnowledge(1, Constants.DEITY, null);
+		
+		List<WorldObject> worldObjects = knowledgeMap.findWorldObjects(Constants.DEITY, null, world);
+		assertEquals(1, worldObjects.size());
+		assertEquals(1, worldObjects.get(0).getProperty(Constants.ID).intValue());
+	}
+	
+	@Test
 	public void testFindWorldObjectsForInt() {
 		World world = new WorldImpl(0, 0, null, null);
 		world.addWorldObject(TestUtils.createIntelligentWorldObject(1, Constants.FOOD, 500));

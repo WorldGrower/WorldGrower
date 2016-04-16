@@ -33,23 +33,24 @@ public class WeaveClothesGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
+		Integer weaveryId = performer.getProperty(Constants.WEAVERY_ID);
 		if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.COTTON) < 10) {
 			return Goals.COTTON_GOAL.calculateGoal(performer, world);
-		} else {
+		} else if (weaveryId != null){
 			int cottonShirtCount = performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.NAME, Item.COTTON_SHIRT_NAME).size();
 			int cottonPantsCount = performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.NAME, Item.COTTON_PANTS_NAME).size();
 			int cottonBootsCount = performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.NAME, Item.COTTON_BOOTS_NAME).size();
 			
+			WorldObject weavery = world.findWorldObject(Constants.ID, weaveryId);
 			if (cottonShirtCount == 0){
-				return new OperationInfo(performer, performer, Args.EMPTY, Actions.WEAVE_COTTON_SHIRT_ACTION);
+				return new OperationInfo(performer, weavery, Args.EMPTY, Actions.WEAVE_COTTON_SHIRT_ACTION);
 			} else if (cottonPantsCount < cottonShirtCount) {
-				return new OperationInfo(performer, performer, Args.EMPTY, Actions.WEAVE_COTTON_PANTS_ACTION);
+				return new OperationInfo(performer, weavery, Args.EMPTY, Actions.WEAVE_COTTON_PANTS_ACTION);
 			} else if (cottonBootsCount < cottonShirtCount) {
-				return new OperationInfo(performer, performer, Args.EMPTY, Actions.WEAVE_COTTON_BOOTS_ACTION);
-			} else {
-				return null;
+				return new OperationInfo(performer, weavery, Args.EMPTY, Actions.WEAVE_COTTON_BOOTS_ACTION);
 			}
 		}
+		return null;
 	}
 	
 	@Override
