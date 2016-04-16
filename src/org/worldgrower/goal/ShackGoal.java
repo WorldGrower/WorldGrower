@@ -62,7 +62,7 @@ public class ShackGoal implements Goal {
 
 	@Override
 	public String getDescription() {
-		return "building a shack";
+		return "looking to own a place to rest";
 	}
 
 	@Override
