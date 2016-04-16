@@ -47,9 +47,10 @@ public class UTestWeaverProfession {
 	@Test
 	public void testGetProfessionGoals() {
 		List<Goal> goals = profession.getProfessionGoals();
-		assertEquals(goals.get(0), Goals.COTTON_GOAL);
-		assertEquals(goals.get(1), Goals.WEAVE_CLOTHES_GOAL);
-		assertEquals(goals.get(2), Goals.MARK_CLOTHES_AS_SELLABLE_GOAL);
+		assertEquals(goals.get(0), Goals.WEAVERY_GOAL);
+		assertEquals(goals.get(1), Goals.COTTON_GOAL);
+		assertEquals(goals.get(2), Goals.WEAVE_CLOTHES_GOAL);
+		assertEquals(goals.get(3), Goals.MARK_CLOTHES_AS_SELLABLE_GOAL);
 	}
 
 	@Test
