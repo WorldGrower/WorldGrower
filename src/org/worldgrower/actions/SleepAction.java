@@ -23,6 +23,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.generator.Item;
+import org.worldgrower.goal.EnergyPropertyUtils;
 import org.worldgrower.gui.ImageIds;
 
 public class SleepAction implements ManagedOperation {
@@ -37,7 +38,7 @@ public class SleepAction implements ManagedOperation {
 			energyIncrease += beds.get(0).getProperty(Constants.SLEEP_COMFORT);
 		}
 		
-		performer.increment(Constants.ENERGY, energyIncrease);
+		EnergyPropertyUtils.increment(performer, energyIncrease);
 		world.logAction(this, performer, target, args, null);
 	}
 

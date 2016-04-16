@@ -62,10 +62,10 @@ public class AttackUtils {
 		float targetDamageResist = (float) target.getProperty(Constants.DAMAGE_RESIST);
 		
 		int performerDamage = performer.getProperty(Constants.DAMAGE);
-		float performerEnergy = (float) performer.getProperty(Constants.ENERGY);
 		
-		int damage = (int) (performerDamage * skillBonus * (performerEnergy / 1000) * ((100 - targetDamageResist) / 100));
+		int damage = (int) (performerDamage * skillBonus * ((100 - targetDamageResist) / 100));
 		damage = changeForSize(damage, performer, target);
+		damage = changeForEnergy(damage, performer, target);
 		targetHP = targetHP - damage;
 		String message = performer.getProperty(Constants.NAME) + " attacks " + target.getProperty(Constants.NAME) + ": " + damage + " damage";
 		
@@ -183,9 +183,10 @@ public class AttackUtils {
 		int targetHP = target.getProperty(Constants.HIT_POINTS);
 		
 		int performerDamage = 10 * Item.COMBAT_MULTIPLIER;
-		float performerEnergy = (float) performer.getProperty(Constants.ENERGY);
 		
-		int damage = (int) (performerDamage * (performerEnergy / 1000));
+		int damage = (int) (performerDamage);
+		damage = changeForEnergy(damage, performer, target);
+		
 		targetHP = targetHP - damage;
 		String message = performer.getProperty(Constants.NAME) + " bites " + target.getProperty(Constants.NAME) + ": " + damage + " damage";
 		
@@ -198,6 +199,14 @@ public class AttackUtils {
 		world.logAction(action, performer, target, args, message);
 	}
 	
+	private static int changeForEnergy(int damage, WorldObject performer, WorldObject target) {
+		int energy = performer.getProperty(Constants.ENERGY);
+		if (energy < 100) {
+			damage = damage / 2;
+		}
+		return damage;
+	}
+
 	public static void magicAttack(int performerDamage, DeadlyAction action, WorldObject performer, WorldObject target, int[] args, World world, double skillBonus) {
 		int targetHP = target.getProperty(Constants.HIT_POINTS);
 		

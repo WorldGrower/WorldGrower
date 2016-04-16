@@ -46,6 +46,7 @@ import org.worldgrower.condition.Conditions;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.curse.Curse;
 import org.worldgrower.goal.ArmorPropertyUtils;
+import org.worldgrower.goal.EnergyPropertyUtils;
 import org.worldgrower.goal.HitPointPropertyUtils;
 import org.worldgrower.goal.MeleeDamagePropertyUtils;
 import org.worldgrower.gui.CommonerImageIds;
@@ -143,6 +144,7 @@ public class CommonerGenerator implements Serializable {
 		WorldObject creature = new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new CommonerOnTurn(this, organization), new CommonerWorldEvaluationFunction());
 		world.addWorldObject(creature);
 		
+		creature.setProperty(Constants.ENERGY, EnergyPropertyUtils.calculateEnergyMax(creature));
 		creature.setProperty(Constants.DAMAGE, MeleeDamagePropertyUtils.calculateMeleeDamage(creature));
 		creature.setProperty(Constants.ARMOR, ArmorPropertyUtils.calculateArmor(creature));
 		creature.setProperty(Constants.DAMAGE_RESIST, ArmorPropertyUtils.calculateDamageResist(creature));
@@ -224,6 +226,7 @@ public class CommonerGenerator implements Serializable {
 		
 		final WorldObject playerCharacter = new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new CommonerOnTurn(commonerGenerator, organization), null);
 		
+		playerCharacter.setProperty(Constants.ENERGY, EnergyPropertyUtils.calculateEnergyMax(playerCharacter));
 		playerCharacter.setProperty(Constants.DAMAGE, MeleeDamagePropertyUtils.calculateMeleeDamage(playerCharacter));
 		playerCharacter.setProperty(Constants.ARMOR, ArmorPropertyUtils.calculateArmor(playerCharacter));
 		playerCharacter.setProperty(Constants.DAMAGE_RESIST, ArmorPropertyUtils.calculateDamageResist(playerCharacter));

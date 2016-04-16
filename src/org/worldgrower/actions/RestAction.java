@@ -16,17 +16,17 @@ package org.worldgrower.actions;
 
 import java.io.ObjectStreamException;
 
-import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.goal.EnergyPropertyUtils;
 import org.worldgrower.gui.ImageIds;
 
 public class RestAction implements ManagedOperation {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		performer.increment(Constants.ENERGY, 5);
+		EnergyPropertyUtils.increment(performer, 5);
 	}
 
 	@Override

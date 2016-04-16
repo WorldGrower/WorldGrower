@@ -16,6 +16,7 @@ package org.worldgrower.gui;
 
 import java.util.List;
 
+import org.worldgrower.Constants;
 import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
@@ -23,19 +24,23 @@ import org.worldgrower.attribute.SkillUtils;
 public class GuiAttributeDescription {
 
 	public static String createToolTipDescription(IntProperty attributeProperty, String description) {
-		List<SkillProperty> skillProperties = SkillUtils.getSkillsForAttribute(attributeProperty);
-		StringBuilder tooltipBuilder = new StringBuilder();
-		tooltipBuilder.append(description).append(" governs ");
-		if (skillProperties.size() > 0) {
-			for(int i=0; i<skillProperties.size(); i++) {
-				tooltipBuilder.append(skillProperties.get(i).getName());
-				if (i < skillProperties.size() - 1) {
-					tooltipBuilder.append(", ");
-				}
-			}
+		if (attributeProperty == Constants.CONSTITUTION) {
+			return description + " governs hit points and energy";
 		} else {
-			tooltipBuilder.append(" no skill");
+			List<SkillProperty> skillProperties = SkillUtils.getSkillsForAttribute(attributeProperty);
+			StringBuilder tooltipBuilder = new StringBuilder();
+			tooltipBuilder.append(description).append(" governs ");
+			if (skillProperties.size() > 0) {
+				for(int i=0; i<skillProperties.size(); i++) {
+					tooltipBuilder.append(skillProperties.get(i).getName());
+					if (i < skillProperties.size() - 1) {
+						tooltipBuilder.append(", ");
+					}
+				}
+			} else {
+				tooltipBuilder.append(" no skill");
+			}
+			return tooltipBuilder.toString();
 		}
-		return tooltipBuilder.toString();
 	}
 }
