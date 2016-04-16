@@ -567,4 +567,28 @@ public class BuildingGenerator {
 		
 		return id;
 	}
+	
+	public static int generateWeavery(int x, int y, World world) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		int id = world.generateUniqueId();
+
+		properties.put(Constants.X, x);
+		properties.put(Constants.Y, y);
+		properties.put(Constants.WIDTH, 2);
+		properties.put(Constants.HEIGHT, 2);
+		properties.put(Constants.WEAVERY_QUALITY, 5);
+		properties.put(Constants.NAME, "weavery");
+		properties.put(Constants.ID, id);
+		properties.put(Constants.IMAGE_ID, ImageIds.WEAVERY);
+		properties.put(Constants.HIT_POINTS, 100 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.HIT_POINTS_MAX, 100 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.ARMOR, 0);
+		properties.put(Constants.DAMAGE_RESIST, 0);
+		
+		WorldObject weavery = new WorldObjectImpl(properties);
+		world.addWorldObject(weavery);
+	
+		return id;
+	}
+
 }

@@ -70,6 +70,7 @@ public class ImageInfoReader {
     	Sprites forge = readSpritesForge();
     	Sprites terrainTransitions = readTerrainTransitions();
     	Sprites vampire = readSpritesVampire();
+    	Sprites clothingShop = readSpritesClothingShop();
     	
     	addCharacter(ImageIds.KNIGHT, sprites, 0, 0, 1, 1);
     	addCharacter(ImageIds.GUARD, sprites, 0, 4, 1, 1);
@@ -398,6 +399,7 @@ public class ImageInfoReader {
 		add(ImageIds.IRON_KATAR, sprites420.getSubImage(8, 6, 1, 1));
 		add(ImageIds.SLEEPING_POTION, sprites420.getSubImage(1, 2, 1, 1));
 		add(ImageIds.FEAR_INDICATOR, sprites420.getSubImage(3, 26, 1, 1));
+		add(ImageIds.WEAVERY, clothingShop.getSubImage(2, 1, 1, 1));
     }
 
     private void resizeSmallFlowers() {
@@ -697,6 +699,10 @@ public class ImageInfoReader {
 	
 	private static Sprites readSpritesVampire() throws IOException {
 		return readImages("vampire_a.png", 48, 48, 4, 3);
+	}
+	
+	private static Sprites readSpritesClothingShop() throws IOException {
+		return readImages("clothing_shop.png", 64, 64, 3, 5);
 	}
 	
 	private static Sprites readImages(String imageFilename, int width, int height, int rows, int cols) throws IOException {

@@ -274,6 +274,8 @@ public class Constants {
 	public static final IdProperty ASSASSINATE_TARGET_ID = new IdProperty("assassinateTargetId", ALL_PROPERTIES);
 	public static final IntProperty SLEEP_INDUCING_DRUG_STRENGTH = new IntProperty("sleepInducingDrugStrength", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IdProperty FEAR_CASTER_ID = new IdProperty("fearCasterId", ALL_PROPERTIES);
+	public static final IdProperty WEAVERY_ID = new IdProperty("weaveryId", ALL_PROPERTIES);
+	public static final IntProperty WEAVERY_QUALITY = new IntProperty("weaveryQuality", 0, 100, NOT_NULLABLE, ALL_PROPERTIES);
 	
 	//special property not used in WorldObject
 	public static final IntProperty DISTANCE = new IntProperty("distance", 0, null, NOT_NULLABLE, ALL_PROPERTIES);

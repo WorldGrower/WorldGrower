@@ -56,3 +56,6 @@ controls.png: GNU/GPL at http://findicons.com/icon/237985/configure#
 forge.png: created by SD-Arius at http://www.rpgmakervx-fr.com/t2647-tiles-lair
 
 cursor.png: created by http://www.elegantthemes.com from http://www.flaticon.com is licensed under http://creativecommons.org/licenses/by/3.0/
+
+
+clothing_shop.png: created by http://rmvxacetiles.blogspot.be/2013/03/more-tiles-wealthy-poor-specialized.html
