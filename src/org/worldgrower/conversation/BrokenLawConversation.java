@@ -54,6 +54,7 @@ public class BrokenLawConversation implements Conversation {
 	public void handleResponse(int replyIndex, ConversationContext conversationContext) {
 		if (replyIndex == 0) {
 			conversationContext.getTarget().increment(Constants.GOLD, -50);
+			conversationContext.getPerformer().increment(Constants.GOLD, 50);
 		} else if (replyIndex == 1) {
 			//TODO: implement deteriorating skills
 		} else if (replyIndex == 2) {

@@ -253,7 +253,7 @@ public class CommonerGenerator implements Serializable {
 		properties.put(Constants.IMAGE_ID, ImageIds.SKELETAL_REMAINS);
 		properties.put(Constants.LOOK_DIRECTION, null);
 		properties.put(Constants.INVENTORY, originalWorldObject.getProperty(Constants.INVENTORY));
-		properties.put(Constants.GOLD, originalWorldObject.getProperty(Constants.GOLD));
+		properties.put(Constants.GOLD, originalWorldObject.getProperty(Constants.GOLD) + originalWorldObject.getProperty(Constants.ORGANIZATION_GOLD));
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		
 		WorldObject creature = new WorldObjectImpl(properties);

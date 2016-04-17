@@ -33,15 +33,21 @@ public class UTestGatherRemainsAction {
 	public void testExecute() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = createPerformer(2);
+		performer.setProperty(Constants.GOLD, 100);
 		
-		int id = CommonerGenerator.generateSkeletalRemains(createPerformer(3), world);
+		WorldObject victim = createPerformer(3);
+		victim.setProperty(Constants.GOLD, 5);
+		victim.setProperty(Constants.ORGANIZATION_GOLD, 15);
+		int id = CommonerGenerator.generateSkeletalRemains(victim, world);
 		WorldObject target = world.findWorldObject(Constants.ID, id);
+		
 		assertEquals("skeletal remains of null", target.getProperty(Constants.NAME));
 		
 		Actions.GATHER_REMAINS_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(1, performer.getProperty(Constants.INVENTORY).size());
-		assertEquals(1000, performer.getProperty(Constants.INVENTORY).get(0).getProperty(Constants.GOLD).intValue());
+		assertEquals(0, performer.getProperty(Constants.INVENTORY).get(0).getProperty(Constants.GOLD).intValue());
+		assertEquals(120, performer.getProperty(Constants.GOLD).intValue());
 	}
 	
 	@Test
