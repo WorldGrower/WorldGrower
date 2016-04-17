@@ -61,7 +61,11 @@ public class BuyAction implements ManagedOperation {
 		int quantity = args[2];
 		
 		int buyDistance = calculateBuyDistance(performer, target, index, quantity);
-		return Reach.evaluateTarget(performer, args, target, 1) + buyDistance;
+		return distanceInSquares(performer, target, args, world) + buyDistance;
+	}
+	
+	public int distanceInSquares(WorldObject performer, WorldObject target, int[] args, World world) {
+		return Reach.evaluateTarget(performer, args, target, 1);
 	}
 
 	private int calculateBuyDistance(WorldObject performer, WorldObject target, int index, int quantity) {
