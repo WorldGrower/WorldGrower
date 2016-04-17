@@ -17,6 +17,7 @@ package org.worldgrower.conversation;
 import java.util.Arrays;
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
@@ -127,6 +128,7 @@ public class ProposeMateConversation implements Conversation {
 		performer.setProperty(Constants.MATE_TURN, world.getCurrentTurn().getValue());
 		target.setProperty(Constants.MATE_TURN, world.getCurrentTurn().getValue());
 		
+		world.logAction(Actions.TALK_ACTION, performer, target, Args.EMPTY, performer.getProperty(Constants.NAME) + " and " + target.getProperty(Constants.NAME) + " are mates");
 		// mate reason
 		// performer ~ MateGoal
 		// target ~ relationship > 750

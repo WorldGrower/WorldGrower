@@ -17,6 +17,7 @@ package org.worldgrower.conversation;
 import java.util.Arrays;
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
@@ -72,6 +73,8 @@ public class BreakupWithMateConversation implements Conversation {
 		if (target.getProperty(Constants.MATE_ID).intValue() == performer.getProperty(Constants.ID).intValue()) {
 			target.setProperty(Constants.MATE_ID, null);
 		}
+		
+		world.logAction(Actions.TALK_ACTION, performer, target, Args.EMPTY, performer.getProperty(Constants.NAME) + " and " + target.getProperty(Constants.NAME) + " are no longer mates");
 		KnowledgeMapPropertyUtils.everyoneInVicinityKnowsOfEvent(performer, target, world);
 	}
 	
