@@ -43,7 +43,9 @@ public class UTestCreateGraveGoal {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
 		
-		int skeletalRemainsId = CommonerGenerator.generateSkeletalRemains(createPerformer(), world);
+		WorldObject victim = createPerformer();
+		victim.setProperty(Constants.ORGANIZATION_GOLD, 0);
+		int skeletalRemainsId = CommonerGenerator.generateSkeletalRemains(victim, world);
 		WorldObject skeletalRemains = world.findWorldObject(Constants.ID, skeletalRemainsId);
 		performer.getProperty(Constants.INVENTORY).add(skeletalRemains);
 		
@@ -57,7 +59,9 @@ public class UTestCreateGraveGoal {
 		
 		assertEquals(true, goal.isGoalMet(performer, world));
 		
-		int skeletalRemainsId = CommonerGenerator.generateSkeletalRemains(createPerformer(), world);
+		WorldObject victim = createPerformer();
+		victim.setProperty(Constants.ORGANIZATION_GOLD, 0);
+		int skeletalRemainsId = CommonerGenerator.generateSkeletalRemains(victim, world);
 		WorldObject skeletalRemains = world.findWorldObject(Constants.ID, skeletalRemainsId);
 		performer.getProperty(Constants.INVENTORY).add(skeletalRemains);
 		assertEquals(false, goal.isGoalMet(performer, world));

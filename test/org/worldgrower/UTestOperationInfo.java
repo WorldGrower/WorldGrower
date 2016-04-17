@@ -145,6 +145,7 @@ public class UTestOperationInfo {
 		performer.setProperty(Constants.HEIGHT, 1);
 		performer.setProperty(Constants.HIT_POINTS, 0);
 		performer.setProperty(Constants.GOLD, 0);
+		performer.setProperty(Constants.ORGANIZATION_GOLD, 0);
 		performer.setProperty(Constants.DEATH_REASON, "death");
 		world.addWorldObject(performer);
 		

@@ -67,6 +67,7 @@ public class UTestCommonerGenerator {
 		originalWorldObject.setProperty(Constants.HEIGHT, 1);
 		originalWorldObject.setProperty(Constants.INVENTORY, new WorldObjectContainer());
 		originalWorldObject.setProperty(Constants.GOLD, 50);
+		originalWorldObject.setProperty(Constants.ORGANIZATION_GOLD, 0);
 		originalWorldObject.setProperty(Constants.DEATH_REASON, "dead");
 		
 		int skeletalRemainsId = CommonerGenerator.generateSkeletalRemains(originalWorldObject, world);

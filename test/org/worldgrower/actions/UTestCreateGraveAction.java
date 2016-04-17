@@ -83,6 +83,7 @@ public class UTestCreateGraveAction {
 		performer.setProperty(Constants.HEIGHT, 1);
 		performer.setProperty(Constants.HOUSES, new IdList());
 		performer.setProperty(Constants.GOLD, 0);
+		performer.setProperty(Constants.ORGANIZATION_GOLD, 0);
 		return performer;
 	}
 }

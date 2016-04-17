@@ -163,7 +163,26 @@ import org.worldgrower.gui.UTestImageInfoReader;
 import org.worldgrower.history.UTestHistoryImpl;
 import org.worldgrower.personality.UTestPersonality;
 import org.worldgrower.personality.UTestPersonalityTraitValue;
+import org.worldgrower.profession.UTestArenaFighterProfession;
+import org.worldgrower.profession.UTestArenaOwnerProfession;
+import org.worldgrower.profession.UTestAssassinProfession;
+import org.worldgrower.profession.UTestBlacksmithProfession;
+import org.worldgrower.profession.UTestCarpenterProfession;
+import org.worldgrower.profession.UTestFarmerProfession;
+import org.worldgrower.profession.UTestFisherProfession;
+import org.worldgrower.profession.UTestGraveDiggerProfession;
+import org.worldgrower.profession.UTestJournalistProfession;
+import org.worldgrower.profession.UTestLumberjackProfession;
+import org.worldgrower.profession.UTestMinerProfession;
+import org.worldgrower.profession.UTestNecromancerProfession;
+import org.worldgrower.profession.UTestPlayerCharacterProfession;
+import org.worldgrower.profession.UTestPriestProfession;
 import org.worldgrower.profession.UTestProfessions;
+import org.worldgrower.profession.UTestSheriffProfession;
+import org.worldgrower.profession.UTestTaxCollectorProfession;
+import org.worldgrower.profession.UTestThiefProfession;
+import org.worldgrower.profession.UTestWeaverProfession;
+import org.worldgrower.profession.UTestWizardProfession;
 import org.worldgrower.terrain.UTestTerrainImpl;
 import org.worldgrower.util.UTestNumberUtils;
 
@@ -594,7 +613,26 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestGiveMoneyConversation.class,
 	UTestRedistributeGoldAmongFamilyGoal.class,
 	UTestFearMagicSpellAction.class,
-	UTestEnergyPropertyUtils.class
+	UTestEnergyPropertyUtils.class,
+	UTestArenaFighterProfession.class,
+	UTestArenaOwnerProfession.class,
+	UTestAssassinProfession.class,
+	UTestBlacksmithProfession.class,
+	UTestCarpenterProfession.class,
+	UTestFarmerProfession.class,
+	UTestFisherProfession.class,
+	UTestGraveDiggerProfession.class,
+	UTestJournalistProfession.class,
+	UTestLumberjackProfession.class,
+	UTestMinerProfession.class,
+	UTestNecromancerProfession.class,
+	UTestPlayerCharacterProfession.class,
+	UTestPriestProfession.class,
+	UTestSheriffProfession.class,
+	UTestTaxCollectorProfession.class,
+	UTestThiefProfession.class,
+	UTestWeaverProfession.class,
+	UTestWizardProfession.class
 })
 public class CompleteTestSuite {
 }

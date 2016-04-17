@@ -77,6 +77,7 @@ public class UTestAnimateDeadAction {
 		performer.setProperty(Constants.ENERGY, 1000);
 		performer.setProperty(Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.GOLD, 1000);
+		performer.setProperty(Constants.ORGANIZATION_GOLD, 0);
 		performer.setProperty(Constants.DEATH_REASON, "");
 		return performer;
 	}

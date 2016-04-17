@@ -56,6 +56,7 @@ public class UTestSkeletonEvaluationFunction {
 		originalWorldObject.setProperty(Constants.X, 0);
 		originalWorldObject.setProperty(Constants.Y, 0);
 		originalWorldObject.setProperty(Constants.GOLD, 0);
+		originalWorldObject.setProperty(Constants.ORGANIZATION_GOLD, 0);
 		originalWorldObject.setProperty(Constants.INVENTORY, new WorldObjectContainer());
 		originalWorldObject.setProperty(Constants.DEATH_REASON, "drowning");
 		int skeletonId = CommonerGenerator.generateSkeletalRemains(originalWorldObject, world);
