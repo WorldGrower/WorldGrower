@@ -28,6 +28,7 @@ import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdRelationshipMap;
 import org.worldgrower.attribute.KnowledgeMap;
 import org.worldgrower.deity.Deity;
+import org.worldgrower.profession.Professions;
 
 public class UTestDeityFollowersConversation {
 
@@ -62,6 +63,20 @@ public class UTestDeityFollowersConversation {
 
 	}
 
+	@Test
+	public void testGetReplyPhrasesTargetHasDeity() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
+		target.setProperty(Constants.DEITY, Deity.HADES);
+		
+		int indexOfDeity = Deity.ALL_DEITIES.indexOf(Deity.HADES);
+		ConversationContext context = new ConversationContext(performer, target, null, null, world, indexOfDeity);
+		List<Response> replyPhrases = conversation.getReplyPhrases(context);
+		assertEquals(2, replyPhrases.size());
+		assertEquals("I follow Hades", replyPhrases.get(0).getResponsePhrase());
+	}
+	
 	@Test
 	public void testGetReplyPhrase() {
 		World world = new WorldImpl(0, 0, null, null);

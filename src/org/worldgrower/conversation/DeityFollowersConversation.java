@@ -36,9 +36,13 @@ public class DeityFollowersConversation implements Conversation {
 		WorldObject performer = conversationContext.getPerformer();
 		WorldObject target = conversationContext.getTarget();
 		int relationshipValue = target.getProperty(Constants.RELATIONSHIPS).getValue(performer);
+		Deity deity = Deity.ALL_DEITIES.get(conversationContext.getAdditionalValue());
+		boolean targetHasDeity = (target.getProperty(Constants.DEITY) == deity);
+		boolean hasOtherFollowers = getFollowersForDeity(conversationContext).size() > 0;
+		boolean replyYes = targetHasDeity || hasOtherFollowers;
 		
 		final int replyId;
-		if (relationshipValue >= 0 && getFollowersForDeity(conversationContext).size() > 0) {
+		if (relationshipValue >= 0 && replyYes) {
 			replyId = YES;
 		} else {
 			replyId = NO;
@@ -71,10 +75,13 @@ public class DeityFollowersConversation implements Conversation {
 	}
 
 	private String getFollowersDescription(ConversationContext conversationContext) {
+		WorldObject target = conversationContext.getTarget();
 		List<WorldObject> followersForDeity = getFollowersForDeity(conversationContext);
 		Deity deity = Deity.ALL_DEITIES.get(conversationContext.getAdditionalValue());
 		
-		if (followersForDeity.size() == 1) {
+		if (target.getProperty(Constants.DEITY) == deity) {
+			return "I follow " + deity.getName();
+		} else if (followersForDeity.size() == 1) {
 			return "I know that " + followersForDeity.get(0).getProperty(Constants.NAME) + " is a worshipper of " + deity.getName();
 		} else if (followersForDeity.size() > 0) {
 			StringBuilder followersDescription = new StringBuilder();
