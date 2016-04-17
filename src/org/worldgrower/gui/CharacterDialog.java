@@ -101,6 +101,12 @@ public class CharacterDialog extends JDialog {
 		lblProfession.setToolTipText("displays character profession");
 		contentPanel.add(lblProfession);
 		
+		String deityDescription = playerCharacter.getProperty(Constants.DEITY) != null ? playerCharacter.getProperty(Constants.DEITY).getName() : "<no deity>";
+		JLabel lblDeity = JLabelFactory.createJLabel(deityDescription);
+		lblDeity.setBounds(12, 71, 120, 20);
+		lblDeity.setToolTipText("displays deity");
+		contentPanel.add(lblDeity);
+		
 		JLabel lblStrength = createAttributeLabel(Constants.STRENGTH, "Strength");
 		lblStrength.setBounds(150, 13, 120, 20);
 		contentPanel.add(lblStrength);
