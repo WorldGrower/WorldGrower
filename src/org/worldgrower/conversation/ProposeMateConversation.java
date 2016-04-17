@@ -97,12 +97,28 @@ public class ProposeMateConversation implements Conversation {
 		boolean targetAccepts = (replyIndex == YES || (targetAccepts(target, performer) && alreadyAsked));
 		boolean targetDeclines = (replyIndex == NO || (!targetAccepts(target, performer) && alreadyAsked));
 		if (targetAccepts) {
+			breakupWithPreviousMate(performer, target, world);
 			makeMates(performer, target, world);
 		} else if (targetDeclines) {
 			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -50, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 		}
 		
 		KnowledgeMapPropertyUtils.everyoneInVicinityKnowsOfEvent(performer, target, world);
+	}
+
+	private void breakupWithPreviousMate(WorldObject performer, WorldObject target, World world) {
+		Integer performerMateId = performer.getProperty(Constants.MATE_ID);
+		Integer targetMateId = target.getProperty(Constants.MATE_ID);
+		
+		if (performerMateId != null) {
+			WorldObject performerMate = world.findWorldObject(Constants.ID, performerMateId);
+			Conversations.BREAKUP_WITH_MATE_CONVERSATION.breakup(performer, performerMate, world);
+		}
+		
+		if (targetMateId != null) {
+			WorldObject targetMate = world.findWorldObject(Constants.ID, targetMateId);
+			Conversations.BREAKUP_WITH_MATE_CONVERSATION.breakup(target, targetMate, world);
+		}
 	}
 
 	private void makeMates(WorldObject performer, WorldObject target, World world) {

@@ -35,6 +35,9 @@ public class UTestSexAction {
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
+		performer.setProperty(Constants.RELATIONSHIPS, new IdRelationshipMap());
+		target.setProperty(Constants.RELATIONSHIPS, new IdRelationshipMap());
+		
 		performer.setProperty(Constants.GENDER, "female");
 		target.setProperty(Constants.GENDER, "male");
 		
@@ -49,6 +52,9 @@ public class UTestSexAction {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
+		
+		performer.setProperty(Constants.RELATIONSHIPS, new IdRelationshipMap());
+		target.setProperty(Constants.RELATIONSHIPS, new IdRelationshipMap());
 		
 		performer.setProperty(Constants.GENDER, "male");
 		target.setProperty(Constants.GENDER, "female");

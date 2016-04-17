@@ -26,7 +26,8 @@ import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
 
 public class BreakupWithMateConversation implements Conversation {
-
+	private static final int BREAKUP_RELATIONSHIP_PENALTY = -500; 
+	
 	private static final int OK = 0;
 	
 	@Override
@@ -59,12 +60,12 @@ public class BreakupWithMateConversation implements Conversation {
 		World world = conversationContext.getWorld();
 		
 		if (replyIndex == OK) {
-			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -500, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 			breakup(performer, target, world);
 		}
 	}
 
-	private void breakup(WorldObject performer, WorldObject target, World world) {
+	public void breakup(WorldObject performer, WorldObject target, World world) {
+		RelationshipPropertyUtils.changeRelationshipValue(performer, target, BREAKUP_RELATIONSHIP_PENALTY, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 		if (performer.getProperty(Constants.MATE_ID).intValue() == target.getProperty(Constants.ID).intValue()) {
 			performer.setProperty(Constants.MATE_ID, null);
 		}

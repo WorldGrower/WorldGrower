@@ -28,6 +28,7 @@ import org.worldgrower.goal.GenderPropertyUtils;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.PregnancyPropertyUtils;
 import org.worldgrower.goal.RacePropertyUtils;
+import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.gui.ImageIds;
 
 public class SexAction implements ManagedOperation {
@@ -44,6 +45,9 @@ public class SexAction implements ManagedOperation {
 				PregnancyPropertyUtils.makePregnant(target);
 				logPregnancy(performer, target, target, world);
 			}
+		}
+		if (performer.hasProperty(Constants.RELATIONSHIPS) && target.hasProperty(Constants.RELATIONSHIPS)) {
+			RelationshipPropertyUtils.changeRelationshipValueUsingFacades(performer, target, 50, this, args, world);
 		}
 	}
 	
@@ -72,7 +76,7 @@ public class SexAction implements ManagedOperation {
 			//TODO: this method indirectly invokes skill:use method, which shoumdn't be the case
 			WorldObject performerFacade = createFacade(performer, performer, target, world);
 			WorldObject targetFacade = createFacade(target, performer, target, world);
-			return (target.hasIntelligence() && (targetFacade.getProperty(Constants.RELATIONSHIPS).getValue(performerFacade) > 750) && !GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, targetFacade));
+			return (target.hasIntelligence() && (targetFacade.getProperty(Constants.RELATIONSHIPS).getValue(performerFacade) > 100) && !GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, targetFacade));
 		} else {
 			return RacePropertyUtils.hasSameRace(performer, target);
 		}

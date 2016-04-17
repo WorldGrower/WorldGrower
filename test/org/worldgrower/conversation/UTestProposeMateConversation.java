@@ -101,6 +101,31 @@ public class UTestProposeMateConversation {
 	}
 	
 	@Test
+	public void testHandleResponse0WithPreviousMates() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		
+		WorldObject performerMate = TestUtils.createIntelligentWorldObject(3, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		world.addWorldObject(performerMate);
+		WorldObject targetMate = TestUtils.createIntelligentWorldObject(4, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		world.addWorldObject(targetMate);
+		
+		performer.setProperty(Constants.MATE_ID, performerMate.getProperty(Constants.ID));
+		target.setProperty(Constants.MATE_ID, targetMate.getProperty(Constants.ID));
+		performerMate.setProperty(Constants.MATE_ID, performer.getProperty(Constants.ID));
+		targetMate.setProperty(Constants.MATE_ID, target.getProperty(Constants.ID));
+		
+		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
+		
+		conversation.handleResponse(0, context);
+		assertEquals(2, performer.getProperty(Constants.MATE_ID).intValue());
+		assertEquals(1, target.getProperty(Constants.MATE_ID).intValue());
+		assertEquals(null, performerMate.getProperty(Constants.MATE_ID));
+		assertEquals(null, targetMate.getProperty(Constants.MATE_ID));
+	}
+	
+	@Test
 	public void testHandleResponse1() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());

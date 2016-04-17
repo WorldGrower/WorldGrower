@@ -28,6 +28,8 @@ import org.worldgrower.gui.ImageIds;
 
 public class KissAction implements ManagedOperation {
 
+	public static final int REQUIRED_RELATIONSHIP_VALUE = 10;
+	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		
@@ -54,7 +56,7 @@ public class KissAction implements ManagedOperation {
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
 		if (target.hasProperty(Constants.RELATIONSHIPS)) {
-			return (target.hasIntelligence() && (target.getProperty(Constants.RELATIONSHIPS).getValue(performer) > 500)  && !GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, target));
+			return (target.hasIntelligence() && (target.getProperty(Constants.RELATIONSHIPS).getValue(performer) > REQUIRED_RELATIONSHIP_VALUE)  && !GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, target));
 		} else {
 			return RacePropertyUtils.hasSameRace(performer, target);
 		}

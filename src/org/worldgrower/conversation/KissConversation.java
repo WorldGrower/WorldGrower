@@ -20,6 +20,7 @@ import java.util.List;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.KissAction;
 import org.worldgrower.history.HistoryItem;
 
 public class KissConversation implements Conversation {
@@ -57,7 +58,7 @@ public class KissConversation implements Conversation {
 
 	private boolean targetAccepts(WorldObject target, WorldObject performer) {
 		int relationshipValue = target.getProperty(Constants.RELATIONSHIPS).getValue(performer);
-		return relationshipValue > 0;
+		return relationshipValue > KissAction.REQUIRED_RELATIONSHIP_VALUE;
 	}
 	
 	@Override
