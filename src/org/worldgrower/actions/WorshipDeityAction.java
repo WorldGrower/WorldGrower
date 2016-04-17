@@ -40,7 +40,7 @@ public class WorshipDeityAction implements ManagedOperation {
 	
 	@Override
 	public String getRequirementsDescription() {
-		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, 1);
+		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, 1, "must worship deity");
 	}
 
 	@Override

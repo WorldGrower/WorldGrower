@@ -43,7 +43,7 @@ public class MateGoal implements Goal {
 		} else if (bestId != -1) {
 			return new ImproveRelationshipGoal(bestId, 750, world).calculateGoal(performer, world);
 		} else {
-			List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.TALK_ACTION, w -> isPotentialMate(performer, w) ,world);
+			List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.TALK_ACTION, w -> isPotentialMate(performer, w, world) ,world);
 			if (targets.size() > 0) {
 				WorldObject target = targets.get(0);
 				return new ImproveRelationshipGoal(target.getProperty(Constants.ID), 750, world).calculateGoal(performer, world);
@@ -53,18 +53,26 @@ public class MateGoal implements Goal {
 		}
 	}
 	
-	static int getBestMate(WorldObject performer, World world) {
+	int getBestMate(WorldObject performer, World world) {
 		IdMap relationships = performer.getProperty(Constants.RELATIONSHIPS);
-		return relationships.findBestId(w -> isPotentialMate(performer, w), new MateComparator(performer), world);
+		return relationships.findBestId(w -> isPotentialMate(performer, w, world), new MateComparator(performer), world);
 	}
 
-	private static boolean isPotentialMate(WorldObject performer, WorldObject w) {
-		boolean performerIsHonorable = performer.getProperty(Constants.PERSONALITY).getValue(PersonalityTrait.HONORABLE) > 0;
-		if (performerIsHonorable) {
-			return RacePropertyUtils.canHaveOffspring(performer, w) && w.getProperty(Constants.MATE_ID) == null;
+	private boolean isPotentialMate(WorldObject performer, WorldObject w, World world) {
+		if (isTargetForProposeMateConversation(performer, w, world)) {
+			boolean performerIsHonorable = performer.getProperty(Constants.PERSONALITY).getValue(PersonalityTrait.HONORABLE) > 0;
+			if (performerIsHonorable) {
+				return RacePropertyUtils.canHaveOffspring(performer, w) && w.getProperty(Constants.MATE_ID) == null;
+			} else {
+				return RacePropertyUtils.canHaveOffspring(performer, w);
+			}
 		} else {
-			return RacePropertyUtils.canHaveOffspring(performer, w);
+			return false;
 		}
+	}
+	
+	private boolean isTargetForProposeMateConversation(WorldObject performer, WorldObject target, World world) {
+		return !Conversations.PROPOSE_MATE_CONVERSATION.previousAnswerWasNegative(getPreviousResponseIds(performer, target, Conversations.PROPOSE_MATE_CONVERSATION, world));
 	}
 	
 	private static class MateComparator implements Comparator<WorldObject> {

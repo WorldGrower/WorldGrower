@@ -138,4 +138,8 @@ public class ProposeMateConversation implements Conversation {
 	public String getDescription(WorldObject performer, WorldObject target, World world) {
 		return "talking about becoming a mate for someone";
 	}
+
+	public boolean previousAnswerWasNegative(List<Integer> previousResponseIds) {
+		return previousResponseIds.contains(NO);
+	}
 }

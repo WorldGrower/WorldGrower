@@ -19,6 +19,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.worldgrower.AssertUtils;
 import org.worldgrower.Constants;
+import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
@@ -27,6 +28,7 @@ import org.worldgrower.actions.MockCommonerNameGenerator;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.generator.CommonerGenerator;
 import org.worldgrower.gui.CommonerImageIds;
+import org.worldgrower.history.Turn;
 
 public class UTestMateGoal {
 
@@ -56,6 +58,23 @@ public class UTestMateGoal {
 		assertEquals(Actions.TALK_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 		assertEquals(target, goal.calculateGoal(performer, world).getTarget());
 		AssertUtils.assertConversation(goal.calculateGoal(performer, world), Conversations.COMPLIMENT_CONVERSATION);
+	}
+	
+	@Test
+	public void testCalculateGoalOneTargetAlreadySaidNo() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		WorldObject performer = createCommoner(world, organization);
+		WorldObject target = createCommoner(world, organization);
+		
+		performer.getProperty(Constants.RELATIONSHIPS).incrementValue(target, 1);
+		performer.setProperty(Constants.GENDER, "male");
+		target.setProperty(Constants.GENDER, "female");
+		
+		world.getHistory().setNextAdditionalValue(1);
+		world.getHistory().actionPerformed(new OperationInfo(performer, target, Conversations.createArgs(Conversations.PROPOSE_MATE_CONVERSATION), Actions.TALK_ACTION), new Turn());
+		
+		assertEquals(null, goal.calculateGoal(performer, world));
 	}
 	
 	@Test
@@ -116,7 +135,7 @@ public class UTestMateGoal {
 		performer.getProperty(Constants.RELATIONSHIPS).incrementValue(target1, 0);
 		performer.getProperty(Constants.RELATIONSHIPS).incrementValue(target2, 0);
 		
-		assertEquals(target2.getProperty(Constants.ID).intValue(), MateGoal.getBestMate(performer, world));
+		assertEquals(target2.getProperty(Constants.ID).intValue(), goal.getBestMate(performer, world));
 	}
 
 	private WorldObject createCommoner(World world, WorldObject organization) {
