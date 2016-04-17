@@ -28,10 +28,17 @@ public class GiveMoneyConversation implements Conversation {
 
 	private static final int THANKS = 0;
 	private static final int GET_LOST = 1;
+	private static final int THANKS_AGAIN = 2;
 	
 	@Override
 	public Response getReplyPhrase(ConversationContext conversationContext) {
-		final int replyId = THANKS;
+		List<HistoryItem> historyItems = this.findSameConversation(conversationContext);
+		final int replyId;
+		if (historyItems.size() == 0) {
+			replyId = THANKS;
+		} else {
+			replyId = THANKS_AGAIN;
+		}
 		return getReply(getReplyPhrases(conversationContext), replyId);
 	}
 
@@ -44,7 +51,8 @@ public class GiveMoneyConversation implements Conversation {
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
 				new Response(THANKS, "Thanks"),
-				new Response(GET_LOST, "Get lost"));
+				new Response(GET_LOST, "Get lost"),
+				new Response(THANKS_AGAIN, "Thanks again"));
 	}
 	
 	@Override
@@ -53,7 +61,7 @@ public class GiveMoneyConversation implements Conversation {
 		WorldObject target = conversationContext.getTarget();
 		World world = conversationContext.getWorld();
 		
-		if (replyIndex == THANKS) {
+		if (replyIndex == THANKS || replyIndex == THANKS_AGAIN) {
 			int relationshipBonus;
 			
 			if (target.getProperty(Constants.GOLD) >= 100) {

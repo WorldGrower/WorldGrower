@@ -41,7 +41,7 @@ public class UTestGiveFoodConversation {
 		
 		ConversationContext context = new ConversationContext(performer, target, null, null, null, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
-		assertEquals(2, replyPhrases.size());
+		assertEquals(3, replyPhrases.size());
 		assertEquals("Thanks", replyPhrases.get(0).getResponsePhrase());
 		assertEquals("Get lost", replyPhrases.get(1).getResponsePhrase());
 	}
@@ -114,6 +114,25 @@ public class UTestGiveFoodConversation {
 		conversation.handleResponse(1, context);
 		assertEquals(-20, performer.getProperty(Constants.RELATIONSHIPS).getValue(target));
 		assertEquals(-20, target.getProperty(Constants.RELATIONSHIPS).getValue(performer));
+	}
+	
+	@Test
+	public void testHandleResponse2() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		WorldObject target = TestUtils.createSkilledWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		
+		performer.setProperty(Constants.INVENTORY, new WorldObjectContainer());
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.BERRIES.generate(1f));
+		target.setProperty(Constants.INVENTORY, new WorldObjectContainer());
+		
+		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
+		
+		conversation.handleResponse(2, context);
+		assertEquals(10, performer.getProperty(Constants.RELATIONSHIPS).getValue(target));
+		assertEquals(10, target.getProperty(Constants.RELATIONSHIPS).getValue(performer));
+		assertEquals(0, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.FOOD));
+		assertEquals(1, target.getProperty(Constants.INVENTORY).getQuantityFor(Constants.FOOD));
 	}
 	
 	@Test

@@ -40,7 +40,7 @@ public class UTestGiveMoneyConversation {
 		
 		ConversationContext context = new ConversationContext(performer, target, null, null, null, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
-		assertEquals(2, replyPhrases.size());
+		assertEquals(3, replyPhrases.size());
 		assertEquals("Thanks", replyPhrases.get(0).getResponsePhrase());
 		assertEquals("Get lost", replyPhrases.get(1).getResponsePhrase());
 	}
@@ -95,6 +95,24 @@ public class UTestGiveMoneyConversation {
 		conversation.handleResponse(1, context);
 		assertEquals(-20, performer.getProperty(Constants.RELATIONSHIPS).getValue(target));
 		assertEquals(-20, target.getProperty(Constants.RELATIONSHIPS).getValue(performer));
+	}
+	
+	@Test
+	public void testHandleResponse2() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		WorldObject target = TestUtils.createSkilledWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		
+		performer.setProperty(Constants.GOLD, 200);
+		target.setProperty(Constants.GOLD, 200);
+		
+		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
+		
+		conversation.handleResponse(2, context);
+		assertEquals(5, performer.getProperty(Constants.RELATIONSHIPS).getValue(target));
+		assertEquals(5, target.getProperty(Constants.RELATIONSHIPS).getValue(performer));
+		assertEquals(100, performer.getProperty(Constants.GOLD).intValue());
+		assertEquals(300, target.getProperty(Constants.GOLD).intValue());
 	}
 	
 	@Test
