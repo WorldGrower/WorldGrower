@@ -33,9 +33,7 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import org.worldgrower.Constants;
-import org.worldgrower.TestUtils;
 import org.worldgrower.World;
-import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdMap;
@@ -43,7 +41,6 @@ import org.worldgrower.attribute.KnowledgeMap;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.JLabelFactory;
 import org.worldgrower.gui.util.JTableFactory;
-import org.worldgrower.profession.Professions;
 
 public class CommunityDialog extends JDialog {
 
@@ -51,35 +48,11 @@ public class CommunityDialog extends JDialog {
 	private JTable tlbChildren;
 	private JTable tblAcquaintances;
 	
-	public static void main(String[] args) {
-		try {
-			ImageInfoReader imageInfoReader = new ImageInfoReader();
-			World world = new WorldImpl(0, 0, null, null);
-			WorldObject pc = TestUtils.createIntelligentWorldObject(2, "Test");
-			pc.setProperty(Constants.CHILDREN, new IdList());
-			
-			WorldObject child = TestUtils.createIntelligentWorldObject(3, "Child");
-			child.setProperty(Constants.IMAGE_ID, ImageIds.FEMALE_RED_EYE);
-			pc.getProperty(Constants.CHILDREN).add(child);
-			world.addWorldObject(child);
-			
-			WorldObject relative = TestUtils.createIntelligentWorldObject(3, "Relative");
-			relative.setProperty(Constants.IMAGE_ID, ImageIds.BLACK_HAIRED_FEMALE_COMMONER);
-			pc.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(relative, Constants.PROFESSION, Professions.FARMER_PROFESSION);
-			world.addWorldObject(relative);
-			
-			CommunityDialog dialog = new CommunityDialog(pc, imageInfoReader, world);
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
 	public CommunityDialog(WorldObject playerCharacter, ImageInfoReader imageInfoReader, World world) {
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		IconUtils.setIcon(this);
 		setResizable(false);
+		setTitle("Community Overview");
 		
 		setSize(542, 705);
 		setLocationRelativeTo(null);

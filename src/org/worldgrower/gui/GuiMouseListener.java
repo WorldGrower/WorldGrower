@@ -263,6 +263,7 @@ public class GuiMouseListener extends MouseAdapter {
 		addCreateOrganizationMenu(organizationMenu);
 		addShowLegalActionsMenu(organizationMenu);
 		addShowOrganizationsActionMenu(organizationMenu);
+		addShowCommunityActionMenu(organizationMenu);
 		addChooseDeityMenu(miscMenu);
 		addCreateHumanMeatMenu(miscMenu);
 		addInvestigateMenu(miscMenu);
@@ -308,6 +309,13 @@ public class GuiMouseListener extends MouseAdapter {
 		showOrganizationsMenuItem.setText("Organization Membership Overview");
 		setMenuIcon(showOrganizationsMenuItem, ImageIds.BLACK_CROSS);
 		menu.add(showOrganizationsMenuItem);
+	}
+	
+	private void addShowCommunityActionMenu(JMenu menu) {
+		JMenuItem showCommunityMenuItem = MenuFactory.createJMenuItem(communityOverviewAction);
+		showCommunityMenuItem.setText("Community Overview");
+		setMenuIcon(showCommunityMenuItem, ImageIds.BLACK_CROSS);
+		menu.add(showCommunityMenuItem);
 	}
 	
 	private void addCreateOrganizationMenu(JMenu menu) {
