@@ -293,4 +293,16 @@ public class KnowledgeMap implements IdContainer, Serializable {
 		}
 		return false;
 	}	
+	
+	public final <T> T getProperty(int id, UnCheckedProperty<T> property) {
+		List<Knowledge> knowledgeList = idsToKnowledge.get(id);
+		if (knowledgeList != null) {
+			for(Knowledge knowledge : knowledgeList) {
+				if (knowledge.hasProperty(property)) {
+					return (T) ((PropertyKnowledge)knowledge).getValue();
+				}
+			}
+		}
+		return null;
+	}	
 }

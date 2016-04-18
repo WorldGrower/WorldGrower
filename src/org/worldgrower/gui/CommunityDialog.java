@@ -38,9 +38,11 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdMap;
 import org.worldgrower.attribute.KnowledgeMap;
+import org.worldgrower.deity.Deity;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.JLabelFactory;
 import org.worldgrower.gui.util.JTableFactory;
+import org.worldgrower.profession.Profession;
 
 public class CommunityDialog extends JDialog {
 
@@ -178,11 +180,12 @@ public class CommunityDialog extends JDialog {
 	
 	private static class AcquaintancesTableModel extends AbstractTableModel {
 
-		private final List<WorldObject> acquaintances;
+		private final List<WorldObject> acquaintances = new ArrayList<>();
+		private final List<Profession> professions = new ArrayList<>();
+		private final List<Deity> deities = new ArrayList<>();
 		
 		public AcquaintancesTableModel(WorldObject playerCharacter, World world) {
 			super();
-			this.acquaintances = new ArrayList<>();
 			
 			IdMap relationshipMap = playerCharacter.getProperty(Constants.RELATIONSHIPS);
 			for(int id : relationshipMap.getIds()) {
@@ -195,6 +198,12 @@ public class CommunityDialog extends JDialog {
 				if (!acquaintances.contains(acquaintance)) {
 					acquaintances.add(acquaintance);
 				}
+			}
+			
+			for(WorldObject acquaintance : acquaintances) {
+				int id = acquaintance.getProperty(Constants.ID);
+				professions.add(knowledgeMap.getProperty(id, Constants.PROFESSION));
+				deities.add(knowledgeMap.getProperty(id, Constants.DEITY));
 			}
 		}
 
@@ -240,9 +249,9 @@ public class CommunityDialog extends JDialog {
 			} else if (columnIndex == 1) {
 				return acquaintances.get(rowIndex).getProperty(Constants.NAME);
 			} else if (columnIndex == 2) {
-				return acquaintances.get(rowIndex).getProperty(Constants.PROFESSION);
+				return professions.get(rowIndex);
 			} else if (columnIndex == 3) {
-				return acquaintances.get(rowIndex).getProperty(Constants.DEITY);
+				return deities.get(rowIndex);
 			}
 			return null;
 		}
