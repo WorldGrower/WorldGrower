@@ -12,32 +12,32 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.gui.start;
+package org.worldgrower.gui;
 
-public enum GuiAction {
-	SHOW_CHARACTER_SHEET("Show character sheet", 'C'),
-	SHOW_INVENTORY("Show inventory", 'I'),
-	SHOW_MAGIC_OVERVIEW("Show magic overview", 'M'),
-	REST_ACTION("Rest action", 'R'),
-	CREATE_ORGANIZATION_ACTION("Create organization action", 'O'),
-	SHOW_STATUS_MESSAGES("Show status messages", 'S'),
-	ASSIGN_ACTION_TO_LEFT_MOUSE("Assign action to left mouse", 'A'),
-	SHOW_CHARACTER_ACTIONS("Show character actions", 'W'),
-	COMMUNITY_OVERVIEW("Show community overview", 'U');
+import java.awt.event.ActionEvent;
+
+import javax.swing.AbstractAction;
+
+import org.worldgrower.World;
+import org.worldgrower.WorldObject;
+
+public class CommunityOverviewAction extends AbstractAction {
+
+	private WorldObject playerCharacter;
+	private CommunityDialog dialog;
+	private ImageInfoReader imageInfoReader;
+	private World world;
 	
-	private final String description;
-	private final char defaultValue;
-
-	private GuiAction(String description, char defaultValue) {
-		this.description = description;
-		this.defaultValue = defaultValue;
+	public CommunityOverviewAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, World world) {
+		super();
+		this.playerCharacter = playerCharacter;
+		this.imageInfoReader = imageInfoReader;
+		this.world = world;
 	}
 
-	public String getDescription() {
-		return description;
-	}
-
-	public char getDefaultValue() {
-		return defaultValue;
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		dialog = new CommunityDialog(playerCharacter, imageInfoReader, world);
+		dialog.setVisible(true);
 	}
 }

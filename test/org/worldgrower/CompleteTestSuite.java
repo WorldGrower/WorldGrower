@@ -632,7 +632,9 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestTaxCollectorProfession.class,
 	UTestThiefProfession.class,
 	UTestWeaverProfession.class,
-	UTestWizardProfession.class
+	UTestWizardProfession.class,
+	UTestWeaveryGoal.class,
+	UTestBuildWeaveryAction.class
 })
 public class CompleteTestSuite {
 }

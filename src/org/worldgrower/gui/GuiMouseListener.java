@@ -89,6 +89,7 @@ public class GuiMouseListener extends MouseAdapter {
 	private final ShowStatusMessagesAction showStatusMessagesAction;
 	private ManagedOperation leftMouseClickAction;
 	private final ShowCharacterActionsAction showCharacterActionsAction;
+	private final CommunityOverviewAction communityOverviewAction;
 	
     public GuiMouseListener(WorldPanel container, WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, ImageInfoReader imageInfoReader, KeyBindings keyBindings) {
 		super();
@@ -107,6 +108,7 @@ public class GuiMouseListener extends MouseAdapter {
 		showStatusMessagesAction = new ShowStatusMessagesAction(container);
 		assignActionToLeftMouseAction = getGuiAssignActionToLeftMouseAction();
 		showCharacterActionsAction = new ShowCharacterActionsAction();
+		communityOverviewAction = new CommunityOverviewAction(playerCharacter, imageInfoReader, world);
 		addKeyBindings(keyBindings);
 	}
 
@@ -123,6 +125,8 @@ public class GuiMouseListener extends MouseAdapter {
 		addKeyBindingsFor(showStatusMessagesAction, keyBindings.getValue(GuiAction.SHOW_STATUS_MESSAGES));
 		addKeyBindingsFor(assignActionToLeftMouseAction, keyBindings.getValue(GuiAction.ASSIGN_ACTION_TO_LEFT_MOUSE));
 		addKeyBindingsFor(showCharacterActionsAction, keyBindings.getValue(GuiAction.SHOW_CHARACTER_ACTIONS));
+		addKeyBindingsFor(communityOverviewAction, keyBindings.getValue(GuiAction.COMMUNITY_OVERVIEW));
+		
 	}
 	
 	private void addKeyBindingsFor(Action action, char binding) {
