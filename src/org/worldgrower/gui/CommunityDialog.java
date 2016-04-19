@@ -28,6 +28,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -86,6 +87,8 @@ public class CommunityDialog extends JDialog {
 		tlbChildren = JTableFactory.createJTable(new ChildrenTableModel(playerCharacter, world));
 		tlbChildren.setDefaultRenderer(ImageIds.class, new ImageRenderer(imageInfoReader));
 		tlbChildren.setRowHeight(50);
+		tlbChildren.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tlbChildren.setAutoCreateRowSorter(true);
 		JScrollPane scrollPaneChildren = new JScrollPane(tlbChildren);
 		scrollPaneChildren.setBounds(149, 43, 305, 207);
 		contentPanel.add(scrollPaneChildren);
@@ -98,6 +101,8 @@ public class CommunityDialog extends JDialog {
 		tblAcquaintances = JTableFactory.createJTable(new AcquaintancesTableModel(playerCharacter, world));
 		tblAcquaintances.setDefaultRenderer(ImageIds.class, new ImageRenderer(imageInfoReader));
 		tblAcquaintances.setRowHeight(50);
+		tblAcquaintances.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tblAcquaintances.setAutoCreateRowSorter(true);
 		JScrollPane scrollPaneAcquaintances = new JScrollPane(tblAcquaintances);
 		scrollPaneAcquaintances.setBounds(149, 289, 305, 321);
 		contentPanel.add(scrollPaneAcquaintances);
