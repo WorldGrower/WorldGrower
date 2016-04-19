@@ -100,4 +100,8 @@ public class DrinkingContestConversation implements Conversation {
 	public String getDescription(WorldObject performer, WorldObject target, World world) {
 		return "talking about starting a drinking contest";
 	}
+
+	public boolean previousAnswerWasNegative(List<Integer> previousResponseIds) {
+		return previousResponseIds.contains(NO);
+	}
 }

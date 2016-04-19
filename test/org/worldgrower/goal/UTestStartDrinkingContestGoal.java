@@ -60,6 +60,7 @@ public class UTestStartDrinkingContestGoal {
 		world.addWorldObject(target);
 		performer.setProperty(Constants.CONSTITUTION, 18);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WINE.generate(1f), 20);
+		target.getProperty(Constants.INVENTORY).addQuantity(Item.WINE.generate(1f), 20);
 		
 		assertEquals(Actions.TALK_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}

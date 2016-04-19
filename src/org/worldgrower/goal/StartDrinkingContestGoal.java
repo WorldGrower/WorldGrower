@@ -38,7 +38,7 @@ public class StartDrinkingContestGoal implements Goal {
 				if (alcoholCount < 10) {
 					return Goals.WINE_GOAL.calculateGoal(performer, world);
 				} else {
-					List<WorldObject> targets = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> isDrinkingContestTarget(performer, w));
+					List<WorldObject> targets = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> isDrinkingContestTarget(performer, w, world));
 					if (targets.size() > 0) {
 						return new OperationInfo(performer, targets.get(0), Conversations.createArgs(Conversations.DRINKING_CONTEST_CONVERSATION), Actions.TALK_ACTION);
 					}
@@ -48,8 +48,12 @@ public class StartDrinkingContestGoal implements Goal {
 		return null;
 	}
 
-	private boolean isDrinkingContestTarget(WorldObject performer, WorldObject w) {
-		return !w.equals(performer) && w.hasIntelligence() && !DrinkingContestPropertyUtils.isDrinking(w);
+	private boolean isDrinkingContestTarget(WorldObject performer, WorldObject w, World world) {
+		return !w.equals(performer) 
+				&& w.hasIntelligence() 
+				&& !DrinkingContestPropertyUtils.isDrinking(w) 
+				&& w.getProperty(Constants.INVENTORY).getQuantityFor(Constants.ALCOHOL_LEVEL) >= 5
+				&& !Conversations.DRINKING_CONTEST_CONVERSATION.previousAnswerWasNegative(getPreviousResponseIds(performer, w, Conversations.DRINKING_CONTEST_CONVERSATION, world));
 	}
 	
 	private boolean performerHasTalentForDrinking(WorldObject performer) {

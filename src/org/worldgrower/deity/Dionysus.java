@@ -27,6 +27,7 @@ import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.personality.PersonalityTrait;
 import org.worldgrower.profession.Professions;
 
 public class Dionysus implements Deity {
@@ -63,6 +64,15 @@ public class Dionysus implements Deity {
 	@Override
 	public List<Goal> getOrganizationGoals() {
 		return addDefaultOrganizationGoals(Goals.GHOUL_GOAL, Goals.START_DRINKING_CONTEST_GOAL);
+	}
+	
+	@Override
+	public int getOrganizationGoalIndex(WorldObject performer, World world) {
+		if (performer.getProperty(Constants.PERSONALITY).getValue(PersonalityTrait.HONORABLE) > 0) {
+			return getOrganizationGoals().indexOf(Goals.START_DRINKING_CONTEST_GOAL);
+		} else {
+			return getOrganizationGoals().indexOf(Goals.GHOUL_GOAL);
+		}
 	}
 
 	@Override
