@@ -22,6 +22,7 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.ManagedOperationListener;
 import org.worldgrower.WorldObject;
 import org.worldgrower.condition.Condition;
+import org.worldgrower.conversation.Conversations;
 import org.worldgrower.goal.DrinkingContestPropertyUtils;
 
 public class DrinkingContestListener implements ManagedOperationListener {
@@ -34,9 +35,14 @@ public class DrinkingContestListener implements ManagedOperationListener {
 			if (performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.INTOXICATED_CONDITION)) {
 				performerWonDrinkingContest(performer, target);
 			}
-		} else if (DrinkingContestPropertyUtils.isDrinking(performer) && DrinkingContestPropertyUtils.isDrinking(target) && managedOperation != Actions.DRINK_FROM_INVENTORY_ACTION) {
+		} else if (DrinkingContestPropertyUtils.isDrinking(performer) && DrinkingContestPropertyUtils.isDrinking(target) && actionViolatesDrinkingContest(managedOperation, args)) {
 			performerWonDrinkingContest(target, performer);
 		}
+	}
+
+	private boolean actionViolatesDrinkingContest(ManagedOperation managedOperation, int[] args) {
+		boolean isDrinkingContestConversation = ((managedOperation == Actions.TALK_ACTION) && Conversations.getConversation(args[0]) == Conversations.DRINKING_CONTEST_CONVERSATION);
+		return managedOperation != Actions.DRINK_FROM_INVENTORY_ACTION && !isDrinkingContestConversation;
 	}
 
 	private void performerWonDrinkingContest(WorldObject performer, WorldObject target) {

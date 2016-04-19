@@ -21,11 +21,12 @@ import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.goal.BuySellUtils;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
 
-public class GiveFoodConversation implements Conversation {
+public class GiveWineConversation implements Conversation {
 
 	private static final int THANKS = 0;
 	private static final int GET_LOST = 1;
@@ -45,7 +46,7 @@ public class GiveFoodConversation implements Conversation {
 
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
-		return Arrays.asList(new Question(null, "Would you like to have some food?"));
+		return Arrays.asList(new Question(null, "Would you like to have some wine?"));
 	}
 
 	@Override
@@ -63,22 +64,32 @@ public class GiveFoodConversation implements Conversation {
 		World world = conversationContext.getWorld();
 		
 		if (replyIndex == THANKS || replyIndex == THANKS_AGAIN) {
-			int relationshipBonus = GiveWineConversation.calculateRelationshipIncrease(target, Constants.FOOD);
+			int relationshipBonus = calculateRelationshipIncrease(target, Constants.WINE);
 			RelationshipPropertyUtils.changeRelationshipValue(performer, target, relationshipBonus, Actions.TALK_ACTION, Conversations.createArgs(this), world);
-			BuySellUtils.performerGivesItemToTarget(performer, target, Constants.FOOD, 1);
-			
+			BuySellUtils.performerGivesItemToTarget(performer, target, Constants.WINE, 5);
 		} else if (replyIndex == GET_LOST) {
 			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -20, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 		}
 	}
 
+	public static int calculateRelationshipIncrease(WorldObject target, IntProperty property) {
+		int relationshipBonus;
+		
+		if (target.getProperty(Constants.INVENTORY).getQuantityFor(property) > 0) {
+			relationshipBonus = 5;
+		} else {
+			relationshipBonus = 10;
+		}
+		return relationshipBonus;
+	}
+
 	@Override
 	public boolean isConversationAvailable(WorldObject performer, WorldObject target, WorldObject subject, World world) {
-		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.FOOD) > 0;
+		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WINE) >= 5;
 	}
 
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, World world) {
-		return "giving " + target.getProperty(Constants.NAME) + " some food";
+		return "giving " + target.getProperty(Constants.NAME) + " some wine";
 	}
 }

@@ -191,4 +191,14 @@ public class BuySellUtils {
 		int price = target.getProperty(Constants.PRICES).getPrice(item);
 		return new OperationInfo(performer, target, new int[] { targetInventoryIndex, price, quantity }, Actions.BUY_ACTION);
 	}
+	
+	public static void performerGivesItemToTarget(WorldObject performer, WorldObject target, IntProperty itemProperty, int quantity) {
+		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
+		int indexOfFood = performerInventory.getIndexFor(itemProperty);
+		WorldObject food = performerInventory.get(indexOfFood).deepCopy();
+		performerInventory.removeQuantity(indexOfFood, quantity);
+		
+		WorldObjectContainer targetInventory = target.getProperty(Constants.INVENTORY);
+		targetInventory.addQuantity(food, quantity);
+	}
 }
