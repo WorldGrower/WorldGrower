@@ -25,6 +25,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
+import org.worldgrower.conversation.Conversations;
 import org.worldgrower.generator.Item;
 import org.worldgrower.goal.DrinkingContestPropertyUtils;
 
@@ -47,6 +48,25 @@ public class UTestDrinkingContestListener {
 		assertEquals(null, target.getProperty(Constants.DRINKING_CONTEST_OPPONENT_ID));
 		assertEquals(1100, performer.getProperty(Constants.GOLD).intValue());
 		assertEquals(900, target.getProperty(Constants.GOLD).intValue());
+	}
+	
+	@Test
+	public void testExecuteStillTalking() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		
+		DrinkingContestPropertyUtils.startDrinkingContest(performer, target, 100);
+		
+		Conditions.add(performer, Condition.INTOXICATED_CONDITION, 8, world);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WINE.generate(1f));
+		
+		new DrinkingContestListener().actionPerformed(Actions.TALK_ACTION, performer, target, Conversations.createArgs(Conversations.DRINKING_CONTEST_CONVERSATION), null);
+		
+		assertEquals(3, performer.getProperty(Constants.DRINKING_CONTEST_OPPONENT_ID).intValue());
+		assertEquals(2, target.getProperty(Constants.DRINKING_CONTEST_OPPONENT_ID).intValue());
+		assertEquals(1000, performer.getProperty(Constants.GOLD).intValue());
+		assertEquals(1000, target.getProperty(Constants.GOLD).intValue());
 	}
 	
 	private WorldObject createPerformer(int id) {
