@@ -27,7 +27,7 @@ import org.worldgrower.goal.DrinkingContestPropertyUtils;
 
 public class DrinkingContestListener implements ManagedOperationListener {
 
-	public final List<DrinkingContestFinishedListener> listeners = new ArrayList<>(); 
+	private final List<DrinkingContestFinishedListener> listeners = new ArrayList<>(); 
 	
 	@Override
 	public void actionPerformed(ManagedOperation managedOperation, WorldObject performer, WorldObject target, int[] args, Object value) {
