@@ -31,7 +31,7 @@ public class BrawlListener implements ManagedOperationListener {
 	@Override
 	public void actionPerformed(ManagedOperation managedOperation, WorldObject performer, WorldObject target, int[] args, Object value) {
 		if (BrawlPropertyUtils.isBrawling(performer) && BrawlPropertyUtils.isBrawling(target) && managedOperation == Actions.NON_LETHAL_MELEE_ATTACK_ACTION) {
-			if (target.getProperty(Constants.HIT_POINTS) == 1 * Item.COMBAT_MULTIPLIER) {
+			if (target.getProperty(Constants.HIT_POINTS) == 1) {
 				int goldWon = BrawlPropertyUtils.endBrawlWithPerformerVictory(performer, target);
 				
 				for(BrawlFinishedListener brawlFinishedListener : brawlFinishedListeners) {
