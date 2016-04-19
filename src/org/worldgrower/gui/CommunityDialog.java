@@ -195,7 +195,7 @@ public class CommunityDialog extends JDialog {
 			KnowledgeMap knowledgeMap = playerCharacter.getProperty(Constants.KNOWLEDGE_MAP);
 			for(int id : knowledgeMap.getIds()) {
 				WorldObject acquaintance = world.findWorldObject(Constants.ID, id);
-				if (!acquaintances.contains(acquaintance)) {
+				if (acquaintance.hasIntelligence() && !acquaintances.contains(acquaintance)) {
 					acquaintances.add(acquaintance);
 				}
 			}
@@ -249,9 +249,9 @@ public class CommunityDialog extends JDialog {
 			} else if (columnIndex == 1) {
 				return acquaintances.get(rowIndex).getProperty(Constants.NAME);
 			} else if (columnIndex == 2) {
-				return professions.get(rowIndex);
+				return professions.get(rowIndex) != null ? professions.get(rowIndex).getDescription() : null;
 			} else if (columnIndex == 3) {
-				return deities.get(rowIndex);
+				return deities.get(rowIndex) != null ? deities.get(rowIndex).getName() : null;
 			}
 			return null;
 		}

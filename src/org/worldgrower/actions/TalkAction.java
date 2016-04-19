@@ -55,6 +55,10 @@ public class TalkAction implements ManagedOperation {
 			
 			performer.increment(Constants.SOCIAL, 70);
 			target.increment(Constants.SOCIAL, 70);
+		} else {
+			RelationshipPropertyUtils.changeRelationshipValueUsingFacades(performer, target, 1, this, args, world);
+			performer.increment(Constants.SOCIAL, 70);
+			target.increment(Constants.SOCIAL, 70);
 		}
 		world.logAction(this, performer, target, args, answer);
 	}
