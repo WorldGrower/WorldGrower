@@ -466,6 +466,7 @@ public class GuiMouseListener extends MouseAdapter {
 		MagicSpell[] actions = { Actions.DETECT_MAGIC_ACTION, Actions.DETECT_POISON_AND_DISEASE_ACTION };
 		JMenu evocationMenu = addActions(menu, "Evocation", actions);
 		addBuildAction(evocationMenu, Actions.FIRE_TRAP_ACTION, startBuildMode());
+		addBuildAction(evocationMenu, Actions.ENTANGLE_ACTION, startBuildMode());
 	}
 	
 	private void addNecromancyActions(JPopupMenu menu) {

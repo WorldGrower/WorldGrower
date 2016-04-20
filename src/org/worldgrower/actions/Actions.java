@@ -37,6 +37,7 @@ import org.worldgrower.actions.magic.DisintegrateArmorAction;
 import org.worldgrower.actions.magic.DisintegrateWeaponAction;
 import org.worldgrower.actions.magic.DispelMagicAction;
 import org.worldgrower.actions.magic.EnlargeAction;
+import org.worldgrower.actions.magic.EntangleAction;
 import org.worldgrower.actions.magic.FearMagicSpellAction;
 import org.worldgrower.actions.magic.FeatherAction;
 import org.worldgrower.actions.magic.FireBoltAttackAction;
@@ -152,6 +153,7 @@ public class Actions {
 	public static final SilenceMagicAction SILENCE_MAGIC_ACTION = new SilenceMagicAction();
 	public static final DetectMagicAction DETECT_MAGIC_ACTION = new DetectMagicAction();
 	public static final FearMagicSpellAction FEAR_MAGIC_SPELL_ACTION = new FearMagicSpellAction();
+	public static final EntangleAction ENTANGLE_ACTION = new EntangleAction();
 	
 	public static final BuildLibraryAction BUILD_LIBRARY_ACTION = new BuildLibraryAction();
 	public static final ResearchRestorationSkillAction RESEARCH_RESTORATION_SKILL_ACTION = new ResearchRestorationSkillAction();
@@ -260,7 +262,8 @@ public class Actions {
 			DETECT_MAGIC_ACTION,
 			FIRE_TRAP_ACTION,
 			LICH_TRANSFORMATION_ACTION,
-			FEAR_MAGIC_SPELL_ACTION
+			FEAR_MAGIC_SPELL_ACTION,
+			ENTANGLE_ACTION
 			);
 	
 	private static final List<InventoryAction> INVENTORY_ACTIONS = Arrays.asList(

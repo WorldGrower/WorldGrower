@@ -46,8 +46,8 @@ public class UTestDrinkingContestListener {
 		
 		assertEquals(null, performer.getProperty(Constants.DRINKING_CONTEST_OPPONENT_ID));
 		assertEquals(null, target.getProperty(Constants.DRINKING_CONTEST_OPPONENT_ID));
-		assertEquals(1100, performer.getProperty(Constants.GOLD).intValue());
-		assertEquals(900, target.getProperty(Constants.GOLD).intValue());
+		assertEquals(900, performer.getProperty(Constants.GOLD).intValue());
+		assertEquals(1100, target.getProperty(Constants.GOLD).intValue());
 	}
 	
 	@Test

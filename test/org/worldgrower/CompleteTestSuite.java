@@ -30,6 +30,7 @@ import org.worldgrower.actions.magic.UTestDisintegrateArmorAction;
 import org.worldgrower.actions.magic.UTestDisintegrateWeaponAction;
 import org.worldgrower.actions.magic.UTestDispelMagicAction;
 import org.worldgrower.actions.magic.UTestEnlargeAction;
+import org.worldgrower.actions.magic.UTestEntangleAction;
 import org.worldgrower.actions.magic.UTestFearMagicSpellAction;
 import org.worldgrower.actions.magic.UTestFeatherAction;
 import org.worldgrower.actions.magic.UTestFireBoltAttackAction;
@@ -634,7 +635,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestWeaverProfession.class,
 	UTestWizardProfession.class,
 	UTestWeaveryGoal.class,
-	UTestBuildWeaveryAction.class
+	UTestBuildWeaveryAction.class,
+	UTestEntangleAction.class
 })
 public class CompleteTestSuite {
 }

@@ -23,6 +23,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.IdList;
+import org.worldgrower.personality.Personality;
+import org.worldgrower.personality.PersonalityTrait;
 import org.worldgrower.profession.Professions;
 
 public class UTestHera {
@@ -59,4 +61,17 @@ public class UTestHera {
 		performer.setProperty(Constants.MATE_ID, null);
 		assertEquals(1, deity.getReasonIndex(performer, world));
 	}
+	
+	@Test
+	public void testGetOrganizationGoalIndex() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(2);
+		performer.setProperty(Constants.PERSONALITY, new Personality());
+		
+		assertEquals(-1, deity.getOrganizationGoalIndex(performer, world));
+		
+		performer.getProperty(Constants.PERSONALITY).changeValue(PersonalityTrait.POWER_HUNGRY, 1000, "");
+		assertEquals(1, deity.getOrganizationGoalIndex(performer, world));
+	}
+	
 }

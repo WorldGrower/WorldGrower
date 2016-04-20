@@ -35,6 +35,8 @@ public class DrinkFromInventoryAction extends InventoryAction {
 		WaterPropertyUtils.drink(performer, waterTarget, world);
 		
 		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.WATER, 1);
+		
+		world.logAction(this, performer, target, args, null);
 	}
 
 	@Override

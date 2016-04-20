@@ -400,6 +400,7 @@ public class ImageInfoReader {
 		add(ImageIds.SLEEPING_POTION, sprites420.getSubImage(1, 2, 1, 1));
 		add(ImageIds.FEAR_INDICATOR, sprites420.getSubImage(3, 26, 1, 1));
 		add(ImageIds.WEAVERY, clothingShop.getSubImage(2, 1, 1, 1));
+		add(ImageIds.ENTANGLED_INDICATOR, tora_vx_02.getSubImage(0, 1, 1, 1));
     }
 
     private void resizeSmallFlowers() {

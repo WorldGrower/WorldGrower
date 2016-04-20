@@ -416,6 +416,8 @@ public class WorldPanel extends JPanel {
     		return ImageIds.INTOXICATED_CONDITION;
     	} else if (hasCondition(worldObject, Condition.FEAR_CONDITION)) {
     		return ImageIds.FEAR_INDICATOR;
+    	} else if (hasCondition(worldObject, Condition.ENTANGLED_CONDITION)) {
+    		return ImageIds.ENTANGLED_INDICATOR;
     	} else {
     		return null;
     	}

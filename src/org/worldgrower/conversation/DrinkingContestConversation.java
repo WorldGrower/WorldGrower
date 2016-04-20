@@ -37,13 +37,14 @@ public class DrinkingContestConversation implements Conversation {
 	public Response getReplyPhrase(ConversationContext conversationContext) {
 		final int replyId;
 		
+		WorldObject performer = conversationContext.getPerformer();
 		WorldObject target = conversationContext.getTarget();
 		World world = conversationContext.getWorld();
 		int drinkingStakeGold = conversationContext.getAdditionalValue();
 
 		if (target.getProperty(Constants.GOLD) < drinkingStakeGold) {
 			replyId = NOT_ENOUGH_GOLD;
-		} else if (GoalUtils.currentGoalHasLowerPriorityThan(Goals.REST_GOAL, target, world)) {
+		} else if (GoalUtils.currentGoalHasLowerPriorityThan(Goals.REST_GOAL, target, world) || target.getProperty(Constants.RELATIONSHIPS).getValue(performer) > 50) {
 			replyId = YES;
 		} else {
 			replyId = LATER;

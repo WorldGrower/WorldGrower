@@ -25,6 +25,8 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.creaturetype.CreatureType;
+import org.worldgrower.personality.Personality;
+import org.worldgrower.personality.PersonalityTrait;
 
 public class UTestDionysus {
 
@@ -56,5 +58,17 @@ public class UTestDionysus {
 		deity.onTurn(world, new WorldStateChangedListeners());
 		
 		assertEquals(CreatureType.UNDEAD_CREATURE_TYPE, performer.getProperty(Constants.CREATURE_TYPE));
+	}
+	
+	@Test
+	public void testGetOrganizationGoalIndex() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(2);
+		performer.setProperty(Constants.PERSONALITY, new Personality());
+		
+		assertEquals(0, deity.getOrganizationGoalIndex(performer, world));
+		
+		performer.getProperty(Constants.PERSONALITY).changeValue(PersonalityTrait.HONORABLE, 1000, "");
+		assertEquals(1, deity.getOrganizationGoalIndex(performer, world));
 	}
 }

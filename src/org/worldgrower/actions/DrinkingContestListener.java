@@ -33,7 +33,7 @@ public class DrinkingContestListener implements ManagedOperationListener {
 	public void actionPerformed(ManagedOperation managedOperation, WorldObject performer, WorldObject target, int[] args, Object value) {
 		if (DrinkingContestPropertyUtils.isDrinking(performer) && DrinkingContestPropertyUtils.isDrinking(target) && managedOperation == Actions.DRINK_FROM_INVENTORY_ACTION) {
 			if (performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.INTOXICATED_CONDITION)) {
-				performerWonDrinkingContest(performer, target);
+				performerWonDrinkingContest(target, performer);
 			}
 		} else if (DrinkingContestPropertyUtils.isDrinking(performer) && DrinkingContestPropertyUtils.isDrinking(target) && actionViolatesDrinkingContest(managedOperation, args)) {
 			performerWonDrinkingContest(target, performer);
