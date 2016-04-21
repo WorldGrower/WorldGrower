@@ -18,6 +18,8 @@ import java.io.ObjectStreamException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,6 +29,7 @@ import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.profession.Profession;
 
 /**
  * A Deity is an entity which can be worshiped and has represents aspects of reality.
@@ -73,6 +76,19 @@ public interface Deity extends Serializable {
 
 	public static List<String> getAllDeityNames() {
 		return ALL_DEITIES.stream().map(deity -> deity.getName()).collect(Collectors.toList());
+	}
+	
+	public static List<Deity> getAllSortedDeities() {
+		List<Deity> sortedDeities = new ArrayList<>(ALL_DEITIES);
+		Collections.sort(sortedDeities, new Comparator<Deity>() {
+
+			@Override
+			public int compare(Deity deity1, Deity deity2) {
+				return deity1.getName().compareTo(deity2.getName());
+			}
+			
+		});
+		return sortedDeities;
 	}
 	
 	//For now, default implementation

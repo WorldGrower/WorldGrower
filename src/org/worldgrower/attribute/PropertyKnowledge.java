@@ -17,6 +17,7 @@ package org.worldgrower.attribute;
 import java.io.Serializable;
 import java.util.function.Function;
 
+import org.worldgrower.Constants;
 import org.worldgrower.GoalCalculator;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
@@ -122,7 +123,9 @@ public class PropertyKnowledge implements Serializable, Knowledge {
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		if (performer.isControlledByAI()) {
+		if (managedProperty == Constants.PROFESSION || managedProperty == Constants.DEITY) {
+			return Integer.MIN_VALUE;
+		} else if (performer.isControlledByAI()) {
 			WorldObject copyOfPerformer = performer.deepCopy();
 			copyOfPerformer.setProperty((ManagedProperty<Object>)managedProperty, value);
 			GoalCalculator goalCalculator = new GoalCalculator();

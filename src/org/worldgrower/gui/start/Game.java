@@ -23,7 +23,6 @@ import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import javax.swing.ToolTipManager;
 
-import org.worldgrower.Args;
 import org.worldgrower.CommonerNameGenerator;
 import org.worldgrower.CommonerNameGeneratorImpl;
 import org.worldgrower.Constants;
@@ -33,7 +32,6 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldOnTurnImpl;
-import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.ArenaFightOnTurn;
 import org.worldgrower.actions.BrawlListener;
 import org.worldgrower.actions.DrinkingContestListener;
@@ -191,7 +189,7 @@ public class Game {
 	}
 
 	private static void createAndShowGUIInvokeLater(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, boolean playBackgroundMusic, ImageInfoReader imageInfoReader, String initialStatusMessage, AdditionalManagedOperationListenerFactory additionalManagedOperationListenerFactory, KeyBindings keyBindings) {
-		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+		SwingUtilities.invokeLater(new Runnable() {
 			@Override
             public void run() {
                 try {

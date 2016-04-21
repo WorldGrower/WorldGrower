@@ -92,6 +92,7 @@ public class UTestImmediateGoalConversation {
 		assertReplyPhrase("I'm weaving cotton boots because I'm looking to weave clothes", Goals.WEAVE_CLOTHES_GOAL, Actions.WEAVE_COTTON_BOOTS_ACTION);
 		assertReplyPhrase("I'm creating paper because I'm looking to have paper", Goals.CREATE_PAPER_GOAL, Actions.CREATE_PAPER_ACTION);
 		assertReplyPhrase("I'm stealing from targetName because I'm in need of gold", Goals.STEAL_GOAL, Actions.STEAL_ACTION);
+		assertReplyPhrase("I'm talking because I'm interested in hearing what you have to say", Goals.STAND_STILL_TO_TALK_GOAL, Actions.STAND_STILL_TO_TALK_ACTION);
 	}
 	
 	private void assertReplyPhrase(String replyPhrase, Goal goal, ManagedOperation action) {

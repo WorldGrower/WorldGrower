@@ -88,7 +88,9 @@ public class OrganizationConversation implements Conversation {
 				int organizationId = organizations.getIds().get(i);
 				WorldObject organization = world.findWorldObject(Constants.ID, organizationId);
 				organizationsBuilder.append("the ").append(organization.getProperty(Constants.NAME));
-				if (i < organizations.getIds().size() - 1) {
+				if (i == organizations.getIds().size() - 2) {
+					organizationsBuilder.append(" and ");
+				} else if (i < organizations.getIds().size() - 1) {
 					organizationsBuilder.append(", ");
 				}
 			}

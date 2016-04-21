@@ -28,7 +28,6 @@ import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdRelationshipMap;
 import org.worldgrower.attribute.KnowledgeMap;
 import org.worldgrower.deity.Deity;
-import org.worldgrower.profession.Professions;
 
 public class UTestDeityFollowersConversation {
 
@@ -40,7 +39,7 @@ public class UTestDeityFollowersConversation {
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		
-		int indexOfDeity = Deity.ALL_DEITIES.indexOf(Deity.HADES);
+		int indexOfDeity = getIndexOfHades();
 		ConversationContext context = new ConversationContext(performer, target, null, null, world, indexOfDeity);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
 		assertEquals(true, replyPhrases.size() == 2);
@@ -63,6 +62,10 @@ public class UTestDeityFollowersConversation {
 
 	}
 
+	private int getIndexOfHades() {
+		return Deity.getAllSortedDeities().indexOf(Deity.HADES);
+	}
+
 	@Test
 	public void testGetReplyPhrasesTargetHasDeity() {
 		World world = new WorldImpl(0, 0, null, null);
@@ -70,7 +73,7 @@ public class UTestDeityFollowersConversation {
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		target.setProperty(Constants.DEITY, Deity.HADES);
 		
-		int indexOfDeity = Deity.ALL_DEITIES.indexOf(Deity.HADES);
+		int indexOfDeity = getIndexOfHades();
 		ConversationContext context = new ConversationContext(performer, target, null, null, world, indexOfDeity);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
 		assertEquals(2, replyPhrases.size());
@@ -83,7 +86,7 @@ public class UTestDeityFollowersConversation {
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		
-		int indexOfDeity = Deity.ALL_DEITIES.indexOf(Deity.HADES);
+		int indexOfDeity = getIndexOfHades();
 		ConversationContext context = new ConversationContext(performer, target, null, null, world, indexOfDeity);
 		assertEquals(1, conversation.getReplyPhrase(context).getId());
 		
@@ -101,7 +104,7 @@ public class UTestDeityFollowersConversation {
 		
 		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, null, null);
 		assertEquals(true, questions.size() > 0);
-		assertEquals("Do you know any people who worship Demeter?", questions.get(0).getQuestionPhrase());
+		assertEquals("Do you know any people who worship Aphrodite?", questions.get(0).getQuestionPhrase());
 	}
 	
 	@Test

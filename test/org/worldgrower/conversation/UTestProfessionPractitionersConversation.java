@@ -39,7 +39,7 @@ public class UTestProfessionPractitionersConversation {
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		
-		int indexOfProfession = Professions.indexOf(Professions.FISHER_PROFESSION);
+		int indexOfProfession = getFisherIndex();
 		ConversationContext context = new ConversationContext(performer, target, null, null, world, indexOfProfession);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
 		assertEquals(2, replyPhrases.size());
@@ -60,6 +60,10 @@ public class UTestProfessionPractitionersConversation {
 		replyPhrases = conversation.getReplyPhrases(context);
 		assertEquals("I know that subject, subject2 are fishers", replyPhrases.get(0).getResponsePhrase());
 	}
+
+	private int getFisherIndex() {
+		return Professions.getAllSortedProfessions().indexOf(Professions.FISHER_PROFESSION);
+	}
 	
 	@Test
 	public void testGetReplyPhrasesTargetHasProfession() {
@@ -68,7 +72,7 @@ public class UTestProfessionPractitionersConversation {
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		target.setProperty(Constants.PROFESSION, Professions.FISHER_PROFESSION);
 		
-		int indexOfProfession = Professions.indexOf(Professions.FISHER_PROFESSION);
+		int indexOfProfession = getFisherIndex();
 		ConversationContext context = new ConversationContext(performer, target, null, null, world, indexOfProfession);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
 		assertEquals(2, replyPhrases.size());
@@ -81,7 +85,7 @@ public class UTestProfessionPractitionersConversation {
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		
-		int indexOfProfession = Professions.indexOf(Professions.FISHER_PROFESSION);
+		int indexOfProfession = getFisherIndex();
 		ConversationContext context = new ConversationContext(performer, target, null, null, world, indexOfProfession);
 		assertEquals(1, conversation.getReplyPhrase(context).getId());
 		
@@ -99,7 +103,7 @@ public class UTestProfessionPractitionersConversation {
 		
 		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, null, null);
 		assertEquals(true, questions.size() > 0);
-		assertEquals("Do you know any people who are farmers?", questions.get(0).getQuestionPhrase());
+		assertEquals("Do you know any people who are alchemists?", questions.get(0).getQuestionPhrase());
 	}
 	
 	@Test

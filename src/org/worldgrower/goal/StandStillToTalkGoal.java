@@ -87,7 +87,7 @@ public class StandStillToTalkGoal implements Goal {
 
 	@Override
 	public String getDescription() {
-		return "talking with someone";
+		return "interested in hearing what you have to say";
 	}
 
 	@Override

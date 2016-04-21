@@ -15,7 +15,6 @@
 package org.worldgrower.goal;
 
 import org.worldgrower.Constants;
-import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 
 public class PregnancyPropertyUtils {

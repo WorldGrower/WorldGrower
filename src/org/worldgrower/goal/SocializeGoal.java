@@ -15,7 +15,6 @@
 package org.worldgrower.goal;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
@@ -25,9 +24,7 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.IdMap;
 import org.worldgrower.attribute.Knowledge;
 import org.worldgrower.attribute.KnowledgeMap;
-import org.worldgrower.conversation.Conversation;
 import org.worldgrower.conversation.Conversations;
-import org.worldgrower.history.HistoryItem;
 
 public class SocializeGoal implements Goal {
 

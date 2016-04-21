@@ -15,6 +15,8 @@
 package org.worldgrower.profession;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,6 +51,19 @@ public class Professions {
 	
 	public static List<Profession> getAllProfessions() {
 		return ALL_PROFESSIONS;
+	}
+	
+	public static List<Profession> getAllSortedProfessions() {
+		List<Profession> sortedProfessions = new ArrayList<>(ALL_PROFESSIONS);
+		Collections.sort(sortedProfessions, new Comparator<Profession>() {
+
+			@Override
+			public int compare(Profession profession1, Profession profession2) {
+				return profession1.getDescription().compareTo(profession2.getDescription());
+			}
+			
+		});
+		return sortedProfessions;
 	}
 
 	public static Profession getProfessionByDescription(String professionName) {

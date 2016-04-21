@@ -36,7 +36,7 @@ public class DeityFollowersConversation implements Conversation {
 		WorldObject performer = conversationContext.getPerformer();
 		WorldObject target = conversationContext.getTarget();
 		int relationshipValue = target.getProperty(Constants.RELATIONSHIPS).getValue(performer);
-		Deity deity = Deity.ALL_DEITIES.get(conversationContext.getAdditionalValue());
+		Deity deity = Deity.getAllSortedDeities().get(conversationContext.getAdditionalValue());
 		boolean targetHasDeity = (target.getProperty(Constants.DEITY) == deity);
 		boolean hasOtherFollowers = getFollowersForDeity(conversationContext).size() > 0;
 		boolean replyYes = targetHasDeity || hasOtherFollowers;
@@ -53,15 +53,15 @@ public class DeityFollowersConversation implements Conversation {
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		List<Question> questions = new ArrayList<>();
-		for(Deity deity : Deity.ALL_DEITIES) {
-			questions.add(new Question(null, "Do you know any people who worship " + deity.getName() + "?", Deity.ALL_DEITIES.indexOf(deity)));
+		for(Deity deity : Deity.getAllSortedDeities()) {
+			questions.add(new Question(null, "Do you know any people who worship " + deity.getName() + "?", Deity.getAllSortedDeities().indexOf(deity)));
 		}
 		return questions;
 	}
 	
 	private List<WorldObject> getFollowersForDeity(ConversationContext conversationContext) {
 		WorldObject target = conversationContext.getTarget();
-		Deity deity = Deity.ALL_DEITIES.get(conversationContext.getAdditionalValue());
+		Deity deity = Deity.getAllSortedDeities().get(conversationContext.getAdditionalValue());
 		World world = conversationContext.getWorld();
 		return target.getProperty(Constants.KNOWLEDGE_MAP).findWorldObjects(Constants.DEITY, deity, world);
 	}
@@ -77,7 +77,7 @@ public class DeityFollowersConversation implements Conversation {
 	private String getFollowersDescription(ConversationContext conversationContext) {
 		WorldObject target = conversationContext.getTarget();
 		List<WorldObject> followersForDeity = getFollowersForDeity(conversationContext);
-		Deity deity = Deity.ALL_DEITIES.get(conversationContext.getAdditionalValue());
+		Deity deity = Deity.getAllSortedDeities().get(conversationContext.getAdditionalValue());
 		
 		if (target.getProperty(Constants.DEITY) == deity) {
 			return "I follow " + deity.getName();

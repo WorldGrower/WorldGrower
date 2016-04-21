@@ -20,17 +20,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
+import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.MockCommonerNameGenerator;
 import org.worldgrower.attribute.EventKnowledge;
 import org.worldgrower.attribute.Knowledge;
 import org.worldgrower.attribute.PropertyKnowledge;
+import org.worldgrower.deity.Deity;
 import org.worldgrower.generator.CommonerGenerator;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.gui.CommonerImageIds;
+import org.worldgrower.history.Turn;
+import org.worldgrower.profession.Professions;
 
 public class UTestKnowledgeSorter {
 
@@ -54,6 +60,28 @@ public class UTestKnowledgeSorter {
 		assertEquals(EventKnowledge.class, knowledgeList.get(1).getClass());
 		assertEquals(PropertyKnowledge.class, knowledgeList.get(2).getClass());
 		assertEquals(PropertyKnowledge.class, knowledgeList.get(3).getClass());
+	}
+	
+	@Test
+	public void testSortProfessionAndDeity() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		WorldObject performer = createCommoner(world, organization);
+		
+		world.getHistory().actionPerformed(new OperationInfo(performer, performer, Args.EMPTY, Actions.EAT_ACTION), new Turn());
+		
+		List<Knowledge> knowledgeList = new ArrayList<>();
+		knowledgeList.add(new PropertyKnowledge(0, Constants.PROFESSION, Professions.FARMER_PROFESSION));
+		knowledgeList.add(new EventKnowledge(0, world));
+		knowledgeList.add(new PropertyKnowledge(0, Constants.DEITY, Deity.ARES));
+		knowledgeList.add(new EventKnowledge(0, world));
+		
+		new KnowledgeSorter().sort(performer, knowledgeList, world);
+		assertEquals(4, knowledgeList.size());
+		assertEquals(PropertyKnowledge.class, knowledgeList.get(0).getClass());
+		assertEquals(PropertyKnowledge.class, knowledgeList.get(1).getClass());
+		assertEquals(EventKnowledge.class, knowledgeList.get(2).getClass());
+		assertEquals(EventKnowledge.class, knowledgeList.get(3).getClass());
 	}
 	
 	private WorldObject createCommoner(World world, WorldObject organization) {

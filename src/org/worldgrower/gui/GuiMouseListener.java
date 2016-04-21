@@ -228,10 +228,9 @@ public class GuiMouseListener extends MouseAdapter {
             		addResearchActions(menu, worldObject);
             		addRestActions(menu, worldObject);
             	}
-            	addAllActions(menu, worldObject);
-            	
             	addPropertiesMenu(menu, worldObject);
             	addPerformedActionsMenu(menu, worldObject);
+            	addAllActions(menu, worldObject);
             	
             	menu.show(e.getComponent(), e.getX(), e.getY());
             }

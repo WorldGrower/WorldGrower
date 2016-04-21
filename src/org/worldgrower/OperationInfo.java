@@ -61,15 +61,32 @@ public class OperationInfo implements Serializable {
 	}
 	
 	public void perform(World world) {
-		GoalChangedCalculator goalChangedCalculator = new GoalChangedCalculator(new DefaultGoalObstructedHandler());
-		goalChangedCalculator.recordStartState(performer, target, world);
+		boolean actionCanAngerOthers = actionCanAngerOthers();
 		
+		GoalChangedCalculator goalChangedCalculator = new GoalChangedCalculator(new DefaultGoalObstructedHandler());
+		if (actionCanAngerOthers) {
+			goalChangedCalculator.recordStartState(performer, target, world);
+		}
+		
+		performImpl(world);
+		
+		if (actionCanAngerOthers) {
+			goalChangedCalculator.recordEndState(performer, target, managedOperation, args, world);
+		}
+	}
+
+	private void performImpl(World world) {
 		managedOperation.execute(performer, target, args, world);
 		HistoryItem historyItem = world.getHistory().actionPerformed(this, world.getCurrentTurn());
 		
 		removeDeadWorldObjects(world);
-		
-		goalChangedCalculator.recordEndState(performer, target, managedOperation, args, world);
+	}
+	
+	private boolean actionCanAngerOthers() {
+		return managedOperation != Actions.DO_NOTHING_ACTION
+				&& managedOperation != Actions.REST_ACTION
+				&& managedOperation != Actions.SLEEP_ACTION
+				&& managedOperation != Actions.MOVE_ACTION;
 	}
 	
 	static void removeDeadWorldObjects(World world) {

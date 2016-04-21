@@ -37,7 +37,7 @@ public class ProfessionPractitionersConversation implements Conversation {
 		WorldObject performer = conversationContext.getPerformer();
 		WorldObject target = conversationContext.getTarget();
 		int relationshipValue = target.getProperty(Constants.RELATIONSHIPS).getValue(performer);
-		Profession profession = Professions.getAllProfessions().get(conversationContext.getAdditionalValue());
+		Profession profession = Professions.getAllSortedProfessions().get(conversationContext.getAdditionalValue());
 		boolean targetHasProfession = (target.getProperty(Constants.PROFESSION) == profession);
 		boolean hasOtherPractitioners = getProfessionPractitioners(conversationContext).size() > 0;
 		boolean replyYes = targetHasProfession || hasOtherPractitioners;
@@ -54,8 +54,8 @@ public class ProfessionPractitionersConversation implements Conversation {
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		List<Question> questions = new ArrayList<>();
-		for(Profession profession : Professions.getAllProfessions()) {
-			questions.add(new Question(null, "Do you know any people who are " + profession.getDescription() + "s?", Professions.getAllProfessions().indexOf(profession)));
+		for(Profession profession : Professions.getAllSortedProfessions()) {
+			questions.add(new Question(null, "Do you know any people who are " + profession.getDescription() + "s?", Professions.getAllSortedProfessions().indexOf(profession)));
 		}
 		return questions;
 	}
@@ -64,7 +64,7 @@ public class ProfessionPractitionersConversation implements Conversation {
 		WorldObject target = conversationContext.getTarget();
 		World world = conversationContext.getWorld();
 		
-		Profession profession = Professions.getAllProfessions().get(conversationContext.getAdditionalValue());
+		Profession profession = Professions.getAllSortedProfessions().get(conversationContext.getAdditionalValue());
 		return target.getProperty(Constants.KNOWLEDGE_MAP).findWorldObjects(Constants.PROFESSION, profession, world);
 	}
 	
@@ -79,7 +79,7 @@ public class ProfessionPractitionersConversation implements Conversation {
 	private String getProfessionPractitionersDescription(ConversationContext conversationContext) {
 		WorldObject target = conversationContext.getTarget();
 		List<WorldObject> professionPractitioners = getProfessionPractitioners(conversationContext);
-		Profession profession = Professions.getAllProfessions().get(conversationContext.getAdditionalValue());
+		Profession profession = Professions.getAllSortedProfessions().get(conversationContext.getAdditionalValue());
 
 		if (target.getProperty(Constants.PROFESSION) == profession) {
 			return "I'm a " + profession.getDescription();

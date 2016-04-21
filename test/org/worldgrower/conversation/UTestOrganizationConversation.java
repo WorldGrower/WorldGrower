@@ -58,7 +58,12 @@ public class UTestOrganizationConversation {
 		WorldObject organization2 = GroupPropertyUtils.createReligionOrganization(null, "Cult of Hades", Deity.HADES, Goals.DESTROY_SHRINES_TO_OTHER_DEITIES_GOAL, world);
 		target.getProperty(Constants.GROUP).add(organization2);
 		replyPhrases = conversation.getReplyPhrases(context);
-		assertEquals("I belong to the Alliance of Farmers, the Cult of Hades", replyPhrases.get(0).getResponsePhrase());
+		assertEquals("I belong to the Alliance of Farmers and the Cult of Hades", replyPhrases.get(0).getResponsePhrase());
+		
+		WorldObject organization3 = GroupPropertyUtils.createReligionOrganization(null, "Friends of Ares", Deity.ARES, Goals.DESTROY_SHRINES_TO_OTHER_DEITIES_GOAL, world);
+		target.getProperty(Constants.GROUP).add(organization3);
+		replyPhrases = conversation.getReplyPhrases(context);
+		assertEquals("I belong to the Alliance of Farmers, the Cult of Hades and the Friends of Ares", replyPhrases.get(0).getResponsePhrase());
 	}
 
 
