@@ -20,7 +20,6 @@ import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.actions.Actions;
 import org.worldgrower.generator.Item;
 
 public class PaperGoal implements Goal {

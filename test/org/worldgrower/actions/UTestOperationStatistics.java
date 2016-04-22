@@ -25,7 +25,9 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.Item;
 import org.worldgrower.history.Turn;
+import org.worldgrower.profession.Professions;
 
 public class UTestOperationStatistics {
 
@@ -38,6 +40,27 @@ public class UTestOperationStatistics {
 		world.getHistory().actionPerformed(new OperationInfo(performer, target, Args.EMPTY, Actions.MELEE_ATTACK_ACTION), new Turn());
 		
 		assertEquals(1, OperationStatistics.getRecentOperationsCount(Actions.MELEE_ATTACK_ACTION, world));
+	}
+	
+	@Test
+	public void testGetPrice() {
+		World world = new WorldImpl(0, 0, null, null);
+		
+		assertEquals(1, OperationStatistics.getPrice(Item.BERRIES, world));
+		
+		WorldObject performer = createPerformer(2);
+		performer.setProperty(Constants.PROFESSION, Professions.FARMER_PROFESSION);
+		performer.getProperty(Constants.PRICES).setPrice(Item.BERRIES, 10);
+		world.addWorldObject(performer);
+		
+		assertEquals(10, OperationStatistics.getPrice(Item.BERRIES, world));
+		
+		WorldObject target = createPerformer(3);
+		target.setProperty(Constants.PROFESSION, Professions.FARMER_PROFESSION);
+		target.getProperty(Constants.PRICES).setPrice(Item.BERRIES, 20);
+		world.addWorldObject(target);
+		
+		assertEquals(15, OperationStatistics.getPrice(Item.BERRIES, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

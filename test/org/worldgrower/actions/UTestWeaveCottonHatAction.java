@@ -24,6 +24,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.generator.Item;
 
 public class UTestWeaveCottonHatAction {
 
@@ -34,5 +36,31 @@ public class UTestWeaveCottonHatAction {
 		Actions.WEAVE_COTTON_HAT_ACTION.execute(performer, performer, Args.EMPTY, world);
 		
 		assertEquals(1, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.ARMOR));
+	}
+	
+	@Test
+	public void testIsValidTarget() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
+
+		int weaveryId = BuildingGenerator.generateWeavery(0, 0, world);
+		WorldObject target = world.findWorldObject(Constants.ID, weaveryId);
+		
+		assertEquals(false, Actions.WEAVE_COTTON_HAT_ACTION.isValidTarget(performer, performer, world));
+		assertEquals(true, Actions.WEAVE_COTTON_HAT_ACTION.isValidTarget(performer, target, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.COTTON.generate(1f), 20);
+		performer.setProperty(Constants.X, 0);
+		performer.setProperty(Constants.Y, 0);
+
+		int weaveryId = BuildingGenerator.generateWeavery(0, 0, world);
+		WorldObject target = world.findWorldObject(Constants.ID, weaveryId);
+		
+		assertEquals(0, Actions.WEAVE_COTTON_HAT_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 }
