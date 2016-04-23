@@ -401,6 +401,7 @@ public class ImageInfoReader {
 		add(ImageIds.FEAR_INDICATOR, sprites420.getSubImage(3, 26, 1, 1));
 		add(ImageIds.WEAVERY, clothingShop.getSubImage(2, 1, 1, 1));
 		add(ImageIds.ENTANGLED_INDICATOR, tora_vx_02.getSubImage(0, 1, 1, 1));
+		add(ImageIds.WORKBENCH, tileE.getSubImage(8, 14, 1, 1));
     }
 
     private void resizeSmallFlowers() {

@@ -230,6 +230,7 @@ public class Actions {
 	public static final ClaimHouseAction CLAIM_HOUSE_ACTION = new ClaimHouseAction();
 	public static final StandStillToTalkAction STAND_STILL_TO_TALK_ACTION = new StandStillToTalkAction();
 	public static final BuildWeaveryAction BUILD_WEAVERY_ACTION = new BuildWeaveryAction();
+	public static final BuildWorkbenchAction BUILD_WORKBENCH_ACTION = new BuildWorkbenchAction();
 	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 
@@ -396,7 +397,8 @@ public class Actions {
 		SLEEPING_POISON_ACTION,
 		CLAIM_HOUSE_ACTION,
 		STAND_STILL_TO_TALK_ACTION,
-		BUILD_WEAVERY_ACTION
+		BUILD_WEAVERY_ACTION,
+		BUILD_WORKBENCH_ACTION
 	));
 	
 	static {

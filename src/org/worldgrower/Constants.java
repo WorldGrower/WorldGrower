@@ -125,10 +125,12 @@ public class Constants {
 	public static final IntProperty WOOD = new IntProperty("wood", 0, 50, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IdListProperty HOUSES = new IdListProperty("houses", ALL_PROPERTIES);
 	public static final IdProperty SMITH_ID = new IdProperty("smithId", ALL_PROPERTIES);
+	public static final IdProperty WORKBENCH_ID = new IdProperty("workbenchId", ALL_PROPERTIES);
 	public static final IntProperty ENERGY = new IntProperty("energy", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty PAPER_MILL_QUALITY = new IntProperty("paperMillQuality", 0, 50, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IdProperty PAPER_MILL_ID = new IdProperty("paperMillId", ALL_PROPERTIES);
 	public static final IntProperty LIBRARY_QUALITY = new IntProperty("libraryQuality", 0, 50, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty WORKBENCH_QUALITY = new IntProperty("workbenchQuality", 0, 50, NOT_NULLABLE, ALL_PROPERTIES);
 	
 	public static final IntProperty DAMAGE = new IntProperty("damage", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty RANGE = new IntProperty("range", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
