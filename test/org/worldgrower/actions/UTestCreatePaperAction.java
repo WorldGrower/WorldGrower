@@ -24,6 +24,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
 
 public class UTestCreatePaperAction {
@@ -47,8 +48,12 @@ public class UTestCreatePaperAction {
 	public void testIsValidTarget() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
+		
+		int paperMillId = BuildingGenerator.generatePaperMill(0, 0, world);
+		WorldObject target = world.findWorldObject(Constants.ID, paperMillId);
 
-		assertEquals(true, Actions.CREATE_PAPER_ACTION.isValidTarget(performer, performer, world));
+		assertEquals(false, Actions.CREATE_PAPER_ACTION.isValidTarget(performer, performer, world));
+		assertEquals(true, Actions.CREATE_PAPER_ACTION.isValidTarget(performer, target, world));
 	}
 
 	@Test

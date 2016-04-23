@@ -248,7 +248,6 @@ public class GuiMouseListener extends MouseAdapter {
 		
 		addPropertiesMenu(menu, playerCharacter);
 		addBuildActions(menu);
-		addCraftActions(menu);
 		addBrewActions(menu);
 		addPlantActions(menu);
 		addIllusionActions(menu);
@@ -508,13 +507,6 @@ public class GuiMouseListener extends MouseAdapter {
 		}
 		buildMenuItem.setToolTipText(buildAction.getRequirementsDescription());
 		addImageIcon(buildAction, buildMenuItem);
-	}
-	
-	private void addCraftActions(JPopupMenu menu) {
-		CraftAction[] craftActions = { Actions.CREATE_PAPER_ACTION };
-		JMenu parentMenu = addActions(menu, "Craft", craftActions);
-		
-		addNewsPaperAction(parentMenu);
 	}
 	
 	private void addNewsPaperAction(JMenu menu) {

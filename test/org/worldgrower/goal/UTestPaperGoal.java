@@ -73,12 +73,26 @@ public class UTestPaperGoal {
 	}
 	
 	@Test
+	public void testCalculateGoalCreatePaperMill() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer();
+		
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WATER.generate(1f), 20);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
+		
+		assertEquals(Actions.BUILD_PAPER_MILL_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+	@Test
 	public void testCalculateGoalCreatePaper() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
 		
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WATER.generate(1f), 20);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
+		
+		int paperMillId = BuildingGenerator.generatePaperMill(0, 0, world);
+		performer.setProperty(Constants.PAPER_MILL_ID, paperMillId);
 		
 		assertEquals(Actions.CREATE_PAPER_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}

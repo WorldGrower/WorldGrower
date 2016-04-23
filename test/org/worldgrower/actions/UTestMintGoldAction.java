@@ -24,6 +24,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
 
 public class UTestMintGoldAction {
@@ -45,10 +46,12 @@ public class UTestMintGoldAction {
 	public void testIsValidTarget() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = createPerformer(2);
-		WorldObject target = createPerformer(3);
+		
+		int smithId = BuildingGenerator.generateSmith(0, 0, world);
+		WorldObject target = world.findWorldObject(Constants.ID, smithId);
 
-		assertEquals(true, Actions.MINT_GOLD_ACTION.isValidTarget(performer, performer, world));
-		assertEquals(false, Actions.MINT_GOLD_ACTION.isValidTarget(performer, target, world));
+		assertEquals(false, Actions.MINT_GOLD_ACTION.isValidTarget(performer, performer, world));
+		assertEquals(true, Actions.MINT_GOLD_ACTION.isValidTarget(performer, target, world));
 	}
 
 	@Test

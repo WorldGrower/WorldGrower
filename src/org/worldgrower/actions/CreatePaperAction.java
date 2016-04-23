@@ -56,7 +56,7 @@ public class CreatePaperAction implements CraftAction {
 
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return CraftUtils.isValidTarget(performer, target, world);
+		return target.hasProperty(Constants.PAPER_MILL_QUALITY);
 	}
 	
 	@Override

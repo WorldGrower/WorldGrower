@@ -37,8 +37,13 @@ public class CreatePaperGoal implements Goal {
 		if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) == 0) {
 			return Goals.WOOD_GOAL.calculateGoal(performer, world);
 		}
+		Integer paperMillId = performer.getProperty(Constants.PAPER_MILL_ID);
+		if (paperMillId == null) {
+			return Goals.PAPER_MILL_GOAL.calculateGoal(performer, world);
+		}
 
-		return new OperationInfo(performer, performer, Args.EMPTY, Actions.CREATE_PAPER_ACTION);
+		WorldObject paperMill = world.findWorldObject(Constants.ID, paperMillId);
+		return new OperationInfo(performer, paperMill, Args.EMPTY, Actions.CREATE_PAPER_ACTION);
 	}
 	
 	@Override
