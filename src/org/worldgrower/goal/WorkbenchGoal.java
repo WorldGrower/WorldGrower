@@ -22,22 +22,22 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.actions.BuildWeaveryAction;
+import org.worldgrower.actions.BuildWorkbenchAction;
 
-public class WeaveryGoal implements Goal {
+public class WorkbenchGoal implements Goal {
 
-	public WeaveryGoal(List<Goal> allGoals) {
+	public WorkbenchGoal(List<Goal> allGoals) {
 		allGoals.add(this);
 	}
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		if (!BuildWeaveryAction.hasEnoughWood(performer)) {
-			return Goals.WOOD_GOAL.calculateGoal(performer, world);
+		if (!BuildWorkbenchAction.hasEnoughStone(performer)) {
+			return Goals.STONE_GOAL.calculateGoal(performer, world);
 		} else {
-			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 3, 3, world);
+			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 2, 2, world);
 			if (target != null) {
-				return new OperationInfo(performer, target, Args.EMPTY, Actions.BUILD_WEAVERY_ACTION);
+				return new OperationInfo(performer, target, Args.EMPTY, Actions.BUILD_WORKBENCH_ACTION);
 			} else {
 				return null;
 			}
@@ -50,10 +50,10 @@ public class WeaveryGoal implements Goal {
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		Integer weaveryId = performer.getProperty(Constants.WEAVERY_ID);
-		if (weaveryId != null) {
-			WorldObject weavery = world.findWorldObject(Constants.ID, weaveryId);
-			return (weavery.getProperty(Constants.WEAVERY_QUALITY) > 0);
+		Integer workbenchId = performer.getProperty(Constants.WORKBENCH_ID);
+		if (workbenchId != null) {
+			WorldObject workbench = world.findWorldObject(Constants.ID, workbenchId);
+			return (workbench.getProperty(Constants.WORKBENCH_QUALITY) > 0);
 		} else {
 			return false;
 		}
@@ -66,11 +66,11 @@ public class WeaveryGoal implements Goal {
 
 	@Override
 	public String getDescription() {
-		return "building a weavery";
+		return "building a workbench";
 	}
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		return (performer.getProperty(Constants.WEAVERY_ID) != null) ? 1 : 0;
+		return (performer.getProperty(Constants.WORKBENCH_ID) != null) ? 1 : 0;
 	}
 }

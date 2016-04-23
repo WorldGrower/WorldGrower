@@ -89,6 +89,6 @@ public class BuildWeaveryAction implements BuildAction {
 	}
 
 	public static boolean hasEnoughWood(WorldObject performer) {
-		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) < REQUIRED_WOOD;
+		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) > REQUIRED_WOOD;
 	}
 }
