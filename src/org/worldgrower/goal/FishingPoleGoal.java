@@ -39,10 +39,16 @@ public class FishingPoleGoal implements Goal {
 		if (targets.size() > 0) {
 			return BuySellUtils.create(performer, targets.get(0), Item.FISHING_POLE, QUANTITY_TO_BUY);
 		} else {
-			if (ConstructFishingPoleAction.hasEnoughWood(performer)) {
-				return new OperationInfo(performer, performer, Args.EMPTY, Actions.CONSTRUCT_FISHING_POLE_ACTION);
+			Integer workbenchId = performer.getProperty(Constants.WORKBENCH_ID);
+			if (workbenchId == null) {
+				return Goals.WORKBENCH_GOAL.calculateGoal(performer, world);
 			} else {
-				return Goals.WOOD_GOAL.calculateGoal(performer, world);
+				if (ConstructFishingPoleAction.hasEnoughWood(performer)) {
+					WorldObject workbench = world.findWorldObject(Constants.ID, workbenchId);
+					return new OperationInfo(performer, workbench, Args.EMPTY, Actions.CONSTRUCT_FISHING_POLE_ACTION);
+				} else {
+					return Goals.WOOD_GOAL.calculateGoal(performer, world);
+				}
 			}
 		}
 	}

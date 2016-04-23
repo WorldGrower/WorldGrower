@@ -33,10 +33,16 @@ public class CreateFurnitureGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		if (!ConstructBedAction.hasEnoughWood(performer)) {
-			return Goals.WOOD_GOAL.calculateGoal(performer, world);
+		Integer workbenchId = performer.getProperty(Constants.WORKBENCH_ID);
+		if (workbenchId == null) {
+			return Goals.WORKBENCH_GOAL.calculateGoal(performer, world);
 		} else {
-			return new OperationInfo(performer, performer, Args.EMPTY, Actions.CONSTRUCT_BED_ACTION);
+			if (!ConstructBedAction.hasEnoughWood(performer)) {
+				return Goals.WOOD_GOAL.calculateGoal(performer, world);
+			} else {
+				WorldObject workbench = world.findWorldObject(Constants.ID, workbenchId);
+				return new OperationInfo(performer, workbench, Args.EMPTY, Actions.CONSTRUCT_BED_ACTION);
+			}
 		}
 	}
 

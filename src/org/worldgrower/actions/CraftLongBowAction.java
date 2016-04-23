@@ -57,7 +57,7 @@ public class CraftLongBowAction implements CraftAction {
 
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return CraftUtils.isValidTarget(performer, target, world);
+		return target.hasProperty(Constants.WORKBENCH_QUALITY);
 	}
 	
 	@Override

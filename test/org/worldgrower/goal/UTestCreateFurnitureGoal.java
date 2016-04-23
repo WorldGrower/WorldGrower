@@ -24,6 +24,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
 import org.worldgrower.generator.PlantGenerator;
 
@@ -46,7 +47,20 @@ public class UTestCreateFurnitureGoal {
 		
 		PlantGenerator.generateTree(5, 5, world);
 		
+		int workbenchId = BuildingGenerator.generateWorkbench(0, 0, world);
+		performer.setProperty(Constants.WORKBENCH_ID, workbenchId);
+		
 		assertEquals(Actions.CUT_WOOD_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+	@Test
+	public void testCalculateGoalBuildWorkbench() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer();
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.STONE.generate(1f), 20);
+		
+		assertEquals(Actions.BUILD_WORKBENCH_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
 	
 	@Test
@@ -54,6 +68,9 @@ public class UTestCreateFurnitureGoal {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
+		
+		int workbenchId = BuildingGenerator.generateWorkbench(0, 0, world);
+		performer.setProperty(Constants.WORKBENCH_ID, workbenchId);
 		
 		assertEquals(Actions.CONSTRUCT_BED_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}

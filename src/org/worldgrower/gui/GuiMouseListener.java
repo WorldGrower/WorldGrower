@@ -511,7 +511,7 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 	
 	private void addCraftActions(JPopupMenu menu) {
-		CraftAction[] craftActions = { Actions.CRAFT_LONG_BOW_ACTION, Actions.MINT_GOLD_ACTION, Actions.CREATE_PAPER_ACTION, Actions.CONSTRUCT_BED_ACTION, Actions.CONSTRUCT_FISHING_POLE_ACTION };
+		CraftAction[] craftActions = { Actions.MINT_GOLD_ACTION, Actions.CREATE_PAPER_ACTION };
 		JMenu parentMenu = addActions(menu, "Craft", craftActions);
 		
 		addNewsPaperAction(parentMenu);

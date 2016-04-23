@@ -52,10 +52,23 @@ public class UTestFurnitureGoal {
 	}
 	
 	@Test
+	public void testCalculateGoalBuildWorkbench() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer();
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.STONE.generate(1f), 20);
+		
+		assertEquals(Actions.BUILD_WORKBENCH_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+	@Test
 	public void testCalculateGoalConstructBed() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
+		
+		int workbenchId = BuildingGenerator.generateWorkbench(0, 0, world);
+		performer.setProperty(Constants.WORKBENCH_ID, workbenchId);
 		
 		assertEquals(Actions.CONSTRUCT_BED_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
