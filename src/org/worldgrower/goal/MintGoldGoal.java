@@ -31,13 +31,17 @@ public class MintGoldGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.GOLD) < 10) {
-			return new GoldGoal().calculateGoal(performer, world);
+		Integer smithId = performer.getProperty(Constants.SMITH_ID);
+		if (smithId == null) {
+			return Goals.SMITH_GOAL.calculateGoal(performer, world);
+		} else if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.GOLD) < 10) {
+			return Goals.GOLD_GOAL.calculateGoal(performer, world);
 		} else {
 			int gold = performer.getProperty(Constants.GOLD);
+			WorldObject smith = world.findWorldObject(Constants.ID, smithId);
 			
 			if (gold < 500){
-				return new OperationInfo(performer, performer, Args.EMPTY, Actions.MINT_GOLD_ACTION);
+				return new OperationInfo(performer, smith, Args.EMPTY, Actions.MINT_GOLD_ACTION);
 			} else {
 				return null;
 			}

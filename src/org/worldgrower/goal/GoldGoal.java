@@ -28,6 +28,10 @@ public class GoldGoal implements Goal {
 
 	private static final int QUANTITY_TO_BUY = 5;
 	
+	public GoldGoal(List<Goal> allGoals) {
+		allGoals.add(this);
+	}
+
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.GOLD, QUANTITY_TO_BUY, world);
