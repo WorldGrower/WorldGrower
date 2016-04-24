@@ -65,9 +65,9 @@ public class MagicOverviewDialog extends JDialog {
 		magicSpellsTable.setAutoCreateRowSorter(true);
 		
 		magicSpellsTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		magicSpellsTable.getColumnModel().getColumn(0).setPreferredWidth(250);
-		magicSpellsTable.getColumnModel().getColumn(1).setPreferredWidth(100);
-		magicSpellsTable.getColumnModel().getColumn(2).setPreferredWidth(150);
+		magicSpellsTable.getColumnModel().getColumn(0).setPreferredWidth(257);
+		magicSpellsTable.getColumnModel().getColumn(1).setPreferredWidth(120);
+		magicSpellsTable.getColumnModel().getColumn(2).setPreferredWidth(110);
 		magicSpellsTable.getColumnModel().getColumn(3).setPreferredWidth(100);
 		
 		
