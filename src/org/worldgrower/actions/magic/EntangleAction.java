@@ -58,7 +58,7 @@ public class EntangleAction implements BuildAction, MagicSpell {
 	
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return MagicSpellUtils.canCast(performer, this);
+		return !target.hasProperty(Constants.ID) && MagicSpellUtils.canCast(performer, this);
 	}
 
 	@Override

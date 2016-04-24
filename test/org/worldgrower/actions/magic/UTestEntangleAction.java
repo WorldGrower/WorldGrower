@@ -72,7 +72,7 @@ public class UTestEntangleAction {
 	public void testIsValidTarget() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = createPerformer(2);
-		WorldObject target = createPerformer(3);
+		WorldObject target = TestUtils.createWorldObject(0, 0, 1, 1);
 		
 		
 		performer.setProperty(Constants.KNOWN_SPELLS, Arrays.asList(Actions.ENTANGLE_ACTION));
