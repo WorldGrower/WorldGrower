@@ -31,6 +31,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
+import javax.swing.JScrollPane;
 import javax.swing.ListCellRenderer;
 import javax.swing.border.EmptyBorder;
 
@@ -40,6 +41,7 @@ import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.UnCheckedProperty;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.condition.Conditions;
 import org.worldgrower.generator.CommonerOnTurn;
 import org.worldgrower.goal.ArmorPropertyUtils;
 import org.worldgrower.goal.MeleeDamagePropertyUtils;
@@ -47,6 +49,7 @@ import org.worldgrower.gui.util.ButtonFactory;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.JComboBoxFactory;
 import org.worldgrower.gui.util.JLabelFactory;
+import org.worldgrower.gui.util.JListFactory;
 import org.worldgrower.gui.util.JProgressBarFactory;
 
 public class CharacterDialog extends JDialog {
@@ -62,6 +65,7 @@ public class CharacterDialog extends JDialog {
 	private static final String ARMOR_TOOL_TIP = "Armor reduces the damage taken from non-magical attacks";
 	private static final String DAMAGE_RESIST_TOOL_TIP = "Damage from weapon attacks is reduced by this percentage";
 	private static final String WEAPON_TOOL_TIP = "Damage indicates the damage done when performing melee or ranged attacks";
+	private static final String ACTIVE_EFFECT_TOOL_TIP = "Shows active effects";
 	
 	private final JPanel contentPanel = new GradientPanel();
 	private final WorldObject playerCharacter;
@@ -84,7 +88,7 @@ public class CharacterDialog extends JDialog {
 		
 		this.playerCharacter = playerCharacter;
 		
-		setSize(900, 700);
+		setSize(950, 700);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -267,39 +271,54 @@ public class CharacterDialog extends JDialog {
 		cmbRightHand.setBounds(equipmentLeft, 375, 243, 50);
 		contentPanel.add(cmbRightHand);
 		
+		int attackDefenseOffset = 455;
+		
 		JLabel lblArmor = JLabelFactory.createJLabel("Armor");
 		lblArmor.setToolTipText(ARMOR_TOOL_TIP);
-		lblArmor.setBounds(equipmentLeft, 475, 150, 20);
+		lblArmor.setBounds(equipmentLeft, attackDefenseOffset, 150, 20);
 		contentPanel.add(lblArmor);
 		
 		lblArmorValue = JLabelFactory.createJLabel(playerCharacter.getProperty(Constants.ARMOR).toString());
 		lblArmorValue.setToolTipText(ARMOR_TOOL_TIP);
-		lblArmorValue.setBounds(760, 475, 30, 20);
+		lblArmorValue.setBounds(760, attackDefenseOffset, 30, 20);
 		contentPanel.add(lblArmorValue);
 		
 		JLabel lblDamageResistValue = JLabelFactory.createJLabel("Damage Resist");
 		lblDamageResistValue.setToolTipText(DAMAGE_RESIST_TOOL_TIP);
-		lblDamageResistValue.setBounds(equipmentLeft, 495, 150, 20);
+		lblDamageResistValue.setBounds(equipmentLeft, attackDefenseOffset + 20, 150, 20);
 		contentPanel.add(lblDamageResistValue);
 		
 		lblDamageResist = JLabelFactory.createJLabel(playerCharacter.getProperty(Constants.DAMAGE_RESIST).toString() + "%");
 		lblDamageResist.setToolTipText(DAMAGE_RESIST_TOOL_TIP);
-		lblDamageResist.setBounds(760, 495, 30, 20);
+		lblDamageResist.setBounds(760, attackDefenseOffset + 20, 30, 20);
 		contentPanel.add(lblDamageResist);
 		
 		JLabel lblWeaponDamage = JLabelFactory.createJLabel("Weapon Damage");
 		lblWeaponDamage.setToolTipText(WEAPON_TOOL_TIP);
-		lblWeaponDamage.setBounds(equipmentLeft, 515, 150, 20);
+		lblWeaponDamage.setBounds(equipmentLeft, attackDefenseOffset + 40, 150, 20);
 		contentPanel.add(lblWeaponDamage);
 		
 		lblDamageValue = JLabelFactory.createJLabel(playerCharacter.getProperty(Constants.DAMAGE).toString());
 		lblDamageValue.setToolTipText(WEAPON_TOOL_TIP);
-		lblDamageValue.setBounds(760, 515, 30, 20);
+		lblDamageValue.setBounds(760, attackDefenseOffset + 40, 30, 20);
 		contentPanel.add(lblDamageValue);
+		
+		JLabel lblCondition = JLabelFactory.createJLabel("Active effects:");
+		lblCondition.setToolTipText(ACTIVE_EFFECT_TOOL_TIP);
+		lblCondition.setBounds(labelLeft, attackDefenseOffset + 80, 150, 20);
+		contentPanel.add(lblCondition);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(equipmentLeft, attackDefenseOffset + 80, 243, 120);
+		contentPanel.add(scrollPane);
+		
+		JList<String> conditionList = JListFactory.createJList(createConditionsDescriptions());
+		conditionList.setToolTipText(ACTIVE_EFFECT_TOOL_TIP);
+		scrollPane.setViewportView(conditionList);
 		
 		JPanel buttonPane = new JPanel();
 		buttonPane.setOpaque(false);
-		buttonPane.setBounds(0, 620, 880, 75);
+		buttonPane.setBounds(0, 620, 930, 75);
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		contentPanel.add(buttonPane);
 		
@@ -311,6 +330,11 @@ public class CharacterDialog extends JDialog {
 		SwingUtils.installEscapeCloseOperation(this);
 	}
 	
+	private String[] createConditionsDescriptions() {
+		Conditions conditions = playerCharacter.getProperty(Constants.CONDITIONS);
+		return conditions.getDescriptions().toArray(new String[0]);
+	}
+
 	private void addPregnancyBlock(int x, int y) {
 		Integer pregnancyCounter = playerCharacter.getProperty(Constants.PREGNANCY);
 		if (pregnancyCounter != null) {
