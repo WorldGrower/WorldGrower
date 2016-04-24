@@ -613,5 +613,4 @@ public class BuildingGenerator {
 	
 		return id;
 	}
-
 }

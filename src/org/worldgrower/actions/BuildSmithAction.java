@@ -89,6 +89,6 @@ public class BuildSmithAction implements BuildAction {
 	}
 	
 	public static boolean hasEnoughStone(WorldObject performer) {
-		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.STONE) > REQUIRED_STONE;
+		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.STONE) >= REQUIRED_STONE;
 	}
 }
