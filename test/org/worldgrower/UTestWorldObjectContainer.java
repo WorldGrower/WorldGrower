@@ -94,13 +94,13 @@ public class UTestWorldObjectContainer {
 		WorldObjectContainer container = new WorldObjectContainer();
 		
 		container.add(TestUtils.createIntelligentWorldObject(0, Constants.NAME, "Test1"));
-		container.add(TestUtils.createIntelligentWorldObject(0, Constants.EXPERIENCE, 10));
+		container.add(TestUtils.createIntelligentWorldObject(0, Constants.GOLD, 10));
 		
 		List<WorldObject> nameWorldObjects = container.getWorldObjects(Constants.NAME, "Test1");
 		assertEquals(1, nameWorldObjects.size());
 		assertEquals("Test1", nameWorldObjects.get(0).getProperty(Constants.NAME));
 		
-		List<WorldObject> raceWorldObjects = container.getWorldObjects(Constants.EXPERIENCE, 20);
+		List<WorldObject> raceWorldObjects = container.getWorldObjects(Constants.GOLD, 20);
 		assertEquals(0, raceWorldObjects.size());
 	}
 	

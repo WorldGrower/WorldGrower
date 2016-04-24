@@ -97,7 +97,6 @@ public class CommonerGenerator implements Serializable {
 		properties.put(Constants.WIDTH, 1);
 		properties.put(Constants.HEIGHT, 1);
 		properties.put(Constants.NAME, name);
-		properties.put(Constants.EXPERIENCE, 0);
 		
 		new AttributeGenerator(random).addCommonerAttributes(properties);
 		
@@ -202,7 +201,6 @@ public class CommonerGenerator implements Serializable {
 		properties.put(Constants.LEFT_HAND_EQUIPMENT, null);
 		properties.put(Constants.RIGHT_HAND_EQUIPMENT, null);
 		
-		properties.put(Constants.EXPERIENCE, 0);
 		properties.put(Constants.ARMOR, 0);
 		
 		properties.put(Constants.STRENGTH, characterAttributes.getStrength());
