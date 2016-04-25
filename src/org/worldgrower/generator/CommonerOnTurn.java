@@ -24,6 +24,8 @@ import org.worldgrower.attribute.Background;
 import org.worldgrower.attribute.ItemCountMap;
 import org.worldgrower.attribute.Prices;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.Conditions;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.goal.DrownUtils;
@@ -56,6 +58,19 @@ public class CommonerOnTurn implements OnTurn {
 		DrownUtils.checkForDrowning(worldObject, world);
 		checkPregnancy(worldObject, world);
 		adjustPrices(worldObject, world);
+		checkForDisease(worldObject, world);
+	}
+
+	private void checkForDisease(WorldObject worldObject, World world) {
+		int food = worldObject.getProperty(Constants.FOOD);
+		int water = worldObject.getProperty(Constants.WATER);
+		
+		if (food == 0 && water == 0) {
+			Conditions conditions = worldObject.getProperty(Constants.CONDITIONS);
+			if (!conditions.hasCondition(Condition.ATAXIA_CONDITION)) {
+				Conditions.add(worldObject, Condition.ATAXIA_CONDITION, Integer.MAX_VALUE, world);
+			}
+		}
 	}
 
 	void adjustPrices(WorldObject worldObject, World world) {

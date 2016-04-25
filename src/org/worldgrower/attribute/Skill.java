@@ -77,7 +77,8 @@ public class Skill implements Serializable {
 	
 	public int getLevel(WorldObject worldObject) {
 		Conditions conditions = worldObject.getProperty(Constants.CONDITIONS);
-		if (conditions != null && conditions.hasCondition(Condition.INTOXICATED_CONDITION)) {
+		boolean hasConditionLoweringSkills = (conditions != null && (conditions.hasCondition(Condition.INTOXICATED_CONDITION) || conditions.hasCondition(Condition.ATAXIA_CONDITION)));
+		if (hasConditionLoweringSkills) {
 			return level / 2;
 		} else {
 			return level;
