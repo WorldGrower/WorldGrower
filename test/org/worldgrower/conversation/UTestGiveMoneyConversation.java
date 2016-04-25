@@ -28,6 +28,7 @@ import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdRelationshipMap;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.goal.GroupPropertyUtils;
+import org.worldgrower.personality.Personality;
 
 public class UTestGiveMoneyConversation {
 
@@ -40,9 +41,11 @@ public class UTestGiveMoneyConversation {
 		
 		ConversationContext context = new ConversationContext(performer, target, null, null, null, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
-		assertEquals(3, replyPhrases.size());
+		assertEquals(4, replyPhrases.size());
 		assertEquals("Thanks", replyPhrases.get(0).getResponsePhrase());
 		assertEquals("Get lost", replyPhrases.get(1).getResponsePhrase());
+		assertEquals("Thanks again", replyPhrases.get(2).getResponsePhrase());
+		assertEquals("I won't take your bribe money, get lost", replyPhrases.get(3).getResponsePhrase());
 	}
 	
 	@Test
@@ -51,6 +54,7 @@ public class UTestGiveMoneyConversation {
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject organization = GroupPropertyUtils.create(null, "OrgName", world);
+		target.setProperty(Constants.PERSONALITY, new Personality());
 		
 		ConversationContext context = new ConversationContext(performer, target, organization, null, world, 0);
 		assertEquals(0, conversation.getReplyPhrase(context).getId());

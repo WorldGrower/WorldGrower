@@ -23,18 +23,28 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
+import org.worldgrower.personality.PersonalityTrait;
 
 public class GiveMoneyConversation implements Conversation {
 
 	private static final int THANKS = 0;
 	private static final int GET_LOST = 1;
 	private static final int THANKS_AGAIN = 2;
+	private static final int BRIBE = 3;
 	
 	@Override
 	public Response getReplyPhrase(ConversationContext conversationContext) {
+		WorldObject performer = conversationContext.getPerformer();
+		WorldObject target = conversationContext.getTarget();
 		List<HistoryItem> historyItems = this.findSameConversation(conversationContext);
+		boolean isHonorable = target.getProperty(Constants.PERSONALITY).getValue(PersonalityTrait.HONORABLE) > 600;
+		boolean targetDislikesPerformer = target.getProperty(Constants.RELATIONSHIPS).getValue(performer) < 0;
 		final int replyId;
-		if (historyItems.size() == 0) {
+		if (isHonorable && targetDislikesPerformer && historyItems.size() == 0) {
+			replyId = BRIBE;
+		} else if (targetDislikesPerformer) {
+			replyId = GET_LOST;
+		} else if (historyItems.size() == 0) {
 			replyId = THANKS;
 		} else {
 			replyId = THANKS_AGAIN;
@@ -52,7 +62,8 @@ public class GiveMoneyConversation implements Conversation {
 		return Arrays.asList(
 				new Response(THANKS, "Thanks"),
 				new Response(GET_LOST, "Get lost"),
-				new Response(THANKS_AGAIN, "Thanks again"));
+				new Response(THANKS_AGAIN, "Thanks again"),
+				new Response(BRIBE, "I won't take your bribe money, get lost"));
 	}
 	
 	@Override
@@ -74,7 +85,7 @@ public class GiveMoneyConversation implements Conversation {
 			
 			performerGivesMoneyToTarget(performer, target, 100);
 			
-		} else if (replyIndex == GET_LOST) {
+		} else if (replyIndex == GET_LOST || replyIndex == BRIBE) {
 			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -20, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 		}
 	}
@@ -95,6 +106,6 @@ public class GiveMoneyConversation implements Conversation {
 	}
 
 	public boolean previousAnswerWasNegative(List<Integer> previousResponseIds) {
-		return previousResponseIds.contains(GET_LOST);
+		return previousResponseIds.contains(GET_LOST) || previousResponseIds.contains(BRIBE);
 	}
 }
