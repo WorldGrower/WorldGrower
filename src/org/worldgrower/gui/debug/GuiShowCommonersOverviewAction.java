@@ -50,7 +50,7 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 		JFrame frame = new JFrame();
 		
 		JTable table = new JTable(new WorldModel(world));
-		table.setBounds(50, 50, 700, 700);
+		table.setBounds(50, 50, 800, 800);
 		frame.add(new JScrollPane(table));
 		
 		table.addMouseListener(new MouseAdapter() {
@@ -77,7 +77,7 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 		
 		timer.start();
 		
-		frame.setBounds(100,  100, 800, 800);
+		frame.setBounds(100,  100, 900, 900);
 		frame.setVisible(true);
 	}
 	
@@ -96,7 +96,7 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 
 		@Override
 		public int getColumnCount() {
-			return 12;
+			return 13;
 		}
 
 		@Override
@@ -130,6 +130,8 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 				return "OrganizationGold";
 			} else if (columnIndex == 11) {
 				return "Id";
+			} else if (columnIndex == 12) {
+				return "Conditions";
 			} else {
 				return null;
 			}
@@ -183,6 +185,8 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 				return npc.getProperty(Constants.ORGANIZATION_GOLD);
 			} else if (columnIndex == 11) {
 				return npc.getProperty(Constants.ID);
+			} else if (columnIndex == 12) {
+				return npc.getProperty(Constants.CONDITIONS).getDescriptions().toString();
 			} else {
 				return null;
 			}
