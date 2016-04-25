@@ -29,6 +29,7 @@ import org.worldgrower.attribute.IdRelationshipMap;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.personality.Personality;
+import org.worldgrower.personality.PersonalityTrait;
 
 public class UTestGiveMoneyConversation {
 
@@ -49,7 +50,7 @@ public class UTestGiveMoneyConversation {
 	}
 	
 	@Test
-	public void testGetReplyPhrase() {
+	public void testGetReplyPhrase0() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
@@ -58,6 +59,34 @@ public class UTestGiveMoneyConversation {
 		
 		ConversationContext context = new ConversationContext(performer, target, organization, null, world, 0);
 		assertEquals(0, conversation.getReplyPhrase(context).getId());
+	}
+	
+	@Test
+	public void testGetReplyPhrase1() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		WorldObject organization = GroupPropertyUtils.create(null, "OrgName", world);
+		target.setProperty(Constants.PERSONALITY, new Personality());
+		target.getProperty(Constants.PERSONALITY).changeValue(PersonalityTrait.HONORABLE, -1000, "");
+		target.getProperty(Constants.RELATIONSHIPS).incrementValue(performer, -1000);
+		
+		ConversationContext context = new ConversationContext(performer, target, organization, null, world, 0);
+		assertEquals(1, conversation.getReplyPhrase(context).getId());
+	}
+	
+	@Test
+	public void testGetReplyPhrase3() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		WorldObject organization = GroupPropertyUtils.create(null, "OrgName", world);
+		target.setProperty(Constants.PERSONALITY, new Personality());
+		target.getProperty(Constants.PERSONALITY).changeValue(PersonalityTrait.HONORABLE, 1000, "");
+		target.getProperty(Constants.RELATIONSHIPS).incrementValue(performer, -1000);
+		
+		ConversationContext context = new ConversationContext(performer, target, organization, null, world, 0);
+		assertEquals(3, conversation.getReplyPhrase(context).getId());
 	}
 	
 	@Test

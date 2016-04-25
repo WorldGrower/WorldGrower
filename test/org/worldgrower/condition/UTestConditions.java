@@ -132,5 +132,23 @@ public class UTestConditions {
 		conditions.addCondition(null, Condition.ENLARGED_CONDITION, 2, world);
 		
 		assertEquals(Arrays.asList(Condition.ENLARGED_CONDITION), conditions.getMagicConditions());
-	}	
+	}
+	
+	@Test
+	public void testGetDescriptions() {
+		Conditions conditions = new Conditions();
+		World world = new WorldImpl(0, 0, null, null);
+		conditions.addCondition(null, Condition.ENLARGED_CONDITION, 2, world);
+		
+		assertEquals(Arrays.asList("enlarged"), conditions.getDescriptions());
+	}
+	
+	@Test
+	public void testGetLongerDescriptions() {
+		Conditions conditions = new Conditions();
+		World world = new WorldImpl(0, 0, null, null);
+		conditions.addCondition(null, Condition.ENLARGED_CONDITION, 2, world);
+		
+		assertEquals(Arrays.asList("an enlarged creature deals more damage with physical attacks"), conditions.getLongerDescriptions());
+	}
 }
