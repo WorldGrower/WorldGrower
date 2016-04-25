@@ -65,4 +65,9 @@ public class ReducedCondition implements Condition {
 	public boolean isMagicEffect() {
 		return true;
 	}
+	
+	@Override
+	public String getLongerDescription() {
+		return "a reduced creature deals less damage with physical attacks";
+	}
 }

@@ -62,4 +62,9 @@ public class ParalyzedCondition implements Condition {
 	public boolean isMagicEffect() {
 		return true;
 	}
+
+	@Override
+	public String getLongerDescription() {
+		return "a paralyzed creature can't take actions";
+	}
 }

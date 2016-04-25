@@ -68,4 +68,9 @@ public class PoisonedCondition implements DeadlyCondition {
 	public boolean isMagicEffect() {
 		return false;
 	}
+
+	@Override
+	public String getLongerDescription() {
+		return "a poisoned creature loses health each turn";
+	}
 }

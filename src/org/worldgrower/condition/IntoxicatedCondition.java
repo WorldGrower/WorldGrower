@@ -68,4 +68,9 @@ public class IntoxicatedCondition implements Condition {
 	public boolean isMagicEffect() {
 		return false;
 	}
+	
+	@Override
+	public String getLongerDescription() {
+		return "an intoxicated creature has lowered skills";
+	}
 }

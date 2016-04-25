@@ -38,7 +38,7 @@ public class WaterWalkCondition implements Condition {
 
 	@Override
 	public String getDescription() {
-		return "able to walk on water";
+		return "waterwalking";
 	}
 
 	@Override
@@ -61,5 +61,10 @@ public class WaterWalkCondition implements Condition {
 	@Override
 	public boolean isMagicEffect() {
 		return true;
+	}
+
+	@Override
+	public String getLongerDescription() {
+		return "a creature with waterwalking is able to walk on water";
 	}
 }

@@ -84,6 +84,14 @@ public class Conditions implements Serializable {
 		return descriptions;
 	}
 	
+	public List<String> getLongerDescriptions() {
+		List<String> descriptions = new ArrayList<>();
+		for(Condition condition : conditions.keySet()) {
+			descriptions.add(condition.getLongerDescription());
+		}
+		return descriptions;
+	}
+	
 	public void onTurn(WorldObject worldObject, World world, WorldStateChangedListeners creatureTypeChangedListeners) {
 		for(Entry<Condition, ConditionInfo> entry : conditions.entrySet()) {
 			int startTurns = entry.getValue().getStartTurn();

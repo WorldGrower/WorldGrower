@@ -69,4 +69,9 @@ public class SleepCondition implements Condition {
 	public boolean isMagicEffect() {
 		return true;
 	}
+	
+	@Override
+	public String getLongerDescription() {
+		return "a sleeping creature can't take actions and awakes when taking damage";
+	}
 }

@@ -22,7 +22,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -45,6 +47,7 @@ import org.worldgrower.condition.Conditions;
 import org.worldgrower.generator.CommonerOnTurn;
 import org.worldgrower.goal.ArmorPropertyUtils;
 import org.worldgrower.goal.MeleeDamagePropertyUtils;
+import org.worldgrower.gui.inventory.InventoryItem;
 import org.worldgrower.gui.util.ButtonFactory;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.JComboBoxFactory;
@@ -313,7 +316,7 @@ public class CharacterDialog extends JDialog {
 		contentPanel.add(scrollPane);
 		
 		JList<String> conditionList = JListFactory.createJList(createConditionsDescriptions());
-		conditionList.setToolTipText(ACTIVE_EFFECT_TOOL_TIP);
+		conditionList.setCellRenderer(new ConditionListCellRenderer(createLongerConditionsDescriptions()));
 		scrollPane.setViewportView(conditionList);
 		
 		JPanel buttonPane = new JPanel();
@@ -333,6 +336,11 @@ public class CharacterDialog extends JDialog {
 	private String[] createConditionsDescriptions() {
 		Conditions conditions = playerCharacter.getProperty(Constants.CONDITIONS);
 		return conditions.getDescriptions().toArray(new String[0]);
+	}
+	
+	private List<String> createLongerConditionsDescriptions() {
+		Conditions conditions = playerCharacter.getProperty(Constants.CONDITIONS);
+		return conditions.getLongerDescriptions();
 	}
 
 	private void addPregnancyBlock(int x, int y) {
@@ -533,6 +541,28 @@ public class CharacterDialog extends JDialog {
 			setText(description);
 
 			return this;
+		}
+	}
+	
+	public class ConditionListCellRenderer implements ListCellRenderer<String> {
+		private final List<String> longerDescriptions;
+		private final DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
+
+		public ConditionListCellRenderer(List<String> longerDescriptions) {
+			super();
+			this.longerDescriptions = longerDescriptions;
+		}
+
+		@Override
+		public Component getListCellRendererComponent(JList<? extends String> list, String item, int index, boolean isSelected, boolean cellHasFocus) {
+			JLabel renderer = (JLabel) defaultRenderer
+					.getListCellRendererComponent(list, item, index, isSelected, cellHasFocus);
+
+			renderer.setText(item);
+			renderer.setToolTipText(longerDescriptions.get(index));
+			renderer.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
+			renderer.setForeground(ColorPalette.FOREGROUND_COLOR);
+			return renderer;
 		}
 	}
 }

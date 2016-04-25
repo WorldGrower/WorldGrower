@@ -62,4 +62,9 @@ public class BurdenedCondition implements Condition {
 	public boolean isMagicEffect() {
 		return true;
 	}
+
+	@Override
+	public String getLongerDescription() {
+		return "a burdened creature has a reduced carrying capacity";
+	}
 }

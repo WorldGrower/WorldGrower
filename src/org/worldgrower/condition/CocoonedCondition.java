@@ -62,4 +62,9 @@ public class CocoonedCondition implements Condition {
 	public boolean isMagicEffect() {
 		return false;
 	}
+
+	@Override
+	public String getLongerDescription() {
+		return "a cocooned creature can't take actions";
+	}
 }

@@ -75,4 +75,9 @@ public class FearCondition implements Condition {
 	public boolean isMagicEffect() {
 		return true;
 	}
+	
+	@Override
+	public String getLongerDescription() {
+		return "a feared creature can't take actions except moving away from the caster";
+	}
 }

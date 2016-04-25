@@ -62,4 +62,9 @@ public class FeatheredCondition implements Condition {
 	public boolean isMagicEffect() {
 		return true;
 	}
+	
+	@Override
+	public String getLongerDescription() {
+		return "a feathered creature has an increased carrying capacity";
+	}
 }

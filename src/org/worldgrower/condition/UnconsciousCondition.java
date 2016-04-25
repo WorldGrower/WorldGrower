@@ -65,4 +65,9 @@ public class UnconsciousCondition implements Condition {
 	public boolean isMagicEffect() {
 		return false;
 	}
+
+	@Override
+	public String getLongerDescription() {
+		return "an unconscious creature can't take actions and regains energy each turn";
+	}
 }

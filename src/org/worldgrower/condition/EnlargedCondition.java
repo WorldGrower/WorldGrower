@@ -65,4 +65,9 @@ public class EnlargedCondition implements Condition {
 	public boolean isMagicEffect() {
 		return true;
 	}
+
+	@Override
+	public String getLongerDescription() {
+		return "an enlarged creature deals more damage with physical attacks";
+	}
 }

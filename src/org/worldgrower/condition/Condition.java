@@ -34,6 +34,7 @@ public interface Condition extends Serializable {
 	public boolean canTakeAction();
 	public boolean canMove();
 	public String getDescription();
+	public String getLongerDescription();
 	public void onTurn(WorldObject worldObject, World world, int startTurns, WorldStateChangedListeners creatureTypeChangedListeners);	
 	public boolean isDisease();
 	public boolean isMagicEffect();

@@ -61,7 +61,7 @@ public class UTestDetectPoisonAndDiseaseAction {
 		
 		Actions.DETECT_POISON_AND_DISEASE_ACTION.execute(performer, target, Args.EMPTY, world);
 		
-		assertEquals("target has the following conditions: bitten by a vampire", listener.getMessage());
+		assertEquals("target has the following conditions: porphyric hemophilia", listener.getMessage());
 	}
 	
 	@Test
@@ -96,7 +96,7 @@ public class UTestDetectPoisonAndDiseaseAction {
 		
 		Actions.DETECT_POISON_AND_DISEASE_ACTION.execute(performer, target, Args.EMPTY, world);
 		
-		assertEquals("target has the following conditions: poisoned, bitten by a vampire", listener.getMessage());
+		assertEquals("target has the following conditions: poisoned, porphyric hemophilia", listener.getMessage());
 	}
 	
 	@Test

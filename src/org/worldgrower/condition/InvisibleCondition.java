@@ -62,4 +62,11 @@ public class InvisibleCondition implements Condition {
 	public boolean isMagicEffect() {
 		return true;
 	}
+
+	@Override
+	public String getLongerDescription() {
+		return "an invisible object cannot be seen by others";
+	}
+	
+	
 }

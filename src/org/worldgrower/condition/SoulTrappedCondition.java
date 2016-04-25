@@ -100,4 +100,9 @@ public class SoulTrappedCondition implements Condition {
 	public boolean isMagicEffect() {
 		return true;
 	}
+
+	@Override
+	public String getLongerDescription() {
+		return "a soultrapped creature has its soul trapped in a soulgem when it dies";
+	}
 }

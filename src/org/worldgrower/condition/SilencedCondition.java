@@ -62,4 +62,9 @@ public class SilencedCondition implements Condition {
 	public boolean isMagicEffect() {
 		return true;
 	}
+	
+	@Override
+	public String getLongerDescription() {
+		return "a silenced creature can't cast spells";
+	}
 }

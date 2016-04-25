@@ -38,7 +38,7 @@ public class VampireBiteCondition implements Condition {
 
 	@Override
 	public String getDescription() {
-		return "bitten by a vampire";
+		return "porphyric hemophilia";
 	}
 
 	@Override
@@ -67,5 +67,10 @@ public class VampireBiteCondition implements Condition {
 	@Override
 	public boolean isMagicEffect() {
 		return false;
+	}
+
+	@Override
+	public String getLongerDescription() {
+		return "a creature with porphyric hemophilia will eventually turn into a vampire";
 	}
 }

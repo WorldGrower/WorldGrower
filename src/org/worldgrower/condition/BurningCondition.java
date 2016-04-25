@@ -78,4 +78,9 @@ public class BurningCondition implements DeadlyCondition {
 	public boolean isMagicEffect() {
 		return false;
 	}
+
+	@Override
+	public String getLongerDescription() {
+		return "a burning object takes fire damage each turn and may burn adjacent objects";
+	}
 }

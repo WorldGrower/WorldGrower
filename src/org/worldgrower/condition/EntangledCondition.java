@@ -62,4 +62,9 @@ public class EntangledCondition implements Condition {
 	public boolean isMagicEffect() {
 		return true;
 	}
+	
+	@Override
+	public String getLongerDescription() {
+		return "an entangled creature can't move";
+	}
 }
