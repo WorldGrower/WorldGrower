@@ -43,7 +43,7 @@ public class DarkVisionSpellAction implements MagicSpell {
 	
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return (!hasDarkVision(target) && MagicSpellUtils.canCast(performer, this));
+		return (!hasDarkVision(target) && target.hasIntelligence() && MagicSpellUtils.canCast(performer, this));
 	}
 	
 	private boolean hasDarkVision(WorldObject target) {
