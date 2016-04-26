@@ -638,7 +638,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestBuildWeaveryAction.class,
 	UTestEntangleAction.class,
 	UTestWorkbenchGoal.class,
-	UTestBuildWorkbenchAction.class
+	UTestBuildWorkbenchAction.class,
+	UTestPerceptionPropertyUtils.class
 })
 public class CompleteTestSuite {
 }

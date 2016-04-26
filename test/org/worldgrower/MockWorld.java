@@ -30,6 +30,8 @@ public class MockWorld implements World {
 	private final Terrain terrain;
 	private final World world;
 	
+	private Integer currentTurn = null;
+	
 	public MockWorld(Terrain terrain, World world) {
 		super();
 		this.terrain = terrain;
@@ -129,7 +131,11 @@ public class MockWorld implements World {
 
 	@Override
 	public Turn getCurrentTurn() {
-		return world.getCurrentTurn();
+		if (currentTurn != null) {
+			return Turn.valueOf(this.currentTurn);
+		} else {
+			return world.getCurrentTurn();
+		}
 	}
 
 	@Override
@@ -162,5 +168,7 @@ public class MockWorld implements World {
 		
 	}
 
-	
+	public void setCurrentTurn(Integer currentTurn) {
+		this.currentTurn = currentTurn;
+	}
 }

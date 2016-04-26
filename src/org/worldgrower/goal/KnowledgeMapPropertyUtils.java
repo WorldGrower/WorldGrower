@@ -26,14 +26,14 @@ import org.worldgrower.attribute.ManagedProperty;
 public class KnowledgeMapPropertyUtils {
 
 	public static void everyoneInVicinityKnowsOfEvent(WorldObject performer, WorldObject target, World world) {
-		List<WorldObject> peopleThatknow = world.findWorldObjects(w -> w.hasIntelligence() && w.hasProperty(Constants.KNOWLEDGE_MAP) && Reach.distance(performer, w) < 20);
+		List<WorldObject> peopleThatknow = world.findWorldObjects(w -> w.hasIntelligence() && w.hasProperty(Constants.KNOWLEDGE_MAP) && Reach.distance(performer, w) < PerceptionPropertyUtils.calculateRadius(w, world));
 		for(WorldObject personThatknows : peopleThatknow) {
 			personThatknows.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(target, world);
 		}
 	}
 	
 	public static void everyoneInVicinityKnowsOfProperty(WorldObject performer, WorldObject target, ManagedProperty<?> managedProperty, Object value, World world) {
-		List<WorldObject> peopleThatknow = world.findWorldObjects(w -> w.hasIntelligence() && w.hasProperty(Constants.KNOWLEDGE_MAP) && Reach.distance(performer, w) < 20);
+		List<WorldObject> peopleThatknow = world.findWorldObjects(w -> w.hasIntelligence() && w.hasProperty(Constants.KNOWLEDGE_MAP) && Reach.distance(performer, w) < PerceptionPropertyUtils.calculateRadius(w, world));
 		for(WorldObject personThatknows : peopleThatknow) {
 			personThatknows.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(target, managedProperty, value);
 		}

@@ -18,32 +18,27 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.MockWorld;
 import org.worldgrower.TestUtils;
-import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.KnowledgeMap;
 import org.worldgrower.attribute.Skill;
-import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.terrain.TerrainImpl;
 
-public class UTestWaterPropertyUtils {
+public class UTestPerceptionPropertyUtils {
 
 	@Test
-	public void testEveryoneInVicinityKnowsOfPoisoning() {
-		World world = new WorldImpl(10, 10, null, null);
-		WorldObject performer = TestUtils.createIntelligentWorldObject(0, 0, 1, 1, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
-		WorldObject target = TestUtils.createIntelligentWorldObject(0, 0, 1, 1, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
+	public void testCalculateRadius() {
+		MockWorld world = new MockWorld(new TerrainImpl(0, 0), new  WorldImpl(0, 0, null, null));
+		WorldObject performer = TestUtils.createSkilledWorldObject(0);
 		performer.setProperty(Constants.PERCEPTION_SKILL, new Skill(10));
-		target.setProperty(Constants.PERCEPTION_SKILL, new Skill(10));
 		
-		world.addWorldObject(performer);
-		world.addWorldObject(target);
+		assertEquals(13, PerceptionPropertyUtils.calculateRadius(performer, world));
 		
-		int wellId = BuildingGenerator.buildWell(5, 5, world, 1f);
-		WorldObject well = world.findWorldObject(Constants.ID, wellId);
-		WaterPropertyUtils.everyoneInVicinityKnowsOfPoisoning(performer, well, world);
+		world.setCurrentTurn(50);
+		assertEquals(18, PerceptionPropertyUtils.calculateRadius(performer, world));
 		
-		assertEquals(true, performer.getProperty(Constants.KNOWLEDGE_MAP).hasProperty(wellId, Constants.POISON_DAMAGE));
-		assertEquals(true, target.getProperty(Constants.KNOWLEDGE_MAP).hasProperty(wellId, Constants.POISON_DAMAGE));
+		performer.setProperty(Constants.PERCEPTION_SKILL, new Skill(20));
+		assertEquals(20, PerceptionPropertyUtils.calculateRadius(performer, world));
 	}
 }

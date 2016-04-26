@@ -14,14 +14,18 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
+import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 
 public class PerceptionPropertyUtils {
 
-	public static int calculateRadius(WorldObject playerCharacter, World world) {
+	public static int calculateRadius(WorldObject worldObject, World world) {
 		int currentTurn = world.getCurrentTurn().getValue();
-		int radius = 13 + (int)(Math.sin(currentTurn * Math.PI / 100) * 5);
+		int perception = worldObject.getProperty(Constants.PERCEPTION_SKILL).getLevel(worldObject);
+		int perceptionRadius = (int) Math.log(perception + 1);
+		double darknessModifier = Math.sin(currentTurn * Math.PI / 100);
+		int radius = 13 + (int)(darknessModifier * 5) + perceptionRadius;
 		return radius;
 	}
 }
