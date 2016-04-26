@@ -30,6 +30,7 @@ import org.worldgrower.actions.magic.AnimateSuitOfArmorAction;
 import org.worldgrower.actions.magic.BurdenAction;
 import org.worldgrower.actions.magic.CureDiseaseAction;
 import org.worldgrower.actions.magic.CurePoisonAction;
+import org.worldgrower.actions.magic.DarkVisionSpellAction;
 import org.worldgrower.actions.magic.DetectMagicAction;
 import org.worldgrower.actions.magic.DetectPoisonAndDiseaseAction;
 import org.worldgrower.actions.magic.DisguiseMagicSpellAction;
@@ -154,6 +155,7 @@ public class Actions {
 	public static final DetectMagicAction DETECT_MAGIC_ACTION = new DetectMagicAction();
 	public static final FearMagicSpellAction FEAR_MAGIC_SPELL_ACTION = new FearMagicSpellAction();
 	public static final EntangleAction ENTANGLE_ACTION = new EntangleAction();
+	public static final DarkVisionSpellAction DARK_VISION_SPELL_ACTION = new DarkVisionSpellAction();
 	
 	public static final BuildLibraryAction BUILD_LIBRARY_ACTION = new BuildLibraryAction();
 	public static final ResearchRestorationSkillAction RESEARCH_RESTORATION_SKILL_ACTION = new ResearchRestorationSkillAction();
@@ -264,7 +266,8 @@ public class Actions {
 			FIRE_TRAP_ACTION,
 			LICH_TRANSFORMATION_ACTION,
 			FEAR_MAGIC_SPELL_ACTION,
-			ENTANGLE_ACTION
+			ENTANGLE_ACTION,
+			DARK_VISION_SPELL_ACTION
 			);
 	
 	private static final List<InventoryAction> INVENTORY_ACTIONS = Arrays.asList(

@@ -17,6 +17,7 @@ package org.worldgrower.goal;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.condition.Condition;
 
 public class PerceptionPropertyUtils {
 
@@ -25,7 +26,15 @@ public class PerceptionPropertyUtils {
 		int perception = worldObject.getProperty(Constants.PERCEPTION_SKILL).getLevel(worldObject);
 		int perceptionRadius = (int) Math.log(perception + 1);
 		double darknessModifier = Math.sin(currentTurn * Math.PI / 100);
+		if (hasDarkVision(worldObject)) {
+			darknessModifier = 1.0f;
+		}
+		
 		int radius = 13 + (int)(darknessModifier * 5) + perceptionRadius;
 		return radius;
+	}
+	
+	private static boolean hasDarkVision(WorldObject target) {
+		return target.hasProperty(Constants.CONDITIONS) && target.getProperty(Constants.CONDITIONS).hasCondition(Condition.DARK_VISION_CONDITION);
 	}
 }
