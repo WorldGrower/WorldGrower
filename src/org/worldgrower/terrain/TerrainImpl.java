@@ -87,6 +87,12 @@ public class TerrainImpl implements Terrain, Serializable {
 
 	@Override
 	public void explore(int x, int y, int radius) {
+		for(int i=0; i<width; i++) {
+			for(int j=0; j<height; j++) {
+				explored[i][j] = false;
+			}
+		}
+		
 		for(int i=x-radius; i<x+radius; i++) {
 			for(int j=y-radius; j<y+radius; j++) {
 				if (isWithinBounds(i, j)) {

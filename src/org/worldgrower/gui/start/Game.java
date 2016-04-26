@@ -44,6 +44,7 @@ import org.worldgrower.generator.CreatureGenerator;
 import org.worldgrower.generator.PlantGenerator;
 import org.worldgrower.generator.WorldGenerator;
 import org.worldgrower.goal.GroupPropertyUtils;
+import org.worldgrower.goal.PerceptionPropertyUtils;
 import org.worldgrower.gui.AdditionalManagedOperationListenerFactory;
 import org.worldgrower.gui.CommonerImageIds;
 import org.worldgrower.gui.ImageIds;
@@ -269,7 +270,7 @@ public class Game {
 	private static void exploreWorld(WorldObject playerCharacter, World world) {
 		int x = playerCharacter.getProperty(Constants.X);
 		int y = playerCharacter.getProperty(Constants.Y);
-		world.getTerrain().explore(x, y, 10);
+		world.getTerrain().explore(x, y, PerceptionPropertyUtils.calculateRadius(playerCharacter, world));
 	}
 	
 	private static void checkToSkipTurn(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, WorldPanel worldPanel) {
