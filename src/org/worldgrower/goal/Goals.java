@@ -151,4 +151,5 @@ public class Goals {
 	public static final WeaveryGoal WEAVERY_GOAL = new WeaveryGoal(ALL_GOALS);
 	public static final WorkbenchGoal WORKBENCH_GOAL = new WorkbenchGoal(ALL_GOALS);
 	public static final GoldGoal GOLD_GOAL = new GoldGoal(ALL_GOALS);
+	public static final BreweryGoal BREWERY_GOAL = new BreweryGoal(ALL_GOALS);
 }
