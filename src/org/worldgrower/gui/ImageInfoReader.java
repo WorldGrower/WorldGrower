@@ -71,6 +71,7 @@ public class ImageInfoReader {
     	Sprites terrainTransitions = readTerrainTransitions();
     	Sprites vampire = readSpritesVampire();
     	Sprites clothingShop = readSpritesClothingShop();
+    	Sprites brewery = readSpritesBrewery();
     	
     	addCharacter(ImageIds.KNIGHT, sprites, 0, 0, 1, 1);
     	addCharacter(ImageIds.GUARD, sprites, 0, 4, 1, 1);
@@ -403,6 +404,8 @@ public class ImageInfoReader {
 		add(ImageIds.ENTANGLED_INDICATOR, tora_vx_02.getSubImage(0, 1, 1, 1));
 		add(ImageIds.WORKBENCH, tileE.getSubImage(8, 14, 1, 1));
 		add(ImageIds.DARKNESS_MAGIC_SPELL, sprites420.getSubImage(2, 21, 1, 1));
+		add(ImageIds.BREWERY, brewery.getSubImage(0, 0, 3, 2));
+		
     }
 
     private void resizeSmallFlowers() {
@@ -706,6 +709,10 @@ public class ImageInfoReader {
 	
 	private static Sprites readSpritesClothingShop() throws IOException {
 		return readImages("clothing_shop.png", 64, 64, 3, 5);
+	}
+	
+	private static Sprites readSpritesBrewery() throws IOException {
+		return readImages("brewery.png", 64, 65, 3, 2);
 	}
 	
 	private static Sprites readImages(String imageFilename, int width, int height, int rows, int cols) throws IOException {

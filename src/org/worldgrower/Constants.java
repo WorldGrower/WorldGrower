@@ -123,6 +123,7 @@ public class Constants {
 	public static final IdListProperty HOUSES = new IdListProperty("houses", ALL_PROPERTIES);
 	public static final IdProperty SMITH_ID = new IdProperty("smithId", ALL_PROPERTIES);
 	public static final IdProperty WORKBENCH_ID = new IdProperty("workbenchId", ALL_PROPERTIES);
+	public static final IdProperty BREWERY_ID = new IdProperty("breweryId", ALL_PROPERTIES);
 	public static final IntProperty ENERGY = new IntProperty("energy", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty PAPER_MILL_QUALITY = new IntProperty("paperMillQuality", 0, 50, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IdProperty PAPER_MILL_ID = new IdProperty("paperMillId", ALL_PROPERTIES);
@@ -274,6 +275,7 @@ public class Constants {
 	public static final IdProperty FEAR_CASTER_ID = new IdProperty("fearCasterId", ALL_PROPERTIES);
 	public static final IdProperty WEAVERY_ID = new IdProperty("weaveryId", ALL_PROPERTIES);
 	public static final IntProperty WEAVERY_QUALITY = new IntProperty("weaveryQuality", 0, 100, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty BREWERY_QUALITY = new IntProperty("breweryQuality", 0, 100, NOT_NULLABLE, ALL_PROPERTIES);
 	
 	//special property not used in WorldObject
 	public static final IntProperty DISTANCE = new IntProperty("distance", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
