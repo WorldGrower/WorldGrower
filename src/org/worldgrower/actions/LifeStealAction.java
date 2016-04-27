@@ -20,23 +20,19 @@ import org.worldgrower.Constants;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.condition.Condition;
-import org.worldgrower.condition.Conditions;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.goal.KnowledgeMapPropertyUtils;
 import org.worldgrower.gui.ImageIds;
 
-public class VampireBiteAction implements DeadlyAction {
+public class LifeStealAction implements DeadlyAction {
 
 	private static final int DISTANCE = 1;
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		AttackUtils.biteAttack(this, performer, target, args, world);
-		performer.increment(Constants.VAMPIRE_BLOOD_LEVEL, 750);
-		Conditions.add(target, Condition.VAMPIRE_BITE_CONDITION, Integer.MAX_VALUE, world);
+		AttackUtils.drainAttack(this, performer, target, args, world);
 		
-		KnowledgeMapPropertyUtils.everyoneInVicinityKnowsOfProperty(performer, target, Constants.CREATURE_TYPE, CreatureType.VAMPIRE_CREATURE_TYPE, world);
+		KnowledgeMapPropertyUtils.everyoneInVicinityKnowsOfProperty(performer, target, Constants.CREATURE_TYPE, CreatureType.LICH_CREATURE_TYPE, world);
 	}
 	
 	@Override
@@ -44,20 +40,18 @@ public class VampireBiteAction implements DeadlyAction {
 		return ((target.hasProperty(Constants.ARMOR)) 
 				&& (target.getProperty(Constants.HIT_POINTS) > 0) 
 				&& target.hasIntelligence() 
-				&& target.getProperty(Constants.CREATURE_TYPE).hasBlood())
+				&& performer.getProperty(Constants.CREATURE_TYPE) == CreatureType.LICH_CREATURE_TYPE)
 				&& !performer.equals(target);
 	}
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		int performerIsVampireDistance = performer.hasProperty(Constants.VAMPIRE_BLOOD_LEVEL) ? 0 : 1;
-		return Reach.evaluateTarget(performer, args, target, DISTANCE)
-				+ performerIsVampireDistance;
+		return Reach.evaluateTarget(performer, args, target, DISTANCE);
 	}
 	
 	@Override
 	public String getRequirementsDescription() {
-		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, DISTANCE, "only vampires can bite others");
+		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, DISTANCE, "only liches can steal the life of others");
 	}
 	
 	@Override
@@ -67,12 +61,12 @@ public class VampireBiteAction implements DeadlyAction {
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "biting " + target.getProperty(Constants.NAME);
+		return "lifestealing " + target.getProperty(Constants.NAME);
 	}
 
 	@Override
 	public String getSimpleDescription() {
-		return "bite";
+		return "life steal";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {
@@ -81,7 +75,7 @@ public class VampireBiteAction implements DeadlyAction {
 
 	@Override
 	public String getDeathDescription(WorldObject performer, WorldObject target) {
-		return "drained of blood";
+		return "drained of life";
 	}
 	
 	@Override

@@ -41,4 +41,9 @@ public class WerewolfCreatureType implements CreatureType {
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
 	}
+	
+	@Override
+	public String getDescription() {
+		return "werewolf";
+	}
 }

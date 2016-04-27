@@ -27,6 +27,9 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.EventKnowledge;
 import org.worldgrower.attribute.PropertyKnowledge;
+import org.worldgrower.condition.VampireUtils;
+import org.worldgrower.condition.WorldStateChangedListeners;
+import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.deity.Deity;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.history.Turn;
@@ -37,16 +40,15 @@ public class UTestKnowledgeToDescriptionMapper {
 	private final KnowledgeToDescriptionMapper mapper = new KnowledgeToDescriptionMapper();
 	
 	@Test
-	public void testMapEventKnowledgeVampireBite() {
+	public void testMapPropertyKnowledgeVampire() {
 		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.NAME, "performer");
-		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.NAME, "target");
 		world.addWorldObject(performer);
 		
-		EventKnowledge knowledge = new EventKnowledge(1, world);
-		world.getHistory().actionPerformed(new OperationInfo(performer, target, Args.EMPTY, Actions.VAMPIRE_BITE_ACTION), new Turn());
+		VampireUtils.vampirizePerson(performer, new WorldStateChangedListeners());
+		PropertyKnowledge knowledge = new PropertyKnowledge(performer.getProperty(Constants.ID), Constants.CREATURE_TYPE, CreatureType.VAMPIRE_CREATURE_TYPE);
 		
-		assertEquals("Did you know that performer was biting target?", mapper.getQuestionDescription(knowledge, world));
+		assertEquals("Did you know that performer is a vampire?", mapper.getQuestionDescription(knowledge, world));
 	}
 	
 	//TODO: better description

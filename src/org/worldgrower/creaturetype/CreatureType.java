@@ -23,6 +23,7 @@ public interface CreatureType extends Serializable {
 	public boolean canTalk();
 	public boolean canMove();
 	public boolean canTrade();
+	public String getDescription();
 	
 	public default boolean hasBlood() {
 		return true;

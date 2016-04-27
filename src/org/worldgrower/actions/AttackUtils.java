@@ -199,6 +199,27 @@ public class AttackUtils {
 		world.logAction(action, performer, target, args, message);
 	}
 	
+	public static void drainAttack(DeadlyAction action, WorldObject performer, WorldObject target, int[] args, World world) {
+		int targetHP = target.getProperty(Constants.HIT_POINTS);
+		
+		int performerDamage = 8 * Item.COMBAT_MULTIPLIER;
+		
+		int damage = (int) (performerDamage);
+		damage = changeForEnergy(damage, performer, target);
+		
+		targetHP = targetHP - damage;
+		String message = performer.getProperty(Constants.NAME) + " drains " + target.getProperty(Constants.NAME) + ": " + damage + " damage";
+		
+		if (targetHP <= 0) {
+			targetHP = 0;
+			DeathReasonPropertyUtils.targetDiesByPerformerAction(performer, target, action, world);
+		}
+		target.setProperty(Constants.HIT_POINTS, targetHP);	
+		performer.increment(Constants.HIT_POINTS, damage);
+		
+		world.logAction(action, performer, target, args, message);
+	}
+	
 	private static int changeForEnergy(int damage, WorldObject performer, WorldObject target) {
 		int energy = performer.getProperty(Constants.ENERGY);
 		if (energy < 100) {
