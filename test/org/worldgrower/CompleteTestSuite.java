@@ -640,7 +640,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestWorkbenchGoal.class,
 	UTestBuildWorkbenchAction.class,
 	UTestPerceptionPropertyUtils.class,
-	UTestBreweryGoal.class
+	UTestBreweryGoal.class,
+	UTestStealLifeAction.class
 })
 public class CompleteTestSuite {
 }
