@@ -24,6 +24,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
 
 public class UTestBrewWineAction {
@@ -46,7 +47,11 @@ public class UTestBrewWineAction {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 
-		assertEquals(true, Actions.BREW_WINE_ACTION.isValidTarget(performer, performer, world));
+		int breweryId = BuildingGenerator.generateBrewery(0, 0, world);
+		WorldObject target = world.findWorldObject(Constants.ID, breweryId);
+		
+		assertEquals(false, Actions.BREW_WINE_ACTION.isValidTarget(performer, performer, world));
+		assertEquals(true, Actions.BREW_WINE_ACTION.isValidTarget(performer, target, world));
 	}
 	
 	@Test

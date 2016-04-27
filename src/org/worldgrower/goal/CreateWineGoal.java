@@ -32,6 +32,7 @@ public class CreateWineGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
+		Integer breweryId = performer.getProperty(Constants.BREWERY_ID);
 		if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.GRAPE) < 5) {
 			List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.HARVEST_GRAPES_ACTION, w -> Reach.distance(performer, w) < 20  ,world);
 			if (targets.size() > 0) {
@@ -45,8 +46,11 @@ public class CreateWineGoal implements Goal {
 					return null;
 				}
 			}
+		} else if (breweryId == null) {
+			return Goals.BREWERY_GOAL.calculateGoal(performer, world);
 		} else {
-			return new OperationInfo(performer, performer, Args.EMPTY, Actions.BREW_WINE_ACTION);
+			WorldObject brewery = world.findWorldObject(Constants.ID, breweryId);
+			return new OperationInfo(performer, brewery, Args.EMPTY, Actions.BREW_WINE_ACTION);
 		}
 	}
 	

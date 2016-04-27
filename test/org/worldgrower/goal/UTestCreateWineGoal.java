@@ -24,6 +24,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
 import org.worldgrower.generator.PlantGenerator;
 
@@ -60,11 +61,26 @@ public class UTestCreateWineGoal {
 	}
 	
 	@Test
+	public void testCalculateGoalBuildBrewery() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer();
+		
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.GRAPES.generate(1f), 20);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.STONE.generate(1f), 20);
+		
+		assertEquals(Actions.BUILD_BREWERY_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+	@Test
 	public void testCalculateGoalBrewWine() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
 		
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.GRAPES.generate(1f), 20);
+		
+		int breweryId = BuildingGenerator.generateBrewery(0, 0, world);
+		performer.setProperty(Constants.BREWERY_ID, breweryId);
 		
 		assertEquals(Actions.BREW_WINE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
