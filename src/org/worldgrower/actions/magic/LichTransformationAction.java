@@ -24,7 +24,7 @@ import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.condition.LichUtils;
-import org.worldgrower.creaturetype.CreatureType;
+import org.worldgrower.creaturetype.CreatureTypeUtils;
 import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
 
@@ -44,7 +44,7 @@ public class LichTransformationAction implements MagicSpell {
 	
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return CraftUtils.isValidTarget(performer, target, world) && (performer.getProperty(Constants.CREATURE_TYPE) != CreatureType.UNDEAD_CREATURE_TYPE) && MagicSpellUtils.canCast(performer, this);
+		return CraftUtils.isValidTarget(performer, target, world) && (!CreatureTypeUtils.isUndead(performer)) && MagicSpellUtils.canCast(performer, this);
 	}
 
 	@Override

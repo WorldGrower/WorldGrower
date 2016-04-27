@@ -41,7 +41,7 @@ public class UTestLichTransformationAction {
 		
 		Actions.LICH_TRANSFORMATION_ACTION.execute(performer, performer, new int[] {0}, world);
 		
-		assertEquals(CreatureType.UNDEAD_CREATURE_TYPE, performer.getProperty(Constants.CREATURE_TYPE));
+		assertEquals(CreatureType.LICH_CREATURE_TYPE, performer.getProperty(Constants.CREATURE_TYPE));
 	}
 	
 	@Test

@@ -28,10 +28,10 @@ public class VampireUtils {
 
 	public static void vampirizePerson(WorldObject worldObject, WorldStateChangedListeners creatureTypeChangedListeners) {
 		worldObject.setProperty(Constants.VAMPIRE_BLOOD_LEVEL, 0);
-		worldObject.setProperty(Constants.CREATURE_TYPE, CreatureType.UNDEAD_CREATURE_TYPE);
+		worldObject.setProperty(Constants.CREATURE_TYPE, CreatureType.VAMPIRE_CREATURE_TYPE);
 		worldObject.setProperty(Constants.CURSE, Curse.VAMPIRE_CURSE);
 		
-		creatureTypeChangedListeners.fireCreatureTypeChanged(worldObject, CreatureType.UNDEAD_CREATURE_TYPE, "You crave blood, you must have become a vampire");
+		creatureTypeChangedListeners.fireCreatureTypeChanged(worldObject, CreatureType.VAMPIRE_CREATURE_TYPE, "You crave blood, you must have become a vampire");
 	}
 	
 	public static int getVampireCount(World world) {

@@ -57,7 +57,7 @@ public class UTestDionysus {
 		
 		deity.onTurn(world, new WorldStateChangedListeners());
 		
-		assertEquals(CreatureType.UNDEAD_CREATURE_TYPE, performer.getProperty(Constants.CREATURE_TYPE));
+		assertEquals(CreatureType.VAMPIRE_CREATURE_TYPE, performer.getProperty(Constants.CREATURE_TYPE));
 	}
 	
 	@Test

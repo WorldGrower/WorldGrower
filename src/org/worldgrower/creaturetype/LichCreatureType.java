@@ -17,9 +17,9 @@ package org.worldgrower.creaturetype;
 import java.io.ObjectStreamException;
 import java.util.List;
 
-public class UndeadCreatureType implements CreatureType {
+public class LichCreatureType implements CreatureType {
 
-	public UndeadCreatureType(List<CreatureType> allCreatureTypes) {
+	public LichCreatureType(List<CreatureType> allCreatureTypes) {
 		allCreatureTypes.add(this);
 	}
 

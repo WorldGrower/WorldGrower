@@ -12,25 +12,38 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.condition;
+package org.worldgrower.creaturetype;
 
-import org.worldgrower.Constants;
-import org.worldgrower.WorldObject;
-import org.worldgrower.creaturetype.CreatureType;
-import org.worldgrower.curse.Curse;
-import org.worldgrower.gui.ImageIds;
+import java.io.ObjectStreamException;
+import java.util.List;
 
-public class LichUtils {
+public class SkeletonCreatureType implements CreatureType {
 
-	public static void lichifyPerson(WorldObject worldObject, WorldStateChangedListeners creatureTypeChangedListeners) {
-		worldObject.setProperty(Constants.IMAGE_ID, ImageIds.LICH);
-		worldObject.setProperty(Constants.CREATURE_TYPE, CreatureType.LICH_CREATURE_TYPE);
-		worldObject.setProperty(Constants.CURSE, Curse.LICH_CURSE);
-		
-		creatureTypeChangedListeners.fireCreatureTypeChanged(worldObject, CreatureType.LICH_CREATURE_TYPE, "You have become a lich");
+	public SkeletonCreatureType(List<CreatureType> allCreatureTypes) {
+		allCreatureTypes.add(this);
+	}
+
+	@Override
+	public boolean canTalk() {
+		return false;
+	}
+
+	@Override
+	public boolean canMove() {
+		return true;
 	}
 	
-	public static boolean isLich(WorldObject performer) {
-		return performer.getProperty(Constants.CURSE) == Curse.LICH_CURSE;
+	@Override
+	public boolean canTrade() {
+		return false;
+	}
+	
+	@Override
+	public boolean hasBlood() {
+		return false;
+	}
+	
+	public Object readResolve() throws ObjectStreamException {
+		return readResolveImpl();
 	}
 }

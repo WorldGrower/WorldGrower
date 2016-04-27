@@ -31,7 +31,7 @@ public class UTestVampireUtils {
 		WorldObject performer = TestUtils.createIntelligentWorldObject(2, "performer");
 		VampireUtils.vampirizePerson(performer, new WorldStateChangedListeners());
 		
-		assertEquals(CreatureType.UNDEAD_CREATURE_TYPE, performer.getProperty(Constants.CREATURE_TYPE));
+		assertEquals(CreatureType.VAMPIRE_CREATURE_TYPE, performer.getProperty(Constants.CREATURE_TYPE));
 	}
 	
 	@Test

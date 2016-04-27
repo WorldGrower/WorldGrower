@@ -46,7 +46,7 @@ public class LegalizeVampirismGoal implements Goal {
 			if (leaderOfVillagers != null) {
 				CreatureType leaderCreatureType = leaderOfVillagers.getProperty(Constants.CREATURE_TYPE);
 				Conditions leaderConditions = leaderOfVillagers.getProperty(Constants.CONDITIONS);
-				if (leaderCreatureType != CreatureType.UNDEAD_CREATURE_TYPE && !leaderConditions.hasCondition(Condition.VAMPIRE_BITE_CONDITION)) {
+				if (leaderCreatureType != CreatureType.VAMPIRE_CREATURE_TYPE && !leaderConditions.hasCondition(Condition.VAMPIRE_BITE_CONDITION)) {
 					return new OperationInfo(performer, leaderOfVillagers, Args.EMPTY, Actions.VAMPIRE_BITE_ACTION);
 				}
 			}

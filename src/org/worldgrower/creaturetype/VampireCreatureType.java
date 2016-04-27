@@ -17,15 +17,15 @@ package org.worldgrower.creaturetype;
 import java.io.ObjectStreamException;
 import java.util.List;
 
-public class MindlessUndeadCreatureType implements CreatureType {
+public class VampireCreatureType implements CreatureType {
 
-	public MindlessUndeadCreatureType(List<CreatureType> allCreatureTypes) {
+	public VampireCreatureType(List<CreatureType> allCreatureTypes) {
 		allCreatureTypes.add(this);
 	}
 
 	@Override
 	public boolean canTalk() {
-		return false;
+		return true;
 	}
 
 	@Override
@@ -35,7 +35,7 @@ public class MindlessUndeadCreatureType implements CreatureType {
 	
 	@Override
 	public boolean canTrade() {
-		return false;
+		return true;
 	}
 	
 	@Override
