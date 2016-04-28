@@ -36,7 +36,7 @@ public class UTestWeightPropertyUtils {
 	
 	@Test
 	public void testGetTotalWeight() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(0, "Test");
 		
 		assertEquals(0, WeightPropertyUtils.getTotalWeight(performer));

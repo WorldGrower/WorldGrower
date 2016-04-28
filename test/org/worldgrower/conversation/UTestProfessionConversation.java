@@ -48,7 +48,7 @@ public class UTestProfessionConversation {
 	
 	@Test
 	public void testGetReplyPhrase() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.PROFESSION, Professions.FARMER_PROFESSION);
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.PROFESSION, Professions.FARMER_PROFESSION);
 		
@@ -71,7 +71,7 @@ public class UTestProfessionConversation {
 	
 	@Test
 	public void testGetReplyPhrasesForThief() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.PROFESSION, Professions.FARMER_PROFESSION);
 		WorldObject target = TestUtils.createSkilledWorldObject(2, Constants.PROFESSION, Professions.THIEF_PROFESSION);
 
@@ -89,7 +89,7 @@ public class UTestProfessionConversation {
 	
 	@Test
 	public void testGetReplyPhrasesForNecromancer() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.PROFESSION, Professions.FARMER_PROFESSION);
 		WorldObject target = TestUtils.createSkilledWorldObject(2, Constants.PROFESSION, Professions.NECROMANCER_PROFESSION);
 
@@ -107,7 +107,7 @@ public class UTestProfessionConversation {
 	
 	@Test
 	public void testGetReplyPhrasesForAssassin() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.PROFESSION, Professions.FARMER_PROFESSION);
 		WorldObject target = TestUtils.createSkilledWorldObject(2, Constants.PROFESSION, Professions.NECROMANCER_PROFESSION);
 

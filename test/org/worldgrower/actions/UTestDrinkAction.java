@@ -33,7 +33,7 @@ public class UTestDrinkAction {
 
 	@Test
 	public void testExecuteDrinkWater() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		
 		int wellId = BuildingGenerator.buildWell(0, 0, world, 1f);
@@ -47,7 +47,7 @@ public class UTestDrinkAction {
 	
 	@Test
 	public void testExecuteDrinkAlcohol() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		
 		int wellId = BuildingGenerator.buildWell(0, 0, world, 1f);
@@ -62,7 +62,7 @@ public class UTestDrinkAction {
 	
 	@Test
 	public void testExecuteDrinkPoison() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		
 		int wellId = BuildingGenerator.buildWell(0, 0, world, 1f);
@@ -77,7 +77,7 @@ public class UTestDrinkAction {
 	
 	@Test
 	public void testIsValidTarget() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		performer.setProperty(Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		
@@ -90,7 +90,7 @@ public class UTestDrinkAction {
 	
 	@Test
 	public void testDistance() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		
 		int wellId = BuildingGenerator.buildWell(0, 0, world, 1f);

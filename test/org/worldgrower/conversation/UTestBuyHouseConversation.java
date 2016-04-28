@@ -46,7 +46,7 @@ public class UTestBuyHouseConversation {
 	
 	@Test
 	public void testGetReplyPhrase() {
-		World world = new WorldImpl(0, 0, new DungeonMaster(), null);
+		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.HOUSES, new IdList().add(3));
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.GOLD, 100);
 		
@@ -66,7 +66,7 @@ public class UTestBuyHouseConversation {
 	
 	@Test
 	public void testHandleResponse0() {
-		World world = new WorldImpl(0, 0, new DungeonMaster(), null);
+		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.HOUSES, new IdList());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.HOUSES, new IdList().add(3));
 		
@@ -89,7 +89,7 @@ public class UTestBuyHouseConversation {
 	
 	@Test
 	public void testIsConversationAvailable() {
-		World world = new WorldImpl(0, 0, new DungeonMaster(), null);
+		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.HOUSES, new IdList());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.HOUSES, new IdList().add(3));
 		

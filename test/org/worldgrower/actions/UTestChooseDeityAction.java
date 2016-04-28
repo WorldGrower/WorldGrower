@@ -30,7 +30,7 @@ public class UTestChooseDeityAction {
 
 	@Test
 	public void testExecute() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.GROUP, new IdList());
 		Actions.CHOOSE_DEITY_ACTION.execute(performer, performer, new int[] { 0, -1 }, world);
 		
@@ -39,7 +39,7 @@ public class UTestChooseDeityAction {
 	
 	@Test
 	public void testExecuteThief() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.GROUP, new IdList());
 		performer.setProperty(Constants.PROFESSION, Professions.THIEF_PROFESSION);
 		performer.setProperty(Constants.FACADE, TestUtils.createSkilledWorldObject(3, Constants.GROUP, new IdList()));
@@ -51,7 +51,7 @@ public class UTestChooseDeityAction {
 	
 	@Test
 	public void testIsValidTarget() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.GROUP, new IdList());
 		WorldObject target = TestUtils.createSkilledWorldObject(3, Constants.GROUP, new IdList());
 		

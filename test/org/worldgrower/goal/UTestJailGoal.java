@@ -36,7 +36,7 @@ public class UTestJailGoal {
 	
 	@Test
 	public void testCalculateGoalNull() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
 		
@@ -67,7 +67,7 @@ public class UTestJailGoal {
 	
 	@Test
 	public void testCalculateGoalBuildJailNotEnoughRoom() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
 
@@ -78,7 +78,7 @@ public class UTestJailGoal {
 	
 	@Test
 	public void testIsGoalMet() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(20, 20, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
 		

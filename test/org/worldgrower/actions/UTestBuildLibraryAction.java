@@ -31,7 +31,7 @@ public class UTestBuildLibraryAction {
 
 	@Test
 	public void testExecute() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		Actions.BUILD_LIBRARY_ACTION.execute(performer, target, Args.EMPTY, world);
@@ -42,7 +42,7 @@ public class UTestBuildLibraryAction {
 	
 	@Test
 	public void testIsValidTarget() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
@@ -51,7 +51,7 @@ public class UTestBuildLibraryAction {
 	
 	@Test
 	public void testDistance() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);

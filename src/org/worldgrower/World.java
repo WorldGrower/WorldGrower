@@ -17,6 +17,7 @@ package org.worldgrower;
 import java.io.File;
 import java.util.List;
 
+import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.condition.WorldStateChangedListener;
 import org.worldgrower.condition.WorldStateChangedListeners;
@@ -62,5 +63,5 @@ public interface World {
 	public WorldStateChangedListeners getWorldStateChangedListeners();
 	public void addWorldStateChangedListener(WorldStateChangedListener worldStateChangedListener);
 	
-	
+	public WorldObjectsCache getWorldObjectsCache(IntProperty intProperty1, IntProperty intProperty2);
 }

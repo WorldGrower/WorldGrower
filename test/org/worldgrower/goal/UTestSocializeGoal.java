@@ -66,7 +66,7 @@ public class UTestSocializeGoal {
 	
 	@Test
 	public void testIsTargetForShareKnowledgeConversation() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(1, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		
@@ -78,7 +78,7 @@ public class UTestSocializeGoal {
 	
 	@Test
 	public void testGetPreviousResponseIds() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(1, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		
@@ -92,7 +92,7 @@ public class UTestSocializeGoal {
 	
 	@Test
 	public void testGetShareKnowledgeOperationInfoNoTarget() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		
 		assertEquals(null, goal.getShareKnowledgeOperationInfo(performer, world));
@@ -100,7 +100,7 @@ public class UTestSocializeGoal {
 	
 	@Test
 	public void testGetShareKnowledgeOperationInfoShareToTarget() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(1, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 
@@ -119,7 +119,7 @@ public class UTestSocializeGoal {
 	
 	@Test
 	public void testIsGoalMet() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, "performer");
 		
 		assertEquals(false, goal.isGoalMet(performer, world));
@@ -130,7 +130,7 @@ public class UTestSocializeGoal {
 	
 	@Test
 	public void testCalculateGoalNull() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, "performer");
 		
 		assertEquals(null, goal.calculateGoal(performer, world));
@@ -138,7 +138,7 @@ public class UTestSocializeGoal {
 	
 	@Test
 	public void testCalculateGoalFirstConversation() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, "performer");
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, "target");
 		

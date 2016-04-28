@@ -29,7 +29,7 @@ public class UTestCreateProfessionOrganizationAction {
 
 	@Test
 	public void testExecute() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		Actions.CREATE_PROFESSION_ORGANIZATION_ACTION.execute(performer, performer, new int[] { 0, 0, 0 }, world);
 		
@@ -39,7 +39,7 @@ public class UTestCreateProfessionOrganizationAction {
 	
 	@Test
 	public void testIsValidTarget() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
@@ -49,7 +49,7 @@ public class UTestCreateProfessionOrganizationAction {
 	
 	@Test
 	public void testDistance() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		
 		assertEquals(0, Actions.CREATE_PROFESSION_ORGANIZATION_ACTION.distance(performer, performer, Args.EMPTY, world));

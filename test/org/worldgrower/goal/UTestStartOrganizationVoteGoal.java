@@ -34,7 +34,7 @@ public class UTestStartOrganizationVoteGoal {
 	
 	@Test
 	public void testCalculateGoalStartVote() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
 		

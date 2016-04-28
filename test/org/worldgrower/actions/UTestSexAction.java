@@ -31,7 +31,7 @@ public class UTestSexAction {
 
 	@Test
 	public void testExecuteFemalePerformer() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
@@ -49,7 +49,7 @@ public class UTestSexAction {
 	
 	@Test
 	public void testExecuteFemaleTarget() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
@@ -67,7 +67,7 @@ public class UTestSexAction {
 	
 	@Test
 	public void testIsValidTargetNoRelationships() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
@@ -76,7 +76,7 @@ public class UTestSexAction {
 	
 	@Test
 	public void testIsValidTargetRelationships() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
@@ -96,7 +96,7 @@ public class UTestSexAction {
 	
 	@Test
 	public void testDistance() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		

@@ -36,7 +36,7 @@ public class UTestWerewolfUtils {
 	
 	@Test
 	public void testGetWerewolfCount() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(2, "performer");
 		world.addWorldObject(performer);
 		

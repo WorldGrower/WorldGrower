@@ -29,7 +29,7 @@ public class UTestIntoxicatedCondition {
 	
 	@Test
 	public void testOnTurn() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(2, "performer");
 		performer.setProperty(Constants.ALCOHOL_LEVEL, 500);
 		Conditions.add(performer, Condition.INTOXICATED_CONDITION, 8, world);

@@ -157,7 +157,7 @@ public class UTestDefaultGoalObstructedHandler {
 	
 	@Test
 	public void testHasAnyoneSeenActionInvisible() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.GROUP, new IdList().add(1));
 		WorldObject actionTarget = TestUtils.createIntelligentWorldObject(2, Constants.GROUP, new IdList().add(1));
 		world.addWorldObject(performer);
@@ -176,7 +176,7 @@ public class UTestDefaultGoalObstructedHandler {
 	
 	@Test
 	public void testLogToBackground() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.GENDER, "male");
 		WorldObject actionTarget = TestUtils.createIntelligentWorldObject(2, Constants.GROUP, new IdList());
 		world.addWorldObject(performer);
@@ -191,7 +191,7 @@ public class UTestDefaultGoalObstructedHandler {
 	
 	@Test
 	public void testAlterRelationships() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.GENDER, "male");
 		WorldObject actionTarget = TestUtils.createIntelligentWorldObject(2, Constants.GROUP, new IdList());
 		world.addWorldObject(performer);

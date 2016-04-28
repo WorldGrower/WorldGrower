@@ -167,7 +167,7 @@ public class UTestTalkAction {
 	
 	@Test
 	public void testDistance0() {
-		World world = new WorldImpl(0, 0, dungeonMaster, null);
+		World world = new WorldImpl(1, 1, dungeonMaster, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, "performer");
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, "target");
 		
@@ -182,7 +182,7 @@ public class UTestTalkAction {
 	
 	@Test
 	public void testDistanceWithSubject() {
-		World world = new WorldImpl(0, 0, dungeonMaster, null);
+		World world = new WorldImpl(1, 1, dungeonMaster, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, "performer");
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, "target");
 		WorldObject subject = TestUtils.createIntelligentWorldObject(3, "subject");
@@ -199,7 +199,7 @@ public class UTestTalkAction {
 	
 	@Test
 	public void testDistance10() {
-		World world = new WorldImpl(0, 0, dungeonMaster, null);
+		World world = new WorldImpl(1, 1, dungeonMaster, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, "performer");
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, "target");
 		
@@ -213,7 +213,7 @@ public class UTestTalkAction {
 	}
 	
 	private World createWorld() {
-		World world = new WorldImpl(0, 0, dungeonMaster, null);
+		World world = new WorldImpl(1, 1, dungeonMaster, null);
 		world.addWorldObject(performer);
 		world.addWorldObject(target);
 		world.addWorldObject(deity);

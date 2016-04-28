@@ -35,7 +35,7 @@ public class UTestLegalizeVampirismGoal {
 	
 	@Test
 	public void testCalculateGoalNull() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
 		
@@ -44,7 +44,7 @@ public class UTestLegalizeVampirismGoal {
 	
 	@Test
 	public void testCalculateGoalLegalize() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject villagersOrganization = GroupPropertyUtils.createVillagersOrganization(world);
 
 		WorldObject performer = createCommoner(world, villagersOrganization);
@@ -58,7 +58,7 @@ public class UTestLegalizeVampirismGoal {
 	
 	@Test
 	public void testCalculateGoalBiteLeader() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject villagersOrganization = GroupPropertyUtils.createVillagersOrganization(world);
 
 		WorldObject performer = createCommoner(world, villagersOrganization);
@@ -74,7 +74,7 @@ public class UTestLegalizeVampirismGoal {
 	
 	@Test
 	public void testIsGoalMet() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject villagersOrganization = GroupPropertyUtils.createVillagersOrganization(world);
 
 		WorldObject performer = createCommoner(world, villagersOrganization);

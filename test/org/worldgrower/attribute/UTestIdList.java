@@ -81,7 +81,7 @@ public class UTestIdList {
 	@Test
 	public void testMapToWorldObjects() {
 		IdList idList = new IdList().add(1).add(2);
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		world.addWorldObject(TestUtils.createWorldObject(1, "Test1"));
 		world.addWorldObject(TestUtils.createWorldObject(2, "Test2"));
 		

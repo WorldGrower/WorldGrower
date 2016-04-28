@@ -37,7 +37,7 @@ public class UTestGetDiseaseCuredGoal {
 
 	@Test
 	public void testCalculateGoalNull() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
 		
@@ -46,7 +46,7 @@ public class UTestGetDiseaseCuredGoal {
 
 	@Test
 	public void testCalculateGoalPerformerKnowsCureDiseaseSpell() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
 		performer.getProperty(Constants.KNOWN_SPELLS).add(Actions.CURE_DISEASE_ACTION);
@@ -58,7 +58,7 @@ public class UTestGetDiseaseCuredGoal {
 	
 	@Test
 	public void testCalculateGoalPerformerKnowsCureDiseaseSpellNotEnoughEnergy() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
 		performer.getProperty(Constants.KNOWN_SPELLS).add(Actions.CURE_DISEASE_ACTION);
@@ -71,7 +71,7 @@ public class UTestGetDiseaseCuredGoal {
 	
 	@Test
 	public void testCalculateGoalTargetKnowsCurePoisonSpell() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
 		
@@ -86,7 +86,7 @@ public class UTestGetDiseaseCuredGoal {
 	
 	@Test
 	public void testIsGoalMet() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
 		

@@ -46,7 +46,7 @@ public class UTestAssassinateTargetConversation {
 	
 	@Test
 	public void testGetReplyPhrase() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject subject = TestUtils.createIntelligentWorldObject(3, Constants.RELATIONSHIPS, new IdRelationshipMap());
@@ -75,7 +75,7 @@ public class UTestAssassinateTargetConversation {
 	
 	@Test
 	public void testGetPossibleSubjects() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.GROUP, new IdList());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.GROUP, new IdList().add(0));
 		WorldObject subject = TestUtils.createIntelligentWorldObject(3, Constants.NAME, "subject");

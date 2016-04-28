@@ -34,7 +34,7 @@ public class UTestBurdenAction {
 
 	@Test
 	public void testExecute() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		
 		Actions.BURDEN_ACTION.execute(performer, performer, Args.EMPTY, world);
@@ -44,7 +44,7 @@ public class UTestBurdenAction {
 	
 	@Test
 	public void testExecuteReduced() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		
 		Actions.FEATHER_ACTION.execute(performer, performer, Args.EMPTY, world);
@@ -57,7 +57,7 @@ public class UTestBurdenAction {
 	
 	@Test
 	public void testIsValidTarget() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		performer.setProperty(Constants.KNOWN_SPELLS, Arrays.asList(Actions.BURDEN_ACTION));
 		performer.setProperty(Constants.INVENTORY, new WorldObjectContainer());
@@ -67,7 +67,7 @@ public class UTestBurdenAction {
 	
 	@Test
 	public void testDistance() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		
 		assertEquals(0, Actions.BURDEN_ACTION.distance(performer, performer, Args.EMPTY, world));

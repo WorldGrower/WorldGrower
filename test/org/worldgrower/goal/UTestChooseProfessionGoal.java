@@ -32,7 +32,7 @@ public class UTestChooseProfessionGoal {
 	
 	@Test
 	public void testCalculateGoalChooseProfession() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer();
 		
 		assertEquals(Actions.CHOOSE_PROFESSION_ACTION, goal.calculateGoal(performer, world).getManagedOperation());

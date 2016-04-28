@@ -31,7 +31,7 @@ public class UTestBrawlGoal {
 	
 	@Test
 	public void testCalculateGoalAttack() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		

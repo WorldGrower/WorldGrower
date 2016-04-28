@@ -51,7 +51,7 @@ public class WaterWalkCondition implements Condition {
 	}
 
 	@Override
-	public void conditionEnds(WorldObject worldObject) {
+	public void conditionEnds(WorldObject worldObject, World world) {
 	}
 	
 	@Override

@@ -30,7 +30,7 @@ public class UTestVotingPropertyUtils {
 
 	@Test
 	public void testIsVotingBox() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject nonVotingBox = TestUtils.createIntelligentWorldObject(1, "Test");
 		
 		assertEquals(false, VotingPropertyUtils.isVotingBox(nonVotingBox));
@@ -43,7 +43,7 @@ public class UTestVotingPropertyUtils {
 	
 	@Test
 	public void testIsVotingBoxForOrganization() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject nonVotingBox = TestUtils.createIntelligentWorldObject(1, "Test");
 		WorldObject organization = GroupPropertyUtils.createProfessionOrganization(1, "TestOrg", Professions.FARMER_PROFESSION, world);
 		
@@ -117,7 +117,7 @@ public class UTestVotingPropertyUtils {
 	}
 
 	private WorldObject createVotingBox() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		int votingBoxId = BuildingGenerator.generateVotingBox(0, 0, world);
 		WorldObject votingBox = world.findWorldObject(Constants.ID, votingBoxId);
 		return votingBox;

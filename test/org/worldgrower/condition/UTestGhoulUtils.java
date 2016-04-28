@@ -29,7 +29,7 @@ public class UTestGhoulUtils {
 
 	@Test
 	public void testGhoulifyPerson() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(2, "performer");
 		world.addWorldObject(performer);
 		

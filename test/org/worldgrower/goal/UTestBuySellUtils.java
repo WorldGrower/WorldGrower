@@ -70,7 +70,7 @@ public class UTestBuySellUtils {
 	
 	@Test
 	public void testGetBuyOperationInfo() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.GOLD, 100);
 		
@@ -88,7 +88,7 @@ public class UTestBuySellUtils {
 	
 	@Test
 	public void testGetBuyOperationInfoForEquipmentNull() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.GOLD, 100);
 		
@@ -106,7 +106,7 @@ public class UTestBuySellUtils {
 	
 	@Test
 	public void testTargetWillBuyGoods() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.INVENTORY, new WorldObjectContainer());
 		
 		WorldObject target = TestUtils.createIntelligentWorldObject(0, Constants.INVENTORY, new WorldObjectContainer());
@@ -128,7 +128,7 @@ public class UTestBuySellUtils {
 	
 	@Test
 	public void testFindBuyTargets() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
 		world.addWorldObject(target);
@@ -144,13 +144,13 @@ public class UTestBuySellUtils {
 	
 	@Test
 	public void testBetterPriceExistsNull() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		assertEquals(false, BuySellUtils.betterPriceExists(Item.BERRIES.generate(1f), world, 1));
 	}
 	
 	@Test
 	public void testBetterPriceExistsTrue() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject worldObjectToBuy = Item.BERRIES.generate(1f);
 		worldObjectToBuy.setProperty(Constants.PRICE, 10);
 		
@@ -166,7 +166,7 @@ public class UTestBuySellUtils {
 	
 	@Test
 	public void testGetBuyOperationInfoForEquipment() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.GOLD, 1000);
 		

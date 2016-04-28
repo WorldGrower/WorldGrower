@@ -33,7 +33,7 @@ public class UTestRedistributeGoldAmongFamilyGoal {
 	
 	@Test
 	public void testCalculateGoalNull() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		performer.setProperty(Constants.GOLD, 100);
 		
@@ -42,7 +42,7 @@ public class UTestRedistributeGoldAmongFamilyGoal {
 	
 	@Test
 	public void testCalculateGoalGiveToMate() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		performer.setProperty(Constants.GOLD, 1000);
 		
@@ -58,7 +58,7 @@ public class UTestRedistributeGoldAmongFamilyGoal {
 	
 	@Test
 	public void testCalculateGoalDemandFromMate() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		performer.setProperty(Constants.GOLD, 0);
 		

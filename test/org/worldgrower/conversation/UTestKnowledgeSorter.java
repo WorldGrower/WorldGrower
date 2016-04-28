@@ -44,7 +44,7 @@ public class UTestKnowledgeSorter {
 	
 	@Test
 	public void testSortPropertyAndEvent() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
 		
@@ -64,7 +64,7 @@ public class UTestKnowledgeSorter {
 	
 	@Test
 	public void testSortProfessionAndDeity() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
 		

@@ -30,7 +30,7 @@ public class UTestOrganizationNamer {
 	
 	@Test
 	public void testGetProfessionOrganizationNames() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		
 		List<String> organizationNames = organizationNamer.getProfessionOrganizationNames(Professions.FARMER_PROFESSION, world);
 		assertEquals(true, organizationNames.size() > 0);
@@ -39,7 +39,7 @@ public class UTestOrganizationNamer {
 	
 	@Test
 	public void testgetDeityOrganizationNames() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		
 		List<String> organizationNames = organizationNamer.getDeityOrganizationNames(Deity.HADES, world);
 		assertEquals(true, organizationNames.size() > 0);

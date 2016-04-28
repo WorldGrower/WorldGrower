@@ -34,7 +34,7 @@ public class UTestFeatherAction {
 
 	@Test
 	public void testExecute() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		
 		Actions.FEATHER_ACTION.execute(performer, performer, Args.EMPTY, world);
@@ -44,7 +44,7 @@ public class UTestFeatherAction {
 	
 	@Test
 	public void testExecuteReduced() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		
 		Actions.BURDEN_ACTION.execute(performer, performer, Args.EMPTY, world);
@@ -57,7 +57,7 @@ public class UTestFeatherAction {
 	
 	@Test
 	public void testIsValidTarget() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
@@ -69,7 +69,7 @@ public class UTestFeatherAction {
 	
 	@Test
 	public void testDistance() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		

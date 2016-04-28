@@ -52,7 +52,7 @@ public class UTestGroupPropertyUtils {
 	
 	@Test
 	public void testIsOrganizationNameInUse() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		createProfessionOrganization(1, "TestOrg", Professions.FARMER_PROFESSION, world);
 		
 		assertEquals(true, GroupPropertyUtils.isOrganizationNameInUse("TestOrg", world));
@@ -61,7 +61,7 @@ public class UTestGroupPropertyUtils {
 	
 	@Test
 	public void testFindOrganizationsUsingLeader() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject leader = createIntelligentWorldObject(1, Constants.GROUP, new IdList());
 		world.addWorldObject(leader);
 		
@@ -76,7 +76,7 @@ public class UTestGroupPropertyUtils {
 	
 	@Test
 	public void testFindOrganizationMembers() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject member = createIntelligentWorldObject(1, Constants.GROUP, new IdList());
 		WorldObject nonMember = createIntelligentWorldObject(2, Constants.GROUP, new IdList());
 		world.addWorldObject(member);
@@ -118,7 +118,7 @@ public class UTestGroupPropertyUtils {
 	
 	@Test
 	public void testPerformerIsLeaderOfVillagers() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = createVillagersOrganization(world);
 		
 		WorldObject performer = TestUtils.createIntelligentWorldObject(2, "Test");
@@ -138,7 +138,7 @@ public class UTestGroupPropertyUtils {
 	
 	@Test
 	public void testGetLeaderOfVillagers() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = createVillagersOrganization(world);
 		
 		WorldObject performer = TestUtils.createIntelligentWorldObject(2, "Test");
@@ -151,7 +151,7 @@ public class UTestGroupPropertyUtils {
 	
 	@Test
 	public void testCanCollectTaxes() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = createVillagersOrganization(world);
 		
 		assertEquals(false, GroupPropertyUtils.canCollectTaxes(world));
@@ -162,7 +162,7 @@ public class UTestGroupPropertyUtils {
 	
 	@Test
 	public void testFindProfessionOrganizationsInWorldNotMember() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(2, "Test");
 		world.addWorldObject(performer);
 		
@@ -171,7 +171,7 @@ public class UTestGroupPropertyUtils {
 	
 	@Test
 	public void testFindReligionOrganizationsInWorldNotMember() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(2, "Test");
 		world.addWorldObject(performer);
 		
@@ -180,7 +180,7 @@ public class UTestGroupPropertyUtils {
 	
 	@Test
 	public void testFindProfessionOrganizationsInWorldMember() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(2, Constants.PROFESSION, Professions.FARMER_PROFESSION);
 		world.addWorldObject(performer);
 		
@@ -192,7 +192,7 @@ public class UTestGroupPropertyUtils {
 	
 	@Test
 	public void testFindReligionOrganizationsInWorldMember() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(2, Constants.DEITY, Deity.HADES);
 		world.addWorldObject(performer);
 		
@@ -204,7 +204,7 @@ public class UTestGroupPropertyUtils {
 	
 	@Test
 	public void testGetBaseAmountToPayNoHouses() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.HOUSES, new IdList());
 		world.addWorldObject(target);
 		
@@ -213,7 +213,7 @@ public class UTestGroupPropertyUtils {
 	
 	@Test
 	public void testGetBaseAmountToPayShackAndHouse() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject target = TestUtils.createIntelligentWorldObject(world.generateUniqueId(), Constants.HOUSES, new IdList().add(2).add(3));
 		world.addWorldObject(target);
 		
@@ -234,7 +234,7 @@ public class UTestGroupPropertyUtils {
 	
 	@Test
 	public void testGetAmountToCollect() {
-		World world = new WorldImpl(0, 0, null, new DoNothingWorldOnTurn());
+		World world = new WorldImpl(10, 10, null, new DoNothingWorldOnTurn());
 		WorldObject target = TestUtils.createIntelligentWorldObject(world.generateUniqueId(), Constants.HOUSES, new IdList().add(2).add(3));
 		world.addWorldObject(target);
 		
@@ -253,7 +253,7 @@ public class UTestGroupPropertyUtils {
 	
 	@Test
 	public void testGetPayCheckAmount() {
-		World world = new WorldImpl(0, 0, null, new DoNothingWorldOnTurn());
+		World world = new WorldImpl(1, 1, null, new DoNothingWorldOnTurn());
 		WorldObject target = TestUtils.createIntelligentWorldObject(world.generateUniqueId(), Constants.HOUSES, new IdList().add(2).add(3));
 		world.addWorldObject(target);
 		
@@ -272,7 +272,7 @@ public class UTestGroupPropertyUtils {
 	
 	@Test
 	public void testCanJoinOrganization() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject personJoining = TestUtils.createIntelligentWorldObject(0, Constants.DEITY, null);
 		world.addWorldObject(personJoining);
 		
@@ -286,7 +286,7 @@ public class UTestGroupPropertyUtils {
 	
 	@Test
 	public void testFindProfessionOrganization() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.GROUP, new IdList());
 		world.addWorldObject(performer);
 		
@@ -301,7 +301,7 @@ public class UTestGroupPropertyUtils {
 	
 	@Test
 	public void testFindReligionOrganization() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.GROUP, new IdList());
 		world.addWorldObject(performer);
 		
@@ -316,7 +316,7 @@ public class UTestGroupPropertyUtils {
 	
 	@Test
 	public void testGetOrganizations() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.GROUP, new IdList().add(7));
 		world.addWorldObject(performer);
 		
@@ -331,7 +331,7 @@ public class UTestGroupPropertyUtils {
 	
 	@Test
 	public void testCreateMinionOrganization() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.GROUP, new IdList());
 		world.addWorldObject(performer);
 		
@@ -346,7 +346,7 @@ public class UTestGroupPropertyUtils {
 	
 	@Test
 	public void testFindMatchingOrganizationNull() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.GROUP, new IdList());
 		WorldObject performerOrganization = GroupPropertyUtils.createProfessionOrganization(null, "TestOrg", Professions.FARMER_PROFESSION, world);
 		performer.getProperty(Constants.GROUP).add(performerOrganization);
@@ -358,7 +358,7 @@ public class UTestGroupPropertyUtils {
 	
 	@Test
 	public void testFindMatchingOrganizationInSelf() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.GROUP, new IdList());
 		WorldObject performerOrganization = GroupPropertyUtils.createProfessionOrganization(null, "TestOrg", Professions.FARMER_PROFESSION, world);
 		WorldObject targetOrganization = GroupPropertyUtils.createProfessionOrganization(null, "TestOrgTarget", Professions.FARMER_PROFESSION, world);
@@ -370,7 +370,7 @@ public class UTestGroupPropertyUtils {
 	
 	@Test
 	public void testFindMatchingOrganizationInTarget() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.GROUP, new IdList());
 		WorldObject performerOrganization = GroupPropertyUtils.createProfessionOrganization(null, "TestOrg", Professions.FARMER_PROFESSION, world);
 		performer.getProperty(Constants.GROUP).add(performerOrganization);
@@ -384,7 +384,7 @@ public class UTestGroupPropertyUtils {
 	
 	@Test
 	public void testOrganizationsMatchSameProfession() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performerOrganization = GroupPropertyUtils.createProfessionOrganization(null, "TestOrg", Professions.FARMER_PROFESSION, world);
 		WorldObject targetOrganization = GroupPropertyUtils.createProfessionOrganization(null, "TestOrg", Professions.FARMER_PROFESSION, world);
 		assertEquals(true, GroupPropertyUtils.organizationsMatch(performerOrganization, targetOrganization));
@@ -392,7 +392,7 @@ public class UTestGroupPropertyUtils {
 	
 	@Test
 	public void testOrganizationsMatchDifferentProfession() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performerOrganization = GroupPropertyUtils.createProfessionOrganization(null, "TestOrg", Professions.FARMER_PROFESSION, world);
 		WorldObject targetOrganization = GroupPropertyUtils.createProfessionOrganization(null, "TestOrg", Professions.FISHER_PROFESSION, world);
 		assertEquals(false, GroupPropertyUtils.organizationsMatch(performerOrganization, targetOrganization));
@@ -400,7 +400,7 @@ public class UTestGroupPropertyUtils {
 	
 	@Test
 	public void testOrganizationsMatchSameDeity() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performerOrganization = GroupPropertyUtils.createReligionOrganization(null, "TestOrg", Deity.ARES, Goals.IDLE_GOAL, world);
 		WorldObject targetOrganization = GroupPropertyUtils.createReligionOrganization(null, "TestOrg", Deity.ARES, Goals.IDLE_GOAL, world);
 		assertEquals(true, GroupPropertyUtils.organizationsMatch(performerOrganization, targetOrganization));
@@ -408,7 +408,7 @@ public class UTestGroupPropertyUtils {
 	
 	@Test
 	public void testOrganizationsMatchDifferentDeity() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performerOrganization = GroupPropertyUtils.createReligionOrganization(null, "TestOrg", Deity.ARES, Goals.IDLE_GOAL, world);
 		WorldObject targetOrganization = GroupPropertyUtils.createReligionOrganization(null, "TestOrg", Deity.HERMES, Goals.IDLE_GOAL, world);
 		assertEquals(false, GroupPropertyUtils.organizationsMatch(performerOrganization, targetOrganization));
@@ -416,7 +416,7 @@ public class UTestGroupPropertyUtils {
 	
 	@Test
 	public void testOrganizationsMatchFalse() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performerOrganization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject targetOrganization = GroupPropertyUtils.create(null, "TestOrg", world);
 		assertEquals(false, GroupPropertyUtils.organizationsMatch(performerOrganization, targetOrganization));
@@ -424,7 +424,7 @@ public class UTestGroupPropertyUtils {
 	
 	@Test
 	public void testGetMatchingOrganizationsUsingLeader() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.GROUP, new IdList());
 		WorldObject performerOrganization = GroupPropertyUtils.createProfessionOrganization(performer.getProperty(Constants.ID), "TestOrg", Professions.FARMER_PROFESSION, world);
 		performer.getProperty(Constants.GROUP).add(performerOrganization);
@@ -438,7 +438,7 @@ public class UTestGroupPropertyUtils {
 	
 	@Test
 	public void testThrowPerformerOutGroup() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.GROUP, new IdList());
 		WorldObject performerOrganization = GroupPropertyUtils.createProfessionOrganization(performer.getProperty(Constants.ID), "TestOrg", Professions.FARMER_PROFESSION, world);
 		performer.getProperty(Constants.GROUP).add(performerOrganization);

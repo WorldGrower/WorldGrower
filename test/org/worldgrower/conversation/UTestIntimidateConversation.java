@@ -45,7 +45,7 @@ public class UTestIntimidateConversation {
 	
 	@Test
 	public void testGetReplyPhrase() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(1);
 		WorldObject target = TestUtils.createSkilledWorldObject(2);
 		
@@ -65,7 +65,7 @@ public class UTestIntimidateConversation {
 	
 	@Test
 	public void testHandleResponse0() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createSkilledWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		
@@ -78,7 +78,7 @@ public class UTestIntimidateConversation {
 
 	@Test
 	public void testHandleResponseMinus999() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createSkilledWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		

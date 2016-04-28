@@ -52,7 +52,7 @@ public class UTestCureDiseaseConversation {
 	
 	@Test
 	public void testGetReplyPhrase() {
-		World world = new WorldImpl(0, 0, new DungeonMaster(), null);
+		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.GOLD, 0);
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.GOLD, 0);
 		
@@ -75,7 +75,7 @@ public class UTestCureDiseaseConversation {
 	
 	@Test
 	public void testHandleResponse0() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.ENERGY, 1000);
 		WorldObject target = TestUtils.createSkilledWorldObject(2, Constants.ENERGY, 1000);
 		
@@ -90,7 +90,7 @@ public class UTestCureDiseaseConversation {
 	
 	@Test
 	public void testHandleResponse1() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		
@@ -103,7 +103,7 @@ public class UTestCureDiseaseConversation {
 	
 	@Test
 	public void testHandleResponse2() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		
@@ -116,7 +116,7 @@ public class UTestCureDiseaseConversation {
 	
 	@Test
 	public void testIsConversationAvailable() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.KNOWN_SPELLS, new ArrayList<>());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.KNOWN_SPELLS, new ArrayList<>());
 

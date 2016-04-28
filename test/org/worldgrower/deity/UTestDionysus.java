@@ -34,7 +34,7 @@ public class UTestDionysus {
 	
 	@Test
 	public void testWorship() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(2, "performer");
 		WorldObject target = TestUtils.createIntelligentWorldObject(3, "target");
 		
@@ -48,7 +48,7 @@ public class UTestDionysus {
 	
 	@Test
 	public void testOnTurn() {
-		World world = new WorldImpl(0, 0, null, new DoNothingWorldOnTurn());
+		World world = new WorldImpl(1, 1, null, new DoNothingWorldOnTurn());
 		for(int i=0; i<2000; i++) { world.nextTurn(); }
 		for(int i=0; i<20; i++) { world.addWorldObject(TestUtils.createIntelligentWorldObject(i+10, Constants.DEITY, Deity.ARES)); }
 		WorldObject performer = TestUtils.createIntelligentWorldObject(2, "performer");
@@ -62,7 +62,7 @@ public class UTestDionysus {
 	
 	@Test
 	public void testGetOrganizationGoalIndex() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(2);
 		performer.setProperty(Constants.PERSONALITY, new Personality());
 		

@@ -20,6 +20,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.goal.LocationPropertyUtils;
 
 public class EnlargedCondition implements Condition {
 
@@ -52,9 +53,17 @@ public class EnlargedCondition implements Condition {
 	}
 
 	@Override
-	public void conditionEnds(WorldObject worldObject) {
-		worldObject.setProperty(Constants.HEIGHT, worldObject.getProperty(Constants.ORIGINAL_HEIGHT));
-		worldObject.setProperty(Constants.WIDTH, worldObject.getProperty(Constants.ORIGINAL_WIDTH));
+	public void conditionEnds(WorldObject worldObject, World world) {
+		int newWidth = worldObject.getProperty(Constants.ORIGINAL_WIDTH);
+		int newHeight = worldObject.getProperty(Constants.ORIGINAL_HEIGHT);
+	
+		LocationPropertyUtils.updateLocation(
+				worldObject,
+				worldObject.getProperty(Constants.X), 
+				worldObject.getProperty(Constants.Y), 
+				newWidth, 
+				newHeight, 
+				world);
 	}
 	
 	@Override

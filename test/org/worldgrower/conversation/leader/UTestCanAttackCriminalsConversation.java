@@ -51,7 +51,7 @@ public class UTestCanAttackCriminalsConversation {
 	
 	@Test
 	public void testGetReplyPhrase() {
-		World world = new WorldImpl(0, 0, null, new DoNothingWorldOnTurn());
+		World world = new WorldImpl(1, 1, null, new DoNothingWorldOnTurn());
 		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.HOUSES, new IdList());
 		WorldObject target = TestUtils.createIntelligentWorldObject(8, Constants.HOUSES, new IdList());
 
@@ -73,7 +73,7 @@ public class UTestCanAttackCriminalsConversation {
 	
 	@Test
 	public void testIsConversationAvailable() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(2, Constants.NAME, "performer");
 		WorldObject target = TestUtils.createIntelligentWorldObject(3, Constants.NAME, "target");
 		

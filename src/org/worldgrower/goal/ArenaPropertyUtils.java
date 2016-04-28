@@ -69,11 +69,14 @@ public class ArenaPropertyUtils {
 		int arenaX = topLeftArena.getProperty(Constants.X);
 		int arenaY = topLeftArena.getProperty(Constants.Y);
 		
-		performer.setProperty(Constants.X, arenaX+1);
-		performer.setProperty(Constants.Y, arenaY+1);
+		int newPerformerX = arenaX+1;
+		int newPerformerY = arenaY+1;
+		LocationPropertyUtils.updateLocation(performer, newPerformerX, newPerformerY, world);
 		
-		opponent.setProperty(Constants.X, arenaX+10);
-		opponent.setProperty(Constants.Y, arenaY+7);
+		int newOpponentX = arenaX+10;
+		int newOpponentY = arenaY+7;
+		
+		LocationPropertyUtils.updateLocation(opponent, newOpponentX, newOpponentY, world);
 	}
 
 	public static boolean personCanCollectPayCheck(WorldObject performer) {

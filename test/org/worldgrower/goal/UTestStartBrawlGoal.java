@@ -31,7 +31,7 @@ public class UTestStartBrawlGoal {
 	
 	@Test
 	public void testCalculateNotTalented() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		performer.setProperty(Constants.STRENGTH, 8);
 		performer.setProperty(Constants.CONSTITUTION, 8);
@@ -41,7 +41,7 @@ public class UTestStartBrawlGoal {
 	
 	@Test
 	public void testCalculateNotAtFullHitPoints() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		performer.setProperty(Constants.STRENGTH, 18);
 		performer.setProperty(Constants.CONSTITUTION, 18);
@@ -53,7 +53,7 @@ public class UTestStartBrawlGoal {
 	
 	@Test
 	public void testCalculate() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		world.addWorldObject(performer);

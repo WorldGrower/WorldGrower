@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.WorldStateChangedListener;
@@ -209,5 +210,10 @@ public class WorldFacade implements World {
 
 	@Override
 	public void addWorldStateChangedListener(WorldStateChangedListener worldStateChangedListener) {
+	}
+
+	@Override
+	public WorldObjectsCache getWorldObjectsCache(IntProperty intProperty1, IntProperty intProperty2) {
+		return world.getWorldObjectsCache(intProperty1, intProperty2);
 	}
 }

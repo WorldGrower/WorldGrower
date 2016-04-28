@@ -32,7 +32,7 @@ public class UTestMarkFoodAsSellableGoal {
 	
 	@Test
 	public void testCalculateGoalNull() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer();
 		
 		assertEquals(null, goal.calculateGoal(performer, world));
@@ -40,7 +40,7 @@ public class UTestMarkFoodAsSellableGoal {
 	
 	@Test
 	public void testCalculateGoalMarkFood() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer();
 		
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.BERRIES.generate(1f), 10);

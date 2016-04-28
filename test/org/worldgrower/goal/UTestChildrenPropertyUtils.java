@@ -31,7 +31,7 @@ public class UTestChildrenPropertyUtils {
 
 	@Test
 	public void testGetParents() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(2);
 		performer.setProperty(Constants.CHILDREN, new IdList());
 		world.addWorldObject(performer);

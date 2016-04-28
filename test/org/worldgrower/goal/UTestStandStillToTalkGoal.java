@@ -36,7 +36,7 @@ public class UTestStandStillToTalkGoal {
 	
 	@Test
 	public void testCalculateGoalNull() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		
 		assertEquals(null, goal.calculateGoal(performer, world));
@@ -57,7 +57,7 @@ public class UTestStandStillToTalkGoal {
 	
 	@Test
 	public void testIsGoalMetMovedLastTurn() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		
 		assertEquals(true, goal.isGoalMet(performer, world));
@@ -68,7 +68,7 @@ public class UTestStandStillToTalkGoal {
 	
 	@Test
 	public void testIsGoalMetMovedLastTurnAndTalked() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		
 		world.getHistory().actionPerformed(new OperationInfo(performer, performer, Args.EMPTY, Actions.MOVE_ACTION), new Turn());

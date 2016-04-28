@@ -38,7 +38,7 @@ public interface Condition extends Serializable {
 	public void onTurn(WorldObject worldObject, World world, int startTurns, WorldStateChangedListeners creatureTypeChangedListeners);	
 	public boolean isDisease();
 	public boolean isMagicEffect();
-	public void conditionEnds(WorldObject worldObject);
+	public void conditionEnds(WorldObject worldObject, World world);
 	public void perform(WorldObject performer, WorldObject target, int[] args, ManagedOperation managedOperation, World world);
 	
 	public default void decreaseHitPoints(WorldObject worldObject, DeadlyCondition deadlyCondition, int value, World world) {

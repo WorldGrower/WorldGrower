@@ -52,7 +52,7 @@ public class UTestLocationUtils {
 	
 	@Test
 	public void testFindIsolatedPersonPossibleTarget() {
-		World world = new WorldImpl(10, 10, null, null);
+		World world = new WorldImpl(11, 11, null, null);
 		WorldObject performer = createPerson(2);
 		WorldObject target = createPerson(3);
 		
@@ -67,7 +67,7 @@ public class UTestLocationUtils {
 	
 	@Test
 	public void testIsPersonIsolated() {
-		World world = new WorldImpl(10, 10, null, null);
+		World world = new WorldImpl(11, 11, null, null);
 		WorldObject performer = createPerson(2);
 		WorldObject target = createPerson(3);
 		

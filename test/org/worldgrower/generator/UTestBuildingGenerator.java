@@ -26,7 +26,7 @@ public class UTestBuildingGenerator {
 
 	@Test
 	public void testisSellableShack() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		int shackId = BuildingGenerator.generateShack(0, 0, world, 1f);
 		WorldObject shack = world.findWorldObject(Constants.ID, shackId);
 
@@ -35,7 +35,7 @@ public class UTestBuildingGenerator {
 	
 	@Test
 	public void testisSellableHouse() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		int houseId = BuildingGenerator.generateHouse(0, 0, world, 1f);
 		WorldObject house = world.findWorldObject(Constants.ID, houseId);
 
@@ -44,7 +44,7 @@ public class UTestBuildingGenerator {
 	
 	@Test
 	public void testisSellableWell() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		int wellId = BuildingGenerator.buildWell(0, 0, world, 1f);
 		WorldObject well = world.findWorldObject(Constants.ID, wellId);
 

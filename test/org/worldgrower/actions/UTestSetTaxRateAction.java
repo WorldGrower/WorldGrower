@@ -30,7 +30,7 @@ public class UTestSetTaxRateAction {
 
 	@Test
 	public void testExecute() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(3);
 		WorldObject villagersOrganization = createVillagersOrganization(world);
 		
@@ -42,7 +42,7 @@ public class UTestSetTaxRateAction {
 	
 	@Test
 	public void testIsValidTarget() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(3);
 		WorldObject target = createPerformer(4);
 		
@@ -52,7 +52,7 @@ public class UTestSetTaxRateAction {
 	
 	@Test
 	public void testDistance() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(3);
 		WorldObject target = createPerformer(4);
 		WorldObject villagersOrganization = createVillagersOrganization(world);

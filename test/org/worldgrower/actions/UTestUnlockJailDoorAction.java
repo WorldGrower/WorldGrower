@@ -30,7 +30,7 @@ public class UTestUnlockJailDoorAction {
 
 	@Test
 	public void testExecute() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		world.addWorldObject(performer);
@@ -43,7 +43,7 @@ public class UTestUnlockJailDoorAction {
 	
 	@Test
 	public void testIsValidTarget() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(15, 15, null, null);
 		WorldObject performer = createPerformer(2);
 		
 		BuildingGenerator.generateJail(0, 0, world, 1f);
@@ -57,7 +57,7 @@ public class UTestUnlockJailDoorAction {
 	
 	@Test
 	public void testDistance() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		

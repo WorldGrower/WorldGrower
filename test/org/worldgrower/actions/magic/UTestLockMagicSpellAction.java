@@ -33,7 +33,7 @@ public class UTestLockMagicSpellAction {
 
 	@Test
 	public void testExecute() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		int id = BuildingGenerator.generateHouse(0, 0, world, 1f);
 		WorldObject target = world.findWorldObject(Constants.ID, id);
@@ -47,7 +47,7 @@ public class UTestLockMagicSpellAction {
 	
 	@Test
 	public void testIsValidTarget() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		int id = BuildingGenerator.generateHouse(0, 0, world, 1f);
 		WorldObject target = world.findWorldObject(Constants.ID, id);
@@ -62,7 +62,7 @@ public class UTestLockMagicSpellAction {
 	
 	@Test
 	public void testDistance() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		int id = BuildingGenerator.generateHouse(0, 0, world, 1f);
 		WorldObject target = world.findWorldObject(Constants.ID, id);

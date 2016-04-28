@@ -30,7 +30,7 @@ public class UTestOreGoal {
 	
 	@Test
 	public void testCalculateGoalNull() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer();
 		
 		assertEquals(null, goal.calculateGoal(performer, world));

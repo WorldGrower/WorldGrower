@@ -41,7 +41,7 @@ public class UTestCreateNewsPaperGoal {
 	
 	@Test
 	public void testCalculateGoalNull() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer();
 		performer.setProperty(Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		
@@ -50,7 +50,7 @@ public class UTestCreateNewsPaperGoal {
 
 	@Test
 	public void testCalculateGoalCreateNewsPaper() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer();
 		performer.setProperty(Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		performer.setProperty(Constants.NAME, "performer");
@@ -90,7 +90,7 @@ public class UTestCreateNewsPaperGoal {
 	
 	@Test
 	public void testCalculateIsGoalMet() {
-		World world = new WorldImpl(0, 0, null, new DoNothingWorldOnTurn());
+		World world = new WorldImpl(1, 1, null, new DoNothingWorldOnTurn());
 		WorldObject performer = createPerformer();
 		
 		assertEquals(false, goal.isGoalMet(performer, world));

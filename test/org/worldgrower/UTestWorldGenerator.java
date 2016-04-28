@@ -39,8 +39,8 @@ public class UTestWorldGenerator {
 		assertEquals(1, addWorldObjectFunction.getAddedWorldObjects().size());
 		
 		WorldObject addedWorldObject = addWorldObjectFunction.getAddedWorldObjects().get(0);
-		assertEquals(9, addedWorldObject.getProperty(Constants.X).intValue());
-		assertEquals(4, addedWorldObject.getProperty(Constants.Y).intValue());
+		assertEquals(8, addedWorldObject.getProperty(Constants.X).intValue());
+		assertEquals(2, addedWorldObject.getProperty(Constants.Y).intValue());
 	}
 	
 	private static class AddWorldObjectFunctionImpl implements AddWorldObjectFunction {

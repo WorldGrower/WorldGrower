@@ -23,6 +23,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.condition.Condition;
+import org.worldgrower.goal.LocationPropertyUtils;
 import org.worldgrower.goal.SacrificeUtils;
 import org.worldgrower.gui.ImageIds;
 
@@ -33,8 +34,10 @@ public class CapturePersonForSacrificeAction implements ManagedOperation {
 		List<WorldObject> sacrificialAltars = SacrificeUtils.getSacrificialAltars(performer, world);
 		WorldObject sacrificialAltar = sacrificialAltars.get(0);
 		
-		target.setProperty(Constants.X, sacrificialAltar.getProperty(Constants.X));
-		target.setProperty(Constants.Y, sacrificialAltar.getProperty(Constants.Y));
+		int newX = sacrificialAltar.getProperty(Constants.X);
+		int newY = sacrificialAltar.getProperty(Constants.Y);
+		
+		LocationPropertyUtils.updateLocation(target, newX, newY, world);
 	}
 
 	@Override

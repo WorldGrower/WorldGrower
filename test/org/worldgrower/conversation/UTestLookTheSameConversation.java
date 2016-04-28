@@ -34,7 +34,7 @@ public class UTestLookTheSameConversation {
 	
 	@Test
 	public void testGetReplyPhrases() {
-		World world = new WorldImpl(0, 0, new DungeonMaster(), null);
+		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject performer = createPerformerFacade(target, world);
 		
@@ -47,7 +47,7 @@ public class UTestLookTheSameConversation {
 	
 	@Test
 	public void testGetReplyPhrasesNull() {
-		World world = new WorldImpl(0, 0, new DungeonMaster(), null);
+		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		
@@ -66,7 +66,7 @@ public class UTestLookTheSameConversation {
 	
 	@Test
 	public void testGetReplyPhraseNull() {
-		World world = new WorldImpl(0, 0, new DungeonMaster(), null);
+		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		
@@ -76,7 +76,7 @@ public class UTestLookTheSameConversation {
 	
 	@Test
 	public void testGetReplyPhraseMinusOne() {
-		World world = new WorldImpl(0, 0, new DungeonMaster(), null);
+		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject performer = createPerformerFacade(target, world);
 		

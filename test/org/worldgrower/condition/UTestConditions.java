@@ -31,7 +31,7 @@ public class UTestConditions {
 	@Test
 	public void testaddCondition() {
 		Conditions conditions = new Conditions();
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		conditions.addCondition(null, Condition.COCOONED_CONDITION, 8, world);
 		
 		assertEquals(true, conditions.hasCondition(Condition.COCOONED_CONDITION));
@@ -40,7 +40,7 @@ public class UTestConditions {
 	@Test
 	public void testOnTurn() {
 		Conditions conditions = new Conditions();
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		conditions.addCondition(null, Condition.COCOONED_CONDITION, 2, world);
 		
 		conditions.onTurn(null, world, null);
@@ -53,7 +53,7 @@ public class UTestConditions {
 	@Test
 	public void testCanTakeAction() {
 		Conditions conditions = new Conditions();
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		conditions.addCondition(null, Condition.COCOONED_CONDITION, 2, world);
 		
 		assertEquals(false, conditions.canTakeAction());
@@ -62,7 +62,7 @@ public class UTestConditions {
 	@Test
 	public void testCanMove() {
 		Conditions conditions = new Conditions();
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		conditions.addCondition(null, Condition.COCOONED_CONDITION, 2, world);
 		
 		assertEquals(false, conditions.canMove());
@@ -71,7 +71,7 @@ public class UTestConditions {
 	@Test
 	public void testHasDiseaseCondition() {
 		Conditions conditions = new Conditions();
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		conditions.addCondition(null, Condition.VAMPIRE_BITE_CONDITION, 2, world);
 		
 		assertEquals(true, conditions.hasDiseaseCondition());
@@ -80,7 +80,7 @@ public class UTestConditions {
 	@Test
 	public void testGetDiseaseConditions() {
 		Conditions conditions = new Conditions();
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		conditions.addCondition(null, Condition.COCOONED_CONDITION, 2, world);
 		conditions.addCondition(null, Condition.VAMPIRE_BITE_CONDITION, 2, world);
 		
@@ -90,7 +90,7 @@ public class UTestConditions {
 	@Test
 	public void testRemoveAllDiseases() {
 		Conditions conditions = new Conditions();
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		conditions.addCondition(null, Condition.VAMPIRE_BITE_CONDITION, 2, world);
 	
 		assertEquals(true, conditions.hasDiseaseCondition());
@@ -101,7 +101,7 @@ public class UTestConditions {
 	
 	@Test
 	public void testPerform() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, "Test");
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, "Test");
 		
@@ -115,7 +115,7 @@ public class UTestConditions {
 	@Test
 	public void testRemoveAllMagicEffects() {
 		Conditions conditions = new Conditions();
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		conditions.addCondition(null, Condition.ENLARGED_CONDITION, 2, world);
 	
 		assertEquals(true, conditions.hasCondition(Condition.ENLARGED_CONDITION));
@@ -127,7 +127,7 @@ public class UTestConditions {
 	@Test
 	public void testGetMagicConditions() {
 		Conditions conditions = new Conditions();
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		conditions.addCondition(null, Condition.COCOONED_CONDITION, 2, world);
 		conditions.addCondition(null, Condition.ENLARGED_CONDITION, 2, world);
 		
@@ -137,7 +137,7 @@ public class UTestConditions {
 	@Test
 	public void testGetDescriptions() {
 		Conditions conditions = new Conditions();
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		conditions.addCondition(null, Condition.ENLARGED_CONDITION, 2, world);
 		
 		assertEquals(Arrays.asList("enlarged"), conditions.getDescriptions());
@@ -146,7 +146,7 @@ public class UTestConditions {
 	@Test
 	public void testGetLongerDescriptions() {
 		Conditions conditions = new Conditions();
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		conditions.addCondition(null, Condition.ENLARGED_CONDITION, 2, world);
 		
 		assertEquals(Arrays.asList("an enlarged creature deals more damage with physical attacks"), conditions.getLongerDescriptions());

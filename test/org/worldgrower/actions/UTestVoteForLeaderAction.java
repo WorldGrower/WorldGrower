@@ -30,7 +30,7 @@ public class UTestVoteForLeaderAction {
 
 	@Test
 	public void testExecute() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		int id = BuildingGenerator.generateVotingBox(0, 0, world);
 		WorldObject target = world.findWorldObject(Constants.ID, id);
@@ -42,7 +42,7 @@ public class UTestVoteForLeaderAction {
 	
 	@Test
 	public void testIsValidTarget() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		int id = BuildingGenerator.generateVotingBox(0, 0, world);
 		WorldObject target = world.findWorldObject(Constants.ID, id);
@@ -54,7 +54,7 @@ public class UTestVoteForLeaderAction {
 	
 	@Test
 	public void testDistance() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		int id = BuildingGenerator.generateVotingBox(0, 0, world);
 		WorldObject target = world.findWorldObject(Constants.ID, id);

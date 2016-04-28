@@ -32,7 +32,7 @@ public class UTestPoisonAction {
 
 	@Test
 	public void testExecute() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		
 		int wellId = BuildingGenerator.buildWell(0, 0, world, 1f);
@@ -48,7 +48,7 @@ public class UTestPoisonAction {
 	
 	@Test
 	public void testIsValidTarget() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		int wellId = BuildingGenerator.buildWell(0, 0, world, 1f);
 		WorldObject target = world.findWorldObject(Constants.ID, wellId);
@@ -59,7 +59,7 @@ public class UTestPoisonAction {
 	
 	@Test
 	public void testDistance() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		int wellId = BuildingGenerator.buildWell(0, 0, world, 1f);
 		WorldObject target = world.findWorldObject(Constants.ID, wellId);

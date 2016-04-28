@@ -62,7 +62,7 @@ public class BurningCondition implements DeadlyCondition {
 	}
 
 	@Override
-	public void conditionEnds(WorldObject worldObject) {
+	public void conditionEnds(WorldObject worldObject, World world) {
 	}
 
 	@Override

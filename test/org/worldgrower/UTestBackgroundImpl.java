@@ -88,7 +88,7 @@ public class UTestBackgroundImpl {
 	@Test
 	public void testChooseProfessionDeadParent() {
 		Background background = new BackgroundImpl();
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createWorldObject(0, "Tom");
 		world.addWorldObject(performer);
 
@@ -99,7 +99,7 @@ public class UTestBackgroundImpl {
 	
 	@Test
 	public void testRemove() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createWorldObject(7, "Tom");
 		performer.setProperty(Constants.GENDER, "male");
 		WorldObject target = createWorldObject(8, "target");
@@ -114,7 +114,7 @@ public class UTestBackgroundImpl {
 	
 	@Test
 	public void testRemoveRevengeTargets() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createWorldObject(7, "Tom");
 		WorldObject target = createWorldObject(8, "target");
 		

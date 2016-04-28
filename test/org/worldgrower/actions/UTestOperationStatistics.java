@@ -33,7 +33,7 @@ public class UTestOperationStatistics {
 
 	@Test
 	public void testGetRecentOperationsCount() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
@@ -44,7 +44,7 @@ public class UTestOperationStatistics {
 	
 	@Test
 	public void testGetPrice() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		
 		assertEquals(1, OperationStatistics.getPrice(Item.BERRIES, world));
 		

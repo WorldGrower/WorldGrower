@@ -34,7 +34,7 @@ public class UTestChooseDeityGoal {
 	
 	@Test
 	public void testCalculateGoalChooseDeity() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer();
 		performer.setProperty(Constants.NAME, "Test");
 		performer.setProperty(Constants.CHILDREN, new IdList());
@@ -44,7 +44,7 @@ public class UTestChooseDeityGoal {
 	
 	@Test
 	public void testCalculateGoalChooseFarmerDeity() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer();
 		performer.setProperty(Constants.PROFESSION, Professions.FARMER_PROFESSION);
 		performer.setProperty(Constants.NAME, "Test");

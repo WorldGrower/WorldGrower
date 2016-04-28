@@ -100,7 +100,7 @@ public class UTestCraftUtils {
 	
 	@Test
 	public void testIsValidBuildTarget() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(1);
 		WorldObject target = TestUtils.createWorldObject(0, 0, 1, 1);
 		assertEquals(true, CraftUtils.isValidBuildTarget(Actions.BUILD_SHRINE_ACTION, performer, target, world));

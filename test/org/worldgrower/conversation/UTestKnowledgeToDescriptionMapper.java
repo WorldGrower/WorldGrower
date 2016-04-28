@@ -41,7 +41,7 @@ public class UTestKnowledgeToDescriptionMapper {
 	
 	@Test
 	public void testMapPropertyKnowledgeVampire() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.NAME, "performer");
 		world.addWorldObject(performer);
 		
@@ -54,7 +54,7 @@ public class UTestKnowledgeToDescriptionMapper {
 	//TODO: better description
 	@Test
 	public void testMapEventKnowledgeMateConversation() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.NAME, "performer");
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.NAME, "target");
 		world.addWorldObject(performer);
@@ -67,7 +67,7 @@ public class UTestKnowledgeToDescriptionMapper {
 	
 	@Test
 	public void testMapEventKnowledgePoisonedWell() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		int id = BuildingGenerator.buildWell(0, 0, world, 1f);
 		WorldObject subject = world.findWorldObject(Constants.ID, id);
 		world.addWorldObject(subject);
@@ -78,7 +78,7 @@ public class UTestKnowledgeToDescriptionMapper {
 	
 	@Test
 	public void testMapEventKnowledgeSleepingPotionInWell() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		int id = BuildingGenerator.buildWell(0, 0, world, 1f);
 		WorldObject subject = world.findWorldObject(Constants.ID, id);
 		world.addWorldObject(subject);
@@ -89,7 +89,7 @@ public class UTestKnowledgeToDescriptionMapper {
 	
 	@Test
 	public void testMapEventKnowledgeChildBirth() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.NAME, "target");
 		world.addWorldObject(target);
 		WorldObject subject = TestUtils.createIntelligentWorldObject(3, Constants.NAME, "subject");
@@ -101,7 +101,7 @@ public class UTestKnowledgeToDescriptionMapper {
 	
 	@Test
 	public void testMapEventKnowledgeDeathReason() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject subject = TestUtils.createIntelligentWorldObject(3, Constants.NAME, "subject");
 		String deathReason = "subject died by drowning";
 		subject.setProperty(Constants.DEATH_REASON, deathReason);
@@ -113,7 +113,7 @@ public class UTestKnowledgeToDescriptionMapper {
 
 	@Test
 	public void testMapEventKnowledgeDeity() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject subject = TestUtils.createIntelligentWorldObject(3, Constants.NAME, "subject");
 		world.addWorldObject(subject);
 		
@@ -123,7 +123,7 @@ public class UTestKnowledgeToDescriptionMapper {
 	
 	@Test
 	public void testMapEventKnowledgeProfession() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject subject = TestUtils.createIntelligentWorldObject(3, Constants.NAME, "subject");
 		world.addWorldObject(subject);
 		
@@ -133,7 +133,7 @@ public class UTestKnowledgeToDescriptionMapper {
 	
 	@Test
 	public void testMapEventKnowledgeStealing() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.NAME, "performer");
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.NAME, "target");
 		world.addWorldObject(performer);
@@ -146,7 +146,7 @@ public class UTestKnowledgeToDescriptionMapper {
 	
 	@Test
 	public void testMapOrganizationLeader() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject subject = TestUtils.createIntelligentWorldObject(3, Constants.NAME, "subject");
 		WorldObject leader = TestUtils.createIntelligentWorldObject(4, Constants.NAME, "leader");
 		world.addWorldObject(subject);

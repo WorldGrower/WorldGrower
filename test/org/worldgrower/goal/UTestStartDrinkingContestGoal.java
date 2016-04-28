@@ -34,7 +34,7 @@ public class UTestStartDrinkingContestGoal {
 	
 	@Test
 	public void testCalculateNotTalented() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		performer.setProperty(Constants.CONSTITUTION, 8);
 		
@@ -43,7 +43,7 @@ public class UTestStartDrinkingContestGoal {
 	
 	@Test
 	public void testCalculateIntoxicated() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		performer.setProperty(Constants.CONSTITUTION, 18);
 		Conditions.add(performer, Condition.INTOXICATED_CONDITION, 8, world);
@@ -53,7 +53,7 @@ public class UTestStartDrinkingContestGoal {
 	
 	@Test
 	public void testCalculateTalk() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		world.addWorldObject(performer);

@@ -26,6 +26,7 @@ import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.goal.GoalUtils;
+import org.worldgrower.goal.LocationPropertyUtils;
 import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
 
@@ -42,8 +43,15 @@ public class EnlargeAction implements MagicSpell {
 			target.setProperty(Constants.ORIGINAL_HEIGHT, target.getProperty(Constants.HEIGHT));
 			target.setProperty(Constants.ORIGINAL_WIDTH, target.getProperty(Constants.WIDTH));
 			
-			target.setProperty(Constants.HEIGHT, target.getProperty(Constants.HEIGHT) * 2);
-			target.setProperty(Constants.WIDTH, target.getProperty(Constants.WIDTH) * 2);
+			int newWidth = target.getProperty(Constants.WIDTH) * 2;
+			int newHeight = target.getProperty(Constants.HEIGHT) * 2;
+			LocationPropertyUtils.updateLocation(
+					target,
+					target.getProperty(Constants.X), 
+					target.getProperty(Constants.Y), 
+					newWidth, 
+					newHeight, 
+					world);
 			int turns = (int)(8 * SkillUtils.getSkillBonus(performer, getSkill()));
 			Conditions.add(target, Condition.ENLARGED_CONDITION, turns, world);
 		}

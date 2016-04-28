@@ -119,7 +119,7 @@ public class UTestWorldObjectImpl {
 	
 	@Test
 	public void testCanWorldObjectPerformActionSilencedCondition() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject person = TestUtils.createIntelligentWorldObject(1, Constants.KNOWN_SPELLS, new ArrayList<>());
 		person.getProperty(Constants.KNOWN_SPELLS).add(Actions.FIRE_BOLT_ATTACK_ACTION);
 		assertEquals(true, person.canWorldObjectPerformAction(Actions.FIRE_BOLT_ATTACK_ACTION));

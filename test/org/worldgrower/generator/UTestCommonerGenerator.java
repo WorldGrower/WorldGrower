@@ -35,7 +35,7 @@ public class UTestCommonerGenerator {
 	
 	@Test
 	public void testGeneratePlayerCharacter() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
 		
 		CharacterAttributes characterAttributes = new CharacterAttributes(10, 10, 10, 10, 10, 10);
@@ -47,7 +47,7 @@ public class UTestCommonerGenerator {
 	
 	@Test
 	public void testGenerateCommoner() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject villagersOrganization = GroupPropertyUtils.createVillagersOrganization(world);
 		int commonerId = commonerGenerator.generateCommoner(0, 0, world, villagersOrganization);
 		WorldObject commoner = world.findWorldObject(Constants.ID, commonerId);
@@ -58,7 +58,7 @@ public class UTestCommonerGenerator {
 	
 	@Test
 	public void testGenerateSkeletalRemains() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject originalWorldObject = TestUtils.createSkilledWorldObject(1);
 		
 		originalWorldObject.setProperty(Constants.X, 5);

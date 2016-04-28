@@ -63,7 +63,7 @@ public class UTestStealGoal {
 	
 	@Test
 	public void testCalculateGoalTwoTargets() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
 		WorldObject target1 = TestUtils.createIntelligentWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
 		WorldObject target2 = TestUtils.createIntelligentWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
@@ -81,7 +81,7 @@ public class UTestStealGoal {
 	
 	@Test
 	public void testIsGoalMet() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.GOLD, 500);
 		assertEquals(true, goal.isGoalMet(performer, world));

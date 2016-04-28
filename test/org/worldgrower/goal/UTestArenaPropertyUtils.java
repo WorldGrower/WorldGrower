@@ -40,7 +40,7 @@ public class UTestArenaPropertyUtils {
 	
 	@Test
 	public void testPeopleAreScheduledToFightInArena() {
-		World world = new WorldImpl(0, 0, null, new DoNothingWorldOnTurn());
+		World world = new WorldImpl(1, 1, null, new DoNothingWorldOnTurn());
 		WorldObject arenaOwner = TestUtils.createIntelligentWorldObject(1, Constants.ARENA_FIGHTER_IDS, new IdList());
 		
 		assertEquals(false, ArenaPropertyUtils.peopleAreScheduledToFightInArena(arenaOwner, world));
@@ -71,7 +71,7 @@ public class UTestArenaPropertyUtils {
 	
 	@Test
 	public void testGetTurnsSinceLastDonation() {
-		World world = new WorldImpl(0, 0, null, new DoNothingWorldOnTurn());
+		World world = new WorldImpl(1, 1, null, new DoNothingWorldOnTurn());
 		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.GROUP, new IdList());
 		assertEquals(0, ArenaPropertyUtils.getTurnsSinceLastDonation(performer, world));
 		
@@ -108,7 +108,7 @@ public class UTestArenaPropertyUtils {
 	
 	@Test
 	public void testStartArenaFight() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(15, 15, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.GROUP, new IdList());
 		WorldObject opponent = TestUtils.createIntelligentWorldObject(1, Constants.GROUP, new IdList());
 		WorldObject arenaOwner = TestUtils.createIntelligentWorldObject(2, Constants.ARENA_IDS, new IdList());

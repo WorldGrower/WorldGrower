@@ -49,7 +49,7 @@ public class UTestArenaFighterPayCheckConversation {
 	
 	@Test
 	public void testGetReplyPhrase() {
-		World world = new WorldImpl(0, 0, new DungeonMaster(), null);
+		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.GOLD, 0);
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Goals.COLLECT_WATER_GOAL);
 		

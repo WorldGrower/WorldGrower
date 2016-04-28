@@ -31,7 +31,7 @@ public class UTestVampireBiteCondition {
 	
 	@Test
 	public void testOnTurn() {
-		World world = new WorldImpl(0, 0, null, new DoNothingWorldOnTurn());
+		World world = new WorldImpl(1, 1, null, new DoNothingWorldOnTurn());
 		WorldObject performer = TestUtils.createIntelligentWorldObject(2, "performer");
 		Conditions.add(performer, Condition.VAMPIRE_BITE_CONDITION, 8, world);
 		

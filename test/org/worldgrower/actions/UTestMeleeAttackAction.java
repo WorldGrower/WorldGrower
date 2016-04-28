@@ -34,7 +34,7 @@ public class UTestMeleeAttackAction {
 	
 	@Test
 	public void testExecute() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createPerformer(world, organization);
 		WorldObject target = createPerformer(world, organization);
@@ -47,7 +47,7 @@ public class UTestMeleeAttackAction {
 	
 	@Test
 	public void testIsValidTarget() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createPerformer(world, organization);
 		WorldObject target = createPerformer(world, organization);
@@ -58,7 +58,7 @@ public class UTestMeleeAttackAction {
 	
 	@Test
 	public void testDistance() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createPerformer(world, organization);
 		WorldObject target = createPerformer(world, organization);
@@ -68,7 +68,7 @@ public class UTestMeleeAttackAction {
 	
 	@Test
 	public void testGetDeathDescriptionUnarmed() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createPerformer(world, organization);
 		WorldObject target = createPerformer(world, organization);
@@ -78,7 +78,7 @@ public class UTestMeleeAttackAction {
 	
 	@Test
 	public void testGetDeathDescriptionSword() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createPerformer(world, organization);
 		WorldObject target = createPerformer(world, organization);
@@ -90,7 +90,7 @@ public class UTestMeleeAttackAction {
 	
 	@Test
 	public void testGetDeathDescriptionMace() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createPerformer(world, organization);
 		WorldObject target = createPerformer(world, organization);
@@ -102,7 +102,7 @@ public class UTestMeleeAttackAction {
 	
 	@Test
 	public void testGetDeathDescriptionKatar() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createPerformer(world, organization);
 		WorldObject target = createPerformer(world, organization);

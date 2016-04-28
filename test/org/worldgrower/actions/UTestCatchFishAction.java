@@ -32,7 +32,7 @@ public class UTestCatchFishAction {
 
 	@Test
 	public void testExecute() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		performer.setProperty(Constants.LEFT_HAND_EQUIPMENT, Item.FISHING_POLE.generate(1f));
 		WorldObject target = createFish(world);
@@ -46,7 +46,7 @@ public class UTestCatchFishAction {
 	
 	@Test
 	public void testIsValidTarget() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createFish(world);
 		
@@ -63,7 +63,7 @@ public class UTestCatchFishAction {
 	
 	@Test
 	public void testDistance() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createFish(world);
 		performer.setProperty(Constants.LEFT_HAND_EQUIPMENT, Item.FISHING_POLE.generate(1f));

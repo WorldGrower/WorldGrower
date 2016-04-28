@@ -76,7 +76,7 @@ public class GuiCreateNewsPaperAction extends AbstractAction {
 	}
 	
 	public static void main(String[] args) throws Exception {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		DungeonMaster dungeonMaster = new DungeonMaster();
 		HashMap<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.KNOWLEDGE_MAP, new KnowledgeMap());

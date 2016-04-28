@@ -32,7 +32,7 @@ public class UTestHades {
 	
 	@Test
 	public void testWorship() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(2, "performer");
 		WorldObject target = TestUtils.createIntelligentWorldObject(3, "target");
 		
@@ -46,7 +46,7 @@ public class UTestHades {
 	
 	@Test
 	public void testGetReasonIndex() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(2);
 		
 		assertEquals(-1, deity.getReasonIndex(performer, world));

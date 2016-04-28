@@ -17,7 +17,7 @@ public class UTestAbstractScribeSpellsGoal {
 
 	@Test
 	public void testGetKnownSpellsInInventory() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
 		new ScribeMagicSpellAction(Actions.MINOR_HEAL_ACTION).execute(performer, performer, Args.EMPTY, world);
 		

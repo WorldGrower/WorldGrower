@@ -47,7 +47,7 @@ public class UTestCollectPayCheckConversation {
 	
 	@Test
 	public void testGetReplyPhrase() {
-		World world = new WorldImpl(0, 0, null, new DoNothingWorldOnTurn());
+		World world = new WorldImpl(1, 1, null, new DoNothingWorldOnTurn());
 		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.HOUSES, new IdList());
 		WorldObject target = TestUtils.createIntelligentWorldObject(8, Constants.HOUSES, new IdList());
 
@@ -65,7 +65,7 @@ public class UTestCollectPayCheckConversation {
 	
 	@Test
 	public void testGetQuestionPhrases() {
-		World world = new WorldImpl(0, 0, null, new DoNothingWorldOnTurn());
+		World world = new WorldImpl(1, 1, null, new DoNothingWorldOnTurn());
 		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.HOUSES, new IdList());
 		WorldObject target = TestUtils.createIntelligentWorldObject(8, Constants.HOUSES, new IdList());
 

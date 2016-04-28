@@ -19,11 +19,11 @@ import java.util.List;
 
 import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
-import org.worldgrower.UnpassableCreaturePositionCondition;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.LookDirection;
 import org.worldgrower.condition.Condition;
+import org.worldgrower.goal.LocationPropertyUtils;
 import org.worldgrower.goal.LocationUtils;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.terrain.TerrainType;
@@ -35,8 +35,9 @@ public class MoveAction implements ManagedOperation {
 		int performerX = performer.getProperty(Constants.X);
 		int performerY = performer.getProperty(Constants.Y);
 		
-		performer.setProperty(Constants.X, performerX + args[0]);
-		performer.setProperty(Constants.Y, performerY + args[1]);
+		int newX = performerX + args[0];
+		int newY = performerY + args[1];
+		LocationPropertyUtils.updateLocation(performer, newX, newY, world);
 		
 		setLookDirection(performer, args);
 	}
@@ -79,7 +80,7 @@ public class MoveAction implements ManagedOperation {
 					return 1;
 				}
 			} else {
-				List<WorldObject> obstacles = world.findWorldObjects(new UnpassableCreaturePositionCondition(performer.getProperty(Constants.Y) + args[1], performer.getProperty(Constants.X) + args[0]));
+				List<WorldObject> obstacles = LocationPropertyUtils.getWorldObjects(newX, newY, world);
 				if (obstacles.size() == 1) {
 					if (obstacles.get(0).equals(performer)) {
 						return 0;

@@ -31,7 +31,7 @@ public class UTestIllusionOnTurn {
 
 	@Test
 	public void testOnTurn() {
-		World world = new WorldImpl(0, 0, null, new DoNothingWorldOnTurn());
+		World world = new WorldImpl(1, 1, null, new DoNothingWorldOnTurn());
 		createIllusion(world);
 		
 		WorldObject illusion = world.findWorldObject(Constants.ID, 0);
@@ -43,7 +43,7 @@ public class UTestIllusionOnTurn {
 	
 	@Test
 	public void testOnTurnRemove() {
-		World world = new WorldImpl(0, 0, null, new DoNothingWorldOnTurn());
+		World world = new WorldImpl(1, 1, null, new DoNothingWorldOnTurn());
 		createIllusion(world);
 		
 		WorldObject illusion = world.findWorldObject(Constants.ID, 0);

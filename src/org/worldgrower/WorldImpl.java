@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.worldgrower.attribute.IdContainer;
+import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.condition.WorldStateChangedListener;
 import org.worldgrower.condition.WorldStateChangedListeners;
@@ -52,6 +53,7 @@ public class WorldImpl implements World, Serializable {
 	private Turn currentTurn = new Turn();
 	private final WorldOnTurn worldOnTurn;
 	private transient WorldStateChangedListeners worldStateChangedListeners = new WorldStateChangedListeners();
+	private final LocationWorldObjectsCache locationWorldObjectsCache;
 	
 	//TODO: temporary for debugging purposes
 	private final transient List<Integer> removedIds = new ArrayList<>();
@@ -64,6 +66,7 @@ public class WorldImpl implements World, Serializable {
 		this.terrain = terrain;
 		this.dungeonMaster = dungeonMaster;
 		this.worldOnTurn = worldOnTurn;
+		this.locationWorldObjectsCache = new LocationWorldObjectsCache(terrain.getWidth(), terrain.getHeight());
 	}
 
 	@Override
@@ -71,6 +74,7 @@ public class WorldImpl implements World, Serializable {
 		worldObjects.add(worldObject);
 		idToIndexMapping.idAdded(worldObjects);
 		propertyCache.idAdded(worldObject);
+		locationWorldObjectsCache.add(worldObject);
 	}
 	
 	@Override
@@ -83,6 +87,7 @@ public class WorldImpl implements World, Serializable {
 		propertyCache.idRemoved(worldObjectToRemove);
 		
 		removedIds.add(worldObjectToRemove.getProperty(Constants.ID));
+		locationWorldObjectsCache.remove(worldObjectToRemove);
 	}
 
 	private void removeIdContainers(WorldObject worldObjectToRemove) {
@@ -277,5 +282,10 @@ public class WorldImpl implements World, Serializable {
 	@Override
 	public void addWorldStateChangedListener(WorldStateChangedListener worldStateChangedListener) {
 		worldStateChangedListeners.addWorldStateChangedListener(worldStateChangedListener);
+	}
+
+	@Override
+	public WorldObjectsCache getWorldObjectsCache(IntProperty intProperty1, IntProperty intProperty2) {
+		return locationWorldObjectsCache;
 	}
 }

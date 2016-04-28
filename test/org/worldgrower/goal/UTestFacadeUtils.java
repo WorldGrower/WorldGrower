@@ -31,7 +31,7 @@ public class UTestFacadeUtils {
 
 	@Test
 	public void testCreateFacade() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(0);
 		WorldObject worldObject = TestUtils.createSkilledWorldObject(1);
 		WorldObject target = TestUtils.createSkilledWorldObject(2);
@@ -56,7 +56,7 @@ public class UTestFacadeUtils {
 	
 	@Test
 	public void testDisguise() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createWorldObject(0, 0, 1, 1, Constants.ID, 0);
 		WorldObject worldObject = TestUtils.createWorldObject(2, 2, 1, 1, Constants.ID, 1);
 		performer.setProperty(Constants.NAME, "performer");

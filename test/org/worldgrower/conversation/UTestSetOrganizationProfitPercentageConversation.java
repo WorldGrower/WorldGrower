@@ -38,7 +38,7 @@ public class UTestSetOrganizationProfitPercentageConversation {
 	
 	@Test
 	public void testGetReplyPhrases() {
-		World world = new WorldImpl(0, 0, new DungeonMaster(), null);
+		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject subject = TestUtils.createWorldObject(3, "TestOrg");
@@ -52,7 +52,7 @@ public class UTestSetOrganizationProfitPercentageConversation {
 	
 	@Test
 	public void testGetReplyPhrase() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.GOLD, 0);
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Goals.COLLECT_WATER_GOAL);
 		WorldObject subject = TestUtils.createWorldObject(3, "TestOrg");
@@ -63,7 +63,7 @@ public class UTestSetOrganizationProfitPercentageConversation {
 	
 	@Test
 	public void testGetQuestionPhrases() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.GROUP, new IdList().add(3));
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.GROUP, new IdList().add(3));
 		
@@ -81,7 +81,7 @@ public class UTestSetOrganizationProfitPercentageConversation {
 	
 	@Test
 	public void testHandleResponse0() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.GROUP, new IdList().add(3));
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.GROUP, new IdList().add(3));
 		

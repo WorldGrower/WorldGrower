@@ -31,7 +31,7 @@ public class UTestDrinkFromInventoryAction {
 
 	@Test
 	public void testExecuteDrinkWater() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WATER.generate(1f));
 		
@@ -43,7 +43,7 @@ public class UTestDrinkFromInventoryAction {
 	
 	@Test
 	public void testExecuteDrinkAlcohol() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		
 		WorldObject wine = Item.WINE.generate(1f);
@@ -58,7 +58,7 @@ public class UTestDrinkFromInventoryAction {
 	
 	@Test
 	public void testExecuteDrinkPoison() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		
 		WorldObject water = Item.WATER.generate(1f);

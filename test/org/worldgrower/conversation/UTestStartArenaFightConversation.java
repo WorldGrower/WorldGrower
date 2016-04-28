@@ -47,7 +47,7 @@ public class UTestStartArenaFightConversation {
 	
 	@Test
 	public void testGetReplyPhrase() {
-		World world = new WorldImpl(0, 0, new DungeonMaster(), null);
+		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.GOLD, 0);
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.ARENA_IDS, new IdList());
 		
@@ -75,7 +75,7 @@ public class UTestStartArenaFightConversation {
 	
 	@Test
 	public void testHandleResponse0() {
-		World world = new WorldImpl(0, 0, new DungeonMaster(), null);
+		World world = new WorldImpl(15, 15, new DungeonMaster(), null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.GROUP, new IdList());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.ARENA_IDS, new IdList().add(3));
 		
@@ -94,7 +94,7 @@ public class UTestStartArenaFightConversation {
 	
 	@Test
 	public void testHandleResponse1() {
-		World world = new WorldImpl(0, 0, new DungeonMaster(), null);
+		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.GROUP, new IdList());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.ARENA_IDS, new IdList().add(3));
 		target.setProperty(Constants.ARENA_FIGHTER_IDS, new IdList());
@@ -108,7 +108,7 @@ public class UTestStartArenaFightConversation {
 	
 	@Test
 	public void testHandleResponse2() {
-		World world = new WorldImpl(0, 0, new DungeonMaster(), null);
+		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.GROUP, new IdList());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.ARENA_IDS, new IdList().add(3));
 		target.setProperty(Constants.ARENA_FIGHTER_IDS, new IdList());

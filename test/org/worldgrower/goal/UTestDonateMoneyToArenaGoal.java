@@ -33,7 +33,7 @@ public class UTestDonateMoneyToArenaGoal {
 	
 	@Test
 	public void testCalculateGoalNull() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		
 		assertEquals(null, goal.calculateGoal(performer, world));
@@ -41,7 +41,7 @@ public class UTestDonateMoneyToArenaGoal {
 	
 	@Test
 	public void testCalculateGoalDonateMoney() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		performer.setProperty(Constants.GOLD, 100);
 		world.addWorldObject(performer);
@@ -56,7 +56,7 @@ public class UTestDonateMoneyToArenaGoal {
 	
 	@Test
 	public void testCalculateGoalNoMoney() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		performer.setProperty(Constants.GOLD, 0);
 		world.addWorldObject(performer);

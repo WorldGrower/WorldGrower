@@ -34,7 +34,7 @@ public class UTestAttackUtils {
 
 	@Test
 	public void testAttack() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createCommoner(world);
 		WorldObject target = createCommoner(world);
 		
@@ -45,7 +45,7 @@ public class UTestAttackUtils {
 	
 	@Test
 	public void testAttackDamageResist() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createCommoner(world);
 		WorldObject target = createCommoner(world);
 		
@@ -59,7 +59,7 @@ public class UTestAttackUtils {
 	
 	@Test
 	public void testKill() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createCommoner(world);
 		WorldObject target = createCommoner(world);
 		
@@ -83,7 +83,7 @@ public class UTestAttackUtils {
 	
 	@Test
 	public void testChangeForSize() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.CONDITIONS, new Conditions());
 		WorldObject target = TestUtils.createIntelligentWorldObject(1, Constants.CONDITIONS, new Conditions());
 		
@@ -152,7 +152,7 @@ public class UTestAttackUtils {
 	
 	@Test
 	public void testMagicAttack() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createCommoner(world);
 		WorldObject target = createCommoner(world);
 		
@@ -163,7 +163,7 @@ public class UTestAttackUtils {
 	
 	@Test
 	public void testBiteAttack() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createCommoner(world);
 		WorldObject target = createCommoner(world);
 		
@@ -181,7 +181,7 @@ public class UTestAttackUtils {
 	
 	@Test
 	public void testNonLethalAttack() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createCommoner(world);
 		WorldObject target = createCommoner(world);
 		
@@ -198,7 +198,7 @@ public class UTestAttackUtils {
 	
 	@Test
 	public void testPoisonTarget() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createCommoner(world);
 		WorldObject target = createCommoner(world);
 		
@@ -213,7 +213,7 @@ public class UTestAttackUtils {
 	
 	@Test
 	public void testPoisonTargetDualWield() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createCommoner(world);
 		WorldObject target = createCommoner(world);
 		

@@ -38,7 +38,7 @@ public class UTestCommonerOnTurn {
 	
 	@Test
 	public void testOnTurnOfCommonAttributes() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
 		
 		WorldObject playerCharacter = createPlayerCharacter(world, organization);
@@ -55,7 +55,7 @@ public class UTestCommonerOnTurn {
 	
 	@Test
 	public void testOnTurnNoFoodNoWater() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
 		
 		WorldObject playerCharacter = createPlayerCharacter(world, organization);
@@ -98,7 +98,7 @@ public class UTestCommonerOnTurn {
 	
 	@Test
 	public void testGetInventoryCount() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
 		
 		WorldObject playerCharacter = createPlayerCharacter(world, organization);
@@ -111,7 +111,7 @@ public class UTestCommonerOnTurn {
 	
 	@Test
 	public void testCalculateNewPrice() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
 		
 		int soldCount = 0;
@@ -131,7 +131,7 @@ public class UTestCommonerOnTurn {
 	
 	@Test
 	public void testAdjustPrices() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
 		
 		WorldObject commoner = createCommoner(world, organization);

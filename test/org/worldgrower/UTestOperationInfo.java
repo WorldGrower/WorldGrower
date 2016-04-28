@@ -86,7 +86,7 @@ public class UTestOperationInfo {
 	
 	@Test
 	public void testTargetMovedNotMoved() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, "target");
 		OperationInfo info = createOperationInfo(target, target);
 		assertEquals(false, info.targetMoved(world));
@@ -94,7 +94,7 @@ public class UTestOperationInfo {
 	
 	@Test
 	public void testTargetMovedNotMovedTarget() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, "performer");
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, "target");
 		OperationInfo info = createOperationInfo(performer, target);
@@ -103,7 +103,7 @@ public class UTestOperationInfo {
 	
 	@Test
 	public void testTargetMovedMoveAction() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, "performer");
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, "target");
 		OperationInfo info = createOperationInfo(performer, target);
@@ -114,7 +114,7 @@ public class UTestOperationInfo {
 	
 	@Test
 	public void testRemoveDeadWorldObjectsUnintelligentHitPoints() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createWorldObject(5, 5, 1, 1, Constants.HIT_POINTS, 0);
 		performer.setProperty(Constants.ID, 7);
 		world.addWorldObject(performer);
@@ -125,7 +125,7 @@ public class UTestOperationInfo {
 	
 	@Test
 	public void testRemoveDeadWorldObjectsWood() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createWorldObject(5, 5, 1, 1, Constants.WOOD_SOURCE, 0);
 		performer.setProperty(Constants.ID, 7);
 		world.addWorldObject(performer);
@@ -136,7 +136,7 @@ public class UTestOperationInfo {
 	
 	@Test
 	public void testRemoveDeadWorldObjectsIntelligentHitPoints() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(7, "test");
 		performer.setProperty(Constants.ID, 7);
 		performer.setProperty(Constants.X, 7);
@@ -166,7 +166,7 @@ public class UTestOperationInfo {
 	
 	@Test
 	public void testGetSecondPersonDescription() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, "performer");
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, "target");
 		OperationInfo info = createOperationInfo(performer, target);
@@ -176,7 +176,7 @@ public class UTestOperationInfo {
 	
 	@Test
 	public void testGetThirdPersonDescription() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, "performer");
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, "target");
 		OperationInfo info = createOperationInfo(performer, target);

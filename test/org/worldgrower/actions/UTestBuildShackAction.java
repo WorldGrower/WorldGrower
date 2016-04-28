@@ -31,7 +31,7 @@ public class UTestBuildShackAction {
 
 	@Test
 	public void testExecuteBuildShack() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		Actions.BUILD_SHACK_ACTION.execute(performer, target, Args.EMPTY, world);
@@ -42,7 +42,7 @@ public class UTestBuildShackAction {
 	
 	@Test
 	public void testIsValidTarget() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		assertEquals(true, Actions.BUILD_SHACK_ACTION.isValidTarget(performer, target, world));
@@ -50,7 +50,7 @@ public class UTestBuildShackAction {
 	
 	@Test
 	public void testDistance() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		

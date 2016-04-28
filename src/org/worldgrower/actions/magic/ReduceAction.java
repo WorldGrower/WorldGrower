@@ -25,6 +25,7 @@ import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
+import org.worldgrower.goal.LocationPropertyUtils;
 import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
 
@@ -41,11 +42,16 @@ public class ReduceAction implements MagicSpell {
 			target.setProperty(Constants.ORIGINAL_HEIGHT, target.getProperty(Constants.HEIGHT));
 			target.setProperty(Constants.ORIGINAL_WIDTH, target.getProperty(Constants.WIDTH));
 			
-			int height = halveDimension(target.getProperty(Constants.HEIGHT));
-			target.setProperty(Constants.HEIGHT, height);
+			int newWidth = halveDimension(target.getProperty(Constants.WIDTH));
+			int newHeight = halveDimension(target.getProperty(Constants.HEIGHT));
 			
-			int width = halveDimension(target.getProperty(Constants.WIDTH));
-			target.setProperty(Constants.WIDTH, width);
+			LocationPropertyUtils.updateLocation(
+					target,
+					target.getProperty(Constants.X), 
+					target.getProperty(Constants.Y), 
+					newWidth, 
+					newHeight, 
+					world);
 			
 			int turns = (int)(8 * SkillUtils.getSkillBonus(performer, getSkill()));
 			Conditions.add(target, Condition.REDUCED_CONDITION, turns, world);

@@ -36,7 +36,7 @@ public class UTestRecruitProfessionOrganizationMembersGoal {
 	
 	@Test
 	public void testCalculateGoalNull() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.createProfessionOrganization(1, "TestOrg", Professions.FARMER_PROFESSION, world);
 		WorldObject performer = createCommoner(world, organization);
 		performer.setProperty(Constants.PROFESSION, Professions.FARMER_PROFESSION);
@@ -48,7 +48,7 @@ public class UTestRecruitProfessionOrganizationMembersGoal {
 	
 	@Test
 	public void testCalculateGoalOrganizationProfit() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.createProfessionOrganization(1, "TestOrg", Professions.FARMER_PROFESSION, world);
 		WorldObject performer = createCommoner(world, organization);
 		performer.setProperty(Constants.PROFESSION, Professions.FARMER_PROFESSION);
@@ -64,7 +64,7 @@ public class UTestRecruitProfessionOrganizationMembersGoal {
 	
 	@Test
 	public void testCalculateGoalJoinUnfriendlyTarget() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.createProfessionOrganization(1, "TestOrg", Professions.FARMER_PROFESSION, world);
 		WorldObject performer = createCommoner(world, organization);
 		performer.setProperty(Constants.PROFESSION, Professions.FARMER_PROFESSION);
@@ -80,7 +80,7 @@ public class UTestRecruitProfessionOrganizationMembersGoal {
 
 	@Test
 	public void testCalculateGoalJoinFriendlyTarget() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.createProfessionOrganization(1, "TestOrg", Professions.FARMER_PROFESSION, world);
 		WorldObject performer = createCommoner(world, organization);
 		performer.setProperty(Constants.PROFESSION, Professions.FARMER_PROFESSION);

@@ -33,7 +33,7 @@ public class UTestBuyClothesGoal {
 	
 	@Test
 	public void testCalculateGoalNoSellers() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.INVENTORY, new WorldObjectContainer());
 		
 		assertEquals(null, goal.calculateGoal(performer, world));
@@ -41,7 +41,7 @@ public class UTestBuyClothesGoal {
 	
 	@Test
 	public void testCalculateGoalOneSeller() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
 		world.addWorldObject(target);
@@ -57,7 +57,7 @@ public class UTestBuyClothesGoal {
 	
 	@Test
 	public void testCalculateGoalOnePantsSeller() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
 		world.addWorldObject(target);
@@ -72,7 +72,7 @@ public class UTestBuyClothesGoal {
 	
 	@Test
 	public void testCalculateGoalOneBootsSeller() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
 		world.addWorldObject(target);
@@ -104,7 +104,7 @@ public class UTestBuyClothesGoal {
 	
 	@Test
 	public void testIsGoalMetNoTargets() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
 
 		assertEquals(true, goal.isGoalMet(performer, world));

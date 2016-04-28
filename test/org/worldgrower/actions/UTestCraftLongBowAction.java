@@ -29,7 +29,7 @@ public class UTestCraftLongBowAction {
 
 	@Test
 	public void testExecute() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
 		Actions.CRAFT_LONG_BOW_ACTION.execute(performer, performer, Args.EMPTY, world);
 		

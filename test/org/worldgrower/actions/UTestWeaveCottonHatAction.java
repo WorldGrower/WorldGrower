@@ -31,7 +31,7 @@ public class UTestWeaveCottonHatAction {
 
 	@Test
 	public void testExecute() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
 		Actions.WEAVE_COTTON_HAT_ACTION.execute(performer, performer, Args.EMPTY, world);
 		
@@ -40,7 +40,7 @@ public class UTestWeaveCottonHatAction {
 	
 	@Test
 	public void testIsValidTarget() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
 
 		int weaveryId = BuildingGenerator.generateWeavery(0, 0, world);
@@ -52,7 +52,7 @@ public class UTestWeaveCottonHatAction {
 	
 	@Test
 	public void testDistance() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.COTTON.generate(1f), 20);
 		performer.setProperty(Constants.X, 0);

@@ -31,7 +31,7 @@ public class UTestBuildSmithAction {
 
 	@Test
 	public void testExecute() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		Actions.BUILD_SMITH_ACTION.execute(performer, target, Args.EMPTY, world);
@@ -42,7 +42,7 @@ public class UTestBuildSmithAction {
 	
 	@Test
 	public void testIsValidTarget() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		assertEquals(true, Actions.BUILD_SMITH_ACTION.isValidTarget(performer, target, world));
@@ -50,7 +50,7 @@ public class UTestBuildSmithAction {
 	
 	@Test
 	public void testDistance() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.STONE.generate(1f), 10);

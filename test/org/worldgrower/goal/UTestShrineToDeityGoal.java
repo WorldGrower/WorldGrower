@@ -36,7 +36,7 @@ public class UTestShrineToDeityGoal {
 	
 	@Test
 	public void testCalculateGoalNull() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer();
 		performer.setProperty(Constants.DEITY, Deity.HADES);
 		world.addWorldObject(performer);
@@ -48,7 +48,7 @@ public class UTestShrineToDeityGoal {
 	
 	@Test
 	public void testCalculateGoalStoneGoal() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
 		
 		TerrainGenerator.generateStoneResource(5, 5, world);
@@ -101,7 +101,7 @@ public class UTestShrineToDeityGoal {
 	
 	@Test
 	public void testIsGoalMet() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer();
 		
 		assertEquals(false, goal.isGoalMet(performer, world));

@@ -31,7 +31,7 @@ public class UTestThrowOilAction {
 
 	@Test
 	public void testExecute() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.OIL.generate(1f), 10);
 		int id = BuildingGenerator.buildWell(0, 0, world, 1f);
@@ -46,7 +46,7 @@ public class UTestThrowOilAction {
 	
 	@Test
 	public void testIsValidTarget() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		int id = BuildingGenerator.buildWell(0, 0, world, 1f);
 		WorldObject target = world.findWorldObject(Constants.ID, id);
@@ -59,7 +59,7 @@ public class UTestThrowOilAction {
 
 	@Test
 	public void testDistance() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		int id = BuildingGenerator.buildWell(0, 0, world, 1f);
 		WorldObject target = world.findWorldObject(Constants.ID, id);

@@ -62,7 +62,7 @@ public class ChooseWorldObjectAction extends AbstractAction {
 	}
 	
 	public static void main(String[] args) throws Exception {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		DungeonMaster dungeonMaster = new DungeonMaster();
 		WorldObject playerCharacter = createWorldObject(3, "performer");
 		world.addWorldObject(playerCharacter);

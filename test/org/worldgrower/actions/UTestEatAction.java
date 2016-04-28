@@ -30,7 +30,7 @@ public class UTestEatAction {
 
 	@Test
 	public void testExecute() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		
 		performer.setProperty(Constants.FOOD, 800);
@@ -44,7 +44,7 @@ public class UTestEatAction {
 	
 	@Test
 	public void testIsValidTarget() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		
 		WorldObject berryBush = createBerryBush(world);
@@ -56,7 +56,7 @@ public class UTestEatAction {
 
 	@Test
 	public void testDistance() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		
 		WorldObject berryBush = createBerryBush(world);

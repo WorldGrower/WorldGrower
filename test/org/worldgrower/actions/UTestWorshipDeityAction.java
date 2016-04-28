@@ -31,7 +31,7 @@ public class UTestWorshipDeityAction {
 
 	@Test
 	public void testExecute() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		performer.setProperty(Constants.WORSHIP_COUNTER, 0);
 		performer.setProperty(Constants.DEITY, Deity.ARES);
@@ -43,7 +43,7 @@ public class UTestWorshipDeityAction {
 	
 	@Test
 	public void testIsValidTarget() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		performer.setProperty(Constants.DEITY, Deity.ARES);
 		int id = BuildingGenerator.generateShrine(0, 0, world, performer);
@@ -55,7 +55,7 @@ public class UTestWorshipDeityAction {
 	
 	@Test
 	public void testDistance() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		performer.setProperty(Constants.DEITY, Deity.ARES);
 		int id = BuildingGenerator.generateShrine(0, 0, world, performer);

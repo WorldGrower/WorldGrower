@@ -29,7 +29,7 @@ public class UTestCreatureGenerator {
 	
 	@Test
 	public void testGenerateRat() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		
 		int id = creatureGenerator.generateRat(2, 2, world);
 		assertEquals(0, id);

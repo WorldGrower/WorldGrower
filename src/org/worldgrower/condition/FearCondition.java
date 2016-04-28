@@ -63,7 +63,7 @@ public class FearCondition implements Condition {
 	}
 
 	@Override
-	public void conditionEnds(WorldObject worldObject) {
+	public void conditionEnds(WorldObject worldObject, World world) {
 		worldObject.removeProperty(Constants.FEAR_CASTER_ID);
 	}
 	

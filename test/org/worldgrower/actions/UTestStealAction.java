@@ -31,7 +31,7 @@ public class UTestStealAction {
 
 	@Test
 	public void testExecuteSuccess() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		target.getProperty(Constants.INVENTORY).addQuantity(Item.WATER.generate(1f));
@@ -45,7 +45,7 @@ public class UTestStealAction {
 	
 	@Test
 	public void testExecuteFailure() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
@@ -63,7 +63,7 @@ public class UTestStealAction {
 	
 	@Test
 	public void testIsValidTarget() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 
@@ -74,7 +74,7 @@ public class UTestStealAction {
 	
 	@Test
 	public void testDistance() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 

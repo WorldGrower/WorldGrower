@@ -198,6 +198,6 @@ public class UTestWorldImpl {
 	}
 
 	private WorldImpl createWorld() {
-		return new WorldImpl(0, 0, null, null);
+		return new WorldImpl(1, 1, null, null);
 	}
 }

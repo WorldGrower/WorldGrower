@@ -29,7 +29,7 @@ public class UTestRelationshipPropertyUtils {
 	
 	@Test
 	public void testChangeRelationshipValue() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createWorldObject(0, "Test");
 		WorldObject target = TestUtils.createWorldObject(1, "Test");
 		
@@ -41,7 +41,7 @@ public class UTestRelationshipPropertyUtils {
 	
 	@Test
 	public void testChangeRelationshipValueWithDifferentValues() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createWorldObject(0, "Test");
 		WorldObject target = TestUtils.createWorldObject(1, "Test");
 		

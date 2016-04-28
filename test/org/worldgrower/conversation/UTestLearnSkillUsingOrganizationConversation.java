@@ -60,7 +60,7 @@ public class UTestLearnSkillUsingOrganizationConversation {
 	
 	@Test
 	public void testGetQuestionPhrases() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.PROFESSION, Professions.FARMER_PROFESSION);
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.PROFESSION, Professions.FARMER_PROFESSION);
 		world.addWorldObject(performer);
@@ -77,7 +77,7 @@ public class UTestLearnSkillUsingOrganizationConversation {
 	
 	@Test
 	public void testHandleResponse0() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.PROFESSION, Professions.FARMER_PROFESSION);
 		WorldObject target = TestUtils.createSkilledWorldObject(2, Constants.PROFESSION, Professions.FARMER_PROFESSION);
 		target.setProperty(Constants.FARMING_SKILL, new Skill(20));
@@ -102,7 +102,7 @@ public class UTestLearnSkillUsingOrganizationConversation {
 	
 	@Test
 	public void testIsConversationAvailable() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.PROFESSION, Professions.FARMER_PROFESSION);
 		WorldObject target = TestUtils.createSkilledWorldObject(2, Constants.PROFESSION, Professions.FARMER_PROFESSION);
 		target.setProperty(Constants.FARMING_SKILL, new Skill(20));

@@ -37,7 +37,7 @@ public class UTestSetLegalActionsAction {
 
 	@Test
 	public void testExecute() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(3);
 		world.addWorldObject(performer);
 		createVillagersOrganization(world);
@@ -53,7 +53,7 @@ public class UTestSetLegalActionsAction {
 	
 	@Test
 	public void testIsValidTarget() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		world.addWorldObject(performer);
@@ -65,7 +65,7 @@ public class UTestSetLegalActionsAction {
 	
 	@Test
 	public void testDistance() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		world.addWorldObject(performer);
 		WorldObject villagersOrganization = createVillagersOrganization(world);

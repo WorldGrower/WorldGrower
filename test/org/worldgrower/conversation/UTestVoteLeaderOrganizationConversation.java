@@ -55,7 +55,7 @@ public class UTestVoteLeaderOrganizationConversation {
 	
 	@Test
 	public void testGetQuestionPhrases() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.GROUP, new IdList().add(0));
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.GROUP, new IdList().add(0));
 		world.addWorldObject(performer);

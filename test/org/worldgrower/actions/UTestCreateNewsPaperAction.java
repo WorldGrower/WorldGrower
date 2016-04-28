@@ -31,7 +31,7 @@ public class UTestCreateNewsPaperAction {
 
 	@Test
 	public void testExecute() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		performer.setProperty(Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
@@ -45,7 +45,7 @@ public class UTestCreateNewsPaperAction {
 	
 	@Test
 	public void testIsValidTarget() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 
@@ -55,7 +55,7 @@ public class UTestCreateNewsPaperAction {
 
 	@Test
 	public void testDistance() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
 		performerInventory.addQuantity(Item.PAPER.generate(1f), 10);

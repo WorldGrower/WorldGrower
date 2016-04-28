@@ -33,7 +33,7 @@ public class UTestArtemis {
 	
 	@Test
 	public void testWorship() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(2, "performer");
 		WorldObject target = TestUtils.createIntelligentWorldObject(3, "target");
 		
@@ -47,7 +47,7 @@ public class UTestArtemis {
 	
 	@Test
 	public void testGetReasonIndex() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(2);
 		
 		assertEquals(-1, deity.getReasonIndex(performer, world));
@@ -58,7 +58,7 @@ public class UTestArtemis {
 	
 	@Test
 	public void testOnTurn() {
-		World world = new WorldImpl(0, 0, null, new DoNothingWorldOnTurn());
+		World world = new WorldImpl(1, 1, null, new DoNothingWorldOnTurn());
 		WorldObject performer = TestUtils.createSkilledWorldObject(2);
 		performer.setProperty(Constants.DEITY, Deity.APHRODITE);
 		performer.setProperty(Constants.CREATURE_TYPE, CreatureType.HUMAN_CREATURE_TYPE);

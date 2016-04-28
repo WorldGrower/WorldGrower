@@ -37,7 +37,7 @@ public class UTestWhoIsLeaderOrganizationConversation {
 	
 	@Test
 	public void testGetReplyPhrases() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject organization = GroupPropertyUtils.create(null, "OrgName", world);
@@ -51,7 +51,7 @@ public class UTestWhoIsLeaderOrganizationConversation {
 	
 	@Test
 	public void testGetReplyPhrasesPerformerLeader() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject organization = GroupPropertyUtils.create(performer.getProperty(Constants.ID), "OrgName", world);
@@ -64,7 +64,7 @@ public class UTestWhoIsLeaderOrganizationConversation {
 	
 	@Test
 	public void testGetReplyPhrasesTargetLeader() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject organization = GroupPropertyUtils.create(target.getProperty(Constants.ID), "OrgName", world);
@@ -77,7 +77,7 @@ public class UTestWhoIsLeaderOrganizationConversation {
 	
 	@Test
 	public void testGetReplyPhrasesLeader() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject leader = TestUtils.createIntelligentWorldObject(3, Constants.RELATIONSHIPS, new IdRelationshipMap());
@@ -92,7 +92,7 @@ public class UTestWhoIsLeaderOrganizationConversation {
 	
 	@Test
 	public void testGetReplyPhrase() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject organization = GroupPropertyUtils.create(null, "OrgName", world);
@@ -110,7 +110,7 @@ public class UTestWhoIsLeaderOrganizationConversation {
 	
 	@Test
 	public void testGetQuestionPhrases() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.GROUP, new IdList());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.GROUP, new IdList().add(0));
 		world.addWorldObject(performer);
@@ -124,7 +124,7 @@ public class UTestWhoIsLeaderOrganizationConversation {
 	
 	@Test
 	public void testHandleResponse0() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		world.addWorldObject(performer);
@@ -143,7 +143,7 @@ public class UTestWhoIsLeaderOrganizationConversation {
 	
 	@Test
 	public void testHandleResponse1() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		world.addWorldObject(performer);

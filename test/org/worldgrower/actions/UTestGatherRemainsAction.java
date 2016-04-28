@@ -31,7 +31,7 @@ public class UTestGatherRemainsAction {
 
 	@Test
 	public void testExecute() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		performer.setProperty(Constants.GOLD, 100);
 		
@@ -52,7 +52,7 @@ public class UTestGatherRemainsAction {
 	
 	@Test
 	public void testIsValidTarget() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		
 		int id = CommonerGenerator.generateSkeletalRemains(createPerformer(3), world);
@@ -64,7 +64,7 @@ public class UTestGatherRemainsAction {
 	
 	@Test
 	public void testDistance() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		
 		int id = CommonerGenerator.generateSkeletalRemains(createPerformer(3), world);

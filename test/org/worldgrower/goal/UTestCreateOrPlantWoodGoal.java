@@ -59,7 +59,7 @@ public class UTestCreateOrPlantWoodGoal {
 	
 	@Test
 	public void testCalculateGoalFarAwayTree() {
-		World world = new WorldImpl(1, 30, null, null);
+		World world = new WorldImpl(5, 30, null, null);
 		WorldObject performer = createPerformer();
 		
 		PlantGenerator.generateTree(0, 25, world);

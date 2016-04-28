@@ -31,7 +31,7 @@ public class UTestBuyAction {
 
 	@Test
 	public void testExecuteBuy() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		target.getProperty(Constants.INVENTORY).addQuantity(Item.WATER.generate(1f));
@@ -49,7 +49,7 @@ public class UTestBuyAction {
 	
 	@Test
 	public void testExecuteDecreaseQuantity() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		target.getProperty(Constants.INVENTORY).addQuantity(Item.WATER.generate(1f), 20);
@@ -63,7 +63,7 @@ public class UTestBuyAction {
 	
 	@Test
 	public void testIsValidTarget() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
@@ -76,7 +76,7 @@ public class UTestBuyAction {
 	
 	@Test
 	public void testDistance() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
@@ -87,7 +87,7 @@ public class UTestBuyAction {
 	
 	@Test
 	public void testDistanceAlreadySold() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
@@ -99,7 +99,7 @@ public class UTestBuyAction {
 	
 	@Test
 	public void testDistancePerformerCannotBuyGoods() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		performer.setProperty(Constants.GOLD, 0);

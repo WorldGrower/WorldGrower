@@ -29,7 +29,7 @@ public class UTestSkill {
 
 	@Test
 	public void testGetLevel() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.LUMBERING_SKILL, new Skill(20));
 		
 		assertEquals(10, performer.getProperty(Constants.LUMBERING_SKILL).getLevel(performer));

@@ -35,7 +35,7 @@ public class UTestDrinkWaterGoal {
 	
 	@Test
 	public void testCalculateGoalNull() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer();
 		
 		assertEquals(null, goal.calculateGoal(performer, world));
@@ -72,7 +72,7 @@ public class UTestDrinkWaterGoal {
 	
 	@Test
 	public void testCalculateGoalDrinkWaterFromInventory() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer();
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WATER.generate(1f), 10);
 		

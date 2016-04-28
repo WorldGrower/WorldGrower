@@ -34,7 +34,7 @@ public class UTestGatherFoodGoal {
 	
 	@Test
 	public void testCalculateGoalNull() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer();
 		
 		assertEquals(null, goal.calculateGoal(performer, world));
@@ -54,7 +54,7 @@ public class UTestGatherFoodGoal {
 	
 	@Test
 	public void testCalculateGoalHarvestTargetFarAway() {
-		World world = new WorldImpl(10, 10, null, null);
+		World world = new WorldImpl(25, 25, null, null);
 		WorldObject performer = createPerformer();
 		
 		int berryBushId = PlantGenerator.generateBerryBush(20, 20, world);
@@ -79,7 +79,7 @@ public class UTestGatherFoodGoal {
 
 	@Test
 	public void testCalculateGoalButcherTargetFarAway() {
-		World world = new WorldImpl(10, 10, null, null);
+		World world = new WorldImpl(25, 25, null, null);
 		WorldObject performer = createPerformer();
 		
 		CreatureGenerator creatureGenerator = new CreatureGenerator(TestUtils.createIntelligentWorldObject(1, "cow"));

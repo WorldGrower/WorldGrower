@@ -31,7 +31,7 @@ public class UTestDeityPropertyUtils {
 
 	@Test
 	public void testDeityIsLessWorshippedThanOthers() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		
 		assertEquals(false, DeityPropertyUtils.deityIsLessWorshippedThanOthers(Deity.HADES, world));
 		
@@ -45,7 +45,7 @@ public class UTestDeityPropertyUtils {
 	
 	@Test
 	public void testGetTotalNumberOfWorshippers() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		
 		assertEquals(0, DeityPropertyUtils.getTotalNumberOfWorshippers(world));
 		
@@ -59,7 +59,7 @@ public class UTestDeityPropertyUtils {
 	
 	@Test
 	public void testGetWorshippersFor() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		
 		assertEquals(new ArrayList<>(), DeityPropertyUtils.getWorshippersFor(Deity.HADES, world));
 		

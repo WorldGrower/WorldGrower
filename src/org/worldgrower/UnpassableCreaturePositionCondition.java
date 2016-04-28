@@ -14,6 +14,8 @@
  *******************************************************************************/
 package org.worldgrower;
 
+import org.worldgrower.goal.LocationPropertyUtils;
+
 /**
  * Convenience class that checks whether a worldObject occupies a certain position
  */
@@ -26,8 +28,7 @@ public class UnpassableCreaturePositionCondition implements WorldObjectCondition
 
 	@Override
 	public boolean isWorldObjectValid(WorldObject worldObject) {
-		boolean passable = worldObject.hasProperty(Constants.PASSABLE) && worldObject.getProperty(Constants.PASSABLE);
-		if (passable) {
+		if (LocationPropertyUtils.isPassable(worldObject)) {
 			return false;
 		} else {
 			return creaturePositionCondition.isWorldObjectValid(worldObject);

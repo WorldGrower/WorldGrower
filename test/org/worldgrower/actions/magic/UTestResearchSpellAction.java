@@ -36,7 +36,7 @@ public class UTestResearchSpellAction {
 	
 	@Test
 	public void testExecute() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		
 		assertEquals(0, performer.getProperty(Constants.STUDYING_SPELLS).count(Actions.BURDEN_ACTION));
@@ -48,7 +48,7 @@ public class UTestResearchSpellAction {
 	
 	@Test
 	public void testExecuteLearnSpell() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		
 		assertEquals(0, performer.getProperty(Constants.STUDYING_SPELLS).count(Actions.BURDEN_ACTION));
@@ -62,7 +62,7 @@ public class UTestResearchSpellAction {
 	
 	@Test
 	public void testIsValidTarget() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		
 		assertEquals(false, researchSpellAction.isValidTarget(performer, performer, world));

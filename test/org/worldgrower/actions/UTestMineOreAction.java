@@ -30,7 +30,7 @@ public class UTestMineOreAction {
 
 	@Test
 	public void testExecute() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		int oreResourceId = TerrainGenerator.generateOreResource(0, 0, world);
 		WorldObject target = world.findWorldObject(Constants.ID, oreResourceId);
@@ -44,7 +44,7 @@ public class UTestMineOreAction {
 	
 	@Test
 	public void testIsValidTarget() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		int stoneResourceId = TerrainGenerator.generateOreResource(0, 0, world);
 		WorldObject target = world.findWorldObject(Constants.ID, stoneResourceId);
@@ -58,7 +58,7 @@ public class UTestMineOreAction {
 	
 	@Test
 	public void testDistance() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		int stoneResourceId = TerrainGenerator.generateOreResource(0, 0, world);
 		WorldObject target = world.findWorldObject(Constants.ID, stoneResourceId);

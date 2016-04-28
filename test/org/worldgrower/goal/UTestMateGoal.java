@@ -37,7 +37,7 @@ public class UTestMateGoal {
 	
 	@Test
 	public void testCalculateGoal() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
 		
@@ -46,7 +46,7 @@ public class UTestMateGoal {
 	
 	@Test
 	public void testCalculateGoalOneTarget() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
 		WorldObject target = createCommoner(world, organization);
@@ -62,7 +62,7 @@ public class UTestMateGoal {
 	
 	@Test
 	public void testCalculateGoalOneTargetAlreadySaidNo() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
 		WorldObject target = createCommoner(world, organization);
@@ -79,7 +79,7 @@ public class UTestMateGoal {
 	
 	@Test
 	public void testCalculateGoalOneTargetWithGoodRelationship() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
 		WorldObject target = createCommoner(world, organization);
@@ -95,7 +95,7 @@ public class UTestMateGoal {
 	
 	@Test
 	public void testCalculateGoalUnknownTarget() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
 		WorldObject target = createCommoner(world, organization);
@@ -111,7 +111,7 @@ public class UTestMateGoal {
 	
 	@Test
 	public void testIsGoalMet() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
 		
@@ -123,7 +123,7 @@ public class UTestMateGoal {
 	
 	@Test
 	public void testGetBestMate() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
 		WorldObject target1 = createCommoner(world, organization);

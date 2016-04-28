@@ -41,7 +41,7 @@ public class UTestWeaveClothesGoal {
 	
 	@Test
 	public void testCalculateGoalCottonShirt() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
 		
 		int weaveryId = BuildingGenerator.generateWeavery(0, 0, world);
@@ -55,7 +55,7 @@ public class UTestWeaveClothesGoal {
 	
 	@Test
 	public void testCalculateGoalCottonPants() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
 		
 		int weaveryId = BuildingGenerator.generateWeavery(0, 0, world);
@@ -70,7 +70,7 @@ public class UTestWeaveClothesGoal {
 	
 	@Test
 	public void testCalculateGoalCottonBoots() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
 		
 		int weaveryId = BuildingGenerator.generateWeavery(0, 0, world);
@@ -86,7 +86,7 @@ public class UTestWeaveClothesGoal {
 
 	@Test
 	public void testCalculateGoalCottonBootsNothing() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
 		
 		int weaveryId = BuildingGenerator.generateWeavery(0, 0, world);
@@ -103,7 +103,7 @@ public class UTestWeaveClothesGoal {
 	
 	@Test
 	public void testIsGoalMet() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer();
 		
 		assertEquals(false, goal.isGoalMet(performer, world));

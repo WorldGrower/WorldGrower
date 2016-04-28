@@ -32,7 +32,7 @@ public class UTestEatNightShadeAction {
 
 	@Test
 	public void testExecuteEat() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		performer.setProperty(Constants.FOOD, 800);
 		
@@ -49,7 +49,7 @@ public class UTestEatNightShadeAction {
 	
 	@Test
 	public void testIsValidTarget() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		performer.setProperty(Constants.FOOD, 800);
 		
@@ -64,7 +64,7 @@ public class UTestEatNightShadeAction {
 	
 	@Test
 	public void testDistance() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		performer.setProperty(Constants.FOOD, 800);
 		

@@ -33,7 +33,7 @@ public class UTestReduceAction {
 
 	@Test
 	public void testExecute() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		
 		Actions.REDUCE_ACTION.execute(performer, performer, Args.EMPTY, world);
@@ -43,7 +43,7 @@ public class UTestReduceAction {
 	
 	@Test
 	public void testExecuteEnlarged() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		
 		Actions.ENLARGE_ACTION.execute(performer, performer, Args.EMPTY, world);
@@ -56,7 +56,7 @@ public class UTestReduceAction {
 	
 	@Test
 	public void testIsValidTarget() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		performer.setProperty(Constants.KNOWN_SPELLS, Arrays.asList(Actions.REDUCE_ACTION));
 		
@@ -65,7 +65,7 @@ public class UTestReduceAction {
 	
 	@Test
 	public void testDistance() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		
 		assertEquals(0, Actions.REDUCE_ACTION.distance(performer, performer, Args.EMPTY, world));

@@ -35,7 +35,7 @@ public class UTestChildrenGoal {
 	
 	@Test
 	public void testCalculateGoal() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createPerformer(world, organization);
 		
@@ -44,7 +44,7 @@ public class UTestChildrenGoal {
 	
 	@Test
 	public void testCalculateGoalOneMateBarelyKnown() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createPerformer(world, organization);
 		performer.setProperty(Constants.GENDER, "female");
@@ -61,7 +61,7 @@ public class UTestChildrenGoal {
 	
 	@Test
 	public void testCalculateGoalOneMateWellKnown() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createPerformer(world, organization);
 		performer.setProperty(Constants.GENDER, "female");
@@ -77,7 +77,7 @@ public class UTestChildrenGoal {
 	
 	@Test
 	public void testCalculateGoalOneMateUnknown() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createPerformer(world, organization);
 		performer.setProperty(Constants.GENDER, "female");
@@ -93,7 +93,7 @@ public class UTestChildrenGoal {
 	
 	@Test
 	public void testIsGoalMet() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createPerformer(world, organization);
 		

@@ -31,7 +31,7 @@ public class UTestMarkAsSellableAction {
 
 	@Test
 	public void testExecute() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
 		
 		int id = BuildingGenerator.generateHouse(0, 0, world, 1f);
@@ -44,7 +44,7 @@ public class UTestMarkAsSellableAction {
 	
 	@Test
 	public void testIsValidTarget() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.HOUSES, new IdList());
 		performer.setProperty(Constants.NAME, "performer");
 		
@@ -61,7 +61,7 @@ public class UTestMarkAsSellableAction {
 	
 	@Test
 	public void testDistance() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.HOUSES, new IdList());
 		performer.setProperty(Constants.X, 0);
 		performer.setProperty(Constants.Y, 0);

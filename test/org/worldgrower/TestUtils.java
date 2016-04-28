@@ -73,6 +73,10 @@ public class TestUtils {
 	
 	public static WorldObject createWorldObject(int id, String name) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		properties.put(Constants.X, 0);
+		properties.put(Constants.Y, 0);
+		properties.put(Constants.WIDTH, 1);
+		properties.put(Constants.HEIGHT, 1);
 		properties.put(Constants.NAME, name);
 		properties.put(Constants.ID, id);
 		properties.put(Constants.GROUP, new IdList().add(6));
@@ -88,6 +92,10 @@ public class TestUtils {
 	
 	public static WorldObject createIntelligentWorldObject(int id, ManagedProperty<?> property, Object value) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		properties.put(Constants.X, 0);
+		properties.put(Constants.Y, 0);
+		properties.put(Constants.WIDTH, 1);
+		properties.put(Constants.HEIGHT, 1);
 		properties.put(Constants.ID, id);
 		properties.put(Constants.GROUP, new IdList().add(6));
 		properties.put(Constants.SOCIAL, 0);
@@ -103,6 +111,10 @@ public class TestUtils {
 	
 	public static WorldObject createIntelligentWorldObject(int id, Goal goal) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		properties.put(Constants.X, 0);
+		properties.put(Constants.Y, 0);
+		properties.put(Constants.WIDTH, 1);
+		properties.put(Constants.HEIGHT, 1);
 		properties.put(Constants.ID, id);
 		properties.put(Constants.GROUP, new IdList().add(6));
 		properties.put(Constants.SOCIAL, 0);

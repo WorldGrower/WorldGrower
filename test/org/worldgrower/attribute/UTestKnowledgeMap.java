@@ -45,7 +45,7 @@ public class UTestKnowledgeMap {
 	
 	@Test
 	public void testSwitchProfession() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject subject = TestUtils.createWorldObject(1, "Test");
 		world.addWorldObject(subject);
 		
@@ -91,7 +91,7 @@ public class UTestKnowledgeMap {
 	
 	@Test
 	public void testFindWorldObjects() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		world.addWorldObject(TestUtils.createWorldObject(1, "Test"));
 		
 		KnowledgeMap knowledgeMap = new KnowledgeMap();
@@ -104,7 +104,7 @@ public class UTestKnowledgeMap {
 	
 	@Test
 	public void testFindWorldObjectsNull() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		world.addWorldObject(TestUtils.createWorldObject(1, "Test"));
 		
 		KnowledgeMap knowledgeMap = new KnowledgeMap();
@@ -117,7 +117,7 @@ public class UTestKnowledgeMap {
 	
 	@Test
 	public void testFindWorldObjectsForInt() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		world.addWorldObject(TestUtils.createIntelligentWorldObject(1, Constants.FOOD, 500));
 		
 		KnowledgeMap knowledgeMap = new KnowledgeMap();
@@ -230,7 +230,7 @@ public class UTestKnowledgeMap {
 	
 	@Test
 	public void testHasEvent() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		KnowledgeMap knowledgeMap = new KnowledgeMap();
 		WorldObject worldObject = TestUtils.createSkilledWorldObject(1, Constants.FOOD, 500);
 		
@@ -244,7 +244,7 @@ public class UTestKnowledgeMap {
 	
 	@Test
 	public void testHasEventTimeCondition() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		KnowledgeMap knowledgeMap = new KnowledgeMap();
 		WorldObject worldObject = TestUtils.createSkilledWorldObject(1, Constants.FOOD, 500);
 	

@@ -33,7 +33,7 @@ public class UTestReleaseCapturedCriminalsGoal {
 	
 	@Test
 	public void testCalculateGoalNull() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		createVillagersOrganization(world);
 		
@@ -42,7 +42,7 @@ public class UTestReleaseCapturedCriminalsGoal {
 	
 	@Test
 	public void testCalculateGoalReleaseTarget() {
-		World world = new WorldImpl(0, 0, null, new DoNothingWorldOnTurn());
+		World world = new WorldImpl(20, 20, null, new DoNothingWorldOnTurn());
 		WorldObject performer = createPerformer(7);
 		WorldObject target = createPerformer(8);
 		world.addWorldObject(target);

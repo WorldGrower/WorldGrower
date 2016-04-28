@@ -23,7 +23,6 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
@@ -32,7 +31,7 @@ public class UTestCraftIronAxeAction {
 
 	@Test
 	public void testExecute() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
 		Actions.CRAFT_IRON_AXE_ACTION.execute(performer, performer, Args.EMPTY, world);
 		
@@ -41,7 +40,7 @@ public class UTestCraftIronAxeAction {
 	
 	@Test
 	public void testIsValidTarget() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
 
 		int smithId = BuildingGenerator.generateSmith(0, 0, world);
@@ -53,7 +52,7 @@ public class UTestCraftIronAxeAction {
 	
 	@Test
 	public void testDistance() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.ORE.generate(1f), 20);

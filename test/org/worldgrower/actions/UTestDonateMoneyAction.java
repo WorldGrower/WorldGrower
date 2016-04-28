@@ -30,7 +30,7 @@ public class UTestDonateMoneyAction {
 
 	@Test
 	public void testExecute() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		Actions.DONATE_MONEY_ACTION.execute(performer, target, new int[] { 10 }, world);
@@ -41,7 +41,7 @@ public class UTestDonateMoneyAction {
 	
 	@Test
 	public void testIsValidTarget() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		performer.setProperty(Constants.CREATURE_TYPE, CreatureType.COW_CREATURE_TYPE);
@@ -53,7 +53,7 @@ public class UTestDonateMoneyAction {
 	
 	@Test
 	public void testDistance() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		

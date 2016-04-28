@@ -38,7 +38,7 @@ public class UTestBreakupWithMateGoal {
 	
 	@Test
 	public void testCalculateGoal() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
 		
@@ -47,7 +47,7 @@ public class UTestBreakupWithMateGoal {
 	
 	@Test
 	public void testCalculateGoalBreakup() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
 		WorldObject target = createCommoner(world, organization);
@@ -62,7 +62,7 @@ public class UTestBreakupWithMateGoal {
 	
 	@Test
 	public void testMateHasCheated() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
 		WorldObject target = createCommoner(world, organization);
@@ -81,7 +81,7 @@ public class UTestBreakupWithMateGoal {
 	
 	@Test
 	public void testIsGoalMet() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
 		

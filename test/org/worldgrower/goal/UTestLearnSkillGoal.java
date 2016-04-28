@@ -36,7 +36,7 @@ public class UTestLearnSkillGoal {
 	
 	@Test
 	public void testCalculateGoalNull() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer();
 		
 		assertEquals(null, goal.calculateGoal(performer, world));
@@ -44,7 +44,7 @@ public class UTestLearnSkillGoal {
 	
 	@Test
 	public void testCalculateGoalTalkAboutLearning() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer();
 		WorldObject target = createPerformer();
 		
@@ -67,7 +67,7 @@ public class UTestLearnSkillGoal {
 	
 	@Test
 	public void testCalculateGoalMemberOfOtherOrganization() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer();
 		WorldObject target = createPerformer();
 		
@@ -90,7 +90,7 @@ public class UTestLearnSkillGoal {
 	
 	@Test
 	public void testCalculateGoalNotAMember() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer();
 		WorldObject target = createPerformer();
 		

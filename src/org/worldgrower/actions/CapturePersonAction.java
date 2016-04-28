@@ -25,6 +25,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.goal.GroupPropertyUtils;
+import org.worldgrower.goal.LocationPropertyUtils;
 import org.worldgrower.gui.ImageIds;
 
 public class CapturePersonAction implements ManagedOperation {
@@ -36,8 +37,10 @@ public class CapturePersonAction implements ManagedOperation {
 		List<WorldObject> jails = world.findWorldObjects(w -> BuildingGenerator.isJailLeft(w));
 		WorldObject jail = jails.get(0);
 		BuildingGenerator.addJailDoorIfNotPresent(jail, world);
-		target.setProperty(Constants.X, jail.getProperty(Constants.X) + 1);
-		target.setProperty(Constants.Y, jail.getProperty(Constants.Y) + 1);
+		
+		int newX = jail.getProperty(Constants.X) + 1;
+		int newY = jail.getProperty(Constants.Y) + 1;
+		LocationPropertyUtils.updateLocation(target, newX, newY, world);
 		
 		WorldObject villagersOrganization = GroupPropertyUtils.getVillagersOrganization(world);
 		villagersOrganization.getProperty(Constants.TURNS_IN_JAIL).incrementValue(target, world.getCurrentTurn().getValue());

@@ -34,7 +34,7 @@ public class UTestSkeletonEvaluationFunction {
 	
 	@Test
 	public void testDefaultPriorities() {
-		World world = new WorldImpl(0, 0, null, new DoNothingWorldOnTurn());
+		World world = new WorldImpl(1, 1, null, new DoNothingWorldOnTurn());
 		
 		WorldObject skeleton = createSkeleton(world);
 		
@@ -43,7 +43,7 @@ public class UTestSkeletonEvaluationFunction {
 	
 	@Test
 	public void testOrder() {
-		World world = new WorldImpl(0, 0, null, new DoNothingWorldOnTurn());
+		World world = new WorldImpl(1, 1, null, new DoNothingWorldOnTurn());
 		
 		WorldObject skeleton = createSkeleton(world);
 		skeleton.setProperty(Constants.GIVEN_ORDER, Goals.CREATE_WOOD_GOAL);

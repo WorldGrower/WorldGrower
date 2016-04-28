@@ -32,7 +32,7 @@ public class UTestGoal {
 	
 	@Test
 	public void testDefaultGoalMetOrNot() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer();
 		performer.setProperty(Constants.DEMANDS, new PropertyCountMap<>());
 		
@@ -56,7 +56,7 @@ public class UTestGoal {
 	
 	@Test
 	public void testChangePersonality() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer();
 		performer.setProperty(Constants.NAME, "performer");
 		performer.setProperty(Constants.FOOD, 0);
@@ -68,7 +68,7 @@ public class UTestGoal {
 	
 	@Test
 	public void testChangePersonalityGoalMet() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer();
 		performer.setProperty(Constants.NAME, "performer");
 		performer.setProperty(Constants.FOOD, 0);
@@ -80,7 +80,7 @@ public class UTestGoal {
 	
 	@Test
 	public void testChangePersonalityUrgentGoalMet() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer();
 		performer.setProperty(Constants.NAME, "performer");
 		performer.setProperty(Constants.FOOD, 500);

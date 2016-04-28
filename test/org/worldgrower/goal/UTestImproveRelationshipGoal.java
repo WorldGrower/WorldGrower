@@ -37,7 +37,7 @@ public class UTestImproveRelationshipGoal {
 	
 	@Test
 	public void testCalculateGoal() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject target = createCommoner(world, organization);
 		ImproveRelationshipGoal goal = new ImproveRelationshipGoal(target.getProperty(Constants.ID), 500, world);
@@ -49,7 +49,7 @@ public class UTestImproveRelationshipGoal {
 	
 	@Test
 	public void testCalculateGoalFamilyConversation() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject target = createCommoner(world, organization);
 		ImproveRelationshipGoal goal = new ImproveRelationshipGoal(target.getProperty(Constants.ID), 500, world);
@@ -64,7 +64,7 @@ public class UTestImproveRelationshipGoal {
 	
 	@Test
 	public void testCalculateGoalProfessionConversation() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject target = createCommoner(world, organization);
 		ImproveRelationshipGoal goal = new ImproveRelationshipGoal(target.getProperty(Constants.ID), 500, world);
@@ -79,7 +79,7 @@ public class UTestImproveRelationshipGoal {
 	
 	@Test
 	public void testCalculateGoalKissConversation() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject target = createCommoner(world, organization);
 		ImproveRelationshipGoal goal = new ImproveRelationshipGoal(target.getProperty(Constants.ID), 500, world);
@@ -95,7 +95,7 @@ public class UTestImproveRelationshipGoal {
 	
 	@Test
 	public void testCalculateGoalRepeatedKiss() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject target = createCommoner(world, organization);
 		ImproveRelationshipGoal goal = new ImproveRelationshipGoal(target.getProperty(Constants.ID), 500, world);
@@ -116,7 +116,7 @@ public class UTestImproveRelationshipGoal {
 	
 	@Test
 	public void testIsGoalMet() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject target = createCommoner(world, organization);
 		ImproveRelationshipGoal goal = new ImproveRelationshipGoal(target.getProperty(Constants.ID), 500, world);

@@ -32,7 +32,7 @@ public class UTestCowOnTurn {
 
 	@Test
 	public void testOnTurnOfCommonAttributes() {
-		World world = new WorldImpl(0, 0, null, new DoNothingWorldOnTurn());
+		World world = new WorldImpl(1, 1, null, new DoNothingWorldOnTurn());
 		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
 		
 		WorldObject cow = createCow(world, organization);

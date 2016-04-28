@@ -124,7 +124,7 @@ public class UTestChooseProfessionAction {
 	
 	@Test
 	public void testGetRemains() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject target1 = TestUtils.createWorldObject(1, "target1");
 		WorldObject target2 = TestUtils.createWorldObject(1, "target2");
 		target2.setProperty(Constants.DECEASED_WORLD_OBJECT, Boolean.TRUE);

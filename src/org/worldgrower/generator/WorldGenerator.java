@@ -40,8 +40,8 @@ public class WorldGenerator {
 		int numberOfStartingPlaces = random.nextInt(world.getWidth()) + 4;
 		List<Integer> ids = new ArrayList<>();
 		for(int i=0; i<numberOfStartingPlaces; i++) {
-			int x = random.nextInt(world.getWidth());
-			int y = random.nextInt(world.getHeight());
+			int x = random.nextInt(world.getWidth()-1);
+			int y = random.nextInt(world.getHeight()-1);
 			
 			if (GoalUtils.isOpenSpace(x, y, width, height, world)) {
 				ids.add(addWorldObjectFunction.addToWorld(x, y, world));
@@ -67,8 +67,8 @@ public class WorldGenerator {
 			boolean found = false;
 			
 			while (!found) {
-				int x = random.nextInt(world.getWidth());
-				int y = random.nextInt(world.getHeight());
+				int x = random.nextInt(world.getWidth()-1);
+				int y = random.nextInt(world.getHeight()-1);
 				
 				TerrainType terrainType = world.getTerrain().getTerrainInfo(x, y).getTerrainType();
 				

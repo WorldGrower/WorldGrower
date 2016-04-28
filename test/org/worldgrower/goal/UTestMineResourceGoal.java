@@ -33,7 +33,7 @@ public class UTestMineResourceGoal {
 	
 	@Test
 	public void testCalculateGoalNull() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
 		
 		assertEquals(null, goal.calculateGoal(performer, world));
@@ -71,7 +71,7 @@ public class UTestMineResourceGoal {
 	
 	@Test
 	public void testIsGoalMet() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer();
 		
 		assertEquals(false, goal.isGoalMet(performer, world));

@@ -34,7 +34,7 @@ public class UTestWhyNotIntelligentConversation {
 	
 	@Test
 	public void testGetReplyPhrases() {
-		World world = new WorldImpl(0, 0, new DungeonMaster(), null);
+		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
 		WorldObject performer = createPerformerFacade(world);
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		
@@ -57,7 +57,7 @@ public class UTestWhyNotIntelligentConversation {
 	
 	@Test
 	public void testGetReplyPhraseNull() {
-		World world = new WorldImpl(0, 0, new DungeonMaster(), null);
+		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		
@@ -67,7 +67,7 @@ public class UTestWhyNotIntelligentConversation {
 	
 	@Test
 	public void testGetReplyPhraseMinusOne() {
-		World world = new WorldImpl(0, 0, new DungeonMaster(), null);
+		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
 		WorldObject performer = createPerformerFacade(world);
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		
@@ -77,7 +77,7 @@ public class UTestWhyNotIntelligentConversation {
 	
 	@Test
 	public void testGetReplyPhraseMinusTwo() {
-		World world = new WorldImpl(0, 0, new DungeonMaster(), null);
+		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
 		WorldObject facade = TestUtils.createWorldObject(0, 0, 1, 1, Constants.ID, 3);
 		world.addWorldObject(facade);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.FACADE, facade);
@@ -89,7 +89,7 @@ public class UTestWhyNotIntelligentConversation {
 	
 	@Test
 	public void testHandleResponseMinusTwo() {
-		World world = new WorldImpl(0, 0, new DungeonMaster(), null);
+		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
 		WorldObject performer = createPerformerFacade(world);
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 

@@ -32,7 +32,7 @@ public class UTestSwitchDeityConversation {
 	
 	@Test
 	public void testGetReplyPhrases() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.DEITY, Deity.HADES);
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.DEITY, Deity.DEMETER);
 		
@@ -46,7 +46,7 @@ public class UTestSwitchDeityConversation {
 
 	@Test
 	public void testGetReplyPhrase() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.DEITY, Deity.HADES);
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.DEITY, Deity.DEMETER);
 		
@@ -69,7 +69,7 @@ public class UTestSwitchDeityConversation {
 	
 	@Test
 	public void testHandleResponse0() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.DEITY, Deity.HADES);
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.DEITY, Deity.DEMETER);
 		
@@ -82,7 +82,7 @@ public class UTestSwitchDeityConversation {
 	
 	@Test
 	public void testHandleResponse1() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.DEITY, Deity.HADES);
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.DEITY, Deity.DEMETER);
 		
@@ -95,7 +95,7 @@ public class UTestSwitchDeityConversation {
 	
 	@Test
 	public void testHandleResponse2() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.DEITY, Deity.HADES);
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.DEITY, Deity.DEMETER);
 		
@@ -108,7 +108,7 @@ public class UTestSwitchDeityConversation {
 	
 	@Test
 	public void testIsConversationAvailable() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.DEITY, Deity.HADES);
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.DEITY, Deity.DEMETER);
 		

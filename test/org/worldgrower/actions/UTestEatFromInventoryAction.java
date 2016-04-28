@@ -29,7 +29,7 @@ public class UTestEatFromInventoryAction {
 
 	@Test
 	public void testExecute() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.BERRIES.generate(1f));

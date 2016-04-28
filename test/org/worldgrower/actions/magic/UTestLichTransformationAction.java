@@ -36,7 +36,7 @@ public class UTestLichTransformationAction {
 
 	@Test
 	public void testExecute() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		
 		Actions.LICH_TRANSFORMATION_ACTION.execute(performer, performer, new int[] {0}, world);
@@ -46,7 +46,7 @@ public class UTestLichTransformationAction {
 	
 	@Test
 	public void testIsValidTarget() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		
 		performer.setProperty(Constants.KNOWN_SPELLS, Arrays.asList(Actions.LICH_TRANSFORMATION_ACTION));
@@ -58,7 +58,7 @@ public class UTestLichTransformationAction {
 	
 	@Test
 	public void testDistance() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		
 		for(int i=0; i<10; i++) {

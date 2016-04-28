@@ -37,7 +37,7 @@ public class UTestEntangleAction {
 	
 	@Test
 	public void testExecute() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		world.addWorldObject(performer);
@@ -49,7 +49,7 @@ public class UTestEntangleAction {
 	
 	@Test
 	public void testExecuteMultipleTargets() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		world.addWorldObject(performer);
 		
@@ -70,7 +70,7 @@ public class UTestEntangleAction {
 
 	@Test
 	public void testIsValidTarget() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = TestUtils.createWorldObject(0, 0, 1, 1);
 		
@@ -84,7 +84,7 @@ public class UTestEntangleAction {
 	
 	@Test
 	public void testDistance() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		

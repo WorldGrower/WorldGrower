@@ -36,7 +36,7 @@ public class UTestReadItemInInventoryAction {
 
 	@Test
 	public void testExecute() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(1);
 		world.addWorldObject(performer);
 		performer.setProperty(Constants.KNOWLEDGE_MAP, new KnowledgeMap());

@@ -71,7 +71,7 @@ public class UTestLocationConversation {
 	
 	@Test
 	public void testGetPossibleSubjects() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.GROUP, new IdList());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.GROUP, new IdList().add(3));
 		

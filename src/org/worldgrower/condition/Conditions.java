@@ -40,9 +40,9 @@ public class Conditions implements Serializable {
 		conditionGained(worldObject, condition, world.getWorldStateChangedListeners());
 	}
 	
-	private void removeConditionFromWorldObject(WorldObject worldObject, Condition condition, WorldStateChangedListeners worldStateChangedListeners) {
+	private void removeConditionFromWorldObject(WorldObject worldObject, Condition condition, WorldStateChangedListeners worldStateChangedListeners, World world) {
 		conditions.remove(condition);
-		condition.conditionEnds(worldObject);
+		condition.conditionEnds(worldObject, world);
 		conditionLost(worldObject, condition, worldStateChangedListeners);
 	}
 	
@@ -51,7 +51,7 @@ public class Conditions implements Serializable {
 	}
 	
 	public static void remove(WorldObject worldObject, Condition condition, World world) {
-		worldObject.getProperty(Constants.CONDITIONS).removeConditionFromWorldObject(worldObject, condition, world.getWorldStateChangedListeners());
+		worldObject.getProperty(Constants.CONDITIONS).removeConditionFromWorldObject(worldObject, condition, world.getWorldStateChangedListeners(), world);
 	}
 	
 	public void removeAllDiseases(WorldObject worldObject, WorldStateChangedListeners worldStateChangedListeners) {
@@ -101,7 +101,7 @@ public class Conditions implements Serializable {
 			if (turnsItWillLast != 0) {
 				entry.getValue().setTurnsItWillLast(turnsItWillLast);
 			} else {
-				removeConditionFromWorldObject(worldObject, entry.getKey(), world.getWorldStateChangedListeners());
+				removeConditionFromWorldObject(worldObject, entry.getKey(), world.getWorldStateChangedListeners(), world);
 			}
 		}
 	}

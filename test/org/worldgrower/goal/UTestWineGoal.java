@@ -41,7 +41,7 @@ public class UTestWineGoal {
 	
 	@Test
 	public void testCalculateGoalInventoryGrapes() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.GRAPES.generate(1f), 10);
 		
@@ -53,7 +53,7 @@ public class UTestWineGoal {
 	
 	@Test
 	public void testIsGoalMet() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
 		
 		assertEquals(false, goal.isGoalMet(performer, world));

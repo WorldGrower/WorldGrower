@@ -37,7 +37,7 @@ public class UTestWhyAngryOtherConversation {
 	
 	@Test
 	public void testGetReplyPhrases() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.BACKGROUND, new BackgroundImpl());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.BACKGROUND, new BackgroundImpl());
 		WorldObject subject = TestUtils.createIntelligentWorldObject(3, Constants.GENDER, "female");
@@ -83,7 +83,7 @@ public class UTestWhyAngryOtherConversation {
 	
 	@Test
 	public void testGetPossibleSubjects() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject subject = TestUtils.createIntelligentWorldObject(3, Constants.RELATIONSHIPS, new IdRelationshipMap());
@@ -102,7 +102,7 @@ public class UTestWhyAngryOtherConversation {
 	
 	@Test
 	public void testHandleResponse0() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject subject = TestUtils.createIntelligentWorldObject(3, Constants.NAME, "subject");
@@ -116,7 +116,7 @@ public class UTestWhyAngryOtherConversation {
 	
 	@Test
 	public void testHandleResponse1() {
-		World world = new WorldImpl(0, 0, null, null);
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject subject = TestUtils.createIntelligentWorldObject(3, Constants.NAME, "subject");
