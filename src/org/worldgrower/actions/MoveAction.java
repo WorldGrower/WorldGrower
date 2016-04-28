@@ -80,7 +80,8 @@ public class MoveAction implements ManagedOperation {
 					return 1;
 				}
 			} else {
-				List<WorldObject> obstacles = LocationPropertyUtils.getWorldObjects(newX, newY, world);
+				List<WorldObject> obstacles = calculateObstacles(performer, world, performerX, performerY, newX, newY);
+				
 				if (obstacles.size() == 1) {
 					if (obstacles.get(0).equals(performer)) {
 						return 0;
@@ -92,6 +93,19 @@ public class MoveAction implements ManagedOperation {
 				}
 			}
 		}
+	}
+
+	private List<WorldObject> calculateObstacles(WorldObject performer, World world, int performerX, int performerY, int newX, int newY) {
+		int performerWidth = performer.getProperty(Constants.WIDTH);
+		int performerHeight = performer.getProperty(Constants.HEIGHT);
+		List<WorldObject> obstacles = LocationPropertyUtils.getWorldObjects(newX, newY, world);
+		if (performerWidth > 1 && performerY != newY) {
+			obstacles.addAll(LocationPropertyUtils.getWorldObjects(newX+1, newY, world));
+		}
+		if (performerHeight > 1  && performerX != newX) {
+			obstacles.addAll(LocationPropertyUtils.getWorldObjects(newX, newY+1, world));
+		}
+		return obstacles;
 	}
 	
 	@Override
