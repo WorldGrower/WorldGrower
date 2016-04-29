@@ -60,6 +60,11 @@ public class GuiGetItemAction extends AbstractAction {
 		public String getDescription() {
 			return "Take selected item";
 		}
+		
+		@Override
+		public String getDescription2() {
+			return null;
+		}
 
 		@Override
 		public ActionListener getGuiAction() {
@@ -85,6 +90,10 @@ public class GuiGetItemAction extends AbstractAction {
 			return dialog.getTargetSelectedValue();
 		}
 		
+		@Override
+		public ActionListener getGuiAction2() {
+			return null;
+		}
 	}
 	
 	public void buy(int[] args) {

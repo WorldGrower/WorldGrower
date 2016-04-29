@@ -18,7 +18,9 @@ import java.awt.event.ActionListener;
 
 public interface InventoryDialogAction {
 	public String getDescription();
+	public String getDescription2();
 	public ActionListener getGuiAction();
+	public ActionListener getGuiAction2();
 	public boolean isPossible(InventoryItem inventoryItem);
 	public InventoryItem getSelectedItem(InventoryDialog dialog);
 }

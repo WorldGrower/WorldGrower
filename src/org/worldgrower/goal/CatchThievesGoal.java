@@ -14,6 +14,7 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.worldgrower.OperationInfo;
@@ -31,7 +32,7 @@ public class CatchThievesGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		List<HistoryItem> theftHistoryItems = world.getHistory().findHistoryItems(Actions.STEAL_ACTION);
+		List<HistoryItem> theftHistoryItems = getTheftHistoryItems(world);
 		
 		if (theftHistoryItems.size() > 0) {
 			HistoryItem theftHistoryItem = theftHistoryItems.get(0);
@@ -42,13 +43,19 @@ public class CatchThievesGoal implements Goal {
 		}
 	}
 
+	private List<HistoryItem> getTheftHistoryItems(World world) {
+		List<HistoryItem> theftHistoryItems = new ArrayList<>(world.getHistory().findHistoryItems(Actions.STEAL_ACTION));
+		theftHistoryItems.addAll(world.getHistory().findHistoryItems(Actions.STEAL_GOLD_ACTION));
+		return theftHistoryItems;
+	}
+
 	@Override
 	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
 	}
 	
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		List<HistoryItem> theftHistoryItems = world.getHistory().findHistoryItems(Actions.STEAL_ACTION);
+		List<HistoryItem> theftHistoryItems = getTheftHistoryItems(world);
 		if (theftHistoryItems.isEmpty()) {
 			return true;
 		} else {
@@ -70,7 +77,7 @@ public class CatchThievesGoal implements Goal {
 	@Override
 	public int evaluate(WorldObject performer, World world) {
 		//TODO: if bounty paid, return true
-		List<HistoryItem> theftHistoryItems = world.getHistory().findHistoryItems(Actions.STEAL_ACTION);
+		List<HistoryItem> theftHistoryItems = getTheftHistoryItems(world);
 		return Integer.MAX_VALUE - theftHistoryItems.size();
 	}
 }

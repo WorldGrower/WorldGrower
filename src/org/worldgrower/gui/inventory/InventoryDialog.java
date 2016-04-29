@@ -67,6 +67,7 @@ public class InventoryDialog extends AbstractDialog {
 	
 	private JList<InventoryItem> inventoryJList;
 	private JButton okButton;
+	private JButton okButton2;
 	private JButton cancelButton;
 	private JLabel moneyValueLabel;
 	private JLabel weightLabelValue;
@@ -116,6 +117,9 @@ public class InventoryDialog extends AbstractDialog {
 		initializeGUI(inventoryDialogModel, inventoryDialogAction, imageInfoReader, inventoryActions);
 		
 		okButton.addActionListener(inventoryDialogAction.getGuiAction());
+		if (inventoryDialogAction.getGuiAction2() != null) {
+			okButton2.addActionListener(inventoryDialogAction.getGuiAction2());
+		}
 		addActions(inventoryDialogAction);
 	}
 
@@ -125,7 +129,7 @@ public class InventoryDialog extends AbstractDialog {
 			
 		JPanel buttonPane = new JPanel();
 		buttonPane.setOpaque(false);
-		buttonPane.setBounds(478, 595, 254, 40);
+		buttonPane.setBounds(378, 595, 354, 40);
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		addComponent(buttonPane);
 
@@ -134,6 +138,11 @@ public class InventoryDialog extends AbstractDialog {
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
 
+		if (inventoryDialogAction.getGuiAction2() != null) {
+			okButton2 = ButtonFactory.createButton(inventoryDialogAction.getDescription2());
+			buttonPane.add(okButton2);
+		}
+		
 		cancelButton = ButtonFactory.createButton("Cancel");
 		cancelButton.setActionCommand("Cancel");
 		buttonPane.add(cancelButton);
@@ -315,10 +324,20 @@ public class InventoryDialog extends AbstractDialog {
 		public String getDescription() {
 			return "OK";
 		}
+		
+		@Override
+		public String getDescription2() {
+			return null;
+		}
 
 		@Override
 		public ActionListener getGuiAction() {
 			return new ApplyAndCloseAction(inventory);
+		}
+		
+		@Override
+		public ActionListener getGuiAction2() {
+			return null;
 		}
 
 		@Override

@@ -80,6 +80,18 @@ public class UTestStealGoal {
 	}
 	
 	@Test
+	public void testCalculateGoalStealMoney() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
+		world.addWorldObject(target);
+		target.setProperty(Constants.GOLD, 2000);
+		
+		assertEquals(Actions.STEAL_GOLD_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+		assertEquals(target, goal.calculateGoal(performer, world).getTarget());
+	}
+	
+	@Test
 	public void testIsGoalMet() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());

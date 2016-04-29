@@ -39,8 +39,14 @@ public class StealGoal implements Goal {
 		List<WorldObject> targets = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> isValidThievingTarget(performer, w));
 		if (targets.size() > 0) {
 			sortThievingTargets(performer, targets);
-			int targetInventoryIndex = getIndexOfWorldObjectToBeStolen(targets.get(0));
-			return new OperationInfo(performer, targets.get(0), new int[] { targetInventoryIndex }, Actions.STEAL_ACTION);
+			int targetGold = targets.get(0).getProperty(Constants.GOLD);
+			if (targetGold > 500) {
+				int amount = targetGold / 20;
+				return new OperationInfo(performer, targets.get(0), new int[] { amount }, Actions.STEAL_GOLD_ACTION);
+			} else {
+				int targetInventoryIndex = getIndexOfWorldObjectToBeStolen(targets.get(0));
+				return new OperationInfo(performer, targets.get(0), new int[] { targetInventoryIndex }, Actions.STEAL_ACTION);
+			}
 		}
 		
 		return null;
@@ -51,9 +57,10 @@ public class StealGoal implements Goal {
 	}
 	
 	boolean isValidThievingTarget(WorldObject performer, WorldObject w) {
+		int wGold = w.getProperty(Constants.GOLD).intValue();
 		return !performer.equals(w) 
-				&& w.getProperty(Constants.GOLD).intValue() > 100 
-				&& getIndexOfWorldObjectToBeStolen(w) != -1;
+				&& wGold > 100 
+				&& (getIndexOfWorldObjectToBeStolen(w) != -1 || wGold > 500);
 	}
 	
 	private static class ThievingComparator implements Comparator<WorldObject> {

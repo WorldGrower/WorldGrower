@@ -60,6 +60,11 @@ public class GuiPutItemAction extends AbstractAction {
 		public String getDescription() {
 			return "Put selected item";
 		}
+		
+		@Override
+		public String getDescription2() {
+			return null;
+		}
 
 		@Override
 		public ActionListener getGuiAction() {
@@ -85,6 +90,10 @@ public class GuiPutItemAction extends AbstractAction {
 			return dialog.getPlayerCharacterSelectedValue();
 		}
 		
+		@Override
+		public ActionListener getGuiAction2() {
+			return null;
+		}
 	}
 	
 	public void sell(int[] args) {

@@ -61,6 +61,11 @@ public class GuiSellAction extends AbstractAction {
 		public String getDescription() {
 			return "Sell selected item";
 		}
+		
+		@Override
+		public String getDescription2() {
+			return null;
+		}
 
 		@Override
 		public ActionListener getGuiAction() {
@@ -86,7 +91,11 @@ public class GuiSellAction extends AbstractAction {
 		public InventoryItem getSelectedItem(InventoryDialog dialog) {
 			return dialog.getPlayerCharacterSelectedValue();
 		}
-		
+
+		@Override
+		public ActionListener getGuiAction2() {
+			return null;
+		}
 	}
 	
 	public void sell(int[] args) {

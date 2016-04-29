@@ -21,35 +21,29 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.goal.GroupPropertyUtils;
-import org.worldgrower.goal.InventoryPropertyUtils;
 import org.worldgrower.goal.ThieveryPropertyUtils;
 import org.worldgrower.gui.ImageIds;
 
-public class StealAction implements ManagedOperation {
+public class StealGoldAction implements ManagedOperation {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		int index = args[0];
+		int amount = args[0];
 		
-		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
-		WorldObjectContainer targetInventory = target.getProperty(Constants.INVENTORY);
+		int targetGold = target.getProperty(Constants.GOLD);
 		
-		WorldObject worldObjectToSteal = targetInventory.get(index);
-		//TODO: worldObjectToSteal shouldn't be null
-		if (worldObjectToSteal != null) {
-			boolean isSuccess = ThieveryPropertyUtils.isThieverySuccess(performer, world, worldObjectToSteal);
-			
-			if (isSuccess) {
-				WorldObject stolenWorldObject = targetInventory.remove(index);
-				performerInventory.add(stolenWorldObject);
-				
-				InventoryPropertyUtils.cleanupEquipmentSlots(target);
-			} else {
-				ThieveryPropertyUtils.addThievingKnowledge(performer, target, world);
-				GroupPropertyUtils.throwPerformerOutGroup(performer, target);
-			}
+		if (amount > targetGold) {
+			amount = targetGold;
+		}
+		
+		boolean isSuccess = ThieveryPropertyUtils.isThieverySuccess(performer, world, amount);
+		if (isSuccess) {
+			target.increment(Constants.GOLD, -amount);
+			performer.increment(Constants.GOLD, amount);
+		} else {
+			ThieveryPropertyUtils.addThievingKnowledge(performer, target, world);
+			GroupPropertyUtils.throwPerformerOutGroup(performer, target);
 		}
 	}
 
@@ -75,12 +69,12 @@ public class StealAction implements ManagedOperation {
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "stealing from " + target.getProperty(Constants.NAME);
+		return "stealing gold from " + target.getProperty(Constants.NAME);
 	}
 
 	@Override
 	public String getSimpleDescription() {
-		return "steal item";
+		return "steal gold";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {

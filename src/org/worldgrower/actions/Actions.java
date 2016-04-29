@@ -114,6 +114,7 @@ public class Actions {
 	public static final RestAction REST_ACTION = new RestAction();
 	public static final SleepAction SLEEP_ACTION = new SleepAction();
 	public static final StealAction STEAL_ACTION = new StealAction();
+	public static final StealGoldAction STEAL_GOLD_ACTION = new StealGoldAction();
 	public static final KissAction KISS_ACTION = new KissAction();
 	public static final PoisonAttackAction POISON_ATTACK_ACTION = new PoisonAttackAction();
 	public static final CocoonAction COCOON_ACTION = new CocoonAction();
@@ -332,6 +333,7 @@ public class Actions {
 		REST_ACTION,
 		SLEEP_ACTION,
 		STEAL_ACTION,
+		STEAL_GOLD_ACTION,
 		KISS_ACTION,
 		POISON_ATTACK_ACTION,
 		COCOON_ACTION,

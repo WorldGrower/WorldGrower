@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import javax.swing.AbstractAction;
 
 import org.worldgrower.Args;
+import org.worldgrower.Constants;
 import org.worldgrower.DungeonMaster;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
@@ -28,6 +29,8 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.WorldPanel;
 import org.worldgrower.gui.start.Game;
+import org.worldgrower.gui.util.TextInputDialog;
+import org.worldgrower.util.NumberUtils;
 
 public class GuiStealAction extends AbstractAction {
 
@@ -61,6 +64,11 @@ public class GuiStealAction extends AbstractAction {
 		public String getDescription() {
 			return "Steal selected item";
 		}
+		
+		@Override
+		public String getDescription2() {
+			return "Steal money";
+		}
 
 		@Override
 		public ActionListener getGuiAction() {
@@ -75,6 +83,27 @@ public class GuiStealAction extends AbstractAction {
 				}
 			};
 		}
+		
+		@Override
+		public ActionListener getGuiAction2() {
+			return new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent actionEvent) {
+					int targetGold = target.getProperty(Constants.GOLD).intValue();
+					TextInputDialog textInputDialog = new TextInputDialog("Steal how much money (1-" + targetGold + ")?");
+					String input = textInputDialog.showMe();
+					if (input != null && input.length() > 0 && NumberUtils.isNumeric(input)) {
+						int amount = Integer.parseInt(input);
+						if (amount > 0 && amount <= targetGold) {
+							int[] args = new int[] { amount };
+							stealMoney(args);
+							
+							dialog.refresh(new InventoryDialogModel(playerCharacter, target), new ArrayList<>());
+						}
+					}
+				}
+			};
+		}
 
 		@Override
 		public boolean isPossible(InventoryItem inventoryItem) {
@@ -85,10 +114,13 @@ public class GuiStealAction extends AbstractAction {
 		public InventoryItem getSelectedItem(InventoryDialog dialog) {
 			return dialog.getTargetSelectedValue();
 		}
-		
 	}
 	
 	public void steal(int[] args) {
 		Game.executeAction(playerCharacter, playerCharacter.getOperation(Actions.STEAL_ACTION), args, world, dungeonMaster, target, container);
+	}
+	
+	public void stealMoney(int[] args) {
+		Game.executeAction(playerCharacter, playerCharacter.getOperation(Actions.STEAL_GOLD_ACTION), args, world, dungeonMaster, target, container);
 	}
 }
