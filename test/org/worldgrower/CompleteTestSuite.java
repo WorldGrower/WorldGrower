@@ -642,7 +642,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestPerceptionPropertyUtils.class,
 	UTestBreweryGoal.class,
 	UTestStealLifeAction.class,
-	UTestLocationWorldObjectsCache.class
+	UTestLocationWorldObjectsCache.class,
+	UTestBuildBreweryAction.class
 })
 public class CompleteTestSuite {
 }
