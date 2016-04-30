@@ -46,9 +46,12 @@ public class StealAction implements ManagedOperation {
 				performerInventory.add(stolenWorldObject);
 				
 				InventoryPropertyUtils.cleanupEquipmentSlots(target);
+				
+				world.logAction(this, performer, target, args, performer.getProperty(Constants.NAME) + " succesfully steals " + stolenWorldObject.getProperty(Constants.NAME) + " from " + target.getProperty(Constants.NAME));
 			} else {
 				ThieveryPropertyUtils.addThievingKnowledge(performer, target, world);
 				GroupPropertyUtils.throwPerformerOutGroup(performer, target);
+				world.logAction(this, performer, target, args, performer.getProperty(Constants.NAME) + " was caught stealing from " + target.getProperty(Constants.NAME));
 			}
 		}
 	}

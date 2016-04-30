@@ -41,9 +41,11 @@ public class StealGoldAction implements ManagedOperation {
 		if (isSuccess) {
 			target.increment(Constants.GOLD, -amount);
 			performer.increment(Constants.GOLD, amount);
+			world.logAction(this, performer, target, args, performer.getProperty(Constants.NAME) + " succesfully steals " + amount + " gold from " + target.getProperty(Constants.NAME));
 		} else {
 			ThieveryPropertyUtils.addThievingKnowledge(performer, target, world);
 			GroupPropertyUtils.throwPerformerOutGroup(performer, target);
+			world.logAction(this, performer, target, args, performer.getProperty(Constants.NAME) + " was caught stealing gold from " + target.getProperty(Constants.NAME));
 		}
 	}
 
