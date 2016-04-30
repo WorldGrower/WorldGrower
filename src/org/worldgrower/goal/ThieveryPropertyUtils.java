@@ -17,7 +17,6 @@ package org.worldgrower.goal;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.SkillUtils;
 
 public class ThieveryPropertyUtils {
 
@@ -25,14 +24,13 @@ public class ThieveryPropertyUtils {
 		KnowledgeMapPropertyUtils.everyoneInVicinityKnowsOfEvent(performer, target, world);
 	}
 
-	public static boolean isThieverySuccess(WorldObject performer, World world, WorldObject worldObjectToSteal) {
-		int price = worldObjectToSteal.getProperty(Constants.PRICE);
+	public static boolean isThieverySuccess(WorldObject performer, WorldObject target, World world, WorldObject worldObjectToSteal) {
+		int amount = worldObjectToSteal.getProperty(Constants.PRICE);
 		int weight = getWeight(worldObjectToSteal);
 		
-		SkillUtils.useSkill(performer, Constants.THIEVERY_SKILL, world.getWorldStateChangedListeners());
-		int thievery = Constants.THIEVERY_SKILL.getLevel(performer);
-		
-		return price + weight < thievery + 5;
+		int randomValue = getRandomValueBetween0and99(performer, target, amount, weight, world);
+		int thieverySuccessPercentage = getThieverySuccessPercentage(performer, target, amount, weight);
+		return randomValue >= thieverySuccessPercentage;
 	}
 
 	private static int getWeight(WorldObject worldObjectToSteal) {
@@ -40,10 +38,26 @@ public class ThieveryPropertyUtils {
 		return weightInteger != null ? weightInteger.intValue() : 0;
 	}
 
-	public static boolean isThieverySuccess(WorldObject performer, World world, int amount) {
-		SkillUtils.useSkill(performer, Constants.THIEVERY_SKILL, world.getWorldStateChangedListeners());
-		int thievery = Constants.THIEVERY_SKILL.getLevel(performer);
+	public static boolean isThieverySuccess(WorldObject performer, WorldObject target, World world, int amount) {
+		int randomValue = getRandomValueBetween0and99(performer, target, amount, 0, world);
+		int thieverySuccessPercentage = getThieverySuccessPercentage(performer, target, amount, 0);
+		return randomValue <= thieverySuccessPercentage;
+	}
+	
+	private static int getRandomValueBetween0and99(WorldObject performer, WorldObject target, int moneyValue, int weight, World world) {
+		int currentTurn = world.getCurrentTurn().getValue();
+		String performerName = performer.getProperty(Constants.NAME);
+		String targetName = target.getProperty(Constants.NAME);
+		return (performerName.length() + targetName.length() + currentTurn) % 100;
 		
-		return (amount / 10) < thievery + 5;
+	}
+	
+	public static int getThieverySuccessPercentage(WorldObject performer, WorldObject target, int moneyValue, int weight) {
+		int thievery = Constants.THIEVERY_SKILL.getLevel(performer);
+		int successPercentage = (int)(10 + (thievery + 90) / (Math.log(moneyValue + weight + 2)));
+		if (successPercentage > 99) {
+			successPercentage = 99;
+		}
+		return successPercentage;
 	}
 }

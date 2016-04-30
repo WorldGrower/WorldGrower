@@ -19,12 +19,15 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.worldgrower.Args;
 import org.worldgrower.Constants;
+import org.worldgrower.DoNothingWorldOnTurn;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.IdList;
+import org.worldgrower.attribute.Skill;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.condition.WorldStateChangedListeners;
 
 public class UTestStealGoldAction {
 
@@ -35,6 +38,7 @@ public class UTestStealGoldAction {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
+		performer.setProperty(Constants.THIEVERY_SKILL, new Skill(20));
 		performer.setProperty(Constants.GOLD, 100);
 		target.setProperty(Constants.GOLD, 100);
 		
@@ -46,13 +50,16 @@ public class UTestStealGoldAction {
 	
 	@Test
 	public void testExecuteSuccessLowerAmount() {
-		World world = new WorldImpl(1, 1, null, null);
+		World world = new WorldImpl(1, 1, null, new DoNothingWorldOnTurn());
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
+		performer.setProperty(Constants.THIEVERY_SKILL, new Skill(100));
 		performer.setProperty(Constants.GOLD, 100);
 		target.setProperty(Constants.GOLD, 1);
 		
-		action.execute(performer, target, new int[] { 10 }, world);
+		for(int i=0; i<20; i++) { world.nextTurn(); }
+		
+		action.execute(performer, target, new int[] { 2 }, world);
 		
 		assertEquals(101, performer.getProperty(Constants.GOLD).intValue());
 		assertEquals(0, target.getProperty(Constants.GOLD).intValue());
@@ -60,7 +67,7 @@ public class UTestStealGoldAction {
 	
 	@Test
 	public void testExecuteFailure() {
-		World world = new WorldImpl(1, 1, null, null);
+		World world = new WorldImpl(1, 1, null, new DoNothingWorldOnTurn());
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
@@ -69,6 +76,8 @@ public class UTestStealGoldAction {
 		
 		performer.setProperty(Constants.GOLD, 100);
 		target.setProperty(Constants.GOLD, 100);
+		
+		for(int i=0; i<40; i++) { world.nextTurn(); }
 		
 		action.execute(performer, target, new int[] { 100 }, world);
 		
@@ -103,6 +112,7 @@ public class UTestStealGoldAction {
 		performer.setProperty(Constants.Y, 0);
 		performer.setProperty(Constants.WIDTH, 1);
 		performer.setProperty(Constants.HEIGHT, 1);
+		performer.setProperty(Constants.NAME, "Test");
 		return performer;
 	}
 }

@@ -21,6 +21,7 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.InventoryPropertyUtils;
@@ -39,7 +40,7 @@ public class StealAction implements ManagedOperation {
 		WorldObject worldObjectToSteal = targetInventory.get(index);
 		//TODO: worldObjectToSteal shouldn't be null
 		if (worldObjectToSteal != null) {
-			boolean isSuccess = ThieveryPropertyUtils.isThieverySuccess(performer, world, worldObjectToSteal);
+			boolean isSuccess = ThieveryPropertyUtils.isThieverySuccess(performer, target, world, worldObjectToSteal);
 			
 			if (isSuccess) {
 				WorldObject stolenWorldObject = targetInventory.remove(index);
@@ -54,6 +55,8 @@ public class StealAction implements ManagedOperation {
 				world.logAction(this, performer, target, args, performer.getProperty(Constants.NAME) + " was caught stealing from " + target.getProperty(Constants.NAME));
 			}
 		}
+		
+		SkillUtils.useSkill(performer, Constants.THIEVERY_SKILL, world.getWorldStateChangedListeners());
 	}
 
 	@Override

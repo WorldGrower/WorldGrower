@@ -21,6 +21,7 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.ThieveryPropertyUtils;
 import org.worldgrower.gui.ImageIds;
@@ -37,7 +38,7 @@ public class StealGoldAction implements ManagedOperation {
 			amount = targetGold;
 		}
 		
-		boolean isSuccess = ThieveryPropertyUtils.isThieverySuccess(performer, world, amount);
+		boolean isSuccess = ThieveryPropertyUtils.isThieverySuccess(performer, target, world, amount);
 		if (isSuccess) {
 			target.increment(Constants.GOLD, -amount);
 			performer.increment(Constants.GOLD, amount);
@@ -47,6 +48,8 @@ public class StealGoldAction implements ManagedOperation {
 			GroupPropertyUtils.throwPerformerOutGroup(performer, target);
 			world.logAction(this, performer, target, args, performer.getProperty(Constants.NAME) + " was caught stealing gold from " + target.getProperty(Constants.NAME));
 		}
+		
+		SkillUtils.useSkill(performer, Constants.THIEVERY_SKILL, world.getWorldStateChangedListeners());
 	}
 
 	@Override

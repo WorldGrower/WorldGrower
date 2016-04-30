@@ -19,25 +19,30 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.worldgrower.Args;
 import org.worldgrower.Constants;
+import org.worldgrower.DoNothingWorldOnTurn;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.generator.Item;
 
 public class UTestStealAction {
 
 	@Test
 	public void testExecuteSuccess() {
-		World world = new WorldImpl(1, 1, null, null);
+		World world = new WorldImpl(1, 1, null, new DoNothingWorldOnTurn());
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
+		performer.getProperty(Constants.THIEVERY_SKILL).use(1000, performer, Constants.THIEVERY_SKILL, new WorldStateChangedListeners());
 		target.getProperty(Constants.INVENTORY).addQuantity(Item.WATER.generate(1f));
 		
+		for(int i=0; i<80; i++) { world.nextTurn(); }
+		
 		int index = target.getProperty(Constants.INVENTORY).getIndexFor(Constants.WATER);
-		Actions.STEAL_ACTION.execute(performer, target, new int[] { index, 10 }, world);
+		Actions.STEAL_ACTION.execute(performer, target, new int[] { index }, world);
 		
 		assertEquals(0, performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.WATER));
 		assertEquals(-1, target.getProperty(Constants.INVENTORY).getIndexFor(Constants.WATER));
@@ -87,6 +92,7 @@ public class UTestStealAction {
 		performer.setProperty(Constants.Y, 0);
 		performer.setProperty(Constants.WIDTH, 1);
 		performer.setProperty(Constants.HEIGHT, 1);
+		performer.setProperty(Constants.NAME, "Test");
 		return performer;
 	}
 }
