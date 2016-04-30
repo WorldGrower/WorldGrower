@@ -23,6 +23,7 @@ import org.worldgrower.actions.magic.UTestAnimateSuitOfArmorAction;
 import org.worldgrower.actions.magic.UTestBurdenAction;
 import org.worldgrower.actions.magic.UTestCureDiseaseAction;
 import org.worldgrower.actions.magic.UTestCurePoisonAction;
+import org.worldgrower.actions.magic.UTestDarkVisionSpellAction;
 import org.worldgrower.actions.magic.UTestDetectMagicAction;
 import org.worldgrower.actions.magic.UTestDetectPoisonAndDiseaseAction;
 import org.worldgrower.actions.magic.UTestDisguiseMagicSpellAction;
@@ -644,7 +645,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestStealLifeAction.class,
 	UTestLocationWorldObjectsCache.class,
 	UTestBuildBreweryAction.class,
-	UTestStealGoldAction.class
+	UTestStealGoldAction.class,
+	UTestDarkVisionSpellAction.class
 })
 public class CompleteTestSuite {
 }
