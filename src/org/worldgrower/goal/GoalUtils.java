@@ -87,8 +87,12 @@ public class GoalUtils {
 	public static boolean isOpenSpace(int openSpaceX, int openSpaceY, int width, int height, World world) {
 		for(int x=openSpaceX; x<openSpaceX+width; x++) {
 			for(int y=openSpaceY; y<openSpaceY+height; y++) {
-				if (!world.findWorldObjects(new CreaturePositionCondition(y, x)).isEmpty()) {
+				if (LocationUtils.areInvalidCoordinates(x, y, world)) {
 					return false;
+				} else {
+					if (LocationPropertyUtils.getWorldObjects(x, y, world).size() > 0) {
+						return false;
+					}
 				}
 			}
 		}

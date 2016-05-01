@@ -175,6 +175,6 @@ public class MockWorld implements World {
 
 	@Override
 	public WorldObjectsCache getWorldObjectsCache(IntProperty intProperty1, IntProperty intProperty2) {
-		return null;
+		return world.getWorldObjectsCache(intProperty1, intProperty2);
 	}
 }

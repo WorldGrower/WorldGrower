@@ -57,7 +57,7 @@ public class UTestArenaGoal {
 	
 	@Test
 	public void testCalculateGoalBuildArena() {
-		World world = new WorldImpl(10, 10, null, null);
+		World world = new WorldImpl(20, 20, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
 

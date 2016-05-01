@@ -48,6 +48,7 @@ public class UTestGoalUtils {
 		assertTrue(GoalUtils.isOpenSpace(0, 0, 2, 2, world));
 		assertFalse(GoalUtils.isOpenSpace(3, 3, 1, 1, world));
 		assertFalse(GoalUtils.isOpenSpace(2, 2, 2, 2, world));
+		assertFalse(GoalUtils.isOpenSpace(9, 9, 2, 2, world));
 	}
 
 	private WorldImpl createWorld() {
