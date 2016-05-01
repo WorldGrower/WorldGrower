@@ -66,11 +66,15 @@ public abstract class AbstractIdMap implements IdMap {
 			int id = entry.getKey();
 			int relationshipValue = entry.getValue();
 			
-			WorldObject person = world.findWorldObject(Constants.ID, id);
-			
-			if (relationshipValue > bestRelationshipValue && predicate.test(person)) {
-				bestRelationshipValue = relationshipValue;
-				bestId = id;
+			// id may not exist in world because it's filtered out by
+			// WorldFacade, for example being invisible
+			if (world.exists(id)) {
+				WorldObject person = world.findWorldObject(Constants.ID, id);
+				
+				if (relationshipValue > bestRelationshipValue && predicate.test(person)) {
+					bestRelationshipValue = relationshipValue;
+					bestId = id;
+				}
 			}
 		}
 		
@@ -99,11 +103,15 @@ public abstract class AbstractIdMap implements IdMap {
 		WorldObject bestPerson = null;
 		for(Entry<Integer, Integer> entry : idsToValue.entrySet()) {
 			int id = entry.getKey();
-			WorldObject person = world.findWorldObject(Constants.ID, id);
-			
-			if (predicate.test(person)) {
-				if (bestPerson == null || comparator.compare(bestPerson, person) < 0) {
-					bestPerson = person;
+			// id may not exist in world because it's filtered out by
+			// WorldFacade, for example being invisible
+			if (world.exists(id)) {
+				WorldObject person = world.findWorldObject(Constants.ID, id);
+				
+				if (predicate.test(person)) {
+					if (bestPerson == null || comparator.compare(bestPerson, person) < 0) {
+						bestPerson = person;
+					}
 				}
 			}
 		}

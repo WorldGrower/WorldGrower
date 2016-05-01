@@ -129,7 +129,17 @@ public class WorldFacade implements World {
 	
 	@Override
 	public boolean exists(int id) {
-		throw new IllegalStateException("WorldFacade is read-only, exists should not be called");
+		if (world.exists(id)) {
+			WorldObject worldObject = world.findWorldObject(Constants.ID, id);
+			
+			List<WorldObject> worldObjects = new ArrayList<>();
+			worldObjects.add(worldObject);
+			filter(worldObjects);
+			
+			return worldObjects.size() > 0;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
