@@ -74,7 +74,7 @@ public class UTestJoinTargetOrganizationConversation {
 		world.addWorldObject(performer);
 		world.addWorldObject(target);
 		
-		WorldObject organization = GroupPropertyUtils.createProfessionOrganization(performer.getProperty(Constants.ID), "TestOrg", Professions.FARMER_PROFESSION, world);
+		WorldObject organization = GroupPropertyUtils.createProfessionOrganization(target.getProperty(Constants.ID), "TestOrg", Professions.FARMER_PROFESSION, world);
 		organization.setProperty(Constants.ID, 3);
 		world.addWorldObject(organization);
 		

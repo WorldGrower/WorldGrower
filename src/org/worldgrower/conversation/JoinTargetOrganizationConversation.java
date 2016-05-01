@@ -55,8 +55,10 @@ public class JoinTargetOrganizationConversation implements Conversation {
 		List<Question> questions = new ArrayList<>();
 		for(int organizationId : organizationsToJoin) {
 			WorldObject organization = world.findWorldObject(Constants.ID, organizationId);
-			if (GroupPropertyUtils.canJoinOrganization(performer, organization)) {
-				questions.add(new Question(organization, "Can I join the " + organization.getProperty(Constants.NAME) + " ?"));
+			if (GroupPropertyUtils.hasAuthorityToAddMembers(target, organization, world)) {
+				if (GroupPropertyUtils.canJoinOrganization(performer, organization)) {
+					questions.add(new Question(organization, "Can I join the " + organization.getProperty(Constants.NAME) + " ?"));
+				}
 			}
 		}
 		
