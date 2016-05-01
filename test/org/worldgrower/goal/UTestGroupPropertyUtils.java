@@ -472,4 +472,33 @@ public class UTestGroupPropertyUtils {
 			assertEquals(true, ex.getMessage().startsWith("No organization names found for"));
 		}
 	}
+	
+	@Test
+	public void testHasAuthorityToAddMembersLeader() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject decisionMaker = TestUtils.createWorldObject(2, "decisionMaker");
+		WorldObject organization = GroupPropertyUtils.createProfessionOrganization(decisionMaker.getProperty(Constants.ID), "TestOrg", Professions.FARMER_PROFESSION, world);
+		
+		assertEquals(true, GroupPropertyUtils.hasAuthorityToAddMembers(decisionMaker, organization, world));
+	}
+	
+	@Test
+	public void testHasAuthorityToAddMembersVillagerSheriff() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject decisionMaker = TestUtils.createWorldObject(2, "decisionMaker");
+		decisionMaker.setProperty(Constants.CAN_ATTACK_CRIMINALS, Boolean.TRUE);
+		WorldObject organization = createVillagersOrganization(world);
+		
+		assertEquals(true, GroupPropertyUtils.hasAuthorityToAddMembers(decisionMaker, organization, world));
+	}
+	
+	@Test
+	public void testHasAuthorityToAddMembersRegularMember() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject decisionMaker = TestUtils.createWorldObject(2, "decisionMaker");
+		WorldObject organization = GroupPropertyUtils.createProfessionOrganization(7, "TestOrg", Professions.FARMER_PROFESSION, world);
+		createVillagersOrganization(world);
+		
+		assertEquals(false, GroupPropertyUtils.hasAuthorityToAddMembers(decisionMaker, organization, world));
+	}
 }

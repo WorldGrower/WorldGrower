@@ -432,4 +432,14 @@ public class GroupPropertyUtils {
 		}
 		return null;
 	}
+	
+	public static boolean hasAuthorityToAddMembers(WorldObject decisionMaker, WorldObject organization, World world) {
+		if (performerIsLeaderOfOrganization(decisionMaker, organization, world)) {
+			return true;
+		} else if (organization.equals(getVillagersOrganization(world))) {
+			return decisionMaker.hasProperty(Constants.CAN_ATTACK_CRIMINALS) && decisionMaker.getProperty(Constants.CAN_ATTACK_CRIMINALS);
+		} else {
+			return false;
+		}
+	}
 }
