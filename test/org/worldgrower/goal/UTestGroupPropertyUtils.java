@@ -501,4 +501,15 @@ public class UTestGroupPropertyUtils {
 		
 		assertEquals(false, GroupPropertyUtils.hasAuthorityToAddMembers(decisionMaker, organization, world));
 	}
+	
+	@Test
+	public void testGetAllOrganizations() {
+		World world = new WorldImpl(0, 0, null, null);
+		createProfessionOrganization(1, "TestOrg", Professions.FARMER_PROFESSION, world);
+		createProfessionOrganization(2, "TestOrg2", Professions.FARMER_PROFESSION, world);
+		
+		assertEquals(2, GroupPropertyUtils.getAllOrganizations(world).size());
+		assertEquals("TestOrg", GroupPropertyUtils.getAllOrganizations(world).get(0).getProperty(Constants.NAME));
+		assertEquals("TestOrg2", GroupPropertyUtils.getAllOrganizations(world).get(1).getProperty(Constants.NAME));
+	}
 }

@@ -65,6 +65,7 @@ import org.worldgrower.attribute.UTestSkill;
 import org.worldgrower.attribute.UTestSkillUtils;
 import org.worldgrower.attribute.UTestWorldObjectProperties;
 import org.worldgrower.condition.UTestConditions;
+import org.worldgrower.condition.UTestFearCondition;
 import org.worldgrower.condition.UTestGhoulUtils;
 import org.worldgrower.condition.UTestIntoxicatedCondition;
 import org.worldgrower.condition.UTestSoulTrappedCondition;
@@ -647,7 +648,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestBuildBreweryAction.class,
 	UTestStealGoldAction.class,
 	UTestDarkVisionSpellAction.class,
-	UTestWorldOnTurnImpl.class
+	UTestWorldOnTurnImpl.class,
+	UTestFearCondition.class
 })
 public class CompleteTestSuite {
 }
