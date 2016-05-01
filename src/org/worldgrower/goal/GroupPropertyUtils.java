@@ -442,4 +442,8 @@ public class GroupPropertyUtils {
 			return false;
 		}
 	}
+
+	public static List<WorldObject> getAllOrganizations(World world) {
+		return world.findWorldObjectsByProperty(Constants.ORGANIZATION_LEADER_ID, w -> true);
+	}
 }

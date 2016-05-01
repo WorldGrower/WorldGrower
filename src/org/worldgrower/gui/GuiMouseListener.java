@@ -104,7 +104,7 @@ public class GuiMouseListener extends MouseAdapter {
 		inventoryAction = new InventoryAction(playerCharacter, imageInfoReader, world, dungeonMaster, container);
 		magicOverviewAction = new MagicOverviewAction(playerCharacter, imageInfoReader);
 		restAction = new RestAction(playerCharacter, imageInfoReader, world, (WorldPanel)container, dungeonMaster);
-		createOrganizationAction = new GuiShowOrganizationsAction(playerCharacter, world, container);
+		createOrganizationAction = new GuiShowOrganizationsAction(playerCharacter, world, container, imageInfoReader);
 		showStatusMessagesAction = new ShowStatusMessagesAction(container);
 		assignActionToLeftMouseAction = getGuiAssignActionToLeftMouseAction();
 		showCharacterActionsAction = new ShowCharacterActionsAction();

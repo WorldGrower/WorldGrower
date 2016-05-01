@@ -14,6 +14,7 @@
  *******************************************************************************/
 package org.worldgrower.gui;
 
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,12 +24,16 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.AbstractAction;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTree;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeCellRenderer;
 
 import org.worldgrower.Constants;
 import org.worldgrower.World;
@@ -41,12 +46,14 @@ public class GuiShowOrganizationsAction extends AbstractAction {
 	private final WorldObject playerCharacter;
 	private final World world;
 	private final WorldPanel parent;
+	private final ImageInfoReader imageInfoReader;
 	
-	public GuiShowOrganizationsAction(WorldObject playerCharacter, World world, WorldPanel parent) {
+	public GuiShowOrganizationsAction(WorldObject playerCharacter, World world, WorldPanel parent, ImageInfoReader imageInfoReader) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.world = world;
 		this.parent = parent;
+		this.imageInfoReader = imageInfoReader;
 	}
 
 	@Override
@@ -56,8 +63,16 @@ public class GuiShowOrganizationsAction extends AbstractAction {
 		OrganizationsModel worldModel = new OrganizationsModel(playerCharacter, world);
 		JTable table = JTableFactory.createJTable(worldModel);
 		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(15, 15, 365, 700);
+		scrollPane.setBounds(15, 15, 365, 200);
 		dialog.addComponent(scrollPane);
+		
+		JTree tree = new JTree(createRootNode(playerCharacter, world));
+		tree.setRootVisible(false);
+		expandAllNodes(tree, 0, tree.getRowCount());
+		tree.setCellRenderer(new OrganizationMemberRenderer());
+		JScrollPane treeView = new JScrollPane(tree);
+		treeView.setBounds(15, 230, 365, 490);
+		dialog.addComponent(treeView);
 		
 		JPanel buttonPane = new JPanel();
 		buttonPane.setOpaque(false);
@@ -76,6 +91,59 @@ public class GuiShowOrganizationsAction extends AbstractAction {
 		dialog.setVisible(true);
 	}
 	
+	private void expandAllNodes(JTree tree, int startingIndex, int rowCount){
+	    for(int i=startingIndex;i<rowCount;++i){
+	        tree.expandRow(i);
+	    }
+
+	    if(tree.getRowCount()!=rowCount){
+	        expandAllNodes(tree, rowCount, tree.getRowCount());
+	    }
+	}
+	
+	private DefaultMutableTreeNode createRootNode(WorldObject playerCharacter, World world) {
+		DefaultMutableTreeNode top = new DefaultMutableTreeNode("Organizations");
+		
+		for(WorldObject organization : GroupPropertyUtils.getAllOrganizations(world)) {
+			DefaultMutableTreeNode organizationNode = new DefaultMutableTreeNode(organization);
+			top.add(organizationNode);
+			
+			List<WorldObject> members = GroupPropertyUtils.findOrganizationMembers(organization, world);
+			for(WorldObject member : members) {
+				DefaultMutableTreeNode memberNode = new DefaultMutableTreeNode(member);
+				organizationNode.add(memberNode);
+			}
+		}
+		
+		return top;
+	}
+	
+	class OrganizationMemberRenderer extends DefaultTreeCellRenderer {
+
+	    public Component getTreeCellRendererComponent(
+	                        JTree tree,
+	                        Object value,
+	                        boolean sel,
+	                        boolean expanded,
+	                        boolean leaf,
+	                        int row,
+	                        boolean hasFocus) {
+
+	        super.getTreeCellRendererComponent(
+	                        tree, value, sel,
+	                        expanded, leaf, row,
+	                        hasFocus);
+	        
+	        DefaultMutableTreeNode node = (DefaultMutableTreeNode)value;
+	        WorldObject worldObject = (WorldObject) node.getUserObject();
+	        
+            setIcon(new ImageIcon(imageInfoReader.getImage(worldObject.getProperty(Constants.IMAGE_ID), null)));
+            setText(worldObject.getProperty(Constants.NAME));
+            
+	        return this;
+	    }
+	}
+
 	private void addActionHandlers(JButton okButton, JDialog dialog) {
 		okButton.addActionListener(new ActionListener() {
 
