@@ -106,18 +106,28 @@ public class GuiShowOrganizationsAction extends AbstractAction {
 		
 		for(WorldObject organization : GroupPropertyUtils.getAllOrganizations(world)) {
 			DefaultMutableTreeNode organizationNode = new DefaultMutableTreeNode(organization);
-			top.add(organizationNode);
 			
 			List<WorldObject> members = GroupPropertyUtils.findOrganizationMembers(organization, world);
 			for(WorldObject member : members) {
-				DefaultMutableTreeNode memberNode = new DefaultMutableTreeNode(member);
-				organizationNode.add(memberNode);
+				if (isMemberKnownByPlayerCharacter(member, playerCharacter)) {
+					DefaultMutableTreeNode memberNode = new DefaultMutableTreeNode(member);
+					organizationNode.add(memberNode);
+				}
+			}
+			if (organizationNode.getChildCount() > 0) {
+				top.add(organizationNode);
 			}
 		}
 		
 		return top;
 	}
 	
+	private static boolean isMemberKnownByPlayerCharacter(WorldObject member, WorldObject playerCharacter) {
+		return playerCharacter.getProperty(Constants.RELATIONSHIPS).contains(member)
+				|| playerCharacter.getProperty(Constants.KNOWLEDGE_MAP).hasKnowledge(member)
+				|| playerCharacter.equals(member);
+	}
+
 	class OrganizationMemberRenderer extends DefaultTreeCellRenderer {
 
 	    public Component getTreeCellRendererComponent(
