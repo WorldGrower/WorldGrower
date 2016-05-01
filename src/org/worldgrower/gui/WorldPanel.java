@@ -44,10 +44,13 @@ import javax.swing.ToolTipManager;
 import org.worldgrower.Constants;
 import org.worldgrower.CreaturePositionCondition;
 import org.worldgrower.DungeonMaster;
+import org.worldgrower.LogMessage;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.ManagedOperationListener;
+import org.worldgrower.TargetKnowsAction;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.BuildAction;
 import org.worldgrower.attribute.LookDirection;
 import org.worldgrower.condition.Condition;
@@ -222,6 +225,15 @@ public class WorldPanel extends JPanel {
 			if (performer.equals(playerCharacter) || target.equals(playerCharacter)) {
 				if (message instanceof String) {
 					setStatusMessage((String) message);
+				} else if (message instanceof LogMessage) {
+					LogMessage logMessage = (LogMessage) message;
+					if (target.equals(playerCharacter)) {
+						if (logMessage.getTargetKnowsAction() == TargetKnowsAction.TRUE) {
+							setStatusMessage(logMessage.getMessage());
+						}
+					} else {
+						setStatusMessage(logMessage.getMessage());
+					}
 				}
 			}
 		}

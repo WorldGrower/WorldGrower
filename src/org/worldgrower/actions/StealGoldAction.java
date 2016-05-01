@@ -17,8 +17,10 @@ package org.worldgrower.actions;
 import java.io.ObjectStreamException;
 
 import org.worldgrower.Constants;
+import org.worldgrower.LogMessage;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
+import org.worldgrower.TargetKnowsAction;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
@@ -42,11 +44,11 @@ public class StealGoldAction implements ManagedOperation {
 		if (isSuccess) {
 			target.increment(Constants.GOLD, -amount);
 			performer.increment(Constants.GOLD, amount);
-			world.logAction(this, performer, target, args, performer.getProperty(Constants.NAME) + " succesfully steals " + amount + " gold from " + target.getProperty(Constants.NAME));
+			world.logAction(this, performer, target, args, new LogMessage(TargetKnowsAction.FALSE, performer.getProperty(Constants.NAME) + " succesfully steals " + amount + " gold from " + target.getProperty(Constants.NAME)));
 		} else {
 			ThieveryPropertyUtils.addThievingKnowledge(performer, target, world);
 			GroupPropertyUtils.throwPerformerOutGroup(performer, target);
-			world.logAction(this, performer, target, args, performer.getProperty(Constants.NAME) + " was caught stealing gold from " + target.getProperty(Constants.NAME));
+			world.logAction(this, performer, target, args, new LogMessage(TargetKnowsAction.TRUE, performer.getProperty(Constants.NAME) + " was caught stealing gold from " + target.getProperty(Constants.NAME)));
 		}
 		
 		SkillUtils.useSkill(performer, Constants.THIEVERY_SKILL, world.getWorldStateChangedListeners());
