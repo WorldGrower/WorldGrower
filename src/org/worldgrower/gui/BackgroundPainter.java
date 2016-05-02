@@ -379,22 +379,39 @@ public class BackgroundPainter {
 
 	public void paint(Graphics g, World world, WorldPanel worldPanel) {
 		Terrain terrain = world.getTerrain();
+		worldPanel.iterateOverVisibleTiles(new DrawFunctionImpl(g, world, worldPanel, terrain));
+	}
+	
+	private class DrawFunctionImpl implements DrawFunction {
 
-		for(int x = 0; x<world.getWidth() ;x++) {
-			for(int y = 0; y<world.getHeight(); y++) {
-				if (terrain.isExplored(x, y)) {
-					if (hasFlowers[x][y]) {
-						worldPanel.drawBackgroundImage(g, getFlowerImage(terrain.getTerrainInfo(x, y).getTerrainType()), x, y);
-					} else {
-						int index = calculateIndex(x, y);
-						Image image = backgroundTransitionMap.get(getKeyForBackgroundTransitionMap(index, terrain, x, y, world));
-						worldPanel.drawBackgroundImage(g, image, x, y);
-					}
+		private final Graphics g;
+		private final World world;
+		private final WorldPanel worldPanel;
+		private final Terrain terrain;
+		
+		public DrawFunctionImpl(Graphics g, World world, WorldPanel worldPanel, Terrain terrain) {
+			super();
+			this.g = g;
+			this.world = world;
+			this.worldPanel = worldPanel;
+			this.terrain = terrain;
+		}
+
+		@Override
+		public void draw(int x, int y) {
+			if (terrain.isExplored(x, y)) {
+				if (hasFlowers[x][y]) {
+					worldPanel.drawBackgroundImage(g, getFlowerImage(terrain.getTerrainInfo(x, y).getTerrainType()), x, y);
 				} else {
-					worldPanel.drawUnexploredTerrain(g, x, y);
+					int index = calculateIndex(x, y);
+					Image image = backgroundTransitionMap.get(getKeyForBackgroundTransitionMap(index, terrain, x, y, world));
+					worldPanel.drawBackgroundImage(g, image, x, y);
 				}
+			} else {
+				worldPanel.drawUnexploredTerrain(g, x, y);
 			}
 		}
+		
 	}
 
 	private int calculateIndex(int x, int y) {

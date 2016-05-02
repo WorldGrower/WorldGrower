@@ -56,14 +56,14 @@ public class VotingPropertyUtils {
 	public static WorldObject getVotingBox(WorldObject performer, World world) {
 		WorldObject organization = GroupPropertyUtils.findProfessionOrganization(performer, world);
 		if (organization != null) {
-			List<WorldObject> voteBoxes = world.findWorldObjects(w -> VotingPropertyUtils.isVotingBoxForOrganization(w, organization));
+			List<WorldObject> voteBoxes = world.findWorldObjectsByProperty(Constants.CANDIDATES, w -> VotingPropertyUtils.isVotingBoxForOrganization(w, organization));
 			if (voteBoxes.size() == 1) {
 				return voteBoxes.get(0);
 			}
 		}
 		WorldObject villagersOrganization = GroupPropertyUtils.getVillagersOrganization(world);
 		if (villagersOrganization != null) {
-			List<WorldObject> voteBoxes = world.findWorldObjects(w -> VotingPropertyUtils.isVotingBoxForOrganization(w, villagersOrganization));
+			List<WorldObject> voteBoxes = world.findWorldObjectsByProperty(Constants.CANDIDATES, w -> VotingPropertyUtils.isVotingBoxForOrganization(w, villagersOrganization));
 			if (voteBoxes.size() == 1) {
 				return voteBoxes.get(0);
 			}
@@ -72,7 +72,7 @@ public class VotingPropertyUtils {
 	}
 	
 	public static boolean votingBoxExistsForOrganization(WorldObject organization, World world) {
-		List<WorldObject> voteBoxes = world.findWorldObjects(w -> VotingPropertyUtils.isVotingBoxForOrganization(w, organization));
+		List<WorldObject> voteBoxes = world.findWorldObjectsByProperty(Constants.CANDIDATES, w -> VotingPropertyUtils.isVotingBoxForOrganization(w, organization));
 		return voteBoxes.size() > 0;
 	}
 	

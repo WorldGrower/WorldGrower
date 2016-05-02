@@ -30,6 +30,7 @@ import java.awt.event.MouseMotionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiFunction;
 
 import javax.swing.Icon;
 import javax.swing.JComponent;
@@ -50,7 +51,6 @@ import org.worldgrower.ManagedOperationListener;
 import org.worldgrower.TargetKnowsAction;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.BuildAction;
 import org.worldgrower.attribute.LookDirection;
 import org.worldgrower.condition.Condition;
@@ -563,6 +563,16 @@ public class WorldPanel extends JPanel {
 			return worldObject.getProperty(Constants.NAME);
 		} else {
 			return null;
+		}
+	}
+	
+	public void iterateOverVisibleTiles(DrawFunction drawFunction) {
+		int widthInTiles = (getWidth() / 48) + 1;
+		int heightInTiles = getHeight() / 48;
+		for(int x = -offsetX; x<-offsetX+widthInTiles ;x++) {
+			for(int y = -offsetY; y<-offsetY+heightInTiles; y++) {
+				drawFunction.draw(x, y);
+			}
 		}
 	}
 }
