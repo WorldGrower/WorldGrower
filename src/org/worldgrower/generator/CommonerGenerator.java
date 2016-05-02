@@ -248,6 +248,7 @@ public class CommonerGenerator implements Serializable {
 		properties.put(Constants.DEATH_REASON, originalWorldObject.getProperty(Constants.DEATH_REASON));
 		properties.put(Constants.PRICE, 1);
 		properties.put(Constants.WEIGHT, 1);//TODO: calculate weight?
+		properties.put(Constants.SELLABLE, false);
 		
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.SKELETAL_REMAINS);
