@@ -51,11 +51,11 @@ public class UTestWhyAngryOtherConversation {
 		assertEquals("I don't remember", replyPhrases.get(0).getResponsePhrase());
 		assertEquals("Get lost", replyPhrases.get(1).getResponsePhrase());
 		
-		target.getProperty(Constants.BACKGROUND).addGoalObstructed(Goals.PROTECT_ONSE_SELF_GOAL, subject, target, Actions.MELEE_ATTACK_ACTION, Args.EMPTY, world);
+		target.getProperty(Constants.BACKGROUND).addGoalObstructed(Goals.PROTECT_ONE_SELF_GOAL, subject, target, Actions.MELEE_ATTACK_ACTION, Args.EMPTY, world);
 		replyPhrases = conversation.getReplyPhrases(context);
 		assertEquals("She was attacking me", replyPhrases.get(0).getResponsePhrase());
 
-		target.getProperty(Constants.BACKGROUND).addGoalObstructed(Goals.PROTECT_ONSE_SELF_GOAL, subject, performer, Actions.PARALYZE_SPELL_ACTION, Args.EMPTY, world);
+		target.getProperty(Constants.BACKGROUND).addGoalObstructed(Goals.PROTECT_ONE_SELF_GOAL, subject, performer, Actions.PARALYZE_SPELL_ACTION, Args.EMPTY, world);
 		replyPhrases = conversation.getReplyPhrases(context);
 		assertEquals("She was attacking me; She was casting paralyze on performerName", replyPhrases.get(0).getResponsePhrase());
 	}

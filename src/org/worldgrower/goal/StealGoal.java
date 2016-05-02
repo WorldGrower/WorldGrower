@@ -119,6 +119,7 @@ public class StealGoal implements Goal {
 		for(int index=0; index<inventory.size(); index++) {
 			WorldObject inventoryItem = inventory.get(index);
 			if (inventoryItem != null) {
+				if (inventoryItem.getProperty(Constants.PRICE) == null) { throw new IllegalStateException("price is null for " + inventoryItem); }
 				int price = inventoryItem.getProperty(Constants.PRICE);
 				int weight = inventoryItem.hasProperty(Constants.WEIGHT) ? inventoryItem.getProperty(Constants.WEIGHT) : 0;
 				float pricePerWeight = (price) / (weight + 1.0f);

@@ -16,7 +16,7 @@ import org.worldgrower.gui.CommonerImageIds;
 
 public class UTestProtectOneSelfGoal {
 
-	private ProtectOnseSelfGoal goal = Goals.PROTECT_ONSE_SELF_GOAL;
+	private ProtectOneSelfGoal goal = Goals.PROTECT_ONE_SELF_GOAL;
 	private CommonerGenerator commonerGenerator = new CommonerGenerator(666, new CommonerImageIds(), new MockCommonerNameGenerator());
 	
 	@Test
@@ -37,6 +37,17 @@ public class UTestProtectOneSelfGoal {
 		
 		assertEquals(Actions.MOVE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 		assertEquals(true, goal.calculateGoal(performer, world).firstArgsIs(-1));
+	}
+	
+	@Test
+	public void testCalculateGoalCorneredByEnemy() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject organization = createVillagersOrganization(world);
+		int performerId = commonerGenerator.generateCommoner(0, 0, world, organization);
+		generateEnemy(1, 1, organization, world);
+		WorldObject performer = world.findWorldObject(Constants.ID, performerId);
+		
+		assertEquals(Actions.MELEE_ATTACK_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
 	
 	private void generateEnemy(int x, int y, WorldObject organization, World world) {

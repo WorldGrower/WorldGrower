@@ -28,7 +28,7 @@ public class Goals {
 	public static final CreateWoodGoal CREATE_WOOD_GOAL = new CreateWoodGoal(ALL_GOALS);
 	public static final KillOutsidersGoal KILL_OUTSIDERS_GOAL = new KillOutsidersGoal(ALL_GOALS);
 	public static final ShackGoal SHACK_GOAL = new ShackGoal(ALL_GOALS);
-	public static final ProtectOnseSelfGoal PROTECT_ONSE_SELF_GOAL = new ProtectOnseSelfGoal(ALL_GOALS);
+	public static final ProtectOneSelfGoal PROTECT_ONE_SELF_GOAL = new ProtectOneSelfGoal(ALL_GOALS);
 	public static final HouseGoal HOUSE_GOAL = new HouseGoal(ALL_GOALS);
 	public static final StoneGoal STONE_GOAL = new StoneGoal(ALL_GOALS);
 	public static final OreGoal ORE_GOAL = new OreGoal(ALL_GOALS);

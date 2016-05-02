@@ -94,7 +94,7 @@ public class Reach {
 		
 	}
 
-	private static int distance(int performerX, int performerY, int targetX, int targetY) {
+	public static int distance(int performerX, int performerY, int targetX, int targetY) {
 		return Math.max(Math.abs(performerX - targetX), Math.abs(performerY - targetY));
 	}
 }

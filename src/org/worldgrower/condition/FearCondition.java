@@ -50,7 +50,7 @@ public class FearCondition implements Condition {
 		Integer fearCasterId = worldObject.getProperty(Constants.FEAR_CASTER_ID);
 		if (fearCasterId != null) {
 			WorldObject fearCaster = world.findWorldObject(Constants.ID, fearCasterId);
-			int[] args = Goals.PROTECT_ONSE_SELF_GOAL.calculateMoveArgs(worldObject, world, Arrays.asList(fearCaster));
+			int[] args = Goals.PROTECT_ONE_SELF_GOAL.calculateMoveArgs(worldObject, world, Arrays.asList(fearCaster));
 			if (args != null) {
 				Actions.MOVE_ACTION.execute(worldObject, worldObject, args, world);
 			}

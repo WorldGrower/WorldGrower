@@ -24,11 +24,11 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.profession.Profession;
 
-public class ProtectOnseSelfGoal implements Goal {
+public class ProtectOneSelfGoal implements Goal {
 
 	private static final int RANGE = 10;
 	
-	public ProtectOnseSelfGoal(List<Goal> allGoals) {
+	public ProtectOneSelfGoal(List<Goal> allGoals) {
 		allGoals.add(this);
 	}
 
@@ -40,11 +40,23 @@ public class ProtectOnseSelfGoal implements Goal {
 			if (targets.size() > 0) {
 				int[] bestArgs = calculateMoveArgs(performer, world, targets);
 				if (bestArgs != null) {
-					return new OperationInfo(performer, performer, bestArgs, Actions.MOVE_ACTION);
+					List<WorldObject> enemiesNextToNewPosition = getEnemiesNextToNewPosition(performer, bestArgs, world);
+					if (enemiesNextToNewPosition.size() == 0) {
+						return new OperationInfo(performer, performer, bestArgs, Actions.MOVE_ACTION);
+					} else {
+						return new AttackTargetGoal(enemiesNextToNewPosition.get(0)).calculateGoal(performer, world);
+					}
 				}
 			}
 		}
 		return null;
+	}
+	
+	private List<WorldObject> getEnemiesNextToNewPosition(WorldObject performer, int[] moveArgs, World world) {
+		int newX = performer.getProperty(Constants.X) + moveArgs[0];
+		int newY = performer.getProperty(Constants.Y) + moveArgs[1];
+		
+		return GoalUtils.findNearestTargets(performer, Actions.MELEE_ATTACK_ACTION, w -> isEnemyWithinRange(performer, newX, newY, w, world, 2), world);
 	}
 
 	public int[] calculateMoveArgs(WorldObject performer, World world, List<WorldObject> targets) {
@@ -73,11 +85,21 @@ public class ProtectOnseSelfGoal implements Goal {
 	}
 
 	private boolean isEnemyWithinRange(WorldObject performer, WorldObject w, World world) {
+		return isEnemy(performer, w, world) && Reach.distance(performer, w) < RANGE;
+	}
+	
+	private boolean isEnemyWithinRange(WorldObject performer, int newX, int newY, WorldObject w, World world, int range) {
+		int wX = w.getProperty(Constants.X);
+		int wY = w.getProperty(Constants.Y);
+		return isEnemy(performer, w, world) && Reach.distance(newX, newY, wX, wY) < range;
+	}
+	
+	private boolean isEnemy(WorldObject performer, WorldObject w, World world) {
 		WorldObject villagersOrganization = GroupPropertyUtils.getVillagersOrganization(world);
 		if (performer.getProperty(Constants.GROUP).contains(villagersOrganization)) {
-			return GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, w) && Reach.distance(performer, w) < RANGE;
+			return GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, w);
 		} else {
-			return performer.getProperty(Constants.RELATIONSHIPS).getValue(w) < 0 && Reach.distance(performer, w) < RANGE;
+			return performer.getProperty(Constants.RELATIONSHIPS).getValue(w) < 0;
 		}
 	}
 

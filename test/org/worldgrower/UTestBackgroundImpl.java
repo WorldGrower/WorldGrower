@@ -60,7 +60,7 @@ public class UTestBackgroundImpl {
 		performer.setProperty(Constants.GENDER, "male");
 		WorldObject actionTarget = createWorldObject(1, "actionTarget");
 		
-		background.addGoalObstructed(Goals.PROTECT_ONSE_SELF_GOAL, performer, actionTarget, Actions.MELEE_ATTACK_ACTION, Args.EMPTY, world);
+		background.addGoalObstructed(Goals.PROTECT_ONE_SELF_GOAL, performer, actionTarget, Actions.MELEE_ATTACK_ACTION, Args.EMPTY, world);
 		
 		assertEquals(Arrays.asList("You were attacking actionTarget"), background.getAngryReasons(true, 7, performer, world));
 		assertEquals(Arrays.asList("He was attacking actionTarget"), background.getAngryReasons(false, 7, performer, world));
@@ -105,7 +105,7 @@ public class UTestBackgroundImpl {
 		WorldObject target = createWorldObject(8, "target");
 		
 		Background background = performer.getProperty(Constants.BACKGROUND);
-		background.addGoalObstructed(Goals.PROTECT_ONSE_SELF_GOAL, performer, target, Actions.MELEE_ATTACK_ACTION, Args.EMPTY, world);
+		background.addGoalObstructed(Goals.PROTECT_ONE_SELF_GOAL, performer, target, Actions.MELEE_ATTACK_ACTION, Args.EMPTY, world);
 		assertEquals(1, background.getAngryReasons(true, 8, performer, world).size());
 		background.remove(performer, Constants.BACKGROUND, 7);
 		

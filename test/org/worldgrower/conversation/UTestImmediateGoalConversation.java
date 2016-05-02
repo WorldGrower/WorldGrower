@@ -65,7 +65,7 @@ public class UTestImmediateGoalConversation {
 		assertReplyPhrase("I'm building a shack because I'm looking to own a place to rest", Goals.SHACK_GOAL, Actions.BUILD_SHACK_ACTION);
 		assertReplyPhrase("I'm drinking from targetName because I'm thirsty and looking for water", Goals.DRINK_WATER_GOAL, Actions.DRINK_ACTION);
 		assertReplyPhrase("I'm having sex with targetName because I'm looking to have children", Goals.CHILDREN_GOAL, Actions.SEX_ACTION);
-		assertReplyPhrase("I'm moving because I'm avoiding danger", Goals.PROTECT_ONSE_SELF_GOAL, Actions.MOVE_ACTION);
+		assertReplyPhrase("I'm moving because I'm avoiding danger", Goals.PROTECT_ONE_SELF_GOAL, Actions.MOVE_ACTION);
 		assertReplyPhrase("I'm attacking targetName because I'm getting revenge", Goals.REVENGE_GOAL, Actions.FIRE_BOLT_ATTACK_ACTION);
 		assertReplyPhrase("I'm planting a grape vine because I'm planting grape vines", Goals.CREATE_WINE_GOAL, Actions.PLANT_GRAPE_VINE_ACTION);
 		assertReplyPhrase("I'm animating targetName because I'm looking to have a mate", Goals.MATE_GOAL, Actions.ANIMATE_DEAD_ACTION);

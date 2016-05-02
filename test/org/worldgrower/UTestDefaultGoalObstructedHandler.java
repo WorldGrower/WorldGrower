@@ -184,7 +184,7 @@ public class UTestDefaultGoalObstructedHandler {
 		
 		actionTarget.setProperty(Constants.BACKGROUND, new BackgroundImpl());
 		
-		DefaultGoalObstructedHandler.logToBackground(Goals.PROTECT_ONSE_SELF_GOAL, actionTarget, actionTarget, Actions.MELEE_ATTACK_ACTION, Args.EMPTY, performer, world);
+		DefaultGoalObstructedHandler.logToBackground(Goals.PROTECT_ONE_SELF_GOAL, actionTarget, actionTarget, Actions.MELEE_ATTACK_ACTION, Args.EMPTY, performer, world);
 		List<String> angryReasons = actionTarget.getProperty(Constants.BACKGROUND).getAngryReasons(true, 2, performer, world);
 		assertEquals(1, angryReasons.size());
 	}
