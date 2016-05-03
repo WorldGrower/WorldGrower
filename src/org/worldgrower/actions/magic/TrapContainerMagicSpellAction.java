@@ -24,7 +24,8 @@ import org.worldgrower.actions.CraftUtils;
 import org.worldgrower.actions.DeadlyAction;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
-import org.worldgrower.generator.Item;
+import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.Conditions;
 import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
 
@@ -35,8 +36,7 @@ public class TrapContainerMagicSpellAction implements MagicSpell, DeadlyAction {
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		int damage = (int)(5 * SkillUtils.getSkillBonus(performer, getSkill()) * Item.COMBAT_MULTIPLIER);
-		target.setProperty(Constants.TRAPPED_CONTAINER_DAMAGE, damage);
+		Conditions.add(target, Condition.TRAPPED_CONTAINER_CONDITION, Integer.MAX_VALUE, world);
 		
 		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE, world.getWorldStateChangedListeners());
 	}

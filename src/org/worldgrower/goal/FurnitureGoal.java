@@ -41,6 +41,10 @@ public class FurnitureGoal implements Goal {
 			int indexOfFurniture = performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.SLEEP_COMFORT);
 			WorldObject target = HousePropertyUtils.getBestHouse(performer, world);
 			if (target != null) {
+				OperationInfo avoidTrappedContainer = ContainerUtils.avoidTrappedContainer(performer, target, world);
+				if (avoidTrappedContainer != null) {
+					return avoidTrappedContainer;
+				}
 				return new OperationInfo(performer, target, new int[] { indexOfFurniture }, Actions.PUT_ITEM_INTO_INVENTORY_ACTION);
 			} else {
 				return Goals.HOUSE_GOAL.calculateGoal(performer, world);

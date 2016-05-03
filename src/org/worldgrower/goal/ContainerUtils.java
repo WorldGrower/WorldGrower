@@ -16,17 +16,38 @@ package org.worldgrower.goal;
 
 import org.worldgrower.Args;
 import org.worldgrower.Constants;
+import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.AttackUtils;
+import org.worldgrower.condition.Condition;
+import org.worldgrower.generator.Item;
 
 public class ContainerUtils {
 
 	public static void accessContainer(WorldObject performer, WorldObject target, World world) {
-		Integer trappedContainerDamage = target.getProperty(Constants.TRAPPED_CONTAINER_DAMAGE);
-		if (trappedContainerDamage != null) {
-			AttackUtils.magicAttack(trappedContainerDamage, Actions.TRAP_CONTAINER_MAGIC_SPELL_ACTION, target, performer, Args.EMPTY, world, 1);
+		boolean isTrappedContainer = target.getProperty(Constants.CONDITIONS).hasCondition(Condition.TRAPPED_CONTAINER_CONDITION);
+		if (isTrappedContainer) {
+			int damage = (int)(5 * Item.COMBAT_MULTIPLIER); //TODO: damage doesn't use original performer skill
+			AttackUtils.magicAttack(damage, Actions.TRAP_CONTAINER_MAGIC_SPELL_ACTION, target, performer, Args.EMPTY, world, 1);
 		}
+	}
+	
+	public static OperationInfo avoidTrappedContainer(WorldObject performer, WorldObject target, World world) {
+		boolean isTrappedContainer = target.getProperty(Constants.CONDITIONS).hasCondition(Condition.TRAPPED_CONTAINER_CONDITION);
+		if (isTrappedContainer) {
+			if (MagicSpellUtils.canCast(performer, Actions.DISPEL_MAGIC_ACTION)) {
+				if (Actions.DISPEL_MAGIC_ACTION.hasRequiredEnergy(performer)) {
+					return new OperationInfo(performer, target, Args.EMPTY, Actions.DISPEL_MAGIC_ACTION);
+				} else {
+					return Goals.REST_GOAL.calculateGoal(performer, world);
+				}
+			} else {
+				//TODO: ask someone to dispel
+				return null;
+			}
+		}
+		return null;
 	}
 }

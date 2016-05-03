@@ -72,6 +72,7 @@ public interface Condition extends Serializable {
 	public static final EntangledCondition ENTANGLED_CONDITION = new EntangledCondition(ALL_CONDITIONS);
 	public static final AtaxiaCondition ATAXIA_CONDITION = new AtaxiaCondition(ALL_CONDITIONS);
 	public static final DarkVisionCondition DARK_VISION_CONDITION = new DarkVisionCondition(ALL_CONDITIONS);
+	public static final TrappedContainerCondition TRAPPED_CONTAINER_CONDITION = new TrappedContainerCondition(ALL_CONDITIONS);
 	
 	public static List<String> getDeadlyConditions() {
 			return ALL_CONDITIONS.stream().filter(condition -> condition instanceof DeadlyCondition).map(condition -> condition.getDescription()).collect(Collectors.toList());
