@@ -278,6 +278,8 @@ public class Constants {
 	public static final IntProperty WEAVERY_QUALITY = new IntProperty("weaveryQuality", 0, 100, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty BREWERY_QUALITY = new IntProperty("breweryQuality", 0, 100, NOT_NULLABLE, ALL_PROPERTIES);
 	
+	public static final IdProperty LEASH_ID = new IdProperty("leashId", ALL_PROPERTIES);
+	
 	//special property not used in WorldObject
 	public static final IntProperty DISTANCE = new IntProperty("distance", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 }

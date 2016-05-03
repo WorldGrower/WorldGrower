@@ -238,6 +238,8 @@ public class Actions {
 	public static final BuildWorkbenchAction BUILD_WORKBENCH_ACTION = new BuildWorkbenchAction();
 	public static final BuildBreweryAction BUILD_BREWERY_ACTION = new BuildBreweryAction();
 	public static final LifeStealAction LIFE_STEAL_ACTION = new LifeStealAction();
+	public static final LeashAction LEASH_ACTION = new LeashAction();
+	public static final UnleashAction UNLEASH_ACTION = new UnleashAction();
 	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 
@@ -410,7 +412,9 @@ public class Actions {
 		BUILD_WEAVERY_ACTION,
 		BUILD_WORKBENCH_ACTION,
 		BUILD_BREWERY_ACTION,
-		LIFE_STEAL_ACTION
+		LIFE_STEAL_ACTION,
+		LEASH_ACTION,
+		UNLEASH_ACTION
 	));
 	
 	static {
