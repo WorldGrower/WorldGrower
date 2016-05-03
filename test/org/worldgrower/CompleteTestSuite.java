@@ -52,6 +52,7 @@ import org.worldgrower.actions.magic.UTestScribeMagicSpellAction;
 import org.worldgrower.actions.magic.UTestSilenceMagicAction;
 import org.worldgrower.actions.magic.UTestSleepMagicAction;
 import org.worldgrower.actions.magic.UTestSoulTrapAction;
+import org.worldgrower.actions.magic.UTestTrapContainerMagicSpellAction;
 import org.worldgrower.actions.magic.UTestUnlockMagicSpellAction;
 import org.worldgrower.actions.magic.UTestWaterWalkAction;
 import org.worldgrower.attribute.UTestIdList;
@@ -649,7 +650,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestStealGoldAction.class,
 	UTestDarkVisionSpellAction.class,
 	UTestWorldOnTurnImpl.class,
-	UTestFearCondition.class
+	UTestFearCondition.class,
+	UTestTrapContainerMagicSpellAction.class
 })
 public class CompleteTestSuite {
 }

@@ -75,6 +75,8 @@ public class KnowledgeToDescriptionMapper {
 				return subject.getProperty(Constants.NAME) + " is located at x " + location.getX() + " and y " + location.getY();
 			} else if (property == Constants.CREATURE_TYPE) {
 				return subject.getProperty(Constants.NAME) + " is a " + subject.getProperty(Constants.CREATURE_TYPE).getDescription();
+			} else if (property == Constants.TRAPPED_CONTAINER_DAMAGE) {
+				return subject.getProperty(Constants.NAME) + " is magically trapped";
 			} else {
 				throw new IllegalStateException("No mapping found for property " + property + " and value " + value);
 			}

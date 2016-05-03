@@ -24,6 +24,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.IdList;
+import org.worldgrower.attribute.KnowledgeMap;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
@@ -92,6 +93,7 @@ public class UTestFurnitureGoal {
 		WorldObject performer = createPerformer();
 		performer.getProperty(Constants.INVENTORY).add(Item.BED.generate(1f));
 		performer.setProperty(Constants.HOUSES, new IdList());
+		performer.setProperty(Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		
 		int houseId = BuildingGenerator.generateHouse(5, 5, world, 1f);
 		performer.getProperty(Constants.HOUSES).add(houseId);

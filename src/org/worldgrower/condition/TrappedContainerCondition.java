@@ -16,6 +16,7 @@ package org.worldgrower.condition;
 
 import java.util.List;
 
+import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
@@ -52,6 +53,7 @@ public class TrappedContainerCondition implements Condition {
 
 	@Override
 	public void conditionEnds(WorldObject worldObject, World world) {
+		worldObject.removeProperty(Constants.TRAPPED_CONTAINER_DAMAGE);
 	}
 	
 	@Override
