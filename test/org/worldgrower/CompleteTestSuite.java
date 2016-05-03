@@ -652,7 +652,9 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestWorldOnTurnImpl.class,
 	UTestFearCondition.class,
 	UTestTrapContainerMagicSpellAction.class,
-	UTestContainerUtils.class
+	UTestContainerUtils.class,
+	UTestLeashAction.class,
+	UTestUnleashAction.class
 })
 public class CompleteTestSuite {
 }
