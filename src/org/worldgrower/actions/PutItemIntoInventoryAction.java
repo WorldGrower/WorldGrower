@@ -22,6 +22,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.goal.ContainerUtils;
 import org.worldgrower.goal.InventoryPropertyUtils;
 import org.worldgrower.goal.LockUtils;
 import org.worldgrower.gui.ImageIds;
@@ -41,6 +42,8 @@ public class PutItemIntoInventoryAction implements ManagedOperation {
 		targetInventory.add(takenWorldObject);
 		
 		InventoryPropertyUtils.cleanupEquipmentSlots(performer);
+		
+		ContainerUtils.accessContainer(performer, target, world);
 	}
 
 	@Override

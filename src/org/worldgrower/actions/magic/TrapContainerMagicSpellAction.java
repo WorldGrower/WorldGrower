@@ -21,21 +21,22 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.AttackUtils;
 import org.worldgrower.actions.CraftUtils;
+import org.worldgrower.actions.DeadlyAction;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.generator.Item;
 import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
 
-public class TrapContainerMagicSpellAction implements MagicSpell {
+public class TrapContainerMagicSpellAction implements MagicSpell, DeadlyAction {
 
 	private static final int ENERGY_USE = 200;
 	private static final int DISTANCE = 4;
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		int level = getSkill().getLevel(performer);
-		
-		//TODO: implement further
+		int damage = (int)(5 * SkillUtils.getSkillBonus(performer, getSkill()) * Item.COMBAT_MULTIPLIER);
+		target.setProperty(Constants.TRAPPED_CONTAINER_DAMAGE, damage);
 		
 		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE, world.getWorldStateChangedListeners());
 	}
@@ -102,5 +103,10 @@ public class TrapContainerMagicSpellAction implements MagicSpell {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.TRAP_CONTAINER_MAGIC_SPELL;
+	}
+
+	@Override
+	public String getDeathDescription(WorldObject performer, WorldObject target) {
+		return "killed by a trapped container";
 	}
 }

@@ -30,7 +30,6 @@ import java.awt.event.MouseMotionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BiFunction;
 
 import javax.swing.Icon;
 import javax.swing.JComponent;

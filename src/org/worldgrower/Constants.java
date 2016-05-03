@@ -225,6 +225,7 @@ public class Constants {
 	public static final BooleanProperty LOCKED = new BooleanProperty("locked", NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IdProperty LOCK_ID = new IdProperty("lockId", ALL_PROPERTIES);
 	public static final IdProperty MAGIC_LOCK_CREATOR_ID = new IdProperty("magicLockCreatorId", ALL_PROPERTIES);
+	public static final IntProperty TRAPPED_CONTAINER_DAMAGE = new IntProperty("trappedContainerDamage", 0, 1000, NOT_NULLABLE, ALL_PROPERTIES);
 	
 	public static final IntProperty NIGHT_SHADE_SOURCE = new IntProperty("nightShadeSource", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty NIGHT_SHADE = new IntProperty("nightShade", 0, null, NOT_NULLABLE, ALL_PROPERTIES);

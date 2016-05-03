@@ -22,6 +22,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.goal.ContainerUtils;
 import org.worldgrower.goal.LockUtils;
 import org.worldgrower.gui.ImageIds;
 
@@ -38,6 +39,8 @@ public class GetItemFromInventoryAction implements ManagedOperation {
 		
 		WorldObject takenWorldObject = targetInventory.remove(index);
 		performerInventory.add(takenWorldObject);
+		
+		ContainerUtils.accessContainer(performer, target, world);
 	}
 
 	@Override

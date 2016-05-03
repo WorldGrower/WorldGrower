@@ -60,6 +60,7 @@ import org.worldgrower.actions.magic.ScribeMagicSpellAction;
 import org.worldgrower.actions.magic.SilenceMagicAction;
 import org.worldgrower.actions.magic.SleepMagicSpellAction;
 import org.worldgrower.actions.magic.SoulTrapAction;
+import org.worldgrower.actions.magic.TrapContainerMagicSpellAction;
 import org.worldgrower.actions.magic.UnlockMagicSpellAction;
 import org.worldgrower.actions.magic.WaterWalkAction;
 import org.worldgrower.attribute.SkillProperty;
@@ -157,6 +158,7 @@ public class Actions {
 	public static final FearMagicSpellAction FEAR_MAGIC_SPELL_ACTION = new FearMagicSpellAction();
 	public static final EntangleAction ENTANGLE_ACTION = new EntangleAction();
 	public static final DarkVisionSpellAction DARK_VISION_SPELL_ACTION = new DarkVisionSpellAction();
+	public static final TrapContainerMagicSpellAction TRAP_CONTAINER_MAGIC_SPELL_ACTION = new TrapContainerMagicSpellAction();
 	
 	public static final BuildLibraryAction BUILD_LIBRARY_ACTION = new BuildLibraryAction();
 	public static final ResearchRestorationSkillAction RESEARCH_RESTORATION_SKILL_ACTION = new ResearchRestorationSkillAction();
@@ -270,7 +272,8 @@ public class Actions {
 			LICH_TRANSFORMATION_ACTION,
 			FEAR_MAGIC_SPELL_ACTION,
 			ENTANGLE_ACTION,
-			DARK_VISION_SPELL_ACTION
+			DARK_VISION_SPELL_ACTION,
+			TRAP_CONTAINER_MAGIC_SPELL_ACTION
 			);
 	
 	private static final List<InventoryAction> INVENTORY_ACTIONS = Arrays.asList(
