@@ -35,7 +35,7 @@ public class UTestBerryBushOnTurn {
 		assertEquals(1, berryBush.getProperty(Constants.FOOD_SOURCE).intValue());
 		
 		berryBush.onTurn(world, new WorldStateChangedListeners());
-		assertEquals(11, berryBush.getProperty(Constants.FOOD_SOURCE).intValue());
+		assertEquals(2, berryBush.getProperty(Constants.FOOD_SOURCE).intValue());
 	}
 
 	private WorldObject createBerryBush(World world) {

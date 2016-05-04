@@ -184,6 +184,7 @@ public class TestUtils {
 		properties.put(Constants.WISDOM, 10);
 		properties.put(Constants.CHARISMA, 10);
 		properties.put(Constants.PRICES, new Prices());
+		properties.put(Constants.DEMANDS, new PropertyCountMap<ManagedProperty<?>>());
 		SkillUtils.addAllSkills(properties);
 		WorldObject worldObject = createWorldObject(id, properties);
 		return worldObject;

@@ -21,6 +21,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.WorldObjectCondition;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.generator.Item;
 import org.worldgrower.history.HistoryItem;
@@ -49,7 +50,11 @@ public class OperationStatistics {
 	}
 	
 	public static int getPopulationCount(World world) {
-		return world.findWorldObjectsByProperty(Constants.STRENGTH, w -> w.hasIntelligence() && w.getProperty(Constants.CREATURE_TYPE) == CreatureType.HUMAN_CREATURE_TYPE).size();
+		return world.findWorldObjectsByProperty(Constants.STRENGTH, w -> isPartOfPopulation(w)).size();
+	}
+
+	private static boolean isPartOfPopulation(WorldObject w) {
+		return w.hasIntelligence() && (w.getProperty(Constants.CREATURE_TYPE) == CreatureType.HUMAN_CREATURE_TYPE);
 	}
 	
 	public static int getRecentOperationsByNonProfessionalsCount(ManagedOperation managedOperation, Profession profession, World world) {

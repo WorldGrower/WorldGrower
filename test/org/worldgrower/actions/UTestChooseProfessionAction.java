@@ -30,6 +30,8 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.ChooseProfessionAction.ProfessionEvaluation;
 import org.worldgrower.attribute.IdList;
+import org.worldgrower.creaturetype.CreatureType;
+import org.worldgrower.goal.Goals;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.profession.Profession;
 import org.worldgrower.profession.Professions;
@@ -136,9 +138,9 @@ public class UTestChooseProfessionAction {
 	@Test
 	public void testGetProfessionEvaluationsByDemand() {
 		World world = new WorldImpl(10, 10, null, null);
-		world.addWorldObject(TestUtils.createIntelligentWorldObject(1, Constants.PROFESSION, Professions.FARMER_PROFESSION));
+		world.addWorldObject(TestUtils.createIntelligentWorldObject(2, Constants.PROFESSION, Professions.FARMER_PROFESSION));
 
-		WorldObject performer = TestUtils.createWorldObject(1, "jobseeker");
+		WorldObject performer = TestUtils.createIntelligentWorldObject(3, Goals.ARENA_GOAL);
 		performer.getProperty(Constants.DEMANDS).add(Constants.FOOD, 20);
 		world.addWorldObject(performer);
 		
