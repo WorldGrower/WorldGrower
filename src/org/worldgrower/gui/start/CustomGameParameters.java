@@ -73,7 +73,7 @@ public class CustomGameParameters implements GameParameters {
 	}
 	
 	@Override
-	public void addDefaultWorldObjects(World world, CommonerGenerator commonerGenerator, WorldObject organization, int villagerCount, int seed) {
+	public void addDefaultWorldObjects(World world, CommonerGenerator commonerGenerator, CreatureGenerator creatureGenerator, WorldObject organization, int villagerCount, int seed) {
 		
 		PlantGenerator.generateBerryBush(3, 3, world);
 		
@@ -81,7 +81,6 @@ public class CustomGameParameters implements GameParameters {
 			commonerGenerator.generateCommoner(1, 1, world, organization);
 		}
 		
-		CreatureGenerator creatureGenerator = new CreatureGenerator(organization);
 		creatureGenerator.generateCow(7, 2, world);
 		creatureGenerator.generateCow(8, 2, world);
 		creatureGenerator.generateCow(9, 2, world);

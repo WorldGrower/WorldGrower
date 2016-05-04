@@ -62,7 +62,7 @@ public class CollectTaxesGoal implements Goal {
 		IdMap taxesPaidTurn = organization.getProperty(Constants.TAXES_PAID_TURN);
 		Turn currentTurn = world.getCurrentTurn();
 		
-		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.TALK_ACTION, w -> mustPayTaxes(members, taxesPaidTurn, currentTurn, w, world), world);
+		List<WorldObject> targets = GoalUtils.findNearestTargetsByProperty(performer, Actions.TALK_ACTION, Constants.STRENGTH, w -> mustPayTaxes(members, taxesPaidTurn, currentTurn, w, world), world);
 		return targets;
 	}
 

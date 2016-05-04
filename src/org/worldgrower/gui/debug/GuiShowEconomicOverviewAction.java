@@ -77,7 +77,7 @@ public class GuiShowEconomicOverviewAction extends AbstractAction {
 
 		@Override
 		public int getRowCount() {
-			return 17 + Item.values().length - 1;
+			return 19 + Item.values().length - 1;
 		}
 
 		@Override
@@ -103,33 +103,37 @@ public class GuiShowEconomicOverviewAction extends AbstractAction {
 				} else if (rowIndex == 3) {
 					return "HarvestFood by non-professionals";
 				} else if (rowIndex == 4) {
-					return "EatFood";
+					return "ButcherMeat";
 				} else if (rowIndex == 5) {
-					return "MineStone";
+					return "ButcherMeat by non-professionals";
 				} else if (rowIndex == 6) {
-					return "MineStone by non-professionals";
+					return "EatFood";
 				} else if (rowIndex == 7) {
-					return "MineOre";
+					return "MineStone";
 				} else if (rowIndex == 8) {
-					return "MineOre by non-professionals";
+					return "MineStone by non-professionals";
 				} else if (rowIndex == 9) {
-					return "MineGold";
+					return "MineOre";
 				} else if (rowIndex == 10) {
-					return "MineGold by non-professionals";
+					return "MineOre by non-professionals";
 				} else if (rowIndex == 11) {
-					return "HarvestCotton";
+					return "MineGold";
 				} else if (rowIndex == 12) {
-					return "HarvestCotton by non-professionals";
+					return "MineGold by non-professionals";
 				} else if (rowIndex == 13) {
-					return "BuildHouseAction";
+					return "HarvestCotton";
 				} else if (rowIndex == 14) {
-					return "BuildHouseAction by non-professionals";
+					return "HarvestCotton by non-professionals";
 				} else if (rowIndex == 15) {
-					return "ConstructBedAction";
+					return "BuildHouseAction";
 				} else if (rowIndex == 16) {
+					return "BuildHouseAction by non-professionals";
+				} else if (rowIndex == 17) {
+					return "ConstructBedAction";
+				} else if (rowIndex == 18) {
 					return "ConstructBedAction by non-professionals";
 				} else {
-					return Item.values()[rowIndex - 16].name() + " (current price/default price)";
+					return Item.values()[rowIndex - 18].name() + " (current price/default price)";
 				}
 			} else if (columnIndex == 1) {
 				if (rowIndex == 0) {
@@ -141,33 +145,37 @@ public class GuiShowEconomicOverviewAction extends AbstractAction {
 				} else if (rowIndex == 3) {
 					return OperationStatistics.getRecentOperationsByNonProfessionalsCount(Actions.HARVEST_FOOD_ACTION, Professions.FARMER_PROFESSION, world);
 				} else if (rowIndex == 4) {
-					return OperationStatistics.getRecentOperationsCount(Actions.EAT_ACTION, world);
+					return OperationStatistics.getRecentOperationsCount(Actions.BUTCHER_ACTION, world);
 				} else if (rowIndex == 5) {
-					return OperationStatistics.getRecentOperationsCount(Actions.MINE_STONE_ACTION, world);
+					return OperationStatistics.getRecentOperationsByNonProfessionalsCount(Actions.BUTCHER_ACTION, Professions.FARMER_PROFESSION, world);
 				} else if (rowIndex == 6) {
-					return OperationStatistics.getRecentOperationsByNonProfessionalsCount(Actions.MINE_STONE_ACTION, Professions.MINER_PROFESSION, world);
+					return OperationStatistics.getRecentOperationsCount(Actions.EAT_ACTION, world);
 				} else if (rowIndex == 7) {
-					return OperationStatistics.getRecentOperationsCount(Actions.MINE_ORE_ACTION, world);
+					return OperationStatistics.getRecentOperationsCount(Actions.MINE_STONE_ACTION, world);
 				} else if (rowIndex == 8) {
-					return OperationStatistics.getRecentOperationsByNonProfessionalsCount(Actions.MINE_ORE_ACTION, Professions.MINER_PROFESSION, world);
+					return OperationStatistics.getRecentOperationsByNonProfessionalsCount(Actions.MINE_STONE_ACTION, Professions.MINER_PROFESSION, world);
 				} else if (rowIndex == 9) {
-					return OperationStatistics.getRecentOperationsCount(Actions.MINE_GOLD_ACTION, world);
+					return OperationStatistics.getRecentOperationsCount(Actions.MINE_ORE_ACTION, world);
 				} else if (rowIndex == 10) {
-					return OperationStatistics.getRecentOperationsByNonProfessionalsCount(Actions.MINE_GOLD_ACTION, Professions.MINER_PROFESSION, world);
+					return OperationStatistics.getRecentOperationsByNonProfessionalsCount(Actions.MINE_ORE_ACTION, Professions.MINER_PROFESSION, world);
 				} else if (rowIndex == 11) {
-					return OperationStatistics.getRecentOperationsCount(Actions.HARVEST_COTTON_ACTION, world);
+					return OperationStatistics.getRecentOperationsCount(Actions.MINE_GOLD_ACTION, world);
 				} else if (rowIndex == 12) {
-					return OperationStatistics.getRecentOperationsByNonProfessionalsCount(Actions.HARVEST_COTTON_ACTION, Professions.WEAVER_PROFESSION, world);
+					return OperationStatistics.getRecentOperationsByNonProfessionalsCount(Actions.MINE_GOLD_ACTION, Professions.MINER_PROFESSION, world);
 				} else if (rowIndex == 13) {
-					return OperationStatistics.getRecentOperationsCount(Actions.BUILD_HOUSE_ACTION, world);
+					return OperationStatistics.getRecentOperationsCount(Actions.HARVEST_COTTON_ACTION, world);
 				} else if (rowIndex == 14) {
-					return OperationStatistics.getRecentOperationsByNonProfessionalsCount(Actions.BUILD_HOUSE_ACTION, Professions.CARPENTER_PROFESSION, world);
+					return OperationStatistics.getRecentOperationsByNonProfessionalsCount(Actions.HARVEST_COTTON_ACTION, Professions.WEAVER_PROFESSION, world);
 				} else if (rowIndex == 15) {
-					return OperationStatistics.getRecentOperationsCount(Actions.CONSTRUCT_BED_ACTION, world);
+					return OperationStatistics.getRecentOperationsCount(Actions.BUILD_HOUSE_ACTION, world);
 				} else if (rowIndex == 16) {
+					return OperationStatistics.getRecentOperationsByNonProfessionalsCount(Actions.BUILD_HOUSE_ACTION, Professions.CARPENTER_PROFESSION, world);
+				} else if (rowIndex == 17) {
+					return OperationStatistics.getRecentOperationsCount(Actions.CONSTRUCT_BED_ACTION, world);
+				} else if (rowIndex == 18) {
 					return OperationStatistics.getRecentOperationsByNonProfessionalsCount(Actions.CONSTRUCT_BED_ACTION, Professions.CARPENTER_PROFESSION, world);
 				} else {
-					Item item = Item.values()[rowIndex - 16];
+					Item item = Item.values()[rowIndex - 18];
 					return OperationStatistics.getPrice(item, world) + "/" + item.getPrice();
 				}
 			} else {

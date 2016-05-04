@@ -17,6 +17,7 @@ package org.worldgrower.gui.start;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.generator.CommonerGenerator;
+import org.worldgrower.generator.CreatureGenerator;
 import org.worldgrower.gui.AdditionalManagedOperationListenerFactory;
 
 public interface GameParameters {
@@ -33,6 +34,6 @@ public interface GameParameters {
 	public boolean getPlayBackgroundMusic();
 	
 	public String getInitialStatusMessage();
-	public void addDefaultWorldObjects(World world, CommonerGenerator commonerGenerator, WorldObject organization, int villagerCount, int seed);
+	public void addDefaultWorldObjects(World world, CommonerGenerator commonerGenerator, CreatureGenerator creatureGenerator, WorldObject organization, int villagerCount, int seed);
 	public AdditionalManagedOperationListenerFactory getAdditionalManagedOperationListenerFactory();
 }

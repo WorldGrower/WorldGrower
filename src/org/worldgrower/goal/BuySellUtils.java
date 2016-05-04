@@ -32,7 +32,7 @@ import org.worldgrower.generator.Item;
 public class BuySellUtils {
 
 	public static List<WorldObject> findBuyTargets(WorldObject performer, IntProperty property, int quantity, World world) {
-		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.BUY_ACTION, w -> isBuyTarget(performer, property, quantity, w), world);
+		List<WorldObject> targets = GoalUtils.findNearestTargetsByProperty(performer, Actions.BUY_ACTION, Constants.STRENGTH, w -> isBuyTarget(performer, property, quantity, w), world);
 		return targets;
 	}
 
@@ -45,7 +45,7 @@ public class BuySellUtils {
 	}
 
 	public static List<WorldObject> findBuyTargets(WorldObject performer, StringProperty property, String value, int quantity, World world) {
-		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.BUY_ACTION, w -> targetHasSellableItem(w, property, value) && performerCanPay(performer, w, property, quantity), world);
+		List<WorldObject> targets = GoalUtils.findNearestTargetsByProperty(performer, Actions.BUY_ACTION, Constants.STRENGTH, w -> targetHasSellableItem(w, property, value) && performerCanPay(performer, w, property, quantity), world);
 		return targets;
 	}
 	
@@ -64,7 +64,7 @@ public class BuySellUtils {
 	}
 	
 	private static List<WorldObject> findBuyTargets(WorldObject performer, UnCheckedProperty<UnCheckedProperty<WorldObject>> equipmentSlotProperty, UnCheckedProperty<WorldObject> equipmentSlot, int quantity, World world) {
-		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.BUY_ACTION, w -> hasSellableEquipment(equipmentSlotProperty, equipmentSlot, w) && performerCanPay(performer, w, equipmentSlotProperty, quantity), world);
+		List<WorldObject> targets = GoalUtils.findNearestTargetsByProperty(performer, Actions.BUY_ACTION, Constants.STRENGTH, w -> hasSellableEquipment(equipmentSlotProperty, equipmentSlot, w) && performerCanPay(performer, w, equipmentSlotProperty, quantity), world);
 		return targets;
 	}
 

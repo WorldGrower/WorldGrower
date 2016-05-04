@@ -34,7 +34,7 @@ import org.worldgrower.terrain.TerrainType;
 
 public class CowOnTurn implements OnTurn {
 
-	private static final int PREGNANCY_DURATION = 200;
+	private static final int PREGNANCY_DURATION = 600;
 	
 	private final AddWorldObjectFunction addWorldObjectFunction;
 	

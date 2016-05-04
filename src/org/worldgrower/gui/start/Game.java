@@ -79,11 +79,14 @@ public class Game {
 		final WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
 		final CommonerGenerator commonerGenerator = new CommonerGenerator(seed, commonerImageIds, commonerNameGenerator);
 		
-		gameParameters.addDefaultWorldObjects(world, commonerGenerator, organization, gameParameters.getVillagerCount(), seed);
+		final WorldObject verminOrganization = GroupPropertyUtils.create(null, "vermin", world);
+		final CreatureGenerator creatureGenerator = new CreatureGenerator(verminOrganization);
+		
+		gameParameters.addDefaultWorldObjects(world, commonerGenerator, creatureGenerator, organization, gameParameters.getVillagerCount(), seed);
 		
 		addWorldListeners(world);
 		
-		addEnemiesAndFriendlyAnimals(gameParameters.getEnemyDensity(), world, seed);
+		addEnemiesAndFriendlyAnimals(gameParameters.getEnemyDensity(), verminOrganization, creatureGenerator, world, seed);
 
 		//runWorld(startTurn, dungeonMaster, world);
 		RunWorldSwingWorker runWorldSwingWorker = new RunWorldSwingWorker(startTurn, dungeonMaster, world);
@@ -163,10 +166,8 @@ public class Game {
 		world.addListener(new DrinkingContestListener());
 	}
 
-	private static void addEnemiesAndFriendlyAnimals(int enemyDensity, World world, int seed) {
+	private static void addEnemiesAndFriendlyAnimals(int enemyDensity, WorldObject verminOrganization, CreatureGenerator creatureGenerator, World world, int seed) {
 		WorldGenerator worldGenerator = new WorldGenerator(seed);
-		WorldObject verminOrganization = GroupPropertyUtils.create(null, "vermin", world);
-		CreatureGenerator creatureGenerator = new CreatureGenerator(verminOrganization);
 		
 		if (enemyDensity > 0) {
 			PlantGenerator plantGenerator = new PlantGenerator(verminOrganization);

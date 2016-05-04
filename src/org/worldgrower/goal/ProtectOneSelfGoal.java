@@ -22,6 +22,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.profession.Profession;
 
 public class ProtectOneSelfGoal implements Goal {
@@ -35,7 +36,7 @@ public class ProtectOneSelfGoal implements Goal {
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		if (avoidsEnemies(performer)) {
-			List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.MELEE_ATTACK_ACTION, w -> isEnemyWithinRange(performer, w, world), world);
+			List<WorldObject> targets = GoalUtils.findNearestTargetsByProperty(performer, Actions.MELEE_ATTACK_ACTION, Constants.STRENGTH, w -> isEnemyWithinRange(performer, w, world), world);
 			
 			if (targets.size() > 0) {
 				int[] bestArgs = calculateMoveArgs(performer, world, targets);
@@ -56,7 +57,7 @@ public class ProtectOneSelfGoal implements Goal {
 		int newX = performer.getProperty(Constants.X) + moveArgs[0];
 		int newY = performer.getProperty(Constants.Y) + moveArgs[1];
 		
-		return GoalUtils.findNearestTargets(performer, Actions.MELEE_ATTACK_ACTION, w -> isEnemyWithinRange(performer, newX, newY, w, world, 2), world);
+		return GoalUtils.findNearestTargetsByProperty(performer, Actions.MELEE_ATTACK_ACTION, Constants.STRENGTH, w -> isEnemyWithinRange(performer, newX, newY, w, world, 2), world);
 	}
 
 	public int[] calculateMoveArgs(WorldObject performer, World world, List<WorldObject> targets) {
@@ -95,11 +96,15 @@ public class ProtectOneSelfGoal implements Goal {
 	}
 	
 	private boolean isEnemy(WorldObject performer, WorldObject w, World world) {
-		WorldObject villagersOrganization = GroupPropertyUtils.getVillagersOrganization(world);
-		if (performer.getProperty(Constants.GROUP).contains(villagersOrganization)) {
-			return GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, w);
+		if (w.getProperty(Constants.CREATURE_TYPE) == CreatureType.COW_CREATURE_TYPE) {
+			return false;
 		} else {
-			return performer.getProperty(Constants.RELATIONSHIPS).getValue(w) < 0;
+			WorldObject villagersOrganization = GroupPropertyUtils.getVillagersOrganization(world);
+			if (performer.getProperty(Constants.GROUP).contains(villagersOrganization)) {
+				return GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, w);
+			} else {
+				return performer.getProperty(Constants.RELATIONSHIPS).getValue(w) < 0;
+			}
 		}
 	}
 

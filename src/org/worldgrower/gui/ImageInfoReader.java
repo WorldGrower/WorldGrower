@@ -408,6 +408,7 @@ public class ImageInfoReader {
 		add(ImageIds.BREWERY, brewery.getSubImage(0, 0, 3, 2));
 		add(ImageIds.TRAP_CONTAINER_MAGIC_SPELL, sprites420.getSubImage(5, 20, 1, 1));
 		add(ImageIds.LEASH, sprites420.getSubImage(13, 9, 1, 1));
+		add(ImageIds.CLAIM_CATTLE, sprites420.getSubImage(7, 9, 1, 1));
     }
 
     private void resizeSmallFlowers() {

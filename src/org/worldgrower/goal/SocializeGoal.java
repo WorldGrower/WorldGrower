@@ -63,7 +63,7 @@ public class SocializeGoal implements Goal {
 	}
 
 	OperationInfo getShareKnowledgeOperationInfo(WorldObject performer, World world) {
-		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.TALK_ACTION, w -> isTargetForShareKnowledgeConversation(performer, w, world), world);
+		List<WorldObject> targets = GoalUtils.findNearestTargetsByProperty(performer, Actions.TALK_ACTION, Constants.STRENGTH, w -> isTargetForShareKnowledgeConversation(performer, w, world), world);
 		for(WorldObject target : targets) {
 			if (performer.getProperty(Constants.RELATIONSHIPS).getValue(target) >= 0) {
 				List<Knowledge> knowledgeList = getKnowledgeList(performer, target, world);

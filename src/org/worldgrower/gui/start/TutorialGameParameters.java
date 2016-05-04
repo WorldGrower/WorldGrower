@@ -21,6 +21,7 @@ import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.CommonerGenerator;
+import org.worldgrower.generator.CreatureGenerator;
 import org.worldgrower.generator.PlantGenerator;
 import org.worldgrower.gui.AdditionalManagedOperationListenerFactory;
 
@@ -32,7 +33,7 @@ public class TutorialGameParameters implements GameParameters {
 	}
 
 	@Override
-	public void addDefaultWorldObjects(World world, CommonerGenerator commonerGenerator, WorldObject organization, int villagerCount, int seed) {
+	public void addDefaultWorldObjects(World world, CommonerGenerator commonerGenerator, CreatureGenerator creatureGenerator, WorldObject organization, int villagerCount, int seed) {
 
 		BuildingGenerator.generateSignPost(5, 4, world, "Well done. Now use the right arrow key to move your player character to the right, next to the tree.\n Then right-click on the tree to cut wood from it.");
 		

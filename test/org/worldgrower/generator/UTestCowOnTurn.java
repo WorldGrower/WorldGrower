@@ -35,6 +35,8 @@ public class UTestCowOnTurn {
 		World world = new WorldImpl(1, 1, null, new DoNothingWorldOnTurn());
 		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
 		
+		createVillagersOrganization(world);
+		
 		WorldObject cow = createCow(world, organization);
 		assertEquals(1, cow.getProperty(Constants.MEAT_SOURCE).intValue());
 		
@@ -50,19 +52,21 @@ public class UTestCowOnTurn {
 	public void testGiveBirth() {
 		World world = new WorldImpl(10, 10, null, new DoNothingWorldOnTurn());
 
+		createVillagersOrganization(world);
+		
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject cow = createCow(world, organization);
 		cow.setProperty(Constants.PREGNANCY, 0);
 		
 		world = new MockWorld(new MockTerrain(TerrainType.GRASLAND), world);
-		assertEquals(2, world.getWorldObjects().size());
+		assertEquals(4, world.getWorldObjects().size());
 		
 		for(int i=0; i<700; i++) {
 			world.nextTurn();
 			cow.onTurn(world, new WorldStateChangedListeners());
 		}
 		
-		assertEquals(3, world.getWorldObjects().size());
+		assertEquals(5, world.getWorldObjects().size());
 		
 	}
 	
@@ -72,6 +76,11 @@ public class UTestCowOnTurn {
 		return cow;
 	}
 	
-	
+	private WorldObject createVillagersOrganization(World world) {
+		WorldObject villagersOrganization = GroupPropertyUtils.createVillagersOrganization(world);
+		villagersOrganization.setProperty(Constants.ID, 1);
+		world.addWorldObject(villagersOrganization);
+		return villagersOrganization;
+	}
 
 }

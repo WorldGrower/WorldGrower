@@ -37,6 +37,7 @@ import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdMap;
 import org.worldgrower.attribute.IdToIntegerMap;
 import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.deity.Deity;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.gui.ImageIds;
@@ -97,7 +98,7 @@ public class GroupPropertyUtils {
 
 	private static boolean worldObjectIsMemberOfOrganization(WorldObject organization, WorldObject w) {
 		IdList group = w.getProperty(Constants.GROUP);
-		return ((group != null) && (group.contains(organization)));
+		return ((group != null) && (group.contains(organization) && w.getProperty(Constants.CREATURE_TYPE) == CreatureType.HUMAN_CREATURE_TYPE));
 	}
 	
 	public static WorldObject findProfessionOrganization(WorldObject performer, World world) {

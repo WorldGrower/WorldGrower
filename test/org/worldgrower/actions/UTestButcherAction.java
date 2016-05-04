@@ -32,6 +32,7 @@ public class UTestButcherAction {
 	@Test
 	public void testExecute() {
 		World world = new WorldImpl(1, 1, null, null);
+		createVillagersOrganization(world);
 		WorldObject performer = createPerformer(2);
 		int id = new CreatureGenerator(GroupPropertyUtils.create(null, "CowOrg", world)).generateCow(0, 0, world);
 		WorldObject target = world.findWorldObject(Constants.ID, id);
@@ -45,6 +46,7 @@ public class UTestButcherAction {
 	@Test
 	public void testIsValidTarget() {
 		World world = new WorldImpl(1, 1, null, null);
+		createVillagersOrganization(world);
 		WorldObject performer = createPerformer(2);
 		int id = new CreatureGenerator(GroupPropertyUtils.create(null, "CowOrg", world)).generateCow(0, 0, world);
 		WorldObject target = world.findWorldObject(Constants.ID, id);
@@ -58,6 +60,7 @@ public class UTestButcherAction {
 	@Test
 	public void testDistance() {
 		World world = new WorldImpl(1, 1, null, null);
+		createVillagersOrganization(world);
 		WorldObject performer = createPerformer(2);
 		int id = new CreatureGenerator(GroupPropertyUtils.create(null, "CowOrg", world)).generateCow(0, 0, world);
 		WorldObject target = world.findWorldObject(Constants.ID, id);
@@ -72,5 +75,12 @@ public class UTestButcherAction {
 		performer.setProperty(Constants.WIDTH, 1);
 		performer.setProperty(Constants.HEIGHT, 1);
 		return performer;
+	}
+	
+	private WorldObject createVillagersOrganization(World world) {
+		WorldObject villagersOrganization = GroupPropertyUtils.createVillagersOrganization(world);
+		villagersOrganization.setProperty(Constants.ID, 1);
+		world.addWorldObject(villagersOrganization);
+		return villagersOrganization;
 	}
 }

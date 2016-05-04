@@ -31,7 +31,7 @@ public class OffspringGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.SEX_ACTION, w -> RacePropertyUtils.canHaveOffspring(performer, w), world);
+		List<WorldObject> targets = GoalUtils.findNearestTargetsByProperty(performer, Actions.SEX_ACTION, Constants.STRENGTH, w -> RacePropertyUtils.canHaveOffspring(performer, w), world);
 		if (targets.size() > 0) {
 			WorldObject target = targets.get(0);
 			return new OperationInfo(performer, target, Args.EMPTY, Actions.SEX_ACTION);
@@ -46,7 +46,7 @@ public class OffspringGoal implements Goal {
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		return performer.getProperty(Constants.CHILDREN).size() > 3;
+		return performer.hasProperty(Constants.PREGNANCY) || performer.getProperty(Constants.CHILDREN).size() > 3;
 	}
 	
 	@Override

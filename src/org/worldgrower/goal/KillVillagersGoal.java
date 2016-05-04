@@ -35,7 +35,7 @@ public class KillVillagersGoal implements Goal {
 		if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.POISON_DAMAGE) == 0) {
 			return Goals.CREATE_POISON_GOAL.calculateGoal(performer, world);
 		} else {
-			List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.POISON_ACTION, w -> !w.hasIntelligence(), world);
+			List<WorldObject> targets = GoalUtils.findNearestTargetsByProperty(performer, Actions.POISON_ACTION, Constants.WATER_SOURCE, w -> !w.hasIntelligence(), world);
 			if (targets.size() > 0) {
 				return new OperationInfo(performer, targets.get(0), Args.EMPTY, Actions.POISON_ACTION);
 			} else {

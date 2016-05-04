@@ -69,6 +69,8 @@ public class UTestGatherFoodGoal {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
 		
+		createVillagersOrganization(world);
+		
 		CreatureGenerator creatureGenerator = new CreatureGenerator(TestUtils.createIntelligentWorldObject(1, "cow"));
 		int cowId = creatureGenerator.generateCow(5, 5, world);
 		WorldObject cow = world.findWorldObject(Constants.ID, cowId);
@@ -81,6 +83,8 @@ public class UTestGatherFoodGoal {
 	public void testCalculateGoalButcherTargetFarAway() {
 		World world = new WorldImpl(25, 25, null, null);
 		WorldObject performer = createPerformer();
+		
+		createVillagersOrganization(world);
 		
 		CreatureGenerator creatureGenerator = new CreatureGenerator(TestUtils.createIntelligentWorldObject(1, "cow"));
 		int cowId = creatureGenerator.generateCow(20, 20, world);
@@ -100,6 +104,13 @@ public class UTestGatherFoodGoal {
 		
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.BERRIES.generate(1f), 50);
 		assertEquals(true, goal.isGoalMet(performer, world));
+	}
+	
+	private WorldObject createVillagersOrganization(World world) {
+		WorldObject villagersOrganization = GroupPropertyUtils.createVillagersOrganization(world);
+		villagersOrganization.setProperty(Constants.ID, 1);
+		world.addWorldObject(villagersOrganization);
+		return villagersOrganization;
 	}
 
 	private WorldObject createPerformer() {

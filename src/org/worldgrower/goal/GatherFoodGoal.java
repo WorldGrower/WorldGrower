@@ -46,18 +46,40 @@ public class GatherFoodGoal implements Goal {
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		WorldObject target = GoalUtils.findNearestTarget(performer, Actions.HARVEST_FOOD_ACTION, world);
 		OperationInfo butcherOperationInfo = createButcherOperationInfo(performer, world);
-		if (target != null && Reach.distance(performer, target) < 15) {
+		int distanceToMeatSource = calculateDistanceToMeatSource(performer, butcherOperationInfo);
+		int distanceToFoodSource = calculateDistanceToFoodSource(performer, target);
+		
+		//System.out.println("distanceToFoodSource=" + distanceToFoodSource + "distanceToMeatSource=" + distanceToMeatSource);
+		if (target != null && distanceToFoodSource < 15 && distanceToFoodSource < distanceToMeatSource) {
 			return new OperationInfo(performer, target, Args.EMPTY, Actions.HARVEST_FOOD_ACTION);
-		} else if (butcherOperationInfo != null) {
+		} else if (butcherOperationInfo != null && distanceToMeatSource < 15 && distanceToMeatSource < distanceToFoodSource) {
 			return butcherOperationInfo;
 		} else {
 			return null;
 		}
 	}
+
+	private int calculateDistanceToFoodSource(WorldObject performer, WorldObject target) {
+		if (target != null) {
+			return Reach.distance(performer, target);
+		} else {
+			return Integer.MAX_VALUE;
+		}
+	}
+
+	private int calculateDistanceToMeatSource(WorldObject performer, OperationInfo butcherOperationInfo) {
+		final int distanceToMeatSource;
+		if (butcherOperationInfo != null) {
+			distanceToMeatSource = Reach.distance(performer, butcherOperationInfo.getTarget());
+		} else {
+			distanceToMeatSource = Integer.MAX_VALUE;
+		}
+		return distanceToMeatSource;
+	}
 	
 	private static OperationInfo createButcherOperationInfo(WorldObject performer, World world) {
 		WorldObject target = GoalUtils.findNearestTarget(performer, Actions.BUTCHER_ACTION, world);
-		if (target != null && Reach.distance(performer, target) < 15) {
+		if (target != null) {
 			return new OperationInfo(performer, target, Args.EMPTY, Actions.BUTCHER_ACTION);
 		} else {
 			return null;

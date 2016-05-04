@@ -37,11 +37,11 @@ public class CaptureCriminalsGoal implements Goal {
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		WorldObject jail = BuildingGenerator.findEmptyJail(world);
 		if (jail != null) {
-			List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.CAPTURE_PERSON_ACTION, w -> isCriminal(performer, w) && w.getProperty(Constants.CONDITIONS).hasCondition(Condition.UNCONSCIOUS_CONDITION), world);
+			List<WorldObject> targets = GoalUtils.findNearestTargetsByProperty(performer, Actions.CAPTURE_PERSON_ACTION, Constants.STRENGTH, w -> isCriminal(performer, w) && w.getProperty(Constants.CONDITIONS).hasCondition(Condition.UNCONSCIOUS_CONDITION), world);
 			if (targets.size() > 0) {
 				return new OperationInfo(performer, targets.get(0), Args.EMPTY, Actions.CAPTURE_PERSON_ACTION);
 			} else {
-				targets = GoalUtils.findNearestTargets(performer, Actions.NON_LETHAL_MELEE_ATTACK_ACTION, w -> isCriminal(performer, w), world);
+				targets = GoalUtils.findNearestTargetsByProperty(performer, Actions.NON_LETHAL_MELEE_ATTACK_ACTION, Constants.STRENGTH, w -> isCriminal(performer, w), world);
 				if (targets.size() > 0) {
 					return new OperationInfo(performer, targets.get(0), Args.EMPTY, Actions.NON_LETHAL_MELEE_ATTACK_ACTION);
 				}
