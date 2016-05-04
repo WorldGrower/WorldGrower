@@ -17,6 +17,7 @@ package org.worldgrower.generator;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import org.worldgrower.Constants;
 import org.worldgrower.World;
@@ -24,6 +25,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.IdList;
+import org.worldgrower.attribute.LookDirection;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.PropertyCountMap;
 import org.worldgrower.attribute.Skill;
@@ -36,6 +38,7 @@ import org.worldgrower.gui.ImageIds;
 public class CreatureGenerator implements Serializable {
 
 	private final WorldObject organization;
+	private final Random random = new Random(0);
 	
 	public CreatureGenerator(WorldObject organization) {
 		this.organization = organization;
@@ -46,7 +49,7 @@ public class CreatureGenerator implements Serializable {
 		int id = world.generateUniqueId();
 		
 		final String gender;
-		if (Math.random() > 0.5f) {
+		if (random.nextFloat() > 0.5f) {
 			gender = "female";
 		} else {
 			gender = "male";
@@ -99,7 +102,7 @@ public class CreatureGenerator implements Serializable {
 		int id = world.generateUniqueId();
 		
 		final String gender;
-		if (Math.random() > 0.5f) {
+		if (random.nextFloat() > 0.5f) {
 			gender = "female";
 		} else {
 			gender = "male";
@@ -152,7 +155,7 @@ public class CreatureGenerator implements Serializable {
 		int id = world.generateUniqueId();
 		
 		final String gender;
-		if (Math.random() > 0.5f) {
+		if (random.nextFloat() > 0.5f) {
 			gender = "female";
 		} else {
 			gender = "male";
@@ -247,7 +250,7 @@ public class CreatureGenerator implements Serializable {
 		int id = world.generateUniqueId();
 		
 		final String gender;
-		if (Math.random() > 0.5f) {
+		if (random.nextFloat() > 0.5f) {
 			gender = "female";
 		} else {
 			gender = "male";
@@ -291,22 +294,27 @@ public class CreatureGenerator implements Serializable {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();
 		
+		final ImageIds imageId;
 		final String gender;
-		if (Math.random() > 0.5f) {
+		if (random.nextFloat() > 0.5f) {
 			gender = "female";
+			imageId = ImageIds.COW;
 		} else {
 			gender = "male";
+			imageId = ImageIds.BULL;
 		}
 		
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 1);
 		properties.put(Constants.HEIGHT, 1);
+		properties.put(Constants.STRENGTH, 10);
 		properties.put(Constants.HIT_POINTS, 4 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.HIT_POINTS_MAX, 5 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.NAME, "Cow");
 		properties.put(Constants.ID, id);
-		properties.put(Constants.IMAGE_ID, ImageIds.COW);
+		properties.put(Constants.IMAGE_ID, imageId);
+		properties.put(Constants.LOOK_DIRECTION, LookDirection.SOUTH);
 		properties.put(Constants.FOOD, 1000);
 		properties.put(Constants.WATER, 1000);
 		properties.put(Constants.ENERGY, 1000);
@@ -325,7 +333,7 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.DAMAGE, 2 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		
-		WorldObject cow = new WorldObjectImpl(properties, new CowOnTurn(this::generateCow));
+		WorldObject cow = new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new CowOnTurn(this::generateCow), new CowWorldEvaluationFunction());
 		world.addWorldObject(cow);
 		
 		return id;

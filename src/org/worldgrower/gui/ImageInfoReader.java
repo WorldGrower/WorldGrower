@@ -307,7 +307,8 @@ public class ImageInfoReader {
 		add(ImageIds.REPAIR_HAMMER, sprites420.getSubImage(3, 9, 1, 1));
 		
 		add(ImageIds.IRON_GREATSWORD, sprites420.getSubImage(3, 5, 1, 1));
-		add(ImageIds.COW, cow.getSubImage(0, 0, 1, 1));
+		addCharacter(ImageIds.COW, cow, 0, 0, 1, 1);
+		addCharacter(ImageIds.BULL, cow, 6, 0, 1, 1);
 		add(ImageIds.IRON_AXE, sprites420.getSubImage(5, 10, 1, 1));
 		add(ImageIds.IRON_GREATAXE, sprites420.getSubImage(2, 10, 1, 1));
 		add(ImageIds.MEAT, sprites420.getSubImage(11, 1, 1, 1));

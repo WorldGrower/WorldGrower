@@ -81,7 +81,10 @@ public class CustomGameParameters implements GameParameters {
 			commonerGenerator.generateCommoner(1, 1, world, organization);
 		}
 		
-		new CreatureGenerator(organization).generateCow(7, 2, world);
+		CreatureGenerator creatureGenerator = new CreatureGenerator(organization);
+		creatureGenerator.generateCow(7, 2, world);
+		creatureGenerator.generateCow(8, 2, world);
+		creatureGenerator.generateCow(9, 2, world);
 		
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, 3);

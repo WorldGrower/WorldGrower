@@ -20,7 +20,6 @@ import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OnTurn;
 import org.worldgrower.OperationInfo;
-import org.worldgrower.Reach;
 import org.worldgrower.TaskCalculator;
 import org.worldgrower.TaskCalculatorImpl;
 import org.worldgrower.World;
@@ -35,6 +34,8 @@ import org.worldgrower.terrain.TerrainType;
 
 public class CowOnTurn implements OnTurn {
 
+	private static final int PREGNANCY_DURATION = 200;
+	
 	private final AddWorldObjectFunction addWorldObjectFunction;
 	
 	public CowOnTurn(AddWorldObjectFunction addWorldObjectFunction) {
@@ -73,26 +74,27 @@ public class CowOnTurn implements OnTurn {
 	}
 
 	private void checkPregnancy(WorldObject worldObject, World world, int currentTurn) {
-		if ((currentTurn > 0) && (currentTurn % 500 == 0)) {
-			int performerX = worldObject.getProperty(Constants.X);
-			int performerY = worldObject.getProperty(Constants.Y);
-			int[] position = GoalUtils.findOpenSpace(worldObject, 1, 1, world);
-			if (position != null) {
-				int x = position[0] + performerX;
-				int y = position[1] + performerY;
-				if (!LocationUtils.areInvalidCoordinates(x, y, world)) {
-					TerrainType terrainType = world.getTerrain().getTerrainInfo(x, y).getTerrainType();
-					if (terrainType != TerrainType.WATER) {
-						if (getSurroundingWorldObjects(worldObject, world).size() < 2) {
+		Integer pregnancy = worldObject.getProperty(Constants.PREGNANCY);
+		if (pregnancy != null) {
+			pregnancy = pregnancy + 1;
+			worldObject.setProperty(Constants.PREGNANCY, pregnancy);
+			
+			if (pregnancy > PREGNANCY_DURATION) {
+				int performerX = worldObject.getProperty(Constants.X);
+				int performerY = worldObject.getProperty(Constants.Y);
+				int[] position = GoalUtils.findOpenSpace(worldObject, 1, 1, world);
+				if (position != null) {
+					int x = position[0] + performerX;
+					int y = position[1] + performerY;
+					if (!LocationUtils.areInvalidCoordinates(x, y, world)) {
+						TerrainType terrainType = world.getTerrain().getTerrainInfo(x, y).getTerrainType();
+						if (terrainType != TerrainType.WATER) {
 							addWorldObjectFunction.addToWorld(x, y, world);
+							worldObject.removeProperty(Constants.PREGNANCY);
 						}
 					}
 				}
 			}
 		}
-	}
-	
-	private List<WorldObject> getSurroundingWorldObjects(WorldObject worldObject, World world) {
-		return world.findWorldObjectsByProperty(Constants.MEAT_SOURCE, w -> Reach.evaluateTarget(worldObject, null, w, 1) == 0);
 	}
 }

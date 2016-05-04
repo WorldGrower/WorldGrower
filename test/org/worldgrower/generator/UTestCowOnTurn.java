@@ -52,6 +52,7 @@ public class UTestCowOnTurn {
 
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject cow = createCow(world, organization);
+		cow.setProperty(Constants.PREGNANCY, 0);
 		
 		world = new MockWorld(new MockTerrain(TerrainType.GRASLAND), world);
 		assertEquals(2, world.getWorldObjects().size());

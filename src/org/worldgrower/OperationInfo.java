@@ -20,6 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.worldgrower.actions.Actions;
+import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.generator.CommonerGenerator;
 import org.worldgrower.history.HistoryItem;
 
@@ -94,7 +95,7 @@ public class OperationInfo implements Serializable {
 		
 		for(WorldObject worldObject : worldObjects) {
 			if (worldObject.hasProperty(Constants.HIT_POINTS) && worldObject.getProperty(Constants.HIT_POINTS) == 0) {
-				if (worldObject.hasIntelligence()) {
+				if (worldObject.hasIntelligence() && worldObject.getProperty(Constants.CREATURE_TYPE) == CreatureType.HUMAN_CREATURE_TYPE) {
 					CommonerGenerator.generateSkeletalRemains(worldObject, world);
 				}
 				world.removeWorldObject(worldObject);
