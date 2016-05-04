@@ -35,6 +35,11 @@ public class HarvestFoodAction implements ManagedOperation {
 		inventoryPerformer.addQuantity(harvestedFood);
 
 		target.increment(Constants.FOOD_SOURCE, -20);
+		int targetFoodSource = target.getProperty(Constants.FOOD_SOURCE);
+		int targetFoodProduced = target.getProperty(Constants.FOOD_PRODUCED);
+		if (targetFoodSource < 20 && targetFoodProduced >= 100) {
+			target.setProperty(Constants.HIT_POINTS, 0);
+		}
 		world.logAction(this, performer, target, args, null);
 	}
 
@@ -55,7 +60,7 @@ public class HarvestFoodAction implements ManagedOperation {
 
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return (target.hasProperty(Constants.FOOD_SOURCE)) && (target.getProperty(Constants.FOOD_SOURCE) > 20);
+		return (target.hasProperty(Constants.FOOD_SOURCE)) && (target.getProperty(Constants.FOOD_SOURCE) >= 20);
 	}
 
 	@Override

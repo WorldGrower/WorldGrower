@@ -25,7 +25,11 @@ public class BerryBushOnTurn implements OnTurn {
 
 	@Override
 	public void onTurn(WorldObject worldObject, World world, WorldStateChangedListeners creatureTypeChangedListeners) {
-		worldObject.increment(Constants.FOOD_SOURCE, 10);
+		int foodProduced = worldObject.getProperty(Constants.FOOD_PRODUCED);
+		if (foodProduced < 100) {
+			worldObject.increment(Constants.FOOD_SOURCE, 1);
+			worldObject.increment(Constants.FOOD_PRODUCED, 1);
+		}
 		DrownUtils.checkForDrowning(worldObject, world);
 	}
 }

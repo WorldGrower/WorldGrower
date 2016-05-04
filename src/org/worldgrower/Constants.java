@@ -118,6 +118,7 @@ public class Constants {
 	public static final IntProperty COTTON_SOURCE = new IntProperty("cottonSource", 0, 500, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty COTTON = new IntProperty("cotton", 0, 500, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty MEAT_SOURCE = new IntProperty("meatSource", 0, 25, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty FOOD_PRODUCED = new IntProperty("foodProduced",0, 500, NOT_NULLABLE, ALL_PROPERTIES);
 	
 	public static final IntProperty WOOD = new IntProperty("wood", 0, 50, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IdListProperty HOUSES = new IdListProperty("houses", ALL_PROPERTIES);

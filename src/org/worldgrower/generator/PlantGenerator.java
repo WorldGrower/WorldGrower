@@ -49,6 +49,7 @@ public class PlantGenerator {
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.BUSH);
 		properties.put(Constants.FOOD_SOURCE, 1);
+		properties.put(Constants.FOOD_PRODUCED, 1);
 		properties.put(Constants.HIT_POINTS, 15 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.HIT_POINTS_MAX, 15 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
