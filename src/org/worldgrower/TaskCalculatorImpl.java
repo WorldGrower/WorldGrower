@@ -23,7 +23,6 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.worldgrower.actions.Actions;
-import org.worldgrower.goal.Zone;
 
 public class TaskCalculatorImpl implements TaskCalculator, Serializable {
 
@@ -31,7 +30,7 @@ public class TaskCalculatorImpl implements TaskCalculator, Serializable {
 	
 	@Override
 	public List<OperationInfo> calculateTask(WorldObject performer, World world, OperationInfo goal) {
-		Zone zone = calculateZone(world);
+		LocationWorldObjectsCache zone = (LocationWorldObjectsCache) world.getWorldObjectsCache(Constants.X, Constants.Y);
 		
 		WorldObject copyPerformer = performer.shallowCopy();
 		
@@ -103,7 +102,7 @@ public class TaskCalculatorImpl implements TaskCalculator, Serializable {
 		return reconstructedPath;
 	}
 
-	private List<Node> neighbourNodes(Node node, World world, Zone zone) {
+	private List<Node> neighbourNodes(Node node, World world, LocationWorldObjectsCache zone) {
 		List<Node> result = new ArrayList<>();
 		int newG = node.g + 1;
 		addNodeToList(result, new Node(node.x - 1, node.y - 1, newG), world, zone);
@@ -117,21 +116,14 @@ public class TaskCalculatorImpl implements TaskCalculator, Serializable {
 		return result;
 	}
 	
-	private void addNodeToList(List<Node> list, Node neighbourNode, World world, Zone zone) {
+	private void addNodeToList(List<Node> list, Node neighbourNode, World world, LocationWorldObjectsCache zone) {
 		if ((neighbourNode.x >= 0) && (neighbourNode.x < world.getWidth()) && 
 				(neighbourNode.y >= 0) && (neighbourNode.y < world.getHeight()) && 
 				zone.value(neighbourNode.x, neighbourNode.y) == 0) {
 			list.add(neighbourNode);
 		}
 	}
-	
-	private Zone calculateZone(World world) {
-		Zone zone = new Zone(world.getWidth(), world.getHeight());
-		
-		zone.addSquaresOccupiedData(world.getWorldObjects());
-		return zone;
-	}
-	
+
 	private static class Node {
 		public int x;
 		public int y;

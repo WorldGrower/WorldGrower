@@ -16,7 +16,11 @@ package org.worldgrower;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
+import org.worldgrower.goal.Zone;
 
 public class UTestLocationWorldObjectsCache {
 
@@ -105,5 +109,23 @@ public class UTestLocationWorldObjectsCache {
 		assertEquals(0, cache.getWorldObjectsFor(1, 1).size());
 		assertEquals(1, cache.getWorldObjectsFor(3, 3).size());
 		assertEquals(1, cache.getWorldObjectsFor(4, 4).size());
+	}
+	
+	@Test
+	public void testValue() {
+		LocationWorldObjectsCache cache = new LocationWorldObjectsCache(5, 5);
+		
+		cache.add(TestUtils.createWorldObject(1, 1, 2, 2));
+		cache.add(TestUtils.createWorldObject(3, 3, 1, 1));
+		
+		assertEquals(0, cache.value(0, 0));
+		assertEquals(1, cache.value(1, 1));
+		assertEquals(1, cache.value(1, 2));
+		assertEquals(1, cache.value(2, 1));
+		assertEquals(1, cache.value(2, 2));
+		assertEquals(0, cache.value(2, 3));
+		assertEquals(0, cache.value(3, 2));
+		assertEquals(1, cache.value(3, 3));
+		assertEquals(0, cache.value(4, 4));
 	}
 }

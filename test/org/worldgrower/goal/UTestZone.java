@@ -69,25 +69,4 @@ public class UTestZone {
 		assertEquals(5, zone.value(3, 3));
 		assertEquals(5, zone.value(4, 4));
 	}
-	
-	@Test
-	public void testAddSquaresOccupiedData() {
-		Zone zone = new Zone(5, 5);
-		
-		List<WorldObject> worldObjects = new ArrayList<>();
-		worldObjects.add(TestUtils.createWorldObject(1, 1, 2, 2));
-		worldObjects.add(TestUtils.createWorldObject(3, 3, 1, 1));
-		
-		zone.addSquaresOccupiedData(worldObjects);
-		
-		assertEquals(0, zone.value(0, 0));
-		assertEquals(1, zone.value(1, 1));
-		assertEquals(1, zone.value(1, 2));
-		assertEquals(1, zone.value(2, 1));
-		assertEquals(1, zone.value(2, 2));
-		assertEquals(0, zone.value(2, 3));
-		assertEquals(0, zone.value(3, 2));
-		assertEquals(1, zone.value(3, 3));
-		assertEquals(0, zone.value(4, 4));
-	}
 }

@@ -22,6 +22,7 @@ import java.util.List;
 class LocationWorldObjectsCache implements WorldObjectsCache, Serializable {
 
 	private final WorldObjectsList[][] cache;
+	private final int[][] zone;
 	
 	public LocationWorldObjectsCache(int width, int height) {
 		cache = new WorldObjectsList[width][height];
@@ -31,6 +32,12 @@ class LocationWorldObjectsCache implements WorldObjectsCache, Serializable {
 				cache[i][j] = new WorldObjectsList();
 			}
 		}
+		
+		this.zone = new int[width][height];
+	}
+	
+	private boolean isPassable(WorldObject target) {
+		return target.hasProperty(Constants.PASSABLE) && target.getProperty(Constants.PASSABLE);
 	}
 	
 	@Override
@@ -43,6 +50,9 @@ class LocationWorldObjectsCache implements WorldObjectsCache, Serializable {
 			for(int i=x; i<x+width; i++) {
 				for(int j=y; j<y+height; j++) {
 					cache[i][j].add(worldObject);
+					if (!isPassable(worldObject)) {
+						zone[i][j]++;
+					}
 				}
 			}
 		}
@@ -62,6 +72,9 @@ class LocationWorldObjectsCache implements WorldObjectsCache, Serializable {
 			for(int i=x; i<x+width; i++) {
 				for(int j=y; j<y+height; j++) {
 					cache[i][j].remove(worldObject);
+					if (!isPassable(worldObject)) {
+						zone[i][j]--;
+					}
 				}
 			}
 		}
@@ -81,6 +94,9 @@ class LocationWorldObjectsCache implements WorldObjectsCache, Serializable {
 		for(int i=newX; i<newX+width; i++) {
 			for(int j=newY; j<newY+height; j++) {
 				cache[i][j].add(worldObject);
+				if (!isPassable(worldObject)) {
+					zone[i][j]++;
+				}
 			}
 		}
 	}
@@ -92,8 +108,15 @@ class LocationWorldObjectsCache implements WorldObjectsCache, Serializable {
 		for(int i=newX; i<newX+newWidth; i++) {
 			for(int j=newY; j<newY+newHeight; j++) {
 				cache[i][j].add(worldObject);
+				if (!isPassable(worldObject)) {
+					zone[i][j]++;
+				}
 			}
 		}
+	}
+	
+	public int value(int x, int y) {
+		return zone[x][y];
 	}
 
 	private static class WorldObjectsList implements Serializable {
