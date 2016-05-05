@@ -42,6 +42,15 @@ public class Conditions implements Serializable {
 	
 	private void removeConditionFromWorldObject(WorldObject worldObject, Condition condition, WorldStateChangedListeners worldStateChangedListeners, World world) {
 		conditions.remove(condition);
+		conditionEnds(worldObject, condition, worldStateChangedListeners, world);
+	}
+	
+	private void removeConditionFromWorldObjectWhileIterating(WorldObject worldObject, Condition condition, Iterator<Entry<Condition, ConditionInfo>> conditionIterator, WorldStateChangedListeners worldStateChangedListeners, World world) {
+		conditionIterator.remove();
+		conditionEnds(worldObject, condition, worldStateChangedListeners, world);
+	}
+
+	private void conditionEnds(WorldObject worldObject, Condition condition, WorldStateChangedListeners worldStateChangedListeners, World world) {
 		condition.conditionEnds(worldObject, world);
 		conditionLost(worldObject, condition, worldStateChangedListeners);
 	}
@@ -93,7 +102,9 @@ public class Conditions implements Serializable {
 	}
 	
 	public void onTurn(WorldObject worldObject, World world, WorldStateChangedListeners creatureTypeChangedListeners) {
-		for(Entry<Condition, ConditionInfo> entry : conditions.entrySet()) {
+		Iterator<Entry<Condition, ConditionInfo>> conditionIterator = conditions.entrySet().iterator();
+		while (conditionIterator.hasNext()) {
+			Entry<Condition, ConditionInfo> entry = conditionIterator.next();
 			int startTurns = entry.getValue().getStartTurn();
 			entry.getKey().onTurn(worldObject, world, startTurns, creatureTypeChangedListeners);
 			int turnsItWillLast = entry.getValue().getTurnsItWillLast();
@@ -101,9 +112,13 @@ public class Conditions implements Serializable {
 			if (turnsItWillLast != 0) {
 				entry.getValue().setTurnsItWillLast(turnsItWillLast);
 			} else {
-				removeConditionFromWorldObject(worldObject, entry.getKey(), world.getWorldStateChangedListeners(), world);
+				removeConditionFromWorldObjectWhileIterating(worldObject, entry.getKey(), conditionIterator, world.getWorldStateChangedListeners(), world);
 			}
 		}
+	}
+	
+	void setConditionToEndOnNextOnTurn(Condition condition) {
+		conditions.get(condition).setTurnsItWillLast(1);
 	}
 
 	public boolean hasCondition(Condition condition) {

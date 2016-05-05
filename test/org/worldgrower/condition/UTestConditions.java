@@ -51,6 +51,23 @@ public class UTestConditions {
 	}
 	
 	@Test
+	public void testOnTurnIntoxicated() {
+		WorldObject worldObject = TestUtils.createIntelligentWorldObject(3, "worldObject");
+		Conditions conditions = worldObject.getProperty(Constants.CONDITIONS);
+		World world = new WorldImpl(1, 1, null, null);
+		conditions.addCondition(worldObject, Condition.INTOXICATED_CONDITION, 2, world);
+		conditions.addCondition(worldObject, Condition.COCOONED_CONDITION, 2, world);
+		worldObject.setProperty(Constants.ALCOHOL_LEVEL, 12);
+		
+		conditions.onTurn(worldObject, world, null);
+		assertEquals(true, conditions.hasCondition(Condition.INTOXICATED_CONDITION));
+		
+		worldObject.setProperty(Constants.ALCOHOL_LEVEL, 0);
+		conditions.onTurn(worldObject, world, null);
+		assertEquals(false, conditions.hasCondition(Condition.INTOXICATED_CONDITION));
+	}
+	
+	@Test
 	public void testCanTakeAction() {
 		Conditions conditions = new Conditions();
 		World world = new WorldImpl(1, 1, null, null);

@@ -46,7 +46,7 @@ public class IntoxicatedCondition implements Condition {
 	public void onTurn(WorldObject worldObject, World world, int startTurn, WorldStateChangedListeners creatureTypeChangedListeners) {
 		if (worldObject.getProperty(Constants.ALCOHOL_LEVEL) < worldObject.getProperty(Constants.CONSTITUTION)) {
 			if (worldObject.getProperty(Constants.CONDITIONS).hasCondition(this)) {
-				Conditions.remove(worldObject, this, world);
+				worldObject.getProperty(Constants.CONDITIONS).setConditionToEndOnNextOnTurn(this);
 			}
 		}
 	}

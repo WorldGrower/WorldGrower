@@ -25,8 +25,6 @@ import org.worldgrower.WorldObject;
 
 public class UTestIntoxicatedCondition {
 
-	private final IntoxicatedCondition condition = Condition.INTOXICATED_CONDITION;
-	
 	@Test
 	public void testOnTurn() {
 		World world = new WorldImpl(1, 1, null, null);
@@ -34,12 +32,12 @@ public class UTestIntoxicatedCondition {
 		performer.setProperty(Constants.ALCOHOL_LEVEL, 500);
 		Conditions.add(performer, Condition.INTOXICATED_CONDITION, 8, world);
 		
-		condition.onTurn(performer, world, 100, new WorldStateChangedListeners());
+		performer.getProperty(Constants.CONDITIONS).onTurn(performer, world, new WorldStateChangedListeners());
 		
 		assertEquals(true, performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.INTOXICATED_CONDITION));
 		
 		performer.setProperty(Constants.ALCOHOL_LEVEL, 0);
-		condition.onTurn(performer, world, 100, new WorldStateChangedListeners());
+		performer.getProperty(Constants.CONDITIONS).onTurn(performer, world, new WorldStateChangedListeners());
 		assertEquals(false, performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.INTOXICATED_CONDITION));
 	}
 }

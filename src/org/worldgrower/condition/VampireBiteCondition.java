@@ -16,6 +16,7 @@ package org.worldgrower.condition;
 
 import java.util.List;
 
+import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
@@ -47,7 +48,7 @@ public class VampireBiteCondition implements Condition {
 		
 		if (currentTurn - startTurn > 1000) {
 			VampireUtils.vampirizePerson(worldObject, creatureTypeChangedListeners);
-			Conditions.remove(worldObject, this, world);
+			worldObject.getProperty(Constants.CONDITIONS).setConditionToEndOnNextOnTurn(this);
 		}
 	}
 	
