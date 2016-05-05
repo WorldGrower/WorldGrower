@@ -83,7 +83,7 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 	}
 	
 	private List<WorldObject> getNPCs() {
-		return world.findWorldObjects(w -> w.isControlledByAI() && w.hasIntelligence() && w.getProperty(Constants.CREATURE_TYPE) == CreatureType.HUMAN_CREATURE_TYPE);
+		return world.findWorldObjects(w -> w.isControlledByAI() && w.hasIntelligence() && w.getProperty(Constants.CREATURE_TYPE) != CreatureType.COW_CREATURE_TYPE);
 	}
 	
 	private class WorldModel extends AbstractTableModel {
