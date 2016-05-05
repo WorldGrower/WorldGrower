@@ -37,7 +37,7 @@ public class HarvestFoodAction implements ManagedOperation {
 		target.increment(Constants.FOOD_SOURCE, -20);
 		int targetFoodSource = target.getProperty(Constants.FOOD_SOURCE);
 		int targetFoodProduced = target.getProperty(Constants.FOOD_PRODUCED);
-		if (targetFoodSource < 20 && targetFoodProduced >= 100) {
+		if (targetFoodSource < 20 && targetFoodProduced >= 80) {
 			target.setProperty(Constants.HIT_POINTS, 0);
 		}
 		world.logAction(this, performer, target, args, null);
