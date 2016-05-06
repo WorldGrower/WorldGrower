@@ -38,6 +38,7 @@ public interface History {
 	public Collection<HistoryItem> getAllLastPerformedOperations();
 	public List<HistoryItem> findHistoryItems(ManagedOperation managedOperation);
 	public HistoryItem getHistoryItem(int historyItemId);
+	public int size();
 	public List<HistoryItem> findHistoryItems(WorldObject performer, ManagedOperation managedOperation);
 
 	public void setNextAdditionalValue(Object value);
