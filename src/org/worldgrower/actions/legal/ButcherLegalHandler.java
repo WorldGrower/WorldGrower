@@ -28,7 +28,7 @@ public class ButcherLegalHandler implements ActionLegalHandler {
 
 	@Override
 	public String getSimpleDescription() {
-		return "butcher cattle";
+		return "unowned cattle";
 	}
 	
 	@Override
