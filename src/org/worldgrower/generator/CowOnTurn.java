@@ -47,7 +47,9 @@ public class CowOnTurn implements OnTurn {
 		int currentTurn = world.getCurrentTurn().getValue();
 		
 		if ((currentTurn > 0) && (currentTurn % 100 == 0)) {
-			worldObject.increment(Constants.MEAT_SOURCE, 1);
+			if (worldObject.getProperty(Constants.MEAT_SOURCE).intValue() < 10) {
+				worldObject.increment(Constants.MEAT_SOURCE, 1);
+			}
 		}
 
 		worldObject.getProperty(Constants.CONDITIONS).onTurn(worldObject, world, creatureTypeChangedListeners);
