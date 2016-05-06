@@ -29,6 +29,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.actions.legal.ButcherLegalHandler;
 import org.worldgrower.actions.legal.DefaultActionLegalHandler;
 import org.worldgrower.actions.legal.LegalAction;
 import org.worldgrower.actions.legal.LegalActions;
@@ -213,6 +214,9 @@ public class GroupPropertyUtils {
 			LegalAction legalAction = new LegalAction(Actions.WORSHIP_DEITY_ACTION, new WorshipDeityLegalHandler(deity));
 			legalActions.put(legalAction, Boolean.TRUE);
 		}
+		
+		LegalAction legalAction = new LegalAction(Actions.BUTCHER_ACTION, new ButcherLegalHandler());
+		legalActions.put(legalAction, Boolean.FALSE);
 		
 		organization.setProperty(Constants.LEGAL_ACTIONS, new LegalActions(legalActions));
 	}

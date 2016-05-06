@@ -41,6 +41,8 @@ public class UTestFeedOthersGoal {
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
 		
+		createVillagersOrganization(world);
+		
 		assertEquals(null, goal.calculateGoal(performer, world));
 	}
 	
@@ -70,6 +72,8 @@ public class UTestFeedOthersGoal {
 		WorldObject berryBush = world.findWorldObject(Constants.ID, berryBushId);
 		berryBush.setProperty(Constants.FOOD_SOURCE, 200);
 		
+		createVillagersOrganization(world);
+		
 		assertEquals(Actions.HARVEST_FOOD_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
 	
@@ -84,6 +88,13 @@ public class UTestFeedOthersGoal {
 		WorldObject target = createCommoner(world, organization);
 		target.setProperty(Constants.FOOD, 0);
 		assertEquals(false, goal.isGoalMet(performer, world));
+	}
+	
+	private WorldObject createVillagersOrganization(World world) {
+		WorldObject villagersOrganization = GroupPropertyUtils.createVillagersOrganization(world);
+		villagersOrganization.setProperty(Constants.ID, 1);
+		world.addWorldObject(villagersOrganization);
+		return villagersOrganization;
 	}
 
 	private WorldObject createCommoner(World world, WorldObject organization) {

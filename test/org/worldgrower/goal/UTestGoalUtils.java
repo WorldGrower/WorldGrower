@@ -110,6 +110,22 @@ public class UTestGoalUtils {
 	}
 	
 	@Test
+	public void testfindNearestTargetsDistance() {
+		World world = createWorld();
+		WorldObject performer = TestUtils.createWorldObject(3, 3, 1, 1);
+		world.addWorldObject(performer);
+		
+		world.addWorldObject(TestUtils.createWorldObject(4, 4, 1, 1, Constants.WOOD_SOURCE, 30));
+		world.addWorldObject(TestUtils.createWorldObject(6, 6, 1, 1, Constants.WOOD_SOURCE, 40));
+		
+		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.CUT_WOOD_ACTION, w -> true, world);
+		
+		assertEquals(2, targets.size());
+		assertEquals(30, targets.get(0).getProperty(Constants.WOOD_SOURCE).intValue());
+		assertEquals(4, targets.get(0).getProperty(Constants.X).intValue());
+	}
+	
+	@Test
 	public void testActionAlreadyPerformed() {
 		World world = createWorld();
 		WorldObject performer = TestUtils.createIntelligentWorldObject(6, Constants.CREATURE_TYPE, CreatureType.HUMAN_CREATURE_TYPE);

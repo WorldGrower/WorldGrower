@@ -15,6 +15,8 @@
 package org.worldgrower.goal;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -28,6 +30,20 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.ManagedProperty;
 
 public class GoalUtils {
+
+	private static class WorldObjectDistanceComparator implements Comparator<WorldObject> {
+		private final WorldObject performer;
+		
+		public WorldObjectDistanceComparator(WorldObject performer) {
+			super();
+			this.performer = performer;
+		}
+
+		@Override
+		public int compare(WorldObject o1, WorldObject o2) {
+			return Integer.compare(Reach.distance(performer, o1), Reach.distance(performer, o2));
+		}
+	}
 
 	public static WorldObject findNearestTarget(WorldObject performer, ManagedOperation action, World world) {
 		List<WorldObject> worldObjects = world.findWorldObjects(w -> action.isValidTarget(performer, w, world));
@@ -50,11 +66,15 @@ public class GoalUtils {
 	}
 	
 	public static List<WorldObject> findNearestTargets(WorldObject performer, ManagedOperation action, Predicate<WorldObject> condition, World world) {
-		return world.findWorldObjects(w -> action.isValidTarget(performer, w, world) && condition.test(w));
+		List<WorldObject> targets =  world.findWorldObjects(w -> action.isValidTarget(performer, w, world) && condition.test(w));
+		Collections.sort(targets, new WorldObjectDistanceComparator(performer));
+		return targets;
 	}
 	
 	public static List<WorldObject> findNearestTargetsByProperty(WorldObject performer, ManagedOperation action, ManagedProperty<?> property, Predicate<WorldObject> condition, World world) {
-		return world.findWorldObjectsByProperty(property, w -> action.isValidTarget(performer, w, world) && condition.test(w));
+		List<WorldObject> targets = world.findWorldObjectsByProperty(property, w -> action.isValidTarget(performer, w, world) && condition.test(w));
+		Collections.sort(targets, new WorldObjectDistanceComparator(performer));
+		return targets;
 	}
 	
 	public static OperationInfo createOperationInfo(WorldObject performer, ManagedOperation action, int[] args, World world) {

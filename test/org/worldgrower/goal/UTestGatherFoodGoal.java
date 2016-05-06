@@ -35,7 +35,9 @@ public class UTestGatherFoodGoal {
 	@Test
 	public void testCalculateGoalNull() {
 		World world = new WorldImpl(1, 1, null, null);
-		WorldObject performer = createPerformer();
+		WorldObject performer = createPerformer(2);
+		
+		createVillagersOrganization(world);
 		
 		assertEquals(null, goal.calculateGoal(performer, world));
 	}
@@ -43,11 +45,13 @@ public class UTestGatherFoodGoal {
 	@Test
 	public void testCalculateGoalHarvestTarget() {
 		World world = new WorldImpl(10, 10, null, null);
-		WorldObject performer = createPerformer();
+		WorldObject performer = createPerformer(2);
 		
 		int berryBushId = PlantGenerator.generateBerryBush(5, 5, world);
 		WorldObject berryBush = world.findWorldObject(Constants.ID, berryBushId);
 		berryBush.setProperty(Constants.FOOD_SOURCE, 500);
+		
+		createVillagersOrganization(world);
 		
 		assertEquals(Actions.HARVEST_FOOD_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
@@ -55,11 +59,13 @@ public class UTestGatherFoodGoal {
 	@Test
 	public void testCalculateGoalHarvestTargetFarAway() {
 		World world = new WorldImpl(25, 25, null, null);
-		WorldObject performer = createPerformer();
+		WorldObject performer = createPerformer(2);
 		
 		int berryBushId = PlantGenerator.generateBerryBush(20, 20, world);
 		WorldObject berryBush = world.findWorldObject(Constants.ID, berryBushId);
 		berryBush.setProperty(Constants.FOOD_SOURCE, 500);
+		
+		createVillagersOrganization(world);
 		
 		assertEquals(null, goal.calculateGoal(performer, world));
 	}
@@ -67,29 +73,45 @@ public class UTestGatherFoodGoal {
 	@Test
 	public void testCalculateGoalButcherTarget() {
 		World world = new WorldImpl(10, 10, null, null);
-		WorldObject performer = createPerformer();
-		
-		createVillagersOrganization(world);
+		WorldObject performer = createPerformer(2);
 		
 		CreatureGenerator creatureGenerator = new CreatureGenerator(TestUtils.createIntelligentWorldObject(1, "cow"));
 		int cowId = creatureGenerator.generateCow(5, 5, world);
 		WorldObject cow = world.findWorldObject(Constants.ID, cowId);
 		cow.setProperty(Constants.MEAT_SOURCE, 20);
 		
+		createVillagersOrganization(world);
+		
 		assertEquals(Actions.BUTCHER_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+	@Test
+	public void testCalculateGoalButcherClaimedTarget() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		
+		CreatureGenerator creatureGenerator = new CreatureGenerator(TestUtils.createIntelligentWorldObject(1, "cow"));
+		int cowId = creatureGenerator.generateCow(5, 5, world);
+		WorldObject cow = world.findWorldObject(Constants.ID, cowId);
+		cow.setProperty(Constants.MEAT_SOURCE, 20);
+		cow.setProperty(Constants.CATTLE_OWNER_ID, 7);
+		
+		createVillagersOrganization(world);
+		
+		assertEquals(null, goal.calculateGoal(performer, world));
 	}
 
 	@Test
 	public void testCalculateGoalButcherTargetFarAway() {
 		World world = new WorldImpl(25, 25, null, null);
-		WorldObject performer = createPerformer();
-		
-		createVillagersOrganization(world);
+		WorldObject performer = createPerformer(2);
 		
 		CreatureGenerator creatureGenerator = new CreatureGenerator(TestUtils.createIntelligentWorldObject(1, "cow"));
 		int cowId = creatureGenerator.generateCow(20, 20, world);
 		WorldObject cow = world.findWorldObject(Constants.ID, cowId);
 		cow.setProperty(Constants.MEAT_SOURCE, 20);
+		
+		createVillagersOrganization(world);
 		
 		assertEquals(null, goal.calculateGoal(performer, world));
 	}
@@ -97,7 +119,7 @@ public class UTestGatherFoodGoal {
 	@Test
 	public void testIsGoalMet() {
 		World world = new WorldImpl(10, 10, null, null);
-		WorldObject performer = createPerformer();
+		WorldObject performer = createPerformer(2);
 		performer.setProperty(Constants.FOOD, 0);
 		
 		assertEquals(false, goal.isGoalMet(performer, world));
@@ -113,8 +135,8 @@ public class UTestGatherFoodGoal {
 		return villagersOrganization;
 	}
 
-	private WorldObject createPerformer() {
-		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
+	private WorldObject createPerformer(int id) {
+		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.X, 0);
 		performer.setProperty(Constants.Y, 0);
 		performer.setProperty(Constants.WIDTH, 1);
