@@ -21,6 +21,7 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
@@ -33,7 +34,8 @@ public class ButcherAction implements ManagedOperation {
 		
 		WorldObject collectedMeat = Item.MEAT.generate(1f);
 		collectedMeat.setProperty(Constants.CREATURE_TYPE, target.getProperty(Constants.CREATURE_TYPE));
-		int quantity = target.getProperty(Constants.MEAT_SOURCE);
+
+		int quantity = (int) (target.getProperty(Constants.MEAT_SOURCE) * SkillUtils.useSkill(performer, Constants.FARMING_SKILL, world.getWorldStateChangedListeners()));
 		
 		inventoryPerformer.addQuantity(collectedMeat, quantity);
 		
