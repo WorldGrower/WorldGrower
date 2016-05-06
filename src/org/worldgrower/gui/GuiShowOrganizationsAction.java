@@ -14,6 +14,7 @@
  *******************************************************************************/
 package org.worldgrower.gui;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -41,6 +42,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.gui.util.ButtonFactory;
 import org.worldgrower.gui.util.JTableFactory;
+import org.worldgrower.gui.util.JTreeFactory;
 
 public class GuiShowOrganizationsAction extends AbstractAction {
 	private final WorldObject playerCharacter;
@@ -66,7 +68,7 @@ public class GuiShowOrganizationsAction extends AbstractAction {
 		scrollPane.setBounds(15, 15, 365, 200);
 		dialog.addComponent(scrollPane);
 		
-		JTree tree = new JTree(createRootNode(playerCharacter, world));
+		JTree tree = JTreeFactory.createJTree(createRootNode(playerCharacter, world));
 		tree.setRootVisible(false);
 		expandAllNodes(tree, 0, tree.getRowCount());
 		tree.setCellRenderer(new OrganizationMemberRenderer());
@@ -130,6 +132,11 @@ public class GuiShowOrganizationsAction extends AbstractAction {
 
 	class OrganizationMemberRenderer extends DefaultTreeCellRenderer {
 
+		public OrganizationMemberRenderer() {
+			this.setBackgroundNonSelectionColor(ColorPalette.DARK_BACKGROUND_COLOR);
+			this.setBackgroundSelectionColor(ColorPalette.LIGHT_BACKGROUND_COLOR);
+		}
+		
 	    public Component getTreeCellRendererComponent(
 	                        JTree tree,
 	                        Object value,
@@ -149,6 +156,8 @@ public class GuiShowOrganizationsAction extends AbstractAction {
 	        
             setIcon(new ImageIcon(imageInfoReader.getImage(worldObject.getProperty(Constants.IMAGE_ID), null)));
             setText(worldObject.getProperty(Constants.NAME));
+            setOpaque(false);
+            setForeground(ColorPalette.FOREGROUND_COLOR);
             
 	        return this;
 	    }
