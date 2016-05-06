@@ -26,6 +26,7 @@ import javax.swing.table.AbstractTableModel;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.creaturetype.CreatureType;
 
 public class GuiShowReasonsOverviewAction extends AbstractAction {
 	private World world;
@@ -51,7 +52,7 @@ public class GuiShowReasonsOverviewAction extends AbstractAction {
 	}
 	
 	private List<WorldObject> getNPCs() {
-		return world.findWorldObjects(w -> w.isControlledByAI() && w.hasIntelligence());
+		return world.findWorldObjects(w -> w.isControlledByAI() && w.hasIntelligence() && w.getProperty(Constants.CREATURE_TYPE) != CreatureType.COW_CREATURE_TYPE);
 	}
 	
 	private class WorldModel extends AbstractTableModel {
