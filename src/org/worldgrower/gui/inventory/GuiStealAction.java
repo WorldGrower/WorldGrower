@@ -90,7 +90,7 @@ public class GuiStealAction extends AbstractAction {
 				@Override
 				public void actionPerformed(ActionEvent actionEvent) {
 					int targetGold = target.getProperty(Constants.GOLD).intValue();
-					TextInputDialog textInputDialog = new TextInputDialog("Steal how much money (1-" + targetGold + ")?");
+					TextInputDialog textInputDialog = new TextInputDialog("Steal how much money (1-" + targetGold + ")?", true);
 					String input = textInputDialog.showMe();
 					if (input != null && input.length() > 0 && NumberUtils.isNumeric(input)) {
 						int amount = Integer.parseInt(input);

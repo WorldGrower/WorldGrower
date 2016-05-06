@@ -33,13 +33,17 @@ public class TextInputDialog extends AbstractDialog {
 	private JTextField textField;
 	
 	public TextInputDialog(String question) {
+		this(question, false);
+	}
+	
+	public TextInputDialog(String question, boolean numericInputOnly) {
 		super(450, 190);
 		
 		JLabel label = JLabelFactory.createJLabel(question);
 		label.setBounds(16, 16, 415, 50);
 		addComponent(label);
 		
-		textField = JTextFieldFactory.createJTextField();
+		textField = numericInputOnly ? JTextFieldFactory.createIntegerOnlyJTextField() : JTextFieldFactory.createJTextField();
 		textField.setBounds(16, 70, 415, 30);
 		addComponent(textField);
 		
@@ -73,14 +77,9 @@ public class TextInputDialog extends AbstractDialog {
 	}
 
 	private void addActions(JButton okButton, JButton cancelButton) {
-		okButton.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				value = textField.getText();
-				TextInputDialog.this.dispose();
-			}
-		});
+		ActionListener okButtonAction = new OkButtonAction();
+		okButton.addActionListener(okButtonAction);
+		textField.addActionListener(okButtonAction);
 		
 		cancelButton.addActionListener(new ActionListener() {
 			
@@ -90,5 +89,13 @@ public class TextInputDialog extends AbstractDialog {
 				TextInputDialog.this.dispose();
 			}
 		});
+	}
+	
+	private class OkButtonAction implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			value = textField.getText();
+			TextInputDialog.this.dispose();
+		}
 	}
 }

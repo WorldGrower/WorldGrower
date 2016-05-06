@@ -14,7 +14,9 @@
  *******************************************************************************/
 package org.worldgrower.gui.util;
 
+import javax.swing.JFormattedTextField;
 import javax.swing.JTextField;
+import javax.swing.text.PlainDocument;
 
 import org.worldgrower.gui.ColorPalette;
 import org.worldgrower.gui.font.Fonts;
@@ -23,6 +25,16 @@ public class JTextFieldFactory {
 
 	public static JTextField createJTextField() {
 		JTextField textField = new JTextField();
+		setTextFieldProperties(textField);
+		return textField;
+	}
+	
+	public static JTextField createIntegerOnlyJTextField() {
+		JTextField textField = new JFormattedTextField();
+		
+		 PlainDocument doc = (PlainDocument) textField.getDocument();
+		 doc.setDocumentFilter(new DocumentIntFilter());
+		
 		setTextFieldProperties(textField);
 		return textField;
 	}
