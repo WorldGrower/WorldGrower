@@ -71,10 +71,10 @@ public class UTestDungeonMaster {
 		World world = createWorld();
 		WorldObject worldObject = createWorldObject();
 		world.addWorldObject(worldObject);
-		OperationInfo operationInfo = new OperationInfo(worldObject, worldObject, Args.EMPTY, Actions.CUT_WOOD_ACTION);
+		OperationInfo operationInfo = new OperationInfo(worldObject, worldObject, Args.EMPTY, Actions.TALK_ACTION);
 		world.getHistory().actionPerformed(operationInfo, new Turn());
 		
-		assertEquals("[CutWoodAction([])]", dungeonMaster.getImmediateGoal(worldObject, world).toShortString());
+		assertEquals("[TalkAction([])]", dungeonMaster.getImmediateGoal(worldObject, world).toShortString());
 	}
 	
 	@Test

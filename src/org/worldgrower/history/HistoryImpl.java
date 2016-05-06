@@ -41,41 +41,38 @@ public class HistoryImpl implements History, Serializable {
 	
 	@Override
 	public HistoryItem actionPerformed(OperationInfo operationInfo, Turn turn) {
-		ManagedOperation action = operationInfo.getManagedOperation();
-		if (shouldLogAction(action)) {
-			HistoryItem historyItem = new HistoryItem(currentHistoryId, operationInfo.copy(), turn, currentAdditionalValue);
-			currentAdditionalValue = null;
-			
-			Integer performerId = historyItem.getOperationInfo().getPerformer().getProperty(Constants.ID);
-			addHistoryItem(historyItem);
-			
-			lastPerformedActionMap.put(performerId, historyItem);
-			
-			currentHistoryId++;
-			return historyItem;
-		} else {
-			return null;
-		}
+		HistoryItem historyItem = new HistoryItem(currentHistoryId, operationInfo.copy(), turn, currentAdditionalValue);
+		currentAdditionalValue = null;
+		
+		Integer performerId = historyItem.getOperationInfo().getPerformer().getProperty(Constants.ID);
+		addHistoryItem(historyItem);
+		
+		lastPerformedActionMap.put(performerId, historyItem);
+		
+		currentHistoryId++;
+		return historyItem;
 	}
 
 	private void addHistoryItem(HistoryItem historyItem) {
 		ManagedOperation action = historyItem.getOperationInfo().getManagedOperation();
-		historyItems.add(historyItem);
-		
-		Integer performerId = historyItem.getOperationInfo().getPerformer().getProperty(Constants.ID);
-		HistoryItemsForTarget historyItemsForTarget = historyItemsByPerformer.get(performerId);
-		if (historyItemsForTarget == null) {
-			historyItemsForTarget = new HistoryItemsForTarget();
-			historyItemsByPerformer.put(performerId, historyItemsForTarget);
+		if (shouldLogAction(action)) {
+			historyItems.add(historyItem);
+			
+			Integer performerId = historyItem.getOperationInfo().getPerformer().getProperty(Constants.ID);
+			HistoryItemsForTarget historyItemsForTarget = historyItemsByPerformer.get(performerId);
+			if (historyItemsForTarget == null) {
+				historyItemsForTarget = new HistoryItemsForTarget();
+				historyItemsByPerformer.put(performerId, historyItemsForTarget);
+			}
+			historyItemsForTarget.addHistoryItem(historyItem);
+			
+			List<HistoryItem> historyItemsByOperationsList = historyItemsByOperations.get(action);
+			if (historyItemsByOperationsList == null) {
+				historyItemsByOperationsList = new ArrayList<>();
+				historyItemsByOperations.put(action, historyItemsByOperationsList);
+			}
+			historyItemsByOperationsList.add(historyItem);
 		}
-		historyItemsForTarget.addHistoryItem(historyItem);
-		
-		List<HistoryItem> historyItemsByOperationsList = historyItemsByOperations.get(action);
-		if (historyItemsByOperationsList == null) {
-			historyItemsByOperationsList = new ArrayList<>();
-			historyItemsByOperations.put(action, historyItemsByOperationsList);
-		}
-		historyItemsByOperationsList.add(historyItem);
 	}
 
 	private boolean shouldLogAction(ManagedOperation action) {
@@ -85,8 +82,7 @@ public class HistoryImpl implements History, Serializable {
 				&& action != Actions.CUT_WOOD_ACTION
 				&& action != Actions.MINE_STONE_ACTION
 				&& action != Actions.MINE_ORE_ACTION
-				&& action != Actions.DO_NOTHING_ACTION
-				&& action != Actions.SEX_ACTION;
+				&& action != Actions.DO_NOTHING_ACTION;
 	}
 	
 	@Override
