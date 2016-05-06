@@ -39,7 +39,7 @@ public class ClaimHouseAction implements ManagedOperation {
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
 		int distanceBetweenPerformerAndTarget = Reach.evaluateTarget(performer, args, target, 1);
-		List<WorldObject> owners = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> w.getProperty(Constants.HOUSES).contains(target));
+		List<WorldObject> owners = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> w.hasProperty(Constants.HOUSES) && w.getProperty(Constants.HOUSES).contains(target));
 		return distanceBetweenPerformerAndTarget + owners.size();
 	}
 	
