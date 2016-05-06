@@ -37,6 +37,10 @@ public class CutWoodAction implements ManagedOperation {
 		
 		SkillUtils.useEnergy(performer, Constants.LUMBERING_SKILL, ENERGY_USE, world.getWorldStateChangedListeners());
 		world.logAction(this, performer, target, args, null);
+		
+		if (target.getProperty(Constants.WOOD_SOURCE) == 0) {
+			target.setProperty(Constants.HIT_POINTS, 0);
+		}
 	}
 
 	@Override

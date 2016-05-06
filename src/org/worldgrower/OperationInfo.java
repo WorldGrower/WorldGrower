@@ -100,9 +100,6 @@ public class OperationInfo implements Serializable {
 				}
 				world.removeWorldObject(worldObject);
 			}
-			if (worldObject.hasProperty(Constants.WOOD_SOURCE) && worldObject.getProperty(Constants.WOOD_SOURCE) == 0) {
-				world.removeWorldObject(worldObject);
-			}
 		}
 	}
 

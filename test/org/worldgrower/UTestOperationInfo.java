@@ -124,17 +124,6 @@ public class UTestOperationInfo {
 	}
 	
 	@Test
-	public void testRemoveDeadWorldObjectsWood() {
-		World world = new WorldImpl(10, 10, null, null);
-		WorldObject performer = TestUtils.createWorldObject(5, 5, 1, 1, Constants.WOOD_SOURCE, 0);
-		performer.setProperty(Constants.ID, 7);
-		world.addWorldObject(performer);
-		
-		OperationInfo.removeDeadWorldObjects(world);
-		assertEquals(0, world.getWorldObjects().size());
-	}
-	
-	@Test
 	public void testRemoveDeadWorldObjectsIntelligentHitPoints() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(7, "test");
