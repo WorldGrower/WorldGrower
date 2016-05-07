@@ -636,4 +636,8 @@ public class BuildingGenerator {
 	
 		return id;
 	}
+	
+	public static boolean isBrewery(WorldObject worldObject) {
+		return worldObject.hasProperty(Constants.BREWERY_QUALITY);
+	}
 }

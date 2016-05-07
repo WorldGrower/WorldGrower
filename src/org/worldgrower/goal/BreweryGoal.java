@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.BuildBreweryAction;
+import org.worldgrower.generator.BuildingGenerator;
 
 public class BreweryGoal implements Goal {
 
@@ -32,7 +33,10 @@ public class BreweryGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		if (!BuildBreweryAction.hasEnoughStone(performer)) {
+		List<WorldObject> unownedBreweries = GoalUtils.findNearestTargetsByProperty(performer, Actions.CLAIM_BREWERY_ACTION, Constants.BREWERY_QUALITY, w -> BuildingGenerator.isBrewery(w) && Actions.CLAIM_BREWERY_ACTION.distance(performer, w, Args.EMPTY, world) == 0, world);
+		if (unownedBreweries.size() > 0) {
+			return new OperationInfo(performer, unownedBreweries.get(0), Args.EMPTY, Actions.CLAIM_BREWERY_ACTION);
+		} else if (!BuildBreweryAction.hasEnoughStone(performer)) {
 			return Goals.STONE_GOAL.calculateGoal(performer, world);
 		} else if (!BuildBreweryAction.hasEnoughWood(performer)) {
 			return Goals.WOOD_GOAL.calculateGoal(performer, world);

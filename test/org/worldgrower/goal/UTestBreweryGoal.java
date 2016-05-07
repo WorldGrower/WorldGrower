@@ -92,6 +92,17 @@ public class UTestBreweryGoal {
 	}
 	
 	@Test
+	public void testCalculateGoalClaimBrewery() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		WorldObject performer = createCommoner(world, organization);
+		
+		BuildingGenerator.generateBrewery(0, 0, world);
+		
+		assertEquals(Actions.CLAIM_BREWERY_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+	@Test
 	public void testIsGoalMet() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
