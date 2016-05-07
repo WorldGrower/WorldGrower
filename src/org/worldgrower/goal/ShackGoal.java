@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.BuildShackAction;
+import org.worldgrower.generator.BuildingGenerator;
 
 public class ShackGoal implements Goal {
 
@@ -34,14 +35,19 @@ public class ShackGoal implements Goal {
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		if (!GroupPropertyUtils.hasMoneyToPayShackTaxes(performer, world)) {
 			return null;
-		} else if (!BuildShackAction.hasEnoughWood(performer)) {
-			return Goals.WOOD_GOAL.calculateGoal(performer, world);
 		} else {
-			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 3, 4, world);
-			if (target != null) {
-				return new OperationInfo(performer, target, Args.EMPTY, Actions.BUILD_SHACK_ACTION);
+			List<WorldObject> unownedShacks = GoalUtils.findNearestTargetsByProperty(performer, Actions.CLAIM_HOUSE_ACTION, Constants.SLEEP_COMFORT, w -> BuildingGenerator.isShack(w) && Actions.CLAIM_HOUSE_ACTION.distance(performer, w, Args.EMPTY, world) == 0, world);
+			if (unownedShacks.size() > 0) {
+				return new OperationInfo(performer, unownedShacks.get(0), Args.EMPTY, Actions.CLAIM_HOUSE_ACTION);
+			} else if (!BuildShackAction.hasEnoughWood(performer)) {
+				return Goals.WOOD_GOAL.calculateGoal(performer, world);
 			} else {
-				return null;
+				WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 3, 4, world);
+				if (target != null) {
+					return new OperationInfo(performer, target, Args.EMPTY, Actions.BUILD_SHACK_ACTION);
+				} else {
+					return null;
+				}
 			}
 		}
 	}

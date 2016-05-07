@@ -16,6 +16,7 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
@@ -35,11 +36,16 @@ public class HouseGoal implements Goal {
 		if (!GroupPropertyUtils.hasMoneyToPayHouseTaxes(performer, world)) {
 			return null;
 		} else {
-			List<WorldObject> targets = world.findWorldObjects(w -> HousePropertyUtils.hasHouseForSale(w, world));
-			if (targets.size() > 0) {
-				return new OperationInfo(performer, targets.get(0), Conversations.createArgs(Conversations.BUY_HOUSE_CONVERSATION), Actions.TALK_ACTION);
-			} else { 
-				return Goals.CREATE_HOUSE_GOAL.calculateGoal(performer, world);
+			List<WorldObject> unownedHouses = GoalUtils.findNearestTargetsByProperty(performer, Actions.CLAIM_HOUSE_ACTION, Constants.SLEEP_COMFORT, w -> BuildingGenerator.isHouse(w) && Actions.CLAIM_HOUSE_ACTION.distance(performer, w, Args.EMPTY, world) == 0, world);
+			if (unownedHouses.size() > 0) {
+				return new OperationInfo(performer, unownedHouses.get(0), Args.EMPTY, Actions.CLAIM_HOUSE_ACTION);
+			} else {
+				List<WorldObject> targets = world.findWorldObjects(w -> HousePropertyUtils.hasHouseForSale(w, world));
+				if (targets.size() > 0) {
+					return new OperationInfo(performer, targets.get(0), Conversations.createArgs(Conversations.BUY_HOUSE_CONVERSATION), Actions.TALK_ACTION);
+				} else { 
+					return Goals.CREATE_HOUSE_GOAL.calculateGoal(performer, world);
+				}
 			}
 		}
 	}
