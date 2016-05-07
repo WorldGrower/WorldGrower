@@ -57,6 +57,19 @@ public class UTestHouseGoal {
 	}
 	
 	@Test
+	public void testCalculateGoalClaimHouse() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		performer.setProperty(Constants.GOLD, 100);
+
+		BuildingGenerator.generateHouse(0, 0, world, 1f);
+		
+		createVillagersOrganization(world);
+		
+		assertEquals(Actions.CLAIM_HOUSE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+	@Test
 	public void testCalculateGoalBuyHouse() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);

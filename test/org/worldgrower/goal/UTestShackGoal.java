@@ -69,6 +69,18 @@ public class UTestShackGoal {
 	}
 	
 	@Test
+	public void testCalculateGoalClaimShack() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		WorldObject performer = createCommoner(world, organization);
+		createVillagersOrganization(world);
+
+		BuildingGenerator.generateShack(0, 0, world, 1f);
+		
+		assertEquals(Actions.CLAIM_HOUSE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+	@Test
 	public void testCalculateGoalBuildShackNotEnoughRoom() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
