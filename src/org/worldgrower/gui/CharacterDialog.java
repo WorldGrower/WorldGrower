@@ -22,7 +22,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
@@ -47,7 +46,6 @@ import org.worldgrower.condition.Conditions;
 import org.worldgrower.generator.CommonerOnTurn;
 import org.worldgrower.goal.ArmorPropertyUtils;
 import org.worldgrower.goal.MeleeDamagePropertyUtils;
-import org.worldgrower.gui.inventory.InventoryItem;
 import org.worldgrower.gui.util.ButtonFactory;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.JComboBoxFactory;

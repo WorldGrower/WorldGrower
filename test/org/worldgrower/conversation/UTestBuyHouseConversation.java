@@ -25,6 +25,8 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.BuildingList;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdRelationshipMap;
 
@@ -47,7 +49,7 @@ public class UTestBuyHouseConversation {
 	@Test
 	public void testGetReplyPhrase() {
 		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
-		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.HOUSES, new IdList().add(3));
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.BUILDINGS, new BuildingList().add(3, BuildingType.HOUSE));
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.GOLD, 100);
 		
 		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
@@ -67,8 +69,8 @@ public class UTestBuyHouseConversation {
 	@Test
 	public void testHandleResponse0() {
 		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
-		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.HOUSES, new IdList());
-		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.HOUSES, new IdList().add(3));
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.BUILDINGS, new BuildingList());
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.BUILDINGS, new BuildingList().add(3, BuildingType.HOUSE));
 		
 		performer.setProperty(Constants.GOLD, 200);
 		target.setProperty(Constants.GOLD, 0);
@@ -83,15 +85,15 @@ public class UTestBuyHouseConversation {
 		conversation.handleResponse(0, context);
 		assertEquals(100, performer.getProperty(Constants.GOLD).intValue());
 		assertEquals(100, target.getProperty(Constants.GOLD).intValue());
-		assertEquals(true, performer.getProperty(Constants.HOUSES).contains(3));
-		assertEquals(false, target.getProperty(Constants.HOUSES).contains(3));
+		assertEquals(true, performer.getProperty(Constants.BUILDINGS).contains(3));
+		assertEquals(false, target.getProperty(Constants.BUILDINGS).contains(3));
 	}
 	
 	@Test
 	public void testIsConversationAvailable() {
 		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
-		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.HOUSES, new IdList());
-		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.HOUSES, new IdList().add(3));
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.BUILDINGS, new BuildingList());
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.BUILDINGS, new BuildingList().add(3, BuildingType.HOUSE));
 		
 		
 		WorldObject house = TestUtils.createWorldObject(3, "house");
@@ -100,7 +102,7 @@ public class UTestBuyHouseConversation {
 		world.addWorldObject(house);
 		assertEquals(true, conversation.isConversationAvailable(performer, target, null, world));
 		
-		target.getProperty(Constants.HOUSES).removeAll();
+		target.getProperty(Constants.BUILDINGS).removeAll();
 		assertEquals(false, conversation.isConversationAvailable(performer, target, null, null));
 	}
 }

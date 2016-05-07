@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.BuildHouseAction;
+import org.worldgrower.attribute.BuildingType;
 
 public class CreateHouseGoal implements Goal {
 
@@ -50,7 +51,7 @@ public class CreateHouseGoal implements Goal {
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		return performer.getProperty(Constants.HOUSES).size() > 1;
+		return performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.HOUSE).size() > 1;
 	}
 	
 	@Override
@@ -65,6 +66,6 @@ public class CreateHouseGoal implements Goal {
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		return performer.getProperty(Constants.HOUSES).size();
+		return performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.HOUSE).size();
 	}
 }

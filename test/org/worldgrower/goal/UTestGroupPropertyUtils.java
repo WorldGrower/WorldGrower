@@ -30,6 +30,8 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.BuildingList;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdRelationshipMap;
 import org.worldgrower.deity.Deity;
@@ -205,7 +207,7 @@ public class UTestGroupPropertyUtils {
 	@Test
 	public void testGetBaseAmountToPayNoHouses() {
 		World world = new WorldImpl(1, 1, null, null);
-		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.HOUSES, new IdList());
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.BUILDINGS, new BuildingList());
 		world.addWorldObject(target);
 		
 		assertEquals(0, GroupPropertyUtils.getBaseAmountToPay(target, world));
@@ -214,7 +216,7 @@ public class UTestGroupPropertyUtils {
 	@Test
 	public void testGetBaseAmountToPayShackAndHouse() {
 		World world = new WorldImpl(10, 10, null, null);
-		WorldObject target = TestUtils.createIntelligentWorldObject(world.generateUniqueId(), Constants.HOUSES, new IdList().add(2).add(3));
+		WorldObject target = TestUtils.createIntelligentWorldObject(world.generateUniqueId(), Constants.BUILDINGS, new BuildingList().add(2, BuildingType.HOUSE).add(3, BuildingType.HOUSE));
 		world.addWorldObject(target);
 		
 		createVillagersOrganizationWithTaxRates(world);
@@ -235,7 +237,7 @@ public class UTestGroupPropertyUtils {
 	@Test
 	public void testGetAmountToCollect() {
 		World world = new WorldImpl(10, 10, null, new DoNothingWorldOnTurn());
-		WorldObject target = TestUtils.createIntelligentWorldObject(world.generateUniqueId(), Constants.HOUSES, new IdList().add(2).add(3));
+		WorldObject target = TestUtils.createIntelligentWorldObject(world.generateUniqueId(), Constants.BUILDINGS, new BuildingList().add(2, BuildingType.HOUSE).add(3, BuildingType.HOUSE));
 		world.addWorldObject(target);
 		
 		createVillagersOrganizationWithTaxRates(world);
@@ -254,7 +256,7 @@ public class UTestGroupPropertyUtils {
 	@Test
 	public void testGetPayCheckAmount() {
 		World world = new WorldImpl(1, 1, null, new DoNothingWorldOnTurn());
-		WorldObject target = TestUtils.createIntelligentWorldObject(world.generateUniqueId(), Constants.HOUSES, new IdList().add(2).add(3));
+		WorldObject target = TestUtils.createIntelligentWorldObject(world.generateUniqueId(), Constants.BUILDINGS, new BuildingList().add(2, BuildingType.HOUSE).add(3, BuildingType.HOUSE));
 		world.addWorldObject(target);
 		
 		WorldObject villagersOrganization = createVillagersOrganizationWithTaxRates(world);

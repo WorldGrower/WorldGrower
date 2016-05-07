@@ -20,6 +20,7 @@ import java.util.List;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.generator.Item;
 
 public class HousePropertyUtils {
@@ -27,8 +28,8 @@ public class HousePropertyUtils {
 	public static List<WorldObject> getHousingOfOwners(List<WorldObject> owners, World world) {
 		List<WorldObject> result = new ArrayList<>();
 		for(WorldObject owner : owners) {
-			if (owner.hasProperty(Constants.HOUSES) && owner.getProperty(Constants.HOUSES) != null) {
-				List<Integer> houseIds = owner.getProperty(Constants.HOUSES).getIds();
+			if (owner.hasProperty(Constants.BUILDINGS) && owner.getProperty(Constants.BUILDINGS) != null) {
+				List<Integer> houseIds = owner.getProperty(Constants.BUILDINGS).getIds(BuildingType.SHACK, BuildingType.HOUSE);
 				for(int houseId : houseIds) {
 					result.add(world.findWorldObject(Constants.ID, houseId));
 				}
@@ -41,7 +42,7 @@ public class HousePropertyUtils {
 	public static WorldObject getBestHouse(WorldObject performer, World world) {
 		int bestId = -1;
 		int bestValue = Integer.MIN_VALUE;
-		List<Integer> houseIds = performer.getProperty(Constants.HOUSES).getIds();
+		List<Integer> houseIds = performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.SHACK, BuildingType.HOUSE);
 		for(int houseId : houseIds) {
 			WorldObject house = world.findWorldObject(Constants.ID, houseId);
 			int sleepComfort = house.getProperty(Constants.SLEEP_COMFORT);
@@ -59,7 +60,7 @@ public class HousePropertyUtils {
 	}
 	
 	public static boolean hasHouses(WorldObject performer) {
-		return performer.hasProperty(Constants.HOUSES) && performer.getProperty(Constants.HOUSES).size() > 0;
+		return performer.hasProperty(Constants.BUILDINGS) && performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.HOUSE).size() > 0;
 	}
 
 	public static boolean hasHouseForSale(WorldObject target, World world) {
@@ -68,8 +69,8 @@ public class HousePropertyUtils {
 	}
 
 	public static WorldObject getHouseForSale(WorldObject target, World world) {
-		if (target.hasProperty(Constants.HOUSES)) {
-			List<Integer> houseIds = target.getProperty(Constants.HOUSES).getIds();
+		if (target.hasProperty(Constants.BUILDINGS)) {
+			List<Integer> houseIds = target.getProperty(Constants.BUILDINGS).getIds(BuildingType.HOUSE);
 			for(int houseId : houseIds) {
 				WorldObject house = world.findWorldObject(Constants.ID, houseId);
 				if (house.hasProperty(Constants.SELLABLE) && house.getProperty(Constants.SELLABLE)) {
@@ -81,7 +82,7 @@ public class HousePropertyUtils {
 	}
 
 	public static boolean allHousesButFirstSellable(WorldObject performer, World world) {
-		List<Integer> houseIds = performer.getProperty(Constants.HOUSES).getIds();
+		List<Integer> houseIds = performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.HOUSE);
 		boolean isFirstHouse = true;
 		for(int houseId : houseIds) {
 			WorldObject house = world.findWorldObject(Constants.ID, houseId);
@@ -101,7 +102,7 @@ public class HousePropertyUtils {
 	}
 
 	public static boolean hasHouseWithBed(WorldObject performer, World world) {
-		List<WorldObject> housesWithBed = performer.getProperty(Constants.HOUSES).mapToWorldObjects(world, w -> w.getProperty(Constants.INVENTORY).getWorldObjects(Constants.NAME, Item.BED_NAME).size() > 0);
+		List<WorldObject> housesWithBed = performer.getProperty(Constants.BUILDINGS).mapToWorldObjects(world, w -> w.getProperty(Constants.INVENTORY).getWorldObjects(Constants.NAME, Item.BED_NAME).size() > 0);
 		return housesWithBed.size() > 0;
 	}
 }

@@ -16,11 +16,7 @@ package org.worldgrower;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Test;
-import org.worldgrower.goal.Zone;
 
 public class UTestLocationWorldObjectsCache {
 

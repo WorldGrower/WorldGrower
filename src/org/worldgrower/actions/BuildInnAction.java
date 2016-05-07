@@ -20,6 +20,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
@@ -38,7 +39,7 @@ public class BuildInnAction implements BuildAction {
 		
 		performer.getProperty(Constants.INVENTORY).add(Item.generateKey(id));
 		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.STONE, REQUIRED_STONE);
-		performer.getProperty(Constants.HOUSES).add(id);
+		performer.getProperty(Constants.BUILDINGS).add(id, BuildingType.INN);
 	}
 
 	@Override

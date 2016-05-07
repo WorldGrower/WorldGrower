@@ -25,7 +25,8 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.IdList;
+import org.worldgrower.attribute.BuildingList;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
@@ -34,18 +35,18 @@ public class UTestHousePropertyUtils {
 
 	@Test
 	public void testHasHouses() {
-		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.HOUSES, new IdList());
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.BUILDINGS, new BuildingList());
 		
 		assertEquals(false, HousePropertyUtils.hasHouses(performer));
 		
-		performer.getProperty(Constants.HOUSES).add(2);
+		performer.getProperty(Constants.BUILDINGS).add(2, BuildingType.HOUSE);
 		assertEquals(true, HousePropertyUtils.hasHouses(performer));
 	}
 	
 	@Test
 	public void testGetHouseForSale() {
 		World world = new WorldImpl(1, 1, null, null);
-		WorldObject target = TestUtils.createIntelligentWorldObject(1, Constants.HOUSES, new IdList().add(2));
+		WorldObject target = TestUtils.createIntelligentWorldObject(1, Constants.BUILDINGS, new BuildingList().add(2, BuildingType.HOUSE));
 		WorldObject house = TestUtils.createIntelligentWorldObject(2, Constants.SELLABLE, Boolean.TRUE);
 		world.addWorldObject(house);
 		
@@ -58,8 +59,8 @@ public class UTestHousePropertyUtils {
 	@Test
 	public void testGetHousingOfOwners() {
 		World world = new WorldImpl(1, 1, null, null);
-		WorldObject owner1 = TestUtils.createIntelligentWorldObject(1, Constants.HOUSES, new IdList());
-		WorldObject owner2 = TestUtils.createIntelligentWorldObject(1, Constants.HOUSES, new IdList().add(2));
+		WorldObject owner1 = TestUtils.createIntelligentWorldObject(1, Constants.BUILDINGS, new BuildingList());
+		WorldObject owner2 = TestUtils.createIntelligentWorldObject(1, Constants.BUILDINGS, new BuildingList().add(2, BuildingType.HOUSE));
 		
 		WorldObject house = TestUtils.createIntelligentWorldObject(2, Constants.SELLABLE, Boolean.TRUE);
 		world.addWorldObject(house);
@@ -73,7 +74,7 @@ public class UTestHousePropertyUtils {
 	@Test
 	public void testGetBestHouseNotOwner() {
 		World world = new WorldImpl(1, 1, null, null);
-		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.HOUSES, new IdList());
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.BUILDINGS, new BuildingList());
 		
 		assertEquals(null, HousePropertyUtils.getBestHouse(performer, world));
 	}
@@ -81,7 +82,7 @@ public class UTestHousePropertyUtils {
 	@Test
 	public void testGetBestHouseOwnsOneHouse() {
 		World world = new WorldImpl(1, 1, null, null);
-		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.HOUSES, new IdList().add(2));
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.BUILDINGS, new BuildingList().add(2, BuildingType.HOUSE));
 		
 		WorldObject house = TestUtils.createIntelligentWorldObject(2, Constants.SLEEP_COMFORT, 5);
 		world.addWorldObject(house);
@@ -92,7 +93,7 @@ public class UTestHousePropertyUtils {
 	@Test
 	public void testGetBestHouseOwnsTwoHouses() {
 		World world = new WorldImpl(1, 1, null, null);
-		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.HOUSES, new IdList().add(2).add(3));
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.BUILDINGS, new BuildingList().add(2, BuildingType.HOUSE).add(3, BuildingType.HOUSE));
 		
 		WorldObject house = TestUtils.createIntelligentWorldObject(2, Constants.SLEEP_COMFORT, 5);
 		world.addWorldObject(house);
@@ -106,11 +107,11 @@ public class UTestHousePropertyUtils {
 	@Test
 	public void testHasHouseWithBed() {
 		World world = new WorldImpl(1, 1, null, null);
-		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.HOUSES, new IdList());
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.BUILDINGS, new BuildingList());
 		
 		assertEquals(false, HousePropertyUtils.hasHouseWithBed(performer, world));
 		
-		performer.getProperty(Constants.HOUSES).add(2);
+		performer.getProperty(Constants.BUILDINGS).add(2, BuildingType.HOUSE);
 		
 		WorldObject house = TestUtils.createIntelligentWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
 		house.getProperty(Constants.INVENTORY).add(Item.BED.generate(1f));
@@ -122,7 +123,7 @@ public class UTestHousePropertyUtils {
 	@Test
 	public void testAllHousesButFirstSellableNoHouses() {
 		World world = new WorldImpl(1, 1, null, null);
-		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.HOUSES, new IdList());
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.BUILDINGS, new BuildingList());
 
 		assertEquals(true, HousePropertyUtils.allHousesButFirstSellable(performer, world));
 	}
@@ -130,10 +131,10 @@ public class UTestHousePropertyUtils {
 	@Test
 	public void testAllHousesButFirstSellableOneHouse() {
 		World world = new WorldImpl(10, 10, null, null);
-		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.HOUSES, new IdList());
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.BUILDINGS, new BuildingList());
 
 		int houseId = BuildingGenerator.generateHouse(0, 0, world, 1f);
-		performer.getProperty(Constants.HOUSES).add(houseId);
+		performer.getProperty(Constants.BUILDINGS).add(houseId, BuildingType.HOUSE);
 		
 		assertEquals(true, HousePropertyUtils.allHousesButFirstSellable(performer, world));
 	}
@@ -141,13 +142,13 @@ public class UTestHousePropertyUtils {
 	@Test
 	public void testAllHousesButFirstSellableTwoHouses() {
 		World world = new WorldImpl(10, 10, null, null);
-		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.HOUSES, new IdList());
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.BUILDINGS, new BuildingList());
 
 		int houseId = BuildingGenerator.generateHouse(0, 0, world, 1f);
-		performer.getProperty(Constants.HOUSES).add(houseId);
+		performer.getProperty(Constants.BUILDINGS).add(houseId, BuildingType.HOUSE);
 		
 		int houseId2 = BuildingGenerator.generateHouse(0, 0, world, 1f);
-		performer.getProperty(Constants.HOUSES).add(houseId2);
+		performer.getProperty(Constants.BUILDINGS).add(houseId2, BuildingType.HOUSE);
 		
 		assertEquals(false, HousePropertyUtils.allHousesButFirstSellable(performer, world));
 	}

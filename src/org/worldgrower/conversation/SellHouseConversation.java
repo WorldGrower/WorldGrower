@@ -20,6 +20,7 @@ import java.util.List;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.goal.BuySellUtils;
 import org.worldgrower.goal.HousePropertyUtils;
 import org.worldgrower.history.HistoryItem;
@@ -35,7 +36,7 @@ public class SellHouseConversation implements Conversation {
 		WorldObject target = conversationContext.getTarget();
 		World world = conversationContext.getWorld();
 		
-		int houseId = performer.getProperty(Constants.HOUSES).getIds().get(0);
+		int houseId = performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.HOUSE).get(0);
 		WorldObject house = world.findWorldObject(Constants.ID, houseId);
 		
 		boolean targetWillBuy = BuySellUtils.worldObjectWillBuyGoods(performer, target, house, world);
@@ -74,12 +75,12 @@ public class SellHouseConversation implements Conversation {
 		World world = conversationContext.getWorld();
 		
 		if (replyIndex == YES) {
-			int houseId = performer.getProperty(Constants.HOUSES).getIds().get(0);
+			int houseId = performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.HOUSE).get(0);
 			WorldObject house = world.findWorldObject(Constants.ID, houseId);
 			int price = house.getProperty(Constants.PRICE);
 			
-			performer.getProperty(Constants.HOUSES).remove(houseId);
-			target.getProperty(Constants.HOUSES).add(houseId);
+			performer.getProperty(Constants.BUILDINGS).remove(houseId);
+			target.getProperty(Constants.BUILDINGS).add(houseId, BuildingType.HOUSE);
 			house.setProperty(Constants.SELLABLE, Boolean.FALSE);
 			
 			target.increment(Constants.GOLD, -price);

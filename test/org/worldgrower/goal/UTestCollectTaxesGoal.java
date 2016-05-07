@@ -25,7 +25,8 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.IdList;
+import org.worldgrower.attribute.BuildingList;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.WorldObjectContainer;
 
 public class UTestCollectTaxesGoal {
@@ -72,8 +73,8 @@ public class UTestCollectTaxesGoal {
 	@Test
 	public void testSortTargets() {
 		World world = new WorldImpl(10, 10, null, null);
-		world.addWorldObject(TestUtils.createIntelligentWorldObject(1, Constants.HOUSES, new IdList().add(3)));
-		world.addWorldObject(TestUtils.createIntelligentWorldObject(2, Constants.HOUSES, new IdList().add(4)));
+		world.addWorldObject(TestUtils.createIntelligentWorldObject(1, Constants.BUILDINGS, new BuildingList().add(3, BuildingType.HOUSE)));
+		world.addWorldObject(TestUtils.createIntelligentWorldObject(2, Constants.BUILDINGS, new BuildingList().add(4, BuildingType.HOUSE)));
 		
 		List<WorldObject> targets = new ArrayList<>(world.getWorldObjects());
 		

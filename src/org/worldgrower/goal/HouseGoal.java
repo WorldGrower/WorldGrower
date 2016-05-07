@@ -22,6 +22,7 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.generator.BuildingGenerator;
 
@@ -52,12 +53,12 @@ public class HouseGoal implements Goal {
 
 	@Override
 	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
-		defaultGoalMetOrNot(performer, world, goalMet, Constants.HOUSES);
+		defaultGoalMetOrNot(performer, world, goalMet, Constants.BUILDINGS);
 	}
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		List<Integer> houseIds = performer.getProperty(Constants.HOUSES).getIds();
+		List<Integer> houseIds = performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.HOUSE);
 		if (houseIds.size() > 0) {
 			int houseId = houseIds.get(0);
 			WorldObject house = world.findWorldObject(Constants.ID, houseId);
@@ -79,6 +80,6 @@ public class HouseGoal implements Goal {
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		return performer.getProperty(Constants.HOUSES).size();
+		return performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.HOUSE).size();
 	}
 }

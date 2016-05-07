@@ -23,7 +23,7 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.IdList;
+import org.worldgrower.attribute.BuildingList;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.BuildingGenerator;
 
@@ -35,7 +35,7 @@ public class UTestClaimBreweryAction {
 	public void testExecute() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
-		performer.setProperty(Constants.HOUSES, new IdList());
+		performer.setProperty(Constants.BUILDINGS, new BuildingList());
 		
 		WorldObject brewery = generateBrewery(world);
 		assertEquals(null, performer.getProperty(Constants.BREWERY_ID));

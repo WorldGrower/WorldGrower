@@ -23,6 +23,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.MockCommonerNameGenerator;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.CommonerGenerator;
 import org.worldgrower.generator.Item;
@@ -101,9 +102,9 @@ public class UTestShackGoal {
 		assertEquals(false, goal.isGoalMet(performer, world));
 		
 		int houseId = BuildingGenerator.generateShack(5, 5, world, 1f);
-		performer.getProperty(Constants.HOUSES).add(houseId);
+		performer.getProperty(Constants.BUILDINGS).add(houseId, BuildingType.SHACK);
 		int houseId2 = BuildingGenerator.generateShack(5, 5, world, 1f);
-		performer.getProperty(Constants.HOUSES).add(houseId2);
+		performer.getProperty(Constants.BUILDINGS).add(houseId2, BuildingType.SHACK);
 		assertEquals(true, goal.isGoalMet(performer, world));
 	}
 

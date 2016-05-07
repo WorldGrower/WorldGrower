@@ -25,6 +25,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.MockCommonerNameGenerator;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.generator.CommonerGenerator;
 import org.worldgrower.gui.CommonerImageIds;
@@ -129,7 +130,7 @@ public class UTestMateGoal {
 		WorldObject target1 = createCommoner(world, organization);
 		WorldObject target2 = createCommoner(world, organization);
 		
-		target2.getProperty(Constants.HOUSES).add(7);
+		target2.getProperty(Constants.BUILDINGS).add(7, BuildingType.HOUSE);
 		target2.increment(Constants.GOLD, 1000);
 		
 		performer.getProperty(Constants.RELATIONSHIPS).incrementValue(target1, 0);

@@ -25,7 +25,7 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.IdList;
+import org.worldgrower.attribute.BuildingList;
 import org.worldgrower.attribute.IdRelationshipMap;
 import org.worldgrower.goal.GroupPropertyUtils;
 
@@ -48,8 +48,8 @@ public class UTestCollectPayCheckConversation {
 	@Test
 	public void testGetReplyPhrase() {
 		World world = new WorldImpl(1, 1, null, new DoNothingWorldOnTurn());
-		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.HOUSES, new IdList());
-		WorldObject target = TestUtils.createIntelligentWorldObject(8, Constants.HOUSES, new IdList());
+		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.BUILDINGS, new BuildingList());
+		WorldObject target = TestUtils.createIntelligentWorldObject(8, Constants.BUILDINGS, new BuildingList());
 
 		target.setProperty(Constants.ORGANIZATION_GOLD, 200);
 		
@@ -66,8 +66,8 @@ public class UTestCollectPayCheckConversation {
 	@Test
 	public void testGetQuestionPhrases() {
 		World world = new WorldImpl(1, 1, null, new DoNothingWorldOnTurn());
-		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.HOUSES, new IdList());
-		WorldObject target = TestUtils.createIntelligentWorldObject(8, Constants.HOUSES, new IdList());
+		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.BUILDINGS, new BuildingList());
+		WorldObject target = TestUtils.createIntelligentWorldObject(8, Constants.BUILDINGS, new BuildingList());
 
 		createDefaultVillagersOrganization(world, target);
 		

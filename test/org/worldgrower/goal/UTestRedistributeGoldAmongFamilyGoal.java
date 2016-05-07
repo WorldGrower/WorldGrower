@@ -24,6 +24,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.BuildingList;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.conversation.Conversations;
 
@@ -85,7 +86,7 @@ public class UTestRedistributeGoldAmongFamilyGoal {
 	}
 
 	private WorldObject createPerformer(int id) {
-		WorldObject performer = TestUtils.createIntelligentWorldObject(id, Constants.HOUSES, new IdList());
+		WorldObject performer = TestUtils.createIntelligentWorldObject(id, Constants.BUILDINGS, new BuildingList());
 		performer.setProperty(Constants.X, 0);
 		performer.setProperty(Constants.Y, 0);
 		performer.setProperty(Constants.WIDTH, 1);

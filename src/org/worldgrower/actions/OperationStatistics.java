@@ -21,7 +21,6 @@ import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.WorldObjectCondition;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.generator.Item;
 import org.worldgrower.history.HistoryItem;

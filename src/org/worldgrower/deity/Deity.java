@@ -29,7 +29,6 @@ import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
 import org.worldgrower.gui.ImageIds;
-import org.worldgrower.profession.Profession;
 
 /**
  * A Deity is an entity which can be worshiped and has represents aspects of reality.

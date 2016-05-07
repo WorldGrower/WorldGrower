@@ -25,7 +25,8 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.IdList;
+import org.worldgrower.attribute.BuildingList;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.IdRelationshipMap;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.goal.GroupPropertyUtils;
@@ -49,11 +50,11 @@ public class UTestCollectTaxesConversation {
 	@Test
 	public void testGetReplyPhrase() {
 		World world = new WorldImpl(10, 10, null, new DoNothingWorldOnTurn());
-		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.HOUSES, new IdList());
-		WorldObject target = TestUtils.createIntelligentWorldObject(8, Constants.HOUSES, new IdList());
+		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.BUILDINGS, new BuildingList());
+		WorldObject target = TestUtils.createIntelligentWorldObject(8, Constants.BUILDINGS, new BuildingList());
 
 		int houseId = BuildingGenerator.generateHouse(0, 0, world, 1f);
-		target.getProperty(Constants.HOUSES).add(houseId);
+		target.getProperty(Constants.BUILDINGS).add(houseId, BuildingType.HOUSE);
 		target.setProperty(Constants.GOLD, 200);
 		
 		createDefaultVillagersOrganization(world, target);
@@ -69,8 +70,8 @@ public class UTestCollectTaxesConversation {
 	@Test
 	public void testGetQuestionPhrases() {
 		World world = new WorldImpl(1, 1, null, new DoNothingWorldOnTurn());
-		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.HOUSES, new IdList());
-		WorldObject target = TestUtils.createIntelligentWorldObject(8, Constants.HOUSES, new IdList());
+		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.BUILDINGS, new BuildingList());
+		WorldObject target = TestUtils.createIntelligentWorldObject(8, Constants.BUILDINGS, new BuildingList());
 
 		createDefaultVillagersOrganization(world, target);
 		
@@ -82,10 +83,10 @@ public class UTestCollectTaxesConversation {
 	@Test
 	public void testIsConversationAvailable() {
 		World world = new WorldImpl(10, 10, null, new DoNothingWorldOnTurn());
-		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.HOUSES, new IdList());
-		WorldObject target = TestUtils.createIntelligentWorldObject(8, Constants.HOUSES, new IdList());
+		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.BUILDINGS, new BuildingList());
+		WorldObject target = TestUtils.createIntelligentWorldObject(8, Constants.BUILDINGS, new BuildingList());
 		int houseId = BuildingGenerator.generateHouse(0, 0, world, 1f);
-		target.getProperty(Constants.HOUSES).add(houseId);
+		target.getProperty(Constants.BUILDINGS).add(houseId, BuildingType.HOUSE);
 		target.setProperty(Constants.GOLD, 200);
 		
 		createDefaultVillagersOrganization(world, target);

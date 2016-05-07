@@ -16,8 +16,6 @@ package org.worldgrower.generator;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.Map;
-
 import org.junit.Test;
 import org.worldgrower.Constants;
 import org.worldgrower.World;

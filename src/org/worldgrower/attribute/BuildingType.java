@@ -16,5 +16,6 @@ package org.worldgrower.attribute;
 
 public enum BuildingType {
 	SHACK,
-	HOUSE
+	HOUSE, 
+	INN
 }

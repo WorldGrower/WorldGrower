@@ -23,7 +23,8 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.IdList;
+import org.worldgrower.attribute.BuildingList;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.BuildingGenerator;
 
@@ -45,31 +46,31 @@ public class UTestMarkAsSellableAction {
 	@Test
 	public void testIsValidTarget() {
 		World world = new WorldImpl(10, 10, null, null);
-		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.HOUSES, new IdList());
+		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.BUILDINGS, new BuildingList());
 		performer.setProperty(Constants.NAME, "performer");
 		
 		int id = BuildingGenerator.generateHouse(0, 0, world, 1f);
 		WorldObject target = world.findWorldObject(Constants.ID, id);
-		performer.getProperty(Constants.HOUSES).add(target);
+		performer.getProperty(Constants.BUILDINGS).add(target, BuildingType.HOUSE);
 		assertEquals(true, Actions.MARK_AS_SELLABLE_ACTION.isValidTarget(performer, target, world));
 		
 		assertEquals(false, Actions.MARK_AS_SELLABLE_ACTION.isValidTarget(performer, performer, world));
 		
-		performer.getProperty(Constants.HOUSES).remove(target);
+		performer.getProperty(Constants.BUILDINGS).remove(target);
 		assertEquals(false, Actions.MARK_AS_SELLABLE_ACTION.isValidTarget(performer, target, world));
 	}
 	
 	@Test
 	public void testDistance() {
 		World world = new WorldImpl(10, 10, null, null);
-		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.HOUSES, new IdList());
+		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.BUILDINGS, new BuildingList());
 		performer.setProperty(Constants.X, 0);
 		performer.setProperty(Constants.Y, 0);
 		performer.setProperty(Constants.NAME, "performer");
 		
 		int id = BuildingGenerator.generateHouse(0, 0, world, 1f);
 		WorldObject target = world.findWorldObject(Constants.ID, id);
-		performer.getProperty(Constants.HOUSES).add(target);
+		performer.getProperty(Constants.BUILDINGS).add(target, BuildingType.HOUSE);
 		assertEquals(0, Actions.MARK_AS_SELLABLE_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 }

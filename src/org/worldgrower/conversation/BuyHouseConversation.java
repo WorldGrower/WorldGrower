@@ -20,7 +20,7 @@ import java.util.List;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.goal.BuySellUtils;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.goal.HousePropertyUtils;
 import org.worldgrower.history.HistoryItem;
 
@@ -63,8 +63,8 @@ public class BuyHouseConversation implements Conversation {
 			WorldObject house = HousePropertyUtils.getHouseForSale(target, world);
 			int price = house.getProperty(Constants.PRICE);
 			
-			performer.getProperty(Constants.HOUSES).add(house);
-			target.getProperty(Constants.HOUSES).remove(house);
+			performer.getProperty(Constants.BUILDINGS).add(house, BuildingType.HOUSE);
+			target.getProperty(Constants.BUILDINGS).remove(house);
 			house.setProperty(Constants.SELLABLE, Boolean.FALSE);
 			
 			target.increment(Constants.GOLD, price);

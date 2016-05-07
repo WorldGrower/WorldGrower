@@ -21,6 +21,7 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.conversation.Conversations;
 
 public class SellHouseGoal implements Goal {
@@ -31,7 +32,7 @@ public class SellHouseGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		List<Integer> houseIds = performer.getProperty(Constants.HOUSES).getIds();
+		List<Integer> houseIds = performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.HOUSE);
 		if (houseIds.size() > 0) {
 			int houseId = houseIds.get(0);
 			WorldObject house = world.findWorldObject(Constants.ID, houseId);
@@ -54,7 +55,7 @@ public class SellHouseGoal implements Goal {
 
 	@Override
 	public final boolean isGoalMet(WorldObject performer, World world) {
-		return performer.getProperty(Constants.HOUSES).size() == 1;
+		return performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.HOUSE).size() == 1;
 	}
 
 	@Override

@@ -23,7 +23,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.attribute.IdList;
+import org.worldgrower.attribute.BuildingList;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.BuildingGenerator;
 
@@ -37,7 +38,7 @@ public class UTestMarkHouseAsSellableGoal {
 		WorldObject performer = createPerformer();
 		
 		int houseId = BuildingGenerator.generateHouse(5, 5, world, 1f);
-		performer.getProperty(Constants.HOUSES).add(houseId);
+		performer.getProperty(Constants.BUILDINGS).add(houseId, BuildingType.HOUSE);
 		
 		assertEquals(null, goal.calculateGoal(performer, world));
 	}
@@ -48,10 +49,10 @@ public class UTestMarkHouseAsSellableGoal {
 		WorldObject performer = createPerformer();
 		
 		int houseId = BuildingGenerator.generateHouse(5, 5, world, 1f);
-		performer.getProperty(Constants.HOUSES).add(houseId);
+		performer.getProperty(Constants.BUILDINGS).add(houseId, BuildingType.HOUSE);
 		
 		int houseId2 = BuildingGenerator.generateHouse(5, 5, world, 1f);
-		performer.getProperty(Constants.HOUSES).add(houseId2);
+		performer.getProperty(Constants.BUILDINGS).add(houseId2, BuildingType.HOUSE);
 		
 		assertEquals(Actions.MARK_AS_SELLABLE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
@@ -62,7 +63,7 @@ public class UTestMarkHouseAsSellableGoal {
 		performer.setProperty(Constants.Y, 0);
 		performer.setProperty(Constants.WIDTH, 1);
 		performer.setProperty(Constants.HEIGHT, 1);
-		performer.setProperty(Constants.HOUSES, new IdList());
+		performer.setProperty(Constants.BUILDINGS, new BuildingList());
 		return performer;
 	}
 }

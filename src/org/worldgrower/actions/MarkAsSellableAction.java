@@ -35,7 +35,7 @@ public class MarkAsSellableAction implements ManagedOperation {
 
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return BuildingGenerator.isSellable(target) && performer.getProperty(Constants.HOUSES).contains(target);
+		return BuildingGenerator.isSellable(target) && performer.getProperty(Constants.BUILDINGS).contains(target);
 	}
 
 	@Override

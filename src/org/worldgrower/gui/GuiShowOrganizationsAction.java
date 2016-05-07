@@ -14,7 +14,6 @@
  *******************************************************************************/
 package org.worldgrower.gui;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;

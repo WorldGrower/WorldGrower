@@ -20,6 +20,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.gui.ImageIds;
@@ -36,7 +37,7 @@ public class BuildShackAction implements BuildAction {
 		int id = BuildingGenerator.generateShack(x, y, world, SkillUtils.useSkill(performer, Constants.CARPENTRY_SKILL, world.getWorldStateChangedListeners()));
 		
 		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.WOOD, REQUIRED_WOOD);
-		performer.getProperty(Constants.HOUSES).add(id);
+		performer.getProperty(Constants.BUILDINGS).add(id, BuildingType.SHACK);
 	}
 
 	@Override

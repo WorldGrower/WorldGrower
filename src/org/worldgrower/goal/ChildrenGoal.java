@@ -22,6 +22,7 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.IdMap;
 
 public class ChildrenGoal implements Goal {
@@ -34,7 +35,7 @@ public class ChildrenGoal implements Goal {
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		IdMap relationships = performer.getProperty(Constants.RELATIONSHIPS);
 				
-		int bestId = relationships.findBestId(w -> RacePropertyUtils.canHaveOffspring(performer, w) && (w.getProperty(Constants.HOUSES).size() > 0), world);
+		int bestId = relationships.findBestId(w -> RacePropertyUtils.canHaveOffspring(performer, w) && (w.getProperty(Constants.BUILDINGS).getIds(BuildingType.SHACK, BuildingType.HOUSE).size() > 0), world);
 		
 		if ((bestId != -1) && (relationships.getValue(bestId) > 750)) {
 			WorldObject target = world.findWorldObject(Constants.ID, bestId);

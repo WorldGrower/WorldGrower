@@ -21,6 +21,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
@@ -37,18 +38,16 @@ public class BuildHouseAction implements BuildAction {
 	
 		int id = BuildingGenerator.generateHouse(x, y, world, SkillUtils.useSkill(performer, Constants.CARPENTRY_SKILL, world.getWorldStateChangedListeners()));
 		
-		List<Integer> currentHouseIds = performer.getProperty(Constants.HOUSES).getIds();
+		List<Integer> currentHouseIds = performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.SHACK);
 		if (currentHouseIds.size() > 0) {
 			int currentHouseId = currentHouseIds.get(0);
-			List<WorldObject> shacks = world.findWorldObjects(w -> w.getProperty(Constants.ID).intValue() == currentHouseId && BuildingGenerator.isShack(w));
-			if (shacks.size() > 0) {
-				world.removeWorldObject(shacks.get(0));
-			}
+			WorldObject shack = world.findWorldObject(Constants.ID, currentHouseId);
+			world.removeWorldObject(shack);
 		}
 		
 		performer.getProperty(Constants.INVENTORY).add(Item.generateKey(id));
 		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.STONE, REQUIRED_STONE);
-		performer.getProperty(Constants.HOUSES).add(id);
+		performer.getProperty(Constants.BUILDINGS).add(id, BuildingType.HOUSE);
 	}
 
 	@Override

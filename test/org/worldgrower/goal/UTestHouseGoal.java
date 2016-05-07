@@ -24,7 +24,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.attribute.IdList;
+import org.worldgrower.attribute.BuildingList;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.generator.BuildingGenerator;
@@ -77,7 +78,7 @@ public class UTestHouseGoal {
 		WorldObject target = createPerformer(3);
 		
 		int houseId = BuildingGenerator.generateHouse(5, 5, world, 1f);
-		target.setProperty(Constants.HOUSES, new IdList().add(houseId));
+		target.setProperty(Constants.BUILDINGS, new BuildingList().add(houseId, BuildingType.HOUSE));
 		world.addWorldObject(target);
 		
 		WorldObject house = world.findWorldObject(Constants.ID, houseId);
@@ -93,12 +94,12 @@ public class UTestHouseGoal {
 	public void testIsGoalMet() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
-		performer.setProperty(Constants.HOUSES, new IdList());
+		performer.setProperty(Constants.BUILDINGS, new BuildingList());
 		
 		assertEquals(false, goal.isGoalMet(performer, world));
 		
 		int houseId = BuildingGenerator.generateHouse(5, 5, world, 1f);
-		performer.getProperty(Constants.HOUSES).add(houseId);
+		performer.getProperty(Constants.BUILDINGS).add(houseId, BuildingType.HOUSE);
 		assertEquals(true, goal.isGoalMet(performer, world));
 	}
 

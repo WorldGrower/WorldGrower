@@ -34,6 +34,7 @@ import org.worldgrower.actions.legal.DefaultActionLegalHandler;
 import org.worldgrower.actions.legal.LegalAction;
 import org.worldgrower.actions.legal.LegalActions;
 import org.worldgrower.actions.legal.WorshipDeityLegalHandler;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdMap;
 import org.worldgrower.attribute.IdToIntegerMap;
@@ -268,7 +269,7 @@ public class GroupPropertyUtils {
 
 	static int getBaseAmountToPay(WorldObject target, World world) {
 		int amountToCollect = 0;
-		List<Integer> houseIds = target.getProperty(Constants.HOUSES).getIds();
+		List<Integer> houseIds = target.getProperty(Constants.BUILDINGS).getIds(BuildingType.SHACK, BuildingType.HOUSE);
 		if (houseIds.size() > 0) {
 			for(int houseId : houseIds) {
 				WorldObject house = world.findWorldObject(Constants.ID, houseId);

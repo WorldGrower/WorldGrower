@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.BuildShackAction;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.generator.BuildingGenerator;
 
 public class ShackGoal implements Goal {
@@ -58,7 +59,7 @@ public class ShackGoal implements Goal {
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		return performer.getProperty(Constants.HOUSES).size() > 0;
+		return performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.SHACK).size() > 0;
 	}
 	
 	@Override
@@ -73,7 +74,7 @@ public class ShackGoal implements Goal {
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		return performer.getProperty(Constants.HOUSES).size();
+		return performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.SHACK).size();
 	}
 
 }

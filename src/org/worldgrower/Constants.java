@@ -21,6 +21,7 @@ import org.worldgrower.actions.legal.LegalActions;
 import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.attribute.BackgroundProperty;
 import org.worldgrower.attribute.BooleanProperty;
+import org.worldgrower.attribute.BuildingsListProperty;
 import org.worldgrower.attribute.ConditionsProperty;
 import org.worldgrower.attribute.DamageType;
 import org.worldgrower.attribute.IdListProperty;
@@ -121,7 +122,7 @@ public class Constants {
 	public static final IntProperty FOOD_PRODUCED = new IntProperty("foodProduced",0, 500, NOT_NULLABLE, ALL_PROPERTIES);
 	
 	public static final IntProperty WOOD = new IntProperty("wood", 0, 50, NOT_NULLABLE, ALL_PROPERTIES);
-	public static final IdListProperty HOUSES = new IdListProperty("houses", ALL_PROPERTIES);
+	public static final BuildingsListProperty BUILDINGS = new BuildingsListProperty("buildings", ALL_PROPERTIES);
 	public static final IdProperty SMITH_ID = new IdProperty("smithId", ALL_PROPERTIES);
 	public static final IdProperty WORKBENCH_ID = new IdProperty("workbenchId", ALL_PROPERTIES);
 	public static final IdProperty BREWERY_ID = new IdProperty("breweryId", ALL_PROPERTIES);

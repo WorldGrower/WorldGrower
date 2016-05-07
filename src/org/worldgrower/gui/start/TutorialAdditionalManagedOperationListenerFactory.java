@@ -23,6 +23,7 @@ import org.worldgrower.ManagedOperationListener;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.generator.CreatureGenerator;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.gui.AdditionalManagedOperationListenerFactory;
@@ -51,9 +52,9 @@ public class TutorialAdditionalManagedOperationListenerFactory implements Additi
 
 		@Override
 		public void actionPerformed(ManagedOperation managedOperation, WorldObject performer, WorldObject target, int[] args, Object value) {
-			if (managedOperation == Actions.CUT_WOOD_ACTION && performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) < 6 && performer.getProperty(Constants.HOUSES).size() == 0) {
+			if (managedOperation == Actions.CUT_WOOD_ACTION && performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) < 6 && performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.SHACK).size() == 0) {
 				MessageDialogUtils.showMessage("You can keep cutting wood six times, so that you can build somewhere to sleep.", "Cutting Wood", target, container, imageInfoReader);
-			} else if (managedOperation == Actions.CUT_WOOD_ACTION && performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) >= 6 && performer.getProperty(Constants.HOUSES).size() == 0) {
+			} else if (managedOperation == Actions.CUT_WOOD_ACTION && performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) >= 6 && performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.SHACK).size() == 0) {
 				MessageDialogUtils.showMessage("Now right-click on your character and choose build - build shack. \nChoose an empty space around your character and place the shack. \nMove next to the shack and right-click on it to sleep in it.", "Building Shack", target, container, imageInfoReader);
 			} else if (managedOperation == Actions.SLEEP_ACTION) {
 				MessageDialogUtils.showMessage("Resting restores energy, which is used for some actions like cutting wood. Energy is indicated by the green bar at the lower right of the screen. \nNow use the down arrow to move down to the berry bush.\n Then right-click on the berry bush to harvest food from it.", "Harvesting food", target, container, imageInfoReader);

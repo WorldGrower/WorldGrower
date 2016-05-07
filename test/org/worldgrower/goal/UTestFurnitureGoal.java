@@ -23,7 +23,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.attribute.IdList;
+import org.worldgrower.attribute.BuildingList;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.KnowledgeMap;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.BuildingGenerator;
@@ -79,7 +80,7 @@ public class UTestFurnitureGoal {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
 		performer.getProperty(Constants.INVENTORY).add(Item.BED.generate(1f));
-		performer.setProperty(Constants.HOUSES, new IdList());
+		performer.setProperty(Constants.BUILDINGS, new BuildingList());
 		performer.setProperty(Constants.GOLD, 0);
 		
 		createVillagersOrganization(world);
@@ -92,11 +93,11 @@ public class UTestFurnitureGoal {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
 		performer.getProperty(Constants.INVENTORY).add(Item.BED.generate(1f));
-		performer.setProperty(Constants.HOUSES, new IdList());
+		performer.setProperty(Constants.BUILDINGS, new BuildingList());
 		performer.setProperty(Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		
 		int houseId = BuildingGenerator.generateHouse(5, 5, world, 1f);
-		performer.getProperty(Constants.HOUSES).add(houseId);
+		performer.getProperty(Constants.BUILDINGS).add(houseId, BuildingType.HOUSE);
 		
 		assertEquals(Actions.PUT_ITEM_INTO_INVENTORY_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
@@ -105,12 +106,12 @@ public class UTestFurnitureGoal {
 	public void testIsGoalMet() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
-		performer.setProperty(Constants.HOUSES, new IdList());
+		performer.setProperty(Constants.BUILDINGS, new BuildingList());
 		
 		assertEquals(false, goal.isGoalMet(performer, world));
 		
 		int houseId = BuildingGenerator.generateHouse(5, 5, world, 1f);
-		performer.getProperty(Constants.HOUSES).add(houseId);
+		performer.getProperty(Constants.BUILDINGS).add(houseId, BuildingType.HOUSE);
 		WorldObject house = world.findWorldObject(Constants.ID, houseId);
 		house.getProperty(Constants.INVENTORY).add(Item.BED.generate(1f));
 		

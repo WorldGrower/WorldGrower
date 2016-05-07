@@ -26,9 +26,7 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.legal.ButcherLegalHandler;
 import org.worldgrower.actions.legal.LegalAction;
 import org.worldgrower.actions.legal.LegalActions;
-import org.worldgrower.actions.legal.WorshipDeityLegalHandler;
 import org.worldgrower.attribute.WorldObjectContainer;
-import org.worldgrower.deity.Deity;
 
 public class GatherFoodGoal implements Goal {
 

@@ -23,7 +23,8 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.IdList;
+import org.worldgrower.attribute.BuildingList;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
@@ -48,7 +49,7 @@ public class UTestBuildHouseAction {
 		WorldObject target = createPerformer(3);
 		
 		int shackId = BuildingGenerator.generateShack(0, 0, world, 1f);
-		performer.getProperty(Constants.HOUSES).add(shackId);
+		performer.getProperty(Constants.BUILDINGS).add(shackId, BuildingType.SHACK);
 		
 		Actions.BUILD_HOUSE_ACTION.execute(performer, target, Args.EMPTY, world);
 		
@@ -81,7 +82,7 @@ public class UTestBuildHouseAction {
 		performer.setProperty(Constants.Y, 0);
 		performer.setProperty(Constants.WIDTH, 1);
 		performer.setProperty(Constants.HEIGHT, 1);
-		performer.setProperty(Constants.HOUSES, new IdList());
+		performer.setProperty(Constants.BUILDINGS, new BuildingList());
 		return performer;
 	}
 }

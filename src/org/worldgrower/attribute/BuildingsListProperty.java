@@ -19,12 +19,12 @@ import java.util.List;
 
 import org.worldgrower.WorldObject;
 
-public class BuildingsProperty implements ManagedProperty<BuildingList>, IdContainer {
+public class BuildingsListProperty implements ManagedProperty<BuildingList>, IdContainer {
 	
 	private final String name;
 	private final int ordinal = OrdinalGenerator.getNextOrdinal();
 	
-	public BuildingsProperty(String name, List<ManagedProperty<?>> allProperties) {
+	public BuildingsListProperty(String name, List<ManagedProperty<?>> allProperties) {
 		this.name = name;
 		allProperties.add(this);
 	}
@@ -62,7 +62,7 @@ public class BuildingsProperty implements ManagedProperty<BuildingList>, IdConta
 
 	@Override
 	public void remove(WorldObject worldObject, ManagedProperty<?> property, int id) {
-		BuildingsProperty idMapProperty = (BuildingsProperty) property;
+		BuildingsListProperty idMapProperty = (BuildingsListProperty) property;
 		worldObject.getProperty(idMapProperty).remove(id);
 	}
 }

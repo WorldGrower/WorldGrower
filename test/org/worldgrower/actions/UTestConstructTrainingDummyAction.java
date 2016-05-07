@@ -23,7 +23,7 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.IdList;
+import org.worldgrower.attribute.BuildingList;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
 
@@ -69,7 +69,7 @@ public class UTestConstructTrainingDummyAction {
 		performer.setProperty(Constants.Y, 0);
 		performer.setProperty(Constants.WIDTH, 1);
 		performer.setProperty(Constants.HEIGHT, 1);
-		performer.setProperty(Constants.HOUSES, new IdList());
+		performer.setProperty(Constants.BUILDINGS, new BuildingList());
 		return performer;
 	}
 }

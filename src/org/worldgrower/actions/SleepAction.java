@@ -44,7 +44,7 @@ public class SleepAction implements ManagedOperation {
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		int performerOwnsTargetDistance = performer.getProperty(Constants.HOUSES).contains(target) ? 0 : 1;
+		int performerOwnsTargetDistance = performer.getProperty(Constants.BUILDINGS).contains(target) ? 0 : 1;
 		return Reach.evaluateTarget(performer, args, target, 1) + performerOwnsTargetDistance;
 	}
 	

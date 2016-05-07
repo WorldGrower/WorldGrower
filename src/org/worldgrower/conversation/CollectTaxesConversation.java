@@ -82,7 +82,6 @@ public class CollectTaxesConversation implements Conversation {
 			taxesPaidTurn.remove(target);
 			taxesPaidTurn.incrementValue(target, world.getCurrentTurn().getValue());
 		} else if (replyIndex == NO) {
-			target.getProperty(Constants.HOUSES).removeAll();
 			//TODO: organization sells house
 		}
 	}

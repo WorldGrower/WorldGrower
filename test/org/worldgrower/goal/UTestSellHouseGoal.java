@@ -22,7 +22,8 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.IdList;
+import org.worldgrower.attribute.BuildingList;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.generator.BuildingGenerator;
 
 public class UTestSellHouseGoal {
@@ -67,12 +68,12 @@ public class UTestSellHouseGoal {
 		assertEquals(false, goal.isGoalMet(performer, world));
 		
 		int houseId = BuildingGenerator.generateHouse(5, 5, world, 1f);
-		performer.getProperty(Constants.HOUSES).add(houseId);
+		performer.getProperty(Constants.BUILDINGS).add(houseId, BuildingType.HOUSE);
 		assertEquals(true, goal.isGoalMet(performer, world));
 	}
 
 	private WorldObject createPerformer() {
-		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.HOUSES, new IdList());
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.BUILDINGS, new BuildingList());
 		performer.setProperty(Constants.X, 0);
 		performer.setProperty(Constants.Y, 0);
 		performer.setProperty(Constants.WIDTH, 1);

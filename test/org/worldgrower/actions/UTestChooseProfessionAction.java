@@ -30,7 +30,6 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.ChooseProfessionAction.ProfessionEvaluation;
 import org.worldgrower.attribute.IdList;
-import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.goal.Goals;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.profession.Profession;

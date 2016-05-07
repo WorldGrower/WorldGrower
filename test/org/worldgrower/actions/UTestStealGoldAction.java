@@ -27,7 +27,6 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.Skill;
 import org.worldgrower.attribute.WorldObjectContainer;
-import org.worldgrower.condition.WorldStateChangedListeners;
 
 public class UTestStealGoldAction {
 

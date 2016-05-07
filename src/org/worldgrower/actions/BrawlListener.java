@@ -21,7 +21,6 @@ import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.ManagedOperationListener;
 import org.worldgrower.WorldObject;
-import org.worldgrower.generator.Item;
 import org.worldgrower.goal.BrawlPropertyUtils;
 
 public class BrawlListener implements ManagedOperationListener {

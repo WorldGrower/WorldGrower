@@ -23,7 +23,8 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.IdList;
+import org.worldgrower.attribute.BuildingList;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.BuildingGenerator;
 
@@ -33,13 +34,13 @@ public class UTestClaimHouseAction {
 	public void testExecute() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
-		performer.setProperty(Constants.HOUSES, new IdList());
+		performer.setProperty(Constants.BUILDINGS, new BuildingList());
 		
 		int houseId = BuildingGenerator.generateHouse(0, 0, world, 1f);
 		WorldObject house = world.findWorldObject(Constants.ID, houseId);
 		Actions.CLAIM_HOUSE_ACTION.execute(performer, house, Args.EMPTY, world);
 		
-		assertEquals(true, performer.getProperty(Constants.HOUSES).contains(houseId));
+		assertEquals(true, performer.getProperty(Constants.BUILDINGS).contains(houseId));
 	}
 	
 	@Test
@@ -60,7 +61,7 @@ public class UTestClaimHouseAction {
 		int houseId = BuildingGenerator.generateHouse(0, 0, world, 1f);
 		WorldObject house = world.findWorldObject(Constants.ID, houseId);
 		
-		performer.setProperty(Constants.HOUSES, new IdList().add(house));
+		performer.setProperty(Constants.BUILDINGS, new BuildingList().add(house, BuildingType.HOUSE));
 		
 		assertEquals(0, Actions.CLAIM_HOUSE_ACTION.distance(performer, house, Args.EMPTY, world));
 	}

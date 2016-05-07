@@ -24,7 +24,8 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.IdList;
+import org.worldgrower.attribute.BuildingList;
+import org.worldgrower.attribute.BuildingType;
 
 public class UTestBuildLocationUtils {
 
@@ -44,7 +45,7 @@ public class UTestBuildLocationUtils {
 	@Test
 	public void testFindOpenLocationNearExistingPropertyUsingPerformer() {
 		World world = new WorldImpl(10, 10, null, null);
-		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.HOUSES, new IdList().add(3));
+		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.BUILDINGS, new BuildingList().add(3, BuildingType.HOUSE));
 		performer.setProperty(Constants.X, 4);
 		performer.setProperty(Constants.Y, 4);
 		
@@ -59,7 +60,7 @@ public class UTestBuildLocationUtils {
 	@Test
 	public void testFindOpenLocationAwayFromExistingProperty() {
 		World world = new WorldImpl(15, 15, null, null);
-		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.HOUSES, new IdList().add(3));
+		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.BUILDINGS, new BuildingList().add(3, BuildingType.HOUSE));
 		performer.setProperty(Constants.X, 4);
 		performer.setProperty(Constants.Y, 4);
 		

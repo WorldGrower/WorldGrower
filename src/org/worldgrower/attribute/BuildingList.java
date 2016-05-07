@@ -18,14 +18,23 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.Function;
 
+import org.worldgrower.Constants;
+import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 
 public class BuildingList implements Serializable, IdContainer {
 	private List<Building> buildings = new ArrayList<>();
 	
-	public void add(int id, BuildingType buildingType) {
+	public BuildingList add(int id, BuildingType buildingType) {
 		buildings.add(new Building(id, buildingType));
+		return this;
+	}
+	
+	public BuildingList add(WorldObject worldObject, BuildingType buildingType) {
+		add(worldObject.getProperty(Constants.ID), buildingType);
+		return this;
 	}
 	
 	public void remove(int id) {
@@ -38,10 +47,25 @@ public class BuildingList implements Serializable, IdContainer {
 		}
 	}
 	
-	public IdList getIds(BuildingType buildingType) {
-		IdList idList = new IdList();
+	public void remove(WorldObject worldObject) {
+		remove(worldObject.getProperty(Constants.ID));
+	}
+	
+	public List<Integer> getIds(BuildingType buildingType) {
+		List<Integer> idList = new ArrayList<>();
 		for(Building building : buildings) {
 			if (building.getBuildingType() == buildingType) {
+				idList.add(building.getId());
+			}
+		}
+		
+		return idList;
+	}
+	
+	public List<Integer> getIds(BuildingType buildingType1, BuildingType buildingType2) {
+		List<Integer> idList = new ArrayList<>();
+		for(Building building : buildings) {
+			if (building.getBuildingType() == buildingType1 || building.getBuildingType() == buildingType2) {
 				idList.add(building.getId());
 			}
 		}
@@ -69,7 +93,7 @@ public class BuildingList implements Serializable, IdContainer {
 
 	@Override
 	public void remove(WorldObject worldObject, ManagedProperty<?> property, int id) {
-		BuildingsProperty buildingProperty = (BuildingsProperty) property;
+		BuildingsListProperty buildingProperty = (BuildingsListProperty) property;
 		worldObject.getProperty(buildingProperty).remove(id);
 		
 	}
@@ -78,5 +102,34 @@ public class BuildingList implements Serializable, IdContainer {
 		BuildingList buildingList = new BuildingList();
 		buildingList.buildings.addAll(buildings);
 		return buildingList;
+	}
+
+	public boolean contains(WorldObject target) {
+		return contains(target.getProperty(Constants.ID));
+	}
+	
+	public List<WorldObject> mapToWorldObjects(World world, Function<WorldObject, Boolean> testFunction) {
+		List<WorldObject> worldObjects = new ArrayList<>();
+		for(Building building : buildings) {
+			WorldObject worldObject = world.findWorldObject(Constants.ID, building.getId());
+			if (testFunction.apply(worldObject).booleanValue()) {
+				worldObjects.add(worldObject);
+			}
+		}
+		
+		return worldObjects;
+	}
+
+	public boolean contains(int targetId) {
+		for(Building building : buildings) {
+			if (building.getId() == targetId) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public void removeAll() {
+		buildings.clear();
 	}
 }

@@ -24,6 +24,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.MockCommonerNameGenerator;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.generator.CommonerGenerator;
 import org.worldgrower.gui.CommonerImageIds;
@@ -51,7 +52,7 @@ public class UTestChildrenGoal {
 		
 		WorldObject target = createPerformer(world, organization);
 		target.setProperty(Constants.GENDER, "male");
-		target.getProperty(Constants.HOUSES).add(7);
+		target.getProperty(Constants.BUILDINGS).add(7, BuildingType.HOUSE);
 		
 		performer.getProperty(Constants.RELATIONSHIPS).incrementValue(target, 1);
 		
@@ -68,7 +69,7 @@ public class UTestChildrenGoal {
 		
 		WorldObject target = createPerformer(world, organization);
 		target.setProperty(Constants.GENDER, "male");
-		target.getProperty(Constants.HOUSES).add(7);
+		target.getProperty(Constants.BUILDINGS).add(7, BuildingType.HOUSE);
 		
 		performer.getProperty(Constants.RELATIONSHIPS).incrementValue(target, 1000);
 		
@@ -84,7 +85,7 @@ public class UTestChildrenGoal {
 		
 		WorldObject target = createPerformer(world, organization);
 		target.setProperty(Constants.GENDER, "male");
-		target.getProperty(Constants.HOUSES).add(7);
+		target.getProperty(Constants.BUILDINGS).add(7, BuildingType.HOUSE);
 		world.addWorldObject(target);
 		
 		assertEquals(Actions.TALK_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
