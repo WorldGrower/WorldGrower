@@ -20,6 +20,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.gui.ImageIds;
 
@@ -35,7 +36,7 @@ public class BuildSmithAction implements BuildAction {
 		int smithId = BuildingGenerator.generateSmith(x, y, world);
 		
 		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.STONE, REQUIRED_STONE);
-		performer.setProperty(Constants.SMITH_ID, smithId);
+		performer.getProperty(Constants.BUILDINGS).add(smithId, BuildingType.SMITH);
 	}
 
 	@Override

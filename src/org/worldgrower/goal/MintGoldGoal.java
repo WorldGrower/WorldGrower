@@ -22,6 +22,7 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.generator.BuildingGenerator;
 
 public class MintGoldGoal implements Goal {
 
@@ -31,7 +32,7 @@ public class MintGoldGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		Integer smithId = performer.getProperty(Constants.SMITH_ID);
+		Integer smithId = BuildingGenerator.getSmithId(performer);
 		if (smithId == null) {
 			return Goals.SMITH_GOAL.calculateGoal(performer, world);
 		} else if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.GOLD) < 10) {

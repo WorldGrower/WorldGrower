@@ -23,6 +23,8 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.MockCommonerNameGenerator;
+import org.worldgrower.attribute.BuildingList;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.CommonerGenerator;
 import org.worldgrower.generator.Item;
@@ -85,7 +87,7 @@ public class UTestSmithGoal {
 		assertEquals(false, goal.isGoalMet(performer, world));
 		
 		int smithId = BuildingGenerator.generateSmith(5, 5, world);
-		performer.setProperty(Constants.SMITH_ID, smithId);
+		performer.setProperty(Constants.BUILDINGS, new BuildingList().add(smithId, BuildingType.SMITH));
 		assertEquals(true, goal.isGoalMet(performer, world));
 	}
 

@@ -23,6 +23,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.BuildingList;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
@@ -46,8 +48,7 @@ public class UTestMintGoldGoal {
 		WorldObject performer = createPerformer();
 		
 		TerrainGenerator.generateGoldResource(5, 5, world);
-		int smithId = BuildingGenerator.generateSmith(0, 0, world);
-		performer.setProperty(Constants.SMITH_ID, smithId);
+		addSmith(world, performer);
 		
 		assertEquals(Actions.MINE_GOLD_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
@@ -69,8 +70,7 @@ public class UTestMintGoldGoal {
 		WorldObject performer = createPerformer();
 		
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.GOLD.generate(1f), 20);
-		int smithId = BuildingGenerator.generateSmith(0, 0, world);
-		performer.setProperty(Constants.SMITH_ID, smithId);
+		addSmith(world, performer);
 		
 		assertEquals(Actions.MINT_GOLD_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
@@ -104,6 +104,12 @@ public class UTestMintGoldGoal {
 		performer.setProperty(Constants.WIDTH, 1);
 		performer.setProperty(Constants.HEIGHT, 1);
 		performer.setProperty(Constants.GOLD, 0);
+		performer.setProperty(Constants.BUILDINGS, new BuildingList());
 		return performer;
+	}
+	
+	private void addSmith(World world, WorldObject performer) {
+		int smithId = BuildingGenerator.generateSmith(0, 0, world);
+		performer.setProperty(Constants.BUILDINGS, new BuildingList().add(smithId, BuildingType.SMITH));
 	}
 }

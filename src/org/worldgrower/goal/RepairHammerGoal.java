@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.BuildingGenerator;
 
 public class RepairHammerGoal implements Goal {
 
@@ -40,7 +41,7 @@ public class RepairHammerGoal implements Goal {
 		} else if (ore < Actions.CRAFT_REPAIR_HAMMER_ACTION.getOreRequired()) {
 			return Goals.ORE_GOAL.calculateGoal(performer, world);
 		} else {
-			Integer smithId = performer.getProperty(Constants.SMITH_ID);
+			Integer smithId = BuildingGenerator.getSmithId(performer);
 			WorldObject smith = world.findWorldObject(Constants.ID, smithId);
 			return new OperationInfo(performer, smith, Args.EMPTY, Actions.CRAFT_REPAIR_HAMMER_ACTION);
 		}

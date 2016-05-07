@@ -22,7 +22,9 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.BuildingGenerator;
 
 public class CraftEquipmentGoal implements Goal {
 
@@ -32,7 +34,7 @@ public class CraftEquipmentGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		Integer smithId = performer.getProperty(Constants.SMITH_ID);
+		Integer smithId = BuildingGenerator.getSmithId(performer);
 		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
 		if (inventory.getQuantityFor(Constants.WOOD) < 10) {
 			return Goals.WOOD_GOAL.calculateGoal(performer, world);

@@ -22,6 +22,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdToIntegerMap;
 import org.worldgrower.attribute.ManagedProperty;
@@ -639,5 +640,23 @@ public class BuildingGenerator {
 	
 	public static boolean isBrewery(WorldObject worldObject) {
 		return worldObject.hasProperty(Constants.BREWERY_QUALITY);
+	}
+	
+	public static Integer getSmithId(WorldObject performer) {
+		List<Integer> smithIds = performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.SMITH);
+		if (smithIds.size() > 0) {
+			return smithIds.get(0);
+		} else {
+			return null;
+		}
+	}
+	
+	public static Integer getBreweryId(WorldObject performer) {
+		List<Integer> breweryIds = performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.BREWERY);
+		if (breweryIds.size() > 0) {
+			return breweryIds.get(0);
+		} else {
+			return null;
+		}
 	}
 }

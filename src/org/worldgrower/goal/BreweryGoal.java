@@ -57,13 +57,10 @@ public class BreweryGoal implements Goal {
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		List<Integer> breweryIds = performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.BREWERY);
-		if (breweryIds.size() > 0) {
-			Integer breweryId = breweryIds.get(0);
-			if (breweryId != null) {
-				WorldObject brewery = world.findWorldObject(Constants.ID, breweryId.intValue());
-				return (brewery.getProperty(Constants.BREWERY_QUALITY) > 0);
-			}
+		Integer breweryId = BuildingGenerator.getBreweryId(performer);
+		if (breweryId != null) {
+			WorldObject brewery = world.findWorldObject(Constants.ID, breweryId.intValue());
+			return (brewery.getProperty(Constants.BREWERY_QUALITY) > 0);
 		}
 		return false;
 	}

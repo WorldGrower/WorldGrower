@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.BuildSmithAction;
+import org.worldgrower.generator.BuildingGenerator;
 
 public class SmithGoal implements Goal {
 
@@ -50,7 +51,7 @@ public class SmithGoal implements Goal {
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		Integer smithId = performer.getProperty(Constants.SMITH_ID);
+		Integer smithId = BuildingGenerator.getSmithId(performer);
 		if (smithId != null) {
 			WorldObject smith = world.findWorldObject(Constants.ID, smithId.intValue());
 			return (smith.getProperty(Constants.SMITH_QUALITY) > 0);
@@ -71,6 +72,7 @@ public class SmithGoal implements Goal {
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		return (performer.getProperty(Constants.SMITH_ID) != null) ? 1 : 0;
+		Integer smithId = BuildingGenerator.getSmithId(performer);
+		return (smithId != null) ? 1 : 0;
 	}
 }
