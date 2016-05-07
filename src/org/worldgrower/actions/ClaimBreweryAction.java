@@ -24,28 +24,28 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.gui.ImageIds;
 
-public class ClaimHouseAction implements ManagedOperation {
+public class ClaimBreweryAction implements ManagedOperation {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		performer.getProperty(Constants.HOUSES).add(target.getProperty(Constants.ID));
+		performer.setProperty(Constants.BREWERY_ID, target.getProperty(Constants.ID));
 	}
 
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return (target.hasProperty(Constants.SLEEP_COMFORT));
+		return (target.hasProperty(Constants.BREWERY_QUALITY));
 	}
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
 		int distanceBetweenPerformerAndTarget = Reach.evaluateTarget(performer, args, target, 1);
-		List<WorldObject> owners = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> w.hasProperty(Constants.HOUSES) && w.getProperty(Constants.HOUSES).contains(target));
+		List<WorldObject> owners = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> w.getProperty(Constants.BREWERY_ID) != null && w.getProperty(Constants.BREWERY_ID).intValue() == target.getProperty(Constants.ID).intValue());
 		return distanceBetweenPerformerAndTarget + owners.size();
 	}
 	
 	@Override
 	public String getRequirementsDescription() {
-		return CraftUtils.getRequirementsDescription("unowned house");
+		return CraftUtils.getRequirementsDescription("unowned brewery");
 	}
 
 	@Override
@@ -55,7 +55,7 @@ public class ClaimHouseAction implements ManagedOperation {
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "claiming a house";
+		return "claiming a brewery";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {
@@ -64,7 +64,7 @@ public class ClaimHouseAction implements ManagedOperation {
 
 	@Override
 	public String getSimpleDescription() {
-		return "claim house";
+		return "claim brewery";
 	}
 	
 	@Override

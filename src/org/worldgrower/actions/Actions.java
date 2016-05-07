@@ -241,6 +241,7 @@ public class Actions {
 	public static final LeashAction LEASH_ACTION = new LeashAction();
 	public static final UnleashAction UNLEASH_ACTION = new UnleashAction();
 	public static final ClaimCattleAction CLAIM_CATTLE_ACTION = new ClaimCattleAction();
+	public static final ClaimBreweryAction CLAIM_BREWERY_ACTION = new ClaimBreweryAction();
 	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 
@@ -416,7 +417,8 @@ public class Actions {
 		LIFE_STEAL_ACTION,
 		LEASH_ACTION,
 		UNLEASH_ACTION,
-		CLAIM_CATTLE_ACTION
+		CLAIM_CATTLE_ACTION,
+		CLAIM_BREWERY_ACTION
 	));
 	
 	static {

@@ -655,7 +655,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestContainerUtils.class,
 	UTestLeashAction.class,
 	UTestUnleashAction.class,
-	UTestClaimCattleAction.class
+	UTestClaimCattleAction.class,
+	UTestClaimBreweryAction.class
 })
 public class CompleteTestSuite {
 }
