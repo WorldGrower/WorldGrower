@@ -108,12 +108,14 @@ public class BuildingList implements Serializable, IdContainer {
 		return contains(target.getProperty(Constants.ID));
 	}
 	
-	public List<WorldObject> mapToWorldObjects(World world, Function<WorldObject, Boolean> testFunction) {
+	public List<WorldObject> mapToWorldObjects(World world, BuildingType buildingType, Function<WorldObject, Boolean> testFunction) {
 		List<WorldObject> worldObjects = new ArrayList<>();
 		for(Building building : buildings) {
-			WorldObject worldObject = world.findWorldObject(Constants.ID, building.getId());
-			if (testFunction.apply(worldObject).booleanValue()) {
-				worldObjects.add(worldObject);
+			if (building.getBuildingType() == buildingType) {
+				WorldObject worldObject = world.findWorldObject(Constants.ID, building.getId());
+				if (testFunction.apply(worldObject).booleanValue()) {
+					worldObjects.add(worldObject);
+				}
 			}
 		}
 		

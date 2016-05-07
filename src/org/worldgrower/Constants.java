@@ -125,7 +125,6 @@ public class Constants {
 	public static final BuildingsListProperty BUILDINGS = new BuildingsListProperty("buildings", ALL_PROPERTIES);
 	public static final IdProperty SMITH_ID = new IdProperty("smithId", ALL_PROPERTIES);
 	public static final IdProperty WORKBENCH_ID = new IdProperty("workbenchId", ALL_PROPERTIES);
-	public static final IdProperty BREWERY_ID = new IdProperty("breweryId", ALL_PROPERTIES);
 	public static final IntProperty ENERGY = new IntProperty("energy", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty PAPER_MILL_QUALITY = new IntProperty("paperMillQuality", 0, 50, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IdProperty PAPER_MILL_ID = new IdProperty("paperMillId", ALL_PROPERTIES);

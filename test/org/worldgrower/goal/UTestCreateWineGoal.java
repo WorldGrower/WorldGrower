@@ -23,6 +23,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.BuildingList;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
@@ -80,7 +82,7 @@ public class UTestCreateWineGoal {
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.GRAPES.generate(1f), 20);
 		
 		int breweryId = BuildingGenerator.generateBrewery(0, 0, world);
-		performer.setProperty(Constants.BREWERY_ID, breweryId);
+		performer.setProperty(Constants.BUILDINGS, new BuildingList().add(breweryId, BuildingType.BREWERY));
 		
 		assertEquals(Actions.BREW_WINE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
@@ -102,6 +104,7 @@ public class UTestCreateWineGoal {
 		performer.setProperty(Constants.Y, 0);
 		performer.setProperty(Constants.WIDTH, 1);
 		performer.setProperty(Constants.HEIGHT, 1);
+		performer.setProperty(Constants.BUILDINGS, new BuildingList());
 		return performer;
 	}
 }

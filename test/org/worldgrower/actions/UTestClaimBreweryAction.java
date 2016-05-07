@@ -24,6 +24,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.BuildingList;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.BuildingGenerator;
 
@@ -38,11 +39,11 @@ public class UTestClaimBreweryAction {
 		performer.setProperty(Constants.BUILDINGS, new BuildingList());
 		
 		WorldObject brewery = generateBrewery(world);
-		assertEquals(null, performer.getProperty(Constants.BREWERY_ID));
+		assertEquals(0, performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.BREWERY).size());
 		
 		action.execute(performer, brewery, Args.EMPTY, world);
 		
-		assertEquals(brewery.getProperty(Constants.ID).intValue(), performer.getProperty(Constants.BREWERY_ID).intValue());
+		assertEquals(brewery.getProperty(Constants.ID).intValue(), performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.BREWERY).get(0).intValue());
 	}
 
 	private WorldObject generateBrewery(World world) {

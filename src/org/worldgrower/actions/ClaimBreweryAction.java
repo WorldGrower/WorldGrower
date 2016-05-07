@@ -22,13 +22,14 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.gui.ImageIds;
 
 public class ClaimBreweryAction implements ManagedOperation {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		performer.setProperty(Constants.BREWERY_ID, target.getProperty(Constants.ID));
+		performer.getProperty(Constants.BUILDINGS).add(target, BuildingType.BREWERY);
 	}
 
 	@Override
@@ -39,7 +40,7 @@ public class ClaimBreweryAction implements ManagedOperation {
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
 		int distanceBetweenPerformerAndTarget = Reach.evaluateTarget(performer, args, target, 1);
-		List<WorldObject> owners = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> w.getProperty(Constants.BREWERY_ID) != null && w.getProperty(Constants.BREWERY_ID).intValue() == target.getProperty(Constants.ID).intValue());
+		List<WorldObject> owners = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> w.getProperty(Constants.BUILDINGS) != null && w.getProperty(Constants.BUILDINGS).contains(target));
 		return distanceBetweenPerformerAndTarget + owners.size();
 	}
 	

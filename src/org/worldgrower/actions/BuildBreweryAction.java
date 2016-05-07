@@ -20,6 +20,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.gui.ImageIds;
 
@@ -36,7 +37,7 @@ public class BuildBreweryAction implements BuildAction {
 		
 		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.WOOD, REQUIRED_WOOD);
 		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.STONE, REQUIRED_STONE);
-		performer.setProperty(Constants.BREWERY_ID, breweryId);
+		performer.getProperty(Constants.BUILDINGS).add(breweryId, BuildingType.BREWERY);
 	}
 
 	@Override

@@ -22,6 +22,7 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.BuildingType;
 
 public class MarkHouseAsSellableGoal implements Goal {
 	
@@ -31,7 +32,7 @@ public class MarkHouseAsSellableGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		List<WorldObject> houses = performer.getProperty(Constants.BUILDINGS).mapToWorldObjects(world, w -> !w.hasProperty(Constants.SELLABLE) || !w.getProperty(Constants.SELLABLE));
+		List<WorldObject> houses = performer.getProperty(Constants.BUILDINGS).mapToWorldObjects(world, BuildingType.HOUSE, w -> !w.hasProperty(Constants.SELLABLE) || !w.getProperty(Constants.SELLABLE));
 		if (houses.size() > 1) {
 			WorldObject house = houses.get(1);
 			return new OperationInfo(performer, house, Args.EMPTY, Actions.MARK_AS_SELLABLE_ACTION);

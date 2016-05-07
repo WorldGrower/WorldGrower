@@ -23,6 +23,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.BuildingType;
 
 public class CreateWineGoal implements Goal {
 
@@ -32,7 +33,7 @@ public class CreateWineGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		Integer breweryId = performer.getProperty(Constants.BREWERY_ID);
+		Integer breweryId = getBreweryId(performer);
 		if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.GRAPE) < 5) {
 			List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.HARVEST_GRAPES_ACTION, w -> Reach.distance(performer, w) < 20  ,world);
 			if (targets.size() > 0) {
@@ -51,6 +52,15 @@ public class CreateWineGoal implements Goal {
 		} else {
 			WorldObject brewery = world.findWorldObject(Constants.ID, breweryId);
 			return new OperationInfo(performer, brewery, Args.EMPTY, Actions.BREW_WINE_ACTION);
+		}
+	}
+	
+	private Integer getBreweryId(WorldObject performer) {
+		List<Integer> breweryIds = performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.BREWERY);
+		if (breweryIds.size() > 0) {
+			return breweryIds.get(0);
+		} else {
+			return null;
 		}
 	}
 	
