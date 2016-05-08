@@ -79,13 +79,17 @@ public class UTestEquipmentGoal {
 		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.STRENGTH, 8);
 		
-		int weaveryId = BuildingGenerator.generateWeavery(0, 0, world);
-		performer.setProperty(Constants.WEAVERY_ID, weaveryId);
+		addWeavery(world, performer);
 
 		equip(performer, Item.IRON_CLAYMORE);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.COTTON.generate(1f), 20);
 
 		assertEquals(Actions.WEAVE_COTTON_SHIRT_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+
+	private void addWeavery(World world, WorldObject performer) {
+		int weaveryId = BuildingGenerator.generateWeavery(0, 0, world);
+		performer.setProperty(Constants.BUILDINGS, new BuildingList().add(weaveryId, BuildingType.WEAVERY));
 	}
 
 	private void equip(WorldObject performer, Item item) {

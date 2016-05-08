@@ -21,5 +21,6 @@ public enum BuildingType {
 	BREWERY,
 	SMITH,
 	WORKBENCH,
-	PAPERMILL
+	PAPERMILL,
+	WEAVERY
 }

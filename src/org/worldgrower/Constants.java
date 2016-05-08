@@ -21,6 +21,7 @@ import org.worldgrower.actions.legal.LegalActions;
 import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.attribute.BackgroundProperty;
 import org.worldgrower.attribute.BooleanProperty;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.BuildingsListProperty;
 import org.worldgrower.attribute.ConditionsProperty;
 import org.worldgrower.attribute.DamageType;
@@ -127,6 +128,7 @@ public class Constants {
 	public static final IntProperty PAPER_MILL_QUALITY = new IntProperty("paperMillQuality", 0, 50, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty LIBRARY_QUALITY = new IntProperty("libraryQuality", 0, 50, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty WORKBENCH_QUALITY = new IntProperty("workbenchQuality", 0, 50, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final UnCheckedProperty<BuildingType> BUILDING_TYPE = new UnCheckedProperty<>("buildingType", ALL_PROPERTIES);
 	
 	public static final IntProperty DAMAGE = new IntProperty("damage", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty RANGE = new IntProperty("range", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
@@ -272,7 +274,6 @@ public class Constants {
 	public static final IdProperty ASSASSINATE_TARGET_ID = new IdProperty("assassinateTargetId", ALL_PROPERTIES);
 	public static final IntProperty SLEEP_INDUCING_DRUG_STRENGTH = new IntProperty("sleepInducingDrugStrength", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IdProperty FEAR_CASTER_ID = new IdProperty("fearCasterId", ALL_PROPERTIES);
-	public static final IdProperty WEAVERY_ID = new IdProperty("weaveryId", ALL_PROPERTIES);
 	public static final IntProperty WEAVERY_QUALITY = new IntProperty("weaveryQuality", 0, 100, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty BREWERY_QUALITY = new IntProperty("breweryQuality", 0, 100, NOT_NULLABLE, ALL_PROPERTIES);
 	

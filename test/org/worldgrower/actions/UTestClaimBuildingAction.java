@@ -28,7 +28,9 @@ import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.BuildingGenerator;
 
-public class UTestClaimHouseAction {
+public class UTestClaimBuildingAction {
+
+	private ClaimBuildingAction action = Actions.CLAIM_BUILDING_ACTION;
 
 	@Test
 	public void testExecute() {
@@ -36,34 +38,37 @@ public class UTestClaimHouseAction {
 		WorldObject performer = createPerformer(2);
 		performer.setProperty(Constants.BUILDINGS, new BuildingList());
 		
-		int houseId = BuildingGenerator.generateHouse(0, 0, world, 1f);
-		WorldObject house = world.findWorldObject(Constants.ID, houseId);
-		Actions.CLAIM_HOUSE_ACTION.execute(performer, house, Args.EMPTY, world);
+		WorldObject brewery = generateBrewery(world);
+		assertEquals(0, performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.BREWERY).size());
 		
-		assertEquals(true, performer.getProperty(Constants.BUILDINGS).contains(houseId));
+		action.execute(performer, brewery, Args.EMPTY, world);
+		
+		assertEquals(brewery.getProperty(Constants.ID).intValue(), performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.BREWERY).get(0).intValue());
+	}
+
+	private WorldObject generateBrewery(World world) {
+		int breweryId = BuildingGenerator.generateBrewery(0, 0, world);
+		WorldObject brewery = world.findWorldObject(Constants.ID, breweryId);
+		return brewery;
 	}
 	
 	@Test
 	public void testIsValidTarget() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
-		int houseId = BuildingGenerator.generateHouse(0, 0, world, 1f);
-		WorldObject house = world.findWorldObject(Constants.ID, houseId);
+		WorldObject brewery = generateBrewery(world);
 		
-		assertEquals(true, Actions.CLAIM_HOUSE_ACTION.isValidTarget(performer, house, world));
-		assertEquals(false, Actions.CLAIM_HOUSE_ACTION.isValidTarget(performer, performer, world));
+		assertEquals(true, action.isValidTarget(performer, brewery, world));
+		assertEquals(false, action.isValidTarget(performer, performer, world));
 	}
 	
 	@Test
 	public void testDistance() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
-		int houseId = BuildingGenerator.generateHouse(0, 0, world, 1f);
-		WorldObject house = world.findWorldObject(Constants.ID, houseId);
+		WorldObject brewery = generateBrewery(world);
 		
-		performer.setProperty(Constants.BUILDINGS, new BuildingList().add(house, BuildingType.HOUSE));
-		
-		assertEquals(0, Actions.CLAIM_HOUSE_ACTION.distance(performer, house, Args.EMPTY, world));
+		assertEquals(0, action.distance(performer, brewery, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

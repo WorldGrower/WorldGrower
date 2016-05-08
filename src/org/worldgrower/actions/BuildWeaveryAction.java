@@ -20,6 +20,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.gui.ImageIds;
 
@@ -35,7 +36,7 @@ public class BuildWeaveryAction implements BuildAction {
 		int weaveryId = BuildingGenerator.generateWeavery(x, y, world);
 		
 		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.WOOD, REQUIRED_WOOD);
-		performer.setProperty(Constants.WEAVERY_ID, weaveryId);
+		performer.getProperty(Constants.BUILDINGS).add(weaveryId, BuildingType.WEAVERY);
 	}
 
 	@Override

@@ -606,7 +606,7 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestPoisonInventoryWaterWithSleepingPotionAction.class,
 	UTestWorldObjectFacade.class,
 	UTestCreateSleepingPotionGoal.class,
-	UTestClaimHouseAction.class,
+	UTestClaimBuildingAction.class,
 	UTestPoisonWeaponAction.class,
 	UTestStandStillToTalkGoal.class,
 	UTestPrices.class,
@@ -656,7 +656,7 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestLeashAction.class,
 	UTestUnleashAction.class,
 	UTestClaimCattleAction.class,
-	UTestClaimBreweryAction.class
+	UTestClaimBuildingAction.class
 })
 public class CompleteTestSuite {
 }

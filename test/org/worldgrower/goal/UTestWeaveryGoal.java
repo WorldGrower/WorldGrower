@@ -23,6 +23,8 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.MockCommonerNameGenerator;
+import org.worldgrower.attribute.BuildingList;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.CommonerGenerator;
 import org.worldgrower.generator.Item;
@@ -84,9 +86,13 @@ public class UTestWeaveryGoal {
 		
 		assertEquals(false, goal.isGoalMet(performer, world));
 		
-		int weaveryId = BuildingGenerator.generateWeavery(5, 5, world);
-		performer.setProperty(Constants.WEAVERY_ID, weaveryId);
+		addWeavery(world, performer);
 		assertEquals(true, goal.isGoalMet(performer, world));
+	}
+	
+	private void addWeavery(World world, WorldObject performer) {
+		int weaveryId = BuildingGenerator.generateWeavery(0, 0, world);
+		performer.setProperty(Constants.BUILDINGS, new BuildingList().add(weaveryId, BuildingType.WEAVERY));
 	}
 
 	private WorldObject createCommoner(World world, WorldObject organization) {

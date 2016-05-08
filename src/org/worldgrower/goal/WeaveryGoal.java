@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.BuildWeaveryAction;
+import org.worldgrower.generator.BuildingGenerator;
 
 public class WeaveryGoal implements Goal {
 
@@ -50,7 +51,7 @@ public class WeaveryGoal implements Goal {
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		Integer weaveryId = performer.getProperty(Constants.WEAVERY_ID);
+		Integer weaveryId = BuildingGenerator.getWeaveryId(performer);
 		if (weaveryId != null) {
 			WorldObject weavery = world.findWorldObject(Constants.ID, weaveryId);
 			return (weavery.getProperty(Constants.WEAVERY_QUALITY) > 0);
@@ -71,6 +72,7 @@ public class WeaveryGoal implements Goal {
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		return (performer.getProperty(Constants.WEAVERY_ID) != null) ? 1 : 0;
+		Integer weaveryId = BuildingGenerator.getWeaveryId(performer);
+		return (weaveryId != null) ? 1 : 0;
 	}
 }

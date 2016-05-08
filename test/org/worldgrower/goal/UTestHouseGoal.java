@@ -67,7 +67,7 @@ public class UTestHouseGoal {
 		
 		createVillagersOrganization(world);
 		
-		assertEquals(Actions.CLAIM_HOUSE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+		assertEquals(Actions.CLAIM_BUILDING_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
 	
 	@Test

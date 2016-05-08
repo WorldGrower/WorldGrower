@@ -101,7 +101,7 @@ public class UTestBreweryGoal {
 		
 		BuildingGenerator.generateBrewery(0, 0, world);
 		
-		assertEquals(Actions.CLAIM_BREWERY_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+		assertEquals(Actions.CLAIM_BUILDING_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
 	
 	@Test

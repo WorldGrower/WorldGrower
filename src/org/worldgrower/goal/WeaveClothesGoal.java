@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
 
 public class WeaveClothesGoal implements Goal {
@@ -33,7 +34,7 @@ public class WeaveClothesGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		Integer weaveryId = performer.getProperty(Constants.WEAVERY_ID);
+		Integer weaveryId = BuildingGenerator.getWeaveryId(performer);
 		if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.COTTON) < 10) {
 			return Goals.COTTON_GOAL.calculateGoal(performer, world);
 		} else if (weaveryId != null){

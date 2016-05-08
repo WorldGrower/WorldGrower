@@ -232,7 +232,6 @@ public class Actions {
 	public static final SleepingPoisonAction SLEEPING_POISON_ACTION = new SleepingPoisonAction();
 	public static final PoisonInventoryWaterWithSleepingPotionAction POISON_INVENTORY_WATER_WITH_SLEEPING_POTION_ACTION = new PoisonInventoryWaterWithSleepingPotionAction();
 	public static final PoisonWeaponAction POISON_WEAPON_ACTION = new PoisonWeaponAction();
-	public static final ClaimHouseAction CLAIM_HOUSE_ACTION = new ClaimHouseAction();
 	public static final StandStillToTalkAction STAND_STILL_TO_TALK_ACTION = new StandStillToTalkAction();
 	public static final BuildWeaveryAction BUILD_WEAVERY_ACTION = new BuildWeaveryAction();
 	public static final BuildWorkbenchAction BUILD_WORKBENCH_ACTION = new BuildWorkbenchAction();
@@ -241,7 +240,7 @@ public class Actions {
 	public static final LeashAction LEASH_ACTION = new LeashAction();
 	public static final UnleashAction UNLEASH_ACTION = new UnleashAction();
 	public static final ClaimCattleAction CLAIM_CATTLE_ACTION = new ClaimCattleAction();
-	public static final ClaimBreweryAction CLAIM_BREWERY_ACTION = new ClaimBreweryAction();
+	public static final ClaimBuildingAction CLAIM_BUILDING_ACTION = new ClaimBuildingAction();
 	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 
@@ -409,7 +408,6 @@ public class Actions {
 		CRAFT_IRON_KATAR_ACTION,
 		BREW_SLEEPING_POTION_ACTION,
 		SLEEPING_POISON_ACTION,
-		CLAIM_HOUSE_ACTION,
 		STAND_STILL_TO_TALK_ACTION,
 		BUILD_WEAVERY_ACTION,
 		BUILD_WORKBENCH_ACTION,
@@ -418,7 +416,7 @@ public class Actions {
 		LEASH_ACTION,
 		UNLEASH_ACTION,
 		CLAIM_CATTLE_ACTION,
-		CLAIM_BREWERY_ACTION
+		CLAIM_BUILDING_ACTION
 	));
 	
 	static {

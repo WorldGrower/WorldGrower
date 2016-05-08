@@ -23,6 +23,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.BuildingList;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
@@ -44,8 +46,7 @@ public class UTestWeaveClothesGoal {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
 		
-		int weaveryId = BuildingGenerator.generateWeavery(0, 0, world);
-		performer.setProperty(Constants.WEAVERY_ID, weaveryId);
+		addWeavery(world, performer);
 		
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
 		performerInventory.addQuantity(Item.COTTON.generate(1f), 20);
@@ -58,8 +59,7 @@ public class UTestWeaveClothesGoal {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
 		
-		int weaveryId = BuildingGenerator.generateWeavery(0, 0, world);
-		performer.setProperty(Constants.WEAVERY_ID, weaveryId);
+		addWeavery(world, performer);
 		
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
 		performerInventory.addQuantity(Item.COTTON.generate(1f), 20);
@@ -73,8 +73,7 @@ public class UTestWeaveClothesGoal {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
 		
-		int weaveryId = BuildingGenerator.generateWeavery(0, 0, world);
-		performer.setProperty(Constants.WEAVERY_ID, weaveryId);
+		addWeavery(world, performer);
 		
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
 		performerInventory.addQuantity(Item.COTTON.generate(1f), 20);
@@ -89,8 +88,7 @@ public class UTestWeaveClothesGoal {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
 		
-		int weaveryId = BuildingGenerator.generateWeavery(0, 0, world);
-		performer.setProperty(Constants.WEAVERY_ID, weaveryId);
+		addWeavery(world, performer);
 		
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
 		performerInventory.addQuantity(Item.COTTON.generate(1f), 20);
@@ -115,6 +113,11 @@ public class UTestWeaveClothesGoal {
 		}
 		
 		assertEquals(true, goal.isGoalMet(performer, world));
+	}
+	
+	private void addWeavery(World world, WorldObject performer) {
+		int weaveryId = BuildingGenerator.generateWeavery(0, 0, world);
+		performer.setProperty(Constants.BUILDINGS, new BuildingList().add(weaveryId, BuildingType.WEAVERY));
 	}
 	
 	private WorldObject createPerformer() {

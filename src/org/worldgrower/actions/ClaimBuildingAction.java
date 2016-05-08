@@ -25,28 +25,29 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.gui.ImageIds;
 
-public class ClaimBreweryAction implements ManagedOperation {
+public class ClaimBuildingAction implements ManagedOperation {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		performer.getProperty(Constants.BUILDINGS).add(target, BuildingType.BREWERY);
+		BuildingType buildingType = target.getProperty(Constants.BUILDING_TYPE);
+		performer.getProperty(Constants.BUILDINGS).add(target, buildingType);
 	}
 
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return (target.hasProperty(Constants.BREWERY_QUALITY));
+		return (target.hasProperty(Constants.BUILDING_TYPE));
 	}
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
 		int distanceBetweenPerformerAndTarget = Reach.evaluateTarget(performer, args, target, 1);
-		List<WorldObject> owners = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> w.getProperty(Constants.BUILDINGS) != null && w.getProperty(Constants.BUILDINGS).contains(target));
+		List<WorldObject> owners = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> w.hasProperty(Constants.BUILDINGS) && w.getProperty(Constants.BUILDINGS).contains(target));
 		return distanceBetweenPerformerAndTarget + owners.size();
 	}
 	
 	@Override
 	public String getRequirementsDescription() {
-		return CraftUtils.getRequirementsDescription("unowned brewery");
+		return CraftUtils.getRequirementsDescription("unowned building");
 	}
 
 	@Override
@@ -56,7 +57,7 @@ public class ClaimBreweryAction implements ManagedOperation {
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "claiming a brewery";
+		return "claiming a " + target.getProperty(Constants.NAME);
 	}
 	
 	public Object readResolve() throws ObjectStreamException {
@@ -65,7 +66,7 @@ public class ClaimBreweryAction implements ManagedOperation {
 
 	@Override
 	public String getSimpleDescription() {
-		return "claim brewery";
+		return "claim building";
 	}
 	
 	@Override

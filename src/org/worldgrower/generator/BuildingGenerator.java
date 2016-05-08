@@ -83,6 +83,7 @@ public class BuildingGenerator {
 		properties.put(Constants.INVENTORY, new WorldObjectContainer());
 		properties.put(Constants.LOCK_STRENGTH, 0);
 		properties.put(Constants.LOCKED, Boolean.FALSE);
+		properties.put(Constants.BUILDING_TYPE, BuildingType.SHACK);
 		
 		WorldObject shack = new WorldObjectImpl(properties);
 		world.addWorldObject(shack);
@@ -114,6 +115,7 @@ public class BuildingGenerator {
 		properties.put(Constants.INVENTORY, new WorldObjectContainer());
 		properties.put(Constants.LOCK_STRENGTH, 2);
 		properties.put(Constants.LOCKED, Boolean.TRUE);
+		properties.put(Constants.BUILDING_TYPE, BuildingType.HOUSE);
 		
 		WorldObject house = new WorldObjectImpl(properties);
 		world.addWorldObject(house);
@@ -486,6 +488,7 @@ public class BuildingGenerator {
 		properties.put(Constants.CONDITIONS, new Conditions());
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
+		properties.put(Constants.BUILDING_TYPE, BuildingType.PAPERMILL);
 		
 		WorldObject paperMill = new WorldObjectImpl(properties);
 		world.addWorldObject(paperMill);
@@ -509,6 +512,7 @@ public class BuildingGenerator {
 		properties.put(Constants.HIT_POINTS_MAX, 100 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
+		properties.put(Constants.BUILDING_TYPE, BuildingType.SMITH);
 		
 		WorldObject smith = new WorldObjectImpl(properties);
 		world.addWorldObject(smith);
@@ -532,6 +536,7 @@ public class BuildingGenerator {
 		properties.put(Constants.HIT_POINTS_MAX, 100 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
+		properties.put(Constants.BUILDING_TYPE, BuildingType.WORKBENCH);
 		
 		WorldObject workbench = new WorldObjectImpl(properties);
 		world.addWorldObject(workbench);
@@ -560,6 +565,7 @@ public class BuildingGenerator {
 		properties.put(Constants.INVENTORY, new WorldObjectContainer());
 		properties.put(Constants.LOCK_STRENGTH, 2);
 		properties.put(Constants.LOCKED, Boolean.TRUE);
+		properties.put(Constants.BUILDING_TYPE, BuildingType.INN);
 		
 		WorldObject house = new WorldObjectImpl(properties);
 		world.addWorldObject(house);
@@ -631,6 +637,7 @@ public class BuildingGenerator {
 		properties.put(Constants.HIT_POINTS_MAX, 100 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
+		properties.put(Constants.BUILDING_TYPE, BuildingType.BREWERY);
 		
 		WorldObject brewery = new WorldObjectImpl(properties);
 		world.addWorldObject(brewery);
@@ -673,6 +680,15 @@ public class BuildingGenerator {
 		List<Integer> papermillIds = performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.PAPERMILL);
 		if (papermillIds.size() > 0) {
 			return papermillIds.get(0);
+		} else {
+			return null;
+		}
+	}
+	
+	public static Integer getWeaveryId(WorldObject performer) {
+		List<Integer> weaveryIds = performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.WEAVERY);
+		if (weaveryIds.size() > 0) {
+			return weaveryIds.get(0);
 		} else {
 			return null;
 		}
