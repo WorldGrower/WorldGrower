@@ -51,6 +51,7 @@ import org.worldgrower.gui.chooseworldobject.ChooseWorldObjectAction;
 import org.worldgrower.gui.chooseworldobject.GuiDisguiseAction;
 import org.worldgrower.gui.chooseworldobject.GuiVoteAction;
 import org.worldgrower.gui.conversation.GuiAskQuestionAction;
+import org.worldgrower.gui.debug.GuiShowBuildingsOverviewAction;
 import org.worldgrower.gui.debug.GuiShowCommonersOverviewAction;
 import org.worldgrower.gui.debug.GuiShowEconomicOverviewAction;
 import org.worldgrower.gui.debug.GuiShowPerformedActionsAction;
@@ -659,6 +660,11 @@ public class GuiMouseListener extends MouseAdapter {
 			JMenuItem guiShowPerformedActionsItem = MenuFactory.createJMenuItem(new GuiShowPerformedActionsAction(world));
 			guiShowPerformedActionsItem.setText("Show history items...");
 			menu.add(guiShowPerformedActionsItem);
+			
+			JMenuItem guiShowBuildingsItem = MenuFactory.createJMenuItem(new GuiShowBuildingsOverviewAction(world));
+			guiShowBuildingsItem.setText("Show buildings...");
+			menu.add(guiShowBuildingsItem);
+			
 		}
 	}
 	
