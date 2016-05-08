@@ -73,6 +73,7 @@ public class ImageInfoReader {
     	Sprites clothingShop = readSpritesClothingShop();
     	Sprites weavery = readSpritesWeavery();
     	Sprites brewery = readSpritesBrewery();
+    	Sprites papermill = readSpritesPapermill();
     	
     	addCharacter(ImageIds.KNIGHT, sprites, 0, 0, 1, 1);
     	addCharacter(ImageIds.GUARD, sprites, 0, 4, 1, 1);
@@ -177,7 +178,7 @@ public class ImageInfoReader {
         addCharacter(ImageIds.MALE_GREEN_BANDANA_SAILOR, sprites2d, 9, 4, 1, 1);
         
         add(ImageIds.PAPER, sprites420.getSubImage(13, 17, 1, 1));
-        add(ImageIds.PAPER_MILL, tileB.getSubImage(13, 12, 1, 1));
+        add(ImageIds.PAPER_MILL, papermill.getSubImage(0, 0, 1, 1));
         add(ImageIds.WATER, sprites420.getSubImage(3, 2, 1, 1));
         
 		addCharacter(ImageIds.MALE_BALD_COMMONER, sprites3a, 0, 0, 1, 1);
@@ -721,6 +722,10 @@ public class ImageInfoReader {
 	
 	private static Sprites readSpritesBrewery() throws IOException {
 		return readImages("brewery.png", 64, 65, 3, 2);
+	}
+	
+	private static Sprites readSpritesPapermill() throws IOException {
+		return readImages("papermill.png", 192, 144, 1, 1);
 	}
 	
 	private static Sprites readImages(String imageFilename, int width, int height, int rows, int cols) throws IOException {
