@@ -71,6 +71,7 @@ public class ImageInfoReader {
     	Sprites terrainTransitions = readTerrainTransitions();
     	Sprites vampire = readSpritesVampire();
     	Sprites clothingShop = readSpritesClothingShop();
+    	Sprites weavery = readSpritesWeavery();
     	Sprites brewery = readSpritesBrewery();
     	
     	addCharacter(ImageIds.KNIGHT, sprites, 0, 0, 1, 1);
@@ -401,7 +402,7 @@ public class ImageInfoReader {
 		add(ImageIds.IRON_KATAR, sprites420.getSubImage(8, 6, 1, 1));
 		add(ImageIds.SLEEPING_POTION, sprites420.getSubImage(1, 2, 1, 1));
 		add(ImageIds.FEAR_INDICATOR, sprites420.getSubImage(3, 26, 1, 1));
-		add(ImageIds.WEAVERY, clothingShop.getSubImage(2, 1, 1, 1));
+		add(ImageIds.WEAVERY, weavery.getSubImage(0, 0, 1, 1));
 		add(ImageIds.ENTANGLED_INDICATOR, tora_vx_02.getSubImage(0, 1, 1, 1));
 		add(ImageIds.WORKBENCH, tileE.getSubImage(8, 14, 1, 1));
 		add(ImageIds.DARKNESS_MAGIC_SPELL, sprites420.getSubImage(2, 21, 1, 1));
@@ -712,6 +713,10 @@ public class ImageInfoReader {
 	
 	private static Sprites readSpritesClothingShop() throws IOException {
 		return readImages("clothing_shop.png", 64, 64, 3, 5);
+	}
+	
+	private static Sprites readSpritesWeavery() throws IOException {
+		return readImages("weavery.png", 192, 144, 1, 1);
 	}
 	
 	private static Sprites readSpritesBrewery() throws IOException {

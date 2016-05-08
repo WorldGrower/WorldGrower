@@ -609,8 +609,8 @@ public class BuildingGenerator {
 
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
-		properties.put(Constants.WIDTH, 2);
-		properties.put(Constants.HEIGHT, 2);
+		properties.put(Constants.WIDTH, 4);
+		properties.put(Constants.HEIGHT, 3);
 		properties.put(Constants.WEAVERY_QUALITY, 5);
 		properties.put(Constants.NAME, "weavery");
 		properties.put(Constants.ID, id);

@@ -76,12 +76,12 @@ public class BuildWeaveryAction implements BuildAction {
 
 	@Override
 	public int getWidth() {
-		return 2;
+		return 4;
 	}
 
 	@Override
 	public int getHeight() {
-		return 2;
+		return 3;
 	}
 	
 	@Override

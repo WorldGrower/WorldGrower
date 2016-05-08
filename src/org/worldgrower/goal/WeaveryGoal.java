@@ -39,7 +39,7 @@ public class WeaveryGoal implements Goal {
 		} else if (!BuildWeaveryAction.hasEnoughWood(performer)) {
 			return Goals.WOOD_GOAL.calculateGoal(performer, world);
 		} else {
-			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 3, 3, world);
+			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 5, 4, world);
 			if (target != null) {
 				return new OperationInfo(performer, target, Args.EMPTY, Actions.BUILD_WEAVERY_ACTION);
 			} else {
