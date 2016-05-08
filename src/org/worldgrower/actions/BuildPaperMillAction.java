@@ -20,6 +20,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.gui.ImageIds;
 
@@ -35,7 +36,7 @@ public class BuildPaperMillAction implements BuildAction {
 		int paperMillId = BuildingGenerator.generatePaperMill(x, y, world);
 		
 		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.WOOD, REQUIRED_WOOD);
-		performer.setProperty(Constants.PAPER_MILL_ID, paperMillId);
+		performer.getProperty(Constants.BUILDINGS).add(paperMillId, BuildingType.PAPERMILL);
 	}
 
 	@Override

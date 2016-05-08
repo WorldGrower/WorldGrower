@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.ConstructBedAction;
+import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
 
 public class CreateFurnitureGoal implements Goal {
@@ -33,7 +34,7 @@ public class CreateFurnitureGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		Integer workbenchId = performer.getProperty(Constants.WORKBENCH_ID);
+		Integer workbenchId = BuildingGenerator.getWorkbenchId(performer);
 		if (workbenchId == null) {
 			return Goals.WORKBENCH_GOAL.calculateGoal(performer, world);
 		} else {

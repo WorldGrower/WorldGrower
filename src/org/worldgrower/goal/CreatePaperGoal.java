@@ -22,6 +22,7 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.generator.BuildingGenerator;
 
 public class CreatePaperGoal implements Goal {
 
@@ -37,7 +38,7 @@ public class CreatePaperGoal implements Goal {
 		if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) == 0) {
 			return Goals.WOOD_GOAL.calculateGoal(performer, world);
 		}
-		Integer paperMillId = performer.getProperty(Constants.PAPER_MILL_ID);
+		Integer paperMillId = BuildingGenerator.getPapermillId(performer);
 		if (paperMillId == null) {
 			return Goals.PAPER_MILL_GOAL.calculateGoal(performer, world);
 		}

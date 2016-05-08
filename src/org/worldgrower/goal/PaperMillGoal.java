@@ -22,6 +22,7 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.generator.BuildingGenerator;
 
 public class PaperMillGoal implements Goal {
 
@@ -49,7 +50,7 @@ public class PaperMillGoal implements Goal {
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		Integer paperMillId = performer.getProperty(Constants.PAPER_MILL_ID);
+		Integer paperMillId = BuildingGenerator.getPapermillId(performer);
 		if (paperMillId != null) {
 			WorldObject paperMill = world.findWorldObjects(w -> w.getProperty(Constants.ID).intValue() == paperMillId.intValue()).get(0);
 			return (paperMill.getProperty(Constants.PAPER_MILL_QUALITY) > 0);
@@ -70,6 +71,7 @@ public class PaperMillGoal implements Goal {
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		return (performer.getProperty(Constants.PAPER_MILL_ID) != null) ? 1 : 0;
+		Integer paperMillId = BuildingGenerator.getPapermillId(performer);
+		return (paperMillId != null) ? 1 : 0;
 	}
 }

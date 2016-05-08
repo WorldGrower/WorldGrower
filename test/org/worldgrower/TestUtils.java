@@ -21,6 +21,7 @@ import java.util.Map;
 
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.BackgroundImpl;
+import org.worldgrower.attribute.BuildingList;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdRelationshipMap;
 import org.worldgrower.attribute.KnowledgeMap;
@@ -185,6 +186,7 @@ public class TestUtils {
 		properties.put(Constants.CHARISMA, 10);
 		properties.put(Constants.PRICES, new Prices());
 		properties.put(Constants.DEMANDS, new PropertyCountMap<ManagedProperty<?>>());
+		properties.put(Constants.BUILDINGS, new BuildingList());
 		SkillUtils.addAllSkills(properties);
 		WorldObject worldObject = createWorldObject(id, properties);
 		return worldObject;

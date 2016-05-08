@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.BuildWorkbenchAction;
+import org.worldgrower.generator.BuildingGenerator;
 
 public class WorkbenchGoal implements Goal {
 
@@ -50,7 +51,7 @@ public class WorkbenchGoal implements Goal {
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		Integer workbenchId = performer.getProperty(Constants.WORKBENCH_ID);
+		Integer workbenchId = BuildingGenerator.getWorkbenchId(performer);
 		if (workbenchId != null) {
 			WorldObject workbench = world.findWorldObject(Constants.ID, workbenchId);
 			return (workbench.getProperty(Constants.WORKBENCH_QUALITY) > 0);
@@ -71,6 +72,7 @@ public class WorkbenchGoal implements Goal {
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		return (performer.getProperty(Constants.WORKBENCH_ID) != null) ? 1 : 0;
+		Integer workbenchId = BuildingGenerator.getWorkbenchId(performer);
+		return (workbenchId != null) ? 1 : 0;
 	}
 }

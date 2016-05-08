@@ -23,6 +23,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.BuildingList;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
@@ -47,8 +49,7 @@ public class UTestFishingPoleGoal {
 		
 		PlantGenerator.generateTree(5, 5, world);
 		
-		int workbenchId = BuildingGenerator.generateWorkbench(0, 0, world);
-		performer.setProperty(Constants.WORKBENCH_ID, workbenchId);
+		addWorkbench(world, performer);
 		
 		assertEquals(Actions.CUT_WOOD_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
@@ -69,10 +70,14 @@ public class UTestFishingPoleGoal {
 		WorldObject performer = createPerformer();
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 10);
 		
-		int workbenchId = BuildingGenerator.generateWorkbench(0, 0, world);
-		performer.setProperty(Constants.WORKBENCH_ID, workbenchId);
+		addWorkbench(world, performer);
 		
 		assertEquals(Actions.CONSTRUCT_FISHING_POLE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+	private void addWorkbench(World world, WorldObject performer) {
+		int workbenchId = BuildingGenerator.generateWorkbench(0, 0, world);
+		performer.setProperty(Constants.BUILDINGS, new BuildingList().add(workbenchId, BuildingType.WORKBENCH));
 	}
 	
 	@Test

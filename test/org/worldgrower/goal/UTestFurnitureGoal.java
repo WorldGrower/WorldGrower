@@ -69,10 +69,14 @@ public class UTestFurnitureGoal {
 		WorldObject performer = createPerformer();
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
 		
-		int workbenchId = BuildingGenerator.generateWorkbench(0, 0, world);
-		performer.setProperty(Constants.WORKBENCH_ID, workbenchId);
+		addWorkbench(world, performer);
 		
 		assertEquals(Actions.CONSTRUCT_BED_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+	private void addWorkbench(World world, WorldObject performer) {
+		int workbenchId = BuildingGenerator.generateWorkbench(0, 0, world);
+		performer.setProperty(Constants.BUILDINGS, new BuildingList().add(workbenchId, BuildingType.WORKBENCH));
 	}
 	
 	@Test

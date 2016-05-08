@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.ConstructFishingPoleAction;
+import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
 
 public class FishingPoleGoal implements Goal {
@@ -39,7 +40,7 @@ public class FishingPoleGoal implements Goal {
 		if (targets.size() > 0) {
 			return BuySellUtils.create(performer, targets.get(0), Item.FISHING_POLE, QUANTITY_TO_BUY);
 		} else {
-			Integer workbenchId = performer.getProperty(Constants.WORKBENCH_ID);
+			Integer workbenchId = BuildingGenerator.getWorkbenchId(performer);
 			if (workbenchId == null) {
 				return Goals.WORKBENCH_GOAL.calculateGoal(performer, world);
 			} else {

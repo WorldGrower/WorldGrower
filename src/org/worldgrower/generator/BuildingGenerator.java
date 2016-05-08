@@ -659,4 +659,22 @@ public class BuildingGenerator {
 			return null;
 		}
 	}
+	
+	public static Integer getWorkbenchId(WorldObject performer) {
+		List<Integer> workbenchIds = performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.WORKBENCH);
+		if (workbenchIds.size() > 0) {
+			return workbenchIds.get(0);
+		} else {
+			return null;
+		}
+	}
+	
+	public static Integer getPapermillId(WorldObject performer) {
+		List<Integer> papermillIds = performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.PAPERMILL);
+		if (papermillIds.size() > 0) {
+			return papermillIds.get(0);
+		} else {
+			return null;
+		}
+	}
 }
