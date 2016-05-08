@@ -102,7 +102,9 @@ public class GatherFoodGoal implements Goal {
 	}
 
 	private static boolean isButcherTarget(WorldObject performer, WorldObject w) {
-		return !w.hasProperty(Constants.CATTLE_OWNER_ID) || w.getProperty(Constants.CATTLE_OWNER_ID) == performer.getProperty(Constants.ID).intValue();
+		return !w.hasProperty(Constants.CATTLE_OWNER_ID) 
+				|| w.getProperty(Constants.CATTLE_OWNER_ID) == null
+				|| w.getProperty(Constants.CATTLE_OWNER_ID) == performer.getProperty(Constants.ID).intValue();
 	}
 	
 	private static boolean isButcheringUnownedCattleAllowed(World world) {

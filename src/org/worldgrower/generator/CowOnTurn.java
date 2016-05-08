@@ -94,6 +94,7 @@ public class CowOnTurn implements OnTurn {
 							int childId = addWorldObjectFunction.addToWorld(x, y, world);
 							WorldObject child = world.findWorldObject(Constants.ID, childId);
 							child.setProperty(Constants.CATTLE_OWNER_ID, worldObject.getProperty(Constants.CATTLE_OWNER_ID));
+							
 							worldObject.removeProperty(Constants.PREGNANCY);
 						}
 					}
