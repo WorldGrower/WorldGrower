@@ -33,7 +33,10 @@ public class SmithGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		if (!BuildSmithAction.hasEnoughStone(performer)) {
+		List<WorldObject> unownedSmiths = BuildingGenerator.findUnownedBuildingsForClaiming(performer, Constants.SMITH_QUALITY, w -> BuildingGenerator.isSmithy(w), world);
+		if (unownedSmiths.size() > 0) {
+			return new OperationInfo(performer, unownedSmiths.get(0), Args.EMPTY, Actions.CLAIM_BUILDING_ACTION);
+		} else if (!BuildSmithAction.hasEnoughStone(performer)) {
 			return Goals.STONE_GOAL.calculateGoal(performer, world);
 		} else {
 			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 3, 4, world);

@@ -34,7 +34,7 @@ public class BreweryGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		List<WorldObject> unownedBreweries = GoalUtils.findNearestTargetsByProperty(performer, Actions.CLAIM_BUILDING_ACTION, Constants.BREWERY_QUALITY, w -> BuildingGenerator.isBrewery(w) && Actions.CLAIM_BUILDING_ACTION.distance(performer, w, Args.EMPTY, world) == 0, world);
+		List<WorldObject> unownedBreweries = BuildingGenerator.findUnownedBuildingsForClaiming(performer, Constants.BREWERY_QUALITY, w -> BuildingGenerator.isBrewery(w), world);
 		if (unownedBreweries.size() > 0) {
 			return new OperationInfo(performer, unownedBreweries.get(0), Args.EMPTY, Actions.CLAIM_BUILDING_ACTION);
 		} else if (!BuildBreweryAction.hasEnoughStone(performer)) {

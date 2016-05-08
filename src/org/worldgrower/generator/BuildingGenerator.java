@@ -17,18 +17,23 @@ package org.worldgrower.generator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
+import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdToIntegerMap;
+import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.deity.Deity;
+import org.worldgrower.goal.GoalUtils;
 import org.worldgrower.gui.ImageIds;
 
 public class BuildingGenerator {
@@ -614,6 +619,7 @@ public class BuildingGenerator {
 		properties.put(Constants.HIT_POINTS_MAX, 100 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
+		properties.put(Constants.BUILDING_TYPE, BuildingType.WEAVERY);
 		
 		WorldObject weavery = new WorldObjectImpl(properties);
 		world.addWorldObject(weavery);
@@ -692,5 +698,30 @@ public class BuildingGenerator {
 		} else {
 			return null;
 		}
+	}
+	
+	public static List<WorldObject> findUnownedBuildingsForClaiming(WorldObject performer, IntProperty property, Function<WorldObject, Boolean> testFunction, World world) {
+		return GoalUtils.findNearestTargetsByProperty(
+				performer, 
+				Actions.CLAIM_BUILDING_ACTION, 
+				property, 
+				w -> testFunction.apply(w) && Actions.CLAIM_BUILDING_ACTION.distance(performer, w, Args.EMPTY, world) == 0, 
+				world);
+	}
+
+	public static boolean isSmithy(WorldObject w) {
+		return w.hasProperty(Constants.SMITH_QUALITY);
+	}
+
+	public static boolean isWorkbench(WorldObject w) {
+		return w.hasProperty(Constants.WORKBENCH_QUALITY);
+	}
+
+	public static boolean isPapermill(WorldObject w) {
+		return w.hasProperty(Constants.PAPER_MILL_QUALITY);
+	}
+
+	public static boolean isWeavery(WorldObject w) {
+		return w.hasProperty(Constants.WEAVERY_QUALITY);
 	}
 }

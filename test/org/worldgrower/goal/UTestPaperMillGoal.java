@@ -79,6 +79,17 @@ public class UTestPaperMillGoal {
 	}
 	
 	@Test
+	public void testCalculateGoalClaimPapermill() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		WorldObject performer = createCommoner(world, organization);
+		
+		BuildingGenerator.generatePaperMill(0, 0, world);
+		
+		assertEquals(Actions.CLAIM_BUILDING_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+	@Test
 	public void testIsGoalMet() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);

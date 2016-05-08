@@ -37,7 +37,7 @@ public class HouseGoal implements Goal {
 		if (!GroupPropertyUtils.hasMoneyToPayHouseTaxes(performer, world)) {
 			return null;
 		} else {
-			List<WorldObject> unownedHouses = GoalUtils.findNearestTargetsByProperty(performer, Actions.CLAIM_BUILDING_ACTION, Constants.SLEEP_COMFORT, w -> BuildingGenerator.isHouse(w) && Actions.CLAIM_BUILDING_ACTION.distance(performer, w, Args.EMPTY, world) == 0, world);
+			List<WorldObject> unownedHouses = BuildingGenerator.findUnownedBuildingsForClaiming(performer, Constants.SLEEP_COMFORT, w -> BuildingGenerator.isHouse(w), world);
 			if (unownedHouses.size() > 0) {
 				return new OperationInfo(performer, unownedHouses.get(0), Args.EMPTY, Actions.CLAIM_BUILDING_ACTION);
 			} else {

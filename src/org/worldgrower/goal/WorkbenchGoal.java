@@ -33,7 +33,10 @@ public class WorkbenchGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		if (!BuildWorkbenchAction.hasEnoughStone(performer)) {
+		List<WorldObject> unownedWorkbenches = BuildingGenerator.findUnownedBuildingsForClaiming(performer, Constants.WORKBENCH_QUALITY, w -> BuildingGenerator.isWorkbench(w), world);
+		if (unownedWorkbenches.size() > 0) {
+			return new OperationInfo(performer, unownedWorkbenches.get(0), Args.EMPTY, Actions.CLAIM_BUILDING_ACTION);
+		} else if (!BuildWorkbenchAction.hasEnoughStone(performer)) {
 			return Goals.STONE_GOAL.calculateGoal(performer, world);
 		} else {
 			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 2, 2, world);

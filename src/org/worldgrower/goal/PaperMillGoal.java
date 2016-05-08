@@ -32,7 +32,10 @@ public class PaperMillGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) < 4) {
+		List<WorldObject> unownedPapermills = BuildingGenerator.findUnownedBuildingsForClaiming(performer, Constants.PAPER_MILL_QUALITY, w -> BuildingGenerator.isPapermill(w), world);
+		if (unownedPapermills.size() > 0) {
+			return new OperationInfo(performer, unownedPapermills.get(0), Args.EMPTY, Actions.CLAIM_BUILDING_ACTION);
+		} else if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) < 4) {
 			return Goals.WOOD_GOAL.calculateGoal(performer, world);
 		} else {
 			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 2, 2, world);

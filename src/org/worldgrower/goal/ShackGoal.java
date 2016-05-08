@@ -37,7 +37,7 @@ public class ShackGoal implements Goal {
 		if (!GroupPropertyUtils.hasMoneyToPayShackTaxes(performer, world)) {
 			return null;
 		} else {
-			List<WorldObject> unownedShacks = GoalUtils.findNearestTargetsByProperty(performer, Actions.CLAIM_BUILDING_ACTION, Constants.SLEEP_COMFORT, w -> BuildingGenerator.isShack(w) && Actions.CLAIM_BUILDING_ACTION.distance(performer, w, Args.EMPTY, world) == 0, world);
+			List<WorldObject> unownedShacks = BuildingGenerator.findUnownedBuildingsForClaiming(performer, Constants.SLEEP_COMFORT, w -> BuildingGenerator.isShack(w), world);
 			if (unownedShacks.size() > 0) {
 				return new OperationInfo(performer, unownedShacks.get(0), Args.EMPTY, Actions.CLAIM_BUILDING_ACTION);
 			} else if (!BuildShackAction.hasEnoughWood(performer)) {

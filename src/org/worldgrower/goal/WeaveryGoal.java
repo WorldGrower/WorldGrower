@@ -33,7 +33,10 @@ public class WeaveryGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		if (!BuildWeaveryAction.hasEnoughWood(performer)) {
+		List<WorldObject> unownedWeaveries = BuildingGenerator.findUnownedBuildingsForClaiming(performer, Constants.WEAVERY_QUALITY, w -> BuildingGenerator.isWeavery(w), world);
+		if (unownedWeaveries.size() > 0) {
+			return new OperationInfo(performer, unownedWeaveries.get(0), Args.EMPTY, Actions.CLAIM_BUILDING_ACTION);
+		} else if (!BuildWeaveryAction.hasEnoughWood(performer)) {
 			return Goals.WOOD_GOAL.calculateGoal(performer, world);
 		} else {
 			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 3, 3, world);
