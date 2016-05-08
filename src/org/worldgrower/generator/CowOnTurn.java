@@ -91,7 +91,9 @@ public class CowOnTurn implements OnTurn {
 					if (!LocationUtils.areInvalidCoordinates(x, y, world)) {
 						TerrainType terrainType = world.getTerrain().getTerrainInfo(x, y).getTerrainType();
 						if (terrainType != TerrainType.WATER) {
-							addWorldObjectFunction.addToWorld(x, y, world);
+							int childId = addWorldObjectFunction.addToWorld(x, y, world);
+							WorldObject child = world.findWorldObject(Constants.ID, childId);
+							child.setProperty(Constants.CATTLE_OWNER_ID, worldObject.getProperty(Constants.CATTLE_OWNER_ID));
 							worldObject.removeProperty(Constants.PREGNANCY);
 						}
 					}
