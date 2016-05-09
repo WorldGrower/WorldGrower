@@ -53,7 +53,7 @@ public class ChooseDeathReasonAction extends AbstractAction {
 		if (deathReason != null) {
 			int indexOfDeathReason = Arrays.asList(deathReasons).indexOf(deathReason);
 			
-			Game.executeAction(playerCharacter, Actions.OBFUSCATE_DEATH_REASON_ACTION, new int[] { indexOfDeathReason }, world, dungeonMaster, target, parent);
+			Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, Actions.OBFUSCATE_DEATH_REASON_ACTION, new int[] { indexOfDeathReason }, world, dungeonMaster, target, parent);
 		}
 	}
 }

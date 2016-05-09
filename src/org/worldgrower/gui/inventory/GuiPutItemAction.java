@@ -97,6 +97,6 @@ public class GuiPutItemAction extends AbstractAction {
 	}
 	
 	public void sell(int[] args) {
-		Game.executeAction(playerCharacter, playerCharacter.getOperation(Actions.PUT_ITEM_INTO_INVENTORY_ACTION), args, world, dungeonMaster, target, container);
+		Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, playerCharacter.getOperation(Actions.PUT_ITEM_INTO_INVENTORY_ACTION), args, world, dungeonMaster, target, container);
 	}
 }

@@ -14,6 +14,8 @@
  *******************************************************************************/
 package org.worldgrower.gui.start;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -235,6 +237,19 @@ public class Game {
         }
     }
 
+    public static void executeActionAndMoveIntelligentWorldObjects(WorldObject playerCharacter, ManagedOperation action, int[] args, World world, DungeonMaster dungeonMaster, WorldObject target, WorldPanel worldPanel) {
+    	if (canActionExecute(playerCharacter, action, args, world, target)) {
+    		worldPanel.movePlayerCharacter(args, new ActionListener() {
+    			
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					executeAction(playerCharacter, action, args, world, dungeonMaster, target, worldPanel);					
+				}
+			});
+ 
+    	}
+	}
+    
     public static void executeAction(WorldObject playerCharacter, ManagedOperation action, int[] args, World world, DungeonMaster dungeonMaster, WorldObject target, WorldPanel worldPanel) {
     	if (canActionExecute(playerCharacter, action, args, world, target)) {
     		dungeonMaster.executeAction(action, playerCharacter, target, args, world);

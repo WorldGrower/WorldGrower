@@ -97,6 +97,6 @@ public class GuiGetItemAction extends AbstractAction {
 	}
 	
 	public void buy(int[] args) {
-		Game.executeAction(playerCharacter, playerCharacter.getOperation(Actions.GET_ITEM_FROM_INVENTORY_ACTION), args, world, dungeonMaster, target, container);
+		Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, playerCharacter.getOperation(Actions.GET_ITEM_FROM_INVENTORY_ACTION), args, world, dungeonMaster, target, container);
 	}
 }

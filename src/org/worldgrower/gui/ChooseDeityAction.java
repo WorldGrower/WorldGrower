@@ -51,7 +51,7 @@ public class ChooseDeityAction extends AbstractAction {
 		if (deityName != null) {
 			int indexOfDeity = Arrays.asList(deityNames).indexOf(deityName);
 			
-			Game.executeAction(playerCharacter, Actions.CHOOSE_DEITY_ACTION, new int[] { indexOfDeity, -1 }, world, dungeonMaster, playerCharacter, parent);
+			Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, Actions.CHOOSE_DEITY_ACTION, new int[] { indexOfDeity, -1 }, world, dungeonMaster, playerCharacter, parent);
 		}
 	}
 }

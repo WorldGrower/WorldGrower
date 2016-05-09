@@ -44,15 +44,7 @@ public class GuiMoveAction extends AbstractAction {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (Game.canActionExecute(playerCharacter, playerCharacter.getOperation(Actions.MOVE_ACTION), args, world, playerCharacter)) {
-			container.movePlayerCharacter(args, new ActionListener() {
-	
-				@Override
-				public void actionPerformed(ActionEvent arg0) {
-					Game.executeAction(playerCharacter, playerCharacter.getOperation(Actions.MOVE_ACTION), args, world, dungeonMaster, playerCharacter, container);
-					
-				}
-				
-			});
+			Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, playerCharacter.getOperation(Actions.MOVE_ACTION), args, world, dungeonMaster, playerCharacter, container);
 		}		
 	}
 }

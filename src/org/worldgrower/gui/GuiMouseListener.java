@@ -190,7 +190,7 @@ public class GuiMouseListener extends MouseAdapter {
 
     private void performLeftMouseAction(WorldObject worldObject) {
     	if (Game.canActionExecute(playerCharacter, leftMouseClickAction, Args.EMPTY, world, worldObject)) {
-    		Game.executeAction(playerCharacter, leftMouseClickAction, Args.EMPTY, world, dungeonMaster, worldObject, container);
+    		Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, leftMouseClickAction, Args.EMPTY, world, dungeonMaster, worldObject, container);
     	} else {
     		new ShowTextDialog("Cannot execute action '" + leftMouseClickAction.getSimpleDescription() + "' on " + worldObject.getProperty(Constants.NAME)).showMe();
     	}
@@ -697,7 +697,7 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 
 	public void executeBuildAction(ManagedOperation buildAction, WorldObject buildLocation, int[] args) {
-		Game.executeAction(playerCharacter, buildAction, args, world, dungeonMaster, buildLocation, container);
+		Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, buildAction, args, world, dungeonMaster, buildLocation, container);
 	}
 
 	public void setLeftMouseClickAction(ManagedOperation action) {

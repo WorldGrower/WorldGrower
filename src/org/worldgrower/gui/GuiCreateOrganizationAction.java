@@ -74,7 +74,7 @@ public class GuiCreateOrganizationAction extends AbstractAction {
 			if (organizationName != null) {
 				int indexOfOrganization = Arrays.asList(organizationNames).indexOf(organizationName);
 				
-				Game.executeAction(playerCharacter, Actions.CREATE_PROFESSION_ORGANIZATION_ACTION, new int[] { professionIndex, indexOfOrganization}, world, dungeonMaster, playerCharacter, parent);
+				Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, Actions.CREATE_PROFESSION_ORGANIZATION_ACTION, new int[] { professionIndex, indexOfOrganization}, world, dungeonMaster, playerCharacter, parent);
 			}
 		}
 	}
@@ -98,7 +98,7 @@ public class GuiCreateOrganizationAction extends AbstractAction {
 				String possibleGoal = new ListInputDialog("Choose Goal", possibleGoals).showMe();
 				if (possibleGoal != null) {
 					int indexOfGoal = deity.getOrganizationGoalDescriptions().indexOf(possibleGoal);
-					Game.executeAction(playerCharacter, Actions.CREATE_RELIGION_ORGANIZATION_ACTION, new int[] { deityIndex, indexOfOrganization, indexOfGoal}, world, dungeonMaster, playerCharacter, parent);
+					Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, Actions.CREATE_RELIGION_ORGANIZATION_ACTION, new int[] { deityIndex, indexOfOrganization, indexOfGoal}, world, dungeonMaster, playerCharacter, parent);
 				}
 			}
 		}

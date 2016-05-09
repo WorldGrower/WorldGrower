@@ -205,7 +205,7 @@ public class DisguiseDialog extends JDialog {
 				
 				playerCharacter.setProperty(Constants.FACADE, facade);
 				
-				Game.executeAction(playerCharacter, disguiseAction, args, world, dungeonMaster, playerCharacter, parent);
+				Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, disguiseAction, args, world, dungeonMaster, playerCharacter, parent);
 				
 				DisguiseDialog.this.dispose();
 			}

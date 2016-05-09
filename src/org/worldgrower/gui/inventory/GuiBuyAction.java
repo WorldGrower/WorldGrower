@@ -101,6 +101,6 @@ public class GuiBuyAction extends AbstractAction {
 	}
 	
 	public void buy(int[] args) {
-		Game.executeAction(playerCharacter, playerCharacter.getOperation(Actions.BUY_ACTION), args, world, dungeonMaster, target, container);
+		Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, playerCharacter.getOperation(Actions.BUY_ACTION), args, world, dungeonMaster, target, container);
 	}
 }

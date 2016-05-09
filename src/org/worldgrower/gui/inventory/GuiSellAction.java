@@ -99,6 +99,6 @@ public class GuiSellAction extends AbstractAction {
 	}
 	
 	public void sell(int[] args) {
-		Game.executeAction(playerCharacter, playerCharacter.getOperation(Actions.SELL_ACTION), args, world, dungeonMaster, target, container);
+		Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, playerCharacter.getOperation(Actions.SELL_ACTION), args, world, dungeonMaster, target, container);
 	}
 }

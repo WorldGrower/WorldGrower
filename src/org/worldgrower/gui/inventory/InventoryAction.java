@@ -79,7 +79,7 @@ public class InventoryAction extends AbstractAction {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			int index = getIndex();
-			Game.executeAction(playerCharacter, playerCharacter.getOperation(action), new int[] { index }, world, dungeonMaster, playerCharacter, container);
+			Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, playerCharacter.getOperation(action), new int[] { index }, world, dungeonMaster, playerCharacter, container);
 			
 			dialog.refresh(new InventoryDialogModel(playerCharacter), getInventoryActions());
 		}

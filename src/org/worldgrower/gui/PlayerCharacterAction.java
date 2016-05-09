@@ -45,6 +45,6 @@ public class PlayerCharacterAction extends AbstractAction {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Game.executeAction(playerCharacter, action, Args.EMPTY, world, dungeonMaster, target, container);
+		Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, action, Args.EMPTY, world, dungeonMaster, target, container);
 	}
 }

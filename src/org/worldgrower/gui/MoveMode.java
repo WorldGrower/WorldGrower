@@ -84,7 +84,7 @@ public class MoveMode {
 			if (world.getTerrain().isExplored(x, y)) {
 				if (moveMode && moveStep < 48) {
 					
-					paintMovingPlayerCharacter(g, worldPanel, worldObject, imageInfoReader, id, lookDirection, i, moveStep, moveIndex);
+					paintMovingWorldObject(g, worldPanel, worldObject, imageInfoReader, id, lookDirection, i, moveStep, moveIndex);
 					
 					if (moveStep % 16 == 0) {
 						moveIndex = (moveIndex + 1) % 3;
@@ -94,7 +94,7 @@ public class MoveMode {
 					if (!moveMode) {
 						worldPanel.drawWorldObjectInPixels(g, worldObject, lookDirection, image, x, y, 0, 0);
 					} else {
-						paintMovingPlayerCharacter(g, worldPanel, worldObject, imageInfoReader, id, lookDirection, i, moveStep, moveIndex);
+						paintMovingWorldObject(g, worldPanel, worldObject, imageInfoReader, id, lookDirection, i, moveStep, moveIndex);
 					}
 				}
 			}
@@ -119,18 +119,18 @@ public class MoveMode {
 		}
 	}
 
-	private void paintMovingPlayerCharacter(Graphics g, WorldPanel worldPanel,
+	private void paintMovingWorldObject(Graphics g, WorldPanel worldPanel,
 			WorldObject worldObject, ImageInfoReader imageInfoReader,
-			ImageIds id, LookDirection lookDirection, int index,
+			ImageIds id, LookDirection lookDirection, int positionIndex,
 			int moveStep, int moveIndex) {
 		
 		Image image;
 		
-		int x = oldPositions.get(index).x;
-		int y = oldPositions.get(index).y;
+		int x = oldPositions.get(positionIndex).x;
+		int y = oldPositions.get(positionIndex).y;
 		
-		int deltaX = (newPositions.get(index).x - x) * moveStep;
-		int deltaY = (newPositions.get(index).y - y) * moveStep;
+		int deltaX = (newPositions.get(positionIndex).x - x) * moveStep;
+		int deltaY = (newPositions.get(positionIndex).y - y) * moveStep;
 		
 		image = imageInfoReader.getImage(id, lookDirection, moveIndex);
 		worldPanel.drawWorldObjectInPixels(g, worldObject, lookDirection, image, x, y, deltaX, deltaY);

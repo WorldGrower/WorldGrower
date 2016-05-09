@@ -117,10 +117,10 @@ public class GuiStealAction extends AbstractAction {
 	}
 	
 	public void steal(int[] args) {
-		Game.executeAction(playerCharacter, playerCharacter.getOperation(Actions.STEAL_ACTION), args, world, dungeonMaster, target, container);
+		Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, playerCharacter.getOperation(Actions.STEAL_ACTION), args, world, dungeonMaster, target, container);
 	}
 	
 	public void stealMoney(int[] args) {
-		Game.executeAction(playerCharacter, playerCharacter.getOperation(Actions.STEAL_GOLD_ACTION), args, world, dungeonMaster, target, container);
+		Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, playerCharacter.getOperation(Actions.STEAL_GOLD_ACTION), args, world, dungeonMaster, target, container);
 	}
 }
