@@ -82,7 +82,8 @@ public class MoveMode {
 			int y = worldObject.getProperty(Constants.Y);
 			
 			if (world.getTerrain().isExplored(x, y)) {
-				if (moveMode && moveStep < 48) {
+				boolean positionRemainsSame = positionRemainsSame(i);
+				if (moveMode && moveStep < 48 && !positionRemainsSame) {
 					
 					paintMovingWorldObject(g, worldPanel, worldObject, imageInfoReader, id, lookDirection, i, moveStep, moveIndex);
 					
@@ -91,7 +92,7 @@ public class MoveMode {
 					}
 				} else {
 					//System.out.println("drawWorldObjects.notMoving: moveStep = " + moveStep + ", moveMode = " + moveMode);
-					if (!moveMode) {
+					if (!moveMode || positionRemainsSame) {
 						worldPanel.drawWorldObjectInPixels(g, worldObject, lookDirection, image, x, y, 0, 0);
 					} else {
 						paintMovingWorldObject(g, worldPanel, worldObject, imageInfoReader, id, lookDirection, i, moveStep, moveIndex);
@@ -116,6 +117,20 @@ public class MoveMode {
 			moveMode = false;
 			moveIndex = 0;
 			moveIndex = 0;
+		}
+	}
+	
+	private boolean positionRemainsSame(int positionIndex) {
+		if (oldPositions.size() == 0) {
+			return true;
+		} else {
+			int x = oldPositions.get(positionIndex).x;
+			int y = oldPositions.get(positionIndex).y;
+			
+			int newX = newPositions.get(positionIndex).x;
+			int newY = newPositions.get(positionIndex).y;
+			
+			return ((x == newX) && (y == newY));
 		}
 	}
 
