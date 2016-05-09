@@ -124,6 +124,47 @@ public class UTestWorldFacade {
 	}
 	
 	@Test
+	public void testExists() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject personViewingWorld = TestUtils.createIntelligentWorldObject(1, Constants.INSIGHT_SKILL, new Skill(10));
+		WorldObject worldObject = TestUtils.createIntelligentWorldObject(2, Constants.ILLUSION_CREATOR_ID, 3);
+		WorldObject illusionCreator = TestUtils.createIntelligentWorldObject(3, Constants.ILLUSION_SKILL, new Skill(20));
+		
+		world.addWorldObject(personViewingWorld);
+		world.addWorldObject(worldObject);
+		world.addWorldObject(illusionCreator);
+		
+		WorldFacade worldFacade = new WorldFacade(personViewingWorld, world);
+		assertEquals(false, worldFacade.exists(7));
+		assertEquals(true, worldFacade.exists(1));
+		assertEquals(true, worldFacade.exists(2));
+		assertEquals(true, worldFacade.exists(3));
+		
+		illusionCreator.setProperty(Constants.ILLUSION_SKILL, new Skill(0));
+		assertEquals(true, worldFacade.exists(1));
+		assertEquals(false, worldFacade.exists(2));
+		assertEquals(true, worldFacade.exists(3));
+	}
+	
+	@Test
+	public void testGetWorldObjects() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject personViewingWorld = TestUtils.createIntelligentWorldObject(1, Constants.INSIGHT_SKILL, new Skill(10));
+		WorldObject worldObject = TestUtils.createIntelligentWorldObject(2, Constants.ILLUSION_CREATOR_ID, 3);
+		WorldObject illusionCreator = TestUtils.createIntelligentWorldObject(3, Constants.ILLUSION_SKILL, new Skill(20));
+		
+		world.addWorldObject(personViewingWorld);
+		world.addWorldObject(worldObject);
+		world.addWorldObject(illusionCreator);
+		illusionCreator.setProperty(Constants.ILLUSION_SKILL, new Skill(0));
+		
+		WorldFacade worldFacade = new WorldFacade(personViewingWorld, world);
+		assertEquals(2, worldFacade.getWorldObjects().size());
+		assertEquals(personViewingWorld, worldFacade.getWorldObjects().get(0));
+		assertEquals(illusionCreator, worldFacade.getWorldObjects().get(1));
+	}
+	
+	@Test
 	public void testGetCurrentTurn() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject personViewingWorld = TestUtils.createIntelligentWorldObject(1, "person");

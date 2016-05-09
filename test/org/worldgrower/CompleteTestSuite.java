@@ -18,6 +18,8 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 import org.worldgrower.actions.*;
+import org.worldgrower.actions.legal.UTestButcherLegalHandler;
+import org.worldgrower.actions.legal.UTestWorshipDeityLegalHandler;
 import org.worldgrower.actions.magic.UTestAnimateDeadAction;
 import org.worldgrower.actions.magic.UTestAnimateSuitOfArmorAction;
 import org.worldgrower.actions.magic.UTestBurdenAction;
@@ -94,6 +96,7 @@ import org.worldgrower.conversation.UTestDrinkingContestConversation;
 import org.worldgrower.conversation.UTestFamilyConversation;
 import org.worldgrower.conversation.UTestGiveFoodConversation;
 import org.worldgrower.conversation.UTestGiveMoneyConversation;
+import org.worldgrower.conversation.UTestGiveWineConversation;
 import org.worldgrower.conversation.UTestImmediateGoalConversation;
 import org.worldgrower.conversation.UTestIntimidateConversation;
 import org.worldgrower.conversation.UTestJoinPerformerOrganizationConversation;
@@ -656,7 +659,10 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestLeashAction.class,
 	UTestUnleashAction.class,
 	UTestClaimCattleAction.class,
-	UTestClaimBuildingAction.class
+	UTestClaimBuildingAction.class,
+	UTestGiveWineConversation.class,
+	UTestButcherLegalHandler.class,
+	UTestWorshipDeityLegalHandler.class
 })
 public class CompleteTestSuite {
 }
