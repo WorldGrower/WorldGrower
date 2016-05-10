@@ -461,7 +461,16 @@ public class Actions {
 	}
 	
 	public static List<ManagedOperation> getAllScribeMagicSpellActions() {
-		return ALL_ACTIONS.stream().filter(operation -> operation.getClass() == ScribeMagicSpellAction.class).collect(Collectors.toList());
+		List<ManagedOperation> scribeMagicSpells = ALL_ACTIONS.stream().filter(operation -> operation.getClass() == ScribeMagicSpellAction.class).collect(Collectors.toList());
+		Collections.sort(scribeMagicSpells, new Comparator<ManagedOperation>() {
+
+			@Override
+			public int compare(ManagedOperation o1, ManagedOperation o2) {
+				return o1.getSimpleDescription().compareTo(o2.getSimpleDescription());
+			}
+		});
+		return scribeMagicSpells;
+		
 	}
 	
 	public static List<MagicSpell> getMagicSpells() {
