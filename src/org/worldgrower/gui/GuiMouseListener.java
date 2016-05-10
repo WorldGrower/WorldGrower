@@ -24,6 +24,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 
 import javax.swing.AbstractAction;
@@ -43,9 +44,9 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.BuildAction;
-import org.worldgrower.actions.CraftAction;
 import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.actions.magic.ResearchSpellAction;
+import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.gui.chooseworldobject.ChooseWorldObjectAction;
 import org.worldgrower.gui.chooseworldobject.GuiDisguiseAction;
@@ -481,8 +482,15 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 	
 	private void addScribeMagicSpells(JPopupMenu menu) {
-		ManagedOperation[] scribeActions = Actions.getAllScribeMagicSpellActions().toArray(new ManagedOperation[0]);
-		addActions(menu, "Scribe spells", scribeActions);
+		JMenu scribeMenu = MenuFactory.createJMenu("Scribe spells");
+		menu.add(scribeMenu);
+		Map<SkillProperty, List<ManagedOperation>> scribeActionsMap = Actions.getScribeMagicSpellActions();
+		List<SkillProperty> skillsList = Actions.getSortedSkillProperties(scribeActionsMap);
+		for(SkillProperty skillProperty : skillsList) {
+			JMenu skillMenuItem = MenuFactory.createJMenu(skillProperty.getName());
+			scribeMenu.add(skillMenuItem);
+			addActions(skillMenuItem, scribeActionsMap.get(skillProperty).toArray(new ManagedOperation[0]));
+		}
 	}
 	
 	private void addBuildActions(JPopupMenu menu, String menuTitle, BuildAction[] buildActions) {

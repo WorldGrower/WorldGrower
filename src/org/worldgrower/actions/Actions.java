@@ -18,7 +18,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.worldgrower.Args;
@@ -464,7 +466,7 @@ public class Actions {
 		throw new IllegalStateException("Problem getting ScribeMagicSpellAction for MagicSpell " + magicSpell);
 	}
 	
-	public static List<ManagedOperation> getAllScribeMagicSpellActions() {
+	private static List<ManagedOperation> getAllScribeMagicSpellActions() {
 		List<ManagedOperation> scribeMagicSpells = ALL_ACTIONS.stream().filter(operation -> operation.getClass() == ScribeMagicSpellAction.class).collect(Collectors.toList());
 		Collections.sort(scribeMagicSpells, new Comparator<ManagedOperation>() {
 
@@ -475,6 +477,34 @@ public class Actions {
 		});
 		return scribeMagicSpells;
 		
+	}
+	
+	public static Map<SkillProperty, List<ManagedOperation>> getScribeMagicSpellActions() {
+		List<ManagedOperation> allScribeMagicSpells = getAllScribeMagicSpellActions();
+		Map<SkillProperty, List<ManagedOperation>> scribeActionsMap = new HashMap<>();
+		for (ManagedOperation action : allScribeMagicSpells) {
+			ScribeMagicSpellAction scribeMagicSpellAction = (ScribeMagicSpellAction) action;
+			SkillProperty skillProperty = scribeMagicSpellAction.getSpell().getSkill();
+			List<ManagedOperation> scribeMagicSpells = scribeActionsMap.get(skillProperty);
+			if (scribeMagicSpells == null) {
+				scribeMagicSpells = new ArrayList<>();
+				scribeActionsMap.put(skillProperty, scribeMagicSpells);
+			}
+			scribeMagicSpells.add(scribeMagicSpellAction);
+		}
+		return scribeActionsMap;
+	}
+	
+	public static List<SkillProperty> getSortedSkillProperties(Map<SkillProperty, List<ManagedOperation>> scribeActionsMap) {
+		List<SkillProperty> skillsList = new ArrayList<>(scribeActionsMap.keySet());
+		skillsList.sort(new Comparator<SkillProperty>() {
+
+			@Override
+			public int compare(SkillProperty o1, SkillProperty o2) {
+				return o1.getName().compareTo(o2.getName());
+			}
+		});
+		return skillsList;
 	}
 	
 	public static List<MagicSpell> getMagicSpells() {
