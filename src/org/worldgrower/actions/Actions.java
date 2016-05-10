@@ -242,6 +242,7 @@ public class Actions {
 	public static final ClaimCattleAction CLAIM_CATTLE_ACTION = new ClaimCattleAction();
 	public static final ClaimBuildingAction CLAIM_BUILDING_ACTION = new ClaimBuildingAction();
 	public static final LearnMagicSpellFromBookAction LEARN_MAGIC_SPELL_FROM_BOOK_ACTION = new LearnMagicSpellFromBookAction();
+	public static final BuildApothecaryAction BUILD_APOTHECARY_ACTION = new BuildApothecaryAction();
 	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 
@@ -418,7 +419,8 @@ public class Actions {
 		LEASH_ACTION,
 		UNLEASH_ACTION,
 		CLAIM_CATTLE_ACTION,
-		CLAIM_BUILDING_ACTION
+		CLAIM_BUILDING_ACTION,
+		BUILD_APOTHECARY_ACTION
 	));
 	
 	static {

@@ -268,6 +268,7 @@ public class GuiMouseListener extends MouseAdapter {
 		addChooseDeityMenu(miscMenu);
 		addCreateHumanMeatMenu(miscMenu);
 		addInvestigateMenu(miscMenu);
+		addNewsPaperAction(miscMenu);
 		menu.add(miscMenu);
 		addAssignActionsToLeftMouse(menu);
 		
@@ -435,7 +436,7 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 	
 	private void addBuildProductionActions(JPopupMenu menu) {
-		BuildAction[] buildActions = { Actions.BUILD_SMITH_ACTION, Actions.BUILD_PAPER_MILL_ACTION, Actions.BUILD_WEAVERY_ACTION, Actions.BUILD_WORKBENCH_ACTION, Actions.BUILD_BREWERY_ACTION };
+		BuildAction[] buildActions = { Actions.BUILD_SMITH_ACTION, Actions.BUILD_PAPER_MILL_ACTION, Actions.BUILD_WEAVERY_ACTION, Actions.BUILD_WORKBENCH_ACTION, Actions.BUILD_BREWERY_ACTION, Actions.BUILD_APOTHECARY_ACTION };
 		addBuildActions(menu, "Build production buildings", buildActions);
 	}
 	

@@ -650,6 +650,31 @@ public class BuildingGenerator {
 	
 		return id;
 	}
+
+	public static int generateApothecary(int x, int y, World world) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		int id = world.generateUniqueId();
+
+		properties.put(Constants.X, x);
+		properties.put(Constants.Y, y);
+		properties.put(Constants.WIDTH, 4);
+		properties.put(Constants.HEIGHT, 3);
+		properties.put(Constants.APOTHECARY_QUALITY, 5);
+		properties.put(Constants.NAME, "apothecary");
+		properties.put(Constants.ID, id);
+		properties.put(Constants.IMAGE_ID, ImageIds.APOTHECARY);
+		properties.put(Constants.HIT_POINTS, 100 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.HIT_POINTS_MAX, 100 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.ARMOR, 0);
+		properties.put(Constants.DAMAGE_RESIST, 0);
+		properties.put(Constants.BUILDING_TYPE, BuildingType.APOTHECARY);
+		
+		WorldObject brewery = new WorldObjectImpl(properties);
+		world.addWorldObject(brewery);
+	
+		return id;
+	}
+
 	
 	public static boolean isBrewery(WorldObject worldObject) {
 		return worldObject.hasProperty(Constants.BREWERY_QUALITY);

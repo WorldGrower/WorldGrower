@@ -74,6 +74,7 @@ public class ImageInfoReader {
     	Sprites weavery = readSpritesWeavery();
     	Sprites brewery = readSpritesBrewery();
     	Sprites papermill = readSpritesPapermill();
+    	Sprites apothecary = readSpritesApothecary();
     	
     	addCharacter(ImageIds.KNIGHT, sprites, 0, 0, 1, 1);
     	addCharacter(ImageIds.GUARD, sprites, 0, 4, 1, 1);
@@ -411,6 +412,7 @@ public class ImageInfoReader {
 		add(ImageIds.TRAP_CONTAINER_MAGIC_SPELL, sprites420.getSubImage(5, 20, 1, 1));
 		add(ImageIds.LEASH, sprites420.getSubImage(13, 9, 1, 1));
 		add(ImageIds.CLAIM_CATTLE, sprites420.getSubImage(7, 9, 1, 1));
+		add(ImageIds.APOTHECARY, apothecary.getSubImage(0, 0, 1, 1));
     }
 
     private void resizeSmallFlowers() {
@@ -726,6 +728,10 @@ public class ImageInfoReader {
 	
 	private static Sprites readSpritesPapermill() throws IOException {
 		return readImages("papermill.png", 192, 144, 1, 1);
+	}
+	
+	private static Sprites readSpritesApothecary() throws IOException {
+		return readImages("apothecary.png", 192, 144, 1, 1);
 	}
 	
 	private static Sprites readImages(String imageFilename, int width, int height, int rows, int cols) throws IOException {
