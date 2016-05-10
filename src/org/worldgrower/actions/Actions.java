@@ -241,6 +241,7 @@ public class Actions {
 	public static final UnleashAction UNLEASH_ACTION = new UnleashAction();
 	public static final ClaimCattleAction CLAIM_CATTLE_ACTION = new ClaimCattleAction();
 	public static final ClaimBuildingAction CLAIM_BUILDING_ACTION = new ClaimBuildingAction();
+	public static final LearnMagicSpellFromBookAction LEARN_MAGIC_SPELL_FROM_BOOK_ACTION = new LearnMagicSpellFromBookAction();
 	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 
@@ -287,7 +288,8 @@ public class Actions {
 			ANIMATE_SUIT_OF_ARMOR_ACTION,
 			READ_ITEM_IN_INVENTORY_ACTION,
 			POISON_INVENTORY_WATER_WITH_SLEEPING_POTION_ACTION,
-			POISON_WEAPON_ACTION
+			POISON_WEAPON_ACTION,
+			LEARN_MAGIC_SPELL_FROM_BOOK_ACTION
 			);
 	
 	private static final List<ResearchKnowledgeSkillAction> RESEARCH_SKILL_ACTIONS = Arrays.asList(

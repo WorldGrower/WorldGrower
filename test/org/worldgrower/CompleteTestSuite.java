@@ -662,7 +662,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestClaimBuildingAction.class,
 	UTestGiveWineConversation.class,
 	UTestButcherLegalHandler.class,
-	UTestWorshipDeityLegalHandler.class
+	UTestWorshipDeityLegalHandler.class,
+	UTestLearnMagicSpellAction.class
 })
 public class CompleteTestSuite {
 }
