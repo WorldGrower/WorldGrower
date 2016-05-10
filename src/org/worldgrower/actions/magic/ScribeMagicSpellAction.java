@@ -59,7 +59,7 @@ public class ScribeMagicSpellAction implements ManagedOperation {
 
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return CraftUtils.isValidTarget(performer, target, world);
+		return target.hasProperty(Constants.LIBRARY_QUALITY);
 	}
 	
 	@Override

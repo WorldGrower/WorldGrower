@@ -230,6 +230,7 @@ public class GuiMouseListener extends MouseAdapter {
             		addVoteActions(menu, worldObject);
             		addResearchActions(menu, worldObject);
             		addRestActions(menu, worldObject);
+            		addScribeMagicSpells(menu, worldObject);
             	}
             	addPropertiesMenu(menu, worldObject);
             	addPerformedActionsMenu(menu, worldObject);
@@ -258,7 +259,6 @@ public class GuiMouseListener extends MouseAdapter {
 		addTransmutationActions(menu);
 		addEvocationActions(menu);
 		addNecromancyActions(menu);
-		addScribeMagicSpells(menu);
 		addRestMenu(menu);
 		menu.add(organizationMenu);
 		addCreateOrganizationMenu(organizationMenu);
@@ -481,15 +481,17 @@ public class GuiMouseListener extends MouseAdapter {
 		addActions(menu, "Necromancy", actions);
 	}
 	
-	private void addScribeMagicSpells(JPopupMenu menu) {
-		JMenu scribeMenu = MenuFactory.createJMenu("Scribe spells");
-		menu.add(scribeMenu);
-		Map<SkillProperty, List<ManagedOperation>> scribeActionsMap = Actions.getScribeMagicSpellActions();
-		List<SkillProperty> skillsList = Actions.getSortedSkillProperties(scribeActionsMap);
-		for(SkillProperty skillProperty : skillsList) {
-			JMenu skillMenuItem = MenuFactory.createJMenu(skillProperty.getName());
-			scribeMenu.add(skillMenuItem);
-			addActions(skillMenuItem, scribeActionsMap.get(skillProperty).toArray(new ManagedOperation[0]));
+	private void addScribeMagicSpells(JPopupMenu menu, WorldObject worldObject) {
+		if (Actions.getScribeMagicSpellActionFor(Actions.FIRE_BOLT_ATTACK_ACTION).isValidTarget(playerCharacter, worldObject, world)) {
+			JMenu scribeMenu = MenuFactory.createJMenu("Scribe spells");
+			menu.add(scribeMenu);
+			Map<SkillProperty, List<ManagedOperation>> scribeActionsMap = Actions.getScribeMagicSpellActions();
+			List<SkillProperty> skillsList = Actions.getSortedSkillProperties(scribeActionsMap);
+			for(SkillProperty skillProperty : skillsList) {
+				JMenu skillMenuItem = MenuFactory.createJMenu(skillProperty.getName());
+				scribeMenu.add(skillMenuItem);
+				addActions(skillMenuItem, scribeActionsMap.get(skillProperty).toArray(new ManagedOperation[0]));
+			}
 		}
 	}
 	

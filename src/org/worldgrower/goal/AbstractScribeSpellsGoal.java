@@ -63,7 +63,7 @@ public abstract class AbstractScribeSpellsGoal implements Goal {
 				} else if (knownSpellsInInventory.size() == 0 && performerPaperQuantity < 5) {
 					return Goals.PAPER_GOAL.calculateGoal(performer, world);
 				} else if (knownSpellsInInventory.size() == 0) {
-					return new OperationInfo(performer, performer, Args.EMPTY, Actions.getScribeMagicSpellActionFor(missingSpell));
+					return new OperationInfo(performer, library, Args.EMPTY, Actions.getScribeMagicSpellActionFor(missingSpell));
 				} else if (knownSpellsInInventory.size() > 0) {
 					int indexOfSpellBook = performerInventory.getIndexFor(Constants.MAGIC_SPELL, missingSpell);
 					return new OperationInfo(performer, library, new int[] {indexOfSpellBook}, Actions.PUT_ITEM_INTO_INVENTORY_ACTION);
