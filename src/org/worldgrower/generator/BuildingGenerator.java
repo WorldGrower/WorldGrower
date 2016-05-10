@@ -725,6 +725,15 @@ public class BuildingGenerator {
 		}
 	}
 	
+	public static Integer getApothecaryId(WorldObject performer) {
+		List<Integer> apothecaryIds = performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.APOTHECARY);
+		if (apothecaryIds.size() > 0) {
+			return apothecaryIds.get(0);
+		} else {
+			return null;
+		}
+	}
+	
 	public static List<WorldObject> findUnownedBuildingsForClaiming(WorldObject performer, IntProperty property, Function<WorldObject, Boolean> testFunction, World world) {
 		return GoalUtils.findNearestTargetsByProperty(
 				performer, 
@@ -748,5 +757,9 @@ public class BuildingGenerator {
 
 	public static boolean isWeavery(WorldObject w) {
 		return w.hasProperty(Constants.WEAVERY_QUALITY);
+	}
+	
+	public static boolean isApothecary(WorldObject w) {
+		return w.hasProperty(Constants.APOTHECARY_QUALITY);
 	}
 }

@@ -22,30 +22,32 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.actions.BuildApothecaryAction;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.generator.BuildingGenerator;
 
-public class CreateSleepingPotionGoal implements Goal {
+public class ApothecaryGoal implements Goal {
 
-	public CreateSleepingPotionGoal(List<Goal> allGoals) {
+	public ApothecaryGoal(List<Goal> allGoals) {
 		allGoals.add(this);
 	}
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		Integer apothecaryId = BuildingGenerator.getApothecaryId(performer);
-		if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.NIGHT_SHADE) == 0) {
-			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 2, 2, world);
-	
+		List<WorldObject> unownedApothecaries = BuildingGenerator.findUnownedBuildingsForClaiming(performer, Constants.APOTHECARY_QUALITY, w -> BuildingGenerator.isApothecary(w), world);
+		if (unownedApothecaries.size() > 0) {
+			return new OperationInfo(performer, unownedApothecaries.get(0), Args.EMPTY, Actions.CLAIM_BUILDING_ACTION);
+		} else if (!BuildApothecaryAction.hasEnoughStone(performer)) {
+			return Goals.STONE_GOAL.calculateGoal(performer, world);
+		} else if (!BuildApothecaryAction.hasEnoughWood(performer)) {
+			return Goals.WOOD_GOAL.calculateGoal(performer, world);
+		} else {
+			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 4, 3, world);
 			if (target != null) {
-				return new OperationInfo(performer, target, Args.EMPTY, Actions.PLANT_NIGHT_SHADE_ACTION);
+				return new OperationInfo(performer, target, Args.EMPTY, Actions.BUILD_APOTHECARY_ACTION);
 			} else {
 				return null;
 			}
-		} else if (apothecaryId == null) {
-			return Goals.APOTHECARY_GOAL.calculateGoal(performer, world);
-		} else {
-			WorldObject apothecary = world.findWorldObject(Constants.ID, apothecaryId);
-			return new OperationInfo(performer, apothecary, Args.EMPTY, Actions.BREW_SLEEPING_POTION_ACTION);
 		}
 	}
 	
@@ -55,7 +57,12 @@ public class CreateSleepingPotionGoal implements Goal {
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.SLEEP_INDUCING_DRUG_STRENGTH) > 0;
+		Integer apothecaryId = BuildingGenerator.getApothecaryId(performer);
+		if (apothecaryId != null) {
+			WorldObject apothecary = world.findWorldObject(Constants.ID, apothecaryId.intValue());
+			return (apothecary.getProperty(Constants.APOTHECARY_QUALITY) > 0);
+		}
+		return false;
 	}
 	
 	@Override
@@ -65,11 +72,11 @@ public class CreateSleepingPotionGoal implements Goal {
 
 	@Override
 	public String getDescription() {
-		return "creating sleeping potion";
+		return "building an apothecary";
 	}
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.SLEEP_INDUCING_DRUG_STRENGTH);
+		return performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.APOTHECARY).size();
 	}
 }

@@ -55,7 +55,7 @@ public class BrewPoisonAction implements CraftAction {
 
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return CraftUtils.isValidTarget(performer, target, world);
+		return target.hasProperty(Constants.APOTHECARY_QUALITY);
 	}
 	
 	@Override

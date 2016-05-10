@@ -22,6 +22,7 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.generator.BuildingGenerator;
 
 public class CreatePoisonGoal implements Goal {
 
@@ -31,6 +32,7 @@ public class CreatePoisonGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
+		Integer apothecaryId = BuildingGenerator.getApothecaryId(performer);
 		if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.NIGHT_SHADE) == 0) {
 			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 2, 2, world);
 	
@@ -39,8 +41,11 @@ public class CreatePoisonGoal implements Goal {
 			} else {
 				return null;
 			}
+		} else if (apothecaryId == null) {
+			return Goals.APOTHECARY_GOAL.calculateGoal(performer, world);
 		} else {
-			return new OperationInfo(performer, performer, Args.EMPTY, Actions.BREW_POISON_ACTION);
+			WorldObject apothecary = world.findWorldObject(Constants.ID, apothecaryId);
+			return new OperationInfo(performer, apothecary, Args.EMPTY, Actions.BREW_POISON_ACTION);
 		}
 	}
 	

@@ -24,6 +24,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
 
 public class UTestBrewPoisonAction {
@@ -45,10 +46,12 @@ public class UTestBrewPoisonAction {
 	public void testIsValidTarget() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
-		WorldObject target = createPerformer(3);
 
-		assertEquals(true, Actions.BREW_POISON_ACTION.isValidTarget(performer, performer, world));
-		assertEquals(false, Actions.BREW_POISON_ACTION.isValidTarget(performer, target, world));
+		int apothecaryId = BuildingGenerator.generateApothecary(0, 0, world);
+		WorldObject apothecary = world.findWorldObject(Constants.ID, apothecaryId);
+		
+		assertEquals(true, Actions.BREW_POISON_ACTION.isValidTarget(performer, apothecary, world));
+		assertEquals(false, Actions.BREW_POISON_ACTION.isValidTarget(performer, performer, world));
 	}
 	
 	@Test

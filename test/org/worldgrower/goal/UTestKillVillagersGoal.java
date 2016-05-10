@@ -24,6 +24,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.MockCommonerNameGenerator;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.CommonerGenerator;
 import org.worldgrower.generator.Item;
@@ -48,7 +49,6 @@ public class UTestKillVillagersGoal {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
-		WorldObject target = createCommoner(world, organization);
 		
 		assertEquals(Actions.PLANT_NIGHT_SHADE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
@@ -58,11 +58,28 @@ public class UTestKillVillagersGoal {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
-		WorldObject target = createCommoner(world, organization);
 		
+		addApothecary(world, performer);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.NIGHT_SHADE.generate(1f), 10);
 		
 		assertEquals(Actions.BREW_POISON_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+	@Test
+	public void testCalculateGoalClaimApothecary() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		WorldObject performer = createCommoner(world, organization);
+		
+		BuildingGenerator.generateApothecary(0, 0, world);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.NIGHT_SHADE.generate(1f), 10);
+		
+		assertEquals(Actions.CLAIM_BUILDING_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+
+	private void addApothecary(World world, WorldObject performer) {
+		int apothecaryId = BuildingGenerator.generateApothecary(0, 0, world);
+		performer.getProperty(Constants.BUILDINGS).add(apothecaryId, BuildingType.APOTHECARY);
 	}
 	
 	@Test
