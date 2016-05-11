@@ -39,16 +39,18 @@ public class WorldObjectImpl implements WorldObject, Serializable {
 	private final WorldObjectPriorities worldObjectPriorities;
 
 	public WorldObjectImpl(Map<ManagedProperty<?>, Object> properties, List<ManagedOperation> operations, OnTurn onTurn, WorldObjectPriorities worldObjectPriorities) {
-		this(new WorldObjectProperties(properties), operations, onTurn, worldObjectPriorities);
+		this(new WorldObjectProperties(properties), operations, onTurn, worldObjectPriorities, true);
 	}
 	
-	private WorldObjectImpl(WorldObjectProperties properties, List<ManagedOperation> operations, OnTurn onTurn, WorldObjectPriorities worldObjectPriorities) {
+	private WorldObjectImpl(WorldObjectProperties properties, List<ManagedOperation> operations, OnTurn onTurn, WorldObjectPriorities worldObjectPriorities, boolean checkProperties) {
 		this.properties = properties;
 		this.operations = operations; 
 		this.onTurn = onTurn;
 		this.worldObjectPriorities = worldObjectPriorities;
 		
-		checkProperties();
+		if (checkProperties) {
+			checkProperties();
+		}
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -206,7 +208,7 @@ public class WorldObjectImpl implements WorldObject, Serializable {
 	@Override
 	public<T> WorldObject shallowCopy() {
 		WorldObjectProperties copiedProperties = properties.shallowCopy();
-		WorldObjectImpl copyWorldObject = new WorldObjectImpl(copiedProperties, operations, onTurn, worldObjectPriorities);
+		WorldObjectImpl copyWorldObject = new WorldObjectImpl(copiedProperties, operations, onTurn, worldObjectPriorities, false);
 		return copyWorldObject;
 	}
 	
@@ -218,7 +220,7 @@ public class WorldObjectImpl implements WorldObject, Serializable {
 	@Override
 	public<T> WorldObject deepCopy(OnTurn onTurn) {
 		WorldObjectProperties copiedProperties = properties.deepCopy();
-		WorldObjectImpl copyWorldObject = new WorldObjectImpl(copiedProperties, operations, onTurn, worldObjectPriorities);
+		WorldObjectImpl copyWorldObject = new WorldObjectImpl(copiedProperties, operations, onTurn, worldObjectPriorities, false);
 		return copyWorldObject;
 	}
 	
