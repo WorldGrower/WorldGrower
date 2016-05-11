@@ -246,7 +246,9 @@ public class GuiMouseListener extends MouseAdapter {
 		addPlayerCharacterInformationMenus(menu);
 		
 		JMenu organizationMenu = MenuFactory.createJMenu("Organization");
+		setMenuIcon(organizationMenu, ImageIds.BLACK_CROSS);
 		JMenu miscMenu = MenuFactory.createJMenu("Miscellaneous");
+		setMenuIcon(miscMenu, ImageIds.INVESTIGATE);
 		
 		addDisguiseMenu(miscMenu);
 		
@@ -432,23 +434,23 @@ public class GuiMouseListener extends MouseAdapter {
 
 	private void addBuildActions(JPopupMenu menu) {
 		BuildAction[] buildActions = { Actions.BUILD_SHACK_ACTION, Actions.BUILD_HOUSE_ACTION, Actions.BUILD_SHRINE_ACTION, Actions.BUILD_WELL_ACTION, Actions.BUILD_LIBRARY_ACTION, Actions.CREATE_GRAVE_ACTION, Actions.CONSTRUCT_TRAINING_DUMMY_ACTION, Actions.BUILD_JAIL_ACTION, Actions.BUILD_SACRIFICAL_ALTAR_ACTION, Actions.BUILD_ARENA_ACTION };
-		addBuildActions(menu, "Build", buildActions);
+		addBuildActions(menu, ImageIds.HAMMER, "Build", buildActions);
 	}
 	
 	private void addBuildProductionActions(JPopupMenu menu) {
 		BuildAction[] buildActions = { Actions.BUILD_SMITH_ACTION, Actions.BUILD_PAPER_MILL_ACTION, Actions.BUILD_WEAVERY_ACTION, Actions.BUILD_WORKBENCH_ACTION, Actions.BUILD_BREWERY_ACTION, Actions.BUILD_APOTHECARY_ACTION };
-		addBuildActions(menu, "Build production buildings", buildActions);
+		addBuildActions(menu, ImageIds.HAMMER, "Build production buildings", buildActions);
 	}
 	
 	private void addPlantActions(JPopupMenu menu) {
 		BuildAction[] buildActions = { Actions.PLANT_BERRY_BUSH_ACTION, Actions.PLANT_GRAPE_VINE_ACTION, Actions.PLANT_TREE_ACTION, Actions.PLANT_COTTON_PLANT_ACTION, Actions.PLANT_NIGHT_SHADE_ACTION };
-		addBuildActions(menu, "Plant", buildActions);
+		addBuildActions(menu, ImageIds.BUSH, "Plant", buildActions);
 	}
 	
 	private void addIllusionActions(JPopupMenu menu) {
 		BuildAction[] buildActions = { Actions.MINOR_ILLUSION_ACTION };
 		MagicSpell[] illusionActions = { Actions.INVISIBILITY_ACTION };
-		JMenu illusionMenu = addBuildActions(menu, "Illusions", buildActions, buildAction -> new ChooseWorldObjectAction(playerCharacter, imageInfoReader, world, ((WorldPanel)container), dungeonMaster, new StartBuildModeAction(playerCharacter, imageInfoReader, ((WorldPanel)container), buildAction)));
+		JMenu illusionMenu = addBuildActions(menu, ImageIds.MINOR_ILLUSION_MAGIC_SPELL, "Illusions", buildActions, buildAction -> new ChooseWorldObjectAction(playerCharacter, imageInfoReader, world, ((WorldPanel)container), dungeonMaster, new StartBuildModeAction(playerCharacter, imageInfoReader, ((WorldPanel)container), buildAction)));
 		addActions(illusionMenu, illusionActions);
 		
     	JMenuItem disguiseMenuItem = MenuFactory.createJMenuItem(new GuiDisguiseAction(playerCharacter, imageInfoReader, world, (WorldPanel)container, dungeonMaster, Actions.DISGUISE_MAGIC_SPELL_ACTION));
@@ -461,24 +463,24 @@ public class GuiMouseListener extends MouseAdapter {
 	
 	private void addRestorationActions(JPopupMenu menu) {
 		MagicSpell[] restorationActions = { Actions.MINOR_HEAL_ACTION, Actions.CURE_DISEASE_ACTION, Actions.CURE_POISON_ACTION, Actions.DISPEL_MAGIC_ACTION, Actions.SILENCE_MAGIC_ACTION };
-		addActions(menu, "Restoration", restorationActions);
+		addActions(menu, ImageIds.MINOR_HEAL, "Restoration", restorationActions);
 	}
 	
 	private void addTransmutationActions(JPopupMenu menu) {
 		MagicSpell[] transmutationActions = { Actions.ENLARGE_ACTION, Actions.REDUCE_ACTION, Actions.SLEEP_MAGIC_SPELL_ACTION, Actions.WATER_WALK_ACTION, Actions.BURDEN_ACTION, Actions.FEATHER_ACTION, Actions.DARK_VISION_SPELL_ACTION };
-		addActions(menu, "Transmute", transmutationActions);
+		addActions(menu, ImageIds.ENLARGE_MAGIC_SPELL, "Transmute", transmutationActions);
 	}
 	
 	private void addEvocationActions(JPopupMenu menu) {
 		MagicSpell[] actions = { Actions.DETECT_MAGIC_ACTION, Actions.DETECT_POISON_AND_DISEASE_ACTION };
-		JMenu evocationMenu = addActions(menu, "Evocation", actions);
+		JMenu evocationMenu = addActions(menu, ImageIds.FIRE_BOLT, "Evocation", actions);
 		addBuildAction(evocationMenu, Actions.FIRE_TRAP_ACTION, startBuildMode());
 		addBuildAction(evocationMenu, Actions.ENTANGLE_ACTION, startBuildMode());
 	}
 	
 	private void addNecromancyActions(JPopupMenu menu) {
 		MagicSpell[] actions = { Actions.LICH_TRANSFORMATION_ACTION };
-		addActions(menu, "Necromancy", actions);
+		addActions(menu, ImageIds.LICH, "Necromancy", actions);
 	}
 	
 	private void addScribeMagicSpells(JPopupMenu menu, WorldObject worldObject) {
@@ -495,18 +497,18 @@ public class GuiMouseListener extends MouseAdapter {
 		}
 	}
 	
-	private void addBuildActions(JPopupMenu menu, String menuTitle, BuildAction[] buildActions) {
-		addBuildActions(menu, menuTitle, buildActions, startBuildMode());
+	private void addBuildActions(JPopupMenu menu, ImageIds imageId, String menuTitle, BuildAction[] buildActions) {
+		addBuildActions(menu, imageId, menuTitle, buildActions, startBuildMode());
 	}
 
 	private Function<BuildAction, Action> startBuildMode() {
 		return buildAction -> new StartBuildModeAction(playerCharacter, imageInfoReader, ((WorldPanel)container), buildAction);
 	}
 	
-	private JMenu addBuildActions(JPopupMenu menu, String menuTitle, BuildAction[] buildActions, Function<BuildAction, Action> guiActionBuilder) {
+	private JMenu addBuildActions(JPopupMenu menu, ImageIds imageId, String menuTitle, BuildAction[] buildActions, Function<BuildAction, Action> guiActionBuilder) {
 		JMenu parentMenuItem = MenuFactory.createJMenu(menuTitle);
 		menu.add(parentMenuItem);
-		
+		setMenuIcon(parentMenuItem, imageId);
 		
 		for(BuildAction buildAction : buildActions) {
 			addBuildAction(parentMenuItem, buildAction, guiActionBuilder);
@@ -537,9 +539,10 @@ public class GuiMouseListener extends MouseAdapter {
 		menu.add(guiCreateNewsPaperMenuItem);
 	}
 	
-	private JMenu addActions(JPopupMenu menu, String menuTitle, ManagedOperation[] actions) {
+	private JMenu addActions(JPopupMenu menu, ImageIds imageId, String menuTitle, ManagedOperation[] actions) {
 		JMenu parentMenuItem = MenuFactory.createJMenu(menuTitle);
 		menu.add(parentMenuItem);
+		setMenuIcon(parentMenuItem, imageId);
 		
 		addActions(parentMenuItem, actions);
 		return parentMenuItem;

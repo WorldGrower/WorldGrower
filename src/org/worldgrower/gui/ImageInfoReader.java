@@ -413,6 +413,7 @@ public class ImageInfoReader {
 		add(ImageIds.LEASH, sprites420.getSubImage(13, 9, 1, 1));
 		add(ImageIds.CLAIM_CATTLE, sprites420.getSubImage(7, 9, 1, 1));
 		add(ImageIds.APOTHECARY, apothecary.getSubImage(0, 0, 1, 1));
+		add(ImageIds.HAMMER, sprites420.getSubImage(3, 9, 1, 1));
     }
 
     private void resizeSmallFlowers() {

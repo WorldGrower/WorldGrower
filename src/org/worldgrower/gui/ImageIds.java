@@ -299,5 +299,6 @@ public enum ImageIds {
 	LEASH,
 	BULL,
 	CLAIM_CATTLE,
-	APOTHECARY
+	APOTHECARY,
+	HAMMER
 }
