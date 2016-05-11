@@ -300,5 +300,6 @@ public enum ImageIds {
 	BULL,
 	CLAIM_CATTLE,
 	APOTHECARY,
-	HAMMER
+	HAMMER,
+	MAGIC1
 }

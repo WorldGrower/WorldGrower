@@ -76,6 +76,7 @@ public class ImageInfoReader {
     	Sprites papermill = readSpritesPapermill();
     	Sprites apothecary = readSpritesApothecary();
     	Sprites workbench = readSpritesWorkbench();
+    	Sprites magic1 = readSpritesMagic1();
     	
     	addCharacter(ImageIds.KNIGHT, sprites, 0, 0, 1, 1);
     	addCharacter(ImageIds.GUARD, sprites, 0, 4, 1, 1);
@@ -415,6 +416,8 @@ public class ImageInfoReader {
 		add(ImageIds.CLAIM_CATTLE, sprites420.getSubImage(7, 9, 1, 1));
 		add(ImageIds.APOTHECARY, apothecary.getSubImage(0, 0, 1, 1));
 		add(ImageIds.HAMMER, sprites420.getSubImage(3, 9, 1, 1));
+		
+		addMagic(ImageIds.MAGIC1, magic1, 5, 6);
     }
 
     private void resizeSmallFlowers() {
@@ -560,6 +563,22 @@ public class ImageInfoReader {
     	images.add(sprites.getSubImage(x + 2, y + 1, width, height));
     	images.add(sprites.getSubImage(x + 2, y + 2, width, height));
     	images.add(sprites.getSubImage(x + 2, y + 3, width, height));
+    	
+    	idToImages.put(imageId, images);
+    	characterImageIds.add(imageId);
+	}
+    
+    private void addMagic(ImageIds imageId, Sprites sprites, int width, int height) {
+    	if (idToImages.containsKey(imageId)) {
+    		throw new IllegalStateException("Id " + imageId + " exists in map " + idToImages);
+    	}
+    	List<Image> images = new ArrayList<>();
+    	
+    	for(int j=0; j<height; j++) {
+    		for(int i=0; i<width; i++) {
+    			images.add(sprites.getSubImage(i, j, 1, 1));
+    		}
+    	}
     	
     	idToImages.put(imageId, images);
     	characterImageIds.add(imageId);
@@ -740,6 +759,10 @@ public class ImageInfoReader {
 		return readImages("workbench.png", 192, 144, 1, 1);
 	}
 	
+	private static Sprites readSpritesMagic1() throws IOException {
+		return readImages("magic_001.png", 144, 144, 1, 1);
+	}
+	
 	private static Sprites readImages(String imageFilename, int width, int height, int rows, int cols) throws IOException {
 		BufferedImage bigImg = ImageIO.read(ImageInfoReader.class.getResource("/" + imageFilename));
 		return new Sprites(bigImg, width, height);
@@ -763,6 +786,16 @@ public class ImageInfoReader {
 	   } else {
 		   index = 0;
 	   }
+	   return images.get(index);
+   }
+   
+   public Image getImage(ImageIds id, int index) {
+	   List<Image> images = idToImages.get(id);
+	   
+	   if (images == null) {
+		   throw new IllegalStateException("No image found for imageId " + id);
+	   }
+	   
 	   return images.get(index);
    }
    

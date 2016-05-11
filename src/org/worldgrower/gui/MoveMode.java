@@ -12,6 +12,7 @@ import javax.swing.SwingUtilities;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.attribute.LookDirection;
 
 public class MoveMode {
@@ -23,6 +24,7 @@ public class MoveMode {
 	private List<WorldObject> intelligentWorldObjects = new ArrayList<>();
 	private List<Point> oldPositions = new ArrayList<>();
 	private List<Point> newPositions = new ArrayList<>();
+	private List<WorldObject> magicCasters = new ArrayList<>();
 	
 	public void startMove(WorldPanel worldPanel, int[] args, ActionListener guiMoveAction, WorldObject worldObject, World world) {
 		if (moveMode) {
@@ -54,6 +56,13 @@ public class MoveMode {
 			int x = intelligentWorldObject.getProperty(Constants.X);
 			int y = intelligentWorldObject.getProperty(Constants.Y);
 			newPositions.add(new Point(x, y));
+		}
+		
+		magicCasters.clear();
+		for(WorldObject intelligentWorldObject : intelligentWorldObjects) {
+			if (world.getHistory().getLastPerformedOperation(intelligentWorldObject).getOperationInfo().getManagedOperation() instanceof MagicSpell) {
+				magicCasters.add(intelligentWorldObject);
+			}
 		}
 	}
 
@@ -100,6 +109,9 @@ public class MoveMode {
 				}
 			}
 		}
+		for(int i=0; i<magicCasters.size(); i++) {
+			paintMagicSpellForWorldObject(g, worldPanel, magicCasters.get(i), imageInfoReader, moveStep, moveIndex);
+		}
 		if (moveMode && moveStep < 48) {
 			moveStep += 2;
 			SwingUtilities.invokeLater(new Runnable() {
@@ -113,6 +125,19 @@ public class MoveMode {
 					}
 				}
 			});
+			
+			SwingUtilities.invokeLater(new Runnable() {
+				public void run() {
+					for(int i=0; i<magicCasters.size(); i++) {
+						WorldObject magicCaster = magicCasters.get(i);
+						int x = magicCaster.getProperty(Constants.X);
+						int y = magicCaster.getProperty(Constants.Y);
+						worldPanel.repaintAround(x, y, magicCaster);
+						//worldPanel.repaint();
+					}
+				}
+			});
+			
 		} else {
 			moveMode = false;
 			moveIndex = 0;
@@ -149,5 +174,19 @@ public class MoveMode {
 		
 		image = imageInfoReader.getImage(id, lookDirection, moveIndex);
 		worldPanel.drawWorldObjectInPixels(g, worldObject, lookDirection, image, x, y, deltaX, deltaY);
+	}
+	
+	private void paintMagicSpellForWorldObject(Graphics g, WorldPanel worldPanel,
+			WorldObject magicCaster, ImageInfoReader imageInfoReader,
+			int moveStep, int moveIndex) {
+
+		int imageIndex = (moveStep / 2);
+		if (moveStep < 47) {
+		//System.out.println("drawing magic " + moveStep);
+			Image image = imageInfoReader.getImage(ImageIds.MAGIC1, imageIndex);
+			Integer x = magicCaster.getProperty(Constants.X) - 1;
+			Integer y = magicCaster.getProperty(Constants.Y) - 1;
+			worldPanel.drawWorldObjectInPixels(g, magicCaster, null, image, x, y, 0, 0);
+		}
 	}
 }
