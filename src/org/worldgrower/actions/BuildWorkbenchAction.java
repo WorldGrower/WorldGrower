@@ -76,12 +76,12 @@ public class BuildWorkbenchAction implements BuildAction {
 
 	@Override
 	public int getWidth() {
-		return 1;
+		return 4;
 	}
 
 	@Override
 	public int getHeight() {
-		return 1;
+		return 3;
 	}
 	
 	@Override

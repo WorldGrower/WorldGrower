@@ -75,6 +75,7 @@ public class ImageInfoReader {
     	Sprites brewery = readSpritesBrewery();
     	Sprites papermill = readSpritesPapermill();
     	Sprites apothecary = readSpritesApothecary();
+    	Sprites workbench = readSpritesWorkbench();
     	
     	addCharacter(ImageIds.KNIGHT, sprites, 0, 0, 1, 1);
     	addCharacter(ImageIds.GUARD, sprites, 0, 4, 1, 1);
@@ -406,7 +407,7 @@ public class ImageInfoReader {
 		add(ImageIds.FEAR_INDICATOR, sprites420.getSubImage(3, 26, 1, 1));
 		add(ImageIds.WEAVERY, weavery.getSubImage(0, 0, 1, 1));
 		add(ImageIds.ENTANGLED_INDICATOR, tora_vx_02.getSubImage(0, 1, 1, 1));
-		add(ImageIds.WORKBENCH, tileE.getSubImage(8, 14, 1, 1));
+		add(ImageIds.WORKBENCH, workbench.getSubImage(0, 0, 1, 1));
 		add(ImageIds.DARKNESS_MAGIC_SPELL, sprites420.getSubImage(2, 21, 1, 1));
 		add(ImageIds.BREWERY, brewery.getSubImage(0, 0, 3, 2));
 		add(ImageIds.TRAP_CONTAINER_MAGIC_SPELL, sprites420.getSubImage(5, 20, 1, 1));
@@ -733,6 +734,10 @@ public class ImageInfoReader {
 	
 	private static Sprites readSpritesApothecary() throws IOException {
 		return readImages("apothecary.png", 192, 144, 1, 1);
+	}
+	
+	private static Sprites readSpritesWorkbench() throws IOException {
+		return readImages("workbench.png", 192, 144, 1, 1);
 	}
 	
 	private static Sprites readImages(String imageFilename, int width, int height, int rows, int cols) throws IOException {
