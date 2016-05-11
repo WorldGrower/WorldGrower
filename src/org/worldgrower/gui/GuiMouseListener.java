@@ -520,7 +520,7 @@ public class GuiMouseListener extends MouseAdapter {
 		final JMenuItem buildMenuItem;
 		if (canPlayerCharacterPerformBuildAction(buildAction)) {
 			buildMenuItem = MenuFactory.createJMenuItem(guiActionBuilder.apply(buildAction));
-			buildMenuItem.setText(buildAction.getDescription(playerCharacter, null, null, world) + "...");
+			buildMenuItem.setText(buildAction.getSimpleDescription() + "...");
 			parentMenuItem.add(buildMenuItem);
 		} else {
 			buildMenuItem = createDisabledActionMenuItem(parentMenuItem, buildAction);
@@ -577,7 +577,7 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 
 	private JMenuItem createDisabledActionMenuItem(JMenuItem menu, ManagedOperation craftAction) {
-		JMenuItem menuItem = MenuFactory.createJMenuItem(craftAction.getDescription(playerCharacter, playerCharacter, null, world) + "...");
+		JMenuItem menuItem = MenuFactory.createJMenuItem(craftAction.getSimpleDescription() + "...");
 		menuItem.setEnabled(false);
 		menu.add(menuItem);
 		return menuItem;
