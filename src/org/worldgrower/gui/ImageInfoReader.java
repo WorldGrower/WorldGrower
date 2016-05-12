@@ -79,6 +79,7 @@ public class ImageInfoReader {
     	Sprites magic1 = readSpritesMagic1();
     	Sprites fire1 = readSpritesFire1();
     	Sprites ice1 = readSpritesIce1();
+    	Sprites thunder1 = readSpritesThunder1();
     	
     	addCharacter(ImageIds.KNIGHT, sprites, 0, 0, 1, 1);
     	addCharacter(ImageIds.GUARD, sprites, 0, 4, 1, 1);
@@ -422,6 +423,7 @@ public class ImageInfoReader {
 		addMagic(ImageIds.MAGIC1, magic1, 5, 6);
 		addMagic(ImageIds.FIRE1, fire1, 5, 4);
 		addMagic(ImageIds.ICE1, ice1, 5, 6);
+		addMagic(ImageIds.THUNDER1, thunder1, 5, 6);
     }
 
     private void resizeSmallFlowers() {
@@ -773,6 +775,10 @@ public class ImageInfoReader {
 	
 	private static Sprites readSpritesIce1() throws IOException {
 		return readImages("ice_001.png", 48, 48, 1, 1);
+	}
+	
+	private static Sprites readSpritesThunder1() throws IOException {
+		return readImages("thunder_001.png", 48, 48, 1, 1);
 	}
 	
 	private static Sprites readImages(String imageFilename, int width, int height, int rows, int cols) throws IOException {

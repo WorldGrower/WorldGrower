@@ -14,6 +14,7 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.magic.FireBoltAttackAction;
+import org.worldgrower.actions.magic.LightningBoltAttackAction;
 import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.actions.magic.RayOfFrostAttackAction;
 import org.worldgrower.attribute.LookDirection;
@@ -74,6 +75,9 @@ public class MoveMode {
 			}
 			if (lastPerformedOperationInfo.getManagedOperation() instanceof RayOfFrostAttackAction) {
 				magicTargets.add(new MagicTarget(lastPerformedOperationInfo.getTarget(), ImageIds.ICE1, 30));
+			}
+			if (lastPerformedOperationInfo.getManagedOperation() instanceof LightningBoltAttackAction) {
+				magicTargets.add(new MagicTarget(lastPerformedOperationInfo.getTarget(), ImageIds.THUNDER1, 30));
 			}
 		}
 	}
