@@ -304,5 +304,6 @@ public enum ImageIds {
 	MAGIC1,
 	FIRE1,
 	ICE1,
-	THUNDER1
+	THUNDER1,
+	DARKNESS1
 }
