@@ -15,6 +15,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.magic.FireBoltAttackAction;
 import org.worldgrower.actions.magic.MagicSpell;
+import org.worldgrower.actions.magic.RayOfFrostAttackAction;
 import org.worldgrower.attribute.LookDirection;
 
 public class MoveMode {
@@ -27,7 +28,7 @@ public class MoveMode {
 	private List<Point> oldPositions = new ArrayList<>();
 	private List<Point> newPositions = new ArrayList<>();
 	private List<WorldObject> magicCasters = new ArrayList<>();
-	private List<WorldObject> magicTargets = new ArrayList<>();
+	private List<MagicTarget> magicTargets = new ArrayList<>();
 	
 	public void startMove(WorldPanel worldPanel, int[] args, ActionListener guiMoveAction, WorldObject worldObject, World world) {
 		if (moveMode) {
@@ -69,7 +70,10 @@ public class MoveMode {
 				magicCasters.add(intelligentWorldObject);
 			}
 			if (lastPerformedOperationInfo.getManagedOperation() instanceof FireBoltAttackAction) {
-				magicTargets.add(lastPerformedOperationInfo.getTarget());
+				magicTargets.add(new MagicTarget(lastPerformedOperationInfo.getTarget(), ImageIds.FIRE1, 20));
+			}
+			if (lastPerformedOperationInfo.getManagedOperation() instanceof RayOfFrostAttackAction) {
+				magicTargets.add(new MagicTarget(lastPerformedOperationInfo.getTarget(), ImageIds.ICE1, 30));
 			}
 		}
 	}
@@ -152,7 +156,7 @@ public class MoveMode {
 			SwingUtilities.invokeLater(new Runnable() {
 				public void run() {
 					for(int i=0; i<magicTargets.size(); i++) {
-						WorldObject magicTarget = magicTargets.get(i);
+						WorldObject magicTarget = magicTargets.get(i).getTarget();
 						int x = magicTarget.getProperty(Constants.X);
 						int y = magicTarget.getProperty(Constants.Y);
 						worldPanel.repaintAround(x, y, magicTarget);
@@ -213,15 +217,48 @@ public class MoveMode {
 	}
 	
 	private void paintMagicTargetForWorldObject(Graphics g, WorldPanel worldPanel,
-			WorldObject magicTarget, ImageInfoReader imageInfoReader,
+			MagicTarget magicTarget, ImageInfoReader imageInfoReader,
 			int moveStep, int moveIndex) {
 
-		int imageIndex = moveStep / 3;
+		int numberOfFrames = magicTarget.getNumberOfFrames();
+		final int imageIndex;
+		if (numberOfFrames == 20) {
+			imageIndex = moveStep / 3;
+		} else if (numberOfFrames == 30) {
+			imageIndex = moveStep / 3;
+		} else {
+			imageIndex = moveStep;
+		}
 		if (moveStep < 47) {
-			Image image = imageInfoReader.getImage(ImageIds.FIRE1, imageIndex);
-			Integer x = magicTarget.getProperty(Constants.X);
-			Integer y = magicTarget.getProperty(Constants.Y);
-			worldPanel.drawWorldObjectInPixels(g, magicTarget, null, image, x, y, 0, 0);
+			Image image = imageInfoReader.getImage(magicTarget.getImageId(), imageIndex);
+			WorldObject target = magicTarget.getTarget();
+			Integer x = target.getProperty(Constants.X);
+			Integer y = target.getProperty(Constants.Y);
+			worldPanel.drawWorldObjectInPixels(g, target, null, image, x, y, 0, 0);
+		}
+	}
+	
+	private static class MagicTarget {
+		private final WorldObject target;
+		private final ImageIds imageId;
+		private final int numberOfFrames;
+		
+		public MagicTarget(WorldObject target, ImageIds imageId, int numberOfFrames) {
+			this.target = target;
+			this.imageId = imageId;
+			this.numberOfFrames = numberOfFrames;
+		}
+
+		public WorldObject getTarget() {
+			return target;
+		}
+
+		public ImageIds getImageId() {
+			return imageId;
+		}
+
+		public int getNumberOfFrames() {
+			return numberOfFrames;
 		}
 	}
 }
