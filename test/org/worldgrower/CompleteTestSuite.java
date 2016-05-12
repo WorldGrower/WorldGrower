@@ -28,6 +28,7 @@ import org.worldgrower.actions.magic.UTestCurePoisonAction;
 import org.worldgrower.actions.magic.UTestDarkVisionSpellAction;
 import org.worldgrower.actions.magic.UTestDetectMagicAction;
 import org.worldgrower.actions.magic.UTestDetectPoisonAndDiseaseAction;
+import org.worldgrower.actions.magic.UTestDimensionDoorAction;
 import org.worldgrower.actions.magic.UTestDisguiseMagicSpellAction;
 import org.worldgrower.actions.magic.UTestDisintegrateArmorAction;
 import org.worldgrower.actions.magic.UTestDisintegrateWeaponAction;
@@ -663,7 +664,10 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestGiveWineConversation.class,
 	UTestButcherLegalHandler.class,
 	UTestWorshipDeityLegalHandler.class,
-	UTestLearnMagicSpellAction.class
+	UTestLearnMagicSpellAction.class,
+	UTestApothecaryGoal.class,
+	UTestBuildApothecaryAction.class,
+	UTestDimensionDoorAction.class
 })
 public class CompleteTestSuite {
 }
