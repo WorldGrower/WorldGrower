@@ -20,16 +20,19 @@ import org.worldgrower.Constants;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.AttackUtils;
 import org.worldgrower.actions.BuildAction;
 import org.worldgrower.actions.CraftUtils;
+import org.worldgrower.actions.DeadlyAction;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.generator.Item;
 import org.worldgrower.goal.LocationPropertyUtils;
 import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
 
-public class DimensionDoorAction implements BuildAction, MagicSpell {
-
+public class DimensionDoorAction implements BuildAction, MagicSpell, DeadlyAction {
+	private static final int BASE_DAMAGE = 5 * Item.COMBAT_MULTIPLIER;
 	private static final int ENERGY_USE = 100;
 	private static final int DISTANCE = 20;
 	
@@ -38,14 +41,18 @@ public class DimensionDoorAction implements BuildAction, MagicSpell {
 		int x = (Integer)target.getProperty(Constants.X);
 		int y = (Integer)target.getProperty(Constants.Y);
 		
-		LocationPropertyUtils.updateLocation(performer, x, y, world);
+		if (CraftUtils.isValidBuildTarget(this, performer, target, world)) {
+			LocationPropertyUtils.updateLocation(performer, x, y, world);
+		} else {
+			AttackUtils.teleportDamage(BASE_DAMAGE, this, performer, args, world);
+		}
 		
 		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE, world.getWorldStateChangedListeners());
 	}
 	
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return CraftUtils.isValidBuildTarget(this, performer, target, world) && MagicSpellUtils.canCast(performer, this);
+		return MagicSpellUtils.canCast(performer, this);
 	}
 
 	@Override
@@ -112,5 +119,10 @@ public class DimensionDoorAction implements BuildAction, MagicSpell {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.DIMENSION_DOOR;
+	}
+
+	@Override
+	public String getDeathDescription(WorldObject performer, WorldObject target) {
+		return "killed by a teleportation accident";
 	}
 }

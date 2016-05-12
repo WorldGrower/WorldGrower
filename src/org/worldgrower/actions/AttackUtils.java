@@ -244,6 +244,22 @@ public class AttackUtils {
 		world.logAction(action, performer, target, args, message);
 	}
 	
+	public static void teleportDamage(int performerDamage, DeadlyAction action, WorldObject performer, int[] args, World world) {
+		int performerHP = performer.getProperty(Constants.HIT_POINTS);
+		
+		int damage = performerDamage;
+		performerHP = performerHP - damage;
+		String message = performer.getProperty(Constants.NAME) + " takes " + damage + " teleport damage";
+		
+		if (performerHP <= 0) {
+			performerHP = 0;
+			DeathReasonPropertyUtils.targetDiesByPerformerAction(performer, performer, action, world);
+		}
+		performer.setProperty(Constants.HIT_POINTS, performerHP);	
+		
+		world.logAction(action, performer, performer, args, message);
+	}
+	
 	public static int distanceWithFreeLeftHand(WorldObject performer, WorldObject target, int range) {
 		WorldObject attackWeapon = performer.getProperty(Constants.LEFT_HAND_EQUIPMENT);
 		if (attackWeapon == null) {
