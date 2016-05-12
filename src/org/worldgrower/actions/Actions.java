@@ -35,6 +35,7 @@ import org.worldgrower.actions.magic.CurePoisonAction;
 import org.worldgrower.actions.magic.DarkVisionSpellAction;
 import org.worldgrower.actions.magic.DetectMagicAction;
 import org.worldgrower.actions.magic.DetectPoisonAndDiseaseAction;
+import org.worldgrower.actions.magic.DimensionDoorAction;
 import org.worldgrower.actions.magic.DisguiseMagicSpellAction;
 import org.worldgrower.actions.magic.DisintegrateArmorAction;
 import org.worldgrower.actions.magic.DisintegrateWeaponAction;
@@ -161,6 +162,7 @@ public class Actions {
 	public static final EntangleAction ENTANGLE_ACTION = new EntangleAction();
 	public static final DarkVisionSpellAction DARK_VISION_SPELL_ACTION = new DarkVisionSpellAction();
 	public static final TrapContainerMagicSpellAction TRAP_CONTAINER_MAGIC_SPELL_ACTION = new TrapContainerMagicSpellAction();
+	public static final DimensionDoorAction DIMENSION_DOOR_ACTION = new DimensionDoorAction();
 	
 	public static final BuildLibraryAction BUILD_LIBRARY_ACTION = new BuildLibraryAction();
 	public static final ResearchRestorationSkillAction RESEARCH_RESTORATION_SKILL_ACTION = new ResearchRestorationSkillAction();
@@ -280,7 +282,8 @@ public class Actions {
 			FEAR_MAGIC_SPELL_ACTION,
 			ENTANGLE_ACTION,
 			DARK_VISION_SPELL_ACTION,
-			TRAP_CONTAINER_MAGIC_SPELL_ACTION
+			TRAP_CONTAINER_MAGIC_SPELL_ACTION,
+			DIMENSION_DOOR_ACTION
 			);
 	
 	private static final List<InventoryAction> INVENTORY_ACTIONS = Arrays.asList(

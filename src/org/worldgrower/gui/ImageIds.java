@@ -305,5 +305,6 @@ public enum ImageIds {
 	FIRE1,
 	ICE1,
 	THUNDER1,
-	DARKNESS1
+	DARKNESS1,
+	DIMENSION_DOOR
 }

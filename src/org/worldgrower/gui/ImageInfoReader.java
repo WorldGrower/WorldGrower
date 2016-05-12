@@ -426,6 +426,8 @@ public class ImageInfoReader {
 		addMagic(ImageIds.ICE1, ice1, 5, 6);
 		addMagic(ImageIds.THUNDER1, thunder1, 5, 6);
 		addMagic(ImageIds.DARKNESS1, darkness1, 5, 6);
+		
+		add(ImageIds.DIMENSION_DOOR, tileE.getSubImage(0, 4, 1, 1));
     }
 
     private void resizeSmallFlowers() {
