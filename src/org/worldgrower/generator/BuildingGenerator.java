@@ -674,6 +674,35 @@ public class BuildingGenerator {
 	
 		return id;
 	}
+	
+	public static int generateChest(int x, int y, World world, double skillBonus) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		int id = world.generateUniqueId();
+		
+		properties.put(Constants.X, x);
+		properties.put(Constants.Y, y);
+		properties.put(Constants.WIDTH, 1);
+		properties.put(Constants.HEIGHT, 1);
+		properties.put(Constants.NAME, "chest");
+		properties.put(Constants.ID, id);
+		properties.put(Constants.IMAGE_ID, ImageIds.CHEST);
+		properties.put(Constants.FLAMMABLE, Boolean.TRUE);
+		properties.put(Constants.CONDITIONS, new Conditions());
+		properties.put(Constants.HIT_POINTS, 200 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.HIT_POINTS_MAX, 200 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.ARMOR, 0);
+		properties.put(Constants.DAMAGE_RESIST, 0);
+		properties.put(Constants.PRICE, 50);
+		properties.put(Constants.INVENTORY, new WorldObjectContainer());
+		properties.put(Constants.LOCK_STRENGTH, 2);
+		properties.put(Constants.LOCKED, Boolean.FALSE);
+		properties.put(Constants.BUILDING_TYPE, BuildingType.CHEST);
+		
+		WorldObject house = new WorldObjectImpl(properties);
+		world.addWorldObject(house);
+		
+		return id;
+	}
 
 	
 	public static boolean isBrewery(WorldObject worldObject) {
