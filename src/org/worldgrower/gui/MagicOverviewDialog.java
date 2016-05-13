@@ -169,7 +169,7 @@ public class MagicOverviewDialog extends JDialog {
 
 		@Override
 		public String getToolTipText(MouseEvent mouseEvent) {
-			int row = rowAtPoint(mouseEvent.getPoint());
+			int row = convertRowIndexToModel(rowAtPoint(mouseEvent.getPoint()));
 			MagicSpell magicSpell = Actions.getMagicSpells().get(row);
 			return magicSpell.getDescription();
 		}
