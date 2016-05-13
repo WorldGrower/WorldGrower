@@ -24,6 +24,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.VampireUtils;
+import org.worldgrower.condition.WerewolfUtils;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.generator.CommonerGenerator;
 import org.worldgrower.generator.Item;
@@ -40,6 +41,7 @@ public class UTestVampireBiteAction {
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createPerformer(world, organization);
 		WorldObject target = createPerformer(world, organization);
+		target.setProperty(Constants.CONSTITUTION, 0);
 		VampireUtils.vampirizePerson(performer, new WorldStateChangedListeners());
 		
 		assertEquals(26 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
@@ -50,6 +52,35 @@ public class UTestVampireBiteAction {
 		assertEquals(16 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
 		assertEquals(true, target.getProperty(Constants.CONDITIONS).hasCondition(Condition.VAMPIRE_BITE_CONDITION));
 		assertEquals(750, performer.getProperty(Constants.VAMPIRE_BLOOD_LEVEL).intValue());
+	}
+	
+	@Test
+	public void testExecuteTargetNotHuman() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		WorldObject performer = createPerformer(world, organization);
+		WorldObject target = createPerformer(world, organization);
+		target.setProperty(Constants.CONSTITUTION, 0);
+		WerewolfUtils.makePersonIntoWerewolf(target, new WorldStateChangedListeners());
+		VampireUtils.vampirizePerson(performer, new WorldStateChangedListeners());
+		
+		Actions.VAMPIRE_BITE_ACTION.execute(performer, target, Args.EMPTY, world);
+		
+		assertEquals(false, target.getProperty(Constants.CONDITIONS).hasCondition(Condition.VAMPIRE_BITE_CONDITION));
+	}
+	
+	@Test
+	public void testExecuteTargetImmune() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		WorldObject performer = createPerformer(world, organization);
+		WorldObject target = createPerformer(world, organization);
+		target.setProperty(Constants.CONSTITUTION, 20);
+		VampireUtils.vampirizePerson(performer, new WorldStateChangedListeners());
+		
+		Actions.VAMPIRE_BITE_ACTION.execute(performer, target, Args.EMPTY, world);
+		
+		assertEquals(false, target.getProperty(Constants.CONDITIONS).hasCondition(Condition.VAMPIRE_BITE_CONDITION));
 	}
 	
 	@Test

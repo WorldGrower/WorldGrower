@@ -17,6 +17,7 @@ package org.worldgrower.deity;
 import java.io.ObjectStreamException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.worldgrower.Constants;
 import org.worldgrower.World;
@@ -66,6 +67,7 @@ public class Artemis implements Deity {
 		
 		if ((currentTurn % 4000 == 0) && (totalNumberOfWorshippers > 16) && (WerewolfUtils.getWerewolfCount(world) == 0)) {
 			List<WorldObject> targets = DeityPropertyUtils.getWorshippersFor(Deity.APHRODITE, world);
+			targets = targets.stream().filter(w -> WerewolfUtils.canBecomeWerewolf(w)).collect(Collectors.toList());
 			final WorldObject target;
 			if (targets.size() > 0) {
 				target = targets.get(0);

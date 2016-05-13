@@ -22,6 +22,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
+import org.worldgrower.condition.VampireUtils;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.goal.KnowledgeMapPropertyUtils;
 import org.worldgrower.gui.ImageIds;
@@ -34,9 +35,23 @@ public class VampireBiteAction implements DeadlyAction {
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		AttackUtils.biteAttack(this, performer, target, args, world);
 		performer.increment(Constants.VAMPIRE_BLOOD_LEVEL, 750);
-		Conditions.add(target, Condition.VAMPIRE_BITE_CONDITION, Integer.MAX_VALUE, world);
+		
+		if (VampireUtils.canBecomeVampire(target)) {
+			if (targetContractsVampireBiteCondition(target, world)) {
+				Conditions.add(target, Condition.VAMPIRE_BITE_CONDITION, Integer.MAX_VALUE, world);
+			}
+		}
 		
 		KnowledgeMapPropertyUtils.everyoneInVicinityKnowsOfProperty(performer, target, Constants.CREATURE_TYPE, CreatureType.VAMPIRE_CREATURE_TYPE, world);
+	}
+	
+	private boolean targetContractsVampireBiteCondition(WorldObject target, World world) {
+		int targetConstitution = target.getProperty(Constants.CONSTITUTION);
+		int currentTurn = world.getCurrentTurn().getValue();
+		String targetName = target.getProperty(Constants.NAME);
+		int randomValue = (targetName.length() > 0 ? (int)targetName.charAt(0) : 0) + currentTurn;
+		randomValue = randomValue % 20;
+		return randomValue > targetConstitution;
 	}
 	
 	@Override

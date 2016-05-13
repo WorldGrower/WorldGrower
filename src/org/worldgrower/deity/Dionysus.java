@@ -17,6 +17,7 @@ package org.worldgrower.deity;
 import java.io.ObjectStreamException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.worldgrower.Constants;
 import org.worldgrower.World;
@@ -82,6 +83,7 @@ public class Dionysus implements Deity {
 		
 		if ((currentTurn % 2000 == 0) && (totalNumberOfWorshippers > 15) && (VampireUtils.getVampireCount(world) == 0)) {
 			List<WorldObject> targets = DeityPropertyUtils.getWorshippersFor(this, world);
+			targets = targets.stream().filter(w -> VampireUtils.canBecomeVampire(w)).collect(Collectors.toList());
 			if (targets.size() > 0) {
 				VampireUtils.vampirizePerson(targets.get(0), creatureTypeChangedListeners);
 			}

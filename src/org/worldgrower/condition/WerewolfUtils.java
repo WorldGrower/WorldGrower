@@ -32,6 +32,10 @@ public class WerewolfUtils {
 		
 		creatureTypeChangedListeners.fireCreatureTypeChanged(worldObject, CreatureType.WEREWOLF_CREATURE_TYPE, "Your teeth and nails grow, you are covered in fur, you must have become a werewolf");
 	}
+
+	public static boolean canBecomeWerewolf(WorldObject worldObject) {
+		return worldObject.getProperty(Constants.CREATURE_TYPE) == CreatureType.HUMAN_CREATURE_TYPE;
+	}
 	
 	public static int getWerewolfCount(World world) {
 		return world.findWorldObjects(w -> w.hasProperty(Constants.CURSE) && w.getProperty(Constants.CURSE) == Curse.WEREWOLF_CURSE).size();

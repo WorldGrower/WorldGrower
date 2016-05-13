@@ -24,7 +24,7 @@ import org.worldgrower.gui.ImageIds;
 public class GhoulUtils {
 
 	public static void eatFood(WorldObject performer, WorldObject food, World world) {
-		if (isFoodMadeFromHuman(food)) {
+		if (canBecomeGhoul(performer) && isFoodMadeFromHuman(food)) {
 			ghoulifyPerson(performer, world);
 		}
 	}
@@ -39,6 +39,10 @@ public class GhoulUtils {
 		worldObject.setProperty(Constants.IMAGE_ID, ImageIds.GHOUL);
 		
 		world.getWorldStateChangedListeners().fireCreatureTypeChanged(worldObject, CreatureType.GHOUL_CREATURE_TYPE, "You crave human flesh, you must have become a ghoul");
+	}
+	
+	public static boolean canBecomeGhoul(WorldObject worldObject) {
+		return worldObject.getProperty(Constants.CREATURE_TYPE) == CreatureType.HUMAN_CREATURE_TYPE;
 	}
 
 	public static boolean isGhoul(WorldObject w) {

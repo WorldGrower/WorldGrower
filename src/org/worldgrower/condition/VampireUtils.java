@@ -34,6 +34,10 @@ public class VampireUtils {
 		creatureTypeChangedListeners.fireCreatureTypeChanged(worldObject, CreatureType.VAMPIRE_CREATURE_TYPE, "You crave blood, you must have become a vampire");
 	}
 	
+	public static boolean canBecomeVampire(WorldObject worldObject) {
+		return worldObject.getProperty(Constants.CREATURE_TYPE) == CreatureType.HUMAN_CREATURE_TYPE;
+	}
+	
 	public static int getVampireCount(World world) {
 		return world.findWorldObjects(w -> w.hasProperty(Constants.CURSE) && w.getProperty(Constants.CURSE) == Curse.VAMPIRE_CURSE).size();
 	}
