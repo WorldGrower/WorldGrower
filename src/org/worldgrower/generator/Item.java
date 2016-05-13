@@ -36,7 +36,7 @@ import org.worldgrower.conversation.KnowledgeToDescriptionMapper;
 import org.worldgrower.gui.ImageIds;
 
 public enum Item {
-	IRON_CLAYMORE, IRON_GREATSWORD, IRON_AXE, IRON_GREATAXE, IRON_CUIRASS, IRON_HELMET, IRON_GAUNTLETS, IRON_GREAVES, IRON_SHIELD, IRON_BOOTS, BERRIES, GRAPES, WINE, LONGBOW, PAPER, WATER, MEAT, SPELLBOOK, KEY, NIGHT_SHADE, POISON, COTTON, COTTON_SHIRT, COTTON_HAT, COTTON_BOOTS, COTTON_GLOVES, COTTON_PANTS, BED, OIL, FISHING_POLE, FISH, REPAIR_HAMMER, WOOD, STONE, GOLD, ORE, SOUL_GEM, NEWS_PAPER, BLOOD, IRON_MACE, IRON_KATAR, SLEEPING_POTION;
+	IRON_CLAYMORE, IRON_GREATSWORD, IRON_AXE, IRON_GREATAXE, IRON_CUIRASS, IRON_HELMET, IRON_GAUNTLETS, IRON_GREAVES, IRON_SHIELD, IRON_BOOTS, BERRIES, GRAPES, WINE, LONGBOW, PAPER, WATER, MEAT, SPELLBOOK, KEY, NIGHT_SHADE, POISON, COTTON, COTTON_SHIRT, COTTON_HAT, COTTON_BOOTS, COTTON_GLOVES, COTTON_PANTS, BED, OIL, FISHING_POLE, FISH, REPAIR_HAMMER, WOOD, STONE, GOLD, ORE, SOUL_GEM, NEWS_PAPER, BLOOD, IRON_MACE, IRON_KATAR, SLEEPING_POTION, MINIATURE_CHEST;
 
 	public static final int COMBAT_MULTIPLIER = 10;
 	
@@ -535,6 +535,16 @@ public enum Item {
 			return new WorldObjectImpl(properties);
 		});
 		
+		addItem(Item.MINIATURE_CHEST, skillBonus -> {
+			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+			properties.put(Constants.NAME, "Miniature Chest");
+			properties.put(Constants.PRICE, 1);
+			properties.put(Constants.SELLABLE, false);
+			properties.put(Constants.WEIGHT, 1);
+			properties.put(Constants.IMAGE_ID, ImageIds.CHEST);
+			return new WorldObjectImpl(properties);
+		});
+		
 		addItem(Item.WOOD, new DefaultItemGenerator(Constants.WOOD, 1, ImageIds.WOOD)::addDefault);
 		addItem(Item.STONE, new DefaultItemGenerator(Constants.STONE, 1, ImageIds.STONE)::addDefault);
 		addItem(Item.GOLD, new DefaultItemGenerator(Constants.GOLD, 1, ImageIds.GOLD)::addDefault);
@@ -600,6 +610,12 @@ public enum Item {
 			}
 		}
 		return builder.toString();
+	}
+	
+	public static WorldObject generateMiniatureChest(WorldObject chest) {
+		WorldObject miniatureChest = Item.MINIATURE_CHEST.generate(1f);
+		miniatureChest.setProperty(Constants.CHEST_ID, chest.getProperty(Constants.ID));
+		return miniatureChest;
 	}
 	
 	public String getDescription() {

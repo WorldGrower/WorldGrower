@@ -791,4 +791,16 @@ public class BuildingGenerator {
 	public static boolean isApothecary(WorldObject w) {
 		return w.hasProperty(Constants.APOTHECARY_QUALITY);
 	}
+	
+	public static boolean isNormalChest(WorldObject w) {
+		return isChest(w) && !w.hasProperty(Constants.SECRET_CHEST);
+	}
+
+	public static boolean isSecretChest(WorldObject w) {
+		return isChest(w) && w.hasProperty(Constants.SECRET_CHEST);
+	}
+	
+	private static boolean isChest(WorldObject w) {
+		return (w.hasProperty(Constants.BUILDING_TYPE)) && w.getProperty(Constants.BUILDING_TYPE) == BuildingType.CHEST;
+	}
 }

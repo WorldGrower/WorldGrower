@@ -60,6 +60,7 @@ import org.worldgrower.actions.magic.RayOfFrostAttackAction;
 import org.worldgrower.actions.magic.ReduceAction;
 import org.worldgrower.actions.magic.ResearchSpellAction;
 import org.worldgrower.actions.magic.ScribeMagicSpellAction;
+import org.worldgrower.actions.magic.SecretChestAction;
 import org.worldgrower.actions.magic.SilenceMagicAction;
 import org.worldgrower.actions.magic.SleepMagicSpellAction;
 import org.worldgrower.actions.magic.SoulTrapAction;
@@ -163,6 +164,7 @@ public class Actions {
 	public static final DarkVisionSpellAction DARK_VISION_SPELL_ACTION = new DarkVisionSpellAction();
 	public static final TrapContainerMagicSpellAction TRAP_CONTAINER_MAGIC_SPELL_ACTION = new TrapContainerMagicSpellAction();
 	public static final DimensionDoorAction DIMENSION_DOOR_ACTION = new DimensionDoorAction();
+	public static final SecretChestAction SECRET_CHEST_ACTION = new SecretChestAction();
 	
 	public static final BuildLibraryAction BUILD_LIBRARY_ACTION = new BuildLibraryAction();
 	public static final ResearchRestorationSkillAction RESEARCH_RESTORATION_SKILL_ACTION = new ResearchRestorationSkillAction();
@@ -248,6 +250,8 @@ public class Actions {
 	public static final LearnMagicSpellFromBookAction LEARN_MAGIC_SPELL_FROM_BOOK_ACTION = new LearnMagicSpellFromBookAction();
 	public static final BuildApothecaryAction BUILD_APOTHECARY_ACTION = new BuildApothecaryAction();
 	public static final ConstructChestAction CONSTRUCT_CHEST_ACTION = new ConstructChestAction();
+	public static final RecallSecretChestAction RECALL_SECRET_CHEST_ACTION = new RecallSecretChestAction();
+	public static final DismissSecretChestAction DISMISS_SECRET_CHEST_ACTION = new DismissSecretChestAction();
 	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 
@@ -284,7 +288,8 @@ public class Actions {
 			ENTANGLE_ACTION,
 			DARK_VISION_SPELL_ACTION,
 			TRAP_CONTAINER_MAGIC_SPELL_ACTION,
-			DIMENSION_DOOR_ACTION
+			DIMENSION_DOOR_ACTION,
+			SECRET_CHEST_ACTION
 			);
 	
 	private static final List<InventoryAction> INVENTORY_ACTIONS = Arrays.asList(
@@ -296,7 +301,8 @@ public class Actions {
 			READ_ITEM_IN_INVENTORY_ACTION,
 			POISON_INVENTORY_WATER_WITH_SLEEPING_POTION_ACTION,
 			POISON_WEAPON_ACTION,
-			LEARN_MAGIC_SPELL_FROM_BOOK_ACTION
+			LEARN_MAGIC_SPELL_FROM_BOOK_ACTION,
+			RECALL_SECRET_CHEST_ACTION
 			);
 	
 	private static final List<ResearchKnowledgeSkillAction> RESEARCH_SKILL_ACTIONS = Arrays.asList(
@@ -427,7 +433,8 @@ public class Actions {
 		CLAIM_CATTLE_ACTION,
 		CLAIM_BUILDING_ACTION,
 		BUILD_APOTHECARY_ACTION,
-		CONSTRUCT_CHEST_ACTION
+		CONSTRUCT_CHEST_ACTION,
+		DISMISS_SECRET_CHEST_ACTION
 	));
 	
 	static {

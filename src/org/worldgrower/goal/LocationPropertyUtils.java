@@ -44,6 +44,20 @@ public class LocationPropertyUtils {
 		worldObject.setProperty(Constants.HEIGHT, newHeight);
 	}
 	
+	public static void moveOffscreen(WorldObject worldObject, World world) {
+		world.getWorldObjectsCache(Constants.X, Constants.Y).remove(worldObject);
+		
+		worldObject.setProperty(Constants.X, -10);
+		worldObject.setProperty(Constants.Y, -10);
+	}
+	
+	public static void moveOnscreen(WorldObject worldObject, int x, int y, World world) {
+		worldObject.setProperty(Constants.X, x);
+		worldObject.setProperty(Constants.Y, y);
+		
+		world.getWorldObjectsCache(Constants.X, Constants.Y).add(worldObject);
+	}
+	
 	public static List<WorldObject> getWorldObjects(int x, int y, World world) {
 		List<WorldObject> worldObjects = world.getWorldObjectsCache(Constants.X, Constants.Y).getWorldObjectsFor(x, y);
 		worldObjects = worldObjects.stream().filter(w -> !isPassable(w)).collect(Collectors.toList());
