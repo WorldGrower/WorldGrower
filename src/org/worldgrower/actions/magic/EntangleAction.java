@@ -80,12 +80,12 @@ public class EntangleAction implements BuildAction, MagicSpell {
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "casting entagle";
+		return "casting entangle";
 	}
 
 	@Override
 	public String getSimpleDescription() {
-		return "entagle";
+		return "entangle";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {
