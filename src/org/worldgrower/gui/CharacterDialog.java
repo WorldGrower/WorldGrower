@@ -23,6 +23,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -35,6 +36,7 @@ import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.ListCellRenderer;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
 
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
@@ -46,11 +48,13 @@ import org.worldgrower.condition.Conditions;
 import org.worldgrower.generator.CommonerOnTurn;
 import org.worldgrower.goal.ArmorPropertyUtils;
 import org.worldgrower.goal.MeleeDamagePropertyUtils;
+import org.worldgrower.gui.font.Fonts;
 import org.worldgrower.gui.util.ButtonFactory;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.JComboBoxFactory;
 import org.worldgrower.gui.util.JLabelFactory;
 import org.worldgrower.gui.util.JListFactory;
+import org.worldgrower.gui.util.JPanelFactory;
 import org.worldgrower.gui.util.JProgressBarFactory;
 
 public class CharacterDialog extends JDialog {
@@ -89,7 +93,7 @@ public class CharacterDialog extends JDialog {
 		
 		this.playerCharacter = playerCharacter;
 		
-		setSize(950, 700);
+		setSize(1100, 800);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -166,37 +170,43 @@ public class CharacterDialog extends JDialog {
 		lblCharismaValue.setToolTipText(lblCharisma.getToolTipText());
 		contentPanel.add(lblCharismaValue);
 
-		createSkillBlock(Constants.BLUFF_SKILL, 12, 208);
-		createSkillBlock(Constants.INSIGHT_SKILL, 12, 238);
-		createSkillBlock(Constants.HAND_TO_HAND_SKILL, 12, 268);
-		createSkillBlock(Constants.ONE_HANDED_SKILL, 12, 298);
-		createSkillBlock(Constants.TWO_HANDED_SKILL, 12, 328);
-		createSkillBlock(Constants.PERCEPTION_SKILL, 12, 358);
-		createSkillBlock(Constants.DIPLOMACY_SKILL, 12, 388);
-		createSkillBlock(Constants.INTIMIDATE_SKILL, 12, 418);
-		createSkillBlock(Constants.SMITHING_SKILL, 12, 448);
-		createSkillBlock(Constants.ALCHEMY_SKILL, 12, 478);
-		createSkillBlock(Constants.ARCHERY_SKILL, 12, 508);
-		createSkillBlock(Constants.NECROMANCY_SKILL, 12, 538);
-		createSkillBlock(Constants.FISHING_SKILL, 12, 568);
+		JPanel socialPanel = createPanel("Social Skills", 12, 208, 300, 250);
+		createSkillBlock(Constants.BLUFF_SKILL, socialPanel, 12, 28);
+		createSkillBlock(Constants.DIPLOMACY_SKILL, socialPanel, 12, 58);
+		createSkillBlock(Constants.INSIGHT_SKILL, socialPanel, 12, 88);
+		createSkillBlock(Constants.INTIMIDATE_SKILL, socialPanel, 12, 118);
+		createSkillBlock(Constants.PERCEPTION_SKILL, socialPanel, 12, 148);
 		
-		createSkillBlock(Constants.THIEVERY_SKILL, 250, 208);
-		createSkillBlock(Constants.EVOCATION_SKILL, 250, 238);
-		createSkillBlock(Constants.ILLUSION_SKILL, 250, 268);
-		createSkillBlock(Constants.FARMING_SKILL, 250, 298);
-		createSkillBlock(Constants.MINING_SKILL, 250, 328);
-		createSkillBlock(Constants.LUMBERING_SKILL, 250, 358);
-		createSkillBlock(Constants.RESTORATION_SKILL, 250, 388);
-		createSkillBlock(Constants.WEAVING_SKILL, 250, 418);
-		createSkillBlock(Constants.LIGHT_ARMOR_SKILL, 250, 448);
-		createSkillBlock(Constants.HEAVY_ARMOR_SKILL, 250, 478);
-		createSkillBlock(Constants.CARPENTRY_SKILL,250,  508);
-		createSkillBlock(Constants.TRANSMUTATION_SKILL, 250, 538);
-		createSkillBlock(Constants.ENCHANTMENT_SKILL, 250, 568);
+		JPanel combatPanel = createPanel("Combat Skills", 12, 470, 300, 250);
+		createSkillBlock(Constants.ARCHERY_SKILL, combatPanel, 12, 28);
+		createSkillBlock(Constants.HEAVY_ARMOR_SKILL, combatPanel, 12, 58);
+		createSkillBlock(Constants.HAND_TO_HAND_SKILL, combatPanel, 12, 88);
+		createSkillBlock(Constants.LIGHT_ARMOR_SKILL, combatPanel, 12, 118);
+		createSkillBlock(Constants.ONE_HANDED_SKILL, combatPanel, 12, 148);
+		createSkillBlock(Constants.SMITHING_SKILL, combatPanel, 12, 178);
+		createSkillBlock(Constants.TWO_HANDED_SKILL, combatPanel, 12, 208);
 		
-		addPregnancyBlock(12, 598);
+		JPanel professionPanel = createPanel("Profession Skills", 330, 208, 300, 250);
+		createSkillBlock(Constants.CARPENTRY_SKILL, professionPanel, 12, 28);
+		createSkillBlock(Constants.FARMING_SKILL, professionPanel, 12, 58);
+		createSkillBlock(Constants.FISHING_SKILL, professionPanel, 12, 88);
+		createSkillBlock(Constants.LUMBERING_SKILL, professionPanel, 12, 118);
+		createSkillBlock(Constants.MINING_SKILL, professionPanel, 12, 148);		
+		createSkillBlock(Constants.THIEVERY_SKILL, professionPanel, 12, 178);
+		createSkillBlock(Constants.WEAVING_SKILL, professionPanel, 12, 208);
 		
-		int labelLeft = 540;
+		JPanel magicPanel = createPanel("Magic Skills", 330, 470, 300, 250);
+		createSkillBlock(Constants.ALCHEMY_SKILL, magicPanel, 12, 28);
+		createSkillBlock(Constants.ENCHANTMENT_SKILL, magicPanel, 12, 58);
+		createSkillBlock(Constants.EVOCATION_SKILL, magicPanel, 12, 88);		
+		createSkillBlock(Constants.ILLUSION_SKILL, magicPanel, 12, 118);
+		createSkillBlock(Constants.NECROMANCY_SKILL, magicPanel, 12, 148);
+		createSkillBlock(Constants.RESTORATION_SKILL, magicPanel, 12, 178);
+		createSkillBlock(Constants.TRANSMUTATION_SKILL, magicPanel, 12, 208);
+		
+		addPregnancyBlock(12, 730);
+		
+		int labelLeft = 700;
 		
 		JLabel lblHead = JLabelFactory.createJLabel("Head");
 		lblHead.setToolTipText(HEAD_TOOL_TIP);
@@ -235,7 +245,7 @@ public class CharacterDialog extends JDialog {
 		
 		WorldObjectContainer inventory = playerCharacter.getProperty(Constants.INVENTORY);
 		
-		int equipmentLeft = 630;
+		int equipmentLeft = 810;
 		
 		cmbHead = createEquipmentComboBox(inventory, Constants.HEAD_EQUIPMENT, imageInfoReader);
 		cmbHead.setToolTipText(HEAD_TOOL_TIP);
@@ -273,6 +283,7 @@ public class CharacterDialog extends JDialog {
 		contentPanel.add(cmbRightHand);
 		
 		int attackDefenseOffset = 455;
+		int attackDefenseValueLeft = 960;
 		
 		JLabel lblArmor = JLabelFactory.createJLabel("Armor");
 		lblArmor.setToolTipText(ARMOR_TOOL_TIP);
@@ -281,7 +292,7 @@ public class CharacterDialog extends JDialog {
 		
 		lblArmorValue = JLabelFactory.createJLabel(playerCharacter.getProperty(Constants.ARMOR).toString());
 		lblArmorValue.setToolTipText(ARMOR_TOOL_TIP);
-		lblArmorValue.setBounds(760, attackDefenseOffset, 30, 20);
+		lblArmorValue.setBounds(attackDefenseValueLeft, attackDefenseOffset, 30, 20);
 		contentPanel.add(lblArmorValue);
 		
 		JLabel lblDamageResistValue = JLabelFactory.createJLabel("Damage Resist");
@@ -291,7 +302,7 @@ public class CharacterDialog extends JDialog {
 		
 		lblDamageResist = JLabelFactory.createJLabel(playerCharacter.getProperty(Constants.DAMAGE_RESIST).toString() + "%");
 		lblDamageResist.setToolTipText(DAMAGE_RESIST_TOOL_TIP);
-		lblDamageResist.setBounds(760, attackDefenseOffset + 20, 30, 20);
+		lblDamageResist.setBounds(attackDefenseValueLeft, attackDefenseOffset + 20, 30, 20);
 		contentPanel.add(lblDamageResist);
 		
 		JLabel lblWeaponDamage = JLabelFactory.createJLabel("Weapon Damage");
@@ -301,7 +312,7 @@ public class CharacterDialog extends JDialog {
 		
 		lblDamageValue = JLabelFactory.createJLabel(playerCharacter.getProperty(Constants.DAMAGE).toString());
 		lblDamageValue.setToolTipText(WEAPON_TOOL_TIP);
-		lblDamageValue.setBounds(760, attackDefenseOffset + 40, 30, 20);
+		lblDamageValue.setBounds(attackDefenseValueLeft, attackDefenseOffset + 40, 30, 20);
 		contentPanel.add(lblDamageValue);
 		
 		JLabel lblCondition = JLabelFactory.createJLabel("Active effects:");
@@ -310,7 +321,7 @@ public class CharacterDialog extends JDialog {
 		contentPanel.add(lblCondition);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(equipmentLeft, attackDefenseOffset + 80, 243, 120);
+		scrollPane.setBounds(equipmentLeft, attackDefenseOffset + 80, 243, 220);
 		contentPanel.add(scrollPane);
 		
 		JList<String> conditionList = JListFactory.createJList(createConditionsDescriptions());
@@ -319,7 +330,7 @@ public class CharacterDialog extends JDialog {
 		
 		JPanel buttonPane = new JPanel();
 		buttonPane.setOpaque(false);
-		buttonPane.setBounds(0, 620, 930, 75);
+		buttonPane.setBounds(0, 720, 1095, 75);
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		contentPanel.add(buttonPane);
 		
@@ -329,6 +340,15 @@ public class CharacterDialog extends JDialog {
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
 		SwingUtils.installEscapeCloseOperation(this);
+	}
+	
+	private JPanel createPanel(String title, int x, int y, int width, int height) {
+		JPanel panel = JPanelFactory.createJPanel(title);
+		panel.setLayout(null);
+		panel.setBounds(x, y, width, height);
+		contentPanel.add(panel);
+		
+		return panel;
 	}
 	
 	private String[] createConditionsDescriptions() {
@@ -349,7 +369,7 @@ public class CharacterDialog extends JDialog {
 			contentPanel.add(lblPregnancy);
 			
 			JProgressBar pregnancyProgressBar = JProgressBarFactory.createJProgressBar(0, CommonerOnTurn.PREGNANCY_DURATION);
-			pregnancyProgressBar.setBounds(x + 120, y, 100, 20);
+			pregnancyProgressBar.setBounds(x + 120, y, 140, 20);
 			pregnancyProgressBar.setValue(pregnancyCounter);
 			contentPanel.add(pregnancyProgressBar);
 		}
@@ -362,20 +382,22 @@ public class CharacterDialog extends JDialog {
 		return label;
 	}
 	
-	private void createSkillBlock(SkillProperty skillProperty, int x, int y) {
+	private void createSkillBlock(SkillProperty skillProperty, JPanel parentPanel, int x, int y) {
 		
-		JLabel lblSkill = JLabelFactory.createJLabel(skillProperty.getName());
+		String skillDescription = skillProperty.getName();
+		skillDescription = Character.toUpperCase(skillDescription.charAt(0)) + skillDescription.substring(1);
+		JLabel lblSkill = JLabelFactory.createJLabel(skillDescription);
 		lblSkill.setBounds(x, y, 100, 20);
-		contentPanel.add(lblSkill);
+		parentPanel.add(lblSkill);
 		
 		JLabel lblSkillValue = JLabelFactory.createJLabel(playerCharacter.getProperty(skillProperty).toString());
 		lblSkillValue.setBounds(x + 105, y, 15, 20);
-		contentPanel.add(lblSkillValue);
+		parentPanel.add(lblSkillValue);
 		
 		JProgressBar skillProgressBar = JProgressBarFactory.createJProgressBar(0, 100);
-		skillProgressBar.setBounds(x + 120, y, 100, 20);
+		skillProgressBar.setBounds(x + 120, y, 140, 20);
 		skillProgressBar.setValue(playerCharacter.getProperty(skillProperty).getPercentageUntilNextLevelUp());
-		contentPanel.add(skillProgressBar);
+		parentPanel.add(skillProgressBar);
 	}
 	
 	private JComboBox<ComboBoxEquipmentItem> createEquipmentComboBox(WorldObjectContainer inventory, UnCheckedProperty<WorldObject> propertyKey, ImageInfoReader imageInfoReader) {
