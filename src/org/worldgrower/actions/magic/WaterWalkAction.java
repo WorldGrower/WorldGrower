@@ -42,7 +42,7 @@ public class WaterWalkAction implements MagicSpell {
 	
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return (target.hasProperty(Constants.CONDITIONS) && MagicSpellUtils.canCast(performer, this));
+		return (target.hasProperty(Constants.CONDITIONS) && target.hasIntelligence() && MagicSpellUtils.canCast(performer, this));
 	}
 
 	@Override

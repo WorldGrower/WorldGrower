@@ -52,7 +52,7 @@ public class DimensionDoorAction implements BuildAction, MagicSpell, DeadlyActio
 	
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return MagicSpellUtils.canCast(performer, this);
+		return  !target.hasProperty(Constants.ID) && MagicSpellUtils.canCast(performer, this);
 	}
 
 	@Override
