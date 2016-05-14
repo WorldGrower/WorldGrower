@@ -23,7 +23,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.BorderFactory;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -36,7 +35,6 @@ import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.ListCellRenderer;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.TitledBorder;
 
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
@@ -48,7 +46,6 @@ import org.worldgrower.condition.Conditions;
 import org.worldgrower.generator.CommonerOnTurn;
 import org.worldgrower.goal.ArmorPropertyUtils;
 import org.worldgrower.goal.MeleeDamagePropertyUtils;
-import org.worldgrower.gui.font.Fonts;
 import org.worldgrower.gui.util.ButtonFactory;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.JComboBoxFactory;
@@ -282,46 +279,48 @@ public class CharacterDialog extends JDialog {
 		cmbRightHand.setBounds(equipmentLeft, 375, 243, 50);
 		contentPanel.add(cmbRightHand);
 		
-		int attackDefenseOffset = 455;
-		int attackDefenseValueLeft = 960;
+		JPanel attackDefensePanel = JPanelFactory.createJPanel("Physical attack/defense");
+		attackDefensePanel.setBounds(equipmentLeft, 455, 243, 100);
+		attackDefensePanel.setLayout(null);
+		contentPanel.add(attackDefensePanel);
 		
 		JLabel lblArmor = JLabelFactory.createJLabel("Armor");
 		lblArmor.setToolTipText(ARMOR_TOOL_TIP);
-		lblArmor.setBounds(equipmentLeft, attackDefenseOffset, 150, 20);
-		contentPanel.add(lblArmor);
+		lblArmor.setBounds(10, 20, 150, 20);
+		attackDefensePanel.add(lblArmor);
 		
 		lblArmorValue = JLabelFactory.createJLabel(playerCharacter.getProperty(Constants.ARMOR).toString());
 		lblArmorValue.setToolTipText(ARMOR_TOOL_TIP);
-		lblArmorValue.setBounds(attackDefenseValueLeft, attackDefenseOffset, 30, 20);
-		contentPanel.add(lblArmorValue);
+		lblArmorValue.setBounds(160, 20, 30, 20);
+		attackDefensePanel.add(lblArmorValue);
 		
 		JLabel lblDamageResistValue = JLabelFactory.createJLabel("Damage Resist");
 		lblDamageResistValue.setToolTipText(DAMAGE_RESIST_TOOL_TIP);
-		lblDamageResistValue.setBounds(equipmentLeft, attackDefenseOffset + 20, 150, 20);
-		contentPanel.add(lblDamageResistValue);
+		lblDamageResistValue.setBounds(10, 40, 150, 20);
+		attackDefensePanel.add(lblDamageResistValue);
 		
 		lblDamageResist = JLabelFactory.createJLabel(playerCharacter.getProperty(Constants.DAMAGE_RESIST).toString() + "%");
 		lblDamageResist.setToolTipText(DAMAGE_RESIST_TOOL_TIP);
-		lblDamageResist.setBounds(attackDefenseValueLeft, attackDefenseOffset + 20, 30, 20);
-		contentPanel.add(lblDamageResist);
+		lblDamageResist.setBounds(160, 40, 30, 20);
+		attackDefensePanel.add(lblDamageResist);
 		
 		JLabel lblWeaponDamage = JLabelFactory.createJLabel("Weapon Damage");
 		lblWeaponDamage.setToolTipText(WEAPON_TOOL_TIP);
-		lblWeaponDamage.setBounds(equipmentLeft, attackDefenseOffset + 40, 150, 20);
-		contentPanel.add(lblWeaponDamage);
+		lblWeaponDamage.setBounds(10, 60, 150, 20);
+		attackDefensePanel.add(lblWeaponDamage);
 		
 		lblDamageValue = JLabelFactory.createJLabel(playerCharacter.getProperty(Constants.DAMAGE).toString());
 		lblDamageValue.setToolTipText(WEAPON_TOOL_TIP);
-		lblDamageValue.setBounds(attackDefenseValueLeft, attackDefenseOffset + 40, 30, 20);
-		contentPanel.add(lblDamageValue);
+		lblDamageValue.setBounds(160, 60, 30, 20);
+		attackDefensePanel.add(lblDamageValue);
 		
 		JLabel lblCondition = JLabelFactory.createJLabel("Active effects:");
 		lblCondition.setToolTipText(ACTIVE_EFFECT_TOOL_TIP);
-		lblCondition.setBounds(labelLeft, attackDefenseOffset + 80, 150, 20);
+		lblCondition.setBounds(labelLeft, 570, 150, 20);
 		contentPanel.add(lblCondition);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(equipmentLeft, attackDefenseOffset + 80, 243, 220);
+		scrollPane.setBounds(equipmentLeft, 570, 243, 148);
 		contentPanel.add(scrollPane);
 		
 		JList<String> conditionList = JListFactory.createJList(createConditionsDescriptions());
