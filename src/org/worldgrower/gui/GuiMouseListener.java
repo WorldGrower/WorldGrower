@@ -23,6 +23,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -30,6 +31,7 @@ import java.util.function.Function;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -491,7 +493,7 @@ public class GuiMouseListener extends MouseAdapter {
 			Map<SkillProperty, List<ManagedOperation>> scribeActionsMap = Actions.getScribeMagicSpellActions();
 			List<SkillProperty> skillsList = Actions.getSortedSkillProperties(scribeActionsMap);
 			for(SkillProperty skillProperty : skillsList) {
-				JMenu skillMenuItem = MenuFactory.createJMenu(skillProperty.getName());
+				JMenu skillMenuItem = createSkillMenu(skillProperty);
 				scribeMenu.add(skillMenuItem);
 				addActions(skillMenuItem, scribeActionsMap.get(skillProperty).toArray(new ManagedOperation[0]));
 			}
@@ -585,18 +587,33 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 
 	private void addAllActions(JPopupMenu menu, WorldObject worldObject) {
+		Map<SkillProperty, JMenu> existingSkillMenus = new HashMap<>();
 		for(ManagedOperation action : playerCharacter.getOperations()) {
 			if (!action.requiresArguments()) {
+				JComponent parentMenu = menu;
+				if (action instanceof MagicSpell) {
+					MagicSpell magicSpell = (MagicSpell) action;
+					SkillProperty skillProperty = magicSpell.getSkill();
+					JMenu skillMenu = existingSkillMenus.get(skillProperty);
+					if (skillMenu == null) {
+						skillMenu = createSkillMenu(skillProperty);
+						existingSkillMenus.put(skillProperty, skillMenu);
+						
+						if (action.isValidTarget(playerCharacter, worldObject, world)) {
+							menu.add(skillMenu);
+						}
+					}
+					parentMenu = skillMenu;
+				}
+				
+				
 				final JMenuItem menuItem;
 				if (canPlayerCharacterPerformAction(worldObject, action)) {
-					PlayerCharacterAction guiAction = new PlayerCharacterAction(playerCharacter, world, container, dungeonMaster, action, worldObject);
-					menuItem = MenuFactory.createJMenuItem(guiAction);
-					menuItem.setText(action.getSimpleDescription());
-					menu.add(menuItem);
+					menuItem = createEnabledMenuItem(worldObject, action);
+					parentMenu.add(menuItem);
 				} else if (canPlayerCharacterPerformActionUnderCorrectCircumstances(worldObject, action)) {
-					menuItem = MenuFactory.createJMenuItem(action.getSimpleDescription());
-					menuItem.setEnabled(false);
-					menu.add(menuItem);
+					menuItem = createDisabledMenuItem(action);
+					parentMenu.add(menuItem);
 				} else {
 					menuItem = null;
 				}
@@ -604,23 +621,49 @@ public class GuiMouseListener extends MouseAdapter {
 				addImageIcon(action, menuItem);
 			}
 			
-			if (action == Actions.OBFUSCATE_DEATH_REASON_ACTION) {
-				final JMenuItem menuItem;
-				if (canPlayerCharacterPerformAction(worldObject, action)) {
-					ChooseDeathReasonAction guiAction = new ChooseDeathReasonAction(playerCharacter, imageInfoReader, world, container, dungeonMaster, worldObject);
-					menuItem = MenuFactory.createJMenuItem(guiAction);
-					menuItem.setText(action.getSimpleDescription());
-					menu.add(menuItem);
-				} else if (canPlayerCharacterPerformActionUnderCorrectCircumstances(worldObject, action)) {
-					menuItem = MenuFactory.createJMenuItem(action.getSimpleDescription());
-					menuItem.setEnabled(false);
-					menu.add(menuItem);
-				} else {
-					menuItem = null;
-				}
-				addToolTips(action, menuItem);
-				addImageIcon(action, menuItem);
+			addObfuscateAction(menu, worldObject, action);
+		}
+	}
+
+	private JMenu createSkillMenu(SkillProperty skillProperty) {
+		JMenu skillMenu;
+		String skillName = skillProperty.getName();
+		skillName = Character.toUpperCase(skillName.charAt(0)) + skillName.substring(1);
+		skillMenu = MenuFactory.createJMenu(skillName);
+		return skillMenu;
+	}
+
+	private JMenuItem createDisabledMenuItem(ManagedOperation action) {
+		final JMenuItem menuItem;
+		menuItem = MenuFactory.createJMenuItem(action.getSimpleDescription());
+		menuItem.setEnabled(false);
+		return menuItem;
+	}
+
+	private JMenuItem createEnabledMenuItem(WorldObject worldObject, ManagedOperation action) {
+		final JMenuItem menuItem;
+		PlayerCharacterAction guiAction = new PlayerCharacterAction(playerCharacter, world, container, dungeonMaster, action, worldObject);
+		menuItem = MenuFactory.createJMenuItem(guiAction);
+		menuItem.setText(action.getSimpleDescription());
+		return menuItem;
+	}
+
+	private void addObfuscateAction(JPopupMenu menu, WorldObject worldObject, ManagedOperation action) {
+		if (action == Actions.OBFUSCATE_DEATH_REASON_ACTION) {
+			final JMenuItem menuItem;
+			if (canPlayerCharacterPerformAction(worldObject, action)) {
+				ChooseDeathReasonAction guiAction = new ChooseDeathReasonAction(playerCharacter, imageInfoReader, world, container, dungeonMaster, worldObject);
+				menuItem = MenuFactory.createJMenuItem(guiAction);
+				menuItem.setText(action.getSimpleDescription());
+				menu.add(menuItem);
+			} else if (canPlayerCharacterPerformActionUnderCorrectCircumstances(worldObject, action)) {
+				menuItem = createDisabledMenuItem(action);
+				menu.add(menuItem);
+			} else {
+				menuItem = null;
 			}
+			addToolTips(action, menuItem);
+			addImageIcon(action, menuItem);
 		}
 	}
 	
