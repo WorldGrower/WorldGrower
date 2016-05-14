@@ -78,6 +78,7 @@ import org.worldgrower.gui.util.MenuFactory;
 import org.worldgrower.gui.util.ShowTextDialog;
 
 public class GuiMouseListener extends MouseAdapter {
+	private final SkillImageIds skillImageIds = new SkillImageIds();
 	private WorldPanel container;
 	private WorldObject playerCharacter;
 	private World world;
@@ -459,23 +460,23 @@ public class GuiMouseListener extends MouseAdapter {
     	disguiseMenuItem.setText("Disguise self");
     	disguiseMenuItem.setEnabled(canPlayerCharacterPerformBuildAction(Actions.DISGUISE_MAGIC_SPELL_ACTION));
     	disguiseMenuItem.setToolTipText(Actions.DISGUISE_MAGIC_SPELL_ACTION.getRequirementsDescription());
-    	setMenuIcon(disguiseMenuItem, Actions.DISGUISE_MAGIC_SPELL_ACTION.getImageIds());
+    	setMenuIcon(disguiseMenuItem, skillImageIds.getImageFor(Constants.ILLUSION_SKILL));
     	illusionMenu.add(disguiseMenuItem);
 	}
 	
 	private void addRestorationActions(JPopupMenu menu) {
 		MagicSpell[] restorationActions = { Actions.MINOR_HEAL_ACTION, Actions.CURE_DISEASE_ACTION, Actions.CURE_POISON_ACTION, Actions.DISPEL_MAGIC_ACTION, Actions.SILENCE_MAGIC_ACTION };
-		addActions(menu, ImageIds.MINOR_HEAL, "Restoration", restorationActions);
+		addActions(menu, skillImageIds.getImageFor(Constants.RESTORATION_SKILL), "Restoration", restorationActions);
 	}
 	
 	private void addTransmutationActions(JPopupMenu menu) {
 		MagicSpell[] transmutationActions = { Actions.ENLARGE_ACTION, Actions.REDUCE_ACTION, Actions.SLEEP_MAGIC_SPELL_ACTION, Actions.WATER_WALK_ACTION, Actions.BURDEN_ACTION, Actions.FEATHER_ACTION, Actions.DARK_VISION_SPELL_ACTION };
-		addActions(menu, ImageIds.ENLARGE_MAGIC_SPELL, "Transmute", transmutationActions);
+		addActions(menu, skillImageIds.getImageFor(Constants.TRANSMUTATION_SKILL), "Transmute", transmutationActions);
 	}
 	
 	private void addEvocationActions(JPopupMenu menu) {
 		MagicSpell[] actions = { Actions.DETECT_MAGIC_ACTION, Actions.DETECT_POISON_AND_DISEASE_ACTION };
-		JMenu evocationMenu = addActions(menu, ImageIds.FIRE_BOLT, "Evocation", actions);
+		JMenu evocationMenu = addActions(menu, skillImageIds.getImageFor(Constants.EVOCATION_SKILL), "Evocation", actions);
 		addBuildAction(evocationMenu, Actions.FIRE_TRAP_ACTION, startBuildMode());
 		addBuildAction(evocationMenu, Actions.ENTANGLE_ACTION, startBuildMode());
 		addBuildAction(evocationMenu, Actions.DIMENSION_DOOR_ACTION, startBuildMode());
@@ -483,7 +484,7 @@ public class GuiMouseListener extends MouseAdapter {
 	
 	private void addNecromancyActions(JPopupMenu menu) {
 		MagicSpell[] actions = { Actions.LICH_TRANSFORMATION_ACTION };
-		addActions(menu, ImageIds.LICH, "Necromancy", actions);
+		addActions(menu, skillImageIds.getImageFor(Constants.NECROMANCY_SKILL), "Necromancy", actions);
 	}
 	
 	private void addScribeMagicSpells(JPopupMenu menu, WorldObject worldObject) {
@@ -630,6 +631,7 @@ public class GuiMouseListener extends MouseAdapter {
 		String skillName = skillProperty.getName();
 		skillName = Character.toUpperCase(skillName.charAt(0)) + skillName.substring(1);
 		skillMenu = MenuFactory.createJMenu(skillName);
+		setMenuIcon(skillMenu, skillImageIds.getImageFor(skillProperty));
 		return skillMenu;
 	}
 

@@ -14,6 +14,8 @@
  *******************************************************************************/
 package org.worldgrower.gui;
 
+import org.worldgrower.attribute.SkillProperty;
+
 public enum ImageIds {
 	KNIGHT,
 	GUARD,
