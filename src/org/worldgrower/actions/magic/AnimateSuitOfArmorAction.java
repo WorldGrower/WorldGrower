@@ -52,10 +52,15 @@ public class AnimateSuitOfArmorAction extends InventoryAction implements MagicSp
 	
 	@Override
 	public boolean isValidInventoryItem(WorldObject inventoryItem, WorldObjectContainer inventory, WorldObject performer) {
+		boolean isTorsoEquipment = inventoryItem.hasProperty(Constants.EQUIPMENT_SLOT) && inventoryItem.getProperty(Constants.EQUIPMENT_SLOT) == Constants.TORSO_EQUIPMENT;
+		return isTorsoEquipment && MagicSpellUtils.canCast(performer, this);
+	}
+	
+	@Override
+	public int distanceToInventoryItem(WorldObject inventoryItem, WorldObjectContainer inventory, WorldObject performer) {
 		int energyUseDistance = SkillUtils.distanceForEnergyUse(performer, getSkill(), ENERGY_USE);
 		boolean hasFilledSoulGem = (inventory.getQuantityFor(Constants.SOUL_GEM_FILLED) > 0);
-		boolean isTorsoEquipment = inventoryItem.hasProperty(Constants.EQUIPMENT_SLOT) && inventoryItem.getProperty(Constants.EQUIPMENT_SLOT) == Constants.TORSO_EQUIPMENT;
-		return hasFilledSoulGem && isTorsoEquipment && energyUseDistance == 0 && MagicSpellUtils.canCast(performer, this);
+		return (hasFilledSoulGem ? 0 : 1) + energyUseDistance;
 	}
 	
 	@Override

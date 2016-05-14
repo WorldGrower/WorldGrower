@@ -35,8 +35,13 @@ public class PoisonInventoryWaterWithSleepingPotionAction extends InventoryActio
 	
 	@Override
 	public boolean isValidInventoryItem(WorldObject inventoryItem, WorldObjectContainer inventory, WorldObject performer) {
+		return inventoryItem.hasProperty(Constants.WATER);
+	}
+	
+	@Override
+	public int distanceToInventoryItem(WorldObject inventoryItem, WorldObjectContainer inventory, WorldObject performer) {
 		boolean inventoryContainsSleepingPotion = inventory.getQuantityFor(Constants.SLEEP_INDUCING_DRUG_STRENGTH) > 0;
-		return inventoryItem.hasProperty(Constants.WATER) && inventoryContainsSleepingPotion;
+		return inventoryContainsSleepingPotion ? 0 : 1;
 	}
 	
 	@Override

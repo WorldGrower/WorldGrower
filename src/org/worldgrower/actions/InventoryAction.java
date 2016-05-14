@@ -27,10 +27,13 @@ public abstract class InventoryAction implements ManagedOperation {
 		int index = args[0];
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
 		WorldObject worldObject = performerInventory.get(index);
-		return isValidInventoryItem(worldObject, performerInventory, performer) ? 0 : 1;
+		int distanceToIsValidInventoryItem = isValidInventoryItem(worldObject, performerInventory, performer) ? 0 : 1;
+		int distanceToInventoryItem = distanceToInventoryItem(worldObject, performerInventory, performer);
+		return distanceToIsValidInventoryItem + distanceToInventoryItem;
 	}
 	
 	public abstract boolean isValidInventoryItem(WorldObject inventoryItem, WorldObjectContainer inventory, WorldObject performer);
+	public abstract int distanceToInventoryItem(WorldObject inventoryItem, WorldObjectContainer inventory, WorldObject performer);
 	
 	@Override
 	public boolean requiresArguments() {

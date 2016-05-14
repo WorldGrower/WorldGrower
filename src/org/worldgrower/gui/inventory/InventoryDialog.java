@@ -20,7 +20,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.List;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -62,7 +61,6 @@ public class InventoryDialog extends AbstractDialog {
 	private static final String WEIGHT_TARGET_TOOL_TIP = "shows current weight of things that a character is carrying and maximum weight";
 	private static final String PRICES_TOOL_TIP = "show list of items with associated prices. These prices are used instead of the default prices when an item is sold by the player character";
 	
-	private final List<Action> inventoryActions;
 	private final ImageInfoReader imageInfoReader;
 	
 	private JList<InventoryItem> inventoryJList;
@@ -106,15 +104,14 @@ public class InventoryDialog extends AbstractDialog {
 	/**
 	 * @wbp.parser.constructor
 	 */
-	public InventoryDialog(InventoryDialogModel inventoryDialogModel, InventoryDialogAction inventoryDialogAction, ImageInfoReader imageInfoReader, List<Action> inventoryActions) {
+	public InventoryDialog(InventoryDialogModel inventoryDialogModel, InventoryDialogAction inventoryDialogAction, ImageInfoReader imageInfoReader, InventoryActionFactory inventoryActionFactory) {
 		super(762, 690);
-		this.inventoryActions = inventoryActions;
 		this.imageInfoReader = imageInfoReader;
 		if (inventoryDialogAction == null) {
 			inventoryDialogAction = new DefaultInventoryDialogAction(inventoryDialogModel.getPlayerCharacterInventory());
 		}
 		
-		initializeGUI(inventoryDialogModel, inventoryDialogAction, imageInfoReader, inventoryActions);
+		initializeGUI(inventoryDialogModel, inventoryDialogAction, imageInfoReader, inventoryActionFactory);
 		
 		okButton.addActionListener(inventoryDialogAction.getGuiAction());
 		if (inventoryDialogAction.getGuiAction2() != null) {
@@ -123,7 +120,7 @@ public class InventoryDialog extends AbstractDialog {
 		addActions(inventoryDialogAction);
 	}
 
-	private void initializeGUI(InventoryDialogModel inventoryDialogModel, InventoryDialogAction inventoryDialogAction, ImageInfoReader imageInfoReader, List<Action> inventoryActions) {
+	private void initializeGUI(InventoryDialogModel inventoryDialogModel, InventoryDialogAction inventoryDialogAction, ImageInfoReader imageInfoReader, InventoryActionFactory inventoryActionFactory) {
 		KeyStroke stroke = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
         rootPane.registerKeyboardAction(new CloseDialogAction(), stroke, JComponent.WHEN_IN_FOCUSED_WINDOW);
 			
@@ -226,15 +223,15 @@ public class InventoryDialog extends AbstractDialog {
 			}
 		}
 		
-		setInventoryActions(inventoryActions, inventoryDialogModel.getPlayerCharacterPrices());
-		addPopupMenuToInventoryList();
+		setInventoryActions(inventoryDialogModel.getPlayerCharacterPrices());
+		addPopupMenuToInventoryList(inventoryDialogModel, inventoryActionFactory);
 		
 		if (inventoryJList.getModel().getSize() == 0) {
 			okButton.setEnabled(false);
 		}
 	}
 	
-	private void addPopupMenuToInventoryList() {
+	private void addPopupMenuToInventoryList(InventoryDialogModel inventoryDialogModel, InventoryActionFactory inventoryActionFactory) {
 		inventoryJList.addMouseListener(new MouseAdapter() {
 
 			@Override
@@ -247,7 +244,7 @@ public class InventoryDialog extends AbstractDialog {
 			        JPopupMenu popupMenu = MenuFactory.createJPopupMenu();
 			        JCheckBoxMenuItem sellableMenuItem = createSellableMenuItem(inventoryItem);
 					popupMenu.add(sellableMenuItem);
-			        addMenuActions(popupMenu);
+			        addMenuActions(popupMenu, inventoryItem, inventoryDialogModel, inventoryActionFactory);
 			        popupMenu.show(inventoryJList, e.getX(), e.getY());
 			    }
 			}
@@ -296,20 +293,20 @@ public class InventoryDialog extends AbstractDialog {
 		return weightString;
 	}
 
-	private void setInventoryActions(List<Action> inventoryActions, Prices pricesOnPlayer) {
+	private void setInventoryActions(Prices pricesOnPlayer) {
 		pricesButton.addActionListener(e -> new PricesDialog(pricesOnPlayer).showMe());
 	}
 
-	private void addMenuActions(JPopupMenu popupMenu) {
-		for(Action inventoryDialogAction : inventoryActions) {
+	private void addMenuActions(JPopupMenu popupMenu, InventoryItem inventoryItem, InventoryDialogModel inventoryDialogModel, InventoryActionFactory inventoryActionFactory) {
+		for(Action inventoryDialogAction : inventoryActionFactory.getInventoryActions(inventoryItem.getId())) {
 			JMenuItem actionMenuItem = MenuFactory.createJMenuItem(inventoryDialogAction);
 			actionMenuItem.setToolTipText((String) inventoryDialogAction.getValue(Action.LONG_DESCRIPTION));
 			popupMenu.add(actionMenuItem);
 		}
 	}
 
-	public InventoryDialog(InventoryDialogModel inventoryDialogModel, ImageInfoReader imageInfoReader, List<Action> inventoryActions) {
-		this(inventoryDialogModel, null, imageInfoReader, inventoryActions);
+	public InventoryDialog(InventoryDialogModel inventoryDialogModel, ImageInfoReader imageInfoReader, InventoryActionFactory inventoryActionFactory) {
+		this(inventoryDialogModel, null, imageInfoReader, inventoryActionFactory);
 	}
 	
 	private class DefaultInventoryDialogAction implements InventoryDialogAction {
@@ -411,7 +408,7 @@ public class InventoryDialog extends AbstractDialog {
 		setVisible(true);
 	}
 
-	public void refresh(InventoryDialogModel inventoryDialogModel, List<Action> inventoryActions) {
+	public void refresh(InventoryDialogModel inventoryDialogModel) {
 		inventoryJList.setModel(getInventoryListModel(inventoryDialogModel.getPlayerCharacterInventory()));
 		moneyValueLabel.setText(Integer.toString(inventoryDialogModel.getPlayerCharacterMoney()));
 		String weightString = getPlayerCharacterWeight(inventoryDialogModel);
@@ -429,7 +426,7 @@ public class InventoryDialog extends AbstractDialog {
 			}
 		}
 		
-		setInventoryActions(inventoryActions, inventoryDialogModel.getPlayerCharacterPrices());
+		setInventoryActions(inventoryDialogModel.getPlayerCharacterPrices());
 	}
 
 	public InventoryItem getPlayerCharacterSelectedValue() {

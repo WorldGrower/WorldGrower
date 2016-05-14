@@ -66,7 +66,7 @@ import org.worldgrower.gui.inventory.GuiGetItemAction;
 import org.worldgrower.gui.inventory.GuiPutItemAction;
 import org.worldgrower.gui.inventory.GuiSellAction;
 import org.worldgrower.gui.inventory.GuiStealAction;
-import org.worldgrower.gui.inventory.InventoryAction;
+import org.worldgrower.gui.inventory.ShowInventoryAction;
 import org.worldgrower.gui.knowledge.GuiCreateNewsPaperAction;
 import org.worldgrower.gui.start.Game;
 import org.worldgrower.gui.start.GuiAction;
@@ -84,7 +84,7 @@ public class GuiMouseListener extends MouseAdapter {
 	private KeyBindings keyBindings;
 	
 	private final CharacterSheetAction characterSheetAction;
-	private final InventoryAction inventoryAction;
+	private final ShowInventoryAction inventoryAction;
 	private final MagicOverviewAction magicOverviewAction;
 	private final RestAction restAction;
 	private final GuiShowOrganizationsAction createOrganizationAction;
@@ -104,7 +104,7 @@ public class GuiMouseListener extends MouseAdapter {
 		this.keyBindings = keyBindings;
 		
 		characterSheetAction = new CharacterSheetAction(playerCharacter, imageInfoReader);
-		inventoryAction = new InventoryAction(playerCharacter, imageInfoReader, world, dungeonMaster, container);
+		inventoryAction = new ShowInventoryAction(playerCharacter, imageInfoReader, world, dungeonMaster, container);
 		magicOverviewAction = new MagicOverviewAction(playerCharacter, imageInfoReader);
 		restAction = new RestAction(playerCharacter, imageInfoReader, world, (WorldPanel)container, dungeonMaster);
 		createOrganizationAction = new GuiShowOrganizationsAction(playerCharacter, world, container, imageInfoReader);

@@ -35,8 +35,13 @@ public class PoisonInventoryWaterAction extends InventoryAction {
 	
 	@Override
 	public boolean isValidInventoryItem(WorldObject inventoryItem, WorldObjectContainer inventory, WorldObject performer) {
+		return inventoryItem.hasProperty(Constants.WATER);
+	}
+	
+	@Override
+	public int distanceToInventoryItem(WorldObject inventoryItem, WorldObjectContainer inventory, WorldObject performer) {
 		boolean inventoryContainsPoison = inventory.getQuantityFor(Constants.POISON_DAMAGE) > 0;
-		return inventoryItem.hasProperty(Constants.WATER) && inventoryContainsPoison;
+		return inventoryContainsPoison ? 0 : 1;
 	}
 	
 	@Override

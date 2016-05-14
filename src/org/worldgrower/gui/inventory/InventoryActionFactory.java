@@ -22,16 +22,18 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
 
+import org.worldgrower.Constants;
 import org.worldgrower.DungeonMaster;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.WorldPanel;
 import org.worldgrower.gui.start.Game;
 
-public class InventoryAction extends AbstractAction {
+public class InventoryActionFactory {
 
 	private WorldObject playerCharacter;
 	private InventoryDialog dialog;
@@ -40,7 +42,7 @@ public class InventoryAction extends AbstractAction {
 	private DungeonMaster dungeonMaster;
 	private WorldPanel container;
 	
-	public InventoryAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, World world, DungeonMaster dungeonMaster, WorldPanel container) {
+	public InventoryActionFactory(WorldObject playerCharacter, ImageInfoReader imageInfoReader, World world, DungeonMaster dungeonMaster, WorldPanel container) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.imageInfoReader = imageInfoReader;
@@ -48,20 +50,21 @@ public class InventoryAction extends AbstractAction {
 		this.dungeonMaster = dungeonMaster;
 		this.container = container;
 	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		List<Action> inventoryActions = getInventoryActions();
-		
-		dialog = new InventoryDialog(new InventoryDialogModel(playerCharacter), imageInfoReader, inventoryActions);
-		dialog.showMe();
+	
+	public InventoryActionFactory setDialog(InventoryDialog dialog) {
+		this.dialog = dialog;
+		return this;
 	}
 
-	private List<Action> getInventoryActions() {
+	public List<Action> getInventoryActions(int inventoryItemId) {
 		List<Action> inventoryActions = new ArrayList<>();
+		WorldObjectContainer inventory = playerCharacter.getProperty(Constants.INVENTORY);
 		
-		for(ManagedOperation action : Actions.getInventoryActions()) {
-			inventoryActions.add(new InventoryItemAction(action));
+		for(org.worldgrower.actions.InventoryAction action : Actions.getInventoryActions()) {
+			WorldObject inventoryItem = inventory.get(inventoryItemId);
+			if (action.isValidInventoryItem(inventoryItem, inventory, playerCharacter)) {
+				inventoryActions.add(new InventoryItemAction(action, inventoryItemId));
+			}
 		}
 		return inventoryActions;
 	}
@@ -69,30 +72,26 @@ public class InventoryAction extends AbstractAction {
 	private class InventoryItemAction extends AbstractAction {
 		
 		private final ManagedOperation action;
+		private final int inventoryItemId;
 		
-		public InventoryItemAction(ManagedOperation action) {
+		public InventoryItemAction(ManagedOperation action, int inventoryItemId) {
 			super(action.getSimpleDescription(), new ImageIcon(imageInfoReader.getImage(action.getImageIds(), null)));
 			this.action = action;
+			this.inventoryItemId = inventoryItemId;
 			this.putValue(Action.LONG_DESCRIPTION, action.getRequirementsDescription());
 		}
 		
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			int index = getIndex();
+			int index = inventoryItemId;
 			Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, playerCharacter.getOperation(action), new int[] { index }, world, dungeonMaster, playerCharacter, container);
 			
-			dialog.refresh(new InventoryDialogModel(playerCharacter), getInventoryActions());
-		}
-
-		private int getIndex() {
-			InventoryItem inventoryItem = dialog.getPlayerCharacterSelectedValue();
-			int index = inventoryItem.getId();
-			return index;
+			dialog.refresh(new InventoryDialogModel(playerCharacter));
 		}
 
 		@Override
 		public boolean isEnabled() {
-			int index = getIndex();
+			int index = inventoryItemId;
 			return Game.canActionExecute(playerCharacter, action, new int[] { index }, world, playerCharacter);
 		}
 	}

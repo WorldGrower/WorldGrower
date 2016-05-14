@@ -48,6 +48,11 @@ public class EatFromInventoryAction extends InventoryAction {
 	}
 	
 	@Override
+	public int distanceToInventoryItem(WorldObject inventoryItem, WorldObjectContainer inventory, WorldObject performer) {
+		return 0;
+	}
+	
+	@Override
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.FOOD, 1);
 	}

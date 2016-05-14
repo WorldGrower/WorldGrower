@@ -40,6 +40,11 @@ public class LearnMagicSpellFromBookAction extends InventoryAction {
 	}
 	
 	@Override
+	public int distanceToInventoryItem(WorldObject inventoryItem, WorldObjectContainer inventory, WorldObject performer) {
+		return 0;
+	}
+	
+	@Override
 	public String getRequirementsDescription() {
 		return "Magic spell book";
 	}

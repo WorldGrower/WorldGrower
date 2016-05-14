@@ -45,6 +45,11 @@ public class DrinkFromInventoryAction extends InventoryAction {
 	}
 	
 	@Override
+	public int distanceToInventoryItem(WorldObject inventoryItem, WorldObjectContainer inventory, WorldObject performer) {
+		return 0;
+	}
+	
+	@Override
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.WATER, 1);
 	}
