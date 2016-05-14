@@ -16,6 +16,7 @@ package org.worldgrower.actions;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -509,14 +510,14 @@ public class Actions {
 	
 	public static List<SkillProperty> getSortedSkillProperties(Map<SkillProperty, List<ManagedOperation>> scribeActionsMap) {
 		List<SkillProperty> skillsList = new ArrayList<>(scribeActionsMap.keySet());
-		skillsList.sort(new Comparator<SkillProperty>() {
-
-			@Override
-			public int compare(SkillProperty o1, SkillProperty o2) {
-				return o1.getName().compareTo(o2.getName());
-			}
-		});
+		skillsList.sort(new SkillComparator());
 		return skillsList;
+	}
+	
+	public static List<SkillProperty> sortSkillProperties(Collection<SkillProperty> skillProperties) {
+		List<SkillProperty> skillPropertiesList = new ArrayList<>(skillProperties);
+		Collections.sort(skillPropertiesList, new SkillComparator());
+		return skillPropertiesList;
 	}
 	
 	public static List<MagicSpell> getMagicSpells() {
@@ -546,6 +547,13 @@ public class Actions {
 		Collections.sort(actions, new ActionComparator());
 	}
 	
+	private static class SkillComparator implements Comparator<SkillProperty> {
+		@Override
+		public int compare(SkillProperty o1, SkillProperty o2) {
+			return o1.getName().compareTo(o2.getName());
+		}
+	}
+
 	private static class ActionComparator implements Comparator<ManagedOperation> {
 
 		@Override

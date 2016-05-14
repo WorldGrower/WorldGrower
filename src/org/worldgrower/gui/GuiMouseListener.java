@@ -599,14 +599,9 @@ public class GuiMouseListener extends MouseAdapter {
 					if (skillMenu == null) {
 						skillMenu = createSkillMenu(skillProperty);
 						existingSkillMenus.put(skillProperty, skillMenu);
-						
-						if (action.isValidTarget(playerCharacter, worldObject, world)) {
-							menu.add(skillMenu);
-						}
 					}
 					parentMenu = skillMenu;
 				}
-				
 				
 				final JMenuItem menuItem;
 				if (canPlayerCharacterPerformAction(worldObject, action)) {
@@ -623,6 +618,14 @@ public class GuiMouseListener extends MouseAdapter {
 			}
 			
 			addObfuscateAction(menu, worldObject, action);
+		}
+		
+		List<SkillProperty> skillProperties = Actions.sortSkillProperties(existingSkillMenus.keySet());
+		for(SkillProperty skillProperty : skillProperties) {
+			JMenu skillMenu = existingSkillMenus.get(skillProperty);
+			if (skillMenu.getItemCount() > 0) {
+				menu.add(skillMenu);
+			}
 		}
 	}
 
