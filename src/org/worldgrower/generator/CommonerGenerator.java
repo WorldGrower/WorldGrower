@@ -138,6 +138,7 @@ public class CommonerGenerator implements Serializable {
 		properties.put(Constants.PERSONALITY, personality);
 		
 		properties.put(Constants.DAMAGE, 8);
+		addEquipmentProperties(properties);
 		properties.put(Constants.ARMOR, 10);
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		
@@ -194,14 +195,7 @@ public class CommonerGenerator implements Serializable {
 		properties.put(Constants.ALCOHOL_LEVEL, 0);
 		properties.put(Constants.ITEMS_SOLD, new ItemCountMap());
 		
-		properties.put(Constants.HEAD_EQUIPMENT, null);
-		properties.put(Constants.TORSO_EQUIPMENT, null);
-		properties.put(Constants.ARMS_EQUIPMENT, null);
-		properties.put(Constants.LEGS_EQUIPMENT, null);
-		properties.put(Constants.FEET_EQUIPMENT, null);
-		properties.put(Constants.LEFT_HAND_EQUIPMENT, null);
-		properties.put(Constants.RIGHT_HAND_EQUIPMENT, null);
-		
+		addEquipmentProperties(properties);
 		properties.put(Constants.ARMOR, 0);
 		
 		properties.put(Constants.STRENGTH, characterAttributes.getStrength());
@@ -231,6 +225,16 @@ public class CommonerGenerator implements Serializable {
 		playerCharacter.setProperty(Constants.DAMAGE_RESIST, ArmorPropertyUtils.calculateDamageResist(playerCharacter));
 		
 		return playerCharacter;
+	}
+
+	private static void addEquipmentProperties(Map<ManagedProperty<?>, Object> properties) {
+		properties.put(Constants.HEAD_EQUIPMENT, null);
+		properties.put(Constants.TORSO_EQUIPMENT, null);
+		properties.put(Constants.ARMS_EQUIPMENT, null);
+		properties.put(Constants.LEGS_EQUIPMENT, null);
+		properties.put(Constants.FEET_EQUIPMENT, null);
+		properties.put(Constants.LEFT_HAND_EQUIPMENT, null);
+		properties.put(Constants.RIGHT_HAND_EQUIPMENT, null);
 	}
 	
 	public static int generateSkeletalRemains(WorldObject originalWorldObject, World world) {

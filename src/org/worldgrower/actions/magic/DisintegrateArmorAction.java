@@ -43,7 +43,7 @@ public class DisintegrateArmorAction implements MagicSpell {
 	
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return ((target.hasProperty(Constants.ARMOR)) && MagicSpellUtils.canCast(performer, this));
+		return ((target.hasProperty(Constants.ARMOR)) && (target.hasProperty(Constants.TORSO_EQUIPMENT)) && MagicSpellUtils.canCast(performer, this));
 	}
 
 	@Override

@@ -57,6 +57,7 @@ public class UTestDisintegrateArmorAction {
 		
 		performer.setProperty(Constants.CONDITIONS, new Conditions());
 		target.setProperty(Constants.ARMOR, 10);
+		target.setProperty(Constants.TORSO_EQUIPMENT, null);
 		performer.setProperty(Constants.KNOWN_SPELLS, new ArrayList<>());
 		assertEquals(false, Actions.DISINTEGRATE_ARMOR_ACTION.isValidTarget(performer, target, world));
 		
