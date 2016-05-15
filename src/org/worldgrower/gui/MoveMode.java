@@ -17,6 +17,7 @@ import org.worldgrower.actions.magic.FireBoltAttackAction;
 import org.worldgrower.actions.magic.InflictWoundsAction;
 import org.worldgrower.actions.magic.LightningBoltAttackAction;
 import org.worldgrower.actions.magic.MagicSpell;
+import org.worldgrower.actions.magic.MinorHealAction;
 import org.worldgrower.actions.magic.RayOfFrostAttackAction;
 import org.worldgrower.attribute.LookDirection;
 
@@ -82,6 +83,9 @@ public class MoveMode {
 			}
 			if (lastPerformedOperationInfo.getManagedOperation() instanceof InflictWoundsAction) {
 				magicTargets.add(new MagicTarget(lastPerformedOperationInfo.getTarget(), ImageIds.DARKNESS1, 30));
+			}
+			if (lastPerformedOperationInfo.getManagedOperation() instanceof MinorHealAction) {
+				magicTargets.add(new MagicTarget(lastPerformedOperationInfo.getTarget(), ImageIds.HEAL1, 25));
 			}
 		}
 	}
@@ -229,6 +233,8 @@ public class MoveMode {
 		int numberOfFrames = magicTarget.getNumberOfFrames();
 		final int imageIndex;
 		if (numberOfFrames == 20) {
+			imageIndex = moveStep / 3;
+		} else if (numberOfFrames == 25) {
 			imageIndex = moveStep / 3;
 		} else if (numberOfFrames == 30) {
 			imageIndex = moveStep / 3;

@@ -81,6 +81,7 @@ public class ImageInfoReader {
     	Sprites ice1 = readSpritesIce1();
     	Sprites thunder1 = readSpritesThunder1();
     	Sprites darkness1 = readSpritesDarkness1();
+    	Sprites heal1 = readSpritesHeal1();
     	
     	addCharacter(ImageIds.KNIGHT, sprites, 0, 0, 1, 1);
     	addCharacter(ImageIds.GUARD, sprites, 0, 4, 1, 1);
@@ -428,6 +429,8 @@ public class ImageInfoReader {
 		addMagic(ImageIds.DARKNESS1, darkness1, 5, 6);
 		
 		add(ImageIds.DIMENSION_DOOR, tileE.getSubImage(0, 4, 1, 1));
+		
+		addMagic(ImageIds.HEAL1, heal1, 5, 5);
     }
 
     private void resizeSmallFlowers() {
@@ -787,6 +790,10 @@ public class ImageInfoReader {
 	
 	private static Sprites readSpritesDarkness1() throws IOException {
 		return readImages("darkness_001.png", 48, 48, 1, 1);
+	}
+	
+	private static Sprites readSpritesHeal1() throws IOException {
+		return readImages("heal_001.png", 48, 48, 1, 1);
 	}
 	
 	private static Sprites readImages(String imageFilename, int width, int height, int rows, int cols) throws IOException {
