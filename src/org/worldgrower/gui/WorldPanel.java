@@ -186,7 +186,7 @@ public class WorldPanel extends JPanel {
 
 	private void initializeKeyBindings(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster) {
 		getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "Cancel");
-        getActionMap().put("Cancel", new ShowStartScreenAction(this, imageInfoReader, keyBindings, world));
+        bindEscapeButtonToStartScreen(world);
         
         getInputMap().put(KeyStroke.getKeyStroke("UP"), "up");
         getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD8, 0), "up");
@@ -215,6 +215,14 @@ public class WorldPanel extends JPanel {
         
         getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD3, 0), "3");
         getActionMap().put("3", new GuiMoveAction(new int[] { 1,  1 }, playerCharacter, world, dungeonMaster, this));
+	}
+
+	private void bindEscapeButtonToStartScreen(World world) {
+		getActionMap().put("Cancel", new ShowStartScreenAction(this, imageInfoReader, keyBindings, world));
+	}
+	
+	private void bindEscapeButtonToCalcelBuildMode() {
+		getActionMap().put("Cancel", new CancelBuildModeAction(this));
 	}
     
     private class MessageManagedOperationListener implements ManagedOperationListener {
@@ -513,12 +521,14 @@ public class WorldPanel extends JPanel {
 			
 		};
 		this.addMouseMotionListener(this.mouseMotionListener);
+		bindEscapeButtonToCalcelBuildMode();
 	}
-	
+
 	public void endBuildMode(boolean executeBuildAction) {
 		this.buildModeOutline.endBuildMode(executeBuildAction, getMouseLocation(), offsetX, offsetY, playerCharacter, world, guiMouseListener);
 		this.removeMouseMotionListener(this.mouseMotionListener);
 		repaint();
+		bindEscapeButtonToStartScreen(world);
 	}
 
 	private Point getMouseLocation() {

@@ -171,11 +171,7 @@ public class GuiMouseListener extends MouseAdapter {
 		WorldObject worldObject = ((WorldPanel)container).findWorldObject(x, y);
 		
     	if (((WorldPanel)container).inBuildMode()) {
-			if (isDefaultRightMouseButton(e)) {
-				((WorldPanel)container).endBuildMode(false);
-			} else {
-				((WorldPanel)container).endBuildMode(true);
-		    }
+			((WorldPanel)container).endBuildMode(true);
 		} else {
 	        if (SwingUtilities.isLeftMouseButton(e) && isCtrlPressed(e) && worldObject != null) {
 	        	performTalkAction(worldObject);
