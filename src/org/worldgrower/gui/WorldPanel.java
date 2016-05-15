@@ -518,6 +518,7 @@ public class WorldPanel extends JPanel {
 	public void endBuildMode(boolean executeBuildAction) {
 		this.buildModeOutline.endBuildMode(executeBuildAction, getMouseLocation(), offsetX, offsetY, playerCharacter, world, guiMouseListener);
 		this.removeMouseMotionListener(this.mouseMotionListener);
+		repaint();
 	}
 
 	private Point getMouseLocation() {
