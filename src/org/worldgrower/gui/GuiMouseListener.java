@@ -48,6 +48,7 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.BuildAction;
 import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.actions.magic.ResearchSpellAction;
+import org.worldgrower.actions.magic.ScribeMagicSpellAction;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.gui.chooseworldobject.ChooseWorldObjectAction;
@@ -590,7 +591,7 @@ public class GuiMouseListener extends MouseAdapter {
 	private void addAllActions(JPopupMenu menu, WorldObject worldObject) {
 		Map<SkillProperty, JMenu> existingSkillMenus = new HashMap<>();
 		for(ManagedOperation action : playerCharacter.getOperations()) {
-			if (!action.requiresArguments()) {
+			if (!action.requiresArguments() && (!(action instanceof ScribeMagicSpellAction))) {
 				JComponent parentMenu = menu;
 				if (action instanceof MagicSpell) {
 					MagicSpell magicSpell = (MagicSpell) action;
