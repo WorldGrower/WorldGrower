@@ -23,43 +23,46 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.WorldObjectContainer;
-import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
 
-public class UTestConstructBedAction {
+public class UTestConstructChestAction {
 
 	@Test
 	public void testExecute() {
-		World world = new WorldImpl(1, 1, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
-		Actions.CONSTRUCT_BED_ACTION.execute(performer, performer, Args.EMPTY, world);
+		WorldObject target = TestUtils.createWorldObject(1, 1, 1, 1);
+		Actions.CONSTRUCT_CHEST_ACTION.execute(performer, target, Args.EMPTY, world);
 		
-		assertEquals(1, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.SLEEP_COMFORT));
+		assertEquals(1, world.getWorldObjects().size());
+		assertEquals(BuildingType.CHEST, world.getWorldObjects().get(0).getProperty(Constants.BUILDING_TYPE));
 	}
 	
 	@Test
 	public void testIsValidTarget() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
+		performer.setProperty(Constants.X, 0);
+		performer.setProperty(Constants.Y, 0);
 		
-		int workbenchId = BuildingGenerator.generateWorkbench(0, 0, world);
-		WorldObject workbench = world.findWorldObject(Constants.ID, workbenchId);
+		WorldObject target = TestUtils.createWorldObject(0, 0, 1, 1);
 		
-		assertEquals(true, Actions.CONSTRUCT_BED_ACTION.isValidTarget(performer, workbench, world));
-		assertEquals(false, Actions.CONSTRUCT_BED_ACTION.isValidTarget(performer, performer, world));
+		assertEquals(true, Actions.CONSTRUCT_CHEST_ACTION.isValidTarget(performer, target, world));
 	}
 	
 	@Test
 	public void testDistance() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
+		performer.setProperty(Constants.X, 0);
+		performer.setProperty(Constants.Y, 0);
+		performer.setProperty(Constants.WIDTH, 1);
+		performer.setProperty(Constants.HEIGHT, 1);
 		
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
 		
-		int workbenchId = BuildingGenerator.generateWorkbench(0, 0, world);
-		WorldObject workbench = world.findWorldObject(Constants.ID, workbenchId);
-		
-		assertEquals(0, Actions.CONSTRUCT_BED_ACTION.distance(performer, workbench, Args.EMPTY, world));
+		assertEquals(0, Actions.CONSTRUCT_CHEST_ACTION.distance(performer, performer, Args.EMPTY, world));
 	}
 }

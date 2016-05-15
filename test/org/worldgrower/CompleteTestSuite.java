@@ -667,7 +667,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestLearnMagicSpellAction.class,
 	UTestApothecaryGoal.class,
 	UTestBuildApothecaryAction.class,
-	UTestDimensionDoorAction.class
+	UTestDimensionDoorAction.class,
+	UTestConstructChestAction.class
 })
 public class CompleteTestSuite {
 }
