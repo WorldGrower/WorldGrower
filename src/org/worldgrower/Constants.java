@@ -282,6 +282,7 @@ public class Constants {
 	public static final IdProperty CATTLE_OWNER_ID = new IdProperty("cattleOwnerId", ALL_PROPERTIES);
 	public static final BooleanProperty SECRET_CHEST = new BooleanProperty("secretChest", NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IdProperty CHEST_ID = new IdProperty("chestId", ALL_PROPERTIES);
+	public static final IdListProperty ANIMAL_ENEMIES = new IdListProperty("animalEnemies", ALL_PROPERTIES);
 	
 	//special property not used in WorldObject
 	public static final IntProperty DISTANCE = new IntProperty("distance", 0, null, NOT_NULLABLE, ALL_PROPERTIES);

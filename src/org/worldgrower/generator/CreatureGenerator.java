@@ -327,6 +327,7 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.CREATURE_TYPE, CreatureType.COW_CREATURE_TYPE);
 		properties.put(Constants.CONDITIONS, new Conditions());
 		properties.put(Constants.MEAT_SOURCE, 1);
+		properties.put(Constants.ANIMAL_ENEMIES, new IdList());
 		
 		properties.put(Constants.ARMOR, 10);
 		

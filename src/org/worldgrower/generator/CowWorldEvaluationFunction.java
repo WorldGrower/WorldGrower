@@ -27,6 +27,6 @@ public class CowWorldEvaluationFunction implements WorldObjectPriorities {
 
 	@Override
 	public List<Goal> getPriorities(WorldObject performer, World world) {
-		return Arrays.asList(Goals.OFFSPRING_GOAL, Goals.IDLE_GOAL);
+		return Arrays.asList(Goals.PROTECT_ONE_SELF_GOAL, Goals.OFFSPRING_GOAL, Goals.IDLE_GOAL);
 	}
 }

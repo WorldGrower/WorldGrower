@@ -44,6 +44,11 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 					
 					alterRelationships(performer, target, actionTarget, args, managedOperation, world, value, performerFacade, targetFacade);
 				}
+			} else if (target.hasProperty(Constants.ANIMAL_ENEMIES) && performerAttacked(managedOperation)) {
+				IdList animalEnemies = target.getProperty(Constants.ANIMAL_ENEMIES);
+				if (!animalEnemies.contains(performer)) {
+					animalEnemies.add(performer);
+				}
 			}
 		}
 	}

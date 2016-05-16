@@ -96,7 +96,9 @@ public class ProtectOneSelfGoal implements Goal {
 	}
 	
 	private boolean isEnemy(WorldObject performer, WorldObject w, World world) {
-		if (w.getProperty(Constants.CREATURE_TYPE) == CreatureType.COW_CREATURE_TYPE) {
+		if (performer.getProperty(Constants.CREATURE_TYPE) == CreatureType.COW_CREATURE_TYPE) {
+			return performer.getProperty(Constants.ANIMAL_ENEMIES).contains(w);
+		} else if (w.getProperty(Constants.CREATURE_TYPE) == CreatureType.COW_CREATURE_TYPE) {
 			return false;
 		} else {
 			WorldObject villagersOrganization = GroupPropertyUtils.getVillagersOrganization(world);
