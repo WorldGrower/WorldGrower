@@ -21,6 +21,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.DamageType;
+import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.gui.ImageIds;
 
@@ -28,7 +29,14 @@ public class MeleeAttackAction implements DeadlyAction {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		AttackUtils.attack(this, performer, target, args, world, SkillUtils.useSkill(performer, AttackUtils.determineSkill(performer), world.getWorldStateChangedListeners()));
+		SkillProperty skill = AttackUtils.determineSkill(performer);
+		double skillBonus;
+		if (performer.hasProperty(skill)) {
+			skillBonus = SkillUtils.useSkill(performer, skill, world.getWorldStateChangedListeners());
+		} else {
+			skillBonus = 1.0f;
+		}
+		AttackUtils.attack(this, performer, target, args, world, skillBonus);
 	}
 	
 	@Override
