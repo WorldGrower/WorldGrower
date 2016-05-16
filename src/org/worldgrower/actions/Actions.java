@@ -28,6 +28,7 @@ import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.magic.AnimalFriendshipSpellAction;
 import org.worldgrower.actions.magic.AnimateDeadAction;
 import org.worldgrower.actions.magic.AnimateSuitOfArmorAction;
 import org.worldgrower.actions.magic.BurdenAction;
@@ -253,6 +254,7 @@ public class Actions {
 	public static final ConstructChestAction CONSTRUCT_CHEST_ACTION = new ConstructChestAction();
 	public static final RecallSecretChestAction RECALL_SECRET_CHEST_ACTION = new RecallSecretChestAction();
 	public static final DismissSecretChestAction DISMISS_SECRET_CHEST_ACTION = new DismissSecretChestAction();
+	public static final AnimalFriendshipSpellAction ANIMAL_FRIENDSHIP_SPELL_ACTION = new AnimalFriendshipSpellAction();
 	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 
@@ -290,7 +292,8 @@ public class Actions {
 			DARK_VISION_SPELL_ACTION,
 			TRAP_CONTAINER_MAGIC_SPELL_ACTION,
 			DIMENSION_DOOR_ACTION,
-			SECRET_CHEST_ACTION
+			SECRET_CHEST_ACTION,
+			ANIMAL_FRIENDSHIP_SPELL_ACTION
 			);
 	
 	private static final List<InventoryAction> INVENTORY_ACTIONS = Arrays.asList(

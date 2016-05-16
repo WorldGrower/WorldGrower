@@ -431,6 +431,7 @@ public class ImageInfoReader {
 		add(ImageIds.DIMENSION_DOOR, tileE.getSubImage(0, 4, 1, 1));
 		
 		addMagic(ImageIds.HEAL1, heal1, 5, 5);
+		add(ImageIds.ANIMAL_FRIENDSHIP_SPELL, sprites420.getSubImage(8, 22, 1, 1));
     }
 
     private void resizeSmallFlowers() {
