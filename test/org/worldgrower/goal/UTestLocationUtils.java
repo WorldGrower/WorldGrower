@@ -26,6 +26,7 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.terrain.TerrainType;
 
@@ -47,7 +48,7 @@ public class UTestLocationUtils {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerson(2);
 		
-		assertEquals(null, LocationUtils.findIsolatedPerson(performer, world));
+		assertEquals(null, LocationUtils.findIsolatedPerson(performer, Actions.MELEE_ATTACK_ACTION, world));
 	}
 	
 	@Test
@@ -62,7 +63,7 @@ public class UTestLocationUtils {
 		world.addWorldObject(performer);
 		world.addWorldObject(target);
 		
-		assertEquals(target, LocationUtils.findIsolatedPerson(performer, world));
+		assertEquals(target, LocationUtils.findIsolatedPerson(performer, Actions.MELEE_ATTACK_ACTION, world));
 	}
 	
 	@Test

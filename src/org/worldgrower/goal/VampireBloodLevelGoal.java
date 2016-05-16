@@ -46,7 +46,7 @@ public class VampireBloodLevelGoal implements Goal {
 			if (performerIsHonorable) {
 				target = getNearbyNonIntelligentTarget(performer, world);
 			} else {
-				target = LocationUtils.findIsolatedPerson(performer, world);
+				target = LocationUtils.findIsolatedPerson(performer, Actions.VAMPIRE_BITE_ACTION, world);
 			}
 				
 			if (target != null) {

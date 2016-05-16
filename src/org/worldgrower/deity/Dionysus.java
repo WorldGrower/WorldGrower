@@ -81,7 +81,7 @@ public class Dionysus implements Deity {
 		int currentTurn = world.getCurrentTurn().getValue();
 		int totalNumberOfWorshippers = DeityPropertyUtils.getTotalNumberOfWorshippers(world);
 		
-		if ((currentTurn % 2000 == 0) && (totalNumberOfWorshippers > 15) && (VampireUtils.getVampireCount(world) == 0)) {
+		if ((currentTurn % 4000 == 0) && (totalNumberOfWorshippers > 18) && (VampireUtils.getVampireCount(world) == 0)) {
 			List<WorldObject> targets = DeityPropertyUtils.getWorshippersFor(this, world);
 			targets = targets.stream().filter(w -> VampireUtils.canBecomeVampire(w)).collect(Collectors.toList());
 			if (targets.size() > 0) {

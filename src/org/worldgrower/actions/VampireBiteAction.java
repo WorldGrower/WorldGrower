@@ -50,7 +50,7 @@ public class VampireBiteAction implements DeadlyAction {
 		int currentTurn = world.getCurrentTurn().getValue();
 		String targetName = target.getProperty(Constants.NAME);
 		int randomValue = (targetName.length() > 0 ? (int)targetName.charAt(0) : 0) + currentTurn;
-		randomValue = (randomValue % 20) - 5;
+		randomValue = (randomValue % 20) - 6;
 		return randomValue > targetConstitution;
 	}
 	

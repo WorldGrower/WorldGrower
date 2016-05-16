@@ -19,6 +19,7 @@ import java.util.List;
 
 import org.worldgrower.Constants;
 import org.worldgrower.CreaturePositionCondition;
+import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
@@ -126,8 +127,8 @@ public class LocationUtils {
 		
 	}
 
-	public static WorldObject findIsolatedPerson(WorldObject performer,	World world) {
-		List<WorldObject> targets = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> Reach.distance(performer, w) < 20);
+	public static WorldObject findIsolatedPerson(WorldObject performer,	ManagedOperation action, World world) {
+		List<WorldObject> targets = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> action.isValidTarget(performer, w, world) && Reach.distance(performer, w) < 20);
 		for(WorldObject target : targets) {
 			List<WorldObject> peopleSurroundingTarget = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> isWorldObjectNearTarget(performer, target, w));
 			if (peopleSurroundingTarget.size() == 0) {

@@ -65,7 +65,7 @@ public class Artemis implements Deity {
 		int currentTurn = world.getCurrentTurn().getValue();
 		int totalNumberOfWorshippers = DeityPropertyUtils.getTotalNumberOfWorshippers(world);
 		
-		if ((currentTurn % 4000 == 0) && (totalNumberOfWorshippers > 16) && (WerewolfUtils.getWerewolfCount(world) == 0)) {
+		if ((currentTurn % 4000 == 0) && (totalNumberOfWorshippers > 18) && (WerewolfUtils.getWerewolfCount(world) == 0)) {
 			List<WorldObject> targets = DeityPropertyUtils.getWorshippersFor(Deity.APHRODITE, world);
 			targets = targets.stream().filter(w -> WerewolfUtils.canBecomeWerewolf(w)).collect(Collectors.toList());
 			final WorldObject target;

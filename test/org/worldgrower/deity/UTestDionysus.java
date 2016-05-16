@@ -49,7 +49,7 @@ public class UTestDionysus {
 	@Test
 	public void testOnTurn() {
 		World world = new WorldImpl(1, 1, null, new DoNothingWorldOnTurn());
-		for(int i=0; i<2000; i++) { world.nextTurn(); }
+		for(int i=0; i<4000; i++) { world.nextTurn(); }
 		for(int i=0; i<20; i++) { world.addWorldObject(TestUtils.createIntelligentWorldObject(i+10, Constants.DEITY, Deity.ARES)); }
 		WorldObject performer = TestUtils.createIntelligentWorldObject(2, "performer");
 		performer.setProperty(Constants.DEITY, Deity.DIONYSUS);

@@ -54,7 +54,7 @@ public class UTestThrowOilAction {
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.OIL.generate(1f));
 		
 		assertEquals(true, Actions.THROW_OIL_ACTION.isValidTarget(performer, target, world));
-		assertEquals(false, Actions.THROW_OIL_ACTION.isValidTarget(performer, performer, world));
+		assertEquals(false, Actions.THROW_OIL_ACTION.isValidTarget(performer, TestUtils.createWorldObject(7, "test"), world));
 	}
 
 	@Test
