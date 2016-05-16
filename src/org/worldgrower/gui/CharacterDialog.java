@@ -113,60 +113,83 @@ public class CharacterDialog extends JDialog {
 		lblDeity.setToolTipText("displays deity");
 		contentPanel.add(lblDeity);
 		
+		JPanel attributePanel = JPanelFactory.createJPanel("Attributes");
+		attributePanel.setBounds(150, 10, 223, 200);
+		attributePanel.setLayout(null);
+		contentPanel.add(attributePanel);
+		
 		JLabel lblStrength = createAttributeLabel(Constants.STRENGTH, "Strength");
-		lblStrength.setBounds(150, 13, 120, 20);
-		contentPanel.add(lblStrength);
+		lblStrength.setBounds(13, 23, 120, 20);
+		attributePanel.add(lblStrength);
 		
 		JLabel lblConstitution = createAttributeLabel(Constants.CONSTITUTION, "Constitution");
-		lblConstitution.setBounds(150, 42, 120, 20);
-		contentPanel.add(lblConstitution);
+		lblConstitution.setBounds(13, 52, 120, 20);
+		attributePanel.add(lblConstitution);
 		
 		JLabel lblDexterity = createAttributeLabel(Constants.DEXTERITY, "Dexterity");
-		lblDexterity.setBounds(150, 71, 120, 20);
-		contentPanel.add(lblDexterity);
+		lblDexterity.setBounds(13, 81, 120, 20);
+		attributePanel.add(lblDexterity);
 		
 		JLabel lblIntelligence = createAttributeLabel(Constants.INTELLIGENCE, "Intelligence");
-		lblIntelligence.setBounds(150, 100, 120, 20);
-		contentPanel.add(lblIntelligence);
+		lblIntelligence.setBounds(13, 110, 120, 20);
+		attributePanel.add(lblIntelligence);
 		
 		JLabel lblWisdom = createAttributeLabel(Constants.WISDOM, "Wisdom");
-		lblWisdom.setBounds(150, 129, 120, 20);
-		contentPanel.add(lblWisdom);
+		lblWisdom.setBounds(13, 139, 120, 20);
+		attributePanel.add(lblWisdom);
 		
 		JLabel lblCharisma = createAttributeLabel(Constants.CHARISMA, "Charisma");
-		lblCharisma.setBounds(150, 158, 120, 20);
-		contentPanel.add(lblCharisma);
+		lblCharisma.setBounds(13, 168, 120, 20);
+		attributePanel.add(lblCharisma);
 		
 		JLabel lblStrengthValue = JLabelFactory.createJLabel(playerCharacter.getProperty(Constants.STRENGTH).toString());
-		lblStrengthValue.setBounds(300, 13, 20, 20);
+		lblStrengthValue.setBounds(150, 23, 20, 20);
 		lblStrengthValue.setToolTipText(lblStrength.getToolTipText());
-		contentPanel.add(lblStrengthValue);
+		attributePanel.add(lblStrengthValue);
 		
 		JLabel lblConstitutionValue = JLabelFactory.createJLabel(playerCharacter.getProperty(Constants.CONSTITUTION).toString());
-		lblConstitutionValue.setBounds(300, 42, 20, 20);
+		lblConstitutionValue.setBounds(150, 52, 20, 20);
 		lblConstitutionValue.setToolTipText(lblConstitution.getToolTipText());
-		contentPanel.add(lblConstitutionValue);
+		attributePanel.add(lblConstitutionValue);
 		
 		JLabel lblDexterityValue = JLabelFactory.createJLabel(playerCharacter.getProperty(Constants.DEXTERITY).toString());
-		lblDexterityValue.setBounds(300, 71, 20, 20);
+		lblDexterityValue.setBounds(150, 81, 20, 20);
 		lblDexterityValue.setToolTipText(lblDexterity.getToolTipText());
-		contentPanel.add(lblDexterityValue);
+		attributePanel.add(lblDexterityValue);
 		
 		JLabel lblIntelligenceValue = JLabelFactory.createJLabel(playerCharacter.getProperty(Constants.INTELLIGENCE).toString());
-		lblIntelligenceValue.setBounds(300, 100, 20, 20);
+		lblIntelligenceValue.setBounds(150, 110, 20, 20);
 		lblIntelligenceValue.setToolTipText(lblIntelligence.getToolTipText());
-		contentPanel.add(lblIntelligenceValue);
+		attributePanel.add(lblIntelligenceValue);
 		
 		JLabel lblWisdomValue = JLabelFactory.createJLabel(playerCharacter.getProperty(Constants.WISDOM).toString());
-		lblWisdomValue.setBounds(300, 129, 20, 20);
+		lblWisdomValue.setBounds(150, 139, 20, 20);
 		lblWisdomValue.setToolTipText(lblWisdom.getToolTipText());
-		contentPanel.add(lblWisdomValue);
+		attributePanel.add(lblWisdomValue);
 		
 		JLabel lblCharismaValue = JLabelFactory.createJLabel(playerCharacter.getProperty(Constants.CHARISMA).toString());
-		lblCharismaValue.setBounds(300, 158, 20, 20);
+		lblCharismaValue.setBounds(150, 168, 20, 20);
 		lblCharismaValue.setToolTipText(lblCharisma.getToolTipText());
-		contentPanel.add(lblCharismaValue);
+		attributePanel.add(lblCharismaValue);
 
+		JPanel specialAttributePanel = JPanelFactory.createJPanel("Special Attributes");
+		specialAttributePanel.setBounds(380, 10, 280, 200);
+		specialAttributePanel.setLayout(null);
+		contentPanel.add(specialAttributePanel);
+		
+		JScrollPane specialAttributesScrollPane = new JScrollPane();
+		specialAttributesScrollPane.setBounds(13, 23, 257, 163);
+		specialAttributesScrollPane.setOpaque(false);
+		specialAttributesScrollPane.getViewport().setOpaque(false);
+		specialAttributesScrollPane.setBorder(null);
+		specialAttributePanel.add(specialAttributesScrollPane);
+		
+		JList<SpecialAttribute> specialAttributesList = JListFactory.createJList(getSpecialAttributes());
+		specialAttributesList.setCellRenderer(new SpecialAttributesListCellRenderer());
+		specialAttributesList.setOpaque(false);
+		specialAttributesList.setBorder(null);
+		specialAttributesScrollPane.setViewportView(specialAttributesList);
+		
 		JPanel socialPanel = createPanel("Social Skills", 12, 208, 300, 250);
 		createSkillBlock(Constants.BLUFF_SKILL, socialPanel, 12, 28);
 		createSkillBlock(Constants.DIPLOMACY_SKILL, socialPanel, 12, 58);
@@ -200,8 +223,6 @@ public class CharacterDialog extends JDialog {
 		createSkillBlock(Constants.NECROMANCY_SKILL, magicPanel, 12, 148);
 		createSkillBlock(Constants.RESTORATION_SKILL, magicPanel, 12, 178);
 		createSkillBlock(Constants.TRANSMUTATION_SKILL, magicPanel, 12, 208);
-		
-		addPregnancyBlock(12, 730);
 		
 		int labelLeft = 700;
 		
@@ -341,6 +362,15 @@ public class CharacterDialog extends JDialog {
 		SwingUtils.installEscapeCloseOperation(this);
 	}
 	
+	private SpecialAttribute[] getSpecialAttributes() {
+		List<SpecialAttribute> specialAttributesList = new ArrayList<>();
+		Integer pregnancyCounter = playerCharacter.getProperty(Constants.PREGNANCY);
+		if (pregnancyCounter != null) {
+			specialAttributesList.add(new SpecialAttribute("Pregnancy", pregnancyCounter, CommonerOnTurn.PREGNANCY_DURATION, "Indicates how far along a pregnancy is"));
+		}
+		return specialAttributesList.toArray(new SpecialAttribute[0]);
+	}
+
 	private JPanel createPanel(String title, int x, int y, int width, int height) {
 		JPanel panel = JPanelFactory.createJPanel(title);
 		panel.setLayout(null);
@@ -358,20 +388,6 @@ public class CharacterDialog extends JDialog {
 	private List<String> createLongerConditionsDescriptions() {
 		Conditions conditions = playerCharacter.getProperty(Constants.CONDITIONS);
 		return conditions.getLongerDescriptions();
-	}
-
-	private void addPregnancyBlock(int x, int y) {
-		Integer pregnancyCounter = playerCharacter.getProperty(Constants.PREGNANCY);
-		if (pregnancyCounter != null) {
-			JLabel lblPregnancy = JLabelFactory.createJLabel("Pregnancy");
-			lblPregnancy.setBounds(x, y, 100, 20);
-			contentPanel.add(lblPregnancy);
-			
-			JProgressBar pregnancyProgressBar = JProgressBarFactory.createJProgressBar(0, CommonerOnTurn.PREGNANCY_DURATION);
-			pregnancyProgressBar.setBounds(x + 120, y, 140, 20);
-			pregnancyProgressBar.setValue(pregnancyCounter);
-			contentPanel.add(pregnancyProgressBar);
-		}
 	}
 
 	private JLabel createAttributeLabel(IntProperty attributeProperty, String description) {

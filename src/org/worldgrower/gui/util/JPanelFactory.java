@@ -31,6 +31,14 @@ public class JPanelFactory {
 		
 		return panel;
 	}
+	
+	public static JPanel createBorderlessPanel() {
+		JPanel panel = new JPanel();
+		panel.setOpaque(false);
+		panel.setForeground(ColorPalette.FOREGROUND_COLOR);
+		
+		return panel;
+	}
 
 	private static TitledBorder createBorder(String title) {
 		TitledBorder border = BorderFactory.createTitledBorder(title);
