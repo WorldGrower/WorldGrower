@@ -114,6 +114,7 @@ public class CharacterDialog extends JDialog {
 		contentPanel.add(lblDeity);
 		
 		JPanel attributePanel = JPanelFactory.createJPanel("Attributes");
+		attributePanel.setToolTipText("shows player character attributes");
 		attributePanel.setBounds(150, 10, 223, 200);
 		attributePanel.setLayout(null);
 		contentPanel.add(attributePanel);
@@ -173,6 +174,7 @@ public class CharacterDialog extends JDialog {
 		attributePanel.add(lblCharismaValue);
 
 		JPanel specialAttributePanel = JPanelFactory.createJPanel("Special Attributes");
+		specialAttributePanel.setToolTipText("Special attributes indicate the state of special conditions like pregnancy, vampire blood level, etc");
 		specialAttributePanel.setBounds(380, 10, 280, 200);
 		specialAttributePanel.setLayout(null);
 		contentPanel.add(specialAttributePanel);
@@ -191,6 +193,7 @@ public class CharacterDialog extends JDialog {
 		specialAttributesScrollPane.setViewportView(specialAttributesList);
 		
 		JPanel socialPanel = createPanel("Social Skills", 12, 208, 300, 250);
+		socialPanel.setToolTipText("shows player character social skills");
 		createSkillBlock(Constants.BLUFF_SKILL, socialPanel, 12, 28);
 		createSkillBlock(Constants.DIPLOMACY_SKILL, socialPanel, 12, 58);
 		createSkillBlock(Constants.INSIGHT_SKILL, socialPanel, 12, 88);
@@ -198,6 +201,7 @@ public class CharacterDialog extends JDialog {
 		createSkillBlock(Constants.PERCEPTION_SKILL, socialPanel, 12, 148);
 		
 		JPanel combatPanel = createPanel("Combat Skills", 12, 470, 300, 250);
+		combatPanel.setToolTipText("shows player character combat skills");
 		createSkillBlock(Constants.ARCHERY_SKILL, combatPanel, 12, 28);
 		createSkillBlock(Constants.HEAVY_ARMOR_SKILL, combatPanel, 12, 58);
 		createSkillBlock(Constants.HAND_TO_HAND_SKILL, combatPanel, 12, 88);
@@ -207,6 +211,7 @@ public class CharacterDialog extends JDialog {
 		createSkillBlock(Constants.TWO_HANDED_SKILL, combatPanel, 12, 208);
 		
 		JPanel professionPanel = createPanel("Profession Skills", 330, 208, 300, 250);
+		professionPanel.setToolTipText("shows player character profession skills");
 		createSkillBlock(Constants.CARPENTRY_SKILL, professionPanel, 12, 28);
 		createSkillBlock(Constants.FARMING_SKILL, professionPanel, 12, 58);
 		createSkillBlock(Constants.FISHING_SKILL, professionPanel, 12, 88);
@@ -216,6 +221,7 @@ public class CharacterDialog extends JDialog {
 		createSkillBlock(Constants.WEAVING_SKILL, professionPanel, 12, 208);
 		
 		JPanel magicPanel = createPanel("Magic Skills", 330, 470, 300, 250);
+		magicPanel.setToolTipText("shows player character magic skills");
 		createSkillBlock(Constants.ALCHEMY_SKILL, magicPanel, 12, 28);
 		createSkillBlock(Constants.ENCHANTMENT_SKILL, magicPanel, 12, 58);
 		createSkillBlock(Constants.EVOCATION_SKILL, magicPanel, 12, 88);		
@@ -367,6 +373,11 @@ public class CharacterDialog extends JDialog {
 		Integer pregnancyCounter = playerCharacter.getProperty(Constants.PREGNANCY);
 		if (pregnancyCounter != null) {
 			specialAttributesList.add(new SpecialAttribute("Pregnancy", pregnancyCounter, CommonerOnTurn.PREGNANCY_DURATION, "Indicates how far along a pregnancy is"));
+		}
+		
+		Integer vampireBloodLevel = playerCharacter.getProperty(Constants.VAMPIRE_BLOOD_LEVEL);
+		if (vampireBloodLevel != null) {
+			specialAttributesList.add(new SpecialAttribute("Blood level", vampireBloodLevel, 1000, "Indicates the blood level for a vampire"));
 		}
 		return specialAttributesList.toArray(new SpecialAttribute[0]);
 	}
