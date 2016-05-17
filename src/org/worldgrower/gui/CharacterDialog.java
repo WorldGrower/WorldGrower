@@ -420,14 +420,17 @@ public class CharacterDialog extends JDialog {
 		skillDescription = Character.toUpperCase(skillDescription.charAt(0)) + skillDescription.substring(1);
 		JLabel lblSkill = JLabelFactory.createJLabel(skillDescription);
 		lblSkill.setBounds(x, y, 100, 20);
+		lblSkill.setToolTipText(skillProperty.getLongDescription());
 		parentPanel.add(lblSkill);
 		
 		JLabel lblSkillValue = JLabelFactory.createJLabel(playerCharacter.getProperty(skillProperty).toString());
 		lblSkillValue.setBounds(x + 105, y, 15, 20);
+		lblSkillValue.setToolTipText(skillProperty.getLongDescription());
 		parentPanel.add(lblSkillValue);
 		
 		JProgressBar skillProgressBar = JProgressBarFactory.createJProgressBar(0, 100);
 		skillProgressBar.setBounds(x + 120, y, 140, 20);
+		skillProgressBar.setToolTipText(skillProperty.getLongDescription());
 		skillProgressBar.setValue(playerCharacter.getProperty(skillProperty).getPercentageUntilNextLevelUp());
 		parentPanel.add(skillProgressBar);
 	}

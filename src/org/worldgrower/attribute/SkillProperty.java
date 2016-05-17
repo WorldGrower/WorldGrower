@@ -23,15 +23,21 @@ public class SkillProperty implements ManagedProperty<Skill> {
 	
 	private final String name;
 	private final int ordinal = OrdinalGenerator.getNextOrdinal();
+	private final String longDescription;
 	
-	public SkillProperty(String name, List<ManagedProperty<?>> allProperties) {
+	public SkillProperty(String name, List<ManagedProperty<?>> allProperties, String longDescription) {
 		this.name = name;
+		this.longDescription = longDescription;
 		allProperties.add(this);
 	}
 
 	@Override
 	public String getName() {
 		return name;
+	}
+	
+	public String getLongDescription() {
+		return longDescription;
 	}
 
 	@Override
