@@ -97,7 +97,7 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 
 		@Override
 		public int getColumnCount() {
-			return 13;
+			return 14;
 		}
 
 		@Override
@@ -133,6 +133,8 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 				return "Id";
 			} else if (columnIndex == 12) {
 				return "Conditions";
+			} else if (columnIndex == 13) {
+				return "Creature type";
 			} else {
 				return null;
 			}
@@ -188,6 +190,8 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 				return npc.getProperty(Constants.ID);
 			} else if (columnIndex == 12) {
 				return npc.getProperty(Constants.CONDITIONS).getDescriptions().toString();
+			} else if (columnIndex == 13) {
+				return npc.getProperty(Constants.CREATURE_TYPE).getDescription();
 			} else {
 				return null;
 			}
