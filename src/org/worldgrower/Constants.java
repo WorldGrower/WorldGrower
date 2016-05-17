@@ -251,7 +251,8 @@ public class Constants {
 	public static final IntProperty VAMPIRE_BLOOD_LEVEL = new IntProperty("vampireBloodLevel", 0, 1000, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final StringProperty DEATH_REASON = new StringProperty("deathReason", NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IdProperty SACRIFICIAL_ALTAR_CREATOR_ID = new IdProperty("sacrificialAltarCreatorId", ALL_PROPERTIES);
-
+	public static final IntProperty GHOUL_MEAT_LEVEL = new IntProperty("ghoulMeatLevel", 0, 1000, NOT_NULLABLE, ALL_PROPERTIES);
+	
 	public static final IdProperty BRAWL_OPPONENT_ID = new IdProperty("brawlOpponentId", ALL_PROPERTIES);
 	public static final IntProperty BRAWL_STAKE_GOLD = new IntProperty("brawlStakeGold", 0, null, NULLABLE, ALL_PROPERTIES);
 	public static final IdProperty DRINKING_CONTEST_OPPONENT_ID = new IdProperty("drinkingContestOpponentId", ALL_PROPERTIES);

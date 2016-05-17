@@ -379,6 +379,12 @@ public class CharacterDialog extends JDialog {
 		if (vampireBloodLevel != null) {
 			specialAttributesList.add(new SpecialAttribute("Blood level", vampireBloodLevel, 1000, "Indicates the blood level for a vampire"));
 		}
+		
+		Integer ghoulMeatLevel = playerCharacter.getProperty(Constants.GHOUL_MEAT_LEVEL);
+		if (ghoulMeatLevel != null) {
+			specialAttributesList.add(new SpecialAttribute("Meat level", ghoulMeatLevel, 1000, "Indicates the human meat level for a ghoul"));
+		}
+		
 		return specialAttributesList.toArray(new SpecialAttribute[0]);
 	}
 

@@ -183,6 +183,12 @@ public class CommonerOnTurn implements OnTurn {
 			}
 			worldObject.increment(Constants.VAMPIRE_BLOOD_LEVEL, -1);
 		}
+		if (worldObject.hasProperty(Constants.GHOUL_MEAT_LEVEL)) {
+			if (worldObject.getProperty(Constants.GHOUL_MEAT_LEVEL) < 10) {
+				worldObject.increment(Constants.ENERGY, -5);
+			}
+			worldObject.increment(Constants.GHOUL_MEAT_LEVEL, -1);
+		}
 	}
 	
 	private void everyoneInVicinityKnowsOfChild(WorldObject parent, int childId, World world) {

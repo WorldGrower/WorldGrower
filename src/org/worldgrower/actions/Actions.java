@@ -255,6 +255,7 @@ public class Actions {
 	public static final RecallSecretChestAction RECALL_SECRET_CHEST_ACTION = new RecallSecretChestAction();
 	public static final DismissSecretChestAction DISMISS_SECRET_CHEST_ACTION = new DismissSecretChestAction();
 	public static final AnimalFriendshipSpellAction ANIMAL_FRIENDSHIP_SPELL_ACTION = new AnimalFriendshipSpellAction();
+	public static final EatRemainsAction EAT_REMAINS_ACTION = new EatRemainsAction();
 	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 
@@ -438,7 +439,8 @@ public class Actions {
 		CLAIM_BUILDING_ACTION,
 		BUILD_APOTHECARY_ACTION,
 		CONSTRUCT_CHEST_ACTION,
-		DISMISS_SECRET_CHEST_ACTION
+		DISMISS_SECRET_CHEST_ACTION,
+		EAT_REMAINS_ACTION
 	));
 	
 	static {

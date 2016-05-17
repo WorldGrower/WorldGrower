@@ -24,6 +24,10 @@ import org.worldgrower.gui.ImageIds;
 public class GhoulUtils {
 
 	public static void eatFood(WorldObject performer, WorldObject food, World world) {
+		if (performer.hasProperty(Constants.GHOUL_MEAT_LEVEL)) {
+			performer.increment(Constants.GHOUL_MEAT_LEVEL, 750);
+		}
+		
 		if (canBecomeGhoul(performer) && isFoodMadeFromHuman(food)) {
 			ghoulifyPerson(performer, world);
 		}
