@@ -15,6 +15,7 @@
 package org.worldgrower.gui;
 
 import java.awt.Component;
+import java.awt.FlowLayout;
 
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -32,9 +33,10 @@ public class SpecialAttributesListCellRenderer implements ListCellRenderer<Speci
 	public Component getListCellRendererComponent(JList<? extends SpecialAttribute> list, SpecialAttribute item, int index, boolean isSelected, boolean cellHasFocus) {
 		JPanel panel = JPanelFactory.createBorderlessPanel();
 		panel.setToolTipText(item.getLongDescription());
+		panel.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 		
 		JLabel lblItem = JLabelFactory.createJLabel(item.getDescription());
-		lblItem.setBounds(13, 13, 80, 20);
+		lblItem.setBounds(3, 13, 80, 20);
 		lblItem.setToolTipText(item.getLongDescription());
 		panel.add(lblItem);
 		

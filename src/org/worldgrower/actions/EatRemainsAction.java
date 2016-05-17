@@ -32,6 +32,7 @@ public class EatRemainsAction implements ManagedOperation {
 		target.setProperty(Constants.GOLD, 0);
 		
 		performer.increment(Constants.GHOUL_MEAT_LEVEL, 1000);
+		world.removeWorldObject(target);
 	}
 
 	@Override

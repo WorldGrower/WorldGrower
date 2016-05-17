@@ -23,16 +23,13 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.MockCommonerNameGenerator;
-import org.worldgrower.actions.legal.DefaultActionLegalHandler;
-import org.worldgrower.actions.legal.LegalAction;
-import org.worldgrower.condition.VampireUtils;
-import org.worldgrower.condition.WorldStateChangedListeners;
+import org.worldgrower.condition.GhoulUtils;
 import org.worldgrower.generator.CommonerGenerator;
 import org.worldgrower.gui.CommonerImageIds;
 
-public class UTestVampireBiteGoal {
+public class UTestGhoulMeatLevelGoal {
 
-	private VampireBloodLevelGoal goal = Goals.VAMPIRE_BLOOD_LEVEL_GOAL;
+	private GhoulMeatLevelGoal goal = Goals.GHOUL_MEAT_LEVEL_GOAL;
 	private final CommonerGenerator commonerGenerator = new CommonerGenerator(666, new CommonerImageIds(), new MockCommonerNameGenerator());
 	
 	@Test
@@ -46,53 +43,18 @@ public class UTestVampireBiteGoal {
 	}
 	
 	@Test
-	public void testCalculateGoalBite() {
+	public void testCalculateGoalEatRemains() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject organization = createVillagersOrganization(world);
 		
 		WorldObject performer = createCommoner(world, organization);
-		WorldObject target = createCommoner(world, organization);
+		GhoulUtils.ghoulifyPerson(performer, world);
 		
-		VampireUtils.vampirizePerson(performer, new WorldStateChangedListeners());
+		WorldObject victim = createCommoner(world, organization);
+		victim.setProperty(Constants.DEATH_REASON, "death");
+		CommonerGenerator.generateSkeletalRemains(victim, world);
 		
-		assertEquals(Actions.VAMPIRE_BITE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
-		assertEquals(target, goal.calculateGoal(performer, world).getTarget());
-	}
-	
-	@Test
-	public void testCalculateGoalBiteIllegal() {
-		World world = new WorldImpl(10, 10, null, null);
-		WorldObject organization = createVillagersOrganization(world);
-		
-		WorldObject performer = createCommoner(world, organization);
-		WorldObject target = createCommoner(world, organization);
-		
-		target.setProperty(Constants.X, 10);
-		target.setProperty(Constants.Y, 10);
-		
-		VampireUtils.vampirizePerson(performer, new WorldStateChangedListeners());
-		
-		LegalActionsPropertyUtils.getLegalActions(world).setLegalFlag(new LegalAction(Actions.VAMPIRE_BITE_ACTION, new DefaultActionLegalHandler()), Boolean.FALSE);
-		assertEquals(Actions.VAMPIRE_BITE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
-		assertEquals(target, goal.calculateGoal(performer, world).getTarget());
-	}
-	
-	@Test
-	public void testCalculateGoalBiteLegal() {
-		World world = new WorldImpl(10, 10, null, null);
-		WorldObject organization = createVillagersOrganization(world);
-		
-		WorldObject performer = createCommoner(world, organization);
-		WorldObject target = createCommoner(world, organization);
-		
-		target.setProperty(Constants.X, 10);
-		target.setProperty(Constants.Y, 10);
-		
-		VampireUtils.vampirizePerson(performer, new WorldStateChangedListeners());
-		
-		LegalActionsPropertyUtils.getLegalActions(world).setLegalFlag(new LegalAction(Actions.VAMPIRE_BITE_ACTION, new DefaultActionLegalHandler()), Boolean.TRUE);
-		assertEquals(Actions.VAMPIRE_BITE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
-		assertEquals(target, goal.calculateGoal(performer, world).getTarget());
+		assertEquals(Actions.EAT_REMAINS_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
 	
 	@Test
@@ -101,13 +63,12 @@ public class UTestVampireBiteGoal {
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
 		createVillagersOrganization(world);
-		VampireUtils.vampirizePerson(performer, new WorldStateChangedListeners());
-		performer.setProperty(Constants.VAMPIRE_BLOOD_LEVEL, 0);
+		GhoulUtils.ghoulifyPerson(performer, world);
 		
-		assertEquals(false, goal.isGoalMet(performer, world));
-		
-		performer.setProperty(Constants.VAMPIRE_BLOOD_LEVEL, 1000);
 		assertEquals(true, goal.isGoalMet(performer, world));
+		
+		performer.setProperty(Constants.GHOUL_MEAT_LEVEL, 0);
+		assertEquals(false, goal.isGoalMet(performer, world));
 	}
 
 	private WorldObject createCommoner(World world, WorldObject organization) {

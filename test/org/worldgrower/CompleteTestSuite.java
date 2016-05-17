@@ -670,7 +670,9 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestDimensionDoorAction.class,
 	UTestConstructChestAction.class,
 	UTestRecallSecretChestAction.class,
-	UTestDismissSecretChestAction.class
+	UTestDismissSecretChestAction.class,
+	UTestGhoulMeatLevelGoal.class,
+	UTestEatRemainsAction.class
 })
 public class CompleteTestSuite {
 }

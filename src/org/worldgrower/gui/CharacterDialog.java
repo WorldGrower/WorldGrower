@@ -115,7 +115,7 @@ public class CharacterDialog extends JDialog {
 		
 		JPanel attributePanel = JPanelFactory.createJPanel("Attributes");
 		attributePanel.setToolTipText("shows player character attributes");
-		attributePanel.setBounds(150, 10, 223, 200);
+		attributePanel.setBounds(150, 5, 223, 200);
 		attributePanel.setLayout(null);
 		contentPanel.add(attributePanel);
 		
@@ -175,12 +175,12 @@ public class CharacterDialog extends JDialog {
 
 		JPanel specialAttributePanel = JPanelFactory.createJPanel("Special Attributes");
 		specialAttributePanel.setToolTipText("Special attributes indicate the state of special conditions like pregnancy, vampire blood level, etc");
-		specialAttributePanel.setBounds(380, 10, 280, 200);
+		specialAttributePanel.setBounds(380, 5, 250, 200);
 		specialAttributePanel.setLayout(null);
 		contentPanel.add(specialAttributePanel);
 		
 		JScrollPane specialAttributesScrollPane = new JScrollPane();
-		specialAttributesScrollPane.setBounds(13, 23, 257, 163);
+		specialAttributesScrollPane.setBounds(10, 23, 257, 163);
 		specialAttributesScrollPane.setOpaque(false);
 		specialAttributesScrollPane.getViewport().setOpaque(false);
 		specialAttributesScrollPane.setBorder(null);

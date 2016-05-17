@@ -39,6 +39,7 @@ public class GhoulUtils {
 	public static void ghoulifyPerson(WorldObject worldObject, World world) {
 		worldObject.setProperty(Constants.CREATURE_TYPE, CreatureType.GHOUL_CREATURE_TYPE);
 		worldObject.setProperty(Constants.CURSE, Curse.GHOUL_CURSE);
+		worldObject.setProperty(Constants.GHOUL_MEAT_LEVEL, 1000);
 		
 		//worldObject.setProperty(Constants.GROUP, new IdList());
 		//worldObject.setProperty(Constants.IMAGE_ID, ImageIds.GHOUL);
