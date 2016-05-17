@@ -14,26 +14,41 @@
  *******************************************************************************/
 package org.worldgrower.curse;
 
-import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.goal.Goal;
+import org.worldgrower.goal.Goals;
 
-public interface Curse extends Serializable {
+public class GhoulCurse implements Curse {
 
-	public List<Goal> getCurseGoals(List<Goal> normalGoals);
-	public void perform(WorldObject performer, WorldObject target, int[] args, ManagedOperation managedOperation, World world);
-	public boolean canMove();
-	public boolean canTalk();
-	public String getExplanation();
+	@Override
+	public List<Goal> getCurseGoals(List<Goal> normalGoals) {
+		List<Goal> allGoals = new ArrayList<>(normalGoals);
+		allGoals.addAll(0, Arrays.asList(Goals.GHOUL_MEAT_LEVEL_GOAL));
+		return allGoals;
+	}
 	
-	public static final SirenCurse SIREN_CURSE = new SirenCurse();
-	public static final ToadCurse TOAD_CURSE = new ToadCurse();
-	public static final VampireCurse VAMPIRE_CURSE = new VampireCurse();
-	public static final WerewolfCurse WEREWOLF_CURSE = new WerewolfCurse();
-	public static final LichCurse LICH_CURSE = new LichCurse();
-	public static final GhoulCurse GHOUL_CURSE = new GhoulCurse();
+	@Override
+	public void perform(WorldObject performer, WorldObject target, int[] args, ManagedOperation managedOperation, World world) {
+	}
+	
+	@Override
+	public boolean canMove() {
+		return true;
+	}
+	
+	@Override
+	public boolean canTalk() {
+		return true;
+	}
+
+	@Override
+	public String getExplanation() {
+		return "I've been turned into a ghoul";
+	}
 }

@@ -17,9 +17,8 @@ package org.worldgrower.condition;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.IdList;
 import org.worldgrower.creaturetype.CreatureType;
-import org.worldgrower.gui.ImageIds;
+import org.worldgrower.curse.Curse;
 
 public class GhoulUtils {
 
@@ -39,8 +38,10 @@ public class GhoulUtils {
 	
 	public static void ghoulifyPerson(WorldObject worldObject, World world) {
 		worldObject.setProperty(Constants.CREATURE_TYPE, CreatureType.GHOUL_CREATURE_TYPE);
-		worldObject.setProperty(Constants.GROUP, new IdList());
-		worldObject.setProperty(Constants.IMAGE_ID, ImageIds.GHOUL);
+		worldObject.setProperty(Constants.CURSE, Curse.GHOUL_CURSE);
+		
+		//worldObject.setProperty(Constants.GROUP, new IdList());
+		//worldObject.setProperty(Constants.IMAGE_ID, ImageIds.GHOUL);
 		
 		world.getWorldStateChangedListeners().fireCreatureTypeChanged(worldObject, CreatureType.GHOUL_CREATURE_TYPE, "You crave human flesh, you must have become a ghoul");
 	}
