@@ -195,6 +195,7 @@ public class GroupPropertyUtils {
 		organization.setProperty(Constants.TAXES_PAID_TURN, new IdToIntegerMap());
 		organization.setProperty(Constants.PAY_CHECK_PAID_TURN, new IdToIntegerMap());
 		organization.setProperty(Constants.TURNS_IN_JAIL, new IdToIntegerMap());
+		organization.setProperty(Constants.BOUNTY, new IdToIntegerMap());
 		setLegalActions(organization);
 		
 		return organization;

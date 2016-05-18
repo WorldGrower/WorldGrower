@@ -70,16 +70,35 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 			}
 			
 			if (performerViolatedGroupRules(performer, actionTarget, args, managedOperation, world)) {
-				IdList oldGroup = performer.getProperty(Constants.GROUP).copy();
-				GroupPropertyUtils.throwPerformerOutGroup(performerFacade, target);
 				
-				WorldObject realPerformer = world.findWorldObject(Constants.ID, performerFacade.getProperty(Constants.ID));
-				GroupPropertyUtils.throwPerformerOutGroup(realPerformer, target);
-				
-				IdList newGroup = performer.getProperty(Constants.GROUP).copy();
-				world.getWorldStateChangedListeners().thrownOutOfGroup(performer, actionTarget, args, managedOperation, oldGroup, newGroup);
+				if (performerAttacked(managedOperation)) {
+					throwOutOfGroup(performer, target, actionTarget, args, managedOperation, world, performerFacade);
+				}
+				int bounty = calculateBounty(managedOperation);
+				GroupPropertyUtils.getVillagersOrganization(world).getProperty(Constants.BOUNTY).incrementValue(performer, bounty);
 			}
 		}
+	}
+
+	private static int calculateBounty(ManagedOperation managedOperation) {
+		final int bounty;
+		if (performerAttacked(managedOperation)) {
+			bounty = 200;
+		} else {
+			bounty = 40;
+		}
+		return bounty;
+	}
+
+	private static void throwOutOfGroup(WorldObject performer, WorldObject target, WorldObject actionTarget, int[] args, ManagedOperation managedOperation, World world, WorldObject performerFacade) {
+		IdList oldGroup = performer.getProperty(Constants.GROUP).copy();
+		GroupPropertyUtils.throwPerformerOutGroup(performerFacade, target);
+		
+		WorldObject realPerformer = world.findWorldObject(Constants.ID, performerFacade.getProperty(Constants.ID));
+		GroupPropertyUtils.throwPerformerOutGroup(realPerformer, target);
+		
+		IdList newGroup = performer.getProperty(Constants.GROUP).copy();
+		world.getWorldStateChangedListeners().thrownOutOfGroup(performer, actionTarget, args, managedOperation, oldGroup, newGroup);
 	}
 
 	static boolean areBrawling(WorldObject performer, WorldObject actionTarget, ManagedOperation managedOperation) {

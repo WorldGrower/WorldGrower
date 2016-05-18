@@ -166,6 +166,7 @@ public class Constants {
 	public static final KnowledgeMapProperty KNOWLEDGE_MAP = new KnowledgeMapProperty("knowledgeMap", ALL_PROPERTIES);
 	public static final UnCheckedProperty<Goal> ORGANIZATION_GOAL = new UnCheckedProperty<>("organizationGoal", ALL_PROPERTIES);
 	public static final UnCheckedProperty<LegalActions> LEGAL_ACTIONS = new UnCheckedProperty<>("legalActions", ALL_PROPERTIES);
+	public static final IdMapProperty BOUNTY = new IdMapProperty("bounty", ALL_PROPERTIES);
 	
 	public static final WorldObjectProperty FACADE = new WorldObjectProperty("facade", NULLABLE, ALL_PROPERTIES);
 	public static final UnCheckedProperty<Reasons> REASONS = new UnCheckedProperty<>("reasons", ALL_PROPERTIES);

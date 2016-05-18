@@ -51,7 +51,7 @@ public class Conversations implements Serializable {
 	public static final DeityReasonConversation DEITY_REASON_CONVERSATION = new DeityReasonConversation();
 	public static final ProfessionReasonConversation PROFESSION_REASON_CONVERSATION = new ProfessionReasonConversation();
 	public static final Conversation DEMANDS_CONVERSATION = new DemandsConversation();
-	public static final Conversation BROKEN_LAW_CONVERSATION = new BrokenLawConversation();
+	public static final BrokenLawConversation BROKEN_LAW_CONVERSATION = new BrokenLawConversation();
 	public static final ComplimentConversation COMPLIMENT_CONVERSATION = new ComplimentConversation();
 	public static final Conversation EXPLAIN_CURSE_CONVERSATION = new ExplainCurseConversation();
 	public static final LocationConversation LOCATION_CONVERSATION = new LocationConversation();
@@ -98,6 +98,7 @@ public class Conversations implements Serializable {
 	public static final AssassinateTargetConversation ASSASSINATE_TARGET_CONVERSATION = new AssassinateTargetConversation();
 	public static final GiveMoneyConversation GIVE_MONEY_CONVERSATION = new GiveMoneyConversation();
 	public static final GiveWineConversation GIVE_WINE_CONVERSATION = new GiveWineConversation();
+	public static final PayBountyConversation PAY_BOUNTY_CONVERSATION = new PayBountyConversation();
 	
 	private static final List<Conversation> CONVERSATIONS = new ArrayList<>();
 	private static final Map<Conversation, ConversationCategory> CONVERSATION_CATEGORIES = new HashMap<>();
@@ -166,6 +167,7 @@ public class Conversations implements Serializable {
 		add(BREAKUP_WITH_MATE_CONVERSATION, ConversationCategory.DEMAND);
 		addNormalAndIntimidate(CURE_DISEASE_CONVERSATION, ConversationCategory.DEMAND);
 		add(ASSASSINATE_TARGET_CONVERSATION, ConversationCategory.DEMAND);
+		add(PAY_BOUNTY_CONVERSATION, ConversationCategory.DEMAND);
 	}
 	
 	public static int[] createArgs(Conversation conversation) {

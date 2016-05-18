@@ -14,15 +14,15 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.IdMap;
 import org.worldgrower.conversation.Conversations;
-import org.worldgrower.history.HistoryItem;
 
 public class CatchThievesGoal implements Goal {
 
@@ -32,21 +32,15 @@ public class CatchThievesGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		List<HistoryItem> theftHistoryItems = getTheftHistoryItems(world);
+		int thiefId = findThiefId(world);
 		
-		if (theftHistoryItems.size() > 0) {
-			HistoryItem theftHistoryItem = theftHistoryItems.get(0);
-			int[] args = Conversations.createArgs(Conversations.BROKEN_LAW_CONVERSATION, theftHistoryItem);
-			return new OperationInfo(performer, theftHistoryItem.getOperationInfo().getPerformer(), args, Actions.TALK_ACTION);
+		if (thiefId != -1) {
+			WorldObject thief = world.findWorldObject(Constants.ID, thiefId);
+			int[] args = Conversations.createArgs(Conversations.BROKEN_LAW_CONVERSATION);
+			return new OperationInfo(performer, thief, args, Actions.TALK_ACTION);
 		} else {
 			return null;
 		}
-	}
-
-	private List<HistoryItem> getTheftHistoryItems(World world) {
-		List<HistoryItem> theftHistoryItems = new ArrayList<>(world.getHistory().findHistoryItems(Actions.STEAL_ACTION));
-		theftHistoryItems.addAll(world.getHistory().findHistoryItems(Actions.STEAL_GOLD_ACTION));
-		return theftHistoryItems;
 	}
 
 	@Override
@@ -55,13 +49,12 @@ public class CatchThievesGoal implements Goal {
 	
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		List<HistoryItem> theftHistoryItems = getTheftHistoryItems(world);
-		if (theftHistoryItems.isEmpty()) {
-			return true;
-		} else {
-			//TODO: if bounty paid, return true
-			return false;
-		}
+		return findThiefId(world) == -1;
+	}
+
+	private int findThiefId(World world) {
+		IdMap bountyMap = GroupPropertyUtils.getVillagersOrganization(world).getProperty(Constants.BOUNTY);
+		return bountyMap.findBestId(w -> true, world);
 	}
 	
 	@Override
@@ -76,8 +69,6 @@ public class CatchThievesGoal implements Goal {
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		//TODO: if bounty paid, return true
-		List<HistoryItem> theftHistoryItems = getTheftHistoryItems(world);
-		return Integer.MAX_VALUE - theftHistoryItems.size();
+		return 0;
 	}
 }
