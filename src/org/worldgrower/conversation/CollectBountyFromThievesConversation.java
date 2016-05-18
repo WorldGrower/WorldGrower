@@ -25,7 +25,7 @@ import org.worldgrower.attribute.IdMap;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.history.HistoryItem;
 
-public class BrokenLawConversation implements Conversation {
+public class CollectBountyFromThievesConversation implements Conversation {
 
 	private static final int PAY_GOLD = 0;
 	private static final int JAIL = 1;

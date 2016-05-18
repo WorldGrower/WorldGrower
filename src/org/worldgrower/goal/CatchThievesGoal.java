@@ -36,7 +36,7 @@ public class CatchThievesGoal implements Goal {
 		
 		if (thiefId != -1) {
 			WorldObject thief = world.findWorldObject(Constants.ID, thiefId);
-			int[] args = Conversations.createArgs(Conversations.BROKEN_LAW_CONVERSATION);
+			int[] args = Conversations.createArgs(Conversations.COLLECT_BOUNTY_FROM_THIEVES_CONVERSATION);
 			return new OperationInfo(performer, thief, args, Actions.TALK_ACTION);
 		} else {
 			return null;

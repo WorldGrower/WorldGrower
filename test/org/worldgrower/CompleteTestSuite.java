@@ -83,6 +83,7 @@ import org.worldgrower.conversation.UTestBecomeArenaFighterConversation;
 import org.worldgrower.conversation.UTestBrawlConversation;
 import org.worldgrower.conversation.UTestBreakupWithMateConversation;
 import org.worldgrower.conversation.UTestBuyHouseConversation;
+import org.worldgrower.conversation.UTestCollectBountyFromThievesConversation;
 import org.worldgrower.conversation.UTestCollectPayCheckConversation;
 import org.worldgrower.conversation.UTestCollectTaxesConversation;
 import org.worldgrower.conversation.UTestComplimentConversation;
@@ -672,7 +673,9 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestRecallSecretChestAction.class,
 	UTestDismissSecretChestAction.class,
 	UTestGhoulMeatLevelGoal.class,
-	UTestEatRemainsAction.class
+	UTestEatRemainsAction.class,
+	UTestCatchThievesGoal.class,
+	UTestCollectBountyFromThievesConversation.class
 })
 public class CompleteTestSuite {
 }

@@ -51,7 +51,7 @@ public class Conversations implements Serializable {
 	public static final DeityReasonConversation DEITY_REASON_CONVERSATION = new DeityReasonConversation();
 	public static final ProfessionReasonConversation PROFESSION_REASON_CONVERSATION = new ProfessionReasonConversation();
 	public static final Conversation DEMANDS_CONVERSATION = new DemandsConversation();
-	public static final BrokenLawConversation BROKEN_LAW_CONVERSATION = new BrokenLawConversation();
+	public static final CollectBountyFromThievesConversation COLLECT_BOUNTY_FROM_THIEVES_CONVERSATION = new CollectBountyFromThievesConversation();
 	public static final ComplimentConversation COMPLIMENT_CONVERSATION = new ComplimentConversation();
 	public static final Conversation EXPLAIN_CURSE_CONVERSATION = new ExplainCurseConversation();
 	public static final LocationConversation LOCATION_CONVERSATION = new LocationConversation();
@@ -120,7 +120,7 @@ public class Conversations implements Serializable {
 		add(DEITY_REASON_CONVERSATION, ConversationCategory.DEITY);
 		addNormalAndIntimidate(PROFESSION_REASON_CONVERSATION, ConversationCategory.PERSONAL_INFORMATION);
 		addNormalAndIntimidate(DEMANDS_CONVERSATION, ConversationCategory.PERSONAL_INFORMATION);
-		add(BROKEN_LAW_CONVERSATION, ConversationCategory.DEMAND);
+		add(COLLECT_BOUNTY_FROM_THIEVES_CONVERSATION, ConversationCategory.DEMAND);
 		add(COMPLIMENT_CONVERSATION, ConversationCategory.DIPLOMACY_TARGET);
 		add(EXPLAIN_CURSE_CONVERSATION, ConversationCategory.PERSONAL_INFORMATION);
 		addNormalAndIntimidate(LOCATION_CONVERSATION, ConversationCategory.DEMAND);
