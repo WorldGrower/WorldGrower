@@ -24,8 +24,8 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.condition.Conditions;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.generator.Item;
 
@@ -54,8 +54,6 @@ public class UTestStealAction {
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
-		performer.setProperty(Constants.GROUP, new IdList().add(7));
-		target.setProperty(Constants.GROUP, new IdList().add(7));
 		target.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_CUIRASS.generate(1f));
 		
 		int index = target.getProperty(Constants.INVENTORY).getIndexFor(Constants.EQUIPMENT_SLOT);
@@ -63,7 +61,6 @@ public class UTestStealAction {
 		
 		assertEquals(-1, performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.EQUIPMENT_SLOT));
 		assertEquals(0, target.getProperty(Constants.INVENTORY).getIndexFor(Constants.EQUIPMENT_SLOT));
-		assertEquals(0, performer.getProperty(Constants.GROUP).size());
 	}
 	
 	@Test
@@ -93,6 +90,7 @@ public class UTestStealAction {
 		performer.setProperty(Constants.WIDTH, 1);
 		performer.setProperty(Constants.HEIGHT, 1);
 		performer.setProperty(Constants.NAME, "Test");
+		performer.setProperty(Constants.CONDITIONS, new Conditions());
 		return performer;
 	}
 }

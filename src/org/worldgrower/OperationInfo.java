@@ -73,6 +73,7 @@ public class OperationInfo implements Serializable {
 		
 		if (actionCanAngerOthers) {
 			goalChangedCalculator.recordEndState(performer, target, managedOperation, args, world);
+			goalChangedCalculator.checkLegality(performer, target, managedOperation, args, world);
 		}
 	}
 
@@ -87,7 +88,8 @@ public class OperationInfo implements Serializable {
 		return managedOperation != Actions.DO_NOTHING_ACTION
 				&& managedOperation != Actions.REST_ACTION
 				&& managedOperation != Actions.SLEEP_ACTION
-				&& managedOperation != Actions.MOVE_ACTION;
+				&& managedOperation != Actions.MOVE_ACTION
+				&& managedOperation != Actions.TALK_ACTION;
 	}
 	
 	static void removeDeadWorldObjects(World world) {

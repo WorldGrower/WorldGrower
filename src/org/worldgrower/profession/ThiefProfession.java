@@ -37,7 +37,7 @@ public class ThiefProfession implements Profession {
 
 	@Override
 	public List<Goal> getProfessionGoals() {
-		return Arrays.asList(Goals.STEAL_GOAL, Goals.SELL_STOLEN_GOODS_GOAL);
+		return Arrays.asList(Goals.PAY_BOUNTY_GOAL, Goals.STEAL_GOAL, Goals.SELL_STOLEN_GOODS_GOAL);
 	}
 
 	@Override

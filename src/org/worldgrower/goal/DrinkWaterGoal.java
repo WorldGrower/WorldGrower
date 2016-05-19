@@ -95,6 +95,6 @@ public class DrinkWaterGoal implements Goal {
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		return performer.getProperty(Constants.WATER);
+		return performer.getProperty(Constants.WATER) + performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD);
 	}
 }

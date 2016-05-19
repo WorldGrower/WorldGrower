@@ -21,7 +21,7 @@ import java.util.List;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.IdMap;
+import org.worldgrower.goal.BountyPropertyUtils;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.history.HistoryItem;
 
@@ -38,7 +38,7 @@ public class CollectBountyFromThievesConversation implements Conversation {
 		World world = conversationContext.getWorld();
 		
 		final int replyId;
-		int bounty = getBounty(target, world);
+		int bounty = BountyPropertyUtils.getBounty(target, world);
 		if (target.getProperty(Constants.GOLD).intValue() >= bounty) {
 			replyId = PAY_GOLD;
 		} else {
@@ -49,7 +49,7 @@ public class CollectBountyFromThievesConversation implements Conversation {
 
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
-		int bounty = getBounty(target, world);
+		int bounty = BountyPropertyUtils.getBounty(target, world);
 		return Arrays.asList(new Question(null, "I'm here to collect your bounty, " + bounty + " gold, what will you do?"));
 	}
 
@@ -57,7 +57,7 @@ public class CollectBountyFromThievesConversation implements Conversation {
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		WorldObject target = conversationContext.getTarget();
 		World world = conversationContext.getWorld();
-		int bounty = getBounty(target, world);
+		int bounty = BountyPropertyUtils.getBounty(target, world);
 		List<Response> responses = new ArrayList<>();
 		if (target.getProperty(Constants.GOLD).intValue() >= bounty) {
 			responses.add(new Response(PAY_GOLD, "I will pay the bounty", bounty <= conversationContext.getTarget().getProperty(Constants.GOLD)));
@@ -76,14 +76,14 @@ public class CollectBountyFromThievesConversation implements Conversation {
 		World world = conversationContext.getWorld();
 		
 		if (replyIndex == PAY_GOLD) {
-			int bounty = getBounty(target, world);
+			int bounty = BountyPropertyUtils.getBounty(target, world);
 			target.increment(Constants.GOLD, -bounty);
 			performer.increment(Constants.GOLD, bounty);
 			
 			removeBounty(target, world, bounty);
 		} else if (replyIndex == JAIL) {
 			//TODO: implement deteriorating skills
-			int bounty = getBounty(target, world);
+			int bounty = BountyPropertyUtils.getBounty(target, world);
 			removeBounty(target, world, bounty);
 		} else if (replyIndex == RESIST_ARREST) {
 			target.getProperty(Constants.GROUP).remove(GroupPropertyUtils.getVillagersOrganization(world));
@@ -94,16 +94,9 @@ public class CollectBountyFromThievesConversation implements Conversation {
 		GroupPropertyUtils.getVillagersOrganization(world).getProperty(Constants.BOUNTY).incrementValue(target, -bounty);
 	}
 
-	private int getBounty(WorldObject target, World world) {
-		IdMap bountyMap = GroupPropertyUtils.getVillagersOrganization(world).getProperty(Constants.BOUNTY);
-		int bounty = bountyMap.getValue(target);
-		return bounty;
-	}
-
 	@Override
 	public boolean isConversationAvailable(WorldObject performer, WorldObject target, WorldObject subject, World world) {
-		IdMap bountyMap = GroupPropertyUtils.getVillagersOrganization(world).getProperty(Constants.BOUNTY);
-		return bountyMap.getValue(target) > 0;
+		return BountyPropertyUtils.getBounty(target, world) > 0 && BountyPropertyUtils.canForgiveBounty(performer);
 	}
 
 	@Override

@@ -63,19 +63,10 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 	}
 
 	static void alterRelationships(WorldObject performer, WorldObject target, WorldObject actionTarget, int[] args, ManagedOperation managedOperation, World world, int value, WorldObject performerFacade, WorldObject targetFacade) {
-		if (!areBrawling(performer, actionTarget, managedOperation) && !areFightingInArena(performer, actionTarget, managedOperation)) {
+		if (isIllegallyFighting(performer, actionTarget, managedOperation)) {
 			if (world.exists(performer) && world.exists(target) && world.exists(performerFacade) && world.exists(targetFacade)) {
 				performer.getProperty(Constants.RELATIONSHIPS).incrementValue(targetFacade.getProperty(Constants.ID), value);
 				target.getProperty(Constants.RELATIONSHIPS).incrementValue(performerFacade.getProperty(Constants.ID), value);
-			}
-			
-			if (performerViolatedGroupRules(performer, actionTarget, args, managedOperation, world)) {
-				
-				if (performerAttacked(managedOperation)) {
-					throwOutOfGroup(performer, target, actionTarget, args, managedOperation, world, performerFacade);
-				}
-				int bounty = calculateBounty(managedOperation);
-				GroupPropertyUtils.getVillagersOrganization(world).getProperty(Constants.BOUNTY).incrementValue(performer, bounty);
 			}
 		}
 	}
@@ -169,5 +160,29 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 				target.getProperty(Constants.BACKGROUND).addGoalObstructed(obstructedGoal, performerFacade, actionTarget, managedOperation, args, world);
 			}
 		}
+	}
+
+	@Override
+	public void checkLegality(WorldObject performer, WorldObject target, ManagedOperation managedOperation, int[] args, World world) {
+		if (isIllegallyFighting(performer, target, managedOperation)) {
+			if (hasAnyoneSeenAction(performer, target, managedOperation, args, world)) {
+				if (performerViolatedGroupRules(performer, target, args, managedOperation, world)) {
+					
+					WorldObject performerFacade = FacadeUtils.createFacade(performer, performer, target, world);
+					//WorldObject targetFacade = FacadeUtils.createFacade(target, performer, target, world);
+					
+					if (performerAttacked(managedOperation)) {
+						throwOutOfGroup(performer, target, target, args, managedOperation, world, performerFacade);
+					}
+					int bounty = calculateBounty(managedOperation);
+					GroupPropertyUtils.getVillagersOrganization(world).getProperty(Constants.BOUNTY).incrementValue(performerFacade, bounty);
+				}
+			}
+		}
+		
+	}
+
+	private static boolean isIllegallyFighting(WorldObject performer, WorldObject target, ManagedOperation managedOperation) {
+		return !areBrawling(performer, target, managedOperation) && !areFightingInArena(performer, target, managedOperation);
 	}
 }

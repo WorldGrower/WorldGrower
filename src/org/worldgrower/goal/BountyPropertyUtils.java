@@ -12,32 +12,22 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.gui;
+package org.worldgrower.goal;
 
-import java.awt.event.ActionEvent;
-
-import javax.swing.AbstractAction;
-
+import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.IdMap;
 
-public class CharacterSheetAction extends AbstractAction {
+public class BountyPropertyUtils {
 
-	private WorldObject playerCharacter;
-	private CharacterDialog dialog;
-	private ImageInfoReader imageInfoReader;
-	private World world;
-	
-	public CharacterSheetAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, World world) {
-		super();
-		this.playerCharacter = playerCharacter;
-		this.imageInfoReader = imageInfoReader;
-		this.world = world;
+	public static int getBounty(WorldObject target, World world) {
+		IdMap bountyMap = GroupPropertyUtils.getVillagersOrganization(world).getProperty(Constants.BOUNTY);
+		int bounty = bountyMap.getValue(target);
+		return bounty;
 	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		dialog = new CharacterDialog(playerCharacter, imageInfoReader, world);
-		dialog.showMe();
+	
+	public static boolean canForgiveBounty(WorldObject performer) {
+		return performer.hasProperty(Constants.CAN_ATTACK_CRIMINALS) && performer.getProperty(Constants.CAN_ATTACK_CRIMINALS);
 	}
 }

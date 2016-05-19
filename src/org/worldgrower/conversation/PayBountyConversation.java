@@ -22,7 +22,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.attribute.IdMap;
+import org.worldgrower.goal.BountyPropertyUtils;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
@@ -50,7 +50,7 @@ public class PayBountyConversation implements Conversation {
 
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
-		int bounty = getBounty(target, world);
+		int bounty = BountyPropertyUtils.getBounty(performer, world);
 		return Arrays.asList(new Question(null, "I'm here to pay my bounty, " + bounty + " gold, what will you do?"));
 	}
 
@@ -72,7 +72,7 @@ public class PayBountyConversation implements Conversation {
 		World world = conversationContext.getWorld();
 		
 		if (replyIndex == YES) {
-			int bounty = getBounty(target, world);
+			int bounty = BountyPropertyUtils.getBounty(performer, world);
 			performer.increment(Constants.GOLD, -bounty);
 			target.increment(Constants.GOLD, bounty);
 			
@@ -86,17 +86,13 @@ public class PayBountyConversation implements Conversation {
 		GroupPropertyUtils.getVillagersOrganization(world).getProperty(Constants.BOUNTY).incrementValue(target, -bounty);
 	}
 
-	private int getBounty(WorldObject target, World world) {
-		IdMap bountyMap = GroupPropertyUtils.getVillagersOrganization(world).getProperty(Constants.BOUNTY);
-		int bounty = bountyMap.getValue(target);
-		return bounty;
-	}
-
 	@Override
 	public boolean isConversationAvailable(WorldObject performer, WorldObject target, WorldObject subject, World world) {
-		IdMap bountyMap = GroupPropertyUtils.getVillagersOrganization(world).getProperty(Constants.BOUNTY);
 		int performerGold = performer.getProperty(Constants.GOLD).intValue();
-		return bountyMap.getValue(performer) > 0 && performerGold >= getBounty(performer, world);
+		boolean hasPerformerBounty = BountyPropertyUtils.getBounty(performer, world) > 0;
+		boolean canPerformerPayBounty = performerGold >= BountyPropertyUtils.getBounty(performer, world);
+		boolean targetCanForgiveBounty = BountyPropertyUtils.canForgiveBounty(target);
+		return hasPerformerBounty && canPerformerPayBounty && targetCanForgiveBounty;
 	}
 
 	@Override

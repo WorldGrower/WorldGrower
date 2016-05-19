@@ -27,6 +27,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.Skill;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.condition.Conditions;
 
 public class UTestStealGoldAction {
 
@@ -112,6 +113,7 @@ public class UTestStealGoldAction {
 		performer.setProperty(Constants.WIDTH, 1);
 		performer.setProperty(Constants.HEIGHT, 1);
 		performer.setProperty(Constants.NAME, "Test");
+		performer.setProperty(Constants.CONDITIONS, new Conditions());
 		return performer;
 	}
 }

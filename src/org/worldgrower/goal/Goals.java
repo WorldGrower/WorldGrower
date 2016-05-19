@@ -154,4 +154,5 @@ public class Goals {
 	public static final BreweryGoal BREWERY_GOAL = new BreweryGoal(ALL_GOALS);
 	public static final ApothecaryGoal APOTHECARY_GOAL = new ApothecaryGoal(ALL_GOALS);
 	public static final GhoulMeatLevelGoal GHOUL_MEAT_LEVEL_GOAL = new GhoulMeatLevelGoal(ALL_GOALS);
+	public static final PayBountyGoal PAY_BOUNTY_GOAL = new PayBountyGoal(ALL_GOALS);
 }

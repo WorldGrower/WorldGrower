@@ -17,6 +17,7 @@ package org.worldgrower.goal;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.condition.Condition;
 
 public class ThieveryPropertyUtils {
 
@@ -54,6 +55,11 @@ public class ThieveryPropertyUtils {
 	
 	public static int getThieverySuccessPercentage(WorldObject performer, WorldObject target, int moneyValue, int weight) {
 		int thievery = Constants.THIEVERY_SKILL.getLevel(performer);
+		
+		if (performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.INVISIBLE_CONDITION)) {
+			thievery += 5;
+		}
+		
 		int successPercentage = (int)(10 + (thievery + 90) / (Math.log(moneyValue + weight + 2)));
 		if (successPercentage > 99) {
 			successPercentage = 99;

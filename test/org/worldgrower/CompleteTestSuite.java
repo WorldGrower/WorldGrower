@@ -114,6 +114,7 @@ import org.worldgrower.conversation.UTestMinorHealConversation;
 import org.worldgrower.conversation.UTestNicerConversation;
 import org.worldgrower.conversation.UTestNotNicerConversation;
 import org.worldgrower.conversation.UTestOrganizationConversation;
+import org.worldgrower.conversation.UTestPayBountyConversation;
 import org.worldgrower.conversation.UTestProfessionConversation;
 import org.worldgrower.conversation.UTestProfessionPractitionersConversation;
 import org.worldgrower.conversation.UTestProfessionReasonConversation;
@@ -675,7 +676,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestGhoulMeatLevelGoal.class,
 	UTestEatRemainsAction.class,
 	UTestCatchThievesGoal.class,
-	UTestCollectBountyFromThievesConversation.class
+	UTestCollectBountyFromThievesConversation.class,
+	UTestPayBountyConversation.class
 })
 public class CompleteTestSuite {
 }

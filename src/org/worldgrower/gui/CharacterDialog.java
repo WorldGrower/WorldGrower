@@ -37,6 +37,7 @@ import javax.swing.ListCellRenderer;
 import javax.swing.border.EmptyBorder;
 
 import org.worldgrower.Constants;
+import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.SkillProperty;
@@ -45,6 +46,7 @@ import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.generator.CommonerOnTurn;
 import org.worldgrower.goal.ArmorPropertyUtils;
+import org.worldgrower.goal.BountyPropertyUtils;
 import org.worldgrower.goal.MeleeDamagePropertyUtils;
 import org.worldgrower.gui.util.ButtonFactory;
 import org.worldgrower.gui.util.IconUtils;
@@ -83,7 +85,7 @@ public class CharacterDialog extends JDialog {
 	private JComboBox<ComboBoxEquipmentItem> cmbRightHand;
 	private JLabel lblDamageValue;
 
-	public CharacterDialog(WorldObject playerCharacter, ImageInfoReader imageInfoReader) {
+	public CharacterDialog(WorldObject playerCharacter, ImageInfoReader imageInfoReader, World world) {
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		IconUtils.setIcon(this);
 		setResizable(false);
@@ -112,6 +114,12 @@ public class CharacterDialog extends JDialog {
 		lblDeity.setBounds(12, 71, 120, 20);
 		lblDeity.setToolTipText("displays deity");
 		contentPanel.add(lblDeity);
+		
+		String bountyDescription = getBountyDescription(world);
+		JLabel lblBounty = JLabelFactory.createJLabel(bountyDescription);
+		lblBounty.setBounds(12, 100, 120, 20);
+		lblBounty.setToolTipText("displays bounty");
+		contentPanel.add(lblBounty);
 		
 		JPanel attributePanel = JPanelFactory.createJPanel("Attributes");
 		attributePanel.setToolTipText("shows player character attributes");
@@ -368,6 +376,15 @@ public class CharacterDialog extends JDialog {
 		SwingUtils.installEscapeCloseOperation(this);
 	}
 	
+	private String getBountyDescription(World world) {
+		int bounty = BountyPropertyUtils.getBounty(playerCharacter, world);
+		if (bounty == 0) {
+			return "no bounty";
+		} else {
+			return bounty + " gold bounty";
+		}
+	}
+
 	private SpecialAttribute[] getSpecialAttributes() {
 		List<SpecialAttribute> specialAttributesList = new ArrayList<>();
 		Integer pregnancyCounter = playerCharacter.getProperty(Constants.PREGNANCY);

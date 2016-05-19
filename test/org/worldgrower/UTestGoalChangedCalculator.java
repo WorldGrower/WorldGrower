@@ -45,6 +45,11 @@ public class UTestGoalChangedCalculator {
 
 		public boolean isGoalHindered() {
 			return goalHindered;
-		}	
+		}
+
+		@Override
+		public void checkLegality(WorldObject performer, WorldObject target, ManagedOperation managedOperation, int[] args, World world) {
+			
+		}
 	}
 }

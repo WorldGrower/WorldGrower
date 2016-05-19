@@ -22,4 +22,5 @@ import org.worldgrower.goal.Goal;
 public interface GoalObstructedHandler {
 
 	public void goalHindered(Goal obstructedGoal, WorldObject performer, WorldObject target, int stepsUntilLastGoal, int goalEvaluationDecrease, WorldObject actionTarget, ManagedOperation managedOperation, int[] args, World world);
+	public void checkLegality(WorldObject performer, WorldObject target, ManagedOperation managedOperation, int[] args, World world);
 }

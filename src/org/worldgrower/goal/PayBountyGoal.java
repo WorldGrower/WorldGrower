@@ -16,41 +16,27 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
-import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.actions.BuildShackAction;
-import org.worldgrower.attribute.BuildingType;
-import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.conversation.Conversations;
 
-public class ShackGoal implements Goal {
+public class PayBountyGoal implements Goal {
 
-	public ShackGoal(List<Goal> allGoals) {
+	public PayBountyGoal(List<Goal> allGoals) {
 		allGoals.add(this);
 	}
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		if (!GroupPropertyUtils.hasMoneyToPayShackTaxes(performer, world)) {
-			return null;
-		} else {
-			List<WorldObject> unownedShacks = BuildingGenerator.findUnownedBuildingsForClaiming(performer, Constants.SLEEP_COMFORT, w -> BuildingGenerator.isShack(w), world);
-			if (unownedShacks.size() > 0) {
-				return new OperationInfo(performer, unownedShacks.get(0), Args.EMPTY, Actions.CLAIM_BUILDING_ACTION);
-			} else if (!BuildShackAction.hasEnoughWood(performer)) {
-				return Goals.WOOD_GOAL.calculateGoal(performer, world);
-			} else {
-				WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 3, 4, world);
-				if (target != null) {
-					return new OperationInfo(performer, target, Args.EMPTY, Actions.BUILD_SHACK_ACTION);
-				} else {
-					return null;
-				}
-			}
+		List<WorldObject> targets = GoalUtils.findNearestTargetsByProperty(performer, Actions.TALK_ACTION, Constants.STRENGTH, w -> Conversations.PAY_BOUNTY_CONVERSATION.isConversationAvailable(performer, w, null, world), world);
+		if (targets.size() > 0) {
+			return new OperationInfo(performer, targets.get(0), Conversations.createArgs(Conversations.PAY_BOUNTY_CONVERSATION), Actions.TALK_ACTION);
 		}
+		
+		return null;
 	}
 	
 	@Override
@@ -59,7 +45,7 @@ public class ShackGoal implements Goal {
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		return performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.SHACK).size() > 0;
+		return BountyPropertyUtils.getBounty(performer, world) == 0;
 	}
 	
 	@Override
@@ -69,13 +55,11 @@ public class ShackGoal implements Goal {
 
 	@Override
 	public String getDescription() {
-		return "looking to own a place to rest";
+		return "paying a bounty";
 	}
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		return performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.SHACK).size()
-				+ performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD);
+		return 0;
 	}
-
 }
