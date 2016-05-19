@@ -17,19 +17,29 @@ package org.worldgrower.goal;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
+import org.worldgrower.World;
+import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
+import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.Conditions;
 
 public class UTestThieveryPropertyUtils {
 
 	@Test
 	public void testGetThieverySuccessPercentage() {
+		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(2);
+		performer.setProperty(Constants.CONDITIONS, new Conditions());
 		WorldObject target = TestUtils.createSkilledWorldObject(3);
 		
 		assertEquals(91, ThieveryPropertyUtils.getThieverySuccessPercentage(performer, target, 1, 0));
 		assertEquals(46, ThieveryPropertyUtils.getThieverySuccessPercentage(performer, target, 10, 0));
 		assertEquals(29, ThieveryPropertyUtils.getThieverySuccessPercentage(performer, target, 100, 0));
 		assertEquals(74, ThieveryPropertyUtils.getThieverySuccessPercentage(performer, target, 1, 1));
+	
+		Conditions.add(performer, Condition.INVISIBLE_CONDITION, 8, world);
+		assertEquals(96, ThieveryPropertyUtils.getThieverySuccessPercentage(performer, target, 1, 0));
 	}
 }
