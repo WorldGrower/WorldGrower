@@ -71,7 +71,7 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 		}
 	}
 
-	private static int calculateBounty(ManagedOperation managedOperation) {
+	static int calculateBounty(ManagedOperation managedOperation) {
 		final int bounty;
 		if (performerAttacked(managedOperation)) {
 			bounty = 200;

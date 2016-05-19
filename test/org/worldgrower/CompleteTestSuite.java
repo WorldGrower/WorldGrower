@@ -677,7 +677,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestEatRemainsAction.class,
 	UTestCatchThievesGoal.class,
 	UTestCollectBountyFromThievesConversation.class,
-	UTestPayBountyConversation.class
+	UTestPayBountyConversation.class,
+	UTestPayBountyGoal.class
 })
 public class CompleteTestSuite {
 }

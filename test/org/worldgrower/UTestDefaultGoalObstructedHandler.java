@@ -206,6 +206,12 @@ public class UTestDefaultGoalObstructedHandler {
 		assertEquals(-10, actionTarget.getProperty(Constants.RELATIONSHIPS).getValue(performer));
 		assertEquals(true, actionTarget.getProperty(Constants.GROUP).getIds().isEmpty());
 	}
+	
+	@Test
+	public void testCalculateBounty() {
+		assertEquals(40, DefaultGoalObstructedHandler.calculateBounty(Actions.STEAL_ACTION));
+		assertEquals(200, DefaultGoalObstructedHandler.calculateBounty(Actions.MELEE_ATTACK_ACTION));
+	}
 
 	private WorldObject createVillagersOrganization(World world) {
 		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
