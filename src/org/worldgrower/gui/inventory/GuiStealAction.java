@@ -115,6 +115,11 @@ public class GuiStealAction extends AbstractAction {
 		public InventoryItem getSelectedItem(InventoryDialog dialog) {
 			return dialog.getTargetSelectedValue();
 		}
+		
+		@Override
+		public boolean allowCancel() {
+			return true;
+		}
 	}
 	
 	public void steal(int[] args) {

@@ -19,6 +19,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
@@ -28,6 +29,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.actions.magic.ResearchSpellAction;
 import org.worldgrower.actions.magic.ScribeMagicSpellAction;
+import org.worldgrower.attribute.SkillProperty;
 
 public class UTestActions {
 
@@ -81,5 +83,37 @@ public class UTestActions {
 		
 		assertEquals(Actions.ANIMATE_DEAD_ACTION, actions.get(0));
 		assertEquals(Actions.WORSHIP_DEITY_ACTION, actions.get(1));
+	}
+	
+	@Test
+	public void testGetScribeMagicSpellActions() {
+		Map<SkillProperty, List<ManagedOperation>> scribeMagicSpellActions = Actions.getScribeMagicSpellActions();
+		
+		assertEquals(true, scribeMagicSpellActions.containsKey(Constants.EVOCATION_SKILL));
+		
+		List<ManagedOperation> scribeEvocationSpells = scribeMagicSpellActions.get(Constants.EVOCATION_SKILL);
+		assertEquals("scribe spell 'cast lock'", scribeEvocationSpells.get(0).getSimpleDescription());
+		assertEquals("scribe spell 'cast silence'", scribeEvocationSpells.get(1).getSimpleDescription());
+		assertEquals("scribe spell 'cast unlock'", scribeEvocationSpells.get(2).getSimpleDescription());
+		assertEquals("scribe spell 'create secret chest'", scribeEvocationSpells.get(3).getSimpleDescription());
+	}
+	
+	@Test
+	public void testSortSkillProperties() {
+		List<SkillProperty> skillProperties = Arrays.asList(Constants.ILLUSION_SKILL, Constants.EVOCATION_SKILL);
+		skillProperties = Actions.sortSkillProperties(skillProperties);
+		
+		assertEquals(2, skillProperties.size());
+		assertEquals(Constants.EVOCATION_SKILL, skillProperties.get(0));
+		assertEquals(Constants.ILLUSION_SKILL, skillProperties.get(1));
+	}
+	
+	@Test
+	public void testGetSortedSkillProperties() {
+		Map<SkillProperty, List<ManagedOperation>> scribeMagicSpellActions = Actions.getScribeMagicSpellActions();
+		List<SkillProperty> skillProperties = Actions.getSortedSkillProperties(scribeMagicSpellActions);
+		
+		assertEquals(Constants.ENCHANTMENT_SKILL, skillProperties.get(0));
+		assertEquals(Constants.EVOCATION_SKILL, skillProperties.get(1));
 	}
 }

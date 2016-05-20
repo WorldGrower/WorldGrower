@@ -99,6 +99,11 @@ public class GuiBuyAction extends AbstractAction {
 		public ActionListener getGuiAction2() {
 			return null;
 		}
+
+		@Override
+		public boolean allowCancel() {
+			return true;
+		}
 	}
 	
 	public void buy(int[] args) {

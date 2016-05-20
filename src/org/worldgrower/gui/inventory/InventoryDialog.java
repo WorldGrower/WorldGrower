@@ -140,9 +140,11 @@ public class InventoryDialog extends AbstractDialog {
 			buttonPane.add(okButton2);
 		}
 		
-		cancelButton = ButtonFactory.createButton("Cancel");
-		cancelButton.setActionCommand("Cancel");
-		buttonPane.add(cancelButton);
+		if (inventoryDialogAction.allowCancel()) {
+			cancelButton = ButtonFactory.createButton("Cancel");
+			cancelButton.setActionCommand("Cancel");
+			buttonPane.add(cancelButton);
+		}
 
 		inventoryJList = createInventoryList(inventoryDialogModel.getPlayerCharacterInventory(), imageInfoReader);
 		
@@ -346,10 +348,17 @@ public class InventoryDialog extends AbstractDialog {
 		public InventoryItem getSelectedItem(InventoryDialog dialog) {
 			return InventoryDialog.this.getPlayerCharacterSelectedValue();
 		}
+
+		@Override
+		public boolean allowCancel() {
+			return false;
+		}
 	}
 
 	private void addActions(InventoryDialogAction inventoryDialogAction) {
-		cancelButton.addActionListener(new CloseDialogAction());
+		if (cancelButton != null) {
+			cancelButton.addActionListener(new CloseDialogAction());
+		}
 		
 		inventoryJList.addListSelectionListener(new InventoryListSelectionListener(inventoryDialogAction));
 		inventoryJList.setSelectedIndex(0);

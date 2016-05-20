@@ -97,6 +97,11 @@ public class GuiSellAction extends AbstractAction {
 		public ActionListener getGuiAction2() {
 			return null;
 		}
+		
+		@Override
+		public boolean allowCancel() {
+			return true;
+		}
 	}
 	
 	public void sell(int[] args) {

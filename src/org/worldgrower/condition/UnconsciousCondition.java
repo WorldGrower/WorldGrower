@@ -17,6 +17,7 @@ package org.worldgrower.condition;
 import java.util.List;
 
 import org.worldgrower.Args;
+import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
@@ -45,7 +46,9 @@ public class UnconsciousCondition implements Condition {
 
 	@Override
 	public void onTurn(WorldObject worldObject, World world, int startTurn, WorldStateChangedListeners creatureTypeChangedListeners) {
-		Actions.REST_ACTION.execute(worldObject, worldObject, Args.EMPTY, world);
+		if (worldObject.hasProperty(Constants.CONSTITUTION)) {
+			Actions.REST_ACTION.execute(worldObject, worldObject, Args.EMPTY, world);
+		}
 	}
 	
 	@Override

@@ -253,4 +253,14 @@ public class UTestKnowledgeMap {
 		
 		assertEquals(false, knowledgeMap.hasEvent(worldObject, t -> t > 100, w -> true, world, Actions.MELEE_ATTACK_ACTION));
 	}
+	
+	@Test
+	public void testGetProperty() {
+		KnowledgeMap knowledgeMap = new KnowledgeMap();
+		WorldObject performer = TestUtils.createIntelligentWorldObject(2, Constants.PROFESSION, Professions.FARMER_PROFESSION);
+		Knowledge knowledge = new PropertyKnowledge(performer.getProperty(Constants.ID), Constants.PROFESSION, Professions.FARMER_PROFESSION);
+		knowledgeMap.addKnowledge(performer, knowledge);
+		
+		assertEquals(Professions.FARMER_PROFESSION, knowledgeMap.getProperty(performer.getProperty(Constants.ID), Constants.PROFESSION));
+	}
 }

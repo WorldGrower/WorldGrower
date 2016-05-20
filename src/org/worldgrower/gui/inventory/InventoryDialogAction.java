@@ -23,4 +23,5 @@ public interface InventoryDialogAction {
 	public ActionListener getGuiAction2();
 	public boolean isPossible(InventoryItem inventoryItem);
 	public InventoryItem getSelectedItem(InventoryDialog dialog);
+	public boolean allowCancel();
 }

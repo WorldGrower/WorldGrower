@@ -122,6 +122,16 @@ public class UTestKnowledgeToDescriptionMapper {
 	}
 	
 	@Test
+	public void testMapEventKnowledgeNoDeity() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject subject = TestUtils.createIntelligentWorldObject(3, Constants.NAME, "subject");
+		world.addWorldObject(subject);
+		
+		PropertyKnowledge knowledge = new PropertyKnowledge(subject.getProperty(Constants.ID), Constants.DEITY, null);
+		assertEquals("Did you know that subject doesn't worship a deity?", mapper.getQuestionDescription(knowledge, world));
+	}
+	
+	@Test
 	public void testMapEventKnowledgeProfession() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject subject = TestUtils.createIntelligentWorldObject(3, Constants.NAME, "subject");
@@ -129,6 +139,16 @@ public class UTestKnowledgeToDescriptionMapper {
 		
 		PropertyKnowledge knowledge = new PropertyKnowledge(subject.getProperty(Constants.ID), Constants.PROFESSION, Professions.FARMER_PROFESSION);
 		assertEquals("Did you know that subject is a farmer?", mapper.getQuestionDescription(knowledge, world));
+	}
+	
+	@Test
+	public void testMapEventKnowledgeNoProfession() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject subject = TestUtils.createIntelligentWorldObject(3, Constants.NAME, "subject");
+		world.addWorldObject(subject);
+		
+		PropertyKnowledge knowledge = new PropertyKnowledge(subject.getProperty(Constants.ID), Constants.PROFESSION, null);
+		assertEquals("Did you know that subject doesn't have a profession?", mapper.getQuestionDescription(knowledge, world));
 	}
 	
 	@Test
@@ -154,5 +174,28 @@ public class UTestKnowledgeToDescriptionMapper {
 		
 		PropertyKnowledge knowledge = new PropertyKnowledge(subject.getProperty(Constants.ID), Constants.ORGANIZATION_LEADER_ID, leader.getProperty(Constants.ID));
 		assertEquals("Did you know that leader is the leader of the subject?", mapper.getQuestionDescription(knowledge, world));
+	}
+	
+	@Test
+	public void testMapOrganizationNoLeader() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject subject = TestUtils.createIntelligentWorldObject(3, Constants.NAME, "subject");
+		WorldObject leader = TestUtils.createIntelligentWorldObject(4, Constants.NAME, "leader");
+		world.addWorldObject(subject);
+		world.addWorldObject(leader);
+		
+		PropertyKnowledge knowledge = new PropertyKnowledge(subject.getProperty(Constants.ID), Constants.ORGANIZATION_LEADER_ID, null);
+		assertEquals("Did you know that subject doesn't have a leader?", mapper.getQuestionDescription(knowledge, world));
+	}
+	
+	@Test
+	public void testMapPropertyKnowledgeTrappedContainer() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.NAME, "performer");
+		world.addWorldObject(performer);
+		
+		PropertyKnowledge knowledge = new PropertyKnowledge(performer.getProperty(Constants.ID), Constants.TRAPPED_CONTAINER_DAMAGE, 5);
+		
+		assertEquals("Did you know that performer is magically trapped?", mapper.getQuestionDescription(knowledge, world));
 	}
 }
