@@ -16,6 +16,7 @@ package org.worldgrower.gui.inventory;
 
 import java.awt.CardLayout;
 import java.awt.FlowLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -41,6 +42,7 @@ import javax.swing.KeyStroke;
 import javax.swing.ListModel;
 
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.Prices;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.gui.AbstractDialog;
@@ -117,13 +119,13 @@ public class InventoryDialog extends AbstractDialog {
 		okButton.addActionListener(new CloseDialogAction());
 
 		rootInventoryPanel = JPanelFactory.createBorderlessPanel();
-		rootInventoryPanel.setBounds(12, 12, 500, 450);
+		rootInventoryPanel.setBounds(12, 12, 550, 450);
 		CardLayout cardLayout = new CardLayout();
 		rootInventoryPanel.setLayout(cardLayout);
 		addComponent(rootInventoryPanel);
 		
 		inventoryPanel = JPanelFactory.createBorderlessPanel();
-		inventoryPanel.setBounds(0, 0, 500, 450);
+		inventoryPanel.setBounds(0, 0, 550, 450);
 		inventoryPanel.setLayout(null);
 		inventoryPanel.setOpaque(true);
 		inventoryPanel.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
@@ -165,7 +167,7 @@ public class InventoryDialog extends AbstractDialog {
 		if (inventoryDialogModel.hasTarget()) {
 			targetInventoryPanel = JPanelFactory.createBorderlessPanel();
 			targetInventoryPanel.setLayout(null);
-			targetInventoryPanel.setBounds(0, 0, 500, 450);
+			targetInventoryPanel.setBounds(0, 0, 550, 450);
 			targetInventoryPanel.setOpaque(true);
 			targetInventoryPanel.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
 			rootInventoryPanel.add(targetInventoryPanel, "target");
@@ -181,14 +183,19 @@ public class InventoryDialog extends AbstractDialog {
 				JLabel targetMoneyLabel = JLabelFactory.createJLabel("Money:");
 				targetMoneyLabel.setToolTipText(MONEY_TARGET_TOOL_TIP);
 				targetMoneyLabel.setBounds(312, 200, 64, 25);
-				targetMoneyLabel.addMouseListener(new StealMoneyMouseListener(inventoryActionFactory));
 				targetInventoryPanel.add(targetMoneyLabel);
 				
 				targetMoney = JLabelFactory.createJLabel(inventoryDialogModel.getTargetMoney());
 				targetMoney.setToolTipText(MONEY_TARGET_TOOL_TIP);
 				targetMoney.setBounds(377, 200, 50, 25);
-				targetMoney.addMouseListener(new StealMoneyMouseListener(inventoryActionFactory));
 				targetInventoryPanel.add(targetMoney);
+				
+				Image stealGoldImage = imageInfoReader.getImage(Actions.STEAL_GOLD_ACTION.getImageIds(), null);
+				JButton stealMoneyButton = ButtonFactory.createButton("Steal gold", new ImageIcon(stealGoldImage));
+				stealMoneyButton.setToolTipText("steal gold");
+				stealMoneyButton.setBounds(427, 200, 120, 50);
+				stealMoneyButton.addActionListener(inventoryActionFactory.getTargetMoneyActions().get(0));
+				targetInventoryPanel.add(stealMoneyButton);
 			}
 			
 			if (inventoryDialogModel.hasTargetCarryingCapacity()) {
@@ -211,13 +218,15 @@ public class InventoryDialog extends AbstractDialog {
 			
 			lblPlayercharacter = JLabelFactory.createJLabel(inventoryDialogModel.getPlayerCharacterName(), inventoryDialogModel.getPlayerCharacterImage(imageInfoReader));
 			lblPlayercharacter.setToolTipText(inventoryDialogModel.getPlayerCharacterName());
-			lblPlayercharacter.setBounds(12, 5, 148, 48);
+			lblPlayercharacter.setBounds(0, 0, 200, 50);
+			lblPlayercharacter.setOpaque(true);
 			lblPlayercharacter.addMouseListener(new SwitchPanelMouseAdapter(this::setPlayerCharacterPanelOnTop));
 			containersPanel.add(lblPlayercharacter);
 			
 			lblTarget = JLabelFactory.createJLabel(inventoryDialogModel.getTargetName(), inventoryDialogModel.getTargetImage(imageInfoReader));
 			lblTarget.setToolTipText(inventoryDialogModel.getTargetName());
-			lblTarget.setBounds(250, 5, 148, 48);
+			lblTarget.setBounds(200, 0, 200, 50);
+			lblTarget.setOpaque(true);
 			lblTarget.addMouseListener(new SwitchPanelMouseAdapter(this::setTargetInventoryOnTop));
 			containersPanel.add(lblTarget);
 			
@@ -243,38 +252,22 @@ public class InventoryDialog extends AbstractDialog {
 		}
 	}
 	
-	private static class StealMoneyMouseListener extends MouseAdapter {
-		private final InventoryActionFactory inventoryActionFactory;
-		
-		public StealMoneyMouseListener(InventoryActionFactory inventoryActionFactory) {
-			super();
-			this.inventoryActionFactory = inventoryActionFactory;
-		}
-
-		@Override
-		public void mouseClicked(MouseEvent e) {
-			JPopupMenu popupMenu = MenuFactory.createJPopupMenu();
-			for(Action inventoryDialogAction : inventoryActionFactory.getTargetMoneyActions()) {
-				JMenuItem actionMenuItem = MenuFactory.createJMenuItem(inventoryDialogAction);
-				actionMenuItem.setToolTipText((String) inventoryDialogAction.getValue(Action.LONG_DESCRIPTION));
-				popupMenu.add(actionMenuItem);
-			}
-	        popupMenu.show(e.getComponent(), e.getX(), e.getY());
-		}
-	}
-	
 	private void setPlayerCharacterPanelOnTop() {
 		CardLayout cardLayout = (CardLayout) rootInventoryPanel.getLayout();
 		cardLayout.show(rootInventoryPanel, "player");
 		lblPlayercharacter.setFont(Fonts.BOLD_FONT);
+		lblPlayercharacter.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
 		lblTarget.setFont(Fonts.FONT);
+		lblTarget.setBackground(ColorPalette.LIGHT_BACKGROUND_COLOR);
 	}
 	
 	private void setTargetInventoryOnTop() {
 		CardLayout cardLayout = (CardLayout) rootInventoryPanel.getLayout();
 		cardLayout.show(rootInventoryPanel, "target");
 		lblPlayercharacter.setFont(Fonts.FONT);
+		lblPlayercharacter.setBackground(ColorPalette.LIGHT_BACKGROUND_COLOR);
 		lblTarget.setFont(Fonts.BOLD_FONT);
+		lblTarget.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
 	}
 	
 	private interface Procedure {

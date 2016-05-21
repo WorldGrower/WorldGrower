@@ -112,28 +112,36 @@ public class InventoryActionFactory {
 	
 	public List<Action> getTargetMoneyActions() {
 		List<Action> inventoryActions = new ArrayList<>();
-		Action stealMoneyAction = new AbstractAction() {
-			@Override
-			public void actionPerformed(ActionEvent actionEvent) {
-				int targetGold = target.getProperty(Constants.GOLD).intValue();
-				TextInputDialog textInputDialog = new TextInputDialog("Steal how much money (1-" + targetGold + ")?", true);
-				String input = textInputDialog.showMe();
-				if (input != null && input.length() > 0 && NumberUtils.isNumeric(input)) {
-					int amount = Integer.parseInt(input);
-					if (amount > 0 && amount <= targetGold) {
-						int[] args = new int[] { amount };
-						Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, playerCharacter.getOperation(Actions.STEAL_GOLD_ACTION), args, world, dungeonMaster, target, container);
-						
-						dialog.refresh(new InventoryDialogModel(playerCharacter, target));
-					}
-				}
-			}
-		};
+		Action stealMoneyAction = new StealAction();
 		inventoryActions.add(stealMoneyAction);
 		
 		return inventoryActions;
 	}
 	
+	private class StealAction extends AbstractAction {
+		
+		public StealAction() {
+			super(Actions.STEAL_ACTION.getSimpleDescription(), new ImageIcon(imageInfoReader.getImage(Actions.STEAL_ACTION.getImageIds(), null)));
+			this.putValue(Action.LONG_DESCRIPTION, Actions.STEAL_ACTION.getRequirementsDescription());
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent actionEvent) {
+			int targetGold = target.getProperty(Constants.GOLD).intValue();
+			TextInputDialog textInputDialog = new TextInputDialog("Steal how much money (1-" + targetGold + ")?", true);
+			String input = textInputDialog.showMe();
+			if (input != null && input.length() > 0 && NumberUtils.isNumeric(input)) {
+				int amount = Integer.parseInt(input);
+				if (amount > 0 && amount <= targetGold) {
+					int[] args = new int[] { amount };
+					Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, playerCharacter.getOperation(Actions.STEAL_GOLD_ACTION), args, world, dungeonMaster, target, container);
+					
+					dialog.refresh(new InventoryDialogModel(playerCharacter, target));
+				}
+			}
+		}
+	}
+
 	private class InventoryItemAction extends AbstractAction {
 		
 		private final ManagedOperation action;
