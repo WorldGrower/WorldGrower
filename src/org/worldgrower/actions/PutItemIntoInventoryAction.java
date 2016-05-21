@@ -68,12 +68,12 @@ public class PutItemIntoInventoryAction implements ManagedOperation {
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "taking items from " + target.getProperty(Constants.NAME);
+		return "storing items from " + target.getProperty(Constants.NAME);
 	}
 
 	@Override
 	public String getSimpleDescription() {
-		return "take item";
+		return "store item";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {

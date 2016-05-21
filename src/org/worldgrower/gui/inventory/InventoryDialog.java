@@ -14,6 +14,7 @@
  *******************************************************************************/
 package org.worldgrower.gui.inventory;
 
+import java.awt.CardLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -38,19 +39,18 @@ import javax.swing.JScrollPane;
 import javax.swing.JToolTip;
 import javax.swing.KeyStroke;
 import javax.swing.ListModel;
-import javax.swing.SwingUtilities;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
-import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.Prices;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.gui.AbstractDialog;
+import org.worldgrower.gui.ColorPalette;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
+import org.worldgrower.gui.font.Fonts;
 import org.worldgrower.gui.util.ButtonFactory;
 import org.worldgrower.gui.util.JLabelFactory;
+import org.worldgrower.gui.util.JPanelFactory;
 import org.worldgrower.gui.util.MenuFactory;
 
 public class InventoryDialog extends AbstractDialog {
@@ -63,18 +63,25 @@ public class InventoryDialog extends AbstractDialog {
 	
 	private final ImageInfoReader imageInfoReader;
 	
+	private JPanel rootInventoryPanel;
+	
+	private JPanel inventoryPanel;
 	private JList<InventoryItem> inventoryJList;
 	private JButton okButton;
-	private JButton okButton2;
-	private JButton cancelButton;
+
 	private JLabel moneyValueLabel;
 	private JLabel weightLabelValue;
 
+	private JPanel targetInventoryPanel;
 	private JList<InventoryItem> targetInventoryList;
 	private JLabel targetMoney;
 	private JLabel targetWeight;
 	
 	private JButton pricesButton;
+	
+	private JPanel containersPanel;
+	private JLabel lblPlayercharacter;
+	private JLabel lblTarget;
 	
 	private final class CloseDialogAction implements ActionListener {
 		@Override
@@ -83,44 +90,17 @@ public class InventoryDialog extends AbstractDialog {
 		}
 	}
 	
-	private final class ApplyAndCloseAction implements ActionListener {
-		
-		private final WorldObjectContainer inventory;
-		public ApplyAndCloseAction(WorldObjectContainer inventory) {
-			this.inventory = inventory;
-		}
-
-		@Override
-		public void actionPerformed(ActionEvent actionEvent) {
-			for(int index = 0; index < inventoryJList.getModel().getSize(); index++) {
-				InventoryItem inventoryItem = inventoryJList.getModel().getElementAt(index);
-				
-				inventory.setProperty(index, Constants.SELLABLE, inventoryItem.isSellable());
-			}
-			InventoryDialog.this.dispose();
-		}
-	}
-	
 	/**
 	 * @wbp.parser.constructor
 	 */
-	public InventoryDialog(InventoryDialogModel inventoryDialogModel, InventoryDialogAction inventoryDialogAction, ImageInfoReader imageInfoReader, InventoryActionFactory inventoryActionFactory) {
+	public InventoryDialog(InventoryDialogModel inventoryDialogModel, ImageInfoReader imageInfoReader, InventoryActionFactory inventoryActionFactory) {
 		super(762, 690);
 		this.imageInfoReader = imageInfoReader;
-		if (inventoryDialogAction == null) {
-			inventoryDialogAction = new DefaultInventoryDialogAction(inventoryDialogModel.getPlayerCharacterInventory());
-		}
 		
-		initializeGUI(inventoryDialogModel, inventoryDialogAction, imageInfoReader, inventoryActionFactory);
-		
-		okButton.addActionListener(inventoryDialogAction.getGuiAction());
-		if (inventoryDialogAction.getGuiAction2() != null) {
-			okButton2.addActionListener(inventoryDialogAction.getGuiAction2());
-		}
-		addActions(inventoryDialogAction);
+		initializeGUI(inventoryDialogModel, imageInfoReader, inventoryActionFactory);
 	}
 
-	private void initializeGUI(InventoryDialogModel inventoryDialogModel, InventoryDialogAction inventoryDialogAction, ImageInfoReader imageInfoReader, InventoryActionFactory inventoryActionFactory) {
+	private void initializeGUI(InventoryDialogModel inventoryDialogModel, ImageInfoReader imageInfoReader, InventoryActionFactory inventoryActionFactory) {
 		KeyStroke stroke = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
         rootPane.registerKeyboardAction(new CloseDialogAction(), stroke, JComponent.WHEN_IN_FOCUSED_WINDOW);
 			
@@ -130,107 +110,175 @@ public class InventoryDialog extends AbstractDialog {
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		addComponent(buttonPane);
 
-		okButton = ButtonFactory.createButton(inventoryDialogAction.getDescription());
+		okButton = ButtonFactory.createButton("Ok");
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
+		okButton.addActionListener(new CloseDialogAction());
 
-		if (inventoryDialogAction.getGuiAction2() != null) {
-			okButton2 = ButtonFactory.createButton(inventoryDialogAction.getDescription2());
-			buttonPane.add(okButton2);
-		}
+		rootInventoryPanel = JPanelFactory.createBorderlessPanel();
+		rootInventoryPanel.setBounds(12, 12, 500, 450);
+		CardLayout cardLayout = new CardLayout();
+		rootInventoryPanel.setLayout(cardLayout);
+		addComponent(rootInventoryPanel);
 		
-		if (inventoryDialogAction.allowCancel()) {
-			cancelButton = ButtonFactory.createButton("Cancel");
-			cancelButton.setActionCommand("Cancel");
-			buttonPane.add(cancelButton);
-		}
-
+		inventoryPanel = JPanelFactory.createBorderlessPanel();
+		inventoryPanel.setBounds(0, 0, 500, 450);
+		inventoryPanel.setLayout(null);
+		inventoryPanel.setOpaque(true);
+		inventoryPanel.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
+		rootInventoryPanel.add(inventoryPanel, "player");
+		
 		inventoryJList = createInventoryList(inventoryDialogModel.getPlayerCharacterInventory(), imageInfoReader);
 		
 		JScrollPane inventoryScrollPane = new JScrollPane();
 		inventoryScrollPane.setViewportView(inventoryJList);
 		inventoryScrollPane.setBounds(12, 82, 200, 450);
-		addComponent(inventoryScrollPane);
+		inventoryPanel.add(inventoryScrollPane);
 		
 		final JLabel moneyLabel = JLabelFactory.createJLabel("Money:");
 		moneyLabel.setToolTipText(MONEY_PLAYER_CHARACTER_TOOL_TIP);
-		moneyLabel.setBounds(12, 555, 64, 25);
-		addComponent(moneyLabel);
+		moneyLabel.setBounds(312, 200, 64, 25);
+		inventoryPanel.add(moneyLabel);
 		
 		moneyValueLabel = JLabelFactory.createJLabel(inventoryDialogModel.getPlayerCharacterMoney());
 		moneyValueLabel.setToolTipText(MONEY_PLAYER_CHARACTER_TOOL_TIP);
-		moneyValueLabel.setBounds(77, 555, 50, 25);
-		addComponent(moneyValueLabel);
+		moneyValueLabel.setBounds(377, 200, 50, 25);
+		inventoryPanel.add(moneyValueLabel);
 		
 		JLabel lblWeight = JLabelFactory.createJLabel("Weight:");
 		lblWeight.setToolTipText(WEIGHT_PLAYER_CHARACTER_TOOL_TIP);
-		lblWeight.setBounds(127, 555, 64, 25);
-		addComponent(lblWeight);
+		lblWeight.setBounds(312, 250, 64, 25);
+		inventoryPanel.add(lblWeight);
 		
 		String weightString = getPlayerCharacterWeight(inventoryDialogModel);
 		weightLabelValue = JLabelFactory.createJLabel(weightString);
 		weightLabelValue.setToolTipText(WEIGHT_PLAYER_CHARACTER_TOOL_TIP);
-		weightLabelValue.setBounds(203, 555, 64, 25);
-		addComponent(weightLabelValue);
+		weightLabelValue.setBounds(377, 250, 64, 25);
+		inventoryPanel.add(weightLabelValue);
 		
 		pricesButton = ButtonFactory.createButton("Prices");
 		pricesButton.setToolTipText(PRICES_TOOL_TIP);
 		pricesButton.setBounds(224, 399, 100, 25);
-		addComponent(pricesButton);
-
-		JLabel lblPlayercharacter = JLabelFactory.createJLabel(inventoryDialogModel.getPlayerCharacterImage(imageInfoReader));
-		lblPlayercharacter.setToolTipText(inventoryDialogModel.getPlayerCharacterName());
-		lblPlayercharacter.setBounds(12, 30, 48, 48);
-		addComponent(lblPlayercharacter);
-		
-		
+		inventoryPanel.add(pricesButton);
 
 		if (inventoryDialogModel.hasTarget()) {
+			targetInventoryPanel = JPanelFactory.createBorderlessPanel();
+			targetInventoryPanel.setLayout(null);
+			targetInventoryPanel.setBounds(0, 0, 500, 450);
+			targetInventoryPanel.setOpaque(true);
+			targetInventoryPanel.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
+			rootInventoryPanel.add(targetInventoryPanel, "target");
+			
 			JScrollPane scrollPane = new JScrollPane();
-			scrollPane.setBounds(532, 82, 200, 450);
-			addComponent(scrollPane);
+			scrollPane.setBounds(12, 82, 200, 450);
+			targetInventoryPanel.add(scrollPane);
 			
 			targetInventoryList = createInventoryList(inventoryDialogModel.getTargetInventory(), imageInfoReader);
 			scrollPane.setViewportView(targetInventoryList);
 			
-			JLabel lblTarget = JLabelFactory.createJLabel(inventoryDialogModel.getTargetImage(imageInfoReader));
-			lblTarget.setToolTipText(inventoryDialogModel.getTargetName());
-			lblTarget.setBounds(532, 30, 48, 48);
-			addComponent(lblTarget);
-			
-			JLabel targetMoneyLabel = JLabelFactory.createJLabel("Money:");
-			targetMoneyLabel.setToolTipText(MONEY_TARGET_TOOL_TIP);
-			targetMoneyLabel.setBounds(477, 555, 64, 25);
-			addComponent(targetMoneyLabel);
-			
 			if (inventoryDialogModel.hasTargetMoney()) {
+				JLabel targetMoneyLabel = JLabelFactory.createJLabel("Money:");
+				targetMoneyLabel.setToolTipText(MONEY_TARGET_TOOL_TIP);
+				targetMoneyLabel.setBounds(312, 200, 64, 25);
+				targetMoneyLabel.addMouseListener(new StealMoneyMouseListener(inventoryActionFactory));
+				targetInventoryPanel.add(targetMoneyLabel);
+				
 				targetMoney = JLabelFactory.createJLabel(inventoryDialogModel.getTargetMoney());
 				targetMoney.setToolTipText(MONEY_TARGET_TOOL_TIP);
-				targetMoney.setBounds(542, 555, 50, 25);
-				addComponent(targetMoney);
+				targetMoney.setBounds(377, 200, 50, 25);
+				targetMoney.addMouseListener(new StealMoneyMouseListener(inventoryActionFactory));
+				targetInventoryPanel.add(targetMoney);
 			}
 			
 			if (inventoryDialogModel.hasTargetCarryingCapacity()) {
 				JLabel targetWeightLabel = JLabelFactory.createJLabel("Weight:");
 				targetWeightLabel.setToolTipText(WEIGHT_TARGET_TOOL_TIP);
-				targetWeightLabel.setBounds(592, 555, 64, 25);
-				addComponent(targetWeightLabel);
+				targetWeightLabel.setBounds(312, 250, 64, 25);
+				targetInventoryPanel.add(targetWeightLabel);
 				
 				String targetWeightString = getTargetWeight(inventoryDialogModel);
 				targetWeight = JLabelFactory.createJLabel(targetWeightString);
 				targetWeight.setToolTipText(WEIGHT_TARGET_TOOL_TIP);
-				targetWeight.setBounds(668, 555, 64, 25);
-				addComponent(targetWeight);
+				targetWeight.setBounds(377, 250, 64, 25);
+				targetInventoryPanel.add(targetWeight);
 			}
+			
+			containersPanel = JPanelFactory.createBorderlessPanel();
+			containersPanel.setLayout(null);
+			containersPanel.setBounds(12, 540, 400, 50);
+			addComponent(containersPanel);
+			
+			lblPlayercharacter = JLabelFactory.createJLabel(inventoryDialogModel.getPlayerCharacterName(), inventoryDialogModel.getPlayerCharacterImage(imageInfoReader));
+			lblPlayercharacter.setToolTipText(inventoryDialogModel.getPlayerCharacterName());
+			lblPlayercharacter.setBounds(12, 5, 148, 48);
+			lblPlayercharacter.addMouseListener(new SwitchPanelMouseAdapter(this::setPlayerCharacterPanelOnTop));
+			containersPanel.add(lblPlayercharacter);
+			
+			lblTarget = JLabelFactory.createJLabel(inventoryDialogModel.getTargetName(), inventoryDialogModel.getTargetImage(imageInfoReader));
+			lblTarget.setToolTipText(inventoryDialogModel.getTargetName());
+			lblTarget.setBounds(250, 5, 148, 48);
+			lblTarget.addMouseListener(new SwitchPanelMouseAdapter(this::setTargetInventoryOnTop));
+			containersPanel.add(lblTarget);
+			
+			setPlayerCharacterPanelOnTop();
 		}
 		
 		setInventoryActions(inventoryDialogModel.getPlayerCharacterPrices());
 		addPopupMenuToInventoryList(inventoryDialogModel, inventoryActionFactory);
+	}
+	
+	private static class SwitchPanelMouseAdapter extends MouseAdapter {
+
+		private final Procedure switchFunction;
 		
-		if (inventoryJList.getModel().getSize() == 0) {
-			okButton.setEnabled(false);
+		public SwitchPanelMouseAdapter(Procedure switchFunction) {
+			super();
+			this.switchFunction = switchFunction;
 		}
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			switchFunction.execute();
+		}
+	}
+	
+	private static class StealMoneyMouseListener extends MouseAdapter {
+		private final InventoryActionFactory inventoryActionFactory;
+		
+		public StealMoneyMouseListener(InventoryActionFactory inventoryActionFactory) {
+			super();
+			this.inventoryActionFactory = inventoryActionFactory;
+		}
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			JPopupMenu popupMenu = MenuFactory.createJPopupMenu();
+			for(Action inventoryDialogAction : inventoryActionFactory.getTargetMoneyActions()) {
+				JMenuItem actionMenuItem = MenuFactory.createJMenuItem(inventoryDialogAction);
+				actionMenuItem.setToolTipText((String) inventoryDialogAction.getValue(Action.LONG_DESCRIPTION));
+				popupMenu.add(actionMenuItem);
+			}
+	        popupMenu.show(e.getComponent(), e.getX(), e.getY());
+		}
+	}
+	
+	private void setPlayerCharacterPanelOnTop() {
+		CardLayout cardLayout = (CardLayout) rootInventoryPanel.getLayout();
+		cardLayout.show(rootInventoryPanel, "player");
+		lblPlayercharacter.setFont(Fonts.BOLD_FONT);
+		lblTarget.setFont(Fonts.FONT);
+	}
+	
+	private void setTargetInventoryOnTop() {
+		CardLayout cardLayout = (CardLayout) rootInventoryPanel.getLayout();
+		cardLayout.show(rootInventoryPanel, "target");
+		lblPlayercharacter.setFont(Fonts.FONT);
+		lblTarget.setFont(Fonts.BOLD_FONT);
+	}
+	
+	private interface Procedure {
+		public void execute();
 	}
 	
 	private void addPopupMenuToInventoryList(InventoryDialogModel inventoryDialogModel, InventoryActionFactory inventoryActionFactory) {
@@ -238,17 +286,15 @@ public class InventoryDialog extends AbstractDialog {
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-		        if (SwingUtilities.isRightMouseButton(e)) {
-		        	int row = inventoryJList.locationToIndex(e.getPoint());
-		        	inventoryJList.setSelectedIndex(row);
-			        InventoryItem inventoryItem = inventoryJList.getSelectedValue();
-			        
+		        InventoryItem inventoryItem = inventoryJList.getSelectedValue();
+		        
+		        if (inventoryItem != null) {
 			        JPopupMenu popupMenu = MenuFactory.createJPopupMenu();
 			        JCheckBoxMenuItem sellableMenuItem = createSellableMenuItem(inventoryItem);
 					popupMenu.add(sellableMenuItem);
-			        addMenuActions(popupMenu, inventoryItem, inventoryDialogModel, inventoryActionFactory);
+					addPlayerCharacterMenuActions(popupMenu, inventoryItem, inventoryDialogModel, inventoryActionFactory);
 			        popupMenu.show(inventoryJList, e.getX(), e.getY());
-			    }
+		        }
 			}
 
 			private JCheckBoxMenuItem createSellableMenuItem(InventoryItem inventoryItem) {
@@ -258,6 +304,22 @@ public class InventoryDialog extends AbstractDialog {
 				return sellableMenuItem;
 			}
 		});
+		
+		if (targetInventoryList != null) {
+			targetInventoryList.addMouseListener(new MouseAdapter() {
+
+				@Override
+				public void mousePressed(MouseEvent e) {
+			        InventoryItem inventoryItem = targetInventoryList.getSelectedValue();
+			        
+			        if (inventoryItem != null) {
+				        JPopupMenu popupMenu = MenuFactory.createJPopupMenu();
+						addTargetMenuActions(popupMenu, inventoryItem, inventoryDialogModel, inventoryActionFactory);
+				        popupMenu.show(targetInventoryList, e.getX(), e.getY());
+			        }
+				}
+			});
+		}
 	}
 	
 	private class SellableAction extends AbstractAction {
@@ -299,85 +361,20 @@ public class InventoryDialog extends AbstractDialog {
 		pricesButton.addActionListener(e -> new PricesDialog(pricesOnPlayer).showMe());
 	}
 
-	private void addMenuActions(JPopupMenu popupMenu, InventoryItem inventoryItem, InventoryDialogModel inventoryDialogModel, InventoryActionFactory inventoryActionFactory) {
-		for(Action inventoryDialogAction : inventoryActionFactory.getInventoryActions(inventoryItem.getId())) {
+	private void addPlayerCharacterMenuActions(JPopupMenu popupMenu, InventoryItem inventoryItem, InventoryDialogModel inventoryDialogModel, InventoryActionFactory inventoryActionFactory) {
+		for(Action inventoryDialogAction : inventoryActionFactory.getPlayerCharacterInventoryActions(inventoryItem.getId())) {
 			JMenuItem actionMenuItem = MenuFactory.createJMenuItem(inventoryDialogAction);
 			actionMenuItem.setToolTipText((String) inventoryDialogAction.getValue(Action.LONG_DESCRIPTION));
 			popupMenu.add(actionMenuItem);
 		}
 	}
-
-	public InventoryDialog(InventoryDialogModel inventoryDialogModel, ImageInfoReader imageInfoReader, InventoryActionFactory inventoryActionFactory) {
-		this(inventoryDialogModel, null, imageInfoReader, inventoryActionFactory);
-	}
 	
-	private class DefaultInventoryDialogAction implements InventoryDialogAction {
-
-		private final WorldObjectContainer inventory;
-
-		private DefaultInventoryDialogAction(WorldObjectContainer inventory) {
-			this.inventory = inventory;
+	private void addTargetMenuActions(JPopupMenu popupMenu, InventoryItem inventoryItem, InventoryDialogModel inventoryDialogModel, InventoryActionFactory inventoryActionFactory) {
+		for(Action inventoryDialogAction : inventoryActionFactory.getTargetInventoryActions(inventoryItem.getId())) {
+			JMenuItem actionMenuItem = MenuFactory.createJMenuItem(inventoryDialogAction);
+			actionMenuItem.setToolTipText((String) inventoryDialogAction.getValue(Action.LONG_DESCRIPTION));
+			popupMenu.add(actionMenuItem);
 		}
-
-		@Override
-		public String getDescription() {
-			return "OK";
-		}
-		
-		@Override
-		public String getDescription2() {
-			return null;
-		}
-
-		@Override
-		public ActionListener getGuiAction() {
-			return new ApplyAndCloseAction(inventory);
-		}
-		
-		@Override
-		public ActionListener getGuiAction2() {
-			return null;
-		}
-
-		@Override
-		public boolean isPossible(InventoryItem inventoryItem) {
-			return true;
-		}
-
-		@Override
-		public InventoryItem getSelectedItem(InventoryDialog dialog) {
-			return InventoryDialog.this.getPlayerCharacterSelectedValue();
-		}
-
-		@Override
-		public boolean allowCancel() {
-			return false;
-		}
-	}
-
-	private void addActions(InventoryDialogAction inventoryDialogAction) {
-		if (cancelButton != null) {
-			cancelButton.addActionListener(new CloseDialogAction());
-		}
-		
-		inventoryJList.addListSelectionListener(new InventoryListSelectionListener(inventoryDialogAction));
-		inventoryJList.setSelectedIndex(0);
-
-		if (targetInventoryList != null) {
-			targetInventoryList.addListSelectionListener(new InventoryListSelectionListener(inventoryDialogAction));
-			targetInventoryList.setSelectedIndex(0);
-		}
-		
-		pricesButton.addActionListener(new ShowPriceDialogAction());
-	}
-	
-	private static class ShowPriceDialogAction extends AbstractAction {
-
-		@Override
-		public void actionPerformed(ActionEvent arg0) {
-			
-		}
-		
 	}
 
 	private JList<InventoryItem> createInventoryList(WorldObjectContainer inventory, ImageInfoReader imageInfoReader) {
@@ -444,24 +441,5 @@ public class InventoryDialog extends AbstractDialog {
 	
 	public InventoryItem getTargetSelectedValue() {
 		return targetInventoryList.getSelectedValue();
-	}
-	
-	private class InventoryListSelectionListener implements ListSelectionListener {
-
-		private final InventoryDialogAction inventoryDialogAction;
-		
-		private InventoryListSelectionListener(InventoryDialogAction inventoryDialogAction) {
-			this.inventoryDialogAction = inventoryDialogAction;
-		}
-
-		@Override
-		public void valueChanged(ListSelectionEvent e) {
-			InventoryItem inventoryItem = inventoryDialogAction.getSelectedItem(InventoryDialog.this);
-			if (inventoryItem != null) {
-				okButton.setEnabled(inventoryDialogAction.isPossible(inventoryItem));
-			} else {
-				okButton.setEnabled(false);
-			}
-		}		
 	}
 }

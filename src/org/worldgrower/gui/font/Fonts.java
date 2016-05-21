@@ -18,5 +18,9 @@ import java.awt.Font;
 
 public class Fonts {
 
-	public static final Font FONT = new Font("Dialog", Font.PLAIN, 14);
+	private static final String FONT_NAME = "Dialog";
+	private static final int FONT_SIZE = 14;
+	
+	public static final Font FONT = new Font(FONT_NAME, Font.PLAIN, FONT_SIZE);
+	public static final Font BOLD_FONT = new Font(FONT_NAME, Font.BOLD, FONT_SIZE);
 }

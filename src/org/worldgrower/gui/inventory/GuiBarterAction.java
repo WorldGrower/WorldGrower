@@ -24,28 +24,30 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.WorldPanel;
 
-public class ShowInventoryAction extends AbstractAction {
+public class GuiBarterAction extends AbstractAction {
 
 	private WorldObject playerCharacter;
-	private InventoryDialog dialog;
-	private ImageInfoReader imageInfoReader;
 	private World world;
 	private DungeonMaster dungeonMaster;
 	private WorldPanel container;
+	private WorldObject target;
+	private InventoryDialog dialog;
+	private ImageInfoReader imageInfoReader;
 	
-	public ShowInventoryAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, World world, DungeonMaster dungeonMaster, WorldPanel container) {
+	public GuiBarterAction(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, WorldPanel container, WorldObject target, ImageInfoReader imageInfoReader) {
 		super();
 		this.playerCharacter = playerCharacter;
-		this.imageInfoReader = imageInfoReader;
 		this.world = world;
 		this.dungeonMaster = dungeonMaster;
 		this.container = container;
+		this.target = target;
+		this.imageInfoReader = imageInfoReader;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		InventoryActionFactory inventoryActionFactory = new InventoryActionFactory(playerCharacter, imageInfoReader, world, dungeonMaster, container, null);
-		dialog = new InventoryDialog(new InventoryDialogModel(playerCharacter), imageInfoReader, inventoryActionFactory);
+		InventoryActionFactory inventoryActionFactory = new InventoryActionFactory(playerCharacter, imageInfoReader, world, dungeonMaster, container, target);
+		dialog = new InventoryDialog(new InventoryDialogModel(playerCharacter, target), imageInfoReader, inventoryActionFactory);
 		inventoryActionFactory.setDialog(dialog);
 		dialog.showMe();
 	}

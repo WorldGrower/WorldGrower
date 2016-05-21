@@ -64,11 +64,7 @@ import org.worldgrower.gui.debug.GuiShowPropertiesAction;
 import org.worldgrower.gui.debug.GuiShowReasonsOverviewAction;
 import org.worldgrower.gui.debug.GuiShowSkillOverviewAction;
 import org.worldgrower.gui.debug.ShowPerformedActionsAction;
-import org.worldgrower.gui.inventory.GuiBuyAction;
-import org.worldgrower.gui.inventory.GuiGetItemAction;
-import org.worldgrower.gui.inventory.GuiPutItemAction;
-import org.worldgrower.gui.inventory.GuiSellAction;
-import org.worldgrower.gui.inventory.GuiStealAction;
+import org.worldgrower.gui.inventory.GuiBarterAction;
 import org.worldgrower.gui.inventory.ShowInventoryAction;
 import org.worldgrower.gui.knowledge.GuiCreateNewsPaperAction;
 import org.worldgrower.gui.start.Game;
@@ -226,12 +222,12 @@ public class GuiMouseListener extends MouseAdapter {
             	if (worldObject.hasIntelligence()) {
             		addCommunicationActions(menu, worldObject);
             	} else {
-            		addInventoryActions(menu, worldObject);
             		addVoteActions(menu, worldObject);
             		addResearchActions(menu, worldObject);
             		addRestActions(menu, worldObject);
             		addScribeMagicSpells(menu, worldObject);
             	}
+            	addBarterAction(menu, worldObject);
             	addPropertiesMenu(menu, worldObject);
             	addPerformedActionsMenu(menu, worldObject);
             	addAllActions(menu, worldObject);
@@ -357,40 +353,17 @@ public class GuiMouseListener extends MouseAdapter {
 			guiTalkMenuItem.setText("Talk...");
 			menu.add(guiTalkMenuItem);
 		}
-		
-		if (canPlayerCharacterPerformAction(worldObject, Actions.SELL_ACTION)) {
-			JMenuItem guiSellMenuItem = MenuFactory.createJMenuItem(new GuiSellAction(playerCharacter, world, dungeonMaster, container, worldObject, imageInfoReader));
-			guiSellMenuItem.setText("Sell...");
-			menu.add(guiSellMenuItem);
-		}
-		
-		if (canPlayerCharacterPerformBuyAction(worldObject, Actions.BUY_ACTION)) {
-			JMenuItem guiBuyMenuItem = MenuFactory.createJMenuItem(new GuiBuyAction(playerCharacter, world, dungeonMaster, container, worldObject, imageInfoReader));
-			guiBuyMenuItem.setText("Buy...");
-			menu.add(guiBuyMenuItem);
-		}
-		
-		if (canPlayerCharacterPerformAction(worldObject, Actions.STEAL_ACTION)) {
-			JMenuItem guiStealMenuItem = MenuFactory.createJMenuItem(new GuiStealAction(playerCharacter, world, dungeonMaster, container, worldObject, imageInfoReader));
-			guiStealMenuItem.setText("Steal...");
-			menu.add(guiStealMenuItem);
+	}
+
+	private void addBarterAction(JPopupMenu menu, WorldObject worldObject) {
+		if (worldObject.hasProperty(Constants.INVENTORY)) {
+			JMenuItem guiBarterItem = MenuFactory.createJMenuItem(new GuiBarterAction(playerCharacter, world, dungeonMaster, container, worldObject, imageInfoReader));
+			String barterDescription = worldObject.hasIntelligence() ? "Barter..." : "Access container...";
+			guiBarterItem.setText(barterDescription);
+			menu.add(guiBarterItem);
 		}
 	}
-	
-	private void addInventoryActions(JPopupMenu menu, WorldObject worldObject) {
-		if (canPlayerCharacterPerformAction(worldObject, Actions.GET_ITEM_FROM_INVENTORY_ACTION)) {
-			JMenuItem guiStealMenuItem = MenuFactory.createJMenuItem(new GuiGetItemAction(playerCharacter, world, dungeonMaster, container, worldObject, imageInfoReader));
-			guiStealMenuItem.setText("Get Item...");
-			menu.add(guiStealMenuItem);
-		}
 		
-		if (canPlayerCharacterPerformAction(worldObject, Actions.PUT_ITEM_INTO_INVENTORY_ACTION)) {
-			JMenuItem guiStealMenuItem = MenuFactory.createJMenuItem(new GuiPutItemAction(playerCharacter, world, dungeonMaster, container, worldObject, imageInfoReader));
-			guiStealMenuItem.setText("Put Item...");
-			menu.add(guiStealMenuItem);
-		}
-	}
-	
 	private void addVoteActions(JPopupMenu menu, WorldObject worldObject) {
 		if (canPlayerCharacterPerformAction(worldObject, Actions.VOTE_FOR_LEADER_ACTION)) {
 			JMenuItem guiVoteMenuItem = MenuFactory.createJMenuItem(new GuiVoteAction(playerCharacter, imageInfoReader, world, container, dungeonMaster, worldObject));
