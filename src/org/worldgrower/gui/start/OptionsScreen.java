@@ -34,7 +34,7 @@ import org.worldgrower.gui.ExceptionHandler;
 import org.worldgrower.gui.GradientPanel;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
-import org.worldgrower.gui.util.ButtonFactory;
+import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.JCheckBoxFactory;
 import org.worldgrower.gui.util.JComboBoxFactory;
@@ -185,7 +185,7 @@ public class OptionsScreen {
 		numberOfVillagersTextField.setBounds(228, 352, 137, 22);
 		contentPanel.add(numberOfVillagersTextField);
 		
-		JButton btnOk = ButtonFactory.createButton("Ok");
+		JButton btnOk = JButtonFactory.createButton("Ok");
 		btnOk.setBounds(230, 538, 97, 25);
 		frame.getRootPane().setDefaultButton(btnOk);
 		contentPanel.add(btnOk);
@@ -232,7 +232,7 @@ public class OptionsScreen {
 			}
 		});
 		
-		JButton btnCancel = ButtonFactory.createButton("Cancel");
+		JButton btnCancel = JButtonFactory.createButton("Cancel");
 		btnCancel.setBounds(119, 538, 97, 25);
 		contentPanel.add(btnCancel);
 		

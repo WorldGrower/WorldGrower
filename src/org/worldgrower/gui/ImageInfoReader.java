@@ -433,6 +433,7 @@ public class ImageInfoReader {
 		addMagic(ImageIds.HEAL1, heal1, 5, 5);
 		add(ImageIds.ANIMAL_FRIENDSHIP_SPELL, sprites420.getSubImage(8, 22, 1, 1));
 		add(ImageIds.EAT_REMAINS, sprites420.getSubImage(4, 12, 1, 1));
+		add(ImageIds.GOLD_AMULET, sprites420.getSubImage(11, 19, 1, 1));
     }
 
     private void resizeSmallFlowers() {

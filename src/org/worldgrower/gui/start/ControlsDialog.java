@@ -36,7 +36,7 @@ import javax.swing.table.AbstractTableModel;
 
 import org.worldgrower.gui.AbstractDialog;
 import org.worldgrower.gui.SwingUtils;
-import org.worldgrower.gui.util.ButtonFactory;
+import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JComboBoxFactory;
 import org.worldgrower.gui.util.JRadioButtonFactory;
 import org.worldgrower.gui.util.JTableFactory;
@@ -112,7 +112,7 @@ public class ControlsDialog extends AbstractDialog {
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		addComponent(buttonPane);
 		
-		JButton okButton = ButtonFactory.createButton("OK");
+		JButton okButton = JButtonFactory.createButton("OK");
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		addActionHandlers(okButton, this);

@@ -25,7 +25,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import org.worldgrower.gui.AbstractDialog;
-import org.worldgrower.gui.util.ButtonFactory;
+import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JListFactory;
 
 public class StatusMessageDialog extends AbstractDialog {
@@ -47,7 +47,7 @@ public class StatusMessageDialog extends AbstractDialog {
 		buttonPane.setBounds(16, 380, 465, 50);
 		addComponent(buttonPane);
 
-		JButton okButton = ButtonFactory.createButton(" OK ");
+		JButton okButton = JButtonFactory.createButton(" OK ");
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton, BorderLayout.EAST);
 		getRootPane().setDefaultButton(okButton);

@@ -39,7 +39,7 @@ public class ShowTextDialog extends AbstractDialog {
 		buttonPane.setBounds(16, 70, 415, 50);
 		addComponent(buttonPane);
 
-		JButton okButton = ButtonFactory.createButton(" OK ");
+		JButton okButton = JButtonFactory.createButton(" OK ");
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);

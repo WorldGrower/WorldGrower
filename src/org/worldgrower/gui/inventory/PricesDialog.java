@@ -31,7 +31,7 @@ import org.worldgrower.attribute.Prices;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.AbstractDialog;
 import org.worldgrower.gui.SwingUtils;
-import org.worldgrower.gui.util.ButtonFactory;
+import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JTableFactory;
 
 public class PricesDialog extends AbstractDialog {
@@ -57,7 +57,7 @@ public class PricesDialog extends AbstractDialog {
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		addComponent(buttonPane);
 		
-		JButton okButton = ButtonFactory.createButton("OK");
+		JButton okButton = JButtonFactory.createButton("OK");
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		addActionHandlers(okButton, worldModel, this, pricesOnPlayer);

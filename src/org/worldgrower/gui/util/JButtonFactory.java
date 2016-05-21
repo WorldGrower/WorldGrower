@@ -14,15 +14,17 @@
  *******************************************************************************/
 package org.worldgrower.gui.util;
 
+import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JToggleButton;
 
 import org.worldgrower.gui.ColorPalette;
 import org.worldgrower.gui.JGradientButton;
 import org.worldgrower.gui.RoundedBorder;
 import org.worldgrower.gui.font.Fonts;
 
-public class ButtonFactory {
+public class JButtonFactory {
 
 	public static JButton createButton(String text, ImageIcon icon) {
 		JButton button = new JGradientButton(text, icon);
@@ -36,7 +38,14 @@ public class ButtonFactory {
 		return button;
 	}
 	
-	private static void setButtonProperties(JButton button) {
+	public static JToggleButton createToggleButton(String text, ImageIcon icon) {
+		JToggleButton button = new JToggleButton(text, icon);
+		button.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
+		setButtonProperties(button);
+		return button;
+	}
+	
+	private static void setButtonProperties(AbstractButton button) {
 		button.setBorder(new RoundedBorder(5));
 		button.setForeground(ColorPalette.FOREGROUND_COLOR);
 		button.setFont(Fonts.FONT);

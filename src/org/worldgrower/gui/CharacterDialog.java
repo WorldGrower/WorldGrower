@@ -48,7 +48,7 @@ import org.worldgrower.generator.CommonerOnTurn;
 import org.worldgrower.goal.ArmorPropertyUtils;
 import org.worldgrower.goal.BountyPropertyUtils;
 import org.worldgrower.goal.MeleeDamagePropertyUtils;
-import org.worldgrower.gui.util.ButtonFactory;
+import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.JComboBoxFactory;
 import org.worldgrower.gui.util.JLabelFactory;
@@ -368,7 +368,7 @@ public class CharacterDialog extends JDialog {
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		contentPanel.add(buttonPane);
 		
-		JButton okButton = ButtonFactory.createButton("OK");
+		JButton okButton = JButtonFactory.createButton("OK");
 		okButton.setActionCommand("OK");
 		okButton.addActionListener(new CloseDialogAction());
 		buttonPane.add(okButton);

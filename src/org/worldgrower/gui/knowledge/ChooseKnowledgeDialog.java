@@ -34,7 +34,7 @@ import org.worldgrower.gui.ActionContainingArgs;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.SwingUtils;
-import org.worldgrower.gui.util.ButtonFactory;
+import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JTableFactory;
 
 public class ChooseKnowledgeDialog extends AbstractDialog {
@@ -77,7 +77,7 @@ public class ChooseKnowledgeDialog extends AbstractDialog {
 		buttonPane.setOpaque(false);
 		this.addComponent(buttonPane);
 		
-		okButton = ButtonFactory.createButton("OK");
+		okButton = JButtonFactory.createButton("OK");
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton, BorderLayout.EAST);
 		getRootPane().setDefaultButton(okButton);

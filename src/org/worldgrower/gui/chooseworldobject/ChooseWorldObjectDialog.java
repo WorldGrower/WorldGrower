@@ -33,7 +33,7 @@ import org.worldgrower.gui.AbstractDialog;
 import org.worldgrower.gui.ActionContainingArgs;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.WorldObjectList;
-import org.worldgrower.gui.util.ButtonFactory;
+import org.worldgrower.gui.util.JButtonFactory;
 
 public class ChooseWorldObjectDialog extends AbstractDialog {
 
@@ -62,7 +62,7 @@ public class ChooseWorldObjectDialog extends AbstractDialog {
 		buttonPane.setOpaque(false);
 		this.addComponent(buttonPane);
 		
-		okButton = ButtonFactory.createButton("OK");
+		okButton = JButtonFactory.createButton("OK");
 		okButton.setActionCommand("OK");
 		okButton.setEnabled(false);
 		buttonPane.add(okButton);

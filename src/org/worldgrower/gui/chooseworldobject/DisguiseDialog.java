@@ -48,7 +48,7 @@ import org.worldgrower.gui.WorldObjectList;
 import org.worldgrower.gui.WorldPanel;
 import org.worldgrower.gui.debug.PropertiesModel;
 import org.worldgrower.gui.start.Game;
-import org.worldgrower.gui.util.ButtonFactory;
+import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.JRadioButtonFactory;
 import org.worldgrower.gui.util.JTableFactory;
@@ -161,7 +161,7 @@ public class DisguiseDialog extends JDialog {
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		contentPanel.add(buttonPane);
 		
-		okButton = ButtonFactory.createButton("OK");
+		okButton = JButtonFactory.createButton("OK");
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);

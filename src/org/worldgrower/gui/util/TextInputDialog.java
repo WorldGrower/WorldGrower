@@ -53,12 +53,12 @@ public class TextInputDialog extends AbstractDialog {
 		buttonPane.setBounds(16, 100, 415, 50);
 		addComponent(buttonPane);
 
-		JButton okButton = ButtonFactory.createButton(" OK ");
+		JButton okButton = JButtonFactory.createButton(" OK ");
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
 
-		JButton cancelButton = ButtonFactory.createButton("Cancel");
+		JButton cancelButton = JButtonFactory.createButton("Cancel");
 		cancelButton.setActionCommand("Cancel");
 		buttonPane.add(cancelButton);
 		

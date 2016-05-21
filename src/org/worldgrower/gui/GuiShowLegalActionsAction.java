@@ -39,7 +39,7 @@ import org.worldgrower.actions.legal.LegalActions;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.LegalActionsPropertyUtils;
 import org.worldgrower.gui.start.Game;
-import org.worldgrower.gui.util.ButtonFactory;
+import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.JTableFactory;
 
@@ -75,7 +75,7 @@ public class GuiShowLegalActionsAction extends AbstractAction {
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		dialog.addComponent(buttonPane);
 		
-		JButton okButton = ButtonFactory.createButton("OK");
+		JButton okButton = JButtonFactory.createButton("OK");
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		addActionHandlers(okButton, worldModel, dialog);

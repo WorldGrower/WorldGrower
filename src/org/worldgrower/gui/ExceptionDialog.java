@@ -44,7 +44,7 @@ import javax.swing.JTextArea;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
-import org.worldgrower.gui.util.ButtonFactory;
+import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.IconUtils;
 
 public class ExceptionDialog extends JDialog {
@@ -64,10 +64,10 @@ public class ExceptionDialog extends JDialog {
 	private JTextArea exceptionTextArea = new JTextArea("");
 	private JScrollPane exceptionTextAreaSP = new JScrollPane();
 
-	private JButton okButton = ButtonFactory.createButton("OK");
-	private JButton viewButton = ButtonFactory.createButton("View Error");
-	private JButton copyButton = ButtonFactory.createButton("Copy Error to Clipboard");
-	private JButton emailButton = ButtonFactory.createButton("Email Error");
+	private JButton okButton = JButtonFactory.createButton("OK");
+	private JButton viewButton = JButtonFactory.createButton("View Error");
+	private JButton copyButton = JButtonFactory.createButton("Copy Error to Clipboard");
+	private JButton emailButton = JButtonFactory.createButton("Email Error");
 
 	private JPanel topPanel = new JPanel(new BorderLayout());
 

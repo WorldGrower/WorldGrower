@@ -23,7 +23,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import org.worldgrower.gui.util.ButtonFactory;
+import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JLabelFactory;
 import org.worldgrower.gui.util.JListFactory;
 
@@ -51,12 +51,12 @@ public class AssignActionLeftMouseDialog extends AbstractDialog {
 		buttonPane.setBounds(34, 373, 360, 50);
 		addComponent(buttonPane);
 
-		JButton okButton = ButtonFactory.createButton("OK");
+		JButton okButton = JButtonFactory.createButton("OK");
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
 
-		JButton cancelButton = ButtonFactory.createButton("Cancel");
+		JButton cancelButton = JButtonFactory.createButton("Cancel");
 		cancelButton.setActionCommand("Cancel");
 		buttonPane.add(cancelButton);
 		

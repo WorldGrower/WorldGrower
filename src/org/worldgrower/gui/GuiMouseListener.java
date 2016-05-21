@@ -351,6 +351,7 @@ public class GuiMouseListener extends MouseAdapter {
 		if (canPlayerCharacterPerformTalkAction(worldObject, Actions.TALK_ACTION)) {
 			JMenuItem guiTalkMenuItem = MenuFactory.createJMenuItem(new GuiAskQuestionAction(playerCharacter, world, dungeonMaster, container, worldObject, imageInfoReader));
 			guiTalkMenuItem.setText("Talk...");
+			setMenuIcon(guiTalkMenuItem, ImageIds.GOLD_AMULET);
 			menu.add(guiTalkMenuItem);
 		}
 	}
@@ -360,6 +361,7 @@ public class GuiMouseListener extends MouseAdapter {
 			JMenuItem guiBarterItem = MenuFactory.createJMenuItem(new GuiBarterAction(playerCharacter, world, dungeonMaster, container, worldObject, imageInfoReader));
 			String barterDescription = worldObject.hasIntelligence() ? "Barter..." : "Access container...";
 			guiBarterItem.setText(barterDescription);
+			setMenuIcon(guiBarterItem, Actions.SELL_ACTION.getImageIds());
 			menu.add(guiBarterItem);
 		}
 	}

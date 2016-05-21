@@ -37,6 +37,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
+import javax.swing.JToggleButton;
 import javax.swing.JToolTip;
 import javax.swing.KeyStroke;
 import javax.swing.ListModel;
@@ -50,7 +51,7 @@ import org.worldgrower.gui.ColorPalette;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.font.Fonts;
-import org.worldgrower.gui.util.ButtonFactory;
+import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JLabelFactory;
 import org.worldgrower.gui.util.JPanelFactory;
 import org.worldgrower.gui.util.MenuFactory;
@@ -82,8 +83,8 @@ public class InventoryDialog extends AbstractDialog {
 	private JButton pricesButton;
 	
 	private JPanel containersPanel;
-	private JLabel lblPlayercharacter;
-	private JLabel lblTarget;
+	private JToggleButton playercharacterToggleButton;
+	private JToggleButton targetToggleButton;
 	
 	private final class CloseDialogAction implements ActionListener {
 		@Override
@@ -112,7 +113,7 @@ public class InventoryDialog extends AbstractDialog {
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		addComponent(buttonPane);
 
-		okButton = ButtonFactory.createButton("Ok");
+		okButton = JButtonFactory.createButton("Ok");
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
@@ -159,7 +160,7 @@ public class InventoryDialog extends AbstractDialog {
 		weightLabelValue.setBounds(377, 250, 64, 25);
 		inventoryPanel.add(weightLabelValue);
 		
-		pricesButton = ButtonFactory.createButton("Prices");
+		pricesButton = JButtonFactory.createButton("Prices");
 		pricesButton.setToolTipText(PRICES_TOOL_TIP);
 		pricesButton.setBounds(224, 399, 100, 25);
 		inventoryPanel.add(pricesButton);
@@ -191,7 +192,7 @@ public class InventoryDialog extends AbstractDialog {
 				targetInventoryPanel.add(targetMoney);
 				
 				Image stealGoldImage = imageInfoReader.getImage(Actions.STEAL_GOLD_ACTION.getImageIds(), null);
-				JButton stealMoneyButton = ButtonFactory.createButton("Steal gold", new ImageIcon(stealGoldImage));
+				JButton stealMoneyButton = JButtonFactory.createButton("Steal gold", new ImageIcon(stealGoldImage));
 				stealMoneyButton.setToolTipText("steal gold");
 				stealMoneyButton.setBounds(427, 200, 120, 50);
 				stealMoneyButton.addActionListener(inventoryActionFactory.getTargetMoneyActions().get(0));
@@ -216,64 +217,45 @@ public class InventoryDialog extends AbstractDialog {
 			containersPanel.setBounds(12, 540, 400, 50);
 			addComponent(containersPanel);
 			
-			lblPlayercharacter = JLabelFactory.createJLabel(inventoryDialogModel.getPlayerCharacterName(), inventoryDialogModel.getPlayerCharacterImage(imageInfoReader));
-			lblPlayercharacter.setToolTipText(inventoryDialogModel.getPlayerCharacterName());
-			lblPlayercharacter.setBounds(0, 0, 200, 50);
-			lblPlayercharacter.setOpaque(true);
-			lblPlayercharacter.addMouseListener(new SwitchPanelMouseAdapter(this::setPlayerCharacterPanelOnTop));
-			containersPanel.add(lblPlayercharacter);
+			playercharacterToggleButton = JButtonFactory.createToggleButton(inventoryDialogModel.getPlayerCharacterName(), new ImageIcon(inventoryDialogModel.getPlayerCharacterImage(imageInfoReader)));
+			playercharacterToggleButton.setToolTipText(inventoryDialogModel.getPlayerCharacterName());
+			playercharacterToggleButton.setBounds(0, 0, 200, 50);
+			playercharacterToggleButton.setOpaque(true);
+			playercharacterToggleButton.addActionListener(this::setPlayerCharacterPanelOnTop);
+			containersPanel.add(playercharacterToggleButton);
 			
-			lblTarget = JLabelFactory.createJLabel(inventoryDialogModel.getTargetName(), inventoryDialogModel.getTargetImage(imageInfoReader));
-			lblTarget.setToolTipText(inventoryDialogModel.getTargetName());
-			lblTarget.setBounds(200, 0, 200, 50);
-			lblTarget.setOpaque(true);
-			lblTarget.addMouseListener(new SwitchPanelMouseAdapter(this::setTargetInventoryOnTop));
-			containersPanel.add(lblTarget);
+			targetToggleButton = JButtonFactory.createToggleButton(inventoryDialogModel.getTargetName(), new ImageIcon(inventoryDialogModel.getTargetImage(imageInfoReader)));
+			targetToggleButton.setToolTipText(inventoryDialogModel.getTargetName());
+			targetToggleButton.setBounds(200, 0, 200, 50);
+			targetToggleButton.setOpaque(true);
+			targetToggleButton.addActionListener(this::setTargetInventoryOnTop);
+			containersPanel.add(targetToggleButton);
 			
-			setPlayerCharacterPanelOnTop();
+			setPlayerCharacterPanelOnTop(null);
 		}
 		
 		setInventoryActions(inventoryDialogModel.getPlayerCharacterPrices());
 		addPopupMenuToInventoryList(inventoryDialogModel, inventoryActionFactory);
 	}
-	
-	private static class SwitchPanelMouseAdapter extends MouseAdapter {
 
-		private final Procedure switchFunction;
-		
-		public SwitchPanelMouseAdapter(Procedure switchFunction) {
-			super();
-			this.switchFunction = switchFunction;
-		}
-
-		@Override
-		public void mouseClicked(MouseEvent e) {
-			switchFunction.execute();
-		}
-	}
-	
-	private void setPlayerCharacterPanelOnTop() {
+	private void setPlayerCharacterPanelOnTop(ActionEvent e) {
 		CardLayout cardLayout = (CardLayout) rootInventoryPanel.getLayout();
 		cardLayout.show(rootInventoryPanel, "player");
-		lblPlayercharacter.setFont(Fonts.BOLD_FONT);
-		lblPlayercharacter.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
-		lblTarget.setFont(Fonts.FONT);
-		lblTarget.setBackground(ColorPalette.LIGHT_BACKGROUND_COLOR);
+		playercharacterToggleButton.setFont(Fonts.BOLD_FONT);
+		playercharacterToggleButton.setSelected(true);
+		targetToggleButton.setFont(Fonts.FONT);
+		targetToggleButton.setSelected(false);
 	}
 	
-	private void setTargetInventoryOnTop() {
+	private void setTargetInventoryOnTop(ActionEvent e) {
 		CardLayout cardLayout = (CardLayout) rootInventoryPanel.getLayout();
 		cardLayout.show(rootInventoryPanel, "target");
-		lblPlayercharacter.setFont(Fonts.FONT);
-		lblPlayercharacter.setBackground(ColorPalette.LIGHT_BACKGROUND_COLOR);
-		lblTarget.setFont(Fonts.BOLD_FONT);
-		lblTarget.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
+		playercharacterToggleButton.setFont(Fonts.FONT);
+		playercharacterToggleButton.setSelected(false);
+		targetToggleButton.setFont(Fonts.BOLD_FONT);
+		targetToggleButton.setSelected(true);
 	}
-	
-	private interface Procedure {
-		public void execute();
-	}
-	
+
 	private void addPopupMenuToInventoryList(InventoryDialogModel inventoryDialogModel, InventoryActionFactory inventoryActionFactory) {
 		inventoryJList.addMouseListener(new MouseAdapter() {
 

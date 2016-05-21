@@ -55,7 +55,7 @@ import org.worldgrower.gui.ActionContainingArgs;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.chooseworldobject.ChooseWorldObjectDialog;
-import org.worldgrower.gui.util.ButtonFactory;
+import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JLabelFactory;
 import org.worldgrower.gui.util.JProgressBarFactory;
 import org.worldgrower.gui.util.MenuFactory;
@@ -133,12 +133,12 @@ public class AskQuestionDialog extends AbstractDialog implements ManagedOperatio
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		addComponent(buttonPane);
 
-		JButton okButton = ButtonFactory.createButton("OK");
+		JButton okButton = JButtonFactory.createButton("OK");
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
 
-		JButton cancelButton = ButtonFactory.createButton("Cancel");
+		JButton cancelButton = JButtonFactory.createButton("Cancel");
 		cancelButton.setActionCommand("Cancel");
 		buttonPane.add(cancelButton);
 
@@ -147,7 +147,7 @@ public class AskQuestionDialog extends AbstractDialog implements ManagedOperatio
 		performerLabel.setBounds(6, 17, 32, 48);
 		addComponent(performerLabel);
 		
-		askQuestion = ButtonFactory.createButton("Ask Question");
+		askQuestion = JButtonFactory.createButton("Ask Question");
 		askQuestion.setBounds(44, 27, 580, 22);
 		askQuestion.addActionListener(new ActionListener() {
 
