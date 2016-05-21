@@ -356,6 +356,7 @@ public class InventoryDialog extends AbstractDialog {
 		DefaultListModel<InventoryItem> listModel = getInventoryListModel(inventory);
 		JList<InventoryItem> inventoryList = new InventoryJList(listModel);
 		inventoryList.setCellRenderer(new InventoryListCellRenderer(imageInfoReader));
+		inventoryList.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
 		
 		return inventoryList;
 	}
