@@ -27,23 +27,19 @@ import java.util.List;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
-import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JToggleButton;
-import javax.swing.JToolTip;
 import javax.swing.KeyStroke;
-import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -56,6 +52,7 @@ import org.worldgrower.gui.AbstractDialog;
 import org.worldgrower.gui.ColorPalette;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
+import org.worldgrower.gui.SwingUtils;
 import org.worldgrower.gui.font.Fonts;
 import org.worldgrower.gui.knowledge.ImageCellRenderer;
 import org.worldgrower.gui.util.JButtonFactory;
@@ -144,8 +141,9 @@ public class InventoryDialog extends AbstractDialog {
 		
 		JScrollPane inventoryScrollPane = new JScrollPane();
 		inventoryScrollPane.setViewportView(inventoryTable);
-		inventoryScrollPane.setBounds(12, 12, 400, 450);
+		inventoryScrollPane.setBounds(12, 12, 400, 530);
 		inventoryScrollPane.getViewport().setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
+		SwingUtils.makeTransparant(inventoryTable, inventoryScrollPane);
 		inventoryPanel.add(inventoryScrollPane);
 		
 		final JLabel moneyLabel = JLabelFactory.createJLabel("Money:");
@@ -183,12 +181,13 @@ public class InventoryDialog extends AbstractDialog {
 			rootInventoryPanel.add(targetInventoryPanel, "target");
 			
 			JScrollPane scrollPane = new JScrollPane();
-			scrollPane.setBounds(12, 12, 400, 450);
+			scrollPane.setBounds(12, 12, 400, 530);
 			scrollPane.getViewport().setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
 			targetInventoryPanel.add(scrollPane);
 			
 			targetInventoryTable = createInventoryTable(inventoryDialogModel.getTargetInventory(), imageInfoReader);
 			scrollPane.setViewportView(targetInventoryTable);
+			SwingUtils.makeTransparant(targetInventoryTable, scrollPane);
 			
 			if (inventoryDialogModel.hasTargetMoney()) {
 				JLabel targetMoneyLabel = JLabelFactory.createJLabel("Money:");
@@ -266,11 +265,17 @@ public class InventoryDialog extends AbstractDialog {
 		targetToggleButton.setSelected(true);
 	}
 
+	private void selectCurrentRow(JTable table, MouseEvent e) {
+		int row = table.rowAtPoint(e.getPoint());
+		table.setRowSelectionInterval(row, row);
+	}
+	
 	private void addPopupMenuToInventoryList(InventoryDialogModel inventoryDialogModel, InventoryActionFactory inventoryActionFactory) {
 		inventoryTable.addMouseListener(new MouseAdapter() {
 
 			@Override
 			public void mousePressed(MouseEvent e) {
+				selectCurrentRow(inventoryTable, e);
 		        InventoryItem inventoryItem = getPlayerCharacterSelectedValue();
 		        
 		        if (inventoryItem != null) {
@@ -295,6 +300,7 @@ public class InventoryDialog extends AbstractDialog {
 
 				@Override
 				public void mousePressed(MouseEvent e) {
+					selectCurrentRow(targetInventoryTable, e);
 			        InventoryItem inventoryItem = getTargetSelectedValue();
 			        
 			        if (inventoryItem != null) {
@@ -377,8 +383,6 @@ public class InventoryDialog extends AbstractDialog {
 		
 		inventoryTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		inventoryTable.setAutoCreateRowSorter(true);
-		inventoryTable.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
-		inventoryTable.setOpaque(true);
 		
 		return inventoryTable;
 	}
