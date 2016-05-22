@@ -23,6 +23,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.AbstractAction;
@@ -42,8 +43,10 @@ import javax.swing.JTable;
 import javax.swing.JToggleButton;
 import javax.swing.KeyStroke;
 import javax.swing.ListSelectionModel;
+import javax.swing.RowFilter;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableRowSorter;
 
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
@@ -140,7 +143,7 @@ public class InventoryDialog extends AbstractDialog {
 		
 		inventoryTable = createInventoryTable(inventoryDialogModel.getPlayerCharacterInventory(), imageInfoReader);
 		
-		addFilterPanel(inventoryPanel);
+		addFilterPanel(inventoryPanel, inventoryTable);
 		
 		JScrollPane inventoryScrollPane = new JScrollPane();
 		inventoryScrollPane.setViewportView(inventoryTable);
@@ -186,8 +189,6 @@ public class InventoryDialog extends AbstractDialog {
 			targetInventoryPanel.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
 			rootInventoryPanel.add(targetInventoryPanel, "target");
 			
-			addFilterPanel(targetInventoryPanel);
-			
 			JScrollPane scrollPane = new JScrollPane();
 			scrollPane.setBounds(12, 62, 450, 530);
 			scrollPane.getViewport().setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
@@ -196,6 +197,8 @@ public class InventoryDialog extends AbstractDialog {
 			targetInventoryTable = createInventoryTable(inventoryDialogModel.getTargetInventory(), imageInfoReader);
 			scrollPane.setViewportView(targetInventoryTable);
 			SwingUtils.makeTransparant(targetInventoryTable, scrollPane);
+			
+			addFilterPanel(targetInventoryPanel, targetInventoryTable);
 			
 			if (inventoryDialogModel.hasTargetMoney()) {
 				JLabel targetMoneyLabel = JLabelFactory.createJLabel("Money:");
@@ -259,7 +262,7 @@ public class InventoryDialog extends AbstractDialog {
 		containersPanel.add(targetToggleButton);
 	}
 
-	private void addFilterPanel(JPanel parentPanel) {
+	private void addFilterPanel(JPanel parentPanel, JTable parentTable) {
 		JPanel filterPanel = JPanelFactory.createBorderlessPanel();
 		filterPanel.setBounds(12, 12, 650, 50);
 		filterPanel.setLayout(null);
@@ -278,12 +281,77 @@ public class InventoryDialog extends AbstractDialog {
 		filterButtons.add(createFilterButton(filterPanel, 7, ImageIds.KEY));
 		filterButtons.add(createFilterButton(filterPanel, 8, ImageIds.WOOD));
 		
+		List<RowFilter<InventoryModel, Integer>> rowFilters = createRowFilters();
 		ButtonGroup buttonGroup = new ButtonGroup();
+		int index = 0;
 		for(JToggleButton toggleButton : filterButtons) {
 			buttonGroup.add(toggleButton);
+			final int i = index;
+			toggleButton.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					TableRowSorter<InventoryModel> tableRowSorter = (TableRowSorter<InventoryModel>)parentTable.getRowSorter();
+					tableRowSorter.setRowFilter(rowFilters.get(i));
+				}
+			});
+			index++;
 		}
 		
 		filterButtons.get(0).setSelected(true);
+	}
+	
+	private List<RowFilter<InventoryModel, Integer>> createRowFilters() {
+		return Arrays.asList(new RowFilter<InventoryModel, Integer>() {
+			public boolean include(Entry<? extends InventoryModel, ? extends Integer> entry) {
+				return true;
+			}
+		},
+		new RowFilter<InventoryModel, Integer>() {
+			public boolean include(Entry<? extends InventoryModel, ? extends Integer> entry) {
+				return entry.getModel().getInventoryItem(entry.getIdentifier()).isWeapon();
+			}
+		},
+		new RowFilter<InventoryModel, Integer>() {
+			public boolean include(Entry<? extends InventoryModel, ? extends Integer> entry) {
+				return entry.getModel().getInventoryItem(entry.getIdentifier()).isArmor();
+			}
+		},
+		new RowFilter<InventoryModel, Integer>() {
+			public boolean include(Entry<? extends InventoryModel, ? extends Integer> entry) {
+				return entry.getModel().getInventoryItem(entry.getIdentifier()).isPotion();
+			}
+		},
+		new RowFilter<InventoryModel, Integer>() {
+			public boolean include(Entry<? extends InventoryModel, ? extends Integer> entry) {
+				return entry.getModel().getInventoryItem(entry.getIdentifier()).isFood();
+			}
+		}
+		,
+		new RowFilter<InventoryModel, Integer>() {
+			public boolean include(Entry<? extends InventoryModel, ? extends Integer> entry) {
+				return entry.getModel().getInventoryItem(entry.getIdentifier()).isAlchemyIngredient();
+			}
+		}
+		,
+		new RowFilter<InventoryModel, Integer>() {
+			public boolean include(Entry<? extends InventoryModel, ? extends Integer> entry) {
+				return entry.getModel().getInventoryItem(entry.getIdentifier()).isBook();
+			}
+		}
+		,
+		new RowFilter<InventoryModel, Integer>() {
+			public boolean include(Entry<? extends InventoryModel, ? extends Integer> entry) {
+				return entry.getModel().getInventoryItem(entry.getIdentifier()).isKey();
+			}
+		}
+		,
+		new RowFilter<InventoryModel, Integer>() {
+			public boolean include(Entry<? extends InventoryModel, ? extends Integer> entry) {
+				return entry.getModel().getInventoryItem(entry.getIdentifier()).isResource();
+			}
+		}
+		);
 	}
 	
 	private JToggleButton createFilterButton(JPanel filterPanel, int index, ImageIds imageId) {
@@ -375,10 +443,10 @@ public class InventoryDialog extends AbstractDialog {
 		public void actionPerformed(ActionEvent e) {
 			JCheckBoxMenuItem source = (JCheckBoxMenuItem)e.getSource();
 			getPlayerCharacterSelectedValue().setSellable(source.isSelected());
+			
+			inventoryTable.repaint();
 		}
 	}
-	
-
 
 	private String getTargetWeight(InventoryDialogModel inventoryDialogModel) {
 		String targetWeightString = Integer.toString(inventoryDialogModel.getTargetWeight())

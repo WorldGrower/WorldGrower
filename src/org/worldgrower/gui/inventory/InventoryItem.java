@@ -61,7 +61,7 @@ public class InventoryItem {
 		
 		for(ManagedProperty<?> propertyKey : propertyKeys) {
 			String name = propertyKey.getName().toLowerCase();
-			if (propertyKey == Constants.DAMAGE || propertyKey == Constants.ARMOR || propertyKey == Constants.WEIGHT || propertyKey == Constants.QUANTITY) {
+			if (propertyKey == Constants.DAMAGE || propertyKey == Constants.ARMOR || propertyKey == Constants.WEIGHT || propertyKey == Constants.QUANTITY || propertyKey == Constants.WATER || propertyKey == Constants.FOOD || propertyKey == Constants.TEXT || propertyKey == Constants.MAGIC_SPELL || propertyKey == Constants.LOCK_ID || propertyKey == Constants.WOOD || propertyKey == Constants.STONE || propertyKey == Constants.ORE || propertyKey == Constants.NIGHT_SHADE  || propertyKey == Constants.GOLD) {
 				String value = inventoryWorldObject.getProperty(propertyKey).toString();
 				additionalProperties.put(name, value);
 			} else if (propertyKey == Constants.EQUIPMENT_HEALTH) {
@@ -131,5 +131,41 @@ public class InventoryItem {
 
 	public Map<String, String> getAdditionalProperties() {
 		return additionalProperties;
+	}
+
+	public boolean isWeapon() {
+		return additionalProperties.containsKey(Constants.DAMAGE.getName().toLowerCase());
+	}
+
+	public boolean isArmor() {
+		return additionalProperties.containsKey(Constants.ARMOR.getName().toLowerCase());
+	}
+	
+	public boolean isPotion() {
+		return additionalProperties.containsKey(Constants.WATER.getName().toLowerCase());
+	}
+	
+	public boolean isFood() {
+		return additionalProperties.containsKey(Constants.FOOD.getName().toLowerCase());
+	}
+
+	public boolean isBook() {
+		return additionalProperties.containsKey(Constants.TEXT.getName().toLowerCase()) 
+				|| additionalProperties.containsKey(Constants.MAGIC_SPELL.getName().toLowerCase());
+	}
+
+	public boolean isKey() {
+		return additionalProperties.containsKey(Constants.LOCK_ID.getName().toLowerCase());
+	}
+
+	public boolean isResource() {
+		return additionalProperties.containsKey(Constants.WOOD.getName().toLowerCase())
+				|| additionalProperties.containsKey(Constants.STONE.getName().toLowerCase())
+				|| additionalProperties.containsKey(Constants.ORE.getName().toLowerCase())
+				|| additionalProperties.containsKey(Constants.GOLD.getName().toLowerCase());
+	}
+
+	public boolean isAlchemyIngredient() {
+		return additionalProperties.containsKey(Constants.NIGHT_SHADE.getName().toLowerCase());
 	}
 }
