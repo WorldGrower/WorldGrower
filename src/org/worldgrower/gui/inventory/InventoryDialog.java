@@ -22,6 +22,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -37,10 +39,14 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JToggleButton;
 import javax.swing.JToolTip;
 import javax.swing.KeyStroke;
 import javax.swing.ListModel;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
@@ -51,9 +57,11 @@ import org.worldgrower.gui.ColorPalette;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.font.Fonts;
+import org.worldgrower.gui.knowledge.ImageCellRenderer;
 import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JLabelFactory;
 import org.worldgrower.gui.util.JPanelFactory;
+import org.worldgrower.gui.util.JTableFactory;
 import org.worldgrower.gui.util.MenuFactory;
 
 public class InventoryDialog extends AbstractDialog {
@@ -69,14 +77,14 @@ public class InventoryDialog extends AbstractDialog {
 	private JPanel rootInventoryPanel;
 	
 	private JPanel inventoryPanel;
-	private JList<InventoryItem> inventoryJList;
+	private JTable inventoryTable;
 	private JButton okButton;
 
 	private JLabel moneyValueLabel;
 	private JLabel weightLabelValue;
 
 	private JPanel targetInventoryPanel;
-	private JList<InventoryItem> targetInventoryList;
+	private JTable targetInventoryTable;
 	private JLabel targetMoney;
 	private JLabel targetWeight;
 	
@@ -120,81 +128,83 @@ public class InventoryDialog extends AbstractDialog {
 		okButton.addActionListener(new CloseDialogAction());
 
 		rootInventoryPanel = JPanelFactory.createBorderlessPanel();
-		rootInventoryPanel.setBounds(12, 12, 550, 450);
+		rootInventoryPanel.setBounds(12, 12, 650, 550);
 		CardLayout cardLayout = new CardLayout();
 		rootInventoryPanel.setLayout(cardLayout);
 		addComponent(rootInventoryPanel);
 		
 		inventoryPanel = JPanelFactory.createBorderlessPanel();
-		inventoryPanel.setBounds(0, 0, 550, 450);
+		inventoryPanel.setBounds(0, 0, 650, 550);
 		inventoryPanel.setLayout(null);
 		inventoryPanel.setOpaque(true);
 		inventoryPanel.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
 		rootInventoryPanel.add(inventoryPanel, "player");
 		
-		inventoryJList = createInventoryList(inventoryDialogModel.getPlayerCharacterInventory(), imageInfoReader);
+		inventoryTable = createInventoryTable(inventoryDialogModel.getPlayerCharacterInventory(), imageInfoReader);
 		
 		JScrollPane inventoryScrollPane = new JScrollPane();
-		inventoryScrollPane.setViewportView(inventoryJList);
-		inventoryScrollPane.setBounds(12, 82, 200, 450);
+		inventoryScrollPane.setViewportView(inventoryTable);
+		inventoryScrollPane.setBounds(12, 12, 400, 450);
+		inventoryScrollPane.getViewport().setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
 		inventoryPanel.add(inventoryScrollPane);
 		
 		final JLabel moneyLabel = JLabelFactory.createJLabel("Money:");
 		moneyLabel.setToolTipText(MONEY_PLAYER_CHARACTER_TOOL_TIP);
-		moneyLabel.setBounds(312, 200, 64, 25);
+		moneyLabel.setBounds(412, 200, 64, 25);
 		inventoryPanel.add(moneyLabel);
 		
 		moneyValueLabel = JLabelFactory.createJLabel(inventoryDialogModel.getPlayerCharacterMoney());
 		moneyValueLabel.setToolTipText(MONEY_PLAYER_CHARACTER_TOOL_TIP);
-		moneyValueLabel.setBounds(377, 200, 50, 25);
+		moneyValueLabel.setBounds(477, 200, 50, 25);
 		inventoryPanel.add(moneyValueLabel);
 		
 		JLabel lblWeight = JLabelFactory.createJLabel("Weight:");
 		lblWeight.setToolTipText(WEIGHT_PLAYER_CHARACTER_TOOL_TIP);
-		lblWeight.setBounds(312, 250, 64, 25);
+		lblWeight.setBounds(412, 250, 64, 25);
 		inventoryPanel.add(lblWeight);
 		
 		String weightString = getPlayerCharacterWeight(inventoryDialogModel);
 		weightLabelValue = JLabelFactory.createJLabel(weightString);
 		weightLabelValue.setToolTipText(WEIGHT_PLAYER_CHARACTER_TOOL_TIP);
-		weightLabelValue.setBounds(377, 250, 64, 25);
+		weightLabelValue.setBounds(477, 250, 64, 25);
 		inventoryPanel.add(weightLabelValue);
 		
 		pricesButton = JButtonFactory.createButton("Prices");
 		pricesButton.setToolTipText(PRICES_TOOL_TIP);
-		pricesButton.setBounds(224, 399, 100, 25);
+		pricesButton.setBounds(424, 399, 100, 25);
 		inventoryPanel.add(pricesButton);
 
 		if (inventoryDialogModel.hasTarget()) {
 			targetInventoryPanel = JPanelFactory.createBorderlessPanel();
 			targetInventoryPanel.setLayout(null);
-			targetInventoryPanel.setBounds(0, 0, 550, 450);
+			targetInventoryPanel.setBounds(0, 0, 650, 550);
 			targetInventoryPanel.setOpaque(true);
 			targetInventoryPanel.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
 			rootInventoryPanel.add(targetInventoryPanel, "target");
 			
 			JScrollPane scrollPane = new JScrollPane();
-			scrollPane.setBounds(12, 82, 200, 450);
+			scrollPane.setBounds(12, 12, 400, 450);
+			scrollPane.getViewport().setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
 			targetInventoryPanel.add(scrollPane);
 			
-			targetInventoryList = createInventoryList(inventoryDialogModel.getTargetInventory(), imageInfoReader);
-			scrollPane.setViewportView(targetInventoryList);
+			targetInventoryTable = createInventoryTable(inventoryDialogModel.getTargetInventory(), imageInfoReader);
+			scrollPane.setViewportView(targetInventoryTable);
 			
 			if (inventoryDialogModel.hasTargetMoney()) {
 				JLabel targetMoneyLabel = JLabelFactory.createJLabel("Money:");
 				targetMoneyLabel.setToolTipText(MONEY_TARGET_TOOL_TIP);
-				targetMoneyLabel.setBounds(312, 200, 64, 25);
+				targetMoneyLabel.setBounds(412, 200, 64, 25);
 				targetInventoryPanel.add(targetMoneyLabel);
 				
 				targetMoney = JLabelFactory.createJLabel(inventoryDialogModel.getTargetMoney());
 				targetMoney.setToolTipText(MONEY_TARGET_TOOL_TIP);
-				targetMoney.setBounds(377, 200, 50, 25);
+				targetMoney.setBounds(477, 200, 50, 25);
 				targetInventoryPanel.add(targetMoney);
 				
 				Image stealGoldImage = imageInfoReader.getImage(Actions.STEAL_GOLD_ACTION.getImageIds(), null);
 				JButton stealMoneyButton = JButtonFactory.createButton("Steal gold", new ImageIcon(stealGoldImage));
 				stealMoneyButton.setToolTipText("steal gold");
-				stealMoneyButton.setBounds(427, 200, 120, 50);
+				stealMoneyButton.setBounds(527, 200, 120, 50);
 				stealMoneyButton.addActionListener(inventoryActionFactory.getTargetMoneyActions().get(0));
 				targetInventoryPanel.add(stealMoneyButton);
 			}
@@ -202,19 +212,19 @@ public class InventoryDialog extends AbstractDialog {
 			if (inventoryDialogModel.hasTargetCarryingCapacity()) {
 				JLabel targetWeightLabel = JLabelFactory.createJLabel("Weight:");
 				targetWeightLabel.setToolTipText(WEIGHT_TARGET_TOOL_TIP);
-				targetWeightLabel.setBounds(312, 250, 64, 25);
+				targetWeightLabel.setBounds(412, 250, 64, 25);
 				targetInventoryPanel.add(targetWeightLabel);
 				
 				String targetWeightString = getTargetWeight(inventoryDialogModel);
 				targetWeight = JLabelFactory.createJLabel(targetWeightString);
 				targetWeight.setToolTipText(WEIGHT_TARGET_TOOL_TIP);
-				targetWeight.setBounds(377, 250, 64, 25);
+				targetWeight.setBounds(477, 250, 64, 25);
 				targetInventoryPanel.add(targetWeight);
 			}
 			
 			containersPanel = JPanelFactory.createBorderlessPanel();
 			containersPanel.setLayout(null);
-			containersPanel.setBounds(12, 540, 400, 50);
+			containersPanel.setBounds(12, 565, 400, 50);
 			addComponent(containersPanel);
 			
 			playercharacterToggleButton = JButtonFactory.createToggleButton(inventoryDialogModel.getPlayerCharacterName(), new ImageIcon(inventoryDialogModel.getPlayerCharacterImage(imageInfoReader)));
@@ -257,18 +267,18 @@ public class InventoryDialog extends AbstractDialog {
 	}
 
 	private void addPopupMenuToInventoryList(InventoryDialogModel inventoryDialogModel, InventoryActionFactory inventoryActionFactory) {
-		inventoryJList.addMouseListener(new MouseAdapter() {
+		inventoryTable.addMouseListener(new MouseAdapter() {
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-		        InventoryItem inventoryItem = inventoryJList.getSelectedValue();
+		        InventoryItem inventoryItem = getPlayerCharacterSelectedValue();
 		        
 		        if (inventoryItem != null) {
 			        JPopupMenu popupMenu = MenuFactory.createJPopupMenu();
 			        JCheckBoxMenuItem sellableMenuItem = createSellableMenuItem(inventoryItem);
 					popupMenu.add(sellableMenuItem);
 					addPlayerCharacterMenuActions(popupMenu, inventoryItem, inventoryDialogModel, inventoryActionFactory);
-			        popupMenu.show(inventoryJList, e.getX(), e.getY());
+			        popupMenu.show(inventoryTable, e.getX(), e.getY());
 		        }
 			}
 
@@ -280,17 +290,17 @@ public class InventoryDialog extends AbstractDialog {
 			}
 		});
 		
-		if (targetInventoryList != null) {
-			targetInventoryList.addMouseListener(new MouseAdapter() {
+		if (targetInventoryTable != null) {
+			targetInventoryTable.addMouseListener(new MouseAdapter() {
 
 				@Override
 				public void mousePressed(MouseEvent e) {
-			        InventoryItem inventoryItem = targetInventoryList.getSelectedValue();
+			        InventoryItem inventoryItem = getTargetSelectedValue();
 			        
 			        if (inventoryItem != null) {
 				        JPopupMenu popupMenu = MenuFactory.createJPopupMenu();
 						addTargetMenuActions(popupMenu, inventoryItem, inventoryDialogModel, inventoryActionFactory);
-				        popupMenu.show(targetInventoryList, e.getX(), e.getY());
+				        popupMenu.show(targetInventoryTable, e.getX(), e.getY());
 			        }
 				}
 			});
@@ -312,7 +322,7 @@ public class InventoryDialog extends AbstractDialog {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			JCheckBoxMenuItem source = (JCheckBoxMenuItem)e.getSource();
-			inventoryJList.getSelectedValue().setSellable(source.isSelected());
+			getPlayerCharacterSelectedValue().setSellable(source.isSelected());
 		}
 	}
 	
@@ -352,37 +362,36 @@ public class InventoryDialog extends AbstractDialog {
 		}
 	}
 
-	private JList<InventoryItem> createInventoryList(WorldObjectContainer inventory, ImageInfoReader imageInfoReader) {
-		DefaultListModel<InventoryItem> listModel = getInventoryListModel(inventory);
-		JList<InventoryItem> inventoryList = new InventoryJList(listModel);
-		inventoryList.setCellRenderer(new InventoryListCellRenderer(imageInfoReader));
-		inventoryList.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
+	private JTable createInventoryTable(WorldObjectContainer inventory, ImageInfoReader imageInfoReader) {
+		JTable inventoryTable = JTableFactory.createJTable(new InventoryModel(inventory));
 		
-		return inventoryList;
+		inventoryTable.setDefaultRenderer(ImageIds.class, new ImageCellRenderer(imageInfoReader));
+		inventoryTable.setDefaultRenderer(String.class, new DefaultTableCellRenderer());
+		inventoryTable.setRowHeight(50);
+		inventoryTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		inventoryTable.getColumnModel().getColumn(0).setPreferredWidth(50);
+		inventoryTable.getColumnModel().getColumn(1).setPreferredWidth(200);
+		inventoryTable.getColumnModel().getColumn(2).setPreferredWidth(50);
+		inventoryTable.getColumnModel().getColumn(3).setPreferredWidth(97);
+		inventoryTable.getTableHeader().setReorderingAllowed(false);
+		
+		inventoryTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		inventoryTable.setAutoCreateRowSorter(true);
+		inventoryTable.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
+		inventoryTable.setOpaque(true);
+		
+		return inventoryTable;
 	}
 	
-	private static class InventoryJList extends JList<InventoryItem> {
-		public InventoryJList(ListModel<InventoryItem> listModel) {
-			super(listModel);
-		}
-
-		@Override
-        public JToolTip createToolTip() {
-            JScrollableToolTip tip = new JScrollableToolTip(250, 130);
-            tip.setComponent(this);
-            return tip;
-        }
-	}
-
-	private DefaultListModel<InventoryItem> getInventoryListModel(WorldObjectContainer inventory) {
-		DefaultListModel<InventoryItem> listModel = new DefaultListModel<>();
+	private static List<InventoryItem> getInventoryList(WorldObjectContainer inventory) {
+		List<InventoryItem> inventoryList = new ArrayList<>();
 		for(int index=0; index < inventory.size(); index++) {
 			WorldObject inventoryItem = inventory.get(index);
 			if (inventoryItem != null) {
-				listModel.addElement(new InventoryItem(index, inventoryItem));
+				inventoryList.add(new InventoryItem(index, inventoryItem));
 			}
 		}
-		return listModel;
+		return inventoryList;
 	}
 	
 	public void showMe() {
@@ -391,13 +400,13 @@ public class InventoryDialog extends AbstractDialog {
 	}
 
 	public void refresh(InventoryDialogModel inventoryDialogModel) {
-		inventoryJList.setModel(getInventoryListModel(inventoryDialogModel.getPlayerCharacterInventory()));
+		inventoryTable.setModel(new InventoryModel(inventoryDialogModel.getPlayerCharacterInventory()));
 		moneyValueLabel.setText(Integer.toString(inventoryDialogModel.getPlayerCharacterMoney()));
 		String weightString = getPlayerCharacterWeight(inventoryDialogModel);
 		weightLabelValue.setText(weightString);
 		
 		if (inventoryDialogModel.hasTarget()) {
-			targetInventoryList.setModel(getInventoryListModel(inventoryDialogModel.getTargetInventory()));
+			targetInventoryTable.setModel(new InventoryModel(inventoryDialogModel.getTargetInventory()));
 			
 			if (inventoryDialogModel.hasTargetMoney()) {
 				targetMoney.setText(Integer.toString(inventoryDialogModel.getTargetMoney()));
@@ -412,10 +421,84 @@ public class InventoryDialog extends AbstractDialog {
 	}
 
 	public InventoryItem getPlayerCharacterSelectedValue() {
-		return inventoryJList.getSelectedValue();
+		return getSelectedValue(inventoryTable);
+	}
+
+	private InventoryItem getSelectedValue(JTable inventoryTable) {
+		int selectedRow = inventoryTable.convertRowIndexToModel(inventoryTable.getSelectedRow());
+		InventoryModel inventoryModel = (InventoryModel) inventoryTable.getModel();
+		return inventoryModel.getInventoryItem(selectedRow);
 	}
 	
 	public InventoryItem getTargetSelectedValue() {
-		return targetInventoryList.getSelectedValue();
+		return getSelectedValue(targetInventoryTable);
+	}
+	
+	private static class InventoryModel extends AbstractTableModel {
+
+		private final List<InventoryItem> inventoryItems;
+		
+		public InventoryModel(WorldObjectContainer inventory) {
+			inventoryItems = getInventoryList(inventory);
+		}
+		
+		@Override
+		public int getRowCount() {
+			return inventoryItems.size();
+		}
+
+		@Override
+		public int getColumnCount() {
+			return 4;
+		}
+		
+		@Override
+		public String getColumnName(int columnIndex) {
+			if (columnIndex == 0) {
+				return "Image";
+			} else if (columnIndex == 1) {
+				return "Description";
+			} else if (columnIndex == 2) {
+				return "Sellable";
+			} else if (columnIndex == 3) {
+				return "Weight";
+			} else {
+				return null;
+			}
+		}
+
+		@Override
+		public Class<?> getColumnClass(int columnIndex) {
+			if (columnIndex == 0) {
+				return ImageIds.class;
+			} else if (columnIndex == 2) {
+				return Boolean.class;
+			}
+			return super.getColumnClass(columnIndex);
+		}
+
+		@Override
+		public Object getValueAt(int rowIndex, int columnIndex) {
+			if (columnIndex == 0) {
+				return inventoryItems.get(rowIndex).getImageId();
+			} else if (columnIndex == 1) {
+				String description = inventoryItems.get(rowIndex).getDescription();
+				int quantity = inventoryItems.get(rowIndex).getQuantity();
+				if (quantity == 1) {
+					return description;
+				} else {
+					return description + "(" + quantity + ")";
+				}
+			} else if (columnIndex == 2) {
+				return inventoryItems.get(rowIndex).isSellable();
+			} else if (columnIndex == 3) {
+				return inventoryItems.get(rowIndex).getWeight();
+			}
+			return null;
+		}
+		
+		public InventoryItem getInventoryItem(int index) {
+			return inventoryItems.get(index);
+		}
 	}
 }

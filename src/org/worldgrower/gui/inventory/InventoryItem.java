@@ -99,6 +99,15 @@ public class InventoryItem {
 		}
 	}
 	
+	public int getWeight() {
+		String weight = additionalProperties.get(Constants.WEIGHT.getName().toLowerCase());
+		if (weight != null) {
+			return Integer.parseInt(weight);
+		} else {
+			return 0;
+		}
+	}
+	
 	public int getPrice() {
 		return price;
 	}
