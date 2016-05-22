@@ -38,6 +38,13 @@ public class JButtonFactory {
 		return button;
 	}
 	
+	public static JToggleButton createToggleButton(ImageIcon icon) {
+		JToggleButton button = new JToggleButton(icon);
+		button.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
+		setButtonProperties(button);
+		return button;
+	}
+	
 	public static JToggleButton createToggleButton(String text, ImageIcon icon) {
 		JToggleButton button = new JToggleButton(text, icon);
 		button.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);

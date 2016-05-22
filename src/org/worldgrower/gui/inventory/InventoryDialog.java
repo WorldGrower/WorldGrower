@@ -27,6 +27,7 @@ import java.util.List;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
@@ -102,7 +103,7 @@ public class InventoryDialog extends AbstractDialog {
 	 * @wbp.parser.constructor
 	 */
 	public InventoryDialog(InventoryDialogModel inventoryDialogModel, ImageInfoReader imageInfoReader, InventoryActionFactory inventoryActionFactory) {
-		super(762, 690);
+		super(762, 710);
 		this.imageInfoReader = imageInfoReader;
 		
 		initializeGUI(inventoryDialogModel, imageInfoReader, inventoryActionFactory);
@@ -125,13 +126,13 @@ public class InventoryDialog extends AbstractDialog {
 		okButton.addActionListener(new CloseDialogAction());
 
 		rootInventoryPanel = JPanelFactory.createBorderlessPanel();
-		rootInventoryPanel.setBounds(12, 12, 650, 550);
+		rootInventoryPanel.setBounds(12, 12, 700, 600);
 		CardLayout cardLayout = new CardLayout();
 		rootInventoryPanel.setLayout(cardLayout);
 		addComponent(rootInventoryPanel);
 		
 		inventoryPanel = JPanelFactory.createBorderlessPanel();
-		inventoryPanel.setBounds(0, 0, 650, 550);
+		inventoryPanel.setBounds(0, 0, 700, 600);
 		inventoryPanel.setLayout(null);
 		inventoryPanel.setOpaque(true);
 		inventoryPanel.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
@@ -139,49 +140,56 @@ public class InventoryDialog extends AbstractDialog {
 		
 		inventoryTable = createInventoryTable(inventoryDialogModel.getPlayerCharacterInventory(), imageInfoReader);
 		
+		addFilterPanel(inventoryPanel);
+		
 		JScrollPane inventoryScrollPane = new JScrollPane();
 		inventoryScrollPane.setViewportView(inventoryTable);
-		inventoryScrollPane.setBounds(12, 12, 400, 530);
+		inventoryScrollPane.setBounds(12, 62, 450, 530);
 		inventoryScrollPane.getViewport().setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
 		SwingUtils.makeTransparant(inventoryTable, inventoryScrollPane);
 		inventoryPanel.add(inventoryScrollPane);
 		
+		int labelLeft = 472;
+		int labelValueLeft = 537;
+		
 		final JLabel moneyLabel = JLabelFactory.createJLabel("Money:");
 		moneyLabel.setToolTipText(MONEY_PLAYER_CHARACTER_TOOL_TIP);
-		moneyLabel.setBounds(412, 200, 64, 25);
+		moneyLabel.setBounds(labelLeft, 200, 64, 25);
 		inventoryPanel.add(moneyLabel);
 		
 		moneyValueLabel = JLabelFactory.createJLabel(inventoryDialogModel.getPlayerCharacterMoney());
 		moneyValueLabel.setToolTipText(MONEY_PLAYER_CHARACTER_TOOL_TIP);
-		moneyValueLabel.setBounds(477, 200, 50, 25);
+		moneyValueLabel.setBounds(labelValueLeft, 200, 50, 25);
 		inventoryPanel.add(moneyValueLabel);
 		
 		JLabel lblWeight = JLabelFactory.createJLabel("Weight:");
 		lblWeight.setToolTipText(WEIGHT_PLAYER_CHARACTER_TOOL_TIP);
-		lblWeight.setBounds(412, 250, 64, 25);
+		lblWeight.setBounds(labelLeft, 250, 64, 25);
 		inventoryPanel.add(lblWeight);
 		
 		String weightString = getPlayerCharacterWeight(inventoryDialogModel);
 		weightLabelValue = JLabelFactory.createJLabel(weightString);
 		weightLabelValue.setToolTipText(WEIGHT_PLAYER_CHARACTER_TOOL_TIP);
-		weightLabelValue.setBounds(477, 250, 64, 25);
+		weightLabelValue.setBounds(labelValueLeft, 250, 64, 25);
 		inventoryPanel.add(weightLabelValue);
 		
 		pricesButton = JButtonFactory.createButton("Prices");
 		pricesButton.setToolTipText(PRICES_TOOL_TIP);
-		pricesButton.setBounds(424, 399, 100, 25);
+		pricesButton.setBounds(labelLeft, 399, 100, 25);
 		inventoryPanel.add(pricesButton);
 
 		if (inventoryDialogModel.hasTarget()) {
 			targetInventoryPanel = JPanelFactory.createBorderlessPanel();
 			targetInventoryPanel.setLayout(null);
-			targetInventoryPanel.setBounds(0, 0, 650, 550);
+			targetInventoryPanel.setBounds(0, 0, 700, 600);
 			targetInventoryPanel.setOpaque(true);
 			targetInventoryPanel.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
 			rootInventoryPanel.add(targetInventoryPanel, "target");
 			
+			addFilterPanel(targetInventoryPanel);
+			
 			JScrollPane scrollPane = new JScrollPane();
-			scrollPane.setBounds(12, 12, 400, 530);
+			scrollPane.setBounds(12, 62, 450, 530);
 			scrollPane.getViewport().setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
 			targetInventoryPanel.add(scrollPane);
 			
@@ -192,18 +200,18 @@ public class InventoryDialog extends AbstractDialog {
 			if (inventoryDialogModel.hasTargetMoney()) {
 				JLabel targetMoneyLabel = JLabelFactory.createJLabel("Money:");
 				targetMoneyLabel.setToolTipText(MONEY_TARGET_TOOL_TIP);
-				targetMoneyLabel.setBounds(412, 200, 64, 25);
+				targetMoneyLabel.setBounds(labelLeft, 200, 64, 25);
 				targetInventoryPanel.add(targetMoneyLabel);
 				
 				targetMoney = JLabelFactory.createJLabel(inventoryDialogModel.getTargetMoney());
 				targetMoney.setToolTipText(MONEY_TARGET_TOOL_TIP);
-				targetMoney.setBounds(477, 200, 50, 25);
+				targetMoney.setBounds(labelValueLeft, 200, 50, 25);
 				targetInventoryPanel.add(targetMoney);
 				
 				Image stealGoldImage = imageInfoReader.getImage(Actions.STEAL_GOLD_ACTION.getImageIds(), null);
 				JButton stealMoneyButton = JButtonFactory.createButton("Steal gold", new ImageIcon(stealGoldImage));
 				stealMoneyButton.setToolTipText("steal gold");
-				stealMoneyButton.setBounds(527, 200, 120, 50);
+				stealMoneyButton.setBounds(labelValueLeft + 50, 200, 120, 50);
 				stealMoneyButton.addActionListener(inventoryActionFactory.getTargetMoneyActions().get(0));
 				targetInventoryPanel.add(stealMoneyButton);
 			}
@@ -211,40 +219,78 @@ public class InventoryDialog extends AbstractDialog {
 			if (inventoryDialogModel.hasTargetCarryingCapacity()) {
 				JLabel targetWeightLabel = JLabelFactory.createJLabel("Weight:");
 				targetWeightLabel.setToolTipText(WEIGHT_TARGET_TOOL_TIP);
-				targetWeightLabel.setBounds(412, 250, 64, 25);
+				targetWeightLabel.setBounds(labelLeft, 250, 64, 25);
 				targetInventoryPanel.add(targetWeightLabel);
 				
 				String targetWeightString = getTargetWeight(inventoryDialogModel);
 				targetWeight = JLabelFactory.createJLabel(targetWeightString);
 				targetWeight.setToolTipText(WEIGHT_TARGET_TOOL_TIP);
-				targetWeight.setBounds(477, 250, 64, 25);
+				targetWeight.setBounds(labelValueLeft, 250, 64, 25);
 				targetInventoryPanel.add(targetWeight);
 			}
 			
-			containersPanel = JPanelFactory.createBorderlessPanel();
-			containersPanel.setLayout(null);
-			containersPanel.setBounds(12, 565, 400, 50);
-			addComponent(containersPanel);
-			
-			playercharacterToggleButton = JButtonFactory.createToggleButton(inventoryDialogModel.getPlayerCharacterName(), new ImageIcon(inventoryDialogModel.getPlayerCharacterImage(imageInfoReader)));
-			playercharacterToggleButton.setToolTipText(inventoryDialogModel.getPlayerCharacterName());
-			playercharacterToggleButton.setBounds(0, 0, 200, 50);
-			playercharacterToggleButton.setOpaque(true);
-			playercharacterToggleButton.addActionListener(this::setPlayerCharacterPanelOnTop);
-			containersPanel.add(playercharacterToggleButton);
-			
-			targetToggleButton = JButtonFactory.createToggleButton(inventoryDialogModel.getTargetName(), new ImageIcon(inventoryDialogModel.getTargetImage(imageInfoReader)));
-			targetToggleButton.setToolTipText(inventoryDialogModel.getTargetName());
-			targetToggleButton.setBounds(200, 0, 200, 50);
-			targetToggleButton.setOpaque(true);
-			targetToggleButton.addActionListener(this::setTargetInventoryOnTop);
-			containersPanel.add(targetToggleButton);
+			addContainerPanel(inventoryDialogModel, imageInfoReader);
 			
 			setPlayerCharacterPanelOnTop(null);
 		}
 		
 		setInventoryActions(inventoryDialogModel.getPlayerCharacterPrices());
 		addPopupMenuToInventoryList(inventoryDialogModel, inventoryActionFactory);
+	}
+
+	private void addContainerPanel(InventoryDialogModel inventoryDialogModel, ImageInfoReader imageInfoReader) {
+		containersPanel = JPanelFactory.createBorderlessPanel();
+		containersPanel.setLayout(null);
+		containersPanel.setBounds(12, 615, 400, 50);
+		addComponent(containersPanel);
+		
+		playercharacterToggleButton = JButtonFactory.createToggleButton(inventoryDialogModel.getPlayerCharacterName(), new ImageIcon(inventoryDialogModel.getPlayerCharacterImage(imageInfoReader)));
+		playercharacterToggleButton.setToolTipText(inventoryDialogModel.getPlayerCharacterName());
+		playercharacterToggleButton.setBounds(0, 0, 200, 50);
+		playercharacterToggleButton.setOpaque(true);
+		playercharacterToggleButton.addActionListener(this::setPlayerCharacterPanelOnTop);
+		containersPanel.add(playercharacterToggleButton);
+		
+		targetToggleButton = JButtonFactory.createToggleButton(inventoryDialogModel.getTargetName(), new ImageIcon(inventoryDialogModel.getTargetImage(imageInfoReader)));
+		targetToggleButton.setToolTipText(inventoryDialogModel.getTargetName());
+		targetToggleButton.setBounds(200, 0, 200, 50);
+		targetToggleButton.setOpaque(true);
+		targetToggleButton.addActionListener(this::setTargetInventoryOnTop);
+		containersPanel.add(targetToggleButton);
+	}
+
+	private void addFilterPanel(JPanel parentPanel) {
+		JPanel filterPanel = JPanelFactory.createBorderlessPanel();
+		filterPanel.setBounds(12, 12, 650, 50);
+		filterPanel.setLayout(null);
+		filterPanel.setOpaque(true);
+		filterPanel.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
+		parentPanel.add(filterPanel);
+		
+		List<JToggleButton> filterButtons = new ArrayList<>();
+		filterButtons.add(createFilterButton(filterPanel, 0, ImageIds.CHEST));
+		filterButtons.add(createFilterButton(filterPanel, 1, ImageIds.IRON_CLAYMORE));
+		filterButtons.add(createFilterButton(filterPanel, 2, ImageIds.IRON_CUIRASS));
+		filterButtons.add(createFilterButton(filterPanel, 3, ImageIds.SLEEPING_POTION));
+		filterButtons.add(createFilterButton(filterPanel, 4, ImageIds.BERRY));
+		filterButtons.add(createFilterButton(filterPanel, 5, ImageIds.NIGHT_SHADE));
+		filterButtons.add(createFilterButton(filterPanel, 6, ImageIds.SPELL_BOOK));
+		filterButtons.add(createFilterButton(filterPanel, 7, ImageIds.KEY));
+		filterButtons.add(createFilterButton(filterPanel, 8, ImageIds.WOOD));
+		
+		ButtonGroup buttonGroup = new ButtonGroup();
+		for(JToggleButton toggleButton : filterButtons) {
+			buttonGroup.add(toggleButton);
+		}
+		
+		filterButtons.get(0).setSelected(true);
+	}
+	
+	private JToggleButton createFilterButton(JPanel filterPanel, int index, ImageIds imageId) {
+		JToggleButton filterToggleButton = JButtonFactory.createToggleButton(new ImageIcon(imageInfoReader.getImage(imageId, null)));
+		filterToggleButton.setBounds(index * 50, 0, 50, 50);
+		filterPanel.add(filterToggleButton);
+		return filterToggleButton;
 	}
 
 	private void setPlayerCharacterPanelOnTop(ActionEvent e) {
