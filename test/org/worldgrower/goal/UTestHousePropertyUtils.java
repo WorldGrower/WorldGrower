@@ -133,7 +133,7 @@ public class UTestHousePropertyUtils {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.BUILDINGS, new BuildingList());
 
-		int houseId = BuildingGenerator.generateHouse(0, 0, world, 1f);
+		int houseId = BuildingGenerator.generateHouse(0, 0, world, 1f, performer);
 		performer.getProperty(Constants.BUILDINGS).add(houseId, BuildingType.HOUSE);
 		
 		assertEquals(true, HousePropertyUtils.allHousesButFirstSellable(performer, world));
@@ -144,10 +144,10 @@ public class UTestHousePropertyUtils {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.BUILDINGS, new BuildingList());
 
-		int houseId = BuildingGenerator.generateHouse(0, 0, world, 1f);
+		int houseId = BuildingGenerator.generateHouse(0, 0, world, 1f, performer);
 		performer.getProperty(Constants.BUILDINGS).add(houseId, BuildingType.HOUSE);
 		
-		int houseId2 = BuildingGenerator.generateHouse(0, 0, world, 1f);
+		int houseId2 = BuildingGenerator.generateHouse(0, 0, world, 1f, performer);
 		performer.getProperty(Constants.BUILDINGS).add(houseId2, BuildingType.HOUSE);
 		
 		assertEquals(false, HousePropertyUtils.allHousesButFirstSellable(performer, world));

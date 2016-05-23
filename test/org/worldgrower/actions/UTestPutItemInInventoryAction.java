@@ -17,11 +17,13 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
@@ -32,7 +34,7 @@ public class UTestPutItemInInventoryAction {
 	public void testExecute() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
-		int id = BuildingGenerator.generateHouse(0, 0, world, 1f);
+		int id = BuildingGenerator.generateHouse(0, 0, world, 1f, performer);
 		WorldObject target = world.findWorldObject(Constants.ID, id);
 		
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.BERRIES.generate(1f));
@@ -47,7 +49,7 @@ public class UTestPutItemInInventoryAction {
 	public void testIsValidTarget() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
-		int id = BuildingGenerator.generateHouse(0, 0, world, 1f);
+		int id = BuildingGenerator.generateHouse(0, 0, world, 1f, performer);
 		WorldObject target = world.findWorldObject(Constants.ID, id);
 		
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.BERRIES.generate(1f));
@@ -59,13 +61,28 @@ public class UTestPutItemInInventoryAction {
 	public void testDistance() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
-		int id = BuildingGenerator.generateHouse(0, 0, world, 1f);
+		int id = BuildingGenerator.generateHouse(0, 0, world, 1f, performer);
 		WorldObject target = world.findWorldObject(Constants.ID, id);
 		
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.BERRIES.generate(1f));
 		target.setProperty(Constants.LOCKED, Boolean.FALSE);
 		
 		assertEquals(0, Actions.PUT_ITEM_INTO_INVENTORY_ACTION.distance(performer, target, new int[] { 0 }, world));
+	}
+	
+	@Test
+	public void testAccessToHouseContainer() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		
+		Actions.BUILD_HOUSE_ACTION.execute(performer, target, Args.EMPTY, world);
+		int houseId = performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.HOUSE).get(0);
+		WorldObject house = world.findWorldObject(Constants.ID, houseId);
+		
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.BERRIES.generate(1f));
+		
+		assertEquals(0, Actions.PUT_ITEM_INTO_INVENTORY_ACTION.distance(performer, house, new int[] { 0 }, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

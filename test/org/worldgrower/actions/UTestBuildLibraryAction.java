@@ -37,7 +37,7 @@ public class UTestBuildLibraryAction {
 		Actions.BUILD_LIBRARY_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(1, world.getWorldObjects().size());
-		assertEquals("library", world.getWorldObjects().get(0).getProperty(Constants.NAME));
+		assertEquals("null's library", world.getWorldObjects().get(0).getProperty(Constants.NAME));
 	}
 	
 	@Test

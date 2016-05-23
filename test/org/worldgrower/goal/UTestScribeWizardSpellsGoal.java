@@ -47,7 +47,7 @@ public class UTestScribeWizardSpellsGoal {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
 		
-		BuildingGenerator.generateLibrary(5, 5, world);
+		BuildingGenerator.generateLibrary(5, 5, world, performer);
 		
 		assertEquals(Actions.getResearchSpellActionFor(Actions.FIRE_BOLT_ATTACK_ACTION), goal.calculateGoal(performer, world).getManagedOperation());
 	}
@@ -57,7 +57,7 @@ public class UTestScribeWizardSpellsGoal {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
 		
-		BuildingGenerator.generateLibrary(5, 5, world);
+		BuildingGenerator.generateLibrary(5, 5, world, performer);
 		PlantGenerator.generateTree(5, 5, world);
 		
 		performer.getProperty(Constants.KNOWN_SPELLS).add(Actions.FIRE_BOLT_ATTACK_ACTION);
@@ -70,7 +70,7 @@ public class UTestScribeWizardSpellsGoal {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
 		
-		BuildingGenerator.generateLibrary(5, 5, world);
+		BuildingGenerator.generateLibrary(5, 5, world, performer);
 		PlantGenerator.generateTree(5, 5, world);
 		
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.PAPER.generate(1f), 20);
@@ -86,7 +86,7 @@ public class UTestScribeWizardSpellsGoal {
 		
 		assertEquals(false, goal.isGoalMet(performer, world));
 		
-		int libraryId = BuildingGenerator.generateLibrary(5, 5, world);
+		int libraryId = BuildingGenerator.generateLibrary(5, 5, world, performer);
 		WorldObject library = world.findWorldObject(Constants.ID, libraryId);
 		
 		library.getProperty(Constants.INVENTORY).add(Item.generateSpellBook(Actions.FIRE_BOLT_ATTACK_ACTION));

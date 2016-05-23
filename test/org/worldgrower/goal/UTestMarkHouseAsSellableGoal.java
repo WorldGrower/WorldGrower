@@ -37,7 +37,7 @@ public class UTestMarkHouseAsSellableGoal {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
 		
-		int houseId = BuildingGenerator.generateHouse(5, 5, world, 1f);
+		int houseId = BuildingGenerator.generateHouse(5, 5, world, 1f, performer);
 		performer.getProperty(Constants.BUILDINGS).add(houseId, BuildingType.HOUSE);
 		
 		assertEquals(null, goal.calculateGoal(performer, world));
@@ -48,10 +48,10 @@ public class UTestMarkHouseAsSellableGoal {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
 		
-		int houseId = BuildingGenerator.generateHouse(5, 5, world, 1f);
+		int houseId = BuildingGenerator.generateHouse(5, 5, world, 1f, performer);
 		performer.getProperty(Constants.BUILDINGS).add(houseId, BuildingType.HOUSE);
 		
-		int houseId2 = BuildingGenerator.generateHouse(5, 5, world, 1f);
+		int houseId2 = BuildingGenerator.generateHouse(5, 5, world, 1f, performer);
 		performer.getProperty(Constants.BUILDINGS).add(houseId2, BuildingType.HOUSE);
 		
 		assertEquals(Actions.MARK_AS_SELLABLE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());

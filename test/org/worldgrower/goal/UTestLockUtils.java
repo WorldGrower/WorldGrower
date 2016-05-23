@@ -19,6 +19,8 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
+import org.worldgrower.World;
+import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
@@ -27,13 +29,17 @@ public class UTestLockUtils {
 
 	@Test
 	public void testPerformerHasKey() {
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.INVENTORY, new WorldObjectContainer());
 		WorldObject target = TestUtils.createWorldObject(1, "Test2");
+		world.addWorldObject(target);
 		
 		assertEquals(false, LockUtils.performerHasKey(performer, target));
 		
-		performer.getProperty(Constants.INVENTORY).add(Item.generateKey(target.getProperty(Constants.ID)));
+		WorldObject key = Item.generateKey(target.getProperty(Constants.ID), world);
+		performer.getProperty(Constants.INVENTORY).add(key);
 		assertEquals(true, LockUtils.performerHasKey(performer, target));
+		assertEquals("key to Test2", key.getProperty(Constants.NAME));
 	}
 	
 	@Test

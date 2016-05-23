@@ -220,8 +220,8 @@ public class UTestGroupPropertyUtils {
 		world.addWorldObject(target);
 		
 		createVillagersOrganizationWithTaxRates(world);
-		BuildingGenerator.generateShack(0, 0, world, 0f);
-		BuildingGenerator.generateHouse(0, 0, world, 0f);
+		BuildingGenerator.generateShack(0, 0, world, 0f, target);
+		BuildingGenerator.generateHouse(0, 0, world, 0f, target);
 		
 		assertEquals(3, GroupPropertyUtils.getBaseAmountToPay(target, world));
 	}
@@ -241,8 +241,8 @@ public class UTestGroupPropertyUtils {
 		world.addWorldObject(target);
 		
 		createVillagersOrganizationWithTaxRates(world);
-		BuildingGenerator.generateShack(0, 0, world, 0f);
-		BuildingGenerator.generateHouse(0, 0, world, 0f);
+		BuildingGenerator.generateShack(0, 0, world, 0f, target);
+		BuildingGenerator.generateHouse(0, 0, world, 0f, target);
 		
 		assertEquals(0, GroupPropertyUtils.getAmountToCollect(target, world));
 		

@@ -67,7 +67,7 @@ public class UTestResearchSpellAction {
 		
 		assertEquals(false, researchSpellAction.isValidTarget(performer, performer, world));
 		
-		int targetId = BuildingGenerator.generateLibrary(0, 0, world);
+		int targetId = BuildingGenerator.generateLibrary(0, 0, world, performer);
 		WorldObject target = world.findWorldObject(Constants.ID, targetId);
 		assertEquals(true, researchSpellAction.isValidTarget(performer, target, world));
 	}

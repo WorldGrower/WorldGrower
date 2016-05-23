@@ -22,6 +22,7 @@ import java.util.Map;
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.generator.ItemType;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.debug.PropertiesModel.PropertyComparator;
 
@@ -32,6 +33,7 @@ public class InventoryItem {
 	private boolean sellable;
 	private final ImageIds imageId;
 	private final Map<String, String> additionalProperties;
+	private final ItemType itemType;
 	
 	public InventoryItem(int id, WorldObject inventoryWorldObject) {
 		if (inventoryWorldObject == null) {
@@ -49,6 +51,7 @@ public class InventoryItem {
 		this.price = inventoryWorldObject.getProperty(Constants.PRICE);
 		this.imageId = inventoryWorldObject.getProperty(Constants.IMAGE_ID);
 		this.sellable = inventoryWorldObject.getProperty(Constants.SELLABLE);
+		this.itemType = inventoryWorldObject.getProperty(Constants.ITEM_ID).getItemType();
 		
 		this.additionalProperties = generateAdditionalProperties(inventoryWorldObject);
 	}
@@ -61,7 +64,7 @@ public class InventoryItem {
 		
 		for(ManagedProperty<?> propertyKey : propertyKeys) {
 			String name = propertyKey.getName().toLowerCase();
-			if (propertyKey == Constants.DAMAGE || propertyKey == Constants.ARMOR || propertyKey == Constants.WEIGHT || propertyKey == Constants.QUANTITY || propertyKey == Constants.WATER || propertyKey == Constants.FOOD || propertyKey == Constants.TEXT || propertyKey == Constants.MAGIC_SPELL || propertyKey == Constants.LOCK_ID || propertyKey == Constants.WOOD || propertyKey == Constants.STONE || propertyKey == Constants.ORE || propertyKey == Constants.NIGHT_SHADE  || propertyKey == Constants.GOLD) {
+			if (propertyKey == Constants.DAMAGE || propertyKey == Constants.ARMOR || propertyKey == Constants.WEIGHT || propertyKey == Constants.QUANTITY) {
 				String value = inventoryWorldObject.getProperty(propertyKey).toString();
 				additionalProperties.put(name, value);
 			} else if (propertyKey == Constants.EQUIPMENT_HEALTH) {
@@ -134,38 +137,34 @@ public class InventoryItem {
 	}
 
 	public boolean isWeapon() {
-		return additionalProperties.containsKey(Constants.DAMAGE.getName().toLowerCase());
+		return itemType == ItemType.WEAPON;
 	}
 
 	public boolean isArmor() {
-		return additionalProperties.containsKey(Constants.ARMOR.getName().toLowerCase());
+		return itemType == ItemType.ARMOR;
 	}
 	
 	public boolean isPotion() {
-		return additionalProperties.containsKey(Constants.WATER.getName().toLowerCase());
+		return itemType == ItemType.DRINK;
 	}
 	
 	public boolean isFood() {
-		return additionalProperties.containsKey(Constants.FOOD.getName().toLowerCase());
+		return itemType == ItemType.FOOD;
 	}
 
 	public boolean isBook() {
-		return additionalProperties.containsKey(Constants.TEXT.getName().toLowerCase()) 
-				|| additionalProperties.containsKey(Constants.MAGIC_SPELL.getName().toLowerCase());
+		return itemType == ItemType.BOOK;
 	}
 
 	public boolean isKey() {
-		return additionalProperties.containsKey(Constants.LOCK_ID.getName().toLowerCase());
+		return itemType == ItemType.KEY;
 	}
 
 	public boolean isResource() {
-		return additionalProperties.containsKey(Constants.WOOD.getName().toLowerCase())
-				|| additionalProperties.containsKey(Constants.STONE.getName().toLowerCase())
-				|| additionalProperties.containsKey(Constants.ORE.getName().toLowerCase())
-				|| additionalProperties.containsKey(Constants.GOLD.getName().toLowerCase());
+		return itemType == ItemType.RESOURCE;
 	}
 
 	public boolean isAlchemyIngredient() {
-		return additionalProperties.containsKey(Constants.NIGHT_SHADE.getName().toLowerCase());
+		return itemType == ItemType.INGREDIENT;
 	}
 }

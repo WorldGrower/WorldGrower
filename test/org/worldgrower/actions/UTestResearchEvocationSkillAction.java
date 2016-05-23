@@ -47,7 +47,7 @@ public class UTestResearchEvocationSkillAction {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		
-		int targetId = BuildingGenerator.generateLibrary(0, 0, world);
+		int targetId = BuildingGenerator.generateLibrary(0, 0, world, performer);
 		WorldObject target = world.findWorldObject(Constants.ID, targetId);
 		
 		assertEquals(true, Actions.RESEARCH_EVOCATION_SKILL_ACTION.isValidTarget(performer, target, world));
@@ -59,7 +59,7 @@ public class UTestResearchEvocationSkillAction {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		
-		int targetId = BuildingGenerator.generateLibrary(0, 0, world);
+		int targetId = BuildingGenerator.generateLibrary(0, 0, world, performer);
 		WorldObject target = world.findWorldObject(Constants.ID, targetId);
 		
 		assertEquals(0, Actions.RESEARCH_EVOCATION_SKILL_ACTION.distance(performer, target, Args.EMPTY, world));

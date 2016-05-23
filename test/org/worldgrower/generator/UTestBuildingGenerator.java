@@ -18,6 +18,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
@@ -27,7 +28,7 @@ public class UTestBuildingGenerator {
 	@Test
 	public void testisSellableShack() {
 		World world = new WorldImpl(10, 10, null, null);
-		int shackId = BuildingGenerator.generateShack(0, 0, world, 1f);
+		int shackId = BuildingGenerator.generateShack(0, 0, world, 1f, TestUtils.createIntelligentWorldObject(3, "Test"));
 		WorldObject shack = world.findWorldObject(Constants.ID, shackId);
 
 		assertEquals(true, BuildingGenerator.isSellable(shack));
@@ -36,7 +37,7 @@ public class UTestBuildingGenerator {
 	@Test
 	public void testisSellableHouse() {
 		World world = new WorldImpl(10, 10, null, null);
-		int houseId = BuildingGenerator.generateHouse(0, 0, world, 1f);
+		int houseId = BuildingGenerator.generateHouse(0, 0, world, 1f, TestUtils.createIntelligentWorldObject(0, "Test"));
 		WorldObject house = world.findWorldObject(Constants.ID, houseId);
 
 		assertEquals(true, BuildingGenerator.isSellable(house));

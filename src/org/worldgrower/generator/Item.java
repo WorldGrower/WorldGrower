@@ -36,7 +36,51 @@ import org.worldgrower.conversation.KnowledgeToDescriptionMapper;
 import org.worldgrower.gui.ImageIds;
 
 public enum Item {
-	IRON_CLAYMORE, IRON_GREATSWORD, IRON_AXE, IRON_GREATAXE, IRON_CUIRASS, IRON_HELMET, IRON_GAUNTLETS, IRON_GREAVES, IRON_SHIELD, IRON_BOOTS, BERRIES, GRAPES, WINE, LONGBOW, PAPER, WATER, MEAT, SPELLBOOK, KEY, NIGHT_SHADE, POISON, COTTON, COTTON_SHIRT, COTTON_HAT, COTTON_BOOTS, COTTON_GLOVES, COTTON_PANTS, BED, OIL, FISHING_POLE, FISH, REPAIR_HAMMER, WOOD, STONE, GOLD, ORE, SOUL_GEM, NEWS_PAPER, BLOOD, IRON_MACE, IRON_KATAR, SLEEPING_POTION, MINIATURE_CHEST;
+	
+	
+	IRON_CLAYMORE(ItemType.WEAPON), 
+	IRON_GREATSWORD(ItemType.WEAPON), 
+	IRON_AXE(ItemType.WEAPON), 
+	IRON_GREATAXE(ItemType.WEAPON), 
+	IRON_CUIRASS(ItemType.ARMOR), 
+	IRON_HELMET(ItemType.ARMOR), 
+	IRON_GAUNTLETS(ItemType.ARMOR), 
+	IRON_GREAVES(ItemType.ARMOR), 
+	IRON_SHIELD(ItemType.ARMOR), 
+	IRON_BOOTS(ItemType.ARMOR), 
+	BERRIES(ItemType.FOOD), 
+	GRAPES(ItemType.INGREDIENT), 
+	WINE(ItemType.DRINK), 
+	LONGBOW(ItemType.WEAPON), 
+	PAPER(ItemType.RESOURCE), 
+	WATER(ItemType.DRINK), 
+	MEAT(ItemType.FOOD), 
+	SPELLBOOK(ItemType.BOOK), 
+	KEY(ItemType.KEY), 
+	NIGHT_SHADE(ItemType.INGREDIENT), 
+	POISON(ItemType.DRINK), 
+	COTTON(ItemType.RESOURCE), 
+	COTTON_SHIRT(ItemType.ARMOR), 
+	COTTON_HAT(ItemType.ARMOR), 
+	COTTON_BOOTS(ItemType.ARMOR), 
+	COTTON_GLOVES(ItemType.ARMOR), 
+	COTTON_PANTS(ItemType.ARMOR), 
+	BED(ItemType.MISC),
+	OIL(ItemType.RESOURCE), 
+	FISHING_POLE(ItemType.MISC), 
+	FISH(ItemType.FOOD), 
+	REPAIR_HAMMER(ItemType.MISC), 
+	WOOD(ItemType.RESOURCE), 
+	STONE(ItemType.RESOURCE), 
+	GOLD(ItemType.RESOURCE), 
+	ORE(ItemType.RESOURCE), 
+	SOUL_GEM(ItemType.RESOURCE), 
+	NEWS_PAPER(ItemType.BOOK), 
+	BLOOD(ItemType.DRINK), 
+	IRON_MACE(ItemType.WEAPON), 
+	IRON_KATAR(ItemType.WEAPON),
+	SLEEPING_POTION(ItemType.DRINK),
+	MINIATURE_CHEST(ItemType.MISC);
 
 	public static final int COMBAT_MULTIPLIER = 10;
 	
@@ -65,6 +109,12 @@ public enum Item {
 	public static final String COTTON_PANTS_NAME = "Cotton Pants";
 	
 	public static final String BED_NAME = "Bed";
+	
+	private final ItemType itemType;
+	
+	private Item(ItemType itemType) {
+		this.itemType = itemType;
+	}
 	
 	private final static Map<Item, Function<Double, WorldObject>> ITEMS = new HashMap<>();
 	
@@ -585,8 +635,10 @@ public enum Item {
 		return spellBook;
 	}
 	
-	public static WorldObject generateKey(int structureToLockId) {
+	public static WorldObject generateKey(int structureToLockId, World world) {
 		WorldObject key = Item.KEY.generate(1f);
+		WorldObject structureToLock = world.findWorldObject(Constants.ID, structureToLockId);
+		key.setProperty(Constants.NAME, "key to " + structureToLock.getProperty(Constants.NAME));
 		key.setProperty(Constants.LOCK_ID, structureToLockId);
 		return key;
 	}
@@ -628,5 +680,9 @@ public enum Item {
 	
 	public static Item value(int index) {
 		return Item.values()[index];
+	}
+
+	public ItemType getItemType() {
+		return itemType;
 	}
 }

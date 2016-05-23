@@ -38,7 +38,7 @@ public class UTestSleepAction {
 		
 		performer.setProperty(Constants.ENERGY, 500);
 		
-		int houseId = BuildingGenerator.generateHouse(0, 0, world, 1f);
+		int houseId = BuildingGenerator.generateHouse(0, 0, world, 1f, performer);
 		WorldObject house = world.findWorldObject(Constants.ID, houseId);
 		Actions.SLEEP_ACTION.execute(performer, house, Args.EMPTY, world);
 		
@@ -52,7 +52,7 @@ public class UTestSleepAction {
 		
 		performer.setProperty(Constants.ENERGY, 500);
 		
-		int houseId = BuildingGenerator.generateHouse(0, 0, world, 1f);
+		int houseId = BuildingGenerator.generateHouse(0, 0, world, 1f, performer);
 		WorldObject house = world.findWorldObject(Constants.ID, houseId);
 		house.getProperty(Constants.INVENTORY).add(Item.BED.generate(1f));
 		Actions.SLEEP_ACTION.execute(performer, house, Args.EMPTY, world);
@@ -64,7 +64,7 @@ public class UTestSleepAction {
 	public void testIsValidTarget() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
-		int houseId = BuildingGenerator.generateHouse(0, 0, world, 1f);
+		int houseId = BuildingGenerator.generateHouse(0, 0, world, 1f, performer);
 		WorldObject house = world.findWorldObject(Constants.ID, houseId);
 		
 		assertEquals(true, Actions.SLEEP_ACTION.isValidTarget(performer, house, world));
@@ -75,7 +75,7 @@ public class UTestSleepAction {
 	public void testDistance() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
-		int houseId = BuildingGenerator.generateHouse(0, 0, world, 1f);
+		int houseId = BuildingGenerator.generateHouse(0, 0, world, 1f, performer);
 		WorldObject house = world.findWorldObject(Constants.ID, houseId);
 		
 		performer.setProperty(Constants.BUILDINGS, new BuildingList().add(house, BuildingType.HOUSE));

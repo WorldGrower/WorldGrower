@@ -100,7 +100,7 @@ public class UTestFurnitureGoal {
 		performer.setProperty(Constants.BUILDINGS, new BuildingList());
 		performer.setProperty(Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		
-		int houseId = BuildingGenerator.generateHouse(5, 5, world, 1f);
+		int houseId = BuildingGenerator.generateHouse(5, 5, world, 1f, performer);
 		performer.getProperty(Constants.BUILDINGS).add(houseId, BuildingType.HOUSE);
 		
 		assertEquals(Actions.PUT_ITEM_INTO_INVENTORY_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
@@ -114,7 +114,7 @@ public class UTestFurnitureGoal {
 		
 		assertEquals(false, goal.isGoalMet(performer, world));
 		
-		int houseId = BuildingGenerator.generateHouse(5, 5, world, 1f);
+		int houseId = BuildingGenerator.generateHouse(5, 5, world, 1f, performer);
 		performer.getProperty(Constants.BUILDINGS).add(houseId, BuildingType.HOUSE);
 		WorldObject house = world.findWorldObject(Constants.ID, houseId);
 		house.getProperty(Constants.INVENTORY).add(Item.BED.generate(1f));

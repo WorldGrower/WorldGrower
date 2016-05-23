@@ -84,7 +84,7 @@ public class UTestLibraryGoal {
 		
 		assertEquals(false, goal.isGoalMet(performer, world));
 		
-		BuildingGenerator.generateLibrary(5, 5, world);
+		BuildingGenerator.generateLibrary(5, 5, world, performer);
 		assertEquals(true, goal.isGoalMet(performer, world));
 	}
 

@@ -76,7 +76,7 @@ public class UTestShackGoal {
 		WorldObject performer = createCommoner(world, organization);
 		createVillagersOrganization(world);
 
-		BuildingGenerator.generateShack(0, 0, world, 1f);
+		BuildingGenerator.generateShack(0, 0, world, 1f, performer);
 		
 		assertEquals(Actions.CLAIM_BUILDING_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
@@ -101,9 +101,9 @@ public class UTestShackGoal {
 		
 		assertEquals(false, goal.isGoalMet(performer, world));
 		
-		int houseId = BuildingGenerator.generateShack(5, 5, world, 1f);
+		int houseId = BuildingGenerator.generateShack(5, 5, world, 1f, performer);
 		performer.getProperty(Constants.BUILDINGS).add(houseId, BuildingType.SHACK);
-		int houseId2 = BuildingGenerator.generateShack(5, 5, world, 1f);
+		int houseId2 = BuildingGenerator.generateShack(5, 5, world, 1f, performer);
 		performer.getProperty(Constants.BUILDINGS).add(houseId2, BuildingType.SHACK);
 		assertEquals(true, goal.isGoalMet(performer, world));
 	}

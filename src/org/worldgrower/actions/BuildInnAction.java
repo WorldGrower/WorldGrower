@@ -37,7 +37,7 @@ public class BuildInnAction implements BuildAction {
 	
 		int id = BuildingGenerator.generateInn(x, y, world, SkillUtils.useSkill(performer, Constants.CARPENTRY_SKILL, world.getWorldStateChangedListeners()));
 		
-		performer.getProperty(Constants.INVENTORY).add(Item.generateKey(id));
+		performer.getProperty(Constants.INVENTORY).add(Item.generateKey(id, world));
 		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.STONE, REQUIRED_STONE);
 		performer.getProperty(Constants.BUILDINGS).add(id, BuildingType.INN);
 	}

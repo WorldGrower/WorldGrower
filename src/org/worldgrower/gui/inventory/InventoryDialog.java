@@ -271,15 +271,15 @@ public class InventoryDialog extends AbstractDialog {
 		parentPanel.add(filterPanel);
 		
 		List<JToggleButton> filterButtons = new ArrayList<>();
-		filterButtons.add(createFilterButton(filterPanel, 0, ImageIds.CHEST));
-		filterButtons.add(createFilterButton(filterPanel, 1, ImageIds.IRON_CLAYMORE));
-		filterButtons.add(createFilterButton(filterPanel, 2, ImageIds.IRON_CUIRASS));
-		filterButtons.add(createFilterButton(filterPanel, 3, ImageIds.SLEEPING_POTION));
-		filterButtons.add(createFilterButton(filterPanel, 4, ImageIds.BERRY));
-		filterButtons.add(createFilterButton(filterPanel, 5, ImageIds.NIGHT_SHADE));
-		filterButtons.add(createFilterButton(filterPanel, 6, ImageIds.SPELL_BOOK));
-		filterButtons.add(createFilterButton(filterPanel, 7, ImageIds.KEY));
-		filterButtons.add(createFilterButton(filterPanel, 8, ImageIds.WOOD));
+		filterButtons.add(createFilterButton(filterPanel, 0, ImageIds.CHEST, "Show all items"));
+		filterButtons.add(createFilterButton(filterPanel, 1, ImageIds.IRON_CLAYMORE, "Show weapons"));
+		filterButtons.add(createFilterButton(filterPanel, 2, ImageIds.IRON_CUIRASS, "Show armor"));
+		filterButtons.add(createFilterButton(filterPanel, 3, ImageIds.SLEEPING_POTION, "Show drinks and potions"));
+		filterButtons.add(createFilterButton(filterPanel, 4, ImageIds.BERRY, "Show food"));
+		filterButtons.add(createFilterButton(filterPanel, 5, ImageIds.NIGHT_SHADE, "Show ingredients"));
+		filterButtons.add(createFilterButton(filterPanel, 6, ImageIds.SPELL_BOOK, "Show books"));
+		filterButtons.add(createFilterButton(filterPanel, 7, ImageIds.KEY, "Show keys"));
+		filterButtons.add(createFilterButton(filterPanel, 8, ImageIds.WOOD, "Show resources"));
 		
 		List<RowFilter<InventoryModel, Integer>> rowFilters = createRowFilters();
 		ButtonGroup buttonGroup = new ButtonGroup();
@@ -354,9 +354,10 @@ public class InventoryDialog extends AbstractDialog {
 		);
 	}
 	
-	private JToggleButton createFilterButton(JPanel filterPanel, int index, ImageIds imageId) {
+	private JToggleButton createFilterButton(JPanel filterPanel, int index, ImageIds imageId, String tooltipText) {
 		JToggleButton filterToggleButton = JButtonFactory.createToggleButton(new ImageIcon(imageInfoReader.getImage(imageId, null)));
 		filterToggleButton.setBounds(index * 50, 0, 50, 50);
+		filterToggleButton.setToolTipText(tooltipText);
 		filterPanel.add(filterToggleButton);
 		return filterToggleButton;
 	}

@@ -53,7 +53,7 @@ public class UTestEntangleAction {
 		WorldObject performer = createPerformer(2);
 		world.addWorldObject(performer);
 		
-		BuildingGenerator.generateShack(0, 0, world, 1f);
+		BuildingGenerator.generateShack(0, 0, world, 1f, performer);
 		WorldObject target = createPerformer(3);
 		target.setProperty(Constants.WIDTH, 4);
 		target.setProperty(Constants.HEIGHT, 4);

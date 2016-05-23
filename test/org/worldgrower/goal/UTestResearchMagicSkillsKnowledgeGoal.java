@@ -67,7 +67,7 @@ public class UTestResearchMagicSkillsKnowledgeGoal {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
 		
-		BuildingGenerator.generateLibrary(5, 5, world);
+		BuildingGenerator.generateLibrary(5, 5, world, performer);
 		
 		assertEquals(Actions.RESEARCH_EVOCATION_SKILL_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
@@ -77,7 +77,7 @@ public class UTestResearchMagicSkillsKnowledgeGoal {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
 		
-		BuildingGenerator.generateLibrary(5, 5, world);
+		BuildingGenerator.generateLibrary(5, 5, world, performer);
 		performer.getProperty(Constants.EVOCATION_SKILL).use(5000, performer, Constants.EVOCATION_SKILL, new WorldStateChangedListeners());
 		
 		assertEquals(Actions.RESEARCH_RESTORATION_SKILL_ACTION, goal.calculateGoal(performer, world).getManagedOperation());

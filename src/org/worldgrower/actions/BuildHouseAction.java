@@ -36,7 +36,7 @@ public class BuildHouseAction implements BuildAction {
 		int x = (Integer)target.getProperty(Constants.X);
 		int y = (Integer)target.getProperty(Constants.Y);
 	
-		int id = BuildingGenerator.generateHouse(x, y, world, SkillUtils.useSkill(performer, Constants.CARPENTRY_SKILL, world.getWorldStateChangedListeners()));
+		int id = BuildingGenerator.generateHouse(x, y, world, SkillUtils.useSkill(performer, Constants.CARPENTRY_SKILL, world.getWorldStateChangedListeners()), performer);
 		
 		List<Integer> currentHouseIds = performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.SHACK);
 		if (currentHouseIds.size() > 0) {
@@ -45,7 +45,7 @@ public class BuildHouseAction implements BuildAction {
 			world.removeWorldObject(shack);
 		}
 		
-		performer.getProperty(Constants.INVENTORY).add(Item.generateKey(id));
+		performer.getProperty(Constants.INVENTORY).add(Item.generateKey(id, world));
 		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.STONE, REQUIRED_STONE);
 		performer.getProperty(Constants.BUILDINGS).add(id, BuildingType.HOUSE);
 	}
@@ -82,12 +82,12 @@ public class BuildHouseAction implements BuildAction {
 
 	@Override
 	public int getWidth() {
-		return 2;
+		return 3;
 	}
 
 	@Override
 	public int getHeight() {
-		return 4;
+		return 3;
 	}
 	
 	@Override

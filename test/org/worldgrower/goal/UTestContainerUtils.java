@@ -37,7 +37,7 @@ public class UTestContainerUtils {
 	public void testAccessContainer() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(2);
-		int targetId = BuildingGenerator.generateHouse(0, 0, world, 1f);
+		int targetId = BuildingGenerator.generateHouse(0, 0, world, 1f, performer);
 		WorldObject target = world.findWorldObject(Constants.ID, targetId);
 		
 		performer.setProperty(Constants.HIT_POINTS, 10 * Item.COMBAT_MULTIPLIER);
@@ -53,7 +53,7 @@ public class UTestContainerUtils {
 	public void testAvoidTrappedContainer() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(2);
-		int targetId = BuildingGenerator.generateHouse(0, 0, world, 1f);
+		int targetId = BuildingGenerator.generateHouse(0, 0, world, 1f, performer);
 		WorldObject target = world.findWorldObject(Constants.ID, targetId);
 		
 		performer.setProperty(Constants.HIT_POINTS, 10 * Item.COMBAT_MULTIPLIER);

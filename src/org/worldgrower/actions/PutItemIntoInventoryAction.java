@@ -68,7 +68,7 @@ public class PutItemIntoInventoryAction implements ManagedOperation {
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "storing items from " + target.getProperty(Constants.NAME);
+		return "storing items in " + target.getProperty(Constants.NAME);
 	}
 
 	@Override

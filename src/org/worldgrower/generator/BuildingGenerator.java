@@ -38,8 +38,6 @@ import org.worldgrower.gui.ImageIds;
 
 public class BuildingGenerator {
 
-	private static final String SHACK_NAME = "shack";
-	private static final String HOUSE_NAME = "house";
 	private static final String WELL_NAME = "well";
 	private static final String TRAINING_DUMMY_NAME = "Training dummy";
 	private static final String GRAVE_NAME = "grave";
@@ -66,7 +64,7 @@ public class BuildingGenerator {
 		return id;
 	}
 	
-	public static int generateShack(int x, int y, World world, double skillBonus) {
+	public static int generateShack(int x, int y, World world, double skillBonus, WorldObject owner) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();
 		
@@ -75,7 +73,7 @@ public class BuildingGenerator {
 		properties.put(Constants.WIDTH, 2);
 		properties.put(Constants.HEIGHT, 3);
 		properties.put(Constants.SLEEP_COMFORT, (int)(3 * skillBonus));
-		properties.put(Constants.NAME, SHACK_NAME);
+		properties.put(Constants.NAME, createName("shack", owner));
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.SHACK);
 		properties.put(Constants.HIT_POINTS, 100 * Item.COMBAT_MULTIPLIER);
@@ -96,7 +94,7 @@ public class BuildingGenerator {
 		return id;
 	}
 	
-	public static int generateHouse(int x, int y, World world, double skillBonus) {
+	public static int generateHouse(int x, int y, World world, double skillBonus, WorldObject owner) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();
 		
@@ -107,7 +105,7 @@ public class BuildingGenerator {
 		properties.put(Constants.WIDTH, 3);
 		properties.put(Constants.HEIGHT, 3);
 		properties.put(Constants.SLEEP_COMFORT, (int)(5 * skillBonus));
-		properties.put(Constants.NAME, HOUSE_NAME);
+		properties.put(Constants.NAME, createName("house", owner));
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, houseImageId);
 		properties.put(Constants.FLAMMABLE, Boolean.TRUE);
@@ -126,6 +124,10 @@ public class BuildingGenerator {
 		world.addWorldObject(house);
 		
 		return id;
+	}
+	
+	private static String createName(String baseName, WorldObject owner) {
+		return owner.getProperty(Constants.NAME) + "'s " + baseName;
 	}
 	
 	public static int buildWell(int x, int y, World world, double skillBonus) {
@@ -186,7 +188,7 @@ public class BuildingGenerator {
 		int id = world.generateUniqueId();
 		
 		properties.put(Constants.X, x);
-		properties.put(Constants.Y, y);
+		properties.put(Constants.Y, y); 
 		properties.put(Constants.WIDTH, 1);
 		properties.put(Constants.HEIGHT, 1);
 		properties.put(Constants.NAME, GRAVE_NAME);
@@ -230,11 +232,11 @@ public class BuildingGenerator {
 	}
 	
 	public static boolean isShack(WorldObject worldObject) {
-		return worldObject.getProperty(Constants.NAME).equals(SHACK_NAME);
+		return worldObject.getProperty(Constants.BUILDING_TYPE) == BuildingType.SHACK;
 	}
 	
 	public static boolean isHouse(WorldObject worldObject) {
-		return worldObject.getProperty(Constants.NAME).equals(HOUSE_NAME);
+		return worldObject.getProperty(Constants.BUILDING_TYPE) == BuildingType.HOUSE;
 	}
 	
 	public static boolean isGrave(WorldObject worldObject) {
@@ -447,7 +449,7 @@ public class BuildingGenerator {
 		return id;
 	}
 	
-	public static int generateLibrary(int x, int y, World world) {
+	public static int generateLibrary(int x, int y, World world, WorldObject owner) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();
 		
@@ -456,7 +458,7 @@ public class BuildingGenerator {
 		properties.put(Constants.WIDTH, 2);
 		properties.put(Constants.HEIGHT, 2);
 		properties.put(Constants.LIBRARY_QUALITY, 1);
-		properties.put(Constants.NAME, "library");
+		properties.put(Constants.NAME, createName("library", owner));
 		
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.LIBRARY);

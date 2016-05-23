@@ -33,9 +33,9 @@ public class BuildLibraryAction implements BuildAction {
 		int x = (Integer)target.getProperty(Constants.X);
 		int y = (Integer)target.getProperty(Constants.Y);
 		
-		int libraryId = BuildingGenerator.generateLibrary(x, y, world);
+		int libraryId = BuildingGenerator.generateLibrary(x, y, world, performer);
 		
-		performer.getProperty(Constants.INVENTORY).add(Item.generateKey(libraryId));
+		performer.getProperty(Constants.INVENTORY).add(Item.generateKey(libraryId, world));
 		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.WOOD, REQUIRED_WOOD);
 		
 		world.logAction(this, performer, target, args, null);

@@ -39,7 +39,7 @@ public class UTestBuildHouseAction {
 		Actions.BUILD_HOUSE_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(1, world.getWorldObjects().size());
-		assertEquals("house", world.getWorldObjects().get(0).getProperty(Constants.NAME));
+		assertEquals(BuildingType.HOUSE, world.getWorldObjects().get(0).getProperty(Constants.BUILDING_TYPE));
 	}
 	
 	@Test
@@ -48,13 +48,13 @@ public class UTestBuildHouseAction {
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
-		int shackId = BuildingGenerator.generateShack(0, 0, world, 1f);
+		int shackId = BuildingGenerator.generateShack(0, 0, world, 1f, performer);
 		performer.getProperty(Constants.BUILDINGS).add(shackId, BuildingType.SHACK);
 		
 		Actions.BUILD_HOUSE_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(1, world.getWorldObjects().size());
-		assertEquals("house", world.getWorldObjects().get(0).getProperty(Constants.NAME));
+		assertEquals(BuildingType.HOUSE, world.getWorldObjects().get(0).getProperty(Constants.BUILDING_TYPE));
 	}
 	
 	@Test
