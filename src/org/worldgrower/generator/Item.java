@@ -638,9 +638,13 @@ public enum Item {
 	public static WorldObject generateKey(int structureToLockId, World world) {
 		WorldObject key = Item.KEY.generate(1f);
 		WorldObject structureToLock = world.findWorldObject(Constants.ID, structureToLockId);
-		key.setProperty(Constants.NAME, "key to " + structureToLock.getProperty(Constants.NAME));
+		key.setProperty(Constants.NAME, getKeyName(structureToLock));
 		key.setProperty(Constants.LOCK_ID, structureToLockId);
 		return key;
+	}
+	
+	public static String getKeyName(WorldObject structureToLock) {
+		return "key to " + structureToLock.getProperty(Constants.NAME);
 	}
 	
 	public static WorldObject generateNewsPaper(List<Knowledge> knowledgeList, int[] knowledgeIndices, World world) {

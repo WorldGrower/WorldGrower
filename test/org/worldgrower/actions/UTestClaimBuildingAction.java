@@ -27,6 +27,7 @@ import org.worldgrower.attribute.BuildingList;
 import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.generator.Item;
 
 public class UTestClaimBuildingAction {
 
@@ -44,6 +45,44 @@ public class UTestClaimBuildingAction {
 		action.execute(performer, brewery, Args.EMPTY, world);
 		
 		assertEquals(brewery.getProperty(Constants.ID).intValue(), performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.BREWERY).get(0).intValue());
+	}
+	
+	@Test
+	public void testChangeName() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		performer.setProperty(Constants.NAME, "performer");
+		
+		WorldObject brewery = generateBrewery(world);
+		assertEquals("brewery", brewery.getProperty(Constants.NAME));
+		
+		action.changeName(performer, brewery, world);
+		
+		assertEquals("performer's brewery", brewery.getProperty(Constants.NAME));
+	}
+	
+	@Test
+	public void testChangeKeyNames() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		performer.setProperty(Constants.NAME, "performer");
+		world.addWorldObject(performer);
+		
+		WorldObject brewery = generateBrewery(world);
+		assertEquals("brewery", brewery.getProperty(Constants.NAME));
+		
+		performer.getProperty(Constants.INVENTORY).add(Item.generateKey(brewery.getProperty(Constants.ID), world));
+		assertEquals("key to brewery", performer.getProperty(Constants.INVENTORY).get(0).getProperty(Constants.NAME));
+		
+		brewery.setProperty(Constants.NAME, "tester's brewery");
+		action.changeKeyNames(brewery, world);
+		
+		assertEquals("key to tester's brewery", performer.getProperty(Constants.INVENTORY).get(0).getProperty(Constants.NAME));
+	}
+	
+	@Test
+	public void testAddKeyToInventory() {
+		
 	}
 
 	private WorldObject generateBrewery(World world) {

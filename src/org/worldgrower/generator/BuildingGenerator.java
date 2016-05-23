@@ -126,7 +126,11 @@ public class BuildingGenerator {
 		return id;
 	}
 	
-	private static String createName(String baseName, WorldObject owner) {
+	public static String createName(BuildingType buildingType, WorldObject owner) {
+		return createName(buildingType.getDescription(), owner);
+	}
+	
+	public static String createName(String baseName, WorldObject owner) {
 		return owner.getProperty(Constants.NAME) + "'s " + baseName;
 	}
 	

@@ -15,14 +15,24 @@
 package org.worldgrower.attribute;
 
 public enum BuildingType {
-	SHACK,
-	HOUSE, 
-	INN,
-	BREWERY,
-	SMITH,
-	WORKBENCH,
-	PAPERMILL,
-	WEAVERY,
-	APOTHECARY,
-	CHEST
+	SHACK("shack"),
+	HOUSE("house"), 
+	INN("inn"),
+	BREWERY("brewery"),
+	SMITH("smith"),
+	WORKBENCH("workbench"),
+	PAPERMILL("papermill"),
+	WEAVERY("weavery"),
+	APOTHECARY("apothecary"),
+	CHEST("chest");
+	
+	private final String description;
+
+	private BuildingType(String description) {
+		this.description = description;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
 }
