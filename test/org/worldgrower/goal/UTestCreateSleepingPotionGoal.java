@@ -64,14 +64,14 @@ public class UTestCreateSleepingPotionGoal {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
 		
-		BuildingGenerator.generateApothecary(0, 0, world);
+		BuildingGenerator.generateApothecary(0, 0, world, performer);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.NIGHT_SHADE.generate(1f), 20);
 		
 		assertEquals(Actions.CLAIM_BUILDING_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
 	
 	private void addApothecary(World world, WorldObject performer) {
-		int apothecaryId = BuildingGenerator.generateApothecary(0, 0, world);
+		int apothecaryId = BuildingGenerator.generateApothecary(0, 0, world, performer);
 		performer.getProperty(Constants.BUILDINGS).add(apothecaryId, BuildingType.APOTHECARY);
 	}
 	

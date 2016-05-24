@@ -481,7 +481,7 @@ public class BuildingGenerator {
 		return id;
 	}
 	
-	public static int generatePaperMill(int x, int y, World world) {
+	public static int generatePaperMill(int x, int y, World world, WorldObject owner) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();
 		
@@ -490,7 +490,7 @@ public class BuildingGenerator {
 		properties.put(Constants.WIDTH, 4);
 		properties.put(Constants.HEIGHT, 3);
 		properties.put(Constants.PAPER_MILL_QUALITY, 5);
-		properties.put(Constants.NAME, "papermill");
+		properties.put(Constants.NAME, createName("papermill", owner));
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.PAPER_MILL);
 		properties.put(Constants.HIT_POINTS, 50 * Item.COMBAT_MULTIPLIER);
@@ -507,7 +507,7 @@ public class BuildingGenerator {
 		return id;
 	}
 	
-	public static int generateSmith(int x, int y, World world) {
+	public static int generateSmith(int x, int y, World world, WorldObject owner) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();
 
@@ -516,7 +516,7 @@ public class BuildingGenerator {
 		properties.put(Constants.WIDTH, 2);
 		properties.put(Constants.HEIGHT, 2);
 		properties.put(Constants.SMITH_QUALITY, 5);
-		properties.put(Constants.NAME, "smithy");
+		properties.put(Constants.NAME, createName("smithy", owner));
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.SMITH);
 		properties.put(Constants.HIT_POINTS, 100 * Item.COMBAT_MULTIPLIER);
@@ -531,7 +531,7 @@ public class BuildingGenerator {
 		return id;
 	}
 	
-	public static int generateWorkbench(int x, int y, World world) {
+	public static int generateWorkbench(int x, int y, World world, WorldObject owner) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();
 
@@ -540,7 +540,7 @@ public class BuildingGenerator {
 		properties.put(Constants.WIDTH, 4);
 		properties.put(Constants.HEIGHT, 3);
 		properties.put(Constants.WORKBENCH_QUALITY, 5);
-		properties.put(Constants.NAME, "workbench");
+		properties.put(Constants.NAME, createName("workbench", owner));
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.WORKBENCH);
 		properties.put(Constants.HIT_POINTS, 100 * Item.COMBAT_MULTIPLIER);
@@ -555,7 +555,7 @@ public class BuildingGenerator {
 		return id;
 	}
 
-	public static int generateInn(int x, int y, World world, double skillBonus) {
+	public static int generateInn(int x, int y, World world, double skillBonus, WorldObject owner) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();
 		
@@ -564,7 +564,7 @@ public class BuildingGenerator {
 		properties.put(Constants.WIDTH, 6);
 		properties.put(Constants.HEIGHT, 8);
 		properties.put(Constants.SLEEP_COMFORT, (int)(5 * skillBonus));
-		properties.put(Constants.NAME, "Inn");
+		properties.put(Constants.NAME, createName("Inn", owner));
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.INN);
 		properties.put(Constants.CONDITIONS, new Conditions());
@@ -609,7 +609,7 @@ public class BuildingGenerator {
 		return id;
 	}
 	
-	public static int generateWeavery(int x, int y, World world) {
+	public static int generateWeavery(int x, int y, World world, WorldObject owner) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();
 
@@ -618,7 +618,7 @@ public class BuildingGenerator {
 		properties.put(Constants.WIDTH, 4);
 		properties.put(Constants.HEIGHT, 3);
 		properties.put(Constants.WEAVERY_QUALITY, 5);
-		properties.put(Constants.NAME, "weavery");
+		properties.put(Constants.NAME, createName("weavery", owner));
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.WEAVERY);
 		properties.put(Constants.HIT_POINTS, 100 * Item.COMBAT_MULTIPLIER);
@@ -633,7 +633,7 @@ public class BuildingGenerator {
 		return id;
 	}
 	
-	public static int generateBrewery(int x, int y, World world) {
+	public static int generateBrewery(int x, int y, World world, WorldObject owner) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();
 
@@ -642,7 +642,7 @@ public class BuildingGenerator {
 		properties.put(Constants.WIDTH, 4);
 		properties.put(Constants.HEIGHT, 3);
 		properties.put(Constants.BREWERY_QUALITY, 5);
-		properties.put(Constants.NAME, "brewery");
+		properties.put(Constants.NAME, createName("brewery", owner));
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.BREWERY);
 		properties.put(Constants.HIT_POINTS, 100 * Item.COMBAT_MULTIPLIER);
@@ -657,7 +657,7 @@ public class BuildingGenerator {
 		return id;
 	}
 
-	public static int generateApothecary(int x, int y, World world) {
+	public static int generateApothecary(int x, int y, World world, WorldObject owner) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();
 
@@ -666,7 +666,7 @@ public class BuildingGenerator {
 		properties.put(Constants.WIDTH, 4);
 		properties.put(Constants.HEIGHT, 3);
 		properties.put(Constants.APOTHECARY_QUALITY, 5);
-		properties.put(Constants.NAME, "apothecary");
+		properties.put(Constants.NAME, createName("apothecary", owner));
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.APOTHECARY);
 		properties.put(Constants.HIT_POINTS, 100 * Item.COMBAT_MULTIPLIER);
@@ -681,7 +681,7 @@ public class BuildingGenerator {
 		return id;
 	}
 	
-	public static int generateChest(int x, int y, World world, double skillBonus) {
+	public static int generateChest(int x, int y, World world, double skillBonus, WorldObject owner) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();
 		
@@ -689,7 +689,7 @@ public class BuildingGenerator {
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 1);
 		properties.put(Constants.HEIGHT, 1);
-		properties.put(Constants.NAME, "chest");
+		properties.put(Constants.NAME, createName("chest", owner));
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.CHEST);
 		properties.put(Constants.FLAMMABLE, Boolean.TRUE);

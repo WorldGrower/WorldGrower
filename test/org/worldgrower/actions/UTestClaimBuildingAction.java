@@ -39,7 +39,7 @@ public class UTestClaimBuildingAction {
 		WorldObject performer = createPerformer(2);
 		performer.setProperty(Constants.BUILDINGS, new BuildingList());
 		
-		WorldObject brewery = generateBrewery(world);
+		WorldObject brewery = generateBrewery(world, performer);
 		assertEquals(0, performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.BREWERY).size());
 		
 		action.execute(performer, brewery, Args.EMPTY, world);
@@ -53,12 +53,13 @@ public class UTestClaimBuildingAction {
 		WorldObject performer = createPerformer(2);
 		performer.setProperty(Constants.NAME, "performer");
 		
-		WorldObject brewery = generateBrewery(world);
-		assertEquals("brewery", brewery.getProperty(Constants.NAME));
+		WorldObject brewery = generateBrewery(world, performer);
+		assertEquals("performer's brewery", brewery.getProperty(Constants.NAME));
 		
+		performer.setProperty(Constants.NAME, "tester");
 		action.changeName(performer, brewery, world);
 		
-		assertEquals("performer's brewery", brewery.getProperty(Constants.NAME));
+		assertEquals("tester's brewery", brewery.getProperty(Constants.NAME));
 	}
 	
 	@Test
@@ -68,11 +69,11 @@ public class UTestClaimBuildingAction {
 		performer.setProperty(Constants.NAME, "performer");
 		world.addWorldObject(performer);
 		
-		WorldObject brewery = generateBrewery(world);
-		assertEquals("brewery", brewery.getProperty(Constants.NAME));
+		WorldObject brewery = generateBrewery(world, performer);
+		assertEquals("performer's brewery", brewery.getProperty(Constants.NAME));
 		
 		performer.getProperty(Constants.INVENTORY).add(Item.generateKey(brewery.getProperty(Constants.ID), world));
-		assertEquals("key to brewery", performer.getProperty(Constants.INVENTORY).get(0).getProperty(Constants.NAME));
+		assertEquals("key to performer's brewery", performer.getProperty(Constants.INVENTORY).get(0).getProperty(Constants.NAME));
 		
 		brewery.setProperty(Constants.NAME, "tester's brewery");
 		action.changeKeyNames(brewery, world);
@@ -85,8 +86,8 @@ public class UTestClaimBuildingAction {
 		
 	}
 
-	private WorldObject generateBrewery(World world) {
-		int breweryId = BuildingGenerator.generateBrewery(0, 0, world);
+	private WorldObject generateBrewery(World world, WorldObject performer) {
+		int breweryId = BuildingGenerator.generateBrewery(0, 0, world, performer);
 		WorldObject brewery = world.findWorldObject(Constants.ID, breweryId);
 		return brewery;
 	}
@@ -95,7 +96,7 @@ public class UTestClaimBuildingAction {
 	public void testIsValidTarget() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
-		WorldObject brewery = generateBrewery(world);
+		WorldObject brewery = generateBrewery(world, performer);
 		
 		assertEquals(true, action.isValidTarget(performer, brewery, world));
 		assertEquals(false, action.isValidTarget(performer, performer, world));
@@ -105,7 +106,7 @@ public class UTestClaimBuildingAction {
 	public void testDistance() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
-		WorldObject brewery = generateBrewery(world);
+		WorldObject brewery = generateBrewery(world, performer);
 		
 		assertEquals(0, action.distance(performer, brewery, Args.EMPTY, world));
 	}

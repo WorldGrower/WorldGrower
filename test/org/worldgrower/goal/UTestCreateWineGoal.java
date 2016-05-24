@@ -81,7 +81,7 @@ public class UTestCreateWineGoal {
 		
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.GRAPES.generate(1f), 20);
 		
-		int breweryId = BuildingGenerator.generateBrewery(0, 0, world);
+		int breweryId = BuildingGenerator.generateBrewery(0, 0, world, performer);
 		performer.setProperty(Constants.BUILDINGS, new BuildingList().add(breweryId, BuildingType.BREWERY));
 		
 		assertEquals(Actions.BREW_WINE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());

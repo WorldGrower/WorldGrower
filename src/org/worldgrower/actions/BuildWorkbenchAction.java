@@ -33,7 +33,7 @@ public class BuildWorkbenchAction implements BuildAction {
 		int x = (Integer)target.getProperty(Constants.X);
 		int y = (Integer)target.getProperty(Constants.Y);
 		
-		int workbenchId = BuildingGenerator.generateWorkbench(x, y, world);
+		int workbenchId = BuildingGenerator.generateWorkbench(x, y, world, performer);
 		
 		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.STONE, REQUIRED_STONE);
 		performer.getProperty(Constants.BUILDINGS).add(workbenchId, BuildingType.WORKBENCH);

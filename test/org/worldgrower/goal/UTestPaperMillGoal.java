@@ -84,7 +84,7 @@ public class UTestPaperMillGoal {
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
 		
-		BuildingGenerator.generatePaperMill(0, 0, world);
+		BuildingGenerator.generatePaperMill(0, 0, world, performer);
 		
 		assertEquals(Actions.CLAIM_BUILDING_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
@@ -102,7 +102,7 @@ public class UTestPaperMillGoal {
 	}
 	
 	private void addPaperMill(World world, WorldObject performer) {
-		int paperMillId = BuildingGenerator.generatePaperMill(0, 0, world);
+		int paperMillId = BuildingGenerator.generatePaperMill(0, 0, world, performer);
 		performer.setProperty(Constants.BUILDINGS, new BuildingList().add(paperMillId, BuildingType.PAPERMILL));
 	}
 

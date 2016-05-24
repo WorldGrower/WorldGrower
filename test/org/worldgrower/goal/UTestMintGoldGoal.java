@@ -109,7 +109,7 @@ public class UTestMintGoldGoal {
 	}
 	
 	private void addSmith(World world, WorldObject performer) {
-		int smithId = BuildingGenerator.generateSmith(0, 0, world);
+		int smithId = BuildingGenerator.generateSmith(0, 0, world, performer);
 		performer.setProperty(Constants.BUILDINGS, new BuildingList().add(smithId, BuildingType.SMITH));
 	}
 }

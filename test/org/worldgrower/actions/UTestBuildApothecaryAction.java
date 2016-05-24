@@ -24,6 +24,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.BuildingList;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
 
@@ -37,7 +38,7 @@ public class UTestBuildApothecaryAction {
 		Actions.BUILD_APOTHECARY_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(1, world.getWorldObjects().size());
-		assertEquals("apothecary", world.getWorldObjects().get(0).getProperty(Constants.NAME));
+		assertEquals(BuildingType.APOTHECARY, world.getWorldObjects().get(0).getProperty(Constants.BUILDING_TYPE));
 	}
 	
 	@Test

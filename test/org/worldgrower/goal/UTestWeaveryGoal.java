@@ -84,7 +84,7 @@ public class UTestWeaveryGoal {
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
 		
-		BuildingGenerator.generateWeavery(0, 0, world);
+		BuildingGenerator.generateWeavery(0, 0, world, performer);
 		
 		assertEquals(Actions.CLAIM_BUILDING_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
@@ -102,7 +102,7 @@ public class UTestWeaveryGoal {
 	}
 	
 	private void addWeavery(World world, WorldObject performer) {
-		int weaveryId = BuildingGenerator.generateWeavery(0, 0, world);
+		int weaveryId = BuildingGenerator.generateWeavery(0, 0, world, performer);
 		performer.setProperty(Constants.BUILDINGS, new BuildingList().add(weaveryId, BuildingType.WEAVERY));
 	}
 

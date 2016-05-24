@@ -116,7 +116,7 @@ public class UTestWeaveClothesGoal {
 	}
 	
 	private void addWeavery(World world, WorldObject performer) {
-		int weaveryId = BuildingGenerator.generateWeavery(0, 0, world);
+		int weaveryId = BuildingGenerator.generateWeavery(0, 0, world, performer);
 		performer.setProperty(Constants.BUILDINGS, new BuildingList().add(weaveryId, BuildingType.WEAVERY));
 	}
 	

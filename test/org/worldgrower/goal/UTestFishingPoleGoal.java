@@ -76,7 +76,7 @@ public class UTestFishingPoleGoal {
 	}
 	
 	private void addWorkbench(World world, WorldObject performer) {
-		int workbenchId = BuildingGenerator.generateWorkbench(0, 0, world);
+		int workbenchId = BuildingGenerator.generateWorkbench(0, 0, world, performer);
 		performer.setProperty(Constants.BUILDINGS, new BuildingList().add(workbenchId, BuildingType.WORKBENCH));
 	}
 	

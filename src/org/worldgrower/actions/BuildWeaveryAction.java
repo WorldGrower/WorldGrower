@@ -33,7 +33,7 @@ public class BuildWeaveryAction implements BuildAction {
 		int x = (Integer)target.getProperty(Constants.X);
 		int y = (Integer)target.getProperty(Constants.Y);
 		
-		int weaveryId = BuildingGenerator.generateWeavery(x, y, world);
+		int weaveryId = BuildingGenerator.generateWeavery(x, y, world, performer);
 		
 		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.WOOD, REQUIRED_WOOD);
 		performer.getProperty(Constants.BUILDINGS).add(weaveryId, BuildingType.WEAVERY);

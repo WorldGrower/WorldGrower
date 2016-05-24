@@ -99,7 +99,7 @@ public class UTestApothecaryGoal {
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
 		
-		BuildingGenerator.generateApothecary(0, 0, world);
+		BuildingGenerator.generateApothecary(0, 0, world, performer);
 		
 		assertEquals(Actions.CLAIM_BUILDING_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
@@ -112,7 +112,7 @@ public class UTestApothecaryGoal {
 		
 		assertEquals(false, goal.isGoalMet(performer, world));
 		
-		int apothecaryId = BuildingGenerator.generateApothecary(5, 5, world);
+		int apothecaryId = BuildingGenerator.generateApothecary(5, 5, world, performer);
 		performer.setProperty(Constants.BUILDINGS, new BuildingList().add(apothecaryId, BuildingType.APOTHECARY));
 		assertEquals(true, goal.isGoalMet(performer, world));
 	}

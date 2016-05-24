@@ -84,7 +84,7 @@ public class UTestSmithGoal {
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
 		
-		BuildingGenerator.generateSmith(0, 0, world);
+		BuildingGenerator.generateSmith(0, 0, world, performer);
 		
 		assertEquals(Actions.CLAIM_BUILDING_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
@@ -97,7 +97,7 @@ public class UTestSmithGoal {
 		
 		assertEquals(false, goal.isGoalMet(performer, world));
 		
-		int smithId = BuildingGenerator.generateSmith(5, 5, world);
+		int smithId = BuildingGenerator.generateSmith(5, 5, world, performer);
 		performer.setProperty(Constants.BUILDINGS, new BuildingList().add(smithId, BuildingType.SMITH));
 		assertEquals(true, goal.isGoalMet(performer, world));
 	}

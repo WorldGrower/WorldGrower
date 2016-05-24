@@ -47,7 +47,7 @@ public class UTestMintGoldAction {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		
-		int smithId = BuildingGenerator.generateSmith(0, 0, world);
+		int smithId = BuildingGenerator.generateSmith(0, 0, world, performer);
 		WorldObject target = world.findWorldObject(Constants.ID, smithId);
 
 		assertEquals(false, Actions.MINT_GOLD_ACTION.isValidTarget(performer, performer, world));

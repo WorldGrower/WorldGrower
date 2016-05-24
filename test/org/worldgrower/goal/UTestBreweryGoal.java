@@ -99,7 +99,7 @@ public class UTestBreweryGoal {
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
 		
-		BuildingGenerator.generateBrewery(0, 0, world);
+		BuildingGenerator.generateBrewery(0, 0, world, performer);
 		
 		assertEquals(Actions.CLAIM_BUILDING_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
@@ -112,7 +112,7 @@ public class UTestBreweryGoal {
 		
 		assertEquals(false, goal.isGoalMet(performer, world));
 		
-		int breweryId = BuildingGenerator.generateBrewery(5, 5, world);
+		int breweryId = BuildingGenerator.generateBrewery(5, 5, world, performer);
 		performer.setProperty(Constants.BUILDINGS, new BuildingList().add(breweryId, BuildingType.BREWERY));
 		assertEquals(true, goal.isGoalMet(performer, world));
 	}

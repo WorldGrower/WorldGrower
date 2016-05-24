@@ -35,7 +35,7 @@ public class UTestDismissSecretChestAction {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		
-		int chestId = BuildingGenerator.generateChest(0, 0, world, 1f);
+		int chestId = BuildingGenerator.generateChest(0, 0, world, 1f, performer);
 		WorldObject chest = world.findWorldObject(Constants.ID, chestId);
 		
 		assertEquals(0, chest.getProperty(Constants.X).intValue());
@@ -52,7 +52,7 @@ public class UTestDismissSecretChestAction {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		
-		int chestId = BuildingGenerator.generateChest(0, 0, world, 1f);
+		int chestId = BuildingGenerator.generateChest(0, 0, world, 1f, performer);
 		WorldObject chest = world.findWorldObject(Constants.ID, chestId);
 		Actions.SECRET_CHEST_ACTION.execute(performer, chest, Args.EMPTY, world);
 		
@@ -66,7 +66,7 @@ public class UTestDismissSecretChestAction {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		
-		int chestId = BuildingGenerator.generateChest(0, 0, world, 1f);
+		int chestId = BuildingGenerator.generateChest(0, 0, world, 1f, performer);
 		WorldObject chest = world.findWorldObject(Constants.ID, chestId);
 		
 		assertEquals(0, action.distance(performer, chest, Args.EMPTY, world));

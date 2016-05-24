@@ -71,14 +71,14 @@ public class UTestKillVillagersGoal {
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
 		
-		BuildingGenerator.generateApothecary(0, 0, world);
+		BuildingGenerator.generateApothecary(0, 0, world, performer);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.NIGHT_SHADE.generate(1f), 10);
 		
 		assertEquals(Actions.CLAIM_BUILDING_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
 
 	private void addApothecary(World world, WorldObject performer) {
-		int apothecaryId = BuildingGenerator.generateApothecary(0, 0, world);
+		int apothecaryId = BuildingGenerator.generateApothecary(0, 0, world, performer);
 		performer.getProperty(Constants.BUILDINGS).add(apothecaryId, BuildingType.APOTHECARY);
 	}
 	

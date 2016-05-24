@@ -88,7 +88,7 @@ public class UTestEquipmentGoal {
 	}
 
 	private void addWeavery(World world, WorldObject performer) {
-		int weaveryId = BuildingGenerator.generateWeavery(0, 0, world);
+		int weaveryId = BuildingGenerator.generateWeavery(0, 0, world, performer);
 		performer.setProperty(Constants.BUILDINGS, new BuildingList().add(weaveryId, BuildingType.WEAVERY));
 	}
 
@@ -265,7 +265,7 @@ public class UTestEquipmentGoal {
 	}
 	
 	private void addSmith(World world, WorldObject performer) {
-		int smithId = BuildingGenerator.generateSmith(0, 0, world);
+		int smithId = BuildingGenerator.generateSmith(0, 0, world, performer);
 		performer.setProperty(Constants.BUILDINGS, new BuildingList().add(smithId, BuildingType.SMITH));
 	}
 }

@@ -99,7 +99,7 @@ public class UTestPaperGoal {
 	}
 
 	private void addPaperMill(World world, WorldObject performer) {
-		int paperMillId = BuildingGenerator.generatePaperMill(0, 0, world);
+		int paperMillId = BuildingGenerator.generatePaperMill(0, 0, world, performer);
 		performer.setProperty(Constants.BUILDINGS, new BuildingList().add(paperMillId, BuildingType.PAPERMILL));
 	}
 	

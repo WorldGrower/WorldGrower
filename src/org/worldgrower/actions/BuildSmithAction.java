@@ -33,7 +33,7 @@ public class BuildSmithAction implements BuildAction {
 		int x = (Integer)target.getProperty(Constants.X);
 		int y = (Integer)target.getProperty(Constants.Y);
 		
-		int smithId = BuildingGenerator.generateSmith(x, y, world);
+		int smithId = BuildingGenerator.generateSmith(x, y, world, performer);
 		
 		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.STONE, REQUIRED_STONE);
 		performer.getProperty(Constants.BUILDINGS).add(smithId, BuildingType.SMITH);

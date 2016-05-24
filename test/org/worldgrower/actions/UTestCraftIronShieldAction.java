@@ -43,7 +43,7 @@ public class UTestCraftIronShieldAction {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
 
-		int smithId = BuildingGenerator.generateSmith(0, 0, world);
+		int smithId = BuildingGenerator.generateSmith(0, 0, world, performer);
 		WorldObject target = world.findWorldObject(Constants.ID, smithId);
 		
 		assertEquals(false, Actions.CRAFT_IRON_SHIELD_ACTION.isValidTarget(performer, performer, world));
@@ -57,7 +57,7 @@ public class UTestCraftIronShieldAction {
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.ORE.generate(1f), 20);
 
-		int smithId = BuildingGenerator.generateSmith(0, 0, world);
+		int smithId = BuildingGenerator.generateSmith(0, 0, world, performer);
 		WorldObject target = world.findWorldObject(Constants.ID, smithId);
 		
 		assertEquals(0, Actions.CRAFT_IRON_SHIELD_ACTION.distance(performer, target, Args.EMPTY, world));

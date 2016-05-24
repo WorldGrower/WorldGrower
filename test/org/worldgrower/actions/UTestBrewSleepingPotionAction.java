@@ -47,7 +47,7 @@ public class UTestBrewSleepingPotionAction {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 
-		int apothecaryId = BuildingGenerator.generateApothecary(0, 0, world);
+		int apothecaryId = BuildingGenerator.generateApothecary(0, 0, world, performer);
 		WorldObject apothecary = world.findWorldObject(Constants.ID, apothecaryId);
 		
 		assertEquals(true, Actions.BREW_SLEEPING_POTION_ACTION.isValidTarget(performer, apothecary, world));
