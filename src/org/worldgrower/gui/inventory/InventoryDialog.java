@@ -244,19 +244,19 @@ public class InventoryDialog extends AbstractDialog {
 	private void addContainerPanel(InventoryDialogModel inventoryDialogModel, ImageInfoReader imageInfoReader) {
 		containersPanel = JPanelFactory.createBorderlessPanel();
 		containersPanel.setLayout(null);
-		containersPanel.setBounds(12, 615, 400, 50);
+		containersPanel.setBounds(24, 615, 450, 50);
 		addComponent(containersPanel);
 		
 		playercharacterToggleButton = JButtonFactory.createToggleButton(inventoryDialogModel.getPlayerCharacterName(), new ImageIcon(inventoryDialogModel.getPlayerCharacterImage(imageInfoReader)));
 		playercharacterToggleButton.setToolTipText(inventoryDialogModel.getPlayerCharacterName());
-		playercharacterToggleButton.setBounds(0, 0, 200, 50);
+		playercharacterToggleButton.setBounds(0, 0, 225, 50);
 		playercharacterToggleButton.setOpaque(true);
 		playercharacterToggleButton.addActionListener(this::setPlayerCharacterPanelOnTop);
 		containersPanel.add(playercharacterToggleButton);
 		
 		targetToggleButton = JButtonFactory.createToggleButton(inventoryDialogModel.getTargetName(), new ImageIcon(inventoryDialogModel.getTargetImage(imageInfoReader)));
 		targetToggleButton.setToolTipText(inventoryDialogModel.getTargetName());
-		targetToggleButton.setBounds(200, 0, 200, 50);
+		targetToggleButton.setBounds(225, 0, 225, 50);
 		targetToggleButton.setOpaque(true);
 		targetToggleButton.addActionListener(this::setTargetInventoryOnTop);
 		containersPanel.add(targetToggleButton);
