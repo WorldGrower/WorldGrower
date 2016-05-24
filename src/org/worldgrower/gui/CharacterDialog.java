@@ -359,7 +359,7 @@ public class CharacterDialog extends JDialog {
 		contentPanel.add(scrollPane);
 		
 		JList<String> conditionList = JListFactory.createJList(createConditionsDescriptions());
-		conditionList.setCellRenderer(new ConditionListCellRenderer(createLongerConditionsDescriptions()));
+		conditionList.setCellRenderer(new ConditionListCellRenderer(imageInfoReader, createConditionImageIds(), createLongerConditionsDescriptions()));
 		scrollPane.setViewportView(conditionList);
 		
 		JPanel buttonPane = new JPanel();
@@ -417,6 +417,11 @@ public class CharacterDialog extends JDialog {
 	private String[] createConditionsDescriptions() {
 		Conditions conditions = playerCharacter.getProperty(Constants.CONDITIONS);
 		return conditions.getDescriptions().toArray(new String[0]);
+	}
+	
+	private List<ImageIds> createConditionImageIds() {
+		Conditions conditions = playerCharacter.getProperty(Constants.CONDITIONS);
+		return conditions.getImageIds();
 	}
 	
 	private List<String> createLongerConditionsDescriptions() {
@@ -617,11 +622,15 @@ public class CharacterDialog extends JDialog {
 	}
 	
 	public class ConditionListCellRenderer implements ListCellRenderer<String> {
+		private final ImageInfoReader imageInfoReader;
+		private final List<ImageIds> imageIds;
 		private final List<String> longerDescriptions;
 		private final DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
 
-		public ConditionListCellRenderer(List<String> longerDescriptions) {
+		public ConditionListCellRenderer(ImageInfoReader imageInfoReader, List<ImageIds> imageIds, List<String> longerDescriptions) {
 			super();
+			this.imageInfoReader = imageInfoReader;
+			this.imageIds = imageIds;
 			this.longerDescriptions = longerDescriptions;
 		}
 
@@ -632,6 +641,7 @@ public class CharacterDialog extends JDialog {
 
 			renderer.setText(item);
 			renderer.setToolTipText(longerDescriptions.get(index));
+			renderer.setIcon(new ImageIcon(imageInfoReader.getImage(imageIds.get(index), null)));
 			renderer.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
 			renderer.setForeground(ColorPalette.FOREGROUND_COLOR);
 			return renderer;

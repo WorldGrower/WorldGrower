@@ -20,6 +20,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.gui.ImageIds;
 
 public class TrappedContainerCondition implements Condition {
 
@@ -68,5 +69,10 @@ public class TrappedContainerCondition implements Condition {
 	@Override
 	public String getLongerDescription() {
 		return "a creature that interacts with a trapped container takes damage";
+	}
+
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.TRAP_CONTAINER_MAGIC_SPELL;
 	}
 }

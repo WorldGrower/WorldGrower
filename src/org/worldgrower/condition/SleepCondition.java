@@ -23,6 +23,7 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.gui.ImageIds;
 
 public class SleepCondition implements Condition {
 
@@ -76,5 +77,10 @@ public class SleepCondition implements Condition {
 	@Override
 	public String getLongerDescription() {
 		return "a sleeping creature can't take actions and awakes when taking damage";
+	}
+
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.SLEEPING_INDICATOR;
 	}
 }

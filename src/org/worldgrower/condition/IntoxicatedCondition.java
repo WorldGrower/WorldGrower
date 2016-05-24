@@ -20,6 +20,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.gui.ImageIds;
 
 public class IntoxicatedCondition implements Condition {
 
@@ -72,5 +73,10 @@ public class IntoxicatedCondition implements Condition {
 	@Override
 	public String getLongerDescription() {
 		return "an intoxicated creature has lowered skills";
+	}
+
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.INTOXICATED_CONDITION;
 	}
 }

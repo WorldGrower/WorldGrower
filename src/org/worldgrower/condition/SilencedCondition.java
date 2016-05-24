@@ -19,6 +19,7 @@ import java.util.List;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.gui.ImageIds;
 
 public class SilencedCondition implements Condition {
 
@@ -66,5 +67,10 @@ public class SilencedCondition implements Condition {
 	@Override
 	public String getLongerDescription() {
 		return "a silenced creature can't cast spells";
+	}
+
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.SILENCED_CONDITION;
 	}
 }

@@ -22,6 +22,7 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.gui.ImageIds;
 
 public class UnconsciousCondition implements Condition {
 
@@ -72,5 +73,10 @@ public class UnconsciousCondition implements Condition {
 	@Override
 	public String getLongerDescription() {
 		return "an unconscious creature can't take actions and regains energy each turn";
+	}
+
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.UNCONSCIOUS_INDICATOR;
 	}
 }

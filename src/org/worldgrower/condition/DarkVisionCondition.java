@@ -19,6 +19,7 @@ import java.util.List;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.gui.ImageIds;
 
 public class DarkVisionCondition implements Condition {
 
@@ -66,5 +67,10 @@ public class DarkVisionCondition implements Condition {
 	@Override
 	public String getLongerDescription() {
 		return "a creature with darkvision can see in the dark";
+	}
+
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.DARKNESS_MAGIC_SPELL;
 	}
 }

@@ -19,6 +19,7 @@ import java.util.List;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.gui.ImageIds;
 
 public class WaterWalkCondition implements Condition {
 
@@ -66,5 +67,10 @@ public class WaterWalkCondition implements Condition {
 	@Override
 	public String getLongerDescription() {
 		return "a creature with waterwalking is able to walk on water";
+	}
+
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.WATER_WALK_INDICATOR;
 	}
 }

@@ -19,6 +19,7 @@ import java.util.List;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.gui.ImageIds;
 
 public class InvisibleCondition implements Condition {
 
@@ -67,6 +68,9 @@ public class InvisibleCondition implements Condition {
 	public String getLongerDescription() {
 		return "an invisible object cannot be seen by others";
 	}
-	
-	
+
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.INVISIBILITY_INDICATOR;
+	}	
 }

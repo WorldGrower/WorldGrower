@@ -20,6 +20,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.gui.ImageIds;
 
 public class VampireBiteCondition implements Condition {
 
@@ -73,5 +74,10 @@ public class VampireBiteCondition implements Condition {
 	@Override
 	public String getLongerDescription() {
 		return "a creature with porphyric hemophilia will eventually turn into a vampire";
+	}
+
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.BLOOD;
 	}
 }

@@ -413,33 +413,27 @@ public class WorldPanel extends JPanel {
 	}
     
     private ImageIds getOverlayingImageId(WorldObject worldObject) {
-    	if (hasCondition(worldObject, Condition.BURNING_CONDITION)) {
-    		return ImageIds.BURNING;
-    	} else if (hasCondition(worldObject, Condition.INVISIBLE_CONDITION)) {
-    		return ImageIds.INVISIBILITY_INDICATOR;
-    	} else if (hasCondition(worldObject, Condition.POISONED_CONDITION)) {
-    		return ImageIds.POISONED_INDICATOR;
-    	} else if (hasCondition(worldObject, Condition.SLEEP_CONDITION)) {
-    		return ImageIds.SLEEPING_INDICATOR;
-    	} else if (hasCondition(worldObject, Condition.PARALYZED_CONDITION)) {
-    		return ImageIds.PARALYZED_INDICATOR;
-    	} else if (hasCondition(worldObject, Condition.WATER_WALK_CONDITION)) {
-    		return ImageIds.WATER_WALK_INDICATOR;
-    	} else if (hasCondition(worldObject, Condition.UNCONSCIOUS_CONDITION)) {
-    		return ImageIds.UNCONSCIOUS_INDICATOR;
-    	} else if (hasCondition(worldObject, Condition.SOUL_TRAPPED_CONDITION)) {
-    		return ImageIds.SOUL_TRAPPED_INDICATOR;
-    	} else if (hasCondition(worldObject, Condition.SILENCED_CONDITION)) {
-    		return ImageIds.SILENCED_CONDITION;
-    	} else if (hasCondition(worldObject, Condition.INTOXICATED_CONDITION)) {
-    		return ImageIds.INTOXICATED_CONDITION;
-    	} else if (hasCondition(worldObject, Condition.FEAR_CONDITION)) {
-    		return ImageIds.FEAR_INDICATOR;
-    	} else if (hasCondition(worldObject, Condition.ENTANGLED_CONDITION)) {
-    		return ImageIds.ENTANGLED_INDICATOR;
-    	} else {
-    		return null;
+    	Condition[] conditionsToRender = new Condition[] {
+    			Condition.BURNING_CONDITION,
+    			Condition.INVISIBLE_CONDITION,
+    			Condition.POISONED_CONDITION,
+    			Condition.SLEEP_CONDITION,
+    			Condition.PARALYZED_CONDITION,
+    			Condition.WATER_WALK_CONDITION,
+    			Condition.UNCONSCIOUS_CONDITION,
+    			Condition.SOUL_TRAPPED_CONDITION,
+    			Condition.SILENCED_CONDITION,
+    			Condition.INTOXICATED_CONDITION,
+    			Condition.FEAR_CONDITION,
+    			Condition.ENTANGLED_CONDITION
+    	};
+    	for(Condition conditionToRender : conditionsToRender) {
+    		if (hasCondition(worldObject, conditionToRender)) {
+        		return conditionToRender.getImageIds();
+    		}
     	}
+    	
+    	return null;
     }
 
 	private boolean hasCondition(WorldObject worldObject, Condition condition) {

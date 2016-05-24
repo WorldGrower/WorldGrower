@@ -19,6 +19,7 @@ import java.util.List;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.gui.ImageIds;
 
 public class ParalyzedCondition implements Condition {
 
@@ -66,5 +67,10 @@ public class ParalyzedCondition implements Condition {
 	@Override
 	public String getLongerDescription() {
 		return "a paralyzed creature can't take actions";
+	}
+
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.PARALYZED_INDICATOR;
 	}
 }

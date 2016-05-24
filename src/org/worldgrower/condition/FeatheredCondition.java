@@ -19,6 +19,7 @@ import java.util.List;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.gui.ImageIds;
 
 public class FeatheredCondition implements Condition {
 
@@ -66,5 +67,10 @@ public class FeatheredCondition implements Condition {
 	@Override
 	public String getLongerDescription() {
 		return "a feathered creature has an increased carrying capacity";
+	}
+
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.FEATHER_MAGIC_SPELL;
 	}
 }

@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.goal.Goals;
+import org.worldgrower.gui.ImageIds;
 
 public class FearCondition implements Condition {
 
@@ -79,5 +80,10 @@ public class FearCondition implements Condition {
 	@Override
 	public String getLongerDescription() {
 		return "a feared creature can't take actions except moving away from the caster";
+	}
+
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.FEAR_INDICATOR;
 	}
 }

@@ -19,6 +19,7 @@ import java.util.List;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.gui.ImageIds;
 
 public class BurdenedCondition implements Condition {
 
@@ -66,5 +67,10 @@ public class BurdenedCondition implements Condition {
 	@Override
 	public String getLongerDescription() {
 		return "a burdened creature has a reduced carrying capacity";
+	}
+
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.BURDEN_MAGIC_SPELL;
 	}
 }

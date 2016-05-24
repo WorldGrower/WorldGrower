@@ -105,4 +105,9 @@ public class SoulTrappedCondition implements Condition {
 	public String getLongerDescription() {
 		return "a soultrapped creature has its soul trapped in a soulgem when it dies";
 	}
+
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.SOUL_TRAPPED_INDICATOR;
+	}
 }

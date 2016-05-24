@@ -24,6 +24,7 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.goal.DeathReasonPropertyUtils;
+import org.worldgrower.gui.ImageIds;
 
 /**
  * A Condition is something WorldObjects can have.
@@ -40,6 +41,7 @@ public interface Condition extends Serializable {
 	public boolean isMagicEffect();
 	public void conditionEnds(WorldObject worldObject, World world);
 	public void perform(WorldObject performer, WorldObject target, int[] args, ManagedOperation managedOperation, World world);
+	public ImageIds getImageIds();
 	
 	public default void decreaseHitPoints(WorldObject worldObject, DeadlyCondition deadlyCondition, int value, World world) {
 		worldObject.increment(Constants.HIT_POINTS, -value);

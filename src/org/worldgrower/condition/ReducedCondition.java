@@ -21,6 +21,7 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.goal.LocationPropertyUtils;
+import org.worldgrower.gui.ImageIds;
 
 public class ReducedCondition implements Condition {
 
@@ -78,5 +79,10 @@ public class ReducedCondition implements Condition {
 	@Override
 	public String getLongerDescription() {
 		return "a reduced creature deals less damage with physical attacks";
+	}
+
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.REDUCE_MAGIC_SPELL;
 	}
 }

@@ -27,6 +27,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.gui.ImageIds;
 
 /**
  * This class holds all conditions of a WorldObjects.
@@ -91,6 +92,14 @@ public class Conditions implements Serializable {
 			descriptions.add(condition.getDescription());
 		}
 		return descriptions;
+	}
+	
+	public List<ImageIds> getImageIds() {
+		List<ImageIds> imageIds = new ArrayList<>();
+		for(Condition condition : conditions.keySet()) {
+			imageIds.add(condition.getImageIds());
+		}
+		return imageIds;
 	}
 	
 	public List<String> getLongerDescriptions() {

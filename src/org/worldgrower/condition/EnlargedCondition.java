@@ -21,6 +21,7 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.goal.LocationPropertyUtils;
+import org.worldgrower.gui.ImageIds;
 
 public class EnlargedCondition implements Condition {
 
@@ -78,5 +79,10 @@ public class EnlargedCondition implements Condition {
 	@Override
 	public String getLongerDescription() {
 		return "an enlarged creature deals more damage with physical attacks";
+	}
+
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.ENLARGE_MAGIC_SPELL;
 	}
 }

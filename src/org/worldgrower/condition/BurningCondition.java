@@ -22,6 +22,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.generator.Item;
+import org.worldgrower.gui.ImageIds;
 
 public class BurningCondition implements DeadlyCondition {
 
@@ -82,5 +83,10 @@ public class BurningCondition implements DeadlyCondition {
 	@Override
 	public String getLongerDescription() {
 		return "a burning object takes fire damage each turn and may burn adjacent objects";
+	}
+
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.BURNING;
 	}
 }

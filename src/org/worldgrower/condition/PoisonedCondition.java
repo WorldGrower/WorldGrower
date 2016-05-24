@@ -19,6 +19,7 @@ import java.util.List;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.gui.ImageIds;
 
 public class PoisonedCondition implements DeadlyCondition {
 
@@ -72,5 +73,10 @@ public class PoisonedCondition implements DeadlyCondition {
 	@Override
 	public String getLongerDescription() {
 		return "a poisoned creature loses health each turn";
+	}
+
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.POISONED_INDICATOR;
 	}
 }
