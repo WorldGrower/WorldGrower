@@ -157,23 +157,23 @@ public class InventoryDialog extends AbstractDialog {
 		
 		final JLabel moneyLabel = JLabelFactory.createJLabel("Money:");
 		moneyLabel.setToolTipText(MONEY_PLAYER_CHARACTER_TOOL_TIP);
-		moneyLabel.setBounds(labelLeft, 200, 64, 25);
+		moneyLabel.setBounds(labelLeft, 62, 64, 25);
 		inventoryPanel.add(moneyLabel);
 		
 		moneyValueLabel = JLabelFactory.createJLabel(inventoryDialogModel.getPlayerCharacterMoney());
 		moneyValueLabel.setToolTipText(MONEY_PLAYER_CHARACTER_TOOL_TIP);
-		moneyValueLabel.setBounds(labelValueLeft, 200, 50, 25);
+		moneyValueLabel.setBounds(labelValueLeft, 62, 50, 25);
 		inventoryPanel.add(moneyValueLabel);
 		
 		JLabel lblWeight = JLabelFactory.createJLabel("Weight:");
 		lblWeight.setToolTipText(WEIGHT_PLAYER_CHARACTER_TOOL_TIP);
-		lblWeight.setBounds(labelLeft, 250, 64, 25);
+		lblWeight.setBounds(labelLeft, 12, 64, 25);
 		inventoryPanel.add(lblWeight);
 		
 		String weightString = getPlayerCharacterWeight(inventoryDialogModel);
 		weightLabelValue = JLabelFactory.createJLabel(weightString);
 		weightLabelValue.setToolTipText(WEIGHT_PLAYER_CHARACTER_TOOL_TIP);
-		weightLabelValue.setBounds(labelValueLeft, 250, 64, 25);
+		weightLabelValue.setBounds(labelValueLeft, 12, 64, 25);
 		inventoryPanel.add(weightLabelValue);
 		
 		pricesButton = JButtonFactory.createButton("Prices");
@@ -203,18 +203,18 @@ public class InventoryDialog extends AbstractDialog {
 			if (inventoryDialogModel.hasTargetMoney()) {
 				JLabel targetMoneyLabel = JLabelFactory.createJLabel("Money:");
 				targetMoneyLabel.setToolTipText(MONEY_TARGET_TOOL_TIP);
-				targetMoneyLabel.setBounds(labelLeft, 200, 64, 25);
+				targetMoneyLabel.setBounds(labelLeft, 62, 64, 25);
 				targetInventoryPanel.add(targetMoneyLabel);
 				
 				targetMoney = JLabelFactory.createJLabel(inventoryDialogModel.getTargetMoney());
 				targetMoney.setToolTipText(MONEY_TARGET_TOOL_TIP);
-				targetMoney.setBounds(labelValueLeft, 200, 50, 25);
+				targetMoney.setBounds(labelValueLeft, 62, 50, 25);
 				targetInventoryPanel.add(targetMoney);
 				
 				Image stealGoldImage = imageInfoReader.getImage(Actions.STEAL_GOLD_ACTION.getImageIds(), null);
-				JButton stealMoneyButton = JButtonFactory.createButton("Steal gold", new ImageIcon(stealGoldImage));
-				stealMoneyButton.setToolTipText("steal gold");
-				stealMoneyButton.setBounds(labelValueLeft + 50, 200, 120, 50);
+				JButton stealMoneyButton = JButtonFactory.createButton("Steal money", new ImageIcon(stealGoldImage));
+				stealMoneyButton.setToolTipText("steal money");
+				stealMoneyButton.setBounds(labelLeft, 112, 150, 50);
 				stealMoneyButton.addActionListener(inventoryActionFactory.getTargetMoneyActions().get(0));
 				targetInventoryPanel.add(stealMoneyButton);
 			}
@@ -222,13 +222,13 @@ public class InventoryDialog extends AbstractDialog {
 			if (inventoryDialogModel.hasTargetCarryingCapacity()) {
 				JLabel targetWeightLabel = JLabelFactory.createJLabel("Weight:");
 				targetWeightLabel.setToolTipText(WEIGHT_TARGET_TOOL_TIP);
-				targetWeightLabel.setBounds(labelLeft, 250, 64, 25);
+				targetWeightLabel.setBounds(labelLeft, 12, 64, 25);
 				targetInventoryPanel.add(targetWeightLabel);
 				
 				String targetWeightString = getTargetWeight(inventoryDialogModel);
 				targetWeight = JLabelFactory.createJLabel(targetWeightString);
 				targetWeight.setToolTipText(WEIGHT_TARGET_TOOL_TIP);
-				targetWeight.setBounds(labelValueLeft, 250, 64, 25);
+				targetWeight.setBounds(labelValueLeft, 12, 64, 25);
 				targetInventoryPanel.add(targetWeight);
 			}
 			
@@ -264,7 +264,7 @@ public class InventoryDialog extends AbstractDialog {
 
 	private void addFilterPanel(JPanel parentPanel, JTable parentTable) {
 		JPanel filterPanel = JPanelFactory.createBorderlessPanel();
-		filterPanel.setBounds(12, 12, 650, 50);
+		filterPanel.setBounds(12, 12, 9 * 50, 50);
 		filterPanel.setLayout(null);
 		filterPanel.setOpaque(true);
 		filterPanel.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
