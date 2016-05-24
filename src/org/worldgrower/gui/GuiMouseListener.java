@@ -370,6 +370,7 @@ public class GuiMouseListener extends MouseAdapter {
 		if (canPlayerCharacterPerformAction(worldObject, Actions.VOTE_FOR_LEADER_ACTION)) {
 			JMenuItem guiVoteMenuItem = MenuFactory.createJMenuItem(new GuiVoteAction(playerCharacter, imageInfoReader, world, container, dungeonMaster, worldObject));
 			guiVoteMenuItem.setText("Vote...");
+			setMenuIcon(guiVoteMenuItem, Actions.VOTE_FOR_LEADER_ACTION.getImageIds());
 			menu.add(guiVoteMenuItem);
 		}
 	}
@@ -378,6 +379,7 @@ public class GuiMouseListener extends MouseAdapter {
 		if (ResearchSpellAction.isValidTarget(worldObject) && Actions.getMagicSpellsToResearch(playerCharacter).size() > 0) {
 			JMenuItem guiResearchMagicSpellMenuItem = MenuFactory.createJMenuItem(new GuiResearchMagicSpellAction(playerCharacter, imageInfoReader, world, container, dungeonMaster, worldObject));
 			guiResearchMagicSpellMenuItem.setText("Research...");
+			setMenuIcon(guiResearchMagicSpellMenuItem, ImageIds.SPELL_BOOK);
 			menu.add(guiResearchMagicSpellMenuItem);
 		}
 	}
@@ -386,6 +388,7 @@ public class GuiMouseListener extends MouseAdapter {
 		if (Game.canActionExecute(playerCharacter, Actions.SLEEP_ACTION, Args.EMPTY, world, worldObject)) {
 			JMenuItem restMultipleTurnsMenuItem = MenuFactory.createJMenuItem(new GuiRestMultipleTurnsAction(playerCharacter, imageInfoReader, world, container, dungeonMaster, worldObject));
 			restMultipleTurnsMenuItem.setText("Sleep multiple turns...");
+			setMenuIcon(restMultipleTurnsMenuItem, ImageIds.SLEEPING_INDICATOR);
 			menu.add(restMultipleTurnsMenuItem);
 		}
 	}
@@ -462,6 +465,7 @@ public class GuiMouseListener extends MouseAdapter {
 	private void addScribeMagicSpells(JPopupMenu menu, WorldObject worldObject) {
 		if (Actions.getScribeMagicSpellActionFor(Actions.FIRE_BOLT_ATTACK_ACTION).isValidTarget(playerCharacter, worldObject, world)) {
 			JMenu scribeMenu = MenuFactory.createJMenu("Scribe spells");
+			setMenuIcon(scribeMenu, ImageIds.SPELL_BOOK);
 			menu.add(scribeMenu);
 			Map<SkillProperty, List<ManagedOperation>> scribeActionsMap = Actions.getScribeMagicSpellActions();
 			List<SkillProperty> skillsList = Actions.getSortedSkillProperties(scribeActionsMap);
