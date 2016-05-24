@@ -519,13 +519,14 @@ public class InventoryDialog extends AbstractDialog {
 	}
 
 	public void refresh(InventoryDialogModel inventoryDialogModel) {
-		inventoryTable.setModel(new InventoryModel(inventoryDialogModel.getPlayerCharacterInventory()));
+		((InventoryModel)inventoryTable.getModel()).refresh(inventoryDialogModel.getPlayerCharacterInventory());
 		moneyValueLabel.setText(Integer.toString(inventoryDialogModel.getPlayerCharacterMoney()));
 		String weightString = getPlayerCharacterWeight(inventoryDialogModel);
 		weightLabelValue.setText(weightString);
 		
 		if (inventoryDialogModel.hasTarget()) {
-			targetInventoryTable.setModel(new InventoryModel(inventoryDialogModel.getTargetInventory()));
+			((InventoryModel)targetInventoryTable.getModel()).refresh(inventoryDialogModel.getTargetInventory());
+			targetInventoryTable.repaint();
 			
 			if (inventoryDialogModel.hasTargetMoney()) {
 				targetMoney.setText(Integer.toString(inventoryDialogModel.getTargetMoney()));
@@ -561,6 +562,13 @@ public class InventoryDialog extends AbstractDialog {
 			inventoryItems = getInventoryList(inventory);
 		}
 		
+		public void refresh(WorldObjectContainer inventory) {
+			inventoryItems.clear();
+			inventoryItems.addAll(getInventoryList(inventory));
+			
+			this.fireTableDataChanged();
+		}
+
 		@Override
 		public int getRowCount() {
 			return inventoryItems.size();

@@ -17,11 +17,14 @@ package org.worldgrower.goal;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
 
@@ -40,6 +43,21 @@ public class UTestLockUtils {
 		performer.getProperty(Constants.INVENTORY).add(key);
 		assertEquals(true, LockUtils.performerHasKey(performer, target));
 		assertEquals("key to Test2", key.getProperty(Constants.NAME));
+	}
+	
+	@Test
+	public void testPerformerHasHouseKey() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
+		WorldObject target = TestUtils.createWorldObject(1, "Test2");
+		
+		for(int i=0; i<256; i++) { world.generateUniqueId(); }
+		
+		Actions.BUILD_HOUSE_ACTION.execute(performer, target, Args.EMPTY, world);
+		int houseId = performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.HOUSE).get(0);
+		WorldObject house = world.findWorldObject(Constants.ID, houseId);
+
+		assertEquals(true, LockUtils.performerHasKey(performer, house));
 	}
 	
 	@Test

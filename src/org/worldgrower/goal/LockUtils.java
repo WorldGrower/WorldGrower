@@ -34,7 +34,7 @@ public class LockUtils {
 	}
 
 	static boolean performerHasKey(WorldObject performer, WorldObject target) {
-		List<WorldObject> keys = performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.LOCK_ID, target.getProperty(Constants.ID));
+		List<WorldObject> keys = performer.getProperty(Constants.INVENTORY).getWorldObjectsByFunction(Constants.LOCK_ID, w -> w.getProperty(Constants.LOCK_ID).intValue() == target.getProperty(Constants.ID).intValue());
 		return keys.size() > 0;
 	}
 	
