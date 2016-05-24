@@ -377,7 +377,7 @@ public class GuiMouseListener extends MouseAdapter {
 	private void addResearchActions(JPopupMenu menu, WorldObject worldObject) {
 		if (ResearchSpellAction.isValidTarget(worldObject) && Actions.getMagicSpellsToResearch(playerCharacter).size() > 0) {
 			JMenuItem guiResearchMagicSpellMenuItem = MenuFactory.createJMenuItem(new GuiResearchMagicSpellAction(playerCharacter, imageInfoReader, world, container, dungeonMaster, worldObject));
-			guiResearchMagicSpellMenuItem.setText("Research multiple turns...");
+			guiResearchMagicSpellMenuItem.setText("Research...");
 			menu.add(guiResearchMagicSpellMenuItem);
 		}
 	}
@@ -562,7 +562,7 @@ public class GuiMouseListener extends MouseAdapter {
 	private void addAllActions(JPopupMenu menu, WorldObject worldObject) {
 		Map<SkillProperty, JMenu> existingSkillMenus = new HashMap<>();
 		for(ManagedOperation action : playerCharacter.getOperations()) {
-			if (!action.requiresArguments() && (!(action instanceof ScribeMagicSpellAction))) {
+			if (!action.requiresArguments() && (!(action instanceof ScribeMagicSpellAction)) && (!(action instanceof ResearchSpellAction))) {
 				JComponent parentMenu = menu;
 				if (action instanceof MagicSpell) {
 					MagicSpell magicSpell = (MagicSpell) action;
