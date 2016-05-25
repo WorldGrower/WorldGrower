@@ -25,7 +25,7 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
-import org.worldgrower.actions.legal.DefaultActionLegalHandler;
+import org.worldgrower.actions.legal.AttackActionLegalHandler;
 import org.worldgrower.actions.legal.LegalAction;
 import org.worldgrower.actions.legal.LegalActions;
 import org.worldgrower.attribute.WorldObjectContainer;
@@ -48,7 +48,7 @@ public class UTestSetLegalActionsAction {
 		Actions.SET_LEGAL_ACTIONS_ACTION.execute(performer, performer, args, world);
 		
 		legalActions = LegalActionsPropertyUtils.getLegalActions(world);
-		assertEquals(false, legalActions.getLegalFlag(new LegalAction(Actions.MELEE_ATTACK_ACTION, new DefaultActionLegalHandler())));
+		assertEquals(false, legalActions.getLegalFlag(new LegalAction(Actions.MELEE_ATTACK_ACTION, new AttackActionLegalHandler())));
 	}
 	
 	@Test

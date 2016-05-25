@@ -29,7 +29,7 @@ public class KeyBindings {
 			keyBindings.add(new GuiActionValue(guiAction, values[index]));
 			index++;
 		}
-		leftMouseClickCentersMap = true;
+		leftMouseClickCentersMap = false;
 	}
 	
 	public int size() {

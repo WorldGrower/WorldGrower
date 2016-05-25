@@ -29,6 +29,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.actions.legal.AttackActionLegalHandler;
 import org.worldgrower.actions.legal.ButcherLegalHandler;
 import org.worldgrower.actions.legal.DefaultActionLegalHandler;
 import org.worldgrower.actions.legal.LegalAction;
@@ -208,7 +209,7 @@ public class GroupPropertyUtils {
 		defaultIllegalActions.addAll(Actions.ALL_ACTIONS.stream().filter(a -> DefaultGoalObstructedHandler.performerAttacked(a)).collect(Collectors.toList()));
 		defaultIllegalActions.addAll(DefaultGoalObstructedHandler.getNonAttackingIllegalActions());
 		for(ManagedOperation action : defaultIllegalActions) {
-			LegalAction legalAction = new LegalAction(action, new DefaultActionLegalHandler());
+			LegalAction legalAction = new LegalAction(action, new AttackActionLegalHandler());
 			legalActions.put(legalAction, Boolean.FALSE);
 		}
 		

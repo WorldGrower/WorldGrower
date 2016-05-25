@@ -128,12 +128,14 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 		if (isLegal != null) {
 			boolean violatedGroupRules = !isLegal.booleanValue();
 			if (violatedGroupRules) {
-				boolean performerCanAttackCriminals = performerCanAttackCriminals(performer);
-				boolean actionTargetIsCriminal = actionTargetIsCriminal(actionTarget, world);
-				boolean sheriffAttacksCriminal = performerCanAttackCriminals && performerAttacked(managedOperation) && actionTargetIsCriminal;
-				boolean selfDefenseAgainstCriminal = performerAttacked(managedOperation) && actionTargetIsCriminal;
-				if (sheriffAttacksCriminal || selfDefenseAgainstCriminal) {
-					violatedGroupRules = false;
+				if (actionTarget.hasProperty(Constants.GROUP)) {
+					boolean performerCanAttackCriminals = performerCanAttackCriminals(performer);
+					boolean actionTargetIsCriminal = actionTargetIsCriminal(actionTarget, world);
+					boolean sheriffAttacksCriminal = performerCanAttackCriminals && performerAttacked(managedOperation) && actionTargetIsCriminal;
+					boolean selfDefenseAgainstCriminal = performerAttacked(managedOperation) && actionTargetIsCriminal;
+					if (sheriffAttacksCriminal || selfDefenseAgainstCriminal) {
+						violatedGroupRules = false;
+					}
 				}
 			}
 			
@@ -162,24 +164,29 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 		}
 	}
 
-	@Override
-	public void checkLegality(WorldObject performer, WorldObject target, ManagedOperation managedOperation, int[] args, World world) {
+	static boolean isLegal(WorldObject performer, WorldObject target, ManagedOperation managedOperation, int[] args, World world) {
 		if (isIllegallyFighting(performer, target, managedOperation)) {
 			if (hasAnyoneSeenAction(performer, target, managedOperation, args, world)) {
 				if (performerViolatedGroupRules(performer, target, args, managedOperation, world)) {
-					
-					WorldObject performerFacade = FacadeUtils.createFacade(performer, performer, target, world);
-					//WorldObject targetFacade = FacadeUtils.createFacade(target, performer, target, world);
-					
-					if (performerAttacked(managedOperation)) {
-						throwOutOfGroup(performer, target, target, args, managedOperation, world, performerFacade);
-					}
-					int bounty = calculateBounty(managedOperation);
-					GroupPropertyUtils.getVillagersOrganization(world).getProperty(Constants.BOUNTY).incrementValue(performerFacade, bounty);
+					return false;
 				}
 			}
 		}
-		
+		return true;
+	}
+	
+	@Override
+	public void checkLegality(WorldObject performer, WorldObject target, ManagedOperation managedOperation, int[] args, World world) {
+		if (!isLegal(performer, target, managedOperation, args, world)) {
+			WorldObject performerFacade = FacadeUtils.createFacade(performer, performer, target, world);
+			//WorldObject targetFacade = FacadeUtils.createFacade(target, performer, target, world);
+			
+			if (performerAttacked(managedOperation)) {
+				throwOutOfGroup(performer, target, target, args, managedOperation, world, performerFacade);
+			}
+			int bounty = calculateBounty(managedOperation);
+			GroupPropertyUtils.getVillagersOrganization(world).getProperty(Constants.BOUNTY).incrementValue(performerFacade, bounty);
+		}
 	}
 
 	private static boolean isIllegallyFighting(WorldObject performer, WorldObject target, ManagedOperation managedOperation) {

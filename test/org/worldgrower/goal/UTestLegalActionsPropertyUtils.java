@@ -22,7 +22,7 @@ import java.util.Map;
 
 import org.junit.Test;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.actions.legal.DefaultActionLegalHandler;
+import org.worldgrower.actions.legal.AttackActionLegalHandler;
 import org.worldgrower.actions.legal.LegalAction;
 import org.worldgrower.actions.legal.LegalActions;
 
@@ -31,8 +31,8 @@ public class UTestLegalActionsPropertyUtils {
 	@Test
 	public void testToList() {
 		Map<LegalAction, Boolean> legalActionsMap = new HashMap<>();
-		legalActionsMap.put(new LegalAction(Actions.MELEE_ATTACK_ACTION, new DefaultActionLegalHandler()), Boolean.TRUE);
-		legalActionsMap.put(new LegalAction(Actions.FIRE_BOLT_ATTACK_ACTION, new DefaultActionLegalHandler()), Boolean.FALSE);
+		legalActionsMap.put(new LegalAction(Actions.MELEE_ATTACK_ACTION, new AttackActionLegalHandler()), Boolean.TRUE);
+		legalActionsMap.put(new LegalAction(Actions.FIRE_BOLT_ATTACK_ACTION, new AttackActionLegalHandler()), Boolean.FALSE);
 		LegalActions legalActions = new LegalActions(legalActionsMap);
 		List<LegalAction> legalActionsList = legalActions.toList();
 		
@@ -44,8 +44,8 @@ public class UTestLegalActionsPropertyUtils {
 	@Test
 	public void testLegalActionsToArgs() {
 		Map<LegalAction, Boolean> legalFlagsMap = new HashMap<>();
-		legalFlagsMap.put(new LegalAction(Actions.MELEE_ATTACK_ACTION, new DefaultActionLegalHandler()), Boolean.TRUE);
-		legalFlagsMap.put(new LegalAction(Actions.FIRE_BOLT_ATTACK_ACTION, new DefaultActionLegalHandler()), Boolean.FALSE);
+		legalFlagsMap.put(new LegalAction(Actions.MELEE_ATTACK_ACTION, new AttackActionLegalHandler()), Boolean.TRUE);
+		legalFlagsMap.put(new LegalAction(Actions.FIRE_BOLT_ATTACK_ACTION, new AttackActionLegalHandler()), Boolean.FALSE);
 		int[] legalActionsToArgs = LegalActions.legalFlagsToArgs(legalFlagsMap);
 		assertEquals(2, legalActionsToArgs.length);
 		assertEquals(0, legalActionsToArgs[0]);

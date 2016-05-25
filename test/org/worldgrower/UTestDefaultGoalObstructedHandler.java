@@ -25,6 +25,8 @@ import org.worldgrower.attribute.IdList;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.generator.Item;
+import org.worldgrower.generator.PlantGenerator;
+import org.worldgrower.goal.BountyPropertyUtils;
 import org.worldgrower.goal.Goals;
 import org.worldgrower.goal.GroupPropertyUtils;
 
@@ -211,6 +213,50 @@ public class UTestDefaultGoalObstructedHandler {
 	public void testCalculateBounty() {
 		assertEquals(40, DefaultGoalObstructedHandler.calculateBounty(Actions.STEAL_ACTION));
 		assertEquals(200, DefaultGoalObstructedHandler.calculateBounty(Actions.MELEE_ATTACK_ACTION));
+	}
+	
+	@Test
+	public void testIsLegalAttackOtherVillager() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject villagersOrganization = createVillagersOrganization(world);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(2, Constants.GROUP, new IdList().add(villagersOrganization));
+		WorldObject actionTarget = TestUtils.createIntelligentWorldObject(3, Constants.GROUP, new IdList().add(villagersOrganization));
+		world.addWorldObject(performer);
+		world.addWorldObject(actionTarget);
+		
+		assertEquals(false, DefaultGoalObstructedHandler.isLegal(performer, actionTarget, Actions.FIRE_BOLT_ATTACK_ACTION, Args.EMPTY, world));
+	}
+	
+	@Test
+	public void testIsLegalAttackTree() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject villagersOrganization = createVillagersOrganization(world);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(2, Constants.GROUP, new IdList().add(villagersOrganization));
+		int targetId = PlantGenerator.generateTree(0, 0, world);
+		WorldObject actionTarget = world.findWorldObject(Constants.ID, targetId);
+		world.addWorldObject(performer);
+		world.addWorldObject(TestUtils.createIntelligentWorldObject(3, "observer"));
+		
+		villagersOrganization = createVillagersOrganization(world);
+		
+		assertEquals(true, DefaultGoalObstructedHandler.isLegal(performer, actionTarget, Actions.FIRE_BOLT_ATTACK_ACTION, Args.EMPTY, world));
+	}
+	
+	@Test
+	public void testCheckLegality() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject villagersOrganization = createVillagersOrganization(world);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(2, Constants.GROUP, new IdList().add(villagersOrganization));
+		WorldObject actionTarget = TestUtils.createIntelligentWorldObject(3, Constants.GROUP, new IdList().add(villagersOrganization));
+		world.addWorldObject(performer);
+		world.addWorldObject(TestUtils.createIntelligentWorldObject(3, "observer"));
+		
+		villagersOrganization = createVillagersOrganization(world);
+		
+		new DefaultGoalObstructedHandler().checkLegality(performer, actionTarget, Actions.FIRE_BOLT_ATTACK_ACTION, Args.EMPTY, world);
+		
+		assertEquals(200, BountyPropertyUtils.getBounty(performer, world));
+		assertEquals(0, performer.getProperty(Constants.GROUP).size());
 	}
 
 	private WorldObject createVillagersOrganization(World world) {

@@ -12,10 +12,34 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.gui.start;
+package org.worldgrower.actions.legal;
 
-public class StatusMessages {
+import org.worldgrower.Constants;
+import org.worldgrower.WorldObject;
 
-	public static final String WELCOME = "Welcome to WorldGrower. \nThis component displays messages. (S)";
-	public static final String WELCOME_TUTORIAL = "Welcome to the WorldGrower Tutorial. \nLeft-click on the sign post on the screen and choose to read it to start the tutorial.";
+public class AttackActionLegalHandler implements ActionLegalHandler {
+	
+	@Override
+	public boolean isApplicable(WorldObject performer, WorldObject target, int[] args) {
+		return target.hasIntelligence() && target.hasProperty(Constants.GROUP) && isHumanoid(target);
+	}
+
+	private boolean isHumanoid(WorldObject target) {
+		return target.hasProperty(Constants.CREATURE_TYPE) && target.getProperty(Constants.CREATURE_TYPE).canTalk();
+	}
+
+	@Override
+	public String getSimpleDescription() {
+		return "";
+	}
+	
+	@Override
+	public int hashCode() {
+		return 6;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		return (obj instanceof AttackActionLegalHandler);
+	}
 }
