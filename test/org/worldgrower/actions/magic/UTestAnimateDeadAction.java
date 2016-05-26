@@ -37,7 +37,7 @@ public class UTestAnimateDeadAction {
 		
 		int id = CommonerGenerator.generateSkeletalRemains(createPerformer(3), world);
 		WorldObject target = world.findWorldObject(Constants.ID, id);
-		assertEquals("skeletal remains of null", target.getProperty(Constants.NAME));
+		assertEquals("skeletal remains of worldObject", target.getProperty(Constants.NAME));
 		
 		Actions.ANIMATE_DEAD_ACTION.execute(performer, target, Args.EMPTY, world);
 		

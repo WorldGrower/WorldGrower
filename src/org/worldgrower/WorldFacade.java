@@ -226,4 +226,9 @@ public class WorldFacade implements World {
 	public WorldObjectsCache getWorldObjectsCache(IntProperty intProperty1, IntProperty intProperty2) {
 		return world.getWorldObjectsCache(intProperty1, intProperty2);
 	}
+	
+	@Override
+	public WorldObjectsCache getWorldObjectsCache() {
+		return world.getWorldObjectsCache();
+	}
 }

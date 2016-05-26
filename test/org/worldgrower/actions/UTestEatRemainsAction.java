@@ -43,7 +43,7 @@ public class UTestEatRemainsAction {
 		int id = CommonerGenerator.generateSkeletalRemains(victim, world);
 		WorldObject target = world.findWorldObject(Constants.ID, id);
 		
-		assertEquals("skeletal remains of null", target.getProperty(Constants.NAME));
+		assertEquals("skeletal remains of worldObject", target.getProperty(Constants.NAME));
 		
 		Actions.EAT_REMAINS_ACTION.execute(performer, target, Args.EMPTY, world);
 		

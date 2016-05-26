@@ -59,6 +59,7 @@ public class CommonerOnTurn implements OnTurn {
 		checkPregnancy(worldObject, world);
 		adjustPrices(worldObject, world);
 		checkForDisease(worldObject, world);
+		checkForJail(worldObject, world);
 	}
 
 	private void checkForDisease(WorldObject worldObject, World world) {
@@ -188,6 +189,12 @@ public class CommonerOnTurn implements OnTurn {
 				worldObject.increment(Constants.ENERGY, -1);
 			}
 			worldObject.increment(Constants.GHOUL_MEAT_LEVEL, -1);
+		}
+	}
+	
+	private void checkForJail(WorldObject worldObject, World world) {
+		if (BuildingGenerator.isPrisonerInJail(worldObject, world)) {
+			//TODO: implement
 		}
 	}
 	

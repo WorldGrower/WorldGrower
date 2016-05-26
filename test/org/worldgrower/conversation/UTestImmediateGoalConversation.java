@@ -123,7 +123,7 @@ public class UTestImmediateGoalConversation {
 		
 		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
-		assertEquals("I'm eating null because I'm hungry and looking for food", replyPhrases.get(0).getResponsePhrase());
+		assertEquals("I'm eating worldObject because I'm hungry and looking for food", replyPhrases.get(0).getResponsePhrase());
 	}
 
 	@Test

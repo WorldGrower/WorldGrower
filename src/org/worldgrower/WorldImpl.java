@@ -54,6 +54,7 @@ public class WorldImpl implements World, Serializable {
 	private final WorldOnTurn worldOnTurn;
 	private transient WorldStateChangedListeners worldStateChangedListeners = new WorldStateChangedListeners();
 	private final LocationWorldObjectsCache locationWorldObjectsCache;
+	private final JailCache jailCache = new JailCache();
 	
 	//TODO: temporary for debugging purposes
 	private final transient List<Integer> removedIds = new ArrayList<>();
@@ -75,6 +76,7 @@ public class WorldImpl implements World, Serializable {
 		idToIndexMapping.idAdded(worldObjects);
 		propertyCache.idAdded(worldObject);
 		locationWorldObjectsCache.add(worldObject);
+		jailCache.add(worldObject);
 	}
 	
 	@Override
@@ -88,6 +90,7 @@ public class WorldImpl implements World, Serializable {
 		
 		removedIds.add(worldObjectToRemove.getProperty(Constants.ID));
 		locationWorldObjectsCache.remove(worldObjectToRemove);
+		jailCache.remove(worldObjectToRemove);
 	}
 
 	private void removeIdContainers(WorldObject worldObjectToRemove) {
@@ -287,5 +290,10 @@ public class WorldImpl implements World, Serializable {
 	@Override
 	public WorldObjectsCache getWorldObjectsCache(IntProperty intProperty1, IntProperty intProperty2) {
 		return locationWorldObjectsCache;
+	}
+	
+	@Override
+	public WorldObjectsCache getWorldObjectsCache() {
+		return jailCache;
 	}
 }

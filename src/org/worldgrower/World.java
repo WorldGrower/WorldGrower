@@ -64,4 +64,5 @@ public interface World {
 	public void addWorldStateChangedListener(WorldStateChangedListener worldStateChangedListener);
 	
 	public WorldObjectsCache getWorldObjectsCache(IntProperty intProperty1, IntProperty intProperty2);
+	public WorldObjectsCache getWorldObjectsCache();
 }

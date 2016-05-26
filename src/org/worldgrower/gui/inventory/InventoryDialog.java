@@ -19,12 +19,15 @@ import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -46,6 +49,9 @@ import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableRowSorter;
 
 import org.worldgrower.WorldObject;
@@ -270,16 +276,19 @@ public class InventoryDialog extends AbstractDialog {
 		filterPanel.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
 		parentPanel.add(filterPanel);
 		
+		OptionalTableColumn attackOptionalTableColumn = new OptionalTableColumn(0, "Attack", i -> i.getAttack());
+		OptionalTableColumn armorOptionalTableColumn = new OptionalTableColumn(0, "Armor", i -> i.getArmor());
+		
 		List<JToggleButton> filterButtons = new ArrayList<>();
-		filterButtons.add(createFilterButton(filterPanel, 0, ImageIds.CHEST, "Show all items"));
-		filterButtons.add(createFilterButton(filterPanel, 1, ImageIds.IRON_CLAYMORE, "Show weapons"));
-		filterButtons.add(createFilterButton(filterPanel, 2, ImageIds.IRON_CUIRASS, "Show armor"));
-		filterButtons.add(createFilterButton(filterPanel, 3, ImageIds.SLEEPING_POTION, "Show drinks and potions"));
-		filterButtons.add(createFilterButton(filterPanel, 4, ImageIds.BERRY, "Show food"));
-		filterButtons.add(createFilterButton(filterPanel, 5, ImageIds.NIGHT_SHADE, "Show ingredients"));
-		filterButtons.add(createFilterButton(filterPanel, 6, ImageIds.SPELL_BOOK, "Show books"));
-		filterButtons.add(createFilterButton(filterPanel, 7, ImageIds.KEY, "Show keys"));
-		filterButtons.add(createFilterButton(filterPanel, 8, ImageIds.WOOD, "Show resources"));
+		filterButtons.add(createFilterButton(filterPanel, 0, ImageIds.CHEST, "Show all items", parentTable));
+		filterButtons.add(createFilterButton(filterPanel, 1, ImageIds.IRON_CLAYMORE, "Show weapons", parentTable, attackOptionalTableColumn));
+		filterButtons.add(createFilterButton(filterPanel, 2, ImageIds.IRON_CUIRASS, "Show armor", parentTable, armorOptionalTableColumn));
+		filterButtons.add(createFilterButton(filterPanel, 3, ImageIds.SLEEPING_POTION, "Show drinks and potions", parentTable));
+		filterButtons.add(createFilterButton(filterPanel, 4, ImageIds.BERRY, "Show food", parentTable));
+		filterButtons.add(createFilterButton(filterPanel, 5, ImageIds.NIGHT_SHADE, "Show ingredients", parentTable));
+		filterButtons.add(createFilterButton(filterPanel, 6, ImageIds.SPELL_BOOK, "Show books", parentTable));
+		filterButtons.add(createFilterButton(filterPanel, 7, ImageIds.KEY, "Show keys", parentTable));
+		filterButtons.add(createFilterButton(filterPanel, 8, ImageIds.WOOD, "Show resources", parentTable));
 		
 		List<RowFilter<InventoryModel, Integer>> rowFilters = createRowFilters();
 		ButtonGroup buttonGroup = new ButtonGroup();
@@ -300,6 +309,8 @@ public class InventoryDialog extends AbstractDialog {
 		
 		filterButtons.get(0).setSelected(true);
 	}
+	
+	
 	
 	private List<RowFilter<InventoryModel, Integer>> createRowFilters() {
 		return Arrays.asList(new RowFilter<InventoryModel, Integer>() {
@@ -354,12 +365,77 @@ public class InventoryDialog extends AbstractDialog {
 		);
 	}
 	
-	private JToggleButton createFilterButton(JPanel filterPanel, int index, ImageIds imageId, String tooltipText) {
+	private JToggleButton createFilterButton(JPanel filterPanel, int index, ImageIds imageId, String tooltipText, JTable parentTable, OptionalTableColumn... optionalTableColumns) {
 		JToggleButton filterToggleButton = JButtonFactory.createToggleButton(new ImageIcon(imageInfoReader.getImage(imageId, null)));
 		filterToggleButton.setBounds(index * 50, 0, 50, 50);
 		filterToggleButton.setToolTipText(tooltipText);
+		
+		filterToggleButton.addItemListener(new ItemListener() {
+			
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				InventoryModel inventoryModel = (InventoryModel)parentTable.getModel();
+				JTableHeader th = parentTable.getTableHeader();
+				TableColumnModel tcm = th.getColumnModel();
+				if (e.getStateChange() == ItemEvent.SELECTED) {
+					for(OptionalTableColumn optionalTableColumn : optionalTableColumns) {
+						TableColumn tableColumn = new TableColumn(tcm.getColumnCount());
+						tableColumn.setHeaderValue(optionalTableColumn.getName());
+						tcm.addColumn(tableColumn);
+						inventoryModel.addColumn(optionalTableColumn);
+					}
+					
+					th.repaint();
+					
+				} else if (e.getStateChange() == ItemEvent.DESELECTED) {
+					for(OptionalTableColumn optionalTableColumn : optionalTableColumns) {
+						tcm.removeColumn(tcm.getColumn(tcm.getColumnCount() - 1));
+						inventoryModel.removeColumn(optionalTableColumn);
+						parentTable.getRowSorter().modelStructureChanged();
+					}
+					
+					th.repaint();
+				}
+			}
+		});
+		
+		
 		filterPanel.add(filterToggleButton);
 		return filterToggleButton;
+	}
+	
+	private static class OptionalTableColumn {
+
+		private final int id;
+		private final String name;
+		private final Function<InventoryItem, String> valueFunction;
+		
+		public OptionalTableColumn(int id, String name, Function<InventoryItem, String> valueFunction) {
+			super();
+			this.id = id;
+			this.name = name;
+			this.valueFunction = valueFunction;
+		}
+
+		@Override
+		public int hashCode() {
+			return id;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			return ((OptionalTableColumn)obj).id == id;
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public String getValue(InventoryItem inventoryItem) {
+			return valueFunction.apply(inventoryItem);
+		}
+		
+		
 	}
 
 	private void setPlayerCharacterPanelOnTop(ActionEvent e) {
@@ -493,7 +569,7 @@ public class InventoryDialog extends AbstractDialog {
 		inventoryTable.getColumnModel().getColumn(0).setPreferredWidth(50);
 		inventoryTable.getColumnModel().getColumn(1).setPreferredWidth(200);
 		inventoryTable.getColumnModel().getColumn(2).setPreferredWidth(50);
-		inventoryTable.getColumnModel().getColumn(3).setPreferredWidth(97);
+		inventoryTable.getColumnModel().getColumn(3).setPreferredWidth(50);
 		inventoryTable.getTableHeader().setReorderingAllowed(false);
 		
 		inventoryTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -557,11 +633,20 @@ public class InventoryDialog extends AbstractDialog {
 	private static class InventoryModel extends AbstractTableModel {
 
 		private final List<InventoryItem> inventoryItems;
+		private final List<OptionalTableColumn> additionalColumns = new ArrayList<>();
 		
 		public InventoryModel(WorldObjectContainer inventory) {
 			inventoryItems = getInventoryList(inventory);
 		}
 		
+		public void addColumn(OptionalTableColumn optionalTableColumn) {
+			additionalColumns.add(optionalTableColumn);
+		}
+		
+		public void removeColumn(OptionalTableColumn optionalTableColumn) {
+			additionalColumns.remove(optionalTableColumn);
+		}
+
 		public void refresh(WorldObjectContainer inventory) {
 			inventoryItems.clear();
 			inventoryItems.addAll(getInventoryList(inventory));
@@ -576,7 +661,7 @@ public class InventoryDialog extends AbstractDialog {
 
 		@Override
 		public int getColumnCount() {
-			return 4;
+			return 4 + additionalColumns.size();
 		}
 		
 		@Override
@@ -589,6 +674,8 @@ public class InventoryDialog extends AbstractDialog {
 				return "Sellable";
 			} else if (columnIndex == 3) {
 				return "Weight";
+			} else if (columnIndex >= 4) {
+				return additionalColumns.get(columnIndex - 4).getName();
 			} else {
 				return null;
 			}
@@ -620,6 +707,8 @@ public class InventoryDialog extends AbstractDialog {
 				return inventoryItems.get(rowIndex).isSellable();
 			} else if (columnIndex == 3) {
 				return inventoryItems.get(rowIndex).getWeight();
+			} else if (columnIndex >= 4) {
+				return additionalColumns.get(columnIndex - 4).getValue(inventoryItems.get(rowIndex));
 			}
 			return null;
 		}

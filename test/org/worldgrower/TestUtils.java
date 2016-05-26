@@ -40,6 +40,7 @@ public class TestUtils {
 
 	public static WorldObject createWorldObject(int x, int y, int width, int height) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		properties.put(Constants.NAME, "worldObject");
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, width);
@@ -52,6 +53,7 @@ public class TestUtils {
 	
 	public static WorldObject createWorldObject(int x, int y, int width, int height, ManagedProperty<?> property, Object value) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		properties.put(Constants.NAME, "worldObject");
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, width);
@@ -63,6 +65,7 @@ public class TestUtils {
 	
 	public static WorldObject createIntelligentWorldObject(int x, int y, int width, int height, ManagedProperty<?> property, Object value) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		properties.put(Constants.NAME, "worldObject");
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, width);
@@ -93,6 +96,7 @@ public class TestUtils {
 	
 	public static WorldObject createIntelligentWorldObject(int id, ManagedProperty<?> property, Object value) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		properties.put(Constants.NAME, "worldObject");
 		properties.put(Constants.X, 0);
 		properties.put(Constants.Y, 0);
 		properties.put(Constants.WIDTH, 1);
@@ -112,6 +116,7 @@ public class TestUtils {
 	
 	public static WorldObject createIntelligentWorldObject(int id, Goal goal) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		properties.put(Constants.NAME, "worldObject");
 		properties.put(Constants.X, 0);
 		properties.put(Constants.Y, 0);
 		properties.put(Constants.WIDTH, 1);
@@ -164,6 +169,7 @@ public class TestUtils {
 	
 	public static WorldObject createIntelligentWorldObject(int id, ManagedProperty<?> property, Object value, WorldObjectPriorities worldObjectPriorities) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		properties.put(Constants.NAME, "worldObject");
 		properties.put(Constants.ID, id);
 		properties.put(Constants.GROUP, new IdList());
 		properties.put(property, value);
@@ -178,6 +184,7 @@ public class TestUtils {
 
 	public static WorldObject createSkilledWorldObject(int id) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		properties.put(Constants.NAME, "worldObject");
 		properties.put(Constants.STRENGTH, 10);
 		properties.put(Constants.CONSTITUTION, 10);
 		properties.put(Constants.DEXTERITY, 10);

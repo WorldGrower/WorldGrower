@@ -107,6 +107,19 @@ public class UTestShackGoal {
 		performer.getProperty(Constants.BUILDINGS).add(houseId2, BuildingType.SHACK);
 		assertEquals(true, goal.isGoalMet(performer, world));
 	}
+	
+	@Test
+	public void testIsGoalMetAsHouseOwner() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		WorldObject performer = createCommoner(world, organization);
+		
+		assertEquals(false, goal.isGoalMet(performer, world));
+		
+		int houseId = BuildingGenerator.generateHouse(5, 5, world, 1f, performer);
+		performer.getProperty(Constants.BUILDINGS).add(houseId, BuildingType.HOUSE);
+		assertEquals(true, goal.isGoalMet(performer, world));
+	}
 
 	private WorldObject createCommoner(World world, WorldObject organization) {
 		int commonerId = commonerGenerator.generateCommoner(0, 0, world, organization);

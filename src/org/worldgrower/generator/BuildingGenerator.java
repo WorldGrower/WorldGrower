@@ -361,16 +361,36 @@ public class BuildingGenerator {
 	}
 
 	public static WorldObject findEmptyJail(World world) {
-		List<WorldObject> jails = world.findWorldObjects(w -> isJailLeft(w));
+		List<WorldObject> jails = getJails(world);
 		for(WorldObject jail : jails) {
 			int jailX = jail.getProperty(Constants.X);
 			int jailY = jail.getProperty(Constants.Y);
-			List<WorldObject> prisoners = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> w.getProperty(Constants.X) == jailX+1 && w.getProperty(Constants.Y) == jailY+1);
+			List<WorldObject> prisoners = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> isInJail(jailX, jailY, w));
 			if (prisoners.size() == 0) {
 				return jail;
 			}
 		}
 		return null;
+	}
+
+	private static boolean isInJail(int jailX, int jailY, WorldObject worldObject) {
+		return worldObject.getProperty(Constants.X) == jailX+1 && worldObject.getProperty(Constants.Y) == jailY+1;
+	}
+	
+	public static boolean isPrisonerInJail(WorldObject worldObject, World world) {
+		List<WorldObject> jails = getJails(world);
+		for(WorldObject jail : jails) {
+			int jailX = jail.getProperty(Constants.X);
+			int jailY = jail.getProperty(Constants.Y);
+			if (isInJail(jailX, jailY, worldObject)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private static List<WorldObject> getJails(World world) {
+		return world.getWorldObjectsCache().getWorldObjectsFor(0, 0);
 	}
 
 	public static int generateSacrificialAltar(int x, int y, World world, WorldObject performer, Deity deity, double useSkill) {

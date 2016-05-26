@@ -167,4 +167,12 @@ public class InventoryItem {
 	public boolean isAlchemyIngredient() {
 		return itemType == ItemType.INGREDIENT;
 	}
+
+	public String getAttack() {
+		return additionalProperties.get(Constants.DAMAGE.getName().toLowerCase());
+	}
+	
+	public String getArmor() {
+		return additionalProperties.get(Constants.ARMOR.getName().toLowerCase());
+	}
 }

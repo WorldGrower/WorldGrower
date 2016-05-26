@@ -51,4 +51,17 @@ public class UTestBuildingGenerator {
 
 		assertEquals(false, BuildingGenerator.isSellable(well));
 	}
+	
+	@Test
+	public void testIsPrisonerInJail() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = TestUtils.createWorldObject(0, 0, 1, 1);
+		BuildingGenerator.generateJail(0, 0, world, 1f);
+		
+		assertEquals(false, BuildingGenerator.isPrisonerInJail(performer, world));
+		
+		performer.setProperty(Constants.X, 1);
+		performer.setProperty(Constants.Y, 1);
+		assertEquals(true, BuildingGenerator.isPrisonerInJail(performer, world));
+	}
 }
