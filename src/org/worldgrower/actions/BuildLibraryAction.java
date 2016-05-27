@@ -91,4 +91,8 @@ public class BuildLibraryAction implements BuildAction {
 	public ImageIds getImageIds() {
 		return ImageIds.LIBRARY;
 	}
+
+	public static boolean hasEnoughWood(WorldObject performer) {
+		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) >= REQUIRED_WOOD;
+	}
 }
