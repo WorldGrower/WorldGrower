@@ -40,7 +40,7 @@ public class GetPoisonCuredGoal implements Goal {
 				return Goals.REST_GOAL.calculateGoal(performer, world);
 			}
 		} else {
-			List<WorldObject> targets = world.findWorldObjects(w -> isTargetForCurePoisonConversation(performer, w, world));
+			List<WorldObject> targets = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> isTargetForCurePoisonConversation(performer, w, world));
 			if (targets.size() > 0) {
 				return new OperationInfo(performer, targets.get(0), Conversations.createArgs(Conversations.CURE_POISON_CONVERSATION), Actions.TALK_ACTION);
 			}
@@ -49,7 +49,8 @@ public class GetPoisonCuredGoal implements Goal {
 	}
 	
 	private boolean isTargetForCurePoisonConversation(WorldObject performer, WorldObject target, World world) {
-		return MagicSpellUtils.canCast(target, Actions.CURE_POISON_ACTION) 
+		return !performer.equals(target)
+				&& Conversations.CURE_POISON_CONVERSATION.isConversationAvailable(performer, target, null, world) 
 				&& !GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, target)
 				&& !Conversations.CURE_POISON_CONVERSATION.previousAnswerWasNegative(Conversations.CURE_POISON_CONVERSATION.getPreviousResponseIds(performer, target, world));
 	}

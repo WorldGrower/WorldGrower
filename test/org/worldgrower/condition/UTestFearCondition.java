@@ -31,15 +31,17 @@ public class UTestFearCondition {
 	public void testOnTurn() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(2, "performer");
+		performer.setProperty(Constants.X, 1);
+		performer.setProperty(Constants.Y, 1);
 		WorldObject fearCaster = TestUtils.createIntelligentWorldObject(3, "fearCaster");
+		fearCaster.setProperty(Constants.X, 0);
+		fearCaster.setProperty(Constants.Y, 0);
 		performer.setProperty(Constants.FEAR_CASTER_ID, fearCaster.getProperty(Constants.ID));
 		world.addWorldObject(fearCaster);
 		
-		assertEquals(0, performer.getProperty(Constants.X).intValue());
-		assertEquals(0, performer.getProperty(Constants.Y).intValue());
 		condition.onTurn(performer, world, 100, new WorldStateChangedListeners());
 		
 		assertEquals(0, performer.getProperty(Constants.X).intValue());
-		assertEquals(1, performer.getProperty(Constants.Y).intValue());
+		assertEquals(2, performer.getProperty(Constants.Y).intValue());
 	}
 }

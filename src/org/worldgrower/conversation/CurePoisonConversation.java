@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.condition.Condition;
+import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
 
@@ -80,7 +81,8 @@ public class CurePoisonConversation implements Conversation {
 
 	@Override
 	public boolean isConversationAvailable(WorldObject performer, WorldObject target, WorldObject subject, World world) {
-		return performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.POISONED_CONDITION) && Actions.CURE_POISON_ACTION.hasRequiredEnergy(target);
+		return performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.POISONED_CONDITION) 
+				&& Actions.CURE_POISON_ACTION.hasRequiredEnergy(target) && MagicSpellUtils.canCast(target, Actions.CURE_POISON_ACTION);
 	}
 	
 	@Override

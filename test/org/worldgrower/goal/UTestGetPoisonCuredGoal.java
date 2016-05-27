@@ -74,8 +74,10 @@ public class UTestGetPoisonCuredGoal {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
+		Conditions.add(performer, Condition.POISONED_CONDITION, 8, world);
 		
 		WorldObject target = createCommoner(world, organization);
+		target.setProperty(Constants.ENERGY, 1000);
 		target.getProperty(Constants.KNOWN_SPELLS).add(Actions.CURE_POISON_ACTION);
 		
 		assertEquals(Actions.TALK_ACTION, goal.calculateGoal(performer, world).getManagedOperation());

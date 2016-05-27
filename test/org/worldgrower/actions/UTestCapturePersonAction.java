@@ -54,6 +54,7 @@ public class UTestCapturePersonAction {
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
+		target.removeProperty(Constants.CONDITIONS);
 		assertEquals(false, Actions.CAPTURE_PERSON_ACTION.isValidTarget(performer, target, world));
 		
 		target.setProperty(Constants.CONDITIONS, new Conditions());

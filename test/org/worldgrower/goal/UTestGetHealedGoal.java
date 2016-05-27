@@ -48,6 +48,7 @@ public class UTestGetHealedGoal {
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
 		WorldObject target = createCommoner(world, organization);
+		performer.setProperty(Constants.HIT_POINTS, 1);
 		
 		target.getProperty(Constants.KNOWN_SPELLS).add(Actions.MINOR_HEAL_ACTION);
 		

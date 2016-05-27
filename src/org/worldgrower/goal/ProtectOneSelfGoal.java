@@ -16,6 +16,7 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.Reach;
@@ -39,11 +40,16 @@ public class ProtectOneSelfGoal implements Goal {
 			List<WorldObject> targets = GoalUtils.findNearestTargetsByProperty(performer, Actions.MELEE_ATTACK_ACTION, Constants.STRENGTH, w -> isEnemyWithinRange(performer, w, world), world);
 			
 			if (targets.size() > 0) {
-				int[] bestArgs = calculateMoveArgs(performer, world, targets);
+				MoveArgsResult moveArgsResult = calculateMoveArgs(performer, world, targets);
+				int[] bestArgs = moveArgsResult.getMoveArgs();
 				if (bestArgs != null) {
 					List<WorldObject> enemiesNextToNewPosition = getEnemiesNextToNewPosition(performer, bestArgs, world);
 					if (enemiesNextToNewPosition.size() == 0) {
-						return new OperationInfo(performer, performer, bestArgs, Actions.MOVE_ACTION);
+						if (moveArgsResult.isCurrentLocationIsAsSafe()) {
+							return new OperationInfo(performer, performer, Args.EMPTY, Actions.REST_ACTION);
+						} else {
+							return new OperationInfo(performer, performer, bestArgs, Actions.MOVE_ACTION);
+						}
 					} else {
 						return new AttackTargetGoal(enemiesNextToNewPosition.get(0)).calculateGoal(performer, world);
 					}
@@ -60,7 +66,7 @@ public class ProtectOneSelfGoal implements Goal {
 		return GoalUtils.findNearestTargetsByProperty(performer, Actions.MELEE_ATTACK_ACTION, Constants.STRENGTH, w -> isEnemyWithinRange(performer, newX, newY, w, world, 2), world);
 	}
 
-	public int[] calculateMoveArgs(WorldObject performer, World world, List<WorldObject> targets) {
+	public MoveArgsResult calculateMoveArgs(WorldObject performer, World world, List<WorldObject> targets) {
 		Zone zone = new Zone(world.getWidth(), world.getHeight());
 		for(int i=1; i<RANGE; i++) {
 			zone.addValues(targets, i, 1);
@@ -82,9 +88,10 @@ public class ProtectOneSelfGoal implements Goal {
 				}
 			}
 		}
-		return bestArgs;
+		boolean currentLocationIsAsSafe = zone.value(performerX, performerY) <= lowestDangerValue;
+		return new MoveArgsResult(bestArgs, currentLocationIsAsSafe);
 	}
-
+	
 	private boolean isEnemyWithinRange(WorldObject performer, WorldObject w, World world) {
 		return isEnemy(performer, w, world) && Reach.distance(performer, w) < RANGE;
 	}

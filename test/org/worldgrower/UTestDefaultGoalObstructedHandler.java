@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.junit.Test;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.actions.BrawlListener;
 import org.worldgrower.attribute.BackgroundImpl;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.condition.Condition;
@@ -27,6 +28,7 @@ import org.worldgrower.condition.Conditions;
 import org.worldgrower.generator.Item;
 import org.worldgrower.generator.PlantGenerator;
 import org.worldgrower.goal.BountyPropertyUtils;
+import org.worldgrower.goal.BrawlPropertyUtils;
 import org.worldgrower.goal.Goals;
 import org.worldgrower.goal.GroupPropertyUtils;
 
@@ -257,6 +259,30 @@ public class UTestDefaultGoalObstructedHandler {
 		
 		assertEquals(200, BountyPropertyUtils.getBounty(performer, world));
 		assertEquals(0, performer.getProperty(Constants.GROUP).size());
+	}
+	
+	@Test
+	public void testCheckLegalityAfterBrawlVictory() {
+		World world = new WorldImpl(10, 10, null, null);
+		world.addListener(new BrawlListener());
+		WorldObject villagersOrganization = createVillagersOrganization(world);
+		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.GROUP, new IdList().add(villagersOrganization));
+		WorldObject actionTarget = TestUtils.createSkilledWorldObject(3, Constants.GROUP, new IdList().add(villagersOrganization));
+		world.addWorldObject(performer);
+		world.addWorldObject(actionTarget);
+		world.addWorldObject(TestUtils.createIntelligentWorldObject(4, "observer"));
+		
+		villagersOrganization = createVillagersOrganization(world);
+		
+		BrawlPropertyUtils.startBrawl(performer, actionTarget, 20);
+		actionTarget.setProperty(Constants.HIT_POINTS, 1);
+		
+		new OperationInfo(performer, actionTarget, Args.EMPTY, Actions.NON_LETHAL_MELEE_ATTACK_ACTION).perform(world);
+		
+		//TODO: should be 1
+		assertEquals(0, performer.getProperty(Constants.GROUP).size());
+		assertEquals(false, BrawlPropertyUtils.isBrawling(performer));
+		assertEquals(false, BrawlPropertyUtils.isBrawling(actionTarget));
 	}
 
 	private WorldObject createVillagersOrganization(World world) {

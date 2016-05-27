@@ -63,7 +63,7 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 	}
 
 	static void alterRelationships(WorldObject performer, WorldObject target, WorldObject actionTarget, int[] args, ManagedOperation managedOperation, World world, int value, WorldObject performerFacade, WorldObject targetFacade) {
-		if (isIllegallyFighting(performer, actionTarget, managedOperation)) {
+		if (!isLegallyFighting(performer, actionTarget, managedOperation)) {
 			if (world.exists(performer) && world.exists(target) && world.exists(performerFacade) && world.exists(targetFacade)) {
 				performer.getProperty(Constants.RELATIONSHIPS).incrementValue(targetFacade.getProperty(Constants.ID), value);
 				target.getProperty(Constants.RELATIONSHIPS).incrementValue(performerFacade.getProperty(Constants.ID), value);
@@ -165,7 +165,7 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 	}
 
 	static boolean isLegal(WorldObject performer, WorldObject target, ManagedOperation managedOperation, int[] args, World world) {
-		if (isIllegallyFighting(performer, target, managedOperation)) {
+		if (!isLegallyFighting(performer, target, managedOperation)) {
 			if (hasAnyoneSeenAction(performer, target, managedOperation, args, world)) {
 				if (performerViolatedGroupRules(performer, target, args, managedOperation, world)) {
 					return false;
@@ -189,7 +189,7 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 		}
 	}
 
-	private static boolean isIllegallyFighting(WorldObject performer, WorldObject target, ManagedOperation managedOperation) {
-		return !areBrawling(performer, target, managedOperation) && !areFightingInArena(performer, target, managedOperation);
+	private static boolean isLegallyFighting(WorldObject performer, WorldObject target, ManagedOperation managedOperation) {
+		return areBrawling(performer, target, managedOperation) || areFightingInArena(performer, target, managedOperation);
 	}
 }

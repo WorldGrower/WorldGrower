@@ -39,7 +39,7 @@ public class GetDiseaseCuredGoal implements Goal {
 				return Goals.REST_GOAL.calculateGoal(performer, world);
 			}
 		} else {
-			List<WorldObject> targets = world.findWorldObjects(w -> isTargetForCureDiseaseConversation(performer, w, world));
+			List<WorldObject> targets = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> isTargetForCureDiseaseConversation(performer, w, world));
 			if (targets.size() > 0) {
 				return new OperationInfo(performer, targets.get(0), Conversations.createArgs(Conversations.CURE_DISEASE_CONVERSATION), Actions.TALK_ACTION);
 			}
@@ -48,7 +48,8 @@ public class GetDiseaseCuredGoal implements Goal {
 	}
 	
 	private boolean isTargetForCureDiseaseConversation(WorldObject performer, WorldObject target, World world) {
-		return MagicSpellUtils.canCast(target, Actions.CURE_DISEASE_ACTION) 
+		return !performer.equals(target)
+				&& Conversations.CURE_DISEASE_CONVERSATION.isConversationAvailable(performer, target, null, world) 
 				&& !GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, target)
 				&& !Conversations.CURE_DISEASE_CONVERSATION.previousAnswerWasGetLost(Conversations.CURE_DISEASE_CONVERSATION.getPreviousResponseIds(performer, target, world));
 	}

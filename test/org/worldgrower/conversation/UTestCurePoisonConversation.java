@@ -16,6 +16,7 @@ package org.worldgrower.conversation;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
@@ -25,6 +26,7 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdRelationshipMap;
 import org.worldgrower.condition.Condition;
@@ -122,6 +124,7 @@ public class UTestCurePoisonConversation {
 		assertEquals(false, conversation.isConversationAvailable(performer, target, null, null));
 		
 		Conditions.add(performer, Condition.POISONED_CONDITION, 8, world);
+		target.setProperty(Constants.KNOWN_SPELLS, Arrays.asList(Actions.CURE_POISON_ACTION));
 		assertEquals(true, conversation.isConversationAvailable(performer, target, null, null));
 	}
 }

@@ -90,9 +90,8 @@ public class UTestProtectOneSelfGoal {
 		generateEnemy(2, 0, organization, world);
 		WorldObject performer = world.findWorldObject(Constants.ID, performerId);
 		
-		assertEquals(Actions.MOVE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
-		assertEquals(0, goal.calculateGoal(performer, world).getArgs()[0]);
-		assertEquals(-1, goal.calculateGoal(performer, world).getArgs()[1]);
+		//TODO: wouldn't it be better if moveArgs were 0,1?
+		assertEquals(Actions.REST_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
 	
 	@Test
@@ -119,6 +118,54 @@ public class UTestProtectOneSelfGoal {
 		assertEquals(Actions.MOVE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 		assertEquals(-1, goal.calculateGoal(performer, world).getArgs()[0]);
 		assertEquals(-1, goal.calculateGoal(performer, world).getArgs()[1]);
+	}
+	
+	@Test
+	public void testCalculateGoalMultipleTurnsAtMapEdge() {
+		World world = new WorldImpl(15, 15, null, null);
+		WorldObject organization = createVillagersOrganization(world);
+		int performerId = commonerGenerator.generateCommoner(3, 3, world, organization);
+		generateEnemy(7, 7, organization, world);
+		WorldObject performer = world.findWorldObject(Constants.ID, performerId);
+		
+		goal.calculateGoal(performer, world).perform(world);
+		assertEquals(2, performer.getProperty(Constants.X).intValue());
+		assertEquals(2, performer.getProperty(Constants.Y).intValue());
+		
+		goal.calculateGoal(performer, world).perform(world);
+		assertEquals(1, performer.getProperty(Constants.X).intValue());
+		assertEquals(1, performer.getProperty(Constants.Y).intValue());
+		
+		goal.calculateGoal(performer, world).perform(world);
+		assertEquals(0, performer.getProperty(Constants.X).intValue());
+		assertEquals(0, performer.getProperty(Constants.Y).intValue());
+		
+		goal.calculateGoal(performer, world).perform(world);
+		assertEquals(0, performer.getProperty(Constants.X).intValue());
+		assertEquals(0, performer.getProperty(Constants.Y).intValue());
+		
+		goal.calculateGoal(performer, world).perform(world);
+		assertEquals(0, performer.getProperty(Constants.X).intValue());
+		assertEquals(0, performer.getProperty(Constants.Y).intValue());
+	}
+	
+	@Test
+	public void testCalculateGoalMultipleTurnsAtLongerDistance() {
+		World world = new WorldImpl(15, 15, null, null);
+		WorldObject organization = createVillagersOrganization(world);
+		int performerId = commonerGenerator.generateCommoner(8, 8, world, organization);
+		generateEnemy(0, 0, organization, world);
+		WorldObject performer = world.findWorldObject(Constants.ID, performerId);
+		
+		goal.calculateGoal(performer, world).perform(world);
+		assertEquals(7, performer.getProperty(Constants.X).intValue());
+		assertEquals(9, performer.getProperty(Constants.Y).intValue());
+		
+		goal.calculateGoal(performer, world).perform(world);
+		assertEquals(6, performer.getProperty(Constants.X).intValue());
+		assertEquals(10, performer.getProperty(Constants.Y).intValue());
+		
+		assertEquals(null, goal.calculateGoal(performer, world));
 	}
 	
 	@Test
