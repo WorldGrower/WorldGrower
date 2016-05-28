@@ -32,4 +32,5 @@ public interface WorldStateChangedListener {
 	public void skillIncreased(WorldObject worldObject, SkillProperty skillProperty, int oldValue, int newValue);
 	public void conditionGained(WorldObject worldObject, Condition condition);
 	public void conditionLost(WorldObject worldObject, Condition condition);
+	public void levelIncreased(WorldObject worldObject, int newValue);
 }

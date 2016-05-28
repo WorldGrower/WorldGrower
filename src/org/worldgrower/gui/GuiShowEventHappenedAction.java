@@ -98,7 +98,6 @@ public class GuiShowEventHappenedAction implements WorldStateChangedListener {
 			String description = "Skill " + skillProperty.getName() + " increased from " + oldValue + " to " + newValue;
 			MessageDialogUtils.showMessage(description, "Thrown out of group(s)", playerCharacter, container, imageInfoReader);
 		}
-		
 	}
 
 	@Override
@@ -115,5 +114,14 @@ public class GuiShowEventHappenedAction implements WorldStateChangedListener {
 			String description = "Condition '" + condition.getDescription() + "' ended on " + playerCharacter.getProperty(Constants.NAME);
 			MessageDialogUtils.showMessage(description, "Condition Lost", playerCharacter, container, imageInfoReader);
 		}
+	}
+
+	@Override
+	public void levelIncreased(WorldObject worldObject, int newValue) {
+		if (worldObject.equals(playerCharacter)) {
+			String description = playerCharacter.getProperty(Constants.NAME) + " is now level " + newValue + ".0\n Hit points, energy and carrying capacity have increased.";
+			MessageDialogUtils.showMessage(description, "Level increase", playerCharacter, container, imageInfoReader);
+		}
+		
 	}
 }

@@ -62,6 +62,12 @@ public class WorldStateChangedListeners {
 		}
 	}
 	
+	public void levelIncreased(WorldObject worldObject, int newValue) {
+		for(WorldStateChangedListener worldStateChangedListener : worldStateChangedListeners) {
+			worldStateChangedListener.levelIncreased(worldObject, newValue);
+		}
+	}
+	
 	public void conditionGained(WorldObject worldObject, Condition condition) {
 		for(WorldStateChangedListener worldStateChangedListener : worldStateChangedListeners) {
 			worldStateChangedListener.conditionGained(worldObject, condition);

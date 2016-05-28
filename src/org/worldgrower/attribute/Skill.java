@@ -15,6 +15,7 @@
 package org.worldgrower.attribute;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
@@ -66,11 +67,29 @@ public class Skill implements Serializable {
 			currentUsageCount = 0;
 			maxUsageCount = calculateMaxUsageCount();
 			worldStateChangedListeners.skillIncreased(worldObject, skillProperty, level-1, level);
+			
+			checkLevelIncrease(worldObject, worldStateChangedListeners);
 		}
 	}
 	
-	private int countSkillLevels(WorldObject worldObject) {
+	private void checkLevelIncrease(WorldObject worldObject, WorldStateChangedListeners worldStateChangedListeners) {
+		if (countSkillIncreases(worldObject) % 10 == 0) {
+			worldObject.increment(Constants.LEVEL, 1);
+			worldStateChangedListeners.levelIncreased(worldObject, worldObject.getProperty(Constants.LEVEL));
+		}
+	}
+
+	private int countSkillIncreases(WorldObject worldObject) {
 		int skillLevels = 0;
+		for(IntProperty attribute : SkillUtils.getAttributes()) {
+			List<SkillProperty> skills = SkillUtils.getSkillsForAttribute(attribute);
+			for(SkillProperty skill : skills) {
+				int startingSkillLevel = new Skill(worldObject.getProperty(attribute)).level;
+				int currentSkillLevel = worldObject.getProperty(skill).level;
+				
+				skillLevels += (currentSkillLevel - startingSkillLevel);
+			}
+		}
 		
 		return skillLevels;
 	}

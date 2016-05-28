@@ -15,6 +15,7 @@
 package org.worldgrower.attribute;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -96,6 +97,10 @@ public class SkillUtils {
 		}
 		
 		return skillProperties;
+	}
+	
+	public static List<IntProperty> getAttributes() {
+		return Arrays.asList(Constants.STRENGTH, Constants.CONSTITUTION, Constants.DEXTERITY, Constants.INTELLIGENCE, Constants.WISDOM, Constants.CHARISMA);
 	}
 	
 	private static void addSkill(SkillProperty skillProperty, Map<ManagedProperty<?>, Object> properties) {
