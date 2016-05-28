@@ -119,7 +119,7 @@ public class GuiShowEventHappenedAction implements WorldStateChangedListener {
 	@Override
 	public void levelIncreased(WorldObject worldObject, int newValue) {
 		if (worldObject.equals(playerCharacter)) {
-			String description = playerCharacter.getProperty(Constants.NAME) + " is now level " + newValue + ".0\n Hit points, energy and carrying capacity have increased.";
+			String description = playerCharacter.getProperty(Constants.NAME) + " is now level " + newValue + ".\n Hit points, energy and carrying capacity have increased.";
 			MessageDialogUtils.showMessage(description, "Level increase", playerCharacter, container, imageInfoReader);
 		}
 		

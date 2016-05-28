@@ -22,6 +22,8 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.condition.WorldStateChangedListeners;
+import org.worldgrower.goal.EnergyPropertyUtils;
+import org.worldgrower.goal.HitPointPropertyUtils;
 
 public class Skill implements Serializable {
 
@@ -74,9 +76,20 @@ public class Skill implements Serializable {
 	
 	private void checkLevelIncrease(WorldObject worldObject, WorldStateChangedListeners worldStateChangedListeners) {
 		if (countSkillIncreases(worldObject) % 10 == 0) {
-			worldObject.increment(Constants.LEVEL, 1);
-			worldStateChangedListeners.levelIncreased(worldObject, worldObject.getProperty(Constants.LEVEL));
+			increaseLevel(worldObject, worldStateChangedListeners);
 		}
+	}
+
+	static void increaseLevel(WorldObject worldObject, WorldStateChangedListeners worldStateChangedListeners) {
+		worldObject.increment(Constants.LEVEL, 1);
+		
+		int hitPoints = HitPointPropertyUtils.calculateHitPoints(worldObject);
+		worldObject.setProperty(Constants.HIT_POINTS, hitPoints);
+		worldObject.setProperty(Constants.HIT_POINTS_MAX, hitPoints);
+		
+		worldObject.setProperty(Constants.ENERGY, EnergyPropertyUtils.calculateEnergyMax(worldObject));
+		
+		worldStateChangedListeners.levelIncreased(worldObject, worldObject.getProperty(Constants.LEVEL));
 	}
 
 	private int countSkillIncreases(WorldObject worldObject) {

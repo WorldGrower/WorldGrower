@@ -17,6 +17,7 @@ package org.worldgrower.goal;
 import java.util.Map;
 
 import org.worldgrower.Constants;
+import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.generator.Item;
 
@@ -38,5 +39,11 @@ public class HitPointPropertyUtils {
 	private static int calculateHitPoints(int constitution, int level) {
 		int hitPoints = (10 + constitution + (level - 1)) * Item.COMBAT_MULTIPLIER;
 		return hitPoints;
+	}
+	
+	public static int calculateHitPoints(WorldObject worldObject) {
+		int constitution = worldObject.getProperty(Constants.CONSTITUTION);
+		int level = worldObject.getProperty(Constants.LEVEL);
+		return calculateHitPoints(constitution, level);
 	}
 }
