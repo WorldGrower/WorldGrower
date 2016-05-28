@@ -225,7 +225,7 @@ public class BackgroundImpl implements Background, Serializable {
 
 	@Override
 	public boolean hasRevengeTarget(World world) {
-		return revengeTargets.size() > 0;
+		return revengeTargets.size() > 0 && world.exists(revengeTargets.get(0));
 	}
 	
 	@Override
