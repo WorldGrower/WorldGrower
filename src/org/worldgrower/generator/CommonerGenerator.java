@@ -98,6 +98,7 @@ public class CommonerGenerator implements Serializable {
 		properties.put(Constants.WIDTH, 1);
 		properties.put(Constants.HEIGHT, 1);
 		properties.put(Constants.NAME, name);
+		properties.put(Constants.LEVEL, 1);
 		
 		new AttributeGenerator(random).addCommonerAttributes(properties);
 		
@@ -162,6 +163,7 @@ public class CommonerGenerator implements Serializable {
 		properties.put(Constants.WIDTH, 1);
 		properties.put(Constants.HEIGHT, 1);
 		properties.put(Constants.NAME, playerName);
+		properties.put(Constants.LEVEL, 1);
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, playerCharacterImageId);
 		properties.put(Constants.LOOK_DIRECTION, LookDirection.SOUTH);

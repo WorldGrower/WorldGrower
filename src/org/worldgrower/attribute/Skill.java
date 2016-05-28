@@ -69,6 +69,12 @@ public class Skill implements Serializable {
 		}
 	}
 	
+	private int countSkillLevels(WorldObject worldObject) {
+		int skillLevels = 0;
+		
+		return skillLevels;
+	}
+	
 	public void use(int count, WorldObject worldObject, SkillProperty skillProperty, WorldStateChangedListeners worldStateChangedListeners) {
 		for(int i=0; i<count; i++) {
 			use(worldObject, skillProperty, worldStateChangedListeners);

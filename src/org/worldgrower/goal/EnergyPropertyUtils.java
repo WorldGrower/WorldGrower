@@ -31,6 +31,7 @@ public class EnergyPropertyUtils {
 	
 	public static int calculateEnergyMax(WorldObject performer) {
 		int constitution = performer.getProperty(Constants.CONSTITUTION).intValue();
-		return 1000 + (constitution - 10) * 25;
+		int level = performer.getProperty(Constants.LEVEL).intValue();
+		return 1000 + (constitution - 10 + (level - 1)) * 25;
 	}
 }

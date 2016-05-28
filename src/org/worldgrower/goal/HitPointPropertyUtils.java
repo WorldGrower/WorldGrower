@@ -23,10 +23,20 @@ import org.worldgrower.generator.Item;
 public class HitPointPropertyUtils {
 
 	public static void addHitPointProperties(Map<ManagedProperty<?>, Object> properties) {
-		int constitution = (int) properties.get(Constants.CONSTITUTION);
-		int hitPoints = (10 + constitution) * Item.COMBAT_MULTIPLIER;
+		int hitPoints = calculateHitPoints(properties);
 		
 		properties.put(Constants.HIT_POINTS, hitPoints);
 		properties.put(Constants.HIT_POINTS_MAX, hitPoints);
+	}
+
+	private static int calculateHitPoints(Map<ManagedProperty<?>, Object> properties) {
+		int constitution = (int) properties.get(Constants.CONSTITUTION);
+		int level = (int) properties.get(Constants.LEVEL);
+		return calculateHitPoints(constitution, level);
+	}
+
+	private static int calculateHitPoints(int constitution, int level) {
+		int hitPoints = (10 + constitution + (level - 1)) * Item.COMBAT_MULTIPLIER;
+		return hitPoints;
 	}
 }

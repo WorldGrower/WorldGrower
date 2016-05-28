@@ -55,7 +55,9 @@ public class WeightPropertyUtils {
 	}
 
 	public static int getCarryingCapacity(WorldObject worldObject) {
-		int carryingCapacity = worldObject.getProperty(Constants.STRENGTH) * 10;
+		int strength = worldObject.getProperty(Constants.STRENGTH);
+		int level = worldObject.getProperty(Constants.LEVEL);
+		int carryingCapacity = (strength + (level - 1)) * 10;
 		return carryingCapacity;
 	}
 }

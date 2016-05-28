@@ -117,6 +117,7 @@ public class TestUtils {
 	public static WorldObject createIntelligentWorldObject(int id, Goal goal) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.NAME, "worldObject");
+		properties.put(Constants.LEVEL, 1);
 		properties.put(Constants.X, 0);
 		properties.put(Constants.Y, 0);
 		properties.put(Constants.WIDTH, 1);
@@ -183,6 +184,7 @@ public class TestUtils {
 	public static WorldObject createSkilledWorldObject(int id) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.NAME, "worldObject");
+		properties.put(Constants.LEVEL, 1);
 		properties.put(Constants.STRENGTH, 10);
 		properties.put(Constants.CONSTITUTION, 10);
 		properties.put(Constants.DEXTERITY, 10);

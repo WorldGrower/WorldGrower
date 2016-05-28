@@ -109,15 +109,20 @@ public class CharacterDialog extends JDialog {
 		lblProfession.setToolTipText("displays character profession");
 		contentPanel.add(lblProfession);
 		
+		JLabel lblLevel = JLabelFactory.createJLabel("Level " + playerCharacter.getProperty(Constants.LEVEL));
+		lblLevel.setBounds(12, 71, 120, 20);
+		lblLevel.setToolTipText("displays character level");
+		contentPanel.add(lblLevel);
+		
 		String deityDescription = playerCharacter.getProperty(Constants.DEITY) != null ? playerCharacter.getProperty(Constants.DEITY).getName() : "<no deity>";
 		JLabel lblDeity = JLabelFactory.createJLabel(deityDescription);
-		lblDeity.setBounds(12, 71, 120, 20);
+		lblDeity.setBounds(12, 100, 120, 20);
 		lblDeity.setToolTipText("displays deity");
 		contentPanel.add(lblDeity);
 		
 		String bountyDescription = getBountyDescription(world);
 		JLabel lblBounty = JLabelFactory.createJLabel(bountyDescription);
-		lblBounty.setBounds(12, 100, 120, 20);
+		lblBounty.setBounds(12, 129, 120, 20);
 		lblBounty.setToolTipText("displays bounty");
 		contentPanel.add(lblBounty);
 		
