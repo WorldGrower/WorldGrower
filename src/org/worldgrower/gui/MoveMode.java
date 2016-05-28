@@ -102,7 +102,9 @@ public class MoveMode {
 		} catch (InterruptedException e) {
 			throw new IllegalStateException(e);
 		}
-		initializeIntelligentWorldObjects(world);
+		if (intelligentWorldObjects.size() == 0) {
+			initializeIntelligentWorldObjects(world);
+		}
 		for(int i=0; i<intelligentWorldObjects.size(); i++) {
 			WorldObject worldObject = intelligentWorldObjects.get(i);
 			ImageIds id = worldPanel.getImageId(worldObject);
