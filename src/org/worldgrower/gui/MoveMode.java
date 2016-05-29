@@ -5,7 +5,9 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.SwingUtilities;
 
@@ -28,8 +30,8 @@ public class MoveMode {
 	private int moveIndex = 0;
 	
 	private List<WorldObject> intelligentWorldObjects = new ArrayList<>();
-	private List<Point> oldPositions = new ArrayList<>();
-	private List<Point> newPositions = new ArrayList<>();
+	private Map<Integer, Point> oldPositions = new HashMap<>();
+	private Map<Integer, Point> newPositions = new HashMap<>();
 	private List<WorldObject> magicCasters = new ArrayList<>();
 	private List<MagicTarget> magicTargets = new ArrayList<>();
 	
@@ -53,7 +55,7 @@ public class MoveMode {
 		for(WorldObject intelligentWorldObject : intelligentWorldObjects) {
 			int x = intelligentWorldObject.getProperty(Constants.X);
 			int y = intelligentWorldObject.getProperty(Constants.Y);
-			oldPositions.add(new Point(x, y));
+			oldPositions.put(intelligentWorldObject.getProperty(Constants.ID), new Point(x, y));
 		}
 		
 		guiMoveAction.actionPerformed(null);
@@ -62,7 +64,7 @@ public class MoveMode {
 		for(WorldObject intelligentWorldObject : intelligentWorldObjects) {
 			int x = intelligentWorldObject.getProperty(Constants.X);
 			int y = intelligentWorldObject.getProperty(Constants.Y);
-			newPositions.add(new Point(x, y));
+			newPositions.put(intelligentWorldObject.getProperty(Constants.ID), new Point(x, y));
 		}
 		
 		magicCasters.clear();
@@ -102,9 +104,7 @@ public class MoveMode {
 		} catch (InterruptedException e) {
 			throw new IllegalStateException(e);
 		}
-		if (intelligentWorldObjects.size() == 0) {
-			initializeIntelligentWorldObjects(world);
-		}
+		initializeIntelligentWorldObjects(world);
 		for(int i=0; i<intelligentWorldObjects.size(); i++) {
 			WorldObject worldObject = intelligentWorldObjects.get(i);
 			ImageIds id = worldPanel.getImageId(worldObject);
@@ -115,10 +115,10 @@ public class MoveMode {
 			int y = worldObject.getProperty(Constants.Y);
 			
 			if (world.getTerrain().isExplored(x, y)) {
-				boolean positionRemainsSame = positionRemainsSame(i);
+				boolean positionRemainsSame = positionRemainsSame(worldObject.getProperty(Constants.ID));
 				if (moveMode && moveStep < 48 && !positionRemainsSame) {
 					
-					paintMovingWorldObject(g, worldPanel, worldObject, imageInfoReader, id, lookDirection, i, moveStep, moveIndex);
+					paintMovingWorldObject(g, worldPanel, worldObject, imageInfoReader, id, lookDirection, worldObject.getProperty(Constants.ID), moveStep, moveIndex);
 					
 					if (moveStep % 16 == 0) {
 						moveIndex = (moveIndex + 1) % 3;
@@ -128,7 +128,7 @@ public class MoveMode {
 					if (!moveMode || positionRemainsSame) {
 						worldPanel.drawWorldObjectInPixels(g, worldObject, lookDirection, image, x, y, 0, 0);
 					} else {
-						paintMovingWorldObject(g, worldPanel, worldObject, imageInfoReader, id, lookDirection, i, moveStep, moveIndex);
+						paintMovingWorldObject(g, worldPanel, worldObject, imageInfoReader, id, lookDirection, worldObject.getProperty(Constants.ID), moveStep, moveIndex);
 					}
 				}
 			}
@@ -184,32 +184,41 @@ public class MoveMode {
 		}
 	}
 	
-	private boolean positionRemainsSame(int positionIndex) {
+	private boolean positionRemainsSame(int id) {
 		if (oldPositions.size() == 0) {
 			return true;
 		} else {
-			int x = oldPositions.get(positionIndex).x;
-			int y = oldPositions.get(positionIndex).y;
+			Point oldPosition = oldPositions.get(id);
+			Point newPosition = newPositions.get(id);
 			
-			int newX = newPositions.get(positionIndex).x;
-			int newY = newPositions.get(positionIndex).y;
-			
-			return ((x == newX) && (y == newY));
+			if (oldPosition != null && newPosition != null) {
+				int x = oldPosition.x;
+				int y = oldPosition.y;
+				
+				int newX = newPosition.x;
+				int newY = newPosition.y;
+				
+				return ((x == newX) && (y == newY));
+			} else {
+				return true;
+			}
 		}
 	}
 
 	private void paintMovingWorldObject(Graphics g, WorldPanel worldPanel,
 			WorldObject worldObject, ImageInfoReader imageInfoReader,
-			ImageIds id, LookDirection lookDirection, int positionIndex,
+			ImageIds id, LookDirection lookDirection, int worldObjectId,
 			int moveStep, int moveIndex) {
 		
 		Image image;
 		
-		int x = oldPositions.get(positionIndex).x;
-		int y = oldPositions.get(positionIndex).y;
+		Point oldPosition = oldPositions.get(worldObjectId);
+		int x = oldPosition.x;
+		int y = oldPosition.y;
 		
-		int deltaX = (newPositions.get(positionIndex).x - x) * moveStep;
-		int deltaY = (newPositions.get(positionIndex).y - y) * moveStep;
+		Point newPosition = newPositions.get(worldObjectId);
+		int deltaX = (newPosition.x - x) * moveStep;
+		int deltaY = (newPosition.y - y) * moveStep;
 		
 		image = imageInfoReader.getImage(id, lookDirection, moveIndex);
 		worldPanel.drawWorldObjectInPixels(g, worldObject, lookDirection, image, x, y, deltaX, deltaY);
