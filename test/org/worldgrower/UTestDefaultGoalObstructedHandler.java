@@ -25,6 +25,8 @@ import org.worldgrower.attribute.BackgroundImpl;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
+import org.worldgrower.condition.WorldStateChangedListeners;
+import org.worldgrower.generator.CommonerOnTurn;
 import org.worldgrower.generator.Item;
 import org.worldgrower.generator.PlantGenerator;
 import org.worldgrower.goal.BountyPropertyUtils;
@@ -56,6 +58,10 @@ public class UTestDefaultGoalObstructedHandler {
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.BRAWL_OPPONENT_ID, null);
 		WorldObject actionTarget = TestUtils.createIntelligentWorldObject(2, Constants.BRAWL_OPPONENT_ID, null);
 		
+		assertEquals(true, DefaultGoalObstructedHandler.areBrawling(performer, actionTarget, Actions.NON_LETHAL_MELEE_ATTACK_ACTION));
+		
+		performer.removeProperty(Constants.BRAWL_OPPONENT_ID);
+		actionTarget.removeProperty(Constants.BRAWL_OPPONENT_ID);
 		assertEquals(false, DefaultGoalObstructedHandler.areBrawling(performer, actionTarget, Actions.NON_LETHAL_MELEE_ATTACK_ACTION));
 	}
 	
@@ -279,10 +285,15 @@ public class UTestDefaultGoalObstructedHandler {
 		
 		new OperationInfo(performer, actionTarget, Args.EMPTY, Actions.NON_LETHAL_MELEE_ATTACK_ACTION).perform(world);
 		
-		//TODO: should be 1
-		assertEquals(0, performer.getProperty(Constants.GROUP).size());
+		assertEquals(1, performer.getProperty(Constants.GROUP).size());
+		assertEquals(true, BrawlPropertyUtils.isBrawling(performer));
+		assertEquals(true, BrawlPropertyUtils.isBrawling(actionTarget));
+		
+		BrawlPropertyUtils.completelyEndBrawling(performer);
+		BrawlPropertyUtils.completelyEndBrawling(actionTarget);
 		assertEquals(false, BrawlPropertyUtils.isBrawling(performer));
 		assertEquals(false, BrawlPropertyUtils.isBrawling(actionTarget));
+
 	}
 
 	private WorldObject createVillagersOrganization(World world) {

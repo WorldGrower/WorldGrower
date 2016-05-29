@@ -28,6 +28,7 @@ import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.creaturetype.CreatureTypeUtils;
+import org.worldgrower.goal.BrawlPropertyUtils;
 import org.worldgrower.goal.DrownUtils;
 import org.worldgrower.goal.GoalUtils;
 import org.worldgrower.goal.KnowledgeMapPropertyUtils;
@@ -60,6 +61,7 @@ public class CommonerOnTurn implements OnTurn {
 		adjustPrices(worldObject, world);
 		checkForDisease(worldObject, world);
 		checkForJail(worldObject, world);
+		BrawlPropertyUtils.completelyEndBrawling(worldObject);
 	}
 
 	private void checkForDisease(WorldObject worldObject, World world) {

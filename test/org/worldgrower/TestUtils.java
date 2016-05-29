@@ -203,7 +203,11 @@ public class TestUtils {
 		properties.put(Constants.Y, 0);
 		properties.put(Constants.WIDTH, 1);
 		properties.put(Constants.HEIGHT, 1);
+		properties.put(Constants.FOOD, 1000);
+		properties.put(Constants.WATER, 1000);
 		properties.put(Constants.ENERGY, 1000);
+		properties.put(Constants.SOCIAL, 1000);
+		properties.put(Constants.ALCOHOL_LEVEL, 1000);
 		properties.put(Constants.GOLD, 1000);
 		properties.put(Constants.CREATURE_TYPE, CreatureType.HUMAN_CREATURE_TYPE);
 		SkillUtils.addAllSkills(properties);

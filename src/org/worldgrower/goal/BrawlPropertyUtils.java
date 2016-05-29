@@ -33,22 +33,29 @@ public class BrawlPropertyUtils {
 	}
 	
 	public static boolean isBrawling(WorldObject worldObject) {
-		Integer brawlOpponentId = worldObject.getProperty(Constants.BRAWL_OPPONENT_ID);
-		return brawlOpponentId != null;
+		return worldObject.hasProperty(Constants.BRAWL_OPPONENT_ID);
 	}
 
 	public static int endBrawlWithPerformerVictory(WorldObject performer, WorldObject target) {
-		performer.setProperty(Constants.BRAWL_OPPONENT_ID, null);
-		target.setProperty(Constants.BRAWL_OPPONENT_ID, null);
+		performer.setProperty(Constants.BRAWL_OPPONENT_ID, BRAWLING_UNTIL_ON_TURN);
+		target.setProperty(Constants.BRAWL_OPPONENT_ID, BRAWLING_UNTIL_ON_TURN);
 		
 		int goldWon = calculateGoldWon(performer, target);		
 		performer.increment(Constants.GOLD, goldWon);
 		target.increment(Constants.GOLD, -goldWon);
 		
-		performer.setProperty(Constants.BRAWL_STAKE_GOLD, null);
-		target.setProperty(Constants.BRAWL_STAKE_GOLD, null);
+		performer.removeProperty(Constants.BRAWL_STAKE_GOLD);
+		target.removeProperty(Constants.BRAWL_STAKE_GOLD);
 		
 		return goldWon;
+	}
+	
+	private static final Integer BRAWLING_UNTIL_ON_TURN = null;
+	
+	public static void completelyEndBrawling(WorldObject performer) {
+		if (performer.hasProperty(Constants.BRAWL_OPPONENT_ID) && performer.getProperty(Constants.BRAWL_OPPONENT_ID) == BRAWLING_UNTIL_ON_TURN) {
+			performer.removeProperty(Constants.BRAWL_OPPONENT_ID);
+		}
 	}
 
 	private static int calculateGoldWon(WorldObject performer, WorldObject target) {

@@ -33,8 +33,12 @@ public class BrawlGoal implements Goal {
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		Integer brawlOpponentId = performer.getProperty(Constants.BRAWL_OPPONENT_ID);
 		
-		WorldObject target = world.findWorldObject(Constants.ID, brawlOpponentId);
-		return new OperationInfo(performer, target, Args.EMPTY, Actions.NON_LETHAL_MELEE_ATTACK_ACTION);
+		if (brawlOpponentId != null) {
+			WorldObject target = world.findWorldObject(Constants.ID, brawlOpponentId);
+			return new OperationInfo(performer, target, Args.EMPTY, Actions.NON_LETHAL_MELEE_ATTACK_ACTION);
+		} else {
+			return null;
+		}
 	}
 	
 	@Override
@@ -43,8 +47,7 @@ public class BrawlGoal implements Goal {
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		Integer brawlOpponentId = performer.getProperty(Constants.BRAWL_OPPONENT_ID);
-		return brawlOpponentId == null;
+		return !performer.hasProperty(Constants.BRAWL_OPPONENT_ID);
 		
 	}
 	
