@@ -27,53 +27,52 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.condition.Conditions;
-import org.worldgrower.generator.Item;
+import org.worldgrower.generator.CreatureGenerator;
+import org.worldgrower.goal.GroupPropertyUtils;
 
-public class UTestMendAction {
+public class UTestAnimalFriendshipSpellAction {
 
+	private AnimalFriendshipSpellAction action = Actions.ANIMAL_FRIENDSHIP_SPELL_ACTION;
+	
 	@Test
 	public void testExecute() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
-		WorldObject target = createPerformer(3);
+		WorldObject target = createTarget(world);		
+		target.getProperty(Constants.ANIMAL_ENEMIES).add(performer);
 		
-		target.setProperty(Constants.HIT_POINTS, 1 * Item.COMBAT_MULTIPLIER);
-		target.setProperty(Constants.HIT_POINTS_MAX, 8 * Item.COMBAT_MULTIPLIER);
+		action.execute(performer, target, Args.EMPTY, world);
 		
-		Actions.MEND_ACTION.execute(performer, target, Args.EMPTY, world);
-		
-		assertEquals(6 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
-		
-		Actions.MEND_ACTION.execute(performer, target, Args.EMPTY, world);
-		assertEquals(8 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
+		assertEquals(0, target.getProperty(Constants.ANIMAL_ENEMIES).size());
+	}
+
+	private WorldObject createTarget(World world) {
+		WorldObject verminOrganization = GroupPropertyUtils.create(null, "vermin", world);
+		CreatureGenerator creatureGenerator = new CreatureGenerator(verminOrganization);
+		int targetId = creatureGenerator.generateCow(0, 0, world);
+		WorldObject target = world.findWorldObject(Constants.ID, targetId);
+		return target;
 	}
 	
 	@Test
 	public void testIsValidTarget() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
-		WorldObject target = TestUtils.createWorldObject(0, 0, 1, 1);
+		WorldObject target = createTarget(world);
 		
-		assertEquals(false, Actions.MEND_ACTION.isValidTarget(performer, target, world));
+		assertEquals(false, action.isValidTarget(performer, target, world));
 		
-		performer.setProperty(Constants.KNOWN_SPELLS, Arrays.asList(Actions.MEND_ACTION));
-		
-		assertEquals(false, Actions.MEND_ACTION.isValidTarget(performer, target, world));
-		
-		target.setProperty(Constants.ARMOR, 1);
-		target.setProperty(Constants.HIT_POINTS, 1);
-		target.setProperty(Constants.HIT_POINTS_MAX, 8);
-		
-		assertEquals(true, Actions.MEND_ACTION.isValidTarget(performer, target, world));
+		performer.setProperty(Constants.KNOWN_SPELLS, Arrays.asList(Actions.ANIMAL_FRIENDSHIP_SPELL_ACTION));
+		assertEquals(true, action.isValidTarget(performer, target, world));
 	}
 	
 	@Test
 	public void testDistance() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
-		WorldObject target = TestUtils.createWorldObject(0, 0, 1, 1);
+		WorldObject target = createTarget(world);
 		
-		assertEquals(0, Actions.MEND_ACTION.distance(performer, target, Args.EMPTY, world));
+		assertEquals(0, action.distance(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

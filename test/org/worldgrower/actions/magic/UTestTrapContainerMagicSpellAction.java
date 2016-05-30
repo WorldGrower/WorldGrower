@@ -55,11 +55,11 @@ public class UTestTrapContainerMagicSpellAction {
 		int id = BuildingGenerator.generateHouse(0, 0, world, 1f, performer);
 		WorldObject target = world.findWorldObject(Constants.ID, id);
 		
+		assertEquals(false, action.isValidTarget(performer, performer, world));
 		assertEquals(false, action.isValidTarget(performer, target, world));
 		
 		performer.setProperty(Constants.KNOWN_SPELLS, Arrays.asList(Actions.TRAP_CONTAINER_MAGIC_SPELL_ACTION));
 		target.setProperty(Constants.LOCKED, Boolean.FALSE);
-		
 		assertEquals(true, action.isValidTarget(performer, target, world));
 	}
 	

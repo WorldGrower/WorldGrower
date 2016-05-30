@@ -20,6 +20,7 @@ import org.junit.runners.Suite.SuiteClasses;
 import org.worldgrower.actions.*;
 import org.worldgrower.actions.legal.UTestButcherLegalHandler;
 import org.worldgrower.actions.legal.UTestWorshipDeityLegalHandler;
+import org.worldgrower.actions.magic.UTestAnimalFriendshipSpellAction;
 import org.worldgrower.actions.magic.UTestAnimateDeadAction;
 import org.worldgrower.actions.magic.UTestAnimateSuitOfArmorAction;
 import org.worldgrower.actions.magic.UTestBurdenAction;
@@ -52,6 +53,7 @@ import org.worldgrower.actions.magic.UTestRayOfFrostAttackAction;
 import org.worldgrower.actions.magic.UTestReduceAction;
 import org.worldgrower.actions.magic.UTestResearchSpellAction;
 import org.worldgrower.actions.magic.UTestScribeMagicSpellAction;
+import org.worldgrower.actions.magic.UTestSecretChestAction;
 import org.worldgrower.actions.magic.UTestSilenceMagicAction;
 import org.worldgrower.actions.magic.UTestSleepMagicAction;
 import org.worldgrower.actions.magic.UTestSoulTrapAction;
@@ -679,7 +681,9 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestCollectBountyFromThievesConversation.class,
 	UTestPayBountyConversation.class,
 	UTestPayBountyGoal.class,
-	UTestThieveryPropertyUtils.class
+	UTestThieveryPropertyUtils.class,
+	UTestAnimalFriendshipSpellAction.class,
+	UTestSecretChestAction.class
 })
 public class CompleteTestSuite {
 }

@@ -26,6 +26,7 @@ import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
 import org.worldgrower.goal.LocationPropertyUtils;
+import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
 
 public class SecretChestAction implements MagicSpell {
@@ -46,7 +47,7 @@ public class SecretChestAction implements MagicSpell {
 	
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return BuildingGenerator.isNormalChest(target);
+		return BuildingGenerator.isNormalChest(target) && MagicSpellUtils.canCast(performer, this);
 	}
 
 	@Override

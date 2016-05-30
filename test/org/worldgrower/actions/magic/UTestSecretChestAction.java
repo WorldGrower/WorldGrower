@@ -26,58 +26,54 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.condition.Conditions;
-import org.worldgrower.generator.Item;
+import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.BuildingGenerator;
 
-public class UTestMendAction {
+public class UTestSecretChestAction {
 
+	private SecretChestAction action = Actions.SECRET_CHEST_ACTION;
+	
 	@Test
 	public void testExecute() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
-		WorldObject target = createPerformer(3);
+		WorldObject target = createTarget(performer, world);		
 		
-		target.setProperty(Constants.HIT_POINTS, 1 * Item.COMBAT_MULTIPLIER);
-		target.setProperty(Constants.HIT_POINTS_MAX, 8 * Item.COMBAT_MULTIPLIER);
+		action.execute(performer, target, Args.EMPTY, world);
 		
-		Actions.MEND_ACTION.execute(performer, target, Args.EMPTY, world);
-		
-		assertEquals(6 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
-		
-		Actions.MEND_ACTION.execute(performer, target, Args.EMPTY, world);
-		assertEquals(8 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
+		assertEquals(true, target.getProperty(Constants.SECRET_CHEST));
+		assertEquals("Miniature Chest", performer.getProperty(Constants.INVENTORY).get(0).getProperty(Constants.NAME));
+	}
+
+	private WorldObject createTarget(WorldObject performer, World world) {
+		int targetId = BuildingGenerator.generateChest(0, 0, world, 1f, performer);
+		WorldObject target = world.findWorldObject(Constants.ID, targetId);
+		return target;
 	}
 	
 	@Test
 	public void testIsValidTarget() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
-		WorldObject target = TestUtils.createWorldObject(0, 0, 1, 1);
+		WorldObject target = createTarget(performer, world);
 		
-		assertEquals(false, Actions.MEND_ACTION.isValidTarget(performer, target, world));
+		assertEquals(false, action.isValidTarget(performer, target, world));
 		
-		performer.setProperty(Constants.KNOWN_SPELLS, Arrays.asList(Actions.MEND_ACTION));
-		
-		assertEquals(false, Actions.MEND_ACTION.isValidTarget(performer, target, world));
-		
-		target.setProperty(Constants.ARMOR, 1);
-		target.setProperty(Constants.HIT_POINTS, 1);
-		target.setProperty(Constants.HIT_POINTS_MAX, 8);
-		
-		assertEquals(true, Actions.MEND_ACTION.isValidTarget(performer, target, world));
+		performer.setProperty(Constants.KNOWN_SPELLS, Arrays.asList(Actions.SECRET_CHEST_ACTION));
+		assertEquals(true, action.isValidTarget(performer, target, world));
 	}
 	
 	@Test
 	public void testDistance() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
-		WorldObject target = TestUtils.createWorldObject(0, 0, 1, 1);
+		WorldObject target = createTarget(performer, world);
 		
-		assertEquals(0, Actions.MEND_ACTION.distance(performer, target, Args.EMPTY, world));
+		assertEquals(0, action.distance(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {
-		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.CONDITIONS, new Conditions());
+		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.X, 0);
 		performer.setProperty(Constants.Y, 0);
 		performer.setProperty(Constants.WIDTH, 1);

@@ -24,6 +24,7 @@ import org.worldgrower.actions.CraftUtils;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.creaturetype.CreatureType;
+import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
 
 public class AnimalFriendshipSpellAction implements MagicSpell {
@@ -40,7 +41,7 @@ public class AnimalFriendshipSpellAction implements MagicSpell {
 	
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return target.getProperty(Constants.CREATURE_TYPE) == CreatureType.COW_CREATURE_TYPE;
+		return (target.getProperty(Constants.CREATURE_TYPE) == CreatureType.COW_CREATURE_TYPE) && MagicSpellUtils.canCast(performer, this);
 	}
 
 	@Override

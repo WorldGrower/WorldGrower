@@ -47,8 +47,10 @@ public class UTestSilenceMagicAction {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = TestUtils.createWorldObject(3, "target");
-		performer.setProperty(Constants.KNOWN_SPELLS, Arrays.asList(Actions.SILENCE_MAGIC_ACTION));
 		
+		assertEquals(false, Actions.SILENCE_MAGIC_ACTION.isValidTarget(performer, target, world));
+		
+		performer.setProperty(Constants.KNOWN_SPELLS, Arrays.asList(Actions.SILENCE_MAGIC_ACTION));
 		assertEquals(true, Actions.SILENCE_MAGIC_ACTION.isValidTarget(performer, performer, world));
 		assertEquals(false, Actions.SILENCE_MAGIC_ACTION.isValidTarget(performer, target, world));
 	}
