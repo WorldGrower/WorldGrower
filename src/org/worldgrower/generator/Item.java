@@ -85,30 +85,30 @@ public enum Item {
 	public static final int COMBAT_MULTIPLIER = 10;
 	
 	public static final String NEWS_PAPER_NAME = "news paper";
-	private static final String IRON_CLAYMORE_NAME = "Iron Claymore";
-	private static final String IRON_AXE_NAME = "Iron Axe";
-	private static final String IRON_GREATSWORD_NAME = "Iron Greatsword";
-	private static final String IRON_GREATAXE_NAME = "Iron Greataxe";
-	private static final String IRON_CUIRASS_NAME = "Iron Cuirass";
-	private static final String IRON_HELMET_NAME = "Iron Helmet";
-	private static final String IRON_GAUNTLETS_NAME = "Iron Gauntlets";
-	private static final String IRON_GREAVES_NAME = "Iron Greaves";
-	private static final String IRON_BOOTS_NAME = "Iron boots";
-	private static final String IRON_SHIELD_NAME = "Iron Shield";
-	private static final String IRON_MACE_NAME = "Iron Mace";
-	private static final String IRON_KATAR_NAME = "Iron Katar";
+	private static final String IRON_CLAYMORE_NAME = "iron claymore";
+	private static final String IRON_AXE_NAME = "iron axe";
+	private static final String IRON_GREATSWORD_NAME = "iron greatsword";
+	private static final String IRON_GREATAXE_NAME = "iron greataxe";
+	private static final String IRON_CUIRASS_NAME = "iron cuirass";
+	private static final String IRON_HELMET_NAME = "iron helmet";
+	private static final String IRON_GAUNTLETS_NAME = "iron gauntlets";
+	private static final String IRON_GREAVES_NAME = "iron greaves";
+	private static final String IRON_BOOTS_NAME = "iron boots";
+	private static final String IRON_SHIELD_NAME = "iron shield";
+	private static final String IRON_MACE_NAME = "iron mace";
+	private static final String IRON_KATAR_NAME = "iron katar";
 	
-	private static final String LONGBOW_NAME = "Longbow";
-	private static final String POISON_NAME = "Poison";
+	private static final String LONGBOW_NAME = "longbow";
+	private static final String POISON_NAME = "poison";
 
 	//TODO: make name private
-	public static final String COTTON_SHIRT_NAME = "Cotton Shirt";
-	public static final String COTTON_HAT_NAME = "Cotton Hat";
-	public static final String COTTON_BOOTS_NAME = "Cotton Boots";
-	public static final String COTTON_GLOVES_NAME = "Cotton Gloves";
-	public static final String COTTON_PANTS_NAME = "Cotton Pants";
+	public static final String COTTON_SHIRT_NAME = "cotton shirt";
+	public static final String COTTON_HAT_NAME = "cotton hat";
+	public static final String COTTON_BOOTS_NAME = "cotton boots";
+	public static final String COTTON_GLOVES_NAME = "cotton gloves";
+	public static final String COTTON_PANTS_NAME = "cotton pants";
 	
-	public static final String BED_NAME = "Bed";
+	public static final String BED_NAME = "bed";
 	
 	private final ItemType itemType;
 	
@@ -535,7 +535,7 @@ public enum Item {
 		
 		addItem(Item.BLOOD, skillBonus -> {
 			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
-			properties.put(Constants.NAME, "Blood");
+			properties.put(Constants.NAME, "blood");
 			properties.put(Constants.WATER, (int) (10 * skillBonus));
 			properties.put(Constants.VAMPIRE_BLOOD_LEVEL, (int) (10 * skillBonus));
 			properties.put(Constants.PRICE, 1);
@@ -575,7 +575,7 @@ public enum Item {
 		
 		addItem(Item.SLEEPING_POTION, skillBonus -> {
 			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
-			properties.put(Constants.NAME, "Sleeping Potion");
+			properties.put(Constants.NAME, "sleeping potion");
 			properties.put(Constants.WATER, (int) (10 * skillBonus));
 			properties.put(Constants.SLEEP_INDUCING_DRUG_STRENGTH, (int) (3 * COMBAT_MULTIPLIER * skillBonus));
 			properties.put(Constants.PRICE, 1);
@@ -587,7 +587,7 @@ public enum Item {
 		
 		addItem(Item.MINIATURE_CHEST, skillBonus -> {
 			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
-			properties.put(Constants.NAME, "Miniature Chest");
+			properties.put(Constants.NAME, "miniature chest");
 			properties.put(Constants.PRICE, 1);
 			properties.put(Constants.SELLABLE, false);
 			properties.put(Constants.WEIGHT, 1);

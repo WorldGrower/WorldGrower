@@ -184,7 +184,7 @@ public class InventoryDialog extends AbstractDialog {
 		
 		pricesButton = JButtonFactory.createButton("Prices");
 		pricesButton.setToolTipText(PRICES_TOOL_TIP);
-		pricesButton.setBounds(labelLeft, 399, 100, 25);
+		pricesButton.setBounds(labelLeft, 566, 100, 25);
 		inventoryPanel.add(pricesButton);
 
 		if (inventoryDialogModel.hasTarget()) {

@@ -47,6 +47,8 @@ public class PricesDialog extends AbstractDialog {
 	public void initializeGUI() {
 		PricesModel worldModel = new PricesModel(pricesOnPlayer);
 		JTable table = JTableFactory.createJTable(worldModel);
+		table.setAutoCreateRowSorter(true);
+		table.getRowSorter().toggleSortOrder(0);
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(15, 15, 368, 700);
 		addComponent(scrollPane);
