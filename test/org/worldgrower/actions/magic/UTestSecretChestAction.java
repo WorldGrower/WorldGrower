@@ -42,7 +42,7 @@ public class UTestSecretChestAction {
 		action.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(true, target.getProperty(Constants.SECRET_CHEST));
-		assertEquals("Miniature Chest", performer.getProperty(Constants.INVENTORY).get(0).getProperty(Constants.NAME));
+		assertEquals("miniature chest", performer.getProperty(Constants.INVENTORY).get(0).getProperty(Constants.NAME));
 	}
 
 	private WorldObject createTarget(WorldObject performer, World world) {

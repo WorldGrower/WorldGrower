@@ -35,7 +35,7 @@ public class UTestInventoryPropertyUtils {
 		
 		InventoryPropertyUtils.cleanupEquipmentSlots(performer);
 		
-		assertEquals("Iron Cuirass", performer.getProperty(Constants.TORSO_EQUIPMENT).getProperty(Constants.NAME));
+		assertEquals("iron cuirass", performer.getProperty(Constants.TORSO_EQUIPMENT).getProperty(Constants.NAME));
 		assertEquals(null, performer.getProperty(Constants.HEAD_EQUIPMENT));
 	}
 }

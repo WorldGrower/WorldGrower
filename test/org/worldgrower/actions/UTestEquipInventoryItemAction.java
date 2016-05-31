@@ -35,6 +35,6 @@ public class UTestEquipInventoryItemAction {
 		
 		Actions.EQUIP_INVENTORY_ITEM_ACTION.execute(performer, performer, new int[] { 0 }, world);
 		
-		assertEquals("Iron Claymore", performer.getProperty(Constants.LEFT_HAND_EQUIPMENT).getProperty(Constants.NAME));
+		assertEquals("iron claymore", performer.getProperty(Constants.LEFT_HAND_EQUIPMENT).getProperty(Constants.NAME));
 	}
 }

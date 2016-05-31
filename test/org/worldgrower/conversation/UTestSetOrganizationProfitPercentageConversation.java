@@ -45,8 +45,8 @@ public class UTestSetOrganizationProfitPercentageConversation {
 		
 		ConversationContext context = new ConversationContext(performer, target,subject, null, world, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
-		assertEquals(true, replyPhrases.size() == 2);
-		assertEquals("Yes, I'll set the price for a Iron Claymore to 0.", replyPhrases.get(0).getResponsePhrase());
+		assertEquals(2, replyPhrases.size());
+		assertEquals("Yes, I'll set the price for a iron claymore to 0.", replyPhrases.get(0).getResponsePhrase());
 		assertEquals("No", replyPhrases.get(1).getResponsePhrase());
 	}
 	

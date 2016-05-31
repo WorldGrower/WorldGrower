@@ -359,11 +359,15 @@ public class GuiMouseListener extends MouseAdapter {
 	private void addBarterAction(JPopupMenu menu, WorldObject worldObject) {
 		if (worldObject.hasProperty(Constants.INVENTORY)) {
 			JMenuItem guiBarterItem = MenuFactory.createJMenuItem(new GuiBarterAction(playerCharacter, world, dungeonMaster, container, worldObject, imageInfoReader));
-			String barterDescription = worldObject.hasIntelligence() ? "Barter..." : "Access container...";
+			String barterDescription = canTrade(worldObject) ? "Barter..." : "Access container...";
 			guiBarterItem.setText(barterDescription);
 			setMenuIcon(guiBarterItem, Actions.SELL_ACTION.getImageIds());
 			menu.add(guiBarterItem);
 		}
+	}
+	
+	private boolean canTrade(WorldObject worldObject) {
+		return worldObject.hasIntelligence() && worldObject.hasProperty(Constants.CREATURE_TYPE) && worldObject.getProperty(Constants.CREATURE_TYPE).canTrade();
 	}
 		
 	private void addVoteActions(JPopupMenu menu, WorldObject worldObject) {

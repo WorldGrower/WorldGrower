@@ -27,6 +27,6 @@ public class SlimeWorldEvaluationFunction implements WorldObjectPriorities {
 
 	@Override
 	public List<Goal> getPriorities(WorldObject performer, World world) {
-		return Arrays.asList(Goals.KILL_OUTSIDERS_GOAL, Goals.FOOD_GOAL, Goals.OFFSPRING_GOAL, Goals.REST_GOAL, Goals.IDLE_GOAL);
+		return Arrays.asList(Goals.KILL_OUTSIDERS_GOAL, Goals.ANIMAL_FOOD_GOAL, Goals.OFFSPRING_GOAL, Goals.REST_GOAL, Goals.IDLE_GOAL);
 	}
 }

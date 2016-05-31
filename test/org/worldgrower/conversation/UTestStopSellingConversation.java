@@ -41,7 +41,7 @@ public class UTestStopSellingConversation {
 		ConversationContext context = new ConversationContext(performer, target, null, null, null, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
 		assertEquals(2, replyPhrases.size());
-		assertEquals("Yes, I'll stop selling Iron Claymores", replyPhrases.get(0).getResponsePhrase());
+		assertEquals("Yes, I'll stop selling iron claymores", replyPhrases.get(0).getResponsePhrase());
 		assertEquals("No", replyPhrases.get(1).getResponsePhrase());
 	}
 	
@@ -68,7 +68,7 @@ public class UTestStopSellingConversation {
 		
 		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, null, null);
 		assertEquals(1, questions.size());
-		assertEquals("You recently sold Beds. Can you stop doing that?", questions.get(0).getQuestionPhrase());
+		assertEquals("You recently sold beds. Can you stop doing that?", questions.get(0).getQuestionPhrase());
 	}
 	
 	@Test

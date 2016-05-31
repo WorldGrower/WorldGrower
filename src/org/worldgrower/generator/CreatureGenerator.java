@@ -68,7 +68,6 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.WATER, 200);
 		properties.put(Constants.ENERGY, 1000);
 		properties.put(Constants.GROUP, new IdList().add(organization));
-		properties.put(Constants.INVENTORY, new WorldObjectContainer());
 		properties.put(Constants.GOLD, 0);
 		properties.put(Constants.DEMANDS, new PropertyCountMap<ManagedProperty<?>>());
 		properties.put(Constants.CHILDREN, new IdList());
@@ -121,7 +120,6 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.WATER, 200);
 		properties.put(Constants.ENERGY, 1000);
 		properties.put(Constants.GROUP, new IdList().add(organization));
-		properties.put(Constants.INVENTORY, new WorldObjectContainer());
 		properties.put(Constants.GOLD, 0);
 		properties.put(Constants.DEMANDS, new PropertyCountMap<ManagedProperty<?>>());
 		properties.put(Constants.CHILDREN, new IdList());
@@ -174,7 +172,6 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.WATER, 500);
 		properties.put(Constants.ENERGY, 1000);
 		properties.put(Constants.GROUP, new IdList().add(organization));
-		properties.put(Constants.INVENTORY, new WorldObjectContainer());
 		properties.put(Constants.GOLD, 0);
 		properties.put(Constants.DEMANDS, new PropertyCountMap<ManagedProperty<?>>());
 		properties.put(Constants.CHILDREN, new IdList());
@@ -270,7 +267,6 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.WATER, 1000);
 		properties.put(Constants.ENERGY, 1000);
 		properties.put(Constants.GROUP, new IdList().add(organization));
-		properties.put(Constants.INVENTORY, new WorldObjectContainer());
 		properties.put(Constants.GOLD, 0);
 		properties.put(Constants.DEMANDS, new PropertyCountMap<ManagedProperty<?>>());
 		properties.put(Constants.CHILDREN, new IdList());

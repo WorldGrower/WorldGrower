@@ -27,6 +27,6 @@ public class SpiderWorldEvaluationFunction implements WorldObjectPriorities {
 
 	@Override
 	public List<Goal> getPriorities(WorldObject performer, World world) {
-		return Arrays.asList(Goals.SUBDUE_OUTSIDERS_GOAL, Goals.COCOON_OUTSIDERS_GOAL, Goals.FOOD_GOAL, Goals.OFFSPRING_GOAL, Goals.REST_GOAL, Goals.IDLE_GOAL);
+		return Arrays.asList(Goals.SUBDUE_OUTSIDERS_GOAL, Goals.COCOON_OUTSIDERS_GOAL, Goals.ANIMAL_FOOD_GOAL, Goals.OFFSPRING_GOAL, Goals.REST_GOAL, Goals.IDLE_GOAL);
 	}
 }
