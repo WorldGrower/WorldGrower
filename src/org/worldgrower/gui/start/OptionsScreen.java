@@ -34,6 +34,7 @@ import org.worldgrower.gui.ExceptionHandler;
 import org.worldgrower.gui.GradientPanel;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
+import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.JCheckBoxFactory;
@@ -70,14 +71,16 @@ public class OptionsScreen {
 	private final CharacterAttributes characterAttributes;
 	private JCheckBox chkBackgroundMusic;
 	private final ImageInfoReader imageInfoReader;
+	private final SoundIdReader soundIdReader;
 	private JComboBox<ImageIds> cmbImage;
 	private final KeyBindings keyBindings;
 	private JTextField startTurnTextField;
 	
-	public OptionsScreen(CharacterAttributes characterAttributes, ImageInfoReader imageInfoReader, KeyBindings keyBindings) {
+	public OptionsScreen(CharacterAttributes characterAttributes, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, KeyBindings keyBindings) {
 		initialize(imageInfoReader);
 		this.characterAttributes = characterAttributes;
 		this.imageInfoReader = imageInfoReader;
+		this.soundIdReader = soundIdReader;
 		this.keyBindings = keyBindings;
 	}
 	
@@ -212,7 +215,7 @@ public class OptionsScreen {
 						new Thread() {
 							public void run() {
 								try {
-									Game.run(characterAttributes, imageInfoReader, (ImageIds)cmbImage.getSelectedItem(), customGameParameters, keyBindings);
+									Game.run(characterAttributes, imageInfoReader, soundIdReader, (ImageIds)cmbImage.getSelectedItem(), customGameParameters, keyBindings);
 								} catch (Exception e) {
 									ExceptionHandler.handle(e);
 								}
@@ -300,7 +303,7 @@ public class OptionsScreen {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
-				StartScreen startScreen = new StartScreen(imageInfoReader);
+				StartScreen startScreen = new StartScreen(imageInfoReader, soundIdReader);
 				startScreen.setVisible(true);
 			}
 		});

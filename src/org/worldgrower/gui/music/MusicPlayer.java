@@ -17,11 +17,7 @@ package org.worldgrower.gui.music;
 import java.io.IOException;
 import java.io.InputStream;
 
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import javax.sound.sampled.DataLine;
 import javax.sound.sampled.LineEvent;
 import javax.sound.sampled.LineListener;
 import javax.sound.sampled.LineUnavailableException;
@@ -35,13 +31,8 @@ public class MusicPlayer implements LineListener {
 	public void play(InputStream audioFilePath) {
 
 		try {
-			AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFilePath);
-			AudioFormat format = audioStream.getFormat();
-			DataLine.Info info = new DataLine.Info(Clip.class, format);
-			
-			audioClip = (Clip) AudioSystem.getLine(info);
+			audioClip = BackgroundMusicUtils.readMusicFile(audioFilePath);
 			audioClip.addLineListener(this);
-			audioClip.open(audioStream);			
 			audioClip.loop(Clip.LOOP_CONTINUOUSLY);
 			
 			while (!playCompleted) {
@@ -58,7 +49,6 @@ public class MusicPlayer implements LineListener {
 		} catch (UnsupportedAudioFileException | LineUnavailableException | IOException ex) {
 			throw new IllegalStateException(ex);
 		}
-		
 	}
 	
 	@Override

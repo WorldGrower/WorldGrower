@@ -55,6 +55,7 @@ import org.worldgrower.gui.SwingUtils;
 import org.worldgrower.gui.WorldPanel;
 import org.worldgrower.gui.music.BackgroundMusicUtils;
 import org.worldgrower.gui.music.MusicPlayer;
+import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.ProgressDialog;
 import org.worldgrower.gui.util.ShowTextDialog;
@@ -68,7 +69,7 @@ public class Game {
 	private static JFrame frame = null;
 	private static MusicPlayer musicPlayer = null;
 	
-	public static void run(CharacterAttributes characterAttributes, ImageInfoReader imageInfoReader, ImageIds playerCharacterImageId, GameParameters gameParameters, KeyBindings keyBindings) throws Exception {
+	public static void run(CharacterAttributes characterAttributes, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, ImageIds playerCharacterImageId, GameParameters gameParameters, KeyBindings keyBindings) throws Exception {
 		int seed = gameParameters.getSeed();
 		int startTurn = gameParameters.getStartTurn();
 		DungeonMaster dungeonMaster = new DungeonMaster();
@@ -98,7 +99,7 @@ public class Game {
 		final WorldObject playerCharacter = addPlayerCharacter(characterAttributes, playerCharacterImageId, gameParameters, world, playerCharacterId, organization, commonerGenerator);
 		exploreWorld(playerCharacter, world);
 		
-		createAndShowGUIInvokeLater(playerCharacter, world, dungeonMaster, gameParameters.getPlayBackgroundMusic(), imageInfoReader, gameParameters.getInitialStatusMessage(), gameParameters.getAdditionalManagedOperationListenerFactory(), keyBindings);
+		createAndShowGUIInvokeLater(playerCharacter, world, dungeonMaster, gameParameters.getPlayBackgroundMusic(), imageInfoReader, soundIdReader, gameParameters.getInitialStatusMessage(), gameParameters.getAdditionalManagedOperationListenerFactory(), keyBindings);
 	}
 	
 	private static class RunWorldSwingWorker extends SwingWorker<Integer, Integer> {
@@ -181,7 +182,7 @@ public class Game {
 		worldGenerator.addWorldObjects(world, 1, 1, world.getWidth() / 20, TerrainType.WATER, creatureGenerator::generateFish);
 	}
 	
-	public static void load(File fileToLoad, ImageInfoReader imageInfoReader, KeyBindings keyBindings) {
+	public static void load(File fileToLoad, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, KeyBindings keyBindings) {
 		DungeonMaster dungeonMaster = new DungeonMaster();
 		World world = WorldImpl.load(fileToLoad);
 		final WorldObject playerCharacter = world.findWorldObject(Constants.ID, 0);
@@ -189,15 +190,15 @@ public class Game {
 		addWorldListeners(world);
 		
 		//TODO: load playBackgroundMusic flag from file
-		createAndShowGUIInvokeLater(playerCharacter, world, dungeonMaster, true, imageInfoReader, StatusMessages.WELCOME, new NullAdditionalManagedOperationListenerFactory(), keyBindings);
+		createAndShowGUIInvokeLater(playerCharacter, world, dungeonMaster, true, imageInfoReader, soundIdReader, StatusMessages.WELCOME, new NullAdditionalManagedOperationListenerFactory(), keyBindings);
 	}
 
-	private static void createAndShowGUIInvokeLater(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, boolean playBackgroundMusic, ImageInfoReader imageInfoReader, String initialStatusMessage, AdditionalManagedOperationListenerFactory additionalManagedOperationListenerFactory, KeyBindings keyBindings) {
+	private static void createAndShowGUIInvokeLater(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, boolean playBackgroundMusic, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, String initialStatusMessage, AdditionalManagedOperationListenerFactory additionalManagedOperationListenerFactory, KeyBindings keyBindings) {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
             public void run() {
                 try {
-					createAndShowGUI(playerCharacter, world, dungeonMaster, playBackgroundMusic, imageInfoReader, initialStatusMessage, additionalManagedOperationListenerFactory, keyBindings);
+					createAndShowGUI(playerCharacter, world, dungeonMaster, playBackgroundMusic, imageInfoReader, soundIdReader, initialStatusMessage, additionalManagedOperationListenerFactory, keyBindings);
 				} catch (IOException e) {
 					throw new RuntimeException(e);
 				}
@@ -211,13 +212,13 @@ public class Game {
     	}
 	}
 	
-    private static void createAndShowGUI(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, boolean playBackgroundMusic, ImageInfoReader imageInfoReader, String initialStatusMessage, AdditionalManagedOperationListenerFactory additionalManagedOperationListenerFactory, KeyBindings keyBindings) throws IOException {
+    private static void createAndShowGUI(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, boolean playBackgroundMusic, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, String initialStatusMessage, AdditionalManagedOperationListenerFactory additionalManagedOperationListenerFactory, KeyBindings keyBindings) throws IOException {
     	closeMainPanel();
         frame = new JFrame("WorldGrower");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         IconUtils.setIcon(frame);
         
-        WorldPanel worldPanel = new WorldPanel(playerCharacter, world, dungeonMaster, imageInfoReader, initialStatusMessage, keyBindings);
+        WorldPanel worldPanel = new WorldPanel(playerCharacter, world, dungeonMaster, imageInfoReader, soundIdReader, initialStatusMessage, keyBindings);
         worldPanel.setOpaque(true);
         frame.setContentPane(worldPanel);
         
@@ -253,6 +254,7 @@ public class Game {
     public static void executeAction(WorldObject playerCharacter, ManagedOperation action, int[] args, World world, DungeonMaster dungeonMaster, WorldObject target, WorldPanel worldPanel) {
     	if (canActionExecute(playerCharacter, action, args, world, target)) {
     		dungeonMaster.executeAction(action, playerCharacter, target, args, world);
+    		worldPanel.playSound(action);
     		runWorld(playerCharacter, world, dungeonMaster, worldPanel);
     		checkToSkipTurn(playerCharacter, world, dungeonMaster, worldPanel);
     	}

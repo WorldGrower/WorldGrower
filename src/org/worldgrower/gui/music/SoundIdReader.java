@@ -17,42 +17,37 @@ package org.worldgrower.gui.music;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.zip.GZIPInputStream;
 
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import javax.sound.sampled.DataLine;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import org.worldgrower.gui.start.Game;
 
-public class BackgroundMusicUtils {
+public class SoundIdReader {
 
-	public static MusicPlayer startBackgroundMusic() {
-		MusicPlayer musicPlayer = new MusicPlayer();
-		new Thread() {
-        	@Override
-        	public void run() {
-        		try {
-					musicPlayer.play(new BufferedInputStream(new GZIPInputStream(Game.class.getResourceAsStream("/woodland_fantasy_0.wav.gz"))));
-				} catch (IOException e) {
-					throw new IllegalStateException(e);
-				}
-        	}
-        }.start();
-        return musicPlayer;
+	private final Map<SoundIds, Clip> sounds = new HashMap<>();
+	
+	public SoundIdReader() {
+		readSound(SoundIds.CUT_WOOD, "/sound/workshop - wood clap - 8bit.wav.gz");
+	}
+
+	private void readSound(SoundIds soundIds, String path) {
+		Clip audioClip;
+		try {
+			InputStream audioFilePath = new BufferedInputStream(new GZIPInputStream(Game.class.getResourceAsStream(path)));
+			audioClip = BackgroundMusicUtils.readMusicFile(audioFilePath);
+		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+			throw new IllegalStateException("Problem reading " + path, e);
+		}
+		sounds.put(soundIds, audioClip);
 	}
 	
-	public static Clip readMusicFile(InputStream audioFilePath) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-		AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFilePath);
-		AudioFormat format = audioStream.getFormat();
-		DataLine.Info info = new DataLine.Info(Clip.class, format);
-		
-		Clip audioClip = (Clip) AudioSystem.getLine(info);
-		audioClip.open(audioStream);
-		return audioClip;
+	public void playSoundEffect(SoundIds soundIds) {
+		sounds.get(soundIds).setFramePosition(0);
+		sounds.get(soundIds).start();
 	}
 }

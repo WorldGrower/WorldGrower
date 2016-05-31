@@ -31,6 +31,7 @@ import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.gui.GradientPanel;
 import org.worldgrower.gui.GuiAttributeDescription;
 import org.worldgrower.gui.ImageInfoReader;
+import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.JLabelFactory;
@@ -53,7 +54,7 @@ public class CharacterCustomizationScreen extends JFrame {
 	
 	private final KeyBindings keyBindings;
 	
-	public CharacterCustomizationScreen(ImageInfoReader imageInfoReader, KeyBindings keyBindings) {
+	public CharacterCustomizationScreen(ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, KeyBindings keyBindings) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 539, 310);
 		setResizable(false);
@@ -270,7 +271,7 @@ public class CharacterCustomizationScreen extends JFrame {
 						Integer.parseInt(lblCharisma.getText())
 						);
 				
-				OptionsScreen window = new OptionsScreen(characterAttributes, imageInfoReader, keyBindings);
+				OptionsScreen window = new OptionsScreen(characterAttributes, imageInfoReader, soundIdReader, keyBindings);
 				window.setVisible(true);
 			}
 		});

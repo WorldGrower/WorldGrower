@@ -19,6 +19,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 
 import org.worldgrower.World;
+import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.start.KeyBindings;
 import org.worldgrower.gui.start.StartScreen;
 
@@ -26,20 +27,22 @@ public class ShowStartScreenAction extends AbstractAction {
 
 	private final WorldPanel container;
 	private final ImageInfoReader imageInfoReader;
+	private final SoundIdReader soundIdReader;
 	private final KeyBindings keyBindings;
 	private final World world;
 	
-	public ShowStartScreenAction(WorldPanel container, ImageInfoReader imageInfoReader, KeyBindings keyBindings, World world) {
+	public ShowStartScreenAction(WorldPanel container, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, KeyBindings keyBindings, World world) {
 		super();
 		this.container = container;
 		this.imageInfoReader = imageInfoReader;
+		this.soundIdReader = soundIdReader;
 		this.keyBindings = keyBindings;
 		this.world = world;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent actionEvent) {
-		StartScreen startScreen = new StartScreen(imageInfoReader, keyBindings);
+		StartScreen startScreen = new StartScreen(imageInfoReader, soundIdReader, keyBindings);
 		startScreen.enableSave(true, world);
 		startScreen.setVisible(true);
 		

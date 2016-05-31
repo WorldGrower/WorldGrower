@@ -61,3 +61,5 @@ cursor.png: created by http://www.elegantthemes.com from http://www.flaticon.com
 clothing_shop.png: created by http://rmvxacetiles.blogspot.be/2013/03/more-tiles-wealthy-poor-specialized.html
 
 magic_001.png: created by Mr. Bubble at https://mrbubblewand.wordpress.com/download/
+
+workshop - wood clap.wav: http://opengameart.org/content/68-workshop-sounds

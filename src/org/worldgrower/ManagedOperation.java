@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.worldgrower.actions.Actions;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 /**
  * A ManagedOperation described an action that a WorldObject performs on another WorldObject.
@@ -56,5 +57,8 @@ public interface ManagedOperation extends Serializable {
 		}
 		
 		throw new IllegalStateException("ManagedProperty with class " + clazz + " not found");
+	}
+	public default SoundIds getSoundId() {
+		return null;
 	}
 }
