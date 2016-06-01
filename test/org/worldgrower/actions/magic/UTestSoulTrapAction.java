@@ -64,6 +64,17 @@ public class UTestSoulTrapAction {
 		assertEquals(0, Actions.SOUL_TRAP_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 	
+	@Test
+	public void testHasRequiredEnergy() {
+		WorldObject performer = createPerformer(2);
+		
+		performer.setProperty(Constants.ENERGY, 1000);
+		assertEquals(true, Actions.SOUL_TRAP_ACTION.hasRequiredEnergy(performer));
+		
+		performer.setProperty(Constants.ENERGY, 0);
+		assertEquals(false, Actions.SOUL_TRAP_ACTION.hasRequiredEnergy(performer));
+	}
+	
 	private WorldObject createPerformer(int id) {
 		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.CONDITIONS, new Conditions());
 		performer.setProperty(Constants.X, 0);

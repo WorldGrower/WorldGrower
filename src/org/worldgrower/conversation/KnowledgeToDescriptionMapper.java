@@ -26,6 +26,7 @@ import org.worldgrower.deity.Deity;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.history.HistoryItem;
 import org.worldgrower.profession.Profession;
+import org.worldgrower.util.SentenceUtils;
 
 public class KnowledgeToDescriptionMapper {
 
@@ -58,7 +59,9 @@ public class KnowledgeToDescriptionMapper {
 				}
 			} else if (property == Constants.PROFESSION) {
 				if (value != null) {
-					return subject.getProperty(Constants.NAME) + " is a " + ((Profession) value).getDescription();
+					String professionDescription = ((Profession) value).getDescription();
+					String article = SentenceUtils.getArticle(professionDescription);
+					return subject.getProperty(Constants.NAME) + " is " + article + " " + professionDescription;
 				} else {
 					return subject.getProperty(Constants.NAME) + " doesn't have a profession";
 				}
@@ -74,7 +77,9 @@ public class KnowledgeToDescriptionMapper {
 				Location location = (Location) value;
 				return subject.getProperty(Constants.NAME) + " is located at x " + location.getX() + " and y " + location.getY();
 			} else if (property == Constants.CREATURE_TYPE) {
-				return subject.getProperty(Constants.NAME) + " is a " + subject.getProperty(Constants.CREATURE_TYPE).getDescription();
+				String creatureTypeDescription = subject.getProperty(Constants.CREATURE_TYPE).getDescription();
+				String article = SentenceUtils.getArticle(creatureTypeDescription);
+				return subject.getProperty(Constants.NAME) + " is " + article + " " + creatureTypeDescription;
 			} else if (property == Constants.TRAPPED_CONTAINER_DAMAGE) {
 				return subject.getProperty(Constants.NAME) + " is magically trapped";
 			} else {

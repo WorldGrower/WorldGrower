@@ -25,6 +25,7 @@ import org.worldgrower.generator.Item;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.history.HistoryItem;
 import org.worldgrower.profession.Profession;
+import org.worldgrower.util.SentenceUtils;
 
 public class SetOrganizationProfitPercentageConversation implements Conversation {
 
@@ -75,8 +76,10 @@ public class SetOrganizationProfitPercentageConversation implements Conversation
 		int itemIndex = conversationContext.getAdditionalValue();
 		int price = conversationContext.getAdditionalValue2();
 		
+		String itemDescription = Item.value(itemIndex).getDescription();
+		String article = SentenceUtils.getArticle(itemDescription);
 		return Arrays.asList(
-			new Response(YES, "Yes, I'll set the price for a " + Item.value(itemIndex).getDescription() + " to " + price + "."),
+			new Response(YES, "Yes, I'll set the price for " + article + " " + itemDescription + " to " + price + "."),
 			new Response(NO, "No")
 			);
 	}

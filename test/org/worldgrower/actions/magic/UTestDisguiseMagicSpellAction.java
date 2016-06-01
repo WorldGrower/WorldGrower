@@ -78,6 +78,17 @@ public class UTestDisguiseMagicSpellAction {
 		assertEquals(Arrays.asList(target), Actions.DISGUISE_MAGIC_SPELL_ACTION.getDisguiseTargets(performer, world));
 	}
 	
+	@Test
+	public void testHasRequiredEnergy() {
+		WorldObject performer = createPerformer(2);
+		
+		performer.setProperty(Constants.ENERGY, 1000);
+		assertEquals(true, Actions.DISGUISE_MAGIC_SPELL_ACTION.hasRequiredEnergy(performer));
+		
+		performer.setProperty(Constants.ENERGY, 0);
+		assertEquals(false, Actions.DISGUISE_MAGIC_SPELL_ACTION.hasRequiredEnergy(performer));
+	}
+	
 	private WorldObject createPerformer(int id) {
 		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.CONDITIONS, new Conditions());
 		performer.setProperty(Constants.X, 0);

@@ -38,6 +38,7 @@ import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.profession.Profession;
 import org.worldgrower.profession.Professions;
+import org.worldgrower.util.SentenceUtils;
 
 public class ChooseProfessionAction implements ManagedOperation {
 
@@ -178,22 +179,25 @@ public class ChooseProfessionAction implements ManagedOperation {
 		indexOfBestProfessionByDemand = normalizeIndex(indexOfBestProfessionByDemand);
 		indexOfBestProfessionByBackground = normalizeIndex(indexOfBestProfessionByBackground);
 		
+		String professionDescription = bestProfession.getDescription();
+		String article = SentenceUtils.getArticle(professionDescription);
+		
 		//TODO: compare with professionEvaluationsByDemand
 		if (indexOfBestProfessionByBackground == 0) {
-			return "I choose to become a " + bestProfession.getDescription() + " because " + professionEvaluationsByBackground.get(0).getExplanation();
+			return "I choose to become " + article + " " + professionDescription + " because " + professionEvaluationsByBackground.get(0).getExplanation();
 		} else if (indexOfBestProfessionByPerformer == 0 && indexOfBestProfessionByCompetition == 0) {
-			return "I choose to become a " + bestProfession.getDescription() + " because there isn't much competition for that profession and I'm good at it";
+			return "I choose to become " + article + " " + professionDescription + " because there isn't much competition for that profession and I'm good at it";
 		} else if (indexOfBestProfessionByPerformer < indexOfBestProfessionByCompetition || (indexOfBestProfessionByPerformer == 0)) {
-			return "I choose to become a " + bestProfession.getDescription() + " because I'm good at it";
+			return "I choose to become " + article + " " + professionDescription + " because I'm good at it";
 		} else if (indexOfBestProfessionByCompetition < indexOfBestProfessionByPerformer) {
-			return "I choose to become a " + bestProfession.getDescription() + " because there isn't much competition for it";
+			return "I choose to become " + article + " " + professionDescription + " because there isn't much competition for it";
 		} else if (indexOfBestProfessionByDemand < indexOfBestProfessionByPerformer) {
-			return "I choose to become a " + bestProfession.getDescription() + " because there is a demand for it";
+			return "I choose to become " + article + " " + professionDescription + " because there is a demand for it";
 		} else if (indexOfBestProfessionEvaluationsByParents == 0) {
-			return "I choose to become a " + bestProfession.getDescription() + " because my parents are " + bestProfession.getDescription() + "s";
+			return "I choose to become " + article + " " + professionDescription + " because my parents are " + bestProfession.getDescription() + "s";
 		}
 		
-		return "It just seemed like a good idea to become a " + bestProfession.getDescription();
+		return "It just seemed like a good idea to become " + article + " " + professionDescription;
 	}
 	
 	private static int normalizeIndex(int index) {

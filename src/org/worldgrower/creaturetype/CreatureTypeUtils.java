@@ -25,4 +25,8 @@ public class CreatureTypeUtils {
 				 || creatureType == CreatureType.LICH_CREATURE_TYPE
 				 || creatureType == CreatureType.GHOUL_CREATURE_TYPE;
 	}
+	
+	public static boolean isHumanoid(WorldObject target) {
+		return target.hasProperty(Constants.CREATURE_TYPE) && target.getProperty(Constants.CREATURE_TYPE).canTalk();
+	}
 }

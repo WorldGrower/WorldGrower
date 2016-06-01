@@ -22,6 +22,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.history.HistoryItem;
 import org.worldgrower.profession.Profession;
+import org.worldgrower.util.SentenceUtils;
 
 public class ProfessionConversation implements Conversation {
 
@@ -64,7 +65,7 @@ public class ProfessionConversation implements Conversation {
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		WorldObject target = conversationContext.getTarget();
 		String professionDescription = getProfessionDescription(target);
-		String article = getArticle(professionDescription);
+		String article = SentenceUtils.getArticle(professionDescription);
 		
 		return Arrays.asList(
 			new Response(MY_PROFESSION, "I'm " + article + " " + professionDescription),
@@ -74,22 +75,10 @@ public class ProfessionConversation implements Conversation {
 			);
 	}
 
-	private String getArticle(String professionDescription) {
-		String article = "a";
-		if ( (professionDescription.length() > 0) && (isVowel(professionDescription.charAt(0)))) {
-			article = "an";
-		}
-		return article;
-	}
-
 	private String getProfessionDescription(WorldObject target) {
 		Profession profession = target.getProperty(Constants.PROFESSION);
 		String professionDescription = (profession != null ? profession.getDescription() : "");
 		return professionDescription;
-	}
-	
-	public static boolean isVowel(char c) {
-		return "AEIOUaeiou".indexOf(c) != -1;
 	}
 	
 	@Override

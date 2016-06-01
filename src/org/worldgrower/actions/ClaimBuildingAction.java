@@ -26,6 +26,7 @@ import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.util.SentenceUtils;
 
 public class ClaimBuildingAction implements ManagedOperation {
 
@@ -85,7 +86,9 @@ public class ClaimBuildingAction implements ManagedOperation {
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "claiming a " + target.getProperty(Constants.NAME);
+		String targetName = target.getProperty(Constants.NAME);
+		String article = SentenceUtils.getArticle(targetName);
+		return "claiming " + article + " " + targetName;
 	}
 	
 	public Object readResolve() throws ObjectStreamException {

@@ -24,6 +24,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.goal.FacadeUtils;
 import org.worldgrower.goal.RelationshipPropertyUtils;
+import org.worldgrower.util.SentenceUtils;
 
 public class WhyNotIntelligentConversation implements InterceptedConversation {
 
@@ -55,9 +56,11 @@ public class WhyNotIntelligentConversation implements InterceptedConversation {
 		World world = conversationContext.getWorld();
 		
 		if (isConversationAvailable(performer, target, world)) {
+			String performerName = performer.getProperty(Constants.NAME);
+			String article = SentenceUtils.getArticle(performerName);
 			return Arrays.asList(
-					new Response(WHY_NOT_INTELLIGENT, "What are you? Why am I talking with a " + performer.getProperty(Constants.NAME) + "?"),
-					new Response(SEE_THROUGH, "A good try, " + performer.getProperty(Constants.NAME) + ", but I see through your disguise")
+					new Response(WHY_NOT_INTELLIGENT, "What are you? Why am I talking with " + article + " " + performerName + "?"),
+					new Response(SEE_THROUGH, "A good try, " + performerName + ", but I see through your disguise")
 				);
 		} else {
 			return new ArrayList<>();

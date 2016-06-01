@@ -26,6 +26,7 @@ import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
 import org.worldgrower.profession.Profession;
 import org.worldgrower.profession.Professions;
+import org.worldgrower.util.SentenceUtils;
 
 public class ProfessionPractitionersConversation implements Conversation {
 
@@ -81,10 +82,13 @@ public class ProfessionPractitionersConversation implements Conversation {
 		List<WorldObject> professionPractitioners = getProfessionPractitioners(conversationContext);
 		Profession profession = Professions.getAllSortedProfessions().get(conversationContext.getAdditionalValue());
 
+		String professionDescription = profession.getDescription();
+		String article = SentenceUtils.getArticle(professionDescription);
 		if (target.getProperty(Constants.PROFESSION) == profession) {
-			return "I'm a " + profession.getDescription();
+			
+			return "I'm " + article + " " + professionDescription;
 		} else if (professionPractitioners.size() == 1) {
-			return "I know that " + professionPractitioners.get(0).getProperty(Constants.NAME) + " is a " + profession.getDescription();
+			return "I know that " + professionPractitioners.get(0).getProperty(Constants.NAME) + " is " + article + " " + professionDescription;
 		} else if (professionPractitioners.size() > 0) {
 			StringBuilder followersDescription = new StringBuilder();
 			for(int i=0; i<professionPractitioners.size(); i++) {
@@ -94,9 +98,9 @@ public class ProfessionPractitionersConversation implements Conversation {
 					followersDescription.append(", ");
 				}
 			}
-			return "I know that " + followersDescription.toString() + " are " + profession.getDescription() + "s";
+			return "I know that " + followersDescription.toString() + " are " + professionDescription + "s";
 		} else {
-			return "I know no-one that is a " + profession.getDescription();
+			return "I know no-one that is " + article + " " + professionDescription;
 		}
 	}
 

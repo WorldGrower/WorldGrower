@@ -138,6 +138,7 @@ import org.worldgrower.conversation.leader.UTestCanAttackCriminalsConversation;
 import org.worldgrower.conversation.leader.UTestCanCollectTaxesConversation;
 import org.worldgrower.conversation.leader.UTestSetHouseTaxRateConversation;
 import org.worldgrower.conversation.leader.UTestSetShackTaxRateConversation;
+import org.worldgrower.creaturetype.UTestCreatureTypeUtils;
 import org.worldgrower.curse.UTestVampireCurse;
 import org.worldgrower.curse.UTestWerewolfCurse;
 import org.worldgrower.deity.UTestAphrodite;
@@ -683,7 +684,9 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestPayBountyGoal.class,
 	UTestThieveryPropertyUtils.class,
 	UTestAnimalFriendshipSpellAction.class,
-	UTestSecretChestAction.class
+	UTestSecretChestAction.class,
+	UTestAnimalFoodGoal.class,
+	UTestCreatureTypeUtils.class
 })
 public class CompleteTestSuite {
 }

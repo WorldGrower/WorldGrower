@@ -16,16 +16,13 @@ package org.worldgrower.actions.legal;
 
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
+import org.worldgrower.creaturetype.CreatureTypeUtils;
 
 public class AttackActionLegalHandler implements ActionLegalHandler {
 	
 	@Override
 	public boolean isApplicable(WorldObject performer, WorldObject target, int[] args) {
-		return target.hasIntelligence() && target.hasProperty(Constants.GROUP) && isHumanoid(target);
-	}
-
-	private boolean isHumanoid(WorldObject target) {
-		return target.hasProperty(Constants.CREATURE_TYPE) && target.getProperty(Constants.CREATURE_TYPE).canTalk();
+		return target.hasIntelligence() && target.hasProperty(Constants.GROUP) && CreatureTypeUtils.isHumanoid(target);
 	}
 
 	@Override

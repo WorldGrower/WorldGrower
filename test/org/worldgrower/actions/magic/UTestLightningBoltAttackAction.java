@@ -93,6 +93,17 @@ public class UTestLightningBoltAttackAction {
 		assertEquals(0, Actions.LIGHTNING_BOLT_ATTACK_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 	
+	@Test
+	public void testHasRequiredEnergy() {
+		WorldObject performer = createPerformer(2);
+		
+		performer.setProperty(Constants.ENERGY, 1000);
+		assertEquals(true, Actions.LIGHTNING_BOLT_ATTACK_ACTION.hasRequiredEnergy(performer));
+		
+		performer.setProperty(Constants.ENERGY, 0);
+		assertEquals(false, Actions.LIGHTNING_BOLT_ATTACK_ACTION.hasRequiredEnergy(performer));
+	}
+	
 	private WorldObject createPerformer(int id) {
 		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.CONDITIONS, new Conditions());
 		performer.setProperty(Constants.X, 0);
