@@ -22,6 +22,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class EatRemainsAction implements ManagedOperation {
 
@@ -74,5 +75,9 @@ public class EatRemainsAction implements ManagedOperation {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.EAT_REMAINS;
+	}
+	
+	public SoundIds getSoundId() {
+		return SoundIds.EAT;
 	}
 }

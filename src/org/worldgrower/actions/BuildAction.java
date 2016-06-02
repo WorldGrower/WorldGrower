@@ -14,10 +14,19 @@
  *******************************************************************************/
 package org.worldgrower.actions;
 
+import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
+import org.worldgrower.WorldObject;
 
 public interface BuildAction extends ManagedOperation {
 
 	public int getWidth();
 	public int getHeight();
+	
+	public default boolean isInAreaOfEffect(int x, int y, WorldObject w) {
+		int targetX = w.getProperty(Constants.X);
+		int targetY = w.getProperty(Constants.Y);
+		return x <= targetX && targetX < x + getWidth()
+			&& y <= targetY && targetY < y + getHeight();
+	}
 }

@@ -14,21 +14,14 @@
  *******************************************************************************/
 package org.worldgrower.gui.start;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.WorldObjectImpl;
-import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.generator.CommonerGenerator;
 import org.worldgrower.generator.CreatureGenerator;
 import org.worldgrower.generator.PlantGenerator;
 import org.worldgrower.generator.TerrainGenerator;
 import org.worldgrower.generator.WorldGenerator;
 import org.worldgrower.gui.AdditionalManagedOperationListenerFactory;
-import org.worldgrower.gui.ImageIds;
 import org.worldgrower.terrain.TerrainType;
 
 public class CustomGameParameters implements GameParameters {
@@ -85,18 +78,7 @@ public class CustomGameParameters implements GameParameters {
 		creatureGenerator.generateCow(8, 2, world);
 		creatureGenerator.generateCow(9, 2, world);
 		
-		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
-		properties.put(Constants.X, 3);
-		properties.put(Constants.Y, 5);
-		properties.put(Constants.WIDTH, 1);
-		properties.put(Constants.HEIGHT, 1);
-		properties.put(Constants.ID, world.generateUniqueId());
-		properties.put(Constants.WOOD_SOURCE, 4);
-		properties.put(Constants.IMAGE_ID, ImageIds.TRUNK);
-		properties.put(Constants.NAME, "tree trunk");
-		WorldObject treeStump = new WorldObjectImpl(properties);
-		world.addWorldObject(treeStump);
-		
+		PlantGenerator.generateTreeTrunk(3, 5, world);
 		PlantGenerator.generateTree(3, 8, world);
 
 		WorldGenerator worldGenerator = new WorldGenerator(seed);

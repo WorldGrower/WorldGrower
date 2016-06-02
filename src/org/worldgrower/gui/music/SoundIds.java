@@ -15,5 +15,12 @@
 package org.worldgrower.gui.music;
 
 public enum SoundIds {
-	CUT_WOOD
+	CUT_WOOD,
+	MINE, 
+	FLAMES,
+	FROST,
+	SHOCK,
+	TELEPORT,
+	WATER,
+	EAT
 }

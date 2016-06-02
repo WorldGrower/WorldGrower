@@ -62,4 +62,5 @@ clothing_shop.png: created by http://rmvxacetiles.blogspot.be/2013/03/more-tiles
 
 magic_001.png: created by Mr. Bubble at https://mrbubblewand.wordpress.com/download/
 
-workshop - wood clap.wav: http://opengameart.org/content/68-workshop-sounds
+workshop*.wav: http://opengameart.org/content/68-workshop-sounds
+flames8bit.wav: Sound package from Heroes of Hawks Haven By Tuomo Untinen at http://opengameart.org/content/rpg-sound-package

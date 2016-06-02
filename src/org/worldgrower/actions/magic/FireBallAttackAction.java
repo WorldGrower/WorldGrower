@@ -15,9 +15,9 @@
 package org.worldgrower.actions.magic;
 
 import java.io.ObjectStreamException;
+import java.util.List;
 
 import org.worldgrower.Constants;
-import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.AttackUtils;
@@ -26,46 +26,52 @@ import org.worldgrower.actions.CraftUtils;
 import org.worldgrower.actions.DeadlyAction;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.Conditions;
 import org.worldgrower.generator.Item;
-import org.worldgrower.goal.LocationPropertyUtils;
 import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
-public class DimensionDoorAction implements BuildAction, MagicSpell, DeadlyAction {
-	private static final int BASE_DAMAGE = 5 * Item.COMBAT_MULTIPLIER;
-	private static final int ENERGY_USE = 100;
-	private static final int DISTANCE = 20;
+public class FireBallAttackAction implements BuildAction, MagicSpell, DeadlyAction {
+	private static final int ENERGY_USE = 600;
+	private static final int BASE_DAMAGE = 8 * Item.COMBAT_MULTIPLIER;
+	private static final int DISTANCE = 5;
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		int x = (Integer)target.getProperty(Constants.X);
-		int y = (Integer)target.getProperty(Constants.Y);
-		
-		if (CraftUtils.isValidBuildTarget(this, performer, target, world)) {
-			LocationPropertyUtils.updateLocation(performer, x, y, world);
-		} else {
-			AttackUtils.teleportDamage(BASE_DAMAGE, this, performer, args, world);
+		List<WorldObject> targets = getAffectedTargets(target, world);
+		for(WorldObject spellTarget : targets) {
+			AttackUtils.magicAttack(BASE_DAMAGE, this, performer, spellTarget, args, world, SkillUtils.getSkillBonus(performer, getSkill()));
+			
+			if (spellTarget.hasProperty(Constants.FLAMMABLE) && spellTarget.getProperty(Constants.FLAMMABLE)) {
+				Conditions.add(spellTarget, Condition.BURNING_CONDITION, 100, world);
+			}
 		}
 		
 		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE, world.getWorldStateChangedListeners());
 	}
+
+	public List<WorldObject> getAffectedTargets(WorldObject target, World world) {
+		int x = (Integer)target.getProperty(Constants.X);
+		int y = (Integer)target.getProperty(Constants.Y);
+		List<WorldObject> targets = world.findWorldObjects(w -> isInAreaOfEffect(x, y, w));
+		return targets;
+	}
 	
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return  !target.hasProperty(Constants.ID) && MagicSpellUtils.canCast(performer, this);
+		return !target.hasProperty(Constants.ID) && MagicSpellUtils.canCast(performer, this);
 	}
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		int distanceBetweenPerformerAndTarget = Reach.distance(performer, target);
-		int distance =  distanceBetweenPerformerAndTarget < DISTANCE ? 0 : 1;
-		return distance + SkillUtils.distanceForEnergyUse(performer, getSkill(), ENERGY_USE);
+		return AttackUtils.distanceWithFreeLeftHand(performer, target, DISTANCE);
 	}
 	
 	@Override
 	public String getRequirementsDescription() {
-		return CraftUtils.getRequirementsDescription(Constants.ENERGY, ENERGY_USE, Constants.DISTANCE, DISTANCE);
+		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, DISTANCE, "free left hand");
 	}
 	
 	@Override
@@ -74,13 +80,23 @@ public class DimensionDoorAction implements BuildAction, MagicSpell, DeadlyActio
 	}
 	
 	@Override
+	public int getWidth() {
+		return 5;
+	}
+
+	@Override
+	public int getHeight() {
+		return 5;
+	}
+	
+	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "casting dimension door";
+		return "attacking " + target.getProperty(Constants.NAME);
 	}
 
 	@Override
 	public String getSimpleDescription() {
-		return "dimension door";
+		return "fireball";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {
@@ -88,18 +104,8 @@ public class DimensionDoorAction implements BuildAction, MagicSpell, DeadlyActio
 	}
 
 	@Override
-	public int getWidth() {
-		return 1;
-	}
-
-	@Override
-	public int getHeight() {
-		return 1;
-	}
-
-	@Override
 	public int getResearchCost() {
-		return 60;
+		return 50;
 	}
 
 	@Override
@@ -109,25 +115,25 @@ public class DimensionDoorAction implements BuildAction, MagicSpell, DeadlyActio
 
 	@Override
 	public int getRequiredSkillLevel() {
-		return 3;
-	}
-
-	@Override
-	public String getDescription() {
-		return "allows the caster teleport a short range";
-	}
-	
-	@Override
-	public ImageIds getImageIds() {
-		return ImageIds.DIMENSION_DOOR;
+		return 5;
 	}
 
 	@Override
 	public String getDeathDescription(WorldObject performer, WorldObject target) {
-		return "killed by a teleportation accident";
+		return "burned to death";
+	}
+
+	@Override
+	public String getDescription() {
+		return "shoots a fireball at the target dealing " + BASE_DAMAGE + " damage, setting it on fire if it is flammable";
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.FIRE_BALL;
 	}
 	
 	public SoundIds getSoundId() {
-		return SoundIds.TELEPORT;
+		return SoundIds.FLAMES;
 	}
 }

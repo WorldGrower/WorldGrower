@@ -115,6 +115,7 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 				|| (actionClass == Actions.INFLICT_WOUNDS_ACTION.getClass()
 				|| (actionClass == Actions.VAMPIRE_BITE_ACTION.getClass())
 				|| (actionClass == Actions.CREATE_BLOOD_ACTION.getClass()))
+				|| (actionClass == Actions.FIRE_BALL_ATTACK_ACTION.getClass())
 				);
 	}
 	
@@ -157,7 +158,7 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 	}
 
 	static void logToBackground(Goal obstructedGoal, WorldObject target, WorldObject actionTarget, ManagedOperation managedOperation, int[] args, WorldObject performerFacade, World world) {
-		if (world.exists(target) && world.exists(performerFacade)) {
+		if (world.exists(target) && world.exists(performerFacade) && actionTarget.hasProperty(Constants.ID)) {
 			if (target.hasProperty(Constants.BACKGROUND)) {
 				target.getProperty(Constants.BACKGROUND).addGoalObstructed(obstructedGoal, performerFacade, actionTarget, managedOperation, args, world);
 			}

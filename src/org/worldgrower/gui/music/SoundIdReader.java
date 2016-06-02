@@ -32,7 +32,14 @@ public class SoundIdReader {
 	private final Map<SoundIds, Clip> sounds = new HashMap<>();
 	
 	public SoundIdReader() {
-		readSound(SoundIds.CUT_WOOD, "/sound/workshop - wood clap - 8bit.wav.gz");
+		readSound(SoundIds.CUT_WOOD, "/sound/workshop - wood clap8bit.wav.gz");
+		readSound(SoundIds.MINE, "/sound/workshop - metal tapping8bit.wav.gz");
+		readSound(SoundIds.FLAMES, "/sound/flames8bit.wav.gz");
+		readSound(SoundIds.FROST, "/sound/frost8bit.wav.gz");
+		readSound(SoundIds.SHOCK, "/sound/shock8bit.wav.gz");
+		readSound(SoundIds.TELEPORT, "/sound/teleport8bit.wav.gz");
+		readSound(SoundIds.WATER, "/sound/waterspell8bit.wav.gz");
+		readSound(SoundIds.EAT, "/sound/eating8bit.wav.gz");
 	}
 
 	private void readSound(SoundIds soundIds, String path) {

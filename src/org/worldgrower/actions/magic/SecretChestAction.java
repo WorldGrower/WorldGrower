@@ -28,6 +28,7 @@ import org.worldgrower.generator.Item;
 import org.worldgrower.goal.LocationPropertyUtils;
 import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class SecretChestAction implements MagicSpell {
 
@@ -103,5 +104,9 @@ public class SecretChestAction implements MagicSpell {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.CHEST;
+	}
+	
+	public SoundIds getSoundId() {
+		return SoundIds.TELEPORT;
 	}
 }

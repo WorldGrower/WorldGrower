@@ -29,6 +29,7 @@ import org.worldgrower.condition.Conditions;
 import org.worldgrower.generator.Item;
 import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class FireBoltAttackAction implements MagicSpell, DeadlyAction {
 
@@ -108,5 +109,9 @@ public class FireBoltAttackAction implements MagicSpell, DeadlyAction {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.FIRE_BOLT;
+	}
+	
+	public SoundIds getSoundId() {
+		return SoundIds.FLAMES;
 	}
 }

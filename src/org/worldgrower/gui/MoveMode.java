@@ -15,6 +15,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.magic.FireBallAttackAction;
 import org.worldgrower.actions.magic.FireBoltAttackAction;
 import org.worldgrower.actions.magic.InflictWoundsAction;
 import org.worldgrower.actions.magic.LightningBoltAttackAction;
@@ -76,6 +77,13 @@ public class MoveMode {
 			}
 			if (lastPerformedOperationInfo.getManagedOperation() instanceof FireBoltAttackAction) {
 				magicTargets.add(new MagicTarget(lastPerformedOperationInfo.getTarget(), ImageIds.FIRE1, 20));
+			}
+			if (lastPerformedOperationInfo.getManagedOperation() instanceof FireBallAttackAction) {
+				FireBallAttackAction fireBallAttackAction = (FireBallAttackAction) lastPerformedOperationInfo.getManagedOperation();
+				List<WorldObject> affectedTargets = fireBallAttackAction.getAffectedTargets(lastPerformedOperationInfo.getTarget(), world);
+				for(WorldObject affectedTarget : affectedTargets) {
+					magicTargets.add(new MagicTarget(affectedTarget, ImageIds.FIRE1, 20));
+				}
 			}
 			if (lastPerformedOperationInfo.getManagedOperation() instanceof RayOfFrostAttackAction) {
 				magicTargets.add(new MagicTarget(lastPerformedOperationInfo.getTarget(), ImageIds.ICE1, 30));

@@ -22,13 +22,14 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class EatAction implements ManagedOperation {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		int foodInTarget = target.getProperty(Constants.FOOD_SOURCE);
-		performer.increment(Constants.FOOD, Math.min(100, foodInTarget));
+		performer.increment(Constants.FOOD, 100);
 		target.setProperty(Constants.FOOD_SOURCE, foodInTarget - 100);
 	}
 
@@ -49,7 +50,7 @@ public class EatAction implements ManagedOperation {
 
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return (target.hasProperty(Constants.FOOD_SOURCE)) && (target.getProperty(Constants.FOOD_SOURCE) > 100);
+		return (target.hasProperty(Constants.FOOD_SOURCE)) && (target.getProperty(Constants.FOOD_SOURCE) >= 100);
 	}
 
 	@Override
@@ -69,5 +70,9 @@ public class EatAction implements ManagedOperation {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.BERRY;
+	}
+	
+	public SoundIds getSoundId() {
+		return SoundIds.EAT;
 	}
 }

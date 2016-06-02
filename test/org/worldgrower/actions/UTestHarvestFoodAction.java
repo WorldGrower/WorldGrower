@@ -35,11 +35,11 @@ public class UTestHarvestFoodAction {
 		int id = PlantGenerator.generateBerryBush(0, 0, world);
 		WorldObject target = world.findWorldObject(Constants.ID, id);
 		
-		target.setProperty(Constants.FOOD_SOURCE, 100);
+		target.setProperty(Constants.FOOD_SOURCE, 500);
 		Actions.HARVEST_FOOD_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(1, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.FOOD));
-		assertEquals(80, target.getProperty(Constants.FOOD_SOURCE).intValue());
+		assertEquals(400, target.getProperty(Constants.FOOD_SOURCE).intValue());
 	}
 	
 	@Test

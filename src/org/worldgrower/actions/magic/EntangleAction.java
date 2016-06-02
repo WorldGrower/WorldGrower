@@ -48,13 +48,6 @@ public class EntangleAction implements BuildAction, MagicSpell {
 		
 		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE, world.getWorldStateChangedListeners());
 	}
-
-	private boolean isInAreaOfEffect(int x, int y, WorldObject w) {
-		int targetX = w.getProperty(Constants.X);
-		int targetY = w.getProperty(Constants.Y);
-		return x <= targetX && targetX < x + getWidth()
-			&& y <= targetY && targetY < y + getHeight();
-	}
 	
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {

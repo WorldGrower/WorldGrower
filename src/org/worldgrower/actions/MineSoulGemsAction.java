@@ -24,6 +24,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class MineSoulGemsAction implements ManagedOperation {
 
@@ -76,5 +77,9 @@ public class MineSoulGemsAction implements ManagedOperation {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.SOUL_GEM;
+	}
+	
+	public SoundIds getSoundId() {
+		return SoundIds.MINE;
 	}
 }

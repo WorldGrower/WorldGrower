@@ -61,6 +61,28 @@ public class PlantGenerator {
 		return id;
 	}
 	
+	public static int generateTreeTrunk(int x, int y, World world) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		int id = world.generateUniqueId();
+		
+		properties.put(Constants.X, x);
+		properties.put(Constants.Y, y);
+		properties.put(Constants.WIDTH, 1);
+		properties.put(Constants.HEIGHT, 1);
+		properties.put(Constants.ID, id);
+		properties.put(Constants.WOOD_SOURCE, 4);
+		properties.put(Constants.IMAGE_ID, ImageIds.TRUNK);
+		properties.put(Constants.HIT_POINTS, 15 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.HIT_POINTS_MAX, 15 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.ARMOR, 0);
+		properties.put(Constants.DAMAGE_RESIST, 0);
+		properties.put(Constants.NAME, "tree trunk");
+		WorldObject treeStump = new WorldObjectImpl(properties);
+		world.addWorldObject(treeStump);
+		
+		return id;
+	}
+	
 	public static int generateGrapeVine(int x, int y, World world) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();

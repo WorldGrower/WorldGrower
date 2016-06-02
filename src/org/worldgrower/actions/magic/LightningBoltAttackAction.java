@@ -29,6 +29,7 @@ import org.worldgrower.generator.Item;
 import org.worldgrower.goal.LocationUtils;
 import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 import org.worldgrower.terrain.TerrainType;
 
 public class LightningBoltAttackAction implements MagicSpell, DeadlyAction {
@@ -122,5 +123,9 @@ public class LightningBoltAttackAction implements MagicSpell, DeadlyAction {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.LIGHTNING_BOLT;
+	}
+	
+	public SoundIds getSoundId() {
+		return SoundIds.SHOCK;
 	}
 }

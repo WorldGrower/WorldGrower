@@ -38,6 +38,7 @@ import org.worldgrower.actions.magic.UTestEnlargeAction;
 import org.worldgrower.actions.magic.UTestEntangleAction;
 import org.worldgrower.actions.magic.UTestFearMagicSpellAction;
 import org.worldgrower.actions.magic.UTestFeatherAction;
+import org.worldgrower.actions.magic.UTestFireBallAttackAction;
 import org.worldgrower.actions.magic.UTestFireBoltAttackAction;
 import org.worldgrower.actions.magic.UTestFireTrapAction;
 import org.worldgrower.actions.magic.UTestInflictWoundsAction;
@@ -686,7 +687,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestAnimalFriendshipSpellAction.class,
 	UTestSecretChestAction.class,
 	UTestAnimalFoodGoal.class,
-	UTestCreatureTypeUtils.class
+	UTestCreatureTypeUtils.class,
+	UTestFireBallAttackAction.class
 })
 public class CompleteTestSuite {
 }

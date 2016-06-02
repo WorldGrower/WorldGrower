@@ -20,7 +20,6 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
@@ -43,8 +42,8 @@ import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.SwingUtils;
 import org.worldgrower.gui.music.SoundIdReader;
-import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.IconUtils;
+import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JLabelFactory;
 import org.worldgrower.gui.util.MenuFactory;
 
@@ -65,8 +64,8 @@ public class StartScreen {
 	 */
 	public static void main(String[] args) {
 		ExceptionHandler.registerExceptionHandler();
-		loadImagesInBackGround();
-		loadSoundsInBackGround();
+		loadImages();
+		loadSounds();
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -79,26 +78,20 @@ public class StartScreen {
 		});
 	}
 	
-	private static void loadImagesInBackGround() {
-		new Thread() {
-			@Override
-			public void run() {
-				try {
-					imageInfoReader = new ImageInfoReader();
-				} catch (IOException e) {
-					throw new IllegalStateException(e);
-				}
-			}
-		}.start();
+	private static void loadImages() {
+		try {
+			imageInfoReader = new ImageInfoReader();
+		} catch (Exception e) {
+			ExceptionHandler.handle(e);
+		}
 	}
 	
-	private static void loadSoundsInBackGround() {
-		new Thread() {
-			@Override
-			public void run() {
-				soundIdReader = new SoundIdReader();
-			}
-		}.start();
+	private static void loadSounds() {
+		try {
+			soundIdReader = new SoundIdReader();
+		} catch (Exception e) {
+			ExceptionHandler.handle(e);
+		}
 	}
 
 	public StartScreen(ImageInfoReader imageInfoReaderValue, SoundIdReader soundIdReaderValue) {

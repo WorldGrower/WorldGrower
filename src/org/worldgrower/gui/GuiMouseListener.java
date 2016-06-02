@@ -459,6 +459,7 @@ public class GuiMouseListener extends MouseAdapter {
 		addBuildAction(evocationMenu, Actions.FIRE_TRAP_ACTION, startBuildMode());
 		addBuildAction(evocationMenu, Actions.ENTANGLE_ACTION, startBuildMode());
 		addBuildAction(evocationMenu, Actions.DIMENSION_DOOR_ACTION, startBuildMode());
+		addBuildAction(evocationMenu, Actions.FIRE_BALL_ATTACK_ACTION, startBuildMode());
 	}
 	
 	private void addNecromancyActions(JPopupMenu menu) {
