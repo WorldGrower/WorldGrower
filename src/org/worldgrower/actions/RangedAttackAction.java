@@ -22,6 +22,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class RangedAttackAction implements DeadlyAction {
 
@@ -91,5 +92,9 @@ public class RangedAttackAction implements DeadlyAction {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.LONGBOW;
+	}
+	
+	public SoundIds getSoundId() {
+		return SoundIds.BOW;
 	}
 }

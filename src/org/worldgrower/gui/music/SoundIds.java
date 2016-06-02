@@ -22,5 +22,7 @@ public enum SoundIds {
 	SHOCK,
 	TELEPORT,
 	WATER,
-	EAT
+	EAT,
+	SWING,
+	BOW
 }

@@ -40,6 +40,9 @@ public class SoundIdReader {
 		readSound(SoundIds.TELEPORT, "/sound/teleport8bit.wav.gz");
 		readSound(SoundIds.WATER, "/sound/waterspell8bit.wav.gz");
 		readSound(SoundIds.EAT, "/sound/eating8bit.wav.gz");
+		readSound(SoundIds.SWING, "/sound/swing8bit.wav.gz");
+		readSound(SoundIds.BOW, "/sound/bow8bit.wav.gz");
+		
 	}
 
 	private void readSound(SoundIds soundIds, String path) {

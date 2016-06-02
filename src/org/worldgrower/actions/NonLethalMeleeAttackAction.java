@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class NonLethalMeleeAttackAction implements ManagedOperation {
 
@@ -68,5 +69,9 @@ public class NonLethalMeleeAttackAction implements ManagedOperation {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.IRON_CLAYMORE;
+	}
+	
+	public SoundIds getSoundId() {
+		return SoundIds.SWING;
 	}
 }
