@@ -23,6 +23,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class BuildWellAction implements BuildAction {
 
@@ -86,5 +87,9 @@ public class BuildWellAction implements BuildAction {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.WELL;
+	}
+	
+	public SoundIds getSoundId() {
+		return SoundIds.BUILD_WOODEN_BUILDING;
 	}
 }

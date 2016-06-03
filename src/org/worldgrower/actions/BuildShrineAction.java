@@ -22,6 +22,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class BuildShrineAction implements BuildAction {
 
@@ -87,5 +88,9 @@ public class BuildShrineAction implements BuildAction {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.STATUE_OF_DEITY;
+	}
+	
+	public SoundIds getSoundId() {
+		return SoundIds.BUILD_STONE_BUILDING;
 	}
 }

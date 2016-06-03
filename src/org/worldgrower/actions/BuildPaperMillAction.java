@@ -23,6 +23,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class BuildPaperMillAction implements BuildAction {
 
@@ -87,5 +88,9 @@ public class BuildPaperMillAction implements BuildAction {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.PAPER_MILL;
+	}
+	
+	public SoundIds getSoundId() {
+		return SoundIds.BUILD_WOODEN_BUILDING;
 	}
 }

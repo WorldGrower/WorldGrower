@@ -23,6 +23,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class BuildWorkbenchAction implements BuildAction {
 
@@ -91,5 +92,9 @@ public class BuildWorkbenchAction implements BuildAction {
 	
 	public static boolean hasEnoughStone(WorldObject performer) {
 		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.STONE) >= REQUIRED_STONE;
+	}
+	
+	public SoundIds getSoundId() {
+		return SoundIds.BUILD_STONE_BUILDING;
 	}
 }

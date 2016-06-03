@@ -23,6 +23,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class BuildLibraryAction implements BuildAction {
 
@@ -94,5 +95,9 @@ public class BuildLibraryAction implements BuildAction {
 
 	public static boolean hasEnoughWood(WorldObject performer) {
 		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) >= REQUIRED_WOOD;
+	}
+	
+	public SoundIds getSoundId() {
+		return SoundIds.BUILD_WOODEN_BUILDING;
 	}
 }

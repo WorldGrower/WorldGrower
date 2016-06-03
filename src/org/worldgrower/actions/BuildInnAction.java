@@ -25,6 +25,7 @@ import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class BuildInnAction implements BuildAction {
 
@@ -94,5 +95,9 @@ public class BuildInnAction implements BuildAction {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.INN;
+	}
+	
+	public SoundIds getSoundId() {
+		return SoundIds.BUILD_STONE_BUILDING;
 	}
 }

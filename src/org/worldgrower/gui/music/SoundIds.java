@@ -24,5 +24,7 @@ public enum SoundIds {
 	WATER,
 	EAT,
 	SWING,
-	BOW
+	BOW,
+	BUILD_WOODEN_BUILDING,
+	BUILD_STONE_BUILDING
 }

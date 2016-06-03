@@ -23,6 +23,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class ConstructTrainingDummyAction implements BuildAction {
 
@@ -90,5 +91,9 @@ public class ConstructTrainingDummyAction implements BuildAction {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.TRAINING_DUMMY;
+	}
+	
+	public SoundIds getSoundId() {
+		return SoundIds.BUILD_WOODEN_BUILDING;
 	}
 }

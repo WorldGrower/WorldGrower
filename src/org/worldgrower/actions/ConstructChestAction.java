@@ -24,6 +24,7 @@ import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class ConstructChestAction implements BuildAction {
 
@@ -92,5 +93,9 @@ private static final int REQUIRED_WOOD = 3;
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.CHEST;
+	}
+	
+	public SoundIds getSoundId() {
+		return SoundIds.BUILD_WOODEN_BUILDING;
 	}
 }

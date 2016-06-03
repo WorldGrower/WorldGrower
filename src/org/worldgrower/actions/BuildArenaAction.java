@@ -24,6 +24,7 @@ import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class BuildArenaAction implements BuildAction {
 
@@ -92,5 +93,9 @@ public class BuildArenaAction implements BuildAction {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.ARENA_HORIZONTAL;
+	}
+	
+	public SoundIds getSoundId() {
+		return SoundIds.BUILD_STONE_BUILDING;
 	}
 }

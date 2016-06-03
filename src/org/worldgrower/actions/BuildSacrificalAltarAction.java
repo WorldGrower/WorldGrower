@@ -24,6 +24,7 @@ import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.deity.Deity;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class BuildSacrificalAltarAction implements BuildAction {
 
@@ -94,5 +95,9 @@ public class BuildSacrificalAltarAction implements BuildAction {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.SACRIFIAL_ALTAR;
+	}
+	
+	public SoundIds getSoundId() {
+		return SoundIds.BUILD_STONE_BUILDING;
 	}
 }
