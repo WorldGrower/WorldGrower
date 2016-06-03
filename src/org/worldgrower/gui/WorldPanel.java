@@ -14,10 +14,12 @@
  *******************************************************************************/
 package org.worldgrower.gui;
 
+import java.awt.AlphaComposite;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.MouseInfo;
 import java.awt.Point;
@@ -27,6 +29,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.event.MouseMotionListener;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +69,7 @@ import org.worldgrower.gui.status.StatusMessageDialog;
 import org.worldgrower.gui.util.JTextAreaFactory;
 import org.worldgrower.history.HistoryItem;
 
-public class WorldPanel extends JPanel {
+public final class WorldPanel extends JPanel {
 
 	private static final String ENERGY_TOOL_TIP = "energy";
 	private static final String WATER_TOOL_TIP = "water";
@@ -353,14 +356,43 @@ public class WorldPanel extends JPanel {
 	
 	public void drawWorldObjectInPixels(Graphics g, WorldObject worldObject, LookDirection lookDirection, Image image, int xInSquares, int yInSquares, int xDeltaInPixels, int yDeltaInPixels) {
 		image = changeSize(worldObject, image);
-		g.drawImage(image, (xInSquares+offsetX) * 48 + xDeltaInPixels, (yInSquares+offsetY) * 48 + yDeltaInPixels, null);
+		int worldObjectX = (xInSquares+offsetX) * 48 + xDeltaInPixels;
+		int worldObjectY = (yInSquares+offsetY) * 48 + yDeltaInPixels;
+		g.drawImage(image, worldObjectX, worldObjectY, null);
 		
-		ImageIds overlayingImageId = getOverlayingImageId(worldObject);
-		if (overlayingImageId != null) {
-			Image overlayingImage = imageInfoReader.getImage(overlayingImageId, lookDirection);
-			g.drawImage(overlayingImage, (xInSquares+offsetX) * 48 + xDeltaInPixels, (yInSquares+offsetY) * 48 + yDeltaInPixels, null);
+		int worldObjectWidth = worldObject.getProperty(Constants.WIDTH) * 48;
+		int worldObjectHeight = worldObject.getProperty(Constants.HEIGHT) * 48;
+		
+		List<Image> overlayingImages = getOverlayingImages(worldObject);
+		int imageIndex = 0;
+		for(Image overlayingImage : overlayingImages) {
+			int overlayingImageWidth = 12;
+			int overlayingImageHeight = 12;
+			overlayingImage = createResizedCopy(overlayingImage, overlayingImageWidth, overlayingImageHeight, false);
+			g.setColor(Color.BLACK);
+			int overlayingImageX = worldObjectX + worldObjectWidth - overlayingImageWidth - overlayingImageWidth * imageIndex - 1;
+			int overlayingImageY = worldObjectY + worldObjectHeight - overlayingImageHeight * (imageIndex / 4) - 1;
+			g.drawRect(overlayingImageX, overlayingImageY, overlayingImageWidth, overlayingImageHeight);
+			g.drawImage(overlayingImage, overlayingImageX, overlayingImageY, null);
+			
+			imageIndex++;
 		}
 	}
+	
+	BufferedImage createResizedCopy(Image originalImage, 
+    		int scaledWidth, int scaledHeight, 
+    		boolean preserveAlpha)
+    {
+    	int imageType = preserveAlpha ? BufferedImage.TYPE_INT_RGB : BufferedImage.TYPE_INT_ARGB;
+    	BufferedImage scaledBI = new BufferedImage(scaledWidth, scaledHeight, imageType);
+    	Graphics2D g = scaledBI.createGraphics();
+    	if (preserveAlpha) {
+    		g.setComposite(AlphaComposite.Src);
+    	}
+    	g.drawImage(originalImage, 0, 0, scaledWidth, scaledHeight, null); 
+    	g.dispose();
+    	return scaledBI;
+    }
 	
 	public void drawBackgroundImage(Graphics g, Image image, int x, int y) {
 		g.drawImage(image, (x+offsetX) * 48, (y+offsetY) * 48, null);
@@ -416,28 +448,15 @@ public class WorldPanel extends JPanel {
 		}
 	}
     
-    private ImageIds getOverlayingImageId(WorldObject worldObject) {
-    	Condition[] conditionsToRender = new Condition[] {
-    			Condition.BURNING_CONDITION,
-    			Condition.INVISIBLE_CONDITION,
-    			Condition.POISONED_CONDITION,
-    			Condition.SLEEP_CONDITION,
-    			Condition.PARALYZED_CONDITION,
-    			Condition.WATER_WALK_CONDITION,
-    			Condition.UNCONSCIOUS_CONDITION,
-    			Condition.SOUL_TRAPPED_CONDITION,
-    			Condition.SILENCED_CONDITION,
-    			Condition.INTOXICATED_CONDITION,
-    			Condition.FEAR_CONDITION,
-    			Condition.ENTANGLED_CONDITION
-    	};
-    	for(Condition conditionToRender : conditionsToRender) {
-    		if (hasCondition(worldObject, conditionToRender)) {
-        		return conditionToRender.getImageIds();
-    		}
+    private List<Image> getOverlayingImages(WorldObject worldObject) {
+    	List<Image> overlayingImages = new ArrayList<>();
+    	if (worldObject.hasProperty(Constants.CONDITIONS)) {
+	    	List<ImageIds> imageIds = worldObject.getProperty(Constants.CONDITIONS).getImageIds(); 
+	    	for(ImageIds imageId : imageIds) {
+	    		overlayingImages.add(imageInfoReader.getImage(imageId, null));
+	    	}
     	}
-    	
-    	return null;
+    	return overlayingImages;
     }
 
 	private boolean hasCondition(WorldObject worldObject, Condition condition) {

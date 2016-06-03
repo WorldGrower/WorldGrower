@@ -50,8 +50,10 @@ public class UTestDispelMagicAction {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
-		performer.setProperty(Constants.KNOWN_SPELLS, Arrays.asList(Actions.DISPEL_MAGIC_ACTION));
 		
+		assertEquals(false, Actions.DISPEL_MAGIC_ACTION.isValidTarget(performer, target, world));
+		
+		performer.setProperty(Constants.KNOWN_SPELLS, Arrays.asList(Actions.DISPEL_MAGIC_ACTION));
 		assertEquals(true, Actions.DISPEL_MAGIC_ACTION.isValidTarget(performer, target, world));
 	}
 	
@@ -62,6 +64,17 @@ public class UTestDispelMagicAction {
 		WorldObject target = createPerformer(3);
 		
 		assertEquals(0, Actions.DISPEL_MAGIC_ACTION.distance(performer, target, Args.EMPTY, world));
+	}
+	
+	@Test
+	public void testHasRequiredEnergy() {
+		WorldObject performer = createPerformer(2);
+		
+		performer.setProperty(Constants.ENERGY, 1000);
+		assertEquals(true, Actions.DISPEL_MAGIC_ACTION.hasRequiredEnergy(performer));
+		
+		performer.setProperty(Constants.ENERGY, 0);
+		assertEquals(false, Actions.DISPEL_MAGIC_ACTION.hasRequiredEnergy(performer));
 	}
 	
 	private WorldObject createPerformer(int id) {

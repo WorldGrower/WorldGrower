@@ -47,7 +47,7 @@ import javax.swing.border.EmptyBorder;
 import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.IconUtils;
 
-public class ExceptionDialog extends JDialog {
+public final class ExceptionDialog extends JDialog {
 
 	private int dialogWidth = 500;
 	private int dialogHeight = 140;
@@ -238,7 +238,7 @@ public class ExceptionDialog extends JDialog {
 	    try {
 	        return URLEncoder.encode(str, "UTF-8").replace("+", "%20");
 	    } catch (UnsupportedEncodingException e) {
-	        throw new RuntimeException(e);
+	        throw new IllegalStateException(e);
 	    }
 	}	
 }

@@ -24,7 +24,7 @@ import org.worldgrower.Constants;
 
 public class AttributeGenerator {
 
-	private static List<IntProperty> ATTRIBUTES = Arrays.asList(
+	private static final List<IntProperty> ATTRIBUTES = Arrays.asList(
 			Constants.STRENGTH, 
 			Constants.DEXTERITY, 
 			Constants.CONSTITUTION, 

@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.MockTerrain;
 import org.worldgrower.MockWorld;
@@ -127,14 +128,27 @@ public class UTestMoveAction {
 	}
 	
 	@Test
-	public void testDistanceEnlarged() {
+	public void testDistanceEnlargedMoveDownRight() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		performer.setProperty(Constants.CONDITIONS, new Conditions());
+		world.addWorldObject(performer);
 
-		Conditions.add(performer, Condition.ENLARGED_CONDITION, 8, world);
+		Actions.ENLARGE_ACTION.execute(performer, performer, Args.EMPTY, world);
 		
 		assertEquals(0, Actions.MOVE_ACTION.distance(performer, performer, new int[] {1, 1}, world));
+	}
+	
+	@Test
+	public void testDistanceEnlargedMoveRight() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		performer.setProperty(Constants.CONDITIONS, new Conditions());
+		world.addWorldObject(performer);
+
+		Actions.ENLARGE_ACTION.execute(performer, performer, Args.EMPTY, world);
+		
+		assertEquals(0, Actions.MOVE_ACTION.distance(performer, performer, new int[] {1, 0}, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

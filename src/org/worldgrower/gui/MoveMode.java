@@ -23,6 +23,7 @@ import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.actions.magic.MinorHealAction;
 import org.worldgrower.actions.magic.RayOfFrostAttackAction;
 import org.worldgrower.attribute.LookDirection;
+import org.worldgrower.history.HistoryItem;
 
 public class MoveMode {
 
@@ -71,31 +72,34 @@ public class MoveMode {
 		magicCasters.clear();
 		magicTargets.clear();
 		for(WorldObject intelligentWorldObject : intelligentWorldObjects) {
-			OperationInfo lastPerformedOperationInfo = world.getHistory().getLastPerformedOperation(intelligentWorldObject).getOperationInfo();
-			if (lastPerformedOperationInfo.getManagedOperation() instanceof MagicSpell) {
-				magicCasters.add(intelligentWorldObject);
-			}
-			if (lastPerformedOperationInfo.getManagedOperation() instanceof FireBoltAttackAction) {
-				magicTargets.add(new MagicTarget(lastPerformedOperationInfo.getTarget(), ImageIds.FIRE1, 20));
-			}
-			if (lastPerformedOperationInfo.getManagedOperation() instanceof FireBallAttackAction) {
-				FireBallAttackAction fireBallAttackAction = (FireBallAttackAction) lastPerformedOperationInfo.getManagedOperation();
-				List<WorldObject> affectedTargets = fireBallAttackAction.getAffectedTargets(lastPerformedOperationInfo.getTarget(), world);
-				for(WorldObject affectedTarget : affectedTargets) {
-					magicTargets.add(new MagicTarget(affectedTarget, ImageIds.FIRE1, 20));
+			HistoryItem lastPerformedOperation = world.getHistory().getLastPerformedOperation(intelligentWorldObject);
+			if (lastPerformedOperation != null) {
+				OperationInfo lastPerformedOperationInfo = lastPerformedOperation.getOperationInfo();
+				if (lastPerformedOperationInfo.getManagedOperation() instanceof MagicSpell) {
+					magicCasters.add(intelligentWorldObject);
 				}
-			}
-			if (lastPerformedOperationInfo.getManagedOperation() instanceof RayOfFrostAttackAction) {
-				magicTargets.add(new MagicTarget(lastPerformedOperationInfo.getTarget(), ImageIds.ICE1, 30));
-			}
-			if (lastPerformedOperationInfo.getManagedOperation() instanceof LightningBoltAttackAction) {
-				magicTargets.add(new MagicTarget(lastPerformedOperationInfo.getTarget(), ImageIds.THUNDER1, 30));
-			}
-			if (lastPerformedOperationInfo.getManagedOperation() instanceof InflictWoundsAction) {
-				magicTargets.add(new MagicTarget(lastPerformedOperationInfo.getTarget(), ImageIds.DARKNESS1, 30));
-			}
-			if (lastPerformedOperationInfo.getManagedOperation() instanceof MinorHealAction) {
-				magicTargets.add(new MagicTarget(lastPerformedOperationInfo.getTarget(), ImageIds.HEAL1, 25));
+				if (lastPerformedOperationInfo.getManagedOperation() instanceof FireBoltAttackAction) {
+					magicTargets.add(new MagicTarget(lastPerformedOperationInfo.getTarget(), ImageIds.FIRE1, 20));
+				}
+				if (lastPerformedOperationInfo.getManagedOperation() instanceof FireBallAttackAction) {
+					FireBallAttackAction fireBallAttackAction = (FireBallAttackAction) lastPerformedOperationInfo.getManagedOperation();
+					List<WorldObject> affectedTargets = fireBallAttackAction.getAffectedTargets(lastPerformedOperationInfo.getTarget(), world);
+					for(WorldObject affectedTarget : affectedTargets) {
+						magicTargets.add(new MagicTarget(affectedTarget, ImageIds.FIRE1, 20));
+					}
+				}
+				if (lastPerformedOperationInfo.getManagedOperation() instanceof RayOfFrostAttackAction) {
+					magicTargets.add(new MagicTarget(lastPerformedOperationInfo.getTarget(), ImageIds.ICE1, 30));
+				}
+				if (lastPerformedOperationInfo.getManagedOperation() instanceof LightningBoltAttackAction) {
+					magicTargets.add(new MagicTarget(lastPerformedOperationInfo.getTarget(), ImageIds.THUNDER1, 30));
+				}
+				if (lastPerformedOperationInfo.getManagedOperation() instanceof InflictWoundsAction) {
+					magicTargets.add(new MagicTarget(lastPerformedOperationInfo.getTarget(), ImageIds.DARKNESS1, 30));
+				}
+				if (lastPerformedOperationInfo.getManagedOperation() instanceof MinorHealAction) {
+					magicTargets.add(new MagicTarget(lastPerformedOperationInfo.getTarget(), ImageIds.HEAL1, 25));
+				}
 			}
 		}
 	}

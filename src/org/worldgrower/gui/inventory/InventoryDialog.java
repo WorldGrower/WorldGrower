@@ -71,7 +71,7 @@ import org.worldgrower.gui.util.JPanelFactory;
 import org.worldgrower.gui.util.JTableFactory;
 import org.worldgrower.gui.util.MenuFactory;
 
-public class InventoryDialog extends AbstractDialog {
+public final class InventoryDialog extends AbstractDialog {
 
 	private static final String MONEY_PLAYER_CHARACTER_TOOL_TIP = "shows amount of gold that the player character has";
 	private static final String WEIGHT_PLAYER_CHARACTER_TOOL_TIP = "shows current weight of things that the player character is carrying and maximum weight";

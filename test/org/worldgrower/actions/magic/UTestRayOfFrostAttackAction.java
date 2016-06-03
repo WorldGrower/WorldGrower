@@ -55,8 +55,9 @@ public class UTestRayOfFrostAttackAction {
 		
 		target.setProperty(Constants.HIT_POINTS, 10);
 		target.setProperty(Constants.ARMOR, 10);
-		performer.setProperty(Constants.KNOWN_SPELLS, Arrays.asList(Actions.RAY_OF_FROST_ATTACK_ACTION));
+		assertEquals(false, Actions.RAY_OF_FROST_ATTACK_ACTION.isValidTarget(performer, target, world));
 		
+		performer.setProperty(Constants.KNOWN_SPELLS, Arrays.asList(Actions.RAY_OF_FROST_ATTACK_ACTION));
 		assertEquals(true, Actions.RAY_OF_FROST_ATTACK_ACTION.isValidTarget(performer, target, world));
 	}
 	

@@ -29,7 +29,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.conversation.KnowledgeSorter;
 
-public class KnowledgeMap implements IdContainer, Serializable {
+public final class KnowledgeMap implements IdContainer, Serializable {
 
 	private final Map<Integer, List<Knowledge>> idsToKnowledge = new HashMap<>();
 	

@@ -28,6 +28,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.generator.Item;
+import org.worldgrower.generator.TerrainGenerator;
 
 public class UTestInflictWoundsAction {
 
@@ -50,7 +51,11 @@ public class UTestInflictWoundsAction {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
+		
+		assertEquals(false, Actions.INFLICT_WOUNDS_ACTION.isValidTarget(performer, target, world));
+		
 		performer.setProperty(Constants.KNOWN_SPELLS, Arrays.asList(Actions.INFLICT_WOUNDS_ACTION));
+		assertEquals(true, Actions.INFLICT_WOUNDS_ACTION.isValidTarget(performer, target, world));
 		
 		target.setProperty(Constants.ARMOR, 10);
 		target.setProperty(Constants.HIT_POINTS, 10);
@@ -59,6 +64,19 @@ public class UTestInflictWoundsAction {
 		
 		target.setProperty(Constants.HIT_POINTS, 0);
 		target.setProperty(Constants.HIT_POINTS_MAX, 0);
+		assertEquals(false, Actions.INFLICT_WOUNDS_ACTION.isValidTarget(performer, target, world));
+	}
+	
+	@Test
+	public void testIsValidTargetStone() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		int id = TerrainGenerator.generateStoneResource(0, 0, world);
+		WorldObject target = world.findWorldObject(Constants.ID, id);
+		
+		assertEquals(false, Actions.INFLICT_WOUNDS_ACTION.isValidTarget(performer, target, world));
+		
+		performer.setProperty(Constants.KNOWN_SPELLS, Arrays.asList(Actions.INFLICT_WOUNDS_ACTION));
 		assertEquals(false, Actions.INFLICT_WOUNDS_ACTION.isValidTarget(performer, target, world));
 	}
 	

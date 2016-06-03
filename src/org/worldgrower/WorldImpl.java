@@ -239,7 +239,7 @@ public class WorldImpl implements World, Serializable {
 	    	objectOutputStream.writeObject ( this );
 	    	
 		} catch(IOException ex) {
-			throw new RuntimeException("Problem saving file " + fileToSave, ex);
+			throw new IllegalStateException("Problem saving file " + fileToSave, ex);
 		}
 	}
 	
@@ -248,7 +248,7 @@ public class WorldImpl implements World, Serializable {
 			String versionFromFile = (String) objectInputStream.readObject();
 			
 			if (!versionFromFile.equals( Version.getVersion() )) {
-				throw new RuntimeException("Version in file " + fileToLoad + " doesn't match: " + versionFromFile + " isn't equal to " + Version.getVersion());
+				throw new IllegalStateException("Version in file " + fileToLoad + " doesn't match: " + versionFromFile + " isn't equal to " + Version.getVersion());
 			}
 			
 			WorldImpl world = (WorldImpl) objectInputStream.readObject();
@@ -257,7 +257,7 @@ public class WorldImpl implements World, Serializable {
 			return world;
 			
 		} catch(IOException | ClassNotFoundException ex) {
-			throw new RuntimeException("Problem loading file " + fileToLoad, ex);
+			throw new IllegalStateException("Problem loading file " + fileToLoad, ex);
 		}
 	}
 	

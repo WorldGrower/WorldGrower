@@ -15,6 +15,8 @@
 package org.worldgrower.actions;
 
 import java.io.ObjectStreamException;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import org.worldgrower.Constants;
@@ -105,6 +107,7 @@ public class MoveAction implements ManagedOperation {
 		if (performerHeight > 1  && performerX != newX) {
 			obstacles.addAll(LocationPropertyUtils.getWorldObjects(newX, newY+1, world));
 		}
+		obstacles = new ArrayList<>(new HashSet<>(obstacles)); // remove doubles
 		return obstacles;
 	}
 	

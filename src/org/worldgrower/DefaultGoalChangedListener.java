@@ -90,7 +90,7 @@ public class DefaultGoalChangedListener implements GoalChangedListener {
 		return goalChangedMap.containsKey(goal);
 	}
 	
-	private static DefaultGoalChangedListener INSTANCE = new DefaultGoalChangedListener();
+	private static final DefaultGoalChangedListener INSTANCE = new DefaultGoalChangedListener();
 	
 	public static boolean wantsToKeepGoalHidden(WorldObject performer, Goal goal) {
 		return INSTANCE.wantsGoalHidden(performer, goal);

@@ -200,7 +200,7 @@ public class Game {
                 try {
 					createAndShowGUI(playerCharacter, world, dungeonMaster, playBackgroundMusic, imageInfoReader, soundIdReader, initialStatusMessage, additionalManagedOperationListenerFactory, keyBindings);
 				} catch (IOException e) {
-					throw new RuntimeException(e);
+					throw new IllegalStateException(e);
 				}
             }
         });

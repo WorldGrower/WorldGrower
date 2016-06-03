@@ -47,8 +47,10 @@ public class UTestDarkVisionSpellAction {
 	public void testIsValidTarget() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
-		performer.setProperty(Constants.KNOWN_SPELLS, Arrays.asList(Actions.DARK_VISION_SPELL_ACTION));
 		
+		assertEquals(false, action.isValidTarget(performer, performer, world));
+		
+		performer.setProperty(Constants.KNOWN_SPELLS, Arrays.asList(Actions.DARK_VISION_SPELL_ACTION));
 		assertEquals(true, action.isValidTarget(performer, performer, world));
 	}
 	

@@ -34,7 +34,7 @@ import org.worldgrower.gui.SwingUtils;
 import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JTableFactory;
 
-public class PricesDialog extends AbstractDialog {
+public final class PricesDialog extends AbstractDialog {
 	private final Prices pricesOnPlayer;
 	
 	public PricesDialog(Prices pricesOnPlayer) {

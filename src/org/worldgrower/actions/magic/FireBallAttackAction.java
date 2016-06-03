@@ -66,7 +66,8 @@ public class FireBallAttackAction implements BuildAction, MagicSpell, DeadlyActi
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return AttackUtils.distanceWithFreeLeftHand(performer, target, DISTANCE);
+		return AttackUtils.distanceWithFreeLeftHand(performer, target, DISTANCE)
+				+ SkillUtils.distanceForEnergyUse(performer, getSkill(), ENERGY_USE);
 	}
 	
 	@Override
