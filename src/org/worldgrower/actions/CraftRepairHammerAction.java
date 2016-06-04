@@ -24,6 +24,7 @@ import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class CraftRepairHammerAction implements CraftAction {
 	private static final int DISTANCE = 1;
@@ -87,5 +88,10 @@ public class CraftRepairHammerAction implements CraftAction {
 
 	public int getOreRequired() {
 		return ORE_REQUIRED;
+	}
+	
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.SMITH;
 	}
 }

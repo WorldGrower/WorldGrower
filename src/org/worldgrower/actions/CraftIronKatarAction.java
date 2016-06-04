@@ -24,6 +24,7 @@ import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class CraftIronKatarAction implements CraftAction {
 	private static final int DISTANCE = 1;
@@ -79,5 +80,10 @@ public class CraftIronKatarAction implements CraftAction {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.IRON_KATAR;
+	}
+	
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.SMITH;
 	}
 }

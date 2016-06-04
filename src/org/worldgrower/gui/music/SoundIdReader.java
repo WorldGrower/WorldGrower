@@ -44,6 +44,8 @@ public class SoundIdReader {
 		readSound(SoundIds.BOW, "/sound/bow8bit.wav.gz");
 		readSound(SoundIds.BUILD_WOODEN_BUILDING, "/sound/workshop - wood hammering8bit.wav.gz");
 		readSound(SoundIds.BUILD_STONE_BUILDING, "/sound/workshop - wood on concrete8bit.wav.gz");
+		readSound(SoundIds.SMITH, "/sound/smith18bit.wav.gz");
+		readSound(SoundIds.PAPER, "/sound/scroll8bit.wav.gz");
 		
 	}
 

@@ -22,6 +22,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class CreatePaperAction implements CraftAction {
 
@@ -76,5 +77,10 @@ public class CreatePaperAction implements CraftAction {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.PAPER;
+	}
+	
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.PAPER;
 	}
 }

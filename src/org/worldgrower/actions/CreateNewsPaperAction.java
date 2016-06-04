@@ -25,6 +25,7 @@ import org.worldgrower.attribute.Knowledge;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class CreateNewsPaperAction implements ManagedOperation {
 
@@ -84,5 +85,10 @@ public class CreateNewsPaperAction implements ManagedOperation {
 	
 	public static boolean hasEnoughPaper(WorldObject performer) {
 		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.PAPER) >= PAPER_REQUIRED;
+	}
+	
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.PAPER;
 	}
 }

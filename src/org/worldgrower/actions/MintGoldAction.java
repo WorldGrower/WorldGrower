@@ -22,6 +22,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class MintGoldAction implements CraftAction {
 
@@ -75,5 +76,10 @@ public class MintGoldAction implements CraftAction {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.GOLD;
+	}
+	
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.SMITH;
 	}
 }
