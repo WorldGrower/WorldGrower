@@ -22,6 +22,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.goal.WaterPropertyUtils;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class DrinkFromInventoryAction extends InventoryAction {
 
@@ -71,5 +72,10 @@ public class DrinkFromInventoryAction extends InventoryAction {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.WATER;
+	}
+	
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.DRINK;
 	}
 }

@@ -27,6 +27,7 @@ import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.generator.Item;
 import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class InflictWoundsAction implements MagicSpell, DeadlyAction {
 
@@ -100,5 +101,10 @@ public class InflictWoundsAction implements MagicSpell, DeadlyAction {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.INFLICT_WOUNDS_MAGIC_SPELL;
+	}
+	
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.CURSE;
 	}
 }

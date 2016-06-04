@@ -63,4 +63,19 @@ clothing_shop.png: created by http://rmvxacetiles.blogspot.be/2013/03/more-tiles
 magic_001.png: created by Mr. Bubble at https://mrbubblewand.wordpress.com/download/
 
 workshop*.wav: http://opengameart.org/content/68-workshop-sounds
-flames8bit.wav: Sound package from Heroes of Hawks Haven By Tuomo Untinen at http://opengameart.org/content/rpg-sound-package
+
+Sound package from Heroes of Hawks Haven By Tuomo Untinen at http://opengameart.org/content/rpg-sound-package:
+bow8bit.wav.gz
+eating8bit.wav.gz
+flames8bit.wav.gz
+frost8bit.wav.gz
+scroll8bit.wav.gz
+shock8bit.wav.gz
+smith18bit.wav.gz
+swing8bit.wav.gz
+teleport8bit.wav.gz
+waterspell8bit.wav.gz
+darkness8bit.wav.gz
+cursespell8bit.wav.gz
+alchemist18bit.wav.gz
+fountain8bit.wav.gz

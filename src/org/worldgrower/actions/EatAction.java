@@ -72,6 +72,7 @@ public class EatAction implements ManagedOperation {
 		return ImageIds.BERRY;
 	}
 	
+	@Override
 	public SoundIds getSoundId() {
 		return SoundIds.EAT;
 	}

@@ -23,6 +23,7 @@ import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class BrewWineAction implements CraftAction {
 
@@ -75,5 +76,10 @@ public class BrewWineAction implements CraftAction {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.WINE;
+	}
+	
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.ALCHEMIST;
 	}
 }
