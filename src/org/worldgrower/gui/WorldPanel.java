@@ -354,6 +354,9 @@ public final class WorldPanel extends JPanel {
 		drawWorldObjectInPixels(g, worldObject, lookDirection, image, x, y, 0, 0);
 	}
 	
+	private static final int CONDITION_IMAGE_WIDTH = 12;
+	private static final int CONDITION_IMAGE_HEIGHT = 12;
+	
 	public void drawWorldObjectInPixels(Graphics g, WorldObject worldObject, LookDirection lookDirection, Image image, int xInSquares, int yInSquares, int xDeltaInPixels, int yDeltaInPixels) {
 		image = changeSize(worldObject, image);
 		int worldObjectX = (xInSquares+offsetX) * 48 + xDeltaInPixels;
@@ -366,17 +369,47 @@ public final class WorldPanel extends JPanel {
 		List<Image> overlayingImages = getOverlayingImages(worldObject);
 		int imageIndex = 0;
 		for(Image overlayingImage : overlayingImages) {
-			int overlayingImageWidth = 12;
-			int overlayingImageHeight = 12;
-			overlayingImage = createResizedCopy(overlayingImage, overlayingImageWidth, overlayingImageHeight, false);
+			
+			overlayingImage = createResizedCopy(overlayingImage, CONDITION_IMAGE_WIDTH, CONDITION_IMAGE_HEIGHT, false);
 			g.setColor(Color.BLACK);
-			int overlayingImageX = worldObjectX + worldObjectWidth - overlayingImageWidth - overlayingImageWidth * imageIndex - 1;
-			int overlayingImageY = worldObjectY + worldObjectHeight - overlayingImageHeight * (imageIndex / 4) - 1;
-			g.drawRect(overlayingImageX, overlayingImageY, overlayingImageWidth, overlayingImageHeight);
+			int overlayingImageX = calculateConditionX(worldObjectX, worldObjectWidth, imageIndex);
+			int overlayingImageY = calculateConditionY(worldObjectY, worldObjectHeight, imageIndex);
+			g.drawRect(overlayingImageX, overlayingImageY, CONDITION_IMAGE_WIDTH, CONDITION_IMAGE_HEIGHT);
 			g.drawImage(overlayingImage, overlayingImageX, overlayingImageY, null);
 			
 			imageIndex++;
 		}
+	}
+
+	int calculateConditionY(int worldObjectY, int worldObjectHeight, int imageIndex) {
+		return worldObjectY + worldObjectHeight - CONDITION_IMAGE_HEIGHT * (imageIndex / 4) - 1;
+	}
+
+	int calculateConditionX(int worldObjectX, int worldObjectWidth, int imageIndex) {
+		return worldObjectX + worldObjectWidth - CONDITION_IMAGE_WIDTH - CONDITION_IMAGE_WIDTH * imageIndex - 1;
+	}
+	
+	private String getConditionDescriptionFor(WorldObject worldObject, int panelX, int panelY) {
+		List<String> conditionDescriptions = getConditionDescriptions(worldObject);
+		int worldObjectX = (worldObject.getProperty(Constants.X)+offsetX) * 48;
+		int worldObjectY = (worldObject.getProperty(Constants.Y)+offsetY) * 48;
+		int worldObjectWidth = worldObject.getProperty(Constants.WIDTH) * 48;
+		int worldObjectHeight = worldObject.getProperty(Constants.HEIGHT) * 48;
+		
+		int imageIndex = 0;
+		for(String conditionDescription : conditionDescriptions) {
+			int overlayingImageX = calculateConditionX(worldObjectX, worldObjectWidth, imageIndex);
+			int overlayingImageY = calculateConditionY(worldObjectY, worldObjectHeight, imageIndex);
+
+			if (overlayingImageX <= panelX && panelX <= overlayingImageX + CONDITION_IMAGE_WIDTH) {
+				if (overlayingImageY <= panelY && panelY <= overlayingImageY + CONDITION_IMAGE_HEIGHT) {
+					return conditionDescription;
+				}
+			}
+			
+			imageIndex++;
+		}
+		return null;
 	}
 	
 	BufferedImage createResizedCopy(Image originalImage, 
@@ -457,6 +490,15 @@ public final class WorldPanel extends JPanel {
 	    	}
     	}
     	return overlayingImages;
+    }
+    
+    private List<String> getConditionDescriptions(WorldObject worldObject) {
+    	List<Image> overlayingImages = new ArrayList<>();
+    	if (worldObject.hasProperty(Constants.CONDITIONS)) {
+	    	return worldObject.getProperty(Constants.CONDITIONS).getDescriptions(); 
+    	} else {
+    		return new ArrayList<>();
+    	}
     }
 
 	private boolean hasCondition(WorldObject worldObject, Condition condition) {
@@ -582,14 +624,28 @@ public final class WorldPanel extends JPanel {
 	
 	@Override
 	public String getToolTipText(MouseEvent e) {
-		int x = (int) e.getPoint().getX() / 48;
-        int y = (int) e.getPoint().getY() / 48;
+		int worldPanelX = (int) e.getPoint().getX();
+		int worldPanelY = (int) e.getPoint().getY();
+		int x = worldPanelX / 48;
+		int y = worldPanelY / 48;
 		
 		WorldObject worldObject = findWorldObject(x, y);
+		WorldObject worldObjectNorth = findWorldObject(x, y-1);
 		if (worldObject != null) {
-			return worldObject.getProperty(Constants.NAME);
+			return getDescriptionFor(worldPanelX, worldPanelY, worldObject);
+		} else if (worldObjectNorth != null) {
+			return getConditionDescriptionFor(worldObjectNorth, worldPanelX, worldPanelY);
 		} else {
 			return null;
+		}
+	}
+
+	private String getDescriptionFor(int worldPanelX, int worldPanelY, WorldObject worldObject) {
+		String conditionDescription = getConditionDescriptionFor(worldObject, worldPanelX, worldPanelY);
+		if (conditionDescription != null) {
+			return conditionDescription;
+		} else {
+			return worldObject.getProperty(Constants.NAME);
 		}
 	}
 	
