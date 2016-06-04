@@ -50,6 +50,8 @@ public class SoundIdReader {
 		readSound(SoundIds.CURSE, "/sound/cursespell8bit.wav.gz");
 		readSound(SoundIds.ALCHEMIST, "/sound/alchemist18bit.wav.gz");
 		readSound(SoundIds.DRINK, "/sound/fountain8bit.wav.gz");
+		readSound(SoundIds.MAGIC1, "/sound/magical_18bit.wav.gz");
+		readSound(SoundIds.MAGIC3, "/sound/magical_38bit.wav.gz");
 		
 	}
 

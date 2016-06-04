@@ -32,5 +32,7 @@ public enum SoundIds {
 	DARKNESS,
 	CURSE,
 	ALCHEMIST,
-	DRINK
+	DRINK,
+	MAGIC1,
+	MAGIC3
 }

@@ -29,6 +29,7 @@ import org.worldgrower.goal.GoalUtils;
 import org.worldgrower.goal.LocationPropertyUtils;
 import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class EnlargeAction implements MagicSpell {
 
@@ -117,5 +118,10 @@ public class EnlargeAction implements MagicSpell {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.ENLARGE_MAGIC_SPELL;
+	}
+	
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.MAGIC1;
 	}
 }

@@ -28,6 +28,7 @@ import org.worldgrower.condition.Conditions;
 import org.worldgrower.goal.LocationPropertyUtils;
 import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class ReduceAction implements MagicSpell {
 
@@ -125,5 +126,10 @@ public class ReduceAction implements MagicSpell {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.REDUCE_MAGIC_SPELL;
+	}
+	
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.MAGIC3;
 	}
 }
