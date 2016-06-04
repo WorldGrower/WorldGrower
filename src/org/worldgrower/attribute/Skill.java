@@ -27,7 +27,7 @@ import org.worldgrower.goal.HitPointPropertyUtils;
 
 public class Skill implements Serializable {
 
-	private static final int USAGE_OFFSET = 22;
+	private static final int USAGE_OFFSET = 21;
 	
 	private int level;
 	private int currentUsageCount;
@@ -58,7 +58,7 @@ public class Skill implements Serializable {
 	}
 
 	private int calculateMaxUsageCount() {
-		return 3 * level * level + usageOffset;
+		return 2 * level * level + usageOffset;
 	}
 	
 	public void use(WorldObject worldObject, SkillProperty skillProperty, WorldStateChangedListeners worldStateChangedListeners) {

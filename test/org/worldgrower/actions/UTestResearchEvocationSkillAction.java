@@ -39,7 +39,7 @@ public class UTestResearchEvocationSkillAction {
 			Actions.RESEARCH_EVOCATION_SKILL_ACTION.execute(performer, target, Args.EMPTY, world);
 		}
 		
-		assertEquals(5, performer.getProperty(Constants.EVOCATION_SKILL).getLevel(performer));
+		assertEquals(6, performer.getProperty(Constants.EVOCATION_SKILL).getLevel(performer));
 	}
 	
     @Test
