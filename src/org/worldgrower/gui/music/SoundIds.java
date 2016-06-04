@@ -34,5 +34,7 @@ public enum SoundIds {
 	ALCHEMIST,
 	DRINK,
 	MAGIC1,
-	MAGIC3
+	MAGIC3,
+	MAGIC6,
+	MAGIC7,
 }

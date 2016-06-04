@@ -29,6 +29,7 @@ import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.IllusionOnTurn;
 import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class MinorIllusionAction implements BuildAction, MagicSpell {
 
@@ -125,5 +126,10 @@ public class MinorIllusionAction implements BuildAction, MagicSpell {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.MINOR_ILLUSION_MAGIC_SPELL;
+	}
+	
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.MAGIC7;
 	}
 }
