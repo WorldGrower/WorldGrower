@@ -482,7 +482,7 @@ public final class InventoryDialog extends AbstractDialog {
 			}
 
 			private JCheckBoxMenuItem createSellableMenuItem(InventoryItem inventoryItem) {
-				JCheckBoxMenuItem sellableMenuItem = MenuFactory.createJCheckBoxMenuItem(new SellableAction(inventoryItem));
+				JCheckBoxMenuItem sellableMenuItem = MenuFactory.createJCheckBoxMenuItem(new SellableAction(inventoryItem), soundIdReader);
 				sellableMenuItem.setIcon(new ImageIcon(imageInfoReader.getImage(ImageIds.SILVER_COIN, null)));
 				sellableMenuItem.setToolTipText("marks inventory item as sellable");
 				return sellableMenuItem;
@@ -548,7 +548,7 @@ public final class InventoryDialog extends AbstractDialog {
 
 	private void addPlayerCharacterMenuActions(JPopupMenu popupMenu, InventoryItem inventoryItem, InventoryDialogModel inventoryDialogModel, InventoryActionFactory inventoryActionFactory) {
 		for(Action inventoryDialogAction : inventoryActionFactory.getPlayerCharacterInventoryActions(inventoryItem.getId())) {
-			JMenuItem actionMenuItem = MenuFactory.createJMenuItem(inventoryDialogAction);
+			JMenuItem actionMenuItem = MenuFactory.createJMenuItem(inventoryDialogAction, soundIdReader);
 			actionMenuItem.setToolTipText((String) inventoryDialogAction.getValue(Action.LONG_DESCRIPTION));
 			popupMenu.add(actionMenuItem);
 		}
@@ -556,7 +556,7 @@ public final class InventoryDialog extends AbstractDialog {
 	
 	private void addTargetMenuActions(JPopupMenu popupMenu, InventoryItem inventoryItem, InventoryDialogModel inventoryDialogModel, InventoryActionFactory inventoryActionFactory) {
 		for(Action inventoryDialogAction : inventoryActionFactory.getTargetInventoryActions(inventoryItem.getId())) {
-			JMenuItem actionMenuItem = MenuFactory.createJMenuItem(inventoryDialogAction);
+			JMenuItem actionMenuItem = MenuFactory.createJMenuItem(inventoryDialogAction, soundIdReader);
 			actionMenuItem.setToolTipText((String) inventoryDialogAction.getValue(Action.LONG_DESCRIPTION));
 			popupMenu.add(actionMenuItem);
 		}

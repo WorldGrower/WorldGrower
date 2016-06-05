@@ -33,6 +33,7 @@ import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.goal.BuySellUtils;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.WorldPanel;
+import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.start.Game;
 import org.worldgrower.gui.util.TextInputDialog;
 import org.worldgrower.util.NumberUtils;
@@ -42,15 +43,17 @@ public class InventoryActionFactory {
 	private WorldObject playerCharacter;
 	private InventoryDialog dialog;
 	private ImageInfoReader imageInfoReader;
+	private SoundIdReader soundIdReader;
 	private World world;
 	private DungeonMaster dungeonMaster;
 	private WorldPanel container;
 	private WorldObject target;
 	
-	public InventoryActionFactory(WorldObject playerCharacter, ImageInfoReader imageInfoReader, World world, DungeonMaster dungeonMaster, WorldPanel container, WorldObject target) {
+	public InventoryActionFactory(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, World world, DungeonMaster dungeonMaster, WorldPanel container, WorldObject target) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.imageInfoReader = imageInfoReader;
+		this.soundIdReader = soundIdReader;
 		this.world = world;
 		this.dungeonMaster = dungeonMaster;
 		this.container = container;
@@ -112,7 +115,7 @@ public class InventoryActionFactory {
 	
 	public List<Action> getTargetMoneyActions() {
 		List<Action> inventoryActions = new ArrayList<>();
-		Action stealMoneyAction = new StealAction();
+		Action stealMoneyAction = new StealAction(soundIdReader);
 		inventoryActions.add(stealMoneyAction);
 		
 		return inventoryActions;
@@ -120,21 +123,25 @@ public class InventoryActionFactory {
 	
 	private class StealAction extends AbstractAction {
 		
-		public StealAction() {
+		private final SoundIdReader soundIdReader;
+		
+		public StealAction(SoundIdReader soundIdReader) {
 			super(Actions.STEAL_ACTION.getSimpleDescription(), new ImageIcon(imageInfoReader.getImage(Actions.STEAL_ACTION.getImageIds(), null)));
 			this.putValue(Action.LONG_DESCRIPTION, Actions.STEAL_ACTION.getRequirementsDescription());
+			
+			this.soundIdReader = soundIdReader;
 		}
 		
 		@Override
 		public void actionPerformed(ActionEvent actionEvent) {
 			int targetGold = target.getProperty(Constants.GOLD).intValue();
-			TextInputDialog textInputDialog = new TextInputDialog("Steal how much money (1-" + targetGold + ")?", true);
+			TextInputDialog textInputDialog = new TextInputDialog("Steal how much money (1-" + targetGold + ")?", true, soundIdReader);
 			String input = textInputDialog.showMe();
 			if (input != null && input.length() > 0 && NumberUtils.isNumeric(input)) {
 				int amount = Integer.parseInt(input);
 				if (amount > 0 && amount <= targetGold) {
 					int[] args = new int[] { amount };
-					Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, playerCharacter.getOperation(Actions.STEAL_GOLD_ACTION), args, world, dungeonMaster, target, container);
+					Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, playerCharacter.getOperation(Actions.STEAL_GOLD_ACTION), args, world, dungeonMaster, target, container, soundIdReader);
 					
 					dialog.refresh(new InventoryDialogModel(playerCharacter, target));
 				}
@@ -168,7 +175,7 @@ public class InventoryActionFactory {
 		
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, playerCharacter.getOperation(action), args, world, dungeonMaster, target, container);
+			Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, playerCharacter.getOperation(action), args, world, dungeonMaster, target, container, soundIdReader);
 			
 			final InventoryDialogModel inventoryDialogModel;
 			if (target == playerCharacter) {

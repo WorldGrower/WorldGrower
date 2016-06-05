@@ -23,6 +23,7 @@ import org.worldgrower.DungeonMaster;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.start.Game;
 import org.worldgrower.gui.util.TextInputDialog;
 import org.worldgrower.util.NumberUtils;
@@ -31,14 +32,16 @@ public class RestAction extends AbstractAction {
 
 	private WorldObject playerCharacter;
 	private ImageInfoReader imageInfoReader;
+	private SoundIdReader soundIdReader;
 	private World world;
 	private WorldPanel parent;
 	private DungeonMaster dungeonMaster;
 	
-	public RestAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, World world, WorldPanel parent, DungeonMaster dungeonMaster) {
+	public RestAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, World world, WorldPanel parent, DungeonMaster dungeonMaster) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.imageInfoReader = imageInfoReader;
+		this.soundIdReader = soundIdReader;
 		this.world = world;
 		this.parent = parent;
 		this.dungeonMaster = dungeonMaster;
@@ -47,11 +50,11 @@ public class RestAction extends AbstractAction {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		String turnsString = new TextInputDialog("Rest how many turns?", true).showMe();
+		String turnsString = new TextInputDialog("Rest how many turns?", true, soundIdReader).showMe();
 		if ((turnsString != null) && (NumberUtils.isNumeric(turnsString) && turnsString.length() > 0)) {
 			int turns = Integer.parseInt(turnsString);
 			
-			Game.executeMultipleTurns(playerCharacter, Actions.REST_ACTION, Args.EMPTY, world, dungeonMaster, playerCharacter, parent, turns);
+			Game.executeMultipleTurns(playerCharacter, Actions.REST_ACTION, Args.EMPTY, world, dungeonMaster, playerCharacter, parent, turns, soundIdReader);
 		}
 	}
 }

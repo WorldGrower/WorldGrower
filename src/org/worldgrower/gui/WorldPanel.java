@@ -197,31 +197,31 @@ public final class WorldPanel extends JPanel {
         
         getInputMap().put(KeyStroke.getKeyStroke("UP"), "up");
         getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD8, 0), "up");
-        getActionMap().put("up", new GuiMoveAction(new int[] { 0,  -1 }, playerCharacter, world, dungeonMaster, this));
+        getActionMap().put("up", new GuiMoveAction(new int[] { 0,  -1 }, playerCharacter, world, dungeonMaster, this, soundIdReader));
         
         getInputMap().put(KeyStroke.getKeyStroke("DOWN"), "down");
         getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD2, 0), "down");
-        getActionMap().put("down", new GuiMoveAction(new int[] { 0,  1 }, playerCharacter, world, dungeonMaster, this));
+        getActionMap().put("down", new GuiMoveAction(new int[] { 0,  1 }, playerCharacter, world, dungeonMaster, this, soundIdReader));
         
         getInputMap().put(KeyStroke.getKeyStroke("LEFT"), "left");
         getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD4, 0), "left");
-        getActionMap().put("left", new GuiMoveAction(new int[] { -1,  0 }, playerCharacter, world, dungeonMaster, this));
+        getActionMap().put("left", new GuiMoveAction(new int[] { -1,  0 }, playerCharacter, world, dungeonMaster, this, soundIdReader));
         
         getInputMap().put(KeyStroke.getKeyStroke("RIGHT"), "right");
         getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD6, 0), "right");
-        getActionMap().put("right", new GuiMoveAction(new int[] { 1,  0 }, playerCharacter, world, dungeonMaster, this));
+        getActionMap().put("right", new GuiMoveAction(new int[] { 1,  0 }, playerCharacter, world, dungeonMaster, this, soundIdReader));
 
         getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD7, 0), "7");
-        getActionMap().put("7", new GuiMoveAction(new int[] { -1,  -1 }, playerCharacter, world, dungeonMaster, this));
+        getActionMap().put("7", new GuiMoveAction(new int[] { -1,  -1 }, playerCharacter, world, dungeonMaster, this, soundIdReader));
         
         getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD9, 0), "9");
-        getActionMap().put("9", new GuiMoveAction(new int[] { 1,  -1 }, playerCharacter, world, dungeonMaster, this));
+        getActionMap().put("9", new GuiMoveAction(new int[] { 1,  -1 }, playerCharacter, world, dungeonMaster, this, soundIdReader));
 
         getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD1, 0), "1");
-        getActionMap().put("1", new GuiMoveAction(new int[] { -1,  1 }, playerCharacter, world, dungeonMaster, this));
+        getActionMap().put("1", new GuiMoveAction(new int[] { -1,  1 }, playerCharacter, world, dungeonMaster, this, soundIdReader));
         
         getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD3, 0), "3");
-        getActionMap().put("3", new GuiMoveAction(new int[] { 1,  1 }, playerCharacter, world, dungeonMaster, this));
+        getActionMap().put("3", new GuiMoveAction(new int[] { 1,  1 }, playerCharacter, world, dungeonMaster, this, soundIdReader));
 	}
 
 	private void bindEscapeButtonToStartScreen(World world) {
@@ -281,7 +281,7 @@ public final class WorldPanel extends JPanel {
     }
     
     public void showStatusMessageDialog() {
-    	new StatusMessageDialog(statusMessages).showMe();
+    	new StatusMessageDialog(statusMessages, soundIdReader).showMe();
     }
     
     @Override
@@ -547,8 +547,8 @@ public final class WorldPanel extends JPanel {
 	public void addGuiListeners(AdditionalManagedOperationListenerFactory additionalManagedOperationListenerFactory) {
 		new GuiRespondToQuestion(playerCharacter, world, imageInfoReader, soundIdReader);
 		new GuiShowReadAction(playerCharacter, world, this, imageInfoReader);
-		new GuiShowBrawlResult(imageInfoReader, this, world);
-		new GuiShowDrinkingContestResult(imageInfoReader, this, world);
+		new GuiShowBrawlResult(imageInfoReader, soundIdReader, this, world);
+		new GuiShowDrinkingContestResult(imageInfoReader, soundIdReader, this, world);
 		new GuiGameOverAction(playerCharacter, world, this, imageInfoReader, soundIdReader, keyBindings);
 		world.addWorldStateChangedListener(createWorldStateChangedListener());
 		

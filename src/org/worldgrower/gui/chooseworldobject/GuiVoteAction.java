@@ -69,7 +69,7 @@ public class GuiVoteAction extends AbstractAction {
 		
 		@Override
 		public void actionPerformed(ActionEvent actionEvent) {
-			Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, Actions.VOTE_FOR_LEADER_ACTION, args, world, dungeonMaster, worldObject, parent);
+			Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, Actions.VOTE_FOR_LEADER_ACTION, args, world, dungeonMaster, worldObject, parent, soundIdReader);
 		}
 
 		@Override

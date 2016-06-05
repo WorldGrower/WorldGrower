@@ -25,12 +25,13 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import org.worldgrower.gui.AbstractDialog;
+import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JListFactory;
 
 public class StatusMessageDialog extends AbstractDialog {
 
-	public StatusMessageDialog(List<String> statusMessages) {
+	public StatusMessageDialog(List<String> statusMessages, SoundIdReader soundIdReader) {
 		super(500, 475);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -47,7 +48,7 @@ public class StatusMessageDialog extends AbstractDialog {
 		buttonPane.setBounds(16, 380, 465, 50);
 		addComponent(buttonPane);
 
-		JButton okButton = JButtonFactory.createButton(" OK ");
+		JButton okButton = JButtonFactory.createButton(" OK ", soundIdReader);
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton, BorderLayout.EAST);
 		getRootPane().setDefaultButton(okButton);

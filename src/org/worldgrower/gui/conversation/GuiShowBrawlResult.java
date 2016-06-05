@@ -22,6 +22,7 @@ import org.worldgrower.actions.BrawlFinishedListener;
 import org.worldgrower.actions.BrawlListener;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.WorldPanel;
+import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.ListInputDialog;
 
@@ -33,10 +34,12 @@ public class GuiShowBrawlResult implements BrawlFinishedListener {
 	};
 	
 	private ImageInfoReader imageInfoReader;
+	private SoundIdReader soundIdReader;
 	private WorldPanel container;
 	
-	public GuiShowBrawlResult(ImageInfoReader imageInfoReader, WorldPanel container, World world) {
+	public GuiShowBrawlResult(ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, WorldPanel container, World world) {
 		this.imageInfoReader = imageInfoReader;
+		this.soundIdReader = soundIdReader;
 		this.container = container;
 		
 		world.getListenerByClass(BrawlListener.class).addBrawlFinishedListener(this);
@@ -58,7 +61,7 @@ public class GuiShowBrawlResult implements BrawlFinishedListener {
 		
 		if (!performer.isControlledByAI()) {
 			//TODO: handle response
-			String response = new ListInputDialog("Choose brawl ending line:", targetIcon, responses).showMe();
+			String response = new ListInputDialog("Choose brawl ending line:", targetIcon, responses, soundIdReader).showMe();
 		}
 		
 		if (!target.isControlledByAI()) {

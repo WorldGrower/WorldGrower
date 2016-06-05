@@ -24,6 +24,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.deity.Deity;
+import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.start.Game;
 import org.worldgrower.gui.util.ListInputDialog;
 
@@ -31,14 +32,16 @@ public class ChooseDeityAction extends AbstractAction {
 
 	private WorldObject playerCharacter;
 	private ImageInfoReader imageInfoReader;
+	private SoundIdReader soundIdReader;
 	private World world;
 	private WorldPanel parent;
 	private DungeonMaster dungeonMaster;
 	
-	public ChooseDeityAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, World world, WorldPanel parent, DungeonMaster dungeonMaster) {
+	public ChooseDeityAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, World world, WorldPanel parent, DungeonMaster dungeonMaster) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.imageInfoReader = imageInfoReader;
+		this.soundIdReader = soundIdReader;
 		this.world = world;
 		this.parent = parent;
 		this.dungeonMaster = dungeonMaster;
@@ -47,11 +50,11 @@ public class ChooseDeityAction extends AbstractAction {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String[] deityNames = Deity.getAllDeityNames().toArray(new String[0]);
-		String deityName = new ListInputDialog("Choose Deity", deityNames).showMe();
+		String deityName = new ListInputDialog("Choose Deity", deityNames, soundIdReader).showMe();
 		if (deityName != null) {
 			int indexOfDeity = Arrays.asList(deityNames).indexOf(deityName);
 			
-			Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, Actions.CHOOSE_DEITY_ACTION, new int[] { indexOfDeity, -1 }, world, dungeonMaster, playerCharacter, parent);
+			Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, Actions.CHOOSE_DEITY_ACTION, new int[] { indexOfDeity, -1 }, world, dungeonMaster, playerCharacter, parent, soundIdReader);
 		}
 	}
 }

@@ -77,11 +77,12 @@ public class OptionsScreen {
 	private JTextField startTurnTextField;
 	
 	public OptionsScreen(CharacterAttributes characterAttributes, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, KeyBindings keyBindings) {
-		initialize(imageInfoReader);
 		this.characterAttributes = characterAttributes;
 		this.imageInfoReader = imageInfoReader;
 		this.soundIdReader = soundIdReader;
 		this.keyBindings = keyBindings;
+		
+		initialize(imageInfoReader);
 	}
 	
 	public void setVisible(boolean visible) {
@@ -188,7 +189,7 @@ public class OptionsScreen {
 		numberOfVillagersTextField.setBounds(228, 352, 137, 22);
 		contentPanel.add(numberOfVillagersTextField);
 		
-		JButton btnOk = JButtonFactory.createButton("Ok");
+		JButton btnOk = JButtonFactory.createButton("Ok", soundIdReader);
 		btnOk.setBounds(230, 538, 97, 25);
 		frame.getRootPane().setDefaultButton(btnOk);
 		contentPanel.add(btnOk);
@@ -230,7 +231,7 @@ public class OptionsScreen {
 					for(String error : errors) {
 						buffer.append(error).append("\n");
 					}
-					new ShowTextDialog(buffer.toString()).showMe();
+					new ShowTextDialog(buffer.toString(), soundIdReader).showMe();
 				}
 			}
 		});

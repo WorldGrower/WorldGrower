@@ -23,6 +23,7 @@ import org.worldgrower.DungeonMaster;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.start.Game;
 
 public class PlayerCharacterAction extends AbstractAction {
@@ -32,8 +33,9 @@ public class PlayerCharacterAction extends AbstractAction {
 	private DungeonMaster dungeonMaster;
 	private ManagedOperation action;
 	private WorldObject target;
+	private SoundIdReader soundIdReader;
 	
-	public PlayerCharacterAction(WorldObject playerCharacter, World world, WorldPanel container, DungeonMaster dungeonMaster, ManagedOperation action, WorldObject target) {
+	public PlayerCharacterAction(WorldObject playerCharacter, World world, WorldPanel container, DungeonMaster dungeonMaster, ManagedOperation action, WorldObject target, SoundIdReader soundIdReader) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.world = world;
@@ -41,10 +43,11 @@ public class PlayerCharacterAction extends AbstractAction {
 		this.dungeonMaster = dungeonMaster;
 		this.action = action;
 		this.target = target;
+		this.soundIdReader = soundIdReader;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, action, Args.EMPTY, world, dungeonMaster, target, container);
+		Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, action, Args.EMPTY, world, dungeonMaster, target, container, soundIdReader);
 	}
 }

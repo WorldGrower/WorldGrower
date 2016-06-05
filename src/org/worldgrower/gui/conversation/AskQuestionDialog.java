@@ -67,6 +67,7 @@ public class AskQuestionDialog extends AbstractDialog implements ManagedOperatio
 	private final JButton askQuestion;
 	private final JLabel label;
 	private final JProgressBar relationshipProgresBar;
+	private final SoundIdReader soundIdReader;
 	
 	private class ExecuteQuestionAction extends AbstractAction implements ActionContainingArgs {
 		
@@ -124,6 +125,7 @@ public class AskQuestionDialog extends AbstractDialog implements ManagedOperatio
 	public AskQuestionDialog(Answerer answerer, Conversations conversations, ImageIds imageIdPerformer, ImageIds imageIdTarget, String performerName, String targetName, Map<Integer, ImageIds> subjectImageIds, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader) {
 		super(650, 300);
 		this.answerer = answerer;
+		this.soundIdReader = soundIdReader;
 		
 		KeyStroke stroke = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
         rootPane.registerKeyboardAction(new CloseDialogAction(), stroke, JComponent.WHEN_IN_FOCUSED_WINDOW);
@@ -209,7 +211,7 @@ public class AskQuestionDialog extends AbstractDialog implements ManagedOperatio
 		Map<ConversationCategory, List<Question>> questionsMap = answerer.getQuestionPhrases();
 		JPopupMenu popupMenu = MenuFactory.createJPopupMenu();
 		for(Entry<ConversationCategory, List<Question>> entry : getQuestions(questionsMap)) {
-			JMenu menu = MenuFactory.createJMenu(entry.getKey().getDescription());
+			JMenu menu = MenuFactory.createJMenu(entry.getKey().getDescription(), soundIdReader);
 			popupMenu.add(menu);
 			
 			List<Question> questions = entry.getValue();
@@ -225,7 +227,7 @@ public class AskQuestionDialog extends AbstractDialog implements ManagedOperatio
  				} else {
  					List<List<Question>> questionParts = splitList(questions, 20);
  					for(List<Question> questionPart : questionParts) {
- 						JMenu menuPart = MenuFactory.createJMenu(getDescriptionForQuestions(questionPart));
+ 						JMenu menuPart = MenuFactory.createJMenu(getDescriptionForQuestions(questionPart), soundIdReader);
  						addQuestionsToMenu(imageInfoReader, subjectImageIds, answerer, menuPart, questionPart);
  						menu.add(menuPart);
  					}
@@ -316,7 +318,7 @@ public class AskQuestionDialog extends AbstractDialog implements ManagedOperatio
 			if (subjectId != -1) {
 				if (!subMenus.containsKey(subjectId)) {
 					String name = answerer.getDescription(subjectId);
-					JMenu subMenu = MenuFactory.createJMenu(name);
+					JMenu subMenu = MenuFactory.createJMenu(name, soundIdReader);
 					subMenus.put(subjectId, subMenu);
 					menu.add(subMenu);
 				}
@@ -325,7 +327,7 @@ public class AskQuestionDialog extends AbstractDialog implements ManagedOperatio
 	}
 
 	private JMenuItem createQuestionMenuItem(ImageInfoReader imageInfoReader, Map<Integer, ImageIds> subjectImageIds, Question question) {
-		JMenuItem questionMenuItem = MenuFactory.createJMenuItem(question.getQuestionPhrase());
+		JMenuItem questionMenuItem = MenuFactory.createJMenuItem(question.getQuestionPhrase(), soundIdReader);
 		int subjectId = question.getSubjectId();
 		ImageIds subjectImageId = subjectImageIds.get(subjectId);
 		if (subjectImageId != null) {

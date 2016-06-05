@@ -15,7 +15,6 @@
 package org.worldgrower.gui;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.AbstractAction;
 
@@ -23,6 +22,7 @@ import org.worldgrower.DungeonMaster;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.start.Game;
 
 public class GuiMoveAction extends AbstractAction {
@@ -31,20 +31,22 @@ public class GuiMoveAction extends AbstractAction {
 	private World world;
 	private DungeonMaster dungeonMaster;
 	private WorldPanel container;
+	private SoundIdReader soundIdReader;
 	
-	public GuiMoveAction(int[] args, WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, WorldPanel container) {
+	public GuiMoveAction(int[] args, WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, WorldPanel container, SoundIdReader soundIdReader) {
 		super();
 		this.args = args;
 		this.playerCharacter = playerCharacter;
 		this.world = world;
 		this.dungeonMaster = dungeonMaster;
 		this.container = container;
+		this.soundIdReader = soundIdReader;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (Game.canActionExecute(playerCharacter, playerCharacter.getOperation(Actions.MOVE_ACTION), args, world, playerCharacter)) {
-			Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, playerCharacter.getOperation(Actions.MOVE_ACTION), args, world, dungeonMaster, playerCharacter, container);
+			Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, playerCharacter.getOperation(Actions.MOVE_ACTION), args, world, dungeonMaster, playerCharacter, container, soundIdReader);
 		}		
 	}
 }

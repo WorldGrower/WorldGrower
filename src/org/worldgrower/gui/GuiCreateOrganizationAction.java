@@ -26,6 +26,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.OrganizationNamer;
 import org.worldgrower.deity.Deity;
+import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.start.Game;
 import org.worldgrower.gui.util.ListInputDialog;
 import org.worldgrower.profession.Profession;
@@ -35,14 +36,16 @@ public class GuiCreateOrganizationAction extends AbstractAction {
 
 	private WorldObject playerCharacter;
 	private ImageInfoReader imageInfoReader;
+	private SoundIdReader soundIdReader;
 	private World world;
 	private WorldPanel parent;
 	private DungeonMaster dungeonMaster;
 	
-	public GuiCreateOrganizationAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, World world, WorldPanel parent, DungeonMaster dungeonMaster) {
+	public GuiCreateOrganizationAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, World world, WorldPanel parent, DungeonMaster dungeonMaster) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.imageInfoReader = imageInfoReader;
+		this.soundIdReader = soundIdReader;
 		this.world = world;
 		this.parent = parent;
 		this.dungeonMaster = dungeonMaster;
@@ -51,7 +54,7 @@ public class GuiCreateOrganizationAction extends AbstractAction {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String[] organizationTypes = { "profession", "religion" };
-		String organizationType = new ListInputDialog("Choose Organization Type", organizationTypes).showMe();
+		String organizationType = new ListInputDialog("Choose Organization Type", organizationTypes, soundIdReader).showMe();
 		if (organizationType != null) {
 			if (organizationType.equals(organizationTypes[0])) {
 				createProfessionOrganization();
@@ -63,31 +66,31 @@ public class GuiCreateOrganizationAction extends AbstractAction {
 
 	private void createProfessionOrganization() {
 		String[] professionNames = Professions.getDescriptions().toArray(new String[0]);
-		String professionName = new ListInputDialog("Choose Profession", professionNames).showMe();
+		String professionName = new ListInputDialog("Choose Profession", professionNames, soundIdReader).showMe();
 		if (professionName != null) {
 			Profession profession = Professions.getProfessionByDescription(professionName);
 			int professionIndex = Professions.indexOf(profession);
 			
 			String[] organizationNames = new OrganizationNamer().getProfessionOrganizationNames(profession, world).toArray(new String[0]);
-			String organizationName = new ListInputDialog("Choose Organization name", organizationNames).showMe();
+			String organizationName = new ListInputDialog("Choose Organization name", organizationNames, soundIdReader).showMe();
 			
 			if (organizationName != null) {
 				int indexOfOrganization = Arrays.asList(organizationNames).indexOf(organizationName);
 				
-				Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, Actions.CREATE_PROFESSION_ORGANIZATION_ACTION, new int[] { professionIndex, indexOfOrganization}, world, dungeonMaster, playerCharacter, parent);
+				Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, Actions.CREATE_PROFESSION_ORGANIZATION_ACTION, new int[] { professionIndex, indexOfOrganization}, world, dungeonMaster, playerCharacter, parent, soundIdReader);
 			}
 		}
 	}
 	
 	private void createReligionOrganization() {
 		String[] deityNames = Deity.getAllDeityNames().toArray(new String[0]);
-		String deityName = new ListInputDialog("Choose Deity", deityNames).showMe();
+		String deityName = new ListInputDialog("Choose Deity", deityNames, soundIdReader).showMe();
 		if (deityName != null) {
 			Deity deity = Deity.getDeityByDescription(deityName);
 			int deityIndex = Deity.ALL_DEITIES.indexOf(deity);
 			
 			String[] organizationNames = new OrganizationNamer().getDeityOrganizationNames(deity, world).toArray(new String[0]);
-			String organizationName = new ListInputDialog("Choose Organization name", organizationNames).showMe();
+			String organizationName = new ListInputDialog("Choose Organization name", organizationNames, soundIdReader).showMe();
 			
 			if (organizationName != null) {
 				int indexOfOrganization = Arrays.asList(organizationNames).indexOf(organizationName);
@@ -95,10 +98,10 @@ public class GuiCreateOrganizationAction extends AbstractAction {
 				List<String> possibleGoalsList = deity.getOrganizationGoalDescriptions();
 				possibleGoalsList.add(0, "No goal");
 				String[] possibleGoals = possibleGoalsList.toArray(new String[0]);
-				String possibleGoal = new ListInputDialog("Choose Goal", possibleGoals).showMe();
+				String possibleGoal = new ListInputDialog("Choose Goal", possibleGoals, soundIdReader).showMe();
 				if (possibleGoal != null) {
 					int indexOfGoal = deity.getOrganizationGoalDescriptions().indexOf(possibleGoal);
-					Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, Actions.CREATE_RELIGION_ORGANIZATION_ACTION, new int[] { deityIndex, indexOfOrganization, indexOfGoal}, world, dungeonMaster, playerCharacter, parent);
+					Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, Actions.CREATE_RELIGION_ORGANIZATION_ACTION, new int[] { deityIndex, indexOfOrganization, indexOfGoal}, world, dungeonMaster, playerCharacter, parent, soundIdReader);
 				}
 			}
 		}

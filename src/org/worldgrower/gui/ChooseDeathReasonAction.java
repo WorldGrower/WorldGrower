@@ -24,6 +24,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.goal.DeathReasonPropertyUtils;
+import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.start.Game;
 import org.worldgrower.gui.util.ListInputDialog;
 
@@ -31,15 +32,17 @@ public class ChooseDeathReasonAction extends AbstractAction {
 
 	private WorldObject playerCharacter;
 	private ImageInfoReader imageInfoReader;
+	private SoundIdReader soundIdReader;
 	private World world;
 	private WorldPanel parent;
 	private DungeonMaster dungeonMaster;
 	private WorldObject target;
 	
-	public ChooseDeathReasonAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, World world, WorldPanel parent, DungeonMaster dungeonMaster, WorldObject target) {
+	public ChooseDeathReasonAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, World world, WorldPanel parent, DungeonMaster dungeonMaster, WorldObject target) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.imageInfoReader = imageInfoReader;
+		this.soundIdReader = soundIdReader;
 		this.world = world;
 		this.parent = parent;
 		this.dungeonMaster = dungeonMaster;
@@ -49,11 +52,11 @@ public class ChooseDeathReasonAction extends AbstractAction {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String[] deathReasons = DeathReasonPropertyUtils.getAllDeathReasons().toArray(new String[0]);
-		String deathReason = new ListInputDialog("Choose Death Reason", deathReasons).showMe();
+		String deathReason = new ListInputDialog("Choose Death Reason", deathReasons, soundIdReader).showMe();
 		if (deathReason != null) {
 			int indexOfDeathReason = Arrays.asList(deathReasons).indexOf(deathReason);
 			
-			Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, Actions.OBFUSCATE_DEATH_REASON_ACTION, new int[] { indexOfDeathReason }, world, dungeonMaster, target, parent);
+			Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, Actions.OBFUSCATE_DEATH_REASON_ACTION, new int[] { indexOfDeathReason }, world, dungeonMaster, target, parent, soundIdReader);
 		}
 	}
 }

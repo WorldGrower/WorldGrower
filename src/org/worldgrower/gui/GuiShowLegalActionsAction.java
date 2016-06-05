@@ -97,7 +97,7 @@ public class GuiShowLegalActionsAction extends AbstractAction {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				int[] args = worldModel.getArgs();
-				Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, Actions.SET_LEGAL_ACTIONS_ACTION, args, world, dungeonMaster, playerCharacter, parent);
+				Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, Actions.SET_LEGAL_ACTIONS_ACTION, args, world, dungeonMaster, playerCharacter, parent, soundIdReader);
 				dialog.dispose();
 			}
 		});

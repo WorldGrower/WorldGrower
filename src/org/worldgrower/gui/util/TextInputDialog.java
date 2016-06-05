@@ -26,17 +26,18 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import org.worldgrower.gui.AbstractDialog;
+import org.worldgrower.gui.music.SoundIdReader;
 
 public class TextInputDialog extends AbstractDialog {
 
 	private String value = null;
 	private JTextField textField;
 	
-	public TextInputDialog(String question) {
-		this(question, false);
+	public TextInputDialog(String question, SoundIdReader soundIdReader) {
+		this(question, false, soundIdReader);
 	}
 	
-	public TextInputDialog(String question, boolean numericInputOnly) {
+	public TextInputDialog(String question, boolean numericInputOnly, SoundIdReader soundIdReader) {
 		super(450, 190);
 		
 		JLabel label = JLabelFactory.createJLabel(question);
@@ -53,12 +54,12 @@ public class TextInputDialog extends AbstractDialog {
 		buttonPane.setBounds(16, 100, 415, 50);
 		addComponent(buttonPane);
 
-		JButton okButton = JButtonFactory.createButton(" OK ");
+		JButton okButton = JButtonFactory.createButton(" OK ", soundIdReader);
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
 
-		JButton cancelButton = JButtonFactory.createButton("Cancel");
+		JButton cancelButton = JButtonFactory.createButton("Cancel", soundIdReader);
 		cancelButton.setActionCommand("Cancel");
 		buttonPane.add(cancelButton);
 		

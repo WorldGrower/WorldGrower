@@ -22,6 +22,7 @@ import org.worldgrower.actions.DrinkingContestFinishedListener;
 import org.worldgrower.actions.DrinkingContestListener;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.WorldPanel;
+import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.ListInputDialog;
 
@@ -33,10 +34,12 @@ public class GuiShowDrinkingContestResult implements DrinkingContestFinishedList
 	};
 	
 	private ImageInfoReader imageInfoReader;
+	private SoundIdReader soundIdReader;
 	private WorldPanel container;
 	
-	public GuiShowDrinkingContestResult(ImageInfoReader imageInfoReader, WorldPanel container, World world) {
+	public GuiShowDrinkingContestResult(ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, WorldPanel container, World world) {
 		this.imageInfoReader = imageInfoReader;
+		this.soundIdReader = soundIdReader;
 		this.container = container;
 		
 		world.getListenerByClass(DrinkingContestListener.class).addDrinkingContestFinishedListener(this);
@@ -58,7 +61,7 @@ public class GuiShowDrinkingContestResult implements DrinkingContestFinishedList
 		
 		if (!performer.isControlledByAI()) {
 			//TODO: handle response
-			String response = new ListInputDialog("Choose drinking contest ending line:", targetIcon, responses).showMe();
+			String response = new ListInputDialog("Choose drinking contest ending line:", targetIcon, responses, soundIdReader).showMe();
 		}
 		
 		if (!target.isControlledByAI()) {

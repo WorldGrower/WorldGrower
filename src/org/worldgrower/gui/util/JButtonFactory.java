@@ -37,7 +37,11 @@ public class JButtonFactory {
 		return button;
 	}
 
-	static void addClickSoundEffect(SoundIdReader soundIdReader, AbstractButton button) {
+	private static void addClickSoundEffect(SoundIdReader soundIdReader, AbstractButton button) {
+		if (soundIdReader == null) {
+			throw new IllegalStateException("soundIdReader is null");
+		}
+		
 		button.addMouseListener(new MouseAdapter() {
 			@Override
             public void mousePressed(MouseEvent e) {
@@ -46,7 +50,7 @@ public class JButtonFactory {
         });
 	}
 	
-	public static JButton createButton(String text, ImageIcon icon) {
+	private static JButton createButton(String text, ImageIcon icon) {
 		JButton button = new JGradientButton(text, icon);
 		setButtonProperties(button);
 		return button;

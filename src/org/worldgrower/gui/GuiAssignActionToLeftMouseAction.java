@@ -38,6 +38,7 @@ public class GuiAssignActionToLeftMouseAction extends AbstractAction {
 		this.actions = actions;
 		this.parent = parent;
 		this.guiMouseListener = guiMouseListener;
+		this.soundIdReader = soundIdReader;
 	}
 
 	@Override

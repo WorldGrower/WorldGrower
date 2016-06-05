@@ -25,18 +25,19 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.worldgrower.gui.AbstractDialog;
+import org.worldgrower.gui.music.SoundIdReader;
 
 public class ListInputDialog extends AbstractDialog {
 
 	private String value = null;
 	private JComboBox<String> comboBox;
 	
-	public ListInputDialog(String question, String[] list) {
-		this(question, null, list);
+	public ListInputDialog(String question, String[] list, SoundIdReader soundIdReader) {
+		this(question, null, list, soundIdReader);
 	}
 	
 	//TODO: use icon
-	public ListInputDialog(String question, Icon icon, String[] list) {
+	public ListInputDialog(String question, Icon icon, String[] list, SoundIdReader soundIdReader) {
 		super(450, 210);
 		
 		JLabel label = JLabelFactory.createJLabel(question);
@@ -53,12 +54,12 @@ public class ListInputDialog extends AbstractDialog {
 		buttonPane.setBounds(16, 120, 415, 50);
 		addComponent(buttonPane);
 
-		JButton okButton = JButtonFactory.createButton(" OK ");
+		JButton okButton = JButtonFactory.createButton(" OK ", soundIdReader);
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
 
-		JButton cancelButton = JButtonFactory.createButton("Cancel");
+		JButton cancelButton = JButtonFactory.createButton("Cancel", soundIdReader);
 		cancelButton.setActionCommand("Cancel");
 		buttonPane.add(cancelButton);
 		

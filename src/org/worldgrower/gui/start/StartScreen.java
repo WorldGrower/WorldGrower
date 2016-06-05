@@ -125,8 +125,8 @@ public class StartScreen {
 	private void showNewGamePopupMenu() {
 		JPopupMenu popupMenu = MenuFactory.createJPopupMenu();
 		
-		popupMenu.add(MenuFactory.createJMenuItem(new TutorialAction()));
-		popupMenu.add(MenuFactory.createJMenuItem(new CustomGameAction()));
+		popupMenu.add(MenuFactory.createJMenuItem(new TutorialAction(), soundIdReader));
+		popupMenu.add(MenuFactory.createJMenuItem(new CustomGameAction(), soundIdReader));
 		
 		Point mouseLocation = MouseInfo.getPointerInfo().getLocation();
 		SwingUtilities.convertPointFromScreen(mouseLocation, frame);

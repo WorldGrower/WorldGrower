@@ -60,7 +60,7 @@ public class GuiCreateNewsPaperAction extends AbstractAction {
 		
 		@Override
 		public void actionPerformed(ActionEvent actionEvent) {
-			Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, Actions.CREATE_NEWS_PAPER_ACTION, args, world, dungeonMaster, playerCharacter, parent);
+			Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, Actions.CREATE_NEWS_PAPER_ACTION, args, world, dungeonMaster, playerCharacter, parent, soundIdReader);
 		}
 
 		@Override

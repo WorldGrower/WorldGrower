@@ -14,6 +14,12 @@
  *******************************************************************************/
 package org.worldgrower.gui.util;
 
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import javax.swing.Action;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenu;
@@ -22,6 +28,8 @@ import javax.swing.JPopupMenu;
 
 import org.worldgrower.gui.ColorPalette;
 import org.worldgrower.gui.font.Fonts;
+import org.worldgrower.gui.music.SoundIdReader;
+import org.worldgrower.gui.music.SoundIds;
 
 public class MenuFactory {
 
@@ -33,13 +41,39 @@ public class MenuFactory {
 		return popupMenu;
 	}
 	
-	public static JMenuItem createJMenuItem(Action action) {
+	public static JMenuItem createJMenuItem(Action action, SoundIdReader soundIdReader) {
+		JMenuItem menuItem = createJMenuItem(action);
+		addRollOverSoundEffect(menuItem, soundIdReader);
+		return menuItem;
+	}
+	
+	private static JMenuItem createJMenuItem(Action action) {
 		JMenuItem menuItem = new JMenuItem(action);
 		setMenuProperties(menuItem);
 		return menuItem;
 	}
 	
-	public static JMenuItem createJMenuItem(String description) {
+	public static JMenuItem createJMenuItem(String description, SoundIdReader soundIdReader) {
+		JMenuItem menuItem = createJMenuItem(description);
+		addRollOverSoundEffect(menuItem, soundIdReader);
+		return menuItem;
+	}
+	
+	private static void addRollOverSoundEffect(JMenuItem menuItem, SoundIdReader soundIdReader) {
+		if (soundIdReader == null) {
+			throw new IllegalStateException("soundIdReader is null");
+		}
+		
+		menuItem.addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				soundIdReader.playSoundEffect(SoundIds.ROLLOVER);
+			}
+		});
+	}
+
+	private static JMenuItem createJMenuItem(String description) {
 		JMenuItem menuItem = new JMenuItem(description);
 		setMenuProperties(menuItem);
 		return menuItem;
@@ -51,18 +85,20 @@ public class MenuFactory {
 		menuItem.setFont(Fonts.FONT);
 	}
 	
-	public static JMenu createJMenu(String description) {
+	public static JMenu createJMenu(String description, SoundIdReader soundIdReader) {
 		JMenu menu = new JMenu(description);
 		menu.setOpaque(true);
 		menu.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
 		menu.setForeground(ColorPalette.FOREGROUND_COLOR);
 		menu.setFont(Fonts.FONT);
+		addRollOverSoundEffect(menu, soundIdReader);
 		return menu;
 	}
 	
-	public static JCheckBoxMenuItem createJCheckBoxMenuItem(Action action) {
+	public static JCheckBoxMenuItem createJCheckBoxMenuItem(Action action, SoundIdReader soundIdReader) {
 		JCheckBoxMenuItem checkBoxMenuItem = new JCheckBoxMenuItem(action);
 		setMenuProperties(checkBoxMenuItem);
+		addRollOverSoundEffect(checkBoxMenuItem, soundIdReader);
 		return checkBoxMenuItem;
 	}
 }
