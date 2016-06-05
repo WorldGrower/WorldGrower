@@ -42,5 +42,6 @@ public enum SoundIds {
 	DOOR_OPEN,
 	BOOK_FLIP,
 	CLICK,
-	ROLLOVER
+	ROLLOVER,
+	COW
 }

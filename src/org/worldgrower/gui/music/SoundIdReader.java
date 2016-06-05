@@ -59,7 +59,8 @@ public class SoundIdReader {
 		readSound(SoundIds.BOOK_FLIP, "/sound/bookFlip18bit.wav.gz");
 		readSound(SoundIds.CLICK, "/sound/click18bit.wav.gz");
 		readSound(SoundIds.ROLLOVER, "/sound/rollover18bit.wav.gz");
-
+		readSound(SoundIds.COW, "/sound/Mudchute_cow_18bit.wav.gz");
+		
 	}
 
 	private void readSound(SoundIds soundIds, String path) {

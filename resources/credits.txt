@@ -93,3 +93,6 @@ bookFlip18bit.wav.gz
 Sound Effects from www.kenney.nl at http://opengameart.org/content/51-ui-sound-effects-buttons-switches-and-clicks:
 click18bit.wav.gz
 scroll8bit.wav.gz
+
+Sound Effects by Secretlondon at http://opengameart.org/content/farm-animals:
+Mudchute_cow_18bit.wav.gz
