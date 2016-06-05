@@ -67,6 +67,7 @@ import org.worldgrower.gui.debug.ShowPerformedActionsAction;
 import org.worldgrower.gui.inventory.GuiBarterAction;
 import org.worldgrower.gui.inventory.ShowInventoryAction;
 import org.worldgrower.gui.knowledge.GuiCreateNewsPaperAction;
+import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.start.Game;
 import org.worldgrower.gui.start.GuiAction;
 import org.worldgrower.gui.start.KeyBindings;
@@ -81,6 +82,7 @@ public class GuiMouseListener extends MouseAdapter {
 	private World world;
 	private DungeonMaster dungeonMaster;
 	private ImageInfoReader imageInfoReader;
+	private SoundIdReader soundIdReader;
 	private KeyBindings keyBindings;
 	
 	private final CharacterSheetAction characterSheetAction;
@@ -94,20 +96,21 @@ public class GuiMouseListener extends MouseAdapter {
 	private final ShowCharacterActionsAction showCharacterActionsAction;
 	private final CommunityOverviewAction communityOverviewAction;
 	
-    public GuiMouseListener(WorldPanel container, WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, ImageInfoReader imageInfoReader, KeyBindings keyBindings) {
+    public GuiMouseListener(WorldPanel container, WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, KeyBindings keyBindings) {
 		super();
 		this.container = container;
 		this.playerCharacter = playerCharacter;
 		this.world = world;
 		this.dungeonMaster = dungeonMaster;
 		this.imageInfoReader = imageInfoReader;
+		this.soundIdReader = soundIdReader;
 		this.keyBindings = keyBindings;
 		
-		characterSheetAction = new CharacterSheetAction(playerCharacter, imageInfoReader, world);
-		inventoryAction = new ShowInventoryAction(playerCharacter, imageInfoReader, world, dungeonMaster, container);
-		magicOverviewAction = new MagicOverviewAction(playerCharacter, imageInfoReader);
+		characterSheetAction = new CharacterSheetAction(playerCharacter, imageInfoReader, soundIdReader, world);
+		inventoryAction = new ShowInventoryAction(playerCharacter, imageInfoReader, soundIdReader, world, dungeonMaster, container);
+		magicOverviewAction = new MagicOverviewAction(playerCharacter, imageInfoReader, soundIdReader);
 		restAction = new RestAction(playerCharacter, imageInfoReader, world, (WorldPanel)container, dungeonMaster);
-		createOrganizationAction = new GuiShowOrganizationsAction(playerCharacter, world, container, imageInfoReader);
+		createOrganizationAction = new GuiShowOrganizationsAction(playerCharacter, world, container, imageInfoReader, soundIdReader);
 		showStatusMessagesAction = new ShowStatusMessagesAction(container);
 		assignActionToLeftMouseAction = getGuiAssignActionToLeftMouseAction();
 		showCharacterActionsAction = new ShowCharacterActionsAction();
@@ -195,7 +198,7 @@ public class GuiMouseListener extends MouseAdapter {
     
     private void performTalkAction(WorldObject worldObject) {
     	if (canPlayerCharacterPerformTalkAction(worldObject, Actions.TALK_ACTION)) {
-    		GuiAskQuestionAction guiAskQuestionAction = new GuiAskQuestionAction(playerCharacter, world, dungeonMaster, container, worldObject, imageInfoReader);
+    		GuiAskQuestionAction guiAskQuestionAction = new GuiAskQuestionAction(playerCharacter, world, dungeonMaster, container, worldObject, imageInfoReader, soundIdReader);
     		guiAskQuestionAction.actionPerformed(null);
 		}
     }
@@ -274,7 +277,7 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 
 	private void addDisguiseMenu(JMenu menu) {
-		JMenuItem disguiseMenuItem = MenuFactory.createJMenuItem(new GuiDisguiseAction(playerCharacter, imageInfoReader, world, (WorldPanel)container, dungeonMaster, Actions.DISGUISE_ACTION));
+		JMenuItem disguiseMenuItem = MenuFactory.createJMenuItem(new GuiDisguiseAction(playerCharacter, imageInfoReader, soundIdReader, world, (WorldPanel)container, dungeonMaster, Actions.DISGUISE_ACTION));
 		disguiseMenuItem.setText("Disguise...");
 		setMenuIcon(disguiseMenuItem, Actions.DISGUISE_ACTION.getImageIds());
 		menu.add(disguiseMenuItem);
@@ -298,7 +301,7 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 	
 	private void addShowLegalActionsMenu(JMenu menu) {
-		JMenuItem showLegalActionsMenuItem = MenuFactory.createJMenuItem(new GuiShowLegalActionsAction(playerCharacter, dungeonMaster, world, container));
+		JMenuItem showLegalActionsMenuItem = MenuFactory.createJMenuItem(new GuiShowLegalActionsAction(playerCharacter, dungeonMaster, world, container, soundIdReader));
 		showLegalActionsMenuItem.setText("Show legal actions...");
 		setMenuIcon(showLegalActionsMenuItem, Actions.SET_LEGAL_ACTIONS_ACTION.getImageIds());
 		menu.add(showLegalActionsMenuItem);
@@ -349,7 +352,7 @@ public class GuiMouseListener extends MouseAdapter {
 
 	private void addCommunicationActions(JPopupMenu menu, WorldObject worldObject) {
 		if (canPlayerCharacterPerformTalkAction(worldObject, Actions.TALK_ACTION)) {
-			JMenuItem guiTalkMenuItem = MenuFactory.createJMenuItem(new GuiAskQuestionAction(playerCharacter, world, dungeonMaster, container, worldObject, imageInfoReader));
+			JMenuItem guiTalkMenuItem = MenuFactory.createJMenuItem(new GuiAskQuestionAction(playerCharacter, world, dungeonMaster, container, worldObject, imageInfoReader, soundIdReader));
 			guiTalkMenuItem.setText("Talk...");
 			setMenuIcon(guiTalkMenuItem, ImageIds.GOLD_AMULET);
 			menu.add(guiTalkMenuItem);
@@ -358,7 +361,7 @@ public class GuiMouseListener extends MouseAdapter {
 
 	private void addBarterAction(JPopupMenu menu, WorldObject worldObject) {
 		if (worldObject.hasProperty(Constants.INVENTORY)) {
-			JMenuItem guiBarterItem = MenuFactory.createJMenuItem(new GuiBarterAction(playerCharacter, world, dungeonMaster, container, worldObject, imageInfoReader));
+			JMenuItem guiBarterItem = MenuFactory.createJMenuItem(new GuiBarterAction(playerCharacter, world, dungeonMaster, container, worldObject, imageInfoReader, soundIdReader));
 			String barterDescription = canTrade(worldObject) ? "Barter..." : "Access container...";
 			guiBarterItem.setText(barterDescription);
 			setMenuIcon(guiBarterItem, Actions.SELL_ACTION.getImageIds());
@@ -372,7 +375,7 @@ public class GuiMouseListener extends MouseAdapter {
 		
 	private void addVoteActions(JPopupMenu menu, WorldObject worldObject) {
 		if (canPlayerCharacterPerformAction(worldObject, Actions.VOTE_FOR_LEADER_ACTION)) {
-			JMenuItem guiVoteMenuItem = MenuFactory.createJMenuItem(new GuiVoteAction(playerCharacter, imageInfoReader, world, container, dungeonMaster, worldObject));
+			JMenuItem guiVoteMenuItem = MenuFactory.createJMenuItem(new GuiVoteAction(playerCharacter, imageInfoReader, soundIdReader, world, container, dungeonMaster, worldObject));
 			guiVoteMenuItem.setText("Vote...");
 			setMenuIcon(guiVoteMenuItem, Actions.VOTE_FOR_LEADER_ACTION.getImageIds());
 			menu.add(guiVoteMenuItem);
@@ -432,10 +435,10 @@ public class GuiMouseListener extends MouseAdapter {
 	private void addIllusionActions(JPopupMenu menu) {
 		BuildAction[] buildActions = { Actions.MINOR_ILLUSION_ACTION };
 		MagicSpell[] illusionActions = { Actions.INVISIBILITY_ACTION };
-		JMenu illusionMenu = addBuildActions(menu, ImageIds.MINOR_ILLUSION_MAGIC_SPELL, "Illusions", buildActions, buildAction -> new ChooseWorldObjectAction(playerCharacter, imageInfoReader, world, ((WorldPanel)container), dungeonMaster, new StartBuildModeAction(playerCharacter, imageInfoReader, ((WorldPanel)container), buildAction)));
+		JMenu illusionMenu = addBuildActions(menu, ImageIds.MINOR_ILLUSION_MAGIC_SPELL, "Illusions", buildActions, buildAction -> new ChooseWorldObjectAction(playerCharacter, imageInfoReader, soundIdReader, world, ((WorldPanel)container), dungeonMaster, new StartBuildModeAction(playerCharacter, imageInfoReader, ((WorldPanel)container), buildAction)));
 		addActions(illusionMenu, illusionActions);
 		
-    	JMenuItem disguiseMenuItem = MenuFactory.createJMenuItem(new GuiDisguiseAction(playerCharacter, imageInfoReader, world, (WorldPanel)container, dungeonMaster, Actions.DISGUISE_MAGIC_SPELL_ACTION));
+    	JMenuItem disguiseMenuItem = MenuFactory.createJMenuItem(new GuiDisguiseAction(playerCharacter, imageInfoReader, soundIdReader, world, (WorldPanel)container, dungeonMaster, Actions.DISGUISE_MAGIC_SPELL_ACTION));
     	disguiseMenuItem.setText("Disguise self");
     	disguiseMenuItem.setEnabled(canPlayerCharacterPerformBuildAction(Actions.DISGUISE_MAGIC_SPELL_ACTION));
     	disguiseMenuItem.setToolTipText(Actions.DISGUISE_MAGIC_SPELL_ACTION.getRequirementsDescription());
@@ -515,7 +518,7 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 	
 	private void addNewsPaperAction(JMenu menu) {
-		JMenuItem guiCreateNewsPaperMenuItem = MenuFactory.createJMenuItem(new GuiCreateNewsPaperAction(playerCharacter, imageInfoReader, world, container, dungeonMaster));
+		JMenuItem guiCreateNewsPaperMenuItem = MenuFactory.createJMenuItem(new GuiCreateNewsPaperAction(playerCharacter, imageInfoReader, soundIdReader, world, container, dungeonMaster));
 		guiCreateNewsPaperMenuItem.setText("Create newspaper...");
 		boolean enabled = (Game.canActionExecute(playerCharacter, Actions.CREATE_NEWS_PAPER_ACTION, Args.EMPTY, world, playerCharacter));
 		guiCreateNewsPaperMenuItem.setEnabled(enabled);
@@ -672,7 +675,7 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 
 	private GuiAssignActionToLeftMouseAction getGuiAssignActionToLeftMouseAction() {
-		return new GuiAssignActionToLeftMouseAction(getActions(), container, this);
+		return new GuiAssignActionToLeftMouseAction(getActions(), container, this, soundIdReader);
 	}
 
 	private void addPropertiesMenu(JPopupMenu menu, WorldObject worldObject) {

@@ -14,6 +14,9 @@
  *******************************************************************************/
 package org.worldgrower.gui.util;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -23,31 +26,56 @@ import org.worldgrower.gui.ColorPalette;
 import org.worldgrower.gui.JGradientButton;
 import org.worldgrower.gui.RoundedBorder;
 import org.worldgrower.gui.font.Fonts;
+import org.worldgrower.gui.music.SoundIdReader;
+import org.worldgrower.gui.music.SoundIds;
 
 public class JButtonFactory {
 
+	public static JButton createButton(String text, ImageIcon icon, SoundIdReader soundIdReader) {
+		JButton button = createButton(text, icon);
+		addClickSoundEffect(soundIdReader, button);		
+		return button;
+	}
+
+	static void addClickSoundEffect(SoundIdReader soundIdReader, AbstractButton button) {
+		button.addMouseListener(new MouseAdapter() {
+			@Override
+            public void mousePressed(MouseEvent e) {
+            	soundIdReader.playSoundEffect(SoundIds.CLICK);
+            }
+        });
+	}
+	
 	public static JButton createButton(String text, ImageIcon icon) {
 		JButton button = new JGradientButton(text, icon);
 		setButtonProperties(button);
 		return button;
 	}
 
+	public static JButton createButton(String text, SoundIdReader soundIdReader) {
+		JButton button = createButton(text);
+		addClickSoundEffect(soundIdReader, button);
+		return button;
+	}
+	
 	public static JButton createButton(String text) {
 		JButton button = new JGradientButton(text);
 		setButtonProperties(button);
 		return button;
 	}
 	
-	public static JToggleButton createToggleButton(ImageIcon icon) {
+	public static JToggleButton createToggleButton(ImageIcon icon, SoundIdReader soundIdReader) {
 		JToggleButton button = new JToggleButton(icon);
 		button.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
+		addClickSoundEffect(soundIdReader, button);
 		setButtonProperties(button);
 		return button;
 	}
 	
-	public static JToggleButton createToggleButton(String text, ImageIcon icon) {
+	public static JToggleButton createToggleButton(String text, ImageIcon icon, SoundIdReader soundIdReader) {
 		JToggleButton button = new JToggleButton(text, icon);
 		button.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
+		addClickSoundEffect(soundIdReader, button);
 		setButtonProperties(button);
 		return button;
 	}

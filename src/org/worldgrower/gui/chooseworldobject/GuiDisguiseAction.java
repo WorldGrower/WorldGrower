@@ -25,21 +25,24 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.DisguiseTargetFactory;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.WorldPanel;
+import org.worldgrower.gui.music.SoundIdReader;
 
 public class GuiDisguiseAction extends AbstractAction {
 
 	private WorldObject playerCharacter;
 	private DisguiseDialog dialog;
 	private ImageInfoReader imageInfoReader;
+	private SoundIdReader soundIdReader;
 	private World world;
 	private WorldPanel parent;
 	private DungeonMaster dungeonMaster;
 	private DisguiseTargetFactory disguiseAction;
 	
-	public GuiDisguiseAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, World world, WorldPanel parent, DungeonMaster dungeonMaster, DisguiseTargetFactory disguiseAction) {
+	public GuiDisguiseAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, World world, WorldPanel parent, DungeonMaster dungeonMaster, DisguiseTargetFactory disguiseAction) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.imageInfoReader = imageInfoReader;
+		this.soundIdReader = soundIdReader;
 		this.world = world;
 		this.parent = parent;
 		this.dungeonMaster = dungeonMaster;
@@ -51,7 +54,7 @@ public class GuiDisguiseAction extends AbstractAction {
 		
 		List<WorldObject> disguiseWorldObjects = disguiseAction.getDisguiseTargets(playerCharacter, world);
 		
-		dialog = new DisguiseDialog(playerCharacter, imageInfoReader, disguiseWorldObjects, parent, world, dungeonMaster, disguiseAction);
+		dialog = new DisguiseDialog(playerCharacter, imageInfoReader, soundIdReader, disguiseWorldObjects, parent, world, dungeonMaster, disguiseAction);
 		dialog.showMe();
 	}
 }

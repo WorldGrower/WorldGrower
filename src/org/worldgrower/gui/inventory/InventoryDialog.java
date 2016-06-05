@@ -65,6 +65,7 @@ import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.SwingUtils;
 import org.worldgrower.gui.font.Fonts;
 import org.worldgrower.gui.knowledge.ImageCellRenderer;
+import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JLabelFactory;
 import org.worldgrower.gui.util.JPanelFactory;
@@ -80,6 +81,7 @@ public final class InventoryDialog extends AbstractDialog {
 	private static final String PRICES_TOOL_TIP = "show list of items with associated prices. These prices are used instead of the default prices when an item is sold by the player character";
 	
 	private final ImageInfoReader imageInfoReader;
+	private final SoundIdReader soundIdReader;
 	
 	private JPanel rootInventoryPanel;
 	
@@ -111,9 +113,10 @@ public final class InventoryDialog extends AbstractDialog {
 	/**
 	 * @wbp.parser.constructor
 	 */
-	public InventoryDialog(InventoryDialogModel inventoryDialogModel, ImageInfoReader imageInfoReader, InventoryActionFactory inventoryActionFactory) {
+	public InventoryDialog(InventoryDialogModel inventoryDialogModel, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, InventoryActionFactory inventoryActionFactory) {
 		super(762, 710);
 		this.imageInfoReader = imageInfoReader;
+		this.soundIdReader = soundIdReader;
 		
 		initializeGUI(inventoryDialogModel, imageInfoReader, inventoryActionFactory);
 	}
@@ -128,7 +131,7 @@ public final class InventoryDialog extends AbstractDialog {
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		addComponent(buttonPane);
 
-		okButton = JButtonFactory.createButton("Ok");
+		okButton = JButtonFactory.createButton("Ok", soundIdReader);
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
@@ -182,7 +185,7 @@ public final class InventoryDialog extends AbstractDialog {
 		weightLabelValue.setBounds(labelValueLeft, 12, 64, 25);
 		inventoryPanel.add(weightLabelValue);
 		
-		pricesButton = JButtonFactory.createButton("Prices");
+		pricesButton = JButtonFactory.createButton("Prices", soundIdReader);
 		pricesButton.setToolTipText(PRICES_TOOL_TIP);
 		pricesButton.setBounds(labelLeft, 566, 100, 25);
 		inventoryPanel.add(pricesButton);
@@ -218,7 +221,7 @@ public final class InventoryDialog extends AbstractDialog {
 				targetInventoryPanel.add(targetMoney);
 				
 				Image stealGoldImage = imageInfoReader.getImage(Actions.STEAL_GOLD_ACTION.getImageIds(), null);
-				JButton stealMoneyButton = JButtonFactory.createButton("Steal money", new ImageIcon(stealGoldImage));
+				JButton stealMoneyButton = JButtonFactory.createButton("Steal money", new ImageIcon(stealGoldImage), soundIdReader);
 				stealMoneyButton.setToolTipText("steal money");
 				stealMoneyButton.setBounds(labelLeft, 112, 150, 50);
 				stealMoneyButton.addActionListener(inventoryActionFactory.getTargetMoneyActions().get(0));
@@ -253,14 +256,14 @@ public final class InventoryDialog extends AbstractDialog {
 		containersPanel.setBounds(24, 615, 450, 50);
 		addComponent(containersPanel);
 		
-		playercharacterToggleButton = JButtonFactory.createToggleButton(inventoryDialogModel.getPlayerCharacterName(), new ImageIcon(inventoryDialogModel.getPlayerCharacterImage(imageInfoReader)));
+		playercharacterToggleButton = JButtonFactory.createToggleButton(inventoryDialogModel.getPlayerCharacterName(), new ImageIcon(inventoryDialogModel.getPlayerCharacterImage(imageInfoReader)), soundIdReader);
 		playercharacterToggleButton.setToolTipText(inventoryDialogModel.getPlayerCharacterName());
 		playercharacterToggleButton.setBounds(0, 0, 225, 50);
 		playercharacterToggleButton.setOpaque(true);
 		playercharacterToggleButton.addActionListener(this::setPlayerCharacterPanelOnTop);
 		containersPanel.add(playercharacterToggleButton);
 		
-		targetToggleButton = JButtonFactory.createToggleButton(inventoryDialogModel.getTargetName(), new ImageIcon(inventoryDialogModel.getTargetImage(imageInfoReader)));
+		targetToggleButton = JButtonFactory.createToggleButton(inventoryDialogModel.getTargetName(), new ImageIcon(inventoryDialogModel.getTargetImage(imageInfoReader)), soundIdReader);
 		targetToggleButton.setToolTipText(inventoryDialogModel.getTargetName());
 		targetToggleButton.setBounds(225, 0, 225, 50);
 		targetToggleButton.setOpaque(true);
@@ -366,7 +369,7 @@ public final class InventoryDialog extends AbstractDialog {
 	}
 	
 	private JToggleButton createFilterButton(JPanel filterPanel, int index, ImageIds imageId, String tooltipText, JTable parentTable, OptionalTableColumn... optionalTableColumns) {
-		JToggleButton filterToggleButton = JButtonFactory.createToggleButton(new ImageIcon(imageInfoReader.getImage(imageId, null)));
+		JToggleButton filterToggleButton = JButtonFactory.createToggleButton(new ImageIcon(imageInfoReader.getImage(imageId, null)), soundIdReader);
 		filterToggleButton.setBounds(index * 50, 0, 50, 50);
 		filterToggleButton.setToolTipText(tooltipText);
 		
@@ -540,7 +543,7 @@ public final class InventoryDialog extends AbstractDialog {
 	}
 
 	private void setInventoryActions(Prices pricesOnPlayer) {
-		pricesButton.addActionListener(e -> new PricesDialog(pricesOnPlayer).showMe());
+		pricesButton.addActionListener(e -> new PricesDialog(pricesOnPlayer, soundIdReader).showMe());
 	}
 
 	private void addPlayerCharacterMenuActions(JPopupMenu popupMenu, InventoryItem inventoryItem, InventoryDialogModel inventoryDialogModel, InventoryActionFactory inventoryActionFactory) {

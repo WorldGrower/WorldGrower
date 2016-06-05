@@ -28,6 +28,7 @@ import org.worldgrower.attribute.IdList;
 import org.worldgrower.gui.ActionContainingArgs;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.WorldPanel;
+import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.start.Game;
 
 public class GuiVoteAction extends AbstractAction {
@@ -35,15 +36,17 @@ public class GuiVoteAction extends AbstractAction {
 	private WorldObject playerCharacter;
 	private ChooseWorldObjectDialog dialog;
 	private ImageInfoReader imageInfoReader;
+	private SoundIdReader soundIdReader;
 	private World world;
 	private WorldPanel parent;
 	private DungeonMaster dungeonMaster;
 	private WorldObject worldObject;
 	
-	public GuiVoteAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, World world, WorldPanel parent, DungeonMaster dungeonMaster, WorldObject worldObject) {
+	public GuiVoteAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, World world, WorldPanel parent, DungeonMaster dungeonMaster, WorldObject worldObject) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.imageInfoReader = imageInfoReader;
+		this.soundIdReader = soundIdReader;
 		this.world = world;
 		this.parent = parent;
 		this.dungeonMaster = dungeonMaster;
@@ -57,7 +60,7 @@ public class GuiVoteAction extends AbstractAction {
 		List<WorldObject> voteWorldObjects = world.findWorldObjects(w -> candidates.contains(w.getProperty(Constants.ID)));
 		
 		ActionContainingArgs guiAction = new GuiAction();
-		dialog = new ChooseWorldObjectDialog(playerCharacter, imageInfoReader, voteWorldObjects, parent, world, dungeonMaster, guiAction);
+		dialog = new ChooseWorldObjectDialog(playerCharacter, imageInfoReader, soundIdReader, voteWorldObjects, parent, world, dungeonMaster, guiAction);
 		dialog.showMe();
 	}
 	

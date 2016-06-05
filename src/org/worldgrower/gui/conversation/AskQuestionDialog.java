@@ -55,6 +55,7 @@ import org.worldgrower.gui.ActionContainingArgs;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.chooseworldobject.ChooseWorldObjectDialog;
+import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JLabelFactory;
 import org.worldgrower.gui.util.JProgressBarFactory;
@@ -120,7 +121,7 @@ public class AskQuestionDialog extends AbstractDialog implements ManagedOperatio
 		}
 	}
 	
-	public AskQuestionDialog(Answerer answerer, Conversations conversations, ImageIds imageIdPerformer, ImageIds imageIdTarget, String performerName, String targetName, Map<Integer, ImageIds> subjectImageIds, ImageInfoReader imageInfoReader) {
+	public AskQuestionDialog(Answerer answerer, Conversations conversations, ImageIds imageIdPerformer, ImageIds imageIdTarget, String performerName, String targetName, Map<Integer, ImageIds> subjectImageIds, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader) {
 		super(650, 300);
 		this.answerer = answerer;
 		
@@ -133,12 +134,12 @@ public class AskQuestionDialog extends AbstractDialog implements ManagedOperatio
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		addComponent(buttonPane);
 
-		JButton okButton = JButtonFactory.createButton("OK");
+		JButton okButton = JButtonFactory.createButton("OK", soundIdReader);
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
 
-		JButton cancelButton = JButtonFactory.createButton("Cancel");
+		JButton cancelButton = JButtonFactory.createButton("Cancel", soundIdReader);
 		cancelButton.setActionCommand("Cancel");
 		buttonPane.add(cancelButton);
 
@@ -147,7 +148,7 @@ public class AskQuestionDialog extends AbstractDialog implements ManagedOperatio
 		performerLabel.setBounds(6, 17, 32, 48);
 		addComponent(performerLabel);
 		
-		askQuestion = JButtonFactory.createButton("Ask Question");
+		askQuestion = JButtonFactory.createButton("Ask Question", soundIdReader);
 		askQuestion.setBounds(44, 27, 580, 22);
 		askQuestion.addActionListener(new ActionListener() {
 

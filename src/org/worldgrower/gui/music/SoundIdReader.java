@@ -57,7 +57,9 @@ public class SoundIdReader {
 		readSound(SoundIds.KNIFE_SLICE, "/sound/knifeSlice8bit.wav.gz");
 		readSound(SoundIds.HANDLE_COINS, "/sound/handleCoins8bit.wav.gz");
 		readSound(SoundIds.BOOK_FLIP, "/sound/bookFlip18bit.wav.gz");
-		
+		readSound(SoundIds.CLICK, "/sound/click18bit.wav.gz");
+		readSound(SoundIds.ROLLOVER, "/sound/rollover18bit.wav.gz");
+
 	}
 
 	private void readSound(SoundIds soundIds, String path) {

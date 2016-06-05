@@ -20,24 +20,27 @@ import javax.swing.AbstractAction;
 
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.gui.music.SoundIdReader;
 
 public class CharacterSheetAction extends AbstractAction {
 
 	private WorldObject playerCharacter;
 	private CharacterDialog dialog;
 	private ImageInfoReader imageInfoReader;
+	private SoundIdReader soundIdReader;
 	private World world;
 	
-	public CharacterSheetAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, World world) {
+	public CharacterSheetAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, World world) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.imageInfoReader = imageInfoReader;
+		this.soundIdReader = soundIdReader;
 		this.world = world;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		dialog = new CharacterDialog(playerCharacter, imageInfoReader, world);
+		dialog = new CharacterDialog(playerCharacter, imageInfoReader, soundIdReader, world);
 		dialog.showMe();
 	}
 }

@@ -23,20 +23,23 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.WorldPanel;
+import org.worldgrower.gui.music.SoundIdReader;
 
 public class ShowInventoryAction extends AbstractAction {
 
 	private WorldObject playerCharacter;
 	private InventoryDialog dialog;
 	private ImageInfoReader imageInfoReader;
+	private SoundIdReader soundIdReader;
 	private World world;
 	private DungeonMaster dungeonMaster;
 	private WorldPanel container;
 	
-	public ShowInventoryAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, World world, DungeonMaster dungeonMaster, WorldPanel container) {
+	public ShowInventoryAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, World world, DungeonMaster dungeonMaster, WorldPanel container) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.imageInfoReader = imageInfoReader;
+		this.soundIdReader = soundIdReader;
 		this.world = world;
 		this.dungeonMaster = dungeonMaster;
 		this.container = container;
@@ -45,7 +48,7 @@ public class ShowInventoryAction extends AbstractAction {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		InventoryActionFactory inventoryActionFactory = new InventoryActionFactory(playerCharacter, imageInfoReader, world, dungeonMaster, container, null);
-		dialog = new InventoryDialog(new InventoryDialogModel(playerCharacter), imageInfoReader, inventoryActionFactory);
+		dialog = new InventoryDialog(new InventoryDialogModel(playerCharacter), imageInfoReader, soundIdReader, inventoryActionFactory);
 		inventoryActionFactory.setDialog(dialog);
 		dialog.showMe();
 	}

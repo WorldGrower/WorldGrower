@@ -104,7 +104,7 @@ public final class WorldPanel extends JPanel {
         this.soundIdReader = soundIdReader;
         this.keyBindings = keyBindings;
 
-        guiMouseListener = new GuiMouseListener(this, playerCharacter, world, dungeonMaster, imageInfoReader, keyBindings);
+        guiMouseListener = new GuiMouseListener(this, playerCharacter, world, dungeonMaster, imageInfoReader, soundIdReader, keyBindings);
 		addMouseListener(guiMouseListener);
 		ToolTipManager.sharedInstance().registerComponent(this);
 
@@ -545,7 +545,7 @@ public final class WorldPanel extends JPanel {
 	}
 
 	public void addGuiListeners(AdditionalManagedOperationListenerFactory additionalManagedOperationListenerFactory) {
-		new GuiRespondToQuestion(playerCharacter, world, imageInfoReader);
+		new GuiRespondToQuestion(playerCharacter, world, imageInfoReader, soundIdReader);
 		new GuiShowReadAction(playerCharacter, world, this, imageInfoReader);
 		new GuiShowBrawlResult(imageInfoReader, this, world);
 		new GuiShowDrinkingContestResult(imageInfoReader, this, world);

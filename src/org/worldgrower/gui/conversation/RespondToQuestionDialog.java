@@ -34,6 +34,7 @@ import org.worldgrower.conversation.Response;
 import org.worldgrower.gui.AbstractDialog;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
+import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JComboBoxFactory;
 import org.worldgrower.gui.util.JLabelFactory;
@@ -53,7 +54,7 @@ public class RespondToQuestionDialog extends AbstractDialog {
 		}
 	}
 
-	public RespondToQuestionDialog(int id, int conversationId, int historyItemId, int additionalValue, int additionalValue2, Questioner questioner, Conversations conversations, ImageIds imageIdPerformer, ImageIds imageIdTarget, String performerName, String targetName, ImageInfoReader imageInfoReader) {
+	public RespondToQuestionDialog(int id, int conversationId, int historyItemId, int additionalValue, int additionalValue2, Questioner questioner, Conversations conversations, ImageIds imageIdPerformer, ImageIds imageIdTarget, String performerName, String targetName, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader) {
 		super(560, 300);
 		
 		KeyStroke stroke = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
@@ -65,12 +66,12 @@ public class RespondToQuestionDialog extends AbstractDialog {
 		buttonPane.setOpaque(false);
 		addComponent(buttonPane);
 
-		JButton okButton = JButtonFactory.createButton("OK");
+		JButton okButton = JButtonFactory.createButton("OK", soundIdReader);
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
 
-		JButton cancelButton = JButtonFactory.createButton("Cancel");
+		JButton cancelButton = JButtonFactory.createButton("Cancel", soundIdReader);
 		cancelButton.setActionCommand("Cancel");
 		buttonPane.add(cancelButton);
 

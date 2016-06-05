@@ -37,6 +37,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.attribute.PropertyCountMap;
+import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.JTableFactory;
@@ -45,7 +46,7 @@ public class MagicOverviewDialog extends JDialog {
 
 	private final JPanel contentPanel = new GradientPanel();
 
-	public MagicOverviewDialog(WorldObject playerCharacter) {
+	public MagicOverviewDialog(WorldObject playerCharacter, SoundIdReader soundIdReader) {
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		
 		setSize(650, 650);
@@ -79,7 +80,7 @@ public class MagicOverviewDialog extends JDialog {
 			buttonPane.setBounds(12, 535, 608, 75);
 			contentPanel.add(buttonPane);
 			{
-				JButton okButton = JButtonFactory.createButton("OK");
+				JButton okButton = JButtonFactory.createButton("OK", soundIdReader);
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);

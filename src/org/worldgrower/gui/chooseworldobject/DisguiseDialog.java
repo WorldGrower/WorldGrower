@@ -47,6 +47,7 @@ import org.worldgrower.gui.SwingUtils;
 import org.worldgrower.gui.WorldObjectList;
 import org.worldgrower.gui.WorldPanel;
 import org.worldgrower.gui.debug.PropertiesModel;
+import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.start.Game;
 import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.IconUtils;
@@ -69,8 +70,9 @@ public class DisguiseDialog extends JDialog {
 	private WorldPanel parent;
 	private DungeonMaster dungeonMaster;
 	private ManagedOperation disguiseAction;
+	private final SoundIdReader soundIdReader;
 
-	public DisguiseDialog(WorldObject playerCharacter, ImageInfoReader imageInfoReader, List<WorldObject> disguiseWorldObjects, WorldPanel parent, World world, DungeonMaster dungeonMaster, ManagedOperation disguiseAction) {
+	public DisguiseDialog(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, List<WorldObject> disguiseWorldObjects, WorldPanel parent, World world, DungeonMaster dungeonMaster, ManagedOperation disguiseAction) {
 		initializeGui(parent, disguiseWorldObjects, imageInfoReader);
 		
 		this.playerCharacter = playerCharacter;
@@ -78,6 +80,7 @@ public class DisguiseDialog extends JDialog {
 		this.parent = parent;
 		this.dungeonMaster = dungeonMaster;
 		this.disguiseAction = disguiseAction;
+		this.soundIdReader = soundIdReader;
 		
 		transferDataToScreen(playerCharacter, disguiseWorldObjects);
 		handleActions();
@@ -161,7 +164,7 @@ public class DisguiseDialog extends JDialog {
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		contentPanel.add(buttonPane);
 		
-		okButton = JButtonFactory.createButton("OK");
+		okButton = JButtonFactory.createButton("OK", soundIdReader);
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);

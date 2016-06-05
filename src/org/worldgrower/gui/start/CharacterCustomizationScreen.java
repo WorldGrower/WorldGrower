@@ -127,7 +127,7 @@ public class CharacterCustomizationScreen extends JFrame {
 		lblCharisma.setToolTipText(lblCharismaDesc.getToolTipText());
 		contentPane.add(lblCharisma);
 		
-		JButton button1Plus = JButtonFactory.createButton("+");
+		JButton button1Plus = JButtonFactory.createButton("+", soundIdReader);
 		plusButtons.add(button1Plus);
 		button1Plus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -137,7 +137,7 @@ public class CharacterCustomizationScreen extends JFrame {
 		button1Plus.setBounds(214, 9, 56, 25);
 		contentPane.add(button1Plus);
 		
-		JButton button1Min = JButtonFactory.createButton("-");
+		JButton button1Min = JButtonFactory.createButton("-", soundIdReader);
 		minButtons.add(button1Min);
 		button1Min.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -147,7 +147,7 @@ public class CharacterCustomizationScreen extends JFrame {
 		button1Min.setBounds(146, 9, 56, 25);
 		contentPane.add(button1Min);
 		
-		JButton button = JButtonFactory.createButton("+");
+		JButton button = JButtonFactory.createButton("+", soundIdReader);
 		plusButtons.add(button);
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -157,7 +157,7 @@ public class CharacterCustomizationScreen extends JFrame {
 		button.setBounds(214, 47, 56, 25);
 		contentPane.add(button);
 		
-		JButton button_1 = JButtonFactory.createButton("-");
+		JButton button_1 = JButtonFactory.createButton("-", soundIdReader);
 		minButtons.add(button_1);
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -167,7 +167,7 @@ public class CharacterCustomizationScreen extends JFrame {
 		button_1.setBounds(146, 47, 56, 25);
 		contentPane.add(button_1);
 		
-		JButton button_2 = JButtonFactory.createButton("+");
+		JButton button_2 = JButtonFactory.createButton("+", soundIdReader);
 		plusButtons.add(button_2);
 		button_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -177,7 +177,7 @@ public class CharacterCustomizationScreen extends JFrame {
 		button_2.setBounds(214, 87, 56, 25);
 		contentPane.add(button_2);
 		
-		JButton button_3 = JButtonFactory.createButton("-");
+		JButton button_3 = JButtonFactory.createButton("-", soundIdReader);
 		minButtons.add(button_3);
 		button_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -187,7 +187,7 @@ public class CharacterCustomizationScreen extends JFrame {
 		button_3.setBounds(146, 87, 56, 25);
 		contentPane.add(button_3);
 		
-		JButton button_4 = JButtonFactory.createButton("+");
+		JButton button_4 = JButtonFactory.createButton("+", soundIdReader);
 		plusButtons.add(button_4);
 		button_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -197,7 +197,7 @@ public class CharacterCustomizationScreen extends JFrame {
 		button_4.setBounds(214, 129, 56, 25);
 		contentPane.add(button_4);
 		
-		JButton button_5 = JButtonFactory.createButton("-");
+		JButton button_5 = JButtonFactory.createButton("-", soundIdReader);
 		minButtons.add(button_5);
 		button_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -207,7 +207,7 @@ public class CharacterCustomizationScreen extends JFrame {
 		button_5.setBounds(146, 129, 56, 25);
 		contentPane.add(button_5);
 		
-		JButton button_6 = JButtonFactory.createButton("+");
+		JButton button_6 = JButtonFactory.createButton("+", soundIdReader);
 		plusButtons.add(button_6);
 		button_6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -217,7 +217,7 @@ public class CharacterCustomizationScreen extends JFrame {
 		button_6.setBounds(214, 175, 56, 25);
 		contentPane.add(button_6);
 		
-		JButton button_7 = JButtonFactory.createButton("-");
+		JButton button_7 = JButtonFactory.createButton("-", soundIdReader);
 		minButtons.add(button_7);
 		button_7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -227,7 +227,7 @@ public class CharacterCustomizationScreen extends JFrame {
 		button_7.setBounds(146, 175, 56, 25);
 		contentPane.add(button_7);
 		
-		JButton button_8 = JButtonFactory.createButton("+");
+		JButton button_8 = JButtonFactory.createButton("+", soundIdReader);
 		plusButtons.add(button_8);
 		button_8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -237,7 +237,7 @@ public class CharacterCustomizationScreen extends JFrame {
 		button_8.setBounds(214, 220, 56, 25);
 		contentPane.add(button_8);
 		
-		JButton button_9 = JButtonFactory.createButton("-");
+		JButton button_9 = JButtonFactory.createButton("-", soundIdReader);
 		minButtons.add(button_9);
 		button_9.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -254,7 +254,7 @@ public class CharacterCustomizationScreen extends JFrame {
 		lblRemainingAttributePoints.setBounds(294, 13, 215, 25);
 		contentPane.add(lblRemainingAttributePoints);
 		
-		btnOk = JButtonFactory.createButton("Ok");
+		btnOk = JButtonFactory.createButton("Ok", soundIdReader);
 		btnOk.setBounds(412, 224, 97, 25);
 		getRootPane().setDefaultButton(btnOk);
 		contentPane.add(btnOk);

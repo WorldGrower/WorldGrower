@@ -15,39 +15,33 @@
 package org.worldgrower.gui.knowledge;
 
 import java.awt.event.ActionEvent;
-import java.util.HashMap;
 
 import javax.swing.AbstractAction;
 
-import org.worldgrower.Constants;
 import org.worldgrower.DungeonMaster;
 import org.worldgrower.World;
-import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
-import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.attribute.KnowledgeMap;
-import org.worldgrower.attribute.ManagedProperty;
-import org.worldgrower.deity.Deity;
 import org.worldgrower.gui.ActionContainingArgs;
-import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.WorldPanel;
+import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.start.Game;
-import org.worldgrower.profession.Professions;
 
 public class GuiCreateNewsPaperAction extends AbstractAction {
 
 	private WorldObject playerCharacter;
 	private ImageInfoReader imageInfoReader;
+	private SoundIdReader soundIdReader;
 	private World world;
 	private WorldPanel parent;
 	private DungeonMaster dungeonMaster;
 	
-	public GuiCreateNewsPaperAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, World world, WorldPanel parent, DungeonMaster dungeonMaster) {
+	public GuiCreateNewsPaperAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, World world, WorldPanel parent, DungeonMaster dungeonMaster) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.imageInfoReader = imageInfoReader;
+		this.soundIdReader = soundIdReader;
 		this.world = world;
 		this.parent = parent;
 		this.dungeonMaster = dungeonMaster;
@@ -57,7 +51,7 @@ public class GuiCreateNewsPaperAction extends AbstractAction {
 	public void actionPerformed(ActionEvent e) {
 		
 		ActionContainingArgs guiAction = new GuiAction();
-		ChooseKnowledgeAction action = new ChooseKnowledgeAction(playerCharacter, imageInfoReader, world, parent, guiAction);
+		ChooseKnowledgeAction action = new ChooseKnowledgeAction(playerCharacter, imageInfoReader, soundIdReader, world, parent, guiAction);
 		action.actionPerformed(null);
 	}
 	
@@ -73,21 +67,5 @@ public class GuiCreateNewsPaperAction extends AbstractAction {
 		public void setArgs(int[] args) {
 			this.args = args;
 		}
-	}
-	
-	public static void main(String[] args) throws Exception {
-		World world = new WorldImpl(1, 1, null, null);
-		DungeonMaster dungeonMaster = new DungeonMaster();
-		HashMap<ManagedProperty<?>, Object> properties = new HashMap<>();
-		properties.put(Constants.KNOWLEDGE_MAP, new KnowledgeMap());
-		properties.put(Constants.ID, 3);
-		properties.put(Constants.IMAGE_ID, ImageIds.KNIGHT);
-		properties.put(Constants.NAME, "performer");
-		WorldObject playerCharacter = new WorldObjectImpl(properties);
-		world.addWorldObject(playerCharacter);
-		playerCharacter.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(3, Constants.PROFESSION, Professions.FARMER_PROFESSION);
-		playerCharacter.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(3, Constants.DEITY, Deity.ARES);
-		
-		new GuiCreateNewsPaperAction(playerCharacter, new ImageInfoReader(), world, null, dungeonMaster).actionPerformed(null);
-	}
+	}	
 }

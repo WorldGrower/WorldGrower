@@ -24,28 +24,30 @@ import javax.swing.JComponent;
 import org.worldgrower.Constants;
 import org.worldgrower.DungeonMaster;
 import org.worldgrower.World;
-import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.gui.ActionContainingArgs;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
+import org.worldgrower.gui.music.SoundIdReader;
 
 public class ChooseWorldObjectAction extends AbstractAction {
 
 	private WorldObject playerCharacter;
 	private ChooseWorldObjectDialog dialog;
 	private ImageInfoReader imageInfoReader;
+	private SoundIdReader soundIdReader;
 	private World world;
 	private JComponent parent;
 	private DungeonMaster dungeonMaster;
 	private ActionContainingArgs guiAction;
 	
-	public ChooseWorldObjectAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, World world, JComponent parent, DungeonMaster dungeonMaster, ActionContainingArgs guiAction) {
+	public ChooseWorldObjectAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, World world, JComponent parent, DungeonMaster dungeonMaster, ActionContainingArgs guiAction) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.imageInfoReader = imageInfoReader;
+		this.soundIdReader = soundIdReader;
 		this.world = world;
 		this.parent = parent;
 		this.dungeonMaster = dungeonMaster;
@@ -57,22 +59,10 @@ public class ChooseWorldObjectAction extends AbstractAction {
 		
 		List<WorldObject> disguiseWorldObjects = world.findWorldObjects(w -> w.getProperty(Constants.WIDTH) == 1 && w.getProperty(Constants.HEIGHT) == 1 && w.getProperty(Constants.ID) != playerCharacter.getProperty(Constants.ID));
 		
-		dialog = new ChooseWorldObjectDialog(playerCharacter, imageInfoReader, disguiseWorldObjects, parent, world, dungeonMaster, guiAction);
+		dialog = new ChooseWorldObjectDialog(playerCharacter, imageInfoReader, soundIdReader, disguiseWorldObjects, parent, world, dungeonMaster, guiAction);
 		dialog.showMe();
 	}
 	
-	public static void main(String[] args) throws Exception {
-		World world = new WorldImpl(1, 1, null, null);
-		DungeonMaster dungeonMaster = new DungeonMaster();
-		WorldObject playerCharacter = createWorldObject(3, "performer");
-		world.addWorldObject(playerCharacter);
-		
-		WorldObject target = createWorldObject(4, "target");
-		world.addWorldObject(target);
-		
-		new ChooseWorldObjectAction(playerCharacter, new ImageInfoReader(), world, null, dungeonMaster, null).actionPerformed(null);
-	}
-
 	private static WorldObject createWorldObject(int id, String name) {
 		HashMap<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.ID, id);

@@ -36,6 +36,7 @@ import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.WorldPanel;
 import org.worldgrower.gui.chooseworldobject.ChooseWorldObjectDialog;
+import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.start.Game;
 
 public class GuiAskQuestionAction extends AbstractAction implements Answerer {
@@ -48,8 +49,9 @@ public class GuiAskQuestionAction extends AbstractAction implements Answerer {
 	private Conversations conversations = new Conversations();
 	private AskQuestionDialog dialog;
 	private ImageInfoReader imageInfoReader;
+	private SoundIdReader soundIdReader;
 	
-	public GuiAskQuestionAction(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, WorldPanel container, WorldObject target, ImageInfoReader imageInfoReader) {
+	public GuiAskQuestionAction(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, WorldPanel container, WorldObject target, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.world = world;
@@ -57,6 +59,7 @@ public class GuiAskQuestionAction extends AbstractAction implements Answerer {
 		this.container = container;
 		this.target = target;
 		this.imageInfoReader = imageInfoReader;
+		this.soundIdReader = soundIdReader;
 	}
 
 	@Override
@@ -73,7 +76,7 @@ public class GuiAskQuestionAction extends AbstractAction implements Answerer {
 			
 			@Override
 			public void run() {
-				dialog = new AskQuestionDialog(GuiAskQuestionAction.this, conversations, imageIdPerformer, imageIdTarget, performerName, targetName, subjectImageIds, imageInfoReader);
+				dialog = new AskQuestionDialog(GuiAskQuestionAction.this, conversations, imageIdPerformer, imageIdTarget, performerName, targetName, subjectImageIds, imageInfoReader, soundIdReader);
 				world.addListener(dialog);
 				dialog.showMe();
 				
@@ -133,7 +136,7 @@ public class GuiAskQuestionAction extends AbstractAction implements Answerer {
 
 	@Override
 	public ChooseWorldObjectDialog createChooseWorldObjectsDialog(ActionContainingArgs guiAction, Question question, JDialog parentDialog) {
-		return new ChooseWorldObjectDialog(playerCharacter, imageInfoReader, getPossibleSubjects(question), parentDialog, world, dungeonMaster, guiAction);
+		return new ChooseWorldObjectDialog(playerCharacter, imageInfoReader, soundIdReader, getPossibleSubjects(question), parentDialog, world, dungeonMaster, guiAction);
 	}
 
 	@Override

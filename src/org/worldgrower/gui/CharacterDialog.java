@@ -48,6 +48,7 @@ import org.worldgrower.generator.CommonerOnTurn;
 import org.worldgrower.goal.ArmorPropertyUtils;
 import org.worldgrower.goal.BountyPropertyUtils;
 import org.worldgrower.goal.MeleeDamagePropertyUtils;
+import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.JComboBoxFactory;
@@ -85,7 +86,7 @@ public class CharacterDialog extends JDialog {
 	private JComboBox<ComboBoxEquipmentItem> cmbRightHand;
 	private JLabel lblDamageValue;
 
-	public CharacterDialog(WorldObject playerCharacter, ImageInfoReader imageInfoReader, World world) {
+	public CharacterDialog(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, World world) {
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		IconUtils.setIcon(this);
 		setResizable(false);
@@ -373,7 +374,7 @@ public class CharacterDialog extends JDialog {
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		contentPanel.add(buttonPane);
 		
-		JButton okButton = JButtonFactory.createButton("OK");
+		JButton okButton = JButtonFactory.createButton("OK", soundIdReader);
 		okButton.setActionCommand("OK");
 		okButton.addActionListener(new CloseDialogAction());
 		buttonPane.add(okButton);

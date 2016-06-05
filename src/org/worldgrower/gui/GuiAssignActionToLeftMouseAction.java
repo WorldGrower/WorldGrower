@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 import javax.swing.AbstractAction;
 
 import org.worldgrower.ManagedOperation;
+import org.worldgrower.gui.music.SoundIdReader;
 
 public class GuiAssignActionToLeftMouseAction extends AbstractAction {
 
@@ -30,8 +31,9 @@ public class GuiAssignActionToLeftMouseAction extends AbstractAction {
 	private List<ManagedOperation> actions;
 	private WorldPanel parent;
 	private GuiMouseListener guiMouseListener;
+	private SoundIdReader soundIdReader;
 	
-	public GuiAssignActionToLeftMouseAction(List<ManagedOperation> actions, WorldPanel parent, GuiMouseListener guiMouseListener) {
+	public GuiAssignActionToLeftMouseAction(List<ManagedOperation> actions, WorldPanel parent, GuiMouseListener guiMouseListener, SoundIdReader soundIdReader) {
 		super();
 		this.actions = actions;
 		this.parent = parent;
@@ -43,7 +45,7 @@ public class GuiAssignActionToLeftMouseAction extends AbstractAction {
 		
 		String[] actionDescriptions = getActionDescriptions().toArray(new String[0]);
 		
-		AssignActionLeftMouseDialog assignActionLeftMouseDialog = new AssignActionLeftMouseDialog(actionDescriptions);
+		AssignActionLeftMouseDialog assignActionLeftMouseDialog = new AssignActionLeftMouseDialog(actionDescriptions, soundIdReader);
 		String actionDescription = assignActionLeftMouseDialog.showMe();
 		
 		if (actionDescription != null && !actionDescription.equals(NO_ACTION)) {

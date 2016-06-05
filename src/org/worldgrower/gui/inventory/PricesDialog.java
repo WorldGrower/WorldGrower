@@ -31,20 +31,21 @@ import org.worldgrower.attribute.Prices;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.AbstractDialog;
 import org.worldgrower.gui.SwingUtils;
+import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JTableFactory;
 
 public final class PricesDialog extends AbstractDialog {
 	private final Prices pricesOnPlayer;
 	
-	public PricesDialog(Prices pricesOnPlayer) {
+	public PricesDialog(Prices pricesOnPlayer, SoundIdReader soundIdReader) {
 		super(400, 800);
 		this.pricesOnPlayer = pricesOnPlayer;
 		
-		initializeGUI();
+		initializeGUI(soundIdReader);
 	}
 
-	public void initializeGUI() {
+	public void initializeGUI(SoundIdReader soundIdReader) {
 		PricesModel worldModel = new PricesModel(pricesOnPlayer);
 		JTable table = JTableFactory.createJTable(worldModel);
 		table.setAutoCreateRowSorter(true);
@@ -59,7 +60,7 @@ public final class PricesDialog extends AbstractDialog {
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		addComponent(buttonPane);
 		
-		JButton okButton = JButtonFactory.createButton("OK");
+		JButton okButton = JButtonFactory.createButton("OK", soundIdReader);
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		addActionHandlers(okButton, worldModel, this, pricesOnPlayer);

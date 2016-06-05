@@ -193,7 +193,7 @@ public class StartScreen {
 	}
 
 	private void addSaveButton() {
-		btnSaveGame = JButtonFactory.createButton("Save Game", IconUtils.getSaveIcon());
+		btnSaveGame = JButtonFactory.createButton("Save Game", IconUtils.getSaveIcon(), soundIdReader);
 		btnSaveGame.setHorizontalAlignment(SwingConstants.LEFT);
 		btnSaveGame.setHorizontalTextPosition(SwingConstants.RIGHT);
 		btnSaveGame.setToolTipText("Saves current game");
@@ -227,14 +227,14 @@ public class StartScreen {
 	}
 	
 	private void addControlsButton() {
-		btnControlsGame = JButtonFactory.createButton("Controls", IconUtils.getControlsIcon());
+		btnControlsGame = JButtonFactory.createButton("Controls", IconUtils.getControlsIcon(), soundIdReader);
 		btnControlsGame.setHorizontalAlignment(SwingConstants.LEFT);
 		btnControlsGame.setHorizontalTextPosition(SwingConstants.RIGHT);
 		btnControlsGame.setToolTipText("View and change game controls");
 		btnControlsGame.setEnabled(true);
 		btnControlsGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ControlsDialog controlsDialog = new ControlsDialog(keyBindings);
+				ControlsDialog controlsDialog = new ControlsDialog(keyBindings, soundIdReader);
 				controlsDialog.showMe();
 				keyBindings.saveSettings(preferences);
 			}
@@ -244,7 +244,7 @@ public class StartScreen {
 	}
 
 	private void addExitButton() {
-		JButton btnExit = JButtonFactory.createButton("Exit", IconUtils.getExitIcon());
+		JButton btnExit = JButtonFactory.createButton("Exit", IconUtils.getExitIcon(), soundIdReader);
 		btnExit.setHorizontalAlignment(SwingConstants.LEFT);
 		btnExit.setHorizontalTextPosition(SwingConstants.RIGHT);
 		btnExit.setToolTipText("Exits program");
@@ -258,7 +258,7 @@ public class StartScreen {
 	}
 
 	private void addNewButton() {
-		JButton btnNewGame = JButtonFactory.createButton("New Game", IconUtils.getNewIcon());
+		JButton btnNewGame = JButtonFactory.createButton("New Game", IconUtils.getNewIcon(), soundIdReader);
 		btnNewGame.setHorizontalAlignment(SwingConstants.LEFT);
 		btnNewGame.setHorizontalTextPosition(SwingConstants.RIGHT);
 		btnNewGame.setToolTipText("Starts a new game");
@@ -274,7 +274,7 @@ public class StartScreen {
 	}
 
 	private void addLoadButton() {
-		JButton btnLoadGame = JButtonFactory.createButton("Load Game", IconUtils.getLoadIcon());
+		JButton btnLoadGame = JButtonFactory.createButton("Load Game", IconUtils.getLoadIcon(), soundIdReader);
 		btnLoadGame.setHorizontalAlignment(SwingConstants.LEFT);
 		btnLoadGame.setHorizontalTextPosition(SwingConstants.RIGHT);
 		btnLoadGame.setToolTipText("Loads a game");

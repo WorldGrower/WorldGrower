@@ -34,6 +34,7 @@ import org.worldgrower.gui.ActionContainingArgs;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.SwingUtils;
+import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JTableFactory;
 
@@ -44,16 +45,16 @@ public class ChooseKnowledgeDialog extends AbstractDialog {
 	
 	private ActionContainingArgs guiAction;
 
-	public ChooseKnowledgeDialog(List<String> knowledgeDescriptions, ImageInfoReader imageInfoReader, List<ImageIds> imageIds, Component parent, ActionContainingArgs guiAction) {
+	public ChooseKnowledgeDialog(List<String> knowledgeDescriptions, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, List<ImageIds> imageIds, Component parent, ActionContainingArgs guiAction) {
 		super(600, 600);
-		initializeGui(parent, knowledgeDescriptions, imageInfoReader, imageIds);
+		initializeGui(parent, knowledgeDescriptions, imageInfoReader, soundIdReader, imageIds);
 		
 		this.guiAction = guiAction;
 		
 		handleActions();
 	}
 
-	private void initializeGui(Component parent, List<String> knowledgeDescriptions, ImageInfoReader imageInfoReader, List<ImageIds> imageIds) {
+	private void initializeGui(Component parent, List<String> knowledgeDescriptions, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, List<ImageIds> imageIds) {
 		knowledgeTable = JTableFactory.createJTable(new KnowledgeModel(knowledgeDescriptions, imageIds));
 		knowledgeTable.setDefaultRenderer(ImageIds.class, new ImageCellRenderer(imageInfoReader));
 		knowledgeTable.setDefaultRenderer(String.class, new DefaultTableCellRenderer());
@@ -77,7 +78,7 @@ public class ChooseKnowledgeDialog extends AbstractDialog {
 		buttonPane.setOpaque(false);
 		this.addComponent(buttonPane);
 		
-		okButton = JButtonFactory.createButton("OK");
+		okButton = JButtonFactory.createButton("OK", soundIdReader);
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton, BorderLayout.EAST);
 		getRootPane().setDefaultButton(okButton);

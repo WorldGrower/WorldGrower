@@ -39,6 +39,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.goal.GroupPropertyUtils;
+import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JTableFactory;
 import org.worldgrower.gui.util.JTreeFactory;
@@ -48,13 +49,15 @@ public class GuiShowOrganizationsAction extends AbstractAction {
 	private final World world;
 	private final WorldPanel parent;
 	private final ImageInfoReader imageInfoReader;
+	private final SoundIdReader soundIdReader;
 	
-	public GuiShowOrganizationsAction(WorldObject playerCharacter, World world, WorldPanel parent, ImageInfoReader imageInfoReader) {
+	public GuiShowOrganizationsAction(WorldObject playerCharacter, World world, WorldPanel parent, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.world = world;
 		this.parent = parent;
 		this.imageInfoReader = imageInfoReader;
+		this.soundIdReader = soundIdReader;
 	}
 
 	@Override
@@ -81,7 +84,7 @@ public class GuiShowOrganizationsAction extends AbstractAction {
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		dialog.addComponent(buttonPane);
 		
-		JButton okButton = JButtonFactory.createButton("OK");
+		JButton okButton = JButtonFactory.createButton("OK", soundIdReader);
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		addActionHandlers(okButton, dialog);

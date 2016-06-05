@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.WorldPanel;
+import org.worldgrower.gui.music.SoundIdReader;
 
 public class GuiBarterAction extends AbstractAction {
 
@@ -33,8 +34,9 @@ public class GuiBarterAction extends AbstractAction {
 	private WorldObject target;
 	private InventoryDialog dialog;
 	private ImageInfoReader imageInfoReader;
+	private SoundIdReader soundIdReader;
 	
-	public GuiBarterAction(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, WorldPanel container, WorldObject target, ImageInfoReader imageInfoReader) {
+	public GuiBarterAction(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, WorldPanel container, WorldObject target, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.world = world;
@@ -42,12 +44,13 @@ public class GuiBarterAction extends AbstractAction {
 		this.container = container;
 		this.target = target;
 		this.imageInfoReader = imageInfoReader;
+		this.soundIdReader = soundIdReader;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		InventoryActionFactory inventoryActionFactory = new InventoryActionFactory(playerCharacter, imageInfoReader, world, dungeonMaster, container, target);
-		dialog = new InventoryDialog(new InventoryDialogModel(playerCharacter, target), imageInfoReader, inventoryActionFactory);
+		dialog = new InventoryDialog(new InventoryDialogModel(playerCharacter, target), imageInfoReader, soundIdReader, inventoryActionFactory);
 		inventoryActionFactory.setDialog(dialog);
 		dialog.showMe();
 	}

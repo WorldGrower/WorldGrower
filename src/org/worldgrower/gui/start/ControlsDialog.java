@@ -36,6 +36,7 @@ import javax.swing.table.AbstractTableModel;
 
 import org.worldgrower.gui.AbstractDialog;
 import org.worldgrower.gui.SwingUtils;
+import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JComboBoxFactory;
 import org.worldgrower.gui.util.JRadioButtonFactory;
@@ -43,8 +44,12 @@ import org.worldgrower.gui.util.JTableFactory;
 
 public class ControlsDialog extends AbstractDialog {
 
-	public ControlsDialog(KeyBindings keyBindings) {
+	private final SoundIdReader soundIdReader;
+	
+	public ControlsDialog(KeyBindings keyBindings, SoundIdReader soundIdReader) {
 		super(400, 800);
+		
+		this.soundIdReader = soundIdReader;
 		
 		addKeyBindingsTable(keyBindings);
 		addMouseControlPanel(keyBindings);
@@ -112,7 +117,7 @@ public class ControlsDialog extends AbstractDialog {
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		addComponent(buttonPane);
 		
-		JButton okButton = JButtonFactory.createButton("OK");
+		JButton okButton = JButtonFactory.createButton("OK", soundIdReader);
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		addActionHandlers(okButton, this);

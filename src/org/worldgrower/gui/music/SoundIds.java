@@ -40,5 +40,7 @@ public enum SoundIds {
 	KNIFE_SLICE,
 	HANDLE_COINS,
 	DOOR_OPEN,
-	BOOK_FLIP
+	BOOK_FLIP,
+	CLICK,
+	ROLLOVER
 }

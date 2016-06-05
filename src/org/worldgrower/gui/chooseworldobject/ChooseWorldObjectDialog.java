@@ -33,6 +33,7 @@ import org.worldgrower.gui.AbstractDialog;
 import org.worldgrower.gui.ActionContainingArgs;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.WorldObjectList;
+import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.util.JButtonFactory;
 
 public class ChooseWorldObjectDialog extends AbstractDialog {
@@ -42,16 +43,16 @@ public class ChooseWorldObjectDialog extends AbstractDialog {
 	
 	private ActionContainingArgs guiAction;
 
-	public ChooseWorldObjectDialog(WorldObject playerCharacter, ImageInfoReader imageInfoReader, List<WorldObject> disguiseWorldObjects, Component parent, World world, DungeonMaster dungeonMaster, ActionContainingArgs guiAction) {
+	public ChooseWorldObjectDialog(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, List<WorldObject> disguiseWorldObjects, Component parent, World world, DungeonMaster dungeonMaster, ActionContainingArgs guiAction) {
 		super(400, 502);
-		initializeGui(parent, disguiseWorldObjects, imageInfoReader);
+		initializeGui(parent, disguiseWorldObjects, imageInfoReader, soundIdReader);
 		
 		this.guiAction = guiAction;
 		
 		handleActions();
 	}
 
-	private void initializeGui(Component parent, List<WorldObject> disguiseWorldObjects, ImageInfoReader imageInfoReader) {
+	private void initializeGui(Component parent, List<WorldObject> disguiseWorldObjects, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader) {
 		personList = new WorldObjectList(imageInfoReader, disguiseWorldObjects);
 		personList.setBounds(5, 5, 385, 420);
 		this.addComponent(personList);
@@ -62,7 +63,7 @@ public class ChooseWorldObjectDialog extends AbstractDialog {
 		buttonPane.setOpaque(false);
 		this.addComponent(buttonPane);
 		
-		okButton = JButtonFactory.createButton("OK");
+		okButton = JButtonFactory.createButton("OK", soundIdReader);
 		okButton.setActionCommand("OK");
 		okButton.setEnabled(false);
 		buttonPane.add(okButton);

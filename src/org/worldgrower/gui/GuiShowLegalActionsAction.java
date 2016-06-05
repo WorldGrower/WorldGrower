@@ -38,6 +38,7 @@ import org.worldgrower.actions.legal.LegalAction;
 import org.worldgrower.actions.legal.LegalActions;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.LegalActionsPropertyUtils;
+import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.start.Game;
 import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.IconUtils;
@@ -48,13 +49,15 @@ public class GuiShowLegalActionsAction extends AbstractAction {
 	private final DungeonMaster dungeonMaster;
 	private final World world;
 	private final WorldPanel parent;
+	private final SoundIdReader soundIdReader;
 	
-	public GuiShowLegalActionsAction(WorldObject playerCharacter, DungeonMaster dungeonMaster, World world, WorldPanel parent) {
+	public GuiShowLegalActionsAction(WorldObject playerCharacter, DungeonMaster dungeonMaster, World world, WorldPanel parent, SoundIdReader soundIdReader) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.dungeonMaster = dungeonMaster;
 		this.world = world;
 		this.parent = parent;
+		this.soundIdReader = soundIdReader;
 	}
 
 	@Override
@@ -75,7 +78,7 @@ public class GuiShowLegalActionsAction extends AbstractAction {
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		dialog.addComponent(buttonPane);
 		
-		JButton okButton = JButtonFactory.createButton("OK");
+		JButton okButton = JButtonFactory.createButton("OK", soundIdReader);
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		addActionHandlers(okButton, worldModel, dialog);

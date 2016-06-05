@@ -29,19 +29,22 @@ import org.worldgrower.conversation.KnowledgeToDescriptionMapper;
 import org.worldgrower.gui.ActionContainingArgs;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
+import org.worldgrower.gui.music.SoundIdReader;
 
 public class ChooseKnowledgeAction extends AbstractAction {
 
 	private WorldObject playerCharacter;
 	private ImageInfoReader imageInfoReader;
+	private SoundIdReader soundIdReader;
 	private World world;
 	private JComponent parent;
 	private ActionContainingArgs guiAction;
 	
-	public ChooseKnowledgeAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, World world, JComponent parent, ActionContainingArgs guiAction) {
+	public ChooseKnowledgeAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, World world, JComponent parent, ActionContainingArgs guiAction) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.imageInfoReader = imageInfoReader;
+		this.soundIdReader = soundIdReader;
 		this.world = world;
 		this.parent = parent;
 		this.guiAction = guiAction;
@@ -62,7 +65,7 @@ public class ChooseKnowledgeAction extends AbstractAction {
 			imageIds.add(subject.getProperty(Constants.IMAGE_ID));
 		}
 		
-		ChooseKnowledgeDialog dialog = new ChooseKnowledgeDialog(knowledgeDescriptions, imageInfoReader, imageIds, parent, guiAction);
+		ChooseKnowledgeDialog dialog = new ChooseKnowledgeDialog(knowledgeDescriptions, imageInfoReader, soundIdReader, imageIds, parent, guiAction);
 		dialog.showMe();
 	}
 }
