@@ -26,6 +26,7 @@ import org.worldgrower.goal.ContainerUtils;
 import org.worldgrower.goal.InventoryPropertyUtils;
 import org.worldgrower.goal.LockUtils;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class PutItemIntoInventoryAction implements ManagedOperation {
 
@@ -83,5 +84,10 @@ public class PutItemIntoInventoryAction implements ManagedOperation {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.CHEST;
+	}
+	
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.DOOR_OPEN;
 	}
 }

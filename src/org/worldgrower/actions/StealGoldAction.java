@@ -27,6 +27,7 @@ import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.ThieveryPropertyUtils;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class StealGoldAction implements ManagedOperation {
 
@@ -91,5 +92,10 @@ public class StealGoldAction implements ManagedOperation {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.IRON_GAUNTLETS;
+	}
+	
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.HANDLE_COINS;
 	}
 }

@@ -25,6 +25,7 @@ import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 import org.worldgrower.util.SentenceUtils;
 
 public class ButcherAction implements ManagedOperation {
@@ -83,5 +84,10 @@ public class ButcherAction implements ManagedOperation {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.MEAT;
+	}
+	
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.KNIFE_SLICE;
 	}
 }

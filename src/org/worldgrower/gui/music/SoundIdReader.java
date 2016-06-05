@@ -54,7 +54,10 @@ public class SoundIdReader {
 		readSound(SoundIds.MAGIC3, "/sound/magical_38bit.wav.gz");
 		readSound(SoundIds.MAGIC6, "/sound/magical_68bit.wav.gz");
 		readSound(SoundIds.MAGIC7, "/sound/magical_78bit.wav.gz");
-
+		readSound(SoundIds.KNIFE_SLICE, "/sound/knifeSlice8bit.wav.gz");
+		readSound(SoundIds.HANDLE_COINS, "/sound/handleCoins8bit.wav.gz");
+		readSound(SoundIds.BOOK_FLIP, "/sound/bookFlip18bit.wav.gz");
+		
 	}
 
 	private void readSound(SoundIds soundIds, String path) {

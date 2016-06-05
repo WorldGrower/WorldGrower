@@ -24,6 +24,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.goal.InventoryPropertyUtils;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class SellAction implements ManagedOperation {
 
@@ -85,5 +86,10 @@ public class SellAction implements ManagedOperation {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.SILVER_COIN;
+	}
+	
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.HANDLE_COINS;
 	}
 }

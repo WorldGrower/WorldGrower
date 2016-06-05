@@ -37,4 +37,8 @@ public enum SoundIds {
 	MAGIC3,
 	MAGIC6,
 	MAGIC7,
+	KNIFE_SLICE,
+	HANDLE_COINS,
+	DOOR_OPEN,
+	BOOK_FLIP
 }

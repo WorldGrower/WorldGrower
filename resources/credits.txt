@@ -83,3 +83,9 @@ fountain8bit.wav.gz
 Sound effects from JaggedStone at http://opengameart.org/content/magic-spell-sfx:
 magical_18bit.wav.gz
 magical_38bit.wav.gz
+
+Sound Effects from www.kenney.nl at http://opengameart.org/content/50-rpg-sound-effects:
+knifeSlice8bit.wav.gz
+handleCoins8bit.wav.gz
+doorOpen_18bit.wav.gz
+bookFlip18bit.wav.gz

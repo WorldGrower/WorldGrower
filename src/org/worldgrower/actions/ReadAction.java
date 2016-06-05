@@ -22,6 +22,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class ReadAction implements ManagedOperation {
 
@@ -67,5 +68,10 @@ public class ReadAction implements ManagedOperation {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.SPELL_BOOK;
+	}
+	
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.BOOK_FLIP;
 	}
 }
