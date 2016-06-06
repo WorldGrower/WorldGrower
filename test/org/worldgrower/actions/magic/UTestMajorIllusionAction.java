@@ -30,19 +30,21 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.generator.PlantGenerator;
 
-public class UTestMinorIllusionAction {
+public class UTestMajorIllusionAction {
 
+	private MajorIllusionAction action = Actions.MAJOR_ILLUSION_ACTION;
+	
 	@Test
 	public void testIsValidTarget() {
-		World world = new WorldImpl(1, 1, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
-		performer.setProperty(Constants.KNOWN_SPELLS, Arrays.asList(Actions.MINOR_ILLUSION_ACTION));
-		assertEquals(true, Actions.MINOR_ILLUSION_ACTION.isValidTarget(performer, target, world));
+		performer.setProperty(Constants.KNOWN_SPELLS, Arrays.asList(action));
+		assertEquals(true, action.isValidTarget(performer, target, world));
 		
 		performer.setProperty(Constants.KNOWN_SPELLS, new ArrayList<>());
-		assertEquals(false, Actions.MINOR_ILLUSION_ACTION.isValidTarget(performer, target, world));
+		assertEquals(false, action.isValidTarget(performer, target, world));
 	}
 	
 	@Test
@@ -51,20 +53,21 @@ public class UTestMinorIllusionAction {
 		WorldObject performer = createPerformer(2);
 		WorldObject target = TestUtils.createWorldObject(0, 0, 1, 1);
 		
-		assertEquals(0, Actions.MINOR_ILLUSION_ACTION.distance(performer, target, Args.EMPTY, world));
+		assertEquals(0, action.distance(performer, target, Args.EMPTY, world));
 	}
 	
 	@Test
 	public void testGetIllusionSources() {
 		World world = new WorldImpl(10, 10, null, null);
-		assertEquals(0, Actions.MINOR_ILLUSION_ACTION.getIllusionSources(world).size());
+		assertEquals(0, action.getIllusionSources(world).size());
 		
 		WorldObject performer = createPerformer(2);
 		world.addWorldObject(performer);
-		PlantGenerator.generateTree(0, 0, world);
+		int treeId = PlantGenerator.generateTree(0, 0, world);
+		WorldObject tree = world.findWorldObject(Constants.ID, treeId);
 		
-		assertEquals(1, Actions.MINOR_ILLUSION_ACTION.getIllusionSources(world).size());
-		assertEquals(performer, Actions.MINOR_ILLUSION_ACTION.getIllusionSources(world).get(0));
+		assertEquals(1, action.getIllusionSources(world).size());
+		assertEquals(tree, action.getIllusionSources(world).get(0));
 	}
 	
 	private WorldObject createPerformer(int id) {

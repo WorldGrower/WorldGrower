@@ -15,25 +15,21 @@
 package org.worldgrower.gui.chooseworldobject;
 
 import java.awt.event.ActionEvent;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.AbstractAction;
 import javax.swing.JComponent;
 
-import org.worldgrower.Constants;
 import org.worldgrower.DungeonMaster;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.WorldObjectImpl;
-import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.actions.magic.IllusionSpell;
 import org.worldgrower.gui.ActionContainingArgs;
-import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.music.SoundIdReader;
 
 public class ChooseWorldObjectAction extends AbstractAction {
-
+	private IllusionSpell illusionSpell;
 	private WorldObject playerCharacter;
 	private ChooseWorldObjectDialog dialog;
 	private ImageInfoReader imageInfoReader;
@@ -43,8 +39,9 @@ public class ChooseWorldObjectAction extends AbstractAction {
 	private DungeonMaster dungeonMaster;
 	private ActionContainingArgs guiAction;
 	
-	public ChooseWorldObjectAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, World world, JComponent parent, DungeonMaster dungeonMaster, ActionContainingArgs guiAction) {
+	public ChooseWorldObjectAction(IllusionSpell illusionSpell, WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, World world, JComponent parent, DungeonMaster dungeonMaster, ActionContainingArgs guiAction) {
 		super();
+		this.illusionSpell = illusionSpell;
 		this.playerCharacter = playerCharacter;
 		this.imageInfoReader = imageInfoReader;
 		this.soundIdReader = soundIdReader;
@@ -57,20 +54,9 @@ public class ChooseWorldObjectAction extends AbstractAction {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		List<WorldObject> disguiseWorldObjects = world.findWorldObjects(w -> w.getProperty(Constants.WIDTH) == 1 && w.getProperty(Constants.HEIGHT) == 1 && w.getProperty(Constants.ID) != playerCharacter.getProperty(Constants.ID));
+		List<WorldObject> disguiseWorldObjects = illusionSpell.getIllusionSources(world);
 		
 		dialog = new ChooseWorldObjectDialog(playerCharacter, imageInfoReader, soundIdReader, disguiseWorldObjects, parent, world, dungeonMaster, guiAction);
 		dialog.showMe();
-	}
-	
-	private static WorldObject createWorldObject(int id, String name) {
-		HashMap<ManagedProperty<?>, Object> properties = new HashMap<>();
-		properties.put(Constants.ID, id);
-		properties.put(Constants.WIDTH, 1);
-		properties.put(Constants.HEIGHT, 1);
-		properties.put(Constants.IMAGE_ID, ImageIds.KNIGHT);
-		properties.put(Constants.NAME, name);
-		WorldObject playerCharacter = new WorldObjectImpl(properties);
-		return playerCharacter;
 	}
 }

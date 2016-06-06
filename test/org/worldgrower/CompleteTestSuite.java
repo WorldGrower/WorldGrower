@@ -46,6 +46,7 @@ import org.worldgrower.actions.magic.UTestInvisibilityAction;
 import org.worldgrower.actions.magic.UTestLichTransformationAction;
 import org.worldgrower.actions.magic.UTestLightningBoltAttackAction;
 import org.worldgrower.actions.magic.UTestLockMagicSpellAction;
+import org.worldgrower.actions.magic.UTestMajorIllusionAction;
 import org.worldgrower.actions.magic.UTestMendAction;
 import org.worldgrower.actions.magic.UTestMinorHealAction;
 import org.worldgrower.actions.magic.UTestMinorIllusionAction;
@@ -688,7 +689,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestSecretChestAction.class,
 	UTestAnimalFoodGoal.class,
 	UTestCreatureTypeUtils.class,
-	UTestFireBallAttackAction.class
+	UTestFireBallAttackAction.class,
+	UTestMajorIllusionAction.class
 })
 public class CompleteTestSuite {
 }

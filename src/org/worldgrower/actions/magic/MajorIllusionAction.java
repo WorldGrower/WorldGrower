@@ -30,9 +30,9 @@ import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
-public class MinorIllusionAction implements BuildAction, MagicSpell, IllusionSpell {
+public class MajorIllusionAction implements BuildAction, MagicSpell, IllusionSpell {
 
-	private static final int ENERGY_USE = 400;
+	private static final int ENERGY_USE = 600;
 	private static final int DISTANCE = 1;
 	
 	@Override
@@ -70,12 +70,12 @@ public class MinorIllusionAction implements BuildAction, MagicSpell, IllusionSpe
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "creating a minor illusion";
+		return "creating a major illusion";
 	}
 
 	@Override
 	public String getSimpleDescription() {
-		return "create minor illusion";
+		return "create major illusion";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {
@@ -84,17 +84,17 @@ public class MinorIllusionAction implements BuildAction, MagicSpell, IllusionSpe
 
 	@Override
 	public int getWidth() {
-		return 1;
+		return 2;
 	}
 
 	@Override
 	public int getHeight() {
-		return 1;
+		return 2;
 	}
 
 	@Override
 	public int getResearchCost() {
-		return 50;
+		return 60;
 	}
 
 	@Override
@@ -104,26 +104,26 @@ public class MinorIllusionAction implements BuildAction, MagicSpell, IllusionSpe
 
 	@Override
 	public int getRequiredSkillLevel() {
-		return 1;
+		return 2;
 	}
 
 	@Override
 	public String getDescription() {
-		return "creates a small illusion of an existing person or item";
+		return "creates an illusion of an existing item";
 	}
 	
 	@Override
 	public ImageIds getImageIds() {
-		return ImageIds.MINOR_ILLUSION_MAGIC_SPELL;
+		return ImageIds.MAJOR_ILLUSION_MAGIC_SPELL;
 	}
 	
 	@Override
 	public SoundIds getSoundId() {
 		return SoundIds.MAGIC7;
 	}
-
+	
 	@Override
 	public List<WorldObject> getIllusionSources(World world) {
-		return world.findWorldObjects(w -> w.getProperty(Constants.WIDTH) == 1 && w.getProperty(Constants.HEIGHT) == 1);
+		return world.findWorldObjects(w -> w.getProperty(Constants.WIDTH) == 2 && w.getProperty(Constants.HEIGHT) == 2);
 	}
 }

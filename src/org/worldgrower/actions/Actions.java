@@ -55,6 +55,7 @@ import org.worldgrower.actions.magic.LichTransformationAction;
 import org.worldgrower.actions.magic.LightningBoltAttackAction;
 import org.worldgrower.actions.magic.LockMagicSpellAction;
 import org.worldgrower.actions.magic.MagicSpell;
+import org.worldgrower.actions.magic.MajorIllusionAction;
 import org.worldgrower.actions.magic.MendAction;
 import org.worldgrower.actions.magic.MinorHealAction;
 import org.worldgrower.actions.magic.MinorIllusionAction;
@@ -258,6 +259,7 @@ public class Actions {
 	public static final AnimalFriendshipSpellAction ANIMAL_FRIENDSHIP_SPELL_ACTION = new AnimalFriendshipSpellAction();
 	public static final EatRemainsAction EAT_REMAINS_ACTION = new EatRemainsAction();
 	public static final FireBallAttackAction FIRE_BALL_ATTACK_ACTION = new FireBallAttackAction();
+	public static final MajorIllusionAction MAJOR_ILLUSION_ACTION = new MajorIllusionAction();
 	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 
@@ -297,7 +299,8 @@ public class Actions {
 			DIMENSION_DOOR_ACTION,
 			SECRET_CHEST_ACTION,
 			ANIMAL_FRIENDSHIP_SPELL_ACTION,
-			FIRE_BALL_ATTACK_ACTION
+			FIRE_BALL_ATTACK_ACTION,
+			MAJOR_ILLUSION_ACTION
 			);
 	
 	private static final List<InventoryAction> INVENTORY_ACTIONS = Arrays.asList(
