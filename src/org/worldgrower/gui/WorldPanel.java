@@ -17,6 +17,7 @@ package org.worldgrower.gui;
 import java.awt.AlphaComposite;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Composite;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -351,7 +352,17 @@ public final class WorldPanel extends JPanel {
 	}
 
 	private void drawWorldObject(Graphics g, WorldObject worldObject, LookDirection lookDirection, Image image, int x, int y) {
+		boolean isTransparant = worldObject.hasProperty(Constants.ILLUSION_CREATOR_ID) && worldObject.getProperty(Constants.ILLUSION_CREATOR_ID).intValue() == playerCharacter.getProperty(Constants.ID).intValue();
+		Composite originalComposite = null;
+		Graphics2D graphics2d = (Graphics2D)g;
+		if (isTransparant) {
+			originalComposite = graphics2d.getComposite();
+			graphics2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+		}
 		drawWorldObjectInPixels(g, worldObject, lookDirection, image, x, y, 0, 0);
+		if (isTransparant) {
+			graphics2d.setComposite(originalComposite);
+		}
 	}
 	
 	private static final int CONDITION_IMAGE_WIDTH = 12;
@@ -493,7 +504,6 @@ public final class WorldPanel extends JPanel {
     }
     
     private List<String> getConditionDescriptions(WorldObject worldObject) {
-    	List<Image> overlayingImages = new ArrayList<>();
     	if (worldObject.hasProperty(Constants.CONDITIONS)) {
 	    	return worldObject.getProperty(Constants.CONDITIONS).getDescriptions(); 
     	} else {
