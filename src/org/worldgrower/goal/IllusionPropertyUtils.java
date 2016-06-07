@@ -34,6 +34,7 @@ public class IllusionPropertyUtils {
 		illusionWorldObject.setProperty(Constants.X, x);
 		illusionWorldObject.setProperty(Constants.Y, y);
 		illusionWorldObject.setProperty(Constants.TURNS_TO_LIVE, (int)(12 * SkillUtils.getSkillBonus(performer, Constants.ILLUSION_SKILL)));
+		illusionWorldObject.setProperty(Constants.PASSABLE, Boolean.TRUE);
 		
 		if (sourceWorldObject.hasProperty(Constants.INVENTORY)) {
 			illusionWorldObject.setProperty(Constants.INVENTORY, new WorldObjectContainer());

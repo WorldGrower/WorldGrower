@@ -53,7 +53,7 @@ public class InvestigateAction implements ManagedOperation {
 	}
 
 	void findInvisibleWorldObjects(WorldObject performer, WorldObject target, int[] args, World world, List<WorldObject> surroundingWorldObjects) {
-		List<WorldObject> newlyDiscoveredWorldObjects = getNewlyDiscoveredWorldObjects(performer, surroundingWorldObjects);
+		List<WorldObject> newlyDiscoveredWorldObjects = getNewlyDiscoveredInvisibleWorldObjects(performer, surroundingWorldObjects);
 		for(WorldObject newlyDiscoveredWorldObject : newlyDiscoveredWorldObjects) {
 			int subjectId = newlyDiscoveredWorldObject.getProperty(Constants.ID);
 			int x = newlyDiscoveredWorldObject.getProperty(Constants.X);
@@ -64,11 +64,11 @@ public class InvestigateAction implements ManagedOperation {
 		}
 	}
 
-	private List<WorldObject> getNewlyDiscoveredWorldObjects(WorldObject performer, List<WorldObject> surroundingWorldObjects) {
+	private List<WorldObject> getNewlyDiscoveredInvisibleWorldObjects(WorldObject performer, List<WorldObject> surroundingWorldObjects) {
 		KnowledgeMap performerKnowledgeMap = performer.getProperty(Constants.KNOWLEDGE_MAP);
 		List<WorldObject> newlyDiscoveredWorldObjects = new ArrayList<>();
 		for(WorldObject surroundingWorldObject : surroundingWorldObjects) {
-			if (surroundingWorldObject.hasProperty(Constants.PASSABLE)) {
+			if (surroundingWorldObject.hasProperty(Constants.PASSABLE) && !surroundingWorldObject.hasProperty(Constants.ILLUSION_CREATOR_ID)) {
 				if (!performerKnowledgeMap.hasKnowledge(surroundingWorldObject)) {
 					newlyDiscoveredWorldObjects.add(surroundingWorldObject);
 				}
