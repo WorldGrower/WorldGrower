@@ -14,6 +14,7 @@
  *******************************************************************************/
 package org.worldgrower;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +25,7 @@ import org.worldgrower.attribute.WorldObjectProperties;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.goal.Goal;
 
-public class IllusionaryWorldObject implements WorldObject {
+public class IllusionaryWorldObject implements WorldObject, Serializable {
 
 	private final WorldObjectProperties properties;
 	private int turnsToLive;
