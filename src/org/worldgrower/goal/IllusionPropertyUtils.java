@@ -15,12 +15,11 @@
 package org.worldgrower.goal;
 
 import org.worldgrower.Constants;
+import org.worldgrower.IllusionaryWorldObject;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
-import org.worldgrower.generator.IllusionOnTurn;
 
 public class IllusionPropertyUtils {
 
@@ -28,16 +27,16 @@ public class IllusionPropertyUtils {
 		WorldObject sourceWorldObject = world.findWorldObject(Constants.ID, sourceId);
 		int id = world.generateUniqueId();
 		
-		WorldObjectImpl illusionWorldObject = (WorldObjectImpl) sourceWorldObject.deepCopy(new IllusionOnTurn());
-		illusionWorldObject.setProperty(Constants.ID, id);
-		illusionWorldObject.setProperty(Constants.ILLUSION_CREATOR_ID, performer.getProperty(Constants.ID));
-		illusionWorldObject.setProperty(Constants.X, x);
-		illusionWorldObject.setProperty(Constants.Y, y);
-		illusionWorldObject.setProperty(Constants.TURNS_TO_LIVE, (int)(12 * SkillUtils.getSkillBonus(performer, Constants.ILLUSION_SKILL)));
-		illusionWorldObject.setProperty(Constants.PASSABLE, Boolean.TRUE);
+		int turnsToLive = (int)(12 * SkillUtils.getSkillBonus(performer, Constants.ILLUSION_SKILL));
+		IllusionaryWorldObject illusionWorldObject = new IllusionaryWorldObject(sourceWorldObject, turnsToLive);
+		illusionWorldObject.setPropertyInternal(Constants.ID, id);
+		illusionWorldObject.setPropertyInternal(Constants.ILLUSION_CREATOR_ID, performer.getProperty(Constants.ID));
+		illusionWorldObject.setPropertyInternal(Constants.X, x);
+		illusionWorldObject.setPropertyInternal(Constants.Y, y);
+		illusionWorldObject.setPropertyInternal(Constants.PASSABLE, Boolean.TRUE);
 		
 		if (sourceWorldObject.hasProperty(Constants.INVENTORY)) {
-			illusionWorldObject.setProperty(Constants.INVENTORY, new WorldObjectContainer());
+			illusionWorldObject.setPropertyInternal(Constants.INVENTORY, new WorldObjectContainer());
 		}
 		
 		world.addWorldObject(illusionWorldObject);
