@@ -103,12 +103,12 @@ public class UTestProposeMateConversation {
 	@Test
 	public void testHandleResponse0WithPreviousMates() {
 		World world = new WorldImpl(1, 1, null, null);
-		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
-		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		WorldObject target = TestUtils.createSkilledWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		
-		WorldObject performerMate = TestUtils.createIntelligentWorldObject(3, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		WorldObject performerMate = TestUtils.createSkilledWorldObject(3, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		world.addWorldObject(performerMate);
-		WorldObject targetMate = TestUtils.createIntelligentWorldObject(4, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		WorldObject targetMate = TestUtils.createSkilledWorldObject(4, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		world.addWorldObject(targetMate);
 		
 		performer.setProperty(Constants.MATE_ID, performerMate.getProperty(Constants.ID));

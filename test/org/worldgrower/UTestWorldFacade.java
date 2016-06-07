@@ -19,6 +19,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.Arrays;
 
 import org.junit.Test;
+import org.worldgrower.attribute.KnowledgeMap;
 import org.worldgrower.attribute.Skill;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
@@ -40,7 +41,7 @@ public class UTestWorldFacade {
 		assertEquals(personViewingWorld, worldFacade.findWorldObject(Constants.ID, 1));
 		assertEquals(worldObject, worldFacade.findWorldObject(Constants.ID, 2));
 		
-		illusionCreator.setProperty(Constants.ILLUSION_SKILL, new Skill(0));
+		personViewingWorld.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(worldObject, Constants.ILLUSION_CREATOR_ID, 3);
 		assertEquals(null, worldFacade.findWorldObject(Constants.ID, 2));
 	}
 	
@@ -72,11 +73,12 @@ public class UTestWorldFacade {
 		world.addWorldObject(worldObject);
 		world.addWorldObject(illusionCreator);
 		
+		personViewingWorld.setProperty(Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		WorldFacade worldFacade = new WorldFacade(personViewingWorld, world);
 		assertEquals(Arrays.asList(personViewingWorld), worldFacade.findWorldObjectsByProperty(Constants.ID, w -> w.getProperty(Constants.ID).intValue() == 1));
 		assertEquals(Arrays.asList(worldObject), worldFacade.findWorldObjectsByProperty(Constants.ID, w -> w.getProperty(Constants.ID).intValue() == 2));
 		
-		illusionCreator.setProperty(Constants.ILLUSION_SKILL, new Skill(0));
+		personViewingWorld.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(worldObject, Constants.ILLUSION_CREATOR_ID, 3);
 		assertEquals(Arrays.asList(), worldFacade.findWorldObjectsByProperty(Constants.ID, w -> w.getProperty(Constants.ID).intValue() == 2));
 	}
 	
@@ -97,7 +99,7 @@ public class UTestWorldFacade {
 		assertEquals(true, worldFacade.exists(2));
 		assertEquals(true, worldFacade.exists(3));
 		
-		illusionCreator.setProperty(Constants.ILLUSION_SKILL, new Skill(0));
+		personViewingWorld.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(worldObject, Constants.ILLUSION_CREATOR_ID, 3);
 		assertEquals(true, worldFacade.exists(1));
 		assertEquals(false, worldFacade.exists(2));
 		assertEquals(true, worldFacade.exists(3));
@@ -113,7 +115,7 @@ public class UTestWorldFacade {
 		world.addWorldObject(personViewingWorld);
 		world.addWorldObject(worldObject);
 		world.addWorldObject(illusionCreator);
-		illusionCreator.setProperty(Constants.ILLUSION_SKILL, new Skill(0));
+		personViewingWorld.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(worldObject, Constants.ILLUSION_CREATOR_ID, 3);
 		
 		WorldFacade worldFacade = new WorldFacade(personViewingWorld, world);
 		assertEquals(2, worldFacade.getWorldObjects().size());
