@@ -26,6 +26,7 @@ import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.generator.Item;
 import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class MinorHealAction implements MagicSpell {
 
@@ -106,5 +107,10 @@ public class MinorHealAction implements MagicSpell {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.MINOR_HEAL;
+	}
+	
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.HEALING;
 	}
 }

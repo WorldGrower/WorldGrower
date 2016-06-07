@@ -25,6 +25,7 @@ import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class LockMagicSpellAction implements MagicSpell {
 
@@ -104,5 +105,10 @@ public class LockMagicSpellAction implements MagicSpell {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.LOCK_MAGIC_SPELL;
+	}
+	
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.CLATTER;
 	}
 }

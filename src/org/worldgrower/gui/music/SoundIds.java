@@ -43,5 +43,9 @@ public enum SoundIds {
 	BOOK_FLIP,
 	CLICK,
 	ROLLOVER,
-	COW
+	COW,
+	HEALING,
+	WIND,
+	CLOTH,
+	CLATTER
 }

@@ -24,6 +24,7 @@ import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class WeaveCottonShirtAction implements CraftAction {
 	private static final int DISTANCE = 1;
@@ -77,5 +78,10 @@ public class WeaveCottonShirtAction implements CraftAction {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.COTTON_SHIRT;
+	}
+	
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.CLOTH;
 	}
 }

@@ -27,6 +27,7 @@ import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class CurePoisonAction implements MagicSpell {
 
@@ -102,5 +103,10 @@ public class CurePoisonAction implements MagicSpell {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.CURE_POISON;
+	}
+	
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.HEALING;
 	}
 }

@@ -60,6 +60,12 @@ public class SoundIdReader {
 		readSound(SoundIds.CLICK, "/sound/click18bit.wav.gz");
 		readSound(SoundIds.ROLLOVER, "/sound/rollover18bit.wav.gz");
 		readSound(SoundIds.COW, "/sound/Mudchute_cow_18bit.wav.gz");
+		readSound(SoundIds.HEALING, "/sound/Healing Full8bit.wav.gz");
+		readSound(SoundIds.WIND, "/sound/Wind effects 58bit.wav.gz");
+		readSound(SoundIds.CLOTH, "/sound/cloth8bit.wav.gz");
+		readSound(SoundIds.CLATTER, "/sound/workshop - clatter8bit.wav.gz");
+		
+		
 		
 	}
 

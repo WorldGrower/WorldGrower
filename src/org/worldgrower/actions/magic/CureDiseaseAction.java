@@ -25,6 +25,7 @@ import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class CureDiseaseAction implements MagicSpell {
 
@@ -99,5 +100,10 @@ public class CureDiseaseAction implements MagicSpell {
 	
 	public boolean hasRequiredEnergy(WorldObject performer) {
 		return performer.getProperty(Constants.ENERGY) >= ENERGY_USE;
+	}
+	
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.HEALING;
 	}
 }
