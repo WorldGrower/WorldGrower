@@ -37,7 +37,7 @@ public class BackgroundMusicUtils {
         	@Override
         	public void run() {
         		try {
-					musicPlayer.play(new BufferedInputStream(new GZIPInputStream(Game.class.getResourceAsStream("/woodland_fantasy_0.wav.gz"))));
+					musicPlayer.play(new BufferedInputStream(new GZIPInputStream(Game.class.getResourceAsStream("/sound/Forest_Ambience8bit.wav.gz"))));
 				} catch (IOException e) {
 					throw new IllegalStateException(e);
 				}

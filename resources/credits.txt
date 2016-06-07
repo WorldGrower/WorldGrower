@@ -34,9 +34,6 @@ Community logo (community.ico, community.png):
 Created by russel
 At https://openclipart.org/detail/74185/community
 
-woodland_fantasy_0.wav: Music by Matthew Pablo, http://www.matthewpablo.com
-At http://opengameart.org/content/woodland-fantasy
-
 mackcowrecolors.png: Mack cow recolors
 At http://www.rpgmakervxace.net/topic/2399-grannys-lists-animal-sprites/
 
@@ -103,3 +100,6 @@ Wind effects 58bit.wav.gz
 
 Sound Effects by artisticdude at http://opengameart.org/content/rpg-sound-pack:
 cloth8bit.wav.gz
+
+Background music by TinyWorlds at http://opengameart.org/content/forest-ambience:
+Forest_Ambience8bit.wav.gz
