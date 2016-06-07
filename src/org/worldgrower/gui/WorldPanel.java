@@ -352,7 +352,8 @@ public final class WorldPanel extends JPanel {
 	}
 
 	private void drawWorldObject(Graphics g, WorldObject worldObject, LookDirection lookDirection, Image image, int x, int y) {
-		boolean isTransparant = worldObject.hasProperty(Constants.ILLUSION_CREATOR_ID) && worldObject.getProperty(Constants.ILLUSION_CREATOR_ID).intValue() == playerCharacter.getProperty(Constants.ID).intValue();
+		boolean isIllusion = worldObject.hasProperty(Constants.ILLUSION_CREATOR_ID);
+		boolean isTransparant = isIllusion && playerCharacter.getProperty(Constants.KNOWLEDGE_MAP).hasProperty(worldObject, Constants.ILLUSION_CREATOR_ID);
 		Composite originalComposite = null;
 		Graphics2D graphics2d = (Graphics2D)g;
 		if (isTransparant) {

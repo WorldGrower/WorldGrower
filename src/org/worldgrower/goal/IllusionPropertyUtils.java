@@ -41,6 +41,8 @@ public class IllusionPropertyUtils {
 		
 		world.addWorldObject(illusionWorldObject);
 		
+		KnowledgeMapPropertyUtils.everyoneInVicinityKnowsOfProperty(performer, illusionWorldObject, Constants.ILLUSION_CREATOR_ID, performer.getProperty(Constants.ID), world);
+		
 		return id;
 	}
 }

@@ -21,9 +21,11 @@ import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
+import org.worldgrower.WorldFacade;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.KnowledgeMap;
+import org.worldgrower.attribute.Skill;
 import org.worldgrower.generator.TerrainGenerator;
 
 public class UTestInvestigateAction {
@@ -71,6 +73,49 @@ public class UTestInvestigateAction {
 		WorldObject performer = createPerformer(2);
 		
 		assertEquals(0, Actions.INVESTIGATE_ACTION.distance(performer, performer, Args.EMPTY, world));
+	}
+	
+	//TODO: what if illusion creator dies?
+	@Test
+	public void testIllusionIsBelievedBy() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject personViewingWorld = TestUtils.createIntelligentWorldObject(1, Constants.INSIGHT_SKILL, new Skill(10));
+		WorldObject worldObject = TestUtils.createIntelligentWorldObject(2, Constants.ILLUSION_CREATOR_ID, 3);
+		WorldObject illusionCreator = TestUtils.createIntelligentWorldObject(3, Constants.ILLUSION_SKILL, new Skill(20));
+		
+		world.addWorldObject(personViewingWorld);
+		world.addWorldObject(worldObject);
+		world.addWorldObject(illusionCreator);
+		
+		assertEquals(true, InvestigateAction.illusionIsBelievedBy(personViewingWorld, worldObject, world));
+	}	
+	
+	@Test
+	public void testIllusionIsBelievedByNotBelieved() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject personViewingWorld = TestUtils.createIntelligentWorldObject(1, Constants.INSIGHT_SKILL, new Skill(10));
+		WorldObject worldObject = TestUtils.createIntelligentWorldObject(2, Constants.ILLUSION_CREATOR_ID, 3);
+		WorldObject illusionCreator = TestUtils.createIntelligentWorldObject(3, Constants.ILLUSION_SKILL, new Skill(0));
+		
+		world.addWorldObject(personViewingWorld);
+		world.addWorldObject(worldObject);
+		world.addWorldObject(illusionCreator);
+		
+		assertEquals(false, InvestigateAction.illusionIsBelievedBy(personViewingWorld, worldObject, world));
+	}
+	
+	@Test
+	public void testIllusionIsBelievedByUnskilled() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject personViewingWorld = TestUtils.createWorldObject(1, "performer");
+		WorldObject worldObject = TestUtils.createIntelligentWorldObject(2, Constants.ILLUSION_CREATOR_ID, 3);
+		WorldObject illusionCreator = TestUtils.createIntelligentWorldObject(3, Constants.ILLUSION_SKILL, new Skill(0));
+		
+		world.addWorldObject(personViewingWorld);
+		world.addWorldObject(worldObject);
+		world.addWorldObject(illusionCreator);
+		
+		assertEquals(false, InvestigateAction.illusionIsBelievedBy(personViewingWorld, worldObject, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

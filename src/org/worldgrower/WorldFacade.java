@@ -72,27 +72,20 @@ public class WorldFacade implements World {
 					worldObjectIterator.remove();
 				}
 			}
-			if (worldObject.hasProperty(Constants.CONDITIONS) && worldObject.getProperty(Constants.CONDITIONS).hasCondition(Condition.INVISIBLE_CONDITION)) {
+			if (isInvisible(worldObject)) {
 				worldObjectIterator.remove();
 			}
 		}
 	}
 
-	static boolean illusionIsBelievedBy(WorldObject personViewingWorld, WorldObject worldObject, World world) {
-		final int insight;
-		if (personViewingWorld.getProperty(Constants.INSIGHT_SKILL) == null) {
-			insight = 0;
-		} else {
-			insight = Constants.INSIGHT_SKILL.getLevel(personViewingWorld);
-		}
-				
-		int illusionCreatorId = worldObject.getProperty(Constants.ILLUSION_CREATOR_ID);
-		WorldObject illusionCreator = world.findWorldObject(Constants.ID, illusionCreatorId);
-		int illusion = Constants.ILLUSION_SKILL.getLevel(illusionCreator);
-		
-		return (illusion > insight);
+	private static boolean illusionIsBelievedBy(WorldObject personViewingWorld, WorldObject worldObject, World world2) {
+		return !personViewingWorld.getProperty(Constants.KNOWLEDGE_MAP).hasProperty(worldObject, Constants.ILLUSION_CREATOR_ID);
 	}
-	
+
+	boolean isInvisible(WorldObject worldObject) {
+		return worldObject.hasProperty(Constants.CONDITIONS) && worldObject.getProperty(Constants.CONDITIONS).hasCondition(Condition.INVISIBLE_CONDITION);
+	}
+
 	@Override
 	public List<WorldObject> findWorldObjects(WorldObjectCondition worldObjectCondition) {
 		List<WorldObject> worldObjects = world.findWorldObjects(worldObjectCondition);

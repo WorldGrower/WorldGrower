@@ -82,6 +82,8 @@ public class KnowledgeToDescriptionMapper {
 				return subject.getProperty(Constants.NAME) + " is " + article + " " + creatureTypeDescription;
 			} else if (property == Constants.TRAPPED_CONTAINER_DAMAGE) {
 				return subject.getProperty(Constants.NAME) + " is magically trapped";
+			} else if (property == Constants.ILLUSION_CREATOR_ID) {
+				return subject.getProperty(Constants.NAME) + " is an illusion";
 			} else {
 				throw new IllegalStateException("No mapping found for property " + property + " and value " + value);
 			}

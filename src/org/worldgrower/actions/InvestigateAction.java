@@ -38,6 +38,21 @@ public class InvestigateAction implements ManagedOperation {
 		int range = (int)(5 * skillBonus + 1);
 		List<WorldObject> surroundingWorldObjects = world.findWorldObjects(w -> Reach.distance(performer, w) <= range);
 		
+		findInvisibleWorldObjects(performer, target, args, world, surroundingWorldObjects);
+		findIllusionaryWorldObjects(performer, target, args, world, surroundingWorldObjects);
+	}
+
+	private void findIllusionaryWorldObjects(WorldObject performer, WorldObject target, int[] args, World world, List<WorldObject> surroundingWorldObjects) {
+		for(WorldObject surroundingWorldObject : surroundingWorldObjects) {
+			if (surroundingWorldObject.hasProperty(Constants.ILLUSION_CREATOR_ID)) {
+				if (!performer.getProperty(Constants.KNOWLEDGE_MAP).hasProperty(surroundingWorldObject, Constants.ILLUSION_CREATOR_ID)) {
+					performer.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(surroundingWorldObject, Constants.ILLUSION_CREATOR_ID, surroundingWorldObject.getProperty(Constants.ILLUSION_CREATOR_ID));
+				}
+			}
+		}
+	}
+
+	void findInvisibleWorldObjects(WorldObject performer, WorldObject target, int[] args, World world, List<WorldObject> surroundingWorldObjects) {
 		List<WorldObject> newlyDiscoveredWorldObjects = getNewlyDiscoveredWorldObjects(performer, surroundingWorldObjects);
 		for(WorldObject newlyDiscoveredWorldObject : newlyDiscoveredWorldObjects) {
 			int subjectId = newlyDiscoveredWorldObject.getProperty(Constants.ID);
@@ -100,5 +115,20 @@ public class InvestigateAction implements ManagedOperation {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.INVESTIGATE;
+	}
+	
+	static boolean illusionIsBelievedBy(WorldObject personViewingWorld, WorldObject worldObject, World world) {
+		final int insight;
+		if (personViewingWorld.getProperty(Constants.INSIGHT_SKILL) == null) {
+			insight = 0;
+		} else {
+			insight = Constants.INSIGHT_SKILL.getLevel(personViewingWorld);
+		}
+				
+		int illusionCreatorId = worldObject.getProperty(Constants.ILLUSION_CREATOR_ID);
+		WorldObject illusionCreator = world.findWorldObject(Constants.ID, illusionCreatorId);
+		int illusion = Constants.ILLUSION_SKILL.getLevel(illusionCreator);
+		
+		return (illusion > insight);
 	}
 }

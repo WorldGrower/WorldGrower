@@ -25,49 +25,6 @@ import org.worldgrower.condition.Conditions;
 
 public class UTestWorldFacade {
 
-	//TODO: what if illusion creator dies?
-	@Test
-	public void testIllusionIsBelievedBy() {
-		World world = new WorldImpl(10, 10, null, null);
-		WorldObject personViewingWorld = TestUtils.createIntelligentWorldObject(1, Constants.INSIGHT_SKILL, new Skill(10));
-		WorldObject worldObject = TestUtils.createIntelligentWorldObject(2, Constants.ILLUSION_CREATOR_ID, 3);
-		WorldObject illusionCreator = TestUtils.createIntelligentWorldObject(3, Constants.ILLUSION_SKILL, new Skill(20));
-		
-		world.addWorldObject(personViewingWorld);
-		world.addWorldObject(worldObject);
-		world.addWorldObject(illusionCreator);
-		
-		assertEquals(true, WorldFacade.illusionIsBelievedBy(personViewingWorld, worldObject, world));
-	}	
-	
-	@Test
-	public void testIllusionIsBelievedByNotBelieved() {
-		World world = new WorldImpl(10, 10, null, null);
-		WorldObject personViewingWorld = TestUtils.createIntelligentWorldObject(1, Constants.INSIGHT_SKILL, new Skill(10));
-		WorldObject worldObject = TestUtils.createIntelligentWorldObject(2, Constants.ILLUSION_CREATOR_ID, 3);
-		WorldObject illusionCreator = TestUtils.createIntelligentWorldObject(3, Constants.ILLUSION_SKILL, new Skill(0));
-		
-		world.addWorldObject(personViewingWorld);
-		world.addWorldObject(worldObject);
-		world.addWorldObject(illusionCreator);
-		
-		assertEquals(false, WorldFacade.illusionIsBelievedBy(personViewingWorld, worldObject, world));
-	}
-	
-	@Test
-	public void testIllusionIsBelievedByUnskilled() {
-		World world = new WorldImpl(10, 10, null, null);
-		WorldObject personViewingWorld = TestUtils.createWorldObject(1, "performer");
-		WorldObject worldObject = TestUtils.createIntelligentWorldObject(2, Constants.ILLUSION_CREATOR_ID, 3);
-		WorldObject illusionCreator = TestUtils.createIntelligentWorldObject(3, Constants.ILLUSION_SKILL, new Skill(0));
-		
-		world.addWorldObject(personViewingWorld);
-		world.addWorldObject(worldObject);
-		world.addWorldObject(illusionCreator);
-		
-		assertEquals(false, WorldFacade.illusionIsBelievedBy(personViewingWorld, worldObject, world));
-	}
-	
 	@Test
 	public void testFindWorldObject() {
 		World world = new WorldImpl(10, 10, null, null);

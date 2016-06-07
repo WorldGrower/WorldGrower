@@ -26,17 +26,27 @@ import org.worldgrower.attribute.ManagedProperty;
 public class KnowledgeMapPropertyUtils {
 
 	public static void everyoneInVicinityKnowsOfEvent(WorldObject performer, WorldObject target, World world) {
-		List<WorldObject> peopleThatknow = world.findWorldObjects(w -> w.hasIntelligence() && w.hasProperty(Constants.KNOWLEDGE_MAP) && Reach.distance(performer, w) < PerceptionPropertyUtils.calculateRadius(w, world));
+		List<WorldObject> peopleThatknow = getPeopleInVicinity(performer, world);
 		for(WorldObject personThatknows : peopleThatknow) {
 			personThatknows.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(target, world);
 		}
 	}
 	
 	public static void everyoneInVicinityKnowsOfProperty(WorldObject performer, WorldObject target, ManagedProperty<?> managedProperty, Object value, World world) {
-		List<WorldObject> peopleThatknow = world.findWorldObjects(w -> w.hasIntelligence() && w.hasProperty(Constants.KNOWLEDGE_MAP) && Reach.distance(performer, w) < PerceptionPropertyUtils.calculateRadius(w, world));
+		List<WorldObject> peopleThatknow = getPeopleInVicinity(performer, world);
 		for(WorldObject personThatknows : peopleThatknow) {
 			personThatknows.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(target, managedProperty, value);
 		}
+	}
+
+	private static List<WorldObject> getPeopleInVicinity(WorldObject performer, World world) {
+		List<WorldObject> peopleThatknow = world.findWorldObjects(w -> w.hasIntelligence() && w.hasProperty(Constants.KNOWLEDGE_MAP) && Reach.distance(performer, w) < PerceptionPropertyUtils.calculateRadius(w, world));
+		return peopleThatknow;
+	}
+	
+	public static List<WorldObject> getWorldObjectsInVicinity(WorldObject performer, World world) {
+		List<WorldObject> peopleThatknow = world.findWorldObjects(w -> Reach.distance(performer, w) < PerceptionPropertyUtils.calculateRadius(w, world));
+		return peopleThatknow;
 	}
 
 	public static void peopleKnowOfProperty(List<WorldObject> people, WorldObject target, IdProperty managedProperty, Object value, World world) {
