@@ -76,7 +76,7 @@ public class CraftUtils {
 	public static boolean isValidBuildTarget(BuildAction buildAction, WorldObject performer, WorldObject target, World world) {
 		int x = (Integer)target.getProperty(Constants.X);
 		int y = (Integer)target.getProperty(Constants.Y);
-		return GoalUtils.isOpenSpace(x, y, buildAction.getWidth(), buildAction.getHeight(), world);
+		return !target.hasProperty(Constants.ID) && GoalUtils.isOpenSpace(x, y, buildAction.getWidth(), buildAction.getHeight(), world);
 	}
 	
 	public static String getRequirementsDescription(IntProperty property, int quantity, IntProperty property2, int quantity2) {

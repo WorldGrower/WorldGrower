@@ -25,25 +25,28 @@ import org.worldgrower.attribute.WorldObjectProperties;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.goal.Goal;
 
-public class IllusionaryWorldObject implements WorldObject, Serializable {
+public class ImmutableWorldObject implements WorldObject, Serializable {
 
 	private final WorldObjectProperties properties;
-	private int turnsToLive;
+	private final List<ManagedProperty<?>> mutableProperties;
+	private final OnTurn onTurn;
 	
-	public IllusionaryWorldObject(WorldObjectProperties properties, int turnsToLive) {
+	private ImmutableWorldObject(WorldObjectProperties properties, List<ManagedProperty<?>> mutableProperties, OnTurn onTurn) {
 		super();
 		this.properties = properties;
-		this.turnsToLive = turnsToLive;
+		this.mutableProperties = mutableProperties;
+		this.onTurn = onTurn;
 	}
 
-	public IllusionaryWorldObject(WorldObject sourceWorldObject, int turnsToLive) {
+	public ImmutableWorldObject(WorldObject sourceWorldObject, List<ManagedProperty<?>> mutableProperties, OnTurn onTurn) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		for(ManagedProperty<?> key : sourceWorldObject.getPropertyKeys()) {
-			properties.put(key, sourceWorldObject.getProperty(key));
+			properties.put(key, key.copy(sourceWorldObject.getProperty(key)));
 		}
 		
 		this.properties = new WorldObjectProperties(properties);
-		this.turnsToLive = turnsToLive;
+		this.mutableProperties = mutableProperties;
+		this.onTurn = onTurn;
 	}
 
 	@Override
@@ -63,6 +66,9 @@ public class IllusionaryWorldObject implements WorldObject, Serializable {
 
 	@Override
 	public <T> void setProperty(ManagedProperty<T> propertyKey, T value) {
+		if (mutableProperties.contains(propertyKey)) {
+			setPropertyInternal(propertyKey, value);
+		}
 	}
 	
 	public <T> void setPropertyInternal(ManagedProperty<T> propertyKey, T value) {
@@ -71,14 +77,23 @@ public class IllusionaryWorldObject implements WorldObject, Serializable {
 
 	@Override
 	public <T> void setPropertyUnchecked(ManagedProperty<T> propertyKey, T value) {
+		setPropertyInternal(propertyKey, value);
 	}
 
 	@Override
 	public <T> void removeProperty(ManagedProperty<T> propertyKey) {
+		if (mutableProperties.contains(propertyKey)) {
+			properties.remove(propertyKey);
+		}
 	}
 
 	@Override
 	public void increment(IntProperty propertyKey, int incrementValue) {
+		if (mutableProperties.contains(propertyKey)) {
+			int currentValue = this.getProperty(propertyKey) + incrementValue;
+			currentValue = propertyKey.normalize(currentValue);
+			setProperty(propertyKey, currentValue);
+		}
 	}
 
 	@Override
@@ -93,11 +108,7 @@ public class IllusionaryWorldObject implements WorldObject, Serializable {
 
 	@Override
 	public void onTurn(World world, WorldStateChangedListeners worldStateChangedListeners) {
-		turnsToLive--;
-		
-		if (turnsToLive == 0) {
-			world.removeWorldObject(this);
-		}
+		onTurn.onTurn(this, world, worldStateChangedListeners);
 	}
 
 	@Override
@@ -122,16 +133,16 @@ public class IllusionaryWorldObject implements WorldObject, Serializable {
 
 	@Override
 	public <T> WorldObject shallowCopy() {
-		return new IllusionaryWorldObject(properties, turnsToLive);
+		return new ImmutableWorldObject(properties, mutableProperties, onTurn);
 	}
 
 	@Override
 	public <T> WorldObject deepCopy() {
-		return new IllusionaryWorldObject(properties, turnsToLive);
+		return new ImmutableWorldObject(properties, mutableProperties, onTurn);
 	}
 
 	@Override
 	public <T> WorldObject deepCopy(OnTurn onTurn) {
-		return new IllusionaryWorldObject(properties, turnsToLive);
+		return new ImmutableWorldObject(properties, mutableProperties, onTurn);
 	}
 }

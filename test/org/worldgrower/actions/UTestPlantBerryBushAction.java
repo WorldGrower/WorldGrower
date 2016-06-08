@@ -43,7 +43,7 @@ public class UTestPlantBerryBushAction {
 	public void testIsValidTarget() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
-		WorldObject target = createPerformer(3);
+		WorldObject target = TestUtils.createWorldObject(0, 0, 1, 1);
 
 		assertEquals(true, Actions.PLANT_BERRY_BUSH_ACTION.isValidTarget(performer, target, world));
 		

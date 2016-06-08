@@ -78,7 +78,18 @@ public class OperationInfo implements Serializable {
 	}
 
 	private void performImpl(World world) {
-		managedOperation.execute(performer, target, args, world);
+		boolean targetIsIllusion = target.hasProperty(Constants.ILLUSION_CREATOR_ID);
+		final WorldObject actualPerformer;
+		if (targetIsIllusion) {
+			actualPerformer = new ImmutableWorldObject(performer, Arrays.asList(Constants.ENERGY), new DoNothingOnTurn());
+		} else {
+			actualPerformer = performer;
+		}
+		
+		managedOperation.execute(actualPerformer, target, args, world);
+		if (targetIsIllusion) {
+			performer.setProperty(Constants.ENERGY, actualPerformer.getProperty(Constants.ENERGY));
+		}
 		HistoryItem historyItem = world.getHistory().actionPerformed(this, world.getCurrentTurn());
 		
 		removeDeadWorldObjects(world);

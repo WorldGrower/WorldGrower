@@ -46,7 +46,7 @@ public class UTestFireTrapAction {
 	public void testIsValidTarget() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
-		WorldObject target = createPerformer(3);
+		WorldObject target = TestUtils.createWorldObject(0, 0, 1, 1);
 		
 		assertEquals(false, Actions.FIRE_TRAP_ACTION.isValidTarget(performer, target, world));
 		

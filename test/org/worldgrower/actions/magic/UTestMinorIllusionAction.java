@@ -18,6 +18,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.junit.Test;
 import org.worldgrower.Args;
@@ -33,10 +34,25 @@ import org.worldgrower.generator.PlantGenerator;
 public class UTestMinorIllusionAction {
 
 	@Test
+	public void testExecute() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		world.addWorldObject(performer);
+		WorldObject target = TestUtils.createWorldObject(2, 2, 1, 1);
+		
+		performer.setProperty(Constants.KNOWN_SPELLS, Arrays.asList(Actions.MINOR_ILLUSION_ACTION));
+		Actions.MINOR_ILLUSION_ACTION.execute(performer, target, new int[] { 2 }, world);
+
+		List<WorldObject> worldObjects = world.getWorldObjects();
+		WorldObject illusion = worldObjects.get(worldObjects.size() - 1);
+		assertEquals(2, illusion.getProperty(Constants.ILLUSION_CREATOR_ID).intValue());
+	}
+	
+	@Test
 	public void testIsValidTarget() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
-		WorldObject target = createPerformer(3);
+		WorldObject target = TestUtils.createWorldObject(0, 0, 1, 1);
 		
 		performer.setProperty(Constants.KNOWN_SPELLS, Arrays.asList(Actions.MINOR_ILLUSION_ACTION));
 		assertEquals(true, Actions.MINOR_ILLUSION_ACTION.isValidTarget(performer, target, world));

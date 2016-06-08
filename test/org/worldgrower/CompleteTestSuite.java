@@ -167,6 +167,7 @@ import org.worldgrower.generator.UTestCowOnTurn;
 import org.worldgrower.generator.UTestCreatureGenerator;
 import org.worldgrower.generator.UTestFiretrapOnTurn;
 import org.worldgrower.generator.UTestFishOnTurn;
+import org.worldgrower.generator.UTestIllusionOnTurn;
 import org.worldgrower.generator.UTestItem;
 import org.worldgrower.generator.UTestNightShadeOnTurn;
 import org.worldgrower.generator.UTestPlantOnTurn;
@@ -689,7 +690,10 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestAnimalFoodGoal.class,
 	UTestCreatureTypeUtils.class,
 	UTestFireBallAttackAction.class,
-	UTestMajorIllusionAction.class
+	UTestMajorIllusionAction.class,
+	UTestIllusionOnTurn.class,
+	UTestImmutableWorldObject.class,
+	UTestJailCache.class
 })
 public class CompleteTestSuite {
 }

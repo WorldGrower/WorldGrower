@@ -44,12 +44,9 @@ public class UTestConstructTrainingDummyAction {
 	public void testIsValidTarget() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
-		WorldObject target = createPerformer(3);
+		WorldObject target = TestUtils.createWorldObject(0, 0, 1, 1);
 		
-		world.addWorldObject(target);
-		assertEquals(false, Actions.CONSTRUCT_TRAINING_DUMMY_ACTION.isValidTarget(performer, target, world));
-		
-		world.removeWorldObject(target);
+		assertEquals(false, Actions.CONSTRUCT_TRAINING_DUMMY_ACTION.isValidTarget(performer, performer, world));
 		assertEquals(true, Actions.CONSTRUCT_TRAINING_DUMMY_ACTION.isValidTarget(performer, target, world));
 	}
 	
