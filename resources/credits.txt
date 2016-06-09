@@ -77,6 +77,7 @@ cursespell8bit.wav.gz
 alchemist18bit.wav.gz
 fountain8bit.wav.gz
 
+
 Sound effects from JaggedStone at http://opengameart.org/content/magic-spell-sfx:
 magical_18bit.wav.gz
 magical_38bit.wav.gz
@@ -103,3 +104,9 @@ cloth8bit.wav.gz
 
 Background music by TinyWorlds at http://opengameart.org/content/forest-ambience:
 Forest_Ambience8bit.wav.gz
+
+xxx by p0ss at http://opengameart.org/content/spell-sounds-starter-pack:
+blessing28bit.wav.gz
+curse8bit.wav.gz
+forcepush8bit.wav.gz
+forcepulse8bit.wav.gz

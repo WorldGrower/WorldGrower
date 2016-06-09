@@ -26,6 +26,7 @@ import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class AnimalFriendshipSpellAction implements MagicSpell {
 
@@ -97,5 +98,10 @@ public class AnimalFriendshipSpellAction implements MagicSpell {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.ANIMAL_FRIENDSHIP_SPELL;
+	}
+	
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.BLESSING2;
 	}
 }

@@ -27,6 +27,7 @@ import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class InvisibilityAction implements MagicSpell {
 
@@ -101,5 +102,10 @@ public class InvisibilityAction implements MagicSpell {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.INVISIBILITY_INDICATOR;
+	}
+	
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.FORCE_PULSE;
 	}
 }

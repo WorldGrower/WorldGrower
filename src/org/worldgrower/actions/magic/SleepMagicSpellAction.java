@@ -27,6 +27,7 @@ import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class SleepMagicSpellAction implements MagicSpell {
 
@@ -99,5 +100,10 @@ public class SleepMagicSpellAction implements MagicSpell {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.SLEEPING_INDICATOR;
+	}
+	
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.FORCE_PUSH;
 	}
 }

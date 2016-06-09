@@ -64,7 +64,10 @@ public class SoundIdReader {
 		readSound(SoundIds.WIND, "/sound/Wind effects 58bit.wav.gz");
 		readSound(SoundIds.CLOTH, "/sound/cloth8bit.wav.gz");
 		readSound(SoundIds.CLATTER, "/sound/workshop - clatter8bit.wav.gz");
-		
+		readSound(SoundIds.BLESSING2, "/sound/blessing28bit.wav.gz");
+		readSound(SoundIds.CURSE_SPELL, "/sound/curse8bit.wav.gz");
+		readSound(SoundIds.FORCE_PUSH, "/sound/forcepush8bit.wav.gz");
+		readSound(SoundIds.FORCE_PULSE, "/sound/forcepulse8bit.wav.gz");
 		
 		
 	}
