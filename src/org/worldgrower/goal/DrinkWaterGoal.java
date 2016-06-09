@@ -75,8 +75,7 @@ public class DrinkWaterGoal implements Goal {
 	boolean isValidWaterSource(WorldObject performer, WorldObject targetLocation, WorldObject w) {
 		return w.hasProperty(Constants.WATER_SOURCE) 
 				&& Reach.distance(targetLocation, w) < 10 
-				&& WaterPropertyUtils.isWaterSafeToDrink(performer, w) 
-				&& !KnowledgeMapPropertyUtils.performerKnowsTargetIsIllusion(performer, w);
+				&& WaterPropertyUtils.isWaterSafeToDrink(performer, w); 
 	}
 	
 	@Override

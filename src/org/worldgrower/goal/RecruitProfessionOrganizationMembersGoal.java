@@ -40,7 +40,7 @@ public class RecruitProfessionOrganizationMembersGoal implements Goal {
 		
 		for(WorldObject organization : organizations) {
 			Profession profession = organization.getProperty(Constants.PROFESSION);
-			List<WorldObject> totalPersonsWithProfession = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> w.getProperty(Constants.PROFESSION) == profession && !KnowledgeMapPropertyUtils.performerKnowsTargetIsIllusion(performer, w));
+			List<WorldObject> totalPersonsWithProfession = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> w.getProperty(Constants.PROFESSION) == profession);
 			List<WorldObject> members = GroupPropertyUtils.findOrganizationMembers(organization, world);
 			
 			if (members.size() > (totalPersonsWithProfession.size() * 0.8)) {

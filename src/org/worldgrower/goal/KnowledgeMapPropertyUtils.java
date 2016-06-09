@@ -53,14 +53,5 @@ public class KnowledgeMapPropertyUtils {
 		for(WorldObject personThatknows : people) {
 			personThatknows.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(target, managedProperty, value);
 		}
-	}
-
-	public static boolean performerKnowsTargetIsIllusion(WorldObject performer, WorldObject target) {
-		if (performer.hasProperty(Constants.KNOWLEDGE_MAP)) {
-			return performer.getProperty(Constants.KNOWLEDGE_MAP).hasProperty(target, Constants.ILLUSION_CREATOR_ID);
-		} else {
-			return false;
-		}
-	}
-	
+	}	
 }

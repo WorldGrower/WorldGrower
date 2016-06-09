@@ -33,9 +33,11 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.KnowledgeMap;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.generator.PlantGenerator;
+import org.worldgrower.gui.ImageIds;
 import org.worldgrower.history.Turn;
 
 public class UTestGoalUtils {
@@ -201,5 +203,58 @@ public class UTestGoalUtils {
 		OperationInfo operationInfo = GoalUtils.createOperationInfo(performer, Actions.CUT_WOOD_ACTION, Args.EMPTY, world);
 		assertEquals(Actions.CUT_WOOD_ACTION, operationInfo.getManagedOperation());
 		assertEquals(treeId, operationInfo.getTarget().getProperty(Constants.ID).intValue());
+	}
+	
+	@Test
+	public void testFindNearestPersonLookingLikeNoDeception() {
+		World world = createWorld();
+		WorldObject performer = TestUtils.createSkilledWorldObject(2);
+		performer.setProperty(Constants.IMAGE_ID, ImageIds.KNIGHT);
+		
+		WorldObject target = TestUtils.createSkilledWorldObject(3);
+		target.setProperty(Constants.IMAGE_ID, ImageIds.KNIGHT);
+		world.addWorldObject(target);
+		
+		assertEquals(target, GoalUtils.findNearestPersonLookingLike(performer, 3, world));
+	}
+	
+	@Test
+	public void testFindNearestPersonLookingLikeIllusion() {
+		World world = createWorld();
+		WorldObject performer = TestUtils.createSkilledWorldObject(2);
+		performer.setProperty(Constants.IMAGE_ID, ImageIds.KNIGHT);
+		
+		WorldObject target = TestUtils.createSkilledWorldObject(3);
+		target.setProperty(Constants.IMAGE_ID, ImageIds.KNIGHT);
+		target.setProperty(Constants.X, 9);
+		target.setProperty(Constants.Y, 9);
+		world.addWorldObject(target);
+		
+		int illusionId = IllusionPropertyUtils.createIllusion(performer, 3, world, 0, 0);
+		WorldObject illusion = world.findWorldObject(Constants.ID, illusionId);
+		assertEquals(illusion, GoalUtils.findNearestPersonLookingLike(performer, 3, world));
+	}
+	
+	@Test
+	public void testFindNearestPersonLookingLikeDisguise() {
+		World world = createWorld();
+		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
+		performer.setProperty(Constants.IMAGE_ID, ImageIds.KNIGHT);
+		
+		WorldObject target = TestUtils.createSkilledWorldObject(3, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
+		target.setProperty(Constants.IMAGE_ID, ImageIds.KNIGHT);
+		target.setProperty(Constants.X, 9);
+		target.setProperty(Constants.Y, 9);
+		world.addWorldObject(target);
+		
+		WorldObject disguiser = TestUtils.createSkilledWorldObject(4, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
+		disguiser.setProperty(Constants.IMAGE_ID, ImageIds.BLUE_HAIRED_COMMONER);
+		disguiser.setProperty(Constants.X, 0);
+		disguiser.setProperty(Constants.Y, 0);
+		disguiser.setProperty(Constants.FACADE, target.deepCopy());
+		disguiser = FacadeUtils.createFacade(disguiser, disguiser, target, world);
+		world.addWorldObject(disguiser);
+		
+		assertEquals(disguiser, GoalUtils.findNearestPersonLookingLike(performer, 3, world));
 	}
 }
