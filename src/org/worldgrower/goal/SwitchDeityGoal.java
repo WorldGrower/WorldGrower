@@ -40,7 +40,7 @@ public class SwitchDeityGoal implements Goal {
 	}
 	
 	private List<WorldObject> findPotentialTargets(WorldObject performer, World world) {
-		List<WorldObject> potentialTargets = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> isPotentialTarget(performer, w, world));
+		List<WorldObject> potentialTargets = GoalUtils.findNearestTargetsByProperty(performer, Actions.TALK_ACTION, Constants.STRENGTH, w -> isPotentialTarget(performer, w, world), world);
 		return potentialTargets;
 	}
 	

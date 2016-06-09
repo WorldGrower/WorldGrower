@@ -22,6 +22,7 @@ import java.util.List;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.generator.CommonerGenerator;
+import org.worldgrower.goal.KnowledgeMapPropertyUtils;
 import org.worldgrower.history.HistoryItem;
 
 /**
@@ -88,6 +89,7 @@ public class OperationInfo implements Serializable {
 		
 		managedOperation.execute(actualPerformer, target, args, world);
 		if (targetIsIllusion) {
+			KnowledgeMapPropertyUtils.everyoneInVicinityKnowsOfProperty(performer, target, Constants.ILLUSION_CREATOR_ID, target.getProperty(Constants.ILLUSION_CREATOR_ID), world);
 			performer.setProperty(Constants.ENERGY, actualPerformer.getProperty(Constants.ENERGY));
 		}
 		HistoryItem historyItem = world.getHistory().actionPerformed(this, world.getCurrentTurn());

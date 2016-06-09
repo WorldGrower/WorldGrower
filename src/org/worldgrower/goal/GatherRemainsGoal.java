@@ -32,7 +32,7 @@ public class GatherRemainsGoal implements Goal {
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		
-		List<WorldObject> targets = getRemains(world);
+		List<WorldObject> targets = getRemains(performer, world);
 
 		if (targets.size() > 0) {
 			return new OperationInfo(performer, targets.get(0), Args.EMPTY, Actions.GATHER_REMAINS_ACTION);
@@ -41,8 +41,8 @@ public class GatherRemainsGoal implements Goal {
 		}
 	}
 
-	private List<WorldObject> getRemains(World world) {
-		return world.findWorldObjects(w -> w.hasProperty(Constants.DECEASED_WORLD_OBJECT) && w.getProperty(Constants.DECEASED_WORLD_OBJECT));
+	private List<WorldObject> getRemains(WorldObject performer, World world) {
+		return GoalUtils.findNearestTargets(performer, Actions.GATHER_REMAINS_ACTION, w -> w.hasProperty(Constants.DECEASED_WORLD_OBJECT) && w.getProperty(Constants.DECEASED_WORLD_OBJECT), world);
 	}
 	
 	@Override
@@ -52,7 +52,7 @@ public class GatherRemainsGoal implements Goal {
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
 		boolean performerHasRemains = performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.DECEASED_WORLD_OBJECT) != -1;
-		return ((getRemains(world).size() == 0) || (performerHasRemains));
+		return ((getRemains(performer, world).size() == 0) || (performerHasRemains));
 	}
 	
 	@Override

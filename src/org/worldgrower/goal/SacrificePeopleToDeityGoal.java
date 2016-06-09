@@ -36,7 +36,7 @@ public class SacrificePeopleToDeityGoal implements Goal {
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		List<WorldObject> sacrificialAltars = SacrificeUtils.getSacrificialAltars(performer, world);
 		if (sacrificialAltars.size() > 0) {
-			WorldObject personOnAltar = getPersonOnAltars(sacrificialAltars, world);
+			WorldObject personOnAltar = getPersonOnAltars(performer, sacrificialAltars, world);
 			if (personOnAltar != null) {
 				return new AttackTargetGoal(personOnAltar).calculateGoal(performer, world);
 			} else {
@@ -58,16 +58,20 @@ public class SacrificePeopleToDeityGoal implements Goal {
 		}
 	}
 	
-	private WorldObject getPersonOnAltars(List<WorldObject> sacrificialAltars, World world) {
+	private WorldObject getPersonOnAltars(WorldObject performer, List<WorldObject> sacrificialAltars, World world) {
 		for(WorldObject sacrificialAltar : sacrificialAltars) {
 			int altarX = sacrificialAltar.getProperty(Constants.X);
 			int altarY = sacrificialAltar.getProperty(Constants.Y);
-			List<WorldObject> personsOnAltar = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> w.getProperty(Constants.X) == altarX && w.getProperty(Constants.Y) == altarY);
+			List<WorldObject> personsOnAltar = GoalUtils.findNearestTargetsByProperty(performer, Actions.MELEE_ATTACK_ACTION, Constants.STRENGTH, w -> isAltarVictim(altarX, altarY, w), world);
 			if (personsOnAltar.size() > 0) {
 				return personsOnAltar.get(0);
 			}
 		}
 		return null;
+	}
+
+	boolean isAltarVictim(int altarX, int altarY, WorldObject w) {
+		return w.getProperty(Constants.X) == altarX && w.getProperty(Constants.Y) == altarY;
 	}
 
 	private List<WorldObject> getPeopleToSacrifice(WorldObject performer, World world) {

@@ -55,7 +55,7 @@ public class JailGoal implements Goal {
 	}
 
 	private List<WorldObject> findJails(WorldObject performer, World world) {
-		return world.findWorldObjects(w -> BuildingGenerator.isJailLeft(w));
+		return GoalUtils.findNearestTargets(performer, w -> BuildingGenerator.isJailLeft(w), world);
 	}
 
 	@Override

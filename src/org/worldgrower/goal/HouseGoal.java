@@ -41,7 +41,7 @@ public class HouseGoal implements Goal {
 			if (unownedHouses.size() > 0) {
 				return new OperationInfo(performer, unownedHouses.get(0), Args.EMPTY, Actions.CLAIM_BUILDING_ACTION);
 			} else {
-				List<WorldObject> targets = world.findWorldObjects(w -> HousePropertyUtils.hasHouseForSale(w, world));
+				List<WorldObject> targets = GoalUtils.findNearestTargetsByProperty(performer, Actions.TALK_ACTION, Constants.STRENGTH, w -> HousePropertyUtils.hasHouseForSale(w, world), world);
 				if (targets.size() > 0) {
 					return new OperationInfo(performer, targets.get(0), Conversations.createArgs(Conversations.BUY_HOUSE_CONVERSATION), Actions.TALK_ACTION);
 				} else { 

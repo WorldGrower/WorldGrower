@@ -36,7 +36,7 @@ public class StealGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		List<WorldObject> targets = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> isValidThievingTarget(performer, w));
+		List<WorldObject> targets = GoalUtils.findNearestTargetsByProperty(performer, Actions.STEAL_ACTION, Constants.STRENGTH, w -> isValidThievingTarget(performer, w), world);
 		if (targets.size() > 0) {
 			sortThievingTargets(performer, targets);
 			int targetGold = targets.get(0).getProperty(Constants.GOLD);

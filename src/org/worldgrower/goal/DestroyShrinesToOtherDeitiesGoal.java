@@ -20,6 +20,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
 import org.worldgrower.deity.Deity;
 
 public class DestroyShrinesToOtherDeitiesGoal implements Goal {
@@ -40,7 +41,7 @@ public class DestroyShrinesToOtherDeitiesGoal implements Goal {
 	
 	private List<WorldObject> findShrinesToOtherDeities(WorldObject performer, World world) {
 		Deity performerDeity = performer.getProperty(Constants.DEITY);
-		List<WorldObject> shrinesToOtherDeities = world.findWorldObjectsByProperty(Constants.CAN_BE_WORSHIPPED, w -> (w.getProperty(Constants.DEITY) != performerDeity));
+		List<WorldObject> shrinesToOtherDeities = GoalUtils.findNearestTargetsByProperty(performer, Actions.WORSHIP_DEITY_ACTION, Constants.CAN_BE_WORSHIPPED, w -> (w.getProperty(Constants.DEITY) != performerDeity), world);
 		return shrinesToOtherDeities;
 	}
 	

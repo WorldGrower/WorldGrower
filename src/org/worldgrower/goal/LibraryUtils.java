@@ -19,11 +19,12 @@ import java.util.List;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
 
 public class LibraryUtils {
 
-	public static List<WorldObject> getLibraries(World world) {
-		List<WorldObject> libraries = world.findWorldObjectsByProperty(Constants.LIBRARY_QUALITY, w -> true);
+	public static List<WorldObject> getLibraries(WorldObject performer, World world) {
+		List<WorldObject> libraries = GoalUtils.findNearestTargetsByProperty(performer, Actions.RESEARCH_EVOCATION_SKILL_ACTION, Constants.LIBRARY_QUALITY, w -> true, world);
 		return libraries;
 	}
 }

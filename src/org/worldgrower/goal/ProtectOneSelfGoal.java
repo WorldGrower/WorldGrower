@@ -142,7 +142,7 @@ public class ProtectOneSelfGoal implements Goal {
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		List<WorldObject> worldObjects = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> isEnemyWithinRange(performer, w, world));
+		List<WorldObject> worldObjects = GoalUtils.findNearestTargetsByProperty(performer, Actions.MELEE_ATTACK_ACTION, Constants.STRENGTH, w -> isEnemyWithinRange(performer, w, world), world);
 		return worldObjects.isEmpty();
 	}
 

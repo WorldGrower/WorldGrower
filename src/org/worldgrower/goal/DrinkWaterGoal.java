@@ -68,8 +68,15 @@ public class DrinkWaterGoal implements Goal {
 	}
 	
 	private List<WorldObject> getExistingWellsNearTargetLocation(WorldObject performer, WorldObject targetLocation, World world) {
-		List<WorldObject> existingWells = world.findWorldObjects(w -> w.hasProperty(Constants.WATER_SOURCE) && Reach.distance(targetLocation, w) < 10 && WaterPropertyUtils.isWaterSafeToDrink(performer, w));
+		List<WorldObject> existingWells = world.findWorldObjects(w -> isValidWaterSource(performer, targetLocation, w));
 		return existingWells;
+	}
+
+	boolean isValidWaterSource(WorldObject performer, WorldObject targetLocation, WorldObject w) {
+		return w.hasProperty(Constants.WATER_SOURCE) 
+				&& Reach.distance(targetLocation, w) < 10 
+				&& WaterPropertyUtils.isWaterSafeToDrink(performer, w) 
+				&& !KnowledgeMapPropertyUtils.performerKnowsTargetIsIllusion(performer, w);
 	}
 	
 	@Override

@@ -145,12 +145,14 @@ public class UTestBuySellUtils {
 	@Test
 	public void testBetterPriceExistsNull() {
 		World world = new WorldImpl(1, 1, null, null);
-		assertEquals(false, BuySellUtils.betterPriceExists(Item.BERRIES.generate(1f), world, 1));
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
+		assertEquals(false, BuySellUtils.betterPriceExists(performer, Item.BERRIES.generate(1f), world, 1));
 	}
 	
 	@Test
 	public void testBetterPriceExistsTrue() {
 		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
 		WorldObject worldObjectToBuy = Item.BERRIES.generate(1f);
 		worldObjectToBuy.setProperty(Constants.PRICE, 10);
 		
@@ -161,7 +163,7 @@ public class UTestBuySellUtils {
 		target.getProperty(Constants.INVENTORY).addQuantity(otherBerries);
 		world.addWorldObject(target);
 		
-		assertEquals(true, BuySellUtils.betterPriceExists(worldObjectToBuy, world, 10));
+		assertEquals(true, BuySellUtils.betterPriceExists(performer, worldObjectToBuy, world, 10));
 	}
 	
 	@Test

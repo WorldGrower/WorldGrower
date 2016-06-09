@@ -32,7 +32,7 @@ public class SubdueOutsidersGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.POISON_ATTACK_ACTION, w -> GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, w) && Reach.distance(performer, w) < 10 && w.getProperty(Constants.CONDITIONS).canTakeAction(), world);
+		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.POISON_ATTACK_ACTION, w -> isTarget(performer, w), world);
 		if (targets.size() > 0) {
 			return new OperationInfo(performer, targets.get(0), Args.EMPTY, Actions.POISON_ATTACK_ACTION);
 		} else {
@@ -51,8 +51,12 @@ public class SubdueOutsidersGoal implements Goal {
 	}
 
 	private List<WorldObject> getTargets(WorldObject performer, World world) {
-		List<WorldObject> worldObjects = world.findWorldObjects(w -> GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, w) && Reach.distance(performer, w) < 10  && w.getProperty(Constants.CONDITIONS).canTakeAction());
+		List<WorldObject> worldObjects = GoalUtils.findNearestTargets(performer, w -> isTarget(performer, w), world);
 		return worldObjects;
+	}
+
+	boolean isTarget(WorldObject performer, WorldObject w) {
+		return GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, w) && Reach.distance(performer, w) < 10  && w.getProperty(Constants.CONDITIONS).canTakeAction();
 	}
 	
 	@Override

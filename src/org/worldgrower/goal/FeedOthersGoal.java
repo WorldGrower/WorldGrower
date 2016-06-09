@@ -52,7 +52,7 @@ public class FeedOthersGoal implements Goal {
 	}
 	
 	private List<WorldObject> findTargetsToFeed(WorldObject performer, World world) {
-		List<WorldObject> targetsToHeal = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> (!GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, w)) && w.getProperty(Constants.FOOD) < 100);
+		List<WorldObject> targetsToHeal = GoalUtils.findNearestTargetsByProperty(performer, Actions.TALK_ACTION, Constants.STRENGTH, w -> (!GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, w)) && w.getProperty(Constants.FOOD) < 100, world);
 		return targetsToHeal;
 	}
 	

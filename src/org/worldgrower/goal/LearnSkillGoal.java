@@ -37,7 +37,7 @@ public class LearnSkillGoal implements Goal {
 		WorldObject organization = GroupPropertyUtils.findProfessionOrganization(performer, world);
 		
 		if (organization != null && performer.getProperty(Constants.GROUP).contains(organization)) {
-			List<WorldObject> organizationMembers = world.findWorldObjects(w -> w.hasProperty(Constants.GROUP) && w.getProperty(Constants.GROUP).contains(organization));
+			List<WorldObject> organizationMembers = GoalUtils.findNearestTargets(performer, w -> isTarget(organization, w), world);
 			
 			for(WorldObject target : organizationMembers) {
 				if (SkillUtils.canTargetTeachPerformer(performer, target)) {
@@ -46,6 +46,10 @@ public class LearnSkillGoal implements Goal {
 			}
 		}
 		return null;
+	}
+
+	boolean isTarget(WorldObject organization, WorldObject w) {
+		return w.hasProperty(Constants.GROUP) && w.getProperty(Constants.GROUP).contains(organization);
 	}
 	
 	@Override

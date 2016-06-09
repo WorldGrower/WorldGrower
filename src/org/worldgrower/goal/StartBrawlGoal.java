@@ -33,7 +33,7 @@ public class StartBrawlGoal implements Goal {
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		if (performerHasTalentForBrawling(performer) && isAtMaximumHealth(performer)) {
 			if (!BrawlPropertyUtils.isBrawling(performer)) {
-				List<WorldObject> targets = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> isBrawlTarget(performer, w));
+				List<WorldObject> targets = GoalUtils.findNearestTargetsByProperty(performer, Actions.NON_LETHAL_MELEE_ATTACK_ACTION, Constants.STRENGTH, w -> isBrawlTarget(performer, w), world);
 				if (targets.size() > 0) {
 					return new OperationInfo(performer, targets.get(0), Conversations.createArgs(Conversations.BRAWL_CONVERSATION), Actions.TALK_ACTION);
 				}

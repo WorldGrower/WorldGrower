@@ -40,7 +40,7 @@ public class RecruitProfessionOrganizationMembersGoal implements Goal {
 		
 		for(WorldObject organization : organizations) {
 			Profession profession = organization.getProperty(Constants.PROFESSION);
-			List<WorldObject> totalPersonsWithProfession = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> w.getProperty(Constants.PROFESSION) == profession);
+			List<WorldObject> totalPersonsWithProfession = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> w.getProperty(Constants.PROFESSION) == profession && !KnowledgeMapPropertyUtils.performerKnowsTargetIsIllusion(performer, w));
 			List<WorldObject> members = GroupPropertyUtils.findOrganizationMembers(organization, world);
 			
 			if (members.size() > (totalPersonsWithProfession.size() * 0.8)) {
@@ -54,7 +54,7 @@ public class RecruitProfessionOrganizationMembersGoal implements Goal {
 					if (relationshipValue < 50) {
 						return new ImproveRelationshipGoal(target.getProperty(Constants.ID), 200, world).calculateGoal(performer, world);
 					} else {
-						return new OperationInfo(performer, members.get(0), Conversations.createArgs(Conversations.JOIN_PERFORMER_ORGANIZATION_CONVERSATION, organizations.get(0)), Actions.TALK_ACTION);
+						return new OperationInfo(performer, target, Conversations.createArgs(Conversations.JOIN_PERFORMER_ORGANIZATION_CONVERSATION, organizations.get(0)), Actions.TALK_ACTION);
 					}
 				}
 			}

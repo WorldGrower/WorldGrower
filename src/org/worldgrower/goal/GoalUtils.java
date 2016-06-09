@@ -28,6 +28,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.gui.ImageIds;
 
 public class GoalUtils {
 
@@ -44,9 +45,9 @@ public class GoalUtils {
 			return Integer.compare(Reach.distance(performer, o1), Reach.distance(performer, o2));
 		}
 	}
-
+	
 	public static WorldObject findNearestTarget(WorldObject performer, ManagedOperation action, World world) {
-		List<WorldObject> worldObjects = world.findWorldObjects(w -> action.isValidTarget(performer, w, world));
+		List<WorldObject> worldObjects = world.findWorldObjects(w -> action.isValidTarget(performer, w, world) && !KnowledgeMapPropertyUtils.performerKnowsTargetIsIllusion(performer, w));
 		
 		if (worldObjects.size() > 0) {
 			WorldObject closestWorldObject = null;
@@ -66,13 +67,13 @@ public class GoalUtils {
 	}
 	
 	public static List<WorldObject> findNearestTargets(WorldObject performer, ManagedOperation action, Predicate<WorldObject> condition, World world) {
-		List<WorldObject> targets =  world.findWorldObjects(w -> action.isValidTarget(performer, w, world) && condition.test(w));
+		List<WorldObject> targets =  world.findWorldObjects(w -> action.isValidTarget(performer, w, world) && condition.test(w) && !KnowledgeMapPropertyUtils.performerKnowsTargetIsIllusion(performer, w));
 		Collections.sort(targets, new WorldObjectDistanceComparator(performer));
 		return targets;
 	}
 	
 	public static List<WorldObject> findNearestTargetsByProperty(WorldObject performer, ManagedOperation action, ManagedProperty<?> property, Predicate<WorldObject> condition, World world) {
-		List<WorldObject> targets = world.findWorldObjectsByProperty(property, w -> action.isValidTarget(performer, w, world) && condition.test(w));
+		List<WorldObject> targets = world.findWorldObjectsByProperty(property, w -> action.isValidTarget(performer, w, world) && condition.test(w) && !KnowledgeMapPropertyUtils.performerKnowsTargetIsIllusion(performer, w));
 		Collections.sort(targets, new WorldObjectDistanceComparator(performer));
 		return targets;
 	}
@@ -125,11 +126,11 @@ public class GoalUtils {
 	}
 
 	public static List<WorldObject> findNearestNewTargets(WorldObject performer, ManagedOperation action, int[] args, World world) {
-		return GoalUtils.findNearestTargets(performer, action, w -> world.getHistory().findHistoryItem(performer, w, args, action) == null && !performer.equals(w), world);
+		return findNearestTargets(performer, action, w -> world.getHistory().findHistoryItem(performer, w, args, action) == null && !performer.equals(w), world);
 	}
 	
 	public static List<WorldObject> findNearestNewTargets(WorldObject performer, ManagedOperation action, int[] args, Predicate<WorldObject> condition, World world) {
-		return GoalUtils.findNearestTargets(performer, action, w -> !performer.equals(w) && condition.test(w) && world.getHistory().findHistoryItem(performer, w, args, action) == null, world);
+		return findNearestTargets(performer, action, w -> !performer.equals(w) && condition.test(w) && world.getHistory().findHistoryItem(performer, w, args, action) == null, world);
 	}
 
 	public static boolean canEnlarge(WorldObject target, World world) {
@@ -166,5 +167,27 @@ public class GoalUtils {
 		int indexOfGoal = goals.indexOf(targetGoal);
 		int indexOfRestGoal = goals.indexOf(cutOffGoal);
 		return (indexOfGoal > indexOfRestGoal);
+	}
+
+	public static List<WorldObject> findNearestTargets(WorldObject performer, Predicate<WorldObject> condition, World world) {
+		List<WorldObject> targets = world.findWorldObjects(w -> condition.test(w) && !KnowledgeMapPropertyUtils.performerKnowsTargetIsIllusion(performer, w));
+		Collections.sort(targets, new WorldObjectDistanceComparator(performer));
+		return targets;
+	}
+	
+	public static WorldObject findNearestPersonLookingLike(WorldObject performer, int targetId, World world) {
+		WorldObject realTarget = world.findWorldObject(Constants.ID, targetId);
+		ImageIds realImageIds = realTarget.getProperty(Constants.IMAGE_ID);
+		
+		List<WorldObject> illusions = world.findWorldObjectsByProperty(Constants.ILLUSION_CREATOR_ID, w -> w.getProperty(Constants.IMAGE_ID) == realImageIds);
+		List<WorldObject> disguisedWorldObjects = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> FacadeUtils.createFacade(w, performer, w, world).getProperty(Constants.IMAGE_ID) == realImageIds);
+
+		List<WorldObject> allPossibleWorldObjects = new ArrayList<>();
+		allPossibleWorldObjects.add(realTarget);
+		allPossibleWorldObjects.addAll(illusions);
+		allPossibleWorldObjects.addAll(disguisedWorldObjects);
+		
+		Collections.sort(allPossibleWorldObjects, new WorldObjectDistanceComparator(performer));
+		return allPossibleWorldObjects.get(0);
 	}
 }

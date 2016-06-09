@@ -72,6 +72,7 @@ public class UTestHealOthersGoal {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
+		performer.getProperty(Constants.KNOWN_SPELLS).add(Actions.MINOR_HEAL_ACTION);
 		
 		assertEquals(true, goal.isGoalMet(performer, world));
 		

@@ -25,6 +25,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.deity.Deity;
 
 public class UTestSwitchDeityGoal {
@@ -34,7 +35,7 @@ public class UTestSwitchDeityGoal {
 	@Test
 	public void testCalculateGoalNull() {
 		World world = new WorldImpl(1, 1, null, null);
-		WorldObject performer = createPerformer();
+		WorldObject performer = createPerformer(2);
 		
 		assertEquals(null, goal.calculateGoal(performer, world));
 	}
@@ -42,8 +43,8 @@ public class UTestSwitchDeityGoal {
 	@Test
 	public void testCalculateGoalSwitchDeityConversation() {
 		World world = new WorldImpl(10, 10, null, null);
-		WorldObject performer = createPerformer();
-		WorldObject target = createPerformer();
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
 		performer.setProperty(Constants.DEITY, Deity.HADES);
 		target.setProperty(Constants.DEITY, Deity.DEMETER);
 		world.addWorldObject(target);
@@ -54,24 +55,25 @@ public class UTestSwitchDeityGoal {
 	@Test
 	public void testIsGoalMet() {
 		World world = new WorldImpl(10, 10, null, null);
-		WorldObject performer = createPerformer();
+		WorldObject performer = createPerformer(2);
 		
 		assertEquals(true, goal.isGoalMet(performer, world));
 		
-		WorldObject target = createPerformer();
+		WorldObject target = createPerformer(3);
 		performer.setProperty(Constants.DEITY, Deity.HADES);
 		target.setProperty(Constants.DEITY, Deity.DEMETER);
 		world.addWorldObject(target);
 		assertEquals(false, goal.isGoalMet(performer, world));
 	}
 
-	private WorldObject createPerformer() {
-		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
+	private WorldObject createPerformer(int id) {
+		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.X, 0);
 		performer.setProperty(Constants.Y, 0);
 		performer.setProperty(Constants.WIDTH, 1);
 		performer.setProperty(Constants.HEIGHT, 1);
 		performer.setProperty(Constants.GROUP, new IdList().add(7));
+		performer.setProperty(Constants.CREATURE_TYPE, CreatureType.HUMAN_CREATURE_TYPE);
 		return performer;
 	}
 }

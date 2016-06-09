@@ -35,7 +35,7 @@ public class ResearchMagicSkillsKnowledgeGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		List<WorldObject> libraries = LibraryUtils.getLibraries(world);
+		List<WorldObject> libraries = LibraryUtils.getLibraries(performer, world);
 		if (libraries.size() > 0) {
 			WorldObject library = libraries.get(0);
 			

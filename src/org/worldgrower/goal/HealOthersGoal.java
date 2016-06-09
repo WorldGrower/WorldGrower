@@ -56,8 +56,12 @@ public class HealOthersGoal implements Goal {
 	}
 	
 	private List<WorldObject> findTargetsToHeal(WorldObject performer, World world) {
-		List<WorldObject> targetsToHeal = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> (!GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, w)) && w.getProperty(Constants.HIT_POINTS) < w.getProperty(Constants.HIT_POINTS_MAX));
+		List<WorldObject> targetsToHeal = GoalUtils.findNearestTargetsByProperty(performer, Actions.MINOR_HEAL_ACTION, Constants.STRENGTH, w -> isTargetForMinorHeal(performer, w), world);
 		return targetsToHeal;
+	}
+
+	private boolean isTargetForMinorHeal(WorldObject performer, WorldObject w) {
+		return (!GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, w)) && w.getProperty(Constants.HIT_POINTS) < w.getProperty(Constants.HIT_POINTS_MAX);
 	}
 	
 	@Override

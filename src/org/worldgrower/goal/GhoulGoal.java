@@ -60,7 +60,7 @@ public class GhoulGoal implements Goal {
 	}
 
 	private List<WorldObject> findGhouls(WorldObject performer, World world) {
-		return world.findWorldObjectsByProperty(Constants.STRENGTH, w -> GhoulUtils.isGhoul(w));
+		return GoalUtils.findNearestTargetsByProperty(performer, Actions.TALK_ACTION, Constants.STRENGTH, w -> GhoulUtils.isGhoul(w), world);
 	}
 
 	@Override

@@ -50,8 +50,12 @@ public class KillVillagersGoal implements Goal {
 	
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		List<WorldObject> worldObjects = world.findWorldObjects(w -> isDeceased(w) || BuildingGenerator.isGrave(w));
+		List<WorldObject> worldObjects = GoalUtils.findNearestTargets(performer, w -> isTarget(w), world);
 		return worldObjects.isEmpty();
+	}
+
+	boolean isTarget(WorldObject w) {
+		return isDeceased(w) || BuildingGenerator.isGrave(w);
 	}
 	
 	private boolean isDeceased(WorldObject worldObject) {

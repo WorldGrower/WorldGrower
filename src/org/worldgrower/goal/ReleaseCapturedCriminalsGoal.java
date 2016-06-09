@@ -40,7 +40,7 @@ public class ReleaseCapturedCriminalsGoal implements Goal {
 			for(WorldObject criminalToBeReleased : criminalsToBeReleased) {
 				int criminalX = criminalToBeReleased.getProperty(Constants.X);
 				int criminalY = criminalToBeReleased.getProperty(Constants.Y);
-				List<WorldObject> jailDoors = world.findWorldObjects(w -> isJailDoor(criminalX, criminalY, w));
+				List<WorldObject> jailDoors = GoalUtils.findNearestTargets(performer, w -> isJailDoor(criminalX, criminalY, w), world);
 				if (jailDoors.size() > 0) {
 					return new OperationInfo(performer, jailDoors.get(0), Args.EMPTY, Actions.UNLOCK_JAIL_DOOR_ACTION);
 				}

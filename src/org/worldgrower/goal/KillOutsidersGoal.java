@@ -49,7 +49,11 @@ public class KillOutsidersGoal implements Goal {
 	}
 
 	private List<WorldObject> findOutsiders(WorldObject performer, World world) {
-		return world.findWorldObjects(w -> GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, w) && Reach.distance(performer, w) < 10);
+		return GoalUtils.findNearestTargets(performer, w -> isTarget(performer, w), world);
+	}
+
+	boolean isTarget(WorldObject performer, WorldObject w) {
+		return GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, w) && Reach.distance(performer, w) < 10;
 	}
 	
 	@Override

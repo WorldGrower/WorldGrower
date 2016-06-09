@@ -38,7 +38,7 @@ public class StartDrinkingContestGoal implements Goal {
 				if (alcoholCount < 10) {
 					return Goals.WINE_GOAL.calculateGoal(performer, world);
 				} else {
-					List<WorldObject> targets = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> isDrinkingContestTarget(performer, w, world));
+					List<WorldObject> targets = GoalUtils.findNearestTargetsByProperty(performer, Actions.TALK_ACTION, Constants.STRENGTH, w -> isDrinkingContestTarget(performer, w, world), world);
 					if (targets.size() > 0) {
 						return new OperationInfo(performer, targets.get(0), Conversations.createArgs(Conversations.DRINKING_CONTEST_CONVERSATION), Actions.TALK_ACTION);
 					}

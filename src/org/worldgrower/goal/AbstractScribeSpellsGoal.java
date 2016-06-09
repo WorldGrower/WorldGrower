@@ -42,12 +42,12 @@ public abstract class AbstractScribeSpellsGoal implements Goal {
 
 	@Override
 	public final OperationInfo calculateGoal(WorldObject performer, World world) {
-		List<WorldObject> libraries = LibraryUtils.getLibraries(world);
+		List<WorldObject> libraries = LibraryUtils.getLibraries(performer, world);
 		if (libraries.size() > 0) {
 			WorldObject library = libraries.get(0);
 			
 			List<MagicSpell> missingSpells = new ArrayList<>(magicSpellsForScribing);
-			Set<ManagedOperation> magicSpellsFound = findMagicSpells(world);
+			Set<ManagedOperation> magicSpellsFound = findMagicSpells(performer, world);
 			missingSpells.removeAll(magicSpellsFound);
 			
 			for(MagicSpell missingSpell : missingSpells) {
@@ -88,12 +88,12 @@ public abstract class AbstractScribeSpellsGoal implements Goal {
 
 	@Override
 	public final boolean isGoalMet(WorldObject performer, World world) {
-		Set<ManagedOperation> magicSpellsFound = findMagicSpells(world);
+		Set<ManagedOperation> magicSpellsFound = findMagicSpells(performer, world);
 		return magicSpellsFound.size() == magicSpellsForScribing.size();
 	}
 	
-	private Set<ManagedOperation> findMagicSpells(World world) {
-		List<WorldObject> libraries = LibraryUtils.getLibraries(world);
+	private Set<ManagedOperation> findMagicSpells(WorldObject performer, World world) {
+		List<WorldObject> libraries = LibraryUtils.getLibraries(performer, world);
 		Set<ManagedOperation> magicSpellsFound = new HashSet<>();
 		
 		for(WorldObject library : libraries) {
@@ -120,7 +120,7 @@ public abstract class AbstractScribeSpellsGoal implements Goal {
 
 	@Override
 	public final int evaluate(WorldObject performer, World world) {
-		Set<ManagedOperation> magicSpellsFound = findMagicSpells(world);
+		Set<ManagedOperation> magicSpellsFound = findMagicSpells(performer, world);
 		return magicSpellsFound.size();
 	}
 }

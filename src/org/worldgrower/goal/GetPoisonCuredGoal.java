@@ -40,7 +40,7 @@ public class GetPoisonCuredGoal implements Goal {
 				return Goals.REST_GOAL.calculateGoal(performer, world);
 			}
 		} else {
-			List<WorldObject> targets = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> isTargetForCurePoisonConversation(performer, w, world));
+			List<WorldObject> targets = GoalUtils.findNearestTargetsByProperty(performer, Actions.TALK_ACTION, Constants.STRENGTH, w -> isTargetForCurePoisonConversation(performer, w, world), world);
 			if (targets.size() > 0) {
 				return new OperationInfo(performer, targets.get(0), Conversations.createArgs(Conversations.CURE_POISON_CONVERSATION), Actions.TALK_ACTION);
 			}

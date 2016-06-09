@@ -40,7 +40,7 @@ public class FillSoulGemGoal implements Goal {
 			return Goals.SOUL_GEM_GOAL.calculateGoal(performer, world);
 		} else if (performer.getProperty(Constants.KNOWN_SPELLS).contains(Actions.SOUL_TRAP_ACTION) 
 				&& Actions.SOUL_TRAP_ACTION.hasRequiredEnergy(performer)) {
-			List<WorldObject> poisonedVillagers = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> w.getProperty(Constants.CONDITIONS).hasCondition(Condition.POISONED_CONDITION));
+			List<WorldObject> poisonedVillagers = GoalUtils.findNearestTargets(performer, Actions.SOUL_TRAP_ACTION, w -> w.getProperty(Constants.CONDITIONS).hasCondition(Condition.POISONED_CONDITION), world);
 			if (poisonedVillagers.size() > 0) {
 				return new OperationInfo(performer, poisonedVillagers.get(0), Args.EMPTY, Actions.SOUL_TRAP_ACTION);
 			}

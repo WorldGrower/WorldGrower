@@ -63,7 +63,7 @@ public class CaptureCriminalsGoal implements Goal {
 	}
 
 	private List<WorldObject> findCriminals(WorldObject performer, World world) {
-		return world.findWorldObjectsByProperty(Constants.STRENGTH, w -> isCriminal(performer, w));
+		return GoalUtils.findNearestTargetsByProperty(performer, Actions.NON_LETHAL_MELEE_ATTACK_ACTION, Constants.STRENGTH, w -> isCriminal(performer, w), world);
 	}
 
 	private boolean isCriminal(WorldObject performer, WorldObject w) {

@@ -58,7 +58,7 @@ public class VampireBloodLevelGoal implements Goal {
 
 	private WorldObject getNearbyNonIntelligentTarget(WorldObject performer, World world) {
 		WorldObject target = null;
-		List<WorldObject> targets = world.findWorldObjectsByProperty(Constants.CREATURE_TYPE, w -> isNearbyNonIntelligentBloodSource(performer, w));
+		List<WorldObject> targets = GoalUtils.findNearestTargetsByProperty(performer, Actions.VAMPIRE_BITE_ACTION, Constants.CREATURE_TYPE, w -> isNearbyNonIntelligentBloodSource(performer, w), world);
 		if (targets.size() > 0) {
 			target = targets.get(0);
 		}

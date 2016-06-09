@@ -76,6 +76,7 @@ public class UTestRecruitProfessionOrganizationMembersGoal {
 		
 		assertEquals(Actions.TALK_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 		AssertUtils.assertConversation(goal.calculateGoal(performer, world), Conversations.COMPLIMENT_CONVERSATION);
+		assertEquals(target, goal.calculateGoal(performer, world).getTarget());
 	}
 
 	@Test
@@ -93,6 +94,7 @@ public class UTestRecruitProfessionOrganizationMembersGoal {
 		
 		assertEquals(Actions.TALK_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 		AssertUtils.assertConversation(goal.calculateGoal(performer, world), Conversations.JOIN_PERFORMER_ORGANIZATION_CONVERSATION);
+		assertEquals(target, goal.calculateGoal(performer, world).getTarget());
 	}
 	
 	private WorldObject createCommoner(World world, WorldObject organization) {

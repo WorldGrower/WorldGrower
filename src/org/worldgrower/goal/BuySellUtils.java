@@ -112,7 +112,7 @@ public class BuySellUtils {
 		boolean demandsGoods = hasDemandForInventoryItemGoods(target, worldObjectToBuy);
 		
 		int price = BuySellUtils.getPrice(performer, worldObjectToBuy);
-		boolean betterPriceExists = betterPriceExists(worldObjectToBuy, world, price);
+		boolean betterPriceExists = betterPriceExists(performer, worldObjectToBuy, world, price);
 		
 		boolean hasMoneyToBuyGoods = (price <= target.getProperty(Constants.GOLD));
 		
@@ -137,10 +137,10 @@ public class BuySellUtils {
 	}
 
 
-	static boolean betterPriceExists(WorldObject worldObjectToBuy, World world, int price) {
+	static boolean betterPriceExists(WorldObject performer, WorldObject worldObjectToBuy, World world, int price) {
 		Item itemToBuy = worldObjectToBuy.getProperty(Constants.ITEM_ID);
 		boolean betterPriceExists = false;
-		List<WorldObject> targets = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> hasSellableItem(w));
+		List<WorldObject> targets = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> hasSellableItem(w) && !KnowledgeMapPropertyUtils.performerKnowsTargetIsIllusion(performer, w));
 		for(WorldObject target : targets) {
 			WorldObjectContainer targetInventory = target.getProperty(Constants.INVENTORY);
 			int indexForItem = targetInventory.getIndexFor(Constants.ITEM_ID, itemToBuy, w -> w.getProperty(Constants.SELLABLE));
