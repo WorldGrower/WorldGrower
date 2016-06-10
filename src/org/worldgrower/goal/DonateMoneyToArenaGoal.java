@@ -35,6 +35,7 @@ public class DonateMoneyToArenaGoal implements Goal {
 		List<WorldObject> targets = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> ArenaPropertyUtils.worldObjectOwnsArena(w));
 		if (targets.size() > 0) {
 			WorldObject target = targets.get(0);
+			target = GoalUtils.findNearestPersonLookingLike(performer, target.getProperty(Constants.ID), world);
 			int performerGold = performer.getProperty(Constants.GOLD);
 			if (performerGold > 50) {
 				return new OperationInfo(performer, target, new int[] { 5 }, Actions.DONATE_MONEY_ACTION);

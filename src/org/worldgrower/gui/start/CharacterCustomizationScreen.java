@@ -31,6 +31,7 @@ import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.gui.GradientPanel;
 import org.worldgrower.gui.GuiAttributeDescription;
 import org.worldgrower.gui.ImageInfoReader;
+import org.worldgrower.gui.music.MusicPlayer;
 import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.IconUtils;
@@ -52,9 +53,7 @@ public class CharacterCustomizationScreen extends JFrame {
 	private JLabel lblCharisma;
 	private JButton btnOk;
 	
-	private final KeyBindings keyBindings;
-	
-	public CharacterCustomizationScreen(ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, KeyBindings keyBindings) {
+	public CharacterCustomizationScreen(ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, MusicPlayer musicPlayer, KeyBindings keyBindings) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 539, 310);
 		setResizable(false);
@@ -64,8 +63,6 @@ public class CharacterCustomizationScreen extends JFrame {
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
 		IconUtils.setIcon(this);
-		
-		this.keyBindings = keyBindings;
 		
 		JLabel attributeLabel = JLabelFactory.createJLabel(attributePoints);
 		attributeLabel.setToolTipText(ATTRIBUTE_EXPLANATION);
@@ -271,7 +268,7 @@ public class CharacterCustomizationScreen extends JFrame {
 						Integer.parseInt(lblCharisma.getText())
 						);
 				
-				OptionsScreen window = new OptionsScreen(characterAttributes, imageInfoReader, soundIdReader, keyBindings);
+				OptionsScreen window = new OptionsScreen(characterAttributes, imageInfoReader, soundIdReader, musicPlayer, keyBindings);
 				window.setVisible(true);
 			}
 		});

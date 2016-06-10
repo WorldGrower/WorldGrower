@@ -63,6 +63,7 @@ import org.worldgrower.goal.EnergyPropertyUtils;
 import org.worldgrower.gui.conversation.GuiRespondToQuestion;
 import org.worldgrower.gui.conversation.GuiShowBrawlResult;
 import org.worldgrower.gui.conversation.GuiShowDrinkingContestResult;
+import org.worldgrower.gui.music.MusicPlayer;
 import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.music.SoundIds;
 import org.worldgrower.gui.start.KeyBindings;
@@ -80,6 +81,7 @@ public final class WorldPanel extends JPanel {
 	private World world;
 	private final ImageInfoReader imageInfoReader;
 	private final SoundIdReader soundIdReader;
+	private final MusicPlayer musicPlayer;
 	private GuiMouseListener guiMouseListener;
 	private int offsetX = 0;
 	private int offsetY = 0;
@@ -99,10 +101,11 @@ public final class WorldPanel extends JPanel {
 	
 	private final List<String> statusMessages = new ArrayList<>();
 	
-    public WorldPanel(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, String initialStatusMessage, KeyBindings keyBindings) throws IOException {
+    public WorldPanel(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, MusicPlayer musicPlayer, String initialStatusMessage, KeyBindings keyBindings) throws IOException {
         super(new BorderLayout());
         this.imageInfoReader = imageInfoReader;
         this.soundIdReader = soundIdReader;
+        this.musicPlayer = musicPlayer;
         this.keyBindings = keyBindings;
 
         guiMouseListener = new GuiMouseListener(this, playerCharacter, world, dungeonMaster, imageInfoReader, soundIdReader, keyBindings);
@@ -226,7 +229,7 @@ public final class WorldPanel extends JPanel {
 	}
 
 	private void bindEscapeButtonToStartScreen(World world) {
-		getActionMap().put("Cancel", new ShowStartScreenAction(this, imageInfoReader, soundIdReader, keyBindings, world));
+		getActionMap().put("Cancel", new ShowStartScreenAction(this, imageInfoReader, soundIdReader, musicPlayer, keyBindings, world));
 	}
 	
 	private void bindEscapeButtonToCalcelBuildMode() {
@@ -560,7 +563,7 @@ public final class WorldPanel extends JPanel {
 		new GuiShowReadAction(playerCharacter, world, this, imageInfoReader);
 		new GuiShowBrawlResult(imageInfoReader, soundIdReader, this, world);
 		new GuiShowDrinkingContestResult(imageInfoReader, soundIdReader, this, world);
-		new GuiGameOverAction(playerCharacter, world, this, imageInfoReader, soundIdReader, keyBindings);
+		new GuiGameOverAction(playerCharacter, world, this, imageInfoReader, soundIdReader, musicPlayer, keyBindings);
 		world.addWorldStateChangedListener(createWorldStateChangedListener());
 		
 		List<ManagedOperationListener> additionalManagedOperationListeners = additionalManagedOperationListenerFactory.create(world, this, imageInfoReader);

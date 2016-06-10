@@ -39,7 +39,7 @@ public class MateGoal implements Goal {
 		int bestId = getBestMate(performer, world);
 		
 		if ((bestId != -1) && (relationships.getValue(bestId) > 750)) {
-			WorldObject target = world.findWorldObject(Constants.ID, bestId);
+			WorldObject target = GoalUtils.findNearestPersonLookingLike(performer, bestId, world);
 			return new OperationInfo(performer, target, Conversations.createArgs(Conversations.PROPOSE_MATE_CONVERSATION), Actions.TALK_ACTION);
 		} else if (bestId != -1) {
 			return new ImproveRelationshipGoal(bestId, 750, world).calculateGoal(performer, world);

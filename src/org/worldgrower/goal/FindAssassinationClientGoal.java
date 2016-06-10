@@ -35,7 +35,7 @@ public class FindAssassinationClientGoal implements Goal {
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		int bestId = performer.getProperty(Constants.RELATIONSHIPS).findBestId(w -> isTargetForFindAssassinationClientConversation(performer, w, world), new AssassinClientComparator(world), world);
 		if (bestId != -1) {
-			WorldObject target = world.findWorldObject(Constants.ID, bestId);
+			WorldObject target = GoalUtils.findNearestPersonLookingLike(performer, bestId, world);
 			int worstTargetId = target.getProperty(Constants.RELATIONSHIPS).findWorstId(world);
 			WorldObject subject = world.findWorldObject(Constants.ID, worstTargetId);
 			return new OperationInfo(performer, target, Conversations.createArgs(Conversations.ASSASSINATE_TARGET_CONVERSATION, subject), Actions.TALK_ACTION);

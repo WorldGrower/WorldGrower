@@ -31,7 +31,6 @@ public interface GameParameters {
 	public int getVillagerCount();
 	public int getSeed();
 	public int getStartTurn();
-	public boolean getPlayBackgroundMusic();
 	
 	public String getInitialStatusMessage();
 	public void addDefaultWorldObjects(World world, CommonerGenerator commonerGenerator, CreatureGenerator creatureGenerator, WorldObject organization, int villagerCount, int seed);

@@ -22,6 +22,7 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.goal.GoalUtils;
 import org.worldgrower.goal.Goals;
 import org.worldgrower.goal.MoveArgsResult;
 import org.worldgrower.gui.ImageIds;
@@ -51,7 +52,7 @@ public class FearCondition implements Condition {
 	public void onTurn(WorldObject worldObject, World world, int startTurn, WorldStateChangedListeners creatureTypeChangedListeners) {
 		Integer fearCasterId = worldObject.getProperty(Constants.FEAR_CASTER_ID);
 		if (fearCasterId != null) {
-			WorldObject fearCaster = world.findWorldObject(Constants.ID, fearCasterId);
+			WorldObject fearCaster = GoalUtils.findNearestPersonLookingLike(worldObject, fearCasterId, world);
 			MoveArgsResult moveArgsResult = Goals.PROTECT_ONE_SELF_GOAL.calculateMoveArgs(worldObject, world, Arrays.asList(fearCaster));
 			if (!moveArgsResult.isCurrentLocationIsAsSafe()) {
 				int[] args = moveArgsResult.getMoveArgs();

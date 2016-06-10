@@ -31,7 +31,7 @@ public class AssassinateTargetGoal implements Goal {
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		Integer assassinateTargetId = performer.getProperty(Constants.ASSASSINATE_TARGET_ID);
 		if (assassinateTargetId != null) {
-			WorldObject assassinateTarget = world.findWorldObject(Constants.ID, assassinateTargetId);
+			WorldObject assassinateTarget = GoalUtils.findNearestPersonLookingLike(performer, assassinateTargetId, world);
 			if (LocationUtils.isPersonIsolated(performer, assassinateTarget, world)) {
 				return new AttackTargetGoal(assassinateTarget).calculateGoal(performer, world);
 			}

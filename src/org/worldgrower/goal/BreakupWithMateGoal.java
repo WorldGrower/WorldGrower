@@ -35,7 +35,7 @@ public class BreakupWithMateGoal implements Goal {
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		Integer performerMateId = performer.getProperty(Constants.MATE_ID);
 		if (performerMateId != null) {
-			WorldObject target = world.findWorldObject(Constants.ID, performerMateId);
+			WorldObject target = GoalUtils.findNearestPersonLookingLike(performer, performerMateId, world);
 			IdMap relationships = performer.getProperty(Constants.RELATIONSHIPS);
 			
 			if ((relationships.getValue(target) < -500) || mateHasCheated(performer, target, world)) {

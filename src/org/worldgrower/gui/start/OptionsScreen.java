@@ -22,7 +22,6 @@ import java.util.List;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -34,10 +33,10 @@ import org.worldgrower.gui.ExceptionHandler;
 import org.worldgrower.gui.GradientPanel;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
+import org.worldgrower.gui.music.MusicPlayer;
 import org.worldgrower.gui.music.SoundIdReader;
-import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.IconUtils;
-import org.worldgrower.gui.util.JCheckBoxFactory;
+import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JComboBoxFactory;
 import org.worldgrower.gui.util.JLabelFactory;
 import org.worldgrower.gui.util.JRadioButtonFactory;
@@ -47,7 +46,6 @@ import org.worldgrower.util.NumberUtils;
 
 public class OptionsScreen {
 	private static final String GENDER_TOOL_TIP = "choose gender of player character";
-	private static final String MUSIC_TOOL_TIP = "Play background music";
 	private static final String SEED_TOOL_TIP = "The seed is used for random number generation. A different value will result in different villagers which make other decisions";
 	private static final String CHARACTER_PROFESSION_TOOL_TIP = "describes profession of player character";
 	private static final String MONSTER_DENSITY_TOOL_TIP = "indicates whether there are monsters when the game starts: 0 indicates no, more than 0 indicates yes";
@@ -69,17 +67,18 @@ public class OptionsScreen {
 	private JTextField seedTextField;
 
 	private final CharacterAttributes characterAttributes;
-	private JCheckBox chkBackgroundMusic;
 	private final ImageInfoReader imageInfoReader;
 	private final SoundIdReader soundIdReader;
+	private final MusicPlayer musicPlayer;
 	private JComboBox<ImageIds> cmbImage;
 	private final KeyBindings keyBindings;
 	private JTextField startTurnTextField;
 	
-	public OptionsScreen(CharacterAttributes characterAttributes, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, KeyBindings keyBindings) {
+	public OptionsScreen(CharacterAttributes characterAttributes, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, MusicPlayer musicPlayer, KeyBindings keyBindings) {
 		this.characterAttributes = characterAttributes;
 		this.imageInfoReader = imageInfoReader;
 		this.soundIdReader = soundIdReader;
+		this.musicPlayer = musicPlayer;
 		this.keyBindings = keyBindings;
 		
 		initialize(imageInfoReader);
@@ -98,9 +97,9 @@ public class OptionsScreen {
 		JPanel contentPanel = new GradientPanel();
 		contentPanel.setLocation(0, 0);
 		contentPanel.setLayout(null);
-		contentPanel.setSize(new Dimension(414, 605));
+		contentPanel.setSize(new Dimension(414, 580));
 		frame.getContentPane().add(contentPanel);
-		frame.setSize(new Dimension(414, 640));
+		frame.setSize(new Dimension(414, 580));
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -190,7 +189,7 @@ public class OptionsScreen {
 		contentPanel.add(numberOfVillagersTextField);
 		
 		JButton btnOk = JButtonFactory.createButton("Ok", soundIdReader);
-		btnOk.setBounds(230, 538, 97, 25);
+		btnOk.setBounds(230, 510, 97, 25);
 		frame.getRootPane().setDefaultButton(btnOk);
 		contentPanel.add(btnOk);
 		btnOk.addActionListener(new ActionListener() {
@@ -207,16 +206,14 @@ public class OptionsScreen {
 						int villagerCount = Integer.parseInt(numberOfVillagersTextField.getText());
 						int seed = Integer.parseInt(seedTextField.getText());
 						int startTurn = Integer.parseInt(startTurnTextField.getText());
-						boolean playBackgroundMusic = chkBackgroundMusic.isSelected();
 						
 						String gender = maleRadioButton.isSelected() ? "male" : "female";
 						
-						
-						CustomGameParameters customGameParameters = new CustomGameParameters(playerNameTextField.getText(), playerProfessionTextField.getText(), gender, worldWidth, worldHeight, enemyDensity, villagerCount, seed, startTurn, playBackgroundMusic);
+						CustomGameParameters customGameParameters = new CustomGameParameters(playerNameTextField.getText(), playerProfessionTextField.getText(), gender, worldWidth, worldHeight, enemyDensity, villagerCount, seed, startTurn);
 						new Thread() {
 							public void run() {
 								try {
-									Game.run(characterAttributes, imageInfoReader, soundIdReader, (ImageIds)cmbImage.getSelectedItem(), customGameParameters, keyBindings);
+									Game.run(characterAttributes, imageInfoReader, soundIdReader, musicPlayer, (ImageIds)cmbImage.getSelectedItem(), customGameParameters, keyBindings);
 								} catch (Exception e) {
 									ExceptionHandler.handle(e);
 								}
@@ -237,7 +234,7 @@ public class OptionsScreen {
 		});
 		
 		JButton btnCancel = JButtonFactory.createButton("Cancel");
-		btnCancel.setBounds(119, 538, 97, 25);
+		btnCancel.setBounds(119, 510, 97, 25);
 		contentPanel.add(btnCancel);
 		
 		JLabel lblPlayerProfession = JLabelFactory.createJLabel("Character Profession:");
@@ -263,18 +260,6 @@ public class OptionsScreen {
 		seedTextField.setColumns(10);
 		seedTextField.setBounds(228, 394, 137, 22);
 		contentPanel.add(seedTextField);
-		
-		chkBackgroundMusic = JCheckBoxFactory.createJCheckBox("Music");
-		chkBackgroundMusic.setToolTipText(MUSIC_TOOL_TIP);
-		chkBackgroundMusic.setSelected(true);
-		chkBackgroundMusic.setOpaque(false);
-		chkBackgroundMusic.setBounds(228, 478, 137, 25);
-		contentPanel.add(chkBackgroundMusic);
-		
-		JLabel lblPlayBackgroundMusic = JLabelFactory.createJLabel("Play background music:");
-		lblPlayBackgroundMusic.setToolTipText(MUSIC_TOOL_TIP);
-		lblPlayBackgroundMusic.setBounds(25, 478, 191, 26);
-		contentPanel.add(lblPlayBackgroundMusic);
 		
 		JLabel lblCharacterImage = JLabelFactory.createJLabel("Character image:");
 		lblCharacterImage.setToolTipText("choose gender of player character");
@@ -304,7 +289,7 @@ public class OptionsScreen {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
-				StartScreen startScreen = new StartScreen(imageInfoReader, soundIdReader);
+				StartScreen startScreen = new StartScreen(imageInfoReader, soundIdReader, musicPlayer);
 				startScreen.setVisible(true);
 			}
 		});

@@ -24,8 +24,10 @@ import javax.swing.ButtonGroup;
 import javax.swing.DefaultCellEditor;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -36,23 +38,33 @@ import javax.swing.table.AbstractTableModel;
 
 import org.worldgrower.gui.AbstractDialog;
 import org.worldgrower.gui.SwingUtils;
+import org.worldgrower.gui.music.MusicPlayer;
 import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.util.JButtonFactory;
+import org.worldgrower.gui.util.JCheckBoxFactory;
 import org.worldgrower.gui.util.JComboBoxFactory;
+import org.worldgrower.gui.util.JLabelFactory;
+import org.worldgrower.gui.util.JPanelFactory;
 import org.worldgrower.gui.util.JRadioButtonFactory;
 import org.worldgrower.gui.util.JTableFactory;
 
 public class ControlsDialog extends AbstractDialog {
 
-	private final SoundIdReader soundIdReader;
+	private static final String MUSIC_TOOL_TIP = "Play background music";
+	private static final String SOUND_TOOL_TIP = "Play sound effects";
 	
-	public ControlsDialog(KeyBindings keyBindings, SoundIdReader soundIdReader) {
+	private final SoundIdReader soundIdReader;
+	private final MusicPlayer musicPlayer;
+	
+	public ControlsDialog(KeyBindings keyBindings, SoundIdReader soundIdReader, MusicPlayer musicPlayer) {
 		super(400, 800);
 		
 		this.soundIdReader = soundIdReader;
+		this.musicPlayer = musicPlayer;
 		
 		addKeyBindingsTable(keyBindings);
 		addMouseControlPanel(keyBindings);
+		addSoundControlPanel();
 		addButtonPane();
 	}
 
@@ -72,27 +84,29 @@ public class ControlsDialog extends AbstractDialog {
         });
         
 		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(15, 15, 368, 600);
+		scrollPane.setBounds(15, 15, 368, 400);
 		addComponent(scrollPane);
 		
 		SwingUtils.makeTransparant(table, scrollPane);
 	}
 
 	private void addMouseControlPanel(KeyBindings keyBindings) {
-		JPanel mouseControlPanel = new JPanel();
+		JPanel mouseControlPanel = JPanelFactory.createJPanel("Mouse");
 		
 		mouseControlPanel.setOpaque(false);
-		mouseControlPanel.setBounds(0, 620, 378, 75);
-		mouseControlPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		mouseControlPanel.setBounds(12, 420, 368, 150);
+		mouseControlPanel.setLayout(null);
 		
-		JRadioButton defaultMouseControl = JRadioButtonFactory.createJRadioButton("left-click: center map, right-click: show possible actions");
+		JRadioButton defaultMouseControl = JRadioButtonFactory.createJRadioButton("<html>left-click: center map<br>right-click: show possible actions</html>");
 		defaultMouseControl.setSelected(keyBindings.leftMouseClickCentersMap());
 		defaultMouseControl.setOpaque(false);
+		defaultMouseControl.setBounds(12, 20, 360, 50);
 		mouseControlPanel.add(defaultMouseControl);
 		
-		JRadioButton alternateMouseControl = JRadioButtonFactory.createJRadioButton("right-click: center map, left-click: show possible actions");
+		JRadioButton alternateMouseControl = JRadioButtonFactory.createJRadioButton("<html>right-click: center map<br>left-click: show possible actions</html>");
 		alternateMouseControl.setSelected(!keyBindings.leftMouseClickCentersMap());
 		alternateMouseControl.setOpaque(false);
+		alternateMouseControl.setBounds(12, 80, 360, 50);
 		mouseControlPanel.add(alternateMouseControl);
 		
 		ButtonGroup buttonGroup = new ButtonGroup();
@@ -106,6 +120,65 @@ public class ControlsDialog extends AbstractDialog {
 			@Override
 			public void itemStateChanged(ItemEvent itemEvent) {
 				keyBindings.setLeftMouseClickCentersMap(defaultMouseControl.isSelected());
+			}
+		});
+	}
+	
+	private void addSoundControlPanel() {
+		JPanel soundControlPanel = JPanelFactory.createJPanel("Sound");
+		
+		soundControlPanel.setOpaque(false);
+		soundControlPanel.setBounds(12, 580, 368, 100);
+		soundControlPanel.setLayout(null);
+		
+		JCheckBox chkBackgroundMusic = JCheckBoxFactory.createJCheckBox("Music");
+		chkBackgroundMusic.setToolTipText(MUSIC_TOOL_TIP);
+		chkBackgroundMusic.setSelected(true);
+		chkBackgroundMusic.setOpaque(false);
+		chkBackgroundMusic.setBounds(228, 20, 137, 25);
+		soundControlPanel.add(chkBackgroundMusic);
+		
+		JLabel lblPlayBackgroundMusic = JLabelFactory.createJLabel("Play background music:");
+		lblPlayBackgroundMusic.setToolTipText(MUSIC_TOOL_TIP);
+		lblPlayBackgroundMusic.setBounds(12, 20, 191, 26);
+		soundControlPanel.add(lblPlayBackgroundMusic);
+		
+		JCheckBox chkSoundEffects = JCheckBoxFactory.createJCheckBox("Sound Effects");
+		chkSoundEffects.setToolTipText(SOUND_TOOL_TIP);
+		chkSoundEffects.setSelected(true);
+		chkSoundEffects.setOpaque(false);
+		chkSoundEffects.setBounds(228, 50, 137, 25);
+		soundControlPanel.add(chkSoundEffects);
+		
+		JLabel lblPlaySoundEffects = JLabelFactory.createJLabel("Play sound effects:");
+		lblPlaySoundEffects.setToolTipText(SOUND_TOOL_TIP);
+		lblPlaySoundEffects.setBounds(12, 50, 191, 26);
+		soundControlPanel.add(lblPlaySoundEffects);
+		
+		addComponent(soundControlPanel);
+		
+		chkBackgroundMusic.addItemListener(new ItemListener() {
+			
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				if (e.getStateChange() == ItemEvent.SELECTED) {
+					musicPlayer.setEnabled(true);
+				} else if (e.getStateChange() == ItemEvent.DESELECTED) {
+					musicPlayer.setEnabled(false);
+				}
+			}
+		});
+		
+		chkSoundEffects.addItemListener(new ItemListener() {
+
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				if (e.getStateChange() == ItemEvent.SELECTED) {
+					soundIdReader.setEnabled(true);
+				} else if (e.getStateChange() == ItemEvent.DESELECTED) {
+					soundIdReader.setEnabled(false);
+				}
+				
 			}
 		});
 	}

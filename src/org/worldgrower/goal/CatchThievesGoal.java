@@ -35,7 +35,7 @@ public class CatchThievesGoal implements Goal {
 		int thiefId = findThiefId(world);
 		
 		if (thiefId != -1) {
-			WorldObject thief = world.findWorldObject(Constants.ID, thiefId);
+			WorldObject thief = GoalUtils.findNearestPersonLookingLike(performer, thiefId, world);
 			int[] args = Conversations.createArgs(Conversations.COLLECT_BOUNTY_FROM_THIEVES_CONVERSATION);
 			return new OperationInfo(performer, thief, args, Actions.TALK_ACTION);
 		} else {

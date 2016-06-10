@@ -25,7 +25,7 @@ import org.worldgrower.conversation.Conversations;
 public class ImproveRelationshipGoal implements Goal {
 
 	private final int personId;
-	private final WorldObject target;
+	private WorldObject target;
 	private final int goalRelationshipValue;
 
 	public ImproveRelationshipGoal(int personId, int relationshipValue, World world) {
@@ -36,6 +36,7 @@ public class ImproveRelationshipGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
+		target = GoalUtils.findNearestPersonLookingLike(performer, target.getProperty(Constants.ID), world);
 		if (!GoalUtils.actionAlreadyPerformed(performer, target, Actions.TALK_ACTION, Conversations.createArgs(Conversations.COMPLIMENT_CONVERSATION), world)) {
 			return new OperationInfo(performer, target, Conversations.createArgs(Conversations.COMPLIMENT_CONVERSATION), Actions.TALK_ACTION);
 		} else if (!GoalUtils.actionAlreadyPerformed(performer, target, Actions.TALK_ACTION, Conversations.createArgs(Conversations.FAMILY_CONVERSATION), world)) {

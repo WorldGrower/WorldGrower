@@ -38,10 +38,10 @@ public class SexGoal implements Goal {
 		int bestId = relationships.findBestId(w -> true, world);
 		
 		if ((mateId != null)) {
-			WorldObject target = world.findWorldObject(Constants.ID, mateId);
+			WorldObject target = GoalUtils.findNearestPersonLookingLike(performer, mateId, world);
 			return new OperationInfo(performer, target, Args.EMPTY, Actions.SEX_ACTION);
 		} else if (bestId != -1 && relationships.getValue(bestId) > 750) {
-			WorldObject target = world.findWorldObject(Constants.ID, bestId);
+			WorldObject target = GoalUtils.findNearestPersonLookingLike(performer, bestId, world);
 			return new OperationInfo(performer, target, Args.EMPTY, Actions.SEX_ACTION);
 		} else if (bestId != -1) {
 			return new ImproveRelationshipGoal(bestId, 750, world).calculateGoal(performer, world);

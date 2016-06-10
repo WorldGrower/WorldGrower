@@ -29,6 +29,7 @@ import org.worldgrower.gui.start.Game;
 
 public class SoundIdReader {
 
+	private boolean enabled;
 	private final Map<SoundIds, Clip> sounds = new HashMap<>();
 	
 	public SoundIdReader() {
@@ -84,7 +85,14 @@ public class SoundIdReader {
 	}
 	
 	public void playSoundEffect(SoundIds soundIds) {
-		sounds.get(soundIds).setFramePosition(0);
-		sounds.get(soundIds).start();
+		if (enabled) {
+			Clip clip = sounds.get(soundIds);
+			clip.setFramePosition(0);
+			clip.start();
+		}
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 }

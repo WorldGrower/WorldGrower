@@ -19,6 +19,7 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.ManagedOperationListener;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.gui.music.MusicPlayer;
 import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.start.Game;
 import org.worldgrower.gui.start.KeyBindings;
@@ -31,15 +32,17 @@ public class GuiGameOverAction implements ManagedOperationListener {
 	private WorldPanel container;
 	private ImageInfoReader imageInfoReader;
 	private SoundIdReader soundIdReader;
+	private MusicPlayer musicPlayer;
 	private KeyBindings keyBindings;
 	
-	public GuiGameOverAction(WorldObject playerCharacter, World world, WorldPanel container, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, KeyBindings keyBindings) {
+	public GuiGameOverAction(WorldObject playerCharacter, World world, WorldPanel container, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, MusicPlayer musicPlayer, KeyBindings keyBindings) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.world = world;
 		this.container = container;
 		this.imageInfoReader = imageInfoReader;
 		this.soundIdReader = soundIdReader;
+		this.musicPlayer = musicPlayer;
 		this.keyBindings = keyBindings;
 		
 		world.addListener(this);
@@ -51,7 +54,7 @@ public class GuiGameOverAction implements ManagedOperationListener {
 			String text = "Your hit points are reduced to zero, the game is over";			
 			new ShowTextDialog(text, soundIdReader).showMe();
 			Game.closeMainPanel();
-			new ShowStartScreenAction(container, imageInfoReader, soundIdReader, keyBindings, world).actionPerformed(null);
+			new ShowStartScreenAction(container, imageInfoReader, soundIdReader, musicPlayer, keyBindings, world).actionPerformed(null);
 		}
 	}
 }

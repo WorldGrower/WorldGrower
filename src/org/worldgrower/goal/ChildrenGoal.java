@@ -38,7 +38,7 @@ public class ChildrenGoal implements Goal {
 		int bestId = relationships.findBestId(w -> RacePropertyUtils.canHaveOffspring(performer, w) && (w.getProperty(Constants.BUILDINGS).getIds(BuildingType.SHACK, BuildingType.HOUSE).size() > 0), world);
 		
 		if ((bestId != -1) && (relationships.getValue(bestId) > 750)) {
-			WorldObject target = world.findWorldObject(Constants.ID, bestId);
+			WorldObject target = GoalUtils.findNearestPersonLookingLike(performer, bestId, world);
 			return new OperationInfo(performer, target, Args.EMPTY, Actions.SEX_ACTION);
 		} else if (bestId != -1) {
 			return new ImproveRelationshipGoal(bestId, 750, world).calculateGoal(performer, world);

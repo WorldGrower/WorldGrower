@@ -41,6 +41,7 @@ import org.worldgrower.gui.ExceptionHandler;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.SwingUtils;
+import org.worldgrower.gui.music.MusicPlayer;
 import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.JButtonFactory;
@@ -58,6 +59,7 @@ public class StartScreen {
 	
 	private static ImageInfoReader imageInfoReader = null;
 	private static SoundIdReader soundIdReader = null;
+	private static MusicPlayer musicPlayer = null; 
 	
 	/**
 	 * Launch the application.
@@ -66,10 +68,11 @@ public class StartScreen {
 		ExceptionHandler.registerExceptionHandler();
 		loadImages();
 		loadSounds();
+		loadMusic();
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					StartScreen window = new StartScreen(imageInfoReader, soundIdReader);
+					StartScreen window = new StartScreen(imageInfoReader, soundIdReader, musicPlayer);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					ExceptionHandler.handle(e);
@@ -93,18 +96,28 @@ public class StartScreen {
 			ExceptionHandler.handle(e);
 		}
 	}
+	
+	private static void loadMusic() {
+		try {
+			musicPlayer = new MusicPlayer(true);
+		} catch (Exception e) {
+			ExceptionHandler.handle(e);
+		}
+	}
 
-	public StartScreen(ImageInfoReader imageInfoReaderValue, SoundIdReader soundIdReaderValue) {
+	public StartScreen(ImageInfoReader imageInfoReaderValue, SoundIdReader soundIdReaderValue, MusicPlayer musicPlayerValue) {
 		initialize();
 		imageInfoReader = imageInfoReaderValue;
 		soundIdReader = soundIdReaderValue;
+		musicPlayer = musicPlayerValue;
 		this.keyBindings = createKeyBindings(preferences);
 	}
 	
-	public StartScreen(ImageInfoReader imageInfoReaderValue, SoundIdReader soundIdReaderValue, KeyBindings keyBindings) {
+	public StartScreen(ImageInfoReader imageInfoReaderValue, SoundIdReader soundIdReaderValue, MusicPlayer musicPlayerValue, KeyBindings keyBindings) {
 		initialize();
 		imageInfoReader = imageInfoReaderValue;
 		soundIdReader = soundIdReaderValue;
+		musicPlayer = musicPlayerValue;
 		this.keyBindings = keyBindings;
 	}
 	
@@ -145,7 +158,7 @@ public class StartScreen {
 			new Thread() {
 				public void run() {
 					try {
-						Game.run(new CharacterAttributes(10, 10, 10, 10, 10, 10), imageInfoReader, soundIdReader, ImageIds.KNIGHT, new TutorialGameParameters(), keyBindings);
+						Game.run(new CharacterAttributes(10, 10, 10, 10, 10, 10), imageInfoReader, soundIdReader, musicPlayer, ImageIds.KNIGHT, new TutorialGameParameters(), keyBindings);
 					} catch (Exception e1) {
 						ExceptionHandler.handle(e1);
 					}
@@ -164,7 +177,7 @@ public class StartScreen {
 		public void actionPerformed(ActionEvent event) {
 			frame.setVisible(false);
 			try {
-				CharacterCustomizationScreen characterCustomizationScreen = new CharacterCustomizationScreen(imageInfoReader, soundIdReader, keyBindings);
+				CharacterCustomizationScreen characterCustomizationScreen = new CharacterCustomizationScreen(imageInfoReader, soundIdReader, musicPlayer, keyBindings);
 				characterCustomizationScreen.setVisible(true);
 			} catch (Exception e1) {
 				ExceptionHandler.handle(e1);
@@ -234,7 +247,7 @@ public class StartScreen {
 		btnControlsGame.setEnabled(true);
 		btnControlsGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ControlsDialog controlsDialog = new ControlsDialog(keyBindings, soundIdReader);
+				ControlsDialog controlsDialog = new ControlsDialog(keyBindings, soundIdReader, musicPlayer);
 				controlsDialog.showMe();
 				keyBindings.saveSettings(preferences);
 			}
@@ -294,7 +307,7 @@ public class StartScreen {
 	}
 	
 	private void loadGame(File selectedFile) {
-		Game.load(selectedFile, imageInfoReader, soundIdReader, keyBindings);
+		Game.load(selectedFile, imageInfoReader, soundIdReader, musicPlayer, keyBindings);
 		setVisible(false);
 	}
 	

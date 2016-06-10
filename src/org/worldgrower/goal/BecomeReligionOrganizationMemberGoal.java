@@ -37,7 +37,7 @@ public class BecomeReligionOrganizationMemberGoal implements Goal {
 		if (organizations.size() > 0) {
 			Integer leaderId = GroupPropertyUtils.getMostLikedLeaderId(performer, organizations);
 			if (leaderId != null) {
-				WorldObject organizationLeader = world.findWorldObject(Constants.ID, leaderId);
+				WorldObject organizationLeader = GoalUtils.findNearestPersonLookingLike(performer, leaderId, world);
 				int relationshipValue = performer.getProperty(Constants.RELATIONSHIPS).getValue(organizationLeader);
 				if (relationshipValue >= 0) {
 					return new OperationInfo(performer, organizationLeader, Conversations.createArgs(Conversations.JOIN_TARGET_ORGANIZATION_CONVERSATION, organizations.get(0)), Actions.TALK_ACTION);

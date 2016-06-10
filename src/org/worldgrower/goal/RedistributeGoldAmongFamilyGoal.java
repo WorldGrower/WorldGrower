@@ -36,7 +36,7 @@ public class RedistributeGoldAmongFamilyGoal implements Goal {
 		int performerGold = performer.getProperty(Constants.GOLD);
 		Integer mateId = performer.getProperty(Constants.MATE_ID);
 		if (mateId != null) {
-			WorldObject mate = world.findWorldObject(Constants.ID, mateId);
+			WorldObject mate = GoalUtils.findNearestPersonLookingLike(performer, mateId, world);
 			int mateGold = mate.getProperty(Constants.GOLD);
 			if ((performerGold < 20) && (mateGold > 100) && isTargetForConversation(performer, mate, Conversations.DEMAND_MONEY_CONVERSATION, world)) {
 				return new OperationInfo(performer, mate, Conversations.createArgs(Conversations.DEMAND_MONEY_CONVERSATION), Actions.TALK_ACTION);
