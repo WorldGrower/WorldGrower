@@ -50,6 +50,8 @@ import org.worldgrower.gui.util.MenuFactory;
 
 public class StartScreen {
 
+	private static final String PLAY_MUSIC = "playMusic";
+	private static final String PLAY_SOUNDS = "playSounds";
 	private StartScreenDialog frame;
 	private JButton btnSaveGame;
 	private JButton btnControlsGame;
@@ -66,9 +68,11 @@ public class StartScreen {
 	 */
 	public static void main(String[] args) {
 		ExceptionHandler.registerExceptionHandler();
+		
+		Preferences preferences = Preferences.userNodeForPackage(StartScreen.class);
 		loadImages();
-		loadSounds();
-		loadMusic();
+		loadSounds(preferences);
+		loadMusic(preferences);
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -89,17 +93,17 @@ public class StartScreen {
 		}
 	}
 	
-	private static void loadSounds() {
+	private static void loadSounds(Preferences preferences) {
 		try {
-			soundIdReader = new SoundIdReader();
+			soundIdReader = new SoundIdReader(preferences.getBoolean(PLAY_SOUNDS, true));
 		} catch (Exception e) {
 			ExceptionHandler.handle(e);
 		}
 	}
 	
-	private static void loadMusic() {
+	private static void loadMusic(Preferences preferences) {
 		try {
-			musicPlayer = new MusicPlayer(true);
+			musicPlayer = new MusicPlayer(preferences.getBoolean(PLAY_MUSIC, true));
 		} catch (Exception e) {
 			ExceptionHandler.handle(e);
 		}
@@ -195,7 +199,7 @@ public class StartScreen {
 		addVersionLabel();
 		
 		addSaveButton();
-		addControlsButton();
+		addControlsButton(preferences);
 	}
 
 	private void addVersionLabel() {
@@ -239,7 +243,7 @@ public class StartScreen {
 		SwingUtils.setBoundsAndCenterHorizontally(btnSaveGame, 78, 220, 167, 60);
 	}
 	
-	private void addControlsButton() {
+	private void addControlsButton(Preferences preferences) {
 		btnControlsGame = JButtonFactory.createButton("Controls", IconUtils.getControlsIcon(), soundIdReader);
 		btnControlsGame.setHorizontalAlignment(SwingConstants.LEFT);
 		btnControlsGame.setHorizontalTextPosition(SwingConstants.RIGHT);
@@ -250,6 +254,8 @@ public class StartScreen {
 				ControlsDialog controlsDialog = new ControlsDialog(keyBindings, soundIdReader, musicPlayer);
 				controlsDialog.showMe();
 				keyBindings.saveSettings(preferences);
+				preferences.putBoolean(PLAY_SOUNDS, soundIdReader.isEnabled());
+				preferences.putBoolean(PLAY_MUSIC, musicPlayer.isEnabled());
 			}
 		});
 		frame.addComponent(btnControlsGame);

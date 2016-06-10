@@ -52,7 +52,9 @@ public class MusicPlayer implements LineListener {
 				}
 			}
 			
-			audioClip.close();
+			if (audioClip != null) {
+				audioClip.close();
+			}
 			
 		} catch (UnsupportedAudioFileException | LineUnavailableException | IOException ex) {
 			throw new IllegalStateException(ex);
@@ -88,9 +90,20 @@ public class MusicPlayer implements LineListener {
 	public void stop() {
 		audioClip.stop();
 		audioClip.close();
+		audioClip = null;
 	}
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+		
+		if (enabled) {
+			play();
+		} else if (audioClip != null){
+			stop();
+		}
+	}
+
+	public boolean isEnabled() {
+		return enabled;
 	}
 }

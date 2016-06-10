@@ -133,7 +133,7 @@ public class ControlsDialog extends AbstractDialog {
 		
 		JCheckBox chkBackgroundMusic = JCheckBoxFactory.createJCheckBox("Music");
 		chkBackgroundMusic.setToolTipText(MUSIC_TOOL_TIP);
-		chkBackgroundMusic.setSelected(true);
+		chkBackgroundMusic.setSelected(musicPlayer.isEnabled());
 		chkBackgroundMusic.setOpaque(false);
 		chkBackgroundMusic.setBounds(228, 20, 137, 25);
 		soundControlPanel.add(chkBackgroundMusic);
@@ -145,7 +145,7 @@ public class ControlsDialog extends AbstractDialog {
 		
 		JCheckBox chkSoundEffects = JCheckBoxFactory.createJCheckBox("Sound Effects");
 		chkSoundEffects.setToolTipText(SOUND_TOOL_TIP);
-		chkSoundEffects.setSelected(true);
+		chkSoundEffects.setSelected(soundIdReader.isEnabled());
 		chkSoundEffects.setOpaque(false);
 		chkSoundEffects.setBounds(228, 50, 137, 25);
 		soundControlPanel.add(chkSoundEffects);

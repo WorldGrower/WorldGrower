@@ -32,7 +32,7 @@ public class SoundIdReader {
 	private boolean enabled;
 	private final Map<SoundIds, Clip> sounds = new HashMap<>();
 	
-	public SoundIdReader() {
+	public SoundIdReader(boolean enabled) {
 		readSound(SoundIds.CUT_WOOD, "/sound/workshop - wood clap8bit.wav.gz");
 		readSound(SoundIds.MINE, "/sound/workshop - metal tapping8bit.wav.gz");
 		readSound(SoundIds.FLAMES, "/sound/flames8bit.wav.gz");
@@ -70,7 +70,7 @@ public class SoundIdReader {
 		readSound(SoundIds.FORCE_PUSH, "/sound/forcepush8bit.wav.gz");
 		readSound(SoundIds.FORCE_PULSE, "/sound/forcepulse8bit.wav.gz");
 		
-		
+		this.enabled = enabled;
 	}
 
 	private void readSound(SoundIds soundIds, String path) {
@@ -94,5 +94,9 @@ public class SoundIdReader {
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
 	}
 }
