@@ -110,3 +110,6 @@ blessing28bit.wav.gz
 curse8bit.wav.gz
 forcepush8bit.wav.gz
 forcepulse8bit.wav.gz
+curse58bit.wav.gz
+curse38bit.wav.gz
+zap28bit.wav.gz

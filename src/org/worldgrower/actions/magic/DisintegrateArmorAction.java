@@ -25,6 +25,7 @@ import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class DisintegrateArmorAction implements MagicSpell {
 
@@ -100,4 +101,11 @@ public class DisintegrateArmorAction implements MagicSpell {
 	public ImageIds getImageIds() {
 		return ImageIds.DISINTEGRATE_ARMOR;
 	}
+
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.ZAP2;
+	}
+	
+	
 }

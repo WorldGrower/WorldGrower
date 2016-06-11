@@ -69,6 +69,11 @@ public class SoundIdReader {
 		readSound(SoundIds.CURSE_SPELL, "/sound/curse8bit.wav.gz");
 		readSound(SoundIds.FORCE_PUSH, "/sound/forcepush8bit.wav.gz");
 		readSound(SoundIds.FORCE_PULSE, "/sound/forcepulse8bit.wav.gz");
+		readSound(SoundIds.CURSE5, "/sound/curse58bit.wav.gz");
+		readSound(SoundIds.CURSE3, "/sound/curse38bit.wav.gz");
+		readSound(SoundIds.ZAP2, "/sound/zap28bit.wav.gz");
+		
+		
 		
 		this.enabled = enabled;
 	}

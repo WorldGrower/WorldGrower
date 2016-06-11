@@ -17,6 +17,7 @@ package org.worldgrower.actions.magic;
 import java.io.ObjectStreamException;
 
 import org.worldgrower.Constants;
+import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.InventoryAction;
@@ -27,6 +28,7 @@ import org.worldgrower.generator.CreatureGenerator;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class AnimateSuitOfArmorAction extends InventoryAction implements MagicSpell {
 
@@ -106,4 +108,9 @@ public class AnimateSuitOfArmorAction extends InventoryAction implements MagicSp
 	public ImageIds getImageIds() {
 		return ImageIds.ANIMATED_SUIT_OF_ARMOR;
 	}
+
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.CURSE3;
+	}	
 }
