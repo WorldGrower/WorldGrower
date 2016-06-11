@@ -65,7 +65,7 @@ public class UTestEnlargeAction {
 	
 	@Test
 	public void testDistance() {
-		World world = new WorldImpl(1, 1, null, null);
+		World world = new WorldImpl(2, 2, null, null);
 		WorldObject performer = createPerformer(2);
 		
 		assertEquals(0, Actions.ENLARGE_ACTION.distance(performer, performer, Args.EMPTY, world));
