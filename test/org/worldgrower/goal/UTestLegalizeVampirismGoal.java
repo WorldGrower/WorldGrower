@@ -23,7 +23,6 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.MockCommonerNameGenerator;
-import org.worldgrower.actions.legal.AttackActionLegalHandler;
 import org.worldgrower.actions.legal.LegalAction;
 import org.worldgrower.generator.CommonerGenerator;
 import org.worldgrower.gui.CommonerImageIds;
@@ -83,10 +82,10 @@ public class UTestLegalizeVampirismGoal {
 		
 		villagersOrganization.setProperty(Constants.ORGANIZATION_LEADER_ID, performer.getProperty(Constants.ID));
 		
-		LegalActionsPropertyUtils.getLegalActions(world).setLegalFlag(new LegalAction(Actions.VAMPIRE_BITE_ACTION, new AttackActionLegalHandler()), Boolean.FALSE);
+		LegalActionsPropertyUtils.getLegalActions(world).setLegalFlag(LegalAction.VAMPIRE_BITE, Boolean.FALSE);
 		assertEquals(false, goal.isGoalMet(performer, world));
 		
-		LegalActionsPropertyUtils.getLegalActions(world).setLegalFlag(new LegalAction(Actions.VAMPIRE_BITE_ACTION, new AttackActionLegalHandler()), Boolean.TRUE);
+		LegalActionsPropertyUtils.getLegalActions(world).setLegalFlag(LegalAction.VAMPIRE_BITE, Boolean.TRUE);
 		assertEquals(true, goal.isGoalMet(performer, world));
 	}
 

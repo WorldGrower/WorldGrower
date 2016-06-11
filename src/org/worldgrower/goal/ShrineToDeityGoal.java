@@ -24,7 +24,6 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.legal.LegalAction;
 import org.worldgrower.actions.legal.LegalActions;
-import org.worldgrower.actions.legal.WorshipDeityLegalHandler;
 import org.worldgrower.deity.Deity;
 
 public class ShrineToDeityGoal implements Goal {
@@ -52,9 +51,8 @@ public class ShrineToDeityGoal implements Goal {
 	}
 	
 	private boolean isWorshipAllowed(Deity deity, World world) {
-		LegalAction legalAction = new LegalAction(Actions.WORSHIP_DEITY_ACTION, new WorshipDeityLegalHandler(deity));
 		LegalActions legalActions = LegalActionsPropertyUtils.getLegalActions(world);
-		return legalActions.getLegalFlag(legalAction);
+		return legalActions.getLegalFlag(LegalAction.getWorshipLegalActionFor(deity));
 	}
 	
 	@Override

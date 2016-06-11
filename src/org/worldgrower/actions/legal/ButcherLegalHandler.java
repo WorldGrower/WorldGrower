@@ -17,7 +17,7 @@ package org.worldgrower.actions.legal;
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
 
-public class ButcherLegalHandler implements ActionLegalHandler {
+class ButcherLegalHandler implements ActionLegalHandler {
 
 	@Override
 	public boolean isApplicable(WorldObject performer, WorldObject target, int[] args) {

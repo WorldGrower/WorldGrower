@@ -23,7 +23,6 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.actions.legal.ButcherLegalHandler;
 import org.worldgrower.actions.legal.LegalAction;
 import org.worldgrower.actions.legal.LegalActions;
 import org.worldgrower.attribute.WorldObjectContainer;
@@ -108,9 +107,8 @@ public class GatherFoodGoal implements Goal {
 	}
 	
 	private static boolean isButcheringUnownedCattleAllowed(World world) {
-		LegalAction legalAction = new LegalAction(Actions.BUTCHER_ACTION, new ButcherLegalHandler());
 		LegalActions legalActions = LegalActionsPropertyUtils.getLegalActions(world);
-		return legalActions.getLegalFlag(legalAction);
+		return legalActions.getLegalFlag(LegalAction.BUTCHER);
 	}
 	
 	@Override

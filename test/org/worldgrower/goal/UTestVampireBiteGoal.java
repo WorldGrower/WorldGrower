@@ -23,7 +23,6 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.MockCommonerNameGenerator;
-import org.worldgrower.actions.legal.AttackActionLegalHandler;
 import org.worldgrower.actions.legal.LegalAction;
 import org.worldgrower.condition.VampireUtils;
 import org.worldgrower.condition.WorldStateChangedListeners;
@@ -72,7 +71,7 @@ public class UTestVampireBiteGoal {
 		
 		VampireUtils.vampirizePerson(performer, new WorldStateChangedListeners());
 		
-		LegalActionsPropertyUtils.getLegalActions(world).setLegalFlag(new LegalAction(Actions.VAMPIRE_BITE_ACTION, new AttackActionLegalHandler()), Boolean.FALSE);
+		LegalActionsPropertyUtils.getLegalActions(world).setLegalFlag(LegalAction.VAMPIRE_BITE, Boolean.FALSE);
 		assertEquals(Actions.VAMPIRE_BITE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 		assertEquals(target, goal.calculateGoal(performer, world).getTarget());
 	}
@@ -90,7 +89,7 @@ public class UTestVampireBiteGoal {
 		
 		VampireUtils.vampirizePerson(performer, new WorldStateChangedListeners());
 		
-		LegalActionsPropertyUtils.getLegalActions(world).setLegalFlag(new LegalAction(Actions.VAMPIRE_BITE_ACTION, new AttackActionLegalHandler()), Boolean.TRUE);
+		LegalActionsPropertyUtils.getLegalActions(world).setLegalFlag(LegalAction.VAMPIRE_BITE, Boolean.TRUE);
 		assertEquals(Actions.VAMPIRE_BITE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 		assertEquals(target, goal.calculateGoal(performer, world).getTarget());
 	}

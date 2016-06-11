@@ -17,9 +17,6 @@ package org.worldgrower.condition;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.actions.Actions;
-import org.worldgrower.actions.legal.AttackActionLegalHandler;
-import org.worldgrower.actions.legal.DefaultActionLegalHandler;
 import org.worldgrower.actions.legal.LegalAction;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.curse.Curse;
@@ -44,6 +41,6 @@ public class VampireUtils {
 	}
 	
 	public static boolean isBitingPeopleLegal(World world) {
-		return LegalActionsPropertyUtils.getLegalActions(world).getLegalActions().get(new LegalAction(Actions.VAMPIRE_BITE_ACTION, new AttackActionLegalHandler()));
+		return LegalActionsPropertyUtils.getLegalActions(world).getLegalActions().get(LegalAction.VAMPIRE_BITE);
 	}
 }

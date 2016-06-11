@@ -23,7 +23,6 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.actions.legal.AttackActionLegalHandler;
 import org.worldgrower.actions.legal.LegalAction;
 import org.worldgrower.actions.legal.LegalActions;
 import org.worldgrower.condition.Condition;
@@ -57,7 +56,7 @@ public class LegalizeVampirismGoal implements Goal {
 	private OperationInfo legalizeVampireBiteAction(WorldObject performer, World world) {
 		LegalActions legalActions = LegalActionsPropertyUtils.getLegalActions(world);
 		Map<LegalAction, Boolean> legalFlags = legalActions.getLegalActions();
-		legalFlags.put(new LegalAction(Actions.VAMPIRE_BITE_ACTION, new AttackActionLegalHandler()), Boolean.TRUE);
+		legalFlags.put(LegalAction.VAMPIRE_BITE, Boolean.TRUE);
 		int[] args = LegalActions.legalFlagsToArgs(legalFlags);
 		return new OperationInfo(performer, performer, args, Actions.SET_LEGAL_ACTIONS_ACTION);
 	}

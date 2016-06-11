@@ -20,21 +20,12 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.worldgrower.Constants;
-import org.worldgrower.DefaultGoalObstructedHandler;
-import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
-import org.worldgrower.actions.Actions;
-import org.worldgrower.actions.legal.AttackActionLegalHandler;
-import org.worldgrower.actions.legal.ButcherLegalHandler;
-import org.worldgrower.actions.legal.DefaultActionLegalHandler;
-import org.worldgrower.actions.legal.LegalAction;
-import org.worldgrower.actions.legal.LegalActions;
-import org.worldgrower.actions.legal.WorshipDeityLegalHandler;
+import org.worldgrower.actions.legal.LegalActionFactory;
 import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdMap;
@@ -203,25 +194,7 @@ public class GroupPropertyUtils {
 	}
 
 	private static void setLegalActions(WorldObject organization) {
-		Map<LegalAction, Boolean> legalActions = new HashMap<>();
-		
-		List<ManagedOperation> defaultIllegalActions = new ArrayList<>();
-		defaultIllegalActions.addAll(Actions.ALL_ACTIONS.stream().filter(a -> DefaultGoalObstructedHandler.performerAttacked(a)).collect(Collectors.toList()));
-		defaultIllegalActions.addAll(DefaultGoalObstructedHandler.getNonAttackingIllegalActions());
-		for(ManagedOperation action : defaultIllegalActions) {
-			LegalAction legalAction = new LegalAction(action, new AttackActionLegalHandler());
-			legalActions.put(legalAction, Boolean.FALSE);
-		}
-		
-		for(Deity deity : Deity.ALL_DEITIES) {
-			LegalAction legalAction = new LegalAction(Actions.WORSHIP_DEITY_ACTION, new WorshipDeityLegalHandler(deity));
-			legalActions.put(legalAction, Boolean.TRUE);
-		}
-		
-		LegalAction legalAction = new LegalAction(Actions.BUTCHER_ACTION, new ButcherLegalHandler());
-		legalActions.put(legalAction, Boolean.FALSE);
-		
-		organization.setProperty(Constants.LEGAL_ACTIONS, new LegalActions(legalActions));
+		organization.setProperty(Constants.LEGAL_ACTIONS, LegalActionFactory.create());
 	}
 
 	public static WorldObject getVillagersOrganization(World world) {

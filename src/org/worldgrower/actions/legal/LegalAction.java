@@ -17,12 +17,19 @@ package org.worldgrower.actions.legal;
 import java.io.Serializable;
 
 import org.worldgrower.ManagedOperation;
+import org.worldgrower.actions.Actions;
+import org.worldgrower.deity.Deity;
 
 /**
  * A LegalAction describes whether a certain action is legal
  */
 public final class LegalAction implements Serializable {
 
+	public static final LegalAction MELEE_ATTACK = new LegalAction(Actions.MELEE_ATTACK_ACTION, new AttackActionLegalHandler());
+	public static final LegalAction FIRE_BOLT = new LegalAction(Actions.FIRE_BOLT_ATTACK_ACTION, new AttackActionLegalHandler());
+	public static final LegalAction VAMPIRE_BITE = new LegalAction(Actions.VAMPIRE_BITE_ACTION, new AttackActionLegalHandler());
+	public static final LegalAction BUTCHER = new LegalAction(Actions.BUTCHER_ACTION, new ButcherLegalHandler());
+	
 	private final ManagedOperation action;
 	private final ActionLegalHandler actionLegalHandler;
 
@@ -36,7 +43,7 @@ public final class LegalAction implements Serializable {
 		return action;
 	}
 
-	public ActionLegalHandler getActionLegalHandler() {
+	ActionLegalHandler getActionLegalHandler() {
 		return actionLegalHandler;
 	}
 
@@ -68,5 +75,9 @@ public final class LegalAction implements Serializable {
 	@Override
 	public String toString() {
 		return getDescription();
+	}
+	
+	public static LegalAction getWorshipLegalActionFor(Deity deity) {
+		return new LegalAction(Actions.WORSHIP_DEITY_ACTION, new WorshipDeityLegalHandler(deity));
 	}
 }

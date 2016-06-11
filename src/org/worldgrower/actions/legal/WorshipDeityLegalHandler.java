@@ -18,7 +18,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
 import org.worldgrower.deity.Deity;
 
-public class WorshipDeityLegalHandler implements ActionLegalHandler {
+class WorshipDeityLegalHandler implements ActionLegalHandler {
 	
 	private final Deity deity;
 	

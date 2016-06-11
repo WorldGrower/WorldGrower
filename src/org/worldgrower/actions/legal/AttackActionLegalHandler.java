@@ -18,7 +18,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
 import org.worldgrower.creaturetype.CreatureTypeUtils;
 
-public class AttackActionLegalHandler implements ActionLegalHandler {
+class AttackActionLegalHandler implements ActionLegalHandler {
 	
 	@Override
 	public boolean isApplicable(WorldObject performer, WorldObject target, int[] args) {
