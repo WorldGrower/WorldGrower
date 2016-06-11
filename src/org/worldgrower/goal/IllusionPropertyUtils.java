@@ -69,7 +69,12 @@ public class IllusionPropertyUtils {
 	
 	public static List<WorldObject> getIllusionSources(int width, int height, World world) {
 		List<WorldObject> illusionSources = new ArrayList<>();
-		illusionSources.addAll(world.findWorldObjects(w -> w.getProperty(Constants.WIDTH) == width && w.getProperty(Constants.HEIGHT) == height));
+		List<WorldObject> realWorldObjects = world.findWorldObjects(w -> w.getProperty(Constants.WIDTH) == width && w.getProperty(Constants.HEIGHT) == height);
+		for(WorldObject realWorldObject : realWorldObjects) {
+			if (!isInList(realWorldObject, illusionSources)) {
+				illusionSources.add(realWorldObject);
+			}
+		}
 		
 		CreatureGenerator creatureGenerator = new CreatureGenerator(GroupPropertyUtils.getVerminOrganization(world));
 		List<WorldObject> creatures = creatureGenerator.getCreatures(width, height, world);
