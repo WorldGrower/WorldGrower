@@ -49,6 +49,8 @@ public class CreatureGenerator implements Serializable {
 	public List<WorldObject> getCreatures(int width, int height, World world) {
 		List<WorldObject> creatures = new ArrayList<>();
 		creatures.add(generateRat(0, 0, 0));
+		creatures.add(generateSpider(0, 0, 0));
+		creatures.add(generateSlime(0, 0, 0));
 		
 		creatures = creatures.stream().filter(w -> w.getProperty(Constants.WIDTH) == width && w.getProperty(Constants.HEIGHT) == height).collect(Collectors.toList());
 		
@@ -101,11 +103,10 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.DAMAGE, 2 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		
-		WorldObject rat = new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new BeastOnTurn(this::generateRat), new RatWorldEvaluationFunction());
-		return rat;
+		return new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new BeastOnTurn(this::generateRat), new RatWorldEvaluationFunction());
 	}
 
-	String generateGender() {
+	private String generateGender() {
 		final String gender;
 		if (random.nextFloat() > 0.5f) {
 			gender = "female";
@@ -116,11 +117,16 @@ public class CreatureGenerator implements Serializable {
 	}
 	
 	public int generateSpider(int x, int y, World world) {
-		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		
 		int id = world.generateUniqueId();
+		WorldObject spider = generateSpider(x, y, id);
+		world.addWorldObject(spider);
 		
-		final String gender = generateGender();
-		
+		return id;
+	}
+
+	private WorldObject generateSpider(int x, int y, int id) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 1);
@@ -138,7 +144,7 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.DEMANDS, new PropertyCountMap<ManagedProperty<?>>());
 		properties.put(Constants.CHILDREN, new IdList());
 		properties.put(Constants.SOCIAL, 500);
-		properties.put(Constants.GENDER, gender);
+		properties.put(Constants.GENDER, generateGender());
 		properties.put(Constants.CREATURE_TYPE, CreatureType.SPIDER_CREATURE_TYPE);
 		properties.put(Constants.CONDITIONS, new Conditions());
 		
@@ -157,17 +163,20 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.DAMAGE_RESIST, 10);
 		
 		WorldObject spider = new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new BeastOnTurn(this::generateSpider), new SpiderWorldEvaluationFunction());
-		world.addWorldObject(spider);
-		
-		return id;
+		return spider;
 	}
 	
 	public int generateSlime(int x, int y, World world) {
-		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		
 		int id = world.generateUniqueId();
+		WorldObject slime = generateSlime(x, y, id);
+		world.addWorldObject(slime);
 		
-		final String gender = generateGender();
-		
+		return id;
+	}
+
+	private WorldObject generateSlime(int x, int y, int id) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 1);
@@ -185,7 +194,7 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.DEMANDS, new PropertyCountMap<ManagedProperty<?>>());
 		properties.put(Constants.CHILDREN, new IdList());
 		properties.put(Constants.SOCIAL, 500);
-		properties.put(Constants.GENDER, gender);
+		properties.put(Constants.GENDER, generateGender());
 		properties.put(Constants.CREATURE_TYPE, CreatureType.SLIME_CREATURE_TYPE);
 		properties.put(Constants.CONDITIONS, new Conditions());
 		
@@ -204,9 +213,7 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.DAMAGE_RESIST, 8);
 		
 		WorldObject slime = new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new BeastOnTurn(this::generateSlime), new SlimeWorldEvaluationFunction());
-		world.addWorldObject(slime);
-		
-		return id;
+		return slime;
 	}
 	
 	public int generateSkeleton(int x, int y, World world, WorldObject performer) {
