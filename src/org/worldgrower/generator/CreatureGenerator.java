@@ -15,9 +15,12 @@
 package org.worldgrower.generator;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import org.worldgrower.Constants;
 import org.worldgrower.World;
@@ -36,25 +39,33 @@ import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.gui.ImageIds;
 
 public class CreatureGenerator implements Serializable {
-
 	private final WorldObject organization;
 	private final Random random = new Random(0);
 	
 	public CreatureGenerator(WorldObject organization) {
 		this.organization = organization;
 	}
+	
+	public List<WorldObject> getCreatures(int width, int height, World world) {
+		List<WorldObject> creatures = new ArrayList<>();
+		creatures.add(generateRat(0, 0, 0));
+		
+		creatures = creatures.stream().filter(w -> w.getProperty(Constants.WIDTH) == width && w.getProperty(Constants.HEIGHT) == height).collect(Collectors.toList());
+		
+		return creatures;
+	}
 
 	public int generateRat(int x, int y, World world) {
-		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		
 		int id = world.generateUniqueId();
+		WorldObject rat = generateRat(x, y, id);
+		world.addWorldObject(rat);
 		
-		final String gender;
-		if (random.nextFloat() > 0.5f) {
-			gender = "female";
-		} else {
-			gender = "male";
-		}
-		
+		return id;
+	}
+
+	private WorldObject generateRat(int x, int y, int id) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 1);
@@ -72,7 +83,7 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.DEMANDS, new PropertyCountMap<ManagedProperty<?>>());
 		properties.put(Constants.CHILDREN, new IdList());
 		properties.put(Constants.SOCIAL, 500);
-		properties.put(Constants.GENDER, gender);
+		properties.put(Constants.GENDER, generateGender());
 		properties.put(Constants.CREATURE_TYPE, CreatureType.RAT_CREATURE_TYPE);
 		properties.put(Constants.CONDITIONS, new Conditions());
 		
@@ -91,21 +102,24 @@ public class CreatureGenerator implements Serializable {
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		
 		WorldObject rat = new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new BeastOnTurn(this::generateRat), new RatWorldEvaluationFunction());
-		world.addWorldObject(rat);
-		
-		return id;
+		return rat;
 	}
-	
-	public int generateSpider(int x, int y, World world) {
-		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
-		int id = world.generateUniqueId();
-		
+
+	String generateGender() {
 		final String gender;
 		if (random.nextFloat() > 0.5f) {
 			gender = "female";
 		} else {
 			gender = "male";
 		}
+		return gender;
+	}
+	
+	public int generateSpider(int x, int y, World world) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		int id = world.generateUniqueId();
+		
+		final String gender = generateGender();
 		
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
@@ -152,12 +166,7 @@ public class CreatureGenerator implements Serializable {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();
 		
-		final String gender;
-		if (random.nextFloat() > 0.5f) {
-			gender = "female";
-		} else {
-			gender = "male";
-		}
+		final String gender = generateGender();
 		
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
@@ -246,12 +255,7 @@ public class CreatureGenerator implements Serializable {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();
 		
-		final String gender;
-		if (random.nextFloat() > 0.5f) {
-			gender = "female";
-		} else {
-			gender = "male";
-		}
+		final String gender = generateGender();
 		
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);

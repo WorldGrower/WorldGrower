@@ -79,7 +79,11 @@ public class WorldFacade implements World {
 	}
 
 	private static boolean illusionIsBelievedBy(WorldObject personViewingWorld, WorldObject worldObject, World world2) {
-		return !personViewingWorld.getProperty(Constants.KNOWLEDGE_MAP).hasProperty(worldObject, Constants.ILLUSION_CREATOR_ID);
+		if (personViewingWorld.hasProperty(Constants.KNOWLEDGE_MAP)) {
+			return !personViewingWorld.getProperty(Constants.KNOWLEDGE_MAP).hasProperty(worldObject, Constants.ILLUSION_CREATOR_ID);
+		} else {
+			return true;
+		}
 	}
 
 	boolean isInvisible(WorldObject worldObject) {

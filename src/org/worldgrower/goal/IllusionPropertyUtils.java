@@ -14,7 +14,9 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.worldgrower.Constants;
 import org.worldgrower.ImmutableWorldObject;
@@ -22,15 +24,16 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.CreatureGenerator;
 import org.worldgrower.generator.IllusionOnTurn;
 
 public class IllusionPropertyUtils {
 
-	public static int createIllusion(WorldObject performer, int sourceId, World world, int x, int y) {
-		WorldObject sourceWorldObject = world.findWorldObject(Constants.ID, sourceId);
+	public static int createIllusion(WorldObject performer, int sourceId, World world, int x, int y, int width, int height) {
+		WorldObject sourceWorldObject = mapIdToWorldObject(sourceId, width, height, world);
 		int id = world.generateUniqueId();
 		
-		int turnsToLive = (int)(12 * SkillUtils.getSkillBonus(performer, Constants.ILLUSION_SKILL));
+		int turnsToLive = (int)(20 * SkillUtils.getSkillBonus(performer, Constants.ILLUSION_SKILL));
 		ImmutableWorldObject illusionWorldObject = new ImmutableWorldObject(sourceWorldObject, Arrays.asList(Constants.TURNS_TO_LIVE), new IllusionOnTurn());
 		illusionWorldObject.setPropertyInternal(Constants.ID, id);
 		illusionWorldObject.setPropertyInternal(Constants.ILLUSION_CREATOR_ID, performer.getProperty(Constants.ID));
@@ -48,5 +51,44 @@ public class IllusionPropertyUtils {
 		KnowledgeMapPropertyUtils.everyoneInVicinityKnowsOfProperty(performer, illusionWorldObject, Constants.ILLUSION_CREATOR_ID, performer.getProperty(Constants.ID), world);
 		
 		return id;
+	}
+	
+	private static WorldObject mapIdToWorldObject(int id, int width, int height, World world) {
+		if (world.exists(id)) {
+			return world.findWorldObject(Constants.ID, id);
+		} else {
+			List<WorldObject> illusionSources = getIllusionSources(width, height, world);
+			for(WorldObject illusionSource : illusionSources) {
+				if (illusionSource.getProperty(Constants.ID).intValue() == id) {
+					return illusionSource;
+				}
+			}
+			throw new IllegalStateException("Id " + id + " not found in illusionSources " + illusionSources);
+		}
+	}
+	
+	public static List<WorldObject> getIllusionSources(int width, int height, World world) {
+		List<WorldObject> illusionSources = new ArrayList<>();
+		illusionSources.addAll(world.findWorldObjects(w -> w.getProperty(Constants.WIDTH) == width && w.getProperty(Constants.HEIGHT) == height));
+		
+		CreatureGenerator creatureGenerator = new CreatureGenerator(GroupPropertyUtils.getVerminOrganization(world));
+		List<WorldObject> creatures = creatureGenerator.getCreatures(width, height, world);
+		int creatureId = -1;
+		for(WorldObject creature : creatures) {
+			if (!isInList(creature, illusionSources)) {
+				creature.setProperty(Constants.ID, creatureId--);
+				illusionSources.add(creature);
+			}
+		}
+		return illusionSources;
+	}
+
+	private static boolean isInList(WorldObject creature, List<WorldObject> worldObjects) {
+		for(WorldObject worldObject : worldObjects) {
+			if (worldObject.getProperty(Constants.IMAGE_ID) == creature.getProperty(Constants.IMAGE_ID)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

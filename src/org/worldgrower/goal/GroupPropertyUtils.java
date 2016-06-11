@@ -46,7 +46,7 @@ public class GroupPropertyUtils {
 	public static boolean isWorldObjectPotentialEnemy(WorldObject performer, WorldObject w) {
 		IdList performerOrganizationIdList = performer.getProperty(Constants.GROUP);
 		IdList otherOrganizationIdList = w.getProperty(Constants.GROUP);
-		return w.hasIntelligence() && (w != performer) && (!otherOrganizationIdList.intersects(performerOrganizationIdList));
+		return w.hasProperty(Constants.STRENGTH) && (w != performer) && (!otherOrganizationIdList.intersects(performerOrganizationIdList));
 	}
 	
 	public static List<WorldObject> findWorldObjectsInSameGroup(WorldObject performer, World world) {
@@ -199,6 +199,10 @@ public class GroupPropertyUtils {
 
 	public static WorldObject getVillagersOrganization(World world) {
 		return world.findWorldObject(Constants.ID, 1);
+	}
+	
+	public static WorldObject getVerminOrganization(World world) {
+		return world.findWorldObject(Constants.ID, 2);
 	}
 	
 	public static boolean performerIsLeaderOfVillagers(WorldObject performer, World world) {

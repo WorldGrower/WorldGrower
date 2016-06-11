@@ -30,6 +30,8 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.generator.PlantGenerator;
+import org.worldgrower.goal.GroupPropertyUtils;
+import org.worldgrower.gui.ImageIds;
 
 public class UTestMinorIllusionAction {
 
@@ -73,13 +75,18 @@ public class UTestMinorIllusionAction {
 	@Test
 	public void testGetIllusionSources() {
 		World world = new WorldImpl(10, 10, null, null);
-		assertEquals(0, Actions.MINOR_ILLUSION_ACTION.getIllusionSources(world).size());
+		
+		WorldObject verminOrganization = GroupPropertyUtils.create(null, "vermin", world);
+		verminOrganization.setProperty(Constants.ID, 2);
+		world.addWorldObject(verminOrganization);
+		
+		assertEquals(ImageIds.RAT, Actions.MINOR_ILLUSION_ACTION.getIllusionSources(world).get(0).getProperty(Constants.IMAGE_ID));
 		
 		WorldObject performer = createPerformer(2);
 		world.addWorldObject(performer);
 		PlantGenerator.generateTree(0, 0, world);
 		
-		assertEquals(1, Actions.MINOR_ILLUSION_ACTION.getIllusionSources(world).size());
+		assertEquals(true, Actions.MINOR_ILLUSION_ACTION.getIllusionSources(world).size() > 0);
 		assertEquals(performer, Actions.MINOR_ILLUSION_ACTION.getIllusionSources(world).get(0));
 	}
 	

@@ -41,7 +41,7 @@ public class MinorIllusionAction implements BuildAction, MagicSpell, IllusionSpe
 		int y = (Integer)target.getProperty(Constants.Y);
 		
 		int sourceId = args[0];
-		IllusionPropertyUtils.createIllusion(performer, sourceId, world, x, y);
+		IllusionPropertyUtils.createIllusion(performer, sourceId, world, x, y, 1, 1);
 		
 		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE, world.getWorldStateChangedListeners());
 	}
@@ -124,6 +124,6 @@ public class MinorIllusionAction implements BuildAction, MagicSpell, IllusionSpe
 
 	@Override
 	public List<WorldObject> getIllusionSources(World world) {
-		return world.findWorldObjects(w -> w.getProperty(Constants.WIDTH) == 1 && w.getProperty(Constants.HEIGHT) == 1);
+		return IllusionPropertyUtils.getIllusionSources(1, 1, world);
 	}
 }

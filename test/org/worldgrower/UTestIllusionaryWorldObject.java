@@ -34,7 +34,7 @@ public class UTestIllusionaryWorldObject {
 		
 		WorldObject illusion = world.findWorldObject(Constants.ID, 0);
 		
-		for(int i=0; i<20; i++) {
+		for(int i=0; i<30; i++) {
 			illusion.onTurn(world, new WorldStateChangedListeners());
 		}
 		assertEquals(false, world.exists(illusion));
