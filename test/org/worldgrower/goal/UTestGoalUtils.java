@@ -173,6 +173,11 @@ public class UTestGoalUtils {
 		WorldObject obstacle = TestUtils.createWorldObject(3, 3, 1, 1, Constants.ID, 8);
 		world.addWorldObject(obstacle);
 		assertEquals(false, GoalUtils.canEnlarge(target, world));
+		
+		WorldObject targetAtEdgeOfMap = TestUtils.createWorldObject(9, 9, 1, 1, Constants.ID, 9);
+		world.addWorldObject(targetAtEdgeOfMap);
+		
+		assertEquals(false, GoalUtils.canEnlarge(targetAtEdgeOfMap, world));
 	}
 	
 	@Test

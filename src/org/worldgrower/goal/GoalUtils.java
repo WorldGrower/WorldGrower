@@ -140,6 +140,20 @@ public class GoalUtils {
 		int openSpaceX = target.getProperty(Constants.X);
 		int openSpaceY = target.getProperty(Constants.Y);
 		
+		List<WorldObject> allFoundWorldObjects = findWorldObjectsInArea(world, newHeight, newWidth, openSpaceX, openSpaceY);
+		if (openSpaceX+newWidth > world.getWidth() || openSpaceY+newHeight>world.getHeight()) {
+			return false;
+		} else if (allFoundWorldObjects.size() > 1) {
+			return false;
+		} else if (allFoundWorldObjects.size() == 1) {
+			return allFoundWorldObjects.get(0).equals(target);
+		} else {
+			return true;
+		}
+		
+	}
+
+	private static List<WorldObject> findWorldObjectsInArea(World world, int newHeight, int newWidth, int openSpaceX, int openSpaceY) {
 		List<WorldObject> allFoundWorldObjects = new ArrayList<>();
 		for(int x=openSpaceX; x<openSpaceX+newWidth; x++) {
 			for(int y=openSpaceY; y<openSpaceY+newHeight; y++) {
@@ -151,14 +165,7 @@ public class GoalUtils {
 				}
 			}
 		}
-		if (allFoundWorldObjects.size() > 1) {
-			return false;
-		} else if (allFoundWorldObjects.size() == 1) {
-			return allFoundWorldObjects.get(0).equals(target);
-		} else {
-			return true;
-		}
-		
+		return allFoundWorldObjects;
 	}
 	
 	public static boolean currentGoalHasLowerPriorityThan(Goal cutOffGoal, WorldObject target, World world) {
