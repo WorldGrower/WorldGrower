@@ -53,6 +53,7 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.ManagedOperationListener;
 import org.worldgrower.TargetKnowsAction;
 import org.worldgrower.World;
+import org.worldgrower.WorldFacade;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.BuildAction;
 import org.worldgrower.attribute.LookDirection;
@@ -479,6 +480,8 @@ public final class WorldPanel extends JPanel {
 		if (worldObject.equals(playerCharacter)) {
 			return true;
 		} else if (worldObject.hasProperty(Constants.CONDITIONS) && worldObject.getProperty(Constants.CONDITIONS).hasCondition(Condition.INVISIBLE_CONDITION)) {
+			return false;
+		} else if (new WorldFacade(playerCharacter, world).isMaskedByIllusion(worldObject, world)) {
 			return false;
 		} else {
 			return true;

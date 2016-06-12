@@ -81,7 +81,7 @@ public class WorldFacade implements World {
 		}
 	}
 
-	boolean isMaskedByIllusion(WorldObject worldObject, World world) {
+	public boolean isMaskedByIllusion(WorldObject worldObject, World world) {
 		LocationWorldObjectsCache locationWorldObjectsCache = (LocationWorldObjectsCache) world.getWorldObjectsCache(Constants.X, Constants.Y);
 		int x = worldObject.getProperty(Constants.X);
 		int y = worldObject.getProperty(Constants.Y);
