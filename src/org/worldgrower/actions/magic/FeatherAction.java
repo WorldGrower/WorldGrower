@@ -27,6 +27,7 @@ import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class FeatherAction implements MagicSpell {
 
@@ -108,5 +109,10 @@ public class FeatherAction implements MagicSpell {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.FEATHER_MAGIC_SPELL;
+	}
+	
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.ENCHANT2;
 	}
 }

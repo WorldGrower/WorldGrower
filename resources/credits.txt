@@ -105,7 +105,7 @@ cloth8bit.wav.gz
 Background music by TinyWorlds at http://opengameart.org/content/forest-ambience:
 Forest_Ambience8bit.wav.gz
 
-xxx by p0ss at http://opengameart.org/content/spell-sounds-starter-pack:
+Sound Effects by p0ss at http://opengameart.org/content/spell-sounds-starter-pack:
 blessing28bit.wav.gz
 curse8bit.wav.gz
 forcepush8bit.wav.gz
@@ -113,3 +113,5 @@ forcepulse8bit.wav.gz
 curse58bit.wav.gz
 curse38bit.wav.gz
 zap28bit.wav.gz
+enchant8bit.wav.gz
+enchant28bit.wav.gz

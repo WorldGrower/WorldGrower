@@ -17,6 +17,7 @@ package org.worldgrower.actions.magic;
 import java.io.ObjectStreamException;
 
 import org.worldgrower.Constants;
+import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
@@ -27,6 +28,7 @@ import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class BurdenAction implements MagicSpell {
 
@@ -109,4 +111,9 @@ public class BurdenAction implements MagicSpell {
 	public ImageIds getImageIds() {
 		return ImageIds.BURDEN_MAGIC_SPELL;
 	}
+
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.ENCHANT2;
+	}	
 }

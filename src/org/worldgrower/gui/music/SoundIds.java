@@ -54,5 +54,8 @@ public enum SoundIds {
 	FORCE_PULSE,
 	CURSE5,
 	CURSE3,
-	ZAP2
+	ZAP2,
+	ENCHANT,
+	ENCHANT2,
+	DISENCHANT
 }

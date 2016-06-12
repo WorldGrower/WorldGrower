@@ -17,6 +17,7 @@ package org.worldgrower.actions.magic;
 import java.io.ObjectStreamException;
 
 import org.worldgrower.Constants;
+import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.AttackUtils;
@@ -25,6 +26,7 @@ import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class DispelMagicAction implements MagicSpell {
 
@@ -101,4 +103,9 @@ public class DispelMagicAction implements MagicSpell {
 	public ImageIds getImageIds() {
 		return ImageIds.DISPEL_MAGIC_SPELL;
 	}
+
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.DISENCHANT;
+	}	
 }
