@@ -80,7 +80,7 @@ public class UTestMinorIllusionAction {
 		verminOrganization.setProperty(Constants.ID, 2);
 		world.addWorldObject(verminOrganization);
 		
-		assertEquals(ImageIds.RAT, Actions.MINOR_ILLUSION_ACTION.getIllusionSources(world).get(0).getProperty(Constants.IMAGE_ID));
+		assertEquals(ImageIds.BUSH, Actions.MINOR_ILLUSION_ACTION.getIllusionSources(world).get(0).getProperty(Constants.IMAGE_ID));
 		
 		WorldObject performer = createPerformer(2);
 		world.addWorldObject(performer);

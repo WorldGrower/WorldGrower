@@ -14,8 +14,11 @@
  *******************************************************************************/
 package org.worldgrower.generator;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.worldgrower.Constants;
 import org.worldgrower.DoNothingOnTurn;
@@ -39,9 +42,15 @@ public class PlantGenerator {
 	}
 	
 	public static int generateBerryBush(int x, int y, World world) {
-		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();
+		WorldObject berryBush = generateBerryBush(x, y, id);
+		world.addWorldObject(berryBush);
 		
+		return id;
+	}
+
+	private static WorldObject generateBerryBush(int x, int y, int id) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 1);
@@ -56,15 +65,19 @@ public class PlantGenerator {
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		properties.put(Constants.NAME, "berry bush");
 		WorldObject berryBush = new WorldObjectImpl(properties, new BerryBushOnTurn());
-		world.addWorldObject(berryBush);
-		
-		return id;
+		return berryBush;
 	}
 	
 	public static int generateTreeTrunk(int x, int y, World world) {
-		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();
+		WorldObject treeStump = generateTreeTrunk(x, y, id);
+		world.addWorldObject(treeStump);
 		
+		return id;
+	}
+
+	private static WorldObject generateTreeTrunk(int x, int y, int id) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 1);
@@ -78,15 +91,19 @@ public class PlantGenerator {
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		properties.put(Constants.NAME, "tree trunk");
 		WorldObject treeStump = new WorldObjectImpl(properties);
-		world.addWorldObject(treeStump);
-		
-		return id;
+		return treeStump;
 	}
 	
 	public static int generateGrapeVine(int x, int y, World world) {
-		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();
+		WorldObject berryBush = generateGrapeVine(x, y, id);
+		world.addWorldObject(berryBush);
 		
+		return id;
+	}
+
+	private static WorldObject generateGrapeVine(int x, int y, int id) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 1);
@@ -100,15 +117,19 @@ public class PlantGenerator {
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		properties.put(Constants.NAME, "grape vine");
 		WorldObject berryBush = new WorldObjectImpl(properties, new GrapeVineOnTurn());
-		world.addWorldObject(berryBush);
-		
-		return id;
+		return berryBush;
 	}
 	
 	public static int generateNightShade(int x, int y, World world) {
-		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();
+		WorldObject nightshadePlant = generateNightShade(x, y, id);
+		world.addWorldObject(nightshadePlant);
 		
+		return id;
+	}
+
+	private static WorldObject generateNightShade(int x, int y, int id) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 1);
@@ -122,17 +143,21 @@ public class PlantGenerator {
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		properties.put(Constants.NAME, "nightshade");
 		WorldObject nightshadePlant = new WorldObjectImpl(properties, new NightShadeOnTurn());
-		world.addWorldObject(nightshadePlant);
-		
-		return id;
+		return nightshadePlant;
 	}
 	
 	public static int generateTree(int x, int y, World world) {
-		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		
 		int id = world.generateUniqueId();
-		
 		final ImageIds imageId = getTreeImageId(x, y, world);
+		WorldObject tree = generateTree(x, y, id, imageId);
+		world.addWorldObject(tree);
 		
+		return id;
+	}
+
+	private static WorldObject generateTree(int x, int y, int id, final ImageIds imageId) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 2);
@@ -148,9 +173,7 @@ public class PlantGenerator {
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		WorldObject tree = new WorldObjectImpl(properties, new PlantOnTurn());
-		world.addWorldObject(tree);
-		
-		return id;
+		return tree;
 	}
 
 	private static ImageIds getTreeImageId(int x, int y, World world) {
@@ -202,9 +225,16 @@ public class PlantGenerator {
 	}
 	
 	public static int generateCottonPlant(int x, int y, World world) {
-		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
-		int id = world.generateUniqueId();
 		
+		int id = world.generateUniqueId();
+		WorldObject cottonPlant = generateCottonPlant(x, y, id);
+		world.addWorldObject(cottonPlant);
+		
+		return id;
+	}
+
+	private static WorldObject generateCottonPlant(int x, int y, int id) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 1);
@@ -218,8 +248,21 @@ public class PlantGenerator {
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		properties.put(Constants.NAME, "cotton plant");
 		WorldObject cottonPlant = new WorldObjectImpl(properties, new CottonPlantOnTurn());
-		world.addWorldObject(cottonPlant);
+		return cottonPlant;
+	}
+
+	public static List<WorldObject> getPlants(int width, int height, World world) {
+		List<WorldObject> plants = new ArrayList<>();
+		plants.add(generateBerryBush(0, 0, 0));
+		plants.add(generateTreeTrunk(0, 0, 0));
+		plants.add(generateGrapeVine(0, 0, 0));
+		plants.add(generateNightShade(0, 0, 0));
+		plants.add(generateTree(0, 0, 0, ImageIds.TREE));
+		plants.add(generateTree(0, 0, 0, ImageIds.BOREAL_TREE));
+		plants.add(generateCottonPlant(0, 0, 0));
 		
-		return id;
+		plants = plants.stream().filter(w -> w.getProperty(Constants.WIDTH) == width && w.getProperty(Constants.HEIGHT) == height).collect(Collectors.toList());
+		
+		return plants;
 	}
 }

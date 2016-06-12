@@ -82,7 +82,7 @@ public class UTestMajorIllusionAction {
 		verminOrganization.setProperty(Constants.ID, 2);
 		world.addWorldObject(verminOrganization);
 		
-		assertEquals(0, action.getIllusionSources(world).size());
+		assertEquals(2, action.getIllusionSources(world).size());
 		
 		WorldObject performer = createPerformer(2);
 		world.addWorldObject(performer);

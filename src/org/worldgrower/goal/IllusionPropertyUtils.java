@@ -26,6 +26,7 @@ import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.CreatureGenerator;
 import org.worldgrower.generator.IllusionOnTurn;
+import org.worldgrower.generator.PlantGenerator;
 
 public class IllusionPropertyUtils {
 
@@ -69,13 +70,24 @@ public class IllusionPropertyUtils {
 	
 	public static List<WorldObject> getIllusionSources(int width, int height, World world) {
 		List<WorldObject> illusionSources = new ArrayList<>();
-		List<WorldObject> realWorldObjects = world.findWorldObjects(w -> w.getProperty(Constants.WIDTH) == width && w.getProperty(Constants.HEIGHT) == height);
-		for(WorldObject realWorldObject : realWorldObjects) {
-			if (!isInList(realWorldObject, illusionSources)) {
-				illusionSources.add(realWorldObject);
+		addExistingWorldObjects(width, height, world, illusionSources);
+		addPlants(width, height, world, illusionSources);
+		addCreatures(width, height, world, illusionSources);
+		return illusionSources;
+	}
+
+	private static void addPlants(int width, int height, World world, List<WorldObject> illusionSources) {
+		List<WorldObject> plants = PlantGenerator.getPlants(width, height, world);
+		int plantId = -1000;
+		for(WorldObject plant : plants) {
+			if (!isInList(plant, illusionSources)) {
+				plant.setProperty(Constants.ID, plantId--);
+				illusionSources.add(plant);
 			}
 		}
-		
+	}
+	
+	private static void addCreatures(int width, int height, World world, List<WorldObject> illusionSources) {
 		CreatureGenerator creatureGenerator = new CreatureGenerator(GroupPropertyUtils.getVerminOrganization(world));
 		List<WorldObject> creatures = creatureGenerator.getCreatures(width, height, world);
 		int creatureId = -1;
@@ -85,7 +97,15 @@ public class IllusionPropertyUtils {
 				illusionSources.add(creature);
 			}
 		}
-		return illusionSources;
+	}
+
+	private static void addExistingWorldObjects(int width, int height, World world, List<WorldObject> illusionSources) {
+		List<WorldObject> realWorldObjects = world.findWorldObjects(w -> w.getProperty(Constants.WIDTH) == width && w.getProperty(Constants.HEIGHT) == height);
+		for(WorldObject realWorldObject : realWorldObjects) {
+			if (!isInList(realWorldObject, illusionSources)) {
+				illusionSources.add(realWorldObject);
+			}
+		}
 	}
 
 	private static boolean isInList(WorldObject creature, List<WorldObject> worldObjects) {
