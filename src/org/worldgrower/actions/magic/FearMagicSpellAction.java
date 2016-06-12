@@ -17,6 +17,7 @@ package org.worldgrower.actions.magic;
 import java.io.ObjectStreamException;
 
 import org.worldgrower.Constants;
+import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.AttackUtils;
@@ -27,6 +28,7 @@ import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class FearMagicSpellAction implements MagicSpell {
 
@@ -101,4 +103,9 @@ public class FearMagicSpellAction implements MagicSpell {
 	public ImageIds getImageIds() {
 		return ImageIds.FEAR_INDICATOR;
 	}
+
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.CONFUSION;
+	}	
 }

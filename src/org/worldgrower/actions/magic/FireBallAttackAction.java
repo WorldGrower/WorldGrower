@@ -134,6 +134,7 @@ public class FireBallAttackAction implements BuildAction, MagicSpell, DeadlyActi
 		return ImageIds.FIRE_BALL;
 	}
 	
+	@Override
 	public SoundIds getSoundId() {
 		return SoundIds.FLAMES;
 	}

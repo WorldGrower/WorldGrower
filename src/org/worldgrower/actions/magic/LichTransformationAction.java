@@ -27,6 +27,7 @@ import org.worldgrower.condition.LichUtils;
 import org.worldgrower.creaturetype.CreatureTypeUtils;
 import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class LichTransformationAction implements MagicSpell {
 	private static final int SOUL_GEM_COUNT = 3;
@@ -109,5 +110,10 @@ public class LichTransformationAction implements MagicSpell {
 	
 	public boolean hasRequiredSoulGems(WorldObject performer) {
 		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.SOUL_GEM_FILLED) >= SOUL_GEM_COUNT;
+	}
+	
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.ZAP2G;
 	}
 }

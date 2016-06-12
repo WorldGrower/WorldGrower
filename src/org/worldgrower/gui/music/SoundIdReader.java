@@ -75,7 +75,9 @@ public class SoundIdReader {
 		readSound(SoundIds.ENCHANT, "/sound/enchant8bit.wav.gz");
 		readSound(SoundIds.ENCHANT2, "/sound/enchant28bit.wav.gz");
 		readSound(SoundIds.DISENCHANT, "/sound/disenchant8bit.wav.gz");
-		
+		readSound(SoundIds.RUSTLE01, "/sound/rustle018bit.wav.gz");
+		readSound(SoundIds.CONFUSION, "/sound/confusion8bit.wav.gz");
+		readSound(SoundIds.ZAP2G, "/sound/zap2g8bit.wav.gz");
 		
 		this.enabled = enabled;
 	}

@@ -476,6 +476,7 @@ public final class WorldPanel extends JPanel {
 		return image;
 	}
 
+	//TODO: replace by code in WorldFacade?
     private boolean isWorldObjectVisible(WorldObject worldObject) {
 		if (worldObject.equals(playerCharacter)) {
 			return true;

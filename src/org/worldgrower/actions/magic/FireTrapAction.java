@@ -30,6 +30,7 @@ import org.worldgrower.generator.TerrainGenerator;
 import org.worldgrower.goal.KnowledgeMapPropertyUtils;
 import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class FireTrapAction implements MagicSpell, DeadlyAction, BuildAction {
 
@@ -120,5 +121,10 @@ public class FireTrapAction implements MagicSpell, DeadlyAction, BuildAction {
 	@Override
 	public int getHeight() {
 		return 1;
+	}
+	
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.FLAMES;
 	}
 }

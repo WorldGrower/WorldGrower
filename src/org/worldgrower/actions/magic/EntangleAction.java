@@ -18,6 +18,7 @@ import java.io.ObjectStreamException;
 import java.util.List;
 
 import org.worldgrower.Constants;
+import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
@@ -29,6 +30,7 @@ import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class EntangleAction implements BuildAction, MagicSpell {
 
@@ -118,5 +120,10 @@ public class EntangleAction implements BuildAction, MagicSpell {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.ENTANGLED_INDICATOR;
+	}
+
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.RUSTLE01;
 	}
 }

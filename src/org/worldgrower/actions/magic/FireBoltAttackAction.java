@@ -111,6 +111,7 @@ public class FireBoltAttackAction implements MagicSpell, DeadlyAction {
 		return ImageIds.FIRE_BOLT;
 	}
 	
+	@Override
 	public SoundIds getSoundId() {
 		return SoundIds.FLAMES;
 	}
