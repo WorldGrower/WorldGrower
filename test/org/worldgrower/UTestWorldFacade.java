@@ -23,6 +23,9 @@ import org.worldgrower.attribute.KnowledgeMap;
 import org.worldgrower.attribute.Skill;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
+import org.worldgrower.generator.PlantGenerator;
+import org.worldgrower.goal.GroupPropertyUtils;
+import org.worldgrower.goal.IllusionPropertyUtils;
 
 public class UTestWorldFacade {
 
@@ -32,6 +35,9 @@ public class UTestWorldFacade {
 		WorldObject personViewingWorld = TestUtils.createIntelligentWorldObject(1, Constants.INSIGHT_SKILL, new Skill(10));
 		WorldObject worldObject = TestUtils.createIntelligentWorldObject(2, Constants.ILLUSION_CREATOR_ID, 3);
 		WorldObject illusionCreator = TestUtils.createIntelligentWorldObject(3, Constants.ILLUSION_SKILL, new Skill(20));
+		
+		worldObject.setProperty(Constants.X, 5);
+		worldObject.setProperty(Constants.Y, 5);
 		
 		world.addWorldObject(personViewingWorld);
 		world.addWorldObject(worldObject);
@@ -69,6 +75,9 @@ public class UTestWorldFacade {
 		WorldObject worldObject = TestUtils.createIntelligentWorldObject(2, Constants.ILLUSION_CREATOR_ID, 3);
 		WorldObject illusionCreator = TestUtils.createIntelligentWorldObject(3, Constants.ILLUSION_SKILL, new Skill(20));
 		
+		worldObject.setProperty(Constants.X, 5);
+		worldObject.setProperty(Constants.Y, 5);
+		
 		world.addWorldObject(personViewingWorld);
 		world.addWorldObject(worldObject);
 		world.addWorldObject(illusionCreator);
@@ -88,6 +97,9 @@ public class UTestWorldFacade {
 		WorldObject personViewingWorld = TestUtils.createIntelligentWorldObject(1, Constants.INSIGHT_SKILL, new Skill(10));
 		WorldObject worldObject = TestUtils.createIntelligentWorldObject(2, Constants.ILLUSION_CREATOR_ID, 3);
 		WorldObject illusionCreator = TestUtils.createIntelligentWorldObject(3, Constants.ILLUSION_SKILL, new Skill(20));
+		
+		worldObject.setProperty(Constants.X, 5);
+		worldObject.setProperty(Constants.Y, 5);
 		
 		world.addWorldObject(personViewingWorld);
 		world.addWorldObject(worldObject);
@@ -129,5 +141,56 @@ public class UTestWorldFacade {
 		WorldObject personViewingWorld = TestUtils.createIntelligentWorldObject(1, "person");
 		WorldFacade worldFacade = new WorldFacade(personViewingWorld, world);
 		assertEquals(0, worldFacade.getCurrentTurn().getValue());
+	}
+	
+	@Test
+	public void testWorldFacadeIsMaskedByIllusion() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject personViewingWorld = TestUtils.createIntelligentWorldObject(1, "person");
+		world.addWorldObject(personViewingWorld);
+		WorldFacade worldFacade = new WorldFacade(personViewingWorld, world);
+		
+		assertEquals(personViewingWorld, worldFacade.findWorldObject(Constants.ID, personViewingWorld.getProperty(Constants.ID)));
+	}
+	
+	@Test
+	public void testIsMaskedByIllusionSelf() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject personViewingWorld = TestUtils.createIntelligentWorldObject(1, "person");
+		world.addWorldObject(personViewingWorld);
+		
+		WorldFacade worldFacade = new WorldFacade(personViewingWorld, world);
+		
+		assertEquals(false, worldFacade.isMaskedByIllusion(personViewingWorld, world));
+	}
+	
+	@Test
+	public void testIsMaskedByIllusionMaskingIllusion() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject personViewingWorld = TestUtils.createIntelligentWorldObject(1, "person");
+		world.addWorldObject(personViewingWorld);
+		
+		int nightShadeId = PlantGenerator.generateNightShade(1, 1, world);
+		WorldObject nightShade = world.findWorldObject(Constants.ID, nightShadeId);
+		IllusionPropertyUtils.createIllusion(personViewingWorld, personViewingWorld.getProperty(Constants.ID), world, 1, 1, 1, 1);
+		
+		WorldFacade worldFacade = new WorldFacade(personViewingWorld, world);
+		assertEquals(false, worldFacade.isMaskedByIllusion(nightShade, world));
+		
+		personViewingWorld.setProperty(Constants.KNOWLEDGE_MAP, new KnowledgeMap());
+		assertEquals(true, worldFacade.isMaskedByIllusion(nightShade, world));
+	}
+	
+	@Test
+	public void testIsMaskedByIllusionOrganization() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject personViewingWorld = TestUtils.createIntelligentWorldObject(3, "person");
+		world.addWorldObject(personViewingWorld);
+		
+		WorldObject organization = GroupPropertyUtils.create(null, "Test", world);
+		
+		WorldFacade worldFacade = new WorldFacade(personViewingWorld, world);
+		
+		assertEquals(false, worldFacade.isMaskedByIllusion(organization, world));
 	}
 }

@@ -48,7 +48,7 @@ public class MajorIllusionAction implements BuildAction, MagicSpell, IllusionSpe
 	
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return CraftUtils.isValidBuildTarget(this, performer, target, world) && MagicSpellUtils.canCast(performer, this);
+		return MagicSpellUtils.canCast(performer, this);
 	}
 
 	@Override
