@@ -78,6 +78,9 @@ public class SoundIdReader {
 		readSound(SoundIds.RUSTLE01, "/sound/rustle018bit.wav.gz");
 		readSound(SoundIds.CONFUSION, "/sound/confusion8bit.wav.gz");
 		readSound(SoundIds.ZAP2G, "/sound/zap2g8bit.wav.gz");
+		readSound(SoundIds.RANDOM1, "/sound/random18bit.wav.gz");
+		readSound(SoundIds.HANDLE_SMALL_LEATHER, "/sound/handleSmallLeather8bit.wav.gz");
+		
 		
 		this.enabled = enabled;
 	}

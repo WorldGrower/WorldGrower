@@ -76,7 +76,7 @@ darkness8bit.wav.gz
 cursespell8bit.wav.gz
 alchemist18bit.wav.gz
 fountain8bit.wav.gz
-
+random18bit.wav.gz
 
 Sound effects from JaggedStone at http://opengameart.org/content/magic-spell-sfx:
 magical_18bit.wav.gz
@@ -87,6 +87,7 @@ knifeSlice8bit.wav.gz
 handleCoins8bit.wav.gz
 doorOpen_18bit.wav.gz
 bookFlip18bit.wav.gz
+handleSmallLeather8bit.wav.gz
 
 Sound Effects from www.kenney.nl at http://opengameart.org/content/51-ui-sound-effects-buttons-switches-and-clicks:
 click18bit.wav.gz

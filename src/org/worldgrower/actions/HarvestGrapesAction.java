@@ -24,6 +24,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class HarvestGrapesAction implements ManagedOperation {
 
@@ -74,5 +75,10 @@ public class HarvestGrapesAction implements ManagedOperation {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.GRAPES;
+	}
+	
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.HANDLE_SMALL_LEATHER;
 	}
 }

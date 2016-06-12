@@ -25,6 +25,7 @@ import org.worldgrower.deity.Deity;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class CreateReligionOrganizationAction implements ManagedOperation {
 
@@ -81,5 +82,10 @@ public class CreateReligionOrganizationAction implements ManagedOperation {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.BLACK_CROSS;
+	}
+	
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.RANDOM1;
 	}
 }

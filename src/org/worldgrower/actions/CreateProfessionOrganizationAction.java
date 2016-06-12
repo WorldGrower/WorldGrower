@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 import org.worldgrower.profession.Profession;
 import org.worldgrower.profession.Professions;
 
@@ -81,4 +82,9 @@ public class CreateProfessionOrganizationAction implements ManagedOperation {
 	public ImageIds getImageIds() {
 		return ImageIds.BLACK_CROSS;
 	}
+
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.RANDOM1;
+	}	
 }
