@@ -80,7 +80,7 @@ public class SoundIdReader {
 		readSound(SoundIds.ZAP2G, "/sound/zap2g8bit.wav.gz");
 		readSound(SoundIds.RANDOM1, "/sound/random18bit.wav.gz");
 		readSound(SoundIds.HANDLE_SMALL_LEATHER, "/sound/handleSmallLeather8bit.wav.gz");
-		
+		readSound(SoundIds.MOVE, "/sound/full steps stereo8bit.wav.gz");
 		
 		this.enabled = enabled;
 	}

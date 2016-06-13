@@ -121,3 +121,6 @@ zap2g8bit.wav.gz
 
 Sound Effects by qubodup at http://opengameart.org/content/20-rustles-dry-leaves:
 rustle018bit.wav.gz
+
+Sound Effects by Augmentality (Brandon Morris) at http://opengameart.org/content/random-sounds-samples:
+full steps stereo8bit.wav.gz

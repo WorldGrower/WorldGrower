@@ -28,6 +28,7 @@ import org.worldgrower.condition.Condition;
 import org.worldgrower.goal.LocationPropertyUtils;
 import org.worldgrower.goal.LocationUtils;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 import org.worldgrower.terrain.TerrainType;
 
 public class MoveAction implements ManagedOperation {
@@ -144,4 +145,9 @@ public class MoveAction implements ManagedOperation {
 	public ImageIds getImageIds() {
 		return ImageIds.COTTON_BOOTS;
 	}
+
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.MOVE;
+	}	
 }
