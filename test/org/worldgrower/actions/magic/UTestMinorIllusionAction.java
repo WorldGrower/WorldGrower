@@ -75,19 +75,20 @@ public class UTestMinorIllusionAction {
 	@Test
 	public void testGetIllusionSources() {
 		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		world.addWorldObject(performer);
 		
 		WorldObject verminOrganization = GroupPropertyUtils.create(null, "vermin", world);
 		verminOrganization.setProperty(Constants.ID, 2);
 		world.addWorldObject(verminOrganization);
 		
-		assertEquals(ImageIds.BUSH, Actions.MINOR_ILLUSION_ACTION.getIllusionSources(world).get(0).getProperty(Constants.IMAGE_ID));
+		assertEquals(performer, Actions.MINOR_ILLUSION_ACTION.getIllusionSources(performer, world).get(0));
 		
-		WorldObject performer = createPerformer(2);
-		world.addWorldObject(performer);
+		
 		PlantGenerator.generateTree(0, 0, world);
 		
-		assertEquals(true, Actions.MINOR_ILLUSION_ACTION.getIllusionSources(world).size() > 0);
-		assertEquals(performer, Actions.MINOR_ILLUSION_ACTION.getIllusionSources(world).get(0));
+		assertEquals(true, Actions.MINOR_ILLUSION_ACTION.getIllusionSources(performer, world).size() > 0);
+		assertEquals(performer, Actions.MINOR_ILLUSION_ACTION.getIllusionSources(performer, world).get(0));
 	}
 	
 	private WorldObject createPerformer(int id) {

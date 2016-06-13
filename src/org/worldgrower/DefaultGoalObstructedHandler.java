@@ -38,21 +38,37 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 					int value = -100 * stepsUntilLastGoal;
 					
 					WorldObject performerFacade = FacadeUtils.createFacade(performer, performer, target, world);
-					WorldObject targetFacade = FacadeUtils.createFacade(target, performer, target, world);
+					WorldObject targetFacade = calculateTarget(performer, target, world);
 					
 					logToBackground(obstructedGoal, target, actionTarget, managedOperation, args, performerFacade, world);
 					
 					alterRelationships(performer, target, actionTarget, args, managedOperation, world, value, performerFacade, targetFacade);
 				}
 			} else if (target.hasProperty(Constants.ANIMAL_ENEMIES) && performerAttacked(managedOperation)) {
-				IdList animalEnemies = target.getProperty(Constants.ANIMAL_ENEMIES);
-				if (!animalEnemies.contains(performer)) {
-					animalEnemies.add(performer);
-				}
+				performerAttacksAnimal(performer, target);
 			}
 		}
 	}
+
+	static void performerAttacksAnimal(WorldObject performer, WorldObject target) {
+		IdList animalEnemies = target.getProperty(Constants.ANIMAL_ENEMIES);
+		if (!animalEnemies.contains(performer)) {
+			animalEnemies.add(performer);
+		}
+	}
+
+	static WorldObject calculateTarget(WorldObject performer, WorldObject target, World world) {
+		WorldObject targetFacade = FacadeUtils.createFacade(target, performer, target, world);
+		if (targetFacade.hasProperty(Constants.ILLUSION_CREATOR_ID)) {
+			WorldObject maskedWorldObject = new WorldFacade(performer, world).getWorldObjectMaskedByIllusion(targetFacade, world);
+			if (maskedWorldObject != null) {
+				targetFacade = maskedWorldObject;
+			}
+		}
+		return targetFacade;
+	}
 	
+	//TODO: radius should depend on perception
 	static boolean hasAnyoneSeenAction(WorldObject performer, WorldObject actionTarget, ManagedOperation managedOperation, int[] args, World world) {
 		if (performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.INVISIBLE_CONDITION)) {
 			return false;

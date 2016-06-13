@@ -8,5 +8,5 @@ import org.worldgrower.actions.BuildAction;
 
 public interface IllusionSpell extends BuildAction {
 
-	public List<WorldObject> getIllusionSources(World world);
+	public List<WorldObject> getIllusionSources(WorldObject performer, World world);
 }

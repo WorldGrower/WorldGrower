@@ -54,7 +54,7 @@ public class ChooseWorldObjectAction extends AbstractAction {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		List<WorldObject> disguiseWorldObjects = illusionSpell.getIllusionSources(world);
+		List<WorldObject> disguiseWorldObjects = illusionSpell.getIllusionSources(playerCharacter, world);
 		
 		dialog = new ChooseWorldObjectDialog(playerCharacter, imageInfoReader, soundIdReader, disguiseWorldObjects, parent, world, dungeonMaster, guiAction);
 		dialog.showMe();

@@ -23,14 +23,17 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.BrawlListener;
 import org.worldgrower.attribute.BackgroundImpl;
 import org.worldgrower.attribute.IdList;
+import org.worldgrower.attribute.KnowledgeMap;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.generator.CommonerOnTurn;
+import org.worldgrower.generator.CreatureGenerator;
 import org.worldgrower.generator.Item;
 import org.worldgrower.generator.PlantGenerator;
 import org.worldgrower.goal.BountyPropertyUtils;
 import org.worldgrower.goal.BrawlPropertyUtils;
+import org.worldgrower.goal.FacadeUtils;
 import org.worldgrower.goal.Goals;
 import org.worldgrower.goal.GroupPropertyUtils;
 
@@ -294,6 +297,60 @@ public class UTestDefaultGoalObstructedHandler {
 		assertEquals(false, BrawlPropertyUtils.isBrawling(performer));
 		assertEquals(false, BrawlPropertyUtils.isBrawling(actionTarget));
 
+	}
+	
+	@Test
+	public void testPerformerAttacksAnimal() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(2, "performer");
+		
+		CreatureGenerator creatureGenerator = new CreatureGenerator(TestUtils.createIntelligentWorldObject(1, "cow"));
+		int cowId = creatureGenerator.generateCow(0, 0, world);
+		WorldObject cow = world.findWorldObject(Constants.ID, cowId);
+		
+		assertEquals(false, cow.getProperty(Constants.ANIMAL_ENEMIES).contains(performer));
+		
+		DefaultGoalObstructedHandler.performerAttacksAnimal(performer, cow);
+		
+		assertEquals(true, cow.getProperty(Constants.ANIMAL_ENEMIES).contains(performer));
+	}
+	
+	@Test
+	public void testCalculateTargetNoDeception() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(2, "performer");
+		WorldObject target = TestUtils.createIntelligentWorldObject(3, "target");
+		
+		assertEquals(target, DefaultGoalObstructedHandler.calculateTarget(performer, target, world));
+	}
+	
+	@Test
+	public void testCalculateTargetDisguised() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(2, "performer");
+		WorldObject target = TestUtils.createIntelligentWorldObject(3, "target");
+		WorldObject disguise = TestUtils.createIntelligentWorldObject(4, "disguise");
+		world.addWorldObject(disguise);
+		
+		FacadeUtils.disguise(target, disguise.getProperty(Constants.ID), world);
+		performer.setProperty(Constants.KNOWLEDGE_MAP, new KnowledgeMap());
+		
+		assertEquals(disguise, DefaultGoalObstructedHandler.calculateTarget(performer, target, world));
+	}
+	
+	@Test
+	public void testCalculateTargetMaskedIllusion() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(2, "performer");
+		WorldObject target = TestUtils.createIntelligentWorldObject(3, Constants.ILLUSION_CREATOR_ID, 7);
+		target.setProperty(Constants.X, 1);
+		target.setProperty(Constants.Y, 1);
+		
+		WorldObject realTarget = TestUtils.createIntelligentWorldObject(3, "realTarget");
+		realTarget.setProperty(Constants.X, 1);
+		realTarget.setProperty(Constants.Y, 1);
+		
+		assertEquals(realTarget, DefaultGoalObstructedHandler.calculateTarget(performer, target, world));
 	}
 
 	private WorldObject createVillagersOrganization(World world) {

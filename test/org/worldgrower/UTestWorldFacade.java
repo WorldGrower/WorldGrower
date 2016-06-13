@@ -193,4 +193,33 @@ public class UTestWorldFacade {
 		
 		assertEquals(false, worldFacade.isMaskedByIllusion(organization, world));
 	}
+
+	@Test
+	public void testGetWorldObjectMaskedByIllusion() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject personViewingWorld = TestUtils.createIntelligentWorldObject(1, "person");
+		world.addWorldObject(personViewingWorld);
+		
+		WorldFacade worldFacade = new WorldFacade(personViewingWorld, world);
+		
+		assertEquals(null, worldFacade.getWorldObjectMaskedByIllusion(personViewingWorld, world));
+	}
+	
+	@Test
+	public void testGetWorldObjectMaskedByIllusionMaskingIllusion() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject personViewingWorld = TestUtils.createIntelligentWorldObject(1, "person");
+		world.addWorldObject(personViewingWorld);
+		
+		int nightShadeId = PlantGenerator.generateNightShade(1, 1, world);
+		WorldObject nightShade = world.findWorldObject(Constants.ID, nightShadeId);
+		int illusionId = IllusionPropertyUtils.createIllusion(personViewingWorld, personViewingWorld.getProperty(Constants.ID), world, 1, 1, 1, 1);
+		WorldObject illusion = world.findWorldObject(Constants.ID, illusionId);
+		
+		WorldFacade worldFacade = new WorldFacade(personViewingWorld, world);
+		assertEquals(null, worldFacade.getWorldObjectMaskedByIllusion(illusion, world));
+		
+		personViewingWorld.setProperty(Constants.KNOWLEDGE_MAP, new KnowledgeMap());
+		assertEquals(nightShade, worldFacade.getWorldObjectMaskedByIllusion(illusion, world));
+	}
 }

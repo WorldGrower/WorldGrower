@@ -46,7 +46,7 @@ public class CreatureGenerator implements Serializable {
 		this.organization = organization;
 	}
 	
-	public List<WorldObject> getCreatures(int width, int height, World world) {
+	public List<WorldObject> getCreatures(int width, int height) {
 		List<WorldObject> creatures = new ArrayList<>();
 		creatures.add(generateRat(0, 0, 0));
 		creatures.add(generateSpider(0, 0, 0));

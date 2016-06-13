@@ -103,6 +103,30 @@ public class WorldFacade implements World {
 		
 		return false;
 	}
+	
+	public WorldObject getWorldObjectMaskedByIllusion(WorldObject worldObject, World world) {
+		if (worldObject.hasProperty(Constants.ILLUSION_CREATOR_ID) && illusionIsBelievedBy(personViewingWorld, worldObject, world)) {
+			LocationWorldObjectsCache locationWorldObjectsCache = (LocationWorldObjectsCache) world.getWorldObjectsCache(Constants.X, Constants.Y);
+			int x = worldObject.getProperty(Constants.X);
+			int y = worldObject.getProperty(Constants.Y);
+			int width = worldObject.getProperty(Constants.WIDTH);
+			int height = worldObject.getProperty(Constants.HEIGHT);
+			if (x >= 0 && y >= 0) {
+				List<WorldObject> worldObjectsOnLocation = locationWorldObjectsCache.getWorldObjectsFor(x, y);
+				for(WorldObject worldObjectOnLocation : worldObjectsOnLocation) {
+					if (!worldObject.equals(worldObjectOnLocation) 
+						&& !worldObjectOnLocation.hasProperty(Constants.ILLUSION_CREATOR_ID)
+						&& worldObjectOnLocation.getProperty(Constants.WIDTH) == width
+						&& worldObjectOnLocation.getProperty(Constants.HEIGHT) == height) {
+						
+						return worldObjectOnLocation;
+					}
+				}
+			}
+		}
+		
+		return null;
+	}
 
 	private static boolean illusionIsBelievedBy(WorldObject personViewingWorld, WorldObject worldObject, World world2) {
 		if (personViewingWorld.hasProperty(Constants.KNOWLEDGE_MAP)) {

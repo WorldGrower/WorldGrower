@@ -123,7 +123,7 @@ public class MajorIllusionAction implements BuildAction, MagicSpell, IllusionSpe
 	}
 	
 	@Override
-	public List<WorldObject> getIllusionSources(World world) {
-		return IllusionPropertyUtils.getIllusionSources(2, 2, world);
+	public List<WorldObject> getIllusionSources(WorldObject performer, World world) {
+		return IllusionPropertyUtils.getIllusionSources(performer, 2, 2, world);
 	}
 }

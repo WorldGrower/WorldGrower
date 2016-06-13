@@ -26,6 +26,24 @@ import org.worldgrower.goal.Goal;
 public class GoalCalculator implements Serializable {
 
 	public GoalAndOperationInfo calculateGoal(WorldObject performer, World world, List<Goal> triedGoals) {
+		GoalAndOperationInfo goalAndOperationInfo = calculateGoalInternal(performer, world, triedGoals);
+		return changeTargetToRealTarget(goalAndOperationInfo, performer, world);
+	}
+	
+	private GoalAndOperationInfo changeTargetToRealTarget(GoalAndOperationInfo goalAndOperationInfo, WorldObject performer, World world) {
+		WorldObject target = goalAndOperationInfo.getOperationInfo().getTarget();
+		if (!target.equals(performer)) {
+			// cast to WorldFacade should be changed
+			WorldObject maskedWorldObject = ((WorldFacade)world).getWorldObjectMaskedByIllusion(target, world);
+			if (maskedWorldObject != null) {
+				OperationInfo oldOperationInfo = goalAndOperationInfo.getOperationInfo();
+				return new GoalAndOperationInfo(goalAndOperationInfo.getGoal(), new OperationInfo(oldOperationInfo.getPerformer(), maskedWorldObject, oldOperationInfo.getArgs(), oldOperationInfo.getManagedOperation()));
+			}
+		}
+		return goalAndOperationInfo;
+	}
+
+	private GoalAndOperationInfo calculateGoalInternal(WorldObject performer, World world, List<Goal> triedGoals) {
 		List<Goal> prioritizedGoals = performer.getPriorities(world);
 		
 		for (Goal prioritizedGoal : prioritizedGoals) {

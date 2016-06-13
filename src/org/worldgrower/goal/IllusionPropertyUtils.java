@@ -24,14 +24,16 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.CreatureGenerator;
 import org.worldgrower.generator.IllusionOnTurn;
 import org.worldgrower.generator.PlantGenerator;
+import org.worldgrower.generator.TerrainGenerator;
 
 public class IllusionPropertyUtils {
 
 	public static int createIllusion(WorldObject performer, int sourceId, World world, int x, int y, int width, int height) {
-		WorldObject sourceWorldObject = mapIdToWorldObject(sourceId, width, height, world);
+		WorldObject sourceWorldObject = mapIdToWorldObject(performer, sourceId, width, height, world);
 		int id = world.generateUniqueId();
 		
 		int turnsToLive = (int)(20 * SkillUtils.getSkillBonus(performer, Constants.ILLUSION_SKILL));
@@ -54,11 +56,11 @@ public class IllusionPropertyUtils {
 		return id;
 	}
 	
-	private static WorldObject mapIdToWorldObject(int id, int width, int height, World world) {
+	private static WorldObject mapIdToWorldObject(WorldObject performer, int id, int width, int height, World world) {
 		if (world.exists(id)) {
 			return world.findWorldObject(Constants.ID, id);
 		} else {
-			List<WorldObject> illusionSources = getIllusionSources(width, height, world);
+			List<WorldObject> illusionSources = getIllusionSources(performer, width, height, world);
 			for(WorldObject illusionSource : illusionSources) {
 				if (illusionSource.getProperty(Constants.ID).intValue() == id) {
 					return illusionSource;
@@ -68,35 +70,49 @@ public class IllusionPropertyUtils {
 		}
 	}
 	
-	public static List<WorldObject> getIllusionSources(int width, int height, World world) {
+	public static List<WorldObject> getIllusionSources(WorldObject performer, int width, int height, World world) {
 		List<WorldObject> illusionSources = new ArrayList<>();
 		addExistingWorldObjects(width, height, world, illusionSources);
 		addPlants(width, height, world, illusionSources);
 		addCreatures(width, height, world, illusionSources);
+		addBuildings(width, height, illusionSources, performer);
+		addTerrainResources(width, height, world, illusionSources);
 		return illusionSources;
+	}
+
+	private static void addTerrainResources(int width, int height, World world, List<WorldObject> illusionSources) {
+		List<WorldObject> terrainResources = TerrainGenerator.getTerrainResources(width, height, world);
+		int terrainResourceId = -3000;
+		addToIllusionSources(illusionSources, terrainResources, terrainResourceId);
+		
+	}
+
+	private static void addToIllusionSources(List<WorldObject> illusionSources, List<WorldObject> possibleIllusionSources, int startId) {
+		for(WorldObject terrainResource : possibleIllusionSources) {
+			if (!isInList(terrainResource, illusionSources)) {
+				terrainResource.setProperty(Constants.ID, startId--);
+				illusionSources.add(terrainResource);
+			}
+		}
 	}
 
 	private static void addPlants(int width, int height, World world, List<WorldObject> illusionSources) {
 		List<WorldObject> plants = PlantGenerator.getPlants(width, height, world);
 		int plantId = -1000;
-		for(WorldObject plant : plants) {
-			if (!isInList(plant, illusionSources)) {
-				plant.setProperty(Constants.ID, plantId--);
-				illusionSources.add(plant);
-			}
-		}
+		addToIllusionSources(illusionSources, plants, plantId);
 	}
 	
 	private static void addCreatures(int width, int height, World world, List<WorldObject> illusionSources) {
 		CreatureGenerator creatureGenerator = new CreatureGenerator(GroupPropertyUtils.getVerminOrganization(world));
-		List<WorldObject> creatures = creatureGenerator.getCreatures(width, height, world);
+		List<WorldObject> creatures = creatureGenerator.getCreatures(width, height);
 		int creatureId = -1;
-		for(WorldObject creature : creatures) {
-			if (!isInList(creature, illusionSources)) {
-				creature.setProperty(Constants.ID, creatureId--);
-				illusionSources.add(creature);
-			}
-		}
+		addToIllusionSources(illusionSources, creatures, creatureId);
+	}
+	
+	private static void addBuildings(int width, int height, List<WorldObject> illusionSources, WorldObject performer) {
+		List<WorldObject> buildings = BuildingGenerator.getBuildings(performer, width, height);
+		int buildingId = -2000;
+		addToIllusionSources(illusionSources, buildings, buildingId);
 	}
 
 	private static void addExistingWorldObjects(int width, int height, World world, List<WorldObject> illusionSources) {

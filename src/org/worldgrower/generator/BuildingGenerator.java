@@ -14,10 +14,12 @@
  *******************************************************************************/
 package org.worldgrower.generator;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.worldgrower.Args;
 import org.worldgrower.Constants;
@@ -44,10 +46,16 @@ public class BuildingGenerator {
 	private static final String JAIL_LEFT = "Jail left";
 	private static final String JAIL_DOOR = "Jail door";
 	
-	public static int generateVotingBox(int x, int y, World world) {
-		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+	public static int generateVotingBox(int x, int y, World world) {		
 		int id = world.generateUniqueId();
+		WorldObject votingBox = generateVotingBox(x, y, id);
+		world.addWorldObject(votingBox);
 		
+		return id;
+	}
+
+	private static WorldObject generateVotingBox(int x, int y, int id) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 1);
@@ -59,15 +67,19 @@ public class BuildingGenerator {
 		properties.put(Constants.CANDIDATES, new IdList());
 		properties.put(Constants.VOTES, new IdToIntegerMap());
 		WorldObject votingBox = new WorldObjectImpl(properties, new VotingBoxOnTurn());
-		world.addWorldObject(votingBox);
+		return votingBox;
+	}
+	
+	public static int generateShack(int x, int y, World world, double skillBonus, WorldObject owner) {		
+		int id = world.generateUniqueId();
+		WorldObject shack = generateShack(x, y, skillBonus, owner, id);
+		world.addWorldObject(shack);
 		
 		return id;
 	}
-	
-	public static int generateShack(int x, int y, World world, double skillBonus, WorldObject owner) {
+
+	private static WorldObject generateShack(int x, int y, double skillBonus, WorldObject owner, int id) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
-		int id = world.generateUniqueId();
-		
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 2);
@@ -89,17 +101,19 @@ public class BuildingGenerator {
 		properties.put(Constants.BUILDING_TYPE, BuildingType.SHACK);
 		
 		WorldObject shack = new WorldObjectImpl(properties);
-		world.addWorldObject(shack);
-		
-		return id;
+		return shack;
 	}
 	
 	public static int generateHouse(int x, int y, World world, double skillBonus, WorldObject owner) {
-		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();
+		WorldObject house = generateHouse(x, y, skillBonus, owner, id);
+		world.addWorldObject(house);
 		
-		ImageIds houseImageId = generateHouseImageIds();
-		
+		return id;
+	}
+
+	private static WorldObject generateHouse(int x, int y, double skillBonus, WorldObject owner, int id) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 3);
@@ -107,7 +121,7 @@ public class BuildingGenerator {
 		properties.put(Constants.SLEEP_COMFORT, (int)(5 * skillBonus));
 		properties.put(Constants.NAME, createName("house", owner));
 		properties.put(Constants.ID, id);
-		properties.put(Constants.IMAGE_ID, houseImageId);
+		properties.put(Constants.IMAGE_ID, generateHouseImageIds());
 		properties.put(Constants.FLAMMABLE, Boolean.TRUE);
 		properties.put(Constants.CONDITIONS, new Conditions());
 		properties.put(Constants.HIT_POINTS, 200 * Item.COMBAT_MULTIPLIER);
@@ -121,9 +135,7 @@ public class BuildingGenerator {
 		properties.put(Constants.BUILDING_TYPE, BuildingType.HOUSE);
 		
 		WorldObject house = new WorldObjectImpl(properties);
-		world.addWorldObject(house);
-		
-		return id;
+		return house;
 	}
 	
 	public static String createName(BuildingType buildingType, WorldObject owner) {
@@ -135,9 +147,15 @@ public class BuildingGenerator {
 	}
 	
 	public static int buildWell(int x, int y, World world, double skillBonus) {
-		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();
+		WorldObject well = generateWell(x, y, id);
+		world.addWorldObject(well);
 		
+		return id;
+	}
+
+	private static WorldObject generateWell(int x, int y, int id) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 2);
@@ -153,9 +171,7 @@ public class BuildingGenerator {
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		
 		WorldObject well = new WorldObjectImpl(properties, new WellOnTurn());
-		world.addWorldObject(well);
-		
-		return id;
+		return well;
 	}
 	
 	private static ImageIds generateHouseImageIds() {
@@ -163,8 +179,15 @@ public class BuildingGenerator {
 	}
 
 	public static int generateTrainingDummy(int x, int y, World world, double skillBonus) {
+		int id = world.generateUniqueId();		
+		WorldObject trainingDummy = generateTrainingDummy(x, y, skillBonus, id);
+		world.addWorldObject(trainingDummy);
+		
+		return id;
+	}
+
+	private static WorldObject generateTrainingDummy(int x, int y, double skillBonus, int id) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
-		int id = world.generateUniqueId();
 		int hitPoints = (int)(50 * skillBonus);
 		
 		properties.put(Constants.X, x);
@@ -182,15 +205,19 @@ public class BuildingGenerator {
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		
 		WorldObject trainingDummy = new WorldObjectImpl(properties);
-		world.addWorldObject(trainingDummy);
-		
-		return id;
+		return trainingDummy;
 	}	
 	
 	public static int generateGrave(int x, int y, World world, WorldObject deceasedWorldObject) {
-		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();
+		WorldObject grave = generateGrave(x, y, deceasedWorldObject, id);
+		world.addWorldObject(grave);
 		
+		return id;
+	}
+
+	private static WorldObject generateGrave(int x, int y, WorldObject deceasedWorldObject, int id) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y); 
 		properties.put(Constants.WIDTH, 1);
@@ -205,24 +232,30 @@ public class BuildingGenerator {
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		
 		WorldObject grave = new WorldObjectImpl(properties);
-		world.addWorldObject(grave);
+		return grave;
+	}
+	
+	public static int generateShrine(int x, int y, World world, WorldObject performer) {		
+		int id = world.generateUniqueId();
+		Deity deity = performer.getProperty(Constants.DEITY);
+		WorldObject shrine = generateShrine(x, y, id, deity);
+		world.addWorldObject(shrine);
 		
 		return id;
 	}
-	
-	public static int generateShrine(int x, int y, World world, WorldObject performer) {
+
+	private static WorldObject generateShrine(int x, int y, int id, Deity deity) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
-		int id = world.generateUniqueId();
-		
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 1);
 		properties.put(Constants.HEIGHT, 2);
-		properties.put(Constants.DEITY, performer.getProperty(Constants.DEITY));
-		properties.put(Constants.NAME, "shrine to " + performer.getProperty(Constants.DEITY).getName());
-		properties.put(Constants.TEXT, "shrine to " + performer.getProperty(Constants.DEITY).getName());
+		
+		properties.put(Constants.DEITY, deity);
+		properties.put(Constants.NAME, "shrine to " + deity.getName());
+		properties.put(Constants.TEXT, "shrine to " + deity.getName());
 		properties.put(Constants.ID, id);
-		properties.put(Constants.IMAGE_ID, performer.getProperty(Constants.DEITY).getStatueImageId());
+		properties.put(Constants.IMAGE_ID, deity.getStatueImageId());
 		properties.put(Constants.CAN_BE_WORSHIPPED, Boolean.TRUE);
 		properties.put(Constants.HIT_POINTS, 150 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.HIT_POINTS_MAX, 150 * Item.COMBAT_MULTIPLIER);
@@ -230,9 +263,7 @@ public class BuildingGenerator {
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		
 		WorldObject shrine = new WorldObjectImpl(properties);
-		world.addWorldObject(shrine);
-		
-		return id;
+		return shrine;
 	}
 	
 	public static boolean isShack(WorldObject worldObject) {
@@ -394,9 +425,16 @@ public class BuildingGenerator {
 	}
 
 	public static int generateSacrificialAltar(int x, int y, World world, WorldObject performer, Deity deity, double useSkill) {
-		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();
+		int sacrificialAltarCreatorId = performer.getProperty(Constants.ID);		
+		WorldObject altar = generateSacrificalAltar(x, y, deity, id, sacrificialAltarCreatorId);
+		world.addWorldObject(altar);
 		
+		return id;
+	}
+
+	private static WorldObject generateSacrificalAltar(int x, int y, Deity deity, int id, int sacrificialAltarCreatorId) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 1);
@@ -404,7 +442,8 @@ public class BuildingGenerator {
 		properties.put(Constants.NAME, "sacrificial Altar");
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.SACRIFIAL_ALTAR);
-		properties.put(Constants.SACRIFICIAL_ALTAR_CREATOR_ID, performer.getProperty(Constants.ID));
+		
+		properties.put(Constants.SACRIFICIAL_ALTAR_CREATOR_ID, sacrificialAltarCreatorId);
 		properties.put(Constants.TEXT, "Sacrificial Altar to " + deity.getName());
 		properties.put(Constants.HIT_POINTS, 50 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.HIT_POINTS_MAX, 50 * Item.COMBAT_MULTIPLIER);
@@ -412,9 +451,7 @@ public class BuildingGenerator {
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		
 		WorldObject altar = new WorldObjectImpl(properties);
-		world.addWorldObject(altar);
-		
-		return id;
+		return altar;
 	}
 	
 	public static IdList generateArena(int x, int y, World world, double useSkill) {
@@ -474,9 +511,14 @@ public class BuildingGenerator {
 	}
 	
 	public static int generateLibrary(int x, int y, World world, WorldObject owner) {
-		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();
-		
+		WorldObject library = generateLibrary(x, y, owner, id);
+		world.addWorldObject(library);
+		return id;
+	}
+
+	private static WorldObject generateLibrary(int x, int y, WorldObject owner, int id) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 2);
@@ -497,14 +539,19 @@ public class BuildingGenerator {
 		properties.put(Constants.LOCKED, Boolean.TRUE);
 		
 		WorldObject library = new WorldObjectImpl(properties);
-		world.addWorldObject(library);
-		return id;
+		return library;
 	}
 	
 	public static int generatePaperMill(int x, int y, World world, WorldObject owner) {
-		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();
+		WorldObject paperMill = generatePaperMill(x, y, owner, id);
+		world.addWorldObject(paperMill);
 		
+		return id;
+	}
+
+	private static WorldObject generatePaperMill(int x, int y, WorldObject owner, int id) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 4);
@@ -522,15 +569,19 @@ public class BuildingGenerator {
 		properties.put(Constants.BUILDING_TYPE, BuildingType.PAPERMILL);
 		
 		WorldObject paperMill = new WorldObjectImpl(properties);
-		world.addWorldObject(paperMill);
-		
-		return id;
+		return paperMill;
 	}
 	
 	public static int generateSmith(int x, int y, World world, WorldObject owner) {
-		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();
+		WorldObject smith = generateSmith(x, y, owner, id);
+		world.addWorldObject(smith);
+	
+		return id;
+	}
 
+	private static WorldObject generateSmith(int x, int y, WorldObject owner, int id) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 2);
@@ -546,15 +597,19 @@ public class BuildingGenerator {
 		properties.put(Constants.BUILDING_TYPE, BuildingType.SMITH);
 		
 		WorldObject smith = new WorldObjectImpl(properties);
-		world.addWorldObject(smith);
-	
-		return id;
+		return smith;
 	}
 	
 	public static int generateWorkbench(int x, int y, World world, WorldObject owner) {
-		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();
+		WorldObject workbench = generateWorkBench(x, y, owner, id);
+		world.addWorldObject(workbench);
+	
+		return id;
+	}
 
+	private static WorldObject generateWorkBench(int x, int y, WorldObject owner, int id) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 4);
@@ -570,15 +625,19 @@ public class BuildingGenerator {
 		properties.put(Constants.BUILDING_TYPE, BuildingType.WORKBENCH);
 		
 		WorldObject workbench = new WorldObjectImpl(properties);
-		world.addWorldObject(workbench);
-	
-		return id;
+		return workbench;
 	}
 
 	public static int generateInn(int x, int y, World world, double skillBonus, WorldObject owner) {
-		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();
+		WorldObject house = generateInn(x, y, skillBonus, owner, id);
+		world.addWorldObject(house);
 		
+		return id;
+	}
+
+	private static WorldObject generateInn(int x, int y, double skillBonus, WorldObject owner, int id) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 6);
@@ -599,15 +658,19 @@ public class BuildingGenerator {
 		properties.put(Constants.BUILDING_TYPE, BuildingType.INN);
 		
 		WorldObject house = new WorldObjectImpl(properties);
-		world.addWorldObject(house);
-		
-		return id;
+		return house;
 	}
 	
 	public static int generateSignPost(int x, int y, World world, String text) {
-		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();
+		WorldObject signPost = generateSignPost(x, y, text, id);
+		world.addWorldObject(signPost);
 		
+		return id;
+	}
+
+	private static WorldObject generateSignPost(int x, int y, String text, int id) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 1);
@@ -624,15 +687,19 @@ public class BuildingGenerator {
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		
 		WorldObject signPost = new WorldObjectImpl(properties);
-		world.addWorldObject(signPost);
-		
-		return id;
+		return signPost;
 	}
 	
 	public static int generateWeavery(int x, int y, World world, WorldObject owner) {
-		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();
+		WorldObject weavery = generateWeavery(x, y, owner, id);
+		world.addWorldObject(weavery);
+	
+		return id;
+	}
 
+	private static WorldObject generateWeavery(int x, int y, WorldObject owner, int id) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 4);
@@ -648,15 +715,19 @@ public class BuildingGenerator {
 		properties.put(Constants.BUILDING_TYPE, BuildingType.WEAVERY);
 		
 		WorldObject weavery = new WorldObjectImpl(properties);
-		world.addWorldObject(weavery);
-	
-		return id;
+		return weavery;
 	}
 	
 	public static int generateBrewery(int x, int y, World world, WorldObject owner) {
-		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();
+		WorldObject brewery = generateBrewery(x, y, owner, id);
+		world.addWorldObject(brewery);
+	
+		return id;
+	}
 
+	private static WorldObject generateBrewery(int x, int y, WorldObject owner, int id) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 4);
@@ -672,15 +743,19 @@ public class BuildingGenerator {
 		properties.put(Constants.BUILDING_TYPE, BuildingType.BREWERY);
 		
 		WorldObject brewery = new WorldObjectImpl(properties);
+		return brewery;
+	}
+
+	public static int generateApothecary(int x, int y, World world, WorldObject owner) {
+		int id = world.generateUniqueId();
+		WorldObject brewery = generateApothecary(x, y, owner, id);
 		world.addWorldObject(brewery);
 	
 		return id;
 	}
 
-	public static int generateApothecary(int x, int y, World world, WorldObject owner) {
+	private static WorldObject generateApothecary(int x, int y, WorldObject owner, int id) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
-		int id = world.generateUniqueId();
-
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 4);
@@ -696,15 +771,19 @@ public class BuildingGenerator {
 		properties.put(Constants.BUILDING_TYPE, BuildingType.APOTHECARY);
 		
 		WorldObject brewery = new WorldObjectImpl(properties);
-		world.addWorldObject(brewery);
-	
-		return id;
+		return brewery;
 	}
 	
 	public static int generateChest(int x, int y, World world, double skillBonus, WorldObject owner) {
-		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();
+		WorldObject house = generateChest(x, y, owner, id);
+		world.addWorldObject(house);
 		
+		return id;
+	}
+
+	private static WorldObject generateChest(int x, int y, WorldObject owner, int id) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 1);
@@ -725,9 +804,7 @@ public class BuildingGenerator {
 		properties.put(Constants.BUILDING_TYPE, BuildingType.CHEST);
 		
 		WorldObject house = new WorldObjectImpl(properties);
-		world.addWorldObject(house);
-		
-		return id;
+		return house;
 	}
 
 	
@@ -828,5 +905,29 @@ public class BuildingGenerator {
 	
 	private static boolean isChest(WorldObject w) {
 		return (w.hasProperty(Constants.BUILDING_TYPE)) && w.getProperty(Constants.BUILDING_TYPE) == BuildingType.CHEST;
+	}
+	
+	public static List<WorldObject> getBuildings(WorldObject owner, int width, int height) {
+		List<WorldObject> buildings = new ArrayList<>();
+		buildings.add(generateVotingBox(0, 0, 0));
+		buildings.add(generateWell(0, 0, 0));
+		buildings.add(generateTrainingDummy(0, 0, 1f, 0));
+		for(Deity deity : Deity.ALL_DEITIES) {
+			buildings.add(generateShrine(0, 0, 0, deity));
+			buildings.add(generateSacrificalAltar(0, 0, deity, 0, 0));
+		}
+		buildings.add(generateChest(0, 0, owner, 0));
+		buildings.add(generateLibrary(0, 0, owner, 0));
+		buildings.add(generatePaperMill(0, 0, owner, 0));
+		buildings.add(generateSmith(0, 0, owner, 0));
+		buildings.add(generateWorkBench(0, 0, owner, 0));
+		buildings.add(generateInn(0, 0, 1f, owner, 0));
+		buildings.add(generateWeavery(0, 0, owner, 0));
+		buildings.add(generateBrewery(0, 0, owner, 0));
+		buildings.add(generateApothecary(0, 0, owner, 0));
+		
+		buildings = buildings.stream().filter(w -> w.getProperty(Constants.WIDTH) <= width && w.getProperty(Constants.HEIGHT) == height).collect(Collectors.toList());
+		
+		return buildings;
 	}
 }

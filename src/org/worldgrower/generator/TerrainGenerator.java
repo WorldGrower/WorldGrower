@@ -14,8 +14,11 @@
  *******************************************************************************/
 package org.worldgrower.generator;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.worldgrower.Constants;
 import org.worldgrower.World;
@@ -27,9 +30,15 @@ import org.worldgrower.gui.ImageIds;
 public class TerrainGenerator {
 
 	public static int generateStoneResource(int x, int y, World world) {
-		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();
+		WorldObject tree = generateStoneResource(x, y, id);
+		world.addWorldObject(tree);
 		
+		return id;
+	}
+
+	private static WorldObject generateStoneResource(int x, int y, int id) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 2);
@@ -39,16 +48,20 @@ public class TerrainGenerator {
 		properties.put(Constants.STONE_SOURCE, 9000);
 		properties.put(Constants.SOUL_GEM_SOURCE, 1000);
 		properties.put(Constants.NAME, "stone resource");
-		WorldObject tree = new WorldObjectImpl(properties);
+		return new WorldObjectImpl(properties);
+	}
+	
+	public static int generateOreResource(int x, int y, World world) {
+		
+		int id = world.generateUniqueId();
+		WorldObject tree = generateOreResource(x, y, id);
 		world.addWorldObject(tree);
 		
 		return id;
 	}
-	
-	public static int generateOreResource(int x, int y, World world) {
+
+	private static WorldObject generateOreResource(int x, int y, int id) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
-		int id = world.generateUniqueId();
-		
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 2);
@@ -58,15 +71,19 @@ public class TerrainGenerator {
 		properties.put(Constants.ORE_SOURCE, 9000);
 		properties.put(Constants.NAME, "ore resource");
 		WorldObject tree = new WorldObjectImpl(properties);
+		return tree;
+	}
+	
+	public static int generateGoldResource(int x, int y, World world) {
+		int id = world.generateUniqueId();
+		WorldObject tree = generateGoldResource(x, y, id);
 		world.addWorldObject(tree);
 		
 		return id;
 	}
-	
-	public static int generateGoldResource(int x, int y, World world) {
+
+	private static WorldObject generateGoldResource(int x, int y, int id) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
-		int id = world.generateUniqueId();
-		
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 2);
@@ -76,15 +93,19 @@ public class TerrainGenerator {
 		properties.put(Constants.GOLD_SOURCE, 9000);
 		properties.put(Constants.NAME, "gold resource");
 		WorldObject tree = new WorldObjectImpl(properties);
-		world.addWorldObject(tree);
-		
-		return id;
+		return tree;
 	}
 	
 	public static int generateOilResource(int x, int y, World world) {
-		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();
+		WorldObject oilResource = generateOilResource(x, y, id);
+		world.addWorldObject(oilResource);
 		
+		return id;
+	}
+
+	private static WorldObject generateOilResource(int x, int y, int id) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 1);
@@ -94,9 +115,7 @@ public class TerrainGenerator {
 		properties.put(Constants.OIL_SOURCE, 1000);
 		properties.put(Constants.NAME, "oil resource");
 		WorldObject oilResource = new WorldObjectImpl(properties);
-		world.addWorldObject(oilResource);
-		
-		return id;
+		return oilResource;
 	}
 	
 	private static final int FIRE_TRAP_BASE_DAMAGE = 2 * Item.COMBAT_MULTIPLIER;
@@ -122,5 +141,17 @@ public class TerrainGenerator {
 	
 	public static int getFireTrapBaseDamage() {
 		return FIRE_TRAP_BASE_DAMAGE;
+	}
+	
+	public static List<WorldObject> getTerrainResources(int width, int height, World world) {
+		List<WorldObject> terrainResources = new ArrayList<>();
+		terrainResources.add(generateStoneResource(0, 0, 0));
+		terrainResources.add(generateOreResource(0, 0, 0));
+		terrainResources.add(generateGoldResource(0, 0, 0));
+		terrainResources.add(generateOilResource(0, 0, 0));
+		
+		terrainResources = terrainResources.stream().filter(w -> w.getProperty(Constants.WIDTH) == width && w.getProperty(Constants.HEIGHT) == height).collect(Collectors.toList());
+		
+		return terrainResources;
 	}
 }

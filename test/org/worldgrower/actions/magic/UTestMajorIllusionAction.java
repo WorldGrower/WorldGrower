@@ -77,20 +77,20 @@ public class UTestMajorIllusionAction {
 	@Test
 	public void testGetIllusionSources() {
 		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		world.addWorldObject(performer);
 		
 		WorldObject verminOrganization = GroupPropertyUtils.create(null, "vermin", world);
 		verminOrganization.setProperty(Constants.ID, 2);
 		world.addWorldObject(verminOrganization);
 		
-		assertEquals(2, action.getIllusionSources(world).size());
+		assertEquals(23, action.getIllusionSources(performer, world).size());
 		
-		WorldObject performer = createPerformer(2);
-		world.addWorldObject(performer);
 		int treeId = PlantGenerator.generateTree(0, 0, world);
 		WorldObject tree = world.findWorldObject(Constants.ID, treeId);
 		
-		assertEquals(true, action.getIllusionSources(world).size() > 0);
-		assertEquals(tree, action.getIllusionSources(world).get(0));
+		assertEquals(true, action.getIllusionSources(performer, world).size() > 0);
+		assertEquals(tree, action.getIllusionSources(performer, world).get(0));
 	}
 	
 	private WorldObject createPerformer(int id) {
