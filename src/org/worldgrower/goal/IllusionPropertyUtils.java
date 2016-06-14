@@ -22,6 +22,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.ImmutableWorldObject;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.InvestigateAction;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.BuildingGenerator;
@@ -51,9 +52,19 @@ public class IllusionPropertyUtils {
 		
 		world.addWorldObject(illusionWorldObject);
 		
-		KnowledgeMapPropertyUtils.everyoneInVicinityKnowsOfProperty(performer, illusionWorldObject, Constants.ILLUSION_CREATOR_ID, performer.getProperty(Constants.ID), world);
+		everyoneInVicinityKnowsOfIllusion(performer, world, illusionWorldObject);
 		
 		return id;
+	}
+
+	static void everyoneInVicinityKnowsOfIllusion(WorldObject performer, World world, WorldObject illusionWorldObject) {
+		KnowledgeMapPropertyUtils.everyoneInVicinityKnowsOfProperty(
+				performer, 
+				illusionWorldObject, 
+				w -> w.equals(performer) || !InvestigateAction.illusionIsBelievedBy(w, illusionWorldObject, world), 
+				Constants.ILLUSION_CREATOR_ID, 
+				performer.getProperty(Constants.ID), 
+				world);
 	}
 	
 	private static WorldObject mapIdToWorldObject(WorldObject performer, int id, int width, int height, World world) {

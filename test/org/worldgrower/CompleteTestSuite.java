@@ -693,7 +693,8 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestMajorIllusionAction.class,
 	UTestIllusionOnTurn.class,
 	UTestImmutableWorldObject.class,
-	UTestJailCache.class
+	UTestJailCache.class,
+	UTestIllusionPropertyUtils.class
 })
 public class CompleteTestSuite {
 }

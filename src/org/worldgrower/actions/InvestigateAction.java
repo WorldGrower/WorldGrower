@@ -117,7 +117,7 @@ public class InvestigateAction implements ManagedOperation {
 		return ImageIds.INVESTIGATE;
 	}
 	
-	static boolean illusionIsBelievedBy(WorldObject personViewingWorld, WorldObject worldObject, World world) {
+	public static boolean illusionIsBelievedBy(WorldObject personViewingWorld, WorldObject worldObject, World world) {
 		final int insight;
 		if (personViewingWorld.getProperty(Constants.INSIGHT_SKILL) == null) {
 			insight = 0;

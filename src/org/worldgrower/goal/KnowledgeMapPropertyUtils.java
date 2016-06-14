@@ -15,6 +15,7 @@
 package org.worldgrower.goal;
 
 import java.util.List;
+import java.util.function.Function;
 
 import org.worldgrower.Constants;
 import org.worldgrower.Reach;
@@ -33,9 +34,15 @@ public class KnowledgeMapPropertyUtils {
 	}
 	
 	public static void everyoneInVicinityKnowsOfProperty(WorldObject performer, WorldObject target, ManagedProperty<?> managedProperty, Object value, World world) {
+		everyoneInVicinityKnowsOfProperty(performer, target, w -> true, managedProperty, value, world);
+	}
+	
+	public static void everyoneInVicinityKnowsOfProperty(WorldObject performer, WorldObject target, Function<WorldObject, Boolean> testFunction, ManagedProperty<?> managedProperty, Object value, World world) {
 		List<WorldObject> peopleThatknow = getPeopleInVicinity(performer, world);
 		for(WorldObject personThatknows : peopleThatknow) {
-			personThatknows.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(target, managedProperty, value);
+			if (testFunction.apply(personThatknows)) {
+				personThatknows.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(target, managedProperty, value);
+			}
 		}
 	}
 
