@@ -157,5 +157,5 @@ public class Goals {
 	public static final PayBountyGoal PAY_BOUNTY_GOAL = new PayBountyGoal(ALL_GOALS);
 	public static final AnimalFoodGoal ANIMAL_FOOD_GOAL = new AnimalFoodGoal(ALL_GOALS);
 	public static final ScribeTricksterSpellsGoal SCRIBE_TRICKSTER_SPELLS_GOAL = new ScribeTricksterSpellsGoal(ALL_GOALS);
-	public static final FindSecludedLocationGoal FIND_SECLUDED_LOCATION_GOAL = new FindSecludedLocationGoal(ALL_GOALS);
+	public static final SwindleMoneyGoal SWINDLE_MONEY_GOAL = new SwindleMoneyGoal(ALL_GOALS);
 }

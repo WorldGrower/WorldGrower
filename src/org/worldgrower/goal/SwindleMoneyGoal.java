@@ -47,10 +47,12 @@ public class SwindleMoneyGoal implements Goal {
 				WorldObject target = targets.get(0);
 				int targetMateId = target.getProperty(Constants.MATE_ID);
 				WorldObject targetMate = GoalUtils.findNearestPersonLookingLike(performer, targetMateId, world);
-				if (Goals.FIND_SECLUDED_LOCATION_GOAL.isGoalMet(performer, world)) {
+				int[] args = new int[] {targetMate.getProperty(Constants.ID)};
+				FindSecludedLocationGoal findSecludedLocationGoal = new FindSecludedLocationGoal(args, Actions.DISGUISE_MAGIC_SPELL_ACTION);
+				if (findSecludedLocationGoal.isGoalMet(performer, world)) {
 					return new OperationInfo(performer, performer, new int[] {targetMate.getProperty(Constants.ID)}, Actions.DISGUISE_MAGIC_SPELL_ACTION);
 				} else {
-					return Goals.FIND_SECLUDED_LOCATION_GOAL.calculateGoal(performer, world);
+					return findSecludedLocationGoal.calculateGoal(performer, world);
 				}
 			}
 		}
