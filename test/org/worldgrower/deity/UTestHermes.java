@@ -54,5 +54,8 @@ public class UTestHermes {
 		
 		performer.setProperty(Constants.PROFESSION, Professions.THIEF_PROFESSION);
 		assertEquals(1, deity.getReasonIndex(performer, world));
+		
+		performer.setProperty(Constants.PROFESSION, Professions.TRICKSTER_PROFESSION);
+		assertEquals(2, deity.getReasonIndex(performer, world));
 	}
 }

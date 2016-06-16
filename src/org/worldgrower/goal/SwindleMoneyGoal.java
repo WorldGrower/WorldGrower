@@ -31,7 +31,7 @@ public class SwindleMoneyGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		if (FacadeUtils.performerIsSuccessFullyDisguised(performer)) {
+		if (isDisguised(performer)) {
 			int disguisedPersonId = performer.getProperty(Constants.FACADE).getProperty(Constants.ID);
 			WorldObject disguisedPerson = world.findWorldObject(Constants.ID, disguisedPersonId);
 			Integer disguisedPersonMateId = disguisedPerson.getProperty(Constants.MATE_ID);
@@ -57,6 +57,10 @@ public class SwindleMoneyGoal implements Goal {
 			}
 		}
 		return null;
+	}
+
+	private boolean isDisguised(WorldObject performer) {
+		return performer.getProperty(Constants.FACADE) != null && performer.getProperty(Constants.FACADE).getProperty(Constants.ID) != null;
 	}
 	
 	private boolean isSwindleTarget(WorldObject w) {

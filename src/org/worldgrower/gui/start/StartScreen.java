@@ -20,15 +20,11 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.prefs.Preferences;
 
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPopupMenu;
 import javax.swing.SwingConstants;
@@ -41,6 +37,9 @@ import org.worldgrower.gui.ExceptionHandler;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.SwingUtils;
+import org.worldgrower.gui.loadsave.LoadSaveDialog;
+import org.worldgrower.gui.loadsave.LoadSaveMode;
+import org.worldgrower.gui.loadsave.SaveGameHandler;
 import org.worldgrower.gui.music.MusicPlayer;
 import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.util.IconUtils;
@@ -48,7 +47,7 @@ import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JLabelFactory;
 import org.worldgrower.gui.util.MenuFactory;
 
-public class StartScreen {
+public class StartScreen implements SaveGameHandler {
 
 	private static final String PLAY_MUSIC = "playMusic";
 	private static final String PLAY_SOUNDS = "playSounds";
@@ -217,26 +216,8 @@ public class StartScreen {
 		btnSaveGame.setEnabled(false);
 		btnSaveGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFrame parentFrame = new JFrame();
-
-				JFileChooser fileChooser = new JFileChooser();
-				fileChooser.setDialogTitle("Specify a file to save");
-				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
-				String defaultFilename = getDefaultFilename();
-				fileChooser.setSelectedFile(new File(defaultFilename));
-
-				int userSelection = fileChooser.showSaveDialog(parentFrame);
-
-				if (userSelection == JFileChooser.APPROVE_OPTION) {
-				    File fileToSave = fileChooser.getSelectedFile();
-				    saveGame(fileToSave);
-				}
-			}
-
-			private String getDefaultFilename() {
-				Date currentTime = new Date();
-				SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
-				return format.format(currentTime) + ".sav";
+				LoadSaveDialog loadSaveDialog = new LoadSaveDialog(StartScreen.this, LoadSaveMode.SAVE, soundIdReader);
+				loadSaveDialog.showMe();				
 			}
 		});
 		frame.addComponent(btnSaveGame);
@@ -299,26 +280,22 @@ public class StartScreen {
 		btnLoadGame.setToolTipText("Loads a game");
 		btnLoadGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				JFileChooser fileChooser = new JFileChooser();
-				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
-				int result = fileChooser.showOpenDialog(frame);
-				if (result == JFileChooser.APPROVE_OPTION) {
-				    File selectedFile = fileChooser.getSelectedFile();
-				    loadGame(selectedFile);
-				}
+				LoadSaveDialog loadSaveDialog = new LoadSaveDialog(StartScreen.this, LoadSaveMode.LOAD, soundIdReader);
+				loadSaveDialog.showMe();
 			}
 		});
 		frame.addComponent(btnLoadGame);
 		SwingUtils.setBoundsAndCenterHorizontally(btnLoadGame, 78, 150, 167, 60);
 	}
 	
-	private void loadGame(File selectedFile) {
+	@Override
+	public void loadGame(File selectedFile) {
 		Game.load(selectedFile, imageInfoReader, soundIdReader, musicPlayer, keyBindings);
 		setVisible(false);
 	}
 	
-
-	private void saveGame(File fileToSave) {
+	@Override
+	public void saveGame(File fileToSave) {
 		if (world == null) {
 			throw new IllegalStateException("world is null");
 		}

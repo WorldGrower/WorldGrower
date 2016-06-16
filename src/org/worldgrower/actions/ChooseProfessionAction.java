@@ -62,7 +62,8 @@ public class ChooseProfessionAction implements ManagedOperation {
 			new ProfessionInfo(Professions.JOURNALIST_PROFESSION, 0.8, 0.8, 0.8, 1.2, 1.2, 1.4),
 			new ProfessionInfo(Professions.ASSASSIN_PROFESSION, 1.4, 1.2, 0.8, 0.8, 1.0, 1.4),
 			new ProfessionInfo(Professions.ALCHEMIST_PROFESSION, 0.8, 1.0, 0.8, 1.0, 1.4, 1.1),
-			new ProfessionInfo(Professions.BREWER_PROFESSION, 0.8, 1.0, 0.8, 1.0, 1.4, 1.1)
+			new ProfessionInfo(Professions.BREWER_PROFESSION, 0.8, 1.0, 0.8, 1.0, 1.4, 1.1),
+			new ProfessionInfo(Professions.TRICKSTER_PROFESSION, 0.8, 1.0, 0.8, 1.3, 0.8, 1.4)
 			);
 	
 	@Override
@@ -86,6 +87,10 @@ public class ChooseProfessionAction implements ManagedOperation {
 			createNecromancerFacade(performer);
 		}
 		
+		if (profession == Professions.TRICKSTER_PROFESSION) {
+			createTricksterFacade(performer);
+		}
+		
 		if (profession == Professions.ASSASSIN_PROFESSION) {
 			createAssassinFacade(performer);
 		}
@@ -102,6 +107,13 @@ public class ChooseProfessionAction implements ManagedOperation {
 		performer.getProperty(Constants.REASONS).addReason(Constants.PROFESSION, reason);
 	}
 
+	public static void createTricksterFacade(WorldObject performer) {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		properties.put(Constants.PROFESSION, Professions.WIZARD_PROFESSION);
+		WorldObject facade = new WorldObjectImpl(properties);
+		performer.setProperty(Constants.FACADE, facade);
+	}
+	
 	public static void createNecromancerFacade(WorldObject performer) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.PROFESSION, Professions.WIZARD_PROFESSION);
@@ -332,6 +344,12 @@ public class ChooseProfessionAction implements ManagedOperation {
 			result.add(new ProfessionEvaluation(Professions.THIEF_PROFESSION, Integer.MIN_VALUE));
 		} else {
 			result.add(new ProfessionEvaluation(Professions.THIEF_PROFESSION, 0));
+		}
+		
+		if (populationCount < 15) {
+			result.add(new ProfessionEvaluation(Professions.TRICKSTER_PROFESSION, Integer.MIN_VALUE));
+		} else {
+			result.add(new ProfessionEvaluation(Professions.TRICKSTER_PROFESSION, 0));
 		}
 		
 		if (populationCount < 20) {

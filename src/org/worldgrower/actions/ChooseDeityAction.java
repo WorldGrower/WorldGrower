@@ -23,6 +23,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.ReasonsImpl;
 import org.worldgrower.deity.Deity;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.profession.Profession;
 import org.worldgrower.profession.Professions;
 
 public class ChooseDeityAction implements ManagedOperation {
@@ -44,7 +45,9 @@ public class ChooseDeityAction implements ManagedOperation {
 
 	private void setFacade(WorldObject performer) {
 		WorldObject performerFacade = performer.getProperty(Constants.FACADE);
-		if (performer.getProperty(Constants.PROFESSION) == Professions.THIEF_PROFESSION &&  performerFacade != null) {
+		Profession performerProfession = performer.getProperty(Constants.PROFESSION);
+		boolean professionNeedsHiding = performerProfession == Professions.THIEF_PROFESSION || performerProfession == Professions.TRICKSTER_PROFESSION;
+		if (professionNeedsHiding && performerFacade != null) {
 			performerFacade.setProperty(Constants.DEITY, Deity.DEMETER);
 			
 			if (performerFacade.getProperty(Constants.REASONS) == null) {

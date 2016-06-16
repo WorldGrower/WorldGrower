@@ -46,7 +46,8 @@ public class Hermes implements Deity {
 	public List<String> getReasons() {
 		return Arrays.asList(
 				"As a priest of " + getName() + ", I want our commerce to bloom",
-				"As a thief, I worship " + getName() + " for good luck"
+				"As a thief, I worship " + getName() + " for good luck",
+				"As a trickster, I worship " + getName()
 		);
 	}
 
@@ -56,6 +57,8 @@ public class Hermes implements Deity {
 			return 0;
 		} else if (performer.getProperty(Constants.PROFESSION) == Professions.THIEF_PROFESSION) {
 			return 1;
+		} else if (performer.getProperty(Constants.PROFESSION) == Professions.TRICKSTER_PROFESSION) {
+			return 2;
 		}
 		
 		return -1;

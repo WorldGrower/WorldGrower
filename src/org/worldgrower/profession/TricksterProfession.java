@@ -39,7 +39,9 @@ public class TricksterProfession implements Profession {
 	public List<Goal> getProfessionGoals() {
 		return Arrays.asList(
 				Goals.LIBRARY_GOAL,
-				Goals.SCRIBE_TRICKSTER_SPELLS_GOAL);
+				Goals.SCRIBE_TRICKSTER_SPELLS_GOAL,
+				Goals.SWINDLE_MONEY_GOAL
+		);
 	}
 
 	@Override

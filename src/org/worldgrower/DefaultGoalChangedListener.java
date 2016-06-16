@@ -47,6 +47,7 @@ public class DefaultGoalChangedListener implements GoalChangedListener {
 		goalChangedMap.put(Goals.STEAL_GOAL, new GoalChangedHandler(Goals.FOOD_GOAL, Actions.EAT_FROM_INVENTORY_ACTION));
 		goalChangedMap.put(Goals.VAMPIRE_BLOOD_LEVEL_GOAL, new GoalChangedHandler(Goals.WINE_GOAL, Actions.BREW_WINE_ACTION));
 		goalChangedMap.put(Goals.GHOUL_MEAT_LEVEL_GOAL, new GoalChangedHandler(Goals.GATHER_REMAINS_GOAL, Actions.GATHER_REMAINS_ACTION));
+		goalChangedMap.put(Goals.SWINDLE_MONEY_GOAL, new GoalChangedHandler(Goals.SOCIALIZE_GOAL, Actions.TALK_ACTION));
 	}
 	
 	@Override
