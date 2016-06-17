@@ -17,6 +17,9 @@ package org.worldgrower;
 import static org.junit.Assert.assertEquals;
 import static org.worldgrower.TestUtils.createWorldObject;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.Test;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.goal.Goals;
@@ -33,5 +36,22 @@ public class UTestMetaInformation {
 		assertEquals(1, metaInformation.getCurrentTask().size());
 		assertEquals(Actions.DO_NOTHING_ACTION, metaInformation.getCurrentTask().peek().getManagedOperation());
 		assertEquals(Goals.IDLE_GOAL, metaInformation.getFinalGoal());
+	}
+	
+	@Test
+	public void testToString() {
+		WorldObject performer = createWorldObject(0, "performer");
+		WorldObject target = createWorldObject(1, "target");
+		MetaInformation metaInformation = new MetaInformation(performer);
+
+		List<OperationInfo> tasks = Arrays.asList(
+				new OperationInfo(performer, performer, Args.EMPTY, Actions.REST_ACTION),
+				new OperationInfo(performer, target, Args.EMPTY, Actions.CUT_WOOD_ACTION)
+				);
+		
+		metaInformation.setCurrentTask(tasks, GoalChangedReason.EMPTY_META_INFORMATION);
+		metaInformation.setFinalGoal(Goals.WOOD_GOAL);
+		
+		assertEquals("finalGoal = WoodGoal, currentTask = [RestAction([])] | [CutWoodAction([])] | , goalChangedReason = EMPTY_META_INFORMATION", metaInformation.toString());
 	}
 }

@@ -16,11 +16,15 @@ package org.worldgrower.gui.loadsave;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Date;
 
 public class SaveFileUtils {
 
+	private static final String FILE_DATE_TIME_FORMAT = "yyyyMMddHHmmss";
 	private static final File SAVE_DIRECTORY = new File(System.getProperty("user.home"));
 	
 	public static File createNewSaveFile() {
@@ -29,8 +33,18 @@ public class SaveFileUtils {
 	
 	private static String getDefaultFilename() {
 		Date currentTime = new Date();
-		SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
+		SimpleDateFormat format = new SimpleDateFormat(FILE_DATE_TIME_FORMAT);
 		return format.format(currentTime) + ".sav";
+	}
+	
+	public static Date getSaveTime(File file) {
+		try {
+			String saveTime = file.getName().substring(0, 14);
+			SimpleDateFormat format = new SimpleDateFormat(FILE_DATE_TIME_FORMAT);
+			return format.parse(saveTime);
+		} catch (ParseException e) {
+			throw new IllegalStateException("Problem parsing filename " + file, e);
+		}
 	}
 	
 	public static SaveGame[] getSaveFiles() {
@@ -39,6 +53,14 @@ public class SaveFileUtils {
 			@Override
 			public boolean accept(File pathname) {
 				return pathname.getName().endsWith(".sav");
+			}
+		});
+		
+		Arrays.sort(files, new Comparator<File>() {
+
+			@Override
+			public int compare(File o1, File o2) {
+				return -Long.compare(o1.lastModified(), o2.lastModified());
 			}
 		});
 		

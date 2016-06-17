@@ -19,7 +19,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
 
 import javax.swing.JButton;
 import javax.swing.JList;
@@ -41,6 +40,7 @@ public class LoadSaveDialog extends AbstractDialog {
 		addComponent(scrollPane);
 		
 		JList<SaveGame> list = JListFactory.createJList(loadSaveMode.getSaveFiles());
+		list.setOpaque(true);
 		list.setSelectedIndex(0);
 		list.setCellRenderer(new SaveGameRenderer());
 		scrollPane.setViewportView(list);

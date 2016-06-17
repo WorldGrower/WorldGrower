@@ -61,6 +61,9 @@ public class UTestMinorHealAction {
 		target.setProperty(Constants.HIT_POINTS_MAX, 8);
 		
 		assertEquals(true, Actions.MINOR_HEAL_ACTION.isValidTarget(performer, target, world));
+		
+		performer.setProperty(Constants.KNOWN_SPELLS, Arrays.asList());
+		assertEquals(false, Actions.MINOR_HEAL_ACTION.isValidTarget(performer, target, world));
 	}
 	
 	@Test

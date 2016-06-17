@@ -28,6 +28,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
+import org.worldgrower.generator.PlantGenerator;
 
 public class UTestSilenceMagicAction {
 
@@ -44,7 +45,7 @@ public class UTestSilenceMagicAction {
 	
 	@Test
 	public void testIsValidTarget() {
-		World world = new WorldImpl(1, 1, null, null);
+		World world = new WorldImpl(2, 2, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = TestUtils.createWorldObject(3, "target");
 		
@@ -53,6 +54,10 @@ public class UTestSilenceMagicAction {
 		performer.setProperty(Constants.KNOWN_SPELLS, Arrays.asList(Actions.SILENCE_MAGIC_ACTION));
 		assertEquals(true, Actions.SILENCE_MAGIC_ACTION.isValidTarget(performer, performer, world));
 		assertEquals(false, Actions.SILENCE_MAGIC_ACTION.isValidTarget(performer, target, world));
+		
+		int treeId = PlantGenerator.generateTree(0, 0, world);
+		WorldObject tree = world.findWorldObject(Constants.ID, treeId);
+		assertEquals(false, Actions.SILENCE_MAGIC_ACTION.isValidTarget(performer, tree, world));
 	}
 	
 	@Test

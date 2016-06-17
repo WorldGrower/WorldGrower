@@ -236,6 +236,7 @@ public class WorldImpl implements World, Serializable {
 		try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(fileToSave)))) {
 
 			objectOutputStream.writeObject ( Version.getVersion() );
+			saveGameStatistics(objectOutputStream);
 	    	objectOutputStream.writeObject ( this );
 	    	
 		} catch(IOException ex) {
@@ -250,6 +251,7 @@ public class WorldImpl implements World, Serializable {
 			if (!versionFromFile.equals( Version.getVersion() )) {
 				throw new IllegalStateException("Version in file " + fileToLoad + " doesn't match: " + versionFromFile + " isn't equal to " + Version.getVersion());
 			}
+			loadGameStatistics(objectInputStream);
 			
 			WorldImpl world = (WorldImpl) objectInputStream.readObject();
 			world.listeners = new ArrayList<>();
@@ -259,6 +261,41 @@ public class WorldImpl implements World, Serializable {
 		} catch(IOException | ClassNotFoundException ex) {
 			throw new IllegalStateException("Problem loading file " + fileToLoad, ex);
 		}
+	}
+	
+	private void saveGameStatistics(ObjectOutputStream objectOutputStream) throws IOException {
+		WorldObject playerCharacter = getPlayerCharacter();
+		
+		objectOutputStream.writeObject(playerCharacter.getProperty(Constants.NAME));
+		objectOutputStream.writeInt(playerCharacter.getProperty(Constants.LEVEL));
+		objectOutputStream.writeInt(currentTurn.getValue());
+	}
+	
+	private WorldObject getPlayerCharacter() {
+		for(WorldObject worldObject : worldObjects) {
+			if (worldObject.hasIntelligence() && !worldObject.isControlledByAI()) {
+				return worldObject;
+			}
+		}
+		throw new IllegalStateException("No player character found");
+	}
+
+	public static SaveGameStatistics getSaveGameStatistics(File fileToLoad) {
+		try (ObjectInputStream objectInputStream = new ObjectInputStream(new BufferedInputStream(new FileInputStream(fileToLoad)))) {
+			String versionFromFile = (String) objectInputStream.readObject();
+			return loadGameStatistics(objectInputStream);
+		} catch(IOException | ClassNotFoundException ex) {
+			throw new IllegalStateException("Problem loading file " + fileToLoad, ex);
+		}
+	}
+
+	private static SaveGameStatistics loadGameStatistics(ObjectInputStream objectInputStream)
+			throws IOException, ClassNotFoundException {
+		String playerCharacterName = (String) objectInputStream.readObject();
+		int playerCharacterLevel = objectInputStream.readInt();
+		int turn = objectInputStream.readInt();
+		
+		return new SaveGameStatistics(playerCharacterName, playerCharacterLevel, turn);
 	}
 	
 	@Override

@@ -12,12 +12,9 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.actions.magic;
+package org.worldgrower.actions;
 
 import static org.junit.Assert.assertEquals;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 import org.junit.Test;
 import org.worldgrower.Args;
@@ -26,58 +23,53 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
-import org.worldgrower.actions.Actions;
-import org.worldgrower.condition.Condition;
-import org.worldgrower.condition.Conditions;
+import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.Item;
 import org.worldgrower.generator.PlantGenerator;
 
-public class UTestSleepMagicAction {
+public class UTestSecludedAction {
 
+	private final SecludedAction action = new SecludedAction(Actions.CUT_WOOD_ACTION);
+	
 	@Test
 	public void testExecute() {
-		World world = new WorldImpl(1, 1, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
-		WorldObject target = createPerformer(3);
+		int targetId = PlantGenerator.generateTree(0, 0, world);
+		WorldObject target = world.findWorldObject(Constants.ID, targetId);
 		
-		Actions.SLEEP_MAGIC_SPELL_ACTION.execute(performer, target, Args.EMPTY, world);
+		action.execute(performer, target, Args.EMPTY, world);
 		
-		assertEquals(true, target.getProperty(Constants.CONDITIONS).hasCondition(Condition.SLEEP_CONDITION));
+		assertEquals(1, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD));
 	}
 	
 	@Test
 	public void testIsValidTarget() {
-		World world = new WorldImpl(2, 2, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
-		WorldObject target = createPerformer(3);
+		int targetId = PlantGenerator.generateTree(0, 0, world);
+		WorldObject target = world.findWorldObject(Constants.ID, targetId);
 		
-		performer.setProperty(Constants.KNOWN_SPELLS, Arrays.asList(Actions.SLEEP_MAGIC_SPELL_ACTION));
-		assertEquals(true, Actions.SLEEP_MAGIC_SPELL_ACTION.isValidTarget(performer, target, world));
-		
-		performer.setProperty(Constants.KNOWN_SPELLS, new ArrayList<>());
-		assertEquals(false, Actions.SLEEP_MAGIC_SPELL_ACTION.isValidTarget(performer, target, world));
-		
-		int treeId = PlantGenerator.generateTree(0, 0, world);
-		WorldObject tree = world.findWorldObject(Constants.ID, treeId);
-		performer.setProperty(Constants.KNOWN_SPELLS, Arrays.asList(Actions.SLEEP_MAGIC_SPELL_ACTION));
-		assertEquals(false, Actions.SLEEP_MAGIC_SPELL_ACTION.isValidTarget(performer, tree, world));
+		assertEquals(true, action.isValidTarget(performer, target, world));
+		assertEquals(false, action.isValidTarget(performer, performer, world));
 	}
 	
 	@Test
 	public void testDistance() {
-		World world = new WorldImpl(1, 1, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
-		WorldObject target = createPerformer(3);
+		int targetId = PlantGenerator.generateTree(0, 0, world);
+		WorldObject target = world.findWorldObject(Constants.ID, targetId);
 		
-		assertEquals(0, Actions.SLEEP_MAGIC_SPELL_ACTION.distance(performer, target, Args.EMPTY, world));
+		assertEquals(0, action.distance(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {
-		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.CONDITIONS, new Conditions());
+		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.X, 0);
 		performer.setProperty(Constants.Y, 0);
 		performer.setProperty(Constants.WIDTH, 1);
 		performer.setProperty(Constants.HEIGHT, 1);
-		performer.setProperty(Constants.ENERGY, 1000);
 		return performer;
 	}
 }

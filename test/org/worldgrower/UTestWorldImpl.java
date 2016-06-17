@@ -103,6 +103,7 @@ public class UTestWorldImpl {
 		World world = createWorld();
 		WorldObject house = TestUtils.createWorldObject(6, "test");
 		WorldObject person = TestUtils.createIntelligentWorldObject(7, Constants.ARENA_OPPONENT_ID, 6);
+		house.setProperty(Constants.LEVEL, 1);
 		
 		world.addWorldObject(house);
 		world.addWorldObject(person);

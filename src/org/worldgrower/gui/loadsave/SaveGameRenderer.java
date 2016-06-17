@@ -15,16 +15,25 @@
 package org.worldgrower.gui.loadsave;
 
 import java.awt.Component;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
+import org.worldgrower.SaveGameStatistics;
+import org.worldgrower.WorldImpl;
+import org.worldgrower.gui.ColorPalette;
 import org.worldgrower.gui.util.JLabelFactory;
 
 class SaveGameRenderer extends JLabel implements ListCellRenderer<SaveGame> {
 	private final JLabel rendererLabel = JLabelFactory.createJLabel("");
 
+	public SaveGameRenderer() {
+		this.rendererLabel.setOpaque(true);
+	}
+	
 	@Override
     public Component getListCellRendererComponent(JList<? extends SaveGame> list,
     											SaveGame value,
@@ -35,9 +44,24 @@ class SaveGameRenderer extends JLabel implements ListCellRenderer<SaveGame> {
 		if (value.isCreateNewFile()) {
 			rendererLabel.setText("Create new save");
 		} else {
-			rendererLabel.setText(value.getFile().getName());
+			SaveGameStatistics saveGameStatistics = WorldImpl.getSaveGameStatistics(value.getFile());
+			String saveDateDescription = getSaveDateDescription(value);
+			rendererLabel.setText(saveGameStatistics.getPlayerCharacterName() + ", level " + saveGameStatistics.getPlayerCharacterLevel() + " at turn " + saveGameStatistics.getTurn() + ", saved on " + saveDateDescription);
+		}
+		
+		if (isSelected) {
+			rendererLabel.setBackground(ColorPalette.LIGHT_BACKGROUND_COLOR);
+		} else {
+			rendererLabel.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
 		}
 		
         return rendererLabel;
     }
+
+	private String getSaveDateDescription(SaveGame value) {
+		Date saveDate = SaveFileUtils.getSaveTime(value.getFile());
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMMdd HH:mm:ss");
+		String saveDateDescription = simpleDateFormat.format(saveDate);
+		return saveDateDescription;
+	}
 }
