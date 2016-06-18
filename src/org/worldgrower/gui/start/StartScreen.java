@@ -144,18 +144,19 @@ public class StartScreen implements SaveGameHandler {
 	private void showNewGamePopupMenu() {
 		JPopupMenu popupMenu = MenuFactory.createJPopupMenu();
 		
-		popupMenu.add(createMenuItem(new TutorialAction(), ImageIds.CUDGEL));
-		popupMenu.add(createMenuItem(new StandardGameAction(), ImageIds.LARGE_CUDGEL));
-		popupMenu.add(createMenuItem(new CustomGameAction(), ImageIds.GOLDEN_AXE));
+		popupMenu.add(createMenuItem(new TutorialAction(), ImageIds.CUDGEL, "Start a tutorial game in which the basics of the game are explained"));
+		popupMenu.add(createMenuItem(new StandardGameAction(), ImageIds.LARGE_CUDGEL, "Start a game with default settings"));
+		popupMenu.add(createMenuItem(new CustomGameAction(), ImageIds.GOLDEN_AXE, "Start a game with customizing settings beforehand"));
 		
 		Point mouseLocation = MouseInfo.getPointerInfo().getLocation();
 		SwingUtilities.convertPointFromScreen(mouseLocation, frame);
 		popupMenu.show(frame, mouseLocation.x, mouseLocation.y);
 	}
 	
-	private JMenuItem createMenuItem(Action action, ImageIds imageId) {
+	private JMenuItem createMenuItem(Action action, ImageIds imageId, String toolTipText) {
 		JMenuItem menuItem = MenuFactory.createJMenuItem(action, soundIdReader);
 		menuItem.setIcon(new ImageIcon(imageInfoReader.getImage(imageId, null)));
+		menuItem.setToolTipText(toolTipText);
 		return menuItem;
 	}
 	
