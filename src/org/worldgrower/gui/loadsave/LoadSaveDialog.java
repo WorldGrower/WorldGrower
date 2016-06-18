@@ -24,6 +24,8 @@ import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import org.worldgrower.gui.AbstractDialog;
 import org.worldgrower.gui.music.SoundIdReader;
@@ -53,6 +55,7 @@ public class LoadSaveDialog extends AbstractDialog {
 
 		JButton okButton = JButtonFactory.createButton(loadSaveMode.getDescription(), soundIdReader);
 		okButton.setActionCommand("OK");
+		okButton.setEnabled(false);
 		buttonPane.add(okButton, BorderLayout.EAST);
 		getRootPane().setDefaultButton(okButton);
 		
@@ -85,8 +88,17 @@ public class LoadSaveDialog extends AbstractDialog {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount() == 2) {
+					okButton.setEnabled(true);
 					okButton.doClick();
 				}
+			}
+		});
+		
+		list.addListSelectionListener(new ListSelectionListener() {
+			
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				okButton.setEnabled(true);
 			}
 		});
 	}
