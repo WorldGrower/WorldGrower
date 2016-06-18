@@ -134,3 +134,12 @@ Human_DyingBreath_018bit.wav.gz
 
 Sound Effects: Shovel Spell by Iwan 'qubodup' Gabovitch http://opengameart.org/users/qubodup at http://opengameart.org/content/shovel-spell:
 qubodupshovelSpell18bit.wav.gz
+
+Sound effects by qubodup at http://www.freesound.org/people/qubodup/sounds/219566/:
+219566__qubodup__poison-spell-magic8bit.wav.gz
+
+Sound Effects by safadancer at http://www.freesound.org/people/safadancer/sounds/182016/:
+182016__safadancer__sex-groaning-18bit.wav.gz
+
+Sound Effects by felix.blume at http://www.freesound.org/people/felix.blume/sounds/135489/:
+135489__felix-blume__bells-and-religious-hymn8bit.wav.gz

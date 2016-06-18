@@ -24,6 +24,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class PoisonAttackAction implements ManagedOperation {
 
@@ -81,5 +82,10 @@ public class PoisonAttackAction implements ManagedOperation {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.POISONED_INDICATOR;
+	}
+	
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.POISON;
 	}
 }

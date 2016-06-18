@@ -23,6 +23,7 @@ import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.goal.GoalUtils;
 import org.worldgrower.goal.LocationPropertyUtils;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class RecallSecretChestAction extends InventoryAction {
 
@@ -72,5 +73,10 @@ public class RecallSecretChestAction extends InventoryAction {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.CHEST;
+	}
+	
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.TELEPORT;
 	}
 }

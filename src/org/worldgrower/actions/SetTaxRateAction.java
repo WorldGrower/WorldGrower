@@ -22,6 +22,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class SetTaxRateAction implements ManagedOperation {
 
@@ -69,5 +70,10 @@ public class SetTaxRateAction implements ManagedOperation {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.GOLD;
+	}
+	
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.HANDLE_COINS;
 	}
 }

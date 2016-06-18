@@ -26,6 +26,7 @@ import org.worldgrower.actions.legal.LegalActions;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.LegalActionsPropertyUtils;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class SetLegalActionsAction implements ManagedOperation {
 
@@ -86,4 +87,9 @@ public class SetLegalActionsAction implements ManagedOperation {
 	public ImageIds getImageIds() {
 		return ImageIds.IRON_CLAYMORE;
 	}
+
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.PAPER;
+	}	
 }

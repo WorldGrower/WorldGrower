@@ -22,6 +22,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.goal.WaterPropertyUtils;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class PoisonInventoryWaterWithSleepingPotionAction extends InventoryAction {
 
@@ -66,5 +67,10 @@ public class PoisonInventoryWaterWithSleepingPotionAction extends InventoryActio
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.SLEEPING_POTION;
+	}
+	
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.POISON;
 	}
 }

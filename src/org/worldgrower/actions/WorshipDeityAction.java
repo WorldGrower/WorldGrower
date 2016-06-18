@@ -22,6 +22,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class WorshipDeityAction implements ManagedOperation {
 
@@ -71,4 +72,9 @@ public class WorshipDeityAction implements ManagedOperation {
 	public ImageIds getImageIds() {
 		return ImageIds.BLACK_CROSS;
 	}
+
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.RELIGIOUS;
+	}	
 }

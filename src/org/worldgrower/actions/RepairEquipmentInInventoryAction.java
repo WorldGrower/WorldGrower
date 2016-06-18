@@ -22,6 +22,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class RepairEquipmentInInventoryAction extends InventoryAction {
 
@@ -71,5 +72,10 @@ public class RepairEquipmentInInventoryAction extends InventoryAction {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.REPAIR_HAMMER;
+	}
+	
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.SMITH;
 	}
 }

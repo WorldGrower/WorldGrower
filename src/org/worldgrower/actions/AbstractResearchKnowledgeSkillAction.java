@@ -17,12 +17,14 @@ package org.worldgrower.actions;
 import java.io.ObjectStreamException;
 
 import org.worldgrower.Constants;
+import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class AbstractResearchKnowledgeSkillAction implements ResearchKnowledgeSkillAction {
 
@@ -79,5 +81,10 @@ public class AbstractResearchKnowledgeSkillAction implements ResearchKnowledgeSk
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.SPELL_BOOK;
+	}
+
+	@Override
+	public final SoundIds getSoundId() {
+		return SoundIds.PAPER;
 	}
 }

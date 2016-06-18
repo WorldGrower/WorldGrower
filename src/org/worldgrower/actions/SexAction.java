@@ -30,6 +30,7 @@ import org.worldgrower.goal.PregnancyPropertyUtils;
 import org.worldgrower.goal.RacePropertyUtils;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class SexAction implements ManagedOperation {
 
@@ -100,4 +101,9 @@ public class SexAction implements ManagedOperation {
 	public ImageIds getImageIds() {
 		return ImageIds.HEART;
 	}
+
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.SEX;
+	}	
 }

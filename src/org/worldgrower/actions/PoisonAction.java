@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.goal.WaterPropertyUtils;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class PoisonAction implements ManagedOperation {
 
@@ -72,4 +73,9 @@ public class PoisonAction implements ManagedOperation {
 	public ImageIds getImageIds() {
 		return ImageIds.POISONED_INDICATOR;
 	}
+
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.POISON;
+	}	
 }

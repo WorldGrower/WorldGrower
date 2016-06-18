@@ -67,5 +67,8 @@ public enum SoundIds {
 	RUSTLE3,
 	KISS,
 	DYING,
-	SHOVEL
+	SHOVEL,
+	POISON,
+	SEX,
+	RELIGIOUS
 }

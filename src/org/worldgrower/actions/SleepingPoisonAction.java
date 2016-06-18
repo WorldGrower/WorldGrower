@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.goal.WaterPropertyUtils;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class SleepingPoisonAction implements ManagedOperation {
 
@@ -71,5 +72,10 @@ public class SleepingPoisonAction implements ManagedOperation {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.SLEEPING_POTION;
+	}
+
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.POISON;
 	}
 }
