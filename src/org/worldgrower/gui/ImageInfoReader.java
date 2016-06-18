@@ -437,6 +437,9 @@ public class ImageInfoReader {
 		add(ImageIds.ATAXIA, sprites420.getSubImage(2, 18, 1, 1));
 		add(ImageIds.FIRE_BALL, sprites420.getSubImage(4, 20, 1, 1));
 		add(ImageIds.MAJOR_ILLUSION_MAGIC_SPELL, sprites420.getSubImage(3, 19, 1, 1));
+		add(ImageIds.CUDGEL, sprites420.getSubImage(0, 9, 1, 1));
+		add(ImageIds.GOLDEN_AXE, sprites420.getSubImage(9, 10, 1, 1));
+		
     }
 
     private void resizeSmallFlowers() {

@@ -24,8 +24,10 @@ import java.util.Arrays;
 import java.util.prefs.Preferences;
 
 import javax.swing.AbstractAction;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
@@ -141,8 +143,12 @@ public class StartScreen implements SaveGameHandler {
 	private void showNewGamePopupMenu() {
 		JPopupMenu popupMenu = MenuFactory.createJPopupMenu();
 		
-		popupMenu.add(MenuFactory.createJMenuItem(new TutorialAction(), soundIdReader));
-		popupMenu.add(MenuFactory.createJMenuItem(new CustomGameAction(), soundIdReader));
+		JMenuItem tutorialMenuItem = MenuFactory.createJMenuItem(new TutorialAction(), soundIdReader);
+		tutorialMenuItem.setIcon(new ImageIcon(imageInfoReader.getImage(ImageIds.CUDGEL, null)));
+		popupMenu.add(tutorialMenuItem);
+		JMenuItem customGameMenuItem = MenuFactory.createJMenuItem(new CustomGameAction(), soundIdReader);
+		customGameMenuItem.setIcon(new ImageIcon(imageInfoReader.getImage(ImageIds.GOLDEN_AXE, null)));
+		popupMenu.add(customGameMenuItem);
 		
 		Point mouseLocation = MouseInfo.getPointerInfo().getLocation();
 		SwingUtilities.convertPointFromScreen(mouseLocation, frame);
