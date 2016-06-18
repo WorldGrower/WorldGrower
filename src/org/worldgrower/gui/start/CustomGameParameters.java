@@ -36,6 +36,27 @@ public class CustomGameParameters implements GameParameters {
 	private final int seed;
 	private final int startTurn;
 	
+	public CustomGameParameters() {
+		this.playerName = getDefaultUsername();
+		this.playerProfession = "adventurer";
+		this.gender = "male";
+		this.worldWidth = 100;
+		this.worldHeight = 100;
+		this.enemyDensity = 0;
+		this.villagerCount = 4;
+		this.seed = 666;
+		this.startTurn = 0;
+	}
+	
+	private String getDefaultUsername() {
+		String userName = System.getProperty("user.name");
+		if (userName != null && userName.length() > 0) {
+			return userName;
+		} else {
+			return "MyName";
+		}
+	}
+	
 	public CustomGameParameters(String playerName, String playerProfession, String gender, int worldWidth, int worldHeight, int enemyDensity, int villagerCount, int seed, int startTurn) {
 		this.playerName = playerName;
 		this.playerProfession = playerProfession;

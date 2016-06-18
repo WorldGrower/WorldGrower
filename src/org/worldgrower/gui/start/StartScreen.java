@@ -24,6 +24,7 @@ import java.util.Arrays;
 import java.util.prefs.Preferences;
 
 import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -143,16 +144,19 @@ public class StartScreen implements SaveGameHandler {
 	private void showNewGamePopupMenu() {
 		JPopupMenu popupMenu = MenuFactory.createJPopupMenu();
 		
-		JMenuItem tutorialMenuItem = MenuFactory.createJMenuItem(new TutorialAction(), soundIdReader);
-		tutorialMenuItem.setIcon(new ImageIcon(imageInfoReader.getImage(ImageIds.CUDGEL, null)));
-		popupMenu.add(tutorialMenuItem);
-		JMenuItem customGameMenuItem = MenuFactory.createJMenuItem(new CustomGameAction(), soundIdReader);
-		customGameMenuItem.setIcon(new ImageIcon(imageInfoReader.getImage(ImageIds.GOLDEN_AXE, null)));
-		popupMenu.add(customGameMenuItem);
+		popupMenu.add(createMenuItem(new TutorialAction(), ImageIds.CUDGEL));
+		popupMenu.add(createMenuItem(new StandardGameAction(), ImageIds.LARGE_CUDGEL));
+		popupMenu.add(createMenuItem(new CustomGameAction(), ImageIds.GOLDEN_AXE));
 		
 		Point mouseLocation = MouseInfo.getPointerInfo().getLocation();
 		SwingUtilities.convertPointFromScreen(mouseLocation, frame);
 		popupMenu.show(frame, mouseLocation.x, mouseLocation.y);
+	}
+	
+	private JMenuItem createMenuItem(Action action, ImageIds imageId) {
+		JMenuItem menuItem = MenuFactory.createJMenuItem(action, soundIdReader);
+		menuItem.setIcon(new ImageIcon(imageInfoReader.getImage(imageId, null)));
+		return menuItem;
 	}
 	
 	private class TutorialAction extends AbstractAction {
@@ -168,6 +172,27 @@ public class StartScreen implements SaveGameHandler {
 				public void run() {
 					try {
 						Game.run(new CharacterAttributes(10, 10, 10, 10, 10, 10), imageInfoReader, soundIdReader, musicPlayer, ImageIds.KNIGHT, new TutorialGameParameters(), keyBindings);
+					} catch (Exception e1) {
+						ExceptionHandler.handle(e1);
+					}
+				}
+			}.start();
+		}
+	}
+	
+	private class StandardGameAction extends AbstractAction {
+
+		public StandardGameAction() {
+			super("Standard Game");
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent event) {
+			frame.setVisible(false);
+			new Thread() {
+				public void run() {
+					try {
+						Game.run(new CharacterAttributes(12, 12, 12, 12, 12, 12), imageInfoReader, soundIdReader, musicPlayer, ImageIds.KNIGHT, new CustomGameParameters(), keyBindings);
 					} catch (Exception e1) {
 						ExceptionHandler.handle(e1);
 					}

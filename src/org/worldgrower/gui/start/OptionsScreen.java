@@ -105,6 +105,8 @@ public class OptionsScreen {
 		frame.getContentPane().setLayout(null);
 		IconUtils.setIcon(frame);
 		
+		CustomGameParameters customGameParameters = new CustomGameParameters();
+		
 		JLabel lblPlayerName = JLabelFactory.createJLabel("Character Name:");
 		lblPlayerName.setToolTipText(PLAYER_NAME_TOOL_TIP);
 		lblPlayerName.setBounds(25, 30, 191, 26);
@@ -112,7 +114,7 @@ public class OptionsScreen {
 		
 		playerNameTextField = JTextFieldFactory.createJTextField();
 		playerNameTextField.setToolTipText(PLAYER_NAME_TOOL_TIP);
-		playerNameTextField.setText(getDefaultUsername());
+		playerNameTextField.setText(customGameParameters.getPlayerName());
 		playerNameTextField.setBounds(228, 30, 137, 22);
 		contentPanel.add(playerNameTextField);
 		playerNameTextField.setColumns(10);
@@ -147,7 +149,7 @@ public class OptionsScreen {
 		
 		worldWidthTextField = JTextFieldFactory.createJTextField();
 		worldWidthTextField.setToolTipText(WORLD_WIDTH_TOOL_TIP);
-		worldWidthTextField.setText("100");
+		worldWidthTextField.setText(Integer.toString(customGameParameters.getWorldWidth()));
 		worldWidthTextField.setBounds(228, 234, 137, 22);
 		contentPanel.add(worldWidthTextField);
 		worldWidthTextField.setColumns(10);
@@ -159,7 +161,7 @@ public class OptionsScreen {
 		
 		worldHeightTextField = JTextFieldFactory.createJTextField();
 		worldHeightTextField.setToolTipText(WORLD_HEIGHT_TOOL_TIP);
-		worldHeightTextField.setText("100");
+		worldHeightTextField.setText(Integer.toString(customGameParameters.getWorldHeight()));
 		worldHeightTextField.setColumns(10);
 		worldHeightTextField.setBounds(228, 271, 137, 22);
 		contentPanel.add(worldHeightTextField);
@@ -171,7 +173,7 @@ public class OptionsScreen {
 		
 		numberOfEnemiesTextField = JTextFieldFactory.createJTextField();
 		numberOfEnemiesTextField.setToolTipText(MONSTER_DENSITY_TOOL_TIP);
-		numberOfEnemiesTextField.setText("0");
+		numberOfEnemiesTextField.setText(Integer.toString(customGameParameters.getEnemyDensity()));
 		numberOfEnemiesTextField.setColumns(10);
 		numberOfEnemiesTextField.setBounds(228, 310, 137, 22);
 		contentPanel.add(numberOfEnemiesTextField);
@@ -183,7 +185,7 @@ public class OptionsScreen {
 		
 		numberOfVillagersTextField = JTextFieldFactory.createJTextField();
 		numberOfVillagersTextField.setToolTipText(NUMBER_OF_VILLAGERS_TOOL_TIP);
-		numberOfVillagersTextField.setText("4");
+		numberOfVillagersTextField.setText(Integer.toString(customGameParameters.getVillagerCount()));
 		numberOfVillagersTextField.setColumns(10);
 		numberOfVillagersTextField.setBounds(228, 352, 137, 22);
 		contentPanel.add(numberOfVillagersTextField);
@@ -244,7 +246,7 @@ public class OptionsScreen {
 		
 		playerProfessionTextField = JTextFieldFactory.createJTextField();
 		playerProfessionTextField.setToolTipText(CHARACTER_PROFESSION_TOOL_TIP);
-		playerProfessionTextField.setText("adventurer");
+		playerProfessionTextField.setText(customGameParameters.getPlayerProfession());
 		playerProfessionTextField.setColumns(10);
 		playerProfessionTextField.setBounds(228, 69, 137, 22);
 		contentPanel.add(playerProfessionTextField);
@@ -256,7 +258,7 @@ public class OptionsScreen {
 		
 		seedTextField = JTextFieldFactory.createJTextField();
 		seedTextField.setToolTipText(SEED_TOOL_TIP);
-		seedTextField.setText("666");
+		seedTextField.setText(Integer.toString(customGameParameters.getSeed()));
 		seedTextField.setColumns(10);
 		seedTextField.setBounds(228, 394, 137, 22);
 		contentPanel.add(seedTextField);
@@ -280,7 +282,7 @@ public class OptionsScreen {
 		
 		startTurnTextField = JTextFieldFactory.createJTextField();
 		startTurnTextField.setToolTipText(START_TURN_TOOL_TIP);
-		startTurnTextField.setText("0");
+		startTurnTextField.setText(Integer.toString(customGameParameters.getStartTurn()));
 		startTurnTextField.setColumns(10);
 		startTurnTextField.setBounds(228, 433, 137, 22);
 		contentPanel.add(startTurnTextField);
@@ -293,15 +295,6 @@ public class OptionsScreen {
 				startScreen.setVisible(true);
 			}
 		});
-	}
-	
-	private String getDefaultUsername() {
-		String userName = System.getProperty("user.name");
-		if (userName != null && userName.length() > 0) {
-			return userName;
-		} else {
-			return "MyName";
-		}
 	}
 	
 	private List<String> validateInput() {
