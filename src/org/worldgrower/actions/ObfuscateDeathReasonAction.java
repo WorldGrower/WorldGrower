@@ -24,6 +24,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.goal.DeathReasonPropertyUtils;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class ObfuscateDeathReasonAction implements ManagedOperation {
 
@@ -73,5 +74,10 @@ public class ObfuscateDeathReasonAction implements ManagedOperation {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.SKELETAL_REMAINS;
+	}
+
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.DYING;
 	}
 }

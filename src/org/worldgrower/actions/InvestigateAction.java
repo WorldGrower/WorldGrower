@@ -27,6 +27,7 @@ import org.worldgrower.attribute.KnowledgeMap;
 import org.worldgrower.attribute.Location;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class InvestigateAction implements ManagedOperation {
 
@@ -131,4 +132,9 @@ public class InvestigateAction implements ManagedOperation {
 		
 		return (illusion > insight);
 	}
+
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.RUSTLE3;
+	}	
 }

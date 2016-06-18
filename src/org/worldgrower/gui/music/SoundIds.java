@@ -63,5 +63,9 @@ public enum SoundIds {
 	ZAP2G,
 	RANDOM1,
 	HANDLE_SMALL_LEATHER,
-	MOVE
+	MOVE,
+	RUSTLE3,
+	KISS,
+	DYING,
+	SHOVEL
 }

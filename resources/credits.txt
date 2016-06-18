@@ -121,6 +121,16 @@ zap2g8bit.wav.gz
 
 Sound Effects by qubodup at http://opengameart.org/content/20-rustles-dry-leaves:
 rustle018bit.wav.gz
+rustle038bit.wav.gz
 
 Sound Effects by Augmentality (Brandon Morris) at http://opengameart.org/content/random-sounds-samples:
 full steps stereo8bit.wav.gz
+
+Sound Effects by gflower at http://www.freesound.org/people/gflower/sounds/179303/:
+179303__gflower__perfect-kiss8bit.wav.gz
+
+Sound Effects by  Little Robot Sound Factory at www.littlerobotsoundfactory.com (http://opengameart.org/content/voices-sound-effects-library):
+Human_DyingBreath_018bit.wav.gz
+
+Sound Effects: Shovel Spell by Iwan 'qubodup' Gabovitch http://opengameart.org/users/qubodup at http://opengameart.org/content/shovel-spell:
+qubodupshovelSpell18bit.wav.gz

@@ -21,6 +21,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class LearnMagicSpellFromBookAction extends InventoryAction {
 
@@ -66,5 +67,10 @@ public class LearnMagicSpellFromBookAction extends InventoryAction {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.SPELL_BOOK;
+	}
+	
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.PAPER;
 	}
 }

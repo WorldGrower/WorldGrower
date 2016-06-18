@@ -23,6 +23,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.generator.PlantGenerator;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class PlantGrapeVineAction implements BuildAction {
 
@@ -84,5 +85,10 @@ public class PlantGrapeVineAction implements BuildAction {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.GRAPE_VINE;
+	}
+	
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.SHOVEL;
 	}
 }

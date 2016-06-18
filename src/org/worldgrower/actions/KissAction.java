@@ -25,6 +25,7 @@ import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.RacePropertyUtils;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class KissAction implements ManagedOperation {
 
@@ -79,5 +80,10 @@ public class KissAction implements ManagedOperation {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.HEART;
+	}
+
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.KISS;
 	}
 }

@@ -81,6 +81,11 @@ public class SoundIdReader {
 		readSound(SoundIds.RANDOM1, "/sound/random18bit.wav.gz");
 		readSound(SoundIds.HANDLE_SMALL_LEATHER, "/sound/handleSmallLeather8bit.wav.gz");
 		readSound(SoundIds.MOVE, "/sound/full steps stereo8bit.wav.gz");
+		readSound(SoundIds.RUSTLE3, "/sound/rustle038bit.wav.gz");
+		readSound(SoundIds.KISS, "/sound/179303__gflower__perfect-kiss8bit.wav.gz");
+		readSound(SoundIds.DYING, "/sound/Human_DyingBreath_018bit.wav.gz");
+		readSound(SoundIds.SHOVEL, "/sound/qubodupshovelSpell18bit.wav.gz");
+		
 		
 		this.enabled = enabled;
 	}

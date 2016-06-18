@@ -106,6 +106,7 @@ public class SecretChestAction implements MagicSpell {
 		return ImageIds.CHEST;
 	}
 	
+	@Override
 	public SoundIds getSoundId() {
 		return SoundIds.TELEPORT;
 	}

@@ -17,12 +17,14 @@ package org.worldgrower.actions;
 import java.io.ObjectStreamException;
 
 import org.worldgrower.Constants;
+import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.generator.PlantGenerator;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class PlantBerryBushAction implements BuildAction {
 
@@ -86,4 +88,9 @@ public class PlantBerryBushAction implements BuildAction {
 	public ImageIds getImageIds() {
 		return ImageIds.BUSH;
 	}
+
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.SHOVEL;
+	}	
 }

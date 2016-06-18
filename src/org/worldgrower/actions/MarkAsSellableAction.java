@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class MarkAsSellableAction implements ManagedOperation {
 
@@ -73,5 +74,10 @@ public class MarkAsSellableAction implements ManagedOperation {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.SILVER_COIN;
+	}
+	
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.HANDLE_COINS;
 	}
 }

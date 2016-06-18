@@ -22,6 +22,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.generator.PlantGenerator;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class PlantTreeAction implements BuildAction {
 
@@ -81,5 +82,10 @@ public class PlantTreeAction implements BuildAction {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.TREE;
+	}
+	
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.SHOVEL;
 	}
 }
