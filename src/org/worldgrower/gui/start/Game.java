@@ -231,7 +231,7 @@ public class Game {
         
         ToolTipManager.sharedInstance().setDismissDelay(9999999);
         
-        worldPanel.addGuiListeners(additionalManagedOperationListenerFactory);
+        worldPanel.addGuiListeners(additionalManagedOperationListenerFactory, frame);
         
         musicPlayer.play();
     }
@@ -292,7 +292,7 @@ public class Game {
 	private static void checkToSkipTurn(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, WorldPanel worldPanel, SoundIdReader soundIdReader) {
 		while (!playerCharacter.getProperty(Constants.CONDITIONS).canTakeAction()) {
 			String text = "You can't take any actions. Your player character will skip its turn.";			
-			new ShowTextDialog(text, soundIdReader).showMe();
+			new ShowTextDialog(text, soundIdReader, frame).showMe();
 			runWorld(playerCharacter, world, dungeonMaster, worldPanel);
 		}
 	}

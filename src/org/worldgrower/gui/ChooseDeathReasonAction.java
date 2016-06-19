@@ -18,6 +18,7 @@ import java.awt.event.ActionEvent;
 import java.util.Arrays;
 
 import javax.swing.AbstractAction;
+import javax.swing.JFrame;
 
 import org.worldgrower.DungeonMaster;
 import org.worldgrower.World;
@@ -37,8 +38,9 @@ public class ChooseDeathReasonAction extends AbstractAction {
 	private WorldPanel parent;
 	private DungeonMaster dungeonMaster;
 	private WorldObject target;
+	private JFrame parentFrame;
 	
-	public ChooseDeathReasonAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, World world, WorldPanel parent, DungeonMaster dungeonMaster, WorldObject target) {
+	public ChooseDeathReasonAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, World world, WorldPanel parent, DungeonMaster dungeonMaster, WorldObject target, JFrame parentFrame) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.imageInfoReader = imageInfoReader;
@@ -47,12 +49,13 @@ public class ChooseDeathReasonAction extends AbstractAction {
 		this.parent = parent;
 		this.dungeonMaster = dungeonMaster;
 		this.target = target;
+		this.parentFrame = parentFrame;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String[] deathReasons = DeathReasonPropertyUtils.getAllDeathReasons().toArray(new String[0]);
-		String deathReason = new ListInputDialog("Choose Death Reason", deathReasons, soundIdReader).showMe();
+		String deathReason = new ListInputDialog("Choose Death Reason", deathReasons, soundIdReader, parentFrame).showMe();
 		if (deathReason != null) {
 			int indexOfDeathReason = Arrays.asList(deathReasons).indexOf(deathReason);
 			

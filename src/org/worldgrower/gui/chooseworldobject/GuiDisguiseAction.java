@@ -18,6 +18,7 @@ import java.awt.event.ActionEvent;
 import java.util.List;
 
 import javax.swing.AbstractAction;
+import javax.swing.JFrame;
 
 import org.worldgrower.DungeonMaster;
 import org.worldgrower.World;
@@ -37,8 +38,9 @@ public class GuiDisguiseAction extends AbstractAction {
 	private WorldPanel parent;
 	private DungeonMaster dungeonMaster;
 	private DisguiseTargetFactory disguiseAction;
+	private JFrame parentFrame;
 	
-	public GuiDisguiseAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, World world, WorldPanel parent, DungeonMaster dungeonMaster, DisguiseTargetFactory disguiseAction) {
+	public GuiDisguiseAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, World world, WorldPanel parent, DungeonMaster dungeonMaster, DisguiseTargetFactory disguiseAction, JFrame parentFrame) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.imageInfoReader = imageInfoReader;
@@ -47,6 +49,7 @@ public class GuiDisguiseAction extends AbstractAction {
 		this.parent = parent;
 		this.dungeonMaster = dungeonMaster;
 		this.disguiseAction = disguiseAction;
+		this.parentFrame = parentFrame;
 	}
 
 	@Override
@@ -54,7 +57,7 @@ public class GuiDisguiseAction extends AbstractAction {
 		
 		List<WorldObject> disguiseWorldObjects = disguiseAction.getDisguiseTargets(playerCharacter, world);
 		
-		dialog = new DisguiseDialog(playerCharacter, imageInfoReader, soundIdReader, disguiseWorldObjects, parent, world, dungeonMaster, disguiseAction);
+		dialog = new DisguiseDialog(playerCharacter, imageInfoReader, soundIdReader, disguiseWorldObjects, parent, world, dungeonMaster, disguiseAction, parentFrame);
 		dialog.showMe();
 	}
 }

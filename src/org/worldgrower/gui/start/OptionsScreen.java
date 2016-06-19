@@ -98,9 +98,11 @@ public class OptionsScreen {
 		contentPanel.setLocation(0, 0);
 		contentPanel.setLayout(null);
 		frame.setUndecorated(true);
-		contentPanel.setSize(new Dimension(414, 580));
+		int width = 500;
+		int height = 580;
+		contentPanel.setSize(new Dimension(width, height));
 		frame.getContentPane().add(contentPanel);
-		frame.setSize(new Dimension(414, 580));
+		frame.setSize(new Dimension(width, height));
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -227,11 +229,12 @@ public class OptionsScreen {
 					}
 				} else {
 					StringBuilder buffer = new StringBuilder();
-					buffer.append("Problem validating input fields:\n");
+					buffer.append("<html>Problem validating input fields:<br>");
 					for(String error : errors) {
-						buffer.append(error).append("\n");
+						buffer.append(error).append("<br>");
 					}
-					new ShowTextDialog(buffer.toString(), soundIdReader).showMe();
+					buffer.append("</html");
+					new ShowTextDialog(buffer.toString(), soundIdReader, frame).showMe();
 				}
 			}
 		});

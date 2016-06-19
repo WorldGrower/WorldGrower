@@ -28,6 +28,7 @@ import java.util.Map;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -49,8 +50,9 @@ import org.worldgrower.gui.WorldPanel;
 import org.worldgrower.gui.debug.PropertiesModel;
 import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.start.Game;
-import org.worldgrower.gui.util.JButtonFactory;
+import org.worldgrower.gui.util.DialogUtils;
 import org.worldgrower.gui.util.IconUtils;
+import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JRadioButtonFactory;
 import org.worldgrower.gui.util.JTableFactory;
 
@@ -72,7 +74,7 @@ public class DisguiseDialog extends JDialog {
 	private ManagedOperation disguiseAction;
 	private final SoundIdReader soundIdReader;
 
-	public DisguiseDialog(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, List<WorldObject> disguiseWorldObjects, WorldPanel parent, World world, DungeonMaster dungeonMaster, ManagedOperation disguiseAction) {
+	public DisguiseDialog(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, List<WorldObject> disguiseWorldObjects, WorldPanel parent, World world, DungeonMaster dungeonMaster, ManagedOperation disguiseAction, JFrame parentFrame) {
 		this.playerCharacter = playerCharacter;
 		this.world = world;
 		this.parent = parent;
@@ -80,7 +82,7 @@ public class DisguiseDialog extends JDialog {
 		this.disguiseAction = disguiseAction;
 		this.soundIdReader = soundIdReader;
 		
-		initializeGui(parent, disguiseWorldObjects, imageInfoReader);
+		initializeGui(parent, disguiseWorldObjects, imageInfoReader, parentFrame);
 		
 		transferDataToScreen(playerCharacter, disguiseWorldObjects);
 		handleActions();
@@ -121,8 +123,11 @@ public class DisguiseDialog extends JDialog {
 		return selectedIndex;
 	}
 
-	private void initializeGui(Component parent, List<WorldObject> disguiseWorldObjects, ImageInfoReader imageInfoReader) {
-		setBounds(100, 100, 644, 502);
+	private void initializeGui(Component parent, List<WorldObject> disguiseWorldObjects, ImageInfoReader imageInfoReader, JFrame parentFrame) {
+		int width = 644;
+		int height = 502;
+		setBounds(100, 100, width, height);
+		contentPanel.setPreferredSize(getSize());
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -177,6 +182,8 @@ public class DisguiseDialog extends JDialog {
 		table.setEnabled(false);
 		
 		this.setLocationRelativeTo(parent);
+		SwingUtils.installEscapeCloseOperation(this);
+		DialogUtils.createDialogBackPanel(this, parentFrame.getContentPane());
 	}
 
 	public void showMe() {

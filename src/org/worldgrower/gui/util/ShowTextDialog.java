@@ -19,6 +19,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -27,7 +28,7 @@ import org.worldgrower.gui.music.SoundIdReader;
 
 public class ShowTextDialog extends AbstractDialog {
 
-	public ShowTextDialog(String value, SoundIdReader soundIdReader) {
+	public ShowTextDialog(String value, SoundIdReader soundIdReader, JFrame parentFrame) {
 		super(450, 160);
 		
 		JLabel label = JLabelFactory.createJLabel(value);
@@ -46,6 +47,7 @@ public class ShowTextDialog extends AbstractDialog {
 		getRootPane().setDefaultButton(okButton);
 
 		addActions(okButton);
+		DialogUtils.createDialogBackPanel(this, parentFrame.getContentPane());
 	}
 	
 	public void showMe() {

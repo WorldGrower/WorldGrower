@@ -18,12 +18,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import org.worldgrower.gui.music.SoundIdReader;
+import org.worldgrower.gui.util.DialogUtils;
 import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JLabelFactory;
 import org.worldgrower.gui.util.JListFactory;
@@ -32,7 +34,7 @@ public class AssignActionLeftMouseDialog extends AbstractDialog {
 
 	private String selectedAction = null;
 
-	public AssignActionLeftMouseDialog(String[] actionDescriptions, SoundIdReader soundIdReader) {
+	public AssignActionLeftMouseDialog(String[] actionDescriptions, SoundIdReader soundIdReader, JFrame parentFrame) {
 		super(450, 475);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -62,6 +64,7 @@ public class AssignActionLeftMouseDialog extends AbstractDialog {
 		buttonPane.add(cancelButton);
 		
 		addActions(list, okButton, cancelButton);
+		DialogUtils.createDialogBackPanel(this, parentFrame.getContentPane());
 	}
 	
 	public String showMe() {

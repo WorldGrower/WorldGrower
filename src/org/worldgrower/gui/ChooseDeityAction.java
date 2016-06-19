@@ -18,6 +18,7 @@ import java.awt.event.ActionEvent;
 import java.util.Arrays;
 
 import javax.swing.AbstractAction;
+import javax.swing.JFrame;
 
 import org.worldgrower.DungeonMaster;
 import org.worldgrower.World;
@@ -36,8 +37,9 @@ public class ChooseDeityAction extends AbstractAction {
 	private World world;
 	private WorldPanel parent;
 	private DungeonMaster dungeonMaster;
+	private JFrame parentFrame;
 	
-	public ChooseDeityAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, World world, WorldPanel parent, DungeonMaster dungeonMaster) {
+	public ChooseDeityAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, World world, WorldPanel parent, DungeonMaster dungeonMaster, JFrame parentFrame) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.imageInfoReader = imageInfoReader;
@@ -45,12 +47,13 @@ public class ChooseDeityAction extends AbstractAction {
 		this.world = world;
 		this.parent = parent;
 		this.dungeonMaster = dungeonMaster;
+		this.parentFrame = parentFrame;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String[] deityNames = Deity.getAllDeityNames().toArray(new String[0]);
-		String deityName = new ListInputDialog("Choose Deity", deityNames, soundIdReader).showMe();
+		String deityName = new ListInputDialog("Choose Deity", deityNames, soundIdReader, parentFrame).showMe();
 		if (deityName != null) {
 			int indexOfDeity = Arrays.asList(deityNames).indexOf(deityName);
 			

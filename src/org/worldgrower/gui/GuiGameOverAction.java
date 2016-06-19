@@ -14,6 +14,8 @@
  *******************************************************************************/
 package org.worldgrower.gui;
 
+import javax.swing.JFrame;
+
 import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.ManagedOperationListener;
@@ -34,8 +36,9 @@ public class GuiGameOverAction implements ManagedOperationListener {
 	private SoundIdReader soundIdReader;
 	private MusicPlayer musicPlayer;
 	private KeyBindings keyBindings;
+	private JFrame parentFrame;
 	
-	public GuiGameOverAction(WorldObject playerCharacter, World world, WorldPanel container, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, MusicPlayer musicPlayer, KeyBindings keyBindings) {
+	public GuiGameOverAction(WorldObject playerCharacter, World world, WorldPanel container, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, MusicPlayer musicPlayer, KeyBindings keyBindings, JFrame parentFrame) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.world = world;
@@ -44,6 +47,7 @@ public class GuiGameOverAction implements ManagedOperationListener {
 		this.soundIdReader = soundIdReader;
 		this.musicPlayer = musicPlayer;
 		this.keyBindings = keyBindings;
+		this.parentFrame = parentFrame;
 		
 		world.addListener(this);
 	}
@@ -52,7 +56,7 @@ public class GuiGameOverAction implements ManagedOperationListener {
 	public void actionPerformed(ManagedOperation managedOperation, WorldObject performer, WorldObject target, int[] args, Object value) {
 		if (playerCharacter.getProperty(Constants.HIT_POINTS) <= 0) {
 			String text = "Your hit points are reduced to zero, the game is over";			
-			new ShowTextDialog(text, soundIdReader).showMe();
+			new ShowTextDialog(text, soundIdReader, parentFrame).showMe();
 			Game.closeMainPanel();
 			new ShowStartScreenAction(container, imageInfoReader, soundIdReader, musicPlayer, keyBindings, world).actionPerformed(null);
 		}

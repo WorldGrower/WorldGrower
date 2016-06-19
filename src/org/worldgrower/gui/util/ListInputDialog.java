@@ -21,6 +21,7 @@ import java.awt.event.ActionListener;
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -32,12 +33,12 @@ public class ListInputDialog extends AbstractDialog {
 	private String value = null;
 	private JComboBox<String> comboBox;
 	
-	public ListInputDialog(String question, String[] list, SoundIdReader soundIdReader) {
-		this(question, null, list, soundIdReader);
+	public ListInputDialog(String question, String[] list, SoundIdReader soundIdReader, JFrame parentFrame) {
+		this(question, null, list, soundIdReader, parentFrame);
 	}
 	
 	//TODO: use icon
-	public ListInputDialog(String question, Icon icon, String[] list, SoundIdReader soundIdReader) {
+	public ListInputDialog(String question, Icon icon, String[] list, SoundIdReader soundIdReader, JFrame parentFrame) {
 		super(450, 210);
 		
 		JLabel label = JLabelFactory.createJLabel(question);
@@ -64,6 +65,7 @@ public class ListInputDialog extends AbstractDialog {
 		buttonPane.add(cancelButton);
 		
 		addActions(okButton, cancelButton);
+		DialogUtils.createDialogBackPanel(this, parentFrame.getContentPane());
 	}
 	
 	public String showMe() {

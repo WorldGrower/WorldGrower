@@ -563,12 +563,12 @@ public final class WorldPanel extends JPanel {
 		return worldObject;
 	}
 
-	public void addGuiListeners(AdditionalManagedOperationListenerFactory additionalManagedOperationListenerFactory) {
+	public void addGuiListeners(AdditionalManagedOperationListenerFactory additionalManagedOperationListenerFactory, JFrame parentFrame) {
 		new GuiRespondToQuestion(playerCharacter, world, imageInfoReader, soundIdReader);
 		new GuiShowReadAction(playerCharacter, world, this, imageInfoReader);
-		new GuiShowBrawlResult(imageInfoReader, soundIdReader, this, world);
-		new GuiShowDrinkingContestResult(imageInfoReader, soundIdReader, this, world);
-		new GuiGameOverAction(playerCharacter, world, this, imageInfoReader, soundIdReader, musicPlayer, keyBindings);
+		new GuiShowBrawlResult(imageInfoReader, soundIdReader, this, world, parentFrame);
+		new GuiShowDrinkingContestResult(imageInfoReader, soundIdReader, this, world, parentFrame);
+		new GuiGameOverAction(playerCharacter, world, this, imageInfoReader, soundIdReader, musicPlayer, keyBindings, parentFrame);
 		world.addWorldStateChangedListener(createWorldStateChangedListener());
 		
 		List<ManagedOperationListener> additionalManagedOperationListeners = additionalManagedOperationListenerFactory.create(world, this, imageInfoReader);
