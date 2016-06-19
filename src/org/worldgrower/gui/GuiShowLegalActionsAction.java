@@ -25,6 +25,7 @@ import java.util.Map;
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -40,6 +41,7 @@ import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.LegalActionsPropertyUtils;
 import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.start.Game;
+import org.worldgrower.gui.util.DialogUtils;
 import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.JTableFactory;
@@ -50,14 +52,16 @@ public class GuiShowLegalActionsAction extends AbstractAction {
 	private final World world;
 	private final WorldPanel parent;
 	private final SoundIdReader soundIdReader;
+	private final JFrame parentFrame;
 	
-	public GuiShowLegalActionsAction(WorldObject playerCharacter, DungeonMaster dungeonMaster, World world, WorldPanel parent, SoundIdReader soundIdReader) {
+	public GuiShowLegalActionsAction(WorldObject playerCharacter, DungeonMaster dungeonMaster, World world, WorldPanel parent, SoundIdReader soundIdReader, JFrame parentFrame) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.dungeonMaster = dungeonMaster;
 		this.world = world;
 		this.parent = parent;
 		this.soundIdReader = soundIdReader;
+		this.parentFrame = parentFrame;
 	}
 
 	@Override
@@ -88,6 +92,7 @@ public class GuiShowLegalActionsAction extends AbstractAction {
 		SwingUtils.makeTransparant(table, scrollPane);
 		
 		dialog.setLocationRelativeTo(null);
+		DialogUtils.createDialogBackPanel(dialog, parentFrame.getContentPane());
 		dialog.setVisible(true);
 	}
 	

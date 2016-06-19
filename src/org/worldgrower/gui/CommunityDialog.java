@@ -24,6 +24,7 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -40,6 +41,7 @@ import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdMap;
 import org.worldgrower.attribute.KnowledgeMap;
 import org.worldgrower.deity.Deity;
+import org.worldgrower.gui.util.DialogUtils;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.JLabelFactory;
 import org.worldgrower.gui.util.JTableFactory;
@@ -51,13 +53,16 @@ public class CommunityDialog extends JDialog {
 	private JTable tlbChildren;
 	private JTable tblAcquaintances;
 	
-	public CommunityDialog(WorldObject playerCharacter, ImageInfoReader imageInfoReader, World world) {
+	public CommunityDialog(WorldObject playerCharacter, ImageInfoReader imageInfoReader, World world, JFrame parentFrame) {
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		IconUtils.setIcon(this);
 		setResizable(false);
 		setTitle("Community Overview");
 		
-		setSize(542, 705);
+		int width = 542;
+		int height = 705;
+		setSize(width, height);
+		getContentPane().setPreferredSize(getSize());
 		setLocationRelativeTo(null);
 		
 		getContentPane().setLayout(new BorderLayout());
@@ -121,6 +126,7 @@ public class CommunityDialog extends JDialog {
 		getRootPane().setDefaultButton(okButton);
 
 		SwingUtils.installEscapeCloseOperation(this);
+		DialogUtils.createDialogBackPanel(this, parentFrame.getContentPane());
 	}
 	
 	private final class CloseDialogAction implements ActionListener {

@@ -113,12 +113,12 @@ public class GuiMouseListener extends MouseAdapter {
 		characterSheetAction = new CharacterSheetAction(playerCharacter, imageInfoReader, soundIdReader, world, parentFrame);
 		inventoryAction = new ShowInventoryAction(playerCharacter, imageInfoReader, soundIdReader, world, dungeonMaster, container, parentFrame);
 		magicOverviewAction = new MagicOverviewAction(playerCharacter, imageInfoReader, soundIdReader, parentFrame);
-		restAction = new RestAction(playerCharacter, imageInfoReader, soundIdReader, world, (WorldPanel)container, dungeonMaster);
-		createOrganizationAction = new GuiShowOrganizationsAction(playerCharacter, world, container, imageInfoReader, soundIdReader);
+		restAction = new RestAction(playerCharacter, imageInfoReader, soundIdReader, world, (WorldPanel)container, dungeonMaster, parentFrame);
+		createOrganizationAction = new GuiShowOrganizationsAction(playerCharacter, world, container, imageInfoReader, soundIdReader, parentFrame);
 		showStatusMessagesAction = new ShowStatusMessagesAction(container);
 		assignActionToLeftMouseAction = getGuiAssignActionToLeftMouseAction();
 		showCharacterActionsAction = new ShowCharacterActionsAction();
-		communityOverviewAction = new CommunityOverviewAction(playerCharacter, imageInfoReader, world);
+		communityOverviewAction = new CommunityOverviewAction(playerCharacter, imageInfoReader, world, parentFrame);
 		addKeyBindings(keyBindings);
 	}
 
@@ -305,7 +305,7 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 	
 	private void addShowLegalActionsMenu(JMenu menu) {
-		JMenuItem showLegalActionsMenuItem = MenuFactory.createJMenuItem(new GuiShowLegalActionsAction(playerCharacter, dungeonMaster, world, container, soundIdReader), soundIdReader);
+		JMenuItem showLegalActionsMenuItem = MenuFactory.createJMenuItem(new GuiShowLegalActionsAction(playerCharacter, dungeonMaster, world, container, soundIdReader, parentFrame), soundIdReader);
 		showLegalActionsMenuItem.setText("Show legal actions...");
 		setMenuIcon(showLegalActionsMenuItem, Actions.SET_LEGAL_ACTIONS_ACTION.getImageIds());
 		menu.add(showLegalActionsMenuItem);
@@ -388,7 +388,7 @@ public class GuiMouseListener extends MouseAdapter {
 	
 	private void addResearchActions(JPopupMenu menu, WorldObject worldObject) {
 		if (ResearchSpellAction.isValidTarget(worldObject) && Actions.getMagicSpellsToResearch(playerCharacter).size() > 0) {
-			JMenuItem guiResearchMagicSpellMenuItem = MenuFactory.createJMenuItem(new GuiResearchMagicSpellAction(playerCharacter, imageInfoReader, soundIdReader, world, container, dungeonMaster, worldObject), soundIdReader);
+			JMenuItem guiResearchMagicSpellMenuItem = MenuFactory.createJMenuItem(new GuiResearchMagicSpellAction(playerCharacter, imageInfoReader, soundIdReader, world, container, dungeonMaster, worldObject, parentFrame), soundIdReader);
 			guiResearchMagicSpellMenuItem.setText("Research...");
 			setMenuIcon(guiResearchMagicSpellMenuItem, ImageIds.SPELL_BOOK);
 			menu.add(guiResearchMagicSpellMenuItem);
@@ -397,7 +397,7 @@ public class GuiMouseListener extends MouseAdapter {
 	
 	private void addRestActions(JPopupMenu menu, WorldObject worldObject) {
 		if (Game.canActionExecute(playerCharacter, Actions.SLEEP_ACTION, Args.EMPTY, world, worldObject)) {
-			JMenuItem restMultipleTurnsMenuItem = MenuFactory.createJMenuItem(new GuiRestMultipleTurnsAction(playerCharacter, imageInfoReader, soundIdReader, world, container, dungeonMaster, worldObject), soundIdReader);
+			JMenuItem restMultipleTurnsMenuItem = MenuFactory.createJMenuItem(new GuiRestMultipleTurnsAction(playerCharacter, imageInfoReader, soundIdReader, world, container, dungeonMaster, worldObject, parentFrame), soundIdReader);
 			restMultipleTurnsMenuItem.setText("Sleep multiple turns...");
 			setMenuIcon(restMultipleTurnsMenuItem, ImageIds.SLEEPING_INDICATOR);
 			menu.add(restMultipleTurnsMenuItem);

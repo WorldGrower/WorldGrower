@@ -17,6 +17,7 @@ package org.worldgrower.gui;
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
+import javax.swing.JFrame;
 
 import org.worldgrower.Args;
 import org.worldgrower.DungeonMaster;
@@ -36,8 +37,9 @@ public class RestAction extends AbstractAction {
 	private World world;
 	private WorldPanel parent;
 	private DungeonMaster dungeonMaster;
+	private JFrame parentFrame;
 	
-	public RestAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, World world, WorldPanel parent, DungeonMaster dungeonMaster) {
+	public RestAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, World world, WorldPanel parent, DungeonMaster dungeonMaster, JFrame parentFrame) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.imageInfoReader = imageInfoReader;
@@ -45,12 +47,13 @@ public class RestAction extends AbstractAction {
 		this.world = world;
 		this.parent = parent;
 		this.dungeonMaster = dungeonMaster;
+		this.parentFrame = parentFrame;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		String turnsString = new TextInputDialog("Rest how many turns?", true, soundIdReader).showMe();
+		String turnsString = new TextInputDialog("Rest how many turns?", true, soundIdReader, parentFrame).showMe();
 		if ((turnsString != null) && (NumberUtils.isNumeric(turnsString) && turnsString.length() > 0)) {
 			int turns = Integer.parseInt(turnsString);
 			

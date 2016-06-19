@@ -21,6 +21,7 @@ import java.util.List;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 
 import org.worldgrower.Args;
 import org.worldgrower.Constants;
@@ -48,8 +49,9 @@ public class InventoryActionFactory {
 	private DungeonMaster dungeonMaster;
 	private WorldPanel container;
 	private WorldObject target;
+	private JFrame parentFrame;
 	
-	public InventoryActionFactory(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, World world, DungeonMaster dungeonMaster, WorldPanel container, WorldObject target) {
+	public InventoryActionFactory(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, World world, DungeonMaster dungeonMaster, WorldPanel container, WorldObject target, JFrame parentFrame) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.imageInfoReader = imageInfoReader;
@@ -58,6 +60,7 @@ public class InventoryActionFactory {
 		this.dungeonMaster = dungeonMaster;
 		this.container = container;
 		this.target = target;
+		this.parentFrame = parentFrame;
 	}
 	
 	public InventoryActionFactory setDialog(InventoryDialog dialog) {
@@ -135,7 +138,7 @@ public class InventoryActionFactory {
 		@Override
 		public void actionPerformed(ActionEvent actionEvent) {
 			int targetGold = target.getProperty(Constants.GOLD).intValue();
-			TextInputDialog textInputDialog = new TextInputDialog("Steal how much money (1-" + targetGold + ")?", true, soundIdReader);
+			TextInputDialog textInputDialog = new TextInputDialog("Steal how much money (1-" + targetGold + ")?", true, soundIdReader, parentFrame);
 			String input = textInputDialog.showMe();
 			if (input != null && input.length() > 0 && NumberUtils.isNumeric(input)) {
 				int amount = Integer.parseInt(input);

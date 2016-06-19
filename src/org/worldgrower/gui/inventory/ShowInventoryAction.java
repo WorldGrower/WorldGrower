@@ -50,7 +50,7 @@ public class ShowInventoryAction extends AbstractAction {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		InventoryActionFactory inventoryActionFactory = new InventoryActionFactory(playerCharacter, imageInfoReader, soundIdReader, world, dungeonMaster, container, null);
+		InventoryActionFactory inventoryActionFactory = new InventoryActionFactory(playerCharacter, imageInfoReader, soundIdReader, world, dungeonMaster, container, null, parentFrame);
 		dialog = new InventoryDialog(new InventoryDialogModel(playerCharacter), imageInfoReader, soundIdReader, inventoryActionFactory, parentFrame);
 		inventoryActionFactory.setDialog(dialog);
 		dialog.showMe();

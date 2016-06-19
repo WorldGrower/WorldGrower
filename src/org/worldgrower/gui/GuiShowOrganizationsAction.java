@@ -27,6 +27,7 @@ import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -40,6 +41,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.gui.music.SoundIdReader;
+import org.worldgrower.gui.util.DialogUtils;
 import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JTableFactory;
 import org.worldgrower.gui.util.JTreeFactory;
@@ -50,19 +52,21 @@ public class GuiShowOrganizationsAction extends AbstractAction {
 	private final WorldPanel parent;
 	private final ImageInfoReader imageInfoReader;
 	private final SoundIdReader soundIdReader;
+	private final JFrame parentFrame;
 	
-	public GuiShowOrganizationsAction(WorldObject playerCharacter, World world, WorldPanel parent, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader) {
+	public GuiShowOrganizationsAction(WorldObject playerCharacter, World world, WorldPanel parent, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, JFrame parentFrame) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.world = world;
 		this.parent = parent;
 		this.imageInfoReader = imageInfoReader;
 		this.soundIdReader = soundIdReader;
+		this.parentFrame = parentFrame;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		OrganizationsDialog dialog = new OrganizationsDialog(400, 800);
+		OrganizationsDialog dialog = new OrganizationsDialog(parentFrame, 400, 800);
 		
 		OrganizationsModel worldModel = new OrganizationsModel(playerCharacter, world);
 		JTable table = JTableFactory.createJTable(worldModel);
@@ -235,8 +239,10 @@ public class GuiShowOrganizationsAction extends AbstractAction {
 	
 	private static class OrganizationsDialog extends AbstractDialog {
 
-		public OrganizationsDialog(int width, int height) {
+		public OrganizationsDialog(JFrame parentFrame, int width, int height) {
 			super(width, height);
+			
+			DialogUtils.createDialogBackPanel(this, parentFrame.getContentPane());
 		}
 	}
 }

@@ -19,6 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.AbstractAction;
+import javax.swing.JFrame;
 
 import org.worldgrower.Args;
 import org.worldgrower.DungeonMaster;
@@ -42,8 +43,9 @@ public class GuiResearchMagicSpellAction extends AbstractAction {
 	private WorldPanel parent;
 	private DungeonMaster dungeonMaster;
 	private WorldObject target;
+	private JFrame parentFrame;
 	
-	public GuiResearchMagicSpellAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, World world, WorldPanel parent, DungeonMaster dungeonMaster, WorldObject target) {
+	public GuiResearchMagicSpellAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, World world, WorldPanel parent, DungeonMaster dungeonMaster, WorldObject target, JFrame parentFrame) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.imageInfoReader = imageInfoReader;
@@ -52,6 +54,7 @@ public class GuiResearchMagicSpellAction extends AbstractAction {
 		this.parent = parent;
 		this.dungeonMaster = dungeonMaster;
 		this.target = target;
+		this.parentFrame = parentFrame;
 	}
 
 	@Override
@@ -68,7 +71,7 @@ public class GuiResearchMagicSpellAction extends AbstractAction {
 				ResearchSpellAction researchSpellAction = Actions.getResearchSpellActionFor(magicSpell);
 				
 				String textDialogMessage = "Research for how many turns? (0 - " + (magicSpell.getResearchCost()+1) + ")";
-				String turnsString = new TextInputDialog(textDialogMessage, true, soundIdReader).showMe();
+				String turnsString = new TextInputDialog(textDialogMessage, true, soundIdReader, parentFrame).showMe();
 				if ((turnsString != null) && (NumberUtils.isNumeric(turnsString))) {
 					int turns = Integer.parseInt(turnsString);
 					

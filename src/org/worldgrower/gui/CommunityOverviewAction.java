@@ -17,6 +17,7 @@ package org.worldgrower.gui;
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
+import javax.swing.JFrame;
 
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
@@ -27,17 +28,19 @@ public class CommunityOverviewAction extends AbstractAction {
 	private CommunityDialog dialog;
 	private ImageInfoReader imageInfoReader;
 	private World world;
+	private JFrame parentFrame;
 	
-	public CommunityOverviewAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, World world) {
+	public CommunityOverviewAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, World world, JFrame parentFrame) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.imageInfoReader = imageInfoReader;
 		this.world = world;
+		this.parentFrame = parentFrame;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		dialog = new CommunityDialog(playerCharacter, imageInfoReader, world);
+		dialog = new CommunityDialog(playerCharacter, imageInfoReader, world, parentFrame);
 		dialog.setVisible(true);
 	}
 }

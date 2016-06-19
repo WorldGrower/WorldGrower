@@ -21,6 +21,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -33,11 +34,11 @@ public class TextInputDialog extends AbstractDialog {
 	private String value = null;
 	private JTextField textField;
 	
-	public TextInputDialog(String question, SoundIdReader soundIdReader) {
-		this(question, false, soundIdReader);
+	public TextInputDialog(String question, SoundIdReader soundIdReader, JFrame parentFrame) {
+		this(question, false, soundIdReader, parentFrame);
 	}
 	
-	public TextInputDialog(String question, boolean numericInputOnly, SoundIdReader soundIdReader) {
+	public TextInputDialog(String question, boolean numericInputOnly, SoundIdReader soundIdReader, JFrame parentFrame) {
 		super(450, 190);
 		
 		JLabel label = JLabelFactory.createJLabel(question);
@@ -69,7 +70,9 @@ public class TextInputDialog extends AbstractDialog {
 		    public void windowOpened(WindowEvent e) {
 		    	textField.requestFocus();
 		    }
-		}); 
+		});
+		
+		DialogUtils.createDialogBackPanel(this, parentFrame.getContentPane());
 	}
 	
 	public String showMe() {
