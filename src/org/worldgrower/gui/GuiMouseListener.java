@@ -32,6 +32,7 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -97,7 +98,7 @@ public class GuiMouseListener extends MouseAdapter {
 	private final ShowCharacterActionsAction showCharacterActionsAction;
 	private final CommunityOverviewAction communityOverviewAction;
 	
-    public GuiMouseListener(WorldPanel container, WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, KeyBindings keyBindings) {
+    public GuiMouseListener(WorldPanel container, WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, KeyBindings keyBindings, JFrame parentFrame) {
 		super();
 		this.container = container;
 		this.playerCharacter = playerCharacter;
@@ -107,7 +108,7 @@ public class GuiMouseListener extends MouseAdapter {
 		this.soundIdReader = soundIdReader;
 		this.keyBindings = keyBindings;
 		
-		characterSheetAction = new CharacterSheetAction(playerCharacter, imageInfoReader, soundIdReader, world);
+		characterSheetAction = new CharacterSheetAction(playerCharacter, imageInfoReader, soundIdReader, world, parentFrame);
 		inventoryAction = new ShowInventoryAction(playerCharacter, imageInfoReader, soundIdReader, world, dungeonMaster, container);
 		magicOverviewAction = new MagicOverviewAction(playerCharacter, imageInfoReader, soundIdReader);
 		restAction = new RestAction(playerCharacter, imageInfoReader, soundIdReader, world, (WorldPanel)container, dungeonMaster);

@@ -127,6 +127,7 @@ public class DisguiseDialog extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
+		setUndecorated(true);
 		IconUtils.setIcon(this);
 		
 		noDisguiseRadioButton = JRadioButtonFactory.createJRadioButton("No disguise");

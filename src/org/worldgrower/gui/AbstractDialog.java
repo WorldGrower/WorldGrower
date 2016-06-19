@@ -13,7 +13,8 @@ public abstract class AbstractDialog extends JDialog {
 	
 	public AbstractDialog(int width, int height) {
 		super();
-		setModalityType(ModalityType.APPLICATION_MODAL);		
+		setModalityType(ModalityType.APPLICATION_MODAL);
+		setUndecorated(true);
 		getContentPane().setLayout(null);
 		IconUtils.setIcon(this);
 		SwingUtils.installEscapeCloseOperation(this);

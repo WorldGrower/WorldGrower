@@ -37,6 +37,7 @@ import java.util.List;
 
 import javax.swing.Icon;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JTextArea;
@@ -102,14 +103,14 @@ public final class WorldPanel extends JPanel {
 	
 	private final List<String> statusMessages = new ArrayList<>();
 	
-    public WorldPanel(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, MusicPlayer musicPlayer, String initialStatusMessage, KeyBindings keyBindings) throws IOException {
+    public WorldPanel(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, MusicPlayer musicPlayer, String initialStatusMessage, KeyBindings keyBindings, JFrame parentFrame) throws IOException {
         super(new BorderLayout());
         this.imageInfoReader = imageInfoReader;
         this.soundIdReader = soundIdReader;
         this.musicPlayer = musicPlayer;
         this.keyBindings = keyBindings;
 
-        guiMouseListener = new GuiMouseListener(this, playerCharacter, world, dungeonMaster, imageInfoReader, soundIdReader, keyBindings);
+        guiMouseListener = new GuiMouseListener(this, playerCharacter, world, dungeonMaster, imageInfoReader, soundIdReader, keyBindings, parentFrame);
 		addMouseListener(guiMouseListener);
 		ToolTipManager.sharedInstance().registerComponent(this);
 

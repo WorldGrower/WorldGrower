@@ -17,6 +17,7 @@ package org.worldgrower.gui;
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
+import javax.swing.JFrame;
 
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
@@ -29,18 +30,20 @@ public class CharacterSheetAction extends AbstractAction {
 	private ImageInfoReader imageInfoReader;
 	private SoundIdReader soundIdReader;
 	private World world;
+	private JFrame parentFrame;
 	
-	public CharacterSheetAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, World world) {
+	public CharacterSheetAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, World world, JFrame parentFrame) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.imageInfoReader = imageInfoReader;
 		this.soundIdReader = soundIdReader;
 		this.world = world;
+		this.parentFrame = parentFrame;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		dialog = new CharacterDialog(playerCharacter, imageInfoReader, soundIdReader, world);
+		dialog = new CharacterDialog(playerCharacter, imageInfoReader, soundIdReader, world, parentFrame);
 		dialog.showMe();
 	}
 }

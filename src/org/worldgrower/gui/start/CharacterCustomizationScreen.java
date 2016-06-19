@@ -62,6 +62,7 @@ public class CharacterCustomizationScreen extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
+		setUndecorated(true);
 		IconUtils.setIcon(this);
 		
 		JLabel attributeLabel = JLabelFactory.createJLabel(attributePoints);

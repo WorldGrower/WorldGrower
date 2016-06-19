@@ -64,6 +64,7 @@ public class CommunityDialog extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
+		setUndecorated(true);
 		
 		JLabel lblMate = JLabelFactory.createJLabel("Mate:");
 		lblMate.setBounds(12, 13, 109, 16);

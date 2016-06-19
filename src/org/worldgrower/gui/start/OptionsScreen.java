@@ -97,6 +97,7 @@ public class OptionsScreen {
 		JPanel contentPanel = new GradientPanel();
 		contentPanel.setLocation(0, 0);
 		contentPanel.setLayout(null);
+		frame.setUndecorated(true);
 		contentPanel.setSize(new Dimension(414, 580));
 		frame.getContentPane().add(contentPanel);
 		frame.setSize(new Dimension(414, 580));

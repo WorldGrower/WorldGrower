@@ -217,12 +217,16 @@ public class Game {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         IconUtils.setIcon(frame);
         
-        WorldPanel worldPanel = new WorldPanel(playerCharacter, world, dungeonMaster, imageInfoReader, soundIdReader, musicPlayer, initialStatusMessage, keyBindings);
+        WorldPanel worldPanel = new WorldPanel(playerCharacter, world, dungeonMaster, imageInfoReader, soundIdReader, musicPlayer, initialStatusMessage, keyBindings, frame);
         worldPanel.setOpaque(true);
         frame.setContentPane(worldPanel);
         
-        frame.pack();
-        SwingUtils.centerFrame(frame);
+        if (Boolean.getBoolean("DEBUG")) {
+            frame.pack();
+            SwingUtils.centerFrame(frame);
+        } else {
+        	FullScreenUtils.makeFullScreen(frame);
+        }
         frame.setVisible(true);
         
         ToolTipManager.sharedInstance().setDismissDelay(9999999);

@@ -28,6 +28,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -49,6 +50,7 @@ import org.worldgrower.goal.ArmorPropertyUtils;
 import org.worldgrower.goal.BountyPropertyUtils;
 import org.worldgrower.goal.MeleeDamagePropertyUtils;
 import org.worldgrower.gui.music.SoundIdReader;
+import org.worldgrower.gui.util.DialogUtils;
 import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.JComboBoxFactory;
@@ -86,14 +88,19 @@ public class CharacterDialog extends JDialog {
 	private JComboBox<ComboBoxEquipmentItem> cmbRightHand;
 	private JLabel lblDamageValue;
 
-	public CharacterDialog(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, World world) {
+	public CharacterDialog(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, World world, JFrame parentFrame) {
+		super(parentFrame, true);
 		setModalityType(ModalityType.APPLICATION_MODAL);
+		setUndecorated(true);
 		IconUtils.setIcon(this);
 		setResizable(false);
 		
 		this.playerCharacter = playerCharacter;
 		
-		setSize(1100, 800);
+		int width = 1100;
+		int height = 800;
+		setSize(width, height);
+		contentPanel.setPreferredSize(new Dimension(width, height));
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -380,6 +387,7 @@ public class CharacterDialog extends JDialog {
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
 		SwingUtils.installEscapeCloseOperation(this);
+		DialogUtils.createDialogBackPanel(this, parentFrame.getContentPane());
 	}
 	
 	private String getBountyDescription(World world) {
