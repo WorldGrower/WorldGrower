@@ -17,6 +17,7 @@ package org.worldgrower.gui;
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
+import javax.swing.JFrame;
 
 import org.worldgrower.WorldObject;
 import org.worldgrower.gui.music.SoundIdReader;
@@ -27,17 +28,19 @@ public class MagicOverviewAction extends AbstractAction {
 	private MagicOverviewDialog dialog;
 	private ImageInfoReader imageInfoReader;
 	private SoundIdReader soundIdReader;
+	private JFrame parentFrame;
 	
-	public MagicOverviewAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader) {
+	public MagicOverviewAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, JFrame parentFrame) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.imageInfoReader = imageInfoReader;
 		this.soundIdReader = soundIdReader;
+		this.parentFrame = parentFrame;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		dialog = new MagicOverviewDialog(playerCharacter, soundIdReader);
+		dialog = new MagicOverviewDialog(playerCharacter, soundIdReader, parentFrame);
 		dialog.setVisible(true);
 	}
 }

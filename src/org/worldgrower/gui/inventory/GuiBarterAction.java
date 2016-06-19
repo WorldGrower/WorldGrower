@@ -17,6 +17,7 @@ package org.worldgrower.gui.inventory;
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
+import javax.swing.JFrame;
 
 import org.worldgrower.DungeonMaster;
 import org.worldgrower.World;
@@ -35,8 +36,9 @@ public class GuiBarterAction extends AbstractAction {
 	private InventoryDialog dialog;
 	private ImageInfoReader imageInfoReader;
 	private SoundIdReader soundIdReader;
+	private JFrame parentFrame;
 	
-	public GuiBarterAction(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, WorldPanel container, WorldObject target, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader) {
+	public GuiBarterAction(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, WorldPanel container, WorldObject target, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, JFrame parentFrame) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.world = world;
@@ -45,12 +47,13 @@ public class GuiBarterAction extends AbstractAction {
 		this.target = target;
 		this.imageInfoReader = imageInfoReader;
 		this.soundIdReader = soundIdReader;
+		this.parentFrame = parentFrame;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		InventoryActionFactory inventoryActionFactory = new InventoryActionFactory(playerCharacter, imageInfoReader, soundIdReader, world, dungeonMaster, container, target);
-		dialog = new InventoryDialog(new InventoryDialogModel(playerCharacter, target), imageInfoReader, soundIdReader, inventoryActionFactory);
+		dialog = new InventoryDialog(new InventoryDialogModel(playerCharacter, target), imageInfoReader, soundIdReader, inventoryActionFactory, parentFrame);
 		inventoryActionFactory.setDialog(dialog);
 		dialog.showMe();
 	}

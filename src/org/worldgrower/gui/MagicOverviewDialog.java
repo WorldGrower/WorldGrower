@@ -15,6 +15,7 @@
 package org.worldgrower.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,6 +24,7 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -38,6 +40,7 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.attribute.PropertyCountMap;
 import org.worldgrower.gui.music.SoundIdReader;
+import org.worldgrower.gui.util.DialogUtils;
 import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.JTableFactory;
@@ -46,10 +49,13 @@ public class MagicOverviewDialog extends JDialog {
 
 	private final JPanel contentPanel = new GradientPanel();
 
-	public MagicOverviewDialog(WorldObject playerCharacter, SoundIdReader soundIdReader) {
+	public MagicOverviewDialog(WorldObject playerCharacter, SoundIdReader soundIdReader, JFrame parentFrame) {
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		
-		setSize(650, 650);
+		int width = 650;
+		int height = 650;
+		setSize(width, height);
+		contentPanel.setPreferredSize(new Dimension(width, height));
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -91,6 +97,8 @@ public class MagicOverviewDialog extends JDialog {
 			}
 		}
 		SwingUtils.makeTransparant(magicSpellsTable, scrollPane);
+		
+		DialogUtils.createDialogBackPanel(this, parentFrame.getContentPane());
 	}
 	
 	

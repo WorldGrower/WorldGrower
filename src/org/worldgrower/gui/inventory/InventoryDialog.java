@@ -37,6 +37,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
@@ -66,6 +67,7 @@ import org.worldgrower.gui.SwingUtils;
 import org.worldgrower.gui.font.Fonts;
 import org.worldgrower.gui.knowledge.ImageCellRenderer;
 import org.worldgrower.gui.music.SoundIdReader;
+import org.worldgrower.gui.util.DialogUtils;
 import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JLabelFactory;
 import org.worldgrower.gui.util.JPanelFactory;
@@ -110,18 +112,15 @@ public final class InventoryDialog extends AbstractDialog {
 		}
 	}
 	
-	/**
-	 * @wbp.parser.constructor
-	 */
-	public InventoryDialog(InventoryDialogModel inventoryDialogModel, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, InventoryActionFactory inventoryActionFactory) {
+	public InventoryDialog(InventoryDialogModel inventoryDialogModel, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, InventoryActionFactory inventoryActionFactory, JFrame parentFrame) {
 		super(762, 710);
 		this.imageInfoReader = imageInfoReader;
 		this.soundIdReader = soundIdReader;
 		
-		initializeGUI(inventoryDialogModel, imageInfoReader, inventoryActionFactory);
+		initializeGUI(inventoryDialogModel, imageInfoReader, inventoryActionFactory, parentFrame);
 	}
 
-	private void initializeGUI(InventoryDialogModel inventoryDialogModel, ImageInfoReader imageInfoReader, InventoryActionFactory inventoryActionFactory) {
+	private void initializeGUI(InventoryDialogModel inventoryDialogModel, ImageInfoReader imageInfoReader, InventoryActionFactory inventoryActionFactory, JFrame parentFrame) {
 		KeyStroke stroke = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
         rootPane.registerKeyboardAction(new CloseDialogAction(), stroke, JComponent.WHEN_IN_FOCUSED_WINDOW);
 			
@@ -248,6 +247,8 @@ public final class InventoryDialog extends AbstractDialog {
 		
 		setInventoryActions(inventoryDialogModel.getPlayerCharacterPrices());
 		addPopupMenuToInventoryList(inventoryDialogModel, inventoryActionFactory);
+		
+		DialogUtils.createDialogBackPanel(this, parentFrame.getContentPane());
 	}
 
 	private void addContainerPanel(InventoryDialogModel inventoryDialogModel, ImageInfoReader imageInfoReader) {

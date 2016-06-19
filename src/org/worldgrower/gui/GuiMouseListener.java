@@ -86,6 +86,7 @@ public class GuiMouseListener extends MouseAdapter {
 	private ImageInfoReader imageInfoReader;
 	private SoundIdReader soundIdReader;
 	private KeyBindings keyBindings;
+	private JFrame parentFrame;
 	
 	private final CharacterSheetAction characterSheetAction;
 	private final ShowInventoryAction inventoryAction;
@@ -107,10 +108,11 @@ public class GuiMouseListener extends MouseAdapter {
 		this.imageInfoReader = imageInfoReader;
 		this.soundIdReader = soundIdReader;
 		this.keyBindings = keyBindings;
+		this.parentFrame = parentFrame;
 		
 		characterSheetAction = new CharacterSheetAction(playerCharacter, imageInfoReader, soundIdReader, world, parentFrame);
-		inventoryAction = new ShowInventoryAction(playerCharacter, imageInfoReader, soundIdReader, world, dungeonMaster, container);
-		magicOverviewAction = new MagicOverviewAction(playerCharacter, imageInfoReader, soundIdReader);
+		inventoryAction = new ShowInventoryAction(playerCharacter, imageInfoReader, soundIdReader, world, dungeonMaster, container, parentFrame);
+		magicOverviewAction = new MagicOverviewAction(playerCharacter, imageInfoReader, soundIdReader, parentFrame);
 		restAction = new RestAction(playerCharacter, imageInfoReader, soundIdReader, world, (WorldPanel)container, dungeonMaster);
 		createOrganizationAction = new GuiShowOrganizationsAction(playerCharacter, world, container, imageInfoReader, soundIdReader);
 		showStatusMessagesAction = new ShowStatusMessagesAction(container);
@@ -363,7 +365,7 @@ public class GuiMouseListener extends MouseAdapter {
 
 	private void addBarterAction(JPopupMenu menu, WorldObject worldObject) {
 		if (worldObject.hasProperty(Constants.INVENTORY) && !worldObject.hasProperty(Constants.ILLUSION_CREATOR_ID)) {
-			JMenuItem guiBarterItem = MenuFactory.createJMenuItem(new GuiBarterAction(playerCharacter, world, dungeonMaster, container, worldObject, imageInfoReader, soundIdReader), soundIdReader);
+			JMenuItem guiBarterItem = MenuFactory.createJMenuItem(new GuiBarterAction(playerCharacter, world, dungeonMaster, container, worldObject, imageInfoReader, soundIdReader, parentFrame), soundIdReader);
 			String barterDescription = canTrade(worldObject) ? "Barter..." : "Access container...";
 			guiBarterItem.setText(barterDescription);
 			setMenuIcon(guiBarterItem, Actions.SELL_ACTION.getImageIds());

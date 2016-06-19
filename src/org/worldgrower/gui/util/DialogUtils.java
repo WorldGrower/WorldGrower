@@ -18,7 +18,6 @@ import java.awt.AWTEvent;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Paint;
@@ -35,6 +34,8 @@ import javax.swing.JLayer;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 import javax.swing.plaf.LayerUI;
+
+import org.worldgrower.gui.font.Fonts;
 
 /**
  * Based on example at http://www.aurelienribon.com/blog/2012/07/tutorial-beautifying-the-dialogs-in-swing-applications/
@@ -154,7 +155,7 @@ public class DialogUtils {
 			add(info);
 
 			cmp.setBorder(BorderFactory.createLineBorder(Color.WHITE, 5));
-			title.setFont(new Font("SquareFont", Font.PLAIN, 26));
+			title.setFont(Fonts.FONT);
 			title.setForeground(Color.WHITE);
 			info.setForeground(Color.WHITE);
 

@@ -17,6 +17,7 @@ package org.worldgrower.gui.inventory;
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
+import javax.swing.JFrame;
 
 import org.worldgrower.DungeonMaster;
 import org.worldgrower.World;
@@ -34,8 +35,9 @@ public class ShowInventoryAction extends AbstractAction {
 	private World world;
 	private DungeonMaster dungeonMaster;
 	private WorldPanel container;
+	private JFrame parentFrame;
 	
-	public ShowInventoryAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, World world, DungeonMaster dungeonMaster, WorldPanel container) {
+	public ShowInventoryAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, World world, DungeonMaster dungeonMaster, WorldPanel container, JFrame parentFrame) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.imageInfoReader = imageInfoReader;
@@ -43,12 +45,13 @@ public class ShowInventoryAction extends AbstractAction {
 		this.world = world;
 		this.dungeonMaster = dungeonMaster;
 		this.container = container;
+		this.parentFrame = parentFrame;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		InventoryActionFactory inventoryActionFactory = new InventoryActionFactory(playerCharacter, imageInfoReader, soundIdReader, world, dungeonMaster, container, null);
-		dialog = new InventoryDialog(new InventoryDialogModel(playerCharacter), imageInfoReader, soundIdReader, inventoryActionFactory);
+		dialog = new InventoryDialog(new InventoryDialogModel(playerCharacter), imageInfoReader, soundIdReader, inventoryActionFactory, parentFrame);
 		inventoryActionFactory.setDialog(dialog);
 		dialog.showMe();
 	}

@@ -1,6 +1,7 @@
 package org.worldgrower.gui;
 
 import java.awt.Component;
+import java.awt.Dimension;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -22,6 +23,8 @@ public abstract class AbstractDialog extends JDialog {
 		setSize(width, height);
 		setResizable(false);
 		gradientPanel.setBounds(0, 0, width, height);
+		gradientPanel.setPreferredSize(new Dimension(width, height));
+		getContentPane().setPreferredSize(new Dimension(width, height));
 		gradientPanel.setLayout(null);
 		
 		getContentPane().add(gradientPanel);
