@@ -24,6 +24,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
@@ -35,6 +36,7 @@ import org.worldgrower.gui.AbstractDialog;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.music.SoundIdReader;
+import org.worldgrower.gui.util.DialogUtils;
 import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JComboBoxFactory;
 import org.worldgrower.gui.util.JLabelFactory;
@@ -54,7 +56,7 @@ public class RespondToQuestionDialog extends AbstractDialog {
 		}
 	}
 
-	public RespondToQuestionDialog(int id, int conversationId, int historyItemId, int additionalValue, int additionalValue2, Questioner questioner, Conversations conversations, ImageIds imageIdPerformer, ImageIds imageIdTarget, String performerName, String targetName, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader) {
+	public RespondToQuestionDialog(int id, int conversationId, int historyItemId, int additionalValue, int additionalValue2, Questioner questioner, Conversations conversations, ImageIds imageIdPerformer, ImageIds imageIdTarget, String performerName, String targetName, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, JFrame parentFrame) {
 		super(560, 300);
 		
 		KeyStroke stroke = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
@@ -113,7 +115,9 @@ public class RespondToQuestionDialog extends AbstractDialog {
 		});
 		
 		okButton.addActionListener(new CloseDialogAction());
-		cancelButton.addActionListener(new CloseDialogAction());		
+		cancelButton.addActionListener(new CloseDialogAction());	
+		
+		DialogUtils.createDialogBackPanel(this, parentFrame.getContentPane());
 	}
 	
 	private JComboBox<Response> createResponseComboBox(int id, int subjectId, int historyItemId, Conversations conversations, Questioner questioner, int additionalValue, int additionalValue2) {

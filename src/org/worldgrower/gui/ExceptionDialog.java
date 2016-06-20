@@ -97,6 +97,7 @@ public final class ExceptionDialog extends JDialog {
 		
 		this.setModalityType(ModalityType.APPLICATION_MODAL);
 		this.setLocationRelativeTo(findActiveFrame());
+		setUndecorated(true);
 		IconUtils.setIcon(this);
 	}
 	

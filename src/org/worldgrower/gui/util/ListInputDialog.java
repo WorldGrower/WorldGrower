@@ -52,7 +52,7 @@ public class ListInputDialog extends AbstractDialog {
 		JPanel buttonPane = new JPanel();
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		buttonPane.setOpaque(false);
-		buttonPane.setBounds(16, 120, 415, 50);
+		buttonPane.setBounds(16, 153, 425, 50);
 		addComponent(buttonPane);
 
 		JButton okButton = JButtonFactory.createButton(" OK ", soundIdReader);

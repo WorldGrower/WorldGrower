@@ -100,6 +100,7 @@ public final class WorldPanel extends JPanel {
 	private final MoveMode moveMode = new MoveMode();
 	private final BackgroundPainter backgroundPainter;
 	private final KeyBindings keyBindings;
+	private final JFrame parentFrame;
 	
 	private final List<String> statusMessages = new ArrayList<>();
 	
@@ -109,19 +110,20 @@ public final class WorldPanel extends JPanel {
         this.soundIdReader = soundIdReader;
         this.musicPlayer = musicPlayer;
         this.keyBindings = keyBindings;
+        this.parentFrame = parentFrame;
 
         guiMouseListener = new GuiMouseListener(this, playerCharacter, world, dungeonMaster, imageInfoReader, soundIdReader, keyBindings, parentFrame);
 		addMouseListener(guiMouseListener);
 		ToolTipManager.sharedInstance().registerComponent(this);
 
-        int width = 1024;
-        int height = 768;
+        int width = 1200;
+        int height = 900;
         
         setBounds(0, 0, width, height);
         this.setMinimumSize(new Dimension(width, height));
         this.setPreferredSize(new Dimension(width, height));
         
-        initializeKeyBindings(playerCharacter, world, dungeonMaster);
+        initializeKeyBindings(playerCharacter, world, dungeonMaster, parentFrame);
         
         JPanel infoPanel = new JPanel(new BorderLayout());
         infoPanel.setBackground(Color.RED);
@@ -197,9 +199,9 @@ public final class WorldPanel extends JPanel {
 		this.backgroundPainter = new BackgroundPainter(grassBackground, grassFlowersBackground, imageInfoReader, world);
     }
 
-	private void initializeKeyBindings(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster) {
+	private void initializeKeyBindings(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, JFrame parentFrame) {
 		getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "Cancel");
-        bindEscapeButtonToStartScreen(world);
+        bindEscapeButtonToStartScreen(world, parentFrame);
         
         getInputMap().put(KeyStroke.getKeyStroke("UP"), "up");
         getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD8, 0), "up");
@@ -230,8 +232,8 @@ public final class WorldPanel extends JPanel {
         getActionMap().put("3", new GuiMoveAction(new int[] { 1,  1 }, playerCharacter, world, dungeonMaster, this, soundIdReader));
 	}
 
-	private void bindEscapeButtonToStartScreen(World world) {
-		getActionMap().put("Cancel", new ShowStartScreenAction(this, imageInfoReader, soundIdReader, musicPlayer, keyBindings, world));
+	private void bindEscapeButtonToStartScreen(World world, JFrame parentFrame) {
+		getActionMap().put("Cancel", new ShowStartScreenAction(this, imageInfoReader, soundIdReader, musicPlayer, keyBindings, world, parentFrame));
 	}
 	
 	private void bindEscapeButtonToCalcelBuildMode() {
@@ -287,7 +289,7 @@ public final class WorldPanel extends JPanel {
     }
     
     public void showStatusMessageDialog() {
-    	new StatusMessageDialog(statusMessages, soundIdReader).showMe();
+    	new StatusMessageDialog(statusMessages, soundIdReader, parentFrame).showMe();
     }
     
     @Override
@@ -564,7 +566,7 @@ public final class WorldPanel extends JPanel {
 	}
 
 	public void addGuiListeners(AdditionalManagedOperationListenerFactory additionalManagedOperationListenerFactory, JFrame parentFrame) {
-		new GuiRespondToQuestion(playerCharacter, world, imageInfoReader, soundIdReader);
+		new GuiRespondToQuestion(playerCharacter, world, imageInfoReader, soundIdReader, parentFrame);
 		new GuiShowReadAction(playerCharacter, world, this, imageInfoReader);
 		new GuiShowBrawlResult(imageInfoReader, soundIdReader, this, world, parentFrame);
 		new GuiShowDrinkingContestResult(imageInfoReader, soundIdReader, this, world, parentFrame);
@@ -606,7 +608,7 @@ public final class WorldPanel extends JPanel {
 		this.buildModeOutline.endBuildMode(executeBuildAction, getMouseLocation(), offsetX, offsetY, playerCharacter, world, guiMouseListener);
 		this.removeMouseMotionListener(this.mouseMotionListener);
 		repaint();
-		bindEscapeButtonToStartScreen(world);
+		bindEscapeButtonToStartScreen(world, parentFrame);
 	}
 
 	private Point getMouseLocation() {

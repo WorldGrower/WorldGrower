@@ -35,6 +35,7 @@ import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -56,6 +57,7 @@ import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.chooseworldobject.ChooseWorldObjectDialog;
 import org.worldgrower.gui.music.SoundIdReader;
+import org.worldgrower.gui.util.DialogUtils;
 import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JLabelFactory;
 import org.worldgrower.gui.util.JProgressBarFactory;
@@ -122,7 +124,7 @@ public class AskQuestionDialog extends AbstractDialog implements ManagedOperatio
 		}
 	}
 	
-	public AskQuestionDialog(Answerer answerer, Conversations conversations, ImageIds imageIdPerformer, ImageIds imageIdTarget, String performerName, String targetName, Map<Integer, ImageIds> subjectImageIds, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader) {
+	public AskQuestionDialog(Answerer answerer, Conversations conversations, ImageIds imageIdPerformer, ImageIds imageIdTarget, String performerName, String targetName, Map<Integer, ImageIds> subjectImageIds, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, JFrame parentFrame) {
 		super(650, 300);
 		this.answerer = answerer;
 		this.soundIdReader = soundIdReader;
@@ -196,6 +198,7 @@ public class AskQuestionDialog extends AbstractDialog implements ManagedOperatio
 	    });
 		
 		pressAskQuestionButtonOnVisible();
+		DialogUtils.createDialogBackPanel(this, parentFrame.getContentPane());
 	}
 
 	private void pressAskQuestionButtonOnVisible() {

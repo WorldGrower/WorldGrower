@@ -65,16 +65,17 @@ public class MagicOverviewDialog extends JDialog {
 		IconUtils.setIcon(this);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(12, 13, 608, 517);
+		scrollPane.setBounds(12, 13, 621, 567);
 		contentPanel.add(scrollPane);
 		
 		JTable magicSpellsTable = new MagicSpellsTable(new MagicSpellTableModel(playerCharacter));
 		magicSpellsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		magicSpellsTable.setAutoCreateRowSorter(true);
+		magicSpellsTable.getRowSorter().toggleSortOrder(0);
 		
 		magicSpellsTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		magicSpellsTable.getColumnModel().getColumn(0).setPreferredWidth(257);
-		magicSpellsTable.getColumnModel().getColumn(1).setPreferredWidth(110);
+		magicSpellsTable.getColumnModel().getColumn(1).setPreferredWidth(125);
 		magicSpellsTable.getColumnModel().getColumn(2).setPreferredWidth(120);
 		magicSpellsTable.getColumnModel().getColumn(3).setPreferredWidth(100);
 		
@@ -84,7 +85,7 @@ public class MagicOverviewDialog extends JDialog {
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			buttonPane.setOpaque(false);
-			buttonPane.setBounds(12, 535, 608, 75);
+			buttonPane.setBounds(12, 595, 628, 75);
 			contentPanel.add(buttonPane);
 			{
 				JButton okButton = JButtonFactory.createButton("OK", soundIdReader);

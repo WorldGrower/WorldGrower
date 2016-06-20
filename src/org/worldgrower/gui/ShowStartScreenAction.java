@@ -17,6 +17,7 @@ package org.worldgrower.gui;
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
+import javax.swing.JFrame;
 
 import org.worldgrower.World;
 import org.worldgrower.gui.music.MusicPlayer;
@@ -32,8 +33,9 @@ public class ShowStartScreenAction extends AbstractAction {
 	private final MusicPlayer musicPlayer;
 	private final KeyBindings keyBindings;
 	private final World world;
+	private final JFrame parentFrame;
 	
-	public ShowStartScreenAction(WorldPanel container, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, MusicPlayer musicPlayer, KeyBindings keyBindings, World world) {
+	public ShowStartScreenAction(WorldPanel container, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, MusicPlayer musicPlayer, KeyBindings keyBindings, World world, JFrame parentFrame) {
 		super();
 		this.container = container;
 		this.imageInfoReader = imageInfoReader;
@@ -41,11 +43,12 @@ public class ShowStartScreenAction extends AbstractAction {
 		this.musicPlayer = musicPlayer;
 		this.keyBindings = keyBindings;
 		this.world = world;
+		this.parentFrame = parentFrame;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent actionEvent) {
-		StartScreen startScreen = new StartScreen(imageInfoReader, soundIdReader, musicPlayer, keyBindings);
+		StartScreen startScreen = new StartScreen(imageInfoReader, soundIdReader, musicPlayer, keyBindings, parentFrame);
 		startScreen.enableSave(true, world);
 		startScreen.setVisible(true);
 		

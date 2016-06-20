@@ -29,6 +29,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayer;
 import javax.swing.JPanel;
@@ -50,7 +51,16 @@ public class DialogUtils {
 	public static void createDialogBackPanel(JDialog dialog, Component parent) {
 		dialog.setBackground(new Color(255, 255, 255, 64));
 		
-		DialogBackPanel newContentPane = new DialogBackPanel(dialog);
+		DialogBackPanel newContentPane = new DialogBackPanel(dialog.getContentPane(), dialog.getTitle());
+		dialog.setContentPane(newContentPane);
+		dialog.setSize(parent.getSize());
+		dialog.setLocation(parent.getLocationOnScreen());
+	}
+	
+	public static void createDialogBackPanel(JFrame dialog, Component parent) {
+		dialog.setBackground(new Color(255, 255, 255, 64));
+		
+		DialogBackPanel newContentPane = new DialogBackPanel(dialog.getContentPane(), dialog.getTitle());
 		dialog.setContentPane(newContentPane);
 		dialog.setSize(parent.getSize());
 		dialog.setLocation(parent.getLocationOnScreen());
@@ -145,8 +155,8 @@ public class DialogUtils {
 		private final JLabel title = new JLabel();
 		private final JLabel info = new JLabel("Hit 'ESC' to close the dialog");
 
-		public DialogBackPanel(JDialog dialog) {
-			this.cmp = (JComponent) dialog.getContentPane();
+		public DialogBackPanel(Container contentPane, String titleText) {
+			this.cmp = (JComponent) contentPane;
 
 			setOpaque(false);
 			setLayout(null);
@@ -159,7 +169,7 @@ public class DialogUtils {
 			title.setForeground(Color.WHITE);
 			info.setForeground(Color.WHITE);
 
-			title.setText(dialog.getTitle());
+			title.setText(titleText);
 			title.setSize(title.getPreferredSize());
 			info.setSize(info.getPreferredSize());
 			cmp.setSize(cmp.getPreferredSize());

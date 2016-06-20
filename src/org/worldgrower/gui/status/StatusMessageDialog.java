@@ -20,18 +20,20 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import org.worldgrower.gui.AbstractDialog;
 import org.worldgrower.gui.music.SoundIdReader;
+import org.worldgrower.gui.util.DialogUtils;
 import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JListFactory;
 
 public class StatusMessageDialog extends AbstractDialog {
 
-	public StatusMessageDialog(List<String> statusMessages, SoundIdReader soundIdReader) {
+	public StatusMessageDialog(List<String> statusMessages, SoundIdReader soundIdReader, JFrame parentFrame) {
 		super(500, 475);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -54,6 +56,7 @@ public class StatusMessageDialog extends AbstractDialog {
 		getRootPane().setDefaultButton(okButton);
 
 		addActions(list, okButton);
+		DialogUtils.createDialogBackPanel(this, parentFrame.getContentPane());
 	}
 	
 	public void showMe() {

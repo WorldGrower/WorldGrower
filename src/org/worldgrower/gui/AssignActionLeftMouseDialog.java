@@ -14,6 +14,7 @@
  *******************************************************************************/
 package org.worldgrower.gui;
 
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -38,7 +39,7 @@ public class AssignActionLeftMouseDialog extends AbstractDialog {
 		super(450, 475);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(32, 32, 362, 292);
+		scrollPane.setBounds(32, 32, 390, 292);
 		addComponent(scrollPane);
 		
 		JList<String> list = JListFactory.createJList(actionDescriptions);
@@ -50,8 +51,9 @@ public class AssignActionLeftMouseDialog extends AbstractDialog {
 		addComponent(lblNewLabel);
 
 		JPanel buttonPane = new JPanel();
+		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		buttonPane.setOpaque(false);
-		buttonPane.setBounds(34, 373, 360, 50);
+		buttonPane.setBounds(34, 423, 410, 50);
 		addComponent(buttonPane);
 
 		JButton okButton = JButtonFactory.createButton("OK", soundIdReader);

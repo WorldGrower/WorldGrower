@@ -21,6 +21,7 @@ import java.util.Map;
 
 import javax.swing.AbstractAction;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 import org.worldgrower.Constants;
@@ -50,8 +51,9 @@ public class GuiAskQuestionAction extends AbstractAction implements Answerer {
 	private AskQuestionDialog dialog;
 	private ImageInfoReader imageInfoReader;
 	private SoundIdReader soundIdReader;
+	private JFrame parentFrame;
 	
-	public GuiAskQuestionAction(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, WorldPanel container, WorldObject target, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader) {
+	public GuiAskQuestionAction(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, WorldPanel container, WorldObject target, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, JFrame parentFrame) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.world = world;
@@ -60,6 +62,7 @@ public class GuiAskQuestionAction extends AbstractAction implements Answerer {
 		this.target = target;
 		this.imageInfoReader = imageInfoReader;
 		this.soundIdReader = soundIdReader;
+		this.parentFrame = parentFrame;
 	}
 
 	@Override
@@ -76,7 +79,7 @@ public class GuiAskQuestionAction extends AbstractAction implements Answerer {
 			
 			@Override
 			public void run() {
-				dialog = new AskQuestionDialog(GuiAskQuestionAction.this, conversations, imageIdPerformer, imageIdTarget, performerName, targetName, subjectImageIds, imageInfoReader, soundIdReader);
+				dialog = new AskQuestionDialog(GuiAskQuestionAction.this, conversations, imageIdPerformer, imageIdTarget, performerName, targetName, subjectImageIds, imageInfoReader, soundIdReader, parentFrame);
 				world.addListener(dialog);
 				dialog.showMe();
 				

@@ -27,6 +27,7 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -45,6 +46,7 @@ import org.worldgrower.gui.loadsave.LoadSaveMode;
 import org.worldgrower.gui.loadsave.SaveGameHandler;
 import org.worldgrower.gui.music.MusicPlayer;
 import org.worldgrower.gui.music.SoundIdReader;
+import org.worldgrower.gui.util.DialogUtils;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JLabelFactory;
@@ -112,7 +114,7 @@ public class StartScreen implements SaveGameHandler {
 	}
 
 	public StartScreen(ImageInfoReader imageInfoReaderValue, SoundIdReader soundIdReaderValue, MusicPlayer musicPlayerValue) {
-		initialize();
+		initialize(null);
 		imageInfoReader = imageInfoReaderValue;
 		soundIdReader = soundIdReaderValue;
 		musicPlayer = musicPlayerValue;
@@ -120,7 +122,15 @@ public class StartScreen implements SaveGameHandler {
 	}
 	
 	public StartScreen(ImageInfoReader imageInfoReaderValue, SoundIdReader soundIdReaderValue, MusicPlayer musicPlayerValue, KeyBindings keyBindings) {
-		initialize();
+		initialize(null);
+		imageInfoReader = imageInfoReaderValue;
+		soundIdReader = soundIdReaderValue;
+		musicPlayer = musicPlayerValue;
+		this.keyBindings = keyBindings;
+	}
+	
+	public StartScreen(ImageInfoReader imageInfoReaderValue, SoundIdReader soundIdReaderValue, MusicPlayer musicPlayerValue, KeyBindings keyBindings, JFrame parentFrame) {
+		initialize(parentFrame);
 		imageInfoReader = imageInfoReaderValue;
 		soundIdReader = soundIdReaderValue;
 		musicPlayer = musicPlayerValue;
@@ -220,7 +230,7 @@ public class StartScreen implements SaveGameHandler {
 		}
 	}
 	
-	private void initialize() {
+	private void initialize(JFrame parentFrame) {
 		frame = new StartScreenDialog();
 		
 		addNewButton();
@@ -231,6 +241,10 @@ public class StartScreen implements SaveGameHandler {
 		
 		addSaveButton();
 		addControlsButton(preferences);
+		
+		if (parentFrame != null) {
+			DialogUtils.createDialogBackPanel(frame, parentFrame.getContentPane());
+		}
 	}
 
 	private void addVersionLabel() {

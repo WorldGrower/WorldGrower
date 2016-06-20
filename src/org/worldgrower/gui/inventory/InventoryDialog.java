@@ -61,6 +61,7 @@ import org.worldgrower.attribute.Prices;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.gui.AbstractDialog;
 import org.worldgrower.gui.ColorPalette;
+import org.worldgrower.gui.GradientPanel;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.SwingUtils;
@@ -126,7 +127,7 @@ public final class InventoryDialog extends AbstractDialog {
 			
 		JPanel buttonPane = new JPanel();
 		buttonPane.setOpaque(false);
-		buttonPane.setBounds(378, 595, 354, 40);
+		buttonPane.setBounds(378, 655, 374, 40);
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		addComponent(buttonPane);
 
@@ -142,7 +143,7 @@ public final class InventoryDialog extends AbstractDialog {
 		rootInventoryPanel.setLayout(cardLayout);
 		addComponent(rootInventoryPanel);
 		
-		inventoryPanel = JPanelFactory.createBorderlessPanel();
+		inventoryPanel = new GradientPanel();
 		inventoryPanel.setBounds(0, 0, 700, 600);
 		inventoryPanel.setLayout(null);
 		inventoryPanel.setOpaque(true);
@@ -190,7 +191,7 @@ public final class InventoryDialog extends AbstractDialog {
 		inventoryPanel.add(pricesButton);
 
 		if (inventoryDialogModel.hasTarget()) {
-			targetInventoryPanel = JPanelFactory.createBorderlessPanel();
+			targetInventoryPanel = new GradientPanel();
 			targetInventoryPanel.setLayout(null);
 			targetInventoryPanel.setBounds(0, 0, 700, 600);
 			targetInventoryPanel.setOpaque(true);

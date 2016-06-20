@@ -202,7 +202,7 @@ public class GuiMouseListener extends MouseAdapter {
     
     private void performTalkAction(WorldObject worldObject) {
     	if (canPlayerCharacterPerformTalkAction(worldObject, Actions.TALK_ACTION)) {
-    		GuiAskQuestionAction guiAskQuestionAction = new GuiAskQuestionAction(playerCharacter, world, dungeonMaster, container, worldObject, imageInfoReader, soundIdReader);
+    		GuiAskQuestionAction guiAskQuestionAction = new GuiAskQuestionAction(playerCharacter, world, dungeonMaster, container, worldObject, imageInfoReader, soundIdReader, parentFrame);
     		guiAskQuestionAction.actionPerformed(null);
 		}
     }
@@ -356,7 +356,7 @@ public class GuiMouseListener extends MouseAdapter {
 
 	private void addCommunicationActions(JPopupMenu menu, WorldObject worldObject) {
 		if (canPlayerCharacterPerformTalkAction(worldObject, Actions.TALK_ACTION)) {
-			JMenuItem guiTalkMenuItem = MenuFactory.createJMenuItem(new GuiAskQuestionAction(playerCharacter, world, dungeonMaster, container, worldObject, imageInfoReader, soundIdReader), soundIdReader);
+			JMenuItem guiTalkMenuItem = MenuFactory.createJMenuItem(new GuiAskQuestionAction(playerCharacter, world, dungeonMaster, container, worldObject, imageInfoReader, soundIdReader, parentFrame), soundIdReader);
 			guiTalkMenuItem.setText("Talk...");
 			setMenuIcon(guiTalkMenuItem, ImageIds.GOLD_AMULET);
 			menu.add(guiTalkMenuItem);

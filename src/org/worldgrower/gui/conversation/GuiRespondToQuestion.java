@@ -16,6 +16,8 @@ package org.worldgrower.gui.conversation;
 
 import java.util.List;
 
+import javax.swing.JFrame;
+
 import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.ManagedOperationListener;
@@ -36,12 +38,14 @@ public class GuiRespondToQuestion implements Questioner, ManagedOperationListene
 	private Conversations conversations = new Conversations();
 	private ImageInfoReader imageInfoReader;
 	private SoundIdReader soundIdReader;
+	private JFrame parentFrame;
 	
-	public GuiRespondToQuestion(WorldObject playerCharacter, World world, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader) {
+	public GuiRespondToQuestion(WorldObject playerCharacter, World world, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, JFrame parentFrame) {
 		this.playerCharacter = playerCharacter;
 		this.world = world;
 		this.imageInfoReader = imageInfoReader;
 		this.soundIdReader = soundIdReader;
+		this.parentFrame = parentFrame;
 	
 		world.addListener(this);
 	}
@@ -61,7 +65,7 @@ public class GuiRespondToQuestion implements Questioner, ManagedOperationListene
 			ImageIds imageIdTarget = target.getProperty(Constants.IMAGE_ID);
 			String performerName = performer.getProperty(Constants.NAME);
 			String targetName = target.getProperty(Constants.NAME);
-			RespondToQuestionDialog dialog = new RespondToQuestionDialog(args[0], args[1], args[2], args[3], args[4], GuiRespondToQuestion.this, conversations, imageIdPerformer, imageIdTarget, performerName, targetName, imageInfoReader, soundIdReader);
+			RespondToQuestionDialog dialog = new RespondToQuestionDialog(args[0], args[1], args[2], args[3], args[4], GuiRespondToQuestion.this, conversations, imageIdPerformer, imageIdTarget, performerName, targetName, imageInfoReader, soundIdReader, parentFrame);
 			int selectedResponse = dialog.showMe();
 			conversations.handleResponse(selectedResponse, args[0], args[1], args[2], performer, target, world, args[3], args[4]);
 		}

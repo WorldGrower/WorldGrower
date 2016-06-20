@@ -58,7 +58,7 @@ public class GuiGameOverAction implements ManagedOperationListener {
 			String text = "Your hit points are reduced to zero, the game is over";			
 			new ShowTextDialog(text, soundIdReader, parentFrame).showMe();
 			Game.closeMainPanel();
-			new ShowStartScreenAction(container, imageInfoReader, soundIdReader, musicPlayer, keyBindings, world).actionPerformed(null);
+			new ShowStartScreenAction(container, imageInfoReader, soundIdReader, musicPlayer, keyBindings, world, parentFrame).actionPerformed(null);
 		}
 	}
 }
