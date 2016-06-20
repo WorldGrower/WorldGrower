@@ -139,7 +139,7 @@ public class GuiAskQuestionAction extends AbstractAction implements Answerer {
 
 	@Override
 	public ChooseWorldObjectDialog createChooseWorldObjectsDialog(ActionContainingArgs guiAction, Question question, JDialog parentDialog) {
-		return new ChooseWorldObjectDialog(playerCharacter, imageInfoReader, soundIdReader, getPossibleSubjects(question), parentDialog, world, dungeonMaster, guiAction);
+		return new ChooseWorldObjectDialog(playerCharacter, imageInfoReader, soundIdReader, getPossibleSubjects(question), parentDialog, world, dungeonMaster, guiAction, parentFrame);
 	}
 
 	@Override

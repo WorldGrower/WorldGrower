@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -35,6 +36,7 @@ import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.SwingUtils;
 import org.worldgrower.gui.music.SoundIdReader;
+import org.worldgrower.gui.util.DialogUtils;
 import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JTableFactory;
 
@@ -45,16 +47,16 @@ public class ChooseKnowledgeDialog extends AbstractDialog {
 	
 	private ActionContainingArgs guiAction;
 
-	public ChooseKnowledgeDialog(List<String> knowledgeDescriptions, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, List<ImageIds> imageIds, Component parent, ActionContainingArgs guiAction) {
+	public ChooseKnowledgeDialog(List<String> knowledgeDescriptions, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, List<ImageIds> imageIds, Component parent, ActionContainingArgs guiAction, JFrame parentFrame) {
 		super(600, 600);
-		initializeGui(parent, knowledgeDescriptions, imageInfoReader, soundIdReader, imageIds);
+		initializeGui(parent, knowledgeDescriptions, imageInfoReader, soundIdReader, imageIds, parentFrame);
 		
 		this.guiAction = guiAction;
 		
 		handleActions();
 	}
 
-	private void initializeGui(Component parent, List<String> knowledgeDescriptions, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, List<ImageIds> imageIds) {
+	private void initializeGui(Component parent, List<String> knowledgeDescriptions, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, List<ImageIds> imageIds, JFrame parentFrame) {
 		knowledgeTable = JTableFactory.createJTable(new KnowledgeModel(knowledgeDescriptions, imageIds));
 		knowledgeTable.setDefaultRenderer(ImageIds.class, new ImageCellRenderer(imageInfoReader));
 		knowledgeTable.setDefaultRenderer(String.class, new DefaultTableCellRenderer());
@@ -82,6 +84,8 @@ public class ChooseKnowledgeDialog extends AbstractDialog {
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton, BorderLayout.EAST);
 		getRootPane().setDefaultButton(okButton);
+		
+		DialogUtils.createDialogBackPanel(this, parentFrame.getContentPane());
 	}
 	
 	private static class KnowledgeModel extends AbstractTableModel {

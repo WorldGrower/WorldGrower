@@ -18,6 +18,7 @@ import java.awt.event.ActionEvent;
 import java.util.List;
 
 import javax.swing.AbstractAction;
+import javax.swing.JFrame;
 
 import org.worldgrower.Constants;
 import org.worldgrower.DungeonMaster;
@@ -41,8 +42,9 @@ public class GuiVoteAction extends AbstractAction {
 	private WorldPanel parent;
 	private DungeonMaster dungeonMaster;
 	private WorldObject worldObject;
+	private JFrame parentFrame;
 	
-	public GuiVoteAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, World world, WorldPanel parent, DungeonMaster dungeonMaster, WorldObject worldObject) {
+	public GuiVoteAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, World world, WorldPanel parent, DungeonMaster dungeonMaster, WorldObject worldObject, JFrame parentFrame) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.imageInfoReader = imageInfoReader;
@@ -51,6 +53,7 @@ public class GuiVoteAction extends AbstractAction {
 		this.parent = parent;
 		this.dungeonMaster = dungeonMaster;
 		this.worldObject = worldObject;
+		this.parentFrame = parentFrame;
 	}
 
 	@Override
@@ -60,7 +63,7 @@ public class GuiVoteAction extends AbstractAction {
 		List<WorldObject> voteWorldObjects = world.findWorldObjects(w -> candidates.contains(w.getProperty(Constants.ID)));
 		
 		ActionContainingArgs guiAction = new GuiAction();
-		dialog = new ChooseWorldObjectDialog(playerCharacter, imageInfoReader, soundIdReader, voteWorldObjects, parent, world, dungeonMaster, guiAction);
+		dialog = new ChooseWorldObjectDialog(playerCharacter, imageInfoReader, soundIdReader, voteWorldObjects, parent, world, dungeonMaster, guiAction, parentFrame);
 		dialog.showMe();
 	}
 	

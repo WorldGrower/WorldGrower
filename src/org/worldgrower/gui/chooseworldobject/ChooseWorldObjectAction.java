@@ -19,6 +19,7 @@ import java.util.List;
 
 import javax.swing.AbstractAction;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 
 import org.worldgrower.DungeonMaster;
 import org.worldgrower.World;
@@ -38,8 +39,9 @@ public class ChooseWorldObjectAction extends AbstractAction {
 	private JComponent parent;
 	private DungeonMaster dungeonMaster;
 	private ActionContainingArgs guiAction;
+	private JFrame parentFrame;
 	
-	public ChooseWorldObjectAction(IllusionSpell illusionSpell, WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, World world, JComponent parent, DungeonMaster dungeonMaster, ActionContainingArgs guiAction) {
+	public ChooseWorldObjectAction(IllusionSpell illusionSpell, WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, World world, JComponent parent, DungeonMaster dungeonMaster, ActionContainingArgs guiAction, JFrame parentFrame) {
 		super();
 		this.illusionSpell = illusionSpell;
 		this.playerCharacter = playerCharacter;
@@ -49,6 +51,7 @@ public class ChooseWorldObjectAction extends AbstractAction {
 		this.parent = parent;
 		this.dungeonMaster = dungeonMaster;
 		this.guiAction = guiAction;
+		this.parentFrame = parentFrame;
 	}
 
 	@Override
@@ -56,7 +59,7 @@ public class ChooseWorldObjectAction extends AbstractAction {
 		
 		List<WorldObject> disguiseWorldObjects = illusionSpell.getIllusionSources(playerCharacter, world);
 		
-		dialog = new ChooseWorldObjectDialog(playerCharacter, imageInfoReader, soundIdReader, disguiseWorldObjects, parent, world, dungeonMaster, guiAction);
+		dialog = new ChooseWorldObjectDialog(playerCharacter, imageInfoReader, soundIdReader, disguiseWorldObjects, parent, world, dungeonMaster, guiAction, parentFrame);
 		dialog.showMe();
 	}
 }

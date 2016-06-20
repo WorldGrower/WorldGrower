@@ -17,6 +17,7 @@ package org.worldgrower.gui.knowledge;
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
+import javax.swing.JFrame;
 
 import org.worldgrower.DungeonMaster;
 import org.worldgrower.World;
@@ -36,8 +37,9 @@ public class GuiCreateNewsPaperAction extends AbstractAction {
 	private World world;
 	private WorldPanel parent;
 	private DungeonMaster dungeonMaster;
+	private JFrame parentFrame;
 	
-	public GuiCreateNewsPaperAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, World world, WorldPanel parent, DungeonMaster dungeonMaster) {
+	public GuiCreateNewsPaperAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, World world, WorldPanel parent, DungeonMaster dungeonMaster, JFrame parentFrame) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.imageInfoReader = imageInfoReader;
@@ -45,13 +47,14 @@ public class GuiCreateNewsPaperAction extends AbstractAction {
 		this.world = world;
 		this.parent = parent;
 		this.dungeonMaster = dungeonMaster;
+		this.parentFrame = parentFrame;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
 		ActionContainingArgs guiAction = new GuiAction();
-		ChooseKnowledgeAction action = new ChooseKnowledgeAction(playerCharacter, imageInfoReader, soundIdReader, world, parent, guiAction);
+		ChooseKnowledgeAction action = new ChooseKnowledgeAction(playerCharacter, imageInfoReader, soundIdReader, world, parent, guiAction, parentFrame);
 		action.actionPerformed(null);
 	}
 	

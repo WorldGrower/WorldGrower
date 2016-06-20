@@ -20,6 +20,7 @@ import java.util.List;
 
 import javax.swing.AbstractAction;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 
 import org.worldgrower.Constants;
 import org.worldgrower.World;
@@ -39,8 +40,9 @@ public class ChooseKnowledgeAction extends AbstractAction {
 	private World world;
 	private JComponent parent;
 	private ActionContainingArgs guiAction;
+	private JFrame parentFrame;
 	
-	public ChooseKnowledgeAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, World world, JComponent parent, ActionContainingArgs guiAction) {
+	public ChooseKnowledgeAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, World world, JComponent parent, ActionContainingArgs guiAction, JFrame parentFrame) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.imageInfoReader = imageInfoReader;
@@ -48,6 +50,7 @@ public class ChooseKnowledgeAction extends AbstractAction {
 		this.world = world;
 		this.parent = parent;
 		this.guiAction = guiAction;
+		this.parentFrame = parentFrame;
 	}
 
 	@Override
@@ -65,7 +68,7 @@ public class ChooseKnowledgeAction extends AbstractAction {
 			imageIds.add(subject.getProperty(Constants.IMAGE_ID));
 		}
 		
-		ChooseKnowledgeDialog dialog = new ChooseKnowledgeDialog(knowledgeDescriptions, imageInfoReader, soundIdReader, imageIds, parent, guiAction);
+		ChooseKnowledgeDialog dialog = new ChooseKnowledgeDialog(knowledgeDescriptions, imageInfoReader, soundIdReader, imageIds, parent, guiAction, parentFrame);
 		dialog.showMe();
 	}
 }

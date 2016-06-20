@@ -21,6 +21,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -34,6 +35,7 @@ import org.worldgrower.gui.ActionContainingArgs;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.WorldObjectList;
 import org.worldgrower.gui.music.SoundIdReader;
+import org.worldgrower.gui.util.DialogUtils;
 import org.worldgrower.gui.util.JButtonFactory;
 
 public class ChooseWorldObjectDialog extends AbstractDialog {
@@ -43,16 +45,16 @@ public class ChooseWorldObjectDialog extends AbstractDialog {
 	
 	private ActionContainingArgs guiAction;
 
-	public ChooseWorldObjectDialog(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, List<WorldObject> disguiseWorldObjects, Component parent, World world, DungeonMaster dungeonMaster, ActionContainingArgs guiAction) {
+	public ChooseWorldObjectDialog(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, List<WorldObject> disguiseWorldObjects, Component parent, World world, DungeonMaster dungeonMaster, ActionContainingArgs guiAction, JFrame parentFrame) {
 		super(400, 502);
-		initializeGui(parent, disguiseWorldObjects, imageInfoReader, soundIdReader);
+		initializeGui(parent, disguiseWorldObjects, imageInfoReader, soundIdReader, parentFrame);
 		
 		this.guiAction = guiAction;
 		
 		handleActions();
 	}
 
-	private void initializeGui(Component parent, List<WorldObject> disguiseWorldObjects, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader) {
+	private void initializeGui(Component parent, List<WorldObject> disguiseWorldObjects, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, JFrame parentFrame) {
 		personList = new WorldObjectList(imageInfoReader, disguiseWorldObjects);
 		personList.setBounds(5, 5, 385, 420);
 		this.addComponent(personList);
@@ -68,6 +70,8 @@ public class ChooseWorldObjectDialog extends AbstractDialog {
 		okButton.setEnabled(false);
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
+		
+		DialogUtils.createDialogBackPanel(this, parentFrame.getContentPane());
 	}
 
 	public void showMe() {
