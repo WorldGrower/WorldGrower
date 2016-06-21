@@ -73,12 +73,12 @@ public class GuiShowLegalActionsAction extends AbstractAction {
 		WorldModel worldModel = new WorldModel(playerCharacter, world);
 		JTable table = JTableFactory.createJTable(worldModel);
 		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(15, 15, 368, 700);
+		scrollPane.setBounds(15, 15, 368, 720);
 		dialog.addComponent(scrollPane);
 		
 		JPanel buttonPane = new JPanel();
 		buttonPane.setOpaque(false);
-		buttonPane.setBounds(0, 720, 378, 75);
+		buttonPane.setBounds(0, 745, 388, 75);
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		dialog.addComponent(buttonPane);
 		

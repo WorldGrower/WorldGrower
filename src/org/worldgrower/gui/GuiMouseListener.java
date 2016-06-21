@@ -97,6 +97,7 @@ public class GuiMouseListener extends MouseAdapter {
 	private ManagedOperation leftMouseClickAction;
 	private final ShowCharacterActionsAction showCharacterActionsAction;
 	private final CommunityOverviewAction communityOverviewAction;
+	private final GuiShowLegalActionsAction showLegalActionsAction;
 	
     public GuiMouseListener(WorldPanel container, WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, KeyBindings keyBindings, JFrame parentFrame) {
 		super();
@@ -117,6 +118,7 @@ public class GuiMouseListener extends MouseAdapter {
 		assignActionToLeftMouseAction = getGuiAssignActionToLeftMouseAction();
 		showCharacterActionsAction = new ShowCharacterActionsAction();
 		communityOverviewAction = new CommunityOverviewAction(playerCharacter, imageInfoReader, world, parentFrame);
+		showLegalActionsAction = new GuiShowLegalActionsAction(playerCharacter, dungeonMaster, world, container, soundIdReader, parentFrame);
 		addKeyBindings(keyBindings);
 	}
 
@@ -133,7 +135,7 @@ public class GuiMouseListener extends MouseAdapter {
 		addKeyBindingsFor(assignActionToLeftMouseAction, keyBindings.getValue(GuiAction.ASSIGN_ACTION_TO_LEFT_MOUSE));
 		addKeyBindingsFor(showCharacterActionsAction, keyBindings.getValue(GuiAction.SHOW_CHARACTER_ACTIONS));
 		addKeyBindingsFor(communityOverviewAction, keyBindings.getValue(GuiAction.COMMUNITY_OVERVIEW));
-		
+		addKeyBindingsFor(showLegalActionsAction, keyBindings.getValue(GuiAction.SHOW_LEGAL_ACTIONS));
 	}
 	
 	private void addKeyBindingsFor(Action action, char binding) {
@@ -301,7 +303,7 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 	
 	private void addShowLegalActionsMenu(JMenu menu) {
-		JMenuItem showLegalActionsMenuItem = MenuFactory.createJMenuItem(new GuiShowLegalActionsAction(playerCharacter, dungeonMaster, world, container, soundIdReader, parentFrame), soundIdReader);
+		JMenuItem showLegalActionsMenuItem = MenuFactory.createJMenuItem(showLegalActionsAction, soundIdReader);
 		showLegalActionsMenuItem.setText("Show legal actions...");
 		setMenuIcon(showLegalActionsMenuItem, Actions.SET_LEGAL_ACTIONS_ACTION.getImageIds());
 		menu.add(showLegalActionsMenuItem);

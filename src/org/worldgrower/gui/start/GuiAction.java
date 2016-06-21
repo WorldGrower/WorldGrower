@@ -22,7 +22,8 @@ public enum GuiAction {
 	SHOW_STATUS_MESSAGES("Show status messages", 'S'),
 	ASSIGN_ACTION_TO_LEFT_MOUSE("Assign action to left mouse", 'A'),
 	SHOW_CHARACTER_ACTIONS("Show character actions", 'W'),
-	COMMUNITY_OVERVIEW("Show community overview", 'U');
+	COMMUNITY_OVERVIEW("Show community overview", 'U'),
+	SHOW_LEGAL_ACTIONS("Show legal actions", 'L');
 	
 	private final String description;
 	private final char defaultValue;

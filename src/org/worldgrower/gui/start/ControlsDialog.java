@@ -94,7 +94,7 @@ public class ControlsDialog extends AbstractDialog {
 		JPanel mouseControlPanel = JPanelFactory.createJPanel("Mouse");
 		
 		mouseControlPanel.setOpaque(false);
-		mouseControlPanel.setBounds(12, 420, 368, 150);
+		mouseControlPanel.setBounds(12, 430, 368, 150);
 		mouseControlPanel.setLayout(null);
 		
 		JRadioButton defaultMouseControl = JRadioButtonFactory.createJRadioButton("<html>left-click: center map<br>right-click: show possible actions</html>");
@@ -128,7 +128,7 @@ public class ControlsDialog extends AbstractDialog {
 		JPanel soundControlPanel = JPanelFactory.createJPanel("Sound");
 		
 		soundControlPanel.setOpaque(false);
-		soundControlPanel.setBounds(12, 580, 368, 100);
+		soundControlPanel.setBounds(12, 600, 368, 100);
 		soundControlPanel.setLayout(null);
 		
 		JCheckBox chkBackgroundMusic = JCheckBoxFactory.createJCheckBox("Music");
@@ -186,7 +186,7 @@ public class ControlsDialog extends AbstractDialog {
 	private void addButtonPane() {
 		JPanel buttonPane = new JPanel();
 		buttonPane.setOpaque(false);
-		buttonPane.setBounds(0, 720, 378, 75);
+		buttonPane.setBounds(0, 740, 383, 75);
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		addComponent(buttonPane);
 		

@@ -38,7 +38,7 @@ public class LoadSaveDialog extends AbstractDialog {
 		super(500, 475);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(16, 16, 462, 340);
+		scrollPane.setBounds(16, 16, 462, 375);
 		addComponent(scrollPane);
 		
 		JList<SaveGame> list = JListFactory.createJList(loadSaveMode.getSaveFiles());
@@ -50,7 +50,7 @@ public class LoadSaveDialog extends AbstractDialog {
 		JPanel buttonPane = new JPanel();
 		buttonPane.setLayout(new BorderLayout());
 		buttonPane.setOpaque(false);
-		buttonPane.setBounds(16, 380, 465, 50);
+		buttonPane.setBounds(16, 410, 465, 50);
 		addComponent(buttonPane);
 
 		JButton okButton = JButtonFactory.createButton(loadSaveMode.getDescription(), soundIdReader);
