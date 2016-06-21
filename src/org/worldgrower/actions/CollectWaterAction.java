@@ -24,6 +24,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class CollectWaterAction implements ManagedOperation {
 
@@ -82,5 +83,10 @@ public class CollectWaterAction implements ManagedOperation {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.WATER;
+	}
+	
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.DRINK;
 	}
 }

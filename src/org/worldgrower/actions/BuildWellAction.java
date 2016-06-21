@@ -88,7 +88,8 @@ public class BuildWellAction implements BuildAction {
 	public ImageIds getImageIds() {
 		return ImageIds.WELL;
 	}
-	
+
+	@Override
 	public SoundIds getSoundId() {
 		return SoundIds.BUILD_WOODEN_BUILDING;
 	}

@@ -77,6 +77,7 @@ cursespell8bit.wav.gz
 alchemist18bit.wav.gz
 fountain8bit.wav.gz
 random18bit.wav.gz
+metal-small18bit.wav.gz
 
 Sound effects from JaggedStone at http://opengameart.org/content/magic-spell-sfx:
 magical_18bit.wav.gz
@@ -143,3 +144,6 @@ Sound Effects by safadancer at http://www.freesound.org/people/safadancer/sounds
 
 Sound Effects by felix.blume at http://www.freesound.org/people/felix.blume/sounds/135489/:
 135489__felix-blume__bells-and-religious-hymn8bit.wav.gz
+
+Sound Effects by artisticdude at http://opengameart.org/content/swishes-sound-pack:
+swish-98bit.wav.gz

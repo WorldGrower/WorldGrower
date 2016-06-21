@@ -27,6 +27,7 @@ import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.LocationPropertyUtils;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class CapturePersonAction implements ManagedOperation {
 
@@ -85,4 +86,9 @@ public class CapturePersonAction implements ManagedOperation {
 	public ImageIds getImageIds() {
 		return ImageIds.CAPTURE;
 	}
+
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.METAL_SMALL1;
+	}	
 }

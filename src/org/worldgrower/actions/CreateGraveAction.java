@@ -23,6 +23,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class CreateGraveAction implements BuildAction {
 
@@ -88,5 +89,10 @@ public class CreateGraveAction implements BuildAction {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.GRAVE;
+	}
+	
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.SHOVEL;
 	}
 }

@@ -26,6 +26,7 @@ import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 import org.worldgrower.util.SentenceUtils;
 
 public class ClaimBuildingAction implements ManagedOperation {
@@ -104,4 +105,9 @@ public class ClaimBuildingAction implements ManagedOperation {
 	public ImageIds getImageIds() {
 		return ImageIds.CLAIM_CATTLE;
 	}
+
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.DOOR_OPEN;
+	}	
 }

@@ -26,6 +26,7 @@ import org.worldgrower.condition.Condition;
 import org.worldgrower.goal.LocationPropertyUtils;
 import org.worldgrower.goal.SacrificeUtils;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class CapturePersonForSacrificeAction implements ManagedOperation {
 
@@ -79,5 +80,10 @@ public class CapturePersonForSacrificeAction implements ManagedOperation {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.CAPTURE;
+	}
+	
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.METAL_SMALL1;
 	}
 }

@@ -70,5 +70,7 @@ public enum SoundIds {
 	SHOVEL,
 	POISON,
 	SEX,
-	RELIGIOUS
+	RELIGIOUS,
+	SWISH,
+	METAL_SMALL1
 }

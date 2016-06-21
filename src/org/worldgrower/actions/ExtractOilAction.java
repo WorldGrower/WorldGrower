@@ -24,6 +24,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.music.SoundIds;
 
 public class ExtractOilAction implements ManagedOperation {
 
@@ -74,5 +75,10 @@ public class ExtractOilAction implements ManagedOperation {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.OIL;
+	}
+	
+	@Override
+	public SoundIds getSoundId() {
+		return SoundIds.WATER;
 	}
 }

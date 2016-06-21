@@ -88,7 +88,8 @@ public class SoundIdReader {
 		readSound(SoundIds.POISON, "/sound/219566__qubodup__poison-spell-magic8bit.wav.gz");
 		readSound(SoundIds.SEX, "/sound/182016__safadancer__sex-groaning-18bit.wav.gz");
 		readSound(SoundIds.RELIGIOUS, "/sound/135489__felix-blume__bells-and-religious-hymn8bit.wav.gz");
-		
+		readSound(SoundIds.SWISH, "/sound/swish-98bit.wav.gz");
+		readSound(SoundIds.METAL_SMALL1, "/sound/metal-small18bit.wav.gz");
 		
 		this.enabled = enabled;
 	}
