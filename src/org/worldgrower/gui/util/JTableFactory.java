@@ -14,7 +14,12 @@
  *******************************************************************************/
 package org.worldgrower.gui.util;
 
+import java.awt.Component;
+
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 
 import org.worldgrower.gui.ColorPalette;
@@ -34,11 +39,40 @@ public class JTableFactory {
 		table.setSelectionBackground(ColorPalette.DARK_BACKGROUND_COLOR.brighter());
 		table.setSelectionForeground(ColorPalette.FOREGROUND_COLOR.brighter());
 		table.setFont(Fonts.FONT);
+		
+		table.getTableHeader().setDefaultRenderer(new DefaultHeaderRenderer(table.getTableHeader().getDefaultRenderer()));
 	}
 
 	public static JTable createJTable(TableModel model) {
 		JTable table = new JTable(model);
 		setTableProperties(table);
 		return table;
+	}
+	
+	private static class DefaultHeaderRenderer implements TableCellRenderer {
+
+		private TableCellRenderer defaultRenderer;
+		
+	    public DefaultHeaderRenderer(TableCellRenderer defaultRenderer) {
+	        this.defaultRenderer = defaultRenderer;
+	    }
+		
+	    @Override
+	    public Component getTableCellRendererComponent(JTable table, Object value,
+	            boolean isSelected, boolean hasFocus, int row, int column) {
+	    	Component comp = defaultRenderer.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+	    	 
+	        if (comp instanceof JLabel) {
+	        	JLabel label = (JLabel) comp;
+	        	label.setFont(Fonts.BOLD_FONT);
+	        	label.setOpaque(true);
+	        	label.setForeground(ColorPalette.DARK_BACKGROUND_COLOR);
+	        	label.setBackground(ColorPalette.FOREGROUND_COLOR);
+	        	label.setBorder(BorderFactory.createEtchedBorder());
+	        	label.setText(value.toString());
+	        }
+	        return comp;
+	    }
+	 
 	}
 }

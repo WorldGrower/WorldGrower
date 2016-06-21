@@ -19,7 +19,6 @@ public enum GuiAction {
 	SHOW_INVENTORY("Show inventory", 'I'),
 	SHOW_MAGIC_OVERVIEW("Show magic overview", 'M'),
 	REST_ACTION("Rest action", 'R'),
-	CREATE_ORGANIZATION_ACTION("Create organization action", 'O'),
 	SHOW_STATUS_MESSAGES("Show status messages", 'S'),
 	ASSIGN_ACTION_TO_LEFT_MOUSE("Assign action to left mouse", 'A'),
 	SHOW_CHARACTER_ACTIONS("Show character actions", 'W'),

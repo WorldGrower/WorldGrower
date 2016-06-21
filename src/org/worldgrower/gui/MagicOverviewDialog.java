@@ -127,7 +127,7 @@ public class MagicOverviewDialog extends JDialog {
 			} else if (column == 1) {
 				return "School";
 			} else if (column == 2) {
-				return "Required Skill Level";
+				return "Skill Level";
 			} else if (column == 3) {
 				return "Progress";
 			} else {

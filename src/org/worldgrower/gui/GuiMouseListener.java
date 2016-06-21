@@ -92,7 +92,6 @@ public class GuiMouseListener extends MouseAdapter {
 	private final ShowInventoryAction inventoryAction;
 	private final MagicOverviewAction magicOverviewAction;
 	private final RestAction restAction;
-	private final GuiShowOrganizationsAction createOrganizationAction;
 	private final GuiAssignActionToLeftMouseAction assignActionToLeftMouseAction;
 	private final ShowStatusMessagesAction showStatusMessagesAction;
 	private ManagedOperation leftMouseClickAction;
@@ -114,7 +113,6 @@ public class GuiMouseListener extends MouseAdapter {
 		inventoryAction = new ShowInventoryAction(playerCharacter, imageInfoReader, soundIdReader, world, dungeonMaster, container, parentFrame);
 		magicOverviewAction = new MagicOverviewAction(playerCharacter, imageInfoReader, soundIdReader, parentFrame);
 		restAction = new RestAction(playerCharacter, imageInfoReader, soundIdReader, world, (WorldPanel)container, dungeonMaster, parentFrame);
-		createOrganizationAction = new GuiShowOrganizationsAction(playerCharacter, world, container, imageInfoReader, soundIdReader, parentFrame);
 		showStatusMessagesAction = new ShowStatusMessagesAction(container);
 		assignActionToLeftMouseAction = getGuiAssignActionToLeftMouseAction();
 		showCharacterActionsAction = new ShowCharacterActionsAction();
@@ -131,7 +129,6 @@ public class GuiMouseListener extends MouseAdapter {
 		addKeyBindingsFor(inventoryAction, keyBindings.getValue(GuiAction.SHOW_INVENTORY));
 		addKeyBindingsFor(magicOverviewAction, keyBindings.getValue(GuiAction.SHOW_MAGIC_OVERVIEW));
 		addKeyBindingsFor(restAction, keyBindings.getValue(GuiAction.REST_ACTION));
-		addKeyBindingsFor(createOrganizationAction, keyBindings.getValue(GuiAction.CREATE_ORGANIZATION_ACTION));
 		addKeyBindingsFor(showStatusMessagesAction, keyBindings.getValue(GuiAction.SHOW_STATUS_MESSAGES));
 		addKeyBindingsFor(assignActionToLeftMouseAction, keyBindings.getValue(GuiAction.ASSIGN_ACTION_TO_LEFT_MOUSE));
 		addKeyBindingsFor(showCharacterActionsAction, keyBindings.getValue(GuiAction.SHOW_CHARACTER_ACTIONS));
@@ -268,7 +265,6 @@ public class GuiMouseListener extends MouseAdapter {
 		menu.add(organizationMenu);
 		addCreateOrganizationMenu(organizationMenu);
 		addShowLegalActionsMenu(organizationMenu);
-		addShowOrganizationsActionMenu(organizationMenu);
 		addShowCommunityActionMenu(organizationMenu);
 		addChooseDeityMenu(miscMenu);
 		addCreateHumanMeatMenu(miscMenu);
@@ -311,13 +307,6 @@ public class GuiMouseListener extends MouseAdapter {
 		menu.add(showLegalActionsMenuItem);
 	}
 
-	private void addShowOrganizationsActionMenu(JMenu menu) {
-		JMenuItem showOrganizationsMenuItem = MenuFactory.createJMenuItem(createOrganizationAction, soundIdReader);
-		showOrganizationsMenuItem.setText("Organization Membership Overview");
-		setMenuIcon(showOrganizationsMenuItem, ImageIds.BLACK_CROSS);
-		menu.add(showOrganizationsMenuItem);
-	}
-	
 	private void addShowCommunityActionMenu(JMenu menu) {
 		JMenuItem showCommunityMenuItem = MenuFactory.createJMenuItem(communityOverviewAction, soundIdReader);
 		showCommunityMenuItem.setText("Community Overview");
