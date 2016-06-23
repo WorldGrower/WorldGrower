@@ -34,10 +34,10 @@ import org.worldgrower.gui.util.JListFactory;
 public class StatusMessageDialog extends AbstractDialog {
 
 	public StatusMessageDialog(List<String> statusMessages, SoundIdReader soundIdReader, JFrame parentFrame) {
-		super(500, 475);
+		super(700, 475);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(16, 16, 462, 340);
+		scrollPane.setBounds(16, 16, 665, 380);
 		addComponent(scrollPane);
 		
 		JList<String> list = JListFactory.createJList(statusMessages.toArray(new String[0]));
@@ -47,7 +47,7 @@ public class StatusMessageDialog extends AbstractDialog {
 		JPanel buttonPane = new JPanel();
 		buttonPane.setLayout(new BorderLayout());
 		buttonPane.setOpaque(false);
-		buttonPane.setBounds(16, 380, 465, 50);
+		buttonPane.setBounds(16, 417, 665, 40);
 		addComponent(buttonPane);
 
 		JButton okButton = JButtonFactory.createButton(" OK ", soundIdReader);
