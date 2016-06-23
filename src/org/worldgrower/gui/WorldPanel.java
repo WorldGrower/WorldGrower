@@ -535,10 +535,10 @@ public final class WorldPanel extends JPanel {
 	}
     
     public void centerOffsetsOn(int x, int y) {
-    	int width = this.getWidth() / 48;
-    	int height = this.getHeight() / 48;
-    	this.offsetX = offsetX - (x - width / 2);
-    	this.offsetY = offsetY - (y - height / 2);
+    	int screenWidth = this.getWidth() / 48;
+    	int screenHeight = this.getHeight() / 48;
+    	this.offsetX = offsetX - (x - screenWidth / 2);
+    	this.offsetY = offsetY - (y - screenHeight / 2);
     	
     	if (offsetX > 0) {
     		offsetX = 0;
@@ -546,11 +546,21 @@ public final class WorldPanel extends JPanel {
     	if (offsetY > 0) {
     		offsetY = 0;
     	}
-    	if (offsetX < -world.getWidth() + width) {
-    		offsetX = -world.getWidth() + width;
+    	
+    	if (world.getWidth() < screenWidth) {
+    		offsetX = (screenWidth - world.getWidth()) / 2;
+    	} else {
+	    	if (offsetX < -world.getWidth() + screenWidth) {
+	    		offsetX = -world.getWidth() + screenWidth;
+	    	}
     	}
-    	if (offsetY < -world.getHeight() + height) {
-    		offsetY = -world.getHeight() + height;
+    	
+    	if (world.getHeight() < screenHeight) {
+    		offsetY = (screenHeight - world.getHeight()) / 2;
+    	} else {
+	    	if (offsetY < -world.getHeight() + screenHeight) {
+	    		offsetY = -world.getHeight() + screenHeight;
+	    	}
     	}
     }
     
@@ -638,9 +648,16 @@ public final class WorldPanel extends JPanel {
 	}
 
 	public void repaintAround(int x, int y, WorldObject worldObject) {
-		int width = worldObject.getProperty(Constants.WIDTH);
-		int height = worldObject.getProperty(Constants.HEIGHT);
-		WorldPanel.this.repaint((x + offsetX) * 48 - 48, (y + offsetY) * 48 - 48, 48 * (2 + width), 48 * (2 + height));
+		int worldObjectX = x + offsetX;
+		int worldObjectY = y + offsetY;
+		int worldObjectWidth = worldObject.getProperty(Constants.WIDTH);
+		int worldObjectHeight = worldObject.getProperty(Constants.HEIGHT);
+		
+		int repaintX = worldObjectX * 48 - 48;
+		int repaintY = worldObjectY * 48 - 48;
+		int repaintWidth = 48 * (3 + worldObjectWidth);
+		int repaintHeight = 48 * (3 + worldObjectHeight);
+		WorldPanel.this.repaint(repaintX, repaintY, repaintWidth, repaintHeight);
 	}
 	
 	@Override
