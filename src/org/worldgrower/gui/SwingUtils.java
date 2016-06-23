@@ -34,6 +34,17 @@ public class SwingUtils {
 		root.getActionMap().put(ESCAPE_KEY, dispatchClosing);
 	}
 	
+	public static void installEscapeCloseOperation(final JFrame dialog) {
+		Action dispatchClosing = new AbstractAction() {
+			public void actionPerformed(ActionEvent event) {
+				dialog.dispatchEvent(new WindowEvent(dialog, WindowEvent.WINDOW_CLOSING));
+			}
+		};
+		JRootPane root = dialog.getRootPane();
+		root.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(ESCAPE_KEY_STROKE, ESCAPE_KEY);
+		root.getActionMap().put(ESCAPE_KEY, dispatchClosing);
+	}
+	
 	public static void makeTransparant(JTable table, JScrollPane scrollPane) {
 		table.setOpaque(false);
 		((DefaultTableCellRenderer)table.getDefaultRenderer(Object.class)).setOpaque(false);

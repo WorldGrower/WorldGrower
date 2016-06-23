@@ -62,6 +62,7 @@ public class StartScreen implements SaveGameHandler {
 	private World world;
 	private final KeyBindings keyBindings;
 	private final Preferences preferences = Preferences.userNodeForPackage(getClass());
+	private JFrame parentFrame = null;
 	
 	private static ImageInfoReader imageInfoReader = null;
 	private static SoundIdReader soundIdReader = null;
@@ -135,6 +136,7 @@ public class StartScreen implements SaveGameHandler {
 		soundIdReader = soundIdReaderValue;
 		musicPlayer = musicPlayerValue;
 		this.keyBindings = keyBindings;
+		this.parentFrame = parentFrame;
 	}
 	
 	private static KeyBindings createKeyBindings(Preferences preferences) {
@@ -222,7 +224,7 @@ public class StartScreen implements SaveGameHandler {
 		public void actionPerformed(ActionEvent event) {
 			frame.setVisible(false);
 			try {
-				CharacterCustomizationScreen characterCustomizationScreen = new CharacterCustomizationScreen(imageInfoReader, soundIdReader, musicPlayer, keyBindings);
+				CharacterCustomizationScreen characterCustomizationScreen = new CharacterCustomizationScreen(imageInfoReader, soundIdReader, musicPlayer, keyBindings, parentFrame);
 				characterCustomizationScreen.setVisible(true);
 			} catch (Exception e1) {
 				ExceptionHandler.handle(e1);

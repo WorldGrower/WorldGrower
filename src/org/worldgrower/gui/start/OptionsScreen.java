@@ -33,8 +33,10 @@ import org.worldgrower.gui.ExceptionHandler;
 import org.worldgrower.gui.GradientPanel;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
+import org.worldgrower.gui.SwingUtils;
 import org.worldgrower.gui.music.MusicPlayer;
 import org.worldgrower.gui.music.SoundIdReader;
+import org.worldgrower.gui.util.DialogUtils;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JComboBoxFactory;
@@ -74,14 +76,14 @@ public class OptionsScreen {
 	private final KeyBindings keyBindings;
 	private JTextField startTurnTextField;
 	
-	public OptionsScreen(CharacterAttributes characterAttributes, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, MusicPlayer musicPlayer, KeyBindings keyBindings) {
+	public OptionsScreen(CharacterAttributes characterAttributes, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, MusicPlayer musicPlayer, KeyBindings keyBindings, JFrame parentFrame) {
 		this.characterAttributes = characterAttributes;
 		this.imageInfoReader = imageInfoReader;
 		this.soundIdReader = soundIdReader;
 		this.musicPlayer = musicPlayer;
 		this.keyBindings = keyBindings;
 		
-		initialize(imageInfoReader);
+		initialize(imageInfoReader, parentFrame);
 	}
 	
 	public void setVisible(boolean visible) {
@@ -91,18 +93,21 @@ public class OptionsScreen {
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize(ImageInfoReader imageInfoReader) {
+	private void initialize(ImageInfoReader imageInfoReader, JFrame parentFrame) {
 		frame = new JFrame();
 		frame.setResizable(false);
 		JPanel contentPanel = new GradientPanel();
 		contentPanel.setLocation(0, 0);
 		contentPanel.setLayout(null);
 		frame.setUndecorated(true);
-		int width = 500;
+		int width = 400;
 		int height = 580;
 		contentPanel.setSize(new Dimension(width, height));
+		contentPanel.setPreferredSize(new Dimension(width, height));
 		frame.getContentPane().add(contentPanel);
 		frame.setSize(new Dimension(width, height));
+		frame.setPreferredSize(new Dimension(width, height));
+		frame.getContentPane().setPreferredSize(new Dimension(width, height));
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -194,7 +199,7 @@ public class OptionsScreen {
 		contentPanel.add(numberOfVillagersTextField);
 		
 		JButton btnOk = JButtonFactory.createButton("Ok", soundIdReader);
-		btnOk.setBounds(230, 510, 97, 25);
+		btnOk.setBounds(280, 535, 97, 25);
 		frame.getRootPane().setDefaultButton(btnOk);
 		contentPanel.add(btnOk);
 		btnOk.addActionListener(new ActionListener() {
@@ -240,7 +245,7 @@ public class OptionsScreen {
 		});
 		
 		JButton btnCancel = JButtonFactory.createButton("Cancel");
-		btnCancel.setBounds(119, 510, 97, 25);
+		btnCancel.setBounds(169, 535, 97, 25);
 		contentPanel.add(btnCancel);
 		
 		JLabel lblPlayerProfession = JLabelFactory.createJLabel("Character Profession:");
@@ -299,6 +304,11 @@ public class OptionsScreen {
 				startScreen.setVisible(true);
 			}
 		});
+		
+		if (parentFrame != null) {
+			SwingUtils.installEscapeCloseOperation(frame);
+			DialogUtils.createDialogBackPanel(frame, parentFrame.getContentPane());
+		}
 	}
 	
 	private List<String> validateInput() {

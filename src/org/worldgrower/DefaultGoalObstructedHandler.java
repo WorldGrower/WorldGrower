@@ -136,7 +136,18 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 	}
 	
 	public static List<ManagedOperation> getNonAttackingIllegalActions() {
-		return Arrays.asList(Actions.STEAL_ACTION, Actions.STEAL_GOLD_ACTION);
+		return Arrays.asList(
+				Actions.STEAL_ACTION, 
+				Actions.STEAL_GOLD_ACTION,
+				Actions.BURDEN_ACTION,
+				Actions.DISINTEGRATE_ARMOR_ACTION,
+				Actions.DISINTEGRATE_WEAPON_ACTION,
+				Actions.FEAR_MAGIC_SPELL_ACTION,
+				Actions.PARALYZE_SPELL_ACTION,
+				Actions.REDUCE_ACTION,
+				Actions.SILENCE_MAGIC_ACTION,
+				Actions.SLEEP_MAGIC_SPELL_ACTION
+				);
 	}
 
 	static boolean performerViolatedGroupRules(WorldObject performer, WorldObject actionTarget, int[] args, ManagedOperation managedOperation, World world) {
