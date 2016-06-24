@@ -52,7 +52,7 @@ public class MagicOverviewDialog extends JDialog {
 	public MagicOverviewDialog(WorldObject playerCharacter, SoundIdReader soundIdReader, JFrame parentFrame) {
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		
-		int width = 650;
+		int width = 850;
 		int height = 650;
 		setSize(width, height);
 		contentPanel.setPreferredSize(new Dimension(width, height));
@@ -65,7 +65,7 @@ public class MagicOverviewDialog extends JDialog {
 		IconUtils.setIcon(this);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(12, 13, 621, 567);
+		scrollPane.setBounds(12, 13, 821, 567);
 		contentPanel.add(scrollPane);
 		
 		JTable magicSpellsTable = new MagicSpellsTable(new MagicSpellTableModel(playerCharacter));
@@ -75,17 +75,17 @@ public class MagicOverviewDialog extends JDialog {
 		
 		magicSpellsTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		magicSpellsTable.getColumnModel().getColumn(0).setPreferredWidth(257);
-		magicSpellsTable.getColumnModel().getColumn(1).setPreferredWidth(125);
-		magicSpellsTable.getColumnModel().getColumn(2).setPreferredWidth(120);
+		magicSpellsTable.getColumnModel().getColumn(1).setPreferredWidth(150);
+		magicSpellsTable.getColumnModel().getColumn(2).setPreferredWidth(145);
 		magicSpellsTable.getColumnModel().getColumn(3).setPreferredWidth(100);
-		
+		magicSpellsTable.getColumnModel().getColumn(4).setPreferredWidth(150);
 		
 		scrollPane.setViewportView(magicSpellsTable);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			buttonPane.setOpaque(false);
-			buttonPane.setBounds(12, 595, 628, 75);
+			buttonPane.setBounds(12, 595, 828, 75);
 			contentPanel.add(buttonPane);
 			{
 				JButton okButton = JButtonFactory.createButton("OK", soundIdReader);
@@ -130,6 +130,8 @@ public class MagicOverviewDialog extends JDialog {
 				return "Skill Level";
 			} else if (column == 3) {
 				return "Progress";
+			} else if (column == 4) {
+				return "Research Cost";
 			} else {
 				return null;
 			}
@@ -137,7 +139,7 @@ public class MagicOverviewDialog extends JDialog {
 		
 		@Override
 		public int getColumnCount() {
-			return 4;
+			return 5;
 		}
 
 		@Override
@@ -165,6 +167,8 @@ public class MagicOverviewDialog extends JDialog {
 				} else {
 					return "Unknown";
 				}
+			} else if (column == 4) {
+				return magicSpell.getResearchCost();
 			} else {
 				return null;
 			}
