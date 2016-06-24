@@ -30,7 +30,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.event.MouseMotionListener;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -84,7 +83,8 @@ public final class WorldPanel extends JPanel {
 	private final ImageInfoReader imageInfoReader;
 	private final SoundIdReader soundIdReader;
 	private final MusicPlayer musicPlayer;
-	private GuiMouseListener guiMouseListener;
+	private final GuiMouseListener guiMouseListener;
+	private final ConditionIconDrawer conditionIconDrawer;
 	private int offsetX = 0;
 	private int offsetY = 0;
 	
@@ -116,6 +116,8 @@ public final class WorldPanel extends JPanel {
 		addMouseListener(guiMouseListener);
 		ToolTipManager.sharedInstance().registerComponent(this);
 
+		conditionIconDrawer = new ConditionIconDrawer(imageInfoReader);
+		
         int width = 1200;
         int height = 900;
         
@@ -373,78 +375,14 @@ public final class WorldPanel extends JPanel {
 		}
 	}
 	
-	private static final int CONDITION_IMAGE_WIDTH = 12;
-	private static final int CONDITION_IMAGE_HEIGHT = 12;
-	
 	public void drawWorldObjectInPixels(Graphics g, WorldObject worldObject, LookDirection lookDirection, Image image, int xInSquares, int yInSquares, int xDeltaInPixels, int yDeltaInPixels) {
 		image = changeSize(worldObject, image);
 		int worldObjectX = (xInSquares+offsetX) * 48 + xDeltaInPixels;
 		int worldObjectY = (yInSquares+offsetY) * 48 + yDeltaInPixels;
 		g.drawImage(image, worldObjectX, worldObjectY, null);
 		
-		int worldObjectWidth = worldObject.getProperty(Constants.WIDTH) * 48;
-		int worldObjectHeight = worldObject.getProperty(Constants.HEIGHT) * 48;
-		
-		List<Image> overlayingImages = getOverlayingImages(worldObject);
-		int imageIndex = 0;
-		for(Image overlayingImage : overlayingImages) {
-			
-			overlayingImage = createResizedCopy(overlayingImage, CONDITION_IMAGE_WIDTH, CONDITION_IMAGE_HEIGHT, false);
-			g.setColor(Color.BLACK);
-			int overlayingImageX = calculateConditionX(worldObjectX, worldObjectWidth, imageIndex);
-			int overlayingImageY = calculateConditionY(worldObjectY, worldObjectHeight, imageIndex);
-			g.drawRect(overlayingImageX, overlayingImageY, CONDITION_IMAGE_WIDTH, CONDITION_IMAGE_HEIGHT);
-			g.drawImage(overlayingImage, overlayingImageX, overlayingImageY, null);
-			
-			imageIndex++;
-		}
+		conditionIconDrawer.drawConditions(g, worldObject, lookDirection, image, worldObjectX, worldObjectY);		
 	}
-
-	int calculateConditionY(int worldObjectY, int worldObjectHeight, int imageIndex) {
-		return worldObjectY + worldObjectHeight - CONDITION_IMAGE_HEIGHT * (imageIndex / 4) - 1;
-	}
-
-	int calculateConditionX(int worldObjectX, int worldObjectWidth, int imageIndex) {
-		return worldObjectX + worldObjectWidth - CONDITION_IMAGE_WIDTH - CONDITION_IMAGE_WIDTH * imageIndex - 1;
-	}
-	
-	private String getConditionDescriptionFor(WorldObject worldObject, int panelX, int panelY) {
-		List<String> conditionDescriptions = getConditionDescriptions(worldObject);
-		int worldObjectX = (worldObject.getProperty(Constants.X)+offsetX) * 48;
-		int worldObjectY = (worldObject.getProperty(Constants.Y)+offsetY) * 48;
-		int worldObjectWidth = worldObject.getProperty(Constants.WIDTH) * 48;
-		int worldObjectHeight = worldObject.getProperty(Constants.HEIGHT) * 48;
-		
-		int imageIndex = 0;
-		for(String conditionDescription : conditionDescriptions) {
-			int overlayingImageX = calculateConditionX(worldObjectX, worldObjectWidth, imageIndex);
-			int overlayingImageY = calculateConditionY(worldObjectY, worldObjectHeight, imageIndex);
-
-			if (overlayingImageX <= panelX && panelX <= overlayingImageX + CONDITION_IMAGE_WIDTH) {
-				if (overlayingImageY <= panelY && panelY <= overlayingImageY + CONDITION_IMAGE_HEIGHT) {
-					return conditionDescription;
-				}
-			}
-			
-			imageIndex++;
-		}
-		return null;
-	}
-	
-	BufferedImage createResizedCopy(Image originalImage, 
-    		int scaledWidth, int scaledHeight, 
-    		boolean preserveAlpha)
-    {
-    	int imageType = preserveAlpha ? BufferedImage.TYPE_INT_RGB : BufferedImage.TYPE_INT_ARGB;
-    	BufferedImage scaledBI = new BufferedImage(scaledWidth, scaledHeight, imageType);
-    	Graphics2D g = scaledBI.createGraphics();
-    	if (preserveAlpha) {
-    		g.setComposite(AlphaComposite.Src);
-    	}
-    	g.drawImage(originalImage, 0, 0, scaledWidth, scaledHeight, null); 
-    	g.dispose();
-    	return scaledBI;
-    }
 	
 	public void drawBackgroundImage(Graphics g, Image image, int x, int y) {
 		g.drawImage(image, (x+offsetX) * 48, (y+offsetY) * 48, null);
@@ -503,25 +441,7 @@ public final class WorldPanel extends JPanel {
 		}
 	}
     
-    private List<Image> getOverlayingImages(WorldObject worldObject) {
-    	List<Image> overlayingImages = new ArrayList<>();
-    	if (worldObject.hasProperty(Constants.CONDITIONS)) {
-	    	List<ImageIds> imageIds = worldObject.getProperty(Constants.CONDITIONS).getImageIds(); 
-	    	for(ImageIds imageId : imageIds) {
-	    		overlayingImages.add(imageInfoReader.getImage(imageId, null));
-	    	}
-    	}
-    	return overlayingImages;
-    }
-    
-    private List<String> getConditionDescriptions(WorldObject worldObject) {
-    	if (worldObject.hasProperty(Constants.CONDITIONS)) {
-	    	return worldObject.getProperty(Constants.CONDITIONS).getDescriptions(); 
-    	} else {
-    		return new ArrayList<>();
-    	}
-    }
-
+  
 	private boolean hasCondition(WorldObject worldObject, Condition condition) {
 		return worldObject.hasProperty(Constants.CONDITIONS) && worldObject.getProperty(Constants.CONDITIONS).hasCondition(condition);
 	}
@@ -672,14 +592,14 @@ public final class WorldPanel extends JPanel {
 		if (worldObject != null) {
 			return getDescriptionFor(worldPanelX, worldPanelY, worldObject);
 		} else if (worldObjectNorth != null) {
-			return getConditionDescriptionFor(worldObjectNorth, worldPanelX, worldPanelY);
+			return conditionIconDrawer.getConditionDescriptionFor(worldObjectNorth, worldPanelX, worldPanelY, offsetX, offsetY);
 		} else {
 			return null;
 		}
 	}
 
 	private String getDescriptionFor(int worldPanelX, int worldPanelY, WorldObject worldObject) {
-		String conditionDescription = getConditionDescriptionFor(worldObject, worldPanelX, worldPanelY);
+		String conditionDescription = conditionIconDrawer.getConditionDescriptionFor(worldObject, worldPanelX, worldPanelY, offsetX, offsetY);
 		if (conditionDescription != null) {
 			return conditionDescription;
 		} else {

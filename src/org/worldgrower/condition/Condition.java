@@ -52,7 +52,7 @@ public interface Condition extends Serializable {
 		}
 	}
 	
-	static final List<Condition> ALL_CONDITIONS = new ArrayList<>();
+	public static final List<Condition> ALL_CONDITIONS = new ArrayList<>();
 	
 	public static final ParalyzedCondition PARALYZED_CONDITION = new ParalyzedCondition(ALL_CONDITIONS);
 	public static final CocoonedCondition COCOONED_CONDITION = new CocoonedCondition(ALL_CONDITIONS);
@@ -77,6 +77,6 @@ public interface Condition extends Serializable {
 	public static final TrappedContainerCondition TRAPPED_CONTAINER_CONDITION = new TrappedContainerCondition(ALL_CONDITIONS);
 	
 	public static List<String> getDeadlyConditions() {
-			return ALL_CONDITIONS.stream().filter(condition -> condition instanceof DeadlyCondition).map(condition -> condition.getDescription()).collect(Collectors.toList());
+		return ALL_CONDITIONS.stream().filter(condition -> condition instanceof DeadlyCondition).map(condition -> condition.getDescription()).collect(Collectors.toList());
 	}
 }
