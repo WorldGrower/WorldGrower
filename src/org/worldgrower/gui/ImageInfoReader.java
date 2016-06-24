@@ -82,6 +82,7 @@ public class ImageInfoReader {
     	Sprites thunder1 = readSpritesThunder1();
     	Sprites darkness1 = readSpritesDarkness1();
     	Sprites heal1 = readSpritesHeal1();
+    	Sprites sprites01 = readSprites01();
     	
     	addCharacter(ImageIds.KNIGHT, sprites, 0, 0, 1, 1);
     	addCharacter(ImageIds.GUARD, sprites, 0, 4, 1, 1);
@@ -441,6 +442,14 @@ public class ImageInfoReader {
 		add(ImageIds.LARGE_CUDGEL, sprites420.getSubImage(1, 9, 1, 1));
 		add(ImageIds.GOLDEN_AXE, sprites420.getSubImage(9, 10, 1, 1));
 		
+		addCharacter(ImageIds.MALE_01_1, sprites01, 0, 0, 1, 1);
+        addCharacter(ImageIds.FEMALE_01_1, sprites01, 3, 0, 1, 1);
+        addCharacter(ImageIds.MALE_01_2, sprites01, 6, 0, 1, 1);
+        addCharacter(ImageIds.FEMALE_01_2, sprites01, 9, 0, 1, 1);
+        addCharacter(ImageIds.MALE_01_3, sprites01, 0, 4, 1, 1);
+        addCharacter(ImageIds.FEMALE_01_3, sprites01, 3, 4, 1, 1);
+        addCharacter(ImageIds.MALE_01_4, sprites01, 6, 4, 1, 1);
+        addCharacter(ImageIds.FEMALE_01_4, sprites01, 9, 4, 1, 1);
     }
 
     private void resizeSmallFlowers() {
@@ -804,6 +813,10 @@ public class ImageInfoReader {
 	
 	private static Sprites readSpritesHeal1() throws IOException {
 		return readImages("heal_001.png", 48, 48, 1, 1);
+	}
+	
+    private static Sprites readSprites01() throws IOException {
+		return readImages("remakertp01.png", 32, 48, 8, 12);
 	}
 	
 	private static Sprites readImages(String imageFilename, int width, int height, int rows, int cols) throws IOException {
