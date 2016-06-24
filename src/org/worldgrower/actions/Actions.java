@@ -540,7 +540,7 @@ public class Actions {
 		List<ManagedOperation> knownSpells = performer.getProperty(Constants.KNOWN_SPELLS);
 		
 		allSpells.removeAll(knownSpells);
-		
+		sortActionsByDescription(allSpells);
 		allSpells = allSpells.stream().filter(s -> getResearchSpellActionFor(s).distance(performer, performer, Args.EMPTY, null) == 0).collect(Collectors.toList());
 		
 		return allSpells;
@@ -554,7 +554,7 @@ public class Actions {
 		return INVENTORY_ACTIONS;
 	}
 	
-	public static void sortActionsByDescription(List<ManagedOperation> actions) {
+	public static void sortActionsByDescription(List<? extends ManagedOperation> actions) {
 		Collections.sort(actions, new ActionComparator());
 	}
 	
