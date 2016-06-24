@@ -35,12 +35,9 @@ public class ConditionIconDrawer {
 	private static final int CONDITION_IMAGE_WIDTH = 12;
 	private static final int CONDITION_IMAGE_HEIGHT = 12;
 	
-	private final ImageInfoReader imageInfoReader;
 	private final Map<ImageIds, Image> conditionImages = new HashMap<>();
 	
 	public ConditionIconDrawer(ImageInfoReader imageInfoReader) {
-		this.imageInfoReader = imageInfoReader;
-		
 		for(Condition condition : Condition.ALL_CONDITIONS) {
 			Image overlayingImage = imageInfoReader.getImage(condition.getImageIds(), null);
 			overlayingImage = createResizedCopy(overlayingImage, CONDITION_IMAGE_WIDTH, CONDITION_IMAGE_HEIGHT, false);
