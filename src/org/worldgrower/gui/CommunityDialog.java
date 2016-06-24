@@ -47,6 +47,7 @@ import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdMap;
 import org.worldgrower.attribute.KnowledgeMap;
 import org.worldgrower.deity.Deity;
+import org.worldgrower.goal.BountyPropertyUtils;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.gui.util.DialogUtils;
 import org.worldgrower.gui.util.IconUtils;
@@ -71,7 +72,7 @@ public class CommunityDialog extends JDialog {
 		setResizable(false);
 		setTitle("Community Overview");
 		
-		int width = 822;
+		int width = 1022;
 		int height = 785;
 		setSize(width, height);
 		getContentPane().setPreferredSize(getSize());
@@ -85,7 +86,7 @@ public class CommunityDialog extends JDialog {
 		
 		JPanel familyPanel = JPanelFactory.createJPanel("Family");
 		familyPanel.setLayout(null);
-		familyPanel.setBounds(12, 13, 380, 340);
+		familyPanel.setBounds(12, 13, 480, 340);
 		contentPanel.add(familyPanel);
 		
 		JLabel lblMate = JLabelFactory.createJLabel("Mate:");
@@ -112,14 +113,16 @@ public class CommunityDialog extends JDialog {
 		tlbChildren.setRowHeight(50);
 		tlbChildren.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tlbChildren.setAutoCreateRowSorter(true);
+		tlbChildren.getColumnModel().getColumn(0).setPreferredWidth(50);
+		tlbChildren.getColumnModel().getColumn(1).setPreferredWidth(405);
 		JScrollPane scrollPaneChildren = new JScrollPane(tlbChildren);
-		scrollPaneChildren.setBounds(13, 80, 355, 241);
+		scrollPaneChildren.setBounds(13, 80, 455, 241);
 		familyPanel.add(scrollPaneChildren);
 		SwingUtils.makeTransparant(tlbChildren, scrollPaneChildren);
 		
 		JPanel acquaintancesPanel = JPanelFactory.createJPanel("Acquaintances");
 		acquaintancesPanel.setLayout(null);
-		acquaintancesPanel.setBounds(12, 363, 380, 365);
+		acquaintancesPanel.setBounds(12, 363, 480, 365);
 		contentPanel.add(acquaintancesPanel);
 		
 		tblAcquaintances = JTableFactory.createJTable(new AcquaintancesTableModel(playerCharacter, world));
@@ -127,8 +130,13 @@ public class CommunityDialog extends JDialog {
 		tblAcquaintances.setRowHeight(50);
 		tblAcquaintances.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tblAcquaintances.setAutoCreateRowSorter(true);
+		tblAcquaintances.getColumnModel().getColumn(0).setPreferredWidth(50);
+		tblAcquaintances.getColumnModel().getColumn(1).setPreferredWidth(100);
+		tblAcquaintances.getColumnModel().getColumn(2).setPreferredWidth(100);
+		tblAcquaintances.getColumnModel().getColumn(3).setPreferredWidth(100);
+		tblAcquaintances.getColumnModel().getColumn(4).setPreferredWidth(100);
 		JScrollPane scrollPaneAcquaintances = new JScrollPane(tblAcquaintances);
-		scrollPaneAcquaintances.setBounds(12, 30, 355, 321);
+		scrollPaneAcquaintances.setBounds(12, 30, 455, 321);
 		acquaintancesPanel.add(scrollPaneAcquaintances);
 		SwingUtils.makeTransparant(tblAcquaintances, scrollPaneAcquaintances);
 		
@@ -146,18 +154,18 @@ public class CommunityDialog extends JDialog {
 
 		JPanel ranksPanel = JPanelFactory.createJPanel("Player Character Ranks");
 		ranksPanel.setLayout(null);
-		ranksPanel.setBounds(410, 13, 380, 335);
+		ranksPanel.setBounds(510, 13, 480, 335);
 		contentPanel.add(ranksPanel);
 		
 		OrganizationsModel worldModel = new OrganizationsModel(playerCharacter, world);
 		JTable table = JTableFactory.createJTable(worldModel);
 		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(15, 30, 350, 290);
+		scrollPane.setBounds(15, 30, 450, 290);
 		ranksPanel.add(scrollPane);
 		
 		JPanel organizationsPanel = JPanelFactory.createJPanel("Organizations");
 		organizationsPanel.setLayout(null);
-		organizationsPanel.setBounds(410, 363, 380, 365);
+		organizationsPanel.setBounds(510, 363, 480, 365);
 		contentPanel.add(organizationsPanel);
 		
 		JTree tree = JTreeFactory.createJTree(createRootNode(playerCharacter, world));
@@ -165,7 +173,7 @@ public class CommunityDialog extends JDialog {
 		expandAllNodes(tree, 0, tree.getRowCount());
 		tree.setCellRenderer(new OrganizationMemberRenderer());
 		JScrollPane treeView = new JScrollPane(tree);
-		treeView.setBounds(15, 30, 350, 321);
+		treeView.setBounds(15, 30, 450, 321);
 		organizationsPanel.add(treeView);
 		
 		SwingUtils.makeTransparant(table, scrollPane);
@@ -240,6 +248,7 @@ public class CommunityDialog extends JDialog {
 		private final List<WorldObject> acquaintances = new ArrayList<>();
 		private final List<Profession> professions = new ArrayList<>();
 		private final List<Deity> deities = new ArrayList<>();
+		private final List<String> bounties = new ArrayList<>();
 		
 		public AcquaintancesTableModel(WorldObject playerCharacter, World world) {
 			super();
@@ -261,6 +270,15 @@ public class CommunityDialog extends JDialog {
 				int id = acquaintance.getProperty(Constants.ID);
 				professions.add(knowledgeMap.getProperty(id, Constants.PROFESSION));
 				deities.add(knowledgeMap.getProperty(id, Constants.DEITY));
+				
+				int bounty = BountyPropertyUtils.getBounty(acquaintance, world);
+				final String bountyValue;
+				if (bounty > 0) {
+					bountyValue = Integer.toString(bounty);
+				} else {
+					bountyValue = "";
+				}
+				bounties.add(bountyValue);
 			}
 		}
 
@@ -271,7 +289,7 @@ public class CommunityDialog extends JDialog {
 
 		@Override
 		public int getColumnCount() {
-			return 4;
+			return 5;
 		}
 
 		@Override
@@ -293,6 +311,8 @@ public class CommunityDialog extends JDialog {
 				return "Profession";
 			} else if (columnIndex == 3) {
 				return "Deity";
+			} else if (columnIndex == 4) {
+				return "Bounty";
 			} else {
 				return null;
 			}
@@ -309,6 +329,8 @@ public class CommunityDialog extends JDialog {
 				return professions.get(rowIndex) != null ? professions.get(rowIndex).getDescription() : null;
 			} else if (columnIndex == 3) {
 				return deities.get(rowIndex) != null ? deities.get(rowIndex).getName() : null;
+			} else if (columnIndex == 4) {
+				return bounties.get(rowIndex);
 			}
 			return null;
 		}
