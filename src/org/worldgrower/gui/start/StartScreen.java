@@ -53,7 +53,6 @@ import org.worldgrower.gui.util.DialogUtils;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JLabelFactory;
-import org.worldgrower.gui.util.ListInputDialog;
 import org.worldgrower.gui.util.MenuFactory;
 
 public class StartScreen implements SaveGameHandler {
@@ -115,9 +114,19 @@ public class StartScreen implements SaveGameHandler {
 				soundIdReader = new SoundIdReader(soundOutput, preferences.getBoolean(PLAY_SOUNDS, true));
 				saveSoundSettings(preferences);
 			} catch (Exception e2) {
+				disableSound();
 				ExceptionHandler.handle(e2);
 			}
 		} catch (Exception e) {
+			ExceptionHandler.handle(e);
+		}
+	}
+
+	private static void disableSound() {
+		try {
+			soundIdReader = new SoundIdReader(soundOutput, false);
+			JOptionPane.showMessageDialog(null, "Sound effects have been disabled due to problem loading sounds");
+		} catch (SoundException e) {
 			ExceptionHandler.handle(e);
 		}
 	}

@@ -97,7 +97,9 @@ public class SoundIdReader {
 		this.soundOutput = soundOutput;
 		this.enabled = enabled;
 		
-		initialize();
+		if (enabled) {
+			initialize();
+		}
 	}
 
 	private void readSound(SoundIds soundIds, String path) throws SoundException {
