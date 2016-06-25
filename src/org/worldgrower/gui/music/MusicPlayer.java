@@ -31,15 +31,17 @@ public class MusicPlayer implements LineListener {
 	private boolean enabled;
 	private boolean playCompleted;
 	private Clip audioClip;
+	private SoundOutput soundOutput;
 	
-	public MusicPlayer(boolean enabled) {
+	public MusicPlayer(SoundOutput soundOutput, boolean enabled) {
+		this.soundOutput = soundOutput;
 		this.enabled = enabled;
 	}
 	
 	private void play(InputStream audioFilePath) {
 
 		try {
-			audioClip = BackgroundMusicUtils.readMusicFile(audioFilePath);
+			audioClip = BackgroundMusicUtils.readMusicFile(audioFilePath, soundOutput);
 			audioClip.addLineListener(this);
 			audioClip.loop(Clip.LOOP_CONTINUOUSLY);
 			

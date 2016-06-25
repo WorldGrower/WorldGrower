@@ -29,10 +29,11 @@ import org.worldgrower.gui.start.Game;
 
 public class SoundIdReader {
 
+	private SoundOutput soundOutput;
 	private boolean enabled;
 	private final Map<SoundIds, Clip> sounds = new HashMap<>();
-	
-	public SoundIdReader(boolean enabled) {
+
+	private void initialize() throws SoundException {
 		readSound(SoundIds.CUT_WOOD, "/sound/workshop - wood clap8bit.wav.gz");
 		readSound(SoundIds.MINE, "/sound/workshop - metal tapping8bit.wav.gz");
 		readSound(SoundIds.FLAMES, "/sound/flames8bit.wav.gz");
@@ -90,17 +91,22 @@ public class SoundIdReader {
 		readSound(SoundIds.RELIGIOUS, "/sound/135489__felix-blume__bells-and-religious-hymn8bit.wav.gz");
 		readSound(SoundIds.SWISH, "/sound/swish-98bit.wav.gz");
 		readSound(SoundIds.METAL_SMALL1, "/sound/metal-small18bit.wav.gz");
-		
-		this.enabled = enabled;
 	}
 
-	private void readSound(SoundIds soundIds, String path) {
+	public SoundIdReader(SoundOutput soundOutput, boolean enabled) throws SoundException {
+		this.soundOutput = soundOutput;
+		this.enabled = enabled;
+		
+		initialize();
+	}
+
+	private void readSound(SoundIds soundIds, String path) throws SoundException {
 		Clip audioClip;
 		try {
 			InputStream audioFilePath = new BufferedInputStream(new GZIPInputStream(Game.class.getResourceAsStream(path)));
-			audioClip = BackgroundMusicUtils.readMusicFile(audioFilePath);
+			audioClip = BackgroundMusicUtils.readMusicFile(audioFilePath, soundOutput);
 		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-			throw new IllegalStateException("Problem reading " + path, e);
+			throw new SoundException("Problem reading " + path, e);
 		}
 		sounds.put(soundIds, audioClip);
 	}

@@ -30,6 +30,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
@@ -45,17 +46,21 @@ import org.worldgrower.gui.loadsave.LoadSaveDialog;
 import org.worldgrower.gui.loadsave.LoadSaveMode;
 import org.worldgrower.gui.loadsave.SaveGameHandler;
 import org.worldgrower.gui.music.MusicPlayer;
+import org.worldgrower.gui.music.SoundException;
 import org.worldgrower.gui.music.SoundIdReader;
+import org.worldgrower.gui.music.SoundOutput;
 import org.worldgrower.gui.util.DialogUtils;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JLabelFactory;
+import org.worldgrower.gui.util.ListInputDialog;
 import org.worldgrower.gui.util.MenuFactory;
 
 public class StartScreen implements SaveGameHandler {
 
 	private static final String PLAY_MUSIC = "playMusic";
 	private static final String PLAY_SOUNDS = "playSounds";
+	private static final String SOUND_OUTPUT = "soundOutput";
 	private StartScreenDialog frame;
 	private JButton btnSaveGame;
 	private JButton btnControlsGame;
@@ -63,6 +68,8 @@ public class StartScreen implements SaveGameHandler {
 	private final KeyBindings keyBindings;
 	private final Preferences preferences = Preferences.userNodeForPackage(getClass());
 	private JFrame parentFrame = null;
+	
+	private static SoundOutput soundOutput;
 	
 	private static ImageInfoReader imageInfoReader = null;
 	private static SoundIdReader soundIdReader = null;
@@ -75,6 +82,7 @@ public class StartScreen implements SaveGameHandler {
 		ExceptionHandler.registerExceptionHandler();
 		
 		Preferences preferences = Preferences.userNodeForPackage(StartScreen.class);
+		loadDefaultSoundOutput(preferences);
 		loadImages();
 		loadSounds(preferences);
 		loadMusic(preferences);
@@ -100,15 +108,51 @@ public class StartScreen implements SaveGameHandler {
 	
 	private static void loadSounds(Preferences preferences) {
 		try {
-			soundIdReader = new SoundIdReader(preferences.getBoolean(PLAY_SOUNDS, true));
+			soundIdReader = new SoundIdReader(soundOutput, preferences.getBoolean(PLAY_SOUNDS, true));
+		} catch(SoundException e) {
+			askUserForSoundOutput();
+			try {
+				soundIdReader = new SoundIdReader(soundOutput, preferences.getBoolean(PLAY_SOUNDS, true));
+				saveSoundSettings(preferences);
+			} catch (Exception e2) {
+				ExceptionHandler.handle(e2);
+			}
 		} catch (Exception e) {
 			ExceptionHandler.handle(e);
 		}
 	}
+
+	private static void askUserForSoundOutput() {
+		String message = "There was a problem loading sounds using mixer '" + soundOutput.getDescription() + "'. Please select another mixer:";
+		String title = "Problem loading sounds";
+		Object[] selectionValues = SoundOutput.getAllSoundOutputs().toArray(new SoundOutput[0]);
+		Object initialSelectionValue = SoundOutput.getDefaultSoundOutput();
+		SoundOutput selectedSoundOutput = (SoundOutput) JOptionPane.showInputDialog(null, message, title, JOptionPane.QUESTION_MESSAGE, null, selectionValues, initialSelectionValue);
+		if (selectedSoundOutput != null) {
+			soundOutput = selectedSoundOutput;
+		}
+	}
+	
+	private static void loadDefaultSoundOutput(Preferences preferences) {
+		String soundOutputDescription = preferences.get(SOUND_OUTPUT, null);
+		if (soundOutputDescription != null) {
+			SoundOutput soundOutputValue = SoundOutput.create(soundOutputDescription);
+			if (soundOutputValue != null) {
+				soundOutput = soundOutputValue;
+			}
+		}
+		if (soundOutput == null) {
+			soundOutput = SoundOutput.getDefaultSoundOutput();
+		}
+	}
+	
+	private static void saveSoundSettings(Preferences preferences) {
+		preferences.put(SOUND_OUTPUT, soundOutput.getDescription());
+	}
 	
 	private static void loadMusic(Preferences preferences) {
 		try {
-			musicPlayer = new MusicPlayer(preferences.getBoolean(PLAY_MUSIC, true));
+			musicPlayer = new MusicPlayer(soundOutput, preferences.getBoolean(PLAY_MUSIC, true));
 		} catch (Exception e) {
 			ExceptionHandler.handle(e);
 		}

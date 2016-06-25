@@ -23,16 +23,18 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.DataLine;
 import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.Mixer;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class BackgroundMusicUtils {
 	
-	public static Clip readMusicFile(InputStream audioFilePath) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+	public static Clip readMusicFile(InputStream audioFilePath, SoundOutput soundOutput) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 		AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFilePath);
 		AudioFormat format = audioStream.getFormat();
 		DataLine.Info info = new DataLine.Info(Clip.class, format);
 		
-		Clip audioClip = (Clip) AudioSystem.getLine(info);
+		Mixer mixer = soundOutput.getMixer();
+		Clip audioClip = (Clip) mixer.getLine(info);
 		audioClip.open(audioStream);
 		return audioClip;
 	}
