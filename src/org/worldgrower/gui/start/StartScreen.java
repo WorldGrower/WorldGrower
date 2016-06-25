@@ -114,20 +114,19 @@ public class StartScreen implements SaveGameHandler {
 				soundIdReader = new SoundIdReader(soundOutput, preferences.getBoolean(PLAY_SOUNDS, true));
 				saveSoundSettings(preferences);
 			} catch (Exception e2) {
-				disableSound();
-				ExceptionHandler.handle(e2);
+				disableSound(e2);
 			}
 		} catch (Exception e) {
 			ExceptionHandler.handle(e);
 		}
 	}
 
-	private static void disableSound() {
+	private static void disableSound(Exception e) {
 		try {
 			soundIdReader = new SoundIdReader(soundOutput, false);
-			JOptionPane.showMessageDialog(null, "Sound effects have been disabled due to problem loading sounds");
-		} catch (SoundException e) {
-			ExceptionHandler.handle(e);
+			JOptionPane.showMessageDialog(null, "<html>Sound effects have been disabled due to problem loading sounds.<br>Detailed error message: " + e.getMessage() + "</html>");
+		} catch (SoundException e2) {
+			ExceptionHandler.handle(e2);
 		}
 	}
 
