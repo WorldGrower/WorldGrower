@@ -226,6 +226,7 @@ public class Game {
             SwingUtils.centerFrame(frame);
         } else {
         	FullScreenUtils.makeFullScreen(frame);
+        	frame.pack();
         }
         frame.setVisible(true);
         
