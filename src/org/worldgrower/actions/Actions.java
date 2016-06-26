@@ -184,7 +184,13 @@ public class Actions {
 	public static final AnimateDeadAction ANIMATE_DEAD_ACTION = new AnimateDeadAction();
 	public static final CommandAction COMMAND_GATHER_WOOD_ACTION = new CommandAction(Goals.CREATE_WOOD_GOAL, "gather wood");
 	public static final CommandAction COMMAND_GATHER_FOOD_ACTION = new CommandAction(new GatherFoodGoal(Integer.MAX_VALUE), "gather food");
-	public static final CommandAction COMMAND_GATHER_RESOURCES_ACTION = new CommandAction(Goals.MINE_GOLD_GOAL, "gather gold");
+	public static final CommandAction COMMAND_GATHER_GOLD_ACTION = new CommandAction(Goals.MINE_GOLD_GOAL, "gather gold");
+	public static final CommandAction COMMAND_GATHER_STONE_ACTION = new CommandAction(Goals.MINE_STONE_GOAL, "gather stone");
+	public static final CommandAction COMMAND_GATHER_SOUL_GEMS_ACTION = new CommandAction(Goals.MINE_SOUL_GEMS_GOAL, "gather soul gems");
+	public static final CommandAction COMMAND_PROTECT_CASTER_ACTION = new CommandAction(Goals.KILL_OUTSIDERS_GOAL, "protect me");
+	public static final CommandAction COMMAND_GATHER_REMAINS_ACTION = new CommandAction(Goals.GATHER_REMAINS_GOAL, "gather remains");
+	public static final CommandAction COMMAND_GATHER_NIGHT_SHADE_ACTION = new CommandAction(Goals.HARVEST_NIGHT_SHADE_GOAL, "gather night shade");
+	
 	
 	public static final GatherRemainsAction GATHER_REMAINS_ACTION = new GatherRemainsAction();
 	public static final CreateGraveAction CREATE_GRAVE_ACTION = new CreateGraveAction();
@@ -384,7 +390,12 @@ public class Actions {
 		POISON_ACTION,
 		COMMAND_GATHER_WOOD_ACTION,
 		COMMAND_GATHER_FOOD_ACTION,
-		COMMAND_GATHER_RESOURCES_ACTION,
+		COMMAND_GATHER_GOLD_ACTION,
+		COMMAND_GATHER_STONE_ACTION,
+		COMMAND_GATHER_SOUL_GEMS_ACTION,
+		COMMAND_PROTECT_CASTER_ACTION,
+		COMMAND_GATHER_REMAINS_ACTION,
+		COMMAND_GATHER_NIGHT_SHADE_ACTION,
 		GATHER_REMAINS_ACTION,
 		CREATE_GRAVE_ACTION,
 		BUILD_PAPER_MILL_ACTION,

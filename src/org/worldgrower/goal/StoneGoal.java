@@ -16,12 +16,10 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
-import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.actions.Actions;
 
 public class StoneGoal implements Goal {
 
@@ -37,12 +35,7 @@ public class StoneGoal implements Goal {
 		if (buyOperationInfo != null) {
 			return buyOperationInfo;
 		} else {
-			WorldObject target = GoalUtils.findNearestTarget(performer, Actions.MINE_STONE_ACTION, world);
-			if (target != null) {
-				return new OperationInfo(performer, target, Args.EMPTY, Actions.MINE_STONE_ACTION);
-			} else {
-				return null;
-			}
+			return Goals.MINE_STONE_GOAL.calculateGoal(performer, world);
 		}
 	}
 	

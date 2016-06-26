@@ -16,37 +16,35 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
-import org.worldgrower.Constants;
+import org.worldgrower.Args;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
 
-public class SoulGemGoal implements Goal {
+public class MineStoneGoal implements Goal {
 
-	private static final int QUANTITY_TO_BUY = 5;
-	
-	public SoulGemGoal(List<Goal> allGoals) {
+	public MineStoneGoal(List<Goal> allGoals) {
 		allGoals.add(this);
 	}
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		OperationInfo buyOperationInfo = BuySellUtils.getBuyOperationInfo(performer, Constants.SOUL_GEM, QUANTITY_TO_BUY, world);
-		if (buyOperationInfo != null) {
-			return buyOperationInfo;
+		WorldObject target = GoalUtils.findNearestTarget(performer, Actions.MINE_STONE_ACTION, world);
+		if (target != null) {
+			return new OperationInfo(performer, target, Args.EMPTY, Actions.MINE_STONE_ACTION);
 		} else {
-			return Goals.MINE_SOUL_GEMS_GOAL.calculateGoal(performer, world);
+			return null;
 		}
 	}
 	
 	@Override
 	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
-		defaultGoalMetOrNot(performer, world, goalMet, Constants.SOUL_GEM);
 	}
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		return true;
+		return false;
 	}
 	
 	@Override
@@ -56,7 +54,7 @@ public class SoulGemGoal implements Goal {
 
 	@Override
 	public String getDescription() {
-		return "looking for soulgems";
+		return "looking for stone";
 	}
 
 	@Override

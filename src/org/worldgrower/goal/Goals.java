@@ -158,4 +158,7 @@ public class Goals {
 	public static final AnimalFoodGoal ANIMAL_FOOD_GOAL = new AnimalFoodGoal(ALL_GOALS);
 	public static final ScribeTricksterSpellsGoal SCRIBE_TRICKSTER_SPELLS_GOAL = new ScribeTricksterSpellsGoal(ALL_GOALS);
 	public static final SwindleMoneyGoal SWINDLE_MONEY_GOAL = new SwindleMoneyGoal(ALL_GOALS);
+	public static final MineSoulGemsGoal MINE_SOUL_GEMS_GOAL = new MineSoulGemsGoal(ALL_GOALS);
+	public static final MineStoneGoal MINE_STONE_GOAL = new MineStoneGoal(ALL_GOALS);
+	public static final HarvestNightShadeGoal HARVEST_NIGHT_SHADE_GOAL = new HarvestNightShadeGoal(ALL_GOALS);
 }
