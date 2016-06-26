@@ -17,48 +17,33 @@ package org.worldgrower.goal;
 import java.util.List;
 
 import org.worldgrower.Args;
-import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.generator.Item;
 
-public class CottonGoal implements Goal {
+public class HarvestGrapesGoal implements Goal {
 
-	private static final int QUANTITY_TO_BUY = 5;
-	
-	public CottonGoal(List<Goal> allGoals) {
+	public HarvestGrapesGoal(List<Goal> allGoals) {
 		allGoals.add(this);
 	}
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		OperationInfo harvestCottonOperationInfo = Goals.HARVEST_COTTON_GOAL.calculateGoal(performer, world);
-		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.COTTON, QUANTITY_TO_BUY, world);
-		if (targets.size() > 0) {
-			return BuySellUtils.create(performer, targets.get(0), Item.COTTON, QUANTITY_TO_BUY);
-		} else if (harvestCottonOperationInfo != null) {
-			return harvestCottonOperationInfo;
-		} else {
-			WorldObject buildLocation = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 2, 3, world);
-			
-			if (buildLocation != null) {
-				return new OperationInfo(performer, buildLocation, Args.EMPTY, Actions.PLANT_COTTON_PLANT_ACTION);
-			} else {
-				return null;
-			}
+		WorldObject target = GoalUtils.findNearestTarget(performer, Actions.HARVEST_GRAPES_ACTION, world);
+		if (target != null) {
+			return new OperationInfo(performer, target, Args.EMPTY, Actions.HARVEST_GRAPES_ACTION);
 		}
+		return null;
 	}
 	
 	@Override
 	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
-		defaultGoalMetOrNot(performer, world, goalMet, Constants.COTTON);
 	}
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.COTTON) > 5;
+		return false;
 	}
 	
 	@Override
@@ -68,11 +53,11 @@ public class CottonGoal implements Goal {
 
 	@Override
 	public String getDescription() {
-		return "looking for cotton";
+		return "harvesting grapes";
 	}
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.COTTON);
+		return 0;
 	}
 }

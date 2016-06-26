@@ -161,4 +161,6 @@ public class Goals {
 	public static final MineSoulGemsGoal MINE_SOUL_GEMS_GOAL = new MineSoulGemsGoal(ALL_GOALS);
 	public static final MineStoneGoal MINE_STONE_GOAL = new MineStoneGoal(ALL_GOALS);
 	public static final HarvestNightShadeGoal HARVEST_NIGHT_SHADE_GOAL = new HarvestNightShadeGoal(ALL_GOALS);
+	public static final HarvestCottonGoal HARVEST_COTTON_GOAL = new HarvestCottonGoal(ALL_GOALS);
+	public static final HarvestGrapesGoal HARVEST_GRAPES_GOAL = new HarvestGrapesGoal(ALL_GOALS);
 }

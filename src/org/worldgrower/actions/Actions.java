@@ -190,8 +190,9 @@ public class Actions {
 	public static final CommandAction COMMAND_PROTECT_CASTER_ACTION = new CommandAction(Goals.KILL_OUTSIDERS_GOAL, "protect me");
 	public static final CommandAction COMMAND_GATHER_REMAINS_ACTION = new CommandAction(Goals.GATHER_REMAINS_GOAL, "gather remains");
 	public static final CommandAction COMMAND_GATHER_NIGHT_SHADE_ACTION = new CommandAction(Goals.HARVEST_NIGHT_SHADE_GOAL, "gather night shade");
-	
-	
+	public static final CommandAction COMMAND_GATHER_COTTON_ACTION = new CommandAction(Goals.HARVEST_COTTON_GOAL, "gather cotton");
+	public static final CommandAction COMMAND_GATHER_GRAPES_ACTION = new CommandAction(Goals.HARVEST_GRAPES_GOAL, "gather grapes");
+		
 	public static final GatherRemainsAction GATHER_REMAINS_ACTION = new GatherRemainsAction();
 	public static final CreateGraveAction CREATE_GRAVE_ACTION = new CreateGraveAction();
 	public static final BecomeLeaderCandidateAction BECOME_LEADER_CANDIDATE_ACTION = new BecomeLeaderCandidateAction();
@@ -396,6 +397,7 @@ public class Actions {
 		COMMAND_PROTECT_CASTER_ACTION,
 		COMMAND_GATHER_REMAINS_ACTION,
 		COMMAND_GATHER_NIGHT_SHADE_ACTION,
+		COMMAND_GATHER_COTTON_ACTION,
 		GATHER_REMAINS_ACTION,
 		CREATE_GRAVE_ACTION,
 		BUILD_PAPER_MILL_ACTION,

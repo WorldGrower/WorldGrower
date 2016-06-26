@@ -19,7 +19,6 @@ import java.util.List;
 import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
-import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
@@ -35,9 +34,9 @@ public class CreateWineGoal implements Goal {
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		Integer breweryId = BuildingGenerator.getBreweryId(performer);
 		if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.GRAPE) < 5) {
-			List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.HARVEST_GRAPES_ACTION, w -> Reach.distance(performer, w) < 20  ,world);
-			if (targets.size() > 0) {
-				return new OperationInfo(performer, targets.get(0), Args.EMPTY, Actions.HARVEST_GRAPES_ACTION);
+			OperationInfo harvestGrapesOperationInfo = Goals.HARVEST_GRAPES_GOAL.calculateGoal(performer, world);
+			if (harvestGrapesOperationInfo != null) {
+				return harvestGrapesOperationInfo;
 			} else {
 				WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 2, 3, world);
 		
