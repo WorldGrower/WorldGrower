@@ -64,7 +64,7 @@ public class PutItemIntoInventoryAction implements ManagedOperation {
 
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return (!target.hasIntelligence() && target.hasProperty(Constants.INVENTORY));
+		return ContainerUtils.canAccessContainer(performer, target, world);
 	}
 	
 	@Override

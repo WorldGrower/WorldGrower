@@ -22,6 +22,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.goal.Goal;
+import org.worldgrower.goal.SummonPropertyUtils;
 import org.worldgrower.gui.ImageIds;
 
 public class CommandAction implements ManagedOperation {
@@ -56,7 +57,7 @@ public class CommandAction implements ManagedOperation {
 
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return target.hasProperty(Constants.CREATOR_ID) && target.getProperty(Constants.CREATOR_ID).intValue() == performer.getProperty(Constants.ID).intValue();
+		return SummonPropertyUtils.targetIsSummonOfPerformer(performer, target, world);
 	}
 	
 	@Override

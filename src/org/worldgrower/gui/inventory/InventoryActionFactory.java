@@ -85,7 +85,8 @@ public class InventoryActionFactory {
 				inventoryActions.add(new InventoryItemAction(Actions.SELL_ACTION, args, inventoryItemId, target));
 			}
 		}
-		if (target != null && !target.hasIntelligence()) {
+		
+		if (Game.canActionExecute(playerCharacter, playerCharacter.getOperation(Actions.PUT_ITEM_INTO_INVENTORY_ACTION), new int[] {inventoryItemId}, world, target)) {
 			inventoryActions.add(new InventoryItemAction(Actions.PUT_ITEM_INTO_INVENTORY_ACTION, inventoryItemId, target));
 		}
 		return inventoryActions;
@@ -109,7 +110,7 @@ public class InventoryActionFactory {
 			}
 		}
 		
-		if (target != null && !target.hasIntelligence()) {
+		if (Game.canActionExecute(playerCharacter, playerCharacter.getOperation(Actions.GET_ITEM_FROM_INVENTORY_ACTION), new int[] {inventoryItemId}, world, target)) {
 			inventoryActions.add(new InventoryItemAction(Actions.GET_ITEM_FROM_INVENTORY_ACTION, inventoryItemId, target));
 		}
 		

@@ -49,4 +49,10 @@ public class ContainerUtils {
 		}
 		return null;
 	}
+	
+	public static boolean canAccessContainer(WorldObject performer, WorldObject target, World world) {
+		boolean targetIsSummon = SummonPropertyUtils.targetIsSummonOfPerformer(performer, target, world);
+		boolean targetIsUnintelligentContainer = !target.hasIntelligence();
+		return ((targetIsSummon || targetIsUnintelligentContainer) && target.hasProperty(Constants.INVENTORY));
+	}
 }
