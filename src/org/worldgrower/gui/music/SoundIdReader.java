@@ -91,6 +91,9 @@ public class SoundIdReader {
 		readSound(SoundIds.RELIGIOUS, "/sound/135489__felix-blume__bells-and-religious-hymn8bit.wav.gz");
 		readSound(SoundIds.SWISH, "/sound/swish-98bit.wav.gz");
 		readSound(SoundIds.METAL_SMALL1, "/sound/metal-small18bit.wav.gz");
+		readSound(SoundIds.DOOR_OPEN, "/sound/doorOpen_18bit.wav.gz");
+
+	
 	}
 
 	public SoundIdReader(SoundOutput soundOutput, boolean enabled) throws SoundException {
