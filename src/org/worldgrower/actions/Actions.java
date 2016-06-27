@@ -619,12 +619,16 @@ public class Actions {
 		sampleWorldObject.removeProperty(Constants.BUILDING_TYPE);
 		sampleWorldObject.removeProperty(Constants.TEXT);
 		sampleWorldObject.removeProperty(Constants.CONDITIONS);
+		sampleWorldObject.removeProperty(Constants.LOCKED);
 		
 		for(ManagedOperation action : ALL_ACTIONS) {
 			if (action.isValidTarget(performer, sampleWorldObject, world)) {
 				actions.add(action);
 			}
 		}
+		actions.remove(Actions.MINOR_ILLUSION_ACTION);
+		actions.remove(Actions.MAJOR_ILLUSION_ACTION);
+		
 		return actions;
 	}
 }
