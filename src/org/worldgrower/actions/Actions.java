@@ -610,13 +610,15 @@ public class Actions {
 	
 	public static List<ManagedOperation> getActionsWithTargetProperty(WorldObject performer, IntProperty intProperty, World world) {
 		List<ManagedOperation> actions = new ArrayList<>();
-		WorldObject sampleWorldObject = BuildingGenerator.generateShack(0, 0, 1f, performer, 0);
+		WorldObject sampleWorldObject = BuildingGenerator.generateShack(0, 0, 1f, performer, -1);
 		sampleWorldObject.setProperty(intProperty, 5);
 		sampleWorldObject.removeProperty(Constants.HIT_POINTS);
 		sampleWorldObject.removeProperty(Constants.ARMOR);
 		sampleWorldObject.removeProperty(Constants.INVENTORY);
 		sampleWorldObject.removeProperty(Constants.SLEEP_COMFORT);
 		sampleWorldObject.removeProperty(Constants.BUILDING_TYPE);
+		sampleWorldObject.removeProperty(Constants.TEXT);
+		sampleWorldObject.removeProperty(Constants.CONDITIONS);
 		
 		for(ManagedOperation action : ALL_ACTIONS) {
 			if (action.isValidTarget(performer, sampleWorldObject, world)) {
