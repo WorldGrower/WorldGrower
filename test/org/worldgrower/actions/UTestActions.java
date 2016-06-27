@@ -25,11 +25,16 @@ import org.junit.Test;
 import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.TestUtils;
+import org.worldgrower.World;
+import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.actions.magic.ResearchSpellAction;
 import org.worldgrower.actions.magic.ScribeMagicSpellAction;
+import org.worldgrower.attribute.BuildingList;
 import org.worldgrower.attribute.SkillProperty;
+import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.goal.GroupPropertyUtils;
 
 public class UTestActions {
 
@@ -115,5 +120,32 @@ public class UTestActions {
 		
 		assertEquals(Constants.ENCHANTMENT_SKILL, skillProperties.get(0));
 		assertEquals(Constants.EVOCATION_SKILL, skillProperties.get(1));
+	}
+	
+	@Test
+	public void testGetActionsWithTargetPropertyApothecary() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = createPerformer(2);
+		createVillagersOrganization(world);
+		
+		List<ManagedOperation> actions = Actions.getActionsWithTargetProperty(performer, Constants.APOTHECARY_QUALITY, world);
+		assertEquals(Arrays.asList(Actions.BREW_POISON_ACTION, Actions.BREW_SLEEPING_POTION_ACTION), actions);
+	}
+	
+	private WorldObject createPerformer(int id) {
+		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.INVENTORY, new WorldObjectContainer());
+		performer.setProperty(Constants.X, 0);
+		performer.setProperty(Constants.Y, 0);
+		performer.setProperty(Constants.WIDTH, 1);
+		performer.setProperty(Constants.HEIGHT, 1);
+		performer.setProperty(Constants.BUILDINGS, new BuildingList());
+		return performer;
+	}
+	
+	private WorldObject createVillagersOrganization(World world) {
+		WorldObject villagersOrganization = GroupPropertyUtils.createVillagersOrganization(world);
+		villagersOrganization.setProperty(Constants.ID, 1);
+		world.addWorldObject(villagersOrganization);
+		return villagersOrganization;
 	}
 }

@@ -14,8 +14,12 @@
  *******************************************************************************/
 package org.worldgrower.actions;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
+import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 
 public interface BuildAction extends ManagedOperation {
@@ -28,5 +32,9 @@ public interface BuildAction extends ManagedOperation {
 		int targetY = w.getProperty(Constants.Y);
 		return x <= targetX && targetX < x + getWidth()
 			&& y <= targetY && targetY < y + getHeight();
+	}
+	
+	public default List<ManagedOperation> getAllowedCraftActions(WorldObject performer, World world) {
+		return new ArrayList<>();
 	}
 }

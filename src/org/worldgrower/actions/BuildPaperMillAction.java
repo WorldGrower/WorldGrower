@@ -15,8 +15,10 @@
 package org.worldgrower.actions;
 
 import java.io.ObjectStreamException;
+import java.util.List;
 
 import org.worldgrower.Constants;
+import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
@@ -90,7 +92,13 @@ public class BuildPaperMillAction implements BuildAction {
 		return ImageIds.PAPER_MILL;
 	}
 	
+	@Override
 	public SoundIds getSoundId() {
 		return SoundIds.BUILD_WOODEN_BUILDING;
+	}
+	
+	@Override
+	public List<ManagedOperation> getAllowedCraftActions(WorldObject performer, World world) {
+		return Actions.getActionsWithTargetProperty(performer, Constants.PAPER_MILL_QUALITY, world);
 	}
 }

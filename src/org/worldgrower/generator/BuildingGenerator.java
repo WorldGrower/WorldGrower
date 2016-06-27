@@ -78,7 +78,7 @@ public class BuildingGenerator {
 		return id;
 	}
 
-	private static WorldObject generateShack(int x, int y, double skillBonus, WorldObject owner, int id) {
+	public static WorldObject generateShack(int x, int y, double skillBonus, WorldObject owner, int id) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);

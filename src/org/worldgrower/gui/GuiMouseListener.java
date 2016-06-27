@@ -508,8 +508,24 @@ public class GuiMouseListener extends MouseAdapter {
 		} else {
 			buildMenuItem = createDisabledActionMenuItem(parentMenuItem, buildAction);
 		}
-		buildMenuItem.setToolTipText(buildAction.getRequirementsDescription());
+		String requirementsDescription = buildAction.getRequirementsDescription();
+		List<ManagedOperation> allowedCraftActions = buildAction.getAllowedCraftActions(playerCharacter, world);
+		String allowedCraftActionsDescription = createAllowedCraftActionsDescription(allowedCraftActions);
+		
+		if (allowedCraftActions.size() > 0) {
+			buildMenuItem.setToolTipText("<html>" + requirementsDescription + "<br>" + allowedCraftActionsDescription + "</html>");
+		} else {
+			buildMenuItem.setToolTipText(requirementsDescription);
+		}
 		addImageIcon(buildAction, buildMenuItem);
+	}
+
+	private String createAllowedCraftActionsDescription(List<ManagedOperation> allowedCraftActions) {
+		StringBuilder allowedCraftActionsDescription = new StringBuilder("Allows actions:<br>");
+		for(ManagedOperation allowedCraftAction : allowedCraftActions) {
+			allowedCraftActionsDescription.append("&nbsp;&nbsp;").append(allowedCraftAction.getSimpleDescription()).append("<br>");
+		}
+		return allowedCraftActionsDescription.toString();
 	}
 	
 	private void addNewsPaperAction(JMenu menu) {

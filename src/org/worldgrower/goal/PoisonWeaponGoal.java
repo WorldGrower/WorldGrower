@@ -54,7 +54,7 @@ public class PoisonWeaponGoal implements Goal {
 			if (targets.size() > 0) {
 				return BuySellUtils.create(performer, targets.get(0), Item.POISON, QUANTITY_TO_BUY);
 			} else {
-				return null;
+				return Goals.CREATE_POISON_GOAL.calculateGoal(performer, world);
 			}
 		}
 	}

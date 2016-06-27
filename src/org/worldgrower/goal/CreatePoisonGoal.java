@@ -34,12 +34,17 @@ public class CreatePoisonGoal implements Goal {
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		Integer apothecaryId = BuildingGenerator.getApothecaryId(performer);
 		if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.NIGHT_SHADE) == 0) {
-			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 2, 2, world);
-	
-			if (target != null) {
-				return new OperationInfo(performer, target, Args.EMPTY, Actions.PLANT_NIGHT_SHADE_ACTION);
+			OperationInfo harvestNightShadeOperationInfo = Goals.HARVEST_NIGHT_SHADE_GOAL.calculateGoal(performer, world);
+			if (harvestNightShadeOperationInfo != null) {
+				return harvestNightShadeOperationInfo;
 			} else {
-				return null;
+				WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 2, 2, world);
+		
+				if (target != null) {
+					return new OperationInfo(performer, target, Args.EMPTY, Actions.PLANT_NIGHT_SHADE_ACTION);
+				} else {
+					return null;
+				}
 			}
 		} else if (apothecaryId == null) {
 			return Goals.APOTHECARY_GOAL.calculateGoal(performer, world);

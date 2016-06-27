@@ -39,11 +39,11 @@ public class UTestPoisonWeaponGoal {
 	}
 	
 	@Test
-	public void testCalculateGoalNoWeapon() {
+	public void testCalculateGoalNoWeaponNoPoison() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
 		
-		assertEquals(null, goal.calculateGoal(performer, world));
+		assertEquals(Actions.PLANT_NIGHT_SHADE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
 	
 	@Test

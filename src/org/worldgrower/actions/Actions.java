@@ -27,6 +27,7 @@ import java.util.stream.Collectors;
 import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
+import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.magic.AnimalFriendshipSpellAction;
 import org.worldgrower.actions.magic.AnimateDeadAction;
@@ -71,7 +72,9 @@ import org.worldgrower.actions.magic.SoulTrapAction;
 import org.worldgrower.actions.magic.TrapContainerMagicSpellAction;
 import org.worldgrower.actions.magic.UnlockMagicSpellAction;
 import org.worldgrower.actions.magic.WaterWalkAction;
+import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.SkillProperty;
+import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.goal.GatherFoodGoal;
 import org.worldgrower.goal.Goals;
 
@@ -186,6 +189,7 @@ public class Actions {
 	public static final CommandAction COMMAND_GATHER_FOOD_ACTION = new CommandAction(new GatherFoodGoal(Integer.MAX_VALUE), "gather food");
 	public static final CommandAction COMMAND_GATHER_GOLD_ACTION = new CommandAction(Goals.MINE_GOLD_GOAL, "gather gold");
 	public static final CommandAction COMMAND_GATHER_STONE_ACTION = new CommandAction(Goals.MINE_STONE_GOAL, "gather stone");
+	public static final CommandAction COMMAND_GATHER_IRON_ORE_ACTION = new CommandAction(Goals.MINE_ORE_GOAL, "gather iron ore");
 	public static final CommandAction COMMAND_GATHER_SOUL_GEMS_ACTION = new CommandAction(Goals.MINE_SOUL_GEMS_GOAL, "gather soul gems");
 	public static final CommandAction COMMAND_PROTECT_CASTER_ACTION = new CommandAction(Goals.KILL_OUTSIDERS_GOAL, "protect me");
 	public static final CommandAction COMMAND_GATHER_REMAINS_ACTION = new CommandAction(Goals.GATHER_REMAINS_GOAL, "gather remains");
@@ -394,6 +398,7 @@ public class Actions {
 		COMMAND_GATHER_GOLD_ACTION,
 		COMMAND_GATHER_STONE_ACTION,
 		COMMAND_GATHER_SOUL_GEMS_ACTION,
+		COMMAND_GATHER_IRON_ORE_ACTION,
 		COMMAND_PROTECT_CASTER_ACTION,
 		COMMAND_GATHER_REMAINS_ACTION,
 		COMMAND_GATHER_NIGHT_SHADE_ACTION,
@@ -601,5 +606,23 @@ public class Actions {
 	
 	public static boolean isMutuallyAgreedAction(ManagedOperation action) {
 		return ((action == BUY_ACTION) || (action == SELL_ACTION));
+	}
+	
+	public static List<ManagedOperation> getActionsWithTargetProperty(WorldObject performer, IntProperty intProperty, World world) {
+		List<ManagedOperation> actions = new ArrayList<>();
+		WorldObject sampleWorldObject = BuildingGenerator.generateShack(0, 0, 1f, performer, 0);
+		sampleWorldObject.setProperty(intProperty, 5);
+		sampleWorldObject.removeProperty(Constants.HIT_POINTS);
+		sampleWorldObject.removeProperty(Constants.ARMOR);
+		sampleWorldObject.removeProperty(Constants.INVENTORY);
+		sampleWorldObject.removeProperty(Constants.SLEEP_COMFORT);
+		sampleWorldObject.removeProperty(Constants.BUILDING_TYPE);
+		
+		for(ManagedOperation action : ALL_ACTIONS) {
+			if (action.isValidTarget(performer, sampleWorldObject, world)) {
+				actions.add(action);
+			}
+		}
+		return actions;
 	}
 }

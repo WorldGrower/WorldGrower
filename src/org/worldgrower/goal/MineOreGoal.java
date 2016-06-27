@@ -16,38 +16,34 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
-import org.worldgrower.Constants;
+import org.worldgrower.Args;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.generator.Item;
+import org.worldgrower.actions.Actions;
 
-public class OreGoal implements Goal {
+public class MineOreGoal implements Goal {
 
-	private static final int QUANTITY_TO_BUY = 5;
-	
-	public OreGoal(List<Goal> allGoals) {
+	public MineOreGoal(List<Goal> allGoals) {
 		allGoals.add(this);
 	}
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.ORE, QUANTITY_TO_BUY, world);
-		if (targets.size() > 0) {
-			return BuySellUtils.create(performer, targets.get(0), Item.ORE, QUANTITY_TO_BUY);
-		} else {
-			return Goals.MINE_ORE_GOAL.calculateGoal(performer, world);
+		WorldObject target = GoalUtils.findNearestTarget(performer, Actions.MINE_ORE_ACTION, world);
+		if (target != null) {
+			return new OperationInfo(performer, target, Args.EMPTY, Actions.MINE_ORE_ACTION);
 		}
+		return null;
 	}
 	
 	@Override
 	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
-		defaultGoalMetOrNot(performer, world, goalMet, Constants.ORE);
 	}
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		return true;
+		return false;
 	}
 	
 	@Override
@@ -57,11 +53,11 @@ public class OreGoal implements Goal {
 
 	@Override
 	public String getDescription() {
-		return "looking for ore";
+		return "looking for iron ore";
 	}
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.ORE);
+		return 0;
 	}
 }

@@ -22,12 +22,78 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
+import org.worldgrower.generator.PlantGenerator;
+import org.worldgrower.generator.TerrainGenerator;
 
 public class UTestCreatePoisonGoal {
 
 	private CreatePoisonGoal goal = Goals.CREATE_POISON_GOAL;
+	
+	@Test
+	public void testCalculateGoalNull() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = createPerformer();
+		
+		assertEquals(null, goal.calculateGoal(performer, world));
+	}
+	
+	@Test
+	public void testCalculateGoalPlantNightShade() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer();
+		
+		assertEquals(Actions.PLANT_NIGHT_SHADE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+	@Test
+	public void testCalculateGoalHarvestNightShade() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer();
+		
+		int targetId = PlantGenerator.generateNightShade(0, 0, world);
+		WorldObject target = world.findWorldObject(Constants.ID, targetId);
+		target.setProperty(Constants.NIGHT_SHADE_SOURCE, 1000);
+		
+		assertEquals(Actions.HARVEST_NIGHT_SHADE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+	@Test
+	public void testCalculateGoalMineStoneForApothecary() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer();
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.NIGHT_SHADE.generate(1f), 20);
+		
+		TerrainGenerator.generateStoneResource(0, 0, world);
+		
+		assertEquals(Actions.MINE_STONE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+	@Test
+	public void testCalculateGoalBuildApothecary() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer();
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.NIGHT_SHADE.generate(1f), 20);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.STONE.generate(1f), 20);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
+		
+		assertEquals(Actions.BUILD_APOTHECARY_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+	@Test
+	public void testCalculateGoalBrewPoison() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer();
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.NIGHT_SHADE.generate(1f), 20);
+		int id = BuildingGenerator.generateApothecary(0, 0, world, performer);
+		performer.getProperty(Constants.BUILDINGS).add(id, BuildingType.APOTHECARY);
+		
+		assertEquals(Actions.BREW_POISON_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
 	
 	@Test
 	public void testIsGoalMet() {

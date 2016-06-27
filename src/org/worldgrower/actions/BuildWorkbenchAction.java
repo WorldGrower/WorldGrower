@@ -15,8 +15,10 @@
 package org.worldgrower.actions;
 
 import java.io.ObjectStreamException;
+import java.util.List;
 
 import org.worldgrower.Constants;
+import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
@@ -94,7 +96,13 @@ public class BuildWorkbenchAction implements BuildAction {
 		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.STONE) >= REQUIRED_STONE;
 	}
 	
+	@Override
 	public SoundIds getSoundId() {
 		return SoundIds.BUILD_STONE_BUILDING;
+	}
+	
+	@Override
+	public List<ManagedOperation> getAllowedCraftActions(WorldObject performer, World world) {
+		return Actions.getActionsWithTargetProperty(performer, Constants.WORKBENCH_QUALITY, world);
 	}
 }
