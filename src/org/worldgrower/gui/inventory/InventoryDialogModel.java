@@ -63,6 +63,10 @@ public class InventoryDialogModel {
 		return target.getProperty(Constants.GOLD);
 	}
 	
+	public boolean targetHasMoneyToSteal() {
+		return target.getProperty(Constants.GOLD).intValue() > 0; 
+	}
+	
 	public String getTargetName() {
 		return target.getProperty(Constants.NAME);
 	}

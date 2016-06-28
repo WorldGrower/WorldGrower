@@ -105,6 +105,7 @@ public final class InventoryDialog extends AbstractDialog {
 	private JPanel containersPanel;
 	private JToggleButton playercharacterToggleButton;
 	private JToggleButton targetToggleButton;
+	private JButton stealMoneyButton;
 	
 	private final class CloseDialogAction implements ActionListener {
 		@Override
@@ -221,9 +222,10 @@ public final class InventoryDialog extends AbstractDialog {
 				targetInventoryPanel.add(targetMoney);
 				
 				Image stealGoldImage = imageInfoReader.getImage(Actions.STEAL_GOLD_ACTION.getImageIds(), null);
-				JButton stealMoneyButton = JButtonFactory.createButton("Steal money", new ImageIcon(stealGoldImage), soundIdReader);
+				stealMoneyButton = JButtonFactory.createButton("Steal money", new ImageIcon(stealGoldImage), soundIdReader);
 				stealMoneyButton.setToolTipText("steal money");
 				stealMoneyButton.setBounds(labelLeft, 112, 150, 50);
+				stealMoneyButton.setEnabled(inventoryActionFactory.hasTargetMoneyActions());
 				stealMoneyButton.addActionListener(inventoryActionFactory.getTargetMoneyActions().get(0));
 				targetInventoryPanel.add(stealMoneyButton);
 			}
@@ -611,6 +613,7 @@ public final class InventoryDialog extends AbstractDialog {
 			
 			if (inventoryDialogModel.hasTargetMoney()) {
 				targetMoney.setText(Integer.toString(inventoryDialogModel.getTargetMoney()));
+				stealMoneyButton.setEnabled(inventoryDialogModel.targetHasMoneyToSteal());
 			}
 			if (inventoryDialogModel.hasTargetCarryingCapacity()) {
 				String targetWeightString = getTargetWeight(inventoryDialogModel);

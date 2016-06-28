@@ -117,6 +117,10 @@ public class InventoryActionFactory {
 		return inventoryActions;
 	}
 	
+	public boolean hasTargetMoneyActions() {
+		return target.getProperty(Constants.GOLD).intValue() > 0;
+	}
+	
 	public List<Action> getTargetMoneyActions() {
 		List<Action> inventoryActions = new ArrayList<>();
 		Action stealMoneyAction = new StealAction(soundIdReader);
