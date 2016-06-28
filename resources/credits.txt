@@ -147,3 +147,7 @@ Sound Effects by felix.blume at http://www.freesound.org/people/felix.blume/soun
 
 Sound Effects by artisticdude at http://opengameart.org/content/swishes-sound-pack:
 swish-98bit.wav.gz
+
+Character Sprites by Yaosame/108 Rain at https://grandmadebslittlebits.wordpress.com/2014/11/page/3/:
+Actor1_zps2890a1cd.png
+Actor3_zpsb3524fc2.png

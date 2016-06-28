@@ -83,6 +83,8 @@ public class ImageInfoReader {
     	Sprites darkness1 = readSpritesDarkness1();
     	Sprites heal1 = readSpritesHeal1();
     	Sprites sprites01 = readSprites01();
+    	Sprites aktor1 = readSpritesAktor1();
+    	Sprites aktor3 = readSpritesAktor3();
     	
     	addCharacter(ImageIds.KNIGHT, sprites, 0, 0, 1, 1);
     	addCharacter(ImageIds.GUARD, sprites, 0, 4, 1, 1);
@@ -450,6 +452,24 @@ public class ImageInfoReader {
         addCharacter(ImageIds.FEMALE_01_3, sprites01, 3, 4, 1, 1);
         addCharacter(ImageIds.MALE_01_4, sprites01, 6, 4, 1, 1);
         addCharacter(ImageIds.FEMALE_01_4, sprites01, 9, 4, 1, 1);
+        
+        addCharacter(ImageIds.MALE_AKTOR1_1, aktor3, 0, 0, 1, 1);
+        addCharacter(ImageIds.FEMALE_AKTOR1_1, aktor3, 3, 0, 1, 1);
+        addCharacter(ImageIds.MALE_AKTOR1_2, aktor3, 6, 0, 1, 1);
+        addCharacter(ImageIds.FEMALE_AKTOR1_2, aktor3, 9, 0, 1, 1);
+        addCharacter(ImageIds.FEMALE_AKTOR1_4, aktor3, 0, 4, 1, 1);
+        addCharacter(ImageIds.FEMALE_AKTOR1_3, aktor3, 3, 4, 1, 1);
+        addCharacter(ImageIds.MALE_AKTOR1_4, aktor3, 6, 4, 1, 1);
+        addCharacter(ImageIds.MALE_AKTOR1_3, aktor3, 9, 4, 1, 1);
+        
+        addCharacter(ImageIds.MALE_AKTOR3_1, aktor3, 0, 0, 1, 1);
+        addCharacter(ImageIds.FEMALE_AKTOR3_1, aktor3, 3, 0, 1, 1);
+        addCharacter(ImageIds.MALE_AKTOR3_2, aktor3, 6, 0, 1, 1);
+        addCharacter(ImageIds.FEMALE_AKTOR3_2, aktor3, 9, 0, 1, 1);
+        addCharacter(ImageIds.MALE_AKTOR3_3, aktor3, 0, 4, 1, 1);
+        addCharacter(ImageIds.FEMALE_AKTOR3_3, aktor3, 3, 4, 1, 1);
+        addCharacter(ImageIds.MALE_AKTOR3_4, aktor3, 6, 4, 1, 1);
+        addCharacter(ImageIds.FEMALE_AKTOR3_4, aktor3, 9, 4, 1, 1);
     }
 
     private void resizeSmallFlowers() {
@@ -817,6 +837,14 @@ public class ImageInfoReader {
 	
     private static Sprites readSprites01() throws IOException {
 		return readImages("remakertp01.png", 32, 48, 8, 12);
+	}
+    
+    private static Sprites readSpritesAktor1() throws IOException {
+		return readImages("Actor1_zps2890a1cd.png", 32, 48, 8, 12);
+	}
+    
+    private static Sprites readSpritesAktor3() throws IOException {
+		return readImages("Actor3_zpsb3524fc2.png", 32, 48, 8, 12);
 	}
 	
 	private static Sprites readImages(String imageFilename, int width, int height, int rows, int cols) throws IOException {
