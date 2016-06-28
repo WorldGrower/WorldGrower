@@ -49,7 +49,7 @@ public class CreateGraveAction implements BuildAction {
 	
 	@Override
 	public String getRequirementsDescription() {
-		return "";
+		return "Requirements: remains in inventory";
 	}
 
 	@Override
