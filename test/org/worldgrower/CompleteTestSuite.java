@@ -94,6 +94,7 @@ import org.worldgrower.conversation.UTestComplimentConversation;
 import org.worldgrower.conversation.UTestConversations;
 import org.worldgrower.conversation.UTestCureDiseaseConversation;
 import org.worldgrower.conversation.UTestCurePoisonConversation;
+import org.worldgrower.conversation.UTestDeityExplanationConversation;
 import org.worldgrower.conversation.UTestDeityFollowersConversation;
 import org.worldgrower.conversation.UTestDeityReasonConversation;
 import org.worldgrower.conversation.UTestDemandMoneyConversation;
@@ -200,6 +201,7 @@ import org.worldgrower.profession.UTestWeaverProfession;
 import org.worldgrower.profession.UTestWizardProfession;
 import org.worldgrower.terrain.UTestTerrainImpl;
 import org.worldgrower.util.UTestNumberUtils;
+import org.worldgrower.util.UTestObjectUtils;
 
 @RunWith(Suite.class)
 @SuiteClasses({ 
@@ -697,7 +699,9 @@ import org.worldgrower.util.UTestNumberUtils;
 	UTestIllusionPropertyUtils.class,
 	UTestFindSecludedLocationGoal.class,
 	UTestSwindleMoneyGoal.class,
-	UTestSecludedAction.class
+	UTestSecludedAction.class,
+	UTestObjectUtils.class,
+	UTestDeityExplanationConversation.class
 })
 public class CompleteTestSuite {
 }

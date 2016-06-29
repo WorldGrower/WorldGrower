@@ -21,25 +21,35 @@ import java.util.List;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
 import org.worldgrower.deity.Deity;
+import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
 import org.worldgrower.profession.Profession;
 import org.worldgrower.profession.Professions;
 
 public class DeityExplanationConversation implements Conversation {
 
+	private static final int YES = 0;
+	private static final int NO = 1;
+	private static final int GET_LOST = 2;
+	
 	@Override
 	public Response getReplyPhrase(ConversationContext conversationContext) {
+		WorldObject performer = conversationContext.getPerformer();
 		WorldObject target = conversationContext.getTarget();
 		Deity subjectDeity = Deity.ALL_DEITIES.get(conversationContext.getAdditionalValue());
 		Deity targetDeity = target.getProperty(Constants.DEITY);
 		Profession targetProfession = target.getProperty(Constants.PROFESSION);
+		int relationshipValue = target.getProperty(Constants.RELATIONSHIPS).getValue(performer);
 		
 		final int replyId;
-		if ((targetDeity == subjectDeity) || (targetProfession == Professions.PRIEST_PROFESSION)) {
-			replyId = 0;
+		if (relationshipValue < 0) {
+			replyId = GET_LOST;
+		} else if ((targetDeity == subjectDeity) || (targetProfession == Professions.PRIEST_PROFESSION)) {
+			replyId = YES;
 		} else {
-			replyId = 1;
+			replyId = NO;
 		}
 		return getReply(getReplyPhrases(conversationContext), replyId);
 	}
@@ -58,8 +68,9 @@ public class DeityExplanationConversation implements Conversation {
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		Deity subjectDeity = Deity.ALL_DEITIES.get(conversationContext.getAdditionalValue());
 		return Arrays.asList(
-			new Response(0, subjectDeity.getExplanation()),
-			new Response(1, "I don't know more about " + subjectDeity.getName())
+			new Response(YES, subjectDeity.getExplanation()),
+			new Response(NO, "I don't know more about " + subjectDeity.getName()),
+			new Response(GET_LOST, "Get lost")
 			);
 	}
 
@@ -70,6 +81,13 @@ public class DeityExplanationConversation implements Conversation {
 	
 	@Override
 	public void handleResponse(int replyIndex, ConversationContext conversationContext) {
+		WorldObject performer = conversationContext.getPerformer();
+		WorldObject target = conversationContext.getTarget();
+		World world = conversationContext.getWorld();
+		
+		if (replyIndex == GET_LOST) {
+			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -100, Actions.TALK_ACTION, Conversations.createArgs(this), world);
+		}
 	}
 	
 	@Override
