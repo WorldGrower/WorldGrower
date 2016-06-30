@@ -14,6 +14,7 @@
  *******************************************************************************/
 package org.worldgrower.gui.debug;
 
+import java.awt.Component;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,15 +24,18 @@ import java.util.List;
 
 import javax.swing.AbstractAction;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.Timer;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.deity.Deity;
 import org.worldgrower.goal.Goal;
@@ -51,7 +55,8 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 		JFrame frame = new JFrame();
 		
 		JTable table = new JTable(new WorldModel(world));
-		table.setBounds(50, 50, 800, 800);
+		table.setBounds(50, 50, 800, 1000);
+		table.getColumnModel().getColumn(15).setCellRenderer(new TooltipCellRenderer());
 		frame.add(new JScrollPane(table));
 		
 		table.addMouseListener(new MouseAdapter() {
@@ -86,6 +91,19 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 		return world.findWorldObjects(w -> w.isControlledByAI() && w.hasIntelligence() && w.getProperty(Constants.CREATURE_TYPE) != CreatureType.COW_CREATURE_TYPE);
 	}
 	
+	class TooltipCellRenderer extends DefaultTableCellRenderer {
+	    public Component getTableCellRendererComponent(
+	                        JTable table, Object value,
+	                        boolean isSelected, boolean hasFocus,
+	                        int row, int column) {
+	        JLabel c = (JLabel)super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+	        String pathValue = value.toString();
+	        c.setToolTipText(pathValue);
+	        return c;
+	    }
+	}
+	
 	private class WorldModel extends AbstractTableModel {
 
 		private World world;
@@ -97,7 +115,7 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 
 		@Override
 		public int getColumnCount() {
-			return 15;
+			return 16;
 		}
 
 		@Override
@@ -137,6 +155,8 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 				return "Creature type";
 			} else if (columnIndex == 14) {
 				return "Level";
+			} else if (columnIndex == 15) {
+				return "Inventory";
 			} else {
 				return null;
 			}
@@ -196,6 +216,17 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 				return npc.getProperty(Constants.CREATURE_TYPE).getDescription();
 			} else if (columnIndex == 14) {
 				return npc.getProperty(Constants.LEVEL);
+			} else if (columnIndex == 15) {
+				StringBuilder inventoryDescriptionBuilder = new StringBuilder("<html>");
+				WorldObjectContainer inventory = npc.getProperty(Constants.INVENTORY);
+				for(int i=0; i<inventory.size(); i++) {
+					WorldObject inventoryItem = inventory.get(i);
+					if (inventoryItem != null) {
+						inventoryDescriptionBuilder.append(inventoryItem).append("<br>");
+					}
+				}
+				inventoryDescriptionBuilder.append("</html>");
+				return inventoryDescriptionBuilder.toString();
 			} else {
 				return null;
 			}
