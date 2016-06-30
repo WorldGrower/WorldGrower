@@ -23,6 +23,8 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
+//TODO: change into InventoryActyion and remove special handling code from InventoryDialog
+//TODO: add additional arg to set sellable to false
 public class MarkInventoryItemAsSellableAction implements ManagedOperation {
 
 	@Override

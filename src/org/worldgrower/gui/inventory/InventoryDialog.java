@@ -486,7 +486,7 @@ public final class InventoryDialog extends AbstractDialog {
 			}
 
 			private JCheckBoxMenuItem createSellableMenuItem(InventoryItem inventoryItem) {
-				JCheckBoxMenuItem sellableMenuItem = MenuFactory.createJCheckBoxMenuItem(new SellableAction(inventoryItem), soundIdReader);
+				JCheckBoxMenuItem sellableMenuItem = MenuFactory.createJCheckBoxMenuItem(new SellableAction(inventoryItem, inventoryDialogModel), soundIdReader);
 				sellableMenuItem.setIcon(new ImageIcon(imageInfoReader.getImage(ImageIds.SILVER_COIN, null)));
 				sellableMenuItem.setToolTipText("marks inventory item as sellable");
 				return sellableMenuItem;
@@ -513,7 +513,10 @@ public final class InventoryDialog extends AbstractDialog {
 	
 	private class SellableAction extends AbstractAction {
 
-		public SellableAction(InventoryItem inventoryItem) {
+		private final InventoryItem inventoryItem;
+		private final InventoryDialogModel inventoryDialogModel;
+		
+		public SellableAction(InventoryItem inventoryItem, InventoryDialogModel inventoryDialogModel) {
 			super();
 			boolean sellable = inventoryItem.isSellable();
 	        int price = inventoryItem.getPrice();
@@ -521,12 +524,16 @@ public final class InventoryDialog extends AbstractDialog {
 		
 			this.putValue(Action.NAME, text);
 			this.putValue(Action.SELECTED_KEY, sellable);
+			
+			this.inventoryItem = inventoryItem;
+			this.inventoryDialogModel = inventoryDialogModel;
 		}
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			JCheckBoxMenuItem source = (JCheckBoxMenuItem)e.getSource();
 			getPlayerCharacterSelectedValue().setSellable(source.isSelected());
+			inventoryDialogModel.markAsSellable(inventoryItem);
 			
 			inventoryTable.repaint();
 		}

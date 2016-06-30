@@ -86,8 +86,10 @@ public class InventoryActionFactory {
 			}
 		}
 		
-		if (Game.canActionExecute(playerCharacter, playerCharacter.getOperation(Actions.PUT_ITEM_INTO_INVENTORY_ACTION), new int[] {inventoryItemId}, world, target)) {
-			inventoryActions.add(new InventoryItemAction(Actions.PUT_ITEM_INTO_INVENTORY_ACTION, inventoryItemId, target));
+		if (target != null) {
+			if (Game.canActionExecute(playerCharacter, playerCharacter.getOperation(Actions.PUT_ITEM_INTO_INVENTORY_ACTION), new int[] {inventoryItemId}, world, target)) {
+				inventoryActions.add(new InventoryItemAction(Actions.PUT_ITEM_INTO_INVENTORY_ACTION, inventoryItemId, target));
+			}
 		}
 		return inventoryActions;
 	}
@@ -110,10 +112,11 @@ public class InventoryActionFactory {
 			}
 		}
 		
-		if (Game.canActionExecute(playerCharacter, playerCharacter.getOperation(Actions.GET_ITEM_FROM_INVENTORY_ACTION), new int[] {inventoryItemId}, world, target)) {
-			inventoryActions.add(new InventoryItemAction(Actions.GET_ITEM_FROM_INVENTORY_ACTION, inventoryItemId, target));
+		if (target != null) {
+			if (Game.canActionExecute(playerCharacter, playerCharacter.getOperation(Actions.GET_ITEM_FROM_INVENTORY_ACTION), new int[] {inventoryItemId}, world, target)) {
+				inventoryActions.add(new InventoryItemAction(Actions.GET_ITEM_FROM_INVENTORY_ACTION, inventoryItemId, target));
+			}
 		}
-		
 		return inventoryActions;
 	}
 	
@@ -151,7 +154,7 @@ public class InventoryActionFactory {
 					int[] args = new int[] { amount };
 					Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, playerCharacter.getOperation(Actions.STEAL_GOLD_ACTION), args, world, dungeonMaster, target, container, soundIdReader);
 					
-					dialog.refresh(new InventoryDialogModel(playerCharacter, target));
+					dialog.refresh(new InventoryDialogModel(playerCharacter, target, world));
 				}
 			}
 		}
@@ -187,9 +190,9 @@ public class InventoryActionFactory {
 			
 			final InventoryDialogModel inventoryDialogModel;
 			if (target == playerCharacter) {
-				inventoryDialogModel = new InventoryDialogModel(playerCharacter);
+				inventoryDialogModel = new InventoryDialogModel(playerCharacter, world);
 			} else {
-				inventoryDialogModel = new InventoryDialogModel(playerCharacter, target);
+				inventoryDialogModel = new InventoryDialogModel(playerCharacter, target, world);
 			}
 			dialog.refresh(inventoryDialogModel);
 		}

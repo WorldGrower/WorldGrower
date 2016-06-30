@@ -17,7 +17,9 @@ package org.worldgrower.gui.inventory;
 import java.awt.Image;
 
 import org.worldgrower.Constants;
+import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.Prices;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.goal.WeightPropertyUtils;
@@ -28,15 +30,18 @@ public class InventoryDialogModel {
 
 	private final WorldObject playerCharacter;
 	private final WorldObject target;
+	private final World world;
 	
-	public InventoryDialogModel(WorldObject playerCharacter) {
+	public InventoryDialogModel(WorldObject playerCharacter, World world) {
 		this.playerCharacter = playerCharacter;
 		this.target = null;
+		this.world = world;
 	}
 	
-	public InventoryDialogModel(WorldObject playerCharacter, WorldObject target) {
+	public InventoryDialogModel(WorldObject playerCharacter, WorldObject target, World world) {
 		this.playerCharacter = playerCharacter;
 		this.target = target;
+		this.world = world;
 	}
 
 	public int getPlayerCharacterMoney() {
@@ -107,5 +112,10 @@ public class InventoryDialogModel {
 
 	public Prices getPlayerCharacterPrices() {
 		return playerCharacter.getProperty(Constants.PRICES);
+	}
+
+	public void markAsSellable(InventoryItem inventoryItem) {
+		Actions.MARK_INVENTORY_ITEM_AS_SELLABLE_ACTION.execute(playerCharacter, playerCharacter, new int[] {inventoryItem.getId()}, world);
+		
 	}
 }
