@@ -93,4 +93,8 @@ public class BuildWellAction implements BuildAction {
 	public SoundIds getSoundId() {
 		return SoundIds.BUILD_WOODEN_BUILDING;
 	}
+	
+	public static boolean hasEnoughWood(WorldObject performer) {
+		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) >= REQUIRED_WOOD;
+	}
 }

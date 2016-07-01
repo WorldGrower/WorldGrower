@@ -37,7 +37,7 @@ public class BuySellUtils {
 	}
 
 	private static boolean isBuyTarget(WorldObject performer, IntProperty property, int quantity, WorldObject w) {
-		return targetHasSufficientQuantity(property, quantity, w) && performerCanPay(performer, w, property, quantity);
+		return targetHasSufficientQuantity(property, quantity, w) && performerCanPay(performer, w, property, quantity) && !GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, w);
 	}
 
 	private static boolean targetHasSufficientQuantity(IntProperty property, int quantity, WorldObject w) {

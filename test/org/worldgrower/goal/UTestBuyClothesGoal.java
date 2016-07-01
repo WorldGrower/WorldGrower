@@ -90,6 +90,12 @@ public class UTestBuyClothesGoal {
 		target.setProperty(Constants.PRICES, new Prices());
 	}
 
+	private void addCottonShirt(WorldObject target) {
+		WorldObject cottonPants = Item.COTTON_SHIRT.generate(1f);
+		cottonPants.setProperty(Constants.SELLABLE, Boolean.TRUE);
+		target.getProperty(Constants.INVENTORY).add(cottonPants);
+	}
+	
 	private void addCottonPants(WorldObject target) {
 		WorldObject cottonPants = Item.COTTON_PANTS.generate(1f);
 		cottonPants.setProperty(Constants.SELLABLE, Boolean.TRUE);
@@ -108,5 +114,50 @@ public class UTestBuyClothesGoal {
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
 
 		assertEquals(true, goal.isGoalMet(performer, world));
+	}
+
+	@Test
+	public void testIsGoalMetTargetsWithoutClothesToSell() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
+
+		WorldObject target = TestUtils.createIntelligentWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
+		world.addWorldObject(target);
+		
+		assertEquals(true, goal.isGoalMet(performer, world));
+	}
+	
+	@Test
+	public void testIsGoalMetTargetsWithClothesToSell() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
+		performer.setProperty(Constants.GOLD, 1000);
+		
+		WorldObject target = createTargetWithSellableCottonShirt();
+		world.addWorldObject(target);
+		
+		assertEquals(false, goal.isGoalMet(performer, world));
+	}
+	
+	@Test
+	public void testIsGoalMetTargetsWithClothesToSellAndAlreadyClothed() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
+		performer.setProperty(Constants.GOLD, 1000);
+		addCottonShirt(performer);
+		addCottonPants(performer);
+		addCottonBoots(performer);
+		
+		WorldObject target = createTargetWithSellableCottonShirt();
+		world.addWorldObject(target);
+		
+		assertEquals(true, goal.isGoalMet(performer, world));
+	}
+
+	private WorldObject createTargetWithSellableCottonShirt() {
+		WorldObject target = TestUtils.createIntelligentWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
+		target.getProperty(Constants.INVENTORY).addQuantity(Item.COTTON_SHIRT.generate(1f), 10);
+		target.getProperty(Constants.INVENTORY).get(0).setProperty(Constants.SELLABLE, Boolean.TRUE);
+		return target;
 	}
 }

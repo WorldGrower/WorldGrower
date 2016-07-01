@@ -23,6 +23,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.actions.BuildWellAction;
 import org.worldgrower.generator.Item;
 import org.worldgrower.personality.PersonalityTrait;
 
@@ -48,7 +49,7 @@ public class DrinkWaterGoal implements Goal {
 			} else if (waterSourcetarget != null) {
 				return new OperationInfo(performer, waterSourcetarget, Args.EMPTY, Actions.DRINK_ACTION);
 			} else {
-				if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) < 6) {
+				if (!BuildWellAction.hasEnoughWood(performer)) {
 					return Goals.WOOD_GOAL.calculateGoal(performer, world);
 				} else {
 					WorldObject targetLocation = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 2, 2, world);

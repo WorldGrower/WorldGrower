@@ -15,16 +15,19 @@
 package org.worldgrower.goal;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.util.List;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.OperationInfo;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.ItemCountMap;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.PropertyCountMap;
 import org.worldgrower.attribute.WorldObjectContainer;
@@ -84,6 +87,25 @@ public class UTestBuySellUtils {
 		world.addWorldObject(target);
 		
 		assertEquals(Actions.BUY_ACTION, BuySellUtils.getBuyOperationInfo(performer, Constants.FOOD, 5, world).getManagedOperation());
+	}
+	
+	@Test
+	public void testGetBuyOperationInfoEnemy() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.INVENTORY, new WorldObjectContainer());
+		performer.setProperty(Constants.GOLD, 100);
+		
+		assertEquals(null, BuySellUtils.getBuyOperationInfo(performer, Constants.FOOD, 5, world));
+		
+		WorldObject target = TestUtils.createIntelligentWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
+		WorldObject inventoryItem = Item.BERRIES.generate(1f);
+		inventoryItem.setProperty(Constants.SELLABLE, Boolean.TRUE);
+		target.getProperty(Constants.INVENTORY).addQuantity(inventoryItem, 5);
+		target.getProperty(Constants.PRICES).setPrice(Item.BERRIES, 2);
+		target.getProperty(Constants.GROUP).removeAll();
+		world.addWorldObject(target);
+		
+		assertEquals(null, BuySellUtils.getBuyOperationInfo(performer, Constants.FOOD, 5, world));
 	}
 	
 	@Test
@@ -182,5 +204,55 @@ public class UTestBuySellUtils {
 		world.addWorldObject(target);
 		
 		assertEquals(Actions.BUY_ACTION, BuySellUtils.getBuyOperationInfo(performer, Constants.EQUIPMENT_SLOT, Constants.TORSO_EQUIPMENT, 1, world).getManagedOperation());
+	}
+	
+	@Test
+	public void testExecuteBuyClothesOperationInfo() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.INVENTORY, new WorldObjectContainer());
+		performer.setProperty(Constants.GOLD, 1000);
+		
+		WorldObject target = TestUtils.createIntelligentWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
+		WorldObject inventoryItem = Item.COTTON_SHIRT.generate(1f);
+		inventoryItem.setProperty(Constants.SELLABLE, Boolean.TRUE);
+		target.getProperty(Constants.INVENTORY).addQuantity(inventoryItem);
+		target.getProperty(Constants.PRICES).setPrice(Item.COTTON_SHIRT, 5);
+		target.setProperty(Constants.ITEMS_SOLD, new ItemCountMap());
+		target.setProperty(Constants.GOLD, 1000);
+		world.addWorldObject(target);
+		
+		OperationInfo buyOperationInfo = BuySellUtils.create(performer, target, Item.COTTON_SHIRT, 1);
+		
+		buyOperationInfo.getManagedOperation().execute(performer, target, buyOperationInfo.getArgs(), world);
+		
+		assertEquals(0, performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.NAME, Item.COTTON_SHIRT_NAME));
+		assertEquals(995, performer.getProperty(Constants.GOLD).intValue());
+		assertEquals(1005, target.getProperty(Constants.GOLD).intValue());
+	}
+	
+	@Test
+	public void testGetPriceNullWorldObject() {
+		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.INVENTORY, new WorldObjectContainer());
+		
+		try {
+			BuySellUtils.getPrice(performer, null);
+			fail("method should fail");
+		} catch(IllegalStateException e) {
+			assertEquals("WorldObject is null", e.getMessage());
+		}
+	}
+	
+	@Test
+	public void testGetPriceNullWorldObjectPrice() {
+		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.INVENTORY, new WorldObjectContainer());
+		
+		try {
+			WorldObject food = Item.BERRIES.generate(1f);
+			food.removeProperty(Constants.PRICE);
+			BuySellUtils.getPrice(performer, food);
+			fail("method should fail");
+		} catch(IllegalStateException e) {
+			assertEquals("WorldObject NAME=berries, food=1, sellable=false, ImageId=BERRY, itemId=BERRIES,  has no price", e.getMessage());
+		}
 	}
 }
