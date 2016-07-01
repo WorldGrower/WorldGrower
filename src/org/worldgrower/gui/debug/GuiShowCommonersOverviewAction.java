@@ -55,8 +55,8 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 		JFrame frame = new JFrame();
 		
 		JTable table = new JTable(new WorldModel(world));
-		table.setBounds(50, 50, 800, 1000);
-		table.getColumnModel().getColumn(15).setCellRenderer(new TooltipCellRenderer());
+		table.setBounds(50, 50, 1000, 800);
+		table.getColumnModel().getColumn(16).setCellRenderer(new TooltipCellRenderer());
 		frame.add(new JScrollPane(table));
 		
 		table.addMouseListener(new MouseAdapter() {
@@ -115,7 +115,7 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 
 		@Override
 		public int getColumnCount() {
-			return 16;
+			return 17;
 		}
 
 		@Override
@@ -132,30 +132,32 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 			} else if (columnIndex == 2) {
 				return "Immediate Goal";
 			} else if (columnIndex == 3) {
-				return "Profession";
+				return "Target";
 			} else if (columnIndex == 4) {
-				return "Food";
+				return "Profession";
 			} else if (columnIndex == 5) {
-				return "Water";
+				return "Food";
 			} else if (columnIndex == 6) {
-				return "Energy";
+				return "Water";
 			} else if (columnIndex == 7) {
-				return "Organization";
+				return "Energy";
 			} else if (columnIndex == 8) {
-				return "Deity";
+				return "Organization";
 			} else if (columnIndex == 9) {
-				return "Gold";
+				return "Deity";
 			} else if (columnIndex == 10) {
-				return "OrganizationGold";
+				return "Gold";
 			} else if (columnIndex == 11) {
-				return "Id";
+				return "OrganizationGold";
 			} else if (columnIndex == 12) {
-				return "Conditions";
+				return "Id";
 			} else if (columnIndex == 13) {
-				return "Creature type";
+				return "Conditions";
 			} else if (columnIndex == 14) {
-				return "Level";
+				return "Creature type";
 			} else if (columnIndex == 15) {
+				return "Level";
+			} else if (columnIndex == 16) {
 				return "Inventory";
 			} else {
 				return null;
@@ -182,41 +184,48 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 					return "";
 				}
 			} else if (columnIndex == 3) {
+				OperationInfo immediateGoal = world.getImmediateGoal(npc, world);
+				if (immediateGoal != null) {
+					return immediateGoal.getTarget().getProperty(Constants.NAME);
+				} else {
+					return "";
+				}
+			} else if (columnIndex == 4) {
 				Profession profession = npc.getProperty(Constants.PROFESSION);
 				if (profession != null) {
 					return profession.getDescription();
 				} else {
 					return "";
 				}
-			} else if (columnIndex == 4) {
-				return npc.getProperty(Constants.FOOD);
 			} else if (columnIndex == 5) {
-				return npc.getProperty(Constants.WATER);
+				return npc.getProperty(Constants.FOOD);
 			} else if (columnIndex == 6) {
-				return npc.getProperty(Constants.ENERGY);
+				return npc.getProperty(Constants.WATER);
 			} else if (columnIndex == 7) {
+				return npc.getProperty(Constants.ENERGY);
+			} else if (columnIndex == 8) {
 				List<WorldObject> organizations = GroupPropertyUtils.getOrganizations(npc, world);
 				StringBuilder builder = new StringBuilder();
 				for(WorldObject organization : organizations) {
 					builder.append(organization.getProperty(Constants.NAME)).append(";");
 				}
 				return builder.toString();
-			} else if (columnIndex == 8) {
+			} else if (columnIndex == 9) {
 				Deity deity = npc.getProperty(Constants.DEITY);
 				return deity != null ? deity.getName() : "";
-			} else if (columnIndex == 9) {
-				return npc.getProperty(Constants.GOLD);
 			} else if (columnIndex == 10) {
-				return npc.getProperty(Constants.ORGANIZATION_GOLD);
+				return npc.getProperty(Constants.GOLD);
 			} else if (columnIndex == 11) {
-				return npc.getProperty(Constants.ID);
+				return npc.getProperty(Constants.ORGANIZATION_GOLD);
 			} else if (columnIndex == 12) {
-				return npc.getProperty(Constants.CONDITIONS).getDescriptions().toString();
+				return npc.getProperty(Constants.ID);
 			} else if (columnIndex == 13) {
-				return npc.getProperty(Constants.CREATURE_TYPE).getDescription();
+				return npc.getProperty(Constants.CONDITIONS).getDescriptions().toString();
 			} else if (columnIndex == 14) {
-				return npc.getProperty(Constants.LEVEL);
+				return npc.getProperty(Constants.CREATURE_TYPE).getDescription();
 			} else if (columnIndex == 15) {
+				return npc.getProperty(Constants.LEVEL);
+			} else if (columnIndex == 16) {
 				StringBuilder inventoryDescriptionBuilder = new StringBuilder("<html>");
 				WorldObjectContainer inventory = npc.getProperty(Constants.INVENTORY);
 				for(int i=0; i<inventory.size(); i++) {
