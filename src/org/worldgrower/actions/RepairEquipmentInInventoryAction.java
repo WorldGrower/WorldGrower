@@ -45,9 +45,9 @@ public class RepairEquipmentInInventoryAction extends InventoryAction {
 	}
 	
 	@Override
-	public int distanceToInventoryItem(WorldObject inventoryItem, WorldObjectContainer inventory, WorldObject performer) {
+	public boolean isActionPossibleOnInventoryItem(WorldObject inventoryItem, WorldObjectContainer inventory, WorldObject performer) {
 		int numberOfRepairTools = inventory.getQuantityFor(Constants.REPAIR_QUALITY);
-		return numberOfRepairTools > 0 ? 0 : 1;
+		return numberOfRepairTools > 0;
 	}
 	
 	@Override

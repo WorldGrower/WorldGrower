@@ -64,6 +64,11 @@ public class MoveAction implements ManagedOperation {
 	}
 	
 	@Override
+	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
+		return true;
+	}
+	
+	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
 		int performerX = performer.getProperty(Constants.X);
 		int performerY = performer.getProperty(Constants.Y);

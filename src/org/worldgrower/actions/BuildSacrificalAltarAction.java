@@ -45,13 +45,17 @@ public class BuildSacrificalAltarAction implements BuildAction {
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
 		return CraftUtils.isValidBuildTarget(this, performer, target, world);
 	}
+	
+	@Override
+	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
+		boolean hasStone = CraftUtils.hasEnoughResources(performer, Constants.STONE, REQUIRED_STONE);
+		boolean hasDeity = performer.getProperty(Constants.DEITY) != null;
+		return hasStone && hasDeity;
+	}
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		int distanceBetweenPerformerAndTarget = Reach.evaluateTarget(performer, args, target, 1);
-		int stoneTarget = CraftUtils.distance(performer, Constants.STONE, REQUIRED_STONE);
-		int deityDistance = performer.getProperty(Constants.DEITY) != null ? 0 : 1;
-		return distanceBetweenPerformerAndTarget + stoneTarget + deityDistance;
+		return Reach.evaluateTarget(performer, args, target, 1);
 	}
 	
 	@Override

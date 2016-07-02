@@ -48,6 +48,11 @@ public class ButcherAction implements ManagedOperation {
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
 		return Reach.evaluateTarget(performer, args, target, 1);
 	}
+
+	@Override
+	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
+		return true;
+	}
 	
 	@Override
 	public String getRequirementsDescription() {

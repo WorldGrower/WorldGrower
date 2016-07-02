@@ -40,9 +40,13 @@ public class CreateHumanMeatAction implements ManagedOperation {
 	}
 
 	@Override
+	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
+		return performer.getProperty(Constants.HIT_POINTS) > 1 * Item.COMBAT_MULTIPLIER;
+	}
+	
+	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		int hitPointsDistance = performer.getProperty(Constants.HIT_POINTS) > 1 * Item.COMBAT_MULTIPLIER ? 0 : 1;
-		return hitPointsDistance;
+		return 0;
 	}
 	
 	@Override

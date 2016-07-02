@@ -24,24 +24,24 @@ import org.worldgrower.goal.GoalUtils;
 
 public class CraftUtils {
 
-	public static int distance(WorldObject performer, int woodQuantity, int oreQuantity) {
+	public static boolean hasEnoughResources(WorldObject performer, int woodQuantity, int oreQuantity) {
 		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
 		int wood = inventory.getQuantityFor(Constants.WOOD);
 		int ore = inventory.getQuantityFor(Constants.ORE);
 		if ((wood < woodQuantity) || (ore < oreQuantity)) {
-			return (woodQuantity - wood) * 1000 + (oreQuantity - ore) * 1000;
+			return false;
 		} else {
-			return 0;
+			return true;
 		}
 	}
 	
-	public static int distance(WorldObject performer, IntProperty property, int quantity) {
+	public static boolean hasEnoughResources(WorldObject performer, IntProperty property, int quantity) {
 		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
 		int inventoryQuantity = inventory.getQuantityFor(property);
 		if (inventoryQuantity < quantity) {
-			return (quantity - inventoryQuantity) * 1000;
+			return false;
 		} else {
-			return 0;
+			return true;
 		}
 	}
 	

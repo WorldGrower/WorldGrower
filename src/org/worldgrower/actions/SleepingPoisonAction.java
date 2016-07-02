@@ -41,6 +41,12 @@ public class SleepingPoisonAction implements ManagedOperation {
 	}
 	
 	@Override
+	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
+		boolean sleepingPotionInInventory = performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.SLEEP_INDUCING_DRUG_STRENGTH) > 0;
+		return sleepingPotionInInventory;
+	}
+	
+	@Override
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, DISTANCE, "inventory must contain sleeping potion");
 	}

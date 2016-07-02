@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import java.io.ObjectStreamException;
 
 import org.worldgrower.Constants;
+import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
@@ -25,7 +26,7 @@ import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
 
 public class CraftLongBowAction implements CraftAction {
-
+	private static final int DISTANCE = 1;
 	private static final int WOOD_REQUIRED = 5;
 	private static final int ORE_REQUIRED = 1;
 	
@@ -41,8 +42,13 @@ public class CraftLongBowAction implements CraftAction {
 	}
 
 	@Override
+	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
+		return CraftUtils.hasEnoughResources(performer, WOOD_REQUIRED, ORE_REQUIRED);
+	}
+	
+	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return CraftUtils.distance(performer, WOOD_REQUIRED, ORE_REQUIRED);
+		return Reach.evaluateTarget(performer, args, target, DISTANCE);
 	}
 	
 	@Override

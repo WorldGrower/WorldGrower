@@ -51,7 +51,12 @@ public class SetLegalActionsAction implements ManagedOperation {
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return GroupPropertyUtils.performerIsLeaderOfVillagers(performer, world) ? 0 : 1;
+		return 0;
+	}
+	
+	@Override
+	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
+		return GroupPropertyUtils.performerIsLeaderOfVillagers(performer, world);
 	}
 	
 	@Override

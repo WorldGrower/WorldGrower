@@ -50,9 +50,13 @@ public class CutWoodAction implements ManagedOperation {
 	}
 
 	@Override
+	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
+		return SkillUtils.hasEnoughEnergy(performer, Constants.LUMBERING_SKILL, ENERGY_USE);
+	}
+	
+	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return Reach.evaluateTarget(performer, args, target, DISTANCE)
-				+ SkillUtils.distanceForEnergyUse(performer, Constants.LUMBERING_SKILL, ENERGY_USE);
+		return Reach.evaluateTarget(performer, args, target, DISTANCE);
 	}
 	
 	@Override

@@ -37,6 +37,11 @@ public class ReadAction implements ManagedOperation {
 	}
 	
 	@Override
+	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
+		return true;
+	}
+	
+	@Override
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, 1);
 	}

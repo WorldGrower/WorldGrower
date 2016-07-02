@@ -40,9 +40,8 @@ public class PoisonWeaponAction extends InventoryAction {
 	}
 	
 	@Override
-	public int distanceToInventoryItem(WorldObject inventoryItem, WorldObjectContainer inventory, WorldObject performer) {
-		boolean inventoryContainsPoison = inventory.getQuantityFor(Constants.POISON_DAMAGE) > 0;
-		return inventoryContainsPoison ? 0 : 1;
+	public boolean isActionPossibleOnInventoryItem(WorldObject inventoryItem, WorldObjectContainer inventory, WorldObject performer) {
+		return inventory.getQuantityFor(Constants.POISON_DAMAGE) > 0;
 	}
 	
 	@Override

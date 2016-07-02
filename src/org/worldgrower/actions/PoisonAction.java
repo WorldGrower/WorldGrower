@@ -36,8 +36,12 @@ public class PoisonAction implements ManagedOperation {
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		int poisonInInventory = performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.POISON_DAMAGE) > 0 ? 0 : 1;
-		return Reach.evaluateTarget(performer, args, target, DISTANCE) + poisonInInventory;
+		return Reach.evaluateTarget(performer, args, target, DISTANCE);
+	}
+	
+	@Override
+	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
+		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.POISON_DAMAGE) > 0;
 	}
 	
 	@Override

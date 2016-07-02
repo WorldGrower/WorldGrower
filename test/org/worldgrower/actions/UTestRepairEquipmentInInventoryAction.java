@@ -44,18 +44,18 @@ public class UTestRepairEquipmentInInventoryAction {
 	}
 	
 	@Test
-	public void testDistanceNoRepairHammers() {
+	public void testIsActionPossibleNoRepairHammers() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		
 		WorldObject ironCuirass = Item.IRON_CUIRASS.generate(1f);
 		performer.getProperty(Constants.INVENTORY).addQuantity(ironCuirass);
 		
-		assertEquals(true, action.distance(performer, performer, new int[] {0}, world) > 0);
+		assertEquals(false, action.isActionPossible(performer, performer, new int[] {0}, world));
 	}
 	
 	@Test
-	public void testDistanceRepairHammers() {
+	public void testIsActionPossibleRepairHammers() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject ironCuirass = Item.IRON_CUIRASS.generate(1f);
@@ -64,7 +64,7 @@ public class UTestRepairEquipmentInInventoryAction {
 		performer.getProperty(Constants.INVENTORY).addQuantity(ironCuirass);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.REPAIR_HAMMER.generate(1f), 10);
 		
-		assertEquals(0, action.distance(performer, performer, new int[] {0}, world));
+		assertEquals(true, action.isActionPossible(performer, performer, new int[] {0}, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

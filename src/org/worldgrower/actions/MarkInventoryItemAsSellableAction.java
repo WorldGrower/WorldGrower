@@ -37,12 +37,14 @@ public class MarkInventoryItemAsSellableAction extends InventoryAction {
 		return new int[] { index, value ? 0 : 1 };
 	}
 
+	@Override
 	public boolean isValidInventoryItem(WorldObject inventoryItem, WorldObjectContainer inventory, WorldObject performer) {
 		return true;
 	}
 	
-	public int distanceToInventoryItem(WorldObject inventoryItem, WorldObjectContainer inventory, WorldObject performer) {
-		return 0;
+	@Override
+	public boolean isActionPossibleOnInventoryItem(WorldObject inventoryItem, WorldObjectContainer inventory, WorldObject performer) {
+		return true;
 	}
 	
 	@Override

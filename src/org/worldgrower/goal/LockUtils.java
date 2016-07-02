@@ -21,15 +21,15 @@ import org.worldgrower.WorldObject;
 
 public class LockUtils {
 
-	public static int distance(WorldObject performer, WorldObject target) {
+	public static boolean performerCanAccessContainer(WorldObject performer, WorldObject target) {
 		if (target.hasProperty(Constants.LOCKED) && target.getProperty(Constants.LOCKED)) {
 			if (performerHasKey(performer, target) || performerIsMagicLockCreator(performer, target)) {
-				return 0;
+				return true;
 			} else {
-				return 1;
+				return false;
 			}
 		} else {
-			return 0;
+			return true;
 		}
 	}
 

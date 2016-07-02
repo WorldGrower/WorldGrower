@@ -47,8 +47,8 @@ public class RecallSecretChestAction extends InventoryAction {
 	}
 	
 	@Override
-	public int distanceToInventoryItem(WorldObject inventoryItem, WorldObjectContainer inventory, WorldObject performer) {
-		return 0;
+	public boolean isActionPossibleOnInventoryItem(WorldObject inventoryItem, WorldObjectContainer inventory, WorldObject performer) {
+		return true;
 	}
 	
 	@Override

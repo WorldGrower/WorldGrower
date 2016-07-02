@@ -65,10 +65,14 @@ public class EnlargeAction implements MagicSpell {
 	}
 	
 	@Override
+	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
+		return SkillUtils.hasEnoughEnergy(performer, getSkill(), ENERGY_USE)
+				&& GoalUtils.canEnlarge(target, world);
+	}
+	
+	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return AttackUtils.distanceWithFreeLeftHand(performer, target, DISTANCE)
-				+ SkillUtils.distanceForEnergyUse(performer, getSkill(), ENERGY_USE)
-				+ (GoalUtils.canEnlarge(target, world) ? 0 : 1);
+		return AttackUtils.distanceWithFreeLeftHand(performer, target, DISTANCE);
 	}
 
 	@Override

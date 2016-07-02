@@ -40,7 +40,12 @@ public class ConstructFishingPoleAction implements CraftAction {
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return CraftUtils.distance(performer, Constants.WOOD, WOOD_REQUIRED);
+		return 0;
+	}
+	
+	@Override
+	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
+		return CraftUtils.hasEnoughResources(performer, Constants.WOOD, WOOD_REQUIRED);
 	}
 	
 	@Override

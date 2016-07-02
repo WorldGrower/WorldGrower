@@ -47,12 +47,17 @@ public class LichTransformationAction implements MagicSpell {
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
 		return CraftUtils.isValidTarget(performer, target, world) && (!CreatureTypeUtils.isUndead(performer)) && MagicSpellUtils.canCast(performer, this);
 	}
+	
+	@Override
+	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
+		int filledSoulGem = performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.SOUL_GEM_FILLED);
+		return SkillUtils.hasEnoughEnergy(performer, getSkill(), ENERGY_USE)
+				&& filledSoulGem >= SOUL_GEM_COUNT;
+	}
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		int filledSoulGem = performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.SOUL_GEM_FILLED);
-		return (filledSoulGem >= SOUL_GEM_COUNT ? 0 : 1)
-				+ SkillUtils.distanceForEnergyUse(performer, getSkill(), ENERGY_USE);
+		return 0;
 	}
 	
 	@Override

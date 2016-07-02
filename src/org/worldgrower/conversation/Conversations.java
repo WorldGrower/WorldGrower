@@ -342,12 +342,12 @@ public class Conversations implements Serializable {
 		return CONVERSATIONS.get(index);
 	}
 
-	public int distance(int index, WorldObject performer, WorldObject target, WorldObject subject, World world) {
-		return CONVERSATIONS.get(index).isConversationAvailable(performer, target, subject, world) ? 0 : 1;
+	public boolean isConversationAvailable(int index, WorldObject performer, WorldObject target, WorldObject subject, World world) {
+		return CONVERSATIONS.get(index).isConversationAvailable(performer, target, subject, world);
 	}
 	
-	public int additionalValueDistance(int index, WorldObject performer, WorldObject target, int additionalValue, int additionalValue2, World world) {
-		return CONVERSATIONS.get(index).additionalValuesValid(performer, target, additionalValue, additionalValue2, world) ? 0 : 1;
+	public boolean additionalValuesValid(int index, WorldObject performer, WorldObject target, int additionalValue, int additionalValue2, World world) {
+		return CONVERSATIONS.get(index).additionalValuesValid(performer, target, additionalValue, additionalValue2, world);
 	}
 	
 	public List<WorldObject> getPossibleSubjects(int index, int historyItemId, WorldObject performer, WorldObject target, World world) {

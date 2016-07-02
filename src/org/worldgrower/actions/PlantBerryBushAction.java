@@ -17,7 +17,6 @@ package org.worldgrower.actions;
 import java.io.ObjectStreamException;
 
 import org.worldgrower.Constants;
-import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
@@ -45,9 +44,13 @@ public class PlantBerryBushAction implements BuildAction {
 	}
 
 	@Override
+	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
+		return true;
+	}
+	
+	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		int distanceBetweenPerformerAndTarget = Reach.evaluateTarget(performer, args, target, 1);
-		return distanceBetweenPerformerAndTarget;
+		return Reach.evaluateTarget(performer, args, target, 1);
 	}
 	
 	@Override

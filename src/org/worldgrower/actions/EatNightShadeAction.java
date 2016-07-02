@@ -58,6 +58,11 @@ public class EatNightShadeAction implements ManagedOperation {
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
 		return (target.hasProperty(Constants.NIGHT_SHADE_SOURCE)) && (target.getProperty(Constants.NIGHT_SHADE_SOURCE) > 10);
 	}
+	
+	@Override
+	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
+		return true;
+	}
 
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {

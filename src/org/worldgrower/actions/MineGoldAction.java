@@ -41,8 +41,12 @@ public class MineGoldAction implements ManagedOperation {
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return Reach.evaluateTarget(performer, args, target, DISTANCE)
-				+ SkillUtils.distanceForEnergyUse(performer, Constants.MINING_SKILL, ENERGY_USE);
+		return Reach.evaluateTarget(performer, args, target, DISTANCE);
+	}
+	
+	@Override
+	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
+		return SkillUtils.hasEnoughEnergy(performer, Constants.MINING_SKILL, ENERGY_USE);
 	}
 	
 	@Override

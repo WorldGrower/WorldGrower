@@ -56,32 +56,32 @@ public class BuyAction implements ManagedOperation {
 	}
 
 	@Override
-	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
+	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
 		int index = args[0];
 		int price = args[1];
 		int quantity = args[2];
 		
-		int buyDistance = calculateBuyDistance(performer, target, index, quantity);
-		return distanceInSquares(performer, target, args, world) + buyDistance;
+		return canPerformerBuy(performer, target, index, quantity);
 	}
 	
-	public int distanceInSquares(WorldObject performer, WorldObject target, int[] args, World world) {
+	@Override
+	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
 		return Reach.evaluateTarget(performer, args, target, 1);
 	}
-
-	private int calculateBuyDistance(WorldObject performer, WorldObject target, int index, int quantity) {
-		final int buyDistance;
+	
+	private boolean canPerformerBuy(WorldObject performer, WorldObject target, int index, int quantity) {
+		final boolean canPerformerBuy;
 		WorldObject worldObjectToBuy = target.getProperty(Constants.INVENTORY).get(index);
 		if (worldObjectToBuy != null) {
 			if (BuySellUtils.performerCanBuyGoods(performer, target, index, quantity)) {
-				buyDistance = 0;
+				canPerformerBuy = true;
 			} else {
-				buyDistance = 100;
+				canPerformerBuy = false;
 			}
 		} else {
-			buyDistance = 1000;
+			canPerformerBuy = false;
 		}
-		return buyDistance;
+		return canPerformerBuy;
 	}
 	
 	@Override

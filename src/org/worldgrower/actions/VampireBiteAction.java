@@ -64,10 +64,14 @@ public class VampireBiteAction implements DeadlyAction {
 	}
 
 	@Override
+	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
+		boolean performerIsVampire = performer.hasProperty(Constants.VAMPIRE_BLOOD_LEVEL);
+		return performerIsVampire;
+	}
+	
+	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		int performerIsVampireDistance = performer.hasProperty(Constants.VAMPIRE_BLOOD_LEVEL) ? 0 : 1;
-		return Reach.evaluateTarget(performer, args, target, DISTANCE)
-				+ performerIsVampireDistance;
+		return Reach.evaluateTarget(performer, args, target, DISTANCE);
 	}
 	
 	@Override

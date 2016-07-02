@@ -34,9 +34,14 @@ public class WorshipDeityAction implements ManagedOperation {
 	}
 
 	@Override
+	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
+		boolean hasSameDeity = (performer.getProperty(Constants.DEITY) == target.getProperty(Constants.DEITY));
+		return hasSameDeity;
+	}
+	
+	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		int deityDistance = (performer.getProperty(Constants.DEITY) == target.getProperty(Constants.DEITY) ? 0 : 1);
-		return Reach.evaluateTarget(performer, args, target, 1) + deityDistance;
+		return Reach.evaluateTarget(performer, args, target, 1);
 	}
 	
 	@Override

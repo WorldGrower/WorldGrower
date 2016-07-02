@@ -44,8 +44,13 @@ public class CreateNewsPaperAction implements ManagedOperation {
 	}
 
 	@Override
+	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
+		return CraftUtils.hasEnoughResources(performer, Constants.PAPER, PAPER_REQUIRED);
+	}
+	
+	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return CraftUtils.distance(performer, Constants.PAPER, PAPER_REQUIRED);
+		return 0;
 	}
 	
 	@Override

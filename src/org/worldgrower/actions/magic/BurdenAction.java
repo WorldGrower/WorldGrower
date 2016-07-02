@@ -17,7 +17,6 @@ package org.worldgrower.actions.magic;
 import java.io.ObjectStreamException;
 
 import org.worldgrower.Constants;
-import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
@@ -55,12 +54,15 @@ public class BurdenAction implements MagicSpell {
 				&& (target.hasIntelligence()) 
 				&& MagicSpellUtils.canCast(performer, this));
 	}
+	
+	@Override
+	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
+		return SkillUtils.hasEnoughEnergy(performer, getSkill(), ENERGY_USE);
+	}
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		int distanceBetweenPerformerAndTarget = Reach.evaluateTarget(performer, args, target, DISTANCE);
-		return distanceBetweenPerformerAndTarget 
-				+ SkillUtils.distanceForEnergyUse(performer, getSkill(), ENERGY_USE);
+		return Reach.evaluateTarget(performer, args, target, DISTANCE);
 	}
 	
 	@Override

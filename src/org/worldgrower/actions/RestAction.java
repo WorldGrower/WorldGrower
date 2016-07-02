@@ -35,6 +35,11 @@ public class RestAction implements ManagedOperation {
 	}
 	
 	@Override
+	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
+		return true;
+	}
+	
+	@Override
 	public String getRequirementsDescription() {
 		return "";
 	}

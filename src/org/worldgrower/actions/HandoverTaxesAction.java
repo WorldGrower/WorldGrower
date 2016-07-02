@@ -38,9 +38,13 @@ public class HandoverTaxesAction implements ManagedOperation {
 	}
 
 	@Override
+	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
+		return performer.getProperty(Constants.ORGANIZATION_GOLD) > 0;
+	}
+	
+	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		int distanceOrganizationGold = performer.getProperty(Constants.ORGANIZATION_GOLD) > 0 ? 0 : 1;
-		return Reach.evaluateTarget(performer, args, target, DISTANCE) + distanceOrganizationGold;
+		return Reach.evaluateTarget(performer, args, target, DISTANCE);
 	}
 	
 	@Override

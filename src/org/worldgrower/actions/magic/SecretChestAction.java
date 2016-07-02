@@ -50,11 +50,15 @@ public class SecretChestAction implements MagicSpell {
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
 		return BuildingGenerator.isNormalChest(target) && MagicSpellUtils.canCast(performer, this);
 	}
+	
+	@Override
+	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
+		return SkillUtils.hasEnoughEnergy(performer, getSkill(), ENERGY_USE);
+	}
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return AttackUtils.distanceWithFreeLeftHand(performer, target, DISTANCE)
-				+ SkillUtils.distanceForEnergyUse(performer, getSkill(), ENERGY_USE);
+		return AttackUtils.distanceWithFreeLeftHand(performer, target, DISTANCE);
 	}
 	
 	@Override

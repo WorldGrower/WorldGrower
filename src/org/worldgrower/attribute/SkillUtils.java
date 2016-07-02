@@ -156,11 +156,11 @@ public class SkillUtils {
 		performer.increment(Constants.ENERGY, -(int)(energyUse / useSkill(performer, skill, worldStateChangedListeners)));
 	}
 	
-	public static int distanceForEnergyUse(WorldObject performer, SkillProperty skill, int energyUse) {
+	public static boolean hasEnoughEnergy(WorldObject performer, SkillProperty skill, int energyUse) {
 		if (performer.getProperty(Constants.ENERGY) >= getRealEnergyUse(performer, skill, energyUse)) {
-			return 0;
+			return true;
 		} else {
-			return getRealEnergyUse(performer, skill,energyUse) - performer.getProperty(Constants.ENERGY);
+			return false;
 		}
 	}
 

@@ -41,9 +41,13 @@ public class WeaveCottonShirtAction implements CraftAction {
 	}
 
 	@Override
+	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
+		return CraftUtils.hasEnoughResources(performer, Constants.COTTON, COTTON_REQUIRED);
+	}
+	
+	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return CraftUtils.distance(performer, Constants.COTTON, COTTON_REQUIRED)
-				+ Reach.evaluateTarget(performer, args, target, DISTANCE);
+		return Reach.evaluateTarget(performer, args, target, DISTANCE);
 	}
 	
 	@Override

@@ -37,10 +37,15 @@ public class StartOrganizationVoteAction implements ManagedOperation {
 	}
 
 	@Override
-	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
+	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
 		WorldObject organization = getOrganization(args, world);
 		boolean votingBoxExists = VotingPropertyUtils.votingBoxExistsForOrganization(organization, world);
-		return votingBoxExists ? 1 : 0;
+		return !votingBoxExists;
+	}
+	
+	@Override
+	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
+		return 0;
 	}
 	
 	@Override

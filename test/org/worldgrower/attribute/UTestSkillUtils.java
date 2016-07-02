@@ -56,14 +56,14 @@ public class UTestSkillUtils {
 	}
 	
 	@Test
-	public void testDistanceForEnergyUse() {
+	public void testHasEnoughEnergy() {
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.LUMBERING_SKILL, new Skill(10));
 		
 		performer.setProperty(Constants.ENERGY, 200);
-		assertEquals(0, SkillUtils.distanceForEnergyUse(performer, Constants.LUMBERING_SKILL, 100));
+		assertEquals(true, SkillUtils.hasEnoughEnergy(performer, Constants.LUMBERING_SKILL, 100));
 		
 		performer.setProperty(Constants.ENERGY, 50);
-		assertEquals(true, SkillUtils.distanceForEnergyUse(performer, Constants.LUMBERING_SKILL, 100) != 0);
+		assertEquals(false, SkillUtils.hasEnoughEnergy(performer, Constants.LUMBERING_SKILL, 100));
 	}
 	
 	@Test

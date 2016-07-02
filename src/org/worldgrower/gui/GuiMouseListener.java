@@ -738,10 +738,6 @@ public class GuiMouseListener extends MouseAdapter {
 		return canPlayerCharacterPerformActionUnderCorrectCircumstances(worldObject, action) && action.isActionPossible(playerCharacter, worldObject, Args.EMPTY, world);
 	}
 	
-	private boolean canPlayerCharacterPerformBuyAction(WorldObject worldObject, ManagedOperation action) {
-		return canPlayerCharacterPerformActionUnderCorrectCircumstances(worldObject, action) && Actions.BUY_ACTION.distanceInSquares(playerCharacter, worldObject, Args.EMPTY, world) == 0;
-	}
-	
 	private boolean canPlayerCharacterPerformTalkAction(WorldObject worldObject, ManagedOperation action) {
 		return canPlayerCharacterPerformActionUnderCorrectCircumstances(worldObject, action) && action.isActionPossible(playerCharacter, worldObject, Conversations.createArgs(Conversations.NAME_CONVERSATION), world);
 	}

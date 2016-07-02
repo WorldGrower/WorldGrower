@@ -34,8 +34,13 @@ public class SetTaxRateAction implements ManagedOperation {
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
+		return 0;
+	}
+	
+	@Override
+	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
 		boolean performerIsLeader = GroupPropertyUtils.performerIsLeaderOfVillagers(performer, world);
-		return performerIsLeader ? 0 : 1;
+		return performerIsLeader;
 	}
 	
 	@Override

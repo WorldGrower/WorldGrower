@@ -35,12 +35,15 @@ public class ClaimCattleAction implements ManagedOperation {
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
 		return (target.hasProperty(Constants.CREATURE_TYPE) && target.getProperty(Constants.CREATURE_TYPE) == CreatureType.COW_CREATURE_TYPE);
 	}
+	
+	@Override
+	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
+		return target.getProperty(Constants.CATTLE_OWNER_ID) == null;
+	}
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		int distanceBetweenPerformerAndTarget = Reach.evaluateTarget(performer, args, target, 1);
-		int distanceCattleOwnerId = target.getProperty(Constants.CATTLE_OWNER_ID) != null ? 1 : 0;
-		return distanceBetweenPerformerAndTarget + distanceCattleOwnerId;
+		return Reach.evaluateTarget(performer, args, target, 1);
 	}
 	
 	@Override

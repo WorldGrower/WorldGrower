@@ -43,12 +43,15 @@ public class CreateBloodAction implements ManagedOperation {
 	}
 
 	@Override
+	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
+		boolean targetHasEnoughHitPoints = target.getProperty(Constants.HIT_POINTS) > 1 * Item.COMBAT_MULTIPLIER;
+		boolean performerIsVampire = performer.hasProperty(Constants.VAMPIRE_BLOOD_LEVEL);
+		return targetHasEnoughHitPoints && performerIsVampire;
+	}
+	
+	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		int hitPointsDistance = target.getProperty(Constants.HIT_POINTS) > 1 * Item.COMBAT_MULTIPLIER ? 0 : 1;
-		int performerIsVampireDistance = performer.hasProperty(Constants.VAMPIRE_BLOOD_LEVEL) ? 0 : 1;
-		return Reach.evaluateTarget(performer, args, target, DISTANCE)
-				+ performerIsVampireDistance
-				+ hitPointsDistance;
+		return Reach.evaluateTarget(performer, args, target, DISTANCE);
 	}
 	
 	@Override

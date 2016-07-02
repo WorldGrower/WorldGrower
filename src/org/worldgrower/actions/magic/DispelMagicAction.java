@@ -17,7 +17,6 @@ package org.worldgrower.actions.magic;
 import java.io.ObjectStreamException;
 
 import org.worldgrower.Constants;
-import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.AttackUtils;
@@ -44,11 +43,15 @@ public class DispelMagicAction implements MagicSpell {
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
 		return (target.hasProperty(Constants.CONDITIONS) && MagicSpellUtils.canCast(performer, this));
 	}
+	
+	@Override
+	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
+		return SkillUtils.hasEnoughEnergy(performer, getSkill(), ENERGY_USE);
+	}
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return AttackUtils.distanceWithFreeLeftHand(performer, target, DISTANCE)
-				+ SkillUtils.distanceForEnergyUse(performer, getSkill(), ENERGY_USE);
+		return AttackUtils.distanceWithFreeLeftHand(performer, target, DISTANCE);
 	}
 	
 	@Override

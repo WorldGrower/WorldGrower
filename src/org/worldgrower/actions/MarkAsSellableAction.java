@@ -40,10 +40,13 @@ public class MarkAsSellableAction implements ManagedOperation {
 	}
 
 	@Override
+	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
+		return !(target.hasProperty(Constants.SELLABLE) && target.getProperty(Constants.SELLABLE));
+	}
+	
+	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		int distanceBetweenPerformerAndTarget = Reach.evaluateTarget(performer, args, target, DISTANCE);
-		int sellableDistance = target.hasProperty(Constants.SELLABLE) && target.getProperty(Constants.SELLABLE) ? 1 : 0;
-		return distanceBetweenPerformerAndTarget + sellableDistance;
+		return Reach.evaluateTarget(performer, args, target, DISTANCE);
 	}
 	
 	@Override

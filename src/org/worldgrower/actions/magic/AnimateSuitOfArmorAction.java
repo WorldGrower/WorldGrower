@@ -59,12 +59,12 @@ public class AnimateSuitOfArmorAction extends InventoryAction implements MagicSp
 	}
 	
 	@Override
-	public int distanceToInventoryItem(WorldObject inventoryItem, WorldObjectContainer inventory, WorldObject performer) {
-		int energyUseDistance = SkillUtils.distanceForEnergyUse(performer, getSkill(), ENERGY_USE);
+	public boolean isActionPossibleOnInventoryItem(WorldObject inventoryItem, WorldObjectContainer inventory, WorldObject performer) {
+		boolean hasEnoughEnergy = SkillUtils.hasEnoughEnergy(performer, getSkill(), ENERGY_USE);
 		boolean hasFilledSoulGem = (inventory.getQuantityFor(Constants.SOUL_GEM_FILLED) > 0);
-		return (hasFilledSoulGem ? 0 : 1) + energyUseDistance;
+		return hasFilledSoulGem && hasEnoughEnergy;
 	}
-	
+
 	@Override
 	public String getRequirementsDescription() {
 		return "Requirements: filled soul gem : 1, torso equipment : 1, enough energy to cast spell";

@@ -39,11 +39,15 @@ public class VoteForLeaderAction implements ManagedOperation {
 	}
 
 	@Override
-	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		int targetVotingStageDistance = VotingPropertyUtils.votingBoxAcceptsVotes(target) ? 0 : 1;
+	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
+		boolean votingBoxAcceptsVotes = VotingPropertyUtils.votingBoxAcceptsVotes(target);
 		boolean performerAlreadyVoted = world.getHistory().findHistoryItems(performer, target, this).size() > 0;
-		int performerAlreadyVotedDistance = performerAlreadyVoted ? 1 : 0;
-		return Reach.evaluateTarget(performer, args, target, DISTANCE) + targetVotingStageDistance + performerAlreadyVotedDistance;
+		return votingBoxAcceptsVotes && !performerAlreadyVoted;
+	}
+	
+	@Override
+	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
+		return Reach.evaluateTarget(performer, args, target, DISTANCE);
 	}
 	
 	@Override

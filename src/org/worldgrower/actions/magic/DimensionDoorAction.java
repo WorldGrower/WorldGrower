@@ -55,12 +55,16 @@ public class DimensionDoorAction implements BuildAction, MagicSpell, DeadlyActio
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
 		return  !target.hasProperty(Constants.ID) && MagicSpellUtils.canCast(performer, this);
 	}
+	
+	@Override
+	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
+		return SkillUtils.hasEnoughEnergy(performer, getSkill(), ENERGY_USE);
+	}
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
 		int distanceBetweenPerformerAndTarget = Reach.distance(performer, target);
-		int distance =  distanceBetweenPerformerAndTarget < DISTANCE ? 0 : 1;
-		return distance + SkillUtils.distanceForEnergyUse(performer, getSkill(), ENERGY_USE);
+		return distanceBetweenPerformerAndTarget < DISTANCE ? 0 : 1;
 	}
 	
 	@Override

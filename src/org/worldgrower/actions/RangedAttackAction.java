@@ -37,6 +37,11 @@ public class RangedAttackAction implements DeadlyAction {
 	}
 
 	@Override
+	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
+		return true;
+	}
+	
+	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
 		int range = getRangeFromWeapon(performer);
 		if (range > 0) {

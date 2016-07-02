@@ -43,6 +43,11 @@ public class InflictWoundsAction implements MagicSpell, DeadlyAction {
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
 		return ((target.hasProperty(Constants.ARMOR)) && (target.getProperty(Constants.HIT_POINTS) > 0) && target.hasIntelligence() && MagicSpellUtils.canCast(performer, this));
 	}
+	
+	@Override
+	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
+		return true;
+	}
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {

@@ -69,10 +69,14 @@ public class ClaimBuildingAction implements ManagedOperation {
 	}
 
 	@Override
-	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		int distanceBetweenPerformerAndTarget = Reach.evaluateTarget(performer, args, target, 1);
+	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
 		List<WorldObject> owners = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> w.hasProperty(Constants.BUILDINGS) && w.getProperty(Constants.BUILDINGS).contains(target));
-		return distanceBetweenPerformerAndTarget + owners.size();
+		return owners.size() == 0;
+	}
+	
+	@Override
+	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
+		return Reach.evaluateTarget(performer, args, target, 1);
 	}
 	
 	@Override

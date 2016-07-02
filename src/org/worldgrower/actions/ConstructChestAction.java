@@ -47,9 +47,13 @@ private static final int REQUIRED_WOOD = 3;
 	}
 
 	@Override
+	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
+		return CraftUtils.hasEnoughResources(performer, Constants.WOOD, REQUIRED_WOOD);
+	}
+	
+	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		int distanceBetweenPerformerAndTarget = Reach.evaluateTarget(performer, args, target, 1);
-		return CraftUtils.distance(performer, Constants.WOOD, REQUIRED_WOOD) + distanceBetweenPerformerAndTarget;
+		return Reach.evaluateTarget(performer, args, target, 1);
 	}
 	
 	@Override

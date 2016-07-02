@@ -42,10 +42,10 @@ public class UTestCraftUtils {
 		WorldObject performer = TestUtils.createSkilledWorldObject(1);
 		performer.setProperty(Constants.INVENTORY, new WorldObjectContainer());
 		
-		assertEquals(1000, CraftUtils.distance(performer, Constants.WOOD, 1));
+		assertEquals(false, CraftUtils.hasEnoughResources(performer, Constants.WOOD, 1));
 		
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 1);
-		assertEquals(0, CraftUtils.distance(performer, Constants.WOOD, 1));
+		assertEquals(true, CraftUtils.hasEnoughResources(performer, Constants.WOOD, 1));
 	}
 	
 	@Test
@@ -53,11 +53,11 @@ public class UTestCraftUtils {
 		WorldObject performer = TestUtils.createSkilledWorldObject(1);
 		performer.setProperty(Constants.INVENTORY, new WorldObjectContainer());
 		
-		assertEquals(2000, CraftUtils.distance(performer, 1, 1));
+		assertEquals(false, CraftUtils.hasEnoughResources(performer, 1, 1));
 		
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 1);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.ORE.generate(1f), 1);
-		assertEquals(0, CraftUtils.distance(performer, 1, 1));
+		assertEquals(true, CraftUtils.hasEnoughResources(performer, 1, 1));
 	}
 	
 	@Test

@@ -39,6 +39,11 @@ public class ThrowOilAction implements ManagedOperation {
 	}
 
 	@Override
+	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
+		return true;
+	}
+	
+	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
 		return AttackUtils.distanceWithFreeLeftHand(performer, target, 4);
 	}

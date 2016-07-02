@@ -64,7 +64,7 @@ public class TalkAction implements ManagedOperation {
 	}
 	
 	@Override
-	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
+	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
 		int question = args[0];
 		int subjectId = args[1];
 		int additionalValue = args[3];
@@ -74,14 +74,19 @@ public class TalkAction implements ManagedOperation {
 			if (world.exists(subjectId)) {
 				subject = world.findWorldObject(Constants.ID, subjectId);
 			} else {
-				return 4;// if subject no longer exists, talkaction cannot possibly succeed
+				return false;// if subject no longer exists, talkaction cannot possibly succeed
 			}
 		} else {
 			subject = null;
 		}
-		return Reach.evaluateTarget(performer, args, target, 10)
-				+ conversations.distance(question, performer, target, subject, world)
-				+ conversations.additionalValueDistance(question, performer, target, additionalValue, additionalValue2, world);
+		
+		return conversations.isConversationAvailable(question, performer, target, subject, world)
+		&& conversations.additionalValuesValid(question, performer, target, additionalValue, additionalValue2, world);
+	}
+	
+	@Override
+	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
+		return Reach.evaluateTarget(performer, args, target, 10);
 	}
 	
 	@Override

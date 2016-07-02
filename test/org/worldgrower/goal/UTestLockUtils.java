@@ -76,12 +76,12 @@ public class UTestLockUtils {
 		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.INVENTORY, new WorldObjectContainer());
 		WorldObject target = TestUtils.createWorldObject(1, "Test2");
 		
-		assertEquals(0, LockUtils.distance(performer, target));
+		assertEquals(true, LockUtils.performerCanAccessContainer(performer, target));
 		
 		target.setProperty(Constants.LOCKED, Boolean.TRUE);
-		assertEquals(1, LockUtils.distance(performer, target));
+		assertEquals(false, LockUtils.performerCanAccessContainer(performer, target));
 		
 		target.setProperty(Constants.MAGIC_LOCK_CREATOR_ID, 0);
-		assertEquals(0, LockUtils.distance(performer, target));
+		assertEquals(true, LockUtils.performerCanAccessContainer(performer, target));
 	}
 }

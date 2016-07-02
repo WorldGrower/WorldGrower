@@ -42,6 +42,11 @@ public class SecludedAction implements ManagedOperation {
 	}
 	
 	@Override
+	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
+		return action.isActionPossible(performer, target, args, world);
+	}
+	
+	@Override
 	public String getRequirementsDescription() {
 		return action.getRequirementsDescription();
 	}

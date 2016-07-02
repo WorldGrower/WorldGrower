@@ -42,10 +42,15 @@ public class CapturePersonForSacrificeAction implements ManagedOperation {
 	}
 
 	@Override
+	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
+		boolean isUnconsciousTarget = target.getProperty(Constants.CONDITIONS).hasCondition(Condition.UNCONSCIOUS_CONDITION);
+		boolean hasAltars = SacrificeUtils.getSacrificialAltars(performer, world).size() > 0;
+		return isUnconsciousTarget && hasAltars;
+	}
+	
+	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		int unconsciousDistance = target.getProperty(Constants.CONDITIONS).hasCondition(Condition.UNCONSCIOUS_CONDITION) ? 0 : 1;
-		int altarDistance = SacrificeUtils.getSacrificialAltars(performer, world).size() > 0 ? 0 : 1;
-		return Reach.evaluateTarget(performer, args, target, 1) + unconsciousDistance + altarDistance;
+		return Reach.evaluateTarget(performer, args, target, 1);
 	}
 	
 	@Override

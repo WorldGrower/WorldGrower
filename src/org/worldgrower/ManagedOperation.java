@@ -29,9 +29,7 @@ import org.worldgrower.gui.music.SoundIds;
 public interface ManagedOperation extends Serializable {
 
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world);
-	public default boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
-		return distance(performer, target, args, world) == 0;
-	}
+	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world);
 	public boolean requiresArguments();
 	
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world);

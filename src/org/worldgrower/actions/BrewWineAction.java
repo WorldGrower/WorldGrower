@@ -40,8 +40,13 @@ public class BrewWineAction implements CraftAction {
 	}
 
 	@Override
+	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
+		return CraftUtils.hasEnoughResources(performer, Constants.GRAPE, GRAPES_REQUIRED);
+	}
+	
+	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return CraftUtils.distance(performer, Constants.GRAPE, GRAPES_REQUIRED);
+		return 0;
 	}
 	
 	@Override

@@ -47,9 +47,13 @@ public class BuildArenaAction implements BuildAction {
 	}
 
 	@Override
+	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
+		return CraftUtils.hasEnoughResources(performer, Constants.STONE, REQUIRED_STONE);
+	}
+	
+	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		int distanceBetweenPerformerAndTarget = Reach.evaluateTarget(performer, args, target, 1);
-		return distanceBetweenPerformerAndTarget + CraftUtils.distance(performer, Constants.STONE, REQUIRED_STONE);
+		return Reach.evaluateTarget(performer, args, target, 1);
 	}
 	
 	@Override

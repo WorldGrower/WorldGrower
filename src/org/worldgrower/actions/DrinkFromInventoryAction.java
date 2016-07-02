@@ -44,10 +44,10 @@ public class DrinkFromInventoryAction extends InventoryAction {
 	public boolean isValidInventoryItem(WorldObject inventoryItem, WorldObjectContainer inventory, WorldObject performer) {
 		return inventoryItem.hasProperty(Constants.WATER);
 	}
-	
+		
 	@Override
-	public int distanceToInventoryItem(WorldObject inventoryItem, WorldObjectContainer inventory, WorldObject performer) {
-		return 0;
+	public boolean isActionPossibleOnInventoryItem(WorldObject inventoryItem, WorldObjectContainer inventory, WorldObject performer) {
+		return true;
 	}
 	
 	@Override
