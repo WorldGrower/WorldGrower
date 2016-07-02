@@ -50,11 +50,11 @@ public class UTestCreateHumanMeatAction {
 	}
 	
 	@Test
-	public void testDistance() {
+	public void testIsActionPossible() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.HIT_POINTS, 10 * Item.COMBAT_MULTIPLIER);
 		
-		assertEquals(0, Actions.CREATE_HUMAN_MEAT_ACTION.distance(performer, performer, Args.EMPTY, world));
+		assertEquals(true, Actions.CREATE_HUMAN_MEAT_ACTION.isActionPossible(performer, performer, Args.EMPTY, world));
 	}
 }

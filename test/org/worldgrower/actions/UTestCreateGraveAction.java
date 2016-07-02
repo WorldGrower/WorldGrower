@@ -63,13 +63,13 @@ public class UTestCreateGraveAction {
 	}
 	
 	@Test
-	public void testDistance() {
+	public void testIsActionPossible() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		
 		addSkeletonToInventory(performer, world);
 		
-		assertEquals(0, Actions.CREATE_GRAVE_ACTION.distance(performer, performer, Args.EMPTY, world));
+		assertEquals(true, Actions.CREATE_GRAVE_ACTION.isActionPossible(performer, performer, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

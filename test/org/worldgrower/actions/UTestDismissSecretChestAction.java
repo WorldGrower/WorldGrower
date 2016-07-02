@@ -62,14 +62,14 @@ public class UTestDismissSecretChestAction {
 	}
 
 	@Test
-	public void testDistance() {
+	public void testIsActionPossible() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		
 		int chestId = BuildingGenerator.generateChest(0, 0, world, 1f, performer);
 		WorldObject chest = world.findWorldObject(Constants.ID, chestId);
 		
-		assertEquals(0, action.distance(performer, chest, Args.EMPTY, world));
+		assertEquals(true, action.isActionPossible(performer, chest, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

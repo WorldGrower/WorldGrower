@@ -55,14 +55,14 @@ public class UTestHarvestNightShadeAction {
 	}
 	
 	@Test
-	public void testDistance() {
+	public void testIsActionPossible() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		int id = PlantGenerator.generateNightShade(0, 0, world);
 		WorldObject target = world.findWorldObject(Constants.ID, id);
 		target.setProperty(Constants.NIGHT_SHADE_SOURCE, 100);
 		
-		assertEquals(0, Actions.HARVEST_NIGHT_SHADE_ACTION.distance(performer, target, Args.EMPTY, world));
+		assertEquals(true, Actions.HARVEST_NIGHT_SHADE_ACTION.isActionPossible(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

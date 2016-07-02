@@ -55,12 +55,12 @@ public class UTestMintGoldAction {
 	}
 
 	@Test
-	public void testDistance() {
+	public void testIsActionPossible() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.GOLD.generate(1f), 20);
 
-		assertEquals(0, Actions.MINT_GOLD_ACTION.distance(performer, performer, Args.EMPTY, world));
+		assertEquals(true, Actions.MINT_GOLD_ACTION.isActionPossible(performer, performer, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

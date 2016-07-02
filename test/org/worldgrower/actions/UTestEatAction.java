@@ -55,12 +55,12 @@ public class UTestEatAction {
 	}
 
 	@Test
-	public void testDistance() {
+	public void testIsActionPossible() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		
 		WorldObject berryBush = createBerryBush(world);
-		assertEquals(0, Actions.EAT_ACTION.distance(performer, berryBush, Args.EMPTY, world));
+		assertEquals(true, Actions.EAT_ACTION.isActionPossible(performer, berryBush, Args.EMPTY, world));
 	}
 	
 	private WorldObject createBerryBush(World world) {

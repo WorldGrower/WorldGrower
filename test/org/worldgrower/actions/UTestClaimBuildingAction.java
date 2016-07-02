@@ -103,12 +103,12 @@ public class UTestClaimBuildingAction {
 	}
 	
 	@Test
-	public void testDistance() {
+	public void testIsActionPossible() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject brewery = generateBrewery(world, performer);
 		
-		assertEquals(0, action.distance(performer, brewery, Args.EMPTY, world));
+		assertEquals(true, action.isActionPossible(performer, brewery, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

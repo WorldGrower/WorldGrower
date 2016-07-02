@@ -58,14 +58,14 @@ public class UTestButcherAction {
 	}
 	
 	@Test
-	public void testDistance() {
+	public void testIsActionPossible() {
 		World world = new WorldImpl(1, 1, null, null);
 		createVillagersOrganization(world);
 		WorldObject performer = createPerformer(2);
 		int id = new CreatureGenerator(GroupPropertyUtils.create(null, "CowOrg", world)).generateCow(0, 0, world);
 		WorldObject target = world.findWorldObject(Constants.ID, id);
 		
-		assertEquals(0, Actions.BUTCHER_ACTION.distance(performer, target, Args.EMPTY, world));
+		assertEquals(true, Actions.BUTCHER_ACTION.isActionPossible(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

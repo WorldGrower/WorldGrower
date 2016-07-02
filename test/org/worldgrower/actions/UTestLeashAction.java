@@ -60,7 +60,7 @@ public class UTestLeashAction {
 	}
 	
 	@Test
-	public void testDistance() {
+	public void testIsActionPossible() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		createVillagersOrganization(world);
@@ -68,7 +68,7 @@ public class UTestLeashAction {
 		int id = new CreatureGenerator(GroupPropertyUtils.create(null, "CowOrg", world)).generateCow(0, 0, world);
 		WorldObject target = world.findWorldObject(Constants.ID, id);
 		
-		assertEquals(0, action.distance(performer, target, Args.EMPTY, world));
+		assertEquals(true, action.isActionPossible(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

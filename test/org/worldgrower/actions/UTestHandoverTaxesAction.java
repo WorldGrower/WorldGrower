@@ -59,13 +59,13 @@ public class UTestHandoverTaxesAction {
 	}
 	
 	@Test
-	public void testDistance() {
+	public void testIsActionPossible() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 
 		performer.setProperty(Constants.ORGANIZATION_GOLD, 100);
-		assertEquals(0, Actions.HANDOVER_TAXES_ACTION.distance(performer, target, Args.EMPTY, world));
+		assertEquals(true, Actions.HANDOVER_TAXES_ACTION.isActionPossible(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

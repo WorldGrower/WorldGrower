@@ -54,13 +54,13 @@ public class UTestCreateNewsPaperAction {
 	}
 
 	@Test
-	public void testDistance() {
+	public void testIsActionPossible() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
 		performerInventory.addQuantity(Item.PAPER.generate(1f), 10);
 		
-		assertEquals(0, Actions.CREATE_NEWS_PAPER_ACTION.distance(performer, performer, Args.EMPTY, world));
+		assertEquals(true, Actions.CREATE_NEWS_PAPER_ACTION.isActionPossible(performer, performer, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

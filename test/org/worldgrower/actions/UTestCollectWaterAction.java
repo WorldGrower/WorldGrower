@@ -84,14 +84,14 @@ public class UTestCollectWaterAction {
 	}
 	
 	@Test
-	public void testDistance() {
+	public void testIsActionPossible() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		
 		int wellId = BuildingGenerator.buildWell(0, 0, world, 1f);
 		WorldObject well = world.findWorldObject(Constants.ID, wellId);
 		
-		assertEquals(0, Actions.COLLECT_WATER_ACTION.distance(performer, well, Args.EMPTY,  world));
+		assertEquals(true, Actions.COLLECT_WATER_ACTION.isActionPossible(performer, well, Args.EMPTY,  world));
 	}
 	
 	private WorldObject createPerformer(int id) {

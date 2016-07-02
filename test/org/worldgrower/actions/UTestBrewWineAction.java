@@ -55,13 +55,13 @@ public class UTestBrewWineAction {
 	}
 	
 	@Test
-	public void testDistance() {
+	public void testIsActionPossible() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
 		performerInventory.addQuantity(Item.GRAPES.generate(1f), 10);
 
-		assertEquals(0, Actions.BREW_WINE_ACTION.distance(performer, performer, Args.EMPTY, world));
+		assertEquals(true, Actions.BREW_WINE_ACTION.isActionPossible(performer, performer, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

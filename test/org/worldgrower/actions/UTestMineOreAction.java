@@ -57,13 +57,13 @@ public class UTestMineOreAction {
 	}
 	
 	@Test
-	public void testDistance() {
+	public void testIsActionPossible() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		int stoneResourceId = TerrainGenerator.generateOreResource(0, 0, world);
 		WorldObject target = world.findWorldObject(Constants.ID, stoneResourceId);
 		
-		assertEquals(0, Actions.MINE_ORE_ACTION.distance(performer, target, Args.EMPTY, world));
+		assertEquals(true, Actions.MINE_ORE_ACTION.isActionPossible(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

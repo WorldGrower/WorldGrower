@@ -48,11 +48,11 @@ public class UTestCreateReligionOrganizationAction {
 	}
 	
 	@Test
-	public void testDistance() {
+	public void testIsActionPossible() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		
-		assertEquals(0, Actions.CREATE_RELIGION_ORGANIZATION_ACTION.distance(performer, performer, Args.EMPTY, world));
+		assertEquals(true, Actions.CREATE_RELIGION_ORGANIZATION_ACTION.isActionPossible(performer, performer, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

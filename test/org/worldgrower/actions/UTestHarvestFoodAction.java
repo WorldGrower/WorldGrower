@@ -57,14 +57,14 @@ public class UTestHarvestFoodAction {
 	}
 	
 	@Test
-	public void testDistance() {
+	public void testIsActionPossible() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		int id = PlantGenerator.generateBerryBush(0, 0, world);
 		WorldObject target = world.findWorldObject(Constants.ID, id);
 		
 		target.setProperty(Constants.FOOD_SOURCE, 100);
-		assertEquals(0, Actions.HARVEST_FOOD_ACTION.distance(performer, target, Args.EMPTY, world));
+		assertEquals(true, Actions.HARVEST_FOOD_ACTION.isActionPossible(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

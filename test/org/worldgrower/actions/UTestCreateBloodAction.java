@@ -63,14 +63,14 @@ public class UTestCreateBloodAction {
 	}
 	
 	@Test
-	public void testDistance() {
+	public void testIsActionPossible() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createPerformer(world, organization);
 		WorldObject target = createPerformer(world, organization);
 		VampireUtils.vampirizePerson(performer, new WorldStateChangedListeners());
 		
-		assertEquals(0, Actions.CREATE_BLOOD_ACTION.distance(performer, target, Args.EMPTY, world));
+		assertEquals(true, Actions.CREATE_BLOOD_ACTION.isActionPossible(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(World world, WorldObject organization) {

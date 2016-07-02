@@ -51,7 +51,7 @@ public class UTestCraftIronBootsAction {
 	}
 	
 	@Test
-	public void testDistance() {
+	public void testIsActionPossible() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
@@ -60,7 +60,7 @@ public class UTestCraftIronBootsAction {
 		int smithId = BuildingGenerator.generateSmith(0, 0, world, performer);
 		WorldObject target = world.findWorldObject(Constants.ID, smithId);
 		
-		assertEquals(0, Actions.CRAFT_IRON_BOOTS_ACTION.distance(performer, target, Args.EMPTY, world));
+		assertEquals(true, Actions.CRAFT_IRON_BOOTS_ACTION.isActionPossible(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

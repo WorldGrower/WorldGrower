@@ -52,12 +52,12 @@ public class UTestDonateMoneyAction {
 	}
 	
 	@Test
-	public void testDistance() {
+	public void testIsActionPossible() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
-		assertEquals(0, Actions.DONATE_MONEY_ACTION.distance(performer, target, Args.EMPTY, world));
+		assertEquals(true, Actions.DONATE_MONEY_ACTION.isActionPossible(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

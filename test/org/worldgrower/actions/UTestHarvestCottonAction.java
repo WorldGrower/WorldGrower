@@ -57,7 +57,7 @@ public class UTestHarvestCottonAction {
 	}
 	
 	@Test
-	public void testDistance() {
+	public void testIsActionPossible() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
 		int id = PlantGenerator.generateCottonPlant(0, 0, world);
@@ -68,6 +68,6 @@ public class UTestHarvestCottonAction {
 		performer.setProperty(Constants.WIDTH, 1);
 		performer.setProperty(Constants.HEIGHT, 1);
 		
-		assertEquals(0, Actions.HARVEST_COTTON_ACTION.distance(performer, target, Args.EMPTY, world));
+		assertEquals(true, Actions.HARVEST_COTTON_ACTION.isActionPossible(performer, target, Args.EMPTY, world));
 	}
 }

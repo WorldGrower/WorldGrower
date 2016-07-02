@@ -63,14 +63,14 @@ public class UTestCapturePersonAction {
 	}
 	
 	@Test
-	public void testDistance() {
+	public void testIsActionPossible() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		target.setProperty(Constants.CONDITIONS, new Conditions());
 		Conditions.add(target, Condition.UNCONSCIOUS_CONDITION, 8, world);
 		
-		assertEquals(0, Actions.CAPTURE_PERSON_ACTION.distance(performer, target, Args.EMPTY, world));
+		assertEquals(true, Actions.CAPTURE_PERSON_ACTION.isActionPossible(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

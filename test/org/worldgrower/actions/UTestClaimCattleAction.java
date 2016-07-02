@@ -63,12 +63,12 @@ public class UTestClaimCattleAction {
 	}
 	
 	@Test
-	public void testDistance() {
+	public void testIsActionPossible() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject cow = generateCow(world);
 		
-		assertEquals(0, action.distance(performer, cow, Args.EMPTY, world));
+		assertEquals(true, action.isActionPossible(performer, cow, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

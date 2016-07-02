@@ -63,7 +63,7 @@ public class UTestEatNightShadeAction {
 	}
 	
 	@Test
-	public void testDistance() {
+	public void testIsActionPossible() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		performer.setProperty(Constants.FOOD, 800);
@@ -72,7 +72,7 @@ public class UTestEatNightShadeAction {
 		WorldObject nightShade = world.findWorldObject(Constants.ID, nightShadeId);
 		nightShade.setProperty(Constants.NIGHT_SHADE_SOURCE, 100);
 		
-		assertEquals(0, Actions.EAT_NIGHT_SHADE_ACTION.distance(performer, nightShade, Args.EMPTY, world));
+		assertEquals(true, Actions.EAT_NIGHT_SHADE_ACTION.isActionPossible(performer, nightShade, Args.EMPTY, world));
 
 	}
 	

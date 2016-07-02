@@ -59,7 +59,7 @@ public class UTestCapturePersonForSacrificeAction {
 	}
 	
 	@Test
-	public void testDistance() {
+	public void testIsActionPossible() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
@@ -70,7 +70,7 @@ public class UTestCapturePersonForSacrificeAction {
 		target.setProperty(Constants.CONDITIONS, new Conditions());
 		Conditions.add(target, Condition.UNCONSCIOUS_CONDITION, 8, world);
 		
-		assertEquals(0, Actions.CAPTURE_PERSON_FOR_SACRIFICE_ACTION.distance(performer, target, Args.EMPTY, world));
+		assertEquals(true, Actions.CAPTURE_PERSON_FOR_SACRIFICE_ACTION.isActionPossible(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

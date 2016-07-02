@@ -50,13 +50,13 @@ public class UTestBuildInnAction {
 	}
 	
 	@Test
-	public void testDistance() {
+	public void testIsActionPossible() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.STONE.generate(1f), 50);
 		
-		assertEquals(0, Actions.BUILD_INN_ACTION.distance(performer, target, Args.EMPTY, world));
+		assertEquals(true, Actions.BUILD_INN_ACTION.isActionPossible(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

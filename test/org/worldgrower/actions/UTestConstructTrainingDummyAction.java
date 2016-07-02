@@ -51,13 +51,13 @@ public class UTestConstructTrainingDummyAction {
 	}
 	
 	@Test
-	public void testDistance() {
+	public void testIsActionPossible() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
 		
-		assertEquals(0, Actions.CONSTRUCT_TRAINING_DUMMY_ACTION.distance(performer, target, Args.EMPTY, world));
+		assertEquals(true, Actions.CONSTRUCT_TRAINING_DUMMY_ACTION.isActionPossible(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

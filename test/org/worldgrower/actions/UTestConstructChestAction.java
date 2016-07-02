@@ -53,7 +53,7 @@ public class UTestConstructChestAction {
 	}
 	
 	@Test
-	public void testDistance() {
+	public void testIsActionPossible() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.X, 0);
@@ -63,6 +63,6 @@ public class UTestConstructChestAction {
 		
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
 		
-		assertEquals(0, Actions.CONSTRUCT_CHEST_ACTION.distance(performer, performer, Args.EMPTY, world));
+		assertEquals(true, Actions.CONSTRUCT_CHEST_ACTION.isActionPossible(performer, performer, Args.EMPTY, world));
 	}
 }
