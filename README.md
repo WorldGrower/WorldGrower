@@ -14,15 +14,15 @@ It focuses on skills, dialogue, economy and society.
 
 ###Binary installation using installer
 
-*   [Windows installer](https://github.com/WorldGrower/WorldGrower/releases/download/0.7.0/WorldGrower_windows-x64_0_7_0.exe)
-*   [Linux installer](https://github.com/WorldGrower/WorldGrower/releases/download/0.7.0/WorldGrower_unix_0_7_0_64bit.sh) (requires java 8)
-*   [MacOSX installer](https://github.com/WorldGrower/WorldGrower/releases/download/0.7.0/WorldGrower_macos_0_7_0.dmg)
+*   [Windows installer](https://github.com/WorldGrower/WorldGrower/releases/download/0.8.0/WorldGrower_windows-x64_0_8_0.exe)
+*   [Linux installer](https://github.com/WorldGrower/WorldGrower/releases/download/0.8.0/WorldGrower_unix_0_8_0_64bit.sh) (requires java 8)
+*   [MacOSX installer](https://github.com/WorldGrower/WorldGrower/releases/download/0.8.0/WorldGrower_macos_0_8_0.dmg)
 
 *These installers contain the game and will install the game when executed.*
 
 ###Binary installation of .zip file
 
-*   [Download .zip file](https://github.com/WorldGrower/WorldGrower/releases/download/0.7.0/worldgrower-0.7.0.zip)
+*   [Download .zip file](https://github.com/WorldGrower/WorldGrower/releases/download/0.8.0/worldgrower-0.8.0.zip)
 *   Extract the .zip file on the local filesystem
 *   Make sure [Java 8](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html) is installed.
 	If you're not sure, you can check your java version [here](https://www.java.com/verify).
