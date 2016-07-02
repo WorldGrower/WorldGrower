@@ -22,9 +22,11 @@ import java.util.List;
 import org.junit.Test;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.curse.Curse;
+import org.worldgrower.deity.Deity;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.PlantGenerator;
 import org.worldgrower.goal.Goals;
+import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.history.Turn;
 import org.worldgrower.personality.Personality;
 
@@ -128,7 +130,46 @@ public class UTestDungeonMaster {
 		assertEquals(5, commoner.getProperty(Constants.Y).intValue());
 		assertEquals(Goals.DRINK_WATER_GOAL, world.getGoal(commoner));
 		assertEquals(Actions.CUT_WOOD_ACTION, world.getImmediateGoal(commoner, world).getManagedOperation());
-
+	}
+	
+	@Test
+	public void testRunWorldObjectWithImpossibleAction() {
+		DungeonMaster dungeonMaster = new DungeonMaster();
+		World world = createWorld(dungeonMaster);
+		world.generateUniqueId(); world.generateUniqueId(); world.generateUniqueId();
+		createVillagersOrganization(world);
+		WorldObject commoner = TestUtils.createIntelligentWorldObject(2, Goals.SHRINE_TO_DEITY_GOAL);
+		commoner.setProperty(Constants.NAME, "performer");
+		commoner.setProperty(Constants.DEITY, Deity.ARES);
+		commoner.setProperty(Constants.PERSONALITY, new Personality());
+		commoner.setProperty(Constants.X, 5);
+		commoner.setProperty(Constants.Y, 5);
+		world.addWorldObject(commoner);
+		BuildingGenerator.generateShrine(0, 0, world, commoner);
+		
+		dungeonMaster.runWorldObject(commoner, world);
+		
+		assertEquals(4, commoner.getProperty(Constants.X).intValue());
+		assertEquals(4, commoner.getProperty(Constants.Y).intValue());
+		assertEquals(Goals.SHRINE_TO_DEITY_GOAL, world.getGoal(commoner));
+		assertEquals(Actions.WORSHIP_DEITY_ACTION, world.getImmediateGoal(commoner, world).getManagedOperation());
+		
+		commoner.setProperty(Constants.DEITY, Deity.DEMETER);
+		
+		dungeonMaster.runWorldObject(commoner, world);
+		
+		//TODO: should abort action
+		assertEquals(3, commoner.getProperty(Constants.X).intValue());
+		assertEquals(3, commoner.getProperty(Constants.Y).intValue());
+		assertEquals(Goals.SHRINE_TO_DEITY_GOAL, world.getGoal(commoner));
+		assertEquals(Actions.WORSHIP_DEITY_ACTION, world.getImmediateGoal(commoner, world).getManagedOperation());
+	}
+	
+	private WorldObject createVillagersOrganization(World world) {
+		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
+		organization.setProperty(Constants.ID, 1);
+		world.addWorldObject(organization);
+		return organization;
 	}
 	
 	private WorldObject createWorldObject() {
