@@ -55,13 +55,13 @@ public class UTestPoisonInventoryWaterWithSleepingPotionAction {
 	}
 	
 	@Test
-	public void testDistance() {
+	public void testIsActionPossible() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
 		performerInventory.addQuantity(Item.WATER.generate(1f));
 		performerInventory.addQuantity(Item.SLEEPING_POTION.generate(1f));
 		
-		assertEquals(0, Actions.POISON_INVENTORY_WATER_WITH_SLEEPING_POTION_ACTION.distance(performer, performer, new int[] {0}, world));
+		assertEquals(true, Actions.POISON_INVENTORY_WATER_WITH_SLEEPING_POTION_ACTION.isActionPossible(performer, performer, new int[] {0}, world));
 	}
 }

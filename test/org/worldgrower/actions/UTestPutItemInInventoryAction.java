@@ -58,7 +58,7 @@ public class UTestPutItemInInventoryAction {
 	}
 	
 	@Test
-	public void testDistance() {
+	public void testIsActionPossible() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		int id = BuildingGenerator.generateHouse(0, 0, world, 1f, performer);
@@ -67,7 +67,7 @@ public class UTestPutItemInInventoryAction {
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.BERRIES.generate(1f));
 		target.setProperty(Constants.LOCKED, Boolean.FALSE);
 		
-		assertEquals(0, Actions.PUT_ITEM_INTO_INVENTORY_ACTION.distance(performer, target, new int[] { 0 }, world));
+		assertEquals(true, Actions.PUT_ITEM_INTO_INVENTORY_ACTION.isActionPossible(performer, target, new int[] { 0 }, world));
 	}
 	
 	@Test
@@ -82,7 +82,7 @@ public class UTestPutItemInInventoryAction {
 		
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.BERRIES.generate(1f));
 		
-		assertEquals(0, Actions.PUT_ITEM_INTO_INVENTORY_ACTION.distance(performer, house, new int[] { 0 }, world));
+		assertEquals(true, Actions.PUT_ITEM_INTO_INVENTORY_ACTION.isActionPossible(performer, house, new int[] { 0 }, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

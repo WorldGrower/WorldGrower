@@ -58,14 +58,14 @@ public class UTestSleepingPoisonAction {
 	}
 	
 	@Test
-	public void testDistance() {
+	public void testIsActionPossible() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		int wellId = BuildingGenerator.buildWell(0, 0, world, 1f);
 		WorldObject target = world.findWorldObject(Constants.ID, wellId);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.SLEEPING_POTION.generate(1f), 10);
 		
-		assertEquals(0, Actions.SLEEPING_POISON_ACTION.distance(performer, target, Args.EMPTY, world));
+		assertEquals(true, Actions.SLEEPING_POISON_ACTION.isActionPossible(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

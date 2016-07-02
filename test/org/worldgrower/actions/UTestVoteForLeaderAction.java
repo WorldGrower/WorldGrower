@@ -53,7 +53,7 @@ public class UTestVoteForLeaderAction {
 	}
 	
 	@Test
-	public void testDistance() {
+	public void testIsActionPossible() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		int id = BuildingGenerator.generateVotingBox(0, 0, world);
@@ -61,7 +61,7 @@ public class UTestVoteForLeaderAction {
 		target.setProperty(Constants.ORGANIZATION_ID, 7);
 		target.setProperty(Constants.TURN_COUNTER, 450);
 		
-		assertEquals(0, Actions.VOTE_FOR_LEADER_ACTION.distance(performer, target, Args.EMPTY, world));
+		assertEquals(true, Actions.VOTE_FOR_LEADER_ACTION.isActionPossible(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

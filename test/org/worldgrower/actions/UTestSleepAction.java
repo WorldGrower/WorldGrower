@@ -72,7 +72,7 @@ public class UTestSleepAction {
 	}
 	
 	@Test
-	public void testDistance() {
+	public void testIsActionPossible() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		int houseId = BuildingGenerator.generateHouse(0, 0, world, 1f, performer);
@@ -80,7 +80,7 @@ public class UTestSleepAction {
 		
 		performer.setProperty(Constants.BUILDINGS, new BuildingList().add(house, BuildingType.HOUSE));
 		
-		assertEquals(0, Actions.SLEEP_ACTION.distance(performer, house, Args.EMPTY, world));
+		assertEquals(true, Actions.SLEEP_ACTION.isActionPossible(performer, house, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

@@ -51,7 +51,7 @@ public class UTestWeaveCottonPantsAction {
 	}
 	
 	@Test
-	public void testDistance() {
+	public void testIsActionPossible() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.COTTON.generate(1f), 20);
@@ -61,6 +61,6 @@ public class UTestWeaveCottonPantsAction {
 		int weaveryId = BuildingGenerator.generateWeavery(0, 0, world, performer);
 		WorldObject target = world.findWorldObject(Constants.ID, weaveryId);
 		
-		assertEquals(0, Actions.WEAVE_COTTON_PANTS_ACTION.distance(performer, target, Args.EMPTY, world));
+		assertEquals(true, Actions.WEAVE_COTTON_PANTS_ACTION.isActionPossible(performer, target, Args.EMPTY, world));
 	}
 }

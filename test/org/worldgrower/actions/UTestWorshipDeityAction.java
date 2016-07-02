@@ -54,14 +54,14 @@ public class UTestWorshipDeityAction {
 	}
 	
 	@Test
-	public void testDistance() {
+	public void testIsActionPossible() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		performer.setProperty(Constants.DEITY, Deity.ARES);
 		int id = BuildingGenerator.generateShrine(0, 0, world, performer);
 		WorldObject target = world.findWorldObject(Constants.ID, id);
 		
-		assertEquals(0, Actions.WORSHIP_DEITY_ACTION.distance(performer, target, Args.EMPTY, world));
+		assertEquals(true, Actions.WORSHIP_DEITY_ACTION.isActionPossible(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

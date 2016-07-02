@@ -63,14 +63,14 @@ public class UTestSetLegalActionsAction {
 	}
 	
 	@Test
-	public void testDistance() {
+	public void testIsActionPossible() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		world.addWorldObject(performer);
 		WorldObject villagersOrganization = createVillagersOrganization(world);
 		villagersOrganization.setProperty(Constants.ORGANIZATION_LEADER_ID, performer.getProperty(Constants.ID));
 			
-		assertEquals(0, Actions.SET_LEGAL_ACTIONS_ACTION.distance(performer, performer, Args.EMPTY, world));
+		assertEquals(true, Actions.SET_LEGAL_ACTIONS_ACTION.isActionPossible(performer, performer, Args.EMPTY, world));
 	}
 
 

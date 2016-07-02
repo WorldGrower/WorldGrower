@@ -53,13 +53,13 @@ public class UTestPoisonWeaponAction {
 	}
 	
 	@Test
-	public void testDistance() {
+	public void testIsActionPossible() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
 		performerInventory.addQuantity(Item.IRON_CLAYMORE.generate(1f));
 		performerInventory.addQuantity(Item.POISON.generate(1f));
 		
-		assertEquals(0, Actions.POISON_WEAPON_ACTION.distance(performer, performer, new int[] {0}, world));
+		assertEquals(true, Actions.POISON_WEAPON_ACTION.isActionPossible(performer, performer, new int[] {0}, world));
 	}
 }

@@ -57,13 +57,13 @@ public class UTestStartOrganizationVoteAction {
 	}
 	
 	@Test
-	public void testDistance() {
+	public void testIsActionPossible() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		int id = commonerGenerator.generateCommoner(0, 0, world, organization);
 		WorldObject performer = world.findWorldObject(Constants.ID, id);
 		
-		assertEquals(0, Actions.START_ORGANIZATION_VOTE_ACTION.distance(performer, performer, new int[] { 0 }, world));
+		assertEquals(true, Actions.START_ORGANIZATION_VOTE_ACTION.isActionPossible(performer, performer, new int[] { 0 }, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

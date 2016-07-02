@@ -58,14 +58,14 @@ public class UTestPoisonAction {
 	}
 	
 	@Test
-	public void testDistance() {
+	public void testIsActionPossible() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		int wellId = BuildingGenerator.buildWell(0, 0, world, 1f);
 		WorldObject target = world.findWorldObject(Constants.ID, wellId);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.POISON.generate(1f), 10);
 		
-		assertEquals(0, Actions.POISON_ACTION.distance(performer, target, Args.EMPTY, world));
+		assertEquals(true, Actions.POISON_ACTION.isActionPossible(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

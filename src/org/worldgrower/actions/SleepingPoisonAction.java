@@ -36,8 +36,7 @@ public class SleepingPoisonAction implements ManagedOperation {
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		int sleepingPotionInInventory = performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.SLEEP_INDUCING_DRUG_STRENGTH) > 0 ? 0 : 1;
-		return Reach.evaluateTarget(performer, args, target, DISTANCE) + sleepingPotionInInventory;
+		return Reach.evaluateTarget(performer, args, target, DISTANCE);
 	}
 	
 	@Override

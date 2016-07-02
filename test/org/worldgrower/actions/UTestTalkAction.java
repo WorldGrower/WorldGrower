@@ -166,7 +166,7 @@ public class UTestTalkAction {
 	}
 	
 	@Test
-	public void testDistance0() {
+	public void testIsActionPossible() {
 		World world = new WorldImpl(1, 1, dungeonMaster, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, "performer");
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, "target");
@@ -177,11 +177,11 @@ public class UTestTalkAction {
 		target.setProperty(Constants.X, 0);
 		target.setProperty(Constants.Y, 0);
 		
-		assertEquals(0, Actions.TALK_ACTION.distance(performer, target, new int[] { 0, -1, 0, 0, 0 }, world));
+		assertEquals(true, Actions.TALK_ACTION.isActionPossible(performer, target, new int[] { 0, -1, 0, 0, 0 }, world));
 	}
 	
 	@Test
-	public void testDistanceWithSubject() {
+	public void testIsActionPossibleWithSubject() {
 		World world = new WorldImpl(1, 1, dungeonMaster, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, "performer");
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, "target");
@@ -194,7 +194,7 @@ public class UTestTalkAction {
 		target.setProperty(Constants.X, 0);
 		target.setProperty(Constants.Y, 0);
 		
-		assertEquals(0, Actions.TALK_ACTION.distance(performer, target, new int[] { 0, 3, 0, 0, 0 }, world));
+		assertEquals(true, Actions.TALK_ACTION.isActionPossible(performer, target, new int[] { 0, 3, 0, 0, 0 }, world));
 	}
 	
 	@Test
