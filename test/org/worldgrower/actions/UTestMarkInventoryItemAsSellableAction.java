@@ -33,7 +33,8 @@ public class UTestMarkInventoryItemAsSellableAction {
 		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
 		
 		performer.getProperty(Constants.INVENTORY).add(Item.BERRIES.generate(1f));
-		Actions.MARK_INVENTORY_ITEM_AS_SELLABLE_ACTION.execute(performer, performer, new int[] {0}, world);
+		int[] args = MarkInventoryItemAsSellableAction.createArgs(0, true);
+		Actions.MARK_INVENTORY_ITEM_AS_SELLABLE_ACTION.execute(performer, performer, args, world);
 		
 		assertEquals(true, performer.getProperty(Constants.INVENTORY).get(0).getProperty(Constants.SELLABLE));
 	}

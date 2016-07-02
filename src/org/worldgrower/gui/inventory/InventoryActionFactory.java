@@ -30,6 +30,7 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.actions.MarkInventoryItemAsSellableAction;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.goal.BuySellUtils;
 import org.worldgrower.gui.ImageInfoReader;
@@ -75,7 +76,13 @@ public class InventoryActionFactory {
 		
 		for(org.worldgrower.actions.InventoryAction action : Actions.getInventoryActions()) {
 			if (action.isValidInventoryItem(inventoryItem, inventory, playerCharacter)) {
-				inventoryActions.add(new InventoryItemAction(action, inventoryItemId));
+				//TODO: move instanceof code to classes themselves
+				if (action instanceof MarkInventoryItemAsSellableAction) {
+					int[] args = MarkInventoryItemAsSellableAction.createArgs(inventoryItemId, !inventoryItem.getProperty(Constants.SELLABLE));
+					inventoryActions.add(new InventoryItemAction(action, args, inventoryItemId, playerCharacter));
+				} else {
+					inventoryActions.add(new InventoryItemAction(action, inventoryItemId));	
+				}
 			}
 		}
 		

@@ -19,6 +19,7 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.actions.MarkInventoryItemAsSellableAction;
 import org.worldgrower.attribute.ManagedProperty;
 
 public abstract class AbstractMarkAsSellableGoal implements Goal {
@@ -33,7 +34,8 @@ public abstract class AbstractMarkAsSellableGoal implements Goal {
 	public final OperationInfo calculateGoal(WorldObject performer, World world) {
 		int indexOfProperty = indexOfProperty(performer);
 		if (indexOfProperty != -1) {
-			return new OperationInfo(performer, performer, new int[] { indexOfProperty }, Actions.MARK_INVENTORY_ITEM_AS_SELLABLE_ACTION);
+			int[] args = MarkInventoryItemAsSellableAction.createArgs(indexOfProperty, true);
+			return new OperationInfo(performer, performer, args, Actions.MARK_INVENTORY_ITEM_AS_SELLABLE_ACTION);
 		} else {
 			return null;
 		}

@@ -20,6 +20,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.actions.MarkInventoryItemAsSellableAction;
 import org.worldgrower.attribute.Prices;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.goal.WeightPropertyUtils;
@@ -114,8 +115,9 @@ public class InventoryDialogModel {
 		return playerCharacter.getProperty(Constants.PRICES);
 	}
 
-	public void markAsSellable(InventoryItem inventoryItem) {
-		Actions.MARK_INVENTORY_ITEM_AS_SELLABLE_ACTION.execute(playerCharacter, playerCharacter, new int[] {inventoryItem.getId()}, world);
+	public void markAsSellable(InventoryItem inventoryItem, boolean sellable) {
+		int[] args = MarkInventoryItemAsSellableAction.createArgs(inventoryItem.getId(), sellable);
+		Actions.MARK_INVENTORY_ITEM_AS_SELLABLE_ACTION.execute(playerCharacter, playerCharacter, args, world);
 		
 	}
 }

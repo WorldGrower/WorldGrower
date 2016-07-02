@@ -478,18 +478,9 @@ public final class InventoryDialog extends AbstractDialog {
 		        
 		        if (inventoryItem != null) {
 			        JPopupMenu popupMenu = MenuFactory.createJPopupMenu();
-			        JCheckBoxMenuItem sellableMenuItem = createSellableMenuItem(inventoryItem);
-					popupMenu.add(sellableMenuItem);
 					addPlayerCharacterMenuActions(popupMenu, inventoryItem, inventoryDialogModel, inventoryActionFactory);
 			        popupMenu.show(inventoryTable, e.getX(), e.getY());
 		        }
-			}
-
-			private JCheckBoxMenuItem createSellableMenuItem(InventoryItem inventoryItem) {
-				JCheckBoxMenuItem sellableMenuItem = MenuFactory.createJCheckBoxMenuItem(new SellableAction(inventoryItem, inventoryDialogModel), soundIdReader);
-				sellableMenuItem.setIcon(new ImageIcon(imageInfoReader.getImage(ImageIds.SILVER_COIN, null)));
-				sellableMenuItem.setToolTipText("marks inventory item as sellable");
-				return sellableMenuItem;
 			}
 		});
 		
@@ -511,34 +502,6 @@ public final class InventoryDialog extends AbstractDialog {
 		}
 	}
 	
-	private class SellableAction extends AbstractAction {
-
-		private final InventoryItem inventoryItem;
-		private final InventoryDialogModel inventoryDialogModel;
-		
-		public SellableAction(InventoryItem inventoryItem, InventoryDialogModel inventoryDialogModel) {
-			super();
-			boolean sellable = inventoryItem.isSellable();
-	        int price = inventoryItem.getPrice();
-			String text = "mark as sellable for " + price + " gold";
-		
-			this.putValue(Action.NAME, text);
-			this.putValue(Action.SELECTED_KEY, sellable);
-			
-			this.inventoryItem = inventoryItem;
-			this.inventoryDialogModel = inventoryDialogModel;
-		}
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			JCheckBoxMenuItem source = (JCheckBoxMenuItem)e.getSource();
-			getPlayerCharacterSelectedValue().setSellable(source.isSelected());
-			inventoryDialogModel.markAsSellable(inventoryItem);
-			
-			inventoryTable.repaint();
-		}
-	}
-
 	private String getTargetWeight(InventoryDialogModel inventoryDialogModel) {
 		String targetWeightString = Integer.toString(inventoryDialogModel.getTargetWeight())
 				+ "/"
