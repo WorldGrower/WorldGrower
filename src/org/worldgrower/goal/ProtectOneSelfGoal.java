@@ -24,6 +24,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.creaturetype.CreatureType;
+import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.profession.Profession;
 
 public class ProtectOneSelfGoal implements Goal {
@@ -110,11 +111,21 @@ public class ProtectOneSelfGoal implements Goal {
 		} else {
 			WorldObject villagersOrganization = GroupPropertyUtils.getVillagersOrganization(world);
 			if (performer.getProperty(Constants.GROUP).contains(villagersOrganization)) {
-				return GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, w);
+				boolean isEnemy = GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, w);
+				if (isEnemy) {
+					if (worldObjectIsInJail(w, world)) {
+						isEnemy = false;
+					}
+				}
+				return isEnemy;
 			} else {
 				return performer.getProperty(Constants.RELATIONSHIPS).getValue(w) < 0;
 			}
 		}
+	}
+	
+	private boolean worldObjectIsInJail(WorldObject w, World world) {
+		return (BuildingGenerator.isPrisonerInJail(w, world));
 	}
 
 	private int[] createArgs(int performerX, int performerY, int x, int y) {
@@ -124,7 +135,7 @@ public class ProtectOneSelfGoal implements Goal {
 	private boolean movementIsPossible(WorldObject performer, int x, int y, World world) {
 		int performerX = performer.getProperty(Constants.X);
 		int performerY = performer.getProperty(Constants.Y);
-		return Actions.MOVE_ACTION.distance(performer, performer, createArgs(performerX, performerY, x, y), world) == 0;
+		return new OperationInfo(performer, performer, createArgs(performerX, performerY, x, y), Actions.MOVE_ACTION).isPossible(performer, world);
 	}
 
 	private boolean avoidsEnemies(WorldObject performer) {

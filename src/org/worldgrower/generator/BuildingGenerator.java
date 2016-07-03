@@ -871,7 +871,7 @@ public class BuildingGenerator {
 				performer, 
 				Actions.CLAIM_BUILDING_ACTION, 
 				property, 
-				w -> testFunction.apply(w) && Actions.CLAIM_BUILDING_ACTION.distance(performer, w, Args.EMPTY, world) == 0, 
+				w -> testFunction.apply(w) && Actions.CLAIM_BUILDING_ACTION.isActionPossible(performer, w, Args.EMPTY, world), 
 				world);
 	}
 

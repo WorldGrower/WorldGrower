@@ -25,6 +25,7 @@ import org.worldgrower.curse.Curse;
 import org.worldgrower.deity.Deity;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.PlantGenerator;
+import org.worldgrower.generator.TerrainGenerator;
 import org.worldgrower.goal.Goals;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.history.Turn;
@@ -154,15 +155,15 @@ public class UTestDungeonMaster {
 		assertEquals(Goals.SHRINE_TO_DEITY_GOAL, world.getGoal(commoner));
 		assertEquals(Actions.WORSHIP_DEITY_ACTION, world.getImmediateGoal(commoner, world).getManagedOperation());
 		
+		TerrainGenerator.generateStoneResource(7, 7, world);
 		commoner.setProperty(Constants.DEITY, Deity.DEMETER);
 		
 		dungeonMaster.runWorldObject(commoner, world);
 		
-		//TODO: should abort action
-		assertEquals(3, commoner.getProperty(Constants.X).intValue());
-		assertEquals(3, commoner.getProperty(Constants.Y).intValue());
+		assertEquals(5, commoner.getProperty(Constants.X).intValue());
+		assertEquals(5, commoner.getProperty(Constants.Y).intValue());
 		assertEquals(Goals.SHRINE_TO_DEITY_GOAL, world.getGoal(commoner));
-		assertEquals(Actions.WORSHIP_DEITY_ACTION, world.getImmediateGoal(commoner, world).getManagedOperation());
+		assertEquals(Actions.MINE_STONE_ACTION, world.getImmediateGoal(commoner, world).getManagedOperation());
 	}
 	
 	private WorldObject createVillagersOrganization(World world) {

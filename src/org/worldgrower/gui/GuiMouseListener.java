@@ -735,11 +735,15 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 
 	private boolean canPlayerCharacterPerformAction(WorldObject worldObject, ManagedOperation action) {
-		return canPlayerCharacterPerformActionUnderCorrectCircumstances(worldObject, action) && action.isActionPossible(playerCharacter, worldObject, Args.EMPTY, world);
+		return canPlayerCharacterPerformActionUnderCorrectCircumstances(worldObject, action) 
+				&& action.isActionPossible(playerCharacter, worldObject, Args.EMPTY, world)
+				&& action.distance(playerCharacter, worldObject, Args.EMPTY, world) == 0;
 	}
 	
 	private boolean canPlayerCharacterPerformTalkAction(WorldObject worldObject, ManagedOperation action) {
-		return canPlayerCharacterPerformActionUnderCorrectCircumstances(worldObject, action) && action.isActionPossible(playerCharacter, worldObject, Conversations.createArgs(Conversations.NAME_CONVERSATION), world);
+		return canPlayerCharacterPerformActionUnderCorrectCircumstances(worldObject, action) 
+				&& action.isActionPossible(playerCharacter, worldObject, Conversations.createArgs(Conversations.NAME_CONVERSATION), world)
+				&& action.distance(playerCharacter, worldObject, Args.EMPTY, world) == 0;
 	}
 	
 	private boolean canPlayerCharacterPerformActionUnderCorrectCircumstances(WorldObject worldObject, ManagedOperation action) {
@@ -747,7 +751,8 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 	
 	private boolean canPlayerCharacterPerformBuildAction(ManagedOperation action) {
-		return action.isActionPossible(playerCharacter, playerCharacter, Args.EMPTY, world) && playerCharacter.canWorldObjectPerformAction(action);
+		return action.isActionPossible(playerCharacter, playerCharacter, Args.EMPTY, world)
+				&& playerCharacter.canWorldObjectPerformAction(action);
 	}
 
 	public void executeBuildAction(ManagedOperation buildAction, WorldObject buildLocation, int[] args) {

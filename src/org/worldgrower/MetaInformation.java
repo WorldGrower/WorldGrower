@@ -99,4 +99,8 @@ class MetaInformation implements Serializable {
 	public void addGoalChangedListeners(GoalChangedListener goalChangedListener) {
 		goalChangedListeners.add(goalChangedListener);
 	}
+
+	public OperationInfo getFinalTask() {
+		return currentTask.getLast();
+	}
 }

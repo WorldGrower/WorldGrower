@@ -30,6 +30,7 @@ import org.worldgrower.CommonerNameGeneratorImpl;
 import org.worldgrower.Constants;
 import org.worldgrower.DungeonMaster;
 import org.worldgrower.ManagedOperation;
+import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
@@ -279,9 +280,7 @@ public class Game {
 	}
     
     public static boolean canActionExecute(WorldObject playerCharacter, ManagedOperation action, int[] args, World world, WorldObject target) {
-    	return action.isActionPossible(playerCharacter, target, args, world) 
-    			&& playerCharacter.canWorldObjectPerformAction(action)
-    			&& action.isValidTarget(playerCharacter, target, world);
+    	return new OperationInfo(playerCharacter, target, args, action).isPossible(playerCharacter, world);
     }
 
 	private static void exploreWorld(WorldObject playerCharacter, World world) {
