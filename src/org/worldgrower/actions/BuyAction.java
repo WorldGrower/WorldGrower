@@ -38,6 +38,8 @@ public class BuyAction implements ManagedOperation {
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
 		WorldObjectContainer targetInventory = target.getProperty(Constants.INVENTORY);
 		
+		int goldPaid = calculateGoldPaid(target, index, quantity);
+		
 		WorldObject boughtWorldObject = targetInventory.get(index).deepCopy();
 		targetInventory.removeQuantity(index, quantity);
 		
@@ -45,7 +47,7 @@ public class BuyAction implements ManagedOperation {
 		target.getProperty(Constants.ITEMS_SOLD).add(boughtWorldObject);
 		
 		performerInventory.addQuantity(boughtWorldObject, quantity);
-		int goldPaid = price * quantity;
+		
 		target.setProperty(Constants.GOLD, target.getProperty(Constants.GOLD) + goldPaid);
 		performer.setProperty(Constants.GOLD, performer.getProperty(Constants.GOLD) - goldPaid);
 		
@@ -53,6 +55,15 @@ public class BuyAction implements ManagedOperation {
 		
 		String description = boughtWorldObject.getProperty(Constants.NAME);
 		world.logAction(this, performer, target, args, performer.getProperty(Constants.NAME) + " bought " + quantity + " " + description + " at " + price + " gold a piece for a total of " + goldPaid + " gold");
+	}
+
+	int calculateGoldPaid(WorldObject target, int index, int quantity) {
+		WorldObject worldObject = target.getProperty(Constants.INVENTORY).get(index);
+		if (worldObject != null) {
+			return BuySellUtils.getPrice(target, worldObject) * quantity;
+		} else {
+			return 0;
+		}
 	}
 
 	@Override

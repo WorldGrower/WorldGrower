@@ -197,7 +197,11 @@ public class BuySellUtils {
 	public static OperationInfo create(WorldObject performer, WorldObject target, Item item, int quantity) {
 		int targetInventoryIndex = target.getProperty(Constants.INVENTORY).getIndexFor(w -> w.getProperty(Constants.ITEM_ID) == item);
 		int price = target.getProperty(Constants.PRICES).getPrice(item);
-		return new OperationInfo(performer, target, new int[] { targetInventoryIndex, price, quantity }, Actions.BUY_ACTION);
+		if (performerCanBuyGoods(performer, target, targetInventoryIndex, quantity)) {
+			return new OperationInfo(performer, target, new int[] { targetInventoryIndex, price, quantity }, Actions.BUY_ACTION);
+		} else {
+			return null;
+		}
 	}
 	
 	public static void performerGivesItemToTarget(WorldObject performer, WorldObject target, IntProperty itemProperty, int quantity) {

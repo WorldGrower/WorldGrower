@@ -209,10 +209,10 @@ public class UTestBuySellUtils {
 	@Test
 	public void testExecuteBuyClothesOperationInfo() {
 		World world = new WorldImpl(1, 1, null, null);
-		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.INVENTORY, new WorldObjectContainer());
+		WorldObject performer = TestUtils.createIntelligentWorldObject(3, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.GOLD, 1000);
 		
-		WorldObject target = TestUtils.createIntelligentWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
+		WorldObject target = TestUtils.createIntelligentWorldObject(4, Constants.INVENTORY, new WorldObjectContainer());
 		WorldObject inventoryItem = Item.COTTON_SHIRT.generate(1f);
 		inventoryItem.setProperty(Constants.SELLABLE, Boolean.TRUE);
 		target.getProperty(Constants.INVENTORY).addQuantity(inventoryItem);
