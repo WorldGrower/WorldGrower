@@ -17,7 +17,6 @@ package org.worldgrower.actions.magic;
 import java.io.ObjectStreamException;
 
 import org.worldgrower.Constants;
-import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.AttackUtils;

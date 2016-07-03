@@ -55,11 +55,11 @@ public class UTestDarkVisionSpellAction {
 	}
 	
 	@Test
-	public void testDistance() {
+	public void testIsActionPossible() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		
-		assertEquals(0, action.distance(performer, performer, Args.EMPTY, world));
+		assertEquals(true, action.isActionPossible(performer, performer, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

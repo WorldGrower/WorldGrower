@@ -58,7 +58,7 @@ public class UTestAnimateSuitOfArmorAction {
 	}
 	
 	@Test
-	public void testDistance() {
+	public void testIsActionPossible() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		
@@ -71,7 +71,7 @@ public class UTestAnimateSuitOfArmorAction {
 		soulGem.setProperty(Constants.SOUL_GEM_FILLED, Boolean.TRUE);
 		performer.getProperty(Constants.INVENTORY).addQuantity(soulGem);
 		
-		assertEquals(0, Actions.ANIMATE_SUIT_OF_ARMOR_ACTION.distance(performer, performer, new int[] {0}, world));
+		assertEquals(true, Actions.ANIMATE_SUIT_OF_ARMOR_ACTION.isActionPossible(performer, performer, new int[] {0}, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

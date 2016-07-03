@@ -61,13 +61,13 @@ public class UTestLockMagicSpellAction {
 	}
 	
 	@Test
-	public void testDistance() {
+	public void testIsActionPossible() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		int id = BuildingGenerator.generateHouse(0, 0, world, 1f, performer);
 		WorldObject target = world.findWorldObject(Constants.ID, id);
 		
-		assertEquals(0, Actions.LOCK_MAGIC_SPELL_ACTION.distance(performer, target, Args.EMPTY, world));
+		assertEquals(true, Actions.LOCK_MAGIC_SPELL_ACTION.isActionPossible(performer, target, Args.EMPTY, world));
 	}
 	
 	

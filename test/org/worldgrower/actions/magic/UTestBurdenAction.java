@@ -66,11 +66,11 @@ public class UTestBurdenAction {
 	}
 	
 	@Test
-	public void testDistance() {
+	public void testIsActionPossible() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		
-		assertEquals(0, Actions.BURDEN_ACTION.distance(performer, performer, Args.EMPTY, world));
+		assertEquals(true, Actions.BURDEN_ACTION.isActionPossible(performer, performer, Args.EMPTY, world));
 	}
 	
 	

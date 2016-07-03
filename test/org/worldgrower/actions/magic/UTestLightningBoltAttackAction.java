@@ -85,12 +85,12 @@ public class UTestLightningBoltAttackAction {
 	}
 	
 	@Test
-	public void testDistance() {
+	public void testIsActionPossible() {
 		World world = new MockWorld(new MockTerrain(TerrainType.GRASLAND), new WorldImpl(10, 10, null, null));
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
-		assertEquals(0, Actions.LIGHTNING_BOLT_ATTACK_ACTION.distance(performer, target, Args.EMPTY, world));
+		assertEquals(true, Actions.LIGHTNING_BOLT_ATTACK_ACTION.isActionPossible(performer, target, Args.EMPTY, world));
 	}
 	
 	@Test

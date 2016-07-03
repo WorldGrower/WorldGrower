@@ -57,7 +57,7 @@ public class UTestLichTransformationAction {
 	}
 	
 	@Test
-	public void testDistance() {
+	public void testIsActionPossible() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		
@@ -67,7 +67,7 @@ public class UTestLichTransformationAction {
 			performer.getProperty(Constants.INVENTORY).addQuantity(soulGem);
 		}
 		
-		assertEquals(0, Actions.LICH_TRANSFORMATION_ACTION.distance(performer, performer, Args.EMPTY, world));
+		assertEquals(true, Actions.LICH_TRANSFORMATION_ACTION.isActionPossible(performer, performer, Args.EMPTY, world));
 	}
 	
 	@Test

@@ -58,14 +58,14 @@ public class UTestAnimateDeadAction {
 	}
 	
 	@Test
-	public void testDistance() {
+	public void testIsActionPossible() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		
 		int id = CommonerGenerator.generateSkeletalRemains(createPerformer(3), world);
 		WorldObject target = world.findWorldObject(Constants.ID, id);
 		
-		assertEquals(0, Actions.ANIMATE_DEAD_ACTION.distance(performer, target, Args.EMPTY, world));
+		assertEquals(true, Actions.ANIMATE_DEAD_ACTION.isActionPossible(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

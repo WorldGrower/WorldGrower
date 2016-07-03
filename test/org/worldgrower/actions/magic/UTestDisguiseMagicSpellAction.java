@@ -54,11 +54,11 @@ public class UTestDisguiseMagicSpellAction {
 	}
 	
 	@Test
-	public void testDistance() {
+	public void testIsActionPossible() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		
-		assertEquals(0, Actions.DISGUISE_MAGIC_SPELL_ACTION.distance(performer, performer, Args.EMPTY, world));
+		assertEquals(true, Actions.DISGUISE_MAGIC_SPELL_ACTION.isActionPossible(performer, performer, Args.EMPTY, world));
 	}
 	
 	@Test

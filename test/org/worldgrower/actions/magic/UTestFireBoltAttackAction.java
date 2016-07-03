@@ -77,12 +77,12 @@ public class UTestFireBoltAttackAction {
 	}
 	
 	@Test
-	public void testDistance() {
+	public void testIsActionPossible() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
-		assertEquals(0, Actions.FIRE_BOLT_ATTACK_ACTION.distance(performer, target, Args.EMPTY, world));
+		assertEquals(true, Actions.FIRE_BOLT_ATTACK_ACTION.isActionPossible(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

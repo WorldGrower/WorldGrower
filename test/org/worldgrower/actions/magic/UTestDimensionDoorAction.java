@@ -81,12 +81,12 @@ public class UTestDimensionDoorAction {
 	}
 	
 	@Test
-	public void testDistance() {
+	public void testIsActionPossible() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = TestUtils.createWorldObject(0, 0, 1, 1);
 		
-		assertEquals(0, Actions.DIMENSION_DOOR_ACTION.distance(performer, target, Args.EMPTY, world));
+		assertEquals(true, Actions.DIMENSION_DOOR_ACTION.isActionPossible(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {
