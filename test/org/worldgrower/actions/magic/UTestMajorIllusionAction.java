@@ -75,6 +75,15 @@ public class UTestMajorIllusionAction {
 	}
 	
 	@Test
+	public void testDistance() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		
+		assertEquals(0, action.distance(performer, target, Args.EMPTY, world));
+	}
+	
+	@Test
 	public void testGetIllusionSources() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);

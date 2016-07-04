@@ -71,6 +71,15 @@ public class UTestLichTransformationAction {
 	}
 	
 	@Test
+	public void testDistance() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		
+		assertEquals(0, Actions.LICH_TRANSFORMATION_ACTION.distance(performer, target, Args.EMPTY, world));
+	}
+	
+	@Test
 	public void testHasRequiredEnergy() {
 		WorldObject performer = createPerformer(2);
 		

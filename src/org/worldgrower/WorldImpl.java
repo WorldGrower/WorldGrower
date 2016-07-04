@@ -96,7 +96,7 @@ public class WorldImpl implements World, Serializable {
 	private void removeIdContainers(WorldObject worldObjectToRemove) {
 		int id = worldObjectToRemove.getProperty(Constants.ID);
 		for(WorldObject worldObject : worldObjects) {
-			List<IdContainer> worldObjectIds = getIdProperties();
+			List<IdContainer> worldObjectIds = Constants.getIdProperties();
 			for(IdContainer worldObjectId : worldObjectIds) {
 				ManagedProperty<?> property = (ManagedProperty<?>) worldObjectId;
 				if (worldObject.hasProperty(property) && (worldObject.getProperty(property) != null)) {
@@ -104,16 +104,6 @@ public class WorldImpl implements World, Serializable {
 				}
 			}
 		}
-	}
-	
-	private List<IdContainer> getIdProperties() {
-		List<IdContainer> result = new ArrayList<>();
-		for(ManagedProperty<?> property : Constants.ALL_PROPERTIES) {
-			if (property instanceof IdContainer) {
-				result.add((IdContainer)property);
-			}
-		}
-		return result;
 	}
 	
 	@Override

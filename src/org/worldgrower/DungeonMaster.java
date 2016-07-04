@@ -134,7 +134,7 @@ public class DungeonMaster implements Serializable {
 			Goal finalGoal = goalAndOperationInfo.getGoal();
 			List<OperationInfo> tasks = calculateTasks(worldObject, world, goalAndOperationInfo.getOperationInfo());
 			if (tasks.size() > 0) {
-				metaInformation.setCurrentTask(tasks, goalChangedReason);
+				setMetaInformationTasks(worldObject, metaInformation, goalChangedReason, tasks, world);
 				metaInformation.setFinalGoal(finalGoal);
 				goalFound = true;
 				//	System.out.println(worldObject.getProperty(Constants.NAME) + " : final goal : " + finalGoal + " , immediateGoal : " + immediateGoal);
@@ -145,6 +145,17 @@ public class DungeonMaster implements Serializable {
 				triedGoals.add(finalGoal);
 			}
 		}
+	}
+
+	private void setMetaInformationTasks(WorldObject worldObject, MetaInformation metaInformation, GoalChangedReason goalChangedReason, List<OperationInfo> tasks, World world) {
+		if (tasks.size() > 0) {
+			OperationInfo lastTask = tasks.get(tasks.size() - 1);
+			if (!lastTask.isPossibleIgnoringDistance(worldObject, world)) {
+				throw new IllegalStateException("WorldObject " + worldObject + " works towards task " + lastTask.getManagedOperation() + " which cannot be performed for goal " + metaInformation.getFinalGoal());
+			}
+		}
+		
+		metaInformation.setCurrentTask(tasks, goalChangedReason);
 	}
 
 	private void recalculateTasks(WorldObject worldObject, World world, MetaInformation metaInformation, GoalChangedReason goalChangedReason) {
@@ -163,7 +174,7 @@ public class DungeonMaster implements Serializable {
 			// for now, try another goal
 			calculateGoalAndTasks(worldObject, world, metaInformation, goalChangedReason);
 		} else {
-			metaInformation.setCurrentTask(tasks, goalChangedReason);
+			setMetaInformationTasks(worldObject, metaInformation, goalChangedReason, tasks, world);
 		}
 	}
 	

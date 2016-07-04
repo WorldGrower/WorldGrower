@@ -25,6 +25,7 @@ import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.BuildingsListProperty;
 import org.worldgrower.attribute.ConditionsProperty;
 import org.worldgrower.attribute.DamageType;
+import org.worldgrower.attribute.IdContainer;
 import org.worldgrower.attribute.IdListProperty;
 import org.worldgrower.attribute.IdMapProperty;
 import org.worldgrower.attribute.IdProperty;
@@ -289,4 +290,20 @@ public class Constants {
 	
 	//special property not used in WorldObject
 	public static final IntProperty DISTANCE = new IntProperty("distance", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
+	
+	private static final List<IdContainer> ID_PROPERTIES = calculateIdProperties();
+	
+	public static List<IdContainer> getIdProperties() {
+		return ID_PROPERTIES;
+	}
+	
+	private static List<IdContainer> calculateIdProperties() {
+		List<IdContainer> result = new ArrayList<>();
+		for(ManagedProperty<?> property : Constants.ALL_PROPERTIES) {
+			if (property instanceof IdContainer) {
+				result.add((IdContainer)property);
+			}
+		}
+		return result;
+	}
 }
