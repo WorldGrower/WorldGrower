@@ -72,6 +72,7 @@ public class UTestChildrenGoal {
 		target.getProperty(Constants.BUILDINGS).add(7, BuildingType.HOUSE);
 		
 		performer.getProperty(Constants.RELATIONSHIPS).incrementValue(target, 1000);
+		target.getProperty(Constants.RELATIONSHIPS).incrementValue(performer, 1000);
 		
 		assertEquals(Actions.SEX_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}

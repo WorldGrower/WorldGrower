@@ -70,12 +70,12 @@ public class DungeonMaster implements Serializable {
 		}
 		
 		OperationInfo finalOperationInfo = metaInformation.getFinalTask();
-		if (!finalOperationInfo.isPossibleIgnoringDistance(worldObject, worldFacade)) {
+		if (!finalOperationInfo.canExecuteIgnoringDistance(worldObject, worldFacade)) {
 			calculateGoalAndTasks(worldObject, worldFacade, metaInformation, GoalChangedReason.FINAL_OPERATION_NOT_POSSIBLE);
 		}
 		
 		OperationInfo peekOperationInfo = metaInformation.getCurrentTask().peek();
-		if (!peekOperationInfo.isPossible(worldObject, worldFacade)) {
+		if (!peekOperationInfo.canExecute(worldObject, worldFacade)) {
 			recalculateTasks(worldObject, worldFacade, metaInformation, GoalChangedReason.OPERATION_NOT_POSSIBLE);
 		}
 		if (peekOperationInfo.targetMoved(worldFacade)) {
@@ -91,8 +91,8 @@ public class DungeonMaster implements Serializable {
 	}
 	
 	private boolean isDeceivedByWorldFacade(OperationInfo operationInfo, WorldObject worldObject, World world, World worldFacade) {
-		boolean isPossibleInFacadeWorld = operationInfo.isPossible(worldObject, worldFacade);
-		boolean isPossibleInRealWorld = operationInfo.isPossible(worldObject, world);
+		boolean isPossibleInFacadeWorld = operationInfo.canExecute(worldObject, worldFacade);
+		boolean isPossibleInRealWorld = operationInfo.canExecute(worldObject, world);
 		
 		if (isPossibleInFacadeWorld && !isPossibleInRealWorld) {
 			return true;
@@ -150,7 +150,7 @@ public class DungeonMaster implements Serializable {
 	private void setMetaInformationTasks(WorldObject worldObject, MetaInformation metaInformation, GoalChangedReason goalChangedReason, List<OperationInfo> tasks, World world) {
 		if (tasks.size() > 0) {
 			OperationInfo lastTask = tasks.get(tasks.size() - 1);
-			if (!lastTask.isPossibleIgnoringDistance(worldObject, world)) {
+			if (!lastTask.canExecuteIgnoringDistance(worldObject, world)) {
 				throw new IllegalStateException("WorldObject " + worldObject + " works towards task " + lastTask.getManagedOperation() + " which cannot be performed for goal " + metaInformation.getFinalGoal());
 			}
 		}
@@ -182,7 +182,7 @@ public class DungeonMaster implements Serializable {
 		if (worldObject.canWorldObjectPerformAction(Actions.MOVE_ACTION)) {
 			return taskCalculator.calculateTask(worldObject, world, immediateGoal);
 		} else {
-			if (immediateGoal.isPossible(worldObject, world)) {
+			if (immediateGoal.canExecute(worldObject, world)) {
 				List<OperationInfo> tasks = Arrays.asList(immediateGoal);
 				return tasks;
 			} else {

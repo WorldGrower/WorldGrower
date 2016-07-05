@@ -135,7 +135,7 @@ public class ProtectOneSelfGoal implements Goal {
 	private boolean movementIsPossible(WorldObject performer, int x, int y, World world) {
 		int performerX = performer.getProperty(Constants.X);
 		int performerY = performer.getProperty(Constants.Y);
-		return new OperationInfo(performer, performer, createArgs(performerX, performerY, x, y), Actions.MOVE_ACTION).isPossible(performer, world);
+		return new OperationInfo(performer, performer, createArgs(performerX, performerY, x, y), Actions.MOVE_ACTION).canExecute(performer, world);
 	}
 
 	private boolean avoidsEnemies(WorldObject performer) {

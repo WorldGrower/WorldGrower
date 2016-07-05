@@ -37,13 +37,14 @@ public class SexGoal implements Goal {
 				
 		int bestId = relationships.findBestId(w -> true, world);
 		
-		if ((mateId != null)) {
+		if ((mateId != null) && SexUtils.canHaveSex(performer, mateId, world)) {
 			WorldObject target = GoalUtils.findNearestPersonLookingLike(performer, mateId, world);
 			return new OperationInfo(performer, target, Args.EMPTY, Actions.SEX_ACTION);
-		} else if (bestId != -1 && relationships.getValue(bestId) > 750) {
+		} else if (bestId != -1 && SexUtils.canHaveSex(performer, bestId, world)) {
 			WorldObject target = GoalUtils.findNearestPersonLookingLike(performer, bestId, world);
 			return new OperationInfo(performer, target, Args.EMPTY, Actions.SEX_ACTION);
 		} else if (bestId != -1) {
+			//TODO: will an improved relationship lead to sex?
 			return new ImproveRelationshipGoal(bestId, 750, world).calculateGoal(performer, world);
 		} else {
 			return null;

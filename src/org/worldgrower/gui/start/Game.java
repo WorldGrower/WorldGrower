@@ -280,7 +280,7 @@ public class Game {
 	}
     
     public static boolean canActionExecute(WorldObject playerCharacter, ManagedOperation action, int[] args, World world, WorldObject target) {
-    	return new OperationInfo(playerCharacter, target, args, action).isPossible(playerCharacter, world);
+    	return new OperationInfo(playerCharacter, target, args, action).canExecute(playerCharacter, world);
     }
 
 	private static void exploreWorld(WorldObject playerCharacter, World world) {

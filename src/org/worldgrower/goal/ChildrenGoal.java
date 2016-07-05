@@ -35,15 +35,15 @@ public class ChildrenGoal implements Goal {
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		IdMap relationships = performer.getProperty(Constants.RELATIONSHIPS);
 				
-		int bestId = relationships.findBestId(w -> RacePropertyUtils.canHaveOffspring(performer, w) && (w.getProperty(Constants.BUILDINGS).getIds(BuildingType.SHACK, BuildingType.HOUSE).size() > 0), world);
+		int bestId = relationships.findBestId(w -> RacePropertyUtils.canHaveOffspring(performer, w) && ownsHousing(w), world);
 		
-		if ((bestId != -1) && (relationships.getValue(bestId) > 750)) {
+		if ((bestId != -1) && (SexUtils.canHaveSex(performer, bestId, world))) {
 			WorldObject target = GoalUtils.findNearestPersonLookingLike(performer, bestId, world);
 			return new OperationInfo(performer, target, Args.EMPTY, Actions.SEX_ACTION);
 		} else if (bestId != -1) {
 			return new ImproveRelationshipGoal(bestId, 750, world).calculateGoal(performer, world);
 		} else {
-			List<WorldObject> targets = GoalUtils.findNearestTargetsByProperty(performer, Actions.TALK_ACTION, Constants.STRENGTH, w -> RacePropertyUtils.canHaveOffspring(performer, w) ,world);
+			List<WorldObject> targets = GoalUtils.findNearestTargetsByProperty(performer, Actions.TALK_ACTION, Constants.STRENGTH, w -> RacePropertyUtils.canHaveOffspring(performer, w), world);
 			if (targets.size() > 0) {
 				WorldObject target = targets.get(0);
 				return new ImproveRelationshipGoal(target.getProperty(Constants.ID), 750, world).calculateGoal(performer, world);
@@ -51,6 +51,10 @@ public class ChildrenGoal implements Goal {
 				return null;
 			}
 		}
+	}
+
+	boolean ownsHousing(WorldObject w) {
+		return w.getProperty(Constants.BUILDINGS).getIds(BuildingType.SHACK, BuildingType.HOUSE).size() > 0;
 	}
 	
 	@Override

@@ -50,6 +50,7 @@ public class UTestSexGoal {
 		WorldObject target = createCommoner(world, organization);
 		
 		performer.getProperty(Constants.RELATIONSHIPS).incrementValue(target, 1000);
+		target.getProperty(Constants.RELATIONSHIPS).incrementValue(performer, 1000);
 		
 		assertEquals(Actions.SEX_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
@@ -62,6 +63,8 @@ public class UTestSexGoal {
 		WorldObject target = createCommoner(world, organization);
 		
 		performer.setProperty(Constants.MATE_ID, target.getProperty(Constants.ID));
+		performer.getProperty(Constants.RELATIONSHIPS).incrementValue(target, 1000);
+		target.getProperty(Constants.RELATIONSHIPS).incrementValue(performer, 1000);
 		
 		assertEquals(Actions.SEX_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
@@ -74,6 +77,7 @@ public class UTestSexGoal {
 		WorldObject target = createCommoner(world, organization);
 		
 		performer.getProperty(Constants.RELATIONSHIPS).incrementValue(target, 0);
+		target.getProperty(Constants.RELATIONSHIPS).incrementValue(performer, 0);
 		
 		assertEquals(Actions.TALK_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 		AssertUtils.assertConversation(goal.calculateGoal(performer, world), Conversations.COMPLIMENT_CONVERSATION);
