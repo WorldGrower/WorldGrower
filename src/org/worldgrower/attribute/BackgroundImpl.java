@@ -125,7 +125,7 @@ public class BackgroundImpl implements Background, Serializable {
 
 	private void handlePerformerWasAttacked(WorldObject backgroundPerformer, OperationInfo operationInfo) {
 		PerformerWasAttacked performerWasAttacked = new PerformerWasAttacked(backgroundPerformer);
-		if (operationInfo.evaluate(performerWasAttacked)) {
+		if (operationInfo.evaluate(performerWasAttacked) && !DefaultGoalObstructedHandler.isLegallyFighting(backgroundPerformer, operationInfo.getTarget(), operationInfo.getManagedOperation())) {
 			revengeTargets.add(operationInfo.getPerformer().getProperty(Constants.ID));
 		}
 	}

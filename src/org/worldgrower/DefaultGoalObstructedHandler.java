@@ -217,7 +217,7 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 		}
 	}
 
-	private static boolean isLegallyFighting(WorldObject performer, WorldObject target, ManagedOperation managedOperation) {
+	public static boolean isLegallyFighting(WorldObject performer, WorldObject target, ManagedOperation managedOperation) {
 		return areBrawling(performer, target, managedOperation) || areFightingInArena(performer, target, managedOperation);
 	}
 }
