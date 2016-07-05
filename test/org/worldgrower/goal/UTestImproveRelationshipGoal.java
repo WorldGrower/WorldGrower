@@ -89,6 +89,9 @@ public class UTestImproveRelationshipGoal {
 		addActionToHistory(world, performer, target, Conversations.FAMILY_CONVERSATION);
 		addActionToHistory(world, performer, target, Conversations.PROFESSION_CONVERSATION);
 		
+		performer.getProperty(Constants.RELATIONSHIPS).incrementValue(target, 1000);
+		target.getProperty(Constants.RELATIONSHIPS).incrementValue(performer, 1000);
+		
 		assertEquals(Actions.TALK_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 		AssertUtils.assertConversation(goal.calculateGoal(performer, world), Conversations.KISS_CONVERSATION);
 	}
@@ -105,6 +108,9 @@ public class UTestImproveRelationshipGoal {
 		addActionToHistory(world, performer, target, Conversations.FAMILY_CONVERSATION);
 		addActionToHistory(world, performer, target, Conversations.PROFESSION_CONVERSATION);
 		addActionToHistory(world, performer, target, Conversations.KISS_CONVERSATION);
+		
+		performer.getProperty(Constants.RELATIONSHIPS).incrementValue(target, 1000);
+		target.getProperty(Constants.RELATIONSHIPS).incrementValue(performer, 1000);
 		
 		assertEquals(Actions.KISS_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}

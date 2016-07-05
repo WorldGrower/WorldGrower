@@ -43,11 +43,14 @@ public class ImproveRelationshipGoal implements Goal {
 			return new OperationInfo(performer, target, Conversations.createArgs(Conversations.FAMILY_CONVERSATION), Actions.TALK_ACTION);
 		} else if (!GoalUtils.actionAlreadyPerformed(performer, target, Actions.TALK_ACTION, Conversations.createArgs(Conversations.PROFESSION_CONVERSATION), world)) {
 			return new OperationInfo(performer, target, Conversations.createArgs(Conversations.PROFESSION_CONVERSATION), Actions.TALK_ACTION);
-		} else if (!GoalUtils.actionAlreadyPerformed(performer, target, Actions.TALK_ACTION, Conversations.createArgs(Conversations.KISS_CONVERSATION), world)) {
-			return new OperationInfo(performer, target, Conversations.createArgs(Conversations.KISS_CONVERSATION), Actions.TALK_ACTION);
-		} else {
-			return new OperationInfo(performer, target, Args.EMPTY, Actions.KISS_ACTION);
+		} else if (Actions.KISS_ACTION.canExecuteIgnoringDistance(performer, target, Args.EMPTY, world)) {
+			if (!GoalUtils.actionAlreadyPerformed(performer, target, Actions.TALK_ACTION, Conversations.createArgs(Conversations.KISS_CONVERSATION), world)) {
+				return new OperationInfo(performer, target, Conversations.createArgs(Conversations.KISS_CONVERSATION), Actions.TALK_ACTION);
+			} else {
+				return new OperationInfo(performer, target, Args.EMPTY, Actions.KISS_ACTION);
+			}
 		}
+		return null;
 	}
 	
 	@Override
