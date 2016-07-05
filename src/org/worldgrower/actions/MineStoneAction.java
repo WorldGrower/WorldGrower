@@ -64,6 +64,10 @@ public class MineStoneAction implements ManagedOperation {
 		return (target.hasProperty(Constants.STONE_SOURCE)) && (target.getProperty(Constants.STONE_SOURCE) > 0);
 	}
 	
+	public boolean hasRequiredEnergy(WorldObject performer) {
+		return performer.getProperty(Constants.ENERGY) >= ENERGY_USE;
+	}
+	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
 		return "mining " + target.getProperty(Constants.NAME);

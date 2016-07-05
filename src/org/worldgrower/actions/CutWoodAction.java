@@ -64,6 +64,10 @@ public class CutWoodAction implements ManagedOperation {
 		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, DISTANCE, Constants.ENERGY, ENERGY_USE);
 	}
 	
+	public boolean hasRequiredEnergy(WorldObject performer) {
+		return performer.getProperty(Constants.ENERGY) >= ENERGY_USE;
+	}
+	
 	@Override
 	public boolean requiresArguments() {
 		return false;

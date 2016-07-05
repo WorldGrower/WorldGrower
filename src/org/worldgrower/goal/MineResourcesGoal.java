@@ -16,12 +16,10 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
-import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.WorldObjectContainer;
 
 public class MineResourcesGoal implements Goal {
@@ -35,21 +33,21 @@ public class MineResourcesGoal implements Goal {
 		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
 		
 		if (inventory.getQuantityFor(Constants.STONE) < 5) {
-			WorldObject target = GoalUtils.findNearestTarget(performer, Actions.MINE_STONE_ACTION, world);
-			if (target != null) {
-				return new OperationInfo(performer, target, Args.EMPTY, Actions.MINE_STONE_ACTION);
+			OperationInfo mineOperationInfo = Goals.MINE_STONE_GOAL.calculateGoal(performer, world);
+			if (mineOperationInfo != null) {
+				return mineOperationInfo;
 			}
 		}
 		if (inventory.getQuantityFor(Constants.ORE) < 5) {
-			WorldObject target = GoalUtils.findNearestTarget(performer, Actions.MINE_ORE_ACTION, world);
-			if (target != null) {
-				return new OperationInfo(performer, target, Args.EMPTY, Actions.MINE_ORE_ACTION);
+			OperationInfo mineOperationInfo = Goals.MINE_ORE_GOAL.calculateGoal(performer, world);
+			if (mineOperationInfo != null) {
+				return mineOperationInfo;
 			}
 		}
 		if (inventory.getQuantityFor(Constants.GOLD) < 5) {
-			WorldObject target = GoalUtils.findNearestTarget(performer, Actions.MINE_GOLD_ACTION, world);
-			if (target != null) {
-				return new OperationInfo(performer, target, Args.EMPTY, Actions.MINE_GOLD_ACTION);
+			OperationInfo mineOperationInfo = Goals.MINE_GOLD_GOAL.calculateGoal(performer, world);
+			if (mineOperationInfo != null) {
+				return mineOperationInfo;
 			}
 		}
 		return null;

@@ -30,11 +30,15 @@ public class MineGoldGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		WorldObject target = GoalUtils.findNearestTarget(performer, Actions.MINE_GOLD_ACTION, world);
-		if (target != null) {
-			return new OperationInfo(performer, target, Args.EMPTY, Actions.MINE_GOLD_ACTION);
+		if (Actions.MINE_GOLD_ACTION.hasRequiredEnergy(performer)) {
+			WorldObject target = GoalUtils.findNearestTarget(performer, Actions.MINE_GOLD_ACTION, world);
+			if (target != null) {
+				return new OperationInfo(performer, target, Args.EMPTY, Actions.MINE_GOLD_ACTION);
+			}
+			return null;
+		} else {
+			return Goals.REST_GOAL.calculateGoal(performer, world);
 		}
-		return null;
 	}
 	
 	@Override

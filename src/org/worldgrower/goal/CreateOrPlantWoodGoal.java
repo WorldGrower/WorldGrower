@@ -32,11 +32,11 @@ public class CreateOrPlantWoodGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		WorldObject target = GoalUtils.findNearestTarget(performer, Actions.CUT_WOOD_ACTION, world);
-		if (target != null && Reach.distance(performer, target) < 11) {
-			return new OperationInfo(performer, target, Args.EMPTY, Actions.CUT_WOOD_ACTION);
+		OperationInfo createWoodOperationInfo = Goals.CREATE_WOOD_GOAL.calculateGoal(performer, world);
+		if (createWoodOperationInfo != null && Reach.distance(performer, createWoodOperationInfo.getTarget()) < 11) {
+			return createWoodOperationInfo;
 		} else {
-			target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 3, 3, world);
+			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 3, 3, world);
 			if (target != null) {
 				return new OperationInfo(performer, target, Args.EMPTY, Actions.PLANT_TREE_ACTION);
 			}

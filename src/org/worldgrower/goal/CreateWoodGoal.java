@@ -30,11 +30,15 @@ public class CreateWoodGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		WorldObject target = GoalUtils.findNearestTarget(performer, Actions.CUT_WOOD_ACTION, world);
-		if (target != null) {
-			return new OperationInfo(performer, target, Args.EMPTY, Actions.CUT_WOOD_ACTION);
+		if (Actions.CUT_WOOD_ACTION.hasRequiredEnergy(performer)) {
+			WorldObject target = GoalUtils.findNearestTarget(performer, Actions.CUT_WOOD_ACTION, world);
+			if (target != null) {
+				return new OperationInfo(performer, target, Args.EMPTY, Actions.CUT_WOOD_ACTION);
+			} else {
+				return null;
+			}
 		} else {
-			return null;
+			return Goals.REST_GOAL.calculateGoal(performer, world);
 		}
 	}
 
