@@ -81,7 +81,7 @@ public class UTestStealGoldAction {
 		
 		action.execute(performer, target, new int[] { 100 }, world);
 		
-		assertEquals(0, performer.getProperty(Constants.GROUP).size());
+		assertEquals(1, performer.getProperty(Constants.GROUP).size());
 		assertEquals(100, performer.getProperty(Constants.GOLD).intValue());
 		assertEquals(100, target.getProperty(Constants.GOLD).intValue());
 	}
