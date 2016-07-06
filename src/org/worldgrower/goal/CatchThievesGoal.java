@@ -32,7 +32,7 @@ public class CatchThievesGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		int thiefId = findThiefId(world);
+		int thiefId = findThiefId(performer, world);
 		
 		if (thiefId != -1) {
 			WorldObject thief = GoalUtils.findNearestPersonLookingLike(performer, thiefId, world);
@@ -49,12 +49,12 @@ public class CatchThievesGoal implements Goal {
 	
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		return findThiefId(world) == -1;
+		return findThiefId(performer, world) == -1;
 	}
 
-	private int findThiefId(World world) {
+	private int findThiefId(WorldObject performer, World world) {
 		IdMap bountyMap = GroupPropertyUtils.getVillagersOrganization(world).getProperty(Constants.BOUNTY);
-		return bountyMap.findBestId(w -> true, world);
+		return bountyMap.findBestId(w -> Conversations.COLLECT_BOUNTY_FROM_THIEVES_CONVERSATION.isConversationAvailable(performer, w, null, world), world);
 	}
 	
 	@Override

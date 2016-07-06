@@ -49,6 +49,7 @@ public class UTestCatchThievesGoal {
 		WorldObject villagersOrganization = createVillagersOrganization(world);
 		
 		WorldObject performer = createCommoner(world, villagersOrganization);
+		performer.setProperty(Constants.CAN_ATTACK_CRIMINALS, Boolean.TRUE);
 		WorldObject target = createCommoner(world, villagersOrganization);
 		villagersOrganization.getProperty(Constants.BOUNTY).incrementValue(target, 1000);
 		
@@ -62,6 +63,7 @@ public class UTestCatchThievesGoal {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
+		performer.setProperty(Constants.CAN_ATTACK_CRIMINALS, Boolean.TRUE);
 		WorldObject villagersOrganization = createVillagersOrganization(world);
 		
 		assertEquals(true, goal.isGoalMet(performer, world));

@@ -19,6 +19,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -47,7 +48,7 @@ public class UTestScribeWizardSpellsGoal {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
 		
-		BuildingGenerator.generateLibrary(5, 5, world, performer);
+		Actions.BUILD_LIBRARY_ACTION.execute(performer, performer, Args.EMPTY, world);
 		
 		assertEquals(Actions.getResearchSpellActionFor(Actions.FIRE_BOLT_ATTACK_ACTION), goal.calculateGoal(performer, world).getManagedOperation());
 	}
@@ -70,7 +71,7 @@ public class UTestScribeWizardSpellsGoal {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
 		
-		BuildingGenerator.generateLibrary(5, 5, world, performer);
+		Actions.BUILD_LIBRARY_ACTION.execute(performer, performer, Args.EMPTY, world);
 		PlantGenerator.generateTree(5, 5, world);
 		
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.PAPER.generate(1f), 20);

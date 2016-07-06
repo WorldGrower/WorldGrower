@@ -46,7 +46,12 @@ public class FurnitureGoal implements Goal {
 				if (avoidTrappedContainer != null) {
 					return avoidTrappedContainer;
 				}
-				return new OperationInfo(performer, target, new int[] { indexOfFurniture }, Actions.PUT_ITEM_INTO_INVENTORY_ACTION);
+				if (LockUtils.performerCanAccessContainer(performer, target)) {
+					return new OperationInfo(performer, target, new int[] { indexOfFurniture }, Actions.PUT_ITEM_INTO_INVENTORY_ACTION);
+				} else {
+					//TODO: how to handle own house is locked?
+					return null;
+				}
 			} else {
 				return Goals.HOUSE_GOAL.calculateGoal(performer, world);
 			}

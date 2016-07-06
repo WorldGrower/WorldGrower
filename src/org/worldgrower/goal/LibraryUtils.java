@@ -27,4 +27,13 @@ public class LibraryUtils {
 		List<WorldObject> libraries = GoalUtils.findNearestTargetsByProperty(performer, Actions.RESEARCH_EVOCATION_SKILL_ACTION, Constants.LIBRARY_QUALITY, w -> true, world);
 		return libraries;
 	}
+	
+	public static WorldObject getLibraryFor(WorldObject performer, World world) {
+		List<WorldObject> libraries = GoalUtils.findNearestTargetsByProperty(performer, Actions.RESEARCH_EVOCATION_SKILL_ACTION, Constants.LIBRARY_QUALITY, w -> LockUtils.performerHasKey(performer, w), world);
+		if (libraries.size() > 0) {
+			return libraries.get(0);
+		} else {
+			return null;
+		}
+	}
 }

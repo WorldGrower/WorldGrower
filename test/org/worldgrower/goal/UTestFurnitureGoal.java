@@ -17,6 +17,7 @@ package org.worldgrower.goal;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -100,8 +101,7 @@ public class UTestFurnitureGoal {
 		performer.setProperty(Constants.BUILDINGS, new BuildingList());
 		performer.setProperty(Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		
-		int houseId = BuildingGenerator.generateHouse(5, 5, world, 1f, performer);
-		performer.getProperty(Constants.BUILDINGS).add(houseId, BuildingType.HOUSE);
+		Actions.BUILD_HOUSE_ACTION.execute(performer, performer, Args.EMPTY, world);
 		
 		assertEquals(Actions.PUT_ITEM_INTO_INVENTORY_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}

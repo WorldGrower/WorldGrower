@@ -42,10 +42,8 @@ public abstract class AbstractScribeSpellsGoal implements Goal {
 
 	@Override
 	public final OperationInfo calculateGoal(WorldObject performer, World world) {
-		List<WorldObject> libraries = LibraryUtils.getLibraries(performer, world);
-		if (libraries.size() > 0) {
-			WorldObject library = libraries.get(0);
-			
+		WorldObject library = LibraryUtils.getLibraryFor(performer, world);
+		if (library != null) {
 			List<MagicSpell> missingSpells = new ArrayList<>(magicSpellsForScribing);
 			Set<ManagedOperation> magicSpellsFound = findMagicSpells(performer, world);
 			missingSpells.removeAll(magicSpellsFound);
