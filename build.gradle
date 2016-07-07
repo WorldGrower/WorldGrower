@@ -29,12 +29,17 @@ targetCompatibility = 1.8
 version = '0.8.0'
 archivesBaseName = 'worldgrower'
 
+
 jar {
     manifest {
         attributes 'Implementation-Title': 'WorldGrower',
                    'Implementation-Version': version,
                    'Main-Class': 'org.worldgrower.gui.start.StartScreen'
     }
+    
+    from {
+    configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+  }
 }
 
 sourceSets {
