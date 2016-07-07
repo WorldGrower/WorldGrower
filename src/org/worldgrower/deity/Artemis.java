@@ -76,7 +76,7 @@ public class Artemis implements Deity {
 			}
 			
 			if (target != null) {
-				WerewolfUtils.makePersonIntoWerewolf(target, creatureTypeChangedListeners);
+				WerewolfUtils.makePersonIntoWerewolf(target, world);
 			}
 		}
 	}

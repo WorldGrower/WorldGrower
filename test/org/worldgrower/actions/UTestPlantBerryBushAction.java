@@ -47,6 +47,7 @@ public class UTestPlantBerryBushAction {
 
 		assertEquals(true, Actions.PLANT_BERRY_BUSH_ACTION.isValidTarget(performer, target, world));
 		
+		target.setProperty(Constants.ID, 3);
 		world.addWorldObject(target);
 		assertEquals(false, Actions.PLANT_BERRY_BUSH_ACTION.isValidTarget(performer, target, world));
 	}

@@ -45,7 +45,7 @@ public class UTestGoalUtils {
 	@Test
 	public void testIsOpenSpace() {
 		World world = createWorld();
-		world.addWorldObject(TestUtils.createWorldObject(3, 3, 1, 1));
+		world.addWorldObject(TestUtils.createWorldObject(3, 3, 1, 1, Constants.ID, 2));
 		
 		assertTrue(GoalUtils.isOpenSpace(0, 0, 2, 2, world));
 		assertFalse(GoalUtils.isOpenSpace(3, 3, 1, 1, world));
@@ -60,7 +60,7 @@ public class UTestGoalUtils {
 	@Test
 	public void testFindOpenSpace() {
 		World world = createWorld();
-		WorldObject performer = TestUtils.createWorldObject(3, 3, 1, 1);
+		WorldObject performer = TestUtils.createWorldObject(3, 3, 1, 1, Constants.ID, 2);
 		world.addWorldObject(performer);
 		int[] position = GoalUtils.findOpenSpace(performer, 1, 1, world);
 		
@@ -72,11 +72,11 @@ public class UTestGoalUtils {
 	@Test
 	public void testFindNearestTarget() {
 		World world = createWorld();
-		WorldObject performer = TestUtils.createWorldObject(3, 3, 1, 1);
+		WorldObject performer = TestUtils.createWorldObject(3, 3, 1, 1, Constants.ID, 2);
 		world.addWorldObject(performer);
 		
-		world.addWorldObject(TestUtils.createWorldObject(4, 4, 1, 1, Constants.WOOD_SOURCE, 30));
-		world.addWorldObject(TestUtils.createWorldObject(5, 5, 1, 1, Constants.WOOD_SOURCE, 30));
+		world.addWorldObject(TestUtils.createWorldObject(4, 4, 1, 1, Constants.WOOD_SOURCE, 30, 3));
+		world.addWorldObject(TestUtils.createWorldObject(5, 5, 1, 1, Constants.WOOD_SOURCE, 30, 4));
 		
 		WorldObject target = GoalUtils.findNearestTarget(performer, Actions.CUT_WOOD_ACTION, world);
 		
@@ -87,7 +87,7 @@ public class UTestGoalUtils {
 	@Test
 	public void testFindNearestTargetNoTarget() {
 		World world = createWorld();
-		WorldObject performer = TestUtils.createWorldObject(3, 3, 1, 1);
+		WorldObject performer = TestUtils.createWorldObject(3, 3, 1, 1, Constants.ID, 2);
 		world.addWorldObject(performer);
 		
 		WorldObject target = GoalUtils.findNearestTarget(performer, Actions.CUT_WOOD_ACTION, world);
@@ -98,11 +98,11 @@ public class UTestGoalUtils {
 	@Test
 	public void testfindNearestTargets() {
 		World world = createWorld();
-		WorldObject performer = TestUtils.createWorldObject(3, 3, 1, 1);
+		WorldObject performer = TestUtils.createWorldObject(3, 3, 1, 1, Constants.ID, 2);
 		world.addWorldObject(performer);
 		
-		world.addWorldObject(TestUtils.createWorldObject(4, 4, 1, 1, Constants.WOOD_SOURCE, 30));
-		world.addWorldObject(TestUtils.createWorldObject(5, 5, 1, 1, Constants.WOOD_SOURCE, 40));
+		world.addWorldObject(TestUtils.createWorldObject(4, 4, 1, 1, Constants.WOOD_SOURCE, 30, 3));
+		world.addWorldObject(TestUtils.createWorldObject(5, 5, 1, 1, Constants.WOOD_SOURCE, 40, 4));
 		
 		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.CUT_WOOD_ACTION, w -> w.getProperty(Constants.WOOD_SOURCE) > 30, world);
 		
@@ -114,11 +114,11 @@ public class UTestGoalUtils {
 	@Test
 	public void testfindNearestTargetsDistance() {
 		World world = createWorld();
-		WorldObject performer = TestUtils.createWorldObject(3, 3, 1, 1);
+		WorldObject performer = TestUtils.createWorldObject(3, 3, 1, 1, Constants.ID, 2);
 		world.addWorldObject(performer);
 		
-		world.addWorldObject(TestUtils.createWorldObject(4, 4, 1, 1, Constants.WOOD_SOURCE, 30));
-		world.addWorldObject(TestUtils.createWorldObject(6, 6, 1, 1, Constants.WOOD_SOURCE, 40));
+		world.addWorldObject(TestUtils.createWorldObject(4, 4, 1, 1, Constants.WOOD_SOURCE, 30, 3));
+		world.addWorldObject(TestUtils.createWorldObject(6, 6, 1, 1, Constants.WOOD_SOURCE, 40, 4));
 		
 		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.CUT_WOOD_ACTION, w -> true, world);
 		

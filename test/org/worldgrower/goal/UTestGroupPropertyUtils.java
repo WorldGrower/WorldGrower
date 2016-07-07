@@ -442,13 +442,14 @@ public class UTestGroupPropertyUtils {
 	public void testThrowPerformerOutGroup() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.GROUP, new IdList());
+		createVillagersOrganization(world);
 		WorldObject performerOrganization = GroupPropertyUtils.createProfessionOrganization(performer.getProperty(Constants.ID), "TestOrg", Professions.FARMER_PROFESSION, world);
 		performer.getProperty(Constants.GROUP).add(performerOrganization);
 		
 		WorldObject target = TestUtils.createIntelligentWorldObject(8, Constants.GROUP, new IdList());
 		target.getProperty(Constants.GROUP).add(performerOrganization);
 		
-		GroupPropertyUtils.throwPerformerOutGroup(performer, target);
+		GroupPropertyUtils.throwPerformerOutGroup(performer, target, world);
 		assertEquals(0, performer.getProperty(Constants.GROUP).size());
 	}
 	

@@ -47,6 +47,7 @@ public class UTestPlantGrapeVineAction {
 		assertEquals(true, Actions.PLANT_GRAPE_VINE_ACTION.isValidTarget(performer, target, world));
 		
 		world.addWorldObject(performer);
+		target.setProperty(Constants.ID, 3);
 		world.addWorldObject(target);
 		assertEquals(false, Actions.PLANT_GRAPE_VINE_ACTION.isValidTarget(performer, target, world));
 	}

@@ -31,8 +31,8 @@ public class UTestWaterPropertyUtils {
 	@Test
 	public void testEveryoneInVicinityKnowsOfPoisoning() {
 		World world = new WorldImpl(10, 10, null, null);
-		WorldObject performer = TestUtils.createIntelligentWorldObject(0, 0, 1, 1, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
-		WorldObject target = TestUtils.createIntelligentWorldObject(0, 0, 1, 1, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
+		WorldObject performer = TestUtils.createIntelligentWorldObject(0, 0, 1, 1, Constants.KNOWLEDGE_MAP, new KnowledgeMap(), 2);
+		WorldObject target = TestUtils.createIntelligentWorldObject(0, 0, 1, 1, Constants.KNOWLEDGE_MAP, new KnowledgeMap(), 3);
 		performer.setProperty(Constants.PERCEPTION_SKILL, new Skill(10));
 		target.setProperty(Constants.PERCEPTION_SKILL, new Skill(10));
 		

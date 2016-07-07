@@ -54,7 +54,7 @@ public class CatchThievesGoal implements Goal {
 
 	private int findThiefId(WorldObject performer, World world) {
 		IdMap bountyMap = GroupPropertyUtils.getVillagersOrganization(world).getProperty(Constants.BOUNTY);
-		return bountyMap.findBestId(w -> Conversations.COLLECT_BOUNTY_FROM_THIEVES_CONVERSATION.isConversationAvailable(performer, w, null, world), world);
+		return bountyMap.findBestId(w -> Actions.TALK_ACTION.canExecuteIgnoringDistance(performer, w, Conversations.createArgs(Conversations.COLLECT_BOUNTY_FROM_THIEVES_CONVERSATION), world), world);
 	}
 	
 	@Override

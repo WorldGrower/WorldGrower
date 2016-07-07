@@ -124,4 +124,13 @@ public class GuiShowEventHappenedAction implements WorldStateChangedListener {
 		}
 		
 	}
+
+	@Override
+	public void lostLeadership(WorldObject worldObject, WorldObject organization) {
+		if (worldObject.equals(playerCharacter)) {
+			String description = playerCharacter.getProperty(Constants.NAME) + " has lost leadership of organization " + organization.getProperty(Constants.NAME);
+			MessageDialogUtils.showMessage(description, "Leadership Lost", playerCharacter, container, imageInfoReader);
+		}
+		
+	}
 }

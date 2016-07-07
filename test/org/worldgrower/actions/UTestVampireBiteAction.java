@@ -62,7 +62,7 @@ public class UTestVampireBiteAction {
 		WorldObject performer = createPerformer(world, organization);
 		WorldObject target = createPerformer(world, organization);
 		target.setProperty(Constants.CONSTITUTION, 0);
-		WerewolfUtils.makePersonIntoWerewolf(target, new WorldStateChangedListeners());
+		WerewolfUtils.makePersonIntoWerewolf(target, world);
 		VampireUtils.vampirizePerson(performer, new WorldStateChangedListeners());
 		
 		Actions.VAMPIRE_BITE_ACTION.execute(performer, target, Args.EMPTY, world);

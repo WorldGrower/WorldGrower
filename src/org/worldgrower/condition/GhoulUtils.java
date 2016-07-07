@@ -19,6 +19,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.curse.Curse;
+import org.worldgrower.goal.GroupPropertyUtils;
 
 public class GhoulUtils {
 
@@ -41,7 +42,7 @@ public class GhoulUtils {
 		worldObject.setProperty(Constants.CURSE, Curse.GHOUL_CURSE);
 		worldObject.setProperty(Constants.GHOUL_MEAT_LEVEL, 1000);
 		
-		//worldObject.setProperty(Constants.GROUP, new IdList());
+		//GroupPropertyUtils.throwPerformerOutOfAllGroups(worldObject);
 		//worldObject.setProperty(Constants.IMAGE_ID, ImageIds.GHOUL);
 		
 		world.getWorldStateChangedListeners().fireCreatureTypeChanged(worldObject, CreatureType.GHOUL_CREATURE_TYPE, "You crave human flesh, you must have become a ghoul");

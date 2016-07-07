@@ -79,4 +79,10 @@ public class WorldStateChangedListeners {
 			worldStateChangedListener.conditionLost(worldObject, condition);
 		}
 	}
+	
+	public void lostLeadership(WorldObject worldObject, WorldObject organization) {
+		for(WorldStateChangedListener worldStateChangedListener : worldStateChangedListeners) {
+			worldStateChangedListener.lostLeadership(worldObject, organization);
+		}
+	}
 }

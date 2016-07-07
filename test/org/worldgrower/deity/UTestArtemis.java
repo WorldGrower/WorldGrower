@@ -25,6 +25,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.creaturetype.CreatureType;
+import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.profession.Professions;
 
 public class UTestArtemis {
@@ -64,6 +65,8 @@ public class UTestArtemis {
 		performer.setProperty(Constants.CREATURE_TYPE, CreatureType.HUMAN_CREATURE_TYPE);
 		world.addWorldObject(performer);
 		
+		createVillagersOrganization(world);
+		
 		for(int i=0; i<20; i++) {
 			WorldObject worshipper = TestUtils.createSkilledWorldObject(i + 10);
 			worshipper.setProperty(Constants.DEITY, Deity.HADES);
@@ -76,5 +79,12 @@ public class UTestArtemis {
 		}
 		
 		assertEquals(CreatureType.WEREWOLF_CREATURE_TYPE, performer.getProperty(Constants.CREATURE_TYPE));
+	}
+	
+	private WorldObject createVillagersOrganization(World world) {
+		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
+		organization.setProperty(Constants.ID, 1);
+		world.addWorldObject(organization);
+		return organization;
 	}
 }

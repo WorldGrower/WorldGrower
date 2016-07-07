@@ -14,6 +14,9 @@
  *******************************************************************************/
 package org.worldgrower.attribute;
 
+import it.unimi.dsi.fastutil.ints.IntArrayList;
+import it.unimi.dsi.fastutil.ints.IntList;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,7 +29,7 @@ import org.worldgrower.WorldObject;
 
 public class IdList implements Serializable {
 
-	private final List<Integer> ids = new ArrayList<>();
+	private final IntList ids = new IntArrayList();
 	
 	public IdList add(int id) {
 		ids.add(id);
@@ -34,17 +37,17 @@ public class IdList implements Serializable {
 	}
 	
 	public IdList add(WorldObject worldObject) {
-		ids.add(worldObject.getProperty(Constants.ID));
+		ids.add(worldObject.getProperty(Constants.ID).intValue());
 		return this;
 	}
 	
 	public IdList addAll(IdList idList) {
-		ids.addAll(idList.getIds());
+		ids.addAll(idList.ids);
 		return this;
 	}
 	
 	public void remove(WorldObject worldObject) {
-		ids.remove(worldObject.getProperty(Constants.ID));
+		ids.rem(worldObject.getProperty(Constants.ID).intValue());
 	}
 	
 	public void removeAll(List<Integer> idsToRemove) {
@@ -56,19 +59,19 @@ public class IdList implements Serializable {
 	}
 	
 	public void remove(int id) {
-		ids.remove(Integer.valueOf(id));
+		ids.rem(id);
 	}
 
 	public boolean contains(WorldObject worldObject) {
-		return ids.contains(worldObject.getProperty(Constants.ID));
+		return (ids.indexOf(worldObject.getProperty(Constants.ID).intValue()) != -1);
 	}
 
 	public boolean contains(int id) {
-		return ids.contains(id);
+		return ids.indexOf(id) != -1;
 	}
 	
 	public boolean intersects(IdList otherIdList) {
-		List<Integer> copyIds = new ArrayList<>(this.ids);
+		IntList copyIds = new IntArrayList(this.ids);
 		copyIds.removeAll(otherIdList.ids);
 		
 		return (copyIds.size() != this.ids.size());

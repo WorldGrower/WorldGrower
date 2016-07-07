@@ -54,8 +54,21 @@ public class GroupPropertyUtils {
 		return world.findWorldObjects(w -> w.hasIntelligence() && (w.getProperty(Constants.GROUP).intersects(performerOrganizationIdList)));
 	}
 	
-	public static void throwPerformerOutGroup(WorldObject performer, WorldObject w) {
+	public static void throwPerformerOutGroup(WorldObject performer, WorldObject w, World world) {
 		performer.getProperty(Constants.GROUP).removeAll(w.getProperty(Constants.GROUP).getIds());
+		removePerformerAsVillagerLeader(performer, world);
+	}
+	
+	public static void throwPerformerOutOfAllGroups(WorldObject worldObject, World world) {
+		worldObject.setProperty(Constants.GROUP, new IdList());
+		removePerformerAsVillagerLeader(worldObject, world);
+	}
+	
+	private static void removePerformerAsVillagerLeader(WorldObject performer, World world) {
+		if (performerIsLeaderOfVillagers(performer, world)) {
+			getVillagersOrganization(world).setProperty(Constants.ORGANIZATION_LEADER_ID, null);
+			world.getWorldStateChangedListeners().lostLeadership(performer, getVillagersOrganization(world));
+		}
 	}
 	
 	public static boolean isOrganizationNameInUse(String organizationName, World world) {

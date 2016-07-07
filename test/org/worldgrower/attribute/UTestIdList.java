@@ -62,8 +62,11 @@ public class UTestIdList {
 		idList.add(TestUtils.createWorldObject(7, "Test"));
 		
 		assertEquals(true, idList.contains(TestUtils.createWorldObject(7, "Test")));
+		assertEquals(true, idList.contains(7));
 		assertEquals(true, idList.contains(TestUtils.createWorldObject(6, "Test")));
+		assertEquals(true, idList.contains(6));
 		assertEquals(false, idList.contains(TestUtils.createWorldObject(5, "Test")));
+		assertEquals(false, idList.contains(5));
 	}
 	
 	@Test

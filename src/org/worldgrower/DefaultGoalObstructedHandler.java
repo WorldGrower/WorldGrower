@@ -99,10 +99,10 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 
 	private static void throwOutOfGroup(WorldObject performer, WorldObject target, WorldObject actionTarget, int[] args, ManagedOperation managedOperation, World world, WorldObject performerFacade) {
 		IdList oldGroup = performer.getProperty(Constants.GROUP).copy();
-		GroupPropertyUtils.throwPerformerOutGroup(performerFacade, target);
+		GroupPropertyUtils.throwPerformerOutGroup(performerFacade, target, world);
 		
 		WorldObject realPerformer = world.findWorldObject(Constants.ID, performerFacade.getProperty(Constants.ID));
-		GroupPropertyUtils.throwPerformerOutGroup(realPerformer, target);
+		GroupPropertyUtils.throwPerformerOutGroup(realPerformer, target, world);
 		
 		IdList newGroup = performer.getProperty(Constants.GROUP).copy();
 		world.getWorldStateChangedListeners().thrownOutOfGroup(performer, actionTarget, args, managedOperation, oldGroup, newGroup);

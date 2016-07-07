@@ -23,13 +23,16 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.creaturetype.CreatureType;
+import org.worldgrower.goal.GroupPropertyUtils;
 
 public class UTestWerewolfUtils {
 
 	@Test
 	public void testMakePersonIntoWerewolf() {
+		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(2, "performer");
-		WerewolfUtils.makePersonIntoWerewolf(performer, new WorldStateChangedListeners());
+		createVillagersOrganization(world);
+		WerewolfUtils.makePersonIntoWerewolf(performer, world);
 		
 		assertEquals(CreatureType.WEREWOLF_CREATURE_TYPE, performer.getProperty(Constants.CREATURE_TYPE));
 	}
@@ -38,11 +41,19 @@ public class UTestWerewolfUtils {
 	public void testGetWerewolfCount() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(2, "performer");
+		createVillagersOrganization(world);
 		world.addWorldObject(performer);
 		
 		assertEquals(0, WerewolfUtils.getWerewolfCount(world));
-		WerewolfUtils.makePersonIntoWerewolf(performer, new WorldStateChangedListeners());
+		WerewolfUtils.makePersonIntoWerewolf(performer, world);
 
 		assertEquals(1, WerewolfUtils.getWerewolfCount(world));
+	}
+	
+	private WorldObject createVillagersOrganization(World world) {
+		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
+		organization.setProperty(Constants.ID, 1);
+		world.addWorldObject(organization);
+		return organization;
 	}
 }

@@ -39,7 +39,7 @@ public class BecomeReligionOrganizationMemberGoal implements Goal {
 			if (leaderId != null) {
 				WorldObject organizationLeader = GoalUtils.findNearestPersonLookingLike(performer, leaderId, world);
 				int relationshipValue = performer.getProperty(Constants.RELATIONSHIPS).getValue(organizationLeader);
-				if (relationshipValue >= 0) {
+				if (relationshipValue >= 0 && Actions.TALK_ACTION.canExecuteIgnoringDistance(performer, organizationLeader, Conversations.createArgs(Conversations.JOIN_TARGET_ORGANIZATION_CONVERSATION), world)) {
 					return new OperationInfo(performer, organizationLeader, Conversations.createArgs(Conversations.JOIN_TARGET_ORGANIZATION_CONVERSATION, organizations.get(0)), Actions.TALK_ACTION);
 				} else {
 					return createReligionOrganization(performer, world);

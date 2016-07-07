@@ -14,6 +14,9 @@
  *******************************************************************************/
 package org.worldgrower;
 
+import it.unimi.dsi.fastutil.ints.Int2IntArrayMap;
+import it.unimi.dsi.fastutil.ints.Int2IntMap;
+
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
@@ -25,28 +28,34 @@ import java.util.Map;
  */
 class IdToIndexMapping implements Serializable {
 
-	private Map<Integer, Integer> idToIndexMapping = new HashMap<>();
+	private Int2IntArrayMap idToIndexMapping = new Int2IntArrayMap();
 
+	private static final int NO_MAPPING_FOUND = Integer.MIN_VALUE;
+	
+	public IdToIndexMapping() {
+		idToIndexMapping.defaultReturnValue(NO_MAPPING_FOUND);
+	}
+	
 	public void idAdded(List<WorldObject> worldObjects) {
 		int lastIndex = worldObjects.size() - 1;
 		WorldObject lastWorldObject = worldObjects.get(lastIndex);
-		idToIndexMapping.put(lastWorldObject.getProperty(Constants.ID), lastIndex);
+		idToIndexMapping.put(lastWorldObject.getProperty(Constants.ID).intValue(), lastIndex);
 	}
 
 	public void idRemoved(List<WorldObject> worldObjects) {
 		idToIndexMapping.clear();
 		for(int index = 0; index < worldObjects.size(); index++) {
 			WorldObject worldObject = worldObjects.get(index);
-			idToIndexMapping.put(worldObject.getProperty(Constants.ID), index);
+			idToIndexMapping.put(worldObject.getProperty(Constants.ID).intValue(), index);
 		}
 	}
 
 	public int getIndex(int id) {
-		Integer index = idToIndexMapping.get(id);
-		if (index != null) {
-			return index;
-		} else {
+		int index = idToIndexMapping.get(id);
+		if (index == NO_MAPPING_FOUND) {
 			throw new IllegalStateException("Id " + id + " not found in idToIndexMapping");
+		} else {
+			return index;
 		}
 	}
 

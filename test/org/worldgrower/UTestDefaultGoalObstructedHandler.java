@@ -158,7 +158,7 @@ public class UTestDefaultGoalObstructedHandler {
 	public void testHasAnyoneSeenActionNoWitnesses() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.GROUP, new IdList().add(1));
-		WorldObject actionTarget = TestUtils.createWorldObject(2, 2, 1, 1);
+		WorldObject actionTarget = TestUtils.createWorldObject(2, 2, 1, 1, Constants.ID, 2);
 		world.addWorldObject(performer);
 		world.addWorldObject(actionTarget);
 		

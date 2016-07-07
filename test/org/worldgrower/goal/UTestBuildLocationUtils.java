@@ -32,7 +32,7 @@ public class UTestBuildLocationUtils {
 	@Test
 	public void testFindOpenLocationNearExistingProperty() {
 		World world = new WorldImpl(10, 10, null, null);
-		WorldObject house = TestUtils.createWorldObject(3, 3, 1, 1);
+		WorldObject house = TestUtils.createWorldObject(3, 3, 1, 1, Constants.ID, 2);
 		world.addWorldObject(house);
 		
 		WorldObject location = BuildLocationUtils.findOpenLocationNearExistingProperty(null, 1, 1, world, Arrays.asList(house));
