@@ -23,7 +23,6 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.history.HistoryItem;
 
 public class StandStillToTalkGoal implements Goal {
 
@@ -49,9 +48,9 @@ public class StandStillToTalkGoal implements Goal {
 	}
 
 	private boolean worldObjectTalkedWithPerformer(WorldObject performer, WorldObject w, World world) {
-		HistoryItem lastPerformedOperation = world.getHistory().getLastPerformedOperation(w);
+		OperationInfo lastPerformedOperation = world.getHistory().getLastPerformedOperation(w);
 		if (lastPerformedOperation != null) {
-			return lastPerformedOperation.getOperationInfo().getManagedOperation() == Actions.TALK_ACTION && lastPerformedOperation.getOperationInfo().getTarget().equals(performer);
+			return lastPerformedOperation.getManagedOperation() == Actions.TALK_ACTION && lastPerformedOperation.getTarget().equals(performer);
 		} else {
 			return false;
 		}
@@ -71,9 +70,9 @@ public class StandStillToTalkGoal implements Goal {
 	}
 	
 	private boolean movedLastTurn(WorldObject performer, World world) {
-		HistoryItem lastPerformedOperation = world.getHistory().getLastPerformedOperation(performer);
+		OperationInfo lastPerformedOperation = world.getHistory().getLastPerformedOperation(performer);
 		if (lastPerformedOperation != null) {
-			ManagedOperation lastPerformedAction = lastPerformedOperation.getOperationInfo().getManagedOperation();
+			ManagedOperation lastPerformedAction = lastPerformedOperation.getManagedOperation();
 			return (lastPerformedAction == Actions.MOVE_ACTION) || (lastPerformedAction == Actions.STAND_STILL_TO_TALK_ACTION);
 		} else {
 			return false;

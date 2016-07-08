@@ -34,8 +34,7 @@ public class UTestButcherAction {
 		World world = new WorldImpl(1, 1, null, null);
 		createVillagersOrganization(world);
 		WorldObject performer = createPerformer(2);
-		int id = new CreatureGenerator(GroupPropertyUtils.create(null, "CowOrg", world)).generateCow(0, 0, world);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = createCow(world);
 		
 		Actions.BUTCHER_ACTION.execute(performer, target, Args.EMPTY, world);
 		
@@ -48,8 +47,7 @@ public class UTestButcherAction {
 		World world = new WorldImpl(1, 1, null, null);
 		createVillagersOrganization(world);
 		WorldObject performer = createPerformer(2);
-		int id = new CreatureGenerator(GroupPropertyUtils.create(null, "CowOrg", world)).generateCow(0, 0, world);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = createCow(world);
 		
 		assertEquals(true, Actions.BUTCHER_ACTION.isValidTarget(performer, target, world));
 		
@@ -62,10 +60,35 @@ public class UTestButcherAction {
 		World world = new WorldImpl(1, 1, null, null);
 		createVillagersOrganization(world);
 		WorldObject performer = createPerformer(2);
-		int id = new CreatureGenerator(GroupPropertyUtils.create(null, "CowOrg", world)).generateCow(0, 0, world);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = createCow(world);
 		
 		assertEquals(true, Actions.BUTCHER_ACTION.isActionPossible(performer, target, Args.EMPTY, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(1, 1, null, null);
+		createVillagersOrganization(world);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createCow(world);
+		
+		assertEquals(0, Actions.BUTCHER_ACTION.distance(performer, target, Args.EMPTY, world));
+	}
+	
+	@Test
+	public void testGetDescription() {
+		World world = new WorldImpl(1, 1, null, null);
+		createVillagersOrganization(world);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createCow(world);
+		
+		assertEquals("butchering a Cow", Actions.BUTCHER_ACTION.getDescription(performer, target, Args.EMPTY, world));
+	}
+
+	private WorldObject createCow(World world) {
+		int id = new CreatureGenerator(GroupPropertyUtils.create(null, "CowOrg", world)).generateCow(0, 0, world);
+		WorldObject target = world.findWorldObject(Constants.ID, id);
+		return target;
 	}
 	
 	private WorldObject createPerformer(int id) {

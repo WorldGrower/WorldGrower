@@ -34,8 +34,7 @@ public class UTestPutItemInInventoryAction {
 	public void testExecute() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
-		int id = BuildingGenerator.generateHouse(0, 0, world, 1f, performer);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = createHouse(world, performer);
 		
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.BERRIES.generate(1f));
 		
@@ -49,8 +48,7 @@ public class UTestPutItemInInventoryAction {
 	public void testIsValidTarget() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
-		int id = BuildingGenerator.generateHouse(0, 0, world, 1f, performer);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = createHouse(world, performer);
 		
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.BERRIES.generate(1f));
 		
@@ -61,13 +59,27 @@ public class UTestPutItemInInventoryAction {
 	public void testIsActionPossible() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
-		int id = BuildingGenerator.generateHouse(0, 0, world, 1f, performer);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = createHouse(world, performer);
 		
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.BERRIES.generate(1f));
 		target.setProperty(Constants.LOCKED, Boolean.FALSE);
 		
 		assertEquals(true, Actions.PUT_ITEM_INTO_INVENTORY_ACTION.isActionPossible(performer, target, new int[] { 0 }, world));
+	}
+
+	private WorldObject createHouse(World world, WorldObject performer) {
+		int id = BuildingGenerator.generateHouse(0, 0, world, 1f, performer);
+		WorldObject target = world.findWorldObject(Constants.ID, id);
+		return target;
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createHouse(world, performer);
+		
+		assertEquals(0, Actions.PUT_ITEM_INTO_INVENTORY_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 	
 	@Test

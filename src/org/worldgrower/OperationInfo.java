@@ -183,9 +183,9 @@ public class OperationInfo implements Serializable {
 
 	public boolean targetMoved(World world) {
 		if (target.hasIntelligence() && !performer.equals(target)) {
-			HistoryItem lastPerformedOperation = world.getHistory().getLastPerformedOperation(target);
+			OperationInfo lastPerformedOperation = world.getHistory().getLastPerformedOperation(target);
 			if (lastPerformedOperation != null) {
-				return (lastPerformedOperation.getOperationInfo().managedOperation == Actions.MOVE_ACTION);
+				return (lastPerformedOperation.managedOperation == Actions.MOVE_ACTION);
 			} else {
 				return false;
 			}

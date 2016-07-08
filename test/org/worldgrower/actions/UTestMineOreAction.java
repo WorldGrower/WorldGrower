@@ -32,8 +32,7 @@ public class UTestMineOreAction {
 	public void testExecute() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
-		int oreResourceId = TerrainGenerator.generateOreResource(0, 0, world);
-		WorldObject target = world.findWorldObject(Constants.ID, oreResourceId);
+		WorldObject target = createOreResource(world);
 		
 		assertEquals(9000, target.getProperty(Constants.ORE_SOURCE).intValue());
 		Actions.MINE_ORE_ACTION.execute(performer, target, Args.EMPTY, world);
@@ -46,8 +45,7 @@ public class UTestMineOreAction {
 	public void testIsValidTarget() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
-		int stoneResourceId = TerrainGenerator.generateOreResource(0, 0, world);
-		WorldObject target = world.findWorldObject(Constants.ID, stoneResourceId);
+		WorldObject target = createOreResource(world);
 		
 		assertEquals(true, Actions.MINE_ORE_ACTION.isValidTarget(performer, target, world));
 		assertEquals(false, Actions.MINE_ORE_ACTION.isValidTarget(performer, performer, world));
@@ -60,10 +58,24 @@ public class UTestMineOreAction {
 	public void testIsActionPossible() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
-		int stoneResourceId = TerrainGenerator.generateOreResource(0, 0, world);
-		WorldObject target = world.findWorldObject(Constants.ID, stoneResourceId);
+		WorldObject target = createOreResource(world);
 		
 		assertEquals(true, Actions.MINE_ORE_ACTION.isActionPossible(performer, target, Args.EMPTY, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createOreResource(world);
+		
+		assertEquals(0, Actions.MINE_ORE_ACTION.distance(performer, target, Args.EMPTY, world));
+	}
+
+	private WorldObject createOreResource(World world) {
+		int stoneResourceId = TerrainGenerator.generateOreResource(0, 0, world);
+		WorldObject target = world.findWorldObject(Constants.ID, stoneResourceId);
+		return target;
 	}
 	
 	private WorldObject createPerformer(int id) {

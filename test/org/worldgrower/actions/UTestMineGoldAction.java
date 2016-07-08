@@ -32,8 +32,7 @@ public class UTestMineGoldAction {
 	public void testExecute() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
-		int id = TerrainGenerator.generateGoldResource(0, 0, world);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = createGoldResource(world);
 		
 		assertEquals(9000, target.getProperty(Constants.GOLD_SOURCE).intValue());
 		Actions.MINE_GOLD_ACTION.execute(performer, target, Args.EMPTY, world);
@@ -46,8 +45,7 @@ public class UTestMineGoldAction {
 	public void testIsValidTarget() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
-		int stoneResourceId = TerrainGenerator.generateGoldResource(0, 0, world);
-		WorldObject target = world.findWorldObject(Constants.ID, stoneResourceId);
+		WorldObject target = createGoldResource(world);
 		
 		assertEquals(true, Actions.MINE_GOLD_ACTION.isValidTarget(performer, target, world));
 		assertEquals(false, Actions.MINE_GOLD_ACTION.isValidTarget(performer, performer, world));
@@ -60,10 +58,24 @@ public class UTestMineGoldAction {
 	public void testIsActionPossible() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
-		int stoneResourceId = TerrainGenerator.generateGoldResource(0, 0, world);
-		WorldObject target = world.findWorldObject(Constants.ID, stoneResourceId);
+		WorldObject target = createGoldResource(world);
 		
 		assertEquals(true, Actions.MINE_GOLD_ACTION.isActionPossible(performer, target, Args.EMPTY, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createGoldResource(world);
+		
+		assertEquals(0, Actions.MINE_GOLD_ACTION.distance(performer, target, Args.EMPTY, world));
+	}
+
+	private WorldObject createGoldResource(World world) {
+		int id = TerrainGenerator.generateGoldResource(0, 0, world);
+		WorldObject target = world.findWorldObject(Constants.ID, id);
+		return target;
 	}
 	
 	private WorldObject createPerformer(int id) {

@@ -75,6 +75,14 @@ public class UTestInvestigateAction {
 		assertEquals(true, Actions.INVESTIGATE_ACTION.isActionPossible(performer, performer, Args.EMPTY, world));
 	}
 	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = createPerformer(2);
+		
+		assertEquals(0, Actions.INVESTIGATE_ACTION.distance(performer, performer, Args.EMPTY, world));
+	}
+	
 	//TODO: what if illusion creator dies?
 	@Test
 	public void testIllusionIsBelievedBy() {

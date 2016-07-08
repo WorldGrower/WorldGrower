@@ -31,48 +31,54 @@ import org.worldgrower.actions.Actions;
 public class HistoryImpl implements History, Serializable {
 
 	private final List<HistoryItem> historyItems = new ArrayList<>();
-	private int currentHistoryId = 0;
 	
 	private final Map<Integer, HistoryItemsForTarget> historyItemsByPerformer = new HashMap<>();
 	private final Map<ManagedOperation, List<HistoryItem>> historyItemsByOperations = new HashMap<>();
 	
-	private final Map<Integer, HistoryItem> lastPerformedActionMap = new HashMap<>();
+	private final Map<Integer, OperationInfo> lastPerformedOperationMap = new HashMap<>();
 	private Object currentAdditionalValue = null;
 	
 	@Override
 	public HistoryItem actionPerformed(OperationInfo operationInfo, Turn turn) {
-		HistoryItem historyItem = new HistoryItem(currentHistoryId, operationInfo.copy(), turn, currentAdditionalValue);
-		currentAdditionalValue = null;
+		HistoryItem historyItem = null;
+		ManagedOperation action = operationInfo.getManagedOperation();
+		boolean shouldLogAction = shouldLogAction(action);
 		
-		Integer performerId = historyItem.getOperationInfo().getPerformer().getProperty(Constants.ID);
-		addHistoryItem(historyItem);
+		if (shouldLogAction) {
+			historyItem = new HistoryItem(getNextHistoryId(), operationInfo.copy(), turn, currentAdditionalValue);
+			currentAdditionalValue = null;
+			addHistoryItem(historyItem);
+		}
 		
-		lastPerformedActionMap.put(performerId, historyItem);
+		addAsLastPerformedOperation(operationInfo);
 		
-		currentHistoryId++;
 		return historyItem;
+	}
+
+	private void addAsLastPerformedOperation(OperationInfo operationInfo) {
+		Integer performerId = operationInfo.getPerformer().getProperty(Constants.ID);
+		lastPerformedOperationMap.put(performerId, operationInfo);
 	}
 
 	private void addHistoryItem(HistoryItem historyItem) {
 		ManagedOperation action = historyItem.getOperationInfo().getManagedOperation();
-		if (shouldLogAction(action)) {
-			historyItems.add(historyItem);
-			
-			Integer performerId = historyItem.getOperationInfo().getPerformer().getProperty(Constants.ID);
-			HistoryItemsForTarget historyItemsForTarget = historyItemsByPerformer.get(performerId);
-			if (historyItemsForTarget == null) {
-				historyItemsForTarget = new HistoryItemsForTarget();
-				historyItemsByPerformer.put(performerId, historyItemsForTarget);
-			}
-			historyItemsForTarget.addHistoryItem(historyItem);
-			
-			List<HistoryItem> historyItemsByOperationsList = historyItemsByOperations.get(action);
-			if (historyItemsByOperationsList == null) {
-				historyItemsByOperationsList = new ArrayList<>();
-				historyItemsByOperations.put(action, historyItemsByOperationsList);
-			}
-			historyItemsByOperationsList.add(historyItem);
+
+		historyItems.add(historyItem);
+		
+		Integer performerId = historyItem.getOperationInfo().getPerformer().getProperty(Constants.ID);
+		HistoryItemsForTarget historyItemsForTarget = historyItemsByPerformer.get(performerId);
+		if (historyItemsForTarget == null) {
+			historyItemsForTarget = new HistoryItemsForTarget();
+			historyItemsByPerformer.put(performerId, historyItemsForTarget);
 		}
+		historyItemsForTarget.addHistoryItem(historyItem);
+		
+		List<HistoryItem> historyItemsByOperationsList = historyItemsByOperations.get(action);
+		if (historyItemsByOperationsList == null) {
+			historyItemsByOperationsList = new ArrayList<>();
+			historyItemsByOperations.put(action, historyItemsByOperationsList);
+		}
+		historyItemsByOperationsList.add(historyItem);
 	}
 
 	private boolean shouldLogAction(ManagedOperation action) {
@@ -126,13 +132,13 @@ public class HistoryImpl implements History, Serializable {
 	}
 	
 	@Override
-	public HistoryItem getLastPerformedOperation(WorldObject worldObject) {
-		return lastPerformedActionMap.get(worldObject.getProperty(Constants.ID));
+	public OperationInfo getLastPerformedOperation(WorldObject worldObject) {
+		return lastPerformedOperationMap.get(worldObject.getProperty(Constants.ID));
 	}
 	
 	@Override
-	public Collection<HistoryItem> getAllLastPerformedOperations() {
-		return lastPerformedActionMap.values();
+	public Collection<OperationInfo> getAllLastPerformedOperations() {
+		return lastPerformedOperationMap.values();
 	}
 
 	@Override
@@ -147,13 +153,7 @@ public class HistoryImpl implements History, Serializable {
 
 	@Override
 	public HistoryItem getHistoryItem(int historyItemId) {
-		for(HistoryItem historyItem : historyItems) {
-			if (historyItem.getHistoryId() == historyItemId) {
-				return historyItem;
-			}
-		}
-		
-		throw new IllegalStateException("historyItemId " + historyItemId + " not found");
+		return historyItems.get(historyItemId);
 	}
 	
 	private static class HistoryItemsForTarget implements Serializable {
@@ -287,7 +287,7 @@ public class HistoryImpl implements History, Serializable {
 	
 	@Override
 	public int getNextHistoryId() {
-		return this.currentHistoryId;
+		return this.historyItems.size();
 	}
 
 	@Override

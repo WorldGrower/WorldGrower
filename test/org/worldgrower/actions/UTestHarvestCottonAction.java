@@ -32,8 +32,7 @@ public class UTestHarvestCottonAction {
 	public void testExecute() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
-		int id = PlantGenerator.generateCottonPlant(0, 0, world);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = createCottonPlant(world);
 		
 		target.setProperty(Constants.COTTON_SOURCE, 100);
 		Actions.HARVEST_COTTON_ACTION.execute(performer, target, Args.EMPTY, world);
@@ -46,8 +45,7 @@ public class UTestHarvestCottonAction {
 	public void testIsValidTarget() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
-		int id = PlantGenerator.generateCottonPlant(0, 0, world);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = createCottonPlant(world);
 		
 		target.setProperty(Constants.COTTON_SOURCE, 100);
 		assertEquals(true, Actions.HARVEST_COTTON_ACTION.isValidTarget(performer, target, world));
@@ -60,14 +58,23 @@ public class UTestHarvestCottonAction {
 	public void testIsActionPossible() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
+		WorldObject target = createCottonPlant(world);
+
+		assertEquals(true, Actions.HARVEST_COTTON_ACTION.isActionPossible(performer, target, Args.EMPTY, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
+		WorldObject target = createCottonPlant(world);
+		
+		assertEquals(0, Actions.HARVEST_COTTON_ACTION.distance(performer, target, Args.EMPTY, world));
+	}
+
+	private WorldObject createCottonPlant(World world) {
 		int id = PlantGenerator.generateCottonPlant(0, 0, world);
 		WorldObject target = world.findWorldObject(Constants.ID, id);
-		
-		performer.setProperty(Constants.X, 0);
-		performer.setProperty(Constants.Y, 0);
-		performer.setProperty(Constants.WIDTH, 1);
-		performer.setProperty(Constants.HEIGHT, 1);
-		
-		assertEquals(true, Actions.HARVEST_COTTON_ACTION.isActionPossible(performer, target, Args.EMPTY, world));
+		return target;
 	}
 }

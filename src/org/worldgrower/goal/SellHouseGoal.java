@@ -36,12 +36,16 @@ public class SellHouseGoal implements Goal {
 		if (houseIds.size() > 0) {
 			int houseId = houseIds.get(0);
 			WorldObject house = world.findWorldObject(Constants.ID, houseId);
-			List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.SELL_ACTION, w -> BuySellUtils.worldObjectWillBuyGoods(performer, w, house, world) , world);
+			List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.SELL_ACTION, w -> isSellHouseTarget(performer, world, house, w) , world);
 			if (targets.size() > 0) {
 				return new OperationInfo(performer, targets.get(0), Conversations.createArgs(Conversations.SELL_HOUSE_CONVERSATION), Actions.TALK_ACTION);
 			}
 		}
 		return null;
+	}
+
+	private boolean isSellHouseTarget(WorldObject performer, World world, WorldObject house, WorldObject w) {
+		return BuySellUtils.worldObjectWillBuyGoods(performer, w, house, world) && Actions.TALK_ACTION.canExecuteIgnoringDistance(performer, w, Conversations.createArgs(Conversations.SELL_HOUSE_CONVERSATION), world);
 	}
 	
 	@Override

@@ -111,6 +111,24 @@ public class UTestClaimBuildingAction {
 		assertEquals(true, action.isActionPossible(performer, brewery, Args.EMPTY, world));
 	}
 	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject brewery = generateBrewery(world, performer);
+		
+		assertEquals(0, action.distance(performer, brewery, Args.EMPTY, world));
+	}
+	
+	@Test
+	public void testGetDescription() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject brewery = generateBrewery(world, performer);
+		
+		assertEquals("claiming a worldObject's brewery", action.getDescription(performer, brewery, Args.EMPTY, world));
+	}
+	
 	private WorldObject createPerformer(int id) {
 		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.X, 0);

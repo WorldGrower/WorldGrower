@@ -35,10 +35,7 @@ public class UTestEatNightShadeAction {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		performer.setProperty(Constants.FOOD, 800);
-		
-		int nightShadeId = PlantGenerator.generateNightShade(0, 0, world);
-		WorldObject nightShade = world.findWorldObject(Constants.ID, nightShadeId);
-		nightShade.setProperty(Constants.NIGHT_SHADE_SOURCE, 100);
+		WorldObject nightShade = createNightShade(world);
 		
 		Actions.EAT_NIGHT_SHADE_ACTION.execute(performer, nightShade, Args.EMPTY, world);
 		
@@ -52,10 +49,7 @@ public class UTestEatNightShadeAction {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		performer.setProperty(Constants.FOOD, 800);
-		
-		int nightShadeId = PlantGenerator.generateNightShade(0, 0, world);
-		WorldObject nightShade = world.findWorldObject(Constants.ID, nightShadeId);
-		nightShade.setProperty(Constants.NIGHT_SHADE_SOURCE, 100);
+		WorldObject nightShade = createNightShade(world);
 		
 		assertEquals(false, Actions.EAT_NIGHT_SHADE_ACTION.isValidTarget(performer, performer, world));
 		assertEquals(true, Actions.EAT_NIGHT_SHADE_ACTION.isValidTarget(performer, nightShade, world));
@@ -68,12 +62,26 @@ public class UTestEatNightShadeAction {
 		WorldObject performer = createPerformer(2);
 		performer.setProperty(Constants.FOOD, 800);
 		
+		WorldObject nightShade = createNightShade(world);
+		
+		assertEquals(true, Actions.EAT_NIGHT_SHADE_ACTION.isActionPossible(performer, nightShade, Args.EMPTY, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = createPerformer(2);
+		performer.setProperty(Constants.FOOD, 800);		
+		WorldObject nightShade = createNightShade(world);
+		
+		assertEquals(0, Actions.EAT_NIGHT_SHADE_ACTION.distance(performer, nightShade, Args.EMPTY, world));
+	}
+
+	private WorldObject createNightShade(World world) {
 		int nightShadeId = PlantGenerator.generateNightShade(0, 0, world);
 		WorldObject nightShade = world.findWorldObject(Constants.ID, nightShadeId);
 		nightShade.setProperty(Constants.NIGHT_SHADE_SOURCE, 100);
-		
-		assertEquals(true, Actions.EAT_NIGHT_SHADE_ACTION.isActionPossible(performer, nightShade, Args.EMPTY, world));
-
+		return nightShade;
 	}
 	
 	private WorldObject createPerformer(int id) {

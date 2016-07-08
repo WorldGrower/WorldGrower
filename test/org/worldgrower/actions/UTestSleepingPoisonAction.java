@@ -35,8 +35,7 @@ public class UTestSleepingPoisonAction {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		
-		int wellId = BuildingGenerator.buildWell(0, 0, world, 1f);
-		WorldObject well = world.findWorldObject(Constants.ID, wellId);
+		WorldObject well = createWell(world);
 		
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.SLEEPING_POTION.generate(1f), 10);
 		performer.setProperty(Constants.KNOWLEDGE_MAP, new KnowledgeMap());
@@ -50,8 +49,7 @@ public class UTestSleepingPoisonAction {
 	public void testIsValidTarget() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
-		int wellId = BuildingGenerator.buildWell(0, 0, world, 1f);
-		WorldObject target = world.findWorldObject(Constants.ID, wellId);
+		WorldObject target = createWell(world);
 		
 		assertEquals(true, Actions.SLEEPING_POISON_ACTION.isValidTarget(performer, target, world));
 		assertEquals(false, Actions.SLEEPING_POISON_ACTION.isValidTarget(performer, performer, world));
@@ -61,11 +59,26 @@ public class UTestSleepingPoisonAction {
 	public void testIsActionPossible() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
-		int wellId = BuildingGenerator.buildWell(0, 0, world, 1f);
-		WorldObject target = world.findWorldObject(Constants.ID, wellId);
+		WorldObject target = createWell(world);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.SLEEPING_POTION.generate(1f), 10);
 		
 		assertEquals(true, Actions.SLEEPING_POISON_ACTION.isActionPossible(performer, target, Args.EMPTY, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createWell(world);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.SLEEPING_POTION.generate(1f), 10);
+		
+		assertEquals(0, Actions.SLEEPING_POISON_ACTION.distance(performer, target, Args.EMPTY, world));
+	}
+
+	private WorldObject createWell(World world) {
+		int wellId = BuildingGenerator.buildWell(0, 0, world, 1f);
+		WorldObject target = world.findWorldObject(Constants.ID, wellId);
+		return target;
 	}
 	
 	private WorldObject createPerformer(int id) {

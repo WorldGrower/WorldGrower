@@ -118,12 +118,14 @@ public class RecruitProfessionOrganizationMembersGoal implements Goal {
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
+		/*
 		List<WorldObject> organizations = GroupPropertyUtils.findOrganizationsUsingLeader(performer, world);
 		
 		int evaluation = 0;
 		for(WorldObject organization : organizations) {
 			evaluation += GroupPropertyUtils.findOrganizationMembers(organization, world).size();
 		}
-		return evaluation;
+		return evaluation;*/
+		return 0;
 	}
 }

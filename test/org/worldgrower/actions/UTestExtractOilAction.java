@@ -32,8 +32,7 @@ public class UTestExtractOilAction {
 	public void testExecute() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
-		int id = TerrainGenerator.generateOilResource(0, 0, world);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = createOilResource(world);
 		
 		Actions.EXTRACT_OIL_ACTION.execute(performer, target, Args.EMPTY, world);
 		
@@ -45,8 +44,7 @@ public class UTestExtractOilAction {
 	public void testIsValidTarget() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
-		int id = TerrainGenerator.generateOilResource(0, 0, world);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = createOilResource(world);
 		
 		assertEquals(true, Actions.EXTRACT_OIL_ACTION.isValidTarget(performer, target, world));
 		assertEquals(false, Actions.EXTRACT_OIL_ACTION.isValidTarget(performer, performer, world));
@@ -56,10 +54,24 @@ public class UTestExtractOilAction {
 	public void testIsActionPossible() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
-		int id = TerrainGenerator.generateOilResource(0, 0, world);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = createOilResource(world);
 		
 		assertEquals(true, Actions.EXTRACT_OIL_ACTION.isActionPossible(performer, target, Args.EMPTY, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createOilResource(world);
+		
+		assertEquals(0, Actions.EXTRACT_OIL_ACTION.distance(performer, target, Args.EMPTY, world));
+	}
+
+	private WorldObject createOilResource(World world) {
+		int id = TerrainGenerator.generateOilResource(0, 0, world);
+		WorldObject target = world.findWorldObject(Constants.ID, id);
+		return target;
 	}
 	
 	private WorldObject createPerformer(int id) {

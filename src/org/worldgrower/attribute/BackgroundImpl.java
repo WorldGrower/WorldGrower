@@ -35,7 +35,6 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.goal.ChildrenPropertyUtils;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
-import org.worldgrower.history.HistoryItem;
 import org.worldgrower.profession.Professions;
 
 public class BackgroundImpl implements Background, Serializable {
@@ -100,9 +99,8 @@ public class BackgroundImpl implements Background, Serializable {
 	}
 	
 	private void checkForNewRevengeTargets(WorldObject backgroundPerformer, World world) {
-		Collection<HistoryItem> importantHistoryItems = world.getHistory().getAllLastPerformedOperations();
-		for(HistoryItem historyItem : importantHistoryItems) {
-			OperationInfo operationInfo = historyItem.getOperationInfo();
+		Collection<OperationInfo> importantOperationInfos = world.getHistory().getAllLastPerformedOperations();
+		for(OperationInfo operationInfo : importantOperationInfos) {
 			// performer should exist, this method can be called in the onTurn method
 			// during the onTurn method the performer may have been deleted
 			if (operationInfo.getTarget().equals(backgroundPerformer) && world.exists(backgroundPerformer) && world.exists(operationInfo.getPerformer())) {

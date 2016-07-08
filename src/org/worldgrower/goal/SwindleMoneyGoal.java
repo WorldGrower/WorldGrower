@@ -37,12 +37,12 @@ public class SwindleMoneyGoal implements Goal {
 			Integer disguisedPersonMateId = disguisedPerson.getProperty(Constants.MATE_ID);
 			if (disguisedPersonMateId != null) {
 				WorldObject disguisedPersonMate = GoalUtils.findNearestPersonLookingLike(performer, disguisedPersonMateId, world);
-				if (isSwindleTarget(disguisedPersonMate)) {
+				if (isSwindleTarget(performer, disguisedPersonMate, world)) {
 					return new OperationInfo(performer, disguisedPersonMate, Conversations.createArgs(Conversations.DEMAND_MONEY_CONVERSATION), Actions.TALK_ACTION);
 				}
 			}
 		} else {
-			List<WorldObject> targets = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> isSwindleTarget(w));
+			List<WorldObject> targets = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> isSwindleTarget(performer, w, world));
 			if (targets.size() > 0) {
 				WorldObject target = targets.get(0);
 				int targetMateId = target.getProperty(Constants.MATE_ID);
@@ -63,7 +63,8 @@ public class SwindleMoneyGoal implements Goal {
 		return performer.getProperty(Constants.FACADE) != null && performer.getProperty(Constants.FACADE).getProperty(Constants.ID) != null;
 	}
 	
-	private boolean isSwindleTarget(WorldObject w) {
+	private boolean isSwindleTarget(WorldObject performer, WorldObject w, World world) {
+		if (Actions.TALK_ACTION.canExecuteIgnoringDistance(performer, w, Conversations.createArgs(Conversations.DEMAND_MONEY_CONVERSATION), world))
 		if (w.getProperty(Constants.GOLD) > 100) {
 			if (w.getProperty(Constants.MATE_ID) != null) {
 				return true;

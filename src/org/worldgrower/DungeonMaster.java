@@ -22,7 +22,6 @@ import java.util.List;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.goal.Goal;
-import org.worldgrower.history.HistoryItem;
 
 /**
  * The DungeonMaster class is responsible for executing actions, making sure they can be executed and making npc's
@@ -204,9 +203,9 @@ public class DungeonMaster implements Serializable {
 		if (!metaInformation.isEmpty()) {
 			return metaInformation.getImmediateGoal();
 		} else {
-			HistoryItem historyItem = world.getHistory().getLastPerformedOperation(worldObject);
-			if (historyItem != null) {
-				return historyItem.getOperationInfo();
+			OperationInfo lastPerformedOperation = world.getHistory().getLastPerformedOperation(worldObject);
+			if (lastPerformedOperation != null) {
+				return lastPerformedOperation;
 			} else {
 				return null;	
 			}

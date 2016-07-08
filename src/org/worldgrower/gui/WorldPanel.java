@@ -51,6 +51,7 @@ import org.worldgrower.DungeonMaster;
 import org.worldgrower.LogMessage;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.ManagedOperationListener;
+import org.worldgrower.OperationInfo;
 import org.worldgrower.TargetKnowsAction;
 import org.worldgrower.World;
 import org.worldgrower.WorldFacade;
@@ -70,7 +71,6 @@ import org.worldgrower.gui.music.SoundIds;
 import org.worldgrower.gui.start.KeyBindings;
 import org.worldgrower.gui.status.StatusMessageDialog;
 import org.worldgrower.gui.util.JTextAreaFactory;
-import org.worldgrower.history.HistoryItem;
 
 public final class WorldPanel extends JPanel {
 
@@ -340,9 +340,9 @@ public final class WorldPanel extends JPanel {
 	}
 
 	private void showHitPointsOfPlayerCharacterTarget(Graphics g) {
-		HistoryItem lastPerformedOperation = world.getHistory().getLastPerformedOperation(playerCharacter);
+		OperationInfo lastPerformedOperation = world.getHistory().getLastPerformedOperation(playerCharacter);
 		if (lastPerformedOperation != null) {
-			WorldObject target = lastPerformedOperation.getOperationInfo().getTarget();
+			WorldObject target = lastPerformedOperation.getTarget();
 			if (target.hasProperty(Constants.HIT_POINTS)
 					&& world.exists(target)
 					&& !target.equals(playerCharacter)) {

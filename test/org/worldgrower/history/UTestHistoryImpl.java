@@ -69,7 +69,7 @@ public class UTestHistoryImpl {
 	
 	@Test
 	public void testGetLastPerformedOperation() {
-		assertEquals(Actions.MELEE_ATTACK_ACTION, history.getLastPerformedOperation(performer).getOperationInfo().getManagedOperation());
+		assertEquals(Actions.MELEE_ATTACK_ACTION, history.getLastPerformedOperation(performer).getManagedOperation());
 	}
 
 	@Test
@@ -77,19 +77,36 @@ public class UTestHistoryImpl {
 		History history = new HistoryImpl();
 		
 		history.actionPerformed(new OperationInfo(performer, target, Args.EMPTY, Actions.TALK_ACTION), new Turn());
-		assertEquals(Actions.TALK_ACTION, history.getLastPerformedOperation(performer).getOperationInfo().getManagedOperation());
+		assertEquals(Actions.TALK_ACTION, history.getLastPerformedOperation(performer).getManagedOperation());
 		
 		history.actionPerformed(new OperationInfo(performer, target, Args.EMPTY, Actions.FIRE_BOLT_ATTACK_ACTION), new Turn());
-		assertEquals(Actions.FIRE_BOLT_ATTACK_ACTION, history.getLastPerformedOperation(performer).getOperationInfo().getManagedOperation());
+		assertEquals(Actions.FIRE_BOLT_ATTACK_ACTION, history.getLastPerformedOperation(performer).getManagedOperation());
 		
 		history.actionPerformed(new OperationInfo(performer, target, Args.EMPTY, Actions.SILENCE_MAGIC_ACTION), new Turn());
-		assertEquals(Actions.SILENCE_MAGIC_ACTION, history.getLastPerformedOperation(performer).getOperationInfo().getManagedOperation());
+		assertEquals(Actions.SILENCE_MAGIC_ACTION, history.getLastPerformedOperation(performer).getManagedOperation());
 		
 	}
 	
 	@Test
 	public void testGetHistoryItem() {
 		assertEquals(Actions.MELEE_ATTACK_ACTION, history.getHistoryItem(0).getOperationInfo().getManagedOperation());
+	}
+	
+	@Test
+	public void testGetHistoryItemWithSkippedActions() {
+		History history = new HistoryImpl();
+		HistoryItem historyItem1 = history.actionPerformed(new OperationInfo(performer, target, Args.EMPTY, Actions.MELEE_ATTACK_ACTION), new Turn());
+		HistoryItem historyItem2 = history.actionPerformed(new OperationInfo(performer, target, Args.EMPTY, Actions.MOVE_ACTION), new Turn());
+		
+		assertEquals(Actions.MOVE_ACTION, history.getLastPerformedOperation(performer).getManagedOperation());
+		assertEquals(0, historyItem1.getHistoryId());
+		assertEquals(null, historyItem2);
+		assertEquals(Actions.MELEE_ATTACK_ACTION, history.getHistoryItem(0).getOperationInfo().getManagedOperation());
+		
+		HistoryItem historyItem3 = history.actionPerformed(new OperationInfo(performer, target, Args.EMPTY, Actions.FIRE_BOLT_ATTACK_ACTION), new Turn());
+		assertEquals(1, historyItem3.getHistoryId());
+		assertEquals(Actions.FIRE_BOLT_ATTACK_ACTION, history.getHistoryItem(1).getOperationInfo().getManagedOperation());
+		assertEquals(Actions.FIRE_BOLT_ATTACK_ACTION, history.getLastPerformedOperation(performer).getManagedOperation());
 	}
 	
 	@Test

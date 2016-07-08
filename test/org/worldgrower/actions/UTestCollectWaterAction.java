@@ -33,8 +33,7 @@ public class UTestCollectWaterAction {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		
-		int wellId = BuildingGenerator.buildWell(0, 0, world, 1f);
-		WorldObject well = world.findWorldObject(Constants.ID, wellId);
+		WorldObject well = createWell(world);
 		
 		Actions.COLLECT_WATER_ACTION.execute(performer, well, Args.EMPTY, world);
 		
@@ -62,8 +61,7 @@ public class UTestCollectWaterAction {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		
-		int wellId = BuildingGenerator.buildWell(0, 0, world, 1f);
-		WorldObject well = world.findWorldObject(Constants.ID, wellId);
+		WorldObject well = createWell(world);
 		well.setProperty(Constants.POISON_DAMAGE, 10);
 		
 		Actions.COLLECT_WATER_ACTION.execute(performer, well, Args.EMPTY, world);
@@ -76,8 +74,7 @@ public class UTestCollectWaterAction {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		
-		int wellId = BuildingGenerator.buildWell(0, 0, world, 1f);
-		WorldObject well = world.findWorldObject(Constants.ID, wellId);
+		WorldObject well = createWell(world);
 		
 		assertEquals(true, Actions.COLLECT_WATER_ACTION.isValidTarget(performer, well, world));
 		assertEquals(false, Actions.COLLECT_WATER_ACTION.isValidTarget(performer, performer, world));
@@ -88,10 +85,25 @@ public class UTestCollectWaterAction {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		
-		int wellId = BuildingGenerator.buildWell(0, 0, world, 1f);
-		WorldObject well = world.findWorldObject(Constants.ID, wellId);
+		WorldObject well = createWell(world);
 		
 		assertEquals(true, Actions.COLLECT_WATER_ACTION.isActionPossible(performer, well, Args.EMPTY,  world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		
+		WorldObject well = createWell(world);
+		
+		assertEquals(0, Actions.COLLECT_WATER_ACTION.distance(performer, well, Args.EMPTY,  world));
+	}
+
+	private WorldObject createWell(World world) {
+		int wellId = BuildingGenerator.buildWell(0, 0, world, 1f);
+		WorldObject well = world.findWorldObject(Constants.ID, wellId);
+		return well;
 	}
 	
 	private WorldObject createPerformer(int id) {

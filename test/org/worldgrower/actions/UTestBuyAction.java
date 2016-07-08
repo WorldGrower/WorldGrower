@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -83,6 +84,15 @@ public class UTestBuyAction {
 		target.getProperty(Constants.INVENTORY).addQuantity(Item.WATER.generate(1f));
 		int indexOfWater = target.getProperty(Constants.INVENTORY).getIndexFor(Constants.WATER);
 		assertEquals(true, Actions.BUY_ACTION.isActionPossible(performer, target, new int[] { indexOfWater, 10, 1 }, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		
+		assertEquals(0, Actions.BUY_ACTION.distance(performer, target, Args.EMPTY, world));
 	}
 	
 	@Test

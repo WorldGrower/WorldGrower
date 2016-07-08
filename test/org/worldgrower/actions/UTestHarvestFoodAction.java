@@ -32,8 +32,7 @@ public class UTestHarvestFoodAction {
 	public void testExecute() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
-		int id = PlantGenerator.generateBerryBush(0, 0, world);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = createBerryBush(world);
 		
 		target.setProperty(Constants.FOOD_SOURCE, 500);
 		Actions.HARVEST_FOOD_ACTION.execute(performer, target, Args.EMPTY, world);
@@ -46,8 +45,7 @@ public class UTestHarvestFoodAction {
 	public void testIsValidTarget() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
-		int id = PlantGenerator.generateBerryBush(0, 0, world);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = createBerryBush(world);
 		
 		target.setProperty(Constants.FOOD_SOURCE, 100);
 		assertEquals(true, Actions.HARVEST_FOOD_ACTION.isValidTarget(performer, target, world));
@@ -60,11 +58,25 @@ public class UTestHarvestFoodAction {
 	public void testIsActionPossible() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
-		int id = PlantGenerator.generateBerryBush(0, 0, world);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = createBerryBush(world);
 		
 		target.setProperty(Constants.FOOD_SOURCE, 100);
 		assertEquals(true, Actions.HARVEST_FOOD_ACTION.isActionPossible(performer, target, Args.EMPTY, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createBerryBush(world);
+		
+		assertEquals(0, Actions.HARVEST_FOOD_ACTION.distance(performer, target, Args.EMPTY, world));
+	}
+
+	private WorldObject createBerryBush(World world) {
+		int id = PlantGenerator.generateBerryBush(0, 0, world);
+		WorldObject target = world.findWorldObject(Constants.ID, id);
+		return target;
 	}
 	
 	private WorldObject createPerformer(int id) {

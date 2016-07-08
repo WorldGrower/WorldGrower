@@ -23,7 +23,6 @@ import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.actions.magic.MinorHealAction;
 import org.worldgrower.actions.magic.RayOfFrostAttackAction;
 import org.worldgrower.attribute.LookDirection;
-import org.worldgrower.history.HistoryItem;
 
 public class MoveMode {
 
@@ -72,9 +71,8 @@ public class MoveMode {
 		magicCasters.clear();
 		magicTargets.clear();
 		for(WorldObject intelligentWorldObject : intelligentWorldObjects) {
-			HistoryItem lastPerformedOperation = world.getHistory().getLastPerformedOperation(intelligentWorldObject);
-			if (lastPerformedOperation != null) {
-				OperationInfo lastPerformedOperationInfo = lastPerformedOperation.getOperationInfo();
+			OperationInfo lastPerformedOperationInfo = world.getHistory().getLastPerformedOperation(intelligentWorldObject);
+			if (lastPerformedOperationInfo != null) {
 				if (lastPerformedOperationInfo.getManagedOperation() instanceof MagicSpell) {
 					magicCasters.add(intelligentWorldObject);
 				}
