@@ -52,7 +52,7 @@ public class GetPoisonCuredGoal implements Goal {
 		return !performer.equals(target)
 				&& Conversations.CURE_POISON_CONVERSATION.isConversationAvailable(performer, target, null, world) 
 				&& !GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, target)
-				&& !Conversations.CURE_POISON_CONVERSATION.previousAnswerWasNegative(Conversations.CURE_POISON_CONVERSATION.getPreviousResponseIds(performer, target, world));
+				&& !Conversations.CURE_POISON_CONVERSATION.previousAnswerWasNegative(performer, target, world);
 	}
 	
 	@Override

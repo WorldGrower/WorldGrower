@@ -51,7 +51,7 @@ public class GetDiseaseCuredGoal implements Goal {
 		return !performer.equals(target)
 				&& Conversations.CURE_DISEASE_CONVERSATION.isConversationAvailable(performer, target, null, world) 
 				&& !GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, target)
-				&& !Conversations.CURE_DISEASE_CONVERSATION.previousAnswerWasGetLost(Conversations.CURE_DISEASE_CONVERSATION.getPreviousResponseIds(performer, target, world));
+				&& !Conversations.CURE_DISEASE_CONVERSATION.previousAnswerWasGetLost(performer, target, world);
 	}
 	
 	@Override

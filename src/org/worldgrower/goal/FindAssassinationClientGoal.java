@@ -47,7 +47,7 @@ public class FindAssassinationClientGoal implements Goal {
 		IdMap performerRelationShips = performer.getProperty(Constants.RELATIONSHIPS);
 		return performerRelationShips.getValue(target) > 100 &&
 				!GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, target)
-				&& !Conversations.ASSASSINATE_TARGET_CONVERSATION.previousAnswerWasNegative(Conversations.ASSASSINATE_TARGET_CONVERSATION.getPreviousResponseIds(performer, target, world));
+				&& !Conversations.ASSASSINATE_TARGET_CONVERSATION.previousAnswerWasNegative(performer, target, world);
 	}
 
 	private static class AssassinClientComparator implements Comparator<WorldObject> {

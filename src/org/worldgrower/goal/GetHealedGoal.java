@@ -51,7 +51,7 @@ public class GetHealedGoal implements Goal {
 		return !performer.equals(target)
 				&& Conversations.MINOR_HEAL_CONVERSATION.isConversationAvailable(performer, target, null, world) 
 				&& !GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, target)
-				&& !Conversations.MINOR_HEAL_CONVERSATION.previousAnswerWasNegative(Conversations.MINOR_HEAL_CONVERSATION.getPreviousResponseIds(performer, target, world));
+				&& !Conversations.MINOR_HEAL_CONVERSATION.previousAnswerWasNegative(performer, target, world);
 	}
 	
 	@Override

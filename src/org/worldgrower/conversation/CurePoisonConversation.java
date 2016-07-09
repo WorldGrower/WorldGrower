@@ -77,6 +77,9 @@ public class CurePoisonConversation implements Conversation {
 		} else if (replyIndex == GET_LOST) {
 			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -70, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 		}
+		
+		//TODO: if there are more return values, set return value Object on execute method, search for any other TODO like this
+		world.getHistory().setNextAdditionalValue(replyIndex);
 	}
 
 	@Override
@@ -90,7 +93,7 @@ public class CurePoisonConversation implements Conversation {
 		return "curing poisoned condition of " + target.getProperty(Constants.NAME);
 	}
 	
-	public boolean previousAnswerWasNegative(List<Integer> previousResponseIds) {
-		return previousResponseIds.contains(NO) || previousResponseIds.contains(GET_LOST);
+	public boolean previousAnswerWasNegative(WorldObject performer, WorldObject target, World world) {
+		return PreviousResponseIdUtils.previousResponseIdsContains(this, NO, GET_LOST, performer, target, world);
 	}
 }

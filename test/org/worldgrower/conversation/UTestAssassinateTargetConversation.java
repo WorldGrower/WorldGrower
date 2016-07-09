@@ -93,22 +93,24 @@ public class UTestAssassinateTargetConversation {
 	
 	@Test
 	public void testHandleResponse0() {
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.ARENA_FIGHTER_IDS, new IdList());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.ARENA_FIGHTER_IDS, new IdList());
 		WorldObject subject = TestUtils.createIntelligentWorldObject(3, Constants.ARENA_FIGHTER_IDS, new IdList());
 
-		ConversationContext context = new ConversationContext(performer, target, subject, null, null, 0);
+		ConversationContext context = new ConversationContext(performer, target, subject, null, world, 0);
 		conversation.handleResponse(0, context);
 		assertEquals(3, target.getProperty(Constants.ASSASSINATE_TARGET_ID).intValue());
 	}
 	
 	@Test
 	public void testHandleResponse1() {
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.ARENA_FIGHTER_IDS, new IdList());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.ARENA_FIGHTER_IDS, new IdList());
 		WorldObject subject = TestUtils.createIntelligentWorldObject(3, Constants.ARENA_FIGHTER_IDS, new IdList());
 
-		ConversationContext context = new ConversationContext(performer, target, subject, null, null, 0);
+		ConversationContext context = new ConversationContext(performer, target, subject, null, world, 0);
 		conversation.handleResponse(1, context);
 		assertEquals(-50, performer.getProperty(Constants.RELATIONSHIPS).getValue(target));
 		assertEquals(-50, target.getProperty(Constants.RELATIONSHIPS).getValue(performer));

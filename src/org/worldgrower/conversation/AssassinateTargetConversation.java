@@ -104,6 +104,9 @@ public class AssassinateTargetConversation implements Conversation {
 		} else if (replyIndex == NO) {
 			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -50, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 		}
+		
+		//TODO: if there are more return values, set return value Object on execute method, search for any other TODO like this
+		world.getHistory().setNextAdditionalValue(replyIndex);
 	}
 	
 	@Override
@@ -111,7 +114,7 @@ public class AssassinateTargetConversation implements Conversation {
 		return "talking about assassinating someone";
 	}
 	
-	public boolean previousAnswerWasNegative(List<Integer> previousResponseIds) {
-		return previousResponseIds.contains(NO);
+	public boolean previousAnswerWasNegative(WorldObject performer, WorldObject target, World world) {
+		return PreviousResponseIdUtils.previousResponseIdsContains(this, NO, performer, target, world);
 	}
 }

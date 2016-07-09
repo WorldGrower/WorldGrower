@@ -16,7 +16,6 @@ package org.worldgrower.conversation;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
@@ -130,12 +129,13 @@ public class UTestSwitchDeityConversation {
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Goals.CHILDREN_GOAL);
 		target.setProperty(Constants.DEITY, Deity.DEMETER);
 		
-		assertEquals(Arrays.asList(), conversation.getPreviousResponseIds(performer, target, world));
+		assertEquals(false, conversation.previousAnswerWasGetLost(performer, target, world));
 	
-		int[] args = Conversations.createArgs(conversation, null, 0);
+		int[] args = Conversations.createArgs(conversation);
+		target.getProperty(Constants.RELATIONSHIPS).incrementValue(performer, -1000);
 		Actions.TALK_ACTION.execute(performer, target, args, world);
 		world.getHistory().actionPerformed(new OperationInfo(performer, target, args, Actions.TALK_ACTION), new Turn());
 		
-		assertEquals(Arrays.asList(1), conversation.getPreviousResponseIds(performer, target, world));
+		assertEquals(true, conversation.previousAnswerWasGetLost(performer, target, world));
 	}
 }

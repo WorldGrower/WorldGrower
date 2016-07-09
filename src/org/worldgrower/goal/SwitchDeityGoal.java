@@ -49,7 +49,7 @@ public class SwitchDeityGoal implements Goal {
 				&& w.getProperty(Constants.DEITY) != null
 				&& performer.getProperty(Constants.DEITY) != w.getProperty(Constants.DEITY)
 				&& !GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, w)
-				&& !Conversations.SWITCH_DEITY_CONVERSATION.previousAnswerWasGetLost(Conversations.SWITCH_DEITY_CONVERSATION.getPreviousResponseIds(performer, w, world));
+				&& !Conversations.SWITCH_DEITY_CONVERSATION.previousAnswerWasGetLost(performer, w, world);
 	}
 	
 	@Override
