@@ -35,7 +35,7 @@ public class CapturePersonAction implements ManagedOperation {
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		List<WorldObject> jails = world.findWorldObjects(w -> BuildingGenerator.isJailLeft(w));
+		List<WorldObject> jails = BuildingGenerator.getJails(world);
 		WorldObject jail = jails.get(0);
 		BuildingGenerator.addJailDoorIfNotPresent(jail, world);
 		

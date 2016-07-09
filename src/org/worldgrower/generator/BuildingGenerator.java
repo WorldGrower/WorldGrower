@@ -420,7 +420,7 @@ public class BuildingGenerator {
 		return false;
 	}
 
-	private static List<WorldObject> getJails(World world) {
+	public static List<WorldObject> getJails(World world) {
 		return world.getWorldObjectsCache().getWorldObjectsFor(0, 0);
 	}
 
