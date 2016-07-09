@@ -19,9 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.worldgrower.actions.Actions;
 import org.worldgrower.goal.Goal;
-import org.worldgrower.goal.Goals;
 
 /**
  * This code checks whether any goals of a npc have gotten worde.

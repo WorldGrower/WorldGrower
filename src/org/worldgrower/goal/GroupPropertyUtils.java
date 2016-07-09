@@ -153,12 +153,7 @@ public class GroupPropertyUtils {
 	}
 	
 	public static List<WorldObject> getOrganizations(WorldObject performer, World world) {
-		List<WorldObject> organizations = new ArrayList<>();
-		for(int organizationId : performer.getProperty(Constants.GROUP).getIds()) {
-			organizations.add(world.findWorldObject(Constants.ID, organizationId));
-		}
-		
-		return organizations;
+		return performer.getProperty(Constants.GROUP).mapToWorldObjects(world);
 	}
 	
 	public static WorldObject createProfessionOrganization(Integer performerId, String organizationName, Profession profession, World world) {
