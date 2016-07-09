@@ -50,7 +50,7 @@ public class WhyAngryOtherConversation implements Conversation {
 		List<WorldObject> subjects = new ArrayList<>();
 		for(int subjectId : subjectIds) {
 			if (subjectId != performer.getProperty(Constants.ID)) {
-				WorldObject subject = world.findWorldObject(Constants.ID, subjectId);
+				WorldObject subject = world.findWorldObjectById(subjectId);
 				int relationshipValue = target.getProperty(Constants.RELATIONSHIPS).getValue(subject);
 				if (relationshipValue < 0) {
 					subjects.add(subject);

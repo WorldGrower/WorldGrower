@@ -71,7 +71,7 @@ public class ReleaseCapturedCriminalsGoal implements Goal {
 			int startTurnServed = turnsInJail.getValue(id);
 			int currentTurn = world.getCurrentTurn().getValue();
 			if ((currentTurn - startTurnServed) > 500) {
-				criminalsToBeReleased.add(world.findWorldObject(Constants.ID, id));
+				criminalsToBeReleased.add(world.findWorldObjectById(id));
 			}
 		}
 		

@@ -47,7 +47,7 @@ public class UTestWorshipDeityAction {
 		WorldObject performer = createPerformer(2);
 		performer.setProperty(Constants.DEITY, Deity.ARES);
 		int id = BuildingGenerator.generateShrine(0, 0, world, performer);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = world.findWorldObjectById(id);
 		
 		assertEquals(true, Actions.WORSHIP_DEITY_ACTION.isValidTarget(performer, target, world));
 		assertEquals(false, Actions.WORSHIP_DEITY_ACTION.isValidTarget(performer, performer, world));
@@ -59,7 +59,7 @@ public class UTestWorshipDeityAction {
 		WorldObject performer = createPerformer(2);
 		performer.setProperty(Constants.DEITY, Deity.ARES);
 		int id = BuildingGenerator.generateShrine(0, 0, world, performer);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = world.findWorldObjectById(id);
 		
 		assertEquals(true, Actions.WORSHIP_DEITY_ACTION.isActionPossible(performer, target, Args.EMPTY, world));
 	}

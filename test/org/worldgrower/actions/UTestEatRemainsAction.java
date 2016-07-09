@@ -41,7 +41,7 @@ public class UTestEatRemainsAction {
 		victim.setProperty(Constants.GOLD, 5);
 		victim.setProperty(Constants.ORGANIZATION_GOLD, 15);
 		int id = CommonerGenerator.generateSkeletalRemains(victim, world);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = world.findWorldObjectById(id);
 		
 		assertEquals("skeletal remains of worldObject", target.getProperty(Constants.NAME));
 		
@@ -58,7 +58,7 @@ public class UTestEatRemainsAction {
 		GhoulUtils.ghoulifyPerson(performer, world);
 		
 		int id = CommonerGenerator.generateSkeletalRemains(createPerformer(3), world);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = world.findWorldObjectById(id);
 		
 		assertEquals(true, Actions.EAT_REMAINS_ACTION.isValidTarget(performer, target, world));
 		assertEquals(false, Actions.EAT_REMAINS_ACTION.isValidTarget(performer, performer, world));
@@ -70,7 +70,7 @@ public class UTestEatRemainsAction {
 		WorldObject performer = createPerformer(2);
 		
 		int id = CommonerGenerator.generateSkeletalRemains(createPerformer(3), world);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = world.findWorldObjectById(id);
 		
 		assertEquals(true, Actions.EAT_REMAINS_ACTION.isActionPossible(performer, target, Args.EMPTY, world));
 	}

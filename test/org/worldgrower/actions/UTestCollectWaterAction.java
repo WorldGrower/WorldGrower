@@ -102,7 +102,7 @@ public class UTestCollectWaterAction {
 
 	private WorldObject createWell(World world) {
 		int wellId = BuildingGenerator.buildWell(0, 0, world, 1f);
-		WorldObject well = world.findWorldObject(Constants.ID, wellId);
+		WorldObject well = world.findWorldObjectById(wellId);
 		return well;
 	}
 	

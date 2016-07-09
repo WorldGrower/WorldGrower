@@ -96,7 +96,7 @@ public class CommunityDialog extends JDialog {
 		JLabel lblMateValue = JLabelFactory.createJLabel("<no mate>");
 		Integer mateId = playerCharacter.getProperty(Constants.MATE_ID);
 		if (mateId != null) {
-			WorldObject mate = world.findWorldObject(Constants.ID, mateId);
+			WorldObject mate = world.findWorldObjectById(mateId);
 			lblMateValue.setIcon(new ImageIcon(imageInfoReader.getImage(mate.getProperty(Constants.IMAGE_ID), null)));
 			lblMateValue.setText(mate.getProperty(Constants.NAME));
 		}
@@ -199,7 +199,7 @@ public class CommunityDialog extends JDialog {
 			
 			this.children = new ArrayList<>();
 			for(int childId : childrenIds.getIds()) {
-				children.add(world.findWorldObject(Constants.ID, childId));
+				children.add(world.findWorldObjectById(childId));
 			}
 		}
 
@@ -255,12 +255,12 @@ public class CommunityDialog extends JDialog {
 			
 			IdMap relationshipMap = playerCharacter.getProperty(Constants.RELATIONSHIPS);
 			for(int id : relationshipMap.getIds()) {
-				acquaintances.add(world.findWorldObject(Constants.ID, id));
+				acquaintances.add(world.findWorldObjectById(id));
 			}
 			
 			KnowledgeMap knowledgeMap = playerCharacter.getProperty(Constants.KNOWLEDGE_MAP);
 			for(int id : knowledgeMap.getIds()) {
-				WorldObject acquaintance = world.findWorldObject(Constants.ID, id);
+				WorldObject acquaintance = world.findWorldObjectById(id);
 				if (acquaintance.hasIntelligence() && !acquaintances.contains(acquaintance)) {
 					acquaintances.add(acquaintance);
 				}

@@ -96,7 +96,7 @@ public class UTestMajorIllusionAction {
 		assertEquals(23, action.getIllusionSources(performer, world).size());
 		
 		int treeId = PlantGenerator.generateTree(0, 0, world);
-		WorldObject tree = world.findWorldObject(Constants.ID, treeId);
+		WorldObject tree = world.findWorldObjectById(treeId);
 		
 		assertEquals(true, action.getIllusionSources(performer, world).size() > 0);
 		assertEquals(tree, action.getIllusionSources(performer, world).get(0));

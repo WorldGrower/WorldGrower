@@ -236,7 +236,7 @@ public class UTestGoalUtils {
 		world.addWorldObject(target);
 		
 		int illusionId = IllusionPropertyUtils.createIllusion(performer, 3, world, 0, 0, 1, 1);
-		WorldObject illusion = world.findWorldObject(Constants.ID, illusionId);
+		WorldObject illusion = world.findWorldObjectById(illusionId);
 		assertEquals(illusion, GoalUtils.findNearestPersonLookingLike(performer, 3, world));
 	}
 	

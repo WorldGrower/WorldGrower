@@ -56,7 +56,7 @@ public class UTestCreatePoisonGoal {
 		WorldObject performer = createPerformer();
 		
 		int targetId = PlantGenerator.generateNightShade(0, 0, world);
-		WorldObject target = world.findWorldObject(Constants.ID, targetId);
+		WorldObject target = world.findWorldObjectById(targetId);
 		target.setProperty(Constants.NIGHT_SHADE_SOURCE, 1000);
 		
 		assertEquals(Actions.HARVEST_NIGHT_SHADE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());

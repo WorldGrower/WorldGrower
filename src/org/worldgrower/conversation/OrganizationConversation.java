@@ -86,7 +86,7 @@ public class OrganizationConversation implements Conversation {
 		if (organizations.size() > 0) {
 			for(int i=0; i<organizations.getIds().size(); i++) {
 				int organizationId = organizations.getIds().get(i);
-				WorldObject organization = world.findWorldObject(Constants.ID, organizationId);
+				WorldObject organization = world.findWorldObjectById(organizationId);
 				organizationsBuilder.append("the ").append(organization.getProperty(Constants.NAME));
 				if (i == organizations.getIds().size() - 2) {
 					organizationsBuilder.append(" and ");

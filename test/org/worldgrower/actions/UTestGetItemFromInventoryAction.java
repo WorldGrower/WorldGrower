@@ -77,7 +77,7 @@ public class UTestGetItemFromInventoryAction {
 
 	private WorldObject createHouse(World world, WorldObject performer) {
 		int id = BuildingGenerator.generateHouse(0, 0, world, 1f, performer);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = world.findWorldObjectById(id);
 		return target;
 	}
 	

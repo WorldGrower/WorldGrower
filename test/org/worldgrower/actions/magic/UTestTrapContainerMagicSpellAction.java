@@ -40,7 +40,7 @@ public class UTestTrapContainerMagicSpellAction {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		int id = BuildingGenerator.generateHouse(0, 0, world, 1f, performer);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = world.findWorldObjectById(id);
 		
 		action.execute(performer, target, Args.EMPTY, world);
 		
@@ -53,7 +53,7 @@ public class UTestTrapContainerMagicSpellAction {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		int id = BuildingGenerator.generateHouse(0, 0, world, 1f, performer);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = world.findWorldObjectById(id);
 		
 		assertEquals(false, action.isValidTarget(performer, performer, world));
 		assertEquals(false, action.isValidTarget(performer, target, world));
@@ -68,7 +68,7 @@ public class UTestTrapContainerMagicSpellAction {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		int id = BuildingGenerator.generateHouse(0, 0, world, 1f, performer);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = world.findWorldObjectById(id);
 		
 		assertEquals(true, action.isActionPossible(performer, target, Args.EMPTY, world));
 	}

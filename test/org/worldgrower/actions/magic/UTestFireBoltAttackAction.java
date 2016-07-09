@@ -53,7 +53,7 @@ public class UTestFireBoltAttackAction {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		int id = BuildingGenerator.generateShack(0, 0, world, 1f, performer);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = world.findWorldObjectById(id);
 		
 		Actions.FIRE_BOLT_ATTACK_ACTION.execute(performer, target, Args.EMPTY, world);
 		

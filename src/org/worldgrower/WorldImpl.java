@@ -125,24 +125,7 @@ public class WorldImpl implements World, Serializable {
 	}
 	
 	@Override
-	public<T> WorldObject findWorldObject(ManagedProperty<T> propertyKey, T value) {
-		if (propertyKey == Constants.ID) {
-			return findWorldObjectById((Integer) value);
-		} else {
-			List<WorldObject> result = 
-					worldObjects
-					.stream()
-					.filter(w -> w.getProperty(propertyKey).equals(value))
-					.collect(Collectors.toList());
-			if (result.size() == 1) {
-				return result.get(0);
-			} else {
-				throw new IllegalStateException("Problem finding worldObject with propertyKey " + propertyKey + " and value " + value);
-			}
-		}
-	}
-	
-	private WorldObject findWorldObjectById(int id) {
+	public WorldObject findWorldObjectById(int id) {
 		try {
 			int index = idToIndexMapping.getIndex(id);
 			return worldObjects.get(index);

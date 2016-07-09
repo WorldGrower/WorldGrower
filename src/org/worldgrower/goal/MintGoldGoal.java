@@ -39,7 +39,7 @@ public class MintGoldGoal implements Goal {
 			return Goals.GOLD_GOAL.calculateGoal(performer, world);
 		} else {
 			int gold = performer.getProperty(Constants.GOLD);
-			WorldObject smith = world.findWorldObject(Constants.ID, smithId);
+			WorldObject smith = world.findWorldObjectById(smithId);
 			
 			if (gold < 500){
 				return new OperationInfo(performer, smith, Args.EMPTY, Actions.MINT_GOLD_ACTION);

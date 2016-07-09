@@ -56,7 +56,7 @@ public class WorkbenchGoal implements Goal {
 	public boolean isGoalMet(WorldObject performer, World world) {
 		Integer workbenchId = BuildingGenerator.getWorkbenchId(performer);
 		if (workbenchId != null) {
-			WorldObject workbench = world.findWorldObject(Constants.ID, workbenchId);
+			WorldObject workbench = world.findWorldObjectById(workbenchId);
 			return (workbench.getProperty(Constants.WORKBENCH_QUALITY) > 0);
 		} else {
 			return false;

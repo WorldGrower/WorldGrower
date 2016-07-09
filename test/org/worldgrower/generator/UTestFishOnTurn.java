@@ -17,7 +17,6 @@ package org.worldgrower.generator;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import org.worldgrower.Constants;
 import org.worldgrower.DoNothingWorldOnTurn;
 import org.worldgrower.MockTerrain;
 import org.worldgrower.MockWorld;
@@ -52,7 +51,7 @@ public class UTestFishOnTurn {
 
 	private WorldObject createFish(World world, WorldObject organization) {
 		int fishId = new CreatureGenerator(organization).generateFish(0, 0, world);
-		WorldObject fish = world.findWorldObject(Constants.ID, fishId);
+		WorldObject fish = world.findWorldObjectById(fishId);
 		return fish;
 	}
 }

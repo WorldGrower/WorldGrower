@@ -36,7 +36,7 @@ public class UTestVotingPropertyUtils {
 		assertEquals(false, VotingPropertyUtils.isVotingBox(nonVotingBox));
 		
 		int votingBoxId = BuildingGenerator.generateVotingBox(0, 0, world);
-		WorldObject votingBox = world.findWorldObject(Constants.ID, votingBoxId);
+		WorldObject votingBox = world.findWorldObjectById(votingBoxId);
 		votingBox.setProperty(Constants.ORGANIZATION_ID, 2);
 		assertEquals(true, VotingPropertyUtils.isVotingBox(votingBox));
 	}
@@ -50,7 +50,7 @@ public class UTestVotingPropertyUtils {
 		assertEquals(false, VotingPropertyUtils.isVotingBoxForOrganization(nonVotingBox, organization));
 		
 		int votingBoxId = BuildingGenerator.generateVotingBox(0, 0, world);
-		WorldObject votingBox = world.findWorldObject(Constants.ID, votingBoxId);
+		WorldObject votingBox = world.findWorldObjectById(votingBoxId);
 		votingBox.setProperty(Constants.ORGANIZATION_ID, organization.getProperty(Constants.ID));
 		assertEquals(true, VotingPropertyUtils.isVotingBoxForOrganization(votingBox, organization));
 	}
@@ -98,7 +98,7 @@ public class UTestVotingPropertyUtils {
 		target.setProperty(Constants.Y, 0);
 		
 		int votingBoxId = VotingPropertyUtils.createVotingBox(target, organization, world);
-		WorldObject votingBox = world.findWorldObject(Constants.ID, votingBoxId);
+		WorldObject votingBox = world.findWorldObjectById(votingBoxId);
 		assertEquals(organization.getProperty(Constants.ID).intValue(), votingBox.getProperty(Constants.ORGANIZATION_ID).intValue());
 	}
 	
@@ -119,7 +119,7 @@ public class UTestVotingPropertyUtils {
 	private WorldObject createVotingBox() {
 		World world = new WorldImpl(1, 1, null, null);
 		int votingBoxId = BuildingGenerator.generateVotingBox(0, 0, world);
-		WorldObject votingBox = world.findWorldObject(Constants.ID, votingBoxId);
+		WorldObject votingBox = world.findWorldObjectById(votingBoxId);
 		return votingBox;
 	}
 }

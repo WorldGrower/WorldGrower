@@ -34,7 +34,7 @@ public class BrawlGoal implements Goal {
 		Integer brawlOpponentId = performer.getProperty(Constants.BRAWL_OPPONENT_ID);
 		
 		if (brawlOpponentId != null) {
-			WorldObject target = world.findWorldObject(Constants.ID, brawlOpponentId);
+			WorldObject target = world.findWorldObjectById(brawlOpponentId);
 			return new OperationInfo(performer, target, Args.EMPTY, Actions.NON_LETHAL_MELEE_ATTACK_ACTION);
 		} else {
 			return null;

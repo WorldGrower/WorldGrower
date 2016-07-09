@@ -100,7 +100,7 @@ public class UTestGetPoisonCuredGoal {
 
 	private WorldObject createCommoner(World world, WorldObject organization) {
 		int commonerId = commonerGenerator.generateCommoner(0, 0, world, organization);
-		WorldObject performer = world.findWorldObject(Constants.ID, commonerId);
+		WorldObject performer = world.findWorldObjectById(commonerId);
 		return performer;
 	}
 }

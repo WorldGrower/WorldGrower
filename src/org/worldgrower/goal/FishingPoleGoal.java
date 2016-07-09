@@ -45,7 +45,7 @@ public class FishingPoleGoal implements Goal {
 				return Goals.WORKBENCH_GOAL.calculateGoal(performer, world);
 			} else {
 				if (ConstructFishingPoleAction.hasEnoughWood(performer)) {
-					WorldObject workbench = world.findWorldObject(Constants.ID, workbenchId);
+					WorldObject workbench = world.findWorldObjectById(workbenchId);
 					return new OperationInfo(performer, workbench, Args.EMPTY, Actions.CONSTRUCT_FISHING_POLE_ACTION);
 				} else {
 					return Goals.WOOD_GOAL.calculateGoal(performer, world);

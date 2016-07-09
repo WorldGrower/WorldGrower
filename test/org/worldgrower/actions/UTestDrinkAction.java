@@ -37,7 +37,7 @@ public class UTestDrinkAction {
 		WorldObject performer = createPerformer(2);
 		
 		int wellId = BuildingGenerator.buildWell(0, 0, world, 1f);
-		WorldObject well = world.findWorldObject(Constants.ID, wellId);
+		WorldObject well = world.findWorldObjectById(wellId);
 		
 		assertEquals(800, performer.getProperty(Constants.WATER).intValue());
 		Actions.DRINK_ACTION.execute(performer, well, Args.EMPTY, world);
@@ -51,7 +51,7 @@ public class UTestDrinkAction {
 		WorldObject performer = createPerformer(2);
 		
 		int wellId = BuildingGenerator.buildWell(0, 0, world, 1f);
-		WorldObject well = world.findWorldObject(Constants.ID, wellId);
+		WorldObject well = world.findWorldObjectById(wellId);
 		well.setProperty(Constants.ALCOHOL_LEVEL, 9000);
 		
 		assertEquals(800, performer.getProperty(Constants.WATER).intValue());
@@ -66,7 +66,7 @@ public class UTestDrinkAction {
 		WorldObject performer = createPerformer(2);
 		
 		int wellId = BuildingGenerator.buildWell(0, 0, world, 1f);
-		WorldObject well = world.findWorldObject(Constants.ID, wellId);
+		WorldObject well = world.findWorldObjectById(wellId);
 		well.setProperty(Constants.POISON_DAMAGE, 10);
 		
 		assertEquals(800, performer.getProperty(Constants.WATER).intValue());
@@ -82,7 +82,7 @@ public class UTestDrinkAction {
 		performer.setProperty(Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		
 		int wellId = BuildingGenerator.buildWell(0, 0, world, 1f);
-		WorldObject well = world.findWorldObject(Constants.ID, wellId);
+		WorldObject well = world.findWorldObjectById(wellId);
 		
 		assertEquals(true, Actions.DRINK_ACTION.isValidTarget(performer, well, world));
 		assertEquals(false, Actions.DRINK_ACTION.isValidTarget(performer, performer, world));
@@ -94,7 +94,7 @@ public class UTestDrinkAction {
 		WorldObject performer = createPerformer(2);
 		
 		int wellId = BuildingGenerator.buildWell(0, 0, world, 1f);
-		WorldObject well = world.findWorldObject(Constants.ID, wellId);
+		WorldObject well = world.findWorldObjectById(wellId);
 		
 		assertEquals(true, Actions.DRINK_ACTION.isActionPossible(performer, well, Args.EMPTY, world));
 	}

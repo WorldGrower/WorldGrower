@@ -61,7 +61,7 @@ public class HouseGoal implements Goal {
 		List<Integer> houseIds = performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.HOUSE);
 		if (houseIds.size() > 0) {
 			int houseId = houseIds.get(0);
-			WorldObject house = world.findWorldObject(Constants.ID, houseId);
+			WorldObject house = world.findWorldObjectById(houseId);
 			return (BuildingGenerator.isHouse(house));
 		} else {
 			return false;

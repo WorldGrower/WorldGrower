@@ -49,7 +49,7 @@ public class UTestWorldImpl {
 	
 	@Test
 	public void testFindWorldObject() {
-		WorldObject result = world.findWorldObject(Constants.NAME, "test");
+		WorldObject result = world.findWorldObjectById(6);
 		assertEquals(6, result.getProperty(Constants.ID).intValue());
 	}
 	
@@ -125,7 +125,7 @@ public class UTestWorldImpl {
 			int id = world.generateUniqueId();
 			world.addWorldObject(TestUtils.createWorldObject(id, "test"));
 		}
-		assertEquals(290, world.findWorldObject(Constants.ID, 290).getProperty(Constants.ID).intValue());
+		assertEquals(290, world.findWorldObjectById(290).getProperty(Constants.ID).intValue());
 	}
 	
 	@Test

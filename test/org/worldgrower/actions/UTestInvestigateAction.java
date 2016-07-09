@@ -35,7 +35,7 @@ public class UTestInvestigateAction {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		int id = TerrainGenerator.generateFireTrap(0, 0, world, 1f);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = world.findWorldObjectById(id);
 		
 		Actions.INVESTIGATE_ACTION.execute(performer, target, Args.EMPTY, world);
 		
@@ -47,7 +47,7 @@ public class UTestInvestigateAction {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		int id = TerrainGenerator.generateFireTrap(0, 0, world, 1f);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = world.findWorldObjectById(id);
 		
 		Actions.INVESTIGATE_ACTION.execute(performer, target, Args.EMPTY, world);
 		Actions.INVESTIGATE_ACTION.execute(performer, target, Args.EMPTY, world);
@@ -61,7 +61,7 @@ public class UTestInvestigateAction {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		int id = TerrainGenerator.generateFireTrap(0, 0, world, 1f);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = world.findWorldObjectById(id);
 		
 		assertEquals(true, Actions.INVESTIGATE_ACTION.isValidTarget(performer, performer, world));
 		assertEquals(false, Actions.INVESTIGATE_ACTION.isValidTarget(performer, target, world));

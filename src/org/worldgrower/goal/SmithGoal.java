@@ -56,7 +56,7 @@ public class SmithGoal implements Goal {
 	public boolean isGoalMet(WorldObject performer, World world) {
 		Integer smithId = BuildingGenerator.getSmithId(performer);
 		if (smithId != null) {
-			WorldObject smith = world.findWorldObject(Constants.ID, smithId.intValue());
+			WorldObject smith = world.findWorldObjectById(smithId.intValue());
 			return (smith.getProperty(Constants.SMITH_QUALITY) > 0);
 		} else {
 			return false;

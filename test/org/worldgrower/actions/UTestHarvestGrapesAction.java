@@ -75,7 +75,7 @@ public class UTestHarvestGrapesAction {
 
 	private WorldObject createGrapeVine(World world) {
 		int id = PlantGenerator.generateGrapeVine(0, 0, world);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = world.findWorldObjectById(id);
 		return target;
 	}
 	

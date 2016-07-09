@@ -35,7 +35,7 @@ public class UTestThrowOilAction {
 		WorldObject performer = createPerformer(2);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.OIL.generate(1f), 10);
 		int id = BuildingGenerator.buildWell(0, 0, world, 1f);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = world.findWorldObjectById(id);
 		
 		assertEquals(null, target.getProperty(Constants.FLAMMABLE));
 		Actions.THROW_OIL_ACTION.execute(performer, target, Args.EMPTY, world);
@@ -49,7 +49,7 @@ public class UTestThrowOilAction {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		int id = BuildingGenerator.buildWell(0, 0, world, 1f);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = world.findWorldObjectById(id);
 		
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.OIL.generate(1f));
 		
@@ -62,7 +62,7 @@ public class UTestThrowOilAction {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		int id = BuildingGenerator.buildWell(0, 0, world, 1f);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = world.findWorldObjectById(id);
 		
 		assertEquals(0, Actions.THROW_OIL_ACTION.distance(performer, target, Args.EMPTY, world));
 	}

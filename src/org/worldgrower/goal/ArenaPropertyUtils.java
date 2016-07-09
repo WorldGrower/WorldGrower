@@ -65,7 +65,7 @@ public class ArenaPropertyUtils {
 		performer.setProperty(Constants.ARENA_OPPONENT_ID, opponent.getProperty(Constants.ID));
 		opponent.setProperty(Constants.ARENA_OPPONENT_ID, performer.getProperty(Constants.ID));
 		
-		WorldObject topLeftArena = world.findWorldObject(Constants.ID, arenaOwner.getProperty(Constants.ARENA_IDS).getIds().get(0));
+		WorldObject topLeftArena = world.findWorldObjectById(arenaOwner.getProperty(Constants.ARENA_IDS).getIds().get(0));
 		int arenaX = topLeftArena.getProperty(Constants.X);
 		int arenaY = topLeftArena.getProperty(Constants.Y);
 		

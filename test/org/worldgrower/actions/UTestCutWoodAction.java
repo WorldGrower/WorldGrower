@@ -52,7 +52,7 @@ public class UTestCutWoodAction {
 
 	private WorldObject createTree(World world) {
 		int treeId = PlantGenerator.generateTree(0, 0, world);
-		WorldObject target = world.findWorldObject(Constants.ID, treeId);
+		WorldObject target = world.findWorldObjectById(treeId);
 		return target;
 	}
 	

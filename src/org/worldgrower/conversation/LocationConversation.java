@@ -71,7 +71,7 @@ public class LocationConversation implements Conversation {
 		
 		List<WorldObject> subjects = new ArrayList<>();
 		for(int subjectId : subjectIds) {
-			WorldObject subject = world.findWorldObject(Constants.ID, subjectId);
+			WorldObject subject = world.findWorldObjectById(subjectId);
 			subjects.add(subject);
 		}
 		

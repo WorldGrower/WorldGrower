@@ -84,7 +84,7 @@ public class VotingPropertyUtils {
 		WorldObject location = BuildLocationUtils.findOpenLocationNearExistingProperty(target, 2, 2, world);
 		int votingBoxId = BuildingGenerator.generateVotingBox(location.getProperty(Constants.X), location.getProperty(Constants.Y), world);
 		
-		WorldObject votingBox = world.findWorldObject(Constants.ID, votingBoxId);
+		WorldObject votingBox = world.findWorldObjectById(votingBoxId);
 		votingBox.setProperty(Constants.ORGANIZATION_ID, organization.getProperty(Constants.ID));
 		votingBox.setProperty(Constants.TEXT, "Voting box for " + organization.getProperty(Constants.NAME));
 		

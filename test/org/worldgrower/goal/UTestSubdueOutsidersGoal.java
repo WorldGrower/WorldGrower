@@ -32,7 +32,7 @@ public class UTestSubdueOutsidersGoal {
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		int performerId = commonerGenerator.generateCommoner(5, 5, world, organization);
 		int targetId = commonerGenerator.generateCommoner(7, 7, world, organization);
-		WorldObject performer = world.findWorldObject(Constants.ID, performerId);
+		WorldObject performer = world.findWorldObjectById(performerId);
 		performer.getProperty(Constants.GROUP).removeAll();
 		
 		assertEquals(Actions.POISON_ATTACK_ACTION, goal.calculateGoal(performer, world).getManagedOperation());

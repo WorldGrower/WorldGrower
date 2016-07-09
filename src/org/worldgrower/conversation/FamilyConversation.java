@@ -64,7 +64,7 @@ public class FamilyConversation implements Conversation {
 		int numberOfYesResponses = 0;
 		if (target.getProperty(Constants.MATE_ID) != null) {
 			int mateId = target.getProperty(Constants.MATE_ID);
-			WorldObject mate = world.findWorldObject(Constants.ID, mateId);
+			WorldObject mate = world.findWorldObjectById(mateId);
 			responseBuilder.append("I have a mate named ").append(mate.getProperty(Constants.NAME));
 			numberOfYesResponses++;
 		} else {

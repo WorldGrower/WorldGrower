@@ -43,13 +43,13 @@ public class KnowledgeToDescriptionMapper {
 				return (String)value;
 			}
 			
-			WorldObject subject = world.findWorldObject(Constants.ID, knowledge.getSubjectId());
+			WorldObject subject = world.findWorldObjectById(knowledge.getSubjectId());
 			if (BuildingGenerator.isWell(subject) && property == Constants.POISON_DAMAGE) {
 				return "the well is poisoned";
 			} else if (BuildingGenerator.isWell(subject) && property == Constants.SLEEP_INDUCING_DRUG_STRENGTH) {
 				return "the well contains sleeping potion";
 			} else if (property == Constants.CHILD_BIRTH_ID) {
-				WorldObject child = world.findWorldObject(Constants.ID, (Integer) value);
+				WorldObject child = world.findWorldObjectById((Integer) value);
 				return subject.getProperty(Constants.NAME) + " gave birth to " + child.getProperty(Constants.NAME);
 			} else if (property == Constants.DEITY) {
 				if (value != null) {
@@ -68,7 +68,7 @@ public class KnowledgeToDescriptionMapper {
 			} else if (property == Constants.ORGANIZATION_LEADER_ID) {
 				if (value != null) {
 					int leaderId = (Integer) value;
-					WorldObject leader = world.findWorldObject(Constants.ID, leaderId);
+					WorldObject leader = world.findWorldObjectById(leaderId);
 					return leader.getProperty(Constants.NAME) + " is the leader of the " + subject.getProperty(Constants.NAME);
 				} else {
 					return subject.getProperty(Constants.NAME) + " doesn't have a leader";

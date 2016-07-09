@@ -44,7 +44,7 @@ public class UTestCraftIronGreavesAction {
 		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
 
 		int smithId = BuildingGenerator.generateSmith(0, 0, world, performer);
-		WorldObject target = world.findWorldObject(Constants.ID, smithId);
+		WorldObject target = world.findWorldObjectById(smithId);
 		
 		assertEquals(false, Actions.CRAFT_IRON_GREAVES_ACTION.isValidTarget(performer, performer, world));
 		assertEquals(true, Actions.CRAFT_IRON_GREAVES_ACTION.isValidTarget(performer, target, world));
@@ -58,7 +58,7 @@ public class UTestCraftIronGreavesAction {
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.ORE.generate(1f), 20);
 
 		int smithId = BuildingGenerator.generateSmith(0, 0, world, performer);
-		WorldObject target = world.findWorldObject(Constants.ID, smithId);
+		WorldObject target = world.findWorldObjectById(smithId);
 		
 		assertEquals(true, Actions.CRAFT_IRON_GREAVES_ACTION.isActionPossible(performer, target, Args.EMPTY, world));
 	}

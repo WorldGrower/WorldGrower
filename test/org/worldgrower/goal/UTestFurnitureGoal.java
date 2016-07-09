@@ -116,7 +116,7 @@ public class UTestFurnitureGoal {
 		
 		int houseId = BuildingGenerator.generateHouse(5, 5, world, 1f, performer);
 		performer.getProperty(Constants.BUILDINGS).add(houseId, BuildingType.HOUSE);
-		WorldObject house = world.findWorldObject(Constants.ID, houseId);
+		WorldObject house = world.findWorldObjectById(houseId);
 		house.getProperty(Constants.INVENTORY).add(Item.BED.generate(1f));
 		
 		assertEquals(true, goal.isGoalMet(performer, world));

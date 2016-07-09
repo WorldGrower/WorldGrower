@@ -63,7 +63,7 @@ class PropertyCache implements Serializable {
 
 			propertyToIdsMapping.put(managedProperty, ids);
 		}
-		return ids.stream().map(i -> world.findWorldObject(Constants.ID, i)).filter(w -> worldObjectCondition.isWorldObjectValid(w)).collect(Collectors.toList());
+		return ids.stream().map(i -> world.findWorldObjectById(i)).filter(w -> worldObjectCondition.isWorldObjectValid(w)).collect(Collectors.toList());
 		
 	}
 }

@@ -111,7 +111,7 @@ public final class KnowledgeMap implements IdContainer, Serializable {
 			List<Knowledge> knowledgeValues = entry.getValue();
 			for(Knowledge knowledgeValue : knowledgeValues) {
 				if (knowledgeValue.hasPropertyValue(managedProperty, value)) {
-					worldObjects.add(world.findWorldObject(Constants.ID, id));
+					worldObjects.add(world.findWorldObjectById(id));
 				}
 			}
 		}

@@ -43,7 +43,7 @@ public class AnimateSuitOfArmorAction extends InventoryAction implements MagicSp
 		Integer targetX = target.getProperty(Constants.X);
 		Integer targetY = target.getProperty(Constants.Y);
 		int animatedSuitOfArmorId = creatureGenerator.generateAnimatedSuitOfArmor(targetX, targetY, world, performer);
-		WorldObject skeleton = world.findWorldObject(Constants.ID, animatedSuitOfArmorId);
+		WorldObject skeleton = world.findWorldObjectById(animatedSuitOfArmorId);
 		skeleton.getProperty(Constants.GROUP).addAll(performer.getProperty(Constants.GROUP));
 		
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);

@@ -96,7 +96,7 @@ public class IdList implements Serializable {
 	public List<WorldObject> mapToWorldObjects(World world) {
 		List<WorldObject> worldObjects = new ArrayList<>(ids.size());
 		for(int id : ids) {
-			worldObjects.add(world.findWorldObject(Constants.ID, id));
+			worldObjects.add(world.findWorldObjectById(id));
 		}
 		
 		return worldObjects;
@@ -105,7 +105,7 @@ public class IdList implements Serializable {
 	public List<WorldObject> mapToWorldObjects(World world, Function<WorldObject, Boolean> testFunction) {
 		List<WorldObject> worldObjects = new ArrayList<>(ids.size());
 		for(int id : ids) {
-			WorldObject worldObject = world.findWorldObject(Constants.ID, id);
+			WorldObject worldObject = world.findWorldObjectById(id);
 			if (testFunction.apply(worldObject).booleanValue()) {
 				worldObjects.add(worldObject);
 			}

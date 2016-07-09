@@ -76,7 +76,7 @@ public class UTestCommonerOnTurn {
 	
 	private WorldObject createCommoner(World world, WorldObject organization) {
 		int commonerId = commonerGenerator.generateCommoner(0, 0, world, organization);
-		return world.findWorldObject(Constants.ID, commonerId);
+		return world.findWorldObjectById(commonerId);
 	}
 	
 	@Test

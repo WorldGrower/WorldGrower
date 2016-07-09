@@ -41,7 +41,7 @@ public class AnimateDeadAction implements MagicSpell {
 		Integer targetX = target.getProperty(Constants.X);
 		Integer targetY = target.getProperty(Constants.Y);
 		int skeletonId = creatureGenerator.generateSkeleton(targetX, targetY, world, performer);
-		WorldObject skeleton = world.findWorldObject(Constants.ID, skeletonId);
+		WorldObject skeleton = world.findWorldObjectById(skeletonId);
 		skeleton.getProperty(Constants.GROUP).addAll(performer.getProperty(Constants.GROUP));
 		
 		world.removeWorldObject(target);

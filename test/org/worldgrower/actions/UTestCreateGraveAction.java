@@ -47,7 +47,7 @@ public class UTestCreateGraveAction {
 		WorldObject skeletonWorldObject = createPerformer(8);
 		skeletonWorldObject.setProperty(Constants.DEATH_REASON, "");
 		int skeletonId = CommonerGenerator.generateSkeletalRemains(skeletonWorldObject, world);
-		WorldObject skeleton = world.findWorldObject(Constants.ID, skeletonId);
+		WorldObject skeleton = world.findWorldObjectById(skeletonId);
 		performer.getProperty(Constants.INVENTORY).add(skeleton);
 		world.removeWorldObject(skeleton);
 	}

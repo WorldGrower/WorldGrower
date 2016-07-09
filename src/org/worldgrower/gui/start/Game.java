@@ -185,7 +185,7 @@ public class Game {
 	public static void load(File fileToLoad, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, MusicPlayer musicPlayer, KeyBindings keyBindings) {
 		DungeonMaster dungeonMaster = new DungeonMaster();
 		World world = WorldImpl.load(fileToLoad);
-		final WorldObject playerCharacter = world.findWorldObject(Constants.ID, 0);
+		final WorldObject playerCharacter = world.findWorldObjectById(0);
 		
 		addWorldListeners(world);
 		

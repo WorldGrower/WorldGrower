@@ -41,7 +41,7 @@ public class CreateFurnitureGoal implements Goal {
 			if (!ConstructBedAction.hasEnoughWood(performer)) {
 				return Goals.WOOD_GOAL.calculateGoal(performer, world);
 			} else {
-				WorldObject workbench = world.findWorldObject(Constants.ID, workbenchId);
+				WorldObject workbench = world.findWorldObjectById(workbenchId);
 				return new OperationInfo(performer, workbench, Args.EMPTY, Actions.CONSTRUCT_BED_ACTION);
 			}
 		}

@@ -56,7 +56,7 @@ public class WeaveryGoal implements Goal {
 	public boolean isGoalMet(WorldObject performer, World world) {
 		Integer weaveryId = BuildingGenerator.getWeaveryId(performer);
 		if (weaveryId != null) {
-			WorldObject weavery = world.findWorldObject(Constants.ID, weaveryId);
+			WorldObject weavery = world.findWorldObjectById(weaveryId);
 			return (weavery.getProperty(Constants.WEAVERY_QUALITY) > 0);
 		} else {
 			return false;

@@ -183,7 +183,7 @@ public class GoalUtils {
 	}
 	
 	public static WorldObject findNearestPersonLookingLike(WorldObject performer, int targetId, World world) {
-		WorldObject realTarget = world.findWorldObject(Constants.ID, targetId);
+		WorldObject realTarget = world.findWorldObjectById(targetId);
 		ImageIds realImageIds = realTarget.getProperty(Constants.IMAGE_ID);
 		
 		List<WorldObject> illusions = world.findWorldObjectsByProperty(Constants.ILLUSION_CREATOR_ID, w -> w.getProperty(Constants.IMAGE_ID) == realImageIds);

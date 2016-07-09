@@ -47,7 +47,7 @@ public class UTestSecretChestAction {
 
 	private WorldObject createTarget(WorldObject performer, World world) {
 		int targetId = BuildingGenerator.generateChest(0, 0, world, 1f, performer);
-		WorldObject target = world.findWorldObject(Constants.ID, targetId);
+		WorldObject target = world.findWorldObjectById(targetId);
 		return target;
 	}
 	

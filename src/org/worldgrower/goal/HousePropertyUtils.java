@@ -31,7 +31,7 @@ public class HousePropertyUtils {
 			if (owner.hasProperty(Constants.BUILDINGS) && owner.getProperty(Constants.BUILDINGS) != null) {
 				List<Integer> houseIds = owner.getProperty(Constants.BUILDINGS).getIds(BuildingType.SHACK, BuildingType.HOUSE);
 				for(int houseId : houseIds) {
-					result.add(world.findWorldObject(Constants.ID, houseId));
+					result.add(world.findWorldObjectById(houseId));
 				}
 			}
 		}
@@ -44,7 +44,7 @@ public class HousePropertyUtils {
 		int bestValue = Integer.MIN_VALUE;
 		List<Integer> houseIds = performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.SHACK, BuildingType.HOUSE);
 		for(int houseId : houseIds) {
-			WorldObject house = world.findWorldObject(Constants.ID, houseId);
+			WorldObject house = world.findWorldObjectById(houseId);
 			int sleepComfort = house.getProperty(Constants.SLEEP_COMFORT);
 			if (sleepComfort > bestValue) {
 				bestId = houseId;
@@ -53,7 +53,7 @@ public class HousePropertyUtils {
 		}
 		
 		if (bestId != -1) {
-			return world.findWorldObject(Constants.ID, bestId);
+			return world.findWorldObjectById(bestId);
 		} else {
 			return null;
 		}
@@ -72,7 +72,7 @@ public class HousePropertyUtils {
 		if (target.hasProperty(Constants.BUILDINGS)) {
 			List<Integer> houseIds = target.getProperty(Constants.BUILDINGS).getIds(BuildingType.HOUSE);
 			for(int houseId : houseIds) {
-				WorldObject house = world.findWorldObject(Constants.ID, houseId);
+				WorldObject house = world.findWorldObjectById(houseId);
 				if (house.hasProperty(Constants.SELLABLE) && house.getProperty(Constants.SELLABLE)) {
 					return house;
 				}
@@ -85,7 +85,7 @@ public class HousePropertyUtils {
 		List<Integer> houseIds = performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.HOUSE);
 		boolean isFirstHouse = true;
 		for(int houseId : houseIds) {
-			WorldObject house = world.findWorldObject(Constants.ID, houseId);
+			WorldObject house = world.findWorldObjectById(houseId);
 			
 			if (!isFirstHouse) {
 				if (!(house.hasProperty(Constants.SELLABLE) && house.getProperty(Constants.SELLABLE))) {

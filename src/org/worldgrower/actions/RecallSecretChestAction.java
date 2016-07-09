@@ -32,7 +32,7 @@ public class RecallSecretChestAction extends InventoryAction {
 		int inventoryIndex = args[0];
 		WorldObject miniatureChest = performer.getProperty(Constants.INVENTORY).get(inventoryIndex);
 		int chestId = miniatureChest.getProperty(Constants.CHEST_ID);
-		WorldObject chest = world.findWorldObject(Constants.ID, chestId);
+		WorldObject chest = world.findWorldObjectById(chestId);
 		int[] openSpace = GoalUtils.findOpenSpace(performer, 1, 1, world);
 		if (openSpace != null) {
 			int newX = performer.getProperty(Constants.X) + openSpace[0];

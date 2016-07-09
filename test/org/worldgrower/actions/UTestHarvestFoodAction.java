@@ -75,7 +75,7 @@ public class UTestHarvestFoodAction {
 
 	private WorldObject createBerryBush(World world) {
 		int id = PlantGenerator.generateBerryBush(0, 0, world);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = world.findWorldObjectById(id);
 		return target;
 	}
 	

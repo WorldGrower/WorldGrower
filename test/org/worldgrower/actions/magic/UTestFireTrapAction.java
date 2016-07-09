@@ -39,7 +39,7 @@ public class UTestFireTrapAction {
 		
 		Actions.FIRE_TRAP_ACTION.execute(performer, target, Args.EMPTY, world);
 		
-		assertEquals("fire trap", world.findWorldObject(Constants.PASSABLE, Boolean.TRUE).getProperty(Constants.NAME));
+		assertEquals("fire trap", world.findWorldObjectById(0).getProperty(Constants.NAME));
 	}
 	
 	@Test

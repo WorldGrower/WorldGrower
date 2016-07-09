@@ -292,7 +292,7 @@ public class Conversations implements Serializable {
 	
 	private WorldObject getSubject(int subjectId, World world) {
 		if (subjectId >= 0) {
-			return world.findWorldObject(Constants.ID, subjectId);
+			return world.findWorldObjectById(subjectId);
 		} else {
 			return null;
 		}

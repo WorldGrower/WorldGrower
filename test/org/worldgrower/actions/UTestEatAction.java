@@ -65,7 +65,7 @@ public class UTestEatAction {
 	
 	private WorldObject createBerryBush(World world) {
 		int berryBushId = PlantGenerator.generateBerryBush(0, 0, world);
-		WorldObject berryBush = world.findWorldObject(Constants.ID, berryBushId);
+		WorldObject berryBush = world.findWorldObjectById(berryBushId);
 		berryBush.setProperty(Constants.FOOD_SOURCE, 300);
 		return berryBush;
 	}

@@ -70,7 +70,7 @@ public class WhyNotIntelligentConversation implements InterceptedConversation {
 	@Override
 	public boolean isConversationAvailable(WorldObject performer, WorldObject target, World world) {
 		WorldObject facade = performer.getProperty(Constants.FACADE);
-		return ((facade != null) && (facade.getProperty(Constants.ID) != null) && (!world.findWorldObject(Constants.ID, facade.getProperty(Constants.ID)).hasIntelligence()));
+		return ((facade != null) && (facade.getProperty(Constants.ID) != null) && (!world.findWorldObjectById(facade.getProperty(Constants.ID)).hasIntelligence()));
 	}
 
 	@Override

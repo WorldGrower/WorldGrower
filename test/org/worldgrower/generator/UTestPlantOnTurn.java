@@ -33,7 +33,7 @@ public class UTestPlantOnTurn {
 		World world = new WorldImpl(10, 10, null, new DoNothingWorldOnTurn());
 		
 		int treeId = PlantGenerator.generateTree(5, 5, world);
-		WorldObject tree = world.findWorldObject(Constants.ID, treeId);
+		WorldObject tree = world.findWorldObjectById(treeId);
 		assertEquals(200 * Item.COMBAT_MULTIPLIER, tree.getProperty(Constants.HIT_POINTS).intValue());
 		
 		Conditions.add(tree, Condition.BURNING_CONDITION, 8, world);

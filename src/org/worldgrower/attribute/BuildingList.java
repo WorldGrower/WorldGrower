@@ -112,7 +112,7 @@ public class BuildingList implements Serializable, IdContainer {
 		List<WorldObject> worldObjects = new ArrayList<>();
 		for(Building building : buildings) {
 			if (building.getBuildingType() == buildingType) {
-				WorldObject worldObject = world.findWorldObject(Constants.ID, building.getId());
+				WorldObject worldObject = world.findWorldObjectById(building.getId());
 				if (testFunction.apply(worldObject).booleanValue()) {
 					worldObjects.add(worldObject);
 				}

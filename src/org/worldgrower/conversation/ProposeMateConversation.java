@@ -112,12 +112,12 @@ public class ProposeMateConversation implements Conversation {
 		Integer targetMateId = target.getProperty(Constants.MATE_ID);
 		
 		if (performerMateId != null) {
-			WorldObject performerMate = world.findWorldObject(Constants.ID, performerMateId);
+			WorldObject performerMate = world.findWorldObjectById(performerMateId);
 			Conversations.BREAKUP_WITH_MATE_CONVERSATION.breakup(performer, performerMate, world);
 		}
 		
 		if (targetMateId != null) {
-			WorldObject targetMate = world.findWorldObject(Constants.ID, targetMateId);
+			WorldObject targetMate = world.findWorldObjectById(targetMateId);
 			Conversations.BREAKUP_WITH_MATE_CONVERSATION.breakup(target, targetMate, world);
 		}
 	}

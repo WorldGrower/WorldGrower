@@ -113,7 +113,7 @@ public class GroupPropertyUtils {
 		if (performerProfession != null) {
 			IdList organizations = performer.getProperty(Constants.GROUP);
 			for(int organizationId : organizations.getIds()) {
-				WorldObject organisation = world.findWorldObject(Constants.ID, organizationId);
+				WorldObject organisation = world.findWorldObjectById(organizationId);
 				if (organisation.getProperty(Constants.PROFESSION) == performerProfession) {
 					return organisation;
 				}
@@ -126,7 +126,7 @@ public class GroupPropertyUtils {
 		Deity performerDeity = performer.getProperty(Constants.DEITY);
 		IdList organizations = performer.getProperty(Constants.GROUP);
 		for(int organizationId : organizations.getIds()) {
-			WorldObject organisation = world.findWorldObject(Constants.ID, organizationId);
+			WorldObject organisation = world.findWorldObjectById(organizationId);
 			if (organisation.getProperty(Constants.DEITY) == performerDeity) {
 				return organisation;
 			}
@@ -139,7 +139,7 @@ public class GroupPropertyUtils {
 		List<WorldObject> organizations = new ArrayList<>();
 		List<Integer> memberOrganizationIds = leader.getProperty(Constants.GROUP).getIds();
 		for(int memberOrganizationId : memberOrganizationIds) {
-			WorldObject memberOrganization = world.findWorldObject(Constants.ID, memberOrganizationId);
+			WorldObject memberOrganization = world.findWorldObjectById(memberOrganizationId);
 			if (worldObjectHasLeader(leaderId, memberOrganization)) {
 				organizations.add(memberOrganization);
 			}
@@ -206,11 +206,11 @@ public class GroupPropertyUtils {
 	}
 
 	public static WorldObject getVillagersOrganization(World world) {
-		return world.findWorldObject(Constants.ID, 1);
+		return world.findWorldObjectById(1);
 	}
 	
 	public static WorldObject getVerminOrganization(World world) {
-		return world.findWorldObject(Constants.ID, 2);
+		return world.findWorldObjectById(2);
 	}
 	
 	public static boolean performerIsLeaderOfVillagers(WorldObject performer, World world) {
@@ -226,7 +226,7 @@ public class GroupPropertyUtils {
 		WorldObject villagersOrganization = getVillagersOrganization(world);
 		Integer leaderId = villagersOrganization.getProperty(Constants.ORGANIZATION_LEADER_ID);
 		if (leaderId != null) {
-			return world.findWorldObject(Constants.ID, leaderId.intValue());
+			return world.findWorldObjectById(leaderId.intValue());
 		} else {
 			return null;
 		}
@@ -259,7 +259,7 @@ public class GroupPropertyUtils {
 		List<Integer> houseIds = target.getProperty(Constants.BUILDINGS).getIds(BuildingType.SHACK, BuildingType.HOUSE);
 		if (houseIds.size() > 0) {
 			for(int houseId : houseIds) {
-				WorldObject house = world.findWorldObject(Constants.ID, houseId);
+				WorldObject house = world.findWorldObjectById(houseId);
 				if (BuildingGenerator.isShack(house)) {
 					amountToCollect += GroupPropertyUtils.getVillagersOrganization(world).getProperty(Constants.SHACK_TAX_RATE);
 				} else if (BuildingGenerator.isHouse(house)) {
@@ -418,7 +418,7 @@ public class GroupPropertyUtils {
 	public static WorldObject findMatchingOrganization(WorldObject target, WorldObject performerOrganization, World world) {
 		IdList organizations = target.getProperty(Constants.GROUP);
 		for(int organizationId : organizations.getIds()) {
-			WorldObject targetOrganization = world.findWorldObject(Constants.ID, organizationId);
+			WorldObject targetOrganization = world.findWorldObjectById(organizationId);
 			if (organizationsMatch(performerOrganization, targetOrganization) && !performerOrganization.equals(targetOrganization)) {
 				return targetOrganization;
 			}

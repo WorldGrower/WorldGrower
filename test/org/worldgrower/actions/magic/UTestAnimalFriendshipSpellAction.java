@@ -50,7 +50,7 @@ public class UTestAnimalFriendshipSpellAction {
 		WorldObject verminOrganization = GroupPropertyUtils.create(null, "vermin", world);
 		CreatureGenerator creatureGenerator = new CreatureGenerator(verminOrganization);
 		int targetId = creatureGenerator.generateCow(0, 0, world);
-		WorldObject target = world.findWorldObject(Constants.ID, targetId);
+		WorldObject target = world.findWorldObjectById(targetId);
 		return target;
 	}
 	

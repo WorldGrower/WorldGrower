@@ -43,7 +43,7 @@ public class FireTrapAction implements MagicSpell, DeadlyAction, BuildAction {
 		int y = (Integer)target.getProperty(Constants.Y);
 		
 		int id = TerrainGenerator.generateFireTrap(x, y, world, SkillUtils.getSkillBonus(performer, getSkill()));
-		WorldObject fireTrap = world.findWorldObject(Constants.ID, id);
+		WorldObject fireTrap = world.findWorldObjectById(id);
 		KnowledgeMapPropertyUtils.everyoneInVicinityKnowsOfProperty(performer, fireTrap, Constants.LOCATION, new Location(x, y), world);
 	}
 	

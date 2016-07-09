@@ -30,7 +30,7 @@ public class ImproveRelationshipGoal implements Goal {
 
 	public ImproveRelationshipGoal(int personId, int relationshipValue, World world) {
 		this.personId = personId;
-		this.target = world.findWorldObject(Constants.ID, personId);
+		this.target = world.findWorldObjectById(personId);
 		this.goalRelationshipValue = relationshipValue;
 	}
 

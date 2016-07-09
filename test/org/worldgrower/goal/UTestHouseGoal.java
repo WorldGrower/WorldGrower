@@ -81,7 +81,7 @@ public class UTestHouseGoal {
 		target.setProperty(Constants.BUILDINGS, new BuildingList().add(houseId, BuildingType.HOUSE));
 		world.addWorldObject(target);
 		
-		WorldObject house = world.findWorldObject(Constants.ID, houseId);
+		WorldObject house = world.findWorldObjectById(houseId);
 		house.setProperty(Constants.SELLABLE, Boolean.TRUE);
 		
 		createVillagersOrganization(world);

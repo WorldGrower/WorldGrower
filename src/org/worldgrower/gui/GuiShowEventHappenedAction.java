@@ -84,7 +84,7 @@ public class GuiShowEventHappenedAction implements WorldStateChangedListener {
 			String description = "You have been thrown out of the following groups:\n";
 			List<Integer> thrownOutGroups = oldGroup.getIdsNotPresentInOther(newGroup);
 			for(int groupId : thrownOutGroups) {
-				WorldObject organization = world.findWorldObject(Constants.ID, groupId);
+				WorldObject organization = world.findWorldObjectById(groupId);
 				description += organization.getProperty(Constants.NAME) + "\n";
 			}
 			

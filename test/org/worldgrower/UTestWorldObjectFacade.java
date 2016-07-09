@@ -95,7 +95,7 @@ public class UTestWorldObjectFacade {
 	private WorldObject createBerryBush() {
 		World world = new WorldImpl(1, 1, null, null);
 		int berryBushId = PlantGenerator.generateBerryBush(0, 0, world);
-		WorldObject berryBush = world.findWorldObject(Constants.ID, berryBushId);
+		WorldObject berryBush = world.findWorldObjectById(berryBushId);
 		return berryBush;
 	}
 }

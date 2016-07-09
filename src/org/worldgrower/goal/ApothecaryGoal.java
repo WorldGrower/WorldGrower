@@ -59,7 +59,7 @@ public class ApothecaryGoal implements Goal {
 	public boolean isGoalMet(WorldObject performer, World world) {
 		Integer apothecaryId = BuildingGenerator.getApothecaryId(performer);
 		if (apothecaryId != null) {
-			WorldObject apothecary = world.findWorldObject(Constants.ID, apothecaryId.intValue());
+			WorldObject apothecary = world.findWorldObjectById(apothecaryId.intValue());
 			return (apothecary.getProperty(Constants.APOTHECARY_QUALITY) > 0);
 		}
 		return false;

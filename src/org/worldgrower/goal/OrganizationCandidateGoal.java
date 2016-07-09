@@ -46,7 +46,7 @@ public class OrganizationCandidateGoal implements Goal {
 	
 	private boolean performerWantsToBecomeCandidate(WorldObject performer, WorldObject votingBox, World world) {
 		int organizationId = votingBox.getProperty(Constants.ORGANIZATION_ID);
-		WorldObject organization = world.findWorldObject(Constants.ID, organizationId);
+		WorldObject organization = world.findWorldObjectById(organizationId);
 		List<WorldObject> organizationMembers = GroupPropertyUtils.findOrganizationMembers(organization, world);
 		
 		if (isCurrentLeader(performer, organization)) {

@@ -33,7 +33,7 @@ public class UTestVotingOnTurn {
 		World world = new WorldImpl(10, 10, null, new DoNothingWorldOnTurn());
 		
 		int votingBoxId = BuildingGenerator.generateVotingBox(5, 5, world);
-		WorldObject votingBox = world.findWorldObject(Constants.ID, votingBoxId);
+		WorldObject votingBox = world.findWorldObjectById(votingBoxId);
 		
 		assertEquals(0, votingBox.getProperty(Constants.TURN_COUNTER).intValue());
 		
@@ -51,7 +51,7 @@ public class UTestVotingOnTurn {
 		world.addWorldObject(candidate2);
 		
 		int votingBoxId = BuildingGenerator.generateVotingBox(5, 5, world);
-		WorldObject votingBox = world.findWorldObject(Constants.ID, votingBoxId);
+		WorldObject votingBox = world.findWorldObjectById(votingBoxId);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		votingBox.setProperty(Constants.ORGANIZATION_ID, organization.getProperty(Constants.ID));
 		

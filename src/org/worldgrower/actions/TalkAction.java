@@ -72,7 +72,7 @@ public class TalkAction implements ManagedOperation {
 		final WorldObject subject;
 		if (subjectId != -1) {
 			if (world.exists(subjectId)) {
-				subject = world.findWorldObject(Constants.ID, subjectId);
+				subject = world.findWorldObjectById(subjectId);
 			} else {
 				return false;// if subject no longer exists, talkaction cannot possibly succeed
 			}

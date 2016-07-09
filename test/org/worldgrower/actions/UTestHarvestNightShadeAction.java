@@ -69,7 +69,7 @@ public class UTestHarvestNightShadeAction {
 
 	private WorldObject createNightShade(World world) {
 		int id = PlantGenerator.generateNightShade(0, 0, world);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = world.findWorldObjectById(id);
 		target.setProperty(Constants.NIGHT_SHADE_SOURCE, 100);
 		return target;
 	}

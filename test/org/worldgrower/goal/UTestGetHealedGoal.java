@@ -93,7 +93,7 @@ public class UTestGetHealedGoal {
 
 	private WorldObject createCommoner(World world, WorldObject organization) {
 		int commonerId = commonerGenerator.generateCommoner(0, 0, world, organization);
-		WorldObject commoner = world.findWorldObject(Constants.ID, commonerId);
+		WorldObject commoner = world.findWorldObjectById(commonerId);
 		return commoner;
 	}
 }

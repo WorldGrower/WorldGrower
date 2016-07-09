@@ -42,7 +42,7 @@ public class RepairHammerGoal implements Goal {
 			return Goals.ORE_GOAL.calculateGoal(performer, world);
 		} else {
 			Integer smithId = BuildingGenerator.getSmithId(performer);
-			WorldObject smith = world.findWorldObject(Constants.ID, smithId);
+			WorldObject smith = world.findWorldObjectById(smithId);
 			return new OperationInfo(performer, smith, Args.EMPTY, Actions.CRAFT_REPAIR_HAMMER_ACTION);
 		}
 	}

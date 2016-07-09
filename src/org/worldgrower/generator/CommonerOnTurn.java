@@ -151,7 +151,7 @@ public class CommonerOnTurn implements OnTurn {
 	}
 
 	private void logChildBirth(WorldObject worldObject, World world, int id) {
-		WorldObject child = world.findWorldObject(Constants.ID, id);
+		WorldObject child = world.findWorldObjectById(id);
 		String message = worldObject.getProperty(Constants.NAME) + " has given birth to " + child.getProperty(Constants.NAME);
 		world.logAction(Actions.DO_NOTHING_ACTION, worldObject, worldObject, Args.EMPTY, message);
 	}

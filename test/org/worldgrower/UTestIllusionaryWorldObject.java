@@ -32,7 +32,7 @@ public class UTestIllusionaryWorldObject {
 		World world = new WorldImpl(1, 1, null, new DoNothingWorldOnTurn());
 		createIllusion(world);
 		
-		WorldObject illusion = world.findWorldObject(Constants.ID, 0);
+		WorldObject illusion = world.findWorldObjectById(0);
 		
 		for(int i=0; i<30; i++) {
 			illusion.onTurn(world, new WorldStateChangedListeners());

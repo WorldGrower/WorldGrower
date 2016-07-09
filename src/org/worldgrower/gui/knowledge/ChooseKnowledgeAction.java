@@ -64,7 +64,7 @@ public class ChooseKnowledgeAction extends AbstractAction {
 		for(Knowledge knowledge : knowledgeList) {
 			knowledgeDescriptions.add(mapper.getStatementDescription(knowledge, world));
 			int subjectId = knowledge.getSubjectId();
-			WorldObject subject = world.findWorldObject(Constants.ID, subjectId);
+			WorldObject subject = world.findWorldObjectById(subjectId);
 			imageIds.add(subject.getProperty(Constants.IMAGE_ID));
 		}
 		

@@ -72,7 +72,7 @@ public class UTestCowOnTurn {
 	
 	private WorldObject createCow(World world, WorldObject organization) {
 		int cowId = new CreatureGenerator(organization).generateCow(0, 0, world);
-		WorldObject cow = world.findWorldObject(Constants.ID, cowId);
+		WorldObject cow = world.findWorldObjectById(cowId);
 		return cow;
 	}
 	

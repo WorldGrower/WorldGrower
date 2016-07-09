@@ -36,7 +36,7 @@ public class UTestAnimateDeadAction {
 		WorldObject performer = createPerformer(2);
 		
 		int id = CommonerGenerator.generateSkeletalRemains(createPerformer(3), world);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = world.findWorldObjectById(id);
 		assertEquals("skeletal remains of worldObject", target.getProperty(Constants.NAME));
 		
 		Actions.ANIMATE_DEAD_ACTION.execute(performer, target, Args.EMPTY, world);
@@ -51,7 +51,7 @@ public class UTestAnimateDeadAction {
 		WorldObject performer = createPerformer(2);
 		
 		int id = CommonerGenerator.generateSkeletalRemains(createPerformer(3), world);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = world.findWorldObjectById(id);
 		
 		assertEquals(false, Actions.ANIMATE_DEAD_ACTION.isValidTarget(performer, performer, world));
 		assertEquals(true, Actions.ANIMATE_DEAD_ACTION.isValidTarget(performer, target, world));
@@ -63,7 +63,7 @@ public class UTestAnimateDeadAction {
 		WorldObject performer = createPerformer(2);
 		
 		int id = CommonerGenerator.generateSkeletalRemains(createPerformer(3), world);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = world.findWorldObjectById(id);
 		
 		assertEquals(true, Actions.ANIMATE_DEAD_ACTION.isActionPossible(performer, target, Args.EMPTY, world));
 	}

@@ -54,7 +54,7 @@ public class UTestFoodGoal {
 		WorldObject performer = createPerformer();
 		
 		int berryBushId = PlantGenerator.generateBerryBush(5, 5, world);
-		WorldObject berryBush = world.findWorldObject(Constants.ID, berryBushId);
+		WorldObject berryBush = world.findWorldObjectById(berryBushId);
 		berryBush.setProperty(Constants.FOOD_SOURCE, 500);
 		
 		assertEquals(Actions.EAT_ACTION, goal.calculateGoal(performer, world).getManagedOperation());

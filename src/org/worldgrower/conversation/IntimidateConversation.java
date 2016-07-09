@@ -57,7 +57,7 @@ public class IntimidateConversation implements Conversation {
 		List<Question> parentQuestionPhrases = parentConversation.getQuestionPhrases(performer, target, questionHistoryItem, subjectWorldObject, world);
 		List<Question> result = new ArrayList<>();
 		for(Question parentQuestionPhrase : parentQuestionPhrases) {
-			WorldObject subject = parentQuestionPhrase.getSubjectId() != -1 ? world.findWorldObject(Constants.ID, parentQuestionPhrase.getSubjectId()) : null;
+			WorldObject subject = parentQuestionPhrase.getSubjectId() != -1 ? world.findWorldObjectById(parentQuestionPhrase.getSubjectId()) : null;
 			result.add(new Question(subject, "I think you better help me or I'll slit your throat. " + parentQuestionPhrase.getQuestionPhrase()));
 		}
 		return result;

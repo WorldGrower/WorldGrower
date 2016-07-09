@@ -17,7 +17,6 @@ package org.worldgrower.goal;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
@@ -68,7 +67,7 @@ public class UTestHuntUndeadGoal {
 
 	private WorldObject createCommoner(World world, WorldObject organization) {
 		int commonerId = commonerGenerator.generateCommoner(0, 0, world, organization);
-		WorldObject commoner = world.findWorldObject(Constants.ID, commonerId);
+		WorldObject commoner = world.findWorldObjectById(commonerId);
 		return commoner;
 	}
 }

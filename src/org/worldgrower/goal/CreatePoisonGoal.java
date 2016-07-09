@@ -49,7 +49,7 @@ public class CreatePoisonGoal implements Goal {
 		} else if (apothecaryId == null) {
 			return Goals.APOTHECARY_GOAL.calculateGoal(performer, world);
 		} else {
-			WorldObject apothecary = world.findWorldObject(Constants.ID, apothecaryId);
+			WorldObject apothecary = world.findWorldObjectById(apothecaryId);
 			return new OperationInfo(performer, apothecary, Args.EMPTY, Actions.BREW_POISON_ACTION);
 		}
 	}

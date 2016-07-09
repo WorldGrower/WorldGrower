@@ -51,13 +51,13 @@ public class VotingBoxOnTurn implements OnTurn {
 
 	private void fireElectionFinished(WorldObject worldObject, World world, WorldStateChangedListeners worldStateChangedListeners, int newLeaderId, WorldObject organization) {
 		IdList candidates = worldObject.getProperty(Constants.CANDIDATES);
-		WorldObject winner = world.findWorldObject(Constants.ID, newLeaderId);
+		WorldObject winner = world.findWorldObjectById(newLeaderId);
 		worldStateChangedListeners.fireElectionFinished(winner, organization, candidates.copy());
 	}
 
 	private WorldObject setLeaderOfOrganization(WorldObject worldObject, World world, int newLeaderId) {
 		int organizationId = worldObject.getProperty(Constants.ORGANIZATION_ID);
-		WorldObject organization = world.findWorldObject(Constants.ID, organizationId);
+		WorldObject organization = world.findWorldObjectById(organizationId);
 		if (newLeaderId != -1) {
 			organization.setProperty(Constants.ORGANIZATION_LEADER_ID, newLeaderId);
 		} else {

@@ -34,7 +34,7 @@ public class UTestIllusionOnTurn {
 		World world = new WorldImpl(1, 1, null, new DoNothingWorldOnTurn());
 		createIllusion(world);
 		
-		WorldObject illusion = world.findWorldObject(Constants.ID, 0);
+		WorldObject illusion = world.findWorldObjectById(0);
 		assertEquals(22, illusion.getProperty(Constants.TURNS_TO_LIVE).intValue());
 		
 		illusion.onTurn(world, new WorldStateChangedListeners());
@@ -46,7 +46,7 @@ public class UTestIllusionOnTurn {
 		World world = new WorldImpl(1, 1, null, new DoNothingWorldOnTurn());
 		createIllusion(world);
 		
-		WorldObject illusion = world.findWorldObject(Constants.ID, 0);
+		WorldObject illusion = world.findWorldObjectById(0);
 		illusion.setProperty(Constants.TURNS_TO_LIVE, 1);
 		
 		illusion.onTurn(world, new WorldStateChangedListeners());

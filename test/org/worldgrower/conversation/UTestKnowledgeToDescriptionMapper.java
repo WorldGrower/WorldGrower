@@ -69,7 +69,7 @@ public class UTestKnowledgeToDescriptionMapper {
 	public void testMapEventKnowledgePoisonedWell() {
 		World world = new WorldImpl(10, 10, null, null);
 		int id = BuildingGenerator.buildWell(0, 0, world, 1f);
-		WorldObject subject = world.findWorldObject(Constants.ID, id);
+		WorldObject subject = world.findWorldObjectById(id);
 		world.addWorldObject(subject);
 		
 		PropertyKnowledge knowledge = new PropertyKnowledge(subject.getProperty(Constants.ID), Constants.POISON_DAMAGE, 10);
@@ -80,7 +80,7 @@ public class UTestKnowledgeToDescriptionMapper {
 	public void testMapEventKnowledgeSleepingPotionInWell() {
 		World world = new WorldImpl(10, 10, null, null);
 		int id = BuildingGenerator.buildWell(0, 0, world, 1f);
-		WorldObject subject = world.findWorldObject(Constants.ID, id);
+		WorldObject subject = world.findWorldObjectById(id);
 		world.addWorldObject(subject);
 		
 		PropertyKnowledge knowledge = new PropertyKnowledge(subject.getProperty(Constants.ID), Constants.SLEEP_INDUCING_DRUG_STRENGTH, 10);

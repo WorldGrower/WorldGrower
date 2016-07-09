@@ -57,7 +57,7 @@ public class UTestCatchFishAction {
 	private WorldObject createFish(World world) {
 		WorldObject organization = GroupPropertyUtils.create(null, "vermin", world);
 		int id = new CreatureGenerator(organization).generateFish(0, 0, world);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = world.findWorldObjectById(id);
 		return target;
 	}
 	

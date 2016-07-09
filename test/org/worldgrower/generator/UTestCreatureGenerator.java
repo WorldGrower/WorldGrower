@@ -34,7 +34,7 @@ public class UTestCreatureGenerator {
 		int id = creatureGenerator.generateRat(2, 2, world);
 		assertEquals(0, id);
 		
-		WorldObject worldObject = world.findWorldObject(Constants.ID, id);
+		WorldObject worldObject = world.findWorldObjectById(id);
 		assertEquals(2, worldObject.getProperty(Constants.X).intValue());
 		assertEquals(2, worldObject.getProperty(Constants.Y).intValue());
 	}

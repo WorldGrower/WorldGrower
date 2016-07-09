@@ -70,7 +70,7 @@ public class UTestExtractOilAction {
 
 	private WorldObject createOilResource(World world) {
 		int id = TerrainGenerator.generateOilResource(0, 0, world);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = world.findWorldObjectById(id);
 		return target;
 	}
 	

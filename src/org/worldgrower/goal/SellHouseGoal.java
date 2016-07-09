@@ -35,7 +35,7 @@ public class SellHouseGoal implements Goal {
 		List<Integer> houseIds = performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.HOUSE);
 		if (houseIds.size() > 0) {
 			int houseId = houseIds.get(0);
-			WorldObject house = world.findWorldObject(Constants.ID, houseId);
+			WorldObject house = world.findWorldObjectById(houseId);
 			List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.SELL_ACTION, w -> isSellHouseTarget(performer, world, house, w) , world);
 			if (targets.size() > 0) {
 				return new OperationInfo(performer, targets.get(0), Conversations.createArgs(Conversations.SELL_HOUSE_CONVERSATION), Actions.TALK_ACTION);

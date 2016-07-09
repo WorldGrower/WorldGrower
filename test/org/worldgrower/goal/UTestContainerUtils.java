@@ -38,7 +38,7 @@ public class UTestContainerUtils {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(2);
 		int targetId = BuildingGenerator.generateHouse(0, 0, world, 1f, performer);
-		WorldObject target = world.findWorldObject(Constants.ID, targetId);
+		WorldObject target = world.findWorldObjectById(targetId);
 		
 		performer.setProperty(Constants.HIT_POINTS, 10 * Item.COMBAT_MULTIPLIER);
 		performer.setProperty(Constants.ENERGY, 1000);
@@ -54,7 +54,7 @@ public class UTestContainerUtils {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(2);
 		int targetId = BuildingGenerator.generateHouse(0, 0, world, 1f, performer);
-		WorldObject target = world.findWorldObject(Constants.ID, targetId);
+		WorldObject target = world.findWorldObjectById(targetId);
 		
 		performer.setProperty(Constants.HIT_POINTS, 10 * Item.COMBAT_MULTIPLIER);
 		performer.setProperty(Constants.ENERGY, 1000);

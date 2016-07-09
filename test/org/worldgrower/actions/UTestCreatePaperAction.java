@@ -50,7 +50,7 @@ public class UTestCreatePaperAction {
 		WorldObject performer = createPerformer(2);
 		
 		int paperMillId = BuildingGenerator.generatePaperMill(0, 0, world, performer);
-		WorldObject target = world.findWorldObject(Constants.ID, paperMillId);
+		WorldObject target = world.findWorldObjectById(paperMillId);
 
 		assertEquals(false, Actions.CREATE_PAPER_ACTION.isValidTarget(performer, performer, world));
 		assertEquals(true, Actions.CREATE_PAPER_ACTION.isValidTarget(performer, target, world));

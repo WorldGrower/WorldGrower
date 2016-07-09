@@ -36,7 +36,7 @@ public class UTestMarkAsSellableAction {
 		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
 		
 		int id = BuildingGenerator.generateHouse(0, 0, world, 1f, performer);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = world.findWorldObjectById(id);
 		
 		Actions.MARK_AS_SELLABLE_ACTION.execute(performer, target, new int[] {0}, world);
 		
@@ -50,7 +50,7 @@ public class UTestMarkAsSellableAction {
 		performer.setProperty(Constants.NAME, "performer");
 		
 		int id = BuildingGenerator.generateHouse(0, 0, world, 1f, performer);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = world.findWorldObjectById(id);
 		performer.getProperty(Constants.BUILDINGS).add(target, BuildingType.HOUSE);
 		assertEquals(true, Actions.MARK_AS_SELLABLE_ACTION.isValidTarget(performer, target, world));
 		
@@ -69,7 +69,7 @@ public class UTestMarkAsSellableAction {
 		performer.setProperty(Constants.NAME, "performer");
 		
 		int id = BuildingGenerator.generateHouse(0, 0, world, 1f, performer);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = world.findWorldObjectById(id);
 		performer.getProperty(Constants.BUILDINGS).add(target, BuildingType.HOUSE);
 		assertEquals(true, Actions.MARK_AS_SELLABLE_ACTION.isActionPossible(performer, target, Args.EMPTY, world));
 	}

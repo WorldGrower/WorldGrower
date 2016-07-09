@@ -67,7 +67,7 @@ public class FacadeUtils {
 		if (selectedPersonId < 0) {
 			facade = null;
 		} else {
-			WorldObject selectedPerson = world.findWorldObject(Constants.ID, selectedPersonId);
+			WorldObject selectedPerson = world.findWorldObjectById(selectedPersonId);
 			facade = selectedPerson.deepCopy();
 		}
 		

@@ -88,7 +88,7 @@ public class UTestScribeWizardSpellsGoal {
 		assertEquals(false, goal.isGoalMet(performer, world));
 		
 		int libraryId = BuildingGenerator.generateLibrary(5, 5, world, performer);
-		WorldObject library = world.findWorldObject(Constants.ID, libraryId);
+		WorldObject library = world.findWorldObjectById(libraryId);
 		
 		library.getProperty(Constants.INVENTORY).add(Item.generateSpellBook(Actions.FIRE_BOLT_ATTACK_ACTION));
 		library.getProperty(Constants.INVENTORY).add(Item.generateSpellBook(Actions.RAY_OF_FROST_ATTACK_ACTION));

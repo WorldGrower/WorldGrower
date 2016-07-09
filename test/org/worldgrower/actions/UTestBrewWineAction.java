@@ -48,7 +48,7 @@ public class UTestBrewWineAction {
 		WorldObject performer = createPerformer(2);
 
 		int breweryId = BuildingGenerator.generateBrewery(0, 0, world, performer);
-		WorldObject target = world.findWorldObject(Constants.ID, breweryId);
+		WorldObject target = world.findWorldObjectById(breweryId);
 		
 		assertEquals(false, Actions.BREW_WINE_ACTION.isValidTarget(performer, performer, world));
 		assertEquals(true, Actions.BREW_WINE_ACTION.isValidTarget(performer, target, world));

@@ -69,7 +69,7 @@ public class UTestFeedOthersGoal {
 		
 		target.setProperty(Constants.FOOD, 0);
 		int berryBushId = PlantGenerator.generateBerryBush(5, 5, world);
-		WorldObject berryBush = world.findWorldObject(Constants.ID, berryBushId);
+		WorldObject berryBush = world.findWorldObjectById(berryBushId);
 		berryBush.setProperty(Constants.FOOD_SOURCE, 200);
 		
 		createVillagersOrganization(world);
@@ -99,7 +99,7 @@ public class UTestFeedOthersGoal {
 
 	private WorldObject createCommoner(World world, WorldObject organization) {
 		int commonerId = commonerGenerator.generateCommoner(0, 0, world, organization);
-		WorldObject commoner = world.findWorldObject(Constants.ID, commonerId);
+		WorldObject commoner = world.findWorldObjectById(commonerId);
 		return commoner;
 	}
 }

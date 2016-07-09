@@ -40,7 +40,7 @@ public class UTestWaterPropertyUtils {
 		world.addWorldObject(target);
 		
 		int wellId = BuildingGenerator.buildWell(5, 5, world, 1f);
-		WorldObject well = world.findWorldObject(Constants.ID, wellId);
+		WorldObject well = world.findWorldObjectById(wellId);
 		WaterPropertyUtils.everyoneInVicinityKnowsOfPoisoning(performer, well, world);
 		
 		assertEquals(true, performer.getProperty(Constants.KNOWLEDGE_MAP).hasProperty(wellId, Constants.POISON_DAMAGE));

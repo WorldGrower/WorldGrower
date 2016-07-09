@@ -101,7 +101,7 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 		IdList oldGroup = performer.getProperty(Constants.GROUP).copy();
 		GroupPropertyUtils.throwPerformerOutGroup(performerFacade, target, world);
 		
-		WorldObject realPerformer = world.findWorldObject(Constants.ID, performerFacade.getProperty(Constants.ID));
+		WorldObject realPerformer = world.findWorldObjectById(performerFacade.getProperty(Constants.ID));
 		GroupPropertyUtils.throwPerformerOutGroup(realPerformer, target, world);
 		
 		IdList newGroup = performer.getProperty(Constants.GROUP).copy();

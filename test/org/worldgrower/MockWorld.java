@@ -71,8 +71,8 @@ public class MockWorld implements World {
 	}
 
 	@Override
-	public <T> WorldObject findWorldObject(ManagedProperty<T> propertyKey, T value) {
-		return world.findWorldObject(propertyKey, value);
+	public WorldObject findWorldObjectById(int id) {
+		return world.findWorldObjectById(id);
 	}
 
 	@Override

@@ -44,11 +44,11 @@ public class UTestWorldFacade {
 		world.addWorldObject(illusionCreator);
 		
 		WorldFacade worldFacade = new WorldFacade(personViewingWorld, world);
-		assertEquals(personViewingWorld, worldFacade.findWorldObject(Constants.ID, 1));
-		assertEquals(worldObject, worldFacade.findWorldObject(Constants.ID, 2));
+		assertEquals(personViewingWorld, worldFacade.findWorldObjectById(1));
+		assertEquals(worldObject, worldFacade.findWorldObjectById(2));
 		
 		personViewingWorld.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(worldObject, Constants.ILLUSION_CREATOR_ID, 3);
-		assertEquals(null, worldFacade.findWorldObject(Constants.ID, 2));
+		assertEquals(null, worldFacade.findWorldObjectById(2));
 	}
 	
 	@Test
@@ -65,7 +65,7 @@ public class UTestWorldFacade {
 		Conditions.add(worldObject, Condition.INVISIBLE_CONDITION, 8, world);
 		
 		WorldFacade worldFacade = new WorldFacade(personViewingWorld, world);
-		assertEquals(null, worldFacade.findWorldObject(Constants.ID, 2));
+		assertEquals(null, worldFacade.findWorldObjectById(2));
 	}
 	
 	@Test
@@ -150,7 +150,7 @@ public class UTestWorldFacade {
 		world.addWorldObject(personViewingWorld);
 		WorldFacade worldFacade = new WorldFacade(personViewingWorld, world);
 		
-		assertEquals(personViewingWorld, worldFacade.findWorldObject(Constants.ID, personViewingWorld.getProperty(Constants.ID)));
+		assertEquals(personViewingWorld, worldFacade.findWorldObjectById(personViewingWorld.getProperty(Constants.ID)));
 	}
 	
 	@Test
@@ -171,7 +171,7 @@ public class UTestWorldFacade {
 		world.addWorldObject(personViewingWorld);
 		
 		int nightShadeId = PlantGenerator.generateNightShade(1, 1, world);
-		WorldObject nightShade = world.findWorldObject(Constants.ID, nightShadeId);
+		WorldObject nightShade = world.findWorldObjectById(nightShadeId);
 		IllusionPropertyUtils.createIllusion(personViewingWorld, personViewingWorld.getProperty(Constants.ID), world, 1, 1, 1, 1);
 		
 		WorldFacade worldFacade = new WorldFacade(personViewingWorld, world);
@@ -212,9 +212,9 @@ public class UTestWorldFacade {
 		world.addWorldObject(personViewingWorld);
 		
 		int nightShadeId = PlantGenerator.generateNightShade(1, 1, world);
-		WorldObject nightShade = world.findWorldObject(Constants.ID, nightShadeId);
+		WorldObject nightShade = world.findWorldObjectById(nightShadeId);
 		int illusionId = IllusionPropertyUtils.createIllusion(personViewingWorld, personViewingWorld.getProperty(Constants.ID), world, 1, 1, 1, 1);
-		WorldObject illusion = world.findWorldObject(Constants.ID, illusionId);
+		WorldObject illusion = world.findWorldObjectById(illusionId);
 		
 		WorldFacade worldFacade = new WorldFacade(personViewingWorld, world);
 		assertEquals(null, worldFacade.getWorldObjectMaskedByIllusion(illusion, world));

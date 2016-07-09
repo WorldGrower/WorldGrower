@@ -72,7 +72,7 @@ public class UTestInflictWoundsAction {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		int id = TerrainGenerator.generateStoneResource(0, 0, world);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = world.findWorldObjectById(id);
 		
 		assertEquals(false, Actions.INFLICT_WOUNDS_ACTION.isValidTarget(performer, target, world));
 		

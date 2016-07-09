@@ -68,7 +68,7 @@ public class UTestNonLethalMeleeAttackAction {
 	
 	private WorldObject createPerformer(World world, WorldObject organization) {
 		int performerId = commonerGenerator.generateCommoner(0, 0, world, organization);
-		WorldObject performer = world.findWorldObject(Constants.ID, performerId);
+		WorldObject performer = world.findWorldObjectById(performerId);
 		return performer;
 	}
 }

@@ -57,7 +57,7 @@ public class UTestSleepMagicAction {
 		assertEquals(false, Actions.SLEEP_MAGIC_SPELL_ACTION.isValidTarget(performer, target, world));
 		
 		int treeId = PlantGenerator.generateTree(0, 0, world);
-		WorldObject tree = world.findWorldObject(Constants.ID, treeId);
+		WorldObject tree = world.findWorldObjectById(treeId);
 		performer.setProperty(Constants.KNOWN_SPELLS, Arrays.asList(Actions.SLEEP_MAGIC_SPELL_ACTION));
 		assertEquals(false, Actions.SLEEP_MAGIC_SPELL_ACTION.isValidTarget(performer, tree, world));
 	}

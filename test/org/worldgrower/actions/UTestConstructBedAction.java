@@ -44,7 +44,7 @@ public class UTestConstructBedAction {
 		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
 		
 		int workbenchId = BuildingGenerator.generateWorkbench(0, 0, world, performer);
-		WorldObject workbench = world.findWorldObject(Constants.ID, workbenchId);
+		WorldObject workbench = world.findWorldObjectById(workbenchId);
 		
 		assertEquals(true, Actions.CONSTRUCT_BED_ACTION.isValidTarget(performer, workbench, world));
 		assertEquals(false, Actions.CONSTRUCT_BED_ACTION.isValidTarget(performer, performer, world));
@@ -58,7 +58,7 @@ public class UTestConstructBedAction {
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
 		
 		int workbenchId = BuildingGenerator.generateWorkbench(0, 0, world, performer);
-		WorldObject workbench = world.findWorldObject(Constants.ID, workbenchId);
+		WorldObject workbench = world.findWorldObjectById(workbenchId);
 		
 		assertEquals(true, Actions.CONSTRUCT_BED_ACTION.isActionPossible(performer, workbench, Args.EMPTY, world));
 	}

@@ -36,7 +36,7 @@ public class UTestStartOrganizationVoteAction {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		int id = commonerGenerator.generateCommoner(0, 0, world, organization);
-		WorldObject performer = world.findWorldObject(Constants.ID, id);
+		WorldObject performer = world.findWorldObjectById(id);
 		WorldObject target = createPerformer(3);
 		
 		Actions.START_ORGANIZATION_VOTE_ACTION.execute(performer, target, new int[] { 0 }, world);
@@ -49,7 +49,7 @@ public class UTestStartOrganizationVoteAction {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		int id = commonerGenerator.generateCommoner(0, 0, world, organization);
-		WorldObject performer = world.findWorldObject(Constants.ID, id);
+		WorldObject performer = world.findWorldObjectById(id);
 		WorldObject target = createPerformer(3);
 		
 		assertEquals(true, Actions.START_ORGANIZATION_VOTE_ACTION.isValidTarget(performer, performer, world));
@@ -61,7 +61,7 @@ public class UTestStartOrganizationVoteAction {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		int id = commonerGenerator.generateCommoner(0, 0, world, organization);
-		WorldObject performer = world.findWorldObject(Constants.ID, id);
+		WorldObject performer = world.findWorldObjectById(id);
 		
 		assertEquals(true, Actions.START_ORGANIZATION_VOTE_ACTION.isActionPossible(performer, performer, new int[] { 0 }, world));
 	}

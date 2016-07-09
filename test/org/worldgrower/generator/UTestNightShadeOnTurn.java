@@ -41,7 +41,7 @@ public class UTestNightShadeOnTurn {
 
 	private WorldObject createNightShade(World world) {
 		int nightShadeId = PlantGenerator.generateNightShade(5, 5, world);
-		WorldObject nightShade = world.findWorldObject(Constants.ID, nightShadeId);
+		WorldObject nightShade = world.findWorldObjectById(nightShadeId);
 		return nightShade;
 	}
 }

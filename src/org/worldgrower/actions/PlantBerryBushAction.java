@@ -33,7 +33,7 @@ public class PlantBerryBushAction implements BuildAction {
 		int y = (Integer)target.getProperty(Constants.Y);
 		
 		int berryBushId = PlantGenerator.generateBerryBush(x, y, world);
-		WorldObject berryBush = world.findWorldObject(Constants.ID, berryBushId);
+		WorldObject berryBush = world.findWorldObjectById(berryBushId);
 		berryBush.increment(Constants.FOOD_SOURCE, (int)(10 * SkillUtils.useSkill(performer, Constants.FARMING_SKILL, world.getWorldStateChangedListeners())));
 		
 	}

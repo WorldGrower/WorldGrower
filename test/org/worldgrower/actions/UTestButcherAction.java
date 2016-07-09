@@ -87,7 +87,7 @@ public class UTestButcherAction {
 
 	private WorldObject createCow(World world) {
 		int id = new CreatureGenerator(GroupPropertyUtils.create(null, "CowOrg", world)).generateCow(0, 0, world);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = world.findWorldObjectById(id);
 		return target;
 	}
 	

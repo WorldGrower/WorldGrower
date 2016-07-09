@@ -77,7 +77,7 @@ public class UTestPoisonAction {
 
 	private WorldObject createWell(World world) {
 		int wellId = BuildingGenerator.buildWell(0, 0, world, 1f);
-		WorldObject target = world.findWorldObject(Constants.ID, wellId);
+		WorldObject target = world.findWorldObjectById(wellId);
 		return target;
 	}
 	

@@ -16,7 +16,6 @@ package org.worldgrower.actions;
 
 import java.io.ObjectStreamException;
 
-import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
@@ -32,7 +31,7 @@ public class StartOrganizationVoteAction implements ManagedOperation {
 
 	private WorldObject getOrganization(int[] args, World world) {
 		int organizationid = args[0];
-		WorldObject organization = world.findWorldObject(Constants.ID, organizationid);
+		WorldObject organization = world.findWorldObjectById(organizationid);
 		return organization;
 	}
 

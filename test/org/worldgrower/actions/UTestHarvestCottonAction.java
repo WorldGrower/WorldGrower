@@ -74,7 +74,7 @@ public class UTestHarvestCottonAction {
 
 	private WorldObject createCottonPlant(World world) {
 		int id = PlantGenerator.generateCottonPlant(0, 0, world);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = world.findWorldObjectById(id);
 		return target;
 	}
 }

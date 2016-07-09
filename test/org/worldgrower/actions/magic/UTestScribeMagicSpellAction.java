@@ -39,7 +39,7 @@ public class UTestScribeMagicSpellAction {
 		WorldObject performer = createPerformer(2);
 
 		int libraryId = BuildingGenerator.generateLibrary(0, 0, world, performer);
-		WorldObject library = world.findWorldObject(Constants.ID, libraryId);
+		WorldObject library = world.findWorldObjectById(libraryId);
 		
 		assertEquals(true, action.isValidTarget(performer, library, world));
 		assertEquals(false, action.isValidTarget(performer, performer, world));

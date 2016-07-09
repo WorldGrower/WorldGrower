@@ -48,7 +48,7 @@ public class UTestClaimCattleAction {
 
 	private WorldObject generateCow(World world) {
 		int cowId = new CreatureGenerator(GroupPropertyUtils.create(null, "TestOrg", world)).generateCow(0, 0, world);
-		WorldObject cow = world.findWorldObject(Constants.ID, cowId);
+		WorldObject cow = world.findWorldObjectById(cowId);
 		return cow;
 	}
 	

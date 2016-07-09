@@ -49,7 +49,7 @@ public class CreateWineGoal implements Goal {
 		} else if (breweryId == null) {
 			return Goals.BREWERY_GOAL.calculateGoal(performer, world);
 		} else {
-			WorldObject brewery = world.findWorldObject(Constants.ID, breweryId);
+			WorldObject brewery = world.findWorldObjectById(breweryId);
 			return new OperationInfo(performer, brewery, Args.EMPTY, Actions.BREW_WINE_ACTION);
 		}
 	}

@@ -132,7 +132,7 @@ public class InvestigateAction implements ManagedOperation {
 		}
 				
 		int illusionCreatorId = worldObject.getProperty(Constants.ILLUSION_CREATOR_ID);
-		WorldObject illusionCreator = world.findWorldObject(Constants.ID, illusionCreatorId);
+		WorldObject illusionCreator = world.findWorldObjectById(illusionCreatorId);
 		int illusion = Constants.ILLUSION_SKILL.getLevel(illusionCreator);
 		
 		return (illusion > insight);

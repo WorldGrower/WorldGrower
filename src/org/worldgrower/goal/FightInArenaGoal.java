@@ -33,7 +33,7 @@ public class FightInArenaGoal implements Goal {
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		Integer arenaOpponentId = performer.getProperty(Constants.ARENA_OPPONENT_ID);
 		
-		WorldObject target = world.findWorldObject(Constants.ID, arenaOpponentId);
+		WorldObject target = world.findWorldObjectById(arenaOpponentId);
 		return new OperationInfo(performer, target, Args.EMPTY, Actions.NON_LETHAL_MELEE_ATTACK_ACTION);
 	}
 	

@@ -45,7 +45,7 @@ public class UTestBeastOnTurn {
 	
 	private WorldObject createRat(World world, WorldObject organization) {
 		int ratId = new CreatureGenerator(organization).generateRat(0, 0, world);
-		return world.findWorldObject(Constants.ID, ratId);
+		return world.findWorldObjectById(ratId);
 	}
 	
 	

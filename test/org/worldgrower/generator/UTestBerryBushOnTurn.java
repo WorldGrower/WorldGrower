@@ -40,7 +40,7 @@ public class UTestBerryBushOnTurn {
 
 	private WorldObject createBerryBush(World world) {
 		int berryBushId = PlantGenerator.generateBerryBush(5, 5, world);
-		WorldObject berryBush = world.findWorldObject(Constants.ID, berryBushId);
+		WorldObject berryBush = world.findWorldObjectById(berryBushId);
 		return berryBush;
 	}
 }

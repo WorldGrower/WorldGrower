@@ -229,7 +229,7 @@ public class BackgroundImpl implements Background, Serializable {
 	@Override
 	public WorldObject getRevengeTarget(World world) {
 		int id = revengeTargets.get(0);
-		return world.findWorldObject(Constants.ID, id);
+		return world.findWorldObjectById(id);
 	}
 
 	@Override

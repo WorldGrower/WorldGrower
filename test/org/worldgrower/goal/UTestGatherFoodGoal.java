@@ -48,7 +48,7 @@ public class UTestGatherFoodGoal {
 		WorldObject performer = createPerformer(2);
 		
 		int berryBushId = PlantGenerator.generateBerryBush(5, 5, world);
-		WorldObject berryBush = world.findWorldObject(Constants.ID, berryBushId);
+		WorldObject berryBush = world.findWorldObjectById(berryBushId);
 		berryBush.setProperty(Constants.FOOD_SOURCE, 500);
 		
 		createVillagersOrganization(world);
@@ -62,7 +62,7 @@ public class UTestGatherFoodGoal {
 		WorldObject performer = createPerformer(2);
 		
 		int berryBushId = PlantGenerator.generateBerryBush(20, 20, world);
-		WorldObject berryBush = world.findWorldObject(Constants.ID, berryBushId);
+		WorldObject berryBush = world.findWorldObjectById(berryBushId);
 		berryBush.setProperty(Constants.FOOD_SOURCE, 500);
 		
 		createVillagersOrganization(world);
@@ -77,7 +77,7 @@ public class UTestGatherFoodGoal {
 		
 		CreatureGenerator creatureGenerator = new CreatureGenerator(TestUtils.createIntelligentWorldObject(1, "cow"));
 		int cowId = creatureGenerator.generateCow(5, 5, world);
-		WorldObject cow = world.findWorldObject(Constants.ID, cowId);
+		WorldObject cow = world.findWorldObjectById(cowId);
 		cow.setProperty(Constants.MEAT_SOURCE, 20);
 		
 		createVillagersOrganization(world);
@@ -92,7 +92,7 @@ public class UTestGatherFoodGoal {
 		
 		CreatureGenerator creatureGenerator = new CreatureGenerator(TestUtils.createIntelligentWorldObject(1, "cow"));
 		int cowId = creatureGenerator.generateCow(5, 5, world);
-		WorldObject cow = world.findWorldObject(Constants.ID, cowId);
+		WorldObject cow = world.findWorldObjectById(cowId);
 		cow.setProperty(Constants.MEAT_SOURCE, 20);
 		cow.setProperty(Constants.CATTLE_OWNER_ID, 7);
 		
@@ -108,7 +108,7 @@ public class UTestGatherFoodGoal {
 		
 		CreatureGenerator creatureGenerator = new CreatureGenerator(TestUtils.createIntelligentWorldObject(1, "cow"));
 		int cowId = creatureGenerator.generateCow(20, 20, world);
-		WorldObject cow = world.findWorldObject(Constants.ID, cowId);
+		WorldObject cow = world.findWorldObjectById(cowId);
 		cow.setProperty(Constants.MEAT_SOURCE, 20);
 		
 		createVillagersOrganization(world);

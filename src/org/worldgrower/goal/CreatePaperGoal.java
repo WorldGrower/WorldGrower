@@ -43,7 +43,7 @@ public class CreatePaperGoal implements Goal {
 			return Goals.PAPER_MILL_GOAL.calculateGoal(performer, world);
 		}
 
-		WorldObject paperMill = world.findWorldObject(Constants.ID, paperMillId);
+		WorldObject paperMill = world.findWorldObjectById(paperMillId);
 		return new OperationInfo(performer, paperMill, Args.EMPTY, Actions.CREATE_PAPER_ACTION);
 	}
 	

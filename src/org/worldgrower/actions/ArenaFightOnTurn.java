@@ -34,7 +34,7 @@ public class ArenaFightOnTurn implements WorldOnTurn {
 			if (opponentId.intValue() != -1) {
 				if (worldObject.getProperty(Constants.HIT_POINTS).intValue() <= 1 * Item.COMBAT_MULTIPLIER || worldObject.getProperty(Constants.CONDITIONS).hasCondition(Condition.UNCONSCIOUS_CONDITION)) {
 					
-					WorldObject opponent = world.findWorldObject(Constants.ID, opponentId);
+					WorldObject opponent = world.findWorldObjectById(opponentId);
 					ArenaPropertyUtils.addPayCheck(worldObject);
 					ArenaPropertyUtils.addPayCheck(opponent);
 					

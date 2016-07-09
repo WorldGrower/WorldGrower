@@ -37,7 +37,7 @@ public class UTestFiretrapOnTurn {
 	
 		assertEquals(2 * Item.COMBAT_MULTIPLIER, rat.getProperty(Constants.HIT_POINTS).intValue());
 		
-		WorldObject firetrap = world.findWorldObject(Constants.ID, id);
+		WorldObject firetrap = world.findWorldObjectById(id);
 		firetrap.onTurn(world, new WorldStateChangedListeners());
 		
 		assertEquals(0, rat.getProperty(Constants.HIT_POINTS).intValue());
@@ -46,6 +46,6 @@ public class UTestFiretrapOnTurn {
 	
 	private WorldObject createRat(World world, WorldObject organization) {
 		int ratId = new CreatureGenerator(organization).generateRat(0, 0, world);
-		return world.findWorldObject(Constants.ID, ratId);
+		return world.findWorldObjectById(ratId);
 	}
 }

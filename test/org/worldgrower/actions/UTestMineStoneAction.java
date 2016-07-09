@@ -74,7 +74,7 @@ public class UTestMineStoneAction {
 
 	private WorldObject createStoneResource(World world) {
 		int stoneResourceId = TerrainGenerator.generateStoneResource(0, 0, world);
-		WorldObject target = world.findWorldObject(Constants.ID, stoneResourceId);
+		WorldObject target = world.findWorldObjectById(stoneResourceId);
 		return target;
 	}
 	

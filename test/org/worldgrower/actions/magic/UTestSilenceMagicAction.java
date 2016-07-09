@@ -56,7 +56,7 @@ public class UTestSilenceMagicAction {
 		assertEquals(false, Actions.SILENCE_MAGIC_ACTION.isValidTarget(performer, target, world));
 		
 		int treeId = PlantGenerator.generateTree(0, 0, world);
-		WorldObject tree = world.findWorldObject(Constants.ID, treeId);
+		WorldObject tree = world.findWorldObjectById(treeId);
 		assertEquals(false, Actions.SILENCE_MAGIC_ACTION.isValidTarget(performer, tree, world));
 	}
 	

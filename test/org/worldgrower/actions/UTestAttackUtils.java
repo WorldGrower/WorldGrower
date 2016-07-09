@@ -235,7 +235,7 @@ public class UTestAttackUtils {
 		CommonerGenerator commonerGenerator = new CommonerGenerator(0, new CommonerImageIds(), new MockCommonerNameGenerator());
 		WorldObject villagersOrganization = GroupPropertyUtils.createVillagersOrganization(world);
 		int performerId = commonerGenerator.generateCommoner(0, 0, world, villagersOrganization);
-		WorldObject performer = world.findWorldObject(Constants.ID, performerId);
+		WorldObject performer = world.findWorldObjectById(performerId);
 		return performer;
 	}
 	

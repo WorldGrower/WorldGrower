@@ -39,7 +39,7 @@ public interface World {
 	public boolean exists(int id);
 	
 	public List<WorldObject> findWorldObjects(WorldObjectCondition worldObjectCondition);
-	public<T> WorldObject findWorldObject(ManagedProperty<T> propertyKey, T value);
+	public WorldObject findWorldObjectById(int id);
 	public List<WorldObject> findWorldObjectsByProperty(ManagedProperty<?> managedProperty, WorldObjectCondition worldObjectCondition);
 	
 	public int generateUniqueId();

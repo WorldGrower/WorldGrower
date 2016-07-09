@@ -69,7 +69,7 @@ public class UTestPutItemInInventoryAction {
 
 	private WorldObject createHouse(World world, WorldObject performer) {
 		int id = BuildingGenerator.generateHouse(0, 0, world, 1f, performer);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = world.findWorldObjectById(id);
 		return target;
 	}
 	
@@ -90,7 +90,7 @@ public class UTestPutItemInInventoryAction {
 		
 		Actions.BUILD_HOUSE_ACTION.execute(performer, target, Args.EMPTY, world);
 		int houseId = performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.HOUSE).get(0);
-		WorldObject house = world.findWorldObject(Constants.ID, houseId);
+		WorldObject house = world.findWorldObjectById(houseId);
 		
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.BERRIES.generate(1f));
 		

@@ -637,7 +637,7 @@ public enum Item {
 	
 	public static WorldObject generateKey(int structureToLockId, World world) {
 		WorldObject key = Item.KEY.generate(1f);
-		WorldObject structureToLock = world.findWorldObject(Constants.ID, structureToLockId);
+		WorldObject structureToLock = world.findWorldObjectById(structureToLockId);
 		key.setProperty(Constants.NAME, getKeyName(structureToLock));
 		key.setProperty(Constants.LOCK_ID, structureToLockId);
 		return key;

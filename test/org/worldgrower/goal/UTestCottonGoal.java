@@ -53,7 +53,7 @@ public class UTestCottonGoal {
 		WorldObject performer = createPerformer();
 		
 		int cottonId = PlantGenerator.generateCottonPlant(5, 5, world);
-		WorldObject cottonPlant = world.findWorldObject(Constants.ID, cottonId);
+		WorldObject cottonPlant = world.findWorldObjectById(cottonId);
 		cottonPlant.setProperty(Constants.COTTON_SOURCE, 100);
 		
 		assertEquals(Actions.HARVEST_COTTON_ACTION, goal.calculateGoal(performer, world).getManagedOperation());

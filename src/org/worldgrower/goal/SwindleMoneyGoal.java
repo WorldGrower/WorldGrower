@@ -33,7 +33,7 @@ public class SwindleMoneyGoal implements Goal {
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		if (isDisguised(performer)) {
 			int disguisedPersonId = performer.getProperty(Constants.FACADE).getProperty(Constants.ID);
-			WorldObject disguisedPerson = world.findWorldObject(Constants.ID, disguisedPersonId);
+			WorldObject disguisedPerson = world.findWorldObjectById(disguisedPersonId);
 			Integer disguisedPersonMateId = disguisedPerson.getProperty(Constants.MATE_ID);
 			if (disguisedPersonMateId != null) {
 				WorldObject disguisedPersonMate = GoalUtils.findNearestPersonLookingLike(performer, disguisedPersonMateId, world);

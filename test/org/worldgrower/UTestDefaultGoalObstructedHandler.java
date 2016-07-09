@@ -244,7 +244,7 @@ public class UTestDefaultGoalObstructedHandler {
 		WorldObject villagersOrganization = createVillagersOrganization(world);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(2, Constants.GROUP, new IdList().add(villagersOrganization));
 		int targetId = PlantGenerator.generateTree(0, 0, world);
-		WorldObject actionTarget = world.findWorldObject(Constants.ID, targetId);
+		WorldObject actionTarget = world.findWorldObjectById(targetId);
 		world.addWorldObject(performer);
 		world.addWorldObject(TestUtils.createIntelligentWorldObject(3, "observer"));
 		
@@ -306,7 +306,7 @@ public class UTestDefaultGoalObstructedHandler {
 		
 		CreatureGenerator creatureGenerator = new CreatureGenerator(TestUtils.createIntelligentWorldObject(1, "cow"));
 		int cowId = creatureGenerator.generateCow(0, 0, world);
-		WorldObject cow = world.findWorldObject(Constants.ID, cowId);
+		WorldObject cow = world.findWorldObjectById(cowId);
 		
 		assertEquals(false, cow.getProperty(Constants.ANIMAL_ENEMIES).contains(performer));
 		

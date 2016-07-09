@@ -79,7 +79,7 @@ public class UTestEatNightShadeAction {
 
 	private WorldObject createNightShade(World world) {
 		int nightShadeId = PlantGenerator.generateNightShade(0, 0, world);
-		WorldObject nightShade = world.findWorldObject(Constants.ID, nightShadeId);
+		WorldObject nightShade = world.findWorldObjectById(nightShadeId);
 		nightShade.setProperty(Constants.NIGHT_SHADE_SOURCE, 100);
 		return nightShade;
 	}

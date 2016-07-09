@@ -92,7 +92,7 @@ public class GuiAskQuestionAction extends AbstractAction implements Answerer {
 		for(List<Question> questionList : getQuestionPhrases().values()) {
 			for(Question question : questionList) {
 				if (question.getSubjectId() != -1) {
-					WorldObject subject = world.findWorldObject(Constants.ID, question.getSubjectId());
+					WorldObject subject = world.findWorldObjectById(question.getSubjectId());
 					ImageIds subjectImageId = subject.getProperty(Constants.IMAGE_ID);
 					subjectImageIds.put(question.getSubjectId(), subjectImageId);
 				}
@@ -144,7 +144,7 @@ public class GuiAskQuestionAction extends AbstractAction implements Answerer {
 
 	@Override
 	public String getDescription(int worldObjectId) {
-		return world.findWorldObject(Constants.ID, worldObjectId).getProperty(Constants.NAME);
+		return world.findWorldObjectById(worldObjectId).getProperty(Constants.NAME);
 	}
 
 	@Override

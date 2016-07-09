@@ -70,7 +70,7 @@ public class CommonerGenerator implements Serializable {
 
 	public int generateCursedCommoner(int x, int y, World world, WorldObject organization) {
 		int id = generateCommoner(x, y, world, organization);
-		WorldObject cursedCommoner = world.findWorldObject(Constants.ID, id);
+		WorldObject cursedCommoner = world.findWorldObjectById(id);
 		cursedCommoner.setProperty(Constants.CURSE, Curse.TOAD_CURSE);
 		
 		return id;

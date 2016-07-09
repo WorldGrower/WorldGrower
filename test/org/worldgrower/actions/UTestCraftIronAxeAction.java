@@ -72,7 +72,7 @@ public class UTestCraftIronAxeAction {
 
 	private WorldObject createSmith(World world, WorldObject performer) {
 		int smithId = BuildingGenerator.generateSmith(0, 0, world, performer);
-		WorldObject target = world.findWorldObject(Constants.ID, smithId);
+		WorldObject target = world.findWorldObjectById(smithId);
 		return target;
 	}
 	

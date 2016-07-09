@@ -33,7 +33,7 @@ public class UTestProtectOneSelfGoal {
 		WorldObject organization = createVillagersOrganization(world);
 		int performerId = commonerGenerator.generateCommoner(5, 5, world, organization);
 		generateEnemy(7, 7, organization, world);
-		WorldObject performer = world.findWorldObject(Constants.ID, performerId);
+		WorldObject performer = world.findWorldObjectById(performerId);
 		
 		assertEquals(Actions.MOVE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 		assertEquals(true, goal.calculateGoal(performer, world).firstArgsIs(-1));
@@ -45,14 +45,14 @@ public class UTestProtectOneSelfGoal {
 		WorldObject organization = createVillagersOrganization(world);
 		int performerId = commonerGenerator.generateCommoner(0, 0, world, organization);
 		generateEnemy(1, 1, organization, world);
-		WorldObject performer = world.findWorldObject(Constants.ID, performerId);
+		WorldObject performer = world.findWorldObjectById(performerId);
 		
 		assertEquals(Actions.MELEE_ATTACK_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
 	
 	private void generateEnemy(int x, int y, WorldObject organization, World world) {
 		int id = commonerGenerator.generateCommoner(x, y, world, organization);
-		WorldObject enemy = world.findWorldObject(Constants.ID, id);
+		WorldObject enemy = world.findWorldObjectById(id);
 		enemy.getProperty(Constants.GROUP).removeAll();
 	}
 	
@@ -62,7 +62,7 @@ public class UTestProtectOneSelfGoal {
 		WorldObject organization = createVillagersOrganization(world);
 		int performerId = commonerGenerator.generateCommoner(3, 3, world, organization);
 		generateEnemy(7, 7, organization, world);
-		WorldObject performer = world.findWorldObject(Constants.ID, performerId);
+		WorldObject performer = world.findWorldObjectById(performerId);
 		
 		assertEquals(Actions.MOVE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 		assertEquals(-1, goal.calculateGoal(performer, world).getArgs()[0]);
@@ -75,7 +75,7 @@ public class UTestProtectOneSelfGoal {
 		WorldObject organization = createVillagersOrganization(world);
 		int performerId = commonerGenerator.generateCommoner(1, 9, world, organization);
 		generateEnemy(1, 1, organization, world);
-		WorldObject performer = world.findWorldObject(Constants.ID, performerId);
+		WorldObject performer = world.findWorldObjectById(performerId);
 		
 		assertEquals(Actions.MOVE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 		assertEquals(-1, goal.calculateGoal(performer, world).getArgs()[0]);
@@ -88,7 +88,7 @@ public class UTestProtectOneSelfGoal {
 		WorldObject organization = createVillagersOrganization(world);
 		int performerId = commonerGenerator.generateCommoner(0, 1, world, organization);
 		generateEnemy(2, 0, organization, world);
-		WorldObject performer = world.findWorldObject(Constants.ID, performerId);
+		WorldObject performer = world.findWorldObjectById(performerId);
 		
 		//TODO: wouldn't it be better if moveArgs were 0,1?
 		assertEquals(Actions.REST_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
@@ -100,7 +100,7 @@ public class UTestProtectOneSelfGoal {
 		WorldObject organization = createVillagersOrganization(world);
 		int performerId = commonerGenerator.generateCommoner(1, 2, world, organization);
 		generateEnemy(3, 1, organization, world);
-		WorldObject performer = world.findWorldObject(Constants.ID, performerId);
+		WorldObject performer = world.findWorldObjectById(performerId);
 		
 		assertEquals(Actions.MOVE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 		assertEquals(-1, goal.calculateGoal(performer, world).getArgs()[0]);
@@ -113,7 +113,7 @@ public class UTestProtectOneSelfGoal {
 		WorldObject organization = createVillagersOrganization(world);
 		int performerId = commonerGenerator.generateCommoner(3, 3, world, organization);
 		generateEnemy(12, 12, organization, world);
-		WorldObject performer = world.findWorldObject(Constants.ID, performerId);
+		WorldObject performer = world.findWorldObjectById(performerId);
 		
 		assertEquals(Actions.MOVE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 		assertEquals(-1, goal.calculateGoal(performer, world).getArgs()[0]);
@@ -126,7 +126,7 @@ public class UTestProtectOneSelfGoal {
 		WorldObject organization = createVillagersOrganization(world);
 		int performerId = commonerGenerator.generateCommoner(3, 3, world, organization);
 		generateEnemy(7, 7, organization, world);
-		WorldObject performer = world.findWorldObject(Constants.ID, performerId);
+		WorldObject performer = world.findWorldObjectById(performerId);
 		
 		goal.calculateGoal(performer, world).perform(world);
 		assertEquals(2, performer.getProperty(Constants.X).intValue());
@@ -155,7 +155,7 @@ public class UTestProtectOneSelfGoal {
 		WorldObject organization = createVillagersOrganization(world);
 		int performerId = commonerGenerator.generateCommoner(8, 8, world, organization);
 		generateEnemy(0, 0, organization, world);
-		WorldObject performer = world.findWorldObject(Constants.ID, performerId);
+		WorldObject performer = world.findWorldObjectById(performerId);
 		
 		goal.calculateGoal(performer, world).perform(world);
 		assertEquals(7, performer.getProperty(Constants.X).intValue());
@@ -173,12 +173,12 @@ public class UTestProtectOneSelfGoal {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject organization = createVillagersOrganization(world);
 		int performerId = commonerGenerator.generateCommoner(5, 5, world, organization);
-		WorldObject performer = world.findWorldObject(Constants.ID, performerId);
+		WorldObject performer = world.findWorldObjectById(performerId);
 		
 		assertEquals(true, goal.isGoalMet(performer, world));
 		
 		int targetId = commonerGenerator.generateCommoner(7, 7, world, organization);
-		WorldObject target = world.findWorldObject(Constants.ID, targetId);
+		WorldObject target = world.findWorldObjectById(targetId);
 		target.setProperty(Constants.GROUP, new IdList());
 		assertEquals(false, goal.isGoalMet(performer, world));
 	}

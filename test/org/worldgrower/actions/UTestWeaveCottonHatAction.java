@@ -44,7 +44,7 @@ public class UTestWeaveCottonHatAction {
 		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
 
 		int weaveryId = BuildingGenerator.generateWeavery(0, 0, world, performer);
-		WorldObject target = world.findWorldObject(Constants.ID, weaveryId);
+		WorldObject target = world.findWorldObjectById(weaveryId);
 		
 		assertEquals(false, Actions.WEAVE_COTTON_HAT_ACTION.isValidTarget(performer, performer, world));
 		assertEquals(true, Actions.WEAVE_COTTON_HAT_ACTION.isValidTarget(performer, target, world));
@@ -59,7 +59,7 @@ public class UTestWeaveCottonHatAction {
 		performer.setProperty(Constants.Y, 0);
 
 		int weaveryId = BuildingGenerator.generateWeavery(0, 0, world, performer);
-		WorldObject target = world.findWorldObject(Constants.ID, weaveryId);
+		WorldObject target = world.findWorldObjectById(weaveryId);
 		
 		assertEquals(true, Actions.WEAVE_COTTON_HAT_ACTION.isActionPossible(performer, target, Args.EMPTY, world));
 	}

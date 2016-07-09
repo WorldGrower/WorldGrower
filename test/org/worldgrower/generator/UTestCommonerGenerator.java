@@ -50,7 +50,7 @@ public class UTestCommonerGenerator {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject villagersOrganization = GroupPropertyUtils.createVillagersOrganization(world);
 		int commonerId = commonerGenerator.generateCommoner(0, 0, world, villagersOrganization);
-		WorldObject commoner = world.findWorldObject(Constants.ID, commonerId);
+		WorldObject commoner = world.findWorldObjectById(commonerId);
 
 		assertEquals(true, commoner.isControlledByAI());
 		assertEquals(true, commoner.hasIntelligence());
@@ -71,7 +71,7 @@ public class UTestCommonerGenerator {
 		originalWorldObject.setProperty(Constants.DEATH_REASON, "dead");
 		
 		int skeletalRemainsId = CommonerGenerator.generateSkeletalRemains(originalWorldObject, world);
-		WorldObject skeletalRemains = world.findWorldObject(Constants.ID, skeletalRemainsId);
+		WorldObject skeletalRemains = world.findWorldObjectById(skeletalRemainsId);
 		
 		assertEquals(true, skeletalRemains.getProperty(Constants.DECEASED_WORLD_OBJECT));
 		assertEquals(5, skeletalRemains.getProperty(Constants.X).intValue());

@@ -30,7 +30,7 @@ public class UTestJailCache {
 		assertEquals(1, world.getWorldObjectsCache().getWorldObjectsFor(0, 0).size());
 		
 		Integer jailId = world.getWorldObjectsCache().getWorldObjectsFor(0, 0).get(0).getProperty(Constants.ID);
-		world.removeWorldObject(world.findWorldObject(Constants.ID, jailId));
+		world.removeWorldObject(world.findWorldObjectById(jailId));
 		
 		assertEquals(0, world.getWorldObjectsCache().getWorldObjectsFor(0, 0).size());
 	}

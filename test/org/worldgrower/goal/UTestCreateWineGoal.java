@@ -56,7 +56,7 @@ public class UTestCreateWineGoal {
 		WorldObject performer = createPerformer();
 		
 		int cottonId = PlantGenerator.generateGrapeVine(5, 5, world);
-		WorldObject cottonPlant = world.findWorldObject(Constants.ID, cottonId);
+		WorldObject cottonPlant = world.findWorldObjectById(cottonId);
 		cottonPlant.setProperty(Constants.GRAPE_SOURCE, 100);
 		
 		assertEquals(Actions.HARVEST_GRAPES_ACTION, goal.calculateGoal(performer, world).getManagedOperation());

@@ -69,7 +69,7 @@ public class IllusionPropertyUtils {
 	
 	private static WorldObject mapIdToWorldObject(WorldObject performer, int id, int width, int height, World world) {
 		if (world.exists(id)) {
-			return world.findWorldObject(Constants.ID, id);
+			return world.findWorldObjectById(id);
 		} else {
 			List<WorldObject> illusionSources = getIllusionSources(performer, width, height, world);
 			for(WorldObject illusionSource : illusionSources) {

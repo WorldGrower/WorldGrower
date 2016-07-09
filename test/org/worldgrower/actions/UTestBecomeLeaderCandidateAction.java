@@ -33,7 +33,7 @@ public class UTestBecomeLeaderCandidateAction {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		int id = BuildingGenerator.generateVotingBox(0, 0, world);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = world.findWorldObjectById(id);
 		
 		assertEquals(false, target.getProperty(Constants.CANDIDATES).contains(performer));
 		Actions.BECOME_LEADER_CANDIDATE_ACTION.execute(performer, target, Args.EMPTY, world);
@@ -46,7 +46,7 @@ public class UTestBecomeLeaderCandidateAction {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		int id = BuildingGenerator.generateVotingBox(0, 0, world);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = world.findWorldObjectById(id);
 		target.setProperty(Constants.ORGANIZATION_ID, 7);
 		
 		assertEquals(true, Actions.BECOME_LEADER_CANDIDATE_ACTION.isValidTarget(performer, target, world));
@@ -58,7 +58,7 @@ public class UTestBecomeLeaderCandidateAction {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		int id = BuildingGenerator.generateVotingBox(0, 0, world);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = world.findWorldObjectById(id);
 		target.setProperty(Constants.ORGANIZATION_ID, 7);
 		target.setProperty(Constants.TURN_COUNTER, 150);
 		

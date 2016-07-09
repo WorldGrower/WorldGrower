@@ -155,8 +155,8 @@ public class WorldFacade implements World {
 	}
 
 	@Override
-	public <T> WorldObject findWorldObject(ManagedProperty<T> propertyKey, T value) {
-		WorldObject worldObject = world.findWorldObject(propertyKey, value);
+	public WorldObject findWorldObjectById(int id) {
+		WorldObject worldObject = world.findWorldObjectById(id);
 		
 		List<WorldObject> worldObjects = new ArrayList<>();
 		worldObjects.add(worldObject);
@@ -177,7 +177,7 @@ public class WorldFacade implements World {
 	@Override
 	public boolean exists(int id) {
 		if (world.exists(id)) {
-			WorldObject worldObject = world.findWorldObject(Constants.ID, id);
+			WorldObject worldObject = world.findWorldObjectById(id);
 			
 			List<WorldObject> worldObjects = new ArrayList<>();
 			worldObjects.add(worldObject);

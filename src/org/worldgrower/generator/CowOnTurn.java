@@ -61,7 +61,7 @@ public class CowOnTurn implements OnTurn {
 	private void checkLeash(WorldObject worldObject, World world) {
 		Integer leashId = worldObject.getProperty(Constants.LEASH_ID);
 		if (leashId != null) {
-			WorldObject leashOwner = world.findWorldObject(Constants.ID, leashId);
+			WorldObject leashOwner = world.findWorldObjectById(leashId);
 			TaskCalculator taskCalculator = new TaskCalculatorImpl();
 			OperationInfo meleeAttackOperationInfo = new OperationInfo(worldObject, leashOwner, Args.EMPTY, Actions.MELEE_ATTACK_ACTION);
 			List<OperationInfo> tasks = taskCalculator.calculateTask(worldObject, world, meleeAttackOperationInfo);
@@ -92,7 +92,7 @@ public class CowOnTurn implements OnTurn {
 						TerrainType terrainType = world.getTerrain().getTerrainInfo(x, y).getTerrainType();
 						if (terrainType != TerrainType.WATER) {
 							int childId = addWorldObjectFunction.addToWorld(x, y, world);
-							WorldObject child = world.findWorldObject(Constants.ID, childId);
+							WorldObject child = world.findWorldObjectById(childId);
 							child.setProperty(Constants.CATTLE_OWNER_ID, worldObject.getProperty(Constants.CATTLE_OWNER_ID));
 							
 							worldObject.removeProperty(Constants.PREGNANCY);

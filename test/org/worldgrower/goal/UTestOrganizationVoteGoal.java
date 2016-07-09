@@ -52,7 +52,7 @@ public class UTestOrganizationVoteGoal {
 		performer.setProperty(Constants.PROFESSION, Professions.FARMER_PROFESSION);
 		
 		int votingBoxId = VotingPropertyUtils.createVotingBox(performer, organization, world);
-		WorldObject votingBox = world.findWorldObject(Constants.ID, votingBoxId);
+		WorldObject votingBox = world.findWorldObjectById(votingBoxId);
 		votingBox.getProperty(Constants.CANDIDATES).add(performer);
 		
 		assertEquals(Actions.VOTE_FOR_LEADER_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
@@ -75,7 +75,7 @@ public class UTestOrganizationVoteGoal {
 		performer.setProperty(Constants.PROFESSION, Professions.FARMER_PROFESSION);
 		
 		int votingBoxId = VotingPropertyUtils.createVotingBox(performer, organization, world);
-		WorldObject votingBox = world.findWorldObject(Constants.ID, votingBoxId);
+		WorldObject votingBox = world.findWorldObjectById(votingBoxId);
 		votingBox.setProperty(Constants.TURN_COUNTER, 400);
 		
 		assertEquals(false, goal.isGoalMet(performer, world));
@@ -83,7 +83,7 @@ public class UTestOrganizationVoteGoal {
 	
 	private WorldObject createCommoner(World world, WorldObject organization) {
 		int commonerId = commonerGenerator.generateCommoner(0, 0, world, organization);
-		WorldObject commoner = world.findWorldObject(Constants.ID, commonerId);
+		WorldObject commoner = world.findWorldObjectById(commonerId);
 		return commoner;
 	}
 }

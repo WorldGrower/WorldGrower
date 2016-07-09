@@ -80,7 +80,7 @@ public abstract class AbstractChangeOpinionConversation implements Conversation 
 		List<WorldObject> subjects = new ArrayList<>();
 		for (int subjectId : subjectIds) {
 			if (subjectId != performer.getProperty(Constants.ID)) {
-				WorldObject subject = world.findWorldObject(Constants.ID, subjectId);
+				WorldObject subject = world.findWorldObjectById(subjectId);
 				int relationshipValuePerformer = target.getProperty(Constants.RELATIONSHIPS).getValue(performer);
 				int relationshipValueSubject = target.getProperty(Constants.RELATIONSHIPS).getValue(subject);
 				if (relationshipValueSubject < relationshipValuePerformer) {

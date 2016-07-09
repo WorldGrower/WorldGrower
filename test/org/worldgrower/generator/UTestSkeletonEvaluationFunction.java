@@ -60,7 +60,7 @@ public class UTestSkeletonEvaluationFunction {
 		originalWorldObject.setProperty(Constants.INVENTORY, new WorldObjectContainer());
 		originalWorldObject.setProperty(Constants.DEATH_REASON, "drowning");
 		int skeletonId = CommonerGenerator.generateSkeletalRemains(originalWorldObject, world);
-		WorldObject skeleton = world.findWorldObject(Constants.ID, skeletonId);
+		WorldObject skeleton = world.findWorldObjectById(skeletonId);
 		return skeleton;
 	}
 }

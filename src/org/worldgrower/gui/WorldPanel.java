@@ -346,7 +346,7 @@ public final class WorldPanel extends JPanel {
 			if (target.hasProperty(Constants.HIT_POINTS)
 					&& world.exists(target)
 					&& !target.equals(playerCharacter)) {
-				target = world.findWorldObject(Constants.ID, target.getProperty(Constants.ID));
+				target = world.findWorldObjectById(target.getProperty(Constants.ID));
 				int targetX = target.getProperty(Constants.X);
 				int targetY = target.getProperty(Constants.Y);
 				g.setColor(Color.RED);

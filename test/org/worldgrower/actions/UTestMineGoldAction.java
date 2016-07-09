@@ -74,7 +74,7 @@ public class UTestMineGoldAction {
 
 	private WorldObject createGoldResource(World world) {
 		int id = TerrainGenerator.generateGoldResource(0, 0, world);
-		WorldObject target = world.findWorldObject(Constants.ID, id);
+		WorldObject target = world.findWorldObjectById(id);
 		return target;
 	}
 	

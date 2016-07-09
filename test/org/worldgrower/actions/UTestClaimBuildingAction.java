@@ -88,7 +88,7 @@ public class UTestClaimBuildingAction {
 
 	private WorldObject generateBrewery(World world, WorldObject performer) {
 		int breweryId = BuildingGenerator.generateBrewery(0, 0, world, performer);
-		WorldObject brewery = world.findWorldObject(Constants.ID, breweryId);
+		WorldObject brewery = world.findWorldObjectById(breweryId);
 		return brewery;
 	}
 	

@@ -62,7 +62,7 @@ public class FurnitureGoal implements Goal {
 			if (workbenchId == null) {
 				return Goals.WORKBENCH_GOAL.calculateGoal(performer, world);
 			} else {
-				WorldObject workbench = world.findWorldObject(Constants.ID, workbenchId);
+				WorldObject workbench = world.findWorldObjectById(workbenchId);
 				return new OperationInfo(performer, workbench, Args.EMPTY, Actions.CONSTRUCT_BED_ACTION);
 			}
 		} else {

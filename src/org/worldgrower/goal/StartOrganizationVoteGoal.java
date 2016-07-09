@@ -35,7 +35,7 @@ public class StartOrganizationVoteGoal implements Goal {
 		IdList organizationIds = performer.getProperty(Constants.GROUP);
 		
 		for(int organizationId : organizationIds.getIds()) {
-			WorldObject organization = world.findWorldObject(Constants.ID, organizationId);
+			WorldObject organization = world.findWorldObjectById(organizationId);
 			if (organization.getProperty(Constants.ORGANIZATION_LEADER_ID) == null) {
 				if (!VotingPropertyUtils.votingBoxExistsForOrganization(organization, world)) {
 					return new OperationInfo(performer, performer, new int[] {organizationId}, Actions.START_ORGANIZATION_VOTE_ACTION);
@@ -54,7 +54,7 @@ public class StartOrganizationVoteGoal implements Goal {
 		IdList organizationIds = performer.getProperty(Constants.GROUP);
 		
 		for(int organizationId : organizationIds.getIds()) {
-			WorldObject organization = world.findWorldObject(Constants.ID, organizationId);
+			WorldObject organization = world.findWorldObjectById(organizationId);
 			if (organization.getProperty(Constants.ORGANIZATION_LEADER_ID) == null) {
 				if (!VotingPropertyUtils.votingBoxExistsForOrganization(organization, world)) {
 					return false;

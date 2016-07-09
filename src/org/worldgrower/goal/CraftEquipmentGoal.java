@@ -47,7 +47,7 @@ public class CraftEquipmentGoal implements Goal {
 			int ironGauntletsCount = inventory.getWorldObjects(Constants.EQUIPMENT_SLOT, Constants.ARMS_EQUIPMENT).size();
 			int ironGreavesCount = inventory.getWorldObjects(Constants.EQUIPMENT_SLOT, Constants.LEGS_EQUIPMENT).size();
 			int ironBootsCount = inventory.getWorldObjects(Constants.EQUIPMENT_SLOT, Constants.FEET_EQUIPMENT).size();
-			WorldObject smith = world.findWorldObject(Constants.ID, smithId);
+			WorldObject smith = world.findWorldObjectById(smithId);
 			
 			if (ironClaymoreCount == 0){
 				return new OperationInfo(performer, smith, Args.EMPTY, Actions.CRAFT_IRON_CLAYMORE_ACTION);
