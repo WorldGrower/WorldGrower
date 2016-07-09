@@ -16,15 +16,20 @@ package org.worldgrower.conversation;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.OperationInfo;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
 import org.worldgrower.deity.Deity;
+import org.worldgrower.goal.Goals;
+import org.worldgrower.history.Turn;
 
 public class UTestSwitchDeityConversation {
 
@@ -116,5 +121,21 @@ public class UTestSwitchDeityConversation {
 		
 		target.setProperty(Constants.DEITY, Deity.HADES);
 		assertEquals(false, conversation.isConversationAvailable(performer, target, null, world));
+	}
+	
+	@Test
+	public void testGetPreviousResponseIds() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.DEITY, Deity.HADES);
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, Goals.CHILDREN_GOAL);
+		target.setProperty(Constants.DEITY, Deity.DEMETER);
+		
+		assertEquals(Arrays.asList(), conversation.getPreviousResponseIds(performer, target, world));
+	
+		int[] args = Conversations.createArgs(conversation, null, 0);
+		Actions.TALK_ACTION.execute(performer, target, args, world);
+		world.getHistory().actionPerformed(new OperationInfo(performer, target, args, Actions.TALK_ACTION), new Turn());
+		
+		assertEquals(Arrays.asList(1), conversation.getPreviousResponseIds(performer, target, world));
 	}
 }
