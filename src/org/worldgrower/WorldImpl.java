@@ -74,7 +74,7 @@ public class WorldImpl implements World, Serializable {
 	public void addWorldObject(WorldObject worldObject) {
 		worldObjects.add(worldObject);
 		idToIndexMapping.idAdded(worldObjects);
-		propertyCache.idAdded(worldObject, this);
+		propertyCache.idAdded(worldObject);
 		locationWorldObjectsCache.add(worldObject);
 		jailCache.add(worldObject);
 	}
@@ -124,6 +124,7 @@ public class WorldImpl implements World, Serializable {
 		return propertyCache.findWorldObjectsByProperty(managedProperty, worldObjectCondition, this);
 	}
 	
+	@Override
 	public<T> WorldObject findWorldObject(ManagedProperty<T> propertyKey, T value) {
 		if (propertyKey == Constants.ID) {
 			return findWorldObjectById((Integer) value);

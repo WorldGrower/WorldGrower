@@ -30,15 +30,12 @@ class PropertyCache implements Serializable {
 	@SuppressWarnings("unchecked")
 	private final List<Integer>[] propertyToIdsMapping = new ArrayList[PROPERTY_COUNT];
 	
-	public void idAdded(WorldObject worldObject, World world) {
+	public void idAdded(WorldObject worldObject) {
 		for(int i=0; i <PROPERTY_COUNT; i++) {
 			ManagedProperty<?> property = ALL_PROPERTIES[i];
 			if (worldObject.hasProperty(property)) {
 				List<Integer> ids = propertyToIdsMapping[i];
-				if (ids == null) {
-					ids = initializeIdsList(property, world);
-					propertyToIdsMapping[i] = ids;
-				} else {
+				if (ids != null) {
 					ids.add(worldObject.getProperty(Constants.ID));
 				}
 			}
