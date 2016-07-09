@@ -494,6 +494,7 @@ public enum Item {
 			properties.put(Constants.PRICE, 20);
 			properties.put(Constants.SELLABLE, false);
 			properties.put(Constants.DAMAGE, 1 * COMBAT_MULTIPLIER);
+			properties.put(Constants.DAMAGE_TYPE, DamageType.PIERCING);
 			properties.put(Constants.WEIGHT, 3);
 			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
