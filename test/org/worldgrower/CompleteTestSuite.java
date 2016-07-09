@@ -701,7 +701,8 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestSwindleMoneyGoal.class,
 	UTestSecludedAction.class,
 	UTestObjectUtils.class,
-	UTestDeityExplanationConversation.class
+	UTestDeityExplanationConversation.class,
+	UTestPropertyCache.class
 })
 public class CompleteTestSuite {
 }
