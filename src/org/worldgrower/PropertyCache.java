@@ -16,7 +16,11 @@ package org.worldgrower;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 import org.worldgrower.attribute.ManagedProperty;
 
@@ -24,62 +28,42 @@ import org.worldgrower.attribute.ManagedProperty;
  * This class holds info about which WorldObjects have a certain ManagedProperty.
  */
 class PropertyCache implements Serializable {
-	private static final int PROPERTY_COUNT = Constants.ALL_PROPERTIES.size();
-	private static final ManagedProperty<?>[]  ALL_PROPERTIES = Constants.ALL_PROPERTIES.toArray(new ManagedProperty[0]);
-	
-	@SuppressWarnings("unchecked")
-	private final List<Integer>[] propertyToIdsMapping = new ArrayList[PROPERTY_COUNT];
+
+	private final Map<ManagedProperty<?>, List<Integer>> propertyToIdsMapping = new HashMap<>();
 	
 	public void idAdded(WorldObject worldObject) {
-		for(int i=0; i <PROPERTY_COUNT; i++) {
-			ManagedProperty<?> property = ALL_PROPERTIES[i];
+		// only add properties to already cached properties
+		for(Entry<ManagedProperty<?>, List<Integer>> entry : propertyToIdsMapping.entrySet()) {
+			ManagedProperty<?> property = entry.getKey();
 			if (worldObject.hasProperty(property)) {
-				List<Integer> ids = propertyToIdsMapping[i];
-				if (ids != null) {
-					ids.add(worldObject.getProperty(Constants.ID));
-				}
+				List<Integer> ids = entry.getValue();
+				ids.add(worldObject.getProperty(Constants.ID));
 			}
 		}
 	}
 	
 	public void idRemoved(WorldObject worldObjectToRemove) {
 		Integer id = worldObjectToRemove.getProperty(Constants.ID);
-		for(int i=0; i <PROPERTY_COUNT; i++) {
-			List<Integer> ids = propertyToIdsMapping[i];
-			if (ids != null) {
-				ids.remove(id);
-			}
+		for(Entry<ManagedProperty<?>, List<Integer>> entry : propertyToIdsMapping.entrySet()) {
+			List<Integer> ids = entry.getValue();
+			//make sure that id is an Integer, not an int
+			ids.remove(id);
 		}
 	}
 	
 	public List<WorldObject> findWorldObjectsByProperty(ManagedProperty<?> managedProperty, WorldObjectCondition worldObjectCondition, World world) {
-		int index = managedProperty.getOrdinal();
-		List<Integer> ids = propertyToIdsMapping[index];
+		List<Integer> ids = propertyToIdsMapping.get(managedProperty);
 		if (ids == null) {
-			ids = initializeIdsList(managedProperty, world);
-			propertyToIdsMapping[index] = ids;
-		}
-		return mapIdsToWorldObjects(ids, worldObjectCondition, world);
-	}
-
-	private List<WorldObject> mapIdsToWorldObjects(List<Integer> ids, WorldObjectCondition worldObjectCondition, World world) {
-		List<WorldObject> result = new ArrayList<>(ids.size());
-		for(Integer id : ids) {
-			WorldObject worldObject = world.findWorldObject(Constants.ID, id);
-			if (worldObjectCondition.isWorldObjectValid(worldObject)) {
-				result.add(worldObject);
+			ids = new ArrayList<>();
+			for(WorldObject worldObject : world.getWorldObjects()) {
+				if (worldObject.hasProperty(managedProperty)) {
+					ids.add(worldObject.getProperty(Constants.ID));
+				}
 			}
-		}
-		return result;
-	}
 
-	private List<Integer> initializeIdsList(ManagedProperty<?> managedProperty, World world) {
-		List<Integer> ids = new ArrayList<Integer>();
-		for(WorldObject worldObject : world.getWorldObjects()) {
-			if (worldObject.hasProperty(managedProperty)) {
-				ids.add(worldObject.getProperty(Constants.ID));
-			}
+			propertyToIdsMapping.put(managedProperty, ids);
 		}
-		return ids;
+		return ids.stream().map(i -> world.findWorldObject(Constants.ID, i)).filter(w -> worldObjectCondition.isWorldObjectValid(w)).collect(Collectors.toList());
+		
 	}
 }
