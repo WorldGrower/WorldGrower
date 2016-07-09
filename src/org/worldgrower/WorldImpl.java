@@ -74,7 +74,7 @@ public class WorldImpl implements World, Serializable {
 	public void addWorldObject(WorldObject worldObject) {
 		worldObjects.add(worldObject);
 		idToIndexMapping.idAdded(worldObjects);
-		propertyCache.idAdded(worldObject);
+		propertyCache.idAdded(worldObject, this);
 		locationWorldObjectsCache.add(worldObject);
 		jailCache.add(worldObject);
 	}
