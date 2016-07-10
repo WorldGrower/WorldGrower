@@ -48,7 +48,8 @@ public abstract class AbstractChangeOpinionConversation implements Conversation 
 			}
 		} else {
 			HistoryItem lastHistoryItem = historyItems.get(historyItems.size() - 1);
-			boolean targetAcceptedInPast = targetAccepts(lastHistoryItem.getOperationInfo().getTarget(), performer);
+			int lastResponse = (Integer) lastHistoryItem.getAdditionalValue();
+			boolean targetAcceptedInPast = (lastResponse == YES);
 			boolean targetAcceptsNow = targetAccepts(target, performer);
 			if (targetAcceptedInPast == targetAcceptsNow) {
 				replyId = ALREADY_ASKED_SAME;
@@ -122,6 +123,9 @@ public abstract class AbstractChangeOpinionConversation implements Conversation 
 		} else if (targetDeclines) {
 			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -10, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 		}
+		
+		//TODO: if there are more return values, set return value Object on execute method, search for any other TODO like this
+		world.getHistory().setNextAdditionalValue(replyIndex);
 	}
 	
 	public abstract void handleYesResponse(WorldObject performer, WorldObject target, WorldObject subject, World world);

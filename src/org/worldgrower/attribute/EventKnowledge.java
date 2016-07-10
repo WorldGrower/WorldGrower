@@ -88,8 +88,8 @@ public class EventKnowledge implements Knowledge, Serializable {
 		HistoryItem historyItem = world.getHistory().getHistoryItem(historyId);
 		int turn = historyItem.getTurn().getValue();
 		if (turnFunction.apply(turn)) {
-			return Arrays.asList(actions).contains(historyItem.getOperationInfo().getManagedOperation())
-					&& targetFunction.apply(historyItem.getOperationInfo().getTarget());
+			return Arrays.asList(actions).contains(historyItem.getManagedOperation())
+					&& targetFunction.apply(historyItem.getTarget());
 		} else {
 			return false;
 		}

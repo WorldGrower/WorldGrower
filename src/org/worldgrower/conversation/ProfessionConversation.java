@@ -34,7 +34,9 @@ public class ProfessionConversation implements Conversation {
 	@Override
 	public Response getReplyPhrase(ConversationContext conversationContext) {
 		List<HistoryItem> historyItems = this.findSameConversation(conversationContext);
+		WorldObject performer = conversationContext.getPerformer();
 		WorldObject target = conversationContext.getTarget();
+		World world = conversationContext.getWorld();
 		Profession targetProfession = target.getProperty(Constants.PROFESSION);
 		final int replyId;
 		if (historyItems.size() == 0) {
@@ -44,8 +46,7 @@ public class ProfessionConversation implements Conversation {
 				replyId = NO_PROFESSION;
 			}
 		} else {
-			HistoryItem lastHistoryItem = historyItems.get(historyItems.size() - 1);
-			Profession professionInLastConversation = lastHistoryItem.getOperationInfo().getTarget().getProperty(Constants.PROFESSION);
+			Profession professionInLastConversation = PreviousResponseIdUtils.getLastAdditionalValue(this, performer, target, world);
 			if (targetProfession == professionInLastConversation) {
 				replyId = STILL_THE_SAME;
 			} else {
@@ -88,9 +89,13 @@ public class ProfessionConversation implements Conversation {
 	
 	@Override
 	public void handleResponse(int replyIndex, ConversationContext conversationContext) {
+		World world = conversationContext.getWorld();
 		WorldObject performer = conversationContext.getPerformer();
 		WorldObject target = conversationContext.getTarget();
 		performer.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(target, Constants.PROFESSION, target.getProperty(Constants.PROFESSION));
+	
+		//TODO: if there are more return values, set return value Object on execute method, search for any other TODO like this
+		world.getHistory().setNextAdditionalValue(target.getProperty(Constants.PROFESSION));
 	}
 	
 	@Override

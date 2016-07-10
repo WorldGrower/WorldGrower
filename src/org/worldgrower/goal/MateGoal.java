@@ -73,7 +73,7 @@ public class MateGoal implements Goal {
 	}
 	
 	private boolean isTargetForProposeMateConversation(WorldObject performer, WorldObject target, World world) {
-		return !Conversations.PROPOSE_MATE_CONVERSATION.previousAnswerWasNegative(getPreviousResponseIds(performer, target, Conversations.PROPOSE_MATE_CONVERSATION, world));
+		return !Conversations.PROPOSE_MATE_CONVERSATION.previousAnswerWasNegative(performer, target, world);
 	}
 	
 	private static class MateComparator implements Comparator<WorldObject> {

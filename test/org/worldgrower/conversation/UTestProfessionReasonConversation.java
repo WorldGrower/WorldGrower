@@ -64,6 +64,7 @@ public class UTestProfessionReasonConversation {
 		target.setProperty(Constants.REASONS, new ReasonsImpl());
 		assertEquals(1, conversation.getReplyPhrase(context).getId());
 		
+		world.getHistory().setNextAdditionalValue(target.getProperty(Constants.PROFESSION));
 		world.getHistory().actionPerformed(new OperationInfo(performer, target, Conversations.createArgs(Conversations.PROFESSION_REASON_CONVERSATION), Actions.TALK_ACTION), new Turn());
 		assertEquals(2, conversation.getReplyPhrase(context).getId());
 	}

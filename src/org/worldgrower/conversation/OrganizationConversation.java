@@ -32,6 +32,7 @@ public class OrganizationConversation implements Conversation {
 	
 	@Override
 	public Response getReplyPhrase(ConversationContext conversationContext) {
+		WorldObject performer = conversationContext.getTarget();
 		WorldObject target = conversationContext.getTarget();
 		World world = conversationContext.getWorld();
 		List<HistoryItem> historyItems = findSameConversation(conversationContext);
@@ -56,7 +57,7 @@ public class OrganizationConversation implements Conversation {
 	
 	private boolean organizationDesciptionRemainsSame(HistoryItem lastHistoryItem, WorldObject target, World world) {
 		String organizationsDescription = getOrganizationsDescription(target, world);
-		String lastOrganizationsDescription = getOrganizationsDescription(lastHistoryItem.getOperationInfo().getTarget(), world);
+		String lastOrganizationsDescription = (String)lastHistoryItem.getAdditionalValue();
 		return organizationsDescription.equals(lastOrganizationsDescription);
 	}
 
@@ -107,6 +108,12 @@ public class OrganizationConversation implements Conversation {
 	
 	@Override
 	public void handleResponse(int replyIndex, ConversationContext conversationContext) {
+		World world = conversationContext.getWorld();
+		WorldObject target = conversationContext.getTarget();
+		String organizationsDescription = getOrganizationsDescription(target, world);
+		
+		//TODO: if there are more return values, set return value Object on execute method, search for any other TODO like this
+		world.getHistory().setNextAdditionalValue(organizationsDescription);
 	}
 	
 	@Override

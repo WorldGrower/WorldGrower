@@ -133,26 +133,6 @@ public class OperationInfo implements Serializable {
 		return managedOperation.getDescription(performer, target, args, world);
 	}
 	
-	public boolean isEqual(OperationInfo other) {
-		return ((this.performer.equals(other.performer)) && (this.target.equals(other.target)) && Arrays.equals(this.args, other.args) && (this.managedOperation == other.managedOperation));
-	}
-	
-	/*
-	 * this OperationInfo always contains the real WorldObject instances,
-	 * while the other OperationInfo can contain WorldObjectFacade.
-	 */
-	public boolean searchAnyPerformer(OperationInfo other) {
-		WorldObject thisFacade = this.performer.getProperty(Constants.FACADE);
-		final boolean isPerformerEqual;
-		if (thisFacade != null) {
-			isPerformerEqual = thisFacade.equals(other.performer);
-		} else {
-			isPerformerEqual = this.performer.equals(other.performer);
-		}
-		
-		return (isPerformerEqual && (this.target.equals(other.target)) && Arrays.equals(this.args, other.args) && (this.managedOperation == other.managedOperation));
-	}
-	
 	public boolean evaluate(OperationInfoEvaluator operationInfoEvaluator) {
 		return operationInfoEvaluator.evaluate(performer, target, args, managedOperation);
 	}
@@ -177,10 +157,6 @@ public class OperationInfo implements Serializable {
 		return "You were " + managedOperation.getDescription(performer, target, args, world);
 	}
 	
-	public String getThirdPersonDescription(World world) {
-		return performer.getProperty(Constants.NAME) + " was " + managedOperation.getDescription(performer, target, args, world);
-	}
-
 	public boolean targetMoved(World world) {
 		if (target.hasIntelligence() && !performer.equals(target)) {
 			OperationInfo lastPerformedOperation = world.getHistory().getLastPerformedOperation(target);
@@ -207,10 +183,6 @@ public class OperationInfo implements Serializable {
 
 	public OperationInfo copy() {
 		return new OperationInfo(performer.deepCopy(), target.deepCopy(), args, managedOperation);
-	}
-
-	public boolean matches(WorldObject performer, WorldObject target, ManagedOperation managedOperation) {
-		return ((this.performer.equals(performer)) && (this.target.equals(target)) && (this.managedOperation == managedOperation));
 	}
 
 	public boolean firstArgsIs(int i) {

@@ -18,10 +18,13 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.Args;
+import org.worldgrower.OperationInfo;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
 import org.worldgrower.history.HistoryItem;
 import org.worldgrower.history.Turn;
 
@@ -31,12 +34,13 @@ public class UTestConversations {
 	private WorldObject performer = TestUtils.createWorldObject(1, "test1");
 	private WorldObject target = TestUtils.createWorldObject(1, "test2");
 	private World world = new WorldImpl(10, 10, null, null);
+	private OperationInfo operationInfo = new OperationInfo(performer, target, Args.EMPTY, Actions.MELEE_ATTACK_ACTION);
 	
 	@Test
 	public void testCreateArgs() {
 		assertArrayEquals(new int[] {0, -1, -1, 0, 0}, Conversations.createArgs(Conversations.NAME_CONVERSATION));
 		assertArrayEquals(new int[] {0, 2, -1, 0, 0}, Conversations.createArgs(Conversations.NAME_CONVERSATION, TestUtils.createWorldObject(2, "testworldobject")));
-		assertArrayEquals(new int[] {0, -1, 3, 0, 0}, Conversations.createArgs(Conversations.NAME_CONVERSATION, new HistoryItem(3, null, new Turn(), null)));
+		assertArrayEquals(new int[] {0, -1, 3, 0, 0}, Conversations.createArgs(Conversations.NAME_CONVERSATION, new HistoryItem(3, operationInfo, new Turn(), null, null)));
 	}
 	
 	@Test

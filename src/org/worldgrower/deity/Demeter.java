@@ -88,14 +88,14 @@ public class Demeter implements Deity {
 		List<HistoryItem> eatActions = world.getHistory().findHistoryItems(performer, Actions.EAT_ACTION);
 		
 		for(HistoryItem historyItem : eatActions) {
-			if (historyItem.getOperationInfo().getPerformer().getProperty(Constants.FOOD) < 500) {
+			if (historyItem.getPerformer().getProperty(Constants.FOOD) < 500) {
 				return true;
 			}
 		}
 		
 		List<HistoryItem> eatFromInventoryActions = world.getHistory().findHistoryItems(performer, Actions.EAT_FROM_INVENTORY_ACTION);
 		for(HistoryItem historyItem : eatFromInventoryActions) {
-			if (historyItem.getOperationInfo().getPerformer().getProperty(Constants.FOOD) < 500) {
+			if (historyItem.getPerformer().getProperty(Constants.FOOD) < 500) {
 				return true;
 			}
 		}

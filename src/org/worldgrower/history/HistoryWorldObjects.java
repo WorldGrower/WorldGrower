@@ -12,37 +12,27 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.gui.debug;
+package org.worldgrower.history;
 
-import java.util.List;
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
-import javax.swing.table.AbstractTableModel;
-
-import org.worldgrower.World;
+import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
-import org.worldgrower.history.HistoryItem;
 
-public class PerformedActionsModel extends AbstractTableModel {
+class HistoryWorldObjects implements Serializable {
 
-	private final List<HistoryItem> historyItems;
+	private final Map<Integer, WorldObject> worldObjectsMapping = new HashMap<>();
 	
-	public PerformedActionsModel(WorldObject worldObject, World world) {
-		super();
-		historyItems = world.getHistory().findHistoryItemsForPerformer(worldObject);
+	public void add(WorldObject worldObject) {
+		Integer id = worldObject.getProperty(Constants.ID);
+		if (!worldObjectsMapping.containsKey(id)) {
+			worldObjectsMapping.put(id, worldObject);
+		}
 	}
-
-	@Override
-	public int getColumnCount() {
-		return 1;
-	}
-
-	@Override
-	public int getRowCount() {
-		return historyItems.size();
-	}
-
-	@Override
-	public Object getValueAt(int row, int column) {
-		return historyItems.get(row).getManagedOperation().getSimpleDescription();
+	
+	public WorldObject get(int id) {
+		return worldObjectsMapping.get(id);
 	}
 }

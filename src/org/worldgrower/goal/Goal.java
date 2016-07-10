@@ -68,7 +68,7 @@ public interface Goal extends Serializable {
 	
 	public default List<Integer> getPreviousResponseIds(WorldObject performer, WorldObject target, Conversation conversation, World world) {
 		List<HistoryItem> historyItems = world.getHistory().findHistoryItems(performer, target, Actions.TALK_ACTION);
-		historyItems = historyItems.stream().filter(h -> h.getOperationInfo().firstArgsIs(Conversations.createArgs(conversation)[0])).collect(Collectors.toList());
+		historyItems = historyItems.stream().filter(h -> h.getArgs()[0] == Conversations.createArgs(conversation)[0]).collect(Collectors.toList());
 		return historyItems.stream().map(h -> (Integer)h.getAdditionalValue()).collect(Collectors.toList());
 	}
 }

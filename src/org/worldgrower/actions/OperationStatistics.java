@@ -44,7 +44,7 @@ public class OperationStatistics {
 	}
 	
 	private static boolean isNonProfessional(HistoryItem historyItem, Profession profession) {
-		Profession performerProfession = historyItem.getOperationInfo().getPerformer().getProperty(Constants.PROFESSION);
+		Profession performerProfession = historyItem.getPerformer().getProperty(Constants.PROFESSION);
 		return performerProfession == null || performerProfession != profession;
 	}
 	

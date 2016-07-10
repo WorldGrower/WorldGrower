@@ -44,6 +44,15 @@ public class PreviousResponseIdUtils {
 		}
 		return false;
 	}
+	
+	public static <T> T getLastAdditionalValue(Conversation conversation, WorldObject performer, WorldObject target, World world) {
+		List<HistoryItem> historyItems = getHistoryItems(conversation, performer, target, world);
+		if (historyItems.size() > 0) {
+			HistoryItem lastHistoryItem = historyItems.get(historyItems.size() - 1);
+			return (T) lastHistoryItem.getAdditionalValue();
+		}
+		return null;
+	}
 
 	private static List<HistoryItem> getHistoryItems(Conversation conversation, WorldObject performer, WorldObject target, World world) {
 		return world.getHistory().findHistoryItemsForAnyPerformer(performer, target, Conversations.createArgs(conversation), Actions.TALK_ACTION);

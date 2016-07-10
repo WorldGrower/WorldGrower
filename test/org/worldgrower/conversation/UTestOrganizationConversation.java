@@ -90,6 +90,7 @@ public class UTestOrganizationConversation {
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.GROUP, new IdList());
 		
 		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
+		world.getHistory().setNextAdditionalValue("no organization");
 		world.getHistory().actionPerformed(new OperationInfo(performer, target, Conversations.createArgs(conversation), Actions.TALK_ACTION), new Turn());
 		
 		assertEquals(2, conversation.getReplyPhrase(context).getId());

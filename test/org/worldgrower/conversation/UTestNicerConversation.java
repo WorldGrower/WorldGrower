@@ -70,11 +70,12 @@ public class UTestNicerConversation {
 	
 	@Test
 	public void testHandleResponse0() {
+		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject subject = TestUtils.createIntelligentWorldObject(3, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		
-		ConversationContext context = new ConversationContext(performer, target, subject, null, null, 0);
+		ConversationContext context = new ConversationContext(performer, target, subject, null, world, 0);
 		
 		conversation.handleResponse(0, context);
 		assertEquals(0, performer.getProperty(Constants.RELATIONSHIPS).getValue(target));
@@ -85,11 +86,12 @@ public class UTestNicerConversation {
 	
 	@Test
 	public void testHandleResponse1() {
+		World world = new WorldImpl(0, 0, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject subject = TestUtils.createIntelligentWorldObject(3, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		
-		ConversationContext context = new ConversationContext(performer, target, subject, null, null, 0);
+		ConversationContext context = new ConversationContext(performer, target, subject, null, world, 0);
 		
 		conversation.handleResponse(1, context);
 		assertEquals(-10, performer.getProperty(Constants.RELATIONSHIPS).getValue(target));

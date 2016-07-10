@@ -48,7 +48,7 @@ public class ProfessionReasonConversation implements Conversation {
 			}
 		} else {
 			HistoryItem lastHistoryItem = historyItems.get(historyItems.size() - 1);
-			Profession professionInLastConversation = lastHistoryItem.getOperationInfo().getTarget().getProperty(Constants.PROFESSION);
+			Profession professionInLastConversation = (Profession) lastHistoryItem.getAdditionalValue();
 			if (targetProfession == professionInLastConversation) {
 				replyId = STILL_THE_SAME;
 			} else {
@@ -85,6 +85,11 @@ public class ProfessionReasonConversation implements Conversation {
 	
 	@Override
 	public void handleResponse(int replyIndex, ConversationContext conversationContext) {
+		WorldObject target = conversationContext.getTarget();
+		World world = conversationContext.getWorld();
+		
+		//TODO: if there are more return values, set return value Object on execute method, search for any other TODO like this
+		world.getHistory().setNextAdditionalValue(target.getProperty(Constants.PROFESSION));
 	}
 	
 	@Override

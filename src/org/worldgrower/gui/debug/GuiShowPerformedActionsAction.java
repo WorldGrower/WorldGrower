@@ -60,7 +60,7 @@ public class GuiShowPerformedActionsAction extends AbstractAction {
 			super();
 			for(int i=0; i<world.getHistory().size(); i++) {
 				HistoryItem historyItem = world.getHistory().getHistoryItem(i);
-				ManagedOperation action = historyItem.getOperationInfo().getManagedOperation();
+				ManagedOperation action = historyItem.getManagedOperation();
 				Integer count = actionStatistics.get(action);
 				if (count == null) {
 					count = 1;

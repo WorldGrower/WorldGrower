@@ -91,7 +91,7 @@ public class KnowledgeToDescriptionMapper {
 			EventKnowledge eventKnowledge = (EventKnowledge) knowledge;
 			int historyId = eventKnowledge.getHistoryId();
 			HistoryItem historyItem = world.getHistory().getHistoryItem(historyId);
-			return historyItem.getOperationInfo().getThirdPersonDescription(world);
+			return historyItem.getThirdPersonDescription(world);
 		} else {
 			throw new IllegalStateException("No mapping found for knowledge " + knowledge);
 		}

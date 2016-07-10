@@ -114,7 +114,7 @@ public class UTestWorldImpl {
 		world = WorldImpl.load(fileToSave);
 		
 		assertEquals(2, world.getWorldObjects().size());
-		assertEquals(Actions.MELEE_ATTACK_ACTION, world.getHistory().getHistoryItem(0).getOperationInfo().getManagedOperation());
+		assertEquals(Actions.MELEE_ATTACK_ACTION, world.getHistory().getHistoryItem(0).getManagedOperation());
 	}
 	
 	@Test

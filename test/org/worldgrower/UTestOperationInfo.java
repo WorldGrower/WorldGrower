@@ -69,22 +69,6 @@ public class UTestOperationInfo {
 	}
 	
 	@Test
-	public void testSearchAnyPerformer() {
-		WorldObject performer = TestUtils.createIntelligentWorldObject(1, "performer");
-		WorldObject target = TestUtils.createIntelligentWorldObject(2, "target");
-		OperationInfo info = createOperationInfo(performer, target);
-		assertEquals(true, info.searchAnyPerformer(info));
-	}
-	
-	@Test
-	public void testSearchAnyPerformerWithFacade() {
-		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.FACADE, TestUtils.createWorldObject(3, "facade"));
-		WorldObject target = TestUtils.createIntelligentWorldObject(2, "target");
-		OperationInfo info = createOperationInfo(performer, target);
-		assertEquals(false, info.searchAnyPerformer(info));
-	}
-	
-	@Test
 	public void testTargetMovedNotMoved() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, "target");
@@ -163,16 +147,6 @@ public class UTestOperationInfo {
 		assertEquals("You were attacking target", info.getSecondPersonDescription(world));
 	}
 	
-	@Test
-	public void testGetThirdPersonDescription() {
-		World world = new WorldImpl(1, 1, null, null);
-		WorldObject performer = TestUtils.createIntelligentWorldObject(1, "performer");
-		WorldObject target = TestUtils.createIntelligentWorldObject(2, "target");
-		OperationInfo info = createOperationInfo(performer, target);
-		
-		assertEquals("performer was attacking target", info.getThirdPersonDescription(world));
-	}
-
 	private OperationInfo createOperationInfo(WorldObject performer, WorldObject target) {
 		
 		OperationInfo info = new OperationInfo(performer, target, Args.EMPTY, Actions.MELEE_ATTACK_ACTION);

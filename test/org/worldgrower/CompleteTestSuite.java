@@ -177,6 +177,7 @@ import org.worldgrower.generator.UTestVotingOnTurn;
 import org.worldgrower.goal.*;
 import org.worldgrower.gui.UTestImageInfoReader;
 import org.worldgrower.history.UTestHistoryImpl;
+import org.worldgrower.history.UTestHistoryItem;
 import org.worldgrower.personality.UTestPersonality;
 import org.worldgrower.personality.UTestPersonalityTraitValue;
 import org.worldgrower.profession.UTestArenaFighterProfession;
@@ -702,7 +703,8 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestSecludedAction.class,
 	UTestObjectUtils.class,
 	UTestDeityExplanationConversation.class,
-	UTestPropertyCache.class
+	UTestPropertyCache.class,
+	UTestHistoryItem.class
 })
 public class CompleteTestSuite {
 }

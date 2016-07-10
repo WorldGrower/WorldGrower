@@ -42,14 +42,14 @@ public class UTestHistoryImpl {
 	public void testfindHistoryItem() {
 		HistoryItem historyItem = history.findHistoryItem(performer, target, Args.EMPTY, Actions.MELEE_ATTACK_ACTION);
 		assertEquals(true, historyItem != null);
-		assertEquals(6, historyItem.getOperationInfo().getPerformer().getProperty(Constants.ID).intValue());
+		assertEquals(6, historyItem.getPerformerId());
 	}
 	
 	@Test
 	public void testFindHistoryItems() {
 		List<HistoryItem> historyItems = history.findHistoryItems(performer, target, Args.EMPTY, Actions.MELEE_ATTACK_ACTION);
 		assertEquals(1, historyItems.size());
-		assertEquals(6, historyItems.get(0).getOperationInfo().getPerformer().getProperty(Constants.ID).intValue());
+		assertEquals(6, historyItems.get(0).getPerformerId());
 	}
 	
 	@Test
@@ -62,7 +62,7 @@ public class UTestHistoryImpl {
 	public void testfindHistoryItemsByManagedOperation() {
 		List<HistoryItem> historyItems = history.findHistoryItems(Actions.MELEE_ATTACK_ACTION);
 		assertEquals(1, historyItems.size());
-		assertEquals(6, historyItems.get(0).getOperationInfo().getPerformer().getProperty(Constants.ID).intValue());
+		assertEquals(6, historyItems.get(0).getPerformerId());
 		
 		assertEquals(0, history.findHistoryItems(Actions.MINE_ORE_ACTION).size());
 	}
@@ -89,7 +89,7 @@ public class UTestHistoryImpl {
 	
 	@Test
 	public void testGetHistoryItem() {
-		assertEquals(Actions.MELEE_ATTACK_ACTION, history.getHistoryItem(0).getOperationInfo().getManagedOperation());
+		assertEquals(Actions.MELEE_ATTACK_ACTION, history.getHistoryItem(0).getManagedOperation());
 	}
 	
 	@Test
@@ -101,11 +101,11 @@ public class UTestHistoryImpl {
 		assertEquals(Actions.MOVE_ACTION, history.getLastPerformedOperation(performer).getManagedOperation());
 		assertEquals(0, historyItem1.getHistoryId());
 		assertEquals(null, historyItem2);
-		assertEquals(Actions.MELEE_ATTACK_ACTION, history.getHistoryItem(0).getOperationInfo().getManagedOperation());
+		assertEquals(Actions.MELEE_ATTACK_ACTION, history.getHistoryItem(0).getManagedOperation());
 		
 		HistoryItem historyItem3 = history.actionPerformed(new OperationInfo(performer, target, Args.EMPTY, Actions.FIRE_BOLT_ATTACK_ACTION), new Turn());
 		assertEquals(1, historyItem3.getHistoryId());
-		assertEquals(Actions.FIRE_BOLT_ATTACK_ACTION, history.getHistoryItem(1).getOperationInfo().getManagedOperation());
+		assertEquals(Actions.FIRE_BOLT_ATTACK_ACTION, history.getHistoryItem(1).getManagedOperation());
 		assertEquals(Actions.FIRE_BOLT_ATTACK_ACTION, history.getLastPerformedOperation(performer).getManagedOperation());
 	}
 	
@@ -113,7 +113,7 @@ public class UTestHistoryImpl {
 	public void testFindHistoryItemsForAnyPerformer() {
 		List<HistoryItem> historyItems = history.findHistoryItemsForAnyPerformer(performer, target, Args.EMPTY, Actions.MELEE_ATTACK_ACTION);
 		assertEquals(1, historyItems.size());
-		assertEquals(6, historyItems.get(0).getOperationInfo().getPerformer().getProperty(Constants.ID).intValue());
+		assertEquals(6, historyItems.get(0).getPerformerId());
 
 	}
 	
@@ -124,7 +124,7 @@ public class UTestHistoryImpl {
 		WorldObject facade = FacadeUtils.createFacadeForSelf(person);
 		List<HistoryItem> historyItems = history.findHistoryItemsForAnyPerformer(facade, target, Args.EMPTY, Actions.MELEE_ATTACK_ACTION);
 		assertEquals(1, historyItems.size());
-		assertEquals(6, historyItems.get(0).getOperationInfo().getPerformer().getProperty(Constants.ID).intValue());
+		assertEquals(6, historyItems.get(0).getPerformerId());
 
 	}
 }

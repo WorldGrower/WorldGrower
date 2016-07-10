@@ -67,6 +67,7 @@ public class UTestProposeMateConversation {
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		
 		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
+		world.getHistory().setNextAdditionalValue(1);
 		world.getHistory().actionPerformed(new OperationInfo(performer, target, Conversations.createArgs(conversation), Actions.TALK_ACTION), new Turn());
 		
 		target.getProperty(Constants.RELATIONSHIPS).incrementValue(performer, 1000);
