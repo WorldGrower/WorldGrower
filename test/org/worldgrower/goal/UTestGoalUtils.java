@@ -213,40 +213,44 @@ public class UTestGoalUtils {
 	@Test
 	public void testFindNearestPersonLookingLikeNoDeception() {
 		World world = createWorld();
-		WorldObject performer = TestUtils.createSkilledWorldObject(2);
+		WorldObject performer = TestUtils.createSkilledWorldObject(world.generateUniqueId());
 		performer.setProperty(Constants.IMAGE_ID, ImageIds.KNIGHT);
+		world.addWorldObject(performer);
 		
-		WorldObject target = TestUtils.createSkilledWorldObject(3);
+		WorldObject target = TestUtils.createSkilledWorldObject(world.generateUniqueId());
 		target.setProperty(Constants.IMAGE_ID, ImageIds.KNIGHT);
 		world.addWorldObject(target);
 		
-		assertEquals(target, GoalUtils.findNearestPersonLookingLike(performer, 3, world));
+		Integer targetId = target.getProperty(Constants.ID);
+		assertEquals(target, GoalUtils.findNearestPersonLookingLike(performer, targetId, world));
 	}
 	
 	@Test
 	public void testFindNearestPersonLookingLikeIllusion() {
 		World world = createWorld();
-		WorldObject performer = TestUtils.createSkilledWorldObject(2);
+		WorldObject performer = TestUtils.createSkilledWorldObject(world.generateUniqueId());
 		performer.setProperty(Constants.IMAGE_ID, ImageIds.KNIGHT);
 		
-		WorldObject target = TestUtils.createSkilledWorldObject(3);
+		WorldObject target = TestUtils.createSkilledWorldObject(world.generateUniqueId());
 		target.setProperty(Constants.IMAGE_ID, ImageIds.KNIGHT);
 		target.setProperty(Constants.X, 9);
 		target.setProperty(Constants.Y, 9);
 		world.addWorldObject(target);
 		
-		int illusionId = IllusionPropertyUtils.createIllusion(performer, 3, world, 0, 0, 1, 1);
+		Integer targetId = target.getProperty(Constants.ID);
+		int illusionId = IllusionPropertyUtils.createIllusion(performer, targetId, world, 0, 0, 1, 1);
 		WorldObject illusion = world.findWorldObjectById(illusionId);
-		assertEquals(illusion, GoalUtils.findNearestPersonLookingLike(performer, 3, world));
+		assertEquals(illusion, GoalUtils.findNearestPersonLookingLike(performer, targetId, world));
 	}
 	
 	@Test
 	public void testFindNearestPersonLookingLikeDisguise() {
 		World world = createWorld();
-		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
+		WorldObject performer = TestUtils.createSkilledWorldObject(world.generateUniqueId(), Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		performer.setProperty(Constants.IMAGE_ID, ImageIds.KNIGHT);
+		world.addWorldObject(performer);
 		
-		WorldObject target = TestUtils.createSkilledWorldObject(3, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
+		WorldObject target = TestUtils.createSkilledWorldObject(world.generateUniqueId(), Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		target.setProperty(Constants.IMAGE_ID, ImageIds.KNIGHT);
 		target.setProperty(Constants.X, 9);
 		target.setProperty(Constants.Y, 9);
@@ -260,6 +264,7 @@ public class UTestGoalUtils {
 		disguiser = FacadeUtils.createFacade(disguiser, disguiser, target, world);
 		world.addWorldObject(disguiser);
 		
-		assertEquals(disguiser, GoalUtils.findNearestPersonLookingLike(performer, 3, world));
+		Integer targetId = target.getProperty(Constants.ID);
+		assertEquals(disguiser, GoalUtils.findNearestPersonLookingLike(performer, targetId, world));
 	}
 }

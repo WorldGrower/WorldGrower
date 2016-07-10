@@ -56,37 +56,39 @@ public class UTestWorldImpl {
 	@Test
 	public void testRemoveWorldObject() {
 		World world = createWorld();
-		WorldObject worldObject = TestUtils.createWorldObject(6, "test");
+		WorldObject worldObject = TestUtils.createWorldObject(world.generateUniqueId(), "test");
+		int id = worldObject.getProperty(Constants.ID);
 		world.addWorldObject(worldObject);
 		
-		assertEquals(1, world.findWorldObjects(w -> w.getProperty(Constants.ID).intValue() == 6).size());
+		assertEquals(1, world.findWorldObjects(w -> w.getProperty(Constants.ID).intValue() == id).size());
 		
 		world.removeWorldObject(worldObject);
-		assertEquals(0, world.findWorldObjects(w -> w.getProperty(Constants.ID).intValue() == 6).size());
+		assertEquals(0, world.findWorldObjects(w -> w.getProperty(Constants.ID).intValue() == id).size());
 	}
 	
 	@Test
 	public void testRemoveDependentWorldObject() {
 		World world = createWorld();
-		WorldObject house = TestUtils.createWorldObject(6, "test");
-		WorldObject person = TestUtils.createIntelligentWorldObject(7, Constants.ARENA_OPPONENT_ID, 6);
+		WorldObject person1 = TestUtils.createWorldObject(world.generateUniqueId(), "test");
+		world.addWorldObject(person1);
 		
-		world.addWorldObject(house);
-		world.addWorldObject(person);
+		Integer personId1 = person1.getProperty(Constants.ID);
+		WorldObject person2 = TestUtils.createIntelligentWorldObject(world.generateUniqueId(), Constants.ARENA_OPPONENT_ID, personId1);
+		world.addWorldObject(person2);
 		
-		assertEquals(6, person.getProperty(Constants.ARENA_OPPONENT_ID).intValue());
+		assertEquals(personId1, person2.getProperty(Constants.ARENA_OPPONENT_ID));
 		
-		world.removeWorldObject(house);
-		assertEquals(null, person.getProperty(Constants.ARENA_OPPONENT_ID));
+		world.removeWorldObject(person1);
+		assertEquals(null, person2.getProperty(Constants.ARENA_OPPONENT_ID));
 	}
 	
 	@Test
 	public void testRemoveWorldObjectInIdContainer() {
 		World world = createWorld();
-		WorldObject person1 = TestUtils.createWorldObject(6, "test");
+		WorldObject person1 = TestUtils.createWorldObject(world.generateUniqueId(), "test");
 		IdMap idMap = new IdRelationshipMap();
 		idMap.incrementValue(person1, 6);
-		WorldObject person2 = TestUtils.createIntelligentWorldObject(7, Constants.RELATIONSHIPS, idMap);
+		WorldObject person2 = TestUtils.createIntelligentWorldObject(world.generateUniqueId(), Constants.RELATIONSHIPS, idMap);
 		
 		world.addWorldObject(person1);
 		world.addWorldObject(person2);
@@ -167,12 +169,12 @@ public class UTestWorldImpl {
 		List<WorldObject> worldObjects = world.findWorldObjectsByProperty(Constants.FOOD, w -> w.getProperty(Constants.FOOD) > 0);
 		assertEquals(0, worldObjects.size());
 		
-		WorldObject person1 = TestUtils.createIntelligentWorldObject(6, Constants.FOOD, 500);
+		WorldObject person1 = TestUtils.createIntelligentWorldObject(world.generateUniqueId(), Constants.FOOD, 500);
 		world.addWorldObject(person1);
 		
 		worldObjects = world.findWorldObjectsByProperty(Constants.FOOD, w -> w.getProperty(Constants.FOOD) > 0);
 		assertEquals(1, worldObjects.size());
-		assertEquals(6, worldObjects.get(0).getProperty(Constants.ID).intValue());
+		assertEquals(person1, worldObjects.get(0));
 	}
 	
 	@Test

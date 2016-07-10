@@ -183,9 +183,11 @@ public class UTestTalkAction {
 	@Test
 	public void testIsActionPossibleWithSubject() {
 		World world = new WorldImpl(1, 1, dungeonMaster, null);
-		WorldObject performer = TestUtils.createIntelligentWorldObject(1, "performer");
-		WorldObject target = TestUtils.createIntelligentWorldObject(2, "target");
-		WorldObject subject = TestUtils.createIntelligentWorldObject(3, "subject");
+		WorldObject performer = TestUtils.createIntelligentWorldObject(world.generateUniqueId(), "performer");
+		world.addWorldObject(performer);
+		WorldObject target = TestUtils.createIntelligentWorldObject(world.generateUniqueId(), "target");
+		world.addWorldObject(target);
+		WorldObject subject = TestUtils.createIntelligentWorldObject(world.generateUniqueId(), "subject");
 		world.addWorldObject(subject);
 		
 		performer.setProperty(Constants.X, 0);
@@ -194,7 +196,8 @@ public class UTestTalkAction {
 		target.setProperty(Constants.X, 0);
 		target.setProperty(Constants.Y, 0);
 		
-		assertEquals(true, Actions.TALK_ACTION.isActionPossible(performer, target, new int[] { 0, 3, 0, 0, 0 }, world));
+		int[] args = new int[] { 0, subject.getProperty(Constants.ID), 0, 0, 0 };
+		assertEquals(true, Actions.TALK_ACTION.isActionPossible(performer, target, args, world));
 	}
 	
 	@Test
@@ -214,8 +217,11 @@ public class UTestTalkAction {
 	
 	private World createWorld() {
 		World world = new WorldImpl(1, 1, dungeonMaster, null);
+		performer.setProperty(Constants.ID, world.generateUniqueId());
 		world.addWorldObject(performer);
+		target.setProperty(Constants.ID, world.generateUniqueId());
 		world.addWorldObject(target);
+		deity.setProperty(Constants.ID, world.generateUniqueId());
 		world.addWorldObject(deity);
 		return world;
 	}

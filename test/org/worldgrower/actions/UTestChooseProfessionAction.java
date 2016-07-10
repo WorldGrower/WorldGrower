@@ -137,13 +137,13 @@ public class UTestChooseProfessionAction {
 	@Test
 	public void testGetProfessionEvaluationsByDemand() {
 		World world = new WorldImpl(10, 10, null, null);
-		world.addWorldObject(TestUtils.createIntelligentWorldObject(2, Constants.PROFESSION, Professions.FARMER_PROFESSION));
+		world.addWorldObject(TestUtils.createIntelligentWorldObject(world.generateUniqueId(), Constants.PROFESSION, Professions.FARMER_PROFESSION));
 
-		WorldObject performer = TestUtils.createIntelligentWorldObject(3, Goals.ARENA_GOAL);
+		createVillagersOrganization(world);
+		
+		WorldObject performer = TestUtils.createIntelligentWorldObject(world.generateUniqueId(), Goals.ARENA_GOAL);
 		performer.getProperty(Constants.DEMANDS).add(Constants.FOOD, 20);
 		world.addWorldObject(performer);
-		
-		createVillagersOrganization(world);
 		
 		List<ProfessionEvaluation> professionEvaluations = ChooseProfessionAction.getProfessionEvaluationsByDemand(performer, world);
 		
@@ -279,12 +279,12 @@ public class UTestChooseProfessionAction {
 	@Test
 	public void testGetProfessionEvaluationsByParents() {
 		World world = new WorldImpl(10, 10, null, null);
-		WorldObject performer = TestUtils.createIntelligentWorldObject(1, "jobseeker");
+		WorldObject performer = TestUtils.createIntelligentWorldObject(world.generateUniqueId(), "jobseeker");
 		
 		List<ProfessionEvaluation> professionEvaluationsByParents = ChooseProfessionAction.getProfessionEvaluationsByParents(performer, world);
 		assertEquals(0, professionEvaluationsByParents.size());
 		
-		WorldObject parent = TestUtils.createIntelligentWorldObject(2, "parent");
+		WorldObject parent = TestUtils.createIntelligentWorldObject(world.generateUniqueId(), "parent");
 		parent.setProperty(Constants.CHILDREN, new IdList().add(performer));
 		parent.setProperty(Constants.PROFESSION, Professions.BLACKSMITH_PROFESSION);
 		world.addWorldObject(parent);

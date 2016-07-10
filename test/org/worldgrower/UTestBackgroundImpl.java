@@ -115,17 +115,18 @@ public class UTestBackgroundImpl {
 	@Test
 	public void testRemoveRevengeTargets() {
 		World world = new WorldImpl(1, 1, null, null);
-		WorldObject performer = createWorldObject(7, "Tom");
-		WorldObject target = createWorldObject(8, "target");
-		
+		WorldObject performer = createWorldObject(world.generateUniqueId(), "Tom");
 		world.addWorldObject(performer);
+		WorldObject target = createWorldObject(world.generateUniqueId(), "target");
 		world.addWorldObject(target);
 		
 		world.getHistory().actionPerformed(new OperationInfo(target, performer, Args.EMPTY, Actions.MELEE_ATTACK_ACTION), new Turn());
 		Background background = performer.getProperty(Constants.BACKGROUND);
 		background.checkForNewGoals(performer, world);
 		assertEquals(true, background.hasRevengeTarget(world));
-		background.remove(performer, Constants.BACKGROUND, 8);
+		
+		Integer targetId = target.getProperty(Constants.ID);
+		background.remove(performer, Constants.BACKGROUND, targetId);
 		
 		assertEquals(false, background.hasRevengeTarget(world));
 	}
