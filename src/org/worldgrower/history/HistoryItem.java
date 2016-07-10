@@ -42,7 +42,8 @@ public class HistoryItem implements Serializable {
 		this.performerId = operationInfo.getPerformer().getProperty(Constants.ID).intValue();
 		WorldObject facade = operationInfo.getPerformer().getProperty(Constants.FACADE);
 		if (facade != null) {
-			performerIdFacade = facade.getProperty(Constants.ID).intValue();
+			Integer performerIdFacadeValue = facade.getProperty(Constants.ID);
+			performerIdFacade = (performerIdFacadeValue != null ? performerIdFacadeValue.intValue() : -1);
 		} else {
 			performerIdFacade = -1;
 		}
