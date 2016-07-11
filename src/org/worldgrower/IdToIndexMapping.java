@@ -14,10 +14,10 @@
  *******************************************************************************/
 package org.worldgrower;
 
+import it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap;
+
 import java.io.Serializable;
 import java.util.List;
-
-import it.unimi.dsi.fastutil.ints.Int2IntArrayMap;
 
 /**
  * This mapping adds a mapping between Constants.ID and the index in the list of WorldObjects.
@@ -25,7 +25,7 @@ import it.unimi.dsi.fastutil.ints.Int2IntArrayMap;
  */
 class IdToIndexMapping implements Serializable {
 
-	private Int2IntArrayMap idToIndexMapping = new Int2IntArrayMap();
+	private Int2IntOpenHashMap idToIndexMapping = new Int2IntOpenHashMap();
 
 	private static final int NO_MAPPING_FOUND = Integer.MIN_VALUE;
 	
