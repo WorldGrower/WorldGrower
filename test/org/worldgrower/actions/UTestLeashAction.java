@@ -37,8 +37,7 @@ public class UTestLeashAction {
 		WorldObject performer = createPerformer(2);
 		createVillagersOrganization(world);
 		
-		int id = new CreatureGenerator(GroupPropertyUtils.create(null, "CowOrg", world)).generateCow(0, 0, world);
-		WorldObject target = world.findWorldObjectById(id);
+		WorldObject target = createCow(world);
 		
 		assertEquals(null, target.getProperty(Constants.LEASH_ID));
 		action.execute(performer, target, Args.EMPTY, world);
@@ -52,8 +51,7 @@ public class UTestLeashAction {
 		WorldObject performer = createPerformer(2);
 		createVillagersOrganization(world);
 		
-		int id = new CreatureGenerator(GroupPropertyUtils.create(null, "CowOrg", world)).generateCow(0, 0, world);
-		WorldObject target = world.findWorldObjectById(id);
+		WorldObject target = createCow(world);
 		
 		assertEquals(false, action.isValidTarget(performer, performer, world));
 		assertEquals(true, action.isValidTarget(performer, target, world));
@@ -65,10 +63,26 @@ public class UTestLeashAction {
 		WorldObject performer = createPerformer(2);
 		createVillagersOrganization(world);
 		
-		int id = new CreatureGenerator(GroupPropertyUtils.create(null, "CowOrg", world)).generateCow(0, 0, world);
-		WorldObject target = world.findWorldObjectById(id);
+		WorldObject target = createCow(world);
 		
 		assertEquals(true, action.isActionPossible(performer, target, Args.EMPTY, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		createVillagersOrganization(world);
+		
+		WorldObject target = createCow(world);
+		
+		assertEquals(0, action.distance(performer, target, Args.EMPTY, world));
+	}
+
+	private WorldObject createCow(World world) {
+		int id = new CreatureGenerator(GroupPropertyUtils.create(null, "CowOrg", world)).generateCow(0, 0, world);
+		WorldObject target = world.findWorldObjectById(id);
+		return target;
 	}
 	
 	private WorldObject createPerformer(int id) {

@@ -17,9 +17,10 @@ package org.worldgrower.attribute;
 import java.io.ObjectStreamException;
 import java.util.List;
 
+import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
 
-public class WorldObjectProperty implements ManagedProperty<WorldObject> {
+public class WorldObjectProperty implements ManagedProperty<WorldObject>, IdContainer {
 
 	private final String name;
 	private final boolean nullable;
@@ -63,6 +64,18 @@ public class WorldObjectProperty implements ManagedProperty<WorldObject> {
 			return ((WorldObject)value).shallowCopy();
 		} else {
 			return null;
+		}
+	}
+	
+	@Override
+	public void remove(WorldObject worldObject, ManagedProperty<?> property, int id) {
+		WorldObjectProperty worldObjectProperty = (WorldObjectProperty) property;
+		if (worldObject.hasProperty(worldObjectProperty) && (worldObject.getProperty(worldObjectProperty) != null)) {
+			WorldObject innerWorldObject = worldObject.getProperty(worldObjectProperty);
+
+			if (innerWorldObject.hasProperty(Constants.ID) && (innerWorldObject.getProperty(Constants.ID).intValue() == id)) {
+				worldObject.setProperty(worldObjectProperty, null);
+			}
 		}
 	}
 }

@@ -49,9 +49,7 @@ public class UTestMarkAsSellableAction {
 		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.BUILDINGS, new BuildingList());
 		performer.setProperty(Constants.NAME, "performer");
 		
-		int id = BuildingGenerator.generateHouse(0, 0, world, 1f, performer);
-		WorldObject target = world.findWorldObjectById(id);
-		performer.getProperty(Constants.BUILDINGS).add(target, BuildingType.HOUSE);
+		WorldObject target = createHouse(world, performer);
 		assertEquals(true, Actions.MARK_AS_SELLABLE_ACTION.isValidTarget(performer, target, world));
 		
 		assertEquals(false, Actions.MARK_AS_SELLABLE_ACTION.isValidTarget(performer, performer, world));
@@ -63,14 +61,33 @@ public class UTestMarkAsSellableAction {
 	@Test
 	public void testIsActionPossible() {
 		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer();
+		
+		WorldObject target = createHouse(world, performer);
+		assertEquals(true, Actions.MARK_AS_SELLABLE_ACTION.isActionPossible(performer, target, Args.EMPTY, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer();
+		
+		WorldObject target = createHouse(world, performer);
+		assertEquals(0, Actions.MARK_AS_SELLABLE_ACTION.distance(performer, target, Args.EMPTY, world));
+	}
+
+	private WorldObject createHouse(World world, WorldObject performer) {
+		int id = BuildingGenerator.generateHouse(0, 0, world, 1f, performer);
+		WorldObject target = world.findWorldObjectById(id);
+		performer.getProperty(Constants.BUILDINGS).add(target, BuildingType.HOUSE);
+		return target;
+	}
+
+	private WorldObject createPerformer() {
 		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.BUILDINGS, new BuildingList());
 		performer.setProperty(Constants.X, 0);
 		performer.setProperty(Constants.Y, 0);
 		performer.setProperty(Constants.NAME, "performer");
-		
-		int id = BuildingGenerator.generateHouse(0, 0, world, 1f, performer);
-		WorldObject target = world.findWorldObjectById(id);
-		performer.getProperty(Constants.BUILDINGS).add(target, BuildingType.HOUSE);
-		assertEquals(true, Actions.MARK_AS_SELLABLE_ACTION.isActionPossible(performer, target, Args.EMPTY, world));
+		return performer;
 	}
 }

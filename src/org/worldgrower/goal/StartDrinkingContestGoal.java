@@ -53,7 +53,7 @@ public class StartDrinkingContestGoal implements Goal {
 				&& w.hasIntelligence() 
 				&& !DrinkingContestPropertyUtils.isDrinking(w) 
 				&& w.getProperty(Constants.INVENTORY).getQuantityFor(Constants.ALCOHOL_LEVEL) >= 5
-				&& !Conversations.DRINKING_CONTEST_CONVERSATION.previousAnswerWasNegative(getPreviousResponseIds(performer, w, Conversations.DRINKING_CONTEST_CONVERSATION, world));
+				&& !Conversations.DRINKING_CONTEST_CONVERSATION.previousAnswerWasNegative(performer, w, world);
 	}
 	
 	private boolean performerHasTalentForDrinking(WorldObject performer) {

@@ -14,13 +14,10 @@
  *******************************************************************************/
 package org.worldgrower;
 
-import it.unimi.dsi.fastutil.ints.Int2IntArrayMap;
-import it.unimi.dsi.fastutil.ints.Int2IntMap;
-
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+import it.unimi.dsi.fastutil.ints.Int2IntArrayMap;
 
 /**
  * This mapping adds a mapping between Constants.ID and the index in the list of WorldObjects.

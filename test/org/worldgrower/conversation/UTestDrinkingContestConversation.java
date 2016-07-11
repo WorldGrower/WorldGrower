@@ -83,11 +83,12 @@ public class UTestDrinkingContestConversation {
 	
 	@Test
 	public void testHandleResponse0() {
+		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		
 		int brawlStakeGold = 10;
-		ConversationContext context = new ConversationContext(performer, target, null, null, null, brawlStakeGold);
+		ConversationContext context = new ConversationContext(performer, target, null, null, world, brawlStakeGold);
 		
 		conversation.handleResponse(0, context);
 		assertEquals(10, performer.getProperty(Constants.DRINKING_CONTEST_STAKE_GOLD).intValue());

@@ -140,9 +140,4 @@ public class ImmutableWorldObject implements WorldObject, Serializable {
 	public <T> WorldObject deepCopy() {
 		return new ImmutableWorldObject(properties, mutableProperties, onTurn);
 	}
-
-	@Override
-	public <T> WorldObject deepCopy(OnTurn onTurn) {
-		return new ImmutableWorldObject(properties, mutableProperties, onTurn);
-	}
 }

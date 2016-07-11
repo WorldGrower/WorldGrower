@@ -55,12 +55,12 @@ public class RedistributeGoldAmongFamilyGoal implements Goal {
 	
 	boolean isTargetForConversation(WorldObject performer, WorldObject target, DemandMoneyConversation conversation, World world) {
 		return !GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, target)
-				&& !conversation.previousAnswerWasNegative(getPreviousResponseIds(performer, target, conversation, world));
+				&& !conversation.previousAnswerWasNegative(performer, target, world);
 	}
 	
 	boolean isTargetForConversation(WorldObject performer, WorldObject target, GiveMoneyConversation conversation, World world) {
 		return !GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, target)
-				&& !conversation.previousAnswerWasNegative(getPreviousResponseIds(performer, target, conversation, world));
+				&& !conversation.previousAnswerWasNegative(performer, target, world);
 	}
 
 	@Override

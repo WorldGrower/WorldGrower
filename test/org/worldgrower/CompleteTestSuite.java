@@ -72,6 +72,7 @@ import org.worldgrower.attribute.UTestPropertyCountMap;
 import org.worldgrower.attribute.UTestSkill;
 import org.worldgrower.attribute.UTestSkillUtils;
 import org.worldgrower.attribute.UTestWorldObjectProperties;
+import org.worldgrower.attribute.UTestWorldObjectProperty;
 import org.worldgrower.condition.UTestConditions;
 import org.worldgrower.condition.UTestFearCondition;
 import org.worldgrower.condition.UTestGhoulUtils;
@@ -704,7 +705,8 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestObjectUtils.class,
 	UTestDeityExplanationConversation.class,
 	UTestPropertyCache.class,
-	UTestHistoryItem.class
+	UTestHistoryItem.class,
+	UTestWorldObjectProperty.class
 })
 public class CompleteTestSuite {
 }

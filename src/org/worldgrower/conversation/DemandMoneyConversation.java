@@ -98,6 +98,9 @@ public class DemandMoneyConversation implements Conversation {
 			performer.increment(Constants.GOLD, goldQuantity);
 			target.increment(Constants.GOLD, -goldQuantity);
 		}
+		
+		//TODO: if there are more return values, set return value Object on execute method, search for any other TODO like this
+		world.getHistory().setNextAdditionalValue(replyIndex);
 	}
 	
 	@Override
@@ -105,7 +108,7 @@ public class DemandMoneyConversation implements Conversation {
 		return "demanding money";
 	}
 
-	public boolean previousAnswerWasNegative(List<Integer> previousResponseIds) {
-		return previousResponseIds.contains(GET_LOST) || previousResponseIds.contains(NO);
+	public boolean previousAnswerWasNegative(WorldObject performer, WorldObject target, World world) {
+		return PreviousResponseIdUtils.previousResponseIdsContains(this, GET_LOST, NO, performer, target, world);
 	}
 }

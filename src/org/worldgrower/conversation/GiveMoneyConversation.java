@@ -88,6 +88,9 @@ public class GiveMoneyConversation implements Conversation {
 		} else if (replyIndex == GET_LOST || replyIndex == BRIBE) {
 			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -20, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 		}
+		
+		//TODO: if there are more return values, set return value Object on execute method, search for any other TODO like this
+		world.getHistory().setNextAdditionalValue(replyIndex);
 	}
 
 	private void performerGivesMoneyToTarget(WorldObject performer, WorldObject target, int amount) {
@@ -104,8 +107,8 @@ public class GiveMoneyConversation implements Conversation {
 	public String getDescription(WorldObject performer, WorldObject target, World world) {
 		return "giving " + target.getProperty(Constants.NAME) + " some money";
 	}
-
-	public boolean previousAnswerWasNegative(List<Integer> previousResponseIds) {
-		return previousResponseIds.contains(GET_LOST) || previousResponseIds.contains(BRIBE);
+	
+	public boolean previousAnswerWasNegative(WorldObject performer, WorldObject target, World world) {
+		return PreviousResponseIdUtils.previousResponseIdsContains(this, GET_LOST, BRIBE, performer, target, world);
 	}
 }

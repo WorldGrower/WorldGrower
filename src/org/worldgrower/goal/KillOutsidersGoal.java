@@ -16,6 +16,7 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
+import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
@@ -30,7 +31,7 @@ public class KillOutsidersGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.MELEE_ATTACK_ACTION, w -> GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, w), world);
+		List<WorldObject> targets = findOutsiders(performer, world);
 		if (targets.size() > 0) {
 			return new AttackTargetGoal(targets.get(0)).calculateGoal(performer, world);
 		} else {
@@ -49,7 +50,7 @@ public class KillOutsidersGoal implements Goal {
 	}
 
 	private List<WorldObject> findOutsiders(WorldObject performer, World world) {
-		return GoalUtils.findNearestTargets(performer, w -> isTarget(performer, w), world);
+		return GoalUtils.findNearestTargetsByProperty(performer, Actions.MELEE_ATTACK_ACTION, Constants.STRENGTH, w -> isTarget(performer, w), world);
 	}
 
 	boolean isTarget(WorldObject performer, WorldObject w) {

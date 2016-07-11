@@ -122,7 +122,7 @@ public class ShareKnowledgeConversation implements Conversation {
 		return "sharing knowledge";
 	}
 	
-	public boolean previousAnswerWasGetLost(List<Integer> previousResponseIds) {
-		return previousResponseIds.contains(GET_LOST);
+	public boolean previousAnswerWasGetLost(WorldObject performer, WorldObject target, World world) {
+		return PreviousResponseIdUtils.previousResponseIdsContains(this, GET_LOST, performer, target, world);
 	}
 }

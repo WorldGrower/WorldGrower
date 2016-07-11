@@ -95,6 +95,11 @@ public class DrinkingContestConversation implements Conversation {
 			
 			DrinkingContestPropertyUtils.startDrinkingContest(performer, target, dringStakeGold);
 		}
+		
+		World world = conversationContext.getWorld();
+		
+		//TODO: if there are more return values, set return value Object on execute method, search for any other TODO like this
+		world.getHistory().setNextAdditionalValue(replyIndex);
 	}
 	
 	@Override
@@ -102,7 +107,7 @@ public class DrinkingContestConversation implements Conversation {
 		return "talking about starting a drinking contest";
 	}
 
-	public boolean previousAnswerWasNegative(List<Integer> previousResponseIds) {
-		return previousResponseIds.contains(NO);
+	public boolean previousAnswerWasNegative(WorldObject performer, WorldObject target, World world) {
+		return PreviousResponseIdUtils.previousResponseIdsContains(this, NO, performer, target, world);
 	}
 }

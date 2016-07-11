@@ -45,7 +45,6 @@ public interface WorldObject {
 	public List<Goal> getPriorities(World world);
 	public<T> WorldObject shallowCopy();
 	public<T> WorldObject deepCopy();
-	public<T> WorldObject deepCopy(OnTurn onTurn);
 	
 	public boolean equals(Object obj);
 	

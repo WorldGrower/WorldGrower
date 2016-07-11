@@ -82,12 +82,12 @@ public class UTestSocializeGoal {
 		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(1, Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		
-		assertEquals(Arrays.asList(), goal.getPreviousResponseIds(performer, target, Conversations.SHARE_KNOWLEDGE_CONVERSATION, world));
+		assertEquals(false, Conversations.SHARE_KNOWLEDGE_CONVERSATION.previousAnswerWasGetLost(performer, target, world));
 		
-		world.getHistory().setNextAdditionalValue(0);
+		world.getHistory().setNextAdditionalValue(1);
 		world.getHistory().actionPerformed(new OperationInfo(performer, target, Conversations.createArgs(Conversations.SHARE_KNOWLEDGE_CONVERSATION), Actions.TALK_ACTION), new Turn());
 		
-		assertEquals(Arrays.asList(0), goal.getPreviousResponseIds(performer, target, Conversations.SHARE_KNOWLEDGE_CONVERSATION, world));
+		assertEquals(true, Conversations.SHARE_KNOWLEDGE_CONVERSATION.previousAnswerWasGetLost(performer, target, world));
 	}
 	
 	@Test

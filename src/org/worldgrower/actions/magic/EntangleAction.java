@@ -18,7 +18,6 @@ import java.io.ObjectStreamException;
 import java.util.List;
 
 import org.worldgrower.Constants;
-import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;

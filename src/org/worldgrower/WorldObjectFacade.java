@@ -137,9 +137,4 @@ public class WorldObjectFacade implements WorldObject {
 	public <T> WorldObject deepCopy() {
 		return originalWorldObject.deepCopy();
 	}
-
-	@Override
-	public <T> WorldObject deepCopy(OnTurn onTurn) {
-		throw new UnsupportedOperationException();
-	}
 }

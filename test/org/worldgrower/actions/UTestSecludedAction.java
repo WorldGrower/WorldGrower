@@ -34,8 +34,7 @@ public class UTestSecludedAction {
 	public void testExecute() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
-		int targetId = PlantGenerator.generateTree(0, 0, world);
-		WorldObject target = world.findWorldObjectById(targetId);
+		WorldObject target = createTree(world);
 		
 		action.execute(performer, target, Args.EMPTY, world);
 		
@@ -46,8 +45,7 @@ public class UTestSecludedAction {
 	public void testIsValidTarget() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
-		int targetId = PlantGenerator.generateTree(0, 0, world);
-		WorldObject target = world.findWorldObjectById(targetId);
+		WorldObject target = createTree(world);
 		
 		assertEquals(true, action.isValidTarget(performer, target, world));
 		assertEquals(false, action.isValidTarget(performer, performer, world));
@@ -57,10 +55,24 @@ public class UTestSecludedAction {
 	public void testDistance() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
-		int targetId = PlantGenerator.generateTree(0, 0, world);
-		WorldObject target = world.findWorldObjectById(targetId);
+		WorldObject target = createTree(world);
 		
 		assertEquals(0, action.distance(performer, target, Args.EMPTY, world));
+	}
+	
+	@Test
+	public void testIsActionPossible() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createTree(world);
+		
+		assertEquals(true, action.isActionPossible(performer, target, Args.EMPTY, world));
+	}
+
+	private WorldObject createTree(World world) {
+		int targetId = PlantGenerator.generateTree(0, 0, world);
+		WorldObject target = world.findWorldObjectById(targetId);
+		return target;
 	}
 	
 	private WorldObject createPerformer(int id) {

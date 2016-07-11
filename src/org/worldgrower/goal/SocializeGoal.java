@@ -88,7 +88,7 @@ public class SocializeGoal implements Goal {
 
 	boolean isTargetForShareKnowledgeConversation(WorldObject performer, WorldObject target, World world) {
 		return KnowledgePropertyUtils.performerKnowsMoreThanTarget(performer, target) 
-				&& !Conversations.SHARE_KNOWLEDGE_CONVERSATION.previousAnswerWasGetLost(getPreviousResponseIds(performer, target, Conversations.SHARE_KNOWLEDGE_CONVERSATION, world));
+				&& !Conversations.SHARE_KNOWLEDGE_CONVERSATION.previousAnswerWasGetLost(performer, target, world);
 	}
 	
 	boolean isFirstTimeSocializeTargetForPerformer(WorldObject performer, WorldObject w) {
