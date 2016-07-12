@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.goal.Goal;
 
 /**
@@ -48,7 +49,7 @@ public class GoalChangedCalculator {
 	}
 
 	private List<WorldObject> getActors(WorldObject performer, World world) {
-		List<WorldObject> actors = world.findWorldObjects(w -> w.isControlledByAI() && w.hasIntelligence() && !w.equals(performer));
+		List<WorldObject> actors = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> w.isControlledByAI() && w.hasIntelligence() && !w.equals(performer) && w.getProperty(Constants.CREATURE_TYPE) != CreatureType.COW_CREATURE_TYPE);
 		return actors;
 	}
 	
