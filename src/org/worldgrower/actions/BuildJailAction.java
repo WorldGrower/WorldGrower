@@ -85,7 +85,7 @@ public class BuildJailAction implements BuildAction {
 
 	@Override
 	public int getHeight() {
-		return 3;
+		return 4;
 	}
 	
 	public static boolean hasEnoughWood(WorldObject performer) {

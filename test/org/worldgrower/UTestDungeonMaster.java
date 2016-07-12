@@ -24,10 +24,13 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.curse.Curse;
 import org.worldgrower.deity.Deity;
 import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.generator.CommonerGenerator;
 import org.worldgrower.generator.PlantGenerator;
 import org.worldgrower.generator.TerrainGenerator;
 import org.worldgrower.goal.Goals;
 import org.worldgrower.goal.GroupPropertyUtils;
+import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.start.CharacterAttributes;
 import org.worldgrower.history.Turn;
 import org.worldgrower.personality.Personality;
 
@@ -164,6 +167,60 @@ public class UTestDungeonMaster {
 		assertEquals(5, commoner.getProperty(Constants.Y).intValue());
 		assertEquals(Goals.SHRINE_TO_DEITY_GOAL, world.getGoal(commoner));
 		assertEquals(Actions.MINE_STONE_ACTION, world.getImmediateGoal(commoner, world).getManagedOperation());
+	}
+	
+	@Test
+	public void testRunWorldObjectWithMovingNPCTarget() {
+		WorldObject commoner = TestUtils.createIntelligentWorldObject(2, Goals.SOCIALIZE_GOAL);
+		WorldObject target = TestUtils.createIntelligentWorldObject(3, "target");
+		
+		DungeonMaster dungeonMaster = new DungeonMaster();
+		World world = createWorld(dungeonMaster);
+		world.generateUniqueId(); world.generateUniqueId(); world.generateUniqueId();
+		createVillagersOrganization(world);
+		
+		testRunWorldObjectWithMovingTarget(commoner, target, dungeonMaster, world);
+	}
+	
+	@Test
+	public void testRunWorldObjectWithMovingPlayerCharacterTarget() {
+		DungeonMaster dungeonMaster = new DungeonMaster();
+		World world = createWorld(dungeonMaster);
+		world.generateUniqueId(); world.generateUniqueId(); world.generateUniqueId();
+		WorldObject organization = createVillagersOrganization(world);
+		
+		WorldObject commoner = TestUtils.createIntelligentWorldObject(2, Goals.SOCIALIZE_GOAL);
+		WorldObject playerCharacter = CommonerGenerator.createPlayerCharacter(0, "player", "profession", "male", world, null, organization, new CharacterAttributes(10, 10, 10, 10, 10, 10), ImageIds.KNIGHT);
+		playerCharacter.getProperty(Constants.GROUP).addAll(commoner.getProperty(Constants.GROUP));
+		testRunWorldObjectWithMovingTarget(commoner, playerCharacter, dungeonMaster, world);
+	}
+	
+	private void testRunWorldObjectWithMovingTarget(WorldObject commoner, WorldObject target, DungeonMaster dungeonMaster, World world) {
+
+		commoner.setProperty(Constants.X, 5);
+		commoner.setProperty(Constants.Y, 5);
+		world.addWorldObject(commoner);
+		target.setProperty(Constants.X, 3);
+		target.setProperty(Constants.Y, 3);
+		world.addWorldObject(target);
+		
+		dungeonMaster.runWorldObject(commoner, world);
+		
+		assertEquals(4, commoner.getProperty(Constants.X).intValue());
+		assertEquals(4, commoner.getProperty(Constants.Y).intValue());
+		assertEquals(Goals.SOCIALIZE_GOAL, world.getGoal(commoner));
+		assertEquals(Actions.TALK_ACTION, world.getImmediateGoal(commoner, world).getManagedOperation());
+		
+		target.setProperty(Constants.X, 8);
+		target.setProperty(Constants.Y, 8);
+		world.getHistory().actionPerformed(new OperationInfo(target, target, Args.EMPTY, Actions.MOVE_ACTION), new Turn());
+		
+		dungeonMaster.runWorldObject(commoner, world);
+		
+		assertEquals(5, commoner.getProperty(Constants.X).intValue());
+		assertEquals(5, commoner.getProperty(Constants.Y).intValue());
+		assertEquals(Goals.SOCIALIZE_GOAL, world.getGoal(commoner));
+		assertEquals(Actions.TALK_ACTION, world.getImmediateGoal(commoner, world).getManagedOperation());
 	}
 	
 	private WorldObject createVillagersOrganization(World world) {
