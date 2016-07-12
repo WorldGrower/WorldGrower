@@ -75,6 +75,8 @@ public class WorldObjectProperty implements ManagedProperty<WorldObject>, IdCont
 
 			if (innerWorldObject.hasProperty(Constants.ID) && (innerWorldObject.getProperty(Constants.ID).intValue() == id)) {
 				worldObject.setProperty(worldObjectProperty, null);
+			} else {
+				IdContainerUtils.removeIdPropertiesFromWorldObject(id, innerWorldObject);
 			}
 		}
 	}

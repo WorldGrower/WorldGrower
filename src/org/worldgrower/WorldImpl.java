@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.worldgrower.attribute.IdContainer;
+import org.worldgrower.attribute.IdContainerUtils;
 import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.condition.WorldStateChangedListener;
@@ -84,7 +85,7 @@ public class WorldImpl implements World, Serializable {
 		worldObjects.remove(worldObjectToRemove);
 		idToIndexMapping.idRemoved(worldObjects);
 		
-		removeIdContainers(worldObjectToRemove);
+		IdContainerUtils.removeIdContainers(worldObjectToRemove, this);
 		
 		propertyCache.idRemoved(worldObjectToRemove);
 		
@@ -93,19 +94,6 @@ public class WorldImpl implements World, Serializable {
 		jailCache.remove(worldObjectToRemove);
 	}
 
-	private void removeIdContainers(WorldObject worldObjectToRemove) {
-		int id = worldObjectToRemove.getProperty(Constants.ID);
-		for(WorldObject worldObject : worldObjects) {
-			List<IdContainer> worldObjectIds = Constants.getIdProperties();
-			for(IdContainer worldObjectId : worldObjectIds) {
-				ManagedProperty<?> property = (ManagedProperty<?>) worldObjectId;
-				if (worldObject.hasProperty(property) && (worldObject.getProperty(property) != null)) {
-					worldObjectId.remove(worldObject, property, id);
-				}
-			}
-		}
-	}
-	
 	@Override
 	public List<WorldObject> getWorldObjects() {
 		return Collections.unmodifiableList(worldObjects);

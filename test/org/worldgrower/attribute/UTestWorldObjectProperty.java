@@ -33,4 +33,15 @@ public class UTestWorldObjectProperty {
 		property.remove(person, property, 2);
 		assertEquals(null, person.getProperty(Constants.FACADE));
 	}
+	
+	@Test
+	public void testRemoveIdFromFacade() {
+		WorldObject facade = TestUtils.createIntelligentWorldObject(2, "facade");
+		facade.setProperty(Constants.MATE_ID, 4);
+		WorldObject person = TestUtils.createIntelligentWorldObject(3, Constants.FACADE, facade);
+		
+		property.remove(person, property, 4);
+		assertEquals(facade, person.getProperty(Constants.FACADE));
+		assertEquals(null, person.getProperty(Constants.FACADE).getProperty(Constants.MATE_ID));
+	}
 }
