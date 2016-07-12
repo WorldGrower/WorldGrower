@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import java.io.ObjectStreamException;
 
 import org.worldgrower.Constants;
+import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
@@ -26,7 +27,7 @@ import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
 public class BrewPoisonAction implements CraftAction {
-
+	private static final int DISTANCE = 1;
 	private static final int NIGHT_SHADE_REQUIRED = 3;
 	
 	@Override
@@ -46,7 +47,7 @@ public class BrewPoisonAction implements CraftAction {
 	
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return 0;
+		return Reach.evaluateTarget(performer, args, target, DISTANCE);
 	}
 	
 	@Override
@@ -86,5 +87,9 @@ public class BrewPoisonAction implements CraftAction {
 	@Override
 	public SoundIds getSoundId() {
 		return SoundIds.ALCHEMIST;
+	}
+
+	public boolean hasEnoughNightShade(WorldObject performer) {
+		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.NIGHT_SHADE) >= NIGHT_SHADE_REQUIRED;
 	}
 }

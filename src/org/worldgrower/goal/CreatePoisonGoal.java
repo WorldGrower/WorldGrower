@@ -33,7 +33,7 @@ public class CreatePoisonGoal implements Goal {
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		Integer apothecaryId = BuildingGenerator.getApothecaryId(performer);
-		if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.NIGHT_SHADE) == 0) {
+		if (!Actions.BREW_POISON_ACTION.hasEnoughNightShade(performer)) {
 			OperationInfo harvestNightShadeOperationInfo = Goals.HARVEST_NIGHT_SHADE_GOAL.calculateGoal(performer, world);
 			if (harvestNightShadeOperationInfo != null) {
 				return harvestNightShadeOperationInfo;
