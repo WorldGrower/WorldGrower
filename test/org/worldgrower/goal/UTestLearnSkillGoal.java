@@ -37,7 +37,7 @@ public class UTestLearnSkillGoal {
 	@Test
 	public void testCalculateGoalNull() {
 		World world = new WorldImpl(1, 1, null, null);
-		WorldObject performer = createPerformer();
+		WorldObject performer = createPerformer(2);
 		
 		assertEquals(null, goal.calculateGoal(performer, world));
 	}
@@ -45,8 +45,8 @@ public class UTestLearnSkillGoal {
 	@Test
 	public void testCalculateGoalTalkAboutLearning() {
 		World world = new WorldImpl(1, 1, null, null);
-		WorldObject performer = createPerformer();
-		WorldObject target = createPerformer();
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
 		
 		world.addWorldObject(performer);
 		world.addWorldObject(target);
@@ -68,8 +68,8 @@ public class UTestLearnSkillGoal {
 	@Test
 	public void testCalculateGoalMemberOfOtherOrganization() {
 		World world = new WorldImpl(1, 1, null, null);
-		WorldObject performer = createPerformer();
-		WorldObject target = createPerformer();
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
 		
 		world.addWorldObject(performer);
 		world.addWorldObject(target);
@@ -91,8 +91,8 @@ public class UTestLearnSkillGoal {
 	@Test
 	public void testCalculateGoalNotAMember() {
 		World world = new WorldImpl(1, 1, null, null);
-		WorldObject performer = createPerformer();
-		WorldObject target = createPerformer();
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
 		
 		world.addWorldObject(performer);
 		world.addWorldObject(target);
@@ -108,7 +108,7 @@ public class UTestLearnSkillGoal {
 	@Test
 	public void testIsGoalMet() {
 		World world = new WorldImpl(10, 10, null, null);
-		WorldObject performer = createPerformer();
+		WorldObject performer = createPerformer(2);
 		performer.setProperty(Constants.PROFESSION, Professions.FARMER_PROFESSION);
 		
 		assertEquals(false, goal.isGoalMet(performer, world));
@@ -117,8 +117,8 @@ public class UTestLearnSkillGoal {
 		assertEquals(true, goal.isGoalMet(performer, world));
 	}
 
-	private WorldObject createPerformer() {
-		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
+	private WorldObject createPerformer(int id) {
+		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.X, 0);
 		performer.setProperty(Constants.Y, 0);
 		performer.setProperty(Constants.WIDTH, 1);

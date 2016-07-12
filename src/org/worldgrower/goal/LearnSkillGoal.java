@@ -22,7 +22,6 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.SkillProperty;
-import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.profession.Profession;
 
@@ -40,7 +39,7 @@ public class LearnSkillGoal implements Goal {
 			List<WorldObject> organizationMembers = GoalUtils.findNearestTargets(performer, w -> isTarget(organization, w), world);
 			
 			for(WorldObject target : organizationMembers) {
-				if (SkillUtils.canTargetTeachPerformer(performer, target)) {
+				if (Actions.TALK_ACTION.canExecuteIgnoringDistance(performer, target, Conversations.createArgs(Conversations.LEARN_SKILLS_USING_ORGANIZATION), world)) {
 					return new OperationInfo(performer, target, Conversations.createArgs(Conversations.LEARN_SKILLS_USING_ORGANIZATION), Actions.TALK_ACTION);
 				}
 			}
