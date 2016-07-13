@@ -44,6 +44,10 @@ public interface ManagedOperation extends Serializable {
 	public default boolean canExecuteIgnoringDistance(WorldObject performer, WorldObject target, int[] args, World world) {
 		return new OperationInfo(performer, target, args, this).canExecuteIgnoringDistance(performer, world);
 	}
+	
+	public default boolean canExecute(WorldObject performer, WorldObject target, int[] args, World world) {
+		return new OperationInfo(performer, target, args, this).canExecute(performer, world);
+	}
 
 	public default Object readResolveImpl() throws ObjectStreamException {
 		Class<?> clazz = getClass();

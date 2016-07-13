@@ -59,6 +59,16 @@ public class UTestBuildSmithAction {
 		assertEquals(true, Actions.BUILD_SMITH_ACTION.isActionPossible(performer, target, Args.EMPTY, world));
 	}
 	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.STONE.generate(1f), 10);
+		
+		assertEquals(0, Actions.BUILD_SMITH_ACTION.distance(performer, target, Args.EMPTY, world));
+	}
+	
 	private WorldObject createPerformer(int id) {
 		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.X, 0);

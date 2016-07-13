@@ -234,6 +234,7 @@ public class GuiMouseListener extends MouseAdapter {
             		addScribeMagicSpells(menu, worldObject);
             	}
             	addBarterAction(menu, worldObject);
+            	addAccessContainerAction(menu, worldObject);
             	addPropertiesMenu(menu, worldObject);
             	addPerformedActionsMenu(menu, worldObject);
             	addAllActions(menu, worldObject);
@@ -355,19 +356,27 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 
 	private void addBarterAction(JPopupMenu menu, WorldObject worldObject) {
-		if (worldObject.hasProperty(Constants.INVENTORY) && !worldObject.hasProperty(Constants.ILLUSION_CREATOR_ID)) {
+		if (canTrade(worldObject) && !worldObject.hasProperty(Constants.ILLUSION_CREATOR_ID)) {
 			JMenuItem guiBarterItem = MenuFactory.createJMenuItem(new GuiBarterAction(playerCharacter, world, dungeonMaster, container, worldObject, imageInfoReader, soundIdReader, parentFrame), soundIdReader);
-			String barterDescription = canTrade(worldObject) ? "Barter..." : "Access container...";
-			guiBarterItem.setText(barterDescription);
+			guiBarterItem.setText("Barter...");
+			setMenuIcon(guiBarterItem, Actions.SELL_ACTION.getImageIds());
+			menu.add(guiBarterItem);
+		}
+	}
+
+	private boolean canTrade(WorldObject worldObject) {
+		return Actions.BUY_ACTION.isValidTarget(playerCharacter, worldObject, world) && Actions.BUY_ACTION.distance(playerCharacter, worldObject, Args.EMPTY, world) == 0;
+	}
+	
+	private void addAccessContainerAction(JPopupMenu menu, WorldObject worldObject) {
+		if (Actions.GET_ITEM_FROM_INVENTORY_ACTION.canExecute(playerCharacter, worldObject, Args.EMPTY, world) && !worldObject.hasProperty(Constants.ILLUSION_CREATOR_ID)) {
+			JMenuItem guiBarterItem = MenuFactory.createJMenuItem(new GuiBarterAction(playerCharacter, world, dungeonMaster, container, worldObject, imageInfoReader, soundIdReader, parentFrame), soundIdReader);
+			guiBarterItem.setText("Access container...");
 			setMenuIcon(guiBarterItem, Actions.SELL_ACTION.getImageIds());
 			menu.add(guiBarterItem);
 		}
 	}
 	
-	private boolean canTrade(WorldObject worldObject) {
-		return worldObject.hasIntelligence() && worldObject.hasProperty(Constants.CREATURE_TYPE) && worldObject.getProperty(Constants.CREATURE_TYPE).canTrade();
-	}
-		
 	private void addVoteActions(JPopupMenu menu, WorldObject worldObject) {
 		if (canPlayerCharacterPerformAction(worldObject, Actions.VOTE_FOR_LEADER_ACTION)) {
 			JMenuItem guiVoteMenuItem = MenuFactory.createJMenuItem(new GuiVoteAction(playerCharacter, imageInfoReader, soundIdReader, world, container, dungeonMaster, worldObject, parentFrame), soundIdReader);

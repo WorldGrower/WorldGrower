@@ -54,6 +54,16 @@ public class UTestWorldImpl {
 	}
 	
 	@Test
+	public void testFindWorldObjectNonExisting() {
+		try {
+			world.findWorldObjectById(7);
+			fail("method should fail");
+		} catch(IllegalStateException e) {
+			assertEquals("Problem retrieving id 7: Id 7 not found in idToIndexMapping; removed ids = []", e.getMessage());	
+		}
+	}
+	
+	@Test
 	public void testRemoveWorldObject() {
 		World world = createWorld();
 		WorldObject worldObject = TestUtils.createWorldObject(world.generateUniqueId(), "test");

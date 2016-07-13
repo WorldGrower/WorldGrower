@@ -67,6 +67,18 @@ public class UTestGetItemFromInventoryAction {
 	}
 
 	@Test
+	public void testIsActionPossibleUnownedContainer() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject otherOwner = createPerformer(2);
+		WorldObject target = createHouse(world, otherOwner);
+		
+		target.getProperty(Constants.INVENTORY).addQuantity(Item.BERRIES.generate(1f));
+		
+		assertEquals(false, Actions.GET_ITEM_FROM_INVENTORY_ACTION.isActionPossible(performer, target, new int[] { 0 }, world));
+	}
+	
+	@Test
 	public void testDistance() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
