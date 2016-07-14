@@ -188,7 +188,7 @@ public class Constants {
 	public static final IdProperty PLACE_OF_WORSHIP_ID = new IdProperty("placeOfWorshipId", ALL_PROPERTIES);
 	public static final BooleanProperty CAN_BE_WORSHIPPED = new BooleanProperty("canBeWorshipped", NOT_NULLABLE ,ALL_PROPERTIES);
 	
-	public static final IntProperty SLEEP_COMFORT = new IntProperty("sleepComfort", 0, 100, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty SLEEP_COMFORT = new IntProperty("sleep comfort", 0, 100, NOT_NULLABLE, ALL_PROPERTIES);
 	
 	public static final IntProperty SMITH_QUALITY = new IntProperty("smithQuality", 0, 100, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty FISHING_POLE_QUALITY = new IntProperty("fishingPoleQuality", 0, 100, NOT_NULLABLE, ALL_PROPERTIES);
@@ -268,7 +268,7 @@ public class Constants {
 	public static final IntProperty ARENA_DONATED_TURN = new IntProperty("arenaDonatedTurn", 0, null, NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty WORSHIP_COUNTER = new IntProperty("worshipCounter", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	
-	public static final IntProperty ALCOHOL_LEVEL = new IntProperty("alcoholLevel", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty ALCOHOL_LEVEL = new IntProperty("alcohol", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final UnCheckedProperty<Item> ITEM_ID = new UnCheckedProperty<>("itemId", ALL_PROPERTIES);
 	public static final UnCheckedProperty<ItemCountMap> ITEMS_SOLD = new UnCheckedProperty<>("itemsSold", ALL_PROPERTIES);
 	

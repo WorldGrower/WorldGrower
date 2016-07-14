@@ -129,7 +129,7 @@ public class BuySellIconsDrawer {
     }
 
 	int calculateBuyingX(int worldObjectX, int worldObjectWidth, int imageIndex) {
-		return worldObjectX + BUY_SELL_IMAGE_WIDTH - BUY_SELL_IMAGE_WIDTH * imageIndex - 1;
+		return worldObjectX + BUY_SELL_IMAGE_WIDTH * imageIndex - 1;
 	}
     
 	int calculateBuyingY(int worldObjectY, int worldObjectHeight, int imageIndex) {
