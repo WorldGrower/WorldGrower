@@ -85,6 +85,7 @@ public final class WorldPanel extends JPanel {
 	private final MusicPlayer musicPlayer;
 	private final GuiMouseListener guiMouseListener;
 	private final ConditionIconDrawer conditionIconDrawer;
+	private final BuySellIconsDrawer buySellIconsDrawer;
 	private int offsetX = 0;
 	private int offsetY = 0;
 	
@@ -117,6 +118,7 @@ public final class WorldPanel extends JPanel {
 		ToolTipManager.sharedInstance().registerComponent(this);
 
 		conditionIconDrawer = new ConditionIconDrawer(imageInfoReader);
+		buySellIconsDrawer = new BuySellIconsDrawer(imageInfoReader);
 		
         int width = 1200;
         int height = 900;
@@ -382,6 +384,7 @@ public final class WorldPanel extends JPanel {
 		g.drawImage(image, worldObjectX, worldObjectY, null);
 		
 		conditionIconDrawer.drawConditions(g, worldObject, lookDirection, image, worldObjectX, worldObjectY);		
+		buySellIconsDrawer.drawIcons(g, worldObject, lookDirection, image, worldObjectX, worldObjectY);
 	}
 	
 	public void drawBackgroundImage(Graphics g, Image image, int x, int y) {
@@ -592,7 +595,13 @@ public final class WorldPanel extends JPanel {
 		if (worldObject != null) {
 			return getDescriptionFor(worldPanelX, worldPanelY, worldObject);
 		} else if (worldObjectNorth != null) {
-			return conditionIconDrawer.getConditionDescriptionFor(worldObjectNorth, worldPanelX, worldPanelY, offsetX, offsetY);
+			String conditionDescription =  conditionIconDrawer.getConditionDescriptionFor(worldObjectNorth, worldPanelX, worldPanelY, offsetX, offsetY);
+			if (conditionDescription != null) {
+				return conditionDescription;
+			} else {
+				return buySellIconsDrawer.getItemDescriptionFor(worldObjectNorth, worldPanelX, worldPanelY, offsetX, offsetY);
+			}
+			
 		} else {
 			return null;
 		}
@@ -600,8 +609,11 @@ public final class WorldPanel extends JPanel {
 
 	private String getDescriptionFor(int worldPanelX, int worldPanelY, WorldObject worldObject) {
 		String conditionDescription = conditionIconDrawer.getConditionDescriptionFor(worldObject, worldPanelX, worldPanelY, offsetX, offsetY);
+		String buySellDescription = buySellIconsDrawer.getItemDescriptionFor(worldObject, worldPanelX, worldPanelY, offsetX, offsetY);
 		if (conditionDescription != null) {
 			return conditionDescription;
+		} else if (buySellDescription != null) {
+			return buySellDescription;
 		} else {
 			return worldObject.getProperty(Constants.NAME);
 		}

@@ -14,12 +14,9 @@
  *******************************************************************************/
 package org.worldgrower.gui;
 
-import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +26,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.LookDirection;
 import org.worldgrower.condition.Condition;
+import org.worldgrower.gui.util.ImageUtils;
 
 public class ConditionIconDrawer {
 
@@ -40,7 +38,7 @@ public class ConditionIconDrawer {
 	public ConditionIconDrawer(ImageInfoReader imageInfoReader) {
 		for(Condition condition : Condition.ALL_CONDITIONS) {
 			Image overlayingImage = imageInfoReader.getImage(condition.getImageIds(), null);
-			overlayingImage = createResizedCopy(overlayingImage, CONDITION_IMAGE_WIDTH, CONDITION_IMAGE_HEIGHT, false);
+			overlayingImage = ImageUtils.createResizedCopy(overlayingImage, CONDITION_IMAGE_WIDTH, CONDITION_IMAGE_HEIGHT, false);
 			
 			conditionImages.put(condition.getImageIds(), overlayingImage);
 		}
@@ -57,11 +55,15 @@ public class ConditionIconDrawer {
 			g.setColor(Color.BLACK);
 			int overlayingImageX = calculateConditionX(worldObjectX, worldObjectWidth, imageIndex);
 			int overlayingImageY = calculateConditionY(worldObjectY, worldObjectHeight, imageIndex);
-			g.drawRect(overlayingImageX, overlayingImageY, CONDITION_IMAGE_WIDTH, CONDITION_IMAGE_HEIGHT);
-			g.drawImage(conditionImage, overlayingImageX, overlayingImageY, null);
+			drawImage(g, conditionImage, overlayingImageX, overlayingImageY);
 			
 			imageIndex++;
 		}
+	}
+
+	void drawImage(Graphics g, Image image, int overlayingImageX, int overlayingImageY) {
+		g.drawRect(overlayingImageX, overlayingImageY, CONDITION_IMAGE_WIDTH, CONDITION_IMAGE_HEIGHT);
+		g.drawImage(image, overlayingImageX, overlayingImageY, null);
 	}
 	
     private List<ImageIds> getConditionImageIds(WorldObject worldObject) {
@@ -72,21 +74,6 @@ public class ConditionIconDrawer {
     	}
     }
 
-	BufferedImage createResizedCopy(Image originalImage, 
-    		int scaledWidth, int scaledHeight, 
-    		boolean preserveAlpha)
-    {
-    	int imageType = preserveAlpha ? BufferedImage.TYPE_INT_RGB : BufferedImage.TYPE_INT_ARGB;
-    	BufferedImage scaledBI = new BufferedImage(scaledWidth, scaledHeight, imageType);
-    	Graphics2D g = scaledBI.createGraphics();
-    	if (preserveAlpha) {
-    		g.setComposite(AlphaComposite.Src);
-    	}
-    	g.drawImage(originalImage, 0, 0, scaledWidth, scaledHeight, null); 
-    	g.dispose();
-    	return scaledBI;
-    }
-    
 	int calculateConditionX(int worldObjectX, int worldObjectWidth, int imageIndex) {
 		return worldObjectX + worldObjectWidth - CONDITION_IMAGE_WIDTH - CONDITION_IMAGE_WIDTH * imageIndex - 1;
 	}
@@ -107,8 +94,8 @@ public class ConditionIconDrawer {
 			int overlayingImageX = calculateConditionX(worldObjectX, worldObjectWidth, imageIndex);
 			int overlayingImageY = calculateConditionY(worldObjectY, worldObjectHeight, imageIndex);
 
-			if (overlayingImageX <= panelX && panelX <= overlayingImageX + CONDITION_IMAGE_WIDTH) {
-				if (overlayingImageY <= panelY && panelY <= overlayingImageY + CONDITION_IMAGE_HEIGHT) {
+			if (isInOverlayingX(panelX, overlayingImageX)) {
+				if (isInOverlayingY(panelY, overlayingImageY)) {
 					return conditionDescription;
 				}
 			}
@@ -116,6 +103,14 @@ public class ConditionIconDrawer {
 			imageIndex++;
 		}
 		return null;
+	}
+
+	boolean isInOverlayingY(int panelY, int overlayingImageY) {
+		return overlayingImageY <= panelY && panelY <= overlayingImageY + CONDITION_IMAGE_HEIGHT;
+	}
+
+	boolean isInOverlayingX(int panelX, int overlayingImageX) {
+		return overlayingImageX <= panelX && panelX <= overlayingImageX + CONDITION_IMAGE_WIDTH;
 	}
 	
     private List<String> getConditionDescriptions(WorldObject worldObject) {

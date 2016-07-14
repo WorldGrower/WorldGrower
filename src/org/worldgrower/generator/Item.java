@@ -37,7 +37,6 @@ import org.worldgrower.gui.ImageIds;
 
 public enum Item {
 	
-	
 	IRON_CLAYMORE(ItemType.WEAPON), 
 	IRON_GREATSWORD(ItemType.WEAPON), 
 	IRON_AXE(ItemType.WEAPON), 
@@ -683,11 +682,24 @@ public enum Item {
 		return generate(1f).getProperty(Constants.PRICE);
 	}
 	
+	public ImageIds getImageId() {
+		return generate(1f).getProperty(Constants.IMAGE_ID);
+	}
+	
 	public static Item value(int index) {
 		return Item.values()[index];
 	}
 
 	public ItemType getItemType() {
 		return itemType;
+	}
+
+	public static Item getItemFor(ManagedProperty<?> managedProperty) {
+		for(Item item : Item.values()) {
+			if (item.generate(1f).hasProperty(managedProperty)) {
+				return item;
+			}
+		}
+		throw new IllegalStateException("Property " + managedProperty + " not found in items"); 
 	}
 }
