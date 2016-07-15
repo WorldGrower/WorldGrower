@@ -70,6 +70,16 @@ public class UTestCatchFishAction {
 		
 		assertEquals(true, Actions.CATCH_FISH_ACTION.isActionPossible(performer, target, Args.EMPTY, world));
 	}
+
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createFish(world);
+		performer.setProperty(Constants.LEFT_HAND_EQUIPMENT, Item.FISHING_POLE.generate(1f));
+		
+		assertEquals(0, Actions.CATCH_FISH_ACTION.distance(performer, target, Args.EMPTY, world));
+	}
 	
 	private WorldObject createPerformer(int id) {
 		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.INVENTORY, new WorldObjectContainer());

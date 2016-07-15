@@ -24,6 +24,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.generator.Item;
 
 public class UTestCraftLongBowAction {
 
@@ -34,5 +36,32 @@ public class UTestCraftLongBowAction {
 		Actions.CRAFT_LONG_BOW_ACTION.execute(performer, performer, Args.EMPTY, world);
 		
 		assertEquals(1, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.DAMAGE));
+	}
+	
+	@Test
+	public void testIsActionPossible() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
+		
+		assertEquals(false, Actions.CRAFT_LONG_BOW_ACTION.isActionPossible(performer, performer, Args.EMPTY, world));
+		
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.ORE.generate(1f), 20);
+		assertEquals(true, Actions.CRAFT_LONG_BOW_ACTION.isActionPossible(performer, performer, Args.EMPTY, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
+		WorldObject target = createWorkbench(world, performer);
+		
+		assertEquals(0, Actions.CRAFT_LONG_BOW_ACTION.distance(performer, target, Args.EMPTY, world));
+	}
+	
+	private WorldObject createWorkbench(World world, WorldObject performer) {
+		int id = BuildingGenerator.generateWorkbench(0, 0, world, performer);
+		WorldObject target = world.findWorldObjectById(id);
+		return target;
 	}
 }

@@ -21,7 +21,10 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.MarkInventoryItemAsSellableAction;
+import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.Prices;
+import org.worldgrower.attribute.PropertyCountMap;
+import org.worldgrower.attribute.PropertyCountMapProperty;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.goal.WeightPropertyUtils;
 import org.worldgrower.gui.ImageIds;
@@ -119,5 +122,9 @@ public class InventoryDialogModel {
 		int[] args = MarkInventoryItemAsSellableAction.createArgs(inventoryItem.getId(), sellable);
 		Actions.MARK_INVENTORY_ITEM_AS_SELLABLE_ACTION.execute(playerCharacter, playerCharacter, args, world);
 		
+	}
+
+	public PropertyCountMap<ManagedProperty<?>> getPlayerCharacterDemands() {
+		return playerCharacter.getProperty(Constants.DEMANDS);
 	}
 }

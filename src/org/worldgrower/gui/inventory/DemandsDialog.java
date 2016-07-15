@@ -27,7 +27,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
-import org.worldgrower.attribute.Prices;
+import org.worldgrower.Constants;
+import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.attribute.PropertyCountMap;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.AbstractDialog;
 import org.worldgrower.gui.ImageIds;
@@ -38,22 +40,22 @@ import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JTableFactory;
 
-public final class PricesDialog extends AbstractDialog {
-	private final Prices pricesOnPlayer;
+public final class DemandsDialog extends AbstractDialog {
+	private final PropertyCountMap<ManagedProperty<?>> demands;
 	
-	public PricesDialog(Prices pricesOnPlayer, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader) {
+	public DemandsDialog(PropertyCountMap<ManagedProperty<?>> demands, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader) {
 		super(400, 800);
-		this.pricesOnPlayer = pricesOnPlayer;
+		this.demands = demands;
 		
 		initializeGUI(imageInfoReader, soundIdReader);
 	}
 
 	public void initializeGUI(ImageInfoReader imageInfoReader, SoundIdReader soundIdReader) {
-		PricesModel worldModel = new PricesModel(pricesOnPlayer);
+		DemandsModel worldModel = new DemandsModel(demands);
 		JTable table = JTableFactory.createJTable(worldModel);
 		table.setDefaultRenderer(ImageIds.class, new ImageTableRenderer(imageInfoReader));
-		table.setRowHeight(50);
 		table.setAutoCreateRowSorter(true);
+		table.setRowHeight(50);
 		table.getRowSorter().toggleSortOrder(1);
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(15, 15, 368, 700);
@@ -68,7 +70,7 @@ public final class PricesDialog extends AbstractDialog {
 		JButton okButton = JButtonFactory.createButton("OK", soundIdReader);
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
-		addActionHandlers(okButton, worldModel, this, pricesOnPlayer);
+		addActionHandlers(okButton, worldModel, this, demands);
 		getRootPane().setDefaultButton(okButton);
 		
 		SwingUtils.makeTransparant(table, scrollPane);
@@ -79,40 +81,39 @@ public final class PricesDialog extends AbstractDialog {
 		setVisible(true);
 	}
 	
-	private void addActionHandlers(JButton okButton, PricesModel model, JDialog dialog, Prices pricesOnPlayer) {
+	private void addActionHandlers(JButton okButton, DemandsModel model, JDialog dialog, PropertyCountMap<ManagedProperty<?>> demands) {
 		okButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				int[] args = model.getArgs();
-				Prices prices = pricesOnPlayer;
-				for(int i=0; i<args.length; i++) {
-					Item item = Item.value(i);
-					prices.setPrice(item, args[i]);
-				}
-				//Game.executeAction(playerCharacter, Actions.SET_PRICES_ACTION, args, world, dungeonMaster, playerCharacter, parent);
+				model.apply(demands);
 				dialog.dispose();
 			}
 		});
 	}
 
-	private static class PricesModel extends AbstractTableModel {
-		private List<ItemPrice> prices = new ArrayList<>();
+	private static final ManagedProperty<?>[] PROPERTIES = new ManagedProperty<?>[] { Constants.FOOD, Constants.WATER };
+	
+	private static class DemandsModel extends AbstractTableModel {
+		private List<DemandItem> demandItems = new ArrayList<>();
 		
-		public PricesModel(Prices pricesOnPlayer) {
+		public DemandsModel(PropertyCountMap<ManagedProperty<?>> demands) {
 			super();
-			for(Item item : Item.values()) {
-				int price = pricesOnPlayer.getPrice(item);
-				prices.add(new ItemPrice(item, price));
+			for(ManagedProperty<?> property : PROPERTIES) {
+				boolean isDemanded = demands.count(property) > 0;
+				demandItems.add(new DemandItem(property, isDemanded));
 			}
 		}
 
-		public int[] getArgs() {
-			int[] args = new int[prices.size()];
-			for(int i=0; i<args.length; i++) {
-				args[i] = prices.get(i).getPrice();
+		public void apply(PropertyCountMap<ManagedProperty<?>> demands) {
+			for(DemandItem demandItem : demandItems) {
+				if (demandItem.isDemanded()) {
+					demands.add(demandItem.getProperty(), 5);
+				} else {
+					demands.remove(demandItem.getProperty());
+				}
 			}
-			return args;
+			
 		}
 
 		@Override
@@ -122,7 +123,7 @@ public final class PricesDialog extends AbstractDialog {
 
 		@Override
 		public int getRowCount() {
-			return prices.size();
+			return demandItems.size();
 		}
 		
 		@Override
@@ -132,7 +133,7 @@ public final class PricesDialog extends AbstractDialog {
 			} else if (column == 1) {
 				return String.class;
 			} else {
-				return Integer.class;
+				return Boolean.class;
 			}
 		}
 		
@@ -147,7 +148,7 @@ public final class PricesDialog extends AbstractDialog {
 		
 		@Override
 		public void setValueAt(Object value, int row, int column) {
-			prices.get(row).setPrice((Integer)value);
+			demandItems.get(row).setDemanded((Boolean)value);
 		}
 
 		@Override
@@ -157,7 +158,7 @@ public final class PricesDialog extends AbstractDialog {
 			} else if (columnIndex == 1) {
 				return "Item";
 			} else if (columnIndex == 2) {
-				return "Price";
+				return "Is Demanded";
 			} else {
 				return null;
 			}
@@ -166,34 +167,34 @@ public final class PricesDialog extends AbstractDialog {
 		@Override
 		public Object getValueAt(int rowIndex, int columnIndex) {
 			if (columnIndex == 0) {
-				return prices.get(rowIndex).getItem().getImageId();
+				return Item.getItemFor(demandItems.get(rowIndex).getProperty()).getImageId();
 			} else if (columnIndex == 1) {
-				return prices.get(rowIndex).getItem().getDescription();
+				return demandItems.get(rowIndex).getProperty().getName();
 			} else if (columnIndex == 2) {
-				return prices.get(rowIndex).getPrice();
+				return demandItems.get(rowIndex).isDemanded();
 			} else {
 				return null;
 			}
 		}
 	}
 	
-	private static class ItemPrice {
-		private Item item;
-		private int price;
+	private static class DemandItem {
+		private ManagedProperty<?> property;
+		private boolean isDemanded;
 		
-		public ItemPrice(Item item, int price) {
+		public DemandItem(ManagedProperty<?> property, boolean isDemanded) {
 			super();
-			this.item = item;
-			this.price = price;
+			this.property = property;
+			this.isDemanded = isDemanded;
 		}
-		public Item getItem() {
-			return item;
+		public ManagedProperty<?> getProperty() {
+			return property;
 		}
-		public int getPrice() {
-			return price;
+		public boolean isDemanded() {
+			return isDemanded;
 		}
-		public void setPrice(int price) {
-			this.price = price;
+		public void setDemanded(boolean isDemanded) {
+			this.isDemanded = isDemanded;
 		}
 	}
 }

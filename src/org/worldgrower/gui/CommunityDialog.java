@@ -36,7 +36,6 @@ import javax.swing.JTree;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 
@@ -109,7 +108,7 @@ public class CommunityDialog extends JDialog {
 		familyPanel.add(lblChildren);
 		
 		tlbChildren = JTableFactory.createJTable(new ChildrenTableModel(playerCharacter, world));
-		tlbChildren.setDefaultRenderer(ImageIds.class, new ImageRenderer(imageInfoReader));
+		tlbChildren.setDefaultRenderer(ImageIds.class, new ImageTableRenderer(imageInfoReader));
 		tlbChildren.setRowHeight(50);
 		tlbChildren.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tlbChildren.setAutoCreateRowSorter(true);
@@ -126,7 +125,7 @@ public class CommunityDialog extends JDialog {
 		contentPanel.add(acquaintancesPanel);
 		
 		tblAcquaintances = JTableFactory.createJTable(new AcquaintancesTableModel(playerCharacter, world));
-		tblAcquaintances.setDefaultRenderer(ImageIds.class, new ImageRenderer(imageInfoReader));
+		tblAcquaintances.setDefaultRenderer(ImageIds.class, new ImageTableRenderer(imageInfoReader));
 		tblAcquaintances.setRowHeight(50);
 		tblAcquaintances.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tblAcquaintances.setAutoCreateRowSorter(true);
@@ -334,21 +333,6 @@ public class CommunityDialog extends JDialog {
 			}
 			return null;
 		}
-	}
-	
-	private static class ImageRenderer extends DefaultTableCellRenderer {
-	    private final ImageInfoReader imageInfoReader;
-
-	    public ImageRenderer(ImageInfoReader imageInfoReader) {
-			super();
-			this.imageInfoReader = imageInfoReader;
-		}
-
-
-		public void setValue(Object value) {
-	       ImageIds imageId = (ImageIds) value;
-	       setIcon(new ImageIcon(imageInfoReader.getImage(imageId, null)));
-	    }
 	}
 	
 	private void expandAllNodes(JTree tree, int startingIndex, int rowCount){

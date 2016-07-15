@@ -43,8 +43,7 @@ public class UTestCraftIronKatarAction {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
 
-		int smithId = BuildingGenerator.generateSmith(0, 0, world, performer);
-		WorldObject target = world.findWorldObjectById(smithId);
+		WorldObject target = createSmith(world, performer);
 		
 		assertEquals(false, Actions.CRAFT_IRON_KATAR_ACTION.isValidTarget(performer, performer, world));
 		assertEquals(true, Actions.CRAFT_IRON_KATAR_ACTION.isValidTarget(performer, target, world));
@@ -57,10 +56,24 @@ public class UTestCraftIronKatarAction {
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.ORE.generate(1f), 20);
 
-		int smithId = BuildingGenerator.generateSmith(0, 0, world, performer);
-		WorldObject target = world.findWorldObjectById(smithId);
+		WorldObject target = createSmith(world, performer);
 		
 		assertEquals(true, Actions.CRAFT_IRON_KATAR_ACTION.isActionPossible(performer, target, Args.EMPTY, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createSmith(world, performer);
+		
+		assertEquals(0, Actions.CRAFT_IRON_KATAR_ACTION.distance(performer, target, Args.EMPTY, world));
+	}
+
+	private WorldObject createSmith(World world, WorldObject performer) {
+		int smithId = BuildingGenerator.generateSmith(0, 0, world, performer);
+		WorldObject target = world.findWorldObjectById(smithId);
+		return target;
 	}
 	
 	private WorldObject createPerformer(int id) {

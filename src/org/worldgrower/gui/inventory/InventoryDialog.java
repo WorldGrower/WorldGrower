@@ -29,12 +29,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
 
-import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -57,7 +55,10 @@ import javax.swing.table.TableRowSorter;
 
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.Prices;
+import org.worldgrower.attribute.PropertyCountMap;
+import org.worldgrower.attribute.PropertyCountMapProperty;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.gui.AbstractDialog;
 import org.worldgrower.gui.ColorPalette;
@@ -81,6 +82,7 @@ public final class InventoryDialog extends AbstractDialog {
 	private static final String WEIGHT_PLAYER_CHARACTER_TOOL_TIP = "shows current weight of things that the player character is carrying and maximum weight";
 	private static final String MONEY_TARGET_TOOL_TIP = "shows amount of gold that a character has";
 	private static final String WEIGHT_TARGET_TOOL_TIP = "shows current weight of things that a character is carrying and maximum weight";
+	private static final String DEMANDS_TOOL_TIP = "show list of items that other npcs may sell to the player character";
 	private static final String PRICES_TOOL_TIP = "show list of items with associated prices. These prices are used instead of the default prices when an item is sold by the player character";
 	
 	private final ImageInfoReader imageInfoReader;
@@ -100,6 +102,7 @@ public final class InventoryDialog extends AbstractDialog {
 	private JLabel targetMoney;
 	private JLabel targetWeight;
 	
+	private JButton demandsButton;
 	private JButton pricesButton;
 	
 	private JPanel containersPanel;
@@ -186,6 +189,11 @@ public final class InventoryDialog extends AbstractDialog {
 		weightLabelValue.setBounds(labelValueLeft, 12, 64, 25);
 		inventoryPanel.add(weightLabelValue);
 		
+		demandsButton = JButtonFactory.createButton("Set buying items", soundIdReader);
+		demandsButton.setToolTipText(DEMANDS_TOOL_TIP);
+		demandsButton.setBounds(labelLeft, 530, 150, 25);
+		inventoryPanel.add(demandsButton);
+		
 		pricesButton = JButtonFactory.createButton("Set selling prices", soundIdReader);
 		pricesButton.setToolTipText(PRICES_TOOL_TIP);
 		pricesButton.setBounds(labelLeft, 566, 150, 25);
@@ -248,7 +256,7 @@ public final class InventoryDialog extends AbstractDialog {
 			setPlayerCharacterPanelOnTop(null);
 		}
 		
-		setInventoryActions(inventoryDialogModel.getPlayerCharacterPrices());
+		setInventoryActions(inventoryDialogModel.getPlayerCharacterDemands(), inventoryDialogModel.getPlayerCharacterPrices());
 		addPopupMenuToInventoryList(inventoryDialogModel, inventoryActionFactory);
 		
 		DialogUtils.createDialogBackPanel(this, parentFrame.getContentPane());
@@ -516,8 +524,9 @@ public final class InventoryDialog extends AbstractDialog {
 		return weightString;
 	}
 
-	private void setInventoryActions(Prices pricesOnPlayer) {
-		pricesButton.addActionListener(e -> new PricesDialog(pricesOnPlayer, soundIdReader).showMe());
+	private void setInventoryActions(PropertyCountMap<ManagedProperty<?>> demands, Prices pricesOnPlayer) {
+		demandsButton.addActionListener(e -> new DemandsDialog(demands, imageInfoReader, soundIdReader).showMe());
+		pricesButton.addActionListener(e -> new PricesDialog(pricesOnPlayer, imageInfoReader, soundIdReader).showMe());
 	}
 
 	private void addPlayerCharacterMenuActions(JPopupMenu popupMenu, InventoryItem inventoryItem, InventoryDialogModel inventoryDialogModel, InventoryActionFactory inventoryActionFactory) {
@@ -591,7 +600,7 @@ public final class InventoryDialog extends AbstractDialog {
 			}
 		}
 		
-		setInventoryActions(inventoryDialogModel.getPlayerCharacterPrices());
+		setInventoryActions(inventoryDialogModel.getPlayerCharacterDemands(), inventoryDialogModel.getPlayerCharacterPrices());
 	}
 
 	public InventoryItem getPlayerCharacterSelectedValue() {
