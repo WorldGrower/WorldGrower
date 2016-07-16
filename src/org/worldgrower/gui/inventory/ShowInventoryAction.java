@@ -19,6 +19,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.JFrame;
 
+import org.worldgrower.Constants;
 import org.worldgrower.DungeonMaster;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
@@ -54,5 +55,6 @@ public class ShowInventoryAction extends AbstractAction {
 		dialog = new InventoryDialog(new InventoryDialogModel(playerCharacter, world), imageInfoReader, soundIdReader, inventoryActionFactory, parentFrame);
 		inventoryActionFactory.setDialog(dialog);
 		dialog.showMe();
+		container.repaintAround(playerCharacter.getProperty(Constants.X), playerCharacter.getProperty(Constants.Y), playerCharacter);
 	}
 }
