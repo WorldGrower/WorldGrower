@@ -27,9 +27,8 @@ import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.LookDirection;
 import org.worldgrower.attribute.ManagedProperty;
-import org.worldgrower.attribute.PropertyCountMap;
-import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
+import org.worldgrower.goal.BuySellUtils;
 import org.worldgrower.gui.util.ImageUtils;
 
 public class BuySellIconsDrawer {
@@ -83,7 +82,7 @@ public class BuySellIconsDrawer {
     private List<Image> getBuyingImages(WorldObject worldObject) {
     	if (canAdvertiseBuying(worldObject)) {
     		List<Image> images = new ArrayList<>();
-	    	for(ManagedProperty<?> managedProperty : getBuyingProperties(worldObject)) {
+	    	for(ManagedProperty<?> managedProperty : BuySellUtils.getBuyingProperties(worldObject)) {
 	    		Item item = Item.getItemFor(managedProperty);
 	    		images.add(itemImages.get(item));
 	    	}
@@ -97,18 +96,13 @@ public class BuySellIconsDrawer {
 		return worldObject.hasProperty(Constants.DEMANDS);
 	}
     
-    private List<ManagedProperty<?>> getBuyingProperties(WorldObject worldObject) {
-    	PropertyCountMap<ManagedProperty<?>> demands = worldObject.getProperty(Constants.DEMANDS);
-    	return demands.keySet();
-    }
-    
     private List<String> getBuyingDescriptions(WorldObject worldObject) {
-    	return getBuyingProperties(worldObject).stream().map(m -> m.getName()).collect(Collectors.toList());
+    	return BuySellUtils.getBuyingProperties(worldObject).stream().map(m -> m.getName()).collect(Collectors.toList());
     }
     
     private List<Image> getSellingImages(WorldObject worldObject) {
     	if (canAdvertiseSelling(worldObject)) {
-	    	List<WorldObject> sellableWorldObjects = getSellableWorldObjects(worldObject);
+	    	List<WorldObject> sellableWorldObjects = BuySellUtils.getSellableWorldObjects(worldObject);
 			return sellableWorldObjects.stream().map(w -> itemImages.get(w.getProperty(Constants.ITEM_ID))).collect(Collectors.toList()); 
     	} else {
     		return new ArrayList<>();
@@ -119,13 +113,8 @@ public class BuySellIconsDrawer {
 		return worldObject.hasProperty(Constants.INVENTORY);
 	}
     
-    private List<WorldObject> getSellableWorldObjects(WorldObject worldObject) {
-    	WorldObjectContainer inventory = worldObject.getProperty(Constants.INVENTORY);
-    	return inventory.getWorldObjectsByFunction(Constants.SELLABLE, w -> w.getProperty(Constants.SELLABLE));
-    }
-    
     private List<String> getSellingDescriptions(WorldObject worldObject) {
-    	return getSellableWorldObjects(worldObject).stream().map(w -> w.getProperty(Constants.NAME)).collect(Collectors.toList());
+    	return BuySellUtils.getSellableWorldObjects(worldObject).stream().map(w -> w.getProperty(Constants.NAME)).collect(Collectors.toList());
     }
 
 	int calculateBuyingX(int worldObjectX, int worldObjectWidth, int imageIndex) {

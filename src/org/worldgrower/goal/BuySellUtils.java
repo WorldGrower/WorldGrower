@@ -24,6 +24,7 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.Prices;
+import org.worldgrower.attribute.PropertyCountMap;
 import org.worldgrower.attribute.StringProperty;
 import org.worldgrower.attribute.UnCheckedProperty;
 import org.worldgrower.attribute.WorldObjectContainer;
@@ -213,4 +214,14 @@ public class BuySellUtils {
 		WorldObjectContainer targetInventory = target.getProperty(Constants.INVENTORY);
 		targetInventory.addQuantity(food, quantity);
 	}
+	
+	public static List<ManagedProperty<?>> getBuyingProperties(WorldObject worldObject) {
+    	PropertyCountMap<ManagedProperty<?>> demands = worldObject.getProperty(Constants.DEMANDS);
+    	return demands.keySet();
+    }
+	
+    public static List<WorldObject> getSellableWorldObjects(WorldObject worldObject) {
+    	WorldObjectContainer inventory = worldObject.getProperty(Constants.INVENTORY);
+    	return inventory.getWorldObjectsByFunction(Constants.SELLABLE, w -> w.getProperty(Constants.SELLABLE));
+    }
 }
