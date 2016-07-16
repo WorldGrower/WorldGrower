@@ -26,6 +26,7 @@ import org.worldgrower.actions.BuildBreweryAction;
 import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.generator.Item;
 import org.worldgrower.history.HistoryItem;
 
 public class TradeGoal implements Goal {
@@ -36,27 +37,20 @@ public class TradeGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		List<WorldObject> targets = GoalUtils.findNearestTargetsByProperty(performer, Actions.BUY_ACTION, Constants.STRENGTH, w -> isTradeTarget(performer, w, world), world);
-		
-		List<WorldObject> unownedBreweries = BuildingGenerator.findUnownedBuildingsForClaiming(performer, Constants.BREWERY_QUALITY, w -> BuildingGenerator.isBrewery(w), world);
-		if (unownedBreweries.size() > 0) {
-			return new OperationInfo(performer, unownedBreweries.get(0), Args.EMPTY, Actions.CLAIM_BUILDING_ACTION);
-		} else if (!BuildBreweryAction.hasEnoughStone(performer)) {
-			return Goals.STONE_GOAL.calculateGoal(performer, world);
-		} else if (!BuildBreweryAction.hasEnoughWood(performer)) {
-			return Goals.WOOD_GOAL.calculateGoal(performer, world);
-		} else {
-			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 4, 3, world);
-			if (target != null) {
-				return new OperationInfo(performer, target, Args.EMPTY, Actions.BUILD_BREWERY_ACTION);
-			} else {
-				return null;
-			}
+		List<WorldObject> targets = GoalUtils.findNearestTargetsByProperty(performer, Actions.SELL_ACTION, Constants.STRENGTH, w -> isSellTarget(performer, w, world), world);
+		if (targets.size() > 0) {
+			return BuySellUtils.create(performer, targets.get(0), Item.BED, 5);
 		}
+		
+		targets = GoalUtils.findNearestTargetsByProperty(performer, Actions.BUY_ACTION, Constants.STRENGTH, w -> isBuyTarget(performer, w, world), world);
+		if (targets.size() > 0) {
+			return BuySellUtils.create(performer, targets.get(0), Item.BED, 5);
+		}
+		
+		return null;
 	}
 	
-	private boolean isTradeTarget(WorldObject performer, WorldObject target, World world) {
-		List<HistoryItem> buyHistoryItems = world.getHistory().findHistoryItems(performer, target, Actions.BUY_ACTION);
+	private boolean isSellTarget(WorldObject performer, WorldObject target, World world) {
 		List<HistoryItem> sellHistoryItems = world.getHistory().findHistoryItems(performer, target, Actions.SELL_ACTION);
 		
 		List<WorldObject> performerSellableWorldObjects = BuySellUtils.getSellableWorldObjects(performer);
@@ -65,6 +59,12 @@ public class TradeGoal implements Goal {
 		if (sellableObject != null) {
 			return true;
 		}
+		
+		return false;
+	}
+	
+	private boolean isBuyTarget(WorldObject performer, WorldObject target, World world) {
+		List<HistoryItem> buyHistoryItems = world.getHistory().findHistoryItems(performer, target, Actions.BUY_ACTION);
 		
 		List<WorldObject> targetSellableWorldObjects = BuySellUtils.getSellableWorldObjects(target);
 		List<ManagedProperty<?>> performerBuyingProperties = BuySellUtils.getBuyingProperties(target);
