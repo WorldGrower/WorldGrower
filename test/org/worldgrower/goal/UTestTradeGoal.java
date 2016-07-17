@@ -16,6 +16,7 @@ package org.worldgrower.goal;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
@@ -44,14 +45,39 @@ public class UTestTradeGoal {
 		WorldObject target = createPerformer(3);
 		world.addWorldObject(target);
 		
-		WorldObject berries = Item.BERRIES.generate(1f);
-		berries.setProperty(Constants.SELLABLE, true);
-		performer.getProperty(Constants.INVENTORY).addQuantity(berries, 20);
+		addSellableBerriesToInventory(performer);
 		
 		target.getProperty(Constants.DEMANDS).add(Constants.FOOD, 5);
 		target.setProperty(Constants.GOLD, 1000);
 		
 		assertEquals(Actions.SELL_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+		assertEquals(target, goal.calculateGoal(performer, world).getTarget());
+		int quantity = 20;
+		Assert.assertArrayEquals(new int[] { 0, 1, quantity }, goal.calculateGoal(performer, world).getArgs());
+	}
+
+	private void addSellableBerriesToInventory(WorldObject performer) {
+		WorldObject berries = Item.BERRIES.generate(1f);
+		berries.setProperty(Constants.SELLABLE, true);
+		performer.getProperty(Constants.INVENTORY).addQuantity(berries, 20);
+	}
+	
+	@Test
+	public void testCalculateGoalBuyItem() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		world.addWorldObject(target);
+		
+		addSellableBerriesToInventory(target);
+		
+		performer.getProperty(Constants.DEMANDS).add(Constants.FOOD, 5);
+		performer.setProperty(Constants.GOLD, 1000);
+		
+		assertEquals(Actions.BUY_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+		assertEquals(target, goal.calculateGoal(performer, world).getTarget());
+		int quantity = 20;
+		Assert.assertArrayEquals(new int[] { 0, 1, quantity }, goal.calculateGoal(performer, world).getArgs());
 	}
 
 	private WorldObject createPerformer(int id) {

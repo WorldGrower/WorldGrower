@@ -255,4 +255,20 @@ public class UTestBuySellUtils {
 			assertEquals("WorldObject NAME=berries, food=1, sellable=false, ImageId=BERRY, itemId=BERRIES,  has no price", e.getMessage());
 		}
 	}
+	
+	@Test
+	public void testCalculateQuantity() {
+		WorldObject buyer = TestUtils.createIntelligentWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
+		buyer.setProperty(Constants.GOLD, 1000);
+
+		WorldObject seller = TestUtils.createIntelligentWorldObject(3, Constants.INVENTORY, new WorldObjectContainer());
+		WorldObject berries = Item.BERRIES.generate(1f);
+		berries.setProperty(Constants.SELLABLE, Boolean.TRUE);
+		seller.getProperty(Constants.INVENTORY).addQuantity(berries, 20);
+		
+		assertEquals(20, BuySellUtils.calculateQuantity(buyer, seller, 0));
+		
+		buyer.setProperty(Constants.GOLD, 1);
+		assertEquals(1, BuySellUtils.calculateQuantity(buyer, seller, 0));
+	}
 }
