@@ -38,6 +38,7 @@ public class MerchantProfession implements Profession {
 	@Override
 	public List<Goal> getProfessionGoals() {
 		return Arrays.asList(
+				//TODO: mark items as sellable
 				Goals.TRADE_GOAL
 				);
 	}

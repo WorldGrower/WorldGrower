@@ -707,7 +707,8 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestPropertyCache.class,
 	UTestHistoryItem.class,
 	UTestWorldObjectProperty.class,
-	UTestStandStillToTalkAction.class
+	UTestStandStillToTalkAction.class,
+	UTestTradeGoal.class
 })
 public class CompleteTestSuite {
 }
