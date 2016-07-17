@@ -271,6 +271,7 @@ public class Actions {
 	public static final EatRemainsAction EAT_REMAINS_ACTION = new EatRemainsAction();
 	public static final FireBallAttackAction FIRE_BALL_ATTACK_ACTION = new FireBallAttackAction();
 	public static final MajorIllusionAction MAJOR_ILLUSION_ACTION = new MajorIllusionAction();
+	public static final SetPricesAction SET_PRICES_ACTION = new SetPricesAction();
 	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 
@@ -464,7 +465,8 @@ public class Actions {
 		BUILD_APOTHECARY_ACTION,
 		CONSTRUCT_CHEST_ACTION,
 		DISMISS_SECRET_CHEST_ACTION,
-		EAT_REMAINS_ACTION
+		EAT_REMAINS_ACTION,
+		SET_PRICES_ACTION
 	));
 	
 	static {

@@ -17,6 +17,7 @@ package org.worldgrower.gui.inventory;
 import java.awt.Image;
 
 import org.worldgrower.Constants;
+import org.worldgrower.DungeonMaster;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
@@ -24,28 +25,39 @@ import org.worldgrower.actions.MarkInventoryItemAsSellableAction;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.Prices;
 import org.worldgrower.attribute.PropertyCountMap;
-import org.worldgrower.attribute.PropertyCountMapProperty;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.goal.WeightPropertyUtils;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
+import org.worldgrower.gui.WorldPanel;
+import org.worldgrower.gui.music.SoundIdReader;
+import org.worldgrower.gui.start.Game;
 
 public class InventoryDialogModel {
 
 	private final WorldObject playerCharacter;
 	private final WorldObject target;
 	private final World world;
+	private final DungeonMaster dungeonMaster;
+	private final WorldPanel parent;
+	private final SoundIdReader soundIdReader;
 	
-	public InventoryDialogModel(WorldObject playerCharacter, World world) {
+	public InventoryDialogModel(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, WorldPanel parent, SoundIdReader soundIdReader) {
 		this.playerCharacter = playerCharacter;
 		this.target = null;
 		this.world = world;
+		this.dungeonMaster = dungeonMaster;
+		this.parent = parent;
+		this.soundIdReader = soundIdReader;
 	}
 	
-	public InventoryDialogModel(WorldObject playerCharacter, WorldObject target, World world) {
+	public InventoryDialogModel(WorldObject playerCharacter, WorldObject target, World world, DungeonMaster dungeonMaster, WorldPanel parent, SoundIdReader soundIdReader) {
 		this.playerCharacter = playerCharacter;
 		this.target = target;
 		this.world = world;
+		this.dungeonMaster = dungeonMaster;
+		this.parent = parent;
+		this.soundIdReader = soundIdReader;
 	}
 
 	public int getPlayerCharacterMoney() {
@@ -126,5 +138,9 @@ public class InventoryDialogModel {
 
 	public PropertyCountMap<ManagedProperty<?>> getPlayerCharacterDemands() {
 		return playerCharacter.getProperty(Constants.DEMANDS);
+	}
+	
+	public void setPrices(int[] args) {
+		Game.executeAction(playerCharacter, Actions.SET_PRICES_ACTION, args, world, dungeonMaster, playerCharacter, parent, soundIdReader);
 	}
 }

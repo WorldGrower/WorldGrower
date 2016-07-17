@@ -27,6 +27,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.swing.Action;
@@ -58,7 +59,6 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.Prices;
 import org.worldgrower.attribute.PropertyCountMap;
-import org.worldgrower.attribute.PropertyCountMapProperty;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.gui.AbstractDialog;
 import org.worldgrower.gui.ColorPalette;
@@ -256,7 +256,7 @@ public final class InventoryDialog extends AbstractDialog {
 			setPlayerCharacterPanelOnTop(null);
 		}
 		
-		setInventoryActions(inventoryDialogModel.getPlayerCharacterDemands(), inventoryDialogModel.getPlayerCharacterPrices());
+		setInventoryActions(inventoryDialogModel::setPrices, inventoryDialogModel.getPlayerCharacterDemands(), inventoryDialogModel.getPlayerCharacterPrices());
 		addPopupMenuToInventoryList(inventoryDialogModel, inventoryActionFactory);
 		
 		DialogUtils.createDialogBackPanel(this, parentFrame.getContentPane());
@@ -524,9 +524,9 @@ public final class InventoryDialog extends AbstractDialog {
 		return weightString;
 	}
 
-	private void setInventoryActions(PropertyCountMap<ManagedProperty<?>> demands, Prices pricesOnPlayer) {
+	private void setInventoryActions(Consumer<int[]> setPricesAction, PropertyCountMap<ManagedProperty<?>> demands, Prices pricesOnPlayer) {
 		demandsButton.addActionListener(e -> new DemandsDialog(demands, imageInfoReader, soundIdReader).showMe());
-		pricesButton.addActionListener(e -> new PricesDialog(pricesOnPlayer, imageInfoReader, soundIdReader).showMe());
+		pricesButton.addActionListener(e -> new PricesDialog(setPricesAction, pricesOnPlayer, imageInfoReader, soundIdReader).showMe());
 	}
 
 	private void addPlayerCharacterMenuActions(JPopupMenu popupMenu, InventoryItem inventoryItem, InventoryDialogModel inventoryDialogModel, InventoryActionFactory inventoryActionFactory) {
@@ -600,7 +600,7 @@ public final class InventoryDialog extends AbstractDialog {
 			}
 		}
 		
-		setInventoryActions(inventoryDialogModel.getPlayerCharacterDemands(), inventoryDialogModel.getPlayerCharacterPrices());
+		setInventoryActions(inventoryDialogModel::setPrices, inventoryDialogModel.getPlayerCharacterDemands(), inventoryDialogModel.getPlayerCharacterPrices());
 	}
 
 	public InventoryItem getPlayerCharacterSelectedValue() {

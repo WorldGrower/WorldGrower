@@ -54,7 +54,8 @@ public class GuiBarterAction extends AbstractAction {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		InventoryActionFactory inventoryActionFactory = new InventoryActionFactory(playerCharacter, imageInfoReader, soundIdReader, world, dungeonMaster, container, target, parentFrame);
-		dialog = new InventoryDialog(new InventoryDialogModel(playerCharacter, target, world), imageInfoReader, soundIdReader, inventoryActionFactory, parentFrame);
+		InventoryDialogModel inventoryDialogModel = new InventoryDialogModel(playerCharacter, target, world, dungeonMaster, container, soundIdReader);
+		dialog = new InventoryDialog(inventoryDialogModel, imageInfoReader, soundIdReader, inventoryActionFactory, parentFrame);
 		inventoryActionFactory.setDialog(dialog);
 		dialog.showMe();
 		container.repaintAround(playerCharacter.getProperty(Constants.X), playerCharacter.getProperty(Constants.Y), playerCharacter);

@@ -19,6 +19,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -35,20 +36,21 @@ import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.ImageTableRenderer;
 import org.worldgrower.gui.SwingUtils;
 import org.worldgrower.gui.music.SoundIdReader;
+import org.worldgrower.gui.start.Game;
 import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JTableFactory;
 
 public final class PricesDialog extends AbstractDialog {
 	private final Prices pricesOnPlayer;
 	
-	public PricesDialog(Prices pricesOnPlayer, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader) {
+	public PricesDialog(Consumer<int[]> setPricesAction, Prices pricesOnPlayer, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader) {
 		super(400, 800);
 		this.pricesOnPlayer = pricesOnPlayer;
 		
-		initializeGUI(imageInfoReader, soundIdReader);
+		initializeGUI(setPricesAction, imageInfoReader, soundIdReader);
 	}
 
-	public void initializeGUI(ImageInfoReader imageInfoReader, SoundIdReader soundIdReader) {
+	public void initializeGUI(Consumer<int[]> setPricesAction, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader) {
 		PricesModel worldModel = new PricesModel(pricesOnPlayer);
 		JTable table = JTableFactory.createJTable(worldModel);
 		table.setDefaultRenderer(ImageIds.class, new ImageTableRenderer(imageInfoReader));
@@ -68,7 +70,7 @@ public final class PricesDialog extends AbstractDialog {
 		JButton okButton = JButtonFactory.createButton("OK", soundIdReader);
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
-		addActionHandlers(okButton, worldModel, this, pricesOnPlayer);
+		addActionHandlers(setPricesAction, okButton, worldModel, this, pricesOnPlayer);
 		getRootPane().setDefaultButton(okButton);
 		
 		SwingUtils.makeTransparant(table, scrollPane);
@@ -79,18 +81,14 @@ public final class PricesDialog extends AbstractDialog {
 		setVisible(true);
 	}
 	
-	private void addActionHandlers(JButton okButton, PricesModel model, JDialog dialog, Prices pricesOnPlayer) {
+	private void addActionHandlers(Consumer<int[]> setPricesAction, JButton okButton, PricesModel model, JDialog dialog, Prices pricesOnPlayer) {
 		okButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				int[] args = model.getArgs();
-				Prices prices = pricesOnPlayer;
-				for(int i=0; i<args.length; i++) {
-					Item item = Item.value(i);
-					prices.setPrice(item, args[i]);
-				}
-				//Game.executeAction(playerCharacter, Actions.SET_PRICES_ACTION, args, world, dungeonMaster, playerCharacter, parent);
+
+				setPricesAction.accept(args);
 				dialog.dispose();
 			}
 		});

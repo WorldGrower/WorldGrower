@@ -161,7 +161,7 @@ public class InventoryActionFactory {
 					int[] args = new int[] { amount };
 					Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, playerCharacter.getOperation(Actions.STEAL_GOLD_ACTION), args, world, dungeonMaster, target, container, soundIdReader);
 					
-					dialog.refresh(new InventoryDialogModel(playerCharacter, target, world));
+					dialog.refresh(new InventoryDialogModel(playerCharacter, target, world, dungeonMaster, container, soundIdReader));
 				}
 			}
 		}
@@ -197,9 +197,9 @@ public class InventoryActionFactory {
 			
 			final InventoryDialogModel inventoryDialogModel;
 			if (target == playerCharacter) {
-				inventoryDialogModel = new InventoryDialogModel(playerCharacter, world);
+				inventoryDialogModel = new InventoryDialogModel(playerCharacter, world, dungeonMaster, container, soundIdReader);
 			} else {
-				inventoryDialogModel = new InventoryDialogModel(playerCharacter, target, world);
+				inventoryDialogModel = new InventoryDialogModel(playerCharacter, target, world, dungeonMaster, container, soundIdReader);
 			}
 			dialog.refresh(inventoryDialogModel);
 		}
