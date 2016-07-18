@@ -170,7 +170,8 @@ public class BuySellUtils {
 			int indexOfProperty = target.getProperty(Constants.INVENTORY).getIndexFor(propertyToBuy);
 			if (performerCanBuyGoods(performer, target, indexOfProperty, quantity)) {
 				int price = calculatePrice(target, indexOfProperty);
-				return new OperationInfo(performer, target, new int[] { indexOfProperty, price, quantity }, Actions.BUY_ACTION);
+				int itemId = target.getProperty(Constants.INVENTORY).get(indexOfProperty).getProperty(Constants.ITEM_ID).ordinal();
+				return new OperationInfo(performer, target, new int[] { indexOfProperty, price, quantity, itemId }, Actions.BUY_ACTION);
 			}
 		}
 		return null;
@@ -183,7 +184,8 @@ public class BuySellUtils {
 			int indexOfProperty = target.getProperty(Constants.INVENTORY).getIndexFor(equipmentSlotProperty, equipmentSlot);
 			if (performerCanBuyGoods(performer, target, indexOfProperty, quantity)) {
 				int price = calculatePrice(target, indexOfProperty);
-				return new OperationInfo(performer, target, new int[] { indexOfProperty, price, quantity }, Actions.BUY_ACTION);
+				int itemId = target.getProperty(Constants.INVENTORY).get(indexOfProperty).getProperty(Constants.ITEM_ID).ordinal();
+				return new OperationInfo(performer, target, new int[] { indexOfProperty, price, quantity, itemId }, Actions.BUY_ACTION);
 			}
 		}
 		return null;
@@ -199,7 +201,7 @@ public class BuySellUtils {
 		int targetInventoryIndex = target.getProperty(Constants.INVENTORY).getIndexFor(w -> w.getProperty(Constants.ITEM_ID) == item);
 		int price = target.getProperty(Constants.PRICES).getPrice(item);
 		if (performerCanBuyGoods(performer, target, targetInventoryIndex, quantity)) {
-			return new OperationInfo(performer, target, new int[] { targetInventoryIndex, price, quantity }, Actions.BUY_ACTION);
+			return new OperationInfo(performer, target, new int[] { targetInventoryIndex, price, quantity, item.ordinal() }, Actions.BUY_ACTION);
 		} else {
 			return null;
 		}
@@ -250,7 +252,8 @@ public class BuySellUtils {
 			if (indexOfSellableObject != -1 && targetWillBuyGoods(target, performer, indexOfSellableObject, world)) {
 				int price = calculatePrice(target, indexOfSellableObject);
 				int quantity = calculateQuantity(performer, target, indexOfSellableObject);
-				return new OperationInfo(performer, target, new int[] { indexOfSellableObject, price, quantity }, Actions.BUY_ACTION);
+				int itemId = target.getProperty(Constants.INVENTORY).get(indexOfSellableObject).getProperty(Constants.ITEM_ID).ordinal();
+				return new OperationInfo(performer, target, new int[] { indexOfSellableObject, price, quantity, itemId }, Actions.BUY_ACTION);
 			}
 		}
 

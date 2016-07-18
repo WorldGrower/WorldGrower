@@ -39,6 +39,7 @@ public class MerchantProfession implements Profession {
 	public List<Goal> getProfessionGoals() {
 		return Arrays.asList(
 				//TODO: mark items as sellable & set price higher than buy price
+				Goals.ADJUST_PRICES_GOAL,
 				Goals.TRADE_GOAL
 				);
 	}

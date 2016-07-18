@@ -39,4 +39,29 @@ public class Prices implements Serializable {
 			return item.getPrice();
 		}
 	}
+
+	public Prices copy() {
+		Prices copy = new Prices();
+		copy.prices = new HashMap<>(prices);
+		return copy;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Prices) {
+			Prices other = (Prices) obj;
+			return this.prices.equals(other.prices);
+		} else {
+			return false;
+		}
+	}
+	
+	public int[] toArgs() {
+		int[] args = new int[Item.values().length];
+		for(int i=0; i<args.length; i++) {
+			Item item = Item.values()[i];
+			args[i] = getPrice(item);
+		}
+		return args;
+	}
 }

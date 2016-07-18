@@ -110,7 +110,7 @@ public class InventoryActionFactory {
 		if (target != null && target.hasIntelligence()) {
 			int price = inventoryItem.getProperty(Constants.PRICE);
 			if (inventoryItem.getProperty(Constants.SELLABLE) && (price <= playerCharacter.getProperty(Constants.GOLD))) {
-				int[] args = new int[] { inventoryItemId, price, 1 };
+				int[] args = new int[] { inventoryItemId, price, 1, inventoryItem.getProperty(Constants.ITEM_ID).ordinal() };
 				inventoryActions.add(new InventoryItemAction(Actions.BUY_ACTION, args, inventoryItemId, target));
 			}
 			

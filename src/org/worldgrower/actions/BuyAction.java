@@ -22,6 +22,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.Item;
 import org.worldgrower.goal.BuySellUtils;
 import org.worldgrower.goal.InventoryPropertyUtils;
 import org.worldgrower.gui.ImageIds;
@@ -34,11 +35,14 @@ public class BuyAction implements ManagedOperation {
 		int index = args[0];
 		int price = args[1];
 		int quantity = args[2];
+		int itemIndex = args[3];
 		
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
 		WorldObjectContainer targetInventory = target.getProperty(Constants.INVENTORY);
 		
 		int goldPaid = calculateGoldPaid(target, index, quantity);
+		
+		checkArgs(index, quantity, itemIndex, targetInventory);
 		
 		WorldObject boughtWorldObject = targetInventory.get(index).deepCopy();
 		targetInventory.removeQuantity(index, quantity);
@@ -55,6 +59,16 @@ public class BuyAction implements ManagedOperation {
 		
 		String description = boughtWorldObject.getProperty(Constants.NAME);
 		world.logAction(this, performer, target, args, performer.getProperty(Constants.NAME) + " bought " + quantity + " " + description + " at " + price + " gold a piece for a total of " + goldPaid + " gold");
+	}
+
+	private void checkArgs(int index, int quantity, int itemIndex, WorldObjectContainer targetInventory) {
+		if (quantity > targetInventory.get(index).getProperty(Constants.QUANTITY).intValue()) {
+			throw new IllegalStateException("Quantity is incorrect: " + quantity + " is larger than quantity for index " + index + " for target inventory " + targetInventory);
+		}
+		
+		if (Item.value(itemIndex) != targetInventory.get(index).getProperty(Constants.ITEM_ID)) {
+			throw new IllegalStateException("ItemIndex is incorrect: " + itemIndex + " is different than quantity for index " + index + " for target inventory " + targetInventory);
+		}
 	}
 
 	int calculateGoldPaid(WorldObject target, int index, int quantity) {

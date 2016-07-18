@@ -36,7 +36,6 @@ import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.ImageTableRenderer;
 import org.worldgrower.gui.SwingUtils;
 import org.worldgrower.gui.music.SoundIdReader;
-import org.worldgrower.gui.start.Game;
 import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JTableFactory;
 
