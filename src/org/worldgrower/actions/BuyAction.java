@@ -62,8 +62,9 @@ public class BuyAction implements ManagedOperation {
 	}
 
 	private void checkArgs(int index, int quantity, int itemIndex, WorldObjectContainer targetInventory) {
-		if (quantity > targetInventory.get(index).getProperty(Constants.QUANTITY).intValue()) {
-			throw new IllegalStateException("Quantity is incorrect: " + quantity + " is larger than quantity for index " + index + " for target inventory " + targetInventory);
+		int targetQuantity = targetInventory.get(index).getProperty(Constants.QUANTITY).intValue();
+		if (quantity > targetQuantity) {
+			throw new IllegalStateException("Quantity is incorrect: quantity " + quantity + " is larger than quantity " + targetQuantity + " for index " + index + " for target inventory " + targetInventory);
 		}
 		
 		if (Item.value(itemIndex) != targetInventory.get(index).getProperty(Constants.ITEM_ID)) {
@@ -86,7 +87,12 @@ public class BuyAction implements ManagedOperation {
 		int price = args[1];
 		int quantity = args[2];
 		
-		return canPerformerBuy(performer, target, index, quantity);
+		return canPerformerBuy(performer, target, index, quantity) && targetHasSufficientQuantity(index, quantity, target);
+	}
+	
+	private boolean targetHasSufficientQuantity(int index, int quantity, WorldObject target) {
+		WorldObjectContainer targetInventory = target.getProperty(Constants.INVENTORY);
+		return targetInventory.get(index).getProperty(Constants.QUANTITY) >= quantity;
 	}
 	
 	@Override

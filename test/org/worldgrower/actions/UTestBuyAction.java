@@ -119,6 +119,19 @@ public class UTestBuyAction {
 		assertEquals(false, Actions.BUY_ACTION.isActionPossible(performer, target, new int[] { indexOfWater, 10, 1 }, world));
 	}
 	
+	@Test
+	public void testIsActionPossibleInsufficientQuantity() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		performer.setProperty(Constants.GOLD, 1000);
+		
+		target.getProperty(Constants.INVENTORY).addQuantity(Item.WATER.generate(1f), 5);
+		int indexOfWater = target.getProperty(Constants.INVENTORY).getIndexFor(Constants.WATER);
+		assertEquals(true, Actions.BUY_ACTION.isActionPossible(performer, target, new int[] { indexOfWater, 10, 1 }, world));
+		assertEquals(false, Actions.BUY_ACTION.isActionPossible(performer, target, new int[] { indexOfWater, 10, 10 }, world));
+	}
+	
 	private WorldObject createPerformer(int id) {
 		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.X, 0);

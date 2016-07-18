@@ -44,7 +44,7 @@ public class BuySellUtils {
 	private static boolean targetHasSufficientQuantity(IntProperty property, int quantity, WorldObject w) {
 		return w.getProperty(Constants.INVENTORY).getQuantityFor(property, Constants.PRICE, inventoryItem -> inventoryItem.getProperty(Constants.SELLABLE)) >= quantity;
 	}
-
+	
 	public static List<WorldObject> findBuyTargets(WorldObject performer, StringProperty property, String value, int quantity, World world) {
 		List<WorldObject> targets = GoalUtils.findNearestTargetsByProperty(performer, Actions.BUY_ACTION, Constants.STRENGTH, w -> targetHasSellableItem(w, property, value) && performerCanPay(performer, w, property, quantity), world);
 		return targets;
