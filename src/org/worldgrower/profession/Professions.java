@@ -45,6 +45,7 @@ public class Professions {
 	public static final AlchemistProfession ALCHEMIST_PROFESSION = new AlchemistProfession(ALL_PROFESSIONS);
 	public static final BrewerProfession BREWER_PROFESSION = new BrewerProfession(ALL_PROFESSIONS);
 	public static final TricksterProfession TRICKSTER_PROFESSION = new TricksterProfession(ALL_PROFESSIONS);
+	public static final MerchantProfession MERCHANT_PROFESSION = new MerchantProfession(ALL_PROFESSIONS);
 	
 	public static List<String> getDescriptions() {
 		return ALL_PROFESSIONS.stream().map(p -> p.getDescription()).collect(Collectors.toList());

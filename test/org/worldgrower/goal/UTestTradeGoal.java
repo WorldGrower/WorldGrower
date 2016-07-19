@@ -16,6 +16,8 @@ package org.worldgrower.goal;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Arrays;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.worldgrower.Constants;
@@ -25,10 +27,11 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.generator.Item;
+import org.worldgrower.profession.Professions;
 
 public class UTestTradeGoal {
 
-	private TradeGoal goal = Goals.TRADE_GOAL;
+	private TradeGoal goal = new TradeGoal(Arrays.asList(Constants.FOOD));
 	
 	@Test
 	public void testCalculateGoalNull() {
@@ -71,13 +74,29 @@ public class UTestTradeGoal {
 		
 		addSellableBerriesToInventory(target);
 		
-		performer.getProperty(Constants.DEMANDS).add(Constants.FOOD, 5);
+		performer.setProperty(Constants.PROFESSION, Professions.MERCHANT_PROFESSION);
 		performer.setProperty(Constants.GOLD, 1000);
 		
 		assertEquals(Actions.BUY_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 		assertEquals(target, goal.calculateGoal(performer, world).getTarget());
 		int quantity = 20;
 		Assert.assertArrayEquals(new int[] { 0, 1, quantity, Item.BERRIES.ordinal() }, goal.calculateGoal(performer, world).getArgs());
+	}
+	
+	@Test
+	public void testCalculateGoalBuyItemCheckNull() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		world.addWorldObject(target);
+		
+		addSellableBerriesToInventory(target);
+		target.getProperty(Constants.INVENTORY).remove(0);
+		
+		performer.setProperty(Constants.PROFESSION, Professions.MERCHANT_PROFESSION);
+		performer.setProperty(Constants.GOLD, 1000);
+		
+		assertEquals(null, goal.calculateGoal(performer, world));
 	}
 
 	private WorldObject createPerformer(int id) {

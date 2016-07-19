@@ -32,6 +32,7 @@ import org.worldgrower.attribute.Background;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.ProfessionExplanation;
 import org.worldgrower.attribute.PropertyCountMap;
+import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.goal.ChildrenPropertyUtils;
 import org.worldgrower.goal.GroupPropertyUtils;
@@ -63,7 +64,8 @@ public class ChooseProfessionAction implements ManagedOperation {
 			new ProfessionInfo(Professions.ASSASSIN_PROFESSION, 1.4, 1.2, 0.8, 0.8, 1.0, 1.4),
 			new ProfessionInfo(Professions.ALCHEMIST_PROFESSION, 0.8, 1.0, 0.8, 1.0, 1.4, 1.1),
 			new ProfessionInfo(Professions.BREWER_PROFESSION, 0.8, 1.0, 0.8, 1.0, 1.4, 1.1),
-			new ProfessionInfo(Professions.TRICKSTER_PROFESSION, 0.8, 1.0, 0.8, 1.3, 0.8, 1.4)
+			new ProfessionInfo(Professions.TRICKSTER_PROFESSION, 0.8, 1.0, 0.8, 1.3, 0.8, 1.4),
+			new ProfessionInfo(Professions.MERCHANT_PROFESSION, 1.1, 1.1, 0.8, 0.8, 1.3, 1.1)
 			);
 	
 	@Override
@@ -358,7 +360,41 @@ public class ChooseProfessionAction implements ManagedOperation {
 			result.add(new ProfessionEvaluation(Professions.JOURNALIST_PROFESSION, -1));
 		}
 		
+		if (populationCount < 10) {
+			result.add(new ProfessionEvaluation(Professions.MERCHANT_PROFESSION, Integer.MIN_VALUE));
+		} else {
+			result.add(new ProfessionEvaluation(Professions.MERCHANT_PROFESSION, getNumberOfMatchingDemands(demands, world) / populationCount));
+		}
+		
 		return result;
+	}
+	
+	public static int getNumberOfMatchingDemands(PropertyCountMap<ManagedProperty<?>> demands, World world) {
+		PropertyCountMap<ManagedProperty<?>> supply = calculateSupply(demands, world);
+		int matchingDemands = 0;
+		for(ManagedProperty<?> managedProperty : demands.keySet()) {
+			int totalDemand = demands.count(managedProperty);
+			int totalSupply = supply.count(managedProperty);
+			
+			matchingDemands += Math.min(totalDemand, totalSupply);
+		}
+		
+		return matchingDemands;
+	}
+
+	static PropertyCountMap<ManagedProperty<?>> calculateSupply(PropertyCountMap<ManagedProperty<?>> demands, World world) {
+		List<WorldObject> potentialSellers = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> w.hasProperty(Constants.INVENTORY));
+		PropertyCountMap<ManagedProperty<?>> sellings = new PropertyCountMap<>();
+		for(ManagedProperty<?> managedProperty : demands.keySet()) {
+			for(WorldObject potentialSeller : potentialSellers) {
+				WorldObjectContainer inventory = potentialSeller.getProperty(Constants.INVENTORY);
+				int index = inventory.getIndexFor(w -> w.hasProperty(managedProperty) && w.hasProperty(Constants.SELLABLE) && w.getProperty(Constants.SELLABLE));
+				if (index != -1) {
+					sellings.add(managedProperty, inventory.get(index).getProperty(Constants.QUANTITY));
+				}
+			}
+		}
+		return sellings;
 	}
 	
 	static List<WorldObject> getRemains(World world) {

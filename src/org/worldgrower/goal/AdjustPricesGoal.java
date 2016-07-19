@@ -22,6 +22,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.Prices;
+import org.worldgrower.generator.Item;
 
 public class AdjustPricesGoal implements Goal {
 
@@ -31,8 +32,13 @@ public class AdjustPricesGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
+		Prices prices = performer.getProperty(Constants.PRICES);
 		Prices newPrices = calculatePrices(performer, world);
-		return new OperationInfo(performer, performer, newPrices.toArgs(), Actions.SET_PRICES_ACTION);
+		if (!prices.equals(newPrices)) {
+			return new OperationInfo(performer, performer, newPrices.toArgs(), Actions.SET_PRICES_ACTION);
+		} else {
+			return null;
+		}
 	}
 
 	@Override
@@ -49,7 +55,14 @@ public class AdjustPricesGoal implements Goal {
 	private Prices calculatePrices(WorldObject performer, World world) {
 		Prices prices = performer.getProperty(Constants.PRICES);
 		Prices newPrices = prices.copy();
-		//TODO: add item index in BuyAction, retrieve lastperformedoperation and increase price based on that
+		OperationInfo lastOperationInfo = world.getHistory().getLastPerformedOperation(performer);
+		if (lastOperationInfo != null && lastOperationInfo.getManagedOperation() == Actions.BUY_ACTION) {
+			int itemIndex = lastOperationInfo.getArgs()[3];
+			Item item = Item.value(itemIndex);
+			
+			int buyPrice = lastOperationInfo.getArgs()[1];
+			newPrices.setPrice(item, buyPrice+1);
+		}
 		return newPrices;
 	}
 	

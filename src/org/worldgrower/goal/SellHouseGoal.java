@@ -45,7 +45,7 @@ public class SellHouseGoal implements Goal {
 	}
 
 	private boolean isSellHouseTarget(WorldObject performer, World world, WorldObject house, WorldObject w) {
-		return BuySellUtils.worldObjectWillBuyGoods(performer, w, house, world) && Actions.TALK_ACTION.canExecuteIgnoringDistance(performer, w, Conversations.createArgs(Conversations.SELL_HOUSE_CONVERSATION), world);
+		return BuySellUtils.buyerWillBuyGoods(performer, w, house, world) && Actions.TALK_ACTION.canExecuteIgnoringDistance(performer, w, Conversations.createArgs(Conversations.SELL_HOUSE_CONVERSATION), world);
 	}
 	
 	@Override

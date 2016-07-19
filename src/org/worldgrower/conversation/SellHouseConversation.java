@@ -39,7 +39,7 @@ public class SellHouseConversation implements Conversation {
 		int houseId = performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.HOUSE).get(0);
 		WorldObject house = world.findWorldObjectById(houseId);
 		
-		boolean targetWillBuy = BuySellUtils.worldObjectWillBuyGoods(performer, target, house, world);
+		boolean targetWillBuy = BuySellUtils.buyerWillBuyGoods(performer, target, house, world);
 		
 		final int replyId;
 		if (targetWillBuy) {

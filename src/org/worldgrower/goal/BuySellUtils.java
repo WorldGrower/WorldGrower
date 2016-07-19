@@ -29,6 +29,7 @@ import org.worldgrower.attribute.StringProperty;
 import org.worldgrower.attribute.UnCheckedProperty;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
+import org.worldgrower.profession.Professions;
 
 public class BuySellUtils {
 
@@ -106,16 +107,21 @@ public class BuySellUtils {
 	
 	public static boolean targetWillBuyGoods(WorldObject performer, WorldObject target, int indexOfItemsToSell, World world) {
 		WorldObject inventoryItem = getInventoryItem(performer, indexOfItemsToSell);
-		return worldObjectWillBuyGoods(performer, target, inventoryItem, world);
+		return buyerWillBuyGoods(performer, target, inventoryItem, world);
 	}
 	
-	public static boolean worldObjectWillBuyGoods(WorldObject performer, WorldObject target, WorldObject worldObjectToBuy, World world) {
-		boolean demandsGoods = hasDemandForInventoryItemGoods(target, worldObjectToBuy);
+	public static boolean sellerWillSellGoods(WorldObject buyer, WorldObject seller, int indexOfItemsToSell, World world) {
+		WorldObject inventoryItem = getInventoryItem(seller, indexOfItemsToSell);
+		return buyerWillBuyGoods(seller, buyer, inventoryItem, world);
+	}
+	
+	public static boolean buyerWillBuyGoods(WorldObject seller, WorldObject buyer, WorldObject worldObjectToBuy, World world) {
+		boolean demandsGoods = hasDemandForInventoryItemGoods(buyer, worldObjectToBuy) || buyer.getProperty(Constants.PROFESSION) == Professions.MERCHANT_PROFESSION;
 		
-		int price = BuySellUtils.getPrice(performer, worldObjectToBuy);
-		boolean betterPriceExists = betterPriceExists(performer, worldObjectToBuy, world, price);
+		int price = BuySellUtils.getPrice(seller, worldObjectToBuy);
+		boolean betterPriceExists = betterPriceExists(seller, worldObjectToBuy, world, price);
 		
-		boolean hasMoneyToBuyGoods = (price <= target.getProperty(Constants.GOLD));
+		boolean hasMoneyToBuyGoods = (price <= buyer.getProperty(Constants.GOLD));
 		
 		return demandsGoods && !betterPriceExists && hasMoneyToBuyGoods;
 	}
@@ -222,17 +228,15 @@ public class BuySellUtils {
     	return demands.keySet();
     }
 	
-    public static List<WorldObject> getSellableWorldObjects(WorldObject worldObject) {
-    	WorldObjectContainer inventory = worldObject.getProperty(Constants.INVENTORY);
-    	return inventory.getWorldObjectsByFunction(Constants.SELLABLE, w -> w.getProperty(Constants.SELLABLE));
+    public static boolean isSellableWorldObject(WorldObject worldObject) {
+    	return worldObject.hasProperty(Constants.SELLABLE) && worldObject.getProperty(Constants.SELLABLE);
     }
     
     public static OperationInfo getSellOperationInfo(WorldObject performer, World world) {
 		List<WorldObject> targets = GoalUtils.findNearestTargetsByProperty(performer, Actions.SELL_ACTION, Constants.STRENGTH, w -> true, world);
 		for(WorldObject target : targets) {
-			List<WorldObject> performerSellableWorldObjects = getSellableWorldObjects(performer);
 			List<ManagedProperty<?>> targetBuyingProperties = getBuyingProperties(target);
-			int indexOfSellableObject = getIndexOfSellableWorldObject(performerSellableWorldObjects, targetBuyingProperties);
+			int indexOfSellableObject = getIndexOfSellableWorldObject(performer, targetBuyingProperties);
 			if (indexOfSellableObject != -1 && targetWillBuyGoods(performer, target, indexOfSellableObject, world)) {
 				int price = calculatePrice(performer, indexOfSellableObject);
 				int quantity = calculateQuantity(target, performer, indexOfSellableObject);
@@ -243,17 +247,15 @@ public class BuySellUtils {
 		return null;
 	}
     
-    public static OperationInfo getBuyOperationInfo(WorldObject performer, World world) {
-		List<WorldObject> targets = GoalUtils.findNearestTargetsByProperty(performer, Actions.BUY_ACTION, Constants.STRENGTH, w -> true, world);
-		for(WorldObject target : targets) {
-			List<WorldObject> targetSellableWorldObjects = getSellableWorldObjects(target);
-			List<ManagedProperty<?>> performerBuyingProperties = getBuyingProperties(performer);
-			int indexOfSellableObject = getIndexOfSellableWorldObject(targetSellableWorldObjects, performerBuyingProperties);
-			if (indexOfSellableObject != -1 && targetWillBuyGoods(target, performer, indexOfSellableObject, world)) {
-				int price = calculatePrice(target, indexOfSellableObject);
-				int quantity = calculateQuantity(performer, target, indexOfSellableObject);
-				int itemId = target.getProperty(Constants.INVENTORY).get(indexOfSellableObject).getProperty(Constants.ITEM_ID).ordinal();
-				return new OperationInfo(performer, target, new int[] { indexOfSellableObject, price, quantity, itemId }, Actions.BUY_ACTION);
+    public static OperationInfo getBuyOperationInfo(WorldObject buyer, List<ManagedProperty<?>> performerBuyingProperties, World world) {
+		List<WorldObject> sellers = GoalUtils.findNearestTargetsByProperty(buyer, Actions.BUY_ACTION, Constants.STRENGTH, w -> true, world);
+		for(WorldObject seller : sellers) {
+			int indexOfSellableObject = getIndexOfSellableWorldObject(seller, performerBuyingProperties);
+			if (indexOfSellableObject != -1 && sellerWillSellGoods(buyer, seller, indexOfSellableObject, world)) {
+				int price = calculatePrice(seller, indexOfSellableObject);
+				int quantity = calculateQuantity(buyer, seller, indexOfSellableObject);
+				int itemId = seller.getProperty(Constants.INVENTORY).get(indexOfSellableObject).getProperty(Constants.ITEM_ID).ordinal();
+				return new OperationInfo(buyer, seller, new int[] { indexOfSellableObject, price, quantity, itemId }, Actions.BUY_ACTION);
 			}
 		}
 
@@ -271,15 +273,21 @@ public class BuySellUtils {
 		return Math.min(sellableItemQuantity, buyableItemQuantity);
     }
     
-    private static int getIndexOfSellableWorldObject(List<WorldObject> sellableWorldObjects, List<ManagedProperty<?>> buyingProperties) {
-		for(ManagedProperty<?> targetBuyingProperty : buyingProperties) {
-			for(int i=0; i<sellableWorldObjects.size(); i++) {
-				WorldObject performerSellableWorldObject = sellableWorldObjects.get(i);
-				if (performerSellableWorldObject.hasProperty(targetBuyingProperty)) {
+    private static int getIndexOfSellableWorldObject(WorldObject seller, List<ManagedProperty<?>> buyingProperties) {
+    	WorldObjectContainer sellerInventory = seller.getProperty(Constants.INVENTORY);
+		for(ManagedProperty<?> buyingProperty : buyingProperties) {
+			for(int i=0; i<sellerInventory.size(); i++) {
+				WorldObject sellableWorldObject = sellerInventory.get(i);
+				if (sellableWorldObject != null && sellableWorldObject.hasProperty(buyingProperty)) {
 					return i;
 				}
 			}
 		}
 		return -1;
 	}
+    
+    public static List<WorldObject> getSellableWorldObjects(WorldObject worldObject) {
+    	WorldObjectContainer inventory = worldObject.getProperty(Constants.INVENTORY);
+    	return inventory.getWorldObjectsByFunction(Constants.SELLABLE, w -> w.getProperty(Constants.SELLABLE));
+    }
 }

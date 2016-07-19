@@ -14,22 +14,30 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
+import java.util.List;
+
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.ManagedProperty;
 
-public abstract class AbstractMarkAsSellableGoal implements Goal {
-
-	private final ManagedProperty<?> propertyToSell;
+public class MarkNonEquipedItemsAsSellableGoal implements Goal {
 	
-	public AbstractMarkAsSellableGoal(ManagedProperty<?> propertyToSell) {
-		this.propertyToSell = propertyToSell;
+	private final List<ManagedProperty<?>> sellingProperties;
+	
+	public MarkNonEquipedItemsAsSellableGoal(List<ManagedProperty<?>> sellingProperties) {
+		this.sellingProperties = sellingProperties;
 	}
 
 	@Override
 	public final OperationInfo calculateGoal(WorldObject performer, World world) {
-		return SellablePropertyUtils.calculateGoal(performer, propertyToSell, world);
+		for(ManagedProperty<?> propertyToSell : sellingProperties) {
+			OperationInfo sellOperationInfo = SellablePropertyUtils.calculateGoal(performer, propertyToSell, world);
+			if (sellOperationInfo != null) {
+				return sellOperationInfo;
+			}
+		}
+		return null;
 	}
 	
 	@Override
@@ -43,12 +51,18 @@ public abstract class AbstractMarkAsSellableGoal implements Goal {
 
 	@Override
 	public final boolean isGoalMet(WorldObject performer, World world) {
-		return SellablePropertyUtils.hasNoItemToMarkSellable(performer, propertyToSell, world);
+		for(ManagedProperty<?> propertyToSell : sellingProperties) {
+			boolean hasNoItemToMarkSellable = SellablePropertyUtils.hasNoItemToMarkSellable(performer, propertyToSell, world);
+			if (!hasNoItemToMarkSellable) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	@Override
 	public final String getDescription() {
-		return "marking " + propertyToSell.getName() + " as sellable";
+		return "marking items as sellable";
 	}
 	
 	@Override

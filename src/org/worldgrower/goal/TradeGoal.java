@@ -19,11 +19,14 @@ import java.util.List;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.ManagedProperty;
 
 public class TradeGoal implements Goal {
 
-	public TradeGoal(List<Goal> allGoals) {
-		allGoals.add(this);
+	private final List<ManagedProperty<?>> buyingProperties;
+	
+	public TradeGoal(List<ManagedProperty<?>> buyingProperties) {
+		this.buyingProperties = buyingProperties;
 	}
 
 	@Override
@@ -33,7 +36,7 @@ public class TradeGoal implements Goal {
 			return sellOperationInfo;
 		}
 		
-		OperationInfo buyOperationInfo = BuySellUtils.getBuyOperationInfo(performer, world);
+		OperationInfo buyOperationInfo = BuySellUtils.getBuyOperationInfo(performer, buyingProperties, world);
 		if (buyOperationInfo != null) {
 			return buyOperationInfo;
 		}
