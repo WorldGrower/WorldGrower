@@ -14,13 +14,10 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
-import java.util.List;
-
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.ManagedProperty;
 
 public abstract class AbstractSellGoal implements Goal {
@@ -33,16 +30,9 @@ public abstract class AbstractSellGoal implements Goal {
 
 	@Override
 	public final OperationInfo calculateGoal(WorldObject performer, World world) {
-		int indexOfItemsToSell = performer.getProperty(Constants.INVENTORY).getIndexFor(propertyToSell);
-		List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.SELL_ACTION, w -> BuySellUtils.buyerWillBuyGoods(performer, w, indexOfItemsToSell, world) , world);
-		if (targets.size() > 0) {
-			
-			int price = BuySellUtils.getPrice(performer, indexOfItemsToSell);
-			WorldObject itemToSell = performer.getProperty(Constants.INVENTORY).get(indexOfItemsToSell);
-			int quantity = itemToSell.getProperty(Constants.QUANTITY);
-			int itemId = itemToSell.getProperty(Constants.ITEM_ID).ordinal();
-			int[] args = new int[] { indexOfItemsToSell, price, quantity, itemId };
-			return new OperationInfo(performer, targets.get(0), args, Actions.SELL_ACTION);
+		OperationInfo sellOperationInfo = BuySellUtils.getSellOperationInfo(performer, world);
+		if (sellOperationInfo != null) {
+			return sellOperationInfo;
 		} else {
 			return null;
 		}
