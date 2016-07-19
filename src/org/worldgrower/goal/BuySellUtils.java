@@ -105,9 +105,9 @@ public class BuySellUtils {
 		return performer.getProperty(Constants.INVENTORY).get(inventoryIndex);
 	}
 	
-	public static boolean targetWillBuyGoods(WorldObject performer, WorldObject target, int indexOfItemsToSell, World world) {
-		WorldObject inventoryItem = getInventoryItem(performer, indexOfItemsToSell);
-		return buyerWillBuyGoods(performer, target, inventoryItem, world);
+	public static boolean buyerWillBuyGoods(WorldObject seller, WorldObject buyer, int indexOfItemsToSell, World world) {
+		WorldObject inventoryItem = getInventoryItem(seller, indexOfItemsToSell);
+		return buyerWillBuyGoods(seller, buyer, inventoryItem, world);
 	}
 	
 	public static boolean sellerWillSellGoods(WorldObject buyer, WorldObject seller, int indexOfItemsToSell, World world) {
@@ -232,15 +232,15 @@ public class BuySellUtils {
     	return worldObject.hasProperty(Constants.SELLABLE) && worldObject.getProperty(Constants.SELLABLE);
     }
     
-    public static OperationInfo getSellOperationInfo(WorldObject performer, World world) {
-		List<WorldObject> targets = GoalUtils.findNearestTargetsByProperty(performer, Actions.SELL_ACTION, Constants.STRENGTH, w -> true, world);
-		for(WorldObject target : targets) {
-			List<ManagedProperty<?>> targetBuyingProperties = getBuyingProperties(target);
-			int indexOfSellableObject = getIndexOfSellableWorldObject(performer, targetBuyingProperties);
-			if (indexOfSellableObject != -1 && targetWillBuyGoods(performer, target, indexOfSellableObject, world)) {
-				int price = calculatePrice(performer, indexOfSellableObject);
-				int quantity = calculateQuantity(target, performer, indexOfSellableObject);
-				return new OperationInfo(performer, target, new int[] { indexOfSellableObject, price, quantity }, Actions.SELL_ACTION);
+    public static OperationInfo getSellOperationInfo(WorldObject seller, World world) {
+		List<WorldObject> buyers = GoalUtils.findNearestTargetsByProperty(seller, Actions.SELL_ACTION, Constants.STRENGTH, w -> true, world);
+		for(WorldObject buyer : buyers) {
+			List<ManagedProperty<?>> buyingProperties = getBuyingProperties(buyer);
+			int indexOfSellableObject = getIndexOfSellableWorldObject(seller, buyingProperties);
+			if (indexOfSellableObject != -1 && buyerWillBuyGoods(seller, buyer, indexOfSellableObject, world)) {
+				int price = calculatePrice(seller, indexOfSellableObject);
+				int quantity = calculateQuantity(buyer, seller, indexOfSellableObject);
+				return new OperationInfo(seller, buyer, new int[] { indexOfSellableObject, price, quantity }, Actions.SELL_ACTION);
 			}
 		}
 

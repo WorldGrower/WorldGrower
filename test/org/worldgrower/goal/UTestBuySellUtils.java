@@ -138,11 +138,11 @@ public class UTestBuySellUtils {
 		performer.getProperty(Constants.INVENTORY).add(inventoryItem);
 		performer.getProperty(Constants.PRICES).setPrice(Item.BERRIES, 2);
 		
-		assertEquals(false, BuySellUtils.targetWillBuyGoods(performer, target, 0, world));
+		assertEquals(false, BuySellUtils.buyerWillBuyGoods(performer, target, 0, world));
 		
 		target.setProperty(Constants.DEMANDS, new PropertyCountMap<>());
 		target.getProperty(Constants.DEMANDS).add(Constants.FOOD, 1);
-		assertEquals(true, BuySellUtils.targetWillBuyGoods(performer, target, 0, world));
+		assertEquals(true, BuySellUtils.buyerWillBuyGoods(performer, target, 0, world));
 	}
 	
 	//TODO: worldObject cannot buy from itself
