@@ -22,6 +22,8 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.Item;
+import org.worldgrower.goal.BuySellUtils;
 import org.worldgrower.goal.InventoryPropertyUtils;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
@@ -32,26 +34,65 @@ public class SellAction implements ManagedOperation {
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		int index = args[0];
 		int price = args[1]; 
+		int quantity = args[2];
+		int itemIndex = args[3];
 		
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
 		WorldObjectContainer targetInventory = target.getProperty(Constants.INVENTORY);
+		
+		checkArgs(index, quantity, itemIndex, performerInventory);
 		
 		WorldObject soldWorldObject = performerInventory.get(index).deepCopy();
 		
 		soldWorldObject.setProperty(Constants.SELLABLE, Boolean.FALSE);
 		performer.getProperty(Constants.ITEMS_SOLD).add(soldWorldObject);
-		performerInventory.removeQuantity(index, 1);
+		performerInventory.removeQuantity(index, quantity);
 		
-		targetInventory.addQuantity(soldWorldObject, 1);
+		targetInventory.addQuantity(soldWorldObject, quantity);
 		target.setProperty(Constants.GOLD, target.getProperty(Constants.GOLD) - price);
 		performer.setProperty(Constants.GOLD, performer.getProperty(Constants.GOLD) + price);
 		
 		InventoryPropertyUtils.cleanupEquipmentSlots(performer);
 	}
 
+	private void checkArgs(int index, int quantity, int itemIndex, WorldObjectContainer performerInventory) {
+		int performerQuantity = performerInventory.get(index).getProperty(Constants.QUANTITY).intValue();
+		if (quantity > performerQuantity) {
+			throw new IllegalStateException("Quantity is incorrect: quantity " + quantity + " is larger than quantity " + performerQuantity + " for index " + index + " for performer inventory " + performerInventory);
+		}
+		
+		if (Item.value(itemIndex) != performerInventory.get(index).getProperty(Constants.ITEM_ID)) {
+			throw new IllegalStateException("ItemIndex is incorrect: " + itemIndex + " is different than quantity for index " + index + " for performer inventory " + performerInventory);
+		}
+	}
+
 	@Override
 	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
-		return true;
+		int index = args[0];
+		int price = args[1];
+		int quantity = args[2];
+		
+		return canPerformerSell(performer, target, index, quantity) && performerHasSufficientQuantity(index, quantity, performer);
+	}
+	
+	private boolean canPerformerSell(WorldObject performer, WorldObject target, int index, int quantity) {
+		final boolean canPerformerSell;
+		WorldObject worldObjectToSell = performer.getProperty(Constants.INVENTORY).get(index);
+		if (worldObjectToSell != null) {
+			if (BuySellUtils.performerCanBuyGoods(target, performer, index, quantity)) {
+				canPerformerSell = true;
+			} else {
+				canPerformerSell = false;
+			}
+		} else {
+			canPerformerSell = false;
+		}
+		return canPerformerSell;
+	}
+	
+	private boolean performerHasSufficientQuantity(int index, int quantity, WorldObject performer) {
+		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
+		return performerInventory.get(index).getProperty(Constants.QUANTITY) >= quantity;
 	}
 	
 	@Override

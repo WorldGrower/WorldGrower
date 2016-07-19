@@ -36,7 +36,10 @@ public class SellStolenGoodsGoal implements Goal {
 			if (targets.size() > 0) {
 			
 				int price = BuySellUtils.getPrice(performer, indexOfItemsToSell);
-				return new OperationInfo(performer, targets.get(0), new int[] { indexOfItemsToSell, price }, Actions.SELL_ACTION);
+				WorldObject sellableWorldObject = performer.getProperty(Constants.INVENTORY).get(indexOfItemsToSell);
+				int quantity = sellableWorldObject.getProperty(Constants.QUANTITY);
+				int itemId = sellableWorldObject.getProperty(Constants.ITEM_ID).ordinal();
+				return new OperationInfo(performer, targets.get(0), new int[] { indexOfItemsToSell, price, quantity, itemId }, Actions.SELL_ACTION);
 			}
 		}
 		

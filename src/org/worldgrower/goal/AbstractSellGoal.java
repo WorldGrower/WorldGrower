@@ -22,6 +22,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.ManagedProperty;
+
 public abstract class AbstractSellGoal implements Goal {
 
 	private final ManagedProperty<?> propertyToSell;
@@ -37,7 +38,11 @@ public abstract class AbstractSellGoal implements Goal {
 		if (targets.size() > 0) {
 			
 			int price = BuySellUtils.getPrice(performer, indexOfItemsToSell);
-			return new OperationInfo(performer, targets.get(0), new int[] { indexOfItemsToSell, price }, Actions.SELL_ACTION);
+			WorldObject itemToSell = performer.getProperty(Constants.INVENTORY).get(indexOfItemsToSell);
+			int quantity = itemToSell.getProperty(Constants.QUANTITY);
+			int itemId = itemToSell.getProperty(Constants.ITEM_ID).ordinal();
+			int[] args = new int[] { indexOfItemsToSell, price, quantity, itemId };
+			return new OperationInfo(performer, targets.get(0), args, Actions.SELL_ACTION);
 		} else {
 			return null;
 		}

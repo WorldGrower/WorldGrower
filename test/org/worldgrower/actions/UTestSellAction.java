@@ -40,7 +40,7 @@ public class UTestSellAction {
 		assertEquals(100, performer.getProperty(Constants.GOLD).intValue());
 		assertEquals(100, target.getProperty(Constants.GOLD).intValue());
 		int indexOfWater = performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.WATER);
-		Actions.SELL_ACTION.execute(performer, target, new int[] { indexOfWater, 10 }, world);
+		Actions.SELL_ACTION.execute(performer, target, new int[] { indexOfWater, 10, 1, Item.WATER.ordinal() }, world);
 		
 		assertEquals(110, performer.getProperty(Constants.GOLD).intValue());
 		assertEquals(90, target.getProperty(Constants.GOLD).intValue());
@@ -56,7 +56,7 @@ public class UTestSellAction {
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WATER.generate(1f), 20);
 		
 		int indexOfWater = performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.WATER);
-		Actions.SELL_ACTION.execute(performer, target, new int[] { indexOfWater, 1 }, world);
+		Actions.SELL_ACTION.execute(performer, target, new int[] { indexOfWater, 1, 1, Item.WATER.ordinal() }, world);
 		
 		assertEquals(19, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WATER));
 		assertEquals(1, target.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WATER));

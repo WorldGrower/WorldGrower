@@ -88,7 +88,7 @@ public class InventoryActionFactory {
 		
 		if (target != null && target.hasIntelligence()) {
 			if (BuySellUtils.buyerWillBuyGoods(playerCharacter, target, inventoryItemId, world)) {
-				int[] args = new int[] { inventoryItemId, inventoryItem.getProperty(Constants.PRICE), 1 };
+				int[] args = new int[] { inventoryItemId, inventoryItem.getProperty(Constants.PRICE), 1, inventoryItem.getProperty(Constants.ITEM_ID).ordinal() };
 				inventoryActions.add(new InventoryItemAction(Actions.SELL_ACTION, args, inventoryItemId, target));
 			}
 		}

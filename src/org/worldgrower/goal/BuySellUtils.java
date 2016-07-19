@@ -240,7 +240,9 @@ public class BuySellUtils {
 			if (indexOfSellableObject != -1 && buyerWillBuyGoods(seller, buyer, indexOfSellableObject, world)) {
 				int price = calculatePrice(seller, indexOfSellableObject);
 				int quantity = calculateQuantity(buyer, seller, indexOfSellableObject);
-				return new OperationInfo(seller, buyer, new int[] { indexOfSellableObject, price, quantity }, Actions.SELL_ACTION);
+				int itemId = seller.getProperty(Constants.INVENTORY).get(indexOfSellableObject).getProperty(Constants.ITEM_ID).ordinal();
+				int[] args = new int[] { indexOfSellableObject, price, quantity, itemId };
+				return new OperationInfo(seller, buyer, args, Actions.SELL_ACTION);
 			}
 		}
 

@@ -56,7 +56,7 @@ public class UTestTradeGoal {
 		assertEquals(Actions.SELL_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 		assertEquals(target, goal.calculateGoal(performer, world).getTarget());
 		int quantity = 20;
-		Assert.assertArrayEquals(new int[] { 0, 1, quantity }, goal.calculateGoal(performer, world).getArgs());
+		Assert.assertArrayEquals(new int[] { 0, 1, quantity, Item.BERRIES.ordinal() }, goal.calculateGoal(performer, world).getArgs());
 	}
 
 	private void addSellableBerriesToInventory(WorldObject performer) {
