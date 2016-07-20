@@ -39,6 +39,7 @@ public class UTestSellAction {
 		
 		assertEquals(100, performer.getProperty(Constants.GOLD).intValue());
 		assertEquals(100, target.getProperty(Constants.GOLD).intValue());
+		performer.getProperty(Constants.PRICES).setPrice(Item.WATER, 10);
 		int indexOfWater = performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.WATER);
 		Actions.SELL_ACTION.execute(performer, target, new int[] { indexOfWater, 10, 1, Item.WATER.ordinal() }, world);
 		
@@ -63,6 +64,26 @@ public class UTestSellAction {
 	}
 	
 	@Test
+	public void testExecuteSellGold() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WATER.generate(1f), 20);
+		performer.setProperty(Constants.GOLD, 100);
+		performer.getProperty(Constants.PRICES).setPrice(Item.WATER, 2);
+		target.setProperty(Constants.GOLD, 100);
+		
+		int indexOfWater = performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.WATER);
+		Actions.SELL_ACTION.execute(performer, target, new int[] { indexOfWater, 1, 5, Item.WATER.ordinal() }, world);
+		
+		assertEquals(15, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WATER));
+		assertEquals(5, target.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WATER));
+		
+		assertEquals(110, performer.getProperty(Constants.GOLD).intValue());
+		assertEquals(90, target.getProperty(Constants.GOLD).intValue());
+	}
+	
+	@Test
 	public void testIsValidTarget() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
@@ -73,6 +94,28 @@ public class UTestSellAction {
 		
 		target.setProperty(Constants.CREATURE_TYPE, CreatureType.FISH_CREATURE_TYPE);
 		assertEquals(false, Actions.SELL_ACTION.isValidTarget(performer, target, world));
+	}
+	
+	@Test
+	public void testIsActionPossible() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WATER.generate(1f));
+		
+		target.setProperty(Constants.GOLD, 100);
+		int indexOfWater = performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.WATER);
+		
+		int[] args = new int[] { indexOfWater, 10, 1, Item.WATER.ordinal() };
+		assertEquals(true, Actions.SELL_ACTION.isActionPossible(performer, target, args, world));
+		
+		target.setProperty(Constants.GOLD, 0);
+		assertEquals(false, Actions.SELL_ACTION.isActionPossible(performer, target, args, world));
+		
+		target.setProperty(Constants.GOLD, 100);
+		performer.getProperty(Constants.INVENTORY).remove(indexOfWater);
+		assertEquals(false, Actions.SELL_ACTION.isActionPossible(performer, target, args, world));
 	}
 	
 	@Test

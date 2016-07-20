@@ -17,6 +17,8 @@ package org.worldgrower.gui.inventory;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -88,8 +90,7 @@ public class InventoryActionFactory {
 		
 		if (target != null && target.hasIntelligence()) {
 			if (BuySellUtils.buyerWillBuyGoods(playerCharacter, target, inventoryItemId, world)) {
-				int[] args = new int[] { inventoryItemId, inventoryItem.getProperty(Constants.PRICE), 1, inventoryItem.getProperty(Constants.ITEM_ID).ordinal() };
-				inventoryActions.add(new InventoryItemAction(Actions.SELL_ACTION, args, inventoryItemId, target));
+				inventoryActions.add(new InventoryItemAction(Actions.SELL_ACTION, createBuySellArgs(inventoryItemId, inventoryItem, 1), inventoryItemId, target).setArgsFactory(this::askQuantityForArgs, inventoryItem));
 			}
 		}
 		
@@ -110,8 +111,7 @@ public class InventoryActionFactory {
 		if (target != null && target.hasIntelligence()) {
 			int price = inventoryItem.getProperty(Constants.PRICE);
 			if (inventoryItem.getProperty(Constants.SELLABLE) && (price <= playerCharacter.getProperty(Constants.GOLD))) {
-				int[] args = new int[] { inventoryItemId, price, 1, inventoryItem.getProperty(Constants.ITEM_ID).ordinal() };
-				inventoryActions.add(new InventoryItemAction(Actions.BUY_ACTION, args, inventoryItemId, target));
+				inventoryActions.add(new InventoryItemAction(Actions.BUY_ACTION, createBuySellArgs(inventoryItemId, inventoryItem, 1), inventoryItemId, target).setArgsFactory(this::askQuantityForArgs, inventoryItem));
 			}
 			
 			if (Game.canActionExecute(playerCharacter, playerCharacter.getOperation(Actions.STEAL_ACTION), Args.EMPTY, world, target)) {
@@ -125,6 +125,36 @@ public class InventoryActionFactory {
 			}
 		}
 		return inventoryActions;
+	}
+	
+	private int[] createBuySellArgs(int inventoryItemId, WorldObject inventoryItem, int quantity) {
+		int price = inventoryItem.getProperty(Constants.PRICE);
+		return new int[] { inventoryItemId, price, quantity, inventoryItem.getProperty(Constants.ITEM_ID).ordinal() };
+	}
+	
+	private int[] askQuantityForArgs(int inventoryItemId, WorldObject inventoryItem) {
+		int quantity = 0;
+		int maxQuantity = inventoryItem.getProperty(Constants.QUANTITY);
+		if (maxQuantity > 1) {
+			//TODO :check for gold availability?
+			String quantityValue = new TextInputDialog("How many items will you buy/sell (1-" + maxQuantity + ") ?", true, soundIdReader, parentFrame).showMe();
+			if ((quantityValue != null) && (NumberUtils.isNumeric(quantityValue) && quantityValue.length() > 0)) {
+				quantity = Integer.parseInt(quantityValue);
+				if (quantity > maxQuantity) {
+					quantity = 0;
+				}
+			} else {
+				quantity = 0;
+			}
+		} else {
+			quantity = 1;
+		}
+		
+		if (quantity > 0) {
+			return createBuySellArgs(inventoryItemId, inventoryItem, quantity);
+		} else {
+			return null;
+		}
 	}
 	
 	public boolean hasTargetMoneyActions() {
@@ -173,6 +203,8 @@ public class InventoryActionFactory {
 		private final int inventoryItemId;
 		private final int[] args;
 		private final WorldObject target;
+		private BiFunction<Integer, WorldObject, int[]> argsFactory = this::createDefaultArgs;
+		private WorldObject inventoryItem;
 		
 		public InventoryItemAction(ManagedOperation action, int[] args, int inventoryItemId, WorldObject target) {
 			super(action.getSimpleDescription(), new ImageIcon(imageInfoReader.getImage(action.getImageIds(), null)));
@@ -191,17 +223,30 @@ public class InventoryActionFactory {
 			this(action, new int[] { inventoryItemId }, inventoryItemId, target);
 		}
 		
+		private int[] createDefaultArgs(int inventoryItemId, WorldObject inventoryItem) {
+			return args;
+		}
+		
+		public InventoryItemAction setArgsFactory(BiFunction<Integer, WorldObject, int[]> argsFactory, WorldObject inventoryItem) {
+			this.argsFactory = argsFactory;
+			this.inventoryItem = inventoryItem;
+			return this;
+		}
+		
 		@Override
-		public void actionPerformed(ActionEvent arg0) {
-			Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, playerCharacter.getOperation(action), args, world, dungeonMaster, target, container, soundIdReader);
-			
-			final InventoryDialogModel inventoryDialogModel;
-			if (target == playerCharacter) {
-				inventoryDialogModel = new InventoryDialogModel(playerCharacter, world, dungeonMaster, container, soundIdReader);
-			} else {
-				inventoryDialogModel = new InventoryDialogModel(playerCharacter, target, world, dungeonMaster, container, soundIdReader);
+		public void actionPerformed(ActionEvent actionEvent) {
+			int[] modifiedArgs = argsFactory.apply(inventoryItemId, inventoryItem);
+			if (modifiedArgs != null) {
+				Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, playerCharacter.getOperation(action), modifiedArgs, world, dungeonMaster, target, container, soundIdReader);
+				
+				final InventoryDialogModel inventoryDialogModel;
+				if (target == playerCharacter) {
+					inventoryDialogModel = new InventoryDialogModel(playerCharacter, world, dungeonMaster, container, soundIdReader);
+				} else {
+					inventoryDialogModel = new InventoryDialogModel(playerCharacter, target, world, dungeonMaster, container, soundIdReader);
+				}
+				dialog.refresh(inventoryDialogModel);
 			}
-			dialog.refresh(inventoryDialogModel);
 		}
 
 		@Override

@@ -73,6 +73,17 @@ public class UTestGatherRemainsAction {
 		assertEquals(true, Actions.GATHER_REMAINS_ACTION.isActionPossible(performer, target, Args.EMPTY, world));
 	}
 	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = createPerformer(2);
+		
+		int id = CommonerGenerator.generateSkeletalRemains(createPerformer(3), world);
+		WorldObject target = world.findWorldObjectById(id);
+		
+		assertEquals(0, Actions.GATHER_REMAINS_ACTION.distance(performer, target, Args.EMPTY, world));
+	}
+	
 	private WorldObject createPerformer(int id) {
 		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.GROUP, new IdList());
 		performer.setProperty(Constants.X, 0);

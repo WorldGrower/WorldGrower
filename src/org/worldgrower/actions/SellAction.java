@@ -43,14 +43,15 @@ public class SellAction implements ManagedOperation {
 		checkArgs(index, quantity, itemIndex, performerInventory);
 		
 		WorldObject soldWorldObject = performerInventory.get(index).deepCopy();
+		int goldPaid = calculateGoldPaid(performer, index, quantity);
 		
 		soldWorldObject.setProperty(Constants.SELLABLE, Boolean.FALSE);
 		performer.getProperty(Constants.ITEMS_SOLD).add(soldWorldObject);
 		performerInventory.removeQuantity(index, quantity);
 		
 		targetInventory.addQuantity(soldWorldObject, quantity);
-		target.setProperty(Constants.GOLD, target.getProperty(Constants.GOLD) - price);
-		performer.setProperty(Constants.GOLD, performer.getProperty(Constants.GOLD) + price);
+		target.setProperty(Constants.GOLD, target.getProperty(Constants.GOLD) - goldPaid);
+		performer.setProperty(Constants.GOLD, performer.getProperty(Constants.GOLD) + goldPaid);
 		
 		InventoryPropertyUtils.cleanupEquipmentSlots(performer);
 	}
@@ -66,6 +67,15 @@ public class SellAction implements ManagedOperation {
 		}
 	}
 
+	int calculateGoldPaid(WorldObject performer, int index, int quantity) {
+		WorldObject worldObject = performer.getProperty(Constants.INVENTORY).get(index);
+		if (worldObject != null) {
+			return BuySellUtils.getPrice(performer, worldObject) * quantity;
+		} else {
+			return 0;
+		}
+	}
+	
 	@Override
 	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
 		int index = args[0];
