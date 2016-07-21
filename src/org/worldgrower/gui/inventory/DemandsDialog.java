@@ -92,7 +92,20 @@ public final class DemandsDialog extends AbstractDialog {
 		});
 	}
 
-	private static final ManagedProperty<?>[] PROPERTIES = new ManagedProperty<?>[] { Constants.FOOD, Constants.WATER };
+	private static final ManagedProperty<?>[] PROPERTIES = new ManagedProperty<?>[] { 
+		Constants.FOOD, 
+		Constants.WATER,
+		Constants.WOOD,
+		Constants.STONE,
+		Constants.ORE,
+		Constants.COTTON,
+		Constants.ALCOHOL_LEVEL,
+		Constants.GOLD,
+		Constants.GRAPE,
+		Constants.OIL,
+		Constants.POISON_DAMAGE,
+		Constants.SOUL_GEM
+		};
 	
 	private static class DemandsModel extends AbstractTableModel {
 		private List<DemandItem> demandItems = new ArrayList<>();
