@@ -21,7 +21,6 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.Prices;
-import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
@@ -30,10 +29,7 @@ public class SetPricesAction implements ManagedOperation {
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		Prices prices = performer.getProperty(Constants.PRICES);
-		for(int i=0; i<args.length; i++) {
-			Item item = Item.value(i);
-			prices.setPrice(item, args[i]);
-		}
+		prices.setPrices(args);
 	}
 
 	@Override

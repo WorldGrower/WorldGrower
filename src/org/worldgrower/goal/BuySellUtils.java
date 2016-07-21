@@ -37,7 +37,7 @@ public class BuySellUtils {
 	}
 
 	private static boolean isBuyTarget(WorldObject performer, IntProperty property, int quantity, WorldObject w) {
-		return targetHasSufficientQuantity(property, quantity, w) && performerCanPay(performer, w, property, quantity) && !GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, w);
+		return targetHasSufficientQuantity(property, quantity, w) && buyerCanPay(performer, w, property, quantity) && !GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, w);
 	}
 
 	private static boolean targetHasSufficientQuantity(IntProperty property, int quantity, WorldObject w) {
@@ -45,24 +45,24 @@ public class BuySellUtils {
 	}
 	
 	public static List<WorldObject> findBuyTargets(WorldObject performer, Item item, int quantity, World world) {
-		List<WorldObject> targets = GoalUtils.findNearestTargetsByProperty(performer, Actions.BUY_ACTION, Constants.STRENGTH, w -> targetHasSellableItem(w, item) && performerCanPay(performer, w, item, quantity), world);
+		List<WorldObject> targets = GoalUtils.findNearestTargetsByProperty(performer, Actions.BUY_ACTION, Constants.STRENGTH, w -> targetHasSellableItem(w, item) && buyerCanPay(performer, w, item, quantity), world);
 		return targets;
 	}
 	
-	private static boolean performerCanPay(WorldObject performer, WorldObject target, ManagedProperty property, int quantity) {
-		int indexOfItemToSell = target.getProperty(Constants.INVENTORY).getIndexFor(property);
-		return performerCanPay(performer, target, quantity, indexOfItemToSell);
+	private static boolean buyerCanPay(WorldObject buyer, WorldObject seller, ManagedProperty property, int quantity) {
+		int indexOfItemToSell = seller.getProperty(Constants.INVENTORY).getIndexFor(property);
+		return buyerCanPay(buyer, seller, quantity, indexOfItemToSell);
 	}
 	
-	private static boolean performerCanPay(WorldObject performer, WorldObject target, Item item, int quantity) {
-		int indexOfItemToSell = target.getProperty(Constants.INVENTORY).getIndexFor(Constants.ITEM_ID, item);
-		return performerCanPay(performer, target, quantity, indexOfItemToSell);
+	private static boolean buyerCanPay(WorldObject buyer, WorldObject seller, Item item, int quantity) {
+		int indexOfItemToSell = seller.getProperty(Constants.INVENTORY).getIndexFor(Constants.ITEM_ID, item);
+		return buyerCanPay(buyer, seller, quantity, indexOfItemToSell);
 	}
 
-	static boolean performerCanPay(WorldObject performer, WorldObject target, int quantity, int indexOfItemToSell) {
+	static boolean buyerCanPay(WorldObject buyer, WorldObject seller, int quantity, int indexOfItemToSell) {
 		if (indexOfItemToSell != -1) {
-			int performerGold = performer.getProperty(Constants.GOLD);
-			return performerGold >= getPrice(target, indexOfItemToSell) * quantity;
+			int performerGold = buyer.getProperty(Constants.GOLD);
+			return performerGold >= getPrice(seller, indexOfItemToSell) * quantity;
 		} else {
 			return false;
 		}
@@ -80,26 +80,26 @@ public class BuySellUtils {
 		return inventoryItem.hasProperty(Constants.PRICE) && inventoryItem.getProperty(Constants.SELLABLE);
 	}
 	
-	public static int getPrice(WorldObject performer, int inventoryIndex) {
-		WorldObject inventoryItem = getInventoryItem(performer, inventoryIndex);
-		return getPrice(performer, inventoryItem);
+	public static int getPrice(WorldObject seller, int inventoryIndex) {
+		WorldObject inventoryItem = getInventoryItem(seller, inventoryIndex);
+		return getPrice(seller, inventoryItem);
 	}
 
-	public static int getPrice(WorldObject performer, WorldObject worldObject) {
-		if (worldObject == null) {
+	public static int getPrice(WorldObject seller, WorldObject inventoryItem) {
+		if (inventoryItem == null) {
 			throw new IllegalStateException("WorldObject is null");
 		}
 		
-		if (worldObject.getProperty(Constants.PRICE) == null) {
-			throw new IllegalStateException("WorldObject " + worldObject + " has no price");
+		if (inventoryItem.getProperty(Constants.PRICE) == null) {
+			throw new IllegalStateException("InventoryItem " + inventoryItem + " has no price");
 		}
-		Prices prices = performer.getProperty(Constants.PRICES);
-		Item key = worldObject.getProperty(Constants.ITEM_ID);
+		Prices prices = seller.getProperty(Constants.PRICES);
+		Item key = inventoryItem.getProperty(Constants.ITEM_ID);
 		if (key != null) {
 			return prices.getPrice(key);
 		} else {
 			//TODO: temporary for houses
-			return worldObject.getProperty(Constants.PRICE);
+			return inventoryItem.getProperty(Constants.PRICE);
 		}
 	}
 
@@ -130,7 +130,7 @@ public class BuySellUtils {
 	
 	public static boolean performerCanBuyGoods(WorldObject performer, WorldObject target, int indexOfItemsToSell, int quantity) {
 		WorldObject worldObject = target.getProperty(Constants.INVENTORY).get(indexOfItemsToSell);
-		int price = BuySellUtils.getPrice(target, worldObject) * quantity;
+		int price = getPrice(target, worldObject) * quantity;
 		boolean hasMoneyToBuyGoods = (price <= performer.getProperty(Constants.GOLD));
 		return hasMoneyToBuyGoods;
 	}

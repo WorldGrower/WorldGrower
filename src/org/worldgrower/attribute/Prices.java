@@ -59,9 +59,17 @@ public class Prices implements Serializable {
 	public int[] toArgs() {
 		int[] args = new int[Item.values().length];
 		for(int i=0; i<args.length; i++) {
-			Item item = Item.values()[i];
+			Item item = Item.value(i);
 			args[i] = getPrice(item);
 		}
 		return args;
+	}
+	
+	public void setPrices(int[] args) {
+		int itemCount = Item.values().length;
+		for(int i=0; i<itemCount; i++) {
+			Item item = Item.value(i);
+			setPrice(item, args[i]);
+		}
 	}
 }

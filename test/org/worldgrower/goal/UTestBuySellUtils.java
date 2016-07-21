@@ -252,7 +252,7 @@ public class UTestBuySellUtils {
 			BuySellUtils.getPrice(performer, food);
 			fail("method should fail");
 		} catch(IllegalStateException e) {
-			assertEquals("WorldObject NAME=berries, food=1, sellable=false, ImageId=BERRY, itemId=BERRIES,  has no price", e.getMessage());
+			assertEquals("InventoryItem NAME=berries, food=1, sellable=false, ImageId=BERRY, itemId=BERRIES,  has no price", e.getMessage());
 		}
 	}
 	
