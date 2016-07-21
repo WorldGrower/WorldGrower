@@ -30,14 +30,10 @@ public class EatFromInventoryAction extends InventoryAction {
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
 		int inventoryIndex = args[0];
-		int food = performer.getProperty(Constants.FOOD);
-		
-		food = food + 100;
-
 		
 		GhoulUtils.eatFood(performer, performerInventory.get(inventoryIndex), world);
 		
-		performer.setProperty(Constants.FOOD, food);
+		performer.increment(Constants.FOOD, 100);
 		performerInventory.removeQuantity(Constants.FOOD, 1);
 		
 		world.logAction(this, performer, target, args, null);
