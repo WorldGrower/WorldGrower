@@ -34,7 +34,7 @@ public class PaperGoal implements Goal {
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.PAPER, QUANTITY_TO_BUY, world);
 		if (targets.size() > 0) {
-			return BuySellUtils.create(performer, targets.get(0), Item.PAPER, QUANTITY_TO_BUY);
+			return BuySellUtils.create(performer, targets.get(0), Item.PAPER, QUANTITY_TO_BUY, world);
 		} else {
 			return Goals.CREATE_PAPER_GOAL.calculateGoal(performer, world);
 		}

@@ -45,7 +45,7 @@ public class ReadNewsPaperGoal implements Goal {
 			List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Item.NEWS_PAPER, QUANTITY_TO_BUY, world);
 			targets = filterTargetsOnNewInformationInNewsPaper(performer, targets);
 			if (targets.size() > 0) {
-				return BuySellUtils.create(performer, targets.get(0), Item.NEWS_PAPER, QUANTITY_TO_BUY);
+				return BuySellUtils.create(performer, targets.get(0), Item.NEWS_PAPER, QUANTITY_TO_BUY, world);
 			} else {
 				return null;
 			}

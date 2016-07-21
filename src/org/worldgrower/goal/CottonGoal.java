@@ -37,7 +37,7 @@ public class CottonGoal implements Goal {
 		OperationInfo harvestCottonOperationInfo = Goals.HARVEST_COTTON_GOAL.calculateGoal(performer, world);
 		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.COTTON, QUANTITY_TO_BUY, world);
 		if (targets.size() > 0) {
-			return BuySellUtils.create(performer, targets.get(0), Item.COTTON, QUANTITY_TO_BUY);
+			return BuySellUtils.create(performer, targets.get(0), Item.COTTON, QUANTITY_TO_BUY, world);
 		} else if (harvestCottonOperationInfo != null) {
 			return harvestCottonOperationInfo;
 		} else {

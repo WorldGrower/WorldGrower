@@ -38,7 +38,7 @@ public class FishingPoleGoal implements Goal {
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.FISHING_POLE_QUALITY, QUANTITY_TO_BUY, world);
 		if (targets.size() > 0) {
-			return BuySellUtils.create(performer, targets.get(0), Item.FISHING_POLE, QUANTITY_TO_BUY);
+			return BuySellUtils.create(performer, targets.get(0), Item.FISHING_POLE, QUANTITY_TO_BUY, world);
 		} else {
 			Integer workbenchId = BuildingGenerator.getWorkbenchId(performer);
 			if (workbenchId == null) {

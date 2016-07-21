@@ -176,9 +176,10 @@ public class BuySellUtils {
 		if (targets.size() > 0) {
 			WorldObject target = targets.get(0);
 			int indexOfProperty = target.getProperty(Constants.INVENTORY).getIndexFor(propertyToBuy);
-			if (performerCanBuyGoods(performer, target, indexOfProperty, quantity)) {
-				int price = calculatePrice(target, indexOfProperty);
-				int itemId = target.getProperty(Constants.INVENTORY).get(indexOfProperty).getProperty(Constants.ITEM_ID).ordinal();
+			int price = calculatePrice(target, indexOfProperty);
+			int itemId = target.getProperty(Constants.INVENTORY).get(indexOfProperty).getProperty(Constants.ITEM_ID).ordinal();
+			int[] args = new int[] { indexOfProperty, price, quantity, itemId };
+			if (Actions.BUY_ACTION.canExecuteIgnoringDistance(performer, target, args, world)) {				
 				return new OperationInfo(performer, target, new int[] { indexOfProperty, price, quantity, itemId }, Actions.BUY_ACTION);
 			}
 		}
@@ -190,10 +191,11 @@ public class BuySellUtils {
 		if (targets.size() > 0) {
 			WorldObject target = targets.get(0);
 			int indexOfProperty = target.getProperty(Constants.INVENTORY).getIndexFor(Constants.ITEM_ID, item);
-			if (performerCanBuyGoods(performer, target, indexOfProperty, quantity)) {
-				int price = calculatePrice(target, indexOfProperty);
-				int itemId = target.getProperty(Constants.INVENTORY).get(indexOfProperty).getProperty(Constants.ITEM_ID).ordinal();
-				return new OperationInfo(performer, target, new int[] { indexOfProperty, price, quantity, itemId }, Actions.BUY_ACTION);
+			int price = calculatePrice(target, indexOfProperty);
+			int itemId = target.getProperty(Constants.INVENTORY).get(indexOfProperty).getProperty(Constants.ITEM_ID).ordinal();
+			int[] args = new int[] { indexOfProperty, price, quantity, itemId };
+			if (Actions.BUY_ACTION.canExecuteIgnoringDistance(performer, target, args, world)) {
+				return new OperationInfo(performer, target, args, Actions.BUY_ACTION);
 			}
 		}
 		return null;
@@ -205,11 +207,12 @@ public class BuySellUtils {
 		return price;
 	}
 	
-	public static OperationInfo create(WorldObject performer, WorldObject target, Item item, int quantity) {
+	public static OperationInfo create(WorldObject performer, WorldObject target, Item item, int quantity, World world) {
 		int targetInventoryIndex = target.getProperty(Constants.INVENTORY).getIndexFor(w -> w.getProperty(Constants.ITEM_ID) == item);
 		int price = target.getProperty(Constants.PRICES).getPrice(item);
-		if (performerCanBuyGoods(performer, target, targetInventoryIndex, quantity)) {
-			return new OperationInfo(performer, target, new int[] { targetInventoryIndex, price, quantity, item.ordinal() }, Actions.BUY_ACTION);
+		int[] args = new int[] { targetInventoryIndex, price, quantity, item.ordinal() };
+		if (Actions.BUY_ACTION.canExecuteIgnoringDistance(performer, target, args, world)) {
+			return new OperationInfo(performer, target, args, Actions.BUY_ACTION);
 		} else {
 			return null;
 		}

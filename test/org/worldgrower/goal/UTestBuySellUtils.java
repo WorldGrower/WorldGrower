@@ -221,7 +221,7 @@ public class UTestBuySellUtils {
 		target.setProperty(Constants.GOLD, 1000);
 		world.addWorldObject(target);
 		
-		OperationInfo buyOperationInfo = BuySellUtils.create(performer, target, Item.COTTON_SHIRT, 1);
+		OperationInfo buyOperationInfo = BuySellUtils.create(performer, target, Item.COTTON_SHIRT, 1, world);
 		
 		buyOperationInfo.getManagedOperation().execute(performer, target, buyOperationInfo.getArgs(), world);
 		

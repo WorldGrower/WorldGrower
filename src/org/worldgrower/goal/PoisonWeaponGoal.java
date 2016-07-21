@@ -52,7 +52,7 @@ public class PoisonWeaponGoal implements Goal {
 		} else {
 			List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.POISON_DAMAGE, QUANTITY_TO_BUY, world);
 			if (targets.size() > 0) {
-				return BuySellUtils.create(performer, targets.get(0), Item.POISON, QUANTITY_TO_BUY);
+				return BuySellUtils.create(performer, targets.get(0), Item.POISON, QUANTITY_TO_BUY, world);
 			} else {
 				return Goals.CREATE_POISON_GOAL.calculateGoal(performer, world);
 			}

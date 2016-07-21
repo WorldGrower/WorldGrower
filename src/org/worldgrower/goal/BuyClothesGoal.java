@@ -45,21 +45,21 @@ public class BuyClothesGoal implements Goal {
 			if (!hasCottonShirt) {
 				int targetInventoryIndex = BuySellUtils.getIndexFor(targets.get(0), Item.COTTON_SHIRT);
 				if (targetInventoryIndex != -1) {
-					return BuySellUtils.create(performer, targets.get(0), Item.COTTON_SHIRT, QUANTITY_TO_BUY);
+					return BuySellUtils.create(performer, targets.get(0), Item.COTTON_SHIRT, QUANTITY_TO_BUY, world);
 				}
 			}
 			
 			if (!hasCottonPants) {
 				int targetInventoryIndex = BuySellUtils.getIndexFor(targets.get(0), Item.COTTON_PANTS);
 				if (targetInventoryIndex != -1) {
-					return BuySellUtils.create(performer, targets.get(0), Item.COTTON_PANTS, QUANTITY_TO_BUY);
+					return BuySellUtils.create(performer, targets.get(0), Item.COTTON_PANTS, QUANTITY_TO_BUY, world);
 				}
 			}
 			
 			if (!hasCottonBoots) {
 				int targetInventoryIndex = BuySellUtils.getIndexFor(targets.get(0), Item.COTTON_BOOTS);
 				if (targetInventoryIndex != -1) {
-					return BuySellUtils.create(performer, targets.get(0), Item.COTTON_BOOTS, QUANTITY_TO_BUY);
+					return BuySellUtils.create(performer, targets.get(0), Item.COTTON_BOOTS, QUANTITY_TO_BUY, world);
 				}
 			}
 		}

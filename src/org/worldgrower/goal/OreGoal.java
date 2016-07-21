@@ -34,7 +34,7 @@ public class OreGoal implements Goal {
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.ORE, QUANTITY_TO_BUY, world);
 		if (targets.size() > 0) {
-			return BuySellUtils.create(performer, targets.get(0), Item.ORE, QUANTITY_TO_BUY);
+			return BuySellUtils.create(performer, targets.get(0), Item.ORE, QUANTITY_TO_BUY, world);
 		} else {
 			return Goals.MINE_ORE_GOAL.calculateGoal(performer, world);
 		}

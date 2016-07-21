@@ -36,7 +36,7 @@ public class GoldGoal implements Goal {
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.GOLD, QUANTITY_TO_BUY, world);
 		if (targets.size() > 0) {
-			return BuySellUtils.create(performer, targets.get(0), Item.GOLD, QUANTITY_TO_BUY);
+			return BuySellUtils.create(performer, targets.get(0), Item.GOLD, QUANTITY_TO_BUY, world);
 		} else {
 			WorldObject target = GoalUtils.findNearestTarget(performer, Actions.MINE_GOLD_ACTION, world);
 			if (target != null) {

@@ -34,7 +34,7 @@ public class WineGoal implements Goal {
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.ALCOHOL_LEVEL, QUANTITY_TO_BUY, world);
 		if (targets.size() > 0) {
-			return BuySellUtils.create(performer, targets.get(0), Item.WINE, QUANTITY_TO_BUY);
+			return BuySellUtils.create(performer, targets.get(0), Item.WINE, QUANTITY_TO_BUY, world);
 		} else {
 			return Goals.CREATE_WINE_GOAL.calculateGoal(performer, world);
 		}
