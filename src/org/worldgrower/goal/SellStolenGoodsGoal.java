@@ -53,7 +53,8 @@ public class SellStolenGoodsGoal implements Goal {
 	private boolean shouldSell(WorldObject performer, WorldObject w) {
 		boolean isWorn = EquipmentPropertyUtils.isEquipmentWorn(performer, w);
 		boolean isBasicNeed = w.hasProperty(Constants.FOOD) || w.hasProperty(Constants.WATER);
-		return !isWorn && !isBasicNeed;
+		boolean isKey = w.hasProperty(Constants.LOCK_ID);
+		return !isWorn && !isBasicNeed && !isKey;
 	}
 	
 	@Override
