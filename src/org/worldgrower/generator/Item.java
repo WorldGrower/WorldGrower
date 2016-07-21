@@ -100,14 +100,13 @@ public enum Item {
 	private static final String LONGBOW_NAME = "longbow";
 	private static final String POISON_NAME = "poison";
 
-	//TODO: make name private
-	public static final String COTTON_SHIRT_NAME = "cotton shirt";
-	public static final String COTTON_HAT_NAME = "cotton hat";
-	public static final String COTTON_BOOTS_NAME = "cotton boots";
-	public static final String COTTON_GLOVES_NAME = "cotton gloves";
-	public static final String COTTON_PANTS_NAME = "cotton pants";
+	private static final String COTTON_SHIRT_NAME = "cotton shirt";
+	private static final String COTTON_HAT_NAME = "cotton hat";
+	private static final String COTTON_BOOTS_NAME = "cotton boots";
+	private static final String COTTON_GLOVES_NAME = "cotton gloves";
+	private static final String COTTON_PANTS_NAME = "cotton pants";
 	
-	public static final String BED_NAME = "bed";
+	private static final String BED_NAME = "bed";
 	
 	private final ItemType itemType;
 	

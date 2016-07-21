@@ -42,7 +42,7 @@ public class ReadNewsPaperGoal implements Goal {
 		if (unreadNewsPapers.size() > 0) {
 			return new OperationInfo(performer, unreadNewsPapers.get(0), new int[] { performerInventory.getIndexFor(Constants.KNOWLEDGE_MAP) }, Actions.READ_ITEM_IN_INVENTORY_ACTION);
 		} else {
-			List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.NAME, Item.NEWS_PAPER_NAME, QUANTITY_TO_BUY, world);
+			List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Item.NEWS_PAPER, QUANTITY_TO_BUY, world);
 			targets = filterTargetsOnNewInformationInNewsPaper(performer, targets);
 			if (targets.size() > 0) {
 				return BuySellUtils.create(performer, targets.get(0), Item.NEWS_PAPER, QUANTITY_TO_BUY);

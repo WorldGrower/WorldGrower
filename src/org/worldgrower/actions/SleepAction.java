@@ -33,7 +33,7 @@ public class SleepAction implements ManagedOperation {
 		int sleepComfort = target.getProperty(Constants.SLEEP_COMFORT);
 		int energyIncrease = 7 + sleepComfort;
 		
-		List<WorldObject> beds = target.getProperty(Constants.INVENTORY).getWorldObjects(Constants.NAME, Item.BED_NAME);
+		List<WorldObject> beds = target.getProperty(Constants.INVENTORY).getWorldObjects(Constants.ITEM_ID, Item.BED);
 		if (beds.size() > 0) {
 			energyIncrease += beds.get(0).getProperty(Constants.SLEEP_COMFORT);
 		}

@@ -53,7 +53,7 @@ public class CreateFurnitureGoal implements Goal {
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		return performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.NAME, Item.BED_NAME).size() > 1;
+		return performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.ITEM_ID, Item.BED).size() > 1;
 	}
 	
 	@Override
@@ -68,6 +68,6 @@ public class CreateFurnitureGoal implements Goal {
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		return performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.NAME, Item.BED_NAME).size();
+		return performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.ITEM_ID, Item.BED).size();
 	}
 }

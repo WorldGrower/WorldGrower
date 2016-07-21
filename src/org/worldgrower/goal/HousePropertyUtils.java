@@ -102,7 +102,7 @@ public class HousePropertyUtils {
 	}
 
 	public static boolean hasHouseWithBed(WorldObject performer, World world) {
-		List<WorldObject> housesWithBed = performer.getProperty(Constants.BUILDINGS).mapToWorldObjects(world, BuildingType.HOUSE, w -> w.getProperty(Constants.INVENTORY).getWorldObjects(Constants.NAME, Item.BED_NAME).size() > 0);
+		List<WorldObject> housesWithBed = performer.getProperty(Constants.BUILDINGS).mapToWorldObjects(world, BuildingType.HOUSE, w -> w.getProperty(Constants.INVENTORY).getWorldObjects(Constants.ITEM_ID, Item.BED).size() > 0);
 		return housesWithBed.size() > 0;
 	}
 }

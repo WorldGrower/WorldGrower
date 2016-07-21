@@ -123,7 +123,7 @@ public class UTestBuySellUtils {
 		target.getProperty(Constants.PRICES).setPrice(Item.IRON_CUIRASS, 200);
 		world.addWorldObject(target);
 		
-		assertEquals(true, BuySellUtils.hasSellableEquipment(Constants.EQUIPMENT_SLOT, Constants.TORSO_EQUIPMENT, target));
+		assertEquals(true, BuySellUtils.hasSellableEquipment(Item.IRON_CUIRASS, target));
 	}
 	
 	@Test
@@ -159,7 +159,7 @@ public class UTestBuySellUtils {
 		cottonShirt.setProperty(Constants.SELLABLE, Boolean.TRUE);
 		target.getProperty(Constants.INVENTORY).add(cottonShirt);
 		
-		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.NAME, Item.COTTON_SHIRT_NAME, 5, world);
+		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Item.COTTON_SHIRT, 5, world);
 		assertEquals(1, targets.size());
 		assertEquals(target, targets.get(0));
 	}
@@ -203,7 +203,7 @@ public class UTestBuySellUtils {
 		target.getProperty(Constants.PRICES).setPrice(Item.IRON_CUIRASS, 200);
 		world.addWorldObject(target);
 		
-		assertEquals(Actions.BUY_ACTION, BuySellUtils.getBuyOperationInfo(performer, Constants.EQUIPMENT_SLOT, Constants.TORSO_EQUIPMENT, 1, world).getManagedOperation());
+		assertEquals(Actions.BUY_ACTION, BuySellUtils.getBuyOperationInfo(performer, Item.IRON_CUIRASS, 1, world).getManagedOperation());
 	}
 	
 	@Test
@@ -225,7 +225,7 @@ public class UTestBuySellUtils {
 		
 		buyOperationInfo.getManagedOperation().execute(performer, target, buyOperationInfo.getArgs(), world);
 		
-		assertEquals(0, performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.NAME, Item.COTTON_SHIRT_NAME));
+		assertEquals(0, performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.ITEM_ID, Item.COTTON_SHIRT));
 		assertEquals(995, performer.getProperty(Constants.GOLD).intValue());
 		assertEquals(1005, target.getProperty(Constants.GOLD).intValue());
 	}

@@ -23,6 +23,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.UnCheckedProperty;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.Item;
 
 public class EquipmentGoal implements Goal {
 
@@ -40,23 +41,23 @@ public class EquipmentGoal implements Goal {
 		int ironBootsCount = inventory.getWorldObjects(Constants.EQUIPMENT_SLOT, Constants.FEET_EQUIPMENT).size();
 			
 		if (ironClaymoreCount == 0) {
-			return getEquipment(performer, Constants.LEFT_HAND_EQUIPMENT, world);
+			return getEquipment(performer, Item.IRON_CLAYMORE, world);
 		} else if (hasUnusedEquipment(performer, Constants.LEFT_HAND_EQUIPMENT)) {
 			return equipUnusedEquipment(performer, Constants.LEFT_HAND_EQUIPMENT, world);
 		} else if (ironCuirassCount == 0) {
-			return getEquipment(performer, Constants.TORSO_EQUIPMENT, world);
+			return getEquipment(performer, Item.IRON_CUIRASS, world);
 		} else if (hasUnusedEquipment(performer, Constants.TORSO_EQUIPMENT)) {
 			return equipUnusedEquipment(performer, Constants.TORSO_EQUIPMENT, world);
 		} else if (ironHelmetCount == 0) {
-			return getEquipment(performer, Constants.HEAD_EQUIPMENT, world);
+			return getEquipment(performer, Item.IRON_HELMET, world);
 		} else if (hasUnusedEquipment(performer, Constants.HEAD_EQUIPMENT)) {
 			return equipUnusedEquipment(performer, Constants.HEAD_EQUIPMENT, world);
 		} else if (ironGauntletsCount == 0) {
-			return getEquipment(performer, Constants.ARMS_EQUIPMENT, world);
+			return getEquipment(performer, Item.IRON_GAUNTLETS, world);
 		} else if (hasUnusedEquipment(performer, Constants.ARMS_EQUIPMENT)) {
 			return equipUnusedEquipment(performer, Constants.ARMS_EQUIPMENT, world);
 		} else if (ironBootsCount == 0) {
-			return getEquipment(performer, Constants.FEET_EQUIPMENT, world);
+			return getEquipment(performer, Item.IRON_BOOTS, world);
 		} else if (hasUnusedEquipment(performer, Constants.FEET_EQUIPMENT)) {
 			return equipUnusedEquipment(performer, Constants.FEET_EQUIPMENT, world);
 		} else if (hasUnusedEquipment(performer, Constants.LEGS_EQUIPMENT)) {
@@ -66,9 +67,9 @@ public class EquipmentGoal implements Goal {
 		}
 	}
 
-	private OperationInfo getEquipment(WorldObject performer, UnCheckedProperty<WorldObject> equipmentSlot, World world) {
+	private OperationInfo getEquipment(WorldObject performer, Item item, World world) {
 		//TODO: buy items should work with light/heavy armor
-		OperationInfo buyOperationInfo = BuySellUtils.getBuyOperationInfo(performer, Constants.EQUIPMENT_SLOT, equipmentSlot, 1, world);
+		OperationInfo buyOperationInfo = BuySellUtils.getBuyOperationInfo(performer, item, 1, world);
 		if (buyOperationInfo != null) {
 			return buyOperationInfo;
 		} else {

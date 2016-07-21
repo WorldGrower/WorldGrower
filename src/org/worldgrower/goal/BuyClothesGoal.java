@@ -35,29 +35,29 @@ public class BuyClothesGoal implements Goal {
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY); 
-		boolean hasCottonShirt = inventory.getIndexFor(Constants.NAME, Item.COTTON_SHIRT_NAME) != -1;
-		boolean hasCottonPants = inventory.getIndexFor(Constants.NAME, Item.COTTON_PANTS_NAME) != -1;
-		boolean hasCottonBoots = inventory.getIndexFor(Constants.NAME, Item.COTTON_BOOTS_NAME) != -1;
+		boolean hasCottonShirt = inventory.getIndexFor(Constants.ITEM_ID, Item.COTTON_SHIRT) != -1;
+		boolean hasCottonPants = inventory.getIndexFor(Constants.ITEM_ID, Item.COTTON_PANTS) != -1;
+		boolean hasCottonBoots = inventory.getIndexFor(Constants.ITEM_ID, Item.COTTON_BOOTS) != -1;
 		
 		List<WorldObject> targets = getTargetsToBuyFrom(performer, world, hasCottonShirt, hasCottonPants, hasCottonBoots);
 		
 		if (targets.size() > 0) {
 			if (!hasCottonShirt) {
-				int targetInventoryIndex = BuySellUtils.getIndexFor(targets.get(0), Constants.NAME, Item.COTTON_SHIRT_NAME);
+				int targetInventoryIndex = BuySellUtils.getIndexFor(targets.get(0), Item.COTTON_SHIRT);
 				if (targetInventoryIndex != -1) {
 					return BuySellUtils.create(performer, targets.get(0), Item.COTTON_SHIRT, QUANTITY_TO_BUY);
 				}
 			}
 			
 			if (!hasCottonPants) {
-				int targetInventoryIndex = BuySellUtils.getIndexFor(targets.get(0), Constants.NAME, Item.COTTON_PANTS_NAME);
+				int targetInventoryIndex = BuySellUtils.getIndexFor(targets.get(0), Item.COTTON_PANTS);
 				if (targetInventoryIndex != -1) {
 					return BuySellUtils.create(performer, targets.get(0), Item.COTTON_PANTS, QUANTITY_TO_BUY);
 				}
 			}
 			
 			if (!hasCottonBoots) {
-				int targetInventoryIndex = BuySellUtils.getIndexFor(targets.get(0), Constants.NAME, Item.COTTON_BOOTS_NAME);
+				int targetInventoryIndex = BuySellUtils.getIndexFor(targets.get(0), Item.COTTON_BOOTS);
 				if (targetInventoryIndex != -1) {
 					return BuySellUtils.create(performer, targets.get(0), Item.COTTON_BOOTS, QUANTITY_TO_BUY);
 				}
@@ -73,9 +73,9 @@ public class BuyClothesGoal implements Goal {
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
 		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY); 
-		boolean hasCottonShirt = inventory.getIndexFor(Constants.NAME, Item.COTTON_SHIRT_NAME) != -1;
-		boolean hasCottonPants = inventory.getIndexFor(Constants.NAME, Item.COTTON_PANTS_NAME) != -1;
-		boolean hasCottonBoots = inventory.getIndexFor(Constants.NAME, Item.COTTON_BOOTS_NAME) != -1;
+		boolean hasCottonShirt = inventory.getIndexFor(Constants.ITEM_ID, Item.COTTON_SHIRT) != -1;
+		boolean hasCottonPants = inventory.getIndexFor(Constants.ITEM_ID, Item.COTTON_PANTS) != -1;
+		boolean hasCottonBoots = inventory.getIndexFor(Constants.ITEM_ID, Item.COTTON_BOOTS) != -1;
 		
 		List<WorldObject> targetsToBuyFrom = getTargetsToBuyFrom(performer, world, hasCottonShirt, hasCottonPants, hasCottonBoots);
 		
@@ -88,15 +88,15 @@ public class BuyClothesGoal implements Goal {
 	
 	private List<WorldObject> getTargetsToBuyFrom(WorldObject performer, World world, boolean hasCottonShirt, boolean hasCottonPants, boolean hasCottonBoots) {
 		if (!hasCottonShirt) {
-			return BuySellUtils.findBuyTargets(performer, Constants.NAME, Item.COTTON_SHIRT_NAME, QUANTITY_TO_BUY, world);
+			return BuySellUtils.findBuyTargets(performer, Item.COTTON_SHIRT, QUANTITY_TO_BUY, world);
 		}
 		
 		if (!hasCottonPants) {
-			return BuySellUtils.findBuyTargets(performer, Constants.NAME, Item.COTTON_PANTS_NAME, QUANTITY_TO_BUY, world);
+			return BuySellUtils.findBuyTargets(performer, Item.COTTON_PANTS, QUANTITY_TO_BUY, world);
 		}
 		
 		if (!hasCottonBoots) {
-			return BuySellUtils.findBuyTargets(performer, Constants.NAME, Item.COTTON_BOOTS_NAME, QUANTITY_TO_BUY, world);
+			return BuySellUtils.findBuyTargets(performer, Item.COTTON_BOOTS, QUANTITY_TO_BUY, world);
 		}
 		
 		return new ArrayList<>();

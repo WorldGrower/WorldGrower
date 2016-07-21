@@ -36,7 +36,7 @@ public class FurnitureGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		boolean hasInventoryFurniture = performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.NAME, Item.BED_NAME).size() > 0;
+		boolean hasInventoryFurniture = performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.ITEM_ID, Item.BED).size() > 0;
 		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.SLEEP_COMFORT, QUANTITY_TO_BUY, world);
 		if (hasInventoryFurniture) {
 			int indexOfFurniture = performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.SLEEP_COMFORT);
@@ -92,7 +92,7 @@ public class FurnitureGoal implements Goal {
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		boolean hasInventoryFurniture = performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.NAME, Item.BED_NAME).size() > 0;
+		boolean hasInventoryFurniture = performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.ITEM_ID, Item.BED).size() > 0;
 		boolean hasHouseWithBed = HousePropertyUtils.hasHouseWithBed(performer, world);
 		
 		int inventoryFurnitureEvaluation = hasInventoryFurniture ? 1 : 0;

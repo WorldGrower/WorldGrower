@@ -38,9 +38,9 @@ public class WeaveClothesGoal implements Goal {
 		if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.COTTON) < 10) {
 			return Goals.COTTON_GOAL.calculateGoal(performer, world);
 		} else if (weaveryId != null){
-			int cottonShirtCount = performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.NAME, Item.COTTON_SHIRT_NAME).size();
-			int cottonPantsCount = performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.NAME, Item.COTTON_PANTS_NAME).size();
-			int cottonBootsCount = performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.NAME, Item.COTTON_BOOTS_NAME).size();
+			int cottonShirtCount = performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.ITEM_ID, Item.COTTON_SHIRT).size();
+			int cottonPantsCount = performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.ITEM_ID, Item.COTTON_PANTS).size();
+			int cottonBootsCount = performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.ITEM_ID, Item.COTTON_BOOTS).size();
 			
 			WorldObject weavery = world.findWorldObjectById(weaveryId);
 			if (cottonShirtCount == 0){
