@@ -43,8 +43,7 @@ public class UTestWeaveCottonBootsAction {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
 
-		int weaveryId = BuildingGenerator.generateWeavery(0, 0, world, performer);
-		WorldObject target = world.findWorldObjectById(weaveryId);
+		WorldObject target = weavery(world, performer);
 		
 		assertEquals(false, Actions.WEAVE_COTTON_BOOTS_ACTION.isValidTarget(performer, performer, world));
 		assertEquals(true, Actions.WEAVE_COTTON_BOOTS_ACTION.isValidTarget(performer, target, world));
@@ -58,9 +57,23 @@ public class UTestWeaveCottonBootsAction {
 		performer.setProperty(Constants.X, 0);
 		performer.setProperty(Constants.Y, 0);
 
-		int weaveryId = BuildingGenerator.generateWeavery(0, 0, world, performer);
-		WorldObject target = world.findWorldObjectById(weaveryId);
+		WorldObject target = weavery(world, performer);
 		
 		assertEquals(true, Actions.WEAVE_COTTON_BOOTS_ACTION.isActionPossible(performer, target, Args.EMPTY, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
+		WorldObject target = weavery(world, performer);
+		
+		assertEquals(0, Actions.WEAVE_COTTON_BOOTS_ACTION.distance(performer, target, Args.EMPTY, world));
+	}
+
+	private WorldObject weavery(World world, WorldObject performer) {
+		int weaveryId = BuildingGenerator.generateWeavery(0, 0, world, performer);
+		WorldObject target = world.findWorldObjectById(weaveryId);
+		return target;
 	}
 }

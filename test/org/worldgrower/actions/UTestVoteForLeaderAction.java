@@ -32,8 +32,7 @@ public class UTestVoteForLeaderAction {
 	public void testExecute() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
-		int id = BuildingGenerator.generateVotingBox(0, 0, world);
-		WorldObject target = world.findWorldObjectById(id);
+		WorldObject target = createVotingBox(world);
 		
 		Actions.VOTE_FOR_LEADER_ACTION.execute(performer, target, new int[] { 7 }, world);
 		
@@ -44,8 +43,7 @@ public class UTestVoteForLeaderAction {
 	public void testIsValidTarget() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
-		int id = BuildingGenerator.generateVotingBox(0, 0, world);
-		WorldObject target = world.findWorldObjectById(id);
+		WorldObject target = createVotingBox(world);
 		target.setProperty(Constants.ORGANIZATION_ID, 7);
 		
 		assertEquals(true, Actions.VOTE_FOR_LEADER_ACTION.isValidTarget(performer, target, world));
@@ -56,12 +54,26 @@ public class UTestVoteForLeaderAction {
 	public void testIsActionPossible() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
-		int id = BuildingGenerator.generateVotingBox(0, 0, world);
-		WorldObject target = world.findWorldObjectById(id);
+		WorldObject target = createVotingBox(world);
 		target.setProperty(Constants.ORGANIZATION_ID, 7);
 		target.setProperty(Constants.TURN_COUNTER, 450);
 		
 		assertEquals(true, Actions.VOTE_FOR_LEADER_ACTION.isActionPossible(performer, target, Args.EMPTY, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createVotingBox(world);
+		
+		assertEquals(0, Actions.VOTE_FOR_LEADER_ACTION.distance(performer, target, Args.EMPTY, world));
+	}
+
+	private WorldObject createVotingBox(World world) {
+		int id = BuildingGenerator.generateVotingBox(0, 0, world);
+		WorldObject target = world.findWorldObjectById(id);
+		return target;
 	}
 	
 	private WorldObject createPerformer(int id) {

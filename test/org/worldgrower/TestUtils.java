@@ -142,6 +142,18 @@ public class TestUtils {
 	}
 	
 	public static WorldObject createIntelligentWorldObject(int id, Goal goal) {
+		WorldObjectPriorities worldObjectPriorities = new WorldObjectPriorities() {
+
+			@Override
+			public List<Goal> getPriorities(WorldObject performer, World world) {
+				return Arrays.asList(goal);
+			}
+		};
+		
+		return createIntelligentWorldObject(id, worldObjectPriorities);
+	}
+
+	public static WorldObject createIntelligentWorldObject(int id, WorldObjectPriorities worldObjectPriorities) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.NAME, "worldObject");
 		properties.put(Constants.LEVEL, 1);
@@ -160,6 +172,7 @@ public class TestUtils {
 		properties.put(Constants.DEMANDS, new PropertyCountMap<ManagedProperty<?>>());
 		properties.put(Constants.PRICES, new Prices());
 		properties.put(Constants.STRENGTH, 10);
+		properties.put(Constants.FOOD, 10);
 		properties.put(Constants.WATER, 10);
 		properties.put(Constants.ENERGY, 1000);
 		properties.put(Constants.STRENGTH, 10);
@@ -169,13 +182,8 @@ public class TestUtils {
 		properties.put(Constants.WISDOM, 10);
 		properties.put(Constants.CHARISMA, 10);
 		SkillUtils.addAllSkills(properties);
-		WorldObject w1 = new WorldObjectImpl(properties, Actions.ALL_ACTIONS, new WorldObjectPriorities() {
-
-			@Override
-			public List<Goal> getPriorities(WorldObject performer, World world) {
-				return Arrays.asList(goal);
-			}
-		});
+		
+		WorldObject w1 = new WorldObjectImpl(properties, Actions.ALL_ACTIONS, worldObjectPriorities);
 		return w1;
 	}
 	

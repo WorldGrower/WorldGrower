@@ -54,6 +54,9 @@ public class SellAction implements ManagedOperation {
 		performer.setProperty(Constants.GOLD, performer.getProperty(Constants.GOLD) + goldPaid);
 		
 		InventoryPropertyUtils.cleanupEquipmentSlots(performer);
+		
+		String description = soldWorldObject.getProperty(Constants.NAME);
+		world.logAction(this, performer, target, args, performer.getProperty(Constants.NAME) + " sold " + quantity + " " + description + " at " + price + " gold a piece for a total of " + goldPaid + " gold");
 	}
 
 	private void checkArgs(int index, int quantity, int itemIndex, WorldObjectContainer performerInventory) {

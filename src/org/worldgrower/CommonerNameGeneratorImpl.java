@@ -14,13 +14,12 @@
  *******************************************************************************/
 package org.worldgrower;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.worldgrower.util.FileUtils;
 
 /**
  * This class provides unique names for commoners.
@@ -34,26 +33,10 @@ public class CommonerNameGeneratorImpl implements CommonerNameGenerator, Seriali
 	private int currentFemaleCommonerIndex = 0;
 	
 	public CommonerNameGeneratorImpl() throws IOException {
-		maleCommonerNames.addAll(readFile("/male_names.txt"));
-		femaleCommonerNames.addAll(readFile("/female_names.txt"));
+		maleCommonerNames.addAll(FileUtils.readFile("/male_names.txt"));
+		femaleCommonerNames.addAll(FileUtils.readFile("/female_names.txt"));
 	}
-	
-	private List<String> readFile(String filename) throws IOException {
-		InputStream fileResource = this.getClass().getResourceAsStream(filename);
-		if (fileResource == null) {
-			throw new IllegalStateException(filename + " not found in classpath");
-		}
-		BufferedReader fileReader = new BufferedReader(new InputStreamReader(fileResource, "UTF-8"));
-		List<String> lines = new ArrayList<>();
-		String line = fileReader.readLine();
-		while(line != null){
-		    line = fileReader.readLine();
-		    lines.add(line);
-		}
-		fileReader.close();
-		return lines;
-	}
-	
+		
 	@Override
 	public String getNextMaleCommonerName() {
 		String name = maleCommonerNames.get(currentMaleCommonerIndex);

@@ -58,6 +58,15 @@ public class UTestBuildShackAction {
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 10);
 		assertEquals(true, Actions.BUILD_SHACK_ACTION.isActionPossible(performer, target, Args.EMPTY, world));
 	}
+
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		
+		assertEquals(0, Actions.BUILD_SHACK_ACTION.distance(performer, target, Args.EMPTY, world));
+	}
 	
 	private WorldObject createPerformer(int id) {
 		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.INVENTORY, new WorldObjectContainer());

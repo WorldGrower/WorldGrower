@@ -195,6 +195,44 @@ public class UTestDungeonMaster {
 		testRunWorldObjectWithMovingTarget(commoner, playerCharacter, dungeonMaster, world);
 	}
 	
+	@Test
+	public void testRunWorldObjectWithMoreUrgentGoal() {
+		DungeonMaster dungeonMaster = new DungeonMaster();
+		World world = createWorld(dungeonMaster);
+		world.generateUniqueId(); world.generateUniqueId(); world.generateUniqueId();
+		
+		WorldObjectPriorities worldObjectPriorities = (performer, world2) -> Arrays.asList(Goals.FOOD_GOAL, Goals.DRINK_WATER_GOAL);
+		WorldObject commoner = TestUtils.createIntelligentWorldObject(2, worldObjectPriorities);
+
+		createBerryBush(world);
+		createWell(world);
+		
+		commoner.setProperty(Constants.META_INFORMATION, new MetaInformation(commoner));
+		commoner.setProperty(Constants.FOOD, 1000);
+		commoner.setProperty(Constants.WATER, 0);
+		
+		dungeonMaster.runWorldObject(commoner, world);		
+		assertEquals(Goals.DRINK_WATER_GOAL, world.getGoal(commoner));
+		assertEquals(GoalChangedReason.EMPTY_META_INFORMATION, commoner.getProperty(Constants.META_INFORMATION).getGoalChangedReason());
+		
+		commoner.setProperty(Constants.FOOD, 0);
+		dungeonMaster.runWorldObject(commoner, world);		
+		assertEquals(Goals.FOOD_GOAL, world.getGoal(commoner));
+		assertEquals(GoalChangedReason.MORE_IMPORTANT_GOAL_NOT_MET, commoner.getProperty(Constants.META_INFORMATION).getGoalChangedReason());
+	}
+
+	private void createWell(World world) {
+		int wellId = BuildingGenerator.buildWell(5, 5, world, 1f);
+		WorldObject well = world.findWorldObjectById(wellId);
+		well.setProperty(Constants.WATER_SOURCE, 1000);
+	}
+
+	private void createBerryBush(World world) {
+		int berryBushId = PlantGenerator.generateBerryBush(5, 5, world);
+		WorldObject berryBush = world.findWorldObjectById(berryBushId);
+		berryBush.setProperty(Constants.FOOD_SOURCE, 500);
+	}
+	
 	private void testRunWorldObjectWithMovingTarget(WorldObject commoner, WorldObject target, DungeonMaster dungeonMaster, World world) {
 
 		commoner.setProperty(Constants.X, 5);

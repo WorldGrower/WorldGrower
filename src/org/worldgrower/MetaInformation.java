@@ -103,4 +103,8 @@ class MetaInformation implements Serializable {
 	public OperationInfo getFinalTask() {
 		return currentTask.getLast();
 	}
+
+	GoalChangedReason getGoalChangedReason() {
+		return goalChangedReason;
+	}
 }

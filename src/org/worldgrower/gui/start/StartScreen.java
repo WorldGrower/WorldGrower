@@ -62,7 +62,6 @@ public class StartScreen implements SaveGameHandler {
 	private static final String SOUND_OUTPUT = "soundOutput";
 	private StartScreenDialog frame;
 	private JButton btnSaveGame;
-	private JButton btnControlsGame;
 	private World world;
 	private final KeyBindings keyBindings;
 	private final Preferences preferences = Preferences.userNodeForPackage(getClass());
@@ -289,72 +288,16 @@ public class StartScreen implements SaveGameHandler {
 		
 		addNewButton();
 		addLoadButton();
+		addSaveButton();
+		addControlsButton(preferences);
+		addCreditsButton();
 		addExitButton();
 		
 		addVersionLabel();
 		
-		addSaveButton();
-		addControlsButton(preferences);
-		
 		if (parentFrame != null) {
 			DialogUtils.createDialogBackPanel(frame, parentFrame.getContentPane());
 		}
-	}
-
-	private void addVersionLabel() {
-		JLabel lblVersion = JLabelFactory.createJLabel("Version " + Version.getVersion());
-		lblVersion.setToolTipText("Current version");
-		frame.addComponent(lblVersion);
-		SwingUtils.setBoundsAndCenterHorizontally(lblVersion, 83, 450, 167, 21);
-	}
-
-	private void addSaveButton() {
-		btnSaveGame = JButtonFactory.createButton("Save Game", IconUtils.getSaveIcon(), soundIdReader);
-		btnSaveGame.setHorizontalAlignment(SwingConstants.LEFT);
-		btnSaveGame.setHorizontalTextPosition(SwingConstants.RIGHT);
-		btnSaveGame.setToolTipText("Saves current game");
-		btnSaveGame.setEnabled(false);
-		btnSaveGame.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				LoadSaveDialog loadSaveDialog = new LoadSaveDialog(StartScreen.this, LoadSaveMode.SAVE, soundIdReader);
-				loadSaveDialog.showMe();				
-			}
-		});
-		frame.addComponent(btnSaveGame);
-		SwingUtils.setBoundsAndCenterHorizontally(btnSaveGame, 78, 220, 167, 60);
-	}
-	
-	private void addControlsButton(Preferences preferences) {
-		btnControlsGame = JButtonFactory.createButton("Controls", IconUtils.getControlsIcon(), soundIdReader);
-		btnControlsGame.setHorizontalAlignment(SwingConstants.LEFT);
-		btnControlsGame.setHorizontalTextPosition(SwingConstants.RIGHT);
-		btnControlsGame.setToolTipText("View and change game controls");
-		btnControlsGame.setEnabled(true);
-		btnControlsGame.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ControlsDialog controlsDialog = new ControlsDialog(keyBindings, soundIdReader, musicPlayer);
-				controlsDialog.showMe();
-				keyBindings.saveSettings(preferences);
-				preferences.putBoolean(PLAY_SOUNDS, soundIdReader.isEnabled());
-				preferences.putBoolean(PLAY_MUSIC, musicPlayer.isEnabled());
-			}
-		});
-		frame.addComponent(btnControlsGame);
-		SwingUtils.setBoundsAndCenterHorizontally(btnControlsGame, 78, 290, 167, 60);
-	}
-
-	private void addExitButton() {
-		JButton btnExit = JButtonFactory.createButton("Exit", IconUtils.getExitIcon(), soundIdReader);
-		btnExit.setHorizontalAlignment(SwingConstants.LEFT);
-		btnExit.setHorizontalTextPosition(SwingConstants.RIGHT);
-		btnExit.setToolTipText("Exits program");
-		btnExit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
-		frame.addComponent(btnExit);
-		SwingUtils.setBoundsAndCenterHorizontally(btnExit, 78, 360, 167, 60);
 	}
 
 	private void addNewButton() {
@@ -387,6 +330,81 @@ public class StartScreen implements SaveGameHandler {
 		frame.addComponent(btnLoadGame);
 		SwingUtils.setBoundsAndCenterHorizontally(btnLoadGame, 78, 150, 167, 60);
 	}
+
+	private void addSaveButton() {
+		btnSaveGame = JButtonFactory.createButton("Save Game", IconUtils.getSaveIcon(), soundIdReader);
+		btnSaveGame.setHorizontalAlignment(SwingConstants.LEFT);
+		btnSaveGame.setHorizontalTextPosition(SwingConstants.RIGHT);
+		btnSaveGame.setToolTipText("Saves current game");
+		btnSaveGame.setEnabled(false);
+		btnSaveGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				LoadSaveDialog loadSaveDialog = new LoadSaveDialog(StartScreen.this, LoadSaveMode.SAVE, soundIdReader);
+				loadSaveDialog.showMe();				
+			}
+		});
+		frame.addComponent(btnSaveGame);
+		SwingUtils.setBoundsAndCenterHorizontally(btnSaveGame, 78, 220, 167, 60);
+	}
+	
+	private void addControlsButton(Preferences preferences) {
+		JButton btnControlsGame = JButtonFactory.createButton("Controls", IconUtils.getControlsIcon(), soundIdReader);
+		btnControlsGame.setHorizontalAlignment(SwingConstants.LEFT);
+		btnControlsGame.setHorizontalTextPosition(SwingConstants.RIGHT);
+		btnControlsGame.setToolTipText("View and change game controls");
+		btnControlsGame.setEnabled(true);
+		btnControlsGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ControlsDialog controlsDialog = new ControlsDialog(keyBindings, soundIdReader, musicPlayer);
+				controlsDialog.showMe();
+				keyBindings.saveSettings(preferences);
+				preferences.putBoolean(PLAY_SOUNDS, soundIdReader.isEnabled());
+				preferences.putBoolean(PLAY_MUSIC, musicPlayer.isEnabled());
+			}
+		});
+		frame.addComponent(btnControlsGame);
+		SwingUtils.setBoundsAndCenterHorizontally(btnControlsGame, 78, 290, 167, 60);
+	}
+
+	private void addCreditsButton() {
+		JButton btnCredits = JButtonFactory.createButton("Credits", IconUtils.getExitIcon(), soundIdReader);
+		btnCredits.setHorizontalAlignment(SwingConstants.LEFT);
+		btnCredits.setHorizontalTextPosition(SwingConstants.RIGHT);
+		btnCredits.setToolTipText("Credits");
+		btnCredits.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					CreditsDialog creditsDialog = new CreditsDialog(soundIdReader);
+					creditsDialog.showMe();
+				} catch (Exception e1) {
+					ExceptionHandler.handle(e1);
+				}
+			}
+		});
+		frame.addComponent(btnCredits);
+		SwingUtils.setBoundsAndCenterHorizontally(btnCredits, 78, 360, 167, 60);
+	}
+	
+	private void addExitButton() {
+		JButton btnExit = JButtonFactory.createButton("Exit", IconUtils.getExitIcon(), soundIdReader);
+		btnExit.setHorizontalAlignment(SwingConstants.LEFT);
+		btnExit.setHorizontalTextPosition(SwingConstants.RIGHT);
+		btnExit.setToolTipText("Exits program");
+		btnExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		frame.addComponent(btnExit);
+		SwingUtils.setBoundsAndCenterHorizontally(btnExit, 78, 430, 167, 60);
+	}
+
+	private void addVersionLabel() {
+		JLabel lblVersion = JLabelFactory.createJLabel("Version " + Version.getVersion());
+		lblVersion.setToolTipText("Current version");
+		frame.addComponent(lblVersion);
+		SwingUtils.setBoundsAndCenterHorizontally(lblVersion, 83, 520, 167, 21);
+	}
 	
 	@Override
 	public void loadGame(File selectedFile) {
@@ -410,7 +428,7 @@ public class StartScreen implements SaveGameHandler {
 	private static class StartScreenDialog extends AbstractDialog {
 
 		public StartScreenDialog() {
-			super(337, 520);
+			super(337, 590);
 		}
 	}
 }
