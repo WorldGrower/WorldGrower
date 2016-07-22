@@ -37,7 +37,7 @@ public class CreditsDialog extends AbstractDialog {
 	private final SoundIdReader soundIdReader;
 	
 	public CreditsDialog(SoundIdReader soundIdReader) throws IOException {
-		super(400, 800);
+		super(500, 800);
 		
 		this.soundIdReader = soundIdReader;
 		
@@ -46,23 +46,25 @@ public class CreditsDialog extends AbstractDialog {
 	}
 
 	private void addCreditsPane() throws IOException {
-		String creditBuilder = getCreditsText();
+		String creditsText = getCreditsTextAsHtml();
 		
-		JTextPane textPane = JTextPaneFactory.createJTextPane(creditBuilder); 
+		JTextPane textPane = JTextPaneFactory.createJTextPane(); 
 		textPane.setEditable(false);
 		textPane.setContentType("text/html");
+		textPane.setText(creditsText);
 		
 		JScrollPane scrollPane = new JScrollPane(textPane);
-		scrollPane.setBounds(15, 15, 368, 400);
+		scrollPane.setBounds(15, 15, 468, 720);
 		addComponent(scrollPane);
 	}
 
-	private String getCreditsText() throws IOException {
+	private String getCreditsTextAsHtml() throws IOException {
 		List<String> creditLines = FileUtils.readFile("/credits.txt");
-		StringBuilder creditBuilder = new StringBuilder();
+		StringBuilder creditBuilder = new StringBuilder("<html><font color=\"white\">");
 		for(String creditLine : creditLines) {
-			creditBuilder.append(creditLine).append("\n");
+			creditBuilder.append(creditLine).append("<br/>");
 		}
+		creditBuilder.append("</font></html>");
 		return creditBuilder.toString();
 	}
 
@@ -74,7 +76,7 @@ public class CreditsDialog extends AbstractDialog {
 	private void addButtonPane() {
 		JPanel buttonPane = new JPanel();
 		buttonPane.setOpaque(false);
-		buttonPane.setBounds(0, 740, 383, 75);
+		buttonPane.setBounds(0, 740, 488, 75);
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		addComponent(buttonPane);
 		

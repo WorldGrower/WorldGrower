@@ -21,9 +21,8 @@ import org.worldgrower.gui.font.Fonts;
 
 public class JTextPaneFactory {
 
-	public static JTextPane createJTextPane(String text) {
+	public static JTextPane createJTextPane() {
 		JTextPane textPane = new JTextPane();
-		textPane.setText(text);
 		setTextPaneProperties(textPane);
 		return textPane;
 	}

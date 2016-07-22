@@ -32,8 +32,8 @@ public class FileUtils {
 		List<String> lines = new ArrayList<>();
 		String line = fileReader.readLine();
 		while(line != null){
-		    line = fileReader.readLine();
 		    lines.add(line);
+		    line = fileReader.readLine();
 		}
 		fileReader.close();
 		return lines;
