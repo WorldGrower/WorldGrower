@@ -46,7 +46,7 @@ public class UTestGatherRemainsAction {
 		Actions.GATHER_REMAINS_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(1, performer.getProperty(Constants.INVENTORY).size());
-		assertEquals(0, performer.getProperty(Constants.INVENTORY).get(0).getProperty(Constants.GOLD).intValue());
+		assertEquals(false, performer.getProperty(Constants.INVENTORY).get(0).hasProperty(Constants.GOLD));
 		assertEquals(120, performer.getProperty(Constants.GOLD).intValue());
 	}
 	
