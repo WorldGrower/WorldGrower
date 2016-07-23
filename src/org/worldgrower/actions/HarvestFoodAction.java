@@ -38,11 +38,7 @@ public class HarvestFoodAction implements ManagedOperation {
 		inventoryPerformer.addQuantity(harvestedFood, quantity);
 
 		target.increment(Constants.FOOD_SOURCE, -100);
-		int targetFoodSource = target.getProperty(Constants.FOOD_SOURCE);
-		int targetFoodProduced = target.getProperty(Constants.FOOD_PRODUCED);
-		if (targetFoodSource < 100 && targetFoodProduced >= 400) {
-			target.setProperty(Constants.HIT_POINTS, 0);
-		}
+		FoodPropertyUtils.checkFoodSourceExhausted(target);
 		SkillUtils.useSkill(performer, Constants.FARMING_SKILL, world.getWorldStateChangedListeners());
 		
 		world.logAction(this, performer, target, args, null);

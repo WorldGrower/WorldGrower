@@ -38,7 +38,7 @@ public class UTestCutWoodAction {
 		Actions.CUT_WOOD_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(1, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD));
-		assertEquals(49, target.getProperty(Constants.WOOD_SOURCE).intValue());
+		assertEquals(40, target.getProperty(Constants.WOOD_SOURCE).intValue());
 	}
 	
 	@Test

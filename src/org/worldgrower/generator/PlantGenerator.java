@@ -83,7 +83,8 @@ public class PlantGenerator {
 		properties.put(Constants.WIDTH, 1);
 		properties.put(Constants.HEIGHT, 1);
 		properties.put(Constants.ID, id);
-		properties.put(Constants.WOOD_SOURCE, 4);
+		properties.put(Constants.WOOD_SOURCE, 30);
+		properties.put(Constants.WOOD_PRODUCED, 0);
 		properties.put(Constants.IMAGE_ID, ImageIds.TRUNK);
 		properties.put(Constants.HIT_POINTS, 15 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.HIT_POINTS_MAX, 15 * Item.COMBAT_MULTIPLIER);
@@ -147,16 +148,19 @@ public class PlantGenerator {
 	}
 	
 	public static int generateTree(int x, int y, World world) {
-		
+		return generateTree(x, y, world, 1f);
+	}
+	
+	public static int generateTree(int x, int y, World world, double skillBonus) {
 		int id = world.generateUniqueId();
 		final ImageIds imageId = getTreeImageId(x, y, world);
-		WorldObject tree = generateTree(x, y, id, imageId);
+		WorldObject tree = generateTree(x, y, id, imageId, skillBonus);
 		world.addWorldObject(tree);
 		
 		return id;
 	}
 
-	private static WorldObject generateTree(int x, int y, int id, final ImageIds imageId) {
+	private static WorldObject generateTree(int x, int y, int id, final ImageIds imageId, double skillBonus) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
@@ -165,14 +169,16 @@ public class PlantGenerator {
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, imageId);
 		properties.put(Constants.NAME, "tree");
-		properties.put(Constants.WOOD_SOURCE, 50);
+		int woodSource = Constants.WOOD_SOURCE.normalize((int)(50 * skillBonus));
+		properties.put(Constants.WOOD_SOURCE, woodSource);
+		properties.put(Constants.WOOD_PRODUCED, woodSource);
 		properties.put(Constants.FLAMMABLE, Boolean.TRUE);
 		properties.put(Constants.CONDITIONS, new Conditions());
 		properties.put(Constants.HIT_POINTS, 200 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.HIT_POINTS_MAX, 200 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
-		WorldObject tree = new WorldObjectImpl(properties, new PlantOnTurn());
+		WorldObject tree = new WorldObjectImpl(properties, new TreeOnTurn());
 		return tree;
 	}
 
@@ -257,8 +263,8 @@ public class PlantGenerator {
 		plants.add(generateTreeTrunk(0, 0, 0));
 		plants.add(generateGrapeVine(0, 0, 0));
 		plants.add(generateNightShade(0, 0, 0));
-		plants.add(generateTree(0, 0, 0, ImageIds.TREE));
-		plants.add(generateTree(0, 0, 0, ImageIds.BOREAL_TREE));
+		plants.add(generateTree(0, 0, 0, ImageIds.TREE, 1f));
+		plants.add(generateTree(0, 0, 0, ImageIds.BOREAL_TREE, 1f));
 		plants.add(generateCottonPlant(0, 0, 0));
 		
 		plants = plants.stream().filter(w -> w.getProperty(Constants.WIDTH) == width && w.getProperty(Constants.HEIGHT) == height).collect(Collectors.toList());

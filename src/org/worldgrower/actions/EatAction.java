@@ -34,6 +34,7 @@ public class EatAction implements ManagedOperation {
 		performer.increment(Constants.FOOD, foodIncrease);
 		target.setProperty(Constants.FOOD_SOURCE, foodInTarget - 100);
 		
+		//FoodPropertyUtils.checkFoodSourceExhausted(target);
 		SkillUtils.useSkill(performer, Constants.FARMING_SKILL, world.getWorldStateChangedListeners());
 	}
 

@@ -20,6 +20,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.generator.PlantGenerator;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
@@ -31,7 +32,7 @@ public class PlantTreeAction implements BuildAction {
 		int x = (Integer)target.getProperty(Constants.X);
 		int y = (Integer)target.getProperty(Constants.Y);
 		
-		PlantGenerator.generateTree(x, y, world);
+		PlantGenerator.generateTree(x, y, world, SkillUtils.useSkill(performer, Constants.LUMBERING_SKILL, world.getWorldStateChangedListeners()));
 	}
 
 	@Override

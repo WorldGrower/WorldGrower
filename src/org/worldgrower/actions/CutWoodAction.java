@@ -34,8 +34,9 @@ public class CutWoodAction implements ManagedOperation {
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f));
-		target.increment(Constants.WOOD_SOURCE, - 1);
+		target.increment(Constants.WOOD_SOURCE, - 10);
 		
+		checkWoodSourceExhausted(target);
 		SkillUtils.useEnergy(performer, Constants.LUMBERING_SKILL, ENERGY_USE, world.getWorldStateChangedListeners());
 		world.logAction(this, performer, target, args, null);
 		
@@ -43,10 +44,18 @@ public class CutWoodAction implements ManagedOperation {
 			target.setProperty(Constants.HIT_POINTS, 0);
 		}
 	}
+	
+	private void checkWoodSourceExhausted(WorldObject target) {
+		int targetWoodSource = target.getProperty(Constants.WOOD_SOURCE);
+		int targetWoodProduced = target.getProperty(Constants.WOOD_PRODUCED);
+		if (targetWoodSource < 100 && targetWoodProduced >= 400) {
+			target.setProperty(Constants.HIT_POINTS, 0);
+		}
+	}
 
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return (target.hasProperty(Constants.WOOD_SOURCE)) && (target.getProperty(Constants.WOOD_SOURCE) > 0);
+		return (target.hasProperty(Constants.WOOD_SOURCE)) && (target.getProperty(Constants.WOOD_SOURCE) > 10);
 	}
 
 	@Override
