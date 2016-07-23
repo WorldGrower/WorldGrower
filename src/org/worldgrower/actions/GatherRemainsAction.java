@@ -22,6 +22,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
 
 public class GatherRemainsAction implements ManagedOperation {
@@ -32,7 +33,19 @@ public class GatherRemainsAction implements ManagedOperation {
 		
 		int targetGold = target.getProperty(Constants.GOLD);
 		performer.increment(Constants.GOLD, targetGold);
-		target.setProperty(Constants.GOLD, 0);
+		target.removeProperty(Constants.GOLD);
+		
+		target.setProperty(Constants.ITEM_ID, Item.REMAINS);
+		target.setProperty(Constants.PRICE, 0);
+		
+		//remove tradeable properties so that isn't mistaken for tradable food, water, etc. 
+		target.removeProperty(Constants.FOOD);
+		target.removeProperty(Constants.WATER);
+		target.removeProperty(Constants.WOOD);
+		target.removeProperty(Constants.STONE);
+		target.removeProperty(Constants.ALCOHOL_LEVEL);
+		target.removeProperty(Constants.ORE);
+		target.removeProperty(Constants.COTTON);
 		
 		inventory.addQuantity(target);
 		world.removeWorldObject(target);

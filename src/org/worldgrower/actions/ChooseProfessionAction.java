@@ -294,7 +294,7 @@ public class ChooseProfessionAction implements ManagedOperation {
 		int populationCount = OperationStatistics.getPopulationCount(world);
 		
 		int foodDemand = demands.count(Constants.FOOD);
-		foodDemand += OperationStatistics.getRecentOperationsByNonProfessionalsCount(Actions.EAT_ACTION, Professions.FARMER_PROFESSION, world) / (2 * populationCount);
+		foodDemand += OperationStatistics.getRecentOperationsByNonProfessionalsCount(Actions.EAT_ACTION, Professions.FARMER_PROFESSION, world) / (populationCount);
 		result.add(new ProfessionEvaluation(Professions.FARMER_PROFESSION, foodDemand));
 		
 		//int waterDemand = demands.getQuantityFor(Constants.WATER);

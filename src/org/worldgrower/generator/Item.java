@@ -79,7 +79,8 @@ public enum Item {
 	IRON_MACE(ItemType.WEAPON), 
 	IRON_KATAR(ItemType.WEAPON),
 	SLEEPING_POTION(ItemType.DRINK),
-	MINIATURE_CHEST(ItemType.MISC);
+	MINIATURE_CHEST(ItemType.MISC),
+	REMAINS(ItemType.MISC);
 
 	public static final int COMBAT_MULTIPLIER = 10;
 	
@@ -591,6 +592,16 @@ public enum Item {
 			properties.put(Constants.SELLABLE, false);
 			properties.put(Constants.WEIGHT, 1);
 			properties.put(Constants.IMAGE_ID, ImageIds.CHEST);
+			return new WorldObjectImpl(properties);
+		});
+		
+		addItem(Item.REMAINS, skillBonus -> {
+			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+			properties.put(Constants.NAME, "remains");
+			properties.put(Constants.PRICE, 0);
+			properties.put(Constants.SELLABLE, false);
+			properties.put(Constants.WEIGHT, 1);
+			properties.put(Constants.IMAGE_ID, ImageIds.SKELETAL_REMAINS);
 			return new WorldObjectImpl(properties);
 		});
 		

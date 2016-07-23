@@ -21,6 +21,7 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
@@ -29,8 +30,11 @@ public class EatAction implements ManagedOperation {
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		int foodInTarget = target.getProperty(Constants.FOOD_SOURCE);
-		performer.increment(Constants.FOOD, 100);
+		int foodIncrease = (int)(100 * SkillUtils.getSkillBonus(performer, Constants.FARMING_SKILL));
+		performer.increment(Constants.FOOD, foodIncrease);
 		target.setProperty(Constants.FOOD_SOURCE, foodInTarget - 100);
+		
+		SkillUtils.useSkill(performer, Constants.FARMING_SKILL, world.getWorldStateChangedListeners());
 	}
 
 	@Override
