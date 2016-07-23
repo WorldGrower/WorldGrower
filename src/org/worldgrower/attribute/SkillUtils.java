@@ -168,4 +168,8 @@ public class SkillUtils {
 		performer.getProperty(skill).use(count, performer, skill, worldStateChangedListeners);
 		
 	}
+
+	public static int getLogarithmicSkillBonus(WorldObject performer, SkillProperty skill) {
+		return 1 + (skill.getLevel(performer) / 10);
+	}
 }

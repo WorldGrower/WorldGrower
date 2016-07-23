@@ -21,6 +21,7 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
@@ -33,7 +34,8 @@ public class HarvestFoodAction implements ManagedOperation {
 		WorldObjectContainer inventoryPerformer = performer.getProperty(Constants.INVENTORY);
 		
 		WorldObject harvestedFood = Item.BERRIES.generate(1f);
-		inventoryPerformer.addQuantity(harvestedFood);
+		int quantity = SkillUtils.getLogarithmicSkillBonus(performer, Constants.FARMING_SKILL);
+		inventoryPerformer.addQuantity(harvestedFood, quantity);
 
 		target.increment(Constants.FOOD_SOURCE, -100);
 		int targetFoodSource = target.getProperty(Constants.FOOD_SOURCE);
@@ -41,6 +43,8 @@ public class HarvestFoodAction implements ManagedOperation {
 		if (targetFoodSource < 100 && targetFoodProduced >= 400) {
 			target.setProperty(Constants.HIT_POINTS, 0);
 		}
+		SkillUtils.useSkill(performer, Constants.FARMING_SKILL, world.getWorldStateChangedListeners());
+		
 		world.logAction(this, performer, target, args, null);
 	}
 

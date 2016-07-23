@@ -32,7 +32,7 @@ public class GatherFoodGoal implements Goal {
 	private final int foodQuantityGoalMet;
 	
 	public GatherFoodGoal() {
-		this(10);
+		this(20);
 	}
 
 	public GatherFoodGoal(int foodQuantityGoalMet) {

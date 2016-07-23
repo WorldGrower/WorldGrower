@@ -72,4 +72,13 @@ public class UTestSkillUtils {
 		List<SkillProperty> actualSkills = SkillUtils.getSkillsForAttribute(Constants.DEXTERITY);
 		assertEquals(new HashSet<>(expectedSkills), new HashSet<>(actualSkills));
 	}
+	
+	@Test
+	public void testGetLogarithmicSkillBonus() {
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.LUMBERING_SKILL, new Skill(10));
+		assertEquals(1, SkillUtils.getLogarithmicSkillBonus(performer, Constants.LUMBERING_SKILL));
+		
+		performer.setProperty(Constants.LUMBERING_SKILL, new Skill(20));
+		assertEquals(2, SkillUtils.getLogarithmicSkillBonus(performer, Constants.LUMBERING_SKILL));
+	}
 }
