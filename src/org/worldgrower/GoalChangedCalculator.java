@@ -61,8 +61,9 @@ public class GoalChangedCalculator {
 			// targetGoalEval can be null in case of a newly created WorldObject
 			if (targetGoalEval != null) {
 				for(int i=0; i<targetGoalEval.size(); i++) {
-					Goal targetGoal = targetGoalEval.get(i).getGoal();
 					GoalEvaluation oldGoalEval = targetGoalEval.get(i);
+					Goal targetGoal = oldGoalEval.getGoal();
+					
 					if (oldGoalEval != null) {
 						int oldGoalEvaluation = oldGoalEval.getEvaluation();
 						int newGoalEvaluation = targetGoal.evaluate(actor, world);
