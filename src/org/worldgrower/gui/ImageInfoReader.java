@@ -453,14 +453,14 @@ public class ImageInfoReader {
         addCharacter(ImageIds.MALE_01_4, sprites01, 6, 4, 1, 1);
         addCharacter(ImageIds.FEMALE_01_4, sprites01, 9, 4, 1, 1);
         
-        addCharacter(ImageIds.MALE_AKTOR1_1, aktor3, 0, 0, 1, 1);
-        addCharacter(ImageIds.FEMALE_AKTOR1_1, aktor3, 3, 0, 1, 1);
-        addCharacter(ImageIds.MALE_AKTOR1_2, aktor3, 6, 0, 1, 1);
-        addCharacter(ImageIds.FEMALE_AKTOR1_2, aktor3, 9, 0, 1, 1);
-        addCharacter(ImageIds.FEMALE_AKTOR1_4, aktor3, 0, 4, 1, 1);
-        addCharacter(ImageIds.FEMALE_AKTOR1_3, aktor3, 3, 4, 1, 1);
-        addCharacter(ImageIds.MALE_AKTOR1_4, aktor3, 6, 4, 1, 1);
-        addCharacter(ImageIds.MALE_AKTOR1_3, aktor3, 9, 4, 1, 1);
+        addCharacter(ImageIds.MALE_AKTOR1_1, aktor1, 0, 0, 1, 1);
+        addCharacter(ImageIds.FEMALE_AKTOR1_1, aktor1, 3, 0, 1, 1);
+        addCharacter(ImageIds.MALE_AKTOR1_2, aktor1, 6, 0, 1, 1);
+        addCharacter(ImageIds.FEMALE_AKTOR1_2, aktor1, 9, 0, 1, 1);
+        addCharacter(ImageIds.FEMALE_AKTOR1_4, aktor1, 0, 4, 1, 1);
+        addCharacter(ImageIds.FEMALE_AKTOR1_3, aktor1, 3, 4, 1, 1);
+        addCharacter(ImageIds.MALE_AKTOR1_4, aktor1, 6, 4, 1, 1);
+        addCharacter(ImageIds.MALE_AKTOR1_3, aktor1, 9, 4, 1, 1);
         
         addCharacter(ImageIds.MALE_AKTOR3_1, aktor3, 0, 0, 1, 1);
         addCharacter(ImageIds.FEMALE_AKTOR3_1, aktor3, 3, 0, 1, 1);
