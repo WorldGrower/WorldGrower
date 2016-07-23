@@ -61,7 +61,7 @@ magic_001.png: created by Mr. Bubble at https://mrbubblewand.wordpress.com/downl
 
 workshop*.wav: http://opengameart.org/content/68-workshop-sounds
 
-Sound package from Heroes of Hawks Haven By Tuomo Untinen at http://opengameart.org/content/rpg-sound-package:
+Sound package from Heroes of Hawks Haven By Tuomo Untinen at http://opengameart.org/content/rpg-sound-package
 bow8bit.wav.gz
 eating8bit.wav.gz
 flames8bit.wav.gz
@@ -79,35 +79,35 @@ fountain8bit.wav.gz
 random18bit.wav.gz
 metal-small18bit.wav.gz
 
-Sound effects from JaggedStone at http://opengameart.org/content/magic-spell-sfx:
+Sound effects from JaggedStone at http://opengameart.org/content/magic-spell-sfx
 magical_18bit.wav.gz
 magical_38bit.wav.gz
 
-Sound Effects from www.kenney.nl at http://opengameart.org/content/50-rpg-sound-effects:
+Sound Effects from www.kenney.nl at http://opengameart.org/content/50-rpg-sound-effects
 knifeSlice8bit.wav.gz
 handleCoins8bit.wav.gz
 doorOpen_18bit.wav.gz
 bookFlip18bit.wav.gz
 handleSmallLeather8bit.wav.gz
 
-Sound Effects from www.kenney.nl at http://opengameart.org/content/51-ui-sound-effects-buttons-switches-and-clicks:
+Sound Effects from www.kenney.nl at http://opengameart.org/content/51-ui-sound-effects-buttons-switches-and-clicks
 click18bit.wav.gz
 scroll8bit.wav.gz
 
-Sound Effects by Secretlondon at http://opengameart.org/content/farm-animals:
+Sound Effects by Secretlondon at http://opengameart.org/content/farm-animals
 Mudchute_cow_18bit.wav.gz
 
-Some of the sounds in this project were created by ViRiX Dreamcore (David Mckee) www.soundcloud.com/virix (http://opengameart.org/content/magic-sfx-sample):
+Some of the sounds in this project were created by ViRiX Dreamcore (David Mckee) www.soundcloud.com/virix (http://opengameart.org/content/magic-sfx-sample)
 Healing Full8bit.wav.gz
 Wind effects 58bit.wav.gz
 
-Sound Effects by artisticdude at http://opengameart.org/content/rpg-sound-pack:
+Sound Effects by artisticdude at http://opengameart.org/content/rpg-sound-pack
 cloth8bit.wav.gz
 
-Background music by TinyWorlds at http://opengameart.org/content/forest-ambience:
+Background music by TinyWorlds at http://opengameart.org/content/forest-ambience
 Forest_Ambience8bit.wav.gz
 
-Sound Effects by p0ss at http://opengameart.org/content/spell-sounds-starter-pack:
+Sound Effects by p0ss at http://opengameart.org/content/spell-sounds-starter-pack
 blessing28bit.wav.gz
 curse8bit.wav.gz
 forcepush8bit.wav.gz
@@ -120,34 +120,34 @@ enchant28bit.wav.gz
 confusion8bit.wav.gz
 zap2g8bit.wav.gz
 
-Sound Effects by qubodup at http://opengameart.org/content/20-rustles-dry-leaves:
+Sound Effects by qubodup at http://opengameart.org/content/20-rustles-dry-leaves
 rustle018bit.wav.gz
 rustle038bit.wav.gz
 
-Sound Effects by Augmentality (Brandon Morris) at http://opengameart.org/content/random-sounds-samples:
+Sound Effects by Augmentality (Brandon Morris) at http://opengameart.org/content/random-sounds-samples
 full steps stereo8bit.wav.gz
 
-Sound Effects by gflower at http://www.freesound.org/people/gflower/sounds/179303/:
+Sound Effects by gflower at http://www.freesound.org/people/gflower/sounds/179303/
 179303__gflower__perfect-kiss8bit.wav.gz
 
-Sound Effects by  Little Robot Sound Factory at www.littlerobotsoundfactory.com (http://opengameart.org/content/voices-sound-effects-library):
+Sound Effects by  Little Robot Sound Factory at www.littlerobotsoundfactory.com (http://opengameart.org/content/voices-sound-effects-library)
 Human_DyingBreath_018bit.wav.gz
 
-Sound Effects: Shovel Spell by Iwan 'qubodup' Gabovitch http://opengameart.org/users/qubodup at http://opengameart.org/content/shovel-spell:
+Sound Effects: Shovel Spell by Iwan 'qubodup' Gabovitch http://opengameart.org/users/qubodup at http://opengameart.org/content/shovel-spell
 qubodupshovelSpell18bit.wav.gz
 
-Sound effects by qubodup at http://www.freesound.org/people/qubodup/sounds/219566/:
+Sound effects by qubodup at http://www.freesound.org/people/qubodup/sounds/219566/
 219566__qubodup__poison-spell-magic8bit.wav.gz
 
-Sound Effects by safadancer at http://www.freesound.org/people/safadancer/sounds/182016/:
+Sound Effects by safadancer at http://www.freesound.org/people/safadancer/sounds/182016/
 182016__safadancer__sex-groaning-18bit.wav.gz
 
-Sound Effects by felix.blume at http://www.freesound.org/people/felix.blume/sounds/135489/:
+Sound Effects by felix.blume at http://www.freesound.org/people/felix.blume/sounds/135489/
 135489__felix-blume__bells-and-religious-hymn8bit.wav.gz
 
-Sound Effects by artisticdude at http://opengameart.org/content/swishes-sound-pack:
+Sound Effects by artisticdude at http://opengameart.org/content/swishes-sound-pack
 swish-98bit.wav.gz
 
-Character Sprites by Yaosame/108 Rain at https://grandmadebslittlebits.wordpress.com/2014/11/page/3/:
+Character Sprites by Yaosame/108 Rain at https://grandmadebslittlebits.wordpress.com/2014/11/page/3/
 Actor1_zps2890a1cd.png
 Actor3_zpsb3524fc2.png

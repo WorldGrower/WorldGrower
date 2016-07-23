@@ -30,6 +30,7 @@ import org.worldgrower.gui.start.Game;
 public class IconUtils {
 
 	private static final Image IMAGE_ICON;
+	private static final Image IMAGE_ICON48;
 	private static final Image NEW_ICON;
 	private static final Image LOAD_ICON;
 	private static final Image SAVE_ICON;
@@ -39,6 +40,7 @@ public class IconUtils {
 	
 	static {
 		IMAGE_ICON = getImage("/community.png");
+		IMAGE_ICON48 = getImage("/community48.png");
 		NEW_ICON = getImage("/new.png");
 		LOAD_ICON = getImage("/load.png");
 		SAVE_ICON = getImage("/save.png");
@@ -53,6 +55,10 @@ public class IconUtils {
 	
 	public static void setIcon(Window frame) {
 		frame.setIconImage(IMAGE_ICON);
+	}
+	
+	public static ImageIcon getImageIcon48() {
+		return new ImageIcon(IMAGE_ICON48);
 	}
 
 	public static ImageIcon getNewIcon() {

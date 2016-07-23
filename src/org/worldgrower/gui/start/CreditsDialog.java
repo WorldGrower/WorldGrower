@@ -14,10 +14,13 @@
  *******************************************************************************/
 package org.worldgrower.gui.start;
 
+import java.awt.Desktop;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -25,8 +28,11 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
+import javax.swing.event.HyperlinkEvent;
+import javax.swing.event.HyperlinkListener;
 
 import org.worldgrower.gui.AbstractDialog;
+import org.worldgrower.gui.font.Fonts;
 import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JTextPaneFactory;
@@ -53,18 +59,52 @@ public class CreditsDialog extends AbstractDialog {
 		textPane.setContentType("text/html");
 		textPane.setText(creditsText);
 		
+		textPane.addHyperlinkListener(new HyperlinkListener() {
+			
+			@Override
+			public void hyperlinkUpdate(HyperlinkEvent e) {
+				if(e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
+					try {
+						openWebPage(e.getURL().toURI());
+					} catch (URISyntaxException e1) {
+						 throw new IllegalStateException("Problem opening " + e.getURL().toString(), e1);
+					}
+				}
+			}
+		});
+		
 		JScrollPane scrollPane = new JScrollPane(textPane);
 		scrollPane.setBounds(15, 15, 468, 720);
 		addComponent(scrollPane);
 	}
+	
+	private static void openWebPage(URI uri) {
+	    Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+	    if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
+	        try {
+	            desktop.browse(uri);
+	        } catch (IOException e) {
+	            throw new IllegalStateException("Problem opening " + uri.toString(), e);
+	        }
+	    }
+	}
 
 	private String getCreditsTextAsHtml() throws IOException {
 		List<String> creditLines = FileUtils.readFile("/credits.txt");
-		StringBuilder creditBuilder = new StringBuilder("<html><font color=\"white\">");
+		StringBuilder creditBuilder = new StringBuilder("<html><body style=\"font-family: " + Fonts.FONT.getFamily() + "\"><font color=\"white\">");
 		for(String creditLine : creditLines) {
+			if (creditLine.contains("http://")) {
+				int indexOfHtpp = creditLine.indexOf("http://");
+				int endOfUrl = creditLine.indexOf(" ", indexOfHtpp);
+				if (endOfUrl == -1) {
+					endOfUrl = creditLine.length();
+				}
+				String url = creditLine.substring(indexOfHtpp, endOfUrl);
+				creditLine = "<a href=\"" + url + "\">" + creditLine + "</a>";
+			}
 			creditBuilder.append(creditLine).append("<br/>");
 		}
-		creditBuilder.append("</font></html>");
+		creditBuilder.append("</font></body></html>");
 		return creditBuilder.toString();
 	}
 
