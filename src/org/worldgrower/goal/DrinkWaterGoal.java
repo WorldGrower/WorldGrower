@@ -37,7 +37,7 @@ public class DrinkWaterGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.WATER, QUANTITY_TO_BUY, world);
+		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Item.WATER, QUANTITY_TO_BUY, world);
 		if (targets.size() > 0) {
 			return BuySellUtils.create(performer, targets.get(0), Item.WATER, QUANTITY_TO_BUY, world);
 		} else {
