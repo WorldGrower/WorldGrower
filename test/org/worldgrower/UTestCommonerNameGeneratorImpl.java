@@ -26,9 +26,9 @@ public class UTestCommonerNameGeneratorImpl {
 	public void testReadNames() throws IOException {
 		CommonerNameGenerator generator = new CommonerNameGeneratorImpl();
 		
+		assertEquals("Abel", generator.getNextMaleCommonerName());
 		assertEquals("Bouchard", generator.getNextMaleCommonerName());
-		assertEquals("Dawson", generator.getNextMaleCommonerName());
+		assertEquals("Adela", generator.getNextFemaleCommonerName());
 		assertEquals("Beatrix", generator.getNextFemaleCommonerName());
-		assertEquals("Cynewyn", generator.getNextFemaleCommonerName());
 	}
 }
