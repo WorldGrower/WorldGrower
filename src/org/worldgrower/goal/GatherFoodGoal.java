@@ -57,7 +57,7 @@ public class GatherFoodGoal implements Goal {
 		} else if (butcherOperationInfo != null && distanceToMeatSource < 15 && distanceToMeatSource < distanceToFoodSource) {
 			return butcherOperationInfo;
 		} else {
-			return null;
+			return Goals.CREATE_FOOD_SOURCES_GOAL.calculateGoal(performer, world);
 		}
 	}
 

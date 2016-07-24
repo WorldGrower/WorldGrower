@@ -19,6 +19,7 @@ import java.util.List;
 import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
+import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
@@ -42,10 +43,10 @@ public class FoodGoal implements Goal {
 			return new OperationInfo(performer, performer, new int[] {indexOfFood}, Actions.EAT_FROM_INVENTORY_ACTION);
 		} else if (buyOperationInfo != null) {
 			return buyOperationInfo;
-		} else if (target != null) {
+		} else if (target != null && Reach.distance(performer, target) < 15) {
 			return new OperationInfo(performer, target, Args.EMPTY, Actions.EAT_ACTION);
 		} else {
-			return null;
+			return Goals.CREATE_FOOD_SOURCES_GOAL.calculateGoal(performer, world);
 		}
 	}
 	

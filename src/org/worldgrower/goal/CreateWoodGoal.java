@@ -18,6 +18,7 @@ import java.util.List;
 
 import org.worldgrower.Args;
 import org.worldgrower.OperationInfo;
+import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
@@ -32,10 +33,15 @@ public class CreateWoodGoal implements Goal {
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		if (Actions.CUT_WOOD_ACTION.hasRequiredEnergy(performer)) {
 			WorldObject target = GoalUtils.findNearestTarget(performer, Actions.CUT_WOOD_ACTION, world);
-			if (target != null) {
+			if (target != null && Reach.distance(performer, target) < 15) {
 				return new OperationInfo(performer, target, Args.EMPTY, Actions.CUT_WOOD_ACTION);
 			} else {
-				return null;
+				target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 3, 3, world);
+				if (target != null) {
+					return new OperationInfo(performer, target, Args.EMPTY, Actions.PLANT_TREE_ACTION);
+				} else {
+					return null;
+				}
 			}
 		} else {
 			return Goals.REST_GOAL.calculateGoal(performer, world);
