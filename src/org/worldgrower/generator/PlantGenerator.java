@@ -155,6 +155,7 @@ public class PlantGenerator {
 		int id = world.generateUniqueId();
 		final ImageIds imageId = getTreeImageId(x, y, world);
 		WorldObject tree = generateTree(x, y, id, imageId, skillBonus);
+		tree.setProperty(Constants.IMAGE_ID, TreeImageCalculator.getTreeImageId(tree, world));
 		world.addWorldObject(tree);
 		
 		return id;

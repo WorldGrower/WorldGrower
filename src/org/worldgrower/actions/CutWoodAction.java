@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.generator.Item;
+import org.worldgrower.generator.TreeImageCalculator;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
@@ -37,6 +38,7 @@ public class CutWoodAction implements ManagedOperation {
 		target.increment(Constants.WOOD_SOURCE, - 10);
 		
 		checkWoodSourceExhausted(target);
+		target.setProperty(Constants.IMAGE_ID, TreeImageCalculator.getTreeImageId(target, world));
 		SkillUtils.useEnergy(performer, Constants.LUMBERING_SKILL, ENERGY_USE, world.getWorldStateChangedListeners());
 		world.logAction(this, performer, target, args, null);
 		

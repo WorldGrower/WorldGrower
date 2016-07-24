@@ -14,6 +14,8 @@
  *******************************************************************************/
 package org.worldgrower.gui;
 
+import java.awt.AlphaComposite;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -28,6 +30,7 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import org.worldgrower.attribute.LookDirection;
+import org.worldgrower.gui.util.ImageUtils;
 
 public class ImageInfoReader {
 
@@ -85,6 +88,9 @@ public class ImageInfoReader {
     	Sprites sprites01 = readSprites01();
     	Sprites aktor1 = readSpritesAktor1();
     	Sprites aktor3 = readSpritesAktor3();
+    	
+    	Sprites smallTree = readSpritesSmallTree();
+    	Sprites smallBorealTree = readSpritesSmallBorealTree();
     	
     	addCharacter(ImageIds.KNIGHT, sprites, 0, 0, 1, 1);
     	addCharacter(ImageIds.GUARD, sprites, 0, 4, 1, 1);
@@ -470,8 +476,11 @@ public class ImageInfoReader {
         addCharacter(ImageIds.FEMALE_AKTOR3_3, aktor3, 3, 4, 1, 1);
         addCharacter(ImageIds.MALE_AKTOR3_4, aktor3, 6, 4, 1, 1);
         addCharacter(ImageIds.FEMALE_AKTOR3_4, aktor3, 9, 4, 1, 1);
+        
+        add(ImageIds.SMALL_TREE, smallTree.getSubImage(0, 0, 1, 1));
+        add(ImageIds.SMALL_BOREAL_TREE, smallBorealTree.getSubImage(0, 0, 1, 1));
     }
-
+    
     private void resizeSmallFlowers() {
     	Image smallFlowers = idToImages.get(ImageIds.SMALL_FLOWERS).get(0);
     	Image grassBackground = idToImages.get(ImageIds.GRASS_BACKGROUND).get(0);
@@ -801,6 +810,14 @@ public class ImageInfoReader {
 	
 	private static Sprites readSpritesPapermill() throws IOException {
 		return readImages("papermill.png", 192, 144, 1, 1);
+	}
+	
+	private static Sprites readSpritesSmallTree() throws IOException {
+		return readImages("small_tree.png", 96, 96, 1, 1);
+	}
+	
+	private static Sprites readSpritesSmallBorealTree() throws IOException {
+		return readImages("small_boreal_tree.png", 96, 96, 1, 1);
 	}
 	
 	private static Sprites readSpritesApothecary() throws IOException {

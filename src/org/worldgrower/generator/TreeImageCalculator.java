@@ -15,26 +15,34 @@
 package org.worldgrower.generator;
 
 import org.worldgrower.Constants;
-import org.worldgrower.OnTurn;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.condition.WorldStateChangedListeners;
-import org.worldgrower.goal.DrownUtils;
+import org.worldgrower.gui.ImageIds;
+import org.worldgrower.terrain.TerrainType;
 
-public class TreeOnTurn implements OnTurn {
+public class TreeImageCalculator {
 
-	@Override
-	public void onTurn(WorldObject worldObject, World world, WorldStateChangedListeners creatureTypeChangedListeners) {
-		if (worldObject.getProperty(Constants.CONDITIONS) == null) {
-			throw new IllegalStateException("worldObject " + worldObject + " doesn't have conditions property");
+	public static ImageIds getTreeImageId(WorldObject tree, World world) {
+		ImageIds treeImageId = getTreeImageId(tree.getProperty(Constants.X), tree.getProperty(Constants.Y), world);
+		int woodSource = tree.getProperty(Constants.WOOD_SOURCE);
+		if (woodSource < 10) {
+			if (treeImageId == ImageIds.TREE) {
+				treeImageId = ImageIds.SMALL_TREE;
+			} else if (treeImageId == ImageIds.BOREAL_TREE) {
+				treeImageId = ImageIds.SMALL_BOREAL_TREE;
+			}
 		}
-		
-		worldObject.increment(Constants.WOOD_SOURCE, 1);
-		worldObject.increment(Constants.WOOD_PRODUCED, 1);
-		
-		worldObject.setProperty(Constants.IMAGE_ID, TreeImageCalculator.getTreeImageId(worldObject, world));
-		
-		worldObject.getProperty(Constants.CONDITIONS).onTurn(worldObject, world, creatureTypeChangedListeners);
-		DrownUtils.checkForDrowning(worldObject, world);
+		return treeImageId;
+	}
+	
+	private static ImageIds getTreeImageId(int x, int y, World world) {
+		final ImageIds imageId;
+		TerrainType terrainType = world.getTerrain().getTerrainInfo(x, y).getTerrainType();
+		if (terrainType == TerrainType.HILL || terrainType == TerrainType.MOUNTAIN) {
+			imageId = ImageIds.BOREAL_TREE;
+		} else {
+			imageId = ImageIds.TREE;
+		}
+		return imageId;
 	}
 }
