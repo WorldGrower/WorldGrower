@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
+import org.worldgrower.generator.VineImageCalculator;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
@@ -36,6 +37,8 @@ public class HarvestGrapesAction implements ManagedOperation {
 		inventoryPerformer.addQuantity(harvestedGrapes);
 
 		target.increment(Constants.GRAPE_SOURCE, -20);
+		
+		target.setProperty(Constants.IMAGE_ID, VineImageCalculator.getImageId(target, world));
 	}
 
 	@Override

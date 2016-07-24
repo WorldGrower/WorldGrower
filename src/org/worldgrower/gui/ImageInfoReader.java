@@ -91,6 +91,8 @@ public class ImageInfoReader {
     	
     	Sprites smallTree = readSpritesSmallTree();
     	Sprites smallBorealTree = readSpritesSmallBorealTree();
+    	Sprites vineWithGrapes = readSpritesVineWithGrapes();
+    	Sprites vine = readSpritesVine();
     	
     	addCharacter(ImageIds.KNIGHT, sprites, 0, 0, 1, 1);
     	addCharacter(ImageIds.GUARD, sprites, 0, 4, 1, 1);
@@ -156,7 +158,7 @@ public class ImageInfoReader {
         add(ImageIds.SPIDER, spider.getSubImage(0, 0, 1, 1));
         add(ImageIds.COCOON, stone.getSubImage(5, 0, 1, 1));
         add(ImageIds.GRAVE, objects.getSubImage(6, 9, 1, 1));
-        add(ImageIds.GRAPE_VINE, objects.getSubImage(2, 6, 1, 2));
+        add(ImageIds.GRAPE_VINE, vine.getSubImage(0, 0, 1, 1));
         
         add(ImageIds.IRON_HELMET, sprites420.getSubImage(11, 13, 1, 1));
         add(ImageIds.IRON_GAUNTLETS, sprites420.getSubImage(12, 14, 1, 1));
@@ -481,6 +483,9 @@ public class ImageInfoReader {
         add(ImageIds.SMALL_BOREAL_TREE, smallBorealTree.getSubImage(0, 0, 1, 1));
 
         add(ImageIds.BUSH, objects.getSubImage(10, 13, 1, 1));
+        add(ImageIds.VINE_WITH_GRAPES, vineWithGrapes.getSubImage(0, 0, 1, 1));
+        add(ImageIds.YOUNG_NIGHT_SHADE_PLANT, tileB.getSubImage(4, 6, 1, 1));
+
     }
     
     private void resizeSmallFlowers() {
@@ -820,6 +825,14 @@ public class ImageInfoReader {
 	
 	private static Sprites readSpritesSmallBorealTree() throws IOException {
 		return readImages("small_boreal_tree.png", 96, 96, 1, 1);
+	}
+	
+	private static Sprites readSpritesVineWithGrapes() throws IOException {
+		return readImages("vine_with_grapes.png", 48, 96, 1, 1);
+	}
+	
+	private static Sprites readSpritesVine() throws IOException {
+		return readImages("vine.png", 48, 96, 1, 1);
 	}
 	
 	private static Sprites readSpritesApothecary() throws IOException {

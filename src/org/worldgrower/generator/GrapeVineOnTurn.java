@@ -25,7 +25,10 @@ public class GrapeVineOnTurn implements OnTurn {
 
 	@Override
 	public void onTurn(WorldObject worldObject, World world, WorldStateChangedListeners creatureTypeChangedListeners) {
-		worldObject.increment(Constants.GRAPE_SOURCE, 10);
+		worldObject.increment(Constants.GRAPE_SOURCE, 5);
+		
+		worldObject.setProperty(Constants.IMAGE_ID, VineImageCalculator.getImageId(worldObject, world));
+		
 		DrownUtils.checkForDrowning(worldObject, world);
 	}
 }

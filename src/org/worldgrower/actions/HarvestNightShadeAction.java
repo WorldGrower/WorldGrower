@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
+import org.worldgrower.generator.NightShadeImageCalculator;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
@@ -36,6 +37,8 @@ public class HarvestNightShadeAction implements ManagedOperation {
 		inventoryPerformer.addQuantity(harvestedNightShade);
 
 		target.increment(Constants.NIGHT_SHADE_SOURCE, -10);
+		
+		target.setProperty(Constants.IMAGE_ID, NightShadeImageCalculator.getImageId(target, world));
 	}
 
 	@Override

@@ -15,20 +15,20 @@
 package org.worldgrower.generator;
 
 import org.worldgrower.Constants;
-import org.worldgrower.OnTurn;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.condition.WorldStateChangedListeners;
-import org.worldgrower.goal.DrownUtils;
+import org.worldgrower.gui.ImageIds;
 
-public class NightShadeOnTurn implements OnTurn {
+public class NightShadeImageCalculator {
 
-	@Override
-	public void onTurn(WorldObject worldObject, World world, WorldStateChangedListeners creatureTypeChangedListeners) {
-		worldObject.increment(Constants.NIGHT_SHADE_SOURCE, 1);
-		
-		worldObject.setProperty(Constants.IMAGE_ID, NightShadeImageCalculator.getImageId(worldObject, world));
-		
-		DrownUtils.checkForDrowning(worldObject, world);
+	public static ImageIds getImageId(WorldObject nightShade, World world) {
+		final ImageIds nightShadeImageId;
+		int nightShadeSource = nightShade.getProperty(Constants.NIGHT_SHADE_SOURCE);
+		if (nightShadeSource < 11) {
+			nightShadeImageId = ImageIds.YOUNG_NIGHT_SHADE_PLANT;
+		} else {
+			nightShadeImageId = ImageIds.NIGHT_SHADE_PLANT;
+		}
+		return nightShadeImageId;
 	}
 }

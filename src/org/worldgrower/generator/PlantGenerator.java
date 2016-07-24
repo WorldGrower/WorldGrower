@@ -136,7 +136,7 @@ public class PlantGenerator {
 		properties.put(Constants.WIDTH, 1);
 		properties.put(Constants.HEIGHT, 1);
 		properties.put(Constants.ID, id);
-		properties.put(Constants.IMAGE_ID, ImageIds.NIGHT_SHADE_PLANT);
+		properties.put(Constants.IMAGE_ID, ImageIds.YOUNG_NIGHT_SHADE_PLANT);
 		properties.put(Constants.NIGHT_SHADE_SOURCE, 1);
 		properties.put(Constants.HIT_POINTS, 15 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.HIT_POINTS_MAX, 15 * Item.COMBAT_MULTIPLIER);

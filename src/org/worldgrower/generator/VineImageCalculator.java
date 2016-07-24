@@ -15,20 +15,20 @@
 package org.worldgrower.generator;
 
 import org.worldgrower.Constants;
-import org.worldgrower.OnTurn;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.condition.WorldStateChangedListeners;
-import org.worldgrower.goal.DrownUtils;
+import org.worldgrower.gui.ImageIds;
 
-public class NightShadeOnTurn implements OnTurn {
+public class VineImageCalculator {
 
-	@Override
-	public void onTurn(WorldObject worldObject, World world, WorldStateChangedListeners creatureTypeChangedListeners) {
-		worldObject.increment(Constants.NIGHT_SHADE_SOURCE, 1);
-		
-		worldObject.setProperty(Constants.IMAGE_ID, NightShadeImageCalculator.getImageId(worldObject, world));
-		
-		DrownUtils.checkForDrowning(worldObject, world);
+	public static ImageIds getImageId(WorldObject berryBush, World world) {
+		final ImageIds vineImageId;
+		int grapeSource = berryBush.getProperty(Constants.GRAPE_SOURCE);
+		if (grapeSource <= 20) {
+			vineImageId = ImageIds.GRAPE_VINE;
+		} else {
+			vineImageId = ImageIds.VINE_WITH_GRAPES;
+		}
+		return vineImageId;
 	}
 }

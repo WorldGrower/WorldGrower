@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
+import org.worldgrower.generator.NightShadeImageCalculator;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
@@ -37,6 +38,8 @@ public class EatNightShadeAction implements ManagedOperation {
 		target.increment(Constants.NIGHT_SHADE_SOURCE, -10);
 		
 		Conditions.add(performer, Condition.POISONED_CONDITION, 20, world);
+		
+		target.setProperty(Constants.IMAGE_ID, NightShadeImageCalculator.getImageId(target, world));
 	}
 
 	@Override
