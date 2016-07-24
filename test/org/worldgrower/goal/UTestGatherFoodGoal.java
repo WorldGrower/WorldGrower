@@ -67,7 +67,7 @@ public class UTestGatherFoodGoal {
 		
 		createVillagersOrganization(world);
 		
-		assertEquals(null, goal.calculateGoal(performer, world));
+		assertEquals(Actions.PLANT_BERRY_BUSH_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
 	
 	@Test
@@ -98,7 +98,7 @@ public class UTestGatherFoodGoal {
 		
 		createVillagersOrganization(world);
 		
-		assertEquals(null, goal.calculateGoal(performer, world));
+		assertEquals(Actions.PLANT_BERRY_BUSH_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
 
 	@Test
@@ -113,7 +113,7 @@ public class UTestGatherFoodGoal {
 		
 		createVillagersOrganization(world);
 		
-		assertEquals(null, goal.calculateGoal(performer, world));
+		assertEquals(Actions.PLANT_BERRY_BUSH_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
 	
 	@Test

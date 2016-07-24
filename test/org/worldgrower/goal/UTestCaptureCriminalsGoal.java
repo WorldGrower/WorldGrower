@@ -26,7 +26,7 @@ public class UTestCaptureCriminalsGoal {
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
 		
-		assertEquals(null, goal.calculateGoal(performer, world));
+		assertEquals(Actions.PLANT_TREE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
 	
 	@Test

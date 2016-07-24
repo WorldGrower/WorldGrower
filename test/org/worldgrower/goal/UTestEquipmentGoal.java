@@ -41,7 +41,7 @@ public class UTestEquipmentGoal {
 
 		addSmith(world, performer);
 		
-		assertEquals(null, goal.calculateGoal(performer, world));
+		assertEquals(Actions.PLANT_TREE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
 
 	@Test

@@ -245,6 +245,7 @@ public class TestUtils {
 		properties.put(Constants.ALCOHOL_LEVEL, 1000);
 		properties.put(Constants.GOLD, 1000);
 		properties.put(Constants.CREATURE_TYPE, CreatureType.HUMAN_CREATURE_TYPE);
+		properties.put(Constants.GROUP, new IdList());
 		SkillUtils.addAllSkills(properties);
 		WorldObject worldObject = createWorldObject(id, properties);
 		return worldObject;
