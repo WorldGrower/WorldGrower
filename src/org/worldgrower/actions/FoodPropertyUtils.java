@@ -21,8 +21,7 @@ public class FoodPropertyUtils {
 
 	public static void checkFoodSourceExhausted(WorldObject foodSource) {
 		int targetFoodSource = foodSource.getProperty(Constants.FOOD_SOURCE);
-		int targetFoodProduced = foodSource.getProperty(Constants.FOOD_PRODUCED);
-		if (targetFoodSource < 100 && targetFoodProduced >= 400) {
+		if (targetFoodSource < 110 && Constants.FOOD_PRODUCED.isAtMax(foodSource)) {
 			foodSource.setProperty(Constants.HIT_POINTS, 0);
 		}
 	}

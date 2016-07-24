@@ -95,7 +95,7 @@ public class ImageInfoReader {
     	addCharacter(ImageIds.KNIGHT, sprites, 0, 0, 1, 1);
     	addCharacter(ImageIds.GUARD, sprites, 0, 4, 1, 1);
     	add(ImageIds.BUCKET, objects.getSubImage(10, 10, 1, 1));
-        add(ImageIds.BUSH, objects.getSubImage(1, 4, 1, 1));
+        add(ImageIds.YOUNG_BERRY_BUSH, objects.getSubImage(1, 4, 1, 1));
         add(ImageIds.GOBLIN, monsters.getSubImage(2, 4, 1, 1));
         add(ImageIds.TRUNK, objects.getSubImage(3, 5, 1, 1));
         add(ImageIds.TREE, objects.getSubImage(6, 4, 2, 2));
@@ -479,6 +479,8 @@ public class ImageInfoReader {
         
         add(ImageIds.SMALL_TREE, smallTree.getSubImage(0, 0, 1, 1));
         add(ImageIds.SMALL_BOREAL_TREE, smallBorealTree.getSubImage(0, 0, 1, 1));
+
+        add(ImageIds.BUSH, objects.getSubImage(10, 13, 1, 1));
     }
     
     private void resizeSmallFlowers() {

@@ -15,28 +15,20 @@
 package org.worldgrower.generator;
 
 import org.worldgrower.Constants;
-import org.worldgrower.OnTurn;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.condition.WorldStateChangedListeners;
-import org.worldgrower.goal.DrownUtils;
+import org.worldgrower.gui.ImageIds;
 
-public class TreeOnTurn implements OnTurn {
+public class BerryBushImageCalculator {
 
-	@Override
-	public void onTurn(WorldObject worldObject, World world, WorldStateChangedListeners creatureTypeChangedListeners) {
-		if (worldObject.getProperty(Constants.CONDITIONS) == null) {
-			throw new IllegalStateException("worldObject " + worldObject + " doesn't have conditions property");
+	public static ImageIds getImageId(WorldObject berryBush, World world) {
+		final ImageIds berryBushImageId;
+		int foodSource = berryBush.getProperty(Constants.FOOD_SOURCE);
+		if (foodSource < 100) {
+			berryBushImageId = ImageIds.YOUNG_BERRY_BUSH;
+		} else {
+			berryBushImageId = ImageIds.BUSH;
 		}
-		
-		if (!Constants.WOOD_PRODUCED.isAtMax(worldObject)) {
-			worldObject.increment(Constants.WOOD_SOURCE, 1);
-		}
-		worldObject.increment(Constants.WOOD_PRODUCED, 1);
-		
-		worldObject.setProperty(Constants.IMAGE_ID, TreeImageCalculator.getTreeImageId(worldObject, world));
-		
-		worldObject.getProperty(Constants.CONDITIONS).onTurn(worldObject, world, creatureTypeChangedListeners);
-		DrownUtils.checkForDrowning(worldObject, world);
+		return berryBushImageId;
 	}
 }

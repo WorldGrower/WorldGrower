@@ -22,6 +22,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.generator.BerryBushImageCalculator;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
@@ -33,8 +34,10 @@ public class EatAction implements ManagedOperation {
 		int foodIncrease = (int)(100 * SkillUtils.getSkillBonus(performer, Constants.FARMING_SKILL));
 		performer.increment(Constants.FOOD, foodIncrease);
 		target.setProperty(Constants.FOOD_SOURCE, foodInTarget - 100);
+
+		target.setProperty(Constants.IMAGE_ID, BerryBushImageCalculator.getImageId(target, world));
 		
-		//FoodPropertyUtils.checkFoodSourceExhausted(target);
+		FoodPropertyUtils.checkFoodSourceExhausted(target);
 		SkillUtils.useSkill(performer, Constants.FARMING_SKILL, world.getWorldStateChangedListeners());
 	}
 

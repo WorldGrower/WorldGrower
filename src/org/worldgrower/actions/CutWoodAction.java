@@ -49,8 +49,7 @@ public class CutWoodAction implements ManagedOperation {
 	
 	private void checkWoodSourceExhausted(WorldObject target) {
 		int targetWoodSource = target.getProperty(Constants.WOOD_SOURCE);
-		int targetWoodProduced = target.getProperty(Constants.WOOD_PRODUCED);
-		if (targetWoodSource < 100 && targetWoodProduced >= 400) {
+		if (targetWoodSource <= 20 && Constants.WOOD_PRODUCED.isAtMax(target)) {
 			target.setProperty(Constants.HIT_POINTS, 0);
 		}
 	}

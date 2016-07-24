@@ -110,11 +110,11 @@ public class Constants {
 	
 	public static final UnCheckedProperty<CreatureType> CREATURE_TYPE = new UnCheckedProperty<CreatureType>("creatureType", ALL_PROPERTIES);
 	
-	public static final IntProperty FOOD_SOURCE = new IntProperty("foodSource",0, 500, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty FOOD_SOURCE = new IntProperty("foodSource",0, 400, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty FOOD = new IntProperty("food", 0, 1000, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty WATER = new IntProperty("water", 0, 1000, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty WATER_SOURCE = new IntProperty("waterSource", 0, 2000, NOT_NULLABLE, ALL_PROPERTIES);
-	public static final IntProperty WOOD_SOURCE = new IntProperty("woodSource", 0, 500, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty WOOD_SOURCE = new IntProperty("woodSource", 0, 400, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty GRAPE_SOURCE = new IntProperty("grapeSource", 0, 500, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty GRAPE = new IntProperty("grape", 0, 500, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty WINE = new IntProperty("wine", 0, 500, NOT_NULLABLE, ALL_PROPERTIES);
@@ -122,8 +122,8 @@ public class Constants {
 	public static final IntProperty COTTON_SOURCE = new IntProperty("cottonSource", 0, 500, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty COTTON = new IntProperty("cotton", 0, 500, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty MEAT_SOURCE = new IntProperty("meatSource", 0, 25, NOT_NULLABLE, ALL_PROPERTIES);
-	public static final IntProperty FOOD_PRODUCED = new IntProperty("foodProduced",0, 500, NOT_NULLABLE, ALL_PROPERTIES);
-	public static final IntProperty WOOD_PRODUCED = new IntProperty("woodProduced",0, 500, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty FOOD_PRODUCED = new IntProperty("foodProduced",0, 400, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty WOOD_PRODUCED = new IntProperty("woodProduced",0, 400, NOT_NULLABLE, ALL_PROPERTIES);
 	
 	public static final IntProperty WOOD = new IntProperty("wood", 0, 50, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final BuildingsListProperty BUILDINGS = new BuildingsListProperty("buildings", ALL_PROPERTIES);

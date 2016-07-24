@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.BerryBushImageCalculator;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
@@ -38,6 +39,8 @@ public class HarvestFoodAction implements ManagedOperation {
 		inventoryPerformer.addQuantity(harvestedFood, quantity);
 
 		target.increment(Constants.FOOD_SOURCE, -100);
+		
+		target.setProperty(Constants.IMAGE_ID, BerryBushImageCalculator.getImageId(target, world));
 		FoodPropertyUtils.checkFoodSourceExhausted(target);
 		SkillUtils.useSkill(performer, Constants.FARMING_SKILL, world.getWorldStateChangedListeners());
 		

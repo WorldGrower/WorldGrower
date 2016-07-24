@@ -17,6 +17,8 @@ package org.worldgrower.attribute;
 import java.io.ObjectStreamException;
 import java.util.List;
 
+import org.worldgrower.WorldObject;
+
 
 public class IntProperty implements ManagedProperty<Integer> {
 
@@ -56,6 +58,10 @@ public class IntProperty implements ManagedProperty<Integer> {
 			currentValue = Math.min(maxValue, currentValue);
 		}
 		return currentValue;
+	}
+	
+	public boolean isAtMax(WorldObject worldObject) {
+		return worldObject.getProperty(this).intValue() == maxValue;
 	}
 
 	@Override

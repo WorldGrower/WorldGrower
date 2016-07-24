@@ -25,7 +25,7 @@ public class TreeImageCalculator {
 	public static ImageIds getTreeImageId(WorldObject tree, World world) {
 		ImageIds treeImageId = getTreeImageId(tree.getProperty(Constants.X), tree.getProperty(Constants.Y), world);
 		int woodSource = tree.getProperty(Constants.WOOD_SOURCE);
-		if (woodSource < 10) {
+		if (woodSource < 11) {
 			if (treeImageId == ImageIds.TREE) {
 				treeImageId = ImageIds.SMALL_TREE;
 			} else if (treeImageId == ImageIds.BOREAL_TREE) {
