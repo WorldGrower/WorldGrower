@@ -14,8 +14,6 @@
  *******************************************************************************/
 package org.worldgrower.gui;
 
-import java.awt.AlphaComposite;
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -30,7 +28,6 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import org.worldgrower.attribute.LookDirection;
-import org.worldgrower.gui.util.ImageUtils;
 
 public class ImageInfoReader {
 
@@ -93,6 +90,8 @@ public class ImageInfoReader {
     	Sprites smallBorealTree = readSpritesSmallBorealTree();
     	Sprites vineWithGrapes = readSpritesVineWithGrapes();
     	Sprites vine = readSpritesVine();
+    	Sprites cottonPlant = readSpritesCottonPlant();
+    	Sprites youngCottonPlant = readSpritesYoungCottonPlant();
     	
     	addCharacter(ImageIds.KNIGHT, sprites, 0, 0, 1, 1);
     	addCharacter(ImageIds.GUARD, sprites, 0, 4, 1, 1);
@@ -254,7 +253,7 @@ public class ImageInfoReader {
 		addCharacter(ImageIds.MALE_3E_4, sprites3e, 6, 4, 1, 1);
 		addCharacter(ImageIds.FEMALE_3E_4, sprites3e, 9, 4, 1, 1);
 		
-		add(ImageIds.COTTON_PLANT, tileB.getSubImage(4, 4, 1, 1));
+		add(ImageIds.COTTON_PLANT, cottonPlant.getSubImage(0, 0, 1, 1));
 		add(ImageIds.COTTON, statues.getSubImage(11, 0, 1, 1));
 		add(ImageIds.VOTING_BOX, tileB.getSubImage(9, 2, 1, 1));
     
@@ -485,7 +484,7 @@ public class ImageInfoReader {
         add(ImageIds.BUSH, objects.getSubImage(10, 13, 1, 1));
         add(ImageIds.VINE_WITH_GRAPES, vineWithGrapes.getSubImage(0, 0, 1, 1));
         add(ImageIds.YOUNG_NIGHT_SHADE_PLANT, tileB.getSubImage(4, 6, 1, 1));
-
+        add(ImageIds.YOUNG_COTTON_PLANT, youngCottonPlant.getSubImage(0, 0, 1, 1));
     }
     
     private void resizeSmallFlowers() {
@@ -833,6 +832,14 @@ public class ImageInfoReader {
 	
 	private static Sprites readSpritesVine() throws IOException {
 		return readImages("vine.png", 48, 96, 1, 1);
+	}
+	
+	private static Sprites readSpritesCottonPlant() throws IOException {
+		return readImages("cottonplant.png", 48, 48, 1, 1);
+	}
+	
+	private static Sprites readSpritesYoungCottonPlant() throws IOException {
+		return readImages("youngcottonplant.png", 48, 48, 1, 1);
 	}
 	
 	private static Sprites readSpritesApothecary() throws IOException {
