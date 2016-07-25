@@ -48,7 +48,8 @@ public class UTestJournalistProfession {
 	public void testGetProfessionGoals() {
 		List<Goal> goals = profession.getProfessionGoals();
 		assertEquals(goals.get(0), Goals.CREATE_NEWS_PAPER_GOAL);
-		assertEquals(goals.get(1), Goals.SELL_NEWS_PAPER_GOAL);
+		assertEquals(goals.get(1), Goals.MARK_NEWS_PAPER_AS_SELLABLE_GOAL);		
+		assertEquals(goals.get(2), Goals.SELL_NEWS_PAPER_GOAL);
 	}
 
 	@Test

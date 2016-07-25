@@ -12,23 +12,17 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.generator;
+package org.worldgrower.actions;
 
 import org.worldgrower.Constants;
-import org.worldgrower.OnTurn;
-import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.condition.WorldStateChangedListeners;
-import org.worldgrower.goal.DrownUtils;
 
-public class CottonPlantOnTurn implements OnTurn {
+public class WoodPropertyUtils {
 
-	@Override
-	public void onTurn(WorldObject worldObject, World world, WorldStateChangedListeners creatureTypeChangedListeners) {
-		worldObject.increment(Constants.COTTON_SOURCE, 10);
-		
-		worldObject.setProperty(Constants.IMAGE_ID, CottonPlantImageCalculator.getImageId(worldObject, world));
-		
-		DrownUtils.checkForDrowning(worldObject, world);
+	public static void checkWoodSourceExhausted(WorldObject target) {
+		int targetWoodSource = target.getProperty(Constants.WOOD_SOURCE);
+		if (targetWoodSource <= 20 && Constants.WOOD_PRODUCED.isAtMax(target)) {
+			target.setProperty(Constants.HIT_POINTS, 0);
+		}
 	}
 }

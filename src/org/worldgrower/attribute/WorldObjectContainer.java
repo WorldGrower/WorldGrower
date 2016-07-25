@@ -53,6 +53,11 @@ public class WorldObjectContainer implements Serializable {
 		addQuantity(worldObject, 1);
 	}
 	
+	public void addUniqueQuantity(WorldObject worldObject) {
+		worldObject.setProperty(Constants.QUANTITY, 1);
+		add(worldObject);
+	}
+	
 	public void addQuantity(WorldObject worldObject, int quantity) {
 		String name = worldObject.getProperty(Constants.NAME);
 		boolean found = false;

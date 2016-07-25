@@ -40,7 +40,8 @@ public class ReadNewsPaperGoal implements Goal {
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
 		List<WorldObject> unreadNewsPapers = getUnreadNewsPapers(performer);
 		if (unreadNewsPapers.size() > 0) {
-			return new OperationInfo(performer, unreadNewsPapers.get(0), new int[] { performerInventory.getIndexFor(Constants.KNOWLEDGE_MAP) }, Actions.READ_ITEM_IN_INVENTORY_ACTION);
+			//TODO: should use index of unreadNewsPapers.get(0)
+			return new OperationInfo(performer, performer, new int[] { performerInventory.getIndexFor(Constants.KNOWLEDGE_MAP) }, Actions.READ_ITEM_IN_INVENTORY_ACTION);
 		} else {
 			List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Item.NEWS_PAPER, QUANTITY_TO_BUY, world);
 			targets = filterTargetsOnNewInformationInNewsPaper(performer, targets);
@@ -66,13 +67,13 @@ public class ReadNewsPaperGoal implements Goal {
 		return filteredTargets;
 	}
 
-	private List<WorldObject> getUnreadNewsPapers(WorldObject performer) {
+	List<WorldObject> getUnreadNewsPapers(WorldObject performer) {
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
 		KnowledgeMap performerKnowledge = performer.getProperty(Constants.KNOWLEDGE_MAP);
 		return performerInventory.getWorldObjectsByFunction(Constants.KNOWLEDGE_MAP, w -> !performerKnowledge.hasAllKnowledge(w.getProperty(Constants.KNOWLEDGE_MAP)));
 	}
 	
-	private List<WorldObject> getUnreadNewsPapers(WorldObject performer, WorldObject target) {
+	List<WorldObject> getUnreadNewsPapers(WorldObject performer, WorldObject target) {
 		WorldObjectContainer targetInventory = target.getProperty(Constants.INVENTORY);
 		KnowledgeMap performerKnowledge = performer.getProperty(Constants.KNOWLEDGE_MAP);
 		return targetInventory.getWorldObjectsByFunction(Constants.KNOWLEDGE_MAP, w -> !performerKnowledge.hasAllKnowledge(w.getProperty(Constants.KNOWLEDGE_MAP)));

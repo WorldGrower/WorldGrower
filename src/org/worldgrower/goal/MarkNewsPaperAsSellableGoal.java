@@ -12,23 +12,20 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.generator;
+package org.worldgrower.goal;
+
+import java.util.List;
 
 import org.worldgrower.Constants;
-import org.worldgrower.OnTurn;
-import org.worldgrower.World;
-import org.worldgrower.WorldObject;
-import org.worldgrower.condition.WorldStateChangedListeners;
-import org.worldgrower.goal.DrownUtils;
 
-public class CottonPlantOnTurn implements OnTurn {
+public class MarkNewsPaperAsSellableGoal extends AbstractMarkAsSellableGoal {
+	
+	public MarkNewsPaperAsSellableGoal() {
+		super(Constants.KNOWLEDGE_MAP);
+	}
 
-	@Override
-	public void onTurn(WorldObject worldObject, World world, WorldStateChangedListeners creatureTypeChangedListeners) {
-		worldObject.increment(Constants.COTTON_SOURCE, 10);
-		
-		worldObject.setProperty(Constants.IMAGE_ID, CottonPlantImageCalculator.getImageId(worldObject, world));
-		
-		DrownUtils.checkForDrowning(worldObject, world);
+	public MarkNewsPaperAsSellableGoal(List<Goal> allGoals) {
+		this();
+		allGoals.add(this);
 	}
 }

@@ -37,7 +37,7 @@ public class CutWoodAction implements ManagedOperation {
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f));
 		target.increment(Constants.WOOD_SOURCE, - 10);
 		
-		checkWoodSourceExhausted(target);
+		WoodPropertyUtils.checkWoodSourceExhausted(target);
 		target.setProperty(Constants.IMAGE_ID, TreeImageCalculator.getTreeImageId(target, world));
 		SkillUtils.useEnergy(performer, Constants.LUMBERING_SKILL, ENERGY_USE, world.getWorldStateChangedListeners());
 		world.logAction(this, performer, target, args, null);
@@ -47,13 +47,6 @@ public class CutWoodAction implements ManagedOperation {
 		}
 	}
 	
-	private void checkWoodSourceExhausted(WorldObject target) {
-		int targetWoodSource = target.getProperty(Constants.WOOD_SOURCE);
-		if (targetWoodSource <= 20 && Constants.WOOD_PRODUCED.isAtMax(target)) {
-			target.setProperty(Constants.HIT_POINTS, 0);
-		}
-	}
-
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
 		return (target.hasProperty(Constants.WOOD_SOURCE)) && (target.getProperty(Constants.WOOD_SOURCE) > 10);

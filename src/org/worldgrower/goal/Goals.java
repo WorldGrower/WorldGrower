@@ -165,4 +165,5 @@ public class Goals {
 	public static final HarvestGrapesGoal HARVEST_GRAPES_GOAL = new HarvestGrapesGoal(ALL_GOALS);
 	public static final MineOreGoal MINE_ORE_GOAL = new MineOreGoal(ALL_GOALS);
 	public static final AdjustPricesGoal ADJUST_PRICES_GOAL = new AdjustPricesGoal(ALL_GOALS);
+	public static final MarkNewsPaperAsSellableGoal MARK_NEWS_PAPER_AS_SELLABLE_GOAL = new MarkNewsPaperAsSellableGoal(ALL_GOALS);
 }

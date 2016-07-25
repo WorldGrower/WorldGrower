@@ -127,7 +127,7 @@ public class BuyAction implements ManagedOperation {
 
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return (target.hasIntelligence() && target.hasProperty(Constants.INVENTORY) && target.getProperty(Constants.CREATURE_TYPE).canTrade());
+		return (target.hasIntelligence() && target.hasProperty(Constants.INVENTORY) && !performer.equals(target) && target.getProperty(Constants.CREATURE_TYPE).canTrade());
 	}
 	
 	@Override

@@ -18,6 +18,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.OnTurn;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.FoodPropertyUtils;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.goal.DrownUtils;
 
@@ -29,6 +30,7 @@ public class BerryBushOnTurn implements OnTurn {
 			worldObject.increment(Constants.FOOD_SOURCE, 5);
 		}
 		worldObject.increment(Constants.FOOD_PRODUCED, 5);
+		FoodPropertyUtils.checkFoodSourceExhausted(worldObject);
 
 		worldObject.setProperty(Constants.IMAGE_ID, BerryBushImageCalculator.getImageId(worldObject, world));
 		

@@ -39,7 +39,7 @@ public class CreateNewsPaperAction implements ManagedOperation {
 		
 		WorldObject newsPaper = Item.generateNewsPaper(knowledgeList, knowledgeIds, world);
 		
-		inventory.addQuantity(newsPaper);
+		inventory.addUniqueQuantity(newsPaper);
 		inventory.removeQuantity(Constants.PAPER, PAPER_REQUIRED);
 	}
 

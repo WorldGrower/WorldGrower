@@ -32,18 +32,29 @@ public class SellStolenGoodsGoal implements Goal {
 	public final OperationInfo calculateGoal(WorldObject performer, World world) {
 		int indexOfItemsToSell = getIndexOfItemsToSell(performer);
 		if (indexOfItemsToSell != -1) {
-			List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.SELL_ACTION, w -> BuySellUtils.buyerWillBuyGoods(performer, w, indexOfItemsToSell, world) , world);
+			List<WorldObject> targets = GoalUtils.findNearestTargets(performer, Actions.SELL_ACTION, w -> performerCanSell(performer, world, indexOfItemsToSell, w) , world);
 			if (targets.size() > 0) {
-			
-				int price = BuySellUtils.getPrice(performer, indexOfItemsToSell);
-				WorldObject sellableWorldObject = performer.getProperty(Constants.INVENTORY).get(indexOfItemsToSell);
-				int quantity = sellableWorldObject.getProperty(Constants.QUANTITY);
-				int itemId = sellableWorldObject.getProperty(Constants.ITEM_ID).ordinal();
-				return new OperationInfo(performer, targets.get(0), new int[] { indexOfItemsToSell, price, quantity, itemId }, Actions.SELL_ACTION);
+				WorldObject target = targets.get(0);
+				int[] args = createArgs(performer, indexOfItemsToSell);
+				return new OperationInfo(performer, target, args, Actions.SELL_ACTION);
 			}
 		}
 		
 		return null;
+	}
+
+	private int[] createArgs(WorldObject performer, int indexOfItemsToSell) {
+		int price = BuySellUtils.getPrice(performer, indexOfItemsToSell);
+		WorldObject sellableWorldObject = performer.getProperty(Constants.INVENTORY).get(indexOfItemsToSell);
+		int quantity = sellableWorldObject.getProperty(Constants.QUANTITY);
+		int itemId = sellableWorldObject.getProperty(Constants.ITEM_ID).ordinal();
+		int[] args = new int[] { indexOfItemsToSell, price, quantity, itemId };
+		return args;
+	}
+
+	private boolean performerCanSell(WorldObject performer, World world, int indexOfItemsToSell, WorldObject w) {
+		int[] args = createArgs(performer, indexOfItemsToSell);
+		return Actions.SELL_ACTION.canExecuteIgnoringDistance(performer, w, args, world);
 	}
 
 	private int getIndexOfItemsToSell(WorldObject performer) {

@@ -39,6 +39,7 @@ public class JournalistProfession implements Profession {
 	public List<Goal> getProfessionGoals() {
 		return Arrays.asList(
 				Goals.CREATE_NEWS_PAPER_GOAL,
+				Goals.MARK_NEWS_PAPER_AS_SELLABLE_GOAL,
 				Goals.SELL_NEWS_PAPER_GOAL
 				);
 	}

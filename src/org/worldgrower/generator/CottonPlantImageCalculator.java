@@ -15,20 +15,20 @@
 package org.worldgrower.generator;
 
 import org.worldgrower.Constants;
-import org.worldgrower.OnTurn;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.condition.WorldStateChangedListeners;
-import org.worldgrower.goal.DrownUtils;
+import org.worldgrower.gui.ImageIds;
 
-public class CottonPlantOnTurn implements OnTurn {
+public class CottonPlantImageCalculator {
 
-	@Override
-	public void onTurn(WorldObject worldObject, World world, WorldStateChangedListeners creatureTypeChangedListeners) {
-		worldObject.increment(Constants.COTTON_SOURCE, 10);
-		
-		worldObject.setProperty(Constants.IMAGE_ID, CottonPlantImageCalculator.getImageId(worldObject, world));
-		
-		DrownUtils.checkForDrowning(worldObject, world);
+	public static ImageIds getImageId(WorldObject cottonPlant, World world) {
+		final ImageIds cottonPlantImageId;
+		int cottonSource = cottonPlant.getProperty(Constants.COTTON_SOURCE);
+		if (cottonSource <= 20) {
+			cottonPlantImageId = ImageIds.YOUNG_COTTON_PLANT;
+		} else {
+			cottonPlantImageId = ImageIds.COTTON_PLANT;
+		}
+		return cottonPlantImageId;
 	}
 }

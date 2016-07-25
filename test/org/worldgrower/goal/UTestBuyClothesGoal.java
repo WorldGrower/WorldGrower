@@ -133,7 +133,7 @@ public class UTestBuyClothesGoal {
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.GOLD, 1000);
 		
-		WorldObject target = createTargetWithSellableCottonShirt();
+		WorldObject target = createTargetWithSellableCottonShirt(2);
 		world.addWorldObject(target);
 		
 		assertEquals(false, goal.isGoalMet(performer, world));
@@ -148,14 +148,14 @@ public class UTestBuyClothesGoal {
 		addCottonPants(performer);
 		addCottonBoots(performer);
 		
-		WorldObject target = createTargetWithSellableCottonShirt();
+		WorldObject target = createTargetWithSellableCottonShirt(2);
 		world.addWorldObject(target);
 		
 		assertEquals(true, goal.isGoalMet(performer, world));
 	}
 
-	private WorldObject createTargetWithSellableCottonShirt() {
-		WorldObject target = TestUtils.createIntelligentWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
+	private WorldObject createTargetWithSellableCottonShirt(int id) {
+		WorldObject target = TestUtils.createIntelligentWorldObject(id, Constants.INVENTORY, new WorldObjectContainer());
 		target.getProperty(Constants.INVENTORY).addQuantity(Item.COTTON_SHIRT.generate(1f), 10);
 		target.getProperty(Constants.INVENTORY).get(0).setProperty(Constants.SELLABLE, Boolean.TRUE);
 		return target;

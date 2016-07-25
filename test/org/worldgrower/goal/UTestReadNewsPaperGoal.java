@@ -19,6 +19,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.Arrays;
 import java.util.List;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.worldgrower.Constants;
 import org.worldgrower.DoNothingWorldOnTurn;
@@ -31,6 +32,7 @@ import org.worldgrower.attribute.Knowledge;
 import org.worldgrower.attribute.KnowledgeMap;
 import org.worldgrower.attribute.PropertyKnowledge;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.deity.Deity;
 import org.worldgrower.generator.Item;
 import org.worldgrower.profession.Professions;
 
@@ -41,7 +43,7 @@ public class UTestReadNewsPaperGoal {
 	@Test
 	public void testCalculateGoalNull() {
 		World world = new WorldImpl(1, 1, null, null);
-		WorldObject performer = createPerformer();
+		WorldObject performer = createPerformer(2);
 		
 		assertEquals(null, goal.calculateGoal(performer, world));
 	}
@@ -49,7 +51,7 @@ public class UTestReadNewsPaperGoal {
 	@Test
 	public void testCalculateGoalReadNewsPaper() {
 		World world = new WorldImpl(1, 1, null, null);
-		WorldObject performer = createPerformer();
+		WorldObject performer = createPerformer(2);
 		performer.setProperty(Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		performer.setProperty(Constants.NAME, "performer");
 		world.addWorldObject(performer);
@@ -61,9 +63,103 @@ public class UTestReadNewsPaperGoal {
 	}
 	
 	@Test
+	public void testCalculateGoalUnreadNewsPaper() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = createPerformer(2);
+		world.addWorldObject(performer);
+		
+		PropertyKnowledge professionKnowledge = new PropertyKnowledge(performer.getProperty(Constants.ID), Constants.PROFESSION, Professions.FARMER_PROFESSION);
+		PropertyKnowledge deityKnowledge = new PropertyKnowledge(performer.getProperty(Constants.ID), Constants.DEITY, Deity.ARES);
+		
+		KnowledgeMap knowledgeMap = new KnowledgeMap();
+		knowledgeMap.addKnowledge(performer.getProperty(Constants.ID), Constants.PROFESSION, Professions.FARMER_PROFESSION);
+		performer.setProperty(Constants.KNOWLEDGE_MAP, knowledgeMap);
+		
+		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
+		performerInventory.addUniqueQuantity(Item.generateNewsPaper(Arrays.asList(professionKnowledge), new int[] {0}, world));
+		performerInventory.addUniqueQuantity(Item.generateNewsPaper(Arrays.asList(deityKnowledge), new int[] {0}, world));
+		
+		assertEquals(Actions.READ_ITEM_IN_INVENTORY_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+		//TODO: index should be 1
+		Assert.assertArrayEquals(new int[] { 0 }, goal.calculateGoal(performer, world).getArgs());
+	}
+	
+	@Test
+	public void testCalculateGoalBuyNewsPaper() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = createPerformer(2);
+		world.addWorldObject(performer);
+		
+		WorldObject target = createPerformer(3);
+		world.addWorldObject(target);
+		
+		PropertyKnowledge professionKnowledge = new PropertyKnowledge(performer.getProperty(Constants.ID), Constants.PROFESSION, Professions.FARMER_PROFESSION);
+		PropertyKnowledge deityKnowledge = new PropertyKnowledge(performer.getProperty(Constants.ID), Constants.DEITY, Deity.ARES);
+		
+		KnowledgeMap knowledgeMap = new KnowledgeMap();
+		knowledgeMap.addKnowledge(performer.getProperty(Constants.ID), Constants.PROFESSION, Professions.FARMER_PROFESSION);
+		performer.setProperty(Constants.KNOWLEDGE_MAP, knowledgeMap);
+		
+		WorldObjectContainer targetInventory = target.getProperty(Constants.INVENTORY);
+		WorldObject newsPaper1 = Item.generateNewsPaper(Arrays.asList(professionKnowledge), new int[] {0}, world);
+		newsPaper1.setProperty(Constants.SELLABLE, Boolean.TRUE);
+		targetInventory.addUniqueQuantity(newsPaper1);
+		WorldObject newsPaper2 = Item.generateNewsPaper(Arrays.asList(deityKnowledge), new int[] {0}, world);
+		newsPaper2.setProperty(Constants.SELLABLE, Boolean.TRUE);
+		targetInventory.addUniqueQuantity(newsPaper2);
+		
+		assertEquals(Actions.BUY_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+	@Test
+	public void testGetUnreadNewsPapersOnPerformer() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = createPerformer(2);
+		world.addWorldObject(performer);
+		
+		PropertyKnowledge professionKnowledge = new PropertyKnowledge(performer.getProperty(Constants.ID), Constants.PROFESSION, Professions.FARMER_PROFESSION);
+		PropertyKnowledge deityKnowledge = new PropertyKnowledge(performer.getProperty(Constants.ID), Constants.DEITY, Deity.ARES);
+		
+		KnowledgeMap knowledgeMap = new KnowledgeMap();
+		knowledgeMap.addKnowledge(performer.getProperty(Constants.ID), Constants.PROFESSION, Professions.FARMER_PROFESSION);
+		performer.setProperty(Constants.KNOWLEDGE_MAP, knowledgeMap);
+		
+		performer.getProperty(Constants.INVENTORY).addUniqueQuantity(Item.generateNewsPaper(Arrays.asList(professionKnowledge), new int[] {0}, world));
+		performer.getProperty(Constants.INVENTORY).addUniqueQuantity(Item.generateNewsPaper(Arrays.asList(deityKnowledge), new int[] {0}, world));
+		
+		List<WorldObject> unreadNewsPapers = goal.getUnreadNewsPapers(performer);
+		assertEquals(1, unreadNewsPapers.size());
+		assertEquals(true, unreadNewsPapers.get(0).getProperty(Constants.KNOWLEDGE_MAP).hasProperty(performer, Constants.DEITY));
+	}
+	
+	@Test
+	public void testGetUnreadNewsPapersOnTarget() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = createPerformer(2);
+		world.addWorldObject(performer);
+
+		WorldObject target = createPerformer(3);
+		world.addWorldObject(target);
+		
+		PropertyKnowledge professionKnowledge = new PropertyKnowledge(performer.getProperty(Constants.ID), Constants.PROFESSION, Professions.FARMER_PROFESSION);
+		PropertyKnowledge deityKnowledge = new PropertyKnowledge(performer.getProperty(Constants.ID), Constants.DEITY, Deity.ARES);
+		
+		KnowledgeMap knowledgeMap = new KnowledgeMap();
+		knowledgeMap.addKnowledge(performer.getProperty(Constants.ID), Constants.PROFESSION, Professions.FARMER_PROFESSION);
+		performer.setProperty(Constants.KNOWLEDGE_MAP, knowledgeMap);
+		
+		target.getProperty(Constants.INVENTORY).addUniqueQuantity(Item.generateNewsPaper(Arrays.asList(professionKnowledge), new int[] {0}, world));
+		target.getProperty(Constants.INVENTORY).addUniqueQuantity(Item.generateNewsPaper(Arrays.asList(deityKnowledge), new int[] {0}, world));
+		
+		List<WorldObject> unreadNewsPapers = goal.getUnreadNewsPapers(performer, target);
+		assertEquals(1, unreadNewsPapers.size());
+		assertEquals(true, unreadNewsPapers.get(0).getProperty(Constants.KNOWLEDGE_MAP).hasProperty(performer, Constants.DEITY));
+	}
+	
+	@Test
 	public void testCalculateIsGoalMet() {
 		World world = new WorldImpl(1, 1, null, new DoNothingWorldOnTurn());
-		WorldObject performer = createPerformer();
+		WorldObject performer = createPerformer(2);
 		performer.setProperty(Constants.GOLD, 10);
 		
 		assertEquals(true, goal.isGoalMet(performer, world));
@@ -74,8 +170,8 @@ public class UTestReadNewsPaperGoal {
 		assertEquals(false, goal.isGoalMet(performer, world));
 	}
 	
-	private WorldObject createPerformer() {
-		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
+	private WorldObject createPerformer(int id) {
+		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.X, 0);
 		performer.setProperty(Constants.Y, 0);
 		performer.setProperty(Constants.WIDTH, 1);

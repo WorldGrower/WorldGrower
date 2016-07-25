@@ -84,7 +84,7 @@ public enum Item {
 
 	public static final int COMBAT_MULTIPLIER = 10;
 	
-	public static final String NEWS_PAPER_NAME = "news paper";
+	private static final String NEWS_PAPER_NAME = "news paper";
 	private static final String IRON_CLAYMORE_NAME = "iron claymore";
 	private static final String IRON_AXE_NAME = "iron axe";
 	private static final String IRON_GREATSWORD_NAME = "iron greatsword";

@@ -18,6 +18,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.OnTurn;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.WoodPropertyUtils;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.goal.DrownUtils;
 
@@ -33,6 +34,7 @@ public class TreeOnTurn implements OnTurn {
 			worldObject.increment(Constants.WOOD_SOURCE, 1);
 		}
 		worldObject.increment(Constants.WOOD_PRODUCED, 1);
+		WoodPropertyUtils.checkWoodSourceExhausted(worldObject);
 		
 		worldObject.setProperty(Constants.IMAGE_ID, TreeImageCalculator.getTreeImageId(worldObject, world));
 		
