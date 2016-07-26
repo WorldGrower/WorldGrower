@@ -80,8 +80,7 @@ public class UTestReadNewsPaperGoal {
 		performerInventory.addUniqueQuantity(Item.generateNewsPaper(Arrays.asList(deityKnowledge), new int[] {0}, world));
 		
 		assertEquals(Actions.READ_ITEM_IN_INVENTORY_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
-		//TODO: index should be 1
-		Assert.assertArrayEquals(new int[] { 0 }, goal.calculateGoal(performer, world).getArgs());
+		Assert.assertArrayEquals(new int[] { 1 }, goal.calculateGoal(performer, world).getArgs());
 	}
 	
 	@Test
@@ -112,7 +111,7 @@ public class UTestReadNewsPaperGoal {
 	}
 	
 	@Test
-	public void testGetUnreadNewsPapersOnPerformer() {
+	public void testGetIndexOfUnreadNewsPaper() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		world.addWorldObject(performer);
@@ -127,9 +126,9 @@ public class UTestReadNewsPaperGoal {
 		performer.getProperty(Constants.INVENTORY).addUniqueQuantity(Item.generateNewsPaper(Arrays.asList(professionKnowledge), new int[] {0}, world));
 		performer.getProperty(Constants.INVENTORY).addUniqueQuantity(Item.generateNewsPaper(Arrays.asList(deityKnowledge), new int[] {0}, world));
 		
-		List<WorldObject> unreadNewsPapers = goal.getUnreadNewsPapers(performer);
-		assertEquals(1, unreadNewsPapers.size());
-		assertEquals(true, unreadNewsPapers.get(0).getProperty(Constants.KNOWLEDGE_MAP).hasProperty(performer, Constants.DEITY));
+		int indexOfUnreadNewsPaper = goal.getIndexOfUnreadNewsPaper(performer);
+		assertEquals(1, indexOfUnreadNewsPaper);
+		assertEquals(true, performer.getProperty(Constants.INVENTORY).get(indexOfUnreadNewsPaper).getProperty(Constants.KNOWLEDGE_MAP).hasProperty(performer, Constants.DEITY));
 	}
 	
 	@Test
