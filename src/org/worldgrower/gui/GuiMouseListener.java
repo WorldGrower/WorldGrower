@@ -57,6 +57,7 @@ import org.worldgrower.gui.chooseworldobject.ChooseWorldObjectAction;
 import org.worldgrower.gui.chooseworldobject.GuiDisguiseAction;
 import org.worldgrower.gui.chooseworldobject.GuiVoteAction;
 import org.worldgrower.gui.conversation.GuiAskQuestionAction;
+import org.worldgrower.gui.cursor.Cursors;
 import org.worldgrower.gui.debug.GuiShowBuildingsOverviewAction;
 import org.worldgrower.gui.debug.GuiShowCommonersOverviewAction;
 import org.worldgrower.gui.debug.GuiShowEconomicOverviewAction;
@@ -588,6 +589,11 @@ public class GuiMouseListener extends MouseAdapter {
 		JMenuItem menuItem = MenuFactory.createJMenuItem(craftAction.getSimpleDescription() + "...", soundIdReader);
 		menuItem.setEnabled(false);
 		menu.add(menuItem);
+		
+		//bugfix to make disabled components have the correct cursor:
+		//https://bugs.openjdk.java.net/browse/JDK-4380700
+		menuItem.getParent().setCursor(Cursors.CURSOR);
+		
 		return menuItem;
 	}
 
