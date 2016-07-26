@@ -24,6 +24,8 @@ import org.worldgrower.attribute.WorldObjectContainer;
 
 public class MineResourcesGoal implements Goal {
 
+	private static final int RESOURCE_CUTOFF = 7;
+
 	public MineResourcesGoal(List<Goal> allGoals) {
 		allGoals.add(this);
 	}
@@ -32,19 +34,19 @@ public class MineResourcesGoal implements Goal {
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
 		
-		if (inventory.getQuantityFor(Constants.STONE) < 5) {
+		if (inventory.getQuantityFor(Constants.STONE) < RESOURCE_CUTOFF) {
 			OperationInfo mineOperationInfo = Goals.MINE_STONE_GOAL.calculateGoal(performer, world);
 			if (mineOperationInfo != null) {
 				return mineOperationInfo;
 			}
 		}
-		if (inventory.getQuantityFor(Constants.ORE) < 5) {
+		if (inventory.getQuantityFor(Constants.ORE) < RESOURCE_CUTOFF) {
 			OperationInfo mineOperationInfo = Goals.MINE_ORE_GOAL.calculateGoal(performer, world);
 			if (mineOperationInfo != null) {
 				return mineOperationInfo;
 			}
 		}
-		if (inventory.getQuantityFor(Constants.GOLD) < 5) {
+		if (inventory.getQuantityFor(Constants.GOLD) < RESOURCE_CUTOFF) {
 			OperationInfo mineOperationInfo = Goals.MINE_GOLD_GOAL.calculateGoal(performer, world);
 			if (mineOperationInfo != null) {
 				return mineOperationInfo;
@@ -60,9 +62,9 @@ public class MineResourcesGoal implements Goal {
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
 		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
-		return (inventory.getQuantityFor(Constants.STONE) >= 5)
-				&& (inventory.getQuantityFor(Constants.ORE) >= 5) 
-				&& (inventory.getQuantityFor(Constants.GOLD) >= 5);
+		return (inventory.getQuantityFor(Constants.STONE) >= RESOURCE_CUTOFF)
+				&& (inventory.getQuantityFor(Constants.ORE) >= RESOURCE_CUTOFF) 
+				&& (inventory.getQuantityFor(Constants.GOLD) >= RESOURCE_CUTOFF);
 	}
 	
 	@Override

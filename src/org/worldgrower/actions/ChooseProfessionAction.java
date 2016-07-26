@@ -305,7 +305,8 @@ public class ChooseProfessionAction implements ManagedOperation {
 		
 		int stoneDemand = demands.count(Constants.STONE);
 		int oreDemand = demands.count(Constants.ORE);
-		result.add(new ProfessionEvaluation(Professions.MINER_PROFESSION, (stoneDemand + oreDemand) / populationCount));
+		int goldDemand = demands.count(Constants.GOLD);
+		result.add(new ProfessionEvaluation(Professions.MINER_PROFESSION, (stoneDemand + oreDemand + goldDemand) / populationCount));
 		
 		List<WorldObject> remains = getRemains(world);
 		if (remains.size() > 0) {
