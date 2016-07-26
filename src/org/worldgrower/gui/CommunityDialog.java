@@ -48,6 +48,7 @@ import org.worldgrower.attribute.KnowledgeMap;
 import org.worldgrower.deity.Deity;
 import org.worldgrower.goal.BountyPropertyUtils;
 import org.worldgrower.goal.GroupPropertyUtils;
+import org.worldgrower.gui.cursor.Cursors;
 import org.worldgrower.gui.util.DialogUtils;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.JLabelFactory;
@@ -70,6 +71,7 @@ public class CommunityDialog extends JDialog {
 		IconUtils.setIcon(this);
 		setResizable(false);
 		setTitle("Community Overview");
+		setCursor(Cursors.CURSOR);
 		
 		int width = 1022;
 		int height = 785;

@@ -34,6 +34,7 @@ import org.worldgrower.gui.GradientPanel;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.SwingUtils;
+import org.worldgrower.gui.cursor.Cursors;
 import org.worldgrower.gui.music.MusicPlayer;
 import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.util.DialogUtils;
@@ -112,6 +113,7 @@ public class OptionsScreen {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		IconUtils.setIcon(frame);
+		frame.setCursor(Cursors.CURSOR);
 		
 		CustomGameParameters customGameParameters = new CustomGameParameters();
 		

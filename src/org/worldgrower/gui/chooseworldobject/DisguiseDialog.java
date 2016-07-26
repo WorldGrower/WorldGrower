@@ -47,6 +47,7 @@ import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.SwingUtils;
 import org.worldgrower.gui.WorldObjectList;
 import org.worldgrower.gui.WorldPanel;
+import org.worldgrower.gui.cursor.Cursors;
 import org.worldgrower.gui.debug.PropertiesModel;
 import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.start.Game;
@@ -134,6 +135,7 @@ public class DisguiseDialog extends JDialog {
 		contentPanel.setLayout(null);
 		setUndecorated(true);
 		IconUtils.setIcon(this);
+		setCursor(Cursors.CURSOR);
 		
 		noDisguiseRadioButton = JRadioButtonFactory.createJRadioButton("No disguise");
 		noDisguiseRadioButton.setOpaque(false);

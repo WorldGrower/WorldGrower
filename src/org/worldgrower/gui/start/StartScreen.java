@@ -42,6 +42,7 @@ import org.worldgrower.gui.ExceptionHandler;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.SwingUtils;
+import org.worldgrower.gui.cursor.Cursors;
 import org.worldgrower.gui.loadsave.LoadSaveDialog;
 import org.worldgrower.gui.loadsave.LoadSaveMode;
 import org.worldgrower.gui.loadsave.SaveGameHandler;
@@ -285,6 +286,7 @@ public class StartScreen implements SaveGameHandler {
 	
 	private void initialize(JFrame parentFrame) {
 		frame = new StartScreenDialog();
+		frame.setCursor(Cursors.CURSOR);
 		
 		addNewButton();
 		addLoadButton();

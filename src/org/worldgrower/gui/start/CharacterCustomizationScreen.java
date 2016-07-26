@@ -32,6 +32,7 @@ import org.worldgrower.gui.GradientPanel;
 import org.worldgrower.gui.GuiAttributeDescription;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.SwingUtils;
+import org.worldgrower.gui.cursor.Cursors;
 import org.worldgrower.gui.music.MusicPlayer;
 import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.util.JButtonFactory;
@@ -67,6 +68,7 @@ public class CharacterCustomizationScreen extends JFrame {
 		setLocationRelativeTo(null);
 		setUndecorated(true);
 		IconUtils.setIcon(this);
+		setCursor(Cursors.CURSOR);
 		
 		JLabel attributeLabel = JLabelFactory.createJLabel(attributePoints);
 		attributeLabel.setToolTipText(ATTRIBUTE_EXPLANATION);

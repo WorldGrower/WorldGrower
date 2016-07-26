@@ -14,9 +14,6 @@
  *******************************************************************************/
 package org.worldgrower.gui.util;
 
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -27,6 +24,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
 import org.worldgrower.gui.ColorPalette;
+import org.worldgrower.gui.cursor.Cursors;
 import org.worldgrower.gui.font.Fonts;
 import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.music.SoundIds;
@@ -38,6 +36,7 @@ public class MenuFactory {
 		popupMenu.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
 		popupMenu.setForeground(ColorPalette.FOREGROUND_COLOR);
 		popupMenu.setFont(Fonts.FONT);
+		popupMenu.setCursor(Cursors.CURSOR);
 		return popupMenu;
 	}
 	
@@ -83,6 +82,7 @@ public class MenuFactory {
 		menuItem.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
 		menuItem.setForeground(ColorPalette.FOREGROUND_COLOR);
 		menuItem.setFont(Fonts.FONT);
+		menuItem.setCursor(Cursors.CURSOR);
 	}
 	
 	public static JMenu createJMenu(String description, SoundIdReader soundIdReader) {
@@ -91,6 +91,7 @@ public class MenuFactory {
 		menu.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
 		menu.setForeground(ColorPalette.FOREGROUND_COLOR);
 		menu.setFont(Fonts.FONT);
+		menu.setCursor(Cursors.CURSOR);
 		addRollOverSoundEffect(menu, soundIdReader);
 		return menu;
 	}

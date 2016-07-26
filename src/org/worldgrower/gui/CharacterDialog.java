@@ -49,6 +49,7 @@ import org.worldgrower.generator.CommonerOnTurn;
 import org.worldgrower.goal.ArmorPropertyUtils;
 import org.worldgrower.goal.BountyPropertyUtils;
 import org.worldgrower.goal.MeleeDamagePropertyUtils;
+import org.worldgrower.gui.cursor.Cursors;
 import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.util.DialogUtils;
 import org.worldgrower.gui.util.JButtonFactory;
@@ -94,6 +95,7 @@ public class CharacterDialog extends JDialog {
 		setUndecorated(true);
 		IconUtils.setIcon(this);
 		setResizable(false);
+		setCursor(Cursors.CURSOR);
 		
 		this.playerCharacter = playerCharacter;
 		

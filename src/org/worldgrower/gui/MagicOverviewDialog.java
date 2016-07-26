@@ -39,6 +39,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.attribute.PropertyCountMap;
+import org.worldgrower.gui.cursor.Cursors;
 import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.util.DialogUtils;
 import org.worldgrower.gui.util.JButtonFactory;
@@ -63,6 +64,7 @@ public class MagicOverviewDialog extends JDialog {
 		contentPanel.setLayout(null);
 		setUndecorated(true);
 		IconUtils.setIcon(this);
+		setCursor(Cursors.CURSOR);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(12, 13, 821, 567);

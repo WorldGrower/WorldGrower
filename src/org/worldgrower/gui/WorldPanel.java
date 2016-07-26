@@ -65,6 +65,7 @@ import org.worldgrower.goal.EnergyPropertyUtils;
 import org.worldgrower.gui.conversation.GuiRespondToQuestion;
 import org.worldgrower.gui.conversation.GuiShowBrawlResult;
 import org.worldgrower.gui.conversation.GuiShowDrinkingContestResult;
+import org.worldgrower.gui.cursor.Cursors;
 import org.worldgrower.gui.music.MusicPlayer;
 import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.music.SoundIds;
@@ -116,6 +117,7 @@ public final class WorldPanel extends JPanel {
         guiMouseListener = new GuiMouseListener(this, playerCharacter, world, dungeonMaster, imageInfoReader, soundIdReader, keyBindings, parentFrame);
 		addMouseListener(guiMouseListener);
 		ToolTipManager.sharedInstance().registerComponent(this);
+		setCursor(Cursors.CURSOR);
 
 		conditionIconDrawer = new ConditionIconDrawer(imageInfoReader);
 		buySellIconsDrawer = new BuySellIconsDrawer(imageInfoReader);

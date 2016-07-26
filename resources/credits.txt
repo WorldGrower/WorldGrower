@@ -151,3 +151,6 @@ swish-98bit.wav.gz
 Character Sprites by Yaosame/108 Rain at https://grandmadebslittlebits.wordpress.com/2014/11/page/3/
 Actor1_zps2890a1cd.png
 Actor3_zpsb3524fc2.png
+
+Mouse cursor by lancel at http://opengameart.org/content/knights-glove-mouse-cursor
+RPG_Mouse_Cursor_3.png

@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 
+import org.worldgrower.gui.cursor.Cursors;
 import org.worldgrower.gui.util.IconUtils;
 
 public abstract class AbstractDialog extends JDialog {
@@ -31,6 +32,7 @@ public abstract class AbstractDialog extends JDialog {
 		
 		this.setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setCursor(Cursors.CURSOR);
 	}
 	
 	public final void addComponent(Component component) {
