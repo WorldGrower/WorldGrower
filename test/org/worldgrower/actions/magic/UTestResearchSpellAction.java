@@ -73,6 +73,19 @@ public class UTestResearchSpellAction {
 	}
 	
 	@Test
+	public void testIsActionPossible() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		
+		assertEquals(false, researchSpellAction.isActionPossible(performer, target, Args.EMPTY, world));
+		
+		performer.getProperty(Constants.TRANSMUTATION_SKILL).use(100, performer, Constants.TRANSMUTATION_SKILL, world.getWorldStateChangedListeners());		
+		
+		assertEquals(true, researchSpellAction.isActionPossible(performer, target, Args.EMPTY, world));
+	}
+	
+	@Test
 	public void testDistance() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
