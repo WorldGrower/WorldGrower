@@ -72,7 +72,7 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 		    }
 		});
 		
-		Timer timer = new Timer(500, new ActionListener() {
+		Timer timer = new Timer(1000, new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -88,7 +88,7 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 	}
 	
 	private List<WorldObject> getNPCs() {
-		return world.findWorldObjects(w -> w.isControlledByAI() && w.hasIntelligence() && w.getProperty(Constants.CREATURE_TYPE) != CreatureType.COW_CREATURE_TYPE);
+		return world.findWorldObjectsByProperty(Constants.STRENGTH, w -> w.isControlledByAI() && w.hasIntelligence() && w.getProperty(Constants.CREATURE_TYPE) != CreatureType.COW_CREATURE_TYPE);
 	}
 	
 	class TooltipCellRenderer extends DefaultTableCellRenderer {
