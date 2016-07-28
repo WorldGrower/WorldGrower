@@ -12,21 +12,20 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower;
+package org.worldgrower.goal;
 
-/**
- * Whenever the goal of a non-player character changes,
- * the reason is recorded as one of these states.
- */
-public enum GoalChangedReason {
-	EMPTY_META_INFORMATION, 
-	FINAL_GOAL_WAS_MET, 
-	TARGET_NO_LONGER_VALID,
-	MORE_IMPORTANT_GOAL_NOT_MET,
-	FINAL_OPERATION_NOT_POSSIBLE,
-	OPERATION_NOT_POSSIBLE,
-	TARGET_MOVED, 
-	DECEIVED,
-	NO_ACTION_POSSIBLE,
-	TARGET_NO_LONGER_EXISTS
+import java.util.List;
+
+import org.worldgrower.Constants;
+
+public class MarkRepairHammersAsSellableGoal extends AbstractMarkAsSellableGoal {
+	
+	public MarkRepairHammersAsSellableGoal() {
+		super(Constants.REPAIR_QUALITY);
+	}
+
+	public MarkRepairHammersAsSellableGoal(List<Goal> allGoals) {
+		this();
+		allGoals.add(this);
+	}
 }

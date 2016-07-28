@@ -31,9 +31,9 @@ import org.worldgrower.generator.Item;
 import org.worldgrower.generator.PlantGenerator;
 import org.worldgrower.generator.TerrainGenerator;
 
-public class UTestRepairHammerGoal {
+public class UTestCreateRepairHammerGoal {
 
-	private RepairHammerGoal goal = Goals.REPAIR_HAMMER_GOAL;
+	private CreateRepairHammerGoal goal = Goals.CREATE_REPAIR_HAMMER_GOAL;
 
 	@Test
 	public void testCalculateGoalNull() {

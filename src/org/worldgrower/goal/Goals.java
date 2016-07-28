@@ -129,7 +129,7 @@ public class Goals {
 	public static final StartBrawlGoal START_BRAWL_GOAL = new StartBrawlGoal(ALL_GOALS);
 	public static final StealGoal STEAL_GOAL = new StealGoal(ALL_GOALS);
 	public static final SellStolenGoodsGoal SELL_STOLEN_GOODS_GOAL = new SellStolenGoodsGoal(ALL_GOALS);
-	public static final RepairHammerGoal REPAIR_HAMMER_GOAL = new RepairHammerGoal(ALL_GOALS);
+	public static final CreateRepairHammerGoal CREATE_REPAIR_HAMMER_GOAL = new CreateRepairHammerGoal(ALL_GOALS);
 	public static final RepairEquipmentGoal REPAIR_EQUIPMENT_GOAL = new RepairEquipmentGoal(ALL_GOALS);
 	public static final StartDrinkingContestGoal START_DRINKING_CONTEST_GOAL = new StartDrinkingContestGoal(ALL_GOALS);
 	public static final BreakupWithMateGoal BREAKUP_WITH_MATE_GOAL = new BreakupWithMateGoal(ALL_GOALS);
@@ -166,4 +166,6 @@ public class Goals {
 	public static final MineOreGoal MINE_ORE_GOAL = new MineOreGoal(ALL_GOALS);
 	public static final AdjustPricesGoal ADJUST_PRICES_GOAL = new AdjustPricesGoal(ALL_GOALS);
 	public static final MarkNewsPaperAsSellableGoal MARK_NEWS_PAPER_AS_SELLABLE_GOAL = new MarkNewsPaperAsSellableGoal(ALL_GOALS);
+	public static final RepairHammerGoal REPAIR_HAMMER_GOAL = new RepairHammerGoal(ALL_GOALS);
+	public static final MarkRepairHammersAsSellableGoal MARK_REPAIR_HAMMERS_AS_SELLABLE_GOAL = new MarkRepairHammersAsSellableGoal(ALL_GOALS);
 }

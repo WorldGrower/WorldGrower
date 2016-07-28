@@ -581,7 +581,7 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestPersonality.class,
 	UTestFireTrapAction.class,
 	UTestMinorHealAction.class,
-	UTestRepairHammerGoal.class,
+	UTestCreateRepairHammerGoal.class,
 	UTestRepairEquipmentGoal.class,
 	UTestCurePoisonAction.class,
 	UTestStartDrinkingContestGoal.class,

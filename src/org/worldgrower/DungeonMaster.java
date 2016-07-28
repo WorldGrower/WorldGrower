@@ -73,10 +73,15 @@ public class DungeonMaster implements Serializable {
 			calculateGoalAndTasks(worldObject, worldFacade, metaInformation, GoalChangedReason.FINAL_OPERATION_NOT_POSSIBLE);
 		}
 		
+		if (finalOperationInfo.getTarget().hasProperty(Constants.ID) && !world.exists(finalOperationInfo.getTarget())) {
+			calculateGoalAndTasks(worldObject, worldFacade, metaInformation, GoalChangedReason.TARGET_NO_LONGER_EXISTS);
+		}
+		
 		OperationInfo peekOperationInfo = metaInformation.getCurrentTask().peek();
 		if (!peekOperationInfo.canExecute(worldObject, worldFacade)) {
 			recalculateTasks(worldObject, worldFacade, metaInformation, GoalChangedReason.OPERATION_NOT_POSSIBLE);
 		}
+		
 		if (finalOperationInfo.targetMoved(worldFacade)) {
 			recalculateTasks(worldObject, worldFacade, metaInformation, GoalChangedReason.TARGET_MOVED);
 		}

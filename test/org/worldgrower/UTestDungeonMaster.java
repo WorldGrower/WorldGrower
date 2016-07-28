@@ -170,6 +170,40 @@ public class UTestDungeonMaster {
 	}
 	
 	@Test
+	public void testRunWorldObjectWithRemovedTarget() {
+		DungeonMaster dungeonMaster = new DungeonMaster();
+		World world = createWorld(dungeonMaster);
+		world.generateUniqueId(); world.generateUniqueId(); world.generateUniqueId();
+		createVillagersOrganization(world);
+		WorldObject commoner = TestUtils.createIntelligentWorldObject(2, Goals.SHRINE_TO_DEITY_GOAL);
+		commoner.setProperty(Constants.NAME, "performer");
+		commoner.setProperty(Constants.DEITY, Deity.ARES);
+		commoner.setProperty(Constants.PERSONALITY, new Personality());
+		commoner.setProperty(Constants.X, 5);
+		commoner.setProperty(Constants.Y, 5);
+		world.addWorldObject(commoner);
+		int shrineId = BuildingGenerator.generateShrine(0, 0, world, commoner);
+		WorldObject shrine = world.findWorldObjectById(shrineId);
+		
+		int stoneResourceId = TerrainGenerator.generateStoneResource(0, 0, world);
+		WorldObject stoneResource = world.findWorldObjectById(stoneResourceId);
+		
+		dungeonMaster.runWorldObject(commoner, world);
+		
+		assertEquals(Goals.SHRINE_TO_DEITY_GOAL, world.getGoal(commoner));
+		assertEquals(Actions.WORSHIP_DEITY_ACTION, world.getImmediateGoal(commoner, world).getManagedOperation());
+		assertEquals(shrine, world.getImmediateGoal(commoner, world).getTarget());
+		
+		world.removeWorldObject(shrine);
+		
+		dungeonMaster.runWorldObject(commoner, world);
+		
+		assertEquals(Goals.SHRINE_TO_DEITY_GOAL, world.getGoal(commoner));
+		assertEquals(Actions.MINE_STONE_ACTION, world.getImmediateGoal(commoner, world).getManagedOperation());
+		assertEquals(stoneResource, world.getImmediateGoal(commoner, world).getTarget());
+	}
+	
+	@Test
 	public void testRunWorldObjectWithMovingNPCTarget() {
 		WorldObject commoner = TestUtils.createIntelligentWorldObject(2, Goals.SOCIALIZE_GOAL);
 		WorldObject target = TestUtils.createIntelligentWorldObject(3, "target");

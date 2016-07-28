@@ -50,7 +50,9 @@ public class UTestBlacksmithProfession {
 		assertEquals(goals.get(0), Goals.SMITH_GOAL);
 		assertEquals(goals.get(1), Goals.CRAFT_EQUIPMENT_GOAL);
 		assertEquals(goals.get(2), Goals.MARK_EQUIPMENT_AS_SELLABLE_GOAL);
-		assertEquals(goals.get(3), Goals.MINT_GOLD_GOAL);
+		assertEquals(goals.get(3), Goals.CREATE_REPAIR_HAMMER_GOAL);
+		assertEquals(goals.get(4), Goals.MARK_REPAIR_HAMMERS_AS_SELLABLE_GOAL);
+		assertEquals(goals.get(5), Goals.MINT_GOLD_GOAL);
 	}
 
 	@Test

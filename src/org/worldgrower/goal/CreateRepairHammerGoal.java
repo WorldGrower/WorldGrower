@@ -16,37 +16,48 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.BuildingGenerator;
 
-public class RepairHammerGoal implements Goal {
+public class CreateRepairHammerGoal implements Goal {
 
-	private static final int QUANTITY_TO_BUY = 5;
+	private static final int QUANTITY = 2;
 	
-	public RepairHammerGoal(List<Goal> allGoals) {
+	public CreateRepairHammerGoal(List<Goal> allGoals) {
 		allGoals.add(this);
 	}
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		OperationInfo buyOperationInfo = BuySellUtils.getBuyOperationInfo(performer, Constants.REPAIR_QUALITY, QUANTITY_TO_BUY, world);
-		if (buyOperationInfo != null) {
-			return buyOperationInfo;
+		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
+		Integer smithId = BuildingGenerator.getSmithId(performer);
+		int wood = inventory.getQuantityFor(Constants.WOOD);
+		int ore = inventory.getQuantityFor(Constants.ORE);
+		if (wood < Actions.CRAFT_REPAIR_HAMMER_ACTION.getWoodRequired()) {
+			return Goals.WOOD_GOAL.calculateGoal(performer, world);
+		} else if (ore < Actions.CRAFT_REPAIR_HAMMER_ACTION.getOreRequired()) {
+			return Goals.ORE_GOAL.calculateGoal(performer, world);
+		} else if (smithId == null) {
+			return Goals.SMITH_GOAL.calculateGoal(performer, world);
 		} else {
-			return Goals.CREATE_REPAIR_HAMMER_GOAL.calculateGoal(performer, world);
+			WorldObject smith = world.findWorldObjectById(smithId);
+			return new OperationInfo(performer, smith, Args.EMPTY, Actions.CRAFT_REPAIR_HAMMER_ACTION);
 		}
 	}
 
 	@Override
 	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
-		defaultGoalMetOrNot(performer, world, goalMet, Constants.REPAIR_QUALITY);
 	}
 	
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		return true;
+		return getNumberOfRepairHammers(performer) > QUANTITY;
 	}
 	
 	@Override
@@ -56,11 +67,16 @@ public class RepairHammerGoal implements Goal {
 
 	@Override
 	public String getDescription() {
-		return "looking for repair hammers";
+		return "crafting repair hammers";
 	}
-
+	
+	private int getNumberOfRepairHammers(WorldObject performer) {
+		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
+		return inventory.getQuantityFor(Constants.REPAIR_QUALITY);
+	}
+	
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		return 0;
+		return getNumberOfRepairHammers(performer);
 	}
 }

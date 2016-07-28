@@ -41,6 +41,8 @@ public class BlacksmithProfession implements Profession {
 				Goals.SMITH_GOAL,
 				Goals.CRAFT_EQUIPMENT_GOAL,
 				Goals.MARK_EQUIPMENT_AS_SELLABLE_GOAL,
+				Goals.CREATE_REPAIR_HAMMER_GOAL,
+				Goals.MARK_REPAIR_HAMMERS_AS_SELLABLE_GOAL,
 				Goals.MINT_GOLD_GOAL);
 	}
 

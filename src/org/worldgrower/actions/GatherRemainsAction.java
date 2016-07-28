@@ -31,6 +31,10 @@ public class GatherRemainsAction implements ManagedOperation {
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
 		
+		if (target.getProperty(Constants.GOLD) == null) {
+			throw new IllegalStateException("target has no gold: " + target);
+		}
+		
 		int targetGold = target.getProperty(Constants.GOLD);
 		performer.increment(Constants.GOLD, targetGold);
 		target.removeProperty(Constants.GOLD);
