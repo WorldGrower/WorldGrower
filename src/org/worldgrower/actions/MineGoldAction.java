@@ -33,8 +33,9 @@ public class MineGoldAction implements ManagedOperation {
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		performer.getProperty(Constants.INVENTORY).addQuantity(Item.GOLD.generate(1f));
-		target.increment(Constants.GOLD_SOURCE, - 1);
+		int quantity = MinePropertyUtils.calculateMiningQuantity(performer);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.GOLD.generate(1f), quantity);
+		target.increment(Constants.GOLD_SOURCE, - quantity);
 		
 		SkillUtils.useEnergy(performer, Constants.MINING_SKILL, ENERGY_USE, world.getWorldStateChangedListeners());
 	}
