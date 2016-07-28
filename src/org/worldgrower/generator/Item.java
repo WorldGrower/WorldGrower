@@ -80,7 +80,8 @@ public enum Item {
 	IRON_KATAR(ItemType.WEAPON),
 	SLEEPING_POTION(ItemType.DRINK),
 	MINIATURE_CHEST(ItemType.MISC),
-	REMAINS(ItemType.MISC);
+	REMAINS(ItemType.MISC),
+	PICKAXE(ItemType.MISC);
 
 	public static final int COMBAT_MULTIPLIER = 10;
 	
@@ -604,6 +605,22 @@ public enum Item {
 			properties.put(Constants.IMAGE_ID, ImageIds.SKELETAL_REMAINS);
 			return new WorldObjectImpl(properties);
 		});
+		
+		addItem(Item.PICKAXE, skillBonus -> {
+			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+			properties.put(Constants.NAME, "pickaxe");
+			properties.put(Constants.PRICE, 20);
+			properties.put(Constants.SELLABLE, false);
+			properties.put(Constants.DAMAGE, 1 * COMBAT_MULTIPLIER);
+			properties.put(Constants.DAMAGE_TYPE, DamageType.PIERCING);
+			properties.put(Constants.WEIGHT, 3);
+			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
+			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
+			properties.put(Constants.PICKAXE_QUALITY, (int)(2 * skillBonus));
+			properties.put(Constants.IMAGE_ID, ImageIds.PICKAXE);
+			return new WorldObjectImpl(properties);
+		});
+		
 		
 		addItem(Item.WOOD, new DefaultItemGenerator(Constants.WOOD, 1, ImageIds.WOOD)::addDefault);
 		addItem(Item.STONE, new DefaultItemGenerator(Constants.STONE, 1, ImageIds.STONE)::addDefault);

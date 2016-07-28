@@ -69,7 +69,7 @@ public class HarvestFoodAction implements ManagedOperation {
 
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return (target.hasProperty(Constants.FOOD_SOURCE)) && (target.getProperty(Constants.FOOD_SOURCE) >= 100);
+		return FoodPropertyUtils.foodSourceHasEnoughFood(target);
 	}
 
 	@Override

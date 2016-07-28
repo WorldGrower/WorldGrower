@@ -17,6 +17,7 @@ package org.worldgrower.actions;
 import java.io.ObjectStreamException;
 
 import org.worldgrower.Constants;
+import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
@@ -26,6 +27,7 @@ import org.worldgrower.gui.ImageIds;
 
 public class ConstructFishingPoleAction implements CraftAction {
 
+	private static final int DISTANCE = 1;
 	private static final int WOOD_REQUIRED = 2;
 	
 	@Override
@@ -40,7 +42,7 @@ public class ConstructFishingPoleAction implements CraftAction {
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return 0;
+		return Reach.evaluateTarget(performer, args, target, DISTANCE);
 	}
 	
 	@Override

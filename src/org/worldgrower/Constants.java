@@ -141,6 +141,8 @@ public class Constants {
 	public static final IntProperty EQUIPMENT_HEALTH = new IntProperty("equipmentHealth", 0, 1000, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty POISON_DAMAGE = new IntProperty("damage", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty REPAIR_QUALITY = new IntProperty("repairQuality", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty PICKAXE_QUALITY = new IntProperty("pickaxeQuality", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
+	
 	public static final UnCheckedProperty<DamageType> DAMAGE_TYPE = new UnCheckedProperty<>("damageType", ALL_PROPERTIES);
 	
 	public static final UnCheckedProperty<WorldObject> HEAD_EQUIPMENT = new UnCheckedProperty<WorldObject>("headEquipment", ALL_PROPERTIES);

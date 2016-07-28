@@ -25,4 +25,8 @@ public class FoodPropertyUtils {
 			foodSource.setProperty(Constants.HIT_POINTS, 0);
 		}
 	}
+	
+	public static boolean foodSourceHasEnoughFood(WorldObject target) {
+		return (target.hasProperty(Constants.FOOD_SOURCE)) && (target.getProperty(Constants.FOOD_SOURCE) >= 100);
+	}
 }

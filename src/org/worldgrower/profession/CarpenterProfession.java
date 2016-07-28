@@ -42,7 +42,9 @@ public class CarpenterProfession implements Profession {
 				Goals.MARK_HOUSE_AS_SELLABLE_GOAL,
 				Goals.SELL_HOUSE_GOAL,
 				Goals.CREATE_FURNITURE_GOAL,
-				Goals.SELL_FURNITURE_GOAL);
+				Goals.SELL_FURNITURE_GOAL,
+				Goals.CREATE_FISHING_POLE_GOAL,
+				Goals.CREATE_PICKAXE_GOAL);
 	}
 
 	@Override

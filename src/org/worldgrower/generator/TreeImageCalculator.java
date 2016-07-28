@@ -17,6 +17,7 @@ package org.worldgrower.generator;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.WoodPropertyUtils;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.terrain.TerrainType;
 
@@ -24,8 +25,7 @@ public class TreeImageCalculator {
 
 	public static ImageIds getTreeImageId(WorldObject tree, World world) {
 		ImageIds treeImageId = getTreeImageId(tree.getProperty(Constants.X), tree.getProperty(Constants.Y), world);
-		int woodSource = tree.getProperty(Constants.WOOD_SOURCE);
-		if (woodSource < 11) {
+		if (!WoodPropertyUtils.woodSourceHasEnoughWood(tree)) {
 			if (treeImageId == ImageIds.TREE) {
 				treeImageId = ImageIds.SMALL_TREE;
 			} else if (treeImageId == ImageIds.BOREAL_TREE) {

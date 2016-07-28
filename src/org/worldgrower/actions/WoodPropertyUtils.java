@@ -25,4 +25,8 @@ public class WoodPropertyUtils {
 			target.setProperty(Constants.HIT_POINTS, 0);
 		}
 	}
+	
+	public static boolean woodSourceHasEnoughWood(WorldObject target) {
+		return (target.hasProperty(Constants.WOOD_SOURCE)) && (target.getProperty(Constants.WOOD_SOURCE) > 10);
+	}
 }

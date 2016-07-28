@@ -17,85 +17,81 @@ package org.worldgrower.actions;
 import java.io.ObjectStreamException;
 
 import org.worldgrower.Constants;
-import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
-import org.worldgrower.generator.TreeImageCalculator;
 import org.worldgrower.gui.ImageIds;
-import org.worldgrower.gui.music.SoundIds;
 
-public class CutWoodAction implements ManagedOperation {
+public class ConstructPickAxeAction implements CraftAction {
 
-	private static final int ENERGY_USE = 50;
 	private static final int DISTANCE = 1;
+	
+	private static final int WOOD_REQUIRED = 2;
+	private static final int ORE_REQUIRED = 2;
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f));
-		target.increment(Constants.WOOD_SOURCE, - 10);
+		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
 		
-		WoodPropertyUtils.checkWoodSourceExhausted(target);
-		target.setProperty(Constants.IMAGE_ID, TreeImageCalculator.getTreeImageId(target, world));
-		SkillUtils.useEnergy(performer, Constants.LUMBERING_SKILL, ENERGY_USE, world.getWorldStateChangedListeners());
-		world.logAction(this, performer, target, args, null);
-		
-		if (target.getProperty(Constants.WOOD_SOURCE) == 0) {
-			target.setProperty(Constants.HIT_POINTS, 0);
-		}
-	}
-	
-	@Override
-	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return WoodPropertyUtils.woodSourceHasEnoughWood(target);
+		double skillBonus = SkillUtils.useSkill(performer, Constants.CARPENTRY_SKILL, world.getWorldStateChangedListeners());
+		inventory.addQuantity(Item.PICKAXE.generate(skillBonus));
+
+		inventory.removeQuantity(Constants.WOOD, WOOD_REQUIRED);
+		inventory.removeQuantity(Constants.ORE, ORE_REQUIRED);
 	}
 
-	@Override
-	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
-		return SkillUtils.hasEnoughEnergy(performer, Constants.LUMBERING_SKILL, ENERGY_USE);
-	}
-	
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
 		return Reach.evaluateTarget(performer, args, target, DISTANCE);
 	}
 	
 	@Override
+	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
+		return CraftUtils.hasEnoughResources(performer, WOOD_REQUIRED, ORE_REQUIRED);
+	}
+	
+	@Override
 	public String getRequirementsDescription() {
-		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, DISTANCE, Constants.ENERGY, ENERGY_USE);
+		return CraftUtils.getRequirementsDescription(Constants.WOOD, WOOD_REQUIRED, Constants.ORE, ORE_REQUIRED);
 	}
-	
-	public boolean hasRequiredEnergy(WorldObject performer) {
-		return performer.getProperty(Constants.ENERGY) >= ENERGY_USE;
-	}
-	
+
 	@Override
 	public boolean requiresArguments() {
 		return false;
 	}
+
+	@Override
+	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
+		return target.hasProperty(Constants.WORKBENCH_QUALITY);
+	}
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "cutting down the " + target.getProperty(Constants.NAME);
+		return "constructing pickaxe";
 	}
 
 	@Override
 	public String getSimpleDescription() {
-		return "cut wood";
+		return "construct pickaxe";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
 	}
+
+	public static boolean hasEnoughWood(WorldObject performer) {
+		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) >= WOOD_REQUIRED;
+	}
+	
+	public static boolean hasEnoughOre(WorldObject performer) {
+		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.ORE) >= ORE_REQUIRED;
+	}
 	
 	@Override
 	public ImageIds getImageIds() {
-		return ImageIds.WOOD;
-	}
-	
-	public SoundIds getSoundId() {
-		return SoundIds.CUT_WOOD;
+		return ImageIds.PICKAXE;
 	}
 }

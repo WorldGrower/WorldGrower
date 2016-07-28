@@ -168,4 +168,6 @@ public class Goals {
 	public static final MarkNewsPaperAsSellableGoal MARK_NEWS_PAPER_AS_SELLABLE_GOAL = new MarkNewsPaperAsSellableGoal(ALL_GOALS);
 	public static final RepairHammerGoal REPAIR_HAMMER_GOAL = new RepairHammerGoal(ALL_GOALS);
 	public static final MarkRepairHammersAsSellableGoal MARK_REPAIR_HAMMERS_AS_SELLABLE_GOAL = new MarkRepairHammersAsSellableGoal(ALL_GOALS);
+	public static final CreateFishingPoleGoal CREATE_FISHING_POLE_GOAL = new CreateFishingPoleGoal(ALL_GOALS);
+	public static final CreatePickaxeGoal CREATE_PICKAXE_GOAL = new CreatePickaxeGoal(ALL_GOALS);
 }

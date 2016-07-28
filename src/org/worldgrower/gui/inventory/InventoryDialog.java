@@ -599,8 +599,6 @@ public final class InventoryDialog extends AbstractDialog {
 				targetWeight.setText(targetWeightString);
 			}
 		}
-		
-		setInventoryActions(inventoryDialogModel::setPrices, inventoryDialogModel.getPlayerCharacterDemands(), inventoryDialogModel.getPlayerCharacterPrices());
 	}
 
 	public InventoryItem getPlayerCharacterSelectedValue() {

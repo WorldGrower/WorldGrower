@@ -16,38 +16,46 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.generator.Item;
+import org.worldgrower.actions.Actions;
+import org.worldgrower.actions.ConstructPickAxeAction;
+import org.worldgrower.generator.BuildingGenerator;
 
-public class FishingPoleGoal implements Goal {
+public class CreatePickaxeGoal implements Goal {
 
-	private static final int QUANTITY_TO_BUY = 1;
-	
-	public FishingPoleGoal(List<Goal> allGoals) {
+	public CreatePickaxeGoal(List<Goal> allGoals) {
 		allGoals.add(this);
 	}
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.FISHING_POLE_QUALITY, QUANTITY_TO_BUY, world);
-		if (targets.size() > 0) {
-			return BuySellUtils.create(performer, targets.get(0), Item.FISHING_POLE, QUANTITY_TO_BUY, world);
+		Integer workbenchId = BuildingGenerator.getWorkbenchId(performer);
+		if (workbenchId == null) {
+			return Goals.WORKBENCH_GOAL.calculateGoal(performer, world);
 		} else {
-			return Goals.CREATE_FISHING_POLE_GOAL.calculateGoal(performer, world);
+			if (!ConstructPickAxeAction.hasEnoughWood(performer)) {
+				return Goals.WOOD_GOAL.calculateGoal(performer, world);
+			} else if (!ConstructPickAxeAction.hasEnoughOre(performer)) {
+				return Goals.ORE_GOAL.calculateGoal(performer, world);
+			} else {
+				WorldObject workbench = world.findWorldObjectById(workbenchId);
+				return new OperationInfo(performer, workbench, Args.EMPTY, Actions.CONSTRUCT_PICK_AXE_ACTION);
+			}
 		}
 	}
 	
 	@Override
 	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
-		defaultGoalMetOrNot(performer, world, goalMet, Constants.FISHING_POLE_QUALITY);
+		defaultGoalMetOrNot(performer, world, goalMet, Constants.PICKAXE_QUALITY);
 	}
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.FISHING_POLE_QUALITY) > 0;
+		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.PICKAXE_QUALITY) > 0;
 	}
 	
 	@Override
@@ -57,11 +65,11 @@ public class FishingPoleGoal implements Goal {
 
 	@Override
 	public String getDescription() {
-		return "looking for a fishing pole";
+		return "looking for a pickaxe";
 	}
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.FISHING_POLE_QUALITY);
+		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.PICKAXE_QUALITY);
 	}
 }

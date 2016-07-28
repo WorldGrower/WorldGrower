@@ -485,6 +485,7 @@ public class ImageInfoReader {
         add(ImageIds.VINE_WITH_GRAPES, vineWithGrapes.getSubImage(0, 0, 1, 1));
         add(ImageIds.YOUNG_NIGHT_SHADE_PLANT, tileB.getSubImage(4, 6, 1, 1));
         add(ImageIds.YOUNG_COTTON_PLANT, youngCottonPlant.getSubImage(0, 0, 1, 1));
+        add(ImageIds.PICKAXE, pirates.getSubImage(9, 2, 1, 1));
     }
     
     private void resizeSmallFlowers() {
