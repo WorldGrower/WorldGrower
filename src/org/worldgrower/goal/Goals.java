@@ -170,4 +170,8 @@ public class Goals {
 	public static final MarkRepairHammersAsSellableGoal MARK_REPAIR_HAMMERS_AS_SELLABLE_GOAL = new MarkRepairHammersAsSellableGoal(ALL_GOALS);
 	public static final CreateFishingPoleGoal CREATE_FISHING_POLE_GOAL = new CreateFishingPoleGoal(ALL_GOALS);
 	public static final CreatePickaxeGoal CREATE_PICKAXE_GOAL = new CreatePickaxeGoal(ALL_GOALS);
+	public static final MarkFishingPoleAsSellableGoal MARK_FISHING_POLE_AS_SELLABLE_GOAL = new MarkFishingPoleAsSellableGoal(ALL_GOALS);
+	public static final MarkPickaxeAsSellableGoal MARK_PICKAXE_AS_SELLABLE_GOAL = new MarkPickaxeAsSellableGoal(ALL_GOALS);
+	public static final PickaxeGoal PICKAXE_GOAL = new PickaxeGoal(ALL_GOALS);
+	public static final EquipPickaxeGoal EQUIP_PICKAXE_GOAL = new EquipPickaxeGoal(ALL_GOALS);
 }

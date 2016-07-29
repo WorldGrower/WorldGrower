@@ -27,15 +27,15 @@ import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
 
-public class UTestConstructBedAction {
+public class UTestConstructPickaxeAction {
 
 	@Test
 	public void testExecute() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
-		Actions.CONSTRUCT_BED_ACTION.execute(performer, performer, Args.EMPTY, world);
+		Actions.CONSTRUCT_PICK_AXE_ACTION.execute(performer, performer, Args.EMPTY, world);
 		
-		assertEquals(1, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.SLEEP_COMFORT));
+		assertEquals(1, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.PICKAXE_QUALITY));
 	}
 	
 	@Test
@@ -45,14 +45,8 @@ public class UTestConstructBedAction {
 		
 		WorldObject workbench = createWorkbench(world, performer);
 		
-		assertEquals(true, Actions.CONSTRUCT_BED_ACTION.isValidTarget(performer, workbench, world));
-		assertEquals(false, Actions.CONSTRUCT_BED_ACTION.isValidTarget(performer, performer, world));
-	}
-
-	private WorldObject createWorkbench(World world, WorldObject performer) {
-		int workbenchId = BuildingGenerator.generateWorkbench(0, 0, world, performer);
-		WorldObject workbench = world.findWorldObjectById(workbenchId);
-		return workbench;
+		assertEquals(true, Actions.CONSTRUCT_PICK_AXE_ACTION.isValidTarget(performer, workbench, world));
+		assertEquals(false, Actions.CONSTRUCT_PICK_AXE_ACTION.isValidTarget(performer, performer, world));
 	}
 	
 	@Test
@@ -61,9 +55,16 @@ public class UTestConstructBedAction {
 		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
 		
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.ORE.generate(1f), 20);
 		
 		WorldObject workbench = createWorkbench(world, performer);
 		
-		assertEquals(true, Actions.CONSTRUCT_BED_ACTION.isActionPossible(performer, workbench, Args.EMPTY, world));
+		assertEquals(true, Actions.CONSTRUCT_PICK_AXE_ACTION.isActionPossible(performer, workbench, Args.EMPTY, world));
+	}
+
+	private WorldObject createWorkbench(World world, WorldObject performer) {
+		int workbenchId = BuildingGenerator.generateWorkbench(0, 0, world, performer);
+		WorldObject workbench = world.findWorldObjectById(workbenchId);
+		return workbench;
 	}
 }

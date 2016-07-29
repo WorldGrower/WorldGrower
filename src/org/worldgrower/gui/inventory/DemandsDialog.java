@@ -104,7 +104,10 @@ public final class DemandsDialog extends AbstractDialog {
 		Constants.GRAPE,
 		Constants.OIL,
 		Constants.POISON_DAMAGE,
-		Constants.SOUL_GEM
+		Constants.SOUL_GEM,
+		Constants.FISHING_POLE_QUALITY,
+		Constants.REPAIR_QUALITY,
+		Constants.PICKAXE_QUALITY
 		};
 	
 	private static class DemandsModel extends AbstractTableModel {

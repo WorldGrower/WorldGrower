@@ -712,7 +712,10 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestAdjustPricesGoal.class,
 	UTestMarkNonEquipedItemsAsSellableGoal.class,
 	UTestSetPricesAction.class,
-	UTestFoodPropertyUtils.class
+	UTestFoodPropertyUtils.class,
+	UTestCreatePickaxeGoal.class,
+	UTestEquipPickaxeGoal.class,
+	UTestConstructPickaxeAction.class
 })
 public class CompleteTestSuite {
 }
