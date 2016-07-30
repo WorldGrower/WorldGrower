@@ -139,11 +139,11 @@ public class Constants {
 	public static final IntProperty ARMOR = new IntProperty("armor", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty WEIGHT = new IntProperty("weight", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty EQUIPMENT_HEALTH = new IntProperty("equipmentHealth", 0, 1000, NOT_NULLABLE, ALL_PROPERTIES);
-	public static final IntProperty POISON_DAMAGE = new IntProperty("damage", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
-	public static final IntProperty REPAIR_QUALITY = new IntProperty("repairQuality", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
-	public static final IntProperty PICKAXE_QUALITY = new IntProperty("pickaxeQuality", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
-	public static final IntProperty SCYTHE_QUALITY = new IntProperty("scytheQuality", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
-	public static final IntProperty WOOD_CUTTING_QUALITY = new IntProperty("woodCuttingQuality", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty POISON_DAMAGE = new IntProperty("poison damage", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty REPAIR_QUALITY = new IntProperty("repair tool", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty PICKAXE_QUALITY = new IntProperty("mining tool", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty SCYTHE_QUALITY = new IntProperty("farming tool", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty WOOD_CUTTING_QUALITY = new IntProperty("wood cutting tool", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	
 	public static final UnCheckedProperty<DamageType> DAMAGE_TYPE = new UnCheckedProperty<>("damageType", ALL_PROPERTIES);
 	
@@ -196,7 +196,7 @@ public class Constants {
 	public static final IntProperty SLEEP_COMFORT = new IntProperty("sleep comfort", 0, 100, NOT_NULLABLE, ALL_PROPERTIES);
 	
 	public static final IntProperty SMITH_QUALITY = new IntProperty("smithQuality", 0, 100, NOT_NULLABLE, ALL_PROPERTIES);
-	public static final IntProperty FISHING_POLE_QUALITY = new IntProperty("fishingPoleQuality", 0, 100, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty FISHING_POLE_QUALITY = new IntProperty("fishing tool", 0, 100, NOT_NULLABLE, ALL_PROPERTIES);
 	
 	public static final IntProperty ID = new IntProperty("Id", null, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final UnCheckedProperty<ImageIds> IMAGE_ID = new UnCheckedProperty<>("ImageId", ALL_PROPERTIES);

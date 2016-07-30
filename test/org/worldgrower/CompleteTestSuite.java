@@ -715,7 +715,11 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestFoodPropertyUtils.class,
 	UTestCreatePickaxeGoal.class,
 	UTestEquipPickaxeGoal.class,
-	UTestConstructPickaxeAction.class
+	UTestConstructPickaxeAction.class,
+	UTestCreateScytheGoal.class,
+	UTestCreateIronAxeGoal.class,
+	UTestEquipWoodCuttingToolGoal.class,
+	UTestEquipScytheGoal.class
 })
 public class CompleteTestSuite {
 }
