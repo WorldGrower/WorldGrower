@@ -24,32 +24,33 @@ import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
-import org.worldgrower.gui.music.SoundIds;
 
-public class CraftIronAxeAction implements CraftAction {
+public class ConstructScytheAction implements CraftAction {
+
 	private static final int DISTANCE = 1;
-	private static final int WOOD_REQUIRED = 5;
-	private static final int ORE_REQUIRED = 3;
+	
+	private static final int WOOD_REQUIRED = 2;
+	private static final int ORE_REQUIRED = 2;
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
 		
-		double skillBonus = SkillUtils.useSkill(performer, Constants.SMITHING_SKILL, world.getWorldStateChangedListeners());
-		inventory.addQuantity(Item.IRON_AXE.generate(skillBonus));
+		double skillBonus = SkillUtils.useSkill(performer, Constants.CARPENTRY_SKILL, world.getWorldStateChangedListeners());
+		inventory.addQuantity(Item.SCYTHE.generate(skillBonus));
 
 		inventory.removeQuantity(Constants.WOOD, WOOD_REQUIRED);
 		inventory.removeQuantity(Constants.ORE, ORE_REQUIRED);
 	}
 
 	@Override
-	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
-		return CraftUtils.hasEnoughResources(performer, WOOD_REQUIRED, ORE_REQUIRED);
+	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
+		return Reach.evaluateTarget(performer, args, target, DISTANCE);
 	}
 	
 	@Override
-	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return Reach.evaluateTarget(performer, args, target, DISTANCE);
+	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
+		return CraftUtils.hasEnoughResources(performer, WOOD_REQUIRED, ORE_REQUIRED);
 	}
 	
 	@Override
@@ -64,38 +65,33 @@ public class CraftIronAxeAction implements CraftAction {
 
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return target.hasProperty(Constants.SMITH_QUALITY);
+		return target.hasProperty(Constants.WORKBENCH_QUALITY);
 	}
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "crafting iron axe";
+		return "constructing scythe";
 	}
 
 	@Override
 	public String getSimpleDescription() {
-		return "craft iron axe";
+		return "construct scythe";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
 	}
-	
-	@Override
-	public ImageIds getImageIds() {
-		return ImageIds.IRON_AXE;
-	}
-	
-	@Override
-	public SoundIds getSoundId() {
-		return SoundIds.SMITH;
-	}
-	
+
 	public static boolean hasEnoughWood(WorldObject performer) {
 		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) >= WOOD_REQUIRED;
 	}
 	
 	public static boolean hasEnoughOre(WorldObject performer) {
 		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.ORE) >= ORE_REQUIRED;
+	}
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.SCYTHE;
 	}
 }

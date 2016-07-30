@@ -21,35 +21,35 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.actions.MinePropertyUtils;
+import org.worldgrower.actions.WoodPropertyUtils;
 
-public class EquipPickaxeGoal implements Goal {
+public class EquipWoodCuttingToolGoal implements Goal {
 
-	public EquipPickaxeGoal(List<Goal> allGoals) {
+	public EquipWoodCuttingToolGoal(List<Goal> allGoals) {
 		allGoals.add(this);
 	}
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		if (!MinePropertyUtils.leftHandContainsPickaxe(performer)) {
-			if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.PICKAXE_QUALITY) > 0) {
-				int indexOfPickaxe = performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.PICKAXE_QUALITY);
-				return new OperationInfo(performer, performer, new int[] { indexOfPickaxe }, Actions.EQUIP_INVENTORY_ITEM_ACTION);
+		if (!WoodPropertyUtils.leftHandContainsWoodCuttingTool(performer)) {
+			if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD_CUTTING_QUALITY) > 0) {
+				int indexOfWoodCuttingQuality = performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.WOOD_CUTTING_QUALITY);
+				return new OperationInfo(performer, performer, new int[] { indexOfWoodCuttingQuality }, Actions.EQUIP_INVENTORY_ITEM_ACTION);
 			} else {
-				return Goals.PICKAXE_GOAL.calculateGoal(performer, world);
+				return Goals.WOOD_CUTTING_TOOL_GOAL.calculateGoal(performer, world);
 			}
 		}
 		
 		return null;
 	}
-	
+
 	@Override
 	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
 	}
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		return MinePropertyUtils.leftHandContainsPickaxe(performer);
+		return WoodPropertyUtils.leftHandContainsWoodCuttingTool(performer);
 	}
 	
 	@Override
@@ -59,7 +59,7 @@ public class EquipPickaxeGoal implements Goal {
 
 	@Override
 	public String getDescription() {
-		return "equipping a pickaxe";
+		return "equipping an axe";
 	}
 
 	@Override

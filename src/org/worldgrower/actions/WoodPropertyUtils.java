@@ -16,6 +16,7 @@ package org.worldgrower.actions;
 
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.SkillUtils;
 
 public class WoodPropertyUtils {
 
@@ -28,5 +29,18 @@ public class WoodPropertyUtils {
 	
 	public static boolean woodSourceHasEnoughWood(WorldObject target) {
 		return (target.hasProperty(Constants.WOOD_SOURCE)) && (target.getProperty(Constants.WOOD_SOURCE) > 10);
+	}
+	
+	public static boolean leftHandContainsWoodCuttingTool(WorldObject performer) {
+		WorldObject leftHand = performer.getProperty(Constants.LEFT_HAND_EQUIPMENT);
+		return (leftHand != null && leftHand.hasProperty(Constants.WOOD_CUTTING_QUALITY));
+	}
+	
+	public static int calculateLumberingQuantity(WorldObject performer) {
+		int quantity = SkillUtils.getLogarithmicSkillBonus(performer, Constants.LUMBERING_SKILL);
+		if (leftHandContainsWoodCuttingTool(performer)) {
+			quantity += 1;
+		}
+		return quantity;
 	}
 }

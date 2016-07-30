@@ -154,3 +154,6 @@ Actor3_zpsb3524fc2.png
 
 Mouse cursor by lancel at http://opengameart.org/content/knights-glove-mouse-cursor
 RPG_Mouse_Cursor_3.png
+
+Scythe sprite by Jeneeus Guruman at http://forums.rpgmakerweb.com/index.php?/topic/49933-rpg-maker-mv-game-making-drive/&page=2
+scythe.png

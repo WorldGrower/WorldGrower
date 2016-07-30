@@ -34,7 +34,8 @@ public class CutWoodAction implements ManagedOperation {
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f));
+		int quantity = WoodPropertyUtils.calculateLumberingQuantity(performer);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), quantity);
 		target.increment(Constants.WOOD_SOURCE, - 10);
 		
 		WoodPropertyUtils.checkWoodSourceExhausted(target);

@@ -21,22 +21,22 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.actions.MinePropertyUtils;
+import org.worldgrower.actions.FoodPropertyUtils;
 
-public class EquipPickaxeGoal implements Goal {
+public class EquipScytheGoal implements Goal {
 
-	public EquipPickaxeGoal(List<Goal> allGoals) {
+	public EquipScytheGoal(List<Goal> allGoals) {
 		allGoals.add(this);
 	}
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		if (!MinePropertyUtils.leftHandContainsPickaxe(performer)) {
-			if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.PICKAXE_QUALITY) > 0) {
-				int indexOfPickaxe = performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.PICKAXE_QUALITY);
-				return new OperationInfo(performer, performer, new int[] { indexOfPickaxe }, Actions.EQUIP_INVENTORY_ITEM_ACTION);
+		if (!FoodPropertyUtils.leftHandContainsScythe(performer)) {
+			if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.SCYTHE_QUALITY) > 0) {
+				int indexOfScythe = performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.SCYTHE_QUALITY);
+				return new OperationInfo(performer, performer, new int[] { indexOfScythe }, Actions.EQUIP_INVENTORY_ITEM_ACTION);
 			} else {
-				return Goals.PICKAXE_GOAL.calculateGoal(performer, world);
+				return Goals.SCYTHE_GOAL.calculateGoal(performer, world);
 			}
 		}
 		
@@ -49,7 +49,7 @@ public class EquipPickaxeGoal implements Goal {
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		return MinePropertyUtils.leftHandContainsPickaxe(performer);
+		return FoodPropertyUtils.leftHandContainsScythe(performer);
 	}
 	
 	@Override
@@ -59,7 +59,7 @@ public class EquipPickaxeGoal implements Goal {
 
 	@Override
 	public String getDescription() {
-		return "equipping a pickaxe";
+		return "equipping a scythe";
 	}
 
 	@Override

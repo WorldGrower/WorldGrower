@@ -12,24 +12,20 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.actions;
+package org.worldgrower.goal;
+
+import java.util.List;
 
 import org.worldgrower.Constants;
-import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.SkillUtils;
 
-public class MinePropertyUtils {
-
-	public static boolean leftHandContainsPickaxe(WorldObject performer) {
-		WorldObject leftHand = performer.getProperty(Constants.LEFT_HAND_EQUIPMENT);
-		return (leftHand != null && leftHand.hasProperty(Constants.PICKAXE_QUALITY));
-	}
+public class MarkScytheAsSellableGoal extends AbstractMarkAsSellableGoal {
 	
-	public static int calculateMiningQuantity(WorldObject performer) {
-		int quantity = SkillUtils.getLogarithmicSkillBonus(performer, Constants.MINING_SKILL);
-		if (leftHandContainsPickaxe(performer)) {
-			quantity += 1;
-		}
-		return quantity;
+	public MarkScytheAsSellableGoal() {
+		super(Constants.SCYTHE_QUALITY);
+	}
+
+	public MarkScytheAsSellableGoal(List<Goal> allGoals) {
+		this();
+		allGoals.add(this);
 	}
 }

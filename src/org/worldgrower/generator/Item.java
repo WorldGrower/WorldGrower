@@ -81,7 +81,8 @@ public enum Item {
 	SLEEPING_POTION(ItemType.DRINK),
 	MINIATURE_CHEST(ItemType.MISC),
 	REMAINS(ItemType.MISC),
-	PICKAXE(ItemType.MISC);
+	PICKAXE(ItemType.MISC),
+	SCYTHE(ItemType.MISC);
 
 	public static final int COMBAT_MULTIPLIER = 10;
 	
@@ -168,6 +169,7 @@ public enum Item {
 			properties.put(Constants.WEIGHT, 22);
 			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
+			properties.put(Constants.WOOD_CUTTING_QUALITY, (int)(2 * skillBonus));
 			properties.put(Constants.IMAGE_ID, ImageIds.IRON_AXE);
 			return new WorldObjectImpl(properties);
 		});
@@ -618,6 +620,21 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
 			properties.put(Constants.PICKAXE_QUALITY, (int)(2 * skillBonus));
 			properties.put(Constants.IMAGE_ID, ImageIds.PICKAXE);
+			return new WorldObjectImpl(properties);
+		});
+		
+		addItem(Item.SCYTHE, skillBonus -> {
+			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+			properties.put(Constants.NAME, "scythe");
+			properties.put(Constants.PRICE, 20);
+			properties.put(Constants.SELLABLE, false);
+			properties.put(Constants.DAMAGE, 1 * COMBAT_MULTIPLIER);
+			properties.put(Constants.DAMAGE_TYPE, DamageType.SLASHING);
+			properties.put(Constants.WEIGHT, 3);
+			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
+			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
+			properties.put(Constants.SCYTHE_QUALITY, (int)(2 * skillBonus));
+			properties.put(Constants.IMAGE_ID, ImageIds.SCYTHE);
 			return new WorldObjectImpl(properties);
 		});
 		

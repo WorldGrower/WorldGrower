@@ -35,7 +35,7 @@ public class HarvestFoodAction implements ManagedOperation {
 		WorldObjectContainer inventoryPerformer = performer.getProperty(Constants.INVENTORY);
 		
 		WorldObject harvestedFood = Item.BERRIES.generate(1f);
-		int quantity = SkillUtils.getLogarithmicSkillBonus(performer, Constants.FARMING_SKILL);
+		int quantity = FoodPropertyUtils.calculateFarmingQuantity(performer);
 		inventoryPerformer.addQuantity(harvestedFood, quantity);
 
 		target.increment(Constants.FOOD_SOURCE, -100);

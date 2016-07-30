@@ -16,40 +16,46 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.actions.MinePropertyUtils;
+import org.worldgrower.actions.ConstructScytheAction;
+import org.worldgrower.generator.BuildingGenerator;
 
-public class EquipPickaxeGoal implements Goal {
+public class CreateScytheGoal implements Goal {
 
-	public EquipPickaxeGoal(List<Goal> allGoals) {
+	public CreateScytheGoal(List<Goal> allGoals) {
 		allGoals.add(this);
 	}
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		if (!MinePropertyUtils.leftHandContainsPickaxe(performer)) {
-			if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.PICKAXE_QUALITY) > 0) {
-				int indexOfPickaxe = performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.PICKAXE_QUALITY);
-				return new OperationInfo(performer, performer, new int[] { indexOfPickaxe }, Actions.EQUIP_INVENTORY_ITEM_ACTION);
+		Integer workbenchId = BuildingGenerator.getWorkbenchId(performer);
+		if (workbenchId == null) {
+			return Goals.WORKBENCH_GOAL.calculateGoal(performer, world);
+		} else {
+			if (!ConstructScytheAction.hasEnoughWood(performer)) {
+				return Goals.WOOD_GOAL.calculateGoal(performer, world);
+			} else if (!ConstructScytheAction.hasEnoughOre(performer)) {
+				return Goals.ORE_GOAL.calculateGoal(performer, world);
 			} else {
-				return Goals.PICKAXE_GOAL.calculateGoal(performer, world);
+				WorldObject workbench = world.findWorldObjectById(workbenchId);
+				return new OperationInfo(performer, workbench, Args.EMPTY, Actions.CONSTRUCT_SCYTHE_ACTION);
 			}
 		}
-		
-		return null;
 	}
 	
 	@Override
 	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
+		defaultGoalMetOrNot(performer, world, goalMet, Constants.SCYTHE_QUALITY);
 	}
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		return MinePropertyUtils.leftHandContainsPickaxe(performer);
+		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.SCYTHE_QUALITY) > 0;
 	}
 	
 	@Override
@@ -59,11 +65,11 @@ public class EquipPickaxeGoal implements Goal {
 
 	@Override
 	public String getDescription() {
-		return "equipping a pickaxe";
+		return "looking for a scythe";
 	}
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		return 0;
+		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.SCYTHE_QUALITY);
 	}
 }

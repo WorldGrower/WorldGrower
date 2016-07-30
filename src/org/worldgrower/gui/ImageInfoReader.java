@@ -92,6 +92,7 @@ public class ImageInfoReader {
     	Sprites vine = readSpritesVine();
     	Sprites cottonPlant = readSpritesCottonPlant();
     	Sprites youngCottonPlant = readSpritesYoungCottonPlant();
+    	Sprites scythe = readScythe();
     	
     	addCharacter(ImageIds.KNIGHT, sprites, 0, 0, 1, 1);
     	addCharacter(ImageIds.GUARD, sprites, 0, 4, 1, 1);
@@ -486,6 +487,8 @@ public class ImageInfoReader {
         add(ImageIds.YOUNG_NIGHT_SHADE_PLANT, tileB.getSubImage(4, 6, 1, 1));
         add(ImageIds.YOUNG_COTTON_PLANT, youngCottonPlant.getSubImage(0, 0, 1, 1));
         add(ImageIds.PICKAXE, pirates.getSubImage(9, 2, 1, 1));
+        add(ImageIds.SCYTHE, scythe.getSubImage(0, 0, 1, 1));
+        
     }
     
     private void resizeSmallFlowers() {
@@ -841,6 +844,10 @@ public class ImageInfoReader {
 	
 	private static Sprites readSpritesYoungCottonPlant() throws IOException {
 		return readImages("youngcottonplant.png", 48, 48, 1, 1);
+	}
+	
+	private static Sprites readScythe() throws IOException {
+		return readImages("scythe.png", 48, 48, 1, 1);
 	}
 	
 	private static Sprites readSpritesApothecary() throws IOException {

@@ -31,7 +31,7 @@ public class EatAction implements ManagedOperation {
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		int foodInTarget = target.getProperty(Constants.FOOD_SOURCE);
-		int foodIncrease = (int)(100 * SkillUtils.getSkillBonus(performer, Constants.FARMING_SKILL));
+		int foodIncrease = 100 * FoodPropertyUtils.calculateFarmingQuantity(performer);
 		performer.increment(Constants.FOOD, foodIncrease);
 		target.setProperty(Constants.FOOD_SOURCE, foodInTarget - 100);
 

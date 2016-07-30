@@ -142,6 +142,8 @@ public class Constants {
 	public static final IntProperty POISON_DAMAGE = new IntProperty("damage", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty REPAIR_QUALITY = new IntProperty("repairQuality", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty PICKAXE_QUALITY = new IntProperty("pickaxeQuality", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty SCYTHE_QUALITY = new IntProperty("scytheQuality", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty WOOD_CUTTING_QUALITY = new IntProperty("woodCuttingQuality", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	
 	public static final UnCheckedProperty<DamageType> DAMAGE_TYPE = new UnCheckedProperty<>("damageType", ALL_PROPERTIES);
 	

@@ -14,8 +14,6 @@
  *******************************************************************************/
 package org.worldgrower.gui;
 
-import org.worldgrower.attribute.SkillProperty;
-
 public enum ImageIds {
 	KNIGHT,
 	GUARD,
@@ -349,5 +347,6 @@ public enum ImageIds {
 	VINE_WITH_GRAPES,
 	YOUNG_NIGHT_SHADE_PLANT,
 	YOUNG_COTTON_PLANT,
-	PICKAXE
+	PICKAXE,
+	SCYTHE
 }

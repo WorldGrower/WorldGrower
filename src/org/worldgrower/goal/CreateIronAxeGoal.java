@@ -16,40 +16,46 @@ package org.worldgrower.goal;
 
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.actions.MinePropertyUtils;
+import org.worldgrower.actions.CraftIronAxeAction;
+import org.worldgrower.generator.BuildingGenerator;
 
-public class EquipPickaxeGoal implements Goal {
+public class CreateIronAxeGoal implements Goal {
 
-	public EquipPickaxeGoal(List<Goal> allGoals) {
+	public CreateIronAxeGoal(List<Goal> allGoals) {
 		allGoals.add(this);
 	}
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		if (!MinePropertyUtils.leftHandContainsPickaxe(performer)) {
-			if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.PICKAXE_QUALITY) > 0) {
-				int indexOfPickaxe = performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.PICKAXE_QUALITY);
-				return new OperationInfo(performer, performer, new int[] { indexOfPickaxe }, Actions.EQUIP_INVENTORY_ITEM_ACTION);
+		Integer smithId = BuildingGenerator.getSmithId(performer);
+		if (smithId == null) {
+			return Goals.SMITH_GOAL.calculateGoal(performer, world);
+		} else {
+			if (!CraftIronAxeAction.hasEnoughWood(performer)) {
+				return Goals.WOOD_GOAL.calculateGoal(performer, world);
+			} else if (!CraftIronAxeAction.hasEnoughOre(performer)) {
+				return Goals.ORE_GOAL.calculateGoal(performer, world);
 			} else {
-				return Goals.PICKAXE_GOAL.calculateGoal(performer, world);
+				WorldObject smith = world.findWorldObjectById(smithId);
+				return new OperationInfo(performer, smith, Args.EMPTY, Actions.CRAFT_IRON_AXE_ACTION);
 			}
 		}
-		
-		return null;
 	}
 	
 	@Override
 	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
+		defaultGoalMetOrNot(performer, world, goalMet, Constants.WOOD_CUTTING_QUALITY);
 	}
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		return MinePropertyUtils.leftHandContainsPickaxe(performer);
+		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD_CUTTING_QUALITY) > 0;
 	}
 	
 	@Override
@@ -59,11 +65,11 @@ public class EquipPickaxeGoal implements Goal {
 
 	@Override
 	public String getDescription() {
-		return "equipping a pickaxe";
+		return "looking for an axe";
 	}
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		return 0;
+		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD_CUTTING_QUALITY);
 	}
 }

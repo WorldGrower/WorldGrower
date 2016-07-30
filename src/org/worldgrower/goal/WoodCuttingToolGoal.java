@@ -20,36 +20,34 @@ import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.actions.Actions;
-import org.worldgrower.actions.MinePropertyUtils;
+import org.worldgrower.generator.Item;
 
-public class EquipPickaxeGoal implements Goal {
+public class WoodCuttingToolGoal implements Goal {
 
-	public EquipPickaxeGoal(List<Goal> allGoals) {
+	private static final int QUANTITY_TO_BUY = 1;
+	
+	public WoodCuttingToolGoal(List<Goal> allGoals) {
 		allGoals.add(this);
 	}
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		if (!MinePropertyUtils.leftHandContainsPickaxe(performer)) {
-			if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.PICKAXE_QUALITY) > 0) {
-				int indexOfPickaxe = performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.PICKAXE_QUALITY);
-				return new OperationInfo(performer, performer, new int[] { indexOfPickaxe }, Actions.EQUIP_INVENTORY_ITEM_ACTION);
-			} else {
-				return Goals.PICKAXE_GOAL.calculateGoal(performer, world);
-			}
+		List<WorldObject> targets = BuySellUtils.findBuyTargets(performer, Constants.WOOD_CUTTING_QUALITY, QUANTITY_TO_BUY, world);
+		if (targets.size() > 0) {
+			return BuySellUtils.create(performer, targets.get(0), Item.IRON_AXE, QUANTITY_TO_BUY, world);
+		} else {
+			return Goals.CREATE_IRON_AXE_GOAL.calculateGoal(performer, world);
 		}
-		
-		return null;
 	}
 	
 	@Override
 	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
+		defaultGoalMetOrNot(performer, world, goalMet, Constants.WOOD_CUTTING_QUALITY);
 	}
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		return MinePropertyUtils.leftHandContainsPickaxe(performer);
+		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD_CUTTING_QUALITY) > 0;
 	}
 	
 	@Override
@@ -59,11 +57,11 @@ public class EquipPickaxeGoal implements Goal {
 
 	@Override
 	public String getDescription() {
-		return "equipping a pickaxe";
+		return "looking for an axe";
 	}
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		return 0;
+		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD_CUTTING_QUALITY);
 	}
 }

@@ -174,4 +174,11 @@ public class Goals {
 	public static final MarkPickaxeAsSellableGoal MARK_PICKAXE_AS_SELLABLE_GOAL = new MarkPickaxeAsSellableGoal(ALL_GOALS);
 	public static final PickaxeGoal PICKAXE_GOAL = new PickaxeGoal(ALL_GOALS);
 	public static final EquipPickaxeGoal EQUIP_PICKAXE_GOAL = new EquipPickaxeGoal(ALL_GOALS);
+	public static final CreateScytheGoal CREATE_SCYTHE_GOAL = new CreateScytheGoal(ALL_GOALS);
+	public static final ScytheGoal SCYTHE_GOAL = new ScytheGoal(ALL_GOALS);
+	public static final EquipScytheGoal EQUIP_SCYTHE_GOAL = new EquipScytheGoal(ALL_GOALS);
+	public static final MarkScytheAsSellableGoal MARK_SCYTHE_AS_SELLABLE_GOAL = new MarkScytheAsSellableGoal(ALL_GOALS);
+	public static final WoodCuttingToolGoal WOOD_CUTTING_TOOL_GOAL = new WoodCuttingToolGoal(ALL_GOALS);
+	public static final EquipWoodCuttingToolGoal EQUIP_WOOD_CUTTING_TOOL_GOAL = new EquipWoodCuttingToolGoal(ALL_GOALS);
+	public static final CreateIronAxeGoal CREATE_IRON_AXE_GOAL = new CreateIronAxeGoal(ALL_GOALS);
 }

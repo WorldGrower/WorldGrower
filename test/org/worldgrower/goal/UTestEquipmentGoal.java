@@ -55,7 +55,7 @@ public class UTestEquipmentGoal {
 
 		addSmith(world, performer);
 		
-		assertEquals(Actions.CRAFT_IRON_CLAYMORE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+		assertEquals(Actions.CRAFT_IRON_AXE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
 
 	@Test

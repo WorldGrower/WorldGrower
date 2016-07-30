@@ -22,7 +22,6 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.BuildingGenerator;
 
@@ -41,7 +40,7 @@ public class CraftEquipmentGoal implements Goal {
 		} else if (inventory.getQuantityFor(Constants.ORE) < 7) {
 			return Goals.ORE_GOAL.calculateGoal(performer, world);
 		} else if (smithId != null) {
-			int ironClaymoreCount = inventory.getWorldObjects(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT).size();
+			int ironAxeCount = inventory.getWorldObjects(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT).size();
 			int ironCuirassCount = inventory.getWorldObjects(Constants.EQUIPMENT_SLOT, Constants.TORSO_EQUIPMENT).size();
 			int ironHelmetCount = inventory.getWorldObjects(Constants.EQUIPMENT_SLOT, Constants.HEAD_EQUIPMENT).size();
 			int ironGauntletsCount = inventory.getWorldObjects(Constants.EQUIPMENT_SLOT, Constants.ARMS_EQUIPMENT).size();
@@ -49,9 +48,9 @@ public class CraftEquipmentGoal implements Goal {
 			int ironBootsCount = inventory.getWorldObjects(Constants.EQUIPMENT_SLOT, Constants.FEET_EQUIPMENT).size();
 			WorldObject smith = world.findWorldObjectById(smithId);
 			
-			if (ironClaymoreCount == 0){
-				return new OperationInfo(performer, smith, Args.EMPTY, Actions.CRAFT_IRON_CLAYMORE_ACTION);
-			} else if (ironCuirassCount < ironClaymoreCount) {
+			if (ironAxeCount == 0){
+				return new OperationInfo(performer, smith, Args.EMPTY, Actions.CRAFT_IRON_AXE_ACTION);
+			} else if (ironCuirassCount < ironAxeCount) {
 				return new OperationInfo(performer, smith, Args.EMPTY, Actions.CRAFT_IRON_CUIRASS_ACTION);
 			} else if (ironHelmetCount < ironCuirassCount) {
 				return new OperationInfo(performer, smith, Args.EMPTY, Actions.CRAFT_IRON_HELMET_ACTION);

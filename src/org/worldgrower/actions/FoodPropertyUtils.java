@@ -16,6 +16,7 @@ package org.worldgrower.actions;
 
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.SkillUtils;
 
 public class FoodPropertyUtils {
 
@@ -28,5 +29,18 @@ public class FoodPropertyUtils {
 	
 	public static boolean foodSourceHasEnoughFood(WorldObject target) {
 		return (target.hasProperty(Constants.FOOD_SOURCE)) && (target.getProperty(Constants.FOOD_SOURCE) >= 100);
+	}
+	
+	public static boolean leftHandContainsScythe(WorldObject performer) {
+		WorldObject leftHand = performer.getProperty(Constants.LEFT_HAND_EQUIPMENT);
+		return (leftHand != null && leftHand.hasProperty(Constants.SCYTHE_QUALITY));
+	}
+	
+	public static int calculateFarmingQuantity(WorldObject performer) {
+		int quantity = SkillUtils.getLogarithmicSkillBonus(performer, Constants.FARMING_SKILL);
+		if (leftHandContainsScythe(performer)) {
+			quantity += 1;
+		}
+		return quantity;
 	}
 }

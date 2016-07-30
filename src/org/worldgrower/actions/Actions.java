@@ -273,6 +273,7 @@ public class Actions {
 	public static final MajorIllusionAction MAJOR_ILLUSION_ACTION = new MajorIllusionAction();
 	public static final SetPricesAction SET_PRICES_ACTION = new SetPricesAction();
 	public static final ConstructPickAxeAction CONSTRUCT_PICK_AXE_ACTION = new ConstructPickAxeAction();
+	public static final ConstructScytheAction CONSTRUCT_SCYTHE_ACTION = new ConstructScytheAction();
 	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 
@@ -468,7 +469,8 @@ public class Actions {
 		DISMISS_SECRET_CHEST_ACTION,
 		EAT_REMAINS_ACTION,
 		SET_PRICES_ACTION,
-		CONSTRUCT_PICK_AXE_ACTION
+		CONSTRUCT_PICK_AXE_ACTION,
+		CONSTRUCT_SCYTHE_ACTION
 	));
 	
 	static {

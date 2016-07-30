@@ -68,7 +68,7 @@ public class UTestCraftEquipmentGoal {
 	}
 	
 	@Test
-	public void testCalculateGoalIronClaymore() {
+	public void testCalculateGoalIronAxe() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
@@ -76,7 +76,7 @@ public class UTestCraftEquipmentGoal {
 		
 		addSmith(world, performer);
 		
-		assertEquals(Actions.CRAFT_IRON_CLAYMORE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+		assertEquals(Actions.CRAFT_IRON_AXE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
 	
 	@Test
@@ -85,7 +85,7 @@ public class UTestCraftEquipmentGoal {
 		WorldObject performer = createPerformer();
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.ORE.generate(1f), 10);
-		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_CLAYMORE.generate(1f));
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_AXE.generate(1f));
 		
 		addSmith(world, performer);
 		
@@ -98,7 +98,7 @@ public class UTestCraftEquipmentGoal {
 		WorldObject performer = createPerformer();
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.ORE.generate(1f), 10);
-		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_CLAYMORE.generate(1f));
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_AXE.generate(1f));
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_CUIRASS.generate(1f));
 		
 		addSmith(world, performer);
@@ -112,7 +112,7 @@ public class UTestCraftEquipmentGoal {
 		WorldObject performer = createPerformer();
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.ORE.generate(1f), 10);
-		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_CLAYMORE.generate(1f));
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_AXE.generate(1f));
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_CUIRASS.generate(1f));
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_HELMET.generate(1f));
 		
@@ -127,7 +127,7 @@ public class UTestCraftEquipmentGoal {
 		WorldObject performer = createPerformer();
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.ORE.generate(1f), 10);
-		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_CLAYMORE.generate(1f));
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_AXE.generate(1f));
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_CUIRASS.generate(1f));
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_HELMET.generate(1f));
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_GAUNTLETS.generate(1f));
@@ -148,7 +148,7 @@ public class UTestCraftEquipmentGoal {
 		WorldObject performer = createPerformer();
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.ORE.generate(1f), 10);
-		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_CLAYMORE.generate(1f));
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_AXE.generate(1f));
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_CUIRASS.generate(1f));
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_HELMET.generate(1f));
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_GAUNTLETS.generate(1f));
@@ -165,7 +165,7 @@ public class UTestCraftEquipmentGoal {
 		WorldObject performer = createPerformer();
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.ORE.generate(1f), 10);
-		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_CLAYMORE.generate(1f));
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_AXE.generate(1f));
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_CUIRASS.generate(1f));
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_HELMET.generate(1f));
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_GAUNTLETS.generate(1f));
