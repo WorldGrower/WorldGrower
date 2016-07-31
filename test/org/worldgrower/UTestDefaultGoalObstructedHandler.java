@@ -258,6 +258,7 @@ public class UTestDefaultGoalObstructedHandler {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject villagersOrganization = createVillagersOrganization(world);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(2, Constants.GROUP, new IdList().add(villagersOrganization));
+		MockMetaInformation.setMetaInformation(performer, Goals.BRAWL_GOAL);
 		WorldObject actionTarget = TestUtils.createIntelligentWorldObject(3, Constants.GROUP, new IdList().add(villagersOrganization));
 		world.addWorldObject(performer);
 		world.addWorldObject(TestUtils.createIntelligentWorldObject(3, "observer"));
@@ -276,6 +277,7 @@ public class UTestDefaultGoalObstructedHandler {
 		world.addListener(new BrawlListener());
 		WorldObject villagersOrganization = createVillagersOrganization(world);
 		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.GROUP, new IdList().add(villagersOrganization));
+		MockMetaInformation.setMetaInformation(performer, Goals.BRAWL_GOAL);
 		WorldObject actionTarget = TestUtils.createSkilledWorldObject(3, Constants.GROUP, new IdList().add(villagersOrganization));
 		world.addWorldObject(performer);
 		world.addWorldObject(actionTarget);
