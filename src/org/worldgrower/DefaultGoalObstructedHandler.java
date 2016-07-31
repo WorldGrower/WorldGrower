@@ -14,6 +14,7 @@
  *******************************************************************************/
 package org.worldgrower;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,6 +31,10 @@ import org.worldgrower.goal.LegalActionsPropertyUtils;
 
 public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 
+	// this structure is for debugging purposes, to check what npcs have
+	// been thrown out of groups and for what.
+	private static final List<String> THROWN_OUT_OF_GROUP_EVENTS = new ArrayList<>();
+	
 	@Override
 	public void goalHindered(Goal obstructedGoal, WorldObject performer, WorldObject target, int stepsUntilLastGoal, int goalEvaluationDecrease, WorldObject actionTarget, ManagedOperation managedOperation, int[] args, World world) {
 		if (!Actions.isMutuallyAgreedAction(managedOperation)) {
@@ -98,6 +103,8 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 	}
 
 	private static void throwOutOfGroup(WorldObject performer, WorldObject target, WorldObject actionTarget, int[] args, ManagedOperation managedOperation, World world, WorldObject performerFacade) {
+		THROWN_OUT_OF_GROUP_EVENTS.add(performer.getProperty(Constants.NAME) + " performed action " + managedOperation + " on target " + target.getProperty(Constants.NAME) + " and was thrown out of groups (goal performer = " + performer.getProperty(Constants.META_INFORMATION).getFinalGoal() + ")");		
+		
 		IdList oldGroup = performer.getProperty(Constants.GROUP).copy();
 		GroupPropertyUtils.throwPerformerOutGroup(performerFacade, target, world);
 		
@@ -219,5 +226,9 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 
 	public static boolean isLegallyFighting(WorldObject performer, WorldObject target, ManagedOperation managedOperation) {
 		return areBrawling(performer, target, managedOperation) || areFightingInArena(performer, target, managedOperation);
+	}
+
+	public static List<String> getThrownOutOfGroupEvents() {
+		return THROWN_OUT_OF_GROUP_EVENTS;
 	}
 }

@@ -66,6 +66,7 @@ import org.worldgrower.gui.debug.GuiShowPersonalitiesOverviewAction;
 import org.worldgrower.gui.debug.GuiShowPropertiesAction;
 import org.worldgrower.gui.debug.GuiShowReasonsOverviewAction;
 import org.worldgrower.gui.debug.GuiShowSkillOverviewAction;
+import org.worldgrower.gui.debug.GuiShowThrownOutOfGroupEventsAction;
 import org.worldgrower.gui.debug.ShowPerformedActionsAction;
 import org.worldgrower.gui.inventory.GuiBarterAction;
 import org.worldgrower.gui.inventory.ShowInventoryAction;
@@ -737,7 +738,10 @@ public class GuiMouseListener extends MouseAdapter {
 			JMenuItem guiShowBuildingsItem = MenuFactory.createJMenuItem(new GuiShowBuildingsOverviewAction(world), soundIdReader);
 			guiShowBuildingsItem.setText("Show buildings...");
 			menu.add(guiShowBuildingsItem);
-			
+
+			JMenuItem guiShowThrownOutOfGroupEventsAction = MenuFactory.createJMenuItem(new GuiShowThrownOutOfGroupEventsAction(), soundIdReader);
+			guiShowThrownOutOfGroupEventsAction.setText("Show thrown out of group events...");
+			menu.add(guiShowThrownOutOfGroupEventsAction);
 		}
 	}
 	
