@@ -35,8 +35,14 @@ public class BrawlPropertyUtils {
 	public static boolean isBrawling(WorldObject worldObject) {
 		return worldObject.hasProperty(Constants.BRAWL_OPPONENT_ID);
 	}
+	
+	public static boolean isFinishingUpBrawl(WorldObject worldObject) {
+		return worldObject.getProperty(Constants.BRAWL_OPPONENT_ID) == BRAWLING_UNTIL_ON_TURN;
+	}
 
 	public static int endBrawlWithPerformerVictory(WorldObject performer, WorldObject target) {
+		// performer has BRAWL_OPPONENT_ID temporarily set so that is this a legal
+		// action.
 		performer.setProperty(Constants.BRAWL_OPPONENT_ID, BRAWLING_UNTIL_ON_TURN);
 		target.setProperty(Constants.BRAWL_OPPONENT_ID, BRAWLING_UNTIL_ON_TURN);
 		

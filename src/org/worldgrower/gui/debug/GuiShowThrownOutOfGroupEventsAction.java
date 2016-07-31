@@ -32,6 +32,7 @@ public class GuiShowThrownOutOfGroupEventsAction extends AbstractAction {
 		JFrame frame = new JFrame();
 		
 		JTable table = new JTable(new WorldModel());
+		table.getColumnModel().getColumn(0).setCellRenderer(new TooltipCellRenderer());
 		table.setBounds(50, 50, 1000, 800);
 		frame.add(new JScrollPane(table));
 		

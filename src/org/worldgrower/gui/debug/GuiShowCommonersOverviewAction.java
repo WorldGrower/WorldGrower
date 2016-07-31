@@ -14,7 +14,6 @@
  *******************************************************************************/
 package org.worldgrower.gui.debug;
 
-import java.awt.Component;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,12 +23,12 @@ import java.util.List;
 
 import javax.swing.AbstractAction;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.Timer;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableCellRenderer;
 
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
@@ -64,18 +63,28 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 		        JTable table =(JTable) me.getSource();
 		        Point p = me.getPoint();
 		        int row = table.rowAtPoint(p);
-		        if (me.getClickCount() == 2) {
-		        	WorldObject target = getNPCs().get(row);
-		            ShowPerformedActionsAction showPerformedActionsAction = new ShowPerformedActionsAction(target, world);
-		            showPerformedActionsAction.actionPerformed(null);
-		        }
+		        WorldObject target = getNPCs().get(row);
+		        showMenu(target, table, me);
 		    }
+
+			private void showMenu(WorldObject target, JTable table, MouseEvent event) {
+				JPopupMenu popupMenu = new JPopupMenu();
+				JMenuItem showPerformedActionsMenuItem = new JMenuItem("Show performed actions");
+				showPerformedActionsMenuItem.addActionListener(f -> new ShowPerformedActionsAction(target, world).actionPerformed(null));
+				popupMenu.add(showPerformedActionsMenuItem);
+				JMenuItem showPropertiesMenuItem = new JMenuItem("Show Properties");
+				showPropertiesMenuItem.addActionListener(f -> new GuiShowPropertiesAction(target).actionPerformed(null));
+				popupMenu.add(showPropertiesMenuItem);
+				popupMenu.show(table, event.getX(), event.getY());
+				
+			}
 		});
 		
-		Timer timer = new Timer(1000, new ActionListener() {
+		Timer timer = new Timer(2000, new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				((WorldModel)table.getModel()).update(world);
 				table.repaint();
 			}
 			
@@ -91,26 +100,17 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 		return world.findWorldObjectsByProperty(Constants.STRENGTH, w -> w.isControlledByAI() && w.hasIntelligence() && w.getProperty(Constants.CREATURE_TYPE) != CreatureType.COW_CREATURE_TYPE);
 	}
 	
-	class TooltipCellRenderer extends DefaultTableCellRenderer {
-	    public Component getTableCellRendererComponent(
-	                        JTable table, Object value,
-	                        boolean isSelected, boolean hasFocus,
-	                        int row, int column) {
-	        JLabel c = (JLabel)super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-
-	        String pathValue = value.toString();
-	        c.setToolTipText(pathValue);
-	        return c;
-	    }
-	}
-	
 	private class WorldModel extends AbstractTableModel {
 
-		private World world;
+		private List<WorldObject> npcs;
 		
 		public WorldModel(World world) {
 			super();
-			this.world = world;
+			update(world);
+		}
+
+		public void update(World world) {
+			this.npcs = getNPCs();
 		}
 
 		@Override
@@ -120,7 +120,7 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 
 		@Override
 		public int getRowCount() {
-			return getNPCs().size();
+			return npcs.size();
 		}
 		
 		@Override
@@ -166,7 +166,7 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 
 		@Override
 		public Object getValueAt(int rowIndex, int columnIndex) {
-			WorldObject npc = getNPCs().get(rowIndex);
+			WorldObject npc = npcs.get(rowIndex);
 			if (columnIndex == 0) {
 				return npc.getProperty(Constants.NAME);
 			} else if (columnIndex == 1) {

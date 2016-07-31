@@ -19,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 
 import org.worldgrower.gui.GradientPanel;
+import org.worldgrower.gui.cursor.Cursors;
 
 public class ProgressDialog extends JFrame {
 
@@ -28,6 +29,7 @@ public class ProgressDialog extends JFrame {
 		getContentPane().setLayout(null);
 		IconUtils.setIcon(this);
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		setCursor(Cursors.CURSOR);
 		
 		int width = 450;
 		int height = 210;

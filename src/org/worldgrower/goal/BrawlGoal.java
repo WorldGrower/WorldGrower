@@ -34,7 +34,7 @@ public class BrawlGoal implements Goal {
 		Integer brawlOpponentId = performer.getProperty(Constants.BRAWL_OPPONENT_ID);
 		
 		if (brawlOpponentId != null) {
-			WorldObject target = world.findWorldObjectById(brawlOpponentId);
+			WorldObject target = GoalUtils.findNearestPersonLookingLike(performer, brawlOpponentId, world);
 			return new OperationInfo(performer, target, Args.EMPTY, Actions.NON_LETHAL_MELEE_ATTACK_ACTION);
 		} else {
 			return null;
@@ -47,7 +47,7 @@ public class BrawlGoal implements Goal {
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		return !performer.hasProperty(Constants.BRAWL_OPPONENT_ID);
+		return !BrawlPropertyUtils.isBrawling(performer) || BrawlPropertyUtils.isFinishingUpBrawl(performer);
 		
 	}
 	

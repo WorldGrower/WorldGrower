@@ -43,6 +43,21 @@ public class PerformedActionsModel extends AbstractTableModel {
 
 	@Override
 	public Object getValueAt(int row, int column) {
-		return historyItems.get(row).getManagedOperation().getSimpleDescription();
+		HistoryItem historyItem = historyItems.get(row);
+		return historyItem.getTurn().getValue() + ":"
+				+ historyItem.getManagedOperation().getSimpleDescription()
+				+ asList(historyItem.getArgs());
+	}
+
+	private String asList(int[] args) {
+		StringBuilder argsBuilder = new StringBuilder("[");
+		for(int i=0; i<args.length; i++) {
+			argsBuilder.append(args[i]);
+			if (i < args.length - 1) {
+				argsBuilder.append(", ");
+			}
+		}
+		argsBuilder.append("]");
+		return argsBuilder.toString();
 	}
 }
