@@ -187,7 +187,7 @@ public class GoalUtils {
 		ImageIds realImageIds = realTarget.getProperty(Constants.IMAGE_ID);
 		
 		List<WorldObject> illusions = world.findWorldObjectsByProperty(Constants.ILLUSION_CREATOR_ID, w -> w.getProperty(Constants.IMAGE_ID) == realImageIds);
-		List<WorldObject> disguisedWorldObjects = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> isDisguisedAsRealImageId(realImageIds, w));
+		List<WorldObject> disguisedWorldObjects = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> isDisguisedAsRealImageId(performer, realImageIds, w, world));
 
 		List<WorldObject> allPossibleWorldObjects = new ArrayList<>();
 		allPossibleWorldObjects.add(realTarget);
@@ -198,7 +198,8 @@ public class GoalUtils {
 		return allPossibleWorldObjects.get(0);
 	}
 
-	static boolean isDisguisedAsRealImageId(ImageIds realImageIds, WorldObject w) {
-		return FacadeUtils.performerIsSuccessFullyDisguised(w) ? (w.getProperty(Constants.IMAGE_ID) == realImageIds) : false;
+	static boolean isDisguisedAsRealImageId(WorldObject performer, ImageIds realImageIds, WorldObject w, World world) {
+		WorldObject disguiser = FacadeUtils.createFacade(w, w, performer, world);
+		return FacadeUtils.performerIsSuccessFullyDisguised(disguiser) ? (disguiser.getProperty(Constants.IMAGE_ID) == realImageIds) : false;
 	}
 }

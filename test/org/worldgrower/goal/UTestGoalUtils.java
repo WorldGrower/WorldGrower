@@ -261,7 +261,6 @@ public class UTestGoalUtils {
 		disguiser.setProperty(Constants.X, 0);
 		disguiser.setProperty(Constants.Y, 0);
 		disguiser.setProperty(Constants.FACADE, target.deepCopy());
-		disguiser = FacadeUtils.createFacade(disguiser, disguiser, target, world);
 		world.addWorldObject(disguiser);
 		
 		Integer targetId = target.getProperty(Constants.ID);
