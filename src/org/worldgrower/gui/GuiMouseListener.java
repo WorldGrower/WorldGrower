@@ -243,8 +243,20 @@ public class GuiMouseListener extends MouseAdapter {
             	
             	menu.show(e.getComponent(), e.getX(), e.getY());
             }
+        } else {
+        	JPopupMenu menu = MenuFactory.createJPopupMenu();
+        	addGotoMenu(menu, x, y);
+        	menu.show(e.getComponent(), e.getX(), e.getY());
         }
     }
+
+	private void addGotoMenu(JPopupMenu menu, int x, int y) {
+		JMenuItem gotoMenuItem = MenuFactory.createJMenuItem(new GuiGotoAction(playerCharacter, imageInfoReader, soundIdReader, world, (WorldPanel)container, dungeonMaster, parentFrame, x, y), soundIdReader);
+		gotoMenuItem.setText("Go to");
+		setMenuIcon(gotoMenuItem, Actions.DISGUISE_ACTION.getImageIds());
+		menu.add(gotoMenuItem);
+		
+	}
 
 	private void showPlayerCharacterMenu(int x, int y) {
 		JPopupMenu menu = MenuFactory.createJPopupMenu();

@@ -245,8 +245,34 @@ public class Game {
 				public void actionPerformed(ActionEvent arg0) {
 					executeAction(playerCharacter, action, args, world, dungeonMaster, target, worldPanel, soundIdReader);
 				}
-			});
- 
+			}, null);
+    	}
+	}
+    
+    public static void executeMultipleActionsAndMoveIntelligentWorldObjects(WorldObject playerCharacter, List<OperationInfo> tasks, World world, DungeonMaster dungeonMaster, WorldObject target, WorldPanel worldPanel, SoundIdReader soundIdReader) {
+    	if (tasks.size() > 0) {
+    		OperationInfo task = tasks.get(0);
+    		ManagedOperation action = task.getManagedOperation();
+    		int[] args = task.getArgs();
+    		if (canActionExecute(playerCharacter, action, args, world, target)) {
+        		ActionListener guiMoveAction = new ActionListener() {
+        			
+    				@Override
+    				public void actionPerformed(ActionEvent arg0) {
+    					executeAction(playerCharacter, action, args, world, dungeonMaster, target, worldPanel, soundIdReader);
+    				}
+    			};
+    			
+    			ActionListener guiAfterMoveAction = new ActionListener() {
+    				@Override
+    				public void actionPerformed(ActionEvent arg0) {
+    					List<OperationInfo> subTasks = tasks.subList(1, tasks.size());
+    					executeMultipleActionsAndMoveIntelligentWorldObjects(playerCharacter, subTasks, world, dungeonMaster, playerCharacter, worldPanel, soundIdReader);
+    				}
+    			};
+    			
+				worldPanel.movePlayerCharacter(args, guiMoveAction, guiAfterMoveAction);
+        	}
     	}
 	}
     

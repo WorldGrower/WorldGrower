@@ -25,7 +25,7 @@ import org.worldgrower.actions.magic.RayOfFrostAttackAction;
 import org.worldgrower.attribute.LookDirection;
 
 public class MoveMode {
-
+	private ActionListener guiAfterMoveAction;
 	private boolean moveMode = false;
 	private int moveStep = 0;
 	private int moveIndex = 0;
@@ -36,7 +36,7 @@ public class MoveMode {
 	private List<WorldObject> magicCasters = new ArrayList<>();
 	private List<MagicTarget> magicTargets = new ArrayList<>();
 	
-	public void startMove(WorldPanel worldPanel, int[] args, ActionListener guiMoveAction, WorldObject worldObject, World world) {
+	public void startMove(WorldPanel worldPanel, int[] args, ActionListener guiMoveAction, ActionListener guiAfterMoveAction, WorldObject worldObject, World world) {
 		if (moveMode) {
 			return;
 		}
@@ -44,6 +44,8 @@ public class MoveMode {
 		moveMode = true;
 		moveStep = 0;
 		moveIndex = 0;
+		this.guiAfterMoveAction = guiAfterMoveAction;
+		
 		//System.out.println("startMove: moveStep = " + moveStep);
 		
 		initializeMovingWorldObjects(guiMoveAction, world);
@@ -191,6 +193,9 @@ public class MoveMode {
 			moveMode = false;
 			moveIndex = 0;
 			moveIndex = 0;
+			if (this.guiAfterMoveAction != null) {
+				this.guiAfterMoveAction.actionPerformed(null);
+			}
 		}
 	}
 	
