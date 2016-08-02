@@ -253,9 +253,8 @@ public class GuiMouseListener extends MouseAdapter {
 	private void addGotoMenu(JPopupMenu menu, int x, int y) {
 		JMenuItem gotoMenuItem = MenuFactory.createJMenuItem(new GuiGotoAction(playerCharacter, imageInfoReader, soundIdReader, world, (WorldPanel)container, dungeonMaster, parentFrame, x, y), soundIdReader);
 		gotoMenuItem.setText("Go to");
-		setMenuIcon(gotoMenuItem, Actions.DISGUISE_ACTION.getImageIds());
+		setMenuIcon(gotoMenuItem, ImageIds.MOVING_CHARACTER);
 		menu.add(gotoMenuItem);
-		
 	}
 
 	private void showPlayerCharacterMenu(int x, int y) {

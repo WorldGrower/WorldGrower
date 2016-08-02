@@ -15,8 +15,6 @@
 package org.worldgrower.gui;
 
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.AbstractAction;
@@ -32,11 +30,8 @@ import org.worldgrower.TaskCalculator;
 import org.worldgrower.TaskCalculatorImpl;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.actions.Actions;
 import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.start.Game;
-import org.worldgrower.gui.util.TextInputDialog;
-import org.worldgrower.util.NumberUtils;
 
 public class GuiGotoAction extends AbstractAction {
 
@@ -68,20 +63,10 @@ public class GuiGotoAction extends AbstractAction {
 		TaskCalculator taskCalculator = new TaskCalculatorImpl();
 		OperationInfo goal = new OperationInfo(playerCharacter, playerCharacter, Args.EMPTY, new GotoAction(destinationX, destinationY));
 		List<OperationInfo> tasks = taskCalculator.calculateTask(playerCharacter, world, goal);
-		/*
 		if (tasks.size() > 0) {
-			for(int i=0; i<tasks.size()-1 ;i++) {
-				OperationInfo task = tasks.get(i);
-				int[] args = task.getArgs();
-				if (Game.canActionExecute(playerCharacter, Actions.MOVE_ACTION, args, world, playerCharacter)) {
-					Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, Actions.MOVE_ACTION, args, world, dungeonMaster, playerCharacter, parent, soundIdReader);
-				} else {
-					break;
-				}
-			}
-		}*/
-		tasks = tasks.subList(0, tasks.size() - 1);
-		Game.executeMultipleActionsAndMoveIntelligentWorldObjects(playerCharacter, tasks, world, dungeonMaster, playerCharacter, parent, soundIdReader);
+			tasks = tasks.subList(0, tasks.size() - 1);
+			Game.executeMultipleActionsAndMoveIntelligentWorldObjects(playerCharacter, tasks, world, dungeonMaster, playerCharacter, parent, soundIdReader);
+		}
 	}
 	
 	private static class GotoAction implements ManagedOperation {
