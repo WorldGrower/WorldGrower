@@ -50,11 +50,11 @@ public class MagicOverviewDialog extends JDialog {
 
 	private final JPanel contentPanel = new GradientPanel();
 
-	public MagicOverviewDialog(WorldObject playerCharacter, SoundIdReader soundIdReader, JFrame parentFrame) {
+	public MagicOverviewDialog(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, JFrame parentFrame) {
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		
-		int width = 850;
-		int height = 650;
+		int width = 900;
+		int height = 850;
 		setSize(width, height);
 		contentPanel.setPreferredSize(new Dimension(width, height));
 		setLocationRelativeTo(null);
@@ -67,38 +67,40 @@ public class MagicOverviewDialog extends JDialog {
 		setCursor(Cursors.CURSOR);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(12, 13, 821, 567);
+		scrollPane.setBounds(12, 13, 871, 767);
 		contentPanel.add(scrollPane);
 		
 		JTable magicSpellsTable = new MagicSpellsTable(new MagicSpellTableModel(playerCharacter));
 		magicSpellsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		magicSpellsTable.setDefaultRenderer(ImageIds.class, new ImageTableRenderer(imageInfoReader));
+		magicSpellsTable.setRowHeight(50);
 		magicSpellsTable.setAutoCreateRowSorter(true);
-		magicSpellsTable.getRowSorter().toggleSortOrder(0);
+		magicSpellsTable.getRowSorter().toggleSortOrder(1);
 		
 		magicSpellsTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		magicSpellsTable.getColumnModel().getColumn(0).setPreferredWidth(257);
-		magicSpellsTable.getColumnModel().getColumn(1).setPreferredWidth(150);
-		magicSpellsTable.getColumnModel().getColumn(2).setPreferredWidth(145);
-		magicSpellsTable.getColumnModel().getColumn(3).setPreferredWidth(100);
-		magicSpellsTable.getColumnModel().getColumn(4).setPreferredWidth(150);
+		magicSpellsTable.getColumnModel().getColumn(0).setPreferredWidth(50);
+		magicSpellsTable.getColumnModel().getColumn(1).setPreferredWidth(257);
+		magicSpellsTable.getColumnModel().getColumn(2).setPreferredWidth(150);
+		magicSpellsTable.getColumnModel().getColumn(3).setPreferredWidth(145);
+		magicSpellsTable.getColumnModel().getColumn(4).setPreferredWidth(100);
+		magicSpellsTable.getColumnModel().getColumn(5).setPreferredWidth(150);
 		
 		scrollPane.setViewportView(magicSpellsTable);
-		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			buttonPane.setOpaque(false);
-			buttonPane.setBounds(12, 595, 828, 75);
-			contentPanel.add(buttonPane);
-			{
-				JButton okButton = JButtonFactory.createButton("OK", soundIdReader);
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-				
-				okButton.addActionListener(new CloseDialogAction());
-				SwingUtils.installEscapeCloseOperation(this);
-			}
-		}
+
+		JPanel buttonPane = new JPanel();
+		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		buttonPane.setOpaque(false);
+		buttonPane.setBounds(12, 790, 878, 75);
+		contentPanel.add(buttonPane);
+			
+		JButton okButton = JButtonFactory.createButton("OK", soundIdReader);
+		okButton.setActionCommand("OK");
+		buttonPane.add(okButton);
+		getRootPane().setDefaultButton(okButton);
+		
+		okButton.addActionListener(new CloseDialogAction());
+		SwingUtils.installEscapeCloseOperation(this);
+		
 		SwingUtils.makeTransparant(magicSpellsTable, scrollPane);
 		
 		DialogUtils.createDialogBackPanel(this, parentFrame.getContentPane());
@@ -125,14 +127,16 @@ public class MagicOverviewDialog extends JDialog {
 		@Override
 		public String getColumnName(int column) {
 			if (column == 0) {
-				return "Spell Name";
+				return "Image";
 			} else if (column == 1) {
-				return "School";
+				return "Spell Name";
 			} else if (column == 2) {
-				return "Skill Level";
+				return "School";
 			} else if (column == 3) {
-				return "Progress";
+				return "Skill Level";
 			} else if (column == 4) {
+				return "Progress";
+			} else if (column == 5) {
 				return "Research Cost";
 			} else {
 				return null;
@@ -141,27 +145,27 @@ public class MagicOverviewDialog extends JDialog {
 		
 		@Override
 		public int getColumnCount() {
-			return 5;
+			return 6;
 		}
 
 		@Override
 		public int getRowCount() {
 			return Actions.getMagicSpells().size();
 		}
-		
-		
 
 		@Override
 		public Class<?> getColumnClass(int column) {
 			if (column == 0) {
-				return String.class;
+				return ImageIds.class;
 			} else if (column == 1) {
 				return String.class;
 			} else if (column == 2) {
-				return Integer.class;
-			} else if (column == 3) {
 				return String.class;
+			} else if (column == 3) {
+				return Integer.class;
 			} else if (column == 4) {
+				return String.class;
+			} else if (column == 5) {
 				return Integer.class;
 			} else {
 				return super.getColumnClass(column);
@@ -172,12 +176,14 @@ public class MagicOverviewDialog extends JDialog {
 		public Object getValueAt(int row, int column) {
 			MagicSpell magicSpell = Actions.getMagicSpells().get(row);
 			if (column == 0) {
-				return magicSpell.getSimpleDescription();
+				return magicSpell.getImageIds();
 			} else if (column == 1) {
-				return magicSpell.getSkill().getName();
+				return magicSpell.getSimpleDescription();
 			} else if (column == 2) {
-				return magicSpell.getRequiredSkillLevel();
+				return magicSpell.getSkill().getName();
 			} else if (column == 3) {
+				return magicSpell.getRequiredSkillLevel();
+			} else if (column == 4) {
 				List<ManagedOperation> knownSpells = playerCharacter.getProperty(Constants.KNOWN_SPELLS);
 				PropertyCountMap<MagicSpell> studyingSpells = playerCharacter.getProperty(Constants.STUDYING_SPELLS);
 				if (knownSpells.contains(magicSpell)) {
@@ -188,7 +194,7 @@ public class MagicOverviewDialog extends JDialog {
 				} else {
 					return "Unknown";
 				}
-			} else if (column == 4) {
+			} else if (column == 5) {
 				return magicSpell.getResearchCost();
 			} else {
 				return null;

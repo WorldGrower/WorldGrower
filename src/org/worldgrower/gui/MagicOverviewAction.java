@@ -40,7 +40,7 @@ public class MagicOverviewAction extends AbstractAction {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		dialog = new MagicOverviewDialog(playerCharacter, soundIdReader, parentFrame);
+		dialog = new MagicOverviewDialog(playerCharacter, imageInfoReader, soundIdReader, parentFrame);
 		dialog.setVisible(true);
 	}
 }
