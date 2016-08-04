@@ -28,7 +28,7 @@ public class UTestBuildingGenerator {
 	@Test
 	public void testisSellableShack() {
 		World world = new WorldImpl(10, 10, null, null);
-		int shackId = BuildingGenerator.generateShack(0, 0, world, 1f, TestUtils.createIntelligentWorldObject(3, "Test"));
+		int shackId = BuildingGenerator.generateShack(0, 0, world, TestUtils.createIntelligentWorldObject(3, "Test"));
 		WorldObject shack = world.findWorldObjectById(shackId);
 
 		assertEquals(true, BuildingGenerator.isSellable(shack));
@@ -37,7 +37,7 @@ public class UTestBuildingGenerator {
 	@Test
 	public void testisSellableHouse() {
 		World world = new WorldImpl(10, 10, null, null);
-		int houseId = BuildingGenerator.generateHouse(0, 0, world, 1f, TestUtils.createIntelligentWorldObject(0, "Test"));
+		int houseId = BuildingGenerator.generateHouse(0, 0, world, TestUtils.createIntelligentWorldObject(0, "Test"));
 		WorldObject house = world.findWorldObjectById(houseId);
 
 		assertEquals(true, BuildingGenerator.isSellable(house));

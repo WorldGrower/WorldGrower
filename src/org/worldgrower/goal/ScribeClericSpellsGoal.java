@@ -22,7 +22,7 @@ import org.worldgrower.actions.magic.MagicSpell;
 
 public class ScribeClericSpellsGoal extends AbstractScribeSpellsGoal {
 
-	private static final List<MagicSpell> CLERIC_SPELLS = Arrays.asList(Actions.MINOR_HEAL_ACTION, Actions.CURE_DISEASE_ACTION);
+	private static final List<MagicSpell> CLERIC_SPELLS = Arrays.asList(Actions.MINOR_HEAL_ACTION, Actions.CURE_DISEASE_ACTION, Actions.SACRED_FLAME_ATTACK_ACTION);
 	
 	public ScribeClericSpellsGoal() {
 		super(CLERIC_SPELLS, Actions.RESEARCH_RESTORATION_SKILL_ACTION);

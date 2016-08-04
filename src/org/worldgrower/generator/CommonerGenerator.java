@@ -110,8 +110,8 @@ public class CommonerGenerator implements Serializable {
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, imageId);
 		properties.put(Constants.LOOK_DIRECTION, LookDirection.SOUTH);
-		properties.put(Constants.FOOD, 500);
-		properties.put(Constants.WATER, 500);
+		properties.put(Constants.FOOD, 800);
+		properties.put(Constants.WATER, 800);
 		properties.put(Constants.ENERGY, 1000);
 		properties.put(Constants.PROFESSION, null);
 		properties.put(Constants.INVENTORY, new WorldObjectContainer());
@@ -167,8 +167,8 @@ public class CommonerGenerator implements Serializable {
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, playerCharacterImageId);
 		properties.put(Constants.LOOK_DIRECTION, LookDirection.SOUTH);
-		properties.put(Constants.FOOD, 500);
-		properties.put(Constants.WATER, 500);
+		properties.put(Constants.FOOD, 800);
+		properties.put(Constants.WATER, 800);
 		properties.put(Constants.ENERGY, 1000);
 		properties.put(Constants.GROUP, new IdList().add(organization));
 		

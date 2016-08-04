@@ -12,58 +12,59 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.actions;
+package org.worldgrower.actions.magic;
 
 import java.io.ObjectStreamException;
-import java.util.List;
 
 import org.worldgrower.Constants;
-import org.worldgrower.ManagedOperation;
-import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.BuildingType;
+import org.worldgrower.actions.AttackUtils;
+import org.worldgrower.actions.CraftUtils;
+import org.worldgrower.actions.DeadlyAction;
+import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
-import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.creaturetype.CreatureTypeUtils;
+import org.worldgrower.generator.Item;
+import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
-public class BuildSmithAction implements BuildAction {
+public class SacredFlameAttackAction implements MagicSpell, DeadlyAction {
 
-	private static final int REQUIRED_STONE = 4;
+	private static final int BASE_DAMAGE = 8 * Item.COMBAT_MULTIPLIER;
+	private static final int DISTANCE = 4;
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		int x = (Integer)target.getProperty(Constants.X);
-		int y = (Integer)target.getProperty(Constants.Y);
-		
-		int smithId = BuildingGenerator.generateSmith(x, y, world, performer);
-		SkillUtils.useSkill(performer, Constants.CARPENTRY_SKILL, world.getWorldStateChangedListeners());
-		
-		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.STONE, REQUIRED_STONE);
-		performer.getProperty(Constants.BUILDINGS).add(smithId, BuildingType.SMITH);
+		AttackUtils.magicAttack(BASE_DAMAGE, this, performer, target, args, world, SkillUtils.useSkill(performer, getSkill(), world.getWorldStateChangedListeners()));
+	
+		world.logAction(this, performer, target, args, null);
 	}
-
+	
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return CraftUtils.isValidBuildTarget(this, performer, target, world);
+		return ((target.hasProperty(Constants.ARMOR)) 
+				&& (target.getProperty(Constants.HIT_POINTS) > 0) 
+				&& MagicSpellUtils.canCast(performer, this)
+				&& CreatureTypeUtils.isUndead(target));
 	}
 	
 	@Override
 	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
-		return CraftUtils.hasEnoughResources(performer, Constants.STONE, REQUIRED_STONE);
+		return true;
 	}
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return Reach.evaluateTarget(performer, args, target, 1);
+		return AttackUtils.distanceWithFreeLeftHand(performer, target, DISTANCE);
 	}
 	
 	@Override
 	public String getRequirementsDescription() {
-		return CraftUtils.getRequirementsDescription(Constants.STONE, REQUIRED_STONE);
+		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, DISTANCE, "free left hand");
 	}
-
+	
 	@Override
 	public boolean requiresArguments() {
 		return false;
@@ -71,12 +72,12 @@ public class BuildSmithAction implements BuildAction {
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "building a smithy";
+		return "attacking " + target.getProperty(Constants.NAME);
 	}
 
 	@Override
 	public String getSimpleDescription() {
-		return "build smithy";
+		return "sacred flame";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {
@@ -84,31 +85,37 @@ public class BuildSmithAction implements BuildAction {
 	}
 
 	@Override
-	public int getWidth() {
-		return 1;
+	public int getResearchCost() {
+		return 10;
 	}
 
 	@Override
-	public int getHeight() {
-		return 2;
+	public SkillProperty getSkill() {
+		return Constants.RESTORATION_SKILL;
+	}
+
+	@Override
+	public int getRequiredSkillLevel() {
+		return 0;
+	}
+
+	@Override
+	public String getDeathDescription(WorldObject performer, WorldObject target) {
+		return "burned to death";
+	}
+
+	@Override
+	public String getDescription() {
+		return "fires sacred flame at the target dealing " + BASE_DAMAGE + " damage";
 	}
 	
 	@Override
 	public ImageIds getImageIds() {
-		return ImageIds.SMITH;
+		return ImageIds.SACRED_FLAME;
 	}
 	
-	public static boolean hasEnoughStone(WorldObject performer) {
-		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.STONE) >= REQUIRED_STONE;
-	}
-
 	@Override
 	public SoundIds getSoundId() {
-		return SoundIds.BUILD_STONE_BUILDING;
-	}
-	
-	@Override
-	public List<ManagedOperation> getAllowedCraftActions(WorldObject performer, World world) {
-		return Actions.getActionsWithTargetProperty(performer, Constants.SMITH_QUALITY, world);
+		return SoundIds.BLESSING;
 	}
 }

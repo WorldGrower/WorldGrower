@@ -329,11 +329,11 @@ public class GroupPropertyUtils {
 		return !isMinionOrganization(organization);
 	}
 	
-	public static int getRandomOrganizationIndex(WorldObject performer, List<String> organizationNames) {
+	public static int getRandomOrganizationIndex(WorldObject performer, List<String> organizationNames, String organizationElement) {
 		if (organizationNames.size() == 1) {
 			return 0;
 		} else if (organizationNames.size() == 0) {
-			throw new IllegalStateException("No organization names found for " + performer.toString());
+			throw new IllegalStateException("No organization names found for " + organizationElement + " for " + performer.toString());
 		} else {
 			String performerName = performer.getProperty(Constants.NAME);
 			if (performerName.length() > 0) {

@@ -53,7 +53,7 @@ public class UTestCollectTaxesConversation {
 		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.BUILDINGS, new BuildingList());
 		WorldObject target = TestUtils.createIntelligentWorldObject(8, Constants.BUILDINGS, new BuildingList());
 
-		int houseId = BuildingGenerator.generateHouse(0, 0, world, 1f, performer);
+		int houseId = BuildingGenerator.generateHouse(0, 0, world, performer);
 		target.getProperty(Constants.BUILDINGS).add(houseId, BuildingType.HOUSE);
 		target.setProperty(Constants.GOLD, 200);
 		
@@ -85,7 +85,7 @@ public class UTestCollectTaxesConversation {
 		World world = new WorldImpl(10, 10, null, new DoNothingWorldOnTurn());
 		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.BUILDINGS, new BuildingList());
 		WorldObject target = TestUtils.createIntelligentWorldObject(8, Constants.BUILDINGS, new BuildingList());
-		int houseId = BuildingGenerator.generateHouse(0, 0, world, 1f, performer);
+		int houseId = BuildingGenerator.generateHouse(0, 0, world, performer);
 		target.getProperty(Constants.BUILDINGS).add(houseId, BuildingType.HOUSE);
 		target.setProperty(Constants.GOLD, 200);
 		

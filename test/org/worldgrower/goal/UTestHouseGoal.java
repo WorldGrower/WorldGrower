@@ -63,7 +63,7 @@ public class UTestHouseGoal {
 		WorldObject performer = createPerformer(2);
 		performer.setProperty(Constants.GOLD, 100);
 
-		BuildingGenerator.generateHouse(0, 0, world, 1f, performer);
+		BuildingGenerator.generateHouse(0, 0, world, performer);
 		
 		createVillagersOrganization(world);
 		
@@ -77,7 +77,7 @@ public class UTestHouseGoal {
 		performer.setProperty(Constants.GOLD, 100);
 		WorldObject target = createPerformer(3);
 		
-		int houseId = BuildingGenerator.generateHouse(5, 5, world, 1f, performer);
+		int houseId = BuildingGenerator.generateHouse(5, 5, world, performer);
 		target.setProperty(Constants.BUILDINGS, new BuildingList().add(houseId, BuildingType.HOUSE));
 		world.addWorldObject(target);
 		
@@ -98,7 +98,7 @@ public class UTestHouseGoal {
 		
 		assertEquals(false, goal.isGoalMet(performer, world));
 		
-		int houseId = BuildingGenerator.generateHouse(5, 5, world, 1f, performer);
+		int houseId = BuildingGenerator.generateHouse(5, 5, world, performer);
 		performer.getProperty(Constants.BUILDINGS).add(houseId, BuildingType.HOUSE);
 		assertEquals(true, goal.isGoalMet(performer, world));
 	}

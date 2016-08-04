@@ -57,7 +57,7 @@ public class BecomeProfessionOrganizationMemberGoal implements Goal {
 		WorldObject performerToFind = FacadeUtils.createFacadeForSelf(performer);
 		int professionIndex = Professions.indexOf(performerToFind.getProperty(Constants.PROFESSION));
 		List<String> organizationNames = new OrganizationNamer().getProfessionOrganizationNames(performer.getProperty(Constants.PROFESSION), world);
-		int organizationIndex = GroupPropertyUtils.getRandomOrganizationIndex(performer, organizationNames);
+		int organizationIndex = GroupPropertyUtils.getRandomOrganizationIndex(performer, organizationNames, performer.getProperty(Constants.PROFESSION).getDescription());
 		return new OperationInfo(performer, performer, new int[] {professionIndex, organizationIndex}, Actions.CREATE_PROFESSION_ORGANIZATION_ACTION);
 	}
 

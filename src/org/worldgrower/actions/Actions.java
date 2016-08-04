@@ -64,6 +64,7 @@ import org.worldgrower.actions.magic.ParalyzeSpellAction;
 import org.worldgrower.actions.magic.RayOfFrostAttackAction;
 import org.worldgrower.actions.magic.ReduceAction;
 import org.worldgrower.actions.magic.ResearchSpellAction;
+import org.worldgrower.actions.magic.SacredFlameAttackAction;
 import org.worldgrower.actions.magic.ScribeMagicSpellAction;
 import org.worldgrower.actions.magic.SecretChestAction;
 import org.worldgrower.actions.magic.SilenceMagicAction;
@@ -172,6 +173,7 @@ public class Actions {
 	public static final TrapContainerMagicSpellAction TRAP_CONTAINER_MAGIC_SPELL_ACTION = new TrapContainerMagicSpellAction();
 	public static final DimensionDoorAction DIMENSION_DOOR_ACTION = new DimensionDoorAction();
 	public static final SecretChestAction SECRET_CHEST_ACTION = new SecretChestAction();
+	public static final SacredFlameAttackAction SACRED_FLAME_ATTACK_ACTION = new SacredFlameAttackAction();
 	
 	public static final BuildLibraryAction BUILD_LIBRARY_ACTION = new BuildLibraryAction();
 	public static final ResearchRestorationSkillAction RESEARCH_RESTORATION_SKILL_ACTION = new ResearchRestorationSkillAction();
@@ -314,7 +316,8 @@ public class Actions {
 			SECRET_CHEST_ACTION,
 			ANIMAL_FRIENDSHIP_SPELL_ACTION,
 			FIRE_BALL_ATTACK_ACTION,
-			MAJOR_ILLUSION_ACTION
+			MAJOR_ILLUSION_ACTION,
+			SACRED_FLAME_ATTACK_ACTION
 			);
 	
 	private static final List<InventoryAction> INVENTORY_ACTIONS = Arrays.asList(
@@ -616,7 +619,7 @@ public class Actions {
 	
 	public static List<ManagedOperation> getActionsWithTargetProperty(WorldObject performer, IntProperty intProperty, World world) {
 		List<ManagedOperation> actions = new ArrayList<>();
-		WorldObject sampleWorldObject = BuildingGenerator.generateShack(0, 0, 1f, performer, -1);
+		WorldObject sampleWorldObject = BuildingGenerator.generateShack(0, 0, 0, performer, -1);
 		sampleWorldObject.setProperty(intProperty, 5);
 		sampleWorldObject.removeProperty(Constants.HIT_POINTS);
 		sampleWorldObject.removeProperty(Constants.ARMOR);

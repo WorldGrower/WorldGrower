@@ -12,66 +12,15 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.gui.music;
+package org.worldgrower.actions;
 
-public enum SoundIds {
-	CUT_WOOD,
-	MINE, 
-	FLAMES,
-	FROST,
-	SHOCK,
-	TELEPORT,
-	WATER,
-	EAT,
-	SWING,
-	BOW,
-	BUILD_WOODEN_BUILDING,
-	BUILD_STONE_BUILDING,
-	SMITH,
-	PAPER,
-	DARKNESS,
-	CURSE,
-	ALCHEMIST,
-	DRINK,
-	MAGIC1,
-	MAGIC3,
-	MAGIC6,
-	MAGIC7,
-	KNIFE_SLICE,
-	HANDLE_COINS,
-	DOOR_OPEN,
-	BOOK_FLIP,
-	CLICK,
-	ROLLOVER,
-	COW,
-	HEALING,
-	WIND,
-	CLOTH,
-	CLATTER,
-	BLESSING2,
-	CURSE_SPELL,
-	FORCE_PUSH,
-	FORCE_PULSE,
-	CURSE5,
-	CURSE3,
-	ZAP2,
-	ENCHANT,
-	ENCHANT2,
-	DISENCHANT,
-	RUSTLE01,
-	CONFUSION,
-	ZAP2G,
-	RANDOM1,
-	HANDLE_SMALL_LEATHER,
-	MOVE,
-	RUSTLE3,
-	KISS,
-	DYING,
-	SHOVEL,
-	POISON,
-	SEX,
-	RELIGIOUS,
-	SWISH,
-	METAL_SMALL1,
-	BLESSING
+import org.worldgrower.Constants;
+import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.SkillUtils;
+
+public class CottonPropertyUtils {
+
+	public static int calculateWeavingQuantity(WorldObject performer) {
+		return SkillUtils.getLogarithmicSkillBonus(performer, Constants.WEAVING_SKILL);
+	}
 }

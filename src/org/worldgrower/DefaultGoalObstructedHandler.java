@@ -139,6 +139,7 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 				|| (actionClass == Actions.VAMPIRE_BITE_ACTION.getClass())
 				|| (actionClass == Actions.CREATE_BLOOD_ACTION.getClass()))
 				|| (actionClass == Actions.FIRE_BALL_ATTACK_ACTION.getClass())
+				|| (actionClass == Actions.SACRED_FLAME_ATTACK_ACTION.getClass())
 				);
 	}
 	

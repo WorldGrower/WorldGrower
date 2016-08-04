@@ -41,6 +41,8 @@ public class AttackTargetGoal implements Goal {
 			return new OperationInfo(performer, target, Args.EMPTY, Actions.FIRE_BOLT_ATTACK_ACTION);
 		} else if (hasFreeHands && MagicSpellUtils.canCast(performer, Actions.INFLICT_WOUNDS_ACTION)) {
 			return new OperationInfo(performer, target, Args.EMPTY, Actions.INFLICT_WOUNDS_ACTION);
+		} else if (hasFreeHands && Actions.SACRED_FLAME_ATTACK_ACTION.canExecuteIgnoringDistance(performer, target, Args.EMPTY, world)) {
+			return new OperationInfo(performer, target, Args.EMPTY, Actions.SACRED_FLAME_ATTACK_ACTION);
 		} else {
 			return new OperationInfo(performer, target, Args.EMPTY, Actions.MELEE_ATTACK_ACTION);
 		}

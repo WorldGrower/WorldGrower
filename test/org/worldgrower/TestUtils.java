@@ -136,6 +136,7 @@ public class TestUtils {
 		properties.put(Constants.CREATURE_TYPE, CreatureType.HUMAN_CREATURE_TYPE);
 		properties.put(Constants.PRICES, new Prices());
 		properties.put(Constants.KNOWLEDGE_MAP, new KnowledgeMap());
+		properties.put(Constants.CARPENTRY_SKILL, new Skill(10));
 		properties.put(property, value);
 		WorldObject w1 = new WorldObjectImpl(properties, Actions.ALL_ACTIONS, null);
 		return w1;

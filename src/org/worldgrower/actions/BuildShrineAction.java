@@ -20,6 +20,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
@@ -34,6 +35,7 @@ public class BuildShrineAction implements BuildAction {
 		int y = (Integer)target.getProperty(Constants.Y);
 		
 		int shrineId = BuildingGenerator.generateShrine(x, y, world, performer);
+		SkillUtils.useSkill(performer, Constants.CARPENTRY_SKILL, world.getWorldStateChangedListeners());
 		
 		performer.setProperty(Constants.PLACE_OF_WORSHIP_ID, shrineId);
 		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.STONE, REQUIRED_STONE);

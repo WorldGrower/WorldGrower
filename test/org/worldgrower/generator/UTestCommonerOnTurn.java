@@ -42,13 +42,13 @@ public class UTestCommonerOnTurn {
 		WorldObject playerCharacter = createPlayerCharacter(world, organization);
 		
 		assertEquals(1000, playerCharacter.getProperty(Constants.ENERGY).intValue());
-		assertEquals(500, playerCharacter.getProperty(Constants.FOOD).intValue());
-		assertEquals(500, playerCharacter.getProperty(Constants.WATER).intValue());
+		assertEquals(800, playerCharacter.getProperty(Constants.FOOD).intValue());
+		assertEquals(800, playerCharacter.getProperty(Constants.WATER).intValue());
 		
 		playerCharacter.onTurn(world, new WorldStateChangedListeners());
 		assertEquals(998, playerCharacter.getProperty(Constants.ENERGY).intValue());
-		assertEquals(499, playerCharacter.getProperty(Constants.FOOD).intValue());
-		assertEquals(499, playerCharacter.getProperty(Constants.WATER).intValue());
+		assertEquals(799, playerCharacter.getProperty(Constants.FOOD).intValue());
+		assertEquals(799, playerCharacter.getProperty(Constants.WATER).intValue());
 	}
 	
 	@Test

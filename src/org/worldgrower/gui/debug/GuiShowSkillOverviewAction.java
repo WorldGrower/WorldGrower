@@ -26,6 +26,8 @@ import javax.swing.table.AbstractTableModel;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.profession.Profession;
 
 public class GuiShowSkillOverviewAction extends AbstractAction {
@@ -41,7 +43,8 @@ public class GuiShowSkillOverviewAction extends AbstractAction {
 		JFrame frame = new JFrame();
 		
 		JTable table = new JTable(new WorldModel(world));
-		table.setBounds(50, 50, 700, 700);
+		table.setBounds(50, 50, 1000, 700);
+		table.getColumnModel().getColumn(4).setCellRenderer(new TooltipCellRenderer());
 		frame.add(new JScrollPane(table));
 		
 		frame.setBounds(100,  100, 800, 800);
@@ -49,21 +52,21 @@ public class GuiShowSkillOverviewAction extends AbstractAction {
 	}
 	
 	private List<WorldObject> getNPCs() {
-		return world.findWorldObjects(w -> w.isControlledByAI() && w.hasIntelligence());
+		return world.findWorldObjectsByProperty(Constants.STRENGTH, w -> w.isControlledByAI() && w.hasIntelligence());
 	}
 	
 	private class WorldModel extends AbstractTableModel {
 
-		private World world;
+		private List<WorldObject> npcs;
 		
 		public WorldModel(World world) {
 			super();
-			this.world = world;
+			this.npcs = getNPCs();
 		}
 
 		@Override
 		public int getColumnCount() {
-			return 4;
+			return 5;
 		}
 
 		@Override
@@ -81,6 +84,8 @@ public class GuiShowSkillOverviewAction extends AbstractAction {
 				return "Profession Skill";
 			} else if (columnIndex == 3) {
 				return "Profession Skill Value";
+			} else if (columnIndex == 4) {
+				return "Other Skills";
 			} else {
 				return null;
 			}
@@ -88,7 +93,7 @@ public class GuiShowSkillOverviewAction extends AbstractAction {
 
 		@Override
 		public Object getValueAt(int rowIndex, int columnIndex) {
-			WorldObject npc = getNPCs().get(rowIndex);
+			WorldObject npc = npcs.get(rowIndex);
 			if (columnIndex == 0) {
 				return npc.getProperty(Constants.NAME);
 			} else if (columnIndex == 1) {
@@ -112,6 +117,14 @@ public class GuiShowSkillOverviewAction extends AbstractAction {
 				} else {
 					return "";
 				}
+			} else if (columnIndex == 4) {
+				StringBuilder skillsDescriptionBuilder = new StringBuilder();
+				for (ManagedProperty<?> property : npc.getPropertyKeys()) {
+					if (property instanceof SkillProperty) {
+						skillsDescriptionBuilder.append("|").append(property.getName()).append("=").append(npc.getProperty(property));
+					}
+				}
+				return skillsDescriptionBuilder.toString();
 			} else {
 				return null;
 			}

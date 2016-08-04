@@ -32,6 +32,7 @@ import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdToIntegerMap;
 import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.deity.Deity;
@@ -70,21 +71,22 @@ public class BuildingGenerator {
 		return votingBox;
 	}
 	
-	public static int generateShack(int x, int y, World world, double skillBonus, WorldObject owner) {		
+	public static int generateShack(int x, int y, World world, WorldObject owner) {		
 		int id = world.generateUniqueId();
-		WorldObject shack = generateShack(x, y, skillBonus, owner, id);
+		int sleepComfortBonus = SkillUtils.getLogarithmicSkillBonus(owner, Constants.CARPENTRY_SKILL);
+		WorldObject shack = generateShack(x, y, sleepComfortBonus, owner, id);
 		world.addWorldObject(shack);
 		
 		return id;
 	}
 
-	public static WorldObject generateShack(int x, int y, double skillBonus, WorldObject owner, int id) {
+	public static WorldObject generateShack(int x, int y, int sleepComfortBonus, WorldObject owner, int id) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 2);
 		properties.put(Constants.HEIGHT, 3);
-		properties.put(Constants.SLEEP_COMFORT, (int)(3 * skillBonus));
+		properties.put(Constants.SLEEP_COMFORT, 3 + sleepComfortBonus);
 		properties.put(Constants.NAME, createName("shack", owner));
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.SHACK);
@@ -104,21 +106,22 @@ public class BuildingGenerator {
 		return shack;
 	}
 	
-	public static int generateHouse(int x, int y, World world, double skillBonus, WorldObject owner) {
+	public static int generateHouse(int x, int y, World world, WorldObject owner) {
 		int id = world.generateUniqueId();
-		WorldObject house = generateHouse(x, y, skillBonus, owner, id);
+		int sleepComfortBonus = SkillUtils.getLogarithmicSkillBonus(owner, Constants.CARPENTRY_SKILL);
+		WorldObject house = generateHouse(x, y, sleepComfortBonus, owner, id);
 		world.addWorldObject(house);
 		
 		return id;
 	}
 
-	private static WorldObject generateHouse(int x, int y, double skillBonus, WorldObject owner, int id) {
+	private static WorldObject generateHouse(int x, int y, int sleepComfortBonus, WorldObject owner, int id) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 3);
 		properties.put(Constants.HEIGHT, 3);
-		properties.put(Constants.SLEEP_COMFORT, (int)(5 * skillBonus));
+		properties.put(Constants.SLEEP_COMFORT, 5 + sleepComfortBonus);
 		properties.put(Constants.NAME, createName("house", owner));
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, generateHouseImageIds());
@@ -148,19 +151,19 @@ public class BuildingGenerator {
 	
 	public static int buildWell(int x, int y, World world, double skillBonus) {
 		int id = world.generateUniqueId();
-		WorldObject well = generateWell(x, y, id);
+		WorldObject well = generateWell(x, y, skillBonus, id);
 		world.addWorldObject(well);
 		
 		return id;
 	}
 
-	private static WorldObject generateWell(int x, int y, int id) {
+	private static WorldObject generateWell(int x, int y, double skillBonus, int id) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 2);
 		properties.put(Constants.HEIGHT, 2);
-		properties.put(Constants.WATER_SOURCE, 2000);
+		properties.put(Constants.WATER_SOURCE, (int)(1000 * skillBonus));
 		properties.put(Constants.NAME, WELL_NAME);
 		
 		properties.put(Constants.ID, id);
@@ -910,7 +913,7 @@ public class BuildingGenerator {
 	public static List<WorldObject> getBuildings(WorldObject owner, int width, int height) {
 		List<WorldObject> buildings = new ArrayList<>();
 		buildings.add(generateVotingBox(0, 0, 0));
-		buildings.add(generateWell(0, 0, 0));
+		buildings.add(generateWell(0, 0, 1f, 0));
 		buildings.add(generateTrainingDummy(0, 0, 1f, 0));
 		for(Deity deity : Deity.ALL_DEITIES) {
 			buildings.add(generateShrine(0, 0, 0, deity));

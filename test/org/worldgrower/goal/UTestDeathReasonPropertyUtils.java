@@ -57,6 +57,6 @@ public class UTestDeathReasonPropertyUtils {
 	
 	@Test
 	public void testGetAllDeathReasons() {
-		assertEquals(15, DeathReasonPropertyUtils.getAllDeathReasons().size());
+		assertEquals(16, DeathReasonPropertyUtils.getAllDeathReasons().size());
 	}
 }

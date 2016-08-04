@@ -17,8 +17,10 @@ package org.worldgrower.actions;
 import java.io.ObjectStreamException;
 
 import org.worldgrower.Constants;
+import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
@@ -26,6 +28,7 @@ import org.worldgrower.gui.music.SoundIds;
 
 public class CreatePaperAction implements CraftAction {
 
+	private static final int DISTANCE = 1;
 	private static final int WATER_REQUIRED = 1;
 	private static final int WOOD_REQUIRED = 1;
 	
@@ -33,7 +36,9 @@ public class CreatePaperAction implements CraftAction {
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
 		
-		inventory.addQuantity(Item.PAPER.generate(1f));
+		int quantity = WoodPropertyUtils.calculateLumberingQuantity(performer);
+		inventory.addQuantity(Item.PAPER.generate(1f), quantity);
+		SkillUtils.useSkill(performer, Constants.LUMBERING_SKILL, world.getWorldStateChangedListeners());
 		
 		inventory.removeQuantity(Constants.WATER, WATER_REQUIRED);
 		inventory.removeQuantity(Constants.WOOD, WOOD_REQUIRED);
@@ -47,7 +52,7 @@ public class CreatePaperAction implements CraftAction {
 	
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return 0;
+		return Reach.evaluateTarget(performer, args, target, DISTANCE);
 	}
 	
 	@Override

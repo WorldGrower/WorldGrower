@@ -68,7 +68,7 @@ public class UTestPutItemInInventoryAction {
 	}
 
 	private WorldObject createHouse(World world, WorldObject performer) {
-		int id = BuildingGenerator.generateHouse(0, 0, world, 1f, performer);
+		int id = BuildingGenerator.generateHouse(0, 0, world, performer);
 		WorldObject target = world.findWorldObjectById(id);
 		return target;
 	}

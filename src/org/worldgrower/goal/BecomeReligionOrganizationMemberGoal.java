@@ -56,7 +56,7 @@ public class BecomeReligionOrganizationMemberGoal implements Goal {
 		Deity deity = performer.getProperty(Constants.DEITY);
 		int deityIndex = Deity.ALL_DEITIES.indexOf(deity);
 		List<String> organizationNames = new OrganizationNamer().getDeityOrganizationNames(deity, world);
-		int organizationIndex = GroupPropertyUtils.getRandomOrganizationIndex(performer, organizationNames);
+		int organizationIndex = GroupPropertyUtils.getRandomOrganizationIndex(performer, organizationNames, deity.getName());
 		int organizationGoalIndex = deity.getOrganizationGoalIndex(performer, world);
 		return new OperationInfo(performer, performer, new int[] {deityIndex, organizationIndex, organizationGoalIndex}, Actions.CREATE_RELIGION_ORGANIZATION_ACTION);
 	}

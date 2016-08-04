@@ -220,8 +220,8 @@ public class UTestGroupPropertyUtils {
 		world.addWorldObject(target);
 		
 		createVillagersOrganizationWithTaxRates(world);
-		BuildingGenerator.generateShack(0, 0, world, 0f, target);
-		BuildingGenerator.generateHouse(0, 0, world, 0f, target);
+		BuildingGenerator.generateShack(0, 0, world, target);
+		BuildingGenerator.generateHouse(0, 0, world, target);
 		
 		assertEquals(3, GroupPropertyUtils.getBaseAmountToPay(target, world));
 	}
@@ -241,8 +241,8 @@ public class UTestGroupPropertyUtils {
 		world.addWorldObject(target);
 		
 		createVillagersOrganizationWithTaxRates(world);
-		BuildingGenerator.generateShack(0, 0, world, 0f, target);
-		BuildingGenerator.generateHouse(0, 0, world, 0f, target);
+		BuildingGenerator.generateShack(0, 0, world, target);
+		BuildingGenerator.generateHouse(0, 0, world, target);
 		
 		assertEquals(0, GroupPropertyUtils.getAmountToCollect(target, world));
 		
@@ -456,20 +456,20 @@ public class UTestGroupPropertyUtils {
 	@Test
 	public void testGetRandomOrganizationIndex() {
 		WorldObject performer = TestUtils.createWorldObject(2, "performer");
-		assertEquals(0, GroupPropertyUtils.getRandomOrganizationIndex(performer, Arrays.asList("Org1")));
+		assertEquals(0, GroupPropertyUtils.getRandomOrganizationIndex(performer, Arrays.asList("Org1"), "farmer"));
 		
 		performer.setProperty(Constants.NAME, "Y");
-		assertEquals(1, GroupPropertyUtils.getRandomOrganizationIndex(performer, Arrays.asList("Org1", "Org2")));
+		assertEquals(1, GroupPropertyUtils.getRandomOrganizationIndex(performer, Arrays.asList("Org1", "Org2"), "farmer"));
 		
 		performer.setProperty(Constants.NAME, "");
-		assertEquals(0, GroupPropertyUtils.getRandomOrganizationIndex(performer, Arrays.asList("Org1", "Org2")));
+		assertEquals(0, GroupPropertyUtils.getRandomOrganizationIndex(performer, Arrays.asList("Org1", "Org2"), "farmer"));
 	}
 	
 	@Test
 	public void testGetRandomOrganizationIndexError() {
 		try {
 			WorldObject performer = TestUtils.createWorldObject(2, "performer");
-			GroupPropertyUtils.getRandomOrganizationIndex(performer, new ArrayList<>());
+			GroupPropertyUtils.getRandomOrganizationIndex(performer, new ArrayList<>(), "farmer");
 			fail("method should fail");
 		} catch(IllegalStateException ex) {
 			assertEquals(true, ex.getMessage().startsWith("No organization names found for"));

@@ -21,6 +21,7 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.CottonPlantImageCalculator;
 import org.worldgrower.generator.Item;
@@ -33,8 +34,10 @@ public class HarvestCottonAction implements ManagedOperation {
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		WorldObjectContainer inventoryPerformer = performer.getProperty(Constants.INVENTORY);
 		
+		int quantity = CottonPropertyUtils.calculateWeavingQuantity(performer);
 		WorldObject harvestedCotton = Item.COTTON.generate(1f);
-		inventoryPerformer.addQuantity(harvestedCotton);
+		inventoryPerformer.addQuantity(harvestedCotton, quantity);
+		SkillUtils.useSkill(performer, Constants.WEAVING_SKILL, world.getWorldStateChangedListeners());
 
 		target.increment(Constants.COTTON_SOURCE, -20);
 		

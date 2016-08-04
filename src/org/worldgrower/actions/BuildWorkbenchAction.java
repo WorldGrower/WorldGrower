@@ -23,6 +23,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.BuildingType;
+import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
@@ -37,6 +38,7 @@ public class BuildWorkbenchAction implements BuildAction {
 		int y = (Integer)target.getProperty(Constants.Y);
 		
 		int workbenchId = BuildingGenerator.generateWorkbench(x, y, world, performer);
+		SkillUtils.useSkill(performer, Constants.CARPENTRY_SKILL, world.getWorldStateChangedListeners());
 		
 		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.STONE, REQUIRED_STONE);
 		performer.getProperty(Constants.BUILDINGS).add(workbenchId, BuildingType.WORKBENCH);

@@ -489,6 +489,7 @@ public class ImageInfoReader {
         add(ImageIds.PICKAXE, pirates.getSubImage(9, 2, 1, 1));
         add(ImageIds.SCYTHE, scythe.getSubImage(0, 0, 1, 1));
         add(ImageIds.MOVING_CHARACTER, sprites420.getSubImage(3, 26, 1, 1));
+        add(ImageIds.SACRED_FLAME, sprites420.getSubImage(2, 23, 1, 1));
     }
     
     private void resizeSmallFlowers() {

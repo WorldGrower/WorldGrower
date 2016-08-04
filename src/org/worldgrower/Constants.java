@@ -99,7 +99,7 @@ public class Constants {
 	public static final SkillProperty FARMING_SKILL = new SkillProperty("farming", ALL_PROPERTIES, "Used by farmers when tending to plants and food");
 	public static final SkillProperty MINING_SKILL = new SkillProperty("mining", ALL_PROPERTIES, "Used by miners when mining for stone, ore or gold");
 	public static final SkillProperty LUMBERING_SKILL = new SkillProperty("lumbering", ALL_PROPERTIES, "Used by lumberjacks when cutting down and processing trees");
-	public static final SkillProperty WEAVING_SKILL = new SkillProperty("weaving", ALL_PROPERTIES, "Used to make light armor from cotton");
+	public static final SkillProperty WEAVING_SKILL = new SkillProperty("weaving", ALL_PROPERTIES, "Used to make light armor from cotton and harvestign cotton");
 	public static final SkillProperty LIGHT_ARMOR_SKILL = new SkillProperty("light armor", ALL_PROPERTIES, "Improves armor rating of light armor");
 	public static final SkillProperty HEAVY_ARMOR_SKILL = new SkillProperty("heavy armor", ALL_PROPERTIES, "Improves armor rating of heavy armor");
 	public static final SkillProperty CARPENTRY_SKILL = new SkillProperty("carpentry", ALL_PROPERTIES, "Used when building houses or furniture");

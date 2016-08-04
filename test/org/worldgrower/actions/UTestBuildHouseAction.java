@@ -48,7 +48,7 @@ public class UTestBuildHouseAction {
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
-		int shackId = BuildingGenerator.generateShack(0, 0, world, 1f, performer);
+		int shackId = BuildingGenerator.generateShack(0, 0, world, performer);
 		performer.getProperty(Constants.BUILDINGS).add(shackId, BuildingType.SHACK);
 		
 		Actions.BUILD_HOUSE_ACTION.execute(performer, target, Args.EMPTY, world);

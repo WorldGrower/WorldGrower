@@ -35,7 +35,7 @@ public class UTestLockMagicSpellAction {
 	public void testExecute() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
-		int id = BuildingGenerator.generateHouse(0, 0, world, 1f, performer);
+		int id = BuildingGenerator.generateHouse(0, 0, world, performer);
 		WorldObject target = world.findWorldObjectById(id);
 		
 		target.setProperty(Constants.LOCKED, Boolean.FALSE);
@@ -49,7 +49,7 @@ public class UTestLockMagicSpellAction {
 	public void testIsValidTarget() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
-		int id = BuildingGenerator.generateHouse(0, 0, world, 1f, performer);
+		int id = BuildingGenerator.generateHouse(0, 0, world, performer);
 		WorldObject target = world.findWorldObjectById(id);
 		
 		assertEquals(false, Actions.LOCK_MAGIC_SPELL_ACTION.isValidTarget(performer, target, world));
@@ -64,7 +64,7 @@ public class UTestLockMagicSpellAction {
 	public void testIsActionPossible() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
-		int id = BuildingGenerator.generateHouse(0, 0, world, 1f, performer);
+		int id = BuildingGenerator.generateHouse(0, 0, world, performer);
 		WorldObject target = world.findWorldObjectById(id);
 		
 		assertEquals(true, Actions.LOCK_MAGIC_SPELL_ACTION.isActionPossible(performer, target, Args.EMPTY, world));

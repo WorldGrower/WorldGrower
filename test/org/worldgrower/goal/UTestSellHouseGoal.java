@@ -67,7 +67,7 @@ public class UTestSellHouseGoal {
 		
 		assertEquals(false, goal.isGoalMet(performer, world));
 		
-		int houseId = BuildingGenerator.generateHouse(5, 5, world, 1f, performer);
+		int houseId = BuildingGenerator.generateHouse(5, 5, world, performer);
 		performer.getProperty(Constants.BUILDINGS).add(houseId, BuildingType.HOUSE);
 		assertEquals(true, goal.isGoalMet(performer, world));
 	}
