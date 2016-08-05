@@ -617,7 +617,12 @@ public final class WorldPanel extends JPanel {
 		} else if (buySellDescription != null) {
 			return buySellDescription;
 		} else {
-			return worldObject.getProperty(Constants.NAME);
+			WorldObject facade = worldObject.getProperty(Constants.FACADE);
+			if ((facade != null) && facade.getProperty(Constants.NAME) != null) {
+				return facade.getProperty(Constants.NAME);
+			} else {
+				return worldObject.getProperty(Constants.NAME);
+			}
 		}
 	}
 	

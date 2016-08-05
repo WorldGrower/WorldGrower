@@ -54,6 +54,7 @@ import org.worldgrower.actions.magic.UTestParalyzeAction;
 import org.worldgrower.actions.magic.UTestRayOfFrostAttackAction;
 import org.worldgrower.actions.magic.UTestReduceAction;
 import org.worldgrower.actions.magic.UTestResearchSpellAction;
+import org.worldgrower.actions.magic.UTestSacredFlameAttackAction;
 import org.worldgrower.actions.magic.UTestScribeMagicSpellAction;
 import org.worldgrower.actions.magic.UTestSecretChestAction;
 import org.worldgrower.actions.magic.UTestSilenceMagicAction;
@@ -720,7 +721,8 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestCreateIronAxeGoal.class,
 	UTestEquipWoodCuttingToolGoal.class,
 	UTestEquipScytheGoal.class,
-	UTestConstructScytheAction.class
+	UTestConstructScytheAction.class,
+	UTestSacredFlameAttackAction.class
 })
 public class CompleteTestSuite {
 }

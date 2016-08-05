@@ -16,13 +16,17 @@ package org.worldgrower.goal;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Arrays;
+
 import org.junit.Test;
 import org.worldgrower.AssertUtils;
 import org.worldgrower.Constants;
+import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.actions.ChooseProfessionAction;
 import org.worldgrower.actions.MockCommonerNameGenerator;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.generator.CommonerGenerator;
@@ -42,6 +46,23 @@ public class UTestBecomeProfessionsOrganizationMemberGoal {
 		performer.setProperty(Constants.PROFESSION, Professions.FARMER_PROFESSION);
 		
 		assertEquals(Actions.CREATE_PROFESSION_ORGANIZATION_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+	@Test
+	public void testCalculateGoalCandidateCreateProfessionOrganizationForTrickster() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject organization = GroupPropertyUtils.createProfessionOrganization(null, "TestOrg", Professions.FARMER_PROFESSION, world);
+		WorldObject performer = createCommoner(world, organization);
+		performer.setProperty(Constants.PROFESSION, Professions.TRICKSTER_PROFESSION);
+		ChooseProfessionAction.createTricksterFacade(performer);
+		
+		assertEquals(Arrays.asList(0), performer.getProperty(Constants.GROUP).getIds());
+		assertEquals(Actions.CREATE_PROFESSION_ORGANIZATION_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+		OperationInfo operationInfo = goal.calculateGoal(performer, world);
+		operationInfo.perform(world);
+		
+		assertEquals(Arrays.asList(0, 2), performer.getProperty(Constants.GROUP).getIds());
+		assertEquals(Professions.WIZARD_PROFESSION, world.findWorldObjectById(2).getProperty(Constants.PROFESSION));
 	}
 	
 	@Test
@@ -93,6 +114,17 @@ public class UTestBecomeProfessionsOrganizationMemberGoal {
 		WorldObject organization = GroupPropertyUtils.createProfessionOrganization(null, "TestOrg", Professions.FARMER_PROFESSION, world);
 		WorldObject performer = createCommoner(world, organization);
 		performer.setProperty(Constants.PROFESSION, Professions.FARMER_PROFESSION);
+		
+		assertEquals(true, goal.isGoalMet(performer, world));
+	}
+	
+	@Test
+	public void testIsGoalMetTrickster() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject organization = GroupPropertyUtils.createProfessionOrganization(null, "TestOrg", Professions.WIZARD_PROFESSION, world);
+		WorldObject performer = createCommoner(world, organization);
+		performer.setProperty(Constants.PROFESSION, Professions.TRICKSTER_PROFESSION);
+		ChooseProfessionAction.createTricksterFacade(performer);
 		
 		assertEquals(true, goal.isGoalMet(performer, world));
 	}

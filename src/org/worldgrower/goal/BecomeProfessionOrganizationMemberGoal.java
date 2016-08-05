@@ -23,6 +23,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.OrganizationNamer;
 import org.worldgrower.conversation.Conversations;
+import org.worldgrower.profession.Profession;
 import org.worldgrower.profession.Professions;
 
 public class BecomeProfessionOrganizationMemberGoal implements Goal {
@@ -55,9 +56,10 @@ public class BecomeProfessionOrganizationMemberGoal implements Goal {
 
 	private OperationInfo createProfessionOrganization(WorldObject performer, World world) {
 		WorldObject performerToFind = FacadeUtils.createFacadeForSelf(performer);
-		int professionIndex = Professions.indexOf(performerToFind.getProperty(Constants.PROFESSION));
-		List<String> organizationNames = new OrganizationNamer().getProfessionOrganizationNames(performer.getProperty(Constants.PROFESSION), world);
-		int organizationIndex = GroupPropertyUtils.getRandomOrganizationIndex(performer, organizationNames, performer.getProperty(Constants.PROFESSION).getDescription());
+		Profession profession = performerToFind.getProperty(Constants.PROFESSION);
+		int professionIndex = Professions.indexOf(profession);
+		List<String> organizationNames = new OrganizationNamer().getProfessionOrganizationNames(profession, world);
+		int organizationIndex = GroupPropertyUtils.getRandomOrganizationIndex(performer, organizationNames, profession.getDescription());
 		return new OperationInfo(performer, performer, new int[] {professionIndex, organizationIndex}, Actions.CREATE_PROFESSION_ORGANIZATION_ACTION);
 	}
 
