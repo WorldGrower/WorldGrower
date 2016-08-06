@@ -20,6 +20,7 @@ import java.util.List;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.AnimatedAction;
 import org.worldgrower.actions.AttackUtils;
 import org.worldgrower.actions.BuildAction;
 import org.worldgrower.actions.CraftUtils;
@@ -33,7 +34,7 @@ import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
-public class FireBallAttackAction implements BuildAction, MagicSpell, DeadlyAction {
+public class FireBallAttackAction implements BuildAction, MagicSpell, DeadlyAction, AnimatedAction {
 	private static final int ENERGY_USE = 600;
 	private static final int BASE_DAMAGE = 8 * Item.COMBAT_MULTIPLIER;
 	private static final int DISTANCE = 5;
@@ -52,6 +53,7 @@ public class FireBallAttackAction implements BuildAction, MagicSpell, DeadlyActi
 		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE, world.getWorldStateChangedListeners());
 	}
 
+	@Override
 	public List<WorldObject> getAffectedTargets(WorldObject target, World world) {
 		int x = (Integer)target.getProperty(Constants.X);
 		int y = (Integer)target.getProperty(Constants.Y);
@@ -141,5 +143,15 @@ public class FireBallAttackAction implements BuildAction, MagicSpell, DeadlyActi
 	@Override
 	public SoundIds getSoundId() {
 		return SoundIds.FLAMES;
+	}
+
+	@Override
+	public ImageIds getAnimationImageId() {
+		return ImageIds.FIRE1;
+	}
+
+	@Override
+	public int getNumberOfFrames() {
+		return 20;
 	}
 }

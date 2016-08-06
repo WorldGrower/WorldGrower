@@ -15,10 +15,13 @@
 package org.worldgrower.actions.magic;
 
 import java.io.ObjectStreamException;
+import java.util.Arrays;
+import java.util.List;
 
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.AnimatedAction;
 import org.worldgrower.actions.AttackUtils;
 import org.worldgrower.actions.CraftUtils;
 import org.worldgrower.actions.DeadlyAction;
@@ -29,7 +32,7 @@ import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
-public class RayOfFrostAttackAction implements MagicSpell, DeadlyAction {
+public class RayOfFrostAttackAction implements MagicSpell, DeadlyAction, AnimatedAction {
 
 	private static final int BASE_DAMAGE = 5 * Item.COMBAT_MULTIPLIER;
 	private static final int DISTANCE = 4;
@@ -110,5 +113,20 @@ public class RayOfFrostAttackAction implements MagicSpell, DeadlyAction {
 	
 	public SoundIds getSoundId() {
 		return SoundIds.FROST;
+	}
+
+	@Override
+	public ImageIds getAnimationImageId() {
+		return ImageIds.ICE1;
+	}
+
+	@Override
+	public int getNumberOfFrames() {
+		return 30;
+	}
+
+	@Override
+	public List<WorldObject> getAffectedTargets(WorldObject target, World world) {
+		return Arrays.asList(target);
 	}
 }

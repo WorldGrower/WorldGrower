@@ -15,11 +15,13 @@
 package org.worldgrower.actions.magic;
 
 import java.io.ObjectStreamException;
+import java.util.Arrays;
 import java.util.List;
 
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.AnimatedAction;
 import org.worldgrower.actions.AttackUtils;
 import org.worldgrower.actions.CraftUtils;
 import org.worldgrower.actions.DeadlyAction;
@@ -32,7 +34,7 @@ import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 import org.worldgrower.terrain.TerrainType;
 
-public class LightningBoltAttackAction implements MagicSpell, DeadlyAction {
+public class LightningBoltAttackAction implements MagicSpell, DeadlyAction, AnimatedAction {
 
 	private static final int BASE_DAMAGE = 5 * Item.COMBAT_MULTIPLIER;
 	private static final int ENERGY_USE = 600;
@@ -131,5 +133,20 @@ public class LightningBoltAttackAction implements MagicSpell, DeadlyAction {
 	
 	public SoundIds getSoundId() {
 		return SoundIds.SHOCK;
+	}
+
+	@Override
+	public ImageIds getAnimationImageId() {
+		return ImageIds.THUNDER1;
+	}
+
+	@Override
+	public int getNumberOfFrames() {
+		return 30;
+	}
+
+	@Override
+	public List<WorldObject> getAffectedTargets(WorldObject target, World world) {
+		return Arrays.asList(target);
 	}
 }

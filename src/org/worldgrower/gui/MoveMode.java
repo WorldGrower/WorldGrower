@@ -15,14 +15,8 @@ import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.actions.magic.FireBallAttackAction;
-import org.worldgrower.actions.magic.FireBoltAttackAction;
-import org.worldgrower.actions.magic.InflictWoundsAction;
-import org.worldgrower.actions.magic.LightningBoltAttackAction;
+import org.worldgrower.actions.AnimatedAction;
 import org.worldgrower.actions.magic.MagicSpell;
-import org.worldgrower.actions.magic.MinorHealAction;
-import org.worldgrower.actions.magic.RayOfFrostAttackAction;
-import org.worldgrower.actions.magic.SacredFlameAttackAction;
 import org.worldgrower.attribute.LookDirection;
 
 public class MoveMode {
@@ -79,31 +73,12 @@ public class MoveMode {
 				if (lastPerformedOperationInfo.getManagedOperation() instanceof MagicSpell) {
 					magicCasters.add(intelligentWorldObject);
 				}
-				if (lastPerformedOperationInfo.getManagedOperation() instanceof FireBoltAttackAction) {
-					magicTargets.add(new MagicTarget(lastPerformedOperationInfo.getTarget(), ImageIds.FIRE1, 20));
-				}
-				if (lastPerformedOperationInfo.getManagedOperation() instanceof SacredFlameAttackAction) {
-					magicTargets.add(new MagicTarget(lastPerformedOperationInfo.getTarget(), ImageIds.LIGHT4, 25));
-				}
-				
-				if (lastPerformedOperationInfo.getManagedOperation() instanceof FireBallAttackAction) {
-					FireBallAttackAction fireBallAttackAction = (FireBallAttackAction) lastPerformedOperationInfo.getManagedOperation();
-					List<WorldObject> affectedTargets = fireBallAttackAction.getAffectedTargets(lastPerformedOperationInfo.getTarget(), world);
+				if (lastPerformedOperationInfo.getManagedOperation() instanceof AnimatedAction) {
+					AnimatedAction animatedAction = (AnimatedAction) lastPerformedOperationInfo.getManagedOperation();
+					List<WorldObject> affectedTargets = animatedAction.getAffectedTargets(lastPerformedOperationInfo.getTarget(), world);
 					for(WorldObject affectedTarget : affectedTargets) {
-						magicTargets.add(new MagicTarget(affectedTarget, ImageIds.FIRE1, 20));
+						magicTargets.add(new MagicTarget(affectedTarget, animatedAction.getAnimationImageId(), animatedAction.getNumberOfFrames()));
 					}
-				}
-				if (lastPerformedOperationInfo.getManagedOperation() instanceof RayOfFrostAttackAction) {
-					magicTargets.add(new MagicTarget(lastPerformedOperationInfo.getTarget(), ImageIds.ICE1, 30));
-				}
-				if (lastPerformedOperationInfo.getManagedOperation() instanceof LightningBoltAttackAction) {
-					magicTargets.add(new MagicTarget(lastPerformedOperationInfo.getTarget(), ImageIds.THUNDER1, 30));
-				}
-				if (lastPerformedOperationInfo.getManagedOperation() instanceof InflictWoundsAction) {
-					magicTargets.add(new MagicTarget(lastPerformedOperationInfo.getTarget(), ImageIds.DARKNESS1, 30));
-				}
-				if (lastPerformedOperationInfo.getManagedOperation() instanceof MinorHealAction) {
-					magicTargets.add(new MagicTarget(lastPerformedOperationInfo.getTarget(), ImageIds.HEAL1, 25));
 				}
 			}
 		}

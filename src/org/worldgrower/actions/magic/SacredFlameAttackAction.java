@@ -15,10 +15,13 @@
 package org.worldgrower.actions.magic;
 
 import java.io.ObjectStreamException;
+import java.util.Arrays;
+import java.util.List;
 
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.AnimatedAction;
 import org.worldgrower.actions.AttackUtils;
 import org.worldgrower.actions.CraftUtils;
 import org.worldgrower.actions.DeadlyAction;
@@ -30,7 +33,7 @@ import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
-public class SacredFlameAttackAction implements MagicSpell, DeadlyAction {
+public class SacredFlameAttackAction implements MagicSpell, DeadlyAction, AnimatedAction {
 
 	private static final int BASE_DAMAGE = 8 * Item.COMBAT_MULTIPLIER;
 	private static final int DISTANCE = 4;
@@ -117,5 +120,20 @@ public class SacredFlameAttackAction implements MagicSpell, DeadlyAction {
 	@Override
 	public SoundIds getSoundId() {
 		return SoundIds.BLESSING;
+	}
+
+	@Override
+	public ImageIds getAnimationImageId() {
+		return ImageIds.LIGHT4;
+	}
+
+	@Override
+	public int getNumberOfFrames() {
+		return 25;
+	}
+
+	@Override
+	public List<WorldObject> getAffectedTargets(WorldObject target, World world) {
+		return Arrays.asList(target);
 	}
 }
