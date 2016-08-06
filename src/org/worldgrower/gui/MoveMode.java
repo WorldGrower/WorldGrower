@@ -238,7 +238,9 @@ public class MoveMode {
 
 		int numberOfFrames = magicTarget.getNumberOfFrames();
 		final int imageIndex;
-		if (numberOfFrames == 20) {
+		if (numberOfFrames == 10) {
+			imageIndex = moveStep / 5;
+		} else if (numberOfFrames == 20) {
 			imageIndex = moveStep / 3;
 		} else if (numberOfFrames == 25) {
 			imageIndex = moveStep / 3;

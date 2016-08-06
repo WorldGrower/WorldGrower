@@ -15,6 +15,8 @@
 package org.worldgrower.actions;
 
 import java.io.ObjectStreamException;
+import java.util.Arrays;
+import java.util.List;
 
 import org.worldgrower.Constants;
 import org.worldgrower.Reach;
@@ -26,7 +28,7 @@ import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
-public class MeleeAttackAction implements DeadlyAction {
+public class MeleeAttackAction implements DeadlyAction, AnimatedAction {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
@@ -104,5 +106,20 @@ public class MeleeAttackAction implements DeadlyAction {
 	
 	public SoundIds getSoundId() {
 		return SoundIds.SWING;
+	}
+
+	@Override
+	public ImageIds getAnimationImageId() {
+		return ImageIds.SLASH1;
+	}
+
+	@Override
+	public int getNumberOfFrames() {
+		return 10;
+	}
+
+	@Override
+	public List<WorldObject> getAffectedTargets(WorldObject target, World world) {
+		return Arrays.asList(target);
 	}
 }

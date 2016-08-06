@@ -65,6 +65,7 @@ thunder_001.png
 darkness_001.png
 heal_001.png
 light_004.png
+slash_001.png
 
 workshop*.wav: http://opengameart.org/content/68-workshop-sounds
 

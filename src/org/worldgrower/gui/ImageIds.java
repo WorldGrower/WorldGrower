@@ -351,5 +351,6 @@ public enum ImageIds {
 	SCYTHE,
 	MOVING_CHARACTER,
 	SACRED_FLAME,
-	LIGHT4
+	LIGHT4,
+	SLASH1
 }
