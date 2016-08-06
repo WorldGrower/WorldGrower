@@ -22,6 +22,7 @@ import org.worldgrower.actions.magic.LightningBoltAttackAction;
 import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.actions.magic.MinorHealAction;
 import org.worldgrower.actions.magic.RayOfFrostAttackAction;
+import org.worldgrower.actions.magic.SacredFlameAttackAction;
 import org.worldgrower.attribute.LookDirection;
 
 public class MoveMode {
@@ -81,6 +82,10 @@ public class MoveMode {
 				if (lastPerformedOperationInfo.getManagedOperation() instanceof FireBoltAttackAction) {
 					magicTargets.add(new MagicTarget(lastPerformedOperationInfo.getTarget(), ImageIds.FIRE1, 20));
 				}
+				if (lastPerformedOperationInfo.getManagedOperation() instanceof SacredFlameAttackAction) {
+					magicTargets.add(new MagicTarget(lastPerformedOperationInfo.getTarget(), ImageIds.LIGHT4, 25));
+				}
+				
 				if (lastPerformedOperationInfo.getManagedOperation() instanceof FireBallAttackAction) {
 					FireBallAttackAction fireBallAttackAction = (FireBallAttackAction) lastPerformedOperationInfo.getManagedOperation();
 					List<WorldObject> affectedTargets = fireBallAttackAction.getAffectedTargets(lastPerformedOperationInfo.getTarget(), world);

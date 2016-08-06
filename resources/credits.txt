@@ -57,7 +57,14 @@ cursor.png: created by http://www.elegantthemes.com from http://www.flaticon.com
 
 clothing_shop.png: created by http://rmvxacetiles.blogspot.be/2013/03/more-tiles-wealthy-poor-specialized.html
 
-magic_001.png: created by Mr. Bubble at https://mrbubblewand.wordpress.com/download/
+magic effects created by Mr. Bubble at https://mrbubblewand.wordpress.com/download/
+magic_001.png
+fire_001.png
+ice_001.png
+thunder_001.png
+darkness_001.png
+heal_001.png
+light_004.png
 
 workshop*.wav: http://opengameart.org/content/68-workshop-sounds
 
