@@ -77,7 +77,7 @@ public class MoveMode {
 					AnimatedAction animatedAction = (AnimatedAction) lastPerformedOperationInfo.getManagedOperation();
 					List<WorldObject> affectedTargets = animatedAction.getAffectedTargets(lastPerformedOperationInfo.getTarget(), world);
 					for(WorldObject affectedTarget : affectedTargets) {
-						magicTargets.add(new MagicTarget(affectedTarget, animatedAction.getAnimationImageId(), animatedAction.getNumberOfFrames()));
+						magicTargets.add(new MagicTarget(affectedTarget, animatedAction.getAnimationId()));
 					}
 				}
 			}
@@ -263,10 +263,10 @@ public class MoveMode {
 		private final ImageIds imageId;
 		private final int numberOfFrames;
 		
-		public MagicTarget(WorldObject target, ImageIds imageId, int numberOfFrames) {
+		public MagicTarget(WorldObject target, AnimationId animationId) {
 			this.target = target;
-			this.imageId = imageId;
-			this.numberOfFrames = numberOfFrames;
+			this.imageId = animationId.getImageIds();
+			this.numberOfFrames = animationId.getNumberOfFrames();
 		}
 
 		public WorldObject getTarget() {

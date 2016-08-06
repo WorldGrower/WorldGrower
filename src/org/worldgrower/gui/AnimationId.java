@@ -12,16 +12,28 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.actions;
+package org.worldgrower.gui;
 
-import java.util.List;
-
-import org.worldgrower.World;
-import org.worldgrower.WorldObject;
-import org.worldgrower.gui.AnimationId;
-
-public interface AnimatedAction {
-
-	public AnimationId getAnimationId();
-	public List<WorldObject> getAffectedTargets(WorldObject target, World world);
+public enum AnimationId {
+	FIRE1(ImageIds.FIRE1, 20),
+	DARKNESS1(ImageIds.DARKNESS1, 30),
+	THUNDER1(ImageIds.THUNDER1, 30),
+	SLASH1(ImageIds.SLASH1, 10),
+	HEAL1(ImageIds.HEAL1, 25),
+	ICE1(ImageIds.ICE1, 30),
+	LIGHT4(ImageIds.LIGHT4, 25);
+	
+	private AnimationId(ImageIds imageIds, int numberOfFrames) {
+		this.imageIds = imageIds;
+		this.numberOfFrames = numberOfFrames;
+	}
+	private final ImageIds imageIds;
+	private final int numberOfFrames;
+	
+	public ImageIds getImageIds() {
+		return imageIds;
+	}
+	public int getNumberOfFrames() {
+		return numberOfFrames;
+	}
 }
