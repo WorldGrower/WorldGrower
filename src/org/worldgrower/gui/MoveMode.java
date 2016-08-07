@@ -126,10 +126,10 @@ public class MoveMode {
 			}
 		}
 		for(int i=0; i<magicCasters.size(); i++) {
-			paintMagicSpellForWorldObject(g, worldPanel, magicCasters.get(i), imageInfoReader, moveStep, moveIndex);
+			paintMagicSpellForWorldObject(g, worldPanel, magicCasters.get(i), imageInfoReader, moveStep, moveIndex, world);
 		}
 		for(int i=0; i<magicTargets.size(); i++) {
-			paintMagicTargetForWorldObject(g, worldPanel, magicTargets.get(i), imageInfoReader, moveStep, moveIndex);
+			paintMagicTargetForWorldObject(g, worldPanel, magicTargets.get(i), imageInfoReader, moveStep, moveIndex, world);
 		}
 		if (moveMode && moveStep < 48) {
 			moveStep += 2;
@@ -221,20 +221,22 @@ public class MoveMode {
 	
 	private void paintMagicSpellForWorldObject(Graphics g, WorldPanel worldPanel,
 			WorldObject magicCaster, ImageInfoReader imageInfoReader,
-			int moveStep, int moveIndex) {
+			int moveStep, int moveIndex, World world) {
 
 		int imageIndex = (moveStep / 2);
 		if (moveStep < 47) {
 			Image image = imageInfoReader.getImage(ImageIds.MAGIC1, imageIndex);
-			Integer x = magicCaster.getProperty(Constants.X) - 1;
-			Integer y = magicCaster.getProperty(Constants.Y) - 1;
-			worldPanel.drawWorldObjectInPixels(g, magicCaster, null, image, x, y, 0, 0);
+			int x = magicCaster.getProperty(Constants.X) - 1;
+			int y = magicCaster.getProperty(Constants.Y) - 1;
+			if (world.getTerrain().isExplored(x, y)) {
+				worldPanel.drawWorldObjectInPixels(g, magicCaster, null, image, x, y, 0, 0);
+			}
 		}
 	}
 	
 	private void paintMagicTargetForWorldObject(Graphics g, WorldPanel worldPanel,
 			MagicTarget magicTarget, ImageInfoReader imageInfoReader,
-			int moveStep, int moveIndex) {
+			int moveStep, int moveIndex, World world) {
 
 		int numberOfFrames = magicTarget.getNumberOfFrames();
 		final int imageIndex;
@@ -254,7 +256,9 @@ public class MoveMode {
 			WorldObject target = magicTarget.getTarget();
 			Integer x = target.getProperty(Constants.X);
 			Integer y = target.getProperty(Constants.Y);
-			worldPanel.drawWorldObjectInPixels(g, target, null, image, x, y, 0, 0);
+			if (world.getTerrain().isExplored(x, y)) {
+				worldPanel.drawWorldObjectInPixels(g, target, null, image, x, y, 0, 0);
+			}
 		}
 	}
 	
