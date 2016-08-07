@@ -15,6 +15,8 @@
 package org.worldgrower.actions;
 
 import java.io.ObjectStreamException;
+import java.util.Arrays;
+import java.util.List;
 
 import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
@@ -23,10 +25,11 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.generator.BerryBushImageCalculator;
+import org.worldgrower.gui.AnimationId;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
-public class EatAction implements ManagedOperation {
+public class EatAction implements ManagedOperation, AnimatedAction {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
@@ -88,5 +91,15 @@ public class EatAction implements ManagedOperation {
 	@Override
 	public SoundIds getSoundId() {
 		return SoundIds.EAT;
+	}
+	
+	@Override
+	public AnimationId getAnimationId() {
+		return AnimationId.BLACK_CRESCENT_SLASH;
+	}
+
+	@Override
+	public List<WorldObject> getAffectedTargets(WorldObject target, World world) {
+		return Arrays.asList(target);
 	}
 }
