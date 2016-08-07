@@ -84,6 +84,7 @@ public class ImageInfoReader {
     	Sprites heal1 = readSpritesHeal1();
     	Sprites light4 = readSpritesLight4();
     	Sprites slash1 = readSpritesSlash1();
+    	Sprites horizontalSlash = readSpritesHorizontalSlash();
     	Sprites sprites01 = readSprites01();
     	Sprites aktor1 = readSpritesAktor1();
     	Sprites aktor3 = readSpritesAktor3();
@@ -446,6 +447,7 @@ public class ImageInfoReader {
 		addMagic(ImageIds.HEAL1, heal1, 5, 5);
 		addMagic(ImageIds.LIGHT4, light4, 5, 5);
 		addMagic(ImageIds.SLASH1, slash1, 5, 2);
+		addMagic(ImageIds.HORIZONTAL_SLASH, horizontalSlash, 5, 2);
 		
 		add(ImageIds.ANIMAL_FRIENDSHIP_SPELL, sprites420.getSubImage(8, 22, 1, 1));
 		add(ImageIds.EAT_REMAINS, sprites420.getSubImage(4, 12, 1, 1));
@@ -894,6 +896,10 @@ public class ImageInfoReader {
 	
 	private static Sprites readSpritesSlash1() throws IOException {
 		return readImages("slash_001.png", 48, 48, 1, 1);
+	}
+	
+	private static Sprites readSpritesHorizontalSlash() throws IOException {
+		return readImages("horizontal_slash.png", 48, 48, 1, 1);
 	}
 	
     private static Sprites readSprites01() throws IOException {

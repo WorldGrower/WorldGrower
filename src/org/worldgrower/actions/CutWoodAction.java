@@ -15,6 +15,8 @@
 package org.worldgrower.actions;
 
 import java.io.ObjectStreamException;
+import java.util.Arrays;
+import java.util.List;
 
 import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
@@ -24,10 +26,11 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.generator.Item;
 import org.worldgrower.generator.TreeImageCalculator;
+import org.worldgrower.gui.AnimationId;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
-public class CutWoodAction implements ManagedOperation {
+public class CutWoodAction implements ManagedOperation, AnimatedAction {
 
 	private static final int ENERGY_USE = 50;
 	private static final int DISTANCE = 1;
@@ -98,5 +101,15 @@ public class CutWoodAction implements ManagedOperation {
 	
 	public SoundIds getSoundId() {
 		return SoundIds.CUT_WOOD;
+	}
+
+	@Override
+	public AnimationId getAnimationId() {
+		return AnimationId.HORIZONTAL_SLASH;
+	}
+
+	@Override
+	public List<WorldObject> getAffectedTargets(WorldObject target, World world) {
+		return Arrays.asList(target);
 	}
 }

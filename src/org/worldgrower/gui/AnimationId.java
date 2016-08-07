@@ -21,7 +21,8 @@ public enum AnimationId {
 	SLASH1(ImageIds.SLASH1, 10),
 	HEAL1(ImageIds.HEAL1, 25),
 	ICE1(ImageIds.ICE1, 30),
-	LIGHT4(ImageIds.LIGHT4, 25);
+	LIGHT4(ImageIds.LIGHT4, 25),
+	HORIZONTAL_SLASH(ImageIds.HORIZONTAL_SLASH, 10);
 	
 	private AnimationId(ImageIds imageIds, int numberOfFrames) {
 		this.imageIds = imageIds;
