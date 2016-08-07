@@ -86,6 +86,7 @@ public class ImageInfoReader {
     	Sprites slash1 = readSpritesSlash1();
     	Sprites horizontalSlash = readSpritesHorizontalSlash();
     	Sprites blackCrescentSlash = readSpritesBlackCrescentSlash();
+    	Sprites whiteSlash = readSpritesWhiteSlash();
     	Sprites sprites01 = readSprites01();
     	Sprites aktor1 = readSpritesAktor1();
     	Sprites aktor3 = readSpritesAktor3();
@@ -437,19 +438,20 @@ public class ImageInfoReader {
 		add(ImageIds.APOTHECARY, apothecary.getSubImage(0, 0, 1, 1));
 		add(ImageIds.HAMMER, sprites420.getSubImage(3, 9, 1, 1));
 		
-		addMagic(ImageIds.MAGIC1, magic1, 5, 6);
-		addMagic(ImageIds.FIRE1, fire1, 5, 4);
-		addMagic(ImageIds.ICE1, ice1, 5, 6);
-		addMagic(ImageIds.THUNDER1, thunder1, 5, 6);
-		addMagic(ImageIds.DARKNESS1, darkness1, 5, 6);
+		addAnimation(ImageIds.MAGIC1, magic1, 5, 6);
+		addAnimation(ImageIds.FIRE1, fire1, 5, 4);
+		addAnimation(ImageIds.ICE1, ice1, 5, 6);
+		addAnimation(ImageIds.THUNDER1, thunder1, 5, 6);
+		addAnimation(ImageIds.DARKNESS1, darkness1, 5, 6);
 		
 		add(ImageIds.DIMENSION_DOOR, tileE.getSubImage(0, 4, 1, 1));
 		
-		addMagic(ImageIds.HEAL1, heal1, 5, 5);
-		addMagic(ImageIds.LIGHT4, light4, 5, 5);
-		addMagic(ImageIds.SLASH1, slash1, 5, 2);
-		addMagic(ImageIds.HORIZONTAL_SLASH, horizontalSlash, 5, 2);
-		addMagic(ImageIds.BLACK_CRESCENT_SLASH, blackCrescentSlash, 5, 2);
+		addAnimation(ImageIds.HEAL1, heal1, 5, 5);
+		addAnimation(ImageIds.LIGHT4, light4, 5, 5);
+		addAnimation(ImageIds.SLASH1, slash1, 5, 2);
+		addAnimation(ImageIds.HORIZONTAL_SLASH, horizontalSlash, 5, 2);
+		addAnimation(ImageIds.BLACK_CRESCENT_SLASH, blackCrescentSlash, 5, 2);
+		addAnimation(ImageIds.WHITE_SLASH, whiteSlash, 5, 2);
 		
 		add(ImageIds.ANIMAL_FRIENDSHIP_SPELL, sprites420.getSubImage(8, 22, 1, 1));
 		add(ImageIds.EAT_REMAINS, sprites420.getSubImage(4, 12, 1, 1));
@@ -499,6 +501,7 @@ public class ImageInfoReader {
         add(ImageIds.SCYTHE, scythe.getSubImage(0, 0, 1, 1));
         add(ImageIds.MOVING_CHARACTER, sprites420.getSubImage(3, 26, 1, 1));
         add(ImageIds.SACRED_FLAME, sprites420.getSubImage(2, 23, 1, 1));
+        
     }
     
     private void resizeSmallFlowers() {
@@ -649,7 +652,7 @@ public class ImageInfoReader {
     	characterImageIds.add(imageId);
 	}
     
-    private void addMagic(ImageIds imageId, Sprites sprites, int width, int height) {
+    private void addAnimation(ImageIds imageId, Sprites sprites, int width, int height) {
     	if (idToImages.containsKey(imageId)) {
     		throw new IllegalStateException("Id " + imageId + " exists in map " + idToImages);
     	}
@@ -906,6 +909,10 @@ public class ImageInfoReader {
 	
 	private static Sprites readSpritesBlackCrescentSlash() throws IOException {
 		return readImages("black_crescent_slash.png", 48, 48, 1, 1);
+	}
+	
+	private static Sprites readSpritesWhiteSlash() throws IOException {
+		return readImages("white_slash.png", 48, 48, 1, 1);
 	}
 	
     private static Sprites readSprites01() throws IOException {
