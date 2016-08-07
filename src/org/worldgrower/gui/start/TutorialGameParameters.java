@@ -37,7 +37,9 @@ public class TutorialGameParameters implements GameParameters {
 
 		BuildingGenerator.generateSignPost(5, 4, world, "Well done. Now use the right arrow key to move your player character to the right, next to the tree.\n Then left-click on the tree to cut wood from it.");
 		
-		PlantGenerator.generateTree(9, 5, world);
+		int treeId = PlantGenerator.generateTree(9, 5, world);
+		WorldObject tree = world.findWorldObjectById(treeId);
+		tree.increment(Constants.WOOD_SOURCE, 1000);
 		
 		int berryBushId = PlantGenerator.generateBerryBush(8, 11, world);
 		WorldObject berryBush = world.findWorldObjectById(berryBushId);
