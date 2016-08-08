@@ -933,11 +933,11 @@ public class ImageInfoReader {
 	}
     
     private static Sprites readSpritesEmptyWell() throws IOException {
-		return readImages("empty_well.png", 96, 96, 1, 1);
+		return readImages("empty_well.png", 48, 48, 1, 1);
 	}
     
     private static Sprites readSpritesFullWell() throws IOException {
-		return readImages("full_well.png", 96, 96, 1, 1);
+		return readImages("full_well.png", 48, 48, 1, 1);
 	}
 	
 	private static Sprites readImages(String imageFilename, int width, int height, int rows, int cols) throws IOException {

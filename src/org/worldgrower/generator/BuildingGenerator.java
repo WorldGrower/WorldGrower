@@ -161,8 +161,8 @@ public class BuildingGenerator {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
-		properties.put(Constants.WIDTH, 2);
-		properties.put(Constants.HEIGHT, 2);
+		properties.put(Constants.WIDTH, 1);
+		properties.put(Constants.HEIGHT, 1);
 		properties.put(Constants.WATER_SOURCE, (int)(1000 * skillBonus));
 		properties.put(Constants.NAME, WELL_NAME);
 		

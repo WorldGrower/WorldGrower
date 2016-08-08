@@ -80,12 +80,12 @@ public class BuildWellAction implements BuildAction {
 
 	@Override
 	public int getWidth() {
-		return 2;
+		return 1;
 	}
 
 	@Override
 	public int getHeight() {
-		return 2;
+		return 1;
 	}
 	
 	@Override
