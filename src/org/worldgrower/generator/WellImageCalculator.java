@@ -14,18 +14,20 @@
  *******************************************************************************/
 package org.worldgrower.generator;
 
-import org.worldgrower.Constants;
-import org.worldgrower.OnTurn;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.condition.WorldStateChangedListeners;
+import org.worldgrower.goal.WaterPropertyUtils;
+import org.worldgrower.gui.ImageIds;
 
+public class WellImageCalculator {
 
-public class WellOnTurn implements OnTurn {
-
-	@Override
-	public void onTurn(WorldObject worldObject, World world, WorldStateChangedListeners creatureTypeChangedListeners) {
-		worldObject.increment(Constants.WATER_SOURCE, 50);
-		worldObject.setProperty(Constants.IMAGE_ID, WellImageCalculator.getImageId(worldObject, world));
+	public static ImageIds getImageId(WorldObject well, World world) {
+		final ImageIds wellImageId;
+		if (WaterPropertyUtils.waterSourceHasEnoughWater(well)) {
+			wellImageId = ImageIds.FULL_WELL;
+		} else {
+			wellImageId = ImageIds.EMPTY_WELL;
+		}
+		return wellImageId;
 	}
 }

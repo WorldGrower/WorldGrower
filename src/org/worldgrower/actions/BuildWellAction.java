@@ -90,7 +90,7 @@ public class BuildWellAction implements BuildAction {
 	
 	@Override
 	public ImageIds getImageIds() {
-		return ImageIds.WELL;
+		return ImageIds.EMPTY_WELL;
 	}
 
 	@Override

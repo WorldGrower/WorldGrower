@@ -167,7 +167,7 @@ public class BuildingGenerator {
 		properties.put(Constants.NAME, WELL_NAME);
 		
 		properties.put(Constants.ID, id);
-		properties.put(Constants.IMAGE_ID, ImageIds.WELL);
+		properties.put(Constants.IMAGE_ID, ImageIds.FULL_WELL);
 		properties.put(Constants.HIT_POINTS, 75 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.HIT_POINTS_MAX, 75 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);

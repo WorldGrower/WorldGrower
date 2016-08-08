@@ -23,6 +23,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
+import org.worldgrower.generator.WellImageCalculator;
+import org.worldgrower.goal.WaterPropertyUtils;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
@@ -44,6 +46,8 @@ public class CollectWaterAction implements ManagedOperation {
 		//TODO :alcohol level?
 
 		target.increment(Constants.WATER_SOURCE, -1);
+		
+		target.setProperty(Constants.IMAGE_ID, WellImageCalculator.getImageId(target, world));
 	}
 
 	@Override
@@ -68,7 +72,7 @@ public class CollectWaterAction implements ManagedOperation {
 
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return (target.hasProperty(Constants.WATER_SOURCE)) && (target.getProperty(Constants.WATER_SOURCE) > 20);
+		return WaterPropertyUtils.waterSourceHasEnoughWater(target);
 	}
 
 	@Override

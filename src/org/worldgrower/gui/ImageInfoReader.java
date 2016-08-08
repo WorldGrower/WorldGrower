@@ -99,6 +99,9 @@ public class ImageInfoReader {
     	Sprites youngCottonPlant = readSpritesYoungCottonPlant();
     	Sprites scythe = readScythe();
     	
+    	Sprites emptyWell = readSpritesEmptyWell();
+    	Sprites fullWell = readSpritesFullWell();
+    	
     	addCharacter(ImageIds.KNIGHT, sprites, 0, 0, 1, 1);
     	addCharacter(ImageIds.GUARD, sprites, 0, 4, 1, 1);
     	add(ImageIds.BUCKET, objects.getSubImage(10, 10, 1, 1));
@@ -108,7 +111,6 @@ public class ImageInfoReader {
         add(ImageIds.TREE, objects.getSubImage(6, 4, 2, 2));
         add(ImageIds.SHACK, houses.getSubImage(12, 0, 2, 4));
         addCharacter(ImageIds.FEMALE_COMMONER, sprites, 3, 0, 1, 1);
-        add(ImageIds.WELL, objects.getSubImage(0, 11, 2, 2));
         addCharacter(ImageIds.SKELETON, monsters, 0, 0, 1, 1);
         add(ImageIds.SKELETAL_REMAINS, tileE.getSubImage(4, 3, 1, 1));
         add(ImageIds.ORC_SOLDIER, orcSoldier.getSubImage(0, 0, 1, 1));
@@ -501,6 +503,9 @@ public class ImageInfoReader {
         add(ImageIds.SCYTHE, scythe.getSubImage(0, 0, 1, 1));
         add(ImageIds.MOVING_CHARACTER, sprites420.getSubImage(3, 26, 1, 1));
         add(ImageIds.SACRED_FLAME, sprites420.getSubImage(2, 23, 1, 1));
+        
+        add(ImageIds.EMPTY_WELL, emptyWell.getSubImage(0, 0, 1, 1));
+        add(ImageIds.FULL_WELL, fullWell.getSubImage(0, 0, 1, 1));
         
     }
     
@@ -925,6 +930,14 @@ public class ImageInfoReader {
     
     private static Sprites readSpritesAktor3() throws IOException {
 		return readImages("Actor3_zpsb3524fc2.png", 32, 48, 8, 12);
+	}
+    
+    private static Sprites readSpritesEmptyWell() throws IOException {
+		return readImages("empty_well.png", 96, 96, 1, 1);
+	}
+    
+    private static Sprites readSpritesFullWell() throws IOException {
+		return readImages("full_well.png", 96, 96, 1, 1);
 	}
 	
 	private static Sprites readImages(String imageFilename, int width, int height, int rows, int cols) throws IOException {

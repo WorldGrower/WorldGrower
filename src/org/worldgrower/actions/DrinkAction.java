@@ -21,6 +21,7 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.generator.WellImageCalculator;
 import org.worldgrower.goal.WaterPropertyUtils;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
@@ -36,6 +37,8 @@ public class DrinkAction implements ManagedOperation {
 		int waterDrunk = Math.min(100, waterInTarget);
 		performer.increment(Constants.WATER, waterDrunk);
 		target.increment(Constants.WATER_SOURCE, -waterDrunk);
+		
+		target.setProperty(Constants.IMAGE_ID, WellImageCalculator.getImageId(target, world));
 		
 		WaterPropertyUtils.drink(performer, target, world);
 	}
@@ -62,7 +65,7 @@ public class DrinkAction implements ManagedOperation {
 
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return (target.hasProperty(Constants.WATER_SOURCE)) && (target.getProperty(Constants.WATER_SOURCE) > 0) && WaterPropertyUtils.isWaterSafeToDrink(performer, target);
+		return WaterPropertyUtils.waterSourceHasEnoughWater(target) && WaterPropertyUtils.isWaterSafeToDrink(performer, target);
 	}
 	
 	@Override

@@ -104,4 +104,8 @@ public class WaterPropertyUtils {
 			performer.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(waterTarget, Constants.SLEEP_INDUCING_DRUG_STRENGTH, sleepingPotionStrength);
 		}
 	}
+	
+	public static boolean waterSourceHasEnoughWater(WorldObject target) {
+		return (target.hasProperty(Constants.WATER_SOURCE)) && (target.getProperty(Constants.WATER_SOURCE) > 20);
+	}
 }

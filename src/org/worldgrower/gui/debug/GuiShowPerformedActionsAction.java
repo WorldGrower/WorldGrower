@@ -76,6 +76,17 @@ public class GuiShowPerformedActionsAction extends AbstractAction {
 		public int getColumnCount() {
 			return 2;
 		}
+		
+		
+
+		@Override
+		public Class<?> getColumnClass(int columnIndex) {
+			if (columnIndex == 1) {
+				return Integer.class;
+			} else {
+				return super.getColumnClass(columnIndex);
+			}
+		}
 
 		@Override
 		public int getRowCount() {
