@@ -23,6 +23,7 @@ import org.worldgrower.attribute.ManagedProperty;
 
 public class TradeGoal implements Goal {
 
+	private static final int DISTANCE = 20;
 	private final List<ManagedProperty<?>> buyingProperties;
 	
 	public TradeGoal(List<ManagedProperty<?>> buyingProperties) {
@@ -31,7 +32,7 @@ public class TradeGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		OperationInfo sellOperationInfo = BuySellUtils.getSellOperationInfo(performer, world);
+		OperationInfo sellOperationInfo = BuySellUtils.getSellOperationInfo(performer, world, DISTANCE);
 		if (sellOperationInfo != null) {
 			return sellOperationInfo;
 		}

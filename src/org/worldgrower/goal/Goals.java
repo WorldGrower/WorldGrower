@@ -181,4 +181,5 @@ public class Goals {
 	public static final WoodCuttingToolGoal WOOD_CUTTING_TOOL_GOAL = new WoodCuttingToolGoal(ALL_GOALS);
 	public static final EquipWoodCuttingToolGoal EQUIP_WOOD_CUTTING_TOOL_GOAL = new EquipWoodCuttingToolGoal(ALL_GOALS);
 	public static final CreateIronAxeGoal CREATE_IRON_AXE_GOAL = new CreateIronAxeGoal(ALL_GOALS);
+	public static final SellFoodGoal SELL_FOOD_GOAL = new SellFoodGoal(ALL_GOALS);
 }

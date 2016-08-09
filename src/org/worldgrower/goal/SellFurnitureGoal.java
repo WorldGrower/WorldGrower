@@ -21,7 +21,7 @@ import org.worldgrower.Constants;
 public class SellFurnitureGoal extends AbstractSellGoal {
 
 	public SellFurnitureGoal() {
-		super(Constants.SLEEP_COMFORT);
+		super(Constants.SLEEP_COMFORT, 20);
 	}
 
 	public SellFurnitureGoal(List<Goal> allGoals) {

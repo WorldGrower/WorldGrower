@@ -18,19 +18,19 @@ import java.util.List;
 
 import org.worldgrower.Constants;
 
-public class SellSleepingPotionGoal extends AbstractSellGoal {
+public class SellFoodGoal extends AbstractSellGoal {
 	
-	public SellSleepingPotionGoal() {
-		super(Constants.SLEEP_INDUCING_DRUG_STRENGTH, 20);
+	public SellFoodGoal() {
+		super(Constants.FOOD, 5);
 	}
 
-	public SellSleepingPotionGoal(List<Goal> allGoals) {
+	public SellFoodGoal(List<Goal> allGoals) {
 		this();
 		allGoals.add(this);
 	}
 
 	@Override
 	public String getDescription() {
-		return "selling sleeping potion";
+		return "selling food";
 	}
 }

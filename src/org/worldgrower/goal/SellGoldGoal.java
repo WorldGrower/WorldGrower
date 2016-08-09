@@ -21,7 +21,7 @@ import org.worldgrower.Constants;
 public class SellGoldGoal extends AbstractSellGoal {
 	
 	public SellGoldGoal() {
-		super(Constants.GOLD);
+		super(Constants.GOLD, 20);
 	}
 
 	public SellGoldGoal(List<Goal> allGoals) {

@@ -23,14 +23,16 @@ import org.worldgrower.attribute.ManagedProperty;
 public abstract class AbstractSellGoal implements Goal {
 
 	private final ManagedProperty<?> propertyToSell;
+	private final int distance;
 	
-	public AbstractSellGoal(ManagedProperty<?> propertyToSell) {
+	public AbstractSellGoal(ManagedProperty<?> propertyToSell, int distance) {
 		this.propertyToSell = propertyToSell;
+		this.distance = distance;
 	}
 
 	@Override
 	public final OperationInfo calculateGoal(WorldObject performer, World world) {
-		OperationInfo sellOperationInfo = BuySellUtils.getSellOperationInfo(performer, world);
+		OperationInfo sellOperationInfo = BuySellUtils.getSellOperationInfo(performer, world, distance);
 		if (sellOperationInfo != null) {
 			return sellOperationInfo;
 		} else {

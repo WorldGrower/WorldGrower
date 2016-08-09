@@ -21,7 +21,7 @@ import org.worldgrower.Constants;
 public class SellPoisonGoal extends AbstractSellGoal {
 	
 	public SellPoisonGoal() {
-		super(Constants.POISON_DAMAGE);
+		super(Constants.POISON_DAMAGE, 20);
 	}
 
 	public SellPoisonGoal(List<Goal> allGoals) {

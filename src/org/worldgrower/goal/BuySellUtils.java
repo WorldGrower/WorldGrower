@@ -18,6 +18,7 @@ import java.util.List;
 
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
+import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
@@ -237,8 +238,8 @@ public class BuySellUtils {
     	return worldObject.hasProperty(Constants.SELLABLE) && worldObject.getProperty(Constants.SELLABLE);
     }
     
-    public static OperationInfo getSellOperationInfo(WorldObject seller, World world) {
-		List<WorldObject> buyers = GoalUtils.findNearestTargetsByProperty(seller, Actions.SELL_ACTION, Constants.STRENGTH, w -> true, world);
+    public static OperationInfo getSellOperationInfo(WorldObject seller, World world, int distance) {
+		List<WorldObject> buyers = GoalUtils.findNearestTargetsByProperty(seller, Actions.SELL_ACTION, Constants.STRENGTH, w -> Reach.distance(seller, w) <= distance, world);
 		for(WorldObject buyer : buyers) {
 			List<ManagedProperty<?>> buyingProperties = getBuyingProperties(buyer);
 			int indexOfSellableObject = getIndexOfSellableWorldObject(seller, buyingProperties);

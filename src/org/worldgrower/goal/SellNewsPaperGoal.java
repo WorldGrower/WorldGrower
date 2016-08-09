@@ -21,7 +21,7 @@ import org.worldgrower.Constants;
 public class SellNewsPaperGoal extends AbstractSellGoal {
 
 	public SellNewsPaperGoal() {
-		super(Constants.TEXT);
+		super(Constants.TEXT, 20);
 	}
 
 	public SellNewsPaperGoal(List<Goal> allGoals) {
