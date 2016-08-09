@@ -15,6 +15,8 @@
 package org.worldgrower.actions;
 
 import java.io.ObjectStreamException;
+import java.util.Arrays;
+import java.util.List;
 
 import org.worldgrower.Constants;
 import org.worldgrower.Reach;
@@ -23,10 +25,11 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
+import org.worldgrower.gui.AnimationId;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
-public class BrewPoisonAction implements CraftAction {
+public class BrewPoisonAction implements CraftAction, AnimatedAction {
 	private static final int DISTANCE = 1;
 	private static final int NIGHT_SHADE_REQUIRED = 3;
 	
@@ -91,5 +94,15 @@ public class BrewPoisonAction implements CraftAction {
 
 	public boolean hasEnoughNightShade(WorldObject performer) {
 		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.NIGHT_SHADE) >= NIGHT_SHADE_REQUIRED;
+	}
+
+	@Override
+	public AnimationId getAnimationId() {
+		return AnimationId.BREW_POISON_ANIMATION;
+	}
+
+	@Override
+	public List<WorldObject> getAffectedTargets(WorldObject target, World world) {
+		return Arrays.asList(target);
 	}
 }

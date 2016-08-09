@@ -14,6 +14,7 @@
  *******************************************************************************/
 package org.worldgrower.gui;
 
+import java.awt.AlphaComposite;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -519,9 +520,28 @@ public class ImageInfoReader {
         add(ImageIds.EMPTY_WELL, emptyWell.getSubImage(0, 0, 1, 1));
         add(ImageIds.FULL_WELL, fullWell.getSubImage(0, 0, 1, 1));
         
+        createAnimation(ImageIds.BREW_POISON_ANIMATION, ImageIds.POISON, 10);
+        
     }
     
-    private void resizeSmallFlowers() {
+    private void createAnimation(ImageIds animationImageId, ImageIds imageId, int numberOfFrames) {
+		List<Image> images = new ArrayList<>();
+    	for(int i=0; i<numberOfFrames; i++) {
+    		BufferedImage newImage = new BufferedImage(48, 48, BufferedImage.TYPE_INT_ARGB);
+    		Graphics2D g2 = (Graphics2D) newImage.getGraphics();
+    		Image image = idToImages.get(imageId).get(0);
+    		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.1f * i));
+    		g2.drawImage(image, 0, 0, null);
+    		
+    		g2.dispose();
+    		
+    		images.add(newImage);
+    	}
+    	
+    	idToImages.put(animationImageId, images);
+	}
+
+	private void resizeSmallFlowers() {
     	Image smallFlowers = idToImages.get(ImageIds.SMALL_FLOWERS).get(0);
     	Image grassBackground = idToImages.get(ImageIds.GRASS_BACKGROUND).get(0);
     	

@@ -30,7 +30,8 @@ public enum AnimationId {
 	WHITE_ORB(ImageIds.WHITE_ORB, 10),
 	RED_ORB(ImageIds.RED_ORB, 10),
 	GREEN_ORB(ImageIds.GREEN_ORB, 10),
-	YELLOW_ORB(ImageIds.YELLOW_ORB, 10);
+	YELLOW_ORB(ImageIds.YELLOW_ORB, 10),
+	BREW_POISON_ANIMATION(ImageIds.BREW_POISON_ANIMATION, 10);
 	
 	private AnimationId(ImageIds imageIds, int numberOfFrames) {
 		this.imageIds = imageIds;
