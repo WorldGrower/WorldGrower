@@ -101,6 +101,7 @@ public class ImageInfoReader {
     	
     	Sprites emptyWell = readSpritesEmptyWell();
     	Sprites fullWell = readSpritesFullWell();
+    	Sprites blueOrb = readSpritesBlueOrb();
     	
     	addCharacter(ImageIds.KNIGHT, sprites, 0, 0, 1, 1);
     	addCharacter(ImageIds.GUARD, sprites, 0, 4, 1, 1);
@@ -454,6 +455,7 @@ public class ImageInfoReader {
 		addAnimation(ImageIds.HORIZONTAL_SLASH, horizontalSlash, 5, 2);
 		addAnimation(ImageIds.BLACK_CRESCENT_SLASH, blackCrescentSlash, 5, 2);
 		addAnimation(ImageIds.WHITE_SLASH, whiteSlash, 5, 2);
+		addAnimation(ImageIds.BLUE_ORB, blueOrb, 5, 2);
 		
 		add(ImageIds.ANIMAL_FRIENDSHIP_SPELL, sprites420.getSubImage(8, 22, 1, 1));
 		add(ImageIds.EAT_REMAINS, sprites420.getSubImage(4, 12, 1, 1));
@@ -938,6 +940,10 @@ public class ImageInfoReader {
     
     private static Sprites readSpritesFullWell() throws IOException {
 		return readImages("full_well.png", 48, 48, 1, 1);
+	}
+    
+    private static Sprites readSpritesBlueOrb() throws IOException {
+		return readImages("blue_orb.png", 48, 48, 1, 1);
 	}
 	
 	private static Sprites readImages(String imageFilename, int width, int height, int rows, int cols) throws IOException {

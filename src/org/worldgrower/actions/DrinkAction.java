@@ -15,6 +15,8 @@
 package org.worldgrower.actions;
 
 import java.io.ObjectStreamException;
+import java.util.Arrays;
+import java.util.List;
 
 import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
@@ -23,10 +25,11 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.generator.WellImageCalculator;
 import org.worldgrower.goal.WaterPropertyUtils;
+import org.worldgrower.gui.AnimationId;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
-public class DrinkAction implements ManagedOperation {
+public class DrinkAction implements ManagedOperation, AnimatedAction {
 
 	private static final int DISTANCE = 1;
 	
@@ -90,5 +93,15 @@ public class DrinkAction implements ManagedOperation {
 	@Override
 	public SoundIds getSoundId() {
 		return SoundIds.DRINK;
+	}
+
+	@Override
+	public AnimationId getAnimationId() {
+		return AnimationId.BLUE_ORB;
+	}
+
+	@Override
+	public List<WorldObject> getAffectedTargets(WorldObject target, World world) {
+		return Arrays.asList(target);
 	}
 }
