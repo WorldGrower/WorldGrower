@@ -30,7 +30,6 @@ import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.creaturetype.CreatureTypeUtils;
 import org.worldgrower.generator.Item;
 import org.worldgrower.goal.MagicSpellUtils;
-import org.worldgrower.gui.AnimationId;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
@@ -124,8 +123,8 @@ public class SacredFlameAttackAction implements MagicSpell, DeadlyAction, Animat
 	}
 
 	@Override
-	public AnimationId getAnimationId() {
-		return AnimationId.LIGHT4;
+	public ImageIds getAnimationImageId() {
+		return ImageIds.LIGHT4;
 	}
 
 	@Override

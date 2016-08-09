@@ -27,7 +27,6 @@ import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.BerryBushImageCalculator;
 import org.worldgrower.generator.Item;
-import org.worldgrower.gui.AnimationId;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
@@ -100,8 +99,8 @@ public class HarvestFoodAction implements ManagedOperation, AnimatedAction {
 	}
 
 	@Override
-	public AnimationId getAnimationId() {
-		return AnimationId.BLACK_CRESCENT_SLASH;
+	public ImageIds getAnimationImageId() {
+		return ImageIds.BLACK_CRESCENT_SLASH;
 	}
 
 	@Override

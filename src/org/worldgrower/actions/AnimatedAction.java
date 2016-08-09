@@ -18,10 +18,10 @@ import java.util.List;
 
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.gui.AnimationId;
+import org.worldgrower.gui.ImageIds;
 
 public interface AnimatedAction {
 
-	public AnimationId getAnimationId();
+	public ImageIds getAnimationImageId();
 	public List<WorldObject> getAffectedTargets(WorldObject target, World world);
 }

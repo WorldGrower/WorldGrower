@@ -25,7 +25,6 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
-import org.worldgrower.gui.AnimationId;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
@@ -97,8 +96,8 @@ public class CreateBloodAction implements ManagedOperation, AnimatedAction {
 	}
 
 	@Override
-	public AnimationId getAnimationId() {
-		return AnimationId.RED_ORB;
+	public ImageIds getAnimationImageId() {
+		return ImageIds.RED_ORB;
 	}
 
 	@Override

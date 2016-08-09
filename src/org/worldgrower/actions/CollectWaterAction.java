@@ -27,7 +27,6 @@ import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
 import org.worldgrower.generator.WellImageCalculator;
 import org.worldgrower.goal.WaterPropertyUtils;
-import org.worldgrower.gui.AnimationId;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
@@ -103,8 +102,8 @@ public class CollectWaterAction implements ManagedOperation, AnimatedAction {
 	}
 	
 	@Override
-	public AnimationId getAnimationId() {
-		return AnimationId.BLUE_ORB;
+	public ImageIds getAnimationImageId() {
+		return ImageIds.BLUE_ORB;
 	}
 
 	@Override

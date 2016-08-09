@@ -569,7 +569,7 @@ public final class WorldPanel extends JPanel {
 	}
 
 	public void movePlayerCharacter(int[] args, ActionListener guiMoveAction, ActionListener guiAfterMoveAction) {
-		moveMode.startMove(this, args, guiMoveAction, guiAfterMoveAction, playerCharacter, world);
+		moveMode.startMove(this, args, guiMoveAction, guiAfterMoveAction, playerCharacter, world, imageInfoReader);
 	}
 
 	public void repaintAround(int x, int y, WorldObject worldObject) {

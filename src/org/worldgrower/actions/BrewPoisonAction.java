@@ -25,7 +25,6 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
-import org.worldgrower.gui.AnimationId;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
@@ -97,8 +96,8 @@ public class BrewPoisonAction implements CraftAction, AnimatedAction {
 	}
 
 	@Override
-	public AnimationId getAnimationId() {
-		return AnimationId.BREW_POISON_ANIMATION;
+	public ImageIds getAnimationImageId() {
+		return ImageIds.BREW_POISON_ANIMATION;
 	}
 
 	@Override

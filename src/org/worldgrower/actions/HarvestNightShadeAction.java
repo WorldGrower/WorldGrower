@@ -26,7 +26,6 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
 import org.worldgrower.generator.NightShadeImageCalculator;
-import org.worldgrower.gui.AnimationId;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
@@ -94,8 +93,8 @@ public class HarvestNightShadeAction implements ManagedOperation, AnimatedAction
 	}
 
 	@Override
-	public AnimationId getAnimationId() {
-		return AnimationId.GREEN_ORB;
+	public ImageIds getAnimationImageId() {
+		return ImageIds.GREEN_ORB;
 	}
 
 	@Override

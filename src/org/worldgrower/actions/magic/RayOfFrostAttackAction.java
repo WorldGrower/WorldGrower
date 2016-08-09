@@ -29,7 +29,6 @@ import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.generator.Item;
 import org.worldgrower.goal.MagicSpellUtils;
-import org.worldgrower.gui.AnimationId;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
@@ -117,8 +116,8 @@ public class RayOfFrostAttackAction implements MagicSpell, DeadlyAction, Animate
 	}
 
 	@Override
-	public AnimationId getAnimationId() {
-		return AnimationId.ICE1;
+	public ImageIds getAnimationImageId() {
+		return ImageIds.ICE1;
 	}
 
 	@Override

@@ -1053,5 +1053,8 @@ public class ImageInfoReader {
 			        );
 		}
    }
-	   
+   
+   public int getNumberOfFrames(ImageIds id) {
+	   return idToImages.get(id).size();
+   }
 }

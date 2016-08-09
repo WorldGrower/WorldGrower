@@ -27,7 +27,6 @@ import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.CottonPlantImageCalculator;
 import org.worldgrower.generator.Item;
-import org.worldgrower.gui.AnimationId;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
@@ -97,8 +96,8 @@ public class HarvestCottonAction implements ManagedOperation, AnimatedAction {
 	}
 
 	@Override
-	public AnimationId getAnimationId() {
-		return AnimationId.WHITE_ORB;
+	public ImageIds getAnimationImageId() {
+		return ImageIds.WHITE_ORB;
 	}
 
 	@Override

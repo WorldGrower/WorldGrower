@@ -28,7 +28,6 @@ import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.generator.Item;
 import org.worldgrower.goal.MagicSpellUtils;
-import org.worldgrower.gui.AnimationId;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
@@ -123,8 +122,8 @@ public class MinorHealAction implements MagicSpell, AnimatedAction {
 	}
 
 	@Override
-	public AnimationId getAnimationId() {
-		return AnimationId.HEAL1;
+	public ImageIds getAnimationImageId() {
+		return ImageIds.HEAL1;
 	}
 
 	@Override

@@ -31,7 +31,7 @@ public class MoveMode {
 	private List<WorldObject> magicCasters = new ArrayList<>();
 	private List<MagicTarget> magicTargets = new ArrayList<>();
 	
-	public void startMove(WorldPanel worldPanel, int[] args, ActionListener guiMoveAction, ActionListener guiAfterMoveAction, WorldObject worldObject, World world) {
+	public void startMove(WorldPanel worldPanel, int[] args, ActionListener guiMoveAction, ActionListener guiAfterMoveAction, WorldObject worldObject, World world, ImageInfoReader imageInfoReader) {
 		if (moveMode) {
 			return;
 		}
@@ -43,10 +43,10 @@ public class MoveMode {
 		
 		//System.out.println("startMove: moveStep = " + moveStep);
 		
-		initializeMovingWorldObjects(guiMoveAction, world);
+		initializeMovingWorldObjects(guiMoveAction, world, imageInfoReader);
 	}
 
-	private void initializeMovingWorldObjects(ActionListener guiMoveAction, World world) {
+	private void initializeMovingWorldObjects(ActionListener guiMoveAction, World world, ImageInfoReader imageInfoReader) {
 		initializeIntelligentWorldObjects(world);
 		
 		oldPositions.clear();
@@ -77,7 +77,7 @@ public class MoveMode {
 					AnimatedAction animatedAction = (AnimatedAction) lastPerformedOperationInfo.getManagedOperation();
 					List<WorldObject> affectedTargets = animatedAction.getAffectedTargets(lastPerformedOperationInfo.getTarget(), world);
 					for(WorldObject affectedTarget : affectedTargets) {
-						magicTargets.add(new MagicTarget(affectedTarget, animatedAction.getAnimationId()));
+						magicTargets.add(new MagicTarget(affectedTarget, animatedAction.getAnimationImageId(), imageInfoReader));
 					}
 				}
 			}
@@ -267,10 +267,10 @@ public class MoveMode {
 		private final ImageIds imageId;
 		private final int numberOfFrames;
 		
-		public MagicTarget(WorldObject target, AnimationId animationId) {
+		public MagicTarget(WorldObject target, ImageIds imageId, ImageInfoReader imageInfoReader) {
 			this.target = target;
-			this.imageId = animationId.getImageIds();
-			this.numberOfFrames = animationId.getNumberOfFrames();
+			this.imageId = imageId;
+			this.numberOfFrames = imageInfoReader.getNumberOfFrames(imageId);
 		}
 
 		public WorldObject getTarget() {

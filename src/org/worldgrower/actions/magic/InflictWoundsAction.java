@@ -29,7 +29,6 @@ import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.generator.Item;
 import org.worldgrower.goal.MagicSpellUtils;
-import org.worldgrower.gui.AnimationId;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
@@ -118,8 +117,8 @@ public class InflictWoundsAction implements MagicSpell, DeadlyAction, AnimatedAc
 	}
 
 	@Override
-	public AnimationId getAnimationId() {
-		return AnimationId.DARKNESS1;
+	public ImageIds getAnimationImageId() {
+		return ImageIds.DARKNESS1;
 	}
 
 	@Override

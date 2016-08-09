@@ -26,7 +26,6 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.generator.Item;
 import org.worldgrower.generator.TreeImageCalculator;
-import org.worldgrower.gui.AnimationId;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
@@ -104,8 +103,8 @@ public class CutWoodAction implements ManagedOperation, AnimatedAction {
 	}
 
 	@Override
-	public AnimationId getAnimationId() {
-		return AnimationId.HORIZONTAL_SLASH;
+	public ImageIds getAnimationImageId() {
+		return ImageIds.HORIZONTAL_SLASH;
 	}
 
 	@Override

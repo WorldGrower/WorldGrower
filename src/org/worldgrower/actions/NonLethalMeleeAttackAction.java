@@ -24,7 +24,6 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
-import org.worldgrower.gui.AnimationId;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
@@ -84,8 +83,8 @@ public class NonLethalMeleeAttackAction implements ManagedOperation, AnimatedAct
 	}
 	
 	@Override
-	public AnimationId getAnimationId() {
-		return AnimationId.SLASH1;
+	public ImageIds getAnimationImageId() {
+		return ImageIds.SLASH1;
 	}
 
 	@Override

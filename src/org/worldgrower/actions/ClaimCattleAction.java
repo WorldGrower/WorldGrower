@@ -24,7 +24,6 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.creaturetype.CreatureType;
-import org.worldgrower.gui.AnimationId;
 import org.worldgrower.gui.ImageIds;
 
 public class ClaimCattleAction implements ManagedOperation, AnimatedAction {
@@ -79,8 +78,8 @@ public class ClaimCattleAction implements ManagedOperation, AnimatedAction {
 	}
 
 	@Override
-	public AnimationId getAnimationId() {
-		return AnimationId.YELLOW_ORB;
+	public ImageIds getAnimationImageId() {
+		return ImageIds.YELLOW_ORB;
 	}
 
 	@Override

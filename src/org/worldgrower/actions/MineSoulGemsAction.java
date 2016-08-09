@@ -25,7 +25,6 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.generator.Item;
-import org.worldgrower.gui.AnimationId;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
@@ -92,8 +91,8 @@ public class MineSoulGemsAction implements ManagedOperation, AnimatedAction {
 	}
 	
 	@Override
-	public AnimationId getAnimationId() {
-		return AnimationId.WHITE_SLASH;
+	public ImageIds getAnimationImageId() {
+		return ImageIds.WHITE_SLASH;
 	}
 
 	@Override

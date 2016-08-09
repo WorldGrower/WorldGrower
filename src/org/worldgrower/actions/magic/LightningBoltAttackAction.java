@@ -30,7 +30,6 @@ import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.generator.Item;
 import org.worldgrower.goal.LocationUtils;
 import org.worldgrower.goal.MagicSpellUtils;
-import org.worldgrower.gui.AnimationId;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 import org.worldgrower.terrain.TerrainType;
@@ -137,8 +136,8 @@ public class LightningBoltAttackAction implements MagicSpell, DeadlyAction, Anim
 	}
 
 	@Override
-	public AnimationId getAnimationId() {
-		return AnimationId.THUNDER1;
+	public ImageIds getAnimationImageId() {
+		return ImageIds.THUNDER1;
 	}
 
 	@Override

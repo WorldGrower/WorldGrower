@@ -31,7 +31,6 @@ import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.generator.Item;
 import org.worldgrower.goal.MagicSpellUtils;
-import org.worldgrower.gui.AnimationId;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
@@ -147,7 +146,7 @@ public class FireBallAttackAction implements BuildAction, MagicSpell, DeadlyActi
 	}
 
 	@Override
-	public AnimationId getAnimationId() {
-		return AnimationId.FIRE1;
+	public ImageIds getAnimationImageId() {
+		return ImageIds.FIRE1;
 	}
 }
