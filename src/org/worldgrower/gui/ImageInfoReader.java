@@ -102,6 +102,11 @@ public class ImageInfoReader {
     	Sprites emptyWell = readSpritesEmptyWell();
     	Sprites fullWell = readSpritesFullWell();
     	Sprites blueOrb = readSpritesBlueOrb();
+    	Sprites purpleOrb = readSpritesPurpleOrb();
+    	Sprites whiteOrb = readSpritesWhiteOrb();
+    	Sprites redOrb = readSpritesRedOrb();
+    	Sprites greenOrb = readSpritesGreenOrb();
+    	Sprites yellowOrb = readSpritesYellowOrb();
     	
     	addCharacter(ImageIds.KNIGHT, sprites, 0, 0, 1, 1);
     	addCharacter(ImageIds.GUARD, sprites, 0, 4, 1, 1);
@@ -455,7 +460,12 @@ public class ImageInfoReader {
 		addAnimation(ImageIds.HORIZONTAL_SLASH, horizontalSlash, 5, 2);
 		addAnimation(ImageIds.BLACK_CRESCENT_SLASH, blackCrescentSlash, 5, 2);
 		addAnimation(ImageIds.WHITE_SLASH, whiteSlash, 5, 2);
-		addAnimation(ImageIds.BLUE_ORB, blueOrb, 5, 2);
+		addAnimation(ImageIds.BLUE_ORB, blueOrb, 5, 2);		
+		addAnimation(ImageIds.PURPLE_ORB, purpleOrb, 5, 2);
+		addAnimation(ImageIds.WHITE_ORB, whiteOrb, 5, 2);
+		addAnimation(ImageIds.RED_ORB, redOrb, 5, 2);
+		addAnimation(ImageIds.GREEN_ORB, greenOrb, 5, 2);
+		addAnimation(ImageIds.YELLOW_ORB, yellowOrb, 5, 2);
 		
 		add(ImageIds.ANIMAL_FRIENDSHIP_SPELL, sprites420.getSubImage(8, 22, 1, 1));
 		add(ImageIds.EAT_REMAINS, sprites420.getSubImage(4, 12, 1, 1));
@@ -944,6 +954,26 @@ public class ImageInfoReader {
     
     private static Sprites readSpritesBlueOrb() throws IOException {
 		return readImages("blue_orb.png", 48, 48, 1, 1);
+	}
+    
+    private static Sprites readSpritesPurpleOrb() throws IOException {
+		return readImages("purple_orb.png", 48, 48, 1, 1);
+	}
+    
+    private static Sprites readSpritesWhiteOrb() throws IOException {
+		return readImages("white_orb.png", 48, 48, 1, 1);
+	}
+    
+    private static Sprites readSpritesGreenOrb() throws IOException {
+		return readImages("green_orb.png", 48, 48, 1, 1);
+	}
+    
+    private static Sprites readSpritesRedOrb() throws IOException {
+		return readImages("red_orb.png", 48, 48, 1, 1);
+	}
+    
+    private static Sprites readSpritesYellowOrb() throws IOException {
+		return readImages("yellow_orb.png", 48, 48, 1, 1);
 	}
 	
 	private static Sprites readImages(String imageFilename, int width, int height, int rows, int cols) throws IOException {

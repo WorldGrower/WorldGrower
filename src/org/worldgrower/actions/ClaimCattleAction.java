@@ -15,6 +15,8 @@
 package org.worldgrower.actions;
 
 import java.io.ObjectStreamException;
+import java.util.Arrays;
+import java.util.List;
 
 import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
@@ -22,9 +24,10 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.creaturetype.CreatureType;
+import org.worldgrower.gui.AnimationId;
 import org.worldgrower.gui.ImageIds;
 
-public class ClaimCattleAction implements ManagedOperation {
+public class ClaimCattleAction implements ManagedOperation, AnimatedAction {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
@@ -73,5 +76,15 @@ public class ClaimCattleAction implements ManagedOperation {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.CLAIM_CATTLE;
+	}
+
+	@Override
+	public AnimationId getAnimationId() {
+		return AnimationId.YELLOW_ORB;
+	}
+
+	@Override
+	public List<WorldObject> getAffectedTargets(WorldObject target, World world) {
+		return Arrays.asList(target);
 	}
 }
