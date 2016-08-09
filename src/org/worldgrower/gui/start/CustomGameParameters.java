@@ -43,7 +43,7 @@ public class CustomGameParameters implements GameParameters {
 		this.worldWidth = 100;
 		this.worldHeight = 100;
 		this.enemyDensity = 0;
-		this.villagerCount = 4;
+		this.villagerCount = 6;
 		this.seed = 666;
 		this.startTurn = 0;
 	}
