@@ -520,8 +520,32 @@ public class ImageInfoReader {
         add(ImageIds.EMPTY_WELL, emptyWell.getSubImage(0, 0, 1, 1));
         add(ImageIds.FULL_WELL, fullWell.getSubImage(0, 0, 1, 1));
         
-        createAnimation(ImageIds.BREW_POISON_ANIMATION, ImageIds.POISON, 10);
+        createAnimation(ImageIds.POISON_ANIMATION, ImageIds.POISON, 10);
         
+        createAnimation(ImageIds.IRON_CLAYMORE_ANIMATION, ImageIds.IRON_CLAYMORE, 10);
+        createAnimation(ImageIds.IRON_CUIRASS_ANIMATION, ImageIds.IRON_CUIRASS, 10);
+        createAnimation(ImageIds.IRON_HELMET_ANIMATION, ImageIds.IRON_HELMET, 10);
+        createAnimation(ImageIds.IRON_GAUNTLETS_ANIMATION, ImageIds.IRON_GAUNTLETS, 10);
+        createAnimation(ImageIds.IRON_GREAVES_ANIMATION, ImageIds.IRON_GREAVES, 10);
+        createAnimation(ImageIds.IRON_BOOTS_ANIMATION, ImageIds.IRON_BOOTS, 10);
+        createAnimation(ImageIds.IRON_SHIELD_ANIMATION, ImageIds.IRON_SHIELD, 10);
+        createAnimation(ImageIds.LONGBOW_ANIMATION, ImageIds.LONGBOW, 10);
+        createAnimation(ImageIds.PAPER_ANIMATION, ImageIds.PAPER, 10);
+        createAnimation(ImageIds.COTTON_SHIRT_ANIMATION, ImageIds.COTTON_SHIRT, 10);
+        createAnimation(ImageIds.COTTON_HAT_ANIMATION, ImageIds.COTTON_HAT, 10);
+        createAnimation(ImageIds.COTTON_BOOTS_ANIMATION, ImageIds.COTTON_BOOTS, 10);
+        createAnimation(ImageIds.COTTON_ARMS_ANIMATION, ImageIds.COTTON_ARMS, 10);
+        createAnimation(ImageIds.COTTON_PANTS_ANIMATION, ImageIds.COTTON_PANTS, 10);
+        createAnimation(ImageIds.FISHING_POLE_ANIMATION, ImageIds.FISHING_POLE, 10);        
+        createAnimation(ImageIds.REPAIR_HAMMER_ANIMATION, ImageIds.REPAIR_HAMMER, 10);
+        createAnimation(ImageIds.IRON_GREATSWORD_ANIMATION, ImageIds.IRON_GREATSWORD, 10);
+        createAnimation(ImageIds.IRON_AXE_ANIMATION, ImageIds.IRON_AXE, 10);
+        createAnimation(ImageIds.IRON_GREATAXE_ANIMATION, ImageIds.IRON_GREATAXE, 10);
+        createAnimation(ImageIds.IRON_MACE_ANIMATION, ImageIds.IRON_MACE, 10);
+        createAnimation(ImageIds.IRON_KATAR_ANIMATION, ImageIds.IRON_KATAR, 10);
+        createAnimation(ImageIds.SLEEPING_POTION_ANIMATION, ImageIds.SLEEPING_POTION, 10);
+        createAnimation(ImageIds.PICKAXE_ANIMATION, ImageIds.PICKAXE, 10);
+        createAnimation(ImageIds.SCYTHE_ANIMATION, ImageIds.SCYTHE, 10);
     }
     
     private void createAnimation(ImageIds animationImageId, ImageIds imageId, int numberOfFrames) {

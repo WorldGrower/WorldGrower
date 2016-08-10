@@ -642,4 +642,12 @@ public final class WorldPanel extends JPanel {
 			soundIdReader.playSoundEffect(soundId);
 		}
 	}
+
+	public int getRealX(int x) {
+		return x-offsetX;
+	}
+	
+	public int getRealY(int y) {
+		return y-offsetY;
+	}
 }

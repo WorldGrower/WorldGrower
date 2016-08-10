@@ -97,7 +97,7 @@ public class BrewPoisonAction implements CraftAction, AnimatedAction {
 
 	@Override
 	public ImageIds getAnimationImageId() {
-		return ImageIds.BREW_POISON_ANIMATION;
+		return ImageIds.POISON_ANIMATION;
 	}
 
 	@Override

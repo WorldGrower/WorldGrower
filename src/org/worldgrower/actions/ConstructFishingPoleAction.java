@@ -15,6 +15,8 @@
 package org.worldgrower.actions;
 
 import java.io.ObjectStreamException;
+import java.util.Arrays;
+import java.util.List;
 
 import org.worldgrower.Constants;
 import org.worldgrower.Reach;
@@ -25,7 +27,7 @@ import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
 
-public class ConstructFishingPoleAction implements CraftAction {
+public class ConstructFishingPoleAction implements CraftAction, AnimatedAction {
 
 	private static final int DISTANCE = 1;
 	private static final int WOOD_REQUIRED = 2;
@@ -86,5 +88,15 @@ public class ConstructFishingPoleAction implements CraftAction {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.FISHING_POLE;
+	}
+
+	@Override
+	public ImageIds getAnimationImageId() {
+		return ImageIds.FISHING_POLE_ANIMATION;
+	}
+
+	@Override
+	public List<WorldObject> getAffectedTargets(WorldObject target, World world) {
+		return Arrays.asList(target);
 	}
 }

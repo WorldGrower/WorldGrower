@@ -15,6 +15,8 @@
 package org.worldgrower.actions;
 
 import java.io.ObjectStreamException;
+import java.util.Arrays;
+import java.util.List;
 
 import org.worldgrower.Constants;
 import org.worldgrower.Reach;
@@ -25,7 +27,7 @@ import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
 
-public class ConstructScytheAction implements CraftAction {
+public class ConstructScytheAction implements CraftAction, AnimatedAction {
 
 	private static final int DISTANCE = 1;
 	
@@ -93,5 +95,15 @@ public class ConstructScytheAction implements CraftAction {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.SCYTHE;
+	}
+
+	@Override
+	public ImageIds getAnimationImageId() {
+		return ImageIds.SCYTHE_ANIMATION;
+	}
+
+	@Override
+	public List<WorldObject> getAffectedTargets(WorldObject target, World world) {
+		return Arrays.asList(target);
 	}
 }

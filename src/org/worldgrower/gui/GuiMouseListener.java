@@ -220,7 +220,8 @@ public class GuiMouseListener extends MouseAdapter {
         int x = (int) e.getPoint().getX() / 48;
         int y = (int) e.getPoint().getY() / 48;
 
-		WorldObject worldObject = ((WorldPanel)container).findWorldObject(x, y);
+		WorldPanel worldPanel = (WorldPanel)container;
+		WorldObject worldObject = worldPanel.findWorldObject(x, y);
 		
         if (worldObject != null) {
             if (worldObject.getProperty(Constants.ID) == 0) {
@@ -245,7 +246,7 @@ public class GuiMouseListener extends MouseAdapter {
             }
         } else {
         	JPopupMenu menu = MenuFactory.createJPopupMenu();
-        	addGotoMenu(menu, x, y);
+        	addGotoMenu(menu, worldPanel.getRealX(x), worldPanel.getRealY(y));
         	menu.show(e.getComponent(), e.getX(), e.getY());
         }
     }

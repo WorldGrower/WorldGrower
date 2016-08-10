@@ -15,6 +15,8 @@
 package org.worldgrower.actions;
 
 import java.io.ObjectStreamException;
+import java.util.Arrays;
+import java.util.List;
 
 import org.worldgrower.Constants;
 import org.worldgrower.Reach;
@@ -26,7 +28,7 @@ import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
-public class CreatePaperAction implements CraftAction {
+public class CreatePaperAction implements CraftAction, AnimatedAction {
 
 	private static final int DISTANCE = 1;
 	private static final int WATER_REQUIRED = 1;
@@ -92,5 +94,15 @@ public class CreatePaperAction implements CraftAction {
 	@Override
 	public SoundIds getSoundId() {
 		return SoundIds.PAPER;
+	}
+
+	@Override
+	public ImageIds getAnimationImageId() {
+		return ImageIds.PAPER_ANIMATION;
+	}
+
+	@Override
+	public List<WorldObject> getAffectedTargets(WorldObject target, World world) {
+		return Arrays.asList(target);
 	}
 }

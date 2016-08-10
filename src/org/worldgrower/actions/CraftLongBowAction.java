@@ -15,6 +15,8 @@
 package org.worldgrower.actions;
 
 import java.io.ObjectStreamException;
+import java.util.Arrays;
+import java.util.List;
 
 import org.worldgrower.Constants;
 import org.worldgrower.Reach;
@@ -25,7 +27,7 @@ import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
 
-public class CraftLongBowAction implements CraftAction {
+public class CraftLongBowAction implements CraftAction, AnimatedAction {
 	private static final int DISTANCE = 1;
 	private static final int WOOD_REQUIRED = 5;
 	private static final int ORE_REQUIRED = 1;
@@ -83,5 +85,15 @@ public class CraftLongBowAction implements CraftAction {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.LONGBOW;
+	}
+
+	@Override
+	public ImageIds getAnimationImageId() {
+		return ImageIds.LONGBOW_ANIMATION;
+	}
+
+	@Override
+	public List<WorldObject> getAffectedTargets(WorldObject target, World world) {
+		return Arrays.asList(target);
 	}
 }

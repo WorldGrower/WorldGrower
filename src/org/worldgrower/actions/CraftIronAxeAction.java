@@ -15,6 +15,8 @@
 package org.worldgrower.actions;
 
 import java.io.ObjectStreamException;
+import java.util.Arrays;
+import java.util.List;
 
 import org.worldgrower.Constants;
 import org.worldgrower.Reach;
@@ -26,7 +28,7 @@ import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
-public class CraftIronAxeAction implements CraftAction {
+public class CraftIronAxeAction implements CraftAction, AnimatedAction {
 	private static final int DISTANCE = 1;
 	private static final int WOOD_REQUIRED = 5;
 	private static final int ORE_REQUIRED = 3;
@@ -97,5 +99,15 @@ public class CraftIronAxeAction implements CraftAction {
 	
 	public static boolean hasEnoughOre(WorldObject performer) {
 		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.ORE) >= ORE_REQUIRED;
+	}
+
+	@Override
+	public ImageIds getAnimationImageId() {
+		return ImageIds.IRON_AXE_ANIMATION;
+	}
+
+	@Override
+	public List<WorldObject> getAffectedTargets(WorldObject target, World world) {
+		return Arrays.asList(target);
 	}
 }

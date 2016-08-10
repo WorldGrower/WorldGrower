@@ -50,7 +50,7 @@ public class UTestFarmerProfession {
 		assertEquals(goals.get(0), Goals.GATHER_FOOD_GOAL);
 		assertEquals(goals.get(1), Goals.MARK_FOOD_AS_SELLABLE_GOAL);
 		assertEquals(goals.get(2), Goals.CREATE_FOOD_SOURCES_GOAL);
-		assertEquals(goals.get(3), Goals.CREATE_WINE_GOAL);
+		assertEquals(goals.get(3), Goals.SELL_FOOD_GOAL);
 	}
 
 	@Test
