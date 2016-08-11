@@ -15,6 +15,8 @@
 package org.worldgrower.actions;
 
 import java.io.ObjectStreamException;
+import java.util.Arrays;
+import java.util.List;
 
 import org.worldgrower.Constants;
 import org.worldgrower.World;
@@ -25,7 +27,7 @@ import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
-public class BrewWineAction implements CraftAction {
+public class BrewWineAction implements CraftAction, AnimatedAction {
 
 	private static final int GRAPES_REQUIRED = 3;
 	
@@ -86,5 +88,15 @@ public class BrewWineAction implements CraftAction {
 	@Override
 	public SoundIds getSoundId() {
 		return SoundIds.ALCHEMIST;
+	}
+
+	@Override
+	public ImageIds getAnimationImageId() {
+		return ImageIds.WINE_ANIMATION;
+	}
+
+	@Override
+	public List<WorldObject> getAffectedTargets(WorldObject target, World world) {
+		return Arrays.asList(target);
 	}
 }

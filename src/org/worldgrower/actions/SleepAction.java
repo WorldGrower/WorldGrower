@@ -15,6 +15,7 @@
 package org.worldgrower.actions;
 
 import java.io.ObjectStreamException;
+import java.util.Arrays;
 import java.util.List;
 
 import org.worldgrower.Constants;
@@ -26,7 +27,7 @@ import org.worldgrower.generator.Item;
 import org.worldgrower.goal.EnergyPropertyUtils;
 import org.worldgrower.gui.ImageIds;
 
-public class SleepAction implements ManagedOperation {
+public class SleepAction implements ManagedOperation, AnimatedAction {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
@@ -85,5 +86,15 @@ public class SleepAction implements ManagedOperation {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.SLEEPING_INDICATOR;
+	}
+	
+	@Override
+	public ImageIds getAnimationImageId() {
+		return ImageIds.SLEEPING_INDICATOR_ANIMATION;
+	}
+
+	@Override
+	public List<WorldObject> getAffectedTargets(WorldObject target, World world) {
+		return Arrays.asList(target);
 	}
 }

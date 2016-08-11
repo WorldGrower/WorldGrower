@@ -15,6 +15,8 @@
 package org.worldgrower.actions;
 
 import java.io.ObjectStreamException;
+import java.util.Arrays;
+import java.util.List;
 
 import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
@@ -28,7 +30,7 @@ import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 import org.worldgrower.util.SentenceUtils;
 
-public class ButcherAction implements ManagedOperation {
+public class ButcherAction implements ManagedOperation, AnimatedAction {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
@@ -94,5 +96,15 @@ public class ButcherAction implements ManagedOperation {
 	@Override
 	public SoundIds getSoundId() {
 		return SoundIds.KNIFE_SLICE;
+	}
+
+	@Override
+	public ImageIds getAnimationImageId() {
+		return ImageIds.SLASH1;
+	}
+
+	@Override
+	public List<WorldObject> getAffectedTargets(WorldObject target, World world) {
+		return Arrays.asList(target);
 	}
 }

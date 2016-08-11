@@ -546,6 +546,11 @@ public class ImageInfoReader {
         createAnimation(ImageIds.SLEEPING_POTION_ANIMATION, ImageIds.SLEEPING_POTION, 10);
         createAnimation(ImageIds.PICKAXE_ANIMATION, ImageIds.PICKAXE, 10);
         createAnimation(ImageIds.SCYTHE_ANIMATION, ImageIds.SCYTHE, 10);
+        createAnimation(ImageIds.GOLD_RING_ANIMATION, ImageIds.GOLD_RING, 10);
+        createAnimation(ImageIds.GOLD_COIN_ANIMATION, ImageIds.GOLD_COIN, 10);
+        createAnimation(ImageIds.SILVER_COIN_ANIMATION, ImageIds.SILVER_COIN, 10);
+        createAnimation(ImageIds.HEART_ANIMATION, ImageIds.HEART, 10);
+        createAnimation(ImageIds.SLEEPING_INDICATOR_ANIMATION, ImageIds.SLEEPING_INDICATOR, 10);
     }
     
     private void createAnimation(ImageIds animationImageId, ImageIds imageId, int numberOfFrames) {

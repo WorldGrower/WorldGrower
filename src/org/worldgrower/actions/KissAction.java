@@ -15,6 +15,8 @@
 package org.worldgrower.actions;
 
 import java.io.ObjectStreamException;
+import java.util.Arrays;
+import java.util.List;
 
 import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
@@ -27,7 +29,7 @@ import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
-public class KissAction implements ManagedOperation {
+public class KissAction implements ManagedOperation, AnimatedAction {
 
 	public static final int REQUIRED_RELATIONSHIP_VALUE = 10;
 	
@@ -90,5 +92,15 @@ public class KissAction implements ManagedOperation {
 	@Override
 	public SoundIds getSoundId() {
 		return SoundIds.KISS;
+	}
+
+	@Override
+	public ImageIds getAnimationImageId() {
+		return ImageIds.HEART_ANIMATION;
+	}
+
+	@Override
+	public List<WorldObject> getAffectedTargets(WorldObject target, World world) {
+		return Arrays.asList(target);
 	}
 }

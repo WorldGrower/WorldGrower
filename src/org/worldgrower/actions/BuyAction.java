@@ -15,6 +15,8 @@
 package org.worldgrower.actions;
 
 import java.io.ObjectStreamException;
+import java.util.Arrays;
+import java.util.List;
 
 import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
@@ -28,7 +30,7 @@ import org.worldgrower.goal.InventoryPropertyUtils;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
-public class BuyAction implements ManagedOperation {
+public class BuyAction implements ManagedOperation, AnimatedAction {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
@@ -152,5 +154,15 @@ public class BuyAction implements ManagedOperation {
 	@Override
 	public SoundIds getSoundId() {
 		return SoundIds.HANDLE_COINS;
+	}
+
+	@Override
+	public ImageIds getAnimationImageId() {
+		return ImageIds.GOLD_COIN_ANIMATION;
+	}
+
+	@Override
+	public List<WorldObject> getAffectedTargets(WorldObject target, World world) {
+		return Arrays.asList(target);
 	}
 }

@@ -17,6 +17,8 @@ package org.worldgrower.actions;
 import static org.worldgrower.goal.FacadeUtils.createFacade;
 
 import java.io.ObjectStreamException;
+import java.util.Arrays;
+import java.util.List;
 
 import org.worldgrower.Args;
 import org.worldgrower.Constants;
@@ -32,7 +34,7 @@ import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
-public class SexAction implements ManagedOperation {
+public class SexAction implements ManagedOperation, AnimatedAction {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
@@ -110,5 +112,15 @@ public class SexAction implements ManagedOperation {
 	@Override
 	public SoundIds getSoundId() {
 		return SoundIds.SEX;
-	}	
+	}
+	
+	@Override
+	public ImageIds getAnimationImageId() {
+		return ImageIds.HEART_ANIMATION;
+	}
+
+	@Override
+	public List<WorldObject> getAffectedTargets(WorldObject target, World world) {
+		return Arrays.asList(target);
+	}
 }

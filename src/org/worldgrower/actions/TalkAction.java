@@ -17,6 +17,8 @@ package org.worldgrower.actions;
 import static org.worldgrower.goal.FacadeUtils.createFacade;
 
 import java.io.ObjectStreamException;
+import java.util.Arrays;
+import java.util.List;
 
 import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
@@ -28,7 +30,7 @@ import org.worldgrower.conversation.Response;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.gui.ImageIds;
 
-public class TalkAction implements ManagedOperation {
+public class TalkAction implements ManagedOperation, AnimatedAction {
 
 	private Conversations conversations = new Conversations();
 	
@@ -122,5 +124,15 @@ public class TalkAction implements ManagedOperation {
 	@Override
 	public ImageIds getImageIds() {
 		return ImageIds.GOLD_RING;
+	}
+
+	@Override
+	public ImageIds getAnimationImageId() {
+		return ImageIds.GOLD_RING_ANIMATION;
+	}
+
+	@Override
+	public List<WorldObject> getAffectedTargets(WorldObject target, World world) {
+		return Arrays.asList(target);
 	}
 }
