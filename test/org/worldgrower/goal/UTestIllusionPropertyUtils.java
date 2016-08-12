@@ -68,6 +68,22 @@ public class UTestIllusionPropertyUtils {
 		assertEquals(true, observer2.getProperty(Constants.KNOWLEDGE_MAP).hasProperty(illusion, Constants.ILLUSION_CREATOR_ID));
 	}
 	
+	@Test
+	public void testCreateIllusion() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		WorldObject performer = createCommoner(world, organization);
+		performer.setProperty(Constants.ILLUSION_SKILL, new Skill(20));
+		
+		WorldObject verminOrganization = GroupPropertyUtils.create(null, "", world);
+		verminOrganization.setProperty(Constants.ID, 2);
+		world.addWorldObject(verminOrganization);
+		
+		int illusionId = IllusionPropertyUtils.createIllusion(performer, -1000, world, 0, 0, 1, 1);
+		WorldObject illusion = world.findWorldObjectById(illusionId);
+		assertEquals("berry bush", illusion.getProperty(Constants.NAME));
+	}
+	
 	private WorldObject createCommoner(World world, WorldObject organization) {
 		int commonerId = commonerGenerator.generateCommoner(0, 0, world, organization);
 		WorldObject commoner = world.findWorldObjectById(commonerId);

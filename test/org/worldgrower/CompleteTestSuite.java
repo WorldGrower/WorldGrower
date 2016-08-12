@@ -722,7 +722,10 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestEquipWoodCuttingToolGoal.class,
 	UTestEquipScytheGoal.class,
 	UTestConstructScytheAction.class,
-	UTestSacredFlameAttackAction.class
+	UTestSacredFlameAttackAction.class,
+	UTestPickaxeGoal.class,
+	UTestScytheGoal.class,
+	UTestWoodCuttingToolGoal.class
 })
 public class CompleteTestSuite {
 }
