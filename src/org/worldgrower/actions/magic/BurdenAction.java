@@ -15,11 +15,14 @@
 package org.worldgrower.actions.magic;
 
 import java.io.ObjectStreamException;
+import java.util.Arrays;
+import java.util.List;
 
 import org.worldgrower.Constants;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.AnimatedAction;
 import org.worldgrower.actions.CraftUtils;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
@@ -29,7 +32,7 @@ import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
-public class BurdenAction implements MagicSpell {
+public class BurdenAction implements MagicSpell, AnimatedAction {
 
 	private static final int ENERGY_USE = 200;
 	private static final int DISTANCE = 1;
@@ -117,5 +120,15 @@ public class BurdenAction implements MagicSpell {
 	@Override
 	public SoundIds getSoundId() {
 		return SoundIds.ENCHANT2;
+	}
+
+	@Override
+	public ImageIds getAnimationImageId() {
+		return ImageIds.BURDEN_MAGIC_SPELL_ANIMATION;
+	}
+
+	@Override
+	public List<WorldObject> getAffectedTargets(WorldObject target, World world) {
+		return Arrays.asList(target);
 	}	
 }

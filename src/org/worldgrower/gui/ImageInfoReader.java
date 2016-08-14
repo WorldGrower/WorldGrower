@@ -553,6 +553,9 @@ public class ImageInfoReader {
         createAnimation(ImageIds.SLEEPING_INDICATOR_ANIMATION, ImageIds.SLEEPING_INDICATOR, 10);
         createAnimation(ImageIds.ANIMAL_FRIENDSHIP_SPELL_ANIMATION, ImageIds.ANIMAL_FRIENDSHIP_SPELL, 10);
         createAnimation(ImageIds.ANIMATE_DEAD_ANIMATION, ImageIds.ANIMATE_DEAD, 10);
+        createAnimation(ImageIds.BURDEN_MAGIC_SPELL_ANIMATION, ImageIds.BURDEN_MAGIC_SPELL, 10);
+        createAnimation(ImageIds.FEATHER_MAGIC_SPELL_ANIMATION, ImageIds.FEATHER_MAGIC_SPELL, 10);
+        createAnimation(ImageIds.CURE_DISEASE_ANIMATION, ImageIds.CURE_DISEASE, 10);
     }
     
     private void createAnimation(ImageIds animationImageId, ImageIds imageId, int numberOfFrames) {
