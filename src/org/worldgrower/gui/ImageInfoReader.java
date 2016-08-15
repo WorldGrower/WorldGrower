@@ -556,6 +556,12 @@ public class ImageInfoReader {
         createAnimation(ImageIds.BURDEN_MAGIC_SPELL_ANIMATION, ImageIds.BURDEN_MAGIC_SPELL, 10);
         createAnimation(ImageIds.FEATHER_MAGIC_SPELL_ANIMATION, ImageIds.FEATHER_MAGIC_SPELL, 10);
         createAnimation(ImageIds.CURE_DISEASE_ANIMATION, ImageIds.CURE_DISEASE, 10);
+        createAnimation(ImageIds.CURE_POISON_ANIMATION, ImageIds.CURE_POISON, 10);
+        createAnimation(ImageIds.DARKNESS_MAGIC_SPELL_ANIMATION, ImageIds.DARKNESS_MAGIC_SPELL, 10);
+        createAnimation(ImageIds.DETECT_MAGIC_ANIMATION, ImageIds.DETECT_MAGIC, 10);
+        createAnimation(ImageIds.DETECT_POISON_AND_DISEASE_ANIMATION, ImageIds.DETECT_POISON_AND_DISEASE, 10);
+        createAnimation(ImageIds.DISINTEGRATE_ARMOR_ANIMATION, ImageIds.DISINTEGRATE_ARMOR, 10);
+        createAnimation(ImageIds.DISINTEGRATE_WEAPON_ANIMATION, ImageIds.DISINTEGRATE_WEAPON, 10);
     }
     
     private void createAnimation(ImageIds animationImageId, ImageIds imageId, int numberOfFrames) {
