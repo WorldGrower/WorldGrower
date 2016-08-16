@@ -569,7 +569,7 @@ public class ImageInfoReader {
         createAnimation(ImageIds.UNLOCK_MAGIC_SPELL_ANIMATION, ImageIds.UNLOCK_MAGIC_SPELL, 10);
         createAnimation(ImageIds.MEND_MAGIC_SPELL_ANIMATION, ImageIds.MEND_MAGIC_SPELL, 10);
         createAnimation(ImageIds.PARALYZED_INDICATOR_ANIMATION, ImageIds.PARALYZED_INDICATOR, 10);
-        
+        createAnimation(ImageIds.SOUL_TRAPPED_INDICATOR_ANIMATION, ImageIds.SOUL_TRAPPED_INDICATOR, 10);
         
     }
     
