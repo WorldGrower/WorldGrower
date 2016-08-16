@@ -21,6 +21,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.AnimatedAction;
 import org.worldgrower.actions.BuildAction;
 import org.worldgrower.actions.CraftUtils;
 import org.worldgrower.attribute.SkillProperty;
@@ -31,17 +32,14 @@ import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
-public class EntangleAction implements BuildAction, MagicSpell {
+public class EntangleAction implements BuildAction, MagicSpell, AnimatedAction {
 
 	private static final int ENERGY_USE = 400;
 	private static final int DISTANCE = 1;
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		int x = (Integer)target.getProperty(Constants.X);
-		int y = (Integer)target.getProperty(Constants.Y);
-		
-		List<WorldObject> targets = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> isInAreaOfEffect(x, y, w));
+		List<WorldObject> targets = getAffectedTargets(target, world);
 		int turns = (int)(5 * SkillUtils.getSkillBonus(performer, getSkill()));
 		for(WorldObject spellTarget : targets) {
 			Conditions.add(spellTarget, Condition.ENTANGLED_CONDITION, turns, world);
@@ -127,5 +125,18 @@ public class EntangleAction implements BuildAction, MagicSpell {
 	@Override
 	public SoundIds getSoundId() {
 		return SoundIds.RUSTLE01;
+	}
+
+	@Override
+	public ImageIds getAnimationImageId() {
+		return ImageIds.ENTANGLED_INDICATOR_ANIMATION;
+	}
+
+	@Override
+	public List<WorldObject> getAffectedTargets(WorldObject target, World world) {
+		int x = (Integer)target.getProperty(Constants.X);
+		int y = (Integer)target.getProperty(Constants.Y);
+		
+		return world.findWorldObjectsByProperty(Constants.STRENGTH, w -> isInAreaOfEffect(x, y, w));
 	}
 }

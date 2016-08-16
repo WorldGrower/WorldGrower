@@ -15,10 +15,13 @@
 package org.worldgrower.actions.magic;
 
 import java.io.ObjectStreamException;
+import java.util.Arrays;
+import java.util.List;
 
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.AnimatedAction;
 import org.worldgrower.actions.AttackUtils;
 import org.worldgrower.actions.CraftUtils;
 import org.worldgrower.attribute.SkillProperty;
@@ -29,7 +32,7 @@ import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
-public class ParalyzeSpellAction implements MagicSpell {
+public class ParalyzeSpellAction implements MagicSpell, AnimatedAction {
 
 	private static final int ENERGY_USE = 600;
 	private static final int DISTANCE = 4;
@@ -109,5 +112,15 @@ public class ParalyzeSpellAction implements MagicSpell {
 	@Override
 	public SoundIds getSoundId() {
 		return SoundIds.WIND;
+	}
+
+	@Override
+	public ImageIds getAnimationImageId() {
+		return ImageIds.PARALYZED_INDICATOR_ANIMATION;
+	}
+
+	@Override
+	public List<WorldObject> getAffectedTargets(WorldObject target, World world) {
+		return Arrays.asList(target);
 	}
 }
