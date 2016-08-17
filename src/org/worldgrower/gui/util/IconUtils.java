@@ -15,7 +15,6 @@
 package org.worldgrower.gui.util;
 
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.Window;
 
 import javax.swing.Icon;
@@ -25,7 +24,6 @@ import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
-import org.worldgrower.gui.start.Game;
 
 public class IconUtils {
 
@@ -39,20 +37,16 @@ public class IconUtils {
 	private static final Image CONTROLS_ICON;
 	
 	static {
-		IMAGE_ICON = getImage("/community.png");
-		IMAGE_ICON48 = getImage("/community48.png");
-		NEW_ICON = getImage("/new.png");
-		LOAD_ICON = getImage("/load.png");
-		SAVE_ICON = getImage("/save.png");
-		EXIT_ICON = getImage("/exit.png");
-		MOUSE_ICON = getImage("/cursor.png");
-		CONTROLS_ICON = getImage("/controls.png");
+		IMAGE_ICON = ImageUtils.getImage("/community.png");
+		IMAGE_ICON48 = ImageUtils.getImage("/community48.png");
+		NEW_ICON = ImageUtils.getImage("/new.png");
+		LOAD_ICON = ImageUtils.getImage("/load.png");
+		SAVE_ICON = ImageUtils.getImage("/save.png");
+		EXIT_ICON = ImageUtils.getImage("/exit.png");
+		MOUSE_ICON = ImageUtils.getImage("/cursor.png");
+		CONTROLS_ICON = ImageUtils.getImage("/controls.png");
 	}
 
-	private static Image getImage(String imageURL) {
-		return Toolkit.getDefaultToolkit().getImage(Game.class.getResource(imageURL));
-	}
-	
 	public static void setIcon(Window frame) {
 		frame.setIconImage(IMAGE_ICON);
 	}

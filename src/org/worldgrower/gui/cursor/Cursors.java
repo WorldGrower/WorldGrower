@@ -19,13 +19,15 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
 
+import org.worldgrower.gui.util.ImageUtils;
+
 public class Cursors {
 
 	public static final Cursor CURSOR;
 	
 	static {
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
-		Image image = toolkit.getImage("resources/RPG_Mouse_Cursor_3.png");
+		Image image = ImageUtils.getImage("/RPG_Mouse_Cursor_3.png");
 		CURSOR = toolkit.createCustomCursor(image , new Point(0, 0), "cursor");
 	}
 }

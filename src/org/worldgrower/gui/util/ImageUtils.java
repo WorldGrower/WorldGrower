@@ -17,7 +17,10 @@ package org.worldgrower.gui.util;
 import java.awt.AlphaComposite;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
+
+import org.worldgrower.gui.start.Game;
 
 public class ImageUtils {
 
@@ -35,4 +38,8 @@ public class ImageUtils {
     	g.dispose();
     	return scaledBI;
     }
+	
+	public static Image getImage(String imageURL) {
+		return Toolkit.getDefaultToolkit().getImage(Game.class.getResource(imageURL));
+	}
 }
