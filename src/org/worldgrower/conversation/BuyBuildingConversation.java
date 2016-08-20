@@ -84,4 +84,8 @@ public class BuyBuildingConversation implements Conversation {
 	public String getDescription(WorldObject performer, WorldObject target, World world) {
 		return "talking about selling a " + buildingType.getDescription();
 	}
+
+	public BuildingType getBuildingType() {
+		return buildingType;
+	}
 }

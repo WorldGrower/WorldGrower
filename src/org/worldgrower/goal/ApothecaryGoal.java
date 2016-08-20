@@ -37,16 +37,23 @@ public class ApothecaryGoal implements Goal {
 		List<WorldObject> unownedApothecaries = BuildingGenerator.findUnownedBuildingsForClaiming(performer, Constants.APOTHECARY_QUALITY, w -> BuildingGenerator.isApothecary(w), world);
 		if (unownedApothecaries.size() > 0) {
 			return new OperationInfo(performer, unownedApothecaries.get(0), Args.EMPTY, Actions.CLAIM_BUILDING_ACTION);
-		} else if (!BuildApothecaryAction.hasEnoughStone(performer)) {
-			return Goals.STONE_GOAL.calculateGoal(performer, world);
-		} else if (!BuildApothecaryAction.hasEnoughWood(performer)) {
-			return Goals.WOOD_GOAL.calculateGoal(performer, world);
 		} else {
-			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 4, 3, world);
-			if (target != null) {
-				return new OperationInfo(performer, target, Args.EMPTY, Actions.BUILD_APOTHECARY_ACTION);
+			OperationInfo buyBuildingOperationInfo = HousePropertyUtils.createBuyBuildingOperationInfo(performer, BuildingType.APOTHECARY, world);
+			if (buyBuildingOperationInfo != null) {
+				return buyBuildingOperationInfo;
 			} else {
-				return null;
+				if (!BuildApothecaryAction.hasEnoughStone(performer)) {
+					return Goals.STONE_GOAL.calculateGoal(performer, world);
+				} else if (!BuildApothecaryAction.hasEnoughWood(performer)) {
+					return Goals.WOOD_GOAL.calculateGoal(performer, world);
+				} else {
+					WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 4, 3, world);
+					if (target != null) {
+						return new OperationInfo(performer, target, Args.EMPTY, Actions.BUILD_APOTHECARY_ACTION);
+					} else {
+						return null;
+					}
+				}
 			}
 		}
 	}

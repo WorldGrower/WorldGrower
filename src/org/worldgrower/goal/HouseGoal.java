@@ -23,7 +23,6 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.BuildingType;
-import org.worldgrower.conversation.Conversations;
 import org.worldgrower.generator.BuildingGenerator;
 
 public class HouseGoal implements Goal {
@@ -41,9 +40,9 @@ public class HouseGoal implements Goal {
 			if (unownedHouses.size() > 0) {
 				return new OperationInfo(performer, unownedHouses.get(0), Args.EMPTY, Actions.CLAIM_BUILDING_ACTION);
 			} else {
-				List<WorldObject> targets = GoalUtils.findNearestTargetsByProperty(performer, Actions.TALK_ACTION, Constants.STRENGTH, w -> HousePropertyUtils.hasBuildingForSale(w, BuildingType.HOUSE, world), world);
-				if (targets.size() > 0) {
-					return new OperationInfo(performer, targets.get(0), Conversations.createArgs(Conversations.BUY_HOUSE_CONVERSATION), Actions.TALK_ACTION);
+				OperationInfo buyBuildingOperationInfo = HousePropertyUtils.createBuyBuildingOperationInfo(performer, BuildingType.HOUSE, world);
+				if (buyBuildingOperationInfo != null) {
+					return buyBuildingOperationInfo;
 				} else { 
 					return Goals.CREATE_HOUSE_GOAL.calculateGoal(performer, world);
 				}

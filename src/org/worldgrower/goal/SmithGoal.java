@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.BuildSmithAction;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.generator.BuildingGenerator;
 
 public class SmithGoal implements Goal {
@@ -36,14 +37,21 @@ public class SmithGoal implements Goal {
 		List<WorldObject> unownedSmiths = BuildingGenerator.findUnownedBuildingsForClaiming(performer, Constants.SMITH_QUALITY, w -> BuildingGenerator.isSmithy(w), world);
 		if (unownedSmiths.size() > 0) {
 			return new OperationInfo(performer, unownedSmiths.get(0), Args.EMPTY, Actions.CLAIM_BUILDING_ACTION);
-		} else if (!BuildSmithAction.hasEnoughStone(performer)) {
-			return Goals.STONE_GOAL.calculateGoal(performer, world);
 		} else {
-			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 3, 4, world);
-			if (target != null) {
-				return new OperationInfo(performer, target, Args.EMPTY, Actions.BUILD_SMITH_ACTION);
+			OperationInfo buyBuildingOperationInfo = HousePropertyUtils.createBuyBuildingOperationInfo(performer, BuildingType.SMITH, world);
+			if (buyBuildingOperationInfo != null) {
+				return buyBuildingOperationInfo;
 			} else {
-				return null;
+				if (!BuildSmithAction.hasEnoughStone(performer)) {
+					return Goals.STONE_GOAL.calculateGoal(performer, world);
+				} else {		
+					WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 3, 4, world);
+					if (target != null) {
+						return new OperationInfo(performer, target, Args.EMPTY, Actions.BUILD_SMITH_ACTION);
+					} else {
+						return null;
+					}
+				}
 			}
 		}
 	}

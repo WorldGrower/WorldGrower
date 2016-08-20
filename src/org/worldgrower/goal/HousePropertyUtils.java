@@ -18,9 +18,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.worldgrower.Constants;
+import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.BuildingType;
+import org.worldgrower.conversation.Conversations;
 import org.worldgrower.generator.Item;
 
 public class HousePropertyUtils {
@@ -104,5 +107,14 @@ public class HousePropertyUtils {
 	public static boolean hasHouseWithBed(WorldObject performer, World world) {
 		List<WorldObject> housesWithBed = performer.getProperty(Constants.BUILDINGS).mapToWorldObjects(world, BuildingType.HOUSE, w -> w.getProperty(Constants.INVENTORY).getWorldObjects(Constants.ITEM_ID, Item.BED).size() > 0);
 		return housesWithBed.size() > 0;
+	}
+	
+	public static OperationInfo createBuyBuildingOperationInfo(WorldObject performer, BuildingType buildingType, World world) {
+		List<WorldObject> targets = GoalUtils.findNearestTargetsByProperty(performer, Actions.TALK_ACTION, Constants.STRENGTH, w -> hasBuildingForSale(w, buildingType, world), world);
+		if (targets.size() > 0) {
+			return new OperationInfo(performer, targets.get(0), Conversations.createArgs(Conversations.getBuyBuildingConversation(buildingType)), Actions.TALK_ACTION);
+		} else {
+			return null;
+		}
 	}
 }

@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.BuildWorkbenchAction;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.generator.BuildingGenerator;
 
 public class WorkbenchGoal implements Goal {
@@ -36,14 +37,21 @@ public class WorkbenchGoal implements Goal {
 		List<WorldObject> unownedWorkbenches = BuildingGenerator.findUnownedBuildingsForClaiming(performer, Constants.WORKBENCH_QUALITY, w -> BuildingGenerator.isWorkbench(w), world);
 		if (unownedWorkbenches.size() > 0) {
 			return new OperationInfo(performer, unownedWorkbenches.get(0), Args.EMPTY, Actions.CLAIM_BUILDING_ACTION);
-		} else if (!BuildWorkbenchAction.hasEnoughStone(performer)) {
-			return Goals.STONE_GOAL.calculateGoal(performer, world);
 		} else {
-			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 4, 3, world);
-			if (target != null) {
-				return new OperationInfo(performer, target, Args.EMPTY, Actions.BUILD_WORKBENCH_ACTION);
+			OperationInfo buyBuildingOperationInfo = HousePropertyUtils.createBuyBuildingOperationInfo(performer, BuildingType.WORKBENCH, world);
+			if (buyBuildingOperationInfo != null) {
+				return buyBuildingOperationInfo;
 			} else {
-				return null;
+				if (!BuildWorkbenchAction.hasEnoughStone(performer)) {
+					return Goals.STONE_GOAL.calculateGoal(performer, world);
+				} else {
+					WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 4, 3, world);
+					if (target != null) {
+						return new OperationInfo(performer, target, Args.EMPTY, Actions.BUILD_WORKBENCH_ACTION);
+					} else {
+						return null;
+					}
+				}
 			}
 		}
 	}

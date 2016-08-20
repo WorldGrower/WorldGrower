@@ -37,16 +37,23 @@ public class BreweryGoal implements Goal {
 		List<WorldObject> unownedBreweries = BuildingGenerator.findUnownedBuildingsForClaiming(performer, Constants.BREWERY_QUALITY, w -> BuildingGenerator.isBrewery(w), world);
 		if (unownedBreweries.size() > 0) {
 			return new OperationInfo(performer, unownedBreweries.get(0), Args.EMPTY, Actions.CLAIM_BUILDING_ACTION);
-		} else if (!BuildBreweryAction.hasEnoughStone(performer)) {
-			return Goals.STONE_GOAL.calculateGoal(performer, world);
-		} else if (!BuildBreweryAction.hasEnoughWood(performer)) {
-			return Goals.WOOD_GOAL.calculateGoal(performer, world);
 		} else {
-			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 4, 3, world);
-			if (target != null) {
-				return new OperationInfo(performer, target, Args.EMPTY, Actions.BUILD_BREWERY_ACTION);
+			OperationInfo buyBuildingOperationInfo = HousePropertyUtils.createBuyBuildingOperationInfo(performer, BuildingType.BREWERY, world);
+			if (buyBuildingOperationInfo != null) {
+				return buyBuildingOperationInfo;
 			} else {
-				return null;
+				if (!BuildBreweryAction.hasEnoughStone(performer)) {
+					return Goals.STONE_GOAL.calculateGoal(performer, world);
+				} else if (!BuildBreweryAction.hasEnoughWood(performer)) {
+					return Goals.WOOD_GOAL.calculateGoal(performer, world);
+				} else {
+					WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 4, 3, world);
+					if (target != null) {
+						return new OperationInfo(performer, target, Args.EMPTY, Actions.BUILD_BREWERY_ACTION);
+					} else {
+						return null;
+					}
+				}
 			}
 		}
 	}

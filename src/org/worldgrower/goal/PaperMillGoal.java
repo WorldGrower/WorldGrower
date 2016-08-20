@@ -22,6 +22,7 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.generator.BuildingGenerator;
 
 public class PaperMillGoal implements Goal {
@@ -35,14 +36,21 @@ public class PaperMillGoal implements Goal {
 		List<WorldObject> unownedPapermills = BuildingGenerator.findUnownedBuildingsForClaiming(performer, Constants.PAPER_MILL_QUALITY, w -> BuildingGenerator.isPapermill(w), world);
 		if (unownedPapermills.size() > 0) {
 			return new OperationInfo(performer, unownedPapermills.get(0), Args.EMPTY, Actions.CLAIM_BUILDING_ACTION);
-		} else if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) < 4) {
-			return Goals.WOOD_GOAL.calculateGoal(performer, world);
 		} else {
-			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 5, 4, world);
-			if (target != null) {
-				return new OperationInfo(performer, target, Args.EMPTY, Actions.BUILD_PAPER_MILL_ACTION);
+			OperationInfo buyBuildingOperationInfo = HousePropertyUtils.createBuyBuildingOperationInfo(performer, BuildingType.PAPERMILL, world);
+			if (buyBuildingOperationInfo != null) {
+				return buyBuildingOperationInfo;
 			} else {
-				return null;
+				if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) < 4) {
+					return Goals.WOOD_GOAL.calculateGoal(performer, world);
+				} else {
+					WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 5, 4, world);
+					if (target != null) {
+						return new OperationInfo(performer, target, Args.EMPTY, Actions.BUILD_PAPER_MILL_ACTION);
+					} else {
+						return null;
+					}
+				}
 			}
 		}
 	}

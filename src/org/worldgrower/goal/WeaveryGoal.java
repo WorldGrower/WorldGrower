@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.BuildWeaveryAction;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.generator.BuildingGenerator;
 
 public class WeaveryGoal implements Goal {
@@ -36,14 +37,21 @@ public class WeaveryGoal implements Goal {
 		List<WorldObject> unownedWeaveries = BuildingGenerator.findUnownedBuildingsForClaiming(performer, Constants.WEAVERY_QUALITY, w -> BuildingGenerator.isWeavery(w), world);
 		if (unownedWeaveries.size() > 0) {
 			return new OperationInfo(performer, unownedWeaveries.get(0), Args.EMPTY, Actions.CLAIM_BUILDING_ACTION);
-		} else if (!BuildWeaveryAction.hasEnoughWood(performer)) {
-			return Goals.WOOD_GOAL.calculateGoal(performer, world);
 		} else {
-			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 5, 4, world);
-			if (target != null) {
-				return new OperationInfo(performer, target, Args.EMPTY, Actions.BUILD_WEAVERY_ACTION);
+			OperationInfo buyBuildingOperationInfo = HousePropertyUtils.createBuyBuildingOperationInfo(performer, BuildingType.WEAVERY, world);
+			if (buyBuildingOperationInfo != null) {
+				return buyBuildingOperationInfo;
 			} else {
-				return null;
+				if (!BuildWeaveryAction.hasEnoughWood(performer)) {
+					return Goals.WOOD_GOAL.calculateGoal(performer, world);
+				} else {
+					WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 5, 4, world);
+					if (target != null) {
+						return new OperationInfo(performer, target, Args.EMPTY, Actions.BUILD_WEAVERY_ACTION);
+					} else {
+						return null;
+					}
+				}
 			}
 		}
 	}

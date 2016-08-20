@@ -389,4 +389,16 @@ public class Conversations implements Serializable {
 		}
 		throw new IllegalStateException("No IntimidateConversation found in " + CONVERSATIONS);
 	}
+
+	public static Conversation getBuyBuildingConversation(BuildingType buildingType) {
+		for(Conversation conversation : CONVERSATIONS) {
+			if (conversation instanceof BuyBuildingConversation) {
+				BuyBuildingConversation buyBuildingConversation = (BuyBuildingConversation) conversation;
+				if (buyBuildingConversation.getBuildingType() == buildingType) {
+					return buyBuildingConversation;
+				}
+			}
+		}
+		throw new IllegalStateException("No BuyBuildingConversation found for " + buildingType);
+	}
 }
