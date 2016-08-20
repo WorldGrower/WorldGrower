@@ -88,7 +88,7 @@ import org.worldgrower.conversation.UTestAssassinateTargetConversation;
 import org.worldgrower.conversation.UTestBecomeArenaFighterConversation;
 import org.worldgrower.conversation.UTestBrawlConversation;
 import org.worldgrower.conversation.UTestBreakupWithMateConversation;
-import org.worldgrower.conversation.UTestBuyHouseConversation;
+import org.worldgrower.conversation.UTestBuyBuildingConversation;
 import org.worldgrower.conversation.UTestCollectBountyFromThievesConversation;
 import org.worldgrower.conversation.UTestCollectPayCheckConversation;
 import org.worldgrower.conversation.UTestCollectTaxesConversation;
@@ -128,7 +128,7 @@ import org.worldgrower.conversation.UTestProfessionReasonConversation;
 import org.worldgrower.conversation.UTestProposeMateConversation;
 import org.worldgrower.conversation.UTestRelationshipConversation;
 import org.worldgrower.conversation.UTestSawDisguisingConversation;
-import org.worldgrower.conversation.UTestSellHouseConversation;
+import org.worldgrower.conversation.UTestSellBuildingConversation;
 import org.worldgrower.conversation.UTestSetOrganizationProfitPercentageConversation;
 import org.worldgrower.conversation.UTestShareKnowledgeConversation;
 import org.worldgrower.conversation.UTestStartArenaFightConversation;
@@ -278,7 +278,7 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestArenaFighterPayCheckConversation.class,
 	UTestJoinTargetOrganizationConversation.class,
 	UTestGiveFoodConversation.class,
-	UTestSellHouseConversation.class,
+	UTestSellBuildingConversation.class,
 	UTestNicerConversation.class,
 	UTestCurePoisonConversation.class,
 	UTestIntimidateConversation.class,
@@ -289,7 +289,7 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestBecomeArenaFighterConversation.class,
 	UTestProposeMateConversation.class,
 	UTestBuyClothesGoal.class,
-	UTestBuyHouseConversation.class,
+	UTestBuyBuildingConversation.class,
 	UTestCollectTaxesConversation.class,
 	UTestVoteLeaderOrganizationConversation.class,
 	UTestRelationshipConversation.class,

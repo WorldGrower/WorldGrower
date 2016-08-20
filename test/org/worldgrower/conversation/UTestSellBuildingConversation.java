@@ -30,9 +30,9 @@ import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdRelationshipMap;
 
-public class UTestSellHouseConversation {
+public class UTestSellBuildingConversation {
 
-	private final SellHouseConversation conversation = Conversations.SELL_HOUSE_CONVERSATION;
+	private final SellBuildingConversation conversation = Conversations.SELL_HOUSE_CONVERSATION;
 	
 	@Test
 	public void testGetReplyPhrases() {

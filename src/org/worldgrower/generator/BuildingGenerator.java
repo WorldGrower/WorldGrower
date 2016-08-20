@@ -569,6 +569,7 @@ public class BuildingGenerator {
 		properties.put(Constants.CONDITIONS, new Conditions());
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
+		properties.put(Constants.PRICE, 50);
 		properties.put(Constants.BUILDING_TYPE, BuildingType.PAPERMILL);
 		
 		WorldObject paperMill = new WorldObjectImpl(properties);
@@ -597,6 +598,7 @@ public class BuildingGenerator {
 		properties.put(Constants.HIT_POINTS_MAX, 100 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
+		properties.put(Constants.PRICE, 50);
 		properties.put(Constants.BUILDING_TYPE, BuildingType.SMITH);
 		
 		WorldObject smith = new WorldObjectImpl(properties);
@@ -625,6 +627,7 @@ public class BuildingGenerator {
 		properties.put(Constants.HIT_POINTS_MAX, 100 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
+		properties.put(Constants.PRICE, 50);
 		properties.put(Constants.BUILDING_TYPE, BuildingType.WORKBENCH);
 		
 		WorldObject workbench = new WorldObjectImpl(properties);
@@ -715,6 +718,7 @@ public class BuildingGenerator {
 		properties.put(Constants.HIT_POINTS_MAX, 100 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
+		properties.put(Constants.PRICE, 50);
 		properties.put(Constants.BUILDING_TYPE, BuildingType.WEAVERY);
 		
 		WorldObject weavery = new WorldObjectImpl(properties);
@@ -743,6 +747,7 @@ public class BuildingGenerator {
 		properties.put(Constants.HIT_POINTS_MAX, 100 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
+		properties.put(Constants.PRICE, 50);
 		properties.put(Constants.BUILDING_TYPE, BuildingType.BREWERY);
 		
 		WorldObject brewery = new WorldObjectImpl(properties);
@@ -771,6 +776,7 @@ public class BuildingGenerator {
 		properties.put(Constants.HIT_POINTS_MAX, 100 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
+		properties.put(Constants.PRICE, 50);
 		properties.put(Constants.BUILDING_TYPE, BuildingType.APOTHECARY);
 		
 		WorldObject brewery = new WorldObjectImpl(properties);

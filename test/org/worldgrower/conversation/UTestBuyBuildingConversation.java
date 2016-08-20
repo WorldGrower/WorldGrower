@@ -30,9 +30,9 @@ import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdRelationshipMap;
 
-public class UTestBuyHouseConversation {
+public class UTestBuyBuildingConversation {
 
-	private final BuyHouseConversation conversation = Conversations.BUY_HOUSE_CONVERSATION;
+	private final BuyBuildingConversation conversation = Conversations.BUY_HOUSE_CONVERSATION;
 	
 	@Test
 	public void testGetReplyPhrases() {
@@ -63,7 +63,7 @@ public class UTestBuyHouseConversation {
 		
 		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, null, null);
 		assertEquals(1, questions.size());
-		assertEquals("I'd like to buy a house", questions.get(0).getQuestionPhrase());
+		assertEquals("Will you sell me a house?", questions.get(0).getQuestionPhrase());
 	}
 	
 	@Test

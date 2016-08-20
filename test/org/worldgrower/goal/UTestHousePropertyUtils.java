@@ -37,10 +37,10 @@ public class UTestHousePropertyUtils {
 	public void testHasHouses() {
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.BUILDINGS, new BuildingList());
 		
-		assertEquals(false, HousePropertyUtils.hasHouses(performer));
+		assertEquals(false, HousePropertyUtils.hasBuildings(performer, BuildingType.HOUSE));
 		
 		performer.getProperty(Constants.BUILDINGS).add(2, BuildingType.HOUSE);
-		assertEquals(true, HousePropertyUtils.hasHouses(performer));
+		assertEquals(true, HousePropertyUtils.hasBuildings(performer, BuildingType.HOUSE));
 	}
 	
 	@Test
@@ -50,10 +50,10 @@ public class UTestHousePropertyUtils {
 		WorldObject house = TestUtils.createIntelligentWorldObject(2, Constants.SELLABLE, Boolean.TRUE);
 		world.addWorldObject(house);
 		
-		assertEquals(house, HousePropertyUtils.getHouseForSale(target, world));
+		assertEquals(house, HousePropertyUtils.getBuildingForSale(target, BuildingType.HOUSE, world));
 		
 		house.setProperty(Constants.SELLABLE, Boolean.FALSE);
-		assertEquals(null, HousePropertyUtils.getHouseForSale(target, world));
+		assertEquals(null, HousePropertyUtils.getBuildingForSale(target, BuildingType.HOUSE, world));
 	}
 	
 	@Test

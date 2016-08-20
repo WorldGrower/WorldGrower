@@ -24,22 +24,29 @@ import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.goal.BuySellUtils;
 import org.worldgrower.goal.HousePropertyUtils;
 import org.worldgrower.history.HistoryItem;
+import org.worldgrower.util.SentenceUtils;
 
-public class SellHouseConversation implements Conversation {
+public class SellBuildingConversation implements Conversation {
 
+	private final BuildingType buildingType;
+	
 	private static final int YES = 0;
 	private static final int NO = 1;
 	
+	public SellBuildingConversation(BuildingType buildingType) {
+		this.buildingType = buildingType;
+	}
+
 	@Override
 	public Response getReplyPhrase(ConversationContext conversationContext) {
 		WorldObject performer = conversationContext.getPerformer();
 		WorldObject target = conversationContext.getTarget();
 		World world = conversationContext.getWorld();
 		
-		int houseId = performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.HOUSE).get(0);
-		WorldObject house = world.findWorldObjectById(houseId);
+		int buildingId = performer.getProperty(Constants.BUILDINGS).getIds(buildingType).get(0);
+		WorldObject building = world.findWorldObjectById(buildingId);
 		
-		boolean targetWillBuy = BuySellUtils.buyerWillBuyGoods(performer, target, house, world);
+		boolean targetWillBuy = BuySellUtils.buyerWillBuyGoods(performer, target, building, world);
 		
 		final int replyId;
 		if (targetWillBuy) {
@@ -52,20 +59,21 @@ public class SellHouseConversation implements Conversation {
 
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
-		return Arrays.asList(new Question(null, "Do you want to buy a house?"));
+		String description = buildingType.getDescription();
+		return Arrays.asList(new Question(null, "Do you want to buy " + SentenceUtils.getArticle(description) + " " + description + "?"));
 	}
 	
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
-			new Response(0, "Yes"),
-			new Response(1, "No")
+			new Response(YES, "Yes"),
+			new Response(NO, "No")
 			);
 	}
 
 	@Override
 	public boolean isConversationAvailable(WorldObject performer, WorldObject target, WorldObject subject, World world) {
-		return HousePropertyUtils.hasHouses(performer);
+		return HousePropertyUtils.hasBuildings(performer, buildingType);
 	}
 
 	@Override
@@ -75,13 +83,13 @@ public class SellHouseConversation implements Conversation {
 		World world = conversationContext.getWorld();
 		
 		if (replyIndex == YES) {
-			int houseId = performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.HOUSE).get(0);
-			WorldObject house = world.findWorldObjectById(houseId);
-			int price = house.getProperty(Constants.PRICE);
+			int buildingId = performer.getProperty(Constants.BUILDINGS).getIds(buildingType).get(0);
+			WorldObject building = world.findWorldObjectById(buildingId);
+			int price = building.getProperty(Constants.PRICE);
 			
-			performer.getProperty(Constants.BUILDINGS).remove(houseId);
-			target.getProperty(Constants.BUILDINGS).add(houseId, BuildingType.HOUSE);
-			house.setProperty(Constants.SELLABLE, Boolean.FALSE);
+			performer.getProperty(Constants.BUILDINGS).remove(buildingId);
+			target.getProperty(Constants.BUILDINGS).add(buildingId, buildingType);
+			building.setProperty(Constants.SELLABLE, Boolean.FALSE);
 			
 			target.increment(Constants.GOLD, -price);
 			performer.increment(Constants.GOLD, price);
@@ -90,6 +98,6 @@ public class SellHouseConversation implements Conversation {
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, World world) {
-		return "talking about selling a house";
+		return "talking about selling a " + buildingType.getDescription();
 	}
 }

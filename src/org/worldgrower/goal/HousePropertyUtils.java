@@ -59,22 +59,22 @@ public class HousePropertyUtils {
 		}
 	}
 	
-	public static boolean hasHouses(WorldObject performer) {
-		return performer.hasProperty(Constants.BUILDINGS) && performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.HOUSE).size() > 0;
+	public static boolean hasBuildings(WorldObject performer, BuildingType buildingType) {
+		return performer.hasProperty(Constants.BUILDINGS) && performer.getProperty(Constants.BUILDINGS).getIds(buildingType).size() > 0;
 	}
 
-	public static boolean hasHouseForSale(WorldObject target, World world) {
-		WorldObject houseForSale = getHouseForSale(target, world);
-		return houseForSale != null;
+	public static boolean hasBuildingForSale(WorldObject target, BuildingType buildingType, World world) {
+		WorldObject buildingForSale = getBuildingForSale(target, buildingType, world);
+		return buildingForSale != null;
 	}
 
-	public static WorldObject getHouseForSale(WorldObject target, World world) {
+	public static WorldObject getBuildingForSale(WorldObject target, BuildingType buildingType, World world) {
 		if (target.hasProperty(Constants.BUILDINGS)) {
-			List<Integer> houseIds = target.getProperty(Constants.BUILDINGS).getIds(BuildingType.HOUSE);
-			for(int houseId : houseIds) {
-				WorldObject house = world.findWorldObjectById(houseId);
-				if (house.hasProperty(Constants.SELLABLE) && house.getProperty(Constants.SELLABLE)) {
-					return house;
+			List<Integer> buildingIds = target.getProperty(Constants.BUILDINGS).getIds(buildingType);
+			for(int buildingId : buildingIds) {
+				WorldObject building = world.findWorldObjectById(buildingId);
+				if (building.hasProperty(Constants.SELLABLE) && building.getProperty(Constants.SELLABLE)) {
+					return building;
 				}
 			}
 		}

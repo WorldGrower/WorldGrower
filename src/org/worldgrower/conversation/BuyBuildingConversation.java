@@ -23,12 +23,19 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.goal.HousePropertyUtils;
 import org.worldgrower.history.HistoryItem;
+import org.worldgrower.util.SentenceUtils;
 
-public class BuyHouseConversation implements Conversation {
+public class BuyBuildingConversation implements Conversation {
 
+	private final BuildingType buildingType;
+	
 	private static final int YES = 0;
 	private static final int NO = 1;
-	
+
+	public BuyBuildingConversation(BuildingType buildingType) {
+		this.buildingType = buildingType;
+	}
+
 	@Override
 	public Response getReplyPhrase(ConversationContext conversationContext) {
 		int replyId = YES;
@@ -37,20 +44,21 @@ public class BuyHouseConversation implements Conversation {
 
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
-		return Arrays.asList(new Question(null, "I'd like to buy a house"));
+		String description = buildingType.getDescription();
+		return Arrays.asList(new Question(null, "Will you sell me " + SentenceUtils.getArticle(description) + " " + description + "?"));
 	}
 	
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
-			new Response(0, "Yes"),
-			new Response(1, "No")
+			new Response(YES, "Yes"),
+			new Response(NO, "No")
 			);
 	}
 
 	@Override
 	public boolean isConversationAvailable(WorldObject performer, WorldObject target, WorldObject subject, World world) {
-		return HousePropertyUtils.hasHouseForSale(target, world);
+		return HousePropertyUtils.hasBuildingForSale(target, buildingType, world);
 	}
 
 	@Override
@@ -60,12 +68,12 @@ public class BuyHouseConversation implements Conversation {
 		World world = conversationContext.getWorld();
 		
 		if (replyIndex == YES) {
-			WorldObject house = HousePropertyUtils.getHouseForSale(target, world);
-			int price = house.getProperty(Constants.PRICE);
+			WorldObject building = HousePropertyUtils.getBuildingForSale(target, buildingType, world);
+			int price = building.getProperty(Constants.PRICE);
 			
-			performer.getProperty(Constants.BUILDINGS).add(house, BuildingType.HOUSE);
-			target.getProperty(Constants.BUILDINGS).remove(house);
-			house.setProperty(Constants.SELLABLE, Boolean.FALSE);
+			performer.getProperty(Constants.BUILDINGS).add(building, buildingType);
+			target.getProperty(Constants.BUILDINGS).remove(building);
+			building.setProperty(Constants.SELLABLE, Boolean.FALSE);
 			
 			target.increment(Constants.GOLD, price);
 			performer.increment(Constants.GOLD, -price);
@@ -74,6 +82,6 @@ public class BuyHouseConversation implements Conversation {
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, World world) {
-		return "talking about selling a house";
+		return "talking about selling a " + buildingType.getDescription();
 	}
 }
