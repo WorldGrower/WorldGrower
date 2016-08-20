@@ -22,26 +22,25 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.attribute.BuildingType;
+import org.worldgrower.actions.BuildSmithAction;
 import org.worldgrower.generator.BuildingGenerator;
 
-public class WorkbenchGoal implements Goal {
+public class CreateSmithGoal implements Goal {
 
-	public WorkbenchGoal(List<Goal> allGoals) {
+	public CreateSmithGoal(List<Goal> allGoals) {
 		allGoals.add(this);
 	}
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		List<WorldObject> unownedWorkbenches = BuildingGenerator.findUnownedBuildingsForClaiming(performer, Constants.WORKBENCH_QUALITY, w -> BuildingGenerator.isWorkbench(w), world);
-		if (unownedWorkbenches.size() > 0) {
-			return new OperationInfo(performer, unownedWorkbenches.get(0), Args.EMPTY, Actions.CLAIM_BUILDING_ACTION);
-		} else {
-			OperationInfo buyBuildingOperationInfo = HousePropertyUtils.createBuyBuildingOperationInfo(performer, BuildingType.WORKBENCH, world);
-			if (buyBuildingOperationInfo != null) {
-				return buyBuildingOperationInfo;
+		if (!BuildSmithAction.hasEnoughStone(performer)) {
+			return Goals.STONE_GOAL.calculateGoal(performer, world);
+		} else {		
+			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 3, 4, world);
+			if (target != null) {
+				return new OperationInfo(performer, target, Args.EMPTY, Actions.BUILD_SMITH_ACTION);
 			} else {
-				return Goals.CREATE_WORKBENCH_GOAL.calculateGoal(performer, world);
+				return null;
 			}
 		}
 	}
@@ -52,10 +51,10 @@ public class WorkbenchGoal implements Goal {
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		Integer workbenchId = BuildingGenerator.getWorkbenchId(performer);
-		if (workbenchId != null) {
-			WorldObject workbench = world.findWorldObjectById(workbenchId);
-			return (workbench.getProperty(Constants.WORKBENCH_QUALITY) > 0);
+		Integer smithId = BuildingGenerator.getSmithId(performer);
+		if (smithId != null) {
+			WorldObject smith = world.findWorldObjectById(smithId.intValue());
+			return (smith.getProperty(Constants.SMITH_QUALITY) > 0);
 		} else {
 			return false;
 		}
@@ -68,12 +67,12 @@ public class WorkbenchGoal implements Goal {
 
 	@Override
 	public String getDescription() {
-		return "building a workbench";
+		return "building a smithy";
 	}
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		Integer workbenchId = BuildingGenerator.getWorkbenchId(performer);
-		return (workbenchId != null) ? 1 : 0;
+		Integer smithId = BuildingGenerator.getSmithId(performer);
+		return (smithId != null) ? 1 : 0;
 	}
 }

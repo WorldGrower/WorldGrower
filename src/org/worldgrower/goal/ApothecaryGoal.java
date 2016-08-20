@@ -22,7 +22,6 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.actions.BuildApothecaryAction;
 import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.generator.BuildingGenerator;
 
@@ -42,18 +41,7 @@ public class ApothecaryGoal implements Goal {
 			if (buyBuildingOperationInfo != null) {
 				return buyBuildingOperationInfo;
 			} else {
-				if (!BuildApothecaryAction.hasEnoughStone(performer)) {
-					return Goals.STONE_GOAL.calculateGoal(performer, world);
-				} else if (!BuildApothecaryAction.hasEnoughWood(performer)) {
-					return Goals.WOOD_GOAL.calculateGoal(performer, world);
-				} else {
-					WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 4, 3, world);
-					if (target != null) {
-						return new OperationInfo(performer, target, Args.EMPTY, Actions.BUILD_APOTHECARY_ACTION);
-					} else {
-						return null;
-					}
-				}
+				return Goals.CREATE_APOTHECARY_GOAL.calculateGoal(performer, world);
 			}
 		}
 	}

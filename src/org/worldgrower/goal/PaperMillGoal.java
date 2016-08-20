@@ -41,16 +41,7 @@ public class PaperMillGoal implements Goal {
 			if (buyBuildingOperationInfo != null) {
 				return buyBuildingOperationInfo;
 			} else {
-				if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) < 4) {
-					return Goals.WOOD_GOAL.calculateGoal(performer, world);
-				} else {
-					WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 5, 4, world);
-					if (target != null) {
-						return new OperationInfo(performer, target, Args.EMPTY, Actions.BUILD_PAPER_MILL_ACTION);
-					} else {
-						return null;
-					}
-				}
+				return Goals.CREATE_PAPER_MILL_GOAL.calculateGoal(performer, world);
 			}
 		}
 	}
@@ -63,7 +54,7 @@ public class PaperMillGoal implements Goal {
 	public boolean isGoalMet(WorldObject performer, World world) {
 		Integer paperMillId = BuildingGenerator.getPapermillId(performer);
 		if (paperMillId != null) {
-			WorldObject paperMill = world.findWorldObjects(w -> w.getProperty(Constants.ID).intValue() == paperMillId.intValue()).get(0);
+			WorldObject paperMill = world.findWorldObjectById(paperMillId);
 			return (paperMill.getProperty(Constants.PAPER_MILL_QUALITY) > 0);
 		} else {
 			return false;

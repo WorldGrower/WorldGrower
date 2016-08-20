@@ -22,7 +22,6 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.actions.BuildBreweryAction;
 import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.generator.BuildingGenerator;
 
@@ -42,18 +41,7 @@ public class BreweryGoal implements Goal {
 			if (buyBuildingOperationInfo != null) {
 				return buyBuildingOperationInfo;
 			} else {
-				if (!BuildBreweryAction.hasEnoughStone(performer)) {
-					return Goals.STONE_GOAL.calculateGoal(performer, world);
-				} else if (!BuildBreweryAction.hasEnoughWood(performer)) {
-					return Goals.WOOD_GOAL.calculateGoal(performer, world);
-				} else {
-					WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 4, 3, world);
-					if (target != null) {
-						return new OperationInfo(performer, target, Args.EMPTY, Actions.BUILD_BREWERY_ACTION);
-					} else {
-						return null;
-					}
-				}
+				return Goals.CREATE_BREWERY_GOAL.calculateGoal(performer, world);
 			}
 		}
 	}

@@ -182,4 +182,10 @@ public class Goals {
 	public static final EquipWoodCuttingToolGoal EQUIP_WOOD_CUTTING_TOOL_GOAL = new EquipWoodCuttingToolGoal(ALL_GOALS);
 	public static final CreateIronAxeGoal CREATE_IRON_AXE_GOAL = new CreateIronAxeGoal(ALL_GOALS);
 	public static final SellFoodGoal SELL_FOOD_GOAL = new SellFoodGoal(ALL_GOALS);
+	public static final CreateSmithGoal CREATE_SMITH_GOAL = new CreateSmithGoal(ALL_GOALS);
+	public static final CreateWeaveryGoal CREATE_WEAVERY_GOAL = new CreateWeaveryGoal(ALL_GOALS);
+	public static final CreatePaperMillGoal CREATE_PAPER_MILL_GOAL = new CreatePaperMillGoal(ALL_GOALS);
+	public static final CreateWorkbenchGoal CREATE_WORKBENCH_GOAL = new CreateWorkbenchGoal(ALL_GOALS);
+	public static final CreateApothecaryGoal CREATE_APOTHECARY_GOAL = new CreateApothecaryGoal(ALL_GOALS);
+	public static final CreateBreweryGoal CREATE_BREWERY_GOAL = new CreateBreweryGoal(ALL_GOALS);
 }

@@ -22,7 +22,6 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.actions.BuildSmithAction;
 import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.generator.BuildingGenerator;
 
@@ -42,16 +41,7 @@ public class SmithGoal implements Goal {
 			if (buyBuildingOperationInfo != null) {
 				return buyBuildingOperationInfo;
 			} else {
-				if (!BuildSmithAction.hasEnoughStone(performer)) {
-					return Goals.STONE_GOAL.calculateGoal(performer, world);
-				} else {		
-					WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 3, 4, world);
-					if (target != null) {
-						return new OperationInfo(performer, target, Args.EMPTY, Actions.BUILD_SMITH_ACTION);
-					} else {
-						return null;
-					}
-				}
+				return Goals.CREATE_SMITH_GOAL.calculateGoal(performer, world);
 			}
 		}
 	}

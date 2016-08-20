@@ -22,7 +22,6 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.actions.BuildWeaveryAction;
 import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.generator.BuildingGenerator;
 
@@ -42,16 +41,7 @@ public class WeaveryGoal implements Goal {
 			if (buyBuildingOperationInfo != null) {
 				return buyBuildingOperationInfo;
 			} else {
-				if (!BuildWeaveryAction.hasEnoughWood(performer)) {
-					return Goals.WOOD_GOAL.calculateGoal(performer, world);
-				} else {
-					WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 5, 4, world);
-					if (target != null) {
-						return new OperationInfo(performer, target, Args.EMPTY, Actions.BUILD_WEAVERY_ACTION);
-					} else {
-						return null;
-					}
-				}
+				return Goals.CREATE_WEAVERY_GOAL.calculateGoal(performer, world);
 			}
 		}
 	}
