@@ -33,7 +33,8 @@ public class MintGoldAction implements CraftAction {
 		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
 		
 		double skillBonus = SkillUtils.useSkill(performer, Constants.SMITHING_SKILL, world.getWorldStateChangedListeners());
-		int goldMinted = (int) (20 * skillBonus);
+		int quantityBonus = target.getProperty(Constants.SMITH_QUALITY);
+		int goldMinted = (int) (20 * skillBonus * quantityBonus);
 		performer.increment(Constants.GOLD, goldMinted);
 
 		inventory.removeQuantity(Constants.GOLD, GOLD_REQUIRED);

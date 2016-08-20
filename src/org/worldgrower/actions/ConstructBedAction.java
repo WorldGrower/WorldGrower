@@ -34,7 +34,8 @@ public class ConstructBedAction implements CraftAction {
 		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
 		
 		double skillBonus = SkillUtils.useSkill(performer, Constants.CARPENTRY_SKILL, world.getWorldStateChangedListeners());
-		inventory.addQuantity(Item.BED.generate(skillBonus));
+		int quantity =target.getProperty(Constants.WORKBENCH_QUALITY);
+		inventory.addQuantity(Item.BED.generate(skillBonus), quantity);
 
 		inventory.removeQuantity(Constants.WOOD, WOOD_REQUIRED);
 	}

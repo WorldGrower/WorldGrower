@@ -37,7 +37,8 @@ public class WeaveCottonHatAction implements CraftAction, AnimatedAction {
 		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
 		
 		double skillBonus = SkillUtils.useSkill(performer, Constants.WEAVING_SKILL, world.getWorldStateChangedListeners());
-		inventory.addQuantity(Item.COTTON_HAT.generate(skillBonus));
+		int quantity =target.getProperty(Constants.WEAVERY_QUALITY);
+		inventory.addQuantity(Item.COTTON_HAT.generate(skillBonus), quantity);
 
 		inventory.removeQuantity(Constants.COTTON, COTTON_REQUIRED);
 	}

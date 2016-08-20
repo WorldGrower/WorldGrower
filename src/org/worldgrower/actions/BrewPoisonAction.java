@@ -37,7 +37,8 @@ public class BrewPoisonAction implements CraftAction, AnimatedAction {
 		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
 		
 		double skillBonus = SkillUtils.useSkill(performer, Constants.ALCHEMY_SKILL, world.getWorldStateChangedListeners());
-		inventory.addQuantity(Item.POISON.generate(skillBonus));
+		int quantity = target.getProperty(Constants.APOTHECARY_QUALITY);
+		inventory.addQuantity(Item.POISON.generate(skillBonus), quantity);
 
 		inventory.removeQuantity(Constants.NIGHT_SHADE, NIGHT_SHADE_REQUIRED);
 	}

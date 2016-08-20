@@ -33,11 +33,12 @@ public class UTestCreatePaperAction {
 	public void testExecute() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
+		WorldObject target = createPaperMill(world, performer);
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
 		performerInventory.addQuantity(Item.WOOD.generate(1f), 10);
 		performerInventory.addQuantity(Item.WATER.generate(1f), 10);
 
-		Actions.CREATE_PAPER_ACTION.execute(performer, performer, Args.EMPTY, world);
+		Actions.CREATE_PAPER_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(9, performerInventory.getQuantityFor(Constants.WOOD));
 		assertEquals(9, performerInventory.getQuantityFor(Constants.WATER));
@@ -49,11 +50,16 @@ public class UTestCreatePaperAction {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		
-		int paperMillId = BuildingGenerator.generatePaperMill(0, 0, world, performer);
-		WorldObject target = world.findWorldObjectById(paperMillId);
+		WorldObject target = createPaperMill(world, performer);
 
 		assertEquals(false, Actions.CREATE_PAPER_ACTION.isValidTarget(performer, performer, world));
 		assertEquals(true, Actions.CREATE_PAPER_ACTION.isValidTarget(performer, target, world));
+	}
+
+	WorldObject createPaperMill(World world, WorldObject performer) {
+		int paperMillId = BuildingGenerator.generatePaperMill(0, 0, world, performer);
+		WorldObject target = world.findWorldObjectById(paperMillId);
+		return target;
 	}
 
 	@Test

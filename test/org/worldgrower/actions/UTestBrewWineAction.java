@@ -33,10 +33,11 @@ public class UTestBrewWineAction {
 	public void testExecute() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
+		WorldObject target = createBrewery(world, performer);
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
 		performerInventory.addQuantity(Item.GRAPES.generate(1f), 10);
 
-		Actions.BREW_WINE_ACTION.execute(performer, performer, Args.EMPTY, world);
+		Actions.BREW_WINE_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(7, performerInventory.getQuantityFor(Constants.GRAPE));
 		assertEquals(1, performerInventory.getQuantityFor(Constants.WINE));
@@ -47,11 +48,16 @@ public class UTestBrewWineAction {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 
-		int breweryId = BuildingGenerator.generateBrewery(0, 0, world, performer);
-		WorldObject target = world.findWorldObjectById(breweryId);
+		WorldObject target = createBrewery(world, performer);
 		
 		assertEquals(false, Actions.BREW_WINE_ACTION.isValidTarget(performer, performer, world));
 		assertEquals(true, Actions.BREW_WINE_ACTION.isValidTarget(performer, target, world));
+	}
+
+	WorldObject createBrewery(World world, WorldObject performer) {
+		int breweryId = BuildingGenerator.generateBrewery(0, 0, world, performer);
+		WorldObject target = world.findWorldObjectById(breweryId);
+		return target;
 	}
 	
 	@Test

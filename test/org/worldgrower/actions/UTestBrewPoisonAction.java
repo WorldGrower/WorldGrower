@@ -33,10 +33,11 @@ public class UTestBrewPoisonAction {
 	public void testExecute() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
+		WorldObject target = createApothecary(world, performer);
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
 		performerInventory.addQuantity(Item.NIGHT_SHADE.generate(1f), 10);
 
-		Actions.BREW_POISON_ACTION.execute(performer, performer, Args.EMPTY, world);
+		Actions.BREW_POISON_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(7, performerInventory.getQuantityFor(Constants.NIGHT_SHADE));
 		assertEquals(1, performerInventory.getQuantityFor(Constants.POISON_DAMAGE));
@@ -47,11 +48,16 @@ public class UTestBrewPoisonAction {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 
+		WorldObject target = createApothecary(world, performer);
+		
+		assertEquals(true, Actions.BREW_POISON_ACTION.isValidTarget(performer, target, world));
+		assertEquals(false, Actions.BREW_POISON_ACTION.isValidTarget(performer, performer, world));
+	}
+
+	WorldObject createApothecary(World world, WorldObject performer) {
 		int apothecaryId = BuildingGenerator.generateApothecary(0, 0, world, performer);
 		WorldObject apothecary = world.findWorldObjectById(apothecaryId);
-		
-		assertEquals(true, Actions.BREW_POISON_ACTION.isValidTarget(performer, apothecary, world));
-		assertEquals(false, Actions.BREW_POISON_ACTION.isValidTarget(performer, performer, world));
+		return apothecary;
 	}
 	
 	@Test

@@ -38,7 +38,8 @@ public class CraftIronBootsAction implements CraftAction, AnimatedAction {
 		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
 		
 		double skillBonus = SkillUtils.useSkill(performer, Constants.SMITHING_SKILL, world.getWorldStateChangedListeners());
-		inventory.addQuantity(Item.IRON_BOOTS.generate(skillBonus));
+		int quantity =target.getProperty(Constants.SMITH_QUALITY);
+		inventory.addQuantity(Item.IRON_BOOTS.generate(skillBonus), quantity);
 
 		inventory.removeQuantity(Constants.WOOD, WOOD_REQUIRED);
 		inventory.removeQuantity(Constants.ORE, ORE_REQUIRED);

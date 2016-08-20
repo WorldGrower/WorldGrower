@@ -36,7 +36,8 @@ public class BrewWineAction implements CraftAction, AnimatedAction {
 		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
 		
 		double skillBonus = SkillUtils.useSkill(performer, Constants.ALCHEMY_SKILL, world.getWorldStateChangedListeners());
-		inventory.addQuantity(Item.WINE.generate(skillBonus));
+		int quantity =target.getProperty(Constants.BREWERY_QUALITY);
+		inventory.addQuantity(Item.WINE.generate(skillBonus), quantity);
 
 		inventory.removeQuantity(Constants.GRAPE, GRAPES_REQUIRED);
 	}

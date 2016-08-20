@@ -37,7 +37,8 @@ public class CraftLongBowAction implements CraftAction, AnimatedAction {
 		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
 		
 		double skillBonus = SkillUtils.useSkill(performer, Constants.SMITHING_SKILL, world.getWorldStateChangedListeners());
-		inventory.addQuantity(Item.LONGBOW.generate(skillBonus));
+		int quantity =target.getProperty(Constants.WORKBENCH_QUALITY);
+		inventory.addQuantity(Item.LONGBOW.generate(skillBonus), quantity);
 
 		inventory.removeQuantity(Constants.WOOD, WOOD_REQUIRED);
 		inventory.removeQuantity(Constants.ORE, ORE_REQUIRED);

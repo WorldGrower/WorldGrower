@@ -31,12 +31,12 @@ public class UTestMintGoldAction {
 
 	@Test
 	public void testExecute() {
-		World world = new WorldImpl(1, 1, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.GOLD.generate(1f), 20);
-		
 		performer.setProperty(Constants.GOLD, 0);
-		Actions.MINT_GOLD_ACTION.execute(performer, performer, Args.EMPTY, world);
+		WorldObject target = createSmith(world, performer);
+		Actions.MINT_GOLD_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(15, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.GOLD));
 		assertEquals(20, performer.getProperty(Constants.GOLD).intValue());
@@ -47,11 +47,16 @@ public class UTestMintGoldAction {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
 		
-		int smithId = BuildingGenerator.generateSmith(0, 0, world, performer);
-		WorldObject target = world.findWorldObjectById(smithId);
+		WorldObject target = createSmith(world, performer);
 
 		assertEquals(false, Actions.MINT_GOLD_ACTION.isValidTarget(performer, performer, world));
 		assertEquals(true, Actions.MINT_GOLD_ACTION.isValidTarget(performer, target, world));
+	}
+
+	WorldObject createSmith(World world, WorldObject performer) {
+		int smithId = BuildingGenerator.generateSmith(0, 0, world, performer);
+		WorldObject target = world.findWorldObjectById(smithId);
+		return target;
 	}
 
 	@Test

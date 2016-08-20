@@ -39,7 +39,8 @@ public class ConstructScytheAction implements CraftAction, AnimatedAction {
 		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
 		
 		double skillBonus = SkillUtils.useSkill(performer, Constants.CARPENTRY_SKILL, world.getWorldStateChangedListeners());
-		inventory.addQuantity(Item.SCYTHE.generate(skillBonus));
+		int quantity =target.getProperty(Constants.WORKBENCH_QUALITY);
+		inventory.addQuantity(Item.SCYTHE.generate(skillBonus), quantity);
 
 		inventory.removeQuantity(Constants.WOOD, WOOD_REQUIRED);
 		inventory.removeQuantity(Constants.ORE, ORE_REQUIRED);

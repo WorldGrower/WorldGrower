@@ -39,6 +39,7 @@ public class CreatePaperAction implements CraftAction, AnimatedAction {
 		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
 		
 		int quantity = WoodPropertyUtils.calculateLumberingQuantity(performer);
+		quantity += (target.getProperty(Constants.PAPER_MILL_QUALITY) - 1);
 		inventory.addQuantity(Item.PAPER.generate(1f), quantity);
 		SkillUtils.useSkill(performer, Constants.LUMBERING_SKILL, world.getWorldStateChangedListeners());
 		

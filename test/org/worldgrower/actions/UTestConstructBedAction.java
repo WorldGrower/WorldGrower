@@ -31,9 +31,10 @@ public class UTestConstructBedAction {
 
 	@Test
 	public void testExecute() {
-		World world = new WorldImpl(1, 1, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
-		Actions.CONSTRUCT_BED_ACTION.execute(performer, performer, Args.EMPTY, world);
+		WorldObject target = createWorkbench(world, performer);
+		Actions.CONSTRUCT_BED_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(1, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.SLEEP_COMFORT));
 	}
