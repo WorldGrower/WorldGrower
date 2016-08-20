@@ -89,7 +89,7 @@ public class BuildingGenerator {
 		properties.put(Constants.SLEEP_COMFORT, 3 + sleepComfortBonus);
 		properties.put(Constants.NAME, createName("shack", owner));
 		properties.put(Constants.ID, id);
-		properties.put(Constants.IMAGE_ID, ImageIds.SHACK);
+		properties.put(Constants.IMAGE_ID, BuildingType.SHACK.getImageId());
 		properties.put(Constants.HIT_POINTS, 100 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.HIT_POINTS_MAX, 100 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.FLAMMABLE, Boolean.TRUE);
@@ -124,7 +124,7 @@ public class BuildingGenerator {
 		properties.put(Constants.SLEEP_COMFORT, 5 + sleepComfortBonus);
 		properties.put(Constants.NAME, createName("house", owner));
 		properties.put(Constants.ID, id);
-		properties.put(Constants.IMAGE_ID, generateHouseImageIds());
+		properties.put(Constants.IMAGE_ID, BuildingType.HOUSE.getImageId());
 		properties.put(Constants.FLAMMABLE, Boolean.TRUE);
 		properties.put(Constants.CONDITIONS, new Conditions());
 		properties.put(Constants.HIT_POINTS, 200 * Item.COMBAT_MULTIPLIER);
@@ -177,10 +177,6 @@ public class BuildingGenerator {
 		return well;
 	}
 	
-	private static ImageIds generateHouseImageIds() {
-		return ImageIds.HOUSE6;
-	}
-
 	public static int generateTrainingDummy(int x, int y, World world, double skillBonus) {
 		int id = world.generateUniqueId();		
 		WorldObject trainingDummy = generateTrainingDummy(x, y, skillBonus, id);
@@ -547,22 +543,23 @@ public class BuildingGenerator {
 	
 	public static int generatePaperMill(int x, int y, World world, WorldObject owner) {
 		int id = world.generateUniqueId();
-		WorldObject paperMill = generatePaperMill(x, y, owner, id);
+		int paperMillBonus = SkillUtils.getLogarithmicSkillBonus(owner, Constants.CARPENTRY_SKILL);
+		WorldObject paperMill = generatePaperMill(x, y, paperMillBonus, owner, id);
 		world.addWorldObject(paperMill);
 		
 		return id;
 	}
 
-	private static WorldObject generatePaperMill(int x, int y, WorldObject owner, int id) {
+	private static WorldObject generatePaperMill(int x, int y, int paperMillBonus, WorldObject owner, int id) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 4);
 		properties.put(Constants.HEIGHT, 3);
-		properties.put(Constants.PAPER_MILL_QUALITY, 5);
+		properties.put(Constants.PAPER_MILL_QUALITY, paperMillBonus);
 		properties.put(Constants.NAME, createName("papermill", owner));
 		properties.put(Constants.ID, id);
-		properties.put(Constants.IMAGE_ID, ImageIds.PAPER_MILL);
+		properties.put(Constants.IMAGE_ID, BuildingType.PAPERMILL.getImageId());
 		properties.put(Constants.HIT_POINTS, 50 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.HIT_POINTS_MAX, 50 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.FLAMMABLE, Boolean.TRUE);
@@ -578,22 +575,23 @@ public class BuildingGenerator {
 	
 	public static int generateSmith(int x, int y, World world, WorldObject owner) {
 		int id = world.generateUniqueId();
-		WorldObject smith = generateSmith(x, y, owner, id);
+		int smithBonus = SkillUtils.getLogarithmicSkillBonus(owner, Constants.CARPENTRY_SKILL);
+		WorldObject smith = generateSmith(x, y, smithBonus, owner, id);
 		world.addWorldObject(smith);
 	
 		return id;
 	}
 
-	private static WorldObject generateSmith(int x, int y, WorldObject owner, int id) {
+	private static WorldObject generateSmith(int x, int y, int smithBonus, WorldObject owner, int id) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 2);
 		properties.put(Constants.HEIGHT, 2);
-		properties.put(Constants.SMITH_QUALITY, 5);
+		properties.put(Constants.SMITH_QUALITY, smithBonus);
 		properties.put(Constants.NAME, createName("smithy", owner));
 		properties.put(Constants.ID, id);
-		properties.put(Constants.IMAGE_ID, ImageIds.SMITH);
+		properties.put(Constants.IMAGE_ID, BuildingType.SMITH.getImageId());
 		properties.put(Constants.HIT_POINTS, 100 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.HIT_POINTS_MAX, 100 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
@@ -607,22 +605,23 @@ public class BuildingGenerator {
 	
 	public static int generateWorkbench(int x, int y, World world, WorldObject owner) {
 		int id = world.generateUniqueId();
-		WorldObject workbench = generateWorkBench(x, y, owner, id);
+		int workBenchBonus = SkillUtils.getLogarithmicSkillBonus(owner, Constants.CARPENTRY_SKILL);
+		WorldObject workbench = generateWorkBench(x, y, workBenchBonus, owner, id);
 		world.addWorldObject(workbench);
 	
 		return id;
 	}
 
-	private static WorldObject generateWorkBench(int x, int y, WorldObject owner, int id) {
+	private static WorldObject generateWorkBench(int x, int y, int workBenchBonus, WorldObject owner, int id) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 4);
 		properties.put(Constants.HEIGHT, 3);
-		properties.put(Constants.WORKBENCH_QUALITY, 5);
+		properties.put(Constants.WORKBENCH_QUALITY, workBenchBonus);
 		properties.put(Constants.NAME, createName("workbench", owner));
 		properties.put(Constants.ID, id);
-		properties.put(Constants.IMAGE_ID, ImageIds.WORKBENCH);
+		properties.put(Constants.IMAGE_ID, BuildingType.WORKBENCH.getImageId());
 		properties.put(Constants.HIT_POINTS, 100 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.HIT_POINTS_MAX, 100 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
@@ -634,24 +633,25 @@ public class BuildingGenerator {
 		return workbench;
 	}
 
-	public static int generateInn(int x, int y, World world, double skillBonus, WorldObject owner) {
+	public static int generateInn(int x, int y, World world, WorldObject owner) {
 		int id = world.generateUniqueId();
-		WorldObject house = generateInn(x, y, skillBonus, owner, id);
+		int sleepComfortBonus = SkillUtils.getLogarithmicSkillBonus(owner, Constants.CARPENTRY_SKILL);
+		WorldObject house = generateInn(x, y, sleepComfortBonus, owner, id);
 		world.addWorldObject(house);
 		
 		return id;
 	}
 
-	private static WorldObject generateInn(int x, int y, double skillBonus, WorldObject owner, int id) {
+	private static WorldObject generateInn(int x, int y, int sleepComfortBonus, WorldObject owner, int id) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 6);
 		properties.put(Constants.HEIGHT, 8);
-		properties.put(Constants.SLEEP_COMFORT, (int)(5 * skillBonus));
+		properties.put(Constants.SLEEP_COMFORT, 5 + sleepComfortBonus);
 		properties.put(Constants.NAME, createName("Inn", owner));
 		properties.put(Constants.ID, id);
-		properties.put(Constants.IMAGE_ID, ImageIds.INN);
+		properties.put(Constants.IMAGE_ID, BuildingType.INN.getImageId());
 		properties.put(Constants.CONDITIONS, new Conditions());
 		properties.put(Constants.HIT_POINTS, 200 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.HIT_POINTS_MAX, 200 * Item.COMBAT_MULTIPLIER);
@@ -698,22 +698,23 @@ public class BuildingGenerator {
 	
 	public static int generateWeavery(int x, int y, World world, WorldObject owner) {
 		int id = world.generateUniqueId();
-		WorldObject weavery = generateWeavery(x, y, owner, id);
+		int weaveryBonus = SkillUtils.getLogarithmicSkillBonus(owner, Constants.CARPENTRY_SKILL);
+		WorldObject weavery = generateWeavery(x, y, weaveryBonus, owner, id);
 		world.addWorldObject(weavery);
 	
 		return id;
 	}
 
-	private static WorldObject generateWeavery(int x, int y, WorldObject owner, int id) {
+	private static WorldObject generateWeavery(int x, int y, int weaveryBonus, WorldObject owner, int id) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 4);
 		properties.put(Constants.HEIGHT, 3);
-		properties.put(Constants.WEAVERY_QUALITY, 5);
+		properties.put(Constants.WEAVERY_QUALITY, weaveryBonus);
 		properties.put(Constants.NAME, createName("weavery", owner));
 		properties.put(Constants.ID, id);
-		properties.put(Constants.IMAGE_ID, ImageIds.WEAVERY);
+		properties.put(Constants.IMAGE_ID, BuildingType.WEAVERY.getImageId());
 		properties.put(Constants.HIT_POINTS, 100 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.HIT_POINTS_MAX, 100 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
@@ -727,22 +728,23 @@ public class BuildingGenerator {
 	
 	public static int generateBrewery(int x, int y, World world, WorldObject owner) {
 		int id = world.generateUniqueId();
-		WorldObject brewery = generateBrewery(x, y, owner, id);
+		int breweryBonus = SkillUtils.getLogarithmicSkillBonus(owner, Constants.CARPENTRY_SKILL);
+		WorldObject brewery = generateBrewery(x, y, breweryBonus, owner, id);
 		world.addWorldObject(brewery);
 	
 		return id;
 	}
 
-	private static WorldObject generateBrewery(int x, int y, WorldObject owner, int id) {
+	private static WorldObject generateBrewery(int x, int y, int breweryBonus, WorldObject owner, int id) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 4);
 		properties.put(Constants.HEIGHT, 3);
-		properties.put(Constants.BREWERY_QUALITY, 5);
+		properties.put(Constants.BREWERY_QUALITY, breweryBonus);
 		properties.put(Constants.NAME, createName("brewery", owner));
 		properties.put(Constants.ID, id);
-		properties.put(Constants.IMAGE_ID, ImageIds.BREWERY);
+		properties.put(Constants.IMAGE_ID, BuildingType.BREWERY.getImageId());
 		properties.put(Constants.HIT_POINTS, 100 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.HIT_POINTS_MAX, 100 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
@@ -756,22 +758,23 @@ public class BuildingGenerator {
 
 	public static int generateApothecary(int x, int y, World world, WorldObject owner) {
 		int id = world.generateUniqueId();
-		WorldObject brewery = generateApothecary(x, y, owner, id);
+		int apothecaryBonus = SkillUtils.getLogarithmicSkillBonus(owner, Constants.CARPENTRY_SKILL);
+		WorldObject brewery = generateApothecary(x, y, apothecaryBonus, owner, id);
 		world.addWorldObject(brewery);
 	
 		return id;
 	}
 
-	private static WorldObject generateApothecary(int x, int y, WorldObject owner, int id) {
+	private static WorldObject generateApothecary(int x, int y, int apothecaryBonus, WorldObject owner, int id) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 4);
 		properties.put(Constants.HEIGHT, 3);
-		properties.put(Constants.APOTHECARY_QUALITY, 5);
+		properties.put(Constants.APOTHECARY_QUALITY, apothecaryBonus);
 		properties.put(Constants.NAME, createName("apothecary", owner));
 		properties.put(Constants.ID, id);
-		properties.put(Constants.IMAGE_ID, ImageIds.APOTHECARY);
+		properties.put(Constants.IMAGE_ID, BuildingType.APOTHECARY.getImageId());
 		properties.put(Constants.HIT_POINTS, 100 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.HIT_POINTS_MAX, 100 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
@@ -799,7 +802,7 @@ public class BuildingGenerator {
 		properties.put(Constants.HEIGHT, 1);
 		properties.put(Constants.NAME, createName("chest", owner));
 		properties.put(Constants.ID, id);
-		properties.put(Constants.IMAGE_ID, ImageIds.CHEST);
+		properties.put(Constants.IMAGE_ID, BuildingType.CHEST.getImageId());
 		properties.put(Constants.FLAMMABLE, Boolean.TRUE);
 		properties.put(Constants.CONDITIONS, new Conditions());
 		properties.put(Constants.HIT_POINTS, 200 * Item.COMBAT_MULTIPLIER);
@@ -927,13 +930,13 @@ public class BuildingGenerator {
 		}
 		buildings.add(generateChest(0, 0, owner, 0));
 		buildings.add(generateLibrary(0, 0, owner, 0));
-		buildings.add(generatePaperMill(0, 0, owner, 0));
-		buildings.add(generateSmith(0, 0, owner, 0));
-		buildings.add(generateWorkBench(0, 0, owner, 0));
-		buildings.add(generateInn(0, 0, 1f, owner, 0));
-		buildings.add(generateWeavery(0, 0, owner, 0));
-		buildings.add(generateBrewery(0, 0, owner, 0));
-		buildings.add(generateApothecary(0, 0, owner, 0));
+		buildings.add(generatePaperMill(0, 0, 0, owner, 0));
+		buildings.add(generateSmith(0, 0, 0, owner, 0));
+		buildings.add(generateWorkBench(0, 0, 0, owner, 0));
+		buildings.add(generateInn(0, 0, 0, owner, 0));
+		buildings.add(generateWeavery(0, 0, 0, owner, 0));
+		buildings.add(generateBrewery(0, 0, 0, owner, 0));
+		buildings.add(generateApothecary(0, 0, 0, owner, 0));
 		
 		buildings = buildings.stream().filter(w -> w.getProperty(Constants.WIDTH) <= width && w.getProperty(Constants.HEIGHT) == height).collect(Collectors.toList());
 		

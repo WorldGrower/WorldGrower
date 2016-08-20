@@ -14,25 +14,33 @@
  *******************************************************************************/
 package org.worldgrower.attribute;
 
+import org.worldgrower.gui.ImageIds;
+
 public enum BuildingType {
-	SHACK("shack"),
-	HOUSE("house"), 
-	INN("inn"),
-	BREWERY("brewery"),
-	SMITH("smith"),
-	WORKBENCH("workbench"),
-	PAPERMILL("papermill"),
-	WEAVERY("weavery"),
-	APOTHECARY("apothecary"),
-	CHEST("chest");
+	SHACK("shack", ImageIds.SHACK),
+	HOUSE("house", ImageIds.HOUSE6), 
+	INN("inn", ImageIds.INN),
+	BREWERY("brewery", ImageIds.BREWERY),
+	SMITH("smith", ImageIds.SMITH),
+	WORKBENCH("workbench", ImageIds.WORKBENCH),
+	PAPERMILL("papermill", ImageIds.PAPER_MILL),
+	WEAVERY("weavery", ImageIds.WEAVERY),
+	APOTHECARY("apothecary", ImageIds.APOTHECARY),
+	CHEST("chest", ImageIds.CHEST);
 	
 	private final String description;
+	private final ImageIds imageId;
 
-	private BuildingType(String description) {
+	private BuildingType(String description, ImageIds imageId) {
 		this.description = description;
+		this.imageId = imageId;
 	}
 	
 	public String getDescription() {
 		return description;
+	}
+
+	public ImageIds getImageId() {
+		return imageId;
 	}
 }
