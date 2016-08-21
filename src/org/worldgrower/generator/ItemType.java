@@ -9,5 +9,6 @@ public enum ItemType {
 	KEY,
 	BOOK,
 	RESOURCE,
+	TOOL,
 	MISC
 }

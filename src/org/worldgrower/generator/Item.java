@@ -66,7 +66,7 @@ public enum Item {
 	COTTON_PANTS(ItemType.ARMOR), 
 	BED(ItemType.MISC),
 	OIL(ItemType.RESOURCE), 
-	FISHING_POLE(ItemType.MISC), 
+	FISHING_POLE(ItemType.TOOL), 
 	FISH(ItemType.FOOD), 
 	REPAIR_HAMMER(ItemType.MISC), 
 	WOOD(ItemType.RESOURCE), 
@@ -81,8 +81,8 @@ public enum Item {
 	SLEEPING_POTION(ItemType.DRINK),
 	MINIATURE_CHEST(ItemType.MISC),
 	REMAINS(ItemType.MISC),
-	PICKAXE(ItemType.MISC),
-	SCYTHE(ItemType.MISC);
+	PICKAXE(ItemType.TOOL),
+	SCYTHE(ItemType.TOOL);
 
 	public static final int COMBAT_MULTIPLIER = 10;
 	

@@ -64,7 +64,12 @@ public class InventoryItem {
 		
 		for(ManagedProperty<?> propertyKey : propertyKeys) {
 			String name = propertyKey.getName().toLowerCase();
-			if (propertyKey == Constants.DAMAGE || propertyKey == Constants.ARMOR || propertyKey == Constants.WEIGHT || propertyKey == Constants.QUANTITY) {
+			if (propertyKey == Constants.DAMAGE 
+					|| propertyKey == Constants.ARMOR 
+					|| propertyKey == Constants.WEIGHT 
+					|| propertyKey == Constants.QUANTITY
+					|| Constants.isTool(propertyKey)
+					) {
 				String value = inventoryWorldObject.getProperty(propertyKey).toString();
 				additionalProperties.put(name, value);
 			} else if (propertyKey == Constants.EQUIPMENT_HEALTH) {
@@ -167,6 +172,10 @@ public class InventoryItem {
 	public boolean isAlchemyIngredient() {
 		return itemType == ItemType.INGREDIENT;
 	}
+	
+	public boolean isTool() {
+		return itemType == ItemType.TOOL;
+	}
 
 	public String getAttack() {
 		return additionalProperties.get(Constants.DAMAGE.getName().toLowerCase());
@@ -174,5 +183,15 @@ public class InventoryItem {
 	
 	public String getArmor() {
 		return additionalProperties.get(Constants.ARMOR.getName().toLowerCase());
+	}
+
+	public String getToolBonus() {
+		for(ManagedProperty<?> property : Constants.getToolProperties()) {
+			String value = additionalProperties.get(property.getName().toLowerCase());
+			if (value != null) {
+				return value;
+			}
+		}
+		throw new IllegalStateException("No tool bonus was found in " + additionalProperties);
 	}
 }

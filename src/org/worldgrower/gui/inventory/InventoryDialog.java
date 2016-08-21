@@ -160,13 +160,13 @@ public final class InventoryDialog extends AbstractDialog {
 		
 		JScrollPane inventoryScrollPane = new JScrollPane();
 		inventoryScrollPane.setViewportView(inventoryTable);
-		inventoryScrollPane.setBounds(12, 62, 450, 530);
+		inventoryScrollPane.setBounds(12, 62, 500, 530);
 		inventoryScrollPane.getViewport().setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
 		SwingUtils.makeTransparant(inventoryTable, inventoryScrollPane);
 		inventoryPanel.add(inventoryScrollPane);
 		
-		int labelLeft = 472;
-		int labelValueLeft = 537;
+		int labelLeft = 522;
+		int labelValueLeft = 587;
 		
 		final JLabel moneyLabel = JLabelFactory.createJLabel("Money:");
 		moneyLabel.setToolTipText(MONEY_PLAYER_CHARACTER_TOOL_TIP);
@@ -208,7 +208,7 @@ public final class InventoryDialog extends AbstractDialog {
 			rootInventoryPanel.add(targetInventoryPanel, "target");
 			
 			JScrollPane scrollPane = new JScrollPane();
-			scrollPane.setBounds(12, 62, 450, 530);
+			scrollPane.setBounds(12, 62, 500, 530);
 			scrollPane.getViewport().setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
 			targetInventoryPanel.add(scrollPane);
 			
@@ -285,7 +285,7 @@ public final class InventoryDialog extends AbstractDialog {
 
 	private void addFilterPanel(JPanel parentPanel, JTable parentTable) {
 		JPanel filterPanel = JPanelFactory.createBorderlessPanel();
-		filterPanel.setBounds(12, 12, 9 * 50, 50);
+		filterPanel.setBounds(12, 12, 10 * 50, 50);
 		filterPanel.setLayout(null);
 		filterPanel.setOpaque(true);
 		filterPanel.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
@@ -293,6 +293,7 @@ public final class InventoryDialog extends AbstractDialog {
 		
 		OptionalTableColumn attackOptionalTableColumn = new OptionalTableColumn(0, "Attack", i -> i.getAttack());
 		OptionalTableColumn armorOptionalTableColumn = new OptionalTableColumn(0, "Armor", i -> i.getArmor());
+		OptionalTableColumn toolsOptionalTableColumn = new OptionalTableColumn(0, "Bonus", i -> i.getToolBonus());
 		
 		List<JToggleButton> filterButtons = new ArrayList<>();
 		filterButtons.add(createFilterButton(filterPanel, 0, ImageIds.CHEST, "Show all items", parentTable));
@@ -304,6 +305,7 @@ public final class InventoryDialog extends AbstractDialog {
 		filterButtons.add(createFilterButton(filterPanel, 6, ImageIds.SPELL_BOOK, "Show books", parentTable));
 		filterButtons.add(createFilterButton(filterPanel, 7, ImageIds.KEY, "Show keys", parentTable));
 		filterButtons.add(createFilterButton(filterPanel, 8, ImageIds.WOOD, "Show resources", parentTable));
+		filterButtons.add(createFilterButton(filterPanel, 9, ImageIds.SCYTHE, "Show tools", parentTable, toolsOptionalTableColumn));
 		
 		List<RowFilter<InventoryModel, Integer>> rowFilters = createRowFilters();
 		ButtonGroup buttonGroup = new ButtonGroup();
@@ -375,6 +377,12 @@ public final class InventoryDialog extends AbstractDialog {
 		new RowFilter<InventoryModel, Integer>() {
 			public boolean include(Entry<? extends InventoryModel, ? extends Integer> entry) {
 				return entry.getModel().getInventoryItem(entry.getIdentifier()).isResource();
+			}
+		}
+		,
+		new RowFilter<InventoryModel, Integer>() {
+			public boolean include(Entry<? extends InventoryModel, ? extends Integer> entry) {
+				return entry.getModel().getInventoryItem(entry.getIdentifier()).isTool();
 			}
 		}
 		);
@@ -553,7 +561,7 @@ public final class InventoryDialog extends AbstractDialog {
 		inventoryTable.setRowHeight(50);
 		inventoryTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		inventoryTable.getColumnModel().getColumn(0).setPreferredWidth(50);
-		inventoryTable.getColumnModel().getColumn(1).setPreferredWidth(200);
+		inventoryTable.getColumnModel().getColumn(1).setPreferredWidth(250);
 		inventoryTable.getColumnModel().getColumn(2).setPreferredWidth(61);
 		inventoryTable.getColumnModel().getColumn(3).setPreferredWidth(61);
 		inventoryTable.getTableHeader().setReorderingAllowed(false);

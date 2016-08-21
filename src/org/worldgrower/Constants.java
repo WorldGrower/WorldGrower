@@ -311,4 +311,22 @@ public class Constants {
 		}
 		return result;
 	}
+	
+	public static boolean isTool(ManagedProperty<?> propertyKey) {
+		return propertyKey == Constants.SCYTHE_QUALITY
+				|| propertyKey == Constants.WOOD_CUTTING_QUALITY
+				|| propertyKey == Constants.FISHING_POLE_QUALITY
+				|| propertyKey == Constants.PICKAXE_QUALITY;
+	}
+	
+	public static List<ManagedProperty<?>> getToolProperties() {
+		List<ManagedProperty<?>> toolProperties = new ArrayList<>();
+		for(ManagedProperty<?> property : ALL_PROPERTIES) {
+			if (isTool(property)) {
+				toolProperties.add(property);
+			}
+		}
+		
+		return toolProperties;
+	}
 }
