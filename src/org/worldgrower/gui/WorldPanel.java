@@ -98,6 +98,7 @@ public final class WorldPanel extends JPanel {
 	
 	private BuildModeOutline buildModeOutline = new BuildModeOutline();
 	private MouseMotionListener mouseMotionListener;
+	private final BonusDescriptions bonusDescriptions = new BonusDescriptions();
 	
 	private final MoveMode moveMode = new MoveMode();
 	private final BackgroundPainter backgroundPainter;
@@ -619,9 +620,9 @@ public final class WorldPanel extends JPanel {
 		} else {
 			WorldObject facade = worldObject.getProperty(Constants.FACADE);
 			if ((facade != null) && facade.getProperty(Constants.NAME) != null) {
-				return facade.getProperty(Constants.NAME);
+				return bonusDescriptions.getWorldObjectDescription(facade);
 			} else {
-				return worldObject.getProperty(Constants.NAME);
+				return bonusDescriptions.getWorldObjectDescription(worldObject);
 			}
 		}
 	}
