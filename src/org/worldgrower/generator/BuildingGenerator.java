@@ -96,7 +96,7 @@ public class BuildingGenerator {
 		properties.put(Constants.CONDITIONS, new Conditions());
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
-		properties.put(Constants.PRICE, 10);
+		properties.put(Constants.PRICE, BuildingType.SHACK.getPrice());
 		properties.put(Constants.INVENTORY, new WorldObjectContainer());
 		properties.put(Constants.LOCK_STRENGTH, 0);
 		properties.put(Constants.LOCKED, Boolean.FALSE);
@@ -131,7 +131,7 @@ public class BuildingGenerator {
 		properties.put(Constants.HIT_POINTS_MAX, 200 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
-		properties.put(Constants.PRICE, 50);
+		properties.put(Constants.PRICE, BuildingType.HOUSE.getPrice());
 		properties.put(Constants.INVENTORY, new WorldObjectContainer());
 		properties.put(Constants.LOCK_STRENGTH, 2);
 		properties.put(Constants.LOCKED, Boolean.TRUE);
@@ -566,7 +566,7 @@ public class BuildingGenerator {
 		properties.put(Constants.CONDITIONS, new Conditions());
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
-		properties.put(Constants.PRICE, 50);
+		properties.put(Constants.PRICE, BuildingType.PAPERMILL.getPrice());
 		properties.put(Constants.BUILDING_TYPE, BuildingType.PAPERMILL);
 		
 		WorldObject paperMill = new WorldObjectImpl(properties);
@@ -596,7 +596,7 @@ public class BuildingGenerator {
 		properties.put(Constants.HIT_POINTS_MAX, 100 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
-		properties.put(Constants.PRICE, 50);
+		properties.put(Constants.PRICE, BuildingType.SMITH.getPrice());
 		properties.put(Constants.BUILDING_TYPE, BuildingType.SMITH);
 		
 		WorldObject smith = new WorldObjectImpl(properties);
@@ -626,7 +626,7 @@ public class BuildingGenerator {
 		properties.put(Constants.HIT_POINTS_MAX, 100 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
-		properties.put(Constants.PRICE, 50);
+		properties.put(Constants.PRICE, BuildingType.WORKBENCH.getPrice());
 		properties.put(Constants.BUILDING_TYPE, BuildingType.WORKBENCH);
 		
 		WorldObject workbench = new WorldObjectImpl(properties);
@@ -657,7 +657,7 @@ public class BuildingGenerator {
 		properties.put(Constants.HIT_POINTS_MAX, 200 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
-		properties.put(Constants.PRICE, 200);
+		properties.put(Constants.PRICE, BuildingType.INN.getPrice());
 		properties.put(Constants.INVENTORY, new WorldObjectContainer());
 		properties.put(Constants.LOCK_STRENGTH, 2);
 		properties.put(Constants.LOCKED, Boolean.TRUE);
@@ -719,7 +719,7 @@ public class BuildingGenerator {
 		properties.put(Constants.HIT_POINTS_MAX, 100 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
-		properties.put(Constants.PRICE, 50);
+		properties.put(Constants.PRICE, BuildingType.WEAVERY.getPrice());
 		properties.put(Constants.BUILDING_TYPE, BuildingType.WEAVERY);
 		
 		WorldObject weavery = new WorldObjectImpl(properties);
@@ -749,7 +749,7 @@ public class BuildingGenerator {
 		properties.put(Constants.HIT_POINTS_MAX, 100 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
-		properties.put(Constants.PRICE, 50);
+		properties.put(Constants.PRICE, BuildingType.BREWERY.getPrice());
 		properties.put(Constants.BUILDING_TYPE, BuildingType.BREWERY);
 		
 		WorldObject brewery = new WorldObjectImpl(properties);
@@ -779,7 +779,7 @@ public class BuildingGenerator {
 		properties.put(Constants.HIT_POINTS_MAX, 100 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
-		properties.put(Constants.PRICE, 50);
+		properties.put(Constants.PRICE, BuildingType.APOTHECARY.getPrice());
 		properties.put(Constants.BUILDING_TYPE, BuildingType.APOTHECARY);
 		
 		WorldObject brewery = new WorldObjectImpl(properties);
@@ -809,7 +809,7 @@ public class BuildingGenerator {
 		properties.put(Constants.HIT_POINTS_MAX, 200 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
-		properties.put(Constants.PRICE, 50);
+		properties.put(Constants.PRICE, BuildingType.CHEST.getPrice());
 		properties.put(Constants.INVENTORY, new WorldObjectContainer());
 		properties.put(Constants.LOCK_STRENGTH, 2);
 		properties.put(Constants.LOCKED, Boolean.FALSE);

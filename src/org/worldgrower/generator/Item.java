@@ -27,6 +27,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.attribute.ArmorType;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.DamageType;
 import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.Knowledge;
@@ -82,7 +83,19 @@ public enum Item {
 	MINIATURE_CHEST(ItemType.MISC),
 	REMAINS(ItemType.MISC),
 	PICKAXE(ItemType.TOOL),
-	SCYTHE(ItemType.TOOL);
+	SCYTHE(ItemType.TOOL),
+	// fictional item types to set demands and prices
+	SHACK(ItemType.MISC),
+	HOUSE(ItemType.MISC),
+	INN(ItemType.MISC),
+	BREWERY(ItemType.MISC),
+	SMITH(ItemType.MISC),
+	WORKBENCH(ItemType.MISC),
+	PAPERMILL(ItemType.MISC),
+	WEAVERY(ItemType.MISC),
+	APOTHECARY(ItemType.MISC),
+	CHEST(ItemType.MISC)
+	;
 
 	public static final int COMBAT_MULTIPLIER = 10;
 	
@@ -638,6 +651,17 @@ public enum Item {
 			return new WorldObjectImpl(properties);
 		});
 		
+		for (BuildingType buildingType : BuildingType.values()) {
+			Item buildingItem = mapBuildingTypeToItem(buildingType);
+			addItem(buildingItem, skillBonus -> {
+				Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+				properties.put(Constants.NAME, buildingType.getDescription());
+				properties.put(Constants.PRICE, buildingType.getPrice());
+				properties.put(Constants.SELLABLE, false);
+				properties.put(Constants.IMAGE_ID, buildingType.getImageId());
+				return new WorldObjectImpl(properties);
+			});
+		}
 		
 		addItem(Item.WOOD, new DefaultItemGenerator(Constants.WOOD, 1, ImageIds.WOOD)::addDefault);
 		addItem(Item.STONE, new DefaultItemGenerator(Constants.STONE, 1, ImageIds.STONE)::addDefault);
@@ -671,7 +695,9 @@ public enum Item {
 		}
 	}
 	
-	
+	public static Item mapBuildingTypeToItem(BuildingType buildingType) {
+		return Item.values()[Item.SHACK.ordinal() + buildingType.ordinal()];
+	}
 	
 	public static WorldObject generateSpellBook(MagicSpell magicSpell) {
 		WorldObject spellBook = Item.SPELLBOOK.generate(1f);

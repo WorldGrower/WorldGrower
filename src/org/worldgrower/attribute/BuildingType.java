@@ -17,23 +17,25 @@ package org.worldgrower.attribute;
 import org.worldgrower.gui.ImageIds;
 
 public enum BuildingType {
-	SHACK("shack", ImageIds.SHACK),
-	HOUSE("house", ImageIds.HOUSE6), 
-	INN("inn", ImageIds.INN),
-	BREWERY("brewery", ImageIds.BREWERY),
-	SMITH("smith", ImageIds.SMITH),
-	WORKBENCH("workbench", ImageIds.WORKBENCH),
-	PAPERMILL("papermill", ImageIds.PAPER_MILL),
-	WEAVERY("weavery", ImageIds.WEAVERY),
-	APOTHECARY("apothecary", ImageIds.APOTHECARY),
-	CHEST("chest", ImageIds.CHEST);
+	SHACK("shack", ImageIds.SHACK, 10),
+	HOUSE("house", ImageIds.HOUSE6, 50), 
+	INN("inn", ImageIds.INN, 200),
+	BREWERY("brewery", ImageIds.BREWERY, 50),
+	SMITH("smith", ImageIds.SMITH, 50),
+	WORKBENCH("workbench", ImageIds.WORKBENCH, 50),
+	PAPERMILL("papermill", ImageIds.PAPER_MILL, 50),
+	WEAVERY("weavery", ImageIds.WEAVERY, 50),
+	APOTHECARY("apothecary", ImageIds.APOTHECARY, 50),
+	CHEST("chest", ImageIds.CHEST, 5);
 	
 	private final String description;
 	private final ImageIds imageId;
+	private final int price;
 
-	private BuildingType(String description, ImageIds imageId) {
+	private BuildingType(String description, ImageIds imageId, int price) {
 		this.description = description;
 		this.imageId = imageId;
+		this.price = price;
 	}
 	
 	public String getDescription() {
@@ -42,5 +44,9 @@ public enum BuildingType {
 
 	public ImageIds getImageId() {
 		return imageId;
+	}
+
+	public int getPrice() {
+		return price;
 	}
 }

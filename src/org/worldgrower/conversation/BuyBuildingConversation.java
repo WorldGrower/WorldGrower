@@ -21,6 +21,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.BuildingType;
+import org.worldgrower.generator.Item;
 import org.worldgrower.goal.HousePropertyUtils;
 import org.worldgrower.history.HistoryItem;
 import org.worldgrower.util.SentenceUtils;
@@ -69,7 +70,8 @@ public class BuyBuildingConversation implements Conversation {
 		
 		if (replyIndex == YES) {
 			WorldObject building = HousePropertyUtils.getBuildingForSale(target, buildingType, world);
-			int price = building.getProperty(Constants.PRICE);
+			Item buildingTypeItem = Item.mapBuildingTypeToItem(buildingType);
+			int price = target.getProperty(Constants.PRICES).getPrice(buildingTypeItem);
 			
 			performer.getProperty(Constants.BUILDINGS).add(building, buildingType);
 			target.getProperty(Constants.BUILDINGS).remove(building);

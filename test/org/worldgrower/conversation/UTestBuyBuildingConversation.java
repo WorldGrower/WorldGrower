@@ -76,15 +76,14 @@ public class UTestBuyBuildingConversation {
 		target.setProperty(Constants.GOLD, 0);
 		
 		WorldObject house = TestUtils.createWorldObject(3, "house");
-		house.setProperty(Constants.PRICE, 100);
 		house.setProperty(Constants.SELLABLE, Boolean.TRUE);
 		world.addWorldObject(house);
 		
 		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
 		
 		conversation.handleResponse(0, context);
-		assertEquals(100, performer.getProperty(Constants.GOLD).intValue());
-		assertEquals(100, target.getProperty(Constants.GOLD).intValue());
+		assertEquals(150, performer.getProperty(Constants.GOLD).intValue());
+		assertEquals(50, target.getProperty(Constants.GOLD).intValue());
 		assertEquals(true, performer.getProperty(Constants.BUILDINGS).contains(3));
 		assertEquals(false, target.getProperty(Constants.BUILDINGS).contains(3));
 	}
