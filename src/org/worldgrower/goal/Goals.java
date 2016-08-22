@@ -17,6 +17,8 @@ package org.worldgrower.goal;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.worldgrower.attribute.BuildingType;
+
 public class Goals {
 
 	public static final List<Goal> ALL_GOALS = new ArrayList<>();
@@ -84,7 +86,8 @@ public class Goals {
 	public static final CreateHouseGoal CREATE_HOUSE_GOAL = new CreateHouseGoal(ALL_GOALS);
 	public static final GetHealedGoal GET_HEALED_GOAL = new GetHealedGoal(ALL_GOALS);
 	public static final SellHouseGoal SELL_HOUSE_GOAL = new SellHouseGoal(ALL_GOALS);
-	public static final MarkHouseAsSellableGoal MARK_HOUSE_AS_SELLABLE_GOAL = new MarkHouseAsSellableGoal(ALL_GOALS);
+	public static final MarkBuildingAsSellableGoal MARK_HOUSE_AS_SELLABLE_GOAL = new MarkBuildingAsSellableGoal(BuildingType.HOUSE, ALL_GOALS);
+	public static final MarkBuildingAsSellableGoal MARK_SMITH_AS_SELLABLE_GOAL = new MarkBuildingAsSellableGoal(BuildingType.SMITH, ALL_GOALS);
 	public static final CreateFurnitureGoal CREATE_FURNITURE_GOAL = new CreateFurnitureGoal(ALL_GOALS);
 	public static final SellFurnitureGoal SELL_FURNITURE_GOAL = new SellFurnitureGoal(ALL_GOALS);
 	public static final FurnitureGoal FURNITURE_GOAL = new FurnitureGoal(ALL_GOALS);

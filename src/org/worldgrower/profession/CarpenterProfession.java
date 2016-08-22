@@ -48,7 +48,9 @@ public class CarpenterProfession implements Profession {
 				Goals.CREATE_SCYTHE_GOAL,
 				Goals.MARK_SCYTHE_AS_SELLABLE_GOAL,
 				Goals.CREATE_FISHING_POLE_GOAL,
-				Goals.MARK_FISHING_POLE_AS_SELLABLE_GOAL
+				Goals.MARK_FISHING_POLE_AS_SELLABLE_GOAL,
+				Goals.CREATE_SMITH_GOAL,
+				Goals.MARK_SMITH_AS_SELLABLE_GOAL
 				);
 	}
 

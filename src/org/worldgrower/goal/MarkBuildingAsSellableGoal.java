@@ -24,20 +24,27 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.BuildingType;
 
-public class MarkHouseAsSellableGoal implements Goal {
+public class MarkBuildingAsSellableGoal implements Goal {
 	
-	public MarkHouseAsSellableGoal(List<Goal> allGoals) {
+	private final BuildingType buildingType;
+	
+	public MarkBuildingAsSellableGoal(BuildingType buildingType,List<Goal> allGoals) {
+		this.buildingType = buildingType;
 		allGoals.add(this);
 	}
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		List<WorldObject> houses = performer.getProperty(Constants.BUILDINGS).mapToWorldObjects(world, BuildingType.HOUSE, w -> !w.hasProperty(Constants.SELLABLE) || !w.getProperty(Constants.SELLABLE));
-		if (houses.size() > 1) {
-			WorldObject house = houses.get(1);
-			return new OperationInfo(performer, house, Args.EMPTY, Actions.MARK_AS_SELLABLE_ACTION);
+		List<WorldObject> buildings = getUnmarkedBuildings(performer, world);
+		if (buildings.size() > 1) {
+			WorldObject building = buildings.get(1);
+			return new OperationInfo(performer, building, Args.EMPTY, Actions.MARK_AS_SELLABLE_ACTION);
 		}
 		return null;
+	}
+
+	private List<WorldObject> getUnmarkedBuildings(WorldObject performer, World world) {
+		return performer.getProperty(Constants.BUILDINGS).mapToWorldObjects(world, buildingType, w -> !w.hasProperty(Constants.SELLABLE) || !w.getProperty(Constants.SELLABLE));
 	}
 	
 	@Override
@@ -51,12 +58,16 @@ public class MarkHouseAsSellableGoal implements Goal {
 
 	@Override
 	public final boolean isGoalMet(WorldObject performer, World world) {
-		return HousePropertyUtils.allHousesButFirstSellable(performer, world);
+		if (buildingType == BuildingType.HOUSE) {
+			return HousePropertyUtils.allHousesButFirstSellable(performer, world);
+		} else {
+			return getUnmarkedBuildings(performer, world).size() == 0;
+		}
 	}
 
 	@Override
 	public String getDescription() {
-		return "marking houses as sellable";
+		return "marking " + buildingType.getDescription() + "s as sellable";
 	}
 	
 	@Override

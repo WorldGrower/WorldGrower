@@ -29,51 +29,28 @@ import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.BuildingGenerator;
 
-public class UTestMarkHouseAsSellableGoal {
+public class UTestMarkSmithAsSellableGoal {
 
-	private MarkBuildingAsSellableGoal goal = Goals.MARK_HOUSE_AS_SELLABLE_GOAL;
-	
-	@Test
-	public void testCalculateGoalNull() {
-		World world = new WorldImpl(10, 10, null, null);
-		WorldObject performer = createPerformer();
-		
-		int houseId = BuildingGenerator.generateHouse(5, 5, world, performer);
-		performer.getProperty(Constants.BUILDINGS).add(houseId, BuildingType.HOUSE);
-		
-		assertEquals(null, goal.calculateGoal(performer, world));
-	}
-	
-	@Test
-	public void testCalculateGoalMarkHouseAsSellable() {
-		World world = new WorldImpl(10, 10, null, null);
-		WorldObject performer = createPerformer();
-		
-		int houseId = BuildingGenerator.generateHouse(5, 5, world, performer);
-		performer.getProperty(Constants.BUILDINGS).add(houseId, BuildingType.HOUSE);
-		
-		int houseId2 = BuildingGenerator.generateHouse(5, 5, world, performer);
-		performer.getProperty(Constants.BUILDINGS).add(houseId2, BuildingType.HOUSE);
-		
-		assertEquals(Actions.MARK_AS_SELLABLE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
-	}
+	private MarkBuildingAsSellableGoal goal = Goals.MARK_SMITH_AS_SELLABLE_GOAL;
 	
 	@Test
 	public void testIsGoalMet() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
 		
-		int houseId = BuildingGenerator.generateHouse(5, 5, world, performer);
-		performer.getProperty(Constants.BUILDINGS).add(houseId, BuildingType.HOUSE);
+		int houseId = BuildingGenerator.generateSmith(5, 5, world, performer);
+		performer.getProperty(Constants.BUILDINGS).add(houseId, BuildingType.SMITH);
 		
-		int houseId2 = BuildingGenerator.generateHouse(5, 5, world, performer);
-		performer.getProperty(Constants.BUILDINGS).add(houseId2, BuildingType.HOUSE);
-		
+		int houseId2 = BuildingGenerator.generateSmith(5, 5, world, performer);
+		performer.getProperty(Constants.BUILDINGS).add(houseId2, BuildingType.SMITH);
 		assertEquals(false, goal.isGoalMet(performer, world));
 		
 		WorldObject house2 = world.findWorldObjectById(houseId2);
 		Actions.MARK_AS_SELLABLE_ACTION.execute(performer, house2, Args.EMPTY, world);
+		assertEquals(false, goal.isGoalMet(performer, world));
 		
+		WorldObject house = world.findWorldObjectById(houseId);
+		Actions.MARK_AS_SELLABLE_ACTION.execute(performer, house, Args.EMPTY, world);
 		assertEquals(true, goal.isGoalMet(performer, world));
 	}
 	
