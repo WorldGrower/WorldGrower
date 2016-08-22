@@ -14,6 +14,7 @@
  *******************************************************************************/
 package org.worldgrower.actions;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,10 +33,21 @@ public class OperationStatistics {
 		List<HistoryItem> filteredHistoryItems = getRecentOperations(managedOperation, world);
 		return filteredHistoryItems.size();
 	}
+	
+	public static int getRecentOperationsCount(ManagedOperation managedOperation, int[] args, World world) {
+		List<HistoryItem> filteredHistoryItems = getRecentOperations(managedOperation, args, world);
+		return filteredHistoryItems.size();
+	}
 
 	private static List<HistoryItem> getRecentOperations(ManagedOperation managedOperation, World world) {
 		List<HistoryItem> historyItems = world.getHistory().findHistoryItems(managedOperation);
 		List<HistoryItem> filteredHistoryItems = historyItems.stream().filter(h -> isRecent(h, world) ).collect(Collectors.toList());
+		return filteredHistoryItems;
+	}
+	
+	private static List<HistoryItem> getRecentOperations(ManagedOperation managedOperation, int[] args, World world) {
+		List<HistoryItem> historyItems = world.getHistory().findHistoryItems(managedOperation);
+		List<HistoryItem> filteredHistoryItems = historyItems.stream().filter(h -> Arrays.equals(h.getArgs(),  args) && isRecent(h, world) ).collect(Collectors.toList());
 		return filteredHistoryItems;
 	}
 	

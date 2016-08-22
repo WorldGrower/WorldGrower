@@ -27,6 +27,7 @@ import javax.swing.table.AbstractTableModel;
 import org.worldgrower.World;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.OperationStatistics;
+import org.worldgrower.conversation.Conversations;
 import org.worldgrower.generator.Item;
 import org.worldgrower.profession.Professions;
 
@@ -49,7 +50,7 @@ public class GuiShowEconomicOverviewAction extends AbstractAction {
 		Timer timer = new Timer(500, new ActionListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent e) {
 				table.repaint();
 			}
 			
@@ -62,7 +63,7 @@ public class GuiShowEconomicOverviewAction extends AbstractAction {
 	}
 	
 	private static class WorldModel extends AbstractTableModel {
-
+		private static final int ROW_OFFSET = 20;
 		private World world;
 		
 		public WorldModel(World world) {
@@ -77,7 +78,7 @@ public class GuiShowEconomicOverviewAction extends AbstractAction {
 
 		@Override
 		public int getRowCount() {
-			return 19 + Item.values().length - 1;
+			return ROW_OFFSET + Item.values().length;
 		}
 
 		@Override
@@ -132,8 +133,12 @@ public class GuiShowEconomicOverviewAction extends AbstractAction {
 					return "ConstructBedAction";
 				} else if (rowIndex == 18) {
 					return "ConstructBedAction by non-professionals";
+				} else if (rowIndex == 19) {
+					return "BuyBuildingConversation";
+				} else if (rowIndex == 20) {
+					return "SellBuildingConversation";
 				} else {
-					return Item.values()[rowIndex - 18].name() + " (current price/default price)";
+					return Item.values()[rowIndex - ROW_OFFSET].name() + " (current price/default price)";
 				}
 			} else if (columnIndex == 1) {
 				if (rowIndex == 0) {
@@ -174,8 +179,12 @@ public class GuiShowEconomicOverviewAction extends AbstractAction {
 					return OperationStatistics.getRecentOperationsCount(Actions.CONSTRUCT_BED_ACTION, world);
 				} else if (rowIndex == 18) {
 					return OperationStatistics.getRecentOperationsByNonProfessionalsCount(Actions.CONSTRUCT_BED_ACTION, Professions.CARPENTER_PROFESSION, world);
+				} else if (rowIndex == 19) {
+					return OperationStatistics.getRecentOperationsCount(Actions.TALK_ACTION, Conversations.createArgs(Conversations.BUY_HOUSE_CONVERSATION), world);
+				} else if (rowIndex == 20) {
+					return OperationStatistics.getRecentOperationsCount(Actions.TALK_ACTION, Conversations.createArgs(Conversations.SELL_HOUSE_CONVERSATION), world);
 				} else {
-					Item item = Item.values()[rowIndex - 18];
+					Item item = Item.values()[rowIndex - ROW_OFFSET];
 					return OperationStatistics.getPrice(item, world) + "/" + item.getPrice();
 				}
 			} else {
