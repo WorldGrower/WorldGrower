@@ -128,9 +128,9 @@ public class Constants {
 	public static final IntProperty WOOD = new IntProperty("wood", 0, 50, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final BuildingsListProperty BUILDINGS = new BuildingsListProperty("buildings", ALL_PROPERTIES);
 	public static final IntProperty ENERGY = new IntProperty("energy", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
-	public static final IntProperty PAPER_MILL_QUALITY = new IntProperty("paperMillQuality", 0, 50, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty PAPER_MILL_QUALITY = new IntProperty("papermill", 0, 50, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty LIBRARY_QUALITY = new IntProperty("libraryQuality", 0, 50, NOT_NULLABLE, ALL_PROPERTIES);
-	public static final IntProperty WORKBENCH_QUALITY = new IntProperty("workbenchQuality", 0, 50, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty WORKBENCH_QUALITY = new IntProperty("workbench", 0, 50, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final UnCheckedProperty<BuildingType> BUILDING_TYPE = new UnCheckedProperty<>("buildingType", ALL_PROPERTIES);
 	
 	public static final IntProperty DAMAGE = new IntProperty("damage", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
@@ -195,7 +195,7 @@ public class Constants {
 	
 	public static final IntProperty SLEEP_COMFORT = new IntProperty("sleep comfort", 0, 100, NOT_NULLABLE, ALL_PROPERTIES);
 	
-	public static final IntProperty SMITH_QUALITY = new IntProperty("smithQuality", 0, 100, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty SMITH_QUALITY = new IntProperty("smithing", 0, 100, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty FISHING_POLE_QUALITY = new IntProperty("fishing tool", 0, 100, NOT_NULLABLE, ALL_PROPERTIES);
 	
 	public static final IntProperty ID = new IntProperty("Id", null, null, NOT_NULLABLE, ALL_PROPERTIES);
@@ -283,9 +283,9 @@ public class Constants {
 	public static final IdProperty ASSASSINATE_TARGET_ID = new IdProperty("assassinateTargetId", ALL_PROPERTIES);
 	public static final IntProperty SLEEP_INDUCING_DRUG_STRENGTH = new IntProperty("sleepInducingDrugStrength", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IdProperty FEAR_CASTER_ID = new IdProperty("fearCasterId", ALL_PROPERTIES);
-	public static final IntProperty WEAVERY_QUALITY = new IntProperty("weaveryQuality", 0, 100, NOT_NULLABLE, ALL_PROPERTIES);
-	public static final IntProperty BREWERY_QUALITY = new IntProperty("breweryQuality", 0, 100, NOT_NULLABLE, ALL_PROPERTIES);
-	public static final IntProperty APOTHECARY_QUALITY = new IntProperty("apothecaryQuality", 0, 100, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty WEAVERY_QUALITY = new IntProperty("weavery", 0, 100, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty BREWERY_QUALITY = new IntProperty("brewery", 0, 100, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty APOTHECARY_QUALITY = new IntProperty("apothecary", 0, 100, NOT_NULLABLE, ALL_PROPERTIES);
 	
 	public static final IdProperty LEASH_ID = new IdProperty("leashId", ALL_PROPERTIES);
 	public static final IdProperty CATTLE_OWNER_ID = new IdProperty("cattleOwnerId", ALL_PROPERTIES);

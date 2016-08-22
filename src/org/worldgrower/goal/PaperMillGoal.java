@@ -48,6 +48,7 @@ public class PaperMillGoal implements Goal {
 	
 	@Override
 	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
+		defaultGoalMetOrNot(performer, world, goalMet, Constants.PAPER_MILL_QUALITY);
 	}
 
 	@Override

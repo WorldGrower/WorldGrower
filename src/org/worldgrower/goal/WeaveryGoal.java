@@ -48,6 +48,7 @@ public class WeaveryGoal implements Goal {
 	
 	@Override
 	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
+		defaultGoalMetOrNot(performer, world, goalMet, Constants.WEAVERY_QUALITY);
 	}
 
 	@Override

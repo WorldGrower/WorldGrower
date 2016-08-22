@@ -14,28 +14,31 @@
  *******************************************************************************/
 package org.worldgrower.attribute;
 
+import org.worldgrower.Constants;
 import org.worldgrower.gui.ImageIds;
 
 public enum BuildingType {
-	SHACK("shack", ImageIds.SHACK, 10),
-	HOUSE("house", ImageIds.HOUSE6, 50), 
-	INN("inn", ImageIds.INN, 200),
-	BREWERY("brewery", ImageIds.BREWERY, 50),
-	SMITH("smith", ImageIds.SMITH, 50),
-	WORKBENCH("workbench", ImageIds.WORKBENCH, 50),
-	PAPERMILL("papermill", ImageIds.PAPER_MILL, 50),
-	WEAVERY("weavery", ImageIds.WEAVERY, 50),
-	APOTHECARY("apothecary", ImageIds.APOTHECARY, 50),
-	CHEST("chest", ImageIds.CHEST, 5);
+	SHACK("shack", ImageIds.SHACK, 10, Constants.SLEEP_COMFORT),
+	HOUSE("house", ImageIds.HOUSE6, 50, Constants.SLEEP_COMFORT), 
+	INN("inn", ImageIds.INN, 200, Constants.SLEEP_COMFORT),
+	BREWERY("brewery", ImageIds.BREWERY, 50, Constants.BREWERY_QUALITY),
+	SMITH("smith", ImageIds.SMITH, 50, Constants.SMITH_QUALITY),
+	WORKBENCH("workbench", ImageIds.WORKBENCH, 50, Constants.WORKBENCH_QUALITY),
+	PAPERMILL("papermill", ImageIds.PAPER_MILL, 50, Constants.PAPER_MILL_QUALITY),
+	WEAVERY("weavery", ImageIds.WEAVERY, 50, Constants.WEAVERY_QUALITY),
+	APOTHECARY("apothecary", ImageIds.APOTHECARY, 50, Constants.APOTHECARY_QUALITY),
+	CHEST("chest", ImageIds.CHEST, 5, Constants.LOCK_STRENGTH);
 	
 	private final String description;
 	private final ImageIds imageId;
 	private final int price;
+	private final ManagedProperty<?> qualityProperty;
 
-	private BuildingType(String description, ImageIds imageId, int price) {
+	private BuildingType(String description, ImageIds imageId, int price, ManagedProperty<?> qualityProperty) {
 		this.description = description;
 		this.imageId = imageId;
 		this.price = price;
+		this.qualityProperty = qualityProperty;
 	}
 	
 	public String getDescription() {
@@ -48,5 +51,9 @@ public enum BuildingType {
 
 	public int getPrice() {
 		return price;
+	}
+
+	public ManagedProperty<?> getQualityProperty() {
+		return qualityProperty;
 	}
 }

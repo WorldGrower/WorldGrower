@@ -658,6 +658,7 @@ public enum Item {
 				properties.put(Constants.NAME, buildingType.getDescription());
 				properties.put(Constants.PRICE, buildingType.getPrice());
 				properties.put(Constants.SELLABLE, false);
+				properties.put(buildingType.getQualityProperty(), 0);
 				properties.put(Constants.IMAGE_ID, buildingType.getImageId());
 				return new WorldObjectImpl(properties);
 			});

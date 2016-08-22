@@ -109,7 +109,14 @@ public final class DemandsDialog extends AbstractDialog {
 		Constants.REPAIR_QUALITY,
 		Constants.PICKAXE_QUALITY,
 		Constants.SCYTHE_QUALITY,
-		Constants.WOOD_CUTTING_QUALITY
+		Constants.WOOD_CUTTING_QUALITY,
+		Constants.SLEEP_COMFORT,
+		Constants.BREWERY_QUALITY,
+		Constants.SMITH_QUALITY,
+		Constants.WORKBENCH_QUALITY,
+		Constants.PAPER_MILL_QUALITY,
+		Constants.WEAVERY_QUALITY,
+		Constants.APOTHECARY_QUALITY
 		};
 	
 	private static class DemandsModel extends AbstractTableModel {
