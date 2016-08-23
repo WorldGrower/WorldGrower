@@ -49,21 +49,25 @@ public class DrinkWaterGoal implements Goal {
 			} else if (waterSourcetarget != null) {
 				return new OperationInfo(performer, waterSourcetarget, Args.EMPTY, Actions.DRINK_ACTION);
 			} else {
-				if (!BuildWellAction.hasEnoughWood(performer)) {
-					return Goals.WOOD_GOAL.calculateGoal(performer, world);
+				return createWell(performer, world);
+			}
+		}
+	}
+
+	private OperationInfo createWell(WorldObject performer, World world) {
+		if (!BuildWellAction.hasEnoughWood(performer)) {
+			return Goals.WOOD_GOAL.calculateGoal(performer, world);
+		} else {
+			WorldObject targetLocation = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 2, 2, world);
+			if (targetLocation != null) {
+				List<WorldObject> existingWells = getExistingWellsNearTargetLocation(performer, targetLocation, world);
+				if (existingWells.size() > 0) {
+					return new OperationInfo(performer, existingWells.get(0), Args.EMPTY, Actions.DRINK_ACTION);
 				} else {
-					WorldObject targetLocation = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 2, 2, world);
-					if (targetLocation != null) {
-						List<WorldObject> existingWells = getExistingWellsNearTargetLocation(performer, targetLocation, world);
-						if (existingWells.size() > 0) {
-							return new OperationInfo(performer, existingWells.get(0), Args.EMPTY, Actions.DRINK_ACTION);
-						} else {
-							return new OperationInfo(performer, targetLocation, Args.EMPTY, Actions.BUILD_WELL_ACTION);
-						}
-					} else {
-						return null;
-					}
+					return new OperationInfo(performer, targetLocation, Args.EMPTY, Actions.BUILD_WELL_ACTION);
 				}
+			} else {
+				return null;
 			}
 		}
 	}
