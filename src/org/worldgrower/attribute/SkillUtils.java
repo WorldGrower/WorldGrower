@@ -144,7 +144,7 @@ public class SkillUtils {
 	}
 	
 	public static double getSkillBonus(WorldObject performer, SkillProperty skill) {
-		double result = 1.0f + (skill.getLevel(performer) / 100.0f);
+		double result = 1.0f + (skill.getLevel(performer) / 50.0f);
 		return result;
 	}
 	
@@ -170,6 +170,6 @@ public class SkillUtils {
 	}
 
 	public static int getLogarithmicSkillBonus(WorldObject performer, SkillProperty skill) {
-		return 1 + (skill.getLevel(performer) / 10);
+		return 1 + (skill.getLevel(performer) / 5);
 	}
 }

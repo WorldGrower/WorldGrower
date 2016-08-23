@@ -35,10 +35,10 @@ public class UTestIllusionOnTurn {
 		createIllusion(world);
 		
 		WorldObject illusion = world.findWorldObjectById(0);
-		assertEquals(22, illusion.getProperty(Constants.TURNS_TO_LIVE).intValue());
+		assertEquals(24, illusion.getProperty(Constants.TURNS_TO_LIVE).intValue());
 		
 		illusion.onTurn(world, new WorldStateChangedListeners());
-		assertEquals(21, illusion.getProperty(Constants.TURNS_TO_LIVE).intValue());
+		assertEquals(23, illusion.getProperty(Constants.TURNS_TO_LIVE).intValue());
 	}
 	
 	@Test

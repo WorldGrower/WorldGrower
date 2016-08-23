@@ -42,7 +42,7 @@ public class UTestRangedAttackAction {
 		assertEquals(26 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
 		Actions.RANGED_ATTACK_ACTION.execute(performer, target, Args.EMPTY, world);
 		
-		assertEquals(24 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
+		assertEquals((int)(23.9 * Item.COMBAT_MULTIPLIER), target.getProperty(Constants.HIT_POINTS).intValue());
 	}
 	
 	@Test

@@ -46,13 +46,13 @@ public class UTestSkillUtils {
 		assertEquals(1.0f, SkillUtils.getSkillBonus(performer, Constants.LUMBERING_SKILL), 0.1f);
 		
 		performer.setProperty(Constants.LUMBERING_SKILL, new Skill(20));
-		assertEquals(1.1f, SkillUtils.getSkillBonus(performer, Constants.LUMBERING_SKILL), 0.1f);
+		assertEquals(1.2f, SkillUtils.getSkillBonus(performer, Constants.LUMBERING_SKILL), 0.1f);
 	}
 	
 	@Test
 	public void testGetRealEnergyUse() {
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.LUMBERING_SKILL, new Skill(20));
-		assertEquals(90, SkillUtils.getRealEnergyUse(performer, Constants.LUMBERING_SKILL, 100));
+		assertEquals(83, SkillUtils.getRealEnergyUse(performer, Constants.LUMBERING_SKILL, 100));
 	}
 	
 	@Test
@@ -79,6 +79,6 @@ public class UTestSkillUtils {
 		assertEquals(1, SkillUtils.getLogarithmicSkillBonus(performer, Constants.LUMBERING_SKILL));
 		
 		performer.setProperty(Constants.LUMBERING_SKILL, new Skill(20));
-		assertEquals(2, SkillUtils.getLogarithmicSkillBonus(performer, Constants.LUMBERING_SKILL));
+		assertEquals(3, SkillUtils.getLogarithmicSkillBonus(performer, Constants.LUMBERING_SKILL));
 	}
 }
