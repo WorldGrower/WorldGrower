@@ -31,7 +31,10 @@ public class ArenaFightOnTurn implements WorldOnTurn {
 		List<WorldObject> worldObjects = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> ArenaPropertyUtils.personIsScheduledToFight(w));
 		for(WorldObject worldObject : worldObjects) {
 			Integer opponentId = worldObject.getProperty(Constants.ARENA_OPPONENT_ID);
-			if (opponentId.intValue() != -1) {
+			// opponentId can be null if 2 arena fighters are done fighting,
+			// their ARENA_OPPONENT_ID is set to null and the
+			// second npc comes into this loop
+			if (opponentId != null && opponentId.intValue() != -1) {
 				if (worldObject.getProperty(Constants.HIT_POINTS).intValue() <= 1 * Item.COMBAT_MULTIPLIER || worldObject.getProperty(Constants.CONDITIONS).hasCondition(Condition.UNCONSCIOUS_CONDITION)) {
 					
 					WorldObject opponent = world.findWorldObjectById(opponentId);
