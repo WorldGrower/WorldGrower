@@ -45,10 +45,25 @@ public class UTestBrawlConversation {
 		
 		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
-		assertEquals(true, replyPhrases.size() == 4);
+		assertEquals(4, replyPhrases.size());
 		assertEquals("Yes, while we brawl, only unarmed non-lethal melee attacks are allowed.", replyPhrases.get(0).getResponsePhrase());
 		assertEquals("No", replyPhrases.get(1).getResponsePhrase());
 		assertEquals("I'd love to, but I'm currently attacking targetName", replyPhrases.get(2).getResponsePhrase());
+		assertEquals("Not for the moment, I can't match your bet", replyPhrases.get(3).getResponsePhrase());
+	}
+	
+	@Test
+	public void testGetReplyPhrasesNullImmediateGoal() {
+		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		
+		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
+		List<Response> replyPhrases = conversation.getReplyPhrases(context);
+		assertEquals(4, replyPhrases.size());
+		assertEquals("Yes, while we brawl, only unarmed non-lethal melee attacks are allowed.", replyPhrases.get(0).getResponsePhrase());
+		assertEquals("No", replyPhrases.get(1).getResponsePhrase());
+		assertEquals("I'd love to, but I'm currently resting", replyPhrases.get(2).getResponsePhrase());
 		assertEquals("Not for the moment, I can't match your bet", replyPhrases.get(3).getResponsePhrase());
 	}
 	

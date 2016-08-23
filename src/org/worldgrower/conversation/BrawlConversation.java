@@ -19,6 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.worldgrower.Constants;
+import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.goal.BrawlPropertyUtils;
@@ -69,10 +70,18 @@ public class BrawlConversation implements Conversation {
 		WorldObject target = conversationContext.getTarget();
 		World world = conversationContext.getWorld();
 		
+		OperationInfo immediateGoal = world.getImmediateGoal(target, world);
+		final String immediateGoalDescription;
+		if (immediateGoal != null) {
+			immediateGoalDescription = immediateGoal.getDescription(world);
+		} else {
+			immediateGoalDescription = "resting";
+		}
+		
 		return Arrays.asList(
 			new Response(YES, "Yes, while we brawl, only unarmed non-lethal melee attacks are allowed."),
 			new Response(NO, "No"),
-			new Response(LATER, "I'd love to, but I'm currently " + world.getImmediateGoal(target, world).getDescription(world)),
+			new Response(LATER, "I'd love to, but I'm currently " + immediateGoalDescription),
 			new Response(NOT_ENOUGH_GOLD, "Not for the moment, I can't match your bet")
 			);
 	}
