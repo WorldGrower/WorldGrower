@@ -136,14 +136,23 @@ public class BuySellUtils {
 		return hasMoneyToBuyGoods;
 	}
 
-	//TODO: fix demands
 	static boolean hasDemandForInventoryItemGoods(WorldObject target, WorldObject inventoryItem) {
 		List<ManagedProperty<?>> propertyKeys = inventoryItem.getPropertyKeys();
 		boolean demandsGoods = false;
-		for(ManagedProperty<?> property : propertyKeys) {
-			demandsGoods = demandsGoods || target.hasProperty(Constants.DEMANDS) && target.getProperty(Constants.DEMANDS).count(property) > 0;
+		if (target.hasProperty(Constants.DEMANDS)) {
+			for(ManagedProperty<?> property : propertyKeys) {
+				if (Constants.getPossibleDemandProperties().contains(property)) {
+					demandsGoods = demandsGoods || hasDemandForInventoryItemGood(target, property);
+				}
+			}
 		}
 		return demandsGoods;
+	}
+	
+	private static boolean hasDemandForInventoryItemGood(WorldObject target, ManagedProperty<?> property) {
+		int demandCount = target.getProperty(Constants.DEMANDS).count(property);
+		int inventoryCount = target.getProperty(Constants.INVENTORY).getQuantityFor(property);
+		return demandCount > inventoryCount;
 	}
 
 

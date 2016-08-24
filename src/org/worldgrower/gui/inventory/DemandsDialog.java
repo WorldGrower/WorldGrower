@@ -92,39 +92,14 @@ public final class DemandsDialog extends AbstractDialog {
 		});
 	}
 
-	private static final ManagedProperty<?>[] PROPERTIES = new ManagedProperty<?>[] { 
-		Constants.FOOD, 
-		Constants.WATER,
-		Constants.WOOD,
-		Constants.STONE,
-		Constants.ORE,
-		Constants.COTTON,
-		Constants.ALCOHOL_LEVEL,
-		Constants.GOLD,
-		Constants.GRAPE,
-		Constants.OIL,
-		Constants.POISON_DAMAGE,
-		Constants.SOUL_GEM,
-		Constants.FISHING_POLE_QUALITY,
-		Constants.REPAIR_QUALITY,
-		Constants.PICKAXE_QUALITY,
-		Constants.SCYTHE_QUALITY,
-		Constants.WOOD_CUTTING_QUALITY,
-		Constants.SLEEP_COMFORT,
-		Constants.BREWERY_QUALITY,
-		Constants.SMITH_QUALITY,
-		Constants.WORKBENCH_QUALITY,
-		Constants.PAPER_MILL_QUALITY,
-		Constants.WEAVERY_QUALITY,
-		Constants.APOTHECARY_QUALITY
-		};
+	
 	
 	private static class DemandsModel extends AbstractTableModel {
 		private List<DemandItem> demandItems = new ArrayList<>();
 		
 		public DemandsModel(PropertyCountMap<ManagedProperty<?>> demands) {
 			super();
-			for(ManagedProperty<?> property : PROPERTIES) {
+			for(ManagedProperty<?> property : Constants.getPossibleDemandProperties()) {
 				boolean isDemanded = demands.count(property) > 0;
 				demandItems.add(new DemandItem(property, isDemanded));
 			}

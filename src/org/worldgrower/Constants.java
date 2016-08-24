@@ -15,6 +15,7 @@
 package org.worldgrower;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.worldgrower.actions.legal.LegalActions;
@@ -328,5 +329,37 @@ public class Constants {
 		}
 		
 		return toolProperties;
+	}
+	
+	private static final List<ManagedProperty<?>> POSSIBLE_DEMAND_PROPERTIES = 
+		Arrays.asList(
+		Constants.FOOD, 
+		Constants.WATER,
+		Constants.WOOD,
+		Constants.STONE,
+		Constants.ORE,
+		Constants.COTTON,
+		Constants.ALCOHOL_LEVEL,
+		Constants.GOLD,
+		Constants.GRAPE,
+		Constants.OIL,
+		Constants.POISON_DAMAGE,
+		Constants.SOUL_GEM,
+		Constants.FISHING_POLE_QUALITY,
+		Constants.REPAIR_QUALITY,
+		Constants.PICKAXE_QUALITY,
+		Constants.SCYTHE_QUALITY,
+		Constants.WOOD_CUTTING_QUALITY,
+		Constants.SLEEP_COMFORT,
+		Constants.BREWERY_QUALITY,
+		Constants.SMITH_QUALITY,
+		Constants.WORKBENCH_QUALITY,
+		Constants.PAPER_MILL_QUALITY,
+		Constants.WEAVERY_QUALITY,
+		Constants.APOTHECARY_QUALITY
+		);
+	
+	public static List<ManagedProperty<?>> getPossibleDemandProperties() {
+		return POSSIBLE_DEMAND_PROPERTIES;
 	}
 }

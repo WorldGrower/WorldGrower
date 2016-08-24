@@ -47,12 +47,16 @@ public class UTestBuySellUtils {
 	@Test
 	public void testGetDemandGoods() {
 		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.DEMANDS, new PropertyCountMap<ManagedProperty<?>>());
+		performer.setProperty(Constants.INVENTORY, new WorldObjectContainer());
 		WorldObject inventoryItem = Item.BERRIES.generate(1f);
 		
 		assertEquals(false, BuySellUtils.hasDemandForInventoryItemGoods(performer, inventoryItem));
 		
 		performer.getProperty(Constants.DEMANDS).add(Constants.FOOD, 1);
 		assertEquals(true, BuySellUtils.hasDemandForInventoryItemGoods(performer, inventoryItem));
+	
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.BERRIES.generate(1f), 1);
+		assertEquals(false, BuySellUtils.hasDemandForInventoryItemGoods(performer, inventoryItem));
 	}
 	
 	@Test

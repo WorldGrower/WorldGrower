@@ -41,6 +41,10 @@ public interface Goal extends Serializable {
 			if (goalMet) {
 				performer.getProperty(Constants.DEMANDS).remove(property);
 			} else {
+				if (!Constants.getPossibleDemandProperties().contains(property)) {
+					throw new IllegalStateException("property " + property + " isn't found in list of possible demands");
+				}
+				
 				performer.getProperty(Constants.DEMANDS).add(property, 1);
 			}
 		}
