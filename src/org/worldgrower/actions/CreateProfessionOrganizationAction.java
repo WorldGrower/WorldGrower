@@ -42,6 +42,10 @@ public class CreateProfessionOrganizationAction implements ManagedOperation {
 		WorldObject organization = GroupPropertyUtils.createProfessionOrganization(performer.getProperty(Constants.ID), organizationName, profession, world);
 		
 		performer.getProperty(Constants.GROUP).add(organization);
+		WorldObject facade = performer.getProperty(Constants.FACADE);
+		if (facade != null && facade.getProperty(Constants.GROUP) != null) {
+			facade.getProperty(Constants.GROUP).add(organization);
+		}
 	}
 
 	@Override

@@ -46,6 +46,7 @@ public class UTestBecomeProfessionsOrganizationMemberGoal {
 		performer.setProperty(Constants.PROFESSION, Professions.FARMER_PROFESSION);
 		
 		assertEquals(Actions.CREATE_PROFESSION_ORGANIZATION_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+		assertEquals(true, goal.isGoalMet(performer, world));
 	}
 	
 	@Test
@@ -63,6 +64,29 @@ public class UTestBecomeProfessionsOrganizationMemberGoal {
 		
 		assertEquals(Arrays.asList(0, 2), performer.getProperty(Constants.GROUP).getIds());
 		assertEquals(Professions.WIZARD_PROFESSION, world.findWorldObjectById(2).getProperty(Constants.PROFESSION));
+		assertEquals(true, goal.isGoalMet(performer, world));
+	}
+	
+	@Test
+	public void testCalculateGoalCandidateCreateProfessionOrganizationForDisguisedNpc() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject organization = GroupPropertyUtils.createProfessionOrganization(null, "TestOrg", Professions.FARMER_PROFESSION, world);
+		WorldObject performer = createCommoner(world, organization);
+		performer.setProperty(Constants.PROFESSION, Professions.TRICKSTER_PROFESSION);
+		
+		WorldObject target = createCommoner(world, organization);
+		target.setProperty(Constants.PROFESSION, Professions.TRICKSTER_PROFESSION);
+		
+		FacadeUtils.disguise(performer, target.getProperty(Constants.ID), world);
+		
+		createVillagersOrganization(world);
+		
+		assertEquals(Arrays.asList(0), performer.getProperty(Constants.GROUP).getIds());
+		assertEquals(Actions.CREATE_PROFESSION_ORGANIZATION_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+		OperationInfo operationInfo = goal.calculateGoal(performer, world);
+		operationInfo.perform(world);
+		
+		assertEquals(true, goal.isGoalMet(performer, world));
 	}
 	
 	@Test
@@ -143,5 +167,12 @@ public class UTestBecomeProfessionsOrganizationMemberGoal {
 		int commonerId = commonerGenerator.generateCommoner(0, 0, world, organization);
 		WorldObject commoner = world.findWorldObjectById(commonerId);
 		return commoner;
+	}
+	
+	private WorldObject createVillagersOrganization(World world) {
+		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
+		organization.setProperty(Constants.ID, 1);
+		world.addWorldObject(organization);
+		return organization;
 	}
 }

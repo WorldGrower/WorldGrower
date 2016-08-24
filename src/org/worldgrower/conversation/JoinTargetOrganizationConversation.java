@@ -93,6 +93,11 @@ public class JoinTargetOrganizationConversation implements Conversation {
 			}
 			
 			performer.getProperty(Constants.GROUP).add(organization);
+			
+			WorldObject facade = performer.getProperty(Constants.FACADE);
+			if (facade != null && facade.getProperty(Constants.GROUP) != null) {
+				facade.getProperty(Constants.GROUP).add(organization);
+			}
 		}
 	}
 	
