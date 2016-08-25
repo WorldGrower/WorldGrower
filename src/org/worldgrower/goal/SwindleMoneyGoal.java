@@ -42,17 +42,23 @@ public class SwindleMoneyGoal implements Goal {
 				}
 			}
 		} else {
-			List<WorldObject> targets = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> isSwindleTarget(performer, w, world));
-			if (targets.size() > 0) {
-				WorldObject target = targets.get(0);
-				int targetMateId = target.getProperty(Constants.MATE_ID);
-				WorldObject targetMate = GoalUtils.findNearestPersonLookingLike(performer, targetMateId, world);
-				int[] args = new int[] {targetMate.getProperty(Constants.ID)};
-				FindSecludedLocationGoal findSecludedLocationGoal = new FindSecludedLocationGoal(args, Actions.DISGUISE_MAGIC_SPELL_ACTION);
-				if (findSecludedLocationGoal.isGoalMet(performer, world)) {
-					return new OperationInfo(performer, performer, new int[] {targetMate.getProperty(Constants.ID)}, Actions.DISGUISE_MAGIC_SPELL_ACTION);
-				} else {
-					return findSecludedLocationGoal.calculateGoal(performer, world);
+			if (!performer.getProperty(Constants.KNOWN_SPELLS).contains(Actions.DISGUISE_MAGIC_SPELL_ACTION)) {
+				return Goals.SCRIBE_TRICKSTER_SPELLS_GOAL.calculateGoal(performer, world);
+			} else if (!Actions.DISGUISE_MAGIC_SPELL_ACTION.hasRequiredEnergy(performer)) {
+				return Goals.REST_GOAL.calculateGoal(performer, world);
+			} else {
+				List<WorldObject> targets = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> isSwindleTarget(performer, w, world));
+				if (targets.size() > 0) {
+					WorldObject target = targets.get(0);
+					int targetMateId = target.getProperty(Constants.MATE_ID);
+					WorldObject targetMate = GoalUtils.findNearestPersonLookingLike(performer, targetMateId, world);
+					int[] args = new int[] {targetMate.getProperty(Constants.ID)};
+					FindSecludedLocationGoal findSecludedLocationGoal = new FindSecludedLocationGoal(args, Actions.DISGUISE_MAGIC_SPELL_ACTION);
+					if (findSecludedLocationGoal.isGoalMet(performer, world)) {
+						return new OperationInfo(performer, performer, new int[] {targetMate.getProperty(Constants.ID)}, Actions.DISGUISE_MAGIC_SPELL_ACTION);
+					} else {
+						return findSecludedLocationGoal.calculateGoal(performer, world);
+					}
 				}
 			}
 		}

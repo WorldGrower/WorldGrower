@@ -177,8 +177,12 @@ public class OperationInfo implements Serializable {
 	
 	public boolean canExecuteIgnoringDistance(WorldObject performer, World world) {
 		return (isValidTarget(world)) 
-				&& managedOperation.isActionPossible(performer, target, args, world)
+				&& isActionPossible(performer, world)
 				&& performer.canWorldObjectPerformAction(managedOperation);
+	}
+
+	public boolean isActionPossible(WorldObject performer, World world) {
+		return managedOperation.isActionPossible(performer, target, args, world);
 	}
 
 	public OperationInfo copy() {
