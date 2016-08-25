@@ -14,18 +14,26 @@
  *******************************************************************************/
 package org.worldgrower.gui.inventory;
 
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableCellEditor;
 
 import org.worldgrower.Constants;
 import org.worldgrower.attribute.ManagedProperty;
@@ -39,6 +47,7 @@ import org.worldgrower.gui.SwingUtils;
 import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JTableFactory;
+import org.worldgrower.gui.util.JTextFieldFactory;
 
 public final class DemandsDialog extends AbstractDialog {
 	private final PropertyCountMap<ManagedProperty<?>> demands;
@@ -57,6 +66,10 @@ public final class DemandsDialog extends AbstractDialog {
 		table.setAutoCreateRowSorter(true);
 		table.setRowHeight(50);
 		table.getRowSorter().toggleSortOrder(1);
+		
+		TableCellEditor fce = new PositiveIntegerCellEditor(JTextFieldFactory.createJTextField());
+        table.setDefaultEditor(Integer.class, fce);
+		
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(15, 15, 368, 700);
 		addComponent(scrollPane);
@@ -74,6 +87,41 @@ public final class DemandsDialog extends AbstractDialog {
 		getRootPane().setDefaultButton(okButton);
 		
 		SwingUtils.makeTransparant(table, scrollPane);
+	}
+	
+	private static class PositiveIntegerCellEditor extends DefaultCellEditor {
+
+	    private static final Border red = new LineBorder(Color.red);
+	    private static final Border black = new LineBorder(Color.black);
+	    private JTextField textField;
+
+	    public PositiveIntegerCellEditor(JTextField textField) {
+	        super(textField);
+	        this.textField = textField;
+	        this.textField.setHorizontalAlignment(JTextField.RIGHT);
+	    }
+
+	    @Override
+	    public boolean stopCellEditing() {
+	        try {
+	            int v = Integer.valueOf(textField.getText());
+	            if (v < 0) {
+	                throw new NumberFormatException();
+	            }
+	        } catch (NumberFormatException e) {
+	            textField.setBorder(red);
+	            return false;
+	        }
+	        return super.stopCellEditing();
+	    }
+
+	    @Override
+	    public Component getTableCellEditorComponent(JTable table,
+	        Object value, boolean isSelected, int row, int column) {
+	        textField.setBorder(black);
+	        return super.getTableCellEditorComponent(
+	            table, value, isSelected, row, column);
+	    }
 	}
 	
 	public void showMe() {
@@ -100,15 +148,15 @@ public final class DemandsDialog extends AbstractDialog {
 		public DemandsModel(PropertyCountMap<ManagedProperty<?>> demands) {
 			super();
 			for(ManagedProperty<?> property : Constants.getPossibleDemandProperties()) {
-				boolean isDemanded = demands.count(property) > 0;
-				demandItems.add(new DemandItem(property, isDemanded));
+				int quantityDemanded = demands.count(property);
+				demandItems.add(new DemandItem(property, quantityDemanded));
 			}
 		}
 
 		public void apply(PropertyCountMap<ManagedProperty<?>> demands) {
 			for(DemandItem demandItem : demandItems) {
-				if (demandItem.isDemanded()) {
-					demands.add(demandItem.getProperty(), 5);
+				if (demandItem.getQuantityDemanded() > 0) {
+					demands.add(demandItem.getProperty(), demandItem.getQuantityDemanded());
 				} else {
 					demands.remove(demandItem.getProperty());
 				}
@@ -133,7 +181,7 @@ public final class DemandsDialog extends AbstractDialog {
 			} else if (column == 1) {
 				return String.class;
 			} else {
-				return Boolean.class;
+				return Integer.class;
 			}
 		}
 		
@@ -148,7 +196,7 @@ public final class DemandsDialog extends AbstractDialog {
 		
 		@Override
 		public void setValueAt(Object value, int row, int column) {
-			demandItems.get(row).setDemanded((Boolean)value);
+			demandItems.get(row).setQuantityDemanded(Integer.parseInt((String)value));
 		}
 
 		@Override
@@ -158,7 +206,7 @@ public final class DemandsDialog extends AbstractDialog {
 			} else if (columnIndex == 1) {
 				return "Item";
 			} else if (columnIndex == 2) {
-				return "Is Demanded";
+				return "Quantity";
 			} else {
 				return null;
 			}
@@ -171,7 +219,7 @@ public final class DemandsDialog extends AbstractDialog {
 			} else if (columnIndex == 1) {
 				return demandItems.get(rowIndex).getProperty().getName();
 			} else if (columnIndex == 2) {
-				return demandItems.get(rowIndex).isDemanded();
+				return demandItems.get(rowIndex).getQuantityDemanded();
 			} else {
 				return null;
 			}
@@ -180,21 +228,21 @@ public final class DemandsDialog extends AbstractDialog {
 	
 	private static class DemandItem {
 		private ManagedProperty<?> property;
-		private boolean isDemanded;
+		private int quantityDemanded;
 		
-		public DemandItem(ManagedProperty<?> property, boolean isDemanded) {
+		public DemandItem(ManagedProperty<?> property, int quantityDemanded) {
 			super();
 			this.property = property;
-			this.isDemanded = isDemanded;
+			this.quantityDemanded = quantityDemanded;
 		}
 		public ManagedProperty<?> getProperty() {
 			return property;
 		}
-		public boolean isDemanded() {
-			return isDemanded;
+		public int getQuantityDemanded() {
+			return quantityDemanded;
 		}
-		public void setDemanded(boolean isDemanded) {
-			this.isDemanded = isDemanded;
+		public void setQuantityDemanded(int quantityDemanded) {
+			this.quantityDemanded = quantityDemanded;
 		}
 	}
 }
