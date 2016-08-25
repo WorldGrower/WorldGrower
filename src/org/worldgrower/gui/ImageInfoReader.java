@@ -1104,6 +1104,9 @@ public class ImageInfoReader {
    }
    
    public int getNumberOfFrames(ImageIds id) {
+	   if (idToImages.get(id) == null) {
+		   throw new IllegalStateException("Id " + id + " isn't found in idToImages map");
+	   }
 	   return idToImages.get(id).size();
    }
 }
