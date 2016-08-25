@@ -16,6 +16,8 @@ package org.worldgrower.goal;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Arrays;
+
 import org.junit.Test;
 import org.worldgrower.AssertUtils;
 import org.worldgrower.Constants;
@@ -113,6 +115,7 @@ public class UTestSwindleMoneyGoal {
 		performer.setProperty(Constants.Y, 0);
 		performer.setProperty(Constants.WIDTH, 1);
 		performer.setProperty(Constants.HEIGHT, 1);
+		performer.setProperty(Constants.KNOWN_SPELLS, Arrays.asList(Actions.DISGUISE_MAGIC_SPELL_ACTION));
 		return performer;
 	}
 }
