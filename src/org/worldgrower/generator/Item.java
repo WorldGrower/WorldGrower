@@ -94,7 +94,8 @@ public enum Item {
 	PAPERMILL(ItemType.MISC),
 	WEAVERY(ItemType.MISC),
 	APOTHECARY(ItemType.MISC),
-	CHEST(ItemType.MISC)
+	CHEST(ItemType.MISC),
+	LOCKPICK(ItemType.TOOL)
 	;
 
 	public static final int COMBAT_MULTIPLIER = 10;
@@ -663,6 +664,22 @@ public enum Item {
 				return new WorldObjectImpl(properties);
 			});
 		}
+		
+		addItem(Item.LOCKPICK, skillBonus -> {
+			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+			properties.put(Constants.NAME, "lockpick");
+			properties.put(Constants.PRICE, 20);
+			properties.put(Constants.SELLABLE, false);
+			properties.put(Constants.DAMAGE, 1 * COMBAT_MULTIPLIER);
+			properties.put(Constants.DAMAGE_TYPE, DamageType.PIERCING);
+			properties.put(Constants.WEIGHT, 3);
+			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
+			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
+			properties.put(Constants.LOCKPICK_QUALITY, (int)(2 * skillBonus));
+			properties.put(Constants.IMAGE_ID, ImageIds.LOCKPICK);
+			return new WorldObjectImpl(properties);
+		});
+		
 		
 		addItem(Item.WOOD, new DefaultItemGenerator(Constants.WOOD, 1, ImageIds.WOOD)::addDefault);
 		addItem(Item.STONE, new DefaultItemGenerator(Constants.STONE, 1, ImageIds.STONE)::addDefault);

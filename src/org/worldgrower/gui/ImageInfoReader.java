@@ -572,6 +572,8 @@ public class ImageInfoReader {
         createAnimation(ImageIds.SOUL_TRAPPED_INDICATOR_ANIMATION, ImageIds.SOUL_TRAPPED_INDICATOR, 10);
         
         add(ImageIds.LOCKPICK, sprites420.getSubImage(8, 16, 1, 1));
+        createAnimation(ImageIds.LOCKPICK_ANIMATION, ImageIds.LOCKPICK, 10);
+
     }
     
     private void createAnimation(ImageIds animationImageId, ImageIds imageId, int numberOfFrames) {
