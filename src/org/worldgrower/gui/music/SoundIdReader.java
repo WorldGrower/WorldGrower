@@ -93,6 +93,7 @@ public class SoundIdReader {
 		readSound(SoundIds.METAL_SMALL1, "/sound/metal-small18bit.wav.gz");
 		readSound(SoundIds.DOOR_OPEN, "/sound/doorOpen_18bit.wav.gz");
 		readSound(SoundIds.BLESSING, "/sound/blessing8bit.wav.gz");
+		readSound(SoundIds.PICKLOCK, "/sound/picklock.wav.gz");
 
 	}
 

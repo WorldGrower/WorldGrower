@@ -73,5 +73,6 @@ public enum SoundIds {
 	RELIGIOUS,
 	SWISH,
 	METAL_SMALL1,
-	BLESSING
+	BLESSING,
+	PICKLOCK
 }

@@ -42,4 +42,18 @@ public class UTestThieveryPropertyUtils {
 		Conditions.add(performer, Condition.INVISIBLE_CONDITION, 8, world);
 		assertEquals(96, ThieveryPropertyUtils.getThieverySuccessPercentage(performer, target, 1, 0));
 	}
+	
+	@Test
+	public void testGetOpenLockSuccessPercentage() {
+		World world = new WorldImpl(0, 0, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(2);
+		performer.setProperty(Constants.CONDITIONS, new Conditions());
+		WorldObject target = TestUtils.createSkilledWorldObject(3);
+		target.setProperty(Constants.LOCK_STRENGTH, 5);
+		
+		assertEquals(34, ThieveryPropertyUtils.getOpenLockSuccessPercentage(performer, target));
+	
+		Conditions.add(performer, Condition.INVISIBLE_CONDITION, 8, world);
+		assertEquals(41, ThieveryPropertyUtils.getOpenLockSuccessPercentage(performer, target));
+	}
 }

@@ -29,7 +29,7 @@ public class ThieveryPropertyUtils {
 		int amount = worldObjectToSteal.getProperty(Constants.PRICE);
 		int weight = getWeight(worldObjectToSteal);
 		
-		int randomValue = getRandomValueBetween0and99(performer, target, amount, weight, world);
+		int randomValue = getRandomValueBetween0and99(performer, target, world);
 		int thieverySuccessPercentage = getThieverySuccessPercentage(performer, target, amount, weight);
 		return randomValue >= thieverySuccessPercentage;
 	}
@@ -40,30 +40,50 @@ public class ThieveryPropertyUtils {
 	}
 
 	public static boolean isThieverySuccess(WorldObject performer, WorldObject target, World world, int amount) {
-		int randomValue = getRandomValueBetween0and99(performer, target, amount, 0, world);
+		int randomValue = getRandomValueBetween0and99(performer, target, world);
 		int thieverySuccessPercentage = getThieverySuccessPercentage(performer, target, amount, 0);
 		return randomValue <= thieverySuccessPercentage;
 	}
 	
-	private static int getRandomValueBetween0and99(WorldObject performer, WorldObject target, int moneyValue, int weight, World world) {
+	private static int getRandomValueBetween0and99(WorldObject performer, WorldObject target, World world) {
 		int currentTurn = world.getCurrentTurn().getValue();
 		String performerName = performer.getProperty(Constants.NAME);
 		String targetName = target.getProperty(Constants.NAME);
 		return (performerName.length() + targetName.length() + currentTurn) % 100;
-		
 	}
 	
-	public static int getThieverySuccessPercentage(WorldObject performer, WorldObject target, int moneyValue, int weight) {
-		int thievery = Constants.THIEVERY_SKILL.getLevel(performer);
-		
-		if (performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.INVISIBLE_CONDITION)) {
-			thievery += 5;
-		}
+	public static boolean isOpenLockSuccess(WorldObject performer, WorldObject target, World world) {
+		int randomValue = getRandomValueBetween0and99(performer, target, world);
+		int openLockSuccessPercentage = getOpenLockSuccessPercentage(performer, target);
+		return randomValue <= openLockSuccessPercentage;
+	}
+	
+	static int getThieverySuccessPercentage(WorldObject performer, WorldObject target, int moneyValue, int weight) {
+		int thievery = getThieveryLevel(performer);
 		
 		int successPercentage = (int)(10 + (thievery + 90) / (Math.log(moneyValue + weight + 2)));
 		if (successPercentage > 99) {
 			successPercentage = 99;
 		}
 		return successPercentage;
+	}
+	
+	static int getOpenLockSuccessPercentage(WorldObject performer, WorldObject target) {
+		int thievery = getThieveryLevel(performer);
+		int lockStrength = target.getProperty(Constants.LOCK_STRENGTH);
+		int successPercentage = (int)(10 + (thievery * 3 + 50) / (Math.log(lockStrength + 3)));
+		if (successPercentage > 99) {
+			successPercentage = 99;
+		}
+		return successPercentage;
+	}
+
+	static int getThieveryLevel(WorldObject performer) {
+		int thievery = Constants.THIEVERY_SKILL.getLevel(performer);
+		
+		if (performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.INVISIBLE_CONDITION)) {
+			thievery += 5;
+		}
+		return thievery;
 	}
 }
