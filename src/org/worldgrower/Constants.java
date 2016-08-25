@@ -318,7 +318,8 @@ public class Constants {
 		return propertyKey == Constants.SCYTHE_QUALITY
 				|| propertyKey == Constants.WOOD_CUTTING_QUALITY
 				|| propertyKey == Constants.FISHING_POLE_QUALITY
-				|| propertyKey == Constants.PICKAXE_QUALITY;
+				|| propertyKey == Constants.PICKAXE_QUALITY
+				|| propertyKey == Constants.LOCKPICK_QUALITY;
 	}
 	
 	public static List<ManagedProperty<?>> getToolProperties() {
@@ -351,6 +352,7 @@ public class Constants {
 		Constants.PICKAXE_QUALITY,
 		Constants.SCYTHE_QUALITY,
 		Constants.WOOD_CUTTING_QUALITY,
+		Constants.LOCKPICK_QUALITY,
 		Constants.SLEEP_COMFORT,
 		Constants.BREWERY_QUALITY,
 		Constants.SMITH_QUALITY,
