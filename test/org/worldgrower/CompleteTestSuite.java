@@ -729,7 +729,8 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestWoodCuttingToolGoal.class,
 	UTestMarkSmithAsSellableGoal.class,
 	UTestConstructLockpickAction.class,
-	UTestUnlockUnownedContainerLegalHandler.class
+	UTestUnlockUnownedContainerLegalHandler.class,
+	UTestOpenLockAction.class
 })
 public class CompleteTestSuite {
 }
