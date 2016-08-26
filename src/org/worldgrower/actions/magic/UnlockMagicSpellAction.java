@@ -41,6 +41,9 @@ public class UnlockMagicSpellAction implements MagicSpell, AnimatedAction {
 		int lockStrength = target.getProperty(Constants.LOCK_STRENGTH);
 		if (level > lockStrength) {
 			target.setProperty(Constants.LOCKED, Boolean.FALSE);
+			world.logAction(this, performer, target, args, performer.getProperty(Constants.NAME) + " unlocks " + target.getProperty(Constants.NAME));
+		} else {
+			world.logAction(this, performer, target, args, performer.getProperty(Constants.NAME) + " fails to unlock " + target.getProperty(Constants.NAME));
 		}
 		
 		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE, world.getWorldStateChangedListeners());

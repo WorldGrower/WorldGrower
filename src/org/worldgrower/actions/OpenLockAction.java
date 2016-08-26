@@ -36,6 +36,9 @@ public class OpenLockAction implements ManagedOperation, AnimatedAction {
 		boolean openLockIsSuccesfull = ThieveryPropertyUtils.isOpenLockSuccess(performer, target, world);
 		if (openLockIsSuccesfull) {
 			target.setProperty(Constants.LOCKED, Boolean.FALSE);
+			world.logAction(this, performer, target, args, performer.getProperty(Constants.NAME) + " unlocks " + target.getProperty(Constants.NAME));
+		} else {
+			world.logAction(this, performer, target, args, performer.getProperty(Constants.NAME) + " fails to unlock " + target.getProperty(Constants.NAME));
 		}
 		
 		SkillUtils.useSkill(performer, Constants.THIEVERY_SKILL, world.getWorldStateChangedListeners());
