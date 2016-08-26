@@ -46,6 +46,12 @@ public class LegalActionFactory {
 		LegalAction legalAction = new LegalAction(Actions.BUTCHER_ACTION, new ButcherLegalHandler());
 		legalActions.put(legalAction, Boolean.FALSE);
 		
+		LegalAction unlockUnownedContainerLegalAction = new LegalAction(Actions.UNLOCK_MAGIC_SPELL_ACTION, new UnlockUnownedContainerLegalHandler());
+		legalActions.put(unlockUnownedContainerLegalAction, Boolean.FALSE);
+		
+		unlockUnownedContainerLegalAction = new LegalAction(Actions.OPEN_LOCK_ACTION, new UnlockUnownedContainerLegalHandler());
+		legalActions.put(unlockUnownedContainerLegalAction, Boolean.FALSE);
+		
 		return new LegalActions(legalActions);
 	}
 }

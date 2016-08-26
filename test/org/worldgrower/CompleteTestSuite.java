@@ -19,6 +19,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 import org.worldgrower.actions.*;
 import org.worldgrower.actions.legal.UTestButcherLegalHandler;
+import org.worldgrower.actions.legal.UTestUnlockUnownedContainerLegalHandler;
 import org.worldgrower.actions.legal.UTestWorshipDeityLegalHandler;
 import org.worldgrower.actions.magic.UTestAnimalFriendshipSpellAction;
 import org.worldgrower.actions.magic.UTestAnimateDeadAction;
@@ -727,7 +728,8 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestScytheGoal.class,
 	UTestWoodCuttingToolGoal.class,
 	UTestMarkSmithAsSellableGoal.class,
-	UTestConstructLockpickAction.class
+	UTestConstructLockpickAction.class,
+	UTestUnlockUnownedContainerLegalHandler.class
 })
 public class CompleteTestSuite {
 }
