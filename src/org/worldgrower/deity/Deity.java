@@ -23,8 +23,11 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.SkillProperty;
+import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
@@ -41,7 +44,6 @@ public interface Deity extends Serializable {
 	public int getReasonIndex(WorldObject performer, World world);
 	public void onTurn(World world, WorldStateChangedListeners creatureTypeChangedListeners);
 	public ImageIds getStatueImageId();
-	public void worship(WorldObject performer, WorldObject target, int worshipCount, World world);
 	
 	public static final Demeter DEMETER = new Demeter();
 	public static final Hephaestus HEPHAESTUS = new Hephaestus();
@@ -130,6 +132,13 @@ public interface Deity extends Serializable {
 			}
 		}
 		throw new IllegalStateException("deity " + deityName + " not found in " + ALL_DEITIES);
-	
 	}
+	
+	public default void worship(WorldObject performer, WorldObject target, int worshipCount, World world) {
+		if (worshipCount == 5) {
+			SkillUtils.useSkill(performer, getSkill(), 30, world.getWorldStateChangedListeners());
+		}
+	}
+	
+	public abstract SkillProperty getSkill();
 }
