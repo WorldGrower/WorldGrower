@@ -23,9 +23,11 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.condition.WorldStateChangedListeners;
@@ -137,6 +139,7 @@ public interface Deity extends Serializable {
 	public default void worship(WorldObject performer, WorldObject target, int worshipCount, World world) {
 		if (worshipCount == 5) {
 			SkillUtils.useSkill(performer, getSkill(), 30, world.getWorldStateChangedListeners());
+			world.logAction(Actions.WORSHIP_DEITY_ACTION, performer, target, Args.EMPTY, performer.getProperty(Constants.NAME) + " gains a boost to " + getSkill().getName() + " skill due to worship.");
 		}
 	}
 	
