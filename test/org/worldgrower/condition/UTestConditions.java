@@ -168,4 +168,14 @@ public class UTestConditions {
 		
 		assertEquals(Arrays.asList("an enlarged creature deals more damage with physical attacks"), conditions.getLongerDescriptions());
 	}
+	
+	@Test
+	public void testShouldAddCondition() {
+		Conditions conditions = new Conditions();
+		World world = new WorldImpl(1, 1, null, null);
+		assertEquals(true, conditions.shouldAddCondition(Condition.VAMPIRE_BITE_CONDITION));
+		
+		conditions.addCondition(null, Condition.DISEASE_IMMUNITY_CONDITION, 8, world);
+		assertEquals(false, conditions.shouldAddCondition(Condition.VAMPIRE_BITE_CONDITION));
+	}
 }

@@ -37,8 +37,23 @@ public class Conditions implements Serializable {
 	private final Map<Condition, ConditionInfo> conditions = new LinkedHashMap<>();
 	
 	void addCondition(WorldObject worldObject, Condition condition, int turns, World world) {
-		conditions.put(condition, new ConditionInfo(turns, world.getCurrentTurn().getValue()));
-		conditionGained(worldObject, condition, world.getWorldStateChangedListeners());
+		final boolean add = shouldAddCondition(condition);
+			
+		if (add) {
+			conditions.put(condition, new ConditionInfo(turns, world.getCurrentTurn().getValue()));
+			conditionGained(worldObject, condition, world.getWorldStateChangedListeners());
+		}
+	}
+
+	boolean shouldAddCondition(Condition condition) {
+		final boolean add;
+		boolean hasDiseaseImmunity = hasCondition(Condition.DISEASE_IMMUNITY_CONDITION);
+		if (hasDiseaseImmunity) {
+			add = !condition.isDisease();
+		} else {
+			add = true;
+		}
+		return add;
 	}
 	
 	private void removeConditionFromWorldObject(WorldObject worldObject, Condition condition, WorldStateChangedListeners worldStateChangedListeners, World world) {

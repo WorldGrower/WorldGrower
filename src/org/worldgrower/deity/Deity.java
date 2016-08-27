@@ -30,6 +30,8 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.Conditions;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
@@ -140,6 +142,9 @@ public interface Deity extends Serializable {
 		if (worshipCount == 5) {
 			SkillUtils.useSkill(performer, getSkill(), 30, world.getWorldStateChangedListeners());
 			world.logAction(Actions.WORSHIP_DEITY_ACTION, performer, target, Args.EMPTY, performer.getProperty(Constants.NAME) + " gains a boost to " + getSkill().getName() + " skill due to worship.");
+		} else if (worshipCount == 20) {
+			Conditions.add(performer, Condition.DISEASE_IMMUNITY_CONDITION, Integer.MAX_VALUE, world);
+			world.logAction(Actions.WORSHIP_DEITY_ACTION, performer, target, Args.EMPTY, performer.getProperty(Constants.NAME) + " gains immunity to disease due to worship.");
 		}
 	}
 	

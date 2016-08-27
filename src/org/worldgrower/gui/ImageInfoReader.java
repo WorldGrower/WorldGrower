@@ -573,7 +573,7 @@ public class ImageInfoReader {
         
         add(ImageIds.LOCKPICK, sprites420.getSubImage(8, 16, 1, 1));
         createAnimation(ImageIds.LOCKPICK_ANIMATION, ImageIds.LOCKPICK, 10);
-
+        add(ImageIds.DISEASE_IMMUNITY_CONDITION, sprites420.getSubImage(2, 15, 1, 1));
     }
     
     private void createAnimation(ImageIds animationImageId, ImageIds imageId, int numberOfFrames) {
