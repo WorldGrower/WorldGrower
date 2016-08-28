@@ -71,6 +71,7 @@ import org.worldgrower.actions.magic.SilenceMagicAction;
 import org.worldgrower.actions.magic.SleepMagicSpellAction;
 import org.worldgrower.actions.magic.SoulTrapAction;
 import org.worldgrower.actions.magic.TrapContainerMagicSpellAction;
+import org.worldgrower.actions.magic.TurnUndeadAction;
 import org.worldgrower.actions.magic.UnlockMagicSpellAction;
 import org.worldgrower.actions.magic.WaterWalkAction;
 import org.worldgrower.attribute.IntProperty;
@@ -174,6 +175,7 @@ public class Actions {
 	public static final DimensionDoorAction DIMENSION_DOOR_ACTION = new DimensionDoorAction();
 	public static final SecretChestAction SECRET_CHEST_ACTION = new SecretChestAction();
 	public static final SacredFlameAttackAction SACRED_FLAME_ATTACK_ACTION = new SacredFlameAttackAction();
+	public static final TurnUndeadAction TURN_UNDEAD_ACTION = new TurnUndeadAction();
 	
 	public static final BuildLibraryAction BUILD_LIBRARY_ACTION = new BuildLibraryAction();
 	public static final ResearchRestorationSkillAction RESEARCH_RESTORATION_SKILL_ACTION = new ResearchRestorationSkillAction();
@@ -319,7 +321,8 @@ public class Actions {
 			ANIMAL_FRIENDSHIP_SPELL_ACTION,
 			FIRE_BALL_ATTACK_ACTION,
 			MAJOR_ILLUSION_ACTION,
-			SACRED_FLAME_ATTACK_ACTION
+			SACRED_FLAME_ATTACK_ACTION,
+			TURN_UNDEAD_ACTION
 			);
 	
 	private static final List<InventoryAction> INVENTORY_ACTIONS = Arrays.asList(

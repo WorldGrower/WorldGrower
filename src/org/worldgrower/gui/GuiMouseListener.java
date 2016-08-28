@@ -465,8 +465,9 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 	
 	private void addRestorationActions(JPopupMenu menu) {
-		MagicSpell[] restorationActions = { Actions.MINOR_HEAL_ACTION, Actions.CURE_DISEASE_ACTION, Actions.CURE_POISON_ACTION, Actions.DISPEL_MAGIC_ACTION, Actions.SILENCE_MAGIC_ACTION };
-		addActions(menu, skillImageIds.getImageFor(Constants.RESTORATION_SKILL), "Restoration", restorationActions);
+		MagicSpell[] restorationActions = { Actions.MINOR_HEAL_ACTION, Actions.CURE_DISEASE_ACTION, Actions.CURE_POISON_ACTION };
+		JMenu restorationMenu = addActions(menu, skillImageIds.getImageFor(Constants.RESTORATION_SKILL), "Restoration", restorationActions);
+		addBuildAction(restorationMenu, Actions.TURN_UNDEAD_ACTION, startBuildMode());
 	}
 	
 	private void addTransmutationActions(JPopupMenu menu) {
@@ -475,7 +476,7 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 	
 	private void addEvocationActions(JPopupMenu menu) {
-		MagicSpell[] actions = { Actions.DETECT_MAGIC_ACTION, Actions.DETECT_POISON_AND_DISEASE_ACTION };
+		MagicSpell[] actions = { Actions.DETECT_MAGIC_ACTION, Actions.DETECT_POISON_AND_DISEASE_ACTION, Actions.DISPEL_MAGIC_ACTION, Actions.SILENCE_MAGIC_ACTION };
 		JMenu evocationMenu = addActions(menu, skillImageIds.getImageFor(Constants.EVOCATION_SKILL), "Evocation", actions);
 		addBuildAction(evocationMenu, Actions.FIRE_TRAP_ACTION, startBuildMode());
 		addBuildAction(evocationMenu, Actions.ENTANGLE_ACTION, startBuildMode());

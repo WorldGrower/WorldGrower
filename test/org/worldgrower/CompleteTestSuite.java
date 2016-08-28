@@ -62,6 +62,7 @@ import org.worldgrower.actions.magic.UTestSilenceMagicAction;
 import org.worldgrower.actions.magic.UTestSleepMagicAction;
 import org.worldgrower.actions.magic.UTestSoulTrapAction;
 import org.worldgrower.actions.magic.UTestTrapContainerMagicSpellAction;
+import org.worldgrower.actions.magic.UTestTurnUndeadAction;
 import org.worldgrower.actions.magic.UTestUnlockMagicSpellAction;
 import org.worldgrower.actions.magic.UTestWaterWalkAction;
 import org.worldgrower.attribute.UTestIdList;
@@ -730,7 +731,8 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestMarkSmithAsSellableGoal.class,
 	UTestConstructLockpickAction.class,
 	UTestUnlockUnownedContainerLegalHandler.class,
-	UTestOpenLockAction.class
+	UTestOpenLockAction.class,
+	UTestTurnUndeadAction.class
 })
 public class CompleteTestSuite {
 }
