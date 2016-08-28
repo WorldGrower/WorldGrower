@@ -14,6 +14,8 @@
  *******************************************************************************/
 package org.worldgrower.gui.util;
 
+import java.util.Arrays;
+
 import javax.swing.JComboBox;
 
 import org.worldgrower.gui.ColorPalette;
@@ -30,6 +32,13 @@ public class JComboBoxFactory {
 	public static<T> JComboBox<T> createJComboBox(T[] values) {
 		JComboBox<T> comboBox = new JComboBox<T>(values);
 		setComboBoxProperties(comboBox);
+		return comboBox;
+	}
+	
+	public static<T> JComboBox<T> createJComboBox(T[] values, String[] tooltips) {
+		JComboBox<T> comboBox = new JComboBox<T>(values);
+		setComboBoxProperties(comboBox);
+		comboBox.setRenderer(new ComboboxToolTipRenderer(Arrays.asList(tooltips)));
 		return comboBox;
 	}
 

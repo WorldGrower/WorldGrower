@@ -138,6 +138,14 @@ public interface Deity extends Serializable {
 		throw new IllegalStateException("deity " + deityName + " not found in " + ALL_DEITIES);
 	}
 	
+	public static List<String> getAllDeityExplanations() {
+		List<String> deityDescriptions = new ArrayList<>();
+		for(Deity deity : ALL_DEITIES) {
+			deityDescriptions.add(deity.getExplanation());
+		}
+		return deityDescriptions;
+	}
+	
 	public default void worship(WorldObject performer, WorldObject target, int worshipCount, World world) {
 		if (worshipCount == 5) {
 			SkillUtils.useSkill(performer, getSkill(), 30, world.getWorldStateChangedListeners());
