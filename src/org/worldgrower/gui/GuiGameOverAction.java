@@ -15,6 +15,7 @@
 package org.worldgrower.gui;
 
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
@@ -38,6 +39,8 @@ public class GuiGameOverAction implements ManagedOperationListener {
 	private KeyBindings keyBindings;
 	private JFrame parentFrame;
 	
+	private boolean gameOver = false;
+	
 	public GuiGameOverAction(WorldObject playerCharacter, World world, WorldPanel container, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, MusicPlayer musicPlayer, KeyBindings keyBindings, JFrame parentFrame) {
 		super();
 		this.playerCharacter = playerCharacter;
@@ -54,11 +57,21 @@ public class GuiGameOverAction implements ManagedOperationListener {
 
 	@Override
 	public void actionPerformed(ManagedOperation managedOperation, WorldObject performer, WorldObject target, int[] args, Object value) {
-		if (playerCharacter.getProperty(Constants.HIT_POINTS) <= 0) {
+		if (playerCharacter.getProperty(Constants.HIT_POINTS) <= 0 && !gameOver) {
+			gameOver = true;
 			String text = "Your hit points are reduced to zero, the game is over";			
 			new ShowTextDialog(text, soundIdReader, parentFrame).showMe();
 			Game.closeMainPanel();
-			new ShowStartScreenAction(container, imageInfoReader, soundIdReader, musicPlayer, keyBindings, world, parentFrame).actionPerformed(null);
+			SwingUtilities.invokeLater(new Runnable() {
+
+				@Override
+				public void run() {
+					new ShowStartScreenAction(container, imageInfoReader, soundIdReader, musicPlayer, keyBindings, world, null).actionPerformed(null);
+					
+				}
+				
+			});
+			
 		}
 	}
 }
