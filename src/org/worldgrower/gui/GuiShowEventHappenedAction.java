@@ -83,12 +83,14 @@ public class GuiShowEventHappenedAction implements WorldStateChangedListener {
 		if (worldObject.equals(playerCharacter)) {
 			String description = "You have been thrown out of the following groups:\n";
 			List<Integer> thrownOutGroups = oldGroup.getIdsNotPresentInOther(newGroup);
-			for(int groupId : thrownOutGroups) {
-				WorldObject organization = world.findWorldObjectById(groupId);
-				description += organization.getProperty(Constants.NAME) + "\n";
+			if (thrownOutGroups.size() > 0) {
+				for(int groupId : thrownOutGroups) {
+					WorldObject organization = world.findWorldObjectById(groupId);
+					description += organization.getProperty(Constants.NAME) + "\n";
+				}
+				
+				MessageDialogUtils.showMessage(description, "Thrown out of group(s)", playerCharacter, container, imageInfoReader);
 			}
-			
-			MessageDialogUtils.showMessage(description, "Thrown out of group(s)", playerCharacter, container, imageInfoReader);
 		}
 	}
 
