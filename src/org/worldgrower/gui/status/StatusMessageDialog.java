@@ -43,6 +43,7 @@ public class StatusMessageDialog extends AbstractDialog {
 		JList<String> list = JListFactory.createJList(statusMessages.toArray(new String[0]));
 		list.setSelectedIndex(statusMessages.size() - 1);
 		scrollPane.setViewportView(list);
+		list.ensureIndexIsVisible(list.getSelectedIndex());
 		
 		JPanel buttonPane = new JPanel();
 		buttonPane.setLayout(new BorderLayout());
