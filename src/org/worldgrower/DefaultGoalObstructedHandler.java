@@ -19,6 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.worldgrower.actions.Actions;
+import org.worldgrower.actions.AnimatedAction;
 import org.worldgrower.actions.legal.LegalActions;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.condition.Condition;
@@ -214,16 +215,29 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 	
 	@Override
 	public void checkLegality(WorldObject performer, WorldObject target, ManagedOperation managedOperation, int[] args, World world) {
-		if (!isLegal(performer, target, managedOperation, args, world)) {
-			WorldObject performerFacade = FacadeUtils.createFacade(performer, performer, target, world);
-			//WorldObject targetFacade = FacadeUtils.createFacade(target, performer, target, world);
-			
-			if (performerAttacked(managedOperation)) {
-				throwOutOfGroup(performer, target, target, args, managedOperation, world, performerFacade);
+		final List<WorldObject> affectedTargets = getAffectedTargets(target, managedOperation, world);
+		for(WorldObject affectedTarget : affectedTargets) {
+			if (!isLegal(performer, affectedTarget, managedOperation, args, world)) {
+				WorldObject performerFacade = FacadeUtils.createFacade(performer, performer, affectedTarget, world);
+				//WorldObject targetFacade = FacadeUtils.createFacade(target, performer, target, world);
+				
+				if (performerAttacked(managedOperation)) {
+					throwOutOfGroup(performer, affectedTarget, affectedTarget, args, managedOperation, world, performerFacade);
+				}
+				int bounty = calculateBounty(managedOperation);
+				GroupPropertyUtils.getVillagersOrganization(world).getProperty(Constants.BOUNTY).incrementValue(performerFacade, bounty);
 			}
-			int bounty = calculateBounty(managedOperation);
-			GroupPropertyUtils.getVillagersOrganization(world).getProperty(Constants.BOUNTY).incrementValue(performerFacade, bounty);
 		}
+	}
+
+	private List<WorldObject> getAffectedTargets(WorldObject target, ManagedOperation managedOperation, World world) {
+		final List<WorldObject> affectedTargets;
+		if (target.hasProperty(Constants.ID)) {
+			affectedTargets = Arrays.asList(target);
+		} else {
+			affectedTargets = ((AnimatedAction) managedOperation).getAffectedTargets(target, world);
+		}
+		return affectedTargets;
 	}
 
 	public static boolean isLegallyFighting(WorldObject performer, WorldObject target, ManagedOperation managedOperation) {
