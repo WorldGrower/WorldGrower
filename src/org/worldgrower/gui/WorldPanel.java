@@ -26,7 +26,6 @@ import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.event.MouseMotionListener;
@@ -34,29 +33,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JProgressBar;
-import javax.swing.JTextPane;
 import javax.swing.KeyStroke;
-import javax.swing.SpringLayout;
 import javax.swing.SwingUtilities;
 import javax.swing.ToolTipManager;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.Style;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyledDocument;
 
 import org.worldgrower.Constants;
 import org.worldgrower.CreaturePositionCondition;
 import org.worldgrower.DungeonMaster;
-import org.worldgrower.LogMessage;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.ManagedOperationListener;
 import org.worldgrower.OperationInfo;
-import org.worldgrower.TargetKnowsAction;
 import org.worldgrower.World;
 import org.worldgrower.WorldFacade;
 import org.worldgrower.WorldObject;
@@ -65,7 +53,6 @@ import org.worldgrower.attribute.LookDirection;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.WorldStateChangedListener;
 import org.worldgrower.condition.WorldStateChangedListeners;
-import org.worldgrower.goal.EnergyPropertyUtils;
 import org.worldgrower.gui.conversation.GuiRespondToQuestion;
 import org.worldgrower.gui.conversation.GuiShowBrawlResult;
 import org.worldgrower.gui.conversation.GuiShowDrinkingContestResult;
@@ -74,16 +61,9 @@ import org.worldgrower.gui.music.MusicPlayer;
 import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.music.SoundIds;
 import org.worldgrower.gui.start.KeyBindings;
-import org.worldgrower.gui.status.StatusMessageDialog;
-import org.worldgrower.gui.util.JLabelFactory;
-import org.worldgrower.gui.util.JTextPaneFactory;
 
-public final class WorldPanel extends JPanel {
+public final class WorldPanel extends JPanel implements ImageFactory {
 
-	private static final String ENERGY_TOOL_TIP = "energy";
-	private static final String WATER_TOOL_TIP = "water";
-	private static final String FOOD_TOOL_TIP = "food";
-	private static final String HIT_POINTS_TOOL_TIP = "hit points";
 	private WorldObject playerCharacter;
 	private World world;
 	private final ImageInfoReader imageInfoReader;
@@ -95,11 +75,7 @@ public final class WorldPanel extends JPanel {
 	private int offsetX = 0;
 	private int offsetY = 0;
 	
-	private JTextPane messageTextPane;
-	private JProgressBar hitPointsProgressBar;
-	private JProgressBar foodTextProgressBar;
-	private JProgressBar waterProgressBar;
-	private JProgressBar energyProgressBar;
+	private final InfoPanel infoPanel;
 	
 	private BuildModeOutline buildModeOutline = new BuildModeOutline();
 	private MouseMotionListener mouseMotionListener;
@@ -109,8 +85,6 @@ public final class WorldPanel extends JPanel {
 	private final BackgroundPainter backgroundPainter;
 	private final KeyBindings keyBindings;
 	private final JFrame parentFrame;
-	
-	private final List<String> statusMessages = new ArrayList<>();
 	
     public WorldPanel(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, MusicPlayer musicPlayer, String initialStatusMessage, KeyBindings keyBindings, JFrame parentFrame) throws IOException {
         super(new BorderLayout());
@@ -137,77 +111,11 @@ public final class WorldPanel extends JPanel {
         
         initializeKeyBindings(playerCharacter, world, dungeonMaster, parentFrame);
         
-        JPanel infoPanel = new JPanel(new BorderLayout());
-        infoPanel.setBackground(Color.RED);
-        SpringLayout layout = new SpringLayout();
-		infoPanel.setLayout(layout);
-		makeUnfocussable(infoPanel);
+        this.infoPanel = new InfoPanel(playerCharacter, world, soundIdReader, initialStatusMessage, parentFrame, this);
         
-        messageTextPane = JTextPaneFactory.createJTextPane();
-        messageTextPane.setEditable(false);
-        
-        int messageWidth = 600;
-        int messageHeight = 70;
-        messageTextPane.setMinimumSize(new Dimension(messageWidth, messageHeight));
-        messageTextPane.setPreferredSize(new Dimension(messageWidth, messageHeight));
-        setStatusMessage(initialStatusMessage);
-        messageTextPane.setToolTipText("This area displays messages like combat or dialogues. Click to show previous messages.");
-        makeUnfocussable(messageTextPane);
-        world.addListener(new MessageManagedOperationListener());
-        messageTextPane.addMouseListener(new MessageTextAreaMouseListener());
-        
-        hitPointsProgressBar = new JProgressBar(JProgressBar.VERTICAL, 0, playerCharacter.getProperty(Constants.HIT_POINTS_MAX));
-        hitPointsProgressBar.setBackground(Color.BLACK);
-        hitPointsProgressBar.setForeground(Color.RED);
-        hitPointsProgressBar.setToolTipText(HIT_POINTS_TOOL_TIP);
-        makeUnfocussable(hitPointsProgressBar);
-        
-        infoPanel.add(hitPointsProgressBar);
-        layout.putConstraint(SpringLayout.WEST, hitPointsProgressBar, 0, SpringLayout.EAST, messageTextPane);
-        layout.putConstraint(SpringLayout.NORTH, hitPointsProgressBar, 0, SpringLayout.NORTH, messageTextPane);
-        layout.putConstraint(SpringLayout.SOUTH, hitPointsProgressBar, 0, SpringLayout.SOUTH, messageTextPane);
-        
-        foodTextProgressBar = new JProgressBar(JProgressBar.VERTICAL, 0, 1000);
-        foodTextProgressBar.setBackground(Color.BLACK);
-        foodTextProgressBar.setForeground(Color.YELLOW);
-        foodTextProgressBar.setToolTipText(FOOD_TOOL_TIP);
-        makeUnfocussable(foodTextProgressBar);
-        
-        infoPanel.add(foodTextProgressBar);
-        layout.putConstraint(SpringLayout.WEST, foodTextProgressBar, 0, SpringLayout.EAST, hitPointsProgressBar);
-        layout.putConstraint(SpringLayout.NORTH, foodTextProgressBar, 0, SpringLayout.NORTH, hitPointsProgressBar);
-        layout.putConstraint(SpringLayout.SOUTH, foodTextProgressBar, 0, SpringLayout.SOUTH, messageTextPane);
-        
-        waterProgressBar = new JProgressBar(JProgressBar.VERTICAL, 0, 1000);
-        waterProgressBar.setBackground(Color.BLACK);
-        waterProgressBar.setForeground(Color.BLUE);
-        waterProgressBar.setToolTipText(WATER_TOOL_TIP);
-        makeUnfocussable(waterProgressBar);
-        
-        infoPanel.add(waterProgressBar);
-        layout.putConstraint(SpringLayout.WEST, waterProgressBar, 0, SpringLayout.EAST, foodTextProgressBar);
-        layout.putConstraint(SpringLayout.NORTH, waterProgressBar, 0, SpringLayout.NORTH, foodTextProgressBar);
-        layout.putConstraint(SpringLayout.SOUTH, waterProgressBar, 0, SpringLayout.SOUTH, messageTextPane);
-
-        energyProgressBar = new JProgressBar(JProgressBar.VERTICAL, 0, EnergyPropertyUtils.calculateEnergyMax(playerCharacter));
-        energyProgressBar.setBackground(Color.BLACK);
-        energyProgressBar.setForeground(Color.GREEN);
-        energyProgressBar.setToolTipText(ENERGY_TOOL_TIP);
-        makeUnfocussable(energyProgressBar);
-        
-        infoPanel.add(energyProgressBar);
-        layout.putConstraint(SpringLayout.WEST, energyProgressBar, 0, SpringLayout.EAST, waterProgressBar);
-        layout.putConstraint(SpringLayout.NORTH, energyProgressBar, 0, SpringLayout.NORTH, waterProgressBar);
-        layout.putConstraint(SpringLayout.SOUTH, energyProgressBar, 0, SpringLayout.SOUTH, messageTextPane);
-
-        infoPanel.add(messageTextPane);
-        layout.putConstraint(SpringLayout.WEST, messageTextPane, 0, SpringLayout.WEST, infoPanel);
-        layout.putConstraint(SpringLayout.NORTH, messageTextPane, 0, SpringLayout.NORTH, infoPanel);
         
         add(infoPanel, BorderLayout.SOUTH);
         
-        layout.putConstraint(SpringLayout.EAST, infoPanel, 0, SpringLayout.EAST, energyProgressBar);
-        layout.putConstraint(SpringLayout.SOUTH, infoPanel, 0, SpringLayout.SOUTH, messageTextPane);
         
         this.playerCharacter = playerCharacter;
         this.world = world;
@@ -257,73 +165,20 @@ public final class WorldPanel extends JPanel {
 		getActionMap().put("Cancel", new CancelBuildModeAction(this));
 	}
     
-    private class MessageManagedOperationListener implements ManagedOperationListener {
-
-		@Override
-		public void actionPerformed(ManagedOperation managedOperation, WorldObject performer, WorldObject target, int[] args, Object message) {
-			if (performer.equals(playerCharacter) || target.equals(playerCharacter)) {
-				if (message instanceof String) {
-					if (target.equals(playerCharacter)) {
-						setStatusMessage(getImage(performer), (String) message);
-					} else {
-						setStatusMessage(getImage(target), (String) message);
-					}
-				} else if (message instanceof LogMessage) {
-					LogMessage logMessage = (LogMessage) message;
-					if (target.equals(playerCharacter)) {
-						if (logMessage.getTargetKnowsAction() == TargetKnowsAction.TRUE) {
-							setStatusMessage(getImage(performer), logMessage.getMessage());
-						}
-					} else {
-						setStatusMessage(getImage(target), logMessage.getMessage());
-					}
-				}
-			}
-		}
-    }
-    
     public void initializeKeyBindings() {
     	guiMouseListener.initializeKeyBindings();
     }
     
     public void setStatusMessage(String message) {
-    	statusMessages.add(message);
-    	messageTextPane.setText(message);
+    	infoPanel.setStatusMessage(message);
     }
     
     public void setStatusMessage(Image image, String message) {
-    	statusMessages.add(message);
-
-    	messageTextPane.setText("");
-    	StyledDocument document = (StyledDocument)messageTextPane.getDocument();
-    	
-        try {
-			JLabel jl  = JLabelFactory.createJLabel(message, image);
-			String styleName = "style";
-			Style textStyle = document.addStyle(styleName, null);
-		    StyleConstants.setComponent(textStyle, jl);
-
-		    document.insertString(document.getLength(), " ", document.getStyle(styleName));
-		} catch (BadLocationException e) {
-			throw new IllegalStateException(e);
-		}
-    }
-    
-    private void makeUnfocussable(JComponent component) {
-    	component.setRequestFocusEnabled(false);
-    	component.setFocusable(false);
-    }
-    
-    private class MessageTextAreaMouseListener extends MouseAdapter {
-
-		@Override
-		public void mouseClicked(MouseEvent event) {
-			showStatusMessageDialog();
-		}
+    	infoPanel.setStatusMessage(image, message);
     }
     
     public void showStatusMessageDialog() {
-    	new StatusMessageDialog(statusMessages, soundIdReader, parentFrame).showMe();
+    	infoPanel.showStatusMessageDialog();
     }
     
     @Override
@@ -338,21 +193,10 @@ public final class WorldPanel extends JPanel {
 		
 		showHitPointsOfPlayerCharacterTarget(g);
 		
-		hitPointsProgressBar.setValue(playerCharacter.getProperty(Constants.HIT_POINTS));
-		foodTextProgressBar.setValue(playerCharacter.getProperty(Constants.FOOD));
-		waterProgressBar.setValue(playerCharacter.getProperty(Constants.WATER));
-		energyProgressBar.setValue(playerCharacter.getProperty(Constants.ENERGY));
 		buildModeOutline.repaintBuildMode(g, getMouseLocation(), offsetX, offsetY, playerCharacter, world);
-		updateToolTips();
+		infoPanel.updatePlayerCharacterValues();
     }
     
-    private void updateToolTips() {
-    	hitPointsProgressBar.setToolTipText(HIT_POINTS_TOOL_TIP + " " + playerCharacter.getProperty(Constants.HIT_POINTS) + "/" + playerCharacter.getProperty(Constants.HIT_POINTS_MAX));
-		foodTextProgressBar.setToolTipText(FOOD_TOOL_TIP + " " + playerCharacter.getProperty(Constants.FOOD) + "/1000");
-		waterProgressBar.setToolTipText(WATER_TOOL_TIP + " " + playerCharacter.getProperty(Constants.WATER) + "/1000");
-		energyProgressBar.setToolTipText(ENERGY_TOOL_TIP + " " + playerCharacter.getProperty(Constants.ENERGY) + "/" + EnergyPropertyUtils.calculateEnergyMax(playerCharacter));
-    }
-
 	private void paintStaticWorldObjects(Graphics g) {
 		List<WorldObject> worldObjects = world.getWorldObjects();
 		for(WorldObject worldObject : new ArrayList<>(worldObjects)) {
@@ -474,7 +318,8 @@ public final class WorldPanel extends JPanel {
 		}
 	}
 	
-	private Image getImage(WorldObject worldObject) {
+	@Override
+	public Image getImage(WorldObject worldObject) {
 		ImageIds imageId = getImageId(worldObject);
 		return imageInfoReader.getImage(imageId, null);
 	}
