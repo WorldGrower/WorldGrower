@@ -46,6 +46,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.goal.EnergyPropertyUtils;
 import org.worldgrower.gui.music.SoundIdReader;
+import org.worldgrower.gui.status.StatusMessage;
 import org.worldgrower.gui.status.StatusMessageDialog;
 import org.worldgrower.gui.util.JLabelFactory;
 import org.worldgrower.gui.util.JTextPaneFactory;
@@ -68,7 +69,7 @@ public final class InfoPanel extends JPanel {
 	private final JProgressBar waterProgressBar;
 	private final JProgressBar energyProgressBar;
 	
-	private final List<String> statusMessages = new ArrayList<>();
+	private final List<StatusMessage> statusMessages = new ArrayList<>();
 	
     public InfoPanel(WorldObject playerCharacter, World world, SoundIdReader soundIdReader, String initialStatusMessage, JFrame parentFrame, ImageFactory imageFactory) throws IOException {
         super(new BorderLayout());
@@ -174,12 +175,12 @@ public final class InfoPanel extends JPanel {
     }
     
     public void setStatusMessage(String message) {
-    	statusMessages.add(message);
+    	statusMessages.add(new StatusMessage(null, message));
     	messageTextPane.setText(message);
     }
     
     public void setStatusMessage(Image image, String message) {
-    	statusMessages.add(message);
+    	statusMessages.add(new StatusMessage(image, message));
 
     	messageTextPane.setText("");
     	StyledDocument document = (StyledDocument)messageTextPane.getDocument();

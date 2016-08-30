@@ -33,15 +33,16 @@ import org.worldgrower.gui.util.JListFactory;
 
 public class StatusMessageDialog extends AbstractDialog {
 
-	public StatusMessageDialog(List<String> statusMessages, SoundIdReader soundIdReader, JFrame parentFrame) {
+	public StatusMessageDialog(List<StatusMessage> statusMessages, SoundIdReader soundIdReader, JFrame parentFrame) {
 		super(700, 475);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(16, 16, 665, 380);
 		addComponent(scrollPane);
 		
-		JList<String> list = JListFactory.createJList(statusMessages.toArray(new String[0]));
+		JList<StatusMessage> list = JListFactory.createJList(statusMessages.toArray(new StatusMessage[0]));
 		list.setSelectedIndex(statusMessages.size() - 1);
+		list.setCellRenderer(new StatusMessageListRenderer());
 		scrollPane.setViewportView(list);
 		list.ensureIndexIsVisible(list.getSelectedIndex());
 		
@@ -64,7 +65,7 @@ public class StatusMessageDialog extends AbstractDialog {
 		setVisible(true);
 	}
 
-	private void addActions(JList<String> list, JButton okButton) {
+	private void addActions(JList<StatusMessage> list, JButton okButton) {
 		okButton.addActionListener(new ActionListener() {
 			
 			@Override
