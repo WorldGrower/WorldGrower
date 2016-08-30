@@ -234,8 +234,11 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 		final List<WorldObject> affectedTargets;
 		if (target.hasProperty(Constants.ID)) {
 			affectedTargets = Arrays.asList(target);
-		} else {
+		//TODO: AnimatedAction shouldn't be used
+		} else if (managedOperation instanceof AnimatedAction){
 			affectedTargets = ((AnimatedAction) managedOperation).getAffectedTargets(target, world);
+		} else {
+			affectedTargets = Arrays.asList(target);
 		}
 		return affectedTargets;
 	}
