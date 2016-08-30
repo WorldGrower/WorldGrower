@@ -68,7 +68,7 @@ public class GuiShowDrinkingContestResult implements DrinkingContestFinishedList
 		}
 		
 		if (!target.isControlledByAI()) {
-			container.setStatusMessage(performerIcon, responses[0]);
+			container.setStatusMessage(IconUtils.getWorldObjectImage(performer, imageInfoReader), responses[0]);
 		}
 		
 	}

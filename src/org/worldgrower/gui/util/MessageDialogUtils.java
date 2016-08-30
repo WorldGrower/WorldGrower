@@ -14,8 +14,7 @@
  *******************************************************************************/
 package org.worldgrower.gui.util;
 
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
+import java.awt.Image;
 
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
@@ -27,7 +26,7 @@ public class MessageDialogUtils {
 
 	public static void showMessage(String text, String title, WorldObject target, WorldPanel container, ImageInfoReader imageInfoReader) {
 		ImageIds imageIdTarget = target.getProperty(Constants.IMAGE_ID);
-		Icon targetIcon = new ImageIcon(imageInfoReader.getImage(imageIdTarget, null));
+		Image targetIcon = imageInfoReader.getImage(imageIdTarget, null);
 		container.setStatusMessage(targetIcon, text);
 	}
 }

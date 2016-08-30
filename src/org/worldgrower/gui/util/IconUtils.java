@@ -75,10 +75,13 @@ public class IconUtils {
 		return new ImageIcon(MOUSE_ICON);
 	}
 	
-	public static Icon getWorldObjectIcon(WorldObject performer, ImageInfoReader imageInfoReader) {
+	public static Image getWorldObjectImage(WorldObject performer, ImageInfoReader imageInfoReader) {
 		ImageIds performerImageIds = performer.getProperty(Constants.IMAGE_ID);
-		Icon performerIcon = new ImageIcon(imageInfoReader.getImage(performerImageIds, null));
-		return performerIcon;
+		return imageInfoReader.getImage(performerImageIds, null);
+	}
+	
+	public static Icon getWorldObjectIcon(WorldObject performer, ImageInfoReader imageInfoReader) {
+		return new ImageIcon(getWorldObjectImage(performer, imageInfoReader));
 	}
 
 	public static ImageIcon getControlsIcon() {
