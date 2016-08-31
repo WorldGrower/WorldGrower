@@ -17,7 +17,6 @@ package org.worldgrower.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -59,6 +58,7 @@ public final class InfoPanel extends JPanel {
 	private static final String HIT_POINTS_TOOL_TIP = "hit points";
 	
 	private final WorldObject playerCharacter;
+	private final World world;
 	private final JFrame parentFrame;
 	private final SoundIdReader soundIdReader;
 	private final ImageFactory imageFactory;
@@ -70,6 +70,7 @@ public final class InfoPanel extends JPanel {
 	private final JProgressBar energyProgressBar;
 	
 	private final List<StatusMessage> statusMessages = new ArrayList<>();
+	private int lastMessageTurn = -1;
 	
     public InfoPanel(WorldObject playerCharacter, World world, SoundIdReader soundIdReader, String initialStatusMessage, JFrame parentFrame, ImageFactory imageFactory) throws IOException {
         super(new BorderLayout());
@@ -81,6 +82,7 @@ public final class InfoPanel extends JPanel {
 		this.imageFactory = imageFactory;
 		this.soundIdReader = soundIdReader;
 		this.playerCharacter = playerCharacter;
+		this.world = world;
 		this.parentFrame = parentFrame;
 		
         messageTextPane = JTextPaneFactory.createJTextPane();
@@ -175,15 +177,40 @@ public final class InfoPanel extends JPanel {
     }
     
     public void setStatusMessage(String message) {
-    	statusMessages.add(new StatusMessage(null, message));
-    	messageTextPane.setText(message);
+    	int currentTurn = world.getCurrentTurn().getValue();
+    	if (lastMessageTurn == currentTurn) {
+    		appendIconAndText(imageFactory.getMoreMessagesImage(), "More messages...");
+    	} else {
+    		messageTextPane.setText("");
+    		statusMessages.add(new StatusMessage(null, message));
+    		appendText(message);
+    	}
+    	lastMessageTurn = currentTurn;
     }
+
+	void appendText(String message) {
+		StyledDocument document = (StyledDocument)messageTextPane.getDocument();
+    	try {
+			document.insertString(document.getLength(), message, null);
+		} catch (BadLocationException e) {
+			throw new IllegalStateException(e);
+		}
+	}
     
     public void setStatusMessage(Image image, String message) {
-    	statusMessages.add(new StatusMessage(image, message));
+    	int currentTurn = world.getCurrentTurn().getValue();
+    	if (lastMessageTurn == currentTurn) {
+    		appendIconAndText(imageFactory.getMoreMessagesImage(), "More messages...");
+    	} else {
+    		messageTextPane.setText("");
+	    	statusMessages.add(new StatusMessage(image, message));
+	    	appendIconAndText(image, message);
+    	}
+    	lastMessageTurn = currentTurn;
+    }
 
-    	messageTextPane.setText("");
-    	StyledDocument document = (StyledDocument)messageTextPane.getDocument();
+	void appendIconAndText(Image image, String message) {
+		StyledDocument document = (StyledDocument)messageTextPane.getDocument();
     	
         try {
 			JLabel jl  = JLabelFactory.createJLabel(message, image);
@@ -195,7 +222,7 @@ public final class InfoPanel extends JPanel {
 		} catch (BadLocationException e) {
 			throw new IllegalStateException(e);
 		}
-    }
+	}
     
     private void makeUnfocussable(JComponent component) {
     	component.setRequestFocusEnabled(false);

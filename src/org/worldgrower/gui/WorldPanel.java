@@ -527,4 +527,9 @@ public final class WorldPanel extends JPanel implements ImageFactory {
 	public int getRealY(int y) {
 		return y-offsetY;
 	}
+
+	@Override
+	public Image getMoreMessagesImage() {
+		return imageInfoReader.getImage(ImageIds.BOOK, null);
+	}
 }

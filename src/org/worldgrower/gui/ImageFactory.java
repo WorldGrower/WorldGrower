@@ -21,4 +21,5 @@ import org.worldgrower.WorldObject;
 public interface ImageFactory {
 
 	public Image getImage(WorldObject worldObject);
+	public Image getMoreMessagesImage();
 }

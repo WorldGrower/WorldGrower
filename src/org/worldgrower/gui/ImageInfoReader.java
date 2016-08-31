@@ -575,6 +575,7 @@ public class ImageInfoReader {
         createAnimation(ImageIds.LOCKPICK_ANIMATION, ImageIds.LOCKPICK, 10);
         add(ImageIds.DISEASE_IMMUNITY_CONDITION, sprites420.getSubImage(2, 15, 1, 1));
         add(ImageIds.TURN_UNDEAD, sprites420.getSubImage(6, 23, 1, 1));
+        add(ImageIds.BOOK, sprites420.getSubImage(0, 29, 1, 1));
     }
     
     private void createAnimation(ImageIds animationImageId, ImageIds imageId, int numberOfFrames) {
