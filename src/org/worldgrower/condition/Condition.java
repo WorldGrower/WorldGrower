@@ -23,6 +23,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.deity.Deity;
 import org.worldgrower.goal.DeathReasonPropertyUtils;
 import org.worldgrower.gui.ImageIds;
 
@@ -76,6 +77,20 @@ public interface Condition extends Serializable {
 	public static final DarkVisionCondition DARK_VISION_CONDITION = new DarkVisionCondition(ALL_CONDITIONS);
 	public static final TrappedContainerCondition TRAPPED_CONTAINER_CONDITION = new TrappedContainerCondition(ALL_CONDITIONS);
 	public static final DiseaseImmunityCondition DISEASE_IMMUNITY_CONDITION = new DiseaseImmunityCondition(ALL_CONDITIONS);
+	
+	public static final DeityBoonCondition DEMETER_BOON_CONDITION = new DeityBoonCondition(Deity.DEMETER, ALL_CONDITIONS);
+	public static final DeityBoonCondition HEPHAESTUS_BOON_CONDITION = new DeityBoonCondition(Deity.HEPHAESTUS, ALL_CONDITIONS);
+	public static final DeityBoonCondition HADES_BOON_CONDITION = new DeityBoonCondition(Deity.HADES, ALL_CONDITIONS);
+	public static final DeityBoonCondition APHRODITE_BOON_CONDITION = new DeityBoonCondition(Deity.APHRODITE, ALL_CONDITIONS);
+	public static final DeityBoonCondition APOLLO_BOON_CONDITION = new DeityBoonCondition(Deity.APOLLO, ALL_CONDITIONS);
+	public static final DeityBoonCondition DIONYSUS_BOON_CONDITION = new DeityBoonCondition(Deity.DIONYSUS, ALL_CONDITIONS);
+	public static final DeityBoonCondition ARES_BOON_CONDITION = new DeityBoonCondition(Deity.ARES, ALL_CONDITIONS);
+	public static final DeityBoonCondition ARTEMIS_BOON_CONDITION = new DeityBoonCondition(Deity.ARTEMIS, ALL_CONDITIONS);
+	public static final DeityBoonCondition HERMES_BOON_CONDITION = new DeityBoonCondition(Deity.HERMES, ALL_CONDITIONS);
+	public static final DeityBoonCondition ATHENA_BOON_CONDITION = new DeityBoonCondition(Deity.ATHENA, ALL_CONDITIONS);
+	public static final DeityBoonCondition ZEUS_BOON_CONDITION = new DeityBoonCondition(Deity.ZEUS, ALL_CONDITIONS);
+	public static final DeityBoonCondition HERA_BOON_CONDITION = new DeityBoonCondition(Deity.HERA, ALL_CONDITIONS);
+	public static final DeityBoonCondition POSEIDON_BOON_CONDITION = new DeityBoonCondition(Deity.POSEIDON, ALL_CONDITIONS);
 	
 	public static List<String> getDeadlyConditions() {
 		return ALL_CONDITIONS.stream().filter(condition -> condition instanceof DeadlyCondition).map(condition -> condition.getDescription()).collect(Collectors.toList());
