@@ -22,6 +22,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillProperty;
+import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.profession.Professions;
@@ -82,5 +83,10 @@ public class Hephaestus implements Deity {
 	@Override
 	public ImageIds getBoonImageId() {
 		return ImageIds.HEPHAESTUS_SYMBOL;
+	}
+	
+	@Override
+	public Condition getBoon() {
+		return Condition.HEPHAESTUS_BOON_CONDITION;
 	}
 }

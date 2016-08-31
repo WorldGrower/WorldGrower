@@ -153,9 +153,13 @@ public interface Deity extends Serializable {
 		} else if (worshipCount == 20) {
 			Conditions.add(performer, Condition.DISEASE_IMMUNITY_CONDITION, Integer.MAX_VALUE, world);
 			world.logAction(Actions.WORSHIP_DEITY_ACTION, performer, target, Args.EMPTY, performer.getProperty(Constants.NAME) + " gains immunity to disease due to worship.");
+		} else if (worshipCount == 50) {
+			Conditions.add(performer, getBoon(), Integer.MAX_VALUE, world);
+			world.logAction(Actions.WORSHIP_DEITY_ACTION, performer, target, Args.EMPTY, performer.getProperty(Constants.NAME) + " gains a boon from " + getName());
 		}
 	}
 	
 	public abstract SkillProperty getSkill();
 	public abstract ImageIds getBoonImageId();
+	public abstract Condition getBoon();
 }

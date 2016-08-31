@@ -22,6 +22,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillProperty;
+import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.goal.Goals;
 import org.worldgrower.gui.ImageIds;
@@ -88,5 +89,10 @@ public class Zeus implements Deity {
 	@Override
 	public ImageIds getBoonImageId() {
 		return ImageIds.ZEUS_SYMBOL;
+	}
+	
+	@Override
+	public Condition getBoon() {
+		return Condition.ZEUS_BOON_CONDITION;
 	}
 }

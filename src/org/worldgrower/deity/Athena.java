@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
@@ -84,5 +85,10 @@ public class Athena implements Deity {
 	@Override
 	public ImageIds getBoonImageId() {
 		return ImageIds.ATHENA_SYMBOL;
+	}
+	
+	@Override
+	public Condition getBoon() {
+		return Condition.ATHENA_BOON_CONDITION;
 	}
 }

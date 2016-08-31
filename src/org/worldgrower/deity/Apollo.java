@@ -22,6 +22,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillProperty;
+import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
@@ -98,5 +99,10 @@ public class Apollo implements Deity {
 	@Override
 	public ImageIds getBoonImageId() {
 		return ImageIds.APOLLO_SYMBOL;
+	}
+	
+	@Override
+	public Condition getBoon() {
+		return Condition.APOLLO_BOON_CONDITION;
 	}
 }

@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.SkillProperty;
+import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
@@ -121,5 +122,10 @@ public class Demeter implements Deity {
 	@Override
 	public ImageIds getBoonImageId() {
 		return ImageIds.DEMETER_SYMBOL;
+	}
+	
+	@Override
+	public Condition getBoon() {
+		return Condition.DEMETER_BOON_CONDITION;
 	}
 }

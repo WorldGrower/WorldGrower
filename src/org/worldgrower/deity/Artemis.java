@@ -23,6 +23,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillProperty;
+import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.WerewolfUtils;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.gui.ImageIds;
@@ -95,5 +96,10 @@ public class Artemis implements Deity {
 	@Override
 	public ImageIds getBoonImageId() {
 		return ImageIds.ARTEMIS_SYMBOL;
+	}
+	
+	@Override
+	public Condition getBoon() {
+		return Condition.ARTEMIS_BOON_CONDITION;
 	}
 }

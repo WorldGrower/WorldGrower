@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.profession.Professions;
@@ -79,5 +80,10 @@ public class Aphrodite implements Deity {
 	@Override
 	public ImageIds getBoonImageId() {
 		return ImageIds.APHRODITE_SYMBOL;
+	}
+
+	@Override
+	public Condition getBoon() {
+		return Condition.APHRODITE_BOON_CONDITION;
 	}
 }
