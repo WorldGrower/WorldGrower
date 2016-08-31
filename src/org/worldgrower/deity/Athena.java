@@ -80,4 +80,9 @@ public class Athena implements Deity {
 	public SkillProperty getSkill() {
 		return Constants.CARPENTRY_SKILL;
 	}
+	
+	@Override
+	public ImageIds getBoonImageId() {
+		return ImageIds.ATHENA_SYMBOL;
+	}
 }

@@ -79,4 +79,9 @@ public class Ares implements Deity {
 	public SkillProperty getSkill() {
 		return Constants.HAND_TO_HAND_SKILL;
 	}
+	
+	@Override
+	public ImageIds getBoonImageId() {
+		return ImageIds.ARES_SYMBOL;
+	}
 }

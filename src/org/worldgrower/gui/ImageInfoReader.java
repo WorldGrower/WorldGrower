@@ -177,7 +177,7 @@ public class ImageInfoReader {
         add(ImageIds.IRON_HELMET, sprites420.getSubImage(11, 13, 1, 1));
         add(ImageIds.IRON_GAUNTLETS, sprites420.getSubImage(12, 14, 1, 1));
         add(ImageIds.IRON_GREAVES, sprites420.getSubImage(4, 13, 1, 1));
-        add(ImageIds.IRON_BOOTS, sprites420.getSubImage(4, 14, 1, 1));
+        add(ImageIds.IRON_BOOTS, sprites420.getSubImage(3, 14, 1, 1));
         add(ImageIds.IRON_SHIELD, sprites420.getSubImage(8, 12, 1, 1));
         add(ImageIds.LONGBOW, sprites420.getSubImage(3, 11, 1, 1));
         
@@ -576,6 +576,21 @@ public class ImageInfoReader {
         add(ImageIds.DISEASE_IMMUNITY_CONDITION, sprites420.getSubImage(2, 15, 1, 1));
         add(ImageIds.TURN_UNDEAD, sprites420.getSubImage(6, 23, 1, 1));
         add(ImageIds.BOOK, sprites420.getSubImage(0, 29, 1, 1));
+        
+        add(ImageIds.DEMETER_SYMBOL, sprites420.getSubImage(7, 1, 1, 1));
+        add(ImageIds.HEPHAESTUS_SYMBOL, sprites420.getSubImage(3, 12, 1, 1));
+        add(ImageIds.HADES_SYMBOL, sprites420.getSubImage(8, 9, 1, 1));
+        add(ImageIds.APHRODITE_SYMBOL, sprites420.getSubImage(0, 16, 1, 1));
+        add(ImageIds.APOLLO_SYMBOL, sprites420.getSubImage(7, 27, 1, 1));
+        add(ImageIds.DIONYSUS_SYMBOL, sprites420.getSubImage(5, 0, 1, 1));
+        add(ImageIds.ARES_SYMBOL, sprites420.getSubImage(12, 13, 1, 1));
+        add(ImageIds.ARTEMIS_SYMBOL, sprites420.getSubImage(11, 11, 1, 1));
+        add(ImageIds.HERMES_SYMBOL, sprites420.getSubImage(4, 14, 1, 1));
+        add(ImageIds.ATHENA_SYMBOL, sprites420.getSubImage(12, 12, 1, 1));
+        add(ImageIds.ZEUS_SYMBOL, sprites420.getSubImage(13, 0, 1, 1));
+        add(ImageIds.HERA_SYMBOL, sprites420.getSubImage(1, 16, 1, 1));
+        add(ImageIds.POSEIDON_SYMBOL, sprites420.getSubImage(6, 8, 1, 1));
+        
     }
     
     private void createAnimation(ImageIds animationImageId, ImageIds imageId, int numberOfFrames) {

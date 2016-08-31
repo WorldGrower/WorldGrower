@@ -94,4 +94,9 @@ public class Apollo implements Deity {
 	public SkillProperty getSkill() {
 		return Constants.RESTORATION_SKILL;
 	}
+	
+	@Override
+	public ImageIds getBoonImageId() {
+		return ImageIds.APOLLO_SYMBOL;
+	}
 }

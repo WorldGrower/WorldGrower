@@ -91,4 +91,9 @@ public class Artemis implements Deity {
 	public SkillProperty getSkill() {
 		return Constants.ARCHERY_SKILL;
 	}
+	
+	@Override
+	public ImageIds getBoonImageId() {
+		return ImageIds.ARTEMIS_SYMBOL;
+	}
 }

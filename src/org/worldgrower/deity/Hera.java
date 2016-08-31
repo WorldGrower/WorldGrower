@@ -86,4 +86,9 @@ public class Hera implements Deity {
 	public SkillProperty getSkill() {
 		return Constants.INSIGHT_SKILL;
 	}
+	
+	@Override
+	public ImageIds getBoonImageId() {
+		return ImageIds.HERA_SYMBOL;
+	}
 }

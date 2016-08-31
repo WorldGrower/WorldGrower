@@ -99,4 +99,9 @@ public class Dionysus implements Deity {
 	public SkillProperty getSkill() {
 		return Constants.ALCHEMY_SKILL;
 	}
+	
+	@Override
+	public ImageIds getBoonImageId() {
+		return ImageIds.DIONYSUS_SYMBOL;
+	}
 }

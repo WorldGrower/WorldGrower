@@ -88,4 +88,9 @@ public class Hades implements Deity {
 	public SkillProperty getSkill() {
 		return Constants.EVOCATION_SKILL;
 	}
+	
+	@Override
+	public ImageIds getBoonImageId() {
+		return ImageIds.HADES_SYMBOL;
+	}
 }

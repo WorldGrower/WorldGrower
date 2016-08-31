@@ -117,4 +117,9 @@ public class Demeter implements Deity {
 	public SkillProperty getSkill() {
 		return Constants.FARMING_SKILL;
 	}
+	
+	@Override
+	public ImageIds getBoonImageId() {
+		return ImageIds.DEMETER_SYMBOL;
+	}
 }

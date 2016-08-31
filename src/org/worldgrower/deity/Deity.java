@@ -157,4 +157,5 @@ public interface Deity extends Serializable {
 	}
 	
 	public abstract SkillProperty getSkill();
+	public abstract ImageIds getBoonImageId();
 }

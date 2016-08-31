@@ -78,4 +78,9 @@ public class Hermes implements Deity {
 	public SkillProperty getSkill() {
 		return Constants.LIGHT_ARMOR_SKILL;
 	}
+	
+	@Override
+	public ImageIds getBoonImageId() {
+		return ImageIds.HERMES_SYMBOL;
+	}
 }

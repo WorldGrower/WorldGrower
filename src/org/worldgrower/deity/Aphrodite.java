@@ -75,4 +75,9 @@ public class Aphrodite implements Deity {
 	public SkillProperty getSkill() {
 		return Constants.DIPLOMACY_SKILL;
 	}
+
+	@Override
+	public ImageIds getBoonImageId() {
+		return ImageIds.APHRODITE_SYMBOL;
+	}
 }

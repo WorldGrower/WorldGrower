@@ -84,4 +84,9 @@ public class Zeus implements Deity {
 	public SkillProperty getSkill() {
 		return Constants.TRANSMUTATION_SKILL;
 	}
+	
+	@Override
+	public ImageIds getBoonImageId() {
+		return ImageIds.ZEUS_SYMBOL;
+	}
 }

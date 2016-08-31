@@ -81,4 +81,9 @@ public class Poseidon implements Deity {
 	public SkillProperty getSkill() {
 		return Constants.FISHING_SKILL;
 	}
+	
+	@Override
+	public ImageIds getBoonImageId() {
+		return ImageIds.POSEIDON_SYMBOL;
+	}
 }

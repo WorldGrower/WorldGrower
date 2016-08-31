@@ -78,4 +78,9 @@ public class Hephaestus implements Deity {
 	public SkillProperty getSkill() {
 		return Constants.SMITHING_SKILL;
 	}
+	
+	@Override
+	public ImageIds getBoonImageId() {
+		return ImageIds.HEPHAESTUS_SYMBOL;
+	}
 }
