@@ -99,4 +99,9 @@ public class Hades implements Deity {
 	public Condition getBoon() {
 		return Condition.HADES_BOON_CONDITION;
 	}
+	
+	@Override
+	public String getBoonDescription() {
+		return getName() + "'s boon: grants a bonus to magic that only targets undead creatures";
+	}
 }

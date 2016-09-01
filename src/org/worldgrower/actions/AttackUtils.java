@@ -39,8 +39,8 @@ import org.worldgrower.goal.KnowledgeMapPropertyUtils;
 
 public class AttackUtils {
 
-	public static void attack(DeadlyAction action, WorldObject performer, WorldObject target, int[] args, World world, double skillBonus) {
-		meleeAttack(action, performer, target, args, world, skillBonus, new HitPointsHandler() {
+	public static void attack(DeadlyAction action, WorldObject performer, WorldObject target, int[] args, World world, double skillBonus, AttackType attackType) {
+		meleeAttack(action, performer, target, args, world, skillBonus, attackType, new HitPointsHandler() {
 			
 			@Override
 			public int handleHitPoints(WorldObject performer, WorldObject target, ManagedOperation action, int hitPoints) {
@@ -57,14 +57,14 @@ public class AttackUtils {
 		public int handleHitPoints(WorldObject performer, WorldObject target, ManagedOperation action, int hitPoints);
 	}
 	
-	private static void meleeAttack(ManagedOperation action, WorldObject performer, WorldObject target, int[] args, World world, double skillBonus, HitPointsHandler hitPointsHandler) {
+	private static void meleeAttack(ManagedOperation action, WorldObject performer, WorldObject target, int[] args, World world, double skillBonus, AttackType attackType, HitPointsHandler hitPointsHandler) {
 		int targetHP = target.getProperty(Constants.HIT_POINTS);
 		if (target.getProperty(Constants.DAMAGE_RESIST) == null) { throw new IllegalStateException("DamageResist is null in " + target); }
 		float targetDamageResist = (float) target.getProperty(Constants.DAMAGE_RESIST);
 		
 		int performerDamage = performer.getProperty(Constants.DAMAGE);
 		
-		int damage = (int) (performerDamage * skillBonus * ((100 - targetDamageResist) / 100) * getAresBoonModifier(performer));
+		int damage = (int) (performerDamage * skillBonus * ((100 - targetDamageResist) / 100) * getBoonModifier(performer, attackType));
 		damage = changeForSize(damage, performer, target);
 		damage = changeForEnergy(damage, performer, target);
 		
@@ -82,8 +82,10 @@ public class AttackUtils {
 		world.logAction(action, performer, target, args, message);
 	}
 	
-	private static float getAresBoonModifier(WorldObject performer) {
-		if (ConditionUtils.performerHasCondition(performer, Condition.ARES_BOON_CONDITION)) {
+	private static float getBoonModifier(WorldObject performer, AttackType attackType) {
+		if (attackType == AttackType.MELEE && ConditionUtils.performerHasCondition(performer, Condition.ARES_BOON_CONDITION)) {
+			return 1.1f;
+		} else if (attackType == AttackType.RANGED && ConditionUtils.performerHasCondition(performer, Condition.ARTEMIS_BOON_CONDITION)) {
 			return 1.1f;
 		} else {
 			return 1.0f;
@@ -292,8 +294,8 @@ public class AttackUtils {
 		}
 	}
 
-	public static void nonLethalAttack(ManagedOperation action, WorldObject performer, WorldObject target, int[] args, World world, double skillBonus) {
-		meleeAttack(action, performer, target, args, world, skillBonus, new HitPointsHandler() {
+	public static void nonLethalAttack(ManagedOperation action, WorldObject performer, WorldObject target, int[] args, World world, double skillBonus, AttackType attackType) {
+		meleeAttack(action, performer, target, args, world, skillBonus, attackType, new HitPointsHandler() {
 			
 			@Override
 			public int handleHitPoints(WorldObject performer, WorldObject target, ManagedOperation action, int hitPoints) {

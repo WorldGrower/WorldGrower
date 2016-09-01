@@ -85,4 +85,9 @@ public class Aphrodite implements Deity {
 	public Condition getBoon() {
 		return Condition.APHRODITE_BOON_CONDITION;
 	}
+
+	@Override
+	public String getBoonDescription() {
+		return getName() + "'s boon: grants a bonus to enchantment magic spells";
+	}
 }

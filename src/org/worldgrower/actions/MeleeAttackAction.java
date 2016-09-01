@@ -39,7 +39,7 @@ public class MeleeAttackAction implements DeadlyAction, AnimatedAction {
 		} else {
 			skillBonus = 1.0f;
 		}
-		AttackUtils.attack(this, performer, target, args, world, skillBonus);
+		AttackUtils.attack(this, performer, target, args, world, skillBonus, AttackType.MELEE);
 	}
 	
 	@Override

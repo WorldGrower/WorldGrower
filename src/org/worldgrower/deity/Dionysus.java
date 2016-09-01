@@ -110,4 +110,9 @@ public class Dionysus implements Deity {
 	public Condition getBoon() {
 		return Condition.DIONYSUS_BOON_CONDITION;
 	}
+	
+	@Override
+	public String getBoonDescription() {
+		return getName() + "'s boon: grants a bonus to grape harvesting and wine production";
+	}
 }

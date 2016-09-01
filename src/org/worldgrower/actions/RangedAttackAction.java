@@ -30,7 +30,8 @@ public class RangedAttackAction implements DeadlyAction, AnimatedAction {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		AttackUtils.attack(this, performer, target, args, world, SkillUtils.useSkill(performer, Constants.ARCHERY_SKILL, world.getWorldStateChangedListeners()));
+		double skillBonus = SkillUtils.useSkill(performer, Constants.ARCHERY_SKILL, world.getWorldStateChangedListeners());
+		AttackUtils.attack(this, performer, target, args, world, skillBonus, AttackType.RANGED);
 	}
 	
 	@Override

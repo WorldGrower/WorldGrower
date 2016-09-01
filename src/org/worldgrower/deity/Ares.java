@@ -90,4 +90,9 @@ public class Ares implements Deity {
 	public Condition getBoon() {
 		return Condition.ARES_BOON_CONDITION;
 	}
+	
+	@Override
+	public String getBoonDescription() {
+		return getName() + "'s boon: grants a bonus to melee attacks";
+	}
 }

@@ -31,7 +31,8 @@ public class NonLethalMeleeAttackAction implements ManagedOperation, AnimatedAct
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		AttackUtils.nonLethalAttack(this, performer, target, args, world, SkillUtils.useSkill(performer, AttackUtils.determineSkill(performer), world.getWorldStateChangedListeners()));
+		double skillBonus = SkillUtils.useSkill(performer, AttackUtils.determineSkill(performer), world.getWorldStateChangedListeners());
+		AttackUtils.nonLethalAttack(this, performer, target, args, world, skillBonus, AttackType.MELEE);
 	}
 	
 	@Override

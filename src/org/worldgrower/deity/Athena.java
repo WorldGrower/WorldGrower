@@ -90,4 +90,9 @@ public class Athena implements Deity {
 	public Condition getBoon() {
 		return Condition.ATHENA_BOON_CONDITION;
 	}
+	
+	@Override
+	public String getBoonDescription() {
+		return getName() + "'s boon: grants a bonus to researching knowledge skills";
+	}
 }

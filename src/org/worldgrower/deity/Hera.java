@@ -97,4 +97,9 @@ public class Hera implements Deity {
 	public Condition getBoon() {
 		return Condition.HERA_BOON_CONDITION;
 	}
+	
+	@Override
+	public String getBoonDescription() {
+		return getName() + "'s boon: grants a bonus in seeing through illusions and disguises";
+	}
 }

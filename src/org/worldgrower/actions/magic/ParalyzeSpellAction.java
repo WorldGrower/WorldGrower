@@ -27,6 +27,7 @@ import org.worldgrower.actions.CraftUtils;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.ConditionUtils;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
@@ -40,6 +41,9 @@ public class ParalyzeSpellAction implements MagicSpell, AnimatedAction {
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		int turns = (int)(8 * SkillUtils.getSkillBonus(performer, getSkill()));
+		if (ConditionUtils.performerHasCondition(performer, Condition.APHRODITE_BOON_CONDITION)) {
+			turns += 5;
+		}
 		Conditions.add(target, Condition.PARALYZED_CONDITION, turns, world);
 
 		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE, world.getWorldStateChangedListeners());

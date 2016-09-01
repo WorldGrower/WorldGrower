@@ -26,6 +26,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.KnowledgeMap;
 import org.worldgrower.attribute.Location;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.goal.InsightPropertyUtils;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
@@ -128,7 +129,7 @@ public class InvestigateAction implements ManagedOperation {
 		if (personViewingWorld.getProperty(Constants.INSIGHT_SKILL) == null) {
 			insight = 0;
 		} else {
-			insight = Constants.INSIGHT_SKILL.getLevel(personViewingWorld);
+			insight = InsightPropertyUtils.getInsightSkillLevel(personViewingWorld);
 		}
 				
 		int illusionCreatorId = worldObject.getProperty(Constants.ILLUSION_CREATOR_ID);

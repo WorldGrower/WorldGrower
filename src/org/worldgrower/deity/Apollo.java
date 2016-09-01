@@ -105,4 +105,9 @@ public class Apollo implements Deity {
 	public Condition getBoon() {
 		return Condition.APOLLO_BOON_CONDITION;
 	}
+	
+	@Override
+	public String getBoonDescription() {
+		return getName() + "'s boon: grants a bonus to healing magic spells";
+	}
 }

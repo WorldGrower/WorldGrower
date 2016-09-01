@@ -39,7 +39,7 @@ public class UTestAttackUtils {
 		WorldObject target = createCommoner(world);
 		
 		assertEquals(20 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
-		AttackUtils.attack(Actions.MELEE_ATTACK_ACTION, performer, target, Args.EMPTY, world, 1.0f);
+		AttackUtils.attack(Actions.MELEE_ATTACK_ACTION, performer, target, Args.EMPTY, world, 1.0f, AttackType.MELEE);
 		assertEquals(18 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
 	}
 	
@@ -53,7 +53,7 @@ public class UTestAttackUtils {
 		target.setProperty(Constants.DAMAGE_RESIST, 50);
 		
 		assertEquals(20 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
-		AttackUtils.attack(Actions.MELEE_ATTACK_ACTION, performer, target, Args.EMPTY, world, 1.0f);
+		AttackUtils.attack(Actions.MELEE_ATTACK_ACTION, performer, target, Args.EMPTY, world, 1.0f, AttackType.MELEE);
 		assertEquals(17 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
 	}
 	
@@ -64,7 +64,7 @@ public class UTestAttackUtils {
 		WorldObject target = createCommoner(world);
 		
 		target.setProperty(Constants.HIT_POINTS, 1);
-		AttackUtils.attack(Actions.MELEE_ATTACK_ACTION, performer, target, Args.EMPTY, world, 1.0f);
+		AttackUtils.attack(Actions.MELEE_ATTACK_ACTION, performer, target, Args.EMPTY, world, 1.0f, AttackType.MELEE);
 		assertEquals(0, target.getProperty(Constants.HIT_POINTS).intValue());
 		assertEquals("Test was pummeled to death", target.getProperty(Constants.DEATH_REASON));
 	}
@@ -188,10 +188,10 @@ public class UTestAttackUtils {
 		
 		target.setProperty(Constants.HIT_POINTS, 4 * Item.COMBAT_MULTIPLIER);
 		assertEquals(4 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
-		AttackUtils.nonLethalAttack(Actions.NON_LETHAL_MELEE_ATTACK_ACTION, performer, target, Args.EMPTY, world, 1f);
+		AttackUtils.nonLethalAttack(Actions.NON_LETHAL_MELEE_ATTACK_ACTION, performer, target, Args.EMPTY, world, 1f, AttackType.MELEE);
 		assertEquals(2 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
 		
-		AttackUtils.nonLethalAttack(Actions.NON_LETHAL_MELEE_ATTACK_ACTION, performer, target, Args.EMPTY, world, 1f);
+		AttackUtils.nonLethalAttack(Actions.NON_LETHAL_MELEE_ATTACK_ACTION, performer, target, Args.EMPTY, world, 1f, AttackType.MELEE);
 		assertEquals(1, target.getProperty(Constants.HIT_POINTS).intValue());
 		assertEquals(true, target.getProperty(Constants.CONDITIONS).hasCondition(Condition.UNCONSCIOUS_CONDITION));
 	}

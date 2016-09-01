@@ -89,4 +89,9 @@ public class Hermes implements Deity {
 	public Condition getBoon() {
 		return Condition.HERMES_BOON_CONDITION;
 	}
+	
+	@Override
+	public String getBoonDescription() {
+		return getName() + "'s boon: grants a bonus to thieving";
+	}
 }

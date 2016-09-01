@@ -89,4 +89,9 @@ public class Hephaestus implements Deity {
 	public Condition getBoon() {
 		return Condition.HEPHAESTUS_BOON_CONDITION;
 	}
+	
+	@Override
+	public String getBoonDescription() {
+		return getName() + "'s boon: grants a bonus to smithing";
+	}
 }

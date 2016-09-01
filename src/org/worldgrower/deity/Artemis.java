@@ -102,4 +102,9 @@ public class Artemis implements Deity {
 	public Condition getBoon() {
 		return Condition.ARTEMIS_BOON_CONDITION;
 	}
+	
+	@Override
+	public String getBoonDescription() {
+		return getName() + "'s boon: grants a bonus to ranged attacks";
+	}
 }

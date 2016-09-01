@@ -70,7 +70,7 @@ public class DeityBoonCondition implements Condition {
 
 	@Override
 	public String getLongerDescription() {
-		return "grants a boon in deity's domain";
+		return deity.getBoonDescription();
 	}
 
 	@Override
