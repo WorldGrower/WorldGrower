@@ -23,6 +23,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.ConditionUtils;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
@@ -36,7 +38,10 @@ public class BrewWineAction implements CraftAction, AnimatedAction {
 		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
 		
 		double skillBonus = SkillUtils.useSkill(performer, Constants.ALCHEMY_SKILL, world.getWorldStateChangedListeners());
-		int quantity =target.getProperty(Constants.BREWERY_QUALITY);
+		int quantity = target.getProperty(Constants.BREWERY_QUALITY);
+		if (ConditionUtils.performerHasCondition(performer, Condition.DIONYSUS_BOON_CONDITION)) {
+			quantity++;
+		}
 		inventory.addQuantity(Item.WINE.generate(skillBonus), quantity);
 
 		inventory.removeQuantity(Constants.GRAPE, GRAPES_REQUIRED);

@@ -30,6 +30,7 @@ import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.UnCheckedProperty;
 import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.ConditionUtils;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.generator.Item;
@@ -63,9 +64,10 @@ public class AttackUtils {
 		
 		int performerDamage = performer.getProperty(Constants.DAMAGE);
 		
-		int damage = (int) (performerDamage * skillBonus * ((100 - targetDamageResist) / 100));
+		int damage = (int) (performerDamage * skillBonus * ((100 - targetDamageResist) / 100) * getAresBoonModifier(performer));
 		damage = changeForSize(damage, performer, target);
 		damage = changeForEnergy(damage, performer, target);
+		
 		targetHP = targetHP - damage;
 		String message = performer.getProperty(Constants.NAME) + " attacks " + target.getProperty(Constants.NAME) + ": " + damage + " damage";
 		
@@ -78,6 +80,14 @@ public class AttackUtils {
 		KnowledgeMapPropertyUtils.everyoneInVicinityKnowsOfEvent(performer, target, world);
 		
 		world.logAction(action, performer, target, args, message);
+	}
+	
+	private static float getAresBoonModifier(WorldObject performer) {
+		if (ConditionUtils.performerHasCondition(performer, Condition.ARES_BOON_CONDITION)) {
+			return 1.1f;
+		} else {
+			return 1.0f;
+		}
 	}
 	
 	public static void decreaseWeaponHealth(WorldObject performer, int damage) {

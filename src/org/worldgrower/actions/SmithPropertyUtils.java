@@ -16,38 +16,18 @@ package org.worldgrower.actions;
 
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
 
-public class FoodPropertyUtils {
-
-	public static void checkFoodSourceExhausted(WorldObject foodSource) {
-		int targetFoodSource = foodSource.getProperty(Constants.FOOD_SOURCE);
-		if (targetFoodSource <= 200 && Constants.FOOD_PRODUCED.isAtMax(foodSource)) {
-			foodSource.setProperty(Constants.HIT_POINTS, 0);
-		}
-	}
-	
-	public static boolean foodSourceHasEnoughFood(WorldObject target) {
-		return (target.hasProperty(Constants.FOOD_SOURCE)) && (target.getProperty(Constants.FOOD_SOURCE) >= 100);
-	}
-	
-	public static boolean leftHandContainsScythe(WorldObject performer) {
-		WorldObject leftHand = performer.getProperty(Constants.LEFT_HAND_EQUIPMENT);
-		return (leftHand != null && leftHand.hasProperty(Constants.SCYTHE_QUALITY));
-	}
-	
+public class SmithPropertyUtils {
 	private static boolean performerHasBoon(WorldObject performer) {
 		Conditions conditions = performer.getProperty(Constants.CONDITIONS);
-		return conditions.hasCondition(Condition.DEMETER_BOON_CONDITION);
+		return conditions.hasCondition(Condition.HEPHAESTUS_BOON_CONDITION);
 	}
 	
-	public static int calculateFarmingQuantity(WorldObject performer) {
-		int quantity = SkillUtils.getLogarithmicSkillBonus(performer, Constants.FARMING_SKILL);
-		if (leftHandContainsScythe(performer)) {
-			quantity += 1;
-		}
+	public static int calculateSmithingQuantity(WorldObject performer, WorldObject smith) {
+		int quantity = smith.getProperty(Constants.SMITH_QUALITY);
+
 		if (performerHasBoon(performer)) {
 			quantity += 1;
 		}

@@ -22,6 +22,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.ConditionUtils;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
@@ -36,6 +38,9 @@ public class AbstractResearchKnowledgeSkillAction implements ResearchKnowledgeSk
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		SkillUtils.useSkill(performer, skillProperty, world.getWorldStateChangedListeners());
+		if (ConditionUtils.performerHasCondition(performer, Condition.ATHENA_BOON_CONDITION)) {
+			SkillUtils.useSkill(performer, skillProperty, world.getWorldStateChangedListeners());	
+		}
 	}
 
 	@Override

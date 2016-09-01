@@ -22,6 +22,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.ConditionUtils;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
@@ -38,6 +40,9 @@ public class CatchFishAction implements ManagedOperation {
 		
 		WorldObject harvestedFood = Item.FISH.generate(1f);
 		int quantity = performer.getProperty(Constants.LEFT_HAND_EQUIPMENT).getProperty(Constants.FISHING_POLE_QUALITY) * 4;
+		if (ConditionUtils.performerHasCondition(performer, Condition.POSEIDON_BOON_CONDITION)) {
+			quantity *= 2;
+		}
 		inventoryPerformer.addQuantity(harvestedFood, quantity);
 
 		world.removeWorldObject(target);

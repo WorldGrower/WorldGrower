@@ -27,6 +27,8 @@ import org.worldgrower.actions.CraftUtils;
 import org.worldgrower.actions.DeadlyAction;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.ConditionUtils;
 import org.worldgrower.generator.Item;
 import org.worldgrower.goal.LocationUtils;
 import org.worldgrower.goal.MagicSpellUtils;
@@ -42,7 +44,12 @@ public class LightningBoltAttackAction implements MagicSpell, DeadlyAction, Anim
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		AttackUtils.magicAttack(BASE_DAMAGE, this, performer, target, args, world, SkillUtils.getSkillBonus(performer, getSkill()));
+		int damage = BASE_DAMAGE;
+		if (ConditionUtils.performerHasCondition(performer, Condition.ZEUS_BOON_CONDITION)) {
+			damage += damage / 10;
+		}
+		
+		AttackUtils.magicAttack(damage, this, performer, target, args, world, SkillUtils.getSkillBonus(performer, getSkill()));
 	
 		int targetX = target.getProperty(Constants.X);
 		int targetY = target.getProperty(Constants.Y);

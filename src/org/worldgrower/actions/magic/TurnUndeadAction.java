@@ -27,6 +27,8 @@ import org.worldgrower.actions.CraftUtils;
 import org.worldgrower.actions.DeadlyAction;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.ConditionUtils;
 import org.worldgrower.creaturetype.CreatureTypeUtils;
 import org.worldgrower.generator.Item;
 import org.worldgrower.goal.MagicSpellUtils;
@@ -40,9 +42,14 @@ public class TurnUndeadAction implements BuildAction, MagicSpell, DeadlyAction, 
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
+		int damage = BASE_DAMAGE;
+		if (ConditionUtils.performerHasCondition(performer, Condition.HADES_BOON_CONDITION)) {
+			damage += damage / 10;
+		}
+		
 		List<WorldObject> targets = getAffectedTargets(target, world);
 		for(WorldObject spellTarget : targets) {
-			AttackUtils.magicAttack(BASE_DAMAGE, this, performer, spellTarget, args, world, SkillUtils.getSkillBonus(performer, getSkill()));
+			AttackUtils.magicAttack(damage, this, performer, spellTarget, args, world, SkillUtils.getSkillBonus(performer, getSkill()));
 		}
 		
 		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE, world.getWorldStateChangedListeners());

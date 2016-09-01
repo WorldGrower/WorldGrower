@@ -18,6 +18,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.ConditionUtils;
 
 public class ThieveryPropertyUtils {
 
@@ -62,6 +63,10 @@ public class ThieveryPropertyUtils {
 		int thievery = getThieveryLevel(performer);
 		
 		int successPercentage = (int)(10 + (thievery + 90) / (Math.log(moneyValue + weight + 2)));
+		if (ConditionUtils.performerHasCondition(performer, Condition.HERMES_BOON_CONDITION)) {
+			successPercentage += 5;
+		}
+		
 		if (successPercentage > 99) {
 			successPercentage = 99;
 		}
@@ -72,6 +77,10 @@ public class ThieveryPropertyUtils {
 		int thievery = getThieveryLevel(performer);
 		int lockStrength = target.getProperty(Constants.LOCK_STRENGTH);
 		int successPercentage = (int)(10 + (thievery * 3 + 50) / (Math.log(lockStrength + 3)));
+		if (ConditionUtils.performerHasCondition(performer, Condition.HERMES_BOON_CONDITION)) {
+			successPercentage += 5;
+		}
+		
 		if (successPercentage > 99) {
 			successPercentage = 99;
 		}

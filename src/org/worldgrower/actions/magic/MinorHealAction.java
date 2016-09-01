@@ -26,6 +26,8 @@ import org.worldgrower.actions.AttackUtils;
 import org.worldgrower.actions.CraftUtils;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.ConditionUtils;
 import org.worldgrower.generator.Item;
 import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
@@ -40,6 +42,10 @@ public class MinorHealAction implements MagicSpell, AnimatedAction {
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		int hitPointsRestored = (int)(BASE_AMOUNT * SkillUtils.getSkillBonus(performer, getSkill()));
+		if (ConditionUtils.performerHasCondition(performer, Condition.APOLLO_BOON_CONDITION)) {
+			hitPointsRestored += hitPointsRestored / 10;
+		}
+		
 		target.increment(Constants.HIT_POINTS, hitPointsRestored);
 		if (target.getProperty(Constants.HIT_POINTS) > target.getProperty(Constants.HIT_POINTS_MAX)) {
 			target.setProperty(Constants.HIT_POINTS, target.getProperty(Constants.HIT_POINTS_MAX));

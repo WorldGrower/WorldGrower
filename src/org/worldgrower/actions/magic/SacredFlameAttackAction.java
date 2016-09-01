@@ -27,6 +27,8 @@ import org.worldgrower.actions.CraftUtils;
 import org.worldgrower.actions.DeadlyAction;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.ConditionUtils;
 import org.worldgrower.creaturetype.CreatureTypeUtils;
 import org.worldgrower.generator.Item;
 import org.worldgrower.goal.MagicSpellUtils;
@@ -40,7 +42,12 @@ public class SacredFlameAttackAction implements MagicSpell, DeadlyAction, Animat
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		AttackUtils.magicAttack(BASE_DAMAGE, this, performer, target, args, world, SkillUtils.useSkill(performer, getSkill(), world.getWorldStateChangedListeners()));
+		int damage = BASE_DAMAGE;
+		if (ConditionUtils.performerHasCondition(performer, Condition.HADES_BOON_CONDITION)) {
+			damage += damage / 10;
+		}
+		
+		AttackUtils.magicAttack(damage, this, performer, target, args, world, SkillUtils.useSkill(performer, getSkill(), world.getWorldStateChangedListeners()));
 	
 		world.logAction(this, performer, target, args, null);
 	}

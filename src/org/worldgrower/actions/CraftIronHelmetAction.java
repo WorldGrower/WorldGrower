@@ -38,7 +38,7 @@ public class CraftIronHelmetAction implements CraftAction, AnimatedAction {
 		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
 		
 		double skillBonus = SkillUtils.useSkill(performer, Constants.SMITHING_SKILL, world.getWorldStateChangedListeners());
-		int quantity =target.getProperty(Constants.SMITH_QUALITY);
+		int quantity = SmithPropertyUtils.calculateSmithingQuantity(performer, target);
 		inventory.addQuantity(Item.IRON_HELMET.generate(skillBonus), quantity);
 
 		inventory.removeQuantity(Constants.WOOD, WOOD_REQUIRED);
