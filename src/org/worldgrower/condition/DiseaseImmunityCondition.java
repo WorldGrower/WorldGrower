@@ -66,7 +66,7 @@ public class DiseaseImmunityCondition implements Condition {
 
 	@Override
 	public String getLongerDescription() {
-		return "a creature that interacts with a trapped container takes damage";
+		return "a creature with disease immunity cannot get sick";
 	}
 
 	@Override
