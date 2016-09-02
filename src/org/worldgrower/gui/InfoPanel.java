@@ -179,7 +179,7 @@ public final class InfoPanel extends JPanel {
     public void setStatusMessage(String message) {
     	int currentTurn = world.getCurrentTurn().getValue();
     	if (lastMessageTurn == currentTurn) {
-    		appendIconAndText(imageFactory.getMoreMessagesImage(), "More messages...");
+    		appendNoMoreMessages();
     	} else {
     		messageTextPane.setText("");
     		appendText(message);
@@ -188,7 +188,11 @@ public final class InfoPanel extends JPanel {
     	lastMessageTurn = currentTurn;
     }
 
-	void appendText(String message) {
+	private void appendNoMoreMessages() {
+		appendIconAndText(imageFactory.getMoreMessagesImage(), "More messages...");
+	}
+
+	private void appendText(String message) {
 		StyledDocument document = (StyledDocument)messageTextPane.getDocument();
     	try {
 			document.insertString(document.getLength(), message, null);
@@ -200,7 +204,7 @@ public final class InfoPanel extends JPanel {
     public void setStatusMessage(Image image, String message) {
     	int currentTurn = world.getCurrentTurn().getValue();
     	if (lastMessageTurn == currentTurn) {
-    		appendIconAndText(imageFactory.getMoreMessagesImage(), "More messages...");
+    		appendNoMoreMessages();
     	} else {
     		messageTextPane.setText("");
 	    	appendIconAndText(image, message);
