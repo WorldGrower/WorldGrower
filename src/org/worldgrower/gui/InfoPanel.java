@@ -182,9 +182,9 @@ public final class InfoPanel extends JPanel {
     		appendIconAndText(imageFactory.getMoreMessagesImage(), "More messages...");
     	} else {
     		messageTextPane.setText("");
-    		statusMessages.add(new StatusMessage(null, message));
     		appendText(message);
     	}
+    	statusMessages.add(new StatusMessage(null, message));
     	lastMessageTurn = currentTurn;
     }
 
@@ -203,9 +203,9 @@ public final class InfoPanel extends JPanel {
     		appendIconAndText(imageFactory.getMoreMessagesImage(), "More messages...");
     	} else {
     		messageTextPane.setText("");
-	    	statusMessages.add(new StatusMessage(image, message));
 	    	appendIconAndText(image, message);
     	}
+    	statusMessages.add(new StatusMessage(image, message));
     	lastMessageTurn = currentTurn;
     }
 
