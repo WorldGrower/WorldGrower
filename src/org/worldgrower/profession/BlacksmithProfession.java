@@ -20,7 +20,9 @@ import java.util.List;
 
 import org.worldgrower.Constants;
 import org.worldgrower.attribute.SkillProperty;
+import org.worldgrower.deity.Deity;
 import org.worldgrower.generator.Item;
+import org.worldgrower.goal.DeityBoonGoal;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
 
@@ -41,6 +43,7 @@ public class BlacksmithProfession implements Profession {
 				Goals.SMITH_GOAL,
 				Goals.CRAFT_EQUIPMENT_GOAL,
 				Goals.MARK_EQUIPMENT_AS_SELLABLE_GOAL,
+				new DeityBoonGoal(Deity.HEPHAESTUS),
 				Goals.CREATE_REPAIR_HAMMER_GOAL,
 				Goals.MARK_REPAIR_HAMMERS_AS_SELLABLE_GOAL,
 				Goals.MINT_GOLD_GOAL);

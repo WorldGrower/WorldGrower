@@ -20,7 +20,9 @@ import java.util.List;
 
 import org.worldgrower.Constants;
 import org.worldgrower.attribute.SkillProperty;
+import org.worldgrower.deity.Deity;
 import org.worldgrower.generator.Item;
+import org.worldgrower.goal.DeityBoonGoal;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
 
@@ -42,6 +44,7 @@ public class FarmerProfession implements Profession {
 				Goals.MARK_FOOD_AS_SELLABLE_GOAL,
 				Goals.CREATE_FOOD_SOURCES_GOAL,
 				Goals.SELL_FOOD_GOAL,
+				new DeityBoonGoal(Deity.DEMETER),
 				Goals.CREATE_WINE_GOAL,
 				Goals.EQUIP_SCYTHE_GOAL
 				);
