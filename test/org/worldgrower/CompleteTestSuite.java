@@ -732,7 +732,8 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestConstructLockpickAction.class,
 	UTestUnlockUnownedContainerLegalHandler.class,
 	UTestOpenLockAction.class,
-	UTestTurnUndeadAction.class
+	UTestTurnUndeadAction.class,
+	UTestDeityBoonGoal.class
 })
 public class CompleteTestSuite {
 }
