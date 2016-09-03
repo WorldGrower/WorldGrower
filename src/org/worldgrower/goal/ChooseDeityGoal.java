@@ -16,6 +16,7 @@ package org.worldgrower.goal;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
@@ -23,6 +24,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.deity.Deity;
+import org.worldgrower.profession.Professions;
 
 public class ChooseDeityGoal implements Goal {
 
@@ -42,10 +44,10 @@ public class ChooseDeityGoal implements Goal {
 		final int indexOfDeity;
 		final int reasonIndex;
 		if (deityReasons.size() > 0) {
-			int randomDeityIndex = getRandomValue(performer, 0, deityReasons.size() - 1);
-			Deity randomDeity = deityReasons.get(randomDeityIndex).getDeity();
-			indexOfDeity = Deity.ALL_DEITIES.indexOf(randomDeity);
-			reasonIndex = deityReasons.get(randomDeityIndex).getReasonIndex();
+			int chosenDeityIndex = chooseDeityIndex(performer, deityReasons, world);
+			Deity chosenDeity = deityReasons.get(chosenDeityIndex).getDeity();
+			indexOfDeity = Deity.ALL_DEITIES.indexOf(chosenDeity);
+			reasonIndex = deityReasons.get(chosenDeityIndex).getReasonIndex();
 		} else {
 			int randomDeityIndex = getRandomValue(performer, 0, Deity.ALL_DEITIES.size() - 1);
 			indexOfDeity = randomDeityIndex;
@@ -54,7 +56,32 @@ public class ChooseDeityGoal implements Goal {
 		
 		return new OperationInfo(performer, performer, new int[] { indexOfDeity, reasonIndex }, Actions.CHOOSE_DEITY_ACTION);
 	}
+
+	int chooseDeityIndex(WorldObject performer, List<DeityReason> deityReasons, World world) {
+		if (performer.getProperty(Constants.PROFESSION) == Professions.PRIEST_PROFESSION) {
+			int bestIndex = -1;
+			int bestEvaluation = Integer.MIN_VALUE;
+			for(int i=0; i<deityReasons.size(); i++) {
+				DeityReason deityReason = deityReasons.get(i);
+				int deityEvaluation = evaluateDeity(deityReason.getDeity(), world);
+				if (deityEvaluation > bestEvaluation) {
+					bestIndex = i;
+					bestEvaluation = deityEvaluation;
+				}
+			}
+			return bestIndex;
+		} else {
+			return getRandomValue(performer, 0, deityReasons.size() - 1);
+		}
+	}
 	
+	private int evaluateDeity(Deity deity, World world) {
+		List<WorldObject> worshippers = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> w.hasProperty(Constants.DEITY) &&  w.getProperty(Constants.DEITY) == deity);
+		int priestWorshipperCount = worshippers.stream().filter(w -> w.getProperty(Constants.PROFESSION) == Professions.PRIEST_PROFESSION).collect(Collectors.toList()).size();
+		int nonPriestWorshipperCount = worshippers.size() - priestWorshipperCount;
+		return (100 * nonPriestWorshipperCount) / (1 + priestWorshipperCount);
+	}
+
 	private int getRandomValue(WorldObject performer, int min, int max) {
 		int range = (max - min) + 1;
 		

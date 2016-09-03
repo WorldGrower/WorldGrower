@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.worldgrower.attribute.BuildingType;
+import org.worldgrower.deity.Deity;
 
 public class Goals {
 
@@ -191,4 +192,9 @@ public class Goals {
 	public static final CreateWorkbenchGoal CREATE_WORKBENCH_GOAL = new CreateWorkbenchGoal(ALL_GOALS);
 	public static final CreateApothecaryGoal CREATE_APOTHECARY_GOAL = new CreateApothecaryGoal(ALL_GOALS);
 	public static final CreateBreweryGoal CREATE_BREWERY_GOAL = new CreateBreweryGoal(ALL_GOALS);
+	
+	public static final DeityBoonGoal ARES_BOON_GOAL = new DeityBoonGoal(Deity.ARES);
+	public static final DeityBoonGoal HEPHAESTUS_BOON_GOAL = new DeityBoonGoal(Deity.HEPHAESTUS);
+	public static final DeityBoonGoal DEMETER_BOON_GOAL = new DeityBoonGoal(Deity.DEMETER);
+	public static final DeityBoonGoal POSEIDON_BOON_GOAL = new DeityBoonGoal(Deity.POSEIDON);
 }

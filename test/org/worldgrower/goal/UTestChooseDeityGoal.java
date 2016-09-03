@@ -35,7 +35,7 @@ public class UTestChooseDeityGoal {
 	@Test
 	public void testCalculateGoalChooseDeity() {
 		World world = new WorldImpl(1, 1, null, null);
-		WorldObject performer = createPerformer();
+		WorldObject performer = createPerformer(2);
 		performer.setProperty(Constants.NAME, "Test");
 		performer.setProperty(Constants.CHILDREN, new IdList());
 		
@@ -45,7 +45,7 @@ public class UTestChooseDeityGoal {
 	@Test
 	public void testCalculateGoalChooseFarmerDeity() {
 		World world = new WorldImpl(1, 1, null, null);
-		WorldObject performer = createPerformer();
+		WorldObject performer = createPerformer(2);
 		performer.setProperty(Constants.PROFESSION, Professions.FARMER_PROFESSION);
 		performer.setProperty(Constants.NAME, "Test");
 		performer.setProperty(Constants.CHILDREN, new IdList());
@@ -55,9 +55,32 @@ public class UTestChooseDeityGoal {
 	}
 	
 	@Test
+	public void testCalculateGoalChoosePriestDeity() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = createPerformer(2);
+		performer.setProperty(Constants.PROFESSION, Professions.PRIEST_PROFESSION);
+		
+		assertEquals(Actions.CHOOSE_DEITY_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+		int deityIndex = goal.calculateGoal(performer, world).getArgs()[0];
+		assertEquals(Deity.DEMETER, Deity.ALL_DEITIES.get(deityIndex));
+		
+		WorldObject target = createPerformer(3);
+		target.setProperty(Constants.DEITY, Deity.HADES);
+		world.addWorldObject(target);
+		
+		WorldObject target2 = createPerformer(4);
+		target2.setProperty(Constants.DEITY, Deity.HADES);
+		world.addWorldObject(target2);
+		
+		assertEquals(Actions.CHOOSE_DEITY_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+		deityIndex = goal.calculateGoal(performer, world).getArgs()[0];
+		assertEquals(Deity.HADES, Deity.ALL_DEITIES.get(deityIndex));
+	}
+	
+	@Test
 	public void testIsGoalMet() {
 		World world = new WorldImpl(10, 10, null, null);
-		WorldObject performer = createPerformer();
+		WorldObject performer = createPerformer(2);
 		
 		assertEquals(false, goal.isGoalMet(performer, world));
 		
@@ -65,12 +88,13 @@ public class UTestChooseDeityGoal {
 		assertEquals(true, goal.isGoalMet(performer, world));
 	}
 
-	private WorldObject createPerformer() {
-		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
+	private WorldObject createPerformer(int id) {
+		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.X, 0);
 		performer.setProperty(Constants.Y, 0);
 		performer.setProperty(Constants.WIDTH, 1);
 		performer.setProperty(Constants.HEIGHT, 1);
+		performer.setProperty(Constants.CHILDREN, new IdList());
 		return performer;
 	}
 }
