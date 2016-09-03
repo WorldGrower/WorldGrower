@@ -24,8 +24,10 @@ import java.util.Map;
 
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -44,9 +46,16 @@ import org.worldgrower.gui.start.Game;
 import org.worldgrower.gui.util.DialogUtils;
 import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.IconUtils;
+import org.worldgrower.gui.util.JComboBoxFactory;
+import org.worldgrower.gui.util.JLabelFactory;
+import org.worldgrower.gui.util.JPanelFactory;
 import org.worldgrower.gui.util.JTableFactory;
 
-public class GuiShowLegalActionsAction extends AbstractAction {
+public class GuiShowGovernanceAction extends AbstractAction {
+	
+	private static final Integer[] PRICES = new Integer[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+	private static final Integer[] WAGES = new Integer[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+	
 	private final WorldObject playerCharacter;
 	private final DungeonMaster dungeonMaster;
 	private final World world;
@@ -54,7 +63,7 @@ public class GuiShowLegalActionsAction extends AbstractAction {
 	private final SoundIdReader soundIdReader;
 	private final JFrame parentFrame;
 	
-	public GuiShowLegalActionsAction(WorldObject playerCharacter, DungeonMaster dungeonMaster, World world, WorldPanel parent, SoundIdReader soundIdReader, JFrame parentFrame) {
+	public GuiShowGovernanceAction(WorldObject playerCharacter, DungeonMaster dungeonMaster, World world, WorldPanel parent, SoundIdReader soundIdReader, JFrame parentFrame) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.dungeonMaster = dungeonMaster;
@@ -66,19 +75,68 @@ public class GuiShowLegalActionsAction extends AbstractAction {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		LegalActionsDialog dialog = new LegalActionsDialog(500, 800);
+		GovernanceActionsDialog dialog = new GovernanceActionsDialog(800, 800);
 		dialog.setModalityType(ModalityType.APPLICATION_MODAL);
 		IconUtils.setIcon(dialog);
 		
+		JPanel legalActionsPanel = JPanelFactory.createJPanel("Legal actions");
+		legalActionsPanel.setLayout(null);
+		legalActionsPanel.setBounds(15, 15, 368, 720);
+		dialog.addComponent(legalActionsPanel);
+		
 		WorldModel worldModel = new WorldModel(playerCharacter, world);
-		JTable table = JTableFactory.createJTable(worldModel);
-		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(15, 15, 468, 720);
-		dialog.addComponent(scrollPane);
+		JTable legalActionsTable = JTableFactory.createJTable(worldModel);
+		legalActionsTable.getColumnModel().getColumn(0).setPreferredWidth(230);
+		legalActionsTable.getColumnModel().getColumn(1).setPreferredWidth(108);
+		JScrollPane scrollPane = new JScrollPane(legalActionsTable);
+		scrollPane.setBounds(15, 25, 338, 680);
+		legalActionsPanel.add(scrollPane);
+		
+		JPanel incomePanel = JPanelFactory.createJPanel("Income");
+		incomePanel.setLayout(null);
+		incomePanel.setBounds(400, 15, 380, 360);
+		dialog.addComponent(incomePanel);
+		
+		JLabel shackTaxRate = JLabelFactory.createJLabel("Shack Tax Rate:");
+		shackTaxRate.setBounds(15, 20, 200, 30);
+		incomePanel.add(shackTaxRate);
+		
+		JComboBox<Integer> shackComboBox = JComboBoxFactory.createJComboBox(PRICES);
+		shackComboBox.setBounds(215, 20, 50, 30);
+		incomePanel.add(shackComboBox);
+		
+		JLabel houseTaxRate = JLabelFactory.createJLabel("House Tax Rate:");
+		houseTaxRate.setBounds(15, 65, 200, 30);
+		incomePanel.add(houseTaxRate);
+		
+		JComboBox<Integer> houseComboBox = JComboBoxFactory.createJComboBox(PRICES);
+		houseComboBox.setBounds(215, 65, 50, 30);
+		incomePanel.add(houseComboBox);
+		
+		JPanel expensePanel = JPanelFactory.createJPanel("Expense");
+		expensePanel.setLayout(null);
+		expensePanel.setBounds(400, 375, 380, 360);
+		dialog.addComponent(expensePanel);
+		
+		JLabel sheriffWage = JLabelFactory.createJLabel("Sheriff Wage:");
+		sheriffWage.setBounds(15, 20, 200, 30);
+		expensePanel.add(sheriffWage);
+		
+		JComboBox<Integer> sheriffComboBox = JComboBoxFactory.createJComboBox(WAGES);
+		sheriffComboBox.setBounds(215, 20, 50, 30);
+		expensePanel.add(sheriffComboBox);
+		
+		JLabel taxCollectorWage = JLabelFactory.createJLabel("Tax Collector Wage:");
+		taxCollectorWage.setBounds(15, 65, 200, 30);
+		expensePanel.add(taxCollectorWage);
+		
+		JComboBox<Integer> taxCollectorComboBox = JComboBoxFactory.createJComboBox(PRICES);
+		taxCollectorComboBox.setBounds(215, 65, 50, 30);
+		expensePanel.add(taxCollectorComboBox);
 		
 		JPanel buttonPane = new JPanel();
 		buttonPane.setOpaque(false);
-		buttonPane.setBounds(0, 745, 488, 75);
+		buttonPane.setBounds(0, 745, 788, 75);
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		dialog.addComponent(buttonPane);
 		
@@ -89,7 +147,7 @@ public class GuiShowLegalActionsAction extends AbstractAction {
 		dialog.getRootPane().setDefaultButton(okButton);
 		SwingUtils.installEscapeCloseOperation(dialog);
 		
-		SwingUtils.makeTransparant(table, scrollPane);
+		SwingUtils.makeTransparant(legalActionsTable, scrollPane);
 		
 		dialog.setLocationRelativeTo(null);
 		DialogUtils.createDialogBackPanel(dialog, parentFrame.getContentPane());
@@ -181,9 +239,9 @@ public class GuiShowLegalActionsAction extends AbstractAction {
 		}
 	}
 	
-	private static class LegalActionsDialog extends AbstractDialog {
+	private static class GovernanceActionsDialog extends AbstractDialog {
 
-		public LegalActionsDialog(int width, int height) {
+		public GovernanceActionsDialog(int width, int height) {
 			super(width, height);
 		}
 		

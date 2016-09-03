@@ -99,7 +99,7 @@ public class GuiMouseListener extends MouseAdapter {
 	private ManagedOperation leftMouseClickAction;
 	private final ShowCharacterActionsAction showCharacterActionsAction;
 	private final CommunityOverviewAction communityOverviewAction;
-	private final GuiShowLegalActionsAction showLegalActionsAction;
+	private final GuiShowGovernanceAction showGovernanceAction;
 	
     public GuiMouseListener(WorldPanel container, WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, KeyBindings keyBindings, JFrame parentFrame) {
 		super();
@@ -120,7 +120,7 @@ public class GuiMouseListener extends MouseAdapter {
 		assignActionToLeftMouseAction = getGuiAssignActionToLeftMouseAction();
 		showCharacterActionsAction = new ShowCharacterActionsAction();
 		communityOverviewAction = new CommunityOverviewAction(playerCharacter, imageInfoReader, world, parentFrame);
-		showLegalActionsAction = new GuiShowLegalActionsAction(playerCharacter, dungeonMaster, world, container, soundIdReader, parentFrame);
+		showGovernanceAction = new GuiShowGovernanceAction(playerCharacter, dungeonMaster, world, container, soundIdReader, parentFrame);
 		addKeyBindings(keyBindings);
 	}
 
@@ -137,7 +137,7 @@ public class GuiMouseListener extends MouseAdapter {
 		addKeyBindingsFor(assignActionToLeftMouseAction, keyBindings.getValue(GuiAction.ASSIGN_ACTION_TO_LEFT_MOUSE));
 		addKeyBindingsFor(showCharacterActionsAction, keyBindings.getValue(GuiAction.SHOW_CHARACTER_ACTIONS));
 		addKeyBindingsFor(communityOverviewAction, keyBindings.getValue(GuiAction.COMMUNITY_OVERVIEW));
-		addKeyBindingsFor(showLegalActionsAction, keyBindings.getValue(GuiAction.SHOW_LEGAL_ACTIONS));
+		addKeyBindingsFor(showGovernanceAction, keyBindings.getValue(GuiAction.SHOW_GOVERNANCE));
 	}
 	
 	private void addKeyBindingsFor(Action action, char binding) {
@@ -281,7 +281,7 @@ public class GuiMouseListener extends MouseAdapter {
 		addRestMenu(menu);
 		menu.add(organizationMenu);
 		addCreateOrganizationMenu(organizationMenu);
-		addShowLegalActionsMenu(organizationMenu);
+		addShowGovernanceMenu(organizationMenu);
 		addShowCommunityActionMenu(organizationMenu);
 		addChooseDeityMenu(miscMenu);
 		addCreateHumanMeatMenu(miscMenu);
@@ -317,11 +317,11 @@ public class GuiMouseListener extends MouseAdapter {
 		addActions(menu, actions);
 	}
 	
-	private void addShowLegalActionsMenu(JMenu menu) {
-		JMenuItem showLegalActionsMenuItem = MenuFactory.createJMenuItem(showLegalActionsAction, soundIdReader);
-		showLegalActionsMenuItem.setText("Show legal actions...");
-		setMenuIcon(showLegalActionsMenuItem, Actions.SET_LEGAL_ACTIONS_ACTION.getImageIds());
-		menu.add(showLegalActionsMenuItem);
+	private void addShowGovernanceMenu(JMenu menu) {
+		JMenuItem showGovernanceMenuItem = MenuFactory.createJMenuItem(showGovernanceAction, soundIdReader);
+		showGovernanceMenuItem.setText("Show governance overview...");
+		setMenuIcon(showGovernanceMenuItem, Actions.SET_LEGAL_ACTIONS_ACTION.getImageIds());
+		menu.add(showGovernanceMenuItem);
 	}
 
 	private void addShowCommunityActionMenu(JMenu menu) {
