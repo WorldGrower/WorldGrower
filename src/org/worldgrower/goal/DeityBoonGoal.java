@@ -22,6 +22,8 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.actions.legal.LegalAction;
+import org.worldgrower.actions.legal.LegalActions;
 import org.worldgrower.condition.ConditionUtils;
 import org.worldgrower.deity.Deity;
 
@@ -35,7 +37,7 @@ public class DeityBoonGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		if (performer.getProperty(Constants.DEITY) == deity) {
+		if (performer.getProperty(Constants.DEITY) == deity && isWorshipAllowed(deity, world)) {
 			List<WorldObject> targets = GoalUtils.findNearestTargetsByProperty(performer, Actions.WORSHIP_DEITY_ACTION, Constants.CAN_BE_WORSHIPPED, w -> w.getProperty(Constants.DEITY) == deity, world);
 			if (targets.size() > 0) {
 				return new OperationInfo(performer, targets.get(0), Args.EMPTY, Actions.WORSHIP_DEITY_ACTION);
@@ -44,13 +46,18 @@ public class DeityBoonGoal implements Goal {
 		return null;
 	}
 	
+	private boolean isWorshipAllowed(Deity deity, World world) {
+		LegalActions legalActions = LegalActionsPropertyUtils.getLegalActions(world);
+		return legalActions.getLegalFlag(LegalAction.getWorshipLegalActionFor(deity));
+	}
+	
 	@Override
 	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
 	}
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		if (performer.getProperty(Constants.DEITY) == deity) {
+		if (performer.getProperty(Constants.DEITY) == deity && isWorshipAllowed(deity, world)) {
 			return ConditionUtils.performerHasCondition(performer, deity.getBoon());
 		} else {
 			return true;

@@ -38,7 +38,7 @@ public class UTestDeityBoonGoal {
 	@Test
 	public void testCalculateGoalNull() {
 		World world = new WorldImpl(1, 1, null, null);
-		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		WorldObject organization = createVillagersOrganization(world);
 		WorldObject performer = createCommoner(world, organization);
 		
 		assertEquals(null, goal.calculateGoal(performer, world));
@@ -47,7 +47,7 @@ public class UTestDeityBoonGoal {
 	@Test
 	public void testCalculateWorship() {
 		World world = new WorldImpl(10, 10, null, null);
-		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		WorldObject organization = createVillagersOrganization(world);
 		WorldObject performer = createCommoner(world, organization);
 		performer.setProperty(Constants.DEITY, Deity.ARES);
 		BuildingGenerator.generateShrine(0, 0, world, performer);
@@ -58,7 +58,7 @@ public class UTestDeityBoonGoal {
 	@Test
 	public void testCalculateGoalWorshipDifferentDeity() {
 		World world = new WorldImpl(10, 10, null, null);
-		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		WorldObject organization = createVillagersOrganization(world);
 		WorldObject performer = createCommoner(world, organization);
 		performer.setProperty(Constants.DEITY, Deity.ARES);
 		BuildingGenerator.generateShrine(0, 0, world, performer);
@@ -71,7 +71,7 @@ public class UTestDeityBoonGoal {
 	@Test
 	public void testIsGoalMet() {
 		World world = new WorldImpl(10, 10, null, null);
-		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		WorldObject organization = createVillagersOrganization(world);
 		WorldObject performer = createCommoner(world, organization);
 		performer.setProperty(Constants.DEITY, Deity.ARES);
 		
@@ -89,5 +89,13 @@ public class UTestDeityBoonGoal {
 		int commonerId = commonerGenerator.generateCommoner(0, 0, world, organization);
 		WorldObject commoner = world.findWorldObjectById(commonerId);
 		return commoner;
+	}
+	
+	private WorldObject createVillagersOrganization(World world) {
+		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
+		organization.setProperty(Constants.ID, 1);
+		world.addWorldObject(organization);
+		world.generateUniqueId();world.generateUniqueId();
+		return organization;
 	}
 }
