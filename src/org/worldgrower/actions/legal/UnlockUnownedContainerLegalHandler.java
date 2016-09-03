@@ -30,7 +30,7 @@ class UnlockUnownedContainerLegalHandler implements ActionLegalHandler {
 
 	@Override
 	public String getSimpleDescription() {
-		return "unowned container";
+		return "on unowned container";
 	}
 	
 	@Override
