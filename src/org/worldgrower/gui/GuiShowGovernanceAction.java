@@ -95,9 +95,18 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		scrollPane.setBounds(15, 25, 338, 680);
 		legalActionsPanel.add(scrollPane);
 		
+		JLabel villagerGoldLabel = JLabelFactory.createJLabel("Villager Gold:");
+		villagerGoldLabel.setBounds(400, 15, 200, 30);
+		dialog.addComponent(villagerGoldLabel);
+		
+		String villagerGold = getVillagerGold();
+		JLabel villagerGoldValue = JLabelFactory.createJLabel(villagerGold);
+		villagerGoldValue.setBounds(600, 15, 200, 30);
+		dialog.addComponent(villagerGoldValue);
+		
 		JPanel incomePanel = JPanelFactory.createJPanel("Income");
 		incomePanel.setLayout(null);
-		incomePanel.setBounds(400, 15, 380, 360);
+		incomePanel.setBounds(400, 65, 380, 335);
 		dialog.addComponent(incomePanel);
 		
 		JLabel shackTaxRate = JLabelFactory.createJLabel("Shack Tax Rate:");
@@ -123,7 +132,7 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		
 		JPanel expensePanel = JPanelFactory.createJPanel("Expense");
 		expensePanel.setLayout(null);
-		expensePanel.setBounds(400, 375, 380, 360);
+		expensePanel.setBounds(400, 400, 380, 335);
 		dialog.addComponent(expensePanel);
 		
 		JLabel sheriffWage = JLabelFactory.createJLabel("Sheriff Wage:");
@@ -164,6 +173,17 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		dialog.setLocationRelativeTo(null);
 		DialogUtils.createDialogBackPanel(dialog, parentFrame.getContentPane());
 		dialog.setVisible(true);
+	}
+
+	String getVillagerGold() {
+		WorldObject leader = GroupPropertyUtils.getLeaderOfVillagers(world);
+		if (leader != null) {
+			Integer organizationGold = leader.getProperty(Constants.ORGANIZATION_GOLD);
+			if (organizationGold != null) {
+				return Integer.toString(organizationGold);
+			}
+		}
+		return "n/a";
 	}
 	
 	private void addActionHandlers(JButton okButton, WorldModel worldModel, JComboBox<Integer> shackComboBox, JComboBox<Integer> houseComboBox, JComboBox<Integer> sheriffComboBox, JComboBox<Integer> taxCollectorComboBox, JDialog dialog, boolean performerIsLeaderOfVillagers) {
