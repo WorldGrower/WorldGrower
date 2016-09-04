@@ -320,7 +320,7 @@ public class GuiMouseListener extends MouseAdapter {
 	private void addShowGovernanceMenu(JMenu menu) {
 		JMenuItem showGovernanceMenuItem = MenuFactory.createJMenuItem(showGovernanceAction, soundIdReader);
 		showGovernanceMenuItem.setText("Show governance overview...");
-		setMenuIcon(showGovernanceMenuItem, Actions.SET_LEGAL_ACTIONS_ACTION.getImageIds());
+		setMenuIcon(showGovernanceMenuItem, Actions.SET_GOVERNANCE_ACTION.getImageIds());
 		menu.add(showGovernanceMenuItem);
 	}
 

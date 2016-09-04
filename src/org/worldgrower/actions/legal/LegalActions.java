@@ -22,8 +22,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
+import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.goal.GroupPropertyUtils;
 
 /**
  * LegalActions determine for each LegalAction whether it is legal or not
@@ -60,14 +63,25 @@ public class LegalActions implements Serializable {
 		return actions;
 	}
 	
-	public static int[] legalFlagsToArgs(Map<LegalAction, Boolean> legalFlags) {
+	public static int[] createGovernanceArgs(Map<LegalAction, Boolean> legalFlags, int shackTaxRate, int houseTaxRate) {
 		List<LegalAction> actions = toList(legalFlags);
-		int[] args = new int[actions.size()];
+		int[] args = new int[actions.size() + 2];
 		for(int i=0; i<actions.size(); i++) {
 			LegalAction legalAction = actions.get(i);
 			args[i] = legalFlags.get(legalAction) ? 1 : 0;
 		}
+		int wageOffset = actions.size();
+		args[wageOffset] = shackTaxRate;
+		args[wageOffset+1] = houseTaxRate;
+		
 		return args;
+	}
+	
+	public static int[] createGovernanceArgs(Map<LegalAction, Boolean> legalFlags, World world) {
+		WorldObject villagersOrganization = GroupPropertyUtils.getVillagersOrganization(world);
+		int shackTaxRate = villagersOrganization.getProperty(Constants.SHACK_TAX_RATE);
+		int houseTaxRate = villagersOrganization.getProperty(Constants.HOUSE_TAX_RATE);
+		return createGovernanceArgs(legalFlags, shackTaxRate, houseTaxRate);
 	}
 	
 	public Boolean isLegalAction(WorldObject performer, WorldObject actionTarget, int[] args, ManagedOperation managedOperation) {

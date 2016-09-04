@@ -32,7 +32,7 @@ import org.worldgrower.condition.Conditions;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.LegalActionsPropertyUtils;
 
-public class UTestSetLegalActionsAction {
+public class UTestSetGovernanceAction {
 
 	@Test
 	public void testExecute() {
@@ -42,9 +42,9 @@ public class UTestSetLegalActionsAction {
 		createVillagersOrganization(world);
 		LegalActions legalActions = LegalActionsPropertyUtils.getLegalActions(world);
 		Map<LegalAction, Boolean> legalFlags = legalActions.getLegalActions();
-		int[] args = LegalActions.legalFlagsToArgs(legalFlags);
+		int[] args = LegalActions.createGovernanceArgs(legalFlags, 0, 0);
 			
-		Actions.SET_LEGAL_ACTIONS_ACTION.execute(performer, performer, args, world);
+		Actions.SET_GOVERNANCE_ACTION.execute(performer, performer, args, world);
 		
 		legalActions = LegalActionsPropertyUtils.getLegalActions(world);
 		assertEquals(false, legalActions.getLegalFlag(LegalAction.MELEE_ATTACK));
@@ -58,8 +58,8 @@ public class UTestSetLegalActionsAction {
 		world.addWorldObject(performer);
 		createVillagersOrganization(world);
 			
-		assertEquals(true, Actions.SET_LEGAL_ACTIONS_ACTION.isValidTarget(performer, performer, world));
-		assertEquals(false, Actions.SET_LEGAL_ACTIONS_ACTION.isValidTarget(performer, target, world));
+		assertEquals(true, Actions.SET_GOVERNANCE_ACTION.isValidTarget(performer, performer, world));
+		assertEquals(false, Actions.SET_GOVERNANCE_ACTION.isValidTarget(performer, target, world));
 	}
 	
 	@Test
@@ -70,7 +70,7 @@ public class UTestSetLegalActionsAction {
 		WorldObject villagersOrganization = createVillagersOrganization(world);
 		villagersOrganization.setProperty(Constants.ORGANIZATION_LEADER_ID, performer.getProperty(Constants.ID));
 			
-		assertEquals(true, Actions.SET_LEGAL_ACTIONS_ACTION.isActionPossible(performer, performer, Args.EMPTY, world));
+		assertEquals(true, Actions.SET_GOVERNANCE_ACTION.isActionPossible(performer, performer, Args.EMPTY, world));
 	}
 
 

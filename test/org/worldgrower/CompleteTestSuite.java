@@ -143,8 +143,6 @@ import org.worldgrower.conversation.UTestWhyAngryOtherConversation;
 import org.worldgrower.conversation.UTestWhyNotIntelligentConversation;
 import org.worldgrower.conversation.leader.UTestCanAttackCriminalsConversation;
 import org.worldgrower.conversation.leader.UTestCanCollectTaxesConversation;
-import org.worldgrower.conversation.leader.UTestSetHouseTaxRateConversation;
-import org.worldgrower.conversation.leader.UTestSetShackTaxRateConversation;
 import org.worldgrower.creaturetype.UTestCreatureTypeUtils;
 import org.worldgrower.curse.UTestVampireCurse;
 import org.worldgrower.curse.UTestWerewolfCurse;
@@ -412,7 +410,7 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestCollectWaterAction.class,
 	UTestStealAction.class,
 	UTestEatNightShadeAction.class,
-	UTestSetLegalActionsAction.class,
+	UTestSetGovernanceAction.class,
 	UTestBuildWellAction.class,
 	UTestBuildShrineAction.class,
 	UTestBuildArenaAction.class,
@@ -539,8 +537,6 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestWerewolfUtils.class,
 	UTestIntoxicatedCondition.class,
 	UTestVampireBiteCondition.class,
-	UTestSetShackTaxRateConversation.class,
-	UTestSetHouseTaxRateConversation.class,
 	UTestCanAttackCriminalsConversation.class,
 	UTestCommonerNameGeneratorImpl.class,
 	UTestMetaInformation.class,

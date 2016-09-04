@@ -52,7 +52,7 @@ public class UTestLegalizeVampirismGoal {
 		
 		villagersOrganization.setProperty(Constants.ORGANIZATION_LEADER_ID, performer.getProperty(Constants.ID));
 		
-		assertEquals(Actions.SET_LEGAL_ACTIONS_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+		assertEquals(Actions.SET_GOVERNANCE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
 	
 	@Test

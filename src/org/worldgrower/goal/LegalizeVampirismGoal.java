@@ -57,8 +57,8 @@ public class LegalizeVampirismGoal implements Goal {
 		LegalActions legalActions = LegalActionsPropertyUtils.getLegalActions(world);
 		Map<LegalAction, Boolean> legalFlags = legalActions.getLegalActions();
 		legalFlags.put(LegalAction.VAMPIRE_BITE, Boolean.TRUE);
-		int[] args = LegalActions.legalFlagsToArgs(legalFlags);
-		return new OperationInfo(performer, performer, args, Actions.SET_LEGAL_ACTIONS_ACTION);
+		int[] args = LegalActions.createGovernanceArgs(legalFlags, world);
+		return new OperationInfo(performer, performer, args, Actions.SET_GOVERNANCE_ACTION);
 	}
 	
 	@Override

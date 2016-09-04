@@ -18,6 +18,7 @@ import java.io.ObjectStreamException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
@@ -28,7 +29,7 @@ import org.worldgrower.goal.LegalActionsPropertyUtils;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
-public class SetLegalActionsAction implements ManagedOperation {
+public class SetGovernanceAction implements ManagedOperation {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
@@ -45,6 +46,11 @@ public class SetLegalActionsAction implements ManagedOperation {
 				changedLegalActions.add(legalAction);
 			}
 		}
+		
+		int taxRateOffset = legalActionsList.size();
+		WorldObject villagersOrganization = GroupPropertyUtils.getVillagersOrganization(world);
+		villagersOrganization.setProperty(Constants.SHACK_TAX_RATE, args[taxRateOffset]);
+		villagersOrganization.setProperty(Constants.HOUSE_TAX_RATE, args[taxRateOffset+1]);
 		
 		world.getWorldStateChangedListeners().legalActionsChanged(changedLegalActions, performer);
 	}

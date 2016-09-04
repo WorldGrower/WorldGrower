@@ -32,8 +32,6 @@ import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.conversation.leader.CanAttackCriminalsConversation;
 import org.worldgrower.conversation.leader.CanCollectTaxesConversation;
-import org.worldgrower.conversation.leader.SetHouseTaxRateConversation;
-import org.worldgrower.conversation.leader.SetShackTaxRateConversation;
 import org.worldgrower.history.HistoryItem;
 
 /**
@@ -72,8 +70,6 @@ public class Conversations implements Serializable {
 	public static final CurePoisonConversation CURE_POISON_CONVERSATION = new CurePoisonConversation();
 	public static final WhoIsLeaderOrganizationConversation WHO_IS_LEADER_ORGANIZATION_CONVERSATION = new WhoIsLeaderOrganizationConversation();
 	public static final VoteLeaderOrganizationConversation VOTE_LEADER_ORGANIZATION_CONVERSATION = new VoteLeaderOrganizationConversation();
-	public static final SetShackTaxRateConversation SET_SHACK_TAX_RATE_CONVERSATION = new SetShackTaxRateConversation();
-	public static final SetHouseTaxRateConversation SET_HOUSE_TAX_RATE_CONVERSATION = new SetHouseTaxRateConversation();
 	public static final CollectTaxesConversation COLLECT_TAXES_CONVERSATION = new CollectTaxesConversation();
 	public static final CollectPayCheckConversation COLLECT_PAY_CHECK_CONVERSATION = new CollectPayCheckConversation();
 	public static final CanCollectTaxesConversation CAN_COLLECT_TAXES_CONVERSATION = new CanCollectTaxesConversation();
@@ -155,8 +151,6 @@ public class Conversations implements Serializable {
 		addNormalAndIntimidate(CURE_POISON_CONVERSATION, ConversationCategory.DEMAND);
 		addNormalAndIntimidate(WHO_IS_LEADER_ORGANIZATION_CONVERSATION, ConversationCategory.GROUP);
 		addNormalAndIntimidate(VOTE_LEADER_ORGANIZATION_CONVERSATION, ConversationCategory.GROUP);
-		add(SET_SHACK_TAX_RATE_CONVERSATION, ConversationCategory.LEADER);
-		add(SET_HOUSE_TAX_RATE_CONVERSATION, ConversationCategory.LEADER);
 		add(COLLECT_TAXES_CONVERSATION, ConversationCategory.GROUP);
 		add(COLLECT_PAY_CHECK_CONVERSATION, ConversationCategory.LEADER);
 		addNormalAndIntimidate(CAN_COLLECT_TAXES_CONVERSATION, ConversationCategory.LEADER);

@@ -33,6 +33,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
+import org.worldgrower.Constants;
 import org.worldgrower.DungeonMaster;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
@@ -79,12 +80,14 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		dialog.setModalityType(ModalityType.APPLICATION_MODAL);
 		IconUtils.setIcon(dialog);
 		
+		boolean performerIsLeaderOfVillagers = GroupPropertyUtils.performerIsLeaderOfVillagers(playerCharacter, world);
+		
 		JPanel legalActionsPanel = JPanelFactory.createJPanel("Legal actions");
 		legalActionsPanel.setLayout(null);
 		legalActionsPanel.setBounds(15, 15, 368, 720);
 		dialog.addComponent(legalActionsPanel);
 		
-		WorldModel worldModel = new WorldModel(playerCharacter, world);
+		WorldModel worldModel = new WorldModel(playerCharacter, world, performerIsLeaderOfVillagers);
 		JTable legalActionsTable = JTableFactory.createJTable(worldModel);
 		legalActionsTable.getColumnModel().getColumn(0).setPreferredWidth(230);
 		legalActionsTable.getColumnModel().getColumn(1).setPreferredWidth(108);
@@ -102,6 +105,8 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		incomePanel.add(shackTaxRate);
 		
 		JComboBox<Integer> shackComboBox = JComboBoxFactory.createJComboBox(PRICES);
+		shackComboBox.setEnabled(performerIsLeaderOfVillagers);
+		shackComboBox.setSelectedItem(GroupPropertyUtils.getVillagersOrganization(world).getProperty(Constants.SHACK_TAX_RATE));
 		shackComboBox.setBounds(215, 20, 50, 30);
 		incomePanel.add(shackComboBox);
 		
@@ -110,6 +115,8 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		incomePanel.add(houseTaxRate);
 		
 		JComboBox<Integer> houseComboBox = JComboBoxFactory.createJComboBox(PRICES);
+		houseComboBox.setEnabled(performerIsLeaderOfVillagers);
+		houseComboBox.setSelectedItem(GroupPropertyUtils.getVillagersOrganization(world).getProperty(Constants.HOUSE_TAX_RATE));
 		houseComboBox.setBounds(215, 65, 50, 30);
 		incomePanel.add(houseComboBox);
 		
@@ -123,6 +130,7 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		expensePanel.add(sheriffWage);
 		
 		JComboBox<Integer> sheriffComboBox = JComboBoxFactory.createJComboBox(WAGES);
+		sheriffComboBox.setEnabled(performerIsLeaderOfVillagers);
 		sheriffComboBox.setBounds(215, 20, 50, 30);
 		expensePanel.add(sheriffComboBox);
 		
@@ -131,6 +139,7 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		expensePanel.add(taxCollectorWage);
 		
 		JComboBox<Integer> taxCollectorComboBox = JComboBoxFactory.createJComboBox(PRICES);
+		taxCollectorComboBox.setEnabled(performerIsLeaderOfVillagers);
 		taxCollectorComboBox.setBounds(215, 65, 50, 30);
 		expensePanel.add(taxCollectorComboBox);
 		
@@ -143,7 +152,7 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		JButton okButton = JButtonFactory.createButton("OK", soundIdReader);
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
-		addActionHandlers(okButton, worldModel, dialog);
+		addActionHandlers(okButton, worldModel, shackComboBox, houseComboBox, dialog, performerIsLeaderOfVillagers);
 		dialog.getRootPane().setDefaultButton(okButton);
 		SwingUtils.installEscapeCloseOperation(dialog);
 		
@@ -154,13 +163,17 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		dialog.setVisible(true);
 	}
 	
-	private void addActionHandlers(JButton okButton, WorldModel worldModel, JDialog dialog) {
+	private void addActionHandlers(JButton okButton, WorldModel worldModel, JComboBox<Integer> shackComboBox, JComboBox<Integer> houseComboBox, JDialog dialog, boolean performerIsLeaderOfVillagers) {
 		okButton.addActionListener(new ActionListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				int[] args = worldModel.getArgs();
-				Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, Actions.SET_LEGAL_ACTIONS_ACTION, args, world, dungeonMaster, playerCharacter, parent, soundIdReader);
+			public void actionPerformed(ActionEvent event) {
+				if (performerIsLeaderOfVillagers) {
+					int shackTaxRate = (int) shackComboBox.getSelectedItem();
+					int houseTaxRate = (int) houseComboBox.getSelectedItem();
+					int[] args = worldModel.getArgs(shackTaxRate, houseTaxRate);
+					Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, Actions.SET_GOVERNANCE_ACTION, args, world, dungeonMaster, playerCharacter, parent, soundIdReader);
+				}
 				dialog.dispose();
 			}
 		});
@@ -171,12 +184,12 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		private Map<LegalAction, Boolean> legalFlags = new HashMap<>();
 		private boolean performerIsLeaderOfVillagers;
 		
-		public WorldModel(WorldObject playerCharacter, World world) {
+		public WorldModel(WorldObject playerCharacter, World world, boolean performerIsLeaderOfVillagers) {
 			super();
 			LegalActions legalActions = LegalActionsPropertyUtils.getLegalActions(world);
 			this.legalActionsList = legalActions.toList();
 			this.legalFlags = legalActions.getLegalActions();
-			this.performerIsLeaderOfVillagers = GroupPropertyUtils.performerIsLeaderOfVillagers(playerCharacter, world);
+			this.performerIsLeaderOfVillagers = performerIsLeaderOfVillagers;
 		}
 
 		@Override
@@ -234,8 +247,8 @@ public class GuiShowGovernanceAction extends AbstractAction {
 			}
 		}
 
-		public int[] getArgs() {
-			return LegalActions.legalFlagsToArgs(legalFlags);
+		public int[] getArgs(int shackTaxRate, int houseTaxRate) {
+			return LegalActions.createGovernanceArgs(legalFlags, shackTaxRate, houseTaxRate);
 		}
 	}
 	

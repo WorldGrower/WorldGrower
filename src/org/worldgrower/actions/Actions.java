@@ -208,7 +208,7 @@ public class Actions {
 	public static final StartOrganizationVoteAction START_ORGANIZATION_VOTE_ACTION = new StartOrganizationVoteAction();
 	public static final SetTaxRateAction SET_TAX_RATE_ACTION = new SetTaxRateAction();
 	public static final HandoverTaxesAction HANDOVER_TAXES_ACTION = new HandoverTaxesAction();
-	public static final SetLegalActionsAction SET_LEGAL_ACTIONS_ACTION = new SetLegalActionsAction();
+	public static final SetGovernanceAction SET_GOVERNANCE_ACTION = new SetGovernanceAction();
 	
 	public static final PlantCottonPlantAction PLANT_COTTON_PLANT_ACTION = new PlantCottonPlantAction();
 	public static final HarvestCottonAction HARVEST_COTTON_ACTION = new HarvestCottonAction();
@@ -436,7 +436,7 @@ public class Actions {
 		CONSTRUCT_TRAINING_DUMMY_ACTION,
 		DETERMINE_DEATH_REASON_ACTION,
 		PLANT_NIGHT_SHADE_ACTION,
-		SET_LEGAL_ACTIONS_ACTION,
+		SET_GOVERNANCE_ACTION,
 		NON_LETHAL_MELEE_ATTACK_ACTION,
 		CAPTURE_PERSON_ACTION,
 		BUILD_JAIL_ACTION,
