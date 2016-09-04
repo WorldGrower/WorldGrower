@@ -20,7 +20,10 @@ import org.worldgrower.OnTurn;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.actions.legal.LegalAction;
 import org.worldgrower.attribute.Background;
+import org.worldgrower.attribute.BuildingList;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.ItemCountMap;
 import org.worldgrower.attribute.Prices;
 import org.worldgrower.attribute.WorldObjectContainer;
@@ -28,10 +31,14 @@ import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.creaturetype.CreatureTypeUtils;
+import org.worldgrower.deity.Deity;
 import org.worldgrower.goal.BrawlPropertyUtils;
 import org.worldgrower.goal.DrownUtils;
 import org.worldgrower.goal.GoalUtils;
+import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.KnowledgeMapPropertyUtils;
+import org.worldgrower.goal.LegalActionsPropertyUtils;
+import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.goal.WeightPropertyUtils;
 
 public class CommonerOnTurn implements OnTurn {
@@ -61,6 +68,7 @@ public class CommonerOnTurn implements OnTurn {
 		adjustPrices(worldObject, world);
 		checkForDisease(worldObject, world);
 		checkForJail(worldObject, world);
+		checkForGovernancy(worldObject, world);
 		BrawlPropertyUtils.completelyEndBrawling(worldObject);
 	}
 
@@ -202,5 +210,39 @@ public class CommonerOnTurn implements OnTurn {
 	
 	private void everyoneInVicinityKnowsOfChild(WorldObject parent, int childId, World world) {
 		KnowledgeMapPropertyUtils.everyoneInVicinityKnowsOfProperty(parent, parent, Constants.CHILD_BIRTH_ID, childId, world);
+	}
+	
+	private void checkForGovernancy(WorldObject worldObject, World world) {
+		if (world.getCurrentTurn().getValue() % 100 == 0) {
+			WorldObject leader = GroupPropertyUtils.getLeaderOfVillagers(world);
+			
+			if (leader != null && !worldObject.equals(leader)) {
+				checkWorshipLegality(worldObject, world, leader);
+				checkTaxRate(worldObject, world, leader);
+			}
+		}
+	}
+
+	void checkWorshipLegality(WorldObject worldObject, World world, WorldObject leader) {
+		Deity deity = worldObject.getProperty(Constants.DEITY);
+		if (deity != null) {
+			LegalAction worshipLegalAction = LegalAction.getWorshipLegalActionFor(deity);
+			if (!LegalActionsPropertyUtils.getLegalActions(world).getLegalFlag(worshipLegalAction)) {
+				RelationshipPropertyUtils.changeRelationshipValue(worldObject, leader, -10, 0, Actions.SET_GOVERNANCE_ACTION, Args.EMPTY, world);
+			}
+		}
+	}
+	
+	void checkTaxRate(WorldObject worldObject, World world, WorldObject leader) {
+		BuildingList buildings = worldObject.getProperty(Constants.BUILDINGS);
+		WorldObject villagersOrganization = GroupPropertyUtils.getVillagersOrganization(world);
+		int shackTaxRate = villagersOrganization.getProperty(Constants.SHACK_TAX_RATE);
+		int houseTaxRate = villagersOrganization.getProperty(Constants.HOUSE_TAX_RATE);
+		if (buildings.contains(BuildingType.SHACK) && shackTaxRate > 1) {
+			RelationshipPropertyUtils.changeRelationshipValue(worldObject, leader, -1 * shackTaxRate, 0, Actions.SET_GOVERNANCE_ACTION, Args.EMPTY, world);
+		}
+		if (buildings.contains(BuildingType.HOUSE) && houseTaxRate > 2) {
+			RelationshipPropertyUtils.changeRelationshipValue(worldObject, leader, -1 * houseTaxRate, 0, Actions.SET_GOVERNANCE_ACTION, Args.EMPTY, world);
+		}
 	}
 }

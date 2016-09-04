@@ -134,4 +134,13 @@ public class BuildingList implements Serializable, IdContainer {
 	public void removeAll() {
 		buildings.clear();
 	}
+
+	public boolean contains(BuildingType buildingType) {
+		for(Building building : buildings) {
+			if (building.getBuildingType() == buildingType) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

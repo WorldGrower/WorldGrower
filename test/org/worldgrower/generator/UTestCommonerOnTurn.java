@@ -22,10 +22,14 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.MockCommonerNameGenerator;
+import org.worldgrower.actions.legal.LegalAction;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.Prices;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.condition.WorldStateChangedListeners;
+import org.worldgrower.deity.Deity;
 import org.worldgrower.goal.GroupPropertyUtils;
+import org.worldgrower.goal.LegalActionsPropertyUtils;
 import org.worldgrower.gui.CommonerImageIds;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.start.CharacterAttributes;
@@ -37,7 +41,7 @@ public class UTestCommonerOnTurn {
 	@Test
 	public void testOnTurnOfCommonAttributes() {
 		World world = new WorldImpl(1, 1, null, null);
-		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
+		WorldObject organization = createVillagersOrganization(world);
 		
 		WorldObject playerCharacter = createPlayerCharacter(world, organization);
 		
@@ -54,7 +58,7 @@ public class UTestCommonerOnTurn {
 	@Test
 	public void testOnTurnNoFoodNoWater() {
 		World world = new WorldImpl(1, 1, null, null);
-		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
+		WorldObject organization = createVillagersOrganization(world);
 		
 		WorldObject playerCharacter = createPlayerCharacter(world, organization);
 		
@@ -82,7 +86,7 @@ public class UTestCommonerOnTurn {
 	@Test
 	public void testGiveBirth() {
 		World world = new WorldImpl(10, 10, null, null);
-		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
+		WorldObject organization = createVillagersOrganization(world);
 		
 		CharacterAttributes characterAttributes = new CharacterAttributes(10, 10, 10, 10, 10, 10);
 		WorldObject playerCharacter = CommonerGenerator.createPlayerCharacter(7, "player", "adventurer" , "female", world, commonerGenerator, organization, characterAttributes, ImageIds.KNIGHT);
@@ -93,11 +97,19 @@ public class UTestCommonerOnTurn {
 		assertEquals(null, playerCharacter.getProperty(Constants.PREGNANCY));
 		assertEquals(1, playerCharacter.getProperty(Constants.CHILDREN).size());
 	}
+
+	private WorldObject createVillagersOrganization(World world) {
+		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
+		organization.setProperty(Constants.ID, 1);
+		world.addWorldObject(organization);
+		world.generateUniqueId(); world.generateUniqueId();
+		return organization;
+	}
 	
 	@Test
 	public void testGetInventoryCount() {
 		World world = new WorldImpl(1, 1, null, null);
-		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
+		WorldObject organization = createVillagersOrganization(world);
 		
 		WorldObject playerCharacter = createPlayerCharacter(world, organization);
 		WorldObjectContainer inventory = playerCharacter.getProperty(Constants.INVENTORY);
@@ -110,7 +122,7 @@ public class UTestCommonerOnTurn {
 	@Test
 	public void testCalculateNewPrice() {
 		World world = new WorldImpl(1, 1, null, null);
-		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
+		WorldObject organization = createVillagersOrganization(world);
 		
 		int soldCount = 0;
 		int inventoryCount = 0;
@@ -130,7 +142,7 @@ public class UTestCommonerOnTurn {
 	@Test
 	public void testAdjustPrices() {
 		World world = new WorldImpl(1, 1, null, null);
-		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
+		WorldObject organization = createVillagersOrganization(world);
 		
 		WorldObject commoner = createCommoner(world, organization);
 		commoner.getProperty(Constants.ITEMS_SOLD).add(Item.BERRIES, 20);
@@ -141,5 +153,62 @@ public class UTestCommonerOnTurn {
 		assertEquals(2, prices.getPrice(Item.BERRIES));
 		
 		assertEquals(false, commoner.getProperty(Constants.ITEMS_SOLD).contains(Item.BERRIES));
+	}
+	
+	@Test
+	public void testCheckWorshipLegality() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject organization = createVillagersOrganization(world);
+		
+		WorldObject commoner = createCommoner(world, organization);
+		WorldObject leader = createCommoner(world, organization);
+
+		CommonerOnTurn commonerOnTurn = new CommonerOnTurn(commonerGenerator, organization);
+		commonerOnTurn.checkWorshipLegality(commoner, world, leader);
+		assertEquals(0, commoner.getProperty(Constants.RELATIONSHIPS).getValue(leader));
+		assertEquals(0, leader.getProperty(Constants.RELATIONSHIPS).getValue(commoner));
+		
+		commoner.setProperty(Constants.DEITY, Deity.HADES);
+		commonerOnTurn.checkWorshipLegality(commoner, world, leader);
+		assertEquals(0, commoner.getProperty(Constants.RELATIONSHIPS).getValue(leader));
+		assertEquals(0, leader.getProperty(Constants.RELATIONSHIPS).getValue(commoner));
+		
+		LegalAction legalAction = LegalAction.getWorshipLegalActionFor(Deity.HADES);
+		LegalActionsPropertyUtils.getLegalActions(world).setLegalFlag(legalAction, false);
+		commonerOnTurn.checkWorshipLegality(commoner, world, leader);
+		assertEquals(-10, commoner.getProperty(Constants.RELATIONSHIPS).getValue(leader));
+		assertEquals(0, leader.getProperty(Constants.RELATIONSHIPS).getValue(commoner));
+	}
+	
+	@Test
+	public void testCheckTaxRate() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject organization = createVillagersOrganization(world);
+		
+		WorldObject commoner = createCommoner(world, organization);
+		WorldObject leader = createCommoner(world, organization);
+
+		CommonerOnTurn commonerOnTurn = new CommonerOnTurn(commonerGenerator, organization);
+		commonerOnTurn.checkTaxRate(commoner, world, leader);
+		assertEquals(0, commoner.getProperty(Constants.RELATIONSHIPS).getValue(leader));
+		assertEquals(0, leader.getProperty(Constants.RELATIONSHIPS).getValue(commoner));
+		
+		int shackId = BuildingGenerator.generateShack(0, 0, world, commoner);
+		commoner.getProperty(Constants.BUILDINGS).add(shackId, BuildingType.SHACK);
+		commonerOnTurn.checkTaxRate(commoner, world, leader);
+		assertEquals(0, commoner.getProperty(Constants.RELATIONSHIPS).getValue(leader));
+		assertEquals(0, leader.getProperty(Constants.RELATIONSHIPS).getValue(commoner));
+		
+		GroupPropertyUtils.getVillagersOrganization(world).setProperty(Constants.SHACK_TAX_RATE, 5);
+		commonerOnTurn.checkTaxRate(commoner, world, leader);
+		assertEquals(-5, commoner.getProperty(Constants.RELATIONSHIPS).getValue(leader));
+		assertEquals(0, leader.getProperty(Constants.RELATIONSHIPS).getValue(commoner));
+		
+		int houseId = BuildingGenerator.generateHouse(0, 0, world, commoner);
+		commoner.getProperty(Constants.BUILDINGS).add(houseId, BuildingType.HOUSE);
+		GroupPropertyUtils.getVillagersOrganization(world).setProperty(Constants.HOUSE_TAX_RATE, 5);
+		commonerOnTurn.checkTaxRate(commoner, world, leader);
+		assertEquals(-15, commoner.getProperty(Constants.RELATIONSHIPS).getValue(leader));
+		assertEquals(0, leader.getProperty(Constants.RELATIONSHIPS).getValue(commoner));
 	}
 }
