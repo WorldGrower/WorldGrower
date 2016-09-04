@@ -49,8 +49,8 @@ public class UTestCollectPayCheckConversation {
 	public void testGetReplyPhrase() {
 		World world = new WorldImpl(1, 1, null, new DoNothingWorldOnTurn());
 		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.BUILDINGS, new BuildingList());
+		performer.setProperty(Constants.CAN_ATTACK_CRIMINALS, Boolean.TRUE);
 		WorldObject target = TestUtils.createIntelligentWorldObject(8, Constants.BUILDINGS, new BuildingList());
-
 		target.setProperty(Constants.ORGANIZATION_GOLD, 200);
 		
 		createDefaultVillagersOrganization(world, target);

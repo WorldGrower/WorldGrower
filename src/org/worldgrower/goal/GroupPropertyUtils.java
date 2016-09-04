@@ -192,6 +192,9 @@ public class GroupPropertyUtils {
 		WorldObject organization = create(null, "villagers", world);
 		organization.setProperty(Constants.SHACK_TAX_RATE, 0);
 		organization.setProperty(Constants.HOUSE_TAX_RATE, 0);
+		organization.setProperty(Constants.SHERIFF_WAGE, 5);
+		organization.setProperty(Constants.TAX_COLLECTOR_WAGE, 5);
+		
 		organization.setProperty(Constants.TAXES_PAID_TURN, new IdToIntegerMap());
 		organization.setProperty(Constants.PAY_CHECK_PAID_TURN, new IdToIntegerMap());
 		organization.setProperty(Constants.TURNS_IN_JAIL, new IdToIntegerMap());
@@ -295,8 +298,24 @@ public class GroupPropertyUtils {
 			numberOfPayCheckPeriods = turnsNotPaid / TAXES_PERIOD;
 		}
 		
-		int amountToCollect = 5 * numberOfPayCheckPeriods;
-		return amountToCollect;
+		if (numberOfPayCheckPeriods > 0) {
+			int payCheck = getPayCheck(target, world);
+			int amountToCollect = payCheck * numberOfPayCheckPeriods;
+			return amountToCollect;
+		} else {
+			return 0;
+		}
+	}
+	
+	private static int getPayCheck(WorldObject target,  World world) {
+		WorldObject villagersOrganization = GroupPropertyUtils.getVillagersOrganization(world);
+		if (target.hasProperty(Constants.CAN_ATTACK_CRIMINALS) && target.getProperty(Constants.CAN_ATTACK_CRIMINALS)) {
+			return villagersOrganization.getProperty(Constants.SHERIFF_WAGE);
+		} else if (target.hasProperty(Constants.CAN_COLLECT_TAXES) && target.getProperty(Constants.CAN_COLLECT_TAXES)) {
+			return villagersOrganization.getProperty(Constants.TAX_COLLECTOR_WAGE);
+		} else {
+			throw new IllegalStateException("No paycheck could be calculated for " + target);
+		}
 	}
 	
 	public static boolean isMinionOrganization(WorldObject organization) {

@@ -106,7 +106,8 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		
 		JComboBox<Integer> shackComboBox = JComboBoxFactory.createJComboBox(PRICES);
 		shackComboBox.setEnabled(performerIsLeaderOfVillagers);
-		shackComboBox.setSelectedItem(GroupPropertyUtils.getVillagersOrganization(world).getProperty(Constants.SHACK_TAX_RATE));
+		WorldObject villagersOrganization = GroupPropertyUtils.getVillagersOrganization(world);
+		shackComboBox.setSelectedItem(villagersOrganization.getProperty(Constants.SHACK_TAX_RATE));
 		shackComboBox.setBounds(215, 20, 50, 30);
 		incomePanel.add(shackComboBox);
 		
@@ -116,7 +117,7 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		
 		JComboBox<Integer> houseComboBox = JComboBoxFactory.createJComboBox(PRICES);
 		houseComboBox.setEnabled(performerIsLeaderOfVillagers);
-		houseComboBox.setSelectedItem(GroupPropertyUtils.getVillagersOrganization(world).getProperty(Constants.HOUSE_TAX_RATE));
+		houseComboBox.setSelectedItem(villagersOrganization.getProperty(Constants.HOUSE_TAX_RATE));
 		houseComboBox.setBounds(215, 65, 50, 30);
 		incomePanel.add(houseComboBox);
 		
@@ -131,6 +132,7 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		
 		JComboBox<Integer> sheriffComboBox = JComboBoxFactory.createJComboBox(WAGES);
 		sheriffComboBox.setEnabled(performerIsLeaderOfVillagers);
+		sheriffComboBox.setSelectedItem(villagersOrganization.getProperty(Constants.SHERIFF_WAGE));
 		sheriffComboBox.setBounds(215, 20, 50, 30);
 		expensePanel.add(sheriffComboBox);
 		
@@ -140,6 +142,7 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		
 		JComboBox<Integer> taxCollectorComboBox = JComboBoxFactory.createJComboBox(PRICES);
 		taxCollectorComboBox.setEnabled(performerIsLeaderOfVillagers);
+		taxCollectorComboBox.setSelectedItem(villagersOrganization.getProperty(Constants.TAX_COLLECTOR_WAGE));
 		taxCollectorComboBox.setBounds(215, 65, 50, 30);
 		expensePanel.add(taxCollectorComboBox);
 		
@@ -152,7 +155,7 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		JButton okButton = JButtonFactory.createButton("OK", soundIdReader);
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
-		addActionHandlers(okButton, worldModel, shackComboBox, houseComboBox, dialog, performerIsLeaderOfVillagers);
+		addActionHandlers(okButton, worldModel, shackComboBox, houseComboBox, sheriffComboBox, taxCollectorComboBox, dialog, performerIsLeaderOfVillagers);
 		dialog.getRootPane().setDefaultButton(okButton);
 		SwingUtils.installEscapeCloseOperation(dialog);
 		
@@ -163,7 +166,7 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		dialog.setVisible(true);
 	}
 	
-	private void addActionHandlers(JButton okButton, WorldModel worldModel, JComboBox<Integer> shackComboBox, JComboBox<Integer> houseComboBox, JDialog dialog, boolean performerIsLeaderOfVillagers) {
+	private void addActionHandlers(JButton okButton, WorldModel worldModel, JComboBox<Integer> shackComboBox, JComboBox<Integer> houseComboBox, JComboBox<Integer> sheriffComboBox, JComboBox<Integer> taxCollectorComboBox, JDialog dialog, boolean performerIsLeaderOfVillagers) {
 		okButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -171,7 +174,9 @@ public class GuiShowGovernanceAction extends AbstractAction {
 				if (performerIsLeaderOfVillagers) {
 					int shackTaxRate = (int) shackComboBox.getSelectedItem();
 					int houseTaxRate = (int) houseComboBox.getSelectedItem();
-					int[] args = worldModel.getArgs(shackTaxRate, houseTaxRate);
+					int sheriffWage = (int) sheriffComboBox.getSelectedItem();
+					int taxCollectorWage = (int) taxCollectorComboBox.getSelectedItem();
+					int[] args = worldModel.getArgs(shackTaxRate, houseTaxRate, sheriffWage, taxCollectorWage);
 					Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, Actions.SET_GOVERNANCE_ACTION, args, world, dungeonMaster, playerCharacter, parent, soundIdReader);
 				}
 				dialog.dispose();
@@ -247,8 +252,8 @@ public class GuiShowGovernanceAction extends AbstractAction {
 			}
 		}
 
-		public int[] getArgs(int shackTaxRate, int houseTaxRate) {
-			return LegalActions.createGovernanceArgs(legalFlags, shackTaxRate, houseTaxRate);
+		public int[] getArgs(int shackTaxRate, int houseTaxRate, int sheriffWage, int taxCollectorWage) {
+			return LegalActions.createGovernanceArgs(legalFlags, shackTaxRate, houseTaxRate, sheriffWage, taxCollectorWage);
 		}
 	}
 	

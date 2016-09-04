@@ -75,6 +75,7 @@ public class UTestCollectPayCheckGoal {
 		World world = new WorldImpl(10, 10, null, new DoNothingWorldOnTurn());
 		WorldObject performer = createPerformer(2);
 		performer.setProperty(Constants.ORGANIZATION_GOLD, 0);
+		performer.setProperty(Constants.CAN_ATTACK_CRIMINALS, Boolean.TRUE);
 		WorldObject target = createPerformer(3);
 		
 		world.addWorldObject(performer);

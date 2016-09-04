@@ -257,6 +257,7 @@ public class UTestGroupPropertyUtils {
 	public void testGetPayCheckAmount() {
 		World world = new WorldImpl(1, 1, null, new DoNothingWorldOnTurn());
 		WorldObject target = TestUtils.createIntelligentWorldObject(world.generateUniqueId(), Constants.BUILDINGS, new BuildingList().add(2, BuildingType.HOUSE).add(3, BuildingType.HOUSE));
+		target.setProperty(Constants.CAN_ATTACK_CRIMINALS, Boolean.TRUE);
 		world.addWorldObject(target);
 		
 		WorldObject villagersOrganization = createVillagersOrganizationWithTaxRates(world);

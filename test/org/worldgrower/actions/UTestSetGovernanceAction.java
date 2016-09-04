@@ -42,7 +42,7 @@ public class UTestSetGovernanceAction {
 		createVillagersOrganization(world);
 		LegalActions legalActions = LegalActionsPropertyUtils.getLegalActions(world);
 		Map<LegalAction, Boolean> legalFlags = legalActions.getLegalActions();
-		int[] args = LegalActions.createGovernanceArgs(legalFlags, 0, 0);
+		int[] args = LegalActions.createGovernanceArgs(legalFlags, 0, 0, 5, 5);
 			
 		Actions.SET_GOVERNANCE_ACTION.execute(performer, performer, args, world);
 		

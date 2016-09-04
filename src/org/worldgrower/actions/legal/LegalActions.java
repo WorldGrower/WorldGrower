@@ -63,9 +63,9 @@ public class LegalActions implements Serializable {
 		return actions;
 	}
 	
-	public static int[] createGovernanceArgs(Map<LegalAction, Boolean> legalFlags, int shackTaxRate, int houseTaxRate) {
+	public static int[] createGovernanceArgs(Map<LegalAction, Boolean> legalFlags, int shackTaxRate, int houseTaxRate, int sheriffWage, int taxCollectorWage) {
 		List<LegalAction> actions = toList(legalFlags);
-		int[] args = new int[actions.size() + 2];
+		int[] args = new int[actions.size() + 4];
 		for(int i=0; i<actions.size(); i++) {
 			LegalAction legalAction = actions.get(i);
 			args[i] = legalFlags.get(legalAction) ? 1 : 0;
@@ -73,6 +73,8 @@ public class LegalActions implements Serializable {
 		int wageOffset = actions.size();
 		args[wageOffset] = shackTaxRate;
 		args[wageOffset+1] = houseTaxRate;
+		args[wageOffset+2] = sheriffWage;
+		args[wageOffset+3] = taxCollectorWage;
 		
 		return args;
 	}
@@ -81,7 +83,9 @@ public class LegalActions implements Serializable {
 		WorldObject villagersOrganization = GroupPropertyUtils.getVillagersOrganization(world);
 		int shackTaxRate = villagersOrganization.getProperty(Constants.SHACK_TAX_RATE);
 		int houseTaxRate = villagersOrganization.getProperty(Constants.HOUSE_TAX_RATE);
-		return createGovernanceArgs(legalFlags, shackTaxRate, houseTaxRate);
+		int sheriffWage = villagersOrganization.getProperty(Constants.SHERIFF_WAGE);
+		int taxCollectorWage = villagersOrganization.getProperty(Constants.TAX_COLLECTOR_WAGE);
+		return createGovernanceArgs(legalFlags, shackTaxRate, houseTaxRate, sheriffWage, taxCollectorWage);
 	}
 	
 	public Boolean isLegalAction(WorldObject performer, WorldObject actionTarget, int[] args, ManagedOperation managedOperation) {

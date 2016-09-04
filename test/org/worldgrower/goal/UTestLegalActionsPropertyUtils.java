@@ -21,8 +21,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
-import org.worldgrower.World;
-import org.worldgrower.WorldImpl;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.legal.LegalAction;
 import org.worldgrower.actions.legal.LegalActions;
@@ -47,8 +45,8 @@ public class UTestLegalActionsPropertyUtils {
 		Map<LegalAction, Boolean> legalFlagsMap = new HashMap<>();
 		legalFlagsMap.put(LegalAction.MELEE_ATTACK, Boolean.TRUE);
 		legalFlagsMap.put(LegalAction.FIRE_BOLT, Boolean.FALSE);
-		int[] legalActionsToArgs = LegalActions.createGovernanceArgs(legalFlagsMap, 1, 2);
-		assertEquals(4, legalActionsToArgs.length);
+		int[] legalActionsToArgs = LegalActions.createGovernanceArgs(legalFlagsMap, 1, 2, 5, 5);
+		assertEquals(6, legalActionsToArgs.length);
 		assertEquals(0, legalActionsToArgs[0]);
 		assertEquals(1, legalActionsToArgs[1]);
 	}
