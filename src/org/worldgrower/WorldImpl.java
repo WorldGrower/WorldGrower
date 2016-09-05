@@ -28,7 +28,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.worldgrower.attribute.IdContainer;
 import org.worldgrower.attribute.IdContainerUtils;
 import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.ManagedProperty;
@@ -303,7 +302,8 @@ public class WorldImpl implements World, Serializable {
 		List<WorldObject> worldObjectsToIterate = new ArrayList<WorldObject>(worldObjects);
 		
 		for(WorldObject worldObject : worldObjectsToIterate) {
-			if (worldObject.hasProperty(Constants.HIT_POINTS) && worldObject.getProperty(Constants.HIT_POINTS) == 0) {
+			Integer hitPoints = worldObject.getProperty(Constants.HIT_POINTS);
+			if (hitPoints != null && hitPoints.intValue() == 0) {
 				if (worldObject.hasIntelligence() && worldObject.getProperty(Constants.CREATURE_TYPE) == CreatureType.HUMAN_CREATURE_TYPE) {
 					CommonerGenerator.generateSkeletalRemains(worldObject, this);
 				}
