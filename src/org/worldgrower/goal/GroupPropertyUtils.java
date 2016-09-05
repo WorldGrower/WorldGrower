@@ -193,8 +193,8 @@ public class GroupPropertyUtils {
 		WorldObject organization = create(null, "villagers", world);
 		organization.setProperty(Constants.SHACK_TAX_RATE, 0);
 		organization.setProperty(Constants.HOUSE_TAX_RATE, 0);
-		organization.setProperty(Constants.SHERIFF_WAGE, 5);
-		organization.setProperty(Constants.TAX_COLLECTOR_WAGE, 5);
+		organization.setProperty(Constants.SHERIFF_WAGE, 8);
+		organization.setProperty(Constants.TAX_COLLECTOR_WAGE, 8);
 		
 		organization.setProperty(Constants.TAXES_PAID_TURN, new IdToIntegerMap());
 		organization.setProperty(Constants.PAY_CHECK_PAID_TURN, new IdToIntegerMap());

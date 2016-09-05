@@ -55,7 +55,7 @@ import org.worldgrower.gui.util.JTableFactory;
 public class GuiShowGovernanceAction extends AbstractAction {
 	
 	private static final Integer[] PRICES = new Integer[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-	private static final Integer[] WAGES = new Integer[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+	private static final Integer[] WAGES = new Integer[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
 	
 	private static final String LEGAL_ACTIONS_TOOLTIP = "When someone performs an illegal action, they are thrown out of the villagers group";
 	private static final String VILLAGER_GOLD_TOOLTIP = "Villager gold is the stored income for the villager government in order to pay expenses";

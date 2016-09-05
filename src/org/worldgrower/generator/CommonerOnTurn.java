@@ -256,7 +256,7 @@ public class CommonerOnTurn implements OnTurn {
 			
 			WorldObject villagersOrganization = GroupPropertyUtils.getVillagersOrganization(world);
 			int wage = villagersOrganization.getProperty(wageProperty);
-			int wageCutoff = 5;
+			int wageCutoff = 8;
 			if (villagerGold > 150 && wage < wageCutoff) {
 				RelationshipPropertyUtils.changeRelationshipValue(worldObject, leader, -3 * (wageCutoff - wage), 0, Actions.SET_GOVERNANCE_ACTION, Args.EMPTY, world);
 			}
