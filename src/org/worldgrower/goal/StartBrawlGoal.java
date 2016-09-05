@@ -33,7 +33,7 @@ public class StartBrawlGoal implements Goal {
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		if (performerHasTalentForBrawling(performer) && isAtMaximumHealth(performer)) {
 			if (!BrawlPropertyUtils.isBrawling(performer)) {
-				List<WorldObject> targets = GoalUtils.findNearestTargetsByProperty(performer, Actions.NON_LETHAL_MELEE_ATTACK_ACTION, Constants.STRENGTH, w -> isBrawlTarget(performer, w), world);
+				List<WorldObject> targets = GoalUtils.findNearestTargetsByProperty(performer, Actions.NON_LETHAL_MELEE_ATTACK_ACTION, Constants.STRENGTH, w -> isBrawlTarget(performer, w, world), world);
 				if (targets.size() > 0) {
 					return new OperationInfo(performer, targets.get(0), Conversations.createArgs(Conversations.BRAWL_CONVERSATION), Actions.TALK_ACTION);
 				}
@@ -42,8 +42,11 @@ public class StartBrawlGoal implements Goal {
 		return null;
 	}
 
-	private boolean isBrawlTarget(WorldObject performer, WorldObject w) {
-		return !w.equals(performer) && w.hasIntelligence() && !BrawlPropertyUtils.isBrawling(w);
+	private boolean isBrawlTarget(WorldObject performer, WorldObject w, World world) {
+		return !w.equals(performer) 
+				&& w.hasIntelligence() 
+				&& !BrawlPropertyUtils.isBrawling(w)
+				&& Actions.TALK_ACTION.canExecuteIgnoringDistance(performer, w, Conversations.createArgs(Conversations.BRAWL_CONVERSATION), world);
 	}
 	
 	private boolean performerHasTalentForBrawling(WorldObject performer) {
