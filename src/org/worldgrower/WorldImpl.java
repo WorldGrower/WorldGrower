@@ -34,6 +34,8 @@ import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.condition.WorldStateChangedListener;
 import org.worldgrower.condition.WorldStateChangedListeners;
+import org.worldgrower.creaturetype.CreatureType;
+import org.worldgrower.generator.CommonerGenerator;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.history.History;
 import org.worldgrower.history.HistoryImpl;
@@ -294,5 +296,19 @@ public class WorldImpl implements World, Serializable {
 	@Override
 	public WorldObjectsCache getWorldObjectsCache() {
 		return jailCache;
+	}
+	
+	@Override
+	public void removeDeadWorldObjects() {
+		List<WorldObject> worldObjectsToIterate = new ArrayList<WorldObject>(worldObjects);
+		
+		for(WorldObject worldObject : worldObjectsToIterate) {
+			if (worldObject.hasProperty(Constants.HIT_POINTS) && worldObject.getProperty(Constants.HIT_POINTS) == 0) {
+				if (worldObject.hasIntelligence() && worldObject.getProperty(Constants.CREATURE_TYPE) == CreatureType.HUMAN_CREATURE_TYPE) {
+					CommonerGenerator.generateSkeletalRemains(worldObject, this);
+				}
+				removeWorldObject(worldObject);
+			}
+		}
 	}
 }

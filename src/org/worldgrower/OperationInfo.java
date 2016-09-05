@@ -94,7 +94,7 @@ public class OperationInfo implements Serializable {
 		}
 		HistoryItem historyItem = world.getHistory().actionPerformed(this, world.getCurrentTurn());
 		
-		removeDeadWorldObjects(world);
+		world.removeDeadWorldObjects();
 	}
 	
 	private boolean actionCanAngerOthers() {
@@ -105,19 +105,6 @@ public class OperationInfo implements Serializable {
 				&& managedOperation != Actions.TALK_ACTION;
 	}
 	
-	static void removeDeadWorldObjects(World world) {
-		List<WorldObject> worldObjects = new ArrayList<WorldObject>(world.getWorldObjects());
-		
-		for(WorldObject worldObject : worldObjects) {
-			if (worldObject.hasProperty(Constants.HIT_POINTS) && worldObject.getProperty(Constants.HIT_POINTS) == 0) {
-				if (worldObject.hasIntelligence() && worldObject.getProperty(Constants.CREATURE_TYPE) == CreatureType.HUMAN_CREATURE_TYPE) {
-					CommonerGenerator.generateSkeletalRemains(worldObject, world);
-				}
-				world.removeWorldObject(worldObject);
-			}
-		}
-	}
-
 	@Override
 	public String toString() {
 		return "OperationInfo [performer=" + performer + ", target=" + target

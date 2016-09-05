@@ -278,4 +278,9 @@ public class WorldFacade implements World {
 	public WorldObjectsCache getWorldObjectsCache() {
 		return world.getWorldObjectsCache();
 	}
+
+	@Override
+	public void removeDeadWorldObjects() {
+		throw new IllegalStateException("WorldFacade is read-only, cannot removeDeadWorldObjects");
+	}
 }

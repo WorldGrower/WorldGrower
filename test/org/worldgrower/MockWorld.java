@@ -182,4 +182,9 @@ public class MockWorld implements World {
 	public WorldObjectsCache getWorldObjectsCache() {
 		return world.getWorldObjectsCache();
 	}
+
+	@Override
+	public void removeDeadWorldObjects() {
+		
+	}
 }

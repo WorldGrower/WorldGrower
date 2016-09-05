@@ -103,7 +103,7 @@ public class UTestOperationInfo {
 		performer.setProperty(Constants.ID, 7);
 		world.addWorldObject(performer);
 		
-		OperationInfo.removeDeadWorldObjects(world);
+		world.removeDeadWorldObjects();
 		assertEquals(0, world.getWorldObjects().size());
 	}
 	
@@ -122,7 +122,7 @@ public class UTestOperationInfo {
 		performer.setProperty(Constants.DEATH_REASON, "death");
 		world.addWorldObject(performer);
 		
-		OperationInfo.removeDeadWorldObjects(world);
+		world.removeDeadWorldObjects();
 		assertEquals(1, world.getWorldObjects().size());
 		assertEquals("skeletal remains of test", world.getWorldObjects().get(0).getProperty(Constants.NAME));
 	}
