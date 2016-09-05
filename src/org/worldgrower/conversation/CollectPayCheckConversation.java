@@ -20,8 +20,10 @@ import java.util.List;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.IdMap;
 import org.worldgrower.goal.GroupPropertyUtils;
+import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
 import org.worldgrower.profession.Profession;
 
@@ -85,6 +87,7 @@ public class CollectPayCheckConversation implements Conversation {
 			payCheckPaidTurn.incrementValue(performer, world.getCurrentTurn().getValue());
 		} else if (replyIndex == NO) {
 			//TODO: rebellion?
+			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -150, 0, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 		}
 	}
 	

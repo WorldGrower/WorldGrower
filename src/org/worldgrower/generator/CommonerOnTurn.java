@@ -24,6 +24,7 @@ import org.worldgrower.actions.legal.LegalAction;
 import org.worldgrower.attribute.Background;
 import org.worldgrower.attribute.BuildingList;
 import org.worldgrower.attribute.BuildingType;
+import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.ItemCountMap;
 import org.worldgrower.attribute.Prices;
 import org.worldgrower.attribute.WorldObjectContainer;
@@ -219,6 +220,7 @@ public class CommonerOnTurn implements OnTurn {
 			if (leader != null && !worldObject.equals(leader)) {
 				checkWorshipLegality(worldObject, world, leader);
 				checkTaxRate(worldObject, world, leader);
+				checkWages(worldObject, world, leader);
 			}
 		}
 	}
@@ -243,6 +245,21 @@ public class CommonerOnTurn implements OnTurn {
 		}
 		if (buildings.contains(BuildingType.HOUSE) && houseTaxRate > 2) {
 			RelationshipPropertyUtils.changeRelationshipValue(worldObject, leader, -1 * houseTaxRate, 0, Actions.SET_GOVERNANCE_ACTION, Args.EMPTY, world);
+		}
+	}
+	
+	void checkWages(WorldObject worldObject, World world, WorldObject leader) {
+		IntProperty wageProperty = GroupPropertyUtils.getWageProperty(worldObject, world);
+		if (wageProperty != null) {
+			Integer villagerGoldValue = leader.getProperty(Constants.ORGANIZATION_GOLD);
+			int villagerGold = (villagerGoldValue != null ? villagerGoldValue.intValue() : 0);
+			
+			WorldObject villagersOrganization = GroupPropertyUtils.getVillagersOrganization(world);
+			int wage = villagersOrganization.getProperty(wageProperty);
+			int wageCutoff = 5;
+			if (villagerGold > 150 && wage < wageCutoff) {
+				RelationshipPropertyUtils.changeRelationshipValue(worldObject, leader, -3 * (wageCutoff - wage), 0, Actions.SET_GOVERNANCE_ACTION, Args.EMPTY, world);
+			}
 		}
 	}
 }

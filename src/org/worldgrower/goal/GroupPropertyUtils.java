@@ -30,6 +30,7 @@ import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdMap;
 import org.worldgrower.attribute.IdToIntegerMap;
+import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.deity.Deity;
@@ -307,12 +308,21 @@ public class GroupPropertyUtils {
 		}
 	}
 	
+	public static IntProperty getWageProperty(WorldObject target,  World world) {
+		if (target.hasProperty(Constants.CAN_ATTACK_CRIMINALS) && target.getProperty(Constants.CAN_ATTACK_CRIMINALS)) {
+			return Constants.SHERIFF_WAGE;
+		} else if (target.hasProperty(Constants.CAN_COLLECT_TAXES) && target.getProperty(Constants.CAN_COLLECT_TAXES)) {
+			return Constants.TAX_COLLECTOR_WAGE;
+		} else {
+			return null;
+		}
+	}
+	
 	private static int getPayCheck(WorldObject target,  World world) {
 		WorldObject villagersOrganization = GroupPropertyUtils.getVillagersOrganization(world);
-		if (target.hasProperty(Constants.CAN_ATTACK_CRIMINALS) && target.getProperty(Constants.CAN_ATTACK_CRIMINALS)) {
-			return villagersOrganization.getProperty(Constants.SHERIFF_WAGE);
-		} else if (target.hasProperty(Constants.CAN_COLLECT_TAXES) && target.getProperty(Constants.CAN_COLLECT_TAXES)) {
-			return villagersOrganization.getProperty(Constants.TAX_COLLECTOR_WAGE);
+		IntProperty wageProperty = getWageProperty(target, world);
+		if (wageProperty != null) {
+			return villagersOrganization.getProperty(wageProperty);
 		} else {
 			throw new IllegalStateException("No paycheck could be calculated for " + target);
 		}

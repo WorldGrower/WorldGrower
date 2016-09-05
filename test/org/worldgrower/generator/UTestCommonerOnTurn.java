@@ -211,4 +211,25 @@ public class UTestCommonerOnTurn {
 		assertEquals(-15, commoner.getProperty(Constants.RELATIONSHIPS).getValue(leader));
 		assertEquals(0, leader.getProperty(Constants.RELATIONSHIPS).getValue(commoner));
 	}
+	
+	@Test
+	public void testCheckWages() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject organization = createVillagersOrganization(world);
+		
+		WorldObject commoner = createCommoner(world, organization);
+		WorldObject leader = createCommoner(world, organization);
+
+		CommonerOnTurn commonerOnTurn = new CommonerOnTurn(commonerGenerator, organization);
+		commonerOnTurn.checkWages(commoner, world, leader);
+		assertEquals(0, commoner.getProperty(Constants.RELATIONSHIPS).getValue(leader));
+		assertEquals(0, leader.getProperty(Constants.RELATIONSHIPS).getValue(commoner));
+		
+		leader.setProperty(Constants.ORGANIZATION_GOLD, 500);
+		commoner.setProperty(Constants.CAN_ATTACK_CRIMINALS, Boolean.TRUE);
+		organization.setProperty(Constants.SHERIFF_WAGE, 1);
+		commonerOnTurn.checkWages(commoner, world, leader);
+		assertEquals(-12, commoner.getProperty(Constants.RELATIONSHIPS).getValue(leader));
+		assertEquals(0, leader.getProperty(Constants.RELATIONSHIPS).getValue(commoner));
+	}
 }
