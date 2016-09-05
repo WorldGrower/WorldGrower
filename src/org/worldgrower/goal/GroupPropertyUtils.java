@@ -468,4 +468,8 @@ public class GroupPropertyUtils {
 	public static List<WorldObject> getAllOrganizations(World world) {
 		return world.findWorldObjectsByProperty(Constants.ORGANIZATION_LEADER_ID, w -> true);
 	}
+	
+	public static String getTaxesPeriodDescription() {
+		return Integer.toString(TAXES_PERIOD);
+	}
 }

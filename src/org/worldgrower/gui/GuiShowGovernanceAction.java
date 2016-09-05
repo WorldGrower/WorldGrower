@@ -57,6 +57,13 @@ public class GuiShowGovernanceAction extends AbstractAction {
 	private static final Integer[] PRICES = new Integer[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 	private static final Integer[] WAGES = new Integer[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 	
+	private static final String LEGAL_ACTIONS_TOOLTIP = "When someone performs an illegal action, they are thrown out of the villagers group";
+	private static final String VILLAGER_GOLD_TOOLTIP = "Villager gold is the stored income for the villager government in order to pay expenses";
+	private static final String SHACK_TAX_RATE_TOOLTIP = "Shack Tax Rate is the amount of gold that a shack owner has to pay each " + GroupPropertyUtils.getTaxesPeriodDescription() + " turns";
+	private static final String HOUSE_TAX_RATE_TOOLTIP = "House Tax Rate is the amount of gold that a house owner has to pay each " + GroupPropertyUtils.getTaxesPeriodDescription() + " turns";
+	private static final String SHERIFF_WAGE_TOOLTIP = "Sheriff Wage is the amount of gold that a sheriff receives each " + GroupPropertyUtils.getTaxesPeriodDescription() + " turns";
+	private static final String TAX_COLLECTOR_WAGE_TOOLTIP = "Tax Collector Wage is the amount of gold that a tax collector receives each " + GroupPropertyUtils.getTaxesPeriodDescription() + " turns";
+	
 	private final WorldObject playerCharacter;
 	private final DungeonMaster dungeonMaster;
 	private final World world;
@@ -91,17 +98,20 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		JTable legalActionsTable = JTableFactory.createJTable(worldModel);
 		legalActionsTable.getColumnModel().getColumn(0).setPreferredWidth(230);
 		legalActionsTable.getColumnModel().getColumn(1).setPreferredWidth(108);
+		legalActionsTable.setToolTipText(LEGAL_ACTIONS_TOOLTIP);
 		JScrollPane scrollPane = new JScrollPane(legalActionsTable);
 		scrollPane.setBounds(15, 25, 338, 680);
 		legalActionsPanel.add(scrollPane);
 		
 		JLabel villagerGoldLabel = JLabelFactory.createJLabel("Villager Gold:");
 		villagerGoldLabel.setBounds(400, 15, 200, 30);
+		villagerGoldLabel.setToolTipText(VILLAGER_GOLD_TOOLTIP);
 		dialog.addComponent(villagerGoldLabel);
 		
 		String villagerGold = getVillagerGold();
 		JLabel villagerGoldValue = JLabelFactory.createJLabel(villagerGold);
 		villagerGoldValue.setBounds(600, 15, 200, 30);
+		villagerGoldValue.setToolTipText(VILLAGER_GOLD_TOOLTIP);
 		dialog.addComponent(villagerGoldValue);
 		
 		JPanel incomePanel = JPanelFactory.createJPanel("Income");
@@ -111,6 +121,7 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		
 		JLabel shackTaxRate = JLabelFactory.createJLabel("Shack Tax Rate:");
 		shackTaxRate.setBounds(15, 20, 200, 30);
+		shackTaxRate.setToolTipText(SHACK_TAX_RATE_TOOLTIP);
 		incomePanel.add(shackTaxRate);
 		
 		JComboBox<Integer> shackComboBox = JComboBoxFactory.createJComboBox(PRICES);
@@ -118,16 +129,19 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		WorldObject villagersOrganization = GroupPropertyUtils.getVillagersOrganization(world);
 		shackComboBox.setSelectedItem(villagersOrganization.getProperty(Constants.SHACK_TAX_RATE));
 		shackComboBox.setBounds(215, 20, 50, 30);
+		shackComboBox.setToolTipText(SHACK_TAX_RATE_TOOLTIP);
 		incomePanel.add(shackComboBox);
 		
 		JLabel houseTaxRate = JLabelFactory.createJLabel("House Tax Rate:");
 		houseTaxRate.setBounds(15, 65, 200, 30);
+		houseTaxRate.setToolTipText(HOUSE_TAX_RATE_TOOLTIP);
 		incomePanel.add(houseTaxRate);
 		
 		JComboBox<Integer> houseComboBox = JComboBoxFactory.createJComboBox(PRICES);
 		houseComboBox.setEnabled(performerIsLeaderOfVillagers);
 		houseComboBox.setSelectedItem(villagersOrganization.getProperty(Constants.HOUSE_TAX_RATE));
 		houseComboBox.setBounds(215, 65, 50, 30);
+		houseComboBox.setToolTipText(HOUSE_TAX_RATE_TOOLTIP);
 		incomePanel.add(houseComboBox);
 		
 		JPanel expensePanel = JPanelFactory.createJPanel("Expense");
@@ -137,22 +151,26 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		
 		JLabel sheriffWage = JLabelFactory.createJLabel("Sheriff Wage:");
 		sheriffWage.setBounds(15, 20, 200, 30);
+		sheriffWage.setToolTipText(SHERIFF_WAGE_TOOLTIP);
 		expensePanel.add(sheriffWage);
 		
 		JComboBox<Integer> sheriffComboBox = JComboBoxFactory.createJComboBox(WAGES);
 		sheriffComboBox.setEnabled(performerIsLeaderOfVillagers);
 		sheriffComboBox.setSelectedItem(villagersOrganization.getProperty(Constants.SHERIFF_WAGE));
 		sheriffComboBox.setBounds(215, 20, 50, 30);
+		sheriffComboBox.setToolTipText(SHERIFF_WAGE_TOOLTIP);
 		expensePanel.add(sheriffComboBox);
 		
 		JLabel taxCollectorWage = JLabelFactory.createJLabel("Tax Collector Wage:");
 		taxCollectorWage.setBounds(15, 65, 200, 30);
+		taxCollectorWage.setToolTipText(TAX_COLLECTOR_WAGE_TOOLTIP);
 		expensePanel.add(taxCollectorWage);
 		
 		JComboBox<Integer> taxCollectorComboBox = JComboBoxFactory.createJComboBox(PRICES);
 		taxCollectorComboBox.setEnabled(performerIsLeaderOfVillagers);
 		taxCollectorComboBox.setSelectedItem(villagersOrganization.getProperty(Constants.TAX_COLLECTOR_WAGE));
 		taxCollectorComboBox.setBounds(215, 65, 50, 30);
+		taxCollectorComboBox.setToolTipText(TAX_COLLECTOR_WAGE_TOOLTIP);
 		expensePanel.add(taxCollectorComboBox);
 		
 		JPanel buttonPane = new JPanel();
