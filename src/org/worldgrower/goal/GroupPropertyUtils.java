@@ -43,6 +43,7 @@ public class GroupPropertyUtils {
 	//TODO: in longer run, merge profession and religion code. Code will be compacter with less duplication, but probably less readable.
 	
 	private static final int TAXES_PERIOD = 500;
+	private static final int DEFAULT_WAGE = 10;
 	
 	public static boolean isWorldObjectPotentialEnemy(WorldObject performer, WorldObject w) {
 		IdList performerOrganizationIdList = performer.getProperty(Constants.GROUP);
@@ -193,8 +194,8 @@ public class GroupPropertyUtils {
 		WorldObject organization = create(null, "villagers", world);
 		organization.setProperty(Constants.SHACK_TAX_RATE, 0);
 		organization.setProperty(Constants.HOUSE_TAX_RATE, 0);
-		organization.setProperty(Constants.SHERIFF_WAGE, 8);
-		organization.setProperty(Constants.TAX_COLLECTOR_WAGE, 8);
+		organization.setProperty(Constants.SHERIFF_WAGE, DEFAULT_WAGE);
+		organization.setProperty(Constants.TAX_COLLECTOR_WAGE, DEFAULT_WAGE);
 		
 		organization.setProperty(Constants.TAXES_PAID_TURN, new IdToIntegerMap());
 		organization.setProperty(Constants.PAY_CHECK_PAID_TURN, new IdToIntegerMap());
@@ -471,5 +472,9 @@ public class GroupPropertyUtils {
 	
 	public static String getTaxesPeriodDescription() {
 		return Integer.toString(TAXES_PERIOD);
+	}
+
+	public static int getDefaultWage() {
+		return DEFAULT_WAGE;
 	}
 }
