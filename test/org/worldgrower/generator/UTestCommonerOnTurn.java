@@ -229,7 +229,7 @@ public class UTestCommonerOnTurn {
 		commoner.setProperty(Constants.CAN_ATTACK_CRIMINALS, Boolean.TRUE);
 		organization.setProperty(Constants.SHERIFF_WAGE, 1);
 		commonerOnTurn.checkWages(commoner, world, leader);
-		assertEquals(-12, commoner.getProperty(Constants.RELATIONSHIPS).getValue(leader));
+		assertEquals(-27, commoner.getProperty(Constants.RELATIONSHIPS).getValue(leader));
 		assertEquals(0, leader.getProperty(Constants.RELATIONSHIPS).getValue(commoner));
 	}
 }

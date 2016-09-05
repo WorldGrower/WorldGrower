@@ -270,7 +270,7 @@ public class UTestGroupPropertyUtils {
 		}
 		
 		
-		assertEquals(10, GroupPropertyUtils.getPayCheckAmount(target, world));
+		assertEquals(20, GroupPropertyUtils.getPayCheckAmount(target, world));
 	}
 	
 	@Test
