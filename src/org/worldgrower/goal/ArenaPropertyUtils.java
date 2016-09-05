@@ -85,7 +85,7 @@ public class ArenaPropertyUtils {
 	}
 	
 	public static void addPayCheck(WorldObject worldObject) {
-		if (!worldObject.hasProperty(Constants.ARENA_PAY_CHECK_GOLD)) {
+		if (worldObject.getProperty(Constants.ARENA_PAY_CHECK_GOLD) == null) {
 			worldObject.setProperty(Constants.ARENA_PAY_CHECK_GOLD, 0);
 		}
 		
