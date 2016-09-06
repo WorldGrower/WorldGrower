@@ -25,6 +25,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.CreatureGenerator;
+import org.worldgrower.generator.Item;
 import org.worldgrower.goal.GroupPropertyUtils;
 
 public class UTestButcherAction {
@@ -40,6 +41,20 @@ public class UTestButcherAction {
 		
 		assertEquals(false, world.exists(target));
 		assertEquals(1, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.FOOD));
+	}
+	
+	@Test
+	public void testExecuteWithButcherKnife() {
+		World world = new WorldImpl(1, 1, null, null);
+		createVillagersOrganization(world);
+		WorldObject performer = createPerformer(2);
+		performer.setProperty(Constants.LEFT_HAND_EQUIPMENT, Item.BUTCHER_KNIFE.generate(1f));
+		WorldObject target = createCow(world);
+		
+		Actions.BUTCHER_ACTION.execute(performer, target, Args.EMPTY, world);
+		
+		assertEquals(false, world.exists(target));
+		assertEquals(2, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.FOOD));
 	}
 	
 	@Test

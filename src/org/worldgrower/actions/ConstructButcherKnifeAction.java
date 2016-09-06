@@ -19,7 +19,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.worldgrower.Constants;
-import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
@@ -27,51 +26,39 @@ import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
-import org.worldgrower.gui.music.SoundIds;
-import org.worldgrower.util.SentenceUtils;
 
-public class ButcherAction implements ManagedOperation, AnimatedAction {
+public class ConstructButcherKnifeAction implements CraftAction, AnimatedAction {
 
+	private static final int DISTANCE = 1;
+	
+	private static final int WOOD_REQUIRED = 2;
+	private static final int ORE_REQUIRED = 2;
+	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		WorldObjectContainer inventoryPerformer = performer.getProperty(Constants.INVENTORY);
+		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
 		
-		WorldObject collectedMeat = Item.MEAT.generate(1f);
-		collectedMeat.setProperty(Constants.CREATURE_TYPE, target.getProperty(Constants.CREATURE_TYPE));
+		double skillBonus = SkillUtils.useSkill(performer, Constants.CARPENTRY_SKILL, world.getWorldStateChangedListeners());
+		int quantity =target.getProperty(Constants.WORKBENCH_QUALITY);
+		inventory.addQuantity(Item.BUTCHER_KNIFE.generate(skillBonus), quantity);
 
-		int meatSource = target.getProperty(Constants.MEAT_SOURCE);
-		double skillBonus = SkillUtils.useSkill(performer, Constants.FARMING_SKILL, world.getWorldStateChangedListeners());
-		int butcherKnifeBonus = getButcherKnifeBonus(performer);
-		int quantity = (int) (meatSource * skillBonus * butcherKnifeBonus);
-		
-		inventoryPerformer.addQuantity(collectedMeat, quantity);
-		
-		world.removeWorldObject(target);
-	}
-	
-	private static int getButcherKnifeBonus(WorldObject performer) {
-		WorldObject leftHand = performer.getProperty(Constants.LEFT_HAND_EQUIPMENT);
-		boolean leftHandContainsButcherKnife = (leftHand != null && leftHand.hasProperty(Constants.BUTCHER_QUALITY));
-		if (leftHandContainsButcherKnife) {
-			return 2;
-		} else {
-			return 1;
-		}
+		inventory.removeQuantity(Constants.WOOD, WOOD_REQUIRED);
+		inventory.removeQuantity(Constants.ORE, ORE_REQUIRED);
 	}
 
 	@Override
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-		return Reach.evaluateTarget(performer, args, target, 1);
+		return Reach.evaluateTarget(performer, args, target, DISTANCE);
 	}
-
+	
 	@Override
 	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
-		return true;
+		return CraftUtils.hasEnoughResources(performer, WOOD_REQUIRED, ORE_REQUIRED);
 	}
 	
 	@Override
 	public String getRequirementsDescription() {
-		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, 1);
+		return CraftUtils.getRequirementsDescription(Constants.WOOD, WOOD_REQUIRED, Constants.ORE, ORE_REQUIRED);
 	}
 
 	@Override
@@ -81,39 +68,39 @@ public class ButcherAction implements ManagedOperation, AnimatedAction {
 
 	@Override
 	public boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
-		return (target.hasProperty(Constants.MEAT_SOURCE)) && (target.getProperty(Constants.MEAT_SOURCE) > 0);
+		return target.hasProperty(Constants.WORKBENCH_QUALITY);
 	}
-
+	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		String targetName = target.getProperty(Constants.NAME);
-		String article = SentenceUtils.getArticle(targetName);
-		
-		return "butchering " + article + " " + targetName;
+		return "constructing butcher knife";
 	}
 
 	@Override
 	public String getSimpleDescription() {
-		return "butcher";
+		return "construct butcher knife";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
 	}
 
-	@Override
-	public ImageIds getImageIds() {
-		return ImageIds.MEAT;
+	public static boolean hasEnoughWood(WorldObject performer) {
+		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) >= WOOD_REQUIRED;
+	}
+	
+	public static boolean hasEnoughOre(WorldObject performer) {
+		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.ORE) >= ORE_REQUIRED;
 	}
 	
 	@Override
-	public SoundIds getSoundId() {
-		return SoundIds.KNIFE_SLICE;
+	public ImageIds getImageIds() {
+		return ImageIds.BUTCHER_KNIFE;
 	}
 
 	@Override
 	public ImageIds getAnimationImageId() {
-		return ImageIds.SLASH1;
+		return ImageIds.BUTCHER_KNIFE_ANIMATION;
 	}
 
 	@Override

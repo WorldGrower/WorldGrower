@@ -18,12 +18,14 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.worldgrower.Constants;
+import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.IdProperty;
 import org.worldgrower.attribute.IntProperty;
 
 public class BonusDescriptions {
 
-	private final List<BonusDescription> bonusDescriptions = 
+	private final List<TooltipFormatter> tooltipFormatters = 
 			Arrays.asList(
 					new BonusDescription(Constants.SLEEP_COMFORT, "sleep"),
 					new BonusDescription(Constants.SMITH_QUALITY, "smithing"),
@@ -31,23 +33,28 @@ public class BonusDescriptions {
 					new BonusDescription(Constants.PAPER_MILL_QUALITY, "lumbering"),
 					new BonusDescription(Constants.WEAVERY_QUALITY, "weaving"),
 					new BonusDescription(Constants.BREWERY_QUALITY, "brewing"),
-					new BonusDescription(Constants.APOTHECARY_QUALITY, "apothecary")
+					new BonusDescription(Constants.APOTHECARY_QUALITY, "apothecary"),
+					new OwnerDescription(Constants.CATTLE_OWNER_ID)
 					
 			);
 	
-	public String getWorldObjectDescription(WorldObject worldObject) {
+	public String getWorldObjectDescription(WorldObject worldObject, World world) {
 		String name = worldObject.getProperty(Constants.NAME);
 		
-		for (BonusDescription bonusDescription : bonusDescriptions) {
-			if (bonusDescription.getProductionBonusDescription(worldObject) != null) {
-				return name + bonusDescription.getProductionBonusDescription(worldObject);
+		for (TooltipFormatter tooltipFormatter : tooltipFormatters) {
+			if (tooltipFormatter.getToolTip(worldObject, world) != null) {
+				return name + tooltipFormatter.getToolTip(worldObject, world);
 			}
 		}
 
 		return name;
 	}
 	
-	private static class BonusDescription {
+	private static interface TooltipFormatter {
+		public String getToolTip(WorldObject worldObject, World world);
+	}
+	
+	private static class BonusDescription implements TooltipFormatter {
 		private final IntProperty intProperty;
 		private final String description;
 
@@ -57,10 +64,31 @@ public class BonusDescriptions {
 			this.description = description;
 		}
 		
-		public String getProductionBonusDescription(WorldObject worldObject) {
+		@Override
+		public String getToolTip(WorldObject worldObject, World world) {
 			if (worldObject.hasProperty(intProperty)) {
 				int bonus = worldObject.getProperty(intProperty);
 				return " (" + description + " bonus: " + bonus + ")";
+			} else {
+				return null;
+			}
+		}
+	}
+	
+	private static class OwnerDescription implements TooltipFormatter {
+		private final IdProperty idProperty;
+
+		public OwnerDescription(IdProperty idProperty) {
+			super();
+			this.idProperty = idProperty;
+		}
+		
+		@Override
+		public String getToolTip(WorldObject worldObject, World world) {
+			if (worldObject.hasProperty(idProperty)) {
+				int id = worldObject.getProperty(idProperty);
+				WorldObject owner = world.findWorldObjectById(id);
+				return " (owner: " + owner.getProperty(Constants.NAME) + ")";
 			} else {
 				return null;
 			}

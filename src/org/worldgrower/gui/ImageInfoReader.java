@@ -520,6 +520,8 @@ public class ImageInfoReader {
         add(ImageIds.EMPTY_WELL, emptyWell.getSubImage(0, 0, 1, 1));
         add(ImageIds.FULL_WELL, fullWell.getSubImage(0, 0, 1, 1));
         
+        add(ImageIds.BUTCHER_KNIFE, sprites420.getSubImage(10, 10, 1, 1));
+        
         createAnimation(ImageIds.POISON_ANIMATION, ImageIds.POISON, 10);
         
         createAnimation(ImageIds.IRON_CLAYMORE_ANIMATION, ImageIds.IRON_CLAYMORE, 10);
@@ -570,6 +572,7 @@ public class ImageInfoReader {
         createAnimation(ImageIds.MEND_MAGIC_SPELL_ANIMATION, ImageIds.MEND_MAGIC_SPELL, 10);
         createAnimation(ImageIds.PARALYZED_INDICATOR_ANIMATION, ImageIds.PARALYZED_INDICATOR, 10);
         createAnimation(ImageIds.SOUL_TRAPPED_INDICATOR_ANIMATION, ImageIds.SOUL_TRAPPED_INDICATOR, 10);
+        createAnimation(ImageIds.BUTCHER_KNIFE_ANIMATION, ImageIds.BUTCHER_KNIFE, 10);
         
         add(ImageIds.LOCKPICK, sprites420.getSubImage(8, 16, 1, 1));
         createAnimation(ImageIds.LOCKPICK_ANIMATION, ImageIds.LOCKPICK, 10);
@@ -590,7 +593,7 @@ public class ImageInfoReader {
         add(ImageIds.ZEUS_SYMBOL, sprites420.getSubImage(13, 0, 1, 1));
         add(ImageIds.HERA_SYMBOL, sprites420.getSubImage(1, 16, 1, 1));
         add(ImageIds.POSEIDON_SYMBOL, sprites420.getSubImage(6, 8, 1, 1));
-        
+
     }
     
     private void createAnimation(ImageIds animationImageId, ImageIds imageId, int numberOfFrames) {

@@ -95,7 +95,8 @@ public enum Item {
 	WEAVERY(ItemType.MISC),
 	APOTHECARY(ItemType.MISC),
 	CHEST(ItemType.MISC),
-	LOCKPICK(ItemType.TOOL)
+	LOCKPICK(ItemType.TOOL),
+	BUTCHER_KNIFE(ItemType.TOOL)
 	;
 
 	public static final int COMBAT_MULTIPLIER = 10;
@@ -651,6 +652,23 @@ public enum Item {
 			properties.put(Constants.IMAGE_ID, ImageIds.SCYTHE);
 			return new WorldObjectImpl(properties);
 		});
+		
+		addItem(Item.BUTCHER_KNIFE, skillBonus -> {
+			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+			properties.put(Constants.NAME, "butcher knife");
+			properties.put(Constants.PRICE, 20);
+			properties.put(Constants.SELLABLE, false);
+			properties.put(Constants.DAMAGE, 1 * COMBAT_MULTIPLIER);
+			properties.put(Constants.DAMAGE_TYPE, DamageType.SLASHING);
+			properties.put(Constants.WEIGHT, 3);
+			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
+			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
+			properties.put(Constants.BUTCHER_QUALITY, (int)(2 * skillBonus));
+			properties.put(Constants.IMAGE_ID, ImageIds.BUTCHER_KNIFE);
+			return new WorldObjectImpl(properties);
+		});
+		
+		
 		
 		for (BuildingType buildingType : BuildingType.values()) {
 			Item buildingItem = mapBuildingTypeToItem(buildingType);

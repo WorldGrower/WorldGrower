@@ -496,9 +496,9 @@ public final class WorldPanel extends JPanel implements ImageFactory {
 		} else {
 			WorldObject facade = worldObject.getProperty(Constants.FACADE);
 			if ((facade != null) && facade.getProperty(Constants.NAME) != null) {
-				return bonusDescriptions.getWorldObjectDescription(facade);
+				return bonusDescriptions.getWorldObjectDescription(facade, world);
 			} else {
-				return bonusDescriptions.getWorldObjectDescription(worldObject);
+				return bonusDescriptions.getWorldObjectDescription(worldObject, world);
 			}
 		}
 	}
