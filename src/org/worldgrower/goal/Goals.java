@@ -192,6 +192,7 @@ public class Goals {
 	public static final CreateWorkbenchGoal CREATE_WORKBENCH_GOAL = new CreateWorkbenchGoal(ALL_GOALS);
 	public static final CreateApothecaryGoal CREATE_APOTHECARY_GOAL = new CreateApothecaryGoal(ALL_GOALS);
 	public static final CreateBreweryGoal CREATE_BREWERY_GOAL = new CreateBreweryGoal(ALL_GOALS);
+	public static final ClaimCattleGoal CLAIM_CATTLE_GOAL = new ClaimCattleGoal(ALL_GOALS);
 	
 	public static final DeityBoonGoal ARES_BOON_GOAL = new DeityBoonGoal(Deity.ARES);
 	public static final DeityBoonGoal HEPHAESTUS_BOON_GOAL = new DeityBoonGoal(Deity.HEPHAESTUS);

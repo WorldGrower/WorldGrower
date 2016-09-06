@@ -79,6 +79,7 @@ public class UTestFarmerProfession {
 		List<Item> item = new ArrayList<Item>();
 		item.add(Item.BERRIES);
 		item.add(Item.MEAT);
+		item.add(Item.WINE);
 		assertEquals(profession.getSellItems(), item);
 	}
 }

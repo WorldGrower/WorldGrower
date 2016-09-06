@@ -24,27 +24,21 @@ import org.worldgrower.generator.Item;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
 
-public class FarmerProfession implements Profession {
+public class ButcherProfession implements Profession {
 
-	public FarmerProfession(List<Profession> allProfessions) {
+	public ButcherProfession(List<Profession> allProfessions) {
 		allProfessions.add(this);
 	}
 
 	@Override
 	public String getDescription() {
-		return "farmer";
+		return "butcher";
 	}
 
 	@Override
 	public List<Goal> getProfessionGoals() {
 		return Arrays.asList(
-				Goals.GATHER_FOOD_GOAL,
-				Goals.MARK_FOOD_AS_SELLABLE_GOAL,
-				Goals.CREATE_FOOD_SOURCES_GOAL,
-				Goals.SELL_FOOD_GOAL,
-				Goals.DEMETER_BOON_GOAL,
-				Goals.CREATE_WINE_GOAL,
-				Goals.EQUIP_SCYTHE_GOAL
+				Goals.CLAIM_CATTLE_GOAL
 				);
 	}
 
@@ -69,6 +63,6 @@ public class FarmerProfession implements Profession {
 
 	@Override
 	public List<Item> getSellItems() {
-		return Arrays.asList(Item.BERRIES, Item.MEAT, Item.WINE);
+		return Arrays.asList(Item.MEAT);
 	}
 }

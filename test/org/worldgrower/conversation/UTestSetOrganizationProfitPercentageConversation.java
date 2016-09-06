@@ -75,7 +75,7 @@ public class UTestSetOrganizationProfitPercentageConversation {
 		world.addWorldObject(organization);
 		
 		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, null, world);
-		assertEquals(10, questions.size());
+		assertEquals(15, questions.size());
 		assertEquals("I'd like to set the price for berries for TestOrg to 0, can you take care of this?", questions.get(0).getQuestionPhrase());
 	}
 	
