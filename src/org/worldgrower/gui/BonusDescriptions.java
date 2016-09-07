@@ -34,7 +34,7 @@ public class BonusDescriptions {
 					new BonusDescription(Constants.WEAVERY_QUALITY, "weaving"),
 					new BonusDescription(Constants.BREWERY_QUALITY, "brewing"),
 					new BonusDescription(Constants.APOTHECARY_QUALITY, "apothecary"),
-					new OwnerDescription(Constants.CATTLE_OWNER_ID)
+					new OwnerDescription(Constants.CATTLE_OWNER_ID, Constants.MEAT_SOURCE)
 					
 			);
 	
@@ -77,10 +77,12 @@ public class BonusDescriptions {
 	
 	private static class OwnerDescription implements TooltipFormatter {
 		private final IdProperty idProperty;
+		private final IntProperty intProperty;
 
-		public OwnerDescription(IdProperty idProperty) {
+		public OwnerDescription(IdProperty idProperty, IntProperty intProperty) {
 			super();
 			this.idProperty = idProperty;
+			this.intProperty = intProperty;
 		}
 		
 		@Override
@@ -88,10 +90,16 @@ public class BonusDescriptions {
 			if (worldObject.hasProperty(idProperty)) {
 				int id = worldObject.getProperty(idProperty);
 				WorldObject owner = world.findWorldObjectById(id);
-				return " (owner: " + owner.getProperty(Constants.NAME) + ")";
+				return " (owner: " + owner.getProperty(Constants.NAME) + ", " + generateIntPropertyDescription(worldObject) + ")";
+			} else if (worldObject.hasProperty(intProperty)) {
+				return "(" + generateIntPropertyDescription(worldObject) + ")";
 			} else {
 				return null;
 			}
+		}
+		
+		private String generateIntPropertyDescription(WorldObject worldObject) {
+			return intProperty.getName() + ": " + worldObject.getProperty(intProperty);
 		}
 	}
 }
