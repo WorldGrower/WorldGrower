@@ -14,6 +14,9 @@
  *******************************************************************************/
 package org.worldgrower.actions;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
@@ -57,5 +60,9 @@ public class FoodPropertyUtils {
 	public static boolean leftHandContainsButcherKnife(WorldObject performer) {
 		WorldObject leftHand = performer.getProperty(Constants.LEFT_HAND_EQUIPMENT);
 		return (leftHand != null && leftHand.hasProperty(Constants.BUTCHER_QUALITY));
+	}
+	
+	public static List<WorldObject> getMaleCattle(List<WorldObject> ownedCattle) {
+		return ownedCattle.stream().filter(w -> w.getProperty(Constants.GENDER).equals("male")).collect(Collectors.toList());
 	}
 }

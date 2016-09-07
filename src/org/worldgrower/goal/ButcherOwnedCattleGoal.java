@@ -23,6 +23,7 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.actions.FoodPropertyUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.CowOnTurn;
 
@@ -49,13 +50,9 @@ public class ButcherOwnedCattleGoal implements Goal {
 	}
 
 	private int getMaleCattleCount(List<WorldObject> ownedCattle) {
-		return (int) getMaleCattle(ownedCattle).size();
+		return (int) FoodPropertyUtils.getMaleCattle(ownedCattle).size();
 	}
 
-	private List<WorldObject> getMaleCattle(List<WorldObject> ownedCattle) {
-		return ownedCattle.stream().filter(w -> w.getProperty(Constants.GENDER).equals("male")).collect(Collectors.toList());
-	}
-	
 	private List<WorldObject> getFullyGrownCattle(List<WorldObject> ownedCattle) {
 		return ownedCattle.stream().filter(w -> CowOnTurn.cowIsFullyGrown(w)).collect(Collectors.toList());
 	}

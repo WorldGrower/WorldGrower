@@ -76,7 +76,7 @@ public class ClaimCattleGoal implements Goal {
 	@Override
 	public int evaluate(WorldObject performer, World world) {
 		int id = performer.getProperty(Constants.ID);
-		List<WorldObject> ownedCattle = world.findWorldObjectsByProperty(Constants.MEAT_SOURCE, w -> w.getProperty(Constants.CATTLE_OWNER_ID) == id);
+		List<WorldObject> ownedCattle = world.findWorldObjectsByProperty(Constants.MEAT_SOURCE, w ->  w.getProperty(Constants.CATTLE_OWNER_ID) != null && w.getProperty(Constants.CATTLE_OWNER_ID).intValue() == id);
 		return ownedCattle.size();
 	}
 }

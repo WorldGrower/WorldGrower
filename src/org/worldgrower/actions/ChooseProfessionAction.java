@@ -48,6 +48,7 @@ public class ChooseProfessionAction implements ManagedOperation {
 			new ProfessionInfo(Professions.BLACKSMITH_PROFESSION, 1.2, 1.1, 0.8, 0.8, 1.3, 1.0),
 			new ProfessionInfo(Professions.THIEF_PROFESSION, 0.8, 1.2, 1.4, 0.8, 0.8, 1.4),
 			new ProfessionInfo(Professions.FARMER_PROFESSION, 1.0, 1.2, 0.8, 1.0, 1.2, 1.0),
+			new ProfessionInfo(Professions.BUTCHER_PROFESSION, 1.0, 1.2, 0.8, 1.0, 1.2, 1.0),
 			new ProfessionInfo(Professions.LUMBERJACK_PROFESSION, 1.2, 1.2, 1.2, 0.8, 1.0, 1.0),
 			new ProfessionInfo(Professions.MINER_PROFESSION, 1.4, 1.3, 1.1, 0.8, 1.0, 1.0),
 			new ProfessionInfo(Professions.SHERIFF_PROFESSION, 1.5, 1.3, 0.8, 1.1, 0.8, 0.8),
@@ -266,6 +267,9 @@ public class ChooseProfessionAction implements ManagedOperation {
 			if (professionInfo.getProfession() == Professions.ARENA_OWNER_PROFESSION) {
 				int evaluation = professionCount > 0 ? Integer.MIN_VALUE : (worldObjects.size() - professionCount) * 5;
 				result.add(new ProfessionEvaluation(professionInfo.getProfession(), evaluation));
+			} else if (professionInfo.getProfession() == Professions.BUTCHER_PROFESSION) {
+				int evaluation = professionCount > 0 ? Integer.MIN_VALUE : 0;
+				result.add(new ProfessionEvaluation(professionInfo.getProfession(), evaluation));
 			} else {
 				result.add(new ProfessionEvaluation(professionInfo.getProfession(), (worldObjects.size() - professionCount) * 5));
 			}
@@ -295,9 +299,12 @@ public class ChooseProfessionAction implements ManagedOperation {
 		
 		int foodDemand = demands.count(Constants.FOOD);
 		foodDemand += OperationStatistics.getRecentOperationsByNonProfessionalsCount(Actions.EAT_ACTION, Professions.FARMER_PROFESSION, world) / (populationCount / 2);
-		result.add(new ProfessionEvaluation(Professions.FARMER_PROFESSION, foodDemand));
-		
-		//int waterDemand = demands.getQuantityFor(Constants.WATER);
+		if (unclaimedBreedableCattleExists(world)) {
+			result.add(new ProfessionEvaluation(Professions.BUTCHER_PROFESSION, foodDemand));
+		} else {
+			result.add(new ProfessionEvaluation(Professions.FARMER_PROFESSION, foodDemand));
+			result.add(new ProfessionEvaluation(Professions.BUTCHER_PROFESSION, Integer.MIN_VALUE));
+		}
 		
 		int woodDemand = demands.count(Constants.WOOD);
 		woodDemand += OperationStatistics.getRecentOperationsByNonProfessionalsCount(Actions.CUT_WOOD_ACTION, Professions.LUMBERJACK_PROFESSION, world) / (4 * populationCount);
@@ -375,6 +382,13 @@ public class ChooseProfessionAction implements ManagedOperation {
 		return result;
 	}
 	
+	private static boolean unclaimedBreedableCattleExists(World world) {
+		List<WorldObject> unclaimedCattle = world.findWorldObjectsByProperty(Constants.MEAT_SOURCE, w -> w.getProperty(Constants.CATTLE_OWNER_ID) == null);
+		int maleUnclaimedCattleCount = FoodPropertyUtils.getMaleCattle(unclaimedCattle).size();
+		int femaleUnclaimedCattleCount = unclaimedCattle.size() - maleUnclaimedCattleCount;
+		return unclaimedCattle.size() >= 2 && maleUnclaimedCattleCount > 0 && femaleUnclaimedCattleCount > 0;
+	}
+
 	public static int getNumberOfMatchingDemands(PropertyCountMap<ManagedProperty<?>> demands, World world) {
 		PropertyCountMap<ManagedProperty<?>> supply = calculateSupply(demands, world);
 		int matchingDemands = 0;
