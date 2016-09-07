@@ -38,7 +38,10 @@ public class ButcherProfession implements Profession {
 	@Override
 	public List<Goal> getProfessionGoals() {
 		return Arrays.asList(
-				Goals.CLAIM_CATTLE_GOAL
+				Goals.CLAIM_CATTLE_GOAL,
+				Goals.BUTCHER_OWNED_CATTLE_GOAL,
+				Goals.SELL_FOOD_GOAL,
+				Goals.EQUIP_BUTCHER_KNIFE_GOAL
 				);
 	}
 

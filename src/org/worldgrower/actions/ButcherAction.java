@@ -50,8 +50,7 @@ public class ButcherAction implements ManagedOperation, AnimatedAction {
 	}
 	
 	private static int getButcherKnifeBonus(WorldObject performer) {
-		WorldObject leftHand = performer.getProperty(Constants.LEFT_HAND_EQUIPMENT);
-		boolean leftHandContainsButcherKnife = (leftHand != null && leftHand.hasProperty(Constants.BUTCHER_QUALITY));
+		boolean leftHandContainsButcherKnife = FoodPropertyUtils.leftHandContainsButcherKnife(performer);
 		if (leftHandContainsButcherKnife) {
 			return 2;
 		} else {

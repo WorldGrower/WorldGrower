@@ -35,6 +35,7 @@ import org.worldgrower.terrain.TerrainType;
 public class CowOnTurn implements OnTurn {
 
 	private static final int PREGNANCY_DURATION = 600;
+	private static final int MAX_MEAT_SOURCE = 10;
 	
 	private final AddWorldObjectFunction addWorldObjectFunction;
 	
@@ -47,7 +48,7 @@ public class CowOnTurn implements OnTurn {
 		int currentTurn = world.getCurrentTurn().getValue();
 		
 		if ((currentTurn > 0) && (currentTurn % 100 == 0)) {
-			if (worldObject.getProperty(Constants.MEAT_SOURCE).intValue() < 10) {
+			if (worldObject.getProperty(Constants.MEAT_SOURCE).intValue() < MAX_MEAT_SOURCE) {
 				worldObject.increment(Constants.MEAT_SOURCE, 1);
 			}
 		}
@@ -56,6 +57,10 @@ public class CowOnTurn implements OnTurn {
 		
 		checkPregnancy(worldObject, world, currentTurn);
 		checkLeash(worldObject, world);
+	}
+	
+	public static boolean cowIsFullyGrown(WorldObject cow) {
+		return cow.getProperty(Constants.MEAT_SOURCE).intValue() == MAX_MEAT_SOURCE;
 	}
 
 	private void checkLeash(WorldObject worldObject, World world) {

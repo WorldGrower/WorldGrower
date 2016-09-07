@@ -53,4 +53,9 @@ public class FoodPropertyUtils {
 		}
 		return quantity;
 	}
+	
+	public static boolean leftHandContainsButcherKnife(WorldObject performer) {
+		WorldObject leftHand = performer.getProperty(Constants.LEFT_HAND_EQUIPMENT);
+		return (leftHand != null && leftHand.hasProperty(Constants.BUTCHER_QUALITY));
+	}
 }

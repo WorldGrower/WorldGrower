@@ -730,7 +730,11 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestOpenLockAction.class,
 	UTestTurnUndeadAction.class,
 	UTestDeityBoonGoal.class,
-	UTestClaimCattleGoal.class
+	UTestClaimCattleGoal.class,
+	UTestButcherOwnedCattleGoal.class,
+	UTestCreateButcherKnifeGoal.class,
+	UTestButcherKnifeGoal.class,
+	UTestEquipButcherKnifeGoal.class
 })
 public class CompleteTestSuite {
 }
