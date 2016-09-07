@@ -362,7 +362,8 @@ public class Constants {
 		Constants.WORKBENCH_QUALITY,
 		Constants.PAPER_MILL_QUALITY,
 		Constants.WEAVERY_QUALITY,
-		Constants.APOTHECARY_QUALITY
+		Constants.APOTHECARY_QUALITY,
+		Constants.BUTCHER_QUALITY
 		);
 	
 	public static List<ManagedProperty<?>> getPossibleDemandProperties() {
