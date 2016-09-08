@@ -20,6 +20,7 @@ import java.util.List;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.BooleanProperty;
 import org.worldgrower.attribute.IdProperty;
 import org.worldgrower.attribute.IntProperty;
 
@@ -27,13 +28,13 @@ public class BonusDescriptions {
 
 	private final List<TooltipFormatter> tooltipFormatters = 
 			Arrays.asList(
-					new BonusDescription(Constants.SLEEP_COMFORT, "sleep"),
-					new BonusDescription(Constants.SMITH_QUALITY, "smithing"),
-					new BonusDescription(Constants.WORKBENCH_QUALITY, "carpentry"),
-					new BonusDescription(Constants.PAPER_MILL_QUALITY, "lumbering"),
-					new BonusDescription(Constants.WEAVERY_QUALITY, "weaving"),
-					new BonusDescription(Constants.BREWERY_QUALITY, "brewing"),
-					new BonusDescription(Constants.APOTHECARY_QUALITY, "apothecary"),
+					new BonusDescription(Constants.SLEEP_COMFORT, "sleep", Constants.SELLABLE),
+					new BonusDescription(Constants.SMITH_QUALITY, "smithing", Constants.SELLABLE),
+					new BonusDescription(Constants.WORKBENCH_QUALITY, "carpentry", Constants.SELLABLE),
+					new BonusDescription(Constants.PAPER_MILL_QUALITY, "lumbering", Constants.SELLABLE),
+					new BonusDescription(Constants.WEAVERY_QUALITY, "weaving", Constants.SELLABLE),
+					new BonusDescription(Constants.BREWERY_QUALITY, "brewing", Constants.SELLABLE),
+					new BonusDescription(Constants.APOTHECARY_QUALITY, "apothecary", Constants.SELLABLE),
 					new OwnerDescription(Constants.CATTLE_OWNER_ID, Constants.MEAT_SOURCE)
 					
 			);
@@ -57,18 +58,22 @@ public class BonusDescriptions {
 	private static class BonusDescription implements TooltipFormatter {
 		private final IntProperty intProperty;
 		private final String description;
+		private final BooleanProperty booleanProperty;
 
-		public BonusDescription(IntProperty intProperty, String description) {
+		public BonusDescription(IntProperty intProperty, String description, BooleanProperty booleanProperty) {
 			super();
 			this.intProperty = intProperty;
 			this.description = description;
+			this.booleanProperty = booleanProperty;
 		}
 		
 		@Override
 		public String getToolTip(WorldObject worldObject, World world) {
 			if (worldObject.hasProperty(intProperty)) {
 				int bonus = worldObject.getProperty(intProperty);
-				return " (" + description + " bonus: " + bonus + ")";
+				boolean isBooleanFlagSet = worldObject.hasProperty(booleanProperty) && worldObject.getProperty(booleanProperty);
+				String booleanFlagDescription = (isBooleanFlagSet ? ", " + booleanProperty.getName() + ": yes" : "");
+				return " (" + description + " bonus: " + bonus + booleanFlagDescription + ")";
 			} else {
 				return null;
 			}
