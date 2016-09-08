@@ -38,7 +38,7 @@ private static final int REQUIRED_WOOD = 3;
 		int id = BuildingGenerator.generateChest(x, y, world, SkillUtils.useSkill(performer, Constants.CARPENTRY_SKILL, world.getWorldStateChangedListeners()), performer);
 		
 		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.WOOD, REQUIRED_WOOD);
-		performer.getProperty(Constants.BUILDINGS).add(id, BuildingType.SHACK);
+		performer.getProperty(Constants.BUILDINGS).add(id, BuildingType.CHEST);
 	}
 
 	@Override
