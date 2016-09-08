@@ -27,6 +27,7 @@ import javax.swing.table.AbstractTableModel;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.profession.Profession;
 
 public class GuiShowBuildingsOverviewAction extends AbstractAction {
 	private World world;
@@ -42,6 +43,8 @@ public class GuiShowBuildingsOverviewAction extends AbstractAction {
 		
 		JTable table = new JTable(new WorldModel(world));
 		table.setBounds(50, 50, 400, 700);
+		table.setAutoCreateRowSorter(true);
+		table.getRowSorter().toggleSortOrder(1);
 		frame.add(new JScrollPane(table));
 		
 		frame.setBounds(100,  100, 500, 800);
@@ -51,10 +54,12 @@ public class GuiShowBuildingsOverviewAction extends AbstractAction {
 	private static class BuildingRow {
 		private final String name;
 		private final Integer ownerId;
+		private final Profession ownerProfession;
 		
-		public BuildingRow(String name, Integer ownerId) {
+		public BuildingRow(String name, Integer ownerId, Profession ownerProfession) {
 			this.name = name;
 			this.ownerId = ownerId;
+			this.ownerProfession = ownerProfession;
 		}
 
 		public String getName() {
@@ -63,6 +68,10 @@ public class GuiShowBuildingsOverviewAction extends AbstractAction {
 
 		public Integer getOwnerId() {
 			return ownerId;
+		}
+
+		public Profession getOwnerProfession() {
+			return ownerProfession;
 		}
 	}
 	
@@ -77,19 +86,23 @@ public class GuiShowBuildingsOverviewAction extends AbstractAction {
 					String name = worldObject.getProperty(Constants.NAME);
 					List<WorldObject> owners = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> w.hasProperty(Constants.BUILDINGS) && w.getProperty(Constants.BUILDINGS).contains(worldObject));
 					final Integer ownerId;
+					final Profession ownerProfession;
 					if (owners.size() > 0) {
-						ownerId = owners.get(0).getProperty(Constants.ID);
+						WorldObject owner = owners.get(0);
+						ownerId = owner.getProperty(Constants.ID);
+						ownerProfession = owner.getProperty(Constants.PROFESSION);
 					} else {
 						ownerId = null;
+						ownerProfession = null;
 					}
-					buildingRows.add(new BuildingRow(name, ownerId));
+					buildingRows.add(new BuildingRow(name, ownerId, ownerProfession));
 				}
 			}
 		}
 
 		@Override
 		public int getColumnCount() {
-			return 2;
+			return 3;
 		}
 
 		@Override
@@ -103,6 +116,8 @@ public class GuiShowBuildingsOverviewAction extends AbstractAction {
 				return "Name";
 			} else if (columnIndex == 1) {
 				return "OwnerId";
+			} else if (columnIndex == 2) {
+				return "OwnerProfession";
 			} else {
 				return null;
 			}
@@ -114,6 +129,9 @@ public class GuiShowBuildingsOverviewAction extends AbstractAction {
 				return buildingRows.get(rowIndex).getName();
 			} else if (columnIndex == 1) {
 				return buildingRows.get(rowIndex).getOwnerId();
+			} else if (columnIndex == 2) {
+				Profession ownerProfession = buildingRows.get(rowIndex).getOwnerProfession();
+				return ownerProfession != null ? ownerProfession.getDescription() : "";
 			} else {
 				return null;
 			}
