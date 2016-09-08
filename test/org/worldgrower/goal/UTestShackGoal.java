@@ -103,8 +103,6 @@ public class UTestShackGoal {
 		
 		int houseId = BuildingGenerator.generateShack(5, 5, world, performer);
 		performer.getProperty(Constants.BUILDINGS).add(houseId, BuildingType.SHACK);
-		int houseId2 = BuildingGenerator.generateShack(5, 5, world, performer);
-		performer.getProperty(Constants.BUILDINGS).add(houseId2, BuildingType.SHACK);
 		assertEquals(true, goal.isGoalMet(performer, world));
 	}
 	
