@@ -25,6 +25,7 @@ import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
+import org.worldgrower.goal.HousePropertyUtils;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
@@ -40,12 +41,7 @@ public class BuildHouseAction implements BuildAction {
 		int id = BuildingGenerator.generateHouse(x, y, world, performer);
 		SkillUtils.useSkill(performer, Constants.CARPENTRY_SKILL, world.getWorldStateChangedListeners());
 		
-		List<Integer> currentHouseIds = performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.SHACK);
-		if (currentHouseIds.size() > 0) {
-			int currentHouseId = currentHouseIds.get(0);
-			WorldObject shack = world.findWorldObjectById(currentHouseId);
-			world.removeWorldObject(shack);
-		}
+		HousePropertyUtils.removeShack(performer, world);
 		
 		performer.getProperty(Constants.INVENTORY).add(Item.generateKey(id, world));
 		performer.getProperty(Constants.INVENTORY).removeQuantity(Constants.STONE, REQUIRED_STONE);

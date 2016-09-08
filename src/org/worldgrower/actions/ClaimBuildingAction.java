@@ -25,6 +25,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
+import org.worldgrower.goal.HousePropertyUtils;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 import org.worldgrower.util.SentenceUtils;
@@ -35,6 +36,10 @@ public class ClaimBuildingAction implements ManagedOperation {
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		BuildingType buildingType = target.getProperty(Constants.BUILDING_TYPE);
 		performer.getProperty(Constants.BUILDINGS).add(target, buildingType);
+		
+		if (buildingType == BuildingType.HOUSE) {
+			HousePropertyUtils.removeShack(performer, world);
+		}
 		
 		changeName(performer, target, world);
 		changeKeyNames(target, world);

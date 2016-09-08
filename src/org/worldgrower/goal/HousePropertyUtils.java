@@ -121,4 +121,13 @@ public class HousePropertyUtils {
 	public static List<WorldObject> getUnmarkedBuildings(WorldObject performer, BuildingType buildingType, World world) {
 		return performer.getProperty(Constants.BUILDINGS).mapToWorldObjects(world, buildingType, w -> !w.hasProperty(Constants.SELLABLE) || !w.getProperty(Constants.SELLABLE));
 	}
+	
+	public static void removeShack(WorldObject performer, World world) {
+		List<Integer> currentHouseIds = performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.SHACK);
+		if (currentHouseIds.size() > 0) {
+			int currentHouseId = currentHouseIds.get(0);
+			WorldObject shack = world.findWorldObjectById(currentHouseId);
+			world.removeWorldObject(shack);
+		}
+	}
 }
