@@ -41,6 +41,7 @@ public class FisherProfession implements Profession {
 				Goals.FISHING_POLE_GOAL,
 				Goals.CATCH_FISH_GOAL,
 				Goals.MARK_FOOD_AS_SELLABLE_GOAL,
+				Goals.MARK_WORKBENCH_AS_SELLABLE_AFTER_EQUIPING_FISHING_POLE,
 				Goals.POSEIDON_BOON_GOAL
 				);
 	}

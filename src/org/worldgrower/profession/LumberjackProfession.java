@@ -43,7 +43,9 @@ public class LumberjackProfession implements Profession {
 				Goals.SELL_WOOD_GOAL,
 				Goals.PAPER_MILL_GOAL,
 				Goals.CREATE_PAPER_GOAL,
-				Goals.EQUIP_WOOD_CUTTING_TOOL_GOAL);
+				Goals.EQUIP_WOOD_CUTTING_TOOL_GOAL,
+				Goals.MARK_WORKBENCH_AS_SELLABLE_AFTER_EQUIPING_WOOD_CUTTING
+			);
 	}
 
 	@Override

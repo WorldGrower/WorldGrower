@@ -45,7 +45,8 @@ public class MinerProfession implements Profession {
 				Goals.SELL_STONE_GOAL,
 				Goals.SELL_ORE_GOAL,
 				Goals.SELL_GOLD_GOAL,
-				Goals.EQUIP_PICKAXE_GOAL
+				Goals.EQUIP_PICKAXE_GOAL,
+				Goals.MARK_WORKBENCH_AS_SELLABLE_AFTER_EQUIPING_PICKAXE
 				);
 	}
 

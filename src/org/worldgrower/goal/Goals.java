@@ -17,6 +17,7 @@ package org.worldgrower.goal;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.worldgrower.Constants;
 import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.deity.Deity;
 
@@ -202,4 +203,10 @@ public class Goals {
 	public static final DeityBoonGoal HEPHAESTUS_BOON_GOAL = new DeityBoonGoal(Deity.HEPHAESTUS);
 	public static final DeityBoonGoal DEMETER_BOON_GOAL = new DeityBoonGoal(Deity.DEMETER);
 	public static final DeityBoonGoal POSEIDON_BOON_GOAL = new DeityBoonGoal(Deity.POSEIDON);
+
+	public static final MarkUnusedBuildingAsSellableGoal MARK_WORKBENCH_AS_SELLABLE_AFTER_EQUIPING_SCYTHE = new MarkUnusedBuildingAsSellableGoal(Constants.SCYTHE_QUALITY, BuildingType.WORKBENCH, ALL_GOALS);
+	public static final MarkUnusedBuildingAsSellableGoal MARK_WORKBENCH_AS_SELLABLE_AFTER_EQUIPING_WOOD_CUTTING = new MarkUnusedBuildingAsSellableGoal(Constants.WOOD_CUTTING_QUALITY, BuildingType.WORKBENCH, ALL_GOALS);
+	public static final MarkUnusedBuildingAsSellableGoal MARK_WORKBENCH_AS_SELLABLE_AFTER_EQUIPING_BUTCHER_KNIFE = new MarkUnusedBuildingAsSellableGoal(Constants.BUTCHER_QUALITY, BuildingType.WORKBENCH, ALL_GOALS);
+	public static final MarkUnusedBuildingAsSellableGoal MARK_WORKBENCH_AS_SELLABLE_AFTER_EQUIPING_PICKAXE = new MarkUnusedBuildingAsSellableGoal(Constants.PICKAXE_QUALITY, BuildingType.WORKBENCH, ALL_GOALS);
+	public static final MarkUnusedBuildingAsSellableGoal MARK_WORKBENCH_AS_SELLABLE_AFTER_EQUIPING_FISHING_POLE = new MarkUnusedBuildingAsSellableGoal(Constants.FISHING_POLE_QUALITY, BuildingType.WORKBENCH, ALL_GOALS);
 }

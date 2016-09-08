@@ -117,4 +117,8 @@ public class HousePropertyUtils {
 			return null;
 		}
 	}
+	
+	public static List<WorldObject> getUnmarkedBuildings(WorldObject performer, BuildingType buildingType, World world) {
+		return performer.getProperty(Constants.BUILDINGS).mapToWorldObjects(world, buildingType, w -> !w.hasProperty(Constants.SELLABLE) || !w.getProperty(Constants.SELLABLE));
+	}
 }

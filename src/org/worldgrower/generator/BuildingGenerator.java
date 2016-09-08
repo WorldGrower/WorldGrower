@@ -278,7 +278,7 @@ public class BuildingGenerator {
 	}
 	
 	public static boolean isSellable(WorldObject worldObject) {
-		return isShack(worldObject) || isHouse(worldObject);
+		return isShack(worldObject) || isHouse(worldObject) || isWorkbench(worldObject);
 	}
 	
 	public static boolean isTrainingDummy(WorldObject worldObject) {

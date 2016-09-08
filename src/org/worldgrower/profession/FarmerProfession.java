@@ -44,7 +44,8 @@ public class FarmerProfession implements Profession {
 				Goals.SELL_FOOD_GOAL,
 				Goals.DEMETER_BOON_GOAL,
 				Goals.CREATE_WINE_GOAL,
-				Goals.EQUIP_SCYTHE_GOAL
+				Goals.EQUIP_SCYTHE_GOAL,
+				Goals.MARK_WORKBENCH_AS_SELLABLE_AFTER_EQUIPING_SCYTHE
 				);
 	}
 

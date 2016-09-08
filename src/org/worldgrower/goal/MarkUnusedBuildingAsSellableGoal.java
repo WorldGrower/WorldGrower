@@ -23,26 +23,35 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.BuildingType;
+import org.worldgrower.attribute.IntProperty;
 
-public class MarkBuildingAsSellableGoal implements Goal {
-	
+public class MarkUnusedBuildingAsSellableGoal implements Goal {
+	private final IntProperty leftHandProperty;
 	private final BuildingType buildingType;
 	
-	public MarkBuildingAsSellableGoal(BuildingType buildingType,List<Goal> allGoals) {
+	public MarkUnusedBuildingAsSellableGoal(IntProperty leftHandProperty, BuildingType buildingType,List<Goal> allGoals) {
+		this.leftHandProperty = leftHandProperty;
 		this.buildingType = buildingType;
 		allGoals.add(this);
 	}
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		List<WorldObject> buildings = HousePropertyUtils.getUnmarkedBuildings(performer, buildingType, world);
-		if (buildings.size() > 1) {
-			WorldObject building = buildings.get(1);
-			return new OperationInfo(performer, building, Args.EMPTY, Actions.MARK_AS_SELLABLE_ACTION);
+		if (leftHandContainsProperty(performer)) {
+			List<WorldObject> buildings = HousePropertyUtils.getUnmarkedBuildings(performer, buildingType, world);
+			if (buildings.size() > 0) {
+				WorldObject building = buildings.get(0);
+				return new OperationInfo(performer, building, Args.EMPTY, Actions.MARK_AS_SELLABLE_ACTION);
+			}
 		}
 		return null;
 	}
 
+	private boolean leftHandContainsProperty(WorldObject performer) {
+		WorldObject leftHandEquipment = performer.getProperty(Constants.LEFT_HAND_EQUIPMENT);
+		return leftHandEquipment != null && leftHandEquipment.hasProperty(leftHandProperty);
+	}
+	
 	@Override
 	public final boolean isUrgentGoalMet(WorldObject performer, World world) {
 		return isGoalMet(performer, world);
@@ -54,11 +63,7 @@ public class MarkBuildingAsSellableGoal implements Goal {
 
 	@Override
 	public final boolean isGoalMet(WorldObject performer, World world) {
-		if (buildingType == BuildingType.HOUSE) {
-			return HousePropertyUtils.allHousesButFirstSellable(performer, world);
-		} else {
-			return HousePropertyUtils.getUnmarkedBuildings(performer, buildingType, world).size() == 0;
-		}
+		return !leftHandContainsProperty(performer) || HousePropertyUtils.getUnmarkedBuildings(performer, buildingType, world).size() == 0;
 	}
 
 	@Override

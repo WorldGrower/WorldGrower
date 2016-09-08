@@ -39,9 +39,10 @@ public class GuiShowBuildingsOverviewAction extends AbstractAction {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		JFrame frame = new JFrame();
+		WorldModel tableModel = new WorldModel(world);
+		JFrame frame = new JFrame("Buildings count: " + tableModel.getRowCount());
 		
-		JTable table = new JTable(new WorldModel(world));
+		JTable table = new JTable(tableModel);
 		table.setBounds(50, 50, 400, 700);
 		table.setAutoCreateRowSorter(true);
 		table.getRowSorter().toggleSortOrder(1);

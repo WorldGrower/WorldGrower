@@ -41,7 +41,8 @@ public class ButcherProfession implements Profession {
 				Goals.CLAIM_CATTLE_GOAL,
 				Goals.BUTCHER_OWNED_CATTLE_GOAL,
 				Goals.SELL_FOOD_GOAL,
-				Goals.EQUIP_BUTCHER_KNIFE_GOAL
+				Goals.EQUIP_BUTCHER_KNIFE_GOAL,
+				Goals.MARK_WORKBENCH_AS_SELLABLE_AFTER_EQUIPING_BUTCHER_KNIFE
 				);
 	}
 
