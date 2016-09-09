@@ -36,7 +36,7 @@ public class DrinkAction implements ManagedOperation, AnimatedAction {
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		int waterInTarget = target.getProperty(Constants.WATER_SOURCE);
 
-		int waterDrunk = Math.min(100, waterInTarget);
+		int waterDrunk = Math.min(150, waterInTarget);
 		performer.increment(Constants.WATER, waterDrunk);
 		target.increment(Constants.WATER_SOURCE, -waterDrunk);
 		

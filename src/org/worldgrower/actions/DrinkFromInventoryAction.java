@@ -30,7 +30,7 @@ public class DrinkFromInventoryAction extends InventoryAction {
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		int inventoryIndex = args[0];
 		
-		performer.increment(Constants.WATER, 100);
+		performer.increment(Constants.WATER, 150);
 		
 		WorldObject waterTarget = performer.getProperty(Constants.INVENTORY).get(inventoryIndex);
 		WaterPropertyUtils.drink(performer, waterTarget, world);
