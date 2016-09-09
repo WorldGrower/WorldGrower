@@ -112,7 +112,8 @@ public class OperationInfo implements Serializable {
 				&& managedOperation != Actions.REST_ACTION
 				&& managedOperation != Actions.SLEEP_ACTION
 				&& managedOperation != Actions.MOVE_ACTION
-				&& managedOperation != Actions.TALK_ACTION;
+				&& managedOperation != Actions.TALK_ACTION
+				&& managedOperation != Actions.SEX_ACTION;
 	}
 	
 	@Override
