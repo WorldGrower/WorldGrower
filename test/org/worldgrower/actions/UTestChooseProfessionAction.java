@@ -148,7 +148,7 @@ public class UTestChooseProfessionAction {
 		List<ProfessionEvaluation> professionEvaluations = ChooseProfessionAction.getProfessionEvaluationsByDemand(performer, world);
 		
 		assertEquals(true, professionEvaluations.size() > 0);
-		assertProfessionEvaluation(professionEvaluations.get(0), Professions.FARMER_PROFESSION, 20);
+		assertProfessionEvaluation(professionEvaluations.get(0), Professions.FARMER_PROFESSION, 23);
 	}
 	
 	@Test
