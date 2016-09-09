@@ -94,10 +94,20 @@ public class OperationInfo implements Serializable {
 		}
 		HistoryItem historyItem = world.getHistory().actionPerformed(this, world.getCurrentTurn());
 		
-		world.removeDeadWorldObjects();
+		if (actionCanKillOthers()) {
+			world.removeDeadWorldObjects();
+		}
 	}
 	
 	private boolean actionCanAngerOthers() {
+		return managedOperation != Actions.DO_NOTHING_ACTION
+				&& managedOperation != Actions.REST_ACTION
+				&& managedOperation != Actions.SLEEP_ACTION
+				&& managedOperation != Actions.MOVE_ACTION
+				&& managedOperation != Actions.TALK_ACTION;
+	}
+	
+	private boolean actionCanKillOthers() {
 		return managedOperation != Actions.DO_NOTHING_ACTION
 				&& managedOperation != Actions.REST_ACTION
 				&& managedOperation != Actions.SLEEP_ACTION
