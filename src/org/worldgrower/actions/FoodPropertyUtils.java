@@ -21,6 +21,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.ConditionUtils;
 import org.worldgrower.condition.Conditions;
 
 public class FoodPropertyUtils {
@@ -53,6 +54,14 @@ public class FoodPropertyUtils {
 		}
 		if (performerHasBoon(performer)) {
 			quantity += 1;
+		}
+		return quantity;
+	}
+	
+	public static int getFarmingGrapesQuantity(WorldObject performer) {
+		int quantity = SkillUtils.getLogarithmicSkillBonus(performer, Constants.FARMING_SKILL);
+		if (ConditionUtils.performerHasCondition(performer, Condition.DIONYSUS_BOON_CONDITION)) {
+			quantity++;
 		}
 		return quantity;
 	}

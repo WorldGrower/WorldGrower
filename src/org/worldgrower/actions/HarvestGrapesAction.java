@@ -23,9 +23,8 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
-import org.worldgrower.condition.Condition;
-import org.worldgrower.condition.ConditionUtils;
 import org.worldgrower.generator.Item;
 import org.worldgrower.generator.VineImageCalculator;
 import org.worldgrower.gui.ImageIds;
@@ -37,15 +36,13 @@ public class HarvestGrapesAction implements ManagedOperation, AnimatedAction {
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		WorldObjectContainer inventoryPerformer = performer.getProperty(Constants.INVENTORY);
 
-		int quantity = 1;
-		if (ConditionUtils.performerHasCondition(performer, Condition.DIONYSUS_BOON_CONDITION)) {
-			quantity++;
-		}
+		int quantity = FoodPropertyUtils.getFarmingGrapesQuantity(performer);
 		
 		WorldObject harvestedGrapes = Item.GRAPES.generate(1f);
 		inventoryPerformer.addQuantity(harvestedGrapes, quantity);
 
 		target.increment(Constants.GRAPE_SOURCE, -20);
+		SkillUtils.useSkill(performer, Constants.FARMING_SKILL, world.getWorldStateChangedListeners());
 		
 		target.setProperty(Constants.IMAGE_ID, VineImageCalculator.getImageId(target, world));
 	}
