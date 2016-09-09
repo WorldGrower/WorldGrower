@@ -113,13 +113,14 @@ public class ProposeMateConversation implements Conversation {
 
 	private void breakupWithPreviousMate(WorldObject performer, WorldObject target, World world) {
 		Integer performerMateId = performer.getProperty(Constants.MATE_ID);
-		Integer targetMateId = target.getProperty(Constants.MATE_ID);
 		
 		if (performerMateId != null) {
 			WorldObject performerMate = world.findWorldObjectById(performerMateId);
 			Conversations.BREAKUP_WITH_MATE_CONVERSATION.breakup(performer, performerMate, world);
 		}
 		
+		//targetMateId may have been set to null by breakup of performer with target
+		Integer targetMateId = target.getProperty(Constants.MATE_ID);
 		if (targetMateId != null) {
 			WorldObject targetMate = world.findWorldObjectById(targetMateId);
 			Conversations.BREAKUP_WITH_MATE_CONVERSATION.breakup(target, targetMate, world);
