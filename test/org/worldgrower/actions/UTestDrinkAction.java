@@ -42,7 +42,7 @@ public class UTestDrinkAction {
 		assertEquals(800, performer.getProperty(Constants.WATER).intValue());
 		Actions.DRINK_ACTION.execute(performer, well, Args.EMPTY, world);
 		
-		assertEquals(900, performer.getProperty(Constants.WATER).intValue());
+		assertEquals(950, performer.getProperty(Constants.WATER).intValue());
 	}
 	
 	@Test

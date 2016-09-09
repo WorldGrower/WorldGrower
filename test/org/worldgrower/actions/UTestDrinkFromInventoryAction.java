@@ -38,7 +38,7 @@ public class UTestDrinkFromInventoryAction {
 		assertEquals(800, performer.getProperty(Constants.WATER).intValue());
 		Actions.DRINK_FROM_INVENTORY_ACTION.execute(performer, performer, new int[] {0}, world);
 		
-		assertEquals(900, performer.getProperty(Constants.WATER).intValue());
+		assertEquals(950, performer.getProperty(Constants.WATER).intValue());
 	}
 	
 	@Test
