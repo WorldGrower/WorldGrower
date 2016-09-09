@@ -115,7 +115,7 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 
 		@Override
 		public int getColumnCount() {
-			return 17;
+			return 18;
 		}
 
 		@Override
@@ -159,6 +159,8 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 				return "Level";
 			} else if (columnIndex == 16) {
 				return "Inventory";
+			} else if (columnIndex == 17) {
+				return "Mate Id";
 			} else {
 				return null;
 			}
@@ -236,6 +238,9 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 				}
 				inventoryDescriptionBuilder.append("</html>");
 				return inventoryDescriptionBuilder.toString();
+			} else if (columnIndex == 17) {
+				Integer mateId = npc.getProperty(Constants.MATE_ID);
+				return mateId != null ? mateId.intValue() : "";
 			} else {
 				return null;
 			}

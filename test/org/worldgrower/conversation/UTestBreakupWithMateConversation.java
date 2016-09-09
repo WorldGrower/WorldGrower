@@ -74,4 +74,18 @@ public class UTestBreakupWithMateConversation {
 		assertEquals(null, performer.getProperty(Constants.MATE_ID));
 		assertEquals(null, target.getProperty(Constants.MATE_ID));
 	}
+	
+	@Test
+	public void testBreakup() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.NAME, "performer");
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.NAME, "target");
+		
+		performer.setProperty(Constants.MATE_ID, 2);
+		target.setProperty(Constants.MATE_ID, 1);
+		
+		conversation.breakup(performer, target, world);
+		assertEquals(null, performer.getProperty(Constants.MATE_ID));
+		assertEquals(null, target.getProperty(Constants.MATE_ID));
+	}
 }

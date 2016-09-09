@@ -92,7 +92,7 @@ public class BonusDescriptions {
 		
 		@Override
 		public String getToolTip(WorldObject worldObject, World world) {
-			if (worldObject.hasProperty(idProperty)) {
+			if (worldObject.hasProperty(idProperty) && worldObject.getProperty(idProperty) != null) {
 				int id = worldObject.getProperty(idProperty);
 				WorldObject owner = world.findWorldObjectById(id);
 				return " (owner: " + owner.getProperty(Constants.NAME) + ", " + generateIntPropertyDescription(worldObject) + ")";
