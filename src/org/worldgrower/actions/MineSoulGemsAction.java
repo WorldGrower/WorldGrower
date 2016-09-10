@@ -56,6 +56,11 @@ public class MineSoulGemsAction implements ManagedOperation, AnimatedAction {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, DISTANCE, Constants.ENERGY, ENERGY_USE);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "mines soul gems and add them to the inventory";
+	}
 
 	@Override
 	public boolean requiresArguments() {

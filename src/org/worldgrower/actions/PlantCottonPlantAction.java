@@ -53,6 +53,11 @@ public class PlantCottonPlantAction implements BuildAction {
 	public String getRequirementsDescription() {
 		return "";
 	}
+	
+	@Override
+	public String getDescription() {
+		return "plant cotton plant for cotton production";
+	}
 
 	@Override
 	public boolean requiresArguments() {

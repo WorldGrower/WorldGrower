@@ -59,6 +59,11 @@ public class CraftIronGreavesAction implements CraftAction, AnimatedAction {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.WOOD, WOOD_REQUIRED, Constants.ORE, ORE_REQUIRED);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "iron greaves are used as armor to reduce the damage taken from attacks";
+	}
 
 	@Override
 	public boolean requiresArguments() {

@@ -47,6 +47,11 @@ public class SetTaxRateAction implements ManagedOperation {
 	public String getRequirementsDescription() {
 		return "only the village leader can change tax rates";
 	}
+	
+	@Override
+	public String getDescription() {
+		return "set tax rates";
+	}
 
 	@Override
 	public boolean requiresArguments() {

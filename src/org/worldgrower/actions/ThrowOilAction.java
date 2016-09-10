@@ -54,6 +54,11 @@ public class ThrowOilAction implements ManagedOperation {
 	}
 	
 	@Override
+	public String getDescription() {
+		return "throw oil at something, making it flammable";
+	}
+	
+	@Override
 	public boolean requiresArguments() {
 		return false;
 	}

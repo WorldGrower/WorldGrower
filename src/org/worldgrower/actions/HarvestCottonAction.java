@@ -60,6 +60,11 @@ public class HarvestCottonAction implements ManagedOperation, AnimatedAction {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, 1);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "harvest cotton to weaves clothes";
+	}
 
 	@Override
 	public boolean requiresArguments() {

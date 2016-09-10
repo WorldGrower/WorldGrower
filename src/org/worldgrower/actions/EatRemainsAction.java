@@ -50,6 +50,11 @@ public class EatRemainsAction implements ManagedOperation {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, 1);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "eat from target to quench hunger";
+	}
 
 	@Override
 	public boolean requiresArguments() {

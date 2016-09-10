@@ -63,6 +63,11 @@ public class HarvestFoodAction implements ManagedOperation, AnimatedAction {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, 1);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "harvest food from target, using a scythe increases the amount of food harvested";
+	}
 
 	@Override
 	public boolean requiresArguments() {

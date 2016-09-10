@@ -58,6 +58,11 @@ public class BuildJailAction implements BuildAction {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.WOOD, REQUIRED_WOOD);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "a jail is used for holding criminals";
+	}
 
 	@Override
 	public boolean requiresArguments() {

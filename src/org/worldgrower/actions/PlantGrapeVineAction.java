@@ -53,6 +53,11 @@ public class PlantGrapeVineAction implements BuildAction {
 	}
 	
 	@Override
+	public String getDescription() {
+		return "plant grape vine for grapes production";
+	}
+	
+	@Override
 	public String getRequirementsDescription() {
 		return "";
 	}

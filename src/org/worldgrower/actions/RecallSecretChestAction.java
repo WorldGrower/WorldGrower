@@ -55,6 +55,11 @@ public class RecallSecretChestAction extends InventoryAction {
 	public String getRequirementsDescription() {
 		return "";
 	}
+	
+	@Override
+	public String getDescription() {
+		return "recall secret chest from demiplane in which it resides";
+	}
 
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {

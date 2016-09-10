@@ -53,6 +53,11 @@ public class PlantNightShadeAction implements BuildAction {
 	public String getRequirementsDescription() {
 		return "";
 	}
+	
+	@Override
+	public String getDescription() {
+		return "plant nightshade plant for nightshade production";
+	}
 
 	@Override
 	public boolean requiresArguments() {

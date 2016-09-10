@@ -60,6 +60,11 @@ private static final int REQUIRED_WOOD = 3;
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.WOOD, REQUIRED_WOOD);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "a chest functions as a container to store items";
+	}
 
 	@Override
 	public boolean requiresArguments() {

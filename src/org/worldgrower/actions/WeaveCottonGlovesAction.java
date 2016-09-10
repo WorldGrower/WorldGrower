@@ -57,6 +57,11 @@ public class WeaveCottonGlovesAction implements CraftAction, AnimatedAction {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.COTTON, COTTON_REQUIRED, Constants.DISTANCE, DISTANCE);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "cotton gloves are used as armor to reduce the damage taken from attacks";
+	}
 
 	@Override
 	public boolean requiresArguments() {

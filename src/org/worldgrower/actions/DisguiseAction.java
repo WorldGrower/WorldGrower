@@ -44,6 +44,11 @@ public class DisguiseAction implements DisguiseTargetFactory {
 	public String getRequirementsDescription() {
 		return "";
 	}
+	
+	@Override
+	public String getDescription() {
+		return "";
+	}
 
 	@Override
 	public boolean requiresArguments() {

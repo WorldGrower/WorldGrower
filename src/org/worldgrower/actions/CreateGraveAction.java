@@ -55,6 +55,11 @@ public class CreateGraveAction implements BuildAction {
 	public String getRequirementsDescription() {
 		return "Requirements: remains in inventory";
 	}
+	
+	@Override
+	public String getDescription() {
+		return "a grave stores the remains of a dead person";
+	}
 
 	@Override
 	public boolean requiresArguments() {

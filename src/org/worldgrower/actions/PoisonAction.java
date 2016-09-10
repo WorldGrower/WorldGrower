@@ -48,6 +48,11 @@ public class PoisonAction implements ManagedOperation {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, DISTANCE, "inventory must contain poison");
 	}
+	
+	@Override
+	public String getDescription() {
+		return "poison target so that everyone that drinks from it becomes poisoned";
+	}
 
 	@Override
 	public boolean requiresArguments() {

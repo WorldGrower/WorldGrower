@@ -72,6 +72,11 @@ public class SexAction implements ManagedOperation, AnimatedAction {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, 1);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "have sex, if different genders have sex the female will become pregnant";
+	}
 
 	@Override
 	public boolean requiresArguments() {

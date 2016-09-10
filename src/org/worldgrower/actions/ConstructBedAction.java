@@ -54,6 +54,11 @@ public class ConstructBedAction implements CraftAction {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.WOOD, WOOD_REQUIRED);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "sleeping in a residence with a bed increases the energy recovered";
+	}
 
 	@Override
 	public boolean requiresArguments() {

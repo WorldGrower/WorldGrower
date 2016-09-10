@@ -59,6 +59,11 @@ public class CraftIronAxeAction implements CraftAction, AnimatedAction {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.WOOD, WOOD_REQUIRED, Constants.ORE, ORE_REQUIRED);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "an iron axe is used as a weapon or as a wood cutting tool";
+	}
 
 	@Override
 	public boolean requiresArguments() {

@@ -63,6 +63,11 @@ public class BuildWorkbenchAction implements BuildAction {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.STONE, REQUIRED_STONE);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "a workbench is used for creating tools";
+	}
 
 	@Override
 	public boolean requiresArguments() {

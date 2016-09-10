@@ -53,6 +53,11 @@ public class MarkAsSellableAction implements ManagedOperation {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, DISTANCE, "item should not already be sellable");
 	}
+	
+	@Override
+	public String getDescription() {
+		return "marks a building as sellable, signaling to others that the building is for sale";
+	}
 
 	@Override
 	public boolean requiresArguments() {

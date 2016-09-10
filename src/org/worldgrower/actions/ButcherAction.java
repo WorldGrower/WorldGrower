@@ -72,6 +72,11 @@ public class ButcherAction implements ManagedOperation, AnimatedAction {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, 1);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "butchering something kills it while providing meat. Butchering a more mature creature or using a butcher knife provides more meat";
+	}
 
 	@Override
 	public boolean requiresArguments() {

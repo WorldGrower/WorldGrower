@@ -61,6 +61,11 @@ public class BuildShackAction implements BuildAction {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.WOOD, REQUIRED_WOOD);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "a shack is used for sleeping and storing items";
+	}
 
 	@Override
 	public boolean requiresArguments() {

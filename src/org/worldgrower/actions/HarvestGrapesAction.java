@@ -61,6 +61,11 @@ public class HarvestGrapesAction implements ManagedOperation, AnimatedAction {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, 1);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "harvest grapes from target, using a scythe increases the amount of grapes harvested";
+	}
 
 	@Override
 	public boolean requiresArguments() {

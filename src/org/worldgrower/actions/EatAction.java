@@ -57,6 +57,11 @@ public class EatAction implements ManagedOperation, AnimatedAction {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, 1);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "eat from target to quench hunger, using a scythe increases the amount of food eaten";
+	}
 
 	@Override
 	public boolean requiresArguments() {

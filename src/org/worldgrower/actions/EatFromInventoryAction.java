@@ -53,6 +53,11 @@ public class EatFromInventoryAction extends InventoryAction {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.FOOD, 1);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "eat an inventory item to quench hunger";
+	}
 
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {

@@ -64,6 +64,11 @@ public class CatchFishAction implements ManagedOperation {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, DISTANCE, Constants.FISHING_POLE_QUALITY, 1);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "catching fish provides fish. Using a fishing pole provides more fish";
+	}
 
 	@Override
 	public boolean requiresArguments() {

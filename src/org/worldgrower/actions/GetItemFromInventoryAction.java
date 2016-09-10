@@ -58,6 +58,11 @@ public class GetItemFromInventoryAction implements ManagedOperation {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, DISTANCE, "a lock prevents retrieving items");
 	}
+	
+	@Override
+	public String getDescription() {
+		return "get item from container and store it in the inventory";
+	}
 
 	@Override
 	public boolean requiresArguments() {

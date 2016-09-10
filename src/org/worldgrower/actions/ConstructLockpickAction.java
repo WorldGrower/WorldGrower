@@ -57,6 +57,11 @@ public class ConstructLockpickAction implements CraftAction, AnimatedAction {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.ORE, ORE_REQUIRED);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "A lockpick is used to open locked containers";
+	}
 
 	@Override
 	public boolean requiresArguments() {

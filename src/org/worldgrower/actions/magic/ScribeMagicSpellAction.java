@@ -57,6 +57,11 @@ public class ScribeMagicSpellAction implements ManagedOperation {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.PAPER, PAPER_REQUIRED);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "scribe magic spell so that other can learn it more easily";
+	}
 
 	@Override
 	public boolean requiresArguments() {

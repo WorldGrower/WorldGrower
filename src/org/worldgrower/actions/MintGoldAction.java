@@ -54,6 +54,11 @@ public class MintGoldAction implements CraftAction {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.GOLD, GOLD_REQUIRED);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "mints gold from raw gold ore";
+	}
 
 	@Override
 	public boolean requiresArguments() {

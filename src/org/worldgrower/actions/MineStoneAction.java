@@ -56,6 +56,11 @@ public class MineStoneAction implements ManagedOperation, AnimatedAction {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, DISTANCE, Constants.ENERGY, ENERGY_USE);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "mines stone and adds it to the inventory";
+	}
 
 	@Override
 	public boolean requiresArguments() {

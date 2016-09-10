@@ -51,6 +51,11 @@ public class DonateMoneyAction implements ManagedOperation {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, DISTANCE);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "donate gold to another person";
+	}
 
 	@Override
 	public boolean requiresArguments() {

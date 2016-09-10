@@ -51,6 +51,11 @@ public class StartOrganizationVoteAction implements ManagedOperation {
 	public String getRequirementsDescription() {
 		return "a person can only vote for an organization if a voting box exists";
 	}
+	
+	@Override
+	public String getDescription() {
+		return "start organization vote";
+	}
 
 	@Override
 	public boolean requiresArguments() {

@@ -74,6 +74,11 @@ public class RangedAttackAction implements DeadlyAction, AnimatedAction {
 	}
 	
 	@Override
+	public String getDescription() {
+		return "attacks with a ranged weapon";
+	}
+	
+	@Override
 	public boolean requiresArguments() {
 		return false;
 	}

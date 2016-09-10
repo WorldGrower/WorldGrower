@@ -61,6 +61,11 @@ public class BrewWineAction implements CraftAction, AnimatedAction {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.GRAPE, GRAPES_REQUIRED);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "drinking wine relieves thirst and may make someone intoxicated";
+	}
 
 	@Override
 	public boolean requiresArguments() {

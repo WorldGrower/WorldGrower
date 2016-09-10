@@ -58,6 +58,11 @@ public class CraftLongBowAction implements CraftAction, AnimatedAction {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.WOOD, WOOD_REQUIRED, Constants.ORE, ORE_REQUIRED);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "a longbow is used as a ranged weapon";
+	}
 
 	@Override
 	public boolean requiresArguments() {

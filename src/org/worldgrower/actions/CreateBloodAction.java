@@ -60,6 +60,11 @@ public class CreateBloodAction implements ManagedOperation, AnimatedAction {
 	public String getRequirementsDescription() {
 		return "target needs to have blood";
 	}
+	
+	@Override
+	public String getDescription() {
+		return "blood is used to feed vampires";
+	}
 
 	@Override
 	public boolean requiresArguments() {

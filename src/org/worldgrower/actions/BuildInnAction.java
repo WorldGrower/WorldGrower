@@ -63,6 +63,11 @@ public class BuildInnAction implements BuildAction {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.STONE, REQUIRED_STONE);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "an inn is used for sleeping";
+	}
 
 	@Override
 	public boolean requiresArguments() {

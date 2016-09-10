@@ -60,6 +60,11 @@ public class ConstructButcherKnifeAction implements CraftAction, AnimatedAction 
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.WOOD, WOOD_REQUIRED, Constants.ORE, ORE_REQUIRED);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "Butchering cattle with a butcher knife increases the meat recovered";
+	}
 
 	@Override
 	public boolean requiresArguments() {

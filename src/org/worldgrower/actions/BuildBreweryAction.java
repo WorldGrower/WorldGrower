@@ -65,6 +65,11 @@ public class BuildBreweryAction implements BuildAction {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.WOOD, REQUIRED_WOOD, Constants.STONE, REQUIRED_STONE);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "a brewery is used for brewing alcoholic beverages";
+	}
 
 	@Override
 	public boolean requiresArguments() {

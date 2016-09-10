@@ -52,6 +52,11 @@ public class SecludedAction implements ManagedOperation {
 	}
 
 	@Override
+	public String getDescription() {
+		return action.getDescription();
+	}
+
+	@Override
 	public boolean requiresArguments() {
 		return action.requiresArguments();
 	}

@@ -51,6 +51,11 @@ public class SleepingPoisonAction implements ManagedOperation {
 	}
 
 	@Override
+	public String getDescription() {
+		return "add sleeping potion to target, it makes someone fall to sleep if it drinks from the target";
+	}
+	
+	@Override
 	public boolean requiresArguments() {
 		return false;
 	}

@@ -45,6 +45,11 @@ public class RestAction implements ManagedOperation, AnimatedAction {
 	public String getRequirementsDescription() {
 		return "";
 	}
+	
+	@Override
+	public String getDescription() {
+		return "rest in the open to regain energy";
+	}
 
 	@Override
 	public boolean requiresArguments() {

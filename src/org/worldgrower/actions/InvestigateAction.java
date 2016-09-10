@@ -94,6 +94,11 @@ public class InvestigateAction implements ManagedOperation {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, DISTANCE);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "investigate surroundings to search for invisible and illusionary things";
+	}
 
 	@Override
 	public boolean requiresArguments() {

@@ -57,6 +57,11 @@ public class PlantBerryBushAction implements BuildAction {
 	public String getRequirementsDescription() {
 		return "";
 	}
+	
+	@Override
+	public String getDescription() {
+		return "plant berry bush for food production";
+	}
 
 	@Override
 	public boolean requiresArguments() {

@@ -49,6 +49,11 @@ public class LearnMagicSpellFromBookAction extends InventoryAction {
 	public String getRequirementsDescription() {
 		return "Magic spell book";
 	}
+	
+	@Override
+	public String getDescription() {
+		return "learn magic spell from spell book";
+	}
 
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {

@@ -63,6 +63,11 @@ public class MeleeAttackAction implements DeadlyAction, AnimatedAction {
 	}
 	
 	@Override
+	public String getDescription() {
+		return "attacks with a melee weapon, or with bare fists if no weapon is used";
+	}
+	
+	@Override
 	public boolean requiresArguments() {
 		return false;
 	}

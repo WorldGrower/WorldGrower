@@ -53,6 +53,11 @@ public class CreateHumanMeatAction implements ManagedOperation {
 	public String getRequirementsDescription() {
 		return "enough hit points to survive action";
 	}
+	
+	@Override
+	public String getDescription() {
+		return "human meat will turn anyone ingesting it into a ghoul";
+	}
 
 	@Override
 	public boolean requiresArguments() {

@@ -57,6 +57,11 @@ public class LeashAction implements ManagedOperation {
 	}
 	
 	@Override
+	public String getDescription() {
+		return "leash cattle so it follows until unleashed";
+	}
+	
+	@Override
 	public boolean requiresArguments() {
 		return false;
 	}

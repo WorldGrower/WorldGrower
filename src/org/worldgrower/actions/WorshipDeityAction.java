@@ -48,6 +48,11 @@ public class WorshipDeityAction implements ManagedOperation {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, 1, "must worship deity");
 	}
+	
+	@Override
+	public String getDescription() {
+		return "worship can lead to bonuses and boons granted depending on which deity is worshipped";
+	}
 
 	@Override
 	public boolean requiresArguments() {

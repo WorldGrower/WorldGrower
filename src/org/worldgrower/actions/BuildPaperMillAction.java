@@ -63,6 +63,11 @@ public class BuildPaperMillAction implements BuildAction {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.WOOD, REQUIRED_WOOD);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "a papermill is used for creating paper";
+	}
 
 	@Override
 	public boolean requiresArguments() {

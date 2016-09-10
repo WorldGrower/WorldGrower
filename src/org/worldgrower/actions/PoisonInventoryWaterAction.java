@@ -50,6 +50,11 @@ public class PoisonInventoryWaterAction extends InventoryAction {
 	}
 
 	@Override
+	public String getDescription() {
+		return "poison inventory water so that everyone that drinks from it becomes poisoned";
+	}
+	
+	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
 		return "poisoning inventory water";
 	}

@@ -66,6 +66,11 @@ public class PoisonAttackAction implements ManagedOperation {
 	}
 	
 	@Override
+	public String getDescription() {
+		return "poison target so that it becomes poisoned";
+	}
+	
+	@Override
 	public boolean requiresArguments() {
 		return false;
 	}

@@ -57,6 +57,11 @@ public class ConstructFishingPoleAction implements CraftAction, AnimatedAction {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.WOOD, WOOD_REQUIRED);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "catching fish with a fishing pole increases the fish recovered";
+	}
 
 	@Override
 	public boolean requiresArguments() {

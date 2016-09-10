@@ -54,6 +54,11 @@ public class CommandAction implements ManagedOperation {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, 1);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "commands someone to achieve a goal";
+	}
 
 	@Override
 	public boolean requiresArguments() {

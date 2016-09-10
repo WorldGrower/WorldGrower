@@ -61,6 +61,11 @@ public class LifeStealAction implements DeadlyAction {
 	}
 	
 	@Override
+	public String getDescription() {
+		return "drains target of life and restores hit points";
+	}
+	
+	@Override
 	public boolean requiresArguments() {
 		return false;
 	}

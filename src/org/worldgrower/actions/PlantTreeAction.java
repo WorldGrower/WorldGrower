@@ -54,6 +54,11 @@ public class PlantTreeAction implements BuildAction {
 	public String getRequirementsDescription() {
 		return "";
 	}
+	
+	@Override
+	public String getDescription() {
+		return "plant tree for wood production";
+	}
 
 	@Override
 	public boolean requiresArguments() {

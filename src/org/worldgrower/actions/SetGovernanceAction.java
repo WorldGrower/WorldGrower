@@ -69,6 +69,11 @@ public class SetGovernanceAction implements ManagedOperation {
 	public String getRequirementsDescription() {
 		return "only the village leader can set legal actions";
 	}
+	
+	@Override
+	public String getDescription() {
+		return "set governancy options like allowed actions, wages and taxes";
+	}
 
 	@Override
 	public boolean requiresArguments() {

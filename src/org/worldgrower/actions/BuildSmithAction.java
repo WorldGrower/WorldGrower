@@ -63,6 +63,11 @@ public class BuildSmithAction implements BuildAction {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.STONE, REQUIRED_STONE);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "a smithy is used for crafting weapons and armor";
+	}
 
 	@Override
 	public boolean requiresArguments() {

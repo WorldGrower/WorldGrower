@@ -57,6 +57,11 @@ public class UnleashAction implements ManagedOperation {
 	}
 	
 	@Override
+	public String getDescription() {
+		return "unleash cattle so it no longer follows";
+	}
+	
+	@Override
 	public boolean requiresArguments() {
 		return false;
 	}

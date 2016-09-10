@@ -57,6 +57,11 @@ public class CreateNewsPaperAction implements ManagedOperation {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.PAPER, PAPER_REQUIRED);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "a newspaper contains knowledge that is spread by reading it";
+	}
 
 	@Override
 	public boolean requiresArguments() {

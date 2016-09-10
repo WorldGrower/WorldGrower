@@ -119,6 +119,11 @@ public class SellAction implements ManagedOperation, AnimatedAction {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, 1);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "sell items in exchange for gold";
+	}
 
 	@Override
 	public boolean requiresArguments() {

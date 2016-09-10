@@ -59,6 +59,11 @@ public class DrinkAction implements ManagedOperation, AnimatedAction {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, DISTANCE);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "drink water to quench thirst";
+	}
 
 	@Override
 	public boolean requiresArguments() {

@@ -43,6 +43,11 @@ public class DoNothingAction implements ManagedOperation {
 	}
 	
 	@Override
+	public String getDescription() {
+		return "";
+	}
+	
+	@Override
 	public boolean requiresArguments() {
 		return false;
 	}

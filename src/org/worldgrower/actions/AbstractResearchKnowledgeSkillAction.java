@@ -57,6 +57,11 @@ public class AbstractResearchKnowledgeSkillAction implements ResearchKnowledgeSk
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, 1);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "research knowledge skill";
+	}
 
 	@Override
 	public boolean requiresArguments() {

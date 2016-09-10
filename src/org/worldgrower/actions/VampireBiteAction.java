@@ -80,6 +80,11 @@ public class VampireBiteAction implements DeadlyAction {
 	}
 	
 	@Override
+	public String getDescription() {
+		return "drains a target of blood and replenishes vampire's blood. Target has a chance of contracting " + Condition.VAMPIRE_BITE_CONDITION.getDescription();
+	}
+	
+	@Override
 	public boolean requiresArguments() {
 		return false;
 	}

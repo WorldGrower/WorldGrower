@@ -56,6 +56,11 @@ public class NonLethalMeleeAttackAction implements ManagedOperation, AnimatedAct
 	}
 	
 	@Override
+	public String getDescription() {
+		return "perform a melee attack that renders the target unconscious if its hit points run out";
+	}
+	
+	@Override
 	public boolean requiresArguments() {
 		return false;
 	}

@@ -60,6 +60,11 @@ public class ConstructPickAxeAction implements CraftAction, AnimatedAction {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.WOOD, WOOD_REQUIRED, Constants.ORE, ORE_REQUIRED);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "A pickaxe increases the resources recovered when mining";
+	}
 
 	@Override
 	public boolean requiresArguments() {

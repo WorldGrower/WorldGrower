@@ -61,6 +61,11 @@ public class CapturePersonAction implements ManagedOperation {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, 1, "only unconscious people can be captures");
 	}
+	
+	@Override
+	public String getDescription() {
+		return "capture an unconscious person in order to throw them in jail";
+	}
 
 	@Override
 	public boolean requiresArguments() {

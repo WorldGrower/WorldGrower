@@ -88,6 +88,11 @@ public class ClaimBuildingAction implements ManagedOperation {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription("unowned building");
 	}
+	
+	@Override
+	public String getDescription() {
+		return "claiming an unowned building results in becoming its owner";
+	}
 
 	@Override
 	public boolean requiresArguments() {

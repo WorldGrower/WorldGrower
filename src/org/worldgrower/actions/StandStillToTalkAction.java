@@ -42,6 +42,11 @@ public class StandStillToTalkAction implements ManagedOperation {
 	public String getRequirementsDescription() {
 		return "";
 	}
+	
+	@Override
+	public String getDescription() {
+		return "";
+	}
 
 	@Override
 	public boolean requiresArguments() {

@@ -60,6 +60,11 @@ public class BuildArenaAction implements BuildAction {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.STONE, REQUIRED_STONE);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "an arena is used for fighting battles";
+	}
 
 	@Override
 	public boolean requiresArguments() {

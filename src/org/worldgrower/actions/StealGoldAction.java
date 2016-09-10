@@ -67,6 +67,11 @@ public class StealGoldAction implements ManagedOperation {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, 1);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "steal gold from target, chance of success depends on amount of stolen gold";
+	}
 
 	@Override
 	public boolean requiresArguments() {

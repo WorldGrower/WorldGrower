@@ -50,6 +50,11 @@ public class PoisonInventoryWaterWithSleepingPotionAction extends InventoryActio
 	}
 
 	@Override
+	public String getDescription() {
+		return "poison inventory water with sleeping potion so that everyone that drinks from it ends up sleeping";
+	}
+	
+	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
 		return "adding sleeping potion to inventory water";
 	}

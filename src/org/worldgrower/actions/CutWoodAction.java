@@ -70,6 +70,11 @@ public class CutWoodAction implements ManagedOperation, AnimatedAction {
 		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, DISTANCE, Constants.ENERGY, ENERGY_USE);
 	}
 	
+	@Override
+	public String getDescription() {
+		return "cutting wood removes wood from the target to store it in the inventory";
+	}
+	
 	public boolean hasRequiredEnergy(WorldObject performer) {
 		return performer.getProperty(Constants.ENERGY) >= ENERGY_USE;
 	}

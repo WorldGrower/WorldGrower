@@ -61,6 +61,11 @@ public class BuildShrineAction implements BuildAction {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.STONE, REQUIRED_STONE, "must worship a deity");
 	}
+	
+	@Override
+	public String getDescription() {
+		return "a shrine is used for deity worship";
+	}
 
 	@Override
 	public boolean requiresArguments() {

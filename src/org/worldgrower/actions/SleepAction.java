@@ -58,6 +58,11 @@ public class SleepAction implements ManagedOperation, AnimatedAction {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, 1, "a person can only sleep in houses it owns");
 	}
+	
+	@Override
+	public String getDescription() {
+		return "sleep in a residence to regain energy, the amount of energy regained depends on the sleep comfort of the residence";
+	}
 
 	@Override
 	public boolean requiresArguments() {

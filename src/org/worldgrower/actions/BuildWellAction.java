@@ -58,6 +58,11 @@ public class BuildWellAction implements BuildAction {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.WOOD, REQUIRED_WOOD);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "a well provides water";
+	}
 
 	@Override
 	public boolean requiresArguments() {

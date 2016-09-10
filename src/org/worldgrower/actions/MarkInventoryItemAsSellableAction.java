@@ -51,6 +51,11 @@ public class MarkInventoryItemAsSellableAction extends InventoryAction {
 	public String getRequirementsDescription() {
 		return "";
 	}
+	
+	@Override
+	public String getDescription() {
+		return "marks an item as sellable, signaling to others that it is for sale";
+	}
 
 	@Override
 	public boolean requiresArguments() {

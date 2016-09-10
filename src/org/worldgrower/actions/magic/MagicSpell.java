@@ -8,5 +8,4 @@ public interface MagicSpell extends ManagedOperation {
 	public int getResearchCost();
 	public SkillProperty getSkill();
 	public int getRequiredSkillLevel();
-	public String getDescription();
 }

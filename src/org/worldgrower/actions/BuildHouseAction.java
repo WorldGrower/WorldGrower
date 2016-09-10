@@ -78,6 +78,11 @@ public class BuildHouseAction implements BuildAction {
 		return "building a house";
 	}
 	
+	@Override
+	public String getDescription() {
+		return "a house is used for sleeping and storing items";
+	}
+	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
 	}

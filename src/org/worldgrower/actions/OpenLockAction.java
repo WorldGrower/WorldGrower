@@ -65,6 +65,11 @@ public class OpenLockAction implements ManagedOperation, AnimatedAction {
 	}
 	
 	@Override
+	public String getDescription() {
+		return "use a lockpick to open a locked container";
+	}
+	
+	@Override
 	public boolean requiresArguments() {
 		return false;
 	}

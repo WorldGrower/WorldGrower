@@ -119,10 +119,15 @@ public class GuiGotoAction extends AbstractAction {
 		public String getRequirementsDescription() {
 			return null;
 		}
+		
+		@Override
+		public String getDescription() {
+			return null;
+		}
 
 		@Override
 		public ImageIds getImageIds() {
 			return null;
-		}
+		}		
 	}
 }

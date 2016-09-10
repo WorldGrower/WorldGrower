@@ -69,6 +69,11 @@ public class GatherRemainsAction implements ManagedOperation {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, 1);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "gather remains and store it in the inventory";
+	}
 
 	@Override
 	public boolean requiresArguments() {

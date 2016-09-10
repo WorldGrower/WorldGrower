@@ -66,6 +66,11 @@ public class CollectWaterAction implements ManagedOperation, AnimatedAction {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, 1);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "collecting water removes water from a water source and stores it in the inventory";
+	}
 
 	@Override
 	public boolean requiresArguments() {

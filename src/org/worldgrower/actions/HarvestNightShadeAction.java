@@ -57,6 +57,11 @@ public class HarvestNightShadeAction implements ManagedOperation, AnimatedAction
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, 1);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "harvest nightshade from target, used to produce poisons and sleeping potions";
+	}
 
 	@Override
 	public boolean requiresArguments() {

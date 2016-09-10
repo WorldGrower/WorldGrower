@@ -49,6 +49,11 @@ public class DismissSecretChestAction implements ManagedOperation {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, DISTANCE, Constants.FISHING_POLE_QUALITY, 1);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "dismiss a secret chest, sending it back to its demiplane";
+	}
 
 	@Override
 	public boolean requiresArguments() {

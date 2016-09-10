@@ -58,6 +58,11 @@ public class ConstructTrainingDummyAction implements BuildAction {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.WOOD, REQUIRED_WOOD);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "A training dummy allows training attacks";
+	}
 
 	@Override
 	public boolean requiresArguments() {

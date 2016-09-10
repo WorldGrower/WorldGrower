@@ -61,6 +61,11 @@ public class ResearchSpellAction implements ManagedOperation {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(spell.getSkill(), spell.getRequiredSkillLevel(), Constants.DISTANCE, DISTANCE);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "research magic spell";
+	}
 
 	@Override
 	public boolean requiresArguments() {

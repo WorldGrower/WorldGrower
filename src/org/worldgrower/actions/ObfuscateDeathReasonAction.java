@@ -51,6 +51,11 @@ public class ObfuscateDeathReasonAction implements ManagedOperation {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, DISTANCE);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "change death reason of remains in order to confuse others";
+	}
 
 	@Override
 	public boolean requiresArguments() {

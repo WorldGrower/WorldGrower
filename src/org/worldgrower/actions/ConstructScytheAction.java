@@ -60,6 +60,11 @@ public class ConstructScytheAction implements CraftAction, AnimatedAction {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.WOOD, WOOD_REQUIRED, Constants.ORE, ORE_REQUIRED);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "Harvesting or eating food with a scythe increases the food recovered";
+	}
 
 	@Override
 	public boolean requiresArguments() {

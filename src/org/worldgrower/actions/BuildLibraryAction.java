@@ -74,6 +74,11 @@ public class BuildLibraryAction implements BuildAction {
 		return "building a library";
 	}
 	
+	@Override
+	public String getDescription() {
+		return "a library is used for learning magic spells";
+	}
+	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
 	}

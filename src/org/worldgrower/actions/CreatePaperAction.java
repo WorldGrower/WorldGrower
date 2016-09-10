@@ -62,6 +62,11 @@ public class CreatePaperAction implements CraftAction, AnimatedAction {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.WATER, WATER_REQUIRED, Constants.WOOD, WOOD_REQUIRED);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "paper is used for scribing scrolls or creating newspapers";
+	}
 
 	@Override
 	public boolean requiresArguments() {

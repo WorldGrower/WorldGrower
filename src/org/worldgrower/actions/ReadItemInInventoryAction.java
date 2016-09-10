@@ -50,6 +50,11 @@ public class ReadItemInInventoryAction extends InventoryAction {
 	public String getRequirementsDescription() {
 		return "Readable text";
 	}
+	
+	@Override
+	public String getDescription() {
+		return "reads what is written on something";
+	}
 
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {

@@ -59,6 +59,11 @@ public class CraftIronClaymoreAction implements CraftAction, AnimatedAction  {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.WOOD, WOOD_REQUIRED, Constants.ORE, ORE_REQUIRED);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "an iron claymore is used as a weapon";
+	}
 
 	@Override
 	public boolean requiresArguments() {

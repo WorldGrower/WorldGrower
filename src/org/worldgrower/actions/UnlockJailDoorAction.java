@@ -53,6 +53,11 @@ public class UnlockJailDoorAction implements ManagedOperation {
 	}
 	
 	@Override
+	public String getDescription() {
+		return "unlock jail door, can only be done by sheriffs";
+	}
+	
+	@Override
 	public boolean requiresArguments() {
 		return false;
 	}

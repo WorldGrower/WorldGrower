@@ -55,6 +55,11 @@ public class KissAction implements ManagedOperation, AnimatedAction {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, 1);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "kiss target to improve relationship";
+	}
 
 	@Override
 	public boolean requiresArguments() {

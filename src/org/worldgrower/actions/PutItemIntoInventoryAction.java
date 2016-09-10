@@ -61,6 +61,11 @@ public class PutItemIntoInventoryAction implements ManagedOperation {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, DISTANCE, "items cannot be put into locked containers");
 	}
+	
+	@Override
+	public String getDescription() {
+		return "put item from inventory into container";
+	}
 
 	@Override
 	public boolean requiresArguments() {

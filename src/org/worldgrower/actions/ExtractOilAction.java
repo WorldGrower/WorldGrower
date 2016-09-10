@@ -52,6 +52,11 @@ public class ExtractOilAction implements ManagedOperation {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, 1);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "extract oil in order to set things on fire";
+	}
 
 	@Override
 	public boolean requiresArguments() {

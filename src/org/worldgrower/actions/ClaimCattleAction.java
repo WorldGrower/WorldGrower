@@ -52,6 +52,11 @@ public class ClaimCattleAction implements ManagedOperation, AnimatedAction {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription("unowned cattle");
 	}
+	
+	@Override
+	public String getDescription() {
+		return "claiming unowned cattle results in becoming its owner";
+	}
 
 	@Override
 	public boolean requiresArguments() {

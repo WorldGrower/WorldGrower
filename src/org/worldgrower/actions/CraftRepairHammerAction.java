@@ -59,6 +59,11 @@ public class CraftRepairHammerAction implements CraftAction, AnimatedAction {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.WOOD, WOOD_REQUIRED, Constants.ORE, ORE_REQUIRED);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "a repair hammer is used to repair broken armor and weapons";
+	}
 
 	@Override
 	public boolean requiresArguments() {

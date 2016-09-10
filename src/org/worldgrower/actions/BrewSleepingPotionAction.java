@@ -56,6 +56,11 @@ public class BrewSleepingPotionAction implements CraftAction, AnimatedAction {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.NIGHT_SHADE, NIGHT_SHADE_REQUIRED);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "Sleeping potion makes someone fall to sleep if ingested";
+	}
 
 	@Override
 	public boolean requiresArguments() {

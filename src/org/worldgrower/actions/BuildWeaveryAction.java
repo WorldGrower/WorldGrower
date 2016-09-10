@@ -63,6 +63,11 @@ public class BuildWeaveryAction implements BuildAction {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.WOOD, REQUIRED_WOOD);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "a weavery is used for weaving clothes";
+	}
 
 	@Override
 	public boolean requiresArguments() {

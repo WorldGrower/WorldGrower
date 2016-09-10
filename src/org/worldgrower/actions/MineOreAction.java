@@ -72,6 +72,11 @@ public class MineOreAction implements ManagedOperation, AnimatedAction {
 	}
 	
 	@Override
+	public String getDescription() {
+		return "mines raw iron ore and adds it to the inventory";
+	}
+	
+	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
 		return "mining " + target.getProperty(Constants.NAME);
 	}

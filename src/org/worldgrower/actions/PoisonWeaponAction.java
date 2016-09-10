@@ -48,6 +48,11 @@ public class PoisonWeaponAction extends InventoryAction {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.DAMAGE, 1);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "poison weapon so that everyone hit with it becomes poisoned";
+	}
 
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {

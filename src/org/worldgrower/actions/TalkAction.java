@@ -95,6 +95,11 @@ public class TalkAction implements ManagedOperation, AnimatedAction {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, 1);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "steal item from target, chance of success depends on value and weight of stolen item";
+	}
 
 	@Override
 	public boolean requiresArguments() {

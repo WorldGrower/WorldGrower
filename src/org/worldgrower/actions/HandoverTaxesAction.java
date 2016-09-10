@@ -51,6 +51,11 @@ public class HandoverTaxesAction implements ManagedOperation {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, DISTANCE, "target owes taxes");
 	}
+	
+	@Override
+	public String getDescription() {
+		return "hand over taxes to target";
+	}
 
 	@Override
 	public boolean requiresArguments() {

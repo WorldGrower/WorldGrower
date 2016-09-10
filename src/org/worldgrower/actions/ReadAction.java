@@ -45,6 +45,11 @@ public class ReadAction implements ManagedOperation {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, 1);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "reads what is written on something";
+	}
 
 	@Override
 	public boolean requiresArguments() {

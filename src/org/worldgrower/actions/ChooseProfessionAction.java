@@ -563,6 +563,11 @@ public class ChooseProfessionAction implements ManagedOperation {
 	}
 	
 	@Override
+	public String getDescription() {
+		return "";
+	}
+	
+	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
 		return "choosing a profession";
 	}

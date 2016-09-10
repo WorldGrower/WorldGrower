@@ -41,6 +41,11 @@ public class BecomeLeaderCandidateAction implements ManagedOperation {
 	}
 	
 	@Override
+	public String getDescription() {
+		return "become a candidate for a leadership position";
+	}
+	
+	@Override
 	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
 		boolean isInCandidateStage = VotingPropertyUtils.votingBoxAcceptsCandidates(target);
 		boolean isPerformerAlreadyCandidate = !(target.getProperty(Constants.CANDIDATES) != null && target.getProperty(Constants.CANDIDATES).contains(performer));

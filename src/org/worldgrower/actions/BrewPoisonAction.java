@@ -57,6 +57,11 @@ public class BrewPoisonAction implements CraftAction, AnimatedAction {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.NIGHT_SHADE, NIGHT_SHADE_REQUIRED);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "Poison deals damage if ingested or if dealt damage by poisoned weapons";
+	}
 
 	@Override
 	public boolean requiresArguments() {

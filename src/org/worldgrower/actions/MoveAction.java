@@ -121,6 +121,11 @@ public class MoveAction implements ManagedOperation {
 	public String getRequirementsDescription() {
 		return "";
 	}
+	
+	@Override
+	public String getDescription() {
+		return "";
+	}
 
 	@Override
 	public boolean requiresArguments() {

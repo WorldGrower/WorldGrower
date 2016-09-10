@@ -46,6 +46,11 @@ public class DetermineDeathReasonAction implements ManagedOperation {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, DISTANCE);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "determine the cause of death";
+	}
 
 	@Override
 	public boolean requiresArguments() {

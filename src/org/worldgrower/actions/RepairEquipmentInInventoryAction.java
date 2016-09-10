@@ -54,6 +54,11 @@ public class RepairEquipmentInInventoryAction extends InventoryAction {
 	public String getRequirementsDescription() {
 		return "Requirements: repair hammer : 1, damaged equipment";
 	}
+	
+	@Override
+	public String getDescription() {
+		return "repair damaged equipment using a repair hammer";
+	}
 
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {

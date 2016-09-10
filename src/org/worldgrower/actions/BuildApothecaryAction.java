@@ -65,6 +65,11 @@ public class BuildApothecaryAction implements BuildAction {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.WOOD, REQUIRED_WOOD, Constants.STONE, REQUIRED_STONE);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "an apothecary is used for brewing potions and poisons";
+	}
 
 	@Override
 	public boolean requiresArguments() {

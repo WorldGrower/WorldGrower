@@ -55,6 +55,11 @@ public class CocoonAction implements ManagedOperation {
 	}
 	
 	@Override
+	public String getDescription() {
+		return "cocooning someone makes them impossible to move";
+	}
+	
+	@Override
 	public boolean requiresArguments() {
 		return false;
 	}

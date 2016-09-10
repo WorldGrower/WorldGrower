@@ -57,6 +57,11 @@ public class CapturePersonForSacrificeAction implements ManagedOperation {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, 1, "only unconscious people can be captures", "a sacrificial altar needs to exist");
 	}
+	
+	@Override
+	public String getDescription() {
+		return "capture an unconscious person in order to sacrifice them";
+	}
 
 	@Override
 	public boolean requiresArguments() {

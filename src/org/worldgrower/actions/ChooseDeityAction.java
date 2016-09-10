@@ -83,6 +83,11 @@ public class ChooseDeityAction implements ManagedOperation {
 	}
 	
 	@Override
+	public String getDescription() {
+		return "a deity provides boons when worshipped";
+	}
+	
+	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
 		return "choosing a deity";
 	}

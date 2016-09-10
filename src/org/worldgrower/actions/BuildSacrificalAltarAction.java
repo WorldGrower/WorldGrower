@@ -62,6 +62,11 @@ public class BuildSacrificalAltarAction implements BuildAction {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.STONE, REQUIRED_STONE);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "a sacrificial altar is used for sacrificing unconscious victims";
+	}
 
 	@Override
 	public boolean requiresArguments() {

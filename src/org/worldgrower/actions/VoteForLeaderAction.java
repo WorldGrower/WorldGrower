@@ -21,6 +21,7 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.condition.Condition;
 import org.worldgrower.gui.ImageIds;
 
 public class VoteForLeaderAction implements ManagedOperation {
@@ -53,6 +54,11 @@ public class VoteForLeaderAction implements ManagedOperation {
 	@Override
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, DISTANCE, "people can only vote one", "votes must be accepted");
+	}
+	
+	@Override
+	public String getDescription() {
+		return "vote for an organization leader";
 	}
 	
 	@Override

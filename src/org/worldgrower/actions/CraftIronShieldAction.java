@@ -59,6 +59,11 @@ public class CraftIronShieldAction implements CraftAction, AnimatedAction {
 	public String getRequirementsDescription() {
 		return CraftUtils.getRequirementsDescription(Constants.WOOD, WOOD_REQUIRED, Constants.ORE, ORE_REQUIRED);
 	}
+	
+	@Override
+	public String getDescription() {
+		return "an iron shield is used as armor to reduce the damage taken from attacks";
+	}
 
 	@Override
 	public boolean requiresArguments() {
