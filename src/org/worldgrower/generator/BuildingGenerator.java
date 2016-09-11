@@ -511,18 +511,19 @@ public class BuildingGenerator {
 	
 	public static int generateLibrary(int x, int y, World world, WorldObject owner) {
 		int id = world.generateUniqueId();
-		WorldObject library = generateLibrary(x, y, owner, id);
+		int libraryQualityBonus = SkillUtils.getLogarithmicSkillBonus(owner, Constants.CARPENTRY_SKILL);
+		WorldObject library = generateLibrary(x, y, libraryQualityBonus, owner, id);
 		world.addWorldObject(library);
 		return id;
 	}
 
-	private static WorldObject generateLibrary(int x, int y, WorldObject owner, int id) {
+	private static WorldObject generateLibrary(int x, int y, int libraryQualityBonus, WorldObject owner, int id) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 2);
 		properties.put(Constants.HEIGHT, 2);
-		properties.put(Constants.LIBRARY_QUALITY, 1);
+		properties.put(Constants.LIBRARY_QUALITY, libraryQualityBonus);
 		properties.put(Constants.NAME, createName("library", owner));
 		
 		properties.put(Constants.ID, id);
@@ -929,7 +930,7 @@ public class BuildingGenerator {
 			buildings.add(generateSacrificalAltar(0, 0, deity, 0, 0));
 		}
 		buildings.add(generateChest(0, 0, owner, 0));
-		buildings.add(generateLibrary(0, 0, owner, 0));
+		buildings.add(generateLibrary(0, 0, 0, owner, 0));
 		buildings.add(generatePaperMill(0, 0, 0, owner, 0));
 		buildings.add(generateSmith(0, 0, 0, owner, 0));
 		buildings.add(generateWorkBench(0, 0, 0, owner, 0));

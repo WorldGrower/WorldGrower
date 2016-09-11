@@ -35,7 +35,8 @@ public class BonusDescriptions {
 					new BonusDescription(Constants.WEAVERY_QUALITY, "weaving", Constants.SELLABLE),
 					new BonusDescription(Constants.BREWERY_QUALITY, "brewing", Constants.SELLABLE),
 					new BonusDescription(Constants.APOTHECARY_QUALITY, "apothecary", Constants.SELLABLE),
-					new OwnerDescription(Constants.CATTLE_OWNER_ID, Constants.MEAT_SOURCE)
+					new OwnerDescription(Constants.CATTLE_OWNER_ID, Constants.MEAT_SOURCE),
+					new BonusDescription(Constants.LIBRARY_QUALITY, "research", Constants.SELLABLE)
 					
 			);
 	

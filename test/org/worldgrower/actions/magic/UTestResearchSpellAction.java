@@ -36,25 +36,32 @@ public class UTestResearchSpellAction {
 	
 	@Test
 	public void testExecute() {
-		World world = new WorldImpl(1, 1, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
+		WorldObject target = createLibrary(performer, world);
 		
 		assertEquals(0, performer.getProperty(Constants.STUDYING_SPELLS).count(Actions.BURDEN_ACTION));
 		
-		researchSpellAction.execute(performer, performer, Args.EMPTY, world);
+		researchSpellAction.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(1, performer.getProperty(Constants.STUDYING_SPELLS).count(Actions.BURDEN_ACTION));
 	}
 	
+	private WorldObject createLibrary(WorldObject performer, World world) {
+		int libraryId = BuildingGenerator.generateLibrary(0, 0, world, performer);
+		return world.findWorldObjectById(libraryId);
+	}
+	
 	@Test
 	public void testExecuteLearnSpell() {
-		World world = new WorldImpl(1, 1, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
+		WorldObject target = createLibrary(performer, world);
 		
 		assertEquals(0, performer.getProperty(Constants.STUDYING_SPELLS).count(Actions.BURDEN_ACTION));
 		
 		for(int i=0; i<100; i++) {
-			researchSpellAction.execute(performer, performer, Args.EMPTY, world);
+			researchSpellAction.execute(performer, target, Args.EMPTY, world);
 		}
 		
 		assertEquals(true, performer.getProperty(Constants.KNOWN_SPELLS).contains(Actions.BURDEN_ACTION));

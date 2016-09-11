@@ -36,7 +36,8 @@ public class ResearchSpellAction implements ManagedOperation {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		performer.getProperty(Constants.STUDYING_SPELLS).add(spell, 1);
+		int researchBonus = target.getProperty(Constants.LIBRARY_QUALITY);
+		performer.getProperty(Constants.STUDYING_SPELLS).add(spell, researchBonus);
 
 		if (performer.getProperty(Constants.STUDYING_SPELLS).count(spell) > spell.getResearchCost()) {
 			performer.getProperty(Constants.KNOWN_SPELLS).add(spell);
