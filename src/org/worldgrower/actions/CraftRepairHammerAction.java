@@ -62,7 +62,7 @@ public class CraftRepairHammerAction implements CraftAction, AnimatedAction {
 	
 	@Override
 	public String getDescription() {
-		return "a repair hammer is used to repair broken armor and weapons";
+		return "a smithing hammer is used to repair broken armor and weapons and to improve smithing";
 	}
 
 	@Override
@@ -77,12 +77,12 @@ public class CraftRepairHammerAction implements CraftAction, AnimatedAction {
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "crafting a repair hammer";
+		return "crafting a smithing hammer";
 	}
 
 	@Override
 	public String getSimpleDescription() {
-		return "craft repair hammer";
+		return "craft smithing hammer";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {

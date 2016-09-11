@@ -532,10 +532,14 @@ public enum Item {
 	
 		addItem(Item.REPAIR_HAMMER, skillBonus -> {
 			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
-			properties.put(Constants.NAME, "repair hammer");
+			properties.put(Constants.NAME, "smithing hammer");
 			properties.put(Constants.PRICE, 10);
 			properties.put(Constants.SELLABLE, false);
 			properties.put(Constants.WEIGHT, 1);
+			properties.put(Constants.DAMAGE, 1 * COMBAT_MULTIPLIER);
+			properties.put(Constants.DAMAGE_TYPE, DamageType.BLUDGEONING);
+			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
+			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
 			properties.put(Constants.REPAIR_QUALITY, (int)(2 * skillBonus));
 			properties.put(Constants.IMAGE_ID, ImageIds.REPAIR_HAMMER);
 			return new WorldObjectImpl(properties);

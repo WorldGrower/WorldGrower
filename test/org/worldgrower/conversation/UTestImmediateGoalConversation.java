@@ -87,7 +87,7 @@ public class UTestImmediateGoalConversation {
 		assertReplyPhrase("I'm starting an organization vote because I'm looking for a new leader for an organization", Goals.START_ORGANIZATION_VOTE_GOAL, Actions.START_ORGANIZATION_VOTE_ACTION);
 		assertReplyPhrase("I'm creating a newspaper because I'm recruiting new profession organization members", Goals.RECRUIT_PROFESSION_ORGANIZATION_MEMBERS_GOAL, Actions.CREATE_NEWS_PAPER_ACTION);
 		assertReplyPhrase("I'm equiping an inventory item because I'm looking to brawl", Goals.START_BRAWL_GOAL, Actions.EQUIP_INVENTORY_ITEM_ACTION);
-		assertReplyPhrase("I'm crafting a repair hammer because I'm repairing equipment", Goals.REPAIR_EQUIPMENT_GOAL, Actions.CRAFT_REPAIR_HAMMER_ACTION);
+		assertReplyPhrase("I'm crafting a smithing hammer because I'm repairing equipment", Goals.REPAIR_EQUIPMENT_GOAL, Actions.CRAFT_REPAIR_HAMMER_ACTION);
 		assertReplyPhrase("I'm poisoning inventory water because I'm creating poison", Goals.CREATE_POISON_GOAL, Actions.POISON_INVENTORY_WATER_ACTION);
 		assertReplyPhrase("I'm weaving cotton boots because I'm looking to weave clothes", Goals.WEAVE_CLOTHES_GOAL, Actions.WEAVE_COTTON_BOOTS_ACTION);
 		assertReplyPhrase("I'm creating paper because I'm looking to have paper", Goals.CREATE_PAPER_GOAL, Actions.CREATE_PAPER_ACTION);

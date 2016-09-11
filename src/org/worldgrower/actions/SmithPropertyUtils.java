@@ -28,9 +28,18 @@ public class SmithPropertyUtils {
 	public static int calculateSmithingQuantity(WorldObject performer, WorldObject smith) {
 		int quantity = smith.getProperty(Constants.SMITH_QUALITY);
 
+		if (leftHandContainsRepairHammer(performer)) {
+			quantity += 1;
+		}
+		
 		if (performerHasBoon(performer)) {
 			quantity += 1;
 		}
 		return quantity;
+	}
+	
+	public static boolean leftHandContainsRepairHammer(WorldObject performer) {
+		WorldObject leftHand = performer.getProperty(Constants.LEFT_HAND_EQUIPMENT);
+		return (leftHand != null && leftHand.hasProperty(Constants.REPAIR_QUALITY));
 	}
 }

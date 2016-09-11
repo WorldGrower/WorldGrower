@@ -141,7 +141,7 @@ public class Constants {
 	public static final IntProperty WEIGHT = new IntProperty("weight", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty EQUIPMENT_HEALTH = new IntProperty("equipmentHealth", 0, 1000, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty POISON_DAMAGE = new IntProperty("poison damage", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
-	public static final IntProperty REPAIR_QUALITY = new IntProperty("repair tool", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty REPAIR_QUALITY = new IntProperty("smithing tool", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty PICKAXE_QUALITY = new IntProperty("mining tool", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty SCYTHE_QUALITY = new IntProperty("farming tool", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty WOOD_CUTTING_QUALITY = new IntProperty("wood cutting tool", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
