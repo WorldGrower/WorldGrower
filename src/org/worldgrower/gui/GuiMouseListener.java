@@ -321,6 +321,7 @@ public class GuiMouseListener extends MouseAdapter {
 		JMenuItem showGovernanceMenuItem = MenuFactory.createJMenuItem(showGovernanceAction, soundIdReader);
 		showGovernanceMenuItem.setText("Show governance overview...");
 		setMenuIcon(showGovernanceMenuItem, Actions.SET_GOVERNANCE_ACTION.getImageIds());
+		addToolTips(Actions.SET_GOVERNANCE_ACTION, showGovernanceMenuItem);
 		menu.add(showGovernanceMenuItem);
 	}
 
@@ -328,6 +329,7 @@ public class GuiMouseListener extends MouseAdapter {
 		JMenuItem showCommunityMenuItem = MenuFactory.createJMenuItem(communityOverviewAction, soundIdReader);
 		showCommunityMenuItem.setText("Community Overview");
 		setMenuIcon(showCommunityMenuItem, ImageIds.BLACK_CROSS);
+		showCommunityMenuItem.setToolTipText("show family members, acquaintances and organizations");
 		menu.add(showCommunityMenuItem);
 	}
 	
@@ -342,6 +344,7 @@ public class GuiMouseListener extends MouseAdapter {
 		JMenuItem restMenuItem = MenuFactory.createJMenuItem(restAction, soundIdReader);
 		setMenuIcon(restMenuItem, ImageIds.SLEEPING_INDICATOR);
 		restMenuItem.setText("Rest...");
+		restMenuItem.setToolTipText(Actions.REST_ACTION.getDescription());
 		menu.add(restMenuItem);
 	}
 
@@ -396,6 +399,7 @@ public class GuiMouseListener extends MouseAdapter {
 			JMenuItem guiVoteMenuItem = MenuFactory.createJMenuItem(new GuiVoteAction(playerCharacter, imageInfoReader, soundIdReader, world, container, dungeonMaster, worldObject, parentFrame), soundIdReader);
 			guiVoteMenuItem.setText("Vote...");
 			setMenuIcon(guiVoteMenuItem, Actions.VOTE_FOR_LEADER_ACTION.getImageIds());
+			guiVoteMenuItem.setToolTipText(Actions.VOTE_FOR_LEADER_ACTION.getDescription());
 			menu.add(guiVoteMenuItem);
 		}
 	}
@@ -414,6 +418,7 @@ public class GuiMouseListener extends MouseAdapter {
 			JMenuItem restMultipleTurnsMenuItem = MenuFactory.createJMenuItem(new GuiRestMultipleTurnsAction(playerCharacter, imageInfoReader, soundIdReader, world, container, dungeonMaster, worldObject, parentFrame), soundIdReader);
 			restMultipleTurnsMenuItem.setText("Sleep multiple turns...");
 			setMenuIcon(restMultipleTurnsMenuItem, ImageIds.SLEEPING_INDICATOR);
+			restMultipleTurnsMenuItem.setToolTipText(Actions.SLEEP_ACTION.getDescription());
 			menu.add(restMultipleTurnsMenuItem);
 		}
 	}
@@ -422,15 +427,18 @@ public class GuiMouseListener extends MouseAdapter {
 		JMenuItem characterSheetMenuItem = MenuFactory.createJMenuItem(characterSheetAction, soundIdReader);
 		characterSheetMenuItem.setText("Character Sheet");
 		setMenuIcon(characterSheetMenuItem, ImageIds.WOODEN_SHIELD);
+		characterSheetMenuItem.setToolTipText("character sheet shows character attributes, skills and equipment");
 		menu.add(characterSheetMenuItem);
 		
 		JMenuItem inventoryMenuItem = MenuFactory.createJMenuItem(inventoryAction, soundIdReader);
 		setMenuIcon(inventoryMenuItem, ImageIds.CHEST);
+		inventoryMenuItem.setToolTipText("inventory screen shows contents of inventory");
 		inventoryMenuItem.setText("Inventory");
 		menu.add(inventoryMenuItem);
 		
 		JMenuItem magicOverviewMenuItem = MenuFactory.createJMenuItem(magicOverviewAction, soundIdReader);
 		setMenuIcon(magicOverviewMenuItem, ImageIds.MAGIC_ICON);
+		magicOverviewMenuItem.setToolTipText("magic overview screen shows magic spells information");
 		magicOverviewMenuItem.setText("Magic Overview");
 		menu.add(magicOverviewMenuItem);
 	}
@@ -459,7 +467,7 @@ public class GuiMouseListener extends MouseAdapter {
     	JMenuItem disguiseMenuItem = MenuFactory.createJMenuItem(new GuiDisguiseAction(playerCharacter, imageInfoReader, soundIdReader, world, (WorldPanel)container, dungeonMaster, Actions.DISGUISE_MAGIC_SPELL_ACTION, parentFrame), soundIdReader);
     	disguiseMenuItem.setText("Disguise self");
     	disguiseMenuItem.setEnabled(canPlayerCharacterPerformBuildAction(Actions.DISGUISE_MAGIC_SPELL_ACTION));
-    	disguiseMenuItem.setToolTipText(Actions.DISGUISE_MAGIC_SPELL_ACTION.getRequirementsDescription());
+    	addToolTips(Actions.DISGUISE_MAGIC_SPELL_ACTION, disguiseMenuItem);
     	setMenuIcon(disguiseMenuItem, skillImageIds.getImageFor(Constants.ILLUSION_SKILL));
     	illusionMenu.add(disguiseMenuItem);
 	}
@@ -536,11 +544,16 @@ public class GuiMouseListener extends MouseAdapter {
 		List<ManagedOperation> allowedCraftActions = buildAction.getAllowedCraftActions(playerCharacter, world);
 		String allowedCraftActionsDescription = createAllowedCraftActionsDescription(allowedCraftActions);
 		
-		if (allowedCraftActions.size() > 0) {
-			buildMenuItem.setToolTipText("<html>" + requirementsDescription + "<br>" + allowedCraftActionsDescription + "</html>");
-		} else {
-			buildMenuItem.setToolTipText(requirementsDescription);
+		String tooltip = "<html>" + requirementsDescription;
+		if (buildAction.getDescription().length() > 0) {
+			tooltip += "<br>" + buildAction.getDescription();
 		}
+		if (allowedCraftActions.size() > 0) {
+			tooltip += "<br>" + allowedCraftActionsDescription;
+		}
+		tooltip += "</html>";
+		
+		buildMenuItem.setToolTipText(tooltip);
 		addImageIcon(buildAction, buildMenuItem);
 	}
 
@@ -595,13 +608,15 @@ public class GuiMouseListener extends MouseAdapter {
 
 	private void addToolTips(ManagedOperation action, final JMenuItem menuItem) {
 		if (menuItem != null) {
-			menuItem.setToolTipText(action.getRequirementsDescription());
+			String tooltip = "<html>" + action.getRequirementsDescription() + "<br>" + action.getDescription() + "</html>";
+			menuItem.setToolTipText(tooltip);
 		}
 	}
 
-	private JMenuItem createDisabledActionMenuItem(JMenuItem menu, ManagedOperation craftAction) {
-		JMenuItem menuItem = MenuFactory.createJMenuItem(craftAction.getSimpleDescription() + "...", soundIdReader);
+	private JMenuItem createDisabledActionMenuItem(JMenuItem menu, ManagedOperation action) {
+		JMenuItem menuItem = MenuFactory.createJMenuItem(action.getSimpleDescription() + "...", soundIdReader);
 		menuItem.setEnabled(false);
+		addToolTips(action, menuItem);
 		menu.add(menuItem);
 		
 		//bugfix to make disabled components have the correct cursor:
