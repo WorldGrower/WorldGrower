@@ -736,7 +736,8 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestButcherKnifeGoal.class,
 	UTestEquipButcherKnifeGoal.class,
 	UTestMarkUnusedBuildingAsSellableGoal.class,
-	UTestEquipRepairHammerGoal.class
+	UTestEquipRepairHammerGoal.class,
+	UTestConstructButcherKnifeAction.class
 })
 public class CompleteTestSuite {
 }
