@@ -98,7 +98,7 @@ public class TalkAction implements ManagedOperation, AnimatedAction {
 	
 	@Override
 	public String getDescription() {
-		return "steal item from target, chance of success depends on value and weight of stolen item";
+		return "talk with a person";
 	}
 
 	@Override

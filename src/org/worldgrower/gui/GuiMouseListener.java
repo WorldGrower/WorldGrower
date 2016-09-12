@@ -337,6 +337,7 @@ public class GuiMouseListener extends MouseAdapter {
 		JMenuItem createOrganizationMenuItem = MenuFactory.createJMenuItem(new GuiCreateOrganizationAction(playerCharacter, imageInfoReader, soundIdReader, world, (WorldPanel)container, dungeonMaster, parentFrame), soundIdReader);
 		createOrganizationMenuItem.setText("Create Organization...");
 		setMenuIcon(createOrganizationMenuItem, Actions.CREATE_PROFESSION_ORGANIZATION_ACTION.getImageIds());
+		createOrganizationMenuItem.setToolTipText("create an organization based on a deity or profession");
 		menu.add(createOrganizationMenuItem);
 	}
 
@@ -368,6 +369,7 @@ public class GuiMouseListener extends MouseAdapter {
 			JMenuItem guiTalkMenuItem = MenuFactory.createJMenuItem(new GuiAskQuestionAction(playerCharacter, world, dungeonMaster, container, worldObject, imageInfoReader, soundIdReader, parentFrame), soundIdReader);
 			guiTalkMenuItem.setText("Talk...");
 			setMenuIcon(guiTalkMenuItem, ImageIds.GOLD_AMULET);
+			addToolTips(Actions.TALK_ACTION, guiTalkMenuItem);
 			menu.add(guiTalkMenuItem);
 		}
 	}
@@ -377,6 +379,7 @@ public class GuiMouseListener extends MouseAdapter {
 			JMenuItem guiBarterItem = MenuFactory.createJMenuItem(new GuiBarterAction(playerCharacter, world, dungeonMaster, container, worldObject, imageInfoReader, soundIdReader, parentFrame), soundIdReader);
 			guiBarterItem.setText("Barter...");
 			setMenuIcon(guiBarterItem, Actions.SELL_ACTION.getImageIds());
+			guiBarterItem.setToolTipText("buy or sell items for gold");
 			menu.add(guiBarterItem);
 		}
 	}
@@ -390,6 +393,7 @@ public class GuiMouseListener extends MouseAdapter {
 			JMenuItem guiBarterItem = MenuFactory.createJMenuItem(new GuiBarterAction(playerCharacter, world, dungeonMaster, container, worldObject, imageInfoReader, soundIdReader, parentFrame), soundIdReader);
 			guiBarterItem.setText("Access container...");
 			setMenuIcon(guiBarterItem, Actions.SELL_ACTION.getImageIds());
+			guiBarterItem.setToolTipText("store or retrieve items from a container");
 			menu.add(guiBarterItem);
 		}
 	}
