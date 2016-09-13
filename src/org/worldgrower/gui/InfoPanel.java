@@ -32,6 +32,7 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JTextPane;
 import javax.swing.SpringLayout;
+import javax.swing.SwingConstants;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
@@ -232,7 +233,8 @@ public final class InfoPanel extends JPanel {
 		}
 		
         try {
-			JLabel jl  = JLabelFactory.createJLabel(message, image);
+			JLabel jl  = JLabelFactory.createJLabel("<html>" + message + "</html>", image);
+			jl.setHorizontalAlignment(SwingConstants.LEFT);
 			String styleName = "style";
 			Style textStyle = document.addStyle(styleName, null);
 		    StyleConstants.setComponent(textStyle, jl);
