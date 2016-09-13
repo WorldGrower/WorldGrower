@@ -42,4 +42,9 @@ public class ImageUtils {
 	public static Image getImage(String imageURL) {
 		return Toolkit.getDefaultToolkit().getImage(Game.class.getResource(imageURL));
 	}
+	
+	public static BufferedImage cropImage(BufferedImage src, int width, int height) {
+		BufferedImage dest = src.getSubimage(0, 0, width, height);
+		return dest;
+	}
 }

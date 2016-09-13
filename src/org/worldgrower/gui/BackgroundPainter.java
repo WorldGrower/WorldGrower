@@ -34,6 +34,7 @@ import java.util.Set;
 
 import org.worldgrower.World;
 import org.worldgrower.goal.LocationUtils;
+import org.worldgrower.gui.util.ImageUtils;
 import org.worldgrower.terrain.Terrain;
 import org.worldgrower.terrain.TerrainType;
 
@@ -114,7 +115,7 @@ public class BackgroundPainter {
 			Color currentColor = entry.getValue();
 			
 			if (terrainType == TerrainType.GRASLAND) {
-				addBackgroundImage(terrainType, cropImage(toBufferedImage(grassBackgroundImage), 48, 48));
+				addBackgroundImage(terrainType, ImageUtils.cropImage(toBufferedImage(grassBackgroundImage), 48, 48));
 				grassFlowerImage = toBufferedImage(filterImage(grassFlowerImage, new AddNoiseFilter()));
 				addFlowerImage(terrainType, grassFlowerImage);
 			} else {
@@ -126,11 +127,11 @@ public class BackgroundPainter {
 				
 				Image filteredImage = filterImage(grassBackgroundImage, new ColorFilter(deltaRed, deltaGreen, deltaBlue));
 				BufferedImage bufferedImage = toBufferedImage(filteredImage); 
-				addBackgroundImage(terrainType, cropImage(bufferedImage, 48, 48));
+				addBackgroundImage(terrainType, ImageUtils.cropImage(bufferedImage, 48, 48));
 				
 				Image flowerImage = filterImage(grassFlowerImage, new ColorFilter(deltaRed, deltaGreen, deltaBlue));
 				bufferedImage = toBufferedImage(flowerImage); 
-				addFlowerImage(terrainType, cropImage(bufferedImage, 48, 48));
+				addFlowerImage(terrainType, ImageUtils.cropImage(bufferedImage, 48, 48));
 			}
 		}
 	}
@@ -351,11 +352,6 @@ public class BackgroundPainter {
 	
 	private Image getBackgroundImage(TerrainType terrainType) {
 		return backgroundImages[terrainType.ordinal()];
-	}
-
-	private BufferedImage cropImage(BufferedImage src, int width, int height) {
-		BufferedImage dest = src.getSubimage(0, 0, width, height);
-		return dest;
 	}
 
 	public static BufferedImage toBufferedImage(Image img)
