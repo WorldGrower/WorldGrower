@@ -71,6 +71,7 @@ public final class InfoPanel extends JPanel {
 	
 	private final List<StatusMessage> statusMessages = new ArrayList<>();
 	private int lastMessageTurn = -1;
+	private boolean moreMessageDisplayed = false;
 	
     public InfoPanel(WorldObject playerCharacter, World world, SoundIdReader soundIdReader, String initialStatusMessage, JFrame parentFrame, ImageFactory imageFactory) throws IOException {
         super(new BorderLayout());
@@ -181,15 +182,23 @@ public final class InfoPanel extends JPanel {
     	if (lastMessageTurn == currentTurn) {
     		appendNoMoreMessages();
     	} else {
-    		messageTextPane.setText("");
+    		clearMessageTextPane();
     		appendText(message);
     	}
     	statusMessages.add(new StatusMessage(null, message));
     	lastMessageTurn = currentTurn;
     }
 
+	private void clearMessageTextPane() {
+		moreMessageDisplayed = false;
+		messageTextPane.setText("");
+	}
+
 	private void appendNoMoreMessages() {
-		appendIconAndText(imageFactory.getMoreMessagesImage(), "More messages...");
+		if (!moreMessageDisplayed) {
+			moreMessageDisplayed = true;
+			appendIconAndText(imageFactory.getMoreMessagesImage(), "More messages...");
+		}
 	}
 
 	private void appendText(String message) {
