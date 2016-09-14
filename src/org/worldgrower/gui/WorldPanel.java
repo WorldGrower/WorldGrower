@@ -169,6 +169,10 @@ public final class WorldPanel extends JPanel implements ImageFactory {
     	guiMouseListener.initializeKeyBindings();
     }
     
+    public void clearStatusMessages() {
+    	infoPanel.clearStatusMessages();
+    }
+    
     public void setStatusMessage(String message) {
     	infoPanel.setStatusMessage(message);
     }

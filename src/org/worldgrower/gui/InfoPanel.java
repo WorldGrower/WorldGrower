@@ -244,6 +244,11 @@ public final class InfoPanel extends JPanel {
 			throw new IllegalStateException(e);
 		}
 	}
+	
+	public void clearStatusMessages() {
+		clearMessageTextPane();
+    	lastMessageTurn = -1;
+	}
     
     private void makeUnfocussable(JComponent component) {
     	component.setRequestFocusEnabled(false);
