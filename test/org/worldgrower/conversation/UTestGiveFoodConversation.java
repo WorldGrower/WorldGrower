@@ -32,7 +32,7 @@ import org.worldgrower.goal.GroupPropertyUtils;
 
 public class UTestGiveFoodConversation {
 
-	private final GiveFoodConversation conversation = Conversations.GIVE_FOOD_CONVERSATION;
+	private final GiveItemConversation conversation = Conversations.GIVE_FOOD_CONVERSATION;
 	
 	@Test
 	public void testGetReplyPhrases() {

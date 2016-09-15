@@ -22,6 +22,7 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
+import org.worldgrower.condition.Condition;
 import org.worldgrower.profession.Professions;
 
 public class UTestAphrodite {
@@ -40,6 +41,12 @@ public class UTestAphrodite {
 		deity.worship(performer, target, 5, world);
 		
 		assertEquals(2, performer.getProperty(Constants.DIPLOMACY_SKILL).getLevel(performer));
+		
+		deity.worship(performer, target, 20, world);
+		assertEquals(true, performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.DISEASE_IMMUNITY_CONDITION));
+		
+		deity.worship(performer, target, 50, world);
+		assertEquals(true, performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.APHRODITE_BOON_CONDITION));
 	}
 	
 	@Test

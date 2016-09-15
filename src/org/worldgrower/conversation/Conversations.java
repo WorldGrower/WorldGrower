@@ -98,7 +98,7 @@ public class Conversations implements Serializable {
 	public static final BecomeArenaFighterConversation BECOME_ARENA_FIGHTER_CONVERSATION = new BecomeArenaFighterConversation();
 	public static final StartArenaFightConversation START_ARENA_FIGHT_CONVERSATION = new StartArenaFightConversation();
 	public static final ArenaFighterPayCheckConversation ARENA_FIGHTER_PAY_CHECK_CONVERSATION = new ArenaFighterPayCheckConversation();
-	public static final GiveFoodConversation GIVE_FOOD_CONVERSATION = new GiveFoodConversation();
+	public static final GiveItemConversation GIVE_FOOD_CONVERSATION = new GiveItemConversation(Constants.FOOD, 1);
 	public static final MergeOrganizationsConversation MERGE_ORGANIZATIONS_CONVERSATION = new MergeOrganizationsConversation();
 	public static final SwitchDeityConversation SWITCH_DEITY_CONVERSATION = new SwitchDeityConversation();
 	public static final StopSellingConversation STOP_SELLING_CONVERSATION = new StopSellingConversation();
@@ -108,7 +108,14 @@ public class Conversations implements Serializable {
 	public static final CureDiseaseConversation CURE_DISEASE_CONVERSATION = new CureDiseaseConversation();
 	public static final AssassinateTargetConversation ASSASSINATE_TARGET_CONVERSATION = new AssassinateTargetConversation();
 	public static final GiveMoneyConversation GIVE_MONEY_CONVERSATION = new GiveMoneyConversation();
-	public static final GiveWineConversation GIVE_WINE_CONVERSATION = new GiveWineConversation();
+	public static final GiveItemConversation GIVE_WINE_CONVERSATION = new GiveItemConversation(Constants.WINE, 5);
+	public static final GiveItemConversation GIVE_WATER_CONVERSATION = new GiveItemConversation(Constants.WATER, 5);
+	public static final GiveItemConversation GIVE_WOOD_CONVERSATION = new GiveItemConversation(Constants.WOOD, 1);
+	public static final GiveItemConversation GIVE_STONE_CONVERSATION = new GiveItemConversation(Constants.STONE, 1);
+	public static final GiveItemConversation GIVE_ORE_CONVERSATION = new GiveItemConversation(Constants.ORE, 1);
+	public static final GiveItemConversation GIVE_PAPER_CONVERSATION = new GiveItemConversation(Constants.PAPER, 1);
+	public static final GiveItemConversation GIVE_COTTON_CONVERSATION = new GiveItemConversation(Constants.COTTON, 1);
+	
 	public static final PayBountyConversation PAY_BOUNTY_CONVERSATION = new PayBountyConversation();
 	
 	private static final List<Conversation> CONVERSATIONS = new ArrayList<>();
@@ -180,6 +187,13 @@ public class Conversations implements Serializable {
 		add(GIVE_FOOD_CONVERSATION, ConversationCategory.DIPLOMACY_TARGET);
 		add(GIVE_MONEY_CONVERSATION, ConversationCategory.DIPLOMACY_TARGET);
 		add(GIVE_WINE_CONVERSATION, ConversationCategory.DIPLOMACY_TARGET);
+		add(GIVE_WATER_CONVERSATION, ConversationCategory.DIPLOMACY_TARGET);
+		add(GIVE_WOOD_CONVERSATION, ConversationCategory.DIPLOMACY_TARGET);
+		add(GIVE_STONE_CONVERSATION, ConversationCategory.DIPLOMACY_TARGET);
+		add(GIVE_ORE_CONVERSATION, ConversationCategory.DIPLOMACY_TARGET);
+		add(GIVE_PAPER_CONVERSATION, ConversationCategory.DIPLOMACY_TARGET);
+		add(GIVE_COTTON_CONVERSATION, ConversationCategory.DIPLOMACY_TARGET);
+		
 		addNormalAndIntimidate(MERGE_ORGANIZATIONS_CONVERSATION, ConversationCategory.LEADER);
 		addNormalAndIntimidate(SWITCH_DEITY_CONVERSATION, ConversationCategory.DEITY);
 		addNormalAndIntimidate(STOP_SELLING_CONVERSATION, ConversationCategory.DEMAND);
