@@ -19,6 +19,7 @@ import java.util.List;
 
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.GovernanceOption;
 import org.worldgrower.actions.legal.LegalAction;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.SkillProperty;
@@ -44,9 +45,9 @@ public class WorldStateChangedListeners {
 		}
 	}
 	
-	public void legalActionsChanged(List<LegalAction> changedLegalActions, WorldObject villagerLeader) {
+	public void governanceChanged(List<LegalAction> changedLegalActions, List<GovernanceOption> changedGovernanceOptions, WorldObject villagerLeader) {
 		for(WorldStateChangedListener worldStateChangedListener : worldStateChangedListeners) {
-			worldStateChangedListener.legalActionsChanged(changedLegalActions, villagerLeader);
+			worldStateChangedListener.governanceChanged(changedLegalActions, changedGovernanceOptions, villagerLeader);
 		}
 	}
 	

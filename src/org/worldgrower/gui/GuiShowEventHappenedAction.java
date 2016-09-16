@@ -20,12 +20,14 @@ import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.GovernanceOption;
 import org.worldgrower.actions.legal.LegalAction;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.WorldStateChangedListener;
 import org.worldgrower.creaturetype.CreatureType;
+import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.gui.util.MessageDialogUtils;
 
 public class GuiShowEventHappenedAction implements WorldStateChangedListener {
@@ -60,22 +62,47 @@ public class GuiShowEventHappenedAction implements WorldStateChangedListener {
 			if (playerId == winnerId) {
 				description = "Congratulations, you are the new leader of the " + organization.getProperty(Constants.NAME);
 			} else {
-				description = winner.getProperty(Constants.NAME) + " is the new leader of the " + organization.getProperty(Constants.NAME);
+				description = createElectionWinnerDescription(winner, organization);
 			}
+			MessageDialogUtils.showMessage(description, "Election finished", winner, container, imageInfoReader);
+		} else if (organization.equals(GroupPropertyUtils.getVillagersOrganization(world))) {
+			String description = createElectionWinnerDescription(winner, organization);
 			MessageDialogUtils.showMessage(description, "Election finished", winner, container, imageInfoReader);
 		}
 	}
 
+	String createElectionWinnerDescription(WorldObject winner, WorldObject organization) {
+		return winner.getProperty(Constants.NAME) + " is the new leader of the " + organization.getProperty(Constants.NAME);
+	}
+
 	@Override
-	public void legalActionsChanged(List<LegalAction> changedLegalActions, WorldObject villagerLeader) {
+	public void governanceChanged(List<LegalAction> changedLegalActions, List<GovernanceOption> changedGovernanceOptions, WorldObject villagerLeader) {
 		if (!villagerLeader.equals(playerCharacter)) {
-			String description = villagerLeader.getProperty(Constants.NAME) + " changed the following laws:\n";
-			for(LegalAction legalAction : changedLegalActions) {
-				description += legalAction.getDescription() + "\n";
-			}
-			
+			String description = createGovernanceDescription(changedLegalActions, changedGovernanceOptions, villagerLeader);
 			MessageDialogUtils.showMessage(description, "Legal Actions changed", villagerLeader, container, imageInfoReader);
 		}
+	}
+
+	static String createGovernanceDescription(List<LegalAction> changedLegalActions, List<GovernanceOption> changedGovernanceOptions, WorldObject villagerLeader) {
+		StringBuilder descriptionBuilder = new StringBuilder(villagerLeader.getProperty(Constants.NAME) + " changed governance: ");
+		boolean appendComma = false;
+		for(LegalAction legalAction : changedLegalActions) {
+			if (appendComma) {
+				descriptionBuilder.append(", ");
+			} else {
+				appendComma = true;
+			}
+			descriptionBuilder.append("changed legality of ").append(legalAction.getDescription());
+		}
+		for(GovernanceOption governanceOption : changedGovernanceOptions) {
+			if (appendComma) {
+				descriptionBuilder.append(", ");
+			} else {
+				appendComma = true;
+			}
+			descriptionBuilder.append("changed ").append(governanceOption.getIntProperty().getName()).append(" to ").append(governanceOption.getNewValue());
+		}
+		return descriptionBuilder.toString();
 	}
 
 	@Override
@@ -98,7 +125,7 @@ public class GuiShowEventHappenedAction implements WorldStateChangedListener {
 	public void skillIncreased(WorldObject worldObject, SkillProperty skillProperty, int oldValue, int newValue) {
 		if (worldObject.equals(playerCharacter)) {
 			String description = "Skill " + skillProperty.getName() + " increased from " + oldValue + " to " + newValue;
-			MessageDialogUtils.showMessage(description, "Thrown out of group(s)", playerCharacter, container, imageInfoReader);
+			MessageDialogUtils.showMessage(description, "Skill Increase", playerCharacter, container, imageInfoReader);
 		}
 	}
 

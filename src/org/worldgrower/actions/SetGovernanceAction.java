@@ -24,6 +24,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.legal.LegalAction;
 import org.worldgrower.actions.legal.LegalActions;
+import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.LegalActionsPropertyUtils;
 import org.worldgrower.gui.ImageIds;
@@ -47,12 +48,27 @@ public class SetGovernanceAction implements ManagedOperation {
 			}
 		}
 		
+		List<GovernanceOption> changedGovernanceOptions = new ArrayList<>();
+		
 		int taxRateOffset = legalActionsList.size();
 		WorldObject villagersOrganization = GroupPropertyUtils.getVillagersOrganization(world);
-		villagersOrganization.setProperty(Constants.SHACK_TAX_RATE, args[taxRateOffset]);
-		villagersOrganization.setProperty(Constants.HOUSE_TAX_RATE, args[taxRateOffset+1]);
+		changeGovernanceOption(Constants.SHACK_TAX_RATE, villagersOrganization, args[taxRateOffset], changedGovernanceOptions);
+		changeGovernanceOption(Constants.HOUSE_TAX_RATE, villagersOrganization, args[taxRateOffset+1], changedGovernanceOptions);
 		
-		world.getWorldStateChangedListeners().legalActionsChanged(changedLegalActions, performer);
+		int wageOffset = taxRateOffset + 2;
+		changeGovernanceOption(Constants.SHERIFF_WAGE, villagersOrganization, args[wageOffset], changedGovernanceOptions);
+		changeGovernanceOption(Constants.TAX_COLLECTOR_WAGE, villagersOrganization, args[wageOffset+1], changedGovernanceOptions);
+		
+		world.getWorldStateChangedListeners().governanceChanged(changedLegalActions, changedGovernanceOptions, performer);
+	}
+
+	private void changeGovernanceOption(IntProperty intProperty, WorldObject villagersOrganization, int newValue, List<GovernanceOption> changedGovernanceOptions) {
+		int oldValue = villagersOrganization.getProperty(intProperty);
+		villagersOrganization.setProperty(intProperty, newValue);
+		
+		if (oldValue != newValue) {
+			changedGovernanceOptions.add(new GovernanceOption(intProperty, newValue));
+		}
 	}
 
 	@Override
