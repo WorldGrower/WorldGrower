@@ -59,7 +59,7 @@ public class WorldImpl implements World, Serializable {
 	private final JailCache jailCache = new JailCache();
 	
 	//TODO: temporary for debugging purposes
-	private final transient List<Integer> removedIds = new ArrayList<>();
+	private transient List<Integer> removedIds = new ArrayList<>();
 	
 	public WorldImpl(int width, int height, DungeonMaster dungeonMaster, WorldOnTurn worldOnTurn) {
 		this(new TerrainImpl(width, height), dungeonMaster, worldOnTurn);
@@ -219,6 +219,7 @@ public class WorldImpl implements World, Serializable {
 			WorldImpl world = (WorldImpl) objectInputStream.readObject();
 			world.listeners = new ArrayList<>();
 			world.worldStateChangedListeners = new WorldStateChangedListeners();
+			world.removedIds = new ArrayList<>();
 			return world;
 			
 		} catch(IOException | ClassNotFoundException ex) {
