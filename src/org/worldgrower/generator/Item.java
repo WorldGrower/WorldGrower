@@ -133,6 +133,7 @@ public enum Item {
 	}
 	
 	private final static Map<Item, Function<Double, WorldObject>> ITEMS = new HashMap<>();
+	private final static Map<Item, WorldObject> DEFAULT_WORLD_OBJECTS = new HashMap<>();
 	
 	private static void addItem(Item identifier, Function<Double, WorldObject> function) {
 		ITEMS.put(identifier, function);
@@ -710,6 +711,12 @@ public enum Item {
 		addItem(Item.SOUL_GEM, new DefaultItemGenerator(Constants.SOUL_GEM, 1, ImageIds.SOUL_GEM)::addDefault);
 	}
 	
+	static {
+		for(Item item : Item.values()) {
+			DEFAULT_WORLD_OBJECTS.put(item, item.generate(1f));
+		}
+	}
+	
 	private static class DefaultItemGenerator {
 		private final IntProperty propertyKey;
 		private final int quantity;
@@ -785,15 +792,15 @@ public enum Item {
 	}
 	
 	public String getDescription() {
-		return generate(1f).getProperty(Constants.NAME);
+		return DEFAULT_WORLD_OBJECTS.get(this).getProperty(Constants.NAME);
 	}
 	
 	public int getPrice() {
-		return generate(1f).getProperty(Constants.PRICE);
+		return DEFAULT_WORLD_OBJECTS.get(this).getProperty(Constants.PRICE);
 	}
 	
 	public ImageIds getImageId() {
-		return generate(1f).getProperty(Constants.IMAGE_ID);
+		return DEFAULT_WORLD_OBJECTS.get(this).getProperty(Constants.IMAGE_ID);
 	}
 	
 	public static Item value(int index) {
@@ -806,7 +813,7 @@ public enum Item {
 
 	public static Item getItemFor(ManagedProperty<?> managedProperty) {
 		for(Item item : Item.values()) {
-			if (item.generate(1f).hasProperty(managedProperty)) {
+			if (DEFAULT_WORLD_OBJECTS.get(item).hasProperty(managedProperty)) {
 				return item;
 			}
 		}
