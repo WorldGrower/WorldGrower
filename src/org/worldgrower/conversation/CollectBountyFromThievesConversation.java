@@ -18,10 +18,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
 import org.worldgrower.goal.BountyPropertyUtils;
+import org.worldgrower.goal.GoalUtils;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.history.HistoryItem;
 
@@ -85,6 +88,8 @@ public class CollectBountyFromThievesConversation implements Conversation {
 			//TODO: implement deteriorating skills
 			int bounty = BountyPropertyUtils.getBounty(target, world);
 			removeBounty(target, world, bounty);
+			
+			Actions.CAPTURE_PERSON_ACTION.execute(performer, target, Args.EMPTY, world);
 		} else if (replyIndex == RESIST_ARREST) {
 			target.getProperty(Constants.GROUP).remove(GroupPropertyUtils.getVillagersOrganization(world));
 		}
@@ -96,7 +101,17 @@ public class CollectBountyFromThievesConversation implements Conversation {
 
 	@Override
 	public boolean isConversationAvailable(WorldObject performer, WorldObject target, WorldObject subject, World world) {
-		return BountyPropertyUtils.getBounty(target, world) > 0 && BountyPropertyUtils.canForgiveBounty(performer);
+		return hasBounty(target, world) && BountyPropertyUtils.canForgiveBounty(performer);
+	}
+
+	boolean hasBounty(WorldObject target, World world) {
+		List<WorldObject> similarLookingPeople = GoalUtils.getPeopleLookingLike(target, world);
+		for(WorldObject similarLookingPerson : similarLookingPeople) {
+			if (BountyPropertyUtils.getBounty(similarLookingPerson, world) > 0) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Override

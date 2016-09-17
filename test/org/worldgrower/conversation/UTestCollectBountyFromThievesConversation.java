@@ -27,9 +27,11 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdRelationshipMap;
+import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.goal.BountyPropertyUtils;
 import org.worldgrower.goal.Goals;
 import org.worldgrower.goal.GroupPropertyUtils;
+import org.worldgrower.gui.ImageIds;
 
 public class UTestCollectBountyFromThievesConversation {
 
@@ -102,12 +104,14 @@ public class UTestCollectBountyFromThievesConversation {
 	
 	@Test
 	public void testHandleResponse1() {
-		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
+		World world = new WorldImpl(10, 10, new DungeonMaster(), null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		
 		performer.setProperty(Constants.GOLD, 100);
 		target.setProperty(Constants.GOLD, 100);
+		
+		BuildingGenerator.generateJail(0, 0, world, 1f);
 		
 		WorldObject villagersOrganization = createVillagersOrganization(world);
 		villagersOrganization.getProperty(Constants.BOUNTY).incrementValue(target, 40);
@@ -139,6 +143,7 @@ public class UTestCollectBountyFromThievesConversation {
 		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		world.addWorldObject(target);
 		performer.setProperty(Constants.CAN_ATTACK_CRIMINALS, Boolean.TRUE);
 		
 		WorldObject villagersOrganization = createVillagersOrganization(world);
@@ -146,6 +151,27 @@ public class UTestCollectBountyFromThievesConversation {
 		assertEquals(false, conversation.isConversationAvailable(performer, target, null, world));
 		
 		villagersOrganization.getProperty(Constants.BOUNTY).incrementValue(target, 40);
+		assertEquals(true, conversation.isConversationAvailable(performer, target, null, world));
+	}
+	
+	@Test
+	public void testIsConversationAvailableForLookalike() {
+		World world = new WorldImpl(1, 1, new DungeonMaster(), null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		target.setProperty(Constants.IMAGE_ID, ImageIds.KNIGHT);
+		world.addWorldObject(target);
+		performer.setProperty(Constants.CAN_ATTACK_CRIMINALS, Boolean.TRUE);
+		
+		WorldObject villagersOrganization = createVillagersOrganization(world);
+		
+		assertEquals(false, conversation.isConversationAvailable(performer, target, null, world));
+		
+		WorldObject target2 = TestUtils.createIntelligentWorldObject(3, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		target2.setProperty(Constants.IMAGE_ID, ImageIds.KNIGHT);
+		world.addWorldObject(target2);
+		
+		villagersOrganization.getProperty(Constants.BOUNTY).incrementValue(target2, 40);
 		assertEquals(true, conversation.isConversationAvailable(performer, target, null, world));
 	}
 	
