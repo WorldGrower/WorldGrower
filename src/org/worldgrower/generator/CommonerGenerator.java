@@ -268,7 +268,17 @@ public class CommonerGenerator implements Serializable {
 		
 		WorldObject creature = new WorldObjectImpl(properties);
 		world.addWorldObject(creature);
-		
+		unmarkSellableWorldObjects(creature);
 		return id;
+	}
+
+	private static void unmarkSellableWorldObjects(WorldObject creature) {
+		WorldObjectContainer inventory = creature.getProperty(Constants.INVENTORY);
+		for(int i=0; i<inventory.size(); i++) {
+			WorldObject item = inventory.get(i);
+			if (item != null) {
+				item.removeProperty(Constants.SELLABLE);
+			}
+		}
 	}
 }
