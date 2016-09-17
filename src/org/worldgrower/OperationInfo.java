@@ -15,13 +15,9 @@
 package org.worldgrower;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import org.worldgrower.actions.Actions;
-import org.worldgrower.creaturetype.CreatureType;
-import org.worldgrower.generator.CommonerGenerator;
 import org.worldgrower.goal.KnowledgeMapPropertyUtils;
 import org.worldgrower.history.HistoryItem;
 
