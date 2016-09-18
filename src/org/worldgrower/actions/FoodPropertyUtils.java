@@ -26,6 +26,8 @@ import org.worldgrower.condition.Conditions;
 
 public class FoodPropertyUtils {
 
+	public static final int FOOD_MULTIPLIER = 175;
+	
 	public static void checkFoodSourceExhausted(WorldObject foodSource) {
 		int targetFoodSource = foodSource.getProperty(Constants.FOOD_SOURCE);
 		if (targetFoodSource <= 200 && Constants.FOOD_PRODUCED.isAtMax(foodSource)) {

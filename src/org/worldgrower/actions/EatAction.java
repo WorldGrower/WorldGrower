@@ -33,7 +33,7 @@ public class EatAction implements ManagedOperation, AnimatedAction {
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		int foodInTarget = target.getProperty(Constants.FOOD_SOURCE);
-		int foodIncrease = 150 * FoodPropertyUtils.calculateFarmingQuantity(performer);
+		int foodIncrease = FoodPropertyUtils.FOOD_MULTIPLIER * FoodPropertyUtils.calculateFarmingQuantity(performer);
 		performer.increment(Constants.FOOD, foodIncrease);
 		target.setProperty(Constants.FOOD_SOURCE, foodInTarget - 100);
 

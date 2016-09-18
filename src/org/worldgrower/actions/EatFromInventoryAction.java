@@ -33,7 +33,7 @@ public class EatFromInventoryAction extends InventoryAction {
 		
 		GhoulUtils.eatFood(performer, performerInventory.get(inventoryIndex), world);
 		
-		performer.increment(Constants.FOOD, 150);
+		performer.increment(Constants.FOOD, FoodPropertyUtils.FOOD_MULTIPLIER);
 		performerInventory.removeQuantity(Constants.FOOD, 1);
 		
 		world.logAction(this, performer, target, args, null);

@@ -38,7 +38,7 @@ public class UTestEatAction {
 		WorldObject berryBush = createBerryBush(world);
 		Actions.EAT_ACTION.execute(performer, berryBush, Args.EMPTY, world);
 		
-		assertEquals(950, performer.getProperty(Constants.FOOD).intValue());
+		assertEquals(975, performer.getProperty(Constants.FOOD).intValue());
 		assertEquals(200, berryBush.getProperty(Constants.FOOD_SOURCE).intValue());
 	}
 	

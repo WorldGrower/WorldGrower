@@ -297,7 +297,10 @@ public class ChooseProfessionAction implements ManagedOperation {
 		List<ProfessionEvaluation> result = new ArrayList<>();
 		int populationCount = OperationStatistics.getPopulationCount(world);
 		
-		int foodDemand = demands.count(Constants.FOOD) + 3;
+		int foodDemand = demands.count(Constants.FOOD);
+		if (populationCount < 10) {
+			foodDemand += 3;
+		}
 		foodDemand += OperationStatistics.getRecentOperationsByNonProfessionalsCount(Actions.EAT_ACTION, Professions.FARMER_PROFESSION, world) / (populationCount / 2);
 		if (unclaimedBreedableCattleExists(world)) {
 			result.add(new ProfessionEvaluation(Professions.BUTCHER_PROFESSION, foodDemand));
@@ -306,11 +309,17 @@ public class ChooseProfessionAction implements ManagedOperation {
 			result.add(new ProfessionEvaluation(Professions.BUTCHER_PROFESSION, Integer.MIN_VALUE));
 		}
 		
-		int woodDemand = demands.count(Constants.WOOD) + 1;
+		int woodDemand = demands.count(Constants.WOOD);
+		if (populationCount < 10) {
+			woodDemand += 1;
+		}
 		woodDemand += OperationStatistics.getRecentOperationsByNonProfessionalsCount(Actions.CUT_WOOD_ACTION, Professions.LUMBERJACK_PROFESSION, world) / (4 * populationCount);
 		result.add(new ProfessionEvaluation(Professions.LUMBERJACK_PROFESSION, woodDemand));
 		
-		int stoneDemand = demands.count(Constants.STONE) + 1;
+		int stoneDemand = demands.count(Constants.STONE);
+		if (populationCount < 10) {
+			stoneDemand += 1;
+		}
 		int oreDemand = demands.count(Constants.ORE);
 		int goldDemand = demands.count(Constants.GOLD);
 		result.add(new ProfessionEvaluation(Professions.MINER_PROFESSION, (stoneDemand + oreDemand + goldDemand) / populationCount));
