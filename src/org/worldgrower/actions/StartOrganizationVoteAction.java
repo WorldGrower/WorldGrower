@@ -27,6 +27,7 @@ public class StartOrganizationVoteAction implements ManagedOperation {
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		WorldObject organization = getOrganization(args, world);
 		VotingPropertyUtils.createVotingBox(performer, organization, world);
+		world.getWorldStateChangedListeners().fireElectionStarted(organization);
 	}
 
 	private WorldObject getOrganization(int[] args, World world) {

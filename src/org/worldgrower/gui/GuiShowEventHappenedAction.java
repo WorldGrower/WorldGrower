@@ -53,6 +53,14 @@ public class GuiShowEventHappenedAction implements WorldStateChangedListener {
 	}
 
 	@Override
+	public void electionStarted(WorldObject organization) {
+		if (playerCharacter.getProperty(Constants.GROUP).contains(organization)) {
+			String description = "An election started for organization "  + organization.getProperty(Constants.NAME);
+			MessageDialogUtils.showMessage(description, "Election started", playerCharacter, container, imageInfoReader);
+		}
+	}
+	
+	@Override
 	public void electionFinished(WorldObject winner, WorldObject organization, IdList candidates) {
 		int winnerId = winner.getProperty(Constants.ID);
 		int playerId = playerCharacter.getProperty(Constants.ID);

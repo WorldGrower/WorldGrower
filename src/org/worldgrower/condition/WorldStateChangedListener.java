@@ -27,6 +27,7 @@ import org.worldgrower.creaturetype.CreatureType;
 public interface WorldStateChangedListener {
 
 	public void creatureTypeChange(WorldObject worldObject, CreatureType newCreatureType, String description);
+	public void electionStarted(WorldObject organization);
 	public void electionFinished(WorldObject winner, WorldObject organization, IdList candidates);
 	public void governanceChanged(List<LegalAction> changedLegalActions, List<GovernanceOption> changedGovernanceOptions, WorldObject villagerLeader);
 	public void thrownOutOfGroup(WorldObject worldObject, WorldObject target, int[] args, ManagedOperation action, IdList oldGroup, IdList newGroup);
