@@ -49,4 +49,10 @@ public interface WorldObject {
 	public boolean equals(Object obj);
 	
 	public String toString();
+	
+	/**
+	 * an ActionWorldObject is a WorldObject that can be used as
+	 * an argument for a ManagedOperation
+	 */
+	public WorldObject getActionWorldObject();
 }

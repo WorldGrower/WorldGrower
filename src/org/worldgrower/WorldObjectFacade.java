@@ -137,4 +137,9 @@ public class WorldObjectFacade implements WorldObject {
 	public <T> WorldObject deepCopy() {
 		return originalWorldObject.deepCopy();
 	}
+
+	@Override
+	public WorldObject getActionWorldObject() {
+		return originalWorldObject;
+	}
 }

@@ -223,4 +223,9 @@ public class WorldObjectImpl implements WorldObject, Serializable {
 	public String toString() {
 		return properties.toString();
 	}
+
+	@Override
+	public WorldObject getActionWorldObject() {
+		return this;
+	}
 }

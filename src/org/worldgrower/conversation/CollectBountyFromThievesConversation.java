@@ -89,7 +89,8 @@ public class CollectBountyFromThievesConversation implements Conversation {
 			int bounty = BountyPropertyUtils.getBounty(target, world);
 			removeBounty(target, world, bounty);
 			
-			Actions.CAPTURE_PERSON_ACTION.execute(performer, target, Args.EMPTY, world);
+			WorldObject captureTarget = target.getActionWorldObject();
+			Actions.CAPTURE_PERSON_ACTION.execute(performer, captureTarget, Args.EMPTY, world);
 		} else if (replyIndex == RESIST_ARREST) {
 			target.getProperty(Constants.GROUP).remove(GroupPropertyUtils.getVillagersOrganization(world));
 		}
