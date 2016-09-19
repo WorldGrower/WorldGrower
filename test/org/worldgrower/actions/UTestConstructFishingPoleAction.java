@@ -25,6 +25,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.generator.Item;
 
 public class UTestConstructFishingPoleAction {
 
@@ -42,5 +43,26 @@ public class UTestConstructFishingPoleAction {
 		int workbenchId = BuildingGenerator.generateWorkbench(0, 0, world, performer);
 		WorldObject workbench = world.findWorldObjectById(workbenchId);
 		return workbench;
+	}
+	
+	@Test
+	public void testIsActionPossible() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
+		
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
+		
+		WorldObject workbench = createWorkbench(world, performer);
+		
+		assertEquals(true, Actions.CONSTRUCT_FISHING_POLE_ACTION.isActionPossible(performer, workbench, Args.EMPTY, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
+		WorldObject workbench = createWorkbench(world, performer);
+		
+		assertEquals(0, Actions.CONSTRUCT_FISHING_POLE_ACTION.distance(performer, workbench, Args.EMPTY, world));
 	}
 }

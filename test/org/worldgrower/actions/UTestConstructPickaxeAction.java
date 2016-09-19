@@ -68,4 +68,13 @@ public class UTestConstructPickaxeAction {
 		WorldObject workbench = world.findWorldObjectById(workbenchId);
 		return workbench;
 	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
+		WorldObject workbench = createWorkbench(world, performer);
+		
+		assertEquals(0, Actions.CONSTRUCT_PICK_AXE_ACTION.distance(performer, workbench, Args.EMPTY, world));
+	}
 }

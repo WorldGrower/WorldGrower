@@ -68,4 +68,13 @@ public class UTestConstructScytheAction {
 		
 		assertEquals(true, Actions.CONSTRUCT_SCYTHE_ACTION.isActionPossible(performer, workbench, Args.EMPTY, world));
 	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
+		WorldObject workbench = createWorkbench(world, performer);
+		
+		assertEquals(0, Actions.CONSTRUCT_SCYTHE_ACTION.distance(performer, workbench, Args.EMPTY, world));
+	}
 }
