@@ -37,8 +37,12 @@ class StatusMessageListRenderer implements ListCellRenderer<StatusMessage> {
 		Icon icon;
 		if (value.getImage() != null) {
 			Image image = value.getImage();
-			if (image.getWidth(null) > 48 || image.getHeight(null) > 48) {
-				image = ImageUtils.cropImage((BufferedImage) image, 48, 48);
+			int imageWidth = image.getWidth(null);
+			int imageHeight = image.getHeight(null);
+			if (imageWidth > 48 || imageHeight > 48) {
+				int croppedImageWidth = Math.min(48, imageWidth);
+				int croppedImageHeight = Math.min(48, imageHeight);
+				image = ImageUtils.cropImage((BufferedImage) image, croppedImageWidth, croppedImageHeight);
 			}
 			
 			icon = new ImageIcon(image);
