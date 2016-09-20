@@ -56,10 +56,40 @@ public class UTestHistoryItem {
 		assertEquals("performer was attacking target", historyItem.getThirdPersonDescription(world));
 	}
 
+	@Test
+	public void testIsEqual() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, "performer");
+		world.addWorldObject(performer);
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, "target");
+		world.addWorldObject(target);
+		HistoryItem historyItem1 = createHistoryItem(performer, target);
+		HistoryItem historyItem2 = createHistoryItem(target, performer);
+		
+		assertEquals(true, historyItem1.isEqual(historyItem1));
+		assertEquals(false, historyItem1.isEqual(historyItem2));
+		assertEquals(false, historyItem2.isEqual(historyItem1));
+	}
+	
+	@Test
+	public void testMatches() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, "performer");
+		world.addWorldObject(performer);
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, "target");
+		world.addWorldObject(target);
+		HistoryItem historyItem = createHistoryItem(performer, target);
+		
+		assertEquals(true, historyItem.matches(1, 2,  Actions.MELEE_ATTACK_ACTION));
+		assertEquals(false, historyItem.matches(1, 2,  Actions.FIRE_BOLT_ATTACK_ACTION));
+		assertEquals(false, historyItem.matches(3, 2,  Actions.MELEE_ATTACK_ACTION));
+		assertEquals(false, historyItem.matches(1, 5,  Actions.MELEE_ATTACK_ACTION));
+	}
+	
 	private HistoryItem createHistoryItem(WorldObject performer, WorldObject target) {
 		HistoryWorldObjects historyWorldObjects = new HistoryWorldObjects();
 		historyWorldObjects.add(performer);
 		historyWorldObjects.add(target);
 		return new HistoryItem(-1, new OperationInfo(performer, target, Args.EMPTY, Actions.MELEE_ATTACK_ACTION), new Turn(), null, historyWorldObjects);
-	}
+	}	
 }
