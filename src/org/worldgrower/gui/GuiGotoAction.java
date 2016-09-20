@@ -15,7 +15,9 @@
 package org.worldgrower.gui;
 
 import java.awt.event.ActionEvent;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.AbstractAction;
 import javax.swing.JFrame;
@@ -30,6 +32,8 @@ import org.worldgrower.TaskCalculator;
 import org.worldgrower.TaskCalculatorImpl;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.WorldObjectImpl;
+import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.start.Game;
 
@@ -70,13 +74,15 @@ public class GuiGotoAction extends AbstractAction {
 	}
 	
 	private static class GotoAction implements ManagedOperation {
-
-		private final int destinationX;
-		private final int destinationY;
+		private final WorldObject destinationTarget;
 
 		public GotoAction(int destinationX, int destinationY) {
-			this.destinationX = destinationX;
-			this.destinationY = destinationY;
+			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+			properties.put(Constants.X, destinationX);
+			properties.put(Constants.Y, destinationY);
+			properties.put(Constants.WIDTH, 1);
+			properties.put(Constants.HEIGHT, 1);
+			destinationTarget = new WorldObjectImpl(properties);
 		}
 
 		@Override
@@ -100,9 +106,7 @@ public class GuiGotoAction extends AbstractAction {
 
 		@Override
 		public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-			int performerX = performer.getProperty(Constants.X);
-			int performerY = performer.getProperty(Constants.Y);
-			return Reach.distance(performerX, performerY, destinationX, destinationY);
+			return Reach.evaluateTarget(performer, null, destinationTarget, 1);
 		}
 
 		@Override
