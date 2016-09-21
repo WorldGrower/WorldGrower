@@ -127,6 +127,46 @@ public class UTestTaskCalculator {
 		assertContains(tasks.get(2).toString(), CutWoodAction.class.getName());
 	}
 	
+	@Test
+	public void testPathFindingLongerDistance() {
+		WorldObject performer = createWorldObject(11, 1, 1, 1, Constants.ID, 2);
+		WorldObject target = createWorldObject(7, 3, 1, 1, Constants.ID, 3);
+		WorldObject obstacle1 = createWorldObject(8, 1, 1, 1, Constants.ID, 4);
+		WorldObject obstacle2 = createWorldObject(8, 2, 1, 1, Constants.ID, 5);
+		WorldObject obstacle3 = createWorldObject(9, 2, 1, 1, Constants.ID, 6);
+
+		World world = new WorldImpl(30, 30, null, null);
+		world.addWorldObject(performer);
+		world.addWorldObject(target);
+		world.addWorldObject(obstacle1);
+		world.addWorldObject(obstacle2);
+		world.addWorldObject(obstacle3);
+		List<OperationInfo> tasks = taskCalculator.calculateTask(performer, world, new OperationInfo(performer, target, Args.EMPTY, new CutWoodAction()));
+		
+		assertEquals(4, tasks.size());
+		assertContains(tasks.get(0).toString(), "args=[-1, 1]");
+		assertContains(tasks.get(1).toString(), "args=[-1, 1]");
+		assertContains(tasks.get(2).toString(), "args=[-1, 0]");
+		assertContains(tasks.get(3).toString(), CutWoodAction.class.getName());
+	}
+	
+	@Test
+	public void testPathFindingLongerDiagonalDistance() {
+		WorldObject performer = createWorldObject(6, 0, 1, 1, Constants.ID, 2);
+		WorldObject target = createWorldObject(19, 11, 1, 1, Constants.ID, 3);
+
+		World world = new WorldImpl(30, 30, null, null);
+		world.addWorldObject(performer);
+		world.addWorldObject(target);
+		List<OperationInfo> tasks = taskCalculator.calculateTask(performer, world, new OperationInfo(performer, target, Args.EMPTY, new CutWoodAction()));
+		
+		assertEquals(13, tasks.size());
+		assertContains(tasks.get(0).toString(), "args=[1, 1]");
+		assertContains(tasks.get(1).toString(), "args=[1, 1]");
+		assertContains(tasks.get(2).toString(), "args=[1, 1]");
+		assertContains(tasks.get(12).toString(), CutWoodAction.class.getName());
+	}
+	
 	private static void assertContains(String value, String substring) {
 		assertTrue(value + " doesn't contain substring " + substring, value.contains(substring));
 	}

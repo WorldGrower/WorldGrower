@@ -28,6 +28,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.BuildingList;
 import org.worldgrower.attribute.IdRelationshipMap;
 import org.worldgrower.goal.GroupPropertyUtils;
+import org.worldgrower.profession.Professions;
 
 public class UTestCollectPayCheckConversation {
 
@@ -75,11 +76,73 @@ public class UTestCollectPayCheckConversation {
 		assertEquals(1, questions.size());
 		assertEquals("I'm here to collect my pay check of 0 gold. Will you pay?", questions.get(0).getQuestionPhrase());
 	}
+	
+	@Test
+	public void testIsConversationAvailable() {
+		World world = new WorldImpl(1, 1, null, new DoNothingWorldOnTurn());
+		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.BUILDINGS, new BuildingList());
+		WorldObject target = TestUtils.createIntelligentWorldObject(8, Constants.BUILDINGS, new BuildingList());
+
+		createDefaultVillagersOrganization(world, target);
+		
+		assertEquals(false, conversation.isConversationAvailable(performer, target, null, world));
+		
+		performer.setProperty(Constants.PROFESSION, Professions.TAX_COLLECTOR_PROFESSION);
+		assertEquals(false, conversation.isConversationAvailable(performer, target, null, world));
+
+		performer.setProperty(Constants.CAN_COLLECT_TAXES, Boolean.TRUE);
+		target.setProperty(Constants.ORGANIZATION_GOLD, 0);
+		moveTurnsForword(world, 2000);
+		assertEquals(true, conversation.isConversationAvailable(performer, target, null, world));
+	}
+	
+	@Test
+	public void testHandleResponse0() {
+		World world = new WorldImpl(1, 1, null, new DoNothingWorldOnTurn());
+		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.BUILDINGS, new BuildingList());
+		WorldObject target = TestUtils.createIntelligentWorldObject(8, Constants.BUILDINGS, new BuildingList());
+
+		createDefaultVillagersOrganization(world, target);
+		
+		performer.setProperty(Constants.GOLD, 0);
+		performer.setProperty(Constants.PROFESSION, Professions.TAX_COLLECTOR_PROFESSION);
+		performer.setProperty(Constants.CAN_COLLECT_TAXES, Boolean.TRUE);
+		target.setProperty(Constants.ORGANIZATION_GOLD, 1000);
+		moveTurnsForword(world, 2000);
+		
+		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
+		conversation.handleResponse(0, context);
+		
+		assertEquals(20, performer.getProperty(Constants.GOLD).intValue());
+		assertEquals(980, target.getProperty(Constants.ORGANIZATION_GOLD).intValue());
+	}
+	
+	@Test
+	public void testHandleResponse1() {
+		World world = new WorldImpl(1, 1, null, new DoNothingWorldOnTurn());
+		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.BUILDINGS, new BuildingList());
+		WorldObject target = TestUtils.createIntelligentWorldObject(8, Constants.BUILDINGS, new BuildingList());
+
+		createDefaultVillagersOrganization(world, target);
+		
+		performer.setProperty(Constants.GOLD, 0);
+		performer.setProperty(Constants.PROFESSION, Professions.TAX_COLLECTOR_PROFESSION);
+		performer.setProperty(Constants.CAN_COLLECT_TAXES, Boolean.TRUE);
+		target.setProperty(Constants.ORGANIZATION_GOLD, 1000);
+		moveTurnsForword(world, 2000);
+		
+		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
+		conversation.handleResponse(1, context);
+		
+		assertEquals(-150, performer.getProperty(Constants.RELATIONSHIPS).getValue(target));
+		assertEquals(0, target.getProperty(Constants.RELATIONSHIPS).getValue(performer));
+	}
 
 	private void createDefaultVillagersOrganization(World world, WorldObject target) {
 		WorldObject organization = createVillagersOrganization(world);
 		organization.getProperty(Constants.TAXES_PAID_TURN).incrementValue(target, 1);
 		organization.setProperty(Constants.HOUSE_TAX_RATE, 2);
+		organization.setProperty(Constants.TAX_COLLECTOR_WAGE, 5);
 	}
 
 	private void moveTurnsForword(World world, int count) {
