@@ -20,7 +20,6 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +48,7 @@ import org.worldgrower.goal.EnergyPropertyUtils;
 import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.status.StatusMessage;
 import org.worldgrower.gui.status.StatusMessageDialog;
-import org.worldgrower.gui.util.ImageUtils;
+import org.worldgrower.gui.status.StatusMessageImageConverter;
 import org.worldgrower.gui.util.JLabelFactory;
 import org.worldgrower.gui.util.JTextPaneFactory;
 
@@ -227,10 +226,7 @@ public final class InfoPanel extends JPanel {
 
 	private void appendIconAndText(Image image, String message) {
 		StyledDocument document = (StyledDocument)messageTextPane.getDocument();
-    	
-		if (image.getWidth(null) > 48 || image.getHeight(null) > 48) {
-			image = ImageUtils.cropImage((BufferedImage) image, 48, 48);
-		}
+		image = StatusMessageImageConverter.convertImage(image);
 		
         try {
 			JLabel jl  = JLabelFactory.createJLabel("<html>" + message + "</html>", image);

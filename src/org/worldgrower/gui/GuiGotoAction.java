@@ -106,7 +106,15 @@ public class GuiGotoAction extends AbstractAction {
 
 		@Override
 		public int distance(WorldObject performer, WorldObject target, int[] args, World world) {
-			return Reach.evaluateTarget(performer, null, destinationTarget, 1);
+			int performerX = performer.getProperty(Constants.X).intValue();
+			int performerY = performer.getProperty(Constants.Y).intValue();
+			int destinationTargetX = destinationTarget.getProperty(Constants.X).intValue();
+			int destinationTargetY = destinationTarget.getProperty(Constants.Y).intValue();
+			if (performerX == destinationTargetX && performerY == destinationTargetY) {
+				return 0;
+			} else {
+				return Reach.evaluateTarget(performer, null, destinationTarget, 1) + 1;
+			}
 		}
 
 		@Override

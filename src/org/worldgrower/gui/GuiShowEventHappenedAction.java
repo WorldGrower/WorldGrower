@@ -168,6 +168,13 @@ public class GuiShowEventHappenedAction implements WorldStateChangedListener {
 			String description = playerCharacter.getProperty(Constants.NAME) + " has lost leadership of organization " + organization.getProperty(Constants.NAME);
 			MessageDialogUtils.showMessage(description, "Leadership Lost", playerCharacter, container, imageInfoReader);
 		}
-		
+	}
+	
+	@Override
+	public void skillsDeteriorated(WorldObject worldObject) {
+		if (worldObject.equals(playerCharacter)) {
+			String description = " The skills of " + playerCharacter.getProperty(Constants.NAME) + " have decreased, removing progress made since the last skill increase";
+			MessageDialogUtils.showMessage(description, "Skills Deteriorated", playerCharacter, container, imageInfoReader);
+		}
 	}
 }

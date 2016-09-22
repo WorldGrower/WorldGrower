@@ -27,6 +27,8 @@ import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.ItemCountMap;
 import org.worldgrower.attribute.Prices;
+import org.worldgrower.attribute.SkillProperty;
+import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
@@ -203,9 +205,14 @@ public class CommonerOnTurn implements OnTurn {
 		}
 	}
 	
-	private void checkForJail(WorldObject worldObject, World world) {
+	void checkForJail(WorldObject worldObject, World world) {
 		if (BuildingGenerator.isPrisonerInJail(worldObject, world)) {
-			//TODO: implement
+			if (worldObject.hasProperty(Constants.FARMING_SKILL)) {
+				for(SkillProperty skillProperty : SkillUtils.getSkills()) {
+					worldObject.getProperty(skillProperty).deteriorate(worldObject, skillProperty);
+				}
+			}
+			world.getWorldStateChangedListeners().fireSkillsDeteriorated(worldObject);
 		}
 	}
 	

@@ -36,4 +36,5 @@ public interface WorldStateChangedListener {
 	public void conditionLost(WorldObject worldObject, Condition condition);
 	public void levelIncreased(WorldObject worldObject, int newValue);
 	public void lostLeadership(WorldObject worldObject, WorldObject organization);
+	public void skillsDeteriorated(WorldObject worldObject);
 }

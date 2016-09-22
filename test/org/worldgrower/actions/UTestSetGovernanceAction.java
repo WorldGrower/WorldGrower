@@ -141,6 +141,10 @@ public class UTestSetGovernanceAction {
 
 		@Override
 		public void electionStarted(WorldObject organization) {
+		}
+
+		@Override
+		public void skillsDeteriorated(WorldObject worldObject) {
 		}		
 	}
 	

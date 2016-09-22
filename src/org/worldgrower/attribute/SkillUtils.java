@@ -103,6 +103,10 @@ public class SkillUtils {
 		return Arrays.asList(Constants.STRENGTH, Constants.CONSTITUTION, Constants.DEXTERITY, Constants.INTELLIGENCE, Constants.WISDOM, Constants.CHARISMA);
 	}
 	
+	public static List<SkillProperty> getSkills() {
+		return new ArrayList<>(SKILLS_TO_ATTRIBUTE_MAP.keySet());
+	}
+	
 	private static void addSkill(SkillProperty skillProperty, Map<ManagedProperty<?>, Object> properties) {
 		IntProperty attribute = SKILLS_TO_ATTRIBUTE_MAP.get(skillProperty);
 		int attributeValue = (Integer) properties.get(attribute);

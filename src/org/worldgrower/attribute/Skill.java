@@ -135,4 +135,10 @@ public class Skill implements Serializable {
 	public String toString() {
 		return Integer.toString(level);
 	}
+
+	public void deteriorate(WorldObject worldObject, SkillProperty skillProperty) {
+		if (currentUsageCount > 0) {
+			currentUsageCount--;
+		}
+	}
 }
