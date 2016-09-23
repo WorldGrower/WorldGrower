@@ -83,6 +83,7 @@ public final class WorldPanel extends JPanel implements ImageFactory {
 	
 	private final MoveMode moveMode = new MoveMode();
 	private final BackgroundPainter backgroundPainter;
+	private final GoToPainter goToPainter;
 	private final KeyBindings keyBindings;
 	private final JFrame parentFrame;
 	
@@ -122,6 +123,7 @@ public final class WorldPanel extends JPanel implements ImageFactory {
         Image grassBackground = imageInfoReader.getImage(ImageIds.GRASS_BACKGROUND, null);
         Image grassFlowersBackground = imageInfoReader.getImage(ImageIds.SMALL_FLOWERS, null);
 		this.backgroundPainter = new BackgroundPainter(grassBackground, grassFlowersBackground, imageInfoReader, world);
+		this.goToPainter = new GoToPainter(imageInfoReader);
     }
 
 	private void initializeKeyBindings(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, JFrame parentFrame) {
@@ -194,6 +196,8 @@ public final class WorldPanel extends JPanel implements ImageFactory {
 		paintStaticWorldObjects(g);
 		
 		moveMode.drawWorldObjects(g, this, imageInfoReader, world);
+		
+		goToPainter.paint(g, world, this);
 		
 		showHitPointsOfPlayerCharacterTarget(g);
 		
@@ -535,5 +539,9 @@ public final class WorldPanel extends JPanel implements ImageFactory {
 	@Override
 	public Image getMoreMessagesImage() {
 		return imageInfoReader.getImage(ImageIds.BOOK, null);
+	}
+	
+	public void setGotoPath(List<OperationInfo> operationInfos) {
+		this.goToPainter.setGotoOperations(playerCharacter, operationInfos);
 	}
 }

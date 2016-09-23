@@ -64,13 +64,18 @@ public class GuiGotoAction extends AbstractAction {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		TaskCalculator taskCalculator = new TaskCalculatorImpl();
-		OperationInfo goal = new OperationInfo(playerCharacter, playerCharacter, Args.EMPTY, new GotoAction(destinationX, destinationY));
-		List<OperationInfo> tasks = taskCalculator.calculateTask(playerCharacter, world, goal);
+		List<OperationInfo> tasks = calculatePath(playerCharacter, destinationX, destinationY, world);
 		if (tasks.size() > 0) {
 			tasks = tasks.subList(0, tasks.size() - 1);
 			Game.executeMultipleActionsAndMoveIntelligentWorldObjects(playerCharacter, tasks, world, dungeonMaster, playerCharacter, parent, soundIdReader);
 		}
+	}
+	
+	public static List<OperationInfo> calculatePath(WorldObject playerCharacter, int destinationX, int destinationY, World world) {
+		TaskCalculator taskCalculator = new TaskCalculatorImpl();
+		OperationInfo goal = new OperationInfo(playerCharacter, playerCharacter, Args.EMPTY, new GotoAction(destinationX, destinationY));
+		List<OperationInfo> tasks = taskCalculator.calculateTask(playerCharacter, world, goal);
+		return tasks;
 	}
 	
 	private static class GotoAction implements ManagedOperation {

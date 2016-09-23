@@ -177,6 +177,7 @@ import org.worldgrower.generator.UTestPlantOnTurn;
 import org.worldgrower.generator.UTestSkeletonEvaluationFunction;
 import org.worldgrower.generator.UTestVotingOnTurn;
 import org.worldgrower.goal.*;
+import org.worldgrower.gui.UTestBonusDescriptions;
 import org.worldgrower.gui.UTestGuiShowEventHappenedAction;
 import org.worldgrower.gui.UTestImageInfoReader;
 import org.worldgrower.history.UTestHistoryImpl;
@@ -742,7 +743,8 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestCreateSmithGoal.class,
 	UTestCreateWeaveryGoal.class,
 	UTestCreateWorkbenchGoal.class,
-	UTestGuiShowEventHappenedAction.class
+	UTestGuiShowEventHappenedAction.class,
+	UTestBonusDescriptions.class
 })
 public class CompleteTestSuite {
 }

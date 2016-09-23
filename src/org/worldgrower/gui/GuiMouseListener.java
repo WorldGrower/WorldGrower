@@ -18,9 +18,12 @@ import java.awt.Image;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.InputEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -256,6 +259,29 @@ public class GuiMouseListener extends MouseAdapter {
 		gotoMenuItem.setText("Go to");
 		setMenuIcon(gotoMenuItem, ImageIds.MOVING_CHARACTER);
 		menu.add(gotoMenuItem);
+		gotoMenuItem.addMouseListener(new MouseAdapter() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				clearPath();
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				clearPath();
+			}
+
+			void clearPath() {
+				container.setGotoPath(new ArrayList<>());
+				container.repaint();
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				container.setGotoPath(GuiGotoAction.calculatePath(playerCharacter, x, y, world));
+				container.repaint();
+			}
+		});
 	}
 
 	private void showPlayerCharacterMenu(int x, int y) {

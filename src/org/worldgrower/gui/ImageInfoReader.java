@@ -593,6 +593,8 @@ public class ImageInfoReader {
         add(ImageIds.ZEUS_SYMBOL, sprites420.getSubImage(13, 0, 1, 1));
         add(ImageIds.HERA_SYMBOL, sprites420.getSubImage(1, 16, 1, 1));
         add(ImageIds.POSEIDON_SYMBOL, sprites420.getSubImage(6, 8, 1, 1));
+        
+        add(ImageIds.GOTO_IMAGE, sprites420.getSubImage(1, 14, 1, 1));
 
     }
     

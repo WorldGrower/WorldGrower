@@ -30,6 +30,10 @@ public class SwingUtils {
 			}
 		};
 		JRootPane root = dialog.getRootPane();
+		installCloseAction(dispatchClosing, root);
+	}
+
+	private static void installCloseAction(Action dispatchClosing, JRootPane root) {
 		root.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(ESCAPE_KEY_STROKE, ESCAPE_KEY);
 		root.getActionMap().put(ESCAPE_KEY, dispatchClosing);
 	}
@@ -41,8 +45,7 @@ public class SwingUtils {
 			}
 		};
 		JRootPane root = dialog.getRootPane();
-		root.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(ESCAPE_KEY_STROKE, ESCAPE_KEY);
-		root.getActionMap().put(ESCAPE_KEY, dispatchClosing);
+		installCloseAction(dispatchClosing, root);
 	}
 	
 	public static void makeTransparant(JTable table, JScrollPane scrollPane) {
