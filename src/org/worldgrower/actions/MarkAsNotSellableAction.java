@@ -25,13 +25,13 @@ import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
-public class MarkAsSellableAction implements ManagedOperation {
+public class MarkAsNotSellableAction implements ManagedOperation {
 
 	private static final int DISTANCE = 1;
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		target.setProperty(Constants.SELLABLE, Boolean.TRUE);
+		target.setProperty(Constants.SELLABLE, Boolean.FALSE);
 	}
 
 	@Override
@@ -41,7 +41,7 @@ public class MarkAsSellableAction implements ManagedOperation {
 
 	@Override
 	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
-		return !(target.hasProperty(Constants.SELLABLE) && target.getProperty(Constants.SELLABLE));
+		return (target.hasProperty(Constants.SELLABLE) && target.getProperty(Constants.SELLABLE));
 	}
 	
 	@Override
@@ -51,12 +51,12 @@ public class MarkAsSellableAction implements ManagedOperation {
 	
 	@Override
 	public String getRequirementsDescription() {
-		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, DISTANCE, "item should not already be sellable");
+		return CraftUtils.getRequirementsDescription(Constants.DISTANCE, DISTANCE, "item should be sellable");
 	}
 	
 	@Override
 	public String getDescription() {
-		return "marks a building as sellable, signaling to others that the building is for sale";
+		return "marks a building as not sellable, signaling to others that the building isn't for sale";
 	}
 
 	@Override
@@ -66,7 +66,7 @@ public class MarkAsSellableAction implements ManagedOperation {
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "marking a building for sale";
+		return "unmarking a building for sale";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {
@@ -76,7 +76,7 @@ public class MarkAsSellableAction implements ManagedOperation {
 	
 	@Override
 	public String getSimpleDescription() {
-		return "mark for sale";
+		return "unmark for sale";
 	}
 	
 	@Override

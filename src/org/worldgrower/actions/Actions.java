@@ -221,6 +221,7 @@ public class Actions {
 	public static final VampireBiteAction VAMPIRE_BITE_ACTION = new VampireBiteAction();
 	public static final ConstructBedAction CONSTRUCT_BED_ACTION = new ConstructBedAction();
 	public static final MarkAsSellableAction MARK_AS_SELLABLE_ACTION = new MarkAsSellableAction();
+	public static final MarkAsNotSellableAction MARK_AS_NOT_SELLABLE_ACTION = new MarkAsNotSellableAction();
 	public static final ConstructTrainingDummyAction CONSTRUCT_TRAINING_DUMMY_ACTION = new ConstructTrainingDummyAction();
 	public static final DetermineDeathReasonAction DETERMINE_DEATH_REASON_ACTION = new DetermineDeathReasonAction();
 	public static final PlantNightShadeAction PLANT_NIGHT_SHADE_ACTION = new PlantNightShadeAction();
@@ -434,6 +435,7 @@ public class Actions {
 		VAMPIRE_BITE_ACTION,
 		CONSTRUCT_BED_ACTION,
 		MARK_AS_SELLABLE_ACTION,
+		MARK_AS_NOT_SELLABLE_ACTION,
 		CONSTRUCT_TRAINING_DUMMY_ACTION,
 		DETERMINE_DEATH_REASON_ACTION,
 		PLANT_NIGHT_SHADE_ACTION,

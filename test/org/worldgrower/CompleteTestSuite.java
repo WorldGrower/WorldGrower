@@ -744,7 +744,8 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestCreateWeaveryGoal.class,
 	UTestCreateWorkbenchGoal.class,
 	UTestGuiShowEventHappenedAction.class,
-	UTestBonusDescriptions.class
+	UTestBonusDescriptions.class,
+	UTestMarkAsNotSellableAction.class
 })
 public class CompleteTestSuite {
 }
