@@ -43,7 +43,7 @@ public class CutWoodAction implements ManagedOperation, AnimatedAction {
 		WoodPropertyUtils.checkWoodSourceExhausted(target);
 		target.setProperty(Constants.IMAGE_ID, TreeImageCalculator.getTreeImageId(target, world));
 		SkillUtils.useEnergy(performer, Constants.LUMBERING_SKILL, ENERGY_USE, world.getWorldStateChangedListeners());
-		world.logAction(this, performer, target, args, null);
+		world.logAction(this, performer, target, args, quantity + " "+ Constants.WOOD + " added to inventory");
 		
 		if (target.getProperty(Constants.WOOD_SOURCE) == 0) {
 			target.setProperty(Constants.HIT_POINTS, 0);

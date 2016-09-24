@@ -40,6 +40,8 @@ public class MineGoldAction implements ManagedOperation, AnimatedAction {
 		target.increment(Constants.GOLD_SOURCE, - quantity);
 		
 		SkillUtils.useEnergy(performer, Constants.MINING_SKILL, ENERGY_USE, world.getWorldStateChangedListeners());
+	
+		world.logAction(this, performer, target, args, quantity + " "+ Constants.GOLD + " added to inventory");
 	}
 
 	@Override

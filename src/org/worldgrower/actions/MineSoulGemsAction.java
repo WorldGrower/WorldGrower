@@ -40,6 +40,8 @@ public class MineSoulGemsAction implements ManagedOperation, AnimatedAction {
 		target.increment(Constants.SOUL_GEM_SOURCE, - quantity);
 		
 		SkillUtils.useEnergy(performer, Constants.MINING_SKILL, ENERGY_USE, world.getWorldStateChangedListeners());
+	
+		world.logAction(this, performer, target, args, quantity + " "+ Constants.SOUL_GEM + " added to inventory");
 	}
 	
 	@Override

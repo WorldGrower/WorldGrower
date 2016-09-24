@@ -40,6 +40,8 @@ public class MineStoneAction implements ManagedOperation, AnimatedAction {
 		target.increment(Constants.STONE_SOURCE, - quantity);
 		
 		SkillUtils.useEnergy(performer, Constants.MINING_SKILL, ENERGY_USE, world.getWorldStateChangedListeners());
+	
+		world.logAction(this, performer, target, args, quantity + " "+ Constants.STONE + " added to inventory");
 	}
 	
 	@Override
