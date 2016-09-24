@@ -44,6 +44,8 @@ public class HarvestCottonAction implements ManagedOperation, AnimatedAction {
 		target.increment(Constants.COTTON_SOURCE, -20);
 		
 		target.setProperty(Constants.IMAGE_ID, CottonPlantImageCalculator.getImageId(target, world));
+
+		world.logAction(this, performer, target, args, quantity + " "+ Constants.COTTON + " added to inventory");
 	}
 
 	@Override

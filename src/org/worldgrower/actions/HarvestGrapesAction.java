@@ -45,6 +45,8 @@ public class HarvestGrapesAction implements ManagedOperation, AnimatedAction {
 		SkillUtils.useSkill(performer, Constants.FARMING_SKILL, world.getWorldStateChangedListeners());
 		
 		target.setProperty(Constants.IMAGE_ID, VineImageCalculator.getImageId(target, world));
+	
+		world.logAction(this, performer, target, args, quantity + " "+ Constants.GRAPE + " added to inventory");
 	}
 
 	@Override

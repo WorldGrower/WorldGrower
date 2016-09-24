@@ -47,6 +47,8 @@ public class ButcherAction implements ManagedOperation, AnimatedAction {
 		inventoryPerformer.addQuantity(collectedMeat, quantity);
 		
 		world.removeWorldObject(target);
+		
+		world.logAction(this, performer, target, args, quantity + " "+ Constants.MEAT_SOURCE + " added to inventory");
 	}
 	
 	private static int getButcherKnifeBonus(WorldObject performer) {

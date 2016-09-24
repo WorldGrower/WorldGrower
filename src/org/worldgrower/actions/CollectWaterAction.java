@@ -37,8 +37,8 @@ public class CollectWaterAction implements ManagedOperation, AnimatedAction {
 		WorldObjectContainer inventoryPerformer = performer.getProperty(Constants.INVENTORY);
 		
 		WorldObject collectedWater = Item.WATER.generate(1f);
-		
-		inventoryPerformer.addQuantity(collectedWater);
+		int quantity = 1;
+		inventoryPerformer.addQuantity(collectedWater, quantity);
 		
 		if (target.hasProperty(Constants.POISON_DAMAGE) && target.getProperty(Constants.POISON_DAMAGE) > 0) {
 			int indexOfWater = inventoryPerformer.getIndexFor(Constants.WATER);
@@ -50,6 +50,8 @@ public class CollectWaterAction implements ManagedOperation, AnimatedAction {
 		target.increment(Constants.WATER_SOURCE, -1);
 		
 		target.setProperty(Constants.IMAGE_ID, WellImageCalculator.getImageId(target, world));
+	
+		world.logAction(this, performer, target, args, quantity + " "+ Constants.WATER + " added to inventory");
 	}
 
 	@Override
