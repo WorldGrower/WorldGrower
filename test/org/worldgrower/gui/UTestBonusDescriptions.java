@@ -36,12 +36,12 @@ public class UTestBonusDescriptions {
 	public void testGetCattleDescription() throws IOException {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject cow = generateCow(world);
-		assertEquals("Cow(meatSource: 1)", bonusDescriptions.getWorldObjectDescription(cow, world));
+		assertEquals("Cow(meat: 1)", bonusDescriptions.getWorldObjectDescription(cow, world));
 		
 		WorldObject performer = TestUtils.createWorldObject(6, "Test1");
 		world.addWorldObject(performer);
 		cow.setProperty(Constants.CATTLE_OWNER_ID, performer.getProperty(Constants.ID));
-		assertEquals("Cow (owner: Test1, meatSource: 1)", bonusDescriptions.getWorldObjectDescription(cow, world));
+		assertEquals("Cow (owner: Test1, meat: 1)", bonusDescriptions.getWorldObjectDescription(cow, world));
 	}
 	
 	@Test
