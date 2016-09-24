@@ -48,6 +48,7 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldFacade;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.BuildAction;
 import org.worldgrower.attribute.LookDirection;
 import org.worldgrower.condition.Condition;
@@ -267,8 +268,21 @@ public final class WorldPanel extends JPanel implements ImageFactory {
 		
 		conditionIconDrawer.drawConditions(g, worldObject, lookDirection, image, worldObjectX, worldObjectY);		
 		buySellIconsDrawer.drawIcons(g, worldObject, lookDirection, image, worldObjectX, worldObjectY);
+		drawSellableMarker(g, worldObject, worldObjectX, worldObjectY);
 	}
 	
+	private void drawSellableMarker(Graphics g, WorldObject worldObject, int worldObjectX, int worldObjectY) {
+		if (worldObject.hasProperty(Constants.SELLABLE) && worldObject.getProperty(Constants.SELLABLE)) {
+			Image image = imageInfoReader.getImage(Actions.SELL_ACTION.getImageIds(), null);
+			int worldObjectWidth = worldObject.getProperty(Constants.WIDTH) * 48;
+			int worldObjectHeight = worldObject.getProperty(Constants.HEIGHT) * 48;
+			
+			int sellableImageX = worldObjectX + worldObjectWidth - 48;
+			int sellableImageY = worldObjectY + worldObjectHeight - 48;
+			g.drawImage(image, sellableImageX, sellableImageY, null);
+		}
+	}
+
 	public void drawBackgroundImage(Graphics g, Image image, int x, int y) {
 		g.drawImage(image, (x+offsetX) * 48, (y+offsetY) * 48, null);
 	}
