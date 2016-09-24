@@ -35,6 +35,7 @@ public class SwingUtils {
 
 	private static void installCloseAction(Action dispatchClosing, JRootPane root) {
 		root.getInputMap(JComponent.WHEN_FOCUSED).put(ESCAPE_KEY_STROKE, ESCAPE_KEY);
+		root.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(ESCAPE_KEY_STROKE, ESCAPE_KEY);
 		root.getActionMap().put(ESCAPE_KEY, dispatchClosing);
 	}
 	
