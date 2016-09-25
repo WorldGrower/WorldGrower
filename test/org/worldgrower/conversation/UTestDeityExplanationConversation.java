@@ -42,8 +42,8 @@ public class UTestDeityExplanationConversation {
 		ConversationContext context = new ConversationContext(performer, target, null, null, null, deityIndex);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
 		assertEquals(3, replyPhrases.size());
-		assertEquals("Demeter is the God of harvest, sacred laws and life and death.", replyPhrases.get(0).getResponsePhrase());
-		assertEquals("I don't know more about Demeter", replyPhrases.get(1).getResponsePhrase());
+		assertEquals("Aphrodite is the Goddess of love, beauty, desire, sex and pleasure.", replyPhrases.get(0).getResponsePhrase());
+		assertEquals("I don't know more about Aphrodite", replyPhrases.get(1).getResponsePhrase());
 		assertEquals("Get lost", replyPhrases.get(2).getResponsePhrase());
 	}
 
@@ -71,7 +71,7 @@ public class UTestDeityExplanationConversation {
 		
 		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, null, null);
 		assertEquals(13, questions.size());
-		assertEquals("What can you tell me about Demeter", questions.get(0).getQuestionPhrase());
+		assertEquals("What can you tell me about Aphrodite", questions.get(0).getQuestionPhrase());
 	}
 	
 	@Test

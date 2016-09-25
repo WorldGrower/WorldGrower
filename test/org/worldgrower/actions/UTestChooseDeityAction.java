@@ -34,7 +34,7 @@ public class UTestChooseDeityAction {
 		WorldObject performer = TestUtils.createSkilledWorldObject(2, Constants.GROUP, new IdList());
 		Actions.CHOOSE_DEITY_ACTION.execute(performer, performer, new int[] { 0, -1 }, world);
 		
-		assertEquals(Deity.DEMETER, performer.getProperty(Constants.DEITY));
+		assertEquals(Deity.APHRODITE, performer.getProperty(Constants.DEITY));
 	}
 	
 	@Test
@@ -45,7 +45,7 @@ public class UTestChooseDeityAction {
 		performer.setProperty(Constants.FACADE, TestUtils.createSkilledWorldObject(3, Constants.GROUP, new IdList()));
 		Actions.CHOOSE_DEITY_ACTION.execute(performer, performer, new int[] { 1, -1 }, world);
 		
-		assertEquals(Deity.HEPHAESTUS, performer.getProperty(Constants.DEITY));
+		assertEquals(Deity.APOLLO, performer.getProperty(Constants.DEITY));
 		assertEquals(Deity.DEMETER, performer.getProperty(Constants.FACADE).getProperty(Constants.DEITY));
 	}
 	

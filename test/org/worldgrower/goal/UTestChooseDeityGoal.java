@@ -62,7 +62,7 @@ public class UTestChooseDeityGoal {
 		
 		assertEquals(Actions.CHOOSE_DEITY_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 		int deityIndex = goal.calculateGoal(performer, world).getArgs()[0];
-		assertEquals(Deity.DEMETER, Deity.ALL_DEITIES.get(deityIndex));
+		assertEquals(Deity.APHRODITE, Deity.ALL_DEITIES.get(deityIndex));
 		
 		WorldObject target = createPerformer(3);
 		target.setProperty(Constants.DEITY, Deity.HADES);

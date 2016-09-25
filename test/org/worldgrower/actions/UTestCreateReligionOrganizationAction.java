@@ -34,7 +34,7 @@ public class UTestCreateReligionOrganizationAction {
 		Actions.CREATE_RELIGION_ORGANIZATION_ACTION.execute(performer, performer, new int[] { 0, 0, 0 }, world);
 		
 		assertEquals(1, world.getWorldObjects().size());
-		assertEquals("Friends of Demeter", world.getWorldObjects().get(0).getProperty(Constants.NAME));
+		assertEquals("Friends of Aphrodite", world.getWorldObjects().get(0).getProperty(Constants.NAME));
 	}
 	
 	@Test

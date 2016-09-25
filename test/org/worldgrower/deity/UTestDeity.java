@@ -28,6 +28,6 @@ public class UTestDeity {
 	@Test
 	public void testGetAllDeityNames() {
 		assertEquals(13, Deity.getAllDeityNames().size());
-		assertEquals("Demeter", Deity.getAllDeityNames().get(0));
+		assertEquals("Aphrodite", Deity.getAllDeityNames().get(0));
 	}
 }

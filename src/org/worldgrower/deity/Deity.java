@@ -64,19 +64,19 @@ public interface Deity extends Serializable {
 	public static final Poseidon POSEIDON = new Poseidon();
 	
 	public static final List<Deity> ALL_DEITIES = Arrays.asList(
-			DEMETER,
-			HEPHAESTUS,
-			HADES,
 			APHRODITE,
 			APOLLO,
-			DIONYSUS,
 			ARES,
 			ARTEMIS,
-			HERMES,
 			ATHENA,
-			ZEUS,
+			DEMETER,
+			DIONYSUS,
+			HADES,
+			HEPHAESTUS,
 			HERA,
-			POSEIDON
+			HERMES,
+			POSEIDON,
+			ZEUS
 			);
 
 	public static List<String> getAllDeityNames() {

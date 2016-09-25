@@ -162,7 +162,7 @@ public class UTestTalkAction {
 		World world = createWorld();
 		
 		String reply = talk(world, Conversations.createArgs(Conversations.DEITY_EXPLANATION_CONVERSATION, deity));
-		assertEquals("I don't know more about Demeter", reply);		
+		assertEquals("I don't know more about Aphrodite", reply);		
 	}
 	
 	@Test
