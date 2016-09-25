@@ -776,7 +776,6 @@ public class ImageInfoReader {
     	}
     	
     	idToImages.put(imageId, images);
-    	characterImageIds.add(imageId);
 	}
 
 	private void add(ImageIds id, Image image) {
