@@ -80,7 +80,7 @@ public class WorshipDeityAction implements ManagedOperation {
 	
 	@Override
 	public ImageIds getImageIds() {
-		return ImageIds.BLACK_CROSS;
+		return ImageIds.WORSHIP;
 	}
 
 	@Override

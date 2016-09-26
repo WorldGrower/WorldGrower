@@ -597,7 +597,7 @@ public class ImageInfoReader {
         add(ImageIds.GOTO_IMAGE, sprites420.getSubImage(1, 14, 1, 1));
         add(ImageIds.GREY_RING, sprites420.getSubImage(0, 19, 1, 1));
         add(ImageIds.GREY_CIRCLE, sprites420.getSubImage(0, 22, 1, 1));
-        
+        add(ImageIds.WORSHIP, pirates.getSubImage(11, 0, 1, 1));
     }
     
     private void createAnimation(ImageIds animationImageId, ImageIds imageId, int numberOfFrames) {

@@ -23,7 +23,7 @@ public enum ConversationCategory {
 	DIPLOMACY_TARGET("Diplomacy", ImageIds.HEART),
 	INTIMIDATE_TARGET("Intimidate", ImageIds.IRON_GREATAXE),
 	GROUP("Organization", ImageIds.BLACK_CROSS),
-	DEITY("Deity", ImageIds.BLACK_CROSS),
+	DEITY("Deity", ImageIds.WORSHIP),
 	LEADER("Leader", ImageIds.BLACK_CROSS), 
 	SHARE_KNOWLEDGE("Share knowledge", ImageIds.PAPER),
 	ARENA("Arena", ImageIds.IRON_AXE),
