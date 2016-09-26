@@ -595,7 +595,9 @@ public class ImageInfoReader {
         add(ImageIds.POSEIDON_SYMBOL, sprites420.getSubImage(6, 8, 1, 1));
         
         add(ImageIds.GOTO_IMAGE, sprites420.getSubImage(1, 14, 1, 1));
-
+        add(ImageIds.GREY_RING, sprites420.getSubImage(0, 19, 1, 1));
+        add(ImageIds.GREY_CIRCLE, sprites420.getSubImage(0, 22, 1, 1));
+        
     }
     
     private void createAnimation(ImageIds animationImageId, ImageIds imageId, int numberOfFrames) {
