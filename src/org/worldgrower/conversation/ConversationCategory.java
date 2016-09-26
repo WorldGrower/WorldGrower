@@ -24,7 +24,7 @@ public enum ConversationCategory {
 	INTIMIDATE_TARGET("Intimidate", ImageIds.IRON_GREATAXE),
 	GROUP("Organization", ImageIds.BLACK_CROSS),
 	DEITY("Deity", ImageIds.WORSHIP),
-	LEADER("Leader", ImageIds.BLACK_CROSS), 
+	LEADER("Leader", ImageIds.GOLD_SHIELD), 
 	SHARE_KNOWLEDGE("Share knowledge", ImageIds.PAPER),
 	ARENA("Arena", ImageIds.IRON_AXE),
 	REQUEST_ACTION("Request action", ImageIds.SKELETON);

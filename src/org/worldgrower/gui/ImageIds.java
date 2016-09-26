@@ -436,5 +436,6 @@ public enum ImageIds {
 	GOTO_IMAGE,
 	GREY_RING,
 	GREY_CIRCLE,
-	WORSHIP
+	WORSHIP,
+	GOLD_SHIELD
 }
