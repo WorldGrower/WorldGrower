@@ -46,7 +46,9 @@ import org.worldgrower.generator.CommonerGenerator;
 import org.worldgrower.generator.CreatureGenerator;
 import org.worldgrower.generator.PlantGenerator;
 import org.worldgrower.generator.WorldGenerator;
+import org.worldgrower.goal.GoalUtils;
 import org.worldgrower.goal.GroupPropertyUtils;
+import org.worldgrower.goal.LocationPropertyUtils;
 import org.worldgrower.goal.PerceptionPropertyUtils;
 import org.worldgrower.gui.AdditionalManagedOperationListenerFactory;
 import org.worldgrower.gui.CommonerImageIds;
@@ -158,7 +160,25 @@ public class Game {
 			final CommonerGenerator commonerGenerator) {
 		final WorldObject playerCharacter = CommonerGenerator.createPlayerCharacter(playerCharacterId, gameParameters.getPlayerName(), gameParameters.getPlayerProfession(), gameParameters.getGender(), world, commonerGenerator, organization, characterAttributes, playerCharacterImageId);
 		world.addWorldObject(playerCharacter);
+		
+		movePlayerCharacterIfOnOccupiedSquare(world, playerCharacter);
+		
 		return playerCharacter;
+	}
+
+	static void movePlayerCharacterIfOnOccupiedSquare(World world, final WorldObject playerCharacter) {
+		int x = playerCharacter.getProperty(Constants.X);
+		int y = playerCharacter.getProperty(Constants.Y);
+		List<WorldObject> worldObjects = LocationPropertyUtils.getWorldObjects(x, y, world);
+		
+		if (worldObjects.size() > 1) {
+			for(int newCoordinate = x; newCoordinate<world.getWidth() && newCoordinate < world.getHeight(); newCoordinate++) {
+				if (GoalUtils.isOpenSpace(newCoordinate, newCoordinate, 1, 1, world)) {
+					LocationPropertyUtils.updateLocation(playerCharacter, newCoordinate, newCoordinate, world);
+					break;
+				}
+			}
+		}
 	}
 
 	private static void addWorldListeners(World world) {
