@@ -21,7 +21,11 @@ import static org.worldgrower.TestUtils.createWorldObject;
 import java.util.List;
 
 import org.junit.Test;
+import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.CutWoodAction;
+import org.worldgrower.actions.TalkAction;
+import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.generator.PlantGenerator;
 
 public class UTestTaskCalculator {
 
@@ -165,6 +169,47 @@ public class UTestTaskCalculator {
 		assertContains(tasks.get(1).toString(), "args=[1, 1]");
 		assertContains(tasks.get(2).toString(), "args=[1, 1]");
 		assertContains(tasks.get(12).toString(), CutWoodAction.class.getName());
+	}
+	
+	@Test
+	public void testPathFindingNoPath() {
+		WorldObject performer = createWorldObject(0, 0, 1, 1, Constants.ID, 2);
+		WorldObject target = createWorldObject(2, 2, 1, 1, Constants.ID, 3);
+		
+		World world = new WorldImpl(10, 10, null, null);
+		world.addWorldObject(performer);
+		world.addWorldObject(target);
+		
+		addBerryBushPrison(world);
+		
+		List<OperationInfo> tasks = taskCalculator.calculateTask(performer, world, new OperationInfo(performer, target, Args.EMPTY, new TalkAction()));
+		assertEquals(0, tasks.size());
+	}
+	
+	@Test
+	public void testPathFindingNoPathOverLongDistance() {
+		WorldObject performer = createWorldObject(25, 25, 1, 1, Constants.ID, 2);
+		WorldObject target = createWorldObject(2, 2, 1, 1, Constants.ID, 3);
+		
+		World world = new WorldImpl(30, 30, null, null);
+		world.addWorldObject(performer);
+		world.addWorldObject(target);
+		
+		addBerryBushPrison(world);
+		
+		List<OperationInfo> tasks = taskCalculator.calculateTask(performer, world, new OperationInfo(performer, target, Args.EMPTY, new TalkAction()));
+		assertEquals(0, tasks.size());
+	}
+
+	private void addBerryBushPrison(World world) {
+		PlantGenerator.generateBerryBush(1, 1, world);
+		PlantGenerator.generateBerryBush(1, 2, world);
+		PlantGenerator.generateBerryBush(1, 3, world);
+		PlantGenerator.generateBerryBush(2, 1, world);
+		PlantGenerator.generateBerryBush(3, 1, world);
+		PlantGenerator.generateBerryBush(3, 2, world);
+		PlantGenerator.generateBerryBush(3, 3, world);
+		PlantGenerator.generateBerryBush(2, 3, world);
 	}
 	
 	private static void assertContains(String value, String substring) {
