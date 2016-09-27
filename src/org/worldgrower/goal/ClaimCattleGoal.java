@@ -50,7 +50,7 @@ public class ClaimCattleGoal implements Goal {
 	}
 
 	private boolean isValidClaimCattleTarget(WorldObject performer, WorldObject w) {
-		return w.getProperty(Constants.CATTLE_OWNER_ID) == null && Reach.distance(performer, w) < 15;
+		return w.getProperty(Constants.CATTLE_OWNER_ID) == null;
 	}
 	
 	@Override
