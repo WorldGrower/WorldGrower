@@ -14,6 +14,7 @@
  *******************************************************************************/
 package org.worldgrower.conversation;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -34,16 +35,19 @@ public class CollectTaxesConversation implements Conversation {
 		WorldObject target = conversationContext.getTarget();
 		World world = conversationContext.getWorld();
 		
-		int amountToCollect = GroupPropertyUtils.getAmountToCollect(target, world);
-		
 		final int replyId;
-		if (target.getProperty(Constants.GOLD) >= amountToCollect) {
+		if (targetCanPay(target, world)) {
 			replyId = YES;
 		} else {
 			replyId = NO;
 		}
 		
 		return getReply(getReplyPhrases(conversationContext), replyId);
+	}
+	
+	private boolean targetCanPay(WorldObject target, World world) {
+		int amountToCollect = GroupPropertyUtils.getAmountToCollect(target, world);
+		return (target.getProperty(Constants.GOLD) >= amountToCollect);
 	}
 
 	@Override
@@ -54,10 +58,16 @@ public class CollectTaxesConversation implements Conversation {
 	
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
-		return Arrays.asList(
-			new Response(YES, "Yes, I'll pay my taxes"),
-			new Response(NO, "No, I won't pay my taxes")
-			);
+		WorldObject target = conversationContext.getTarget();
+		World world = conversationContext.getWorld();
+		
+		List<Response> responses = new ArrayList<>();
+		if (targetCanPay(target, world)) {
+			responses.add(new Response(YES, "Yes, I'll pay my taxes"));
+		}
+		responses.add(new Response(NO, "No, I won't pay my taxes"));
+		
+		return responses;
 	}
 	
 	@Override

@@ -14,6 +14,7 @@
  *******************************************************************************/
 package org.worldgrower.conversation;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -38,10 +39,8 @@ public class CollectPayCheckConversation implements Conversation {
 		WorldObject target = conversationContext.getTarget();
 		World world = conversationContext.getWorld();
 		
-		int amountToCollect = GroupPropertyUtils.getPayCheckAmount(performer, world);
-		
 		final int replyId;
-		if (target.getProperty(Constants.ORGANIZATION_GOLD) >= amountToCollect) {
+		if (targetCanPay(performer, target, world)) {
 			replyId = YES;
 		} else {
 			replyId = NO;
@@ -56,12 +55,23 @@ public class CollectPayCheckConversation implements Conversation {
 		return Arrays.asList(new Question(null, "I'm here to collect my pay check of " + amountToCollect + " gold. Will you pay?"));
 	}
 	
+	private boolean targetCanPay(WorldObject performer, WorldObject target, World world) {
+		int amountToCollect = GroupPropertyUtils.getPayCheckAmount(performer, world);
+		return (target.getProperty(Constants.ORGANIZATION_GOLD) >= amountToCollect);
+	}
+	
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
-		return Arrays.asList(
-			new Response(YES, "Yes, I'll pay your pay check"),
-			new Response(NO, "No, I won't pay your pay check")
-			);
+		WorldObject performer = conversationContext.getPerformer();
+		WorldObject target = conversationContext.getTarget();
+		World world = conversationContext.getWorld();
+		
+		List<Response> responses = new ArrayList<>();
+		if (targetCanPay(performer, target, world)) {
+			responses.add(new Response(YES, "Yes, I'll pay your pay check"));
+		}
+		responses.add(new Response(NO, "No, I won't pay your pay check"));
+		return responses;
 	}
 	
 	@Override

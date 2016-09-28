@@ -26,6 +26,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.IdRelationshipMap;
 import org.worldgrower.attribute.ItemCountMap;
+import org.worldgrower.generator.CreatureGenerator;
 import org.worldgrower.generator.Item;
 import org.worldgrower.profession.Professions;
 
@@ -83,6 +84,31 @@ public class UTestStopSellingConversation {
 		assertEquals(50, performer.getProperty(Constants.RELATIONSHIPS).getValue(target));
 		assertEquals(50, target.getProperty(Constants.RELATIONSHIPS).getValue(performer));
 		assertEquals(null, target.getProperty(Constants.PROFESSION));
+	}
+	
+	@Test
+	public void testHandleResponse0Butcher() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		world.addWorldObject(target);
+		
+		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
+		target.setProperty(Constants.PROFESSION, Professions.BUTCHER_PROFESSION);
+		
+		WorldObject cow = createCow(world);
+		cow.setProperty(Constants.CATTLE_OWNER_ID, target.getProperty(Constants.ID));
+		
+		conversation.handleResponse(0, context);
+		assertEquals(null, cow.getProperty(Constants.CATTLE_OWNER_ID));
+	}
+	
+	private WorldObject createCow(World world) {
+		WorldObject organization = TestUtils.createWorldObject(1, "");
+		CreatureGenerator creatureGenerator = new CreatureGenerator(organization);
+		int cowId = creatureGenerator.generateCow(0, 0, world);
+		WorldObject cow = world.findWorldObjectById(cowId);
+		return cow;
 	}
 	
 	@Test

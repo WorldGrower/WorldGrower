@@ -36,10 +36,14 @@ public class UTestCollectPayCheckConversation {
 	
 	@Test
 	public void testGetReplyPhrases() {
-		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
-		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		World world = new WorldImpl(1, 1, null, new DoNothingWorldOnTurn());
+		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		WorldObject target = TestUtils.createIntelligentWorldObject(8, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		target.setProperty(Constants.ORGANIZATION_GOLD, 1000);
 		
-		ConversationContext context = new ConversationContext(performer, target, null, null, null, 0);
+		createDefaultVillagersOrganization(world, target);
+		
+		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
 		assertEquals(2, replyPhrases.size());
 		assertEquals("Yes, I'll pay your pay check", replyPhrases.get(0).getResponsePhrase());

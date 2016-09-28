@@ -37,10 +37,16 @@ public class UTestCollectTaxesConversation {
 	
 	@Test
 	public void testGetReplyPhrases() {
-		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
-		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		World world = new WorldImpl(10, 10, null, new DoNothingWorldOnTurn());
+		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		WorldObject target = TestUtils.createIntelligentWorldObject(8, Constants.RELATIONSHIPS, new IdRelationshipMap());
 		
-		ConversationContext context = new ConversationContext(performer, target, null, null, null, 0);
+		target.setProperty(Constants.BUILDINGS, new BuildingList());
+		target.setProperty(Constants.GOLD, 1000);
+		
+		createDefaultVillagersOrganization(world, target);
+		
+		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
 		assertEquals(2, replyPhrases.size());
 		assertEquals("Yes, I'll pay my taxes", replyPhrases.get(0).getResponsePhrase());
@@ -103,6 +109,8 @@ public class UTestCollectTaxesConversation {
 		WorldObject organization = createVillagersOrganization(world);
 		organization.getProperty(Constants.TAXES_PAID_TURN).incrementValue(target, 1);
 		organization.setProperty(Constants.HOUSE_TAX_RATE, 2);
+		organization.setProperty(Constants.ID, 1);
+		world.addWorldObject(organization);
 	}
 
 	private void moveTurnsForword(World world, int count) {

@@ -23,8 +23,10 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.generator.Item;
+import org.worldgrower.goal.CattlePropertyUtils;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
+import org.worldgrower.profession.Professions;
 
 public class StopSellingConversation implements Conversation {
 
@@ -92,13 +94,24 @@ public class StopSellingConversation implements Conversation {
 		if (replyIndex == YES) {
 			RelationshipPropertyUtils.changeRelationshipValue(performer, target, 50, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 			//TODO: stop selling should be permanent
+			if (target.getProperty(Constants.PROFESSION) == Professions.BUTCHER_PROFESSION) {
+				unclaimCattle(target, world);
+			}
 			target.setProperty(Constants.PROFESSION, null);
+			
 			
 		} else if (replyIndex == NO) {
 			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -100, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 		}
 	}
 	
+	private void unclaimCattle(WorldObject performer, World world) {
+		for(WorldObject ownedCattle : CattlePropertyUtils.getOwnedCattle(performer, world)) {
+			ownedCattle.setProperty(Constants.CATTLE_OWNER_ID, null);
+		}
+		
+	}
+
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, World world) {
 		return "talking about selling";
