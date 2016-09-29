@@ -32,10 +32,15 @@ public class CollectPayCheckGoal implements Goal {
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
 		WorldObject target = GroupPropertyUtils.getLeaderOfVillagers(world);
 		if (target != null && !target.equals(performer)) {
-			return new OperationInfo(performer, target, Conversations.createArgs(Conversations.COLLECT_PAY_CHECK_CONVERSATION), Actions.TALK_ACTION);
-		} else {
-			return null;
+			if (isTargetForConversation(performer, target, world)) {
+				return new OperationInfo(performer, target, Conversations.createArgs(Conversations.COLLECT_PAY_CHECK_CONVERSATION), Actions.TALK_ACTION);
+			}
 		}
+		return null;
+	}
+	
+	private boolean isTargetForConversation(WorldObject performer, WorldObject target, World world) {
+		return !Conversations.COLLECT_PAY_CHECK_CONVERSATION.previousAnswerWasNegative(performer, target, world);
 	}
 	
 	@Override

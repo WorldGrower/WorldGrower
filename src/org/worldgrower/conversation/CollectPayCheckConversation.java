@@ -99,10 +99,17 @@ public class CollectPayCheckConversation implements Conversation {
 			//TODO: rebellion?
 			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -150, 0, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 		}
+		
+		//TODO: if there are more return values, set return value Object on execute method, search for any other TODO like this
+		world.getHistory().setNextAdditionalValue(replyIndex);
 	}
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, World world) {
 		return "talking about collecting my pay check";
+	}
+
+	public boolean previousAnswerWasNegative(WorldObject performer, WorldObject target, World world) {
+		return PreviousResponseIdUtils.previousResponseIdsContains(this, NO, performer, target, world);
 	}
 }

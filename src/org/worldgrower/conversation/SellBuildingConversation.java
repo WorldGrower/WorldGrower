@@ -85,19 +85,16 @@ public class SellBuildingConversation implements Conversation {
 		
 		if (replyIndex == YES) {
 			int buildingId = performer.getProperty(Constants.BUILDINGS).getIds(buildingType).get(0);
-			WorldObject building = world.findWorldObjectById(buildingId);
 			Item buildingTypeItem = Item.mapBuildingTypeToItem(buildingType);
 			int price = performer.getProperty(Constants.PRICES).getPrice(buildingTypeItem);
 			
-			performer.getProperty(Constants.BUILDINGS).remove(buildingId);
-			target.getProperty(Constants.BUILDINGS).add(buildingId, buildingType);
-			building.setProperty(Constants.SELLABLE, Boolean.FALSE);
+			HousePropertyUtils.transferProperty(buildingId, performer, target, world);
 			
 			target.increment(Constants.GOLD, -price);
 			performer.increment(Constants.GOLD, price);
 		}
 	}
-	
+
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, World world) {
 		return "talking about selling a " + buildingType.getDescription();

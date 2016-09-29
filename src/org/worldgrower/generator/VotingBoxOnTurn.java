@@ -14,6 +14,7 @@
  *******************************************************************************/
 package org.worldgrower.generator;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.worldgrower.Constants;
@@ -29,6 +30,9 @@ import org.worldgrower.goal.KnowledgeMapPropertyUtils;
 
 public class VotingBoxOnTurn implements OnTurn {
 
+	//used for debugging purposes
+	private static final List<String> ELECTION_RESULTS = new ArrayList<>();
+	
 	@Override
 	public void onTurn(WorldObject worldObject, World world, WorldStateChangedListeners worldStateChangedListeners) {
 		
@@ -37,6 +41,8 @@ public class VotingBoxOnTurn implements OnTurn {
 		if (VotingPropertyUtils.isVotingdone(worldObject)) {
 			int newLeaderId = getLeaderId(worldObject, world);
 			WorldObject organization = setLeaderOfOrganization(worldObject, world, newLeaderId);
+		
+			ELECTION_RESULTS.add(organization.getProperty(Constants.NAME) + ": " + worldObject.getProperty(Constants.VOTES));
 			
 			world.removeWorldObject(worldObject);
 			
@@ -70,5 +76,9 @@ public class VotingBoxOnTurn implements OnTurn {
 		IdMap votes = worldObject.getProperty(Constants.VOTES);
 		int newLeaderId = votes.findBestId(w -> true, world);
 		return newLeaderId;
+	}
+
+	public static List<String> getElectionResults() {
+		return ELECTION_RESULTS;
 	}
 }

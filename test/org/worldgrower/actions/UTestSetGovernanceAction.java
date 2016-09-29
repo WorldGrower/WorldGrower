@@ -145,6 +145,10 @@ public class UTestSetGovernanceAction {
 
 		@Override
 		public void skillsDeteriorated(WorldObject worldObject) {
+		}
+
+		@Override
+		public void fireAssetsSeized(WorldObject worldObject, List<Integer> buildingIds) {
 		}		
 	}
 	

@@ -126,5 +126,24 @@ public class UTestCollectTaxesConversation {
 		return organization;
 	}
 	
+	@Test
+	public void testSeizeAssets() {
+		World world = new WorldImpl(10, 10, null, new DoNothingWorldOnTurn());
+		WorldObject leader = TestUtils.createIntelligentWorldObject(7, Constants.BUILDINGS, new BuildingList());
+		WorldObject target = TestUtils.createIntelligentWorldObject(8, Constants.BUILDINGS, new BuildingList());
+		world.addWorldObject(leader);
+		
+		int shackId = BuildingGenerator.generateShack(0, 0, world, target);
+		target.getProperty(Constants.BUILDINGS).add(shackId, BuildingType.SHACK);
+		
+		createDefaultVillagersOrganization(world, leader);
+		GroupPropertyUtils.getVillagersOrganization(world).setProperty(Constants.ORGANIZATION_LEADER_ID, leader.getProperty(Constants.ID));
+		
+		conversation.seizeAssets(target, world);
+		
+		assertEquals(false, target.getProperty(Constants.BUILDINGS).contains(shackId));
+		assertEquals(true, leader.getProperty(Constants.BUILDINGS).contains(shackId));
+	}
+	
 	//TODO: less setup for unit tests?
 }

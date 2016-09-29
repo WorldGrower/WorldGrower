@@ -98,4 +98,10 @@ public class WorldStateChangedListeners {
 			worldStateChangedListener.skillsDeteriorated(worldObject);
 		}
 	}
+
+	public void fireAssetsSeized(WorldObject worldObject, List<Integer> buildingIds) {
+		for(WorldStateChangedListener worldStateChangedListener : worldStateChangedListeners) {
+			worldStateChangedListener.fireAssetsSeized(worldObject, buildingIds);
+		}
+	}
 }

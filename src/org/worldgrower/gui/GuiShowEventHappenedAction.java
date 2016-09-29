@@ -47,7 +47,7 @@ public class GuiShowEventHappenedAction implements WorldStateChangedListener {
 
 	@Override
 	public void creatureTypeChange(WorldObject worldObject, CreatureType newCreatureType, String description) {
-		if (worldObject == playerCharacter) {
+		if (worldObject.equals(playerCharacter)) {
 			MessageDialogUtils.showMessage(description, "Changing creature type", worldObject, container, imageInfoReader);
 		}
 	}
@@ -175,6 +175,14 @@ public class GuiShowEventHappenedAction implements WorldStateChangedListener {
 		if (worldObject.equals(playerCharacter)) {
 			String description = " The skills of " + playerCharacter.getProperty(Constants.NAME) + " have decreased, removing progress made since the last skill increase";
 			MessageDialogUtils.showMessage(description, "Skills Deteriorated", playerCharacter, container, imageInfoReader);
+		}
+	}
+
+	@Override
+	public void fireAssetsSeized(WorldObject worldObject, List<Integer> buildingIds) {
+		if (worldObject.equals(playerCharacter)) {
+			String description = " All shacks and houses of " + playerCharacter.getProperty(Constants.NAME) + " have been seized in order to pay for taxes";
+			MessageDialogUtils.showMessage(description, "Assets Seized", playerCharacter, container, imageInfoReader);
 		}
 	}
 }

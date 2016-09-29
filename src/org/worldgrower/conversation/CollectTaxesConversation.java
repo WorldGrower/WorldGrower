@@ -21,8 +21,10 @@ import java.util.List;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.IdMap;
 import org.worldgrower.goal.GroupPropertyUtils;
+import org.worldgrower.goal.HousePropertyUtils;
 import org.worldgrower.history.HistoryItem;
 
 public class CollectTaxesConversation implements Conversation {
@@ -88,16 +90,36 @@ public class CollectTaxesConversation implements Conversation {
 			target.increment(Constants.GOLD, -amountToCollect);
 			performer.increment(Constants.ORGANIZATION_GOLD, amountToCollect);
 			
-			IdMap taxesPaidTurn = organization.getProperty(Constants.TAXES_PAID_TURN);
-			taxesPaidTurn.remove(target);
-			taxesPaidTurn.incrementValue(target, world.getCurrentTurn().getValue());
 		} else if (replyIndex == NO) {
-			//TODO: organization sells house
+			seizeAssets(target, world);
 		}
+		adjustTaxesPaid(target, world, organization);
+	}
+
+	void seizeAssets(WorldObject target, World world) {
+		WorldObject leader = GroupPropertyUtils.getLeaderOfVillagers(world);
+		if (leader != null) {
+			List<Integer> buildingIds = target.getProperty(Constants.BUILDINGS).getIds(BuildingType.SHACK, BuildingType.HOUSE);
+			
+			for(int buildingId : buildingIds) {
+				HousePropertyUtils.transferProperty(buildingId, target, leader, world);
+			}
+			world.getWorldStateChangedListeners().fireAssetsSeized(target, buildingIds);
+		}
+	}
+
+	private void adjustTaxesPaid(WorldObject target, World world, WorldObject organization) {
+		IdMap taxesPaidTurn = organization.getProperty(Constants.TAXES_PAID_TURN);
+		taxesPaidTurn.remove(target);
+		taxesPaidTurn.incrementValue(target, world.getCurrentTurn().getValue());
 	}
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, World world) {
 		return "talking about taxes to collect";
+	}
+
+	public boolean previousAnswerWasNegative(WorldObject performer, WorldObject target, World world) {
+		return PreviousResponseIdUtils.previousResponseIdsContains(this, NO, performer, target, world);
 	}
 }

@@ -130,4 +130,14 @@ public class HousePropertyUtils {
 			world.removeWorldObject(shack);
 		}
 	}
+	
+	public static void transferProperty(int buildingId, WorldObject performer, WorldObject target, World world) {
+		WorldObject building = world.findWorldObjectById(buildingId);
+		BuildingType buildingType = building.getProperty(Constants.BUILDING_TYPE);
+		
+		performer.getProperty(Constants.BUILDINGS).remove(buildingId);
+		
+		target.getProperty(Constants.BUILDINGS).add(buildingId, buildingType);
+		building.setProperty(Constants.SELLABLE, Boolean.FALSE);
+	}
 }

@@ -37,4 +37,5 @@ public interface WorldStateChangedListener {
 	public void levelIncreased(WorldObject worldObject, int newValue);
 	public void lostLeadership(WorldObject worldObject, WorldObject organization);
 	public void skillsDeteriorated(WorldObject worldObject);
+	public void fireAssetsSeized(WorldObject worldObject, List<Integer> buildingIds);
 }
