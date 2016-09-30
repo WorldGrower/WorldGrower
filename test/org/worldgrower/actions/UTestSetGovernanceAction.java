@@ -100,7 +100,7 @@ public class UTestSetGovernanceAction {
 		}
 
 		@Override
-		public void electionFinished(WorldObject winner, WorldObject organization, IdList candidates) {
+		public void electionFinished(WorldObject winner, WorldObject organization, IdList candidates, int electionWonPercentage) {
 		}
 
 		@Override

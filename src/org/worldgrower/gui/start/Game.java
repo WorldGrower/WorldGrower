@@ -47,6 +47,7 @@ import org.worldgrower.generator.CreatureGenerator;
 import org.worldgrower.generator.PlantGenerator;
 import org.worldgrower.generator.WorldGenerator;
 import org.worldgrower.goal.GoalUtils;
+import org.worldgrower.goal.Goals;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.LocationPropertyUtils;
 import org.worldgrower.goal.PerceptionPropertyUtils;
@@ -312,6 +313,12 @@ public class Game {
 			int hitPointsAfterRest = playerCharacter.getProperty(Constants.HIT_POINTS);
 			
 			if (hitPointsAfterRest < hitPointsBeforeRest) {
+				worldPanel.setStatusMessage("Action '" + action.getDescription() + "' was interrupted by enemy attack");
+				break;
+			}
+			
+			if (!Goals.PROTECT_ONE_SELF_GOAL.isGoalMet(playerCharacter, world)) {
+				worldPanel.setStatusMessage("Action '" + action.getDescription() + "' was interrupted due to nearby enemy");
 				break;
 			}
 		}

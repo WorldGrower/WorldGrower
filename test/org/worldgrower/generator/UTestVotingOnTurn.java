@@ -63,6 +63,20 @@ public class UTestVotingOnTurn {
 		assertEquals(3, organization.getProperty(Constants.ORGANIZATION_LEADER_ID).intValue());
 	}
 	
-	
+	@Test
+	public void testCalculatePercentageWon() {
+		World world = new WorldImpl(10, 10, null, new DoNothingWorldOnTurn());
+		WorldObject candidate1 = TestUtils.createIntelligentWorldObject(2, "candidate1");
+		WorldObject candidate2 = TestUtils.createIntelligentWorldObject(3, "candidate2");
+		
+		int votingBoxId = BuildingGenerator.generateVotingBox(5, 5, world);
+		WorldObject votingBox = world.findWorldObjectById(votingBoxId);
+		
+		votingBox.getProperty(Constants.VOTES).incrementValue(candidate1, 1);
+		assertEquals(100, new VotingBoxOnTurn().calculatePercentageWon(votingBox, 2));
+		
+		votingBox.getProperty(Constants.VOTES).incrementValue(candidate2, 3);
+		assertEquals(75, new VotingBoxOnTurn().calculatePercentageWon(votingBox, 3));
+	}
 
 }

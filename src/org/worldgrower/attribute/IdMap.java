@@ -28,6 +28,7 @@ public interface IdMap extends Serializable, IdContainer {
 	public void incrementValue(WorldObject worldObject, int value);
 	public int getValue(int id);
 	public int getValue(WorldObject worldObject);
+	public int getSumOfAllValues();
 	
 	public int findBestId(Predicate<WorldObject> predicate, World world);
 	public int findBestId(Predicate<WorldObject> predicate, Comparator<WorldObject> comparator,  World world);

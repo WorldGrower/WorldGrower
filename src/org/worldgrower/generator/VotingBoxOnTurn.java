@@ -47,7 +47,8 @@ public class VotingBoxOnTurn implements OnTurn {
 			world.removeWorldObject(worldObject);
 			
 			if (newLeaderId != -1) {
-				fireElectionFinished(worldObject, world, worldStateChangedListeners, newLeaderId, organization);
+				int electionWonPercentage = calculatePercentageWon(worldObject, newLeaderId);
+				fireElectionFinished(worldObject, world, worldStateChangedListeners, newLeaderId, organization, electionWonPercentage);
 				
 				List<WorldObject> organizationMembers = GroupPropertyUtils.findOrganizationMembers(organization, world);
 				KnowledgeMapPropertyUtils.peopleKnowOfProperty(organizationMembers, organization, Constants.ORGANIZATION_LEADER_ID, newLeaderId, world);
@@ -55,10 +56,17 @@ public class VotingBoxOnTurn implements OnTurn {
 		}
 	}
 
-	private void fireElectionFinished(WorldObject worldObject, World world, WorldStateChangedListeners worldStateChangedListeners, int newLeaderId, WorldObject organization) {
+	int calculatePercentageWon(WorldObject worldObject, int newLeaderId) {
+		IdMap votes = worldObject.getProperty(Constants.VOTES);
+		int votesWon = votes.getValue(newLeaderId);
+		int totalVotes = votes.getSumOfAllValues();
+		return (votesWon *100) / totalVotes;
+	}
+
+	private void fireElectionFinished(WorldObject worldObject, World world, WorldStateChangedListeners worldStateChangedListeners, int newLeaderId, WorldObject organization, int electionWonPercentage) {
 		IdList candidates = worldObject.getProperty(Constants.CANDIDATES);
 		WorldObject winner = world.findWorldObjectById(newLeaderId);
-		worldStateChangedListeners.fireElectionFinished(winner, organization, candidates.copy());
+		worldStateChangedListeners.fireElectionFinished(winner, organization, candidates.copy(), electionWonPercentage);
 	}
 
 	private WorldObject setLeaderOfOrganization(WorldObject worldObject, World world, int newLeaderId) {

@@ -45,9 +45,9 @@ public class WorldStateChangedListeners {
 		}
 	}
 	
-	public void fireElectionFinished(WorldObject winner, WorldObject organization, IdList candidates) {
+	public void fireElectionFinished(WorldObject winner, WorldObject organization, IdList candidates, int electionWonPercentage) {
 		for(WorldStateChangedListener worldStateChangedListener : worldStateChangedListeners) {
-			worldStateChangedListener.electionFinished(winner, organization, candidates);
+			worldStateChangedListener.electionFinished(winner, organization, candidates, electionWonPercentage);
 		}
 	}
 	

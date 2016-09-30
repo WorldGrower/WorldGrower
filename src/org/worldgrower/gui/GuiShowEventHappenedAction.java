@@ -61,26 +61,26 @@ public class GuiShowEventHappenedAction implements WorldStateChangedListener {
 	}
 	
 	@Override
-	public void electionFinished(WorldObject winner, WorldObject organization, IdList candidates) {
+	public void electionFinished(WorldObject winner, WorldObject organization, IdList candidates, int electionWonPercentage) {
 		int winnerId = winner.getProperty(Constants.ID);
 		int playerId = playerCharacter.getProperty(Constants.ID);
 		
 		if (candidates.contains(playerId)) {
 			final String description;
 			if (playerId == winnerId) {
-				description = "Congratulations, you are the new leader of the " + organization.getProperty(Constants.NAME);
+				description = "Congratulations, you won with " + electionWonPercentage + "% of the votes and you are the new leader of the " + organization.getProperty(Constants.NAME);
 			} else {
-				description = createElectionWinnerDescription(winner, organization);
+				description = createElectionWinnerDescription(winner, organization, electionWonPercentage);
 			}
 			MessageDialogUtils.showMessage(description, "Election finished", winner, container, imageInfoReader);
 		} else if (organization.equals(GroupPropertyUtils.getVillagersOrganization(world))) {
-			String description = createElectionWinnerDescription(winner, organization);
+			String description = createElectionWinnerDescription(winner, organization, electionWonPercentage);
 			MessageDialogUtils.showMessage(description, "Election finished", winner, container, imageInfoReader);
 		}
 	}
 
-	String createElectionWinnerDescription(WorldObject winner, WorldObject organization) {
-		return winner.getProperty(Constants.NAME) + " is the new leader of the " + organization.getProperty(Constants.NAME);
+	String createElectionWinnerDescription(WorldObject winner, WorldObject organization, int electionWonPercentage) {
+		return winner.getProperty(Constants.NAME) + " won with " + electionWonPercentage + "% of the votes and is the new leader of the " + organization.getProperty(Constants.NAME);
 	}
 
 	@Override

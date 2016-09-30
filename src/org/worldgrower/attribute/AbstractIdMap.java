@@ -59,6 +59,15 @@ public abstract class AbstractIdMap implements IdMap {
 	}
 	
 	@Override
+	public final int getSumOfAllValues() {
+		int sumOfAllValues = 0;
+		for(Entry<Integer, Integer> entry : idsToValue.entrySet()) {
+			sumOfAllValues += entry.getValue();
+		}
+		return sumOfAllValues;
+	}
+	
+	@Override
 	public final int findBestId(Predicate<WorldObject> predicate, World world) {
 		int bestId = -1;
 		int bestRelationshipValue = Integer.MIN_VALUE;
