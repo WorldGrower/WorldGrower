@@ -76,9 +76,13 @@ public class SecludedAction implements ManagedOperation {
 		return action.getSimpleDescription();
 	}
 	
+	// readResolve shouldn't be called because this action isn't a constant
+	// and isn't found in list of actions
+	/*
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
 	}
+	*/
 	
 	@Override
 	public ImageIds getImageIds() {
