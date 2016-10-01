@@ -294,9 +294,10 @@ public final class InventoryDialog extends AbstractDialog {
 		OptionalTableColumn attackOptionalTableColumn = new OptionalTableColumn(0, "Attack", i -> i.getAttack());
 		OptionalTableColumn armorOptionalTableColumn = new OptionalTableColumn(0, "Armor", i -> i.getArmor());
 		OptionalTableColumn toolsOptionalTableColumn = new OptionalTableColumn(0, "Bonus", i -> i.getToolBonus());
+		OptionalTableColumn priceOptionalTableColumn = new OptionalTableColumn(0, "Price", i -> Integer.toString(i.getPrice()));
 		
 		List<JToggleButton> filterButtons = new ArrayList<>();
-		filterButtons.add(createFilterButton(filterPanel, 0, ImageIds.CHEST, "Show all items", parentTable));
+		filterButtons.add(createFilterButton(filterPanel, 0, ImageIds.CHEST, "Show all items", parentTable, priceOptionalTableColumn));
 		filterButtons.add(createFilterButton(filterPanel, 1, ImageIds.IRON_CLAYMORE, "Show weapons", parentTable, attackOptionalTableColumn));
 		filterButtons.add(createFilterButton(filterPanel, 2, ImageIds.IRON_CUIRASS, "Show armor", parentTable, armorOptionalTableColumn));
 		filterButtons.add(createFilterButton(filterPanel, 3, ImageIds.SLEEPING_POTION, "Show drinks and potions", parentTable));
