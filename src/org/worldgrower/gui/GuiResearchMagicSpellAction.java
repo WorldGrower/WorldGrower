@@ -30,6 +30,7 @@ import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.actions.magic.ResearchSpellAction;
 import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.start.Game;
+import org.worldgrower.gui.util.ListData;
 import org.worldgrower.gui.util.ListInputDialog;
 import org.worldgrower.gui.util.TextInputDialog;
 import org.worldgrower.util.NumberUtils;
@@ -62,17 +63,19 @@ public class GuiResearchMagicSpellAction extends AbstractAction {
 		
 		List<MagicSpell> magicSpellsToResearch =  Actions.getMagicSpellsToResearch(playerCharacter);
 		if (magicSpellsToResearch.size() > 0) { 
-			String[] magicSpellDescriptions = Actions.getMagicSpellDescriptions(magicSpellsToResearch).toArray(new String[0]);
-			String magicSpellDescription = new ListInputDialog("Choose Magic Spell", magicSpellDescriptions, soundIdReader, parentFrame).showMe();
+			List<String> magicSpellDescriptions = Actions.getMagicSpellDescriptions(magicSpellsToResearch);
+			List<ImageIds> imageIds = Actions.getMagicSpellImageIds(magicSpellsToResearch);
+			ListData listData = new ListData(magicSpellDescriptions, imageIds, imageInfoReader);
+			String magicSpellDescription = new ListInputDialog("Choose Magic Spell", listData, soundIdReader, parentFrame).showMe();
 			if (magicSpellDescription != null) {
 				
-				int indexOfMagicSpell = Arrays.asList(magicSpellDescriptions).indexOf(magicSpellDescription);
+				int indexOfMagicSpell = magicSpellDescriptions.indexOf(magicSpellDescription);
 				MagicSpell magicSpell = magicSpellsToResearch.get(indexOfMagicSpell);
 				ResearchSpellAction researchSpellAction = Actions.getResearchSpellActionFor(magicSpell);
 				
 				String textDialogMessage = "Research for how many turns? (0 - " + (magicSpell.getResearchCost()+1) + ")";
 				String turnsString = new TextInputDialog(textDialogMessage, true, soundIdReader, parentFrame).showMe();
-				if ((turnsString != null) && (NumberUtils.isNumeric(turnsString))) {
+				if ((turnsString != null) && (turnsString.length() > 0) && (NumberUtils.isNumeric(turnsString))) {
 					int turns = Integer.parseInt(turnsString);
 					
 					Game.executeMultipleTurns(playerCharacter, researchSpellAction, Args.EMPTY, world, dungeonMaster, target, parent, turns, soundIdReader);

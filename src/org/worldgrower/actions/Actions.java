@@ -79,6 +79,7 @@ import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.goal.GatherFoodGoal;
 import org.worldgrower.goal.Goals;
+import org.worldgrower.gui.ImageIds;
 
 public class Actions {
 
@@ -586,6 +587,10 @@ public class Actions {
 	
 	public static List<String> getMagicSpellDescriptions(List<MagicSpell> magicSpells) {
 		return magicSpells.stream().map(s -> s.getSimpleDescription()).collect(Collectors.toList());
+	}
+	
+	public static List<ImageIds> getMagicSpellImageIds(List<MagicSpell> magicSpells) {
+		return magicSpells.stream().map(s -> s.getImageIds()).collect(Collectors.toList());
 	}
 	
 	public static List<InventoryAction> getInventoryActions() {

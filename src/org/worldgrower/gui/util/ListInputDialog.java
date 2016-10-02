@@ -33,24 +33,20 @@ public class ListInputDialog extends AbstractDialog {
 	private String value = null;
 	private JComboBox<String> comboBox;
 	
-	public ListInputDialog(String question, String[] list, SoundIdReader soundIdReader, JFrame parentFrame) {
-		this(question, null, list, soundIdReader, parentFrame);
-	}
-	
-	public ListInputDialog(String question, Icon icon, String[] list, SoundIdReader soundIdReader, JFrame parentFrame) {
-		this(question, icon, list, null, soundIdReader, parentFrame);
+	public ListInputDialog(String question, ListData listData, SoundIdReader soundIdReader, JFrame parentFrame) {
+		this(question, null, listData, soundIdReader, parentFrame);
 	}
 	
 	//TODO: use icon
-	public ListInputDialog(String question, Icon icon, String[] list, String[] tooltips, SoundIdReader soundIdReader, JFrame parentFrame) {
+	public ListInputDialog(String question, Icon icon, ListData listData, SoundIdReader soundIdReader, JFrame parentFrame) {
 		super(450, 210);
 		
 		JLabel label = JLabelFactory.createJLabel(question);
 		label.setBounds(16, 16, 415, 50);
 		addComponent(label);
 		
-		comboBox = (tooltips != null ? JComboBoxFactory.createJComboBox(list, tooltips) : JComboBoxFactory.createJComboBox(list));
-		comboBox.setBounds(16, 70, 415, 30);
+		comboBox = JComboBoxFactory.createJComboBox(listData);
+		comboBox.setBounds(16, 70, 415, 50);
 		addComponent(comboBox);
 		
 		JPanel buttonPane = new JPanel();

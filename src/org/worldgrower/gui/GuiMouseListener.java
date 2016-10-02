@@ -677,6 +677,10 @@ public class GuiMouseListener extends MouseAdapter {
 				} else if (canPlayerCharacterPerformActionUnderCorrectCircumstances(worldObject, action)) {
 					menuItem = createDisabledMenuItem(action);
 					parentMenu.add(menuItem);
+					
+					//bugfix to make disabled components have the correct cursor:
+					//https://bugs.openjdk.java.net/browse/JDK-4380700
+					menuItem.getParent().setCursor(Cursors.CURSOR);
 				} else {
 					menuItem = null;
 				}

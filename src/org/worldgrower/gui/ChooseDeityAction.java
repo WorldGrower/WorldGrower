@@ -27,6 +27,7 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.deity.Deity;
 import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.start.Game;
+import org.worldgrower.gui.util.ListData;
 import org.worldgrower.gui.util.ListInputDialog;
 
 public class ChooseDeityAction extends AbstractAction {
@@ -54,7 +55,7 @@ public class ChooseDeityAction extends AbstractAction {
 	public void actionPerformed(ActionEvent e) {
 		String[] deityNames = Deity.getAllDeityNames().toArray(new String[0]);
 		String[] tooltips = Deity.getAllDeityExplanations().toArray(new String[0]);
-		String deityName = new ListInputDialog("Choose Deity", null, deityNames, tooltips, soundIdReader, parentFrame).showMe();
+		String deityName = new ListInputDialog("Choose Deity", new ListData(deityNames, tooltips), soundIdReader, parentFrame).showMe();
 		if (deityName != null) {
 			int indexOfDeity = Arrays.asList(deityNames).indexOf(deityName);
 			

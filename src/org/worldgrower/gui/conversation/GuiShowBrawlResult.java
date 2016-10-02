@@ -26,6 +26,7 @@ import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.WorldPanel;
 import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.util.IconUtils;
+import org.worldgrower.gui.util.ListData;
 import org.worldgrower.gui.util.ListInputDialog;
 
 public class GuiShowBrawlResult implements BrawlFinishedListener {
@@ -65,7 +66,7 @@ public class GuiShowBrawlResult implements BrawlFinishedListener {
 		
 		if (!performer.isControlledByAI()) {
 			//TODO: handle response
-			String response = new ListInputDialog("Choose brawl ending line:", targetIcon, responses, soundIdReader, parentFrame).showMe();
+			String response = new ListInputDialog("Choose brawl ending line:", targetIcon, new ListData(responses), soundIdReader, parentFrame).showMe();
 		}
 		
 		if (!target.isControlledByAI()) {

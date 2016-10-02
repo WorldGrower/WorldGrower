@@ -15,18 +15,28 @@
 package org.worldgrower.gui.util;
 
 import java.awt.Component;
+import java.awt.Image;
 import java.util.List;
 
 import javax.swing.DefaultListCellRenderer;
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JList;
 
-class ComboboxToolTipRenderer extends DefaultListCellRenderer {
-    private final List<String> tooltips;
+class ComboboxRenderer extends DefaultListCellRenderer {
+    private final String[] tooltips;
+    private final Image[] images;
 
-    public ComboboxToolTipRenderer(List<String> tooltips) {
+    public ComboboxRenderer(List<String> tooltips) {
 		super();
-		this.tooltips = tooltips;
+		this.tooltips = tooltips.toArray(new String[0]);
+		this.images = null;
+	}
+    
+    public ComboboxRenderer(ListData listData) {
+		super();
+		this.tooltips = listData.getTooltips();
+		this.images = listData.getImages();
 	}
 
 	@Override
@@ -36,8 +46,17 @@ class ComboboxToolTipRenderer extends DefaultListCellRenderer {
         JComponent comp = (JComponent) super.getListCellRendererComponent(list,
                 value, index, isSelected, cellHasFocus);
 
+        if (index == -1) {
+        	index = list.getSelectedIndex();
+        }
+        
         if (index != -1) {
-        	list.setToolTipText(tooltips.get(index));
+        	if (tooltips != null) {
+        		list.setToolTipText(tooltips[index]);
+        	}
+        	if (images != null) {
+        		setIcon(new ImageIcon(images[index]));
+        	}
         }
         return comp;
     }

@@ -38,7 +38,14 @@ public class JComboBoxFactory {
 	public static<T> JComboBox<T> createJComboBox(T[] values, String[] tooltips) {
 		JComboBox<T> comboBox = new JComboBox<T>(values);
 		setComboBoxProperties(comboBox);
-		comboBox.setRenderer(new ComboboxToolTipRenderer(Arrays.asList(tooltips)));
+		comboBox.setRenderer(new ComboboxRenderer(Arrays.asList(tooltips)));
+		return comboBox;
+	}
+	
+	public static JComboBox<String> createJComboBox(ListData listData) {
+		JComboBox<String> comboBox = new JComboBox<String>(listData.getList());
+		setComboBoxProperties(comboBox);
+		comboBox.setRenderer(new ComboboxRenderer(listData));
 		return comboBox;
 	}
 

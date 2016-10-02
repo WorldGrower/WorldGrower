@@ -27,6 +27,7 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.goal.DeathReasonPropertyUtils;
 import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.start.Game;
+import org.worldgrower.gui.util.ListData;
 import org.worldgrower.gui.util.ListInputDialog;
 
 public class ChooseDeathReasonAction extends AbstractAction {
@@ -55,7 +56,7 @@ public class ChooseDeathReasonAction extends AbstractAction {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String[] deathReasons = DeathReasonPropertyUtils.getAllDeathReasons().toArray(new String[0]);
-		String deathReason = new ListInputDialog("Choose Death Reason", deathReasons, soundIdReader, parentFrame).showMe();
+		String deathReason = new ListInputDialog("Choose Death Reason", new ListData(deathReasons), soundIdReader, parentFrame).showMe();
 		if (deathReason != null) {
 			int indexOfDeathReason = Arrays.asList(deathReasons).indexOf(deathReason);
 			
