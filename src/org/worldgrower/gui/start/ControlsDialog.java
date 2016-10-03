@@ -73,6 +73,9 @@ public class ControlsDialog extends AbstractDialog {
 		JComboBox<Character> comboBox = JComboBoxFactory.createJComboBox(new Character[]{'A', 'B', 'C'});
         table.getColumnModel().getColumn(1).setCellEditor(new DefaultCellEditor(comboBox));
 		
+        table.getColumnModel().getColumn(0).setPreferredWidth(250);
+        table.getColumnModel().getColumn(1).setPreferredWidth(50);
+        
         table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent event) {
