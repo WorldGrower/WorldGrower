@@ -14,6 +14,7 @@
  *******************************************************************************/
 package org.worldgrower.gui.start;
 
+import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -23,7 +24,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -49,6 +52,8 @@ public class CreditsDialog extends AbstractDialog {
 		
 		addCreditsPane();
 		addButtonPane();
+		
+		((JComponent)getRootPane()).setBorder(BorderFactory.createLineBorder(Color.WHITE, 5));
 	}
 
 	private void addCreditsPane() throws IOException {

@@ -14,6 +14,7 @@
  *******************************************************************************/
 package org.worldgrower.gui.start;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.MouseInfo;
 import java.awt.Point;
@@ -25,8 +26,10 @@ import java.util.prefs.Preferences;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
@@ -287,6 +290,7 @@ public class StartScreen implements SaveGameHandler {
 	private void initialize(JFrame parentFrame) {
 		frame = new StartScreenDialog();
 		frame.setCursor(Cursors.CURSOR);
+		((JComponent)frame.getRootPane()).setBorder(BorderFactory.createLineBorder(Color.WHITE, 5));
 		
 		addNewButton();
 		addLoadButton();

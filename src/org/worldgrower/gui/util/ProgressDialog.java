@@ -14,6 +14,10 @@
  *******************************************************************************/
 package org.worldgrower.gui.util;
 
+import java.awt.Color;
+
+import javax.swing.BorderFactory;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
@@ -36,6 +40,8 @@ public class ProgressDialog extends JFrame {
 		
 		setSize(width, height);
 		setResizable(false);
+		setUndecorated(true);
+		((JComponent)getRootPane()).setBorder(BorderFactory.createLineBorder(Color.WHITE, 5));
 		GradientPanel gradientPanel = new GradientPanel();
 		gradientPanel.setBounds(0, 0, width, height);
 		gradientPanel.setLayout(null);

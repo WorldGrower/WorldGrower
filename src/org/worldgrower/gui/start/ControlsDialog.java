@@ -14,18 +14,21 @@
  *******************************************************************************/
 package org.worldgrower.gui.start;
 
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultCellEditor;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -66,6 +69,8 @@ public class ControlsDialog extends AbstractDialog {
 		addMouseControlPanel(keyBindings);
 		addSoundControlPanel();
 		addButtonPane();
+		
+		((JComponent)getRootPane()).setBorder(BorderFactory.createLineBorder(Color.WHITE, 5));
 	}
 
 	private void addKeyBindingsTable(KeyBindings keyBindings) {

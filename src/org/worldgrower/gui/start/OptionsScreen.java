@@ -14,15 +14,18 @@
  *******************************************************************************/
 package org.worldgrower.gui.start;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -97,6 +100,7 @@ public class OptionsScreen {
 	private void initialize(ImageInfoReader imageInfoReader, JFrame parentFrame) {
 		frame = new JFrame();
 		frame.setResizable(false);
+		((JComponent)frame.getRootPane()).setBorder(BorderFactory.createLineBorder(Color.WHITE, 5));
 		JPanel contentPanel = new GradientPanel();
 		contentPanel.setLocation(0, 0);
 		contentPanel.setLayout(null);
