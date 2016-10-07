@@ -15,12 +15,15 @@
 package org.worldgrower.gui.loadsave;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -36,6 +39,7 @@ public class LoadSaveDialog extends AbstractDialog {
 
 	public LoadSaveDialog(SaveGameHandler saveGameHandler, LoadSaveMode loadSaveMode, SoundIdReader soundIdReader) {
 		super(500, 475);
+		((JComponent)getRootPane()).setBorder(BorderFactory.createLineBorder(Color.WHITE, 5));
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(16, 16, 462, 375);
@@ -76,8 +80,11 @@ public class LoadSaveDialog extends AbstractDialog {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				loadSaveMode.handleFile(saveGameHandler, list.getSelectedValue());
-				LoadSaveDialog.this.dispose();
+				SaveGame saveGame = list.getSelectedValue();
+				if (saveGame != null) {
+					loadSaveMode.handleFile(saveGameHandler, saveGame);
+					LoadSaveDialog.this.dispose();
+				}
 			}
 		}
 		);
@@ -98,7 +105,10 @@ public class LoadSaveDialog extends AbstractDialog {
 			
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
-				okButton.setEnabled(true);
+				SaveGame saveGame = list.getSelectedValue();
+				if (saveGame != null) {
+					okButton.setEnabled(true);
+				}
 			}
 		});
 	}
