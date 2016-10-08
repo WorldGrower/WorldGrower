@@ -14,15 +14,14 @@ It focuses on skills, dialogue, economy and society.
 
 ###Binary installation using installer
 
-*   [Windows installer](https://github.com/WorldGrower/WorldGrower/releases/download/0.9.0/WorldGrower_windows-x64_0_9_0.exe)
-*   [Linux installer](https://github.com/WorldGrower/WorldGrower/releases/download/0.9.0/WorldGrower_unix_0_9_0.sh) (requires java 8)
-*   [MacOSX installer](https://github.com/WorldGrower/WorldGrower/releases/download/0.9.0/WorldGrower_macos_0_9_0.dmg)
+*   [Windows installer](https://github.com/WorldGrower/WorldGrower/releases/download/1.0.0/WorldGrower_windows-x64_1_0_0.exe)
+*   [Installers for other operating systems](https://github.com/WorldGrower/WorldGrower/releases) (not officially supported)
 
-*These installers contain the game and will install the game when executed.*
+*This installer contains the game and will install the game when executed.*
 
 ###Binary installation of .zip file
 
-*   [Download .zip file](https://github.com/WorldGrower/WorldGrower/releases/download/0.9.0/worldgrower-0.9.0.zip)
+*   [Download .zip file](https://github.com/WorldGrower/WorldGrower/releases/download/1.0.0/worldgrower-1.0.0.zip)
 *   Extract the .zip file on the local filesystem
 *   Make sure [Java 8](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html) is installed.
 	If you're not sure, you can check your java version [here](https://www.java.com/verify).
@@ -53,7 +52,7 @@ It focuses on skills, dialogue, economy and society.
 
 Have a bug or a feature request?<br/>Please search for existing and closed issues
 on the [Community
-Forum](http://worldgrower.freefo.org/index.php).<br/>If your
+Forum](http://forum.freegamedev.net/viewtopic.php?f=22&t=6506).<br/>If your
 problem or idea is not addressed yet, [please open a new
 issue](https://github.com/WorldGrower/WorldGrower/issues).
 
