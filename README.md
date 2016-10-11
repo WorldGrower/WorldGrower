@@ -69,7 +69,7 @@ WorldGrower's documentation, included in this repo in the gh-pages branch.
 
 [Influences](http://worldgrower.github.io/WorldGrower/Influences.html)
 
-[Gameplay video](https://www.youtube.com/watch?v=o3xeDbCda9I&feature=youtu.be)
+[Gameplay video](https://www.youtube.com/watch?v=pOd-cMtahvM&feature=youtu.be)
 
 [WorldGrower on Travis](https://travis-ci.org/WorldGrower/WorldGrower): [![Build Status](https://travis-ci.org/WorldGrower/WorldGrower.svg?branch=master)]
 
