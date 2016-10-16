@@ -52,7 +52,7 @@ It focuses on skills, dialogue, economy and society.
 
 Have a bug or a feature request?<br/>Please search for existing and closed issues
 on the [Community
-Forum](http://forum.freegamedev.net/viewtopic.php?f=22&t=6506).<br/>If your
+Forum](http://worldgrower.freeforums.org/index.php).<br/>If your
 problem or idea is not addressed yet, [please open a new
 issue](https://github.com/WorldGrower/WorldGrower/issues).
 
