@@ -24,6 +24,7 @@ import java.util.Map;
 
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -47,6 +48,7 @@ import org.worldgrower.gui.start.Game;
 import org.worldgrower.gui.util.DialogUtils;
 import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.IconUtils;
+import org.worldgrower.gui.util.JCheckBoxFactory;
 import org.worldgrower.gui.util.JComboBoxFactory;
 import org.worldgrower.gui.util.JLabelFactory;
 import org.worldgrower.gui.util.JPanelFactory;
@@ -121,7 +123,7 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		
 		JPanel incomePanel = JPanelFactory.createJPanel("Income");
 		incomePanel.setLayout(null);
-		incomePanel.setBounds(500, 65, 380, 335);
+		incomePanel.setBounds(500, 45, 380, 135);
 		dialog.addComponent(incomePanel);
 		
 		JLabel shackTaxRate = JLabelFactory.createJLabel("Shack Tax Rate:");
@@ -151,7 +153,7 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		
 		JPanel expensePanel = JPanelFactory.createJPanel("Expense");
 		expensePanel.setLayout(null);
-		expensePanel.setBounds(500, 400, 380, 335);
+		expensePanel.setBounds(500, 190, 380, 135);
 		dialog.addComponent(expensePanel);
 		
 		JLabel sheriffWage = JLabelFactory.createJLabel("Sheriff Wage:");
@@ -192,6 +194,35 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		SwingUtils.installEscapeCloseOperation(dialog);
 		
 		SwingUtils.makeTransparant(legalActionsTable, scrollPane);
+		
+		JPanel votingPanel = JPanelFactory.createJPanel("Voting");
+		votingPanel.setLayout(null);
+		votingPanel.setBounds(500, 335, 380, 400);
+		dialog.addComponent(votingPanel);
+		
+		JCheckBox ownerShackHouseCheckBox = JCheckBoxFactory.createJCheckBox("Only owners of shacks/houses can vote");
+		ownerShackHouseCheckBox.setOpaque(false);
+		ownerShackHouseCheckBox.setBounds(15, 25, 350, 30);
+		ownerShackHouseCheckBox.setToolTipText("Only owners of shacks/houses can vote or become candidates in villager elections");
+		votingPanel.add(ownerShackHouseCheckBox);
+		
+		JCheckBox maleCheckBox = JCheckBoxFactory.createJCheckBox("Only males can vote");
+		maleCheckBox.setOpaque(false);
+		maleCheckBox.setBounds(15, 65, 350, 30);
+		maleCheckBox.setToolTipText("Only males can vote or become candidates in villager elections");
+		votingPanel.add(maleCheckBox);
+		
+		JCheckBox femaleCheckBox = JCheckBoxFactory.createJCheckBox("Only females can vote");
+		femaleCheckBox.setOpaque(false);
+		femaleCheckBox.setBounds(15, 105, 350, 30);
+		femaleCheckBox.setToolTipText("Only females can vote or become candidates in villager elections");
+		votingPanel.add(femaleCheckBox);
+		
+		JCheckBox undeadCheckBox = JCheckBoxFactory.createJCheckBox("Only undead can vote");
+		undeadCheckBox.setOpaque(false);
+		undeadCheckBox.setBounds(15, 145, 350, 30);
+		undeadCheckBox.setToolTipText("Only undead can vote or become candidates in villager elections");
+		votingPanel.add(undeadCheckBox);
 		
 		dialog.setLocationRelativeTo(null);
 		DialogUtils.createDialogBackPanel(dialog, parentFrame.getContentPane());
