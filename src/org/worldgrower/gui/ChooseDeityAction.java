@@ -55,7 +55,8 @@ public class ChooseDeityAction extends AbstractAction {
 	public void actionPerformed(ActionEvent e) {
 		String[] deityNames = Deity.getAllDeityNames().toArray(new String[0]);
 		String[] tooltips = Deity.getAllDeityExplanations().toArray(new String[0]);
-		String deityName = new ListInputDialog("Choose Deity", new ListData(deityNames, tooltips), soundIdReader, parentFrame).showMe();
+		ListData listData = new ListData(deityNames, tooltips, Deity.getAllImageIds(), imageInfoReader);
+		String deityName = new ListInputDialog("Choose Deity", listData, soundIdReader, parentFrame).showMe();
 		if (deityName != null) {
 			int indexOfDeity = Arrays.asList(deityNames).indexOf(deityName);
 			

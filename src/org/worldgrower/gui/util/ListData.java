@@ -43,13 +43,24 @@ public class ListData {
 		this.images = null;
 	}
 	
+	public ListData(String[] list, String[] tooltips, List<ImageIds> imageIds, ImageInfoReader imageInfoReader) {
+		this.list = list;
+		this.tooltips = tooltips;
+		this.images = initializeImages(imageIds, imageInfoReader);
+	}
+	
 	public ListData(List<String> list, List<ImageIds> imageIds, ImageInfoReader imageInfoReader) {
 		this.list = list.toArray(new String[0]);
 		this.tooltips = null;
-		this.images = new Image[imageIds.size()];
+		this.images = initializeImages(imageIds, imageInfoReader);
+	}
+
+	private static Image[] initializeImages(List<ImageIds> imageIds, ImageInfoReader imageInfoReader) {
+		Image[] images = new Image[imageIds.size()];
 		for(int i=0; i<imageIds.size(); i++) {
-			this.images[i] = imageInfoReader.getImage(imageIds.get(i), null);
+			images[i] = imageInfoReader.getImage(imageIds.get(i), null);
 		}
+		return images;
 	}
 
 	public String[] getList() {

@@ -15,7 +15,6 @@
 package org.worldgrower.gui;
 
 import java.awt.event.ActionEvent;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.AbstractAction;
@@ -87,8 +86,10 @@ public class GuiCreateOrganizationAction extends AbstractAction {
 	}
 	
 	private void createReligionOrganization() {
-		List<String> deityNames = Deity.getAllDeityNames();
-		String deityName = new ListInputDialog("Choose Deity", new ListData(deityNames), soundIdReader, parentFrame).showMe();
+		String[] deityNames = Deity.getAllDeityNames().toArray(new String[0]);
+		String[] tooltips = Deity.getAllDeityExplanations().toArray(new String[0]);
+		ListData listData = new ListData(deityNames, tooltips, Deity.getAllImageIds(), imageInfoReader);
+		String deityName = new ListInputDialog("Choose Deity", listData, soundIdReader, parentFrame).showMe();
 		if (deityName != null) {
 			Deity deity = Deity.getDeityByDescription(deityName);
 			int deityIndex = Deity.ALL_DEITIES.indexOf(deity);
