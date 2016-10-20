@@ -19,6 +19,7 @@ import java.io.Serializable;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.deity.Deity;
+import org.worldgrower.gui.ImageIds;
 
 /**
  * A LegalAction describes whether a certain action is legal
@@ -79,5 +80,9 @@ public final class LegalAction implements Serializable {
 	
 	public static LegalAction getWorshipLegalActionFor(Deity deity) {
 		return new LegalAction(Actions.WORSHIP_DEITY_ACTION, new WorshipDeityLegalHandler(deity));
+	}
+
+	public ImageIds getImageId() {
+		return action.getImageIds();
 	}
 }

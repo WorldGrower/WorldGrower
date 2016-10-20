@@ -70,8 +70,9 @@ public class GuiShowGovernanceAction extends AbstractAction {
 	private final WorldPanel parent;
 	private final SoundIdReader soundIdReader;
 	private final JFrame parentFrame;
+	private final ImageInfoReader imageInfoReader;
 	
-	public GuiShowGovernanceAction(WorldObject playerCharacter, DungeonMaster dungeonMaster, World world, WorldPanel parent, SoundIdReader soundIdReader, JFrame parentFrame) {
+	public GuiShowGovernanceAction(WorldObject playerCharacter, DungeonMaster dungeonMaster, World world, WorldPanel parent, SoundIdReader soundIdReader, JFrame parentFrame, ImageInfoReader imageInfoReader) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.dungeonMaster = dungeonMaster;
@@ -79,11 +80,12 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		this.parent = parent;
 		this.soundIdReader = soundIdReader;
 		this.parentFrame = parentFrame;
+		this.imageInfoReader = imageInfoReader;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		GovernanceActionsDialog dialog = new GovernanceActionsDialog(800, 800);
+		GovernanceActionsDialog dialog = new GovernanceActionsDialog(900, 800);
 		dialog.setModalityType(ModalityType.APPLICATION_MODAL);
 		IconUtils.setIcon(dialog);
 		
@@ -91,32 +93,35 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		
 		JPanel legalActionsPanel = JPanelFactory.createJPanel("Legal actions");
 		legalActionsPanel.setLayout(null);
-		legalActionsPanel.setBounds(15, 15, 368, 720);
+		legalActionsPanel.setBounds(15, 15, 468, 720);
 		dialog.addComponent(legalActionsPanel);
 		
 		WorldModel worldModel = new WorldModel(playerCharacter, world, performerIsLeaderOfVillagers);
 		JTable legalActionsTable = JTableFactory.createJTable(worldModel);
-		legalActionsTable.getColumnModel().getColumn(0).setPreferredWidth(230);
-		legalActionsTable.getColumnModel().getColumn(1).setPreferredWidth(108);
+		legalActionsTable.setDefaultRenderer(ImageIds.class, new ImageTableRenderer(imageInfoReader));
+		legalActionsTable.getColumnModel().getColumn(0).setPreferredWidth(50);
+		legalActionsTable.getColumnModel().getColumn(1).setPreferredWidth(250);
+		legalActionsTable.getColumnModel().getColumn(2).setPreferredWidth(108);
+		legalActionsTable.setRowHeight(50);
 		legalActionsTable.setToolTipText(LEGAL_ACTIONS_TOOLTIP);
 		JScrollPane scrollPane = new JScrollPane(legalActionsTable);
-		scrollPane.setBounds(15, 25, 338, 680);
+		scrollPane.setBounds(15, 25, 438, 680);
 		legalActionsPanel.add(scrollPane);
 		
 		JLabel villagerGoldLabel = JLabelFactory.createJLabel("Villager Gold:");
-		villagerGoldLabel.setBounds(400, 15, 200, 30);
+		villagerGoldLabel.setBounds(500, 15, 200, 30);
 		villagerGoldLabel.setToolTipText(VILLAGER_GOLD_TOOLTIP);
 		dialog.addComponent(villagerGoldLabel);
 		
 		String villagerGold = getVillagerGold();
 		JLabel villagerGoldValue = JLabelFactory.createJLabel(villagerGold);
-		villagerGoldValue.setBounds(600, 15, 200, 30);
+		villagerGoldValue.setBounds(700, 15, 200, 30);
 		villagerGoldValue.setToolTipText(VILLAGER_GOLD_TOOLTIP);
 		dialog.addComponent(villagerGoldValue);
 		
 		JPanel incomePanel = JPanelFactory.createJPanel("Income");
 		incomePanel.setLayout(null);
-		incomePanel.setBounds(400, 65, 380, 335);
+		incomePanel.setBounds(500, 65, 380, 335);
 		dialog.addComponent(incomePanel);
 		
 		JLabel shackTaxRate = JLabelFactory.createJLabel("Shack Tax Rate:");
@@ -146,7 +151,7 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		
 		JPanel expensePanel = JPanelFactory.createJPanel("Expense");
 		expensePanel.setLayout(null);
-		expensePanel.setBounds(400, 400, 380, 335);
+		expensePanel.setBounds(500, 400, 380, 335);
 		dialog.addComponent(expensePanel);
 		
 		JLabel sheriffWage = JLabelFactory.createJLabel("Sheriff Wage:");
@@ -175,7 +180,7 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		
 		JPanel buttonPane = new JPanel();
 		buttonPane.setOpaque(false);
-		buttonPane.setBounds(0, 745, 788, 75);
+		buttonPane.setBounds(0, 745, 888, 75);
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		dialog.addComponent(buttonPane);
 		
@@ -237,7 +242,7 @@ public class GuiShowGovernanceAction extends AbstractAction {
 
 		@Override
 		public int getColumnCount() {
-			return 2;
+			return 3;
 		}
 
 		@Override
@@ -248,6 +253,8 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		@Override
 		public Class<?> getColumnClass(int column) {
 			if (column == 0) {
+				return ImageIds.class;
+			} else if (column == 1) {
 				return String.class;
 			} else {
 				return Boolean.class;
@@ -256,7 +263,7 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		
 		@Override		
 		public boolean isCellEditable(int row, int column) {
-			if (column == 0) {
+			if (column == 0 || column == 1) {
 				return false;
 			} else {
 				return performerIsLeaderOfVillagers;
@@ -271,8 +278,10 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		@Override
 		public String getColumnName(int columnIndex) {
 			if (columnIndex == 0) {
-				return "Action Name";
+				return "Image";
 			} else if (columnIndex == 1) {
+				return "Action Name";
+			} else if (columnIndex == 2) {
 				return "Is Legal";
 			} else {
 				return null;
@@ -282,8 +291,10 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		@Override
 		public Object getValueAt(int rowIndex, int columnIndex) {
 			if (columnIndex == 0) {
-				return legalActionsList.get(rowIndex).getDescription();
+				return legalActionsList.get(rowIndex).getImageId();
 			} else if (columnIndex == 1) {
+				return legalActionsList.get(rowIndex).getDescription();
+			} else if (columnIndex == 2) {
 				return legalFlags.get(legalActionsList.get(rowIndex));
 			} else {
 				return null;
