@@ -261,6 +261,11 @@ public class Constants {
 	public static final IntProperty SHERIFF_WAGE = new IntProperty("sheriffWage", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty TAX_COLLECTOR_WAGE = new IntProperty("taxCollectorWage", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	
+	public static final BooleanProperty ONLY_OWNERS_CAN_VOTE = new BooleanProperty("only owners can vote", NOT_NULLABLE, ALL_PROPERTIES);
+	public static final BooleanProperty ONLY_MALES_CAN_VOTE = new BooleanProperty("only males can vote", NOT_NULLABLE, ALL_PROPERTIES);
+	public static final BooleanProperty ONLY_FEMALES_CAN_VOTE = new BooleanProperty("only females can vote", NOT_NULLABLE, ALL_PROPERTIES);
+	public static final BooleanProperty ONLY_UNDEAD_CAN_VOTE = new BooleanProperty("only undead can vote", NOT_NULLABLE, ALL_PROPERTIES);
+	
 	public static final IntProperty VAMPIRE_BLOOD_LEVEL = new IntProperty("vampireBloodLevel", 0, 1000, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final StringProperty DEATH_REASON = new StringProperty("deathReason", NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IdProperty SACRIFICIAL_ALTAR_CREATOR_ID = new IdProperty("sacrificialAltarCreatorId", ALL_PROPERTIES);

@@ -1,18 +1,18 @@
 package org.worldgrower.actions;
 
-import org.worldgrower.attribute.IntProperty;
+import org.worldgrower.attribute.ManagedProperty;
 
 public class GovernanceOption {
-	private final IntProperty intProperty;
+	private final ManagedProperty<?> managedProperty;
 	private final int newValue;
 	
-	public GovernanceOption(IntProperty intProperty, int newValue) {
-		this.intProperty = intProperty;
+	public GovernanceOption(ManagedProperty<?> managedProperty, int newValue) {
+		this.managedProperty = managedProperty;
 		this.newValue = newValue;
 	}
 
-	public IntProperty getIntProperty() {
-		return intProperty;
+	public ManagedProperty<?> getProperty() {
+		return managedProperty;
 	}
 
 	public int getNewValue() {

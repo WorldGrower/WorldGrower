@@ -26,6 +26,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.actions.legal.LegalActionFactory;
+import org.worldgrower.attribute.BooleanProperty;
 import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdMap;
@@ -196,6 +197,11 @@ public class GroupPropertyUtils {
 		organization.setProperty(Constants.HOUSE_TAX_RATE, 0);
 		organization.setProperty(Constants.SHERIFF_WAGE, DEFAULT_WAGE);
 		organization.setProperty(Constants.TAX_COLLECTOR_WAGE, DEFAULT_WAGE);
+		
+		organization.setProperty(Constants.ONLY_OWNERS_CAN_VOTE, false);
+		organization.setProperty(Constants.ONLY_MALES_CAN_VOTE, false);
+		organization.setProperty(Constants.ONLY_FEMALES_CAN_VOTE, false);
+		organization.setProperty(Constants.ONLY_UNDEAD_CAN_VOTE, false);
 		
 		organization.setProperty(Constants.TAXES_PAID_TURN, new IdToIntegerMap());
 		organization.setProperty(Constants.PAY_CHECK_PAID_TURN, new IdToIntegerMap());

@@ -22,7 +22,9 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.GovernanceOption;
 import org.worldgrower.actions.legal.LegalAction;
+import org.worldgrower.attribute.BooleanProperty;
 import org.worldgrower.attribute.IdList;
+import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.WorldStateChangedListener;
@@ -108,7 +110,13 @@ public class GuiShowEventHappenedAction implements WorldStateChangedListener {
 			} else {
 				appendComma = true;
 			}
-			descriptionBuilder.append("changed ").append(governanceOption.getIntProperty().getName()).append(" to ").append(governanceOption.getNewValue());
+			if (governanceOption.getProperty() instanceof IntProperty) {
+				descriptionBuilder.append("changed ").append(governanceOption.getProperty().getName()).append(" to ").append(governanceOption.getNewValue());
+			} else if (governanceOption.getProperty() instanceof BooleanProperty) {
+				int value = governanceOption.getNewValue();
+				boolean booleanValue = (value == 1);
+				descriptionBuilder.append("changed '").append(governanceOption.getProperty().getName()).append("' to ").append(booleanValue);
+			}
 		}
 		return descriptionBuilder.toString();
 	}

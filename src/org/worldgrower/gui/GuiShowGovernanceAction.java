@@ -18,6 +18,8 @@ import java.awt.Dialog.ModalityType;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,8 +48,8 @@ import org.worldgrower.goal.LegalActionsPropertyUtils;
 import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.start.Game;
 import org.worldgrower.gui.util.DialogUtils;
-import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.IconUtils;
+import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JCheckBoxFactory;
 import org.worldgrower.gui.util.JComboBoxFactory;
 import org.worldgrower.gui.util.JLabelFactory;
@@ -180,6 +182,45 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		taxCollectorComboBox.setToolTipText(TAX_COLLECTOR_WAGE_TOOLTIP);
 		expensePanel.add(taxCollectorComboBox);
 		
+		JPanel votingPanel = JPanelFactory.createJPanel("Voting");
+		votingPanel.setLayout(null);
+		votingPanel.setBounds(500, 335, 380, 400);
+		dialog.addComponent(votingPanel);
+		
+		JCheckBox ownerShackHouseCheckBox = JCheckBoxFactory.createJCheckBox("Only owners of shacks/houses can vote");
+		ownerShackHouseCheckBox.setOpaque(false);
+		ownerShackHouseCheckBox.setSelected(villagersOrganization.getProperty(Constants.ONLY_OWNERS_CAN_VOTE));
+		ownerShackHouseCheckBox.setEnabled(performerIsLeaderOfVillagers);
+		ownerShackHouseCheckBox.setBounds(15, 25, 350, 30);
+		ownerShackHouseCheckBox.setToolTipText("Only owners of shacks/houses can vote or become candidates in villager elections");
+		votingPanel.add(ownerShackHouseCheckBox);
+		
+		JCheckBox maleCheckBox = JCheckBoxFactory.createJCheckBox("Only males can vote");
+		maleCheckBox.setOpaque(false);
+		maleCheckBox.setSelected(villagersOrganization.getProperty(Constants.ONLY_MALES_CAN_VOTE));
+		maleCheckBox.setEnabled(performerIsLeaderOfVillagers);
+		maleCheckBox.setBounds(15, 65, 350, 30);
+		maleCheckBox.setToolTipText("Only males can vote or become candidates in villager elections");
+		votingPanel.add(maleCheckBox);
+		
+		JCheckBox femaleCheckBox = JCheckBoxFactory.createJCheckBox("Only females can vote");
+		femaleCheckBox.setOpaque(false);
+		femaleCheckBox.setSelected(villagersOrganization.getProperty(Constants.ONLY_FEMALES_CAN_VOTE));
+		femaleCheckBox.setEnabled(performerIsLeaderOfVillagers);
+		femaleCheckBox.setBounds(15, 105, 350, 30);
+		femaleCheckBox.setToolTipText("Only females can vote or become candidates in villager elections");
+		votingPanel.add(femaleCheckBox);
+		
+		addExclusiveSelectedState(maleCheckBox, femaleCheckBox);
+		
+		JCheckBox undeadCheckBox = JCheckBoxFactory.createJCheckBox("Only undead can vote");
+		undeadCheckBox.setOpaque(false);
+		undeadCheckBox.setSelected(villagersOrganization.getProperty(Constants.ONLY_UNDEAD_CAN_VOTE));
+		undeadCheckBox.setEnabled(performerIsLeaderOfVillagers);
+		undeadCheckBox.setBounds(15, 145, 350, 30);
+		undeadCheckBox.setToolTipText("Only undead can vote or become candidates in villager elections");
+		votingPanel.add(undeadCheckBox);
+		
 		JPanel buttonPane = new JPanel();
 		buttonPane.setOpaque(false);
 		buttonPane.setBounds(0, 745, 888, 75);
@@ -189,44 +230,35 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		JButton okButton = JButtonFactory.createButton("OK", soundIdReader);
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
-		addActionHandlers(okButton, worldModel, shackComboBox, houseComboBox, sheriffComboBox, taxCollectorComboBox, dialog, performerIsLeaderOfVillagers);
+		addActionHandlers(okButton, worldModel, shackComboBox, houseComboBox, sheriffComboBox, taxCollectorComboBox, dialog, performerIsLeaderOfVillagers, ownerShackHouseCheckBox, maleCheckBox, femaleCheckBox, undeadCheckBox);
 		dialog.getRootPane().setDefaultButton(okButton);
 		SwingUtils.installEscapeCloseOperation(dialog);
 		
 		SwingUtils.makeTransparant(legalActionsTable, scrollPane);
 		
-		JPanel votingPanel = JPanelFactory.createJPanel("Voting");
-		votingPanel.setLayout(null);
-		votingPanel.setBounds(500, 335, 380, 400);
-		dialog.addComponent(votingPanel);
-		
-		JCheckBox ownerShackHouseCheckBox = JCheckBoxFactory.createJCheckBox("Only owners of shacks/houses can vote");
-		ownerShackHouseCheckBox.setOpaque(false);
-		ownerShackHouseCheckBox.setBounds(15, 25, 350, 30);
-		ownerShackHouseCheckBox.setToolTipText("Only owners of shacks/houses can vote or become candidates in villager elections");
-		votingPanel.add(ownerShackHouseCheckBox);
-		
-		JCheckBox maleCheckBox = JCheckBoxFactory.createJCheckBox("Only males can vote");
-		maleCheckBox.setOpaque(false);
-		maleCheckBox.setBounds(15, 65, 350, 30);
-		maleCheckBox.setToolTipText("Only males can vote or become candidates in villager elections");
-		votingPanel.add(maleCheckBox);
-		
-		JCheckBox femaleCheckBox = JCheckBoxFactory.createJCheckBox("Only females can vote");
-		femaleCheckBox.setOpaque(false);
-		femaleCheckBox.setBounds(15, 105, 350, 30);
-		femaleCheckBox.setToolTipText("Only females can vote or become candidates in villager elections");
-		votingPanel.add(femaleCheckBox);
-		
-		JCheckBox undeadCheckBox = JCheckBoxFactory.createJCheckBox("Only undead can vote");
-		undeadCheckBox.setOpaque(false);
-		undeadCheckBox.setBounds(15, 145, 350, 30);
-		undeadCheckBox.setToolTipText("Only undead can vote or become candidates in villager elections");
-		votingPanel.add(undeadCheckBox);
-		
 		dialog.setLocationRelativeTo(null);
 		DialogUtils.createDialogBackPanel(dialog, parentFrame.getContentPane());
 		dialog.setVisible(true);
+	}
+
+	private void addExclusiveSelectedState(JCheckBox maleCheckBox, JCheckBox femaleCheckBox) {
+		maleCheckBox.addItemListener(new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				if (maleCheckBox.isSelected()) {
+					femaleCheckBox.setSelected(false);
+				}
+			}
+		});
+		
+		femaleCheckBox.addItemListener(new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				if (femaleCheckBox.isSelected()) {
+					maleCheckBox.setSelected(false);
+				}
+			}
+		});
 	}
 
 	String getVillagerGold() {
@@ -240,7 +272,7 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		return "n/a";
 	}
 	
-	private void addActionHandlers(JButton okButton, WorldModel worldModel, JComboBox<Integer> shackComboBox, JComboBox<Integer> houseComboBox, JComboBox<Integer> sheriffComboBox, JComboBox<Integer> taxCollectorComboBox, JDialog dialog, boolean performerIsLeaderOfVillagers) {
+	private void addActionHandlers(JButton okButton, WorldModel worldModel, JComboBox<Integer> shackComboBox, JComboBox<Integer> houseComboBox, JComboBox<Integer> sheriffComboBox, JComboBox<Integer> taxCollectorComboBox, JDialog dialog, boolean performerIsLeaderOfVillagers, JCheckBox ownerShackHouseCheckBox, JCheckBox maleCheckBox, JCheckBox femaleCheckBox, JCheckBox undeadCheckBox) {
 		okButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -250,7 +282,12 @@ public class GuiShowGovernanceAction extends AbstractAction {
 					int houseTaxRate = (int) houseComboBox.getSelectedItem();
 					int sheriffWage = (int) sheriffComboBox.getSelectedItem();
 					int taxCollectorWage = (int) taxCollectorComboBox.getSelectedItem();
-					int[] args = worldModel.getArgs(shackTaxRate, houseTaxRate, sheriffWage, taxCollectorWage);
+					boolean onlyOwnerShackHouseCanVote = ownerShackHouseCheckBox.isSelected();
+					boolean onlyMalesCanVote = maleCheckBox.isSelected();
+					boolean onlyFemalesCanVote = femaleCheckBox.isSelected();
+					boolean onlyUndeadCanVote = undeadCheckBox.isSelected();
+					
+					int[] args = worldModel.getArgs(shackTaxRate, houseTaxRate, sheriffWage, taxCollectorWage, onlyOwnerShackHouseCanVote, onlyMalesCanVote, onlyFemalesCanVote, onlyUndeadCanVote);
 					Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, Actions.SET_GOVERNANCE_ACTION, args, world, dungeonMaster, playerCharacter, parent, soundIdReader);
 				}
 				dialog.dispose();
@@ -332,8 +369,8 @@ public class GuiShowGovernanceAction extends AbstractAction {
 			}
 		}
 
-		public int[] getArgs(int shackTaxRate, int houseTaxRate, int sheriffWage, int taxCollectorWage) {
-			return LegalActions.createGovernanceArgs(legalFlags, shackTaxRate, houseTaxRate, sheriffWage, taxCollectorWage);
+		public int[] getArgs(int shackTaxRate, int houseTaxRate, int sheriffWage, int taxCollectorWage, boolean onlyOwnerShackHouseCanVote, boolean onlyMalesCanVote, boolean onlyFemalesCanVote, boolean onlyUndeadCanVote) {
+			return LegalActions.createGovernanceArgs(legalFlags, shackTaxRate, houseTaxRate, sheriffWage, taxCollectorWage, onlyOwnerShackHouseCanVote, onlyMalesCanVote, onlyFemalesCanVote, onlyUndeadCanVote);
 		}
 	}
 	

@@ -24,6 +24,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.legal.LegalAction;
 import org.worldgrower.actions.legal.LegalActions;
+import org.worldgrower.attribute.BooleanProperty;
 import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.LegalActionsPropertyUtils;
@@ -59,6 +60,12 @@ public class SetGovernanceAction implements ManagedOperation {
 		changeGovernanceOption(Constants.SHERIFF_WAGE, villagersOrganization, args[wageOffset], changedGovernanceOptions);
 		changeGovernanceOption(Constants.TAX_COLLECTOR_WAGE, villagersOrganization, args[wageOffset+1], changedGovernanceOptions);
 		
+		int voteOffset = wageOffset + 2;
+		changeGovernanceOption(Constants.ONLY_OWNERS_CAN_VOTE, villagersOrganization, args[voteOffset], changedGovernanceOptions);
+		changeGovernanceOption(Constants.ONLY_MALES_CAN_VOTE, villagersOrganization, args[voteOffset+1], changedGovernanceOptions);
+		changeGovernanceOption(Constants.ONLY_FEMALES_CAN_VOTE, villagersOrganization, args[voteOffset+2], changedGovernanceOptions);
+		changeGovernanceOption(Constants.ONLY_UNDEAD_CAN_VOTE, villagersOrganization, args[voteOffset+3], changedGovernanceOptions);
+		
 		world.getWorldStateChangedListeners().governanceChanged(changedLegalActions, changedGovernanceOptions, performer);
 	}
 
@@ -68,6 +75,16 @@ public class SetGovernanceAction implements ManagedOperation {
 		
 		if (oldValue != newValue) {
 			changedGovernanceOptions.add(new GovernanceOption(intProperty, newValue));
+		}
+	}
+	
+	private void changeGovernanceOption(BooleanProperty booleanProperty, WorldObject villagersOrganization, int newValue, List<GovernanceOption> changedGovernanceOptions) {
+		boolean oldValue = villagersOrganization.getProperty(booleanProperty);
+		boolean newBooleanValue = (newValue == 1);
+		villagersOrganization.setProperty(booleanProperty, newBooleanValue);
+		
+		if (oldValue != newBooleanValue) {
+			changedGovernanceOptions.add(new GovernanceOption(booleanProperty, newValue));
 		}
 	}
 

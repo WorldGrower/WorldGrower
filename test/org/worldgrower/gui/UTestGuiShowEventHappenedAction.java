@@ -35,4 +35,13 @@ public class UTestGuiShowEventHappenedAction {
 		assertEquals("leader changed governance: changed legality of melee attack , changed legality of butcher unowned cattle", GuiShowEventHappenedAction.createGovernanceDescription(changedLegalActions, changedGovernanceOptions, villagerLeader));
 	}
 	
+	@Test
+	public void testCreateGovernanceDescriptionForVoting() {
+		WorldObject villagerLeader = TestUtils.createIntelligentWorldObject(2, "leader");
+		List<LegalAction> changedLegalActions = new ArrayList<>();
+		List<GovernanceOption> changedGovernanceOptions = new ArrayList<>();
+		
+		changedGovernanceOptions.add(new GovernanceOption(Constants.ONLY_OWNERS_CAN_VOTE, 1));
+		assertEquals("leader changed governance: changed 'only owners can vote' to true", GuiShowEventHappenedAction.createGovernanceDescription(changedLegalActions, changedGovernanceOptions, villagerLeader));
+	}
 }

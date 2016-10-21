@@ -50,7 +50,7 @@ public class UTestSetGovernanceAction {
 		createVillagersOrganization(world);
 		LegalActions legalActions = LegalActionsPropertyUtils.getLegalActions(world);
 		Map<LegalAction, Boolean> legalFlags = legalActions.getLegalActions();
-		int[] args = LegalActions.createGovernanceArgs(legalFlags, 0, 0, 5, 5);
+		int[] args = LegalActions.createGovernanceArgs(legalFlags, 0, 0, 5, 5, false, false, false, false);
 			
 		Actions.SET_GOVERNANCE_ACTION.execute(performer, performer, args, world);
 		
@@ -66,7 +66,7 @@ public class UTestSetGovernanceAction {
 		WorldObject villagersOrganization = createVillagersOrganization(world);
 		LegalActions legalActions = LegalActionsPropertyUtils.getLegalActions(world);
 		Map<LegalAction, Boolean> legalFlags = legalActions.getLegalActions();
-		int[] args = LegalActions.createGovernanceArgs(legalFlags, 2, 3, 6, 7);
+		int[] args = LegalActions.createGovernanceArgs(legalFlags, 2, 3, 6, 7, true, false, false, true);
 			
 		Actions.SET_GOVERNANCE_ACTION.execute(performer, performer, args, world);
 		
@@ -75,6 +75,10 @@ public class UTestSetGovernanceAction {
 		assertEquals(3, villagersOrganization.getProperty(Constants.HOUSE_TAX_RATE).intValue());
 		assertEquals(6, villagersOrganization.getProperty(Constants.SHERIFF_WAGE).intValue());
 		assertEquals(7, villagersOrganization.getProperty(Constants.TAX_COLLECTOR_WAGE).intValue());
+		assertEquals(true, villagersOrganization.getProperty(Constants.ONLY_OWNERS_CAN_VOTE));
+		assertEquals(false, villagersOrganization.getProperty(Constants.ONLY_MALES_CAN_VOTE));
+		assertEquals(false, villagersOrganization.getProperty(Constants.ONLY_FEMALES_CAN_VOTE));
+		assertEquals(true, villagersOrganization.getProperty(Constants.ONLY_UNDEAD_CAN_VOTE));
 	}
 	
 	@Test
@@ -88,7 +92,7 @@ public class UTestSetGovernanceAction {
 		
 		Map<LegalAction, Boolean> legalFlags = legalActions.getLegalActions();
 		legalFlags.put(LegalAction.MELEE_ATTACK, Boolean.TRUE);
-		int[] args = LegalActions.createGovernanceArgs(legalFlags, 0, 1, 5, 5);
+		int[] args = LegalActions.createGovernanceArgs(legalFlags, 0, 1, 5, 5, false, false, false, false);
 			
 		Actions.SET_GOVERNANCE_ACTION.execute(performer, performer, args, world);
 	}
@@ -107,11 +111,11 @@ public class UTestSetGovernanceAction {
 		public void governanceChanged(List<LegalAction> changedLegalActions, List<GovernanceOption> changedGovernanceOptions, WorldObject villagerLeader) {
 			assertEquals(Arrays.asList(LegalAction.MELEE_ATTACK), changedLegalActions);
 			assertEquals(3, changedGovernanceOptions.size());
-			assertEquals(Constants.HOUSE_TAX_RATE, changedGovernanceOptions.get(0).getIntProperty());
+			assertEquals(Constants.HOUSE_TAX_RATE, changedGovernanceOptions.get(0).getProperty());
 			assertEquals(1, changedGovernanceOptions.get(0).getNewValue());
-			assertEquals(Constants.SHERIFF_WAGE, changedGovernanceOptions.get(1).getIntProperty());
+			assertEquals(Constants.SHERIFF_WAGE, changedGovernanceOptions.get(1).getProperty());
 			assertEquals(5, changedGovernanceOptions.get(1).getNewValue());
-			assertEquals(Constants.TAX_COLLECTOR_WAGE, changedGovernanceOptions.get(2).getIntProperty());
+			assertEquals(Constants.TAX_COLLECTOR_WAGE, changedGovernanceOptions.get(2).getProperty());
 			assertEquals(5, changedGovernanceOptions.get(2).getNewValue());
 		}
 

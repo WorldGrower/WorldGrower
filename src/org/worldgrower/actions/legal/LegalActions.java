@@ -63,9 +63,9 @@ public class LegalActions implements Serializable {
 		return actions;
 	}
 	
-	public static int[] createGovernanceArgs(Map<LegalAction, Boolean> legalFlags, int shackTaxRate, int houseTaxRate, int sheriffWage, int taxCollectorWage) {
+	public static int[] createGovernanceArgs(Map<LegalAction, Boolean> legalFlags, int shackTaxRate, int houseTaxRate, int sheriffWage, int taxCollectorWage, boolean onlyOwnersCanVote, boolean onlyMalesCanVote, boolean onlyFemalesCanVote, boolean onlyUndeadCanVote) {
 		List<LegalAction> actions = toList(legalFlags);
-		int[] args = new int[actions.size() + 4];
+		int[] args = new int[actions.size() + 8];
 		for(int i=0; i<actions.size(); i++) {
 			LegalAction legalAction = actions.get(i);
 			args[i] = legalFlags.get(legalAction) ? 1 : 0;
@@ -76,6 +76,11 @@ public class LegalActions implements Serializable {
 		args[wageOffset+2] = sheriffWage;
 		args[wageOffset+3] = taxCollectorWage;
 		
+		args[wageOffset+4] = onlyOwnersCanVote ? 1 : 0;
+		args[wageOffset+5] = onlyMalesCanVote ? 1 : 0;
+		args[wageOffset+6] = onlyFemalesCanVote ? 1 : 0;
+		args[wageOffset+7] = onlyUndeadCanVote ? 1 : 0;
+		
 		return args;
 	}
 	
@@ -85,7 +90,11 @@ public class LegalActions implements Serializable {
 		int houseTaxRate = villagersOrganization.getProperty(Constants.HOUSE_TAX_RATE);
 		int sheriffWage = villagersOrganization.getProperty(Constants.SHERIFF_WAGE);
 		int taxCollectorWage = villagersOrganization.getProperty(Constants.TAX_COLLECTOR_WAGE);
-		return createGovernanceArgs(legalFlags, shackTaxRate, houseTaxRate, sheriffWage, taxCollectorWage);
+		boolean onlyOwnersCanVote = villagersOrganization.getProperty(Constants.ONLY_OWNERS_CAN_VOTE);
+		boolean onlyMalesCanVote = villagersOrganization.getProperty(Constants.ONLY_MALES_CAN_VOTE);
+		boolean onlyFemalesCanVote = villagersOrganization.getProperty(Constants.ONLY_FEMALES_CAN_VOTE);
+		boolean onlyUndeadCanVote = villagersOrganization.getProperty(Constants.ONLY_UNDEAD_CAN_VOTE);
+		return createGovernanceArgs(legalFlags, shackTaxRate, houseTaxRate, sheriffWage, taxCollectorWage, onlyOwnersCanVote, onlyMalesCanVote, onlyFemalesCanVote, onlyUndeadCanVote);
 	}
 	
 	public Boolean isLegalAction(WorldObject performer, WorldObject actionTarget, int[] args, ManagedOperation managedOperation) {
