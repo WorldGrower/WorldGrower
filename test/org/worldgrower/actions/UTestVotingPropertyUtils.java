@@ -22,6 +22,8 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.BuildingType;
+import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.profession.Professions;
@@ -121,5 +123,77 @@ public class UTestVotingPropertyUtils {
 		int votingBoxId = BuildingGenerator.generateVotingBox(0, 0, world);
 		WorldObject votingBox = world.findWorldObjectById(votingBoxId);
 		return votingBox;
+	}
+	
+	@Test
+	public void testCanVoteOwner() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject villagersOrganization = createVillagersOrganization(world);
+		WorldObject target = TestUtils.createSkilledWorldObject(2);
+		
+		assertEquals(true, VotingPropertyUtils.canVote(target, world));
+		
+		villagersOrganization.setProperty(Constants.ONLY_OWNERS_CAN_VOTE, true);
+		assertEquals(false, VotingPropertyUtils.canVote(target, world));
+		
+		int houseId = BuildingGenerator.generateHouse(0, 0, world, target);
+		target.getProperty(Constants.BUILDINGS).add(houseId, BuildingType.HOUSE);
+		assertEquals(true, VotingPropertyUtils.canVote(target, world));
+	}
+	
+	@Test
+	public void testCanVoteMale() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject villagersOrganization = createVillagersOrganization(world);
+		WorldObject target = TestUtils.createSkilledWorldObject(2);
+		
+		assertEquals(true, VotingPropertyUtils.canVote(target, world));
+		
+		target.setProperty(Constants.GENDER, "male");
+		villagersOrganization.setProperty(Constants.ONLY_FEMALES_CAN_VOTE, true);
+		assertEquals(false, VotingPropertyUtils.canVote(target, world));
+		
+		target.setProperty(Constants.GENDER, "female");
+		assertEquals(true, VotingPropertyUtils.canVote(target, world));
+	}
+	
+	@Test
+	public void testCanVoteFemale() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject villagersOrganization = createVillagersOrganization(world);
+		WorldObject target = TestUtils.createSkilledWorldObject(2);
+		
+		assertEquals(true, VotingPropertyUtils.canVote(target, world));
+		
+		target.setProperty(Constants.GENDER, "female");
+		villagersOrganization.setProperty(Constants.ONLY_MALES_CAN_VOTE, true);
+		assertEquals(false, VotingPropertyUtils.canVote(target, world));
+		
+		target.setProperty(Constants.GENDER, "male");
+		assertEquals(true, VotingPropertyUtils.canVote(target, world));
+	}
+	
+	@Test
+	public void testCanVoteUndead() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject villagersOrganization = createVillagersOrganization(world);
+		WorldObject target = TestUtils.createSkilledWorldObject(2);
+		
+		assertEquals(true, VotingPropertyUtils.canVote(target, world));
+		
+		target.setProperty(Constants.CREATURE_TYPE, CreatureType.HUMAN_CREATURE_TYPE);
+		villagersOrganization.setProperty(Constants.ONLY_UNDEAD_CAN_VOTE, true);
+		assertEquals(false, VotingPropertyUtils.canVote(target, world));
+		
+		target.setProperty(Constants.CREATURE_TYPE, CreatureType.LICH_CREATURE_TYPE);
+		assertEquals(true, VotingPropertyUtils.canVote(target, world));
+	}
+	
+	private WorldObject createVillagersOrganization(World world) {
+		world.generateUniqueId(); world.generateUniqueId(); world.generateUniqueId(); 
+		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
+		organization.setProperty(Constants.ID, 1);
+		world.addWorldObject(organization);
+		return organization;
 	}
 }

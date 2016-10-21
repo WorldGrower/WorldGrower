@@ -23,4 +23,12 @@ public class GenderPropertyUtils {
 		String performerGender = performer.getProperty(Constants.GENDER);
 		return performerGender.equals(w.getProperty(Constants.GENDER));
 	}
+	
+	public static boolean isMale(WorldObject performer) {
+		return performer.getProperty(Constants.GENDER).equals("male");
+	}
+	
+	public static boolean isFemale(WorldObject performer) {
+		return performer.getProperty(Constants.GENDER).equals("female");
+	}
 }

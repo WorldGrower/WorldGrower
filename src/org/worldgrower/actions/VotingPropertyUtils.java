@@ -19,8 +19,11 @@ import java.util.List;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.BuildingType;
+import org.worldgrower.creaturetype.CreatureTypeUtils;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.goal.BuildLocationUtils;
+import org.worldgrower.goal.GenderPropertyUtils;
 import org.worldgrower.goal.GroupPropertyUtils;
 
 public class VotingPropertyUtils {
@@ -89,5 +92,30 @@ public class VotingPropertyUtils {
 		votingBox.setProperty(Constants.TEXT, "Voting box for " + organization.getProperty(Constants.NAME));
 		
 		return votingBoxId;
+	}
+	
+	public static boolean canVote(WorldObject worldObject, World world) {
+		WorldObject villagersOrganization = GroupPropertyUtils.getVillagersOrganization(world);
+		
+		boolean onlyOwnersCanVote = villagersOrganization.getProperty(Constants.ONLY_OWNERS_CAN_VOTE);
+		boolean onlyMalesCanVote = villagersOrganization.getProperty(Constants.ONLY_MALES_CAN_VOTE);
+		boolean onlyFemalesCanVote = villagersOrganization.getProperty(Constants.ONLY_FEMALES_CAN_VOTE);
+		boolean onlyUndeadCanVote = villagersOrganization.getProperty(Constants.ONLY_UNDEAD_CAN_VOTE);
+		
+		boolean canVote = true;
+		if (onlyOwnersCanVote) {
+			canVote = canVote && worldObject.getProperty(Constants.BUILDINGS).getIds(BuildingType.SHACK, BuildingType.HOUSE).size() > 0;
+		}
+		if (onlyMalesCanVote) {
+			canVote = canVote && GenderPropertyUtils.isMale(worldObject);
+		}
+		if (onlyFemalesCanVote) {
+			canVote = canVote && GenderPropertyUtils.isFemale(worldObject);
+		}
+		if (onlyUndeadCanVote) {
+			canVote = canVote && CreatureTypeUtils.isUndead(worldObject);
+		}
+		
+		return canVote;
 	}
 }
