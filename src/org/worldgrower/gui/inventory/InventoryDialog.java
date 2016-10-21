@@ -191,12 +191,14 @@ public final class InventoryDialog extends AbstractDialog {
 		
 		demandsButton = JButtonFactory.createButton("Set buying items", soundIdReader);
 		demandsButton.setToolTipText(DEMANDS_TOOL_TIP);
-		demandsButton.setBounds(labelLeft, 530, 150, 25);
+		demandsButton.setIcon(new ImageIcon(imageInfoReader.getImage(ImageIds.SILVER_COIN, null)));
+		demandsButton.setBounds(labelLeft, 480, 175, 50);
 		inventoryPanel.add(demandsButton);
 		
 		pricesButton = JButtonFactory.createButton("Set selling prices", soundIdReader);
 		pricesButton.setToolTipText(PRICES_TOOL_TIP);
-		pricesButton.setBounds(labelLeft, 566, 150, 25);
+		pricesButton.setIcon(new ImageIcon(imageInfoReader.getImage(ImageIds.GOLD_COIN, null)));
+		pricesButton.setBounds(labelLeft, 541, 175, 50);
 		inventoryPanel.add(pricesButton);
 
 		if (inventoryDialogModel.hasTarget()) {
