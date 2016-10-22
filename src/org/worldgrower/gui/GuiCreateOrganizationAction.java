@@ -69,7 +69,9 @@ public class GuiCreateOrganizationAction extends AbstractAction {
 
 	private void createProfessionOrganization() {
 		List<String> professionNames = Professions.getDescriptions();
-		String professionName = new ListInputDialog("Choose Profession", new ListData(professionNames), soundIdReader, parentFrame).showMe();
+		List<ImageIds> imageIds = Professions.getImageIds(Professions.getAllProfessions());
+		ListData listData = new ListData(professionNames, imageIds, imageInfoReader);
+		String professionName = new ListInputDialog("Choose Profession", listData, soundIdReader, parentFrame).showMe();
 		if (professionName != null) {
 			Profession profession = Professions.getProfessionByDescription(professionName);
 			int professionIndex = Professions.indexOf(profession);

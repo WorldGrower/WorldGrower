@@ -22,6 +22,7 @@ import java.util.List;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.generator.Item;
 import org.worldgrower.goal.Goal;
+import org.worldgrower.gui.ImageIds;
 
 public class PlayerCharacterProfession implements Profession, Serializable {
 
@@ -60,5 +61,10 @@ public class PlayerCharacterProfession implements Profession, Serializable {
 	@Override
 	public List<Item> getSellItems() {
 		return Arrays.asList();
+	}
+
+	@Override
+	public ImageIds getImageId() {
+		return ImageIds.KNIGHT;
 	}
 }

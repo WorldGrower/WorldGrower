@@ -23,6 +23,7 @@ import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.generator.Item;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
+import org.worldgrower.gui.ImageIds;
 
 public class BlacksmithProfession implements Profession {
 
@@ -70,5 +71,10 @@ public class BlacksmithProfession implements Profession {
 	@Override
 	public List<Item> getSellItems() {
 		return Arrays.asList(Item.IRON_AXE, Item.IRON_CLAYMORE, Item.IRON_GREATAXE, Item.IRON_GREATSWORD, Item.IRON_HELMET, Item.IRON_CUIRASS, Item.IRON_GAUNTLETS, Item.IRON_GREAVES, Item.IRON_SHIELD);
+	}
+
+	@Override
+	public ImageIds getImageId() {
+		return ImageIds.REPAIR_HAMMER;
 	}
 }

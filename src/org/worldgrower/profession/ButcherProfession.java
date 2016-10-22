@@ -23,6 +23,7 @@ import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.generator.Item;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
+import org.worldgrower.gui.ImageIds;
 
 public class ButcherProfession implements Profession {
 
@@ -68,5 +69,10 @@ public class ButcherProfession implements Profession {
 	@Override
 	public List<Item> getSellItems() {
 		return Arrays.asList(Item.MEAT);
+	}
+
+	@Override
+	public ImageIds getImageId() {
+		return ImageIds.BUTCHER_KNIFE;
 	}
 }

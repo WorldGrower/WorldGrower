@@ -26,6 +26,7 @@ import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
 import org.worldgrower.goal.MarkNonEquipedItemsAsSellableGoal;
 import org.worldgrower.goal.TradeGoal;
+import org.worldgrower.gui.ImageIds;
 
 public class MerchantProfession implements Profession {
 
@@ -85,5 +86,10 @@ public class MerchantProfession implements Profession {
 
 	public List<ManagedProperty<?>> getBuyingProperties() {
 		return buyingProperties;
+	}
+
+	@Override
+	public ImageIds getImageId() {
+		return ImageIds.SILVER_COIN;
 	}
 }

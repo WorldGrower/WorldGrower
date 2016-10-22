@@ -23,6 +23,7 @@ import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.generator.Item;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
+import org.worldgrower.gui.ImageIds;
 
 public class WeaverProfession implements Profession {
 
@@ -66,5 +67,10 @@ public class WeaverProfession implements Profession {
 	@Override
 	public List<Item> getSellItems() {
 		return Arrays.asList(Item.COTTON_BOOTS, Item.COTTON_GLOVES, Item.COTTON_HAT, Item.COTTON_PANTS, Item.COTTON_SHIRT);
+	}
+
+	@Override
+	public ImageIds getImageId() {
+		return ImageIds.COTTON_SHIRT;
 	}
 }

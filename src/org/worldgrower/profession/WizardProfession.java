@@ -23,6 +23,7 @@ import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.generator.Item;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
+import org.worldgrower.gui.ImageIds;
 
 public class WizardProfession implements Profession {
 
@@ -66,5 +67,10 @@ public class WizardProfession implements Profession {
 	@Override
 	public List<Item> getSellItems() {
 		return Arrays.asList();
+	}
+
+	@Override
+	public ImageIds getImageId() {
+		return ImageIds.FIRE_BOLT;
 	}
 }

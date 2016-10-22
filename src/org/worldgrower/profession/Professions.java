@@ -20,6 +20,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.worldgrower.gui.ImageIds;
+
 public class Professions {
 	
 	private static final List<Profession> ALL_PROFESSIONS = new ArrayList<>();
@@ -67,6 +69,10 @@ public class Professions {
 			
 		});
 		return sortedProfessions;
+	}
+	
+	public static List<ImageIds> getImageIds(List<Profession> professions) {
+		return professions.stream().map(p -> p.getImageId()).collect(Collectors.toList());
 	}
 
 	public static Profession getProfessionByDescription(String professionName) {

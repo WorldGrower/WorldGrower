@@ -21,6 +21,7 @@ import java.util.List;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.generator.Item;
 import org.worldgrower.goal.Goal;
+import org.worldgrower.gui.ImageIds;
 
 /**
  * A profession describes the activities and skills an NPC possesses in order to contribute to society
@@ -45,4 +46,5 @@ public interface Profession extends Serializable {
 	}
 	public boolean isPaidByVillagerLeader();
 	public boolean avoidEnemies();
+	public ImageIds getImageId();
 }
