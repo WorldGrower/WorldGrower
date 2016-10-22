@@ -33,8 +33,9 @@ public class UTestSetTaxesGoal {
 	public void testCalculateGoalSetTaxRate() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer();
+		WorldObject organization = createVillagersOrganization(world);
 		
-		assertEquals(Actions.SET_TAX_RATE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+		assertEquals(Actions.SET_GOVERNANCE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
 
 	@Test
@@ -43,9 +44,7 @@ public class UTestSetTaxesGoal {
 		WorldObject performer = createPerformer();
 		world.addWorldObject(performer);
 		
-		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
-		organization.setProperty(Constants.ID, 1);
-		world.addWorldObject(organization);
+		WorldObject organization = createVillagersOrganization(world);
 		assertEquals(true, goal.isGoalMet(performer, world));
 		
 		
@@ -55,6 +54,13 @@ public class UTestSetTaxesGoal {
 		organization.setProperty(Constants.SHACK_TAX_RATE, 1);
 		organization.setProperty(Constants.HOUSE_TAX_RATE, 2);
 		assertEquals(true, goal.isGoalMet(performer, world));
+	}
+
+	WorldObject createVillagersOrganization(World world) {
+		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
+		organization.setProperty(Constants.ID, 1);
+		world.addWorldObject(organization);
+		return organization;
 	}
 
 	private WorldObject createPerformer() {

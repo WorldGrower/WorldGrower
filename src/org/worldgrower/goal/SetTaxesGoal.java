@@ -20,6 +20,7 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.actions.legal.LegalActions;
 
 public class SetTaxesGoal implements Goal {
 
@@ -29,7 +30,8 @@ public class SetTaxesGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		return new OperationInfo(performer, performer, new int[] { 1, 2 }, Actions.SET_TAX_RATE_ACTION);
+		int[] args = LegalActions.createGovernanceArgs(1, 2, world);
+		return new OperationInfo(performer, performer, args, Actions.SET_GOVERNANCE_ACTION);
 	}
 
 	@Override

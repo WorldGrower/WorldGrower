@@ -207,7 +207,6 @@ public class Actions {
 	public static final BecomeLeaderCandidateAction BECOME_LEADER_CANDIDATE_ACTION = new BecomeLeaderCandidateAction();
 	public static final VoteForLeaderAction VOTE_FOR_LEADER_ACTION = new VoteForLeaderAction();
 	public static final StartOrganizationVoteAction START_ORGANIZATION_VOTE_ACTION = new StartOrganizationVoteAction();
-	public static final SetTaxRateAction SET_TAX_RATE_ACTION = new SetTaxRateAction();
 	public static final HandoverTaxesAction HANDOVER_TAXES_ACTION = new HandoverTaxesAction();
 	public static final SetGovernanceAction SET_GOVERNANCE_ACTION = new SetGovernanceAction();
 	
@@ -424,7 +423,6 @@ public class Actions {
 		BECOME_LEADER_CANDIDATE_ACTION,
 		VOTE_FOR_LEADER_ACTION,
 		START_ORGANIZATION_VOTE_ACTION,
-		SET_TAX_RATE_ACTION,
 		HANDOVER_TAXES_ACTION,
 		PLANT_COTTON_PLANT_ACTION,
 		HARVEST_COTTON_ACTION,

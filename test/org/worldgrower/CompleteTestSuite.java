@@ -575,7 +575,6 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestSellStolenGoodsGoal.class,
 	UTestEquipmentPropertyUtils.class,
 	UTestDisguiseAction.class,
-	UTestSetTaxRateAction.class,
 	UTestUnpassableCreaturePositionCondition.class,
 	UTestNonLethalMeleeAttackAction.class,
 	UTestInvestigateAction.class,

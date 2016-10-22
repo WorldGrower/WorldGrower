@@ -27,6 +27,7 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.goal.GroupPropertyUtils;
+import org.worldgrower.goal.LegalActionsPropertyUtils;
 
 /**
  * LegalActions determine for each LegalAction whether it is legal or not
@@ -80,6 +81,19 @@ public class LegalActions implements Serializable {
 		args[wageOffset+5] = onlyMalesCanVote ? 1 : 0;
 		args[wageOffset+6] = onlyFemalesCanVote ? 1 : 0;
 		args[wageOffset+7] = onlyUndeadCanVote ? 1 : 0;
+		
+		return args;
+	}
+	
+	public static int[] createGovernanceArgs(int shackTaxRate, int houseTaxRate, World world) {
+		LegalActions legalActions = LegalActionsPropertyUtils.getLegalActions(world);
+		Map<LegalAction, Boolean> legalFlags = legalActions.getLegalActions();
+		int[] args = createGovernanceArgs(legalFlags, world);
+		List<LegalAction> actions = toList(legalFlags);
+		
+		int wageOffset = actions.size();
+		args[wageOffset] = shackTaxRate;
+		args[wageOffset+1] = houseTaxRate;
 		
 		return args;
 	}
