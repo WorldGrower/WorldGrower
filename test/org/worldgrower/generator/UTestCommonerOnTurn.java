@@ -232,4 +232,23 @@ public class UTestCommonerOnTurn {
 		assertEquals(-27, commoner.getProperty(Constants.RELATIONSHIPS).getValue(leader));
 		assertEquals(0, leader.getProperty(Constants.RELATIONSHIPS).getValue(commoner));
 	}
+	
+	@Test
+	public void testCheckVoting() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject organization = createVillagersOrganization(world);
+		
+		WorldObject commoner = createCommoner(world, organization);
+		WorldObject leader = createCommoner(world, organization);
+
+		CommonerOnTurn commonerOnTurn = new CommonerOnTurn(commonerGenerator, organization);
+		commonerOnTurn.checkVoting(commoner, world, leader);
+		assertEquals(0, commoner.getProperty(Constants.RELATIONSHIPS).getValue(leader));
+		assertEquals(0, leader.getProperty(Constants.RELATIONSHIPS).getValue(commoner));
+		
+		organization.setProperty(Constants.ONLY_OWNERS_CAN_VOTE, true);
+		commonerOnTurn.checkVoting(commoner, world, leader);
+		assertEquals(-100, commoner.getProperty(Constants.RELATIONSHIPS).getValue(leader));
+		assertEquals(0, leader.getProperty(Constants.RELATIONSHIPS).getValue(commoner));
+	}
 }

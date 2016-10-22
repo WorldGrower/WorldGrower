@@ -20,6 +20,7 @@ import org.worldgrower.OnTurn;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.actions.VotingPropertyUtils;
 import org.worldgrower.actions.legal.LegalAction;
 import org.worldgrower.attribute.Background;
 import org.worldgrower.attribute.BuildingList;
@@ -228,6 +229,7 @@ public class CommonerOnTurn implements OnTurn {
 				checkWorshipLegality(worldObject, world, leader);
 				checkTaxRate(worldObject, world, leader);
 				checkWages(worldObject, world, leader);
+				checkVoting(worldObject, world, leader);
 			}
 		}
 	}
@@ -267,6 +269,13 @@ public class CommonerOnTurn implements OnTurn {
 			if (villagerGold > 150 && wage < wageCutoff) {
 				RelationshipPropertyUtils.changeRelationshipValue(worldObject, leader, -3 * (wageCutoff - wage), 0, Actions.SET_GOVERNANCE_ACTION, Args.EMPTY, world);
 			}
+		}
+	}
+	
+	void checkVoting(WorldObject worldObject, World world, WorldObject leader) {
+		WorldObject villagersOrganization = GroupPropertyUtils.getVillagersOrganization(world);
+		if (!VotingPropertyUtils.canVote(worldObject, villagersOrganization, world)) {
+			RelationshipPropertyUtils.changeRelationshipValue(worldObject, leader, -100, 0, Actions.SET_GOVERNANCE_ACTION, Args.EMPTY, world);
 		}
 	}
 }

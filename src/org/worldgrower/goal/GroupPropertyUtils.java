@@ -161,6 +161,7 @@ public class GroupPropertyUtils {
 	
 	public static WorldObject createProfessionOrganization(Integer performerId, String organizationName, Profession profession, World world) {
 		WorldObject organization = create(performerId, organizationName, world);
+		addDefaultVotingOptions(organization);
 		organization.setProperty(Constants.PROFESSION, profession);
 		
 		return organization;
@@ -168,6 +169,7 @@ public class GroupPropertyUtils {
 
 	public static WorldObject createReligionOrganization(Integer performerId, String organizationName, Deity deity, Goal organizationGoal, World world) {
 		WorldObject organization = create(performerId, organizationName, world);
+		addDefaultVotingOptions(organization);
 		organization.setProperty(Constants.DEITY, deity);
 		organization.setProperty(Constants.ORGANIZATION_GOAL, organizationGoal);
 		
@@ -198,10 +200,7 @@ public class GroupPropertyUtils {
 		organization.setProperty(Constants.SHERIFF_WAGE, DEFAULT_WAGE);
 		organization.setProperty(Constants.TAX_COLLECTOR_WAGE, DEFAULT_WAGE);
 		
-		organization.setProperty(Constants.ONLY_OWNERS_CAN_VOTE, false);
-		organization.setProperty(Constants.ONLY_MALES_CAN_VOTE, false);
-		organization.setProperty(Constants.ONLY_FEMALES_CAN_VOTE, false);
-		organization.setProperty(Constants.ONLY_UNDEAD_CAN_VOTE, false);
+		addDefaultVotingOptions(organization);
 		
 		organization.setProperty(Constants.TAXES_PAID_TURN, new IdToIntegerMap());
 		organization.setProperty(Constants.PAY_CHECK_PAID_TURN, new IdToIntegerMap());
@@ -210,6 +209,13 @@ public class GroupPropertyUtils {
 		setLegalActions(organization);
 		
 		return organization;
+	}
+
+	static void addDefaultVotingOptions(WorldObject organization) {
+		organization.setProperty(Constants.ONLY_OWNERS_CAN_VOTE, false);
+		organization.setProperty(Constants.ONLY_MALES_CAN_VOTE, false);
+		organization.setProperty(Constants.ONLY_FEMALES_CAN_VOTE, false);
+		organization.setProperty(Constants.ONLY_UNDEAD_CAN_VOTE, false);
 	}
 
 	private static void setLegalActions(WorldObject organization) {

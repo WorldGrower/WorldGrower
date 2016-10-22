@@ -98,6 +98,10 @@ public class CraftUtils {
 	public static String getRequirementsDescription(IntProperty property, int quantity, String description, String description2) {
 		return getRequirementsDescription(property, quantity) + ", " + description + ", " + description2;
 	}
+	
+	public static String getRequirementsDescription(IntProperty property, int quantity, String description, String description2, String description3) {
+		return getRequirementsDescription(property, quantity) + ", " + description + ", " + description2 + ", " + description3;
+	}
 
 	public static String getRequirementsDescription(SkillProperty skill, int requiredSkillLevel, IntProperty property, int quantity) {
 		return "Requirements: skill " + skill.getName() + " " + requiredSkillLevel + ", " + formatAsString(property, quantity);

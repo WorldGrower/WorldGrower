@@ -58,7 +58,7 @@ public class OrganizationVoteGoal implements Goal {
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
 		WorldObject votingBox = VotingPropertyUtils.getVotingBox(performer, world);
-		if (votingBox != null && VotingPropertyUtils.votingBoxAcceptsVotes(votingBox)) {
+		if (votingBox != null && VotingPropertyUtils.votingBoxAcceptsVotes(votingBox) && VotingPropertyUtils.canVoteAtVotingBox(performer, votingBox, world)) {
 			boolean performerAlreadyVoted = world.getHistory().findHistoryItems(performer, votingBox, Actions.VOTE_FOR_LEADER_ACTION).size() > 0;
 			return performerAlreadyVoted;
 		} else {

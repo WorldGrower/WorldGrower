@@ -94,13 +94,11 @@ public class VotingPropertyUtils {
 		return votingBoxId;
 	}
 	
-	public static boolean canVote(WorldObject worldObject, World world) {
-		WorldObject villagersOrganization = GroupPropertyUtils.getVillagersOrganization(world);
-		
-		boolean onlyOwnersCanVote = villagersOrganization.getProperty(Constants.ONLY_OWNERS_CAN_VOTE);
-		boolean onlyMalesCanVote = villagersOrganization.getProperty(Constants.ONLY_MALES_CAN_VOTE);
-		boolean onlyFemalesCanVote = villagersOrganization.getProperty(Constants.ONLY_FEMALES_CAN_VOTE);
-		boolean onlyUndeadCanVote = villagersOrganization.getProperty(Constants.ONLY_UNDEAD_CAN_VOTE);
+	public static boolean canVote(WorldObject worldObject, WorldObject organization, World world) {
+		boolean onlyOwnersCanVote = organization.getProperty(Constants.ONLY_OWNERS_CAN_VOTE);
+		boolean onlyMalesCanVote = organization.getProperty(Constants.ONLY_MALES_CAN_VOTE);
+		boolean onlyFemalesCanVote = organization.getProperty(Constants.ONLY_FEMALES_CAN_VOTE);
+		boolean onlyUndeadCanVote = organization.getProperty(Constants.ONLY_UNDEAD_CAN_VOTE);
 		
 		boolean canVote = true;
 		if (onlyOwnersCanVote) {
@@ -117,5 +115,11 @@ public class VotingPropertyUtils {
 		}
 		
 		return canVote;
+	}
+	
+	public static boolean canVoteAtVotingBox(WorldObject performer, WorldObject votingBox, World world) {
+		int organizationId = votingBox.getProperty(Constants.ORGANIZATION_ID);
+		WorldObject organization = world.findWorldObjectById(organizationId);
+		return canVote(performer, organization, world);
 	}
 }
