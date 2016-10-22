@@ -59,6 +59,10 @@ public class CraftUtils {
 		return "Requirements: " + description;
 	}
 	
+	public static String getRequirementsDescription(String description, String description2) {
+		return "Requirements: " + description + ", " + description2;
+	}
+	
 	private static String formatAsString(IntProperty property, int quantity) {
 		if (property == Constants.ENERGY) {
 			return "sufficient energy";

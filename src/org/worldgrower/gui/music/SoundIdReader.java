@@ -94,7 +94,8 @@ public class SoundIdReader {
 		readSound(SoundIds.DOOR_OPEN, "/sound/doorOpen_18bit.wav.gz");
 		readSound(SoundIds.BLESSING, "/sound/blessing8bit.wav.gz");
 		readSound(SoundIds.PICKLOCK, "/sound/picklock.wav.gz");
-
+		readSound(SoundIds.DOOR_CLOSE, "/sound/doorClose_4.wav.gz");
+		
 	}
 
 	public SoundIdReader(SoundOutput soundOutput, boolean enabled) throws SoundException {

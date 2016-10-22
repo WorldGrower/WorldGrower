@@ -74,5 +74,6 @@ public enum SoundIds {
 	SWISH,
 	METAL_SMALL1,
 	BLESSING,
-	PICKLOCK
+	PICKLOCK,
+	DOOR_CLOSE
 }

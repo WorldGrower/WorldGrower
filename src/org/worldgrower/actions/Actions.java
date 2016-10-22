@@ -282,6 +282,7 @@ public class Actions {
 	public static final ConstructLockpickAction CONSTRUCT_LOCKPICK_ACTION = new ConstructLockpickAction();
 	public static final OpenLockAction OPEN_LOCK_ACTION = new OpenLockAction();
 	public static final ConstructButcherKnifeAction CONSTRUCT_BUTCHER_KNIFE_ACTION = new ConstructButcherKnifeAction();
+	public static final FirePublicEmployeeAction FIRE_PUBLIC_EMPLOYEE_ACTION = new FirePublicEmployeeAction();
 	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 
@@ -483,7 +484,8 @@ public class Actions {
 		CONSTRUCT_SCYTHE_ACTION,
 		CONSTRUCT_LOCKPICK_ACTION,
 		OPEN_LOCK_ACTION,
-		CONSTRUCT_BUTCHER_KNIFE_ACTION
+		CONSTRUCT_BUTCHER_KNIFE_ACTION,
+		FIRE_PUBLIC_EMPLOYEE_ACTION
 	));
 	
 	static {
