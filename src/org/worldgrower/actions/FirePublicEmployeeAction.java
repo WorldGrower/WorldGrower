@@ -30,6 +30,8 @@ public class FirePublicEmployeeAction implements ManagedOperation {
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		target.removeProperty(Constants.CAN_ATTACK_CRIMINALS);
 		target.removeProperty(Constants.CAN_COLLECT_TAXES);
+		
+		world.logAction(this, performer, target, args, performer.getProperty(Constants.NAME) + " fired " + target.getProperty(Constants.NAME));
 	}
 
 	@Override
