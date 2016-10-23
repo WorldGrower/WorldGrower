@@ -102,4 +102,18 @@ public class ChooseWorldObjectDialog extends AbstractDialog {
 			}
 		});
 	}
+
+	public void enableReadOnlyView() {
+		okButton.setEnabled(true);
+	    for( ActionListener al : okButton.getActionListeners() ) {
+	    	okButton.removeActionListener(al);
+	    }
+	    okButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ChooseWorldObjectDialog.this.dispose();
+			}	    	
+	    });
+	}
 }

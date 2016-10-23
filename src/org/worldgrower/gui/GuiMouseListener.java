@@ -47,6 +47,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.BuildAction;
+import org.worldgrower.actions.VotingPropertyUtils;
 import org.worldgrower.actions.magic.IllusionSpell;
 import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.actions.magic.ResearchSpellAction;
@@ -55,6 +56,7 @@ import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.gui.chooseworldobject.ChooseWorldObjectAction;
 import org.worldgrower.gui.chooseworldobject.GuiDisguiseAction;
+import org.worldgrower.gui.chooseworldobject.GuiViewCandidatesAction;
 import org.worldgrower.gui.chooseworldobject.GuiVoteAction;
 import org.worldgrower.gui.conversation.GuiAskQuestionAction;
 import org.worldgrower.gui.cursor.Cursors;
@@ -429,6 +431,13 @@ public class GuiMouseListener extends MouseAdapter {
 			setMenuIcon(guiVoteMenuItem, Actions.VOTE_FOR_LEADER_ACTION.getImageIds());
 			guiVoteMenuItem.setToolTipText(Actions.VOTE_FOR_LEADER_ACTION.getDescription());
 			menu.add(guiVoteMenuItem);
+		}
+		if (VotingPropertyUtils.isVotingBox(worldObject)) {
+			JMenuItem guiViewCandidatesMenuItem = MenuFactory.createJMenuItem(new GuiViewCandidatesAction(playerCharacter, imageInfoReader, soundIdReader, world, container, dungeonMaster, worldObject, parentFrame), soundIdReader);
+			guiViewCandidatesMenuItem.setText("View Candidates...");
+			setMenuIcon(guiViewCandidatesMenuItem, Actions.VOTE_FOR_LEADER_ACTION.getImageIds());
+			guiViewCandidatesMenuItem.setToolTipText("View list of candidates for the election");
+			menu.add(guiViewCandidatesMenuItem);
 		}
 	}
 	
