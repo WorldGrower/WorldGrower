@@ -34,7 +34,7 @@ public class UTestCreateProfessionOrganizationAction {
 		Actions.CREATE_PROFESSION_ORGANIZATION_ACTION.execute(performer, performer, new int[] { 0, 0, 0 }, world);
 		
 		assertEquals(1, world.getWorldObjects().size());
-		assertEquals("Alliance of farmers", world.getWorldObjects().get(0).getProperty(Constants.NAME));
+		assertEquals("Alliance of alchemists", world.getWorldObjects().get(0).getProperty(Constants.NAME));
 	}
 	
 	@Test

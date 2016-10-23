@@ -26,29 +26,29 @@ public class Professions {
 	
 	private static final List<Profession> ALL_PROFESSIONS = new ArrayList<>();
 	
-	public static final FarmerProfession FARMER_PROFESSION = new FarmerProfession(ALL_PROFESSIONS);
-	public static final BlacksmithProfession BLACKSMITH_PROFESSION = new BlacksmithProfession(ALL_PROFESSIONS);
-	public static final PriestProfession PRIEST_PROFESSION = new PriestProfession(ALL_PROFESSIONS);
-	public static final ThiefProfession THIEF_PROFESSION = new ThiefProfession(ALL_PROFESSIONS);
-	public static final LumberjackProfession LUMBERJACK_PROFESSION = new LumberjackProfession(ALL_PROFESSIONS);
-	public static final MinerProfession MINER_PROFESSION = new MinerProfession(ALL_PROFESSIONS);
-	public static final SheriffProfession SHERIFF_PROFESSION = new SheriffProfession(ALL_PROFESSIONS);
-	public static final GraveDiggerProfession GRAVE_DIGGER_PROFESSION = new GraveDiggerProfession(ALL_PROFESSIONS);
-	public static final TaxCollectorProfession TAX_COLLECTOR_PROFESSION = new TaxCollectorProfession(ALL_PROFESSIONS);
-	public static final WeaverProfession WEAVER_PROFESSION = new WeaverProfession(ALL_PROFESSIONS);
-	public static final CarpenterProfession CARPENTER_PROFESSION = new CarpenterProfession(ALL_PROFESSIONS);
-	public static final WizardProfession WIZARD_PROFESSION = new WizardProfession(ALL_PROFESSIONS);
-	public static final NecromancerProfession NECROMANCER_PROFESSION = new NecromancerProfession(ALL_PROFESSIONS);
-	public static final FisherProfession FISHER_PROFESSION = new FisherProfession(ALL_PROFESSIONS);
-	public static final ArenaOwnerProfession ARENA_OWNER_PROFESSION = new ArenaOwnerProfession(ALL_PROFESSIONS);
-	public static final ArenaFighterProfession ARENA_FIGHTER_PROFESSION = new ArenaFighterProfession(ALL_PROFESSIONS);
-	public static final JournalistProfession JOURNALIST_PROFESSION = new JournalistProfession(ALL_PROFESSIONS);
-	public static final AssassinProfession ASSASSIN_PROFESSION = new AssassinProfession(ALL_PROFESSIONS);
 	public static final AlchemistProfession ALCHEMIST_PROFESSION = new AlchemistProfession(ALL_PROFESSIONS);
+	public static final ArenaFighterProfession ARENA_FIGHTER_PROFESSION = new ArenaFighterProfession(ALL_PROFESSIONS);
+	public static final ArenaOwnerProfession ARENA_OWNER_PROFESSION = new ArenaOwnerProfession(ALL_PROFESSIONS);
+	public static final AssassinProfession ASSASSIN_PROFESSION = new AssassinProfession(ALL_PROFESSIONS);
+	public static final BlacksmithProfession BLACKSMITH_PROFESSION = new BlacksmithProfession(ALL_PROFESSIONS);
 	public static final BrewerProfession BREWER_PROFESSION = new BrewerProfession(ALL_PROFESSIONS);
-	public static final TricksterProfession TRICKSTER_PROFESSION = new TricksterProfession(ALL_PROFESSIONS);
-	public static final MerchantProfession MERCHANT_PROFESSION = new MerchantProfession(ALL_PROFESSIONS);
 	public static final ButcherProfession BUTCHER_PROFESSION = new ButcherProfession(ALL_PROFESSIONS);
+	public static final CarpenterProfession CARPENTER_PROFESSION = new CarpenterProfession(ALL_PROFESSIONS);
+	public static final FarmerProfession FARMER_PROFESSION = new FarmerProfession(ALL_PROFESSIONS);
+	public static final FisherProfession FISHER_PROFESSION = new FisherProfession(ALL_PROFESSIONS);
+	public static final GraveDiggerProfession GRAVE_DIGGER_PROFESSION = new GraveDiggerProfession(ALL_PROFESSIONS);
+	public static final JournalistProfession JOURNALIST_PROFESSION = new JournalistProfession(ALL_PROFESSIONS);
+	public static final LumberjackProfession LUMBERJACK_PROFESSION = new LumberjackProfession(ALL_PROFESSIONS);
+	public static final MerchantProfession MERCHANT_PROFESSION = new MerchantProfession(ALL_PROFESSIONS);
+	public static final MinerProfession MINER_PROFESSION = new MinerProfession(ALL_PROFESSIONS);
+	public static final NecromancerProfession NECROMANCER_PROFESSION = new NecromancerProfession(ALL_PROFESSIONS);
+	public static final PriestProfession PRIEST_PROFESSION = new PriestProfession(ALL_PROFESSIONS);
+	public static final SheriffProfession SHERIFF_PROFESSION = new SheriffProfession(ALL_PROFESSIONS);
+	public static final TaxCollectorProfession TAX_COLLECTOR_PROFESSION = new TaxCollectorProfession(ALL_PROFESSIONS);
+	public static final ThiefProfession THIEF_PROFESSION = new ThiefProfession(ALL_PROFESSIONS);
+	public static final TricksterProfession TRICKSTER_PROFESSION = new TricksterProfession(ALL_PROFESSIONS);
+	public static final WeaverProfession WEAVER_PROFESSION = new WeaverProfession(ALL_PROFESSIONS);
+	public static final WizardProfession WIZARD_PROFESSION = new WizardProfession(ALL_PROFESSIONS);
 	
 	public static List<String> getDescriptions() {
 		return ALL_PROFESSIONS.stream().map(p -> p.getDescription()).collect(Collectors.toList());
