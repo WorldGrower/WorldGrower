@@ -43,7 +43,9 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.legal.LegalAction;
 import org.worldgrower.actions.legal.LegalActions;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.goal.GroupPropertyUtils;
+import org.worldgrower.goal.HousePropertyUtils;
 import org.worldgrower.goal.LegalActionsPropertyUtils;
 import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.start.Game;
@@ -58,8 +60,8 @@ import org.worldgrower.gui.util.JTableFactory;
 
 public class GuiShowGovernanceAction extends AbstractAction {
 	
-	private static final Integer[] PRICES = new Integer[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-	private static final Integer[] WAGES = new Integer[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
+	private static final Integer[] PRICES = new Integer[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
+	private static final Integer[] WAGES = new Integer[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
 	
 	private static final String LEGAL_ACTIONS_TOOLTIP = "When someone performs an illegal action, they are thrown out of the villagers group";
 	private static final String VILLAGER_GOLD_TOOLTIP = "Villager gold is the stored income for the villager government in order to pay expenses";
@@ -129,7 +131,7 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		dialog.addComponent(incomePanel);
 		
 		JLabel shackTaxRate = JLabelFactory.createJLabel("Shack Tax Rate:");
-		shackTaxRate.setBounds(15, 20, 200, 30);
+		shackTaxRate.setBounds(15, 20, 135, 30);
 		shackTaxRate.setToolTipText(SHACK_TAX_RATE_TOOLTIP);
 		incomePanel.add(shackTaxRate);
 		
@@ -137,21 +139,47 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		shackComboBox.setEnabled(performerIsLeaderOfVillagers);
 		WorldObject villagersOrganization = GroupPropertyUtils.getVillagersOrganization(world);
 		shackComboBox.setSelectedItem(villagersOrganization.getProperty(Constants.SHACK_TAX_RATE));
-		shackComboBox.setBounds(215, 20, 50, 30);
+		shackComboBox.setBounds(150, 20, 50, 30);
 		shackComboBox.setToolTipText(SHACK_TAX_RATE_TOOLTIP);
 		incomePanel.add(shackComboBox);
 		
+		int numberOfOwnedShacks = HousePropertyUtils.getOwnedBuildingCount(BuildingType.SHACK, world);
+		JLabel numberOfShacksLabel = JLabelFactory.createJLabel(" x " + numberOfOwnedShacks + " shacks =");
+		numberOfShacksLabel.setBounds(220, 20, 200, 30);
+		numberOfShacksLabel.setToolTipText(SHACK_TAX_RATE_TOOLTIP);
+		incomePanel.add(numberOfShacksLabel);
+		
+		JLabel shackIncome = JLabelFactory.createJLabel("0");
+		shackIncome.setBounds(350, 20, 100, 30);
+		shackIncome.setToolTipText(SHACK_TAX_RATE_TOOLTIP);
+		incomePanel.add(shackIncome);
+		
+		addComboBoxListener(shackComboBox, numberOfOwnedShacks, shackIncome);
+		
 		JLabel houseTaxRate = JLabelFactory.createJLabel("House Tax Rate:");
-		houseTaxRate.setBounds(15, 65, 200, 30);
+		houseTaxRate.setBounds(15, 65, 135, 30);
 		houseTaxRate.setToolTipText(HOUSE_TAX_RATE_TOOLTIP);
 		incomePanel.add(houseTaxRate);
 		
 		JComboBox<Integer> houseComboBox = JComboBoxFactory.createJComboBox(PRICES);
 		houseComboBox.setEnabled(performerIsLeaderOfVillagers);
 		houseComboBox.setSelectedItem(villagersOrganization.getProperty(Constants.HOUSE_TAX_RATE));
-		houseComboBox.setBounds(215, 65, 50, 30);
+		houseComboBox.setBounds(150, 65, 50, 30);
 		houseComboBox.setToolTipText(HOUSE_TAX_RATE_TOOLTIP);
 		incomePanel.add(houseComboBox);
+		
+		int numberOfOwnedHouses = HousePropertyUtils.getOwnedBuildingCount(BuildingType.HOUSE, world);
+		JLabel numberOfHousesLabel = JLabelFactory.createJLabel(" x " + numberOfOwnedHouses + " houses =");
+		numberOfHousesLabel.setBounds(220, 65, 200, 30);
+		numberOfHousesLabel.setToolTipText(HOUSE_TAX_RATE_TOOLTIP);
+		incomePanel.add(numberOfHousesLabel);
+		
+		JLabel houseIncome = JLabelFactory.createJLabel("0");
+		houseIncome.setBounds(350, 65, 100, 30);
+		houseIncome.setToolTipText(HOUSE_TAX_RATE_TOOLTIP);
+		incomePanel.add(houseIncome);
+		
+		addComboBoxListener(houseComboBox, numberOfOwnedHouses, houseIncome);
 		
 		JPanel expensePanel = JPanelFactory.createJPanel("Expense");
 		expensePanel.setLayout(null);
@@ -166,7 +194,7 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		JComboBox<Integer> sheriffComboBox = JComboBoxFactory.createJComboBox(WAGES);
 		sheriffComboBox.setEnabled(performerIsLeaderOfVillagers);
 		sheriffComboBox.setSelectedItem(villagersOrganization.getProperty(Constants.SHERIFF_WAGE));
-		sheriffComboBox.setBounds(215, 20, 50, 30);
+		sheriffComboBox.setBounds(150, 20, 50, 30);
 		sheriffComboBox.setToolTipText(SHERIFF_WAGE_TOOLTIP);
 		expensePanel.add(sheriffComboBox);
 		
@@ -178,7 +206,7 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		JComboBox<Integer> taxCollectorComboBox = JComboBoxFactory.createJComboBox(PRICES);
 		taxCollectorComboBox.setEnabled(performerIsLeaderOfVillagers);
 		taxCollectorComboBox.setSelectedItem(villagersOrganization.getProperty(Constants.TAX_COLLECTOR_WAGE));
-		taxCollectorComboBox.setBounds(215, 65, 50, 30);
+		taxCollectorComboBox.setBounds(150, 65, 50, 30);
 		taxCollectorComboBox.setToolTipText(TAX_COLLECTOR_WAGE_TOOLTIP);
 		expensePanel.add(taxCollectorComboBox);
 		
@@ -239,6 +267,17 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		dialog.setLocationRelativeTo(null);
 		DialogUtils.createDialogBackPanel(dialog, parentFrame.getContentPane());
 		dialog.setVisible(true);
+	}
+
+	private void addComboBoxListener(JComboBox<Integer> comboBox, int numberOfOwnedBuildings, JLabel buildingIncome) {
+		comboBox.addItemListener(new ItemListener() {
+			
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				buildingIncome.setText(Integer.toString(numberOfOwnedBuildings * (Integer)comboBox.getSelectedItem()));				
+			}
+		});
+		buildingIncome.setText(Integer.toString(numberOfOwnedBuildings * (Integer)comboBox.getSelectedItem()));
 	}
 
 	private void addExclusiveSelectedState(JCheckBox maleCheckBox, JCheckBox femaleCheckBox) {

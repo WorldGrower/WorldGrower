@@ -122,6 +122,17 @@ public class HousePropertyUtils {
 		return performer.getProperty(Constants.BUILDINGS).mapToWorldObjects(world, buildingType, w -> !w.hasProperty(Constants.SELLABLE) || !w.getProperty(Constants.SELLABLE));
 	}
 	
+	public static int getOwnedBuildingCount(BuildingType buildingType, World world) {
+		int ownedBuildingCount = 0;
+		for(WorldObject owner : world.getWorldObjects()) {
+			if (owner.getProperty(Constants.BUILDINGS) != null) {
+				ownedBuildingCount += owner.getProperty(Constants.BUILDINGS).getIds(buildingType).size();
+			}
+		}
+		return ownedBuildingCount;
+	}
+	
+	
 	public static void removeShack(WorldObject performer, World world) {
 		List<Integer> currentHouseIds = performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.SHACK);
 		if (currentHouseIds.size() > 0) {
