@@ -20,6 +20,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.worldgrower.World;
+import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.BooleanProperty;
 import org.worldgrower.gui.ImageIds;
 
 public class Professions {
@@ -86,5 +89,16 @@ public class Professions {
 
 	public static int indexOf(Profession profession) {
 		return ALL_PROFESSIONS.indexOf(profession);
+	}
+
+	public static int getProfessionCount(World world, BooleanProperty booleanProperty) {
+		int professionCount = 0;
+		for(WorldObject worldObject : world.getWorldObjects()) {
+			Boolean booleanValue = worldObject.getProperty(booleanProperty);
+			if (booleanValue != null && booleanValue) {
+				professionCount++;
+			}
+		}
+		return professionCount;
 	}
 }

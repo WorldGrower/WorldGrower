@@ -57,6 +57,7 @@ import org.worldgrower.gui.util.JComboBoxFactory;
 import org.worldgrower.gui.util.JLabelFactory;
 import org.worldgrower.gui.util.JPanelFactory;
 import org.worldgrower.gui.util.JTableFactory;
+import org.worldgrower.profession.Professions;
 
 public class GuiShowGovernanceAction extends AbstractAction {
 	
@@ -187,7 +188,7 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		dialog.addComponent(expensePanel);
 		
 		JLabel sheriffWage = JLabelFactory.createJLabel("Sheriff Wage:");
-		sheriffWage.setBounds(15, 20, 200, 30);
+		sheriffWage.setBounds(15, 20, 135, 30);
 		sheriffWage.setToolTipText(SHERIFF_WAGE_TOOLTIP);
 		expensePanel.add(sheriffWage);
 		
@@ -198,8 +199,21 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		sheriffComboBox.setToolTipText(SHERIFF_WAGE_TOOLTIP);
 		expensePanel.add(sheriffComboBox);
 		
+		int numberOfSheriffs = Professions.getProfessionCount(world, Constants.CAN_ATTACK_CRIMINALS);
+		JLabel numberOfSheriffsLabel = JLabelFactory.createJLabel(" x " + numberOfSheriffs + " sheriffs =");
+		numberOfSheriffsLabel.setBounds(220, 20, 200, 30);
+		numberOfSheriffsLabel.setToolTipText(SHERIFF_WAGE_TOOLTIP);
+		expensePanel.add(numberOfSheriffsLabel);
+		
+		JLabel sheriffWageValue = JLabelFactory.createJLabel("0");
+		sheriffWageValue.setBounds(350, 20, 100, 30);
+		sheriffWageValue.setToolTipText(SHERIFF_WAGE_TOOLTIP);
+		expensePanel.add(sheriffWageValue);
+		
+		addComboBoxListener(sheriffComboBox, numberOfSheriffs, sheriffWageValue);
+		
 		JLabel taxCollectorWage = JLabelFactory.createJLabel("Tax Collector Wage:");
-		taxCollectorWage.setBounds(15, 65, 200, 30);
+		taxCollectorWage.setBounds(15, 65, 135, 30);
 		taxCollectorWage.setToolTipText(TAX_COLLECTOR_WAGE_TOOLTIP);
 		expensePanel.add(taxCollectorWage);
 		
@@ -209,6 +223,19 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		taxCollectorComboBox.setBounds(150, 65, 50, 30);
 		taxCollectorComboBox.setToolTipText(TAX_COLLECTOR_WAGE_TOOLTIP);
 		expensePanel.add(taxCollectorComboBox);
+		
+		int numberOfTaxCollectors = Professions.getProfessionCount(world, Constants.CAN_COLLECT_TAXES);
+		JLabel numberOfTaxCollectorsLabel = JLabelFactory.createJLabel(" x " + numberOfTaxCollectors + " tax collectors =");
+		numberOfTaxCollectorsLabel.setBounds(220, 65, 200, 30);
+		numberOfTaxCollectorsLabel.setToolTipText(TAX_COLLECTOR_WAGE_TOOLTIP);
+		expensePanel.add(numberOfTaxCollectorsLabel);
+		
+		JLabel taxCollectorsWageValue = JLabelFactory.createJLabel("0");
+		taxCollectorsWageValue.setBounds(350, 65, 100, 30);
+		taxCollectorsWageValue.setToolTipText(TAX_COLLECTOR_WAGE_TOOLTIP);
+		expensePanel.add(taxCollectorsWageValue);
+		
+		addComboBoxListener(taxCollectorComboBox, numberOfTaxCollectors, taxCollectorsWageValue);
 		
 		JPanel votingPanel = JPanelFactory.createJPanel("Voting");
 		votingPanel.setLayout(null);
