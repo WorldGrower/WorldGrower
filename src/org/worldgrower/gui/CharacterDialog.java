@@ -18,6 +18,7 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.ListCellRenderer;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import org.worldgrower.Constants;
@@ -45,6 +47,7 @@ import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.UnCheckedProperty;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.condition.Conditions;
+import org.worldgrower.deity.Deity;
 import org.worldgrower.generator.CommonerOnTurn;
 import org.worldgrower.goal.ArmorPropertyUtils;
 import org.worldgrower.goal.BountyPropertyUtils;
@@ -109,30 +112,43 @@ public class CharacterDialog extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 
-		JLabel lblName = JLabelFactory.createJLabel(playerCharacter.getProperty(Constants.NAME));
-		lblName.setBounds(12, 13, 120, 20);
-		lblName.setToolTipText("displays character name");
+		Image characterImage = imageInfoReader.getImage(playerCharacter.getProperty(Constants.IMAGE_ID), null);
+		String characterName = playerCharacter.getProperty(Constants.NAME);
+		JLabel lblName = JLabelFactory.createJLabel(characterName, characterImage);
+		lblName.setHorizontalAlignment(SwingConstants.LEFT);
+		lblName.setBounds(12, 13, 120, 50);
+		lblName.setToolTipText("displays character image and name");
 		contentPanel.add(lblName);
 		
+		final JLabel lblDeity;
+		Deity deity = playerCharacter.getProperty(Constants.DEITY);
+		if (deity != null) {
+			String deityDescription = deity.getName();
+			Image deityImage = imageInfoReader.getImage(deity.getBoonImageId(), null);
+			lblDeity = JLabelFactory.createJLabel(deityDescription, deityImage);
+			lblDeity.setHorizontalAlignment(SwingConstants.LEFT);
+		} else {
+			String deityDescription = "<no deity>";
+			lblDeity = JLabelFactory.createJLabel(deityDescription);
+		}
+		
+		lblDeity.setBounds(12, 60, 120, 50);
+		lblDeity.setToolTipText("displays deity");
+		contentPanel.add(lblDeity);
+		
 		JLabel lblProfession = JLabelFactory.createJLabel(playerCharacter.getProperty(Constants.PROFESSION).getDescription());
-		lblProfession.setBounds(12, 42, 120, 20);
+		lblProfession.setBounds(12, 110, 120, 20);
 		lblProfession.setToolTipText("displays character profession");
 		contentPanel.add(lblProfession);
 		
 		JLabel lblLevel = JLabelFactory.createJLabel("Level " + playerCharacter.getProperty(Constants.LEVEL));
-		lblLevel.setBounds(12, 71, 120, 20);
+		lblLevel.setBounds(12, 140, 120, 20);
 		lblLevel.setToolTipText("displays character level");
 		contentPanel.add(lblLevel);
-		
-		String deityDescription = playerCharacter.getProperty(Constants.DEITY) != null ? playerCharacter.getProperty(Constants.DEITY).getName() : "<no deity>";
-		JLabel lblDeity = JLabelFactory.createJLabel(deityDescription);
-		lblDeity.setBounds(12, 100, 120, 20);
-		lblDeity.setToolTipText("displays deity");
-		contentPanel.add(lblDeity);
-		
+
 		String bountyDescription = getBountyDescription(world);
 		JLabel lblBounty = JLabelFactory.createJLabel(bountyDescription);
-		lblBounty.setBounds(12, 129, 120, 20);
+		lblBounty.setBounds(12, 170, 120, 20);
 		lblBounty.setToolTipText("displays bounty");
 		contentPanel.add(lblBounty);
 		
