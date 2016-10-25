@@ -16,7 +16,16 @@ package org.worldgrower.profession;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.Test;
+import org.worldgrower.Constants;
+import org.worldgrower.TestUtils;
+import org.worldgrower.World;
+import org.worldgrower.WorldImpl;
+import org.worldgrower.WorldObject;
+import org.worldgrower.gui.ImageIds;
 
 public class UTestProfessions {
 
@@ -28,5 +37,22 @@ public class UTestProfessions {
 	@Test
 	public void testGetDescriptions() {
 		assertEquals("alchemist", Professions.getDescriptions().get(0));
+	}
+	
+	@Test
+	public void testGetImageIds() {
+		List<Profession> professions = Arrays.asList(Professions.FARMER_PROFESSION);
+		assertEquals(Arrays.asList(ImageIds.SCYTHE), Professions.getImageIds(professions));
+	}
+	
+	@Test
+	public void testGetProfessionCount() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject target1 = TestUtils.createIntelligentWorldObject(2, Constants.CAN_ATTACK_CRIMINALS, true);
+		world.addWorldObject(target1);
+		WorldObject target2 = TestUtils.createIntelligentWorldObject(3, Constants.CAN_COLLECT_TAXES, true);
+		world.addWorldObject(target2);
+		
+		assertEquals(1, Professions.getProfessionCount(world, Constants.CAN_ATTACK_CRIMINALS));
 	}
 }
