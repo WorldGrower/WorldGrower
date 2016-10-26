@@ -17,6 +17,8 @@ package org.worldgrower.gui;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -35,7 +37,7 @@ public class AssignActionLeftMouseDialog extends AbstractDialog {
 
 	private String selectedAction = null;
 
-	public AssignActionLeftMouseDialog(String[] actionDescriptions, SoundIdReader soundIdReader, JFrame parentFrame) {
+	public AssignActionLeftMouseDialog(String[] actionDescriptions, ImageIds[] imageIds, SoundIdReader soundIdReader, JFrame parentFrame, ImageInfoReader imageInfoReader) {
 		super(450, 475);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -44,6 +46,15 @@ public class AssignActionLeftMouseDialog extends AbstractDialog {
 		
 		JList<String> list = JListFactory.createJList(actionDescriptions);
 		list.setSelectedIndex(0);
+		list.setCellRenderer(new ImageListRenderer<>(imageIds, imageInfoReader));
+		
+		this.addWindowFocusListener(new WindowAdapter() {
+			@Override
+		    public void windowGainedFocus(WindowEvent e) {
+		        list.requestFocusInWindow();
+		    }
+		});
+
 		scrollPane.setViewportView(list);
 		
 		JLabel lblNewLabel = JLabelFactory.createJLabel("Ctrl-left mouse click to talk with a person");

@@ -771,7 +771,7 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 
 	private GuiAssignActionToLeftMouseAction getGuiAssignActionToLeftMouseAction() {
-		return new GuiAssignActionToLeftMouseAction(getActions(), container, this, soundIdReader, parentFrame);
+		return new GuiAssignActionToLeftMouseAction(getActions(), container, this, soundIdReader, parentFrame, imageInfoReader);
 	}
 
 	private void addPropertiesMenu(JPopupMenu menu, WorldObject worldObject) {

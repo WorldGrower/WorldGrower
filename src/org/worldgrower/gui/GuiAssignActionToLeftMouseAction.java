@@ -14,6 +14,7 @@
  *******************************************************************************/
 package org.worldgrower.gui;
 
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.util.Arrays;
 import java.util.List;
@@ -34,22 +35,25 @@ public class GuiAssignActionToLeftMouseAction extends AbstractAction {
 	private GuiMouseListener guiMouseListener;
 	private SoundIdReader soundIdReader;
 	private JFrame parentFrame;
+	private ImageInfoReader imageInfoReader;
 	
-	public GuiAssignActionToLeftMouseAction(List<ManagedOperation> actions, WorldPanel parent, GuiMouseListener guiMouseListener, SoundIdReader soundIdReader, JFrame parentFrame) {
+	public GuiAssignActionToLeftMouseAction(List<ManagedOperation> actions, WorldPanel parent, GuiMouseListener guiMouseListener, SoundIdReader soundIdReader, JFrame parentFrame, ImageInfoReader imageInfoReader) {
 		super();
 		this.actions = actions;
 		this.parent = parent;
 		this.guiMouseListener = guiMouseListener;
 		this.soundIdReader = soundIdReader;
 		this.parentFrame = parentFrame;
+		this.imageInfoReader = imageInfoReader;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		String[] actionDescriptions = getActionDescriptions().toArray(new String[0]);
+		String[] actionDescriptions = getActionDescriptions();
+		ImageIds[] imageIds = getImageIds();
 		
-		AssignActionLeftMouseDialog assignActionLeftMouseDialog = new AssignActionLeftMouseDialog(actionDescriptions, soundIdReader, parentFrame);
+		AssignActionLeftMouseDialog assignActionLeftMouseDialog = new AssignActionLeftMouseDialog(actionDescriptions, imageIds, soundIdReader, parentFrame, imageInfoReader);
 		String actionDescription = assignActionLeftMouseDialog.showMe();
 		
 		if (actionDescription != null && !actionDescription.equals(NO_ACTION)) {
@@ -61,9 +65,15 @@ public class GuiAssignActionToLeftMouseAction extends AbstractAction {
 		}
 	}
 	
-	private List<String> getActionDescriptions() {
+	private String[] getActionDescriptions() {
 		List<String> actionDescriptions = actions.stream().map(a -> a.getSimpleDescription()).collect(Collectors.toList());
 		actionDescriptions.add(NO_ACTION);
-		return actionDescriptions;
+		return actionDescriptions.toArray(new String[0]);
+	}
+	
+	private ImageIds[] getImageIds() {
+		List<ImageIds> actionDescriptions = actions.stream().map(a -> a.getImageIds()).collect(Collectors.toList());
+		actionDescriptions.add(null);
+		return actionDescriptions.toArray(new ImageIds[0]);
 	}
 }
