@@ -14,32 +14,23 @@
  *******************************************************************************/
 package org.worldgrower.gui;
 
-import java.awt.Component;
-
-import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.ListCellRenderer;
+import javax.swing.table.DefaultTableCellRenderer;
 
-class ImageListRenderer<T> implements ListCellRenderer<T> {
+import org.worldgrower.attribute.SkillProperty;
 
-	private final DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
-	private final ImageIds[] imageIds;
-	private final ImageInfoReader imageInfoReader;
+public class SkillTableRenderer extends DefaultTableCellRenderer {
+    private final ImageInfoReader imageInfoReader;
+    private final SkillImageIds skillImageIds = new SkillImageIds();
 
-	public ImageListRenderer(ImageIds[] imageIds, ImageInfoReader imageInfoReader) {
+    public SkillTableRenderer(ImageInfoReader imageInfoReader) {
 		super();
-		this.imageIds = imageIds;
 		this.imageInfoReader = imageInfoReader;
 	}
 
-	public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-		JLabel renderer = (JLabel) defaultRenderer.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-		ImageIds id = imageIds[index];
-		if (id != null) {
-			renderer.setIcon(new ImageIcon(imageInfoReader.getImage(id, null)));
-		}
-		return renderer;
-	}
+	public void setValue(Object value) {
+		SkillProperty skillProperty = (SkillProperty) value;
+		setText(skillProperty.getName());
+		setIcon(new ImageIcon(imageInfoReader.getImage(skillImageIds.getImageFor(skillProperty), null)));
+    }
 }

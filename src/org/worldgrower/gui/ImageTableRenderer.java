@@ -25,7 +25,7 @@ public class ImageTableRenderer extends DefaultTableCellRenderer {
 		this.imageInfoReader = imageInfoReader;
 	}
 
-
+    @Override
 	public void setValue(Object value) {
        ImageIds imageId = (ImageIds) value;
        setIcon(new ImageIcon(imageInfoReader.getImage(imageId, null)));

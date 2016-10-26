@@ -39,11 +39,12 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.attribute.PropertyCountMap;
+import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.gui.cursor.Cursors;
 import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.util.DialogUtils;
-import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.IconUtils;
+import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JTableFactory;
 
 public class MagicOverviewDialog extends JDialog {
@@ -72,6 +73,8 @@ public class MagicOverviewDialog extends JDialog {
 		
 		JTable magicSpellsTable = new MagicSpellsTable(new MagicSpellTableModel(playerCharacter));
 		magicSpellsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
+		magicSpellsTable.setDefaultRenderer(SkillProperty.class, new SkillTableRenderer(imageInfoReader));
 		magicSpellsTable.setDefaultRenderer(ImageIds.class, new ImageTableRenderer(imageInfoReader));
 		magicSpellsTable.setRowHeight(50);
 		magicSpellsTable.setAutoCreateRowSorter(true);
@@ -160,7 +163,7 @@ public class MagicOverviewDialog extends JDialog {
 			} else if (column == 1) {
 				return String.class;
 			} else if (column == 2) {
-				return String.class;
+				return SkillProperty.class;
 			} else if (column == 3) {
 				return Integer.class;
 			} else if (column == 4) {
@@ -180,7 +183,7 @@ public class MagicOverviewDialog extends JDialog {
 			} else if (column == 1) {
 				return magicSpell.getSimpleDescription();
 			} else if (column == 2) {
-				return magicSpell.getSkill().getName();
+				return magicSpell.getSkill();
 			} else if (column == 3) {
 				return magicSpell.getRequiredSkillLevel();
 			} else if (column == 4) {
