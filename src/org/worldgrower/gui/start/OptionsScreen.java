@@ -281,6 +281,7 @@ public class OptionsScreen {
 		JLabel lblCharacterImage = JLabelFactory.createJLabel("Character image:");
 		lblCharacterImage.setToolTipText("choose gender of player character");
 		lblCharacterImage.setBounds(25, 152, 191, 26);
+		lblCharacterImage.setCursor(Cursors.CURSOR);
 		contentPanel.add(lblCharacterImage);
 		
 		cmbImage = JComboBoxFactory.createJComboBox();
