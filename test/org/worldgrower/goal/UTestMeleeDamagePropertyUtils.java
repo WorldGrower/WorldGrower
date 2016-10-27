@@ -51,6 +51,16 @@ public class UTestMeleeDamagePropertyUtils {
 	}
 	
 	@Test
+	public void testCalculateMeleeDamageIronGauntlets() {
+		WorldObject performer = TestUtils.createSkilledWorldObject(1);
+		
+		assertEquals(2 * Item.COMBAT_MULTIPLIER, MeleeDamagePropertyUtils.calculateMeleeDamage(performer));
+		
+		performer.setProperty(Constants.ARMS_EQUIPMENT, Item.IRON_GAUNTLETS.generate(1f));
+		assertEquals(7 * Item.COMBAT_MULTIPLIER, MeleeDamagePropertyUtils.calculateMeleeDamage(performer));
+	}
+	
+	@Test
 	public void testSetTwoHandedWeapons() {
 		WorldObject performer = TestUtils.createSkilledWorldObject(1);
 		MeleeDamagePropertyUtils.setTwoHandedWeapons(performer, Constants.LEFT_HAND_EQUIPMENT);

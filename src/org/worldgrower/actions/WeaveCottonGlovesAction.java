@@ -60,7 +60,7 @@ public class WeaveCottonGlovesAction implements CraftAction, AnimatedAction {
 	
 	@Override
 	public String getDescription() {
-		return "cotton gloves are used as armor to reduce the damage taken from attacks";
+		return "cotton gloves are used as armor to reduce the damage taken from attacks, and increase damage of unarmed attacks";
 	}
 
 	@Override

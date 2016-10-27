@@ -62,7 +62,7 @@ public class CraftIronGauntletsAction implements CraftAction, AnimatedAction {
 	
 	@Override
 	public String getDescription() {
-		return "iron gauntlets are used as armor to reduce the damage taken from attacks";
+		return "iron gauntlets are used as armor to reduce the damage taken from attacks, and increase damage of unarmed attacks";
 	}
 
 	@Override
