@@ -610,6 +610,10 @@ public class GuiMouseListener extends MouseAdapter {
 		addToolTips(Actions.CREATE_NEWS_PAPER_ACTION, guiCreateNewsPaperMenuItem);
 		addImageIcon(Actions.CREATE_NEWS_PAPER_ACTION, guiCreateNewsPaperMenuItem);
 		menu.add(guiCreateNewsPaperMenuItem);
+		
+		//bugfix to make disabled components have the correct cursor:
+		//https://bugs.openjdk.java.net/browse/JDK-4380700
+		guiCreateNewsPaperMenuItem.getParent().setCursor(Cursors.CURSOR);
 	}
 	
 	private JMenu addActions(JPopupMenu menu, ImageIds imageId, String menuTitle, ManagedOperation[] actions) {
