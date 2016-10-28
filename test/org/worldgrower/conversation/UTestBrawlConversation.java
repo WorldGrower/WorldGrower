@@ -45,11 +45,12 @@ public class UTestBrawlConversation {
 		
 		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
-		assertEquals(4, replyPhrases.size());
+		assertEquals(5, replyPhrases.size());
 		assertEquals("Yes, while we brawl, only unarmed non-lethal melee attacks are allowed.", replyPhrases.get(0).getResponsePhrase());
 		assertEquals("No", replyPhrases.get(1).getResponsePhrase());
 		assertEquals("I'd love to, but I'm currently attacking targetName", replyPhrases.get(2).getResponsePhrase());
 		assertEquals("Not for the moment, I can't match your bet", replyPhrases.get(3).getResponsePhrase());
+		assertEquals("Get lost", replyPhrases.get(4).getResponsePhrase());
 	}
 	
 	@Test
@@ -60,11 +61,12 @@ public class UTestBrawlConversation {
 		
 		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
-		assertEquals(4, replyPhrases.size());
+		assertEquals(5, replyPhrases.size());
 		assertEquals("Yes, while we brawl, only unarmed non-lethal melee attacks are allowed.", replyPhrases.get(0).getResponsePhrase());
 		assertEquals("No", replyPhrases.get(1).getResponsePhrase());
 		assertEquals("I'd love to, but I'm currently resting", replyPhrases.get(2).getResponsePhrase());
 		assertEquals("Not for the moment, I can't match your bet", replyPhrases.get(3).getResponsePhrase());
+		assertEquals("Get lost", replyPhrases.get(4).getResponsePhrase());
 	}
 	
 	@Test
@@ -107,6 +109,19 @@ public class UTestBrawlConversation {
 		assertEquals(10, target.getProperty(Constants.BRAWL_STAKE_GOLD).intValue());
 		assertEquals(2, performer.getProperty(Constants.BRAWL_OPPONENT_ID).intValue());
 		assertEquals(1, target.getProperty(Constants.BRAWL_OPPONENT_ID).intValue());
+	}
+	
+	@Test
+	public void testHandleResponse4() {
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.RELATIONSHIPS, new IdRelationshipMap());
+		
+		int brawlStakeGold = 10;
+		ConversationContext context = new ConversationContext(performer, target, null, null, null, brawlStakeGold);
+		
+		conversation.handleResponse(4, context);
+		assertEquals(-100, performer.getProperty(Constants.RELATIONSHIPS).getValue(target));
+		assertEquals(-100, target.getProperty(Constants.RELATIONSHIPS).getValue(performer));
 	}
 	
 	@Test

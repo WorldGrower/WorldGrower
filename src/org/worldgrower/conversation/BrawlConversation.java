@@ -22,9 +22,11 @@ import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
 import org.worldgrower.goal.BrawlPropertyUtils;
 import org.worldgrower.goal.GoalUtils;
 import org.worldgrower.goal.Goals;
+import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
 
 public class BrawlConversation implements Conversation {
@@ -33,16 +35,21 @@ public class BrawlConversation implements Conversation {
 	private static final int NO = 1;
 	private static final int LATER = 2;
 	private static final int NOT_ENOUGH_GOLD = 3;
+	private static final int GET_LOST = 4;
 	
 	@Override
 	public Response getReplyPhrase(ConversationContext conversationContext) {
 		final int replyId;
 		
+		WorldObject performer = conversationContext.getPerformer();
 		WorldObject target = conversationContext.getTarget();
 		World world = conversationContext.getWorld();
 		int brawlStakeGold = conversationContext.getAdditionalValue();
+		int relationshipValue = target.getProperty(Constants.RELATIONSHIPS).getValue(performer);
 
-		if (target.getProperty(Constants.GOLD) < brawlStakeGold) {
+		if (relationshipValue < -900) {
+			replyId = GET_LOST;
+		} else if (target.getProperty(Constants.GOLD) < brawlStakeGold) {
 			replyId = NOT_ENOUGH_GOLD;
 		} else if (GoalUtils.currentGoalHasLowerPriorityThan(Goals.REST_GOAL, target, world)) {
 			replyId = YES;
@@ -82,7 +89,8 @@ public class BrawlConversation implements Conversation {
 			new Response(YES, "Yes, while we brawl, only unarmed non-lethal melee attacks are allowed."),
 			new Response(NO, "No"),
 			new Response(LATER, "I'd love to, but I'm currently " + immediateGoalDescription),
-			new Response(NOT_ENOUGH_GOLD, "Not for the moment, I can't match your bet")
+			new Response(NOT_ENOUGH_GOLD, "Not for the moment, I can't match your bet"),
+			new Response(GET_LOST, "Get lost")
 			);
 	}
 
@@ -93,12 +101,15 @@ public class BrawlConversation implements Conversation {
 
 	@Override
 	public void handleResponse(int replyIndex, ConversationContext conversationContext) {
+		WorldObject performer = conversationContext.getPerformer();
+		WorldObject target = conversationContext.getTarget();
+		World world = conversationContext.getWorld();
+		
 		if (replyIndex == YES) {
-			WorldObject performer = conversationContext.getPerformer();
-			WorldObject target = conversationContext.getTarget();
 			int brawlStakeGold = conversationContext.getAdditionalValue();
-			
 			BrawlPropertyUtils.startBrawl(performer, target, brawlStakeGold);
+		} else if (replyIndex == GET_LOST) {
+			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -100, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 		}
 	}
 	
