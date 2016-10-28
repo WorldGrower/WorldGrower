@@ -17,6 +17,7 @@ package org.worldgrower.deity;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+import org.worldgrower.gui.ImageIds;
 
 public class UTestDeity {
 
@@ -30,4 +31,17 @@ public class UTestDeity {
 		assertEquals(13, Deity.getAllDeityNames().size());
 		assertEquals("Aphrodite", Deity.getAllDeityNames().get(0));
 	}
+	
+	@Test
+	public void testGetAllDeityExplanations() {
+		assertEquals(13, Deity.getAllDeityExplanations().size());
+		assertEquals("Aphrodite is the Goddess of love, beauty, desire, sex and pleasure.", Deity.getAllDeityExplanations().get(0));
+	}
+	
+	@Test
+	public void testGetAllImageIds() {
+		assertEquals(13, Deity.getAllImageIds().size());
+		assertEquals(ImageIds.APHRODITE_SYMBOL, Deity.getAllImageIds().get(0));
+	}
+	
 }
