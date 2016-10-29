@@ -25,6 +25,7 @@ import org.worldgrower.actions.AnimatedAction;
 import org.worldgrower.actions.AttackUtils;
 import org.worldgrower.actions.CraftUtils;
 import org.worldgrower.actions.DeadlyAction;
+import org.worldgrower.attribute.DamageType;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.generator.Item;
@@ -39,7 +40,7 @@ public class InflictWoundsAction implements MagicSpell, DeadlyAction, AnimatedAc
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		AttackUtils.magicAttack(BASE_DAMAGE, this, performer, target, args, world, SkillUtils.useSkill(performer, getSkill(), world.getWorldStateChangedListeners()));
+		AttackUtils.magicAttack(BASE_DAMAGE, this, performer, target, args, world, SkillUtils.useSkill(performer, getSkill(), world.getWorldStateChangedListeners()), DamageType.NECROTIC);
 	}
 	
 	@Override
@@ -98,7 +99,7 @@ public class InflictWoundsAction implements MagicSpell, DeadlyAction, AnimatedAc
 
 	@Override
 	public String getDeathDescription(WorldObject performer, WorldObject target) {
-		return "killed by necrotic damage";
+		return DamageType.NECROTIC.getDeathDescription();
 	}
 
 	@Override

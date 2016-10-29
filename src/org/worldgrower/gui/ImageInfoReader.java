@@ -600,6 +600,14 @@ public class ImageInfoReader {
         add(ImageIds.WORSHIP, pirates.getSubImage(11, 0, 1, 1));
         add(ImageIds.GOLD_SHIELD, sprites420.getSubImage(13, 12, 1, 1));
         add(ImageIds.PARCHMENT, sprites420.getSubImage(10, 17, 1, 1));
+        
+        add(ImageIds.PROTECTION_FROM_FIRE, sprites420.getSubImage(0, 27, 1, 1));
+        add(ImageIds.PROTECTION_FROM_ICE, sprites420.getSubImage(1, 27, 1, 1));
+        add(ImageIds.PROTECTION_FROM_LIGHTNING, sprites420.getSubImage(2, 27, 1, 1));
+        
+    	createAnimation(ImageIds.PROTECTION_FROM_FIRE_ANIMATION, ImageIds.PROTECTION_FROM_FIRE, 10);
+        createAnimation(ImageIds.PROTECTION_FROM_ICE_ANIMATION, ImageIds.PROTECTION_FROM_ICE, 10);
+        createAnimation(ImageIds.PROTECTION_FROM_LIGHTNING_ANIMATION, ImageIds.PROTECTION_FROM_LIGHTNING, 10);
     }
     
     private void createAnimation(ImageIds animationImageId, ImageIds imageId, int numberOfFrames) {

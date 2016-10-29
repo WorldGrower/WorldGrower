@@ -25,6 +25,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.ArmorType;
+import org.worldgrower.attribute.DamageType;
 import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
@@ -240,10 +241,11 @@ public class AttackUtils {
 		return damage;
 	}
 
-	public static void magicAttack(int performerDamage, DeadlyAction action, WorldObject performer, WorldObject target, int[] args, World world, double skillBonus) {
+	public static void magicAttack(int performerDamage, DeadlyAction action, WorldObject performer, WorldObject target, int[] args, World world, double skillBonus, DamageType damageType) {
 		int targetHP = target.getProperty(Constants.HIT_POINTS);
 		
 		int damage = (int) (performerDamage * skillBonus);
+		damage = changeForDamageType(damage, damageType, performer, target);
 		targetHP = targetHP - damage;
 		String message = performer.getProperty(Constants.NAME) + " attacks " + target.getProperty(Constants.NAME) + ": " + damage + " damage";
 		
@@ -256,6 +258,23 @@ public class AttackUtils {
 		world.logAction(action, performer, target, args, message);
 	}
 	
+	static int changeForDamageType(int damage, DamageType damageType, WorldObject performer, WorldObject target) {
+		if (damageType == DamageType.FIRE) {
+			if (targetHasCondition(target, Condition.PROTECTION_FROM_FIRE_CONDITION)) {
+				damage /= 2;
+			}
+		} else if (damageType == DamageType.ICE) {
+			if (targetHasCondition(target, Condition.PROTECTION_FROM_ICE_CONDITION)) {
+				damage /= 2;
+			}
+		} else if (damageType == DamageType.LIGHTNING) {
+			if (targetHasCondition(target, Condition.PROTECTION_FROM_LIGHTNING_CONDITION)) {
+				damage /= 2;
+			}
+		}
+		return damage;
+	}
+
 	public static void teleportDamage(int performerDamage, DeadlyAction action, WorldObject performer, int[] args, World world) {
 		int performerHP = performer.getProperty(Constants.HIT_POINTS);
 		

@@ -50,7 +50,7 @@ public class LightningBoltAttackAction implements MagicSpell, DeadlyAction, Anim
 			damage += damage / 10;
 		}
 		
-		AttackUtils.magicAttack(damage, this, performer, target, args, world, SkillUtils.getSkillBonus(performer, getSkill()));
+		AttackUtils.magicAttack(damage, this, performer, target, args, world, SkillUtils.getSkillBonus(performer, getSkill()), DamageType.LIGHTNING);
 	
 		int targetX = target.getProperty(Constants.X);
 		int targetY = target.getProperty(Constants.Y);
@@ -59,7 +59,7 @@ public class LightningBoltAttackAction implements MagicSpell, DeadlyAction, Anim
 		if (terrainType == TerrainType.WATER) {
 			List<WorldObject> worldObjectsInSurroundingWater = LocationUtils.findWorldObjectsInSurroundingWater(targetX, targetY, world);
 			for(WorldObject worldObjectInSurroundingWater : worldObjectsInSurroundingWater) {
-				AttackUtils.magicAttack(5, this, performer, worldObjectInSurroundingWater, args, world, SkillUtils.getSkillBonus(performer, getSkill()));
+				AttackUtils.magicAttack(5, this, performer, worldObjectInSurroundingWater, args, world, SkillUtils.getSkillBonus(performer, getSkill()), DamageType.LIGHTNING);
 			}
 		}
 		

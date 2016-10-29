@@ -510,7 +510,7 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 	
 	private void addRestorationActions(JPopupMenu menu) {
-		MagicSpell[] restorationActions = { Actions.MINOR_HEAL_ACTION, Actions.CURE_DISEASE_ACTION, Actions.CURE_POISON_ACTION };
+		MagicSpell[] restorationActions = { Actions.MINOR_HEAL_ACTION, Actions.CURE_DISEASE_ACTION, Actions.CURE_POISON_ACTION, Actions.PROTECTION_FROM_FIRE_ACTION, Actions.PROTECTION_FROM_ICE_ACTION, Actions.PROTECTION_FROM_LIGHTNING_ACTION };
 		JMenu restorationMenu = addActions(menu, skillImageIds.getImageFor(Constants.RESTORATION_SKILL), "Restoration", restorationActions);
 		addBuildAction(restorationMenu, Actions.TURN_UNDEAD_ACTION, startBuildMode());
 	}

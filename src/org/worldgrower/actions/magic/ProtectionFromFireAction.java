@@ -12,69 +12,29 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.gui.music;
+package org.worldgrower.actions.magic;
 
-public enum SoundIds {
-	CUT_WOOD,
-	MINE, 
-	FLAMES,
-	FROST,
-	SHOCK,
-	TELEPORT,
-	WATER,
-	EAT,
-	SWING,
-	BOW,
-	BUILD_WOODEN_BUILDING,
-	BUILD_STONE_BUILDING,
-	SMITH,
-	PAPER,
-	DARKNESS,
-	CURSE,
-	ALCHEMIST,
-	DRINK,
-	MAGIC1,
-	MAGIC3,
-	MAGIC6,
-	MAGIC7,
-	KNIFE_SLICE,
-	HANDLE_COINS,
-	DOOR_OPEN,
-	BOOK_FLIP,
-	CLICK,
-	ROLLOVER,
-	COW,
-	HEALING,
-	WIND,
-	CLOTH,
-	CLATTER,
-	BLESSING2,
-	CURSE_SPELL,
-	FORCE_PUSH,
-	FORCE_PULSE,
-	CURSE5,
-	CURSE3,
-	ZAP2,
-	ENCHANT,
-	ENCHANT2,
-	DISENCHANT,
-	RUSTLE01,
-	CONFUSION,
-	ZAP2G,
-	RANDOM1,
-	HANDLE_SMALL_LEATHER,
-	MOVE,
-	RUSTLE3,
-	KISS,
-	DYING,
-	SHOVEL,
-	POISON,
-	SEX,
-	RELIGIOUS,
-	SWISH,
-	METAL_SMALL1,
-	BLESSING,
-	PICKLOCK,
-	DOOR_CLOSE,
-	MAGIC_SHIELD
+import org.worldgrower.condition.Condition;
+import org.worldgrower.gui.ImageIds;
+
+public class ProtectionFromFireAction extends AbstractProtectionFromEnergyAction {
+	
+	@Override
+	public ImageIds getImageIds() {
+		return ImageIds.PROTECTION_FROM_FIRE;
+	}
+
+	@Override
+	public ImageIds getAnimationImageId() {
+		return ImageIds.PROTECTION_FROM_FIRE_ANIMATION;
+	}
+
+	@Override
+	public Condition getCondition() {
+		return Condition.PROTECTION_FROM_FIRE_CONDITION;
+	}
+	
+	public String getEnergyDescription() {
+		return "fire";
+	}
 }

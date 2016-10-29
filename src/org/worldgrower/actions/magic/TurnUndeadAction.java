@@ -50,7 +50,7 @@ public class TurnUndeadAction implements BuildAction, MagicSpell, DeadlyAction, 
 		
 		List<WorldObject> targets = getAffectedTargets(target, world);
 		for(WorldObject spellTarget : targets) {
-			AttackUtils.magicAttack(damage, this, performer, spellTarget, args, world, SkillUtils.getSkillBonus(performer, getSkill()));
+			AttackUtils.magicAttack(damage, this, performer, spellTarget, args, world, SkillUtils.getSkillBonus(performer, getSkill()), DamageType.FIRE);
 		}
 		
 		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE, world.getWorldStateChangedListeners());

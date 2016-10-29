@@ -24,6 +24,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.AttackUtils;
+import org.worldgrower.attribute.DamageType;
 import org.worldgrower.condition.WorldStateChangedListeners;
 
 public class FireTrapOnTurn implements OnTurn {
@@ -37,7 +38,7 @@ public class FireTrapOnTurn implements OnTurn {
 		
 		if (targets.size() > 0) {
 			int damage = worldObject.getProperty(Constants.DAMAGE);
-			AttackUtils.magicAttack(damage, Actions.FIRE_TRAP_ACTION, worldObject, targets.get(0), Args.EMPTY, world, 1.0f);
+			AttackUtils.magicAttack(damage, Actions.FIRE_TRAP_ACTION, worldObject, targets.get(0), Args.EMPTY, world, 1.0f, DamageType.FIRE);
 			world.removeWorldObject(worldObject);
 		}
 	}

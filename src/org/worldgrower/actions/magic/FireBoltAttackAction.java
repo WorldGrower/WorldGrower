@@ -42,7 +42,7 @@ public class FireBoltAttackAction implements MagicSpell, DeadlyAction, AnimatedA
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		AttackUtils.magicAttack(BASE_DAMAGE, this, performer, target, args, world, SkillUtils.useSkill(performer, getSkill(), world.getWorldStateChangedListeners()));
+		AttackUtils.magicAttack(BASE_DAMAGE, this, performer, target, args, world, SkillUtils.useSkill(performer, getSkill(), world.getWorldStateChangedListeners()), DamageType.FIRE);
 	
 		if (target.hasProperty(Constants.FLAMMABLE) && target.getProperty(Constants.FLAMMABLE)) {
 			Conditions.add(target, Condition.BURNING_CONDITION, 100, world);

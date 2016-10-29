@@ -22,6 +22,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.AttackUtils;
 import org.worldgrower.actions.CraftUtils;
 import org.worldgrower.actions.DeadlyAction;
+import org.worldgrower.attribute.DamageType;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.condition.Condition;
@@ -116,6 +117,6 @@ public class TrapContainerMagicSpellAction implements MagicSpell, DeadlyAction {
 
 	@Override
 	public String getDeathDescription(WorldObject performer, WorldObject target) {
-		return "killed by a trapped container";
+		return DamageType.SLASHING.getDeathDescription();
 	}
 }

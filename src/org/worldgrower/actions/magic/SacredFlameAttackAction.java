@@ -48,7 +48,7 @@ public class SacredFlameAttackAction implements MagicSpell, DeadlyAction, Animat
 			damage += damage / 10;
 		}
 		
-		AttackUtils.magicAttack(damage, this, performer, target, args, world, SkillUtils.useSkill(performer, getSkill(), world.getWorldStateChangedListeners()));
+		AttackUtils.magicAttack(damage, this, performer, target, args, world, SkillUtils.useSkill(performer, getSkill(), world.getWorldStateChangedListeners()), DamageType.FIRE);
 	
 		world.logAction(this, performer, target, args, null);
 	}

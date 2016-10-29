@@ -23,6 +23,7 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.DamageType;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.generator.CommonerGenerator;
@@ -157,7 +158,7 @@ public class UTestAttackUtils {
 		WorldObject target = createCommoner(world);
 		
 		assertEquals(20 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
-		AttackUtils.magicAttack(5 * Item.COMBAT_MULTIPLIER, Actions.FIRE_BOLT_ATTACK_ACTION, performer, target, Args.EMPTY, world, 1f);
+		AttackUtils.magicAttack(5 * Item.COMBAT_MULTIPLIER, Actions.FIRE_BOLT_ATTACK_ACTION, performer, target, Args.EMPTY, world, 1f, DamageType.FIRE);
 		assertEquals(15 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
 	}
 	
@@ -229,6 +230,42 @@ public class UTestAttackUtils {
 		assertEquals(true, target.getProperty(Constants.CONDITIONS).hasCondition(Condition.POISONED_CONDITION));
 		assertEquals(null, ironClaymore1.getProperty(Constants.POISON_DAMAGE));
 		assertEquals(null, ironClaymore2.getProperty(Constants.POISON_DAMAGE));
+	}
+	
+	@Test
+	public void testChangeForDamageTypeFire() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = createCommoner(world);
+		WorldObject target = createCommoner(world);
+		
+		assertEquals(10, AttackUtils.changeForDamageType(10, DamageType.FIRE, performer, target));
+		
+		Conditions.add(target, Condition.PROTECTION_FROM_FIRE_CONDITION, 8, world);
+		assertEquals(5, AttackUtils.changeForDamageType(10, DamageType.FIRE, performer, target));
+	}
+	
+	@Test
+	public void testChangeForDamageTypeIce() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = createCommoner(world);
+		WorldObject target = createCommoner(world);
+		
+		assertEquals(10, AttackUtils.changeForDamageType(10, DamageType.ICE, performer, target));
+		
+		Conditions.add(target, Condition.PROTECTION_FROM_ICE_CONDITION, 8, world);
+		assertEquals(5, AttackUtils.changeForDamageType(10, DamageType.ICE, performer, target));
+	}
+	
+	@Test
+	public void testChangeForDamageTypeLightning() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = createCommoner(world);
+		WorldObject target = createCommoner(world);
+		
+		assertEquals(10, AttackUtils.changeForDamageType(10, DamageType.LIGHTNING, performer, target));
+		
+		Conditions.add(target, Condition.PROTECTION_FROM_LIGHTNING_CONDITION, 8, world);
+		assertEquals(5, AttackUtils.changeForDamageType(10, DamageType.LIGHTNING, performer, target));
 	}
 
 	private WorldObject createCommoner(World world) {

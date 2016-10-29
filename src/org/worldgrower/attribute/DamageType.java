@@ -21,7 +21,8 @@ public enum DamageType {
 	BLUDGEONING("bludgeoned to death"),
 	FIRE("burned to death"),
 	ICE("frozen to death"),
-	LIGHTNING("electrocuted to death");
+	LIGHTNING("electrocuted to death"),
+	NECROTIC("killed by necrotic damage");
 	
 	private final String deathDescription;
 

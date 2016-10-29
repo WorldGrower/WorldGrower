@@ -44,7 +44,7 @@ public class FireBallAttackAction implements BuildAction, MagicSpell, DeadlyActi
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		List<WorldObject> targets = getAffectedTargets(target, world);
 		for(WorldObject spellTarget : targets) {
-			AttackUtils.magicAttack(BASE_DAMAGE, this, performer, spellTarget, args, world, SkillUtils.getSkillBonus(performer, getSkill()));
+			AttackUtils.magicAttack(BASE_DAMAGE, this, performer, spellTarget, args, world, SkillUtils.getSkillBonus(performer, getSkill()), DamageType.FIRE);
 			
 			if (spellTarget.hasProperty(Constants.FLAMMABLE) && spellTarget.getProperty(Constants.FLAMMABLE)) {
 				Conditions.add(spellTarget, Condition.BURNING_CONDITION, 100, world);

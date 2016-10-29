@@ -21,6 +21,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.AttackUtils;
+import org.worldgrower.attribute.DamageType;
 import org.worldgrower.condition.Condition;
 
 public class ContainerUtils {
@@ -29,7 +30,7 @@ public class ContainerUtils {
 		boolean isTrappedContainer = target.getProperty(Constants.CONDITIONS).hasCondition(Condition.TRAPPED_CONTAINER_CONDITION);
 		if (isTrappedContainer) {
 			int damage = target.getProperty(Constants.TRAPPED_CONTAINER_DAMAGE);
-			AttackUtils.magicAttack(damage, Actions.TRAP_CONTAINER_MAGIC_SPELL_ACTION, target, performer, Args.EMPTY, world, 1);
+			AttackUtils.magicAttack(damage, Actions.TRAP_CONTAINER_MAGIC_SPELL_ACTION, target, performer, Args.EMPTY, world, 1, DamageType.SLASHING);
 		}
 	}
 	

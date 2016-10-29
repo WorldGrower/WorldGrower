@@ -61,6 +61,9 @@ import org.worldgrower.actions.magic.MendAction;
 import org.worldgrower.actions.magic.MinorHealAction;
 import org.worldgrower.actions.magic.MinorIllusionAction;
 import org.worldgrower.actions.magic.ParalyzeSpellAction;
+import org.worldgrower.actions.magic.ProtectionFromFireAction;
+import org.worldgrower.actions.magic.ProtectionFromIceAction;
+import org.worldgrower.actions.magic.ProtectionFromLightningAction;
 import org.worldgrower.actions.magic.RayOfFrostAttackAction;
 import org.worldgrower.actions.magic.ReduceAction;
 import org.worldgrower.actions.magic.ResearchSpellAction;
@@ -283,6 +286,9 @@ public class Actions {
 	public static final OpenLockAction OPEN_LOCK_ACTION = new OpenLockAction();
 	public static final ConstructButcherKnifeAction CONSTRUCT_BUTCHER_KNIFE_ACTION = new ConstructButcherKnifeAction();
 	public static final FirePublicEmployeeAction FIRE_PUBLIC_EMPLOYEE_ACTION = new FirePublicEmployeeAction();
+	public static final ProtectionFromFireAction PROTECTION_FROM_FIRE_ACTION = new ProtectionFromFireAction();
+	public static final ProtectionFromIceAction PROTECTION_FROM_ICE_ACTION = new ProtectionFromIceAction();
+	public static final ProtectionFromLightningAction PROTECTION_FROM_LIGHTNING_ACTION = new ProtectionFromLightningAction();
 	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 
@@ -325,7 +331,10 @@ public class Actions {
 			FIRE_BALL_ATTACK_ACTION,
 			MAJOR_ILLUSION_ACTION,
 			SACRED_FLAME_ATTACK_ACTION,
-			TURN_UNDEAD_ACTION
+			TURN_UNDEAD_ACTION,
+			PROTECTION_FROM_FIRE_ACTION,
+			PROTECTION_FROM_ICE_ACTION,
+			PROTECTION_FROM_LIGHTNING_ACTION
 			);
 	
 	private static final List<InventoryAction> INVENTORY_ACTIONS = Arrays.asList(
