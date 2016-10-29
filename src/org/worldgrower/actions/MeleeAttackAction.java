@@ -22,7 +22,6 @@ import org.worldgrower.Constants;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.DamageType;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.gui.ImageIds;
@@ -93,14 +92,8 @@ public class MeleeAttackAction implements DeadlyAction, AnimatedAction {
 		
 		if ((leftHandEquipment == null) && (rightHandEquipment == null)) {
 			return "pummeled to death";
-		} else if (leftHandEquipment.getProperty(Constants.DAMAGE_TYPE) == DamageType.SLASHING) {
-			return "slashed to death";
-		} else if (leftHandEquipment.getProperty(Constants.DAMAGE_TYPE) == DamageType.BLUDGEONING) {
-			return "bludgeoned to death";
-		} else if (leftHandEquipment.getProperty(Constants.DAMAGE_TYPE) == DamageType.PIERCING) {
-			return "having internal organs pierced to death";
 		} else {
-			throw new IllegalStateException("performer " + performer.toString() + " has unsupported damageType " + leftHandEquipment.getProperty(Constants.DAMAGE_TYPE));
+			return leftHandEquipment.getProperty(Constants.DAMAGE_TYPE).getDeathDescription();
 		}
 	}
 	

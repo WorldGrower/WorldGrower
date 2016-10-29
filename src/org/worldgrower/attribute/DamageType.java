@@ -14,8 +14,19 @@
  *******************************************************************************/
 package org.worldgrower.attribute;
 
+
 public enum DamageType {
-	SLASHING,
-	PIERCING,
-	BLUDGEONING
+	SLASHING("slashed to death"),
+	PIERCING("having internal organs pierced to death"),
+	BLUDGEONING("bludgeoned to death");
+	
+	private final String deathDescription;
+
+	private DamageType(String deathDescription) {
+		this.deathDescription = deathDescription;
+	}
+
+	public String getDeathDescription() {
+		return deathDescription;
+	}
 }
