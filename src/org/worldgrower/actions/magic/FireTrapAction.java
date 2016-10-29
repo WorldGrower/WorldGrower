@@ -23,6 +23,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.BuildAction;
 import org.worldgrower.actions.CraftUtils;
 import org.worldgrower.actions.DeadlyAction;
+import org.worldgrower.attribute.DamageType;
 import org.worldgrower.attribute.Location;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
@@ -103,7 +104,7 @@ public class FireTrapAction implements MagicSpell, DeadlyAction, BuildAction {
 
 	@Override
 	public String getDeathDescription(WorldObject performer, WorldObject target) {
-		return "burned to death";
+		return DamageType.FIRE.getDeathDescription();
 	}
 
 	@Override

@@ -25,6 +25,7 @@ import org.worldgrower.actions.AttackUtils;
 import org.worldgrower.actions.BuildAction;
 import org.worldgrower.actions.CraftUtils;
 import org.worldgrower.actions.DeadlyAction;
+import org.worldgrower.attribute.DamageType;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.condition.Condition;
@@ -129,7 +130,7 @@ public class TurnUndeadAction implements BuildAction, MagicSpell, DeadlyAction, 
 
 	@Override
 	public String getDeathDescription(WorldObject performer, WorldObject target) {
-		return "burned to death";
+		return DamageType.FIRE.getDeathDescription();
 	}
 
 	@Override

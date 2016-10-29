@@ -21,6 +21,7 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.DamageType;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
 
@@ -72,7 +73,7 @@ public class BurningCondition implements DeadlyCondition {
 
 	@Override
 	public String getDeathDescription() {
-		return "burned to death";
+		return DamageType.FIRE.getDeathDescription();
 	}
 	
 	@Override

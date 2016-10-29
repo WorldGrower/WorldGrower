@@ -25,6 +25,7 @@ import org.worldgrower.actions.AnimatedAction;
 import org.worldgrower.actions.AttackUtils;
 import org.worldgrower.actions.CraftUtils;
 import org.worldgrower.actions.DeadlyAction;
+import org.worldgrower.attribute.DamageType;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.condition.Condition;
@@ -121,7 +122,7 @@ public class LightningBoltAttackAction implements MagicSpell, DeadlyAction, Anim
 
 	@Override
 	public String getDeathDescription(WorldObject performer, WorldObject target) {
-		return "electrocuted to death";
+		return DamageType.LIGHTNING.getDeathDescription();
 	}
 	
 	public boolean hasRequiredEnergy(WorldObject performer) {

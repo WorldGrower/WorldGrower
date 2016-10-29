@@ -25,6 +25,7 @@ import org.worldgrower.actions.AnimatedAction;
 import org.worldgrower.actions.AttackUtils;
 import org.worldgrower.actions.CraftUtils;
 import org.worldgrower.actions.DeadlyAction;
+import org.worldgrower.attribute.DamageType;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.generator.Item;
@@ -98,7 +99,7 @@ public class RayOfFrostAttackAction implements MagicSpell, DeadlyAction, Animate
 
 	@Override
 	public String getDeathDescription(WorldObject performer, WorldObject target) {
-		return "frozen to death";
+		return DamageType.ICE.getDeathDescription();
 	}
 
 	@Override
