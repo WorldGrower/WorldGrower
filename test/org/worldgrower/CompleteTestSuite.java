@@ -747,7 +747,9 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestBonusDescriptions.class,
 	UTestMarkAsNotSellableAction.class,
 	UTestGame.class,
-	UTestFirePublicEmployeeAction.class
+	UTestFirePublicEmployeeAction.class,
+	UTestCreateApothecaryGoal.class,
+	UTestCreateBreweryGoal.class
 })
 public class CompleteTestSuite {
 }
