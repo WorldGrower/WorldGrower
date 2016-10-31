@@ -50,6 +50,7 @@ import org.worldgrower.actions.magic.FeatherAction;
 import org.worldgrower.actions.magic.FireBallAttackAction;
 import org.worldgrower.actions.magic.FireBoltAttackAction;
 import org.worldgrower.actions.magic.FireTrapAction;
+import org.worldgrower.actions.magic.FreedomOfMovementAction;
 import org.worldgrower.actions.magic.InflictWoundsAction;
 import org.worldgrower.actions.magic.InvisibilityAction;
 import org.worldgrower.actions.magic.LichTransformationAction;
@@ -289,6 +290,7 @@ public class Actions {
 	public static final ProtectionFromFireAction PROTECTION_FROM_FIRE_ACTION = new ProtectionFromFireAction();
 	public static final ProtectionFromIceAction PROTECTION_FROM_ICE_ACTION = new ProtectionFromIceAction();
 	public static final ProtectionFromLightningAction PROTECTION_FROM_LIGHTNING_ACTION = new ProtectionFromLightningAction();
+	public static final FreedomOfMovementAction FREEDOM_OF_MOVEMENT_ACTION = new FreedomOfMovementAction();
 	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 
@@ -334,7 +336,8 @@ public class Actions {
 			TURN_UNDEAD_ACTION,
 			PROTECTION_FROM_FIRE_ACTION,
 			PROTECTION_FROM_ICE_ACTION,
-			PROTECTION_FROM_LIGHTNING_ACTION
+			PROTECTION_FROM_LIGHTNING_ACTION,
+			FREEDOM_OF_MOVEMENT_ACTION
 			);
 	
 	private static final List<InventoryAction> INVENTORY_ACTIONS = Arrays.asList(

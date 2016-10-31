@@ -608,6 +608,9 @@ public class ImageInfoReader {
     	createAnimation(ImageIds.PROTECTION_FROM_FIRE_ANIMATION, ImageIds.PROTECTION_FROM_FIRE, 10);
         createAnimation(ImageIds.PROTECTION_FROM_ICE_ANIMATION, ImageIds.PROTECTION_FROM_ICE, 10);
         createAnimation(ImageIds.PROTECTION_FROM_LIGHTNING_ANIMATION, ImageIds.PROTECTION_FROM_LIGHTNING, 10);
+        
+        add(ImageIds.FREEDOM_OF_MOVEMENT_MAGIC_SPELL, sprites420.getSubImage(10, 26, 1, 1));
+        createAnimation(ImageIds.FREEDOM_OF_MOVEMENT_MAGIC_SPELL_ANIMATION, ImageIds.FREEDOM_OF_MOVEMENT_MAGIC_SPELL, 10);
     }
     
     private void createAnimation(ImageIds animationImageId, ImageIds imageId, int numberOfFrames) {

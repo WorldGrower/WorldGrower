@@ -46,13 +46,22 @@ public class Conditions implements Serializable {
 	}
 
 	boolean shouldAddCondition(Condition condition) {
-		final boolean add;
+		boolean add;
+		
 		boolean hasDiseaseImmunity = hasCondition(Condition.DISEASE_IMMUNITY_CONDITION);
 		if (hasDiseaseImmunity) {
 			add = !condition.isDisease();
 		} else {
 			add = true;
 		}
+		
+		boolean hasFreedomOfMovement = hasCondition(Condition.FREEDOM_OF_MOVEMENT_CONDITION);
+		if (hasFreedomOfMovement) {
+			add = (condition != Condition.PARALYZED_CONDITION && condition != Condition.ENTANGLED_CONDITION);
+		} else {
+			add = true;
+		}
+		
 		return add;
 	}
 	
