@@ -66,7 +66,7 @@ public class FreedomOfMovementCondition implements Condition {
 
 	@Override
 	public String getLongerDescription() {
-		return "a burdened creature has a reduced carrying capacity";
+		return "freedom of movement enables a person to move and attack normally, even when under effect of magic spells that limit movement like paralysis or entangle";
 	}
 
 	@Override

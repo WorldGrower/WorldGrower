@@ -170,12 +170,24 @@ public class UTestConditions {
 	}
 	
 	@Test
-	public void testShouldAddCondition() {
+	public void testShouldAddConditionDiseaseImmunity() {
 		Conditions conditions = new Conditions();
 		World world = new WorldImpl(1, 1, null, null);
 		assertEquals(true, conditions.shouldAddCondition(Condition.VAMPIRE_BITE_CONDITION));
 		
 		conditions.addCondition(null, Condition.DISEASE_IMMUNITY_CONDITION, 8, world);
 		assertEquals(false, conditions.shouldAddCondition(Condition.VAMPIRE_BITE_CONDITION));
+	}
+	
+	@Test
+	public void testShouldAddConditionFreedomOfMovement() {
+		Conditions conditions = new Conditions();
+		World world = new WorldImpl(1, 1, null, null);
+		assertEquals(true, conditions.shouldAddCondition(Condition.PARALYZED_CONDITION));
+		assertEquals(true, conditions.shouldAddCondition(Condition.ENTANGLED_CONDITION));
+		
+		conditions.addCondition(null, Condition.FREEDOM_OF_MOVEMENT_CONDITION, 8, world);
+		assertEquals(false, conditions.shouldAddCondition(Condition.PARALYZED_CONDITION));
+		assertEquals(false, conditions.shouldAddCondition(Condition.ENTANGLED_CONDITION));
 	}
 }

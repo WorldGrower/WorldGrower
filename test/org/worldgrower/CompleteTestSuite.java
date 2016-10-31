@@ -42,6 +42,7 @@ import org.worldgrower.actions.magic.UTestFeatherAction;
 import org.worldgrower.actions.magic.UTestFireBallAttackAction;
 import org.worldgrower.actions.magic.UTestFireBoltAttackAction;
 import org.worldgrower.actions.magic.UTestFireTrapAction;
+import org.worldgrower.actions.magic.UTestFreedomOfMovementAction;
 import org.worldgrower.actions.magic.UTestInflictWoundsAction;
 import org.worldgrower.actions.magic.UTestInvisibilityAction;
 import org.worldgrower.actions.magic.UTestLichTransformationAction;
@@ -749,7 +750,8 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestGame.class,
 	UTestFirePublicEmployeeAction.class,
 	UTestCreateApothecaryGoal.class,
-	UTestCreateBreweryGoal.class
+	UTestCreateBreweryGoal.class,
+	UTestFreedomOfMovementAction.class
 })
 public class CompleteTestSuite {
 }
