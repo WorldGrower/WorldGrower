@@ -53,6 +53,7 @@ import org.worldgrower.actions.magic.UTestMendAction;
 import org.worldgrower.actions.magic.UTestMinorHealAction;
 import org.worldgrower.actions.magic.UTestMinorIllusionAction;
 import org.worldgrower.actions.magic.UTestParalyzeAction;
+import org.worldgrower.actions.magic.UTestProtectionFromFireAction;
 import org.worldgrower.actions.magic.UTestRayOfFrostAttackAction;
 import org.worldgrower.actions.magic.UTestReduceAction;
 import org.worldgrower.actions.magic.UTestResearchSpellAction;
@@ -751,7 +752,8 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestFirePublicEmployeeAction.class,
 	UTestCreateApothecaryGoal.class,
 	UTestCreateBreweryGoal.class,
-	UTestFreedomOfMovementAction.class
+	UTestFreedomOfMovementAction.class,
+	UTestProtectionFromFireAction.class
 })
 public class CompleteTestSuite {
 }
