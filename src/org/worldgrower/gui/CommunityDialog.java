@@ -59,7 +59,7 @@ import org.worldgrower.profession.Profession;
 
 public class CommunityDialog extends JDialog {
 
-	private final JPanel contentPanel = new GradientPanel();
+	private final JPanel contentPanel = new TiledImagePanel();
 	private JTable tlbChildren;
 	private JTable tblAcquaintances;
 	private final ImageInfoReader imageInfoReader;

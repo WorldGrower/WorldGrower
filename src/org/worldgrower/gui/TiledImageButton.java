@@ -15,32 +15,46 @@
 package org.worldgrower.gui;
 
 import java.awt.BasicStroke;
-import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Point;
 import java.awt.Stroke;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
-public class JGradientButton extends JButton {
-	
+public class TiledImageButton extends JButton {
 	private static final int BORDER_PADDING = 4;
+
+	private final BufferedImage tileImage;  
+
+    public BufferedImage getTiledImage() {  
+    	try {
+    		return ImageIO.read(new File("./resources/conc_slabs01_c.png"));
+    	} catch (IOException e) {
+			throw new IllegalStateException(e);
+		}
+    }  
 	
-	public JGradientButton(String text) {
+	public TiledImageButton(String text) {
 		super(text);
 		setPaintOptions();
+		tileImage = getTiledImage();
 	}
 
-	public JGradientButton(String text, ImageIcon icon) {
+	public TiledImageButton(String text, ImageIcon icon) {
 		super(text, icon);
 		setPaintOptions();
+		tileImage = getTiledImage();
 	}
 
 	private void setPaintOptions() {
 		setContentAreaFilled(false);
 		setFocusPainted(false);
+		setBorder(null);
 	}
 
 	@Override
@@ -48,12 +62,10 @@ public class JGradientButton extends JButton {
 
 		Graphics2D g2 = (Graphics2D) g.create();
 		if (getModel().isPressed()) {
-			g2.setPaint(new GradientPaint(new Point(0, 0), ColorPalette.LIGHT_BACKGROUND_COLOR, new Point(0, getHeight()), ColorPalette.LIGHT_BACKGROUND_COLOR.brighter()));
+			g.drawImage(tileImage,0,0,this);
 		} else {
-			g2.setPaint(new GradientPaint(new Point(0, 0), ColorPalette.DARK_BACKGROUND_COLOR, new Point(0, getHeight()), ColorPalette.DARK_BACKGROUND_COLOR.brighter()));
+			g.drawImage(tileImage,0,0,this);
 		}
-		
-		g2.fillRect(0, 0, getWidth(), getHeight());
 		
 		if (isFocusOwner()) {
 			drawDashedLine(g2, BORDER_PADDING, BORDER_PADDING, getWidth() - BORDER_PADDING, BORDER_PADDING);

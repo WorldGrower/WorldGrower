@@ -30,6 +30,7 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.condition.VampireUtils;
 import org.worldgrower.condition.WorldStateChangedListeners;
+import org.worldgrower.deity.Deity;
 import org.worldgrower.generator.Item;
 
 public class UTestSacredFlameAttackAction {
@@ -48,6 +49,21 @@ public class UTestSacredFlameAttackAction {
 		action.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(2 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
+	}
+	
+	@Test
+	public void testExecuteWithHadesBoon() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		
+		Conditions.add(performer, Deity.HADES.getBoon(), Integer.MAX_VALUE, world);
+		target.setProperty(Constants.HIT_POINTS, 10 * Item.COMBAT_MULTIPLIER);
+		target.setProperty(Constants.HIT_POINTS_MAX, 10 * Item.COMBAT_MULTIPLIER);
+		
+		action.execute(performer, target, Args.EMPTY, world);
+		
+		assertEquals(2 * Item.COMBAT_MULTIPLIER - (8 * Item.COMBAT_MULTIPLIER) / 10, target.getProperty(Constants.HIT_POINTS).intValue());
 	}
 	
 	@Test

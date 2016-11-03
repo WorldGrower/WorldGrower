@@ -62,10 +62,10 @@ import org.worldgrower.attribute.PropertyCountMap;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.gui.AbstractDialog;
 import org.worldgrower.gui.ColorPalette;
-import org.worldgrower.gui.GradientPanel;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.SwingUtils;
+import org.worldgrower.gui.TiledImagePanel;
 import org.worldgrower.gui.font.Fonts;
 import org.worldgrower.gui.knowledge.ImageCellRenderer;
 import org.worldgrower.gui.music.SoundIdReader;
@@ -147,7 +147,7 @@ public final class InventoryDialog extends AbstractDialog {
 		rootInventoryPanel.setLayout(cardLayout);
 		addComponent(rootInventoryPanel);
 		
-		inventoryPanel = new GradientPanel();
+		inventoryPanel = new TiledImagePanel();
 		inventoryPanel.setBounds(0, 0, 700, 600);
 		inventoryPanel.setLayout(null);
 		inventoryPanel.setOpaque(true);
@@ -202,7 +202,7 @@ public final class InventoryDialog extends AbstractDialog {
 		inventoryPanel.add(pricesButton);
 
 		if (inventoryDialogModel.hasTarget()) {
-			targetInventoryPanel = new GradientPanel();
+			targetInventoryPanel = new TiledImagePanel();
 			targetInventoryPanel.setLayout(null);
 			targetInventoryPanel.setBounds(0, 0, 700, 600);
 			targetInventoryPanel.setOpaque(true);

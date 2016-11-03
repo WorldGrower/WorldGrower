@@ -23,8 +23,8 @@ import javax.swing.JButton;
 import javax.swing.JToggleButton;
 
 import org.worldgrower.gui.ColorPalette;
-import org.worldgrower.gui.JGradientButton;
 import org.worldgrower.gui.RoundedBorder;
+import org.worldgrower.gui.TiledImageButton;
 import org.worldgrower.gui.font.Fonts;
 import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.music.SoundIds;
@@ -51,7 +51,7 @@ public class JButtonFactory {
 	}
 	
 	private static JButton createButton(String text, ImageIcon icon) {
-		JButton button = new JGradientButton(text, icon);
+		JButton button = new TiledImageButton(text, icon);
 		setButtonProperties(button);
 		return button;
 	}
@@ -63,7 +63,7 @@ public class JButtonFactory {
 	}
 	
 	public static JButton createButton(String text) {
-		JButton button = new JGradientButton(text);
+		JButton button = new TiledImageButton(text);
 		setButtonProperties(button);
 		return button;
 	}

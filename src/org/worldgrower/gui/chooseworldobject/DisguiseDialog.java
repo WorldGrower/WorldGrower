@@ -42,9 +42,9 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.attribute.ManagedProperty;
-import org.worldgrower.gui.GradientPanel;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.SwingUtils;
+import org.worldgrower.gui.TiledImagePanel;
 import org.worldgrower.gui.WorldObjectList;
 import org.worldgrower.gui.WorldPanel;
 import org.worldgrower.gui.cursor.Cursors;
@@ -59,7 +59,7 @@ import org.worldgrower.gui.util.JTableFactory;
 
 public class DisguiseDialog extends JDialog {
 
-	private final JPanel contentPanel = new GradientPanel();
+	private final JPanel contentPanel = new TiledImagePanel();
 	private JTable table;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JRadioButton noDisguiseRadioButton;

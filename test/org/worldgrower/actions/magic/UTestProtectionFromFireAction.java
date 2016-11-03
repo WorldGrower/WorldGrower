@@ -28,6 +28,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
+import org.worldgrower.generator.PlantGenerator;
 
 public class UTestProtectionFromFireAction {
 
@@ -45,11 +46,17 @@ public class UTestProtectionFromFireAction {
 	
 	@Test
 	public void testIsValidTarget() {
-		World world = new WorldImpl(1, 1, null, null);
+		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
-		performer.setProperty(Constants.KNOWN_SPELLS, Arrays.asList(action));
 		
+		assertEquals(false, action.isValidTarget(performer, performer, world));
+		
+		performer.setProperty(Constants.KNOWN_SPELLS, Arrays.asList(action));
 		assertEquals(true, action.isValidTarget(performer, performer, world));
+		
+		int treeId = PlantGenerator.generateTree(0, 0, world);
+		WorldObject tree = world.findWorldObjectById(treeId);
+		assertEquals(false, action.isValidTarget(performer, tree, world));
 	}
 	
 	@Test

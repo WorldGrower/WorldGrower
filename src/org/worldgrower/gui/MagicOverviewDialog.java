@@ -49,7 +49,7 @@ import org.worldgrower.gui.util.JTableFactory;
 
 public class MagicOverviewDialog extends JDialog {
 
-	private final JPanel contentPanel = new GradientPanel();
+	private final JPanel contentPanel = new TiledImagePanel();
 
 	public MagicOverviewDialog(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, JFrame parentFrame) {
 		setModalityType(ModalityType.APPLICATION_MODAL);

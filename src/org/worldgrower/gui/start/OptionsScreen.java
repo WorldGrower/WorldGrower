@@ -33,10 +33,10 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 import org.worldgrower.gui.ExceptionHandler;
-import org.worldgrower.gui.GradientPanel;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.SwingUtils;
+import org.worldgrower.gui.TiledImagePanel;
 import org.worldgrower.gui.cursor.Cursors;
 import org.worldgrower.gui.music.MusicPlayer;
 import org.worldgrower.gui.music.SoundIdReader;
@@ -101,7 +101,7 @@ public class OptionsScreen {
 		frame = new JFrame();
 		frame.setResizable(false);
 		((JComponent)frame.getRootPane()).setBorder(BorderFactory.createLineBorder(Color.WHITE, 5));
-		JPanel contentPanel = new GradientPanel();
+		JPanel contentPanel = new TiledImagePanel();
 		contentPanel.setLocation(0, 0);
 		contentPanel.setLayout(null);
 		frame.setUndecorated(true);

@@ -5,13 +5,14 @@ import java.awt.Dimension;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import org.worldgrower.gui.cursor.Cursors;
 import org.worldgrower.gui.util.IconUtils;
 
 public abstract class AbstractDialog extends JDialog {
 
-	private final GradientPanel gradientPanel = new GradientPanel();
+	private final JPanel gradientPanel = new TiledImagePanel();
 	
 	public AbstractDialog(int width, int height) {
 		super();
@@ -37,5 +38,7 @@ public abstract class AbstractDialog extends JDialog {
 	
 	public final void addComponent(Component component) {
 		gradientPanel.add(component);
-	}
+	} 
+	
+
 }

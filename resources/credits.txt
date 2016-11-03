@@ -165,3 +165,7 @@ RPG_Mouse_Cursor_3.png
 
 Scythe sprite by Jeneeus Guruman at http://forums.rpgmakerweb.com/index.php?/topic/49933-rpg-maker-mv-game-making-drive/&page=2
 scythe.png
+
+Stone texture by Spiney at http://opengameart.org/content/metalstone-textures?page=1
+conc_patchwork_c.png
+conc_slabs01_c.png

@@ -31,16 +31,16 @@ import javax.swing.border.EmptyBorder;
 
 import org.worldgrower.Constants;
 import org.worldgrower.attribute.IntProperty;
-import org.worldgrower.gui.GradientPanel;
 import org.worldgrower.gui.GuiAttributeDescription;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.SwingUtils;
+import org.worldgrower.gui.TiledImagePanel;
 import org.worldgrower.gui.cursor.Cursors;
 import org.worldgrower.gui.music.MusicPlayer;
 import org.worldgrower.gui.music.SoundIdReader;
-import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.DialogUtils;
 import org.worldgrower.gui.util.IconUtils;
+import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JLabelFactory;
 
 public class CharacterCustomizationScreen extends JFrame {
@@ -63,7 +63,7 @@ public class CharacterCustomizationScreen extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 539, 310);
 		setResizable(false);
-		contentPane = new GradientPanel();
+		contentPane = new TiledImagePanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setPreferredSize(getSize());
 		setContentPane(contentPane);

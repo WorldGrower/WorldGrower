@@ -78,7 +78,7 @@ public class CharacterDialog extends JDialog {
 	private static final String WEAPON_TOOL_TIP = "Damage indicates the damage done when performing melee or ranged attacks";
 	private static final String ACTIVE_EFFECT_TOOL_TIP = "Shows active effects";
 	
-	private final JPanel contentPanel = new GradientPanel();
+	private final JPanel contentPanel = new TiledImagePanel();
 	private final WorldObject playerCharacter;
 	
 	private JComboBox<ComboBoxEquipmentItem> cmbHead;

@@ -21,6 +21,8 @@ import java.util.Arrays;
 import org.junit.Test;
 import org.worldgrower.Args;
 import org.worldgrower.Constants;
+import org.worldgrower.ManagedOperation;
+import org.worldgrower.ManagedOperationListener;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
@@ -42,10 +44,41 @@ public class UTestUnlockMagicSpellAction {
 		
 		assertEquals(true, target.getProperty(Constants.LOCKED));
 		
+		world.addListener(new ManagedOperationListener() {
+			
+			@Override
+			public void actionPerformed(ManagedOperation managedOperation, WorldObject performer, WorldObject target, int[] args, Object value) {
+				assertEquals("worldObject unlocks worldObject's house", value.toString());
+			}
+		});		
+		
 		SkillUtils.useSkill(performer, Constants.EVOCATION_SKILL, 100, new WorldStateChangedListeners());
 		Actions.UNLOCK_MAGIC_SPELL_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(false, target.getProperty(Constants.LOCKED));
+	}
+	
+	@Test
+	public void testExecuteUnlockFails() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		int id = BuildingGenerator.generateHouse(0, 0, world, performer);
+		WorldObject target = world.findWorldObjectById(id);
+		
+		assertEquals(true, target.getProperty(Constants.LOCKED));
+		target.setProperty(Constants.LOCK_STRENGTH, 100);
+		
+		world.addListener(new ManagedOperationListener() {
+	
+			@Override
+			public void actionPerformed(ManagedOperation managedOperation, WorldObject performer, WorldObject target, int[] args, Object value) {
+				assertEquals("worldObject fails to unlock worldObject's house", value.toString());
+			}
+		});
+		
+		Actions.UNLOCK_MAGIC_SPELL_ACTION.execute(performer, target, Args.EMPTY, world);
+		
+		assertEquals(true, target.getProperty(Constants.LOCKED));
 	}
 	
 	@Test
