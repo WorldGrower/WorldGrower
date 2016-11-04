@@ -80,7 +80,7 @@ public class ChooseKnowledgeDialog extends AbstractDialog {
 		buttonPane.setOpaque(false);
 		this.addComponent(buttonPane);
 		
-		okButton = JButtonFactory.createButton("OK", soundIdReader);
+		okButton = JButtonFactory.createButton("OK", imageInfoReader, soundIdReader);
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton, BorderLayout.EAST);
 		getRootPane().setDefaultButton(okButton);

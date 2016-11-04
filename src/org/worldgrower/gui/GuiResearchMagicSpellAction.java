@@ -15,7 +15,6 @@
 package org.worldgrower.gui;
 
 import java.awt.event.ActionEvent;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.AbstractAction;
@@ -66,7 +65,7 @@ public class GuiResearchMagicSpellAction extends AbstractAction {
 			List<String> magicSpellDescriptions = Actions.getMagicSpellDescriptions(magicSpellsToResearch);
 			List<ImageIds> imageIds = Actions.getMagicSpellImageIds(magicSpellsToResearch);
 			ListData listData = new ListData(magicSpellDescriptions, imageIds, imageInfoReader);
-			String magicSpellDescription = new ListInputDialog("Choose Magic Spell", listData, soundIdReader, parentFrame).showMe();
+			String magicSpellDescription = new ListInputDialog("Choose Magic Spell", listData, imageInfoReader, soundIdReader, parentFrame).showMe();
 			if (magicSpellDescription != null) {
 				
 				int indexOfMagicSpell = magicSpellDescriptions.indexOf(magicSpellDescription);
@@ -74,11 +73,11 @@ public class GuiResearchMagicSpellAction extends AbstractAction {
 				ResearchSpellAction researchSpellAction = Actions.getResearchSpellActionFor(magicSpell);
 				
 				String textDialogMessage = "Research for how many turns? (0 - " + (magicSpell.getResearchCost()+1) + ")";
-				String turnsString = new TextInputDialog(textDialogMessage, true, soundIdReader, parentFrame).showMe();
+				String turnsString = new TextInputDialog(textDialogMessage, true, imageInfoReader, soundIdReader, parentFrame).showMe();
 				if ((turnsString != null) && (turnsString.length() > 0) && (NumberUtils.isNumeric(turnsString))) {
 					int turns = Integer.parseInt(turnsString);
 					
-					Game.executeMultipleTurns(playerCharacter, researchSpellAction, Args.EMPTY, world, dungeonMaster, target, parent, turns, soundIdReader);
+					Game.executeMultipleTurns(playerCharacter, researchSpellAction, Args.EMPTY, world, dungeonMaster, target, parent, turns, imageInfoReader, soundIdReader);
 				}
 			}
 		}

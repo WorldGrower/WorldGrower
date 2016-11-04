@@ -141,12 +141,12 @@ public class AskQuestionDialog extends AbstractDialog implements ManagedOperatio
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		addComponent(buttonPane);
 
-		JButton okButton = JButtonFactory.createButton("OK", soundIdReader);
+		JButton okButton = JButtonFactory.createButton("OK", imageInfoReader, soundIdReader);
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
 
-		JButton cancelButton = JButtonFactory.createButton("Cancel", soundIdReader);
+		JButton cancelButton = JButtonFactory.createButton("Cancel", imageInfoReader, soundIdReader);
 		cancelButton.setActionCommand("Cancel");
 		buttonPane.add(cancelButton);
 
@@ -155,7 +155,7 @@ public class AskQuestionDialog extends AbstractDialog implements ManagedOperatio
 		performerLabel.setBounds(6, 17, 32, 48);
 		addComponent(performerLabel);
 		
-		askQuestion = JButtonFactory.createButton("Ask Question", soundIdReader);
+		askQuestion = JButtonFactory.createButton("Ask Question", imageInfoReader, soundIdReader);
 		askQuestion.setBounds(44, 27, 580, 22);
 		askQuestion.addActionListener(new ActionListener() {
 
@@ -215,7 +215,7 @@ public class AskQuestionDialog extends AbstractDialog implements ManagedOperatio
 	
 	private JPopupMenu createQuestions(ImageInfoReader imageInfoReader, Map<Integer, ImageIds> subjectImageIds, Conversations conversations, Answerer answerer) {
 		Map<ConversationCategory, List<Question>> questionsMap = answerer.getQuestionPhrases();
-		JPopupMenu popupMenu = MenuFactory.createJPopupMenu();
+		JPopupMenu popupMenu = MenuFactory.createJPopupMenu(imageInfoReader);
 		for(Entry<ConversationCategory, List<Question>> entry : getQuestions(questionsMap)) {
 			JMenu menu = MenuFactory.createJMenu(entry.getKey().getDescription(), soundIdReader);
 			setMenuIcon(menu, entry.getKey().getImageId());

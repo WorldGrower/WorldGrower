@@ -65,7 +65,7 @@ public class GuiShowDrinkingContestResult implements DrinkingContestFinishedList
 		
 		if (!performer.isControlledByAI()) {
 			//TODO: handle response
-			String response = new ListInputDialog("Choose drinking contest ending line:", targetIcon, new ListData(responses), soundIdReader, parentFrame).showMe();
+			String response = new ListInputDialog("Choose drinking contest ending line:", targetIcon, new ListData(responses), imageInfoReader, soundIdReader, parentFrame).showMe();
 		}
 		
 		if (!target.isControlledByAI()) {

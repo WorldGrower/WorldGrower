@@ -19,10 +19,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
@@ -31,24 +28,20 @@ public class TiledImageButton extends JButton {
 
 	private final BufferedImage tileImage;  
 
-    public BufferedImage getTiledImage() {  
-    	try {
-    		return ImageIO.read(new File("./resources/conc_slabs01_c.png"));
-    	} catch (IOException e) {
-			throw new IllegalStateException(e);
-		}
+    public BufferedImage getTiledImage(ImageInfoReader imageInfoReader) {
+    	return (BufferedImage) imageInfoReader.getImage(ImageIds.BUTTON_BACKGROUND, null);
     }  
 	
-	public TiledImageButton(String text) {
+	public TiledImageButton(String text, ImageInfoReader imageInfoReader) {
 		super(text);
 		setPaintOptions();
-		tileImage = getTiledImage();
+		tileImage = getTiledImage(imageInfoReader);
 	}
 
-	public TiledImageButton(String text, ImageIcon icon) {
+	public TiledImageButton(String text, ImageIcon icon, ImageInfoReader imageInfoReader) {
 		super(text, icon);
 		setPaintOptions();
-		tileImage = getTiledImage();
+		tileImage = getTiledImage(imageInfoReader);
 	}
 
 	private void setPaintOptions() {

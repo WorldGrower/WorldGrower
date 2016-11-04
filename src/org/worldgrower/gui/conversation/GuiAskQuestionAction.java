@@ -103,7 +103,7 @@ public class GuiAskQuestionAction extends AbstractAction implements Answerer {
 
 	@Override
 	public void askQuestion(int[] args) {
-		Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, playerCharacter.getOperation(Actions.TALK_ACTION), args, world, dungeonMaster, target, container, soundIdReader);
+		Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, playerCharacter.getOperation(Actions.TALK_ACTION), args, world, dungeonMaster, target, container, imageInfoReader, soundIdReader);
 	}
 	
 	@Override

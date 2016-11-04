@@ -258,19 +258,19 @@ public class Game {
         musicPlayer.play();
     }
 
-    public static void executeActionAndMoveIntelligentWorldObjects(WorldObject playerCharacter, ManagedOperation action, int[] args, World world, DungeonMaster dungeonMaster, WorldObject target, WorldPanel worldPanel, SoundIdReader soundIdReader) {
+    public static void executeActionAndMoveIntelligentWorldObjects(WorldObject playerCharacter, ManagedOperation action, int[] args, World world, DungeonMaster dungeonMaster, WorldObject target, WorldPanel worldPanel, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader) {
     	if (canActionExecute(playerCharacter, action, args, world, target)) {
     		worldPanel.movePlayerCharacter(args, new ActionListener() {
     			
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					executeAction(playerCharacter, action, args, world, dungeonMaster, target, worldPanel, soundIdReader);
+					executeAction(playerCharacter, action, args, world, dungeonMaster, target, worldPanel, imageInfoReader, soundIdReader);
 				}
 			}, null);
     	}
 	}
     
-    public static void executeMultipleActionsAndMoveIntelligentWorldObjects(WorldObject playerCharacter, List<OperationInfo> tasks, World world, DungeonMaster dungeonMaster, WorldObject target, WorldPanel worldPanel, SoundIdReader soundIdReader) {
+    public static void executeMultipleActionsAndMoveIntelligentWorldObjects(WorldObject playerCharacter, List<OperationInfo> tasks, World world, DungeonMaster dungeonMaster, WorldObject target, WorldPanel worldPanel, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader) {
     	if (tasks.size() > 0) {
     		OperationInfo task = tasks.get(0);
     		ManagedOperation action = task.getManagedOperation();
@@ -280,7 +280,7 @@ public class Game {
         			
     				@Override
     				public void actionPerformed(ActionEvent arg0) {
-    					executeAction(playerCharacter, action, args, world, dungeonMaster, target, worldPanel, soundIdReader);
+    					executeAction(playerCharacter, action, args, world, dungeonMaster, target, worldPanel, imageInfoReader, soundIdReader);
     				}
     			};
     			
@@ -288,7 +288,7 @@ public class Game {
     				@Override
     				public void actionPerformed(ActionEvent arg0) {
     					List<OperationInfo> subTasks = tasks.subList(1, tasks.size());
-    					executeMultipleActionsAndMoveIntelligentWorldObjects(playerCharacter, subTasks, world, dungeonMaster, playerCharacter, worldPanel, soundIdReader);
+    					executeMultipleActionsAndMoveIntelligentWorldObjects(playerCharacter, subTasks, world, dungeonMaster, playerCharacter, worldPanel, imageInfoReader, soundIdReader);
     				}
     			};
     			
@@ -297,19 +297,19 @@ public class Game {
     	}
 	}
     
-    public static void executeAction(WorldObject playerCharacter, ManagedOperation action, int[] args, World world, DungeonMaster dungeonMaster, WorldObject target, WorldPanel worldPanel, SoundIdReader soundIdReader) {
+    public static void executeAction(WorldObject playerCharacter, ManagedOperation action, int[] args, World world, DungeonMaster dungeonMaster, WorldObject target, WorldPanel worldPanel, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader) {
     	if (canActionExecute(playerCharacter, action, args, world, target)) {
     		dungeonMaster.executeAction(action, playerCharacter, target, args, world);
     		worldPanel.playSound(action);
     		runWorld(playerCharacter, world, dungeonMaster, worldPanel);
-    		checkToSkipTurn(playerCharacter, world, dungeonMaster, worldPanel, soundIdReader);
+    		checkToSkipTurn(playerCharacter, world, dungeonMaster, worldPanel, imageInfoReader, soundIdReader);
     	}
 	}
     
-    public static void executeMultipleTurns(WorldObject playerCharacter, ManagedOperation action, int[] args, World world, DungeonMaster dungeonMaster, WorldObject target, WorldPanel worldPanel, int turns, SoundIdReader soundIdReader) {
+    public static void executeMultipleTurns(WorldObject playerCharacter, ManagedOperation action, int[] args, World world, DungeonMaster dungeonMaster, WorldObject target, WorldPanel worldPanel, int turns, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader) {
     	for(int i=0; i<turns; i++) {
 			int hitPointsBeforeRest = playerCharacter.getProperty(Constants.HIT_POINTS);
-			Game.executeAction(playerCharacter, action, args, world, dungeonMaster, target, worldPanel, soundIdReader);
+			Game.executeAction(playerCharacter, action, args, world, dungeonMaster, target, worldPanel, imageInfoReader, soundIdReader);
 			int hitPointsAfterRest = playerCharacter.getProperty(Constants.HIT_POINTS);
 			
 			if (hitPointsAfterRest < hitPointsBeforeRest) {
@@ -341,10 +341,10 @@ public class Game {
 		world.getTerrain().explore(x, y, PerceptionPropertyUtils.calculateRadius(playerCharacter, world));
 	}
 	
-	private static void checkToSkipTurn(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, WorldPanel worldPanel, SoundIdReader soundIdReader) {
+	private static void checkToSkipTurn(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, WorldPanel worldPanel, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader) {
 		while (!playerCharacter.getProperty(Constants.CONDITIONS).canTakeAction()) {
 			String text = "You can't take any actions. Your player character will skip its turn.";			
-			new ShowTextDialog(text, soundIdReader, frame).showMe();
+			new ShowTextDialog(text, imageInfoReader, soundIdReader, frame).showMe();
 			runWorld(playerCharacter, world, dungeonMaster, worldPanel);
 		}
 	}

@@ -26,6 +26,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.worldgrower.gui.AbstractDialog;
+import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.music.SoundIdReader;
 
 public class ListInputDialog extends AbstractDialog {
@@ -33,12 +34,12 @@ public class ListInputDialog extends AbstractDialog {
 	private String value = null;
 	private JComboBox<String> comboBox;
 	
-	public ListInputDialog(String question, ListData listData, SoundIdReader soundIdReader, JFrame parentFrame) {
-		this(question, null, listData, soundIdReader, parentFrame);
+	public ListInputDialog(String question, ListData listData, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, JFrame parentFrame) {
+		this(question, null, listData, imageInfoReader, soundIdReader, parentFrame);
 	}
 	
 	//TODO: use icon
-	public ListInputDialog(String question, Icon icon, ListData listData, SoundIdReader soundIdReader, JFrame parentFrame) {
+	public ListInputDialog(String question, Icon icon, ListData listData, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, JFrame parentFrame) {
 		super(450, 210);
 		
 		JLabel label = JLabelFactory.createJLabel(question);
@@ -55,12 +56,12 @@ public class ListInputDialog extends AbstractDialog {
 		buttonPane.setBounds(16, 153, 425, 50);
 		addComponent(buttonPane);
 
-		JButton okButton = JButtonFactory.createButton(" OK ", soundIdReader);
+		JButton okButton = JButtonFactory.createButton(" OK ", imageInfoReader, soundIdReader);
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
 
-		JButton cancelButton = JButtonFactory.createButton("Cancel", soundIdReader);
+		JButton cancelButton = JButtonFactory.createButton("Cancel", imageInfoReader, soundIdReader);
 		cancelButton.setActionCommand("Cancel");
 		buttonPane.add(cancelButton);
 		

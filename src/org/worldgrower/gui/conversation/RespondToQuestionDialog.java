@@ -68,12 +68,12 @@ public class RespondToQuestionDialog extends AbstractDialog {
 		buttonPane.setOpaque(false);
 		addComponent(buttonPane);
 
-		JButton okButton = JButtonFactory.createButton("OK", soundIdReader);
+		JButton okButton = JButtonFactory.createButton("OK", imageInfoReader, soundIdReader);
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
 
-		JButton cancelButton = JButtonFactory.createButton("Cancel", soundIdReader);
+		JButton cancelButton = JButtonFactory.createButton("Cancel", imageInfoReader, soundIdReader);
 		cancelButton.setActionCommand("Cancel");
 		buttonPane.add(cancelButton);
 

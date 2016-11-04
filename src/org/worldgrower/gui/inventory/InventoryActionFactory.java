@@ -137,7 +137,7 @@ public class InventoryActionFactory {
 		int maxQuantity = inventoryItem.getProperty(Constants.QUANTITY);
 		if (maxQuantity > 1) {
 			//TODO :check for gold availability?
-			String quantityValue = new TextInputDialog("How many items will you buy/sell (1-" + maxQuantity + ") ?", true, soundIdReader, parentFrame).showMe();
+			String quantityValue = new TextInputDialog("How many items will you buy/sell (1-" + maxQuantity + ") ?", true, imageInfoReader, soundIdReader, parentFrame).showMe();
 			if ((quantityValue != null) && (NumberUtils.isNumeric(quantityValue) && quantityValue.length() > 0)) {
 				quantity = Integer.parseInt(quantityValue);
 				if (quantity > maxQuantity) {
@@ -183,15 +183,15 @@ public class InventoryActionFactory {
 		@Override
 		public void actionPerformed(ActionEvent actionEvent) {
 			int targetGold = target.getProperty(Constants.GOLD).intValue();
-			TextInputDialog textInputDialog = new TextInputDialog("Steal how much money (1-" + targetGold + ")?", true, soundIdReader, parentFrame);
+			TextInputDialog textInputDialog = new TextInputDialog("Steal how much money (1-" + targetGold + ")?", true, imageInfoReader, soundIdReader, parentFrame);
 			String input = textInputDialog.showMe();
 			if (input != null && input.length() > 0 && NumberUtils.isNumeric(input)) {
 				int amount = Integer.parseInt(input);
 				if (amount > 0 && amount <= targetGold) {
 					int[] args = new int[] { amount };
-					Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, playerCharacter.getOperation(Actions.STEAL_GOLD_ACTION), args, world, dungeonMaster, target, container, soundIdReader);
+					Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, playerCharacter.getOperation(Actions.STEAL_GOLD_ACTION), args, world, dungeonMaster, target, container, imageInfoReader, soundIdReader);
 					
-					dialog.refresh(new InventoryDialogModel(playerCharacter, target, world, dungeonMaster, container, soundIdReader));
+					dialog.refresh(new InventoryDialogModel(playerCharacter, target, world, dungeonMaster, container, imageInfoReader, soundIdReader));
 				}
 			}
 		}
@@ -237,13 +237,13 @@ public class InventoryActionFactory {
 		public void actionPerformed(ActionEvent actionEvent) {
 			int[] modifiedArgs = argsFactory.apply(inventoryItemId, inventoryItem);
 			if (modifiedArgs != null) {
-				Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, playerCharacter.getOperation(action), modifiedArgs, world, dungeonMaster, target, container, soundIdReader);
+				Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, playerCharacter.getOperation(action), modifiedArgs, world, dungeonMaster, target, container, imageInfoReader, soundIdReader);
 				
 				final InventoryDialogModel inventoryDialogModel;
 				if (target == playerCharacter) {
-					inventoryDialogModel = new InventoryDialogModel(playerCharacter, world, dungeonMaster, container, soundIdReader);
+					inventoryDialogModel = new InventoryDialogModel(playerCharacter, world, dungeonMaster, container, imageInfoReader, soundIdReader);
 				} else {
-					inventoryDialogModel = new InventoryDialogModel(playerCharacter, target, world, dungeonMaster, container, soundIdReader);
+					inventoryDialogModel = new InventoryDialogModel(playerCharacter, target, world, dungeonMaster, container, imageInfoReader, soundIdReader);
 				}
 				dialog.refresh(inventoryDialogModel);
 			}

@@ -399,7 +399,7 @@ public class CharacterDialog extends JDialog {
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		contentPanel.add(buttonPane);
 		
-		JButton okButton = JButtonFactory.createButton("OK", soundIdReader);
+		JButton okButton = JButtonFactory.createButton("OK", imageInfoReader, soundIdReader);
 		okButton.setActionCommand("OK");
 		okButton.addActionListener(new CloseDialogAction());
 		buttonPane.add(okButton);

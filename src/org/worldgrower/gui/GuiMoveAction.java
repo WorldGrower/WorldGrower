@@ -31,22 +31,24 @@ public class GuiMoveAction extends AbstractAction {
 	private World world;
 	private DungeonMaster dungeonMaster;
 	private WorldPanel container;
-	private SoundIdReader soundIdReader;
+	private final ImageInfoReader imageInfoReader;
+	private final SoundIdReader soundIdReader;
 	
-	public GuiMoveAction(int[] args, WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, WorldPanel container, SoundIdReader soundIdReader) {
+	public GuiMoveAction(int[] args, WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, WorldPanel container, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader) {
 		super();
 		this.args = args;
 		this.playerCharacter = playerCharacter;
 		this.world = world;
 		this.dungeonMaster = dungeonMaster;
 		this.container = container;
+		this.imageInfoReader = imageInfoReader;
 		this.soundIdReader = soundIdReader;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (Game.canActionExecute(playerCharacter, playerCharacter.getOperation(Actions.MOVE_ACTION), args, world, playerCharacter)) {
-			Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, playerCharacter.getOperation(Actions.MOVE_ACTION), args, world, dungeonMaster, playerCharacter, container, soundIdReader);
+			Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, playerCharacter.getOperation(Actions.MOVE_ACTION), args, world, dungeonMaster, playerCharacter, container, imageInfoReader, soundIdReader);
 		}		
 	}
 }

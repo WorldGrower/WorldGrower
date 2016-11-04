@@ -40,6 +40,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
 import org.worldgrower.gui.AbstractDialog;
+import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.SwingUtils;
 import org.worldgrower.gui.music.MusicPlayer;
 import org.worldgrower.gui.music.SoundIdReader;
@@ -56,12 +57,14 @@ public class ControlsDialog extends AbstractDialog {
 	private static final String MUSIC_TOOL_TIP = "Play background music";
 	private static final String SOUND_TOOL_TIP = "Play sound effects";
 	
+	private final ImageInfoReader imageInfoReader;
 	private final SoundIdReader soundIdReader;
 	private final MusicPlayer musicPlayer;
 	
-	public ControlsDialog(KeyBindings keyBindings, SoundIdReader soundIdReader, MusicPlayer musicPlayer) {
+	public ControlsDialog(KeyBindings keyBindings, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, MusicPlayer musicPlayer) {
 		super(400, 800);
 		
+		this.imageInfoReader = imageInfoReader;
 		this.soundIdReader = soundIdReader;
 		this.musicPlayer = musicPlayer;
 		
@@ -198,7 +201,7 @@ public class ControlsDialog extends AbstractDialog {
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		addComponent(buttonPane);
 		
-		JButton okButton = JButtonFactory.createButton("OK", soundIdReader);
+		JButton okButton = JButtonFactory.createButton("OK", imageInfoReader, soundIdReader);
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		addActionHandlers(okButton, this);

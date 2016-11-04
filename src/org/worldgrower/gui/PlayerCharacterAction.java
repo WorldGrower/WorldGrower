@@ -33,9 +33,10 @@ public class PlayerCharacterAction extends AbstractAction {
 	private DungeonMaster dungeonMaster;
 	private ManagedOperation action;
 	private WorldObject target;
-	private SoundIdReader soundIdReader;
+	private final ImageInfoReader imageInfoReader;
+	private final SoundIdReader soundIdReader;
 	
-	public PlayerCharacterAction(WorldObject playerCharacter, World world, WorldPanel container, DungeonMaster dungeonMaster, ManagedOperation action, WorldObject target, SoundIdReader soundIdReader) {
+	public PlayerCharacterAction(WorldObject playerCharacter, World world, WorldPanel container, DungeonMaster dungeonMaster, ManagedOperation action, WorldObject target, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.world = world;
@@ -43,11 +44,12 @@ public class PlayerCharacterAction extends AbstractAction {
 		this.dungeonMaster = dungeonMaster;
 		this.action = action;
 		this.target = target;
+		this.imageInfoReader = imageInfoReader;
 		this.soundIdReader = soundIdReader;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, action, Args.EMPTY, world, dungeonMaster, target, container, soundIdReader);
+		Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, action, Args.EMPTY, world, dungeonMaster, target, container, imageInfoReader, soundIdReader);
 	}
 }

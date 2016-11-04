@@ -31,13 +31,14 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import org.worldgrower.gui.AbstractDialog;
+import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JListFactory;
 
 public class LoadSaveDialog extends AbstractDialog {
 
-	public LoadSaveDialog(SaveGameHandler saveGameHandler, LoadSaveMode loadSaveMode, SoundIdReader soundIdReader) {
+	public LoadSaveDialog(SaveGameHandler saveGameHandler, LoadSaveMode loadSaveMode, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader) {
 		super(500, 475);
 		((JComponent)getRootPane()).setBorder(BorderFactory.createLineBorder(Color.WHITE, 5));
 		
@@ -57,13 +58,13 @@ public class LoadSaveDialog extends AbstractDialog {
 		buttonPane.setBounds(16, 410, 465, 50);
 		addComponent(buttonPane);
 
-		JButton okButton = JButtonFactory.createButton(loadSaveMode.getDescription(), soundIdReader);
+		JButton okButton = JButtonFactory.createButton(loadSaveMode.getDescription(), imageInfoReader, soundIdReader);
 		okButton.setActionCommand("OK");
 		okButton.setEnabled(false);
 		buttonPane.add(okButton, BorderLayout.EAST);
 		getRootPane().setDefaultButton(okButton);
 		
-		JButton cancelButton = JButtonFactory.createButton("Cancel", soundIdReader);
+		JButton cancelButton = JButtonFactory.createButton("Cancel", imageInfoReader, soundIdReader);
 		cancelButton.setActionCommand("Cancel");
 		buttonPane.add(cancelButton, BorderLayout.WEST);
 		getRootPane().setDefaultButton(cancelButton);

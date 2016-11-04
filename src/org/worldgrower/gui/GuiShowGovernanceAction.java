@@ -282,7 +282,7 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		dialog.addComponent(buttonPane);
 		
-		JButton okButton = JButtonFactory.createButton("OK", soundIdReader);
+		JButton okButton = JButtonFactory.createButton("OK", imageInfoReader, soundIdReader);
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		addActionHandlers(okButton, worldModel, shackComboBox, houseComboBox, sheriffComboBox, taxCollectorComboBox, dialog, performerIsLeaderOfVillagers, ownerShackHouseCheckBox, maleCheckBox, femaleCheckBox, undeadCheckBox);
@@ -354,7 +354,7 @@ public class GuiShowGovernanceAction extends AbstractAction {
 					boolean onlyUndeadCanVote = undeadCheckBox.isSelected();
 					
 					int[] args = worldModel.getArgs(shackTaxRate, houseTaxRate, sheriffWage, taxCollectorWage, onlyOwnerShackHouseCanVote, onlyMalesCanVote, onlyFemalesCanVote, onlyUndeadCanVote);
-					Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, Actions.SET_GOVERNANCE_ACTION, args, world, dungeonMaster, playerCharacter, parent, soundIdReader);
+					Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, Actions.SET_GOVERNANCE_ACTION, args, world, dungeonMaster, playerCharacter, parent, imageInfoReader, soundIdReader);
 				}
 				dialog.dispose();
 			}

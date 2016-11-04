@@ -14,25 +14,30 @@
  *******************************************************************************/
 package org.worldgrower.gui;
 
-import org.worldgrower.Version;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 
-public class ExceptionHandler implements Thread.UncaughtExceptionHandler {
+import javax.swing.JPopupMenu;
+
+public class TiledImagePopupMenu extends JPopupMenu {
+
+	private final BufferedImage tileImage;  
+
+    public BufferedImage getTiledImage(ImageInfoReader imageInfoReader) {
+    	return (BufferedImage) imageInfoReader.getImage(ImageIds.BUTTON_BACKGROUND, null);
+    }  
 	
-	public void uncaughtException(Thread t, Throwable e) {
-		handle(e);
+	public TiledImagePopupMenu(ImageInfoReader imageInfoReader) {
+		super();
+		tileImage = getTiledImage(imageInfoReader);
 	}
 
-	public static void handle(Throwable throwable) {
-		try {
-			ExceptionDialog exceptionDialog = new ExceptionDialog(Version.getVersion(), "Unexpected error", "An unexpected error has occurred: " + throwable.getMessage(), throwable);
-			exceptionDialog.setVisible(true);
-		} catch (Throwable t) {
-			// don't let the exception get thrown out, will cause infinite
-			// looping!
-		}
-	}
+	@Override
+	protected void paintComponent(Graphics g) {
 
-	public static void registerExceptionHandler() {
-		Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler());
+		Graphics2D g2 = (Graphics2D) g.create();
+		g.drawImage(tileImage,0,0,this);
+		g2.dispose();
 	}
 }

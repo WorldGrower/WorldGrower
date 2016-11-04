@@ -65,7 +65,7 @@ public class ChooseWorldObjectDialog extends AbstractDialog {
 		buttonPane.setOpaque(false);
 		this.addComponent(buttonPane);
 		
-		okButton = JButtonFactory.createButton("OK", soundIdReader);
+		okButton = JButtonFactory.createButton("OK", imageInfoReader, soundIdReader);
 		okButton.setActionCommand("OK");
 		okButton.setEnabled(false);
 		buttonPane.add(okButton);

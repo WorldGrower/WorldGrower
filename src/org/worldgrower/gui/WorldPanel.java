@@ -113,7 +113,7 @@ public final class WorldPanel extends JPanel implements ImageFactory {
         
         initializeKeyBindings(playerCharacter, world, dungeonMaster, parentFrame);
         
-        this.infoPanel = new InfoPanel(playerCharacter, world, soundIdReader, initialStatusMessage, parentFrame, this);
+        this.infoPanel = new InfoPanel(playerCharacter, world, imageInfoReader, soundIdReader, initialStatusMessage, parentFrame, this);
         
         
         add(infoPanel, BorderLayout.SOUTH);
@@ -133,31 +133,31 @@ public final class WorldPanel extends JPanel implements ImageFactory {
         
         getInputMap().put(KeyStroke.getKeyStroke("UP"), "up");
         getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD8, 0), "up");
-        getActionMap().put("up", new GuiMoveAction(new int[] { 0,  -1 }, playerCharacter, world, dungeonMaster, this, soundIdReader));
+        getActionMap().put("up", new GuiMoveAction(new int[] { 0,  -1 }, playerCharacter, world, dungeonMaster, this, imageInfoReader, soundIdReader));
         
         getInputMap().put(KeyStroke.getKeyStroke("DOWN"), "down");
         getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD2, 0), "down");
-        getActionMap().put("down", new GuiMoveAction(new int[] { 0,  1 }, playerCharacter, world, dungeonMaster, this, soundIdReader));
+        getActionMap().put("down", new GuiMoveAction(new int[] { 0,  1 }, playerCharacter, world, dungeonMaster, this, imageInfoReader, soundIdReader));
         
         getInputMap().put(KeyStroke.getKeyStroke("LEFT"), "left");
         getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD4, 0), "left");
-        getActionMap().put("left", new GuiMoveAction(new int[] { -1,  0 }, playerCharacter, world, dungeonMaster, this, soundIdReader));
+        getActionMap().put("left", new GuiMoveAction(new int[] { -1,  0 }, playerCharacter, world, dungeonMaster, this, imageInfoReader, soundIdReader));
         
         getInputMap().put(KeyStroke.getKeyStroke("RIGHT"), "right");
         getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD6, 0), "right");
-        getActionMap().put("right", new GuiMoveAction(new int[] { 1,  0 }, playerCharacter, world, dungeonMaster, this, soundIdReader));
+        getActionMap().put("right", new GuiMoveAction(new int[] { 1,  0 }, playerCharacter, world, dungeonMaster, this, imageInfoReader, soundIdReader));
 
         getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD7, 0), "7");
-        getActionMap().put("7", new GuiMoveAction(new int[] { -1,  -1 }, playerCharacter, world, dungeonMaster, this, soundIdReader));
+        getActionMap().put("7", new GuiMoveAction(new int[] { -1,  -1 }, playerCharacter, world, dungeonMaster, this, imageInfoReader, soundIdReader));
         
         getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD9, 0), "9");
-        getActionMap().put("9", new GuiMoveAction(new int[] { 1,  -1 }, playerCharacter, world, dungeonMaster, this, soundIdReader));
+        getActionMap().put("9", new GuiMoveAction(new int[] { 1,  -1 }, playerCharacter, world, dungeonMaster, this, imageInfoReader, soundIdReader));
 
         getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD1, 0), "1");
-        getActionMap().put("1", new GuiMoveAction(new int[] { -1,  1 }, playerCharacter, world, dungeonMaster, this, soundIdReader));
+        getActionMap().put("1", new GuiMoveAction(new int[] { -1,  1 }, playerCharacter, world, dungeonMaster, this, imageInfoReader, soundIdReader));
         
         getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD3, 0), "3");
-        getActionMap().put("3", new GuiMoveAction(new int[] { 1,  1 }, playerCharacter, world, dungeonMaster, this, soundIdReader));
+        getActionMap().put("3", new GuiMoveAction(new int[] { 1,  1 }, playerCharacter, world, dungeonMaster, this, imageInfoReader, soundIdReader));
 	}
 
 	private void bindEscapeButtonToStartScreen(World world, JFrame parentFrame) {

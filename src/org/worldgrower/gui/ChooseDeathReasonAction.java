@@ -56,11 +56,11 @@ public class ChooseDeathReasonAction extends AbstractAction {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String[] deathReasons = DeathReasonPropertyUtils.getAllDeathReasons().toArray(new String[0]);
-		String deathReason = new ListInputDialog("Choose Death Reason", new ListData(deathReasons), soundIdReader, parentFrame).showMe();
+		String deathReason = new ListInputDialog("Choose Death Reason", new ListData(deathReasons), imageInfoReader, soundIdReader, parentFrame).showMe();
 		if (deathReason != null) {
 			int indexOfDeathReason = Arrays.asList(deathReasons).indexOf(deathReason);
 			
-			Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, Actions.OBFUSCATE_DEATH_REASON_ACTION, new int[] { indexOfDeathReason }, world, dungeonMaster, target, parent, soundIdReader);
+			Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, Actions.OBFUSCATE_DEATH_REASON_ACTION, new int[] { indexOfDeathReason }, world, dungeonMaster, target, parent, imageInfoReader, soundIdReader);
 		}
 	}
 }

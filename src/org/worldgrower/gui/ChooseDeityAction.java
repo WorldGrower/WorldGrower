@@ -56,11 +56,11 @@ public class ChooseDeityAction extends AbstractAction {
 		String[] deityNames = Deity.getAllDeityNames().toArray(new String[0]);
 		String[] tooltips = Deity.getAllDeityExplanations().toArray(new String[0]);
 		ListData listData = new ListData(deityNames, tooltips, Deity.getAllImageIds(), imageInfoReader);
-		String deityName = new ListInputDialog("Choose Deity", listData, soundIdReader, parentFrame).showMe();
+		String deityName = new ListInputDialog("Choose Deity", listData, imageInfoReader, soundIdReader, parentFrame).showMe();
 		if (deityName != null) {
 			int indexOfDeity = Arrays.asList(deityNames).indexOf(deityName);
 			
-			Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, Actions.CHOOSE_DEITY_ACTION, new int[] { indexOfDeity, -1 }, world, dungeonMaster, playerCharacter, parent, soundIdReader);
+			Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, Actions.CHOOSE_DEITY_ACTION, new int[] { indexOfDeity, -1 }, world, dungeonMaster, playerCharacter, parent, imageInfoReader, soundIdReader);
 		}
 	}
 }

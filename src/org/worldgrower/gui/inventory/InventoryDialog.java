@@ -135,7 +135,7 @@ public final class InventoryDialog extends AbstractDialog {
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		addComponent(buttonPane);
 
-		okButton = JButtonFactory.createButton("Ok", soundIdReader);
+		okButton = JButtonFactory.createButton("Ok", imageInfoReader, soundIdReader);
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
@@ -189,13 +189,13 @@ public final class InventoryDialog extends AbstractDialog {
 		weightLabelValue.setBounds(labelValueLeft, 12, 64, 25);
 		inventoryPanel.add(weightLabelValue);
 		
-		demandsButton = JButtonFactory.createButton("Set buying items", soundIdReader);
+		demandsButton = JButtonFactory.createButton("Set buying items", imageInfoReader, soundIdReader);
 		demandsButton.setToolTipText(DEMANDS_TOOL_TIP);
 		demandsButton.setIcon(new ImageIcon(imageInfoReader.getImage(ImageIds.SILVER_COIN, null)));
 		demandsButton.setBounds(labelLeft, 480, 175, 50);
 		inventoryPanel.add(demandsButton);
 		
-		pricesButton = JButtonFactory.createButton("Set selling prices", soundIdReader);
+		pricesButton = JButtonFactory.createButton("Set selling prices", imageInfoReader, soundIdReader);
 		pricesButton.setToolTipText(PRICES_TOOL_TIP);
 		pricesButton.setIcon(new ImageIcon(imageInfoReader.getImage(ImageIds.GOLD_COIN, null)));
 		pricesButton.setBounds(labelLeft, 541, 175, 50);
@@ -232,7 +232,7 @@ public final class InventoryDialog extends AbstractDialog {
 				targetInventoryPanel.add(targetMoney);
 				
 				Image stealGoldImage = imageInfoReader.getImage(Actions.STEAL_GOLD_ACTION.getImageIds(), null);
-				stealMoneyButton = JButtonFactory.createButton("Steal money", new ImageIcon(stealGoldImage), soundIdReader);
+				stealMoneyButton = JButtonFactory.createButton("Steal money", new ImageIcon(stealGoldImage), imageInfoReader, soundIdReader);
 				stealMoneyButton.setToolTipText("steal money");
 				stealMoneyButton.setBounds(labelLeft, 112, 150, 50);
 				stealMoneyButton.setEnabled(inventoryActionFactory.hasTargetMoneyActions());
@@ -496,7 +496,7 @@ public final class InventoryDialog extends AbstractDialog {
 		        InventoryItem inventoryItem = getPlayerCharacterSelectedValue();
 		        
 		        if (inventoryItem != null) {
-			        JPopupMenu popupMenu = MenuFactory.createJPopupMenu();
+			        JPopupMenu popupMenu = MenuFactory.createJPopupMenu(imageInfoReader);
 					addPlayerCharacterMenuActions(popupMenu, inventoryItem, inventoryDialogModel, inventoryActionFactory);
 			        popupMenu.show(inventoryTable, e.getX(), e.getY());
 		        }
@@ -512,7 +512,7 @@ public final class InventoryDialog extends AbstractDialog {
 			        InventoryItem inventoryItem = getTargetSelectedValue();
 			        
 			        if (inventoryItem != null) {
-				        JPopupMenu popupMenu = MenuFactory.createJPopupMenu();
+				        JPopupMenu popupMenu = MenuFactory.createJPopupMenu(imageInfoReader);
 						addTargetMenuActions(popupMenu, inventoryItem, inventoryDialogModel, inventoryActionFactory);
 				        popupMenu.show(targetInventoryTable, e.getX(), e.getY());
 			        }

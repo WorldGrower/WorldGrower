@@ -204,7 +204,7 @@ public class OptionsScreen {
 		numberOfVillagersTextField.setBounds(228, 352, 137, 22);
 		contentPanel.add(numberOfVillagersTextField);
 		
-		JButton btnOk = JButtonFactory.createButton("Ok", soundIdReader);
+		JButton btnOk = JButtonFactory.createButton("Ok", imageInfoReader, soundIdReader);
 		btnOk.setBounds(280, 535, 97, 25);
 		frame.getRootPane().setDefaultButton(btnOk);
 		contentPanel.add(btnOk);
@@ -245,12 +245,12 @@ public class OptionsScreen {
 						buffer.append(error).append("<br>");
 					}
 					buffer.append("</html");
-					new ShowTextDialog(buffer.toString(), soundIdReader, frame).showMe();
+					new ShowTextDialog(buffer.toString(), imageInfoReader, soundIdReader, frame).showMe();
 				}
 			}
 		});
 		
-		JButton btnCancel = JButtonFactory.createButton("Cancel");
+		JButton btnCancel = JButtonFactory.createButton("Cancel", imageInfoReader, soundIdReader);
 		btnCancel.setBounds(169, 535, 97, 25);
 		contentPanel.add(btnCancel);
 		

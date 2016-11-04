@@ -62,6 +62,7 @@ public final class InfoPanel extends JPanel {
 	private final WorldObject playerCharacter;
 	private final World world;
 	private final JFrame parentFrame;
+	private final ImageInfoReader imageInfoReader;
 	private final SoundIdReader soundIdReader;
 	private final ImageFactory imageFactory;
 
@@ -75,7 +76,7 @@ public final class InfoPanel extends JPanel {
 	private int lastMessageTurn = -1;
 	private boolean moreMessageDisplayed = false;
 	
-    public InfoPanel(WorldObject playerCharacter, World world, SoundIdReader soundIdReader, String initialStatusMessage, JFrame parentFrame, ImageFactory imageFactory) throws IOException {
+    public InfoPanel(WorldObject playerCharacter, World world, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, String initialStatusMessage, JFrame parentFrame, ImageFactory imageFactory) throws IOException {
         super(new BorderLayout());
         setBackground(Color.RED);
         SpringLayout layout = new SpringLayout();
@@ -83,6 +84,7 @@ public final class InfoPanel extends JPanel {
 		makeUnfocussable(this);
         
 		this.imageFactory = imageFactory;
+		this.imageInfoReader = imageInfoReader;
 		this.soundIdReader = soundIdReader;
 		this.playerCharacter = playerCharacter;
 		this.world = world;
@@ -260,7 +262,7 @@ public final class InfoPanel extends JPanel {
     }
     
     public void showStatusMessageDialog() {
-    	new StatusMessageDialog(statusMessages, soundIdReader, parentFrame).showMe();
+    	new StatusMessageDialog(statusMessages, imageInfoReader, soundIdReader, parentFrame).showMe();
     }
     
     public void updatePlayerCharacterValues() {

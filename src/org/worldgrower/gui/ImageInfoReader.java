@@ -18,6 +18,7 @@ import java.awt.AlphaComposite;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -108,6 +109,9 @@ public class ImageInfoReader {
     	Sprites redOrb = readSpritesRedOrb();
     	Sprites greenOrb = readSpritesGreenOrb();
     	Sprites yellowOrb = readSpritesYellowOrb();
+    	
+    	BufferedImage screenBackground = readScreenBackground();
+    	BufferedImage buttonBackground = readButtonBackground();
     	
     	addCharacter(ImageIds.KNIGHT, sprites, 0, 0, 1, 1);
     	addCharacter(ImageIds.GUARD, sprites, 0, 4, 1, 1);
@@ -611,6 +615,10 @@ public class ImageInfoReader {
         
         add(ImageIds.FREEDOM_OF_MOVEMENT_MAGIC_SPELL, sprites420.getSubImage(10, 26, 1, 1));
         createAnimation(ImageIds.FREEDOM_OF_MOVEMENT_MAGIC_SPELL_ANIMATION, ImageIds.FREEDOM_OF_MOVEMENT_MAGIC_SPELL, 10);
+
+        add(ImageIds.SCREEN_BACKGROUND, screenBackground);
+        add(ImageIds.BUTTON_BACKGROUND, buttonBackground);
+    
     }
     
     private void createAnimation(ImageIds animationImageId, ImageIds imageId, int numberOfFrames) {
@@ -1082,6 +1090,14 @@ public class ImageInfoReader {
     
     private static Sprites readSpritesYellowOrb() throws IOException {
 		return readImages("yellow_orb.png", 48, 48, 1, 1);
+	}
+    
+    private static BufferedImage readScreenBackground() throws IOException {
+		return ImageIO.read(new File("./resources/conc_patchwork_c.png"));
+	}
+    
+    private static BufferedImage readButtonBackground() throws IOException {
+		return ImageIO.read(new File("./resources/conc_slabs01_c.png"));
 	}
 	
 	private static Sprites readImages(String imageFilename, int width, int height, int rows, int cols) throws IOException {

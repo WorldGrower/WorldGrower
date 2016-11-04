@@ -60,7 +60,7 @@ public class GuiGameOverAction implements ManagedOperationListener {
 		if (playerCharacter.getProperty(Constants.HIT_POINTS) <= 0 && !gameOver) {
 			gameOver = true;
 			String text = "Your hit points are reduced to zero, the game is over";			
-			new ShowTextDialog(text, soundIdReader, parentFrame).showMe();
+			new ShowTextDialog(text, imageInfoReader, soundIdReader, parentFrame).showMe();
 			Game.closeMainPanel();
 			SwingUtilities.invokeLater(new Runnable() {
 

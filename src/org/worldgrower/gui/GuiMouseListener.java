@@ -198,9 +198,9 @@ public class GuiMouseListener extends MouseAdapter {
 
     private void performLeftMouseAction(WorldObject worldObject) {
     	if (Game.canActionExecute(playerCharacter, leftMouseClickAction, Args.EMPTY, world, worldObject)) {
-    		Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, leftMouseClickAction, Args.EMPTY, world, dungeonMaster, worldObject, container, soundIdReader);
+    		Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, leftMouseClickAction, Args.EMPTY, world, dungeonMaster, worldObject, container, imageInfoReader, soundIdReader);
     	} else {
-    		new ShowTextDialog("Cannot execute action '" + leftMouseClickAction.getSimpleDescription() + "' on " + worldObject.getProperty(Constants.NAME), soundIdReader, parentFrame).showMe();
+    		new ShowTextDialog("Cannot execute action '" + leftMouseClickAction.getSimpleDescription() + "' on " + worldObject.getProperty(Constants.NAME), imageInfoReader, soundIdReader, parentFrame).showMe();
     	}
 	}
     
@@ -230,7 +230,7 @@ public class GuiMouseListener extends MouseAdapter {
             if (worldObject.getProperty(Constants.ID) == 0) {
             	showPlayerCharacterMenu(e.getX(), e.getY());
             } else {
-            	JPopupMenu menu = MenuFactory.createJPopupMenu();
+            	JPopupMenu menu = MenuFactory.createJPopupMenu(imageInfoReader);
             	if (worldObject.hasIntelligence()) {
             		addCommunicationActions(menu, worldObject);
             	} else {
@@ -248,7 +248,7 @@ public class GuiMouseListener extends MouseAdapter {
             	menu.show(e.getComponent(), e.getX(), e.getY());
             }
         } else {
-        	JPopupMenu menu = MenuFactory.createJPopupMenu();
+        	JPopupMenu menu = MenuFactory.createJPopupMenu(imageInfoReader);
         	addGotoMenu(menu, worldPanel.getRealX(x), worldPanel.getRealY(y));
         	menu.show(e.getComponent(), e.getX(), e.getY());
         }
@@ -285,7 +285,7 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 
 	private void showPlayerCharacterMenu(int x, int y) {
-		JPopupMenu menu = MenuFactory.createJPopupMenu();
+		JPopupMenu menu = MenuFactory.createJPopupMenu(imageInfoReader);
 		addPlayerCharacterInformationMenus(menu);
 		
 		JMenu organizationMenu = MenuFactory.createJMenu("Organization", soundIdReader);
@@ -629,7 +629,7 @@ public class GuiMouseListener extends MouseAdapter {
 		for(ManagedOperation action : actions) {
 			final JMenuItem menuItem;
 			if (canPlayerCharacterPerformBuildAction(action)) {
-				PlayerCharacterAction guiAction = new PlayerCharacterAction(playerCharacter, world, container, dungeonMaster, action, playerCharacter, soundIdReader);
+				PlayerCharacterAction guiAction = new PlayerCharacterAction(playerCharacter, world, container, dungeonMaster, action, playerCharacter, imageInfoReader, soundIdReader);
 				menuItem = MenuFactory.createJMenuItem(guiAction, soundIdReader);
 				menuItem.setText(action.getDescription(playerCharacter, playerCharacter, null, world) + "...");
 				parentMenuItem.add(menuItem);
@@ -731,7 +731,7 @@ public class GuiMouseListener extends MouseAdapter {
 
 	private JMenuItem createEnabledMenuItem(WorldObject worldObject, ManagedOperation action) {
 		final JMenuItem menuItem;
-		PlayerCharacterAction guiAction = new PlayerCharacterAction(playerCharacter, world, container, dungeonMaster, action, worldObject, soundIdReader);
+		PlayerCharacterAction guiAction = new PlayerCharacterAction(playerCharacter, world, container, dungeonMaster, action, worldObject, imageInfoReader, soundIdReader);
 		menuItem = MenuFactory.createJMenuItem(guiAction, soundIdReader);
 		menuItem.setText(action.getSimpleDescription());
 		return menuItem;
@@ -852,7 +852,7 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 
 	public void executeBuildAction(ManagedOperation buildAction, WorldObject buildLocation, int[] args) {
-		Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, buildAction, args, world, dungeonMaster, buildLocation, container, soundIdReader);
+		Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, buildAction, args, world, dungeonMaster, buildLocation, container, imageInfoReader, soundIdReader);
 	}
 
 	public void setLeftMouseClickAction(ManagedOperation action) {

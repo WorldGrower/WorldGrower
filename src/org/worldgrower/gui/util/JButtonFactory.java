@@ -23,6 +23,7 @@ import javax.swing.JButton;
 import javax.swing.JToggleButton;
 
 import org.worldgrower.gui.ColorPalette;
+import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.RoundedBorder;
 import org.worldgrower.gui.TiledImageButton;
 import org.worldgrower.gui.font.Fonts;
@@ -31,8 +32,8 @@ import org.worldgrower.gui.music.SoundIds;
 
 public class JButtonFactory {
 
-	public static JButton createButton(String text, ImageIcon icon, SoundIdReader soundIdReader) {
-		JButton button = createButton(text, icon);
+	public static JButton createButton(String text, ImageIcon icon, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader) {
+		JButton button = createButton(text, icon, imageInfoReader);
 		addClickSoundEffect(soundIdReader, button);		
 		return button;
 	}
@@ -50,20 +51,26 @@ public class JButtonFactory {
         });
 	}
 	
-	private static JButton createButton(String text, ImageIcon icon) {
-		JButton button = new TiledImageButton(text, icon);
+	private static JButton createButton(String text, ImageIcon icon, ImageInfoReader imageInfoReader) {
+		JButton button = new TiledImageButton(text, icon, imageInfoReader);
 		setButtonProperties(button);
 		return button;
 	}
 
-	public static JButton createButton(String text, SoundIdReader soundIdReader) {
-		JButton button = createButton(text);
+	public static JButton createButton(String text, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader) {
+		JButton button = createButton(text, imageInfoReader);
 		addClickSoundEffect(soundIdReader, button);
 		return button;
 	}
 	
-	public static JButton createButton(String text) {
-		JButton button = new TiledImageButton(text);
+	public static JButton createButton(String text, ImageInfoReader imageInfoReader) {
+		JButton button = new TiledImageButton(text, imageInfoReader);
+		setButtonProperties(button);
+		return button;
+	}
+	
+	public static JButton createUntexturedButton(String text) {
+		JButton button = new JButton(text);
 		setButtonProperties(button);
 		return button;
 	}

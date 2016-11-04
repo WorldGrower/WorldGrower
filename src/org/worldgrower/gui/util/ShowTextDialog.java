@@ -24,11 +24,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.worldgrower.gui.AbstractDialog;
+import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.music.SoundIdReader;
 
 public class ShowTextDialog extends AbstractDialog {
 
-	public ShowTextDialog(String value, SoundIdReader soundIdReader, JFrame parentFrame) {
+	public ShowTextDialog(String value, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, JFrame parentFrame) {
 		super(450, 160);
 		
 		JLabel label = JLabelFactory.createJLabel(value);
@@ -41,7 +42,7 @@ public class ShowTextDialog extends AbstractDialog {
 		buttonPane.setBounds(16, 70, 415, 50);
 		addComponent(buttonPane);
 
-		JButton okButton = JButtonFactory.createButton(" OK ", soundIdReader);
+		JButton okButton = JButtonFactory.createButton(" OK ", imageInfoReader, soundIdReader);
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);

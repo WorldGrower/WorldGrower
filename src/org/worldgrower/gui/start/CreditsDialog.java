@@ -35,6 +35,7 @@ import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 
 import org.worldgrower.gui.AbstractDialog;
+import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.font.Fonts;
 import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.util.JButtonFactory;
@@ -43,11 +44,13 @@ import org.worldgrower.util.FileUtils;
 
 public class CreditsDialog extends AbstractDialog {
 
+	private final ImageInfoReader imageInfoReader;
 	private final SoundIdReader soundIdReader;
 	
-	public CreditsDialog(SoundIdReader soundIdReader) throws IOException {
+	public CreditsDialog(ImageInfoReader imageInfoReader, SoundIdReader soundIdReader) throws IOException {
 		super(500, 800);
 		
+		this.imageInfoReader = imageInfoReader;
 		this.soundIdReader = soundIdReader;
 		
 		addCreditsPane();
@@ -125,7 +128,7 @@ public class CreditsDialog extends AbstractDialog {
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		addComponent(buttonPane);
 		
-		JButton okButton = JButtonFactory.createButton("OK", soundIdReader);
+		JButton okButton = JButtonFactory.createButton("OK", imageInfoReader, soundIdReader);
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		addActionHandlers(okButton, this);

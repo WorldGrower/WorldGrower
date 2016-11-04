@@ -209,7 +209,7 @@ public class StartScreen implements SaveGameHandler {
 	}
 
 	private void showNewGamePopupMenu() {
-		JPopupMenu popupMenu = MenuFactory.createJPopupMenu();
+		JPopupMenu popupMenu = MenuFactory.createJPopupMenu(imageInfoReader);
 		
 		popupMenu.add(createMenuItem(new TutorialAction(), ImageIds.CUDGEL, "Start a tutorial game in which the basics of the game are explained"));
 		popupMenu.add(createMenuItem(new StandardGameAction(), ImageIds.LARGE_CUDGEL, "Start a game with default settings"));
@@ -307,7 +307,7 @@ public class StartScreen implements SaveGameHandler {
 	}
 
 	private void addNewButton() {
-		JButton btnNewGame = JButtonFactory.createButton("New Game", IconUtils.getNewIcon(), soundIdReader);
+		JButton btnNewGame = JButtonFactory.createButton("New Game", IconUtils.getNewIcon(), imageInfoReader, soundIdReader);
 		btnNewGame.setHorizontalAlignment(SwingConstants.LEFT);
 		btnNewGame.setHorizontalTextPosition(SwingConstants.RIGHT);
 		btnNewGame.setToolTipText("Starts a new game");
@@ -323,13 +323,13 @@ public class StartScreen implements SaveGameHandler {
 	}
 
 	private void addLoadButton() {
-		JButton btnLoadGame = JButtonFactory.createButton("Load Game", IconUtils.getLoadIcon(), soundIdReader);
+		JButton btnLoadGame = JButtonFactory.createButton("Load Game", IconUtils.getLoadIcon(), imageInfoReader, soundIdReader);
 		btnLoadGame.setHorizontalAlignment(SwingConstants.LEFT);
 		btnLoadGame.setHorizontalTextPosition(SwingConstants.RIGHT);
 		btnLoadGame.setToolTipText("Loads a game");
 		btnLoadGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				LoadSaveDialog loadSaveDialog = new LoadSaveDialog(StartScreen.this, LoadSaveMode.LOAD, soundIdReader);
+				LoadSaveDialog loadSaveDialog = new LoadSaveDialog(StartScreen.this, LoadSaveMode.LOAD, imageInfoReader, soundIdReader);
 				loadSaveDialog.showMe();
 			}
 		});
@@ -338,14 +338,14 @@ public class StartScreen implements SaveGameHandler {
 	}
 
 	private void addSaveButton() {
-		btnSaveGame = JButtonFactory.createButton("Save Game", IconUtils.getSaveIcon(), soundIdReader);
+		btnSaveGame = JButtonFactory.createButton("Save Game", IconUtils.getSaveIcon(), imageInfoReader, soundIdReader);
 		btnSaveGame.setHorizontalAlignment(SwingConstants.LEFT);
 		btnSaveGame.setHorizontalTextPosition(SwingConstants.RIGHT);
 		btnSaveGame.setToolTipText("Saves current game");
 		btnSaveGame.setEnabled(false);
 		btnSaveGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				LoadSaveDialog loadSaveDialog = new LoadSaveDialog(StartScreen.this, LoadSaveMode.SAVE, soundIdReader);
+				LoadSaveDialog loadSaveDialog = new LoadSaveDialog(StartScreen.this, LoadSaveMode.SAVE, imageInfoReader, soundIdReader);
 				loadSaveDialog.showMe();				
 			}
 		});
@@ -354,14 +354,14 @@ public class StartScreen implements SaveGameHandler {
 	}
 	
 	private void addControlsButton(Preferences preferences) {
-		JButton btnControlsGame = JButtonFactory.createButton("Controls", IconUtils.getControlsIcon(), soundIdReader);
+		JButton btnControlsGame = JButtonFactory.createButton("Controls", IconUtils.getControlsIcon(), imageInfoReader, soundIdReader);
 		btnControlsGame.setHorizontalAlignment(SwingConstants.LEFT);
 		btnControlsGame.setHorizontalTextPosition(SwingConstants.RIGHT);
 		btnControlsGame.setToolTipText("View and change game controls");
 		btnControlsGame.setEnabled(true);
 		btnControlsGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ControlsDialog controlsDialog = new ControlsDialog(keyBindings, soundIdReader, musicPlayer);
+				ControlsDialog controlsDialog = new ControlsDialog(keyBindings, imageInfoReader, soundIdReader, musicPlayer);
 				controlsDialog.showMe();
 				keyBindings.saveSettings(preferences);
 				preferences.putBoolean(PLAY_SOUNDS, soundIdReader.isEnabled());
@@ -373,14 +373,14 @@ public class StartScreen implements SaveGameHandler {
 	}
 
 	private void addCreditsButton() {
-		JButton btnCredits = JButtonFactory.createButton("Credits", IconUtils.getImageIcon48(), soundIdReader);
+		JButton btnCredits = JButtonFactory.createButton("Credits", IconUtils.getImageIcon48(), imageInfoReader, soundIdReader);
 		btnCredits.setHorizontalAlignment(SwingConstants.LEFT);
 		btnCredits.setHorizontalTextPosition(SwingConstants.RIGHT);
 		btnCredits.setToolTipText("Credits");
 		btnCredits.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					CreditsDialog creditsDialog = new CreditsDialog(soundIdReader);
+					CreditsDialog creditsDialog = new CreditsDialog(imageInfoReader, soundIdReader);
 					creditsDialog.showMe();
 				} catch (Exception e1) {
 					ExceptionHandler.handle(e1);
@@ -392,7 +392,7 @@ public class StartScreen implements SaveGameHandler {
 	}
 	
 	private void addExitButton() {
-		JButton btnExit = JButtonFactory.createButton("Exit", IconUtils.getExitIcon(), soundIdReader);
+		JButton btnExit = JButtonFactory.createButton("Exit", IconUtils.getExitIcon(), imageInfoReader, soundIdReader);
 		btnExit.setHorizontalAlignment(SwingConstants.LEFT);
 		btnExit.setHorizontalTextPosition(SwingConstants.RIGHT);
 		btnExit.setToolTipText("Exits program");

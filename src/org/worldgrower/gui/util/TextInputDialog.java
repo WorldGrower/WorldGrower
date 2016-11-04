@@ -27,6 +27,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import org.worldgrower.gui.AbstractDialog;
+import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.music.SoundIdReader;
 
 public class TextInputDialog extends AbstractDialog {
@@ -34,11 +35,11 @@ public class TextInputDialog extends AbstractDialog {
 	private String value = null;
 	private JTextField textField;
 	
-	public TextInputDialog(String question, SoundIdReader soundIdReader, JFrame parentFrame) {
-		this(question, false, soundIdReader, parentFrame);
+	public TextInputDialog(String question, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, JFrame parentFrame) {
+		this(question, false, imageInfoReader, soundIdReader, parentFrame);
 	}
 	
-	public TextInputDialog(String question, boolean numericInputOnly, SoundIdReader soundIdReader, JFrame parentFrame) {
+	public TextInputDialog(String question, boolean numericInputOnly, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, JFrame parentFrame) {
 		super(450, 190);
 		
 		JLabel label = JLabelFactory.createJLabel(question);
@@ -55,12 +56,12 @@ public class TextInputDialog extends AbstractDialog {
 		buttonPane.setBounds(16, 133, 425, 50);
 		addComponent(buttonPane);
 
-		JButton okButton = JButtonFactory.createButton(" OK ", soundIdReader);
+		JButton okButton = JButtonFactory.createButton(" OK ", imageInfoReader, soundIdReader);
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
 
-		JButton cancelButton = JButtonFactory.createButton("Cancel", soundIdReader);
+		JButton cancelButton = JButtonFactory.createButton("Cancel", imageInfoReader, soundIdReader);
 		cancelButton.setActionCommand("Cancel");
 		buttonPane.add(cancelButton);
 		

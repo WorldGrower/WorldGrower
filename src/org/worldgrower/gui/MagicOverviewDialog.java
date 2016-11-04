@@ -96,7 +96,7 @@ public class MagicOverviewDialog extends JDialog {
 		buttonPane.setBounds(12, 790, 878, 75);
 		contentPanel.add(buttonPane);
 			
-		JButton okButton = JButtonFactory.createButton("OK", soundIdReader);
+		JButton okButton = JButtonFactory.createButton("OK", imageInfoReader, soundIdReader);
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);

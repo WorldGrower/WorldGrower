@@ -64,15 +64,20 @@ public final class ExceptionDialog extends JDialog {
 	private JTextArea exceptionTextArea = new JTextArea("");
 	private JScrollPane exceptionTextAreaSP = new JScrollPane();
 
-	private JButton okButton = JButtonFactory.createButton("OK");
-	private JButton viewButton = JButtonFactory.createButton("View Error");
-	private JButton copyButton = JButtonFactory.createButton("Copy Error to Clipboard");
-	private JButton emailButton = JButtonFactory.createButton("Email Error");
+	private final JButton okButton;
+	private final JButton viewButton;
+	private final JButton copyButton;
+	private final JButton emailButton;
 
 	private JPanel topPanel = new JPanel(new BorderLayout());
 
 	public ExceptionDialog(String version, String errorLabelText, String errorDescription, Throwable e) {
 
+		okButton = JButtonFactory.createUntexturedButton("OK");
+		viewButton = JButtonFactory.createUntexturedButton("View Error");
+		copyButton = JButtonFactory.createUntexturedButton("Copy Error to Clipboard");
+		emailButton = JButtonFactory.createUntexturedButton("Email Error");
+		
 		this.version = version;
 		String errorString = extractErrorString(e);
 

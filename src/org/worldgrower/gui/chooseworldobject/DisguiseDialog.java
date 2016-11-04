@@ -73,6 +73,7 @@ public class DisguiseDialog extends JDialog {
 	private WorldPanel parent;
 	private DungeonMaster dungeonMaster;
 	private ManagedOperation disguiseAction;
+	private final ImageInfoReader imageInfoReader;
 	private final SoundIdReader soundIdReader;
 
 	public DisguiseDialog(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, List<WorldObject> disguiseWorldObjects, WorldPanel parent, World world, DungeonMaster dungeonMaster, ManagedOperation disguiseAction, JFrame parentFrame) {
@@ -81,6 +82,7 @@ public class DisguiseDialog extends JDialog {
 		this.parent = parent;
 		this.dungeonMaster = dungeonMaster;
 		this.disguiseAction = disguiseAction;
+		this.imageInfoReader = imageInfoReader;
 		this.soundIdReader = soundIdReader;
 		
 		initializeGui(parent, disguiseWorldObjects, imageInfoReader, parentFrame);
@@ -172,7 +174,7 @@ public class DisguiseDialog extends JDialog {
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		contentPanel.add(buttonPane);
 		
-		okButton = JButtonFactory.createButton("OK", soundIdReader);
+		okButton = JButtonFactory.createButton("OK", imageInfoReader, soundIdReader);
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
@@ -218,7 +220,7 @@ public class DisguiseDialog extends JDialog {
 				
 				playerCharacter.setProperty(Constants.FACADE, facade);
 				
-				Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, disguiseAction, args, world, dungeonMaster, playerCharacter, parent, soundIdReader);
+				Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, disguiseAction, args, world, dungeonMaster, playerCharacter, parent, imageInfoReader, soundIdReader);
 				
 				DisguiseDialog.this.dispose();
 			}

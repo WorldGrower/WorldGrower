@@ -40,23 +40,26 @@ public class InventoryDialogModel {
 	private final World world;
 	private final DungeonMaster dungeonMaster;
 	private final WorldPanel parent;
+	private final ImageInfoReader imageInfoReader;
 	private final SoundIdReader soundIdReader;
 	
-	public InventoryDialogModel(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, WorldPanel parent, SoundIdReader soundIdReader) {
+	public InventoryDialogModel(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, WorldPanel parent, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader) {
 		this.playerCharacter = playerCharacter;
 		this.target = null;
 		this.world = world;
 		this.dungeonMaster = dungeonMaster;
 		this.parent = parent;
+		this.imageInfoReader = imageInfoReader;
 		this.soundIdReader = soundIdReader;
 	}
 	
-	public InventoryDialogModel(WorldObject playerCharacter, WorldObject target, World world, DungeonMaster dungeonMaster, WorldPanel parent, SoundIdReader soundIdReader) {
+	public InventoryDialogModel(WorldObject playerCharacter, WorldObject target, World world, DungeonMaster dungeonMaster, WorldPanel parent, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader) {
 		this.playerCharacter = playerCharacter;
 		this.target = target;
 		this.world = world;
 		this.dungeonMaster = dungeonMaster;
 		this.parent = parent;
+		this.imageInfoReader = imageInfoReader;
 		this.soundIdReader = soundIdReader;
 	}
 
@@ -141,6 +144,6 @@ public class InventoryDialogModel {
 	}
 	
 	public void setPrices(int[] args) {
-		Game.executeAction(playerCharacter, Actions.SET_PRICES_ACTION, args, world, dungeonMaster, playerCharacter, parent, soundIdReader);
+		Game.executeAction(playerCharacter, Actions.SET_PRICES_ACTION, args, world, dungeonMaster, playerCharacter, parent, imageInfoReader, soundIdReader);
 	}
 }

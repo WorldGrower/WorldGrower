@@ -67,7 +67,7 @@ public class GuiGotoAction extends AbstractAction {
 		List<OperationInfo> tasks = calculatePath(playerCharacter, destinationX, destinationY, world);
 		if (tasks.size() > 0) {
 			tasks = tasks.subList(0, tasks.size() - 1);
-			Game.executeMultipleActionsAndMoveIntelligentWorldObjects(playerCharacter, tasks, world, dungeonMaster, playerCharacter, parent, soundIdReader);
+			Game.executeMultipleActionsAndMoveIntelligentWorldObjects(playerCharacter, tasks, world, dungeonMaster, playerCharacter, parent, imageInfoReader, soundIdReader);
 		}
 	}
 	

@@ -66,7 +66,7 @@ public class GuiShowBrawlResult implements BrawlFinishedListener {
 		
 		if (!performer.isControlledByAI()) {
 			//TODO: handle response
-			String response = new ListInputDialog("Choose brawl ending line:", targetIcon, new ListData(responses), soundIdReader, parentFrame).showMe();
+			String response = new ListInputDialog("Choose brawl ending line:", targetIcon, new ListData(responses), imageInfoReader, soundIdReader, parentFrame).showMe();
 		}
 		
 		if (!target.isControlledByAI()) {
