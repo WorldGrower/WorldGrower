@@ -15,25 +15,23 @@
 package org.worldgrower.gui;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-import javax.swing.JPopupMenu;
+import javax.swing.JComponent;
 
-public class TiledImagePopupMenu extends JPopupMenu {
+public class TiledImagePainter {
 
-	private final BufferedImage tileImage;  
+	public static void paintComponent(JComponent component, Graphics g, BufferedImage tileImage) {
 
-    public BufferedImage getTiledImage(ImageInfoReader imageInfoReader) {
-    	return (BufferedImage) imageInfoReader.getImage(ImageIds.BUTTON_BACKGROUND, null);
-    }  
-	
-	public TiledImagePopupMenu(ImageInfoReader imageInfoReader) {
-		super();
-		tileImage = getTiledImage(imageInfoReader);
-	}
-
-	@Override
-	protected void paintComponent(Graphics g) {
-		TiledImagePainter.paintComponent(this, g, tileImage);
+		Graphics2D g2 = (Graphics2D) g.create();
+		int width = component.getWidth();  
+        int height = component.getHeight();  
+        for (int x = 0; x < width; x += tileImage.getWidth()) {  
+            for (int y = 0; y < height; y += tileImage.getHeight()) {  
+                g.drawImage(tileImage, x, y, component);  
+            }  
+        }
+		g2.dispose();
 	}
 }

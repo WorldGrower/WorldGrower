@@ -90,7 +90,7 @@ public class MenuFactory {
 	
 	public static JMenu createJMenu(String description, SoundIdReader soundIdReader) {
 		JMenu menu = new JMenu(description);
-		menu.setOpaque(true);
+		menu.setOpaque(false);
 		menu.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
 		menu.setForeground(ColorPalette.FOREGROUND_COLOR);
 		menu.setFont(Fonts.FONT);
