@@ -37,6 +37,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
 import org.worldgrower.Version;
 import org.worldgrower.World;
@@ -82,6 +83,8 @@ public class StartScreen implements SaveGameHandler {
 	 */
 	public static void main(String[] args) {
 		ExceptionHandler.registerExceptionHandler();
+		
+		UIManager.put("Tree.rendererFillBackground", false);
 		
 		Preferences preferences = Preferences.userNodeForPackage(StartScreen.class);
 		loadDefaultSoundOutput(preferences);

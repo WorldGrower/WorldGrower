@@ -175,7 +175,7 @@ public class CommunityDialog extends JDialog {
 		tree.setRootVisible(false);
 		expandAllNodes(tree, 0, tree.getRowCount());
 		tree.setCellRenderer(new OrganizationMemberRenderer());
-		JScrollPane treeView = new JScrollPane(tree);
+		JScrollPane treeView = JScrollPaneFactory.createScrollPane(tree);
 		treeView.setBounds(15, 30, 450, 321);
 		organizationsPanel.add(treeView);
 		
@@ -379,6 +379,7 @@ public class CommunityDialog extends JDialog {
 	class OrganizationMemberRenderer extends DefaultTreeCellRenderer {
 
 		public OrganizationMemberRenderer() {
+			this.setOpaque(false);
 			this.setBackgroundNonSelectionColor(ColorPalette.DARK_BACKGROUND_COLOR);
 			this.setBackgroundSelectionColor(ColorPalette.LIGHT_BACKGROUND_COLOR);
 		}
@@ -391,18 +392,13 @@ public class CommunityDialog extends JDialog {
 	                        boolean leaf,
 	                        int row,
 	                        boolean hasFocus) {
-
-	        super.getTreeCellRendererComponent(
-	                        tree, value, sel,
-	                        expanded, leaf, row,
-	                        hasFocus);
-	        
+        
 	        DefaultMutableTreeNode node = (DefaultMutableTreeNode)value;
 	        WorldObject worldObject = (WorldObject) node.getUserObject();
 	        
             setIcon(new ImageIcon(imageInfoReader.getImage(worldObject.getProperty(Constants.IMAGE_ID), null)));
             setText(worldObject.getProperty(Constants.NAME));
-            setOpaque(false);
+            
             setForeground(ColorPalette.FOREGROUND_COLOR);
             
 	        return this;

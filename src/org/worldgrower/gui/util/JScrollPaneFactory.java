@@ -16,6 +16,7 @@ package org.worldgrower.gui.util;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTree;
 
 public class JScrollPaneFactory {
 
@@ -34,6 +35,14 @@ public class JScrollPaneFactory {
 	
 	public static JScrollPane createScrollPane(JTable table) {
 		JScrollPane scrollPane = new JScrollPane(table);
+		
+		setScrollPaneProperties(scrollPane);
+		
+		return scrollPane;
+	}
+	
+	public static JScrollPane createScrollPane(JTree tree) {
+		JScrollPane scrollPane = new JScrollPane(tree);
 		
 		setScrollPaneProperties(scrollPane);
 		

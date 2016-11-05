@@ -29,6 +29,7 @@ public class JTreeFactory {
 	}
 
 	public static void setTreeProperties(JTree tree) {
+		tree.setOpaque(false);
 		tree.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
 		tree.setForeground(ColorPalette.FOREGROUND_COLOR);
 		tree.setFont(Fonts.FONT);
