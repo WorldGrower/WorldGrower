@@ -26,6 +26,7 @@ public class SkillTableRenderer extends DefaultTableCellRenderer {
     public SkillTableRenderer(ImageInfoReader imageInfoReader) {
 		super();
 		this.imageInfoReader = imageInfoReader;
+		setOpaque(false);
 	}
 
 	public void setValue(Object value) {
