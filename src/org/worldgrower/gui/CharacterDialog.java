@@ -504,7 +504,7 @@ public class CharacterDialog extends JDialog {
 			equipmentWorldObjects.add(comboBoxEquipmentItem);
 		}
 		
-		JComboBox<ComboBoxEquipmentItem> equipmentComboBox = JComboBoxFactory.createJComboBox(equipmentWorldObjects.toArray(new ComboBoxEquipmentItem[0]));
+		JComboBox<ComboBoxEquipmentItem> equipmentComboBox = JComboBoxFactory.createJComboBox(equipmentWorldObjects.toArray(new ComboBoxEquipmentItem[0]), imageInfoReader);
 		equipmentComboBox.setRenderer(new ComboBoxRenderer(imageInfoReader));
 		equipmentComboBox.setSelectedItem(selectedItem);
 		equipmentComboBox.addActionListener(new EquipmentChangedAction());
@@ -619,7 +619,7 @@ public class CharacterDialog extends JDialog {
 		private final ImageInfoReader imageInfoReader;
 		
 		public ComboBoxRenderer(ImageInfoReader imageInfoReader) {
-			setOpaque(true);
+			setOpaque(false);
 			setHorizontalAlignment(CENTER);
 			setVerticalAlignment(CENTER);
 			

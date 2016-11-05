@@ -48,6 +48,7 @@ public class RespondToQuestionDialog extends AbstractDialog {
 	private final JLabel label;
 	private int selectedResponse = -1;
 	private final JProgressBar relationshipProgresBar;
+	private final ImageInfoReader imageInfoReader;
 	
 	private final class CloseDialogAction implements ActionListener {
 		@Override
@@ -58,6 +59,7 @@ public class RespondToQuestionDialog extends AbstractDialog {
 
 	public RespondToQuestionDialog(int id, int conversationId, int historyItemId, int additionalValue, int additionalValue2, Questioner questioner, Conversations conversations, ImageIds imageIdPerformer, ImageIds imageIdTarget, String performerName, String targetName, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, JFrame parentFrame) {
 		super(560, 300, imageInfoReader);
+		this.imageInfoReader = imageInfoReader;
 		
 		KeyStroke stroke = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
         rootPane.registerKeyboardAction(new CloseDialogAction(), stroke, JComponent.WHEN_IN_FOCUSED_WINDOW);
@@ -121,7 +123,7 @@ public class RespondToQuestionDialog extends AbstractDialog {
 	}
 	
 	private JComboBox<Response> createResponseComboBox(int id, int subjectId, int historyItemId, Conversations conversations, Questioner questioner, int additionalValue, int additionalValue2) {
-		JComboBox<Response> responseComboBox = JComboBoxFactory.createJComboBox();
+		JComboBox<Response> responseComboBox = JComboBoxFactory.createJComboBox(imageInfoReader);
 		List<Response> responses = questioner.getResponsePhrases(id, subjectId, historyItemId, additionalValue, additionalValue2);
 		for(Response response : responses) {
 			responseComboBox.addItem(response);

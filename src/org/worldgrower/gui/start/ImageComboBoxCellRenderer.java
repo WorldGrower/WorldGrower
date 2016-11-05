@@ -52,7 +52,6 @@ class ImageComboBoxCellRenderer extends JLabel implements ListCellRenderer<Image
 			setBackground(list.getBackground());
 			setForeground(list.getForeground());
 		}
-
 		
 		return this;
 	}

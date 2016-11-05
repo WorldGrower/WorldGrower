@@ -136,7 +136,7 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		shackTaxRate.setToolTipText(SHACK_TAX_RATE_TOOLTIP);
 		incomePanel.add(shackTaxRate);
 		
-		JComboBox<Integer> shackComboBox = JComboBoxFactory.createJComboBox(PRICES);
+		JComboBox<Integer> shackComboBox = JComboBoxFactory.createJComboBox(PRICES, imageInfoReader);
 		shackComboBox.setEnabled(performerIsLeaderOfVillagers);
 		WorldObject villagersOrganization = GroupPropertyUtils.getVillagersOrganization(world);
 		shackComboBox.setSelectedItem(villagersOrganization.getProperty(Constants.SHACK_TAX_RATE));
@@ -162,7 +162,7 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		houseTaxRate.setToolTipText(HOUSE_TAX_RATE_TOOLTIP);
 		incomePanel.add(houseTaxRate);
 		
-		JComboBox<Integer> houseComboBox = JComboBoxFactory.createJComboBox(PRICES);
+		JComboBox<Integer> houseComboBox = JComboBoxFactory.createJComboBox(PRICES, imageInfoReader);
 		houseComboBox.setEnabled(performerIsLeaderOfVillagers);
 		houseComboBox.setSelectedItem(villagersOrganization.getProperty(Constants.HOUSE_TAX_RATE));
 		houseComboBox.setBounds(150, 65, 50, 30);
@@ -192,7 +192,7 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		sheriffWage.setToolTipText(SHERIFF_WAGE_TOOLTIP);
 		expensePanel.add(sheriffWage);
 		
-		JComboBox<Integer> sheriffComboBox = JComboBoxFactory.createJComboBox(WAGES);
+		JComboBox<Integer> sheriffComboBox = JComboBoxFactory.createJComboBox(WAGES, imageInfoReader);
 		sheriffComboBox.setEnabled(performerIsLeaderOfVillagers);
 		sheriffComboBox.setSelectedItem(villagersOrganization.getProperty(Constants.SHERIFF_WAGE));
 		sheriffComboBox.setBounds(150, 20, 50, 30);
@@ -217,7 +217,7 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		taxCollectorWage.setToolTipText(TAX_COLLECTOR_WAGE_TOOLTIP);
 		expensePanel.add(taxCollectorWage);
 		
-		JComboBox<Integer> taxCollectorComboBox = JComboBoxFactory.createJComboBox(PRICES);
+		JComboBox<Integer> taxCollectorComboBox = JComboBoxFactory.createJComboBox(PRICES, imageInfoReader);
 		taxCollectorComboBox.setEnabled(performerIsLeaderOfVillagers);
 		taxCollectorComboBox.setSelectedItem(villagersOrganization.getProperty(Constants.TAX_COLLECTOR_WAGE));
 		taxCollectorComboBox.setBounds(150, 65, 50, 30);

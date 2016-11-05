@@ -284,7 +284,7 @@ public class OptionsScreen {
 		lblCharacterImage.setCursor(Cursors.CURSOR);
 		contentPanel.add(lblCharacterImage);
 		
-		cmbImage = JComboBoxFactory.createJComboBox();
+		cmbImage = JComboBoxFactory.createJComboBox(imageInfoReader);
 		cmbImage.setModel(new ImageComboBoxModel(imageInfoReader));
 		cmbImage.setRenderer(new ImageComboBoxCellRenderer(imageInfoReader));
 		cmbImage.setSelectedIndex(0);

@@ -17,41 +17,54 @@ package org.worldgrower.gui.util;
 import java.util.Arrays;
 
 import javax.swing.JComboBox;
+import javax.swing.plaf.basic.ComboPopup;
+import javax.swing.plaf.metal.MetalComboBoxUI;
 
 import org.worldgrower.gui.ColorPalette;
+import org.worldgrower.gui.ImageInfoReader;
+import org.worldgrower.gui.TiledImageComboPopup;
 import org.worldgrower.gui.font.Fonts;
 
 public class JComboBoxFactory {
 
-	public static<T> JComboBox<T> createJComboBox() {
+	public static<T> JComboBox<T> createJComboBox(ImageInfoReader imageInfoReader) {
 		JComboBox<T> comboBox = new JComboBox<T>();
-		setComboBoxProperties(comboBox);
+		setComboBoxProperties(comboBox, imageInfoReader);
 		return comboBox;
 	}
 	
-	public static<T> JComboBox<T> createJComboBox(T[] values) {
+	public static<T> JComboBox<T> createJComboBox(T[] values, ImageInfoReader imageInfoReader) {
 		JComboBox<T> comboBox = new JComboBox<T>(values);
-		setComboBoxProperties(comboBox);
+		setComboBoxProperties(comboBox, imageInfoReader);
 		return comboBox;
 	}
 	
-	public static<T> JComboBox<T> createJComboBox(T[] values, String[] tooltips) {
+	public static<T> JComboBox<T> createJComboBox(T[] values, String[] tooltips, ImageInfoReader imageInfoReader) {
 		JComboBox<T> comboBox = new JComboBox<T>(values);
-		setComboBoxProperties(comboBox);
+		setComboBoxProperties(comboBox, imageInfoReader);
 		comboBox.setRenderer(new ComboboxRenderer(Arrays.asList(tooltips)));
 		return comboBox;
 	}
 	
-	public static JComboBox<String> createJComboBox(ListData listData) {
+	public static JComboBox<String> createJComboBox(ListData listData, ImageInfoReader imageInfoReader) {
 		JComboBox<String> comboBox = new JComboBox<String>(listData.getList());
-		setComboBoxProperties(comboBox);
+		setComboBoxProperties(comboBox, imageInfoReader);
 		comboBox.setRenderer(new ComboboxRenderer(listData));
 		return comboBox;
 	}
 
-	private static<T> void setComboBoxProperties(JComboBox<T> comboBox) {
-		comboBox.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
+	private static<T> void setComboBoxProperties(JComboBox<T> comboBox, ImageInfoReader imageInfoReader) {
+		comboBox.setOpaque(false);
+		comboBox.setBackground(ColorPalette.FOREGROUND_COLOR);
 		comboBox.setForeground(ColorPalette.FOREGROUND_COLOR);
 		comboBox.setFont(Fonts.FONT);
+		
+		comboBox.setUI(new MetalComboBoxUI() {
+
+			@Override
+			protected ComboPopup createPopup() {
+				return new TiledImageComboPopup( comboBox, imageInfoReader );
+			}
+		});
 	}
 }

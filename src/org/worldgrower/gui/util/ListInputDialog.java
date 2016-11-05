@@ -46,7 +46,7 @@ public class ListInputDialog extends AbstractDialog {
 		label.setBounds(16, 16, 415, 50);
 		addComponent(label);
 		
-		comboBox = JComboBoxFactory.createJComboBox(listData);
+		comboBox = JComboBoxFactory.createJComboBox(listData, imageInfoReader);
 		comboBox.setBounds(16, 70, 415, 50);
 		addComponent(comboBox);
 		

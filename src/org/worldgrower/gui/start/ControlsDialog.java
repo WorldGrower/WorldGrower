@@ -78,7 +78,7 @@ public class ControlsDialog extends AbstractDialog {
 
 	private void addKeyBindingsTable(KeyBindings keyBindings) {
 		JTable table = JTableFactory.createJTable(new ControlsTableModel(keyBindings));
-		JComboBox<Character> comboBox = JComboBoxFactory.createJComboBox(new Character[]{'A', 'B', 'C'});
+		JComboBox<Character> comboBox = JComboBoxFactory.createJComboBox(new Character[]{'A', 'B', 'C'}, imageInfoReader);
         table.getColumnModel().getColumn(1).setCellEditor(new DefaultCellEditor(comboBox));
 		
         table.getColumnModel().getColumn(0).setPreferredWidth(250);
