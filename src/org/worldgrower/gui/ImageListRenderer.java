@@ -32,6 +32,7 @@ class ImageListRenderer<T> implements ListCellRenderer<T> {
 		super();
 		this.imageIds = imageIds;
 		this.imageInfoReader = imageInfoReader;
+		defaultRenderer.setOpaque(false);
 	}
 
 	public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
