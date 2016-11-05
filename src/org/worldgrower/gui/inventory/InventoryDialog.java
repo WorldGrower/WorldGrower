@@ -289,7 +289,6 @@ public final class InventoryDialog extends AbstractDialog {
 		JPanel filterPanel = JPanelFactory.createBorderlessPanel();
 		filterPanel.setBounds(12, 12, 10 * 50, 50);
 		filterPanel.setLayout(null);
-		filterPanel.setOpaque(true);
 		filterPanel.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
 		parentPanel.add(filterPanel);
 		
@@ -393,6 +392,7 @@ public final class InventoryDialog extends AbstractDialog {
 	
 	private JToggleButton createFilterButton(JPanel filterPanel, int index, ImageIds imageId, String tooltipText, JTable parentTable, OptionalTableColumn... optionalTableColumns) {
 		JToggleButton filterToggleButton = JButtonFactory.createToggleButton(new ImageIcon(imageInfoReader.getImage(imageId, null)), soundIdReader);
+		filterToggleButton.setOpaque(false);
 		filterToggleButton.setBounds(index * 50, 0, 50, 50);
 		filterToggleButton.setToolTipText(tooltipText);
 		

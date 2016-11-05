@@ -37,6 +37,7 @@ import org.worldgrower.gui.ImageTableRenderer;
 import org.worldgrower.gui.SwingUtils;
 import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.util.JButtonFactory;
+import org.worldgrower.gui.util.JScrollPaneFactory;
 import org.worldgrower.gui.util.JTableFactory;
 
 public final class PricesDialog extends AbstractDialog {
@@ -56,7 +57,7 @@ public final class PricesDialog extends AbstractDialog {
 		table.setRowHeight(50);
 		table.setAutoCreateRowSorter(true);
 		table.getRowSorter().toggleSortOrder(1);
-		JScrollPane scrollPane = new JScrollPane(table);
+		JScrollPane scrollPane = JScrollPaneFactory.createScrollPane(table);
 		scrollPane.setBounds(15, 15, 368, 700);
 		addComponent(scrollPane);
 		

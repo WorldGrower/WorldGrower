@@ -31,13 +31,14 @@ import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.util.DialogUtils;
 import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JListFactory;
+import org.worldgrower.gui.util.JScrollPaneFactory;
 
 public class StatusMessageDialog extends AbstractDialog {
 
 	public StatusMessageDialog(List<StatusMessage> statusMessages, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, JFrame parentFrame) {
 		super(700, 475, imageInfoReader);
 		
-		JScrollPane scrollPane = new JScrollPane();
+		JScrollPane scrollPane = JScrollPaneFactory.createScrollPane();
 		scrollPane.setBounds(16, 16, 665, 380);
 		addComponent(scrollPane);
 		

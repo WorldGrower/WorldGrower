@@ -34,6 +34,7 @@ public class JListFactory {
 	}
 	
 	private static<T> void setListProperties(JList<T> list) {
+		list.setOpaque(false);
 		list.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
 		list.setForeground(ColorPalette.FOREGROUND_COLOR);
 		list.setFont(Fonts.FONT);

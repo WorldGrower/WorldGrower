@@ -35,6 +35,7 @@ import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JListFactory;
+import org.worldgrower.gui.util.JScrollPaneFactory;
 
 public class LoadSaveDialog extends AbstractDialog {
 
@@ -42,7 +43,7 @@ public class LoadSaveDialog extends AbstractDialog {
 		super(500, 475, imageInfoReader);
 		((JComponent)getRootPane()).setBorder(BorderFactory.createLineBorder(Color.WHITE, 5));
 		
-		JScrollPane scrollPane = new JScrollPane();
+		JScrollPane scrollPane = JScrollPaneFactory.createScrollPane();
 		scrollPane.setBounds(16, 16, 462, 375);
 		addComponent(scrollPane);
 		

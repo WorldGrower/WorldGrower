@@ -15,6 +15,7 @@
 package org.worldgrower.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -62,6 +63,7 @@ import org.worldgrower.gui.util.JLabelFactory;
 import org.worldgrower.gui.util.JListFactory;
 import org.worldgrower.gui.util.JPanelFactory;
 import org.worldgrower.gui.util.JProgressBarFactory;
+import org.worldgrower.gui.util.JScrollPaneFactory;
 
 public class CharacterDialog extends JDialog {
 
@@ -219,10 +221,8 @@ public class CharacterDialog extends JDialog {
 		specialAttributePanel.setLayout(null);
 		contentPanel.add(specialAttributePanel);
 		
-		JScrollPane specialAttributesScrollPane = new JScrollPane();
+		JScrollPane specialAttributesScrollPane = JScrollPaneFactory.createScrollPane();
 		specialAttributesScrollPane.setBounds(10, 23, 257, 163);
-		specialAttributesScrollPane.setOpaque(false);
-		specialAttributesScrollPane.getViewport().setOpaque(false);
 		specialAttributesScrollPane.setBorder(null);
 		specialAttributePanel.add(specialAttributesScrollPane);
 		
@@ -386,7 +386,7 @@ public class CharacterDialog extends JDialog {
 		lblCondition.setBounds(labelLeft, 570, 150, 20);
 		contentPanel.add(lblCondition);
 		
-		JScrollPane scrollPane = new JScrollPane();
+		JScrollPane scrollPane = JScrollPaneFactory.createScrollPane();
 		scrollPane.setBounds(equipmentLeft, 570, 243, 148);
 		contentPanel.add(scrollPane);
 		
@@ -677,6 +677,7 @@ public class CharacterDialog extends JDialog {
 			renderer.setIcon(new ImageIcon(imageInfoReader.getImage(imageIds.get(index), null)));
 			renderer.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
 			renderer.setForeground(ColorPalette.FOREGROUND_COLOR);
+			
 			return renderer;
 		}
 	}

@@ -32,6 +32,7 @@ import org.worldgrower.gui.util.DialogUtils;
 import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JLabelFactory;
 import org.worldgrower.gui.util.JListFactory;
+import org.worldgrower.gui.util.JScrollPaneFactory;
 
 public class AssignActionLeftMouseDialog extends AbstractDialog {
 
@@ -40,7 +41,7 @@ public class AssignActionLeftMouseDialog extends AbstractDialog {
 	public AssignActionLeftMouseDialog(String[] actionDescriptions, ImageIds[] imageIds, SoundIdReader soundIdReader, JFrame parentFrame, ImageInfoReader imageInfoReader) {
 		super(450, 475, imageInfoReader);
 		
-		JScrollPane scrollPane = new JScrollPane();
+		JScrollPane scrollPane = JScrollPaneFactory.createScrollPane();
 		scrollPane.setBounds(32, 32, 390, 292);
 		addComponent(scrollPane);
 		

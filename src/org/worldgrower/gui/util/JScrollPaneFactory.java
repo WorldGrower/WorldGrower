@@ -12,23 +12,31 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.gui;
+package org.worldgrower.gui.util;
 
-import javax.swing.ImageIcon;
-import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
-public class ImageTableRenderer extends DefaultTableCellRenderer {
-    private final ImageInfoReader imageInfoReader;
+public class JScrollPaneFactory {
 
-    public ImageTableRenderer(ImageInfoReader imageInfoReader) {
-		super();
-		this.imageInfoReader = imageInfoReader;
+	public static JScrollPane createScrollPane() {
+		JScrollPane scrollPane = new JScrollPane();
+		
+		setScrollPaneProperties(scrollPane);
+		
+		return scrollPane;
 	}
 
-    @Override
-	public void setValue(Object value) {
-       ImageIds imageId = (ImageIds) value;
-       setIcon(new ImageIcon(imageInfoReader.getImage(imageId, null)));
-       setOpaque(false);
-    }
+	private static void setScrollPaneProperties(JScrollPane scrollPane) {
+		scrollPane.setOpaque(false);
+		scrollPane.getViewport().setOpaque(false);
+	}
+	
+	public static JScrollPane createScrollPane(JTable table) {
+		JScrollPane scrollPane = new JScrollPane(table);
+		
+		setScrollPaneProperties(scrollPane);
+		
+		return scrollPane;
+	}
 }

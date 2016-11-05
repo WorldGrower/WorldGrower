@@ -54,6 +54,7 @@ public class SwingUtils {
 		((DefaultTableCellRenderer)table.getDefaultRenderer(Object.class)).setOpaque(false);
 		((DefaultTableCellRenderer)table.getDefaultRenderer(String.class)).setOpaque(false);
 		((JComponent)table.getDefaultRenderer(Boolean.class)).setOpaque(false);
+		((DefaultTableCellRenderer)table.getDefaultRenderer(Integer.class)).setOpaque(false);
 		
 		scrollPane.setOpaque(false);
 		scrollPane.getViewport().setOpaque(false);

@@ -38,6 +38,7 @@ import org.worldgrower.gui.SwingUtils;
 import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.util.DialogUtils;
 import org.worldgrower.gui.util.JButtonFactory;
+import org.worldgrower.gui.util.JScrollPaneFactory;
 import org.worldgrower.gui.util.JTableFactory;
 
 public class ChooseKnowledgeDialog extends AbstractDialog {
@@ -70,7 +71,7 @@ public class ChooseKnowledgeDialog extends AbstractDialog {
 		knowledgeTable.getColumnModel().getColumn(2).setHeaderValue(" ");
 		knowledgeTable.getTableHeader().setReorderingAllowed(false);
 		
-		JScrollPane scrollPane = new JScrollPane(knowledgeTable);
+		JScrollPane scrollPane = JScrollPaneFactory.createScrollPane(knowledgeTable);
 		scrollPane.setBounds(5, 5, 585, 510);
 		this.addComponent(scrollPane);
 		SwingUtils.makeTransparant(knowledgeTable, scrollPane);

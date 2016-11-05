@@ -53,6 +53,7 @@ import org.worldgrower.gui.util.DialogUtils;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.JLabelFactory;
 import org.worldgrower.gui.util.JPanelFactory;
+import org.worldgrower.gui.util.JScrollPaneFactory;
 import org.worldgrower.gui.util.JTableFactory;
 import org.worldgrower.gui.util.JTreeFactory;
 import org.worldgrower.profession.Profession;
@@ -117,7 +118,7 @@ public class CommunityDialog extends JDialog {
 		tlbChildren.setAutoCreateRowSorter(true);
 		tlbChildren.getColumnModel().getColumn(0).setPreferredWidth(50);
 		tlbChildren.getColumnModel().getColumn(1).setPreferredWidth(405);
-		JScrollPane scrollPaneChildren = new JScrollPane(tlbChildren);
+		JScrollPane scrollPaneChildren = JScrollPaneFactory.createScrollPane(tlbChildren);
 		scrollPaneChildren.setBounds(13, 80, 455, 241);
 		familyPanel.add(scrollPaneChildren);
 		SwingUtils.makeTransparant(tlbChildren, scrollPaneChildren);
@@ -137,7 +138,7 @@ public class CommunityDialog extends JDialog {
 		tblAcquaintances.getColumnModel().getColumn(2).setPreferredWidth(100);
 		tblAcquaintances.getColumnModel().getColumn(3).setPreferredWidth(100);
 		tblAcquaintances.getColumnModel().getColumn(4).setPreferredWidth(100);
-		JScrollPane scrollPaneAcquaintances = new JScrollPane(tblAcquaintances);
+		JScrollPane scrollPaneAcquaintances = JScrollPaneFactory.createScrollPane(tblAcquaintances);
 		scrollPaneAcquaintances.setBounds(12, 30, 455, 321);
 		acquaintancesPanel.add(scrollPaneAcquaintances);
 		SwingUtils.makeTransparant(tblAcquaintances, scrollPaneAcquaintances);
@@ -161,7 +162,7 @@ public class CommunityDialog extends JDialog {
 		
 		OrganizationsModel worldModel = new OrganizationsModel(playerCharacter, world);
 		JTable table = JTableFactory.createJTable(worldModel);
-		JScrollPane scrollPane = new JScrollPane(table);
+		JScrollPane scrollPane = JScrollPaneFactory.createScrollPane(table);
 		scrollPane.setBounds(15, 30, 450, 290);
 		ranksPanel.add(scrollPane);
 		

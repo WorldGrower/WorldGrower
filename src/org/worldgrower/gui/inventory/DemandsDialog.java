@@ -45,6 +45,7 @@ import org.worldgrower.gui.ImageTableRenderer;
 import org.worldgrower.gui.SwingUtils;
 import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.util.JButtonFactory;
+import org.worldgrower.gui.util.JScrollPaneFactory;
 import org.worldgrower.gui.util.JTableFactory;
 import org.worldgrower.gui.util.JTextFieldFactory;
 
@@ -65,11 +66,11 @@ public final class DemandsDialog extends AbstractDialog {
 		table.setAutoCreateRowSorter(true);
 		table.setRowHeight(50);
 		table.getRowSorter().toggleSortOrder(1);
-		
+
 		TableCellEditor fce = new PositiveIntegerCellEditor(JTextFieldFactory.createJTextField());
         table.setDefaultEditor(Integer.class, fce);
 		
-		JScrollPane scrollPane = new JScrollPane(table);
+		JScrollPane scrollPane = JScrollPaneFactory.createScrollPane(table);
 		scrollPane.setBounds(15, 15, 368, 700);
 		addComponent(scrollPane);
 		
