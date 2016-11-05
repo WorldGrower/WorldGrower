@@ -48,7 +48,7 @@ public class CreditsDialog extends AbstractDialog {
 	private final SoundIdReader soundIdReader;
 	
 	public CreditsDialog(ImageInfoReader imageInfoReader, SoundIdReader soundIdReader) throws IOException {
-		super(500, 800);
+		super(500, 800, imageInfoReader);
 		
 		this.imageInfoReader = imageInfoReader;
 		this.soundIdReader = soundIdReader;
@@ -62,7 +62,7 @@ public class CreditsDialog extends AbstractDialog {
 	private void addCreditsPane() throws IOException {
 		String creditsText = getCreditsTextAsHtml();
 		
-		JTextPane textPane = JTextPaneFactory.createJTextPane(); 
+		JTextPane textPane = JTextPaneFactory.createJTextPane(imageInfoReader); 
 		textPane.setEditable(false);
 		textPane.setContentType("text/html");
 		textPane.setText(creditsText);

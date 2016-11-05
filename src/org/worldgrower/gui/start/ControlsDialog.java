@@ -62,7 +62,7 @@ public class ControlsDialog extends AbstractDialog {
 	private final MusicPlayer musicPlayer;
 	
 	public ControlsDialog(KeyBindings keyBindings, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, MusicPlayer musicPlayer) {
-		super(400, 800);
+		super(400, 800, imageInfoReader);
 		
 		this.imageInfoReader = imageInfoReader;
 		this.soundIdReader = soundIdReader;

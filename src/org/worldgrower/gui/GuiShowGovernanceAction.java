@@ -92,7 +92,7 @@ public class GuiShowGovernanceAction extends AbstractAction {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		GovernanceActionsDialog dialog = new GovernanceActionsDialog(900, 800);
+		GovernanceActionsDialog dialog = new GovernanceActionsDialog(900, 800, imageInfoReader);
 		dialog.setModalityType(ModalityType.APPLICATION_MODAL);
 		IconUtils.setIcon(dialog);
 		
@@ -442,8 +442,8 @@ public class GuiShowGovernanceAction extends AbstractAction {
 	
 	private static class GovernanceActionsDialog extends AbstractDialog {
 
-		public GovernanceActionsDialog(int width, int height) {
-			super(width, height);
+		public GovernanceActionsDialog(int width, int height, ImageInfoReader imageInfoReader) {
+			super(width, height, imageInfoReader);
 		}
 		
 	}

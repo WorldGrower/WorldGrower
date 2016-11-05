@@ -94,7 +94,7 @@ public class Game {
 		addEnemiesAndFriendlyAnimals(gameParameters.getEnemyDensity(), verminOrganization, creatureGenerator, world, seed);
 
 		//runWorld(startTurn, dungeonMaster, world);
-		RunWorldSwingWorker runWorldSwingWorker = new RunWorldSwingWorker(startTurn, dungeonMaster, world);
+		RunWorldSwingWorker runWorldSwingWorker = new RunWorldSwingWorker(startTurn, dungeonMaster, world, imageInfoReader);
 		runWorldSwingWorker.execute();
 		runWorldSwingWorker.get();
 		
@@ -112,13 +112,13 @@ public class Game {
 		
 		private final ProgressDialog progressDialog;
 		
-		public RunWorldSwingWorker(int startTurn, DungeonMaster dungeonMaster, World world) {
+		public RunWorldSwingWorker(int startTurn, DungeonMaster dungeonMaster, World world, ImageInfoReader imageInfoReader) {
 			super();
 			this.startTurn = startTurn;
 			this.dungeonMaster = dungeonMaster;
 			this.world = world;
 			
-			this.progressDialog = new ProgressDialog("Processing turns...", startTurn);
+			this.progressDialog = new ProgressDialog("Processing turns...", startTurn, imageInfoReader);
 			if (startTurn > 1000) {
 				progressDialog.showMe();
 			}

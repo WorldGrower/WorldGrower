@@ -90,7 +90,7 @@ public final class InfoPanel extends JPanel {
 		this.world = world;
 		this.parentFrame = parentFrame;
 		
-        messageTextPane = JTextPaneFactory.createJTextPane();
+        messageTextPane = JTextPaneFactory.createJTextPane(imageInfoReader);
         messageTextPane.setEditable(false);
         
         int messageWidth = 600;

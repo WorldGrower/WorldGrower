@@ -25,6 +25,7 @@ import javax.swing.JPopupMenu;
 
 import org.worldgrower.gui.ColorPalette;
 import org.worldgrower.gui.ImageInfoReader;
+import org.worldgrower.gui.TiledImageJMenu;
 import org.worldgrower.gui.TiledImagePopupMenu;
 import org.worldgrower.gui.cursor.Cursors;
 import org.worldgrower.gui.font.Fonts;
@@ -88,8 +89,8 @@ public class MenuFactory {
 		menuItem.setCursor(Cursors.CURSOR);
 	}
 	
-	public static JMenu createJMenu(String description, SoundIdReader soundIdReader) {
-		JMenu menu = new JMenu(description);
+	public static JMenu createJMenu(String description, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader) {
+		JMenu menu = new TiledImageJMenu(description, imageInfoReader);
 		menu.setOpaque(false);
 		menu.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
 		menu.setForeground(ColorPalette.FOREGROUND_COLOR);

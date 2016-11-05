@@ -30,7 +30,7 @@ import org.worldgrower.gui.music.SoundIdReader;
 public class ShowTextDialog extends AbstractDialog {
 
 	public ShowTextDialog(String value, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, JFrame parentFrame) {
-		super(450, 160);
+		super(450, 160, imageInfoReader);
 		
 		JLabel label = JLabelFactory.createJLabel(value);
 		label.setBounds(16, 16, 415, 50);

@@ -48,7 +48,7 @@ public class ChooseKnowledgeDialog extends AbstractDialog {
 	private ActionContainingArgs guiAction;
 
 	public ChooseKnowledgeDialog(List<String> knowledgeDescriptions, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, List<ImageIds> imageIds, Component parent, ActionContainingArgs guiAction, JFrame parentFrame) {
-		super(600, 600);
+		super(600, 600, imageInfoReader);
 		initializeGui(parent, knowledgeDescriptions, imageInfoReader, soundIdReader, imageIds, parentFrame);
 		
 		this.guiAction = guiAction;

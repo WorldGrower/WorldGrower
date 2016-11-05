@@ -127,7 +127,7 @@ public class AskQuestionDialog extends AbstractDialog implements ManagedOperatio
 	}
 	
 	public AskQuestionDialog(Answerer answerer, Conversations conversations, ImageIds imageIdPerformer, ImageIds imageIdTarget, String performerName, String targetName, Map<Integer, ImageIds> subjectImageIds, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, JFrame parentFrame) {
-		super(650, 300);
+		super(650, 300, imageInfoReader);
 		this.answerer = answerer;
 		this.soundIdReader = soundIdReader;
 		this.imageInfoReader = imageInfoReader;
@@ -217,7 +217,7 @@ public class AskQuestionDialog extends AbstractDialog implements ManagedOperatio
 		Map<ConversationCategory, List<Question>> questionsMap = answerer.getQuestionPhrases();
 		JPopupMenu popupMenu = MenuFactory.createJPopupMenu(imageInfoReader);
 		for(Entry<ConversationCategory, List<Question>> entry : getQuestions(questionsMap)) {
-			JMenu menu = MenuFactory.createJMenu(entry.getKey().getDescription(), soundIdReader);
+			JMenu menu = MenuFactory.createJMenu(entry.getKey().getDescription(), imageInfoReader, soundIdReader);
 			setMenuIcon(menu, entry.getKey().getImageId());
 			popupMenu.add(menu);
 			
@@ -234,7 +234,7 @@ public class AskQuestionDialog extends AbstractDialog implements ManagedOperatio
  				} else {
  					List<List<Question>> questionParts = splitList(questions, 20);
  					for(List<Question> questionPart : questionParts) {
- 						JMenu menuPart = MenuFactory.createJMenu(getDescriptionForQuestions(questionPart), soundIdReader);
+ 						JMenu menuPart = MenuFactory.createJMenu(getDescriptionForQuestions(questionPart), imageInfoReader, soundIdReader);
  						addQuestionsToMenu(imageInfoReader, subjectImageIds, answerer, menuPart, questionPart);
  						menu.add(menuPart);
  					}
@@ -330,7 +330,7 @@ public class AskQuestionDialog extends AbstractDialog implements ManagedOperatio
 			if (subjectId != -1) {
 				if (!subMenus.containsKey(subjectId)) {
 					String name = answerer.getDescription(subjectId);
-					JMenu subMenu = MenuFactory.createJMenu(name, soundIdReader);
+					JMenu subMenu = MenuFactory.createJMenu(name, imageInfoReader, soundIdReader);
 					subMenus.put(subjectId, subMenu);
 					menu.add(subMenu);
 				}

@@ -63,7 +63,7 @@ public class CharacterCustomizationScreen extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 539, 310);
 		setResizable(false);
-		contentPane = new TiledImagePanel();
+		contentPane = new TiledImagePanel(imageInfoReader);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setPreferredSize(getSize());
 		setContentPane(contentPane);

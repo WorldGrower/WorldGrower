@@ -59,7 +59,7 @@ import org.worldgrower.profession.Profession;
 
 public class CommunityDialog extends JDialog {
 
-	private final JPanel contentPanel = new TiledImagePanel();
+	private final JPanel contentPanel;
 	private JTable tlbChildren;
 	private JTable tblAcquaintances;
 	private final ImageInfoReader imageInfoReader;
@@ -67,6 +67,7 @@ public class CommunityDialog extends JDialog {
 	public CommunityDialog(WorldObject playerCharacter, ImageInfoReader imageInfoReader, World world, JFrame parentFrame) {
 		this.imageInfoReader = imageInfoReader;
 		
+		contentPanel = new TiledImagePanel(imageInfoReader);
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		IconUtils.setIcon(this);
 		setResizable(false);

@@ -12,24 +12,29 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.gui.util;
+package org.worldgrower.gui;
 
-import javax.swing.JTextArea;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
-import org.worldgrower.gui.ColorPalette;
-import org.worldgrower.gui.font.Fonts;
+import javax.swing.JTextPane;
 
-public class JTextAreaFactory {
+public class TiledImageTextPane extends JTextPane {  
+    private final BufferedImage tileImage;  
 
-	public static JTextArea createJTextArea(int rows, int columns) {
-		JTextArea textArea = new JTextArea(rows, columns);
-		setTextAreaProperties(textArea);
-		return textArea;
-	}
+    public BufferedImage getTiledImage(ImageInfoReader imageInfoReader) {
+    	return (BufferedImage) imageInfoReader.getImage(ImageIds.SCREEN_BACKGROUND, null);
+    }  
 	
-	private static void setTextAreaProperties(JTextArea textArea) {
-		textArea.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
-		textArea.setForeground(ColorPalette.FOREGROUND_COLOR);
-		textArea.setFont(Fonts.FONT);
-	}
+	public TiledImageTextPane(ImageInfoReader imageInfoReader) {
+		super();
+		tileImage = getTiledImage(imageInfoReader);
+		setOpaque(false);
+	} 
+
+    @Override
+    protected void paintComponent(Graphics g) {  
+    	TiledImagePainter.paintComponent(this, g, tileImage);
+    	super.paintComponent(g);
+    }   
 }

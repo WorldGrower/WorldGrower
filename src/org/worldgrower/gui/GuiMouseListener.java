@@ -288,9 +288,9 @@ public class GuiMouseListener extends MouseAdapter {
 		JPopupMenu menu = MenuFactory.createJPopupMenu(imageInfoReader);
 		addPlayerCharacterInformationMenus(menu);
 		
-		JMenu organizationMenu = MenuFactory.createJMenu("Organization", soundIdReader);
+		JMenu organizationMenu = MenuFactory.createJMenu("Organization", imageInfoReader, soundIdReader);
 		setMenuIcon(organizationMenu, ImageIds.BLACK_CROSS);
-		JMenu miscMenu = MenuFactory.createJMenu("Miscellaneous", soundIdReader);
+		JMenu miscMenu = MenuFactory.createJMenu("Miscellaneous", imageInfoReader, soundIdReader);
 		setMenuIcon(miscMenu, ImageIds.INVESTIGATE);
 		
 		addDisguiseMenu(miscMenu);
@@ -536,7 +536,7 @@ public class GuiMouseListener extends MouseAdapter {
 	
 	private void addScribeMagicSpells(JPopupMenu menu, WorldObject worldObject) {
 		if (Actions.getScribeMagicSpellActionFor(Actions.FIRE_BOLT_ATTACK_ACTION).isValidTarget(playerCharacter, worldObject, world)) {
-			JMenu scribeMenu = MenuFactory.createJMenu("Scribe spells", soundIdReader);
+			JMenu scribeMenu = MenuFactory.createJMenu("Scribe spells", imageInfoReader, soundIdReader);
 			setMenuIcon(scribeMenu, ImageIds.SPELL_BOOK);
 			menu.add(scribeMenu);
 			Map<SkillProperty, List<ManagedOperation>> scribeActionsMap = Actions.getScribeMagicSpellActions();
@@ -558,7 +558,7 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 	
 	private JMenu addBuildActions(JPopupMenu menu, ImageIds imageId, String menuTitle, BuildAction[] buildActions, Function<BuildAction, Action> guiActionBuilder) {
-		JMenu parentMenuItem = MenuFactory.createJMenu(menuTitle, soundIdReader);
+		JMenu parentMenuItem = MenuFactory.createJMenu(menuTitle, imageInfoReader, soundIdReader);
 		menu.add(parentMenuItem);
 		setMenuIcon(parentMenuItem, imageId);
 		
@@ -617,7 +617,7 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 	
 	private JMenu addActions(JPopupMenu menu, ImageIds imageId, String menuTitle, ManagedOperation[] actions) {
-		JMenu parentMenuItem = MenuFactory.createJMenu(menuTitle, soundIdReader);
+		JMenu parentMenuItem = MenuFactory.createJMenu(menuTitle, imageInfoReader, soundIdReader);
 		menu.add(parentMenuItem);
 		setMenuIcon(parentMenuItem, imageId);
 		
@@ -717,7 +717,7 @@ public class GuiMouseListener extends MouseAdapter {
 		JMenu skillMenu;
 		String skillName = skillProperty.getName();
 		skillName = Character.toUpperCase(skillName.charAt(0)) + skillName.substring(1);
-		skillMenu = MenuFactory.createJMenu(skillName, soundIdReader);
+		skillMenu = MenuFactory.createJMenu(skillName, imageInfoReader, soundIdReader);
 		setMenuIcon(skillMenu, skillImageIds.getImageFor(skillProperty));
 		return skillMenu;
 	}

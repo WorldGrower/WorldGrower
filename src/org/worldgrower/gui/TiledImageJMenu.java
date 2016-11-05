@@ -12,26 +12,33 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.gui.util;
+package org.worldgrower.gui;
 
-import javax.swing.JTextPane;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
-import org.worldgrower.gui.ColorPalette;
-import org.worldgrower.gui.ImageInfoReader;
-import org.worldgrower.gui.TiledImageTextPane;
-import org.worldgrower.gui.font.Fonts;
+import javax.swing.JComponent;
+import javax.swing.JMenu;
+import javax.swing.plaf.PopupMenuUI;
 
-public class JTextPaneFactory {
+public class TiledImageJMenu extends JMenu {
 
-	public static JTextPane createJTextPane(ImageInfoReader imageInfoReader) {
-		JTextPane textPane = new TiledImageTextPane(imageInfoReader);
-		setTextPaneProperties(textPane);
-		return textPane;
-	}
+	private final BufferedImage tileImage;  
+
+    public BufferedImage getTiledImage(ImageInfoReader imageInfoReader) {
+    	return (BufferedImage) imageInfoReader.getImage(ImageIds.BUTTON_BACKGROUND, null);
+    }  
 	
-	private static void setTextPaneProperties(JTextPane textPane) {
-		textPane.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
-		textPane.setForeground(ColorPalette.FOREGROUND_COLOR);
-		textPane.setFont(Fonts.FONT);
+	public TiledImageJMenu(String text, ImageInfoReader imageInfoReader) {
+		super(text);
+		tileImage = getTiledImage(imageInfoReader);
+		getPopupMenu().setUI(new PopupMenuUI() {
+
+			@Override
+			public void paint(Graphics g, JComponent c) {
+				TiledImagePainter.paintComponent(c, g, tileImage);
+				super.paint(g, c);
+			}
+		});
 	}
 }

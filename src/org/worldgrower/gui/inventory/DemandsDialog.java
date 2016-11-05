@@ -52,7 +52,7 @@ public final class DemandsDialog extends AbstractDialog {
 	private final PropertyCountMap<ManagedProperty<?>> demands;
 	
 	public DemandsDialog(PropertyCountMap<ManagedProperty<?>> demands, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader) {
-		super(400, 800);
+		super(400, 800, imageInfoReader);
 		this.demands = demands;
 		
 		initializeGUI(imageInfoReader, soundIdReader);

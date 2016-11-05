@@ -40,7 +40,7 @@ public class ListInputDialog extends AbstractDialog {
 	
 	//TODO: use icon
 	public ListInputDialog(String question, Icon icon, ListData listData, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, JFrame parentFrame) {
-		super(450, 210);
+		super(450, 210, imageInfoReader);
 		
 		JLabel label = JLabelFactory.createJLabel(question);
 		label.setBounds(16, 16, 415, 50);

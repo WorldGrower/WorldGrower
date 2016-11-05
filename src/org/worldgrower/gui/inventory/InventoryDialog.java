@@ -118,7 +118,7 @@ public final class InventoryDialog extends AbstractDialog {
 	}
 	
 	public InventoryDialog(InventoryDialogModel inventoryDialogModel, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, InventoryActionFactory inventoryActionFactory, JFrame parentFrame) {
-		super(762, 710);
+		super(762, 710, imageInfoReader);
 		this.imageInfoReader = imageInfoReader;
 		this.soundIdReader = soundIdReader;
 		
@@ -147,7 +147,7 @@ public final class InventoryDialog extends AbstractDialog {
 		rootInventoryPanel.setLayout(cardLayout);
 		addComponent(rootInventoryPanel);
 		
-		inventoryPanel = new TiledImagePanel();
+		inventoryPanel = new TiledImagePanel(imageInfoReader);
 		inventoryPanel.setBounds(0, 0, 700, 600);
 		inventoryPanel.setLayout(null);
 		inventoryPanel.setOpaque(true);
@@ -202,7 +202,7 @@ public final class InventoryDialog extends AbstractDialog {
 		inventoryPanel.add(pricesButton);
 
 		if (inventoryDialogModel.hasTarget()) {
-			targetInventoryPanel = new TiledImagePanel();
+			targetInventoryPanel = new TiledImagePanel(imageInfoReader);
 			targetInventoryPanel.setLayout(null);
 			targetInventoryPanel.setBounds(0, 0, 700, 600);
 			targetInventoryPanel.setOpaque(true);

@@ -101,7 +101,7 @@ public class OptionsScreen {
 		frame = new JFrame();
 		frame.setResizable(false);
 		((JComponent)frame.getRootPane()).setBorder(BorderFactory.createLineBorder(Color.WHITE, 5));
-		JPanel contentPanel = new TiledImagePanel();
+		JPanel contentPanel = new TiledImagePanel(imageInfoReader);
 		contentPanel.setLocation(0, 0);
 		contentPanel.setLayout(null);
 		frame.setUndecorated(true);

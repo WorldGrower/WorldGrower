@@ -40,6 +40,7 @@ public class JTextFieldFactory {
 	}
 	
 	private static void setTextFieldProperties(JTextField textField) {
+		textField.setOpaque(false);
 		textField.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
 		textField.setForeground(ColorPalette.FOREGROUND_COLOR);
 		textField.setFont(Fonts.FONT);

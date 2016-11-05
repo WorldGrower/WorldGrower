@@ -38,7 +38,7 @@ public class AssignActionLeftMouseDialog extends AbstractDialog {
 	private String selectedAction = null;
 
 	public AssignActionLeftMouseDialog(String[] actionDescriptions, ImageIds[] imageIds, SoundIdReader soundIdReader, JFrame parentFrame, ImageInfoReader imageInfoReader) {
-		super(450, 475);
+		super(450, 475, imageInfoReader);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(32, 32, 390, 292);

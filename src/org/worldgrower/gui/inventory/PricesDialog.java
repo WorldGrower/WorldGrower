@@ -43,7 +43,7 @@ public final class PricesDialog extends AbstractDialog {
 	private final Prices pricesOnPlayer;
 	
 	public PricesDialog(Consumer<int[]> setPricesAction, Prices pricesOnPlayer, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader) {
-		super(400, 800);
+		super(400, 800, imageInfoReader);
 		this.pricesOnPlayer = pricesOnPlayer;
 		
 		initializeGUI(setPricesAction, imageInfoReader, soundIdReader);

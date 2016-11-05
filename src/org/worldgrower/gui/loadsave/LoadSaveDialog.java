@@ -39,7 +39,7 @@ import org.worldgrower.gui.util.JListFactory;
 public class LoadSaveDialog extends AbstractDialog {
 
 	public LoadSaveDialog(SaveGameHandler saveGameHandler, LoadSaveMode loadSaveMode, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader) {
-		super(500, 475);
+		super(500, 475, imageInfoReader);
 		((JComponent)getRootPane()).setBorder(BorderFactory.createLineBorder(Color.WHITE, 5));
 		
 		JScrollPane scrollPane = new JScrollPane();

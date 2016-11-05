@@ -434,7 +434,7 @@ public class StartScreen implements SaveGameHandler {
 	private static class StartScreenDialog extends AbstractDialog {
 
 		public StartScreenDialog() {
-			super(337, 590);
+			super(337, 590, imageInfoReader);
 		}
 	}
 }

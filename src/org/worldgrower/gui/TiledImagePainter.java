@@ -20,6 +20,7 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JComponent;
 
+//http://stackoverflow.com/questions/24746354/java-jpanel-tiled-background-image
 public class TiledImagePainter {
 
 	public static void paintComponent(JComponent component, Graphics g, BufferedImage tileImage) {

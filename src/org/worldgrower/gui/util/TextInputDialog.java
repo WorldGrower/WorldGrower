@@ -40,7 +40,7 @@ public class TextInputDialog extends AbstractDialog {
 	}
 	
 	public TextInputDialog(String question, boolean numericInputOnly, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, JFrame parentFrame) {
-		super(450, 190);
+		super(450, 190, imageInfoReader);
 		
 		JLabel label = JLabelFactory.createJLabel(question);
 		label.setBounds(16, 16, 415, 50);

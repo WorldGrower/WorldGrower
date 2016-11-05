@@ -16,23 +16,20 @@ package org.worldgrower.gui;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-// http://stackoverflow.com/questions/24746354/java-jpanel-tiled-background-image
 public class TiledImagePanel extends JPanel {  
     private final BufferedImage tileImage;  
 
-    public TiledImagePanel() {  
-    	try {
-    		tileImage = ImageIO.read(new File("./resources/conc_patchwork_c.png"));
-    	} catch (IOException e) {
-			throw new IllegalStateException(e);
-		}
+    public BufferedImage getTiledImage(ImageInfoReader imageInfoReader) {
+    	return (BufferedImage) imageInfoReader.getImage(ImageIds.SCREEN_BACKGROUND, null);
     }  
+	
+	public TiledImagePanel(ImageInfoReader imageInfoReader) {
+		super();
+		tileImage = getTiledImage(imageInfoReader);
+	}
 
     @Override
     protected void paintComponent(Graphics g) {  

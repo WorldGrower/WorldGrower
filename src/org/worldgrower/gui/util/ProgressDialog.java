@@ -23,6 +23,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
+import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.TiledImagePanel;
 import org.worldgrower.gui.cursor.Cursors;
 
@@ -30,7 +31,7 @@ public class ProgressDialog extends JFrame {
 
 	private JProgressBar progressBar;
 	
-	public ProgressDialog(String description, int max) {
+	public ProgressDialog(String description, int max, ImageInfoReader imageInfoReader) {
 		getContentPane().setLayout(null);
 		IconUtils.setIcon(this);
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -43,7 +44,7 @@ public class ProgressDialog extends JFrame {
 		setResizable(false);
 		setUndecorated(true);
 		((JComponent)getRootPane()).setBorder(BorderFactory.createLineBorder(Color.WHITE, 5));
-		JPanel gradientPanel = new TiledImagePanel();
+		JPanel gradientPanel = new TiledImagePanel(imageInfoReader);
 		gradientPanel.setBounds(0, 0, width, height);
 		gradientPanel.setLayout(null);
 		

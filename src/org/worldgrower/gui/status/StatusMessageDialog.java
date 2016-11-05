@@ -35,7 +35,7 @@ import org.worldgrower.gui.util.JListFactory;
 public class StatusMessageDialog extends AbstractDialog {
 
 	public StatusMessageDialog(List<StatusMessage> statusMessages, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, JFrame parentFrame) {
-		super(700, 475);
+		super(700, 475, imageInfoReader);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(16, 16, 665, 380);

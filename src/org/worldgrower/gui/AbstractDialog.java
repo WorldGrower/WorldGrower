@@ -12,10 +12,11 @@ import org.worldgrower.gui.util.IconUtils;
 
 public abstract class AbstractDialog extends JDialog {
 
-	private final JPanel gradientPanel = new TiledImagePanel();
+	private final JPanel panel;
 	
-	public AbstractDialog(int width, int height) {
+	public AbstractDialog(int width, int height, ImageInfoReader imageInfoReader) {
 		super();
+		panel = new TiledImagePanel(imageInfoReader);
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		setUndecorated(true);
 		getContentPane().setLayout(null);
@@ -24,12 +25,12 @@ public abstract class AbstractDialog extends JDialog {
 		
 		setSize(width, height);
 		setResizable(false);
-		gradientPanel.setBounds(0, 0, width, height);
-		gradientPanel.setPreferredSize(new Dimension(width, height));
+		panel.setBounds(0, 0, width, height);
+		panel.setPreferredSize(new Dimension(width, height));
 		getContentPane().setPreferredSize(new Dimension(width, height));
-		gradientPanel.setLayout(null);
+		panel.setLayout(null);
 		
-		getContentPane().add(gradientPanel);
+		getContentPane().add(panel);
 		
 		this.setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -37,7 +38,7 @@ public abstract class AbstractDialog extends JDialog {
 	}
 	
 	public final void addComponent(Component component) {
-		gradientPanel.add(component);
+		panel.add(component);
 	} 
 	
 

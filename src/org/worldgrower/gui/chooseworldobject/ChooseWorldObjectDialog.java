@@ -46,7 +46,7 @@ public class ChooseWorldObjectDialog extends AbstractDialog {
 	private ActionContainingArgs guiAction;
 
 	public ChooseWorldObjectDialog(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, List<WorldObject> disguiseWorldObjects, Component parent, World world, DungeonMaster dungeonMaster, ActionContainingArgs guiAction, JFrame parentFrame) {
-		super(400, 502);
+		super(400, 502, imageInfoReader);
 		initializeGui(parent, disguiseWorldObjects, imageInfoReader, soundIdReader, parentFrame);
 		
 		this.guiAction = guiAction;

@@ -59,7 +59,7 @@ import org.worldgrower.gui.util.JTableFactory;
 
 public class DisguiseDialog extends JDialog {
 
-	private final JPanel contentPanel = new TiledImagePanel();
+	private final JPanel contentPanel;
 	private JTable table;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JRadioButton noDisguiseRadioButton;
@@ -77,6 +77,7 @@ public class DisguiseDialog extends JDialog {
 	private final SoundIdReader soundIdReader;
 
 	public DisguiseDialog(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, List<WorldObject> disguiseWorldObjects, WorldPanel parent, World world, DungeonMaster dungeonMaster, ManagedOperation disguiseAction, JFrame parentFrame) {
+		this.contentPanel = new TiledImagePanel(imageInfoReader);
 		this.playerCharacter = playerCharacter;
 		this.world = world;
 		this.parent = parent;
