@@ -467,7 +467,7 @@ public final class InventoryDialog extends AbstractDialog {
 	private void setPlayerCharacterPanelOnTop(ActionEvent e) {
 		CardLayout cardLayout = (CardLayout) rootInventoryPanel.getLayout();
 		cardLayout.show(rootInventoryPanel, "player");
-		playercharacterToggleButton.setFont(Fonts.BOLD_FONT);
+		playercharacterToggleButton.setFont(Fonts.FONT);
 		playercharacterToggleButton.setSelected(true);
 		targetToggleButton.setFont(Fonts.FONT);
 		targetToggleButton.setSelected(false);
@@ -478,7 +478,7 @@ public final class InventoryDialog extends AbstractDialog {
 		cardLayout.show(rootInventoryPanel, "target");
 		playercharacterToggleButton.setFont(Fonts.FONT);
 		playercharacterToggleButton.setSelected(false);
-		targetToggleButton.setFont(Fonts.BOLD_FONT);
+		targetToggleButton.setFont(Fonts.FONT);
 		targetToggleButton.setSelected(true);
 	}
 

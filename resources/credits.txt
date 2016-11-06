@@ -168,4 +168,6 @@ scythe.png
 
 Stone texture by Spiney at http://opengameart.org/content/metalstone-textures?page=1
 conc_patchwork_c.png
-conc_slabs01_c.png
+
+Font Tw Cen MT at http://ufonts.com/download/tw-cen-mt/34654.html
+ufonts.com_tw-cen-mt.ttf

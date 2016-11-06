@@ -15,12 +15,22 @@
 package org.worldgrower.gui.font;
 
 import java.awt.Font;
+import java.awt.FontFormatException;
+import java.io.File;
+import java.io.IOException;
 
 public class Fonts {
 
-	private static final String FONT_NAME = "Dialog";
-	private static final int FONT_SIZE = 14;
+	private static final int FONT_SIZE = 18;
 	
-	public static final Font FONT = new Font(FONT_NAME, Font.PLAIN, FONT_SIZE);
-	public static final Font BOLD_FONT = new Font(FONT_NAME, Font.BOLD, FONT_SIZE);
+	public static final Font FONT = createFont();
+	
+	private static Font createFont() {
+		try {
+			Font font = Font.createFont(Font.TRUETYPE_FONT, new File("resources/ufonts.com_tw-cen-mt.ttf"));
+			return font.deriveFont((float)FONT_SIZE);
+		} catch (FontFormatException | IOException e) {
+			throw new IllegalStateException(e);
+		}
+	}
 }

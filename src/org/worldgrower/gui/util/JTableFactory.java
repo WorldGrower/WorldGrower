@@ -64,7 +64,7 @@ public class JTableFactory {
 	    	 
 	        if (comp instanceof JLabel) {
 	        	JLabel label = (JLabel) comp;
-	        	label.setFont(Fonts.BOLD_FONT);
+	        	label.setFont(Fonts.FONT);
 	        	label.setOpaque(true);
 	        	label.setForeground(ColorPalette.DARK_BACKGROUND_COLOR);
 	        	label.setBackground(ColorPalette.FOREGROUND_COLOR);
