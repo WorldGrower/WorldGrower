@@ -26,7 +26,7 @@ public class TiledImageJMenu extends JMenu {
 	private final BufferedImage tileImage;  
 
     public BufferedImage getTiledImage(ImageInfoReader imageInfoReader) {
-    	return (BufferedImage) imageInfoReader.getImage(ImageIds.BUTTON_BACKGROUND, null);
+    	return (BufferedImage) imageInfoReader.getImage(ImageIds.SCREEN_BACKGROUND, null);
     }  
 	
 	public TiledImageJMenu(String text, ImageInfoReader imageInfoReader) {

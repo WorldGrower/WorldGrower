@@ -24,7 +24,7 @@ public class TiledImageComboPopup extends BasicComboPopup {
 	private final BufferedImage tileImage;  
 
     public BufferedImage getTiledImage(ImageInfoReader imageInfoReader) {
-    	return (BufferedImage) imageInfoReader.getImage(ImageIds.BUTTON_BACKGROUND, null);
+    	return (BufferedImage) imageInfoReader.getImage(ImageIds.SCREEN_BACKGROUND, null);
     }  
 	
 	public TiledImageComboPopup(JComboBox combo, ImageInfoReader imageInfoReader) {

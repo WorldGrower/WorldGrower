@@ -111,7 +111,6 @@ public class ImageInfoReader {
     	Sprites yellowOrb = readSpritesYellowOrb();
     	
     	BufferedImage screenBackground = readScreenBackground();
-    	BufferedImage buttonBackground = readButtonBackground();
     	
     	addCharacter(ImageIds.KNIGHT, sprites, 0, 0, 1, 1);
     	addCharacter(ImageIds.GUARD, sprites, 0, 4, 1, 1);
@@ -617,7 +616,6 @@ public class ImageInfoReader {
         createAnimation(ImageIds.FREEDOM_OF_MOVEMENT_MAGIC_SPELL_ANIMATION, ImageIds.FREEDOM_OF_MOVEMENT_MAGIC_SPELL, 10);
 
         add(ImageIds.SCREEN_BACKGROUND, screenBackground);
-        add(ImageIds.BUTTON_BACKGROUND, buttonBackground);
     
     }
     
@@ -1096,10 +1094,6 @@ public class ImageInfoReader {
 		return ImageIO.read(new File("./resources/conc_patchwork_c.png"));
 	}
     
-    private static BufferedImage readButtonBackground() throws IOException {
-		return ImageIO.read(new File("./resources/conc_slabs01_c.png"));
-	}
-	
 	private static Sprites readImages(String imageFilename, int width, int height, int rows, int cols) throws IOException {
 		BufferedImage bigImg = ImageIO.read(ImageInfoReader.class.getResource("/" + imageFilename));
 		return new Sprites(bigImg, width, height);
