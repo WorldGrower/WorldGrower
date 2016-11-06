@@ -22,6 +22,7 @@ public class JProgressBarFactory {
 
 	public static JProgressBar createJProgressBar(int min, int max) {
 		JProgressBar progressBar = new JProgressBar(min, max);
+		progressBar.setOpaque(false);
 		progressBar.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
 		progressBar.setForeground(ColorPalette.FOREGROUND_COLOR);
 		return progressBar;

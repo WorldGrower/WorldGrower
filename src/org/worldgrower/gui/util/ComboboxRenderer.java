@@ -37,6 +37,7 @@ class ComboboxRenderer extends DefaultListCellRenderer {
 		super();
 		this.tooltips = listData.getTooltips();
 		this.images = listData.getImages();
+		this.setOpaque(false);
 	}
 
 	@Override
