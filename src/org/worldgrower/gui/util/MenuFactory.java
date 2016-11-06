@@ -14,14 +14,19 @@
  *******************************************************************************/
 package org.worldgrower.gui.util;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.Action;
+import javax.swing.ButtonModel;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
+import javax.swing.UIManager;
+import javax.swing.plaf.basic.BasicMenuItemUI;
 
 import org.worldgrower.gui.ColorPalette;
 import org.worldgrower.gui.ImageInfoReader;
@@ -91,7 +96,6 @@ public class MenuFactory {
 	
 	public static JMenu createJMenu(String description, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader) {
 		JMenu menu = new TiledImageJMenu(description, imageInfoReader);
-		menu.setOpaque(false);
 		menu.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
 		menu.setForeground(ColorPalette.FOREGROUND_COLOR);
 		menu.setFont(Fonts.FONT);

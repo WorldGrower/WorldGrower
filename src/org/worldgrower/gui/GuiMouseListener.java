@@ -655,7 +655,8 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 
 	private JMenuItem createDisabledActionMenuItem(JMenuItem menu, ManagedOperation action) {
-		JMenuItem menuItem = MenuFactory.createJMenuItem(action.getSimpleDescription() + "...", soundIdReader);
+		String description = action.getSimpleDescription() + "...";
+		JMenuItem menuItem = MenuFactory.createJMenuItem(description, soundIdReader);
 		menuItem.setEnabled(false);
 		addToolTips(action, menuItem);
 		menu.add(menuItem);

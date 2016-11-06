@@ -42,6 +42,7 @@ import javax.swing.UIManager;
 import org.worldgrower.Version;
 import org.worldgrower.World;
 import org.worldgrower.gui.AbstractDialog;
+import org.worldgrower.gui.ColorPalette;
 import org.worldgrower.gui.ExceptionHandler;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
@@ -85,6 +86,7 @@ public class StartScreen implements SaveGameHandler {
 		ExceptionHandler.registerExceptionHandler();
 		
 		UIManager.put("Tree.rendererFillBackground", false);
+		UIManager.getDefaults().put("MenuItem.disabledForeground", ColorPalette.FOREGROUND_COLOR);
 		
 		Preferences preferences = Preferences.userNodeForPackage(StartScreen.class);
 		loadDefaultSoundOutput(preferences);
