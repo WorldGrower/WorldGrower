@@ -15,6 +15,7 @@
 package org.worldgrower.gui.start;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -31,10 +32,12 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListCellRenderer;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
@@ -81,8 +84,11 @@ public class ControlsDialog extends AbstractDialog {
 		JComboBox<Character> comboBox = JComboBoxFactory.createJComboBox(new Character[]{'A', 'B', 'C'}, imageInfoReader);
         table.getColumnModel().getColumn(1).setCellEditor(new DefaultCellEditor(comboBox));
 		
+        table.setRowHeight(25);
         table.getColumnModel().getColumn(0).setPreferredWidth(250);
         table.getColumnModel().getColumn(1).setPreferredWidth(50);
+        
+        comboBox.setRenderer(new ComboBoxRenderer());
         
         table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -99,6 +105,21 @@ public class ControlsDialog extends AbstractDialog {
 		addComponent(scrollPane);
 		
 		SwingUtils.makeTransparant(table, scrollPane);
+	}
+	
+	static class ComboBoxRenderer extends JLabel implements ListCellRenderer<Character> {
+
+		public ComboBoxRenderer() {
+			setOpaque(false);
+			setHorizontalAlignment(CENTER);
+			setVerticalAlignment(CENTER);
+		}
+
+		public Component getListCellRendererComponent(JList list, Character value, int index, boolean isSelected, boolean cellHasFocus) {
+			setText(value.toString());
+
+			return this;
+		}
 	}
 
 	private void addMouseControlPanel(KeyBindings keyBindings) {
