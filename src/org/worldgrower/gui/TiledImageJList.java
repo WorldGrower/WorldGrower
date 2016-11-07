@@ -17,34 +17,38 @@ package org.worldgrower.gui;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-import javax.swing.JComboBox;
 import javax.swing.JList;
-import javax.swing.plaf.basic.BasicComboPopup;
+import javax.swing.ListModel;
 
-public class TiledImageComboPopup extends BasicComboPopup {
-	private final BufferedImage tileImage;
-	private static ImageInfoReader imageInfoReader;
+public class TiledImageJList<E> extends JList<E> {
+
+	private final BufferedImage tileImage;  
 
     public BufferedImage getTiledImage(ImageInfoReader imageInfoReader) {
     	return (BufferedImage) imageInfoReader.getImage(ImageIds.SCREEN_BACKGROUND, null);
     }  
 	
-    public static void initializeImageInfoReader(ImageInfoReader newImageInfoReader) {
-    	imageInfoReader = newImageInfoReader;
-    }
-    
-	public TiledImageComboPopup(JComboBox combo, ImageInfoReader imageInfoReader) {
-		super(combo);
-		this.tileImage = getTiledImage(imageInfoReader);
+	public TiledImageJList(ImageInfoReader imageInfoReader) {
+		super();
+		tileImage = getTiledImage(imageInfoReader);
+		setOpaque(false);
+	}
+
+	public TiledImageJList(E[] listData, ImageInfoReader imageInfoReader) {
+		super(listData);
+		tileImage = getTiledImage(imageInfoReader);
+		setOpaque(false);
+	}
+
+	public TiledImageJList(ListModel<E> dataModel, ImageInfoReader imageInfoReader) {
+		super(dataModel);
+		tileImage = getTiledImage(imageInfoReader);
+		setOpaque(false);
 	}
 
 	@Override
 	protected void paintComponent(Graphics g) {
 		TiledImagePainter.paintComponent(this, g, tileImage);
+		super.paintComponent(g);
 	}
-	
-	@Override
-    protected JList createList() {
-        return new TiledImageJList( comboBox.getModel(), imageInfoReader );
-    }
 }

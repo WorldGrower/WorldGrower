@@ -15,36 +15,34 @@
 package org.worldgrower.gui;
 
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 
-import javax.swing.JComboBox;
-import javax.swing.JList;
-import javax.swing.plaf.basic.BasicComboPopup;
+import javax.swing.Action;
+import javax.swing.ImageIcon;
+import javax.swing.JMenuItem;
 
-public class TiledImageComboPopup extends BasicComboPopup {
-	private final BufferedImage tileImage;
-	private static ImageInfoReader imageInfoReader;
+public class TiledImageJMenuItem extends JMenuItem {
 
-    public BufferedImage getTiledImage(ImageInfoReader imageInfoReader) {
-    	return (BufferedImage) imageInfoReader.getImage(ImageIds.SCREEN_BACKGROUND, null);
-    }  
+	public TiledImageJMenuItem(String text, ImageInfoReader imageInfoReader) {
+		super(text);
+	}
+
+	public TiledImageJMenuItem(String text, ImageIcon icon, ImageInfoReader imageInfoReader) {
+		super(text, icon);
+	}
 	
-    public static void initializeImageInfoReader(ImageInfoReader newImageInfoReader) {
-    	imageInfoReader = newImageInfoReader;
-    }
-    
-	public TiledImageComboPopup(JComboBox combo, ImageInfoReader imageInfoReader) {
-		super(combo);
-		this.tileImage = getTiledImage(imageInfoReader);
+	public TiledImageJMenuItem(Action a, ImageInfoReader imageInfoReader) {
+		super(a);
 	}
 
 	@Override
 	protected void paintComponent(Graphics g) {
-		TiledImagePainter.paintComponent(this, g, tileImage);
+
+		if (getModel().isRollover()) {
+			setForeground(ColorPalette.FOREGROUND_COLOR.darker());
+		} else {
+			setForeground(ColorPalette.FOREGROUND_COLOR);
+		}
+		
+		super.paintComponent(g);
 	}
-	
-	@Override
-    protected JList createList() {
-        return new TiledImageJList( comboBox.getModel(), imageInfoReader );
-    }
 }

@@ -47,6 +47,7 @@ import org.worldgrower.gui.ExceptionHandler;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.SwingUtils;
+import org.worldgrower.gui.TiledImageComboPopup;
 import org.worldgrower.gui.cursor.Cursors;
 import org.worldgrower.gui.font.Fonts;
 import org.worldgrower.gui.loadsave.LoadSaveDialog;
@@ -109,6 +110,7 @@ public class StartScreen implements SaveGameHandler {
 	private static void loadImages() {
 		try {
 			imageInfoReader = new ImageInfoReader();
+			TiledImageComboPopup.initializeImageInfoReader(imageInfoReader);
 		} catch (Exception e) {
 			ExceptionHandler.handle(e);
 		}

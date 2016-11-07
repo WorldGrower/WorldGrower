@@ -15,7 +15,6 @@
 package org.worldgrower.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -56,8 +55,8 @@ import org.worldgrower.goal.MeleeDamagePropertyUtils;
 import org.worldgrower.gui.cursor.Cursors;
 import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.util.DialogUtils;
-import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.IconUtils;
+import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JComboBoxFactory;
 import org.worldgrower.gui.util.JLabelFactory;
 import org.worldgrower.gui.util.JListFactory;
@@ -665,6 +664,7 @@ public class CharacterDialog extends JDialog {
 			this.imageInfoReader = imageInfoReader;
 			this.imageIds = imageIds;
 			this.longerDescriptions = longerDescriptions;
+			defaultRenderer.setOpaque(false);
 		}
 
 		@Override
