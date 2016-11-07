@@ -48,7 +48,7 @@ public class LoadSaveDialog extends AbstractDialog {
 		addComponent(scrollPane);
 		
 		JList<SaveGame> list = JListFactory.createJList(loadSaveMode.getSaveFiles());
-		list.setOpaque(true);
+		list.setOpaque(false);
 		list.setSelectedIndex(0);
 		list.setCellRenderer(new SaveGameRenderer());
 		scrollPane.setViewportView(list);

@@ -31,7 +31,7 @@ class SaveGameRenderer extends JLabel implements ListCellRenderer<SaveGame> {
 	private final JLabel rendererLabel = JLabelFactory.createJLabel("");
 
 	public SaveGameRenderer() {
-		this.rendererLabel.setOpaque(true);
+		this.rendererLabel.setOpaque(false);
 	}
 	
 	@Override
