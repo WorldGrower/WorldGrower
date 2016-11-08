@@ -38,7 +38,7 @@ public class TiledImageJMenuItem extends JMenuItem {
 	protected void paintComponent(Graphics g) {
 
 		if (getModel().isRollover()) {
-			setForeground(ColorPalette.FOREGROUND_COLOR.darker());
+			setForeground(ColorPalette.DISABLED_FOREGROUND_COLOR);
 		} else {
 			setForeground(ColorPalette.FOREGROUND_COLOR);
 		}

@@ -92,7 +92,7 @@ public class GuiShowGovernanceAction extends AbstractAction {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		GovernanceActionsDialog dialog = new GovernanceActionsDialog(900, 800, imageInfoReader);
+		GovernanceActionsDialog dialog = new GovernanceActionsDialog(1000, 800, imageInfoReader);
 		dialog.setModalityType(ModalityType.APPLICATION_MODAL);
 		IconUtils.setIcon(dialog);
 		
@@ -128,11 +128,11 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		
 		JPanel incomePanel = JPanelFactory.createJPanel("Income");
 		incomePanel.setLayout(null);
-		incomePanel.setBounds(500, 45, 380, 135);
+		incomePanel.setBounds(500, 55, 480, 135);
 		dialog.addComponent(incomePanel);
 		
 		JLabel shackTaxRate = JLabelFactory.createJLabel("Shack Tax Rate:");
-		shackTaxRate.setBounds(15, 20, 135, 30);
+		shackTaxRate.setBounds(15, 20, 185, 30);
 		shackTaxRate.setToolTipText(SHACK_TAX_RATE_TOOLTIP);
 		incomePanel.add(shackTaxRate);
 		
@@ -140,43 +140,43 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		shackComboBox.setEnabled(performerIsLeaderOfVillagers);
 		WorldObject villagersOrganization = GroupPropertyUtils.getVillagersOrganization(world);
 		shackComboBox.setSelectedItem(villagersOrganization.getProperty(Constants.SHACK_TAX_RATE));
-		shackComboBox.setBounds(150, 20, 50, 30);
+		shackComboBox.setBounds(200, 20, 50, 30);
 		shackComboBox.setToolTipText(SHACK_TAX_RATE_TOOLTIP);
 		incomePanel.add(shackComboBox);
 		
 		int numberOfOwnedShacks = HousePropertyUtils.getOwnedBuildingCount(BuildingType.SHACK, world);
 		JLabel numberOfShacksLabel = JLabelFactory.createJLabel(" x " + numberOfOwnedShacks + " shacks =");
-		numberOfShacksLabel.setBounds(220, 20, 200, 30);
+		numberOfShacksLabel.setBounds(270, 20, 200, 30);
 		numberOfShacksLabel.setToolTipText(SHACK_TAX_RATE_TOOLTIP);
 		incomePanel.add(numberOfShacksLabel);
 		
 		JLabel shackIncome = JLabelFactory.createJLabel("0");
-		shackIncome.setBounds(350, 20, 100, 30);
+		shackIncome.setBounds(450, 20, 100, 30);
 		shackIncome.setToolTipText(SHACK_TAX_RATE_TOOLTIP);
 		incomePanel.add(shackIncome);
 		
 		addComboBoxListener(shackComboBox, numberOfOwnedShacks, shackIncome);
 		
 		JLabel houseTaxRate = JLabelFactory.createJLabel("House Tax Rate:");
-		houseTaxRate.setBounds(15, 65, 135, 30);
+		houseTaxRate.setBounds(15, 65, 185, 30);
 		houseTaxRate.setToolTipText(HOUSE_TAX_RATE_TOOLTIP);
 		incomePanel.add(houseTaxRate);
 		
 		JComboBox<Integer> houseComboBox = JComboBoxFactory.createJComboBox(PRICES, imageInfoReader);
 		houseComboBox.setEnabled(performerIsLeaderOfVillagers);
 		houseComboBox.setSelectedItem(villagersOrganization.getProperty(Constants.HOUSE_TAX_RATE));
-		houseComboBox.setBounds(150, 65, 50, 30);
+		houseComboBox.setBounds(200, 65, 50, 30);
 		houseComboBox.setToolTipText(HOUSE_TAX_RATE_TOOLTIP);
 		incomePanel.add(houseComboBox);
 		
 		int numberOfOwnedHouses = HousePropertyUtils.getOwnedBuildingCount(BuildingType.HOUSE, world);
 		JLabel numberOfHousesLabel = JLabelFactory.createJLabel(" x " + numberOfOwnedHouses + " houses =");
-		numberOfHousesLabel.setBounds(220, 65, 200, 30);
+		numberOfHousesLabel.setBounds(270, 65, 200, 30);
 		numberOfHousesLabel.setToolTipText(HOUSE_TAX_RATE_TOOLTIP);
 		incomePanel.add(numberOfHousesLabel);
 		
 		JLabel houseIncome = JLabelFactory.createJLabel("0");
-		houseIncome.setBounds(350, 65, 100, 30);
+		houseIncome.setBounds(450, 65, 100, 30);
 		houseIncome.setToolTipText(HOUSE_TAX_RATE_TOOLTIP);
 		incomePanel.add(houseIncome);
 		
@@ -184,54 +184,54 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		
 		JPanel expensePanel = JPanelFactory.createJPanel("Expense");
 		expensePanel.setLayout(null);
-		expensePanel.setBounds(500, 190, 380, 135);
+		expensePanel.setBounds(500, 200, 480, 135);
 		dialog.addComponent(expensePanel);
 		
 		JLabel sheriffWage = JLabelFactory.createJLabel("Sheriff Wage:");
-		sheriffWage.setBounds(15, 20, 135, 30);
+		sheriffWage.setBounds(15, 20, 185, 30);
 		sheriffWage.setToolTipText(SHERIFF_WAGE_TOOLTIP);
 		expensePanel.add(sheriffWage);
 		
 		JComboBox<Integer> sheriffComboBox = JComboBoxFactory.createJComboBox(WAGES, imageInfoReader);
 		sheriffComboBox.setEnabled(performerIsLeaderOfVillagers);
 		sheriffComboBox.setSelectedItem(villagersOrganization.getProperty(Constants.SHERIFF_WAGE));
-		sheriffComboBox.setBounds(150, 20, 50, 30);
+		sheriffComboBox.setBounds(200, 20, 50, 30);
 		sheriffComboBox.setToolTipText(SHERIFF_WAGE_TOOLTIP);
 		expensePanel.add(sheriffComboBox);
 		
 		int numberOfSheriffs = Professions.getProfessionCount(world, Constants.CAN_ATTACK_CRIMINALS);
 		JLabel numberOfSheriffsLabel = JLabelFactory.createJLabel(" x " + numberOfSheriffs + " sheriffs =");
-		numberOfSheriffsLabel.setBounds(220, 20, 200, 30);
+		numberOfSheriffsLabel.setBounds(270, 20, 200, 30);
 		numberOfSheriffsLabel.setToolTipText(SHERIFF_WAGE_TOOLTIP);
 		expensePanel.add(numberOfSheriffsLabel);
 		
 		JLabel sheriffWageValue = JLabelFactory.createJLabel("0");
-		sheriffWageValue.setBounds(350, 20, 100, 30);
+		sheriffWageValue.setBounds(450, 20, 100, 30);
 		sheriffWageValue.setToolTipText(SHERIFF_WAGE_TOOLTIP);
 		expensePanel.add(sheriffWageValue);
 		
 		addComboBoxListener(sheriffComboBox, numberOfSheriffs, sheriffWageValue);
 		
 		JLabel taxCollectorWage = JLabelFactory.createJLabel("Tax Collector Wage:");
-		taxCollectorWage.setBounds(15, 65, 135, 30);
+		taxCollectorWage.setBounds(15, 65, 185, 30);
 		taxCollectorWage.setToolTipText(TAX_COLLECTOR_WAGE_TOOLTIP);
 		expensePanel.add(taxCollectorWage);
 		
 		JComboBox<Integer> taxCollectorComboBox = JComboBoxFactory.createJComboBox(PRICES, imageInfoReader);
 		taxCollectorComboBox.setEnabled(performerIsLeaderOfVillagers);
 		taxCollectorComboBox.setSelectedItem(villagersOrganization.getProperty(Constants.TAX_COLLECTOR_WAGE));
-		taxCollectorComboBox.setBounds(150, 65, 50, 30);
+		taxCollectorComboBox.setBounds(200, 65, 50, 30);
 		taxCollectorComboBox.setToolTipText(TAX_COLLECTOR_WAGE_TOOLTIP);
 		expensePanel.add(taxCollectorComboBox);
 		
 		int numberOfTaxCollectors = Professions.getProfessionCount(world, Constants.CAN_COLLECT_TAXES);
 		JLabel numberOfTaxCollectorsLabel = JLabelFactory.createJLabel(" x " + numberOfTaxCollectors + " tax collectors =");
-		numberOfTaxCollectorsLabel.setBounds(220, 65, 200, 30);
+		numberOfTaxCollectorsLabel.setBounds(270, 65, 200, 30);
 		numberOfTaxCollectorsLabel.setToolTipText(TAX_COLLECTOR_WAGE_TOOLTIP);
 		expensePanel.add(numberOfTaxCollectorsLabel);
 		
 		JLabel taxCollectorsWageValue = JLabelFactory.createJLabel("0");
-		taxCollectorsWageValue.setBounds(350, 65, 100, 30);
+		taxCollectorsWageValue.setBounds(450, 65, 100, 30);
 		taxCollectorsWageValue.setToolTipText(TAX_COLLECTOR_WAGE_TOOLTIP);
 		expensePanel.add(taxCollectorsWageValue);
 		
@@ -239,7 +239,7 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		
 		JPanel votingPanel = JPanelFactory.createJPanel("Voting");
 		votingPanel.setLayout(null);
-		votingPanel.setBounds(500, 335, 380, 400);
+		votingPanel.setBounds(500, 345, 480, 390);
 		dialog.addComponent(votingPanel);
 		
 		JCheckBox ownerShackHouseCheckBox = JCheckBoxFactory.createJCheckBox("Only owners of shacks/houses can vote");
@@ -278,7 +278,7 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		
 		JPanel buttonPane = new JPanel();
 		buttonPane.setOpaque(false);
-		buttonPane.setBounds(0, 745, 888, 75);
+		buttonPane.setBounds(0, 745, 988, 75);
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		dialog.addComponent(buttonPane);
 		

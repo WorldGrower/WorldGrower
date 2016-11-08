@@ -160,7 +160,7 @@ public class ControlsDialog extends AbstractDialog {
 		JPanel soundControlPanel = JPanelFactory.createJPanel("Sound");
 		
 		soundControlPanel.setOpaque(false);
-		soundControlPanel.setBounds(12, 600, 368, 100);
+		soundControlPanel.setBounds(12, 600, 368, 110);
 		soundControlPanel.setLayout(null);
 		
 		JCheckBox chkBackgroundMusic = JCheckBoxFactory.createJCheckBox("Music");
@@ -179,12 +179,12 @@ public class ControlsDialog extends AbstractDialog {
 		chkSoundEffects.setToolTipText(SOUND_TOOL_TIP);
 		chkSoundEffects.setSelected(soundIdReader.isEnabled());
 		chkSoundEffects.setOpaque(false);
-		chkSoundEffects.setBounds(228, 50, 137, 25);
+		chkSoundEffects.setBounds(228, 60, 137, 25);
 		soundControlPanel.add(chkSoundEffects);
 		
 		JLabel lblPlaySoundEffects = JLabelFactory.createJLabel("Play sound effects:");
 		lblPlaySoundEffects.setToolTipText(SOUND_TOOL_TIP);
-		lblPlaySoundEffects.setBounds(12, 50, 191, 26);
+		lblPlaySoundEffects.setBounds(12, 60, 191, 26);
 		soundControlPanel.add(lblPlaySoundEffects);
 		
 		addComponent(soundControlPanel);

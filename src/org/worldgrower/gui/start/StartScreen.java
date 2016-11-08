@@ -88,7 +88,11 @@ public class StartScreen implements SaveGameHandler {
 		ExceptionHandler.registerExceptionHandler();
 		
 		UIManager.put("Tree.rendererFillBackground", false);
-		UIManager.getDefaults().put("MenuItem.disabledForeground", ColorPalette.FOREGROUND_COLOR.darker());
+		UIManager.getDefaults().put("MenuItem.disabledForeground", ColorPalette.DISABLED_FOREGROUND_COLOR);
+		UIManager.getDefaults().put("Button.disabledForeground", ColorPalette.DISABLED_FOREGROUND_COLOR);
+		UIManager.getDefaults().put("Button.disabledText", ColorPalette.DISABLED_FOREGROUND_COLOR);
+		UIManager.getDefaults().put("Label.disabledForeground", ColorPalette.DISABLED_FOREGROUND_COLOR);
+		UIManager.getDefaults().put("CheckBox.disabledText", ColorPalette.DISABLED_FOREGROUND_COLOR);		
 		
 		Preferences preferences = Preferences.userNodeForPackage(StartScreen.class);
 		loadDefaultSoundOutput(preferences);
