@@ -186,7 +186,7 @@ public final class InventoryDialog extends AbstractDialog {
 		String weightString = getPlayerCharacterWeight(inventoryDialogModel);
 		weightLabelValue = JLabelFactory.createJLabel(weightString);
 		weightLabelValue.setToolTipText(WEIGHT_PLAYER_CHARACTER_TOOL_TIP);
-		weightLabelValue.setBounds(labelValueLeft, 12, 64, 25);
+		weightLabelValue.setBounds(labelValueLeft, 12, 75, 25);
 		inventoryPanel.add(weightLabelValue);
 		
 		demandsButton = JButtonFactory.createButton("Set buying items", imageInfoReader, soundIdReader);
@@ -249,7 +249,7 @@ public final class InventoryDialog extends AbstractDialog {
 				String targetWeightString = getTargetWeight(inventoryDialogModel);
 				targetWeight = JLabelFactory.createJLabel(targetWeightString);
 				targetWeight.setToolTipText(WEIGHT_TARGET_TOOL_TIP);
-				targetWeight.setBounds(labelValueLeft, 12, 64, 25);
+				targetWeight.setBounds(labelValueLeft, 12, 75, 25);
 				targetInventoryPanel.add(targetWeight);
 			}
 			
@@ -273,14 +273,14 @@ public final class InventoryDialog extends AbstractDialog {
 		playercharacterToggleButton = JButtonFactory.createToggleButton(inventoryDialogModel.getPlayerCharacterName(), new ImageIcon(inventoryDialogModel.getPlayerCharacterImage(imageInfoReader)), soundIdReader);
 		playercharacterToggleButton.setToolTipText(inventoryDialogModel.getPlayerCharacterName());
 		playercharacterToggleButton.setBounds(0, 0, 250, 50);
-		playercharacterToggleButton.setOpaque(true);
+		playercharacterToggleButton.setOpaque(false);
 		playercharacterToggleButton.addActionListener(this::setPlayerCharacterPanelOnTop);
 		containersPanel.add(playercharacterToggleButton);
 		
 		targetToggleButton = JButtonFactory.createToggleButton(inventoryDialogModel.getTargetName(), new ImageIcon(inventoryDialogModel.getTargetImage(imageInfoReader)), soundIdReader);
 		targetToggleButton.setToolTipText(inventoryDialogModel.getTargetName());
 		targetToggleButton.setBounds(250, 0, 250, 50);
-		targetToggleButton.setOpaque(true);
+		targetToggleButton.setOpaque(false);
 		targetToggleButton.addActionListener(this::setTargetInventoryOnTop);
 		containersPanel.add(targetToggleButton);
 	}
