@@ -118,7 +118,7 @@ public class MoveMode {
 				} else {
 					//System.out.println("drawWorldObjects.notMoving: moveStep = " + moveStep + ", moveMode = " + moveMode);
 					if (!moveMode || positionRemainsSame) {
-						worldPanel.drawWorldObjectInPixels(g, worldObject, lookDirection, image, x, y, 0, 0);
+						worldPanel.drawWorldObjectInPixels(g, worldObject, lookDirection, image, x, y, 0, 0, true);
 					} else {
 						paintMovingWorldObject(g, worldPanel, worldObject, imageInfoReader, id, lookDirection, worldObject.getProperty(Constants.ID), moveStep, moveIndex);
 					}
@@ -216,7 +216,7 @@ public class MoveMode {
 		int deltaY = (newPosition.y - y) * moveStep;
 		
 		image = imageInfoReader.getImage(id, lookDirection, moveIndex);
-		worldPanel.drawWorldObjectInPixels(g, worldObject, lookDirection, image, x, y, deltaX, deltaY);
+		worldPanel.drawWorldObjectInPixels(g, worldObject, lookDirection, image, x, y, deltaX, deltaY, true);
 	}
 	
 	private void paintMagicSpellForWorldObject(Graphics g, WorldPanel worldPanel,
@@ -229,7 +229,7 @@ public class MoveMode {
 			int x = magicCaster.getProperty(Constants.X) - 1;
 			int y = magicCaster.getProperty(Constants.Y) - 1;
 			if (world.getTerrain().isExplored(x, y)) {
-				worldPanel.drawWorldObjectInPixels(g, magicCaster, null, image, x, y, 0, 0);
+				worldPanel.drawWorldObjectInPixels(g, magicCaster, null, image, x, y, 0, 0, false);
 			}
 		}
 	}
@@ -257,7 +257,7 @@ public class MoveMode {
 			Integer x = target.getProperty(Constants.X);
 			Integer y = target.getProperty(Constants.Y);
 			if (world.getTerrain().isExplored(x, y)) {
-				worldPanel.drawWorldObjectInPixels(g, target, null, image, x, y, 0, 0);
+				worldPanel.drawWorldObjectInPixels(g, target, null, image, x, y, 0, 0, true);
 			}
 		}
 	}

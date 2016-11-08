@@ -254,21 +254,23 @@ public final class WorldPanel extends JPanel implements ImageFactory {
 			originalComposite = graphics2d.getComposite();
 			graphics2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
 		}
-		drawWorldObjectInPixels(g, worldObject, lookDirection, image, x, y, 0, 0);
+		drawWorldObjectInPixels(g, worldObject, lookDirection, image, x, y, 0, 0, true);
 		if (isTransparant) {
 			graphics2d.setComposite(originalComposite);
 		}
 	}
 	
-	public void drawWorldObjectInPixels(Graphics g, WorldObject worldObject, LookDirection lookDirection, Image image, int xInSquares, int yInSquares, int xDeltaInPixels, int yDeltaInPixels) {
+	public void drawWorldObjectInPixels(Graphics g, WorldObject worldObject, LookDirection lookDirection, Image image, int xInSquares, int yInSquares, int xDeltaInPixels, int yDeltaInPixels, boolean drawConditions) {
 		image = changeSize(worldObject, image);
 		int worldObjectX = (xInSquares+offsetX) * 48 + xDeltaInPixels;
 		int worldObjectY = (yInSquares+offsetY) * 48 + yDeltaInPixels;
 		g.drawImage(image, worldObjectX, worldObjectY, null);
 		
-		conditionIconDrawer.drawConditions(g, worldObject, lookDirection, image, worldObjectX, worldObjectY);		
-		buySellIconsDrawer.drawIcons(g, worldObject, lookDirection, image, worldObjectX, worldObjectY);
-		drawSellableMarker(g, worldObject, worldObjectX, worldObjectY);
+		if (drawConditions) {
+			conditionIconDrawer.drawConditions(g, worldObject, lookDirection, image, worldObjectX, worldObjectY);		
+			buySellIconsDrawer.drawIcons(g, worldObject, lookDirection, image, worldObjectX, worldObjectY);
+			drawSellableMarker(g, worldObject, worldObjectX, worldObjectY);
+		}
 	}
 	
 	private void drawSellableMarker(Graphics g, WorldObject worldObject, int worldObjectX, int worldObjectY) {
