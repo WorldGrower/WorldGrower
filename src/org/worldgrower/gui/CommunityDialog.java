@@ -161,8 +161,9 @@ public class CommunityDialog extends JDialog {
 		contentPanel.add(ranksPanel);
 		
 		OrganizationsModel worldModel = new OrganizationsModel(playerCharacter, world);
-		JTable table = JTableFactory.createJTable(worldModel);
-		JScrollPane scrollPane = JScrollPaneFactory.createScrollPane(table);
+		JTable organizationsTable = JTableFactory.createJTable(worldModel);
+		organizationsTable.setRowHeight(30);
+		JScrollPane scrollPane = JScrollPaneFactory.createScrollPane(organizationsTable);
 		scrollPane.setBounds(15, 30, 450, 290);
 		ranksPanel.add(scrollPane);
 		
@@ -179,7 +180,7 @@ public class CommunityDialog extends JDialog {
 		treeView.setBounds(15, 30, 450, 321);
 		organizationsPanel.add(treeView);
 		
-		SwingUtils.makeTransparant(table, scrollPane);
+		SwingUtils.makeTransparant(organizationsTable, scrollPane);
 		
 		SwingUtils.installEscapeCloseOperation(this);
 		DialogUtils.createDialogBackPanel(this, parentFrame.getContentPane());
