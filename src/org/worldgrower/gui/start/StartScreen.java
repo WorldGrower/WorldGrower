@@ -15,6 +15,7 @@
 package org.worldgrower.gui.start;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.MouseInfo;
 import java.awt.Point;
@@ -49,7 +50,6 @@ import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.SwingUtils;
 import org.worldgrower.gui.TiledImageComboPopup;
 import org.worldgrower.gui.cursor.Cursors;
-import org.worldgrower.gui.font.Fonts;
 import org.worldgrower.gui.loadsave.LoadSaveDialog;
 import org.worldgrower.gui.loadsave.LoadSaveMode;
 import org.worldgrower.gui.loadsave.SaveGameHandler;
@@ -65,6 +65,11 @@ import org.worldgrower.gui.util.MenuFactory;
 
 public class StartScreen implements SaveGameHandler {
 
+	private final int BUTTON_LEFT = 78;
+	private final int BUTTON_WIDTH = 167;
+	private final int BUTTON_HEIGHT = 60;
+	private final int NEW_BUTTON_TOP = 81;
+	
 	private static final String PLAY_MUSIC = "playMusic";
 	private static final String PLAY_SOUNDS = "playSounds";
 	private static final String SOUND_OUTPUT = "soundOutput";
@@ -331,7 +336,7 @@ public class StartScreen implements SaveGameHandler {
 		
 		frame.getRootPane().setDefaultButton(btnNewGame);
 		frame.addComponent(btnNewGame);
-		SwingUtils.setBoundsAndCenterHorizontally(btnNewGame, 80, 81, 167, 60);
+		SwingUtils.setBoundsAndCenterHorizontally(btnNewGame, BUTTON_LEFT, NEW_BUTTON_TOP, BUTTON_WIDTH, BUTTON_HEIGHT);
 	}
 
 	private void addLoadButton() {
@@ -346,7 +351,7 @@ public class StartScreen implements SaveGameHandler {
 			}
 		});
 		frame.addComponent(btnLoadGame);
-		SwingUtils.setBoundsAndCenterHorizontally(btnLoadGame, 78, 150, 167, 60);
+		SwingUtils.setBoundsAndCenterHorizontally(btnLoadGame, BUTTON_LEFT, 150, BUTTON_WIDTH, BUTTON_HEIGHT);
 	}
 
 	private void addSaveButton() {
@@ -362,7 +367,7 @@ public class StartScreen implements SaveGameHandler {
 			}
 		});
 		frame.addComponent(btnSaveGame);
-		SwingUtils.setBoundsAndCenterHorizontally(btnSaveGame, 78, 220, 167, 60);
+		SwingUtils.setBoundsAndCenterHorizontally(btnSaveGame, BUTTON_LEFT, 220, BUTTON_WIDTH, BUTTON_HEIGHT);
 	}
 	
 	private void addControlsButton(Preferences preferences) {
@@ -381,7 +386,7 @@ public class StartScreen implements SaveGameHandler {
 			}
 		});
 		frame.addComponent(btnControlsGame);
-		SwingUtils.setBoundsAndCenterHorizontally(btnControlsGame, 78, 290, 167, 60);
+		SwingUtils.setBoundsAndCenterHorizontally(btnControlsGame, BUTTON_LEFT, 290, BUTTON_WIDTH, BUTTON_HEIGHT);
 	}
 
 	private void addCreditsButton() {
@@ -400,7 +405,7 @@ public class StartScreen implements SaveGameHandler {
 			}
 		});
 		frame.addComponent(btnCredits);
-		SwingUtils.setBoundsAndCenterHorizontally(btnCredits, 78, 360, 167, 60);
+		SwingUtils.setBoundsAndCenterHorizontally(btnCredits, BUTTON_LEFT, 360, BUTTON_WIDTH, BUTTON_HEIGHT);
 	}
 	
 	private void addExitButton() {
@@ -414,14 +419,14 @@ public class StartScreen implements SaveGameHandler {
 			}
 		});
 		frame.addComponent(btnExit);
-		SwingUtils.setBoundsAndCenterHorizontally(btnExit, 78, 430, 167, 60);
+		SwingUtils.setBoundsAndCenterHorizontally(btnExit, BUTTON_LEFT, 430, BUTTON_WIDTH, BUTTON_HEIGHT);
 	}
 
 	private void addVersionLabel() {
 		JLabel lblVersion = JLabelFactory.createJLabel("Version " + Version.getVersion());
 		lblVersion.setToolTipText("Current version");
 		frame.addComponent(lblVersion);
-		SwingUtils.setBoundsAndCenterHorizontally(lblVersion, 83, 520, 167, 21);
+		SwingUtils.setBoundsAndCenterHorizontally(lblVersion, BUTTON_LEFT, 520, 167, 21);
 	}
 	
 	@Override

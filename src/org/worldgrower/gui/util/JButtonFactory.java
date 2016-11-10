@@ -72,6 +72,7 @@ public class JButtonFactory {
 	public static JButton createUntexturedButton(String text) {
 		JButton button = new JButton(text);
 		setButtonProperties(button);
+		button.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
 		return button;
 	}
 	

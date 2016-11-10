@@ -564,8 +564,8 @@ public final class InventoryDialog extends AbstractDialog {
 		inventoryTable.setRowHeight(50);
 		inventoryTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		inventoryTable.getColumnModel().getColumn(0).setPreferredWidth(50);
-		inventoryTable.getColumnModel().getColumn(1).setPreferredWidth(250);
-		inventoryTable.getColumnModel().getColumn(2).setPreferredWidth(61);
+		inventoryTable.getColumnModel().getColumn(1).setPreferredWidth(245);
+		inventoryTable.getColumnModel().getColumn(2).setPreferredWidth(66);
 		inventoryTable.getColumnModel().getColumn(3).setPreferredWidth(61);
 		inventoryTable.getTableHeader().setReorderingAllowed(false);
 		
