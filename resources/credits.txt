@@ -171,3 +171,9 @@ conc_patchwork_c.png
 
 Font Tw Cen MT at http://ufonts.com/download/tw-cen-mt/34654.html
 ufonts.com_tw-cen-mt.ttf
+
+Seamless textures by Mitch Featherston at http://opengameart.org/content/100-seamless-textures
+461223163.jpg
+461223162.jpg
+461223133.jpg
+461223169.jpg

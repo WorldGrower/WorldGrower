@@ -111,6 +111,10 @@ public class ImageInfoReader {
     	Sprites yellowOrb = readSpritesYellowOrb();
     	
     	BufferedImage screenBackground = readScreenBackground();
+    	BufferedImage healthBackground = readHealthBackground();
+    	BufferedImage foodBackground = readFoodBackground();
+    	BufferedImage waterBackground = readWaterBackground();
+    	BufferedImage energyBackground = readEnergyBackground();
     	
     	addCharacter(ImageIds.KNIGHT, sprites, 0, 0, 1, 1);
     	addCharacter(ImageIds.GUARD, sprites, 0, 4, 1, 1);
@@ -616,7 +620,11 @@ public class ImageInfoReader {
         createAnimation(ImageIds.FREEDOM_OF_MOVEMENT_MAGIC_SPELL_ANIMATION, ImageIds.FREEDOM_OF_MOVEMENT_MAGIC_SPELL, 10);
 
         add(ImageIds.SCREEN_BACKGROUND, screenBackground);
-    
+        
+        add(ImageIds.HEALTH_BACKGROUND, healthBackground);
+        add(ImageIds.FOOD_BACKGROUND, foodBackground);
+        add(ImageIds.WATER_BACKGROUND, waterBackground);
+        add(ImageIds.ENERGY_BACKGROUND, energyBackground);
     }
     
     private void createAnimation(ImageIds animationImageId, ImageIds imageId, int numberOfFrames) {
@@ -1092,6 +1100,22 @@ public class ImageInfoReader {
     
     private static BufferedImage readScreenBackground() throws IOException {
 		return ImageIO.read(new File("./resources/conc_patchwork_c.png"));
+	}
+    
+    private static BufferedImage readHealthBackground() throws IOException {
+		return ImageIO.read(new File("./resources/461223163.jpg"));
+	}
+    
+    private static BufferedImage readFoodBackground() throws IOException {
+		return ImageIO.read(new File("./resources/461223162.jpg"));
+	}
+    
+    private static BufferedImage readWaterBackground() throws IOException {
+		return ImageIO.read(new File("./resources/461223133.jpg"));
+	}
+    
+    private static BufferedImage readEnergyBackground() throws IOException {
+		return ImageIO.read(new File("./resources/461223169.jpg"));
 	}
     
 	private static Sprites readImages(String imageFilename, int width, int height, int rows, int cols) throws IOException {
