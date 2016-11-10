@@ -21,9 +21,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -31,8 +29,6 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 
 import org.worldgrower.Constants;
@@ -40,31 +36,25 @@ import org.worldgrower.DungeonMaster;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.WorldObjectImpl;
-import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.SwingUtils;
 import org.worldgrower.gui.TiledImagePanel;
 import org.worldgrower.gui.WorldObjectList;
 import org.worldgrower.gui.WorldPanel;
 import org.worldgrower.gui.cursor.Cursors;
-import org.worldgrower.gui.debug.PropertiesModel;
 import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.start.Game;
 import org.worldgrower.gui.util.DialogUtils;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JRadioButtonFactory;
-import org.worldgrower.gui.util.JTableFactory;
 
 public class DisguiseDialog extends JDialog {
 
 	private final JPanel contentPanel;
-	private JTable table;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JRadioButton noDisguiseRadioButton;
 	private JRadioButton chooseExistingPersonRadioButton;
-	private JRadioButton createNewPersonRadioButton;
 	private WorldObjectList personList;
 	private JButton okButton;
 	
@@ -97,18 +87,12 @@ public class DisguiseDialog extends JDialog {
 		
 		if (facade == null) {
 			noDisguiseRadioButton.setSelected(true);
-			table.setModel(new PropertiesModel(playerCharacter));
 		} else if (facade.getProperty(Constants.ID) != null) {
 			chooseExistingPersonRadioButton.setSelected(true);
 			
 			int facadeId = facade.getProperty(Constants.ID);
 			int selectedIndex = getSelectedIndex(disguiseWorldObjects, facadeId);
 			personList.setSelectedIndex(selectedIndex);
-			table.setModel(new PropertiesModel(playerCharacter));
-			
-		} else {
-			createNewPersonRadioButton.setSelected(true);
-			table.setModel(new PropertiesModel(facade));
 		}
 		
 		if (personList.getSelectedIndex() == -1) {
@@ -128,7 +112,7 @@ public class DisguiseDialog extends JDialog {
 	}
 
 	private void initializeGui(Component parent, List<WorldObject> disguiseWorldObjects, ImageInfoReader imageInfoReader, JFrame parentFrame) {
-		int width = 644;
+		int width = 274;
 		int height = 502;
 		setBounds(100, 100, width, height);
 		contentPanel.setPreferredSize(getSize());
@@ -152,26 +136,13 @@ public class DisguiseDialog extends JDialog {
 		chooseExistingPersonRadioButton.setBounds(21, 49, 299, 25);
 		contentPanel.add(chooseExistingPersonRadioButton);
 		
-		createNewPersonRadioButton = JRadioButtonFactory.createJRadioButton("Create new Person:");
-		createNewPersonRadioButton.setOpaque(false);
-		buttonGroup.add(createNewPersonRadioButton);
-		createNewPersonRadioButton.setBounds(21, 239, 299, 25);
-		contentPanel.add(createNewPersonRadioButton);
-		
-		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(340, 243, 259, 164);
-		contentPanel.add(scrollPane_1);
-		
-		table = JTableFactory.createJTable();
-		scrollPane_1.setViewportView(table);
-		
 		personList = new WorldObjectList(imageInfoReader, disguiseWorldObjects);
-		personList.setBounds(341, 68, 173, 130);
+		personList.setBounds(40, 88, 193, 330);
 		contentPanel.add(personList);
 		
 		JPanel buttonPane = new JPanel();
 		buttonPane.setOpaque(false);
-		buttonPane.setBounds(0, 415, 614, 44);
+		buttonPane.setBounds(0, 455, 274, 44);
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		contentPanel.add(buttonPane);
 		
@@ -180,12 +151,6 @@ public class DisguiseDialog extends JDialog {
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
 
-		SwingUtils.makeTransparant(table, scrollPane_1);
-		
-		// temporary disable
-		createNewPersonRadioButton.setEnabled(false);
-		table.setEnabled(false);
-		
 		this.setLocationRelativeTo(parent);
 		SwingUtils.installEscapeCloseOperation(this);
 		DialogUtils.createDialogBackPanel(this, parentFrame.getContentPane());
@@ -211,12 +176,6 @@ public class DisguiseDialog extends JDialog {
 					args = new int[] { selectedPerson.getProperty(Constants.ID) };
 					
 					facade = selectedPerson.deepCopy();
-				} else if (createNewPersonRadioButton.isSelected()) {
-					Map<ManagedProperty<?>, Object> properties = new HashMap<ManagedProperty<?>, Object>();
-					
-					args = new int[] { -1 };
-					
-					facade = new WorldObjectImpl(properties);
 				}
 				
 				playerCharacter.setProperty(Constants.FACADE, facade);
