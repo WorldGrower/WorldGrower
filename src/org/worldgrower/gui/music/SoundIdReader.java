@@ -14,24 +14,14 @@
  *******************************************************************************/
 package org.worldgrower.gui.music;
 
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.zip.GZIPInputStream;
-
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-
-import org.worldgrower.gui.start.Game;
 
 public class SoundIdReader {
 
 	private SoundOutput soundOutput;
 	private boolean enabled;
-	private final Map<SoundIds, Clip> sounds = new HashMap<>();
+	private final Map<SoundIds, Sound> sounds = new HashMap<>();
 
 	private void initialize() throws SoundException {
 		readSound(SoundIds.CUT_WOOD, "/sound/workshop - wood clap8bit.wav.gz");
@@ -109,21 +99,14 @@ public class SoundIdReader {
 	}
 
 	private void readSound(SoundIds soundIds, String path) throws SoundException {
-		Clip audioClip;
-		try {
-			InputStream audioFilePath = new BufferedInputStream(new GZIPInputStream(Game.class.getResourceAsStream(path)));
-			audioClip = BackgroundMusicUtils.readMusicFile(audioFilePath, soundOutput);
-		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-			throw new SoundException("Problem reading " + path, e);
-		}
+		Sound audioClip = new Sound(path);
 		sounds.put(soundIds, audioClip);
 	}
 	
 	public void playSoundEffect(SoundIds soundIds) {
 		if (enabled) {
-			Clip clip = sounds.get(soundIds);
-			clip.setFramePosition(0);
-			clip.start();
+			Sound sound = sounds.get(soundIds);
+			sound.play();
 		}
 	}
 

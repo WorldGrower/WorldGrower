@@ -21,9 +21,13 @@ import java.awt.Composite;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
+import java.awt.Insets;
 import java.awt.MouseInfo;
 import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -107,6 +111,14 @@ public final class WorldPanel extends JPanel implements ImageFactory {
         int width = 1200;
         int height = 900;
         
+        Rectangle bounds = getScreenWorkingArea();
+        
+        int screenWidth = bounds.width;
+        int screenHeight = bounds.height;
+        
+       	width = Math.max(width, screenWidth);
+       	height = Math.max(height, screenHeight);
+        
         setBounds(0, 0, width, height);
         this.setMinimumSize(new Dimension(width, height));
         this.setPreferredSize(new Dimension(width, height));
@@ -127,6 +139,18 @@ public final class WorldPanel extends JPanel implements ImageFactory {
 		this.goToPainter = new GoToPainter(imageInfoReader);
     }
 
+	private Rectangle getScreenWorkingArea() {
+		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        Insets insets = Toolkit.getDefaultToolkit().getScreenInsets(ge.getDefaultScreenDevice().getDefaultConfiguration());
+        Rectangle bounds = ge.getDefaultScreenDevice().getDefaultConfiguration().getBounds();
+        
+        bounds.x += insets.left;
+        bounds.y += insets.top;
+        bounds.width -= (insets.left + insets.right);
+        bounds.height -= (insets.top + insets.bottom);
+		return bounds;
+	}
+    
 	private void initializeKeyBindings(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, JFrame parentFrame) {
 		getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "Cancel");
         bindEscapeButtonToStartScreen(world, parentFrame);

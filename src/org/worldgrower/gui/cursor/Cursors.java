@@ -26,8 +26,12 @@ public class Cursors {
 	public static final Cursor CURSOR;
 	
 	static {
-		Toolkit toolkit = Toolkit.getDefaultToolkit();
-		Image image = ImageUtils.getImage("/RPG_Mouse_Cursor_3.png");
-		CURSOR = toolkit.createCustomCursor(image , new Point(0, 0), "cursor");
+		if (Toolkit.getDefaultToolkit().getMaximumCursorColors() <= 2) {
+			CURSOR = Cursor.getDefaultCursor();
+		} else {
+			Toolkit toolkit = Toolkit.getDefaultToolkit();
+			Image image = ImageUtils.getImage("/RPG_Mouse_Cursor_3.png");
+			CURSOR = toolkit.createCustomCursor(image , new Point(0, 0), "cursor");
+		}
 	}
 }
