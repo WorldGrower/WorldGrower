@@ -26,6 +26,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.generator.Item;
 
@@ -49,10 +50,28 @@ public class UTestMinorHealAction {
 	}
 	
 	@Test
+	public void testExecuteWithApolloBoon() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		
+		Conditions.add(performer, Condition.APOLLO_BOON_CONDITION, 8, world);
+		
+		target.setProperty(Constants.HIT_POINTS, 1 * Item.COMBAT_MULTIPLIER);
+		target.setProperty(Constants.HIT_POINTS_MAX, 8 * Item.COMBAT_MULTIPLIER);
+		
+		Actions.MINOR_HEAL_ACTION.execute(performer, target, Args.EMPTY, world);
+		
+		assertEquals(6 * Item.COMBAT_MULTIPLIER + (5 * Item.COMBAT_MULTIPLIER) / 10, target.getProperty(Constants.HIT_POINTS).intValue());
+	}
+	
+	@Test
 	public void testIsValidTarget() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
+		
+		assertEquals(false, Actions.MINOR_HEAL_ACTION.isValidTarget(performer, target, world));
 		
 		performer.setProperty(Constants.KNOWN_SPELLS, Arrays.asList(Actions.MINOR_HEAL_ACTION));
 		
