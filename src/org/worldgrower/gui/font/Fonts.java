@@ -17,8 +17,9 @@ package org.worldgrower.gui.font;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
-import java.io.File;
 import java.io.IOException;
+
+import org.worldgrower.gui.ImageInfoReader;
 
 public class Fonts {
 
@@ -28,7 +29,7 @@ public class Fonts {
 	
 	private static Font createFont() {
 		try {
-			Font font = Font.createFont(Font.TRUETYPE_FONT, new File("resources/ufonts.com_tw-cen-mt.ttf"));
+			Font font = Font.createFont(Font.TRUETYPE_FONT, ImageInfoReader.class.getResourceAsStream("/ufonts.com_tw-cen-mt.ttf"));
 			Font derivedFont = font.deriveFont((float)FONT_SIZE);
 			
 			GraphicsEnvironment genv = GraphicsEnvironment.getLocalGraphicsEnvironment();

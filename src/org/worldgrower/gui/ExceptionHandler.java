@@ -24,6 +24,7 @@ public class ExceptionHandler implements Thread.UncaughtExceptionHandler {
 
 	public static void handle(Throwable throwable) {
 		try {
+			throwable.printStackTrace();
 			ExceptionDialog exceptionDialog = new ExceptionDialog(Version.getVersion(), "Unexpected error", "An unexpected error has occurred: " + throwable.getMessage(), throwable);
 			exceptionDialog.setVisible(true);
 		} catch (Throwable t) {

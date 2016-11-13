@@ -1099,23 +1099,23 @@ public class ImageInfoReader {
 	}
     
     private static BufferedImage readScreenBackground() throws IOException {
-		return ImageIO.read(new File("./resources/conc_patchwork_c.png"));
+		return ImageIO.read(ImageInfoReader.class.getResource("/conc_patchwork_c.png"));
 	}
     
     private static BufferedImage readHealthBackground() throws IOException {
-		return ImageIO.read(new File("./resources/461223163.jpg"));
+		return ImageIO.read(ImageInfoReader.class.getResource("/461223163.jpg"));
 	}
     
     private static BufferedImage readFoodBackground() throws IOException {
-		return ImageIO.read(new File("./resources/461223162.jpg"));
+		return ImageIO.read(ImageInfoReader.class.getResource("/461223162.jpg"));
 	}
     
     private static BufferedImage readWaterBackground() throws IOException {
-		return ImageIO.read(new File("./resources/461223133.jpg"));
+		return ImageIO.read(ImageInfoReader.class.getResource("/461223133.jpg"));
 	}
     
     private static BufferedImage readEnergyBackground() throws IOException {
-		return ImageIO.read(new File("./resources/461223169.jpg"));
+		return ImageIO.read(ImageInfoReader.class.getResource("/461223169.jpg"));
 	}
     
 	private static Sprites readImages(String imageFilename, int width, int height, int rows, int cols) throws IOException {
