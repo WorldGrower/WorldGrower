@@ -60,7 +60,7 @@ class SaveGameRenderer extends JLabel implements ListCellRenderer<SaveGame> {
 
 	private String getSaveDateDescription(SaveGame value) {
 		Date saveDate = SaveFileUtils.getSaveTime(value.getFile());
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMMdd HH:mm:ss");
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM dd HH:mm:ss");
 		String saveDateDescription = simpleDateFormat.format(saveDate);
 		return saveDateDescription;
 	}

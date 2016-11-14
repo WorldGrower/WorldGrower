@@ -28,6 +28,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
+import org.worldgrower.generator.PlantGenerator;
 
 public class UTestCureDiseaseAction {
 
@@ -56,6 +57,10 @@ public class UTestCureDiseaseAction {
 		performer.setProperty(Constants.KNOWN_SPELLS, Arrays.asList(Actions.CURE_DISEASE_ACTION));
 		
 		assertEquals(true, Actions.CURE_DISEASE_ACTION.isValidTarget(performer, target, world));
+		
+		int berryBushId = PlantGenerator.generateBerryBush(0, 0, world);
+		WorldObject berryBush = world.findWorldObjectById(berryBushId);
+		assertEquals(false, Actions.CURE_DISEASE_ACTION.isValidTarget(performer, berryBush, world));
 	}
 	
 	@Test

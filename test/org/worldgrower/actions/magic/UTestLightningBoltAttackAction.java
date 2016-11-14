@@ -28,6 +28,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.generator.Item;
 import org.worldgrower.terrain.TerrainType;
@@ -46,6 +47,22 @@ public class UTestLightningBoltAttackAction {
 		Actions.LIGHTNING_BOLT_ATTACK_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(5 * Item.COMBAT_MULTIPLIER, target.getProperty(Constants.HIT_POINTS).intValue());
+	}
+	
+	@Test
+	public void testExecuteZeusBoon() {
+		World world = new MockWorld(new MockTerrain(TerrainType.GRASLAND), new WorldImpl(10, 10, null, null));
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		
+		Conditions.add(performer, Condition.ZEUS_BOON_CONDITION, 8, world);
+		
+		target.setProperty(Constants.HIT_POINTS, 10 * Item.COMBAT_MULTIPLIER);
+		target.setProperty(Constants.HIT_POINTS_MAX, 10 * Item.COMBAT_MULTIPLIER);
+		
+		Actions.LIGHTNING_BOLT_ATTACK_ACTION.execute(performer, target, Args.EMPTY, world);
+		
+		assertEquals(5 * Item.COMBAT_MULTIPLIER - (5 * Item.COMBAT_MULTIPLIER) / 10, target.getProperty(Constants.HIT_POINTS).intValue());
 	}
 	
 	@Test

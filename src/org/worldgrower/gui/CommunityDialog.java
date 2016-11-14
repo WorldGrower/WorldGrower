@@ -51,6 +51,7 @@ import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.gui.cursor.Cursors;
 import org.worldgrower.gui.util.DialogUtils;
 import org.worldgrower.gui.util.IconUtils;
+import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JLabelFactory;
 import org.worldgrower.gui.util.JPanelFactory;
 import org.worldgrower.gui.util.JScrollPaneFactory;
@@ -148,10 +149,10 @@ public class CommunityDialog extends JDialog {
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		contentPanel.add(buttonPane);
 
-		JButton okButton = new JButton("OK");
+		JButton okButton = JButtonFactory.createButton("OK", imageInfoReader);
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
-		buttonPane.setBounds(0, height - 50, width - 15, 50);
+		buttonPane.setBounds(0, height - 55, width - 15, 50);
 		okButton.addActionListener(new CloseDialogAction());
 		getRootPane().setDefaultButton(okButton);
 
