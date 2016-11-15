@@ -46,4 +46,11 @@ public class HitPointPropertyUtils {
 		int level = worldObject.getProperty(Constants.LEVEL);
 		return calculateHitPoints(constitution, level);
 	}
+	
+	public static void incrementHitPoints(WorldObject target, int hitPointsRestored) {
+		target.increment(Constants.HIT_POINTS, hitPointsRestored);
+		if (target.getProperty(Constants.HIT_POINTS) > target.getProperty(Constants.HIT_POINTS_MAX)) {
+			target.setProperty(Constants.HIT_POINTS, target.getProperty(Constants.HIT_POINTS_MAX));
+		}
+	}
 }

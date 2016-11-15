@@ -33,6 +33,7 @@ import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.Knowledge;
 import org.worldgrower.attribute.KnowledgeMap;
 import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.conversation.KnowledgeToDescriptionMapper;
 import org.worldgrower.gui.ImageIds;
 
@@ -96,7 +97,8 @@ public enum Item {
 	APOTHECARY(ItemType.MISC),
 	CHEST(ItemType.MISC),
 	LOCKPICK(ItemType.TOOL),
-	BUTCHER_KNIFE(ItemType.TOOL)
+	BUTCHER_KNIFE(ItemType.TOOL),
+	HEALING_POTION(ItemType.DRINK)
 	;
 
 	public static final int COMBAT_MULTIPLIER = 10;
@@ -673,7 +675,19 @@ public enum Item {
 			return new WorldObjectImpl(properties);
 		});
 		
-		
+		addItem(Item.HEALING_POTION, skillBonus -> {
+			int hitPointsRestored = (int)(5 * Item.COMBAT_MULTIPLIER * skillBonus);
+			
+			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+			properties.put(Constants.NAME, "healing potion");
+			properties.put(Constants.HIT_POINTS_HEALED, hitPointsRestored);
+			properties.put(Constants.WATER, (int) (10 * skillBonus));
+			properties.put(Constants.ALCOHOL_LEVEL, (int) (5 * skillBonus));
+			properties.put(Constants.IMAGE_ID, ImageIds.HEALING_POTION);
+			properties.put(Constants.PRICE, 1);
+			properties.put(Constants.SELLABLE, false);
+			return new WorldObjectImpl(properties);
+		});
 		
 		for (BuildingType buildingType : BuildingType.values()) {
 			Item buildingItem = mapBuildingTypeToItem(buildingType);

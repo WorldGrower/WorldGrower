@@ -302,6 +302,7 @@ public class Constants {
 	public static final BooleanProperty SECRET_CHEST = new BooleanProperty("secretChest", NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IdProperty CHEST_ID = new IdProperty("chestId", ALL_PROPERTIES);
 	public static final IdListProperty ANIMAL_ENEMIES = new IdListProperty("animalEnemies", ALL_PROPERTIES);
+	public static final IntProperty HIT_POINTS_HEALED = new IntProperty("hitPointsHealed", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	
 	//special property not used in WorldObject
 	public static final IntProperty DISTANCE = new IntProperty("distance", 0, null, NOT_NULLABLE, ALL_PROPERTIES);

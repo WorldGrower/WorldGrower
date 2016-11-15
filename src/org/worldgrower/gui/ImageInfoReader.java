@@ -625,6 +625,10 @@ public class ImageInfoReader {
         add(ImageIds.FOOD_BACKGROUND, foodBackground);
         add(ImageIds.WATER_BACKGROUND, waterBackground);
         add(ImageIds.ENERGY_BACKGROUND, energyBackground);
+        
+        add(ImageIds.HEALING_POTION, sprites420.getSubImage(0, 2, 1, 1));
+        createAnimation(ImageIds.HEALING_POTION_ANIMATION, ImageIds.HEALING_POTION, 10);
+        
     }
     
     private void createAnimation(ImageIds animationImageId, ImageIds imageId, int numberOfFrames) {

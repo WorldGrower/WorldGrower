@@ -71,6 +71,11 @@ public class WaterPropertyUtils {
 		if (waterTarget.hasProperty(Constants.SLEEP_INDUCING_DRUG_STRENGTH)) {
 			Conditions.add(performer, Condition.UNCONSCIOUS_CONDITION, 20, world);
 		}
+		
+		if (waterTarget.hasProperty(Constants.HIT_POINTS_HEALED)) {
+			int hitPointsRestored = waterTarget.getProperty(Constants.HIT_POINTS_HEALED);
+			HitPointPropertyUtils.incrementHitPoints(performer, hitPointsRestored);
+		}
 	}
 
 	private static boolean isWorldObject(WorldObject waterTarget, World world) {
