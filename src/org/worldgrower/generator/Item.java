@@ -682,7 +682,6 @@ public enum Item {
 			properties.put(Constants.NAME, "healing potion");
 			properties.put(Constants.HIT_POINTS_HEALED, hitPointsRestored);
 			properties.put(Constants.WATER, (int) (10 * skillBonus));
-			properties.put(Constants.ALCOHOL_LEVEL, (int) (5 * skillBonus));
 			properties.put(Constants.IMAGE_ID, ImageIds.HEALING_POTION);
 			properties.put(Constants.PRICE, 1);
 			properties.put(Constants.SELLABLE, false);

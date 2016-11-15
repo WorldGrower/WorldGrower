@@ -25,6 +25,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.KnowledgeMap;
 import org.worldgrower.attribute.Skill;
 import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.generator.Item;
 
 public class UTestWaterPropertyUtils {
 
@@ -45,5 +46,18 @@ public class UTestWaterPropertyUtils {
 		
 		assertEquals(true, performer.getProperty(Constants.KNOWLEDGE_MAP).hasProperty(wellId, Constants.POISON_DAMAGE));
 		assertEquals(true, target.getProperty(Constants.KNOWLEDGE_MAP).hasProperty(wellId, Constants.POISON_DAMAGE));
+	}
+	
+	@Test
+	public void testDrink() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(0, 0, 1, 1, Constants.KNOWLEDGE_MAP, new KnowledgeMap(), 2);
+		WorldObject waterTarget = Item.HEALING_POTION.generate(1f);
+		
+		performer.setProperty(Constants.HIT_POINTS, 10 * Item.COMBAT_MULTIPLIER);
+		performer.setProperty(Constants.HIT_POINTS_MAX, 20 * Item.COMBAT_MULTIPLIER);
+		
+		WaterPropertyUtils.drink(performer, waterTarget, world);
+		assertEquals(14 * Item.COMBAT_MULTIPLIER, performer.getProperty(Constants.HIT_POINTS).intValue());
 	}
 }
