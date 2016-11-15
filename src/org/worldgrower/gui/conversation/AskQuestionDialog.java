@@ -206,7 +206,11 @@ public class AskQuestionDialog extends AbstractDialog implements ManagedOperatio
 
 	private void pressAskQuestionButtonOnVisible() {
 		ComponentListener listener = new ComponentAdapter() {
-			public void componentShown(ComponentEvent evt) {
+			
+			// this method is called after componentShown and performs the click
+			// otherwise the component may get moved/resized after clicking
+			@Override
+			public void componentResized(ComponentEvent e) {
 				askQuestion.doClick();
 			}
 		};
