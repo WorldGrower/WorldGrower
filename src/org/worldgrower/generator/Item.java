@@ -676,7 +676,7 @@ public enum Item {
 		});
 		
 		addItem(Item.HEALING_POTION, skillBonus -> {
-			int hitPointsRestored = (int)(5 * Item.COMBAT_MULTIPLIER * skillBonus);
+			int hitPointsRestored = (int)(4 * Item.COMBAT_MULTIPLIER * skillBonus);
 			
 			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 			properties.put(Constants.NAME, "healing potion");
