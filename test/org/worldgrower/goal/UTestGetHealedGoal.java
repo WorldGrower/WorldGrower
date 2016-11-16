@@ -26,6 +26,7 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.MockCommonerNameGenerator;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.generator.CommonerGenerator;
+import org.worldgrower.generator.Item;
 import org.worldgrower.gui.CommonerImageIds;
 
 public class UTestGetHealedGoal {
@@ -65,6 +66,17 @@ public class UTestGetHealedGoal {
 		performer.getProperty(Constants.KNOWN_SPELLS).add(Actions.MINOR_HEAL_ACTION);
 		
 		assertEquals(Actions.MINOR_HEAL_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+
+	@Test
+	public void testCalculateGoalDrinkHealingPotion() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		WorldObject performer = createCommoner(world, organization);
+		
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.HEALING_POTION.generate(1f));
+		
+		assertEquals(Actions.DRINK_FROM_INVENTORY_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
 	
 	@Test

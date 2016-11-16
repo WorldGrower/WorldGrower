@@ -80,7 +80,7 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 			}
 		});
 		
-		Timer timer = new Timer(2000, new ActionListener() {
+		Timer timer = new Timer(5000, new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {

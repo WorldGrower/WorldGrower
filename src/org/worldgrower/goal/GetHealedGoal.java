@@ -22,23 +22,35 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.conversation.Conversations;
 
 public class GetHealedGoal implements Goal {
 
+	private static final int QUANTITY_TO_BUY = 3;
+	
 	public GetHealedGoal(List<Goal> allGoals) {
 		allGoals.add(this);
 	}
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
-		if (MagicSpellUtils.canCast(performer, Actions.MINOR_HEAL_ACTION)) {
+		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
+		if (performerInventory.getQuantityFor(Constants.HIT_POINTS_HEALED) > 0) {
+			int index = performerInventory.getIndexFor(Constants.HIT_POINTS_HEALED);
+			return new OperationInfo(performer, performer, new int[] { index }, Actions.DRINK_FROM_INVENTORY_ACTION);
+		} else if (MagicSpellUtils.canCast(performer, Actions.MINOR_HEAL_ACTION)) {
 			if (Actions.MINOR_HEAL_ACTION.hasRequiredEnergy(performer)) {
 				return new OperationInfo(performer, performer, Args.EMPTY, Actions.MINOR_HEAL_ACTION);
 			} else {
 				return Goals.REST_GOAL.calculateGoal(performer, world);
 			}
 		} else {
+			OperationInfo buyHealingPotionOperationInfo = BuySellUtils.getBuyOperationInfo(performer, Constants.HIT_POINTS_HEALED, QUANTITY_TO_BUY, world);
+			if (buyHealingPotionOperationInfo != null) {
+				return buyHealingPotionOperationInfo;
+			}
+			
 			List<WorldObject> targets = GoalUtils.findNearestTargetsByProperty(performer, Actions.TALK_ACTION, Constants.STRENGTH, w -> isTargetForMinorHealConversation(performer, w, world), world);
 			if (targets.size() > 0) {
 				return new OperationInfo(performer, targets.get(0), Conversations.createArgs(Conversations.MINOR_HEAL_CONVERSATION), Actions.TALK_ACTION);

@@ -210,4 +210,7 @@ public class Goals {
 	public static final MarkUnusedBuildingAsSellableGoal MARK_WORKBENCH_AS_SELLABLE_AFTER_EQUIPING_BUTCHER_KNIFE = new MarkUnusedBuildingAsSellableGoal(Constants.BUTCHER_QUALITY, BuildingType.WORKBENCH, ALL_GOALS);
 	public static final MarkUnusedBuildingAsSellableGoal MARK_WORKBENCH_AS_SELLABLE_AFTER_EQUIPING_PICKAXE = new MarkUnusedBuildingAsSellableGoal(Constants.PICKAXE_QUALITY, BuildingType.WORKBENCH, ALL_GOALS);
 	public static final MarkUnusedBuildingAsSellableGoal MARK_WORKBENCH_AS_SELLABLE_AFTER_EQUIPING_FISHING_POLE = new MarkUnusedBuildingAsSellableGoal(Constants.FISHING_POLE_QUALITY, BuildingType.WORKBENCH, ALL_GOALS);
+
+	public static final CreateHealingPotionGoal CREATE_HEALING_POTION_GOAL = new CreateHealingPotionGoal(ALL_GOALS);
+	public static final SellHealingPotionGoal SELL_HEALING_POTION_GOAL = new SellHealingPotionGoal(ALL_GOALS);
 }

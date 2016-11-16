@@ -39,8 +39,10 @@ public class AlchemistProfession implements Profession {
 	@Override
 	public List<Goal> getProfessionGoals() {
 		return Arrays.asList(
+				Goals.CREATE_HEALING_POTION_GOAL,
 				Goals.CREATE_POISON_GOAL,
 				Goals.CREATE_SLEEPING_POTION_GOAL,
+				Goals.SELL_HEALING_POTION_GOAL,
 				Goals.SELL_POISON_GOAL,
 				Goals.SELL_SLEEPING_POTION_GOAL
 				);
