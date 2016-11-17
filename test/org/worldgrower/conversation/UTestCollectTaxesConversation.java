@@ -111,6 +111,7 @@ public class UTestCollectTaxesConversation {
 		organization.setProperty(Constants.HOUSE_TAX_RATE, 2);
 		organization.setProperty(Constants.ID, 1);
 		world.addWorldObject(organization);
+		world.generateUniqueId(); world.generateUniqueId(); world.generateUniqueId();
 	}
 
 	private void moveTurnsForword(World world, int count) {
@@ -124,6 +125,29 @@ public class UTestCollectTaxesConversation {
 		organization.setProperty(Constants.ID, 1);
 		world.addWorldObject(organization);
 		return organization;
+	}
+	
+	@Test
+	public void testHandleResponse0() {
+		World world = new WorldImpl(10, 10, null, new DoNothingWorldOnTurn());
+		WorldObject performer = TestUtils.createIntelligentWorldObject(7, Constants.BUILDINGS, new BuildingList());
+		WorldObject target = TestUtils.createIntelligentWorldObject(8, Constants.BUILDINGS, new BuildingList());
+
+		createDefaultVillagersOrganization(world, target);
+		
+		int houseId = BuildingGenerator.generateHouse(0, 0, world, performer);
+		target.getProperty(Constants.BUILDINGS).add(houseId, BuildingType.HOUSE);
+		target.setProperty(Constants.GOLD, 200);
+		
+		performer.setProperty(Constants.ORGANIZATION_GOLD, 0);
+		performer.setProperty(Constants.CAN_COLLECT_TAXES, Boolean.TRUE);
+
+		moveTurnsForword(world, 2000);
+		
+		ConversationContext conversationContext = new ConversationContext(performer, target, null, null, world, 0);
+		conversation.handleResponse(0, conversationContext);
+		assertEquals(6, performer.getProperty(Constants.ORGANIZATION_GOLD).intValue());
+		assertEquals(194, target.getProperty(Constants.GOLD).intValue());
 	}
 	
 	@Test
