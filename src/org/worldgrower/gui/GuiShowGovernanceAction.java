@@ -63,6 +63,9 @@ public class GuiShowGovernanceAction extends AbstractAction {
 	
 	private static final Integer[] PRICES = new Integer[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
 	private static final Integer[] WAGES = new Integer[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
+
+	private static final Integer[] CANDIDATE_TURNS = new Integer[] {100, 200, 300, 400, 500};
+	private static final Integer[] VOTING_TURNS = new Integer[] {100, 200, 300, 400, 500};
 	
 	private static final String LEGAL_ACTIONS_TOOLTIP = "When someone performs an illegal action, they are thrown out of the villagers group";
 	private static final String VILLAGER_GOLD_TOOLTIP = "Villager gold is the stored income for the villager government in order to pay expenses";
@@ -70,6 +73,10 @@ public class GuiShowGovernanceAction extends AbstractAction {
 	private static final String HOUSE_TAX_RATE_TOOLTIP = "House Tax Rate is the amount of gold that a house owner has to pay each " + GroupPropertyUtils.getTaxesPeriodDescription() + " turns";
 	private static final String SHERIFF_WAGE_TOOLTIP = "Sheriff Wage is the amount of gold that a sheriff receives each " + GroupPropertyUtils.getTaxesPeriodDescription() + " turns";
 	private static final String TAX_COLLECTOR_WAGE_TOOLTIP = "Tax Collector Wage is the amount of gold that a tax collector receives each " + GroupPropertyUtils.getTaxesPeriodDescription() + " turns";
+	private static final String VOTING_STAGES_TOOLTIP = "Shows different stages of the voting process";
+	private static final String CANDIDATE_STAGE_TOOLTIP = "Shows how many turns people can become a candidate for the election";
+	private static final String VOTING_STAGE_TOOLTIP = "Shows how many turns people can vote for the election";
+	
 	
 	private final WorldObject playerCharacter;
 	private final DungeonMaster dungeonMaster;
@@ -275,6 +282,35 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		undeadCheckBox.setBounds(15, 145, 350, 30);
 		undeadCheckBox.setToolTipText("Only undead can vote or become candidates in villager elections");
 		votingPanel.add(undeadCheckBox);
+		
+		JLabel votingStagesLabel = JLabelFactory.createJLabel("Voting Stages:");
+		votingStagesLabel.setBounds(15, 210, 185, 30);
+		votingStagesLabel.setToolTipText(VOTING_STAGES_TOOLTIP);
+		votingPanel.add(votingStagesLabel);
+		
+		JLabel candidateStageLabel = JLabelFactory.createJLabel("Number of turns people can become candidates:");
+		candidateStageLabel.setBounds(15, 245, 385, 30);
+		candidateStageLabel.setToolTipText(CANDIDATE_STAGE_TOOLTIP);
+		votingPanel.add(candidateStageLabel);
+		
+		JComboBox<Integer> candidateStageComboBox = JComboBoxFactory.createJComboBox(CANDIDATE_TURNS, imageInfoReader);
+		candidateStageComboBox.setEnabled(performerIsLeaderOfVillagers);
+		candidateStageComboBox.setSelectedItem(villagersOrganization.getProperty(Constants.TAX_COLLECTOR_WAGE));
+		candidateStageComboBox.setBounds(380, 245, 60, 30);
+		candidateStageComboBox.setToolTipText(CANDIDATE_STAGE_TOOLTIP);
+		votingPanel.add(candidateStageComboBox);
+		
+		JLabel votingStageLabel = JLabelFactory.createJLabel("Number of turns people can vote:");
+		votingStageLabel.setBounds(15, 280, 385, 30);
+		votingStageLabel.setToolTipText(VOTING_STAGE_TOOLTIP);
+		votingPanel.add(votingStageLabel);
+		
+		JComboBox<Integer> votingStageComboBox = JComboBoxFactory.createJComboBox(VOTING_TURNS, imageInfoReader);
+		votingStageComboBox.setEnabled(performerIsLeaderOfVillagers);
+		votingStageComboBox.setSelectedItem(villagersOrganization.getProperty(Constants.TAX_COLLECTOR_WAGE));
+		votingStageComboBox.setBounds(380, 280, 60, 30);
+		votingStageComboBox.setToolTipText(VOTING_STAGE_TOOLTIP);
+		votingPanel.add(votingStageComboBox);
 		
 		JPanel buttonPane = new JPanel();
 		buttonPane.setOpaque(false);
