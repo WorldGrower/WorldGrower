@@ -82,6 +82,23 @@ public class UTestSetGovernanceAction {
 	}
 	
 	@Test
+	public void testExecuteSetVoterTurns() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = createPerformer(3);
+		world.addWorldObject(performer);
+		WorldObject villagersOrganization = createVillagersOrganization(world);
+		LegalActions legalActions = LegalActionsPropertyUtils.getLegalActions(world);
+		Map<LegalAction, Boolean> legalFlags = legalActions.getLegalActions();
+		int[] args = LegalActions.createGovernanceArgs(legalFlags, 2, 3, 6, 7, true, false, false, true, 100, 600);
+			
+		Actions.SET_GOVERNANCE_ACTION.execute(performer, performer, args, world);
+		
+		legalActions = LegalActionsPropertyUtils.getLegalActions(world);
+		assertEquals(100, villagersOrganization.getProperty(Constants.VOTING_CANDIDATE_TURNS).intValue());
+		assertEquals(600, villagersOrganization.getProperty(Constants.VOTING_TOTAL_TURNS).intValue());
+	}
+	
+	@Test
 	public void testExecuteGovernanceChanged() {
 		World world = new WorldImpl(1, 1, null, null);
 		world.addWorldStateChangedListener(new WorldStateListenerImpl());

@@ -18,6 +18,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -267,6 +268,8 @@ public class Game {
 					executeAction(playerCharacter, action, args, world, dungeonMaster, target, worldPanel, imageInfoReader, soundIdReader);
 				}
 			}, null);
+    	} else {
+    		throw actionCannotBeExecuted(action, args);
     	}
 	}
     
@@ -293,6 +296,8 @@ public class Game {
     			};
     			
 				worldPanel.movePlayerCharacter(args, guiMoveAction, guiAfterMoveAction);
+        	} else {
+        		throw actionCannotBeExecuted(action, args);
         	}
     	}
 	}
@@ -303,7 +308,13 @@ public class Game {
     		worldPanel.playSound(action);
     		runWorld(playerCharacter, world, dungeonMaster, worldPanel);
     		checkToSkipTurn(playerCharacter, world, dungeonMaster, worldPanel, imageInfoReader, soundIdReader);
+    	} else {
+    		throw actionCannotBeExecuted(action, args);
     	}
+	}
+
+	private static IllegalStateException actionCannotBeExecuted(ManagedOperation action, int[] args) {
+		return new IllegalStateException("Problem executing action " + action.getClass() + " with args " + Arrays.toString(args));
 	}
     
     public static void executeMultipleTurns(WorldObject playerCharacter, ManagedOperation action, int[] args, World world, DungeonMaster dungeonMaster, WorldObject target, WorldPanel worldPanel, int turns, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader) {
