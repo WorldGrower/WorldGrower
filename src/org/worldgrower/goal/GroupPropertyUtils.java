@@ -26,7 +26,6 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.actions.legal.LegalActionFactory;
-import org.worldgrower.attribute.BooleanProperty;
 import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdMap;
@@ -45,6 +44,9 @@ public class GroupPropertyUtils {
 	
 	private static final int TAXES_PERIOD = 500;
 	private static final int DEFAULT_WAGE = 10;
+	
+	private static final int DEFAULT_VOTING_CANDIDATE_TURNS = 300;
+	private static final int DEFAULT_VOTING_TOTAL_TURNS = 600;
 	
 	public static boolean isWorldObjectPotentialEnemy(WorldObject performer, WorldObject w) {
 		IdList performerOrganizationIdList = performer.getProperty(Constants.GROUP);
@@ -199,7 +201,7 @@ public class GroupPropertyUtils {
 		organization.setProperty(Constants.HOUSE_TAX_RATE, 0);
 		organization.setProperty(Constants.SHERIFF_WAGE, DEFAULT_WAGE);
 		organization.setProperty(Constants.TAX_COLLECTOR_WAGE, DEFAULT_WAGE);
-		
+	
 		addDefaultVotingOptions(organization);
 		
 		organization.setProperty(Constants.TAXES_PAID_TURN, new IdToIntegerMap());
@@ -216,6 +218,9 @@ public class GroupPropertyUtils {
 		organization.setProperty(Constants.ONLY_MALES_CAN_VOTE, false);
 		organization.setProperty(Constants.ONLY_FEMALES_CAN_VOTE, false);
 		organization.setProperty(Constants.ONLY_UNDEAD_CAN_VOTE, false);
+		
+		organization.setProperty(Constants.VOTING_CANDIDATE_TURNS, DEFAULT_VOTING_CANDIDATE_TURNS);
+		organization.setProperty(Constants.VOTING_TOTAL_TURNS, DEFAULT_VOTING_TOTAL_TURNS);
 	}
 
 	private static void setLegalActions(WorldObject organization) {

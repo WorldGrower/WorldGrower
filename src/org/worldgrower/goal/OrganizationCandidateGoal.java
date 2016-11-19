@@ -100,7 +100,7 @@ public class OrganizationCandidateGoal implements Goal {
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
 		WorldObject votingBox = VotingPropertyUtils.getVotingBox(performer, world);
-		if (votingBox != null && VotingPropertyUtils.votingBoxAcceptsCandidates(votingBox)) {
+		if (votingBox != null && VotingPropertyUtils.votingBoxAcceptsCandidates(votingBox, world)) {
 			boolean performerWantsToBecomeCandidate = performerWantsToBecomeCandidate(performer, votingBox, world);
 			if (performerWantsToBecomeCandidate) {
 				boolean performerAlreadyVoted = world.getHistory().findHistoryItems(performer, votingBox, Actions.BECOME_LEADER_CANDIDATE_ACTION).size() > 0;

@@ -38,7 +38,7 @@ public class VotingBoxOnTurn implements OnTurn {
 		
 		worldObject.increment(Constants.TURN_COUNTER, 1);
 		
-		if (VotingPropertyUtils.isVotingdone(worldObject)) {
+		if (VotingPropertyUtils.isVotingdone(worldObject, world)) {
 			int newLeaderId = getLeaderId(worldObject, world);
 			WorldObject organization = setLeaderOfOrganization(worldObject, world, newLeaderId);
 		

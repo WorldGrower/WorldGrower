@@ -40,7 +40,7 @@ public class VoteForLeaderAction implements ManagedOperation {
 
 	@Override
 	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
-		boolean votingBoxAcceptsVotes = VotingPropertyUtils.votingBoxAcceptsVotes(target);
+		boolean votingBoxAcceptsVotes = VotingPropertyUtils.votingBoxAcceptsVotes(target, world);
 		boolean performerAlreadyVoted = world.getHistory().findHistoryItems(performer, target, this).size() > 0;
 		boolean performerCanVote = VotingPropertyUtils.canVoteAtVotingBox(performer, target, world);
 		return votingBoxAcceptsVotes && !performerAlreadyVoted && performerCanVote;

@@ -59,35 +59,41 @@ public class UTestVotingPropertyUtils {
 	
 	@Test
 	public void testVotingBoxAcceptsCandidates() {
-		WorldObject votingBox = createVotingBox();
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject votingBox = createVotingBox(world);
+		createVillagersOrganization(world);
 		
-		assertEquals(true, VotingPropertyUtils.votingBoxAcceptsCandidates(votingBox));
+		assertEquals(true, VotingPropertyUtils.votingBoxAcceptsCandidates(votingBox, world));
 		
 		votingBox.setProperty(Constants.TURN_COUNTER, 5000);
-		assertEquals(false, VotingPropertyUtils.votingBoxAcceptsCandidates(votingBox));
+		assertEquals(false, VotingPropertyUtils.votingBoxAcceptsCandidates(votingBox, world));
 	}
 	
 	@Test
 	public void testVotingBoxAcceptsVotes() {
-		WorldObject votingBox = createVotingBox();
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject votingBox = createVotingBox(world);
+		createVillagersOrganization(world);
 		
-		assertEquals(false, VotingPropertyUtils.votingBoxAcceptsVotes(votingBox));
+		assertEquals(false, VotingPropertyUtils.votingBoxAcceptsVotes(votingBox, world));
 		
 		votingBox.setProperty(Constants.TURN_COUNTER, 400);
-		assertEquals(true, VotingPropertyUtils.votingBoxAcceptsVotes(votingBox));
+		assertEquals(true, VotingPropertyUtils.votingBoxAcceptsVotes(votingBox, world));
 		
 		votingBox.setProperty(Constants.TURN_COUNTER, 5000);
-		assertEquals(false, VotingPropertyUtils.votingBoxAcceptsVotes(votingBox));
+		assertEquals(false, VotingPropertyUtils.votingBoxAcceptsVotes(votingBox, world));
 	}
 	
 	@Test
 	public void testIsVotingDone() {
-		WorldObject votingBox = createVotingBox();
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject votingBox = createVotingBox(world);
+		createVillagersOrganization(world);
 		
-		assertEquals(false, VotingPropertyUtils.isVotingdone(votingBox));
+		assertEquals(false, VotingPropertyUtils.isVotingdone(votingBox, world));
 		
 		votingBox.setProperty(Constants.TURN_COUNTER, 5000);
-		assertEquals(true, VotingPropertyUtils.isVotingdone(votingBox));
+		assertEquals(true, VotingPropertyUtils.isVotingdone(votingBox, world));
 	}
 	
 	@Test
@@ -118,10 +124,10 @@ public class UTestVotingPropertyUtils {
 		assertEquals(true, VotingPropertyUtils.votingBoxExistsForOrganization(organization, world));
 	}
 
-	private WorldObject createVotingBox() {
-		World world = new WorldImpl(1, 1, null, null);
+	private WorldObject createVotingBox(World world) {
 		int votingBoxId = BuildingGenerator.generateVotingBox(0, 0, world);
 		WorldObject votingBox = world.findWorldObjectById(votingBoxId);
+		votingBox.setProperty(Constants.ORGANIZATION_ID, 1);
 		return votingBox;
 	}
 	

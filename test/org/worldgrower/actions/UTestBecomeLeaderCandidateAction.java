@@ -25,6 +25,8 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.goal.GroupPropertyUtils;
+import org.worldgrower.profession.Professions;
 
 public class UTestBecomeLeaderCandidateAction {
 
@@ -57,9 +59,12 @@ public class UTestBecomeLeaderCandidateAction {
 	public void testIsActionPossible() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
+		
+		WorldObject organization = GroupPropertyUtils.createProfessionOrganization(null, "TestOrg", Professions.FARMER_PROFESSION, world);
+		
 		int id = BuildingGenerator.generateVotingBox(0, 0, world);
 		WorldObject target = world.findWorldObjectById(id);
-		target.setProperty(Constants.ORGANIZATION_ID, 7);
+		target.setProperty(Constants.ORGANIZATION_ID, organization.getProperty(Constants.ID));
 		target.setProperty(Constants.TURN_COUNTER, 150);
 		
 		assertEquals(true, Actions.BECOME_LEADER_CANDIDATE_ACTION.isActionPossible(performer, target, Args.EMPTY, world));

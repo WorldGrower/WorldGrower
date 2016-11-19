@@ -25,6 +25,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.goal.GroupPropertyUtils;
+import org.worldgrower.profession.Professions;
 
 public class UTestVotingOnTurn {
 
@@ -34,11 +35,21 @@ public class UTestVotingOnTurn {
 		
 		int votingBoxId = BuildingGenerator.generateVotingBox(5, 5, world);
 		WorldObject votingBox = world.findWorldObjectById(votingBoxId);
+		votingBox.setProperty(Constants.ORGANIZATION_ID, 1);
+		createVillagersOrganization(world);
 		
 		assertEquals(0, votingBox.getProperty(Constants.TURN_COUNTER).intValue());
 		
 		votingBox.onTurn(world, new WorldStateChangedListeners());
 		assertEquals(1, votingBox.getProperty(Constants.TURN_COUNTER).intValue());
+	}
+	
+	private WorldObject createVillagersOrganization(World world) {
+		world.generateUniqueId(); world.generateUniqueId(); world.generateUniqueId(); 
+		WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
+		organization.setProperty(Constants.ID, 1);
+		world.addWorldObject(organization);
+		return organization;
 	}
 	
 	@Test
@@ -52,7 +63,7 @@ public class UTestVotingOnTurn {
 		
 		int votingBoxId = BuildingGenerator.generateVotingBox(5, 5, world);
 		WorldObject votingBox = world.findWorldObjectById(votingBoxId);
-		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		WorldObject organization = GroupPropertyUtils.createProfessionOrganization(null, "TestOrg", Professions.FARMER_PROFESSION, world);
 		votingBox.setProperty(Constants.ORGANIZATION_ID, organization.getProperty(Constants.ID));
 		
 		votingBox.setProperty(Constants.TURN_COUNTER, 3000);

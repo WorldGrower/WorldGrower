@@ -28,9 +28,6 @@ import org.worldgrower.goal.GroupPropertyUtils;
 
 public class VotingPropertyUtils {
 
-	private static final int VOTING_CANDIDATES_PHASE_END = 300;
-	private static final int VOTING_PHASE_END = 600;
-	
 	public static boolean isVotingBox(WorldObject target) {
 		return (target.hasProperty(Constants.ORGANIZATION_ID)) && (target.getProperty(Constants.ORGANIZATION_ID) != null) && (target.hasProperty(Constants.TURN_COUNTER));
 	}
@@ -42,18 +39,30 @@ public class VotingPropertyUtils {
 				&& w.getProperty(Constants.ORGANIZATION_ID).intValue() == organizationId;
 	}
 	
-	public static boolean votingBoxAcceptsCandidates(WorldObject votingBox) {
-		return votingBox.hasProperty(Constants.TURN_COUNTER) && votingBox.getProperty(Constants.TURN_COUNTER) < VOTING_CANDIDATES_PHASE_END;
+	private static int getVotingCandidatePhaseEnd(WorldObject votingBox, World world) {
+		int organizationId = votingBox.getProperty(Constants.ORGANIZATION_ID);
+		WorldObject organization = world.findWorldObjectById(organizationId);
+		return organization.getProperty(Constants.VOTING_CANDIDATE_TURNS);
 	}
 	
-	public static boolean votingBoxAcceptsVotes(WorldObject votingBox) {
+	private static int getVotingPhaseEnd(WorldObject votingBox, World world) {
+		int organizationId = votingBox.getProperty(Constants.ORGANIZATION_ID);
+		WorldObject organization = world.findWorldObjectById(organizationId);
+		return organization.getProperty(Constants.VOTING_TOTAL_TURNS);
+	}
+	
+	public static boolean votingBoxAcceptsCandidates(WorldObject votingBox, World world) {
+		return votingBox.hasProperty(Constants.TURN_COUNTER) && votingBox.getProperty(Constants.TURN_COUNTER) < getVotingCandidatePhaseEnd(votingBox, world);
+	}
+	
+	public static boolean votingBoxAcceptsVotes(WorldObject votingBox, World world) {
 		int turnCounter = votingBox.getProperty(Constants.TURN_COUNTER);
-		return (turnCounter >= VOTING_CANDIDATES_PHASE_END) && (turnCounter < VOTING_PHASE_END);
+		return (turnCounter >= getVotingCandidatePhaseEnd(votingBox, world)) && (turnCounter < getVotingPhaseEnd(votingBox, world));
 	}
 
-	public static boolean isVotingdone(WorldObject votingBox) {
+	public static boolean isVotingdone(WorldObject votingBox, World world) {
 		int turnCounter = votingBox.getProperty(Constants.TURN_COUNTER);
-		return turnCounter >= VOTING_PHASE_END;
+		return turnCounter >= getVotingPhaseEnd(votingBox, world);
 	}
 	
 	public static WorldObject getVotingBox(WorldObject performer, World world) {
@@ -79,8 +88,8 @@ public class VotingPropertyUtils {
 		return voteBoxes.size() > 0;
 	}
 	
-	public static int getNumberOfTurnsCandidatesMayBeProposed() {
-		return VOTING_CANDIDATES_PHASE_END;
+	public static int getNumberOfTurnsCandidatesMayBeProposed(World world) {
+		return GroupPropertyUtils.getVillagersOrganization(world).getProperty(Constants.VOTING_CANDIDATE_TURNS);
 	}
 	
 	public static int createVotingBox(WorldObject target, WorldObject organization, World world) {

@@ -61,8 +61,9 @@ public class VoteLeaderOrganizationConversation implements Conversation {
 	
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
+		World world = conversationContext.getWorld();
 		return Arrays.asList(
-			new Response(LETS_PUT, "Let's put it to a vote. From now for " + VotingPropertyUtils.getNumberOfTurnsCandidatesMayBeProposed() + " turns anyone can become a candidate for leader, and after that voting starts.")
+			new Response(LETS_PUT, "Let's put it to a vote. From now for " + VotingPropertyUtils.getNumberOfTurnsCandidatesMayBeProposed(world) + " turns anyone can become a candidate for leader, and after that voting starts.")
 			);
 	}
 
