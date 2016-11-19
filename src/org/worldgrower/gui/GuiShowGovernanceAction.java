@@ -14,6 +14,7 @@
  *******************************************************************************/
 package org.worldgrower.gui;
 
+import java.awt.Color;
 import java.awt.Dialog.ModalityType;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -148,6 +149,7 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		WorldObject villagersOrganization = GroupPropertyUtils.getVillagersOrganization(world);
 		shackComboBox.setSelectedItem(villagersOrganization.getProperty(Constants.SHACK_TAX_RATE));
 		shackComboBox.setBounds(200, 20, 50, 30);
+		shackComboBox.setForeground(Color.BLACK);
 		shackComboBox.setToolTipText(SHACK_TAX_RATE_TOOLTIP);
 		incomePanel.add(shackComboBox);
 		
@@ -173,6 +175,7 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		houseComboBox.setEnabled(performerIsLeaderOfVillagers);
 		houseComboBox.setSelectedItem(villagersOrganization.getProperty(Constants.HOUSE_TAX_RATE));
 		houseComboBox.setBounds(200, 65, 50, 30);
+		houseComboBox.setForeground(Color.BLACK);
 		houseComboBox.setToolTipText(HOUSE_TAX_RATE_TOOLTIP);
 		incomePanel.add(houseComboBox);
 		
@@ -203,6 +206,7 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		sheriffComboBox.setEnabled(performerIsLeaderOfVillagers);
 		sheriffComboBox.setSelectedItem(villagersOrganization.getProperty(Constants.SHERIFF_WAGE));
 		sheriffComboBox.setBounds(200, 20, 50, 30);
+		sheriffComboBox.setForeground(Color.BLACK);
 		sheriffComboBox.setToolTipText(SHERIFF_WAGE_TOOLTIP);
 		expensePanel.add(sheriffComboBox);
 		
@@ -228,6 +232,7 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		taxCollectorComboBox.setEnabled(performerIsLeaderOfVillagers);
 		taxCollectorComboBox.setSelectedItem(villagersOrganization.getProperty(Constants.TAX_COLLECTOR_WAGE));
 		taxCollectorComboBox.setBounds(200, 65, 50, 30);
+		taxCollectorComboBox.setForeground(Color.BLACK);
 		taxCollectorComboBox.setToolTipText(TAX_COLLECTOR_WAGE_TOOLTIP);
 		expensePanel.add(taxCollectorComboBox);
 		
@@ -295,8 +300,10 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		
 		JComboBox<Integer> candidateStageComboBox = JComboBoxFactory.createJComboBox(CANDIDATE_TURNS, imageInfoReader);
 		candidateStageComboBox.setEnabled(performerIsLeaderOfVillagers);
-		candidateStageComboBox.setSelectedItem(villagersOrganization.getProperty(Constants.TAX_COLLECTOR_WAGE));
+		int votingCandidacyTurns = villagersOrganization.getProperty(Constants.VOTING_CANDIDATE_TURNS);
+		candidateStageComboBox.setSelectedItem(votingCandidacyTurns);
 		candidateStageComboBox.setBounds(380, 245, 60, 30);
+		candidateStageComboBox.setForeground(Color.BLACK);
 		candidateStageComboBox.setToolTipText(CANDIDATE_STAGE_TOOLTIP);
 		votingPanel.add(candidateStageComboBox);
 		
@@ -307,8 +314,10 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		
 		JComboBox<Integer> votingStageComboBox = JComboBoxFactory.createJComboBox(VOTING_TURNS, imageInfoReader);
 		votingStageComboBox.setEnabled(performerIsLeaderOfVillagers);
-		votingStageComboBox.setSelectedItem(villagersOrganization.getProperty(Constants.TAX_COLLECTOR_WAGE));
+		int votingStageTurns = villagersOrganization.getProperty(Constants.VOTING_TOTAL_TURNS) - votingCandidacyTurns;
+		votingStageComboBox.setSelectedItem(votingStageTurns);
 		votingStageComboBox.setBounds(380, 280, 60, 30);
+		votingStageComboBox.setForeground(Color.BLACK);
 		votingStageComboBox.setToolTipText(VOTING_STAGE_TOOLTIP);
 		votingPanel.add(votingStageComboBox);
 		
@@ -321,7 +330,7 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		JButton okButton = JButtonFactory.createButton("OK", imageInfoReader, soundIdReader);
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
-		addActionHandlers(okButton, worldModel, shackComboBox, houseComboBox, sheriffComboBox, taxCollectorComboBox, dialog, performerIsLeaderOfVillagers, ownerShackHouseCheckBox, maleCheckBox, femaleCheckBox, undeadCheckBox);
+		addActionHandlers(okButton, worldModel, shackComboBox, houseComboBox, sheriffComboBox, taxCollectorComboBox, dialog, performerIsLeaderOfVillagers, ownerShackHouseCheckBox, maleCheckBox, femaleCheckBox, undeadCheckBox, candidateStageComboBox, votingStageComboBox);
 		dialog.getRootPane().setDefaultButton(okButton);
 		SwingUtils.installEscapeCloseOperation(dialog);
 		
@@ -374,7 +383,7 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		return "n/a";
 	}
 	
-	private void addActionHandlers(JButton okButton, WorldModel worldModel, JComboBox<Integer> shackComboBox, JComboBox<Integer> houseComboBox, JComboBox<Integer> sheriffComboBox, JComboBox<Integer> taxCollectorComboBox, JDialog dialog, boolean performerIsLeaderOfVillagers, JCheckBox ownerShackHouseCheckBox, JCheckBox maleCheckBox, JCheckBox femaleCheckBox, JCheckBox undeadCheckBox) {
+	private void addActionHandlers(JButton okButton, WorldModel worldModel, JComboBox<Integer> shackComboBox, JComboBox<Integer> houseComboBox, JComboBox<Integer> sheriffComboBox, JComboBox<Integer> taxCollectorComboBox, JDialog dialog, boolean performerIsLeaderOfVillagers, JCheckBox ownerShackHouseCheckBox, JCheckBox maleCheckBox, JCheckBox femaleCheckBox, JCheckBox undeadCheckBox, JComboBox<Integer> candidateStageComboBox, JComboBox<Integer> votingStageComboBox) {
 		okButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -389,7 +398,11 @@ public class GuiShowGovernanceAction extends AbstractAction {
 					boolean onlyFemalesCanVote = femaleCheckBox.isSelected();
 					boolean onlyUndeadCanVote = undeadCheckBox.isSelected();
 					
-					int[] args = worldModel.getArgs(shackTaxRate, houseTaxRate, sheriffWage, taxCollectorWage, onlyOwnerShackHouseCanVote, onlyMalesCanVote, onlyFemalesCanVote, onlyUndeadCanVote);
+					int candidateStageValue = (int) candidateStageComboBox.getSelectedItem();
+					int votingStageValue = (int) votingStageComboBox.getSelectedItem();
+					int endVotingInTurns = candidateStageValue + votingStageValue;
+					
+					int[] args = worldModel.getArgs(shackTaxRate, houseTaxRate, sheriffWage, taxCollectorWage, onlyOwnerShackHouseCanVote, onlyMalesCanVote, onlyFemalesCanVote, onlyUndeadCanVote, candidateStageValue, endVotingInTurns);
 					Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, Actions.SET_GOVERNANCE_ACTION, args, world, dungeonMaster, playerCharacter, parent, imageInfoReader, soundIdReader);
 				}
 				dialog.dispose();
@@ -471,8 +484,8 @@ public class GuiShowGovernanceAction extends AbstractAction {
 			}
 		}
 
-		public int[] getArgs(int shackTaxRate, int houseTaxRate, int sheriffWage, int taxCollectorWage, boolean onlyOwnerShackHouseCanVote, boolean onlyMalesCanVote, boolean onlyFemalesCanVote, boolean onlyUndeadCanVote) {
-			return LegalActions.createGovernanceArgs(legalFlags, shackTaxRate, houseTaxRate, sheriffWage, taxCollectorWage, onlyOwnerShackHouseCanVote, onlyMalesCanVote, onlyFemalesCanVote, onlyUndeadCanVote);
+		public int[] getArgs(int shackTaxRate, int houseTaxRate, int sheriffWage, int taxCollectorWage, boolean onlyOwnerShackHouseCanVote, boolean onlyMalesCanVote, boolean onlyFemalesCanVote, boolean onlyUndeadCanVote, int candidateStageValue, int endVotingInTurns) {
+			return LegalActions.createGovernanceArgs(legalFlags, shackTaxRate, houseTaxRate, sheriffWage, taxCollectorWage, onlyOwnerShackHouseCanVote, onlyMalesCanVote, onlyFemalesCanVote, onlyUndeadCanVote, candidateStageValue, endVotingInTurns);
 		}
 	}
 	

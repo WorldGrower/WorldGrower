@@ -66,6 +66,10 @@ public class SetGovernanceAction implements ManagedOperation {
 		changeGovernanceOption(Constants.ONLY_FEMALES_CAN_VOTE, villagersOrganization, args[voteOffset+2], changedGovernanceOptions);
 		changeGovernanceOption(Constants.ONLY_UNDEAD_CAN_VOTE, villagersOrganization, args[voteOffset+3], changedGovernanceOptions);
 		
+		int votingTurnOffset = voteOffset + 4;
+		changeGovernanceOption(Constants.VOTING_CANDIDATE_TURNS, villagersOrganization, args[votingTurnOffset], changedGovernanceOptions);
+		changeGovernanceOption(Constants.VOTING_TOTAL_TURNS, villagersOrganization, args[votingTurnOffset+1], changedGovernanceOptions);
+		
 		world.getWorldStateChangedListeners().governanceChanged(changedLegalActions, changedGovernanceOptions, performer);
 	}
 

@@ -50,7 +50,7 @@ public class UTestSetGovernanceAction {
 		createVillagersOrganization(world);
 		LegalActions legalActions = LegalActionsPropertyUtils.getLegalActions(world);
 		Map<LegalAction, Boolean> legalFlags = legalActions.getLegalActions();
-		int[] args = LegalActions.createGovernanceArgs(legalFlags, 0, 0, 5, 5, false, false, false, false);
+		int[] args = LegalActions.createGovernanceArgs(legalFlags, 0, 0, 5, 5, false, false, false, false, 300, 300);
 			
 		Actions.SET_GOVERNANCE_ACTION.execute(performer, performer, args, world);
 		
@@ -66,7 +66,7 @@ public class UTestSetGovernanceAction {
 		WorldObject villagersOrganization = createVillagersOrganization(world);
 		LegalActions legalActions = LegalActionsPropertyUtils.getLegalActions(world);
 		Map<LegalAction, Boolean> legalFlags = legalActions.getLegalActions();
-		int[] args = LegalActions.createGovernanceArgs(legalFlags, 2, 3, 6, 7, true, false, false, true);
+		int[] args = LegalActions.createGovernanceArgs(legalFlags, 2, 3, 6, 7, true, false, false, true, 300, 300);
 			
 		Actions.SET_GOVERNANCE_ACTION.execute(performer, performer, args, world);
 		
@@ -92,7 +92,7 @@ public class UTestSetGovernanceAction {
 		
 		Map<LegalAction, Boolean> legalFlags = legalActions.getLegalActions();
 		legalFlags.put(LegalAction.MELEE_ATTACK, Boolean.TRUE);
-		int[] args = LegalActions.createGovernanceArgs(legalFlags, 0, 1, 5, 5, false, false, false, false);
+		int[] args = LegalActions.createGovernanceArgs(legalFlags, 0, 1, 5, 5, false, false, false, false, 300, 600);
 			
 		Actions.SET_GOVERNANCE_ACTION.execute(performer, performer, args, world);
 	}

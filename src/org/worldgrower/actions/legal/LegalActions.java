@@ -64,9 +64,9 @@ public class LegalActions implements Serializable {
 		return actions;
 	}
 	
-	public static int[] createGovernanceArgs(Map<LegalAction, Boolean> legalFlags, int shackTaxRate, int houseTaxRate, int sheriffWage, int taxCollectorWage, boolean onlyOwnersCanVote, boolean onlyMalesCanVote, boolean onlyFemalesCanVote, boolean onlyUndeadCanVote) {
+	public static int[] createGovernanceArgs(Map<LegalAction, Boolean> legalFlags, int shackTaxRate, int houseTaxRate, int sheriffWage, int taxCollectorWage, boolean onlyOwnersCanVote, boolean onlyMalesCanVote, boolean onlyFemalesCanVote, boolean onlyUndeadCanVote, int candidateStageValue, int votingTotalTurns) {
 		List<LegalAction> actions = toList(legalFlags);
-		int[] args = new int[actions.size() + 8];
+		int[] args = new int[actions.size() + 10];
 		for(int i=0; i<actions.size(); i++) {
 			LegalAction legalAction = actions.get(i);
 			args[i] = legalFlags.get(legalAction) ? 1 : 0;
@@ -81,6 +81,10 @@ public class LegalActions implements Serializable {
 		args[wageOffset+5] = onlyMalesCanVote ? 1 : 0;
 		args[wageOffset+6] = onlyFemalesCanVote ? 1 : 0;
 		args[wageOffset+7] = onlyUndeadCanVote ? 1 : 0;
+		
+		int votingOffset = wageOffset+8;
+		args[votingOffset] = candidateStageValue;
+		args[votingOffset+1] = votingTotalTurns;
 		
 		return args;
 	}
@@ -108,7 +112,9 @@ public class LegalActions implements Serializable {
 		boolean onlyMalesCanVote = villagersOrganization.getProperty(Constants.ONLY_MALES_CAN_VOTE);
 		boolean onlyFemalesCanVote = villagersOrganization.getProperty(Constants.ONLY_FEMALES_CAN_VOTE);
 		boolean onlyUndeadCanVote = villagersOrganization.getProperty(Constants.ONLY_UNDEAD_CAN_VOTE);
-		return createGovernanceArgs(legalFlags, shackTaxRate, houseTaxRate, sheriffWage, taxCollectorWage, onlyOwnersCanVote, onlyMalesCanVote, onlyFemalesCanVote, onlyUndeadCanVote);
+		int candidateStageValue = villagersOrganization.getProperty(Constants.VOTING_CANDIDATE_TURNS);
+		int votingTotalTurns = villagersOrganization.getProperty(Constants.VOTING_TOTAL_TURNS);
+		return createGovernanceArgs(legalFlags, shackTaxRate, houseTaxRate, sheriffWage, taxCollectorWage, onlyOwnersCanVote, onlyMalesCanVote, onlyFemalesCanVote, onlyUndeadCanVote, candidateStageValue, votingTotalTurns);
 	}
 	
 	public Boolean isLegalAction(WorldObject performer, WorldObject actionTarget, int[] args, ManagedOperation managedOperation) {
