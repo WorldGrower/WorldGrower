@@ -77,7 +77,7 @@ public class ChooseKnowledgeDialog extends AbstractDialog {
 		SwingUtils.makeTransparant(knowledgeTable, scrollPane);
 		
 		JPanel buttonPane = new JPanel(new BorderLayout());
-		buttonPane.setBounds(5, 520, 585, 50);
+		buttonPane.setBounds(5, 540, 585, 40);
 		buttonPane.setOpaque(false);
 		this.addComponent(buttonPane);
 		
