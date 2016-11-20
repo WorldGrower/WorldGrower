@@ -46,6 +46,8 @@ public class WorldObjectList extends JScrollPane {
 	private void initializeGui(List<WorldObject> worldObjects) {
 		worldObjectList = JListFactory.createJList(worldObjects.toArray(new WorldObject[0]));
 		worldObjectList.setCellRenderer(new ListRenderer());
+		this.setOpaque(false);
+		this.getViewport().setOpaque(false);
 		this.setViewportView(worldObjectList);
 	}
 
@@ -71,7 +73,7 @@ public class WorldObjectList extends JScrollPane {
 	
 	class ListRenderer extends JLabel implements ListCellRenderer<WorldObject> {
 		public ListRenderer() {
-			setOpaque(true);
+			setOpaque(false);
 			setHorizontalAlignment(CENTER);
 			setVerticalAlignment(CENTER);
 		}
@@ -90,9 +92,10 @@ public class WorldObjectList extends JScrollPane {
 			setIcon(new ImageIcon(image));
 			
 			if (isSelected) {
-				setBackground(Color.BLACK);
-			} else {
+				setOpaque(true);
 				setBackground(Color.WHITE);
+			} else {
+				setOpaque(false);
 			}
 			setToolTipText(worldObject.getProperty(Constants.NAME));
 

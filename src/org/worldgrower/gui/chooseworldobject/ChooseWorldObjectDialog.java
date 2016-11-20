@@ -56,11 +56,11 @@ public class ChooseWorldObjectDialog extends AbstractDialog {
 
 	private void initializeGui(Component parent, List<WorldObject> disguiseWorldObjects, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, JFrame parentFrame) {
 		personList = new WorldObjectList(imageInfoReader, disguiseWorldObjects);
-		personList.setBounds(5, 5, 385, 420);
+		personList.setBounds(15, 15, 370, 420);
 		this.addComponent(personList);
 		
 		JPanel buttonPane = new JPanel();
-		buttonPane.setBounds(5, 425, 385, 50);
+		buttonPane.setBounds(5, 440, 385, 50);
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		buttonPane.setOpaque(false);
 		this.addComponent(buttonPane);
