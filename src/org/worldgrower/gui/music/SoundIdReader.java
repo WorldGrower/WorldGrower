@@ -112,6 +112,12 @@ public class SoundIdReader {
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+		
+		try {
+			initialize();
+		} catch (SoundException e) {
+			throw new IllegalStateException(e);
+		}
 	}
 
 	public boolean isEnabled() {

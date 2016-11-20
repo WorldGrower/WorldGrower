@@ -44,30 +44,32 @@ public class Sound {
 	}
 	
 	public void play() {
-		try {
-			AudioInputStream audioStream = AudioSystem.getAudioInputStream(new ByteArrayInputStream(audioFilePath));
-			 
-	        AudioFormat format = audioStream.getFormat();
-	
-	        DataLine.Info info = new DataLine.Info(Clip.class, format);
-	
-	        Clip audioClip = (Clip) AudioSystem.getLine(info);
-	
-	        audioClip.addLineListener(new LineListener() {
-	            public void update(LineEvent myLineEvent) {
-	              if (myLineEvent.getType() == LineEvent.Type.STOP)
-	            	  audioClip.close();
-	            }
-	          });
-        
-	        audioClip.open(audioStream);
-	         
-	        audioClip.start();
-	        audioClip.setFramePosition(0);
-	        audioClip.start();
-
-		} catch(IOException | LineUnavailableException | UnsupportedAudioFileException e) {
-			throw new IllegalStateException(e);
-		}
+		
+			new Thread() {
+				public void run() {
+					try {
+						AudioInputStream audioStream = AudioSystem.getAudioInputStream(new ByteArrayInputStream(audioFilePath));
+						 
+				        AudioFormat format = audioStream.getFormat();
+				
+				        DataLine.Info info = new DataLine.Info(Clip.class, format, 100000);
+				
+				        Clip audioClip = (Clip) AudioSystem.getLine(info);
+				
+				        audioClip.addLineListener(new LineListener() {
+				            public void update(LineEvent myLineEvent) {
+				              if (myLineEvent.getType() == LineEvent.Type.STOP)
+				            	  audioClip.close();
+				            }
+				          });
+			        
+				        audioClip.open(audioStream);
+				        audioClip.start();
+			
+					} catch(IOException | LineUnavailableException | UnsupportedAudioFileException e) {
+						throw new IllegalStateException(e);
+					}
+				}
+			}.start();
 	}
 }
