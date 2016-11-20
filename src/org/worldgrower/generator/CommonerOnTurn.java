@@ -230,6 +230,7 @@ public class CommonerOnTurn implements OnTurn {
 				checkTaxRate(worldObject, world, leader);
 				checkWages(worldObject, world, leader);
 				checkVoting(worldObject, world, leader);
+				checkVotingTurns(worldObject, world, leader);
 			}
 		}
 	}
@@ -276,6 +277,19 @@ public class CommonerOnTurn implements OnTurn {
 		WorldObject villagersOrganization = GroupPropertyUtils.getVillagersOrganization(world);
 		if (!VotingPropertyUtils.canVote(worldObject, villagersOrganization, world)) {
 			RelationshipPropertyUtils.changeRelationshipValue(worldObject, leader, -100, 0, Actions.SET_GOVERNANCE_ACTION, Args.EMPTY, world);
+		}
+	}
+	
+	void checkVotingTurns(WorldObject worldObject, World world, WorldObject leader) {
+		WorldObject villagersOrganization = GroupPropertyUtils.getVillagersOrganization(world);
+		int candidacyTurns = villagersOrganization.getProperty(Constants.VOTING_CANDIDATE_TURNS);
+		int votingTotalTurns = villagersOrganization.getProperty(Constants.VOTING_TOTAL_TURNS);
+		
+		if (candidacyTurns < GroupPropertyUtils.getDefaultCandidacyTurns()) {
+			RelationshipPropertyUtils.changeRelationshipValue(worldObject, leader, -20, 0, Actions.SET_GOVERNANCE_ACTION, Args.EMPTY, world);
+		}
+		if (votingTotalTurns < GroupPropertyUtils.getDefaultVotingTotalTurns()) {
+			RelationshipPropertyUtils.changeRelationshipValue(worldObject, leader, -20, 0, Actions.SET_GOVERNANCE_ACTION, Args.EMPTY, world);
 		}
 	}
 }

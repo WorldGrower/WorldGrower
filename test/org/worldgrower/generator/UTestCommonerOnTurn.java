@@ -251,4 +251,30 @@ public class UTestCommonerOnTurn {
 		assertEquals(-100, commoner.getProperty(Constants.RELATIONSHIPS).getValue(leader));
 		assertEquals(0, leader.getProperty(Constants.RELATIONSHIPS).getValue(commoner));
 	}
+	
+	@Test
+	public void testCheckVotingTurns() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject organization = createVillagersOrganization(world);
+		
+		WorldObject commoner = createCommoner(world, organization);
+		WorldObject leader = createCommoner(world, organization);
+		
+		CommonerOnTurn commonerOnTurn = new CommonerOnTurn(commonerGenerator, organization);
+		commonerOnTurn.checkVotingTurns(commoner, world, leader);
+		assertEquals(0, commoner.getProperty(Constants.RELATIONSHIPS).getValue(leader));
+		assertEquals(0, leader.getProperty(Constants.RELATIONSHIPS).getValue(commoner));
+		
+		organization.setProperty(Constants.VOTING_CANDIDATE_TURNS, 100);
+		commonerOnTurn.checkVotingTurns(commoner, world, leader);
+		assertEquals(-20, commoner.getProperty(Constants.RELATIONSHIPS).getValue(leader));
+		assertEquals(0, leader.getProperty(Constants.RELATIONSHIPS).getValue(commoner));
+		
+		organization.setProperty(Constants.VOTING_CANDIDATE_TURNS, GroupPropertyUtils.getDefaultCandidacyTurns());
+		organization.setProperty(Constants.VOTING_TOTAL_TURNS, GroupPropertyUtils.getDefaultCandidacyTurns() + 100);
+		commonerOnTurn.checkVotingTurns(commoner, world, leader);
+		assertEquals(-40, commoner.getProperty(Constants.RELATIONSHIPS).getValue(leader));
+		assertEquals(0, leader.getProperty(Constants.RELATIONSHIPS).getValue(commoner));
+		
+	}
 }

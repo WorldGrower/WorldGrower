@@ -494,4 +494,12 @@ public class GroupPropertyUtils {
 	public static int getDefaultWage() {
 		return DEFAULT_WAGE;
 	}
+
+	public static int getDefaultCandidacyTurns() {
+		return DEFAULT_VOTING_CANDIDATE_TURNS;
+	}
+
+	public static int getDefaultVotingTotalTurns() {
+		return DEFAULT_VOTING_TOTAL_TURNS;
+	}
 }
