@@ -42,12 +42,35 @@ public class UTestReadItemInInventoryAction {
 		performer.setProperty(Constants.KNOWLEDGE_MAP, new KnowledgeMap());
 		
 		List<Knowledge> knowledgeList = Arrays.asList(new PropertyKnowledge(1, Constants.PROFESSION, Professions.FARMER_PROFESSION));
-		int[] knowledgeIds = { 0 };
+		int[] knowledgeIds = { knowledgeList.get(0).getId() };
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.generateNewsPaper(knowledgeList, knowledgeIds, world));
 		
 		Actions.READ_ITEM_IN_INVENTORY_ACTION.execute(performer, performer, new int[] {0}, world);
 		
 		assertEquals(true, performer.getProperty(Constants.KNOWLEDGE_MAP).hasKnowledge(1));
+		assertEquals("name is a farmer\n", performer.getProperty(Constants.INVENTORY).get(0).getProperty(Constants.TEXT));
+	}
+	
+	@Test
+	public void testExecuteNewspaper() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = createPerformer(1);
+		world.addWorldObject(performer);
+		performer.setProperty(Constants.KNOWLEDGE_MAP, new KnowledgeMap());
+		
+		// increase knowledge Id
+		new PropertyKnowledge(1, Constants.PROFESSION, Professions.FARMER_PROFESSION);
+		new PropertyKnowledge(1, Constants.PROFESSION, Professions.FARMER_PROFESSION);
+		new PropertyKnowledge(1, Constants.PROFESSION, Professions.FARMER_PROFESSION);
+		
+		List<Knowledge> knowledgeList = Arrays.asList(new PropertyKnowledge(1, Constants.PROFESSION, Professions.FARMER_PROFESSION));
+		int[] knowledgeIds = { knowledgeList.get(0).getId() };
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.generateNewsPaper(knowledgeList, knowledgeIds, world));
+		
+		Actions.READ_ITEM_IN_INVENTORY_ACTION.execute(performer, performer, new int[] {0}, world);
+		
+		assertEquals(true, performer.getProperty(Constants.KNOWLEDGE_MAP).hasKnowledge(1));
+		assertEquals("name is a farmer\n", performer.getProperty(Constants.INVENTORY).get(0).getProperty(Constants.TEXT));
 	}
 	
 	private WorldObject createPerformer(int id) {

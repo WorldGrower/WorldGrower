@@ -780,7 +780,7 @@ public enum Item {
 	public static WorldObject generateNewsPaper(List<Knowledge> knowledgeList, int[] knowledgeIndices, World world) {
 		WorldObject newsPaper = Item.NEWS_PAPER.generate(1f);
 		String newsPaperText = generateNewsPaperText(knowledgeList, knowledgeIndices, world);
-		newsPaper.setProperty(Constants.TEXT, newsPaperText.toString());
+		newsPaper.setProperty(Constants.TEXT, newsPaperText);
 		newsPaper.setProperty(Constants.KNOWLEDGE_MAP, new KnowledgeMap(knowledgeList));
 		return newsPaper;
 	}
@@ -790,8 +790,8 @@ public enum Item {
 		KnowledgeToDescriptionMapper mapper = new KnowledgeToDescriptionMapper();
 		List<Integer> knowledgeInts = IntStream.of(knowledgeIndices).boxed().collect(Collectors.toList());
 		for(int i=0; i<knowledgeList.size(); i++) {
-			if (knowledgeInts.contains(i)) {
-				Knowledge knowledge = knowledgeList.get(i);
+			Knowledge knowledge = knowledgeList.get(i);
+			if (knowledgeInts.contains(knowledge.getId())) {
 				builder.append(mapper.getStatementDescription(knowledge, world)).append("\n");
 			}
 		}
