@@ -39,6 +39,6 @@ public class UTestItem {
 		int id2 = knowledgeMap.addKnowledge(performer, Constants.PROFESSION, Professions.FARMER_PROFESSION);
 		
 		WorldObject newsPaper = Item.generateNewsPaper(knowledgeMap.getSortedKnowledge(performer, world), new int[] { id1, id2 }, world);
-		assertEquals("performer worships Ares\nperformer is a farmer\n", newsPaper.getProperty(Constants.TEXT));
+		assertEquals("performer worships Ares. performer is a farmer. ", newsPaper.getProperty(Constants.TEXT));
 	}
 }

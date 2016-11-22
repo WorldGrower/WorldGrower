@@ -48,7 +48,7 @@ public class UTestReadItemInInventoryAction {
 		Actions.READ_ITEM_IN_INVENTORY_ACTION.execute(performer, performer, new int[] {0}, world);
 		
 		assertEquals(true, performer.getProperty(Constants.KNOWLEDGE_MAP).hasKnowledge(1));
-		assertEquals("name is a farmer\n", performer.getProperty(Constants.INVENTORY).get(0).getProperty(Constants.TEXT));
+		assertEquals("name is a farmer. ", performer.getProperty(Constants.INVENTORY).get(0).getProperty(Constants.TEXT));
 	}
 	
 	@Test
@@ -70,7 +70,7 @@ public class UTestReadItemInInventoryAction {
 		Actions.READ_ITEM_IN_INVENTORY_ACTION.execute(performer, performer, new int[] {0}, world);
 		
 		assertEquals(true, performer.getProperty(Constants.KNOWLEDGE_MAP).hasKnowledge(1));
-		assertEquals("name is a farmer\n", performer.getProperty(Constants.INVENTORY).get(0).getProperty(Constants.TEXT));
+		assertEquals("name is a farmer. ", performer.getProperty(Constants.INVENTORY).get(0).getProperty(Constants.TEXT));
 	}
 	
 	private WorldObject createPerformer(int id) {

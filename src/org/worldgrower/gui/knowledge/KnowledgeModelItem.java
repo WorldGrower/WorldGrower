@@ -3,15 +3,20 @@ package org.worldgrower.gui.knowledge;
 import org.worldgrower.gui.ImageIds;
 
 public class KnowledgeModelItem {
+	private final int id;
 	private final String knowledgeDescription;
 	private final ImageIds imageId;
 	private Boolean selected;
 	
-	public KnowledgeModelItem(String knowledgeDescription, ImageIds imageId, Boolean selected) {
+	public KnowledgeModelItem(int id, String knowledgeDescription, ImageIds imageId, Boolean selected) {
 		super();
+		this.id = id;
 		this.knowledgeDescription = knowledgeDescription;
 		this.imageId = imageId;
 		this.selected = selected;
+	}
+	public int getId() {
+		return id;
 	}
 	public Boolean getSelected() {
 		return selected;

@@ -48,17 +48,17 @@ public class ChooseKnowledgeDialog extends AbstractDialog {
 	
 	private ActionContainingArgs guiAction;
 
-	public ChooseKnowledgeDialog(List<String> knowledgeDescriptions, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, List<ImageIds> imageIds, Component parent, ActionContainingArgs guiAction, JFrame parentFrame) {
+	public ChooseKnowledgeDialog(List<KnowledgeDescription> knowledgeDescriptions, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, Component parent, ActionContainingArgs guiAction, JFrame parentFrame) {
 		super(600, 600, imageInfoReader);
-		initializeGui(parent, knowledgeDescriptions, imageInfoReader, soundIdReader, imageIds, parentFrame);
+		initializeGui(parent, knowledgeDescriptions, imageInfoReader, soundIdReader, parentFrame);
 		
 		this.guiAction = guiAction;
 		
 		handleActions();
 	}
 
-	private void initializeGui(Component parent, List<String> knowledgeDescriptions, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, List<ImageIds> imageIds, JFrame parentFrame) {
-		knowledgeTable = JTableFactory.createJTable(new KnowledgeModel(knowledgeDescriptions, imageIds));
+	private void initializeGui(Component parent, List<KnowledgeDescription> knowledgeDescriptions, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, JFrame parentFrame) {
+		knowledgeTable = JTableFactory.createJTable(new KnowledgeModel(knowledgeDescriptions));
 		knowledgeTable.setDefaultRenderer(ImageIds.class, new ImageCellRenderer(imageInfoReader));
 		knowledgeTable.setDefaultRenderer(String.class, new DefaultTableCellRenderer());
 		knowledgeTable.setRowHeight(50);
@@ -93,11 +93,11 @@ public class ChooseKnowledgeDialog extends AbstractDialog {
 
 		private final List<KnowledgeModelItem> knowledgeItems;
 		
-		public KnowledgeModel(List<String> knowledgeDescriptions, List<ImageIds> imageIds) {
+		public KnowledgeModel(List<KnowledgeDescription> knowledgeDescriptions) {
 			super();
 			this.knowledgeItems = new ArrayList<>();
-			for(int i=0; i<knowledgeDescriptions.size(); i++) {
-				this.knowledgeItems.add(new KnowledgeModelItem(knowledgeDescriptions.get(i), imageIds.get(i), false));
+			for(KnowledgeDescription knowledgeDescription : knowledgeDescriptions) {
+				this.knowledgeItems.add(new KnowledgeModelItem(knowledgeDescription.getId(), knowledgeDescription.getDescription(), knowledgeDescription.getImageId(), false));
 			}
 		}
 
@@ -153,8 +153,17 @@ public class ChooseKnowledgeDialog extends AbstractDialog {
 			}
 		}
 
-		public List<Boolean> getSelected() {
-			return knowledgeItems.stream().map(k -> k.getSelected()).collect(Collectors.toList());
+		public int[] getArgs() {
+			List<KnowledgeModelItem> selectedItems = knowledgeItems.stream().filter(k -> k.getSelected()).collect(Collectors.toList());
+			
+			int[] args = new int[selectedItems.size()];
+			for(int i=0; i<selectedItems.size(); i++) {
+				KnowledgeModelItem knowledgeModelItem = selectedItems.get(i);
+				args[i] = knowledgeModelItem.getId();
+			}
+			
+			
+			return args;
 		}
 	}
 
@@ -169,12 +178,7 @@ public class ChooseKnowledgeDialog extends AbstractDialog {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				KnowledgeModel knowledgeModel = (KnowledgeModel) knowledgeTable.getModel();
-				List<Boolean> selected = knowledgeModel.getSelected();
-				
-				int[] args = new int[selected.size()];
-				for(int i=0; i<selected.size(); i++) {
-					args[i] = selected.get(i) ? 1 : 0;
-				}
+				int[] args = knowledgeModel.getArgs();
 				
 				guiAction.setArgs(args);
 				

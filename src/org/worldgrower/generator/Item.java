@@ -792,7 +792,7 @@ public enum Item {
 		for(int i=0; i<knowledgeList.size(); i++) {
 			Knowledge knowledge = knowledgeList.get(i);
 			if (knowledgeInts.contains(knowledge.getId())) {
-				builder.append(mapper.getStatementDescription(knowledge, world)).append("\n");
+				builder.append(mapper.getStatementDescription(knowledge, world)).append(". ");
 			}
 		}
 		return builder.toString();

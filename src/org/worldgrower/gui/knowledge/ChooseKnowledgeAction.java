@@ -57,18 +57,20 @@ public class ChooseKnowledgeAction extends AbstractAction {
 	public void actionPerformed(ActionEvent e) {
 		
 		List<Knowledge> knowledgeList = playerCharacter.getProperty(Constants.KNOWLEDGE_MAP).getSortedKnowledge(playerCharacter, world);
-		List<String> knowledgeDescriptions = new ArrayList<>();
+		List<KnowledgeDescription> knowledgeDescriptions = new ArrayList<>();
 		List<ImageIds> imageIds = new ArrayList<>();
 		
 		KnowledgeToDescriptionMapper mapper = new KnowledgeToDescriptionMapper();
 		for(Knowledge knowledge : knowledgeList) {
-			knowledgeDescriptions.add(mapper.getStatementDescription(knowledge, world));
+			int id = knowledge.getId();
+			String description = mapper.getStatementDescription(knowledge, world);
 			int subjectId = knowledge.getSubjectId();
 			WorldObject subject = world.findWorldObjectById(subjectId);
-			imageIds.add(subject.getProperty(Constants.IMAGE_ID));
+			ImageIds imageId = subject.getProperty(Constants.IMAGE_ID);
+			knowledgeDescriptions.add(new KnowledgeDescription(id, description, imageId));
 		}
 		
-		ChooseKnowledgeDialog dialog = new ChooseKnowledgeDialog(knowledgeDescriptions, imageInfoReader, soundIdReader, imageIds, parent, guiAction, parentFrame);
+		ChooseKnowledgeDialog dialog = new ChooseKnowledgeDialog(knowledgeDescriptions, imageInfoReader, soundIdReader, parent, guiAction, parentFrame);
 		dialog.showMe();
 	}
 }

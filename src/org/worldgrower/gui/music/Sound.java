@@ -21,12 +21,22 @@ import org.worldgrower.gui.start.Game;
 
 public class Sound {
 
+	private static final boolean CLOSE_AFTER_PLAYING = true;
+	private static final boolean DONT_CLOSE_AFTER_PLAYING = false;
+	
 	private final byte[] audioFilePath;
+	private final Clip preLoadedClip;
 	
 	public Sound(String path) {
 		try {
 			audioFilePath = readFully(new BufferedInputStream(new GZIPInputStream(Game.class.getResourceAsStream(path))));
-		} catch (IOException e) {
+			if (isNumberOfLinesUnlimited(audioFilePath)) {
+				preLoadedClip = openClip(DONT_CLOSE_AFTER_PLAYING);
+			} else {
+				preLoadedClip = null;
+			}
+			
+		} catch (IOException | UnsupportedAudioFileException | LineUnavailableException e) {
 			throw new IllegalStateException(e);
 		}
 	}
@@ -43,33 +53,56 @@ public class Sound {
 	    return output.toByteArray();
 	}
 	
-	public void play() {
+	private static boolean isNumberOfLinesUnlimited(byte[] audioFilePath) {
+		AudioInputStream audioStream;
+		try {
+			audioStream = AudioSystem.getAudioInputStream(new ByteArrayInputStream(audioFilePath));
+			DataLine.Info info = getLineInfo(audioStream);
+			return AudioSystem.getMixer(null).getMaxLines(info) == AudioSystem.NOT_SPECIFIED;
+		} catch (UnsupportedAudioFileException | IOException e) {
+			throw new IllegalStateException(e);
+		}
 		
-			new Thread() {
-				public void run() {
-					try {
-						AudioInputStream audioStream = AudioSystem.getAudioInputStream(new ByteArrayInputStream(audioFilePath));
-						 
-				        AudioFormat format = audioStream.getFormat();
-				
-				        DataLine.Info info = new DataLine.Info(Clip.class, format, 100000);
-				
-				        Clip audioClip = (Clip) AudioSystem.getLine(info);
-				
-				        audioClip.addLineListener(new LineListener() {
-				            public void update(LineEvent myLineEvent) {
-				              if (myLineEvent.getType() == LineEvent.Type.STOP)
-				            	  audioClip.close();
-				            }
-				          });
-			        
-				        audioClip.open(audioStream);
-				        audioClip.start();
-			
-					} catch(IOException | LineUnavailableException | UnsupportedAudioFileException e) {
-						throw new IllegalStateException(e);
-					}
+	}
+	
+	public void play() {
+		try {
+			final Clip clipToPlay;
+			if (preLoadedClip != null) {
+				clipToPlay = preLoadedClip;
+				clipToPlay.setFramePosition(0);
+			} else {
+				clipToPlay = openClip(CLOSE_AFTER_PLAYING);
+			}
+			clipToPlay.start();
+
+		} catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
+			throw new IllegalStateException(e);
+		}
+	}
+
+	private Clip openClip(boolean closeAfterPlaying) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+		AudioInputStream audioStream = AudioSystem.getAudioInputStream(new ByteArrayInputStream(audioFilePath));
+		DataLine.Info info = getLineInfo(audioStream);
+		Clip audioClip = (Clip) AudioSystem.getLine(info);
+
+		if (closeAfterPlaying) {
+			audioClip.addLineListener(new LineListener() {
+				@Override
+				public void update(LineEvent myLineEvent) {
+					if (myLineEvent.getType() == LineEvent.Type.STOP)
+						audioClip.close();
 				}
-			}.start();
+			});
+		}
+
+		audioClip.open(audioStream);
+		return audioClip;
+	}
+
+	private static DataLine.Info getLineInfo(AudioInputStream audioStream) {
+		AudioFormat format = audioStream.getFormat();
+		DataLine.Info info = new DataLine.Info(Clip.class, format, 100000);
+		return info;
 	}
 }
