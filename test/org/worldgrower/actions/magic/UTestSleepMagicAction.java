@@ -45,6 +45,19 @@ public class UTestSleepMagicAction {
 	}
 	
 	@Test
+	public void testExecuteWithAphroditeBoon() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		
+		Conditions.add(performer, Condition.APHRODITE_BOON_CONDITION, 8, world);
+		
+		Actions.SLEEP_MAGIC_SPELL_ACTION.execute(performer, target, Args.EMPTY, world);
+		
+		assertEquals(true, target.getProperty(Constants.CONDITIONS).hasCondition(Condition.SLEEP_CONDITION));
+	}
+	
+	@Test
 	public void testIsValidTarget() {
 		World world = new WorldImpl(2, 2, null, null);
 		WorldObject performer = createPerformer(2);

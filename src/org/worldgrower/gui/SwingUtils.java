@@ -1,5 +1,6 @@
 package org.worldgrower.gui;
 
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -9,13 +10,16 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JRootPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.KeyStroke;
+import javax.swing.plaf.basic.BasicComboPopup;
 import javax.swing.table.DefaultTableCellRenderer;
 
 public class SwingUtils {
@@ -71,5 +75,12 @@ public class SwingUtils {
 	public static void centerFrame(JFrame frame) {
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
+	}
+	
+	public static void setComboBoxSelectionColor(JComboBox comboBox, Color color) {
+		Object child = comboBox.getAccessibleContext().getAccessibleChild(0);
+		BasicComboPopup popup = (BasicComboPopup)child;
+		JList list = popup.getList();
+		list.setSelectionForeground(color);
 	}
 }

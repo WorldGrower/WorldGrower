@@ -14,6 +14,7 @@
  *******************************************************************************/
 package org.worldgrower.gui.conversation;
 
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,18 +30,21 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.KeyStroke;
+import javax.swing.SwingConstants;
 
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.conversation.Response;
 import org.worldgrower.gui.AbstractDialog;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
+import org.worldgrower.gui.SwingUtils;
 import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.util.DialogUtils;
 import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JComboBoxFactory;
 import org.worldgrower.gui.util.JLabelFactory;
 import org.worldgrower.gui.util.JProgressBarFactory;
+import org.worldgrower.gui.util.TextComboBoxRenderer;
 
 public class RespondToQuestionDialog extends AbstractDialog {
 
@@ -58,14 +62,14 @@ public class RespondToQuestionDialog extends AbstractDialog {
 	}
 
 	public RespondToQuestionDialog(int id, int conversationId, int historyItemId, int additionalValue, int additionalValue2, Questioner questioner, Conversations conversations, ImageIds imageIdPerformer, ImageIds imageIdTarget, String performerName, String targetName, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, JFrame parentFrame) {
-		super(560, 300, imageInfoReader);
+		super(600, 300, imageInfoReader);
 		this.imageInfoReader = imageInfoReader;
 		
 		KeyStroke stroke = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
         rootPane.registerKeyboardAction(new CloseDialogAction(), stroke, JComponent.WHEN_IN_FOCUSED_WINDOW);
 			
 		JPanel buttonPane = new JPanel();
-		buttonPane.setBounds(430, 205, 112, 48);
+		buttonPane.setBounds(470, 205, 112, 48);
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		buttonPane.setOpaque(false);
 		addComponent(buttonPane);
@@ -85,7 +89,11 @@ public class RespondToQuestionDialog extends AbstractDialog {
 		addComponent(targetLabel);
 		
 		comboBoxResponse = createResponseComboBox(id, conversationId, historyItemId, conversations, questioner, additionalValue, additionalValue2);
-		comboBoxResponse.setBounds(44, 86, 475, 80);
+		comboBoxResponse.setBounds(44, 86, 515, 55);
+		comboBoxResponse.setForeground(Color.WHITE);
+		SwingUtils.setComboBoxSelectionColor(comboBoxResponse, Color.WHITE);
+		
+		comboBoxResponse.setRenderer(new TextComboBoxRenderer<Response>(SwingConstants.LEFT));
 		addComponent(comboBoxResponse);
 		
 		JLabel performerLabel = JLabelFactory.createJLabel(imageInfoReader.getImage(imageIdPerformer, null));
@@ -94,7 +102,7 @@ public class RespondToQuestionDialog extends AbstractDialog {
 		addComponent(performerLabel);
 		
 		label = JLabelFactory.createJLabel("<html>"+ questioner.getQuestionPhrase() +"</html>");
-		label.setBounds(44, 27, 475, 46);
+		label.setBounds(44, 27, 515, 46);
 		addComponent(label);
 		
 		JLabel relationshipLabel = JLabelFactory.createJLabel("Relationship:");
@@ -103,7 +111,7 @@ public class RespondToQuestionDialog extends AbstractDialog {
 		addComponent(relationshipLabel);
 		
 		relationshipProgresBar = JProgressBarFactory.createJProgressBar(-1000, 1000);
-		relationshipProgresBar.setBounds(109, 210, 300, 30);
+		relationshipProgresBar.setBounds(109, 210, 340, 30);
 		relationshipProgresBar.setValue(questioner.getRelationshipValue());
 		relationshipProgresBar.setToolTipText("Relationship with " + performerName);
 		addComponent(relationshipProgresBar);
