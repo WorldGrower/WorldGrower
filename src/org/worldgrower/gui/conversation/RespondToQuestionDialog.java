@@ -14,7 +14,6 @@
  *******************************************************************************/
 package org.worldgrower.gui.conversation;
 
-import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,6 +34,7 @@ import javax.swing.SwingConstants;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.conversation.Response;
 import org.worldgrower.gui.AbstractDialog;
+import org.worldgrower.gui.ColorPalette;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.SwingUtils;
@@ -90,8 +90,8 @@ public class RespondToQuestionDialog extends AbstractDialog {
 		
 		comboBoxResponse = createResponseComboBox(id, conversationId, historyItemId, conversations, questioner, additionalValue, additionalValue2);
 		comboBoxResponse.setBounds(44, 86, 515, 55);
-		comboBoxResponse.setForeground(Color.WHITE);
-		SwingUtils.setComboBoxSelectionColor(comboBoxResponse, Color.WHITE);
+		comboBoxResponse.setForeground(ColorPalette.FOREGROUND_COLOR);
+		SwingUtils.setComboBoxSelectionColor(comboBoxResponse, ColorPalette.FOREGROUND_COLOR);
 		
 		comboBoxResponse.setRenderer(new TextComboBoxRenderer<Response>(SwingConstants.LEFT));
 		addComponent(comboBoxResponse);
