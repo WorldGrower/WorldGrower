@@ -297,7 +297,8 @@ public class Game {
     			
 				worldPanel.movePlayerCharacter(args, guiMoveAction, guiAfterMoveAction);
         	} else {
-        		throw actionCannotBeExecuted(action, args);
+        		// only used for goto path finding. If action cannot be executed, just silently ignore
+        		// throw actionCannotBeExecuted(action, args);
         	}
     	}
 	}
