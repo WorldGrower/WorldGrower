@@ -28,7 +28,8 @@ public class TextComboBoxRenderer<T> extends JLabel implements ListCellRenderer<
 		setVerticalAlignment(CENTER);
 	}
 
-	public Component getListCellRendererComponent(JList list, T value, int index, boolean isSelected, boolean cellHasFocus) {
+	@Override
+	public Component getListCellRendererComponent(JList<? extends T> list, T value, int index, boolean isSelected, boolean cellHasFocus) {
 		setText(value.toString());
 		setForeground(list.getForeground());
 		return this;
