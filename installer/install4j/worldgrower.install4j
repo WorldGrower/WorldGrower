@@ -37,7 +37,7 @@
           <versionLine x="20" y="40" text="version ${compiler:sys.version}" fontSize="8" fontColor="0,0,0" bold="false" />
         </text>
       </splashScreen>
-      <java mainClass="org.worldgrower.gui.start.StartScreen" vmParameters="-Dsun.java2d.d3d=false -Dsun.java2d.opengl=true" arguments="" allowVMPassthroughParameters="true" preferredVM="" bundleRuntime="true">
+      <java mainClass="org.worldgrower.gui.start.StartScreen" vmParameters="" arguments="" allowVMPassthroughParameters="true" preferredVM="" bundleRuntime="true">
         <classPath>
           <archive location="worldgrower.jar" failOnError="false" />
         </classPath>

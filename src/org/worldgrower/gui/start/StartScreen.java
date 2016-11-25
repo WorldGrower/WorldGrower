@@ -89,6 +89,7 @@ public class StartScreen implements SaveGameHandler {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		setSwingSystemProperties();
 		ExceptionHandler.registerExceptionHandler();
 		
 		UIManager.put("Tree.rendererFillBackground", false);
@@ -115,6 +116,11 @@ public class StartScreen implements SaveGameHandler {
 		});
 	}
 	
+	private static void setSwingSystemProperties() {
+		System.setProperty("sun.java2d.d3d", "false");
+		System.setProperty("sun.java2d.opengl", "true");
+	}
+
 	private static void loadImages() {
 		try {
 			imageInfoReader = new ImageInfoReader();
