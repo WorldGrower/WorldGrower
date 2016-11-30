@@ -292,6 +292,7 @@ public class Actions {
 	public static final ProtectionFromLightningAction PROTECTION_FROM_LIGHTNING_ACTION = new ProtectionFromLightningAction();
 	public static final FreedomOfMovementAction FREEDOM_OF_MOVEMENT_ACTION = new FreedomOfMovementAction();
 	public static final BrewHealingPotionAction BREW_HEALING_POTION_ACTION = new BrewHealingPotionAction();
+	public static final BrewCurePoisonPotionAction BREW_CURE_POISON_POTION_ACTION = new BrewCurePoisonPotionAction();
 	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 
@@ -499,7 +500,8 @@ public class Actions {
 		OPEN_LOCK_ACTION,
 		CONSTRUCT_BUTCHER_KNIFE_ACTION,
 		FIRE_PUBLIC_EMPLOYEE_ACTION,
-		BREW_HEALING_POTION_ACTION
+		BREW_HEALING_POTION_ACTION,
+		BREW_CURE_POISON_POTION_ACTION
 	));
 	
 	static {

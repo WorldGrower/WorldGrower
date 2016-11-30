@@ -76,6 +76,10 @@ public class WaterPropertyUtils {
 			int hitPointsRestored = waterTarget.getProperty(Constants.HIT_POINTS_HEALED);
 			HitPointPropertyUtils.incrementHitPoints(performer, hitPointsRestored);
 		}
+		
+		if (waterTarget.hasProperty(Constants.CURE_POISON) && waterTarget.getProperty(Constants.CURE_POISON)) {
+			Conditions.remove(performer, Condition.POISONED_CONDITION, world);
+		}
 	}
 
 	private static boolean isWorldObject(WorldObject waterTarget, World world) {
