@@ -105,7 +105,7 @@ public class WorldObjectContainer implements Serializable {
 		return 0;
 	}
 	
-	public<T> int getQuantityFor(ManagedProperty<T> propertyKey1, ManagedProperty<T> propertyKey2, Function<WorldObject, Boolean> testFunction) {
+	public int getQuantityFor(ManagedProperty<?> propertyKey1, ManagedProperty<?> propertyKey2, Function<WorldObject, Boolean> testFunction) {
 		for(WorldObject worldObject : worldObjects) {
 			if (worldObject != null) {
 				if (worldObject.hasProperty(propertyKey1) && worldObject.hasProperty(propertyKey2)) {

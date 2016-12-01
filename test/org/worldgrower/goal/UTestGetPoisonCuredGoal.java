@@ -28,6 +28,7 @@ import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.generator.CommonerGenerator;
+import org.worldgrower.generator.Item;
 import org.worldgrower.gui.CommonerImageIds;
 
 public class UTestGetPoisonCuredGoal {
@@ -84,6 +85,20 @@ public class UTestGetPoisonCuredGoal {
 		assertEquals(performer, goal.calculateGoal(performer, world).getPerformer());
 		assertEquals(target, goal.calculateGoal(performer, world).getTarget());
 		AssertUtils.assertConversation(goal.calculateGoal(performer, world), Conversations.CURE_POISON_CONVERSATION);
+	}
+	
+	@Test
+	public void testCalculateGoalPerformerHasCurePoisonPotion() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		WorldObject performer = createCommoner(world, organization);
+		Conditions.add(performer, Condition.POISONED_CONDITION, 8, world);
+		
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.CURE_POISON_POTION.generate(1f));
+		
+		assertEquals(Actions.DRINK_FROM_INVENTORY_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+		assertEquals(performer, goal.calculateGoal(performer, world).getPerformer());
+		assertEquals(performer, goal.calculateGoal(performer, world).getTarget());
 	}
 	
 	@Test

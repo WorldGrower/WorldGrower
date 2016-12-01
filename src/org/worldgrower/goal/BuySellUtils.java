@@ -32,16 +32,16 @@ import org.worldgrower.profession.Professions;
 
 public class BuySellUtils {
 
-	public static List<WorldObject> findBuyTargets(WorldObject performer, IntProperty property, int quantity, World world) {
+	public static List<WorldObject> findBuyTargets(WorldObject performer, ManagedProperty<?> property, int quantity, World world) {
 		List<WorldObject> targets = GoalUtils.findNearestTargetsByProperty(performer, Actions.BUY_ACTION, Constants.STRENGTH, w -> isBuyTarget(performer, property, quantity, w), world);
 		return targets;
 	}
 
-	private static boolean isBuyTarget(WorldObject performer, IntProperty property, int quantity, WorldObject w) {
+	private static boolean isBuyTarget(WorldObject performer, ManagedProperty<?> property, int quantity, WorldObject w) {
 		return targetHasSufficientQuantity(property, quantity, w) && buyerCanPay(performer, w, property, quantity) && !GroupPropertyUtils.isWorldObjectPotentialEnemy(performer, w);
 	}
 
-	private static boolean targetHasSufficientQuantity(IntProperty property, int quantity, WorldObject w) {
+	private static boolean targetHasSufficientQuantity(ManagedProperty<?> property, int quantity, WorldObject w) {
 		return w.getProperty(Constants.INVENTORY).getQuantityFor(property, Constants.PRICE, inventoryItem -> inventoryItem.getProperty(Constants.SELLABLE)) >= quantity;
 	}
 	
@@ -181,7 +181,7 @@ public class BuySellUtils {
 		return target.getProperty(Constants.INVENTORY).getIndexFor(Constants.ITEM_ID, item, inventoryItem -> isInventoryItemSellable(inventoryItem));
 	}
 	
-	public static OperationInfo getBuyOperationInfo(WorldObject performer, IntProperty propertyToBuy, int quantity, World world) {
+	public static OperationInfo getBuyOperationInfo(WorldObject performer, ManagedProperty<?> propertyToBuy, int quantity, World world) {
 		List<WorldObject> targets = findBuyTargets(performer, propertyToBuy, quantity, world);
 		if (targets.size() > 0) {
 			WorldObject target = targets.get(0);
