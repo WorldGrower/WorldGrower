@@ -24,6 +24,8 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.KnowledgeMap;
 import org.worldgrower.attribute.Skill;
+import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.Conditions;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
 
@@ -59,5 +61,17 @@ public class UTestWaterPropertyUtils {
 		
 		WaterPropertyUtils.drink(performer, waterTarget, world);
 		assertEquals(14 * Item.COMBAT_MULTIPLIER, performer.getProperty(Constants.HIT_POINTS).intValue());
+	}
+	
+	@Test
+	public void testDrinkCurePoisonPotion() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(0, 0, 1, 1, Constants.CONDITIONS, new Conditions(), 2);
+		WorldObject waterTarget = Item.CURE_POISON_POTION.generate(1f);
+		
+		Conditions.add(performer, Condition.POISONED_CONDITION, 8, world);
+		
+		WaterPropertyUtils.drink(performer, waterTarget, world);
+		assertEquals(false, performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.POISONED_CONDITION));
 	}
 }

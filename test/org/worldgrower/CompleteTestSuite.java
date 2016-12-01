@@ -755,7 +755,8 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestFreedomOfMovementAction.class,
 	UTestProtectionFromFireAction.class,
 	UTestBrewHealingPotionAction.class,
-	UTestCreateHealingPotionGoal.class
+	UTestCreateHealingPotionGoal.class,
+	UTestBrewCurePoisonPotionAction.class
 })
 public class CompleteTestSuite {
 }
