@@ -306,6 +306,7 @@ public class Constants {
 	public static final IntProperty VOTING_CANDIDATE_TURNS = new IntProperty("votingCandidateTurns", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty VOTING_TOTAL_TURNS = new IntProperty("votingTotalTurns", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final BooleanProperty CURE_POISON = new BooleanProperty("curePoison", NOT_NULLABLE, ALL_PROPERTIES);
+	public static final BooleanProperty CURE_DISEASE = new BooleanProperty("cureDisease", NOT_NULLABLE, ALL_PROPERTIES);
 	
 	//special property not used in WorldObject
 	public static final IntProperty DISTANCE = new IntProperty("distance", 0, null, NOT_NULLABLE, ALL_PROPERTIES);

@@ -74,4 +74,16 @@ public class UTestWaterPropertyUtils {
 		WaterPropertyUtils.drink(performer, waterTarget, world);
 		assertEquals(false, performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.POISONED_CONDITION));
 	}
+	
+	@Test
+	public void testDrinkCureDiseasePotion() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(0, 0, 1, 1, Constants.CONDITIONS, new Conditions(), 2);
+		WorldObject waterTarget = Item.CURE_DISEASE_POTION.generate(1f);
+		
+		Conditions.add(performer, Condition.ATAXIA_CONDITION, 8, world);
+		
+		WaterPropertyUtils.drink(performer, waterTarget, world);
+		assertEquals(false, performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.ATAXIA_CONDITION));
+	}
 }

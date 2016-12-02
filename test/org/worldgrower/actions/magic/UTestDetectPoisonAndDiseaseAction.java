@@ -91,12 +91,13 @@ public class UTestDetectPoisonAndDiseaseAction {
 		
 		Conditions.add(target, Condition.POISONED_CONDITION, 8, world);
 		Conditions.add(target, Condition.VAMPIRE_BITE_CONDITION, 8, world);
+		Conditions.add(target, Condition.ATAXIA_CONDITION, 8, world);
 		WorldListener listener = new WorldListener();
 		world.addListener(listener);
 		
 		Actions.DETECT_POISON_AND_DISEASE_ACTION.execute(performer, target, Args.EMPTY, world);
 		
-		assertEquals("target has the following conditions: poisoned, porphyric hemophilia", listener.getMessage());
+		assertEquals("target has the following conditions: poisoned, porphyric hemophilia, ataxia", listener.getMessage());
 	}
 	
 	@Test

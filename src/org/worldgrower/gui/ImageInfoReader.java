@@ -632,6 +632,9 @@ public class ImageInfoReader {
         
         add(ImageIds.CURE_POISON_POTION, sprites420.getSubImage(2, 2, 1, 1));
         createAnimation(ImageIds.CURE_POISON_POTION_ANIMATION, ImageIds.CURE_POISON_POTION, 10);
+        add(ImageIds.CURE_DISEASE_POTION, sprites420.getSubImage(6, 2, 1, 1));
+        createAnimation(ImageIds.CURE_DISEASE_POTION_ANIMATION, ImageIds.CURE_DISEASE_POTION, 10);
+
     }
     
     private void createAnimation(ImageIds animationImageId, ImageIds imageId, int numberOfFrames) {

@@ -99,7 +99,8 @@ public enum Item {
 	LOCKPICK(ItemType.TOOL),
 	BUTCHER_KNIFE(ItemType.TOOL),
 	HEALING_POTION(ItemType.DRINK),
-	CURE_POISON_POTION(ItemType.DRINK)
+	CURE_POISON_POTION(ItemType.DRINK),
+	CURE_DISEASE_POTION(ItemType.DRINK)
 	;
 
 	public static final int COMBAT_MULTIPLIER = 10;
@@ -693,6 +694,17 @@ public enum Item {
 			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 			properties.put(Constants.NAME, "cure poison potion");
 			properties.put(Constants.CURE_POISON, Boolean.TRUE);
+			properties.put(Constants.WATER, (int) (10 * skillBonus));
+			properties.put(Constants.IMAGE_ID, ImageIds.CURE_POISON_POTION);
+			properties.put(Constants.PRICE, 1);
+			properties.put(Constants.SELLABLE, false);
+			return new WorldObjectImpl(properties);
+		});
+		
+		addItem(Item.CURE_DISEASE_POTION, skillBonus -> {
+			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+			properties.put(Constants.NAME, "cure disease potion");
+			properties.put(Constants.CURE_DISEASE, Boolean.TRUE);
 			properties.put(Constants.WATER, (int) (10 * skillBonus));
 			properties.put(Constants.IMAGE_ID, ImageIds.CURE_POISON_POTION);
 			properties.put(Constants.PRICE, 1);

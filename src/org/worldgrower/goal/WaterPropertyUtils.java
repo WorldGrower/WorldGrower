@@ -80,6 +80,10 @@ public class WaterPropertyUtils {
 		if (waterTarget.hasProperty(Constants.CURE_POISON) && waterTarget.getProperty(Constants.CURE_POISON)) {
 			Conditions.remove(performer, Condition.POISONED_CONDITION, world);
 		}
+		
+		if (waterTarget.hasProperty(Constants.CURE_DISEASE) && waterTarget.getProperty(Constants.CURE_DISEASE)) {
+			performer.getProperty(Constants.CONDITIONS).removeAllDiseases(performer, world.getWorldStateChangedListeners());
+		}
 	}
 
 	private static boolean isWorldObject(WorldObject waterTarget, World world) {
