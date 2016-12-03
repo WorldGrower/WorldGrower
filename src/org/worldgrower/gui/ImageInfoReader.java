@@ -93,6 +93,8 @@ public class ImageInfoReader {
     	Sprites sprites01 = readSprites01();
     	Sprites aktor1 = readSpritesAktor1();
     	Sprites aktor3 = readSpritesAktor3();
+    	Sprites maleHero = readSpritesMaleHero();
+    	Sprites femaleHero = readSpritesFemaleHero();
     	
     	Sprites smallTree = readSpritesSmallTree();
     	Sprites smallBorealTree = readSpritesSmallBorealTree();
@@ -636,6 +638,8 @@ public class ImageInfoReader {
         add(ImageIds.CURE_DISEASE_POTION, ImageUtils.dye((BufferedImage)sprites420.getSubImage(6, 2, 1, 1), new Color(200, 0, 255, 32)));
         createAnimation(ImageIds.CURE_DISEASE_POTION_ANIMATION, ImageIds.CURE_DISEASE_POTION, 10);
 
+        addCharacter(ImageIds.MALE_HERO, maleHero, 0, 0, 1, 1);
+        addCharacter(ImageIds.FEMALE_HERO, femaleHero, 0, 0, 1, 1);
     }
     
     private void createAnimation(ImageIds animationImageId, ImageIds imageId, int numberOfFrames) {
@@ -1075,6 +1079,14 @@ public class ImageInfoReader {
     
     private static Sprites readSpritesAktor3() throws IOException {
 		return readImages("Actor3_zpsb3524fc2.png", 32, 48, 8, 12);
+	}
+    
+    private static Sprites readSpritesMaleHero() throws IOException {
+		return readImages("_hero_timthormann_wip_by_zerphoon-d9wizdq.png", 32, 48, 1, 1);
+	}
+    
+    private static Sprites readSpritesFemaleHero() throws IOException {
+		return readImages("_maingirl_wip_by_zerphoon-d9wizp9.png", 32, 48, 1, 1);
 	}
     
     private static Sprites readSpritesEmptyWell() throws IOException {
