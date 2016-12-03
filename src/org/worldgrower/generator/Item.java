@@ -706,7 +706,7 @@ public enum Item {
 			properties.put(Constants.NAME, "cure disease potion");
 			properties.put(Constants.CURE_DISEASE, Boolean.TRUE);
 			properties.put(Constants.WATER, (int) (10 * skillBonus));
-			properties.put(Constants.IMAGE_ID, ImageIds.CURE_POISON_POTION);
+			properties.put(Constants.IMAGE_ID, ImageIds.CURE_DISEASE_POTION);
 			properties.put(Constants.PRICE, 1);
 			properties.put(Constants.SELLABLE, false);
 			return new WorldObjectImpl(properties);

@@ -15,6 +15,7 @@
 package org.worldgrower.gui;
 
 import java.awt.AlphaComposite;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -30,6 +31,7 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import org.worldgrower.attribute.LookDirection;
+import org.worldgrower.gui.util.ImageUtils;
 
 public class ImageInfoReader {
 
@@ -632,7 +634,7 @@ public class ImageInfoReader {
         
         add(ImageIds.CURE_POISON_POTION, sprites420.getSubImage(2, 2, 1, 1));
         createAnimation(ImageIds.CURE_POISON_POTION_ANIMATION, ImageIds.CURE_POISON_POTION, 10);
-        add(ImageIds.CURE_DISEASE_POTION, sprites420.getSubImage(6, 2, 1, 1));
+        add(ImageIds.CURE_DISEASE_POTION, ImageUtils.dye((BufferedImage)sprites420.getSubImage(6, 2, 1, 1), new Color(200, 0, 255, 32)));
         createAnimation(ImageIds.CURE_DISEASE_POTION_ANIMATION, ImageIds.CURE_DISEASE_POTION, 10);
 
     }

@@ -15,6 +15,7 @@
 package org.worldgrower.gui.util;
 
 import java.awt.AlphaComposite;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -47,4 +48,17 @@ public class ImageUtils {
 		BufferedImage dest = src.getSubimage(0, 0, width, height);
 		return dest;
 	}
+	
+    public static BufferedImage dye(BufferedImage image, Color color) {
+        int w = image.getWidth();
+        int h = image.getHeight();
+        BufferedImage dyed = new BufferedImage(w,h,BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = dyed.createGraphics();
+        g.drawImage(image, 0,0, null);
+        g.setComposite(AlphaComposite.SrcAtop);
+        g.setColor(color);
+        g.fillRect(0,0,w,h);
+        g.dispose();
+        return dyed;
+    }
 }
