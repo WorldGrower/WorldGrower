@@ -178,8 +178,6 @@ public class CommonerGenerator implements Serializable {
 		inventory.addQuantity(Item.IRON_CUIRASS.generate(1f));
 		inventory.addQuantity(Item.LONGBOW.generate(1f));
 		
-		inventory.addQuantity(Item.CURE_DISEASE_POTION.generate(1f));
-		
 		properties.put(Constants.INVENTORY, inventory);
 		properties.put(Constants.DEMANDS, new PropertyCountMap<ManagedProperty<?>>());
 		properties.put(Constants.GOLD, 100);
