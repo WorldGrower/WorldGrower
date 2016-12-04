@@ -154,15 +154,31 @@ public class CommonerImageIds implements Serializable {
 	private int currentMaleCommonerIndex = 0;
 	private int currentFemaleCommonerIndex = 0;
 	
+	private final ImageIds imageIdToSkip;
+	
+	public CommonerImageIds() {
+		this.imageIdToSkip = null;
+	}
+	
+	public CommonerImageIds(ImageIds imageIdToSkip) {
+		this.imageIdToSkip = imageIdToSkip;
+	}
+	
 	public ImageIds getNextMaleCommonerImageId() {
 		ImageIds id = maleCommonerIds.get(currentMaleCommonerIndex);
 		currentMaleCommonerIndex = ((currentMaleCommonerIndex+1) % maleCommonerIds.size());
+		if (id == imageIdToSkip) {
+			id = getNextMaleCommonerImageId();
+		}
 		return id;
 	}
 
 	public ImageIds getNextFemaleCommonerImageId() {
 		ImageIds id = femaleCommonerIds.get(currentFemaleCommonerIndex);
 		currentFemaleCommonerIndex = ((currentFemaleCommonerIndex+1) % femaleCommonerIds.size());
+		if (id == imageIdToSkip) {
+			id = getNextFemaleCommonerImageId();
+		}
 		return id;
 	}
 }
