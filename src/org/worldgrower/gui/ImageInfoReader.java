@@ -95,6 +95,7 @@ public class ImageInfoReader {
     	Sprites aktor3 = readSpritesAktor3();
     	Sprites maleHero = readSpritesMaleHero();
     	Sprites femaleHero = readSpritesFemaleHero();
+    	Sprites samNpc = readSpritesSamNpc();
     	
     	Sprites smallTree = readSpritesSmallTree();
     	Sprites smallBorealTree = readSpritesSmallBorealTree();
@@ -640,9 +641,10 @@ public class ImageInfoReader {
 
         addCharacter(ImageIds.MALE_HERO, maleHero, 0, 0, 1, 1);
         addCharacter(ImageIds.FEMALE_HERO, femaleHero, 0, 0, 1, 1);
+        addCharacter(ImageIds.SAM_NPC, samNpc, 0, 0, 1, 1);
     }
-    
-    private void createAnimation(ImageIds animationImageId, ImageIds imageId, int numberOfFrames) {
+
+	private void createAnimation(ImageIds animationImageId, ImageIds imageId, int numberOfFrames) {
 		List<Image> images = new ArrayList<>();
     	for(int i=0; i<numberOfFrames; i++) {
     		BufferedImage newImage = new BufferedImage(48, 48, BufferedImage.TYPE_INT_ARGB);
@@ -1087,6 +1089,10 @@ public class ImageInfoReader {
     
     private static Sprites readSpritesFemaleHero() throws IOException {
 		return readImages("_maingirl_wip_by_zerphoon-d9wizp9.png", 32, 48, 1, 1);
+	}
+    
+    private Sprites readSpritesSamNpc() throws IOException {
+    	return readImages("xp_sprite___sam___free_download_by_rpgmakerworld-d9srklb.png", 32, 48, 1, 1);
 	}
     
     private static Sprites readSpritesEmptyWell() throws IOException {
