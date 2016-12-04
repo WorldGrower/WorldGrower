@@ -33,7 +33,6 @@ import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.Knowledge;
 import org.worldgrower.attribute.KnowledgeMap;
 import org.worldgrower.attribute.ManagedProperty;
-import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.conversation.KnowledgeToDescriptionMapper;
 import org.worldgrower.gui.ImageIds;
 
