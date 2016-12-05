@@ -69,6 +69,9 @@ public class UTestClaimCattleAction {
 		WorldObject cow = generateCow(world);
 		
 		assertEquals(true, action.isActionPossible(performer, cow, Args.EMPTY, world));
+		
+		cow.setProperty(Constants.CATTLE_OWNER_ID, 2);
+		assertEquals(false, action.isActionPossible(performer, cow, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

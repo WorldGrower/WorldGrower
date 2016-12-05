@@ -70,6 +70,18 @@ public class UTestDrinkFromInventoryAction {
 		
 		assertEquals(true, performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.POISONED_CONDITION));
 	}
+
+	@Test
+	public void testIsValidInventoryItem() {
+		WorldObject performer = createPerformer(2);		
+		WorldObject water = Item.WATER.generate(1f);
+		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
+		inventory.addQuantity(water);
+		WorldObject food = Item.BERRIES.generate(1f);
+		
+		assertEquals(true, Actions.DRINK_FROM_INVENTORY_ACTION.isValidInventoryItem(water, inventory, performer));
+		assertEquals(false, Actions.DRINK_FROM_INVENTORY_ACTION.isValidInventoryItem(food, inventory, performer));
+	}
 	
 	private WorldObject createPerformer(int id) {
 		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.INVENTORY, new WorldObjectContainer());

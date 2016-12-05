@@ -83,6 +83,7 @@ import org.worldgrower.condition.UTestFearCondition;
 import org.worldgrower.condition.UTestGhoulUtils;
 import org.worldgrower.condition.UTestIntoxicatedCondition;
 import org.worldgrower.condition.UTestSoulTrappedCondition;
+import org.worldgrower.condition.UTestUnconsciousCondition;
 import org.worldgrower.condition.UTestVampireBiteCondition;
 import org.worldgrower.condition.UTestVampireUtils;
 import org.worldgrower.condition.UTestWerewolfUtils;
@@ -757,7 +758,8 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestBrewHealingPotionAction.class,
 	UTestCreateHealingPotionGoal.class,
 	UTestBrewCurePoisonPotionAction.class,
-	UTestBrewCureDiseasePotionAction.class
+	UTestBrewCureDiseasePotionAction.class,
+	UTestUnconsciousCondition.class
 })
 public class CompleteTestSuite {
 }
