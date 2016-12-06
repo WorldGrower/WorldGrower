@@ -92,6 +92,10 @@ public class InventoryActionFactory {
 			if (BuySellUtils.buyerWillBuyGoods(playerCharacter, target, inventoryItemId, world)) {
 				inventoryActions.add(new InventoryItemAction(Actions.SELL_ACTION, createBuySellArgs(inventoryItemId, inventoryItem, 1), inventoryItemId, target).setArgsFactory(this::askQuantityForArgs, inventoryItem));
 			}
+			
+			if (Game.canActionExecute(playerCharacter, playerCharacter.getOperation(Actions.REVERSE_PICK_POCKET_ACTION), Args.EMPTY, world, target)) {
+				inventoryActions.add(new InventoryItemAction(Actions.REVERSE_PICK_POCKET_ACTION, inventoryItemId, target));
+			}
 		}
 		
 		if (target != null) {
