@@ -50,7 +50,7 @@ public class UTestCommonerOnTurn {
 		assertEquals(800, playerCharacter.getProperty(Constants.WATER).intValue());
 		
 		playerCharacter.onTurn(world, new WorldStateChangedListeners());
-		assertEquals(998, playerCharacter.getProperty(Constants.ENERGY).intValue());
+		assertEquals(999, playerCharacter.getProperty(Constants.ENERGY).intValue());
 		assertEquals(799, playerCharacter.getProperty(Constants.FOOD).intValue());
 		assertEquals(799, playerCharacter.getProperty(Constants.WATER).intValue());
 	}
@@ -67,7 +67,7 @@ public class UTestCommonerOnTurn {
 		playerCharacter.setProperty(Constants.WATER, 0);
 		
 		playerCharacter.onTurn(world, new WorldStateChangedListeners());
-		assertEquals(996, playerCharacter.getProperty(Constants.ENERGY).intValue());
+		assertEquals(997, playerCharacter.getProperty(Constants.ENERGY).intValue());
 		assertEquals(0, playerCharacter.getProperty(Constants.FOOD).intValue());
 		assertEquals(0, playerCharacter.getProperty(Constants.WATER).intValue());
 	}

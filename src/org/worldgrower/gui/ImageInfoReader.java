@@ -96,6 +96,7 @@ public class ImageInfoReader {
     	Sprites maleHero = readSpritesMaleHero();
     	Sprites femaleHero = readSpritesFemaleHero();
     	Sprites samNpc = readSpritesSamNpc();
+    	Sprites sophieNpc = readSpritesSophieNpc();
     	
     	Sprites smallTree = readSpritesSmallTree();
     	Sprites smallBorealTree = readSpritesSmallBorealTree();
@@ -642,6 +643,7 @@ public class ImageInfoReader {
         addCharacter(ImageIds.MALE_HERO, maleHero, 0, 0, 1, 1);
         addCharacter(ImageIds.FEMALE_HERO, femaleHero, 0, 0, 1, 1);
         addCharacter(ImageIds.SAM_NPC, samNpc, 0, 0, 1, 1);
+        addCharacter(ImageIds.SOPHIE_NPC, sophieNpc, 0, 0, 1, 1);
     }
 
 	private void createAnimation(ImageIds animationImageId, ImageIds imageId, int numberOfFrames) {
@@ -1095,6 +1097,10 @@ public class ImageInfoReader {
     	return readImages("xp_sprite___sam___free_download_by_rpgmakerworld-d9srklb.png", 32, 48, 1, 1);
 	}
     
+    private Sprites readSpritesSophieNpc() throws IOException {
+    	return readImages("vx_ace_sprite___sophie___free_download_by_rpgmakerworld-da24vyq.png", 32, 48, 1, 1);
+	}
+
     private static Sprites readSpritesEmptyWell() throws IOException {
 		return readImages("empty_well.png", 48, 48, 1, 1);
 	}

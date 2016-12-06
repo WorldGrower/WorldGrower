@@ -149,7 +149,8 @@ public class CommonerImageIds implements Serializable {
 			ImageIds.FEMALE_AKTOR3_2,
 			ImageIds.FEMALE_AKTOR3_3,
 			ImageIds.FEMALE_AKTOR3_4,
-			ImageIds.FEMALE_HERO
+			ImageIds.FEMALE_HERO,
+			ImageIds.SOPHIE_NPC
 			);
 	
 	private int currentMaleCommonerIndex = 0;
