@@ -17,11 +17,13 @@ package org.worldgrower.gui.start;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.CommonerGenerator;
 import org.worldgrower.generator.CreatureGenerator;
+import org.worldgrower.generator.Item;
 import org.worldgrower.generator.PlantGenerator;
 import org.worldgrower.gui.AdditionalManagedOperationListenerFactory;
 
@@ -98,5 +100,15 @@ public class TutorialGameParameters implements GameParameters {
 	@Override
 	public int getStartTurn() {
 		return 0;
+	}
+
+	@Override
+	public void initializePlayerCharacter(WorldObject playerCharacter) {
+		WorldObjectContainer inventory = playerCharacter.getProperty(Constants.INVENTORY);
+
+		inventory.addQuantity(Item.IRON_CLAYMORE.generate(1f));
+		inventory.addQuantity(Item.IRON_GREATSWORD.generate(1f));
+		inventory.addQuantity(Item.IRON_CUIRASS.generate(1f));
+		inventory.addQuantity(Item.LONGBOW.generate(1f));
 	}
 }

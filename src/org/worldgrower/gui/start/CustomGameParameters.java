@@ -150,4 +150,8 @@ public class CustomGameParameters implements GameParameters {
 	public AdditionalManagedOperationListenerFactory getAdditionalManagedOperationListenerFactory() {
 		return new NullAdditionalManagedOperationListenerFactory();
 	}
+
+	@Override
+	public void initializePlayerCharacter(WorldObject playerCharacter) {
+	}
 }

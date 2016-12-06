@@ -35,4 +35,5 @@ public interface GameParameters {
 	public String getInitialStatusMessage();
 	public void addDefaultWorldObjects(World world, CommonerGenerator commonerGenerator, CreatureGenerator creatureGenerator, WorldObject organization, int villagerCount, int seed);
 	public AdditionalManagedOperationListenerFactory getAdditionalManagedOperationListenerFactory();
+	public void initializePlayerCharacter(WorldObject playerCharacter);
 }

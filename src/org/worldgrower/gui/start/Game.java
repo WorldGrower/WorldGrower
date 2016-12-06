@@ -100,6 +100,7 @@ public class Game {
 		runWorldSwingWorker.get();
 		
 		final WorldObject playerCharacter = addPlayerCharacter(characterAttributes, playerCharacterImageId, gameParameters, world, playerCharacterId, organization, commonerGenerator);
+		gameParameters.initializePlayerCharacter(playerCharacter);
 		exploreWorld(playerCharacter, world);
 		
 		createAndShowGUIInvokeLater(playerCharacter, world, dungeonMaster, imageInfoReader, soundIdReader, musicPlayer, gameParameters.getInitialStatusMessage(), gameParameters.getAdditionalManagedOperationListenerFactory(), keyBindings);
