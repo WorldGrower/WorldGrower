@@ -759,7 +759,8 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestCreateHealingPotionGoal.class,
 	UTestBrewCurePoisonPotionAction.class,
 	UTestBrewCureDiseasePotionAction.class,
-	UTestUnconsciousCondition.class
+	UTestUnconsciousCondition.class,
+	UTestReversePickpocketAction.class
 })
 public class CompleteTestSuite {
 }

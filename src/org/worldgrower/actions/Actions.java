@@ -294,6 +294,7 @@ public class Actions {
 	public static final BrewHealingPotionAction BREW_HEALING_POTION_ACTION = new BrewHealingPotionAction();
 	public static final BrewCurePoisonPotionAction BREW_CURE_POISON_POTION_ACTION = new BrewCurePoisonPotionAction();
 	public static final BrewCureDiseasePotionAction BREW_CURE_DISEASE_POTION_ACTION = new BrewCureDiseasePotionAction();
+	public static final ReversePickPocketAction REVERSE_PICK_POCKET_ACTION = new ReversePickPocketAction();
 	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 
@@ -503,7 +504,8 @@ public class Actions {
 		FIRE_PUBLIC_EMPLOYEE_ACTION,
 		BREW_HEALING_POTION_ACTION,
 		BREW_CURE_POISON_POTION_ACTION,
-		BREW_CURE_DISEASE_POTION_ACTION
+		BREW_CURE_DISEASE_POTION_ACTION,
+		REVERSE_PICK_POCKET_ACTION
 	));
 	
 	static {

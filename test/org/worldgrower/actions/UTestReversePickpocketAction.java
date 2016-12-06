@@ -29,9 +29,9 @@ import org.worldgrower.condition.Conditions;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.generator.Item;
 
-public class UTestStealAction {
+public class UTestReversePickpocketAction {
 
-	private final StealAction action = Actions.STEAL_ACTION;
+	private final ReversePickPocketAction action = Actions.REVERSE_PICK_POCKET_ACTION;
 	
 	@Test
 	public void testExecuteSuccess() {
@@ -39,15 +39,15 @@ public class UTestStealAction {
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		performer.getProperty(Constants.THIEVERY_SKILL).use(1000, performer, Constants.THIEVERY_SKILL, new WorldStateChangedListeners());
-		target.getProperty(Constants.INVENTORY).addQuantity(Item.WATER.generate(1f));
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WATER.generate(1f));
 		
 		for(int i=0; i<80; i++) { world.nextTurn(); }
 		
-		int index = target.getProperty(Constants.INVENTORY).getIndexFor(Constants.WATER);
+		int index = performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.WATER);
 		action.execute(performer, target, new int[] { index }, world);
 		
-		assertEquals(0, performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.WATER));
-		assertEquals(-1, target.getProperty(Constants.INVENTORY).getIndexFor(Constants.WATER));
+		assertEquals(-1, performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.WATER));
+		assertEquals(0, target.getProperty(Constants.INVENTORY).getIndexFor(Constants.WATER));
 	}
 	
 	@Test
@@ -56,13 +56,13 @@ public class UTestStealAction {
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
-		target.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_CUIRASS.generate(1f));
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_CUIRASS.generate(1f));
 		
-		int index = target.getProperty(Constants.INVENTORY).getIndexFor(Constants.EQUIPMENT_SLOT);
+		int index = performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.EQUIPMENT_SLOT);
 		action.execute(performer, target, new int[] { index }, world);
 		
-		assertEquals(-1, performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.EQUIPMENT_SLOT));
-		assertEquals(0, target.getProperty(Constants.INVENTORY).getIndexFor(Constants.EQUIPMENT_SLOT));
+		assertEquals(0, performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.EQUIPMENT_SLOT));
+		assertEquals(-1, target.getProperty(Constants.INVENTORY).getIndexFor(Constants.EQUIPMENT_SLOT));
 	}
 	
 	@Test
