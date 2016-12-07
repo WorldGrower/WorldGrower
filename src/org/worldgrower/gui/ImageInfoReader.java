@@ -644,6 +644,18 @@ public class ImageInfoReader {
         addCharacter(ImageIds.FEMALE_HERO, femaleHero, 0, 0, 1, 1);
         addCharacter(ImageIds.SAM_NPC, samNpc, 0, 0, 1, 1);
         addCharacter(ImageIds.SOPHIE_NPC, sophieNpc, 0, 0, 1, 1);
+        
+		add(ImageIds.LEATHER_SHIRT, sprites420.getSubImage(1, 13, 1, 1));
+		add(ImageIds.LEATHER_HAT, sprites420.getSubImage(7, 13, 1, 1));
+		add(ImageIds.LEATHER_BOOTS, sprites420.getSubImage(1, 14, 1, 1));
+		add(ImageIds.LEATHER_ARMS, sprites420.getSubImage(8, 14, 1, 1));
+		add(ImageIds.LEATHER_PANTS, sprites420.getSubImage(4, 13, 1, 1));
+		
+		createAnimation(ImageIds.LEATHER_SHIRT_ANIMATION, ImageIds.LEATHER_SHIRT, 10);
+		createAnimation(ImageIds.LEATHER_HAT_ANIMATION, ImageIds.LEATHER_HAT, 10);
+		createAnimation(ImageIds.LEATHER_BOOTS_ANIMATION, ImageIds.LEATHER_BOOTS, 10);
+		createAnimation(ImageIds.LEATHER_ARMS_ANIMATION, ImageIds.LEATHER_ARMS, 10);
+		createAnimation(ImageIds.LEATHER_PANTS_ANIMATION, ImageIds.LEATHER_PANTS, 10);
     }
 
 	private void createAnimation(ImageIds animationImageId, ImageIds imageId, int numberOfFrames) {

@@ -64,6 +64,7 @@ import org.worldgrower.gui.debug.GuiShowBuildingsOverviewAction;
 import org.worldgrower.gui.debug.GuiShowCommonersOverviewAction;
 import org.worldgrower.gui.debug.GuiShowEconomicOverviewAction;
 import org.worldgrower.gui.debug.GuiShowElectionResultsAction;
+import org.worldgrower.gui.debug.GuiShowImagesOverviewAction;
 import org.worldgrower.gui.debug.GuiShowPerformedActionsAction;
 import org.worldgrower.gui.debug.GuiShowPersonalitiesOverviewAction;
 import org.worldgrower.gui.debug.GuiShowPropertiesAction;
@@ -820,6 +821,10 @@ public class GuiMouseListener extends MouseAdapter {
 			JMenuItem guiShowElectionEventsAction = MenuFactory.createJMenuItem(new GuiShowElectionResultsAction(), soundIdReader);
 			guiShowElectionEventsAction.setText("Show election events...");
 			menu.add(guiShowElectionEventsAction);
+			
+			JMenuItem guiShowImagesAction = MenuFactory.createJMenuItem(new GuiShowImagesOverviewAction(imageInfoReader), soundIdReader);
+			guiShowImagesAction.setText("Show images...");
+			menu.add(guiShowImagesAction);			
 		}
 	}
 	
