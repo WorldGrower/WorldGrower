@@ -120,6 +120,7 @@ public class ImageInfoReader {
     	BufferedImage foodBackground = readFoodBackground();
     	BufferedImage waterBackground = readWaterBackground();
     	BufferedImage energyBackground = readEnergyBackground();
+    	BufferedImage progressBarBackground = readProgressBarBackground();
     	
     	addCharacter(ImageIds.KNIGHT, sprites, 0, 0, 1, 1);
     	addCharacter(ImageIds.GUARD, sprites, 0, 4, 1, 1);
@@ -656,6 +657,8 @@ public class ImageInfoReader {
 		createAnimation(ImageIds.LEATHER_BOOTS_ANIMATION, ImageIds.LEATHER_BOOTS, 10);
 		createAnimation(ImageIds.LEATHER_ARMS_ANIMATION, ImageIds.LEATHER_ARMS, 10);
 		createAnimation(ImageIds.LEATHER_PANTS_ANIMATION, ImageIds.LEATHER_PANTS, 10);
+
+		add(ImageIds.PROGRESSBAR_BACKGROUND, progressBarBackground);
     }
 
 	private void createAnimation(ImageIds animationImageId, ImageIds imageId, int numberOfFrames) {
@@ -1163,6 +1166,10 @@ public class ImageInfoReader {
     
     private static BufferedImage readEnergyBackground() throws IOException {
 		return ImageIO.read(ImageInfoReader.class.getResource("/461223169.jpg"));
+	}
+    
+    private static BufferedImage readProgressBarBackground() throws IOException {
+		return ImageIO.read(ImageInfoReader.class.getResource("/461223108.jpg"));
 	}
     
 	private static Sprites readImages(String imageFilename, int width, int height, int rows, int cols) throws IOException {

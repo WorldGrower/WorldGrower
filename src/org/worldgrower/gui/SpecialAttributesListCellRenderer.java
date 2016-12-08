@@ -29,6 +29,13 @@ import org.worldgrower.gui.util.JProgressBarFactory;
 
 public class SpecialAttributesListCellRenderer implements ListCellRenderer<SpecialAttribute> {
 
+	private final ImageInfoReader imageInfoReader;
+
+	public SpecialAttributesListCellRenderer(ImageInfoReader imageInfoReader) {
+		super();
+		this.imageInfoReader = imageInfoReader;
+	}
+
 	@Override
 	public Component getListCellRendererComponent(JList<? extends SpecialAttribute> list, SpecialAttribute item, int index, boolean isSelected, boolean cellHasFocus) {
 		JPanel panel = JPanelFactory.createBorderlessPanel();
@@ -40,7 +47,7 @@ public class SpecialAttributesListCellRenderer implements ListCellRenderer<Speci
 		lblItem.setToolTipText(item.getLongDescription());
 		panel.add(lblItem);
 		
-		JProgressBar itemProgressBar = JProgressBarFactory.createJProgressBar(0, item.getMaxValue());
+		JProgressBar itemProgressBar = JProgressBarFactory.createHorizontalJProgressBar(0, item.getMaxValue(), imageInfoReader);
 		itemProgressBar.setBounds(120, 13, 110, 20);
 		itemProgressBar.setValue(item.getCurrentValue());
 		itemProgressBar.setToolTipText(item.getLongDescription());

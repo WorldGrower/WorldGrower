@@ -104,7 +104,7 @@ public final class InfoPanel extends JPanel {
         messageTextPane.addMouseListener(new MessageTextAreaMouseListener());
         world.addListener(new MessageManagedOperationListener());
         
-        hitPointsProgressBar = new TiledImageProgressBar(JProgressBar.VERTICAL, 0, playerCharacter.getProperty(Constants.HIT_POINTS_MAX), ImageIds.HEALTH_BACKGROUND, imageInfoReader);
+        hitPointsProgressBar = new TiledVerticalImageProgressBar(0, playerCharacter.getProperty(Constants.HIT_POINTS_MAX), ImageIds.HEALTH_BACKGROUND, imageInfoReader);
         hitPointsProgressBar.setBackground(Color.BLACK);
         hitPointsProgressBar.setForeground(Color.RED);
         hitPointsProgressBar.setToolTipText(HIT_POINTS_TOOL_TIP);
@@ -115,7 +115,7 @@ public final class InfoPanel extends JPanel {
         layout.putConstraint(SpringLayout.NORTH, hitPointsProgressBar, 0, SpringLayout.NORTH, messageTextPane);
         layout.putConstraint(SpringLayout.SOUTH, hitPointsProgressBar, 0, SpringLayout.SOUTH, messageTextPane);
         
-        foodTextProgressBar = new TiledImageProgressBar(JProgressBar.VERTICAL, 0, 1000, ImageIds.FOOD_BACKGROUND, imageInfoReader);
+        foodTextProgressBar = new TiledVerticalImageProgressBar(0, 1000, ImageIds.FOOD_BACKGROUND, imageInfoReader);
         foodTextProgressBar.setBackground(Color.BLACK);
         foodTextProgressBar.setForeground(Color.YELLOW);
         foodTextProgressBar.setToolTipText(FOOD_TOOL_TIP);
@@ -126,7 +126,7 @@ public final class InfoPanel extends JPanel {
         layout.putConstraint(SpringLayout.NORTH, foodTextProgressBar, 0, SpringLayout.NORTH, hitPointsProgressBar);
         layout.putConstraint(SpringLayout.SOUTH, foodTextProgressBar, 0, SpringLayout.SOUTH, messageTextPane);
         
-        waterProgressBar = new TiledImageProgressBar(JProgressBar.VERTICAL, 0, 1000, ImageIds.WATER_BACKGROUND, imageInfoReader);
+        waterProgressBar = new TiledVerticalImageProgressBar(0, 1000, ImageIds.WATER_BACKGROUND, imageInfoReader);
         waterProgressBar.setBackground(Color.BLACK);
         waterProgressBar.setForeground(Color.BLUE);
         waterProgressBar.setToolTipText(WATER_TOOL_TIP);
@@ -137,7 +137,7 @@ public final class InfoPanel extends JPanel {
         layout.putConstraint(SpringLayout.NORTH, waterProgressBar, 0, SpringLayout.NORTH, foodTextProgressBar);
         layout.putConstraint(SpringLayout.SOUTH, waterProgressBar, 0, SpringLayout.SOUTH, messageTextPane);
 
-        energyProgressBar = new TiledImageProgressBar(JProgressBar.VERTICAL, 0, EnergyPropertyUtils.calculateEnergyMax(playerCharacter), ImageIds.ENERGY_BACKGROUND, imageInfoReader);
+        energyProgressBar = new TiledVerticalImageProgressBar(0, EnergyPropertyUtils.calculateEnergyMax(playerCharacter), ImageIds.ENERGY_BACKGROUND, imageInfoReader);
         energyProgressBar.setBackground(Color.BLACK);
         energyProgressBar.setForeground(Color.GREEN);
         energyProgressBar.setToolTipText(ENERGY_TOOL_TIP);

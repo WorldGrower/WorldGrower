@@ -81,6 +81,7 @@ public class CharacterDialog extends JDialog {
 	
 	private final JPanel contentPanel;
 	private final WorldObject playerCharacter;
+	private final ImageInfoReader imageInfoReader;
 	
 	private JComboBox<ComboBoxEquipmentItem> cmbHead;
 	private JComboBox<ComboBoxEquipmentItem> cmbTorso;
@@ -103,6 +104,7 @@ public class CharacterDialog extends JDialog {
 		setCursor(Cursors.CURSOR);
 		
 		this.playerCharacter = playerCharacter;
+		this.imageInfoReader = imageInfoReader;
 		
 		int width = 1100;
 		int height = 800;
@@ -226,7 +228,7 @@ public class CharacterDialog extends JDialog {
 		specialAttributePanel.add(specialAttributesScrollPane);
 		
 		JList<SpecialAttribute> specialAttributesList = JListFactory.createJList(getSpecialAttributes());
-		specialAttributesList.setCellRenderer(new SpecialAttributesListCellRenderer());
+		specialAttributesList.setCellRenderer(new SpecialAttributesListCellRenderer(imageInfoReader));
 		specialAttributesList.setOpaque(false);
 		specialAttributesList.setBorder(null);
 		specialAttributesScrollPane.setViewportView(specialAttributesList);
@@ -482,7 +484,7 @@ public class CharacterDialog extends JDialog {
 		lblSkillValue.setToolTipText(skillProperty.getLongDescription());
 		parentPanel.add(lblSkillValue);
 		
-		JProgressBar skillProgressBar = JProgressBarFactory.createJProgressBar(0, 100);
+		JProgressBar skillProgressBar = JProgressBarFactory.createHorizontalJProgressBar(0, 100, imageInfoReader);
 		skillProgressBar.setBounds(x + 130, y, 130, 20);
 		skillProgressBar.setToolTipText(skillProperty.getLongDescription());
 		skillProgressBar.setValue(playerCharacter.getProperty(skillProperty).getPercentageUntilNextLevelUp());

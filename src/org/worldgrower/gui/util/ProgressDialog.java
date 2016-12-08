@@ -23,8 +23,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
+import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
+import org.worldgrower.gui.TiledHorizontalImageProgressBar;
 import org.worldgrower.gui.TiledImagePanel;
+import org.worldgrower.gui.TiledVerticalImageProgressBar;
 import org.worldgrower.gui.cursor.Cursors;
 
 public class ProgressDialog extends JFrame {
@@ -56,7 +59,7 @@ public class ProgressDialog extends JFrame {
 		label.setBounds(16, 16, 415, 50);
 		gradientPanel.add(label);
 		
-		progressBar = JProgressBarFactory.createJProgressBar(0, max);
+		progressBar = new TiledHorizontalImageProgressBar(0, max, ImageIds.PROGRESSBAR_BACKGROUND, imageInfoReader);
 		progressBar.setBounds(16, 70, 415, 30);
 		gradientPanel.add(progressBar);
 	}

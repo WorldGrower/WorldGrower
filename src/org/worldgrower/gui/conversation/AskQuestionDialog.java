@@ -183,7 +183,7 @@ public class AskQuestionDialog extends AbstractDialog implements ManagedOperatio
 		relationshipLabel.setBounds(6, 220, 100, 30);
 		addComponent(relationshipLabel);
 		
-		relationshipProgresBar = JProgressBarFactory.createJProgressBar(-1000, 1000);
+		relationshipProgresBar = JProgressBarFactory.createHorizontalJProgressBar(-1000, 1000, imageInfoReader);
 		relationshipProgresBar.setBounds(110, 220, 300, 30);
 		relationshipProgresBar.setValue(answerer.getRelationshipValue());
 		relationshipProgresBar.setToolTipText("Relationship with " + targetName);

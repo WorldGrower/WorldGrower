@@ -22,38 +22,38 @@ import javax.swing.JComponent;
 import javax.swing.JProgressBar;
 import javax.swing.plaf.basic.BasicProgressBarUI;
 
-public class TiledImageProgressBar extends JProgressBar {
+public class TiledHorizontalImageProgressBar extends JProgressBar {
 	private final BufferedImage tileImage;
 
     private BufferedImage getTiledImage(ImageIds imageId, ImageInfoReader imageInfoReader) {
     	return (BufferedImage) imageInfoReader.getImage(imageId, null);
     }
     
-	public TiledImageProgressBar(ImageIds imageId, ImageInfoReader imageInfoReader) {
+	public TiledHorizontalImageProgressBar(ImageIds imageId, ImageInfoReader imageInfoReader) {
 		super();
 		this.tileImage = getTiledImage(imageId, imageInfoReader);
 		changeUI();
 	}
 	
-	public TiledImageProgressBar(int orient, int min, int max, ImageIds imageId, ImageInfoReader imageInfoReader) {
-		super(orient, min, max);
+	public TiledHorizontalImageProgressBar(int min, int max, ImageIds imageId, ImageInfoReader imageInfoReader) {
+		super(JProgressBar.HORIZONTAL, min, max);
 		this.tileImage = getTiledImage(imageId, imageInfoReader);
 		changeUI();
 	}
 
 	void changeUI() {
+		setOpaque(false);
 		setUI(new BasicProgressBarUI() {
 
 			@Override
 			public void paint(Graphics g, JComponent c) {
-				Insets b = TiledImageProgressBar.this.getInsets(); // area for border
-		        int barRectWidth = TiledImageProgressBar.this.getWidth() - (b.right + b.left);
-		        int barRectHeight = TiledImageProgressBar.this.getHeight() - (b.top + b.bottom);
+				Insets b = TiledHorizontalImageProgressBar.this.getInsets(); // area for border
+		        int barRectWidth = TiledHorizontalImageProgressBar.this.getWidth() - (b.right + b.left);
+		        int barRectHeight = TiledHorizontalImageProgressBar.this.getHeight() - (b.top + b.bottom);
 		        
 		        int amountFull = getAmountFull(b, barRectWidth, barRectHeight);
-		        
-		        g.clipRect(b.left, b.top + barRectHeight - amountFull, barRectWidth, amountFull);
-				TiledImagePainter.paintComponent(TiledImageProgressBar.this, g, tileImage);
+		        g.clipRect(b.left, b.top, amountFull, barRectHeight);
+		        TiledImagePainter.paintComponent(TiledHorizontalImageProgressBar.this, g, tileImage);
 				g.setClip(null);
 			}
 		});

@@ -110,7 +110,7 @@ public class RespondToQuestionDialog extends AbstractDialog {
 		relationshipLabel.setBounds(6, 210, 100, 30);
 		addComponent(relationshipLabel);
 		
-		relationshipProgresBar = JProgressBarFactory.createJProgressBar(-1000, 1000);
+		relationshipProgresBar = JProgressBarFactory.createHorizontalJProgressBar(-1000, 1000, imageInfoReader);
 		relationshipProgresBar.setBounds(109, 210, 340, 30);
 		relationshipProgresBar.setValue(questioner.getRelationshipValue());
 		relationshipProgresBar.setToolTipText("Relationship with " + performerName);

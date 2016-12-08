@@ -17,12 +17,14 @@ package org.worldgrower.gui.util;
 import javax.swing.JProgressBar;
 
 import org.worldgrower.gui.ColorPalette;
+import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.ImageInfoReader;
+import org.worldgrower.gui.TiledHorizontalImageProgressBar;
 
 public class JProgressBarFactory {
 
-	public static JProgressBar createJProgressBar(int min, int max) {
-		JProgressBar progressBar = new JProgressBar(min, max);
-		progressBar.setOpaque(false);
+	public static JProgressBar createHorizontalJProgressBar(int min, int max, ImageInfoReader imageInfoReader) {
+		JProgressBar progressBar = new TiledHorizontalImageProgressBar(min, max, ImageIds.PROGRESSBAR_BACKGROUND, imageInfoReader);
 		progressBar.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
 		progressBar.setForeground(ColorPalette.FOREGROUND_COLOR);
 		return progressBar;
