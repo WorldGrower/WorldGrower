@@ -14,17 +14,23 @@
  *******************************************************************************/
 package org.worldgrower.gui.debug;
 
+import java.awt.Component;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableCellRenderer;
 
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
@@ -41,37 +47,49 @@ public class GuiShowImagesOverviewAction extends AbstractAction {
 	public void actionPerformed(ActionEvent e) {
 		JFrame frame = new JFrame();
 		
-		JTable table = new JTable(new ImageModel(getImages()));
+		JTable table = new JTable(new ImageModel(Arrays.asList(ImageIds.values())));
 		table.setBounds(50, 50, 1000, 800);
 		table.setRowHeight(50);
+		ImageCellRenderer renderer = new ImageCellRenderer(imageInfoReader);
+		table.setDefaultRenderer(ImageIcon.class, renderer);
 		frame.add(new JScrollPane(table));
 		
 		frame.setBounds(100,  100, 900, 900);
 		frame.setVisible(true);
-	}
-	
-	private List<ImageInfo> getImages() {
-		List<ImageInfo> imageInfos = new ArrayList<>();
-		for (ImageIds imageId : ImageIds.values()) {
-			imageInfos.add(new ImageInfo(imageId, imageInfoReader));
-		}
-		return imageInfos;
+		
+		Timer timer = new Timer();
+		timer.schedule(new TimerTask() {
+			
+			@Override
+			public void run() {
+				renderer.incrementImageIndex();
+				table.repaint();
+			}
+		}, 0, 100);
 	}
 	
 	private static class ImageInfo {
 		private final ImageIds imageId;
-		private final Image image;
+		private final List<Image> images;
 		
 		public ImageInfo(ImageIds imageId, ImageInfoReader imageInfoReader) {
 			this.imageId = imageId;
-			this.image = imageInfoReader.getImage(imageId, null);
+			int frameCount = imageInfoReader.getNumberOfFrames(imageId);
+			if (frameCount > 1) {
+				this.images = new ArrayList<>();
+				for(int i=0; i<frameCount ;i++) {
+					this.images.add(imageInfoReader.getImage(imageId, i));
+				}
+			} else {
+				this.images = Arrays.asList(imageInfoReader.getImage(imageId, null));
+			}
 		}
 		
 		ImageIds getImageId() {
 			return imageId;
 		}
-		Image getImage() {
-			return image;
+		List<Image> getImages() {
+			return images;
 		}
 		
 		
@@ -79,11 +97,11 @@ public class GuiShowImagesOverviewAction extends AbstractAction {
 	
 	private class ImageModel extends AbstractTableModel {
 
-		private List<ImageInfo> imageInfos;
+		private List<ImageIds> imageIds;
 		
-		public ImageModel(List<ImageInfo> imageInfos) {
+		public ImageModel(List<ImageIds> imageIds) {
 			super();
-			this.imageInfos = imageInfos;
+			this.imageIds = imageIds;
 		}
 
 		@Override
@@ -93,7 +111,7 @@ public class GuiShowImagesOverviewAction extends AbstractAction {
 
 		@Override
 		public int getRowCount() {
-			return imageInfos.size();
+			return imageIds.size();
 		}
 		
 		@Override
@@ -123,12 +141,43 @@ public class GuiShowImagesOverviewAction extends AbstractAction {
 		@Override
 		public Object getValueAt(int rowIndex, int columnIndex) {
 			if (columnIndex == 0) {
-				return imageInfos.get(rowIndex).getImageId().name();
+				return imageIds.get(rowIndex).name();
 			} else if (columnIndex == 1) {
-				return new ImageIcon(imageInfos.get(rowIndex).getImage());
+				return imageIds.get(rowIndex);
 			} else {
 				return null;
 			}
+		}
+	}
+	
+	static class ImageCellRenderer implements TableCellRenderer {
+		private final ImageInfoReader imageInfoReader;
+		private int index = 0;
+
+		public ImageCellRenderer(ImageInfoReader imageInfoReader) {
+			super();
+			this.imageInfoReader = imageInfoReader;
+		}
+		
+		@Override
+		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+			JLabel label = new JLabel();
+			label.setOpaque(false);
+			
+			ImageIds imageId = (ImageIds) value;
+			ImageInfo imageInfo = new ImageInfo(imageId, imageInfoReader);
+			
+			if (imageInfo.getImages().size() == 1) {
+				label.setIcon(new ImageIcon(imageInfo.getImages().get(0)));
+			} else {
+				label.setIcon(new ImageIcon(imageInfo.getImages().get(index)));
+			}
+
+			return label;
+		}
+
+		public void incrementImageIndex() {
+			index = (index + 1) % 10;
 		}
 	}
 }

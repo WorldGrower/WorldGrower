@@ -35,20 +35,33 @@ public class ButcherAction implements ManagedOperation, AnimatedAction {
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		WorldObjectContainer inventoryPerformer = performer.getProperty(Constants.INVENTORY);
-		
-		WorldObject collectedMeat = Item.MEAT.generate(1f);
-		collectedMeat.setProperty(Constants.CREATURE_TYPE, target.getProperty(Constants.CREATURE_TYPE));
-
-		int meatSource = target.getProperty(Constants.MEAT_SOURCE);
 		double skillBonus = SkillUtils.useSkill(performer, Constants.FARMING_SKILL, world.getWorldStateChangedListeners());
-		int butcherKnifeBonus = getButcherKnifeBonus(performer);
-		int quantity = (int) (meatSource * skillBonus * butcherKnifeBonus);
 		
-		inventoryPerformer.addQuantity(collectedMeat, quantity);
+		int meatQuantity = addMeatToInventory(performer, target, inventoryPerformer, skillBonus);
+		int leatherQuantity = addLeatherToInventory(performer, target, inventoryPerformer, skillBonus);
 		
 		world.removeWorldObject(target);
 		
-		world.logAction(this, performer, target, args, quantity + " "+ Constants.MEAT_SOURCE + " added to inventory");
+		world.logAction(this, performer, target, args, meatQuantity + " "+ Constants.MEAT_SOURCE + " and " + leatherQuantity + " leather added to inventory");
+	}
+
+	private int addMeatToInventory(WorldObject performer, WorldObject target, WorldObjectContainer inventoryPerformer, double skillBonus) {
+		int meatSource = target.getProperty(Constants.MEAT_SOURCE);
+		WorldObject collectedMeat = Item.MEAT.generate(1f);
+		collectedMeat.setProperty(Constants.CREATURE_TYPE, target.getProperty(Constants.CREATURE_TYPE));
+		int butcherKnifeBonus = getButcherKnifeBonus(performer);
+		int meatQuantity = (int) (meatSource * skillBonus * butcherKnifeBonus);
+		
+		inventoryPerformer.addQuantity(collectedMeat, meatQuantity);
+		return meatQuantity;
+	}
+	
+	private int addLeatherToInventory(WorldObject performer, WorldObject target, WorldObjectContainer inventoryPerformer, double skillBonus) {
+		int butcherKnifeBonus = getButcherKnifeBonus(performer);
+		int leatherQuantity = (int) (5 * skillBonus * butcherKnifeBonus);
+		
+		inventoryPerformer.addQuantity(Item.LEATHER.generate(skillBonus), leatherQuantity);
+		return leatherQuantity;
 	}
 	
 	private static int getButcherKnifeBonus(WorldObject performer) {

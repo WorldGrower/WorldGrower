@@ -659,6 +659,8 @@ public class ImageInfoReader {
 		createAnimation(ImageIds.LEATHER_PANTS_ANIMATION, ImageIds.LEATHER_PANTS, 10);
 
 		add(ImageIds.PROGRESSBAR_BACKGROUND, progressBarBackground);
+		add(ImageIds.LEATHER, sprites420.getSubImage(10, 18, 1, 1));
+		
     }
 
 	private void createAnimation(ImageIds animationImageId, ImageIds imageId, int numberOfFrames) {

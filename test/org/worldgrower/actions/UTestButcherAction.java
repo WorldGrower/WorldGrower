@@ -41,6 +41,7 @@ public class UTestButcherAction {
 		
 		assertEquals(false, world.exists(target));
 		assertEquals(1, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.FOOD));
+		assertEquals(5, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.LEATHER));
 	}
 	
 	@Test
@@ -55,6 +56,7 @@ public class UTestButcherAction {
 		
 		assertEquals(false, world.exists(target));
 		assertEquals(2, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.FOOD));
+		assertEquals(10, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.LEATHER));
 	}
 	
 	@Test

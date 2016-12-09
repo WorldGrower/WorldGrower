@@ -99,7 +99,8 @@ public enum Item {
 	BUTCHER_KNIFE(ItemType.TOOL),
 	HEALING_POTION(ItemType.DRINK),
 	CURE_POISON_POTION(ItemType.DRINK),
-	CURE_DISEASE_POTION(ItemType.DRINK)
+	CURE_DISEASE_POTION(ItemType.DRINK),
+	LEATHER(ItemType.RESOURCE)
 	;
 
 	public static final int COMBAT_MULTIPLIER = 10;
@@ -740,12 +741,12 @@ public enum Item {
 			return new WorldObjectImpl(properties);
 		});
 		
-		
 		addItem(Item.WOOD, new DefaultItemGenerator(Constants.WOOD, 1, ImageIds.WOOD)::addDefault);
 		addItem(Item.STONE, new DefaultItemGenerator(Constants.STONE, 1, ImageIds.STONE)::addDefault);
 		addItem(Item.GOLD, new DefaultItemGenerator(Constants.GOLD, 1, ImageIds.GOLD)::addDefault);
 		addItem(Item.ORE, new DefaultItemGenerator(Constants.ORE, 1, ImageIds.IRON)::addDefault);
 		addItem(Item.SOUL_GEM, new DefaultItemGenerator(Constants.SOUL_GEM, 1, ImageIds.SOUL_GEM)::addDefault);
+		addItem(Item.LEATHER, new DefaultItemGenerator(Constants.LEATHER, 1, ImageIds.LEATHER)::addDefault);
 	}
 	
 	static {
