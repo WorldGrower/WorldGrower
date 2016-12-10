@@ -1,0 +1,21 @@
+@font-face { font-family: TwCenMt; src: url('ufonts.com_tw-cen-mt.ttf'); } 
+
+body {
+    color: white;
+    background-image: url("conc_patchwork_c.png");
+    font-family: TwCenMt
+}
+
+a {
+	color: white;
+}
+
+.ImageBorder
+{
+    border-width: 1px;
+    border-color: white;
+}
+
+img { 
+   border:1px solid white;
+}
