@@ -660,7 +660,7 @@ public class ImageInfoReader {
 
 		add(ImageIds.PROGRESSBAR_BACKGROUND, progressBarBackground);
 		add(ImageIds.LEATHER, sprites420.getSubImage(10, 18, 1, 1));
-		
+		add(ImageIds.DROP_ITEM, sprites420.getSubImage(8, 29, 1, 1));
     }
 
 	private void createAnimation(ImageIds animationImageId, ImageIds imageId, int numberOfFrames) {
