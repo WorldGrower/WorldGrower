@@ -51,9 +51,13 @@ public class SellablePropertyUtils {
 	public static boolean hasNoItemToMarkSellable(WorldObject performer, ManagedProperty<?> propertyToSell, World world) {
 		WorldObject worldObject = SellablePropertyUtils.getWorldObjectFromInventory(performer, propertyToSell);
 		if (worldObject != null) {
-			return worldObject.hasProperty(Constants.SELLABLE) && worldObject.getProperty(Constants.SELLABLE);
+			return isItemSellable(worldObject);
 		} else {
 			return true;
 		}
+	}
+
+	public static boolean isItemSellable(WorldObject worldObject) {
+		return worldObject.hasProperty(Constants.SELLABLE) && worldObject.getProperty(Constants.SELLABLE);
 	}
 }
