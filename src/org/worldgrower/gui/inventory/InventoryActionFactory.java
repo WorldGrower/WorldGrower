@@ -18,7 +18,6 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiFunction;
-import java.util.function.Function;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -85,7 +84,8 @@ public class InventoryActionFactory {
 					int[] args = MarkInventoryItemAsSellableAction.createArgs(inventoryItemId, !inventoryItem.getProperty(Constants.SELLABLE));
 					inventoryActions.add(new InventoryItemAction(action, args, inventoryItemId, playerCharacter));
 				} else if (action instanceof DropItemAction) {
-					inventoryActions.add(new AskUserForNumberAction("Drop how many?", action, inventoryItemId, playerCharacter));
+					int maxQuantityToDrop = inventoryItem.getProperty(Constants.QUANTITY);
+					inventoryActions.add(new AskUserForNumberAction("Drop how many (1-" + maxQuantityToDrop + ")?", maxQuantityToDrop, action, inventoryItemId, playerCharacter));
 				} else {
 					inventoryActions.add(new InventoryItemAction(action, inventoryItemId));	
 				}
@@ -208,12 +208,14 @@ public class InventoryActionFactory {
 	private class AskUserForNumberAction extends AbstractAction {
 
 		private final String description;
+		private final int maxNumberValue;
 		private final InventoryAction action;
 		private final int inventoryItemId;
 
-		public AskUserForNumberAction(String description, InventoryAction action, int inventoryItemId, WorldObject playerCharacter) {
+		public AskUserForNumberAction(String description, int maxNumberValue, InventoryAction action, int inventoryItemId, WorldObject playerCharacter) {
 			super(action.getSimpleDescription(), new ImageIcon(imageInfoReader.getImage(action.getImageIds(), null)));
 			this.description = description;
+			this.maxNumberValue = maxNumberValue;
 			this.action = action;
 			this.inventoryItemId = inventoryItemId;
 		}
@@ -223,8 +225,10 @@ public class InventoryActionFactory {
 			String numberString = new TextInputDialog(description, true, imageInfoReader, soundIdReader, parentFrame).showMe();
 			if ((numberString != null) && (NumberUtils.isNumeric(numberString) && numberString.length() > 0)) {
 				int number = Integer.parseInt(numberString);
-				int[] args = new int[]{ inventoryItemId, number };
-				new InventoryItemAction(action, args, inventoryItemId, playerCharacter).actionPerformed(null);
+				if (number <= maxNumberValue) {
+					int[] args = new int[]{ inventoryItemId, number };
+					new InventoryItemAction(action, args, inventoryItemId, playerCharacter).actionPerformed(null);
+				}
 			}
 		}
 	}
