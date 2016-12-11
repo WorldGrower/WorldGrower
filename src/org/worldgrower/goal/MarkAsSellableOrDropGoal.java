@@ -14,6 +14,8 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
+import java.util.List;
+
 import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
@@ -22,12 +24,13 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.WorldObjectContainer;
 
-public abstract class AbstractMarkAsSellableOrDropGoal implements Goal {
+public class MarkAsSellableOrDropGoal implements Goal {
 
 	private final ManagedProperty<?> propertyToSell;
 	
-	public AbstractMarkAsSellableOrDropGoal(ManagedProperty<?> propertyToSell) {
+	public MarkAsSellableOrDropGoal(ManagedProperty<?> propertyToSell, List<Goal> allGoals) {
 		this.propertyToSell = propertyToSell;
+		allGoals.add(this);
 	}
 
 	@Override
@@ -54,6 +57,11 @@ public abstract class AbstractMarkAsSellableOrDropGoal implements Goal {
 	
 	@Override
 	public final void goalMetOrNot(WorldObject performer, World world, boolean goalMet) {
+	}
+	
+	@Override
+	public String getDescription() {
+		return "getting rid of " + propertyToSell;
 	}
 
 	@Override
