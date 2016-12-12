@@ -16,6 +16,7 @@ package org.worldgrower.profession;
 
 import java.io.ObjectStreamException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.worldgrower.attribute.SkillProperty;
@@ -47,4 +48,8 @@ public interface Profession extends Serializable {
 	public boolean isPaidByVillagerLeader();
 	public boolean avoidEnemies();
 	public ImageIds getImageId();
+	
+	public default List<Item> getBuyItems() {
+		return new ArrayList<>();
+	}
 }

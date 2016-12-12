@@ -42,7 +42,8 @@ public class WeaverProfession implements Profession {
 				Goals.WEAVERY_GOAL,
 				Goals.COTTON_GOAL,
 				Goals.WEAVE_CLOTHES_GOAL,
-				Goals.MARK_CLOTHES_AS_SELLABLE_GOAL);
+				Goals.MARK_CLOTHES_AS_SELLABLE_GOAL,
+				Goals.LEATHER_GOAL);
 	}
 
 	@Override
@@ -67,6 +68,11 @@ public class WeaverProfession implements Profession {
 	@Override
 	public List<Item> getSellItems() {
 		return Arrays.asList(Item.COTTON_BOOTS, Item.COTTON_GLOVES, Item.COTTON_HAT, Item.COTTON_PANTS, Item.COTTON_SHIRT);
+	}
+	
+	@Override
+	public List<Item> getBuyItems() {
+		return Arrays.asList(Item.COTTON, Item.LEATHER);
 	}
 
 	@Override

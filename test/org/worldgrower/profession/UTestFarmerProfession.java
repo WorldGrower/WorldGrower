@@ -80,6 +80,7 @@ public class UTestFarmerProfession {
 		item.add(Item.BERRIES);
 		item.add(Item.MEAT);
 		item.add(Item.WINE);
+		item.add(Item.LEATHER);
 		assertEquals(profession.getSellItems(), item);
 	}
 }

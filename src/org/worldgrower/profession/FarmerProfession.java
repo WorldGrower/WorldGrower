@@ -71,7 +71,7 @@ public class FarmerProfession implements Profession {
 
 	@Override
 	public List<Item> getSellItems() {
-		return Arrays.asList(Item.BERRIES, Item.MEAT, Item.WINE);
+		return Arrays.asList(Item.BERRIES, Item.MEAT, Item.WINE, Item.LEATHER);
 	}
 
 	@Override

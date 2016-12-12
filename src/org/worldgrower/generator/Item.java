@@ -100,7 +100,12 @@ public enum Item {
 	HEALING_POTION(ItemType.DRINK),
 	CURE_POISON_POTION(ItemType.DRINK),
 	CURE_DISEASE_POTION(ItemType.DRINK),
-	LEATHER(ItemType.RESOURCE)
+	LEATHER(ItemType.RESOURCE),
+	LEATHER_SHIRT(ItemType.ARMOR), 
+	LEATHER_HAT(ItemType.ARMOR), 
+	LEATHER_BOOTS(ItemType.ARMOR), 
+	LEATHER_GLOVES(ItemType.ARMOR), 
+	LEATHER_PANTS(ItemType.ARMOR), 
 	;
 
 	public static final int COMBAT_MULTIPLIER = 10;
@@ -127,6 +132,12 @@ public enum Item {
 	private static final String COTTON_BOOTS_NAME = "cotton boots";
 	private static final String COTTON_GLOVES_NAME = "cotton gloves";
 	private static final String COTTON_PANTS_NAME = "cotton pants";
+	
+	private static final String LEATHER_SHIRT_NAME = "leather shirt";
+	private static final String LEATHER_HAT_NAME = "leather hat";
+	private static final String LEATHER_BOOTS_NAME = "leather boots";
+	private static final String LEATHER_GLOVES_NAME = "leather gloves";
+	private static final String LEATHER_PANTS_NAME = "leather pants";
 	
 	private static final String BED_NAME = "bed";
 	
@@ -738,6 +749,76 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
 			properties.put(Constants.LOCKPICK_QUALITY, (int)(2 * skillBonus));
 			properties.put(Constants.IMAGE_ID, ImageIds.LOCKPICK);
+			return new WorldObjectImpl(properties);
+		});
+		
+		addItem(Item.LEATHER_SHIRT, skillBonus -> {
+			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+			properties.put(Constants.NAME, LEATHER_SHIRT_NAME);
+			properties.put(Constants.PRICE, 100);
+			properties.put(Constants.SELLABLE, false);
+			properties.put(Constants.ARMOR, (int) (3 * skillBonus));
+			properties.put(Constants.WEIGHT, 3);
+			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
+			properties.put(Constants.EQUIPMENT_SLOT, Constants.TORSO_EQUIPMENT);
+			properties.put(Constants.IMAGE_ID, ImageIds.LEATHER_SHIRT);
+			properties.put(Constants.ARMOR_TYPE, ArmorType.LIGHT);
+			return new WorldObjectImpl(properties);
+		});
+	
+		addItem(Item.LEATHER_HAT, skillBonus -> {
+			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+			properties.put(Constants.NAME, LEATHER_HAT_NAME);
+			properties.put(Constants.PRICE, 30);
+			properties.put(Constants.SELLABLE, false);
+			properties.put(Constants.ARMOR, (int) (2 * skillBonus));
+			properties.put(Constants.WEIGHT, 2);
+			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
+			properties.put(Constants.EQUIPMENT_SLOT, Constants.HEAD_EQUIPMENT);
+			properties.put(Constants.IMAGE_ID, ImageIds.LEATHER_HAT);
+			properties.put(Constants.ARMOR_TYPE, ArmorType.LIGHT);
+			return new WorldObjectImpl(properties);
+		});
+	
+		addItem(Item.LEATHER_BOOTS, skillBonus -> {
+			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+			properties.put(Constants.NAME, LEATHER_BOOTS_NAME);
+			properties.put(Constants.PRICE, 40);
+			properties.put(Constants.SELLABLE, false);
+			properties.put(Constants.ARMOR, (int) (2 * skillBonus));
+			properties.put(Constants.WEIGHT, 1);
+			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
+			properties.put(Constants.EQUIPMENT_SLOT, Constants.FEET_EQUIPMENT);
+			properties.put(Constants.IMAGE_ID, ImageIds.LEATHER_BOOTS);
+			properties.put(Constants.ARMOR_TYPE, ArmorType.LIGHT);
+			return new WorldObjectImpl(properties);
+		});
+	
+		addItem(Item.LEATHER_GLOVES, skillBonus -> {
+			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+			properties.put(Constants.NAME, LEATHER_GLOVES_NAME);
+			properties.put(Constants.PRICE, 30);
+			properties.put(Constants.SELLABLE, false);
+			properties.put(Constants.ARMOR, (int) (2 * skillBonus));
+			properties.put(Constants.WEIGHT, 1);
+			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
+			properties.put(Constants.EQUIPMENT_SLOT, Constants.ARMS_EQUIPMENT);
+			properties.put(Constants.IMAGE_ID, ImageIds.LEATHER_ARMS);
+			properties.put(Constants.ARMOR_TYPE, ArmorType.LIGHT);
+			return new WorldObjectImpl(properties);
+		});
+	
+		addItem(Item.LEATHER_PANTS, skillBonus -> {
+			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+			properties.put(Constants.NAME, LEATHER_PANTS_NAME);
+			properties.put(Constants.PRICE, 40);
+			properties.put(Constants.SELLABLE, false);
+			properties.put(Constants.ARMOR, (int) (3 * skillBonus));
+			properties.put(Constants.WEIGHT, 2);
+			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
+			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEGS_EQUIPMENT);
+			properties.put(Constants.IMAGE_ID, ImageIds.LEATHER_PANTS);
+			properties.put(Constants.ARMOR_TYPE, ArmorType.LIGHT);
 			return new WorldObjectImpl(properties);
 		});
 		
