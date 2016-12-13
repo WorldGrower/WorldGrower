@@ -296,6 +296,11 @@ public class Actions {
 	public static final BrewCureDiseasePotionAction BREW_CURE_DISEASE_POTION_ACTION = new BrewCureDiseasePotionAction();
 	public static final ReversePickPocketAction REVERSE_PICK_POCKET_ACTION = new ReversePickPocketAction();
 	public static final DropItemAction DROP_ITEM_ACTION = new DropItemAction();
+	public static final WeaveLeatherShirtAction WEAVE_LEATHER_SHIRT_ACTION = new WeaveLeatherShirtAction();
+	public static final WeaveLeatherHatAction WEAVE_LEATHER_HAT_ACTION = new WeaveLeatherHatAction();
+	public static final WeaveLeatherBootsAction WEAVE_LEATHER_BOOTS_ACTION = new WeaveLeatherBootsAction();
+	public static final WeaveLeatherGlovesAction WEAVE_LEATHER_GLOVES_ACTION = new WeaveLeatherGlovesAction();
+	public static final WeaveLeatherPantsAction WEAVE_LEATHER_PANTS_ACTION = new WeaveLeatherPantsAction();
 	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 

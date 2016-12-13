@@ -27,20 +27,20 @@ import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
-public class WeaveCottonShirtAction implements CraftAction, AnimatedAction {
+public class WeaveLeatherBootsAction implements CraftAction, AnimatedAction {
 	private static final int DISTANCE = 1;
-	private static final int COTTON_REQUIRED = 3;
+	private static final int LEATHER_REQUIRED = 2;
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
-		Item.COTTON_SHIRT.addToInventory(performer, target, Constants.WEAVING_SKILL, Constants.WEAVERY_QUALITY, world);
-		inventory.removeQuantity(Constants.COTTON, COTTON_REQUIRED);
+		Item.LEATHER_BOOTS.addToInventory(performer, target, Constants.WEAVING_SKILL, Constants.WEAVERY_QUALITY, world);
+		inventory.removeQuantity(Constants.LEATHER, LEATHER_REQUIRED);
 	}
 
 	@Override
 	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
-		return CraftUtils.hasEnoughResources(performer, Constants.COTTON, COTTON_REQUIRED);
+		return CraftUtils.hasEnoughResources(performer, Constants.LEATHER, LEATHER_REQUIRED);
 	}
 	
 	@Override
@@ -50,12 +50,12 @@ public class WeaveCottonShirtAction implements CraftAction, AnimatedAction {
 	
 	@Override
 	public String getRequirementsDescription() {
-		return CraftUtils.getRequirementsDescription(Constants.COTTON, COTTON_REQUIRED, Constants.DISTANCE, DISTANCE);
+		return CraftUtils.getRequirementsDescription(Constants.LEATHER, LEATHER_REQUIRED, Constants.DISTANCE, DISTANCE);
 	}
 	
 	@Override
 	public String getDescription() {
-		return "a cotton shirt is used as armor to reduce the damage taken from attacks";
+		return "leather boots are used as armor to reduce the damage taken from attacks";
 	}
 
 	@Override
@@ -70,12 +70,12 @@ public class WeaveCottonShirtAction implements CraftAction, AnimatedAction {
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "weaving cotton shirt";
+		return "weaving leather boots";
 	}
 
 	@Override
 	public String getSimpleDescription() {
-		return "weave cotton shirt";
+		return "weave leather boots";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {
@@ -84,7 +84,7 @@ public class WeaveCottonShirtAction implements CraftAction, AnimatedAction {
 	
 	@Override
 	public ImageIds getImageIds() {
-		return ImageIds.COTTON_SHIRT;
+		return ImageIds.LEATHER_BOOTS;
 	}
 	
 	@Override
@@ -94,7 +94,7 @@ public class WeaveCottonShirtAction implements CraftAction, AnimatedAction {
 
 	@Override
 	public ImageIds getAnimationImageId() {
-		return ImageIds.COTTON_SHIRT_ANIMATION;
+		return ImageIds.LEATHER_BOOTS_ANIMATION;
 	}
 
 	@Override

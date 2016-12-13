@@ -22,7 +22,6 @@ import org.worldgrower.Constants;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
@@ -35,11 +34,7 @@ public class WeaveCottonGlovesAction implements CraftAction, AnimatedAction {
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
-		
-		double skillBonus = SkillUtils.useSkill(performer, Constants.WEAVING_SKILL, world.getWorldStateChangedListeners());
-		int quantity =target.getProperty(Constants.WEAVERY_QUALITY);
-		inventory.addQuantity(Item.COTTON_GLOVES.generate(skillBonus), quantity);
-
+		Item.COTTON_GLOVES.addToInventory(performer, target, Constants.WEAVING_SKILL, Constants.WEAVERY_QUALITY, world);
 		inventory.removeQuantity(Constants.COTTON, COTTON_REQUIRED);
 	}
 

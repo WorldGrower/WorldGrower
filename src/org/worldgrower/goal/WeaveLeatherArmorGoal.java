@@ -38,17 +38,17 @@ public class WeaveLeatherArmorGoal implements Goal {
 		if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.LEATHER) < 10) {
 			return Goals.LEATHER_GOAL.calculateGoal(performer, world);
 		} else if (weaveryId != null){
-			int cottonShirtCount = performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.ITEM_ID, Item.COTTON_SHIRT).size();
-			int cottonPantsCount = performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.ITEM_ID, Item.COTTON_PANTS).size();
-			int cottonBootsCount = performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.ITEM_ID, Item.COTTON_BOOTS).size();
+			int leatherShirtCount = performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.ITEM_ID, Item.LEATHER_SHIRT).size();
+			int leatherPantsCount = performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.ITEM_ID, Item.LEATHER_PANTS).size();
+			int leatherBootsCount = performer.getProperty(Constants.INVENTORY).getWorldObjects(Constants.ITEM_ID, Item.LEATHER_BOOTS).size();
 			
 			WorldObject weavery = world.findWorldObjectById(weaveryId);
-			if (cottonShirtCount == 0){
-				return new OperationInfo(performer, weavery, Args.EMPTY, Actions.WEAVE_COTTON_SHIRT_ACTION);
-			} else if (cottonPantsCount < cottonShirtCount) {
-				return new OperationInfo(performer, weavery, Args.EMPTY, Actions.WEAVE_COTTON_PANTS_ACTION);
-			} else if (cottonBootsCount < cottonShirtCount) {
-				return new OperationInfo(performer, weavery, Args.EMPTY, Actions.WEAVE_COTTON_BOOTS_ACTION);
+			if (leatherShirtCount == 0){
+				return new OperationInfo(performer, weavery, Args.EMPTY, Actions.WEAVE_LEATHER_SHIRT_ACTION);
+			} else if (leatherPantsCount < leatherShirtCount) {
+				return new OperationInfo(performer, weavery, Args.EMPTY, Actions.WEAVE_LEATHER_PANTS_ACTION);
+			} else if (leatherBootsCount < leatherShirtCount) {
+				return new OperationInfo(performer, weavery, Args.EMPTY, Actions.WEAVE_LEATHER_BOOTS_ACTION);
 			}
 		}
 		return null;
@@ -71,7 +71,7 @@ public class WeaveLeatherArmorGoal implements Goal {
 
 	@Override
 	public String getDescription() {
-		return "looking to weave clothes";
+		return "looking to weave leather equipment";
 	}
 
 	@Override

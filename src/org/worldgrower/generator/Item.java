@@ -33,6 +33,9 @@ import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.attribute.Knowledge;
 import org.worldgrower.attribute.KnowledgeMap;
 import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.attribute.SkillProperty;
+import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.conversation.KnowledgeToDescriptionMapper;
 import org.worldgrower.gui.ImageIds;
 
@@ -158,6 +161,13 @@ public enum Item {
 		WorldObject item = ITEMS.get(this).apply(skillBonus);
 		item.setProperty(Constants.ITEM_ID, this);
 		return item;
+	}
+	
+	public void addToInventory(WorldObject performer, WorldObject target, SkillProperty skillProperty, IntProperty qualityProperty, World world) {
+		double skillBonus = SkillUtils.useSkill(performer, skillProperty, world.getWorldStateChangedListeners());
+		int quantity = target.getProperty(qualityProperty);
+		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
+		inventory.addQuantity(generate(skillBonus), quantity);
 	}
 	
 	static {
