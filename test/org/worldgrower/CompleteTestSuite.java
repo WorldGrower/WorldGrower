@@ -762,7 +762,8 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestUnconsciousCondition.class,
 	UTestReversePickpocketAction.class,
 	UTestMarkAsSellableOrDropGoal.class,
-	UTestLeatherGoal.class
+	UTestLeatherGoal.class,
+	UTestWeaveLeatherGoal.class
 })
 public class CompleteTestSuite {
 }

@@ -43,7 +43,8 @@ public class WeaverProfession implements Profession {
 				Goals.COTTON_GOAL,
 				Goals.WEAVE_CLOTHES_GOAL,
 				Goals.MARK_CLOTHES_AS_SELLABLE_GOAL,
-				Goals.LEATHER_GOAL);
+				Goals.LEATHER_GOAL,
+				Goals.WEAVE_LEATHER_ARMOR_GOAL);
 	}
 
 	@Override

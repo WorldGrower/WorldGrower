@@ -215,4 +215,5 @@ public class Goals {
 	public static final SellHealingPotionGoal SELL_HEALING_POTION_GOAL = new SellHealingPotionGoal(ALL_GOALS);
 	public static final MarkAsSellableOrDropGoal MARK_LEATHER_AS_SELLABLE_OR_DROP_GOAL = new MarkAsSellableOrDropGoal(Constants.LEATHER, ALL_GOALS);
 	public static final LeatherGoal LEATHER_GOAL = new LeatherGoal(ALL_GOALS);
+	public static final WeaveLeatherArmorGoal WEAVE_LEATHER_ARMOR_GOAL = new WeaveLeatherArmorGoal(ALL_GOALS);
 }
