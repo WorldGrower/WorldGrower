@@ -115,7 +115,7 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 
 		@Override
 		public int getColumnCount() {
-			return 18;
+			return 19;
 		}
 
 		@Override
@@ -161,6 +161,8 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 				return "Inventory";
 			} else if (columnIndex == 17) {
 				return "Mate Id";
+			} else if (columnIndex == 18) {
+				return "Torso Equipment";
 			} else {
 				return null;
 			}
@@ -241,6 +243,9 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 			} else if (columnIndex == 17) {
 				Integer mateId = npc.getProperty(Constants.MATE_ID);
 				return mateId != null ? mateId.intValue() : "";
+			} else if (columnIndex == 18) {
+				WorldObject torsoEquipment = npc.getProperty(Constants.TORSO_EQUIPMENT);
+				return torsoEquipment != null ? torsoEquipment.getProperty(Constants.NAME) : "";
 			} else {
 				return null;
 			}

@@ -56,6 +56,24 @@ public class UTestBuyClothesGoal {
 	}
 	
 	@Test
+	public void testCalculateGoalOneSellerLeather() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.INVENTORY, new WorldObjectContainer());
+		world.addWorldObject(target);
+		addPrices(target);
+		
+		performer.setProperty(Constants.GOLD, 2000);
+		WorldObject leatherShirt = Item.LEATHER_SHIRT.generate(1f);
+		leatherShirt.setProperty(Constants.SELLABLE, Boolean.TRUE);
+		target.getProperty(Constants.INVENTORY).addQuantity(leatherShirt);		
+		WorldObject cottonShirt = Item.COTTON_SHIRT.generate(1f);
+		cottonShirt.setProperty(Constants.SELLABLE, Boolean.TRUE);
+		
+		assertEquals(Actions.BUY_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+	@Test
 	public void testCalculateGoalOnePantsSeller() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());

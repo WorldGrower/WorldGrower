@@ -948,4 +948,14 @@ public enum Item {
 		}
 		throw new IllegalStateException("Property " + managedProperty + " not found in items"); 
 	}
+	
+	public static boolean isClothesEquipment(WorldObject worldObject) {
+		Item item = worldObject.getProperty(Constants.ITEM_ID);
+		return item == Item.COTTON_BOOTS || item == Item.COTTON_GLOVES || item == Item.COTTON_HAT || item == Item.COTTON_PANTS || item == Item.COTTON_SHIRT;
+	}
+	
+	public static boolean isLeatherEquipment(WorldObject worldObject) {
+		Item item = worldObject.getProperty(Constants.ITEM_ID);
+		return item == Item.LEATHER_BOOTS || item == Item.LEATHER_GLOVES || item == Item.LEATHER_HAT || item == Item.LEATHER_PANTS || item == Item.LEATHER_SHIRT;
+	}
 }

@@ -60,6 +60,7 @@ public class CommonerWorldEvaluationFunction implements WorldObjectPriorities {
 				Goals.ORGANIZATION_VOTE_GOAL,
 				Goals.SET_TAXES_GOAL,
 				Goals.BUY_CLOTHES_GOAL,
+				Goals.USE_EQUIPMENT_GOAL,
 				Goals.REPAIR_EQUIPMENT_GOAL);
 		
 		List<Goal> givenOrderGoals = getGivenOrderGoals(performer, world);

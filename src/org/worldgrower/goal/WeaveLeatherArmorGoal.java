@@ -61,7 +61,7 @@ public class WeaveLeatherArmorGoal implements Goal {
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
 		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY); 
-		return (inventory.getQuantityFor(Constants.ARMOR) >= 10);
+		return (inventory.getQuantityFor(Constants.ARMOR, Constants.QUANTITY, Item::isLeatherEquipment) >= 10);
 	}
 	
 	@Override

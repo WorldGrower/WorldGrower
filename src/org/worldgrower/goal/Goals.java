@@ -216,4 +216,5 @@ public class Goals {
 	public static final MarkAsSellableOrDropGoal MARK_LEATHER_AS_SELLABLE_OR_DROP_GOAL = new MarkAsSellableOrDropGoal(Constants.LEATHER, ALL_GOALS);
 	public static final LeatherGoal LEATHER_GOAL = new LeatherGoal(ALL_GOALS);
 	public static final WeaveLeatherArmorGoal WEAVE_LEATHER_ARMOR_GOAL = new WeaveLeatherArmorGoal(ALL_GOALS);
+	public static final UseEquipmentGoal USE_EQUIPMENT_GOAL = new UseEquipmentGoal(ALL_GOALS);
 }
