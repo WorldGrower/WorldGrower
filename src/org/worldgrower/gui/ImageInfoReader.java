@@ -97,6 +97,7 @@ public class ImageInfoReader {
     	Sprites femaleHero = readSpritesFemaleHero();
     	Sprites samNpc = readSpritesSamNpc();
     	Sprites sophieNpc = readSpritesSophieNpc();
+    	Sprites nicolaiNpc = readSpritesNicolaiNpc();
     	
     	Sprites smallTree = readSpritesSmallTree();
     	Sprites smallBorealTree = readSpritesSmallBorealTree();
@@ -661,6 +662,8 @@ public class ImageInfoReader {
 		add(ImageIds.PROGRESSBAR_BACKGROUND, progressBarBackground);
 		add(ImageIds.LEATHER, sprites420.getSubImage(10, 18, 1, 1));
 		add(ImageIds.DROP_ITEM, sprites420.getSubImage(8, 29, 1, 1));
+		
+		addCharacter(ImageIds.NICOLAI_NPC, nicolaiNpc, 0, 0, 1, 1);
     }
 
 	private void createAnimation(ImageIds animationImageId, ImageIds imageId, int numberOfFrames) {
@@ -1116,6 +1119,10 @@ public class ImageInfoReader {
     
     private Sprites readSpritesSophieNpc() throws IOException {
     	return readImages("vx_ace_sprite___sophie___free_download_by_rpgmakerworld-da24vyq.png", 32, 48, 1, 1);
+	}
+    
+    private Sprites readSpritesNicolaiNpc() throws IOException {
+    	return readImages("nikolai_by_ttrain427-d4knbvf.png", 32, 48, 1, 1);
 	}
 
     private static Sprites readSpritesEmptyWell() throws IOException {

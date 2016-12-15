@@ -41,7 +41,8 @@ public class WeightPropertyUtils {
 			if (inventoryWorldObject != null) {
 				Integer weight = inventoryWorldObject.getProperty(Constants.WEIGHT);
 				if (weight != null) {
-					totalWeight += weight.intValue();
+					int quantity = inventoryWorldObject.getProperty(Constants.QUANTITY);
+					totalWeight += (weight.intValue() * quantity);
 				}
 			}
 		}

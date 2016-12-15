@@ -763,7 +763,12 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestReversePickpocketAction.class,
 	UTestMarkAsSellableOrDropGoal.class,
 	UTestLeatherGoal.class,
-	UTestWeaveLeatherGoal.class
+	UTestWeaveLeatherGoal.class,
+	UTestWeaveLeatherShirtAction.class,
+	UTestWeaveLeatherBootsAction.class,
+	UTestWeaveLeatherPantsAction.class,
+	UTestWeaveLeatherHatAction.class,
+	UTestWeaveLeatherGlovesAction.class
 })
 public class CompleteTestSuite {
 }

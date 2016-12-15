@@ -41,7 +41,7 @@ public class UTestWeightPropertyUtils {
 		
 		assertEquals(0, WeightPropertyUtils.getTotalWeight(performer));
 		
-		performer.getProperty(Constants.INVENTORY).add(Item.IRON_CUIRASS.generate(1f));
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_CUIRASS.generate(1f));
 		assertEquals(30, WeightPropertyUtils.getTotalWeight(performer));
 		
 		Conditions.add(performer, Condition.BURDENED_CONDITION, 8, world);
@@ -53,15 +53,25 @@ public class UTestWeightPropertyUtils {
 	}
 	
 	@Test
+	public void testGetTotalWeightWithQuantity() {
+		WorldObject performer = TestUtils.createIntelligentWorldObject(0, "Test");
+		
+		assertEquals(0, WeightPropertyUtils.getTotalWeight(performer));
+		
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_CUIRASS.generate(1f), 10);
+		assertEquals(300, WeightPropertyUtils.getTotalWeight(performer));
+	}
+	
+	@Test
 	public void testIsCarryingTooMuch() {
 		WorldObject performer = TestUtils.createIntelligentWorldObject(0, "Test");
 		
 		assertEquals(false, WeightPropertyUtils.isCarryingTooMuch(performer));
 		
-		performer.getProperty(Constants.INVENTORY).add(Item.IRON_CUIRASS.generate(1f));
-		performer.getProperty(Constants.INVENTORY).add(Item.IRON_CUIRASS.generate(1f));
-		performer.getProperty(Constants.INVENTORY).add(Item.IRON_CUIRASS.generate(1f));
-		performer.getProperty(Constants.INVENTORY).add(Item.IRON_CUIRASS.generate(1f));
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_CUIRASS.generate(1f));
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_CUIRASS.generate(1f));
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_CUIRASS.generate(1f));
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_CUIRASS.generate(1f));
 		assertEquals(true, WeightPropertyUtils.isCarryingTooMuch(performer));
 	}
 }

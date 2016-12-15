@@ -90,7 +90,7 @@ public class BuildSmithAction implements BuildAction {
 
 	@Override
 	public int getWidth() {
-		return 1;
+		return 2;
 	}
 
 	@Override
