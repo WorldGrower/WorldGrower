@@ -91,6 +91,7 @@ dependencies {
 }
 
 test {
+	testLogging.showStandardStreams = true
 }
 
 task release(dependsOn: ['jar', 'test']) << {
