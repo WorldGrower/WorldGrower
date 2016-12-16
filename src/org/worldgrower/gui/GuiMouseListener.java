@@ -782,49 +782,52 @@ public class GuiMouseListener extends MouseAdapter {
 
 	private void addPropertiesMenu(JPopupMenu menu, WorldObject worldObject) {
 		if (Boolean.getBoolean("DEBUG")) {
+			JMenu debugMenu = MenuFactory.createJMenu("Debug", imageInfoReader, soundIdReader);
+			menu.add(debugMenu);
+			
 			JMenuItem guiPropertiesItem = MenuFactory.createJMenuItem(new GuiShowPropertiesAction(worldObject), soundIdReader);
 			guiPropertiesItem.setText("Properties...");
-			menu.add(guiPropertiesItem);
+			debugMenu.add(guiPropertiesItem);
 			
 			JMenuItem guiShowCommonersOverviewItem = MenuFactory.createJMenuItem(new GuiShowCommonersOverviewAction(world), soundIdReader);
 			guiShowCommonersOverviewItem.setText("Show Commoners Overview...");
-			menu.add(guiShowCommonersOverviewItem);
+			debugMenu.add(guiShowCommonersOverviewItem);
 			
 			JMenuItem guiShowEconomicOverviewItem = MenuFactory.createJMenuItem(new GuiShowEconomicOverviewAction(world), soundIdReader);
 			guiShowEconomicOverviewItem.setText("Show Economic Overview...");
-			menu.add(guiShowEconomicOverviewItem);
+			debugMenu.add(guiShowEconomicOverviewItem);
 			
 			JMenuItem guiShowSkillOverviewItem = MenuFactory.createJMenuItem(new GuiShowSkillOverviewAction(world), soundIdReader);
 			guiShowSkillOverviewItem.setText("Show Skill Overview...");
-			menu.add(guiShowSkillOverviewItem);
+			debugMenu.add(guiShowSkillOverviewItem);
 			
 			JMenuItem guiShowPersonalityOverviewItem = MenuFactory.createJMenuItem(new GuiShowPersonalitiesOverviewAction(world), soundIdReader);
 			guiShowPersonalityOverviewItem.setText("Show Personality Overview...");
-			menu.add(guiShowPersonalityOverviewItem);
+			debugMenu.add(guiShowPersonalityOverviewItem);
 			
 			JMenuItem guiShowReasonsOverviewItem = MenuFactory.createJMenuItem(new GuiShowReasonsOverviewAction(world), soundIdReader);
 			guiShowReasonsOverviewItem.setText("Show Reasons Overview...");
-			menu.add(guiShowReasonsOverviewItem);
+			debugMenu.add(guiShowReasonsOverviewItem);
 			
 			JMenuItem guiShowPerformedActionsItem = MenuFactory.createJMenuItem(new GuiShowPerformedActionsAction(world), soundIdReader);
 			guiShowPerformedActionsItem.setText("Show history items...");
-			menu.add(guiShowPerformedActionsItem);
+			debugMenu.add(guiShowPerformedActionsItem);
 			
 			JMenuItem guiShowBuildingsItem = MenuFactory.createJMenuItem(new GuiShowBuildingsOverviewAction(world), soundIdReader);
 			guiShowBuildingsItem.setText("Show buildings...");
-			menu.add(guiShowBuildingsItem);
+			debugMenu.add(guiShowBuildingsItem);
 
 			JMenuItem guiShowThrownOutOfGroupEventsAction = MenuFactory.createJMenuItem(new GuiShowThrownOutOfGroupEventsAction(), soundIdReader);
 			guiShowThrownOutOfGroupEventsAction.setText("Show thrown out of group events...");
-			menu.add(guiShowThrownOutOfGroupEventsAction);
+			debugMenu.add(guiShowThrownOutOfGroupEventsAction);
 			
 			JMenuItem guiShowElectionEventsAction = MenuFactory.createJMenuItem(new GuiShowElectionResultsAction(), soundIdReader);
 			guiShowElectionEventsAction.setText("Show election events...");
-			menu.add(guiShowElectionEventsAction);
+			debugMenu.add(guiShowElectionEventsAction);
 			
 			JMenuItem guiShowImagesAction = MenuFactory.createJMenuItem(new GuiShowImagesOverviewAction(imageInfoReader), soundIdReader);
 			guiShowImagesAction.setText("Show images...");
-			menu.add(guiShowImagesAction);			
+			debugMenu.add(guiShowImagesAction);			
 		}
 	}
 	

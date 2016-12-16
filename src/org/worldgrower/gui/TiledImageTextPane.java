@@ -22,7 +22,7 @@ import javax.swing.JTextPane;
 public class TiledImageTextPane extends JTextPane {  
     private final BufferedImage tileImage;  
 
-    public BufferedImage getTiledImage(ImageInfoReader imageInfoReader) {
+    private BufferedImage getTiledImage(ImageInfoReader imageInfoReader) {
     	return (BufferedImage) imageInfoReader.getImage(ImageIds.SCREEN_BACKGROUND, null);
     }  
 	

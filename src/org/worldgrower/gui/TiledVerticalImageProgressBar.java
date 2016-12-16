@@ -41,7 +41,7 @@ public class TiledVerticalImageProgressBar extends JProgressBar {
 		changeUI();
 	}
 
-	void changeUI() {
+	private void changeUI() {
 		setUI(new BasicProgressBarUI() {
 
 			@Override

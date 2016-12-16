@@ -41,7 +41,7 @@ public class TiledHorizontalImageProgressBar extends JProgressBar {
 		changeUI();
 	}
 
-	void changeUI() {
+	private void changeUI() {
 		setOpaque(false);
 		setUI(new BasicProgressBarUI() {
 

@@ -24,7 +24,7 @@ public class TiledImageJList<E> extends JList<E> {
 
 	private final BufferedImage tileImage;  
 
-    public BufferedImage getTiledImage(ImageInfoReader imageInfoReader) {
+    private BufferedImage getTiledImage(ImageInfoReader imageInfoReader) {
     	return (BufferedImage) imageInfoReader.getImage(ImageIds.SCREEN_BACKGROUND, null);
     }  
 	

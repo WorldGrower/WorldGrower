@@ -12,27 +12,19 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.gui;
+package org.worldgrower.gui.music;
 
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
+import static org.junit.Assert.assertEquals;
 
-import javax.swing.JPanel;
+import java.io.IOException;
 
-public class TiledImagePanel extends JPanel {  
-    private final BufferedImage tileImage;  
+import org.junit.Test;
 
-    private BufferedImage getTiledImage(ImageInfoReader imageInfoReader) {
-    	return (BufferedImage) imageInfoReader.getImage(ImageIds.SCREEN_BACKGROUND, null);
-    }  
-	
-	public TiledImagePanel(ImageInfoReader imageInfoReader) {
-		super();
-		tileImage = getTiledImage(imageInfoReader);
+public class UTestSoundIdReader {
+
+	@Test
+	public void testInitialize() throws IOException, SoundException {
+		SoundIdReader soundIdReader = new SoundIdReader(null, true);
+		assertEquals(true, soundIdReader.isEnabled());
 	}
-
-    @Override
-    protected void paintComponent(Graphics g) {  
-    	TiledImagePainter.paintComponent(this, g, tileImage);
-    }   
 }

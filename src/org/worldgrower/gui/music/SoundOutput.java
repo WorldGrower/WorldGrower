@@ -20,7 +20,7 @@ import java.util.List;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Mixer;
 
-public class SoundOutput {
+public final class SoundOutput {
 
 	private final Mixer mixer;
 

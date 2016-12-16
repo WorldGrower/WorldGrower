@@ -23,7 +23,7 @@ public class TiledImagePopupMenu extends JPopupMenu {
 
 	private final BufferedImage tileImage;  
 
-    public BufferedImage getTiledImage(ImageInfoReader imageInfoReader) {
+    private BufferedImage getTiledImage(ImageInfoReader imageInfoReader) {
     	return (BufferedImage) imageInfoReader.getImage(ImageIds.SCREEN_BACKGROUND, null);
     }  
 	

@@ -183,6 +183,7 @@ import org.worldgrower.goal.*;
 import org.worldgrower.gui.UTestBonusDescriptions;
 import org.worldgrower.gui.UTestGuiShowEventHappenedAction;
 import org.worldgrower.gui.UTestImageInfoReader;
+import org.worldgrower.gui.music.UTestSoundIdReader;
 import org.worldgrower.gui.start.UTestGame;
 import org.worldgrower.history.UTestHistoryImpl;
 import org.worldgrower.history.UTestHistoryItem;
@@ -768,7 +769,8 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestWeaveLeatherBootsAction.class,
 	UTestWeaveLeatherPantsAction.class,
 	UTestWeaveLeatherHatAction.class,
-	UTestWeaveLeatherGlovesAction.class
+	UTestWeaveLeatherGlovesAction.class,
+	UTestSoundIdReader.class
 })
 public class CompleteTestSuite {
 }
