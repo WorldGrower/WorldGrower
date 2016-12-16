@@ -19,6 +19,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.geom.Rectangle2D;
+import java.awt.geom.Rectangle2D.Double;
+import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,6 +31,7 @@ import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.actions.BuildAction;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.gui.start.Game;
+import org.worldgrower.gui.util.ImageUtils;
 
 public class BuildModeOutline {
 
@@ -36,10 +39,17 @@ public class BuildModeOutline {
 	private BuildAction buildAction;
 	private int[] args;
 	
-	public void startBuildMode(BuildAction buildAction, int[] args) {
+	private BufferedImage okImage;
+	private BufferedImage notOkImage;
+	
+	public void startBuildMode(BuildAction buildAction, int[] args, ImageInfoReader imageInfoReader) {
 		this.buildMode = true;
 		this.buildAction = buildAction;
 		this.args = args;
+		
+		BufferedImage image = (BufferedImage)imageInfoReader.getImage(buildAction.getImageIds(), null);
+		this.okImage = ImageUtils.makeTransparent(image);
+		this.notOkImage = ImageUtils.dye(okImage, new Color(1f, 0, 0, 0.5f));
 	}
 	
 	public void endBuildMode(boolean executeBuildAction, Point mouseLocation, int offsetX, int offsetY, WorldObject playerCharacter, World world, GuiMouseListener guiMouseListener) {
@@ -62,16 +72,21 @@ public class BuildModeOutline {
 		if (buildMode) {
 			Graphics2D g2 = (Graphics2D) g;
 			
+			
+			Double rectangleToDraw = getRectangleToDraw(mouseLocation);
 			final Color color;
 			WorldObject buildLocation = getBuildLocation(mouseLocation, offsetX, offsetY);
 			if (isbuildActionPossible(playerCharacter, world, buildLocation)) {
 				color = Color.GREEN;
+				g.drawImage(okImage, (int)rectangleToDraw.x, (int)rectangleToDraw.getY(), null);
 			} else {
 				color = Color.RED;
+				g.drawImage(notOkImage, (int)rectangleToDraw.x, (int)rectangleToDraw.getY(), null);
 			}
 			
 			g2.setColor(color);
-			g2.draw(getRectangleToDraw(mouseLocation));
+			
+			g2.draw(rectangleToDraw);
 		}
 	}
 	

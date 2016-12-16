@@ -450,7 +450,7 @@ public final class WorldPanel extends JPanel implements ImageFactory {
 	}
 
 	public void startBuildMode(BuildAction buildAction, int[] args) {
-		this.buildModeOutline.startBuildMode(buildAction, args);
+		this.buildModeOutline.startBuildMode(buildAction, args, imageInfoReader);
 		this.mouseMotionListener = new MouseMotionAdapter() {
 
 			@Override

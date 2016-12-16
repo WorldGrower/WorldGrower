@@ -61,4 +61,19 @@ public class ImageUtils {
         g.dispose();
         return dyed;
     }
+    
+    public static BufferedImage makeTransparent(BufferedImage image) {
+    	int w = image.getWidth();
+        int h = image.getHeight();
+        BufferedImage transparentImage = new BufferedImage(w,h,BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = transparentImage.createGraphics();
+    	Graphics2D graphics2d = (Graphics2D)g;
+
+		graphics2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+		
+		g.drawImage(image, 0, 0, null);
+		graphics2d.dispose();
+		
+		return transparentImage;
+    }
 }
