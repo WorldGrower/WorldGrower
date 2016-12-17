@@ -87,13 +87,13 @@ public class CharacterCustomizationScreen extends JFrame {
 		
 		int attributeLabelWidth = 120;
 		int attributeLabelHeight = 35;
-		
+		int labelValueLeft = 145;
 		JLabel lblStrengthDesc = createAttributeLabel(Constants.STRENGTH, "Strength", ImageIds.STRENGTH_ICON);
 		lblStrengthDesc.setBounds(12, 23, attributeLabelWidth, attributeLabelHeight);
 		contentPane.add(lblStrengthDesc);
 		
 		lblStrength = JLabelFactory.createJLabel("10");
-		lblStrength.setBounds(135, 23, 24, attributeLabelHeight);
+		lblStrength.setBounds(labelValueLeft, 23, 24, attributeLabelHeight);
 		lblStrength.setToolTipText(lblStrengthDesc.getToolTipText());
 		contentPane.add(lblStrength);
 		
@@ -102,7 +102,7 @@ public class CharacterCustomizationScreen extends JFrame {
 		contentPane.add(lblConstitutionDesc);
 		
 		lblConstitution = JLabelFactory.createJLabel("10");
-		lblConstitution.setBounds(135, 61, 24, attributeLabelHeight);
+		lblConstitution.setBounds(labelValueLeft, 61, 24, attributeLabelHeight);
 		lblConstitution.setToolTipText(lblConstitutionDesc.getToolTipText());
 		contentPane.add(lblConstitution);
 		
@@ -111,7 +111,7 @@ public class CharacterCustomizationScreen extends JFrame {
 		contentPane.add(lblDexterityDesc);
 		
 		lblDexterity = JLabelFactory.createJLabel("10");
-		lblDexterity.setBounds(135, 101, 24, attributeLabelHeight);
+		lblDexterity.setBounds(labelValueLeft, 101, 24, attributeLabelHeight);
 		lblDexterity.setToolTipText(lblDexterityDesc.getToolTipText());
 		contentPane.add(lblDexterity);
 		
@@ -120,7 +120,7 @@ public class CharacterCustomizationScreen extends JFrame {
 		contentPane.add(lblIntelligenceDesc);
 		
 		lblIntelligence = JLabelFactory.createJLabel("10");
-		lblIntelligence.setBounds(135, 143, 24, attributeLabelHeight);
+		lblIntelligence.setBounds(labelValueLeft, 143, 24, attributeLabelHeight);
 		lblIntelligence.setToolTipText(lblIntelligenceDesc.getToolTipText());
 		contentPane.add(lblIntelligence);
 		
@@ -129,7 +129,7 @@ public class CharacterCustomizationScreen extends JFrame {
 		contentPane.add(lblWisdomDesc);
 		
 		lblWisdom = JLabelFactory.createJLabel("10");
-		lblWisdom.setBounds(135, 189, 24, attributeLabelHeight);
+		lblWisdom.setBounds(labelValueLeft, 189, 24, attributeLabelHeight);
 		lblWisdom.setToolTipText(lblWisdomDesc.getToolTipText());
 		contentPane.add(lblWisdom);
 		
@@ -138,9 +138,12 @@ public class CharacterCustomizationScreen extends JFrame {
 		contentPane.add(lblCharismaDesc);
 		
 		lblCharisma = JLabelFactory.createJLabel("10");
-		lblCharisma.setBounds(135, 234, 24, attributeLabelHeight);
+		lblCharisma.setBounds(labelValueLeft, 234, 24, attributeLabelHeight);
 		lblCharisma.setToolTipText(lblCharismaDesc.getToolTipText());
 		contentPane.add(lblCharisma);
+		
+		int plusButtonLeft = 254;
+		int minusButtonLeft = 186;
 		
 		JButton button1Plus = JButtonFactory.createButton("+", imageInfoReader, soundIdReader);
 		plusButtons.add(button1Plus);
@@ -149,7 +152,7 @@ public class CharacterCustomizationScreen extends JFrame {
 				incrementAttributeValue(lblStrength, attributeLabel); 
 			}
 		});
-		button1Plus.setBounds(234, 21, 56, 25);
+		button1Plus.setBounds(plusButtonLeft, 21, 56, 25);
 		contentPane.add(button1Plus);
 		
 		JButton button1Min = JButtonFactory.createButton("-", imageInfoReader, soundIdReader);
@@ -159,7 +162,7 @@ public class CharacterCustomizationScreen extends JFrame {
 				decrementAttributeValue(lblStrength, attributeLabel); 
 			}
 		});
-		button1Min.setBounds(166, 21, 56, 25);
+		button1Min.setBounds(minusButtonLeft, 21, 56, 25);
 		contentPane.add(button1Min);
 		
 		JButton button = JButtonFactory.createButton("+", imageInfoReader, soundIdReader);
@@ -169,7 +172,7 @@ public class CharacterCustomizationScreen extends JFrame {
 				incrementAttributeValue(lblConstitution, attributeLabel); 
 			}
 		});
-		button.setBounds(234, 61, 56, 25);
+		button.setBounds(plusButtonLeft, 61, 56, 25);
 		contentPane.add(button);
 		
 		JButton button_1 = JButtonFactory.createButton("-", imageInfoReader, soundIdReader);
@@ -179,7 +182,7 @@ public class CharacterCustomizationScreen extends JFrame {
 				decrementAttributeValue(lblConstitution, attributeLabel); 
 			}
 		});
-		button_1.setBounds(166, 61, 56, 25);
+		button_1.setBounds(minusButtonLeft, 61, 56, 25);
 		contentPane.add(button_1);
 		
 		JButton button_2 = JButtonFactory.createButton("+", imageInfoReader, soundIdReader);
@@ -189,7 +192,7 @@ public class CharacterCustomizationScreen extends JFrame {
 				incrementAttributeValue(lblDexterity, attributeLabel); 
 			}
 		});
-		button_2.setBounds(234, 101, 56, 25);
+		button_2.setBounds(plusButtonLeft, 101, 56, 25);
 		contentPane.add(button_2);
 		
 		JButton button_3 = JButtonFactory.createButton("-", imageInfoReader, soundIdReader);
@@ -199,7 +202,7 @@ public class CharacterCustomizationScreen extends JFrame {
 				decrementAttributeValue(lblDexterity, attributeLabel); 
 			}
 		});
-		button_3.setBounds(166, 101, 56, 25);
+		button_3.setBounds(minusButtonLeft, 101, 56, 25);
 		contentPane.add(button_3);
 		
 		JButton button_4 = JButtonFactory.createButton("+", imageInfoReader, soundIdReader);
@@ -209,7 +212,7 @@ public class CharacterCustomizationScreen extends JFrame {
 				incrementAttributeValue(lblIntelligence, attributeLabel); 
 			}
 		});
-		button_4.setBounds(234, 143, 56, 25);
+		button_4.setBounds(plusButtonLeft, 143, 56, 25);
 		contentPane.add(button_4);
 		
 		JButton button_5 = JButtonFactory.createButton("-", imageInfoReader, soundIdReader);
@@ -219,7 +222,7 @@ public class CharacterCustomizationScreen extends JFrame {
 				decrementAttributeValue(lblIntelligence, attributeLabel); 
 			}
 		});
-		button_5.setBounds(166, 143, 56, 25);
+		button_5.setBounds(minusButtonLeft, 143, 56, 25);
 		contentPane.add(button_5);
 		
 		JButton button_6 = JButtonFactory.createButton("+", imageInfoReader, soundIdReader);
@@ -229,7 +232,7 @@ public class CharacterCustomizationScreen extends JFrame {
 				incrementAttributeValue(lblWisdom, attributeLabel); 
 			}
 		});
-		button_6.setBounds(234, 189, 56, 25);
+		button_6.setBounds(plusButtonLeft, 189, 56, 25);
 		contentPane.add(button_6);
 		
 		JButton button_7 = JButtonFactory.createButton("-", imageInfoReader, soundIdReader);
@@ -239,7 +242,7 @@ public class CharacterCustomizationScreen extends JFrame {
 				decrementAttributeValue(lblWisdom, attributeLabel); 
 			}
 		});
-		button_7.setBounds(166, 189, 56, 25);
+		button_7.setBounds(minusButtonLeft, 189, 56, 25);
 		contentPane.add(button_7);
 		
 		JButton button_8 = JButtonFactory.createButton("+", imageInfoReader, soundIdReader);
@@ -249,7 +252,7 @@ public class CharacterCustomizationScreen extends JFrame {
 				incrementAttributeValue(lblCharisma, attributeLabel); 
 			}
 		});
-		button_8.setBounds(234, 234, 56, 25);
+		button_8.setBounds(plusButtonLeft, 234, 56, 25);
 		contentPane.add(button_8);
 		
 		JButton button_9 = JButtonFactory.createButton("-", imageInfoReader, soundIdReader);
@@ -259,7 +262,7 @@ public class CharacterCustomizationScreen extends JFrame {
 				decrementAttributeValue(lblCharisma, attributeLabel); 
 			}
 		});
-		button_9.setBounds(166, 234, 56, 25);
+		button_9.setBounds(minusButtonLeft, 234, 56, 25);
 		contentPane.add(button_9);
 		
 		setButtonTooltipTexts();
