@@ -190,32 +190,32 @@ public class CharacterDialog extends JDialog {
 		attributePanel.add(lblCharisma);
 		
 		JLabel lblStrengthValue = JLabelFactory.createJLabel(playerCharacter.getProperty(Constants.STRENGTH).toString());
-		lblStrengthValue.setBounds(150, 23, 20, 20);
+		lblStrengthValue.setBounds(150, 28, 20, 20);
 		lblStrengthValue.setToolTipText(lblStrength.getToolTipText());
 		attributePanel.add(lblStrengthValue);
 		
 		JLabel lblConstitutionValue = JLabelFactory.createJLabel(playerCharacter.getProperty(Constants.CONSTITUTION).toString());
-		lblConstitutionValue.setBounds(150, 63, 20, 20);
+		lblConstitutionValue.setBounds(150, 68, 20, 20);
 		lblConstitutionValue.setToolTipText(lblConstitution.getToolTipText());
 		attributePanel.add(lblConstitutionValue);
 		
 		JLabel lblDexterityValue = JLabelFactory.createJLabel(playerCharacter.getProperty(Constants.DEXTERITY).toString());
-		lblDexterityValue.setBounds(150, 103, 20, 20);
+		lblDexterityValue.setBounds(150, 108, 20, 20);
 		lblDexterityValue.setToolTipText(lblDexterity.getToolTipText());
 		attributePanel.add(lblDexterityValue);
 		
 		JLabel lblIntelligenceValue = JLabelFactory.createJLabel(playerCharacter.getProperty(Constants.INTELLIGENCE).toString());
-		lblIntelligenceValue.setBounds(150, 143, 20, 20);
+		lblIntelligenceValue.setBounds(150, 148, 20, 20);
 		lblIntelligenceValue.setToolTipText(lblIntelligence.getToolTipText());
 		attributePanel.add(lblIntelligenceValue);
 		
 		JLabel lblWisdomValue = JLabelFactory.createJLabel(playerCharacter.getProperty(Constants.WISDOM).toString());
-		lblWisdomValue.setBounds(150, 183, 20, 20);
+		lblWisdomValue.setBounds(150, 188, 20, 20);
 		lblWisdomValue.setToolTipText(lblWisdom.getToolTipText());
 		attributePanel.add(lblWisdomValue);
 		
 		JLabel lblCharismaValue = JLabelFactory.createJLabel(playerCharacter.getProperty(Constants.CHARISMA).toString());
-		lblCharismaValue.setBounds(150, 223, 20, 20);
+		lblCharismaValue.setBounds(150, 228, 20, 20);
 		lblCharismaValue.setToolTipText(lblCharisma.getToolTipText());
 		attributePanel.add(lblCharismaValue);
 
