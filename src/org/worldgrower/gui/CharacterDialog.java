@@ -158,32 +158,35 @@ public class CharacterDialog extends JDialog {
 		
 		JPanel attributePanel = JPanelFactory.createJPanel("Attributes");
 		attributePanel.setToolTipText("shows player character attributes");
-		attributePanel.setBounds(150, 5, 223, 200);
+		attributePanel.setBounds(150, 5, 223, 270);
 		attributePanel.setLayout(null);
 		contentPanel.add(attributePanel);
 		
-		JLabel lblStrength = createAttributeLabel(Constants.STRENGTH, "Strength");
-		lblStrength.setBounds(13, 23, 120, 20);
+		int attributeLabelWidth = 120;
+		int attributeLabelHeight = 35;
+		
+		JLabel lblStrength = createAttributeLabel(Constants.STRENGTH, "Strength", ImageIds.STRENGTH_ICON);
+		lblStrength.setBounds(13, 23, attributeLabelWidth, attributeLabelHeight);
 		attributePanel.add(lblStrength);
 		
-		JLabel lblConstitution = createAttributeLabel(Constants.CONSTITUTION, "Constitution");
-		lblConstitution.setBounds(13, 52, 120, 20);
+		JLabel lblConstitution = createAttributeLabel(Constants.CONSTITUTION, "Constitution", ImageIds.CONSTITUTION_ICON);
+		lblConstitution.setBounds(13, 63, attributeLabelWidth, attributeLabelHeight);
 		attributePanel.add(lblConstitution);
 		
-		JLabel lblDexterity = createAttributeLabel(Constants.DEXTERITY, "Dexterity");
-		lblDexterity.setBounds(13, 81, 120, 20);
+		JLabel lblDexterity = createAttributeLabel(Constants.DEXTERITY, "Dexterity", ImageIds.DEXTERITY_ICON);
+		lblDexterity.setBounds(13, 103, attributeLabelWidth, attributeLabelHeight);
 		attributePanel.add(lblDexterity);
 		
-		JLabel lblIntelligence = createAttributeLabel(Constants.INTELLIGENCE, "Intelligence");
-		lblIntelligence.setBounds(13, 110, 120, 20);
+		JLabel lblIntelligence = createAttributeLabel(Constants.INTELLIGENCE, "Intelligence", ImageIds.INTELLIGENCE_ICON);
+		lblIntelligence.setBounds(13, 143, attributeLabelWidth, attributeLabelHeight);
 		attributePanel.add(lblIntelligence);
 		
-		JLabel lblWisdom = createAttributeLabel(Constants.WISDOM, "Wisdom");
-		lblWisdom.setBounds(13, 139, 120, 20);
+		JLabel lblWisdom = createAttributeLabel(Constants.WISDOM, "Wisdom", ImageIds.WISDOM_ICON);
+		lblWisdom.setBounds(13, 183, attributeLabelWidth, attributeLabelHeight);
 		attributePanel.add(lblWisdom);
 		
-		JLabel lblCharisma = createAttributeLabel(Constants.CHARISMA, "Charisma");
-		lblCharisma.setBounds(13, 168, 120, 20);
+		JLabel lblCharisma = createAttributeLabel(Constants.CHARISMA, "Charisma", ImageIds.CHARISMA_ICON);
+		lblCharisma.setBounds(13, 223, attributeLabelWidth, attributeLabelHeight);
 		attributePanel.add(lblCharisma);
 		
 		JLabel lblStrengthValue = JLabelFactory.createJLabel(playerCharacter.getProperty(Constants.STRENGTH).toString());
@@ -192,33 +195,33 @@ public class CharacterDialog extends JDialog {
 		attributePanel.add(lblStrengthValue);
 		
 		JLabel lblConstitutionValue = JLabelFactory.createJLabel(playerCharacter.getProperty(Constants.CONSTITUTION).toString());
-		lblConstitutionValue.setBounds(150, 52, 20, 20);
+		lblConstitutionValue.setBounds(150, 63, 20, 20);
 		lblConstitutionValue.setToolTipText(lblConstitution.getToolTipText());
 		attributePanel.add(lblConstitutionValue);
 		
 		JLabel lblDexterityValue = JLabelFactory.createJLabel(playerCharacter.getProperty(Constants.DEXTERITY).toString());
-		lblDexterityValue.setBounds(150, 81, 20, 20);
+		lblDexterityValue.setBounds(150, 103, 20, 20);
 		lblDexterityValue.setToolTipText(lblDexterity.getToolTipText());
 		attributePanel.add(lblDexterityValue);
 		
 		JLabel lblIntelligenceValue = JLabelFactory.createJLabel(playerCharacter.getProperty(Constants.INTELLIGENCE).toString());
-		lblIntelligenceValue.setBounds(150, 110, 20, 20);
+		lblIntelligenceValue.setBounds(150, 143, 20, 20);
 		lblIntelligenceValue.setToolTipText(lblIntelligence.getToolTipText());
 		attributePanel.add(lblIntelligenceValue);
 		
 		JLabel lblWisdomValue = JLabelFactory.createJLabel(playerCharacter.getProperty(Constants.WISDOM).toString());
-		lblWisdomValue.setBounds(150, 139, 20, 20);
+		lblWisdomValue.setBounds(150, 183, 20, 20);
 		lblWisdomValue.setToolTipText(lblWisdom.getToolTipText());
 		attributePanel.add(lblWisdomValue);
 		
 		JLabel lblCharismaValue = JLabelFactory.createJLabel(playerCharacter.getProperty(Constants.CHARISMA).toString());
-		lblCharismaValue.setBounds(150, 168, 20, 20);
+		lblCharismaValue.setBounds(150, 223, 20, 20);
 		lblCharismaValue.setToolTipText(lblCharisma.getToolTipText());
 		attributePanel.add(lblCharismaValue);
 
 		JPanel specialAttributePanel = JPanelFactory.createJPanel("Special Attributes");
 		specialAttributePanel.setToolTipText("Special attributes indicate the state of special conditions like pregnancy, vampire blood level, etc");
-		specialAttributePanel.setBounds(380, 5, 250, 200);
+		specialAttributePanel.setBounds(380, 5, 250, 270);
 		specialAttributePanel.setLayout(null);
 		contentPanel.add(specialAttributePanel);
 		
@@ -233,7 +236,7 @@ public class CharacterDialog extends JDialog {
 		specialAttributesList.setBorder(null);
 		specialAttributesScrollPane.setViewportView(specialAttributesList);
 		
-		JPanel socialPanel = createPanel("Social Skills", 12, 208, 300, 250);
+		JPanel socialPanel = createPanel("Social Skills", 12, 278, 300, 250);
 		socialPanel.setToolTipText("shows player character social skills");
 		createSkillBlock(Constants.BLUFF_SKILL, socialPanel, 12, 28);
 		createSkillBlock(Constants.DIPLOMACY_SKILL, socialPanel, 12, 58);
@@ -241,7 +244,7 @@ public class CharacterDialog extends JDialog {
 		createSkillBlock(Constants.INTIMIDATE_SKILL, socialPanel, 12, 118);
 		createSkillBlock(Constants.PERCEPTION_SKILL, socialPanel, 12, 148);
 		
-		JPanel combatPanel = createPanel("Combat Skills", 12, 470, 300, 250);
+		JPanel combatPanel = createPanel("Combat Skills", 12, 540, 300, 250);
 		combatPanel.setToolTipText("shows player character combat skills");
 		createSkillBlock(Constants.ARCHERY_SKILL, combatPanel, 12, 28);
 		createSkillBlock(Constants.HEAVY_ARMOR_SKILL, combatPanel, 12, 58);
@@ -251,7 +254,7 @@ public class CharacterDialog extends JDialog {
 		createSkillBlock(Constants.SMITHING_SKILL, combatPanel, 12, 178);
 		createSkillBlock(Constants.TWO_HANDED_SKILL, combatPanel, 12, 208);
 		
-		JPanel professionPanel = createPanel("Profession Skills", 330, 208, 300, 250);
+		JPanel professionPanel = createPanel("Profession Skills", 330, 278, 300, 250);
 		professionPanel.setToolTipText("shows player character profession skills");
 		createSkillBlock(Constants.CARPENTRY_SKILL, professionPanel, 12, 28);
 		createSkillBlock(Constants.FARMING_SKILL, professionPanel, 12, 58);
@@ -261,7 +264,7 @@ public class CharacterDialog extends JDialog {
 		createSkillBlock(Constants.THIEVERY_SKILL, professionPanel, 12, 178);
 		createSkillBlock(Constants.WEAVING_SKILL, professionPanel, 12, 208);
 		
-		JPanel magicPanel = createPanel("Magic Skills", 330, 470, 300, 250);
+		JPanel magicPanel = createPanel("Magic Skills", 330, 540, 300, 250);
 		magicPanel.setToolTipText("shows player character magic skills");
 		createSkillBlock(Constants.ALCHEMY_SKILL, magicPanel, 12, 28);
 		createSkillBlock(Constants.ENCHANTMENT_SKILL, magicPanel, 12, 58);
@@ -397,7 +400,7 @@ public class CharacterDialog extends JDialog {
 		
 		JPanel buttonPane = new JPanel();
 		buttonPane.setOpaque(false);
-		buttonPane.setBounds(0, 730, 1095, 75);
+		buttonPane.setBounds(0, 730, 1060, 75);
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		contentPanel.add(buttonPane);
 		
@@ -463,9 +466,11 @@ public class CharacterDialog extends JDialog {
 		return conditions.getLongerDescriptions();
 	}
 
-	private JLabel createAttributeLabel(IntProperty attributeProperty, String description) {
+	private JLabel createAttributeLabel(IntProperty attributeProperty, String description, ImageIds imageId) {
 		String tooltip = GuiAttributeDescription.createToolTipDescription(attributeProperty, description);
-		JLabel label = JLabelFactory.createJLabel(description);
+		Image image = imageInfoReader.getImage(imageId, null);
+		JLabel label = JLabelFactory.createJLabel(description, image);
+		label.setHorizontalAlignment(SwingConstants.LEFT);
 		label.setToolTipText(tooltip);
 		return label;
 	}

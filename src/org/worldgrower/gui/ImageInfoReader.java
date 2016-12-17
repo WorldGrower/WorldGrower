@@ -123,6 +123,13 @@ public class ImageInfoReader {
     	BufferedImage energyBackground = readEnergyBackground();
     	BufferedImage progressBarBackground = readProgressBarBackground();
     	
+    	Sprites strengthIcon = readStrengthIcon();
+    	Sprites dexterityIcon = readDexterityIcon();
+    	Sprites constitutionIcon = readConstitutionIcon();
+    	Sprites intelligenceIcon = readIntelligenceIcon();
+    	Sprites wisdomIcon = readWisdomIcon();
+    	Sprites charismaIcon = readCharismaIcon();
+    	
     	addCharacter(ImageIds.KNIGHT, sprites, 0, 0, 1, 1);
     	addCharacter(ImageIds.GUARD, sprites, 0, 4, 1, 1);
     	add(ImageIds.BUCKET, objects.getSubImage(10, 10, 1, 1));
@@ -664,6 +671,14 @@ public class ImageInfoReader {
 		add(ImageIds.DROP_ITEM, sprites420.getSubImage(8, 29, 1, 1));
 		
 		addCharacter(ImageIds.NICOLAI_NPC, nicolaiNpc, 0, 0, 1, 1);
+		
+		add(ImageIds.STRENGTH_ICON, strengthIcon.getSubImage(0, 0, 1, 1));
+		add(ImageIds.DEXTERITY_ICON, dexterityIcon.getSubImage(0, 0, 1, 1));
+		add(ImageIds.CONSTITUTION_ICON, constitutionIcon.getSubImage(0, 0, 1, 1));
+		add(ImageIds.INTELLIGENCE_ICON, intelligenceIcon.getSubImage(0, 0, 1, 1));
+		add(ImageIds.WISDOM_ICON, wisdomIcon.getSubImage(0, 0, 1, 1));
+		add(ImageIds.CHARISMA_ICON, charismaIcon.getSubImage(0, 0, 1, 1));
+		
     }
 
 	private void createAnimation(ImageIds animationImageId, ImageIds imageId, int numberOfFrames) {
@@ -1041,6 +1056,30 @@ public class ImageInfoReader {
 		return readImages("scythe.png", 48, 48, 1, 1);
 	}
 	
+	private static Sprites readStrengthIcon() throws IOException {
+		return readImages("icon_100.png", 32, 32, 1, 1);
+	}
+	
+	private static Sprites readDexterityIcon() throws IOException {
+		return readImages("icon_102.png", 32, 32, 1, 1);
+	}
+	
+	private static Sprites readConstitutionIcon() throws IOException {
+		return readImages("icon_10.png", 32, 32, 1, 1);
+	}
+	
+	private static Sprites readIntelligenceIcon() throws IOException {
+		return readImages("icon_08.png", 32, 32, 1, 1);
+	}
+	
+	private static Sprites readWisdomIcon() throws IOException {
+		return readImages("icon_86.png", 32, 32, 1, 1);
+	}
+	
+	private static Sprites readCharismaIcon() throws IOException {
+		return readImages("icon_24.png", 32, 32, 1, 1);
+	}
+
 	private static Sprites readSpritesApothecary() throws IOException {
 		return readImages("apothecary.png", 192, 144, 1, 1);
 	}
