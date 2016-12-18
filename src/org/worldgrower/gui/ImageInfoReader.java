@@ -683,17 +683,17 @@ public class ImageInfoReader {
 		createAnimation(ImageIds.STEEL_ANIMATION, ImageIds.STEEL, 10);
 		
 		add(ImageIds.STEEL_CLAYMORE, sprites420.getSubImage(6, 5, 1, 1));
-		add(ImageIds.STEEL_GREATSWORD, sprites420.getSubImage(3, 5, 1, 1));
-		add(ImageIds.STEEL_AXE, sprites420.getSubImage(2, 5, 1, 1));
-		add(ImageIds.STEEL_GREATAXE, sprites420.getSubImage(2, 5, 1, 1));
-		add(ImageIds.STEEL_CUIRASS, sprites420.getSubImage(4, 13, 1, 1));
-		add(ImageIds.STEEL_HELMET, sprites420.getSubImage(2, 5, 1, 1));
-		add(ImageIds.STEEL_GAUNTLETS, sprites420.getSubImage(2, 5, 1, 1));
-		add(ImageIds.STEEL_GREAVES, sprites420.getSubImage(2, 5, 1, 1));
-		add(ImageIds.STEEL_SHIELD, sprites420.getSubImage(2, 5, 1, 1));
-		add(ImageIds.STEEL_BOOTS, sprites420.getSubImage(2, 5, 1, 1));
-		add(ImageIds.STEEL_MACE, sprites420.getSubImage(2, 5, 1, 1));
-		add(ImageIds.STEEL_KATAR, sprites420.getSubImage(2, 5, 1, 1));
+		add(ImageIds.STEEL_GREATSWORD, sprites420.getSubImage(4, 5, 1, 1));
+		add(ImageIds.STEEL_AXE, sprites420.getSubImage(6, 10, 1, 1));
+		add(ImageIds.STEEL_GREATAXE, sprites420.getSubImage(13, 10, 1, 1));
+		add(ImageIds.STEEL_CUIRASS, sprites420.getSubImage(5, 13, 1, 1));
+		add(ImageIds.STEEL_HELMET, sprites420.getSubImage(13, 13, 1, 1));
+		add(ImageIds.STEEL_GAUNTLETS, sprites420.getSubImage(11, 14, 1, 1));
+		add(ImageIds.STEEL_GREAVES, sprites420.getSubImage(5, 13, 1, 1));
+		add(ImageIds.STEEL_SHIELD, sprites420.getSubImage(10, 12, 1, 1));
+		add(ImageIds.STEEL_BOOTS, sprites420.getSubImage(4, 14, 1, 1));
+		add(ImageIds.STEEL_MACE, sprites420.getSubImage(5, 9, 1, 1));
+		add(ImageIds.STEEL_KATAR, sprites420.getSubImage(10, 6, 1, 1));
     }
 
 	private void createAnimation(ImageIds animationImageId, ImageIds imageId, int numberOfFrames) {
