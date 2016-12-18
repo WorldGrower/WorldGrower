@@ -50,7 +50,9 @@ public enum Item {
 	IRON_GAUNTLETS(ItemType.ARMOR), 
 	IRON_GREAVES(ItemType.ARMOR), 
 	IRON_SHIELD(ItemType.ARMOR), 
-	IRON_BOOTS(ItemType.ARMOR), 
+	IRON_BOOTS(ItemType.ARMOR),
+	IRON_MACE(ItemType.WEAPON), 
+	IRON_KATAR(ItemType.WEAPON),
 	BERRIES(ItemType.FOOD), 
 	GRAPES(ItemType.INGREDIENT), 
 	LONGBOW(ItemType.WEAPON), 
@@ -80,8 +82,6 @@ public enum Item {
 	SOUL_GEM(ItemType.RESOURCE), 
 	NEWS_PAPER(ItemType.BOOK), 
 	BLOOD(ItemType.DRINK), 
-	IRON_MACE(ItemType.WEAPON), 
-	IRON_KATAR(ItemType.WEAPON),
 	SLEEPING_POTION(ItemType.DRINK),
 	MINIATURE_CHEST(ItemType.MISC),
 	REMAINS(ItemType.MISC),
@@ -109,7 +109,19 @@ public enum Item {
 	LEATHER_BOOTS(ItemType.ARMOR), 
 	LEATHER_GLOVES(ItemType.ARMOR), 
 	LEATHER_PANTS(ItemType.ARMOR), 
-	STEEL(ItemType.RESOURCE)
+	STEEL(ItemType.RESOURCE),
+	STEEL_CLAYMORE(ItemType.WEAPON), 
+	STEEL_GREATSWORD(ItemType.WEAPON), 
+	STEEL_AXE(ItemType.WEAPON), 
+	STEEL_GREATAXE(ItemType.WEAPON), 
+	STEEL_CUIRASS(ItemType.ARMOR), 
+	STEEL_HELMET(ItemType.ARMOR), 
+	STEEL_GAUNTLETS(ItemType.ARMOR), 
+	STEEL_GREAVES(ItemType.ARMOR), 
+	STEEL_SHIELD(ItemType.ARMOR), 
+	STEEL_BOOTS(ItemType.ARMOR),
+	STEEL_MACE(ItemType.WEAPON), 
+	STEEL_KATAR(ItemType.WEAPON),
 	;
 
 	public static final int COMBAT_MULTIPLIER = 10;
@@ -144,6 +156,19 @@ public enum Item {
 	private static final String LEATHER_PANTS_NAME = "leather pants";
 	
 	private static final String BED_NAME = "bed";
+	
+	private static final String STEEL_CLAYMORE_NAME = "steel claymore";
+	private static final String STEEL_AXE_NAME = "steel axe";
+	private static final String STEEL_GREATSWORD_NAME = "steel greatsword";
+	private static final String STEEL_GREATAXE_NAME = "steel greataxe";
+	private static final String STEEL_CUIRASS_NAME = "steel cuirass";
+	private static final String STEEL_HELMET_NAME = "steel helmet";
+	private static final String STEEL_GAUNTLETS_NAME = "steel gauntlets";
+	private static final String STEEL_GREAVES_NAME = "steel greaves";
+	private static final String STEEL_BOOTS_NAME = "steel boots";
+	private static final String STEEL_SHIELD_NAME = "steel shield";
+	private static final String STEEL_MACE_NAME = "steel mace";
+	private static final String STEEL_KATAR_NAME = "steel katar";
 	
 	private final ItemType itemType;
 	
@@ -830,6 +855,177 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEGS_EQUIPMENT);
 			properties.put(Constants.IMAGE_ID, ImageIds.LEATHER_PANTS);
 			properties.put(Constants.ARMOR_TYPE, ArmorType.LIGHT);
+			return new WorldObjectImpl(properties);
+		});
+		
+		addItem(Item.STEEL_CLAYMORE, skillBonus -> {
+			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+			properties.put(Constants.NAME, STEEL_CLAYMORE_NAME);
+			properties.put(Constants.PRICE, 100);
+			properties.put(Constants.SELLABLE, false);
+			properties.put(Constants.DAMAGE, (int) (15 * COMBAT_MULTIPLIER * skillBonus));
+			properties.put(Constants.DAMAGE_TYPE, DamageType.SLASHING);
+			properties.put(Constants.WEIGHT, 25);
+			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
+			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
+			properties.put(Constants.IMAGE_ID, ImageIds.STEEL_CLAYMORE);
+			return new WorldObjectImpl(properties);
+		});
+
+		addItem(Item.STEEL_GREATSWORD, skillBonus -> {
+			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+			properties.put(Constants.NAME, STEEL_GREATSWORD_NAME);
+			properties.put(Constants.PRICE, 200);
+			properties.put(Constants.SELLABLE, false);
+			properties.put(Constants.DAMAGE, (int) (28 * COMBAT_MULTIPLIER * skillBonus));
+			properties.put(Constants.DAMAGE_TYPE, DamageType.SLASHING);
+			properties.put(Constants.WEIGHT, 42);
+			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
+			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
+			properties.put(Constants.TWO_HANDED_WEAPON, Boolean.TRUE);
+			properties.put(Constants.IMAGE_ID, ImageIds.STEEL_GREATSWORD);
+			return new WorldObjectImpl(properties);
+		});
+	
+		addItem(Item.STEEL_AXE, skillBonus -> {
+			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+			properties.put(Constants.NAME, STEEL_AXE_NAME);
+			properties.put(Constants.PRICE, 100);
+			properties.put(Constants.SELLABLE, false);
+			properties.put(Constants.DAMAGE, (int) (15 * COMBAT_MULTIPLIER * skillBonus));
+			properties.put(Constants.DAMAGE_TYPE, DamageType.SLASHING);
+			properties.put(Constants.WEIGHT, 22);
+			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
+			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
+			properties.put(Constants.WOOD_CUTTING_QUALITY, (int)(3 * skillBonus));
+			properties.put(Constants.IMAGE_ID, ImageIds.STEEL_AXE);
+			return new WorldObjectImpl(properties);
+		});
+	
+		addItem(Item.STEEL_GREATAXE, skillBonus -> {
+			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+			properties.put(Constants.NAME, STEEL_GREATAXE_NAME);
+			properties.put(Constants.PRICE, 200);
+			properties.put(Constants.SELLABLE, false);
+			properties.put(Constants.DAMAGE, (int) (28 * COMBAT_MULTIPLIER * skillBonus));
+			properties.put(Constants.DAMAGE_TYPE, DamageType.SLASHING);
+			properties.put(Constants.WEIGHT, 40);
+			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
+			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
+			properties.put(Constants.TWO_HANDED_WEAPON, Boolean.TRUE);
+			properties.put(Constants.IMAGE_ID, ImageIds.STEEL_GREATAXE);
+			return new WorldObjectImpl(properties);
+		});
+	
+		addItem(Item.STEEL_CUIRASS, skillBonus -> {
+			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+			properties.put(Constants.NAME, STEEL_CUIRASS_NAME);
+			properties.put(Constants.PRICE, 400);
+			properties.put(Constants.SELLABLE, false);
+			properties.put(Constants.ARMOR, (int) (12 * COMBAT_MULTIPLIER * skillBonus));
+			properties.put(Constants.WEIGHT, 32);
+			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
+			properties.put(Constants.EQUIPMENT_SLOT, Constants.TORSO_EQUIPMENT);
+			properties.put(Constants.IMAGE_ID, ImageIds.STEEL_CUIRASS);
+			properties.put(Constants.ARMOR_TYPE, ArmorType.HEAVY);
+			return new WorldObjectImpl(properties);
+		});
+	
+		addItem(Item.STEEL_HELMET, skillBonus -> {
+			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+			properties.put(Constants.NAME, STEEL_HELMET_NAME);
+			properties.put(Constants.PRICE, 200);
+			properties.put(Constants.SELLABLE, false);
+			properties.put(Constants.ARMOR, (int) (5 * COMBAT_MULTIPLIER * skillBonus));
+			properties.put(Constants.WEIGHT, 12);
+			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
+			properties.put(Constants.EQUIPMENT_SLOT, Constants.HEAD_EQUIPMENT);
+			properties.put(Constants.IMAGE_ID, ImageIds.STEEL_HELMET);
+			properties.put(Constants.ARMOR_TYPE, ArmorType.HEAVY);
+			return new WorldObjectImpl(properties);
+		});
+	
+		addItem(Item.STEEL_GAUNTLETS, skillBonus -> {
+			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+			properties.put(Constants.NAME, STEEL_GAUNTLETS_NAME);
+			properties.put(Constants.PRICE, 200);
+			properties.put(Constants.SELLABLE, false);
+			properties.put(Constants.ARMOR, (int) (6 * COMBAT_MULTIPLIER * skillBonus));
+			properties.put(Constants.WEIGHT, 12);
+			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
+			properties.put(Constants.EQUIPMENT_SLOT, Constants.ARMS_EQUIPMENT);
+			properties.put(Constants.IMAGE_ID, ImageIds.STEEL_GAUNTLETS);
+			properties.put(Constants.ARMOR_TYPE, ArmorType.HEAVY);
+			return new WorldObjectImpl(properties);
+		});
+	
+		addItem(Item.STEEL_GREAVES, skillBonus -> {
+			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+			properties.put(Constants.NAME, STEEL_GREAVES_NAME);
+			properties.put(Constants.PRICE, 200);
+			properties.put(Constants.SELLABLE, false);
+			properties.put(Constants.ARMOR, (int) (3 * COMBAT_MULTIPLIER * skillBonus));
+			properties.put(Constants.WEIGHT, 10);
+			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
+			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEGS_EQUIPMENT);
+			properties.put(Constants.IMAGE_ID, ImageIds.STEEL_GREAVES);
+			properties.put(Constants.ARMOR_TYPE, ArmorType.HEAVY);
+			return new WorldObjectImpl(properties);
+		});
+	
+		addItem(Item.STEEL_SHIELD, skillBonus -> {
+			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+			properties.put(Constants.NAME, STEEL_SHIELD_NAME);
+			properties.put(Constants.PRICE, 200);
+			properties.put(Constants.SELLABLE, false);
+			properties.put(Constants.ARMOR, (int) (12 * COMBAT_MULTIPLIER * skillBonus));
+			properties.put(Constants.WEIGHT, 12);
+			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
+			properties.put(Constants.EQUIPMENT_SLOT, Constants.RIGHT_HAND_EQUIPMENT);
+			properties.put(Constants.IMAGE_ID, ImageIds.STEEL_SHIELD);
+			properties.put(Constants.ARMOR_TYPE, ArmorType.HEAVY);
+			return new WorldObjectImpl(properties);
+		});
+	
+		addItem(Item.STEEL_BOOTS, skillBonus -> {
+			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+			properties.put(Constants.NAME, STEEL_BOOTS_NAME);
+			properties.put(Constants.PRICE, 200);
+			properties.put(Constants.SELLABLE, false);
+			properties.put(Constants.ARMOR, (int) (6 * COMBAT_MULTIPLIER * skillBonus));
+			properties.put(Constants.WEIGHT, 14);
+			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
+			properties.put(Constants.EQUIPMENT_SLOT, Constants.FEET_EQUIPMENT);
+			properties.put(Constants.IMAGE_ID, ImageIds.STEEL_BOOTS);
+			properties.put(Constants.ARMOR_TYPE, ArmorType.HEAVY);
+			return new WorldObjectImpl(properties);
+		});
+		
+		addItem(Item.STEEL_MACE, skillBonus -> {
+			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+			properties.put(Constants.NAME, STEEL_MACE_NAME);
+			properties.put(Constants.PRICE, 100);
+			properties.put(Constants.SELLABLE, false);
+			properties.put(Constants.DAMAGE, (int) (15 * COMBAT_MULTIPLIER * skillBonus));
+			properties.put(Constants.DAMAGE_TYPE, DamageType.BLUDGEONING);
+			properties.put(Constants.WEIGHT, 24);
+			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
+			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
+			properties.put(Constants.IMAGE_ID, ImageIds.STEEL_MACE);
+			return new WorldObjectImpl(properties);
+		});
+		
+		addItem(Item.STEEL_KATAR, skillBonus -> {
+			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+			properties.put(Constants.NAME, STEEL_KATAR_NAME);
+			properties.put(Constants.PRICE, 100);
+			properties.put(Constants.SELLABLE, false);
+			properties.put(Constants.DAMAGE, (int) (15 * COMBAT_MULTIPLIER * skillBonus));
+			properties.put(Constants.DAMAGE_TYPE, DamageType.PIERCING);
+			properties.put(Constants.WEIGHT, 24);
+			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
+			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
+			properties.put(Constants.IMAGE_ID, ImageIds.STEEL_KATAR);
 			return new WorldObjectImpl(properties);
 		});
 		
