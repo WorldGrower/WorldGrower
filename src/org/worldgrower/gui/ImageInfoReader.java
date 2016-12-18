@@ -686,15 +686,20 @@ public class ImageInfoReader {
 		add(ImageIds.STEEL_GREATSWORD, sprites420.getSubImage(4, 5, 1, 1));
 		add(ImageIds.STEEL_AXE, sprites420.getSubImage(6, 10, 1, 1));
 		add(ImageIds.STEEL_GREATAXE, sprites420.getSubImage(13, 10, 1, 1));
-		add(ImageIds.STEEL_CUIRASS, sprites420.getSubImage(5, 13, 1, 1));
-		add(ImageIds.STEEL_HELMET, sprites420.getSubImage(13, 13, 1, 1));
-		add(ImageIds.STEEL_GAUNTLETS, sprites420.getSubImage(11, 14, 1, 1));
-		add(ImageIds.STEEL_GREAVES, sprites420.getSubImage(5, 13, 1, 1));
-		add(ImageIds.STEEL_SHIELD, sprites420.getSubImage(10, 12, 1, 1));
-		add(ImageIds.STEEL_BOOTS, sprites420.getSubImage(4, 14, 1, 1));
-		add(ImageIds.STEEL_MACE, sprites420.getSubImage(5, 9, 1, 1));
-		add(ImageIds.STEEL_KATAR, sprites420.getSubImage(10, 6, 1, 1));
+		Color steelBlue = new Color(0.72f, 0.80f, 0.83f, 0.5f);
+		add(ImageIds.STEEL_CUIRASS, colorize(ImageIds.IRON_CUIRASS, steelBlue));
+		add(ImageIds.STEEL_HELMET, colorize(ImageIds.IRON_HELMET, steelBlue));
+		add(ImageIds.STEEL_GAUNTLETS, colorize(ImageIds.IRON_GAUNTLETS, steelBlue));
+		add(ImageIds.STEEL_GREAVES, colorize(ImageIds.IRON_GREAVES, steelBlue));
+		add(ImageIds.STEEL_SHIELD, colorize(ImageIds.IRON_SHIELD, steelBlue));
+		add(ImageIds.STEEL_BOOTS, colorize(ImageIds.IRON_BOOTS, steelBlue));
+		add(ImageIds.STEEL_MACE, colorize(ImageIds.IRON_MACE, steelBlue));
+		add(ImageIds.STEEL_KATAR, colorize(ImageIds.IRON_KATAR, steelBlue));
     }
+
+	BufferedImage colorize(ImageIds imageId, Color color) {
+		return ImageUtils.dye((BufferedImage)getImage(imageId, null), color);
+	}
 
 	private void createAnimation(ImageIds animationImageId, ImageIds imageId, int numberOfFrames) {
 		List<Image> images = new ArrayList<>();
