@@ -301,6 +301,7 @@ public class Actions {
 	public static final WeaveLeatherBootsAction WEAVE_LEATHER_BOOTS_ACTION = new WeaveLeatherBootsAction();
 	public static final WeaveLeatherGlovesAction WEAVE_LEATHER_GLOVES_ACTION = new WeaveLeatherGlovesAction();
 	public static final WeaveLeatherPantsAction WEAVE_LEATHER_PANTS_ACTION = new WeaveLeatherPantsAction();
+	public static final CreateSteelAction CREATE_STEEL_ACTION = new CreateSteelAction();
 	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 
@@ -517,7 +518,8 @@ public class Actions {
 		WEAVE_LEATHER_HAT_ACTION,
 		WEAVE_LEATHER_BOOTS_ACTION,
 		WEAVE_LEATHER_GLOVES_ACTION,
-		WEAVE_LEATHER_PANTS_ACTION
+		WEAVE_LEATHER_PANTS_ACTION,
+		CREATE_STEEL_ACTION
 	));
 	
 	static {

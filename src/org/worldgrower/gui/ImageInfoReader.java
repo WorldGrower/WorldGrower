@@ -678,6 +678,9 @@ public class ImageInfoReader {
 		add(ImageIds.INTELLIGENCE_ICON, intelligenceIcon.getSubImage(0, 0, 1, 1));
 		add(ImageIds.WISDOM_ICON, wisdomIcon.getSubImage(0, 0, 1, 1));
 		add(ImageIds.CHARISMA_ICON, charismaIcon.getSubImage(0, 0, 1, 1));
+
+		add(ImageIds.STEEL, pirates.getSubImage(4, 7, 1, 1));
+		createAnimation(ImageIds.STEEL_ANIMATION, ImageIds.STEEL, 10);
 		
     }
 

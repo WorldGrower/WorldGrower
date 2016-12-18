@@ -833,9 +833,11 @@ public class GuiMouseListener extends MouseAdapter {
 	
 	private void addPerformedActionsMenu(JPopupMenu menu, WorldObject worldObject) {
 		if (Boolean.getBoolean("DEBUG")) {
-			JMenuItem showPerformedActionsItem = MenuFactory.createJMenuItem(new ShowPerformedActionsAction(worldObject, world), soundIdReader);
-			showPerformedActionsItem.setText("Show performed actions...");
-			menu.add(showPerformedActionsItem);
+			if (worldObject.hasIntelligence()) {
+				JMenuItem showPerformedActionsItem = MenuFactory.createJMenuItem(new ShowPerformedActionsAction(worldObject, world), soundIdReader);
+				showPerformedActionsItem.setText("Show performed actions...");
+				menu.add(showPerformedActionsItem);
+			}
 		}
 	}
 

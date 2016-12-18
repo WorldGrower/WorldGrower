@@ -109,6 +109,7 @@ public enum Item {
 	LEATHER_BOOTS(ItemType.ARMOR), 
 	LEATHER_GLOVES(ItemType.ARMOR), 
 	LEATHER_PANTS(ItemType.ARMOR), 
+	STEEL(ItemType.RESOURCE)
 	;
 
 	public static final int COMBAT_MULTIPLIER = 10;
@@ -838,6 +839,7 @@ public enum Item {
 		addItem(Item.ORE, new DefaultItemGenerator(Constants.ORE, 1, ImageIds.IRON)::addDefault);
 		addItem(Item.SOUL_GEM, new DefaultItemGenerator(Constants.SOUL_GEM, 1, ImageIds.SOUL_GEM)::addDefault);
 		addItem(Item.LEATHER, new DefaultItemGenerator(Constants.LEATHER, 1, ImageIds.LEATHER)::addDefault);
+		addItem(Item.STEEL, new DefaultItemGenerator(Constants.STEEL, 1, ImageIds.STEEL)::addDefault);
 	}
 	
 	static {
