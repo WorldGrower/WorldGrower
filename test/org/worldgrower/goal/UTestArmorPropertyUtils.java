@@ -36,7 +36,7 @@ public class UTestArmorPropertyUtils {
 		performer.setProperty(Constants.LEGS_EQUIPMENT, Item.IRON_GREAVES.generate(1f));
 		performer.setProperty(Constants.FEET_EQUIPMENT, Item.IRON_BOOTS.generate(1f));
 		
-		assertEquals(26 * Item.COMBAT_MULTIPLIER, ArmorPropertyUtils.calculateArmor(performer));
+		assertEquals(170 * Item.COMBAT_MULTIPLIER, ArmorPropertyUtils.calculateArmor(performer));
 	}
 	
 	@Test

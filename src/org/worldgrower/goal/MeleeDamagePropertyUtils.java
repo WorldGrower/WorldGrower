@@ -38,7 +38,7 @@ public class MeleeDamagePropertyUtils {
 			meleeDamage = 2 * Item.COMBAT_MULTIPLIER;
 			WorldObject armsEquipment = worldObject.getProperty(Constants.ARMS_EQUIPMENT);
 			if (armsEquipment != null) {
-				int armsEquipmentArmor = armsEquipment.getProperty(Constants.ARMOR);
+				int armsEquipmentArmor = armsEquipment.getProperty(Constants.ARMOR) / 2;
 				meleeDamage += armsEquipmentArmor;
 			}
 		}
