@@ -28,7 +28,7 @@ import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
-public class CraftIronCuirassAction implements CraftAction, AnimatedAction {
+public class CraftIronCuirassAction implements CraftEquipmentAction, AnimatedAction {
 	private static final int DISTANCE = 1;
 	private static final int WOOD_REQUIRED = 9;
 	private static final int ORE_REQUIRED = 7;
@@ -108,5 +108,10 @@ public class CraftIronCuirassAction implements CraftAction, AnimatedAction {
 	@Override
 	public List<WorldObject> getAffectedTargets(WorldObject target, World world) {
 		return Arrays.asList(target);
+	}
+	
+	@Override
+	public EquipmentType getEquipmentType() {
+		return EquipmentType.IRON;
 	}
 }

@@ -28,10 +28,10 @@ import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
-public class CraftIronBootsAction implements CraftEquipmentAction, AnimatedAction {
+public class CraftSteelCuirassAction implements CraftEquipmentAction, AnimatedAction {
 	private static final int DISTANCE = 1;
-	private static final int WOOD_REQUIRED = 5;
-	private static final int ORE_REQUIRED = 4;
+	private static final int WOOD_REQUIRED = 9;
+	private static final int STEEL_REQUIRED = 7;
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
@@ -39,15 +39,15 @@ public class CraftIronBootsAction implements CraftEquipmentAction, AnimatedActio
 		
 		double skillBonus = SkillUtils.useSkill(performer, Constants.SMITHING_SKILL, world.getWorldStateChangedListeners());
 		int quantity = SmithPropertyUtils.calculateSmithingQuantity(performer, target);
-		inventory.addQuantity(Item.IRON_BOOTS.generate(skillBonus), quantity);
+		inventory.addQuantity(Item.STEEL_CUIRASS.generate(skillBonus), quantity);
 
 		inventory.removeQuantity(Constants.WOOD, WOOD_REQUIRED);
-		inventory.removeQuantity(Constants.ORE, ORE_REQUIRED);
+		inventory.removeQuantity(Constants.STEEL, STEEL_REQUIRED);
 	}
 
 	@Override
 	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
-		return CraftUtils.hasEnoughResources(performer, WOOD_REQUIRED, ORE_REQUIRED);
+		return CraftUtils.hasEnoughResources(performer, Constants.WOOD, WOOD_REQUIRED, Constants.STEEL, STEEL_REQUIRED);
 	}
 	
 	@Override
@@ -57,13 +57,14 @@ public class CraftIronBootsAction implements CraftEquipmentAction, AnimatedActio
 	
 	@Override
 	public String getRequirementsDescription() {
-		return CraftUtils.getRequirementsDescription(Constants.WOOD, WOOD_REQUIRED, Constants.ORE, ORE_REQUIRED);
+		return CraftUtils.getRequirementsDescription(Constants.WOOD, WOOD_REQUIRED, Constants.STEEL, STEEL_REQUIRED);
 	}
 	
 	@Override
 	public String getDescription() {
-		return "iron boots are used as armor to reduce the damage taken from attacks";
+		return "a steel cuirass is used as armor to reduce the damage taken from attacks";
 	}
+
 
 	@Override
 	public boolean requiresArguments() {
@@ -77,12 +78,12 @@ public class CraftIronBootsAction implements CraftEquipmentAction, AnimatedActio
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "crafting iron boots";
+		return "crafting steel cuirass";
 	}
 
 	@Override
 	public String getSimpleDescription() {
-		return "craft iron boots";
+		return "craft steel cuirass";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {
@@ -91,7 +92,7 @@ public class CraftIronBootsAction implements CraftEquipmentAction, AnimatedActio
 	
 	@Override
 	public ImageIds getImageIds() {
-		return ImageIds.IRON_BOOTS;
+		return ImageIds.STEEL_CUIRASS;
 	}
 	
 	@Override
@@ -101,7 +102,7 @@ public class CraftIronBootsAction implements CraftEquipmentAction, AnimatedActio
 
 	@Override
 	public ImageIds getAnimationImageId() {
-		return ImageIds.IRON_BOOTS_ANIMATION;
+		return ImageIds.STEEL_CUIRASS_ANIMATION;
 	}
 
 	@Override
@@ -111,6 +112,6 @@ public class CraftIronBootsAction implements CraftEquipmentAction, AnimatedActio
 	
 	@Override
 	public EquipmentType getEquipmentType() {
-		return EquipmentType.IRON;
+		return EquipmentType.STEEL;
 	}
 }

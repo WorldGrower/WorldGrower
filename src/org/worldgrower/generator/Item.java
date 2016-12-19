@@ -261,7 +261,7 @@ public enum Item {
 			properties.put(Constants.NAME, IRON_CUIRASS_NAME);
 			properties.put(Constants.PRICE, 300);
 			properties.put(Constants.SELLABLE, false);
-			properties.put(Constants.ARMOR, (int) (10 * COMBAT_MULTIPLIER * skillBonus));
+			properties.put(Constants.ARMOR, (int) (50 * COMBAT_MULTIPLIER * skillBonus));
 			properties.put(Constants.WEIGHT, 30);
 			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.TORSO_EQUIPMENT);
@@ -275,7 +275,7 @@ public enum Item {
 			properties.put(Constants.NAME, IRON_HELMET_NAME);
 			properties.put(Constants.PRICE, 100);
 			properties.put(Constants.SELLABLE, false);
-			properties.put(Constants.ARMOR, (int) (4 * COMBAT_MULTIPLIER * skillBonus));
+			properties.put(Constants.ARMOR, (int) (30 * COMBAT_MULTIPLIER * skillBonus));
 			properties.put(Constants.WEIGHT, 10);
 			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.HEAD_EQUIPMENT);
@@ -289,7 +289,7 @@ public enum Item {
 			properties.put(Constants.NAME, IRON_GAUNTLETS_NAME);
 			properties.put(Constants.PRICE, 150);
 			properties.put(Constants.SELLABLE, false);
-			properties.put(Constants.ARMOR, (int) (5 * COMBAT_MULTIPLIER * skillBonus));
+			properties.put(Constants.ARMOR, (int) (30 * COMBAT_MULTIPLIER * skillBonus));
 			properties.put(Constants.WEIGHT, 12);
 			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.ARMS_EQUIPMENT);
@@ -303,7 +303,7 @@ public enum Item {
 			properties.put(Constants.NAME, IRON_GREAVES_NAME);
 			properties.put(Constants.PRICE, 100);
 			properties.put(Constants.SELLABLE, false);
-			properties.put(Constants.ARMOR, (int) (2 * COMBAT_MULTIPLIER * skillBonus));
+			properties.put(Constants.ARMOR, (int) (30 * COMBAT_MULTIPLIER * skillBonus));
 			properties.put(Constants.WEIGHT, 8);
 			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEGS_EQUIPMENT);
@@ -317,7 +317,7 @@ public enum Item {
 			properties.put(Constants.NAME, IRON_SHIELD_NAME);
 			properties.put(Constants.PRICE, 100);
 			properties.put(Constants.SELLABLE, false);
-			properties.put(Constants.ARMOR, (int) (10 * COMBAT_MULTIPLIER * skillBonus));
+			properties.put(Constants.ARMOR, (int) (450 * COMBAT_MULTIPLIER * skillBonus));
 			properties.put(Constants.WEIGHT, 10);
 			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.RIGHT_HAND_EQUIPMENT);
@@ -331,7 +331,7 @@ public enum Item {
 			properties.put(Constants.NAME, IRON_BOOTS_NAME);
 			properties.put(Constants.PRICE, 150);
 			properties.put(Constants.SELLABLE, false);
-			properties.put(Constants.ARMOR, (int) (5 * COMBAT_MULTIPLIER * skillBonus));
+			properties.put(Constants.ARMOR, (int) (30 * COMBAT_MULTIPLIER * skillBonus));
 			properties.put(Constants.WEIGHT, 12);
 			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.FEET_EQUIPMENT);
@@ -793,7 +793,7 @@ public enum Item {
 			properties.put(Constants.NAME, LEATHER_SHIRT_NAME);
 			properties.put(Constants.PRICE, 100);
 			properties.put(Constants.SELLABLE, false);
-			properties.put(Constants.ARMOR, (int) (3 * skillBonus));
+			properties.put(Constants.ARMOR, (int) (40 * skillBonus));
 			properties.put(Constants.WEIGHT, 3);
 			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.TORSO_EQUIPMENT);
@@ -807,7 +807,7 @@ public enum Item {
 			properties.put(Constants.NAME, LEATHER_HAT_NAME);
 			properties.put(Constants.PRICE, 30);
 			properties.put(Constants.SELLABLE, false);
-			properties.put(Constants.ARMOR, (int) (2 * skillBonus));
+			properties.put(Constants.ARMOR, (int) (15 * skillBonus));
 			properties.put(Constants.WEIGHT, 2);
 			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.HEAD_EQUIPMENT);
@@ -821,7 +821,7 @@ public enum Item {
 			properties.put(Constants.NAME, LEATHER_BOOTS_NAME);
 			properties.put(Constants.PRICE, 40);
 			properties.put(Constants.SELLABLE, false);
-			properties.put(Constants.ARMOR, (int) (2 * skillBonus));
+			properties.put(Constants.ARMOR, (int) (15 * skillBonus));
 			properties.put(Constants.WEIGHT, 1);
 			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.FEET_EQUIPMENT);
@@ -835,7 +835,7 @@ public enum Item {
 			properties.put(Constants.NAME, LEATHER_GLOVES_NAME);
 			properties.put(Constants.PRICE, 30);
 			properties.put(Constants.SELLABLE, false);
-			properties.put(Constants.ARMOR, (int) (2 * skillBonus));
+			properties.put(Constants.ARMOR, (int) (15 * skillBonus));
 			properties.put(Constants.WEIGHT, 1);
 			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.ARMS_EQUIPMENT);
@@ -849,7 +849,7 @@ public enum Item {
 			properties.put(Constants.NAME, LEATHER_PANTS_NAME);
 			properties.put(Constants.PRICE, 40);
 			properties.put(Constants.SELLABLE, false);
-			properties.put(Constants.ARMOR, (int) (3 * skillBonus));
+			properties.put(Constants.ARMOR, (int) (15 * skillBonus));
 			properties.put(Constants.WEIGHT, 2);
 			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEGS_EQUIPMENT);
@@ -922,7 +922,7 @@ public enum Item {
 			properties.put(Constants.NAME, STEEL_CUIRASS_NAME);
 			properties.put(Constants.PRICE, 400);
 			properties.put(Constants.SELLABLE, false);
-			properties.put(Constants.ARMOR, (int) (12 * COMBAT_MULTIPLIER * skillBonus));
+			properties.put(Constants.ARMOR, (int) (980 * COMBAT_MULTIPLIER * skillBonus));
 			properties.put(Constants.WEIGHT, 32);
 			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.TORSO_EQUIPMENT);
@@ -936,7 +936,7 @@ public enum Item {
 			properties.put(Constants.NAME, STEEL_HELMET_NAME);
 			properties.put(Constants.PRICE, 200);
 			properties.put(Constants.SELLABLE, false);
-			properties.put(Constants.ARMOR, (int) (5 * COMBAT_MULTIPLIER * skillBonus));
+			properties.put(Constants.ARMOR, (int) (680 * COMBAT_MULTIPLIER * skillBonus));
 			properties.put(Constants.WEIGHT, 12);
 			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.HEAD_EQUIPMENT);
@@ -950,7 +950,7 @@ public enum Item {
 			properties.put(Constants.NAME, STEEL_GAUNTLETS_NAME);
 			properties.put(Constants.PRICE, 200);
 			properties.put(Constants.SELLABLE, false);
-			properties.put(Constants.ARMOR, (int) (6 * COMBAT_MULTIPLIER * skillBonus));
+			properties.put(Constants.ARMOR, (int) (680 * COMBAT_MULTIPLIER * skillBonus));
 			properties.put(Constants.WEIGHT, 12);
 			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.ARMS_EQUIPMENT);
@@ -964,7 +964,7 @@ public enum Item {
 			properties.put(Constants.NAME, STEEL_GREAVES_NAME);
 			properties.put(Constants.PRICE, 200);
 			properties.put(Constants.SELLABLE, false);
-			properties.put(Constants.ARMOR, (int) (3 * COMBAT_MULTIPLIER * skillBonus));
+			properties.put(Constants.ARMOR, (int) (680 * COMBAT_MULTIPLIER * skillBonus));
 			properties.put(Constants.WEIGHT, 10);
 			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEGS_EQUIPMENT);
@@ -978,7 +978,7 @@ public enum Item {
 			properties.put(Constants.NAME, STEEL_SHIELD_NAME);
 			properties.put(Constants.PRICE, 200);
 			properties.put(Constants.SELLABLE, false);
-			properties.put(Constants.ARMOR, (int) (12 * COMBAT_MULTIPLIER * skillBonus));
+			properties.put(Constants.ARMOR, (int) (8000 * COMBAT_MULTIPLIER * skillBonus));
 			properties.put(Constants.WEIGHT, 12);
 			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.RIGHT_HAND_EQUIPMENT);
@@ -992,7 +992,7 @@ public enum Item {
 			properties.put(Constants.NAME, STEEL_BOOTS_NAME);
 			properties.put(Constants.PRICE, 200);
 			properties.put(Constants.SELLABLE, false);
-			properties.put(Constants.ARMOR, (int) (6 * COMBAT_MULTIPLIER * skillBonus));
+			properties.put(Constants.ARMOR, (int) (680 * COMBAT_MULTIPLIER * skillBonus));
 			properties.put(Constants.WEIGHT, 14);
 			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.FEET_EQUIPMENT);

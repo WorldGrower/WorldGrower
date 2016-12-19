@@ -302,6 +302,18 @@ public class Actions {
 	public static final WeaveLeatherGlovesAction WEAVE_LEATHER_GLOVES_ACTION = new WeaveLeatherGlovesAction();
 	public static final WeaveLeatherPantsAction WEAVE_LEATHER_PANTS_ACTION = new WeaveLeatherPantsAction();
 	public static final CreateSteelAction CREATE_STEEL_ACTION = new CreateSteelAction();
+	public static final CraftSteelClaymoreAction CRAFT_STEEL_CLAYMORE_ACTION = new CraftSteelClaymoreAction();
+	public static final CraftSteelGreatswordAction CRAFT_STEEL_GREATSWORD_ACTION = new CraftSteelGreatswordAction();
+	public static final CraftSteelAxeAction CRAFT_STEEL_AXE_ACTION = new CraftSteelAxeAction();
+	public static final CraftSteelGreataxeAction CRAFT_STEEL_GREATAXE_ACTION = new CraftSteelGreataxeAction();
+	public static final CraftSteelCuirassAction CRAFT_STEEL_CUIRASS_ACTION = new CraftSteelCuirassAction();
+	public static final CraftSteelHelmetAction CRAFT_STEEL_HELMET_ACTION = new CraftSteelHelmetAction();
+	public static final CraftSteelGauntletsAction CRAFT_STEEL_GAUNTLETS_ACTION = new CraftSteelGauntletsAction();
+	public static final CraftSteelGreavesAction CRAFT_STEEL_GREAVES_ACTION = new CraftSteelGreavesAction();
+	public static final CraftSteelShieldAction CRAFT_STEEL_SHIELD_ACTION = new CraftSteelShieldAction();
+	public static final CraftSteelBootsAction CRAFT_STEEL_BOOTS_ACTION = new CraftSteelBootsAction();
+	public static final CraftSteelMaceAction CRAFT_STEEL_MACE_ACTION = new CraftSteelMaceAction();
+	public static final CraftSteelKatarAction CRAFT_STEEL_KATAR_ACTION = new CraftSteelKatarAction();
 	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 
@@ -519,7 +531,19 @@ public class Actions {
 		WEAVE_LEATHER_BOOTS_ACTION,
 		WEAVE_LEATHER_GLOVES_ACTION,
 		WEAVE_LEATHER_PANTS_ACTION,
-		CREATE_STEEL_ACTION
+		CREATE_STEEL_ACTION,
+		CRAFT_STEEL_CLAYMORE_ACTION,
+		CRAFT_STEEL_GREATSWORD_ACTION,
+		CRAFT_STEEL_AXE_ACTION,
+		CRAFT_STEEL_GREATAXE_ACTION,
+		CRAFT_STEEL_CUIRASS_ACTION,
+		CRAFT_STEEL_HELMET_ACTION,
+		CRAFT_STEEL_GAUNTLETS_ACTION,
+		CRAFT_STEEL_GREAVES_ACTION,
+		CRAFT_STEEL_SHIELD_ACTION,
+		CRAFT_STEEL_BOOTS_ACTION,
+		CRAFT_STEEL_MACE_ACTION,
+		CRAFT_STEEL_KATAR_ACTION
 	));
 	
 	static {

@@ -695,6 +695,19 @@ public class ImageInfoReader {
 		add(ImageIds.STEEL_BOOTS, colorize(ImageIds.IRON_BOOTS, steelBlue));
 		add(ImageIds.STEEL_MACE, colorize(ImageIds.IRON_MACE, steelBlue));
 		add(ImageIds.STEEL_KATAR, colorize(ImageIds.IRON_KATAR, steelBlue));
+		
+		createAnimation(ImageIds.STEEL_CLAYMORE_ANIMATION, ImageIds.STEEL_CLAYMORE, 10);
+		createAnimation(ImageIds.STEEL_GREATSWORD_ANIMATION, ImageIds.STEEL_GREATSWORD, 10);
+		createAnimation(ImageIds.STEEL_AXE_ANIMATION, ImageIds.STEEL_AXE, 10);
+		createAnimation(ImageIds.STEEL_GREATAXE_ANIMATION, ImageIds.STEEL_GREATAXE, 10);
+		createAnimation(ImageIds.STEEL_CUIRASS_ANIMATION, ImageIds.STEEL_CUIRASS, 10);
+		createAnimation(ImageIds.STEEL_HELMET_ANIMATION, ImageIds.STEEL_HELMET, 10);
+		createAnimation(ImageIds.STEEL_GAUNTLETS_ANIMATION, ImageIds.STEEL_GAUNTLETS, 10);
+		createAnimation(ImageIds.STEEL_GREAVES_ANIMATION, ImageIds.STEEL_GREAVES, 10);
+		createAnimation(ImageIds.STEEL_SHIELD_ANIMATION, ImageIds.STEEL_SHIELD, 10);
+		createAnimation(ImageIds.STEEL_BOOTS_ANIMATION, ImageIds.STEEL_BOOTS, 10);
+		createAnimation(ImageIds.STEEL_MACE_ANIMATION, ImageIds.STEEL_MACE, 10);
+		createAnimation(ImageIds.STEEL_KATAR_ANIMATION, ImageIds.STEEL_KATAR, 10);		
     }
 
 	BufferedImage colorize(ImageIds imageId, Color color) {

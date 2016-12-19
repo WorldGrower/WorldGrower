@@ -42,7 +42,6 @@ public class UTestArmorPropertyUtils {
 	@Test
 	public void testCalculateDamageResist() {
 		WorldObject performer = TestUtils.createSkilledWorldObject(1);
-		
 		assertEquals(0, ArmorPropertyUtils.calculateDamageResist(performer));
 		
 		performer.setProperty(Constants.HEAD_EQUIPMENT, Item.IRON_HELMET.generate(1f));
@@ -50,16 +49,35 @@ public class UTestArmorPropertyUtils {
 		performer.setProperty(Constants.ARMS_EQUIPMENT, Item.IRON_GAUNTLETS.generate(1f));
 		performer.setProperty(Constants.LEGS_EQUIPMENT, Item.IRON_GREAVES.generate(1f));
 		performer.setProperty(Constants.FEET_EQUIPMENT, Item.IRON_BOOTS.generate(1f));
+		assertEquals(12, ArmorPropertyUtils.calculateDamageResist(performer));
 		
-		assertEquals(10, ArmorPropertyUtils.calculateDamageResist(performer));
+		performer.setProperty(Constants.RIGHT_HAND_EQUIPMENT, Item.IRON_SHIELD.generate(1f));
+		assertEquals(13, ArmorPropertyUtils.calculateDamageResist(performer));
 		
 		performer.setProperty(Constants.HEAD_EQUIPMENT, Item.COTTON_HAT.generate(1f));
 		performer.setProperty(Constants.TORSO_EQUIPMENT, Item.COTTON_SHIRT.generate(1f));
 		performer.setProperty(Constants.ARMS_EQUIPMENT, Item.COTTON_GLOVES.generate(1f));
 		performer.setProperty(Constants.LEGS_EQUIPMENT, Item.COTTON_PANTS.generate(1f));
 		performer.setProperty(Constants.FEET_EQUIPMENT, Item.COTTON_BOOTS.generate(1f));
-		
+		performer.setProperty(Constants.RIGHT_HAND_EQUIPMENT, null);
 		assertEquals(6, ArmorPropertyUtils.calculateDamageResist(performer));
+		
+		performer.setProperty(Constants.HEAD_EQUIPMENT, Item.LEATHER_HAT.generate(1f));
+		performer.setProperty(Constants.TORSO_EQUIPMENT, Item.LEATHER_SHIRT.generate(1f));
+		performer.setProperty(Constants.ARMS_EQUIPMENT, Item.LEATHER_GLOVES.generate(1f));
+		performer.setProperty(Constants.LEGS_EQUIPMENT, Item.LEATHER_PANTS.generate(1f));
+		performer.setProperty(Constants.FEET_EQUIPMENT, Item.LEATHER_BOOTS.generate(1f));
+		assertEquals(9, ArmorPropertyUtils.calculateDamageResist(performer));
+		
+		performer.setProperty(Constants.HEAD_EQUIPMENT, Item.STEEL_HELMET.generate(1f));
+		performer.setProperty(Constants.TORSO_EQUIPMENT, Item.STEEL_CUIRASS.generate(1f));
+		performer.setProperty(Constants.ARMS_EQUIPMENT, Item.STEEL_GAUNTLETS.generate(1f));
+		performer.setProperty(Constants.LEGS_EQUIPMENT, Item.STEEL_GREAVES.generate(1f));
+		performer.setProperty(Constants.FEET_EQUIPMENT, Item.STEEL_BOOTS.generate(1f));
+		assertEquals(15, ArmorPropertyUtils.calculateDamageResist(performer));
+		
+		performer.setProperty(Constants.RIGHT_HAND_EQUIPMENT, Item.STEEL_SHIELD.generate(1f));
+		assertEquals(16, ArmorPropertyUtils.calculateDamageResist(performer));
 	}
 	
 	@Test

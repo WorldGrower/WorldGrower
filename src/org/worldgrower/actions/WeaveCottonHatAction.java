@@ -27,7 +27,7 @@ import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
-public class WeaveCottonHatAction implements CraftAction, AnimatedAction {
+public class WeaveCottonHatAction implements CraftEquipmentAction, AnimatedAction {
 	private static final int DISTANCE = 1;
 	private static final int COTTON_REQUIRED = 2;
 	
@@ -100,5 +100,10 @@ public class WeaveCottonHatAction implements CraftAction, AnimatedAction {
 	@Override
 	public List<WorldObject> getAffectedTargets(WorldObject target, World world) {
 		return Arrays.asList(target);
+	}
+	
+	@Override
+	public EquipmentType getEquipmentType() {
+		return EquipmentType.COTTON;
 	}
 }

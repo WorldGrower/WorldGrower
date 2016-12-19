@@ -57,6 +57,12 @@ public class ArmorPropertyUtils {
 			armor += (skillBonus * feetEquipment.getProperty(Constants.ARMOR));
 		}
 		
+		WorldObject shieldEquipment = worldObject.getProperty(Constants.RIGHT_HAND_EQUIPMENT);
+		if (shieldEquipment != null) {
+			double skillBonus = getSkillBonus(worldObject, shieldEquipment);
+			armor += (skillBonus * shieldEquipment.getProperty(Constants.ARMOR));
+		}
+		
 		return armor;
 	}
 	

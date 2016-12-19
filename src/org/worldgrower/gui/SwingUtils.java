@@ -3,18 +3,22 @@ package org.worldgrower.gui;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JList;
+import javax.swing.JMenuItem;
 import javax.swing.JRootPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -82,5 +86,20 @@ public class SwingUtils {
 		BasicComboPopup popup = (BasicComboPopup)child;
 		JList list = popup.getList();
 		list.setSelectionForeground(color);
+	}
+	
+	public static void setMenuIcon(JMenuItem menuItem, ImageIds imageIds, ImageInfoReader imageInfoReader) {
+		Image image = imageInfoReader.getImage(imageIds, null);
+		int imageWidth = image.getWidth(null);
+		int imageHeight = image.getHeight(null);
+		if (imageWidth > 96 || imageHeight > 96) {
+			image = cropImage((BufferedImage)image, Math.min(imageWidth, 96), Math.min(imageHeight, 96));
+		}
+		menuItem.setIcon(new ImageIcon(image));
+	}
+
+	private static BufferedImage cropImage(BufferedImage src, int width, int height) {
+		BufferedImage dest = src.getSubimage(0, 0, width, height);
+		return dest;
 	}
 }

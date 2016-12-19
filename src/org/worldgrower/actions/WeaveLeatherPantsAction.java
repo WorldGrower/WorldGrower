@@ -27,7 +27,7 @@ import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
 
-public class WeaveLeatherPantsAction implements CraftAction, AnimatedAction {
+public class WeaveLeatherPantsAction implements CraftEquipmentAction, AnimatedAction {
 	private static final int DISTANCE = 1;
 	private static final int LEATHER_REQUIRED = 2;
 	
@@ -100,5 +100,10 @@ public class WeaveLeatherPantsAction implements CraftAction, AnimatedAction {
 	@Override
 	public List<WorldObject> getAffectedTargets(WorldObject target, World world) {
 		return Arrays.asList(target);
+	}
+	
+	@Override
+	public EquipmentType getEquipmentType() {
+		return EquipmentType.LEATHER;
 	}
 }

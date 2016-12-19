@@ -45,6 +45,11 @@ public class CraftUtils {
 		}
 	}
 	
+	public static boolean hasEnoughResources(WorldObject performer, IntProperty property1, int quantity1, IntProperty property2, int quantity2) {
+		return hasEnoughResources(performer, property1, quantity1)
+				&& hasEnoughResources(performer, property2, quantity2);
+	}
+	
 	public static boolean isValidTarget(WorldObject performer, WorldObject target, World world) {
 		int performerId = performer.getProperty(Constants.ID);
 		int targetId = target.getProperty(Constants.ID);
