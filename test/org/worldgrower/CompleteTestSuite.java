@@ -782,7 +782,8 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestCraftSteelHelmetAction.class,
 	UTestCraftSteelKatarAction.class,
 	UTestCraftSteelMaceAction.class,
-	UTestCraftSteelShieldAction.class
+	UTestCraftSteelShieldAction.class,
+	UTestCreateSteelAction.class
 })
 public class CompleteTestSuite {
 }
