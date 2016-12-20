@@ -47,7 +47,7 @@ public class CraftSteelShieldAction implements CraftEquipmentAction, AnimatedAct
 
 	@Override
 	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
-		return CraftUtils.hasEnoughResources(performer, WOOD_REQUIRED, STEEL_REQUIRED);
+		return CraftUtils.hasEnoughResources(performer, Constants.WOOD, WOOD_REQUIRED, Constants.STEEL, STEEL_REQUIRED);
 	}
 	
 	@Override

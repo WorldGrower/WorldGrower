@@ -770,7 +770,19 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestWeaveLeatherPantsAction.class,
 	UTestWeaveLeatherHatAction.class,
 	UTestWeaveLeatherGlovesAction.class,
-	UTestSoundIdReader.class
+	UTestSoundIdReader.class,
+	UTestCraftSteelAxeAction.class,
+	UTestCraftSteelBootsAction.class,
+	UTestCraftSteelClaymoreAction.class,
+	UTestCraftSteelCuirassAction.class,
+	UTestCraftSteelGauntletsAction.class,
+	UTestCraftSteelGreataxeAction.class,
+	UTestCraftSteelGreatswordAction.class,
+	UTestCraftSteelGreavesAction.class,
+	UTestCraftSteelHelmetAction.class,
+	UTestCraftSteelKatarAction.class,
+	UTestCraftSteelMaceAction.class,
+	UTestCraftSteelShieldAction.class
 })
 public class CompleteTestSuite {
 }
