@@ -87,7 +87,7 @@ public class BuildArenaAction implements BuildAction {
 
 	@Override
 	public int getWidth() {
-		return 9;
+		return 11;
 	}
 
 	@Override
