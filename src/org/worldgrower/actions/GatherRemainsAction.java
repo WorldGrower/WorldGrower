@@ -42,14 +42,7 @@ public class GatherRemainsAction implements ManagedOperation {
 		target.setProperty(Constants.ITEM_ID, Item.REMAINS);
 		target.setProperty(Constants.PRICE, 0);
 		
-		//remove tradeable properties so that isn't mistaken for tradable food, water, etc. 
-		target.removeProperty(Constants.FOOD);
-		target.removeProperty(Constants.WATER);
-		target.removeProperty(Constants.WOOD);
-		target.removeProperty(Constants.STONE);
-		target.removeProperty(Constants.ALCOHOL_LEVEL);
-		target.removeProperty(Constants.ORE);
-		target.removeProperty(Constants.COTTON);
+		Constants.removeTradableProperties(target);
 		
 		inventory.addQuantity(target);
 		world.removeWorldObject(target);

@@ -377,10 +377,25 @@ public class Constants {
 		Constants.WEAVERY_QUALITY,
 		Constants.APOTHECARY_QUALITY,
 		Constants.BUTCHER_QUALITY,
-		Constants.HIT_POINTS_HEALED
+		Constants.HIT_POINTS_HEALED,
+		Constants.LEATHER,
+		Constants.STEEL
 		);
 	
 	public static List<ManagedProperty<?>> getPossibleDemandProperties() {
 		return POSSIBLE_DEMAND_PROPERTIES;
+	}
+
+	public static void removeTradableProperties(WorldObject target) {
+		//remove tradeable properties so that isn't mistaken for tradable food, water, etc. 
+		target.removeProperty(Constants.FOOD);
+		target.removeProperty(Constants.WATER);
+		target.removeProperty(Constants.WOOD);
+		target.removeProperty(Constants.STONE);
+		target.removeProperty(Constants.ALCOHOL_LEVEL);
+		target.removeProperty(Constants.ORE);
+		target.removeProperty(Constants.COTTON);
+		target.removeProperty(Constants.LEATHER);
+		target.removeProperty(Constants.STEEL);
 	}
 }
