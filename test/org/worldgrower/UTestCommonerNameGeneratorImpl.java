@@ -24,11 +24,18 @@ public class UTestCommonerNameGeneratorImpl {
 	
 	@Test
 	public void testReadNames() throws IOException {
-		CommonerNameGenerator generator = new CommonerNameGeneratorImpl();
+		CommonerNameGenerator generator = new CommonerNameGeneratorImpl("Test");
 		
 		assertEquals("Abel", generator.getNextMaleCommonerName());
 		assertEquals("Bouchard", generator.getNextMaleCommonerName());
 		assertEquals("Adela", generator.getNextFemaleCommonerName());
 		assertEquals("Beatrix", generator.getNextFemaleCommonerName());
+	}
+	
+	@Test
+	public void testSkip() throws IOException {
+		CommonerNameGenerator generator = new CommonerNameGeneratorImpl("Abel");
+		
+		assertEquals("Bouchard", generator.getNextMaleCommonerName());
 	}
 }

@@ -81,7 +81,7 @@ public class Game {
 		int playerCharacterId = world.generateUniqueId();
 		
 		final CommonerImageIds commonerImageIds = new CommonerImageIds(playerCharacterImageId);
-		final CommonerNameGenerator commonerNameGenerator = new CommonerNameGeneratorImpl();
+		final CommonerNameGenerator commonerNameGenerator = new CommonerNameGeneratorImpl(gameParameters.getPlayerName());
 		final WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
 		final CommonerGenerator commonerGenerator = new CommonerGenerator(seed, commonerImageIds, commonerNameGenerator);
 		

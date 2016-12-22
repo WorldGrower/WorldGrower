@@ -19,6 +19,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.worldgrower.gui.ImageIds;
 import org.worldgrower.util.FileUtils;
 
 /**
@@ -32,15 +33,23 @@ public class CommonerNameGeneratorImpl implements CommonerNameGenerator, Seriali
 	private int currentMaleCommonerIndex = 0;
 	private int currentFemaleCommonerIndex = 0;
 	
-	public CommonerNameGeneratorImpl() throws IOException {
+	private final String nameToSkip;
+	
+	public CommonerNameGeneratorImpl(String nameToSkip) throws IOException {
 		maleCommonerNames.addAll(FileUtils.readFile("/male_names.txt"));
 		femaleCommonerNames.addAll(FileUtils.readFile("/female_names.txt"));
+		
+		this.nameToSkip = nameToSkip;
 	}
 		
 	@Override
 	public String getNextMaleCommonerName() {
 		String name = maleCommonerNames.get(currentMaleCommonerIndex);
 		currentMaleCommonerIndex = ((currentMaleCommonerIndex+1) % maleCommonerNames.size());
+		if (name.equals(nameToSkip)) {
+			name = getNextMaleCommonerName();
+		}
+		
 		return name;
 	}
 
@@ -48,6 +57,10 @@ public class CommonerNameGeneratorImpl implements CommonerNameGenerator, Seriali
 	public String getNextFemaleCommonerName() {
 		String name = femaleCommonerNames.get(currentFemaleCommonerIndex);
 		currentFemaleCommonerIndex = ((currentFemaleCommonerIndex+1) % femaleCommonerNames.size());
+		if (name.equals(nameToSkip)) {
+			name = getNextFemaleCommonerName();
+		}
+		
 		return name;
 	}
 }
