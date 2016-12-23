@@ -22,6 +22,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.generator.BuildingDimensions;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
@@ -87,12 +88,12 @@ public class BuildArenaAction implements BuildAction {
 
 	@Override
 	public int getWidth() {
-		return 11;
+		return BuildingDimensions.ARENA.getWidth();
 	}
 
 	@Override
 	public int getHeight() {
-		return 10;
+		return BuildingDimensions.ARENA.getHeight();
 	}
 	
 	public static boolean hasEnoughStone(WorldObject performer) {

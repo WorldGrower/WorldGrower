@@ -486,7 +486,9 @@ public class BuildingGenerator {
 	}
 	
 	public static Image getArenaCompleteImage(ImageInfoReader imageInfoReader) {
-    	BufferedImage image = new BufferedImage(11 * 48, 10 * 48, BufferedImage.TYPE_INT_ARGB);
+		int arenaWidth = BuildingDimensions.ARENA.getWidth();
+		int arenaHeight = BuildingDimensions.ARENA.getHeight();
+    	BufferedImage image = new BufferedImage(arenaWidth * 48, arenaHeight * 48, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g2 = (Graphics2D) image.getGraphics();
 
 		World world = new WorldImpl(20, 20, null, null);
