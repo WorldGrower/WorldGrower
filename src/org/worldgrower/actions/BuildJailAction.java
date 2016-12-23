@@ -99,7 +99,7 @@ public class BuildJailAction implements BuildAction {
 	
 	@Override
 	public ImageIds getImageIds() {
-		return ImageIds.JAIL_LEFT;
+		return ImageIds.JAIL_COMPLETE;
 	}
 	
 	public SoundIds getSoundId() {

@@ -30,6 +30,7 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import org.worldgrower.attribute.LookDirection;
+import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.gui.util.ImageUtils;
 
 public class ImageInfoReader {
@@ -707,7 +708,11 @@ public class ImageInfoReader {
 		createAnimation(ImageIds.STEEL_SHIELD_ANIMATION, ImageIds.STEEL_SHIELD, 10);
 		createAnimation(ImageIds.STEEL_BOOTS_ANIMATION, ImageIds.STEEL_BOOTS, 10);
 		createAnimation(ImageIds.STEEL_MACE_ANIMATION, ImageIds.STEEL_MACE, 10);
-		createAnimation(ImageIds.STEEL_KATAR_ANIMATION, ImageIds.STEEL_KATAR, 10);		
+		createAnimation(ImageIds.STEEL_KATAR_ANIMATION, ImageIds.STEEL_KATAR, 10);
+		
+		add(ImageIds.ARENA_COMPLETE, BuildingGenerator.getArenaCompleteImage(this));
+		add(ImageIds.JAIL_COMPLETE, BuildingGenerator.getJailCompleteImage(this));
+		
     }
 
 	BufferedImage colorize(ImageIds imageId, Color color) {

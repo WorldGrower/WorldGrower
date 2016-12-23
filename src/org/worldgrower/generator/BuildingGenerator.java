@@ -14,6 +14,9 @@
  *******************************************************************************/
 package org.worldgrower.generator;
 
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +27,7 @@ import java.util.stream.Collectors;
 import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.World;
+import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.actions.Actions;
@@ -38,6 +42,7 @@ import org.worldgrower.condition.Conditions;
 import org.worldgrower.deity.Deity;
 import org.worldgrower.goal.GoalUtils;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.ImageInfoReader;
 
 public class BuildingGenerator {
 
@@ -297,22 +302,26 @@ public class BuildingGenerator {
 		return worldObject.getProperty(Constants.NAME).equals(WELL_NAME);
 	} 
 
-	public static void generateJail(int x, int y, World world, double useSkill) {
-		createJailLeft(x, y, world);
-		createJailUp(x, y, world);
-		createJailRight(x, y, world);
-		createJailDoor(x, y, world);
+	public static IdList generateJail(int x, int y, World world, double useSkill) {
+		IdList idList = new IdList();
+		idList.add(createJailLeft(x, y, world));
+		idList.add(createJailUp(x, y, world));
+		idList.add(createJailRight(x, y, world));
+		idList.add(createJailDoor(x, y, world));
+		
+		return idList;
 	}
 
-	private static void createJailLeft(int x, int y, World world) {
+	private static int createJailLeft(int x, int y, World world) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		int id = world.generateUniqueId();
 		
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 1);
 		properties.put(Constants.HEIGHT, 4);
 		properties.put(Constants.NAME, JAIL_LEFT);
-		properties.put(Constants.ID, world.generateUniqueId());
+		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.JAIL_LEFT);
 		properties.put(Constants.HIT_POINTS, 50 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.HIT_POINTS_MAX, 50 * Item.COMBAT_MULTIPLIER);
@@ -321,17 +330,20 @@ public class BuildingGenerator {
 		
 		WorldObject jailLeft = new WorldObjectImpl(properties);
 		world.addWorldObject(jailLeft);
+		
+		return id;
 	}
 	
-	private static void createJailUp(int x, int y, World world) {
+	private static int createJailUp(int x, int y, World world) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		int id = world.generateUniqueId();
 		
 		properties.put(Constants.X, x+1);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 1);
 		properties.put(Constants.HEIGHT, 2);
 		properties.put(Constants.NAME, "Jail up");
-		properties.put(Constants.ID, world.generateUniqueId());
+		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.JAIL_UP);
 		properties.put(Constants.HIT_POINTS, 50 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.HIT_POINTS_MAX, 50 * Item.COMBAT_MULTIPLIER);
@@ -340,17 +352,20 @@ public class BuildingGenerator {
 		
 		WorldObject jailLeft = new WorldObjectImpl(properties);
 		world.addWorldObject(jailLeft);
+		
+		return id;
 	}
 	
-	private static void createJailRight(int x, int y, World world) {
+	private static int createJailRight(int x, int y, World world) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		int id = world.generateUniqueId();
 		
 		properties.put(Constants.X, x+2);
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 1);
 		properties.put(Constants.HEIGHT, 4);
 		properties.put(Constants.NAME, "Jail right");
-		properties.put(Constants.ID, world.generateUniqueId());
+		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.JAIL_RIGHT);
 		properties.put(Constants.HIT_POINTS, 50 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.HIT_POINTS_MAX, 50 * Item.COMBAT_MULTIPLIER);
@@ -359,17 +374,20 @@ public class BuildingGenerator {
 		
 		WorldObject jailLeft = new WorldObjectImpl(properties);
 		world.addWorldObject(jailLeft);
+		
+		return id;
 	}
 	
-	private static void createJailDoor(int x, int y, World world) {
+	private static int createJailDoor(int x, int y, World world) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		int id = world.generateUniqueId();
 		
 		properties.put(Constants.X, x+1);
 		properties.put(Constants.Y, y+2);
 		properties.put(Constants.WIDTH, 1);
 		properties.put(Constants.HEIGHT, 2);
 		properties.put(Constants.NAME, JAIL_DOOR);
-		properties.put(Constants.ID, world.generateUniqueId());
+		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.JAIL_DOOR);
 		properties.put(Constants.HIT_POINTS, 50 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.HIT_POINTS_MAX, 50 * Item.COMBAT_MULTIPLIER);
@@ -378,6 +396,8 @@ public class BuildingGenerator {
 		
 		WorldObject jailLeft = new WorldObjectImpl(properties);
 		world.addWorldObject(jailLeft);
+		
+		return id;
 	}
 	
 	public static void addJailDoorIfNotPresent(WorldObject jailLeft, World world) {
@@ -463,6 +483,42 @@ public class BuildingGenerator {
 		idList.add(createArenaHorizontal(x+6, y+7, world));
 		
 		return idList;
+	}
+	
+	public static Image getArenaCompleteImage(ImageInfoReader imageInfoReader) {
+    	BufferedImage image = new BufferedImage(11 * 48, 10 * 48, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g2 = (Graphics2D) image.getGraphics();
+
+		World world = new WorldImpl(20, 20, null, null);
+		IdList ids = generateArena(0, 0, world, 1f);
+		drawIds(imageInfoReader, g2, world, ids);
+		
+		g2.dispose();
+		
+		return image;
+	}
+	
+	public static Image getJailCompleteImage(ImageInfoReader imageInfoReader) {
+    	BufferedImage image = new BufferedImage(3 * 48, 4 * 48, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g2 = (Graphics2D) image.getGraphics();
+
+		World world = new WorldImpl(20, 20, null, null);
+		IdList ids = generateJail(0, 0, world, 1f);
+		drawIds(imageInfoReader, g2, world, ids);
+		
+		g2.dispose();
+		
+		return image;
+	}
+
+	private static void drawIds(ImageInfoReader imageInfoReader, Graphics2D g2, World world, IdList ids) {
+		for(int id : ids.getIds()) {
+			WorldObject worldObject = world.findWorldObjectById(id);
+			Image worldObjectImage = imageInfoReader.getImage(worldObject.getProperty(Constants.IMAGE_ID), null);
+			int x = worldObject.getProperty(Constants.X) * 48;
+			int y = worldObject.getProperty(Constants.Y) * 48;
+			g2.drawImage(worldObjectImage, x, y, null);
+		}
 	}
 	
 	private static int createArenaVertical(int x, int y, World world) {

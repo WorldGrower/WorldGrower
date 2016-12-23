@@ -101,7 +101,7 @@ public class BuildArenaAction implements BuildAction {
 	
 	@Override
 	public ImageIds getImageIds() {
-		return ImageIds.ARENA_HORIZONTAL;
+		return ImageIds.ARENA_COMPLETE;
 	}
 	
 	public SoundIds getSoundId() {
