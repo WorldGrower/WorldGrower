@@ -15,7 +15,6 @@
 package org.worldgrower.actions;
 
 import java.io.ObjectStreamException;
-import java.util.List;
 
 import org.worldgrower.Constants;
 import org.worldgrower.Reach;
@@ -23,6 +22,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.generator.BuildingDimensions;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
 import org.worldgrower.goal.HousePropertyUtils;
@@ -89,12 +89,12 @@ public class BuildHouseAction implements BuildAction {
 
 	@Override
 	public int getWidth() {
-		return 3;
+		return BuildingDimensions.HOUSE.getPlacementWidth();
 	}
 
 	@Override
 	public int getHeight() {
-		return 3;
+		return BuildingDimensions.HOUSE.getPlacementHeight();
 	}
 	
 	@Override

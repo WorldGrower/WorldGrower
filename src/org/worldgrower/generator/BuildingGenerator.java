@@ -89,8 +89,7 @@ public class BuildingGenerator {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
-		properties.put(Constants.WIDTH, 2);
-		properties.put(Constants.HEIGHT, 3);
+		BuildingDimensions.SHACK.addWidthHeight(properties);
 		properties.put(Constants.SLEEP_COMFORT, 3 + sleepComfortBonus);
 		properties.put(Constants.NAME, createName("shack", owner));
 		properties.put(Constants.ID, id);
@@ -124,8 +123,7 @@ public class BuildingGenerator {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
-		properties.put(Constants.WIDTH, 3);
-		properties.put(Constants.HEIGHT, 3);
+		BuildingDimensions.HOUSE.addWidthHeight(properties);
 		properties.put(Constants.SLEEP_COMFORT, 5 + sleepComfortBonus);
 		properties.put(Constants.NAME, createName("house", owner));
 		properties.put(Constants.ID, id);
@@ -486,8 +484,8 @@ public class BuildingGenerator {
 	}
 	
 	private static BufferedImage createImage(BuildingDimensions buildingDimensions) {
-		int width = BuildingDimensions.ARENA.getWidth();
-		int height = BuildingDimensions.ARENA.getHeight();
+		int width = buildingDimensions.getPlacementWidth();
+		int height = buildingDimensions.getPlacementHeight();
     	return new BufferedImage(width * 48, height * 48, BufferedImage.TYPE_INT_ARGB);
 	}
 	

@@ -14,24 +14,43 @@
  *******************************************************************************/
 package org.worldgrower.generator;
 
+import java.util.Map;
+
+import org.worldgrower.Constants;
+import org.worldgrower.attribute.ManagedProperty;
+
 public enum BuildingDimensions {
 	ARENA(11, 10),
 	JAIL(3, 4),
-	SHACK(3, 4);
+	SHACK(2, 3),
+	HOUSE(3, 3);
 	
-	private final int width;
-	private final int height;
+	private final int realWidth;
+	private final int realHeight;
 	
 	private BuildingDimensions(int width, int height) {
-		this.width = width;
-		this.height = height;
+		this.realWidth = width;
+		this.realHeight = height;
 	}
 
-	public int getWidth() {
-		return width;
+	public int getRealWidth() {
+		return realWidth;
 	}
 
-	public int getHeight() {
-		return height;
+	public int getRealHeight() {
+		return realHeight;
+	}
+	
+	public int getPlacementWidth() {
+		return realWidth + 1;
+	}
+	
+	public int getPlacementHeight() {
+		return realHeight + 1;
+	}
+	
+	public void addWidthHeight(Map<ManagedProperty<?>, Object> properties) {
+		properties.put(Constants.WIDTH, getRealWidth());
+		properties.put(Constants.HEIGHT, getRealHeight());
 	}
 }
