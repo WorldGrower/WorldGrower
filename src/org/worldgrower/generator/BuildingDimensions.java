@@ -15,7 +15,9 @@
 package org.worldgrower.generator;
 
 public enum BuildingDimensions {
-	ARENA(11, 10);
+	ARENA(11, 10),
+	JAIL(3, 4),
+	SHACK(3, 4);
 	
 	private final int width;
 	private final int height;

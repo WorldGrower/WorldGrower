@@ -485,10 +485,14 @@ public class BuildingGenerator {
 		return idList;
 	}
 	
+	private static BufferedImage createImage(BuildingDimensions buildingDimensions) {
+		int width = BuildingDimensions.ARENA.getWidth();
+		int height = BuildingDimensions.ARENA.getHeight();
+    	return new BufferedImage(width * 48, height * 48, BufferedImage.TYPE_INT_ARGB);
+	}
+	
 	public static Image getArenaCompleteImage(ImageInfoReader imageInfoReader) {
-		int arenaWidth = BuildingDimensions.ARENA.getWidth();
-		int arenaHeight = BuildingDimensions.ARENA.getHeight();
-    	BufferedImage image = new BufferedImage(arenaWidth * 48, arenaHeight * 48, BufferedImage.TYPE_INT_ARGB);
+    	BufferedImage image = createImage(BuildingDimensions.ARENA);
 		Graphics2D g2 = (Graphics2D) image.getGraphics();
 
 		World world = new WorldImpl(20, 20, null, null);
@@ -501,7 +505,7 @@ public class BuildingGenerator {
 	}
 	
 	public static Image getJailCompleteImage(ImageInfoReader imageInfoReader) {
-    	BufferedImage image = new BufferedImage(3 * 48, 4 * 48, BufferedImage.TYPE_INT_ARGB);
+    	BufferedImage image = createImage(BuildingDimensions.JAIL);
 		Graphics2D g2 = (Graphics2D) image.getGraphics();
 
 		World world = new WorldImpl(20, 20, null, null);

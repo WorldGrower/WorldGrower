@@ -22,6 +22,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.generator.BuildingDimensions;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
@@ -88,12 +89,12 @@ public class BuildShackAction implements BuildAction {
 
 	@Override
 	public int getWidth() {
-		return 3;
+		return BuildingDimensions.SHACK.getWidth();
 	}
 
 	@Override
 	public int getHeight() {
-		return 4;
+		return BuildingDimensions.SHACK.getHeight();
 	}
 	
 	public static boolean hasEnoughWood(WorldObject performer) {
