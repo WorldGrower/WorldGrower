@@ -108,7 +108,7 @@ public class BuildHouseAction implements BuildAction {
 	
 	@Override
 	public ImageIds getImageIds() {
-		return ImageIds.HOUSE;
+		return BuildingType.HOUSE.getImageId();
 	}
 	
 	public SoundIds getSoundId() {
