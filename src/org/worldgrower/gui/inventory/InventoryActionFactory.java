@@ -182,7 +182,7 @@ public class InventoryActionFactory {
 		private final SoundIdReader soundIdReader;
 		
 		public StealAction(SoundIdReader soundIdReader) {
-			super(Actions.STEAL_ACTION.getSimpleDescription(), new ImageIcon(imageInfoReader.getImage(Actions.STEAL_ACTION.getImageIds(), null)));
+			super(Actions.STEAL_ACTION.getSimpleDescription(), new ImageIcon(imageInfoReader.getImage(Actions.STEAL_ACTION.getImageIds(playerCharacter), null)));
 			this.putValue(Action.LONG_DESCRIPTION, Actions.STEAL_ACTION.getRequirementsDescription());
 			
 			this.soundIdReader = soundIdReader;
@@ -213,7 +213,7 @@ public class InventoryActionFactory {
 		private final int inventoryItemId;
 
 		public AskUserForNumberAction(String description, int maxNumberValue, InventoryAction action, int inventoryItemId, WorldObject playerCharacter) {
-			super(action.getSimpleDescription(), new ImageIcon(imageInfoReader.getImage(action.getImageIds(), null)));
+			super(action.getSimpleDescription(), new ImageIcon(imageInfoReader.getImage(action.getImageIds(playerCharacter), null)));
 			this.description = description;
 			this.maxNumberValue = maxNumberValue;
 			this.action = action;
@@ -243,7 +243,7 @@ public class InventoryActionFactory {
 		private WorldObject inventoryItem;
 		
 		public InventoryItemAction(ManagedOperation action, int[] args, int inventoryItemId, WorldObject target) {
-			super(action.getSimpleDescription(), new ImageIcon(imageInfoReader.getImage(action.getImageIds(), null)));
+			super(action.getSimpleDescription(), new ImageIcon(imageInfoReader.getImage(action.getImageIds(playerCharacter), null)));
 			this.action = action;
 			this.args = args;
 			this.inventoryItemId = inventoryItemId;

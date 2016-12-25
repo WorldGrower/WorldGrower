@@ -110,7 +110,7 @@ public class FearMagicSpellAction implements MagicSpell, AnimatedAction {
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.FEAR_INDICATOR;
 	}
 

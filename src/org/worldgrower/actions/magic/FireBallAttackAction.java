@@ -137,7 +137,7 @@ public class FireBallAttackAction implements BuildAction, MagicSpell, DeadlyActi
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.FIRE_BALL;
 	}
 	

@@ -299,7 +299,7 @@ public final class WorldPanel extends JPanel implements ImageFactory {
 	
 	private void drawSellableMarker(Graphics g, WorldObject worldObject, int worldObjectX, int worldObjectY) {
 		if (worldObject.hasProperty(Constants.SELLABLE) && worldObject.getProperty(Constants.SELLABLE)) {
-			Image image = imageInfoReader.getImage(Actions.SELL_ACTION.getImageIds(), null);
+			Image image = imageInfoReader.getImage(Actions.SELL_ACTION.getImageIds(worldObject), null);
 			int worldObjectWidth = worldObject.getProperty(Constants.WIDTH) * 48;
 			int worldObjectHeight = worldObject.getProperty(Constants.HEIGHT) * 48;
 			
@@ -450,7 +450,7 @@ public final class WorldPanel extends JPanel implements ImageFactory {
 	}
 
 	public void startBuildMode(BuildAction buildAction, int[] args) {
-		this.buildModeOutline.startBuildMode(buildAction, args, imageInfoReader);
+		this.buildModeOutline.startBuildMode(playerCharacter, buildAction, args, imageInfoReader);
 		this.mouseMotionListener = new MouseMotionAdapter() {
 
 			@Override

@@ -109,7 +109,7 @@ public class VampireBiteAction implements DeadlyAction {
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.BLOOD;
 	}
 }

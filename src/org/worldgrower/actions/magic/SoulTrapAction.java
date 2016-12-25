@@ -105,7 +105,7 @@ public class SoulTrapAction implements MagicSpell, AnimatedAction {
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.SOUL_TRAPPED_INDICATOR;
 	}
 	

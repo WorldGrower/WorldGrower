@@ -100,7 +100,7 @@ public class BuildPaperMillAction implements BuildAction {
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.PAPER_MILL;
 	}
 	

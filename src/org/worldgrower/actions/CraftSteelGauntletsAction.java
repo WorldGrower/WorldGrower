@@ -90,7 +90,7 @@ public class CraftSteelGauntletsAction implements CraftEquipmentAction, Animated
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.STEEL_GAUNTLETS;
 	}
 	

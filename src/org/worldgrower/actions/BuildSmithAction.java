@@ -100,7 +100,7 @@ public class BuildSmithAction implements BuildAction {
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.SMITH;
 	}
 	

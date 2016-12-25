@@ -93,7 +93,7 @@ public class MineStoneAction implements ManagedOperation, AnimatedAction {
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.STONE;
 	}
 	

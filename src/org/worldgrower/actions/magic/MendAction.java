@@ -112,7 +112,7 @@ public class MendAction implements MagicSpell, AnimatedAction {
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.MEND_MAGIC_SPELL;
 	}
 	

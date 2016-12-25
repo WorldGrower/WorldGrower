@@ -101,7 +101,7 @@ public class ResearchSpellAction implements ManagedOperation {
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.SPELL_BOOK;
 	}
 	

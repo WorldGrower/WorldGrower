@@ -83,7 +83,7 @@ public class WeaveLeatherBootsAction implements CraftEquipmentAction, AnimatedAc
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.LEATHER_BOOTS;
 	}
 	

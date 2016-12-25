@@ -87,7 +87,7 @@ public class EatNightShadeAction implements ManagedOperation {
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.NIGHT_SHADE;
 	}
 	

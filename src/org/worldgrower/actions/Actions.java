@@ -647,8 +647,8 @@ public class Actions {
 		return magicSpells.stream().map(s -> s.getSimpleDescription()).collect(Collectors.toList());
 	}
 	
-	public static List<ImageIds> getMagicSpellImageIds(List<MagicSpell> magicSpells) {
-		return magicSpells.stream().map(s -> s.getImageIds()).collect(Collectors.toList());
+	public static List<ImageIds> getMagicSpellImageIds(WorldObject performer, List<MagicSpell> magicSpells) {
+		return magicSpells.stream().map(s -> s.getImageIds(performer)).collect(Collectors.toList());
 	}
 	
 	public static List<InventoryAction> getInventoryActions() {

@@ -85,8 +85,8 @@ public class SecludedAction implements ManagedOperation {
 	*/
 	
 	@Override
-	public ImageIds getImageIds() {
-		return action.getImageIds();
+	public ImageIds getImageIds(WorldObject performer) {
+		return action.getImageIds(performer);
 	}
 	
 	@Override

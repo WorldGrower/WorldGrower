@@ -93,7 +93,7 @@ public class PlantBerryBushAction implements BuildAction {
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.BUSH;
 	}
 

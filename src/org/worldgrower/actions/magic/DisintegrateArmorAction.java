@@ -105,7 +105,7 @@ public class DisintegrateArmorAction implements MagicSpell, AnimatedAction {
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.DISINTEGRATE_ARMOR;
 	}
 

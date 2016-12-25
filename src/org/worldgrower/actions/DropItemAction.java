@@ -70,7 +70,7 @@ public class DropItemAction extends InventoryAction {
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.DROP_ITEM;
 	}
 	

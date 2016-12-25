@@ -111,7 +111,7 @@ public class AnimateDeadAction implements MagicSpell, AnimatedAction {
 	}
 
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.ANIMATE_DEAD;
 	}
 

@@ -108,7 +108,7 @@ public class RayOfFrostAttackAction implements MagicSpell, DeadlyAction, Animate
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.RAY_OF_FROST;
 	}
 	

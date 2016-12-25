@@ -75,7 +75,7 @@ public class DrinkFromInventoryAction extends InventoryAction {
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.WATER;
 	}
 	

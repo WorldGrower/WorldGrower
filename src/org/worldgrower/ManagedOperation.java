@@ -39,7 +39,7 @@ public interface ManagedOperation extends Serializable {
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world);
 	public String getSimpleDescription();
 	public String getRequirementsDescription();
-	public ImageIds getImageIds();
+	public ImageIds getImageIds(WorldObject performer);
 	public String getDescription();
 	
 	public default boolean canExecuteIgnoringDistance(WorldObject performer, WorldObject target, int[] args, World world) {

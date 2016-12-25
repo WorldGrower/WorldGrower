@@ -90,7 +90,7 @@ public class CraftSteelGreataxeAction implements CraftEquipmentAction, AnimatedA
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.STEEL_GREATAXE;
 	}
 	

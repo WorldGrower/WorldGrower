@@ -83,7 +83,7 @@ public class WeaveCottonHatAction implements CraftEquipmentAction, AnimatedActio
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.COTTON_HAT;
 	}
 	

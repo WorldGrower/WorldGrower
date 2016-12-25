@@ -71,7 +71,7 @@ public class ReadItemInInventoryAction extends InventoryAction {
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.NEWS_PAPER;
 	}
 	

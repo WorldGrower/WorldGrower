@@ -116,7 +116,7 @@ public class MinorIllusionAction implements BuildAction, MagicSpell, IllusionSpe
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.MINOR_ILLUSION_MAGIC_SPELL;
 	}
 	

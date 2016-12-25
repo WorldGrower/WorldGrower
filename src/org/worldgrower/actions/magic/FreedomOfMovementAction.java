@@ -114,7 +114,7 @@ public class FreedomOfMovementAction implements MagicSpell, AnimatedAction {
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.FREEDOM_OF_MOVEMENT_MAGIC_SPELL;
 	}
 

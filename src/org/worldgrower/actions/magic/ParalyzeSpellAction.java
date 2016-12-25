@@ -109,7 +109,7 @@ public class ParalyzeSpellAction implements MagicSpell, AnimatedAction {
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.PARALYZED_INDICATOR;
 	}
 	

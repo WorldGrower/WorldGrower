@@ -92,8 +92,8 @@ public class ScribeMagicSpellAction implements ManagedOperation {
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
-		return magicSpell.getImageIds();
+	public ImageIds getImageIds(WorldObject performer) {
+		return magicSpell.getImageIds(performer);
 	}
 	
 	@Override

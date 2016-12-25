@@ -103,7 +103,7 @@ public class AnimalFriendshipSpellAction implements MagicSpell, AnimatedAction {
 	}
 
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.ANIMAL_FRIENDSHIP_SPELL;
 	}
 	

@@ -411,6 +411,7 @@ public class GuiShowGovernanceAction extends AbstractAction {
 	}
 
 	private static class WorldModel extends AbstractTableModel {
+		private final WorldObject playerCharacter;
 		private List<LegalAction> legalActionsList;
 		private Map<LegalAction, Boolean> legalFlags = new HashMap<>();
 		private boolean performerIsLeaderOfVillagers;
@@ -418,6 +419,7 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		public WorldModel(WorldObject playerCharacter, World world, boolean performerIsLeaderOfVillagers) {
 			super();
 			LegalActions legalActions = LegalActionsPropertyUtils.getLegalActions(world);
+			this.playerCharacter = playerCharacter;
 			this.legalActionsList = legalActions.toList();
 			this.legalFlags = legalActions.getLegalActions();
 			this.performerIsLeaderOfVillagers = performerIsLeaderOfVillagers;
@@ -474,7 +476,7 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		@Override
 		public Object getValueAt(int rowIndex, int columnIndex) {
 			if (columnIndex == 0) {
-				return legalActionsList.get(rowIndex).getImageId();
+				return legalActionsList.get(rowIndex).getImageId(playerCharacter);
 			} else if (columnIndex == 1) {
 				return legalActionsList.get(rowIndex).getDescription();
 			} else if (columnIndex == 2) {

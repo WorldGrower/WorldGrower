@@ -116,7 +116,7 @@ public class FireBoltAttackAction implements MagicSpell, DeadlyAction, AnimatedA
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.FIRE_BOLT;
 	}
 	

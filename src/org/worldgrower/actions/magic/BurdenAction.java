@@ -113,7 +113,7 @@ public class BurdenAction implements MagicSpell, AnimatedAction {
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.BURDEN_MAGIC_SPELL;
 	}
 

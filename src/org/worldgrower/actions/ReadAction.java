@@ -76,7 +76,7 @@ public class ReadAction implements ManagedOperation {
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.SPELL_BOOK;
 	}
 	

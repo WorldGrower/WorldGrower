@@ -112,7 +112,7 @@ public class DisguiseMagicSpellAction implements MagicSpell, DisguiseTargetFacto
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.DISGUISE_MAGIC_SPELL;
 	}
 	

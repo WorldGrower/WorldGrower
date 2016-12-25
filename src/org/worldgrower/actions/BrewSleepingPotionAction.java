@@ -87,7 +87,7 @@ public class BrewSleepingPotionAction implements CraftAction, AnimatedAction {
 	}
 
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.SLEEPING_POTION;
 	}
 	

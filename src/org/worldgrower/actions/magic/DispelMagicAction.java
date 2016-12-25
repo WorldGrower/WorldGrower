@@ -106,7 +106,7 @@ public class DispelMagicAction implements MagicSpell, AnimatedAction {
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.DISPEL_MAGIC_SPELL;
 	}
 

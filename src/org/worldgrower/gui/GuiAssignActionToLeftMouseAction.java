@@ -14,7 +14,6 @@
  *******************************************************************************/
 package org.worldgrower.gui;
 
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.util.Arrays;
 import java.util.List;
@@ -24,12 +23,14 @@ import javax.swing.AbstractAction;
 import javax.swing.JFrame;
 
 import org.worldgrower.ManagedOperation;
+import org.worldgrower.WorldObject;
 import org.worldgrower.gui.music.SoundIdReader;
 
 public class GuiAssignActionToLeftMouseAction extends AbstractAction {
 
 	private static final String NO_ACTION = "<no action>";
 	
+	private WorldObject playerCharacter;
 	private List<ManagedOperation> actions;
 	private WorldPanel parent;
 	private GuiMouseListener guiMouseListener;
@@ -37,8 +38,9 @@ public class GuiAssignActionToLeftMouseAction extends AbstractAction {
 	private JFrame parentFrame;
 	private ImageInfoReader imageInfoReader;
 	
-	public GuiAssignActionToLeftMouseAction(List<ManagedOperation> actions, WorldPanel parent, GuiMouseListener guiMouseListener, SoundIdReader soundIdReader, JFrame parentFrame, ImageInfoReader imageInfoReader) {
+	public GuiAssignActionToLeftMouseAction(WorldObject playerCharacter, List<ManagedOperation> actions, WorldPanel parent, GuiMouseListener guiMouseListener, SoundIdReader soundIdReader, JFrame parentFrame, ImageInfoReader imageInfoReader) {
 		super();
+		this.playerCharacter = playerCharacter;
 		this.actions = actions;
 		this.parent = parent;
 		this.guiMouseListener = guiMouseListener;
@@ -72,7 +74,7 @@ public class GuiAssignActionToLeftMouseAction extends AbstractAction {
 	}
 	
 	private ImageIds[] getImageIds() {
-		List<ImageIds> actionDescriptions = actions.stream().map(a -> a.getImageIds()).collect(Collectors.toList());
+		List<ImageIds> actionDescriptions = actions.stream().map(a -> a.getImageIds(playerCharacter)).collect(Collectors.toList());
 		actionDescriptions.add(null);
 		return actionDescriptions.toArray(new ImageIds[0]);
 	}

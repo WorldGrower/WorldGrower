@@ -113,7 +113,7 @@ public class FeatherAction implements MagicSpell, AnimatedAction {
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.FEATHER_MAGIC_SPELL;
 	}
 	

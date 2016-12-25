@@ -90,7 +90,7 @@ public class CraftIronBootsAction implements CraftEquipmentAction, AnimatedActio
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.IRON_BOOTS;
 	}
 	

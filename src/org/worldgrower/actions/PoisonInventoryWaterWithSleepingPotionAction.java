@@ -69,7 +69,7 @@ public class PoisonInventoryWaterWithSleepingPotionAction extends InventoryActio
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.SLEEPING_POTION;
 	}
 	

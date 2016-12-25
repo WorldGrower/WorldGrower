@@ -134,7 +134,7 @@ public class DetectPoisonAndDiseaseAction implements MagicSpell, AnimatedAction 
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.DETECT_POISON_AND_DISEASE;
 	}
 	

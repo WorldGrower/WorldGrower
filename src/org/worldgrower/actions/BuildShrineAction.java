@@ -21,6 +21,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.deity.Deity;
 import org.worldgrower.generator.BuildingDimensions;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.gui.ImageIds;
@@ -98,8 +99,13 @@ public class BuildShrineAction implements BuildAction {
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
-		return ImageIds.STATUE_OF_DEITY;
+	public ImageIds getImageIds(WorldObject performer) {
+		Deity deity = performer.getProperty(Constants.DEITY);
+		if (deity != null) {
+			return deity.getStatueImageId();
+		} else {
+			return ImageIds.STATUE_OF_DEITY;
+		}
 	}
 	
 	public SoundIds getSoundId() {

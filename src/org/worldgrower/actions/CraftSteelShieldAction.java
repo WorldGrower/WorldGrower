@@ -90,7 +90,7 @@ public class CraftSteelShieldAction implements CraftEquipmentAction, AnimatedAct
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.STEEL_SHIELD;
 	}
 	

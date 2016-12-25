@@ -180,7 +180,7 @@ public class MagicOverviewDialog extends JDialog {
 		public Object getValueAt(int row, int column) {
 			MagicSpell magicSpell = Actions.getMagicSpells().get(row);
 			if (column == 0) {
-				return magicSpell.getImageIds();
+				return magicSpell.getImageIds(playerCharacter);
 			} else if (column == 1) {
 				return magicSpell.getSimpleDescription();
 			} else if (column == 2) {

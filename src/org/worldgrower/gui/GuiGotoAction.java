@@ -143,7 +143,7 @@ public class GuiGotoAction extends AbstractAction {
 		}
 
 		@Override
-		public ImageIds getImageIds() {
+		public ImageIds getImageIds(WorldObject performer) {
 			return null;
 		}		
 	}

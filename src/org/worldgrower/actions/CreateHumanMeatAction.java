@@ -84,7 +84,7 @@ public class CreateHumanMeatAction implements ManagedOperation {
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.MEAT;
 	}
 	

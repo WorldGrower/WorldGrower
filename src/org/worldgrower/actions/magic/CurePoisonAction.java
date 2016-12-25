@@ -108,7 +108,7 @@ public class CurePoisonAction implements MagicSpell, AnimatedAction {
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.CURE_POISON;
 	}
 	

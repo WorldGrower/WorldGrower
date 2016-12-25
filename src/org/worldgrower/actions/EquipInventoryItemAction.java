@@ -87,7 +87,7 @@ public class EquipInventoryItemAction implements ManagedOperation {
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.WOODEN_SHIELD;
 	}
 }

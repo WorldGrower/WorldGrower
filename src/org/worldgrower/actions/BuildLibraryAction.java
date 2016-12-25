@@ -101,7 +101,7 @@ public class BuildLibraryAction implements BuildAction {
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.LIBRARY;
 	}
 

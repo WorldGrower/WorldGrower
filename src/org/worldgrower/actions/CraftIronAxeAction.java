@@ -90,7 +90,7 @@ public class CraftIronAxeAction implements CraftEquipmentAction, AnimatedAction 
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.IRON_AXE;
 	}
 	

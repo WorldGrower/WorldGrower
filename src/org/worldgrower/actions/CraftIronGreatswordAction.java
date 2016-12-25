@@ -90,7 +90,7 @@ public class CraftIronGreatswordAction implements CraftEquipmentAction, Animated
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.IRON_GREATSWORD;
 	}
 	

@@ -106,7 +106,7 @@ public class SecretChestAction implements MagicSpell {
 	}
 
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.CHEST;
 	}
 	

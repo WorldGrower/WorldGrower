@@ -106,7 +106,7 @@ public class SilenceMagicAction implements MagicSpell {
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.SILENCED_CONDITION;
 	}
 	

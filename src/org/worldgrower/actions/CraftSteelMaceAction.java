@@ -90,7 +90,7 @@ public class CraftSteelMaceAction implements CraftEquipmentAction, AnimatedActio
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.STEEL_MACE;
 	}
 	

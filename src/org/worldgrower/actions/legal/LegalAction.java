@@ -17,6 +17,7 @@ package org.worldgrower.actions.legal;
 import java.io.Serializable;
 
 import org.worldgrower.ManagedOperation;
+import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.deity.Deity;
 import org.worldgrower.gui.ImageIds;
@@ -82,7 +83,7 @@ public final class LegalAction implements Serializable {
 		return new LegalAction(Actions.WORSHIP_DEITY_ACTION, new WorshipDeityLegalHandler(deity));
 	}
 
-	public ImageIds getImageId() {
-		return action.getImageIds();
+	public ImageIds getImageId(WorldObject playerCharacter) {
+		return action.getImageIds(playerCharacter);
 	}
 }

@@ -99,7 +99,7 @@ public class BuildJailAction implements BuildAction {
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.JAIL_COMPLETE;
 	}
 	

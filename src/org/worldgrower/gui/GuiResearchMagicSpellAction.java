@@ -63,7 +63,7 @@ public class GuiResearchMagicSpellAction extends AbstractAction {
 		List<MagicSpell> magicSpellsToResearch =  Actions.getMagicSpellsToResearch(playerCharacter);
 		if (magicSpellsToResearch.size() > 0) { 
 			List<String> magicSpellDescriptions = Actions.getMagicSpellDescriptions(magicSpellsToResearch);
-			List<ImageIds> imageIds = Actions.getMagicSpellImageIds(magicSpellsToResearch);
+			List<ImageIds> imageIds = Actions.getMagicSpellImageIds(playerCharacter, magicSpellsToResearch);
 			ListData listData = new ListData(magicSpellDescriptions, imageIds, imageInfoReader);
 			String magicSpellDescription = new ListInputDialog("Choose Magic Spell", listData, imageInfoReader, soundIdReader, parentFrame).showMe();
 			if (magicSpellDescription != null) {

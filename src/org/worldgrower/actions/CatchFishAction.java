@@ -95,7 +95,7 @@ public class CatchFishAction implements ManagedOperation {
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.RAW_FISH;
 	}
 

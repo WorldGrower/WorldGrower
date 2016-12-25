@@ -90,7 +90,7 @@ public class CraftIronGreataxeAction implements CraftEquipmentAction, AnimatedAc
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.IRON_GREATAXE;
 	}
 	

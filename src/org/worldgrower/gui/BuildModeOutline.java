@@ -35,6 +35,7 @@ import org.worldgrower.gui.util.ImageUtils;
 
 public class BuildModeOutline {
 
+	private WorldObject playerCharacter;
 	private boolean buildMode = false;
 	private BuildAction buildAction;
 	private int[] args;
@@ -42,12 +43,13 @@ public class BuildModeOutline {
 	private BufferedImage okImage;
 	private BufferedImage notOkImage;
 	
-	public void startBuildMode(BuildAction buildAction, int[] args, ImageInfoReader imageInfoReader) {
+	public void startBuildMode(WorldObject playerCharacter, BuildAction buildAction, int[] args, ImageInfoReader imageInfoReader) {
+		this.playerCharacter = playerCharacter;
 		this.buildMode = true;
 		this.buildAction = buildAction;
 		this.args = args;
 		
-		BufferedImage image = (BufferedImage)imageInfoReader.getImage(buildAction.getImageIds(), null);
+		BufferedImage image = (BufferedImage)imageInfoReader.getImage(buildAction.getImageIds(playerCharacter), null);
 		this.okImage = ImageUtils.makeTransparent(image);
 		this.notOkImage = ImageUtils.dye(okImage, new Color(1f, 0, 0, 0.5f));
 	}

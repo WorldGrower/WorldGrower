@@ -102,7 +102,7 @@ public class BuildBreweryAction implements BuildAction {
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.BREWERY;
 	}
 	

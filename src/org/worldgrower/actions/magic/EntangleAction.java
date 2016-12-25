@@ -118,7 +118,7 @@ public class EntangleAction implements BuildAction, MagicSpell, AnimatedAction {
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.ENTANGLED_INDICATOR;
 	}
 

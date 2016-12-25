@@ -89,7 +89,7 @@ public class CreateNewsPaperAction implements ManagedOperation {
 	
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.NEWS_PAPER;
 	}
 	

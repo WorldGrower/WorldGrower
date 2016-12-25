@@ -83,7 +83,7 @@ public class WeaveCottonShirtAction implements CraftEquipmentAction, AnimatedAct
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.COTTON_SHIRT;
 	}
 	

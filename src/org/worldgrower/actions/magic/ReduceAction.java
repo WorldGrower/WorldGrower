@@ -128,7 +128,7 @@ public class ReduceAction implements MagicSpell {
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.REDUCE_MAGIC_SPELL;
 	}
 	

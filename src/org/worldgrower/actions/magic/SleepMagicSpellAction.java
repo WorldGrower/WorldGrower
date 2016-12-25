@@ -107,7 +107,7 @@ public class SleepMagicSpellAction implements MagicSpell {
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.SLEEPING_INDICATOR;
 	}
 	

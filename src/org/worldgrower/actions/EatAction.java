@@ -88,7 +88,7 @@ public class EatAction implements ManagedOperation, AnimatedAction {
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.BERRY;
 	}
 	

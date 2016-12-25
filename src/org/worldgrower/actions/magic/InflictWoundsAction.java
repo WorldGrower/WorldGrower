@@ -108,7 +108,7 @@ public class InflictWoundsAction implements MagicSpell, DeadlyAction, AnimatedAc
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.INFLICT_WOUNDS_MAGIC_SPELL;
 	}
 	

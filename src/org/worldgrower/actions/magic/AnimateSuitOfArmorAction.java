@@ -104,7 +104,7 @@ public class AnimateSuitOfArmorAction extends InventoryAction implements MagicSp
 	}
 
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.ANIMATED_SUIT_OF_ARMOR;
 	}
 

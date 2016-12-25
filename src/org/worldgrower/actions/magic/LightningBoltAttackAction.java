@@ -135,7 +135,7 @@ public class LightningBoltAttackAction implements MagicSpell, DeadlyAction, Anim
 	}
 
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.LIGHTNING_BOLT;
 	}
 	

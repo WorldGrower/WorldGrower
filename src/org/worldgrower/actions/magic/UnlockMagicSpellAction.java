@@ -113,7 +113,7 @@ public class UnlockMagicSpellAction implements MagicSpell, AnimatedAction {
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.UNLOCK_MAGIC_SPELL;
 	}
 	

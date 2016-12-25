@@ -121,7 +121,7 @@ public class SacredFlameAttackAction implements MagicSpell, DeadlyAction, Animat
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.SACRED_FLAME;
 	}
 	

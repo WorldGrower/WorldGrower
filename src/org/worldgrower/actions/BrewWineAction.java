@@ -92,7 +92,7 @@ public class BrewWineAction implements CraftAction, AnimatedAction {
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.WINE;
 	}
 	

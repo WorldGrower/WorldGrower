@@ -75,7 +75,7 @@ public class RepairEquipmentInInventoryAction extends InventoryAction {
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.REPAIR_HAMMER;
 	}
 	

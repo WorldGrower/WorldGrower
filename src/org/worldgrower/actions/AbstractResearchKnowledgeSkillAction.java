@@ -93,7 +93,7 @@ public class AbstractResearchKnowledgeSkillAction implements ResearchKnowledgeSk
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.SPELL_BOOK;
 	}
 

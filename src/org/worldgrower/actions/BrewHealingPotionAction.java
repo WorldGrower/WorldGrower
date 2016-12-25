@@ -88,7 +88,7 @@ public class BrewHealingPotionAction implements CraftAction, AnimatedAction {
 	}
 
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.HEALING_POTION;
 	}
 	

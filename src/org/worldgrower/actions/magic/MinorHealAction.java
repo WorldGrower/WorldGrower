@@ -116,7 +116,7 @@ public class MinorHealAction implements MagicSpell, AnimatedAction {
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.MINOR_HEAL;
 	}
 	

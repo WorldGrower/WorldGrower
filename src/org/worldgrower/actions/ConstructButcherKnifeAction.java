@@ -99,7 +99,7 @@ public class ConstructButcherKnifeAction implements CraftAction, AnimatedAction 
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.BUTCHER_KNIFE;
 	}
 

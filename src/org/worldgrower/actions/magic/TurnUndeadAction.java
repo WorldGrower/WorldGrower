@@ -139,7 +139,7 @@ public class TurnUndeadAction implements BuildAction, MagicSpell, DeadlyAction, 
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.TURN_UNDEAD;
 	}
 	

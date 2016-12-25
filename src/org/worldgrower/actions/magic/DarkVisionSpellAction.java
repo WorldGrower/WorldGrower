@@ -109,7 +109,7 @@ public class DarkVisionSpellAction implements MagicSpell, AnimatedAction {
 	}
 
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.DARKNESS_MAGIC_SPELL;
 	}
 	

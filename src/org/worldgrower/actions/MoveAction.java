@@ -152,7 +152,7 @@ public class MoveAction implements ManagedOperation {
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.COTTON_BOOTS;
 	}
 

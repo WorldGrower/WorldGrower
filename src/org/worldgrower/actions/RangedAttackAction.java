@@ -103,7 +103,7 @@ public class RangedAttackAction implements DeadlyAction, AnimatedAction {
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.LONGBOW;
 	}
 	

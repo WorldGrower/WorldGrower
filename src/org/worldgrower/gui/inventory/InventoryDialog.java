@@ -231,7 +231,7 @@ public final class InventoryDialog extends AbstractDialog {
 				targetMoney.setBounds(labelValueLeft, 62, 50, 25);
 				targetInventoryPanel.add(targetMoney);
 				
-				Image stealGoldImage = imageInfoReader.getImage(Actions.STEAL_GOLD_ACTION.getImageIds(), null);
+				Image stealGoldImage = imageInfoReader.getImage(Actions.STEAL_GOLD_ACTION.getImageIds(null), null);
 				stealMoneyButton = JButtonFactory.createButton("Steal money", new ImageIcon(stealGoldImage), imageInfoReader, soundIdReader);
 				stealMoneyButton.setToolTipText("steal money");
 				stealMoneyButton.setBounds(labelLeft, 112, 150, 50);

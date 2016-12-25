@@ -113,7 +113,7 @@ public class FireTrapAction implements MagicSpell, DeadlyAction, BuildAction {
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.FIRE_TRAP;
 	}
 	

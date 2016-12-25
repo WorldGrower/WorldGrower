@@ -122,7 +122,7 @@ public class DimensionDoorAction implements BuildAction, MagicSpell, DeadlyActio
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.DIMENSION_DOOR;
 	}
 

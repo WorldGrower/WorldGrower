@@ -101,7 +101,7 @@ private static final int REQUIRED_WOOD = 3;
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.CHEST;
 	}
 	

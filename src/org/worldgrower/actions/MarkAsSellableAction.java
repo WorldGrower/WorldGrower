@@ -80,7 +80,7 @@ public class MarkAsSellableAction implements ManagedOperation {
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.SILVER_COIN;
 	}
 	

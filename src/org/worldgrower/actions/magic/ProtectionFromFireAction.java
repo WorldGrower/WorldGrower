@@ -14,13 +14,14 @@
  *******************************************************************************/
 package org.worldgrower.actions.magic;
 
+import org.worldgrower.WorldObject;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.gui.ImageIds;
 
 public class ProtectionFromFireAction extends AbstractProtectionFromEnergyAction {
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.PROTECTION_FROM_FIRE;
 	}
 

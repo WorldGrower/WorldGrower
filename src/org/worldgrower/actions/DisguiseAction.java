@@ -82,7 +82,7 @@ public class DisguiseAction implements DisguiseTargetFactory {
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.DISGUISE_MAGIC_SPELL;
 	}
 }

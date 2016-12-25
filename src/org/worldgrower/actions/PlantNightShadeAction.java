@@ -89,7 +89,7 @@ public class PlantNightShadeAction implements BuildAction {
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.NIGHT_SHADE_PLANT;
 	}
 	

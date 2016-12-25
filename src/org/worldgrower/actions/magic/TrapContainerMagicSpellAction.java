@@ -111,7 +111,7 @@ public class TrapContainerMagicSpellAction implements MagicSpell, DeadlyAction {
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.TRAP_CONTAINER_MAGIC_SPELL;
 	}
 

@@ -93,7 +93,7 @@ public class GatherRemainsAction implements ManagedOperation {
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.SKELETAL_REMAINS;
 	}
 }

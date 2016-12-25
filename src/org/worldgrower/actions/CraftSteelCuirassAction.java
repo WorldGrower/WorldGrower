@@ -91,7 +91,7 @@ public class CraftSteelCuirassAction implements CraftEquipmentAction, AnimatedAc
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.STEEL_CUIRASS;
 	}
 	

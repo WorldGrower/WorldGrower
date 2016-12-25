@@ -116,7 +116,7 @@ public class MajorIllusionAction implements BuildAction, MagicSpell, IllusionSpe
 	}
 	
 	@Override
-	public ImageIds getImageIds() {
+	public ImageIds getImageIds(WorldObject performer) {
 		return ImageIds.MAJOR_ILLUSION_MAGIC_SPELL;
 	}
 	
