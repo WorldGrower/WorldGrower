@@ -164,8 +164,7 @@ public class BuildingGenerator {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
-		properties.put(Constants.WIDTH, 1);
-		properties.put(Constants.HEIGHT, 1);
+		BuildingDimensions.WELL.addWidthHeight(properties);
 		properties.put(Constants.WATER_SOURCE, (int)(1000 * skillBonus));
 		properties.put(Constants.NAME, WELL_NAME);
 		
@@ -647,8 +646,7 @@ public class BuildingGenerator {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
-		properties.put(Constants.WIDTH, 2);
-		properties.put(Constants.HEIGHT, 2);
+		BuildingDimensions.SMITH.addWidthHeight(properties);
 		properties.put(Constants.SMITH_QUALITY, smithBonus);
 		properties.put(Constants.NAME, createName("smithy", owner));
 		properties.put(Constants.ID, id);
@@ -677,8 +675,7 @@ public class BuildingGenerator {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
-		properties.put(Constants.WIDTH, 4);
-		properties.put(Constants.HEIGHT, 3);
+		BuildingDimensions.WORKBENCH.addWidthHeight(properties);
 		properties.put(Constants.WORKBENCH_QUALITY, workBenchBonus);
 		properties.put(Constants.NAME, createName("workbench", owner));
 		properties.put(Constants.ID, id);
@@ -770,8 +767,7 @@ public class BuildingGenerator {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
-		properties.put(Constants.WIDTH, 4);
-		properties.put(Constants.HEIGHT, 3);
+		BuildingDimensions.WEAVERY.addWidthHeight(properties);
 		properties.put(Constants.WEAVERY_QUALITY, weaveryBonus);
 		properties.put(Constants.NAME, createName("weavery", owner));
 		properties.put(Constants.ID, id);
@@ -800,8 +796,7 @@ public class BuildingGenerator {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
-		properties.put(Constants.WIDTH, 4);
-		properties.put(Constants.HEIGHT, 3);
+		BuildingDimensions.BREWERY.addWidthHeight(properties);
 		properties.put(Constants.BREWERY_QUALITY, breweryBonus);
 		properties.put(Constants.NAME, createName("brewery", owner));
 		properties.put(Constants.ID, id);
@@ -830,8 +825,7 @@ public class BuildingGenerator {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
-		properties.put(Constants.WIDTH, 4);
-		properties.put(Constants.HEIGHT, 3);
+		BuildingDimensions.APOTHECARY.addWidthHeight(properties);
 		properties.put(Constants.APOTHECARY_QUALITY, apothecaryBonus);
 		properties.put(Constants.NAME, createName("apothecary", owner));
 		properties.put(Constants.ID, id);
@@ -859,8 +853,7 @@ public class BuildingGenerator {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
-		properties.put(Constants.WIDTH, 1);
-		properties.put(Constants.HEIGHT, 1);
+		BuildingDimensions.CHEST.addWidthHeight(properties);
 		properties.put(Constants.NAME, createName("chest", owner));
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, BuildingType.CHEST.getImageId());

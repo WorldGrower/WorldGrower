@@ -23,7 +23,14 @@ public enum BuildingDimensions {
 	ARENA(11, 10),
 	JAIL(3, 4),
 	SHACK(2, 3),
-	HOUSE(3, 3);
+	HOUSE(3, 3),
+	WELL(1, 1),
+	WORKBENCH(4, 3),
+	SMITH(2, 2),
+	WEAVERY(4, 3),
+	BREWERY(4, 3),
+	APOTHECARY(4, 3),
+	CHEST(1, 1);
 	
 	private final int realWidth;
 	private final int realHeight;

@@ -22,6 +22,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.generator.BuildingDimensions;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
@@ -87,12 +88,12 @@ private static final int REQUIRED_WOOD = 3;
 
 	@Override
 	public int getWidth() {
-		return 1;
+		return BuildingDimensions.CHEST.getPlacementWidth();
 	}
 
 	@Override
 	public int getHeight() {
-		return 1;
+		return BuildingDimensions.CHEST.getPlacementHeight();
 	}
 	
 	public static boolean hasEnoughWood(WorldObject performer) {

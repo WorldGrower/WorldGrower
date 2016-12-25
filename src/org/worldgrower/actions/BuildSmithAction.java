@@ -24,6 +24,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.generator.BuildingDimensions;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
@@ -90,12 +91,12 @@ public class BuildSmithAction implements BuildAction {
 
 	@Override
 	public int getWidth() {
-		return 2;
+		return BuildingDimensions.SMITH.getPlacementWidth();
 	}
 
 	@Override
 	public int getHeight() {
-		return 2;
+		return BuildingDimensions.SMITH.getPlacementHeight();
 	}
 	
 	@Override
