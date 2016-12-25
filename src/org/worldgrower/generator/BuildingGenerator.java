@@ -193,8 +193,7 @@ public class BuildingGenerator {
 		
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
-		properties.put(Constants.WIDTH, 1);
-		properties.put(Constants.HEIGHT, 2);
+		BuildingDimensions.TRAINING_DUMMY.addWidthHeight(properties);
 		properties.put(Constants.NAME, TRAINING_DUMMY_NAME);
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.TRAINING_DUMMY);
@@ -221,8 +220,7 @@ public class BuildingGenerator {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y); 
-		properties.put(Constants.WIDTH, 1);
-		properties.put(Constants.HEIGHT, 1);
+		BuildingDimensions.GRAVE.addWidthHeight(properties);
 		properties.put(Constants.NAME, GRAVE_NAME);
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.GRAVE);
@@ -249,9 +247,7 @@ public class BuildingGenerator {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
-		properties.put(Constants.WIDTH, 1);
-		properties.put(Constants.HEIGHT, 2);
-		
+		BuildingDimensions.SHRINE.addWidthHeight(properties);
 		properties.put(Constants.DEITY, deity);
 		properties.put(Constants.NAME, "shrine to " + deity.getName());
 		properties.put(Constants.TEXT, "shrine to " + deity.getName());
@@ -453,8 +449,7 @@ public class BuildingGenerator {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
-		properties.put(Constants.WIDTH, 1);
-		properties.put(Constants.HEIGHT, 2);
+		BuildingDimensions.SACRIFICIAL_ALTAR.addWidthHeight(properties);
 		properties.put(Constants.NAME, "sacrificial Altar");
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.SACRIFIAL_ALTAR);
@@ -580,8 +575,7 @@ public class BuildingGenerator {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
-		properties.put(Constants.WIDTH, 2);
-		properties.put(Constants.HEIGHT, 2);
+		BuildingDimensions.LIBRARY.addWidthHeight(properties);
 		properties.put(Constants.LIBRARY_QUALITY, libraryQualityBonus);
 		properties.put(Constants.NAME, createName("library", owner));
 		
@@ -614,8 +608,7 @@ public class BuildingGenerator {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
-		properties.put(Constants.WIDTH, 4);
-		properties.put(Constants.HEIGHT, 3);
+		BuildingDimensions.PAPERMILL.addWidthHeight(properties);
 		properties.put(Constants.PAPER_MILL_QUALITY, paperMillBonus);
 		properties.put(Constants.NAME, createName("papermill", owner));
 		properties.put(Constants.ID, id);
@@ -737,8 +730,7 @@ public class BuildingGenerator {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
-		properties.put(Constants.WIDTH, 1);
-		properties.put(Constants.HEIGHT, 1);
+		BuildingDimensions.SIGN_POST.addWidthHeight(properties);
 		properties.put(Constants.NAME, "sign post");
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.SIGN_POST);

@@ -24,6 +24,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.generator.BuildingDimensions;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
@@ -85,12 +86,12 @@ public class BuildPaperMillAction implements BuildAction {
 
 	@Override
 	public int getWidth() {
-		return 4;
+		return BuildingDimensions.PAPERMILL.getPlacementWidth();
 	}
 
 	@Override
 	public int getHeight() {
-		return 3;
+		return BuildingDimensions.PAPERMILL.getPlacementHeight();
 	}
 	
 	@Override

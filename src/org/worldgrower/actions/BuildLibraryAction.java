@@ -21,6 +21,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
+import org.worldgrower.generator.BuildingDimensions;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
@@ -85,12 +86,12 @@ public class BuildLibraryAction implements BuildAction {
 
 	@Override
 	public int getWidth() {
-		return 2;
+		return BuildingDimensions.LIBRARY.getPlacementWidth();
 	}
 
 	@Override
 	public int getHeight() {
-		return 2;
+		return BuildingDimensions.LIBRARY.getPlacementHeight();
 	}
 	
 

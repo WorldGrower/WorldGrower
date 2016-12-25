@@ -30,7 +30,14 @@ public enum BuildingDimensions {
 	WEAVERY(4, 3),
 	BREWERY(4, 3),
 	APOTHECARY(4, 3),
-	CHEST(1, 1);
+	CHEST(1, 1),
+	TRAINING_DUMMY(1, 2),
+	SHRINE(1, 2),
+	SACRIFICIAL_ALTAR(1, 2),
+	LIBRARY(2, 2),
+	PAPERMILL(4, 3),
+	SIGN_POST(1, 1),
+	GRAVE(1, 1);
 	
 	private final int realWidth;
 	private final int realHeight;
