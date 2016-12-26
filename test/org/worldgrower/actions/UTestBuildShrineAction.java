@@ -27,9 +27,12 @@ import org.worldgrower.attribute.BuildingList;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.deity.Deity;
 import org.worldgrower.generator.Item;
+import org.worldgrower.gui.ImageIds;
 
 public class UTestBuildShrineAction {
 
+	private BuildShrineAction action = Actions.BUILD_SHRINE_ACTION;
+	
 	@Test
 	public void testExecute() {
 		World world = new WorldImpl(10, 10, null, null);
@@ -38,7 +41,7 @@ public class UTestBuildShrineAction {
 		
 		
 		performer.setProperty(Constants.DEITY, Deity.ARES);
-		Actions.BUILD_SHRINE_ACTION.execute(performer, target, Args.EMPTY, world);
+		action.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(1, world.getWorldObjects().size());
 		assertEquals("shrine to Ares", world.getWorldObjects().get(0).getProperty(Constants.NAME));
@@ -52,7 +55,7 @@ public class UTestBuildShrineAction {
 		WorldObject target = TestUtils.createWorldObject(0, 0, 1, 1);
 		
 		performer.setProperty(Constants.DEITY, Deity.ARES);
-		assertEquals(true, Actions.BUILD_SHRINE_ACTION.isValidTarget(performer, target, world));
+		assertEquals(true, action.isValidTarget(performer, target, world));
 	}
 	
 	@Test
@@ -63,7 +66,7 @@ public class UTestBuildShrineAction {
 		
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.STONE.generate(1f), 20);
 		performer.setProperty(Constants.DEITY, Deity.ARES);
-		assertEquals(true, Actions.BUILD_SHRINE_ACTION.isActionPossible(performer, target, Args.EMPTY, world));
+		assertEquals(true, action.isActionPossible(performer, target, Args.EMPTY, world));
 	}
 	
 	@Test
@@ -72,7 +75,16 @@ public class UTestBuildShrineAction {
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
-		assertEquals(0, Actions.BUILD_SHRINE_ACTION.distance(performer, target, Args.EMPTY, world));
+		assertEquals(0, action.distance(performer, target, Args.EMPTY, world));
+	}
+	
+	@Test
+	public void testGetImageId() {
+		WorldObject performer = createPerformer(2);
+		assertEquals(ImageIds.STATUE_OF_DEITY, action.getImageIds(performer));
+		
+		performer.setProperty(Constants.DEITY, Deity.ARES);
+		assertEquals(Deity.ARES.getStatueImageId(), action.getImageIds(performer));
 	}
 	
 	private WorldObject createPerformer(int id) {

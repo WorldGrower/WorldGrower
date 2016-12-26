@@ -25,6 +25,7 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.MockCommonerNameGenerator;
 import org.worldgrower.attribute.BuildingList;
 import org.worldgrower.attribute.BuildingType;
+import org.worldgrower.attribute.IdList;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.CommonerGenerator;
 import org.worldgrower.generator.Item;
@@ -79,6 +80,18 @@ public class UTestWorkbenchGoal {
 	}
 	
 	@Test
+	public void testCalculateGoalClaimWorkbench() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
+		WorldObject performer = createCommoner(world, organization);
+		
+		int id = addWorkbench(world, performer);
+		performer.setProperty(Constants.BUILDINGS, new BuildingList());
+		
+		assertEquals(Actions.CLAIM_BUILDING_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+	@Test
 	public void testIsGoalMet() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
@@ -90,9 +103,10 @@ public class UTestWorkbenchGoal {
 		assertEquals(true, goal.isGoalMet(performer, world));
 	}
 	
-	private void addWorkbench(World world, WorldObject performer) {
+	private int addWorkbench(World world, WorldObject performer) {
 		int workbenchId = BuildingGenerator.generateWorkbench(0, 0, world, performer);
 		performer.setProperty(Constants.BUILDINGS, new BuildingList().add(workbenchId, BuildingType.WORKBENCH));
+		return workbenchId;
 	}
 
 	private WorldObject createCommoner(World world, WorldObject organization) {
