@@ -39,7 +39,7 @@ public class CraftIronCuirassAction implements CraftEquipmentAction, AnimatedAct
 		
 		double skillBonus = SkillUtils.useSkill(performer, Constants.SMITHING_SKILL, world.getWorldStateChangedListeners());
 		int quantity = SmithPropertyUtils.calculateSmithingQuantity(performer, target);
-		inventory.addQuantity(Item.IRON_CUIRASS.generate(skillBonus), quantity);
+		inventory.addQuantity(getItem().generate(skillBonus), quantity);
 
 		inventory.removeQuantity(Constants.WOOD, WOOD_REQUIRED);
 		inventory.removeQuantity(Constants.ORE, ORE_REQUIRED);
@@ -113,5 +113,10 @@ public class CraftIronCuirassAction implements CraftEquipmentAction, AnimatedAct
 	@Override
 	public EquipmentType getEquipmentType() {
 		return EquipmentType.IRON;
+	}
+	
+	@Override
+	public Item getItem() {
+		return Item.IRON_CUIRASS;
 	}
 }

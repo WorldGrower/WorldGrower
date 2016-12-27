@@ -43,6 +43,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.BuildAction;
+import org.worldgrower.actions.CraftEquipmentAction;
 import org.worldgrower.actions.VotingPropertyUtils;
 import org.worldgrower.actions.magic.IllusionSpell;
 import org.worldgrower.actions.magic.MagicSpell;
@@ -50,6 +51,7 @@ import org.worldgrower.actions.magic.ResearchSpellAction;
 import org.worldgrower.actions.magic.ScribeMagicSpellAction;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.conversation.Conversations;
+import org.worldgrower.generator.Item;
 import org.worldgrower.gui.chooseworldobject.ChooseWorldObjectAction;
 import org.worldgrower.gui.chooseworldobject.GuiDisguiseAction;
 import org.worldgrower.gui.chooseworldobject.GuiViewCandidatesAction;
@@ -563,6 +565,13 @@ public class GuiMouseListener extends MouseAdapter {
 		} else {
 			buildMenuItem = createDisabledActionMenuItem(parentMenuItem, buildAction);
 		}
+		
+		String tooltip = createTooltipForBuildAction(buildAction);
+		buildMenuItem.setToolTipText(tooltip);
+		addImageIcon(buildAction, buildMenuItem);
+	}
+
+	private String createTooltipForBuildAction(BuildAction buildAction) {
 		String requirementsDescription = buildAction.getRequirementsDescription();
 		List<ManagedOperation> allowedCraftActions = buildAction.getAllowedCraftActions(playerCharacter, world);
 		String allowedCraftActionsDescription = createAllowedCraftActionsDescription(allowedCraftActions);
@@ -575,9 +584,7 @@ public class GuiMouseListener extends MouseAdapter {
 			tooltip += "<br>" + allowedCraftActionsDescription;
 		}
 		tooltip += "</html>";
-		
-		buildMenuItem.setToolTipText(tooltip);
-		addImageIcon(buildAction, buildMenuItem);
+		return tooltip;
 	}
 
 	private String createAllowedCraftActionsDescription(List<ManagedOperation> allowedCraftActions) {
@@ -635,7 +642,25 @@ public class GuiMouseListener extends MouseAdapter {
 
 	private void addToolTips(ManagedOperation action, final JMenuItem menuItem) {
 		if (menuItem != null) {
-			String tooltip = "<html>" + action.getRequirementsDescription() + "<br>" + action.getDescription() + "</html>";
+			String tooltip = "<html>" + action.getRequirementsDescription() + "<br>" + action.getDescription();
+			
+			if (action instanceof CraftEquipmentAction) {
+				CraftEquipmentAction craftEquipmentAction = (CraftEquipmentAction) action;
+				Item craftedItem = craftEquipmentAction.getItem();
+				WorldObject craftedWorldObject = craftedItem.generate(1f);
+				if (craftedWorldObject.hasProperty(Constants.DAMAGE)) {
+					tooltip += ("<br>damage: " + craftedWorldObject.getProperty(Constants.DAMAGE));
+				}
+				if (craftedWorldObject.hasProperty(Constants.ARMOR)) {
+					tooltip += ("<br>armor: " + craftedWorldObject.getProperty(Constants.ARMOR));
+				}
+				if (craftedWorldObject.hasProperty(Constants.WEIGHT)) {
+					tooltip += ("<br>weight: " + craftedWorldObject.getProperty(Constants.WEIGHT));
+				}
+			}
+			
+			tooltip += "</html>";
+			
 			menuItem.setToolTipText(tooltip);
 		}
 	}

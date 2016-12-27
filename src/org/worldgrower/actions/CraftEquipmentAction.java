@@ -14,8 +14,10 @@
  *******************************************************************************/
 package org.worldgrower.actions;
 
+import org.worldgrower.generator.Item;
+
 
 public interface CraftEquipmentAction extends CraftAction {
-
 	public EquipmentType getEquipmentType();
+	public Item getItem();
 }

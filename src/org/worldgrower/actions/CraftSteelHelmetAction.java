@@ -39,7 +39,7 @@ public class CraftSteelHelmetAction implements CraftEquipmentAction, AnimatedAct
 		
 		double skillBonus = SkillUtils.useSkill(performer, Constants.SMITHING_SKILL, world.getWorldStateChangedListeners());
 		int quantity = SmithPropertyUtils.calculateSmithingQuantity(performer, target);
-		inventory.addQuantity(Item.STEEL_HELMET.generate(skillBonus), quantity);
+		inventory.addQuantity(getItem().generate(skillBonus), quantity);
 
 		inventory.removeQuantity(Constants.WOOD, WOOD_REQUIRED);
 		inventory.removeQuantity(Constants.STEEL, STEEL_REQUIRED);
@@ -112,5 +112,10 @@ public class CraftSteelHelmetAction implements CraftEquipmentAction, AnimatedAct
 	@Override
 	public EquipmentType getEquipmentType() {
 		return EquipmentType.STEEL;
+	}
+	
+	@Override
+	public Item getItem() {
+		return Item.STEEL_HELMET;
 	}
 }

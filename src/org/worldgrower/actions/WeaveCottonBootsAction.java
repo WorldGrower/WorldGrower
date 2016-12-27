@@ -34,7 +34,7 @@ public class WeaveCottonBootsAction implements CraftEquipmentAction, AnimatedAct
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
-		Item.COTTON_BOOTS.addToInventory(performer, target, Constants.WEAVING_SKILL, Constants.WEAVERY_QUALITY, world);
+		getItem().addToInventory(performer, target, Constants.WEAVING_SKILL, Constants.WEAVERY_QUALITY, world);
 		inventory.removeQuantity(Constants.COTTON, COTTON_REQUIRED);
 	}
 
@@ -105,5 +105,10 @@ public class WeaveCottonBootsAction implements CraftEquipmentAction, AnimatedAct
 	@Override
 	public EquipmentType getEquipmentType() {
 		return EquipmentType.COTTON;
+	}
+	
+	@Override
+	public Item getItem() {
+		return Item.COTTON_BOOTS;
 	}
 }

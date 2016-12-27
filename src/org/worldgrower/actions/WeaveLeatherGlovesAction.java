@@ -34,7 +34,7 @@ public class WeaveLeatherGlovesAction implements CraftEquipmentAction, AnimatedA
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
-		Item.LEATHER_GLOVES.addToInventory(performer, target, Constants.WEAVING_SKILL, Constants.WEAVERY_QUALITY, world);
+		getItem().addToInventory(performer, target, Constants.WEAVING_SKILL, Constants.WEAVERY_QUALITY, world);
 		inventory.removeQuantity(Constants.LEATHER, LEATHER_REQUIRED);
 	}
 
@@ -105,5 +105,10 @@ public class WeaveLeatherGlovesAction implements CraftEquipmentAction, AnimatedA
 	@Override
 	public EquipmentType getEquipmentType() {
 		return EquipmentType.LEATHER;
+	}
+	
+	@Override
+	public Item getItem() {
+		return Item.LEATHER_GLOVES;
 	}
 }

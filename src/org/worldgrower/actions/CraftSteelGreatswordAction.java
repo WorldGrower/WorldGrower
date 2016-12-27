@@ -39,12 +39,12 @@ public class CraftSteelGreatswordAction implements CraftEquipmentAction, Animate
 		
 		double skillBonus = SkillUtils.useSkill(performer, Constants.SMITHING_SKILL, world.getWorldStateChangedListeners());
 		int quantity = SmithPropertyUtils.calculateSmithingQuantity(performer, target);
-		inventory.addQuantity(Item.STEEL_GREATSWORD.generate(skillBonus), quantity);
+		inventory.addQuantity(getItem().generate(skillBonus), quantity);
 
 		inventory.removeQuantity(Constants.WOOD, WOOD_REQUIRED);
 		inventory.removeQuantity(Constants.STEEL, STEEL_REQUIRED);
 	}
-	
+
 	@Override
 	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
 		return CraftUtils.hasEnoughResources(performer, Constants.WOOD, WOOD_REQUIRED, Constants.STEEL, STEEL_REQUIRED);
@@ -112,5 +112,10 @@ public class CraftSteelGreatswordAction implements CraftEquipmentAction, Animate
 	@Override
 	public EquipmentType getEquipmentType() {
 		return EquipmentType.STEEL;
+	}
+	
+	@Override
+	public Item getItem() {
+		return Item.STEEL_GREATSWORD;
 	}
 }
