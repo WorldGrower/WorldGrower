@@ -713,6 +713,9 @@ public class ImageInfoReader {
 		add(ImageIds.ARENA_COMPLETE, BuildingGenerator.getArenaCompleteImage(this));
 		add(ImageIds.JAIL_COMPLETE, BuildingGenerator.getJailCompleteImage(this));
 		
+		add(ImageIds.SHORT_BOW, sprites420.getSubImage(2, 11, 1, 1));
+		createAnimation(ImageIds.SHORT_BOW_ANIMATION, ImageIds.SHORT_BOW, 10);
+		
     }
 
 	BufferedImage colorize(ImageIds imageId, Color color) {

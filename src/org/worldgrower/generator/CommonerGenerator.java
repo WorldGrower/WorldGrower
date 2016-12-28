@@ -173,8 +173,6 @@ public class CommonerGenerator implements Serializable {
 		properties.put(Constants.GROUP, new IdList().add(organization));
 		
 		WorldObjectContainer inventory = new WorldObjectContainer();
-		inventory.addQuantity(Item.WOOD.generate(1f), 100);
-		inventory.addQuantity(Item.STONE.generate(1f), 100);
 		properties.put(Constants.INVENTORY, inventory);
 		properties.put(Constants.DEMANDS, new PropertyCountMap<ManagedProperty<?>>());
 		properties.put(Constants.GOLD, 100);

@@ -785,7 +785,8 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestCraftSteelShieldAction.class,
 	UTestCreateSteelAction.class,
 	UTestDropItemAction.class,
-	UTestCreatePaperMillGoal.class
+	UTestCreatePaperMillGoal.class,
+	UTestCraftShortBowAction.class
 })
 public class CompleteTestSuite {
 }

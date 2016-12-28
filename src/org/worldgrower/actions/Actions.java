@@ -314,6 +314,7 @@ public class Actions {
 	public static final CraftSteelBootsAction CRAFT_STEEL_BOOTS_ACTION = new CraftSteelBootsAction();
 	public static final CraftSteelMaceAction CRAFT_STEEL_MACE_ACTION = new CraftSteelMaceAction();
 	public static final CraftSteelKatarAction CRAFT_STEEL_KATAR_ACTION = new CraftSteelKatarAction();
+	public static final CraftShortBowAction CRAFT_SHORT_BOW_ACTION = new CraftShortBowAction();
 	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 
@@ -543,7 +544,8 @@ public class Actions {
 		CRAFT_STEEL_SHIELD_ACTION,
 		CRAFT_STEEL_BOOTS_ACTION,
 		CRAFT_STEEL_MACE_ACTION,
-		CRAFT_STEEL_KATAR_ACTION
+		CRAFT_STEEL_KATAR_ACTION,
+		CRAFT_SHORT_BOW_ACTION
 	));
 	
 	static {

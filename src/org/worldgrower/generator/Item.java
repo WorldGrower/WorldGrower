@@ -122,6 +122,7 @@ public enum Item {
 	STEEL_BOOTS(ItemType.ARMOR),
 	STEEL_MACE(ItemType.WEAPON), 
 	STEEL_KATAR(ItemType.WEAPON),
+	SHORTBOW(ItemType.WEAPON)
 	;
 
 	public static final int COMBAT_MULTIPLIER = 10;
@@ -141,6 +142,7 @@ public enum Item {
 	private static final String IRON_KATAR_NAME = "iron katar";
 	
 	private static final String LONGBOW_NAME = "longbow";
+	private static final String SHORTBOW_NAME = "shortbow";
 	private static final String POISON_NAME = "poison";
 
 	private static final String COTTON_SHIRT_NAME = "cotton shirt";
@@ -1026,6 +1028,20 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
 			properties.put(Constants.IMAGE_ID, ImageIds.STEEL_KATAR);
+			return new WorldObjectImpl(properties);
+		});
+		
+		addItem(Item.SHORTBOW, skillBonus -> {
+			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+			properties.put(Constants.NAME, SHORTBOW_NAME);
+			properties.put(Constants.PRICE, 100);
+			properties.put(Constants.SELLABLE, false);
+			properties.put(Constants.DAMAGE, (int) (5 * COMBAT_MULTIPLIER * skillBonus));
+			properties.put(Constants.RANGE, 3);
+			properties.put(Constants.WEIGHT, 22);
+			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
+			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
+			properties.put(Constants.IMAGE_ID, ImageIds.SHORT_BOW);
 			return new WorldObjectImpl(properties);
 		});
 		
