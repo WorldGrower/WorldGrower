@@ -44,6 +44,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.BuildAction;
 import org.worldgrower.actions.CraftEquipmentAction;
+import org.worldgrower.actions.CraftRangedWeaponAction;
 import org.worldgrower.actions.VotingPropertyUtils;
 import org.worldgrower.actions.magic.IllusionSpell;
 import org.worldgrower.actions.magic.MagicSpell;
@@ -656,6 +657,17 @@ public class GuiMouseListener extends MouseAdapter {
 				}
 				if (craftedWorldObject.hasProperty(Constants.WEIGHT)) {
 					tooltip += ("<br>weight: " + craftedWorldObject.getProperty(Constants.WEIGHT));
+				}
+			}
+			if (action instanceof CraftRangedWeaponAction) {
+				CraftRangedWeaponAction craftRangedEquipmentAction = (CraftRangedWeaponAction) action;
+				Item craftedItem = craftRangedEquipmentAction.getItem();
+				WorldObject craftedWorldObject = craftedItem.generate(1f);
+				if (craftedWorldObject.hasProperty(Constants.DAMAGE)) {
+					tooltip += ("<br>damage: " + craftedWorldObject.getProperty(Constants.DAMAGE));
+				}
+				if (craftedWorldObject.hasProperty(Constants.RANGE)) {
+					tooltip += ("<br>range: " + craftedWorldObject.getProperty(Constants.RANGE));
 				}
 			}
 			

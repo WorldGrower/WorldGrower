@@ -22,23 +22,19 @@ import org.worldgrower.Constants;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
 
-public class CraftLongBowAction implements CraftAction, AnimatedAction {
+public class CraftLongBowAction implements CraftRangedWeaponAction, AnimatedAction {
 	private static final int DISTANCE = 1;
 	private static final int WOOD_REQUIRED = 5;
 	private static final int ORE_REQUIRED = 1;
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
-		
-		double skillBonus = SkillUtils.useSkill(performer, Constants.SMITHING_SKILL, world.getWorldStateChangedListeners());
-		int quantity =target.getProperty(Constants.WORKBENCH_QUALITY);
-		inventory.addQuantity(Item.LONGBOW.generate(skillBonus), quantity);
+		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);		
+		getItem().addToInventory(performer, target, Constants.SMITHING_SKILL, Constants.WORKBENCH_QUALITY, world);
 
 		inventory.removeQuantity(Constants.WOOD, WOOD_REQUIRED);
 		inventory.removeQuantity(Constants.ORE, ORE_REQUIRED);
@@ -101,5 +97,10 @@ public class CraftLongBowAction implements CraftAction, AnimatedAction {
 	@Override
 	public List<WorldObject> getAffectedTargets(WorldObject target, World world) {
 		return Arrays.asList(target);
+	}
+
+	@Override
+	public Item getItem() {
+		return Item.LONGBOW;
 	}
 }
