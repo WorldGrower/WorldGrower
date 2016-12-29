@@ -22,12 +22,11 @@ import org.worldgrower.Constants;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
-import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
 
-public class ConstructLockpickAction implements CraftAction, AnimatedAction {
+public class ConstructLockpickAction implements CraftEquipmentAction, AnimatedAction {
 
 	private static final int DISTANCE = 1;	
 	private static final int ORE_REQUIRED = 2;
@@ -35,10 +34,7 @@ public class ConstructLockpickAction implements CraftAction, AnimatedAction {
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
-		
-		double skillBonus = SkillUtils.useSkill(performer, Constants.CARPENTRY_SKILL, world.getWorldStateChangedListeners());
-		int quantity = target.getProperty(Constants.WORKBENCH_QUALITY);
-		inventory.addQuantity(Item.LOCKPICK.generate(skillBonus), quantity);
+		getItem().addToInventory(performer, target, Constants.CARPENTRY_SKILL, Constants.WORKBENCH_QUALITY, world);
 
 		inventory.removeQuantity(Constants.ORE, ORE_REQUIRED);
 	}
@@ -104,5 +100,15 @@ public class ConstructLockpickAction implements CraftAction, AnimatedAction {
 	@Override
 	public List<WorldObject> getAffectedTargets(WorldObject target, World world) {
 		return Arrays.asList(target);
+	}
+
+	@Override
+	public EquipmentType getEquipmentType() {
+		return EquipmentType.TOOL;
+	}
+	
+	@Override
+	public Item getItem() {
+		return Item.LOCKPICK;
 	}
 }

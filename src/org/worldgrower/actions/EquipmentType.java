@@ -20,7 +20,8 @@ public enum EquipmentType {
 	COTTON("Cotton", ImageIds.COTTON),
 	LEATHER("Leather", ImageIds.LEATHER),
 	IRON("Iron", ImageIds.IRON), 
-	STEEL("Steel", ImageIds.STEEL);
+	STEEL("Steel", ImageIds.STEEL), 
+	TOOL("Tool", ImageIds.SCYTHE);
 	
 	private final String description;
 	private final ImageIds imageId;

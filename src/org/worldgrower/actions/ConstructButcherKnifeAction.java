@@ -27,7 +27,7 @@ import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
 
-public class ConstructButcherKnifeAction implements CraftAction, AnimatedAction {
+public class ConstructButcherKnifeAction implements CraftEquipmentAction, AnimatedAction {
 
 	private static final int DISTANCE = 1;
 	
@@ -37,11 +37,8 @@ public class ConstructButcherKnifeAction implements CraftAction, AnimatedAction 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
 		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
+		getItem().addToInventory(performer, target, Constants.CARPENTRY_SKILL, Constants.WORKBENCH_QUALITY, world);
 		
-		double skillBonus = SkillUtils.useSkill(performer, Constants.CARPENTRY_SKILL, world.getWorldStateChangedListeners());
-		int quantity =target.getProperty(Constants.WORKBENCH_QUALITY);
-		inventory.addQuantity(Item.BUTCHER_KNIFE.generate(skillBonus), quantity);
-
 		inventory.removeQuantity(Constants.WOOD, WOOD_REQUIRED);
 		inventory.removeQuantity(Constants.ORE, ORE_REQUIRED);
 	}
@@ -111,5 +108,15 @@ public class ConstructButcherKnifeAction implements CraftAction, AnimatedAction 
 	@Override
 	public List<WorldObject> getAffectedTargets(WorldObject target, World world) {
 		return Arrays.asList(target);
+	}
+
+	@Override
+	public EquipmentType getEquipmentType() {
+		return EquipmentType.TOOL;
+	}
+	
+	@Override
+	public Item getItem() {
+		return Item.BUTCHER_KNIFE;
 	}
 }
