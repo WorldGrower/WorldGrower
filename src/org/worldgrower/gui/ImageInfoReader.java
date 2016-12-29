@@ -131,6 +131,8 @@ public class ImageInfoReader {
     	Sprites wisdomIcon = readWisdomIcon();
     	Sprites charismaIcon = readCharismaIcon();
     	
+    	Sprites beds = readSpritesBed();
+    	
     	addCharacter(ImageIds.KNIGHT, sprites, 0, 0, 1, 1);
     	addCharacter(ImageIds.GUARD, sprites, 0, 4, 1, 1);
     	add(ImageIds.BUCKET, objects.getSubImage(10, 10, 1, 1));
@@ -301,7 +303,7 @@ public class ImageInfoReader {
 		add(ImageIds.COTTON_ARMS, sprites420.getSubImage(7, 14, 1, 1));
 		add(ImageIds.COTTON_PANTS, sprites420.getSubImage(2, 13, 1, 1));
 		
-		add(ImageIds.BED, tileE.getSubImage(10, 4, 1, 2));
+		add(ImageIds.BED, beds.getSubImage(1, 2, 1, 1));
 		add(ImageIds.INVISIBILITY_INDICATOR, sprites420.getSubImage(2, 21, 1, 1));
 		add(ImageIds.POISONED_INDICATOR, sprites420.getSubImage(4, 24, 1, 1));
 		
@@ -1120,6 +1122,11 @@ public class ImageInfoReader {
 	private static Sprites readCharismaIcon() throws IOException {
 		return readImages("icon_24.png", 32, 32, 1, 1);
 	}
+	
+	private static Sprites readSpritesBed() throws IOException {
+		return readImages("rpg_maker_vx___beds_by_ayene_chan-d7khg4o.png", 32, 64, 6, 3);
+	}
+	
 
 	private static Sprites readSpritesApothecary() throws IOException {
 		return readImages("apothecary.png", 192, 144, 1, 1);
