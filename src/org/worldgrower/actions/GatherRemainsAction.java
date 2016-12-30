@@ -29,7 +29,7 @@ public class GatherRemainsAction implements ManagedOperation {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		WorldObjectContainer inventory = performer.getProperty(Constants.INVENTORY);
+		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
 		
 		if (target.getProperty(Constants.GOLD) == null) {
 			throw new IllegalStateException("target has no gold: " + target);
@@ -42,9 +42,10 @@ public class GatherRemainsAction implements ManagedOperation {
 		target.setProperty(Constants.ITEM_ID, Item.REMAINS);
 		target.setProperty(Constants.PRICE, 0);
 		
-		Constants.removeTradableProperties(target);
+		WorldObjectContainer targetInventory = target.getProperty(Constants.INVENTORY);
+		performerInventory.moveItemsFrom(targetInventory);
 		
-		inventory.addQuantity(target);
+		performerInventory.addQuantity(target);
 		world.removeWorldObject(target);
 	}
 

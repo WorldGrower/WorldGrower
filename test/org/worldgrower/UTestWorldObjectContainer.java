@@ -206,4 +206,24 @@ public class UTestWorldObjectContainer {
 		container.setProperty(0, Constants.PRICE, 2);
 		assertEquals(2, container.get(0).getProperty(Constants.PRICE).intValue());
 	}
+	
+	@Test
+	public void testMoveItemsFrom() {
+		WorldObjectContainer container = new WorldObjectContainer();
+		container.addQuantity(Item.WOOD.generate(1f), 2);
+		
+		WorldObjectContainer container2 = new WorldObjectContainer();
+		container2.addQuantity(Item.WOOD.generate(1f), 2);
+		container2.addQuantity(Item.STONE.generate(1f), 2);
+		
+		container.moveItemsFrom(container2);
+		
+		assertEquals(2, container.size());
+		assertEquals(4, container.getQuantityFor(Constants.WOOD));
+		assertEquals(2, container.getQuantityFor(Constants.STONE));
+		
+		assertEquals(2, container2.size());
+		assertEquals(null, container2.get(0));
+		assertEquals(null, container2.get(1));
+	}
 }

@@ -274,4 +274,14 @@ public class WorldObjectContainer implements Serializable {
 			worldObjects.set(index, null);
 		}
 	}
+
+	public void moveItemsFrom(WorldObjectContainer otherInventory) {
+		for(int index=0; index<otherInventory.size(); index++) {
+			WorldObject otherWorldObject = otherInventory.get(index);
+			if (otherWorldObject != null) {
+				addQuantity(otherWorldObject, otherWorldObject.getProperty(Constants.QUANTITY));
+				otherInventory.remove(index);
+			}
+		}
+	}
 }
