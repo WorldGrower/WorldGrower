@@ -217,4 +217,5 @@ public class Goals {
 	public static final LeatherGoal LEATHER_GOAL = new LeatherGoal(ALL_GOALS);
 	public static final WeaveLeatherArmorGoal WEAVE_LEATHER_ARMOR_GOAL = new WeaveLeatherArmorGoal(ALL_GOALS);
 	public static final UseEquipmentGoal USE_EQUIPMENT_GOAL = new UseEquipmentGoal(ALL_GOALS);
+	public static final SellUnusedItemsGoal SELL_UNUSED_ITEMS_GOAL = new SellUnusedItemsGoal(ALL_GOALS);
 }
