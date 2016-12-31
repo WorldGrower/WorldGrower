@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.BuildWorkbenchAction;
+import org.worldgrower.generator.BuildingDimensions;
 import org.worldgrower.generator.BuildingGenerator;
 
 public class CreateWorkbenchGoal implements Goal {
@@ -36,7 +37,9 @@ public class CreateWorkbenchGoal implements Goal {
 		if (!BuildWorkbenchAction.hasEnoughStone(performer)) {
 			return Goals.STONE_GOAL.calculateGoal(performer, world);
 		} else {
-			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 4, 3, world);
+			int placementWidth = BuildingDimensions.WORKBENCH.getPlacementWidth();
+			int placementHeight = BuildingDimensions.WORKBENCH.getPlacementHeight();
+			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, placementWidth, placementHeight, world);
 			if (target != null) {
 				return new OperationInfo(performer, target, Args.EMPTY, Actions.BUILD_WORKBENCH_ACTION);
 			} else {

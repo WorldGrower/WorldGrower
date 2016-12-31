@@ -38,7 +38,10 @@ public class GraveDiggerProfession implements Profession {
 
 	@Override
 	public List<Goal> getProfessionGoals() {
-		return Arrays.asList(Goals.GATHER_REMAINS_GOAL, Goals.CREATE_GRAVE_GOAL);
+		return Arrays.asList(
+				Goals.GATHER_REMAINS_GOAL, 
+				Goals.CREATE_GRAVE_GOAL,
+				Goals.SELL_UNUSED_ITEMS_GOAL);
 	}
 
 	@Override

@@ -22,6 +22,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.BuildArenaAction;
+import org.worldgrower.generator.BuildingDimensions;
 
 public class ArenaGoal implements Goal {
 
@@ -34,7 +35,9 @@ public class ArenaGoal implements Goal {
 		if (!BuildArenaAction.hasEnoughStone(performer)) {
 			return Goals.STONE_GOAL.calculateGoal(performer, world);
 		} else {
-			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 10, 11, world);
+			int placementWidth = BuildingDimensions.ARENA.getPlacementWidth();
+			int placementHeight = BuildingDimensions.ARENA.getPlacementHeight();
+			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, placementWidth, placementHeight, world);
 			if (target != null) {
 				return new OperationInfo(performer, target, Args.EMPTY, Actions.BUILD_ARENA_ACTION);
 			} else {
