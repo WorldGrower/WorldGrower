@@ -134,34 +134,38 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 			} else if (columnIndex == 3) {
 				return "Target";
 			} else if (columnIndex == 4) {
-				return "Profession";
+				return "TargetX";
 			} else if (columnIndex == 5) {
-				return "Food";
+				return "TargetY";
 			} else if (columnIndex == 6) {
-				return "Water";
+				return "Profession";
 			} else if (columnIndex == 7) {
-				return "Energy";
+				return "Food";
 			} else if (columnIndex == 8) {
-				return "Organization";
+				return "Water";
 			} else if (columnIndex == 9) {
-				return "Deity";
+				return "Energy";
 			} else if (columnIndex == 10) {
-				return "Gold";
+				return "Organization";
 			} else if (columnIndex == 11) {
-				return "OrganizationGold";
+				return "Deity";
 			} else if (columnIndex == 12) {
-				return "Id";
+				return "Gold";
 			} else if (columnIndex == 13) {
-				return "Conditions";
+				return "OrganizationGold";
 			} else if (columnIndex == 14) {
-				return "Creature type";
+				return "Id";
 			} else if (columnIndex == 15) {
-				return "Level";
+				return "Conditions";
 			} else if (columnIndex == 16) {
-				return "Inventory";
+				return "Creature type";
 			} else if (columnIndex == 17) {
-				return "Mate Id";
+				return "Level";
 			} else if (columnIndex == 18) {
+				return "Inventory";
+			} else if (columnIndex == 19) {
+				return "Mate Id";
+			} else if (columnIndex == 20) {
 				return "Torso Equipment";
 			} else {
 				return null;
@@ -195,41 +199,55 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 					return "";
 				}
 			} else if (columnIndex == 4) {
+				OperationInfo immediateGoal = world.getImmediateGoal(npc, world);
+				if (immediateGoal != null) {
+					return immediateGoal.getTarget().getProperty(Constants.X);
+				} else {
+					return "";
+				}
+			} else if (columnIndex == 5) {
+					OperationInfo immediateGoal = world.getImmediateGoal(npc, world);
+					if (immediateGoal != null) {
+						return immediateGoal.getTarget().getProperty(Constants.Y);
+					} else {
+						return "";
+					}
+			} else if (columnIndex == 6) {
 				Profession profession = npc.getProperty(Constants.PROFESSION);
 				if (profession != null) {
 					return profession.getDescription();
 				} else {
 					return "";
 				}
-			} else if (columnIndex == 5) {
-				return npc.getProperty(Constants.FOOD);
-			} else if (columnIndex == 6) {
-				return npc.getProperty(Constants.WATER);
 			} else if (columnIndex == 7) {
-				return npc.getProperty(Constants.ENERGY);
+				return npc.getProperty(Constants.FOOD);
 			} else if (columnIndex == 8) {
+				return npc.getProperty(Constants.WATER);
+			} else if (columnIndex == 9) {
+				return npc.getProperty(Constants.ENERGY);
+			} else if (columnIndex == 10) {
 				List<WorldObject> organizations = GroupPropertyUtils.getOrganizations(npc, world);
 				StringBuilder builder = new StringBuilder();
 				for(WorldObject organization : organizations) {
 					builder.append(organization.getProperty(Constants.NAME)).append(";");
 				}
 				return builder.toString();
-			} else if (columnIndex == 9) {
+			} else if (columnIndex == 11) {
 				Deity deity = npc.getProperty(Constants.DEITY);
 				return deity != null ? deity.getName() : "";
-			} else if (columnIndex == 10) {
-				return npc.getProperty(Constants.GOLD);
-			} else if (columnIndex == 11) {
-				return npc.getProperty(Constants.ORGANIZATION_GOLD);
 			} else if (columnIndex == 12) {
-				return npc.getProperty(Constants.ID);
+				return npc.getProperty(Constants.GOLD);
 			} else if (columnIndex == 13) {
-				return npc.getProperty(Constants.CONDITIONS).getDescriptions().toString();
+				return npc.getProperty(Constants.ORGANIZATION_GOLD);
 			} else if (columnIndex == 14) {
-				return npc.getProperty(Constants.CREATURE_TYPE).getDescription();
+				return npc.getProperty(Constants.ID);
 			} else if (columnIndex == 15) {
-				return npc.getProperty(Constants.LEVEL);
+				return npc.getProperty(Constants.CONDITIONS).getDescriptions().toString();
 			} else if (columnIndex == 16) {
+				return npc.getProperty(Constants.CREATURE_TYPE).getDescription();
+			} else if (columnIndex == 17) {
+				return npc.getProperty(Constants.LEVEL);
+			} else if (columnIndex == 18) {
 				StringBuilder inventoryDescriptionBuilder = new StringBuilder("<html>");
 				WorldObjectContainer inventory = npc.getProperty(Constants.INVENTORY);
 				for(int i=0; i<inventory.size(); i++) {
@@ -240,10 +258,10 @@ public class GuiShowCommonersOverviewAction extends AbstractAction {
 				}
 				inventoryDescriptionBuilder.append("</html>");
 				return inventoryDescriptionBuilder.toString();
-			} else if (columnIndex == 17) {
+			} else if (columnIndex == 19) {
 				Integer mateId = npc.getProperty(Constants.MATE_ID);
 				return mateId != null ? mateId.intValue() : "";
-			} else if (columnIndex == 18) {
+			} else if (columnIndex == 20) {
 				WorldObject torsoEquipment = npc.getProperty(Constants.TORSO_EQUIPMENT);
 				return torsoEquipment != null ? torsoEquipment.getProperty(Constants.NAME) : "";
 			} else {

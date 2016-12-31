@@ -254,6 +254,75 @@ public class UTestDungeonMaster {
 		assertEquals(Goals.FOOD_GOAL, world.getGoal(commoner));
 		assertEquals(GoalChangedReason.MORE_IMPORTANT_GOAL_NOT_MET, commoner.getProperty(Constants.META_INFORMATION).getGoalChangedReason());
 	}
+	
+	@Test
+	public void testRunWorldObjectWithUnreachableTarget() {
+		DungeonMaster dungeonMaster = new DungeonMaster();
+		World world = createWorld(dungeonMaster);
+		world.generateUniqueId(); world.generateUniqueId(); world.generateUniqueId();
+		
+		WorldObjectPriorities worldObjectPriorities = (performer, world2) -> Arrays.asList(Goals.FOOD_GOAL, Goals.IDLE_GOAL);
+		WorldObject commoner = TestUtils.createIntelligentWorldObject(2, worldObjectPriorities);
+
+		createUnreachableBerryBush(world, true);
+		
+		commoner.setProperty(Constants.META_INFORMATION, new MetaInformation(commoner));
+		commoner.setProperty(Constants.FOOD, 0);
+		
+		dungeonMaster.runWorldObject(commoner, world);		
+		assertEquals(Goals.IDLE_GOAL, world.getGoal(commoner));
+		assertEquals(0, commoner.getProperty(Constants.META_INFORMATION).getCurrentTask().size());
+	}
+	
+	@Test
+	public void testRunWorldObjectTargetBecomesUnreachable() {
+		DungeonMaster dungeonMaster = new DungeonMaster();
+		World world = createWorld(dungeonMaster);
+		world.generateUniqueId(); world.generateUniqueId(); world.generateUniqueId();
+		
+		WorldObjectPriorities worldObjectPriorities = (performer, world2) -> Arrays.asList(Goals.FOOD_GOAL, Goals.IDLE_GOAL);
+		WorldObject commoner = TestUtils.createIntelligentWorldObject(2, worldObjectPriorities);
+
+		createUnreachableBerryBush(world, false);
+		
+		commoner.setProperty(Constants.META_INFORMATION, new MetaInformation(commoner));
+		commoner.setProperty(Constants.FOOD, 0);
+		
+		dungeonMaster.runWorldObject(commoner, world);		
+		assertEquals(Goals.FOOD_GOAL, world.getGoal(commoner));
+		assertEquals(6, commoner.getProperty(Constants.META_INFORMATION).getCurrentTask().size());
+		assertEquals(1, commoner.getProperty(Constants.X).intValue());
+		assertEquals(1, commoner.getProperty(Constants.Y).intValue());
+		
+		dungeonMaster.runWorldObject(commoner, world);
+		assertEquals(2, commoner.getProperty(Constants.X).intValue());
+		assertEquals(2, commoner.getProperty(Constants.Y).intValue());
+		
+		createSignpost(5, 4, world);
+		dungeonMaster.runWorldObject(commoner, world);
+		dungeonMaster.runWorldObject(commoner, world);
+		dungeonMaster.runWorldObject(commoner, world);
+		dungeonMaster.runWorldObject(commoner, world);
+		assertEquals(Goals.IDLE_GOAL, world.getGoal(commoner));
+		assertEquals(0, commoner.getProperty(Constants.META_INFORMATION).getCurrentTask().size());
+		assertEquals(4, commoner.getProperty(Constants.X).intValue());
+		assertEquals(3, commoner.getProperty(Constants.Y).intValue());
+	}
+
+	private void createUnreachableBerryBush(World world, boolean addTopObstacle) {
+		createBerryBush(world); // at location 5,5
+		
+		createSignpost(4, 4, world);
+		createSignpost(4, 5, world);
+		createSignpost(4, 6, world);
+		createSignpost(5, 6, world);
+		createSignpost(6, 6, world);
+		createSignpost(6, 5, world);
+		createSignpost(6, 4, world);
+		if (addTopObstacle) {
+			createSignpost(5, 4, world);
+		}
+	}
 
 	private void createWell(World world) {
 		int wellId = BuildingGenerator.buildWell(5, 5, world, 1f);
@@ -265,6 +334,10 @@ public class UTestDungeonMaster {
 		int berryBushId = PlantGenerator.generateBerryBush(5, 5, world);
 		WorldObject berryBush = world.findWorldObjectById(berryBushId);
 		berryBush.setProperty(Constants.FOOD_SOURCE, 500);
+	}
+	
+	private void createSignpost(int x, int y, World world) {
+		BuildingGenerator.generateSignPost(x, y, world, "");
 	}
 	
 	private void testRunWorldObjectWithMovingTarget(WorldObject commoner, WorldObject target, DungeonMaster dungeonMaster, World world) {
