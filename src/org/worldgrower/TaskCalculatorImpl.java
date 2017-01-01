@@ -26,7 +26,7 @@ import org.worldgrower.actions.Actions;
 
 public class TaskCalculatorImpl implements TaskCalculator, Serializable {
 
-	private int maxDepth = 63;
+	private int maxDepth = 50;
 	
 	@Override
 	public List<OperationInfo> calculateTask(WorldObject performer, World world, OperationInfo goal) {
