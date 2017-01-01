@@ -40,7 +40,7 @@ public class TaskCalculatorImpl implements TaskCalculator, Serializable {
 		while(!openSet.isEmpty()) {
 			Node current = openSet.first();
 			
-			if ((current.g >= maxDepth) || (distance(goal, copyPerformer, current, world) == 0)) {
+			if (distance(goal, copyPerformer, current, world) == 0) {
 				List<OperationInfo> result = new ArrayList<>();
 				List<Node> reconstructedPath = reconstructPath(current); 
 				for(int i=reconstructedPath.size()-1; i>0; i--) {
@@ -57,13 +57,15 @@ public class TaskCalculatorImpl implements TaskCalculator, Serializable {
 			openSet.remove(current);
 			closedSet.add(current);
 			
-			for(Node neighbourNode : neighbourNodes(current, world, zone)) {
-				if (!closedSet.contains(neighbourNode)) {
-					if (!openSet.contains(neighbourNode)) {
-						neighbourNode.h = distance(goal, copyPerformer, neighbourNode, world);
-						 
-						neighbourNode.parentNode = current;
-						openSet.add(neighbourNode);
+			if (current.g < maxDepth) {
+				for(Node neighbourNode : neighbourNodes(current, world, zone)) {
+					if (!closedSet.contains(neighbourNode)) {
+						if (!openSet.contains(neighbourNode)) {
+							neighbourNode.h = distance(goal, copyPerformer, neighbourNode, world);
+							 
+							neighbourNode.parentNode = current;
+							openSet.add(neighbourNode);
+						}
 					}
 				}
 			}

@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.BuildLibraryAction;
+import org.worldgrower.generator.BuildingDimensions;
 
 public class LibraryGoal implements Goal {
 
@@ -35,7 +36,7 @@ public class LibraryGoal implements Goal {
 		if (!BuildLibraryAction.hasEnoughWood(performer)) {
 			return Goals.WOOD_GOAL.calculateGoal(performer, world);
 		} else {
-			WorldObject targetLocation = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 2, 3, world);
+			WorldObject targetLocation = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, BuildingDimensions.LIBRARY.getPlacementWidth(), BuildingDimensions.LIBRARY.getPlacementHeight(), world);
 			if (targetLocation != null) {
 				return new OperationInfo(performer, targetLocation, Args.EMPTY, Actions.BUILD_LIBRARY_ACTION);
 			} else {

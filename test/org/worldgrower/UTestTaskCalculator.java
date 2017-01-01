@@ -200,6 +200,21 @@ public class UTestTaskCalculator {
 		List<OperationInfo> tasks = taskCalculator.calculateTask(performer, world, new OperationInfo(performer, target, Args.EMPTY, new TalkAction()));
 		assertEquals(0, tasks.size());
 	}
+	
+	@Test
+	public void testPathFindingNoPathOnLargeMap() {
+		WorldObject performer = createWorldObject(25, 25, 1, 1, Constants.ID, 2);
+		WorldObject target = createWorldObject(2, 2, 1, 1, Constants.ID, 3);
+		
+		World world = new WorldImpl(100, 100, null, null);
+		world.addWorldObject(performer);
+		world.addWorldObject(target);
+		
+		addBerryBushPrison(world);
+		
+		List<OperationInfo> tasks = taskCalculator.calculateTask(performer, world, new OperationInfo(performer, target, Args.EMPTY, new TalkAction()));
+		assertEquals(0, tasks.size());
+	}
 
 	private void addBerryBushPrison(World world) {
 		PlantGenerator.generateBerryBush(1, 1, world);

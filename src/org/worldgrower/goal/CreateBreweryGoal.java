@@ -24,6 +24,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.BuildBreweryAction;
 import org.worldgrower.attribute.BuildingType;
+import org.worldgrower.generator.BuildingDimensions;
 import org.worldgrower.generator.BuildingGenerator;
 
 public class CreateBreweryGoal implements Goal {
@@ -39,7 +40,7 @@ public class CreateBreweryGoal implements Goal {
 		} else if (!BuildBreweryAction.hasEnoughWood(performer)) {
 			return Goals.WOOD_GOAL.calculateGoal(performer, world);
 		} else {
-			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 4, 3, world);
+			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, BuildingDimensions.BREWERY.getPlacementWidth(), BuildingDimensions.BREWERY.getPlacementHeight(), world);
 			if (target != null) {
 				return new OperationInfo(performer, target, Args.EMPTY, Actions.BUILD_BREWERY_ACTION);
 			} else {
