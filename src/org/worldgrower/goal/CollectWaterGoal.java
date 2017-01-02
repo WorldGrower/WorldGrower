@@ -22,6 +22,7 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.generator.BuildingDimensions;
 import org.worldgrower.generator.Item;
 
 public class CollectWaterGoal implements Goal {
@@ -45,7 +46,7 @@ public class CollectWaterGoal implements Goal {
 				if (performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) < 6) {
 					return Goals.WOOD_GOAL.calculateGoal(performer, world);
 				} else {
-					WorldObject targetLocation = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 2, 2, world);
+					WorldObject targetLocation = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, BuildingDimensions.WELL, world);
 					return new OperationInfo(performer, targetLocation, Args.EMPTY, Actions.BUILD_WELL_ACTION);
 				}
 			}

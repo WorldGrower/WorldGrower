@@ -23,10 +23,15 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.generator.BuildingDimensions;
 
 public class BuildLocationUtils {
 
-	public static WorldObject findOpenLocationNearExistingProperty(WorldObject performer, int width, int height, World world) {
+	public static WorldObject findOpenLocationNearExistingProperty(WorldObject performer, BuildingDimensions buildingDimensions, World world) {
+		return findOpenLocationNearExistingProperty(performer, buildingDimensions.getPlacementWidth(), buildingDimensions.getPlacementHeight(), world);
+	}
+	
+	private static WorldObject findOpenLocationNearExistingProperty(WorldObject performer, int width, int height, World world) {
 		List<WorldObject> housing = getHousing(performer, world);
 		
 		// add additional free space to left and top of open space

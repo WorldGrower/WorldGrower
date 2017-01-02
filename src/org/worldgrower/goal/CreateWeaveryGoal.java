@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.BuildWeaveryAction;
+import org.worldgrower.generator.BuildingDimensions;
 import org.worldgrower.generator.BuildingGenerator;
 
 public class CreateWeaveryGoal implements Goal {
@@ -36,7 +37,7 @@ public class CreateWeaveryGoal implements Goal {
 		if (!BuildWeaveryAction.hasEnoughWood(performer)) {
 			return Goals.WOOD_GOAL.calculateGoal(performer, world);
 		} else {
-			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 5, 4, world);
+			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, BuildingDimensions.WEAVERY, world);
 			if (target != null) {
 				return new OperationInfo(performer, target, Args.EMPTY, Actions.BUILD_WEAVERY_ACTION);
 			} else {

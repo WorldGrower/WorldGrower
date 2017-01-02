@@ -21,6 +21,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.creaturetype.CreatureTypeUtils;
+import org.worldgrower.generator.BuildingDimensions;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.goal.BuildLocationUtils;
 import org.worldgrower.goal.GenderPropertyUtils;
@@ -93,7 +94,7 @@ public class VotingPropertyUtils {
 	}
 	
 	public static int createVotingBox(WorldObject target, WorldObject organization, World world) {
-		WorldObject location = BuildLocationUtils.findOpenLocationNearExistingProperty(target, 2, 2, world);
+		WorldObject location = BuildLocationUtils.findOpenLocationNearExistingProperty(target, BuildingDimensions.VOTING_BOX, world);
 		int votingBoxId = BuildingGenerator.generateVotingBox(location.getProperty(Constants.X), location.getProperty(Constants.Y), world);
 		
 		WorldObject votingBox = world.findWorldObjectById(votingBoxId);

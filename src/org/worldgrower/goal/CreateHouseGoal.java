@@ -24,6 +24,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.BuildHouseAction;
 import org.worldgrower.attribute.BuildingType;
+import org.worldgrower.generator.BuildingDimensions;
 
 public class CreateHouseGoal implements Goal {
 
@@ -36,7 +37,7 @@ public class CreateHouseGoal implements Goal {
 		if (!BuildHouseAction.hasEnoughStone(performer)) {
 			return Goals.STONE_GOAL.calculateGoal(performer, world);
 		} else {
-			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 4, 4, world);
+			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, BuildingDimensions.HOUSE, world);
 			if (target != null) {
 				return new OperationInfo(performer, target, Args.EMPTY, Actions.BUILD_HOUSE_ACTION);
 			} else {

@@ -22,6 +22,7 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.generator.BuildingDimensions;
 import org.worldgrower.generator.BuildingGenerator;
 
 public class CreatePoisonGoal implements Goal {
@@ -38,7 +39,7 @@ public class CreatePoisonGoal implements Goal {
 			if (harvestNightShadeOperationInfo != null) {
 				return harvestNightShadeOperationInfo;
 			} else {
-				WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 2, 2, world);
+				WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, BuildingDimensions.NIGHT_SHADE, world);
 		
 				if (target != null) {
 					return new OperationInfo(performer, target, Args.EMPTY, Actions.PLANT_NIGHT_SHADE_ACTION);

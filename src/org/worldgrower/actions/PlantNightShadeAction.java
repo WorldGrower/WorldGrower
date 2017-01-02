@@ -20,6 +20,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.generator.BuildingDimensions;
 import org.worldgrower.generator.PlantGenerator;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
@@ -80,12 +81,12 @@ public class PlantNightShadeAction implements BuildAction {
 
 	@Override
 	public int getWidth() {
-		return 1;
+		return BuildingDimensions.NIGHT_SHADE.getPlacementWidth();
 	}
 
 	@Override
 	public int getHeight() {
-		return 1;
+		return BuildingDimensions.NIGHT_SHADE.getPlacementHeight();
 	}
 	
 	@Override

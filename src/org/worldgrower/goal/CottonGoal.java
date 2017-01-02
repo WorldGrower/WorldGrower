@@ -22,6 +22,7 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.generator.BuildingDimensions;
 import org.worldgrower.generator.Item;
 
 public class CottonGoal implements Goal {
@@ -41,7 +42,7 @@ public class CottonGoal implements Goal {
 		} else if (harvestCottonOperationInfo != null) {
 			return harvestCottonOperationInfo;
 		} else {
-			WorldObject buildLocation = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 2, 3, world);
+			WorldObject buildLocation = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, BuildingDimensions.COTTON_PLANT, world);
 			
 			if (buildLocation != null) {
 				return new OperationInfo(performer, buildLocation, Args.EMPTY, Actions.PLANT_COTTON_PLANT_ACTION);

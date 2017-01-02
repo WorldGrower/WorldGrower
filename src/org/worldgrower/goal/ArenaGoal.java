@@ -35,9 +35,7 @@ public class ArenaGoal implements Goal {
 		if (!BuildArenaAction.hasEnoughStone(performer)) {
 			return Goals.STONE_GOAL.calculateGoal(performer, world);
 		} else {
-			int placementWidth = BuildingDimensions.ARENA.getPlacementWidth();
-			int placementHeight = BuildingDimensions.ARENA.getPlacementHeight();
-			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, placementWidth, placementHeight, world);
+			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, BuildingDimensions.ARENA, world);
 			if (target != null) {
 				return new OperationInfo(performer, target, Args.EMPTY, Actions.BUILD_ARENA_ACTION);
 			} else {

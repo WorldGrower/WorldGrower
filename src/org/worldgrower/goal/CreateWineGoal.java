@@ -22,6 +22,7 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.generator.BuildingDimensions;
 import org.worldgrower.generator.BuildingGenerator;
 
 public class CreateWineGoal implements Goal {
@@ -38,7 +39,7 @@ public class CreateWineGoal implements Goal {
 			if (harvestGrapesOperationInfo != null) {
 				return harvestGrapesOperationInfo;
 			} else {
-				WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 2, 3, world);
+				WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, BuildingDimensions.GRAPE_VINE, world);
 		
 				if (target != null) {
 					return new OperationInfo(performer, target, Args.EMPTY, Actions.PLANT_GRAPE_VINE_ACTION);

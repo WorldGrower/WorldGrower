@@ -36,7 +36,7 @@ public class LibraryGoal implements Goal {
 		if (!BuildLibraryAction.hasEnoughWood(performer)) {
 			return Goals.WOOD_GOAL.calculateGoal(performer, world);
 		} else {
-			WorldObject targetLocation = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, BuildingDimensions.LIBRARY.getPlacementWidth(), BuildingDimensions.LIBRARY.getPlacementHeight(), world);
+			WorldObject targetLocation = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, BuildingDimensions.LIBRARY, world);
 			if (targetLocation != null) {
 				return new OperationInfo(performer, targetLocation, Args.EMPTY, Actions.BUILD_LIBRARY_ACTION);
 			} else {

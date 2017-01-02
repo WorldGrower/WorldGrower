@@ -64,8 +64,7 @@ public class BuildingGenerator {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
-		properties.put(Constants.WIDTH, 1);
-		properties.put(Constants.HEIGHT, 1);
+		BuildingDimensions.VOTING_BOX.addWidthHeight(properties);
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.VOTING_BOX);
 		properties.put(Constants.NAME, "voting box");

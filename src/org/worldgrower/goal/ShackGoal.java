@@ -24,6 +24,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.BuildShackAction;
 import org.worldgrower.attribute.BuildingType;
+import org.worldgrower.generator.BuildingDimensions;
 import org.worldgrower.generator.BuildingGenerator;
 
 public class ShackGoal implements Goal {
@@ -43,7 +44,7 @@ public class ShackGoal implements Goal {
 			} else if (!BuildShackAction.hasEnoughWood(performer)) {
 				return Goals.WOOD_GOAL.calculateGoal(performer, world);
 			} else {
-				WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 3, 4, world);
+				WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, BuildingDimensions.SHACK, world);
 				if (target != null) {
 					return new OperationInfo(performer, target, Args.EMPTY, Actions.BUILD_SHACK_ACTION);
 				} else {

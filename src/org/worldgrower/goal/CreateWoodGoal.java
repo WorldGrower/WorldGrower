@@ -22,6 +22,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.generator.BuildingDimensions;
 
 public class CreateWoodGoal implements Goal {
 
@@ -36,7 +37,7 @@ public class CreateWoodGoal implements Goal {
 			if (target != null && Reach.distance(performer, target) < 15) {
 				return new OperationInfo(performer, target, Args.EMPTY, Actions.CUT_WOOD_ACTION);
 			} else {
-				target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 3, 3, world);
+				target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, BuildingDimensions.TREE, world);
 				if (target != null) {
 					return new OperationInfo(performer, target, Args.EMPTY, Actions.PLANT_TREE_ACTION);
 				} else {

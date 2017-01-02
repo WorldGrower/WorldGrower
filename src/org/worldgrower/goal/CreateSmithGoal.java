@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.BuildSmithAction;
+import org.worldgrower.generator.BuildingDimensions;
 import org.worldgrower.generator.BuildingGenerator;
 
 public class CreateSmithGoal implements Goal {
@@ -36,7 +37,7 @@ public class CreateSmithGoal implements Goal {
 		if (!BuildSmithAction.hasEnoughStone(performer)) {
 			return Goals.STONE_GOAL.calculateGoal(performer, world);
 		} else {		
-			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 3, 4, world);
+			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, BuildingDimensions.SMITH, world);
 			if (target != null) {
 				return new OperationInfo(performer, target, Args.EMPTY, Actions.BUILD_SMITH_ACTION);
 			} else {

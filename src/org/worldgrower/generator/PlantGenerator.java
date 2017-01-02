@@ -53,8 +53,7 @@ public class PlantGenerator {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
-		properties.put(Constants.WIDTH, 1);
-		properties.put(Constants.HEIGHT, 1);
+		BuildingDimensions.BERRY_BUSH.addWidthHeight(properties);
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.BUSH);
 		properties.put(Constants.FOOD_SOURCE, 1);
@@ -80,8 +79,7 @@ public class PlantGenerator {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
-		properties.put(Constants.WIDTH, 1);
-		properties.put(Constants.HEIGHT, 1);
+		BuildingDimensions.TREE_TRUNK.addWidthHeight(properties);
 		properties.put(Constants.ID, id);
 		properties.put(Constants.WOOD_SOURCE, 30);
 		properties.put(Constants.WOOD_PRODUCED, 400);
@@ -107,8 +105,7 @@ public class PlantGenerator {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
-		properties.put(Constants.WIDTH, 1);
-		properties.put(Constants.HEIGHT, 2);
+		BuildingDimensions.GRAPE_VINE.addWidthHeight(properties);
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.GRAPE_VINE);
 		properties.put(Constants.GRAPE_SOURCE, 1);
@@ -133,8 +130,7 @@ public class PlantGenerator {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
-		properties.put(Constants.WIDTH, 1);
-		properties.put(Constants.HEIGHT, 1);
+		BuildingDimensions.NIGHT_SHADE.addWidthHeight(properties);
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.YOUNG_NIGHT_SHADE_PLANT);
 		properties.put(Constants.NIGHT_SHADE_SOURCE, 1);
@@ -165,8 +161,7 @@ public class PlantGenerator {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
-		properties.put(Constants.WIDTH, 2);
-		properties.put(Constants.HEIGHT, 2);
+		BuildingDimensions.TREE.addWidthHeight(properties);
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, imageId);
 		properties.put(Constants.NAME, "tree");
@@ -200,8 +195,7 @@ public class PlantGenerator {
 		
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
-		properties.put(Constants.WIDTH, 2);
-		properties.put(Constants.HEIGHT, 2);
+		BuildingDimensions.DEMON_TREE.addWidthHeight(properties);
 		properties.put(Constants.HIT_POINTS, 15 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.HIT_POINTS_MAX, 15 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.NAME, "DemonTree");
@@ -244,8 +238,7 @@ public class PlantGenerator {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.X, x);
 		properties.put(Constants.Y, y);
-		properties.put(Constants.WIDTH, 1);
-		properties.put(Constants.HEIGHT, 1);
+		BuildingDimensions.COTTON_PLANT.addWidthHeight(properties);
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.YOUNG_COTTON_PLANT);
 		properties.put(Constants.COTTON_SOURCE, 1);

@@ -37,7 +37,15 @@ public enum BuildingDimensions {
 	LIBRARY(2, 2),
 	PAPERMILL(4, 3),
 	SIGN_POST(1, 1),
-	GRAVE(1, 1);
+	GRAVE(1, 1),
+	VOTING_BOX(1, 1),
+	BERRY_BUSH(1, 1),
+	TREE_TRUNK(1, 1),
+	GRAPE_VINE(1, 2),
+	NIGHT_SHADE(1, 1),
+	TREE(2, 2),
+	DEMON_TREE(2, 2),
+	COTTON_PLANT(1, 1);
 	
 	private final int realWidth;
 	private final int realHeight;

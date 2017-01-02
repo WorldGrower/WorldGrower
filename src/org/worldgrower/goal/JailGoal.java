@@ -22,6 +22,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.BuildJailAction;
+import org.worldgrower.generator.BuildingDimensions;
 import org.worldgrower.generator.BuildingGenerator;
 
 public class JailGoal implements Goal {
@@ -35,7 +36,7 @@ public class JailGoal implements Goal {
 		if (!BuildJailAction.hasEnoughWood(performer)) {
 			return Goals.WOOD_GOAL.calculateGoal(performer, world);
 		} else {
-			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 4, 5, world);
+			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, BuildingDimensions.JAIL, world);
 			if (target != null) {
 				return new OperationInfo(performer, target, Args.EMPTY, Actions.BUILD_JAIL_ACTION);
 			} else {

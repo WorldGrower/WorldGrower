@@ -24,6 +24,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.BuildApothecaryAction;
 import org.worldgrower.attribute.BuildingType;
+import org.worldgrower.generator.BuildingDimensions;
 import org.worldgrower.generator.BuildingGenerator;
 
 public class CreateApothecaryGoal implements Goal {
@@ -39,7 +40,7 @@ public class CreateApothecaryGoal implements Goal {
 		} else if (!BuildApothecaryAction.hasEnoughWood(performer)) {
 			return Goals.WOOD_GOAL.calculateGoal(performer, world);
 		} else {
-			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 4, 3, world);
+			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, BuildingDimensions.APOTHECARY, world);
 			if (target != null) {
 				return new OperationInfo(performer, target, Args.EMPTY, Actions.BUILD_APOTHECARY_ACTION);
 			} else {

@@ -26,6 +26,7 @@ import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.BuildingList;
 import org.worldgrower.attribute.BuildingType;
+import org.worldgrower.generator.BuildingDimensions;
 
 public class UTestBuildLocationUtils {
 
@@ -52,7 +53,7 @@ public class UTestBuildLocationUtils {
 		WorldObject house = TestUtils.createWorldObject(3, 3, 1, 1, Constants.ID, 3);
 		world.addWorldObject(house);
 		
-		WorldObject location = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 3, 3, world);
+		WorldObject location = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, BuildingDimensions.TREE, world);
 		assertEquals(5, location.getProperty(Constants.X).intValue());
 		assertEquals(5, location.getProperty(Constants.Y).intValue());
 	}

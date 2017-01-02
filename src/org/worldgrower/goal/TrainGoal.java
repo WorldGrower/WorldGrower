@@ -24,6 +24,7 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.AttackUtils;
 import org.worldgrower.actions.ConstructTrainingDummyAction;
 import org.worldgrower.attribute.SkillProperty;
+import org.worldgrower.generator.BuildingDimensions;
 import org.worldgrower.generator.BuildingGenerator;
 
 public class TrainGoal implements Goal {
@@ -41,7 +42,7 @@ public class TrainGoal implements Goal {
 			if (!ConstructTrainingDummyAction.hasEnoughWood(performer)) {
 				return Goals.WOOD_GOAL.calculateGoal(performer, world);
 			} else {
-				WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 2, 3, world);
+				WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, BuildingDimensions.TRAINING_DUMMY, world);
 				return new OperationInfo(performer, target, Args.EMPTY, Actions.CONSTRUCT_TRAINING_DUMMY_ACTION);
 			}
 		}

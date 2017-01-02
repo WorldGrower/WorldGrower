@@ -37,9 +37,7 @@ public class CreateWorkbenchGoal implements Goal {
 		if (!BuildWorkbenchAction.hasEnoughStone(performer)) {
 			return Goals.STONE_GOAL.calculateGoal(performer, world);
 		} else {
-			int placementWidth = BuildingDimensions.WORKBENCH.getPlacementWidth();
-			int placementHeight = BuildingDimensions.WORKBENCH.getPlacementHeight();
-			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, placementWidth, placementHeight, world);
+			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, BuildingDimensions.WORKBENCH, world);
 			if (target != null) {
 				return new OperationInfo(performer, target, Args.EMPTY, Actions.BUILD_WORKBENCH_ACTION);
 			} else {

@@ -25,6 +25,7 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.legal.LegalAction;
 import org.worldgrower.actions.legal.LegalActions;
 import org.worldgrower.deity.Deity;
+import org.worldgrower.generator.BuildingDimensions;
 
 public class ShrineToDeityGoal implements Goal {
 
@@ -42,7 +43,7 @@ public class ShrineToDeityGoal implements Goal {
 		} else if ((targets.size() == 0) && performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.STONE) < 8) {
 				return Goals.STONE_GOAL.calculateGoal(performer, world);
 		} else if (targets.size() == 0) {
-			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 2, 3, world);
+			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, BuildingDimensions.SHRINE, world);
 			if (target != null) {
 				return new OperationInfo(performer, target, Args.EMPTY, Actions.BUILD_SHRINE_ACTION);
 			}

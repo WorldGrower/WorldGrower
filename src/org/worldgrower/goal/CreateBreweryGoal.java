@@ -40,7 +40,7 @@ public class CreateBreweryGoal implements Goal {
 		} else if (!BuildBreweryAction.hasEnoughWood(performer)) {
 			return Goals.WOOD_GOAL.calculateGoal(performer, world);
 		} else {
-			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, BuildingDimensions.BREWERY.getPlacementWidth(), BuildingDimensions.BREWERY.getPlacementHeight(), world);
+			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, BuildingDimensions.BREWERY, world);
 			if (target != null) {
 				return new OperationInfo(performer, target, Args.EMPTY, Actions.BUILD_BREWERY_ACTION);
 			} else {
