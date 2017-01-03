@@ -89,12 +89,16 @@ public class BuildHouseAction implements BuildAction {
 
 	@Override
 	public int getWidth() {
-		return BuildingDimensions.HOUSE.getPlacementWidth();
+		return getBuildingDimensions().getPlacementWidth();
 	}
 
 	@Override
 	public int getHeight() {
-		return BuildingDimensions.HOUSE.getPlacementHeight();
+		return getBuildingDimensions().getPlacementHeight();
+	}
+
+	private BuildingDimensions getBuildingDimensions() {
+		return BuildingDimensions.HOUSE;
 	}
 	
 	@Override

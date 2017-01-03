@@ -91,12 +91,16 @@ public class BuildWeaveryAction implements BuildAction {
 
 	@Override
 	public int getWidth() {
-		return BuildingDimensions.WEAVERY.getPlacementWidth();
+		return getBuildingDimensions().getPlacementWidth();
 	}
 
 	@Override
 	public int getHeight() {
-		return BuildingDimensions.WEAVERY.getPlacementHeight();
+		return getBuildingDimensions().getPlacementHeight();
+	}
+
+	private BuildingDimensions getBuildingDimensions() {
+		return BuildingDimensions.WEAVERY;
 	}
 	
 	@Override

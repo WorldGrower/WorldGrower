@@ -82,12 +82,16 @@ public class PlantTreeAction implements BuildAction {
 
 	@Override
 	public int getWidth() {
-		return BuildingDimensions.TREE.getPlacementWidth();
+		return getBuildingDimensions().getPlacementWidth();
 	}
 
 	@Override
 	public int getHeight() {
-		return BuildingDimensions.TREE.getPlacementHeight();
+		return getBuildingDimensions().getPlacementHeight();
+	}
+
+	private BuildingDimensions getBuildingDimensions() {
+		return BuildingDimensions.TREE;
 	}
 	
 	@Override

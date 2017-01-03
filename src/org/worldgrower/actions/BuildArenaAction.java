@@ -88,12 +88,16 @@ public class BuildArenaAction implements BuildAction {
 
 	@Override
 	public int getWidth() {
-		return BuildingDimensions.ARENA.getPlacementWidth();
+		return getBuildingDimensions().getPlacementWidth();
 	}
 
 	@Override
 	public int getHeight() {
-		return BuildingDimensions.ARENA.getPlacementHeight();
+		return getBuildingDimensions().getPlacementHeight();
+	}
+
+	private BuildingDimensions getBuildingDimensions() {
+		return BuildingDimensions.ARENA;
 	}
 	
 	public static boolean hasEnoughStone(WorldObject performer) {

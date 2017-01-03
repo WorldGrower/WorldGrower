@@ -90,12 +90,16 @@ public class BuildShrineAction implements BuildAction {
 
 	@Override
 	public int getWidth() {
-		return BuildingDimensions.SHRINE.getPlacementWidth();
+		return getBuildingDimensions().getPlacementWidth();
 	}
 
 	@Override
 	public int getHeight() {
-		return BuildingDimensions.SHRINE.getPlacementHeight();
+		return getBuildingDimensions().getPlacementHeight();
+	}
+
+	private BuildingDimensions getBuildingDimensions() {
+		return BuildingDimensions.SHRINE;
 	}
 	
 	@Override

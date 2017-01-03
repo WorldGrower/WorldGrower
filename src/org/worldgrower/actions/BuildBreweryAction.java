@@ -93,12 +93,16 @@ public class BuildBreweryAction implements BuildAction {
 
 	@Override
 	public int getWidth() {
-		return BuildingDimensions.BREWERY.getPlacementWidth();
+		return getBuildingDimensions().getPlacementWidth();
 	}
 
 	@Override
 	public int getHeight() {
-		return BuildingDimensions.BREWERY.getPlacementHeight();
+		return getBuildingDimensions().getPlacementHeight();
+	}
+
+	private BuildingDimensions getBuildingDimensions() {
+		return BuildingDimensions.BREWERY;
 	}
 	
 	@Override

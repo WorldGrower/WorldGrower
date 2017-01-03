@@ -86,12 +86,16 @@ public class ConstructTrainingDummyAction implements BuildAction {
 
 	@Override
 	public int getWidth() {
-		return BuildingDimensions.TRAINING_DUMMY.getPlacementWidth();
+		return getBuildingDimensions().getPlacementWidth();
 	}
 
 	@Override
 	public int getHeight() {
-		return BuildingDimensions.TRAINING_DUMMY.getPlacementHeight();
+		return getBuildingDimensions().getPlacementHeight();
+	}
+
+	private BuildingDimensions getBuildingDimensions() {
+		return BuildingDimensions.TRAINING_DUMMY;
 	}
 	
 	public static boolean hasEnoughWood(WorldObject performer) {

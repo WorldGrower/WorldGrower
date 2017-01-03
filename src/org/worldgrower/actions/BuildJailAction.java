@@ -86,12 +86,16 @@ public class BuildJailAction implements BuildAction {
 
 	@Override
 	public int getWidth() {
-		return BuildingDimensions.JAIL.getPlacementWidth();
+		return getBuildingDimensions().getPlacementWidth();
 	}
 
 	@Override
 	public int getHeight() {
-		return BuildingDimensions.JAIL.getPlacementHeight();
+		return getBuildingDimensions().getPlacementHeight();
+	}
+
+	private BuildingDimensions getBuildingDimensions() {
+		return BuildingDimensions.JAIL;
 	}
 	
 	public static boolean hasEnoughWood(WorldObject performer) {

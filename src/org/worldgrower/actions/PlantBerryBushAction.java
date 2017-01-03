@@ -85,12 +85,16 @@ public class PlantBerryBushAction implements BuildAction {
 
 	@Override
 	public int getWidth() {
-		return BuildingDimensions.BERRY_BUSH.getPlacementWidth();
+		return getBuildingDimensions().getPlacementWidth();
 	}
 
 	@Override
 	public int getHeight() {
-		return BuildingDimensions.BERRY_BUSH.getPlacementHeight();
+		return getBuildingDimensions().getPlacementHeight();
+	}
+
+	private BuildingDimensions getBuildingDimensions() {
+		return BuildingDimensions.BERRY_BUSH;
 	}
 	
 	@Override

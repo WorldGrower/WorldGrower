@@ -85,12 +85,16 @@ public class BuildSacrificalAltarAction implements BuildAction {
 
 	@Override
 	public int getWidth() {
-		return BuildingDimensions.SACRIFICIAL_ALTAR.getPlacementWidth();
+		return getBuildingDimensions().getPlacementWidth();
 	}
 
 	@Override
 	public int getHeight() {
-		return BuildingDimensions.SACRIFICIAL_ALTAR.getPlacementHeight();
+		return getBuildingDimensions().getPlacementHeight();
+	}
+
+	private BuildingDimensions getBuildingDimensions() {
+		return BuildingDimensions.SACRIFICIAL_ALTAR;
 	}
 	
 	@Override

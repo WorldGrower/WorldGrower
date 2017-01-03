@@ -81,12 +81,16 @@ public class PlantNightShadeAction implements BuildAction {
 
 	@Override
 	public int getWidth() {
-		return BuildingDimensions.NIGHT_SHADE.getPlacementWidth();
+		return getBuildingDimensions().getPlacementWidth();
 	}
 
 	@Override
 	public int getHeight() {
-		return BuildingDimensions.NIGHT_SHADE.getPlacementHeight();
+		return getBuildingDimensions().getPlacementHeight();
+	}
+
+	private BuildingDimensions getBuildingDimensions() {
+		return BuildingDimensions.NIGHT_SHADE;
 	}
 	
 	@Override

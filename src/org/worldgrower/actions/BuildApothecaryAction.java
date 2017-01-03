@@ -93,12 +93,16 @@ public class BuildApothecaryAction implements BuildAction {
 
 	@Override
 	public int getWidth() {
-		return BuildingDimensions.APOTHECARY.getPlacementWidth();
+		return getBuildingDimensions().getPlacementWidth();
 	}
 
 	@Override
 	public int getHeight() {
-		return BuildingDimensions.APOTHECARY.getPlacementHeight();
+		return getBuildingDimensions().getPlacementHeight();
+	}
+
+	private BuildingDimensions getBuildingDimensions() {
+		return BuildingDimensions.APOTHECARY;
 	}
 	
 	@Override

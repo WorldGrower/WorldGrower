@@ -86,12 +86,16 @@ public class BuildPaperMillAction implements BuildAction {
 
 	@Override
 	public int getWidth() {
-		return BuildingDimensions.PAPERMILL.getPlacementWidth();
+		return getBuildingDimensions().getPlacementWidth();
 	}
 
 	@Override
 	public int getHeight() {
-		return BuildingDimensions.PAPERMILL.getPlacementHeight();
+		return getBuildingDimensions().getPlacementHeight();
+	}
+
+	private BuildingDimensions getBuildingDimensions() {
+		return BuildingDimensions.PAPERMILL;
 	}
 	
 	@Override

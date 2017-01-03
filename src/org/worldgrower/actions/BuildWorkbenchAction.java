@@ -91,12 +91,16 @@ public class BuildWorkbenchAction implements BuildAction {
 
 	@Override
 	public int getWidth() {
-		return BuildingDimensions.WORKBENCH.getPlacementWidth();
+		return getBuildingDimensions().getPlacementWidth();
 	}
 
 	@Override
 	public int getHeight() {
-		return BuildingDimensions.WORKBENCH.getPlacementHeight();
+		return getBuildingDimensions().getPlacementHeight();
+	}
+
+	private BuildingDimensions getBuildingDimensions() {
+		return BuildingDimensions.WORKBENCH;
 	}
 	
 	@Override

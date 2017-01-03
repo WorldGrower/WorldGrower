@@ -88,12 +88,16 @@ private static final int REQUIRED_WOOD = 3;
 
 	@Override
 	public int getWidth() {
-		return BuildingDimensions.CHEST.getPlacementWidth();
+		return getBuildingDimensions().getPlacementWidth();
 	}
 
 	@Override
 	public int getHeight() {
-		return BuildingDimensions.CHEST.getPlacementHeight();
+		return getBuildingDimensions().getPlacementHeight();
+	}
+
+	private BuildingDimensions getBuildingDimensions() {
+		return BuildingDimensions.CHEST;
 	}
 	
 	public static boolean hasEnoughWood(WorldObject performer) {

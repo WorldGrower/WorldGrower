@@ -91,12 +91,16 @@ public class BuildSmithAction implements BuildAction {
 
 	@Override
 	public int getWidth() {
-		return BuildingDimensions.SMITH.getPlacementWidth();
+		return getBuildingDimensions().getPlacementWidth();
 	}
 
 	@Override
 	public int getHeight() {
-		return BuildingDimensions.SMITH.getPlacementHeight();
+		return getBuildingDimensions().getPlacementHeight();
+	}
+
+	private BuildingDimensions getBuildingDimensions() {
+		return BuildingDimensions.SMITH;
 	}
 	
 	@Override

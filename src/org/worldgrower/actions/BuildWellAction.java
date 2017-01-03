@@ -86,12 +86,16 @@ public class BuildWellAction implements BuildAction {
 
 	@Override
 	public int getWidth() {
-		return BuildingDimensions.WELL.getPlacementWidth();
+		return getBuildingDimensions().getPlacementWidth();
 	}
 
 	@Override
 	public int getHeight() {
-		return BuildingDimensions.WELL.getPlacementHeight();
+		return getBuildingDimensions().getPlacementHeight();
+	}
+
+	private BuildingDimensions getBuildingDimensions() {
+		return BuildingDimensions.WELL;
 	}
 	
 	@Override

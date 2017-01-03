@@ -81,12 +81,16 @@ public class PlantCottonPlantAction implements BuildAction {
 
 	@Override
 	public int getWidth() {
-		return BuildingDimensions.COTTON_PLANT.getPlacementWidth();
+		return getBuildingDimensions().getPlacementWidth();
 	}
 
 	@Override
 	public int getHeight() {
-		return BuildingDimensions.COTTON_PLANT.getPlacementHeight();
+		return getBuildingDimensions().getPlacementHeight();
+	}
+
+	private BuildingDimensions getBuildingDimensions() {
+		return BuildingDimensions.COTTON_PLANT;
 	}
 	
 	@Override

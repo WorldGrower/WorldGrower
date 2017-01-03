@@ -88,12 +88,16 @@ public class CreateGraveAction implements BuildAction {
 
 	@Override
 	public int getWidth() {
-		return BuildingDimensions.GRAVE.getPlacementWidth();
+		return getBuildingDimensions().getPlacementWidth();
 	}
 
 	@Override
 	public int getHeight() {
-		return BuildingDimensions.GRAVE.getPlacementHeight();
+		return getBuildingDimensions().getPlacementHeight();
+	}
+
+	private BuildingDimensions getBuildingDimensions() {
+		return BuildingDimensions.GRAVE;
 	}
 	
 	@Override

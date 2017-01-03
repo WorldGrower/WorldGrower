@@ -84,12 +84,16 @@ public class PlantGrapeVineAction implements BuildAction {
 
 	@Override
 	public int getWidth() {
-		return BuildingDimensions.GRAPE_VINE.getPlacementWidth();
+		return getBuildingDimensions().getPlacementWidth();
 	}
 
 	@Override
 	public int getHeight() {
-		return BuildingDimensions.GRAPE_VINE.getPlacementHeight();
+		return getBuildingDimensions().getPlacementHeight();
+	}
+
+	private BuildingDimensions getBuildingDimensions() {
+		return BuildingDimensions.GRAPE_VINE;
 	}
 	
 	@Override

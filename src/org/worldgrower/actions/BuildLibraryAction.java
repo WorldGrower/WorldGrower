@@ -86,12 +86,16 @@ public class BuildLibraryAction implements BuildAction {
 
 	@Override
 	public int getWidth() {
-		return BuildingDimensions.LIBRARY.getPlacementWidth();
+		return getBuildingDimensions().getPlacementWidth();
 	}
 
 	@Override
 	public int getHeight() {
-		return BuildingDimensions.LIBRARY.getPlacementHeight();
+		return getBuildingDimensions().getPlacementHeight();
+	}
+
+	private BuildingDimensions getBuildingDimensions() {
+		return BuildingDimensions.LIBRARY;
 	}
 	
 
