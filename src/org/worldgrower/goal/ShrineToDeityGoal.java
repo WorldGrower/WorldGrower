@@ -22,6 +22,7 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.actions.BuildShrineAction;
 import org.worldgrower.actions.legal.LegalAction;
 import org.worldgrower.actions.legal.LegalActions;
 import org.worldgrower.deity.Deity;
@@ -40,7 +41,7 @@ public class ShrineToDeityGoal implements Goal {
 		boolean notWorshippedYet = targets.size() > 0 ? !GoalUtils.actionAlreadyPerformed(performer, targets.get(0), Actions.WORSHIP_DEITY_ACTION, Args.EMPTY, world) : true;
 		if (targets.size() > 0 && notWorshippedYet && isWorshipAllowed(performerDeity, world)) {
 			return new OperationInfo(performer, targets.get(0), Args.EMPTY, Actions.WORSHIP_DEITY_ACTION);
-		} else if ((targets.size() == 0) && performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.STONE) < 8) {
+		} else if ((targets.size() == 0) && !BuildShrineAction.hasEnoughStone(performer)) {
 				return Goals.STONE_GOAL.calculateGoal(performer, world);
 		} else if (targets.size() == 0) {
 			WorldObject target = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, BuildingDimensions.SHRINE, world);

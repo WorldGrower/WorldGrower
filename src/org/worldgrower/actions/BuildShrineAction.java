@@ -115,4 +115,8 @@ public class BuildShrineAction implements BuildAction {
 	public SoundIds getSoundId() {
 		return SoundIds.BUILD_STONE_BUILDING;
 	}
+	
+	public static boolean hasEnoughStone(WorldObject performer) {
+		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.STONE) >= REQUIRED_STONE;
+	}
 }

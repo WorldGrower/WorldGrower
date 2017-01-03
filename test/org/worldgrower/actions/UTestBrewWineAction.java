@@ -24,6 +24,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.condition.Condition;
+import org.worldgrower.condition.Conditions;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
 
@@ -41,6 +43,21 @@ public class UTestBrewWineAction {
 		
 		assertEquals(7, performerInventory.getQuantityFor(Constants.GRAPE));
 		assertEquals(1, performerInventory.getQuantityFor(Constants.WINE));
+	}
+	
+	@Test
+	public void testExecuteDionysusBoon() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createBrewery(world, performer);
+		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
+		performerInventory.addQuantity(Item.GRAPES.generate(1f), 10);
+
+		Conditions.add(performer, Condition.DIONYSUS_BOON_CONDITION, 8, world);
+		Actions.BREW_WINE_ACTION.execute(performer, target, Args.EMPTY, world);
+		
+		assertEquals(7, performerInventory.getQuantityFor(Constants.GRAPE));
+		assertEquals(2, performerInventory.getQuantityFor(Constants.WINE));
 	}
 	
 	@Test
