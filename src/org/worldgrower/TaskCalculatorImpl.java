@@ -107,26 +107,26 @@ public class TaskCalculatorImpl implements TaskCalculator, Serializable {
 	private List<Node> neighbourNodes(Node node, World world, LocationWorldObjectsCache zone) {
 		List<Node> result = new ArrayList<>();
 		int newG = node.g + 1;
-		addNodeToList(result, new Node(node.x - 1, node.y - 1, newG), world, zone);
-		addNodeToList(result, new Node(node.x - 1, node.y, newG), world, zone);
-		addNodeToList(result, new Node(node.x - 1, node.y + 1, newG), world, zone);
-		addNodeToList(result, new Node(node.x, node.y - 1, newG), world, zone);
-		addNodeToList(result, new Node(node.x, node.y + 1, newG), world, zone);
-		addNodeToList(result, new Node(node.x + 1, node.y - 1, newG), world, zone);
-		addNodeToList(result, new Node(node.x + 1, node.y, newG), world, zone);
-		addNodeToList(result, new Node(node.x + 1, node.y + 1, newG), world, zone);
+		addNodeToList(result, node.x - 1, node.y - 1, newG, world, zone);
+		addNodeToList(result, node.x - 1, node.y, newG, world, zone);
+		addNodeToList(result, node.x - 1, node.y + 1, newG, world, zone);
+		addNodeToList(result, node.x, node.y - 1, newG, world, zone);
+		addNodeToList(result, node.x, node.y + 1, newG, world, zone);
+		addNodeToList(result, node.x + 1, node.y - 1, newG, world, zone);
+		addNodeToList(result, node.x + 1, node.y, newG, world, zone);
+		addNodeToList(result, node.x + 1, node.y + 1, newG, world, zone);
 		return result;
 	}
 	
-	private void addNodeToList(List<Node> list, Node neighbourNode, World world, LocationWorldObjectsCache zone) {
-		if ((neighbourNode.x >= 0) && (neighbourNode.x < world.getWidth()) && 
-				(neighbourNode.y >= 0) && (neighbourNode.y < world.getHeight()) && 
-				zone.value(neighbourNode.x, neighbourNode.y) == 0) {
-			list.add(neighbourNode);
+	private void addNodeToList(List<Node> list, int nodeX, int nodeY, int newG, World world, LocationWorldObjectsCache zone) {
+		if ((nodeX >= 0) && (nodeX < world.getWidth()) && 
+				(nodeY >= 0) && (nodeY < world.getHeight()) && 
+				zone.value(nodeX, nodeY) == 0) {
+			list.add(new Node(nodeX, nodeY, newG));
 		}
 	}
 
-	private static class Node {
+	private static final class Node {
 		public int x;
 		public int y;
 		public int g;
@@ -150,11 +150,7 @@ public class TaskCalculatorImpl implements TaskCalculator, Serializable {
 		@Override
 		public boolean equals(Object obj) {
 			Node other = (Node) obj;
-			if (x != other.x)
-				return false;
-			if (y != other.y)
-				return false;
-			return true;
+			return (x == other.x) && (y == other.y);
 		}
 
 		@Override
