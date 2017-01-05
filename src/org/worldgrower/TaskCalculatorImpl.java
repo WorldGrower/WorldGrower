@@ -35,12 +35,12 @@ public class TaskCalculatorImpl implements TaskCalculator, Serializable {
 		WorldObject copyPerformer = performer.shallowCopy();
 		
 		Set<Node> closedSet = new HashSet<>();
-		TreeSet<Node> openSet = createOpenSet(performer);
+		TreeSet<Node> openSet = createOpenSet(performer, copyPerformer, goal, world);
 		
 		while(!openSet.isEmpty()) {
-			Node current = openSet.first();
+			Node current = openSet.pollFirst();
 			
-			if (distance(goal, copyPerformer, current, world) == 0) {
+			if (current.h == 0) {
 				List<OperationInfo> result = new ArrayList<>();
 				List<Node> reconstructedPath = reconstructPath(current); 
 				for(int i=reconstructedPath.size()-1; i>0; i--) {
@@ -54,7 +54,6 @@ public class TaskCalculatorImpl implements TaskCalculator, Serializable {
 				return result;
 			}
 			
-			openSet.remove(current);
 			closedSet.add(current);
 			
 			if (current.g < maxDepth) {
@@ -75,10 +74,11 @@ public class TaskCalculatorImpl implements TaskCalculator, Serializable {
 		return new ArrayList<>();
 	}
 	
-	private TreeSet<Node> createOpenSet(WorldObject performer) {
+	private TreeSet<Node> createOpenSet(WorldObject performer, WorldObject copyPerformer, OperationInfo goal, World world) {
 		int performerX = performer.getProperty(Constants.X);
 		int performerY = performer.getProperty(Constants.Y);
 		Node startNode = new Node(performerX, performerY, 0);
+		startNode.h = distance(goal, copyPerformer, startNode, world);
 		
 		TreeSet<Node> openSet = new TreeSet<>(new NodeComparator());
 		openSet.add(startNode);
@@ -159,7 +159,7 @@ public class TaskCalculatorImpl implements TaskCalculator, Serializable {
 		}	
 	}
 	
-	private static class NodeComparator implements Comparator<Node> {
+	private static final class NodeComparator implements Comparator<Node> {
 
 		@Override
 		public int compare(Node node1, Node node2) {
