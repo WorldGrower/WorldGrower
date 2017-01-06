@@ -15,9 +15,11 @@
 package org.worldgrower.util;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,5 +39,15 @@ public class FileUtils {
 		}
 		fileReader.close();
 		return lines;
+	}
+	
+	public static void writeTextFile(File file, String content) {
+		try{
+		    PrintWriter writer = new PrintWriter(file, "UTF-8");
+		    writer.println(content);
+		    writer.close();
+		} catch (IOException e) {
+			throw new IllegalStateException("Problem writing " + file, e);
+		}
 	}
 }
