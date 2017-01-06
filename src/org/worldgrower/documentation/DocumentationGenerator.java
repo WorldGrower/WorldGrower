@@ -22,6 +22,8 @@ import javax.imageio.ImageIO;
 
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.magic.MagicSpell;
+import org.worldgrower.generator.Item;
+import org.worldgrower.generator.ItemType;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.util.FileUtils;
@@ -33,17 +35,47 @@ public class DocumentationGenerator {
 		ImageInfoReader imageInfoReader = new ImageInfoReader();
 
 		generateMagicSpellOverview(outputDir, imageInfoReader);
+		generateToolsOverview(outputDir, imageInfoReader);
 	}
 
 	private static void generateMagicSpellOverview(File outputDir, ImageInfoReader imageInfoReader) {
-		StringBuilder magicSpellsHtmlBuilder = new StringBuilder();
+		StringBuilder spellsHtmlBuilder = new StringBuilder("<html>");
+		spellsHtmlBuilder.append("<table>");
+		spellsHtmlBuilder.append("<tr><th>Icon</th><th>Name</th><th>Magic School</th><th>Description</th></tr>");
 		for(MagicSpell magicSpell : Actions.getMagicSpells()) {
-			String magicSpellFilename = "_gen_" + magicSpell.getDescription()+ ".png";
+			String magicSpellFilename = "_gen_" + magicSpell.getClass().getName() + ".png";
 			saveImage(magicSpell.getImageIds(null) , imageInfoReader, new File(outputDir, magicSpellFilename));
-			magicSpellsHtmlBuilder.append("<img src=\"").append(magicSpellFilename).append("\"");
+			spellsHtmlBuilder.append("<tr>");
+			spellsHtmlBuilder.append("<td><img src=\"").append(magicSpellFilename).append("\"></td>");
+			spellsHtmlBuilder.append("<td>").append(magicSpell.getSimpleDescription()).append("</td>");
+			spellsHtmlBuilder.append("<td>").append(magicSpell.getSkill().getName()).append("</td>");
+			spellsHtmlBuilder.append("<td>").append(magicSpell.getDescription()).append("</td>");
+			spellsHtmlBuilder.append("</tr>");
 		}
+		spellsHtmlBuilder.append("</table>");
+		spellsHtmlBuilder.append("</html>");
 		
-		FileUtils.writeTextFile(new File(outputDir, "_gen_spells.html"), magicSpellsHtmlBuilder.toString());
+		FileUtils.writeTextFile(new File(outputDir, "_gen_spells.html"), spellsHtmlBuilder.toString());
+	}
+	
+	private static void generateToolsOverview(File outputDir, ImageInfoReader imageInfoReader) {
+		StringBuilder toolsHtmlBuilder = new StringBuilder("<html>");
+		toolsHtmlBuilder.append("<table>");
+		toolsHtmlBuilder.append("<tr><th>Icon</th><th>Name</th></tr>");
+		for(Item item : Item.values()) {
+			if (item.getItemType() == ItemType.TOOL) {
+				String toolFilename = "_gen_" + item.getDescription() + ".png";
+				saveImage(item.getImageId(), imageInfoReader, new File(outputDir, toolFilename));
+				toolsHtmlBuilder.append("<tr>");
+				toolsHtmlBuilder.append("<td><img src=\"").append(toolFilename).append("\"></td>");
+				toolsHtmlBuilder.append("<td>").append(item.getDescription()).append("</td>");
+				toolsHtmlBuilder.append("</tr>");
+			}
+		}
+		toolsHtmlBuilder.append("</table>");
+		toolsHtmlBuilder.append("</html>");
+		
+		FileUtils.writeTextFile(new File(outputDir, "_gen_tools.html"), toolsHtmlBuilder.toString());
 	}
 
 	private static void saveImage(ImageIds imageIds, ImageInfoReader imageInfoReader, File outputFile) {
