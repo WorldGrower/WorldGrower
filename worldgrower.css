@@ -19,3 +19,8 @@ a {
 img { 
    border:1px solid white;
 }
+
+table, th, td {
+    border: 1px solid white;
+	border-collapse: collapse;
+}
