@@ -44,6 +44,7 @@ public class DocumentationGenerator {
 		generateToolsOverview(outputDir, imageInfoReader);
 		generateEquipmentOverview(outputDir, imageInfoReader);
 		generateDiseasesOverview(outputDir, imageInfoReader);
+		generateAlchemyOverview(outputDir, imageInfoReader);
 	}
 
 	private static void generateMagicSpellOverview(File outputDir, ImageInfoReader imageInfoReader) {
@@ -125,6 +126,25 @@ public class DocumentationGenerator {
 		}
 		createHtmlFile(outputFile, imageInfoReader, headerFields, tableValues);
 	}
+	
+	private static void generateAlchemyOverview(File outputDir, ImageInfoReader imageInfoReader) {
+		File outputFile = new File(outputDir, "_gen_alchemy.html");
+		List<String> headerFields = Arrays.asList("Icon", "Name");
+		List<List<String>> tableValues = new ArrayList<List<String>>();
+		for(Item item : Item.values()) {
+			if (item.getItemType() == ItemType.DRINK) {
+				List<String> tableRow = new ArrayList<>();
+				String filename = "_gen_" + item.getDescription() + ".png";
+				saveImage(item.getImageId(), imageInfoReader, new File(outputDir, filename));
+
+				tableRow.add(imageTag(filename));
+				tableRow.add(item.getDescription());
+				
+				tableValues.add(tableRow);
+			}
+		}
+		createHtmlFile(outputFile, imageInfoReader, headerFields, tableValues);
+	}
 
 	private static String getPropertyValue(Item item, IntProperty property) {
 		String value = "";
@@ -140,6 +160,10 @@ public class DocumentationGenerator {
 	
 	private static void createHtmlFile(File outputFile, ImageInfoReader imageInfoReader, List<String> headerFields, List<List<String>> tableValues) {
 		StringBuilder htmlBuilder = new StringBuilder("<html>");
+		htmlBuilder.append("<head>");
+		htmlBuilder.append("<link rel=\"stylesheet\" type=\"text/css\" href=\"worldgrower.css\">");
+		htmlBuilder.append("</head>");
+		htmlBuilder.append("<body>");
 		htmlBuilder.append("<table>");
 		htmlBuilder.append("<tr>");
 		for(String headerField : headerFields) {
@@ -154,6 +178,7 @@ public class DocumentationGenerator {
 			htmlBuilder.append("</tr>");
 		}
 		htmlBuilder.append("</table>");
+		htmlBuilder.append("</body>");
 		htmlBuilder.append("</html>");
 		
 		FileUtils.writeTextFile(outputFile, htmlBuilder.toString());		
