@@ -16,6 +16,7 @@ package org.worldgrower.attribute;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -99,12 +100,29 @@ public class SkillUtils {
 		return skillProperties;
 	}
 	
+	public static IntProperty getAttributeForSkill(SkillProperty skillProperty) {
+		return SKILLS_TO_ATTRIBUTE_MAP.get(skillProperty);
+	}
+	
 	public static List<IntProperty> getAttributes() {
 		return Arrays.asList(Constants.STRENGTH, Constants.CONSTITUTION, Constants.DEXTERITY, Constants.INTELLIGENCE, Constants.WISDOM, Constants.CHARISMA);
 	}
 	
 	public static List<SkillProperty> getSkills() {
 		return new ArrayList<>(SKILLS_TO_ATTRIBUTE_MAP.keySet());
+	}
+	
+	public static List<SkillProperty> getSortedSkills() {
+		List<SkillProperty> skills = getSkills();
+		skills.sort(new Comparator<SkillProperty>() {
+
+			@Override
+			public int compare(SkillProperty o1, SkillProperty o2) {
+				return o1.getName().compareTo(o2.getName());
+			}
+			
+		});
+		return skills;
 	}
 	
 	private static void addSkill(SkillProperty skillProperty, Map<ManagedProperty<?>, Object> properties) {

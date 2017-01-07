@@ -27,7 +27,10 @@ import org.worldgrower.Constants;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.attribute.IntProperty;
+import org.worldgrower.attribute.SkillProperty;
+import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.condition.Condition;
+import org.worldgrower.deity.Deity;
 import org.worldgrower.generator.Item;
 import org.worldgrower.generator.ItemType;
 import org.worldgrower.gui.ImageIds;
@@ -45,6 +48,8 @@ public class DocumentationGenerator {
 		generateEquipmentOverview(outputDir, imageInfoReader);
 		generateDiseasesOverview(outputDir, imageInfoReader);
 		generateAlchemyOverview(outputDir, imageInfoReader);
+		generateDeitiesOverview(outputDir, imageInfoReader);
+		generateSkillsOverview(outputDir, imageInfoReader);
 	}
 
 	private static void generateMagicSpellOverview(File outputDir, ImageInfoReader imageInfoReader) {
@@ -142,6 +147,44 @@ public class DocumentationGenerator {
 				
 				tableValues.add(tableRow);
 			}
+		}
+		createHtmlFile(outputFile, imageInfoReader, headerFields, tableValues);
+	}
+	
+	private static void generateDeitiesOverview(File outputDir, ImageInfoReader imageInfoReader) {
+		File outputFile = new File(outputDir, "_gen_deities.html");
+		List<String> headerFields = Arrays.asList("Icon", "Name", "Description", "Skill", "Boon");
+		List<List<String>> tableValues = new ArrayList<List<String>>();
+		for(Deity deity : Deity.ALL_DEITIES) {
+			List<String> tableRow = new ArrayList<>();
+			String filename = "_gen_" + deity.getName() + ".png";
+			saveImage(deity.getBoonImageId(), imageInfoReader, new File(outputDir, filename));
+
+			tableRow.add(imageTag(filename));
+			tableRow.add(deity.getName());
+			tableRow.add(deity.getExplanation());
+			tableRow.add(deity.getSkill().getName());
+			tableRow.add(deity.getBoonDescription());
+			
+			tableValues.add(tableRow);
+		}
+		createHtmlFile(outputFile, imageInfoReader, headerFields, tableValues);
+	}
+	
+	private static void generateSkillsOverview(File outputDir, ImageInfoReader imageInfoReader) {
+		File outputFile = new File(outputDir, "_gen_skills.html");
+		List<String> headerFields = Arrays.asList("Name", "Description", "Attribute");
+		List<List<String>> tableValues = new ArrayList<List<String>>();
+		List<SkillProperty> skills = SkillUtils.getSortedSkills();
+
+		for(SkillProperty skillProperty : skills) {
+			List<String> tableRow = new ArrayList<>();
+
+			tableRow.add(skillProperty.getName());
+			tableRow.add(skillProperty.getLongDescription());
+			tableRow.add(SkillUtils.getAttributeForSkill(skillProperty).getName());
+			
+			tableValues.add(tableRow);
 		}
 		createHtmlFile(outputFile, imageInfoReader, headerFields, tableValues);
 	}
