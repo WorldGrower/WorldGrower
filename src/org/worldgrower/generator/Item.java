@@ -240,6 +240,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
 			properties.put(Constants.WOOD_CUTTING_QUALITY, (int)(2 * skillBonus));
 			properties.put(Constants.IMAGE_ID, ImageIds.IRON_AXE);
+			properties.put(Constants.ITEM_LONG_DESCRIPTION, "An iron axe is used for cutting wood and as a melee weapon.");
 			return new WorldObjectImpl(properties);
 		});
 	
@@ -371,6 +372,7 @@ public enum Item {
 			properties.put(Constants.IMAGE_ID, ImageIds.WINE);
 			properties.put(Constants.PRICE, 1);
 			properties.put(Constants.SELLABLE, false);
+			properties.put(Constants.ITEM_LONG_DESCRIPTION, "Drinking wine restores a character's water level and may make it intoxicated.");
 			return new WorldObjectImpl(properties);
 		});
 
@@ -406,6 +408,7 @@ public enum Item {
 			properties.put(Constants.WEIGHT, 1);
 			properties.put(Constants.SELLABLE, false);
 			properties.put(Constants.IMAGE_ID, ImageIds.WATER);
+			properties.put(Constants.ITEM_LONG_DESCRIPTION, "Drinking water restores a character's water level.");
 			return new WorldObjectImpl(properties);
 		});
 	
@@ -455,6 +458,7 @@ public enum Item {
 			properties.put(Constants.SELLABLE, false);
 			properties.put(Constants.POISON_DAMAGE, (int) (4 * COMBAT_MULTIPLIER * skillBonus));
 			properties.put(Constants.IMAGE_ID, ImageIds.POISON);
+			properties.put(Constants.ITEM_LONG_DESCRIPTION, "Drinking poison poisons a character, making it lose hit points for several turns.");
 			return new WorldObjectImpl(properties);
 		});
 	
@@ -571,6 +575,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
 			properties.put(Constants.FISHING_POLE_QUALITY, (int)(2 * skillBonus));
 			properties.put(Constants.IMAGE_ID, ImageIds.FISHING_POLE);
+			properties.put(Constants.ITEM_LONG_DESCRIPTION, "A fishing pole is used for fishing.");
 			return new WorldObjectImpl(properties);
 		});
 
@@ -596,6 +601,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
 			properties.put(Constants.REPAIR_QUALITY, (int)(2 * skillBonus));
 			properties.put(Constants.IMAGE_ID, ImageIds.REPAIR_HAMMER);
+			properties.put(Constants.ITEM_LONG_DESCRIPTION, "A smithing hammer is used for smithing equipment.");
 			return new WorldObjectImpl(properties);
 		});
 		
@@ -618,6 +624,7 @@ public enum Item {
 			properties.put(Constants.SELLABLE, false);
 			properties.put(Constants.WEIGHT, 1);
 			properties.put(Constants.IMAGE_ID, ImageIds.BLOOD);
+			properties.put(Constants.ITEM_LONG_DESCRIPTION, "Drinking blood restores a vampire's blood level.");
 			return new WorldObjectImpl(properties);
 		});
 		
@@ -658,6 +665,7 @@ public enum Item {
 			properties.put(Constants.SELLABLE, false);
 			properties.put(Constants.WEIGHT, 1);
 			properties.put(Constants.IMAGE_ID, ImageIds.SLEEPING_POTION);
+			properties.put(Constants.ITEM_LONG_DESCRIPTION, "Drinking a sleeping potion puts a character to sleep for several turns.");
 			return new WorldObjectImpl(properties);
 		});
 		
@@ -693,6 +701,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
 			properties.put(Constants.PICKAXE_QUALITY, (int)(2 * skillBonus));
 			properties.put(Constants.IMAGE_ID, ImageIds.PICKAXE);
+			properties.put(Constants.ITEM_LONG_DESCRIPTION, "A pickaxe is used for mining.");
 			return new WorldObjectImpl(properties);
 		});
 		
@@ -708,6 +717,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
 			properties.put(Constants.SCYTHE_QUALITY, (int)(2 * skillBonus));
 			properties.put(Constants.IMAGE_ID, ImageIds.SCYTHE);
+			properties.put(Constants.ITEM_LONG_DESCRIPTION, "A scythe is used for harvesting food.");
 			return new WorldObjectImpl(properties);
 		});
 		
@@ -723,6 +733,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
 			properties.put(Constants.BUTCHER_QUALITY, (int)(2 * skillBonus));
 			properties.put(Constants.IMAGE_ID, ImageIds.BUTCHER_KNIFE);
+			properties.put(Constants.ITEM_LONG_DESCRIPTION, "A butcher knife is used for butchering cattle.");
 			return new WorldObjectImpl(properties);
 		});
 		
@@ -736,6 +747,7 @@ public enum Item {
 			properties.put(Constants.IMAGE_ID, ImageIds.HEALING_POTION);
 			properties.put(Constants.PRICE, 1);
 			properties.put(Constants.SELLABLE, false);
+			properties.put(Constants.ITEM_LONG_DESCRIPTION, "Drinking a healing potion restores hit points.");
 			return new WorldObjectImpl(properties);
 		});
 
@@ -747,6 +759,7 @@ public enum Item {
 			properties.put(Constants.IMAGE_ID, ImageIds.CURE_POISON_POTION);
 			properties.put(Constants.PRICE, 1);
 			properties.put(Constants.SELLABLE, false);
+			properties.put(Constants.ITEM_LONG_DESCRIPTION, "Drinking a cure poison potion cures a character from being poisoned.");
 			return new WorldObjectImpl(properties);
 		});
 		
@@ -758,6 +771,7 @@ public enum Item {
 			properties.put(Constants.IMAGE_ID, ImageIds.CURE_DISEASE_POTION);
 			properties.put(Constants.PRICE, 1);
 			properties.put(Constants.SELLABLE, false);
+			properties.put(Constants.ITEM_LONG_DESCRIPTION, "Drinking a cure disease potion cures a character from all diseases.");
 			return new WorldObjectImpl(properties);
 		});
 		
@@ -787,6 +801,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
 			properties.put(Constants.LOCKPICK_QUALITY, (int)(2 * skillBonus));
 			properties.put(Constants.IMAGE_ID, ImageIds.LOCKPICK);
+			properties.put(Constants.ITEM_LONG_DESCRIPTION, "A lockpick is used for opening locked containers.");
 			return new WorldObjectImpl(properties);
 		});
 		
@@ -901,6 +916,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
 			properties.put(Constants.WOOD_CUTTING_QUALITY, (int)(3 * skillBonus));
 			properties.put(Constants.IMAGE_ID, ImageIds.STEEL_AXE);
+			properties.put(Constants.ITEM_LONG_DESCRIPTION, "A steel axe is used for cutting wood and as a melee weapon.");
 			return new WorldObjectImpl(properties);
 		});
 	
@@ -1144,6 +1160,10 @@ public enum Item {
 	
 	public ImageIds getImageId() {
 		return DEFAULT_WORLD_OBJECTS.get(this).getProperty(Constants.IMAGE_ID);
+	}
+	
+	public String getLongDescription() {
+		return DEFAULT_WORLD_OBJECTS.get(this).getProperty(Constants.ITEM_LONG_DESCRIPTION);
 	}
 	
 	public static Item value(int index) {

@@ -53,6 +53,8 @@ public class DocumentationGenerator {
 	}
 
 	private static void generateMagicSpellOverview(File outputDir, ImageInfoReader imageInfoReader) {
+		String title = "WorldGrower:Spells";
+		String description = "Spells are researched at a library and take several turns and a high enough skill level to research.";
 		File outputFile = new File(outputDir, "_gen_spells.html");
 		List<String> headerFields = Arrays.asList("Icon", "Name", "Magic School", "Description");
 		List<List<String>> tableValues = new ArrayList<List<String>>();
@@ -69,12 +71,14 @@ public class DocumentationGenerator {
 			tableValues.add(tableRow);
 		}
 		
-		createHtmlFile(outputFile, imageInfoReader, headerFields, tableValues);
+		createHtmlFile(title, description, outputFile, imageInfoReader, headerFields, tableValues);
 	}
 	
 	private static void generateToolsOverview(File outputDir, ImageInfoReader imageInfoReader) {
+		String title = "WorldGrower:Tools";
+		String description = "Tools are created at a workbench and makes certain actions more productive.";
 		File outputFile = new File(outputDir, "_gen_tools.html");
-		List<String> headerFields = Arrays.asList("Icon", "Name");
+		List<String> headerFields = Arrays.asList("Icon", "Name", "Description");
 		List<List<String>> tableValues = new ArrayList<List<String>>();
 		for(Item item : Item.values()) {
 			if (item.getItemType() == ItemType.TOOL || item.generate(1f).hasProperty(Constants.WOOD_CUTTING_QUALITY)) {
@@ -84,14 +88,17 @@ public class DocumentationGenerator {
 				
 				tableRow.add(imageTag(toolFilename));
 				tableRow.add(item.getDescription());
+				tableRow.add(item.getLongDescription());
 
 				tableValues.add(tableRow);
 			}
 		}
-		createHtmlFile(outputFile, imageInfoReader, headerFields, tableValues);
+		createHtmlFile(title, description, outputFile, imageInfoReader, headerFields, tableValues);
 	}
 
 	private static void generateEquipmentOverview(File outputDir, ImageInfoReader imageInfoReader) {
+		String title = "WorldGrower:Equipment";
+		String description = "Equipment can be worn by characters to increase damage or armor.";
 		File outputFile = new File(outputDir, "_gen_equipment.html");
 		List<String> headerFields = Arrays.asList("Icon", "Name", "Damage", "Armor");
 		List<List<String>> tableValues = new ArrayList<List<String>>();
@@ -109,10 +116,12 @@ public class DocumentationGenerator {
 				tableValues.add(tableRow);
 			}
 		}
-		createHtmlFile(outputFile, imageInfoReader, headerFields, tableValues);
+		createHtmlFile(title, description, outputFile, imageInfoReader, headerFields, tableValues);
 	}
 	
 	private static void generateDiseasesOverview(File outputDir, ImageInfoReader imageInfoReader) {
+		String title = "WorldGrower:Diseases";
+		String description = "This is a complete list of the diseases you can catch.";
 		File outputFile = new File(outputDir, "_gen_diseases.html");
 		List<String> headerFields = Arrays.asList("Icon", "Name", "Description");
 		List<List<String>> tableValues = new ArrayList<List<String>>();
@@ -129,12 +138,14 @@ public class DocumentationGenerator {
 				tableValues.add(tableRow);
 			}
 		}
-		createHtmlFile(outputFile, imageInfoReader, headerFields, tableValues);
+		createHtmlFile(title, description, outputFile, imageInfoReader, headerFields, tableValues);
 	}
 	
 	private static void generateAlchemyOverview(File outputDir, ImageInfoReader imageInfoReader) {
+		String title = "WorldGrower:Alchemy";
+		String description = "Most alchemy items are created at an apothecary, except for water which is collected at a drinking well.";
 		File outputFile = new File(outputDir, "_gen_alchemy.html");
-		List<String> headerFields = Arrays.asList("Icon", "Name");
+		List<String> headerFields = Arrays.asList("Icon", "Name", "Description");
 		List<List<String>> tableValues = new ArrayList<List<String>>();
 		for(Item item : Item.values()) {
 			if (item.getItemType() == ItemType.DRINK) {
@@ -144,14 +155,17 @@ public class DocumentationGenerator {
 
 				tableRow.add(imageTag(filename));
 				tableRow.add(item.getDescription());
+				tableRow.add(item.getLongDescription());
 				
 				tableValues.add(tableRow);
 			}
 		}
-		createHtmlFile(outputFile, imageInfoReader, headerFields, tableValues);
+		createHtmlFile(title, description, outputFile, imageInfoReader, headerFields, tableValues);
 	}
 	
 	private static void generateDeitiesOverview(File outputDir, ImageInfoReader imageInfoReader) {
+		String title = "WorldGrower:Deities";
+		String description = "Deities are worshipped at shrines and give skill bonuses and boons to devout followers.";
 		File outputFile = new File(outputDir, "_gen_deities.html");
 		List<String> headerFields = Arrays.asList("Icon", "Name", "Description", "Skill", "Boon");
 		List<List<String>> tableValues = new ArrayList<List<String>>();
@@ -168,14 +182,16 @@ public class DocumentationGenerator {
 			
 			tableValues.add(tableRow);
 		}
-		createHtmlFile(outputFile, imageInfoReader, headerFields, tableValues);
+		createHtmlFile(title, description, outputFile, imageInfoReader, headerFields, tableValues);
 	}
 	
 	private static void generateSkillsOverview(File outputDir, ImageInfoReader imageInfoReader) {
+		List<SkillProperty> skills = SkillUtils.getSortedSkills();
+		String title = "WorldGrower:Skills";
+		String description = "There are " + skills.size() + " skills in WorldGrower, each of which determines how well you can perform various tasks. Each skill is governed by an Attribute. A higher attribute results in a higher starting skill level and faster skill level increases.";
 		File outputFile = new File(outputDir, "_gen_skills.html");
 		List<String> headerFields = Arrays.asList("Name", "Description", "Attribute");
 		List<List<String>> tableValues = new ArrayList<List<String>>();
-		List<SkillProperty> skills = SkillUtils.getSortedSkills();
 
 		for(SkillProperty skillProperty : skills) {
 			List<String> tableRow = new ArrayList<>();
@@ -186,7 +202,7 @@ public class DocumentationGenerator {
 			
 			tableValues.add(tableRow);
 		}
-		createHtmlFile(outputFile, imageInfoReader, headerFields, tableValues);
+		createHtmlFile(title, description, outputFile, imageInfoReader, headerFields, tableValues);
 	}
 
 	private static String getPropertyValue(Item item, IntProperty property) {
@@ -201,12 +217,14 @@ public class DocumentationGenerator {
 		return "<img src=\"" + imageSource + "\">";
 	}
 	
-	private static void createHtmlFile(File outputFile, ImageInfoReader imageInfoReader, List<String> headerFields, List<List<String>> tableValues) {
+	private static void createHtmlFile(String title, String description, File outputFile, ImageInfoReader imageInfoReader, List<String> headerFields, List<List<String>> tableValues) {
 		StringBuilder htmlBuilder = new StringBuilder("<html>");
 		htmlBuilder.append("<head>");
 		htmlBuilder.append("<link rel=\"stylesheet\" type=\"text/css\" href=\"worldgrower.css\">");
 		htmlBuilder.append("</head>");
 		htmlBuilder.append("<body>");
+		htmlBuilder.append("<h2>").append(title).append("</h2>");
+		htmlBuilder.append(description).append("<br><br>");
 		htmlBuilder.append("<table>");
 		htmlBuilder.append("<tr>");
 		for(String headerField : headerFields) {

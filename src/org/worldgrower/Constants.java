@@ -310,6 +310,7 @@ public class Constants {
 	public static final BooleanProperty CURE_POISON = new BooleanProperty("curePoison", NOT_NULLABLE, ALL_PROPERTIES);
 	public static final BooleanProperty CURE_DISEASE = new BooleanProperty("cureDisease", NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty LEATHER = new IntProperty("leather", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final StringProperty ITEM_LONG_DESCRIPTION = new StringProperty("itemLongDescription", NOT_NULLABLE, ALL_PROPERTIES);
 	
 	//special property not used in WorldObject
 	public static final IntProperty DISTANCE = new IntProperty("distance", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
