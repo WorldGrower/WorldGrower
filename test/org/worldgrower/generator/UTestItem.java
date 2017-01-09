@@ -41,4 +41,9 @@ public class UTestItem {
 		WorldObject newsPaper = Item.generateNewsPaper(knowledgeMap.getSortedKnowledge(performer, world), new int[] { id1, id2 }, world);
 		assertEquals("performer worships Ares. performer is a farmer. ", newsPaper.getProperty(Constants.TEXT));
 	}
+	
+	@Test
+	public void testGetItemFor() {
+		assertEquals(Item.FISHING_POLE, Item.getItemFor(Constants.FISHING_POLE_QUALITY));
+	}
 }

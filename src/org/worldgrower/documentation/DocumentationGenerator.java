@@ -19,18 +19,24 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 
 import org.worldgrower.Constants;
+import org.worldgrower.WorldObject;
+import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.attribute.IntProperty;
+import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.deity.Deity;
+import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
 import org.worldgrower.generator.ItemType;
 import org.worldgrower.gui.ImageIds;
@@ -50,6 +56,7 @@ public class DocumentationGenerator {
 		generateAlchemyOverview(outputDir, imageInfoReader);
 		generateDeitiesOverview(outputDir, imageInfoReader);
 		generateSkillsOverview(outputDir, imageInfoReader);
+		generateBuildingsOverview(outputDir, imageInfoReader);
 	}
 
 	private static void generateMagicSpellOverview(File outputDir, ImageInfoReader imageInfoReader) {
@@ -203,6 +210,37 @@ public class DocumentationGenerator {
 			tableValues.add(tableRow);
 		}
 		createHtmlFile(title, description, outputFile, imageInfoReader, headerFields, tableValues);
+	}
+	
+	private static void generateBuildingsOverview(File outputDir, ImageInfoReader imageInfoReader) {
+		WorldObject buildingOwner = createBuildingOwner();
+		List<WorldObject> buildings = BuildingGenerator.getAllBuildings(buildingOwner);
+		String title = "WorldGrower:Buildings";
+		String description = "This lists all the buildings that can be built.";
+		File outputFile = new File(outputDir, "_gen_buildings.html");
+		List<String> headerFields = Arrays.asList("Image", "Name");
+		List<List<String>> tableValues = new ArrayList<List<String>>();
+
+		for(WorldObject building : buildings) {
+			List<String> tableRow = new ArrayList<>();
+
+			String name = building.getProperty(Constants.NAME);
+			name = name.replace("character's", "").trim();
+			String filename = "_gen_" + name + ".png";
+			saveImage(building.getProperty(Constants.IMAGE_ID), imageInfoReader, new File(outputDir, filename));
+			tableRow.add(imageTag(filename));
+			tableRow.add(name);
+			
+			tableValues.add(tableRow);
+		}
+		createHtmlFile(title, description, outputFile, imageInfoReader, headerFields, tableValues);
+	}
+
+	public static WorldObject createBuildingOwner() {
+		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+		properties.put(Constants.NAME, "character");
+		WorldObject buildingOwner = new WorldObjectImpl(properties);
+		return buildingOwner;
 	}
 
 	private static String getPropertyValue(Item item, IntProperty property) {

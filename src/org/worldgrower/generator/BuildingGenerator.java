@@ -965,26 +965,30 @@ public class BuildingGenerator {
 	}
 	
 	public static List<WorldObject> getBuildings(WorldObject owner, int width, int height) {
+		List<WorldObject> buildings = getAllBuildings(owner);
+		return buildings.stream().filter(w -> w.getProperty(Constants.WIDTH) <= width && w.getProperty(Constants.HEIGHT) == height).collect(Collectors.toList());
+	}
+
+	public static List<WorldObject> getAllBuildings(WorldObject owner) {
 		List<WorldObject> buildings = new ArrayList<>();
+		buildings.add(generateShack(0, 0, 0, owner, 0));
+		buildings.add(generateHouse(0, 0, 0, owner, 0));
 		buildings.add(generateVotingBox(0, 0, 0));
 		buildings.add(generateWell(0, 0, 1f, 0));
 		buildings.add(generateTrainingDummy(0, 0, 1f, 0));
 		for(Deity deity : Deity.ALL_DEITIES) {
 			buildings.add(generateShrine(0, 0, 0, deity));
-			buildings.add(generateSacrificalAltar(0, 0, deity, 0, 0));
 		}
+		buildings.add(generateSacrificalAltar(0, 0, Deity.APHRODITE, 0, 0));
 		buildings.add(generateChest(0, 0, owner, 0));
 		buildings.add(generateLibrary(0, 0, 0, owner, 0));
 		buildings.add(generatePaperMill(0, 0, 0, owner, 0));
 		buildings.add(generateSmith(0, 0, 0, owner, 0));
 		buildings.add(generateWorkBench(0, 0, 0, owner, 0));
-		buildings.add(generateInn(0, 0, 0, owner, 0));
+		//buildings.add(generateInn(0, 0, 0, owner, 0));
 		buildings.add(generateWeavery(0, 0, 0, owner, 0));
 		buildings.add(generateBrewery(0, 0, 0, owner, 0));
 		buildings.add(generateApothecary(0, 0, 0, owner, 0));
-		
-		buildings = buildings.stream().filter(w -> w.getProperty(Constants.WIDTH) <= width && w.getProperty(Constants.HEIGHT) == height).collect(Collectors.toList());
-		
 		return buildings;
 	}
 }
