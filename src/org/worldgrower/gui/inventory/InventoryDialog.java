@@ -15,6 +15,7 @@
 package org.worldgrower.gui.inventory;
 
 import java.awt.CardLayout;
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -559,8 +560,12 @@ public final class InventoryDialog extends AbstractDialog {
 	private JTable createInventoryTable(WorldObjectContainer inventory, ImageInfoReader imageInfoReader) {
 		JTable inventoryTable = JTableFactory.createJTable(new InventoryModel(inventory));
 		
-		inventoryTable.setDefaultRenderer(ImageIds.class, new ImageCellRenderer(imageInfoReader));
-		inventoryTable.setDefaultRenderer(String.class, new DefaultTableCellRenderer());
+		inventoryTable.setDefaultRenderer(ImageIds.class, new InventoryItemImageRenderer(imageInfoReader));
+		inventoryTable.getColumnModel().getColumn(1).setCellRenderer(new InventoryItemRenderer());
+		inventoryTable.getColumnModel().getColumn(2).setCellRenderer(new InventoryItemRenderer());
+		inventoryTable.getColumnModel().getColumn(3).setCellRenderer(new InventoryItemRenderer());
+		
+		
 		inventoryTable.setRowHeight(50);
 		inventoryTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		inventoryTable.getColumnModel().getColumn(0).setPreferredWidth(50);
@@ -574,6 +579,41 @@ public final class InventoryDialog extends AbstractDialog {
 		
 		return inventoryTable;
 	}
+	
+	private static class InventoryItemRenderer extends DefaultTableCellRenderer {
+		public InventoryItemRenderer() {
+			super();
+			setOpaque(false);
+		}
+
+		@Override
+		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+			JLabel component = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+			setTooltip(table, row, component);
+			return component;
+		}
+	}
+	
+	private static class InventoryItemImageRenderer extends ImageCellRenderer {
+
+		public InventoryItemImageRenderer(ImageInfoReader imageInfoReader) {
+			super(imageInfoReader);
+		}
+
+		@Override
+		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+			JLabel component = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+			setTooltip(table, row, component);
+			return component;
+		}
+	}
+	
+	private static void setTooltip(JTable table, int row, JLabel component) {
+		int rowIndex = table.getRowSorter().convertRowIndexToModel(row);
+		InventoryItem inventoryItem = ((InventoryModel)table.getModel()).getInventoryItem(rowIndex);
+		String tooltip = inventoryItem.getLongDescription();
+		component.setToolTipText(tooltip);
+	}	
 	
 	private static List<InventoryItem> getInventoryList(WorldObjectContainer inventory) {
 		List<InventoryItem> inventoryList = new ArrayList<>();

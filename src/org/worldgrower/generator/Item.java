@@ -210,6 +210,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
 			properties.put(Constants.IMAGE_ID, ImageIds.IRON_CLAYMORE);
+			properties.put(Constants.LONG_DESCRIPTION, "An iron claymore is a one-handed melee weapon.");
 			return new WorldObjectImpl(properties);
 		});
 
@@ -225,6 +226,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
 			properties.put(Constants.TWO_HANDED_WEAPON, Boolean.TRUE);
 			properties.put(Constants.IMAGE_ID, ImageIds.IRON_GREATSWORD);
+			properties.put(Constants.LONG_DESCRIPTION, "An iron greatsword is a two-handed melee weapon.");
 			return new WorldObjectImpl(properties);
 		});
 	
@@ -240,7 +242,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
 			properties.put(Constants.WOOD_CUTTING_QUALITY, (int)(2 * skillBonus));
 			properties.put(Constants.IMAGE_ID, ImageIds.IRON_AXE);
-			properties.put(Constants.ITEM_LONG_DESCRIPTION, "An iron axe is used for cutting wood and as a melee weapon.");
+			properties.put(Constants.LONG_DESCRIPTION, "An iron axe is used for cutting wood and as a one-handed melee weapon.");
 			return new WorldObjectImpl(properties);
 		});
 	
@@ -256,6 +258,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
 			properties.put(Constants.TWO_HANDED_WEAPON, Boolean.TRUE);
 			properties.put(Constants.IMAGE_ID, ImageIds.IRON_GREATAXE);
+			properties.put(Constants.LONG_DESCRIPTION, "An iron greataxe is a two-handed melee weapon.");
 			return new WorldObjectImpl(properties);
 		});
 	
@@ -270,6 +273,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.TORSO_EQUIPMENT);
 			properties.put(Constants.IMAGE_ID, ImageIds.IRON_CUIRASS);
 			properties.put(Constants.ARMOR_TYPE, ArmorType.HEAVY);
+			properties.put(Constants.LONG_DESCRIPTION, "An iron cuirass is a piece of torso armor.");
 			return new WorldObjectImpl(properties);
 		});
 	
@@ -284,6 +288,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.HEAD_EQUIPMENT);
 			properties.put(Constants.IMAGE_ID, ImageIds.IRON_HELMET);
 			properties.put(Constants.ARMOR_TYPE, ArmorType.HEAVY);
+			properties.put(Constants.LONG_DESCRIPTION, "An iron helmet is a piece of head armor.");
 			return new WorldObjectImpl(properties);
 		});
 	
@@ -298,6 +303,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.ARMS_EQUIPMENT);
 			properties.put(Constants.IMAGE_ID, ImageIds.IRON_GAUNTLETS);
 			properties.put(Constants.ARMOR_TYPE, ArmorType.HEAVY);
+			properties.put(Constants.LONG_DESCRIPTION, "Iron gauntlets are a piece of arm armor.");
 			return new WorldObjectImpl(properties);
 		});
 	
@@ -312,6 +318,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEGS_EQUIPMENT);
 			properties.put(Constants.IMAGE_ID, ImageIds.IRON_GREAVES);
 			properties.put(Constants.ARMOR_TYPE, ArmorType.HEAVY);
+			properties.put(Constants.LONG_DESCRIPTION, "Iron greaves are a piece of leg armor.");
 			return new WorldObjectImpl(properties);
 		});
 	
@@ -326,6 +333,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.RIGHT_HAND_EQUIPMENT);
 			properties.put(Constants.IMAGE_ID, ImageIds.IRON_SHIELD);
 			properties.put(Constants.ARMOR_TYPE, ArmorType.HEAVY);
+			properties.put(Constants.LONG_DESCRIPTION, "An iron shield is a piece of armor.");
 			return new WorldObjectImpl(properties);
 		});
 	
@@ -340,6 +348,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.FEET_EQUIPMENT);
 			properties.put(Constants.IMAGE_ID, ImageIds.IRON_BOOTS);
 			properties.put(Constants.ARMOR_TYPE, ArmorType.HEAVY);
+			properties.put(Constants.LONG_DESCRIPTION, "Iron boots are a piece of feet armor.");
 			return new WorldObjectImpl(properties);
 		});
 	
@@ -350,6 +359,7 @@ public enum Item {
 			properties.put(Constants.FOOD, 1);
 			properties.put(Constants.SELLABLE, false);
 			properties.put(Constants.IMAGE_ID, ImageIds.BERRY);
+			properties.put(Constants.LONG_DESCRIPTION, "Berries can be harvested and eaten.");
 			return new WorldObjectImpl(properties);
 		});
 	
@@ -360,6 +370,7 @@ public enum Item {
 			properties.put(Constants.PRICE, 1);
 			properties.put(Constants.SELLABLE, false);
 			properties.put(Constants.IMAGE_ID, ImageIds.GRAPES);
+			properties.put(Constants.LONG_DESCRIPTION, "Grapes are used to produced wine.");
 			return new WorldObjectImpl(properties);
 		});
 	
@@ -372,7 +383,7 @@ public enum Item {
 			properties.put(Constants.IMAGE_ID, ImageIds.WINE);
 			properties.put(Constants.PRICE, 1);
 			properties.put(Constants.SELLABLE, false);
-			properties.put(Constants.ITEM_LONG_DESCRIPTION, "Drinking wine restores a character's water level and may make it intoxicated.");
+			properties.put(Constants.LONG_DESCRIPTION, "Drinking wine restores a character's water level and may make it intoxicated.");
 			return new WorldObjectImpl(properties);
 		});
 
@@ -387,6 +398,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
 			properties.put(Constants.IMAGE_ID, ImageIds.LONGBOW);
+			properties.put(Constants.LONG_DESCRIPTION, "A longbow allows ranged attacks.");
 			return new WorldObjectImpl(properties);
 		});
 
@@ -397,6 +409,7 @@ public enum Item {
 			properties.put(Constants.PRICE, 1);
 			properties.put(Constants.SELLABLE, false);
 			properties.put(Constants.IMAGE_ID, ImageIds.PAPER);
+			properties.put(Constants.LONG_DESCRIPTION, "Paper is used for spellbooks and newspapers.");
 			return new WorldObjectImpl(properties);
 		});
 
@@ -408,7 +421,7 @@ public enum Item {
 			properties.put(Constants.WEIGHT, 1);
 			properties.put(Constants.SELLABLE, false);
 			properties.put(Constants.IMAGE_ID, ImageIds.WATER);
-			properties.put(Constants.ITEM_LONG_DESCRIPTION, "Drinking water restores a character's water level.");
+			properties.put(Constants.LONG_DESCRIPTION, "Drinking water restores a character's water level.");
 			return new WorldObjectImpl(properties);
 		});
 	
@@ -420,6 +433,7 @@ public enum Item {
 			properties.put(Constants.WEIGHT, 1);
 			properties.put(Constants.SELLABLE, false);
 			properties.put(Constants.IMAGE_ID, ImageIds.MEAT);
+			properties.put(Constants.LONG_DESCRIPTION, "meat is used as food.");
 			return new WorldObjectImpl(properties);
 		});
 
@@ -429,6 +443,7 @@ public enum Item {
 			properties.put(Constants.PRICE, 100);
 			properties.put(Constants.SELLABLE, false);
 			properties.put(Constants.IMAGE_ID, ImageIds.SPELL_BOOK);
+			properties.put(Constants.LONG_DESCRIPTION, "a spellbook contains spells that can be learned.");
 			return new WorldObjectImpl(properties);
 		});
 	
@@ -438,6 +453,7 @@ public enum Item {
 			properties.put(Constants.PRICE, 1);
 			properties.put(Constants.SELLABLE, false);
 			properties.put(Constants.IMAGE_ID, ImageIds.KEY);
+			properties.put(Constants.LONG_DESCRIPTION, "a key is used to access a locked container.");
 			return new WorldObjectImpl(properties);
 		});
 
@@ -448,6 +464,7 @@ public enum Item {
 			properties.put(Constants.PRICE, 1);
 			properties.put(Constants.SELLABLE, false);
 			properties.put(Constants.IMAGE_ID, ImageIds.NIGHT_SHADE);
+			properties.put(Constants.LONG_DESCRIPTION, "nightshade is used to create poisons.");
 			return new WorldObjectImpl(properties);
 		});
 
@@ -458,7 +475,7 @@ public enum Item {
 			properties.put(Constants.SELLABLE, false);
 			properties.put(Constants.POISON_DAMAGE, (int) (4 * COMBAT_MULTIPLIER * skillBonus));
 			properties.put(Constants.IMAGE_ID, ImageIds.POISON);
-			properties.put(Constants.ITEM_LONG_DESCRIPTION, "Drinking poison poisons a character, making it lose hit points for several turns.");
+			properties.put(Constants.LONG_DESCRIPTION, "Drinking poison poisons a character, making it lose hit points for several turns.");
 			return new WorldObjectImpl(properties);
 		});
 	
@@ -469,6 +486,7 @@ public enum Item {
 			properties.put(Constants.PRICE, 1);
 			properties.put(Constants.SELLABLE, false);
 			properties.put(Constants.IMAGE_ID, ImageIds.COTTON);
+			properties.put(Constants.LONG_DESCRIPTION, "cotton is used to create light armor.");
 			return new WorldObjectImpl(properties);
 		});
 	
@@ -483,6 +501,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.TORSO_EQUIPMENT);
 			properties.put(Constants.IMAGE_ID, ImageIds.COTTON_SHIRT);
 			properties.put(Constants.ARMOR_TYPE, ArmorType.LIGHT);
+			properties.put(Constants.LONG_DESCRIPTION, "A cotton shirt is a piece of torso armor.");
 			return new WorldObjectImpl(properties);
 		});
 	
@@ -497,6 +516,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.HEAD_EQUIPMENT);
 			properties.put(Constants.IMAGE_ID, ImageIds.COTTON_HAT);
 			properties.put(Constants.ARMOR_TYPE, ArmorType.LIGHT);
+			properties.put(Constants.LONG_DESCRIPTION, "A cotton hat is a piece of head armor.");
 			return new WorldObjectImpl(properties);
 		});
 	
@@ -511,6 +531,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.FEET_EQUIPMENT);
 			properties.put(Constants.IMAGE_ID, ImageIds.COTTON_BOOTS);
 			properties.put(Constants.ARMOR_TYPE, ArmorType.LIGHT);
+			properties.put(Constants.LONG_DESCRIPTION, "cotton boots are a piece of feet armor.");
 			return new WorldObjectImpl(properties);
 		});
 	
@@ -525,6 +546,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.ARMS_EQUIPMENT);
 			properties.put(Constants.IMAGE_ID, ImageIds.COTTON_ARMS);
 			properties.put(Constants.ARMOR_TYPE, ArmorType.LIGHT);
+			properties.put(Constants.LONG_DESCRIPTION, "cotton gloves are a piece of arm armor.");
 			return new WorldObjectImpl(properties);
 		});
 	
@@ -539,6 +561,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEGS_EQUIPMENT);
 			properties.put(Constants.IMAGE_ID, ImageIds.COTTON_PANTS);
 			properties.put(Constants.ARMOR_TYPE, ArmorType.LIGHT);
+			properties.put(Constants.LONG_DESCRIPTION, "cotton pants are a piece of leg armor.");
 			return new WorldObjectImpl(properties);
 		});
 	
@@ -550,6 +573,7 @@ public enum Item {
 			properties.put(Constants.WEIGHT, 5);
 			properties.put(Constants.SLEEP_COMFORT, (int)(2 * skillBonus));
 			properties.put(Constants.IMAGE_ID, ImageIds.BED);
+			properties.put(Constants.LONG_DESCRIPTION, "A bed increases the energy that is restored when sleeping in a house that contains it.");
 			return new WorldObjectImpl(properties);
 		});
 
@@ -560,6 +584,7 @@ public enum Item {
 			properties.put(Constants.PRICE, 1);
 			properties.put(Constants.SELLABLE, false);
 			properties.put(Constants.IMAGE_ID, ImageIds.OIL);
+			properties.put(Constants.LONG_DESCRIPTION, "oil is used to make things flammable.");
 			return new WorldObjectImpl(properties);
 		});
 
@@ -575,7 +600,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
 			properties.put(Constants.FISHING_POLE_QUALITY, (int)(2 * skillBonus));
 			properties.put(Constants.IMAGE_ID, ImageIds.FISHING_POLE);
-			properties.put(Constants.ITEM_LONG_DESCRIPTION, "A fishing pole is used for fishing.");
+			properties.put(Constants.LONG_DESCRIPTION, "A fishing pole is used for fishing.");
 			return new WorldObjectImpl(properties);
 		});
 
@@ -586,6 +611,7 @@ public enum Item {
 			properties.put(Constants.FOOD, 1);
 			properties.put(Constants.SELLABLE, false);
 			properties.put(Constants.IMAGE_ID, ImageIds.RAW_FISH);
+			properties.put(Constants.LONG_DESCRIPTION, "fish are used as food.");
 			return new WorldObjectImpl(properties);
 		});
 	
@@ -601,7 +627,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
 			properties.put(Constants.REPAIR_QUALITY, (int)(2 * skillBonus));
 			properties.put(Constants.IMAGE_ID, ImageIds.REPAIR_HAMMER);
-			properties.put(Constants.ITEM_LONG_DESCRIPTION, "A smithing hammer is used for smithing equipment.");
+			properties.put(Constants.LONG_DESCRIPTION, "A smithing hammer is used for smithing equipment.");
 			return new WorldObjectImpl(properties);
 		});
 		
@@ -612,6 +638,7 @@ public enum Item {
 			properties.put(Constants.SELLABLE, false);
 			properties.put(Constants.WEIGHT, 1);
 			properties.put(Constants.IMAGE_ID, ImageIds.NEWS_PAPER);
+			properties.put(Constants.LONG_DESCRIPTION, "a newspaper transmits information when read.");
 			return new WorldObjectImpl(properties);
 		});
 		
@@ -624,7 +651,7 @@ public enum Item {
 			properties.put(Constants.SELLABLE, false);
 			properties.put(Constants.WEIGHT, 1);
 			properties.put(Constants.IMAGE_ID, ImageIds.BLOOD);
-			properties.put(Constants.ITEM_LONG_DESCRIPTION, "Drinking blood restores a vampire's blood level.");
+			properties.put(Constants.LONG_DESCRIPTION, "Drinking blood restores a vampire's blood level.");
 			return new WorldObjectImpl(properties);
 		});
 		
@@ -639,6 +666,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
 			properties.put(Constants.IMAGE_ID, ImageIds.IRON_MACE);
+			properties.put(Constants.LONG_DESCRIPTION, "An iron mace is a one-handed melee weapon.");
 			return new WorldObjectImpl(properties);
 		});
 		
@@ -653,6 +681,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
 			properties.put(Constants.IMAGE_ID, ImageIds.IRON_KATAR);
+			properties.put(Constants.LONG_DESCRIPTION, "An iron katar is a one-handed melee weapon.");
 			return new WorldObjectImpl(properties);
 		});
 		
@@ -665,7 +694,7 @@ public enum Item {
 			properties.put(Constants.SELLABLE, false);
 			properties.put(Constants.WEIGHT, 1);
 			properties.put(Constants.IMAGE_ID, ImageIds.SLEEPING_POTION);
-			properties.put(Constants.ITEM_LONG_DESCRIPTION, "Drinking a sleeping potion puts a character to sleep for several turns.");
+			properties.put(Constants.LONG_DESCRIPTION, "Drinking a sleeping potion puts a character to sleep for several turns.");
 			return new WorldObjectImpl(properties);
 		});
 		
@@ -676,6 +705,7 @@ public enum Item {
 			properties.put(Constants.SELLABLE, false);
 			properties.put(Constants.WEIGHT, 1);
 			properties.put(Constants.IMAGE_ID, ImageIds.CHEST);
+			properties.put(Constants.LONG_DESCRIPTION, "An miniature chest is used as a focus for the secret chest spell.");
 			return new WorldObjectImpl(properties);
 		});
 		
@@ -686,6 +716,7 @@ public enum Item {
 			properties.put(Constants.SELLABLE, false);
 			properties.put(Constants.WEIGHT, 1);
 			properties.put(Constants.IMAGE_ID, ImageIds.SKELETAL_REMAINS);
+			properties.put(Constants.LONG_DESCRIPTION, "Remains are all that remains of a dead character and can be buried.");
 			return new WorldObjectImpl(properties);
 		});
 		
@@ -701,7 +732,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
 			properties.put(Constants.PICKAXE_QUALITY, (int)(2 * skillBonus));
 			properties.put(Constants.IMAGE_ID, ImageIds.PICKAXE);
-			properties.put(Constants.ITEM_LONG_DESCRIPTION, "A pickaxe is used for mining.");
+			properties.put(Constants.LONG_DESCRIPTION, "A pickaxe is used for mining.");
 			return new WorldObjectImpl(properties);
 		});
 		
@@ -717,7 +748,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
 			properties.put(Constants.SCYTHE_QUALITY, (int)(2 * skillBonus));
 			properties.put(Constants.IMAGE_ID, ImageIds.SCYTHE);
-			properties.put(Constants.ITEM_LONG_DESCRIPTION, "A scythe is used for harvesting food.");
+			properties.put(Constants.LONG_DESCRIPTION, "A scythe is used for harvesting food.");
 			return new WorldObjectImpl(properties);
 		});
 		
@@ -733,7 +764,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
 			properties.put(Constants.BUTCHER_QUALITY, (int)(2 * skillBonus));
 			properties.put(Constants.IMAGE_ID, ImageIds.BUTCHER_KNIFE);
-			properties.put(Constants.ITEM_LONG_DESCRIPTION, "A butcher knife is used for butchering cattle.");
+			properties.put(Constants.LONG_DESCRIPTION, "A butcher knife is used for butchering cattle.");
 			return new WorldObjectImpl(properties);
 		});
 		
@@ -747,7 +778,7 @@ public enum Item {
 			properties.put(Constants.IMAGE_ID, ImageIds.HEALING_POTION);
 			properties.put(Constants.PRICE, 1);
 			properties.put(Constants.SELLABLE, false);
-			properties.put(Constants.ITEM_LONG_DESCRIPTION, "Drinking a healing potion restores hit points.");
+			properties.put(Constants.LONG_DESCRIPTION, "Drinking a healing potion restores hit points.");
 			return new WorldObjectImpl(properties);
 		});
 
@@ -759,7 +790,7 @@ public enum Item {
 			properties.put(Constants.IMAGE_ID, ImageIds.CURE_POISON_POTION);
 			properties.put(Constants.PRICE, 1);
 			properties.put(Constants.SELLABLE, false);
-			properties.put(Constants.ITEM_LONG_DESCRIPTION, "Drinking a cure poison potion cures a character from being poisoned.");
+			properties.put(Constants.LONG_DESCRIPTION, "Drinking a cure poison potion cures a character from being poisoned.");
 			return new WorldObjectImpl(properties);
 		});
 		
@@ -771,7 +802,7 @@ public enum Item {
 			properties.put(Constants.IMAGE_ID, ImageIds.CURE_DISEASE_POTION);
 			properties.put(Constants.PRICE, 1);
 			properties.put(Constants.SELLABLE, false);
-			properties.put(Constants.ITEM_LONG_DESCRIPTION, "Drinking a cure disease potion cures a character from all diseases.");
+			properties.put(Constants.LONG_DESCRIPTION, "Drinking a cure disease potion cures a character from all diseases.");
 			return new WorldObjectImpl(properties);
 		});
 		
@@ -801,7 +832,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
 			properties.put(Constants.LOCKPICK_QUALITY, (int)(2 * skillBonus));
 			properties.put(Constants.IMAGE_ID, ImageIds.LOCKPICK);
-			properties.put(Constants.ITEM_LONG_DESCRIPTION, "A lockpick is used for opening locked containers.");
+			properties.put(Constants.LONG_DESCRIPTION, "A lockpick is used for opening locked containers.");
 			return new WorldObjectImpl(properties);
 		});
 		
@@ -816,6 +847,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.TORSO_EQUIPMENT);
 			properties.put(Constants.IMAGE_ID, ImageIds.LEATHER_SHIRT);
 			properties.put(Constants.ARMOR_TYPE, ArmorType.LIGHT);
+			properties.put(Constants.LONG_DESCRIPTION, "A leather shirt is a piece of torso armor.");
 			return new WorldObjectImpl(properties);
 		});
 	
@@ -830,6 +862,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.HEAD_EQUIPMENT);
 			properties.put(Constants.IMAGE_ID, ImageIds.LEATHER_HAT);
 			properties.put(Constants.ARMOR_TYPE, ArmorType.LIGHT);
+			properties.put(Constants.LONG_DESCRIPTION, "A leather hat is a piece of head armor.");
 			return new WorldObjectImpl(properties);
 		});
 	
@@ -844,6 +877,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.FEET_EQUIPMENT);
 			properties.put(Constants.IMAGE_ID, ImageIds.LEATHER_BOOTS);
 			properties.put(Constants.ARMOR_TYPE, ArmorType.LIGHT);
+			properties.put(Constants.LONG_DESCRIPTION, "leather boots are a piece of feet armor.");
 			return new WorldObjectImpl(properties);
 		});
 	
@@ -858,6 +892,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.ARMS_EQUIPMENT);
 			properties.put(Constants.IMAGE_ID, ImageIds.LEATHER_ARMS);
 			properties.put(Constants.ARMOR_TYPE, ArmorType.LIGHT);
+			properties.put(Constants.LONG_DESCRIPTION, "leather gloves are a piece of arm armor.");
 			return new WorldObjectImpl(properties);
 		});
 	
@@ -872,6 +907,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEGS_EQUIPMENT);
 			properties.put(Constants.IMAGE_ID, ImageIds.LEATHER_PANTS);
 			properties.put(Constants.ARMOR_TYPE, ArmorType.LIGHT);
+			properties.put(Constants.LONG_DESCRIPTION, "leather pants are a piece of leg armor.");
 			return new WorldObjectImpl(properties);
 		});
 		
@@ -886,6 +922,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
 			properties.put(Constants.IMAGE_ID, ImageIds.STEEL_CLAYMORE);
+			properties.put(Constants.LONG_DESCRIPTION, "A steel claymore is a one-handed melee weapon.");
 			return new WorldObjectImpl(properties);
 		});
 
@@ -901,6 +938,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
 			properties.put(Constants.TWO_HANDED_WEAPON, Boolean.TRUE);
 			properties.put(Constants.IMAGE_ID, ImageIds.STEEL_GREATSWORD);
+			properties.put(Constants.LONG_DESCRIPTION, "A steel greatsword is a two-handed melee weapon.");
 			return new WorldObjectImpl(properties);
 		});
 	
@@ -916,7 +954,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
 			properties.put(Constants.WOOD_CUTTING_QUALITY, (int)(3 * skillBonus));
 			properties.put(Constants.IMAGE_ID, ImageIds.STEEL_AXE);
-			properties.put(Constants.ITEM_LONG_DESCRIPTION, "A steel axe is used for cutting wood and as a melee weapon.");
+			properties.put(Constants.LONG_DESCRIPTION, "A steel axe is used for cutting wood and as a melee weapon.");
 			return new WorldObjectImpl(properties);
 		});
 	
@@ -932,6 +970,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
 			properties.put(Constants.TWO_HANDED_WEAPON, Boolean.TRUE);
 			properties.put(Constants.IMAGE_ID, ImageIds.STEEL_GREATAXE);
+			properties.put(Constants.LONG_DESCRIPTION, "A steel greataxe is a two-handed melee weapon.");
 			return new WorldObjectImpl(properties);
 		});
 	
@@ -946,6 +985,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.TORSO_EQUIPMENT);
 			properties.put(Constants.IMAGE_ID, ImageIds.STEEL_CUIRASS);
 			properties.put(Constants.ARMOR_TYPE, ArmorType.HEAVY);
+			properties.put(Constants.LONG_DESCRIPTION, "A steel cuirass is a piece of torso armor.");
 			return new WorldObjectImpl(properties);
 		});
 	
@@ -960,6 +1000,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.HEAD_EQUIPMENT);
 			properties.put(Constants.IMAGE_ID, ImageIds.STEEL_HELMET);
 			properties.put(Constants.ARMOR_TYPE, ArmorType.HEAVY);
+			properties.put(Constants.LONG_DESCRIPTION, "A steel helmet is a piece of head armor.");
 			return new WorldObjectImpl(properties);
 		});
 	
@@ -974,6 +1015,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.ARMS_EQUIPMENT);
 			properties.put(Constants.IMAGE_ID, ImageIds.STEEL_GAUNTLETS);
 			properties.put(Constants.ARMOR_TYPE, ArmorType.HEAVY);
+			properties.put(Constants.LONG_DESCRIPTION, "steel gauntlets are a piece of arm armor.");
 			return new WorldObjectImpl(properties);
 		});
 	
@@ -988,6 +1030,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEGS_EQUIPMENT);
 			properties.put(Constants.IMAGE_ID, ImageIds.STEEL_GREAVES);
 			properties.put(Constants.ARMOR_TYPE, ArmorType.HEAVY);
+			properties.put(Constants.LONG_DESCRIPTION, "steel greaves are a piece of leg armor.");
 			return new WorldObjectImpl(properties);
 		});
 	
@@ -1002,6 +1045,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.RIGHT_HAND_EQUIPMENT);
 			properties.put(Constants.IMAGE_ID, ImageIds.STEEL_SHIELD);
 			properties.put(Constants.ARMOR_TYPE, ArmorType.HEAVY);
+			properties.put(Constants.LONG_DESCRIPTION, "A steel shield is a piece of armor.");
 			return new WorldObjectImpl(properties);
 		});
 	
@@ -1016,6 +1060,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.FEET_EQUIPMENT);
 			properties.put(Constants.IMAGE_ID, ImageIds.STEEL_BOOTS);
 			properties.put(Constants.ARMOR_TYPE, ArmorType.HEAVY);
+			properties.put(Constants.LONG_DESCRIPTION, "steel boots are a piece of feet armor.");
 			return new WorldObjectImpl(properties);
 		});
 		
@@ -1030,6 +1075,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
 			properties.put(Constants.IMAGE_ID, ImageIds.STEEL_MACE);
+			properties.put(Constants.LONG_DESCRIPTION, "A steel mace is a one-handed melee weapon.");
 			return new WorldObjectImpl(properties);
 		});
 		
@@ -1044,6 +1090,7 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
 			properties.put(Constants.IMAGE_ID, ImageIds.STEEL_KATAR);
+			properties.put(Constants.LONG_DESCRIPTION, "A steel katar is a one-handed melee weapon.");
 			return new WorldObjectImpl(properties);
 		});
 		
@@ -1058,16 +1105,17 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_HEALTH, 1000);
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
 			properties.put(Constants.IMAGE_ID, ImageIds.SHORT_BOW);
+			properties.put(Constants.LONG_DESCRIPTION, "A shortbow is a ranged weapon.");
 			return new WorldObjectImpl(properties);
 		});
 		
-		addItem(Item.WOOD, new DefaultItemGenerator(Constants.WOOD, 1, ImageIds.WOOD)::addDefault);
-		addItem(Item.STONE, new DefaultItemGenerator(Constants.STONE, 1, ImageIds.STONE)::addDefault);
-		addItem(Item.GOLD, new DefaultItemGenerator(Constants.GOLD, 1, ImageIds.GOLD)::addDefault);
-		addItem(Item.ORE, new DefaultItemGenerator(Constants.ORE, 1, ImageIds.IRON)::addDefault);
-		addItem(Item.SOUL_GEM, new DefaultItemGenerator(Constants.SOUL_GEM, 1, ImageIds.SOUL_GEM)::addDefault);
-		addItem(Item.LEATHER, new DefaultItemGenerator(Constants.LEATHER, 1, ImageIds.LEATHER)::addDefault);
-		addItem(Item.STEEL, new DefaultItemGenerator(Constants.STEEL, 1, ImageIds.STEEL)::addDefault);
+		addItem(Item.WOOD, new DefaultItemGenerator(Constants.WOOD, 1, ImageIds.WOOD,  "Wood is cut from trees and is used for building construction")::addDefault);
+		addItem(Item.STONE, new DefaultItemGenerator(Constants.STONE, 1, ImageIds.STONE, "Stone is mined and is used for building construction")::addDefault);
+		addItem(Item.GOLD, new DefaultItemGenerator(Constants.GOLD, 1, ImageIds.GOLD, "Gold is used to create gold coins")::addDefault);
+		addItem(Item.ORE, new DefaultItemGenerator(Constants.ORE, 1, ImageIds.IRON, "Iron is used to create tools, weapons and armor")::addDefault);
+		addItem(Item.SOUL_GEM, new DefaultItemGenerator(Constants.SOUL_GEM, 1, ImageIds.SOUL_GEM, "Soulgems are mined and are used by necromancy spells")::addDefault);
+		addItem(Item.LEATHER, new DefaultItemGenerator(Constants.LEATHER, 1, ImageIds.LEATHER, "Leather is obtained when butchering cattle and is used for creating light armor")::addDefault);
+		addItem(Item.STEEL, new DefaultItemGenerator(Constants.STEEL, 1, ImageIds.STEEL, "Steel is obtained by using iron ore, and is used to create weapons and armor")::addDefault);
 	}
 	
 	static {
@@ -1080,12 +1128,14 @@ public enum Item {
 		private final IntProperty propertyKey;
 		private final int quantity;
 		private final ImageIds initialImageId;
+		private final String longDescription;
 		
-		public DefaultItemGenerator(IntProperty propertyKey, int quantity, ImageIds initialImageId) {
+		public DefaultItemGenerator(IntProperty propertyKey, int quantity, ImageIds initialImageId, String longDescription) {
 			super();
 			this.propertyKey = propertyKey;
 			this.quantity = quantity;
 			this.initialImageId = initialImageId;
+			this.longDescription = longDescription;
 		}
 
 		private WorldObject addDefault(double skillBonus) {
@@ -1096,6 +1146,7 @@ public enum Item {
 			properties.put(Constants.SELLABLE, false);
 			properties.put(Constants.NAME, propertyKey.getName());
 			properties.put(Constants.IMAGE_ID, initialImageId);
+			properties.put(Constants.LONG_DESCRIPTION, longDescription);
 			WorldObject worldObject = new WorldObjectImpl(properties);
 			return worldObject;
 		}
@@ -1163,7 +1214,7 @@ public enum Item {
 	}
 	
 	public String getLongDescription() {
-		return DEFAULT_WORLD_OBJECTS.get(this).getProperty(Constants.ITEM_LONG_DESCRIPTION);
+		return DEFAULT_WORLD_OBJECTS.get(this).getProperty(Constants.LONG_DESCRIPTION);
 	}
 	
 	public static Item value(int index) {

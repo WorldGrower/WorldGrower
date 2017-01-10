@@ -68,6 +68,7 @@ public class InventoryItem {
 					|| propertyKey == Constants.ARMOR 
 					|| propertyKey == Constants.WEIGHT 
 					|| propertyKey == Constants.QUANTITY
+					|| propertyKey == Constants.LONG_DESCRIPTION
 					|| Constants.isTool(propertyKey)
 					) {
 				String value = inventoryWorldObject.getProperty(propertyKey).toString();
@@ -193,5 +194,9 @@ public class InventoryItem {
 			}
 		}
 		throw new IllegalStateException("No tool bonus was found in " + additionalProperties);
+	}
+
+	public String getLongDescription() {
+		return additionalProperties.get(Constants.LONG_DESCRIPTION.getName().toLowerCase());
 	}
 }
