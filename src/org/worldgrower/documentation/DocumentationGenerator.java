@@ -218,7 +218,7 @@ public class DocumentationGenerator {
 		String title = "WorldGrower:Buildings";
 		String description = "This lists all the buildings that can be built.";
 		File outputFile = new File(outputDir, "_gen_buildings.html");
-		List<String> headerFields = Arrays.asList("Image", "Name");
+		List<String> headerFields = Arrays.asList("Image", "Name", "Description");
 		List<List<String>> tableValues = new ArrayList<List<String>>();
 
 		for(WorldObject building : buildings) {
@@ -230,6 +230,7 @@ public class DocumentationGenerator {
 			saveImage(building.getProperty(Constants.IMAGE_ID), imageInfoReader, new File(outputDir, filename));
 			tableRow.add(imageTag(filename));
 			tableRow.add(name);
+			tableRow.add(building.getProperty(Constants.LONG_DESCRIPTION));
 			
 			tableValues.add(tableRow);
 		}

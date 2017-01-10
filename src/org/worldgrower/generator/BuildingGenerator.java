@@ -71,6 +71,8 @@ public class BuildingGenerator {
 		properties.put(Constants.TURN_COUNTER, 0);
 		properties.put(Constants.CANDIDATES, new IdList());
 		properties.put(Constants.VOTES, new IdToIntegerMap());
+		properties.put(Constants.LONG_DESCRIPTION, "A voting box is used to become a candidate and vote in elections.");
+		
 		WorldObject votingBox = new WorldObjectImpl(properties, new VotingBoxOnTurn());
 		return votingBox;
 	}
@@ -104,6 +106,7 @@ public class BuildingGenerator {
 		properties.put(Constants.LOCK_STRENGTH, 0);
 		properties.put(Constants.LOCKED, Boolean.FALSE);
 		properties.put(Constants.BUILDING_TYPE, BuildingType.SHACK);
+		properties.put(Constants.LONG_DESCRIPTION, "A shack is used to sleep and to store items.");
 		
 		WorldObject shack = new WorldObjectImpl(properties);
 		return shack;
@@ -138,6 +141,7 @@ public class BuildingGenerator {
 		properties.put(Constants.LOCK_STRENGTH, 2);
 		properties.put(Constants.LOCKED, Boolean.TRUE);
 		properties.put(Constants.BUILDING_TYPE, BuildingType.HOUSE);
+		properties.put(Constants.LONG_DESCRIPTION, "A house is used to sleep and to store items.");
 		
 		WorldObject house = new WorldObjectImpl(properties);
 		return house;
@@ -173,6 +177,7 @@ public class BuildingGenerator {
 		properties.put(Constants.HIT_POINTS_MAX, 75 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
+		properties.put(Constants.LONG_DESCRIPTION, "A well provides water to drink or to collect.");
 		
 		WorldObject well = new WorldObjectImpl(properties, new WellOnTurn());
 		return well;
@@ -202,6 +207,7 @@ public class BuildingGenerator {
 		properties.put(Constants.HIT_POINTS_MAX, hitPoints * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
+		properties.put(Constants.LONG_DESCRIPTION, "A training dummy is used to train combat skills.");
 		
 		WorldObject trainingDummy = new WorldObjectImpl(properties);
 		return trainingDummy;
@@ -228,6 +234,7 @@ public class BuildingGenerator {
 		properties.put(Constants.HIT_POINTS_MAX, 50 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
+		properties.put(Constants.LONG_DESCRIPTION, "A grave contains the remains of a dead character.");
 		
 		WorldObject grave = new WorldObjectImpl(properties);
 		return grave;
@@ -257,6 +264,7 @@ public class BuildingGenerator {
 		properties.put(Constants.HIT_POINTS_MAX, 150 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
+		properties.put(Constants.LONG_DESCRIPTION, "A shrine is used to worship " + deity.getName() + ".");
 		
 		WorldObject shrine = new WorldObjectImpl(properties);
 		return shrine;
@@ -459,6 +467,7 @@ public class BuildingGenerator {
 		properties.put(Constants.HIT_POINTS_MAX, 50 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
+		properties.put(Constants.LONG_DESCRIPTION, "A sacrificial altar is used to sacrifice people.");
 		
 		WorldObject altar = new WorldObjectImpl(properties);
 		return altar;
@@ -589,6 +598,7 @@ public class BuildingGenerator {
 		properties.put(Constants.INVENTORY, new WorldObjectContainer());
 		properties.put(Constants.LOCK_STRENGTH, 2);
 		properties.put(Constants.LOCKED, Boolean.TRUE);
+		properties.put(Constants.LONG_DESCRIPTION, "A library is used to research spells.");
 		
 		WorldObject library = new WorldObjectImpl(properties);
 		return library;
@@ -620,6 +630,7 @@ public class BuildingGenerator {
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		properties.put(Constants.PRICE, BuildingType.PAPERMILL.getPrice());
 		properties.put(Constants.BUILDING_TYPE, BuildingType.PAPERMILL);
+		properties.put(Constants.LONG_DESCRIPTION, "A papermill is used to create paper.");
 		
 		WorldObject paperMill = new WorldObjectImpl(properties);
 		return paperMill;
@@ -649,6 +660,7 @@ public class BuildingGenerator {
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		properties.put(Constants.PRICE, BuildingType.SMITH.getPrice());
 		properties.put(Constants.BUILDING_TYPE, BuildingType.SMITH);
+		properties.put(Constants.LONG_DESCRIPTION, "A smithy is used to create weapons and armor.");
 		
 		WorldObject smith = new WorldObjectImpl(properties);
 		return smith;
@@ -678,6 +690,7 @@ public class BuildingGenerator {
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		properties.put(Constants.PRICE, BuildingType.WORKBENCH.getPrice());
 		properties.put(Constants.BUILDING_TYPE, BuildingType.WORKBENCH);
+		properties.put(Constants.LONG_DESCRIPTION, "A workbench is used to create tools.");
 		
 		WorldObject workbench = new WorldObjectImpl(properties);
 		return workbench;
@@ -712,6 +725,7 @@ public class BuildingGenerator {
 		properties.put(Constants.LOCK_STRENGTH, 2);
 		properties.put(Constants.LOCKED, Boolean.TRUE);
 		properties.put(Constants.BUILDING_TYPE, BuildingType.INN);
+		properties.put(Constants.LONG_DESCRIPTION, "An inn allows multiple people to sleep.");
 		
 		WorldObject house = new WorldObjectImpl(properties);
 		return house;
@@ -740,6 +754,7 @@ public class BuildingGenerator {
 		properties.put(Constants.HIT_POINTS_MAX, 20 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
+		properties.put(Constants.LONG_DESCRIPTION, "A sign post is used to deliver messages.");
 		
 		WorldObject signPost = new WorldObjectImpl(properties);
 		return signPost;
@@ -769,6 +784,7 @@ public class BuildingGenerator {
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		properties.put(Constants.PRICE, BuildingType.WEAVERY.getPrice());
 		properties.put(Constants.BUILDING_TYPE, BuildingType.WEAVERY);
+		properties.put(Constants.LONG_DESCRIPTION, "A weavery is used to create light armor.");
 		
 		WorldObject weavery = new WorldObjectImpl(properties);
 		return weavery;
@@ -798,6 +814,7 @@ public class BuildingGenerator {
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		properties.put(Constants.PRICE, BuildingType.BREWERY.getPrice());
 		properties.put(Constants.BUILDING_TYPE, BuildingType.BREWERY);
+		properties.put(Constants.LONG_DESCRIPTION, "A brewery is used to create alcohol.");
 		
 		WorldObject brewery = new WorldObjectImpl(properties);
 		return brewery;
@@ -827,6 +844,7 @@ public class BuildingGenerator {
 		properties.put(Constants.DAMAGE_RESIST, 0);
 		properties.put(Constants.PRICE, BuildingType.APOTHECARY.getPrice());
 		properties.put(Constants.BUILDING_TYPE, BuildingType.APOTHECARY);
+		properties.put(Constants.LONG_DESCRIPTION, "An apothecary is used to create potions.");
 		
 		WorldObject brewery = new WorldObjectImpl(properties);
 		return brewery;
@@ -859,6 +877,7 @@ public class BuildingGenerator {
 		properties.put(Constants.LOCK_STRENGTH, 2);
 		properties.put(Constants.LOCKED, Boolean.FALSE);
 		properties.put(Constants.BUILDING_TYPE, BuildingType.CHEST);
+		properties.put(Constants.LONG_DESCRIPTION, "A chest stores items.");
 		
 		WorldObject house = new WorldObjectImpl(properties);
 		return house;
