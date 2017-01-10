@@ -15,6 +15,7 @@
 package org.worldgrower.goal;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.List;
@@ -256,7 +257,7 @@ public class UTestBuySellUtils {
 			BuySellUtils.getPrice(performer, food);
 			fail("method should fail");
 		} catch(IllegalStateException e) {
-			assertEquals("InventoryItem NAME=berries, food=1, sellable=false, ImageId=BERRY, itemId=BERRIES,  has no price", e.getMessage());
+			assertTrue(e.getMessage(), e.getMessage().endsWith("has no price"));
 		}
 	}
 	
