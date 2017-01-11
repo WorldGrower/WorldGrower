@@ -16,6 +16,7 @@ package org.worldgrower.goal;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.junit.Test;
@@ -56,6 +57,33 @@ public class UTestBuildLocationUtils {
 		WorldObject location = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, BuildingDimensions.TREE, world);
 		assertEquals(5, location.getProperty(Constants.X).intValue());
 		assertEquals(5, location.getProperty(Constants.Y).intValue());
+	}
+	
+	@Test
+	public void testFindOpenLocationNearExistingPropertyNoPropertyExists() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(7, "Test");
+		performer.setProperty(Constants.X, 4);
+		performer.setProperty(Constants.Y, 4);
+		world.addWorldObject(performer);
+		
+		WorldObject location = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 1, 1, world, new ArrayList<>());
+		assertEquals(4, location.getProperty(Constants.X).intValue());
+		assertEquals(5, location.getProperty(Constants.Y).intValue());
+		assertEquals(1, location.getProperty(Constants.WIDTH).intValue());
+		assertEquals(1, location.getProperty(Constants.HEIGHT).intValue());
+	}
+	
+	@Test
+	public void testFindOpenLocationNearExistingPropertyNoPropertyExistsAndNoRoom() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(7, "Test");
+		performer.setProperty(Constants.X, 4);
+		performer.setProperty(Constants.Y, 4);
+		world.addWorldObject(performer);
+		
+		WorldObject location = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, 6, 6, world, new ArrayList<>());
+		assertEquals(null, location);
 	}
 	
 	@Test

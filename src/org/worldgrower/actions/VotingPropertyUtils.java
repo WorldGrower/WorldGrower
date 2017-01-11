@@ -95,6 +95,9 @@ public class VotingPropertyUtils {
 	
 	public static int createVotingBox(WorldObject target, WorldObject organization, World world) {
 		WorldObject location = BuildLocationUtils.findOpenLocationNearExistingProperty(target, BuildingDimensions.VOTING_BOX, world);
+		if (location == null) {
+			location = BuildLocationUtils.findOpenLocationNearPerformer(target, BuildingDimensions.VOTING_BOX, world);
+		}
 		int votingBoxId = BuildingGenerator.generateVotingBox(location.getProperty(Constants.X), location.getProperty(Constants.Y), world);
 		
 		WorldObject votingBox = world.findWorldObjectById(votingBoxId);

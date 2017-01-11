@@ -14,6 +14,7 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,6 +55,10 @@ public class BuildLocationUtils {
 		return housing;
 	}
 
+	public static WorldObject findOpenLocationAwayFromExistingProperty(WorldObject performer, BuildingDimensions buildingDimensions, World world) {
+		return findOpenLocationAwayFromExistingProperty(performer, buildingDimensions.getPlacementWidth(),  buildingDimensions.getPlacementHeight(), world);
+	}
+	
 	public static WorldObject findOpenLocationAwayFromExistingProperty(WorldObject performer, int width, int height, World world) {
 		List<WorldObject> housing = getHousing(performer, world);
 		
@@ -92,6 +97,10 @@ public class BuildLocationUtils {
 		properties.put(Constants.HEIGHT, height);
 		WorldObject target = new WorldObjectImpl(properties);
 		return target;
+	}
+	
+	public static WorldObject findOpenLocationNearPerformer(WorldObject performer, BuildingDimensions buildingDimensions, World world) {
+		return findOpenLocationNearExistingProperty(performer, buildingDimensions.getPlacementWidth(), buildingDimensions.getPlacementHeight(), world, Arrays.asList(performer));
 	}
 	
 	static WorldObject findOpenLocationNearExistingProperty(WorldObject performer, int width, int height, World world, List<WorldObject> housing) {
