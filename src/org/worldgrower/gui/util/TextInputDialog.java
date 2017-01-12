@@ -32,6 +32,8 @@ import org.worldgrower.gui.music.SoundIdReader;
 
 public class TextInputDialog extends AbstractDialog {
 
+	public static final boolean NUMERIC_INPUT = true;
+	
 	private String value = null;
 	private JTextField textField;
 	

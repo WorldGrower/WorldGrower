@@ -145,7 +145,7 @@ public class InventoryActionFactory {
 		int maxQuantity = inventoryItem.getProperty(Constants.QUANTITY);
 		if (maxQuantity > 1) {
 			//TODO :check for gold availability?
-			String quantityValue = new TextInputDialog("How many items will you buy/sell (1-" + maxQuantity + ") ?", true, imageInfoReader, soundIdReader, parentFrame).showMe();
+			String quantityValue = new TextInputDialog("How many items will you buy/sell (1-" + maxQuantity + ") ?", TextInputDialog.NUMERIC_INPUT, imageInfoReader, soundIdReader, parentFrame).showMe();
 			if ((quantityValue != null) && (NumberUtils.isNumeric(quantityValue) && quantityValue.length() > 0)) {
 				quantity = Integer.parseInt(quantityValue);
 				if (quantity > maxQuantity) {
@@ -191,7 +191,7 @@ public class InventoryActionFactory {
 		@Override
 		public void actionPerformed(ActionEvent actionEvent) {
 			int targetGold = target.getProperty(Constants.GOLD).intValue();
-			TextInputDialog textInputDialog = new TextInputDialog("Steal how much money (1-" + targetGold + ")?", true, imageInfoReader, soundIdReader, parentFrame);
+			TextInputDialog textInputDialog = new TextInputDialog("Steal how much money (1-" + targetGold + ")?", TextInputDialog.NUMERIC_INPUT, imageInfoReader, soundIdReader, parentFrame);
 			String input = textInputDialog.showMe();
 			if (input != null && input.length() > 0 && NumberUtils.isNumeric(input)) {
 				int amount = Integer.parseInt(input);
@@ -222,7 +222,7 @@ public class InventoryActionFactory {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			String numberString = new TextInputDialog(description, true, imageInfoReader, soundIdReader, parentFrame).showMe();
+			String numberString = new TextInputDialog(description, TextInputDialog.NUMERIC_INPUT, imageInfoReader, soundIdReader, parentFrame).showMe();
 			if ((numberString != null) && (NumberUtils.isNumeric(numberString) && numberString.length() > 0)) {
 				int number = Integer.parseInt(numberString);
 				if (number <= maxNumberValue) {

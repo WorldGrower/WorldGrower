@@ -53,7 +53,7 @@ public class RestAction extends AbstractAction {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		String turnsString = new TextInputDialog("Rest how many turns?", true, imageInfoReader, soundIdReader, parentFrame).showMe();
+		String turnsString = new TextInputDialog("Rest how many turns?", TextInputDialog.NUMERIC_INPUT, imageInfoReader, soundIdReader, parentFrame).showMe();
 		if ((turnsString != null) && (NumberUtils.isNumeric(turnsString) && turnsString.length() > 0)) {
 			int turns = Integer.parseInt(turnsString);
 			
