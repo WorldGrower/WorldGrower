@@ -12,20 +12,10 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower;
+package org.worldgrower.generator;
 
-/**
- * This interface provides unique names for commoners.
- */
-public interface CommonerNameGenerator {
-	public String getNextMaleCommonerName();
-	public String getNextFemaleCommonerName();
+import org.worldgrower.CommonerNameGenerator;
 
-	public default String getNextCommonerName(boolean isFemale) {
-		if (isFemale) {
-			return getNextFemaleCommonerName();
-		} else {
-			return getNextMaleCommonerName();
-		}
-	}
+public interface NameRequester {
+	public String requestName(boolean isFemale, String gender, CommonerNameGenerator commonerNameGenerator);
 }

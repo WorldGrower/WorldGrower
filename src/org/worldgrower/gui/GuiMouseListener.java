@@ -52,6 +52,7 @@ import org.worldgrower.actions.magic.ResearchSpellAction;
 import org.worldgrower.actions.magic.ScribeMagicSpellAction;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.conversation.Conversations;
+import org.worldgrower.generator.CommonerGenerator;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.chooseworldobject.ChooseWorldObjectAction;
 import org.worldgrower.gui.chooseworldobject.GuiDisguiseAction;
@@ -227,7 +228,7 @@ public class GuiMouseListener extends MouseAdapter {
 		WorldObject worldObject = worldPanel.findWorldObject(x, y);
 		
         if (worldObject != null) {
-            if (worldObject.getProperty(Constants.ID) == 0) {
+            if (CommonerGenerator.isPlayerCharacter(worldObject)) {
             	showPlayerCharacterMenu(e.getX(), e.getY());
             } else {
             	JPopupMenu menu = MenuFactory.createJPopupMenu(imageInfoReader);

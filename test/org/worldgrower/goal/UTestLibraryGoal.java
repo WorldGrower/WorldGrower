@@ -18,21 +18,20 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.MockCommonerGenerator;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.actions.MockCommonerNameGenerator;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.CommonerGenerator;
 import org.worldgrower.generator.Item;
 import org.worldgrower.generator.PlantGenerator;
-import org.worldgrower.gui.CommonerImageIds;
 
 public class UTestLibraryGoal {
 
 	private LibraryGoal goal = Goals.LIBRARY_GOAL;
-	private final CommonerGenerator commonerGenerator = new CommonerGenerator(666, new CommonerImageIds(), new MockCommonerNameGenerator());
+	private final CommonerGenerator commonerGenerator = new MockCommonerGenerator();
 	
 	@Test
 	public void testCalculateGoalNull() {
@@ -89,7 +88,7 @@ public class UTestLibraryGoal {
 	}
 
 	private WorldObject createCommoner(World world, WorldObject organization) {
-		int commonerId = commonerGenerator.generateCommoner(0, 0, world, organization);
+		int commonerId = commonerGenerator.generateCommoner(0, 0, world, organization, CommonerGenerator.NO_PARENT);
 		WorldObject commoner = world.findWorldObjectById(commonerId);
 		return commoner;
 	}

@@ -33,29 +33,33 @@ import org.worldgrower.gui.music.SoundIdReader;
 public class TextInputDialog extends AbstractDialog {
 
 	public static final boolean NUMERIC_INPUT = true;
+	public static final boolean APHA_NUMERIC_INPUT = false;
 	
 	private String value = null;
 	private JTextField textField;
 	
-	public TextInputDialog(String question, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, JFrame parentFrame) {
-		this(question, false, imageInfoReader, soundIdReader, parentFrame);
+	public TextInputDialog(String question, boolean numericInputOnly, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, JFrame parentFrame) {
+		this(question, null, numericInputOnly, imageInfoReader, soundIdReader, parentFrame);
 	}
 	
-	public TextInputDialog(String question, boolean numericInputOnly, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, JFrame parentFrame) {
-		super(450, 190, imageInfoReader);
+	public TextInputDialog(String question, String defaultValue, boolean numericInputOnly, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, JFrame parentFrame) {
+		super(500, 190, imageInfoReader);
 		
 		JLabel label = JLabelFactory.createJLabel(question);
-		label.setBounds(16, 16, 415, 50);
+		label.setBounds(16, 16, 465, 50);
 		addComponent(label);
 		
 		textField = numericInputOnly ? JTextFieldFactory.createIntegerOnlyJTextField() : JTextFieldFactory.createJTextField();
-		textField.setBounds(16, 70, 415, 30);
+		if (defaultValue != null) {
+			textField.setText(defaultValue);
+		}
+		textField.setBounds(16, 70, 465, 30);
 		addComponent(textField);
 		
 		JPanel buttonPane = new JPanel();
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		buttonPane.setOpaque(false);
-		buttonPane.setBounds(16, 133, 425, 50);
+		buttonPane.setBounds(16, 133, 475, 50);
 		addComponent(buttonPane);
 
 		JButton okButton = JButtonFactory.createButton(" OK ", imageInfoReader, soundIdReader);

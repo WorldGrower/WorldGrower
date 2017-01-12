@@ -19,20 +19,19 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.worldgrower.AssertUtils;
 import org.worldgrower.Constants;
+import org.worldgrower.MockCommonerGenerator;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.actions.MockCommonerNameGenerator;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.deity.Deity;
 import org.worldgrower.generator.CommonerGenerator;
-import org.worldgrower.gui.CommonerImageIds;
 
 public class UTestBecomeReligionOrganizationMemberGoal {
 
 	private BecomeReligionOrganizationMemberGoal goal = Goals.BECOME_RELIGION_ORGANIZATION_MEMBER_GOAL;
-	private final CommonerGenerator commonerGenerator = new CommonerGenerator(666, new CommonerImageIds(), new MockCommonerNameGenerator());
+	private final CommonerGenerator commonerGenerator = new MockCommonerGenerator();
 	
 	@Test
 	public void testCalculateGoalCandidateCreateReligionOrganization() {
@@ -108,7 +107,7 @@ public class UTestBecomeReligionOrganizationMemberGoal {
 	}
 
 	private WorldObject createCommoner(World world, WorldObject organization) {
-		int commonerId = commonerGenerator.generateCommoner(0, 0, world, organization);
+		int commonerId = commonerGenerator.generateCommoner(0, 0, world, organization, CommonerGenerator.NO_PARENT);
 		WorldObject commoner = world.findWorldObjectById(commonerId);
 		return commoner;
 	}

@@ -90,7 +90,7 @@ public class CustomGameParameters implements GameParameters {
 		PlantGenerator.generateBerryBush(3, 3, world);
 		
 		for(int i=0; i<villagerCount; i++) {
-			commonerGenerator.generateCommoner(1, 1, world, organization);
+			commonerGenerator.generateCommoner(1, 1, world, organization, CommonerGenerator.NO_PARENT);
 		}
 		
 		creatureGenerator.generateCow(7, 2, world);

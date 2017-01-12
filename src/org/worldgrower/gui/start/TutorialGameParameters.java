@@ -47,7 +47,7 @@ public class TutorialGameParameters implements GameParameters {
 		WorldObject berryBush = world.findWorldObjectById(berryBushId);
 		berryBush.setProperty(Constants.FOOD_SOURCE, 100);
 		
-		int commonerId = commonerGenerator.generateCommoner(0, 10, world, organization);
+		int commonerId = commonerGenerator.generateCommoner(0, 10, world, organization, CommonerGenerator.NO_PARENT);
 		WorldObject commoner = world.findWorldObjectById(commonerId);
 		Conditions.add(commoner, Condition.PARALYZED_CONDITION, Integer.MAX_VALUE, world);
 	}

@@ -18,10 +18,10 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.MockCommonerGenerator;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
-import org.worldgrower.actions.MockCommonerNameGenerator;
 import org.worldgrower.actions.legal.LegalAction;
 import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.Prices;
@@ -30,13 +30,12 @@ import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.deity.Deity;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.LegalActionsPropertyUtils;
-import org.worldgrower.gui.CommonerImageIds;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.start.CharacterAttributes;
 
 public class UTestCommonerOnTurn {
 
-	private final CommonerGenerator commonerGenerator = new CommonerGenerator(666, new CommonerImageIds(), new MockCommonerNameGenerator());
+	private final CommonerGenerator commonerGenerator = new MockCommonerGenerator();
 	
 	@Test
 	public void testOnTurnOfCommonAttributes() {
@@ -79,7 +78,7 @@ public class UTestCommonerOnTurn {
 	}
 	
 	private WorldObject createCommoner(World world, WorldObject organization) {
-		int commonerId = commonerGenerator.generateCommoner(0, 0, world, organization);
+		int commonerId = commonerGenerator.generateCommoner(0, 0, world, organization, CommonerGenerator.NO_PARENT);
 		return world.findWorldObjectById(commonerId);
 	}
 	

@@ -150,7 +150,7 @@ public class CommonerOnTurn implements OnTurn {
 				int performerY = worldObject.getProperty(Constants.Y);
 				int[] position = GoalUtils.findOpenSpace(worldObject, 1, 1, world);
 				if (position != null) {
-					int id = commonerGenerator.generateCommoner(position[0] + performerX, position[1] + performerY, world, organization);
+					int id = commonerGenerator.generateCommoner(position[0] + performerX, position[1] + performerY, world, organization, worldObject);
 					worldObject.setProperty(Constants.PREGNANCY, null);
 					worldObject.getProperty(Constants.CHILDREN).add(id);
 					

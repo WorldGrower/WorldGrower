@@ -58,39 +58,48 @@ import org.worldgrower.profession.PlayerCharacterProfession;
 
 public class CommonerGenerator implements Serializable {
 
+	public static final WorldObject NO_PARENT = null;
+	
 	private final Random random;
 	private final CommonerImageIds commonerImageIds;
 	private final CommonerNameGenerator commonerNameGenerator;
+	private final NameRequester nameRequester;
 	
-	public CommonerGenerator(int seed, CommonerImageIds commonerImageIds, CommonerNameGenerator commonerNameGenerator) {
+	public CommonerGenerator(int seed, CommonerImageIds commonerImageIds, CommonerNameGenerator commonerNameGenerator, NameRequester nameRequester) {
 		this.random = new Random(seed);
 		this.commonerImageIds = commonerImageIds;
 		this.commonerNameGenerator = commonerNameGenerator;
+		this.nameRequester = nameRequester;
 	}
 
-	public int generateCursedCommoner(int x, int y, World world, WorldObject organization) {
-		int id = generateCommoner(x, y, world, organization);
+	public int generateCursedCommoner(int x, int y, World world, WorldObject organization, WorldObject parent) {
+		int id = generateCommoner(x, y, world, organization, parent);
 		WorldObject cursedCommoner = world.findWorldObjectById(id);
 		cursedCommoner.setProperty(Constants.CURSE, Curse.TOAD_CURSE);
 		
 		return id;
 	}
 	
-	public int generateCommoner(int x, int y, World world, WorldObject organization) {
+	public int generateCommoner(int x, int y, World world, WorldObject organization, WorldObject parent) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		int id = world.generateUniqueId();
 		
 		final ImageIds imageId;
 		final String gender;
 		final String name;
-		if (random.nextFloat() > 0.5f) {
+		boolean isFemale = random.nextFloat() > 0.5f;
+		if (isFemale) {
 			imageId = commonerImageIds.getNextFemaleCommonerImageId();
 			gender = "female";
-			name = commonerNameGenerator.getNextFemaleCommonerName();
 		} else {
 			imageId = commonerImageIds.getNextMaleCommonerImageId();
 			gender = "male";
-			name = commonerNameGenerator.getNextMaleCommonerName();
+		}
+		
+		if (parent != null && isPlayerCharacter(parent)) {
+			name = nameRequester.requestName(isFemale, gender, commonerNameGenerator);
+		} else {
+			name = commonerNameGenerator.getNextCommonerName(isFemale);
 		}
 		
 		properties.put(Constants.X, x);
@@ -153,6 +162,10 @@ public class CommonerGenerator implements Serializable {
 		personality.initialize(creature);
 		
 		return id;
+	}
+	
+	public static boolean isPlayerCharacter(WorldObject worldObject) {
+		return worldObject.getProperty(Constants.ID) == 0;
 	}
 	
 	public static WorldObject createPlayerCharacter(int id, String playerName, String playerProfession, String gender, World world, CommonerGenerator commonerGenerator, WorldObject organization, CharacterAttributes characterAttributes, ImageIds playerCharacterImageId) {

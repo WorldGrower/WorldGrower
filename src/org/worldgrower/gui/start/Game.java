@@ -83,7 +83,8 @@ public class Game {
 		final CommonerImageIds commonerImageIds = new CommonerImageIds(playerCharacterImageId);
 		final CommonerNameGenerator commonerNameGenerator = new CommonerNameGeneratorImpl(gameParameters.getPlayerName());
 		final WorldObject organization = GroupPropertyUtils.createVillagersOrganization(world);
-		final CommonerGenerator commonerGenerator = new CommonerGenerator(seed, commonerImageIds, commonerNameGenerator);
+		final NameRequesterImpl nameRequester = new NameRequesterImpl(imageInfoReader, soundIdReader);
+		final CommonerGenerator commonerGenerator = new CommonerGenerator(seed, commonerImageIds, commonerNameGenerator, nameRequester);
 		
 		final WorldObject verminOrganization = GroupPropertyUtils.create(null, "vermin", world);
 		final CreatureGenerator creatureGenerator = new CreatureGenerator(verminOrganization);
@@ -103,7 +104,7 @@ public class Game {
 		gameParameters.initializePlayerCharacter(playerCharacter);
 		exploreWorld(playerCharacter, world);
 		
-		createAndShowGUIInvokeLater(playerCharacter, world, dungeonMaster, imageInfoReader, soundIdReader, musicPlayer, gameParameters.getInitialStatusMessage(), gameParameters.getAdditionalManagedOperationListenerFactory(), keyBindings);
+		createAndShowGUIInvokeLater(playerCharacter, world, dungeonMaster, imageInfoReader, soundIdReader, musicPlayer, gameParameters.getInitialStatusMessage(), gameParameters.getAdditionalManagedOperationListenerFactory(), keyBindings, nameRequester);
 	}
 	
 	private static class RunWorldSwingWorker extends SwingWorker<Integer, Integer> {
@@ -208,19 +209,20 @@ public class Game {
 		DungeonMaster dungeonMaster = new DungeonMaster();
 		World world = WorldImpl.load(fileToLoad);
 		final WorldObject playerCharacter = world.findWorldObjectById(0);
+		NameRequesterImpl nameRequester = new NameRequesterImpl(imageInfoReader, soundIdReader);
 		
 		addWorldListeners(world);
 		
 		//TODO: load playBackgroundMusic flag from file
-		createAndShowGUIInvokeLater(playerCharacter, world, dungeonMaster, imageInfoReader, soundIdReader, musicPlayer, StatusMessages.WELCOME, new NullAdditionalManagedOperationListenerFactory(), keyBindings);
+		createAndShowGUIInvokeLater(playerCharacter, world, dungeonMaster, imageInfoReader, soundIdReader, musicPlayer, StatusMessages.WELCOME, new NullAdditionalManagedOperationListenerFactory(), keyBindings, nameRequester);
 	}
 
-	private static void createAndShowGUIInvokeLater(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, MusicPlayer musicPlayer, String initialStatusMessage, AdditionalManagedOperationListenerFactory additionalManagedOperationListenerFactory, KeyBindings keyBindings) {
+	private static void createAndShowGUIInvokeLater(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, MusicPlayer musicPlayer, String initialStatusMessage, AdditionalManagedOperationListenerFactory additionalManagedOperationListenerFactory, KeyBindings keyBindings, NameRequesterImpl nameRequester) {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
             public void run() {
                 try {
-					createAndShowGUI(playerCharacter, world, dungeonMaster, imageInfoReader, soundIdReader, musicPlayer, initialStatusMessage, additionalManagedOperationListenerFactory, keyBindings);
+					createAndShowGUI(playerCharacter, world, dungeonMaster, imageInfoReader, soundIdReader, musicPlayer, initialStatusMessage, additionalManagedOperationListenerFactory, keyBindings, nameRequester);
 				} catch (IOException e) {
 					throw new IllegalStateException(e);
 				}
@@ -234,7 +236,7 @@ public class Game {
     	}
 	}
 	
-    private static void createAndShowGUI(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, MusicPlayer musicPlayer, String initialStatusMessage, AdditionalManagedOperationListenerFactory additionalManagedOperationListenerFactory, KeyBindings keyBindings) throws IOException {
+    private static void createAndShowGUI(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, MusicPlayer musicPlayer, String initialStatusMessage, AdditionalManagedOperationListenerFactory additionalManagedOperationListenerFactory, KeyBindings keyBindings, NameRequesterImpl nameRequester) throws IOException {
     	closeMainPanel();
         frame = new JFrame("WorldGrower");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -256,6 +258,7 @@ public class Game {
         ToolTipManager.sharedInstance().setDismissDelay(9999999);
         
         worldPanel.addGuiListeners(additionalManagedOperationListenerFactory, frame);
+        nameRequester.setParent(frame);
         
         musicPlayer.play();
     }

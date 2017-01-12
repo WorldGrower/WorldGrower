@@ -18,20 +18,19 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.MockCommonerGenerator;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
-import org.worldgrower.actions.MockCommonerNameGenerator;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.goal.GroupPropertyUtils;
-import org.worldgrower.gui.CommonerImageIds;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.start.CharacterAttributes;
 
 public class UTestCommonerGenerator {
 
-	private final CommonerGenerator commonerGenerator = new CommonerGenerator(666, new CommonerImageIds(), new MockCommonerNameGenerator());
+	private final CommonerGenerator commonerGenerator = new MockCommonerGenerator();
 	
 	@Test
 	public void testGeneratePlayerCharacter() {
@@ -49,7 +48,7 @@ public class UTestCommonerGenerator {
 	public void testGenerateCommoner() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject villagersOrganization = GroupPropertyUtils.createVillagersOrganization(world);
-		int commonerId = commonerGenerator.generateCommoner(0, 0, world, villagersOrganization);
+		int commonerId = commonerGenerator.generateCommoner(0, 0, world, villagersOrganization, CommonerGenerator.NO_PARENT);
 		WorldObject commoner = world.findWorldObjectById(commonerId);
 
 		assertEquals(true, commoner.isControlledByAI());

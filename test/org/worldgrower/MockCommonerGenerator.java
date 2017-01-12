@@ -14,18 +14,13 @@
  *******************************************************************************/
 package org.worldgrower;
 
-/**
- * This interface provides unique names for commoners.
- */
-public interface CommonerNameGenerator {
-	public String getNextMaleCommonerName();
-	public String getNextFemaleCommonerName();
+import org.worldgrower.actions.MockCommonerNameGenerator;
+import org.worldgrower.generator.CommonerGenerator;
+import org.worldgrower.gui.CommonerImageIds;
 
-	public default String getNextCommonerName(boolean isFemale) {
-		if (isFemale) {
-			return getNextFemaleCommonerName();
-		} else {
-			return getNextMaleCommonerName();
-		}
+public class MockCommonerGenerator extends CommonerGenerator {
+
+	public MockCommonerGenerator() {
+		super(666, new CommonerImageIds(), new MockCommonerNameGenerator(), null);
 	}
 }

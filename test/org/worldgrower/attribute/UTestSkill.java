@@ -18,6 +18,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.MockCommonerGenerator;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
@@ -36,7 +37,7 @@ import org.worldgrower.gui.start.CharacterAttributes;
 
 public class UTestSkill {
 
-	private final CommonerGenerator commonerGenerator = new CommonerGenerator(666, new CommonerImageIds(), new MockCommonerNameGenerator());
+	private final CommonerGenerator commonerGenerator = new MockCommonerGenerator();
 	
 	@Test
 	public void testGetLevel() {

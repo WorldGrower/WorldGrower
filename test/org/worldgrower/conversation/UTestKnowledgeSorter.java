@@ -22,25 +22,24 @@ import java.util.List;
 import org.junit.Test;
 import org.worldgrower.Args;
 import org.worldgrower.Constants;
+import org.worldgrower.MockCommonerGenerator;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.actions.MockCommonerNameGenerator;
 import org.worldgrower.attribute.EventKnowledge;
 import org.worldgrower.attribute.Knowledge;
 import org.worldgrower.attribute.PropertyKnowledge;
 import org.worldgrower.deity.Deity;
 import org.worldgrower.generator.CommonerGenerator;
 import org.worldgrower.goal.GroupPropertyUtils;
-import org.worldgrower.gui.CommonerImageIds;
 import org.worldgrower.history.Turn;
 import org.worldgrower.profession.Professions;
 
 public class UTestKnowledgeSorter {
 
-	private final CommonerGenerator commonerGenerator = new CommonerGenerator(666, new CommonerImageIds(), new MockCommonerNameGenerator());
+	private final CommonerGenerator commonerGenerator = new MockCommonerGenerator();
 	
 	@Test
 	public void testSortPropertyAndEvent() {
@@ -85,7 +84,7 @@ public class UTestKnowledgeSorter {
 	}
 	
 	private WorldObject createCommoner(World world, WorldObject organization) {
-		int commonerId = commonerGenerator.generateCommoner(0, 0, world, organization);
+		int commonerId = commonerGenerator.generateCommoner(0, 0, world, organization, CommonerGenerator.NO_PARENT);
 		WorldObject performer = world.findWorldObjectById(commonerId);
 		return performer;
 	}

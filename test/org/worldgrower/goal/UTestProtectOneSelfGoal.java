@@ -4,20 +4,19 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.MockCommonerGenerator;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.actions.MockCommonerNameGenerator;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.generator.CommonerGenerator;
-import org.worldgrower.gui.CommonerImageIds;
 
 public class UTestProtectOneSelfGoal {
 
 	private ProtectOneSelfGoal goal = Goals.PROTECT_ONE_SELF_GOAL;
-	private CommonerGenerator commonerGenerator = new CommonerGenerator(666, new CommonerImageIds(), new MockCommonerNameGenerator());
+	private CommonerGenerator commonerGenerator = new MockCommonerGenerator();
 	
 	@Test
 	public void testCalculateGoalNoDanger() {
@@ -31,7 +30,7 @@ public class UTestProtectOneSelfGoal {
 	public void testCalculateGoalOneEnemy() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject organization = createVillagersOrganization(world);
-		int performerId = commonerGenerator.generateCommoner(5, 5, world, organization);
+		int performerId = commonerGenerator.generateCommoner(5, 5, world, organization, CommonerGenerator.NO_PARENT);
 		generateEnemy(7, 7, organization, world);
 		WorldObject performer = world.findWorldObjectById(performerId);
 		
@@ -43,7 +42,7 @@ public class UTestProtectOneSelfGoal {
 	public void testCalculateGoalCorneredByEnemy() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject organization = createVillagersOrganization(world);
-		int performerId = commonerGenerator.generateCommoner(0, 0, world, organization);
+		int performerId = commonerGenerator.generateCommoner(0, 0, world, organization, CommonerGenerator.NO_PARENT);
 		generateEnemy(1, 1, organization, world);
 		WorldObject performer = world.findWorldObjectById(performerId);
 		
@@ -51,7 +50,7 @@ public class UTestProtectOneSelfGoal {
 	}
 	
 	private void generateEnemy(int x, int y, WorldObject organization, World world) {
-		int id = commonerGenerator.generateCommoner(x, y, world, organization);
+		int id = commonerGenerator.generateCommoner(x, y, world, organization, CommonerGenerator.NO_PARENT);
 		WorldObject enemy = world.findWorldObjectById(id);
 		enemy.getProperty(Constants.GROUP).removeAll();
 	}
@@ -60,7 +59,7 @@ public class UTestProtectOneSelfGoal {
 	public void testCalculateGoalOneEnemyAtLongerDistance() {
 		World world = new WorldImpl(15, 15, null, null);
 		WorldObject organization = createVillagersOrganization(world);
-		int performerId = commonerGenerator.generateCommoner(3, 3, world, organization);
+		int performerId = commonerGenerator.generateCommoner(3, 3, world, organization, CommonerGenerator.NO_PARENT);
 		generateEnemy(7, 7, organization, world);
 		WorldObject performer = world.findWorldObjectById(performerId);
 		
@@ -73,7 +72,7 @@ public class UTestProtectOneSelfGoal {
 	public void testCalculateGoalOneEnemyAtMediumDistance() {
 		World world = new WorldImpl(15, 15, null, null);
 		WorldObject organization = createVillagersOrganization(world);
-		int performerId = commonerGenerator.generateCommoner(1, 9, world, organization);
+		int performerId = commonerGenerator.generateCommoner(1, 9, world, organization, CommonerGenerator.NO_PARENT);
 		generateEnemy(1, 1, organization, world);
 		WorldObject performer = world.findWorldObjectById(performerId);
 		
@@ -86,7 +85,7 @@ public class UTestProtectOneSelfGoal {
 	public void testCalculateGoalOneEnemyAtShortDistance() {
 		World world = new WorldImpl(15, 15, null, null);
 		WorldObject organization = createVillagersOrganization(world);
-		int performerId = commonerGenerator.generateCommoner(0, 1, world, organization);
+		int performerId = commonerGenerator.generateCommoner(0, 1, world, organization, CommonerGenerator.NO_PARENT);
 		generateEnemy(2, 0, organization, world);
 		WorldObject performer = world.findWorldObjectById(performerId);
 		
@@ -98,7 +97,7 @@ public class UTestProtectOneSelfGoal {
 	public void testCalculateGoalOneEnemyAtShortDistance2() {
 		World world = new WorldImpl(15, 15, null, null);
 		WorldObject organization = createVillagersOrganization(world);
-		int performerId = commonerGenerator.generateCommoner(1, 2, world, organization);
+		int performerId = commonerGenerator.generateCommoner(1, 2, world, organization, CommonerGenerator.NO_PARENT);
 		generateEnemy(3, 1, organization, world);
 		WorldObject performer = world.findWorldObjectById(performerId);
 		
@@ -111,7 +110,7 @@ public class UTestProtectOneSelfGoal {
 	public void testCalculateGoalOneEnemyAtEdge() {
 		World world = new WorldImpl(15, 15, null, null);
 		WorldObject organization = createVillagersOrganization(world);
-		int performerId = commonerGenerator.generateCommoner(3, 3, world, organization);
+		int performerId = commonerGenerator.generateCommoner(3, 3, world, organization, CommonerGenerator.NO_PARENT);
 		generateEnemy(12, 12, organization, world);
 		WorldObject performer = world.findWorldObjectById(performerId);
 		
@@ -124,7 +123,7 @@ public class UTestProtectOneSelfGoal {
 	public void testCalculateGoalMultipleTurnsAtMapEdge() {
 		World world = new WorldImpl(15, 15, null, null);
 		WorldObject organization = createVillagersOrganization(world);
-		int performerId = commonerGenerator.generateCommoner(3, 3, world, organization);
+		int performerId = commonerGenerator.generateCommoner(3, 3, world, organization, CommonerGenerator.NO_PARENT);
 		generateEnemy(7, 7, organization, world);
 		WorldObject performer = world.findWorldObjectById(performerId);
 		
@@ -153,7 +152,7 @@ public class UTestProtectOneSelfGoal {
 	public void testCalculateGoalMultipleTurnsAtLongerDistance() {
 		World world = new WorldImpl(15, 15, null, null);
 		WorldObject organization = createVillagersOrganization(world);
-		int performerId = commonerGenerator.generateCommoner(8, 8, world, organization);
+		int performerId = commonerGenerator.generateCommoner(8, 8, world, organization, CommonerGenerator.NO_PARENT);
 		generateEnemy(0, 0, organization, world);
 		WorldObject performer = world.findWorldObjectById(performerId);
 		
@@ -172,12 +171,12 @@ public class UTestProtectOneSelfGoal {
 	public void testIsGoalMet() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject organization = createVillagersOrganization(world);
-		int performerId = commonerGenerator.generateCommoner(5, 5, world, organization);
+		int performerId = commonerGenerator.generateCommoner(5, 5, world, organization, CommonerGenerator.NO_PARENT);
 		WorldObject performer = world.findWorldObjectById(performerId);
 		
 		assertEquals(true, goal.isGoalMet(performer, world));
 		
-		int targetId = commonerGenerator.generateCommoner(7, 7, world, organization);
+		int targetId = commonerGenerator.generateCommoner(7, 7, world, organization, CommonerGenerator.NO_PARENT);
 		WorldObject target = world.findWorldObjectById(targetId);
 		target.setProperty(Constants.GROUP, new IdList());
 		assertEquals(false, goal.isGoalMet(performer, world));

@@ -18,6 +18,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.MockCommonerGenerator;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
@@ -25,17 +26,16 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.CommonerGenerator;
 import org.worldgrower.goal.GroupPropertyUtils;
-import org.worldgrower.gui.CommonerImageIds;
 
 public class UTestStartOrganizationVoteAction {
 
-	private final CommonerGenerator commonerGenerator = new CommonerGenerator(666, new CommonerImageIds(), new MockCommonerNameGenerator());
+	private final CommonerGenerator commonerGenerator = new MockCommonerGenerator();
 	
 	@Test
 	public void testExecute() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
-		int id = commonerGenerator.generateCommoner(0, 0, world, organization);
+		int id = commonerGenerator.generateCommoner(0, 0, world, organization, CommonerGenerator.NO_PARENT);
 		WorldObject performer = world.findWorldObjectById(id);
 		WorldObject target = createPerformer(3);
 		
@@ -48,7 +48,7 @@ public class UTestStartOrganizationVoteAction {
 	public void testIsValidTarget() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
-		int id = commonerGenerator.generateCommoner(0, 0, world, organization);
+		int id = commonerGenerator.generateCommoner(0, 0, world, organization, CommonerGenerator.NO_PARENT);
 		WorldObject performer = world.findWorldObjectById(id);
 		WorldObject target = createPerformer(3);
 		
@@ -60,7 +60,7 @@ public class UTestStartOrganizationVoteAction {
 	public void testIsActionPossible() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
-		int id = commonerGenerator.generateCommoner(0, 0, world, organization);
+		int id = commonerGenerator.generateCommoner(0, 0, world, organization, CommonerGenerator.NO_PARENT);
 		WorldObject performer = world.findWorldObjectById(id);
 		
 		assertEquals(true, Actions.START_ORGANIZATION_VOTE_ACTION.isActionPossible(performer, performer, new int[] { 0 }, world));

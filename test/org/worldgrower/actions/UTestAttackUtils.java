@@ -19,6 +19,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.worldgrower.Args;
 import org.worldgrower.Constants;
+import org.worldgrower.MockCommonerGenerator;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
@@ -29,7 +30,6 @@ import org.worldgrower.condition.Conditions;
 import org.worldgrower.generator.CommonerGenerator;
 import org.worldgrower.generator.Item;
 import org.worldgrower.goal.GroupPropertyUtils;
-import org.worldgrower.gui.CommonerImageIds;
 
 public class UTestAttackUtils {
 
@@ -269,9 +269,9 @@ public class UTestAttackUtils {
 	}
 
 	private WorldObject createCommoner(World world) {
-		CommonerGenerator commonerGenerator = new CommonerGenerator(0, new CommonerImageIds(), new MockCommonerNameGenerator());
+		CommonerGenerator commonerGenerator = new MockCommonerGenerator();
 		WorldObject villagersOrganization = GroupPropertyUtils.createVillagersOrganization(world);
-		int performerId = commonerGenerator.generateCommoner(0, 0, world, villagersOrganization);
+		int performerId = commonerGenerator.generateCommoner(0, 0, world, villagersOrganization, CommonerGenerator.NO_PARENT);
 		WorldObject performer = world.findWorldObjectById(performerId);
 		return performer;
 	}
