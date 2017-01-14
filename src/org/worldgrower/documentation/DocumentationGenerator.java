@@ -62,12 +62,12 @@ public class DocumentationGenerator {
 	private static void generateMagicSpellOverview(File outputDir, ImageInfoReader imageInfoReader) {
 		String title = "WorldGrower:Spells";
 		String description = "Spells are researched at a library and take several turns and a high enough skill level to research.";
-		File outputFile = new File(outputDir, "_gen_spells.html");
+		File outputFile = new File(outputDir, "gen_spells.html");
 		List<String> headerFields = Arrays.asList("Icon", "Name", "Magic School", "Description");
 		List<List<String>> tableValues = new ArrayList<List<String>>();
 		for(MagicSpell magicSpell : Actions.getMagicSpells()) {
 			List<String> tableRow = new ArrayList<>();
-			String magicSpellFilename = "_gen_" + magicSpell.getClass().getName() + ".png";
+			String magicSpellFilename = "gen_" + magicSpell.getClass().getName() + ".png";
 			saveImage(magicSpell.getImageIds(null) , imageInfoReader, new File(outputDir, magicSpellFilename));
 			
 			tableRow.add(imageTag(magicSpellFilename));
@@ -84,13 +84,13 @@ public class DocumentationGenerator {
 	private static void generateToolsOverview(File outputDir, ImageInfoReader imageInfoReader) {
 		String title = "WorldGrower:Tools";
 		String description = "Tools are created at a workbench and makes certain actions more productive.";
-		File outputFile = new File(outputDir, "_gen_tools.html");
+		File outputFile = new File(outputDir, "gen_tools.html");
 		List<String> headerFields = Arrays.asList("Icon", "Name", "Description");
 		List<List<String>> tableValues = new ArrayList<List<String>>();
 		for(Item item : Item.values()) {
 			if (item.getItemType() == ItemType.TOOL || item.generate(1f).hasProperty(Constants.WOOD_CUTTING_QUALITY)) {
 				List<String> tableRow = new ArrayList<>();
-				String toolFilename = "_gen_" + item.getDescription() + ".png";
+				String toolFilename = "gen_" + item.getDescription() + ".png";
 				saveImage(item.getImageId(), imageInfoReader, new File(outputDir, toolFilename));
 				
 				tableRow.add(imageTag(toolFilename));
@@ -106,13 +106,13 @@ public class DocumentationGenerator {
 	private static void generateEquipmentOverview(File outputDir, ImageInfoReader imageInfoReader) {
 		String title = "WorldGrower:Equipment";
 		String description = "Equipment can be worn by characters to increase damage or armor.";
-		File outputFile = new File(outputDir, "_gen_equipment.html");
+		File outputFile = new File(outputDir, "gen_equipment.html");
 		List<String> headerFields = Arrays.asList("Icon", "Name", "Damage", "Armor");
 		List<List<String>> tableValues = new ArrayList<List<String>>();
 		for(Item item : Item.values()) {
 			if (item.getItemType() == ItemType.ARMOR || item.getItemType() == ItemType.WEAPON) {
 				List<String> tableRow = new ArrayList<>();
-				String equipmentFilename = "_gen_" + item.getDescription() + ".png";
+				String equipmentFilename = "gen_" + item.getDescription() + ".png";
 				saveImage(item.getImageId(), imageInfoReader, new File(outputDir, equipmentFilename));
 
 				tableRow.add(imageTag(equipmentFilename));
@@ -129,13 +129,13 @@ public class DocumentationGenerator {
 	private static void generateDiseasesOverview(File outputDir, ImageInfoReader imageInfoReader) {
 		String title = "WorldGrower:Diseases";
 		String description = "This is a complete list of the diseases you can catch.";
-		File outputFile = new File(outputDir, "_gen_diseases.html");
+		File outputFile = new File(outputDir, "gen_diseases.html");
 		List<String> headerFields = Arrays.asList("Icon", "Name", "Description");
 		List<List<String>> tableValues = new ArrayList<List<String>>();
 		for(Condition condition : Condition.ALL_CONDITIONS) {
 			if (condition.isDisease()) {
 				List<String> tableRow = new ArrayList<>();
-				String conditionFilename = "_gen_" + condition.getDescription() + ".png";
+				String conditionFilename = "gen_" + condition.getDescription() + ".png";
 				saveImage(condition.getImageIds(), imageInfoReader, new File(outputDir, conditionFilename));
 
 				tableRow.add(imageTag(conditionFilename));
@@ -151,13 +151,13 @@ public class DocumentationGenerator {
 	private static void generateAlchemyOverview(File outputDir, ImageInfoReader imageInfoReader) {
 		String title = "WorldGrower:Alchemy";
 		String description = "Most alchemy items are created at an apothecary, except for water which is collected at a drinking well.";
-		File outputFile = new File(outputDir, "_gen_alchemy.html");
+		File outputFile = new File(outputDir, "gen_alchemy.html");
 		List<String> headerFields = Arrays.asList("Icon", "Name", "Description");
 		List<List<String>> tableValues = new ArrayList<List<String>>();
 		for(Item item : Item.values()) {
 			if (item.getItemType() == ItemType.DRINK) {
 				List<String> tableRow = new ArrayList<>();
-				String filename = "_gen_" + item.getDescription() + ".png";
+				String filename = "gen_" + item.getDescription() + ".png";
 				saveImage(item.getImageId(), imageInfoReader, new File(outputDir, filename));
 
 				tableRow.add(imageTag(filename));
@@ -173,12 +173,12 @@ public class DocumentationGenerator {
 	private static void generateDeitiesOverview(File outputDir, ImageInfoReader imageInfoReader) {
 		String title = "WorldGrower:Deities";
 		String description = "Deities are worshipped at shrines and give skill bonuses and boons to devout followers.";
-		File outputFile = new File(outputDir, "_gen_deities.html");
+		File outputFile = new File(outputDir, "gen_deities.html");
 		List<String> headerFields = Arrays.asList("Icon", "Name", "Description", "Skill", "Boon");
 		List<List<String>> tableValues = new ArrayList<List<String>>();
 		for(Deity deity : Deity.ALL_DEITIES) {
 			List<String> tableRow = new ArrayList<>();
-			String filename = "_gen_" + deity.getName() + ".png";
+			String filename = "gen_" + deity.getName() + ".png";
 			saveImage(deity.getBoonImageId(), imageInfoReader, new File(outputDir, filename));
 
 			tableRow.add(imageTag(filename));
@@ -196,7 +196,7 @@ public class DocumentationGenerator {
 		List<SkillProperty> skills = SkillUtils.getSortedSkills();
 		String title = "WorldGrower:Skills";
 		String description = "There are " + skills.size() + " skills in WorldGrower, each of which determines how well you can perform various tasks. Each skill is governed by an Attribute. A higher attribute results in a higher starting skill level and faster skill level increases.";
-		File outputFile = new File(outputDir, "_gen_skills.html");
+		File outputFile = new File(outputDir, "gen_skills.html");
 		List<String> headerFields = Arrays.asList("Name", "Description", "Attribute");
 		List<List<String>> tableValues = new ArrayList<List<String>>();
 
@@ -217,7 +217,7 @@ public class DocumentationGenerator {
 		List<WorldObject> buildings = BuildingGenerator.getAllBuildings(buildingOwner);
 		String title = "WorldGrower:Buildings";
 		String description = "This lists all the buildings that can be built.";
-		File outputFile = new File(outputDir, "_gen_buildings.html");
+		File outputFile = new File(outputDir, "gen_buildings.html");
 		List<String> headerFields = Arrays.asList("Image", "Name", "Description");
 		List<List<String>> tableValues = new ArrayList<List<String>>();
 
@@ -226,7 +226,7 @@ public class DocumentationGenerator {
 
 			String name = building.getProperty(Constants.NAME);
 			name = name.replace("character's", "").trim();
-			String filename = "_gen_" + name + ".png";
+			String filename = "gen_" + name + ".png";
 			saveImage(building.getProperty(Constants.IMAGE_ID), imageInfoReader, new File(outputDir, filename));
 			tableRow.add(imageTag(filename));
 			tableRow.add(name);
