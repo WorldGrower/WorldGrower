@@ -34,6 +34,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
+import javax.swing.event.PopupMenuEvent;
+import javax.swing.event.PopupMenuListener;
 
 import org.worldgrower.Args;
 import org.worldgrower.Constants;
@@ -271,11 +273,6 @@ public class GuiMouseListener extends MouseAdapter {
 			public void mouseExited(MouseEvent e) {
 				clearPath();
 			}
-
-			void clearPath() {
-				container.setGotoPath(new ArrayList<>());
-				container.repaint();
-			}
 			
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -283,6 +280,26 @@ public class GuiMouseListener extends MouseAdapter {
 				container.repaint();
 			}
 		});
+		
+		menu.addPopupMenuListener(new PopupMenuListener() {
+			@Override
+			public void popupMenuCanceled(PopupMenuEvent e) {
+				clearPath();
+			}
+
+			@Override
+			public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+			}
+
+			@Override
+			public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+			}
+		});
+	}
+	
+	void clearPath() {
+		container.setGotoPath(new ArrayList<>());
+		container.repaint();
 	}
 
 	private void showPlayerCharacterMenu(int x, int y) {
