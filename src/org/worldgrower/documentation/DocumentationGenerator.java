@@ -259,7 +259,7 @@ public class DocumentationGenerator {
 	private static void createHtmlFile(String title, String description, File outputFile, ImageInfoReader imageInfoReader, List<String> headerFields, List<List<String>> tableValues) {
 		StringBuilder htmlBuilder = new StringBuilder("<html>");
 		htmlBuilder.append("<head>");
-		htmlBuilder.append("<link rel=\"stylesheet\" type=\"text/css\" href=\"worldgrower.css\">");
+		htmlBuilder.append("<link rel=\"stylesheet\" type=\"text/css\" href=\"../worldgrower.css\">");
 		htmlBuilder.append("</head>");
 		htmlBuilder.append("<body>");
 		htmlBuilder.append("<h2>").append(title).append("</h2>");
