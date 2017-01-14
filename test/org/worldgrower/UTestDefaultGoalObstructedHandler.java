@@ -26,8 +26,6 @@ import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.KnowledgeMap;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
-import org.worldgrower.condition.WorldStateChangedListeners;
-import org.worldgrower.generator.CommonerOnTurn;
 import org.worldgrower.generator.CreatureGenerator;
 import org.worldgrower.generator.Item;
 import org.worldgrower.generator.PlantGenerator;

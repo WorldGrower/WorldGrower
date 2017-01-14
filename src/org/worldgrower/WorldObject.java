@@ -55,4 +55,5 @@ public interface WorldObject {
 	 * an argument for a ManagedOperation
 	 */
 	public WorldObject getActionWorldObject();
+	public OnTurn getOnTurn();
 }

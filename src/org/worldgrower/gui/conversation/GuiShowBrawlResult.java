@@ -17,7 +17,6 @@ package org.worldgrower.gui.conversation;
 import javax.swing.Icon;
 import javax.swing.JFrame;
 
-import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.BrawlFinishedListener;

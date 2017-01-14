@@ -19,7 +19,6 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.curse.Curse;
-import org.worldgrower.goal.GroupPropertyUtils;
 
 public class GhoulUtils {
 

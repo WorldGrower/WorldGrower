@@ -23,7 +23,6 @@ import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
-import org.worldgrower.actions.MockCommonerNameGenerator;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.condition.WorldStateChangedListeners;
@@ -31,7 +30,6 @@ import org.worldgrower.generator.CommonerGenerator;
 import org.worldgrower.generator.Item;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.WeightPropertyUtils;
-import org.worldgrower.gui.CommonerImageIds;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.start.CharacterAttributes;
 

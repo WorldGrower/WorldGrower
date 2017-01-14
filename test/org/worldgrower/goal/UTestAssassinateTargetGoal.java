@@ -23,9 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
-import org.worldgrower.actions.MockCommonerNameGenerator;
 import org.worldgrower.generator.CommonerGenerator;
-import org.worldgrower.gui.CommonerImageIds;
 
 public class UTestAssassinateTargetGoal {
 

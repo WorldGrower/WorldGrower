@@ -44,6 +44,7 @@ import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.curse.CurseListener;
 import org.worldgrower.deity.DeityWorldOnTurn;
 import org.worldgrower.generator.CommonerGenerator;
+import org.worldgrower.generator.CommonerOnTurn;
 import org.worldgrower.generator.CreatureGenerator;
 import org.worldgrower.generator.PlantGenerator;
 import org.worldgrower.generator.WorldGenerator;
@@ -210,6 +211,7 @@ public class Game {
 		World world = WorldImpl.load(fileToLoad);
 		final WorldObject playerCharacter = world.findWorldObjectById(0);
 		NameRequesterImpl nameRequester = new NameRequesterImpl(imageInfoReader, soundIdReader);
+		((CommonerOnTurn)playerCharacter.getOnTurn()).getCommonerGenerator().setNameRequester(nameRequester);
 		
 		addWorldListeners(world);
 		

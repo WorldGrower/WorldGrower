@@ -16,8 +16,6 @@ package org.worldgrower.goal;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.Arrays;
-
 import org.junit.Test;
 import org.worldgrower.AssertUtils;
 import org.worldgrower.Constants;

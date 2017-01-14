@@ -72,7 +72,7 @@ public class TutorialAdditionalManagedOperationListenerFactory implements Additi
 			} else if (managedOperation == Actions.BUILD_LIBRARY_ACTION) {	
 				setStatusMessage("Let's learn firebolt, move next to the library and left-click and choose research firebolt. \nTo learn faster, you can research multiple turns at one.", "Researching firebolt", performer);
 			} else if (managedOperation == Actions.getResearchSpellActionFor(Actions.FIRE_BOLT_ATTACK_ACTION)) {
-				setStatusMessage("Spells known to your characters are shown in the magic overview. \nPress the M key or left-click on the character and choose Magic Overview to show the magic overview. \nOnce you've learned firebolt and have no weapon equiped, shoot a firebolt at the tree: left-click the tree, go to the Evocation menu and choose fire bolt.", "Eating food", performer);
+				setStatusMessage("Spells known to your characters are shown in the magic overview. \nPress the M key or left-click on the character and choose Magic Overview to show the magic overview. \nOnce you've learned firebolt and have no weapon equipped, shoot a firebolt at the tree: left-click the tree, go to the Evocation menu and choose fire bolt.", "Eating food", performer);
 			} else if (managedOperation == Actions.FIRE_BOLT_ATTACK_ACTION) {
 				setStatusMessage("Now that you know the basic actions, you can start a new game. \nClose any dialog windows, press the escape key to bring up the main menu and start a non-tutorial game.", "Talking", target);
 			}

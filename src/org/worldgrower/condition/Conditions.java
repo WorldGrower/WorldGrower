@@ -174,10 +174,6 @@ public class Conditions implements Serializable {
 		public int getStartTurn() {
 			return startTurn;
 		}
-
-		public void setStartTurn(int startTurn) {
-			this.startTurn = startTurn;
-		}
 	}
 
 	@Override

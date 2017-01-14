@@ -16,7 +16,6 @@ package org.worldgrower.gui.status;
 
 import java.awt.Component;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -24,7 +23,6 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
-import org.worldgrower.gui.util.ImageUtils;
 import org.worldgrower.gui.util.JLabelFactory;
 
 class StatusMessageListRenderer implements ListCellRenderer<StatusMessage> {

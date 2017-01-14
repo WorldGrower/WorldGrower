@@ -63,7 +63,7 @@ public class CommonerGenerator implements Serializable {
 	private final Random random;
 	private final CommonerImageIds commonerImageIds;
 	private final CommonerNameGenerator commonerNameGenerator;
-	private final NameRequester nameRequester;
+	private transient NameRequester nameRequester;
 	
 	public CommonerGenerator(int seed, CommonerImageIds commonerImageIds, CommonerNameGenerator commonerNameGenerator, NameRequester nameRequester) {
 		this.random = new Random(seed);
@@ -289,5 +289,9 @@ public class CommonerGenerator implements Serializable {
 				item.removeProperty(Constants.SELLABLE);
 			}
 		}
+	}
+
+	public void setNameRequester(NameRequester nameRequester) {
+		this.nameRequester = nameRequester;
 	}
 }

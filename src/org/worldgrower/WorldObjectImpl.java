@@ -228,4 +228,9 @@ public class WorldObjectImpl implements WorldObject, Serializable {
 	public WorldObject getActionWorldObject() {
 		return this;
 	}
+
+	@Override
+	public OnTurn getOnTurn() {
+		return onTurn;
+	}
 }

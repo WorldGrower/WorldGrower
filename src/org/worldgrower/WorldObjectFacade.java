@@ -142,4 +142,9 @@ public class WorldObjectFacade implements WorldObject {
 	public WorldObject getActionWorldObject() {
 		return originalWorldObject;
 	}
+
+	@Override
+	public OnTurn getOnTurn() {
+		return originalWorldObject.getOnTurn();
+	}
 }

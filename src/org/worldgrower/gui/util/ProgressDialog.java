@@ -27,7 +27,6 @@ import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.TiledHorizontalImageProgressBar;
 import org.worldgrower.gui.TiledImagePanel;
-import org.worldgrower.gui.TiledVerticalImageProgressBar;
 import org.worldgrower.gui.cursor.Cursors;
 
 public class ProgressDialog extends JFrame {

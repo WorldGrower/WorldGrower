@@ -14,8 +14,6 @@
  *******************************************************************************/
 package org.worldgrower.actions;
 
-import java.io.ObjectStreamException;
-
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;

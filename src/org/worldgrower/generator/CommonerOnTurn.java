@@ -292,4 +292,10 @@ public class CommonerOnTurn implements OnTurn {
 			RelationshipPropertyUtils.changeRelationshipValue(worldObject, leader, -20, 0, Actions.SET_GOVERNANCE_ACTION, Args.EMPTY, world);
 		}
 	}
+
+	public CommonerGenerator getCommonerGenerator() {
+		return commonerGenerator;
+	}
+	
+	
 }

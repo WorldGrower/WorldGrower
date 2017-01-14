@@ -145,4 +145,9 @@ public class ImmutableWorldObject implements WorldObject, Serializable {
 	public WorldObject getActionWorldObject() {
 		return this;
 	}
+
+	@Override
+	public OnTurn getOnTurn() {
+		return onTurn;
+	}
 }

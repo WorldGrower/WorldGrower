@@ -31,7 +31,6 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.generator.PlantGenerator;
 import org.worldgrower.goal.GroupPropertyUtils;
-import org.worldgrower.gui.ImageIds;
 
 public class UTestMinorIllusionAction {
 

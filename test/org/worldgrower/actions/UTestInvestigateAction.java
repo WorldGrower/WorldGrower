@@ -21,7 +21,6 @@ import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
-import org.worldgrower.WorldFacade;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.KnowledgeMap;

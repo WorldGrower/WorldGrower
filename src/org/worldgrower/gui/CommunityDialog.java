@@ -407,17 +407,6 @@ public class CommunityDialog extends JDialog {
 	    }
 	}
 
-	private void addActionHandlers(JButton okButton, JDialog dialog) {
-		okButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				dialog.dispose();
-			}
-		});
-		
-	}
-
 	private static class OrganizationsModel extends AbstractTableModel {
 
 		private Map<String, String> organizationDescriptions;

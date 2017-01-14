@@ -17,7 +17,6 @@ package org.worldgrower.goal;
 import java.util.List;
 
 import org.worldgrower.Args;
-import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
