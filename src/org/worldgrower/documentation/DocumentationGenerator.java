@@ -22,10 +22,14 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.imageio.ImageIO;
 
 import org.worldgrower.Constants;
+import org.worldgrower.DungeonMaster;
+import org.worldgrower.World;
+import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.WorldObjectImpl;
 import org.worldgrower.actions.Actions;
@@ -35,12 +39,19 @@ import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.condition.Condition;
+import org.worldgrower.conversation.Conversation;
+import org.worldgrower.conversation.ConversationContext;
+import org.worldgrower.conversation.Conversations;
+import org.worldgrower.conversation.Question;
+import org.worldgrower.conversation.Response;
 import org.worldgrower.deity.Deity;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
 import org.worldgrower.generator.ItemType;
+import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
+import org.worldgrower.history.HistoryItem;
 import org.worldgrower.util.FileUtils;
 
 public class DocumentationGenerator {
@@ -57,6 +68,7 @@ public class DocumentationGenerator {
 		generateDeitiesOverview(outputDir, imageInfoReader);
 		generateSkillsOverview(outputDir, imageInfoReader);
 		generateBuildingsOverview(outputDir, imageInfoReader);
+		generateConversationsOverview(outputDir, imageInfoReader);
 	}
 
 	private static void generateMagicSpellOverview(File outputDir, ImageInfoReader imageInfoReader) {
@@ -236,7 +248,46 @@ public class DocumentationGenerator {
 		}
 		createHtmlFile(title, description, outputFile, imageInfoReader, headerFields, tableValues);
 	}
+	
+	//TODO
+	private static void generateConversationsOverview(File outputDir, ImageInfoReader imageInfoReader) {
+		Conversations conversations = new Conversations();
+		String title = "WorldGrower:Conversations";
+		String description = "This lists all the conversations that can be had.";
+		File outputFile = new File(outputDir, "gen_conversations.html");
+		List<String> headerFields = Arrays.asList("Questions", "Answers");
+		List<List<String>> tableValues = new ArrayList<List<String>>();
 
+		World world = new WorldImpl(0, 0, new DungeonMaster(), null);
+		world.generateUniqueId();
+		GroupPropertyUtils.createVillagersOrganization(world);
+		WorldObject performer = null;//createWorldObject("[performer]", 2);
+		world.addWorldObject(performer);
+		WorldObject target = null;//createWorldObject("[target]", 3);
+		world.addWorldObject(target);
+		HistoryItem questionHistoryItem = null;
+		WorldObject subjectWorldObject = null;//createWorldObject("[subject]", 4);
+		world.addWorldObject(subjectWorldObject);
+		
+		for(int i=0; i<conversations.size(); i++) {
+			Conversation conversation = Conversations.getConversation(i);
+			List<String> tableRow = new ArrayList<>();
+
+			List<Question> questions = conversation.getQuestionPhrases(performer, target, questionHistoryItem, subjectWorldObject, world);
+			List<String> questionDescriptions = questions.stream().map(q -> q.getQuestionPhrase()).collect(Collectors.toList());
+
+			List<Response> answers = conversation.getReplyPhrases(new ConversationContext(performer, target, subjectWorldObject, questionHistoryItem, world, 0));
+			List<String> answerDescriptions = answers.stream().map(a -> a.getResponsePhrase()).collect(Collectors.toList());
+
+			
+			tableRow.add(tableTag(questionDescriptions));
+			tableRow.add(tableTag(answerDescriptions));
+			
+			tableValues.add(tableRow);
+		}
+		createHtmlFile(title, description, outputFile, imageInfoReader, headerFields, tableValues);
+	}
+	
 	public static WorldObject createBuildingOwner() {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		properties.put(Constants.NAME, "character");
@@ -254,6 +305,17 @@ public class DocumentationGenerator {
 	
 	private static String imageTag(String imageSource) {
 		return "<img src=\"" + imageSource + "\">";
+	}
+	
+	private static String tableTag(List<String> descriptions) {
+		StringBuilder tableBuilder = new StringBuilder("<table>");
+		
+		for(String description : descriptions) {
+			tableBuilder.append("<tr><td>").append(description).append("</td></tr>");
+		}
+		
+		tableBuilder.append("</table>");
+		return tableBuilder.toString();
 	}
 	
 	private static void createHtmlFile(String title, String description, File outputFile, ImageInfoReader imageInfoReader, List<String> headerFields, List<List<String>> tableValues) {
