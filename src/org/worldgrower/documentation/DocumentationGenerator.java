@@ -68,7 +68,8 @@ public class DocumentationGenerator {
 		generateDeitiesOverview(outputDir, imageInfoReader);
 		generateSkillsOverview(outputDir, imageInfoReader);
 		generateBuildingsOverview(outputDir, imageInfoReader);
-		generateConversationsOverview(outputDir, imageInfoReader);
+		//generateConversationsOverview(outputDir, imageInfoReader);
+		generateResourcesOverview(outputDir, imageInfoReader);
 	}
 
 	private static void generateMagicSpellOverview(File outputDir, ImageInfoReader imageInfoReader) {
@@ -284,6 +285,28 @@ public class DocumentationGenerator {
 			tableRow.add(tableTag(answerDescriptions));
 			
 			tableValues.add(tableRow);
+		}
+		createHtmlFile(title, description, outputFile, imageInfoReader, headerFields, tableValues);
+	}
+	
+	private static void generateResourcesOverview(File outputDir, ImageInfoReader imageInfoReader) {
+		String title = "WorldGrower:Resources";
+		String description = "Resources are obtained by cutting trees, mining, etc and are used to build building, create tools, weapons, gold and armor.";
+		File outputFile = new File(outputDir, "gen_resources.html");
+		List<String> headerFields = Arrays.asList("Icon", "Name", "Description");
+		List<List<String>> tableValues = new ArrayList<List<String>>();
+		for(Item item : Item.values()) {
+			if (item.getItemType() == ItemType.RESOURCE) {
+				List<String> tableRow = new ArrayList<>();
+				String filename = "gen_" + item.getDescription() + ".png";
+				saveImage(item.getImageId(), imageInfoReader, new File(outputDir, filename));
+
+				tableRow.add(imageTag(filename));
+				tableRow.add(item.getDescription());
+				tableRow.add(item.getLongDescription());
+				
+				tableValues.add(tableRow);
+			}
 		}
 		createHtmlFile(title, description, outputFile, imageInfoReader, headerFields, tableValues);
 	}
