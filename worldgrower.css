@@ -3,7 +3,8 @@
 body {
     color: white;
     background-image: url("conc_patchwork_c.png");
-    font-family: TwCenMt
+    font-family: TwCenMt;
+	font-size: large;
 }
 
 a {
