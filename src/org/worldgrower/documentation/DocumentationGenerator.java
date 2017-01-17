@@ -80,10 +80,11 @@ public class DocumentationGenerator {
 		List<List<String>> tableValues = new ArrayList<List<String>>();
 		for(MagicSpell magicSpell : Actions.getMagicSpells()) {
 			List<String> tableRow = new ArrayList<>();
-			String magicSpellFilename = "gen_" + magicSpell.getClass().getName() + ".png";
+			String magicSpellDescription = magicSpell.getClass().getName();
+			String magicSpellFilename = "gen_" + magicSpellDescription + ".png";
 			saveImage(magicSpell.getImageIds(null) , imageInfoReader, new File(outputDir, magicSpellFilename));
 			
-			tableRow.add(imageTag(magicSpellFilename));
+			tableRow.add(imageTag(magicSpellFilename, magicSpellDescription));
 			tableRow.add(magicSpell.getSimpleDescription());
 			tableRow.add(magicSpell.getSkill().getName());
 			tableRow.add(magicSpell.getDescription());
@@ -106,7 +107,7 @@ public class DocumentationGenerator {
 				String toolFilename = "gen_" + item.getDescription() + ".png";
 				saveImage(item.getImageId(), imageInfoReader, new File(outputDir, toolFilename));
 				
-				tableRow.add(imageTag(toolFilename));
+				tableRow.add(imageTag(toolFilename, item.getDescription()));
 				tableRow.add(item.getDescription());
 				tableRow.add(item.getLongDescription());
 
@@ -128,7 +129,7 @@ public class DocumentationGenerator {
 				String equipmentFilename = "gen_" + item.getDescription() + ".png";
 				saveImage(item.getImageId(), imageInfoReader, new File(outputDir, equipmentFilename));
 
-				tableRow.add(imageTag(equipmentFilename));
+				tableRow.add(imageTag(equipmentFilename, item.getDescription()));
 				tableRow.add(item.getDescription());
 				tableRow.add(getPropertyValue(item, Constants.DAMAGE));
 				tableRow.add(getPropertyValue(item, Constants.ARMOR));
@@ -151,7 +152,7 @@ public class DocumentationGenerator {
 				String conditionFilename = "gen_" + condition.getDescription() + ".png";
 				saveImage(condition.getImageIds(), imageInfoReader, new File(outputDir, conditionFilename));
 
-				tableRow.add(imageTag(conditionFilename));
+				tableRow.add(imageTag(conditionFilename, condition.getDescription()));
 				tableRow.add(condition.getDescription());
 				tableRow.add(condition.getLongerDescription());
 				
@@ -173,7 +174,7 @@ public class DocumentationGenerator {
 				String filename = "gen_" + item.getDescription() + ".png";
 				saveImage(item.getImageId(), imageInfoReader, new File(outputDir, filename));
 
-				tableRow.add(imageTag(filename));
+				tableRow.add(imageTag(filename, item.getDescription()));
 				tableRow.add(item.getDescription());
 				tableRow.add(item.getLongDescription());
 				
@@ -194,7 +195,7 @@ public class DocumentationGenerator {
 			String filename = "gen_" + deity.getName() + ".png";
 			saveImage(deity.getBoonImageId(), imageInfoReader, new File(outputDir, filename));
 
-			tableRow.add(imageTag(filename));
+			tableRow.add(imageTag(filename, deity.getName()));
 			tableRow.add(deity.getName());
 			tableRow.add(deity.getExplanation());
 			tableRow.add(deity.getSkill().getName());
@@ -241,7 +242,7 @@ public class DocumentationGenerator {
 			name = name.replace("character's", "").trim();
 			String filename = "gen_" + name + ".png";
 			saveImage(building.getProperty(Constants.IMAGE_ID), imageInfoReader, new File(outputDir, filename));
-			tableRow.add(imageTag(filename));
+			tableRow.add(imageTag(filename, name));
 			tableRow.add(name);
 			tableRow.add(building.getProperty(Constants.LONG_DESCRIPTION));
 			
@@ -301,7 +302,7 @@ public class DocumentationGenerator {
 				String filename = "gen_" + item.getDescription() + ".png";
 				saveImage(item.getImageId(), imageInfoReader, new File(outputDir, filename));
 
-				tableRow.add(imageTag(filename));
+				tableRow.add(imageTag(filename, item.getDescription()));
 				tableRow.add(item.getDescription());
 				tableRow.add(item.getLongDescription());
 				
@@ -326,8 +327,8 @@ public class DocumentationGenerator {
 		return value;
 	}
 	
-	private static String imageTag(String imageSource) {
-		return "<img src=\"" + imageSource + "\">";
+	private static String imageTag(String imageSource, String alternateText) {
+		return "<img src=\"" + imageSource + "\" alt=\"" + alternateText + "\">";
 	}
 	
 	private static String tableTag(List<String> descriptions) {
@@ -344,6 +345,7 @@ public class DocumentationGenerator {
 	private static void createHtmlFile(String title, String description, File outputFile, ImageInfoReader imageInfoReader, List<String> headerFields, List<List<String>> tableValues) {
 		StringBuilder htmlBuilder = new StringBuilder("<html>");
 		htmlBuilder.append("<head>");
+		htmlBuilder.append("<title>").append(title).append("</title>");
 		htmlBuilder.append("<link rel=\"stylesheet\" type=\"text/css\" href=\"../worldgrower.css\">");
 		htmlBuilder.append("</head>");
 		htmlBuilder.append("<body>");
