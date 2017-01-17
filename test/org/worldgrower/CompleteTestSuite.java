@@ -210,6 +210,7 @@ import org.worldgrower.profession.UTestThiefProfession;
 import org.worldgrower.profession.UTestWeaverProfession;
 import org.worldgrower.profession.UTestWizardProfession;
 import org.worldgrower.terrain.UTestTerrainImpl;
+import org.worldgrower.text.UTestText;
 import org.worldgrower.util.UTestNumberUtils;
 import org.worldgrower.util.UTestObjectUtils;
 
@@ -787,7 +788,8 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestDropItemAction.class,
 	UTestCreatePaperMillGoal.class,
 	UTestCraftShortBowAction.class,
-	UTestSellUnusedItemsGoal.class
+	UTestSellUnusedItemsGoal.class,
+	UTestText.class
 })
 public class CompleteTestSuite {
 }
