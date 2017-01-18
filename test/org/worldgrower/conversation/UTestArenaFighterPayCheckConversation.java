@@ -42,7 +42,7 @@ public class UTestArenaFighterPayCheckConversation {
 		
 		ConversationContext context = new ConversationContext(performer, target, null, null, null, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
-		assertEquals(true, replyPhrases.size() == 2);
+		assertEquals(2, replyPhrases.size());
 		assertEquals("yes, here is your 50 gold", replyPhrases.get(0).getResponsePhrase());
 		assertEquals("No", replyPhrases.get(1).getResponsePhrase());
 	}

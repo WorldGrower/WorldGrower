@@ -24,4 +24,9 @@ public class UTestText {
 		assertEquals("I'm here to receive my reward for participating in the arena", Text.QUESTION_ARENA_PAY_CHECK.get());
 		assertEquals("yes, here is your 7 gold", Text.ANSWER_ARENA_PAY_CHECK_YES.get("7"));
 	}
+	
+	@Test
+	public void testValidate() {
+		Text.getConversationDescriptions();
+	}
 }

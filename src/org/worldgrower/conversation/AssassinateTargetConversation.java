@@ -26,6 +26,7 @@ import org.worldgrower.attribute.IdMap;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
 import org.worldgrower.personality.PersonalityTrait;
+import org.worldgrower.text.Text;
 
 public class AssassinateTargetConversation implements Conversation {
 
@@ -56,7 +57,7 @@ public class AssassinateTargetConversation implements Conversation {
 
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subject, World world) {
-		return Arrays.asList(new Question(subject, "Would you like me to get rid of " + subject.getProperty(Constants.NAME) + "? If you agree, it'll cost you 100 gold."));
+		return Arrays.asList(new Question(subject, Text.QUESTION_ASSASSINATE_TARGET.get(subject.getProperty(Constants.NAME))));
 	}
 
 	@Override
@@ -82,8 +83,8 @@ public class AssassinateTargetConversation implements Conversation {
 		WorldObject subject = conversationContext.getSubject();
 		
 		return Arrays.asList(
-			new Response(YES, subject, "Yes"),
-			new Response(NO, subject, "No")
+			new Response(YES, subject, Text.ANSWER_ASSASSINATE_TARGET_YES.get()),
+			new Response(NO, subject, Text.ANSWER_ASSASSINATE_TARGET_NO.get())
 			);
 	}
 
