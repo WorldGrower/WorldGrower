@@ -31,14 +31,52 @@ public enum Text {
 	ANSWER_ASK_GOAL_NO(ConversationKey.ASK_GOAL),
 	QUESTION_ASSASSINATE_TARGET(ConversationKey.ASSASSINATE_TARGET),
 	ANSWER_ASSASSINATE_TARGET_YES(ConversationKey.ASSASSINATE_TARGET),
-	ANSWER_ASSASSINATE_TARGET_NO(ConversationKey.ASSASSINATE_TARGET);
+	ANSWER_ASSASSINATE_TARGET_NO(ConversationKey.ASSASSINATE_TARGET),
+	QUESTION_ARENA_FIGHTER(ConversationKey.BECOME_ARENA_FIGHTER),
+	ANSWER_ARENA_FIGHTER_YES(ConversationKey.BECOME_ARENA_FIGHTER),
+	ANSWER_ARENA_FIGHTER_NO(ConversationKey.BECOME_ARENA_FIGHTER),
+	QUESTION_BRAWL_GOLD(ConversationKey.BRAWL),
+	QUESTION_BRAWL(ConversationKey.BRAWL),
+	ANSWER_BRAWL_YES(ConversationKey.BRAWL),
+	ANSWER_BRAWL_NO(ConversationKey.BRAWL),
+	ANSWER_BRAWL_LATER(ConversationKey.BRAWL),
+	ANSWER_BRAWL_NOT_ENOUGH_GOLD(ConversationKey.BRAWL),
+	ANSWER_BRAWL_GET_LOST(ConversationKey.BRAWL),
+	QUESTION_BREAKUP(ConversationKey.BREAKUP),
+	ANSWER_BREAKUP_YES(ConversationKey.BREAKUP),
+	QUESTION_BUY_BUILDING(ConversationKey.BUY_BUILDING),
+	ANSWER_BUY_BUILDING_YES(ConversationKey.BUY_BUILDING),
+	ANSWER_BUY_BUILDING_NO(ConversationKey.BUY_BUILDING),
+	QUESTION_COLLECT_BOUNTY(ConversationKey.COLLECT_BOUNTY),
+	ANSWER_COLLECT_BOUNTY_PAY(ConversationKey.COLLECT_BOUNTY),
+	ANSWER_COLLECT_BOUNTY_JAIL(ConversationKey.COLLECT_BOUNTY),
+	ANSWER_COLLECT_BOUNTY_RESIST(ConversationKey.COLLECT_BOUNTY),
+	QUESTION_COLLECT_PAYCHECK(ConversationKey.COLLECT_PAYCHECK),
+	ANSWER_COLLECT_PAYCHECK_YES(ConversationKey.COLLECT_PAYCHECK),
+	ANSWER_COLLECT_PAYCHECK_NO(ConversationKey.COLLECT_PAYCHECK),
+	QUESTION_COLLECT_TAXES(ConversationKey.COLLECT_TAXES),
+	ANSWER_COLLECT_TAXES_YES(ConversationKey.COLLECT_TAXES),
+	ANSWER_COLLECT_TAXES_NO(ConversationKey.COLLECT_TAXES),
+	QUESTION_COMPLIMENT_STRONG(ConversationKey.COMPLIMENT),
+	QUESTION_COMPLIMENT_HANDSOME(ConversationKey.COMPLIMENT),
+	ANSWER_COMPLIMENT_THANKS(ConversationKey.COMPLIMENT),
+	ANSWER_COMPLIMENT_STOP(ConversationKey.COMPLIMENT),
+	ANSWER_COMPLIMENT_GETLOST(ConversationKey.COMPLIMENT);
 	
 	private final ConversationKey conversationKey;
 	
 	public enum ConversationKey {
 		ARENA_PAY_CHECK,
 		ASK_GOAL,
-		ASSASSINATE_TARGET
+		ASSASSINATE_TARGET,
+		BECOME_ARENA_FIGHTER,
+		BRAWL,
+		BREAKUP,
+		BUY_BUILDING,
+		COLLECT_BOUNTY,
+		COLLECT_PAYCHECK,
+		COLLECT_TAXES,
+		COMPLIMENT
 	}
 	
 	static ResourceBundle getMessages() {
@@ -56,9 +94,19 @@ public enum Text {
 	}
 	
 	public String get(String parm) {
-        MessageFormat formatter = new MessageFormat("");
-        formatter.applyPattern(get().replace("'", "''"));
+        MessageFormat formatter = createFormatter();
         return formatter.format(new Object[]{ parm });
+	}
+	
+	public String get(String parm1, String parm2) {
+        MessageFormat formatter = createFormatter();
+        return formatter.format(new Object[]{ parm1, parm2 });
+	}
+
+	private MessageFormat createFormatter() {
+		MessageFormat formatter = new MessageFormat("");
+        formatter.applyPattern(get().replace("'", "''"));
+		return formatter;
 	}
 	
 	public String get(int parm) {

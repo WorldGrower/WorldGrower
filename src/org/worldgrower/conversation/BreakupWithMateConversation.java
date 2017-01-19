@@ -25,6 +25,7 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.goal.KnowledgeMapPropertyUtils;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
+import org.worldgrower.text.Text;
 
 public class BreakupWithMateConversation implements Conversation {
 	private static final int BREAKUP_RELATIONSHIP_PENALTY = -500; 
@@ -39,13 +40,13 @@ public class BreakupWithMateConversation implements Conversation {
 
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subject, World world) {
-		return Arrays.asList(new Question(null, "I want to break up with you"));
+		return Arrays.asList(new Question(null, Text.QUESTION_BREAKUP.get()));
 	}
 	
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
-			new Response(OK, "Ok, I'll respect your wishes")
+			new Response(OK, Text.ANSWER_BREAKUP_YES.get())
 			);
 	}
 	

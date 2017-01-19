@@ -28,6 +28,7 @@ import org.worldgrower.goal.GoalUtils;
 import org.worldgrower.goal.Goals;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
+import org.worldgrower.text.Text;
 
 public class BrawlConversation implements Conversation {
 
@@ -64,10 +65,10 @@ public class BrawlConversation implements Conversation {
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		List<Question> questions = new ArrayList<>();
 		for(int gold = 20; gold < 100; gold += 20) {
-			questions.add(new Question(null, "I want to brawl with you and I bet " + gold + " gold that I'm going to win. Do you accept?", gold));
+			questions.add(new Question(null, Text.QUESTION_BRAWL_GOLD.get(gold), gold));
 		}
 		
-		questions.add(new Question(null, "I want to brawl with you. Do you accept?", 0));
+		questions.add(new Question(null, Text.QUESTION_BRAWL.get(), 0));
 		
 		return questions;
 	}
@@ -86,11 +87,11 @@ public class BrawlConversation implements Conversation {
 		}
 		
 		return Arrays.asList(
-			new Response(YES, "Yes, while we brawl, only unarmed non-lethal melee attacks are allowed."),
-			new Response(NO, "No"),
-			new Response(LATER, "I'd love to, but I'm currently " + immediateGoalDescription),
-			new Response(NOT_ENOUGH_GOLD, "Not for the moment, I can't match your bet"),
-			new Response(GET_LOST, "Get lost")
+			new Response(YES, Text.ANSWER_BRAWL_YES.get()),
+			new Response(NO, Text.ANSWER_BRAWL_NO.get()),
+			new Response(LATER, Text.ANSWER_BRAWL_LATER.get(immediateGoalDescription)),
+			new Response(NOT_ENOUGH_GOLD, Text.ANSWER_BRAWL_NOT_ENOUGH_GOLD.get()),
+			new Response(GET_LOST, Text.ANSWER_BRAWL_GET_LOST.get())
 			);
 	}
 

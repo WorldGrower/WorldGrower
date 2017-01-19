@@ -61,6 +61,18 @@ public class UTestBreakupWithMateConversation {
 	}
 	
 	@Test
+	public void testIsConversationAvailable() {
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.NAME, "performer");
+		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.NAME, "target");
+
+		assertEquals(false, conversation.isConversationAvailable(performer, target, null, null));
+	
+		performer.setProperty(Constants.MATE_ID, 2);
+		target.setProperty(Constants.MATE_ID, 1);
+		assertEquals(true, conversation.isConversationAvailable(performer, target, null, null));
+	}
+	
+	@Test
 	public void testHandleResponse0() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.RELATIONSHIPS, new IdRelationshipMap());

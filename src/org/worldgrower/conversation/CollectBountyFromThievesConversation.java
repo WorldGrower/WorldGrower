@@ -27,6 +27,7 @@ import org.worldgrower.goal.BountyPropertyUtils;
 import org.worldgrower.goal.GoalUtils;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.history.HistoryItem;
+import org.worldgrower.text.Text;
 
 public class CollectBountyFromThievesConversation implements Conversation {
 
@@ -53,7 +54,7 @@ public class CollectBountyFromThievesConversation implements Conversation {
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		int bounty = BountyPropertyUtils.getBounty(target, world);
-		return Arrays.asList(new Question(null, "I'm here to collect your bounty, " + bounty + " gold, what will you do?"));
+		return Arrays.asList(new Question(null, Text.QUESTION_COLLECT_BOUNTY.get(bounty)));
 	}
 
 	@Override
@@ -63,11 +64,11 @@ public class CollectBountyFromThievesConversation implements Conversation {
 		int bounty = BountyPropertyUtils.getBounty(target, world);
 		List<Response> responses = new ArrayList<>();
 		if (target.getProperty(Constants.GOLD).intValue() >= bounty) {
-			responses.add(new Response(PAY_GOLD, "I will pay the bounty", bounty <= conversationContext.getTarget().getProperty(Constants.GOLD)));
+			responses.add(new Response(PAY_GOLD, Text.ANSWER_COLLECT_BOUNTY_PAY.get(), bounty <= conversationContext.getTarget().getProperty(Constants.GOLD)));
 		}
 		responses.addAll(Arrays.asList(
-				new Response(JAIL, "I will spend my time in jail"),
-				new Response(RESIST_ARREST, "I resist arrest")));
+				new Response(JAIL, Text.ANSWER_COLLECT_BOUNTY_JAIL.get()),
+				new Response(RESIST_ARREST, Text.ANSWER_COLLECT_BOUNTY_RESIST.get())));
 		
 		return responses;
 	}

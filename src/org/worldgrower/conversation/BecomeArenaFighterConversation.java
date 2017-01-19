@@ -24,6 +24,7 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.goal.ArenaPropertyUtils;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
+import org.worldgrower.text.Text;
 
 public class BecomeArenaFighterConversation implements Conversation {
 
@@ -49,15 +50,15 @@ public class BecomeArenaFighterConversation implements Conversation {
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		return Arrays.asList(
-			new Question(null, "Can I become an arena fighter?")
+			new Question(null, Text.QUESTION_ARENA_FIGHTER.get())
 			);
 	}
 
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
-			new Response(YES, "Yes, just let me know when you want to fight."),
-			new Response(NO, "No"));
+			new Response(YES, Text.ANSWER_ARENA_FIGHTER_YES.get()),
+			new Response(NO, Text.ANSWER_ARENA_FIGHTER_NO.get()));
 	}
 	
 	@Override

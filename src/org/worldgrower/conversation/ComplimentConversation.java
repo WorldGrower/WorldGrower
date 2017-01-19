@@ -24,6 +24,7 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
+import org.worldgrower.text.Text;
 
 public class ComplimentConversation implements Conversation {
 
@@ -63,17 +64,17 @@ public class ComplimentConversation implements Conversation {
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		return Arrays.asList(
-			new Question(null, "You look very strong"),
-			new Question(null, "You are very handsome")
+			new Question(null, Text.QUESTION_COMPLIMENT_STRONG.get()),
+			new Question(null, Text.QUESTION_COMPLIMENT_HANDSOME.get())
 			);
 	}
 
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
-			new Response(THANKS, "Thanks, you too"),
-			new Response(STOP, "Stop doing that"),
-			new Response(GET_LOST, "Get lost"));
+			new Response(THANKS, Text.ANSWER_COMPLIMENT_THANKS.get()),
+			new Response(STOP, Text.ANSWER_COMPLIMENT_STOP.get()),
+			new Response(GET_LOST, Text.ANSWER_COMPLIMENT_GETLOST.get()));
 	}
 	
 	@Override

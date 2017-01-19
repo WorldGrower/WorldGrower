@@ -254,8 +254,8 @@ public class DocumentationGenerator {
 		for(ConversationDescription conversationDescription : conversationDescriptions) {
 			List<String> tableRow = new ArrayList<>();
 
-			tableRow.add(tableTag(conversationDescription.getQuestions()));
-			tableRow.add(tableTag(conversationDescription.getAnswers()));
+			tableRow.add(unorderedList(conversationDescription.getQuestions()));
+			tableRow.add(unorderedList(conversationDescription.getAnswers()));
 			
 			tableValues.add(tableRow);
 		}
@@ -303,14 +303,14 @@ public class DocumentationGenerator {
 		return "<img src=\"" + imageSource + "\" alt=\"" + alternateText + "\">";
 	}
 	
-	private static String tableTag(List<String> descriptions) {
-		StringBuilder tableBuilder = new StringBuilder("<table>");
+	private static String unorderedList(List<String> descriptions) {
+		StringBuilder tableBuilder = new StringBuilder("<ul>");
 		
 		for(String description : descriptions) {
-			tableBuilder.append("<tr><td>").append(description).append("</td></tr>");
+			tableBuilder.append("<li>").append(description).append("</li>");
 		}
 		
-		tableBuilder.append("</table>");
+		tableBuilder.append("</ul>");
 		return tableBuilder.toString();
 	}
 	
