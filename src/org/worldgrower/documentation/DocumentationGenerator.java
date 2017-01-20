@@ -271,8 +271,7 @@ public class DocumentationGenerator {
 			String categoryFilename = "gen_" + categoryDescription + ".png";
 			saveImage(conversationCategory.getImageId() , imageInfoReader, new File(outputDir, categoryFilename));
 			
-			String categoryTitle = imageTag(categoryFilename, categoryDescription) + categoryDescription;
-			
+			String categoryTitle = imageText(categoryDescription, categoryFilename, categoryDescription);
 			
 			String htmlTable = createTable(categoryTitle, "", headerFields, tableValues);
 			htmlContent.append(htmlTable);
@@ -332,7 +331,27 @@ public class DocumentationGenerator {
 	}
 	
 	private static String imageTag(String imageSource, String alternateText) {
-		return "<img src=\"" + imageSource + "\" alt=\"" + alternateText + "\">";
+		return imageTag(imageSource, alternateText, null);
+	}
+	
+	private static String imageTag(String imageSource, String alternateText, String style) {
+		StringBuilder htmlBuilder = new StringBuilder();
+		htmlBuilder.append("<img");
+		if (style != null) {
+			htmlBuilder.append(" style=\"").append(style).append("\"");	
+		}
+		htmlBuilder.append(" src=\"").append(imageSource).append("\"");
+		htmlBuilder.append(" alt=\"").append(alternateText).append("\"");
+		htmlBuilder.append(">");
+		return htmlBuilder.toString();
+	}
+	
+	private static String imageText(String text, String imageSource, String alternateText) {
+		StringBuilder htmlBuilder = new StringBuilder("<div>");
+		htmlBuilder.append(imageTag(imageSource, alternateText, "vertical-align:middle"));
+		htmlBuilder.append("<span style=\"\">").append(text).append("</span>");
+		htmlBuilder.append("</div>");
+		return htmlBuilder.toString();
 	}
 	
 	private static String unorderedList(List<String> descriptions) {
