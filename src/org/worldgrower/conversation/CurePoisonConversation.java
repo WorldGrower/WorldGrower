@@ -26,6 +26,7 @@ import org.worldgrower.condition.Condition;
 import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
+import org.worldgrower.text.Text;
 
 public class CurePoisonConversation implements Conversation {
 
@@ -52,16 +53,16 @@ public class CurePoisonConversation implements Conversation {
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		return Arrays.asList(
-			new Question(null, "Can you cure my poisoned condition?")
+			new Question(null, Text.QUESTION_CURE_POISON.get())
 			);
 	}
 
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
-			new Response(YES, "Yes"),
-			new Response(NO, "No"),
-			new Response(GET_LOST, "Get lost"));
+			new Response(YES, Text.ANSWER_CURE_POISON_YES.get()),
+			new Response(NO, Text.ANSWER_CURE_POISON_NO.get()),
+			new Response(GET_LOST, Text.ANSWER_CURE_POISON_GETLOST.get()));
 	}
 	
 	@Override

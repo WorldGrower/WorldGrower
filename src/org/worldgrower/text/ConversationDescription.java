@@ -18,21 +18,21 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.worldgrower.text.Text.ConversationKey;
+import org.worldgrower.conversation.Conversation;
 
 public class ConversationDescription {
-	private final ConversationKey conversationKey;
+	private final Conversation conversationKey;
 	private final List<String> questions;
 	private final List<String> answers;
 	
-	public ConversationDescription(ConversationKey conversationKey) {
+	public ConversationDescription(Conversation conversationKey) {
 		super();
 		this.conversationKey = conversationKey;
 		this.questions = new ArrayList<>();
 		this.answers = new ArrayList<>();
 	}
 	
-	public ConversationKey getConversationKey() {
+	public Conversation getConversationKey() {
 		return conversationKey;
 	}
 

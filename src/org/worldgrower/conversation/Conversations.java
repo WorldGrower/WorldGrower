@@ -409,4 +409,8 @@ public class Conversations implements Serializable {
 		}
 		throw new IllegalStateException("No BuyBuildingConversation found for " + buildingType);
 	}
+	
+	public static ConversationCategory getConversationCategory(Conversation conversation) {
+		return CONVERSATION_CATEGORIES.get(conversation);
+	}
 }

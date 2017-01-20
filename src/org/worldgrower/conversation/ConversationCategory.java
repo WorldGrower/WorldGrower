@@ -17,17 +17,17 @@ package org.worldgrower.conversation;
 import org.worldgrower.gui.ImageIds;
 
 public enum ConversationCategory {
-	PERSONAL_INFORMATION("Personal information", ImageIds.GREY_RING),
-	RELATIONSHIP_OTHERS("Relationship with others", ImageIds.GREY_CIRCLE),
+	ARENA("Arena", ImageIds.IRON_AXE),
+	DEITY("Deity", ImageIds.WORSHIP),
 	DEMAND("Demand", ImageIds.SILVER_COIN),
 	DIPLOMACY_TARGET("Diplomacy", ImageIds.HEART),
-	INTIMIDATE_TARGET("Intimidate", ImageIds.IRON_GREATAXE),
 	GROUP("Organization", ImageIds.BLACK_CROSS),
-	DEITY("Deity", ImageIds.WORSHIP),
-	LEADER("Leader", ImageIds.GOLD_SHIELD), 
-	SHARE_KNOWLEDGE("Share knowledge", ImageIds.PAPER),
-	ARENA("Arena", ImageIds.IRON_AXE),
-	REQUEST_ACTION("Request action", ImageIds.SKELETON);
+	INTIMIDATE_TARGET("Intimidate", ImageIds.IRON_GREATAXE),
+	LEADER("Leader", ImageIds.GOLD_SHIELD),
+	PERSONAL_INFORMATION("Personal information", ImageIds.GREY_RING),
+	RELATIONSHIP_OTHERS("Relationship with others", ImageIds.GREY_CIRCLE),
+	REQUEST_ACTION("Request action", ImageIds.SKELETON),
+	SHARE_KNOWLEDGE("Share knowledge", ImageIds.PAPER);
 	
 	private final String description;
 	private final ImageIds imageId;

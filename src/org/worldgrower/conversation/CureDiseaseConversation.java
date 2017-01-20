@@ -25,6 +25,7 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
+import org.worldgrower.text.Text;
 
 public class CureDiseaseConversation implements Conversation {
 
@@ -51,16 +52,16 @@ public class CureDiseaseConversation implements Conversation {
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		return Arrays.asList(
-			new Question(null, "Can you cure my diseases?")
+			new Question(null, Text.QUESTION_CURE_DISEASE.get())
 			);
 	}
 
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
-			new Response(YES, "Yes"),
-			new Response(NO, "No"),
-			new Response(GET_LOST, "Get lost"));
+			new Response(YES, Text.ANSWER_CURE_DISEASE_YES.get()),
+			new Response(NO, Text.ANSWER_CURE_DISEASE_NO.get()),
+			new Response(GET_LOST, Text.ANSWER_CURE_DISEASE_GETLOST.get()));
 	}
 	
 	@Override

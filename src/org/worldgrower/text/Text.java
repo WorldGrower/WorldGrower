@@ -21,69 +21,62 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-public enum Text {
-	QUESTION_ARENA_PAY_CHECK(ConversationKey.ARENA_PAY_CHECK),
-	ANSWER_ARENA_PAY_CHECK_YES(ConversationKey.ARENA_PAY_CHECK),
-	ANSWER_ARENA_PAY_CHECK_NO(ConversationKey.ARENA_PAY_CHECK),
-	QUESTION_ASK_GOAL(ConversationKey.ASK_GOAL), 
-	ANSWER_ASK_GOAL_YES(ConversationKey.ASK_GOAL), 
-	ANSWER_ASK_GOAL_EXPLAIN(ConversationKey.ASK_GOAL),
-	ANSWER_ASK_GOAL_NO(ConversationKey.ASK_GOAL),
-	QUESTION_ASSASSINATE_TARGET(ConversationKey.ASSASSINATE_TARGET),
-	ANSWER_ASSASSINATE_TARGET_YES(ConversationKey.ASSASSINATE_TARGET),
-	ANSWER_ASSASSINATE_TARGET_NO(ConversationKey.ASSASSINATE_TARGET),
-	QUESTION_ARENA_FIGHTER(ConversationKey.BECOME_ARENA_FIGHTER),
-	ANSWER_ARENA_FIGHTER_YES(ConversationKey.BECOME_ARENA_FIGHTER),
-	ANSWER_ARENA_FIGHTER_NO(ConversationKey.BECOME_ARENA_FIGHTER),
-	QUESTION_BRAWL_GOLD(ConversationKey.BRAWL),
-	QUESTION_BRAWL(ConversationKey.BRAWL),
-	ANSWER_BRAWL_YES(ConversationKey.BRAWL),
-	ANSWER_BRAWL_NO(ConversationKey.BRAWL),
-	ANSWER_BRAWL_LATER(ConversationKey.BRAWL),
-	ANSWER_BRAWL_NOT_ENOUGH_GOLD(ConversationKey.BRAWL),
-	ANSWER_BRAWL_GET_LOST(ConversationKey.BRAWL),
-	QUESTION_BREAKUP(ConversationKey.BREAKUP),
-	ANSWER_BREAKUP_YES(ConversationKey.BREAKUP),
-	QUESTION_BUY_BUILDING(ConversationKey.BUY_BUILDING),
-	ANSWER_BUY_BUILDING_YES(ConversationKey.BUY_BUILDING),
-	ANSWER_BUY_BUILDING_NO(ConversationKey.BUY_BUILDING),
-	QUESTION_COLLECT_BOUNTY(ConversationKey.COLLECT_BOUNTY),
-	ANSWER_COLLECT_BOUNTY_PAY(ConversationKey.COLLECT_BOUNTY),
-	ANSWER_COLLECT_BOUNTY_JAIL(ConversationKey.COLLECT_BOUNTY),
-	ANSWER_COLLECT_BOUNTY_RESIST(ConversationKey.COLLECT_BOUNTY),
-	QUESTION_COLLECT_PAYCHECK(ConversationKey.COLLECT_PAYCHECK),
-	ANSWER_COLLECT_PAYCHECK_YES(ConversationKey.COLLECT_PAYCHECK),
-	ANSWER_COLLECT_PAYCHECK_NO(ConversationKey.COLLECT_PAYCHECK),
-	QUESTION_COLLECT_TAXES(ConversationKey.COLLECT_TAXES),
-	ANSWER_COLLECT_TAXES_YES(ConversationKey.COLLECT_TAXES),
-	ANSWER_COLLECT_TAXES_NO(ConversationKey.COLLECT_TAXES),
-	QUESTION_COMPLIMENT_STRONG(ConversationKey.COMPLIMENT),
-	QUESTION_COMPLIMENT_HANDSOME(ConversationKey.COMPLIMENT),
-	ANSWER_COMPLIMENT_THANKS(ConversationKey.COMPLIMENT),
-	ANSWER_COMPLIMENT_STOP(ConversationKey.COMPLIMENT),
-	ANSWER_COMPLIMENT_GETLOST(ConversationKey.COMPLIMENT);
-	
-	private final ConversationKey conversationKey;
-	
-	public enum ConversationKey {
-		ARENA_PAY_CHECK,
-		ASK_GOAL,
-		ASSASSINATE_TARGET,
-		BECOME_ARENA_FIGHTER,
-		BRAWL,
-		BREAKUP,
-		BUY_BUILDING,
-		COLLECT_BOUNTY,
-		COLLECT_PAYCHECK,
-		COLLECT_TAXES,
-		COMPLIMENT
-	}
-	
-	static ResourceBundle getMessages() {
-		return MESSAGES;
-	}
+import org.worldgrower.conversation.Conversation;
+import org.worldgrower.conversation.Conversations;
 
-	private Text(ConversationKey conversationKey) {
+public enum Text {
+	QUESTION_ARENA_PAY_CHECK(Conversations.ARENA_FIGHTER_PAY_CHECK_CONVERSATION),
+	ANSWER_ARENA_PAY_CHECK_YES(Conversations.ARENA_FIGHTER_PAY_CHECK_CONVERSATION),
+	ANSWER_ARENA_PAY_CHECK_NO(Conversations.ARENA_FIGHTER_PAY_CHECK_CONVERSATION),
+	QUESTION_ASK_GOAL(Conversations.ASK_GOAL_CONVERSATION), 
+	ANSWER_ASK_GOAL_YES(Conversations.ASK_GOAL_CONVERSATION), 
+	ANSWER_ASK_GOAL_EXPLAIN(Conversations.ASK_GOAL_CONVERSATION),
+	ANSWER_ASK_GOAL_NO(Conversations.ASK_GOAL_CONVERSATION),
+	QUESTION_ASSASSINATE_TARGET(Conversations.ASSASSINATE_TARGET_CONVERSATION),
+	ANSWER_ASSASSINATE_TARGET_YES(Conversations.ASSASSINATE_TARGET_CONVERSATION),
+	ANSWER_ASSASSINATE_TARGET_NO(Conversations.ASSASSINATE_TARGET_CONVERSATION),
+	QUESTION_ARENA_FIGHTER(Conversations.BECOME_ARENA_FIGHTER_CONVERSATION),
+	ANSWER_ARENA_FIGHTER_YES(Conversations.BECOME_ARENA_FIGHTER_CONVERSATION),
+	ANSWER_ARENA_FIGHTER_NO(Conversations.BECOME_ARENA_FIGHTER_CONVERSATION),
+	QUESTION_BRAWL_GOLD(Conversations.BRAWL_CONVERSATION),
+	QUESTION_BRAWL(Conversations.BRAWL_CONVERSATION),
+	ANSWER_BRAWL_YES(Conversations.BRAWL_CONVERSATION),
+	ANSWER_BRAWL_NO(Conversations.BRAWL_CONVERSATION),
+	ANSWER_BRAWL_LATER(Conversations.BRAWL_CONVERSATION),
+	ANSWER_BRAWL_NOT_ENOUGH_GOLD(Conversations.BRAWL_CONVERSATION),
+	ANSWER_BRAWL_GET_LOST(Conversations.BRAWL_CONVERSATION),
+	QUESTION_BREAKUP(Conversations.BREAKUP_WITH_MATE_CONVERSATION),
+	ANSWER_BREAKUP_YES(Conversations.BREAKUP_WITH_MATE_CONVERSATION),
+	QUESTION_BUY_BUILDING(Conversations.BUY_HOUSE_CONVERSATION),
+	ANSWER_BUY_BUILDING_YES(Conversations.BUY_HOUSE_CONVERSATION),
+	ANSWER_BUY_BUILDING_NO(Conversations.BUY_HOUSE_CONVERSATION),
+	QUESTION_COLLECT_BOUNTY(Conversations.COLLECT_BOUNTY_FROM_THIEVES_CONVERSATION),
+	ANSWER_COLLECT_BOUNTY_PAY(Conversations.COLLECT_BOUNTY_FROM_THIEVES_CONVERSATION),
+	ANSWER_COLLECT_BOUNTY_JAIL(Conversations.COLLECT_BOUNTY_FROM_THIEVES_CONVERSATION),
+	ANSWER_COLLECT_BOUNTY_RESIST(Conversations.COLLECT_BOUNTY_FROM_THIEVES_CONVERSATION),
+	QUESTION_COLLECT_PAYCHECK(Conversations.COLLECT_PAY_CHECK_CONVERSATION),
+	ANSWER_COLLECT_PAYCHECK_YES(Conversations.COLLECT_PAY_CHECK_CONVERSATION),
+	ANSWER_COLLECT_PAYCHECK_NO(Conversations.COLLECT_PAY_CHECK_CONVERSATION),
+	QUESTION_COLLECT_TAXES(Conversations.COLLECT_TAXES_CONVERSATION),
+	ANSWER_COLLECT_TAXES_YES(Conversations.COLLECT_TAXES_CONVERSATION),
+	ANSWER_COLLECT_TAXES_NO(Conversations.COLLECT_TAXES_CONVERSATION),
+	QUESTION_COMPLIMENT_STRONG(Conversations.COMPLIMENT_CONVERSATION),
+	QUESTION_COMPLIMENT_HANDSOME(Conversations.COMPLIMENT_CONVERSATION),
+	ANSWER_COMPLIMENT_THANKS(Conversations.COMPLIMENT_CONVERSATION),
+	ANSWER_COMPLIMENT_STOP(Conversations.COMPLIMENT_CONVERSATION),
+	ANSWER_COMPLIMENT_GETLOST(Conversations.COMPLIMENT_CONVERSATION),
+	QUESTION_CURE_DISEASE(Conversations.CURE_DISEASE_CONVERSATION),
+	ANSWER_CURE_DISEASE_YES(Conversations.CURE_DISEASE_CONVERSATION),
+	ANSWER_CURE_DISEASE_NO(Conversations.CURE_DISEASE_CONVERSATION),
+	ANSWER_CURE_DISEASE_GETLOST(Conversations.CURE_DISEASE_CONVERSATION),
+	QUESTION_CURE_POISON(Conversations.CURE_POISON_CONVERSATION),
+	ANSWER_CURE_POISON_YES(Conversations.CURE_POISON_CONVERSATION),
+	ANSWER_CURE_POISON_NO(Conversations.CURE_POISON_CONVERSATION),
+	ANSWER_CURE_POISON_GETLOST(Conversations.CURE_POISON_CONVERSATION);
+	
+	private final Conversation conversationKey;
+	
+	private Text(Conversation conversationKey) {
 		this.conversationKey = conversationKey;
 	}
 
@@ -113,7 +106,7 @@ public enum Text {
 		return get(Integer.toString(parm));
 	}
 	
-	private ConversationKey getConversationKey() {
+	private Conversation getConversationKey() {
 		return conversationKey;
 	}
 
@@ -130,10 +123,10 @@ public enum Text {
 	}
 	
 	public static List<ConversationDescription> getConversationDescriptions() {
-		Map<ConversationKey, ConversationDescription> conversationDescriptions = new HashMap<>();
+		Map<Conversation, ConversationDescription> conversationDescriptions = new HashMap<>();
 		for(Text text : Text.values()) {
 			if (text.isConversation()) {
-				ConversationKey conversationKey = text.getConversationKey();
+				Conversation conversationKey = text.getConversationKey();
 				ConversationDescription conversationDescription = getConversationDescription(conversationDescriptions, conversationKey);
 				if (text.isQuestion()) {
 					conversationDescription.addQuestion(text.get());
@@ -161,7 +154,7 @@ public enum Text {
 		}
 	}
 
-	private static ConversationDescription getConversationDescription(Map<ConversationKey, ConversationDescription> conversationDescriptions, ConversationKey conversationKey) {
+	private static ConversationDescription getConversationDescription(Map<Conversation, ConversationDescription> conversationDescriptions, Conversation conversationKey) {
 		final ConversationDescription conversationDescription;
 		if (conversationDescriptions.containsKey(conversationKey)) {
 			conversationDescription = conversationDescriptions.get(conversationKey);

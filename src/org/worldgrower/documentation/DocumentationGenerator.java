@@ -22,6 +22,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.imageio.ImageIO;
 
@@ -35,6 +36,8 @@ import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.condition.Condition;
+import org.worldgrower.conversation.ConversationCategory;
+import org.worldgrower.conversation.Conversations;
 import org.worldgrower.deity.Deity;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
@@ -247,21 +250,44 @@ public class DocumentationGenerator {
 		String description = "This lists all the conversations that can be had.";
 		File outputFile = new File(outputDir, "gen_conversations.html");
 		List<String> headerFields = Arrays.asList("Questions", "Answers");
-		List<List<String>> tableValues = new ArrayList<List<String>>();
+		
 
 		List<ConversationDescription> conversationDescriptions = Text.getConversationDescriptions();
+		Map<ConversationCategory, List<ConversationDescription>> conversationDescriptionsByCategory = splitConversations(conversationDescriptions);
 		
-		for(ConversationDescription conversationDescription : conversationDescriptions) {
-			List<String> tableRow = new ArrayList<>();
-
-			tableRow.add(unorderedList(conversationDescription.getQuestions()));
-			tableRow.add(unorderedList(conversationDescription.getAnswers()));
+		StringBuilder htmlContent = new StringBuilder();
+		htmlContent.append(createTitle(title, description));
+		
+		for(ConversationCategory conversationCategory : ConversationCategory.values()) {
+			List<List<String>> tableValues = new ArrayList<List<String>>();
+			for(ConversationDescription conversationDescription : conversationDescriptionsByCategory.get(conversationCategory)) {
+				List<String> tableRow = new ArrayList<>();
+				tableRow.add(unorderedList(conversationDescription.getQuestions()));
+				tableRow.add(unorderedList(conversationDescription.getAnswers()));
+				
+				tableValues.add(tableRow);
+			}
 			
-			tableValues.add(tableRow);
+			String htmlTable = createTable(conversationCategory.getDescription(), "", headerFields, tableValues);
+			htmlContent.append(htmlTable);
 		}
-		createHtmlFile(title, description, outputFile, imageInfoReader, headerFields, tableValues);
+		createHtmlFile(title, outputFile, imageInfoReader, htmlContent.toString());
 	}
 	
+	private static Map<ConversationCategory, List<ConversationDescription>> splitConversations(List<ConversationDescription> conversationDescriptions) {
+		Map<ConversationCategory, List<ConversationDescription>> conversationsMap = new HashMap<>();
+		for(ConversationCategory conversationCategory : ConversationCategory.values()) {
+			conversationsMap.put(conversationCategory, new ArrayList<>());
+		}
+		
+		for(ConversationDescription conversationDescription : conversationDescriptions) {
+			ConversationCategory conversationCategory = Conversations.getConversationCategory(conversationDescription.getConversationKey());
+			conversationsMap.get(conversationCategory).add(conversationDescription);
+		}
+		
+		return conversationsMap;
+	}
+
 	private static void generateResourcesOverview(File outputDir, ImageInfoReader imageInfoReader) {
 		String title = "WorldGrower:Resources";
 		String description = "Resources are obtained by cutting trees, mining, etc and are used to build building, create tools, weapons, gold and armor.";
@@ -315,14 +341,34 @@ public class DocumentationGenerator {
 	}
 	
 	private static void createHtmlFile(String title, String description, File outputFile, ImageInfoReader imageInfoReader, List<String> headerFields, List<List<String>> tableValues) {
+		String htmlContent = createTable(title, description, headerFields, tableValues);
+		createHtmlFile(title, outputFile, imageInfoReader, htmlContent);		
+	}
+	
+	private static void createHtmlFile(String title, File outputFile, ImageInfoReader imageInfoReader, String htmlContent) {
 		StringBuilder htmlBuilder = new StringBuilder("<html>");
 		htmlBuilder.append("<head>");
 		htmlBuilder.append("<title>").append(title).append("</title>");
 		htmlBuilder.append("<link rel=\"stylesheet\" type=\"text/css\" href=\"../worldgrower.css\">");
 		htmlBuilder.append("</head>");
 		htmlBuilder.append("<body>");
+		htmlBuilder.append(htmlContent);
+		htmlBuilder.append("</body>");
+		htmlBuilder.append("</html>");
+		
+		FileUtils.writeTextFile(outputFile, htmlBuilder.toString());		
+	}
+
+	private static String createTitle(String title, String description) {
+		StringBuilder htmlBuilder = new StringBuilder();
 		htmlBuilder.append("<h2>").append(title).append("</h2>");
 		htmlBuilder.append(description).append("<br><br>");
+		return htmlBuilder.toString();
+	}
+	
+	public static String createTable(String title, String description, List<String> headerFields, List<List<String>> tableValues) {
+		StringBuilder htmlBuilder = new StringBuilder();
+		htmlBuilder.append(createTitle(title, description));
 		htmlBuilder.append("<table>");
 		htmlBuilder.append("<tr>");
 		for(String headerField : headerFields) {
@@ -337,10 +383,8 @@ public class DocumentationGenerator {
 			htmlBuilder.append("</tr>");
 		}
 		htmlBuilder.append("</table>");
-		htmlBuilder.append("</body>");
-		htmlBuilder.append("</html>");
 		
-		FileUtils.writeTextFile(outputFile, htmlBuilder.toString());		
+		return htmlBuilder.toString();
 	}
 	
 	private static void saveImage(ImageIds imageIds, ImageInfoReader imageInfoReader, File outputFile) {
