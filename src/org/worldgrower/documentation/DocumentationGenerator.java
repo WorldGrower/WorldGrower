@@ -22,7 +22,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.imageio.ImageIO;
 
@@ -268,7 +267,14 @@ public class DocumentationGenerator {
 				tableValues.add(tableRow);
 			}
 			
-			String htmlTable = createTable(conversationCategory.getDescription(), "", headerFields, tableValues);
+			String categoryDescription = conversationCategory.getDescription();
+			String categoryFilename = "gen_" + categoryDescription + ".png";
+			saveImage(conversationCategory.getImageId() , imageInfoReader, new File(outputDir, categoryFilename));
+			
+			String categoryTitle = imageTag(categoryFilename, categoryDescription) + categoryDescription;
+			
+			
+			String htmlTable = createTable(categoryTitle, "", headerFields, tableValues);
 			htmlContent.append(htmlTable);
 		}
 		createHtmlFile(title, outputFile, imageInfoReader, htmlContent.toString());
