@@ -25,6 +25,7 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
+import org.worldgrower.text.Text;
 
 public class IntimidateConversation implements Conversation {
 
@@ -58,7 +59,7 @@ public class IntimidateConversation implements Conversation {
 		List<Question> result = new ArrayList<>();
 		for(Question parentQuestionPhrase : parentQuestionPhrases) {
 			WorldObject subject = parentQuestionPhrase.getSubjectId() != -1 ? world.findWorldObjectById(parentQuestionPhrase.getSubjectId()) : null;
-			result.add(new Question(subject, "I think you better help me or I'll slit your throat. " + parentQuestionPhrase.getQuestionPhrase()));
+			result.add(new Question(subject, Text.QUESTION_INTIMIDATE.get(parentQuestionPhrase.getQuestionPhrase())));
 		}
 		return result;
 	}
@@ -66,8 +67,8 @@ public class IntimidateConversation implements Conversation {
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
-			new Response(GET_LOST, "Get lost"),
-			new Response(I_LL_COMPLY, "I'll comply")
+			new Response(GET_LOST, Text.ANSWER_INTIMIDATE_GETLOST.get()),
+			new Response(I_LL_COMPLY, Text.ANSWER_INTIMIDATE_COMPLY.get())
 		);
 	}
 

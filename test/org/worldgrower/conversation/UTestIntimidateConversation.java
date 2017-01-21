@@ -38,7 +38,7 @@ public class UTestIntimidateConversation {
 		
 		ConversationContext context = new ConversationContext(performer, target, null, null, null, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
-		assertEquals(true, replyPhrases.size() == 2);
+		assertEquals(2, replyPhrases.size());
 		assertEquals("Get lost", replyPhrases.get(0).getResponsePhrase());
 		assertEquals("I'll comply", replyPhrases.get(1).getResponsePhrase());
 	}

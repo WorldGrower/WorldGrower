@@ -118,6 +118,8 @@ public class Conversations implements Serializable {
 	
 	public static final PayBountyConversation PAY_BOUNTY_CONVERSATION = new PayBountyConversation();
 	
+	public static final Conversation DUMMY_INTIMIDATE_CONVERSATION = new IntimidateConversation(null);
+	
 	private static final List<Conversation> CONVERSATIONS = new ArrayList<>();
 	private static final Map<Conversation, ConversationCategory> CONVERSATION_CATEGORIES = new HashMap<>();
 	

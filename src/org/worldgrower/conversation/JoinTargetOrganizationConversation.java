@@ -24,6 +24,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.history.HistoryItem;
+import org.worldgrower.text.Text;
 
 public class JoinTargetOrganizationConversation implements Conversation {
 
@@ -57,7 +58,7 @@ public class JoinTargetOrganizationConversation implements Conversation {
 			WorldObject organization = world.findWorldObjectById(organizationId);
 			if (GroupPropertyUtils.hasAuthorityToAddMembers(target, organization, world)) {
 				if (GroupPropertyUtils.canJoinOrganization(performer, organization)) {
-					questions.add(new Question(organization, "Can I join the " + organization.getProperty(Constants.NAME) + " ?"));
+					questions.add(new Question(organization, Text.QUESTION_JOIN_TARGET_ORG.get(organization.getProperty(Constants.NAME))));
 				}
 			}
 		}
@@ -70,8 +71,8 @@ public class JoinTargetOrganizationConversation implements Conversation {
 		WorldObject organization = conversationContext.getSubject();
 		
 		return Arrays.asList(
-			new Response(YES, "Yes, you can join the " + organization.getProperty(Constants.NAME)),
-			new Response(NO, "No")
+			new Response(YES, Text.ANSWER_JOIN_TARGET_ORG_YES.get(organization.getProperty(Constants.NAME))),
+			new Response(NO, Text.ANSWER_JOIN_TARGET_ORG_NO.get())
 			);
 	}
 	
