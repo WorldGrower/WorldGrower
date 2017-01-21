@@ -22,9 +22,13 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.history.HistoryItem;
+import org.worldgrower.text.Text;
 
 public class ImmediateGoalConversation implements Conversation {
 
+	private static final int YES = 0;
+	private static final int NO = 1;
+	
 	@Override
 	public Response getReplyPhrase(ConversationContext conversationContext) {
 		WorldObject target = conversationContext.getTarget();
@@ -35,9 +39,9 @@ public class ImmediateGoalConversation implements Conversation {
 		OperationInfo operationInfo = world.getImmediateGoal(target, world);
 
 		if ((goal != null) && (operationInfo != null)) {
-			replyId = 0;
+			replyId = YES;
 		} else {
-			replyId = 1;
+			replyId = NO;
 		}
 		
 		return getReply(getReplyPhrases(conversationContext), replyId);
@@ -45,7 +49,7 @@ public class ImmediateGoalConversation implements Conversation {
 
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
-		return Arrays.asList(new Question(null, "What are you doing?"));
+		return Arrays.asList(new Question(null, Text.QUESTION_IMMEDIATE_GOAL.get()));
 	}
 	
 	@Override
@@ -58,8 +62,8 @@ public class ImmediateGoalConversation implements Conversation {
 		String immediateGoalDescription = (operationInfo != null ? operationInfo.getDescription(world) : "");
 		String goalDescription = (goal != null ? goal.getDescription() : "");
 		return Arrays.asList(
-			new Response(0, "I'm " + immediateGoalDescription + " because I'm " + goalDescription),
-			new Response(1, "I'm not doing anything")
+			new Response(YES, Text.ANSWER_IMMEDIATE_GOAL_YES.get(immediateGoalDescription, goalDescription)),
+			new Response(NO, Text.ANSWER_IMMEDIATE_GOAL_NO.get())
 			);
 	}
 	

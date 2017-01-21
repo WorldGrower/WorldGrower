@@ -41,7 +41,7 @@ import org.worldgrower.history.HistoryItem;
 public class Conversations implements Serializable {
 
 	public static final Conversation NAME_CONVERSATION = new NameConversation();
-	public static final Conversation GOAL_CONVERSATION = new GoalConversation();
+	public static final GoalConversation GOAL_CONVERSATION = new GoalConversation();
 	public static final ImmediateGoalConversation IMMEDIATE_GOAL_CONVERSATION = new ImmediateGoalConversation();
 	public static final RelationshipConversation RELATIONSHIP_CONVERSATION = new RelationshipConversation();
 	public static final ProfessionConversation PROFESSION_CONVERSATION = new ProfessionConversation();

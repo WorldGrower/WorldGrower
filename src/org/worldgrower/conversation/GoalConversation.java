@@ -21,9 +21,13 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.history.HistoryItem;
+import org.worldgrower.text.Text;
 
 public class GoalConversation implements Conversation {
 
+	private static final int YES = 0;
+	private static final int NO = 1;
+	
 	@Override
 	public Response getReplyPhrase(ConversationContext conversationContext) {
 		WorldObject target = conversationContext.getTarget();
@@ -31,16 +35,16 @@ public class GoalConversation implements Conversation {
 		final int replyId;
 		Goal goal = world.getGoal(target);
 		if (goal != null) {
-			replyId = 0;
+			replyId = YES;
 		} else {
-			replyId = 1;
+			replyId = NO;
 		}
 		return getReply(getReplyPhrases(conversationContext), replyId);
 	}
 
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
-		return Arrays.asList(new Question(null, "What is your current goal?"));
+		return Arrays.asList(new Question(null, Text.QUESTION_GOAL.get()));
 	}
 	
 	@Override
@@ -50,8 +54,8 @@ public class GoalConversation implements Conversation {
 		Goal goal = world.getGoal(target);
 		String goalDescription = (goal !=null ? goal.getDescription() : "");
 		return Arrays.asList(
-			new Response(0, "I'm " + goalDescription),
-			new Response(1, "I don't have a goal for the moment")
+			new Response(YES, Text.ANSWER_GOAL_YES.get(goalDescription)),
+			new Response(NO, Text.ANSWER_GOAL_NO.get())
 			);
 	}
 
