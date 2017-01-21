@@ -118,8 +118,6 @@ public class Conversations implements Serializable {
 	
 	public static final PayBountyConversation PAY_BOUNTY_CONVERSATION = new PayBountyConversation();
 	
-	public static final Conversation DUMMY_INTIMIDATE_CONVERSATION = new IntimidateConversation(null);
-	
 	private static final List<Conversation> CONVERSATIONS = new ArrayList<>();
 	private static final Map<Conversation, ConversationCategory> CONVERSATION_CATEGORIES = new HashMap<>();
 	
@@ -391,7 +389,7 @@ public class Conversations implements Serializable {
 		return CONVERSATIONS.get(index).getPossibleSubjects(performer, target, getQuestionHistoryItem(historyItemId, world), world);
 	}
 	
-	Conversation getIntimidateConversation() {
+	public static Conversation getIntimidateConversation() {
 		for(Conversation conversation : CONVERSATIONS) {
 			if (conversation instanceof IntimidateConversation) {
 				return conversation;
