@@ -27,6 +27,17 @@ import org.worldgrower.attribute.PropertyCountMap;
 
 public class UTestDemandsConversation {
 
+	private DemandsConversation conversation = new DemandsConversation();
+	
+	@Test
+	public void testGetQuestionPhrases() {
+		PropertyCountMap<ManagedProperty<?>> demands = new PropertyCountMap<>();
+		WorldObject target = TestUtils.createIntelligentWorldObject(1, Constants.DEMANDS, demands);
+		List<Question> questions = conversation.getQuestionPhrases(null, target, null, null, null);
+		assertEquals(1, questions.size());
+		assertEquals("What would you like to buy?", questions.get(0).getQuestionPhrase());
+	}
+	
 	@Test
 	public void testGetReplyPhrasesNoDemands() {
 		List<Response> replyPhrases = getReplyPhrases(new PropertyCountMap<>());
@@ -67,7 +78,7 @@ public class UTestDemandsConversation {
 	private List<Response> getReplyPhrases(PropertyCountMap<ManagedProperty<?>> propertyCountMap) {
 		WorldObject target = TestUtils.createIntelligentWorldObject(1, Constants.DEMANDS, propertyCountMap);
 		ConversationContext conversationContext = new ConversationContext(null, target, null, null, null, 0);
-		List<Response> replyPhrases = new DemandsConversation().getReplyPhrases(conversationContext);
+		List<Response> replyPhrases = conversation.getReplyPhrases(conversationContext);
 		return replyPhrases;
 	}
 }

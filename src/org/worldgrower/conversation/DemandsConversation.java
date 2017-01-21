@@ -29,15 +29,18 @@ import org.worldgrower.history.HistoryItem;
 
 public class DemandsConversation implements Conversation {
 
+	private static final int YES = 0;
+	private static final int NO = 1;
+	
 	@Override
 	public Response getReplyPhrase(ConversationContext conversationContext) {
 		WorldObject target = conversationContext.getTarget();
 		final int replyId;
 		PropertyCountMap<ManagedProperty<?>> demands = target.getProperty(Constants.DEMANDS);
 		if (demands.size() > 0) {
-			replyId = 0;
+			replyId = YES;
 		} else {
-			replyId = 1;
+			replyId = NO;
 		}
 		return getReply(getReplyPhrases(conversationContext), replyId);
 	}
@@ -62,8 +65,8 @@ public class DemandsConversation implements Conversation {
 			}
 		}
 		return Arrays.asList(
-			new Response(0, "I'd like to buy " + demandsBuilder.toString()),
-			new Response(1, "I'm not looking for anything to buy right now")
+			new Response(YES, "I'd like to buy " + demandsBuilder.toString()),
+			new Response(NO, "I'm not looking for anything to buy right now")
 			);
 	}
 

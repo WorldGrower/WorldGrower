@@ -27,6 +27,7 @@ import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
 import org.worldgrower.profession.Profession;
 import org.worldgrower.profession.Professions;
+import org.worldgrower.text.Text;
 
 public class DeityExplanationConversation implements Conversation {
 
@@ -59,7 +60,7 @@ public class DeityExplanationConversation implements Conversation {
 		List<Question> questions = new ArrayList<>();
 		for(Deity deity : Deity.ALL_DEITIES) {
 			int indexOfDeity = Deity.ALL_DEITIES.indexOf(deity);
-			questions.add(new Question(null, "What can you tell me about " + deity.getName(), indexOfDeity));
+			questions.add(new Question(null, Text.QUESTION_DEITY_EXPLANATION.get(deity.getName()), indexOfDeity));
 		}
 		return questions;
 	}
@@ -68,9 +69,9 @@ public class DeityExplanationConversation implements Conversation {
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		Deity subjectDeity = Deity.ALL_DEITIES.get(conversationContext.getAdditionalValue());
 		return Arrays.asList(
-			new Response(YES, subjectDeity.getExplanation()),
-			new Response(NO, "I don't know more about " + subjectDeity.getName()),
-			new Response(GET_LOST, "Get lost")
+			new Response(YES, Text.ANSWER_DEITY_EXPLANATION_YES.get(subjectDeity.getExplanation())),
+			new Response(NO, Text.ANSWER_DEITY_EXPLANATION_NO.get(subjectDeity.getName())),
+			new Response(GET_LOST, Text.ANSWER_DEITY_EXPLANATION_GETLOST.get())
 			);
 	}
 

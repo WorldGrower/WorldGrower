@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.deity.Deity;
 import org.worldgrower.history.HistoryItem;
+import org.worldgrower.text.Text;
 
 public class DeityReasonConversation implements Conversation {
 
@@ -47,7 +48,7 @@ public class DeityReasonConversation implements Conversation {
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		Deity deity = target.getProperty(Constants.DEITY);
-		return Arrays.asList(new Question(null, "Why did you choose to follow " + deity.getName() + "?"));
+		return Arrays.asList(new Question(null, Text.QUESTION_DEITY_REASON.get(deity.getName())));
 	}
 	
 	@Override
@@ -59,10 +60,10 @@ public class DeityReasonConversation implements Conversation {
 		List<Response> responses = new ArrayList<>();
 		int responseId = 0;
 		for (String reason : reasons) {
-			responses.add(new Response(responseId, reason));
+			responses.add(new Response(responseId, Text.ANSWER_DEITY_REASON.get(reason)));
 			responseId++;
 		}
-		responses.add(new Response(SEEMED_LIKE, "I don't care that much about which deity to follow, it seemed a good idea at the time"));
+		responses.add(new Response(SEEMED_LIKE, Text.ANSWER_DEITY_REASON_DONT_CARE.get()));
 		return responses;
 	}
 	

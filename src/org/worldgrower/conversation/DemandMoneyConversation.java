@@ -23,6 +23,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
+import org.worldgrower.text.Text;
 
 public class DemandMoneyConversation implements Conversation {
 
@@ -56,16 +57,16 @@ public class DemandMoneyConversation implements Conversation {
 
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
-		return Arrays.asList(new Question(null, "Can you give me 100 gold?"));
+		return Arrays.asList(new Question(null, Text.QUESTION_DEMAND_MONEY.get()));
 	}
 
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
-			new Response(GET_LOST, "Get lost"),
-			new Response(SURE, "I'll give you the money"),
-			new Response(NO, "No"),
-			new Response(I_CAN_ONLY, "I can only spare a bit of gold")
+			new Response(GET_LOST, Text.ANSWER_DEMAND_MONEY_GETLOST.get()),
+			new Response(SURE, Text.ANSWER_DEMAND_MONEY_SURE.get()),
+			new Response(NO, Text.ANSWER_DEMAND_MONEY_NO.get()),
+			new Response(I_CAN_ONLY, Text.ANSWER_DEMAND_MONEY_CAN_ONLY.get())
 		);
 	}
 

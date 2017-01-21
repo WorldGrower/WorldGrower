@@ -101,6 +101,7 @@ import org.worldgrower.conversation.UTestComplimentConversation;
 import org.worldgrower.conversation.UTestConversations;
 import org.worldgrower.conversation.UTestCureDiseaseConversation;
 import org.worldgrower.conversation.UTestCurePoisonConversation;
+import org.worldgrower.conversation.UTestDeityConversation;
 import org.worldgrower.conversation.UTestDeityExplanationConversation;
 import org.worldgrower.conversation.UTestDeityFollowersConversation;
 import org.worldgrower.conversation.UTestDeityReasonConversation;
@@ -789,7 +790,8 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestCreatePaperMillGoal.class,
 	UTestCraftShortBowAction.class,
 	UTestSellUnusedItemsGoal.class,
-	UTestText.class
+	UTestText.class,
+	UTestDeityConversation.class
 })
 public class CompleteTestSuite {
 }
