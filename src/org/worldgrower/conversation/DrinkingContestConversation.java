@@ -25,6 +25,7 @@ import org.worldgrower.goal.DrinkingContestPropertyUtils;
 import org.worldgrower.goal.GoalUtils;
 import org.worldgrower.goal.Goals;
 import org.worldgrower.history.HistoryItem;
+import org.worldgrower.text.Text;
 
 public class DrinkingContestConversation implements Conversation {
 
@@ -57,10 +58,10 @@ public class DrinkingContestConversation implements Conversation {
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		List<Question> questions = new ArrayList<>();
 		for(int gold = 20; gold < 100; gold += 20) {
-			questions.add(new Question(null, "I want to have a drinking contest with you and I bet " + gold + " gold that I'm going to win. Do you accept?", gold));
+			questions.add(new Question(null, Text.QUESTION_DRINKING_CONTEST_GOLD.get(gold), gold));
 		}
 		
-		questions.add(new Question(null, "I want to have a drinking contest with you. Do you accept?", 0));
+		questions.add(new Question(null, Text.QUESTION_DRINKING_CONTEST.get(), 0));
 		
 		return questions;
 	}
@@ -71,10 +72,10 @@ public class DrinkingContestConversation implements Conversation {
 		World world = conversationContext.getWorld();
 		
 		return Arrays.asList(
-			new Response(YES, "Yes, the first one to become intoxicated or doesn't drink alcohol loses."),
-			new Response(NO, "No"),
-			new Response(LATER, "I'd love to, but I'm currently " + world.getImmediateGoal(target, world).getDescription(world)),
-			new Response(NOT_ENOUGH_GOLD, "Not for the moment, I can't match your bet")
+			new Response(YES, Text.ANSWER_DRINKING_CONTEST_YES.get()),
+			new Response(NO, Text.ANSWER_DRINKING_CONTEST_NO.get()),
+			new Response(LATER, Text.ANSWER_DRINKING_CONTEST_LATER.get(world.getImmediateGoal(target, world).getDescription(world))),
+			new Response(NOT_ENOUGH_GOLD, Text.ANSWER_DRINKING_CONTEST_NOGOLD.get())
 			);
 	}
 

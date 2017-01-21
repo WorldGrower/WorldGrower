@@ -23,12 +23,16 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
+import org.worldgrower.text.Text;
 
 public class ExplainCurseConversation implements Conversation {
 
+	private static final int YES = 0;
+	private static final int NO = 1;
+	
 	@Override
 	public Response getReplyPhrase(ConversationContext conversationContext) {
-		final int replyId = 0;
+		final int replyId = YES;
 		//TODO: implement
 		return getReply(getReplyPhrases(conversationContext), replyId);
 	}
@@ -36,15 +40,15 @@ public class ExplainCurseConversation implements Conversation {
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		return Arrays.asList(
-			new Question(null, "I need your help: " + performer.getProperty(Constants.CURSE).getExplanation())
+			new Question(null, Text.QUESTION_CURSE.get(performer.getProperty(Constants.CURSE).getExplanation()))
 			);
 	}
 
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
-			new Response(0, "Yes"),
-			new Response(1, "No"));
+			new Response(YES, Text.ANSWER_CURSE_YES.get()),
+			new Response(NO, Text.ANSWER_CURSE_NO.get()));
 	}
 	
 	@Override
@@ -53,7 +57,7 @@ public class ExplainCurseConversation implements Conversation {
 		WorldObject target = conversationContext.getTarget();
 		World world = conversationContext.getWorld();
 		
-		if (replyIndex == 0) {
+		if (replyIndex == YES) {
 			RelationshipPropertyUtils.changeRelationshipValue(performer, target, 600, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 		}
 	}

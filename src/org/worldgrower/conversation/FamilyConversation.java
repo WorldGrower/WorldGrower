@@ -21,6 +21,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.history.HistoryItem;
+import org.worldgrower.text.Text;
 
 public class FamilyConversation implements Conversation {
 
@@ -43,7 +44,7 @@ public class FamilyConversation implements Conversation {
 
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
-		return Arrays.asList(new Question(null, "Do you have a family?"));
+		return Arrays.asList(new Question(null, Text.QUESTION_FAMILY.get()));
 	}
 	
 	@Override
@@ -54,8 +55,8 @@ public class FamilyConversation implements Conversation {
 		YesNoResponse yesNoResponse = getYesNoResponse(target, world);
 		
 		return Arrays.asList(
-			new Response(YES, "Yes" + yesNoResponse.getYesResponse()),
-			new Response(NO, "No" + yesNoResponse.getNoResponse())
+			new Response(YES, Text.ANSWER_FAMILY_YES.get(yesNoResponse.getYesResponse())),
+			new Response(NO, Text.ANSWER_FAMILY_NO.get(yesNoResponse.getNoResponse()))
 			);
 	}
 

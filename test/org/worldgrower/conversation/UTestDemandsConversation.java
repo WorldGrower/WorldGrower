@@ -45,8 +45,6 @@ public class UTestDemandsConversation {
 		assertEquals("I'd like to buy ", replyPhrases.get(0).getResponsePhrase());
 		assertEquals("I'm not looking for anything to buy right now", replyPhrases.get(1).getResponsePhrase());
 	}
-
-
 	
 	@Test
 	public void testGetReplyPhrasesOneDemand() {
