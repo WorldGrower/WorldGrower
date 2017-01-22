@@ -25,6 +25,7 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.goal.KnowledgeMapPropertyUtils;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
+import org.worldgrower.text.Text;
 
 public class ProposeMateConversation implements Conversation {
 
@@ -68,7 +69,7 @@ public class ProposeMateConversation implements Conversation {
 
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
-		return Arrays.asList(new Question(null, "Would you like to become my mate?"));
+		return Arrays.asList(new Question(null, Text.QUESTION_PROPOSE_MATE.get()));
 	}
 	
 	@Override
@@ -78,10 +79,10 @@ public class ProposeMateConversation implements Conversation {
 		boolean targetAccepts = targetAccepts(target, performer);
 		
 		return Arrays.asList(
-			new Response(YES, "Yes"),
-			new Response(NO, "No"),
-			new Response(ALREADY_ASKED_SAME, "My answer is still the same as the last time you asked, " + (targetAccepts ? "yes" : "no")),
-			new Response(ALREADY_ASKED_DIFFERENT, "This time my answer is " + (targetAccepts ? "yes" : "no"))
+			new Response(YES, Text.ANSWER_PROPOSE_MATE_YES.get()),
+			new Response(NO, Text.ANSWER_PROPOSE_MATE_NO.get()),
+			new Response(ALREADY_ASKED_SAME, Text.ANSWER_PROPOSE_MATE_SAME.get((targetAccepts ? "yes" : "no"))),
+			new Response(ALREADY_ASKED_DIFFERENT, Text.ANSWER_PROPOSE_MATE_DIFFERENT.get((targetAccepts ? "yes" : "no")))
 			);
 	}
 	

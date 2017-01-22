@@ -27,6 +27,7 @@ import org.worldgrower.attribute.KnowledgeMap;
 import org.worldgrower.goal.KnowledgePropertyUtils;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
+import org.worldgrower.text.Text;
 
 public class ShareKnowledgeConversation implements Conversation {
 
@@ -59,7 +60,7 @@ public class ShareKnowledgeConversation implements Conversation {
 			WorldObject subject = world.findWorldObjectById(knowledge.getSubjectId());
 			if (!subject.equals(target)) {
 				String questionphrase = knowledgeToDescriptionMapper.getQuestionDescription(knowledge, world);
-				questions.add(new Question(subject, questionphrase, knowledge.getId()));
+				questions.add(new Question(subject, Text.QUESTION_SHARE_KNOWLEDGE.get(questionphrase), knowledge.getId()));
 			}
 		}
 		return questions;
@@ -68,8 +69,8 @@ public class ShareKnowledgeConversation implements Conversation {
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
-			new Response(THANKS, "Thanks for the information"),
-			new Response(GET_LOST, "Get lost")
+			new Response(THANKS, Text.ANSWER_SHARE_KNOWLEDGE_THANKS.get()),
+			new Response(GET_LOST, Text.ANSWER_SHARE_KNOWLEDGE_GETLOST.get())
 			);
 	}
 
