@@ -246,7 +246,7 @@ public class DocumentationGenerator {
 	
 	private static void generateConversationsOverview(File outputDir, ImageInfoReader imageInfoReader) {
 		String title = "WorldGrower:Conversations";
-		String description = "This lists all the conversations that can be had.";
+		String description = "This lists all the conversations that can be had. Text like {0}, {1}, etc represent variable text like a character name, a gold amount, etc.";
 		File outputFile = new File(outputDir, "gen_conversations.html");
 		List<String> headerFields = Arrays.asList("Questions", "Answers");
 		
