@@ -22,6 +22,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.history.HistoryItem;
+import org.worldgrower.text.Text;
 
 public class OrganizationConversation implements Conversation {
 
@@ -63,7 +64,7 @@ public class OrganizationConversation implements Conversation {
 
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
-		return Arrays.asList(new Question(null, "What organizations do you belong to?"));
+		return Arrays.asList(new Question(null, Text.QUESTION_ORG.get()));
 	}
 	
 	@Override
@@ -74,10 +75,10 @@ public class OrganizationConversation implements Conversation {
 		String organizationsDescription = getOrganizationsDescription(target, world);
 		
 		return Arrays.asList(
-			new Response(MY_GROUP, "I belong to " + organizationsDescription),
-			new Response(NO_GROUP, "I don't belong to any organizations"),
-			new Response(ALREADY_ASKED_SAME, "I still belong to the same organizations, " + organizationsDescription),
-			new Response(ALREADY_ASKED_DIFFERENT, "Now I belong to " + organizationsDescription)
+			new Response(MY_GROUP, Text.ANSWER_ORG_GROUP.get(organizationsDescription)),
+			new Response(NO_GROUP, Text.ANSWER_ORG_NO_GROUP.get()),
+			new Response(ALREADY_ASKED_SAME, Text.ANSWER_ORG_SAME.get(organizationsDescription)),
+			new Response(ALREADY_ASKED_DIFFERENT, Text.ANSWER_ORG_DIFFERENT.get(organizationsDescription))
 			);
 	}
 

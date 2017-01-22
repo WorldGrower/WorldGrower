@@ -26,6 +26,7 @@ import org.worldgrower.goal.BountyPropertyUtils;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
+import org.worldgrower.text.Text;
 
 public class PayBountyConversation implements Conversation {
 
@@ -51,7 +52,7 @@ public class PayBountyConversation implements Conversation {
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		int bounty = BountyPropertyUtils.getBounty(performer, world);
-		return Arrays.asList(new Question(null, "I'm here to pay my bounty, " + bounty + " gold, what will you do?"));
+		return Arrays.asList(new Question(null, Text.QUESTION_PAY_BOUNTY.get(bounty)));
 	}
 
 	@Override
@@ -59,8 +60,8 @@ public class PayBountyConversation implements Conversation {
 
 		List<Response> responses = new ArrayList<>();
 		responses.addAll(Arrays.asList(
-				new Response(YES, "Yes, your bounty is cleared"),
-				new Response(NO, "No, I won't clear your bounty")));
+				new Response(YES, Text.ANSWER_PAY_BOUNTY_YES.get()),
+				new Response(NO, Text.ANSWER_PAY_BOUNTY_NO.get())));
 		
 		return responses;
 	}

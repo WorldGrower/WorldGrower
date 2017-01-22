@@ -22,6 +22,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.history.HistoryItem;
 import org.worldgrower.profession.Profession;
+import org.worldgrower.text.Text;
 import org.worldgrower.util.SentenceUtils;
 
 public class ProfessionConversation implements Conversation {
@@ -59,7 +60,7 @@ public class ProfessionConversation implements Conversation {
 
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
-		return Arrays.asList(new Question(null, "What is your profession?"));
+		return Arrays.asList(new Question(null, Text.QUESTION_PROFESSION.get()));
 	}
 	
 	@Override
@@ -67,12 +68,13 @@ public class ProfessionConversation implements Conversation {
 		WorldObject target = conversationContext.getTarget();
 		String professionDescription = getProfessionDescription(target);
 		String article = SentenceUtils.getArticle(professionDescription);
+		String noProfession = Text.ANSWER_PROFESSION_NO.get();
 		
 		return Arrays.asList(
-			new Response(MY_PROFESSION, "I'm " + article + " " + professionDescription),
-			new Response(NO_PROFESSION, "I don't have a profession"),
-			new Response(STILL_THE_SAME, "It's still the same as the last time you asked, namely " + (professionDescription.length() > 0 ? professionDescription : "I don't have a profession")),
-			new Response(NEW_PROFESSION, "I'm " + article + " " + professionDescription + " now")
+			new Response(MY_PROFESSION, Text.ANSWER_PROFESSION_MY.get(article, professionDescription)),
+			new Response(NO_PROFESSION, noProfession),
+			new Response(STILL_THE_SAME, Text.ANSWER_PROFESSION_SAME.get((professionDescription.length() > 0 ? professionDescription : noProfession))),
+			new Response(NEW_PROFESSION, Text.ANSWER_PROFESSION_NEW.get(article, professionDescription))
 			);
 	}
 
