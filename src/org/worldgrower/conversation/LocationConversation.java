@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.IdMap;
 import org.worldgrower.history.HistoryItem;
+import org.worldgrower.text.Text;
 
 public class LocationConversation implements Conversation {
 
@@ -61,7 +62,7 @@ public class LocationConversation implements Conversation {
 
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subject, World world) {
-		return Arrays.asList(new Question(subject, "Where is " + subject.getProperty(Constants.NAME) + "?"));
+		return Arrays.asList(new Question(subject, Text.QUESTION_LOCATION.get(subject.getProperty(Constants.NAME))));
 	}
 	
 	@Override
@@ -84,7 +85,7 @@ public class LocationConversation implements Conversation {
 		List<Response> responses = new ArrayList<>();
 		
 		for (Direction direction : Direction.values()) {
-			responses.add(new Response(direction.ordinal(), subject, subject.getProperty(Constants.NAME) + " is " + direction.getDescription() + " of here"));
+			responses.add(new Response(direction.ordinal(), subject, Text.ANSWER_LOCATION.get(subject.getProperty(Constants.NAME), direction.getDescription())));
 		}
 
 		return responses;

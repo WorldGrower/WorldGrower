@@ -19,12 +19,13 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.goal.RelationshipPropertyUtils;
+import org.worldgrower.text.Text;
 
 public class NotNicerConversation extends AbstractChangeOpinionConversation {
 
 	@Override
 	public Question createQuestion(WorldObject performer, WorldObject target, WorldObject subject) {
-		return new Question(subject, "Can you stay away from " + subject.getProperty(Constants.NAME) + "? That person cannot be trusted.");
+		return new Question(subject, Text.QUESTION_NOT_NICE.get(subject.getProperty(Constants.NAME)));
 	}
 
 	@Override

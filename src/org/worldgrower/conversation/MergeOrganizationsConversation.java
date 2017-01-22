@@ -25,6 +25,7 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
+import org.worldgrower.text.Text;
 
 public class MergeOrganizationsConversation implements Conversation {
 
@@ -51,7 +52,7 @@ public class MergeOrganizationsConversation implements Conversation {
 		List<Question> questions = new ArrayList<>();
 		
 		String organizationName = subject.getProperty(Constants.NAME);
-		questions.add(new Question(subject, "I'd like to merge my organization '" + organizationName + "' with your organization, is that ok with you?"));
+		questions.add(new Question(subject, Text.QUESTION_MERGE_ORG.get(organizationName)));
 		return questions;
 	}
 	
@@ -63,8 +64,8 @@ public class MergeOrganizationsConversation implements Conversation {
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
-			new Response(YES, "Yes"),
-			new Response(NO, "No")
+			new Response(YES, Text.ANSWER_MERGE_ORG_YES.get()),
+			new Response(NO, Text.ANSWER_MERGE_ORG_NO.get())
 			);
 	}
 	

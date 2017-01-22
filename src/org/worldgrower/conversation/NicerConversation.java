@@ -19,12 +19,13 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.goal.RelationshipPropertyUtils;
+import org.worldgrower.text.Text;
 
 public class NicerConversation extends AbstractChangeOpinionConversation {
 
 	@Override
 	public Question createQuestion(WorldObject performer, WorldObject target, WorldObject subject) {
-		return new Question(subject, "Can you get along with " + subject.getProperty(Constants.NAME) + " ?");
+		return new Question(subject, Text.QUESTION_NICE.get(subject.getProperty(Constants.NAME)));
 	}
 
 	@Override

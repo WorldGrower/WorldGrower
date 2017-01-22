@@ -27,6 +27,7 @@ import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
 import org.worldgrower.profession.Profession;
+import org.worldgrower.text.Text;
 
 public class LearnSkillUsingOrganizationConversation implements Conversation {
 
@@ -53,7 +54,7 @@ public class LearnSkillUsingOrganizationConversation implements Conversation {
 		Profession profession = performer.getProperty(Constants.PROFESSION);
 		WorldObject organization = GroupPropertyUtils.findProfessionOrganization(performer, world);
 		
-		return Arrays.asList(new Question(organization, "Can you teach me to improve my " + profession.getDescription() + " skills as a fellow member of the " + organization.getProperty(Constants.NAME) + "?"));
+		return Arrays.asList(new Question(organization, Text.QUESTION_LEARN_SKILL.get(profession.getDescription(), organization.getProperty(Constants.NAME))));
 	}
 	
 	@Override
@@ -62,8 +63,8 @@ public class LearnSkillUsingOrganizationConversation implements Conversation {
 		Profession profession = performer.getProperty(Constants.PROFESSION);
 		
 		return Arrays.asList(
-			new Response(YES, "Yes, I'll teach you about " + profession.getDescription() + " skills"),
-			new Response(NO, "No")
+			new Response(YES, Text.ANSWER_LEARN_SKILL_YES.get(profession.getDescription())),
+			new Response(NO, Text.ANSWER_LEARN_SKILL_NO.get())
 			);
 	}
 	
