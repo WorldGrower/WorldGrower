@@ -23,6 +23,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
+import org.worldgrower.text.Text;
 
 public class WhyAngryConversation implements Conversation {
 
@@ -38,7 +39,7 @@ public class WhyAngryConversation implements Conversation {
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		return Arrays.asList(
-			new Question(null, "Why are you angry with me?")
+			new Question(null, Text.QUESTION_ANGRY.get())
 			);
 	}
 
@@ -51,8 +52,8 @@ public class WhyAngryConversation implements Conversation {
 		String concatenatedAngryReasons = target.getProperty(Constants.BACKGROUND).getConcatenatedAngryReasons(true, target.getProperty(Constants.ID), performer, world);
 		
 		return Arrays.asList(
-			new Response(REAL_REASON, concatenatedAngryReasons),
-			new Response(GET_LOST, "Get lost")
+			new Response(REAL_REASON, Text.ANSWER_ANGRY_REASON.get(concatenatedAngryReasons)),
+			new Response(GET_LOST, Text.ANSWER_ANGRY_GETLOST.get())
 		);
 	}
 	

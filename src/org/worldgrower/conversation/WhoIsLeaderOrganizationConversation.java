@@ -26,6 +26,7 @@ import org.worldgrower.attribute.IdList;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
+import org.worldgrower.text.Text;
 
 public class WhoIsLeaderOrganizationConversation implements Conversation {
 
@@ -64,7 +65,7 @@ public class WhoIsLeaderOrganizationConversation implements Conversation {
 		for(int organizationId : targetOrganizations.getIds()) {
 			WorldObject organization = world.findWorldObjectById(organizationId);
 			if (GroupPropertyUtils.canChangeLeaderOfOrganization(organization)) {
-				questions.add(new Question(organization, "Who leads the " + organization.getProperty(Constants.NAME) + " ?"));
+				questions.add(new Question(organization, Text.QUESTION_LEADER.get(organization.getProperty(Constants.NAME))));
 			}
 		}
 		
@@ -83,9 +84,9 @@ public class WhoIsLeaderOrganizationConversation implements Conversation {
 		String leaderDescription = getLeaderDescription(organization, performer, target, leader);
 		
 		return Arrays.asList(
-			new Response(LEADER, leaderDescription),
-			new Response(NONE_OF, "That's none of your business"),
-			new Response(ALREADY_ASKED, "At this moment, " + leaderDescription)
+			new Response(LEADER, Text.ANSWER_LEADER_YES.get(leaderDescription)),
+			new Response(NONE_OF, Text.ANSWER_LEADER_NONE.get()),
+			new Response(ALREADY_ASKED, Text.ANSWER_LEADER_ALREADY.get(leaderDescription))
 			);
 	}
 

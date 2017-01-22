@@ -25,6 +25,7 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.deity.Deity;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
+import org.worldgrower.text.Text;
 
 public class SwitchDeityConversation implements Conversation {
 
@@ -54,7 +55,7 @@ public class SwitchDeityConversation implements Conversation {
 		
 		List<Question> questions = new ArrayList<>();
 		if (performerDeity != null) {
-			questions.add(new Question(null, "Would you like to worship " + performerDeity.getName() + " instead of your current deity?"));
+			questions.add(new Question(null, Text.QUESTION_SWITCH_DEITY.get(performerDeity.getName())));
 		}
 		return questions;
 	}
@@ -66,9 +67,9 @@ public class SwitchDeityConversation implements Conversation {
 		Deity performerDeity = performer.getProperty(Constants.DEITY);
 		Deity targetDeity = target.getProperty(Constants.DEITY);
 		return Arrays.asList(
-			new Response(YES, "Yes, I'll worship " + performerDeity.getName() + " instead of " + targetDeity.getName() + "."),
-			new Response(NO, "No"),
-			new Response(GET_LOST, "Get lost")
+			new Response(YES, Text.ANSWER_SWITCH_DEITY_YES.get(performerDeity.getName(), targetDeity.getName())),
+			new Response(NO, Text.ANSWER_SWITCH_DEITY_NO.get()),
+			new Response(GET_LOST, Text.ANSWER_SWITCH_DEITY_GETLOST.get())
 			);
 	}
 

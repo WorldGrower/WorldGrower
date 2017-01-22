@@ -25,6 +25,7 @@ import org.worldgrower.actions.VotingPropertyUtils;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.history.HistoryItem;
+import org.worldgrower.text.Text;
 
 public class VoteLeaderOrganizationConversation implements Conversation {
 
@@ -48,7 +49,7 @@ public class VoteLeaderOrganizationConversation implements Conversation {
 				if (performer.getProperty(Constants.GROUP).contains(organization)) {
 					boolean voteAlreadyInProgress = world.findWorldObjects(w -> VotingPropertyUtils.isVotingBoxForOrganization(w, organization)).size() > 0;
 					if (!voteAlreadyInProgress) {
-						questions.add(new Question(organization, "I want to vote on leadership for the " + organization.getProperty(Constants.NAME)));
+						questions.add(new Question(organization, Text.QUESTION_VOTE_LEADER.get(organization.getProperty(Constants.NAME))));
 					}
 				}
 			}
@@ -63,7 +64,7 @@ public class VoteLeaderOrganizationConversation implements Conversation {
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		World world = conversationContext.getWorld();
 		return Arrays.asList(
-			new Response(LETS_PUT, "Let's put it to a vote. From now for " + VotingPropertyUtils.getNumberOfTurnsCandidatesMayBeProposed(world) + " turns anyone can become a candidate for leader, and after that voting starts.")
+			new Response(LETS_PUT, Text.ANSWER_VOTE_LEADER.get(VotingPropertyUtils.getNumberOfTurnsCandidatesMayBeProposed(world)))
 			);
 	}
 
