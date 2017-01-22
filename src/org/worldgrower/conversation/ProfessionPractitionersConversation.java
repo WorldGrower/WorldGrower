@@ -26,6 +26,7 @@ import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
 import org.worldgrower.profession.Profession;
 import org.worldgrower.profession.Professions;
+import org.worldgrower.text.Text;
 import org.worldgrower.util.SentenceUtils;
 
 public class ProfessionPractitionersConversation implements Conversation {
@@ -56,7 +57,7 @@ public class ProfessionPractitionersConversation implements Conversation {
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		List<Question> questions = new ArrayList<>();
 		for(Profession profession : Professions.getAllSortedProfessions()) {
-			questions.add(new Question(null, "Do you know any people who are " + profession.getDescription() + "s?", Professions.getAllSortedProfessions().indexOf(profession)));
+			questions.add(new Question(null, Text.QUESTION_PROFESSION_USERS.get(profession.getDescription()), Professions.getAllSortedProfessions().indexOf(profession)));
 		}
 		return questions;
 	}
@@ -72,8 +73,8 @@ public class ProfessionPractitionersConversation implements Conversation {
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
-			new Response(YES, getProfessionPractitionersDescription(conversationContext)),
-			new Response(NO, "No")
+			new Response(YES, Text.ANSWER_PROFESSION_USERS_YES.get(getProfessionPractitionersDescription(conversationContext))),
+			new Response(NO, Text.ANSWER_PROFESSION_USERS_NO.get())
 			);
 	}
 

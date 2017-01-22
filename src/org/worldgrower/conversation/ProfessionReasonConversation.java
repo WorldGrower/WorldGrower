@@ -23,6 +23,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.Reasons;
 import org.worldgrower.history.HistoryItem;
 import org.worldgrower.profession.Profession;
+import org.worldgrower.text.Text;
 
 public class ProfessionReasonConversation implements Conversation {
 
@@ -61,7 +62,7 @@ public class ProfessionReasonConversation implements Conversation {
 
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
-		return Arrays.asList(new Question(null, "Why did you choose your profession?"));
+		return Arrays.asList(new Question(null, Text.QUESTION_PROFESSION_REASON.get()));
 	}
 	
 	@Override
@@ -70,11 +71,12 @@ public class ProfessionReasonConversation implements Conversation {
 		
 		Reasons reasons = target.getProperty(Constants.REASONS);
 		String reason = reasons.getReason(Constants.PROFESSION);
+		String noProfessionReason = Text.ANSWER_PROFESSION_REASON_NO.get();
 		return Arrays.asList(
-			new Response(REASON, reason),
-			new Response(NO_PROFESSION, "I don't have a profession"),
-			new Response(STILL_THE_SAME, "It's still the same as the last time you asked, " + (reason != null ? reason : "I don't have a profession")),
-			new Response(NEW_PROFESSION, "Like I said before, " + reason)
+			new Response(REASON, Text.ANSWER_PROFESSION_REASON_YES.get(reason)),
+			new Response(NO_PROFESSION, noProfessionReason),
+			new Response(STILL_THE_SAME, Text.ANSWER_PROFESSION_REASON_SAME.get((reason != null ? reason : noProfessionReason))),
+			new Response(NEW_PROFESSION, Text.ANSWER_PROFESSION_REASON_DIFFERENT.get(reason))
 			);
 	}
 	
