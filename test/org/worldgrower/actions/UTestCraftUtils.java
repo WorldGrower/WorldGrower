@@ -99,6 +99,11 @@ public class UTestCraftUtils {
 	}
 	
 	@Test
+	public void testGetRequirementsDescriptionWithOnePropertyAndThreeDescriptions() {
+		assertEquals("Requirements: 1 wood, description, description2, description3", CraftUtils.getRequirementsDescription(Constants.WOOD, 1, "description", "description2", "description3"));
+	}
+	
+	@Test
 	public void testIsValidBuildTarget() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = TestUtils.createSkilledWorldObject(1);
