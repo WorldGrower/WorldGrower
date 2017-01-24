@@ -91,6 +91,21 @@ public class UTestDrinkWaterGoal {
 		performer.setProperty(Constants.WATER, 1000);
 		assertEquals(true, goal.isGoalMet(performer, world));
 	}
+	
+	@Test
+	public void testIsValidWaterSource() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer();
+		WorldObject targetLocation = createPerformer();
+		int wellId = BuildingGenerator.buildWell(5, 5, world, 1f);
+		WorldObject well = world.findWorldObjectById(wellId);
+		
+		assertEquals(true, goal.isValidWaterSource(performer, targetLocation, well));
+		
+		targetLocation.setProperty(Constants.X, 100);
+		targetLocation.setProperty(Constants.Y, 100);
+		assertEquals(false, goal.isValidWaterSource(performer, targetLocation, well));
+	}
 
 	private WorldObject createPerformer() {
 		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
