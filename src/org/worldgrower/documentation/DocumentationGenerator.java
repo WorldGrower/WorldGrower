@@ -71,7 +71,9 @@ public class DocumentationGenerator {
 		File outputFile = new File(outputDir, "gen_spells.html");
 		List<String> headerFields = Arrays.asList("Icon", "Name", "Magic School", "Description");
 		List<List<String>> tableValues = new ArrayList<List<String>>();
-		for(MagicSpell magicSpell : Actions.getMagicSpells()) {
+		List<MagicSpell> magicSpells = Actions.getMagicSpells();
+		Actions.sortActionsByDescription(magicSpells);
+		for(MagicSpell magicSpell : magicSpells) {
 			List<String> tableRow = new ArrayList<>();
 			String magicSpellDescription = magicSpell.getClass().getName();
 			String magicSpellFilename = "gen_" + magicSpellDescription + ".png";
@@ -94,7 +96,7 @@ public class DocumentationGenerator {
 		File outputFile = new File(outputDir, "gen_tools.html");
 		List<String> headerFields = Arrays.asList("Icon", "Name", "Description");
 		List<List<String>> tableValues = new ArrayList<List<String>>();
-		for(Item item : Item.values()) {
+		for(Item item : Item.getSortedValues()) {
 			if (item.getItemType() == ItemType.TOOL || item.generate(1f).hasProperty(Constants.WOOD_CUTTING_QUALITY)) {
 				List<String> tableRow = new ArrayList<>();
 				String toolFilename = "gen_" + item.getDescription() + ".png";
@@ -116,7 +118,7 @@ public class DocumentationGenerator {
 		File outputFile = new File(outputDir, "gen_equipment.html");
 		List<String> headerFields = Arrays.asList("Icon", "Name", "Damage", "Armor");
 		List<List<String>> tableValues = new ArrayList<List<String>>();
-		for(Item item : Item.values()) {
+		for(Item item : Item.getSortedValues()) {
 			if (item.getItemType() == ItemType.ARMOR || item.getItemType() == ItemType.WEAPON) {
 				List<String> tableRow = new ArrayList<>();
 				String equipmentFilename = "gen_" + item.getDescription() + ".png";
@@ -161,7 +163,7 @@ public class DocumentationGenerator {
 		File outputFile = new File(outputDir, "gen_alchemy.html");
 		List<String> headerFields = Arrays.asList("Icon", "Name", "Description");
 		List<List<String>> tableValues = new ArrayList<List<String>>();
-		for(Item item : Item.values()) {
+		for(Item item : Item.getSortedValues()) {
 			if (item.getItemType() == ItemType.DRINK) {
 				List<String> tableRow = new ArrayList<>();
 				String filename = "gen_" + item.getDescription() + ".png";
@@ -299,7 +301,7 @@ public class DocumentationGenerator {
 		File outputFile = new File(outputDir, "gen_resources.html");
 		List<String> headerFields = Arrays.asList("Icon", "Name", "Description");
 		List<List<String>> tableValues = new ArrayList<List<String>>();
-		for(Item item : Item.values()) {
+		for(Item item : Item.getSortedValues()) {
 			if (item.getItemType() == ItemType.RESOURCE) {
 				List<String> tableRow = new ArrayList<>();
 				String filename = "gen_" + item.getDescription() + ".png";

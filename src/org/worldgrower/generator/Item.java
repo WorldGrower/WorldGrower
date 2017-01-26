@@ -14,6 +14,8 @@
  *******************************************************************************/
 package org.worldgrower.generator;
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -1242,5 +1244,12 @@ public enum Item {
 	public static boolean isLeatherEquipment(WorldObject worldObject) {
 		Item item = worldObject.getProperty(Constants.ITEM_ID);
 		return item == Item.LEATHER_BOOTS || item == Item.LEATHER_GLOVES || item == Item.LEATHER_HAT || item == Item.LEATHER_PANTS || item == Item.LEATHER_SHIRT;
+	}
+	
+	public static Item[] getSortedValues() {
+		Item[] values = values();
+		Comparator<Item> descriptionComparator = (Item o1, Item o2) -> o1.getDescription().compareTo(o2.getDescription());
+		Arrays.sort(values, descriptionComparator);
+		return values;
 	}
 }
