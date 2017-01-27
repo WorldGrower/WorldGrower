@@ -170,6 +170,10 @@ public class UTestSetGovernanceAction {
 
 		@Override
 		public void fireAssetsSeized(WorldObject worldObject, List<Integer> buildingIds) {
+		}
+
+		@Override
+		public void fireGenderChanged(WorldObject worldObject, String oldGender, String newGender) {
 		}		
 	}
 	

@@ -129,7 +129,7 @@ public class UTestActions {
 		createVillagersOrganization(world);
 		
 		List<ManagedOperation> actions = Actions.getActionsWithTargetProperty(performer, Constants.APOTHECARY_QUALITY, world);
-		assertEquals(Arrays.asList(Actions.BREW_POISON_ACTION, Actions.BREW_SLEEPING_POTION_ACTION, Actions.BREW_HEALING_POTION_ACTION, Actions.BREW_CURE_POISON_POTION_ACTION, Actions.BREW_CURE_DISEASE_POTION_ACTION), actions);
+		assertEquals(Arrays.asList(Actions.BREW_POISON_ACTION, Actions.BREW_SLEEPING_POTION_ACTION, Actions.BREW_HEALING_POTION_ACTION, Actions.BREW_CURE_POISON_POTION_ACTION, Actions.BREW_CURE_DISEASE_POTION_ACTION, Actions.BREW_CHANGE_GENDER_POTION_ACTION), actions);
 	}
 	
 	private WorldObject createPerformer(int id) {

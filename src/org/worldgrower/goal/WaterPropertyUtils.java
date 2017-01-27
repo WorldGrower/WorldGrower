@@ -84,6 +84,10 @@ public class WaterPropertyUtils {
 		if (waterTarget.hasProperty(Constants.CURE_DISEASE) && waterTarget.getProperty(Constants.CURE_DISEASE)) {
 			performer.getProperty(Constants.CONDITIONS).removeAllDiseases(performer, world.getWorldStateChangedListeners());
 		}
+		
+		if (waterTarget.hasProperty(Constants.CHANGE_GENDER) && waterTarget.getProperty(Constants.CHANGE_GENDER)) {
+			GenderPropertyUtils.changeGender(performer, world.getWorldStateChangedListeners());
+		}
 	}
 
 	private static boolean isWorldObject(WorldObject waterTarget, World world) {

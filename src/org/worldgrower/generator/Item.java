@@ -124,7 +124,8 @@ public enum Item {
 	STEEL_BOOTS(ItemType.ARMOR),
 	STEEL_MACE(ItemType.WEAPON), 
 	STEEL_KATAR(ItemType.WEAPON),
-	SHORTBOW(ItemType.WEAPON)
+	SHORTBOW(ItemType.WEAPON),
+	CHANGE_GENDER_POTION(ItemType.DRINK)
 	;
 
 	public static final int COMBAT_MULTIPLIER = 10;
@@ -1108,6 +1109,18 @@ public enum Item {
 			properties.put(Constants.EQUIPMENT_SLOT, Constants.LEFT_HAND_EQUIPMENT);
 			properties.put(Constants.IMAGE_ID, ImageIds.SHORT_BOW);
 			properties.put(Constants.LONG_DESCRIPTION, "A shortbow is a ranged weapon.");
+			return new WorldObjectImpl(properties);
+		});
+		
+		addItem(Item.CHANGE_GENDER_POTION, skillBonus -> {
+			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+			properties.put(Constants.NAME, "change gender potion");
+			properties.put(Constants.CHANGE_GENDER, Boolean.TRUE);
+			properties.put(Constants.WATER, (int) (10 * skillBonus));
+			properties.put(Constants.IMAGE_ID, ImageIds.CHANGE_GENDER_POTION);
+			properties.put(Constants.PRICE, 1);
+			properties.put(Constants.SELLABLE, false);
+			properties.put(Constants.LONG_DESCRIPTION, "Drinking a change gender potion changes a person's gender.");
 			return new WorldObjectImpl(properties);
 		});
 		

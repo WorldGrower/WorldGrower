@@ -717,7 +717,10 @@ public class ImageInfoReader {
 		
 		add(ImageIds.SHORT_BOW, sprites420.getSubImage(2, 11, 1, 1));
 		createAnimation(ImageIds.SHORT_BOW_ANIMATION, ImageIds.SHORT_BOW, 10);
-		
+
+		add(ImageIds.CHANGE_GENDER_POTION, ImageUtils.dye((BufferedImage)sprites420.getSubImage(6, 2, 1, 1), new Color(200, 0, 0, 90)));
+		createAnimation(ImageIds.CHANGE_GENDER_POTION_ANIMATION, ImageIds.CHANGE_GENDER_POTION, 10);
+	
     }
 
 	BufferedImage colorize(ImageIds imageId, Color color) {

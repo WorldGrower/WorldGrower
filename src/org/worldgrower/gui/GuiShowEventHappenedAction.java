@@ -193,4 +193,13 @@ public class GuiShowEventHappenedAction implements WorldStateChangedListener {
 			MessageDialogUtils.showMessage(description, "Assets Seized", playerCharacter, container, imageInfoReader);
 		}
 	}
+
+	@Override
+	public void fireGenderChanged(WorldObject worldObject, String oldGender, String newGender) {
+		if (worldObject.equals(playerCharacter)) {
+			String description = " The gender of " + playerCharacter.getProperty(Constants.NAME) + " was changed from " + oldGender + " to " + newGender;
+			MessageDialogUtils.showMessage(description, "Gender Changed", playerCharacter, container, imageInfoReader);
+		}
+		
+	}
 }

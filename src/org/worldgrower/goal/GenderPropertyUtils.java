@@ -16,8 +16,11 @@ package org.worldgrower.goal;
 
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
+import org.worldgrower.condition.WorldStateChangedListeners;
 
 public class GenderPropertyUtils {
+	private static final String MALE = "male";
+	private static final String FEMALE = "female";
 
 	public static boolean hasSameGender(WorldObject performer, WorldObject w) {
 		String performerGender = performer.getProperty(Constants.GENDER);
@@ -25,10 +28,24 @@ public class GenderPropertyUtils {
 	}
 	
 	public static boolean isMale(WorldObject performer) {
-		return performer.getProperty(Constants.GENDER).equals("male");
+		return performer.getProperty(Constants.GENDER).equals(MALE);
 	}
 	
 	public static boolean isFemale(WorldObject performer) {
-		return performer.getProperty(Constants.GENDER).equals("female");
+		return performer.getProperty(Constants.GENDER).equals(FEMALE);
+	}
+
+	public static void changeGender(WorldObject performer, WorldStateChangedListeners worldStateChangedListeners) {
+		String oldGender = performer.getProperty(Constants.GENDER);
+		if (isMale(performer)) {
+			performer.setProperty(Constants.GENDER, FEMALE);
+		}
+		if (isFemale(performer)) {
+			performer.setProperty(Constants.GENDER, MALE);
+		}
+		performer.removeProperty(Constants.PREGNANCY);
+		
+		String newGender = performer.getProperty(Constants.GENDER);
+		worldStateChangedListeners.genderChanged(performer, oldGender, newGender);
 	}
 }

@@ -38,4 +38,5 @@ public interface WorldStateChangedListener {
 	public void lostLeadership(WorldObject worldObject, WorldObject organization);
 	public void skillsDeteriorated(WorldObject worldObject);
 	public void fireAssetsSeized(WorldObject worldObject, List<Integer> buildingIds);
+	public void fireGenderChanged(WorldObject worldObject, String oldGender, String newGender);
 }

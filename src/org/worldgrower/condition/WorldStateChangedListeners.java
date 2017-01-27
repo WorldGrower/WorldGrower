@@ -104,4 +104,11 @@ public class WorldStateChangedListeners {
 			worldStateChangedListener.fireAssetsSeized(worldObject, buildingIds);
 		}
 	}
+
+	public void genderChanged(WorldObject worldObject, String oldGender, String newGender) {
+		for(WorldStateChangedListener worldStateChangedListener : worldStateChangedListeners) {
+			worldStateChangedListener.fireGenderChanged(worldObject, oldGender, newGender);
+		}
+		
+	}
 }
