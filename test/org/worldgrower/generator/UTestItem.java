@@ -46,4 +46,10 @@ public class UTestItem {
 	public void testGetItemFor() {
 		assertEquals(Item.FISHING_POLE, Item.getItemFor(Constants.FISHING_POLE_QUALITY));
 	}
+	
+	@Test
+	public void testGetSortedValues() {
+		Item[] sortedItems = Item.getSortedValues();
+		assertEquals(Item.APOTHECARY, sortedItems[0]);
+	}
 }
