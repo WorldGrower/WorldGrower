@@ -51,4 +51,9 @@ public class GhoulCurse implements Curse {
 	public String getExplanation() {
 		return "I've been turned into a ghoul";
 	}
+
+	@Override
+	public String getName() {
+		return "ghoul";
+	}
 }

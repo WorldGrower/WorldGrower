@@ -51,4 +51,9 @@ public class VampireCurse implements Curse {
 	public String getExplanation() {
 		return "I've been turned into a vampire";
 	}
+
+	@Override
+	public String getName() {
+		return "vampire";
+	}
 }

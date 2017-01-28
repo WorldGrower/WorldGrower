@@ -29,6 +29,7 @@ import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.WorldStateChangedListener;
 import org.worldgrower.creaturetype.CreatureType;
+import org.worldgrower.curse.Curse;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.gui.util.MessageDialogUtils;
 
@@ -198,6 +199,14 @@ public class GuiShowEventHappenedAction implements WorldStateChangedListener {
 	public void fireGenderChanged(WorldObject worldObject, String oldGender, String newGender) {
 		if (worldObject.equals(playerCharacter)) {
 			String description = " The gender of " + playerCharacter.getProperty(Constants.NAME) + " was changed from " + oldGender + " to " + newGender;
+			MessageDialogUtils.showMessage(description, "Gender Changed", playerCharacter, container, imageInfoReader);
+		}
+	}
+
+	@Override
+	public void fireCreatureCursed(WorldObject performer, WorldObject target, Curse curse) {
+		if (performer.equals(playerCharacter) || target.equals(playerCharacter)) {
+			String description = " " + performer.getProperty(Constants.NAME) + " cursed " + target.getProperty(Constants.NAME) + " to be a " + curse.getName();
 			MessageDialogUtils.showMessage(description, "Gender Changed", playerCharacter, container, imageInfoReader);
 		}
 		

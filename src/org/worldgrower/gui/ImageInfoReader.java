@@ -720,7 +720,9 @@ public class ImageInfoReader {
 
 		add(ImageIds.CHANGE_GENDER_POTION, ImageUtils.dye((BufferedImage)sprites420.getSubImage(6, 2, 1, 1), new Color(200, 0, 0, 90)));
 		createAnimation(ImageIds.CHANGE_GENDER_POTION_ANIMATION, ImageIds.CHANGE_GENDER_POTION, 10);
-	
+
+		add(ImageIds.BESTOW_CURSE, sprites420.getSubImage(5, 24, 1, 1));
+		createAnimation(ImageIds.BESTOW_CURSE_ANIMATION, ImageIds.BESTOW_CURSE, 10);
     }
 
 	BufferedImage colorize(ImageIds imageId, Color color) {

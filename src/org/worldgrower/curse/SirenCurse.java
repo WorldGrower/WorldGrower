@@ -60,4 +60,9 @@ public class SirenCurse implements Curse {
 	public boolean canTalk() {
 		return true;
 	}
+
+	@Override
+	public String getName() {
+		return "siren";
+	}
 }

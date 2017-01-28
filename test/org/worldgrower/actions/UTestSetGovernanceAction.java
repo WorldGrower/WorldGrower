@@ -37,6 +37,7 @@ import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.condition.WorldStateChangedListener;
 import org.worldgrower.creaturetype.CreatureType;
+import org.worldgrower.curse.Curse;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.LegalActionsPropertyUtils;
 
@@ -174,6 +175,10 @@ public class UTestSetGovernanceAction {
 
 		@Override
 		public void fireGenderChanged(WorldObject worldObject, String oldGender, String newGender) {
+		}
+
+		@Override
+		public void fireCreatureCursed(WorldObject performer, WorldObject target, Curse curse) {
 		}		
 	}
 	

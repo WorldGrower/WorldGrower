@@ -51,4 +51,9 @@ public class WerewolfCurse implements Curse {
 	public String getExplanation() {
 		return "I've been turned into a werewolf";
 	}
+
+	@Override
+	public String getName() {
+		return "werewolf";
+	}
 }

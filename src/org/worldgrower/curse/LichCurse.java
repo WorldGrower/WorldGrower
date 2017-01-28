@@ -46,4 +46,9 @@ public class LichCurse implements Curse {
 	public String getExplanation() {
 		return "I've been turned into a lich";
 	}
+
+	@Override
+	public String getName() {
+		return "lich";
+	}
 }

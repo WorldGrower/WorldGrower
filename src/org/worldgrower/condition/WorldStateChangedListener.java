@@ -23,6 +23,7 @@ import org.worldgrower.actions.legal.LegalAction;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.creaturetype.CreatureType;
+import org.worldgrower.curse.Curse;
 
 public interface WorldStateChangedListener {
 
@@ -39,4 +40,5 @@ public interface WorldStateChangedListener {
 	public void skillsDeteriorated(WorldObject worldObject);
 	public void fireAssetsSeized(WorldObject worldObject, List<Integer> buildingIds);
 	public void fireGenderChanged(WorldObject worldObject, String oldGender, String newGender);
+	public void fireCreatureCursed(WorldObject performer, WorldObject target, Curse curse);
 }

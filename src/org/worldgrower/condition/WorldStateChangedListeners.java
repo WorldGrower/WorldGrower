@@ -24,6 +24,7 @@ import org.worldgrower.actions.legal.LegalAction;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.creaturetype.CreatureType;
+import org.worldgrower.curse.Curse;
 
 public class WorldStateChangedListeners {
 
@@ -108,6 +109,12 @@ public class WorldStateChangedListeners {
 	public void genderChanged(WorldObject worldObject, String oldGender, String newGender) {
 		for(WorldStateChangedListener worldStateChangedListener : worldStateChangedListeners) {
 			worldStateChangedListener.fireGenderChanged(worldObject, oldGender, newGender);
+		}
+	}
+
+	public void creatureCursed(WorldObject performer, WorldObject target, Curse curse) {
+		for(WorldStateChangedListener worldStateChangedListener : worldStateChangedListeners) {
+			worldStateChangedListener.fireCreatureCursed(performer, target, curse);
 		}
 		
 	}

@@ -15,6 +15,7 @@
 package org.worldgrower.curse;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 
 import org.worldgrower.ManagedOperation;
@@ -29,6 +30,7 @@ public interface Curse extends Serializable {
 	public boolean canMove();
 	public boolean canTalk();
 	public String getExplanation();
+	public String getName();
 	
 	public static final SirenCurse SIREN_CURSE = new SirenCurse();
 	public static final ToadCurse TOAD_CURSE = new ToadCurse();
@@ -36,4 +38,6 @@ public interface Curse extends Serializable {
 	public static final WerewolfCurse WEREWOLF_CURSE = new WerewolfCurse();
 	public static final LichCurse LICH_CURSE = new LichCurse();
 	public static final GhoulCurse GHOUL_CURSE = new GhoulCurse();
+	
+	public static final List<Curse> BESTOWABLE_CURSES = Arrays.asList(SIREN_CURSE, TOAD_CURSE);
 }
