@@ -793,7 +793,8 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestSellUnusedItemsGoal.class,
 	UTestText.class,
 	UTestDeityConversation.class,
-	UTestGoalConversation.class
+	UTestGoalConversation.class,
+	UTestGenderPropertyUtils.class
 })
 public class CompleteTestSuite {
 }

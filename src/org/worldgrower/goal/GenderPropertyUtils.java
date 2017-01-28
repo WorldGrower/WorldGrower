@@ -39,8 +39,7 @@ public class GenderPropertyUtils {
 		String oldGender = performer.getProperty(Constants.GENDER);
 		if (isMale(performer)) {
 			performer.setProperty(Constants.GENDER, FEMALE);
-		}
-		if (isFemale(performer)) {
+		} else if (isFemale(performer)) {
 			performer.setProperty(Constants.GENDER, MALE);
 		}
 		performer.removeProperty(Constants.PREGNANCY);
