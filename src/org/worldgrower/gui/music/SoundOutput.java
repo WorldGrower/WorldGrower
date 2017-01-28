@@ -39,7 +39,11 @@ public final class SoundOutput {
 	}
 	
 	public static SoundOutput getDefaultSoundOutput() {
-		return new SoundOutput(AudioSystem.getMixer(null));
+		if (AudioSystem.getMixerInfo().length > 0) {
+			return new SoundOutput(AudioSystem.getMixer(null));
+		} else {
+			return new SoundOutput(null);
+		}
 	}
 	
 	public static SoundOutput create(String description) {
@@ -80,6 +84,8 @@ public final class SoundOutput {
 			return false;
 		}
 	}
-	
-	
+
+	public boolean supportsSound() {
+		return mixer != null;
+	}	
 }

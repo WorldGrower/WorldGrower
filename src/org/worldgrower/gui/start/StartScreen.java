@@ -131,6 +131,14 @@ public class StartScreen implements SaveGameHandler {
 	}
 	
 	private static void loadSounds(Preferences preferences) {
+		if (soundOutput.supportsSound()) {
+			loadSoundsImpl(preferences);
+		} else {
+			disableSound();
+		}
+	}
+
+	private static void loadSoundsImpl(Preferences preferences) {
 		try {
 			soundIdReader = new SoundIdReader(soundOutput, preferences.getBoolean(PLAY_SOUNDS, true));
 		} catch(SoundException e) {
@@ -147,9 +155,17 @@ public class StartScreen implements SaveGameHandler {
 	}
 
 	private static void disableSound(Exception e) {
+		disableSound("<html>Sound effects have been disabled due to problem loading sounds.<br>Detailed error message: " + e.getMessage() + "</html>");
+	}
+	
+	private static void disableSound() {
+		disableSound("<html>Sound effects have been disabled because no audio device was found.</html>");
+	}
+	
+	private static void disableSound(String message) {
 		try {
 			soundIdReader = new SoundIdReader(soundOutput, false);
-			JOptionPane.showMessageDialog(null, "<html>Sound effects have been disabled due to problem loading sounds.<br>Detailed error message: " + e.getMessage() + "</html>");
+			JOptionPane.showMessageDialog(null, message);
 		} catch (SoundException e2) {
 			ExceptionHandler.handle(e2);
 		}
@@ -185,7 +201,9 @@ public class StartScreen implements SaveGameHandler {
 	
 	private static void loadMusic(Preferences preferences) {
 		try {
-			musicPlayer = new MusicPlayer(soundOutput, preferences.getBoolean(PLAY_MUSIC, true));
+			boolean soundEnabled = preferences.getBoolean(PLAY_MUSIC, true);
+			soundEnabled &= soundOutput.supportsSound();
+			musicPlayer = new MusicPlayer(soundOutput, soundEnabled);
 		} catch (Exception e) {
 			ExceptionHandler.handle(e);
 		}
