@@ -127,6 +127,8 @@ enchant8bit.wav.gz
 enchant28bit.wav.gz
 confusion8bit.wav.gz
 zap2g8bit.wav.gz
+curse48bit.wav.gz
+magicdrop8bit.wav.gz
 
 Sound Effects by qubodup at http://opengameart.org/content/20-rustles-dry-leaves
 rustle018bit.wav.gz

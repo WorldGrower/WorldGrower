@@ -179,6 +179,10 @@ public class UTestSetGovernanceAction {
 
 		@Override
 		public void fireCreatureCursed(WorldObject performer, WorldObject target, Curse curse) {
+		}
+
+		@Override
+		public void fireCreatureUncursed(WorldObject performer, WorldObject target, Curse curse) {
 		}		
 	}
 	

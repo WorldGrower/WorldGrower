@@ -45,5 +45,9 @@ public interface Curse extends Serializable {
 	public static final LichCurse LICH_CURSE = new LichCurse();
 	public static final GhoulCurse GHOUL_CURSE = new GhoulCurse();
 	
-	public static final List<Curse> BESTOWABLE_CURSES = Arrays.asList(INFERTILITY_CURSE, GLUTTONY_CURSE, CHANGE_GENDER_CURSE);
+	public static final List<Curse> BESTOWABLE_CURSES = Arrays.asList(
+			INFERTILITY_CURSE, 
+			GLUTTONY_CURSE, 
+			CHANGE_GENDER_CURSE
+	);
 }

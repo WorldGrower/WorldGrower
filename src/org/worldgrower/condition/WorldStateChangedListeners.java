@@ -116,6 +116,11 @@ public class WorldStateChangedListeners {
 		for(WorldStateChangedListener worldStateChangedListener : worldStateChangedListeners) {
 			worldStateChangedListener.fireCreatureCursed(performer, target, curse);
 		}
-		
+	}
+
+	public void creatureUnCursed(WorldObject performer, WorldObject target, Curse curse) {
+		for(WorldStateChangedListener worldStateChangedListener : worldStateChangedListeners) {
+			worldStateChangedListener.fireCreatureUncursed(performer, target, curse);
+		}
 	}
 }

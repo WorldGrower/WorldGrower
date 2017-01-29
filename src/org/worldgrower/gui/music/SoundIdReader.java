@@ -88,6 +88,7 @@ public class SoundIdReader {
 		readSound(SoundIds.MAGIC_SHIELD, "/sound/magicshield8bit.wav.gz");
 		readSound(SoundIds.DROP_LEATHER, "/sound/dropLeather.wav.gz");
 		readSound(SoundIds.CURSE4, "/sound/curse48bit.wav.gz");
+		readSound(SoundIds.MAGIC_DROP, "/sound/magicdrop8bit.wav.gz");
 	}
 
 	public SoundIdReader(SoundOutput soundOutput, boolean enabled) throws SoundException {

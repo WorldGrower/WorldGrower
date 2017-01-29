@@ -78,5 +78,6 @@ public enum SoundIds {
 	DOOR_CLOSE,
 	MAGIC_SHIELD,
 	DROP_LEATHER,
-	CURSE4
+	CURSE4,
+	MAGIC_DROP
 }

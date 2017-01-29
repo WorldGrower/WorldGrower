@@ -723,6 +723,8 @@ public class ImageInfoReader {
 
 		add(ImageIds.BESTOW_CURSE, sprites420.getSubImage(5, 24, 1, 1));
 		createAnimation(ImageIds.BESTOW_CURSE_ANIMATION, ImageIds.BESTOW_CURSE, 10);
+		add(ImageIds.REMOVE_CURSE, sprites420.getSubImage(11, 24, 1, 1));
+		createAnimation(ImageIds.REMOVE_CURSE_ANIMATION, ImageIds.REMOVE_CURSE, 10);
     }
 
 	BufferedImage colorize(ImageIds imageId, Color color) {
