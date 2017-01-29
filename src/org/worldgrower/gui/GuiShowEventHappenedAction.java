@@ -206,7 +206,7 @@ public class GuiShowEventHappenedAction implements WorldStateChangedListener {
 	@Override
 	public void fireCreatureCursed(WorldObject performer, WorldObject target, Curse curse) {
 		if (performer.equals(playerCharacter) || target.equals(playerCharacter)) {
-			String description = " " + performer.getProperty(Constants.NAME) + " cursed " + target.getProperty(Constants.NAME) + " to be a " + curse.getName();
+			String description = " " + performer.getProperty(Constants.NAME) + " cursed " + target.getProperty(Constants.NAME) + " with " + curse.getName();
 			MessageDialogUtils.showMessage(description, "Gender Changed", playerCharacter, container, imageInfoReader);
 		}
 		

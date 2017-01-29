@@ -17,6 +17,7 @@ package org.worldgrower.goal;
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
 import org.worldgrower.creaturetype.CreatureType;
+import org.worldgrower.curse.Curse;
 
 public class RacePropertyUtils {
 
@@ -26,6 +27,11 @@ public class RacePropertyUtils {
 	}
 	
 	public static boolean canHaveOffspring(WorldObject performer, WorldObject w) {
-		return !GenderPropertyUtils.hasSameGender(performer, w) && RacePropertyUtils.hasSameRace(performer, w);
+		boolean performerIsFertile = performer.getProperty(Constants.CURSE) != Curse.INFERTILITY_CURSE;
+		boolean targetIsFertile = w.getProperty(Constants.CURSE) != Curse.INFERTILITY_CURSE;
+		return !GenderPropertyUtils.hasSameGender(performer, w) 
+				&& RacePropertyUtils.hasSameRace(performer, w) 
+				&& performerIsFertile 
+				&& targetIsFertile;
 	}
 }

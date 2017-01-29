@@ -38,13 +38,13 @@ public class SexAction implements ManagedOperation, AnimatedAction {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		if (!GenderPropertyUtils.hasSameGender(performer, target)) {
-			if (performer.getProperty(Constants.GENDER).equals("female")) {
+		if (RacePropertyUtils.canHaveOffspring(performer, target)) {
+			if (GenderPropertyUtils.isFemale(performer)) {
 				PregnancyPropertyUtils.makePregnant(performer);
 				logPregnancy(performer, target, performer, world);
 			}
 			
-			if (target.getProperty(Constants.GENDER).equals("female")) {
+			if (GenderPropertyUtils.isFemale(target)) {
 				PregnancyPropertyUtils.makePregnant(target);
 				logPregnancy(performer, target, target, world);
 			}

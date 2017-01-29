@@ -26,8 +26,6 @@ import org.worldgrower.actions.AttackUtils;
 import org.worldgrower.actions.CraftUtils;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.SkillUtils;
-import org.worldgrower.condition.Condition;
-import org.worldgrower.condition.Conditions;
 import org.worldgrower.curse.Curse;
 import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
@@ -35,7 +33,7 @@ import org.worldgrower.gui.music.SoundIds;
 
 public class BestowCurseAction implements MagicSpell, AnimatedAction {
 
-	private static final int ENERGY_USE = 600;
+	private static final int ENERGY_USE = 300;
 	private static final int DISTANCE = 1;
 	
 	@Override
@@ -70,7 +68,7 @@ public class BestowCurseAction implements MagicSpell, AnimatedAction {
 	
 	@Override
 	public boolean requiresArguments() {
-		return false;
+		return true;
 	}
 	
 	@Override
@@ -118,7 +116,7 @@ public class BestowCurseAction implements MagicSpell, AnimatedAction {
 	
 	@Override
 	public SoundIds getSoundId() {
-		return SoundIds.HEALING;
+		return SoundIds.CURSE4;
 	}
 
 	@Override

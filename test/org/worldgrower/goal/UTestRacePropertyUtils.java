@@ -21,6 +21,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.TestUtils;
 import org.worldgrower.WorldObject;
 import org.worldgrower.creaturetype.CreatureType;
+import org.worldgrower.curse.Curse;
 
 public class UTestRacePropertyUtils {
 
@@ -49,6 +50,21 @@ public class UTestRacePropertyUtils {
 		
 		target.setProperty(Constants.GENDER, "female");
 		target.setProperty(Constants.CREATURE_TYPE, CreatureType.GHOUL_CREATURE_TYPE);
+		assertEquals(false, RacePropertyUtils.canHaveOffspring(performer, target));
+	}
+	
+	@Test
+	public void testCanHaveOffspringCursed() {
+		WorldObject performer = TestUtils.createIntelligentWorldObject(0, Constants.CREATURE_TYPE, CreatureType.HUMAN_CREATURE_TYPE);
+		WorldObject target = TestUtils.createIntelligentWorldObject(1, Constants.CREATURE_TYPE, CreatureType.HUMAN_CREATURE_TYPE);
+		performer.setProperty(Constants.GENDER, "male");
+		target.setProperty(Constants.GENDER, "female");
+		
+		performer.setProperty(Constants.CURSE, Curse.INFERTILITY_CURSE);
+		assertEquals(false, RacePropertyUtils.canHaveOffspring(performer, target));
+		
+		performer.setProperty(Constants.CURSE, null);
+		target.setProperty(Constants.CURSE, Curse.INFERTILITY_CURSE);
 		assertEquals(false, RacePropertyUtils.canHaveOffspring(performer, target));
 	}
 }
