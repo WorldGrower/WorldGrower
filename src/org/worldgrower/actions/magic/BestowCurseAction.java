@@ -41,6 +41,7 @@ public class BestowCurseAction implements MagicSpell, AnimatedAction {
 		int curseIndex = args[0];
 		Curse curse = Curse.BESTOWABLE_CURSES.get(curseIndex);
 		target.setProperty(Constants.CURSE, curse);
+		curse.curseStarts(target, world.getWorldStateChangedListeners());
 		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE, world.getWorldStateChangedListeners());
 	
 		world.getWorldStateChangedListeners().creatureCursed(performer, target, curse);

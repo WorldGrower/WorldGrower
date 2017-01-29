@@ -27,6 +27,7 @@ import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.Prices;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.condition.WorldStateChangedListeners;
+import org.worldgrower.curse.Curse;
 import org.worldgrower.deity.Deity;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.LegalActionsPropertyUtils;
@@ -52,6 +53,20 @@ public class UTestCommonerOnTurn {
 		assertEquals(999, playerCharacter.getProperty(Constants.ENERGY).intValue());
 		assertEquals(799, playerCharacter.getProperty(Constants.FOOD).intValue());
 		assertEquals(799, playerCharacter.getProperty(Constants.WATER).intValue());
+	}
+	
+	@Test
+	public void testOnTurnFoodGluttony() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject organization = createVillagersOrganization(world);
+		
+		WorldObject playerCharacter = createPlayerCharacter(world, organization);
+		playerCharacter.setProperty(Constants.CURSE, Curse.GLUTTONY_CURSE);
+		
+		assertEquals(800, playerCharacter.getProperty(Constants.FOOD).intValue());
+		
+		playerCharacter.onTurn(world, new WorldStateChangedListeners());
+		assertEquals(798, playerCharacter.getProperty(Constants.FOOD).intValue());
 	}
 	
 	@Test

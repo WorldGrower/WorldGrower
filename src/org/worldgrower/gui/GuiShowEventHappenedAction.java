@@ -209,6 +209,5 @@ public class GuiShowEventHappenedAction implements WorldStateChangedListener {
 			String description = " " + performer.getProperty(Constants.NAME) + " cursed " + target.getProperty(Constants.NAME) + " with " + curse.getName();
 			MessageDialogUtils.showMessage(description, "Gender Changed", playerCharacter, container, imageInfoReader);
 		}
-		
 	}
 }

@@ -19,6 +19,7 @@ import java.util.List;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.goal.Goal;
 
 public class InfertilityCurse implements Curse {
@@ -50,5 +51,13 @@ public class InfertilityCurse implements Curse {
 	@Override
 	public String getName() {
 		return "infertility";
+	}
+	
+	@Override
+	public void curseStarts(WorldObject worldObject, WorldStateChangedListeners worldStateChangedListeners) {
+	}
+
+	@Override
+	public void curseEnds(WorldObject worldObject, WorldStateChangedListeners worldStateChangedListeners) {
 	}
 }

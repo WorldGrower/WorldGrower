@@ -24,7 +24,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
 
-public class GhoulCurse implements Curse {
+public class GhoulCurse extends AbstractCurse {
 
 	@Override
 	public List<Goal> getCurseGoals(List<Goal> normalGoals) {
@@ -37,16 +37,6 @@ public class GhoulCurse implements Curse {
 	public void perform(WorldObject performer, WorldObject target, int[] args, ManagedOperation managedOperation, World world) {
 	}
 	
-	@Override
-	public boolean canMove() {
-		return true;
-	}
-	
-	@Override
-	public boolean canTalk() {
-		return true;
-	}
-
 	@Override
 	public String getExplanation() {
 		return "I've been turned into a ghoul";

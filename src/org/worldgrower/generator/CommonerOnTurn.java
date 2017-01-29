@@ -35,6 +35,7 @@ import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.creaturetype.CreatureTypeUtils;
+import org.worldgrower.curse.Curse;
 import org.worldgrower.deity.Deity;
 import org.worldgrower.goal.BrawlPropertyUtils;
 import org.worldgrower.goal.DrownUtils;
@@ -190,6 +191,10 @@ public class CommonerOnTurn implements OnTurn {
 		
 		if (WeightPropertyUtils.isCarryingTooMuch(worldObject)) {
 			worldObject.increment(Constants.ENERGY, -1);
+		}
+		
+		if (worldObject.getProperty(Constants.CURSE) == Curse.GLUTTONY_CURSE) {
+			worldObject.increment(Constants.FOOD, -1);
 		}
 		
 		if (worldObject.hasProperty(Constants.VAMPIRE_BLOOD_LEVEL)) {

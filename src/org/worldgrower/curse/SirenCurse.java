@@ -22,6 +22,7 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.generator.Item;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
@@ -64,5 +65,13 @@ public class SirenCurse implements Curse {
 	@Override
 	public String getName() {
 		return "siren";
+	}
+
+	@Override
+	public void curseStarts(WorldObject worldObject, WorldStateChangedListeners worldStateChangedListeners) {
+	}
+
+	@Override
+	public void curseEnds(WorldObject worldObject, WorldStateChangedListeners worldStateChangedListeners) {
 	}
 }

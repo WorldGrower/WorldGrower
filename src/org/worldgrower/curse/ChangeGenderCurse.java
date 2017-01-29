@@ -14,23 +14,20 @@
  *******************************************************************************/
 package org.worldgrower.curse;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.condition.WorldStateChangedListeners;
+import org.worldgrower.goal.GenderPropertyUtils;
 import org.worldgrower.goal.Goal;
-import org.worldgrower.goal.Goals;
 
-public class WerewolfCurse extends AbstractCurse {
+public class ChangeGenderCurse implements Curse {
 
 	@Override
 	public List<Goal> getCurseGoals(List<Goal> normalGoals) {
-		List<Goal> allGoals = new ArrayList<>();
-		allGoals.add(Goals.KILL_OUTSIDERS_GOAL);
-		allGoals.add(Goals.IDLE_GOAL);
-		return allGoals;
+		return normalGoals;
 	}
 	
 	@Override
@@ -38,12 +35,32 @@ public class WerewolfCurse extends AbstractCurse {
 	}
 	
 	@Override
+	public boolean canMove() {
+		return true;
+	}
+
+	@Override
 	public String getExplanation() {
-		return "I've been turned into a werewolf";
+		return "I've been cursed with change gender.";
+	}
+
+	@Override
+	public boolean canTalk() {
+		return true;
 	}
 
 	@Override
 	public String getName() {
-		return "werewolf";
+		return "change gender";
+	}
+	
+	@Override
+	public void curseStarts(WorldObject worldObject, WorldStateChangedListeners worldStateChangedListeners) {
+		GenderPropertyUtils.changeGender(worldObject, worldStateChangedListeners);
+	}
+
+	@Override
+	public void curseEnds(WorldObject worldObject, WorldStateChangedListeners worldStateChangedListeners) {
+		GenderPropertyUtils.changeGender(worldObject, worldStateChangedListeners);
 	}
 }

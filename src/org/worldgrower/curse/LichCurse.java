@@ -21,7 +21,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.goal.Goal;
 
-public class LichCurse implements Curse {
+public class LichCurse extends AbstractCurse {
 
 	@Override
 	public List<Goal> getCurseGoals(List<Goal> normalGoals) {
@@ -32,16 +32,6 @@ public class LichCurse implements Curse {
 	public void perform(WorldObject performer, WorldObject target, int[] args, ManagedOperation managedOperation, World world) {
 	}
 	
-	@Override
-	public boolean canMove() {
-		return true;
-	}
-	
-	@Override
-	public boolean canTalk() {
-		return true;
-	}
-
 	@Override
 	public String getExplanation() {
 		return "I've been turned into a lich";
