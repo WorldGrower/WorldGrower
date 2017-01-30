@@ -26,6 +26,7 @@ import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.generator.Item;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
+import org.worldgrower.gui.ImageIds;
 
 public class SirenCurse implements Curse {
 
@@ -65,6 +66,16 @@ public class SirenCurse implements Curse {
 	@Override
 	public String getName() {
 		return "siren";
+	}
+	
+	@Override
+	public final String getDescription() {
+		return null;
+	}
+	
+	@Override
+	public final ImageIds getImageId() {
+		return null;
 	}
 
 	@Override

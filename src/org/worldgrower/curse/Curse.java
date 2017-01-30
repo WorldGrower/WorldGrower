@@ -17,12 +17,14 @@ package org.worldgrower.curse;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.goal.Goal;
+import org.worldgrower.gui.ImageIds;
 
 public interface Curse extends Serializable {
 
@@ -31,7 +33,9 @@ public interface Curse extends Serializable {
 	public boolean canMove();
 	public boolean canTalk();
 	public String getExplanation();
+	public String getDescription();
 	public String getName();
+	public ImageIds getImageId();
 	public void curseStarts(WorldObject worldObject, WorldStateChangedListeners worldStateChangedListeners);
 	public void curseEnds(WorldObject worldObject, WorldStateChangedListeners worldStateChangedListeners);
 	
@@ -50,4 +54,8 @@ public interface Curse extends Serializable {
 			GLUTTONY_CURSE, 
 			CHANGE_GENDER_CURSE
 	);
+
+	public static List<ImageIds> getBestowableCurseImageIds() {
+		return BESTOWABLE_CURSES.stream().map(c -> c.getImageId()).collect(Collectors.toList());
+	}
 }

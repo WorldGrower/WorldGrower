@@ -32,6 +32,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.magic.AnimalFriendshipSpellAction;
 import org.worldgrower.actions.magic.AnimateDeadAction;
 import org.worldgrower.actions.magic.AnimateSuitOfArmorAction;
+import org.worldgrower.actions.magic.BestowCurseAction;
 import org.worldgrower.actions.magic.BurdenAction;
 import org.worldgrower.actions.magic.CureDiseaseAction;
 import org.worldgrower.actions.magic.CurePoisonAction;
@@ -67,6 +68,7 @@ import org.worldgrower.actions.magic.ProtectionFromIceAction;
 import org.worldgrower.actions.magic.ProtectionFromLightningAction;
 import org.worldgrower.actions.magic.RayOfFrostAttackAction;
 import org.worldgrower.actions.magic.ReduceAction;
+import org.worldgrower.actions.magic.RemoveCurseAction;
 import org.worldgrower.actions.magic.ResearchSpellAction;
 import org.worldgrower.actions.magic.SacredFlameAttackAction;
 import org.worldgrower.actions.magic.ScribeMagicSpellAction;
@@ -316,6 +318,8 @@ public class Actions {
 	public static final CraftSteelKatarAction CRAFT_STEEL_KATAR_ACTION = new CraftSteelKatarAction();
 	public static final CraftShortBowAction CRAFT_SHORT_BOW_ACTION = new CraftShortBowAction();
 	public static final BrewChangeGenderPotionAction BREW_CHANGE_GENDER_POTION_ACTION = new BrewChangeGenderPotionAction();
+	public static final BestowCurseAction BESTOW_CURSE_ACTION = new BestowCurseAction();
+	public static final RemoveCurseAction REMOVE_CURSE_ACTION = new RemoveCurseAction();
 	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 
@@ -362,7 +366,9 @@ public class Actions {
 			PROTECTION_FROM_FIRE_ACTION,
 			PROTECTION_FROM_ICE_ACTION,
 			PROTECTION_FROM_LIGHTNING_ACTION,
-			FREEDOM_OF_MOVEMENT_ACTION
+			FREEDOM_OF_MOVEMENT_ACTION,
+			BESTOW_CURSE_ACTION,
+			REMOVE_CURSE_ACTION
 			);
 	
 	private static final List<InventoryAction> INVENTORY_ACTIONS = Arrays.asList(

@@ -21,6 +21,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.goal.Goal;
+import org.worldgrower.gui.ImageIds;
 
 public class InfertilityCurse implements Curse {
 
@@ -51,6 +52,16 @@ public class InfertilityCurse implements Curse {
 	@Override
 	public String getName() {
 		return "infertility";
+	}
+	
+	@Override
+	public final ImageIds getImageId() {
+		return ImageIds.INFERTILITY_CURSE;
+	}
+	
+	@Override
+	public final String getDescription() {
+		return "A character cursed with infertility can't have children";
 	}
 	
 	@Override

@@ -25,6 +25,7 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
+import org.worldgrower.gui.ImageIds;
 
 public class ToadCurse implements Curse {
 
@@ -57,10 +58,20 @@ public class ToadCurse implements Curse {
 	public String getExplanation() {
 		return "I've been cursed and I can't move from this spot. Only if someone kisses me will the curse be broken.";
 	}
+	
+	@Override
+	public final String getDescription() {
+		return null;
+	}
 
 	@Override
 	public String getName() {
 		return "toad";
+	}
+	
+	@Override
+	public final ImageIds getImageId() {
+		return null;
 	}
 	
 	@Override

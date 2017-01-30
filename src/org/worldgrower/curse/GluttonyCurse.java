@@ -21,6 +21,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.goal.Goal;
+import org.worldgrower.gui.ImageIds;
 
 public class GluttonyCurse implements Curse {
 
@@ -51,6 +52,16 @@ public class GluttonyCurse implements Curse {
 	@Override
 	public String getName() {
 		return "gluttony";
+	}
+	
+	@Override
+	public final String getDescription() {
+		return "A character cursed with gluttony requires more food to sustain itself";
+	}
+	
+	@Override
+	public final ImageIds getImageId() {
+		return ImageIds.GLUTTONY_CURSE;
 	}
 	
 	@Override

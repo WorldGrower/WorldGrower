@@ -139,7 +139,7 @@ public class UTestWorldObjectImpl {
 		WorldObject person = TestUtils.createIntelligentWorldObject(1, Constants.KNOWN_SPELLS, new ArrayList<>());
 		
 		person.setProperty(Constants.CURSE, Curse.WEREWOLF_CURSE);
-		assertEquals(false, person.canWorldObjectPerformAction(Actions.TALK_ACTION));
+		assertEquals(true, person.canWorldObjectPerformAction(Actions.TALK_ACTION));
 		
 		person.setProperty(Constants.CURSE, Curse.VAMPIRE_CURSE);
 		assertEquals(true, person.canWorldObjectPerformAction(Actions.TALK_ACTION));

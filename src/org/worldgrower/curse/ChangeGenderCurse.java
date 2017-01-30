@@ -22,6 +22,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.goal.GenderPropertyUtils;
 import org.worldgrower.goal.Goal;
+import org.worldgrower.gui.ImageIds;
 
 public class ChangeGenderCurse implements Curse {
 
@@ -52,6 +53,16 @@ public class ChangeGenderCurse implements Curse {
 	@Override
 	public String getName() {
 		return "change gender";
+	}
+	
+	@Override
+	public final String getDescription() {
+		return "A character cursed with change gender changes its gender";
+	}
+	
+	@Override
+	public final ImageIds getImageId() {
+		return ImageIds.CHANGE_GENDER_CURSE;
 	}
 	
 	@Override

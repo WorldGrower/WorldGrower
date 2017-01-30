@@ -538,7 +538,19 @@ public class GuiMouseListener extends MouseAdapter {
 	
 	private void addNecromancyActions(JPopupMenu menu) {
 		MagicSpell[] actions = { Actions.LICH_TRANSFORMATION_ACTION };
-		addActions(menu, skillImageIds.getImageFor(Constants.NECROMANCY_SKILL), "Necromancy", actions);
+		JMenu necromancyMenu = addActions(menu, skillImageIds.getImageFor(Constants.NECROMANCY_SKILL), "Necromancy", actions);
+		
+		JMenuItem bestowCurseMenuItem = createBestowCurseMenu();
+    	addToMenu(necromancyMenu, bestowCurseMenuItem);
+	}
+
+	private JMenuItem createBestowCurseMenu() {
+		JMenuItem bestowCurseMenuItem = MenuFactory.createJMenuItem(new ChooseCurseAction(playerCharacter, imageInfoReader, soundIdReader, world, (WorldPanel)container, dungeonMaster, parentFrame), soundIdReader);
+		bestowCurseMenuItem.setText(Actions.BESTOW_CURSE_ACTION.getSimpleDescription());
+		bestowCurseMenuItem.setEnabled(Game.canActionExecute(playerCharacter, Actions.BESTOW_CURSE_ACTION, Args.EMPTY, world, playerCharacter));
+    	addToolTips(Actions.BESTOW_CURSE_ACTION, bestowCurseMenuItem);
+    	setMenuIcon(bestowCurseMenuItem, Actions.BESTOW_CURSE_ACTION.getImageIds(playerCharacter));
+		return bestowCurseMenuItem;
 	}
 	
 	private void addScribeMagicSpells(JPopupMenu menu, WorldObject worldObject) {
@@ -621,11 +633,15 @@ public class GuiMouseListener extends MouseAdapter {
 		guiCreateNewsPaperMenuItem.setEnabled(enabled);
 		addToolTips(Actions.CREATE_NEWS_PAPER_ACTION, guiCreateNewsPaperMenuItem);
 		addImageIcon(Actions.CREATE_NEWS_PAPER_ACTION, guiCreateNewsPaperMenuItem);
-		menu.add(guiCreateNewsPaperMenuItem);
+		addToMenu(menu, guiCreateNewsPaperMenuItem);
+	}
+	
+	private void addToMenu(JComponent parentMenu, JMenuItem menuItem) {
+		parentMenu.add(menuItem);
 		
 		//bugfix to make disabled components have the correct cursor:
 		//https://bugs.openjdk.java.net/browse/JDK-4380700
-		guiCreateNewsPaperMenuItem.getParent().setCursor(Cursors.CURSOR);
+		menuItem.getParent().setCursor(Cursors.CURSOR);
 	}
 	
 	private JMenu addActions(JPopupMenu menu, ImageIds imageId, String menuTitle, ManagedOperation[] actions) {
@@ -724,11 +740,7 @@ public class GuiMouseListener extends MouseAdapter {
 					parentMenu.add(menuItem);
 				} else if (canPlayerCharacterPerformActionUnderCorrectCircumstances(worldObject, action)) {
 					menuItem = createDisabledMenuItem(action);
-					parentMenu.add(menuItem);
-					
-					//bugfix to make disabled components have the correct cursor:
-					//https://bugs.openjdk.java.net/browse/JDK-4380700
-					menuItem.getParent().setCursor(Cursors.CURSOR);
+					addToMenu(parentMenu, menuItem);
 				} else {
 					menuItem = null;
 				}

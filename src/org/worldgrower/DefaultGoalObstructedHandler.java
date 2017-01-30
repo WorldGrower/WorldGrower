@@ -157,7 +157,8 @@ public class DefaultGoalObstructedHandler implements GoalObstructedHandler {
 				Actions.REDUCE_ACTION,
 				Actions.SILENCE_MAGIC_ACTION,
 				Actions.SLEEP_MAGIC_SPELL_ACTION,
-				Actions.REVERSE_PICK_POCKET_ACTION
+				Actions.REVERSE_PICK_POCKET_ACTION,
+				Actions.BESTOW_CURSE_ACTION
 				);
 	}
 

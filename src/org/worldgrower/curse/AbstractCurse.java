@@ -21,6 +21,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.goal.Goal;
+import org.worldgrower.gui.ImageIds;
 
 abstract class AbstractCurse implements Curse {
 
@@ -41,6 +42,16 @@ abstract class AbstractCurse implements Curse {
 	@Override
 	public final boolean canTalk() {
 		return true;
+	}
+	
+	@Override
+	public final String getDescription() {
+		return null;
+	}
+	
+	@Override
+	public final ImageIds getImageId() {
+		return null;
 	}
 	
 	@Override

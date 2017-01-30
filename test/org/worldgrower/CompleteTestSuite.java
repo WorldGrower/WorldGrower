@@ -24,6 +24,7 @@ import org.worldgrower.actions.legal.UTestWorshipDeityLegalHandler;
 import org.worldgrower.actions.magic.UTestAnimalFriendshipSpellAction;
 import org.worldgrower.actions.magic.UTestAnimateDeadAction;
 import org.worldgrower.actions.magic.UTestAnimateSuitOfArmorAction;
+import org.worldgrower.actions.magic.UTestBestowCurseAction;
 import org.worldgrower.actions.magic.UTestBurdenAction;
 import org.worldgrower.actions.magic.UTestCureDiseaseAction;
 import org.worldgrower.actions.magic.UTestCurePoisonAction;
@@ -56,6 +57,7 @@ import org.worldgrower.actions.magic.UTestParalyzeAction;
 import org.worldgrower.actions.magic.UTestProtectionFromFireAction;
 import org.worldgrower.actions.magic.UTestRayOfFrostAttackAction;
 import org.worldgrower.actions.magic.UTestReduceAction;
+import org.worldgrower.actions.magic.UTestRemoveCurseAction;
 import org.worldgrower.actions.magic.UTestResearchSpellAction;
 import org.worldgrower.actions.magic.UTestSacredFlameAttackAction;
 import org.worldgrower.actions.magic.UTestScribeMagicSpellAction;
@@ -794,7 +796,9 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestText.class,
 	UTestDeityConversation.class,
 	UTestGoalConversation.class,
-	UTestGenderPropertyUtils.class
+	UTestGenderPropertyUtils.class,
+	UTestBestowCurseAction.class,
+	UTestRemoveCurseAction.class
 })
 public class CompleteTestSuite {
 }
