@@ -48,6 +48,7 @@ import org.worldgrower.actions.BuildAction;
 import org.worldgrower.actions.CraftEquipmentAction;
 import org.worldgrower.actions.CraftRangedWeaponAction;
 import org.worldgrower.actions.VotingPropertyUtils;
+import org.worldgrower.actions.magic.BestowCurseAction;
 import org.worldgrower.actions.magic.IllusionSpell;
 import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.actions.magic.ResearchSpellAction;
@@ -540,14 +541,14 @@ public class GuiMouseListener extends MouseAdapter {
 		MagicSpell[] actions = { Actions.LICH_TRANSFORMATION_ACTION };
 		JMenu necromancyMenu = addActions(menu, skillImageIds.getImageFor(Constants.NECROMANCY_SKILL), "Necromancy", actions);
 		
-		JMenuItem bestowCurseMenuItem = createBestowCurseMenu();
+		JMenuItem bestowCurseMenuItem = createBestowCurseMenu(playerCharacter);
     	addToMenu(necromancyMenu, bestowCurseMenuItem);
 	}
 
-	private JMenuItem createBestowCurseMenu() {
-		JMenuItem bestowCurseMenuItem = MenuFactory.createJMenuItem(new ChooseCurseAction(playerCharacter, imageInfoReader, soundIdReader, world, (WorldPanel)container, dungeonMaster, parentFrame), soundIdReader);
+	private JMenuItem createBestowCurseMenu(WorldObject target) {
+		JMenuItem bestowCurseMenuItem = MenuFactory.createJMenuItem(new ChooseCurseAction(playerCharacter, imageInfoReader, soundIdReader, world, (WorldPanel)container, dungeonMaster, parentFrame, target), soundIdReader);
 		bestowCurseMenuItem.setText(Actions.BESTOW_CURSE_ACTION.getSimpleDescription());
-		bestowCurseMenuItem.setEnabled(Game.canActionExecute(playerCharacter, Actions.BESTOW_CURSE_ACTION, Args.EMPTY, world, playerCharacter));
+		bestowCurseMenuItem.setEnabled(Game.canActionExecute(playerCharacter, Actions.BESTOW_CURSE_ACTION, Args.EMPTY, world, target));
     	addToolTips(Actions.BESTOW_CURSE_ACTION, bestowCurseMenuItem);
     	setMenuIcon(bestowCurseMenuItem, Actions.BESTOW_CURSE_ACTION.getImageIds(playerCharacter));
 		return bestowCurseMenuItem;
@@ -729,30 +730,45 @@ public class GuiMouseListener extends MouseAdapter {
 		MagicSpellSubMenuStructure magicSpellSubMenuStructure = new MagicSpellSubMenuStructure(imageInfoReader, soundIdReader);
 		EquipmentTypeSubMenuStructure equipmentTypeSubMenuStructure = new EquipmentTypeSubMenuStructure(imageInfoReader, soundIdReader);
 		for(ManagedOperation action : playerCharacter.getOperations()) {
-			if (!action.requiresArguments() && (!(action instanceof ScribeMagicSpellAction)) && (!(action instanceof ResearchSpellAction))) {
+			boolean isValidAction = !action.requiresArguments() && (!(action instanceof ScribeMagicSpellAction)) && (!(action instanceof ResearchSpellAction));
+			if (isValidAction || action instanceof BestowCurseAction) {
 				JComponent parentMenu = menu;
 				parentMenu = magicSpellSubMenuStructure.addAction(action, parentMenu);
 				parentMenu = equipmentTypeSubMenuStructure.addAction(action, parentMenu);
 				
-				final JMenuItem menuItem;
-				if (canPlayerCharacterPerformAction(worldObject, action)) {
-					menuItem = createEnabledMenuItem(worldObject, action);
-					parentMenu.add(menuItem);
-				} else if (canPlayerCharacterPerformActionUnderCorrectCircumstances(worldObject, action)) {
-					menuItem = createDisabledMenuItem(action);
-					addToMenu(parentMenu, menuItem);
+				if (action instanceof BestowCurseAction) {
+					addBestowCurseActionToMenu(worldObject, action, parentMenu);
 				} else {
-					menuItem = null;
+					addActionToMenu(worldObject, action, parentMenu);
 				}
-				addToolTips(action, menuItem);
-				addImageIcon(action, menuItem);
 			}
-			
 			addObfuscateAction(menu, worldObject, action);
 		}
 		
 		magicSpellSubMenuStructure.addSubMenus(menu);
 		equipmentTypeSubMenuStructure.addSubMenus(menu);
+	}
+
+	private void addBestowCurseActionToMenu(WorldObject worldObject, ManagedOperation action, JComponent parentMenu) {
+		if (canPlayerCharacterPerformActionUnderCorrectCircumstances(worldObject, action)) {
+			JMenuItem bestowCurseMenuItem = createBestowCurseMenu(worldObject);
+			addToMenu(parentMenu, bestowCurseMenuItem);
+		}
+	}
+	
+	private void addActionToMenu(WorldObject worldObject, ManagedOperation action, JComponent parentMenu) {
+		final JMenuItem menuItem;
+		if (canPlayerCharacterPerformAction(worldObject, action)) {
+			menuItem = createEnabledMenuItem(worldObject, action);
+			parentMenu.add(menuItem);
+		} else if (canPlayerCharacterPerformActionUnderCorrectCircumstances(worldObject, action)) {
+			menuItem = createDisabledMenuItem(action);
+			addToMenu(parentMenu, menuItem);
+		} else {
+			menuItem = null;
+		}
+		addToolTips(action, menuItem);
+		addImageIcon(action, menuItem);
 	}
 
 	private JMenu createSkillMenu(SkillProperty skillProperty) {

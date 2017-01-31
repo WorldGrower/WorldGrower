@@ -41,8 +41,9 @@ public class ChooseCurseAction extends AbstractAction {
 	private WorldPanel parent;
 	private DungeonMaster dungeonMaster;
 	private JFrame parentFrame;
+	private WorldObject target;
 	
-	public ChooseCurseAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, World world, WorldPanel parent, DungeonMaster dungeonMaster, JFrame parentFrame) {
+	public ChooseCurseAction(WorldObject playerCharacter, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, World world, WorldPanel parent, DungeonMaster dungeonMaster, JFrame parentFrame, WorldObject target) {
 		super();
 		this.playerCharacter = playerCharacter;
 		this.imageInfoReader = imageInfoReader;
@@ -51,6 +52,7 @@ public class ChooseCurseAction extends AbstractAction {
 		this.parent = parent;
 		this.dungeonMaster = dungeonMaster;
 		this.parentFrame = parentFrame;
+		this.target = target;
 	}
 
 	@Override
@@ -62,7 +64,7 @@ public class ChooseCurseAction extends AbstractAction {
 		if (curseName != null) {
 			int indexOfCurse = Arrays.asList(curseNames).indexOf(curseName);
 			
-			Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, Actions.BESTOW_CURSE_ACTION, new int[] { indexOfCurse }, world, dungeonMaster, playerCharacter, parent, imageInfoReader, soundIdReader);
+			Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, Actions.BESTOW_CURSE_ACTION, new int[] { indexOfCurse }, world, dungeonMaster, target, parent, imageInfoReader, soundIdReader);
 		}
 	}
 	

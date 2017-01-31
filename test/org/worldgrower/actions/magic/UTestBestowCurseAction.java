@@ -77,6 +77,9 @@ public class UTestBestowCurseAction {
 		WorldObject performer = createPerformer(2);
 		
 		assertEquals(true, action.isActionPossible(performer, performer, Args.EMPTY, world));
+		
+		performer.setProperty(Constants.CURSE, Curse.CHANGE_GENDER_CURSE);
+		assertEquals(false, action.isActionPossible(performer, performer, Args.EMPTY, world));
 	}
 	
 	@Test
