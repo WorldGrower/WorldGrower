@@ -24,6 +24,7 @@ import java.util.ResourceBundle;
 import org.worldgrower.conversation.Conversation;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.conversation.IntimidateConversation;
+import org.worldgrower.conversation.Response;
 
 public enum Text {
 	QUESTION_ARENA_PAY_CHECK(Conversations.ARENA_FIGHTER_PAY_CHECK_CONVERSATION),
@@ -221,7 +222,11 @@ public enum Text {
 	ANSWER_ANGRY_GETLOST(Conversations.WHY_ANGRY_CONVERSATION),
 	QUESTION_ANGRY_OTHER(Conversations.WHY_ANGRY_OTHER_CONVERSATION),
 	ANSWER_ANGRY_OTHER_REASON(Conversations.WHY_ANGRY_OTHER_CONVERSATION),
-	ANSWER_ANGRY_OTHER_GETLOST(Conversations.WHY_ANGRY_OTHER_CONVERSATION)
+	ANSWER_ANGRY_OTHER_GETLOST(Conversations.WHY_ANGRY_OTHER_CONVERSATION),
+	QUESTION_REMOVE_CURSE(Conversations.REMOVE_CURSE_CONVERSATION),
+	ANSWER_REMOVE_CURSE_YES(Conversations.REMOVE_CURSE_CONVERSATION),
+	ANSWER_REMOVE_CURSE_NO(Conversations.REMOVE_CURSE_CONVERSATION),
+	ANSWER_REMOVE_CURSE_GETLOST(Conversations.REMOVE_CURSE_CONVERSATION)
 	;
 	
 	private final Conversation conversationKey;

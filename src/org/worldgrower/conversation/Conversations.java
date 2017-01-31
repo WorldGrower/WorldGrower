@@ -117,6 +117,7 @@ public class Conversations implements Serializable {
 	public static final GiveItemConversation GIVE_COTTON_CONVERSATION = new GiveItemConversation(Constants.COTTON, 1);
 	
 	public static final PayBountyConversation PAY_BOUNTY_CONVERSATION = new PayBountyConversation();
+	public static final RemoveCurseConversation REMOVE_CURSE_CONVERSATION = new RemoveCurseConversation();
 	
 	private static final List<Conversation> CONVERSATIONS = new ArrayList<>();
 	private static final Map<Conversation, ConversationCategory> CONVERSATION_CATEGORIES = new HashMap<>();
@@ -203,6 +204,7 @@ public class Conversations implements Serializable {
 		addNormalAndIntimidate(CURE_DISEASE_CONVERSATION, ConversationCategory.DEMAND);
 		add(ASSASSINATE_TARGET_CONVERSATION, ConversationCategory.DEMAND);
 		add(PAY_BOUNTY_CONVERSATION, ConversationCategory.DEMAND);
+		addNormalAndIntimidate(REMOVE_CURSE_CONVERSATION, ConversationCategory.DEMAND);
 	}
 	
 	public static int[] createArgs(Conversation conversation) {

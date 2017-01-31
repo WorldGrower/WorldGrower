@@ -798,7 +798,8 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestGoalConversation.class,
 	UTestGenderPropertyUtils.class,
 	UTestBestowCurseAction.class,
-	UTestRemoveCurseAction.class
+	UTestRemoveCurseAction.class,
+	UTestRemoveCurseGoal.class
 })
 public class CompleteTestSuite {
 }

@@ -22,9 +22,11 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.KnowledgeMap;
+import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
+import org.worldgrower.curse.Curse;
 
 public class WaterPropertyUtils {
 
@@ -87,6 +89,14 @@ public class WaterPropertyUtils {
 		
 		if (waterTarget.hasProperty(Constants.CHANGE_GENDER) && waterTarget.getProperty(Constants.CHANGE_GENDER)) {
 			GenderPropertyUtils.changeGender(performer, world.getWorldStateChangedListeners());
+		}
+		
+		if (waterTarget.hasProperty(Constants.REMOVE_CURSE) && waterTarget.getProperty(Constants.REMOVE_CURSE)) {
+			Curse curse = performer.getProperty(Constants.CURSE);
+			curse.curseEnds(performer, world.getWorldStateChangedListeners());
+			performer.removeProperty(Constants.CURSE);
+		
+			world.getWorldStateChangedListeners().creatureUnCursed(waterTarget, performer, curse);
 		}
 	}
 

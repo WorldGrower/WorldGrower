@@ -309,6 +309,7 @@ public class Constants {
 	public static final IntProperty VOTING_TOTAL_TURNS = new IntProperty("votingTotalTurns", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final BooleanProperty CURE_POISON = new BooleanProperty("curePoison", NOT_NULLABLE, ALL_PROPERTIES);
 	public static final BooleanProperty CURE_DISEASE = new BooleanProperty("cureDisease", NOT_NULLABLE, ALL_PROPERTIES);
+	public static final BooleanProperty REMOVE_CURSE = new BooleanProperty("removeCurse", NOT_NULLABLE, ALL_PROPERTIES);	
 	public static final IntProperty LEATHER = new IntProperty("leather", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final StringProperty LONG_DESCRIPTION = new StringProperty("longDescription", NOT_NULLABLE, ALL_PROPERTIES);
 	public static final BooleanProperty CHANGE_GENDER = new BooleanProperty("changeGender", NOT_NULLABLE, ALL_PROPERTIES);

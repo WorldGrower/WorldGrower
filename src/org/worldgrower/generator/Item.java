@@ -125,7 +125,8 @@ public enum Item {
 	STEEL_MACE(ItemType.WEAPON), 
 	STEEL_KATAR(ItemType.WEAPON),
 	SHORTBOW(ItemType.WEAPON),
-	CHANGE_GENDER_POTION(ItemType.DRINK)
+	CHANGE_GENDER_POTION(ItemType.DRINK),
+	REMOVE_CURSE_POTION(ItemType.DRINK)
 	;
 
 	public static final int COMBAT_MULTIPLIER = 10;
@@ -1121,6 +1122,18 @@ public enum Item {
 			properties.put(Constants.PRICE, 1);
 			properties.put(Constants.SELLABLE, false);
 			properties.put(Constants.LONG_DESCRIPTION, "Drinking a change gender potion changes a person's gender.");
+			return new WorldObjectImpl(properties);
+		});
+		
+		addItem(Item.REMOVE_CURSE_POTION, skillBonus -> {
+			Map<ManagedProperty<?>, Object> properties = new HashMap<>();
+			properties.put(Constants.NAME, "remove curse potion");
+			properties.put(Constants.REMOVE_CURSE, Boolean.TRUE);
+			properties.put(Constants.WATER, (int) (10 * skillBonus));
+			properties.put(Constants.IMAGE_ID, ImageIds.CHANGE_GENDER_POTION);
+			properties.put(Constants.PRICE, 1);
+			properties.put(Constants.SELLABLE, false);
+			properties.put(Constants.LONG_DESCRIPTION, "Drinking a remove curse potion removes a character's curse.");
 			return new WorldObjectImpl(properties);
 		});
 		
