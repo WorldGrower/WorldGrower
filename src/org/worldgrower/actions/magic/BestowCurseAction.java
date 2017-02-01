@@ -17,6 +17,7 @@ package org.worldgrower.actions.magic;
 import java.io.ObjectStreamException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.StringJoiner;
 
 import org.worldgrower.Constants;
 import org.worldgrower.World;
@@ -74,7 +75,7 @@ public class BestowCurseAction implements MagicSpell, AnimatedAction {
 	
 	@Override
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
-		return "bestow curse on " + target.getProperty(Constants.NAME);
+		return "bestowing a curse on " + target.getProperty(Constants.NAME);
 	}
 
 	@Override
@@ -107,7 +108,16 @@ public class BestowCurseAction implements MagicSpell, AnimatedAction {
 
 	@Override
 	public String getDescription() {
-		return "bestowing a curse on a person";
+		String bestowableCursesDescription = createBestowableCursesDescription();
+		return "bestow a curse on a person like " + bestowableCursesDescription;
+	}
+
+	private String createBestowableCursesDescription() {
+		StringJoiner stringJoiner = new StringJoiner(", ");
+		for(Curse bestowableCurse : Curse.BESTOWABLE_CURSES) {
+			stringJoiner.add(bestowableCurse.getName());
+		}
+		return stringJoiner.toString();
 	}
 	
 	@Override
