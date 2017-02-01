@@ -454,18 +454,30 @@ public class CharacterDialog extends JDialog {
 	}
 	
 	private String[] createConditionsDescriptions() {
-		Conditions conditions = playerCharacter.getProperty(Constants.CONDITIONS);
-		return conditions.getDescriptions().toArray(new String[0]);
+		List<String> allEffects = new ArrayList<>();
+		allEffects.addAll(playerCharacter.getProperty(Constants.CONDITIONS).getDescriptions());
+		if (playerCharacter.getProperty(Constants.CURSE) != null) {
+			allEffects.add(playerCharacter.getProperty(Constants.CURSE).getName());
+		}
+		return allEffects.toArray(new String[0]);
 	}
 	
 	private List<ImageIds> createConditionImageIds() {
-		Conditions conditions = playerCharacter.getProperty(Constants.CONDITIONS);
-		return conditions.getImageIds();
+		List<ImageIds> allImageIds = new ArrayList<>();
+		allImageIds.addAll(playerCharacter.getProperty(Constants.CONDITIONS).getImageIds());
+		if (playerCharacter.getProperty(Constants.CURSE) != null) {
+			allImageIds.add(playerCharacter.getProperty(Constants.CURSE).getImageId());
+		}
+		return allImageIds;
 	}
 	
 	private List<String> createLongerConditionsDescriptions() {
-		Conditions conditions = playerCharacter.getProperty(Constants.CONDITIONS);
-		return conditions.getLongerDescriptions();
+		List<String> allLongerDescriptions = new ArrayList<>();
+		allLongerDescriptions.addAll(playerCharacter.getProperty(Constants.CONDITIONS).getLongerDescriptions());
+		if (playerCharacter.getProperty(Constants.CURSE) != null) {
+			allLongerDescriptions.add(playerCharacter.getProperty(Constants.CURSE).getDescription());
+		}
+		return allLongerDescriptions;
 	}
 
 	private JLabel createAttributeLabel(IntProperty attributeProperty, String description, ImageIds imageId) {

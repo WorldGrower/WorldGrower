@@ -1130,7 +1130,7 @@ public enum Item {
 			properties.put(Constants.NAME, "remove curse potion");
 			properties.put(Constants.REMOVE_CURSE, Boolean.TRUE);
 			properties.put(Constants.WATER, (int) (10 * skillBonus));
-			properties.put(Constants.IMAGE_ID, ImageIds.CHANGE_GENDER_POTION);
+			properties.put(Constants.IMAGE_ID, ImageIds.REMOVE_CURSE_POTION);
 			properties.put(Constants.PRICE, 1);
 			properties.put(Constants.SELLABLE, false);
 			properties.put(Constants.LONG_DESCRIPTION, "Drinking a remove curse potion removes a character's curse.");

@@ -93,10 +93,12 @@ public class WaterPropertyUtils {
 		
 		if (waterTarget.hasProperty(Constants.REMOVE_CURSE) && waterTarget.getProperty(Constants.REMOVE_CURSE)) {
 			Curse curse = performer.getProperty(Constants.CURSE);
-			curse.curseEnds(performer, world.getWorldStateChangedListeners());
-			performer.removeProperty(Constants.CURSE);
-		
-			world.getWorldStateChangedListeners().creatureUnCursed(waterTarget, performer, curse);
+			if (Curse.BESTOWABLE_CURSES.contains(curse)) {
+				curse.curseEnds(performer, world.getWorldStateChangedListeners());
+				performer.removeProperty(Constants.CURSE);
+			
+				world.getWorldStateChangedListeners().creatureUnCursed(waterTarget, performer, curse);
+			}
 		}
 	}
 

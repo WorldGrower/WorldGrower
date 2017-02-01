@@ -729,7 +729,9 @@ public class ImageInfoReader {
 		add(ImageIds.INFERTILITY_CURSE, sprites420.getSubImage(5, 26, 1, 1));
 		add(ImageIds.GLUTTONY_CURSE, sprites420.getSubImage(1, 26, 1, 1));
 		add(ImageIds.CHANGE_GENDER_CURSE, sprites420.getSubImage(9, 27, 1, 1));
-		
+
+		add(ImageIds.REMOVE_CURSE_POTION, ImageUtils.dye((BufferedImage)sprites420.getSubImage(6, 2, 1, 1), new Color(200, 200, 0, 90)));
+		createAnimation(ImageIds.REMOVE_CURSE_POTION_ANIMATION, ImageIds.REMOVE_CURSE_POTION, 10);
     }
 
 	BufferedImage colorize(ImageIds imageId, Color color) {

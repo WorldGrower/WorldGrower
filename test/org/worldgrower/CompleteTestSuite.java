@@ -799,7 +799,9 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestGenderPropertyUtils.class,
 	UTestBestowCurseAction.class,
 	UTestRemoveCurseAction.class,
-	UTestRemoveCurseGoal.class
+	UTestRemoveCurseGoal.class,
+	UTestBrewChangeGenderPotionAction.class,
+	UTestBrewRemoveCursePotionAction.class
 })
 public class CompleteTestSuite {
 }

@@ -320,6 +320,7 @@ public class Actions {
 	public static final BrewChangeGenderPotionAction BREW_CHANGE_GENDER_POTION_ACTION = new BrewChangeGenderPotionAction();
 	public static final BestowCurseAction BESTOW_CURSE_ACTION = new BestowCurseAction();
 	public static final RemoveCurseAction REMOVE_CURSE_ACTION = new RemoveCurseAction();
+	public static final BrewRemoveCursePotionAction BREW_REMOVE_CURSE_POTION_ACTION = new BrewRemoveCursePotionAction();
 	
 	private static final List<MagicSpell> MAGIC_SPELLS = Arrays.asList(
 			MINOR_HEAL_ACTION, 
@@ -553,7 +554,8 @@ public class Actions {
 		CRAFT_STEEL_MACE_ACTION,
 		CRAFT_STEEL_KATAR_ACTION,
 		CRAFT_SHORT_BOW_ACTION,
-		BREW_CHANGE_GENDER_POTION_ACTION
+		BREW_CHANGE_GENDER_POTION_ACTION,
+		BREW_REMOVE_CURSE_POTION_ACTION
 	));
 	
 	static {

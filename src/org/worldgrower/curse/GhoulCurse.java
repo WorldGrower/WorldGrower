@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
+import org.worldgrower.gui.ImageIds;
 
 public class GhoulCurse extends AbstractCurse {
 
@@ -45,5 +46,10 @@ public class GhoulCurse extends AbstractCurse {
 	@Override
 	public String getName() {
 		return "ghoul";
+	}
+	
+	@Override
+	public final ImageIds getImageId() {
+		return ImageIds.GHOUL;
 	}
 }

@@ -26,6 +26,7 @@ import org.worldgrower.attribute.KnowledgeMap;
 import org.worldgrower.attribute.Skill;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
+import org.worldgrower.curse.Curse;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
 
@@ -85,5 +86,29 @@ public class UTestWaterPropertyUtils {
 		
 		WaterPropertyUtils.drink(performer, waterTarget, world);
 		assertEquals(false, performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.ATAXIA_CONDITION));
+	}
+	
+	@Test
+	public void testDrinkRemoveCursePotion() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(0, 0, 1, 1, Constants.CONDITIONS, new Conditions(), 2);
+		WorldObject waterTarget = Item.REMOVE_CURSE_POTION.generate(1f);
+		
+		performer.setProperty(Constants.CURSE, Curse.INFERTILITY_CURSE);
+		
+		WaterPropertyUtils.drink(performer, waterTarget, world);
+		assertEquals(null, performer.getProperty(Constants.CURSE));
+	}
+	
+	@Test
+	public void testDrinkRemoveCursePotionOnVampire() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(0, 0, 1, 1, Constants.CONDITIONS, new Conditions(), 2);
+		WorldObject waterTarget = Item.REMOVE_CURSE_POTION.generate(1f);
+		
+		performer.setProperty(Constants.CURSE, Curse.VAMPIRE_CURSE);
+		
+		WaterPropertyUtils.drink(performer, waterTarget, world);
+		assertEquals(Curse.VAMPIRE_CURSE, performer.getProperty(Constants.CURSE));
 	}
 }

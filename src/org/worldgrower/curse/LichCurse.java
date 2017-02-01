@@ -20,6 +20,7 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.goal.Goal;
+import org.worldgrower.gui.ImageIds;
 
 public class LichCurse extends AbstractCurse {
 
@@ -40,5 +41,10 @@ public class LichCurse extends AbstractCurse {
 	@Override
 	public String getName() {
 		return "lich";
+	}
+	
+	@Override
+	public final ImageIds getImageId() {
+		return ImageIds.LICH;
 	}
 }

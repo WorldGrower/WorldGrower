@@ -50,11 +50,6 @@ abstract class AbstractCurse implements Curse {
 	}
 	
 	@Override
-	public final ImageIds getImageId() {
-		return null;
-	}
-	
-	@Override
 	public final void curseStarts(WorldObject worldObject, WorldStateChangedListeners worldStateChangedListeners) {
 	}
 
