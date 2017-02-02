@@ -74,4 +74,9 @@ public class ChangeGenderCurse implements Curse {
 	public void curseEnds(WorldObject worldObject, WorldStateChangedListeners worldStateChangedListeners) {
 		GenderPropertyUtils.changeGender(worldObject, worldStateChangedListeners);
 	}
+	
+	@Override
+	public boolean performerWantsCurseRemoved(WorldObject performer, World world) {
+		return false;
+	}
 }

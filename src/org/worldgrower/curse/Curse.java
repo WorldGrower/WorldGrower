@@ -38,6 +38,7 @@ public interface Curse extends Serializable {
 	public ImageIds getImageId();
 	public void curseStarts(WorldObject worldObject, WorldStateChangedListeners worldStateChangedListeners);
 	public void curseEnds(WorldObject worldObject, WorldStateChangedListeners worldStateChangedListeners);
+	public boolean performerWantsCurseRemoved(WorldObject performer, World world);
 	
 	public static final SirenCurse SIREN_CURSE = new SirenCurse();
 	public static final ToadCurse TOAD_CURSE = new ToadCurse();

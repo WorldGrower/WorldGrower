@@ -24,6 +24,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.conversation.Conversations;
+import org.worldgrower.curse.Curse;
 
 public class RemoveCurseGoal implements Goal {
 
@@ -35,6 +36,15 @@ public class RemoveCurseGoal implements Goal {
 
 	@Override
 	public OperationInfo calculateGoal(WorldObject performer, World world) {
+		Curse performerCurse = performer.getProperty(Constants.CURSE);
+		if (performerCurse != null && performerCurse.performerWantsCurseRemoved(performer, world)) {
+			return removeCurse(performer, world);
+		} else {
+			return null;
+		}
+	}
+
+	private OperationInfo removeCurse(WorldObject performer, World world) {
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
 		if (performerInventory.getQuantityFor(Constants.REMOVE_CURSE) > 0) {
 			int index = performerInventory.getIndexFor(Constants.REMOVE_CURSE);
@@ -72,7 +82,8 @@ public class RemoveCurseGoal implements Goal {
 
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		return performer.getProperty(Constants.CURSE) == null;
+		Curse performerCurse = performer.getProperty(Constants.CURSE);
+		return performerCurse == null || !Curse.BESTOWABLE_CURSES.contains(performerCurse);
 	}
 	
 	@Override

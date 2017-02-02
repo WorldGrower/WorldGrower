@@ -110,6 +110,7 @@ import org.worldgrower.conversation.UTestDeityReasonConversation;
 import org.worldgrower.conversation.UTestDemandMoneyConversation;
 import org.worldgrower.conversation.UTestDemandsConversation;
 import org.worldgrower.conversation.UTestDrinkingContestConversation;
+import org.worldgrower.conversation.UTestExplainCurseConversation;
 import org.worldgrower.conversation.UTestFamilyConversation;
 import org.worldgrower.conversation.UTestGiveFoodConversation;
 import org.worldgrower.conversation.UTestGiveMoneyConversation;
@@ -151,6 +152,7 @@ import org.worldgrower.conversation.UTestWhyNotIntelligentConversation;
 import org.worldgrower.conversation.leader.UTestCanAttackCriminalsConversation;
 import org.worldgrower.conversation.leader.UTestCanCollectTaxesConversation;
 import org.worldgrower.creaturetype.UTestCreatureTypeUtils;
+import org.worldgrower.curse.UTestInfertilityCurse;
 import org.worldgrower.curse.UTestVampireCurse;
 import org.worldgrower.curse.UTestWerewolfCurse;
 import org.worldgrower.deity.UTestAphrodite;
@@ -801,7 +803,9 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestRemoveCurseAction.class,
 	UTestRemoveCurseGoal.class,
 	UTestBrewChangeGenderPotionAction.class,
-	UTestBrewRemoveCursePotionAction.class
+	UTestBrewRemoveCursePotionAction.class,
+	UTestInfertilityCurse.class,
+	UTestExplainCurseConversation.class
 })
 public class CompleteTestSuite {
 }

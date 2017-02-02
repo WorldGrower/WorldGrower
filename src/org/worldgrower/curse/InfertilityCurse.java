@@ -16,6 +16,7 @@ package org.worldgrower.curse;
 
 import java.util.List;
 
+import org.worldgrower.Constants;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
@@ -70,5 +71,11 @@ public class InfertilityCurse implements Curse {
 
 	@Override
 	public void curseEnds(WorldObject worldObject, WorldStateChangedListeners worldStateChangedListeners) {
+	}
+	
+	@Override
+	public boolean performerWantsCurseRemoved(WorldObject performer, World world) {
+		int childCount = performer.getProperty(Constants.CHILDREN).size();
+		return childCount < 3;
 	}
 }

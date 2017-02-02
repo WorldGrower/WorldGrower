@@ -49,6 +49,7 @@ public class UTestRemoveCurseGoal {
 		WorldObject organization = GroupPropertyUtils.create(null, "TestOrg", world);
 		WorldObject performer = createCommoner(world, organization);
 		performer.getProperty(Constants.KNOWN_SPELLS).add(Actions.REMOVE_CURSE_ACTION);
+		performer.setProperty(Constants.CURSE, Curse.INFERTILITY_CURSE);
 		
 		assertEquals(Actions.REMOVE_CURSE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 		assertEquals(performer, goal.calculateGoal(performer, world).getPerformer());
@@ -62,6 +63,7 @@ public class UTestRemoveCurseGoal {
 		WorldObject performer = createCommoner(world, organization);
 		performer.getProperty(Constants.KNOWN_SPELLS).add(Actions.REMOVE_CURSE_ACTION);
 		performer.setProperty(Constants.ENERGY, 0);
+		performer.setProperty(Constants.CURSE, Curse.INFERTILITY_CURSE);
 		
 		assertEquals(Actions.REST_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 		assertEquals(performer, goal.calculateGoal(performer, world).getPerformer());
@@ -109,6 +111,9 @@ public class UTestRemoveCurseGoal {
 		
 		performer.setProperty(Constants.CURSE, Curse.INFERTILITY_CURSE);
 		assertEquals(false, goal.isGoalMet(performer, world));
+		
+		performer.setProperty(Constants.CURSE, Curse.LICH_CURSE);
+		assertEquals(true, goal.isGoalMet(performer, world));
 	}
 
 	private WorldObject createCommoner(World world, WorldObject organization) {

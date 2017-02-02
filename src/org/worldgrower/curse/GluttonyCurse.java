@@ -71,4 +71,9 @@ public class GluttonyCurse implements Curse {
 	@Override
 	public void curseEnds(WorldObject worldObject, WorldStateChangedListeners worldStateChangedListeners) {
 	}
+	
+	@Override
+	public boolean performerWantsCurseRemoved(WorldObject performer, World world) {
+		return true;
+	}
 }

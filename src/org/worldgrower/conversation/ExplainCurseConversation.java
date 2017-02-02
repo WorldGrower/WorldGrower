@@ -14,6 +14,7 @@
  *******************************************************************************/
 package org.worldgrower.conversation;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -29,26 +30,52 @@ public class ExplainCurseConversation implements Conversation {
 
 	private static final int YES = 0;
 	private static final int NO = 1;
+	private static final int GET_LOST = 2;
 	
 	@Override
 	public Response getReplyPhrase(ConversationContext conversationContext) {
-		final int replyId = YES;
-		//TODO: implement
+		final int replyId;
+		WorldObject performer = conversationContext.getPerformer();
+		WorldObject target = conversationContext.getTarget();
+		int relationshipValue = target.getProperty(Constants.RELATIONSHIPS).getValue(performer);
+		
+		if (relationshipValue < 0) {
+			replyId = GET_LOST;
+		} else if (targetHasCurse(target)) {
+			replyId = YES;
+		} else {
+			replyId = NO;
+		}
+
 		return getReply(getReplyPhrases(conversationContext), replyId);
+	}
+
+	private boolean targetHasCurse(WorldObject performer) {
+		return performer.getProperty(Constants.CURSE) != null;
 	}
 
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		return Arrays.asList(
-			new Question(null, Text.QUESTION_CURSE.get(performer.getProperty(Constants.CURSE).getExplanation()))
+			new Question(null, Text.QUESTION_CURSE.get())
 			);
 	}
 
+	// performer.getProperty(Constants.CURSE).getExplanation()
+	
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
-		return Arrays.asList(
-			new Response(YES, Text.ANSWER_CURSE_YES.get()),
-			new Response(NO, Text.ANSWER_CURSE_NO.get()));
+		WorldObject target = conversationContext.getTarget();
+		
+		List<Response> responses = new ArrayList<>();
+		if (targetHasCurse(target)) {
+			String curseExplanation = target.getProperty(Constants.CURSE).getExplanation();
+			responses.add(new Response(YES, Text.ANSWER_CURSE_YES.get(curseExplanation)));
+		}
+		responses.add(new Response(NO, Text.ANSWER_CURSE_NO.get()));
+		responses.add(new Response(GET_LOST, Text.ANSWER_CURSE_GETLOST.get()));
+		
+		return responses;
 	}
 	
 	@Override
@@ -58,13 +85,15 @@ public class ExplainCurseConversation implements Conversation {
 		World world = conversationContext.getWorld();
 		
 		if (replyIndex == YES) {
-			RelationshipPropertyUtils.changeRelationshipValue(performer, target, 600, Actions.TALK_ACTION, Conversations.createArgs(this), world);
+			RelationshipPropertyUtils.changeRelationshipValue(performer, target, 20, Actions.TALK_ACTION, Conversations.createArgs(this), world);
+		} else if (replyIndex == GET_LOST) {
+			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -100, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 		}
 	}
 
 	@Override
 	public boolean isConversationAvailable(WorldObject performer, WorldObject target, WorldObject subject, World world) {
-		return performer.getProperty(Constants.CURSE) != null;
+		return true;
 	}
 	
 	@Override

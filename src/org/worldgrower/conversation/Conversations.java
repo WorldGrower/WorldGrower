@@ -52,7 +52,7 @@ public class Conversations implements Serializable {
 	public static final Conversation DEMANDS_CONVERSATION = new DemandsConversation();
 	public static final CollectBountyFromThievesConversation COLLECT_BOUNTY_FROM_THIEVES_CONVERSATION = new CollectBountyFromThievesConversation();
 	public static final ComplimentConversation COMPLIMENT_CONVERSATION = new ComplimentConversation();
-	public static final Conversation EXPLAIN_CURSE_CONVERSATION = new ExplainCurseConversation();
+	public static final ExplainCurseConversation EXPLAIN_CURSE_CONVERSATION = new ExplainCurseConversation();
 	public static final LocationConversation LOCATION_CONVERSATION = new LocationConversation();
 	public static final DemandMoneyConversation DEMAND_MONEY_CONVERSATION = new DemandMoneyConversation();
 	public static final ProposeMateConversation PROPOSE_MATE_CONVERSATION = new ProposeMateConversation();

@@ -85,4 +85,9 @@ public class SirenCurse implements Curse {
 	@Override
 	public void curseEnds(WorldObject worldObject, WorldStateChangedListeners worldStateChangedListeners) {
 	}
+	
+	@Override
+	public boolean performerWantsCurseRemoved(WorldObject performer, World world) {
+		return false;
+	}
 }

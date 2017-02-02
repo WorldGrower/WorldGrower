@@ -53,6 +53,12 @@ abstract class AbstractCurse implements Curse {
 	public final void curseStarts(WorldObject worldObject, WorldStateChangedListeners worldStateChangedListeners) {
 	}
 
+	@Override
 	public final void curseEnds(WorldObject worldObject, WorldStateChangedListeners worldStateChangedListeners) {
+	}
+	
+	@Override
+	public boolean performerWantsCurseRemoved(WorldObject performer, World world) {
+		return false;
 	}
 }
