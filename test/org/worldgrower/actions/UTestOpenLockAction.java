@@ -45,6 +45,20 @@ public class UTestOpenLockAction {
 	}
 	
 	@Test
+	public void testExecuteFailure() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		performer.setProperty(Constants.LEFT_HAND_EQUIPMENT, Item.LOCKPICK.generate(1f));
+		WorldObject target = createUnownedHouse(performer, world);
+		target.setProperty(Constants.LOCK_STRENGTH, 1000);
+		
+		assertEquals(true, target.getProperty(Constants.LOCKED));
+		action.execute(performer, target, Args.EMPTY, world);
+		
+		assertEquals(true, target.getProperty(Constants.LOCKED));
+	}
+	
+	@Test
 	public void testIsValidTarget() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);

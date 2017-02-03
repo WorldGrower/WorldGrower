@@ -37,6 +37,7 @@ import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.conversation.ConversationCategory;
 import org.worldgrower.conversation.Conversations;
+import org.worldgrower.curse.Curse;
 import org.worldgrower.deity.Deity;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
@@ -63,6 +64,7 @@ public class DocumentationGenerator {
 		generateBuildingsOverview(outputDir, imageInfoReader);
 		generateConversationsOverview(outputDir, imageInfoReader);
 		generateResourcesOverview(outputDir, imageInfoReader);
+		generateCursesOverview(outputDir, imageInfoReader);
 	}
 
 	private static void generateMagicSpellOverview(File outputDir, ImageInfoReader imageInfoReader) {
@@ -313,6 +315,26 @@ public class DocumentationGenerator {
 				
 				tableValues.add(tableRow);
 			}
+		}
+		createHtmlFile(title, description, outputFile, imageInfoReader, headerFields, tableValues);
+	}
+	
+	private static void generateCursesOverview(File outputDir, ImageInfoReader imageInfoReader) {
+		String title = "WorldGrower:Curses";
+		String description = "Curses are magical effects produced by the bestow curse spell. They can be removed by the remove curse spell or by a remove curse potion";
+		File outputFile = new File(outputDir, "gen_curse.html");
+		List<String> headerFields = Arrays.asList("Icon", "Name", "Description");
+		List<List<String>> tableValues = new ArrayList<List<String>>();
+		for(Curse curse : Curse.BESTOWABLE_CURSES) {
+			List<String> tableRow = new ArrayList<>();
+			String filename = "gen_" + curse.getName() + ".png";
+			saveImage(curse.getImageId(), imageInfoReader, new File(outputDir, filename));
+
+			tableRow.add(imageTag(filename, curse.getName()));
+			tableRow.add(curse.getName());
+			tableRow.add(curse.getDescription());
+			
+			tableValues.add(tableRow);
 		}
 		createHtmlFile(title, description, outputFile, imageInfoReader, headerFields, tableValues);
 	}
