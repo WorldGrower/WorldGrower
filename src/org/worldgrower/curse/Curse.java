@@ -45,15 +45,17 @@ public interface Curse extends Serializable {
 	public static final InfertilityCurse INFERTILITY_CURSE = new InfertilityCurse();
 	public static final GluttonyCurse GLUTTONY_CURSE = new GluttonyCurse();
 	public static final ChangeGenderCurse CHANGE_GENDER_CURSE = new ChangeGenderCurse();
+	public static final PoxCurse POX_CURSE = new PoxCurse();
 	public static final VampireCurse VAMPIRE_CURSE = new VampireCurse();
 	public static final WerewolfCurse WEREWOLF_CURSE = new WerewolfCurse();
 	public static final LichCurse LICH_CURSE = new LichCurse();
 	public static final GhoulCurse GHOUL_CURSE = new GhoulCurse();
 	
 	public static final List<Curse> BESTOWABLE_CURSES = Arrays.asList(
+			CHANGE_GENDER_CURSE,
 			INFERTILITY_CURSE, 
 			GLUTTONY_CURSE, 
-			CHANGE_GENDER_CURSE
+			POX_CURSE
 	);
 
 	public static List<ImageIds> getBestowableCurseImageIds() {

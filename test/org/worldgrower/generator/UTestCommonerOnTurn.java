@@ -70,6 +70,20 @@ public class UTestCommonerOnTurn {
 	}
 	
 	@Test
+	public void testOnTurnFoodPox() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject organization = createVillagersOrganization(world);
+		
+		WorldObject playerCharacter = createPlayerCharacter(world, organization);
+		playerCharacter.setProperty(Constants.CURSE, Curse.POX_CURSE);
+		
+		assertEquals(800, playerCharacter.getProperty(Constants.WATER).intValue());
+		
+		playerCharacter.onTurn(world, new WorldStateChangedListeners());
+		assertEquals(798, playerCharacter.getProperty(Constants.WATER).intValue());
+	}
+	
+	@Test
 	public void testOnTurnNoFoodNoWater() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject organization = createVillagersOrganization(world);

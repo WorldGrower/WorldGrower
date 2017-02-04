@@ -40,7 +40,7 @@ public class UTestBestowCurseAction {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		
-		int[] args = { 0 };
+		int[] args = { Curse.BESTOWABLE_CURSES.indexOf(Curse.INFERTILITY_CURSE) };
 		action.execute(performer, performer, args, world);
 		
 		assertEquals(Curse.INFERTILITY_CURSE, performer.getProperty(Constants.CURSE));

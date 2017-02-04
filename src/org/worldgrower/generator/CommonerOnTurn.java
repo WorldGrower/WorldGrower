@@ -196,6 +196,9 @@ public class CommonerOnTurn implements OnTurn {
 		if (worldObject.getProperty(Constants.CURSE) == Curse.GLUTTONY_CURSE) {
 			worldObject.increment(Constants.FOOD, -1);
 		}
+		if (worldObject.getProperty(Constants.CURSE) == Curse.POX_CURSE) {
+			worldObject.increment(Constants.WATER, -1);
+		}
 		
 		if (worldObject.hasProperty(Constants.VAMPIRE_BLOOD_LEVEL)) {
 			if (worldObject.getProperty(Constants.VAMPIRE_BLOOD_LEVEL) < 10) {
