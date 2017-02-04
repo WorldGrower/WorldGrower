@@ -157,6 +157,16 @@ public class UTestConditions {
 		World world = new WorldImpl(1, 1, null, null);
 		conditions.addCondition(null, Condition.ENLARGED_CONDITION, 2, world);
 		
+		assertEquals(Arrays.asList("enlarged(2)"), conditions.getDescriptions());
+	}
+	
+	@Test
+	public void testGetDescriptionsPermanent() {
+		Conditions conditions = new Conditions();
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject worldObject = TestUtils.createIntelligentWorldObject(2, Constants.CONDITIONS, conditions);
+		Conditions.addPermanent(worldObject, Condition.ENLARGED_CONDITION, world);
+		
 		assertEquals(Arrays.asList("enlarged"), conditions.getDescriptions());
 	}
 	
@@ -165,6 +175,16 @@ public class UTestConditions {
 		Conditions conditions = new Conditions();
 		World world = new WorldImpl(1, 1, null, null);
 		conditions.addCondition(null, Condition.ENLARGED_CONDITION, 2, world);
+		
+		assertEquals(Arrays.asList("an enlarged creature deals more damage with physical attacks (2 turns remaining)"), conditions.getLongerDescriptions());
+	}
+	
+	@Test
+	public void testGetLongerDescriptionsPermanent() {
+		Conditions conditions = new Conditions();
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject worldObject = TestUtils.createIntelligentWorldObject(2, Constants.CONDITIONS, conditions);
+		Conditions.addPermanent(worldObject, Condition.ENLARGED_CONDITION, world);
 		
 		assertEquals(Arrays.asList("an enlarged creature deals more damage with physical attacks"), conditions.getLongerDescriptions());
 	}
@@ -189,5 +209,20 @@ public class UTestConditions {
 		conditions.addCondition(null, Condition.FREEDOM_OF_MOVEMENT_CONDITION, 8, world);
 		assertEquals(false, conditions.shouldAddCondition(Condition.PARALYZED_CONDITION));
 		assertEquals(false, conditions.shouldAddCondition(Condition.ENTANGLED_CONDITION));
+	}
+	
+	@Test
+	public void testIsPermanent() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject worldObject = TestUtils.createIntelligentWorldObject(3, "worldObject");
+		Conditions.addPermanent(worldObject, Condition.PARALYZED_CONDITION, world);
+		Conditions.add(worldObject, Condition.ENTANGLED_CONDITION, 8, world);
+		
+		assertEquals(true, Conditions.isConditionPermanent(worldObject, Condition.PARALYZED_CONDITION));
+		assertEquals(false, Conditions.isConditionPermanent(worldObject, Condition.ENTANGLED_CONDITION));
+		
+		worldObject.getProperty(Constants.CONDITIONS).onTurn(worldObject, world, new WorldStateChangedListeners());
+		assertEquals(true, Conditions.isConditionPermanent(worldObject, Condition.PARALYZED_CONDITION));
+		assertEquals(false, Conditions.isConditionPermanent(worldObject, Condition.ENTANGLED_CONDITION));
 	}
 }

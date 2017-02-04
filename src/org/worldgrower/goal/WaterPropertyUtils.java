@@ -62,7 +62,7 @@ public class WaterPropertyUtils {
 		if (waterTarget.hasProperty(Constants.ALCOHOL_LEVEL)) {
 			performer.increment(Constants.ALCOHOL_LEVEL, waterTarget.getProperty(Constants.ALCOHOL_LEVEL));
 			if (performer.getProperty(Constants.ALCOHOL_LEVEL) > AlcoholLevelPropertyUtils.getIntoxicatedLimit(performer)) {
-				Conditions.add(performer, Condition.INTOXICATED_CONDITION, Integer.MAX_VALUE, world);
+				Conditions.addPermanent(performer, Condition.INTOXICATED_CONDITION, world);
 			}
 		}
 		

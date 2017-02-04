@@ -49,7 +49,7 @@ public class TutorialGameParameters implements GameParameters {
 		
 		int commonerId = commonerGenerator.generateCommoner(0, 10, world, organization, CommonerGenerator.NO_PARENT);
 		WorldObject commoner = world.findWorldObjectById(commonerId);
-		Conditions.add(commoner, Condition.PARALYZED_CONDITION, Integer.MAX_VALUE, world);
+		Conditions.addPermanent(commoner, Condition.PARALYZED_CONDITION, world);
 	}
 
 	@Override

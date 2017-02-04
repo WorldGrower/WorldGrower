@@ -159,10 +159,10 @@ public interface Deity extends Serializable {
 			SkillUtils.useSkill(performer, getSkill(), 30, world.getWorldStateChangedListeners());
 			world.logAction(Actions.WORSHIP_DEITY_ACTION, performer, target, Args.EMPTY, performer.getProperty(Constants.NAME) + " gains a boost to " + getSkill().getName() + " skill due to worship.");
 		} else if (worshipCount == 20) {
-			Conditions.add(performer, Condition.DISEASE_IMMUNITY_CONDITION, Integer.MAX_VALUE, world);
+			Conditions.addPermanent(performer, Condition.DISEASE_IMMUNITY_CONDITION, world);
 			world.logAction(Actions.WORSHIP_DEITY_ACTION, performer, target, Args.EMPTY, performer.getProperty(Constants.NAME) + " gains immunity to disease due to worship.");
 		} else if (worshipCount == 50) {
-			Conditions.add(performer, getBoon(), Integer.MAX_VALUE, world);
+			Conditions.addPermanent(performer, getBoon(), world);
 			world.logAction(Actions.WORSHIP_DEITY_ACTION, performer, target, Args.EMPTY, performer.getProperty(Constants.NAME) + " gains a boon from " + getName());
 		}
 	}

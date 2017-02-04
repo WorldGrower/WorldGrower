@@ -84,7 +84,7 @@ public class CommonerOnTurn implements OnTurn {
 		if (food == 0 && water == 0) {
 			Conditions conditions = worldObject.getProperty(Constants.CONDITIONS);
 			if (!conditions.hasCondition(Condition.ATAXIA_CONDITION)) {
-				Conditions.add(worldObject, Condition.ATAXIA_CONDITION, Integer.MAX_VALUE, world);
+				Conditions.addPermanent(worldObject, Condition.ATAXIA_CONDITION, world);
 			}
 		}
 	}

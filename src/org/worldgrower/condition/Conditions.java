@@ -33,7 +33,7 @@ import org.worldgrower.gui.ImageIds;
  * This class holds all conditions of a WorldObjects.
  */
 public class Conditions implements Serializable {
-
+	private static final int PERMANENT_CONDITION = Integer.MAX_VALUE;
 	private final Map<Condition, ConditionInfo> conditions = new LinkedHashMap<>();
 	
 	void addCondition(WorldObject worldObject, Condition condition, int turns, World world) {
@@ -80,10 +80,23 @@ public class Conditions implements Serializable {
 		worldObject.getProperty(Constants.CONDITIONS).addCondition(worldObject, condition, turns, world);
 	}
 	
+	public static void addPermanent(WorldObject worldObject, Condition condition, World world) {
+		add(worldObject, condition, PERMANENT_CONDITION, world);
+	}
+	
 	public static void remove(WorldObject worldObject, Condition condition, World world) {
 		worldObject.getProperty(Constants.CONDITIONS).removeConditionFromWorldObject(worldObject, condition, world.getWorldStateChangedListeners(), world);
 	}
 	
+	public static boolean isConditionPermanent(WorldObject worldObject, Condition condition) {
+		return worldObject.getProperty(Constants.CONDITIONS).isConditionPermanent(condition);
+	}
+	
+	private boolean isConditionPermanent(Condition condition) {
+		return conditions.get(condition).isConditionPermanent();
+		
+	}
+
 	public void removeAllDiseases(WorldObject worldObject, WorldStateChangedListeners worldStateChangedListeners) {
 		removeAll(worldObject, c -> c.isDisease(), worldStateChangedListeners);
 	}
@@ -109,7 +122,13 @@ public class Conditions implements Serializable {
 	public List<String> getDescriptions() {
 		List<String> descriptions = new ArrayList<>();
 		for(Condition condition : conditions.keySet()) {
-			descriptions.add(condition.getDescription());
+			final String description;
+			if (isConditionPermanent(condition)) {
+				description = condition.getDescription();
+			} else {
+				description = condition.getDescription() + "(" + conditions.get(condition).getTurnsItWillLast() + ")";
+			}
+			descriptions.add(description);
 		}
 		return descriptions;
 	}
@@ -125,7 +144,13 @@ public class Conditions implements Serializable {
 	public List<String> getLongerDescriptions() {
 		List<String> descriptions = new ArrayList<>();
 		for(Condition condition : conditions.keySet()) {
-			descriptions.add(condition.getLongerDescription());
+			final String longDescription;
+			if (isConditionPermanent(condition)) {
+				longDescription = condition.getLongerDescription();
+			} else {
+				longDescription = condition.getLongerDescription() + " (" + conditions.get(condition).getTurnsItWillLast() + " turns remaining)";
+			}
+			descriptions.add(longDescription);
 		}
 		return descriptions;
 	}
@@ -163,12 +188,18 @@ public class Conditions implements Serializable {
 			this.startTurn = startTurn;
 		}
 
+		public boolean isConditionPermanent() {
+			return this.turnsItWillLast == PERMANENT_CONDITION;
+		}
+
 		public int getTurnsItWillLast() {
 			return turnsItWillLast;
 		}
 
 		public void setTurnsItWillLast(int turnsItWillLast) {
-			this.turnsItWillLast = turnsItWillLast;
+			if (this.turnsItWillLast != PERMANENT_CONDITION) {
+				this.turnsItWillLast = turnsItWillLast;
+			}
 		}
 
 		public int getStartTurn() {

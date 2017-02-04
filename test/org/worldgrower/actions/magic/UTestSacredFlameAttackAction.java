@@ -57,7 +57,7 @@ public class UTestSacredFlameAttackAction {
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
 		
-		Conditions.add(performer, Deity.HADES.getBoon(), Integer.MAX_VALUE, world);
+		Conditions.addPermanent(performer, Deity.HADES.getBoon(), world);
 		target.setProperty(Constants.HIT_POINTS, 10 * Item.COMBAT_MULTIPLIER);
 		target.setProperty(Constants.HIT_POINTS_MAX, 10 * Item.COMBAT_MULTIPLIER);
 		

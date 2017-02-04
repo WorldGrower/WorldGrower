@@ -38,7 +38,7 @@ public class VampireBiteAction implements DeadlyAction {
 		
 		if (VampireUtils.canBecomeVampire(target)) {
 			if (targetContractsVampireBiteCondition(target, world)) {
-				Conditions.add(target, Condition.VAMPIRE_BITE_CONDITION, Integer.MAX_VALUE, world);
+				Conditions.addPermanent(target, Condition.VAMPIRE_BITE_CONDITION, world);
 			}
 		}
 		

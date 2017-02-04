@@ -39,7 +39,7 @@ public class TrapContainerMagicSpellAction implements MagicSpell, DeadlyAction {
 	
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		Conditions.add(target, Condition.TRAPPED_CONTAINER_CONDITION, Integer.MAX_VALUE, world);
+		Conditions.addPermanent(target, Condition.TRAPPED_CONTAINER_CONDITION, world);
 		int damage = (int)(5 * SkillUtils.getSkillBonus(performer, getSkill()) * Item.COMBAT_MULTIPLIER);
 		target.setProperty(Constants.TRAPPED_CONTAINER_DAMAGE, damage);
 		KnowledgeMapPropertyUtils.everyoneInVicinityKnowsOfProperty(performer, target, Constants.TRAPPED_CONTAINER_DAMAGE, damage, world);
