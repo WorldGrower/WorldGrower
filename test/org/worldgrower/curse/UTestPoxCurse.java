@@ -30,7 +30,7 @@ public class UTestPoxCurse {
 	private PoxCurse curse = Curse.POX_CURSE;
 	
 	@Test
-	public void testPerform() {
+	public void testPerformPerformerCursed() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
 		WorldObject target = createPerformer(3);
@@ -39,6 +39,22 @@ public class UTestPoxCurse {
 		curse.perform(performer, target, null, Actions.TALK_ACTION, world);
 		assertEquals(curse, performer.getProperty(Constants.CURSE));
 		assertEquals(null, target.getProperty(Constants.CURSE));
+		
+		curse.perform(performer, target, null, Actions.SEX_ACTION, world);
+		assertEquals(curse, performer.getProperty(Constants.CURSE));
+		assertEquals(curse, target.getProperty(Constants.CURSE));
+	}
+	
+	@Test
+	public void testPerformTargetCursed() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		target.setProperty(Constants.CURSE, curse);
+
+		curse.perform(performer, target, null, Actions.TALK_ACTION, world);
+		assertEquals(null, performer.getProperty(Constants.CURSE));
+		assertEquals(curse, target.getProperty(Constants.CURSE));
 		
 		curse.perform(performer, target, null, Actions.SEX_ACTION, world);
 		assertEquals(curse, performer.getProperty(Constants.CURSE));

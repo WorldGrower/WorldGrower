@@ -23,8 +23,6 @@ import java.util.ResourceBundle;
 
 import org.worldgrower.conversation.Conversation;
 import org.worldgrower.conversation.Conversations;
-import org.worldgrower.conversation.IntimidateConversation;
-import org.worldgrower.conversation.Response;
 
 public enum Text {
 	QUESTION_ARENA_PAY_CHECK(Conversations.ARENA_FIGHTER_PAY_CHECK_CONVERSATION),
