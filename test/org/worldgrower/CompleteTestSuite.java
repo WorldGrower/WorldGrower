@@ -152,6 +152,7 @@ import org.worldgrower.conversation.UTestWhyNotIntelligentConversation;
 import org.worldgrower.conversation.leader.UTestCanAttackCriminalsConversation;
 import org.worldgrower.conversation.leader.UTestCanCollectTaxesConversation;
 import org.worldgrower.creaturetype.UTestCreatureTypeUtils;
+import org.worldgrower.curse.UTestCurseListener;
 import org.worldgrower.curse.UTestInfertilityCurse;
 import org.worldgrower.curse.UTestPoxCurse;
 import org.worldgrower.curse.UTestVampireCurse;
@@ -807,7 +808,8 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestBrewRemoveCursePotionAction.class,
 	UTestInfertilityCurse.class,
 	UTestExplainCurseConversation.class,
-	UTestPoxCurse.class
+	UTestPoxCurse.class,
+	UTestCurseListener.class
 })
 public class CompleteTestSuite {
 }
