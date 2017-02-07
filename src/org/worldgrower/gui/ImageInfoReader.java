@@ -37,11 +37,9 @@ public class ImageInfoReader {
 
 	private final Map<ImageIds, List<Image>> idToImages = new HashMap<>();
 	private final List<ImageIds> characterImageIds = new ArrayList<>();
-	private final ToolTipImageHandler toolTipImageHandler;
+	private ToolTipImageHandler toolTipImageHandler;
 	
     public ImageInfoReader() throws IOException {
-    	toolTipImageHandler = new ToolTipImageHandler(this);
-    	
     	Sprites sprites = readSprites();
     	Sprites spritesb = readSpritesB();
     	Sprites sprites2a = readSprites2A();
@@ -1352,6 +1350,10 @@ public class ImageInfoReader {
    }
 	
 	public String smallImageTag(ImageIds imageIds) {
+		// lazy initialization to avoid initializing this in unit tests
+		if (toolTipImageHandler == null) {
+			toolTipImageHandler = new ToolTipImageHandler(this);
+		}
 		return toolTipImageHandler.smallImageTag(imageIds);
 	}
 }
