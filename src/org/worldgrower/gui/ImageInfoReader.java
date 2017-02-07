@@ -37,8 +37,11 @@ public class ImageInfoReader {
 
 	private final Map<ImageIds, List<Image>> idToImages = new HashMap<>();
 	private final List<ImageIds> characterImageIds = new ArrayList<>();
+	private final ToolTipImageHandler toolTipImageHandler;
 	
     public ImageInfoReader() throws IOException {
+    	toolTipImageHandler = new ToolTipImageHandler(this);
+    	
     	Sprites sprites = readSprites();
     	Sprites spritesb = readSpritesB();
     	Sprites sprites2a = readSprites2A();
@@ -1347,4 +1350,8 @@ public class ImageInfoReader {
 	   }
 	   return idToImages.get(id).size();
    }
+	
+	public String smallImageTag(ImageIds imageIds) {
+		return toolTipImageHandler.imageTag(imageIds);
+	}
 }

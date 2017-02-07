@@ -20,7 +20,13 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
+
+import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.start.Game;
 
 public class ImageUtils {
@@ -76,4 +82,13 @@ public class ImageUtils {
 		
 		return transparentImage;
     }
+    
+	public static void saveImage(ImageIds imageIds, ImageInfoReader imageInfoReader, File outputFile) {
+		try {
+		    BufferedImage bi = (BufferedImage) imageInfoReader.getImage(imageIds, null);
+		    ImageIO.write(bi, "png", outputFile);
+		} catch (IOException e) {
+			throw new IllegalStateException("");
+		}
+	}
 }

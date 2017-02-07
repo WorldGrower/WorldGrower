@@ -24,6 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -616,7 +618,26 @@ public class GuiMouseListener extends MouseAdapter {
 			tooltip += "<br>" + allowedCraftActionsDescription;
 		}
 		tooltip += "</html>";
-		return tooltip;
+		return substituteImages(tooltip);
+	}
+
+	private String substituteImages(String tooltip) {
+		String changedTooltip = tooltip;
+		changedTooltip = substituteImages(changedTooltip, "wood", ImageIds.WOOD);
+		changedTooltip = substituteImages(changedTooltip, "stone", ImageIds.STONE);
+		return changedTooltip;
+	}
+	
+	private String substituteImages(String tooltip, String description, ImageIds imageId) {
+		String patternString = "\\b(" + description + ")\\b";
+		Pattern pattern = Pattern.compile(patternString);
+		String changedTooltip = tooltip;
+		Matcher matcher = pattern.matcher(changedTooltip);
+		
+		while (matcher.find()) {
+			changedTooltip = matcher.replaceAll(imageInfoReader.smallImageTag(imageId));
+		}
+		return changedTooltip;
 	}
 
 	private String createAllowedCraftActionsDescription(List<ManagedOperation> allowedCraftActions) {

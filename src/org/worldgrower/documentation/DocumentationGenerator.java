@@ -14,7 +14,8 @@
  *******************************************************************************/
 package org.worldgrower.documentation;
 
-import java.awt.image.BufferedImage;
+import static org.worldgrower.gui.util.ImageUtils.saveImage;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,8 +23,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.imageio.ImageIO;
 
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
@@ -42,7 +41,6 @@ import org.worldgrower.deity.Deity;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
 import org.worldgrower.generator.ItemType;
-import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.text.ConversationDescription;
 import org.worldgrower.text.Text;
@@ -434,14 +432,5 @@ public class DocumentationGenerator {
 		htmlBuilder.append("</table>");
 		
 		return htmlBuilder.toString();
-	}
-	
-	private static void saveImage(ImageIds imageIds, ImageInfoReader imageInfoReader, File outputFile) {
-		try {
-		    BufferedImage bi = (BufferedImage) imageInfoReader.getImage(imageIds, null);
-		    ImageIO.write(bi, "png", outputFile);
-		} catch (IOException e) {
-			throw new IllegalStateException("");
-		}
 	}
 }

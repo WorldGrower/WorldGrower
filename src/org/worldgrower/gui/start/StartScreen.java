@@ -38,6 +38,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.plaf.FontUIResource;
 
 import org.worldgrower.Version;
 import org.worldgrower.World;
@@ -49,6 +50,7 @@ import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.SwingUtils;
 import org.worldgrower.gui.TiledImageComboPopup;
 import org.worldgrower.gui.cursor.Cursors;
+import org.worldgrower.gui.font.Fonts;
 import org.worldgrower.gui.loadsave.LoadSaveDialog;
 import org.worldgrower.gui.loadsave.LoadSaveMode;
 import org.worldgrower.gui.loadsave.SaveGameHandler;
@@ -98,6 +100,7 @@ public class StartScreen implements SaveGameHandler {
 		UIManager.getDefaults().put("Button.disabledText", ColorPalette.DISABLED_FOREGROUND_COLOR);
 		UIManager.getDefaults().put("Label.disabledForeground", ColorPalette.DISABLED_FOREGROUND_COLOR);
 		UIManager.getDefaults().put("CheckBox.disabledText", ColorPalette.DISABLED_FOREGROUND_COLOR);		
+		UIManager.put("ToolTip.font", new FontUIResource(Fonts.FONT));
 		
 		Preferences preferences = Preferences.userNodeForPackage(StartScreen.class);
 		loadDefaultSoundOutput(preferences);
