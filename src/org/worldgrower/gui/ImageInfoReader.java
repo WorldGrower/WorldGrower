@@ -1352,6 +1352,6 @@ public class ImageInfoReader {
    }
 	
 	public String smallImageTag(ImageIds imageIds) {
-		return toolTipImageHandler.imageTag(imageIds);
+		return toolTipImageHandler.smallImageTag(imageIds);
 	}
 }

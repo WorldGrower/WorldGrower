@@ -41,4 +41,8 @@ public class Fonts {
 			throw new IllegalStateException(e);
 		}
 	}
+	
+	public static int getFontSize() {
+		return FONT_SIZE;
+	}
 }

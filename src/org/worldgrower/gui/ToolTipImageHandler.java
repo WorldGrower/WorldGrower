@@ -27,6 +27,8 @@ import java.net.URLStreamHandler;
 
 import javax.imageio.ImageIO;
 
+import org.worldgrower.gui.font.Fonts;
+
 class ToolTipImageHandler {
 
 	// source: http://stackoverflow.com/questions/861500/url-to-load-resources-from-the-classpath-in-java
@@ -44,8 +46,9 @@ class ToolTipImageHandler {
 		}
 	}
 
-	public String imageTag(ImageIds imageIds) {
-		return "<img src=\"" + getPath(imageIds) + "\">";
+	public String smallImageTag(ImageIds imageIds) {
+		int fontSize = Fonts.getFontSize();
+		return "<img src=\"" + getPath(imageIds) + "\" width=\"" + fontSize + "\" height=\"" + fontSize + "\">";
 	}
 
 	private void initializeUrlHandler(ImageInfoReader imageInfoReader) {
