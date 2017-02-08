@@ -47,7 +47,7 @@ public class DisguiseAction implements DisguiseTargetFactory {
 	
 	@Override
 	public String getDescription() {
-		return "";
+		return "disguise self as an existing person or item of similar size";
 	}
 
 	@Override

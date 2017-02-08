@@ -344,6 +344,7 @@ public class GuiMouseListener extends MouseAdapter {
 		JMenuItem disguiseMenuItem = MenuFactory.createJMenuItem(new GuiDisguiseAction(playerCharacter, imageInfoReader, soundIdReader, world, (WorldPanel)container, dungeonMaster, Actions.DISGUISE_ACTION, parentFrame), soundIdReader);
 		disguiseMenuItem.setText("Disguise...");
 		setMenuIcon(disguiseMenuItem, Actions.DISGUISE_ACTION.getImageIds(playerCharacter));
+		addToolTips(Actions.DISGUISE_ACTION, disguiseMenuItem);
 		menu.add(disguiseMenuItem);
 	}
 
@@ -351,6 +352,7 @@ public class GuiMouseListener extends MouseAdapter {
 		JMenuItem chooseDeityMenuItem = MenuFactory.createJMenuItem(new ChooseDeityAction(playerCharacter, imageInfoReader, soundIdReader, world, (WorldPanel)container, dungeonMaster, parentFrame), soundIdReader);
 		chooseDeityMenuItem.setText("Choose Deity...");
 		setMenuIcon(chooseDeityMenuItem, Actions.CHOOSE_DEITY_ACTION.getImageIds(playerCharacter));
+		addToolTips(Actions.CHOOSE_DEITY_ACTION, chooseDeityMenuItem);
 		menu.add(chooseDeityMenuItem);
 	}
 
@@ -840,6 +842,7 @@ public class GuiMouseListener extends MouseAdapter {
 		JMenuItem guiAssignActionsToLeftMouseItem = MenuFactory.createJMenuItem(assignActionToLeftMouseAction, soundIdReader);
 		guiAssignActionsToLeftMouseItem.setText("Assign action to left mouse click...");
 		guiAssignActionsToLeftMouseItem.setIcon(IconUtils.getMouseIcon());
+		guiAssignActionsToLeftMouseItem.setToolTipText("Assigns an action to the left mouse button");
 		menu.add(guiAssignActionsToLeftMouseItem);
 	}
 
