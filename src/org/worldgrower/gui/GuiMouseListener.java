@@ -24,8 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -59,6 +57,7 @@ import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.generator.CommonerGenerator;
 import org.worldgrower.generator.Item;
+import org.worldgrower.generator.ItemType;
 import org.worldgrower.gui.chooseworldobject.ChooseWorldObjectAction;
 import org.worldgrower.gui.chooseworldobject.GuiDisguiseAction;
 import org.worldgrower.gui.chooseworldobject.GuiViewCandidatesAction;
@@ -90,6 +89,7 @@ import org.worldgrower.gui.util.ShowTextDialog;
 
 public class GuiMouseListener extends MouseAdapter {
 	private final SkillImageIds skillImageIds = new SkillImageIds();
+	private final TooltipImages tooltipImages = new TooltipImages();
 	private WorldPanel container;
 	private WorldObject playerCharacter;
 	private World world;
@@ -623,23 +623,12 @@ public class GuiMouseListener extends MouseAdapter {
 
 	private String substituteImages(String tooltip) {
 		String changedTooltip = tooltip;
-		changedTooltip = substituteImages(changedTooltip, "wood", ImageIds.WOOD);
-		changedTooltip = substituteImages(changedTooltip, "stone", ImageIds.STONE);
-		return changedTooltip;
-	}
-	
-	private String substituteImages(String tooltip, String description, ImageIds imageId) {
-		String patternString = "\\b(" + description + ")\\b";
-		Pattern pattern = Pattern.compile(patternString);
-		String changedTooltip = tooltip;
-		Matcher matcher = pattern.matcher(changedTooltip);
-		
-		while (matcher.find()) {
-			changedTooltip = matcher.replaceAll(imageInfoReader.smallImageTag(imageId));
+		for(Item resourceItem : Item.getItems(ItemType.RESOURCE, ItemType.INGREDIENT)) {
+			changedTooltip = tooltipImages.substituteImages(changedTooltip, resourceItem.getDescription(), resourceItem.getImageId(), imageInfoReader::smallImageTag);
 		}
 		return changedTooltip;
 	}
-
+	
 	private String createAllowedCraftActionsDescription(List<ManagedOperation> allowedCraftActions) {
 		StringBuilder allowedCraftActionsDescription = new StringBuilder("Allows actions:<br>");
 		for(ManagedOperation allowedCraftAction : allowedCraftActions) {
@@ -729,6 +718,7 @@ public class GuiMouseListener extends MouseAdapter {
 			
 			tooltip += "</html>";
 			
+			tooltip = substituteImages(tooltip);
 			menuItem.setToolTipText(tooltip);
 		}
 	}

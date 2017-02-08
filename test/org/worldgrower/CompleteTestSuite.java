@@ -189,6 +189,7 @@ import org.worldgrower.generator.UTestSkeletonEvaluationFunction;
 import org.worldgrower.generator.UTestVotingOnTurn;
 import org.worldgrower.goal.*;
 import org.worldgrower.gui.UTestBonusDescriptions;
+import org.worldgrower.gui.UTestTooltipImages;
 import org.worldgrower.gui.UTestGuiShowEventHappenedAction;
 import org.worldgrower.gui.UTestImageInfoReader;
 import org.worldgrower.gui.music.UTestSoundIdReader;
@@ -809,7 +810,8 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestInfertilityCurse.class,
 	UTestExplainCurseConversation.class,
 	UTestPoxCurse.class,
-	UTestCurseListener.class
+	UTestCurseListener.class,
+	UTestTooltipImages.class
 })
 public class CompleteTestSuite {
 }

@@ -252,6 +252,12 @@ public class PlantGenerator {
 	}
 
 	public static List<WorldObject> getPlants(int width, int height, World world) {
+		List<WorldObject> plants = getAllPlants();
+		plants = plants.stream().filter(w -> w.getProperty(Constants.WIDTH) == width && w.getProperty(Constants.HEIGHT) == height).collect(Collectors.toList());
+		return plants;
+	}
+
+	public static List<WorldObject> getAllPlants() {
 		List<WorldObject> plants = new ArrayList<>();
 		plants.add(generateBerryBush(0, 0, 0));
 		plants.add(generateTreeTrunk(0, 0, 0));
@@ -260,9 +266,6 @@ public class PlantGenerator {
 		plants.add(generateTree(0, 0, 0, ImageIds.TREE, 1f));
 		plants.add(generateTree(0, 0, 0, ImageIds.BOREAL_TREE, 1f));
 		plants.add(generateCottonPlant(0, 0, 0));
-		
-		plants = plants.stream().filter(w -> w.getProperty(Constants.WIDTH) == width && w.getProperty(Constants.HEIGHT) == height).collect(Collectors.toList());
-		
 		return plants;
 	}
 }

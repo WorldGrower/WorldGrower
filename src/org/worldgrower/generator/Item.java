@@ -14,6 +14,7 @@
  *******************************************************************************/
 package org.worldgrower.generator;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -1277,5 +1278,25 @@ public enum Item {
 		Comparator<Item> descriptionComparator = (Item o1, Item o2) -> o1.getDescription().compareTo(o2.getDescription());
 		Arrays.sort(values, descriptionComparator);
 		return values;
+	}
+	
+	public static List<Item> getItems(ItemType itemType1, ItemType itemType2) {
+		List<Item> resourceItems = new ArrayList<>();
+		for (Item item : values()) {
+			if (item.getItemType() == itemType1 || item.getItemType() == itemType2) {
+				resourceItems.add(item);
+			}
+		}
+		return resourceItems;
+	}
+	
+	public static List<Item> getItems(ItemType itemType) {
+		List<Item> resourceItems = new ArrayList<>();
+		for (Item item : values()) {
+			if (item.getItemType() == itemType) {
+				resourceItems.add(item);
+			}
+		}
+		return resourceItems;
 	}
 }
