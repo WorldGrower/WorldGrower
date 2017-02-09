@@ -61,7 +61,7 @@ public class MineSoulGemsAction implements ManagedOperation, AnimatedAction {
 	
 	@Override
 	public String getDescription() {
-		return "mines soul gems and add them to the inventory";
+		return "mines soulgem and add them to the inventory";
 	}
 
 	@Override

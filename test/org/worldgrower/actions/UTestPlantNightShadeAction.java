@@ -36,7 +36,7 @@ public class UTestPlantNightShadeAction {
 		Actions.PLANT_NIGHT_SHADE_ACTION.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(1, world.getWorldObjects().size());
-		assertEquals("nightshade", world.getWorldObjects().get(0).getProperty(Constants.NAME));
+		assertEquals("nightshade plant", world.getWorldObjects().get(0).getProperty(Constants.NAME));
 	}
 	
 	@Test

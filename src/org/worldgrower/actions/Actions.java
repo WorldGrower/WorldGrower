@@ -201,7 +201,7 @@ public class Actions {
 	public static final CommandAction COMMAND_GATHER_GOLD_ACTION = new CommandAction(Goals.MINE_GOLD_GOAL, "gather gold");
 	public static final CommandAction COMMAND_GATHER_STONE_ACTION = new CommandAction(Goals.MINE_STONE_GOAL, "gather stone");
 	public static final CommandAction COMMAND_GATHER_IRON_ORE_ACTION = new CommandAction(Goals.MINE_ORE_GOAL, "gather iron ore");
-	public static final CommandAction COMMAND_GATHER_SOUL_GEMS_ACTION = new CommandAction(Goals.MINE_SOUL_GEMS_GOAL, "gather soul gems");
+	public static final CommandAction COMMAND_GATHER_SOUL_GEMS_ACTION = new CommandAction(Goals.MINE_SOUL_GEMS_GOAL, "gather soulgems");
 	public static final CommandAction COMMAND_PROTECT_CASTER_ACTION = new CommandAction(Goals.KILL_OUTSIDERS_GOAL, "protect me");
 	public static final CommandAction COMMAND_GATHER_REMAINS_ACTION = new CommandAction(Goals.GATHER_REMAINS_GOAL, "gather remains");
 	public static final CommandAction COMMAND_GATHER_NIGHT_SHADE_ACTION = new CommandAction(Goals.HARVEST_NIGHT_SHADE_GOAL, "gather night shade");

@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
 import org.worldgrower.generator.Item;
 import org.worldgrower.generator.ItemType;
 import org.worldgrower.generator.PlantGenerator;
@@ -30,21 +31,26 @@ public class TooltipImages {
 	public String substituteImages(String tooltip, String description, ImageIds imageId, Function<ImageIds, String> mapImageFunction) {
 		String patternString = "\\b(" + description + ")\\b";
 		Pattern pattern = Pattern.compile(patternString);
-		String changedTooltip = tooltip;
-		Matcher matcher = pattern.matcher(changedTooltip);
+		StringBuilder changedTooltipBuilder = new StringBuilder();
+		String remainingTooltip = tooltip;
+		Matcher matcher = pattern.matcher(remainingTooltip);
 		
 		while (matcher.find()) {
 			int startIndex = matcher.start();
 			int endIndex = matcher.end();
-			if (!startIndexmatchesExisting(changedTooltip, startIndex)) {
-				String prefix = changedTooltip.substring(0, startIndex);
-				String replacedValue = mapImageFunction.apply(imageId);
-				String suffix = changedTooltip.substring(endIndex, changedTooltip.length());
-				changedTooltip = prefix + replacedValue + suffix;
-				matcher = pattern.matcher(changedTooltip);
+			if (!startIndexmatchesExisting(remainingTooltip, startIndex)) {
+				String prefix = remainingTooltip.substring(0, startIndex);
+				String replacedValue = mapImageFunction.apply(imageId) + " " + description;
+				String suffix = remainingTooltip.substring(endIndex, remainingTooltip.length());
+				changedTooltipBuilder.append(prefix).append(replacedValue);
+				remainingTooltip = suffix;
+				matcher = pattern.matcher(remainingTooltip);
 			}
 		}
-		return changedTooltip;
+		if (remainingTooltip.length() > 0) {
+			changedTooltipBuilder.append(remainingTooltip);
+		}
+		return changedTooltipBuilder.toString();
 	}
 
 	private boolean startIndexmatchesExisting(String changedTooltip, int startIndex) {
@@ -52,6 +58,9 @@ public class TooltipImages {
 			if (startIndex == changedTooltip.indexOf(existingName)) {
 				return true;
 			}
+		}
+		if (changedTooltip.contains(Actions.MINT_GOLD_ACTION.getDescription())) {
+			return true;
 		}
 		return false;
 	}

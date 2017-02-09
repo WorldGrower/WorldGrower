@@ -34,7 +34,7 @@ public class Fonts {
 			
 			GraphicsEnvironment genv = GraphicsEnvironment.getLocalGraphicsEnvironment();
 			genv.registerFont(derivedFont);
-			
+
 			return derivedFont;
 			
 		} catch (FontFormatException | IOException e) {

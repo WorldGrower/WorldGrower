@@ -85,7 +85,7 @@ public class MineOreAction implements ManagedOperation, AnimatedAction {
 
 	@Override
 	public String getSimpleDescription() {
-		return "mine ore";
+		return "mine iron ore";
 	}
 	
 	public Object readResolve() throws ObjectStreamException {

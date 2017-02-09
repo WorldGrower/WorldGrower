@@ -101,7 +101,7 @@ public class SoulTrapAction implements MagicSpell, AnimatedAction {
 
 	@Override
 	public String getDescription() {
-		return "traps soul of target in a soul gem when it does, for several turns";
+		return "traps soul of target in a soulgem when it does, for several turns";
 	}
 	
 	@Override

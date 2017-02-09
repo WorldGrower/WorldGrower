@@ -72,7 +72,7 @@ public class CutWoodAction implements ManagedOperation, AnimatedAction {
 	
 	@Override
 	public String getDescription() {
-		return "cutting wood removes wood from the target to store it in the inventory";
+		return "remove wood from the target and store it in the inventory";
 	}
 	
 	public boolean hasRequiredEnergy(WorldObject performer) {

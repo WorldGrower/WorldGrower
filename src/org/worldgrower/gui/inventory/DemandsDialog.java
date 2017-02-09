@@ -53,7 +53,7 @@ public final class DemandsDialog extends AbstractDialog {
 	private final PropertyCountMap<ManagedProperty<?>> demands;
 	
 	public DemandsDialog(PropertyCountMap<ManagedProperty<?>> demands, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader) {
-		super(400, 800, imageInfoReader);
+		super(450, 800, imageInfoReader);
 		this.demands = demands;
 		
 		initializeGUI(imageInfoReader, soundIdReader);
@@ -65,18 +65,22 @@ public final class DemandsDialog extends AbstractDialog {
 		table.setDefaultRenderer(ImageIds.class, new ImageTableRenderer(imageInfoReader));
 		table.setAutoCreateRowSorter(true);
 		table.setRowHeight(50);
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		table.getColumnModel().getColumn(0).setPreferredWidth(100);
+		table.getColumnModel().getColumn(1).setPreferredWidth(200);
+		table.getColumnModel().getColumn(2).setPreferredWidth(100);
 		table.getRowSorter().toggleSortOrder(1);
 
 		TableCellEditor fce = new PositiveIntegerCellEditor(JTextFieldFactory.createJTextField());
         table.setDefaultEditor(Integer.class, fce);
 		
 		JScrollPane scrollPane = JScrollPaneFactory.createScrollPane(table);
-		scrollPane.setBounds(15, 15, 368, 700);
+		scrollPane.setBounds(15, 15, 418, 700);
 		addComponent(scrollPane);
 		
 		JPanel buttonPane = new JPanel();
 		buttonPane.setOpaque(false);
-		buttonPane.setBounds(0, 720, 378, 75);
+		buttonPane.setBounds(0, 720, 428, 75);
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		addComponent(buttonPane);
 		

@@ -53,7 +53,7 @@ public class MineSoulGemsGoal implements Goal {
 
 	@Override
 	public String getDescription() {
-		return "looking for soul gems";
+		return "looking for soulgems";
 	}
 
 	@Override

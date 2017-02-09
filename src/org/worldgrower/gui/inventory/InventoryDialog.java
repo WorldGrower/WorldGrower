@@ -48,9 +48,11 @@ import javax.swing.JToggleButton;
 import javax.swing.KeyStroke;
 import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
+import javax.swing.SwingConstants;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableRowSorter;
@@ -174,9 +176,11 @@ public final class InventoryDialog extends AbstractDialog {
 		moneyLabel.setBounds(labelLeft, 62, 64, 25);
 		inventoryPanel.add(moneyLabel);
 		
-		moneyValueLabel = JLabelFactory.createJLabel(inventoryDialogModel.getPlayerCharacterMoney());
+		Image smallCoinImage = imageInfoReader.getImage(ImageIds.SMALL_GOLD_COIN, null);
+		moneyValueLabel = JLabelFactory.createJLabel(inventoryDialogModel.getPlayerCharacterMoney(), smallCoinImage);
+		moneyValueLabel.setHorizontalTextPosition(SwingConstants.LEADING);
 		moneyValueLabel.setToolTipText(MONEY_PLAYER_CHARACTER_TOOL_TIP);
-		moneyValueLabel.setBounds(labelValueLeft, 62, 50, 25);
+		moneyValueLabel.setBounds(labelValueLeft, 62, 100, 25);
 		inventoryPanel.add(moneyValueLabel);
 		
 		JLabel lblWeight = JLabelFactory.createJLabel("Weight:");
@@ -227,9 +231,10 @@ public final class InventoryDialog extends AbstractDialog {
 				targetMoneyLabel.setBounds(labelLeft, 62, 64, 25);
 				targetInventoryPanel.add(targetMoneyLabel);
 				
-				targetMoney = JLabelFactory.createJLabel(inventoryDialogModel.getTargetMoney());
+				targetMoney = JLabelFactory.createJLabel(inventoryDialogModel.getTargetMoney(), smallCoinImage);
+				targetMoney.setHorizontalTextPosition(SwingConstants.LEADING);
 				targetMoney.setToolTipText(MONEY_TARGET_TOOL_TIP);
-				targetMoney.setBounds(labelValueLeft, 62, 50, 25);
+				targetMoney.setBounds(labelValueLeft, 62, 100, 25);
 				targetInventoryPanel.add(targetMoney);
 				
 				Image stealGoldImage = imageInfoReader.getImage(Actions.STEAL_GOLD_ACTION.getImageIds(null), null);
@@ -296,7 +301,7 @@ public final class InventoryDialog extends AbstractDialog {
 		OptionalTableColumn attackOptionalTableColumn = new OptionalTableColumn(0, "Attack", i -> i.getAttack());
 		OptionalTableColumn armorOptionalTableColumn = new OptionalTableColumn(0, "Armor", i -> i.getArmor());
 		OptionalTableColumn toolsOptionalTableColumn = new OptionalTableColumn(0, "Bonus", i -> i.getToolBonus());
-		OptionalTableColumn priceOptionalTableColumn = new OptionalTableColumn(0, "Price", i -> Integer.toString(i.getPrice()));
+		OptionalTableColumn priceOptionalTableColumn = new OptionalTableColumn(0, "Price", i -> Integer.toString(i.getPrice()), ImageIds.SMALL_GOLD_COIN);
 		
 		List<JToggleButton> filterButtons = new ArrayList<>();
 		filterButtons.add(createFilterButton(filterPanel, 0, ImageIds.CHEST, "Show all items", parentTable, priceOptionalTableColumn));
@@ -408,6 +413,10 @@ public final class InventoryDialog extends AbstractDialog {
 					for(OptionalTableColumn optionalTableColumn : optionalTableColumns) {
 						TableColumn tableColumn = new TableColumn(tcm.getColumnCount());
 						tableColumn.setHeaderValue(optionalTableColumn.getName());
+						if (optionalTableColumn.getImageId() != null) {
+							JTableFactory.applyImageToHeaderColumn(parentTable, tableColumn, optionalTableColumn.getImageId(), imageInfoReader);
+						}
+						
 						tcm.addColumn(tableColumn);
 						inventoryModel.addColumn(optionalTableColumn);
 					}
@@ -436,12 +445,18 @@ public final class InventoryDialog extends AbstractDialog {
 		private final int id;
 		private final String name;
 		private final Function<InventoryItem, String> valueFunction;
+		private final ImageIds imageId;
 		
 		public OptionalTableColumn(int id, String name, Function<InventoryItem, String> valueFunction) {
+			this(id, name, valueFunction, null);
+		}
+		
+		public OptionalTableColumn(int id, String name, Function<InventoryItem, String> valueFunction, ImageIds imageId) {
 			super();
 			this.id = id;
 			this.name = name;
 			this.valueFunction = valueFunction;
+			this.imageId = imageId;
 		}
 
 		@Override
@@ -461,8 +476,10 @@ public final class InventoryDialog extends AbstractDialog {
 		public String getValue(InventoryItem inventoryItem) {
 			return valueFunction.apply(inventoryItem);
 		}
-		
-		
+
+		public ImageIds getImageId() {
+			return imageId;
+		}
 	}
 
 	private void setPlayerCharacterPanelOnTop(ActionEvent e) {

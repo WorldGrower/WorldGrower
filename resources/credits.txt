@@ -206,3 +206,6 @@ icon_102.png
 
 Bed sprites by Ayene-chan at http://ayene-chan.deviantart.com/art/RPG-Maker-VX-Beds-457669608
 rpg_maker_vx___beds_by_ayene_chan-d7khg4o.png
+
+Coin sprite by JM.Atencia at http://opengameart.org/content/spinning-coin:
+coins.png

@@ -31,6 +31,7 @@ import javax.imageio.ImageIO;
 
 import org.worldgrower.attribute.LookDirection;
 import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.gui.font.Fonts;
 import org.worldgrower.gui.util.ImageUtils;
 
 public class ImageInfoReader {
@@ -133,6 +134,7 @@ public class ImageInfoReader {
     	Sprites charismaIcon = readCharismaIcon();
     	
     	Sprites beds = readSpritesBed();
+    	Sprites goldCoinSprite = readGoldCoinSprite();
     	
     	addCharacter(ImageIds.KNIGHT, sprites, 0, 0, 1, 1);
     	addCharacter(ImageIds.GUARD, sprites, 0, 4, 1, 1);
@@ -734,6 +736,8 @@ public class ImageInfoReader {
 		
 		add(ImageIds.REMOVE_CURSE_POTION, ImageUtils.dye((BufferedImage)sprites420.getSubImage(6, 2, 1, 1), new Color(200, 200, 0, 90)));
 		createAnimation(ImageIds.REMOVE_CURSE_POTION_ANIMATION, ImageIds.REMOVE_CURSE_POTION, 10);
+    
+		add(ImageIds.SMALL_GOLD_COIN, ImageUtils.createResizedCopy(goldCoinSprite.getSubImage(0, 0, 1, 1), Fonts.getFontSize(), Fonts.getFontSize(), false));
     }
 
 	BufferedImage colorize(ImageIds imageId, Color color) {
@@ -1143,6 +1147,9 @@ public class ImageInfoReader {
 		return readImages("rpg_maker_vx___beds_by_ayene_chan-d7khg4o.png", 32, 64, 6, 3);
 	}
 	
+	private static Sprites readGoldCoinSprite() throws IOException {
+		return readImages("coins.png", 40, 40, 1, 1);
+	}
 
 	private static Sprites readSpritesApothecary() throws IOException {
 		return readImages("apothecary.png", 192, 144, 1, 1);

@@ -17,6 +17,7 @@ package org.worldgrower.gui;
 import java.awt.Color;
 import java.awt.Dialog.ModalityType;
 import java.awt.FlowLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -35,6 +36,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.table.AbstractTableModel;
 
 import org.worldgrower.Constants;
@@ -100,7 +102,7 @@ public class GuiShowGovernanceAction extends AbstractAction {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		GovernanceActionsDialog dialog = new GovernanceActionsDialog(1000, 800, imageInfoReader);
+		GovernanceActionsDialog dialog = new GovernanceActionsDialog(1050, 800, imageInfoReader);
 		dialog.setModalityType(ModalityType.APPLICATION_MODAL);
 		IconUtils.setIcon(dialog);
 		
@@ -129,14 +131,17 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		dialog.addComponent(villagerGoldLabel);
 		
 		String villagerGold = getVillagerGold();
-		JLabel villagerGoldValue = JLabelFactory.createJLabel(villagerGold);
-		villagerGoldValue.setBounds(700, 15, 200, 30);
+		Image smallCoinImage = imageInfoReader.getImage(ImageIds.SMALL_GOLD_COIN, null);
+		JLabel villagerGoldValue = JLabelFactory.createJLabel(villagerGold, smallCoinImage);
+		villagerGoldValue.setHorizontalTextPosition(SwingConstants.LEADING);
+		villagerGoldValue.setBounds(700, 15, 250, 30);
 		villagerGoldValue.setToolTipText(VILLAGER_GOLD_TOOLTIP);
 		dialog.addComponent(villagerGoldValue);
 		
+		int panelWidth = 530;
 		JPanel incomePanel = JPanelFactory.createJPanel("Income");
 		incomePanel.setLayout(null);
-		incomePanel.setBounds(500, 55, 480, 135);
+		incomePanel.setBounds(500, 55, panelWidth, 135);
 		dialog.addComponent(incomePanel);
 		
 		JLabel shackTaxRate = JLabelFactory.createJLabel("Shack Tax Rate:");
@@ -159,8 +164,10 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		numberOfShacksLabel.setToolTipText(SHACK_TAX_RATE_TOOLTIP);
 		incomePanel.add(numberOfShacksLabel);
 		
-		JLabel shackIncome = JLabelFactory.createJLabel("0");
-		shackIncome.setBounds(450, 20, 100, 30);
+		int goldLabelsLeft = 420;
+		JLabel shackIncome = JLabelFactory.createJLabel("0", smallCoinImage);
+		shackIncome.setHorizontalTextPosition(SwingConstants.LEADING);
+		shackIncome.setBounds(goldLabelsLeft, 20, 150, 30);
 		shackIncome.setToolTipText(SHACK_TAX_RATE_TOOLTIP);
 		incomePanel.add(shackIncome);
 		
@@ -185,8 +192,9 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		numberOfHousesLabel.setToolTipText(HOUSE_TAX_RATE_TOOLTIP);
 		incomePanel.add(numberOfHousesLabel);
 		
-		JLabel houseIncome = JLabelFactory.createJLabel("0");
-		houseIncome.setBounds(450, 65, 100, 30);
+		JLabel houseIncome = JLabelFactory.createJLabel("0", smallCoinImage);
+		houseIncome.setHorizontalTextPosition(SwingConstants.LEADING);
+		houseIncome.setBounds(goldLabelsLeft, 65, 150, 30);
 		houseIncome.setToolTipText(HOUSE_TAX_RATE_TOOLTIP);
 		incomePanel.add(houseIncome);
 		
@@ -194,7 +202,7 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		
 		JPanel expensePanel = JPanelFactory.createJPanel("Expense");
 		expensePanel.setLayout(null);
-		expensePanel.setBounds(500, 200, 480, 135);
+		expensePanel.setBounds(500, 200, panelWidth, 135);
 		dialog.addComponent(expensePanel);
 		
 		JLabel sheriffWage = JLabelFactory.createJLabel("Sheriff Wage:");
@@ -216,8 +224,9 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		numberOfSheriffsLabel.setToolTipText(SHERIFF_WAGE_TOOLTIP);
 		expensePanel.add(numberOfSheriffsLabel);
 		
-		JLabel sheriffWageValue = JLabelFactory.createJLabel("0");
-		sheriffWageValue.setBounds(450, 20, 100, 30);
+		JLabel sheriffWageValue = JLabelFactory.createJLabel("0", smallCoinImage);
+		sheriffWageValue.setHorizontalTextPosition(SwingConstants.LEADING);
+		sheriffWageValue.setBounds(goldLabelsLeft, 20, 150, 30);
 		sheriffWageValue.setToolTipText(SHERIFF_WAGE_TOOLTIP);
 		expensePanel.add(sheriffWageValue);
 		
@@ -242,8 +251,9 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		numberOfTaxCollectorsLabel.setToolTipText(TAX_COLLECTOR_WAGE_TOOLTIP);
 		expensePanel.add(numberOfTaxCollectorsLabel);
 		
-		JLabel taxCollectorsWageValue = JLabelFactory.createJLabel("0");
-		taxCollectorsWageValue.setBounds(450, 65, 100, 30);
+		JLabel taxCollectorsWageValue = JLabelFactory.createJLabel("0", smallCoinImage);
+		taxCollectorsWageValue.setHorizontalTextPosition(SwingConstants.LEADING);
+		taxCollectorsWageValue.setBounds(goldLabelsLeft, 65, 150, 30);
 		taxCollectorsWageValue.setToolTipText(TAX_COLLECTOR_WAGE_TOOLTIP);
 		expensePanel.add(taxCollectorsWageValue);
 		
@@ -251,7 +261,7 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		
 		JPanel votingPanel = JPanelFactory.createJPanel("Voting");
 		votingPanel.setLayout(null);
-		votingPanel.setBounds(500, 345, 480, 390);
+		votingPanel.setBounds(500, 345, panelWidth, 390);
 		dialog.addComponent(votingPanel);
 		
 		JCheckBox ownerShackHouseCheckBox = JCheckBoxFactory.createJCheckBox("Only owners of shacks/houses can vote");
@@ -323,7 +333,7 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		
 		JPanel buttonPane = new JPanel();
 		buttonPane.setOpaque(false);
-		buttonPane.setBounds(0, 745, 988, 75);
+		buttonPane.setBounds(0, 795, 988, 75);
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		dialog.addComponent(buttonPane);
 		

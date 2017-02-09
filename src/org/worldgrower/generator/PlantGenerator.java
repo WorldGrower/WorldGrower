@@ -138,7 +138,7 @@ public class PlantGenerator {
 		properties.put(Constants.HIT_POINTS_MAX, 15 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.ARMOR, 0);
 		properties.put(Constants.DAMAGE_RESIST, 0);
-		properties.put(Constants.NAME, "nightshade");
+		properties.put(Constants.NAME, "nightshade plant");
 		WorldObject nightshadePlant = new WorldObjectImpl(properties, new NightShadeOnTurn());
 		return nightshadePlant;
 	}

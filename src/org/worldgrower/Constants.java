@@ -117,7 +117,7 @@ public class Constants {
 	public static final IntProperty WATER_SOURCE = new IntProperty("waterSource", 0, 2000, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty WOOD_SOURCE = new IntProperty("woodSource", 0, 400, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty GRAPE_SOURCE = new IntProperty("grapeSource", 0, 500, NOT_NULLABLE, ALL_PROPERTIES);
-	public static final IntProperty GRAPE = new IntProperty("grape", 0, 500, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty GRAPE = new IntProperty("grapes", 0, 500, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty WINE = new IntProperty("wine", 0, 500, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty PAPER = new IntProperty("paper", 0, 500, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty COTTON_SOURCE = new IntProperty("cottonSource", 0, 500, NOT_NULLABLE, ALL_PROPERTIES);
@@ -206,7 +206,7 @@ public class Constants {
 	public static final UnCheckedProperty<LookDirection> LOOK_DIRECTION = new UnCheckedProperty<>("lookDirection", ALL_PROPERTIES);
 	
 	public static final IntProperty STONE = new IntProperty("stone", 0, 15, NOT_NULLABLE, ALL_PROPERTIES);
-	public static final IntProperty ORE = new IntProperty("ore", 0, 15, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty ORE = new IntProperty("iron ore", 0, 15, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty OIL = new IntProperty("oil", 0, 1000, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty SOUL_GEM = new IntProperty("soulgem", 0, 1000, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final BooleanProperty SOUL_GEM_FILLED = new BooleanProperty("soulGemFilled", NOT_NULLABLE, ALL_PROPERTIES);
@@ -241,7 +241,7 @@ public class Constants {
 	public static final IntProperty TRAPPED_CONTAINER_DAMAGE = new IntProperty("trappedContainerDamage", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	
 	public static final IntProperty NIGHT_SHADE_SOURCE = new IntProperty("nightShadeSource", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
-	public static final IntProperty NIGHT_SHADE = new IntProperty("nightShade", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty NIGHT_SHADE = new IntProperty("nightshade", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final BooleanProperty DECEASED_WORLD_OBJECT = new BooleanProperty("deceasedWorldObject", NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IdProperty CREATOR_ID = new IdProperty("creatorId", ALL_PROPERTIES);
 	public static final UnCheckedProperty<Goal> GIVEN_ORDER = new UnCheckedProperty<>("givenOrder", ALL_PROPERTIES);

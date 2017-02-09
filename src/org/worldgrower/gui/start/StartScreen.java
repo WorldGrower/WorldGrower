@@ -101,7 +101,7 @@ public class StartScreen implements SaveGameHandler {
 		UIManager.getDefaults().put("Label.disabledForeground", ColorPalette.DISABLED_FOREGROUND_COLOR);
 		UIManager.getDefaults().put("CheckBox.disabledText", ColorPalette.DISABLED_FOREGROUND_COLOR);		
 		UIManager.put("ToolTip.font", new FontUIResource(Fonts.FONT));
-		
+
 		Preferences preferences = Preferences.userNodeForPackage(StartScreen.class);
 		loadDefaultSoundOutput(preferences);
 		loadImages();

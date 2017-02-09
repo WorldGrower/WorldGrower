@@ -66,7 +66,7 @@ public class AnimateSuitOfArmorAction extends InventoryAction implements MagicSp
 
 	@Override
 	public String getRequirementsDescription() {
-		return "Requirements: filled soul gem : 1, torso equipment : 1, enough energy to cast spell";
+		return "Requirements: filled soulgem : 1, torso equipment : 1, enough energy to cast spell";
 	}
 	
 	@Override

@@ -40,6 +40,10 @@ public class JLabelFactory {
 		return label;
 	}
 	
+	public static JLabel createJLabel(int value, Image image) {
+		return createJLabel(Integer.toString(value), image);
+	}
+	
 	public static JLabel createJLabel(String description, Image image) {
 		JLabel label = new JLabel(description, new ImageIcon(image), JLabel.HORIZONTAL);
 		setLabelProperties(label);

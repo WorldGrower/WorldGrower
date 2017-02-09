@@ -44,7 +44,7 @@ public final class PricesDialog extends AbstractDialog {
 	private final Prices pricesOnPlayer;
 	
 	public PricesDialog(Consumer<int[]> setPricesAction, Prices pricesOnPlayer, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader) {
-		super(400, 800, imageInfoReader);
+		super(450, 800, imageInfoReader);
 		this.pricesOnPlayer = pricesOnPlayer;
 		
 		initializeGUI(setPricesAction, imageInfoReader, soundIdReader);
@@ -55,15 +55,19 @@ public final class PricesDialog extends AbstractDialog {
 		JTable table = JTableFactory.createJTable(worldModel);
 		table.setDefaultRenderer(ImageIds.class, new ImageTableRenderer(imageInfoReader));
 		table.setRowHeight(50);
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		table.getColumnModel().getColumn(0).setPreferredWidth(100);
+		table.getColumnModel().getColumn(1).setPreferredWidth(250);
+		table.getColumnModel().getColumn(2).setPreferredWidth(50);
 		table.setAutoCreateRowSorter(true);
 		table.getRowSorter().toggleSortOrder(1);
 		JScrollPane scrollPane = JScrollPaneFactory.createScrollPane(table);
-		scrollPane.setBounds(15, 15, 368, 700);
+		scrollPane.setBounds(15, 15, 418, 700);
 		addComponent(scrollPane);
 		
 		JPanel buttonPane = new JPanel();
 		buttonPane.setOpaque(false);
-		buttonPane.setBounds(0, 720, 378, 75);
+		buttonPane.setBounds(0, 720, 428, 75);
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		addComponent(buttonPane);
 		

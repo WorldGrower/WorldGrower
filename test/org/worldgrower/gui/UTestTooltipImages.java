@@ -9,7 +9,8 @@ public class UTestTooltipImages {
 	@Test
 	public void testSubstituteImages() {
 		TooltipImages tooltipImages = new TooltipImages();
-		assertEquals("mine [GOLD] here", tooltipImages.substituteImages("mine gold here", "gold", ImageIds.GOLD, i -> "[GOLD]"));
-		assertEquals("a cotton plant provides [COTTON]", tooltipImages.substituteImages("a cotton plant provides cotton", "cotton", ImageIds.COTTON, i -> "[COTTON]"));
+		assertEquals("mine [GOLD] gold here", tooltipImages.substituteImages("mine gold here", "gold", ImageIds.GOLD, i -> "[GOLD]"));
+		assertEquals("a cotton plant provides [COTTON] cotton", tooltipImages.substituteImages("a cotton plant provides cotton", "cotton", ImageIds.COTTON, i -> "[COTTON]"));
+		assertEquals("heal hit points", tooltipImages.substituteImages("heal hit points", "cotton", ImageIds.COTTON, i -> "[COTTON]"));
 	}
 }
