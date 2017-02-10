@@ -208,8 +208,8 @@ public class Constants {
 	public static final IntProperty STONE = new IntProperty("stone", 0, 15, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty ORE = new IntProperty("iron ore", 0, 15, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty OIL = new IntProperty("oil", 0, 1000, NOT_NULLABLE, ALL_PROPERTIES);
-	public static final IntProperty SOUL_GEM = new IntProperty("soulgem", 0, 1000, NOT_NULLABLE, ALL_PROPERTIES);
-	public static final BooleanProperty SOUL_GEM_FILLED = new BooleanProperty("soulGemFilled", NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty SOUL_GEM = new IntProperty("soulgem", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty FILLED_SOUL_GEM = new IntProperty("filled soulgem", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty STEEL = new IntProperty("steel", 0, 15, NOT_NULLABLE, ALL_PROPERTIES);
 	
 	

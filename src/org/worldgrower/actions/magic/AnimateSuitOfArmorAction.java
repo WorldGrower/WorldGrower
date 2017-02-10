@@ -46,7 +46,7 @@ public class AnimateSuitOfArmorAction extends InventoryAction implements MagicSp
 		skeleton.getProperty(Constants.GROUP).addAll(performer.getProperty(Constants.GROUP));
 		
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
-		performerInventory.removeQuantity(Constants.SOUL_GEM_FILLED, 1);
+		performerInventory.removeQuantity(Constants.FILLED_SOUL_GEM, 1);
 		performerInventory.remove(inventoryIndex);
 		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE, world.getWorldStateChangedListeners());
 	}
@@ -60,7 +60,7 @@ public class AnimateSuitOfArmorAction extends InventoryAction implements MagicSp
 	@Override
 	public boolean isActionPossibleOnInventoryItem(WorldObject inventoryItem, WorldObjectContainer inventory, WorldObject performer) {
 		boolean hasEnoughEnergy = SkillUtils.hasEnoughEnergy(performer, getSkill(), ENERGY_USE);
-		boolean hasFilledSoulGem = (inventory.getQuantityFor(Constants.SOUL_GEM_FILLED) > 0);
+		boolean hasFilledSoulGem = (inventory.getQuantityFor(Constants.FILLED_SOUL_GEM) > 0);
 		return hasFilledSoulGem && hasEnoughEnergy;
 	}
 

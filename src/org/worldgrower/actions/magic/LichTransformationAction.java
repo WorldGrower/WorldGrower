@@ -38,7 +38,7 @@ public class LichTransformationAction implements MagicSpell {
 		LichUtils.lichifyPerson(performer, world.getWorldStateChangedListeners());
 		
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
-		performerInventory.removeQuantity(Constants.SOUL_GEM_FILLED, SOUL_GEM_COUNT);
+		performerInventory.removeQuantity(Constants.FILLED_SOUL_GEM, SOUL_GEM_COUNT);
 		
 		SkillUtils.useEnergy(performer, getSkill(), ENERGY_USE, world.getWorldStateChangedListeners());
 	}
@@ -50,7 +50,7 @@ public class LichTransformationAction implements MagicSpell {
 	
 	@Override
 	public boolean isActionPossible(WorldObject performer, WorldObject target, int[] args, World world) {
-		int filledSoulGem = performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.SOUL_GEM_FILLED);
+		int filledSoulGem = performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.FILLED_SOUL_GEM);
 		return SkillUtils.hasEnoughEnergy(performer, getSkill(), ENERGY_USE)
 				&& filledSoulGem >= SOUL_GEM_COUNT;
 	}
@@ -62,7 +62,7 @@ public class LichTransformationAction implements MagicSpell {
 	
 	@Override
 	public String getRequirementsDescription() {
-		return CraftUtils.getRequirementsDescription(Constants.ENERGY, ENERGY_USE, "Filled soulgems: " + SOUL_GEM_COUNT);
+		return CraftUtils.getRequirementsDescription(Constants.ENERGY, ENERGY_USE, Constants.FILLED_SOUL_GEM, SOUL_GEM_COUNT);
 	}
 	
 	@Override
@@ -114,7 +114,7 @@ public class LichTransformationAction implements MagicSpell {
 	}
 	
 	public boolean hasRequiredSoulGems(WorldObject performer) {
-		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.SOUL_GEM_FILLED) >= SOUL_GEM_COUNT;
+		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.FILLED_SOUL_GEM) >= SOUL_GEM_COUNT;
 	}
 	
 	@Override

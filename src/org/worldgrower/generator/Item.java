@@ -82,7 +82,8 @@ public enum Item {
 	STONE(ItemType.RESOURCE), 
 	GOLD(ItemType.RESOURCE), 
 	ORE(ItemType.RESOURCE), 
-	SOUL_GEM(ItemType.RESOURCE), 
+	SOUL_GEM(ItemType.RESOURCE),
+	FILLED_SOUL_GEM(ItemType.RESOURCE),
 	NEWS_PAPER(ItemType.BOOK), 
 	BLOOD(ItemType.DRINK), 
 	SLEEPING_POTION(ItemType.DRINK),
@@ -1143,6 +1144,7 @@ public enum Item {
 		addItem(Item.GOLD, new DefaultItemGenerator(Constants.GOLD, 1, ImageIds.GOLD, "Gold is used to create gold coins")::addDefault);
 		addItem(Item.ORE, new DefaultItemGenerator(Constants.ORE, 1, ImageIds.IRON, "Iron is used to create tools, weapons and armor")::addDefault);
 		addItem(Item.SOUL_GEM, new DefaultItemGenerator(Constants.SOUL_GEM, 1, ImageIds.SOUL_GEM, "Soulgems are mined and are used by necromancy spells")::addDefault);
+		addItem(Item.FILLED_SOUL_GEM, new DefaultItemGenerator(Constants.FILLED_SOUL_GEM, 1, ImageIds.FILLED_SOUL_GEM, "Filled soulgems are used by necromancy spells")::addDefault);
 		addItem(Item.LEATHER, new DefaultItemGenerator(Constants.LEATHER, 1, ImageIds.LEATHER, "Leather is obtained when butchering cattle and is used for creating light armor")::addDefault);
 		addItem(Item.STEEL, new DefaultItemGenerator(Constants.STEEL, 1, ImageIds.STEEL, "Steel is obtained by using iron ore, and is used to create weapons and armor")::addDefault);
 	}

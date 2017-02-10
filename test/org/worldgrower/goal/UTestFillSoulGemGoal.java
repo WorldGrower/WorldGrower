@@ -77,8 +77,7 @@ public class UTestFillSoulGemGoal {
 		assertEquals(false, goal.isGoalMet(performer, world));
 		
 		for(int i=0; i<10; i++) {
-			WorldObject soulGem = Item.SOUL_GEM.generate(1f);
-			soulGem.setProperty(Constants.SOUL_GEM_FILLED, Boolean.TRUE);
+			WorldObject soulGem = Item.FILLED_SOUL_GEM.generate(1f);
 			performer.getProperty(Constants.INVENTORY).addQuantity(soulGem);
 		}
 		

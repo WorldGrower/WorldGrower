@@ -67,8 +67,7 @@ public class UTestAnimateSuitOfArmorAction {
 		performer.setProperty(Constants.GROUP, new IdList());
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.IRON_CUIRASS.generate(1f));
 		
-		WorldObject soulGem = Item.SOUL_GEM.generate(1f);
-		soulGem.setProperty(Constants.SOUL_GEM_FILLED, Boolean.TRUE);
+		WorldObject soulGem = Item.FILLED_SOUL_GEM.generate(1f);
 		performer.getProperty(Constants.INVENTORY).addQuantity(soulGem);
 		
 		assertEquals(true, Actions.ANIMATE_SUIT_OF_ARMOR_ACTION.isActionPossible(performer, performer, new int[] {0}, world));

@@ -54,7 +54,7 @@ public class FillSoulGemGoal implements Goal {
 	
 	@Override
 	public boolean isGoalMet(WorldObject performer, World world) {
-		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.SOUL_GEM_FILLED) >= SOUL_GEM_COUNT;
+		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.FILLED_SOUL_GEM) >= SOUL_GEM_COUNT;
 	}
 	
 	@Override
@@ -69,6 +69,6 @@ public class FillSoulGemGoal implements Goal {
 
 	@Override
 	public int evaluate(WorldObject performer, World world) {
-		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.SOUL_GEM_FILLED);
+		return performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.FILLED_SOUL_GEM);
 	}
 }

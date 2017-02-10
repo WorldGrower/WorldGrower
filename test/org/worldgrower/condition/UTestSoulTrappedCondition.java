@@ -42,6 +42,6 @@ public class UTestSoulTrappedCondition {
 		
 		condition.perform(performer, target, Args.EMPTY, Actions.MELEE_ATTACK_ACTION, world);
 		
-		assertEquals(1, performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.SOUL_GEM_FILLED));
+		assertEquals(1, performer.getProperty(Constants.INVENTORY).getIndexFor(Constants.FILLED_SOUL_GEM));
 	}
 }

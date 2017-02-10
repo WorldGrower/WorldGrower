@@ -75,11 +75,7 @@ public class SoulTrappedCondition implements Condition {
 					if (indexOfFilledSoulGem != -1) {
 						performerInventory.addQuantity(indexOfFilledSoulGem);
 					} else {
-						WorldObject worldObject = Item.SOUL_GEM.generate(1f);
-						worldObject.setProperty(Constants.SOUL_GEM_FILLED, Boolean.TRUE);
-						//TODO: should be different type in Item
-						worldObject.setProperty(Constants.IMAGE_ID, ImageIds.FILLED_SOUL_GEM);
-						
+						WorldObject worldObject = Item.FILLED_SOUL_GEM.generate(1f);
 						performerInventory.addQuantity(worldObject);
 						
 					}
@@ -89,11 +85,11 @@ public class SoulTrappedCondition implements Condition {
 	}
 
 	private boolean isEmptySoulGem(WorldObject w) {
-		return w.hasProperty(Constants.SOUL_GEM) && (!w.hasProperty(Constants.SOUL_GEM_FILLED) || !w.getProperty(Constants.SOUL_GEM_FILLED));
+		return w.hasProperty(Constants.SOUL_GEM);
 	}
 	
 	private boolean isFilledSoulGem(WorldObject w) {
-		return w.hasProperty(Constants.SOUL_GEM) && w.hasProperty(Constants.SOUL_GEM_FILLED) && w.getProperty(Constants.SOUL_GEM_FILLED);
+		return w.hasProperty(Constants.FILLED_SOUL_GEM);
 	}
 	
 	@Override
