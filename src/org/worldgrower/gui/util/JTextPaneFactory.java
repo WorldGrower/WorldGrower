@@ -29,6 +29,13 @@ public class JTextPaneFactory {
 		return textPane;
 	}
 	
+	public static JTextPane createHmtlJTextPane(ImageInfoReader imageInfoReader) {
+		JTextPane textPane = createJTextPane(imageInfoReader);
+		textPane.setContentType("text/html");
+		textPane.putClientProperty(JTextPane.HONOR_DISPLAY_PROPERTIES, true);
+		return textPane;
+	}
+	
 	private static void setTextPaneProperties(JTextPane textPane) {
 		textPane.setBackground(ColorPalette.DARK_BACKGROUND_COLOR);
 		textPane.setForeground(ColorPalette.FOREGROUND_COLOR);

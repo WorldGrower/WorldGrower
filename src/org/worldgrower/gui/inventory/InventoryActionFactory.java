@@ -36,6 +36,7 @@ import org.worldgrower.actions.InventoryAction;
 import org.worldgrower.actions.MarkInventoryItemAsSellableAction;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.goal.BuySellUtils;
+import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.WorldPanel;
 import org.worldgrower.gui.music.SoundIdReader;
@@ -191,7 +192,8 @@ public class InventoryActionFactory {
 		@Override
 		public void actionPerformed(ActionEvent actionEvent) {
 			int targetGold = target.getProperty(Constants.GOLD).intValue();
-			TextInputDialog textInputDialog = new TextInputDialog("Steal how much money (1-" + targetGold + ")?", TextInputDialog.NUMERIC_INPUT, imageInfoReader, soundIdReader, parentFrame);
+			String question = "<html>Steal how much money ( 1 - " + targetGold + " "+ imageInfoReader.smallImageTag(ImageIds.SMALL_GOLD_COIN) + " )?</html>";
+			TextInputDialog textInputDialog = new TextInputDialog(question, TextInputDialog.NUMERIC_INPUT, imageInfoReader, soundIdReader, parentFrame);
 			String input = textInputDialog.showMe();
 			if (input != null && input.length() > 0 && NumberUtils.isNumeric(input)) {
 				int amount = Integer.parseInt(input);

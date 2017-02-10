@@ -62,9 +62,8 @@ public class CreditsDialog extends AbstractDialog {
 	private void addCreditsPane() throws IOException {
 		String creditsText = getCreditsTextAsHtml();
 		
-		JTextPane textPane = JTextPaneFactory.createJTextPane(imageInfoReader); 
+		JTextPane textPane = JTextPaneFactory.createHmtlJTextPane(imageInfoReader); 
 		textPane.setEditable(false);
-		textPane.setContentType("text/html");
 		textPane.setText(creditsText);
 		
 		textPane.addHyperlinkListener(new HyperlinkListener() {

@@ -22,9 +22,9 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
 
 import org.worldgrower.gui.AbstractDialog;
 import org.worldgrower.gui.ImageInfoReader;
@@ -45,7 +45,9 @@ public class TextInputDialog extends AbstractDialog {
 	public TextInputDialog(String question, String defaultValue, boolean numericInputOnly, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, JFrame parentFrame) {
 		super(500, 190, imageInfoReader);
 		
-		JLabel label = JLabelFactory.createJLabel(question);
+		JTextPane label = JTextPaneFactory.createHmtlJTextPane(imageInfoReader);
+		label.setText(question);
+		label.setEditable(false);
 		label.setBounds(16, 16, 465, 50);
 		addComponent(label);
 		
