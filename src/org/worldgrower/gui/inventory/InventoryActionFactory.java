@@ -192,8 +192,9 @@ public class InventoryActionFactory {
 		@Override
 		public void actionPerformed(ActionEvent actionEvent) {
 			int targetGold = target.getProperty(Constants.GOLD).intValue();
-			String question = "<html>Steal how much money ( 1 - " + targetGold + " "+ imageInfoReader.smallImageTag(ImageIds.SMALL_GOLD_COIN) + " )?</html>";
-			TextInputDialog textInputDialog = new TextInputDialog(question, TextInputDialog.NUMERIC_INPUT, imageInfoReader, soundIdReader, parentFrame);
+			TextInputDialog textInputDialog = new TextInputDialog(TextInputDialog.NUMERIC_INPUT, imageInfoReader, soundIdReader, parentFrame);
+			textInputDialog.append("Steal how much money ( 1 - " + targetGold + " ");
+			textInputDialog.append(ImageIds.SMALL_GOLD_COIN, " )?");
 			String input = textInputDialog.showMe();
 			if (input != null && input.length() > 0 && NumberUtils.isNumeric(input)) {
 				int amount = Integer.parseInt(input);

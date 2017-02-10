@@ -51,6 +51,7 @@ import org.worldgrower.gui.status.StatusMessageDialog;
 import org.worldgrower.gui.status.StatusMessageImageConverter;
 import org.worldgrower.gui.util.JLabelFactory;
 import org.worldgrower.gui.util.JTextPaneFactory;
+import org.worldgrower.gui.util.JTextPaneUtils;
 
 public final class InfoPanel extends JPanel {
 
@@ -187,7 +188,7 @@ public final class InfoPanel extends JPanel {
     		appendNoMoreMessages();
     	} else {
     		clearMessageTextPane();
-    		appendText(message);
+    		JTextPaneUtils.appendText(messageTextPane, message);
     	}
     	statusMessages.add(new StatusMessage(null, message));
     	lastMessageTurn = currentTurn;
@@ -201,48 +202,22 @@ public final class InfoPanel extends JPanel {
 	private void appendNoMoreMessages() {
 		if (!moreMessageDisplayed) {
 			moreMessageDisplayed = true;
-			appendIconAndText(imageFactory.getMoreMessagesImage(), "More messages...");
+			JTextPaneUtils.appendIconAndText(messageTextPane, imageFactory.getMoreMessagesImage(), "More messages...");
 		}
 	}
 
-	private void appendText(String message) {
-		StyledDocument document = (StyledDocument)messageTextPane.getDocument();
-    	try {
-			document.insertString(document.getLength(), message, null);
-		} catch (BadLocationException e) {
-			throw new IllegalStateException(e);
-		}
-	}
-    
     public void setStatusMessage(Image image, String message) {
     	int currentTurn = world.getCurrentTurn().getValue();
     	if (lastMessageTurn == currentTurn) {
     		appendNoMoreMessages();
     	} else {
     		clearMessageTextPane();
-	    	appendIconAndText(image, message);
+    		JTextPaneUtils.appendIconAndText(messageTextPane, image, message);
     	}
     	statusMessages.add(new StatusMessage(image, message));
     	lastMessageTurn = currentTurn;
     }
 
-	private void appendIconAndText(Image image, String message) {
-		StyledDocument document = (StyledDocument)messageTextPane.getDocument();
-		image = StatusMessageImageConverter.convertImage(image);
-		
-        try {
-			JLabel jl  = JLabelFactory.createJLabel("<html>" + message + "</html>", image);
-			jl.setHorizontalAlignment(SwingConstants.LEFT);
-			String styleName = "style";
-			Style textStyle = document.addStyle(styleName, null);
-		    StyleConstants.setComponent(textStyle, jl);
-
-		    document.insertString(document.getLength(), " ", document.getStyle(styleName));
-		} catch (BadLocationException e) {
-			throw new IllegalStateException(e);
-		}
-	}
-	
 	public void clearStatusMessages() {
 		clearMessageTextPane();
     	lastMessageTurn = -1;

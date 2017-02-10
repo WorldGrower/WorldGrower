@@ -15,6 +15,7 @@
 package org.worldgrower.gui.util;
 
 import java.awt.FlowLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -27,6 +28,7 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
 import org.worldgrower.gui.AbstractDialog;
+import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.music.SoundIdReader;
 
@@ -36,25 +38,30 @@ public class TextInputDialog extends AbstractDialog {
 	public static final boolean APHA_NUMERIC_INPUT = false;
 	
 	private String value = null;
+	private final JTextPane textPane;
 	private JTextField textField;
+	private final ImageInfoReader imageInfoReader;
 	
 	public TextInputDialog(String question, boolean numericInputOnly, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, JFrame parentFrame) {
 		this(question, null, numericInputOnly, imageInfoReader, soundIdReader, parentFrame);
 	}
 	
 	public TextInputDialog(String question, String defaultValue, boolean numericInputOnly, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, JFrame parentFrame) {
+		this(numericInputOnly, imageInfoReader, soundIdReader, parentFrame);
+		append(question);
+		setDefaultValue(defaultValue);
+	}
+	
+	public TextInputDialog(boolean numericInputOnly, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, JFrame parentFrame) {
 		super(500, 190, imageInfoReader);
+		this.imageInfoReader = imageInfoReader;
 		
-		JTextPane label = JTextPaneFactory.createHmtlJTextPane(imageInfoReader);
-		label.setText(question);
-		label.setEditable(false);
-		label.setBounds(16, 16, 465, 50);
-		addComponent(label);
+		textPane = JTextPaneFactory.createJTextPane(imageInfoReader);
+		textPane.setEditable(false);
+		textPane.setBounds(16, 16, 465, 50);
+		addComponent(textPane);
 		
 		textField = numericInputOnly ? JTextFieldFactory.createIntegerOnlyJTextField() : JTextFieldFactory.createJTextField();
-		if (defaultValue != null) {
-			textField.setText(defaultValue);
-		}
 		textField.setBounds(16, 70, 465, 30);
 		addComponent(textField);
 		
@@ -82,6 +89,22 @@ public class TextInputDialog extends AbstractDialog {
 		});
 		
 		DialogUtils.createDialogBackPanel(this, parentFrame.getContentPane());
+	}
+	
+	public TextInputDialog append(ImageIds imageId, String text) {
+		Image image = imageInfoReader.getImage(imageId, null);
+		JTextPaneUtils.appendIconAndText(textPane, image, text);
+		return this;
+	}
+	
+	public TextInputDialog append(String text) {
+		JTextPaneUtils.appendTextUsingLabel(textPane, text);
+		return this;
+	}
+	
+	public TextInputDialog setDefaultValue(String defaultValue) {
+		textField.setText(defaultValue);
+		return this;
 	}
 	
 	public String showMe() {
