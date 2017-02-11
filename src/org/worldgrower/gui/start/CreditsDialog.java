@@ -48,7 +48,7 @@ public class CreditsDialog extends AbstractDialog {
 	private final SoundIdReader soundIdReader;
 	
 	public CreditsDialog(ImageInfoReader imageInfoReader, SoundIdReader soundIdReader) throws IOException {
-		super(500, 800, imageInfoReader);
+		super(700, 800, imageInfoReader);
 		
 		this.imageInfoReader = imageInfoReader;
 		this.soundIdReader = soundIdReader;
@@ -81,7 +81,7 @@ public class CreditsDialog extends AbstractDialog {
 		});
 		
 		JScrollPane scrollPane = new JScrollPane(textPane);
-		scrollPane.setBounds(15, 15, 468, 720);
+		scrollPane.setBounds(15, 15, 668, 720);
 		addComponent(scrollPane);
 	}
 	
@@ -123,7 +123,7 @@ public class CreditsDialog extends AbstractDialog {
 	private void addButtonPane() {
 		JPanel buttonPane = new JPanel();
 		buttonPane.setOpaque(false);
-		buttonPane.setBounds(0, 740, 488, 75);
+		buttonPane.setBounds(0, 740, 688, 75);
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		addComponent(buttonPane);
 		
