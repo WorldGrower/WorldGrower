@@ -15,6 +15,10 @@
 package org.worldgrower.gui;
 
 import java.awt.Image;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.swing.JTextPane;
 
@@ -34,8 +38,8 @@ public class ImageSubstituter {
 
 	public String substituteImagesInTooltip(String tooltip) {
 		String changedTooltip = tooltip;
-		for(Item resourceItem : Item.getItems(ItemType.RESOURCE, ItemType.INGREDIENT)) {
-			changedTooltip = tooltipImages.substituteImages(changedTooltip, resourceItem.getDescription(), resourceItem.getImageId(), imageInfoReader::smallImageTag);
+		for(Entry<String, ImageIds> mapping : getTextToImageMapping().entrySet()) {
+			changedTooltip = tooltipImages.substituteImages(changedTooltip, mapping.getKey(), mapping.getValue(), imageInfoReader::smallImageTag);
 		}
 		return changedTooltip;
 	}
@@ -43,10 +47,23 @@ public class ImageSubstituter {
 	public void subtituteImagesInText(JTextPane textPane, String text) {
 		JTextPaneMapper textPaneMapper = new JTextPaneMapper(textPane, imageInfoReader);
 		String changedText = text;
-		for(Item resourceItem : Item.getItems(ItemType.RESOURCE, ItemType.INGREDIENT)) {
-			changedText = tooltipImages.substituteImages(changedText, resourceItem.getDescription(), resourceItem.getImageId(), textPaneMapper::addImage);
+		for(Entry<String, ImageIds> mapping : getTextToImageMapping().entrySet()) {
+			changedText = tooltipImages.substituteImages(changedText, mapping.getKey(), mapping.getValue(), textPaneMapper::addImage);
 		}
 		textPaneMapper.addText(changedText);
+	}
+
+	private List<Item> itemsToSubstitute() {
+		return Item.getItems(ItemType.FOOD, ItemType.RESOURCE, ItemType.INGREDIENT);
+	}
+	
+	private Map<String, ImageIds> getTextToImageMapping() {
+		Map<String, ImageIds> textToImageMapping = new HashMap<>();
+		for(Item resourceItem : itemsToSubstitute()) {
+			textToImageMapping.put(resourceItem.getDescription(), resourceItem.getImageId());
+		}
+		textToImageMapping.put("gold", ImageIds.SMALL_GOLD_COIN);
+		return textToImageMapping;
 	}
 	
 	private static class JTextPaneMapper {

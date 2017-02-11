@@ -36,6 +36,8 @@ public class ExtractOilAction implements ManagedOperation {
 		inventoryPerformer.addQuantity(harvestedOil);
 
 		target.increment(Constants.OIL_SOURCE, -10);
+		
+		world.logAction(this, performer, target, args, 1 + " "+ Constants.OIL + " added to inventory");
 	}
 
 	@Override

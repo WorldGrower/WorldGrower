@@ -46,7 +46,7 @@ public class HarvestFoodAction implements ManagedOperation, AnimatedAction {
 		FoodPropertyUtils.checkFoodSourceExhausted(target);
 		SkillUtils.useSkill(performer, Constants.FARMING_SKILL, world.getWorldStateChangedListeners());
 		
-		world.logAction(this, performer, target, args, quantity + " "+ Constants.FOOD + " added to inventory");
+		world.logAction(this, performer, target, args, quantity + " "+ harvestedFood.getProperty(Constants.NAME) + " added to inventory");
 	}
 
 	@Override

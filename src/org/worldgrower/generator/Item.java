@@ -1282,6 +1282,16 @@ public enum Item {
 		return values;
 	}
 	
+	public static List<Item> getItems(ItemType itemType1, ItemType itemType2, ItemType itemType3) {
+		List<Item> resourceItems = new ArrayList<>();
+		for (Item item : values()) {
+			if (item.getItemType() == itemType1 || item.getItemType() == itemType2 || item.getItemType() == itemType3) {
+				resourceItems.add(item);
+			}
+		}
+		return resourceItems;
+	}
+	
 	public static List<Item> getItems(ItemType itemType1, ItemType itemType2) {
 		List<Item> resourceItems = new ArrayList<>();
 		for (Item item : values()) {

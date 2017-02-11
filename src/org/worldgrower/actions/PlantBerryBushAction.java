@@ -61,7 +61,7 @@ public class PlantBerryBushAction implements BuildAction {
 	
 	@Override
 	public String getDescription() {
-		return "plant berry bush for food production";
+		return "plant berry bush for berries production, which are consumed for food";
 	}
 
 	@Override
