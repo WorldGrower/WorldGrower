@@ -89,4 +89,15 @@ public class JTextPaneUtils {
 			throw new IllegalStateException(e);
 		}
 	}
+	
+	public static void insertNewLine(JTextPane textPane) {
+		StyledDocument document = (StyledDocument)textPane.getDocument();
+		
+        try {
+			String styleName = "stylenewline";
+		    document.insertString(document.getLength(), "\n", document.getStyle(styleName));
+		} catch (BadLocationException e) {
+			throw new IllegalStateException(e);
+		}
+	}
 }

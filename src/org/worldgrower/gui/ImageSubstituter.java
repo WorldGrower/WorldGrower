@@ -64,22 +64,35 @@ public class ImageSubstituter {
 		}
 		
 		public void addText(String text) {
-			String remainingText = text;
-			int startIndexOfImage = remainingText.indexOf('[');
-			while (startIndexOfImage >= 0) {
-				int endImageIndex = remainingText.indexOf(']', startIndexOfImage);
-				String imageIdString = remainingText.substring(startIndexOfImage+1, endImageIndex);
-				ImageIds imageId = ImageIds.valueOf(imageIdString);
+			final String remainingText = text;
+			int currentIndex = 0;
+			int previousIndex = 0;
+			
+			while (currentIndex < remainingText.length()) {
 				
-				JTextPaneUtils.appendTextUsingLabel(textPane, remainingText.substring(0, startIndexOfImage));
-				Image image = imageInfoReader.getImage(imageId, null);
-				JTextPaneUtils.appendIcon(textPane, image);	
+				if (remainingText.charAt(currentIndex) == '[') {
+					int startIndexOfImage = currentIndex;
+					int endImageIndex = remainingText.indexOf(']', startIndexOfImage);
+					String imageIdString = remainingText.substring(startIndexOfImage+1, endImageIndex);
+					ImageIds imageId = ImageIds.valueOf(imageIdString);
+					
+					//example text: 1 [WOOD] wood added to inventory
+					JTextPaneUtils.appendTextUsingLabel(textPane, remainingText.substring(previousIndex, startIndexOfImage));
+					Image image = imageInfoReader.getImage(imageId, null);
+					JTextPaneUtils.appendIcon(textPane, image);
+					
+					currentIndex = endImageIndex;
+					previousIndex = currentIndex+1;
+				}
+				if (remainingText.charAt(currentIndex) == '\n') {
+					JTextPaneUtils.appendTextUsingLabel(textPane, remainingText.substring(previousIndex, currentIndex));
+					JTextPaneUtils.insertNewLine(textPane);
+					previousIndex = currentIndex;
+				}
 				
-				remainingText = remainingText.substring(endImageIndex+1);
-				
-				startIndexOfImage = remainingText.indexOf('[');
+				currentIndex++;
 			}
-			JTextPaneUtils.appendTextUsingLabel(textPane, remainingText);
+			JTextPaneUtils.appendTextUsingLabel(textPane, remainingText.substring(previousIndex));
 		}
 	}
 }
