@@ -14,7 +14,6 @@
  *******************************************************************************/
 package org.worldgrower.gui.util;
 
-import java.awt.Color;
 import java.awt.Image;
 
 import javax.swing.JLabel;
@@ -47,6 +46,24 @@ public class JTextPaneUtils {
 			jl.setHorizontalAlignment(SwingConstants.LEFT);
 
 			String styleName = "style"+message;
+			Style textStyle = document.addStyle(styleName, null);
+		    StyleConstants.setComponent(textStyle, jl);
+
+		    document.insertString(document.getLength(), " ", document.getStyle(styleName));
+		} catch (BadLocationException e) {
+			throw new IllegalStateException(e);
+		}
+	}
+	
+	public static void appendIcon(JTextPane textPane, Image image) {
+		StyledDocument document = (StyledDocument)textPane.getDocument();
+		image = StatusMessageImageConverter.convertImage(image);
+		
+        try {
+			JLabel jl  = JLabelFactory.createJLabel(image);
+			jl.setHorizontalAlignment(SwingConstants.LEFT);
+
+			String styleName = "style"+image.toString();
 			Style textStyle = document.addStyle(styleName, null);
 		    StyleConstants.setComponent(textStyle, jl);
 

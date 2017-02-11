@@ -89,7 +89,7 @@ import org.worldgrower.gui.util.ShowTextDialog;
 
 public class GuiMouseListener extends MouseAdapter {
 	private final SkillImageIds skillImageIds = new SkillImageIds();
-	private final TooltipImages tooltipImages = new TooltipImages();
+	private final ImageSubstituter imageSubstituter;
 	private WorldPanel container;
 	private WorldObject playerCharacter;
 	private World world;
@@ -120,6 +120,7 @@ public class GuiMouseListener extends MouseAdapter {
 		this.soundIdReader = soundIdReader;
 		this.keyBindings = keyBindings;
 		this.parentFrame = parentFrame;
+		this.imageSubstituter = new ImageSubstituter(imageInfoReader);
 		
 		characterSheetAction = new CharacterSheetAction(playerCharacter, imageInfoReader, soundIdReader, world, parentFrame);
 		inventoryAction = new ShowInventoryAction(playerCharacter, imageInfoReader, soundIdReader, world, dungeonMaster, container, parentFrame);
@@ -620,15 +621,7 @@ public class GuiMouseListener extends MouseAdapter {
 			tooltip += "<br>" + allowedCraftActionsDescription;
 		}
 		tooltip += "</html>";
-		return substituteImages(tooltip);
-	}
-
-	private String substituteImages(String tooltip) {
-		String changedTooltip = tooltip;
-		for(Item resourceItem : Item.getItems(ItemType.RESOURCE, ItemType.INGREDIENT)) {
-			changedTooltip = tooltipImages.substituteImages(changedTooltip, resourceItem.getDescription(), resourceItem.getImageId(), imageInfoReader::smallImageTag);
-		}
-		return changedTooltip;
+		return imageSubstituter.substituteImagesInTooltip(tooltip);
 	}
 	
 	private String createAllowedCraftActionsDescription(List<ManagedOperation> allowedCraftActions) {
@@ -720,7 +713,7 @@ public class GuiMouseListener extends MouseAdapter {
 			
 			tooltip += "</html>";
 			
-			tooltip = substituteImages(tooltip);
+			tooltip = imageSubstituter.substituteImagesInTooltip(tooltip);
 			menuItem.setToolTipText(tooltip);
 		}
 	}

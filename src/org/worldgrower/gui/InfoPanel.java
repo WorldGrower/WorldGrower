@@ -26,16 +26,10 @@ import java.util.List;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JTextPane;
 import javax.swing.SpringLayout;
-import javax.swing.SwingConstants;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.Style;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyledDocument;
 
 import org.worldgrower.Constants;
 import org.worldgrower.LogMessage;
@@ -48,8 +42,6 @@ import org.worldgrower.goal.EnergyPropertyUtils;
 import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.status.StatusMessage;
 import org.worldgrower.gui.status.StatusMessageDialog;
-import org.worldgrower.gui.status.StatusMessageImageConverter;
-import org.worldgrower.gui.util.JLabelFactory;
 import org.worldgrower.gui.util.JTextPaneFactory;
 import org.worldgrower.gui.util.JTextPaneUtils;
 
@@ -66,6 +58,7 @@ public final class InfoPanel extends JPanel {
 	private final ImageInfoReader imageInfoReader;
 	private final SoundIdReader soundIdReader;
 	private final ImageFactory imageFactory;
+	private final ImageSubstituter imageSubstituter;
 
 	private final JTextPane messageTextPane;
 	private final JProgressBar hitPointsProgressBar;
@@ -90,6 +83,7 @@ public final class InfoPanel extends JPanel {
 		this.playerCharacter = playerCharacter;
 		this.world = world;
 		this.parentFrame = parentFrame;
+		this.imageSubstituter = new ImageSubstituter(imageInfoReader);
 		
         messageTextPane = JTextPaneFactory.createJTextPane(imageInfoReader);
         messageTextPane.setEditable(false);
@@ -188,7 +182,7 @@ public final class InfoPanel extends JPanel {
     		appendNoMoreMessages();
     	} else {
     		clearMessageTextPane();
-    		JTextPaneUtils.appendText(messageTextPane, message);
+    		displayMessage(message);
     	}
     	statusMessages.add(new StatusMessage(null, message));
     	lastMessageTurn = currentTurn;
@@ -212,10 +206,19 @@ public final class InfoPanel extends JPanel {
     		appendNoMoreMessages();
     	} else {
     		clearMessageTextPane();
-    		JTextPaneUtils.appendIconAndText(messageTextPane, image, message);
+    		displayMessage(image, message);
     	}
     	statusMessages.add(new StatusMessage(image, message));
     	lastMessageTurn = currentTurn;
+    }
+    
+    private void displayMessage(String text) {
+    	imageSubstituter.subtituteImagesInText(messageTextPane, text);
+    }
+    
+    private void displayMessage(Image image, String message) {
+    	JTextPaneUtils.appendIcon(messageTextPane, image);
+    	imageSubstituter.subtituteImagesInText(messageTextPane, message);
     }
 
 	public void clearStatusMessages() {
