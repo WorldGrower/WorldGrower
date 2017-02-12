@@ -12,5 +12,6 @@ public class UTestTooltipImages {
 		assertEquals("mine [GOLD] gold here", tooltipImages.substituteImages("mine gold here", "gold", ImageIds.GOLD, i -> "[GOLD]"));
 		assertEquals("a cotton plant provides [COTTON] cotton", tooltipImages.substituteImages("a cotton plant provides cotton", "cotton", ImageIds.COTTON, i -> "[COTTON]"));
 		assertEquals("heal hit points", tooltipImages.substituteImages("heal hit points", "cotton", ImageIds.COTTON, i -> "[COTTON]"));
+		assertEquals("filled soulgem", tooltipImages.substituteImages("filled soulgem", "soulgem", ImageIds.SOUL_GEM, i -> "[SOULGEM]"));
 	}
 }

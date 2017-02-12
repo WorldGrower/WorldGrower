@@ -56,6 +56,8 @@ public class UTestStopSellingGoal {
 		world.addWorldObject(target);
 		
 		assertEquals(Actions.TALK_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+		assertEquals(5, goal.calculateGoal(performer, world).getArgs().length);
+		assertEquals(0/*Item.BERRIES.ordinal()*/, goal.calculateGoal(performer, world).getArgs()[3]);
 	}
 	
 	@Test
