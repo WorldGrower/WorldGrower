@@ -58,15 +58,31 @@ public class AskGoalConversation implements Conversation {
 
 	private Goal getGoal(ConversationContext conversationContext) {
 		int goalIndex = conversationContext.getAdditionalValue();
-		Goal goal = Goals.ALL_GOALS.get(goalIndex);
+		Goal goal = getAllGoals().get(goalIndex);
 		return goal;
+	}
+	
+	private List<Goal> getAllGoals() {
+		// Lazy init because Actions shouldn't use Goals.xxx
+		// at class init. Doing this leads to cyclic dependency
+		return Arrays.asList(
+					Goals.CREATE_OR_PLANT_WOOD_GOAL,
+					Goals.MINE_STONE_GOAL,
+					Goals.MINE_ORE_GOAL,
+					Goals.MINE_GOLD_GOAL,
+					Goals.MINE_SOUL_GEMS_GOAL,
+					Goals.GATHER_FOOD_GOAL,
+					Goals.COLLECT_WATER_GOAL,
+					Goals.CRAFT_EQUIPMENT_GOAL,
+					Goals.CREATE_WINE_GOAL,
+					Goals.CHILDREN_GOAL);
 	}
 
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		List<Question> questions = new ArrayList<>();
 		
-		List<Goal> allGoals = Goals.ALL_GOALS;
+		List<Goal> allGoals = getAllGoals();
 		
 		for(int goalIndex = 0; goalIndex<allGoals.size(); goalIndex++) {
 			Goal goal = allGoals.get(goalIndex);

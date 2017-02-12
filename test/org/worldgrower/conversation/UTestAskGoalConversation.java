@@ -25,6 +25,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.IdRelationshipMap;
+import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.Item;
 import org.worldgrower.goal.Goals;
 
 public class UTestAskGoalConversation {
@@ -40,8 +42,8 @@ public class UTestAskGoalConversation {
 		ConversationContext context = new ConversationContext(performer, target, null, null, null, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
 		assertEquals(3, replyPhrases.size());
-		assertEquals("Yes, I'll start hungry and looking for food", replyPhrases.get(0).getResponsePhrase());
-		assertEquals("I don't know what I would gain with additional hungry and looking for food", replyPhrases.get(1).getResponsePhrase());
+		assertEquals("Yes, I'll start looking for wood", replyPhrases.get(0).getResponsePhrase());
+		assertEquals("I don't know what I would gain with additional looking for wood", replyPhrases.get(1).getResponsePhrase());
 		assertEquals("No", replyPhrases.get(2).getResponsePhrase());
 	}
 	
@@ -50,15 +52,17 @@ public class UTestAskGoalConversation {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.FOOD, 0);
 		WorldObject target = TestUtils.createIntelligentWorldObject(2, Constants.FOOD, 0);
+		performer.setProperty(Constants.INVENTORY, new WorldObjectContainer());
+		target.setProperty(Constants.INVENTORY, new WorldObjectContainer());
 		
 		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
 		assertEquals(2, conversation.getReplyPhrase(context).getId());
 		
-		target.setProperty(Constants.FOOD, 1000);
+		target.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 1000);
 		assertEquals(1, conversation.getReplyPhrase(context).getId());
 		
 		target.getProperty(Constants.RELATIONSHIPS).incrementValue(performer, 1000);
-		target.setProperty(Constants.FOOD, 0);
+		target.getProperty(Constants.INVENTORY).removeQuantity(0, 1000);
 		assertEquals(0, conversation.getReplyPhrase(context).getId());
 	}
 	
@@ -70,7 +74,7 @@ public class UTestAskGoalConversation {
 		
 		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, subject, null);
 		assertEquals(true, questions.size() > 0);
-		assertEquals("Can you go start hungry and looking for food?", questions.get(0).getQuestionPhrase());
+		assertEquals("Can you go start looking for wood?", questions.get(0).getQuestionPhrase());
 	}
 	
 	@Test
@@ -83,7 +87,7 @@ public class UTestAskGoalConversation {
 		conversation.handleResponse(0, context);
 		assertEquals(50, performer.getProperty(Constants.RELATIONSHIPS).getValue(target));
 		assertEquals(50, target.getProperty(Constants.RELATIONSHIPS).getValue(performer));
-		assertEquals(Goals.FOOD_GOAL, target.getProperty(Constants.GIVEN_ORDER));
+		assertEquals(Goals.CREATE_OR_PLANT_WOOD_GOAL, target.getProperty(Constants.GIVEN_ORDER));
 	}
 	
 	@Test
