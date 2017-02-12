@@ -135,7 +135,7 @@ public class Conversations implements Serializable {
 		add(RELATIONSHIP_CONVERSATION, ConversationCategory.RELATIONSHIP_OTHERS);
 		addNormalAndIntimidate(PROFESSION_CONVERSATION, ConversationCategory.PERSONAL_INFORMATION);
 		addNormalAndIntimidate(DEITY_CONVERSATION, ConversationCategory.DEITY);
-		addNormalAndIntimidate(DEITY_EXPLANATION_CONVERSATION, ConversationCategory.DEITY);
+		add(DEITY_EXPLANATION_CONVERSATION, ConversationCategory.DEITY);
 		add(DEITY_REASON_CONVERSATION, ConversationCategory.DEITY);
 		addNormalAndIntimidate(PROFESSION_REASON_CONVERSATION, ConversationCategory.PERSONAL_INFORMATION);
 		addNormalAndIntimidate(DEMANDS_CONVERSATION, ConversationCategory.PERSONAL_INFORMATION);
@@ -198,7 +198,7 @@ public class Conversations implements Serializable {
 		addNormalAndIntimidate(MERGE_ORGANIZATIONS_CONVERSATION, ConversationCategory.LEADER);
 		addNormalAndIntimidate(SWITCH_DEITY_CONVERSATION, ConversationCategory.DEITY);
 		addNormalAndIntimidate(STOP_SELLING_CONVERSATION, ConversationCategory.DEMAND);
-		addNormalAndIntimidate(ASK_GOAL_CONVERSATION, ConversationCategory.REQUEST_ACTION);
+		add(ASK_GOAL_CONVERSATION, ConversationCategory.REQUEST_ACTION);
 		add(DRINKING_CONTEST_CONVERSATION, ConversationCategory.DEMAND);
 		add(BREAKUP_WITH_MATE_CONVERSATION, ConversationCategory.DEMAND);
 		addNormalAndIntimidate(CURE_DISEASE_CONVERSATION, ConversationCategory.DEMAND);

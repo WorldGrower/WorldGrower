@@ -83,7 +83,7 @@ public final class InfoPanel extends JPanel {
 		this.playerCharacter = playerCharacter;
 		this.world = world;
 		this.parentFrame = parentFrame;
-		this.imageSubstituter = new ImageSubstituter(imageInfoReader);
+		this.imageSubstituter = new ImageSubstituter(imageInfoReader, ImageSubstitutionMode.ALL);
 		
         messageTextPane = JTextPaneFactory.createJTextPane(imageInfoReader);
         messageTextPane.setEditable(false);

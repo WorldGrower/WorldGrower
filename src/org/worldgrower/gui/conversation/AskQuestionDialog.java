@@ -56,6 +56,8 @@ import org.worldgrower.gui.AbstractDialog;
 import org.worldgrower.gui.ActionContainingArgs;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
+import org.worldgrower.gui.ImageSubstituter;
+import org.worldgrower.gui.ImageSubstitutionMode;
 import org.worldgrower.gui.chooseworldobject.ChooseWorldObjectDialog;
 import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.util.DialogUtils;
@@ -72,6 +74,7 @@ public class AskQuestionDialog extends AbstractDialog implements ManagedOperatio
 	private final JProgressBar relationshipProgresBar;
 	private final SoundIdReader soundIdReader;
 	private final ImageInfoReader imageInfoReader;
+	private final ImageSubstituter imageSubstituter;
 	
 	private class ExecuteQuestionAction extends AbstractAction implements ActionContainingArgs {
 		
@@ -131,6 +134,7 @@ public class AskQuestionDialog extends AbstractDialog implements ManagedOperatio
 		this.answerer = answerer;
 		this.soundIdReader = soundIdReader;
 		this.imageInfoReader = imageInfoReader;
+		this.imageSubstituter = new ImageSubstituter(imageInfoReader, ImageSubstitutionMode.GOLD);
 		
 		KeyStroke stroke = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
         rootPane.registerKeyboardAction(new CloseDialogAction(), stroke, JComponent.WHEN_IN_FOCUSED_WINDOW);
@@ -343,7 +347,11 @@ public class AskQuestionDialog extends AbstractDialog implements ManagedOperatio
 	}
 
 	private JMenuItem createQuestionMenuItem(ImageInfoReader imageInfoReader, Map<Integer, ImageIds> subjectImageIds, Question question) {
-		JMenuItem questionMenuItem = MenuFactory.createJMenuItem(question.getQuestionPhrase(), soundIdReader);
+		String questionPhrase = question.getQuestionPhrase();
+		if (questionPhrase.indexOf("gold") != -1) {
+			questionPhrase = "<html>" + imageSubstituter.substituteImagesInTooltip(questionPhrase) + "</html>";
+		}
+		JMenuItem questionMenuItem = MenuFactory.createJMenuItem(questionPhrase, soundIdReader);
 		int subjectId = question.getSubjectId();
 		ImageIds subjectImageId = subjectImageIds.get(subjectId);
 		if (subjectImageId != null) {

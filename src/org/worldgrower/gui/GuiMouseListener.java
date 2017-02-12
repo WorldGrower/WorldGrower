@@ -120,7 +120,7 @@ public class GuiMouseListener extends MouseAdapter {
 		this.soundIdReader = soundIdReader;
 		this.keyBindings = keyBindings;
 		this.parentFrame = parentFrame;
-		this.imageSubstituter = new ImageSubstituter(imageInfoReader);
+		this.imageSubstituter = new ImageSubstituter(imageInfoReader, ImageSubstitutionMode.ALL);
 		
 		characterSheetAction = new CharacterSheetAction(playerCharacter, imageInfoReader, soundIdReader, world, parentFrame);
 		inventoryAction = new ShowInventoryAction(playerCharacter, imageInfoReader, soundIdReader, world, dungeonMaster, container, parentFrame);

@@ -30,10 +30,12 @@ public class ImageSubstituter {
 
 	private final TooltipImages tooltipImages = new TooltipImages();
 	private final ImageInfoReader imageInfoReader;
+	private final ImageSubstitutionMode imageSubstitution;
 	
-	public ImageSubstituter(ImageInfoReader imageInfoReader) {
+	public ImageSubstituter(ImageInfoReader imageInfoReader, ImageSubstitutionMode imageSubstitution) {
 		super();
 		this.imageInfoReader = imageInfoReader;
+		this.imageSubstitution = imageSubstitution;
 	}
 
 	public String substituteImagesInTooltip(String tooltip) {
@@ -59,8 +61,10 @@ public class ImageSubstituter {
 	
 	private Map<String, ImageIds> getTextToImageMapping() {
 		Map<String, ImageIds> textToImageMapping = new HashMap<>();
-		for(Item resourceItem : itemsToSubstitute()) {
-			textToImageMapping.put(resourceItem.getDescription(), resourceItem.getImageId());
+		if (imageSubstitution == ImageSubstitutionMode.ALL) {
+			for(Item resourceItem : itemsToSubstitute()) {
+				textToImageMapping.put(resourceItem.getDescription(), resourceItem.getImageId());
+			}
 		}
 		textToImageMapping.put("gold", ImageIds.SMALL_GOLD_COIN);
 		return textToImageMapping;

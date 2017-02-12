@@ -1,7 +1,9 @@
 package org.worldgrower.gui;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -16,6 +18,7 @@ import org.worldgrower.generator.PlantGenerator;
 public class TooltipImages {
 
 	private final List<String> existingNames = new ArrayList<>();
+	private final PatternCache patternCache = new PatternCache();
 	
 	public TooltipImages() {
 		super();
@@ -29,8 +32,7 @@ public class TooltipImages {
 	}
 
 	public String substituteImages(String tooltip, String description, ImageIds imageId, Function<ImageIds, String> mapImageFunction) {
-		String patternString = "\\b(" + description + ")\\b";
-		Pattern pattern = Pattern.compile(patternString);
+		Pattern pattern = patternCache.getPattern(description);
 		StringBuilder changedTooltipBuilder = new StringBuilder();
 		String remainingTooltip = tooltip;
 		Matcher matcher = pattern.matcher(remainingTooltip);
@@ -75,5 +77,20 @@ public class TooltipImages {
 			return true;
 		}
 		return false;
+	}
+	
+	private static class PatternCache {
+		private final Map<String, Pattern> cache = new HashMap<>();
+		
+		public Pattern getPattern(String description) {
+			Pattern pattern = cache.get(description);
+			if (pattern == null) {
+				String patternString = "\\b(" + description + ")\\b";
+				pattern = Pattern.compile(patternString);
+				cache.put(description, pattern);
+			}
+			
+			return pattern;
+		}
 	}
 }
