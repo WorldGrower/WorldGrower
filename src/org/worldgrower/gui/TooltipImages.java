@@ -38,7 +38,8 @@ public class TooltipImages {
 		while (matcher.find()) {
 			int startIndex = matcher.start();
 			int endIndex = matcher.end();
-			if (!startIndexmatchesExisting(remainingTooltip, startIndex)) {
+			if (!startIndexmatchesExisting(remainingTooltip, startIndex)
+					&& !isMatchedByOverlappingTerm(description, remainingTooltip, startIndex)) {
 				String prefix = remainingTooltip.substring(0, startIndex);
 				String replacedValue = mapImageFunction.apply(imageId) + " " + description;
 				String suffix = remainingTooltip.substring(endIndex, remainingTooltip.length());
@@ -51,6 +52,17 @@ public class TooltipImages {
 			changedTooltipBuilder.append(remainingTooltip);
 		}
 		return changedTooltipBuilder.toString();
+	}
+
+	private boolean isMatchedByOverlappingTerm(String description, String remainingTooltip, int startIndex) {
+		if (description.equals("soulgem")) {
+			String overlappingTerm = "filled soulgem";
+			int indexOfOverlappingTerm = remainingTooltip.indexOf(overlappingTerm);
+			if (indexOfOverlappingTerm >= 0 && indexOfOverlappingTerm < startIndex && startIndex < indexOfOverlappingTerm + overlappingTerm.length()) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private boolean startIndexmatchesExisting(String changedTooltip, int startIndex) {
