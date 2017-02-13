@@ -75,7 +75,11 @@ public class AskGoalConversation implements Conversation {
 					Goals.COLLECT_WATER_GOAL,
 					Goals.CRAFT_EQUIPMENT_GOAL,
 					Goals.CREATE_WINE_GOAL,
-					Goals.CHILDREN_GOAL);
+					Goals.CREATE_PAPER_GOAL,
+					Goals.HARVEST_COTTON_GOAL,
+					Goals.HARVEST_NIGHT_SHADE_GOAL,
+					Goals.CHILDREN_GOAL
+					);
 	}
 
 	@Override

@@ -349,7 +349,7 @@ public class AskQuestionDialog extends AbstractDialog implements ManagedOperatio
 	private JMenuItem createQuestionMenuItem(ImageInfoReader imageInfoReader, Map<Integer, ImageIds> subjectImageIds, Question question) {
 		String questionPhrase = question.getQuestionPhrase();
 		if (questionPhrase.indexOf("gold") != -1) {
-			questionPhrase = "<html>" + imageSubstituter.substituteImagesInTooltip(questionPhrase) + "</html>";
+			questionPhrase = "<html>" + imageSubstituter.substituteImagesInHtml(questionPhrase) + "</html>";
 		}
 		JMenuItem questionMenuItem = MenuFactory.createJMenuItem(questionPhrase, soundIdReader);
 		int subjectId = question.getSubjectId();
@@ -382,7 +382,9 @@ public class AskQuestionDialog extends AbstractDialog implements ManagedOperatio
 	public void actionPerformed(ManagedOperation managedOperation, WorldObject performer, WorldObject target, int[] args, Object value) {
 		if (answerer.filterMessage(performer)) {
 			Response response = (Response) value;
-			label.setText("<html>" + response.getResponsePhrase() + "</html>");
+			String responsePhrase = response.getResponsePhrase();
+			responsePhrase = imageSubstituter.substituteImagesInHtml(responsePhrase);
+			label.setText("<html>" + responsePhrase + "</html>");
 			relationshipProgresBar.setValue(answerer.getRelationshipValue());
 		}
 	}

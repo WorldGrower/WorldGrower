@@ -213,12 +213,12 @@ public final class InfoPanel extends JPanel {
     }
     
     private void displayMessage(String text) {
-    	imageSubstituter.subtituteImagesInText(messageTextPane, text);
+    	imageSubstituter.subtituteImagesInTextPane(messageTextPane, text);
     }
     
     private void displayMessage(Image image, String message) {
     	JTextPaneUtils.appendIcon(messageTextPane, image);
-    	imageSubstituter.subtituteImagesInText(messageTextPane, message);
+    	imageSubstituter.subtituteImagesInTextPane(messageTextPane, message);
     }
 
 	public void clearStatusMessages() {

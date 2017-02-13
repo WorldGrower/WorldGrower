@@ -91,6 +91,11 @@ public class UTestBestowCurseAction {
 		assertEquals(0, action.distance(performer, target, Args.EMPTY, world));
 	}
 	
+	@Test
+	public void testGetDescription() {
+		assertEquals("bestow a curse on a person like change gender, infertility, gluttony, pox", action.getDescription());
+	}
+	
 	private WorldObject createPerformer(int id) {
 		WorldObject performer = TestUtils.createSkilledWorldObject(id, Constants.CONDITIONS, new Conditions());
 		performer.setProperty(Constants.X, 0);

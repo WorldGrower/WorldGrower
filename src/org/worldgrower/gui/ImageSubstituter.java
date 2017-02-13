@@ -38,7 +38,7 @@ public class ImageSubstituter {
 		this.imageSubstitution = imageSubstitution;
 	}
 
-	public String substituteImagesInTooltip(String tooltip) {
+	public String substituteImagesInHtml(String tooltip) {
 		String changedTooltip = tooltip;
 		for(Entry<String, ImageIds> mapping : getTextToImageMapping().entrySet()) {
 			changedTooltip = tooltipImages.substituteImages(changedTooltip, mapping.getKey(), mapping.getValue(), imageInfoReader::smallImageTag);
@@ -46,7 +46,7 @@ public class ImageSubstituter {
 		return changedTooltip;
 	}
 	
-	public void subtituteImagesInText(JTextPane textPane, String text) {
+	public void subtituteImagesInTextPane(JTextPane textPane, String text) {
 		JTextPaneMapper textPaneMapper = new JTextPaneMapper(textPane, imageInfoReader);
 		String changedText = text;
 		for(Entry<String, ImageIds> mapping : getTextToImageMapping().entrySet()) {

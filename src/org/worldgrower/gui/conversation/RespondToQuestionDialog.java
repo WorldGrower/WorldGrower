@@ -37,6 +37,8 @@ import org.worldgrower.gui.AbstractDialog;
 import org.worldgrower.gui.ColorPalette;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
+import org.worldgrower.gui.ImageSubstituter;
+import org.worldgrower.gui.ImageSubstitutionMode;
 import org.worldgrower.gui.SwingUtils;
 import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.util.DialogUtils;
@@ -53,6 +55,7 @@ public class RespondToQuestionDialog extends AbstractDialog {
 	private int selectedResponse = -1;
 	private final JProgressBar relationshipProgresBar;
 	private final ImageInfoReader imageInfoReader;
+	private final ImageSubstituter imageSubstituter;
 	
 	private final class CloseDialogAction implements ActionListener {
 		@Override
@@ -64,6 +67,7 @@ public class RespondToQuestionDialog extends AbstractDialog {
 	public RespondToQuestionDialog(int id, int conversationId, int historyItemId, int additionalValue, int additionalValue2, Questioner questioner, Conversations conversations, ImageIds imageIdPerformer, ImageIds imageIdTarget, String performerName, String targetName, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, JFrame parentFrame) {
 		super(600, 300, imageInfoReader);
 		this.imageInfoReader = imageInfoReader;
+		this.imageSubstituter = new ImageSubstituter(imageInfoReader, ImageSubstitutionMode.GOLD);
 		
 		KeyStroke stroke = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
         rootPane.registerKeyboardAction(new CloseDialogAction(), stroke, JComponent.WHEN_IN_FOCUSED_WINDOW);
@@ -101,7 +105,9 @@ public class RespondToQuestionDialog extends AbstractDialog {
 		performerLabel.setBounds(6, 17, 32, 48);
 		addComponent(performerLabel);
 		
-		label = JLabelFactory.createJLabel("<html>"+ questioner.getQuestionPhrase() +"</html>");
+		String questionPhrase = questioner.getQuestionPhrase();
+		questionPhrase = imageSubstituter.substituteImagesInHtml(questionPhrase);
+		label = JLabelFactory.createJLabel("<html>"+ questionPhrase +"</html>");
 		label.setBounds(44, 27, 515, 46);
 		addComponent(label);
 		

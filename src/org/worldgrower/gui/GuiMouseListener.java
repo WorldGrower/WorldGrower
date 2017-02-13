@@ -621,7 +621,7 @@ public class GuiMouseListener extends MouseAdapter {
 			tooltip += "<br>" + allowedCraftActionsDescription;
 		}
 		tooltip += "</html>";
-		return imageSubstituter.substituteImagesInTooltip(tooltip);
+		return imageSubstituter.substituteImagesInHtml(tooltip);
 	}
 	
 	private String createAllowedCraftActionsDescription(List<ManagedOperation> allowedCraftActions) {
@@ -713,7 +713,7 @@ public class GuiMouseListener extends MouseAdapter {
 			
 			tooltip += "</html>";
 			
-			tooltip = imageSubstituter.substituteImagesInTooltip(tooltip);
+			tooltip = imageSubstituter.substituteImagesInHtml(tooltip);
 			menuItem.setToolTipText(tooltip);
 		}
 	}
