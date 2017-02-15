@@ -68,13 +68,12 @@ public class ProfessionConversation implements Conversation {
 		WorldObject target = conversationContext.getTarget();
 		String professionDescription = getProfessionDescription(target);
 		String article = SentenceUtils.getArticle(professionDescription);
-		String noProfession = Text.ANSWER_PROFESSION_NO.get();
 		
 		return Arrays.asList(
-			new Response(MY_PROFESSION, Text.ANSWER_PROFESSION_MY.get(article, professionDescription)),
-			new Response(NO_PROFESSION, noProfession),
-			new Response(STILL_THE_SAME, Text.ANSWER_PROFESSION_SAME.get((professionDescription.length() > 0 ? professionDescription : noProfession))),
-			new Response(NEW_PROFESSION, Text.ANSWER_PROFESSION_NEW.get(article, professionDescription))
+			new Response(MY_PROFESSION, Text.ANSWER_PROFESSION_MY, article, professionDescription),
+			new Response(NO_PROFESSION, Text.ANSWER_PROFESSION_NO),
+			new Response(STILL_THE_SAME, Text.ANSWER_PROFESSION_SAME, (professionDescription.length() > 0 ? professionDescription : Text.ANSWER_PROFESSION_NO.get())),
+			new Response(NEW_PROFESSION, Text.ANSWER_PROFESSION_NEW, article, professionDescription)
 			);
 	}
 

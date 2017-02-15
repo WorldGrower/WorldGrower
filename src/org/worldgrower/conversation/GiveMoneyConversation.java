@@ -61,10 +61,10 @@ public class GiveMoneyConversation implements Conversation {
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
-				new Response(THANKS, Text.ANSWER_GIVE_MONEY_THANKS.get()),
-				new Response(GET_LOST, Text.ANSWER_GIVE_MONEY_GETLOST.get()),
-				new Response(THANKS_AGAIN, Text.ANSWER_GIVE_MONEY_AGAIN.get()),
-				new Response(BRIBE, Text.ANSWER_GIVE_MONEY_BRIBE.get()));
+				new Response(THANKS, Text.ANSWER_GIVE_MONEY_THANKS),
+				new Response(GET_LOST, Text.ANSWER_GIVE_MONEY_GETLOST),
+				new Response(THANKS_AGAIN, Text.ANSWER_GIVE_MONEY_AGAIN),
+				new Response(BRIBE, Text.ANSWER_GIVE_MONEY_BRIBE));
 	}
 	
 	@Override

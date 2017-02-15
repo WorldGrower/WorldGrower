@@ -26,6 +26,7 @@ import org.worldgrower.conversation.Question;
 import org.worldgrower.conversation.Response;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.history.HistoryItem;
+import org.worldgrower.text.Text;
 
 public class CanCollectTaxesConversation implements Conversation {
 
@@ -40,14 +41,14 @@ public class CanCollectTaxesConversation implements Conversation {
 
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
-		return Arrays.asList(new Question(null, "I'd like permission to collect taxes. Is that ok?"));
+		return Arrays.asList(new Question(null, Text.QUESTION_CAN_COLLECT_TAXES.get()));
 	}
 	
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
-			new Response(YES, "Yes, you may collect taxes"),
-			new Response(NO, "No, you may not collect taxes")
+			new Response(YES, Text.ANSWER_CAN_COLLECT_TAXES_YES),
+			new Response(NO, Text.ANSWER_CAN_COLLECT_TAXES_NO)
 			);
 	}
 	

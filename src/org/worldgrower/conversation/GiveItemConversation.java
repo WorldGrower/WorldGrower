@@ -62,9 +62,9 @@ public class GiveItemConversation implements Conversation {
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
-				new Response(THANKS, Text.ANSWER_GIVE_ITEM_THANKS.get()),
-				new Response(GET_LOST, Text.ANSWER_GIVE_ITEM_GETLOST.get()),
-				new Response(THANKS_AGAIN, Text.ANSWER_GIVE_ITEM_AGAIN.get()));
+				new Response(THANKS, Text.ANSWER_GIVE_ITEM_THANKS),
+				new Response(GET_LOST, Text.ANSWER_GIVE_ITEM_GETLOST),
+				new Response(THANKS_AGAIN, Text.ANSWER_GIVE_ITEM_AGAIN));
 	}
 	
 	@Override

@@ -64,8 +64,8 @@ public class MergeOrganizationsConversation implements Conversation {
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
-			new Response(YES, Text.ANSWER_MERGE_ORG_YES.get()),
-			new Response(NO, Text.ANSWER_MERGE_ORG_NO.get())
+			new Response(YES, Text.ANSWER_MERGE_ORG_YES),
+			new Response(NO, Text.ANSWER_MERGE_ORG_NO)
 			);
 	}
 	

@@ -69,8 +69,8 @@ public class ShareKnowledgeConversation implements Conversation {
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
-			new Response(THANKS, Text.ANSWER_SHARE_KNOWLEDGE_THANKS.get()),
-			new Response(GET_LOST, Text.ANSWER_SHARE_KNOWLEDGE_GETLOST.get())
+			new Response(THANKS, Text.ANSWER_SHARE_KNOWLEDGE_THANKS),
+			new Response(GET_LOST, Text.ANSWER_SHARE_KNOWLEDGE_GETLOST)
 			);
 	}
 

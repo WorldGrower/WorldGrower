@@ -60,9 +60,9 @@ public class CurePoisonConversation implements Conversation {
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
-			new Response(YES, Text.ANSWER_CURE_POISON_YES.get()),
-			new Response(NO, Text.ANSWER_CURE_POISON_NO.get()),
-			new Response(GET_LOST, Text.ANSWER_CURE_POISON_GETLOST.get()));
+			new Response(YES, Text.ANSWER_CURE_POISON_YES),
+			new Response(NO, Text.ANSWER_CURE_POISON_NO),
+			new Response(GET_LOST, Text.ANSWER_CURE_POISON_GETLOST));
 	}
 	
 	@Override

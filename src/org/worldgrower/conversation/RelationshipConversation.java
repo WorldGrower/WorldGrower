@@ -79,10 +79,10 @@ public class RelationshipConversation implements Conversation {
 		WorldObject subject = conversationContext.getSubject();
 		
 		return Arrays.asList(
-			new Response(DONT_KNOW, subject, Text.ANSWER_RELATIONSHIP_DONT.get(subject.getProperty(Constants.NAME))),
-			new Response(LIKE, subject, Text.ANSWER_RELATIONSHIP_LIKE.get(subject.getProperty(Constants.NAME))),
-			new Response(REALLY_LIKE, subject, Text.ANSWER_RELATIONSHIP_REALLY_LIKE.get(subject.getProperty(Constants.NAME))),
-			new Response(DISLIKE, subject, Text.ANSWER_RELATIONSHIP_DISLIKE.get(subject.getProperty(Constants.NAME)))
+			new Response(DONT_KNOW, subject, Text.ANSWER_RELATIONSHIP_DONT, subject),
+			new Response(LIKE, subject, Text.ANSWER_RELATIONSHIP_LIKE, subject),
+			new Response(REALLY_LIKE, subject, Text.ANSWER_RELATIONSHIP_REALLY_LIKE, subject),
+			new Response(DISLIKE, subject, Text.ANSWER_RELATIONSHIP_DISLIKE, subject)
 			);
 	}
 

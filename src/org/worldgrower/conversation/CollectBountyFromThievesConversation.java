@@ -64,11 +64,11 @@ public class CollectBountyFromThievesConversation implements Conversation {
 		int bounty = BountyPropertyUtils.getBounty(target, world);
 		List<Response> responses = new ArrayList<>();
 		if (target.getProperty(Constants.GOLD).intValue() >= bounty) {
-			responses.add(new Response(PAY_GOLD, Text.ANSWER_COLLECT_BOUNTY_PAY.get(), bounty <= conversationContext.getTarget().getProperty(Constants.GOLD)));
+			responses.add(new Response(PAY_GOLD, bounty <= conversationContext.getTarget().getProperty(Constants.GOLD), Text.ANSWER_COLLECT_BOUNTY_PAY));
 		}
 		responses.addAll(Arrays.asList(
-				new Response(JAIL, Text.ANSWER_COLLECT_BOUNTY_JAIL.get()),
-				new Response(RESIST_ARREST, Text.ANSWER_COLLECT_BOUNTY_RESIST.get())));
+				new Response(JAIL, Text.ANSWER_COLLECT_BOUNTY_JAIL),
+				new Response(RESIST_ARREST, Text.ANSWER_COLLECT_BOUNTY_RESIST)));
 		
 		return responses;
 	}

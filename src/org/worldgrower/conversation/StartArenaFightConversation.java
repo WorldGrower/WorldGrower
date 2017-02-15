@@ -60,9 +60,9 @@ public class StartArenaFightConversation implements Conversation {
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
-			new Response(YES, Text.ANSWER_START_ARENA_FIGHT_YES.get()),
-			new Response(NO, Text.ANSWER_START_ARENA_FIGHT_NO.get()),
-			new Response(WAIT, Text.ANSWER_START_ARENA_FIGHT_WAIT.get())
+			new Response(YES, Text.ANSWER_START_ARENA_FIGHT_YES),
+			new Response(NO, Text.ANSWER_START_ARENA_FIGHT_NO),
+			new Response(WAIT, Text.ANSWER_START_ARENA_FIGHT_WAIT)
 			);
 	}
 	

@@ -40,6 +40,10 @@ import org.worldgrower.history.HistoryItem;
  */
 public class Conversations implements Serializable {
 
+	public static final LookTheSameConversation LOOK_THE_SAME_CONVERSATION = new LookTheSameConversation();
+	public static final WhyNotIntelligentConversation WHY_NOT_INTELLIGENT_CONVERSATION = new WhyNotIntelligentConversation();
+	public static final SawDisguisingConversation SAW_DISGUISING_CONVERSATION = new SawDisguisingConversation();
+	
 	public static final Conversation NAME_CONVERSATION = new NameConversation();
 	public static final GoalConversation GOAL_CONVERSATION = new GoalConversation();
 	public static final ImmediateGoalConversation IMMEDIATE_GOAL_CONVERSATION = new ImmediateGoalConversation();
@@ -123,9 +127,9 @@ public class Conversations implements Serializable {
 	private static final Map<Conversation, ConversationCategory> CONVERSATION_CATEGORIES = new HashMap<>();
 	
 	private static final List<InterceptedConversation> INTERCEPTED_CONVERSATIONS = Arrays.asList(
-			new WhyNotIntelligentConversation(), 
-			new SawDisguisingConversation(),
-			new LookTheSameConversation()
+			WHY_NOT_INTELLIGENT_CONVERSATION, 
+			SAW_DISGUISING_CONVERSATION,
+			LOOK_THE_SAME_CONVERSATION
 			);
 	
 	static {

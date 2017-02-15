@@ -87,11 +87,11 @@ public class BrawlConversation implements Conversation {
 		}
 		
 		return Arrays.asList(
-			new Response(YES, Text.ANSWER_BRAWL_YES.get()),
-			new Response(NO, Text.ANSWER_BRAWL_NO.get()),
-			new Response(LATER, Text.ANSWER_BRAWL_LATER.get(immediateGoalDescription)),
-			new Response(NOT_ENOUGH_GOLD, Text.ANSWER_BRAWL_NOT_ENOUGH_GOLD.get()),
-			new Response(GET_LOST, Text.ANSWER_BRAWL_GET_LOST.get())
+			new Response(YES, Text.ANSWER_BRAWL_YES),
+			new Response(NO, Text.ANSWER_BRAWL_NO),
+			new Response(LATER, Text.ANSWER_BRAWL_LATER, immediateGoalDescription),
+			new Response(NOT_ENOUGH_GOLD, Text.ANSWER_BRAWL_NOT_ENOUGH_GOLD),
+			new Response(GET_LOST, Text.ANSWER_BRAWL_GET_LOST)
 			);
 	}
 

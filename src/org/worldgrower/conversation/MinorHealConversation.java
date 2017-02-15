@@ -59,9 +59,9 @@ public class MinorHealConversation implements Conversation {
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
-			new Response(YES, Text.ANSWER_MINOR_HEAL_YES.get()),
-			new Response(NO, Text.ANSWER_MINOR_HEAL_NO.get()),
-			new Response(GET_LOST, Text.ANSWER_MINOR_HEAL_GETLOST.get()));
+			new Response(YES, Text.ANSWER_MINOR_HEAL_YES),
+			new Response(NO, Text.ANSWER_MINOR_HEAL_NO),
+			new Response(GET_LOST, Text.ANSWER_MINOR_HEAL_GETLOST));
 	}
 	
 	@Override

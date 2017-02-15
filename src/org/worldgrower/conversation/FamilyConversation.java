@@ -55,8 +55,8 @@ public class FamilyConversation implements Conversation {
 		YesNoResponse yesNoResponse = getYesNoResponse(target, world);
 		
 		return Arrays.asList(
-			new Response(YES, Text.ANSWER_FAMILY_YES.get(yesNoResponse.getYesResponse())),
-			new Response(NO, Text.ANSWER_FAMILY_NO.get(yesNoResponse.getNoResponse()))
+			new Response(YES, Text.ANSWER_FAMILY_YES, yesNoResponse.getYesResponse()),
+			new Response(NO, Text.ANSWER_FAMILY_NO, yesNoResponse.getNoResponse())
 			);
 	}
 

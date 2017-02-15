@@ -53,8 +53,8 @@ public class BuyBuildingConversation implements Conversation {
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
-			new Response(YES, Text.ANSWER_BUY_BUILDING_YES.get()),
-			new Response(NO, Text.ANSWER_BUY_BUILDING_NO.get())
+			new Response(YES, Text.ANSWER_BUY_BUILDING_YES),
+			new Response(NO, Text.ANSWER_BUY_BUILDING_NO)
 			);
 	}
 

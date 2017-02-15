@@ -69,9 +69,9 @@ public class DeityExplanationConversation implements Conversation {
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		Deity subjectDeity = Deity.ALL_DEITIES.get(conversationContext.getAdditionalValue());
 		return Arrays.asList(
-			new Response(YES, Text.ANSWER_DEITY_EXPLANATION_YES.get(subjectDeity.getExplanation())),
-			new Response(NO, Text.ANSWER_DEITY_EXPLANATION_NO.get(subjectDeity.getName())),
-			new Response(GET_LOST, Text.ANSWER_DEITY_EXPLANATION_GETLOST.get())
+			new Response(YES, Text.ANSWER_DEITY_EXPLANATION_YES, subjectDeity.getExplanation()),
+			new Response(NO, Text.ANSWER_DEITY_EXPLANATION_NO, subjectDeity.getName()),
+			new Response(GET_LOST, Text.ANSWER_DEITY_EXPLANATION_GETLOST)
 			);
 	}
 

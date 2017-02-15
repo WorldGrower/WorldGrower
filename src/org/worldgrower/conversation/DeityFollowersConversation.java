@@ -70,8 +70,8 @@ public class DeityFollowersConversation implements Conversation {
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
-			new Response(YES, Text.ANSWER_DEITY_FOLLOWERS_YES.get(getFollowersDescription(conversationContext))),
-			new Response(NO, Text.ANSWER_DEITY_FOLLOWERS_NO.get())
+			new Response(YES, Text.ANSWER_DEITY_FOLLOWERS_YES, getFollowersDescription(conversationContext)),
+			new Response(NO, Text.ANSWER_DEITY_FOLLOWERS_NO)
 			);
 	}
 

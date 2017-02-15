@@ -69,9 +69,9 @@ public class CollectPayCheckConversation implements Conversation {
 		
 		List<Response> responses = new ArrayList<>();
 		if (targetCanPay(performer, target, world)) {
-			responses.add(new Response(YES, Text.ANSWER_COLLECT_PAYCHECK_YES.get()));
+			responses.add(new Response(YES, Text.ANSWER_COLLECT_PAYCHECK_YES));
 		}
-		responses.add(new Response(NO, Text.ANSWER_COLLECT_PAYCHECK_NO.get()));
+		responses.add(new Response(NO, Text.ANSWER_COLLECT_PAYCHECK_NO));
 		return responses;
 	}
 	

@@ -60,8 +60,8 @@ public class PayBountyConversation implements Conversation {
 
 		List<Response> responses = new ArrayList<>();
 		responses.addAll(Arrays.asList(
-				new Response(YES, Text.ANSWER_PAY_BOUNTY_YES.get()),
-				new Response(NO, Text.ANSWER_PAY_BOUNTY_NO.get())));
+				new Response(YES, Text.ANSWER_PAY_BOUNTY_YES),
+				new Response(NO, Text.ANSWER_PAY_BOUNTY_NO)));
 		
 		return responses;
 	}

@@ -21,6 +21,7 @@ import java.util.List;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.goal.FacadeUtils;
+import org.worldgrower.text.Text;
 
 public class LookTheSameConversation implements InterceptedConversation {
 
@@ -47,7 +48,7 @@ public class LookTheSameConversation implements InterceptedConversation {
 		
 		if (isConversationAvailable(performer, target, world)) {
 			return Arrays.asList(
-					new Response(YOU_LOOK, "You look exactly like me. Who or what are you?")
+					new Response(YOU_LOOK, Text.LOOK_SAME)
 				);
 		} else {
 			return new ArrayList<>();

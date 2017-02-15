@@ -23,6 +23,7 @@ import java.util.ResourceBundle;
 
 import org.worldgrower.conversation.Conversation;
 import org.worldgrower.conversation.Conversations;
+import org.worldgrower.conversation.InterceptedConversation;
 
 public enum Text {
 	QUESTION_ARENA_PAY_CHECK(Conversations.ARENA_FIGHTER_PAY_CHECK_CONVERSATION),
@@ -225,13 +226,30 @@ public enum Text {
 	QUESTION_REMOVE_CURSE(Conversations.REMOVE_CURSE_CONVERSATION),
 	ANSWER_REMOVE_CURSE_YES(Conversations.REMOVE_CURSE_CONVERSATION),
 	ANSWER_REMOVE_CURSE_NO(Conversations.REMOVE_CURSE_CONVERSATION),
-	ANSWER_REMOVE_CURSE_GETLOST(Conversations.REMOVE_CURSE_CONVERSATION)
+	ANSWER_REMOVE_CURSE_GETLOST(Conversations.REMOVE_CURSE_CONVERSATION),
+	QUESTION_DEMANDS(Conversations.DEMANDS_CONVERSATION),
+	ANSWER_DEMANDS_YES(Conversations.DEMANDS_CONVERSATION),
+	ANSWER_DEMANDS_NO(Conversations.DEMANDS_CONVERSATION),
+	SAW_THROUGH_DISGUISE(Conversations.SAW_DISGUISING_CONVERSATION),
+	WHY_NOT_INTELLIGENT(Conversations.WHY_NOT_INTELLIGENT_CONVERSATION),
+	SEE_THROUGH(Conversations.WHY_NOT_INTELLIGENT_CONVERSATION),
+	LOOK_SAME(Conversations.LOOK_THE_SAME_CONVERSATION),
+	QUESTION_CAN_ATTACK_CRIMINALS(Conversations.CAN_ATTACK_CRIMINALS_CONVERSATION),
+	ANSWER_CAN_ATTACK_CRIMINALS_YES(Conversations.CAN_ATTACK_CRIMINALS_CONVERSATION),
+	ANSWER_CAN_ATTACK_CRIMINALS_NO(Conversations.CAN_ATTACK_CRIMINALS_CONVERSATION),
+	QUESTION_CAN_COLLECT_TAXES(Conversations.CAN_COLLECT_TAXES_CONVERSATION),
+	ANSWER_CAN_COLLECT_TAXES_YES(Conversations.CAN_COLLECT_TAXES_CONVERSATION),
+	ANSWER_CAN_COLLECT_TAXES_NO(Conversations.CAN_COLLECT_TAXES_CONVERSATION)
 	;
 	
 	private final Conversation conversationKey;
 	
 	private Text(Conversation conversationKey) {
 		this.conversationKey = conversationKey;
+	}
+	
+	private Text(InterceptedConversation conversationKey) {
+		this.conversationKey = null;
 	}
 
 	private static final ResourceBundle MESSAGES = ResourceBundle.getBundle("MessagesBundle");
@@ -253,6 +271,11 @@ public enum Text {
 	public String get(String parm1, String parm2, String parm3) {
 		 MessageFormat formatter = createFormatter();
 	        return formatter.format(new Object[]{ parm1, parm2, parm3 });
+	}
+
+	public String get(List<String> args) {
+		MessageFormat formatter = createFormatter();
+        return formatter.format(args.toArray());
 	}
 
 	private MessageFormat createFormatter() {

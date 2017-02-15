@@ -71,8 +71,8 @@ public class JoinPerformerOrganizationConversation implements Conversation {
 		WorldObject organization = conversationContext.getSubject();
 		
 		return Arrays.asList(
-			new Response(YES, Text.ANSWER_JOIN_PERFORMER_ORG_YES.get(organization.getProperty(Constants.NAME))),
-			new Response(NO, Text.ANSWER_JOIN_PERFORMER_ORG_NO.get())
+			new Response(YES, Text.ANSWER_JOIN_PERFORMER_ORG_YES, organization.getProperty(Constants.NAME)),
+			new Response(NO, Text.ANSWER_JOIN_PERFORMER_ORG_NO)
 			);
 	}
 	

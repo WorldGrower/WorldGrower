@@ -83,8 +83,8 @@ public class AssassinateTargetConversation implements Conversation {
 		WorldObject subject = conversationContext.getSubject();
 		
 		return Arrays.asList(
-			new Response(YES, subject, Text.ANSWER_ASSASSINATE_TARGET_YES.get()),
-			new Response(NO, subject, Text.ANSWER_ASSASSINATE_TARGET_NO.get())
+			new Response(YES, subject, Text.ANSWER_ASSASSINATE_TARGET_YES),
+			new Response(NO, subject, Text.ANSWER_ASSASSINATE_TARGET_NO)
 			);
 	}
 

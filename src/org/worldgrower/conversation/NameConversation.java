@@ -65,11 +65,11 @@ public class NameConversation implements Conversation {
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		WorldObject target = conversationContext.getTarget();
 		return Arrays.asList(
-			new Response(MY_NAME, Text.ANSWER_NAME.get(target.getProperty(Constants.NAME))),
-			new Response(GET_LOST, Text.ANSWER_NAME_GETLOST.get()),
-			new Response(TOLD_WHILE, Text.ANSWER_NAME_TOLD_WHILE.get(target.getProperty(Constants.NAME))),
-			new Response(LIKE_I_TOLD, Text.ANSWER_NAME_LIKE.get(target.getProperty(Constants.NAME))),
-			new Response(MY_NAME_DIDNT, Text.ANSWER_NAME_DIDNT.get(target.getProperty(Constants.NAME)))
+			new Response(MY_NAME, Text.ANSWER_NAME, target.getProperty(Constants.NAME)),
+			new Response(GET_LOST, Text.ANSWER_NAME_GETLOST),
+			new Response(TOLD_WHILE, Text.ANSWER_NAME_TOLD_WHILE, target.getProperty(Constants.NAME)),
+			new Response(LIKE_I_TOLD, Text.ANSWER_NAME_LIKE, target.getProperty(Constants.NAME)),
+			new Response(MY_NAME_DIDNT, Text.ANSWER_NAME_DIDNT, target.getProperty(Constants.NAME))
 		);
 	}
 

@@ -61,8 +61,6 @@ public class ExplainCurseConversation implements Conversation {
 			);
 	}
 
-	// performer.getProperty(Constants.CURSE).getExplanation()
-	
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		WorldObject target = conversationContext.getTarget();
@@ -70,10 +68,10 @@ public class ExplainCurseConversation implements Conversation {
 		List<Response> responses = new ArrayList<>();
 		if (targetHasCurse(target)) {
 			String curseExplanation = target.getProperty(Constants.CURSE).getExplanation();
-			responses.add(new Response(YES, Text.ANSWER_CURSE_YES.get(curseExplanation)));
+			responses.add(new Response(YES, Text.ANSWER_CURSE_YES, curseExplanation));
 		}
-		responses.add(new Response(NO, Text.ANSWER_CURSE_NO.get()));
-		responses.add(new Response(GET_LOST, Text.ANSWER_CURSE_GETLOST.get()));
+		responses.add(new Response(NO, Text.ANSWER_CURSE_NO));
+		responses.add(new Response(GET_LOST, Text.ANSWER_CURSE_GETLOST));
 		
 		return responses;
 	}

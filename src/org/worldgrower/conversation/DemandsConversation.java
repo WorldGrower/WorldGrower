@@ -26,6 +26,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.PropertyCountMap;
 import org.worldgrower.history.HistoryItem;
+import org.worldgrower.text.Text;
 
 public class DemandsConversation implements Conversation {
 
@@ -47,7 +48,7 @@ public class DemandsConversation implements Conversation {
 
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
-		return Arrays.asList(new Question(null, "What would you like to buy?"));
+		return Arrays.asList(new Question(null, Text.QUESTION_DEMANDS.get()));
 	}
 	
 	@Override
@@ -65,8 +66,8 @@ public class DemandsConversation implements Conversation {
 			}
 		}
 		return Arrays.asList(
-			new Response(YES, "I'd like to buy " + demandsBuilder.toString()),
-			new Response(NO, "I'm not looking for anything to buy right now")
+			new Response(YES, Text.ANSWER_DEMANDS_YES, demandsBuilder.toString()),
+			new Response(NO,  Text.ANSWER_DEMANDS_NO)
 			);
 	}
 

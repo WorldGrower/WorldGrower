@@ -71,8 +71,8 @@ public class WhyAngryOtherConversation implements Conversation {
 		String concatenatedAngryReasons = target.getProperty(Constants.BACKGROUND).getConcatenatedAngryReasons(false, target.getProperty(Constants.ID), subject, world);
 		
 		return Arrays.asList(
-			new Response(REAL_REASON, Text.ANSWER_ANGRY_OTHER_REASON.get(concatenatedAngryReasons)),
-			new Response(GET_LOST, Text.ANSWER_ANGRY_OTHER_GETLOST.get())
+			new Response(REAL_REASON, Text.ANSWER_ANGRY_OTHER_REASON, concatenatedAngryReasons),
+			new Response(GET_LOST, Text.ANSWER_ANGRY_OTHER_GETLOST)
 		);
 	}
 	

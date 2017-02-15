@@ -72,9 +72,9 @@ public class ComplimentConversation implements Conversation {
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
-			new Response(THANKS, Text.ANSWER_COMPLIMENT_THANKS.get()),
-			new Response(STOP, Text.ANSWER_COMPLIMENT_STOP.get()),
-			new Response(GET_LOST, Text.ANSWER_COMPLIMENT_GETLOST.get()));
+			new Response(THANKS, Text.ANSWER_COMPLIMENT_THANKS),
+			new Response(STOP, Text.ANSWER_COMPLIMENT_STOP),
+			new Response(GET_LOST, Text.ANSWER_COMPLIMENT_GETLOST));
 	}
 	
 	@Override

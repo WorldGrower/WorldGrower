@@ -25,6 +25,7 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.KnowledgeMap;
 import org.worldgrower.goal.FacadeUtils;
 import org.worldgrower.goal.RelationshipPropertyUtils;
+import org.worldgrower.text.Text;
 
 public class SawDisguisingConversation implements InterceptedConversation {
 
@@ -51,7 +52,7 @@ public class SawDisguisingConversation implements InterceptedConversation {
 		
 		if (isConversationAvailable(performer, target, world)) {
 			return Arrays.asList(
-					new Response(SEE_THROUGH, "A good try, " + performer.getProperty(Constants.NAME) + ", but I saw you disguise yourself earlier")
+					new Response(SEE_THROUGH, Text.SAW_THROUGH_DISGUISE, performer)
 				);
 		} else {
 			return new ArrayList<>();

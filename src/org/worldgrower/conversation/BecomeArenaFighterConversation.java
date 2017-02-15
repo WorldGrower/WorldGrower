@@ -57,8 +57,8 @@ public class BecomeArenaFighterConversation implements Conversation {
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
-			new Response(YES, Text.ANSWER_ARENA_FIGHTER_YES.get()),
-			new Response(NO, Text.ANSWER_ARENA_FIGHTER_NO.get()));
+			new Response(YES, Text.ANSWER_ARENA_FIGHTER_YES),
+			new Response(NO, Text.ANSWER_ARENA_FIGHTER_NO));
 	}
 	
 	@Override

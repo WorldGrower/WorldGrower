@@ -54,8 +54,8 @@ public class StopSellingConversation implements Conversation {
 		List<Item> items = target.getProperty(Constants.ITEMS_SOLD).getItems();
 		
 		for(Item item : items) {
-			String itemDescription = getItemDescription(item);
-			questions.add(new Question(null, Text.QUESTION_STOP_SELLING.get(itemDescription), item.ordinal()));
+			String itemSuffix = getItemSuffix(item);
+			questions.add(new Question(null, Text.QUESTION_STOP_SELLING.get(item.getDescription() + itemSuffix), item.ordinal()));
 		}
 		
 		return questions;
@@ -65,20 +65,19 @@ public class StopSellingConversation implements Conversation {
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		int itemId = conversationContext.getAdditionalValue();
 		Item item = Item.value(itemId);
-		
-		String itemDescription = getItemDescription(item);
+
 		return Arrays.asList(
-			new Response(YES, Text.ANSWER_STOP_SELLING_YES.get(itemDescription)),
-			new Response(NO, Text.ANSWER_STOP_SELLING_NO.get())
+			new Response(YES, Text.ANSWER_STOP_SELLING_YES, item, getItemSuffix(item)),
+			new Response(NO, Text.ANSWER_STOP_SELLING_NO)
 			);
 	}
 
-	private String getItemDescription(Item item) {
+	private String getItemSuffix(Item item) {
 		String itemDescription = item.getDescription();
 		if (!itemDescription.endsWith("s")) {
-			itemDescription = itemDescription + "s";
+			return "s";
 		}
-		return itemDescription;
+		return "";
 	}
 	
 	@Override

@@ -85,7 +85,7 @@ public class LocationConversation implements Conversation {
 		List<Response> responses = new ArrayList<>();
 		
 		for (Direction direction : Direction.values()) {
-			responses.add(new Response(direction.ordinal(), subject, Text.ANSWER_LOCATION.get(subject.getProperty(Constants.NAME), direction.getDescription())));
+			responses.add(new Response(direction.ordinal(), subject, Text.ANSWER_LOCATION, subject, direction.getDescription()));
 		}
 
 		return responses;

@@ -63,8 +63,8 @@ public class LearnSkillUsingOrganizationConversation implements Conversation {
 		Profession profession = performer.getProperty(Constants.PROFESSION);
 		
 		return Arrays.asList(
-			new Response(YES, Text.ANSWER_LEARN_SKILL_YES.get(profession.getDescription())),
-			new Response(NO, Text.ANSWER_LEARN_SKILL_NO.get())
+			new Response(YES, Text.ANSWER_LEARN_SKILL_YES, profession.getDescription()),
+			new Response(NO, Text.ANSWER_LEARN_SKILL_NO)
 			);
 	}
 	

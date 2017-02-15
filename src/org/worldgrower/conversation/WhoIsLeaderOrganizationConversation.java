@@ -84,9 +84,9 @@ public class WhoIsLeaderOrganizationConversation implements Conversation {
 		String leaderDescription = getLeaderDescription(organization, performer, target, leader);
 		
 		return Arrays.asList(
-			new Response(LEADER, Text.ANSWER_LEADER_YES.get(leaderDescription)),
-			new Response(NONE_OF, Text.ANSWER_LEADER_NONE.get()),
-			new Response(ALREADY_ASKED, Text.ANSWER_LEADER_ALREADY.get(leaderDescription))
+			new Response(LEADER, Text.ANSWER_LEADER_YES, leaderDescription),
+			new Response(NONE_OF, Text.ANSWER_LEADER_NONE),
+			new Response(ALREADY_ASKED, Text.ANSWER_LEADER_ALREADY, leaderDescription)
 			);
 	}
 

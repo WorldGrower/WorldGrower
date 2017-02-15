@@ -29,7 +29,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.KeyStroke;
-import javax.swing.SwingConstants;
 
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.conversation.Response;
@@ -46,7 +45,6 @@ import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JComboBoxFactory;
 import org.worldgrower.gui.util.JLabelFactory;
 import org.worldgrower.gui.util.JProgressBarFactory;
-import org.worldgrower.gui.util.TextComboBoxRenderer;
 
 public class RespondToQuestionDialog extends AbstractDialog {
 
@@ -97,7 +95,6 @@ public class RespondToQuestionDialog extends AbstractDialog {
 		comboBoxResponse.setForeground(ColorPalette.FOREGROUND_COLOR);
 		SwingUtils.setComboBoxSelectionColor(comboBoxResponse, ColorPalette.FOREGROUND_COLOR);
 		
-		comboBoxResponse.setRenderer(new TextComboBoxRenderer<Response>(SwingConstants.LEFT));
 		addComponent(comboBoxResponse);
 		
 		JLabel performerLabel = JLabelFactory.createJLabel(imageInfoReader.getImage(imageIdPerformer, null));
@@ -138,6 +135,7 @@ public class RespondToQuestionDialog extends AbstractDialog {
 	
 	private JComboBox<Response> createResponseComboBox(int id, int subjectId, int historyItemId, Conversations conversations, Questioner questioner, int additionalValue, int additionalValue2) {
 		JComboBox<Response> responseComboBox = JComboBoxFactory.createJComboBox(imageInfoReader);
+		responseComboBox.setRenderer(new ResponseListRenderer(imageInfoReader));
 		List<Response> responses = questioner.getResponsePhrases(id, subjectId, historyItemId, additionalValue, additionalValue2);
 		for(Response response : responses) {
 			responseComboBox.addItem(response);

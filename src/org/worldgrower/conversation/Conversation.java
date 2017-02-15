@@ -20,6 +20,7 @@ import java.util.List;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.generator.Item;
 import org.worldgrower.history.HistoryItem;
 
 /**
@@ -27,6 +28,8 @@ import org.worldgrower.history.HistoryItem;
  * It describes possible questions, possible answers and the logic to select a correct answer for an npc.
  */
 public interface Conversation extends Serializable {
+	public static final Item GOLD = Item.GOLD;
+	
 	public Response getReplyPhrase(ConversationContext conversationContext);
 	
 	// number of replyphrases should remain the same: otherwise replyIndex doesn't work ==> response.isPossible flag

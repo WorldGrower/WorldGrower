@@ -60,10 +60,10 @@ public class DeityReasonConversation implements Conversation {
 		List<Response> responses = new ArrayList<>();
 		int responseId = 0;
 		for (String reason : reasons) {
-			responses.add(new Response(responseId, Text.ANSWER_DEITY_REASON.get(reason)));
+			responses.add(new Response(responseId, Text.ANSWER_DEITY_REASON, reason));
 			responseId++;
 		}
-		responses.add(new Response(SEEMED_LIKE, Text.ANSWER_DEITY_REASON_DONT_CARE.get()));
+		responses.add(new Response(SEEMED_LIKE, Text.ANSWER_DEITY_REASON_DONT_CARE));
 		return responses;
 	}
 	

@@ -60,8 +60,8 @@ public class ArenaFighterPayCheckConversation implements Conversation {
 		WorldObject performer = conversationContext.getPerformer();
 		int payCheck = performer.getProperty(Constants.ARENA_PAY_CHECK_GOLD);
 		return Arrays.asList(
-			new Response(YES, Text.ANSWER_ARENA_PAY_CHECK_YES.get(payCheck)),
-			new Response(NO, Text.ANSWER_ARENA_PAY_CHECK_NO.get()));
+			new Response(YES, Text.ANSWER_ARENA_PAY_CHECK_YES, payCheck, GOLD),
+			new Response(NO, Text.ANSWER_ARENA_PAY_CHECK_NO));
 	}
 	
 	@Override

@@ -67,10 +67,10 @@ public class DeityConversation implements Conversation {
 		Deity deity = target.getProperty(Constants.DEITY);
 		String deityName = (deity != null ? deity.getName() : "no one");
 		return Arrays.asList(
-			new Response(I_WORSHIP, Text.ANSWER_DEITY_WORSHIP.get(deityName)),
-			new Response(I_DONT_WORSHIP, Text.ANSWER_DEITY_DONT_WORSHIP.get()),
-			new Response(ALREADY_ASKED, Text.ANSWER_DEITY_ALREADY.get(deityName)),
-			new Response(DEITY_CHANGED, Text.ANSWER_DEITY_CHANGED.get(deityName))
+			new Response(I_WORSHIP, Text.ANSWER_DEITY_WORSHIP, deityName),
+			new Response(I_DONT_WORSHIP, Text.ANSWER_DEITY_DONT_WORSHIP),
+			new Response(ALREADY_ASKED, Text.ANSWER_DEITY_ALREADY, deityName),
+			new Response(DEITY_CHANGED, Text.ANSWER_DEITY_CHANGED, deityName)
 			);
 	}
 

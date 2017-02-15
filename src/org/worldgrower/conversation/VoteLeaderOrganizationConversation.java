@@ -64,7 +64,7 @@ public class VoteLeaderOrganizationConversation implements Conversation {
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		World world = conversationContext.getWorld();
 		return Arrays.asList(
-			new Response(LETS_PUT, Text.ANSWER_VOTE_LEADER.get(VotingPropertyUtils.getNumberOfTurnsCandidatesMayBeProposed(world)))
+			new Response(LETS_PUT, Text.ANSWER_VOTE_LEADER, VotingPropertyUtils.getNumberOfTurnsCandidatesMayBeProposed(world))
 			);
 	}
 

@@ -101,9 +101,9 @@ public class AskGoalConversation implements Conversation {
 		Goal goal = getGoal(conversationContext);
 		
 		return Arrays.asList(
-			new Response(YES, Text.ANSWER_ASK_GOAL_YES.get(goal.getDescription())),
-			new Response(ALREADY, Text.ANSWER_ASK_GOAL_EXPLAIN.get(goal.getDescription())),
-			new Response(NO, Text.ANSWER_ASK_GOAL_NO.get()));
+			new Response(YES, Text.ANSWER_ASK_GOAL_YES, goal.getDescription()),
+			new Response(ALREADY, Text.ANSWER_ASK_GOAL_EXPLAIN, goal.getDescription()),
+			new Response(NO, Text.ANSWER_ASK_GOAL_NO));
 	}
 	
 	@Override

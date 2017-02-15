@@ -72,10 +72,10 @@ public class DrinkingContestConversation implements Conversation {
 		World world = conversationContext.getWorld();
 		
 		return Arrays.asList(
-			new Response(YES, Text.ANSWER_DRINKING_CONTEST_YES.get()),
-			new Response(NO, Text.ANSWER_DRINKING_CONTEST_NO.get()),
-			new Response(LATER, Text.ANSWER_DRINKING_CONTEST_LATER.get(world.getImmediateGoal(target, world).getDescription(world))),
-			new Response(NOT_ENOUGH_GOLD, Text.ANSWER_DRINKING_CONTEST_NOGOLD.get())
+			new Response(YES, Text.ANSWER_DRINKING_CONTEST_YES),
+			new Response(NO, Text.ANSWER_DRINKING_CONTEST_NO),
+			new Response(LATER, Text.ANSWER_DRINKING_CONTEST_LATER, world.getImmediateGoal(target, world).getDescription(world)),
+			new Response(NOT_ENOUGH_GOLD, Text.ANSWER_DRINKING_CONTEST_NOGOLD)
 			);
 	}
 

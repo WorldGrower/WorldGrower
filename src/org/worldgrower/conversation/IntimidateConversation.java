@@ -67,8 +67,8 @@ public class IntimidateConversation implements Conversation {
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
-			new Response(GET_LOST, Text.ANSWER_INTIMIDATE_GETLOST.get()),
-			new Response(I_LL_COMPLY, Text.ANSWER_INTIMIDATE_COMPLY.get())
+			new Response(GET_LOST, Text.ANSWER_INTIMIDATE_GETLOST),
+			new Response(I_LL_COMPLY, Text.ANSWER_INTIMIDATE_COMPLY)
 		);
 	}
 

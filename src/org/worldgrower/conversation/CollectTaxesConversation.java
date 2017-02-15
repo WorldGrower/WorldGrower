@@ -66,9 +66,9 @@ public class CollectTaxesConversation implements Conversation {
 		
 		List<Response> responses = new ArrayList<>();
 		if (targetCanPay(target, world)) {
-			responses.add(new Response(YES, Text.ANSWER_COLLECT_TAXES_YES.get()));
+			responses.add(new Response(YES, Text.ANSWER_COLLECT_TAXES_YES));
 		}
-		responses.add(new Response(NO, Text.ANSWER_COLLECT_TAXES_NO.get()));
+		responses.add(new Response(NO, Text.ANSWER_COLLECT_TAXES_NO));
 		
 		return responses;
 	}

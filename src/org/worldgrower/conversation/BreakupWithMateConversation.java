@@ -46,7 +46,7 @@ public class BreakupWithMateConversation implements Conversation {
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
-			new Response(OK, Text.ANSWER_BREAKUP_YES.get())
+			new Response(OK, Text.ANSWER_BREAKUP_YES)
 			);
 	}
 	

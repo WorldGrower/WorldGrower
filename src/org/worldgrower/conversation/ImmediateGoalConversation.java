@@ -62,8 +62,8 @@ public class ImmediateGoalConversation implements Conversation {
 		String immediateGoalDescription = (operationInfo != null ? operationInfo.getDescription(world) : "");
 		String goalDescription = (goal != null ? goal.getDescription() : "");
 		return Arrays.asList(
-			new Response(YES, Text.ANSWER_IMMEDIATE_GOAL_YES.get(immediateGoalDescription, goalDescription)),
-			new Response(NO, Text.ANSWER_IMMEDIATE_GOAL_NO.get())
+			new Response(YES, Text.ANSWER_IMMEDIATE_GOAL_YES, immediateGoalDescription, goalDescription),
+			new Response(NO, Text.ANSWER_IMMEDIATE_GOAL_NO)
 			);
 	}
 	

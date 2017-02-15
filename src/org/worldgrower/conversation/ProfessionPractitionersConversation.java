@@ -73,8 +73,8 @@ public class ProfessionPractitionersConversation implements Conversation {
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
-			new Response(YES, Text.ANSWER_PROFESSION_USERS_YES.get(getProfessionPractitionersDescription(conversationContext))),
-			new Response(NO, Text.ANSWER_PROFESSION_USERS_NO.get())
+			new Response(YES, Text.ANSWER_PROFESSION_USERS_YES, getProfessionPractitionersDescription(conversationContext)),
+			new Response(NO, Text.ANSWER_PROFESSION_USERS_NO)
 			);
 	}
 

@@ -75,10 +75,10 @@ public class OrganizationConversation implements Conversation {
 		String organizationsDescription = getOrganizationsDescription(target, world);
 		
 		return Arrays.asList(
-			new Response(MY_GROUP, Text.ANSWER_ORG_GROUP.get(organizationsDescription)),
-			new Response(NO_GROUP, Text.ANSWER_ORG_NO_GROUP.get()),
-			new Response(ALREADY_ASKED_SAME, Text.ANSWER_ORG_SAME.get(organizationsDescription)),
-			new Response(ALREADY_ASKED_DIFFERENT, Text.ANSWER_ORG_DIFFERENT.get(organizationsDescription))
+			new Response(MY_GROUP, Text.ANSWER_ORG_GROUP, organizationsDescription),
+			new Response(NO_GROUP, Text.ANSWER_ORG_NO_GROUP),
+			new Response(ALREADY_ASKED_SAME, Text.ANSWER_ORG_SAME, organizationsDescription),
+			new Response(ALREADY_ASKED_DIFFERENT, Text.ANSWER_ORG_DIFFERENT, organizationsDescription)
 			);
 	}
 

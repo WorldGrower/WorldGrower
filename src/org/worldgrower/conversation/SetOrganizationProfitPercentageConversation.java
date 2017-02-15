@@ -73,15 +73,14 @@ public class SetOrganizationProfitPercentageConversation implements Conversation
 	
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
-		WorldObject organization = conversationContext.getSubject();
 		int itemIndex = conversationContext.getAdditionalValue();
 		int price = conversationContext.getAdditionalValue2();
 		
 		String itemDescription = Item.value(itemIndex).getDescription();
 		String article = SentenceUtils.getArticle(itemDescription);
 		return Arrays.asList(
-			new Response(YES, Text.ANSWER_SET_PRICE_YES.get(article, itemDescription, Integer.toString(price))),
-			new Response(NO, Text.ANSWER_SET_PRICE_NO.get())
+			new Response(YES, Text.ANSWER_SET_PRICE_YES, article, itemDescription, Integer.toString(price), GOLD),
+			new Response(NO, Text.ANSWER_SET_PRICE_NO)
 			);
 	}
 	

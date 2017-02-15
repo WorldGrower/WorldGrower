@@ -71,12 +71,11 @@ public class ProfessionReasonConversation implements Conversation {
 		
 		Reasons reasons = target.getProperty(Constants.REASONS);
 		String reason = reasons.getReason(Constants.PROFESSION);
-		String noProfessionReason = Text.ANSWER_PROFESSION_REASON_NO.get();
 		return Arrays.asList(
-			new Response(REASON, Text.ANSWER_PROFESSION_REASON_YES.get(reason)),
-			new Response(NO_PROFESSION, noProfessionReason),
-			new Response(STILL_THE_SAME, Text.ANSWER_PROFESSION_REASON_SAME.get((reason != null ? reason : noProfessionReason))),
-			new Response(NEW_PROFESSION, Text.ANSWER_PROFESSION_REASON_DIFFERENT.get(reason))
+			new Response(REASON, Text.ANSWER_PROFESSION_REASON_YES, reason),
+			new Response(NO_PROFESSION, Text.ANSWER_PROFESSION_REASON_NO),
+			new Response(STILL_THE_SAME, Text.ANSWER_PROFESSION_REASON_SAME, (reason != null ? reason : Text.ANSWER_PROFESSION_REASON_NO.get())),
+			new Response(NEW_PROFESSION, Text.ANSWER_PROFESSION_REASON_DIFFERENT, reason)
 			);
 	}
 	

@@ -63,10 +63,10 @@ public class DemandMoneyConversation implements Conversation {
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
-			new Response(GET_LOST, Text.ANSWER_DEMAND_MONEY_GETLOST.get()),
-			new Response(SURE, Text.ANSWER_DEMAND_MONEY_SURE.get()),
-			new Response(NO, Text.ANSWER_DEMAND_MONEY_NO.get()),
-			new Response(I_CAN_ONLY, Text.ANSWER_DEMAND_MONEY_CAN_ONLY.get())
+			new Response(GET_LOST, Text.ANSWER_DEMAND_MONEY_GETLOST),
+			new Response(SURE, Text.ANSWER_DEMAND_MONEY_SURE),
+			new Response(NO, Text.ANSWER_DEMAND_MONEY_NO),
+			new Response(I_CAN_ONLY, Text.ANSWER_DEMAND_MONEY_CAN_ONLY)
 		);
 	}
 

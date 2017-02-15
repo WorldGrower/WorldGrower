@@ -79,10 +79,10 @@ public class ProposeMateConversation implements Conversation {
 		boolean targetAccepts = targetAccepts(target, performer);
 		
 		return Arrays.asList(
-			new Response(YES, Text.ANSWER_PROPOSE_MATE_YES.get()),
-			new Response(NO, Text.ANSWER_PROPOSE_MATE_NO.get()),
-			new Response(ALREADY_ASKED_SAME, Text.ANSWER_PROPOSE_MATE_SAME.get((targetAccepts ? "yes" : "no"))),
-			new Response(ALREADY_ASKED_DIFFERENT, Text.ANSWER_PROPOSE_MATE_DIFFERENT.get((targetAccepts ? "yes" : "no")))
+			new Response(YES, Text.ANSWER_PROPOSE_MATE_YES),
+			new Response(NO, Text.ANSWER_PROPOSE_MATE_NO),
+			new Response(ALREADY_ASKED_SAME, Text.ANSWER_PROPOSE_MATE_SAME, (targetAccepts ? "yes" : "no")),
+			new Response(ALREADY_ASKED_DIFFERENT, Text.ANSWER_PROPOSE_MATE_DIFFERENT, (targetAccepts ? "yes" : "no"))
 			);
 	}
 	

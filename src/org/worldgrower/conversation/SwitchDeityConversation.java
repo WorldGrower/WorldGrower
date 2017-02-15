@@ -67,9 +67,9 @@ public class SwitchDeityConversation implements Conversation {
 		Deity performerDeity = performer.getProperty(Constants.DEITY);
 		Deity targetDeity = target.getProperty(Constants.DEITY);
 		return Arrays.asList(
-			new Response(YES, Text.ANSWER_SWITCH_DEITY_YES.get(performerDeity.getName(), targetDeity.getName())),
-			new Response(NO, Text.ANSWER_SWITCH_DEITY_NO.get()),
-			new Response(GET_LOST, Text.ANSWER_SWITCH_DEITY_GETLOST.get())
+			new Response(YES, Text.ANSWER_SWITCH_DEITY_YES, performerDeity.getName(), targetDeity.getName()),
+			new Response(NO, Text.ANSWER_SWITCH_DEITY_NO),
+			new Response(GET_LOST, Text.ANSWER_SWITCH_DEITY_GETLOST)
 			);
 	}
 

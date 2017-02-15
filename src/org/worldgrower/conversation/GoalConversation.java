@@ -54,8 +54,8 @@ public class GoalConversation implements Conversation {
 		Goal goal = world.getGoal(target);
 		String goalDescription = (goal !=null ? goal.getDescription() : "");
 		return Arrays.asList(
-			new Response(YES, Text.ANSWER_GOAL_YES.get(goalDescription)),
-			new Response(NO, Text.ANSWER_GOAL_NO.get())
+			new Response(YES, Text.ANSWER_GOAL_YES, goalDescription),
+			new Response(NO, Text.ANSWER_GOAL_NO)
 			);
 	}
 
