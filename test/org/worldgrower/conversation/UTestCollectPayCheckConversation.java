@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.DefaultConversationFormatter;
 import org.worldgrower.DoNothingWorldOnTurn;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -46,8 +47,8 @@ public class UTestCollectPayCheckConversation {
 		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
 		assertEquals(2, replyPhrases.size());
-		assertEquals("Yes, I'll pay your pay check", replyPhrases.get(0).getResponsePhrase());
-		assertEquals("No, I won't pay your pay check", replyPhrases.get(1).getResponsePhrase());
+		assertEquals("Yes, I'll pay your pay check", replyPhrases.get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
+		assertEquals("No, I won't pay your pay check", replyPhrases.get(1).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test

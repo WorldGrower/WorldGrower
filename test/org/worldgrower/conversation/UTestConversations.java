@@ -19,6 +19,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.worldgrower.Args;
+import org.worldgrower.DefaultConversationFormatter;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -56,6 +57,6 @@ public class UTestConversations {
 		assertEquals(-1, response.getSubjectId());
 		assertEquals(-1, response.getHistoryItemId());
 		assertEquals(true, response.isPossible());
-		assertEquals("My name is test2", response.getResponsePhrase());
+		assertEquals("My name is test2", response.getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 	}
 }

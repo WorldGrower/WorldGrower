@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.DefaultConversationFormatter;
 import org.worldgrower.DungeonMaster;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -46,8 +47,8 @@ public class UTestSetOrganizationProfitPercentageConversation {
 		ConversationContext context = new ConversationContext(performer, target,subject, null, world, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
 		assertEquals(2, replyPhrases.size());
-		assertEquals("Yes, I'll set the price for an iron claymore to 0 gold.", replyPhrases.get(0).getResponsePhrase());
-		assertEquals("No", replyPhrases.get(1).getResponsePhrase());
+		assertEquals("Yes, I'll set the price for an iron claymore to 0 gold.", replyPhrases.get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
+		assertEquals("No", replyPhrases.get(1).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test

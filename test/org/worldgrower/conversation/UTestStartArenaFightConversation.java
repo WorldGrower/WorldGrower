@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.DefaultConversationFormatter;
 import org.worldgrower.DungeonMaster;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -40,9 +41,9 @@ public class UTestStartArenaFightConversation {
 		ConversationContext context = new ConversationContext(performer, target, null, null, null, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
 		assertEquals(3, replyPhrases.size());
-		assertEquals("Yes, you can start right away", replyPhrases.get(0).getResponsePhrase());
-		assertEquals("No, there is already another fight", replyPhrases.get(1).getResponsePhrase());
-		assertEquals("Yes, but you'll have to wait until an opponent comes forth", replyPhrases.get(2).getResponsePhrase());
+		assertEquals("Yes, you can start right away", replyPhrases.get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
+		assertEquals("No, there is already another fight", replyPhrases.get(1).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
+		assertEquals("Yes, but you'll have to wait until an opponent comes forth", replyPhrases.get(2).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test

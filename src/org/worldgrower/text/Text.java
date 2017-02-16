@@ -20,6 +20,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.worldgrower.conversation.Conversation;
 import org.worldgrower.conversation.Conversations;
@@ -345,5 +347,23 @@ public enum Text {
 			conversationDescriptions.put(conversationKey, conversationDescription);
 		}
 		return conversationDescription;
+	}
+	
+	public void parse(TextParser textParser) {
+		String patternString = get();
+		Pattern pattern = Pattern.compile("\\{\\d*\\}");
+		Matcher matcher = pattern.matcher(patternString);
+		int lastMatchedEnd = 0;
+		while (matcher.find()) {
+			int start = matcher.start();
+			int end = matcher.end();
+			textParser.constantStringFound(patternString.substring(lastMatchedEnd, start));
+			String group = matcher.group();
+			textParser.variableFound(Integer.parseInt(group.substring(1, group.length() - 1)));
+			lastMatchedEnd = end;
+		}
+		if (lastMatchedEnd < patternString.length()) {
+			textParser.constantStringFound(patternString.substring(lastMatchedEnd, patternString.length()));
+		}
 	}
 }

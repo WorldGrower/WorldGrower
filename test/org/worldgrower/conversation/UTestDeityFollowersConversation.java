@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.DefaultConversationFormatter;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
@@ -43,22 +44,22 @@ public class UTestDeityFollowersConversation {
 		ConversationContext context = new ConversationContext(performer, target, null, null, world, indexOfDeity);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
 		assertEquals(true, replyPhrases.size() == 2);
-		assertEquals("I know no-one that is a worshipper of Hades", replyPhrases.get(0).getResponsePhrase());
-		assertEquals("No", replyPhrases.get(1).getResponsePhrase());
+		assertEquals("I know no-one that is a worshipper of Hades", replyPhrases.get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
+		assertEquals("No", replyPhrases.get(1).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 		
 		WorldObject subject = TestUtils.createIntelligentWorldObject(3, Constants.NAME, "subject");
 		world.addWorldObject(subject);
 		target.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(subject, Constants.DEITY, Deity.HADES);
 		
 		replyPhrases = conversation.getReplyPhrases(context);
-		assertEquals("I know that subject is a worshipper of Hades", replyPhrases.get(0).getResponsePhrase());
+		assertEquals("I know that subject is a worshipper of Hades", replyPhrases.get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 	
 		WorldObject subject2 = TestUtils.createIntelligentWorldObject(4, Constants.NAME, "subject2");
 		world.addWorldObject(subject2);
 		target.getProperty(Constants.KNOWLEDGE_MAP).addKnowledge(subject2, Constants.DEITY, Deity.HADES);
 	
 		replyPhrases = conversation.getReplyPhrases(context);
-		assertEquals("I know that subject, subject2 are worshippers of Hades", replyPhrases.get(0).getResponsePhrase());
+		assertEquals("I know that subject, subject2 are worshippers of Hades", replyPhrases.get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 
 	}
 
@@ -77,7 +78,7 @@ public class UTestDeityFollowersConversation {
 		ConversationContext context = new ConversationContext(performer, target, null, null, world, indexOfDeity);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
 		assertEquals(2, replyPhrases.size());
-		assertEquals("I follow Hades", replyPhrases.get(0).getResponsePhrase());
+		assertEquals("I follow Hades", replyPhrases.get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test

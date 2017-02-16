@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.DefaultConversationFormatter;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
@@ -40,10 +41,10 @@ public class UTestRelationshipConversation {
 		ConversationContext context = new ConversationContext(performer, target, subject, null, null, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
 		assertEquals(4, replyPhrases.size());
-		assertEquals("I don't know subject", replyPhrases.get(0).getResponsePhrase());
-		assertEquals("I like subject", replyPhrases.get(1).getResponsePhrase());
-		assertEquals("I really like subject", replyPhrases.get(2).getResponsePhrase());
-		assertEquals("I don't like subject", replyPhrases.get(3).getResponsePhrase());
+		assertEquals("I don't know subject", replyPhrases.get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
+		assertEquals("I like subject", replyPhrases.get(1).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
+		assertEquals("I really like subject", replyPhrases.get(2).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
+		assertEquals("I don't like subject", replyPhrases.get(3).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test

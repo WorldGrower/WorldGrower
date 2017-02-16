@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.DefaultConversationFormatter;
 import org.worldgrower.TestUtils;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.ManagedProperty;
@@ -42,8 +43,8 @@ public class UTestDemandsConversation {
 	public void testGetReplyPhrasesNoDemands() {
 		List<Response> replyPhrases = getReplyPhrases(new PropertyCountMap<>());
 		assertEquals(2, replyPhrases.size());
-		assertEquals("I'd like to buy ", replyPhrases.get(0).getResponsePhrase());
-		assertEquals("I'm not looking for anything to buy right now", replyPhrases.get(1).getResponsePhrase());
+		assertEquals("I'd like to buy ", replyPhrases.get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
+		assertEquals("I'm not looking for anything to buy right now", replyPhrases.get(1).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test
@@ -51,7 +52,7 @@ public class UTestDemandsConversation {
 		PropertyCountMap<ManagedProperty<?>> demands = new PropertyCountMap<>();
 		demands.add(Constants.FOOD, 1);
 		List<Response> replyPhrases = getReplyPhrases(demands);
-		assertEquals("I'd like to buy food", replyPhrases.get(0).getResponsePhrase());
+		assertEquals("I'd like to buy food", replyPhrases.get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test
@@ -60,7 +61,7 @@ public class UTestDemandsConversation {
 		demands.add(Constants.FOOD, 1);
 		demands.add(Constants.WATER, 1);
 		List<Response> replyPhrases = getReplyPhrases(demands);
-		assertEquals("I'd like to buy food and water", replyPhrases.get(0).getResponsePhrase());
+		assertEquals("I'd like to buy food and water", replyPhrases.get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test
@@ -70,7 +71,7 @@ public class UTestDemandsConversation {
 		demands.add(Constants.WATER, 1);
 		demands.add(Constants.WINE, 1);
 		List<Response> replyPhrases = getReplyPhrases(demands);
-		assertEquals("I'd like to buy food, water and wine", replyPhrases.get(0).getResponsePhrase());
+		assertEquals("I'd like to buy food, water and wine", replyPhrases.get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	private List<Response> getReplyPhrases(PropertyCountMap<ManagedProperty<?>> propertyCountMap) {

@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.DefaultConversationFormatter;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
@@ -43,10 +44,10 @@ public class UTestGiveMoneyConversation {
 		ConversationContext context = new ConversationContext(performer, target, null, null, null, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
 		assertEquals(4, replyPhrases.size());
-		assertEquals("Thanks", replyPhrases.get(0).getResponsePhrase());
-		assertEquals("Get lost", replyPhrases.get(1).getResponsePhrase());
-		assertEquals("Thanks again", replyPhrases.get(2).getResponsePhrase());
-		assertEquals("I won't take your bribe money, get lost", replyPhrases.get(3).getResponsePhrase());
+		assertEquals("Thanks", replyPhrases.get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
+		assertEquals("Get lost", replyPhrases.get(1).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
+		assertEquals("Thanks again", replyPhrases.get(2).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
+		assertEquals("I won't take your bribe money, get lost", replyPhrases.get(3).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test

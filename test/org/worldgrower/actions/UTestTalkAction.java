@@ -18,6 +18,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.DefaultConversationFormatter;
 import org.worldgrower.DungeonMaster;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.ManagedOperationListener;
@@ -247,7 +248,7 @@ public class UTestTalkAction {
 				WorldObject performer, WorldObject target, int[] args,
 				Object message) {
 			
-			this.message = ((Response)message).getResponsePhrase();
+			this.message = ((Response)message).getResponsePhrase(DefaultConversationFormatter.FORMATTER);
 		}
 
 		public String getMessage() {

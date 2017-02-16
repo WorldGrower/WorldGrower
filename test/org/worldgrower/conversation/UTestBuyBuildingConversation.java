@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.DefaultConversationFormatter;
 import org.worldgrower.DungeonMaster;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -42,8 +43,8 @@ public class UTestBuyBuildingConversation {
 		ConversationContext context = new ConversationContext(performer, target, null, null, null, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
 		assertEquals(true, replyPhrases.size() == 2);
-		assertEquals("Yes", replyPhrases.get(0).getResponsePhrase());
-		assertEquals("No", replyPhrases.get(1).getResponsePhrase());
+		assertEquals("Yes", replyPhrases.get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
+		assertEquals("No", replyPhrases.get(1).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test

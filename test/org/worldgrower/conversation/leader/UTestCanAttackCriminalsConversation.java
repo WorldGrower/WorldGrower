@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.DefaultConversationFormatter;
 import org.worldgrower.DoNothingWorldOnTurn;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -45,8 +46,8 @@ public class UTestCanAttackCriminalsConversation {
 		ConversationContext context = new ConversationContext(performer, target, null, null, null, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
 		assertEquals(2, replyPhrases.size());
-		assertEquals("Yes, you may become a sheriff", replyPhrases.get(0).getResponsePhrase());
-		assertEquals("No, you may not become a sheriff", replyPhrases.get(1).getResponsePhrase());
+		assertEquals("Yes, you may become a sheriff", replyPhrases.get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
+		assertEquals("No, you may not become a sheriff", replyPhrases.get(1).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test

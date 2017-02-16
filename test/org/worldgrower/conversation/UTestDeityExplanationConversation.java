@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.DefaultConversationFormatter;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
@@ -42,9 +43,9 @@ public class UTestDeityExplanationConversation {
 		ConversationContext context = new ConversationContext(performer, target, null, null, null, deityIndex);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
 		assertEquals(3, replyPhrases.size());
-		assertEquals("Aphrodite is the Goddess of love, beauty, desire, sex and pleasure.", replyPhrases.get(0).getResponsePhrase());
-		assertEquals("I don't know more about Aphrodite", replyPhrases.get(1).getResponsePhrase());
-		assertEquals("Get lost", replyPhrases.get(2).getResponsePhrase());
+		assertEquals("Aphrodite is the Goddess of love, beauty, desire, sex and pleasure.", replyPhrases.get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
+		assertEquals("I don't know more about Aphrodite", replyPhrases.get(1).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
+		assertEquals("Get lost", replyPhrases.get(2).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 	}
 
 	@Test

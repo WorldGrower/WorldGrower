@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.DefaultConversationFormatter;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
@@ -42,8 +43,8 @@ public class UTestProfessionConversation {
 		ConversationContext context = new ConversationContext(performer, target, null, null, null, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
 		assertEquals(4, replyPhrases.size());
-		assertEquals("I'm a farmer", replyPhrases.get(0).getResponsePhrase());
-		assertEquals("I don't have a profession", replyPhrases.get(1).getResponsePhrase());
+		assertEquals("I'm a farmer", replyPhrases.get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
+		assertEquals("I don't have a profession", replyPhrases.get(1).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test
@@ -84,7 +85,7 @@ public class UTestProfessionConversation {
 		
 		ConversationContext context = new ConversationContext(performer, target, null, null, null, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
-		assertEquals("I'm a farmer", replyPhrases.get(0).getResponsePhrase());
+		assertEquals("I'm a farmer", replyPhrases.get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test
@@ -102,7 +103,7 @@ public class UTestProfessionConversation {
 		
 		ConversationContext context = new ConversationContext(performer, target, null, null, null, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
-		assertEquals("I'm a wizard", replyPhrases.get(0).getResponsePhrase());
+		assertEquals("I'm a wizard", replyPhrases.get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test
@@ -120,6 +121,6 @@ public class UTestProfessionConversation {
 		
 		ConversationContext context = new ConversationContext(performer, target, null, null, null, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
-		assertEquals("I'm a carpenter", replyPhrases.get(0).getResponsePhrase());
+		assertEquals("I'm a carpenter", replyPhrases.get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 	}
 }

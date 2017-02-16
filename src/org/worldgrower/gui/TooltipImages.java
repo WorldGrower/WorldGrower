@@ -43,7 +43,7 @@ public class TooltipImages {
 			if (!startIndexmatchesExisting(remainingTooltip, startIndex)
 					&& !isMatchedByOverlappingTerm(description, remainingTooltip, startIndex)) {
 				String prefix = remainingTooltip.substring(0, startIndex);
-				String replacedValue = mapImageFunction.apply(imageId) + " " + description;
+				String replacedValue = formatImage(description, imageId, mapImageFunction);
 				String suffix = remainingTooltip.substring(endIndex, remainingTooltip.length());
 				changedTooltipBuilder.append(prefix).append(replacedValue);
 				remainingTooltip = suffix;
@@ -54,6 +54,10 @@ public class TooltipImages {
 			changedTooltipBuilder.append(remainingTooltip);
 		}
 		return changedTooltipBuilder.toString();
+	}
+	
+	public String formatImage(String description, ImageIds imageId, Function<ImageIds, String> mapImageFunction) {
+		return mapImageFunction.apply(imageId) + " " + description;
 	}
 
 	private boolean isMatchedByOverlappingTerm(String description, String remainingTooltip, int startIndex) {

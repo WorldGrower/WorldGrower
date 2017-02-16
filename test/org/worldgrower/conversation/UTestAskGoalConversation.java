@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.DefaultConversationFormatter;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
@@ -42,9 +43,9 @@ public class UTestAskGoalConversation {
 		ConversationContext context = new ConversationContext(performer, target, null, null, null, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
 		assertEquals(3, replyPhrases.size());
-		assertEquals("Yes, I'll start looking for wood", replyPhrases.get(0).getResponsePhrase());
-		assertEquals("I don't know what I would gain with additional looking for wood", replyPhrases.get(1).getResponsePhrase());
-		assertEquals("No", replyPhrases.get(2).getResponsePhrase());
+		assertEquals("Yes, I'll start looking for wood", replyPhrases.get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
+		assertEquals("I don't know what I would gain with additional looking for wood", replyPhrases.get(1).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
+		assertEquals("No", replyPhrases.get(2).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test

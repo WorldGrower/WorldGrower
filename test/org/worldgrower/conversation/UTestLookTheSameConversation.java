@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.DefaultConversationFormatter;
 import org.worldgrower.DungeonMaster;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -42,7 +43,7 @@ public class UTestLookTheSameConversation {
 		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
 		assertEquals(1, replyPhrases.size());
-		assertEquals("You look exactly like me. Who or what are you?", replyPhrases.get(0).getResponsePhrase());
+		assertEquals("You look exactly like me. Who or what are you?", replyPhrases.get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test

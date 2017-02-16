@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.DefaultConversationFormatter;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
@@ -43,7 +44,7 @@ public class UTestVoteLeaderOrganizationConversation {
 		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
 		assertEquals(1, replyPhrases.size());
-		assertEquals("Let's put it to a vote. From now for " + VotingPropertyUtils.getNumberOfTurnsCandidatesMayBeProposed(world) + " turns anyone can become a candidate for leader, and after that voting starts.", replyPhrases.get(0).getResponsePhrase());
+		assertEquals("Let's put it to a vote. From now for " + VotingPropertyUtils.getNumberOfTurnsCandidatesMayBeProposed(world) + " turns anyone can become a candidate for leader, and after that voting starts.", replyPhrases.get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	private WorldObject createVillagersOrganization(World world) {

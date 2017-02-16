@@ -382,8 +382,7 @@ public class AskQuestionDialog extends AbstractDialog implements ManagedOperatio
 	public void actionPerformed(ManagedOperation managedOperation, WorldObject performer, WorldObject target, int[] args, Object value) {
 		if (answerer.filterMessage(performer)) {
 			Response response = (Response) value;
-			String responsePhrase = response.getResponsePhrase();
-			responsePhrase = imageSubstituter.substituteImagesInHtml(responsePhrase);
+			String responsePhrase = response.getResponsePhrase(new ConversationFormatterImpl(imageSubstituter));
 			label.setText("<html>" + responsePhrase + "</html>");
 			relationshipProgresBar.setValue(answerer.getRelationshipValue());
 		}

@@ -42,7 +42,7 @@ public class ResponseListRenderer implements ListCellRenderer<Response> {
                                                 boolean isSelected,
                                                 boolean cellHasFocus) {
 		rendererTextPane.setText("");
-		imageSubstituter.subtituteImagesInTextPane(rendererTextPane, response.getResponsePhrase());
+		imageSubstituter.subtituteImagesInTextPane(rendererTextPane, response);
 		return rendererTextPane;
     }
 }

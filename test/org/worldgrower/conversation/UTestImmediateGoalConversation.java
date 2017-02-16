@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.DefaultConversationFormatter;
 import org.worldgrower.DungeonMaster;
 import org.worldgrower.ManagedOperation;
 import org.worldgrower.MockMetaInformation;
@@ -51,8 +52,8 @@ public class UTestImmediateGoalConversation {
 		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
 		assertEquals(2, replyPhrases.size());
-		assertEquals("I'm attacking targetName because I'm brawling", replyPhrases.get(0).getResponsePhrase());
-		assertEquals("I'm not doing anything", replyPhrases.get(1).getResponsePhrase());
+		assertEquals("I'm attacking targetName because I'm brawling", replyPhrases.get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
+		assertEquals("I'm not doing anything", replyPhrases.get(1).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test
@@ -104,7 +105,7 @@ public class UTestImmediateGoalConversation {
 		
 		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
-		assertEquals(replyPhrase, replyPhrases.get(0).getResponsePhrase());
+		assertEquals(replyPhrase, replyPhrases.get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test
@@ -123,7 +124,7 @@ public class UTestImmediateGoalConversation {
 		
 		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
-		assertEquals("I'm eating worldObject because I'm hungry and looking for food", replyPhrases.get(0).getResponsePhrase());
+		assertEquals("I'm eating worldObject because I'm hungry and looking for food", replyPhrases.get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 	}
 
 	@Test

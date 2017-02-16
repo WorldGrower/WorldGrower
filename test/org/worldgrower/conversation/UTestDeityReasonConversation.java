@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.DefaultConversationFormatter;
 import org.worldgrower.TestUtils;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.IdList;
@@ -38,7 +39,7 @@ public class UTestDeityReasonConversation {
 		ConversationContext context = new ConversationContext(performer, target, null, null, null, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
 		assertEquals(5, replyPhrases.size());
-		assertEquals("Hades rules the underworld and I worship him as a sign of respect for my relatives who are there.", replyPhrases.get(0).getResponsePhrase());
+		assertEquals("Hades rules the underworld and I worship him as a sign of respect for my relatives who are there.", replyPhrases.get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 	}
 
 
@@ -50,7 +51,7 @@ public class UTestDeityReasonConversation {
 		ConversationContext context = new ConversationContext(performer, target, null, null, null, 0);
 		
 		target.setProperty(Constants.REASONS, new ReasonsImpl());
-		target.getProperty(Constants.REASONS).addReason(Constants.DEITY, conversation.getReplyPhrases(context).get(0).getResponsePhrase());
+		target.getProperty(Constants.REASONS).addReason(Constants.DEITY, conversation.getReplyPhrases(context).get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 		
 		assertEquals(0, conversation.getReplyPhrase(context).getId());
 	}

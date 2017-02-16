@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.DefaultConversationFormatter;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
@@ -39,26 +40,26 @@ public class UTestFamilyConversation {
 		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
 		assertEquals(true, replyPhrases.size() == 2);
-		assertEquals("Yes", replyPhrases.get(0).getResponsePhrase());
-		assertEquals("No, I don't have a mate and I don't have children", replyPhrases.get(1).getResponsePhrase());
+		assertEquals("Yes", replyPhrases.get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
+		assertEquals("No, I don't have a mate and I don't have children", replyPhrases.get(1).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 	
 		addChild(target, world, 3, "subject");
 		
 		replyPhrases = conversation.getReplyPhrases(context);
-		assertEquals("Yes, I don't have a mate and I have 1 child", replyPhrases.get(0).getResponsePhrase());
-		assertEquals("No", replyPhrases.get(1).getResponsePhrase());
+		assertEquals("Yes, I don't have a mate and I have 1 child", replyPhrases.get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
+		assertEquals("No", replyPhrases.get(1).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 		
 		addMate(world, target, 4, "subject2");
 		
 		replyPhrases = conversation.getReplyPhrases(context);
-		assertEquals("Yes, I have a mate named subject2 and I have 1 child", replyPhrases.get(0).getResponsePhrase());
-		assertEquals("No", replyPhrases.get(1).getResponsePhrase());
+		assertEquals("Yes, I have a mate named subject2 and I have 1 child", replyPhrases.get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
+		assertEquals("No", replyPhrases.get(1).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 		
 		addChild(target, world, 5, "subject");
 		
 		replyPhrases = conversation.getReplyPhrases(context);
-		assertEquals("Yes, I have a mate named subject2 and I have 2 children", replyPhrases.get(0).getResponsePhrase());
-		assertEquals("No", replyPhrases.get(1).getResponsePhrase());
+		assertEquals("Yes, I have a mate named subject2 and I have 2 children", replyPhrases.get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
+		assertEquals("No", replyPhrases.get(1).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 	}
 
 	private void addMate(World world, WorldObject target, int id, String name) {

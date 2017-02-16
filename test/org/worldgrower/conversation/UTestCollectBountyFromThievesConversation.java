@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.DefaultConversationFormatter;
 import org.worldgrower.DungeonMaster;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -48,9 +49,9 @@ public class UTestCollectBountyFromThievesConversation {
 		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
 		assertEquals(3, replyPhrases.size());
-		assertEquals("I will pay the bounty", replyPhrases.get(0).getResponsePhrase());
-		assertEquals("I will spend my time in jail", replyPhrases.get(1).getResponsePhrase());
-		assertEquals("I resist arrest", replyPhrases.get(2).getResponsePhrase());
+		assertEquals("I will pay the bounty", replyPhrases.get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
+		assertEquals("I will spend my time in jail", replyPhrases.get(1).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
+		assertEquals("I resist arrest", replyPhrases.get(2).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test

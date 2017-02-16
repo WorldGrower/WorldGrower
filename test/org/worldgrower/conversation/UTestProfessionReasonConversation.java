@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.DefaultConversationFormatter;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -44,10 +45,10 @@ public class UTestProfessionReasonConversation {
 		ConversationContext context = new ConversationContext(performer, target, null, null, null, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
 		assertEquals(4, replyPhrases.size());
-		assertEquals("I like harvesting food", replyPhrases.get(0).getResponsePhrase());
-		assertEquals("I don't have a profession", replyPhrases.get(1).getResponsePhrase());
-		assertEquals("It's still the same as the last time you asked, I like harvesting food", replyPhrases.get(2).getResponsePhrase());
-		assertEquals("Like I said before, I like harvesting food", replyPhrases.get(3).getResponsePhrase());
+		assertEquals("I like harvesting food", replyPhrases.get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
+		assertEquals("I don't have a profession", replyPhrases.get(1).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
+		assertEquals("It's still the same as the last time you asked, I like harvesting food", replyPhrases.get(2).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
+		assertEquals("Like I said before, I like harvesting food", replyPhrases.get(3).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test

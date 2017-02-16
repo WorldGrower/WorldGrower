@@ -29,40 +29,15 @@ public class Response {
 	
 	private final int id;
 	private final int subjectId;
-	private final String responsePhrase;
 	private final boolean isPossible;
-	private /*final*/ Text text;
-	private /*final*/ Object[] objects;
+	private final Text text;
+	private final Object[] objects;
 	private int historyItemId = -1;
-	
-	@Deprecated
-	public Response(int id, WorldObject subject, String responsePhrase, boolean isPossible) {
-		this.id = id;
-		this.subjectId = (subject != null ? subject.getProperty(Constants.ID) : -1);
-		this.responsePhrase = responsePhrase;
-		this.isPossible = isPossible;
-	}
-	
-	@Deprecated
-	public Response(int id, WorldObject subject, String responsePhrase) {
-		this(id, subject, responsePhrase, RESPONSE_IS_POSSIBLE);
-	}
-	
-	@Deprecated
-	public Response(int id, String responsePhrase) {
-		this(id, null, responsePhrase, RESPONSE_IS_POSSIBLE);
-	}
-	
-	@Deprecated
-	public Response(int id, String responsePhrase, boolean isPossible) {
-		this(id, null, responsePhrase, isPossible);
-	}
 	
 	public Response(int id, WorldObject subject, Text text, Object... objects) {
 		this.id = id;
 		this.text = text;
 		this.subjectId = (subject != null ? subject.getProperty(Constants.ID) : -1);
-		this.responsePhrase = "";
 		this.isPossible = RESPONSE_IS_POSSIBLE;
 		this.objects = objects;
 	}
@@ -71,7 +46,6 @@ public class Response {
 		this.id = id;
 		this.text = text;
 		this.subjectId = -1;
-		this.responsePhrase = "";
 		this.isPossible = RESPONSE_IS_POSSIBLE;
 		this.objects = objects;
 	}
@@ -80,7 +54,6 @@ public class Response {
 		this.id = id;
 		this.text = text;
 		this.subjectId = -1;
-		this.responsePhrase = "";
 		this.isPossible = isPossible;
 		this.objects = objects;
 	}
@@ -93,22 +66,8 @@ public class Response {
 		return subjectId;
 	}
 
-	public String getResponsePhrase() {
-		List<String> args = new ArrayList<>();
-		for(Object object : objects) {
-			if (object instanceof String) {
-				args.add((String) object);
-			} else if (object instanceof Integer) {
-				args.add(((Integer) object).toString());
-			} else if (object instanceof WorldObject) {
-				args.add(((WorldObject) object).getProperty(Constants.NAME));
-			} else if (object instanceof Item) {
-				args.add(((Item) object).getDescription());
-			} else {
-				throw new IllegalStateException("Object " + object + " of class " + object.getClass() + " cannot be mapped");
-			}
-		}
-		return text.get(args);
+	public String getResponsePhrase(ConversationFormatter conversationFormatter) {
+		return conversationFormatter.format(text, objects);
 	}	
 
 	public boolean isPossible() {
@@ -121,10 +80,5 @@ public class Response {
 
 	public void setHistoryItemId(int historyItemId) {
 		this.historyItemId = historyItemId;
-	}
-
-	@Override
-	public String toString() {
-		return getResponsePhrase();
 	}
 }

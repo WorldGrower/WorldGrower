@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.DefaultConversationFormatter;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -45,8 +46,8 @@ public class UTestWhoIsLeaderOrganizationConversation {
 		ConversationContext context = new ConversationContext(performer, target, organization, null, null, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
 		assertEquals(3, replyPhrases.size());
-		assertEquals("OrgName has no leader at the moment", replyPhrases.get(0).getResponsePhrase());
-		assertEquals("That's none of your business", replyPhrases.get(1).getResponsePhrase());
+		assertEquals("OrgName has no leader at the moment", replyPhrases.get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
+		assertEquals("That's none of your business", replyPhrases.get(1).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test
@@ -59,7 +60,7 @@ public class UTestWhoIsLeaderOrganizationConversation {
 		
 		ConversationContext context = new ConversationContext(performer, target, organization, null, world, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
-		assertEquals("You are the leader of the OrgName", replyPhrases.get(0).getResponsePhrase());
+		assertEquals("You are the leader of the OrgName", replyPhrases.get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test
@@ -72,7 +73,7 @@ public class UTestWhoIsLeaderOrganizationConversation {
 		
 		ConversationContext context = new ConversationContext(performer, target, organization, null, world, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
-		assertEquals("I'm the leader of the OrgName", replyPhrases.get(0).getResponsePhrase());
+		assertEquals("I'm the leader of the OrgName", replyPhrases.get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test
@@ -87,7 +88,7 @@ public class UTestWhoIsLeaderOrganizationConversation {
 		
 		ConversationContext context = new ConversationContext(performer, target, organization, null, world, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
-		assertEquals("leader is the leader of the OrgName", replyPhrases.get(0).getResponsePhrase());
+		assertEquals("leader is the leader of the OrgName", replyPhrases.get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test

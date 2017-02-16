@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.DefaultConversationFormatter;
 import org.worldgrower.DungeonMaster;
 import org.worldgrower.MockMetaInformation;
 import org.worldgrower.TestUtils;
@@ -46,11 +47,11 @@ public class UTestBrawlConversation {
 		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
 		assertEquals(5, replyPhrases.size());
-		assertEquals("Yes, while we brawl, only unarmed non-lethal melee attacks are allowed.", replyPhrases.get(0).getResponsePhrase());
-		assertEquals("No", replyPhrases.get(1).getResponsePhrase());
-		assertEquals("I'd love to, but I'm currently attacking targetName", replyPhrases.get(2).getResponsePhrase());
-		assertEquals("Not for the moment, I can't match your bet.", replyPhrases.get(3).getResponsePhrase());
-		assertEquals("Get lost", replyPhrases.get(4).getResponsePhrase());
+		assertEquals("Yes, while we brawl, only unarmed non-lethal melee attacks are allowed.", replyPhrases.get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
+		assertEquals("No", replyPhrases.get(1).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
+		assertEquals("I'd love to, but I'm currently attacking targetName", replyPhrases.get(2).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
+		assertEquals("Not for the moment, I can't match your bet.", replyPhrases.get(3).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
+		assertEquals("Get lost", replyPhrases.get(4).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test
@@ -62,11 +63,11 @@ public class UTestBrawlConversation {
 		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
 		assertEquals(5, replyPhrases.size());
-		assertEquals("Yes, while we brawl, only unarmed non-lethal melee attacks are allowed.", replyPhrases.get(0).getResponsePhrase());
-		assertEquals("No", replyPhrases.get(1).getResponsePhrase());
-		assertEquals("I'd love to, but I'm currently resting", replyPhrases.get(2).getResponsePhrase());
-		assertEquals("Not for the moment, I can't match your bet.", replyPhrases.get(3).getResponsePhrase());
-		assertEquals("Get lost", replyPhrases.get(4).getResponsePhrase());
+		assertEquals("Yes, while we brawl, only unarmed non-lethal melee attacks are allowed.", replyPhrases.get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
+		assertEquals("No", replyPhrases.get(1).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
+		assertEquals("I'd love to, but I'm currently resting", replyPhrases.get(2).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
+		assertEquals("Not for the moment, I can't match your bet.", replyPhrases.get(3).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
+		assertEquals("Get lost", replyPhrases.get(4).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test

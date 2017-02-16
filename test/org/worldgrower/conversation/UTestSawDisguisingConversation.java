@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.DefaultConversationFormatter;
 import org.worldgrower.DungeonMaster;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -44,7 +45,7 @@ public class UTestSawDisguisingConversation {
 		ConversationContext context = new ConversationContext(performer, target, null, null, world, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
 		assertEquals(1, replyPhrases.size());
-		assertEquals("A good try, performer, but I saw you disguise yourself earlier", replyPhrases.get(0).getResponsePhrase());
+		assertEquals("A good try, performer, but I saw you disguise yourself earlier", replyPhrases.get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test

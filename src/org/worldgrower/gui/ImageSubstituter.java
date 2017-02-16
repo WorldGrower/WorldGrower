@@ -22,11 +22,15 @@ import java.util.Map.Entry;
 
 import javax.swing.JTextPane;
 
+import org.worldgrower.conversation.Response;
 import org.worldgrower.generator.Item;
 import org.worldgrower.generator.ItemType;
+import org.worldgrower.gui.conversation.ConversationArgumentFormatter;
+import org.worldgrower.gui.conversation.JTextPaneConversationFormatterImpl;
+import org.worldgrower.gui.conversation.TextConversationArgumentFormatter;
 import org.worldgrower.gui.util.JTextPaneUtils;
 
-public class ImageSubstituter {
+public class ImageSubstituter implements ConversationArgumentFormatter {
 
 	private final TooltipImages tooltipImages = new TooltipImages();
 	private final ImageInfoReader imageInfoReader;
@@ -53,6 +57,10 @@ public class ImageSubstituter {
 			changedText = tooltipImages.substituteImages(changedText, mapping.getKey(), mapping.getValue(), textPaneMapper::addImage);
 		}
 		textPaneMapper.addText(changedText);
+	}
+	
+	public void subtituteImagesInTextPane(JTextPane textPane, Response response) {
+		response.getResponsePhrase(new JTextPaneConversationFormatterImpl(textPane, new TextConversationArgumentFormatter(), imageInfoReader));
 	}
 
 	private List<Item> itemsToSubstitute() {
@@ -114,6 +122,21 @@ public class ImageSubstituter {
 				currentIndex++;
 			}
 			JTextPaneUtils.appendTextUsingLabel(textPane, remainingText.substring(previousIndex));
+		}
+	}
+
+	@Override
+	public String formatObject(Object object) {
+		if (object instanceof Item) {
+			Item item = (Item) object;
+			if (itemsToSubstitute().contains(item)) {
+				return tooltipImages.formatImage(item.getDescription(), item.getImageId(), imageInfoReader::smallImageTag);
+			} else {
+				return item.getDescription();
+			}
+		} else {
+			TextConversationArgumentFormatter textConversationArgumentFormatter = new TextConversationArgumentFormatter();
+			return textConversationArgumentFormatter.formatObject(object);
 		}
 	}
 }

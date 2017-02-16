@@ -15,6 +15,7 @@
 package org.worldgrower.text;
 
 import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
 public class UTestText {
@@ -28,5 +29,40 @@ public class UTestText {
 	@Test
 	public void testValidate() {
 		Text.getConversationDescriptions();
+	}
+	
+	@Test
+	public void testParse() {
+		TextParser textParser = createTextParser();
+		Text.ANSWER_ANGRY_GETLOST.parse(textParser);
+		assertEquals("Get lost", textParser.toString());
+		
+		textParser = createTextParser();
+		Text.QUESTION_SET_PRICE.parse(textParser);
+		assertEquals("I'd like to set the price for {0} for {1} to {2}, can you take care of this?", textParser.toString());
+		
+		textParser = createTextParser();
+		Text.QUESTION_SHARE_KNOWLEDGE.parse(textParser);
+		assertEquals("{0}", textParser.toString());
+	}
+
+	private TextParser createTextParser() {
+		return new TextParser() {
+			StringBuilder builder = new StringBuilder();
+			@Override
+			public void variableFound(int index) {
+				builder.append("{").append(index).append("}");
+			}
+			
+			@Override
+			public void constantStringFound(String string) {
+				builder.append(string);
+			}
+			
+			@Override
+			public String toString() {
+				return builder.toString();
+			}
+		};
 	}
 }

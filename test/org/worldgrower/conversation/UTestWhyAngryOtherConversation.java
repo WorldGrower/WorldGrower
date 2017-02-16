@@ -21,6 +21,7 @@ import java.util.List;
 import org.junit.Test;
 import org.worldgrower.Args;
 import org.worldgrower.Constants;
+import org.worldgrower.DefaultConversationFormatter;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
@@ -48,16 +49,16 @@ public class UTestWhyAngryOtherConversation {
 		ConversationContext context = new ConversationContext(performer, target, subject, null, world, 0);
 		List<Response> replyPhrases = conversation.getReplyPhrases(context);
 		assertEquals(true, replyPhrases.size() == 2);
-		assertEquals("I don't remember", replyPhrases.get(0).getResponsePhrase());
-		assertEquals("Get lost", replyPhrases.get(1).getResponsePhrase());
+		assertEquals("I don't remember", replyPhrases.get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
+		assertEquals("Get lost", replyPhrases.get(1).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 		
 		target.getProperty(Constants.BACKGROUND).addGoalObstructed(Goals.PROTECT_ONE_SELF_GOAL, subject, target, Actions.MELEE_ATTACK_ACTION, Args.EMPTY, world);
 		replyPhrases = conversation.getReplyPhrases(context);
-		assertEquals("She was attacking me", replyPhrases.get(0).getResponsePhrase());
+		assertEquals("She was attacking me", replyPhrases.get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 
 		target.getProperty(Constants.BACKGROUND).addGoalObstructed(Goals.PROTECT_ONE_SELF_GOAL, subject, performer, Actions.PARALYZE_SPELL_ACTION, Args.EMPTY, world);
 		replyPhrases = conversation.getReplyPhrases(context);
-		assertEquals("She was attacking me; She was casting paralyze on performerName", replyPhrases.get(0).getResponsePhrase());
+		assertEquals("She was attacking me; She was casting paralyze on performerName", replyPhrases.get(0).getResponsePhrase(DefaultConversationFormatter.FORMATTER));
 	}
 
 	@Test
