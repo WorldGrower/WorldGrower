@@ -55,7 +55,7 @@ public class RelationshipConversation implements Conversation {
 
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subject, World world) {
-		return Arrays.asList(new Question(subject, Text.QUESTION_RELATIONSHIP.get(subject.getProperty(Constants.NAME))));
+		return Arrays.asList(new Question(subject, Text.QUESTION_RELATIONSHIP, subject.getProperty(Constants.NAME)));
 	}
 
 	@Override

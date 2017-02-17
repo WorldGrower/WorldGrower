@@ -75,7 +75,7 @@ public class UTestAskGoalConversation {
 		
 		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, subject, null);
 		assertEquals(true, questions.size() > 0);
-		assertEquals("Can you go start looking for wood?", questions.get(0).getQuestionPhrase());
+		assertEquals("Can you go start looking for wood?", questions.get(0).getQuestionPhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test

@@ -49,7 +49,7 @@ public class VoteLeaderOrganizationConversation implements Conversation {
 				if (performer.getProperty(Constants.GROUP).contains(organization)) {
 					boolean voteAlreadyInProgress = world.findWorldObjects(w -> VotingPropertyUtils.isVotingBoxForOrganization(w, organization)).size() > 0;
 					if (!voteAlreadyInProgress) {
-						questions.add(new Question(organization, Text.QUESTION_VOTE_LEADER.get(organization.getProperty(Constants.NAME))));
+						questions.add(new Question(organization, Text.QUESTION_VOTE_LEADER, organization.getProperty(Constants.NAME)));
 					}
 				}
 			}

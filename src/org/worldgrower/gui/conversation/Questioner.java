@@ -16,10 +16,11 @@ package org.worldgrower.gui.conversation;
 
 import java.util.List;
 
+import org.worldgrower.conversation.ConversationFormatter;
 import org.worldgrower.conversation.Response;
 
 public interface Questioner {
-	public String getQuestionPhrase();
+	public String getQuestionPhrase(ConversationFormatter conversationFormatter);
 	public List<Response> getResponsePhrases(int id, int subjectId, int historyItemId, int additionalValue, int additionalValue2);
 	public int getRelationshipValue();
 }

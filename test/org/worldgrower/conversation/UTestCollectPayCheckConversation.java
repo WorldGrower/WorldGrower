@@ -79,7 +79,7 @@ public class UTestCollectPayCheckConversation {
 		
 		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, null, world);
 		assertEquals(1, questions.size());
-		assertEquals("I'm here to collect my pay check of 0 gold. Will you pay?", questions.get(0).getQuestionPhrase());
+		assertEquals("I'm here to collect my pay check of 0 gold. Will you pay?", questions.get(0).getQuestionPhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test

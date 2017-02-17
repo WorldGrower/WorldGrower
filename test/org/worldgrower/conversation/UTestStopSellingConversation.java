@@ -70,7 +70,7 @@ public class UTestStopSellingConversation {
 		
 		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, null, null);
 		assertEquals(1, questions.size());
-		assertEquals("You recently sold beds. Can you stop doing that?", questions.get(0).getQuestionPhrase());
+		assertEquals("You recently sold beds. Can you stop doing that?", questions.get(0).getQuestionPhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test

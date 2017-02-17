@@ -46,7 +46,7 @@ public class UTestConversations {
 	
 	@Test
 	public void testGetQuestionPhrase() {
-		String questionPhrase = conversations.getQuestionPhrase(0, -1, -1, performer, target, world);
+		String questionPhrase = conversations.getQuestionPhrase(0, -1, -1, performer, target, world, DefaultConversationFormatter.FORMATTER);
 		assertEquals("What is your name?", questionPhrase);
 	}
 	

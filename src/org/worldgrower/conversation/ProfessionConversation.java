@@ -60,7 +60,7 @@ public class ProfessionConversation implements Conversation {
 
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
-		return Arrays.asList(new Question(null, Text.QUESTION_PROFESSION.get()));
+		return Arrays.asList(new Question(Text.QUESTION_PROFESSION));
 	}
 	
 	@Override

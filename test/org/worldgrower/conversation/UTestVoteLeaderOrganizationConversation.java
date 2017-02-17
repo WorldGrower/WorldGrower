@@ -77,7 +77,7 @@ public class UTestVoteLeaderOrganizationConversation {
 		
 		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, null, world);
 		assertEquals(1, questions.size());
-		assertEquals("I want to vote on leadership for the OrgName", questions.get(0).getQuestionPhrase());
+		assertEquals("I want to vote on leadership for the OrgName", questions.get(0).getQuestionPhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test

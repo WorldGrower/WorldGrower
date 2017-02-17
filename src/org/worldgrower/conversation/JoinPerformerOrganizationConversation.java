@@ -58,7 +58,7 @@ public class JoinPerformerOrganizationConversation implements Conversation {
 			WorldObject organization = world.findWorldObjectById(organizationId);
 			if (GroupPropertyUtils.hasAuthorityToAddMembers(performer, organization, world)) {
 				if (GroupPropertyUtils.canJoinOrganization(target, organization)) {
-					questions.add(new Question(organization, Text.QUESTION_JOIN_PERFORMER_ORG.get(organization.getProperty(Constants.NAME))));
+					questions.add(new Question(organization, Text.QUESTION_JOIN_PERFORMER_ORG, organization.getProperty(Constants.NAME)));
 				}
 			}
 		}

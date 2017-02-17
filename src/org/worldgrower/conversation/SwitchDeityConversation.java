@@ -55,7 +55,7 @@ public class SwitchDeityConversation implements Conversation {
 		
 		List<Question> questions = new ArrayList<>();
 		if (performerDeity != null) {
-			questions.add(new Question(null, Text.QUESTION_SWITCH_DEITY.get(performerDeity.getName())));
+			questions.add(new Question(Text.QUESTION_SWITCH_DEITY, performerDeity.getName()));
 		}
 		return questions;
 	}

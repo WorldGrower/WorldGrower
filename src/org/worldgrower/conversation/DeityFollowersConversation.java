@@ -55,7 +55,7 @@ public class DeityFollowersConversation implements Conversation {
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		List<Question> questions = new ArrayList<>();
 		for(Deity deity : Deity.getAllSortedDeities()) {
-			questions.add(new Question(null, Text.QUESTION_DEITY_FOLLOWERS.get(deity.getName()), Deity.getAllSortedDeities().indexOf(deity)));
+			questions.add(new Question(Deity.getAllSortedDeities().indexOf(deity), Text.QUESTION_DEITY_FOLLOWERS, deity.getName()));
 		}
 		return questions;
 	}

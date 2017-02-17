@@ -72,7 +72,7 @@ public class UTestShareKnowledgeConversation {
 		
 		questions = conversation.getQuestionPhrases(performer, target, null, null, world);
 		assertEquals(1, questions.size());
-		assertEquals("Did you know that subject worships Hades?", questions.get(0).getQuestionPhrase());
+		assertEquals("Did you know that subject worships Hades?", questions.get(0).getQuestionPhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test

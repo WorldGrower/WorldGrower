@@ -25,7 +25,7 @@ public class NicerConversation extends AbstractChangeOpinionConversation {
 
 	@Override
 	public Question createQuestion(WorldObject performer, WorldObject target, WorldObject subject) {
-		return new Question(subject, Text.QUESTION_NICE.get(subject.getProperty(Constants.NAME)));
+		return new Question(subject, Text.QUESTION_NICE, subject.getProperty(Constants.NAME));
 	}
 
 	@Override

@@ -64,7 +64,7 @@ public class UTestBuyBuildingConversation {
 		
 		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, null, null);
 		assertEquals(1, questions.size());
-		assertEquals("Will you sell me a house?", questions.get(0).getQuestionPhrase());
+		assertEquals("Will you sell me a house?", questions.get(0).getQuestionPhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test

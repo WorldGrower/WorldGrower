@@ -36,7 +36,7 @@ public class UTestDemandsConversation {
 		WorldObject target = TestUtils.createIntelligentWorldObject(1, Constants.DEMANDS, demands);
 		List<Question> questions = conversation.getQuestionPhrases(null, target, null, null, null);
 		assertEquals(1, questions.size());
-		assertEquals("What would you like to buy?", questions.get(0).getQuestionPhrase());
+		assertEquals("What would you like to buy?", questions.get(0).getQuestionPhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test

@@ -130,7 +130,11 @@ public class ImageSubstituter implements ConversationArgumentFormatter {
 		if (object instanceof Item) {
 			Item item = (Item) object;
 			if (itemsToSubstitute().contains(item)) {
-				return tooltipImages.formatImage(item.getDescription(), item.getImageId(), imageInfoReader::smallImageTag);
+				ImageIds imageId = item.getImageId();
+				if (item == Item.GOLD) {
+					imageId = ImageIds.SMALL_GOLD_COIN;
+				}
+				return tooltipImages.formatImage(item.getDescription(), imageId, imageInfoReader::smallImageTag);
 			} else {
 				return item.getDescription();
 			}

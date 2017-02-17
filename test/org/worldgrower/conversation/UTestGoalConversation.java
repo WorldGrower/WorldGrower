@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.DefaultConversationFormatter;
 import org.worldgrower.TestUtils;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.IdList;
@@ -35,6 +36,6 @@ public class UTestGoalConversation {
 		
 		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, null, null);
 		assertEquals(1, questions.size());
-		assertEquals("What is your current goal?", questions.get(0).getQuestionPhrase());
+		assertEquals("What is your current goal?", questions.get(0).getQuestionPhrase(DefaultConversationFormatter.FORMATTER));
 	}
 }

@@ -49,6 +49,7 @@ import org.worldgrower.ManagedOperation;
 import org.worldgrower.ManagedOperationListener;
 import org.worldgrower.WorldObject;
 import org.worldgrower.conversation.ConversationCategory;
+import org.worldgrower.conversation.ConversationFormatter;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.conversation.Question;
 import org.worldgrower.conversation.Response;
@@ -74,7 +75,7 @@ public class AskQuestionDialog extends AbstractDialog implements ManagedOperatio
 	private final JProgressBar relationshipProgresBar;
 	private final SoundIdReader soundIdReader;
 	private final ImageInfoReader imageInfoReader;
-	private final ImageSubstituter imageSubstituter;
+	private final ConversationFormatter conversationFormatter;
 	
 	private class ExecuteQuestionAction extends AbstractAction implements ActionContainingArgs {
 		
@@ -134,7 +135,8 @@ public class AskQuestionDialog extends AbstractDialog implements ManagedOperatio
 		this.answerer = answerer;
 		this.soundIdReader = soundIdReader;
 		this.imageInfoReader = imageInfoReader;
-		this.imageSubstituter = new ImageSubstituter(imageInfoReader, ImageSubstitutionMode.GOLD);
+		ImageSubstituter imageSubstituter = new ImageSubstituter(imageInfoReader, ImageSubstitutionMode.GOLD);
+		this.conversationFormatter = new ConversationFormatterImpl(imageSubstituter);
 		
 		KeyStroke stroke = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
         rootPane.registerKeyboardAction(new CloseDialogAction(), stroke, JComponent.WHEN_IN_FOCUSED_WINDOW);
@@ -259,8 +261,8 @@ public class AskQuestionDialog extends AbstractDialog implements ManagedOperatio
 	}
 	
 	private String getDescriptionForQuestions(List<Question> questions) {
-		String firstQuestion = questions.get(0).getQuestionPhrase();
-		String lastQuestion = questions.get(questions.size()-1).getQuestionPhrase();
+		String firstQuestion = questions.get(0).getQuestionPhrase(conversationFormatter);
+		String lastQuestion = questions.get(questions.size()-1).getQuestionPhrase(conversationFormatter);
 		int indexOfFirstDifferingCharacter = indexOfFirstDifferingCharacter(firstQuestion, lastQuestion);
 		if (indexOfFirstDifferingCharacter != -1) {
 			int firstQuestionEndIndex = Math.min(indexOfFirstDifferingCharacter+15, firstQuestion.length());
@@ -347,10 +349,7 @@ public class AskQuestionDialog extends AbstractDialog implements ManagedOperatio
 	}
 
 	private JMenuItem createQuestionMenuItem(ImageInfoReader imageInfoReader, Map<Integer, ImageIds> subjectImageIds, Question question) {
-		String questionPhrase = question.getQuestionPhrase();
-		if (questionPhrase.indexOf("gold") != -1) {
-			questionPhrase = "<html>" + imageSubstituter.substituteImagesInHtml(questionPhrase) + "</html>";
-		}
+		String questionPhrase = "<html>" + question.getQuestionPhrase(conversationFormatter) + "</html>";
 		JMenuItem questionMenuItem = MenuFactory.createJMenuItem(questionPhrase, soundIdReader);
 		int subjectId = question.getSubjectId();
 		ImageIds subjectImageId = subjectImageIds.get(subjectId);
@@ -382,7 +381,7 @@ public class AskQuestionDialog extends AbstractDialog implements ManagedOperatio
 	public void actionPerformed(ManagedOperation managedOperation, WorldObject performer, WorldObject target, int[] args, Object value) {
 		if (answerer.filterMessage(performer)) {
 			Response response = (Response) value;
-			String responsePhrase = response.getResponsePhrase(new ConversationFormatterImpl(imageSubstituter));
+			String responsePhrase = response.getResponsePhrase(conversationFormatter);
 			label.setText("<html>" + responsePhrase + "</html>");
 			relationshipProgresBar.setValue(answerer.getRelationshipValue());
 		}

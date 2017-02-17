@@ -65,7 +65,7 @@ public class UTestGiveFoodConversation {
 		
 		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, null, null);
 		assertEquals(1, questions.size());
-		assertEquals("Would you like to have some food?", questions.get(0).getQuestionPhrase());
+		assertEquals("Would you like to have some food?", questions.get(0).getQuestionPhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test

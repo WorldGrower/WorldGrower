@@ -52,7 +52,7 @@ public class MergeOrganizationsConversation implements Conversation {
 		List<Question> questions = new ArrayList<>();
 		
 		String organizationName = subject.getProperty(Constants.NAME);
-		questions.add(new Question(subject, Text.QUESTION_MERGE_ORG.get(organizationName)));
+		questions.add(new Question(subject, Text.QUESTION_MERGE_ORG, organizationName));
 		return questions;
 	}
 	

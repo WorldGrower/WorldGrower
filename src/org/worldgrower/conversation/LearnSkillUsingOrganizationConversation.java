@@ -54,7 +54,7 @@ public class LearnSkillUsingOrganizationConversation implements Conversation {
 		Profession profession = performer.getProperty(Constants.PROFESSION);
 		WorldObject organization = GroupPropertyUtils.findProfessionOrganization(performer, world);
 		
-		return Arrays.asList(new Question(organization, Text.QUESTION_LEARN_SKILL.get(profession.getDescription(), organization.getProperty(Constants.NAME))));
+		return Arrays.asList(new Question(organization, Text.QUESTION_LEARN_SKILL, profession.getDescription(), organization.getProperty(Constants.NAME)));
 	}
 	
 	@Override

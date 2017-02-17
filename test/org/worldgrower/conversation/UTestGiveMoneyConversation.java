@@ -97,7 +97,7 @@ public class UTestGiveMoneyConversation {
 		
 		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, null, null);
 		assertEquals(1, questions.size());
-		assertEquals("Would you like to have 100 gold?", questions.get(0).getQuestionPhrase());
+		assertEquals("Would you like to have 100 gold?", questions.get(0).getQuestionPhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test

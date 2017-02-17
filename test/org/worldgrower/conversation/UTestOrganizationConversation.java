@@ -109,6 +109,6 @@ public class UTestOrganizationConversation {
 		
 		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, null, null);
 		assertEquals(1, questions.size());
-		assertEquals("What organizations do you belong to?", questions.get(0).getQuestionPhrase());
+		assertEquals("What organizations do you belong to?", questions.get(0).getQuestionPhrase(DefaultConversationFormatter.FORMATTER));
 	}
 }

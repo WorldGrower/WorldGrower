@@ -60,7 +60,7 @@ public class DeityExplanationConversation implements Conversation {
 		List<Question> questions = new ArrayList<>();
 		for(Deity deity : Deity.ALL_DEITIES) {
 			int indexOfDeity = Deity.ALL_DEITIES.indexOf(deity);
-			questions.add(new Question(null, Text.QUESTION_DEITY_EXPLANATION.get(deity.getName()), indexOfDeity));
+			questions.add(new Question(indexOfDeity, Text.QUESTION_DEITY_EXPLANATION, deity.getName()));
 		}
 		return questions;
 	}

@@ -72,7 +72,7 @@ public class UTestDeityExplanationConversation {
 		
 		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, null, null);
 		assertEquals(13, questions.size());
-		assertEquals("What can you tell me about Aphrodite", questions.get(0).getQuestionPhrase());
+		assertEquals("What can you tell me about Aphrodite", questions.get(0).getQuestionPhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test

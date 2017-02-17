@@ -57,7 +57,7 @@ public class AssassinateTargetConversation implements Conversation {
 
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subject, World world) {
-		return Arrays.asList(new Question(subject, Text.QUESTION_ASSASSINATE_TARGET.get(subject.getProperty(Constants.NAME))));
+		return Arrays.asList(new Question(subject, Text.QUESTION_ASSASSINATE_TARGET, subject));
 	}
 
 	@Override

@@ -55,7 +55,7 @@ public class GiveMoneyConversation implements Conversation {
 
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
-		return Arrays.asList(new Question(null, Text.QUESTION_GIVE_MONEY.get()));
+		return Arrays.asList(new Question(Text.QUESTION_GIVE_MONEY, GOLD));
 	}
 
 	@Override

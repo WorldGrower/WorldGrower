@@ -65,7 +65,7 @@ public class WhoIsLeaderOrganizationConversation implements Conversation {
 		for(int organizationId : targetOrganizations.getIds()) {
 			WorldObject organization = world.findWorldObjectById(organizationId);
 			if (GroupPropertyUtils.canChangeLeaderOfOrganization(organization)) {
-				questions.add(new Question(organization, Text.QUESTION_LEADER.get(organization.getProperty(Constants.NAME))));
+				questions.add(new Question(organization, Text.QUESTION_LEADER, organization.getProperty(Constants.NAME)));
 			}
 		}
 		

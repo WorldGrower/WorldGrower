@@ -86,7 +86,7 @@ public class UTestProposeMateConversation {
 		
 		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, subject, null);
 		assertEquals(1, questions.size());
-		assertEquals("Would you like to become my mate?", questions.get(0).getQuestionPhrase());
+		assertEquals("Would you like to become my mate?", questions.get(0).getQuestionPhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test

@@ -58,7 +58,7 @@ public class UTestBreakupWithMateConversation {
 		
 		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, null, null);
 		assertEquals(1, questions.size());
-		assertEquals("I want to break up with you", questions.get(0).getQuestionPhrase());
+		assertEquals("I want to break up with you", questions.get(0).getQuestionPhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test

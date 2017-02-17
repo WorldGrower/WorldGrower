@@ -22,18 +22,18 @@ import org.worldgrower.text.Text;
 
 public class ConversationFormatterImpl implements ConversationFormatter {
 
-	private final ConversationArgumentFormatter conversationRenderer;
+	private final ConversationArgumentFormatter conversationArgumentFormatter;
 
-	public ConversationFormatterImpl(ConversationArgumentFormatter conversationRenderer) {
+	public ConversationFormatterImpl(ConversationArgumentFormatter conversationArgumentFormatter) {
 		super();
-		this.conversationRenderer = conversationRenderer;
+		this.conversationArgumentFormatter = conversationArgumentFormatter;
 	}
 
 	@Override
 	public String format(Text text, Object[] objects) {
 		List<String> args = new ArrayList<>();
 		for(Object object : objects) {
-			args.add(conversationRenderer.formatObject(object));
+			args.add(conversationArgumentFormatter.formatObject(object));
 		}
 		return text.get(args);
 	}	

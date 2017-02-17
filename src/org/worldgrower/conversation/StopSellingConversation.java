@@ -55,7 +55,7 @@ public class StopSellingConversation implements Conversation {
 		
 		for(Item item : items) {
 			String itemSuffix = getItemSuffix(item);
-			questions.add(new Question(null, Text.QUESTION_STOP_SELLING.get(item.getDescription() + itemSuffix), item.ordinal()));
+			questions.add(new Question(item.ordinal(), Text.QUESTION_STOP_SELLING, item.getDescription() + itemSuffix));
 		}
 		
 		return questions;

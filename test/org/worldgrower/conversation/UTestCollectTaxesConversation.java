@@ -84,7 +84,7 @@ public class UTestCollectTaxesConversation {
 		
 		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, null, world);
 		assertEquals(1, questions.size());
-		assertEquals("I'm here to collect your taxes. The taxes are 0 gold. Will you pay your taxes?", questions.get(0).getQuestionPhrase());
+		assertEquals("I'm here to collect your taxes. The taxes are 0 gold. Will you pay your taxes?", questions.get(0).getQuestionPhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test

@@ -74,7 +74,7 @@ public class UTestRelationshipConversation {
 		
 		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, subject, null);
 		assertEquals(1, questions.size());
-		assertEquals("What do you think about subject?", questions.get(0).getQuestionPhrase());
+		assertEquals("What do you think about subject?", questions.get(0).getQuestionPhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test

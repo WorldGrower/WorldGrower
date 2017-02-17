@@ -150,6 +150,6 @@ public class UTestImmediateGoalConversation {
 		
 		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, null, null);
 		assertEquals(1, questions.size());
-		assertEquals("What are you doing?", questions.get(0).getQuestionPhrase());
+		assertEquals("What are you doing?", questions.get(0).getQuestionPhrase(DefaultConversationFormatter.FORMATTER));
 	}
 }

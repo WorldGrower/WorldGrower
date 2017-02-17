@@ -75,7 +75,7 @@ public class UTestPayBountyConversation {
 		
 		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, null, world);
 		assertEquals(1, questions.size());
-		assertEquals("I'm here to pay my bounty, 40 gold, what will you do?", questions.get(0).getQuestionPhrase());
+		assertEquals("I'm here to pay my bounty, 40 gold, what will you do?", questions.get(0).getQuestionPhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test

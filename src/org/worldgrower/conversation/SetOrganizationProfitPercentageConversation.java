@@ -54,7 +54,7 @@ public class SetOrganizationProfitPercentageConversation implements Conversation
 								for(Item item : profession.getSellItems()) {
 									int itemIndex = item.ordinal();
 									int price = item.getPrice() * (1 + profitPercentage/100);
-									questions.add(new Question(organization, Text.QUESTION_SET_PRICE.get(item.getDescription(), organization.getProperty(Constants.NAME), Integer.toString(price)), itemIndex, price));
+									questions.add(new Question(organization, itemIndex, price, Text.QUESTION_SET_PRICE, item.getDescription(), organization.getProperty(Constants.NAME), price));
 								}
 							}
 						}

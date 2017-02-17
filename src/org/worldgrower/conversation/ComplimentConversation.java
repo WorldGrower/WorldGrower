@@ -64,8 +64,8 @@ public class ComplimentConversation implements Conversation {
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		return Arrays.asList(
-			new Question(null, Text.QUESTION_COMPLIMENT_STRONG.get()),
-			new Question(null, Text.QUESTION_COMPLIMENT_HANDSOME.get())
+			new Question(Text.QUESTION_COMPLIMENT_STRONG),
+			new Question(Text.QUESTION_COMPLIMENT_HANDSOME)
 			);
 	}
 

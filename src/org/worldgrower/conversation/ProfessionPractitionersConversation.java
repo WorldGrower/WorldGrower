@@ -57,7 +57,7 @@ public class ProfessionPractitionersConversation implements Conversation {
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		List<Question> questions = new ArrayList<>();
 		for(Profession profession : Professions.getAllSortedProfessions()) {
-			questions.add(new Question(null, Text.QUESTION_PROFESSION_USERS.get(profession.getDescription()), Professions.getAllSortedProfessions().indexOf(profession)));
+			questions.add(new Question(Professions.getAllSortedProfessions().indexOf(profession), Text.QUESTION_PROFESSION_USERS, profession.getDescription()));
 		}
 		return questions;
 	}

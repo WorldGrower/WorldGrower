@@ -71,7 +71,7 @@ public class UTestAssassinateTargetConversation {
 		
 		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, subject, null);
 		assertEquals(1, questions.size());
-		assertEquals("Would you like me to get rid of subject? If you agree, it'll cost you 100 gold.", questions.get(0).getQuestionPhrase());
+		assertEquals("Would you like me to get rid of subject? If you agree, it'll cost you 100 gold.", questions.get(0).getQuestionPhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test

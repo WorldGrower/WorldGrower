@@ -52,7 +52,7 @@ public class CureDiseaseConversation implements Conversation {
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		return Arrays.asList(
-			new Question(null, Text.QUESTION_CURE_DISEASE.get())
+			new Question(Text.QUESTION_CURE_DISEASE)
 			);
 	}
 

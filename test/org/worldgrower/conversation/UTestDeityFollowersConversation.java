@@ -105,7 +105,7 @@ public class UTestDeityFollowersConversation {
 		
 		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, null, null);
 		assertEquals(true, questions.size() > 0);
-		assertEquals("Do you know any people who worship Aphrodite?", questions.get(0).getQuestionPhrase());
+		assertEquals("Do you know any people who worship Aphrodite?", questions.get(0).getQuestionPhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test

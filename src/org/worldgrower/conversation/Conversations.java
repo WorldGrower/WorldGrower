@@ -291,7 +291,7 @@ public class Conversations implements Serializable {
 		return dummySubject;
 	}
 	
-	public String getQuestionPhrase(int index, int subjectId, int historyItemId, WorldObject performer, WorldObject target, World world) {
+	public String getQuestionPhrase(int index, int subjectId, int historyItemId, WorldObject performer, WorldObject target, World world, ConversationFormatter conversationFormatter) {
 		HistoryItem questionHistoryItem = getQuestionHistoryItem(historyItemId, world);
 		WorldObject subject = getSubject(subjectId, world);
 		List<Question> questions = CONVERSATIONS.get(index).getQuestionPhrases(performer, target, questionHistoryItem, subject, world);
@@ -300,7 +300,7 @@ public class Conversations implements Serializable {
 			throw new IllegalStateException("No question found for conversation " + CONVERSATIONS.get(index) + " and subjectId " + subjectId + " in " + questions);
 		}
 		
-		return questionsBySubjectId.get(0).getQuestionPhrase();
+		return questionsBySubjectId.get(0).getQuestionPhrase(conversationFormatter);
 	}
 	
 	private HistoryItem getQuestionHistoryItem(int historyItemId, World world) {

@@ -69,7 +69,7 @@ public class UTestSwitchDeityConversation {
 		
 		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, null, null);
 		assertEquals(true, questions.size() > 0);
-		assertEquals("Would you like to worship Hades instead of your current deity?", questions.get(0).getQuestionPhrase());
+		assertEquals("Would you like to worship Hades instead of your current deity?", questions.get(0).getQuestionPhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test

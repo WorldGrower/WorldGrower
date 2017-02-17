@@ -52,7 +52,7 @@ public class PayBountyConversation implements Conversation {
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		int bounty = BountyPropertyUtils.getBounty(performer, world);
-		return Arrays.asList(new Question(null, Text.QUESTION_PAY_BOUNTY.get(bounty)));
+		return Arrays.asList(new Question(Text.QUESTION_PAY_BOUNTY, bounty));
 	}
 
 	@Override

@@ -16,30 +16,42 @@ package org.worldgrower.conversation;
 
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
+import org.worldgrower.text.Text;
 
 public class Question {
 	private int id;
 	private final int subjectId;
-	private final String questionPhrase;
 	private int historyItemId = -1;
 	private final int additionalValue;
 	private final int additionalValue2;
 	
-	public Question(WorldObject subject, String questionPhrase) {
-		this(subject, questionPhrase, 0);
+	private final Text text;
+	private final Object[] objects;
+	
+	public Question(Text text, Object... objects) {
+		this(null, text, objects);
 	}
 	
-	public Question(WorldObject subject, String questionPhrase, int additionalValue) {
-		this(subject, questionPhrase, additionalValue, 0);
+	public Question(WorldObject subject, Text text, Object... objects) {
+		this(subject, 0, 0, text, objects);
 	}
 	
-	public Question(WorldObject subject, String questionPhrase, int additionalValue, int additionalValue2) {
+	public Question(int additionalValue, Text text, Object... objects) {
+		this(null, additionalValue, 0, text, objects);
+	}
+	
+	public Question(WorldObject subject, int additionalValue, Text text, Object... objects) {
+		this(subject, additionalValue, 0, text, objects);
+	}
+	
+	public Question(WorldObject subject, int additionalValue, int additionalValue2, Text text, Object... objects) {
 		this.subjectId = (subject != null ? subject.getProperty(Constants.ID) : -1);
-		this.questionPhrase = questionPhrase;
 		this.additionalValue = additionalValue;
 		this.additionalValue2 = additionalValue2;
+		this.text = text;
+		this.objects = objects;
 	}
-
+	
 	public int getId() {
 		return id;
 	}
@@ -52,8 +64,8 @@ public class Question {
 		return subjectId;
 	}
 
-	public String getQuestionPhrase() {
-		return questionPhrase;
+	public String getQuestionPhrase(ConversationFormatter conversationFormatter) {
+		return conversationFormatter.format(text, objects);
 	}		
 
 	public int getHistoryItemId() {
@@ -70,10 +82,5 @@ public class Question {
 
 	public int getAdditionalValue2() {
 		return additionalValue2;
-	}
-
-	@Override
-	public String toString() {
-		return getQuestionPhrase();
 	}
 }

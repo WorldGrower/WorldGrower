@@ -94,7 +94,7 @@ public class UTestBrawlConversation {
 		
 		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, null, null);
 		assertEquals(5, questions.size());
-		assertEquals("I want to brawl with you and I bet 20 gold that I'm going to win. Do you accept?", questions.get(0).getQuestionPhrase());
+		assertEquals("I want to brawl with you and I bet 20 gold that I'm going to win. Do you accept?", questions.get(0).getQuestionPhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test

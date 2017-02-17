@@ -69,7 +69,7 @@ public class UTestCanAttackCriminalsConversation {
 		
 		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, null, null);
 		assertEquals(1, questions.size());
-		assertEquals("I'd like permission to attack criminals and uphold the law. In short, I want to be a sheriff. Is that ok?", questions.get(0).getQuestionPhrase());
+		assertEquals("I'd like permission to attack criminals and uphold the law. In short, I want to be a sheriff. Is that ok?", questions.get(0).getQuestionPhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test

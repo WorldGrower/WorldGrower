@@ -90,7 +90,7 @@ public class AskGoalConversation implements Conversation {
 		
 		for(int goalIndex = 0; goalIndex<allGoals.size(); goalIndex++) {
 			Goal goal = allGoals.get(goalIndex);
-			questions.add(new Question(null, Text.QUESTION_ASK_GOAL.get(goal.getDescription()), goalIndex));
+			questions.add(new Question(goalIndex, Text.QUESTION_ASK_GOAL, goal.getDescription()));
 		}
 		
 		return questions;

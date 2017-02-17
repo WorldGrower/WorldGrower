@@ -52,7 +52,7 @@ public class MinorHealConversation implements Conversation {
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		return Arrays.asList(
-			new Question(null, Text.QUESTION_MINOR_HEAL.get())
+			new Question(Text.QUESTION_MINOR_HEAL)
 			);
 	}
 

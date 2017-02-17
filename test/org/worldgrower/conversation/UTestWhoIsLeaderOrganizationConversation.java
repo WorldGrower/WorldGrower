@@ -120,7 +120,7 @@ public class UTestWhoIsLeaderOrganizationConversation {
 		
 		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, null, world);
 		assertEquals(1, questions.size());
-		assertEquals("Who leads the OrgName ?", questions.get(0).getQuestionPhrase());
+		assertEquals("Who leads the OrgName ?", questions.get(0).getQuestionPhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test

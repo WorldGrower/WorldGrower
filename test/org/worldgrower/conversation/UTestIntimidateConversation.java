@@ -61,7 +61,7 @@ public class UTestIntimidateConversation {
 		
 		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, null, null);
 		assertEquals(1, questions.size());
-		assertEquals("I think you better help me or I'll slit your throat. What is your name?", questions.get(0).getQuestionPhrase());
+		assertEquals("I think you better help me or I'll slit your throat. What is your name?", questions.get(0).getQuestionPhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test

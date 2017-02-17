@@ -63,7 +63,7 @@ public class UTestDeityReasonConversation {
 		
 		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, null, null);
 		assertEquals(1, questions.size());
-		assertEquals("Why did you choose to follow Hades?", questions.get(0).getQuestionPhrase());
+		assertEquals("Why did you choose to follow Hades?", questions.get(0).getQuestionPhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test

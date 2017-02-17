@@ -41,7 +41,7 @@ public class CanCollectTaxesConversation implements Conversation {
 
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
-		return Arrays.asList(new Question(null, Text.QUESTION_CAN_COLLECT_TAXES.get()));
+		return Arrays.asList(new Question(Text.QUESTION_CAN_COLLECT_TAXES));
 	}
 	
 	@Override

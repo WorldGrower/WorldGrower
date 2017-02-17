@@ -72,7 +72,7 @@ public class UTestMergeOrganizationsConversation {
 		WorldObject subject = GroupPropertyUtils.create(null, "TestOrg", world);
 		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, subject, null);
 		assertEquals(1, questions.size());
-		assertEquals("I'd like to merge my organization 'TestOrg' with your organization, is that ok with you?", questions.get(0).getQuestionPhrase());
+		assertEquals("I'd like to merge my organization 'TestOrg' with your organization, is that ok with you?", questions.get(0).getQuestionPhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test

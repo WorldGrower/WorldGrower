@@ -62,7 +62,7 @@ public class UTestBecomeArenaFighterConversation {
 		
 		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, null, null);
 		assertEquals(1, questions.size());
-		assertEquals("Can I become an arena fighter?", questions.get(0).getQuestionPhrase());
+		assertEquals("Can I become an arena fighter?", questions.get(0).getQuestionPhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test

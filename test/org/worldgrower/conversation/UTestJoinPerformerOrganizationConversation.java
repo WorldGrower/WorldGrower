@@ -81,7 +81,7 @@ public class UTestJoinPerformerOrganizationConversation {
 		
 		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, null, world);
 		assertEquals(1, questions.size());
-		assertEquals("Would you like to join the TestOrg ?", questions.get(0).getQuestionPhrase());
+		assertEquals("Would you like to join the TestOrg ?", questions.get(0).getQuestionPhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test

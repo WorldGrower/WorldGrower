@@ -24,6 +24,7 @@ import org.worldgrower.ManagedOperationListener;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.conversation.ConversationFormatter;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.conversation.Response;
 import org.worldgrower.gui.ImageIds;
@@ -72,8 +73,8 @@ public class GuiRespondToQuestion implements Questioner, ManagedOperationListene
 	}
 
 	@Override
-	public String getQuestionPhrase() {
-		return conversations.getQuestionPhrase(args[0], args[1], args[2], performer, playerCharacter, world);
+	public String getQuestionPhrase(ConversationFormatter conversationFormatter) {
+		return conversations.getQuestionPhrase(args[0], args[1], args[2], performer, playerCharacter, world, conversationFormatter);
 	}
 
 	@Override

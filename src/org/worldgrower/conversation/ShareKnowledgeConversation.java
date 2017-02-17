@@ -60,7 +60,7 @@ public class ShareKnowledgeConversation implements Conversation {
 			WorldObject subject = world.findWorldObjectById(knowledge.getSubjectId());
 			if (!subject.equals(target)) {
 				String questionphrase = knowledgeToDescriptionMapper.getQuestionDescription(knowledge, world);
-				questions.add(new Question(subject, Text.QUESTION_SHARE_KNOWLEDGE.get(questionphrase), knowledge.getId()));
+				questions.add(new Question(subject, knowledge.getId(), Text.QUESTION_SHARE_KNOWLEDGE, questionphrase));
 			}
 		}
 		return questions;

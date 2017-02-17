@@ -71,7 +71,7 @@ public class UTestArenaFighterPayCheckConversation {
 		
 		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, null, null);
 		assertEquals(1, questions.size());
-		assertEquals("I'm here to receive my reward for participating in the arena", questions.get(0).getQuestionPhrase());
+		assertEquals("I'm here to receive my reward for participating in the arena", questions.get(0).getQuestionPhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test

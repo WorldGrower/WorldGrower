@@ -62,7 +62,7 @@ public class LocationConversation implements Conversation {
 
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subject, World world) {
-		return Arrays.asList(new Question(subject, Text.QUESTION_LOCATION.get(subject.getProperty(Constants.NAME))));
+		return Arrays.asList(new Question(subject, Text.QUESTION_LOCATION, subject.getProperty(Constants.NAME)));
 	}
 	
 	@Override

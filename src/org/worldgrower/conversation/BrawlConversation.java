@@ -65,10 +65,10 @@ public class BrawlConversation implements Conversation {
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		List<Question> questions = new ArrayList<>();
 		for(int gold = 20; gold < 100; gold += 20) {
-			questions.add(new Question(null, Text.QUESTION_BRAWL_GOLD.get(gold), gold));
+			questions.add(new Question(gold, Text.QUESTION_BRAWL_GOLD, gold, GOLD));
 		}
 		
-		questions.add(new Question(null, Text.QUESTION_BRAWL.get(), 0));
+		questions.add(new Question(0, Text.QUESTION_BRAWL));
 		
 		return questions;
 	}

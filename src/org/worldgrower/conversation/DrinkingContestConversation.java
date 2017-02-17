@@ -58,10 +58,10 @@ public class DrinkingContestConversation implements Conversation {
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		List<Question> questions = new ArrayList<>();
 		for(int gold = 20; gold < 100; gold += 20) {
-			questions.add(new Question(null, Text.QUESTION_DRINKING_CONTEST_GOLD.get(gold), gold));
+			questions.add(new Question(gold, Text.QUESTION_DRINKING_CONTEST_GOLD, gold));
 		}
 		
-		questions.add(new Question(null, Text.QUESTION_DRINKING_CONTEST.get(), 0));
+		questions.add(new Question(0, Text.QUESTION_DRINKING_CONTEST));
 		
 		return questions;
 	}

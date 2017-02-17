@@ -69,8 +69,8 @@ public class UTestComplimentConversation {
 		
 		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, null, null);
 		assertEquals(2, questions.size());
-		assertEquals("You look very strong", questions.get(0).getQuestionPhrase());
-		assertEquals("You are very handsome", questions.get(1).getQuestionPhrase());
+		assertEquals("You look very strong", questions.get(0).getQuestionPhrase(DefaultConversationFormatter.FORMATTER));
+		assertEquals("You are very handsome", questions.get(1).getQuestionPhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test

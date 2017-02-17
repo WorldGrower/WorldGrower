@@ -73,7 +73,7 @@ public class UTestLearnSkillUsingOrganizationConversation {
 		
 		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, null, world);
 		assertEquals(1, questions.size());
-		assertEquals("Can you teach me to improve my farmer skills as a fellow member of the farmers?", questions.get(0).getQuestionPhrase());
+		assertEquals("Can you teach me to improve my farmer skills as a fellow member of the farmers?", questions.get(0).getQuestionPhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test

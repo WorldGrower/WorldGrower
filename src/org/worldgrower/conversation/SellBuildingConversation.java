@@ -62,7 +62,7 @@ public class SellBuildingConversation implements Conversation {
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		String description = buildingType.getDescription();
-		return Arrays.asList(new Question(null, Text.QUESTION_SELL_BUILDING.get(SentenceUtils.getArticle(description), description)));
+		return Arrays.asList(new Question(Text.QUESTION_SELL_BUILDING, SentenceUtils.getArticle(description), description));
 	}
 	
 	@Override

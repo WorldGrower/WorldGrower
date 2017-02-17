@@ -67,7 +67,7 @@ public class UTestProfessionConversation {
 		
 		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, null, null);
 		assertEquals(1, questions.size());
-		assertEquals("What is your profession?", questions.get(0).getQuestionPhrase());
+		assertEquals("What is your profession?", questions.get(0).getQuestionPhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test

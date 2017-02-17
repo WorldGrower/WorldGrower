@@ -77,7 +77,7 @@ public class UTestDemandMoneyConversation {
 		
 		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, null, null);
 		assertEquals(1, questions.size());
-		assertEquals("Can you give me 100 gold?", questions.get(0).getQuestionPhrase());
+		assertEquals("Can you give me 100 gold?", questions.get(0).getQuestionPhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test

@@ -87,7 +87,7 @@ public class UTestNotNicerConversation {
 		
 		List<Question> questions = conversation.getQuestionPhrases(performer, target, null, subject, null);
 		assertEquals(1, questions.size());
-		assertEquals("Can you stay away from subject? That person cannot be trusted.", questions.get(0).getQuestionPhrase());
+		assertEquals("Can you stay away from subject? That person cannot be trusted.", questions.get(0).getQuestionPhrase(DefaultConversationFormatter.FORMATTER));
 	}
 	
 	@Test

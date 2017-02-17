@@ -44,7 +44,7 @@ public class FamilyConversation implements Conversation {
 
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
-		return Arrays.asList(new Question(null, Text.QUESTION_FAMILY.get()));
+		return Arrays.asList(new Question(Text.QUESTION_FAMILY));
 	}
 	
 	@Override

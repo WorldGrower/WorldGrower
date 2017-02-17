@@ -54,7 +54,7 @@ public class CollectBountyFromThievesConversation implements Conversation {
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		int bounty = BountyPropertyUtils.getBounty(target, world);
-		return Arrays.asList(new Question(null, Text.QUESTION_COLLECT_BOUNTY.get(bounty)));
+		return Arrays.asList(new Question(Text.QUESTION_COLLECT_BOUNTY, bounty));
 	}
 
 	@Override
