@@ -25,7 +25,7 @@ import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.goal.BuySellUtils;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
-import org.worldgrower.text.Text;
+import org.worldgrower.text.TextId;
 
 public class GiveItemConversation implements Conversation {
 
@@ -56,15 +56,15 @@ public class GiveItemConversation implements Conversation {
 
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
-		return Arrays.asList(new Question(Text.QUESTION_GIVE_ITEM, intPropertyToGive.getName()));
+		return Arrays.asList(new Question(TextId.QUESTION_GIVE_ITEM, intPropertyToGive.getName()));
 	}
 
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
-				new Response(THANKS, Text.ANSWER_GIVE_ITEM_THANKS),
-				new Response(GET_LOST, Text.ANSWER_GIVE_ITEM_GETLOST),
-				new Response(THANKS_AGAIN, Text.ANSWER_GIVE_ITEM_AGAIN));
+				new Response(THANKS, TextId.ANSWER_GIVE_ITEM_THANKS),
+				new Response(GET_LOST, TextId.ANSWER_GIVE_ITEM_GETLOST),
+				new Response(THANKS_AGAIN, TextId.ANSWER_GIVE_ITEM_AGAIN));
 	}
 	
 	@Override

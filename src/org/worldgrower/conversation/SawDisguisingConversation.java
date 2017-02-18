@@ -25,7 +25,7 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.KnowledgeMap;
 import org.worldgrower.goal.FacadeUtils;
 import org.worldgrower.goal.RelationshipPropertyUtils;
-import org.worldgrower.text.Text;
+import org.worldgrower.text.TextId;
 
 public class SawDisguisingConversation implements InterceptedConversation {
 
@@ -52,7 +52,7 @@ public class SawDisguisingConversation implements InterceptedConversation {
 		
 		if (isConversationAvailable(performer, target, world)) {
 			return Arrays.asList(
-					new Response(SEE_THROUGH, Text.SAW_THROUGH_DISGUISE, performer)
+					new Response(SEE_THROUGH, TextId.SAW_THROUGH_DISGUISE, performer)
 				);
 		} else {
 			return new ArrayList<>();

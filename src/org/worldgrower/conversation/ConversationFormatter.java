@@ -14,8 +14,8 @@
  *******************************************************************************/
 package org.worldgrower.conversation;
 
-import org.worldgrower.text.Text;
+import org.worldgrower.text.FormattableText;
 
 public interface ConversationFormatter {
-	String format(Text text, Object[] objects);
+	String format(FormattableText formattableText);
 }

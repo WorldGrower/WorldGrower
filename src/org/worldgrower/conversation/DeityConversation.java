@@ -22,7 +22,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.deity.Deity;
 import org.worldgrower.history.HistoryItem;
-import org.worldgrower.text.Text;
+import org.worldgrower.text.TextId;
 
 public class DeityConversation implements Conversation {
 
@@ -58,7 +58,7 @@ public class DeityConversation implements Conversation {
 
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
-		return Arrays.asList(new Question(Text.QUESTION_DEITY));
+		return Arrays.asList(new Question(TextId.QUESTION_DEITY));
 	}
 	
 	@Override
@@ -67,10 +67,10 @@ public class DeityConversation implements Conversation {
 		Deity deity = target.getProperty(Constants.DEITY);
 		String deityName = (deity != null ? deity.getName() : "no one");
 		return Arrays.asList(
-			new Response(I_WORSHIP, Text.ANSWER_DEITY_WORSHIP, deityName),
-			new Response(I_DONT_WORSHIP, Text.ANSWER_DEITY_DONT_WORSHIP),
-			new Response(ALREADY_ASKED, Text.ANSWER_DEITY_ALREADY, deityName),
-			new Response(DEITY_CHANGED, Text.ANSWER_DEITY_CHANGED, deityName)
+			new Response(I_WORSHIP, TextId.ANSWER_DEITY_WORSHIP, deityName),
+			new Response(I_DONT_WORSHIP, TextId.ANSWER_DEITY_DONT_WORSHIP),
+			new Response(ALREADY_ASKED, TextId.ANSWER_DEITY_ALREADY, deityName),
+			new Response(DEITY_CHANGED, TextId.ANSWER_DEITY_CHANGED, deityName)
 			);
 	}
 

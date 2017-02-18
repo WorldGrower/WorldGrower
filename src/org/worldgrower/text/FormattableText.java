@@ -12,29 +12,23 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *******************************************************************************/
-package org.worldgrower.gui.conversation;
+package org.worldgrower.text;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.worldgrower.conversation.ConversationFormatter;
-import org.worldgrower.text.FormattableText;
-
-public class ConversationFormatterImpl implements ConversationFormatter {
-
-	private final ConversationArgumentFormatter conversationArgumentFormatter;
-
-	public ConversationFormatterImpl(ConversationArgumentFormatter conversationArgumentFormatter) {
+public class FormattableText {
+	private final TextId textId;
+	private final Object[] objects;
+	
+	public FormattableText(TextId textId, Object[] objects) {
 		super();
-		this.conversationArgumentFormatter = conversationArgumentFormatter;
+		this.textId = textId;
+		this.objects = objects;
 	}
 
-	@Override
-	public String format(FormattableText formattableText) {
-		List<String> args = new ArrayList<>();
-		for(Object object : formattableText.getObjects()) {
-			args.add(conversationArgumentFormatter.formatObject(object));
-		}
-		return formattableText.getTextId().get(args);
-	}	
+	public TextId getTextId() {
+		return textId;
+	}
+
+	public Object[] getObjects() {
+		return objects;
+	}
 }

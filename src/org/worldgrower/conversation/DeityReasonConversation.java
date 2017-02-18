@@ -23,7 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.deity.Deity;
 import org.worldgrower.history.HistoryItem;
-import org.worldgrower.text.Text;
+import org.worldgrower.text.TextId;
 
 public class DeityReasonConversation implements Conversation {
 
@@ -48,7 +48,7 @@ public class DeityReasonConversation implements Conversation {
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		Deity deity = target.getProperty(Constants.DEITY);
-		return Arrays.asList(new Question(Text.QUESTION_DEITY_REASON, deity.getName()));
+		return Arrays.asList(new Question(TextId.QUESTION_DEITY_REASON, deity.getName()));
 	}
 	
 	@Override
@@ -60,10 +60,10 @@ public class DeityReasonConversation implements Conversation {
 		List<Response> responses = new ArrayList<>();
 		int responseId = 0;
 		for (String reason : reasons) {
-			responses.add(new Response(responseId, Text.ANSWER_DEITY_REASON, reason));
+			responses.add(new Response(responseId, TextId.ANSWER_DEITY_REASON, reason));
 			responseId++;
 		}
-		responses.add(new Response(SEEMED_LIKE, Text.ANSWER_DEITY_REASON_DONT_CARE));
+		responses.add(new Response(SEEMED_LIKE, TextId.ANSWER_DEITY_REASON_DONT_CARE));
 		return responses;
 	}
 	

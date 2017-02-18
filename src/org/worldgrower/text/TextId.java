@@ -27,7 +27,7 @@ import org.worldgrower.conversation.Conversation;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.conversation.InterceptedConversation;
 
-public enum Text {
+public enum TextId {
 	QUESTION_ARENA_PAY_CHECK(Conversations.ARENA_FIGHTER_PAY_CHECK_CONVERSATION),
 	ANSWER_ARENA_PAY_CHECK_YES(Conversations.ARENA_FIGHTER_PAY_CHECK_CONVERSATION),
 	ANSWER_ARENA_PAY_CHECK_NO(Conversations.ARENA_FIGHTER_PAY_CHECK_CONVERSATION),
@@ -246,11 +246,11 @@ public enum Text {
 	
 	private final Conversation conversationKey;
 	
-	private Text(Conversation conversationKey) {
+	private TextId(Conversation conversationKey) {
 		this.conversationKey = conversationKey;
 	}
 	
-	private Text(InterceptedConversation conversationKey) {
+	private TextId(InterceptedConversation conversationKey) {
 		this.conversationKey = null;
 	}
 
@@ -308,7 +308,7 @@ public enum Text {
 	
 	public static List<ConversationDescription> getConversationDescriptions() {
 		Map<Conversation, ConversationDescription> conversationDescriptions = new HashMap<>();
-		for(Text text : Text.values()) {
+		for(TextId text : TextId.values()) {
 			if (text.isConversation()) {
 				Conversation conversationKey = text.getConversationKey();
 				ConversationDescription conversationDescription = getConversationDescription(conversationDescriptions, conversationKey);

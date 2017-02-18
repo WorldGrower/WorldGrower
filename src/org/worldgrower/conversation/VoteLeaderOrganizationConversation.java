@@ -25,7 +25,7 @@ import org.worldgrower.actions.VotingPropertyUtils;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.history.HistoryItem;
-import org.worldgrower.text.Text;
+import org.worldgrower.text.TextId;
 
 public class VoteLeaderOrganizationConversation implements Conversation {
 
@@ -49,7 +49,7 @@ public class VoteLeaderOrganizationConversation implements Conversation {
 				if (performer.getProperty(Constants.GROUP).contains(organization)) {
 					boolean voteAlreadyInProgress = world.findWorldObjects(w -> VotingPropertyUtils.isVotingBoxForOrganization(w, organization)).size() > 0;
 					if (!voteAlreadyInProgress) {
-						questions.add(new Question(organization, Text.QUESTION_VOTE_LEADER, organization.getProperty(Constants.NAME)));
+						questions.add(new Question(organization, TextId.QUESTION_VOTE_LEADER, organization.getProperty(Constants.NAME)));
 					}
 				}
 			}
@@ -64,7 +64,7 @@ public class VoteLeaderOrganizationConversation implements Conversation {
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		World world = conversationContext.getWorld();
 		return Arrays.asList(
-			new Response(LETS_PUT, Text.ANSWER_VOTE_LEADER, VotingPropertyUtils.getNumberOfTurnsCandidatesMayBeProposed(world))
+			new Response(LETS_PUT, TextId.ANSWER_VOTE_LEADER, VotingPropertyUtils.getNumberOfTurnsCandidatesMayBeProposed(world))
 			);
 	}
 

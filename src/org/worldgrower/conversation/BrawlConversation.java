@@ -28,7 +28,7 @@ import org.worldgrower.goal.GoalUtils;
 import org.worldgrower.goal.Goals;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
-import org.worldgrower.text.Text;
+import org.worldgrower.text.TextId;
 
 public class BrawlConversation implements Conversation {
 
@@ -65,10 +65,10 @@ public class BrawlConversation implements Conversation {
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		List<Question> questions = new ArrayList<>();
 		for(int gold = 20; gold < 100; gold += 20) {
-			questions.add(new Question(gold, Text.QUESTION_BRAWL_GOLD, gold, GOLD));
+			questions.add(new Question(gold, TextId.QUESTION_BRAWL_GOLD, gold, GOLD));
 		}
 		
-		questions.add(new Question(0, Text.QUESTION_BRAWL));
+		questions.add(new Question(0, TextId.QUESTION_BRAWL));
 		
 		return questions;
 	}
@@ -87,11 +87,11 @@ public class BrawlConversation implements Conversation {
 		}
 		
 		return Arrays.asList(
-			new Response(YES, Text.ANSWER_BRAWL_YES),
-			new Response(NO, Text.ANSWER_BRAWL_NO),
-			new Response(LATER, Text.ANSWER_BRAWL_LATER, immediateGoalDescription),
-			new Response(NOT_ENOUGH_GOLD, Text.ANSWER_BRAWL_NOT_ENOUGH_GOLD),
-			new Response(GET_LOST, Text.ANSWER_BRAWL_GET_LOST)
+			new Response(YES, TextId.ANSWER_BRAWL_YES),
+			new Response(NO, TextId.ANSWER_BRAWL_NO),
+			new Response(LATER, TextId.ANSWER_BRAWL_LATER, immediateGoalDescription),
+			new Response(NOT_ENOUGH_GOLD, TextId.ANSWER_BRAWL_NOT_ENOUGH_GOLD),
+			new Response(GET_LOST, TextId.ANSWER_BRAWL_GET_LOST)
 			);
 	}
 

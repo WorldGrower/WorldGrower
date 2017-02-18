@@ -25,7 +25,7 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
-import org.worldgrower.text.Text;
+import org.worldgrower.text.TextId;
 
 public class MinorHealConversation implements Conversation {
 
@@ -52,16 +52,16 @@ public class MinorHealConversation implements Conversation {
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		return Arrays.asList(
-			new Question(Text.QUESTION_MINOR_HEAL)
+			new Question(TextId.QUESTION_MINOR_HEAL)
 			);
 	}
 
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
-			new Response(YES, Text.ANSWER_MINOR_HEAL_YES),
-			new Response(NO, Text.ANSWER_MINOR_HEAL_NO),
-			new Response(GET_LOST, Text.ANSWER_MINOR_HEAL_GETLOST));
+			new Response(YES, TextId.ANSWER_MINOR_HEAL_YES),
+			new Response(NO, TextId.ANSWER_MINOR_HEAL_NO),
+			new Response(GET_LOST, TextId.ANSWER_MINOR_HEAL_GETLOST));
 	}
 	
 	@Override

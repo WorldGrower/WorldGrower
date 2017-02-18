@@ -25,7 +25,7 @@ import org.worldgrower.goal.DrinkingContestPropertyUtils;
 import org.worldgrower.goal.GoalUtils;
 import org.worldgrower.goal.Goals;
 import org.worldgrower.history.HistoryItem;
-import org.worldgrower.text.Text;
+import org.worldgrower.text.TextId;
 
 public class DrinkingContestConversation implements Conversation {
 
@@ -58,10 +58,10 @@ public class DrinkingContestConversation implements Conversation {
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		List<Question> questions = new ArrayList<>();
 		for(int gold = 20; gold < 100; gold += 20) {
-			questions.add(new Question(gold, Text.QUESTION_DRINKING_CONTEST_GOLD, gold));
+			questions.add(new Question(gold, TextId.QUESTION_DRINKING_CONTEST_GOLD, gold));
 		}
 		
-		questions.add(new Question(0, Text.QUESTION_DRINKING_CONTEST));
+		questions.add(new Question(0, TextId.QUESTION_DRINKING_CONTEST));
 		
 		return questions;
 	}
@@ -72,10 +72,10 @@ public class DrinkingContestConversation implements Conversation {
 		World world = conversationContext.getWorld();
 		
 		return Arrays.asList(
-			new Response(YES, Text.ANSWER_DRINKING_CONTEST_YES),
-			new Response(NO, Text.ANSWER_DRINKING_CONTEST_NO),
-			new Response(LATER, Text.ANSWER_DRINKING_CONTEST_LATER, world.getImmediateGoal(target, world).getDescription(world)),
-			new Response(NOT_ENOUGH_GOLD, Text.ANSWER_DRINKING_CONTEST_NOGOLD)
+			new Response(YES, TextId.ANSWER_DRINKING_CONTEST_YES),
+			new Response(NO, TextId.ANSWER_DRINKING_CONTEST_NO),
+			new Response(LATER, TextId.ANSWER_DRINKING_CONTEST_LATER, world.getImmediateGoal(target, world).getDescription(world)),
+			new Response(NOT_ENOUGH_GOLD, TextId.ANSWER_DRINKING_CONTEST_NOGOLD)
 			);
 	}
 

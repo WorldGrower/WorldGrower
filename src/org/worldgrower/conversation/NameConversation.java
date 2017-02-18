@@ -23,7 +23,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
-import org.worldgrower.text.Text;
+import org.worldgrower.text.TextId;
 
 public class NameConversation implements Conversation {
 
@@ -58,18 +58,18 @@ public class NameConversation implements Conversation {
 
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
-		return Arrays.asList(new Question(Text.QUESTION_NAME));
+		return Arrays.asList(new Question(TextId.QUESTION_NAME));
 	}
 
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		WorldObject target = conversationContext.getTarget();
 		return Arrays.asList(
-			new Response(MY_NAME, Text.ANSWER_NAME, target.getProperty(Constants.NAME)),
-			new Response(GET_LOST, Text.ANSWER_NAME_GETLOST),
-			new Response(TOLD_WHILE, Text.ANSWER_NAME_TOLD_WHILE, target.getProperty(Constants.NAME)),
-			new Response(LIKE_I_TOLD, Text.ANSWER_NAME_LIKE, target.getProperty(Constants.NAME)),
-			new Response(MY_NAME_DIDNT, Text.ANSWER_NAME_DIDNT, target.getProperty(Constants.NAME))
+			new Response(MY_NAME, TextId.ANSWER_NAME, target.getProperty(Constants.NAME)),
+			new Response(GET_LOST, TextId.ANSWER_NAME_GETLOST),
+			new Response(TOLD_WHILE, TextId.ANSWER_NAME_TOLD_WHILE, target.getProperty(Constants.NAME)),
+			new Response(LIKE_I_TOLD, TextId.ANSWER_NAME_LIKE, target.getProperty(Constants.NAME)),
+			new Response(MY_NAME_DIDNT, TextId.ANSWER_NAME_DIDNT, target.getProperty(Constants.NAME))
 		);
 	}
 

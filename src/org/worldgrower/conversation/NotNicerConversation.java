@@ -19,13 +19,13 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.goal.RelationshipPropertyUtils;
-import org.worldgrower.text.Text;
+import org.worldgrower.text.TextId;
 
 public class NotNicerConversation extends AbstractChangeOpinionConversation {
 
 	@Override
 	public Question createQuestion(WorldObject performer, WorldObject target, WorldObject subject) {
-		return new Question(subject, Text.QUESTION_NOT_NICE, subject.getProperty(Constants.NAME));
+		return new Question(subject, TextId.QUESTION_NOT_NICE, subject.getProperty(Constants.NAME));
 	}
 
 	@Override

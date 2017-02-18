@@ -24,7 +24,7 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
 import org.worldgrower.personality.PersonalityTrait;
-import org.worldgrower.text.Text;
+import org.worldgrower.text.TextId;
 
 public class GiveMoneyConversation implements Conversation {
 
@@ -55,16 +55,16 @@ public class GiveMoneyConversation implements Conversation {
 
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
-		return Arrays.asList(new Question(Text.QUESTION_GIVE_MONEY, GOLD));
+		return Arrays.asList(new Question(TextId.QUESTION_GIVE_MONEY, GOLD));
 	}
 
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
-				new Response(THANKS, Text.ANSWER_GIVE_MONEY_THANKS),
-				new Response(GET_LOST, Text.ANSWER_GIVE_MONEY_GETLOST),
-				new Response(THANKS_AGAIN, Text.ANSWER_GIVE_MONEY_AGAIN),
-				new Response(BRIBE, Text.ANSWER_GIVE_MONEY_BRIBE));
+				new Response(THANKS, TextId.ANSWER_GIVE_MONEY_THANKS),
+				new Response(GET_LOST, TextId.ANSWER_GIVE_MONEY_GETLOST),
+				new Response(THANKS_AGAIN, TextId.ANSWER_GIVE_MONEY_AGAIN),
+				new Response(BRIBE, TextId.ANSWER_GIVE_MONEY_BRIBE));
 	}
 	
 	@Override

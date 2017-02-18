@@ -27,7 +27,7 @@ import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
 import org.worldgrower.profession.Profession;
-import org.worldgrower.text.Text;
+import org.worldgrower.text.TextId;
 
 public class CollectPayCheckConversation implements Conversation {
 
@@ -53,7 +53,7 @@ public class CollectPayCheckConversation implements Conversation {
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		int amountToCollect = GroupPropertyUtils.getPayCheckAmount(performer, world);
-		return Arrays.asList(new Question(Text.QUESTION_COLLECT_PAYCHECK, amountToCollect));
+		return Arrays.asList(new Question(TextId.QUESTION_COLLECT_PAYCHECK, amountToCollect));
 	}
 	
 	private boolean targetCanPay(WorldObject performer, WorldObject target, World world) {
@@ -69,9 +69,9 @@ public class CollectPayCheckConversation implements Conversation {
 		
 		List<Response> responses = new ArrayList<>();
 		if (targetCanPay(performer, target, world)) {
-			responses.add(new Response(YES, Text.ANSWER_COLLECT_PAYCHECK_YES));
+			responses.add(new Response(YES, TextId.ANSWER_COLLECT_PAYCHECK_YES));
 		}
-		responses.add(new Response(NO, Text.ANSWER_COLLECT_PAYCHECK_NO));
+		responses.add(new Response(NO, TextId.ANSWER_COLLECT_PAYCHECK_NO));
 		return responses;
 	}
 	

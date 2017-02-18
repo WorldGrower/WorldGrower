@@ -22,7 +22,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.history.HistoryItem;
 import org.worldgrower.profession.Profession;
-import org.worldgrower.text.Text;
+import org.worldgrower.text.TextId;
 import org.worldgrower.util.SentenceUtils;
 
 public class ProfessionConversation implements Conversation {
@@ -60,7 +60,7 @@ public class ProfessionConversation implements Conversation {
 
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
-		return Arrays.asList(new Question(Text.QUESTION_PROFESSION));
+		return Arrays.asList(new Question(TextId.QUESTION_PROFESSION));
 	}
 	
 	@Override
@@ -70,10 +70,10 @@ public class ProfessionConversation implements Conversation {
 		String article = SentenceUtils.getArticle(professionDescription);
 		
 		return Arrays.asList(
-			new Response(MY_PROFESSION, Text.ANSWER_PROFESSION_MY, article, professionDescription),
-			new Response(NO_PROFESSION, Text.ANSWER_PROFESSION_NO),
-			new Response(STILL_THE_SAME, Text.ANSWER_PROFESSION_SAME, (professionDescription.length() > 0 ? professionDescription : Text.ANSWER_PROFESSION_NO.get())),
-			new Response(NEW_PROFESSION, Text.ANSWER_PROFESSION_NEW, article, professionDescription)
+			new Response(MY_PROFESSION, TextId.ANSWER_PROFESSION_MY, article, professionDescription),
+			new Response(NO_PROFESSION, TextId.ANSWER_PROFESSION_NO),
+			new Response(STILL_THE_SAME, TextId.ANSWER_PROFESSION_SAME, (professionDescription.length() > 0 ? professionDescription : TextId.ANSWER_PROFESSION_NO.get())),
+			new Response(NEW_PROFESSION, TextId.ANSWER_PROFESSION_NEW, article, professionDescription)
 			);
 	}
 

@@ -14,13 +14,10 @@
  *******************************************************************************/
 package org.worldgrower.conversation;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
-import org.worldgrower.generator.Item;
-import org.worldgrower.text.Text;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class Response {
 	
@@ -30,32 +27,28 @@ public class Response {
 	private final int id;
 	private final int subjectId;
 	private final boolean isPossible;
-	private final Text text;
-	private final Object[] objects;
+	private final FormattableText formattableText;
 	private int historyItemId = -1;
 	
-	public Response(int id, WorldObject subject, Text text, Object... objects) {
+	public Response(int id, WorldObject subject, TextId text, Object... objects) {
 		this.id = id;
-		this.text = text;
+		this.formattableText = new FormattableText(text, objects);
 		this.subjectId = (subject != null ? subject.getProperty(Constants.ID) : -1);
 		this.isPossible = RESPONSE_IS_POSSIBLE;
-		this.objects = objects;
 	}
 	
-	public Response(int id, Text text, Object... objects) {
+	public Response(int id, TextId text, Object... objects) {
 		this.id = id;
-		this.text = text;
+		this.formattableText = new FormattableText(text, objects);
 		this.subjectId = -1;
 		this.isPossible = RESPONSE_IS_POSSIBLE;
-		this.objects = objects;
 	}
 	
-	public Response(int id, boolean isPossible, Text text, Object... objects) {
+	public Response(int id, boolean isPossible, TextId text, Object... objects) {
 		this.id = id;
-		this.text = text;
+		this.formattableText = new FormattableText(text, objects);
 		this.subjectId = -1;
 		this.isPossible = isPossible;
-		this.objects = objects;
 	}
 
 	public int getId() {
@@ -67,7 +60,7 @@ public class Response {
 	}
 
 	public String getResponsePhrase(ConversationFormatter conversationFormatter) {
-		return conversationFormatter.format(text, objects);
+		return conversationFormatter.format(formattableText);
 	}	
 
 	public boolean isPossible() {

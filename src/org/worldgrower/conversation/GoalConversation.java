@@ -21,7 +21,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.history.HistoryItem;
-import org.worldgrower.text.Text;
+import org.worldgrower.text.TextId;
 
 public class GoalConversation implements Conversation {
 
@@ -44,7 +44,7 @@ public class GoalConversation implements Conversation {
 
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
-		return Arrays.asList(new Question(Text.QUESTION_GOAL));
+		return Arrays.asList(new Question(TextId.QUESTION_GOAL));
 	}
 	
 	@Override
@@ -54,8 +54,8 @@ public class GoalConversation implements Conversation {
 		Goal goal = world.getGoal(target);
 		String goalDescription = (goal !=null ? goal.getDescription() : "");
 		return Arrays.asList(
-			new Response(YES, Text.ANSWER_GOAL_YES, goalDescription),
-			new Response(NO, Text.ANSWER_GOAL_NO)
+			new Response(YES, TextId.ANSWER_GOAL_YES, goalDescription),
+			new Response(NO, TextId.ANSWER_GOAL_NO)
 			);
 	}
 

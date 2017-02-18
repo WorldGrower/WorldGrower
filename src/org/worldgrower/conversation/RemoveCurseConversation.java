@@ -26,7 +26,7 @@ import org.worldgrower.curse.Curse;
 import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
-import org.worldgrower.text.Text;
+import org.worldgrower.text.TextId;
 
 public class RemoveCurseConversation implements Conversation {
 
@@ -53,16 +53,16 @@ public class RemoveCurseConversation implements Conversation {
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		return Arrays.asList(
-			new Question(Text.QUESTION_REMOVE_CURSE)
+			new Question(TextId.QUESTION_REMOVE_CURSE)
 			);
 	}
 
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
-			new Response(YES, Text.ANSWER_REMOVE_CURSE_YES),
-			new Response(NO, Text.ANSWER_REMOVE_CURSE_NO),
-			new Response(GET_LOST, Text.ANSWER_REMOVE_CURSE_GETLOST));
+			new Response(YES, TextId.ANSWER_REMOVE_CURSE_YES),
+			new Response(NO, TextId.ANSWER_REMOVE_CURSE_NO),
+			new Response(GET_LOST, TextId.ANSWER_REMOVE_CURSE_GETLOST));
 	}
 	
 	@Override

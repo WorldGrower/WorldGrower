@@ -27,7 +27,7 @@ import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.gui.conversation.ConversationFormatterImpl;
 import org.worldgrower.gui.conversation.TextConversationArgumentFormatter;
 import org.worldgrower.history.HistoryItem;
-import org.worldgrower.text.Text;
+import org.worldgrower.text.TextId;
 
 public class IntimidateConversation implements Conversation {
 
@@ -61,7 +61,7 @@ public class IntimidateConversation implements Conversation {
 		List<Question> result = new ArrayList<>();
 		for(Question parentQuestionPhrase : parentQuestionPhrases) {
 			WorldObject subject = parentQuestionPhrase.getSubjectId() != -1 ? world.findWorldObjectById(parentQuestionPhrase.getSubjectId()) : null;
-			result.add(new Question(subject, Text.QUESTION_INTIMIDATE, parentQuestionPhrase.getQuestionPhrase(new ConversationFormatterImpl(new TextConversationArgumentFormatter()))));
+			result.add(new Question(subject, TextId.QUESTION_INTIMIDATE, parentQuestionPhrase.getQuestionPhrase(new ConversationFormatterImpl(new TextConversationArgumentFormatter()))));
 		}
 		return result;
 	}
@@ -69,8 +69,8 @@ public class IntimidateConversation implements Conversation {
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
-			new Response(GET_LOST, Text.ANSWER_INTIMIDATE_GETLOST),
-			new Response(I_LL_COMPLY, Text.ANSWER_INTIMIDATE_COMPLY)
+			new Response(GET_LOST, TextId.ANSWER_INTIMIDATE_GETLOST),
+			new Response(I_LL_COMPLY, TextId.ANSWER_INTIMIDATE_COMPLY)
 		);
 	}
 

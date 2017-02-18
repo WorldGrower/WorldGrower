@@ -22,7 +22,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.history.HistoryItem;
-import org.worldgrower.text.Text;
+import org.worldgrower.text.TextId;
 
 public class ImmediateGoalConversation implements Conversation {
 
@@ -49,7 +49,7 @@ public class ImmediateGoalConversation implements Conversation {
 
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
-		return Arrays.asList(new Question(Text.QUESTION_IMMEDIATE_GOAL));
+		return Arrays.asList(new Question(TextId.QUESTION_IMMEDIATE_GOAL));
 	}
 	
 	@Override
@@ -62,8 +62,8 @@ public class ImmediateGoalConversation implements Conversation {
 		String immediateGoalDescription = (operationInfo != null ? operationInfo.getDescription(world) : "");
 		String goalDescription = (goal != null ? goal.getDescription() : "");
 		return Arrays.asList(
-			new Response(YES, Text.ANSWER_IMMEDIATE_GOAL_YES, immediateGoalDescription, goalDescription),
-			new Response(NO, Text.ANSWER_IMMEDIATE_GOAL_NO)
+			new Response(YES, TextId.ANSWER_IMMEDIATE_GOAL_YES, immediateGoalDescription, goalDescription),
+			new Response(NO, TextId.ANSWER_IMMEDIATE_GOAL_NO)
 			);
 	}
 	

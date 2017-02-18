@@ -26,7 +26,7 @@ import org.worldgrower.attribute.IdMap;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.goal.HousePropertyUtils;
 import org.worldgrower.history.HistoryItem;
-import org.worldgrower.text.Text;
+import org.worldgrower.text.TextId;
 
 public class CollectTaxesConversation implements Conversation {
 
@@ -56,7 +56,7 @@ public class CollectTaxesConversation implements Conversation {
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		int amountToCollect = GroupPropertyUtils.getAmountToCollect(target, world);
-		return Arrays.asList(new Question(Text.QUESTION_COLLECT_TAXES, amountToCollect));
+		return Arrays.asList(new Question(TextId.QUESTION_COLLECT_TAXES, amountToCollect));
 	}
 	
 	@Override
@@ -66,9 +66,9 @@ public class CollectTaxesConversation implements Conversation {
 		
 		List<Response> responses = new ArrayList<>();
 		if (targetCanPay(target, world)) {
-			responses.add(new Response(YES, Text.ANSWER_COLLECT_TAXES_YES));
+			responses.add(new Response(YES, TextId.ANSWER_COLLECT_TAXES_YES));
 		}
-		responses.add(new Response(NO, Text.ANSWER_COLLECT_TAXES_NO));
+		responses.add(new Response(NO, TextId.ANSWER_COLLECT_TAXES_NO));
 		
 		return responses;
 	}

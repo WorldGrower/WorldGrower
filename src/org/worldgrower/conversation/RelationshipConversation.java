@@ -23,7 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.IdMap;
 import org.worldgrower.history.HistoryItem;
-import org.worldgrower.text.Text;
+import org.worldgrower.text.TextId;
 
 public class RelationshipConversation implements Conversation {
 
@@ -55,7 +55,7 @@ public class RelationshipConversation implements Conversation {
 
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subject, World world) {
-		return Arrays.asList(new Question(subject, Text.QUESTION_RELATIONSHIP, subject.getProperty(Constants.NAME)));
+		return Arrays.asList(new Question(subject, TextId.QUESTION_RELATIONSHIP, subject.getProperty(Constants.NAME)));
 	}
 
 	@Override
@@ -79,10 +79,10 @@ public class RelationshipConversation implements Conversation {
 		WorldObject subject = conversationContext.getSubject();
 		
 		return Arrays.asList(
-			new Response(DONT_KNOW, subject, Text.ANSWER_RELATIONSHIP_DONT, subject),
-			new Response(LIKE, subject, Text.ANSWER_RELATIONSHIP_LIKE, subject),
-			new Response(REALLY_LIKE, subject, Text.ANSWER_RELATIONSHIP_REALLY_LIKE, subject),
-			new Response(DISLIKE, subject, Text.ANSWER_RELATIONSHIP_DISLIKE, subject)
+			new Response(DONT_KNOW, subject, TextId.ANSWER_RELATIONSHIP_DONT, subject),
+			new Response(LIKE, subject, TextId.ANSWER_RELATIONSHIP_LIKE, subject),
+			new Response(REALLY_LIKE, subject, TextId.ANSWER_RELATIONSHIP_REALLY_LIKE, subject),
+			new Response(DISLIKE, subject, TextId.ANSWER_RELATIONSHIP_DISLIKE, subject)
 			);
 	}
 

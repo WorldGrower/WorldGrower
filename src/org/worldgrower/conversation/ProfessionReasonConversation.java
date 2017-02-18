@@ -23,7 +23,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.Reasons;
 import org.worldgrower.history.HistoryItem;
 import org.worldgrower.profession.Profession;
-import org.worldgrower.text.Text;
+import org.worldgrower.text.TextId;
 
 public class ProfessionReasonConversation implements Conversation {
 
@@ -62,7 +62,7 @@ public class ProfessionReasonConversation implements Conversation {
 
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
-		return Arrays.asList(new Question(Text.QUESTION_PROFESSION_REASON));
+		return Arrays.asList(new Question(TextId.QUESTION_PROFESSION_REASON));
 	}
 	
 	@Override
@@ -72,10 +72,10 @@ public class ProfessionReasonConversation implements Conversation {
 		Reasons reasons = target.getProperty(Constants.REASONS);
 		String reason = reasons.getReason(Constants.PROFESSION);
 		return Arrays.asList(
-			new Response(REASON, Text.ANSWER_PROFESSION_REASON_YES, reason),
-			new Response(NO_PROFESSION, Text.ANSWER_PROFESSION_REASON_NO),
-			new Response(STILL_THE_SAME, Text.ANSWER_PROFESSION_REASON_SAME, (reason != null ? reason : Text.ANSWER_PROFESSION_REASON_NO.get())),
-			new Response(NEW_PROFESSION, Text.ANSWER_PROFESSION_REASON_DIFFERENT, reason)
+			new Response(REASON, TextId.ANSWER_PROFESSION_REASON_YES, reason),
+			new Response(NO_PROFESSION, TextId.ANSWER_PROFESSION_REASON_NO),
+			new Response(STILL_THE_SAME, TextId.ANSWER_PROFESSION_REASON_SAME, (reason != null ? reason : TextId.ANSWER_PROFESSION_REASON_NO.get())),
+			new Response(NEW_PROFESSION, TextId.ANSWER_PROFESSION_REASON_DIFFERENT, reason)
 			);
 	}
 	

@@ -22,7 +22,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.KissAction;
 import org.worldgrower.history.HistoryItem;
-import org.worldgrower.text.Text;
+import org.worldgrower.text.TextId;
 
 public class KissConversation implements Conversation {
 
@@ -65,7 +65,7 @@ public class KissConversation implements Conversation {
 	
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
-		return Arrays.asList(new Question(Text.QUESTION_KISS));
+		return Arrays.asList(new Question(TextId.QUESTION_KISS));
 	}
 	
 	@Override
@@ -75,10 +75,10 @@ public class KissConversation implements Conversation {
 		boolean targetAccepts = targetAccepts(target, performer);
 		
 		return Arrays.asList(
-			new Response(YES, Text.ANSWER_KISS_YES),
-			new Response(NO, Text.ANSWER_KISS_NO),
-			new Response(ALREADY_ASKED_SAME, Text.ANSWER_KISS_SAME, (targetAccepts ? "yes" : "no")),
-			new Response(ALREADY_ASKED_DIFFERENT, Text.ANSWER_KISS_DIFFERENT, (targetAccepts ? "yes" : "no"))
+			new Response(YES, TextId.ANSWER_KISS_YES),
+			new Response(NO, TextId.ANSWER_KISS_NO),
+			new Response(ALREADY_ASKED_SAME, TextId.ANSWER_KISS_SAME, (targetAccepts ? "yes" : "no")),
+			new Response(ALREADY_ASKED_DIFFERENT, TextId.ANSWER_KISS_DIFFERENT, (targetAccepts ? "yes" : "no"))
 			);
 	}
 

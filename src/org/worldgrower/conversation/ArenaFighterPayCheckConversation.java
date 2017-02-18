@@ -24,7 +24,7 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.goal.ArenaPropertyUtils;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
-import org.worldgrower.text.Text;
+import org.worldgrower.text.TextId;
 
 public class ArenaFighterPayCheckConversation implements Conversation {
 
@@ -51,7 +51,7 @@ public class ArenaFighterPayCheckConversation implements Conversation {
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		return Arrays.asList(
-			new Question(Text.QUESTION_ARENA_PAY_CHECK)
+			new Question(TextId.QUESTION_ARENA_PAY_CHECK)
 			);
 	}
 
@@ -60,8 +60,8 @@ public class ArenaFighterPayCheckConversation implements Conversation {
 		WorldObject performer = conversationContext.getPerformer();
 		int payCheck = performer.getProperty(Constants.ARENA_PAY_CHECK_GOLD);
 		return Arrays.asList(
-			new Response(YES, Text.ANSWER_ARENA_PAY_CHECK_YES, payCheck, GOLD),
-			new Response(NO, Text.ANSWER_ARENA_PAY_CHECK_NO));
+			new Response(YES, TextId.ANSWER_ARENA_PAY_CHECK_YES, payCheck, GOLD),
+			new Response(NO, TextId.ANSWER_ARENA_PAY_CHECK_NO));
 	}
 	
 	@Override

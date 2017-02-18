@@ -25,7 +25,7 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.deity.Deity;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
-import org.worldgrower.text.Text;
+import org.worldgrower.text.TextId;
 
 public class DeityFollowersConversation implements Conversation {
 
@@ -55,7 +55,7 @@ public class DeityFollowersConversation implements Conversation {
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		List<Question> questions = new ArrayList<>();
 		for(Deity deity : Deity.getAllSortedDeities()) {
-			questions.add(new Question(Deity.getAllSortedDeities().indexOf(deity), Text.QUESTION_DEITY_FOLLOWERS, deity.getName()));
+			questions.add(new Question(Deity.getAllSortedDeities().indexOf(deity), TextId.QUESTION_DEITY_FOLLOWERS, deity.getName()));
 		}
 		return questions;
 	}
@@ -70,8 +70,8 @@ public class DeityFollowersConversation implements Conversation {
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
-			new Response(YES, Text.ANSWER_DEITY_FOLLOWERS_YES, getFollowersDescription(conversationContext)),
-			new Response(NO, Text.ANSWER_DEITY_FOLLOWERS_NO)
+			new Response(YES, TextId.ANSWER_DEITY_FOLLOWERS_YES, getFollowersDescription(conversationContext)),
+			new Response(NO, TextId.ANSWER_DEITY_FOLLOWERS_NO)
 			);
 	}
 

@@ -24,7 +24,7 @@ import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.generator.Item;
 import org.worldgrower.goal.HousePropertyUtils;
 import org.worldgrower.history.HistoryItem;
-import org.worldgrower.text.Text;
+import org.worldgrower.text.TextId;
 import org.worldgrower.util.SentenceUtils;
 
 public class BuyBuildingConversation implements Conversation {
@@ -47,14 +47,14 @@ public class BuyBuildingConversation implements Conversation {
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		String description = buildingType.getDescription();
-		return Arrays.asList(new Question(Text.QUESTION_BUY_BUILDING, SentenceUtils.getArticle(description), description));
+		return Arrays.asList(new Question(TextId.QUESTION_BUY_BUILDING, SentenceUtils.getArticle(description), description));
 	}
 	
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
-			new Response(YES, Text.ANSWER_BUY_BUILDING_YES),
-			new Response(NO, Text.ANSWER_BUY_BUILDING_NO)
+			new Response(YES, TextId.ANSWER_BUY_BUILDING_YES),
+			new Response(NO, TextId.ANSWER_BUY_BUILDING_NO)
 			);
 	}
 

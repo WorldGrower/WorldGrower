@@ -43,7 +43,7 @@ import org.worldgrower.generator.Item;
 import org.worldgrower.generator.ItemType;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.text.ConversationDescription;
-import org.worldgrower.text.Text;
+import org.worldgrower.text.TextId;
 import org.worldgrower.util.FileUtils;
 
 public class DocumentationGenerator {
@@ -253,7 +253,7 @@ public class DocumentationGenerator {
 		List<String> headerFields = Arrays.asList("Questions", "Answers");
 		
 
-		List<ConversationDescription> conversationDescriptions = Text.getConversationDescriptions();
+		List<ConversationDescription> conversationDescriptions = TextId.getConversationDescriptions();
 		Map<ConversationCategory, List<ConversationDescription>> conversationDescriptionsByCategory = splitConversations(conversationDescriptions);
 		
 		StringBuilder htmlContent = new StringBuilder();

@@ -27,7 +27,7 @@ import org.worldgrower.goal.CattlePropertyUtils;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
 import org.worldgrower.profession.Professions;
-import org.worldgrower.text.Text;
+import org.worldgrower.text.TextId;
 
 public class StopSellingConversation implements Conversation {
 
@@ -55,7 +55,7 @@ public class StopSellingConversation implements Conversation {
 		
 		for(Item item : items) {
 			String itemSuffix = getItemSuffix(item);
-			questions.add(new Question(item.ordinal(), Text.QUESTION_STOP_SELLING, item.getDescription() + itemSuffix));
+			questions.add(new Question(item.ordinal(), TextId.QUESTION_STOP_SELLING, item.getDescription() + itemSuffix));
 		}
 		
 		return questions;
@@ -67,8 +67,8 @@ public class StopSellingConversation implements Conversation {
 		Item item = Item.value(itemId);
 
 		return Arrays.asList(
-			new Response(YES, Text.ANSWER_STOP_SELLING_YES, item, getItemSuffix(item)),
-			new Response(NO, Text.ANSWER_STOP_SELLING_NO)
+			new Response(YES, TextId.ANSWER_STOP_SELLING_YES, item, getItemSuffix(item)),
+			new Response(NO, TextId.ANSWER_STOP_SELLING_NO)
 			);
 	}
 

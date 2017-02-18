@@ -22,7 +22,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.history.HistoryItem;
-import org.worldgrower.text.Text;
+import org.worldgrower.text.TextId;
 
 public class OrganizationConversation implements Conversation {
 
@@ -64,7 +64,7 @@ public class OrganizationConversation implements Conversation {
 
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
-		return Arrays.asList(new Question(Text.QUESTION_ORG));
+		return Arrays.asList(new Question(TextId.QUESTION_ORG));
 	}
 	
 	@Override
@@ -75,10 +75,10 @@ public class OrganizationConversation implements Conversation {
 		String organizationsDescription = getOrganizationsDescription(target, world);
 		
 		return Arrays.asList(
-			new Response(MY_GROUP, Text.ANSWER_ORG_GROUP, organizationsDescription),
-			new Response(NO_GROUP, Text.ANSWER_ORG_NO_GROUP),
-			new Response(ALREADY_ASKED_SAME, Text.ANSWER_ORG_SAME, organizationsDescription),
-			new Response(ALREADY_ASKED_DIFFERENT, Text.ANSWER_ORG_DIFFERENT, organizationsDescription)
+			new Response(MY_GROUP, TextId.ANSWER_ORG_GROUP, organizationsDescription),
+			new Response(NO_GROUP, TextId.ANSWER_ORG_NO_GROUP),
+			new Response(ALREADY_ASKED_SAME, TextId.ANSWER_ORG_SAME, organizationsDescription),
+			new Response(ALREADY_ASKED_DIFFERENT, TextId.ANSWER_ORG_DIFFERENT, organizationsDescription)
 			);
 	}
 

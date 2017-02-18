@@ -25,7 +25,7 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.IdMap;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
-import org.worldgrower.text.Text;
+import org.worldgrower.text.TextId;
 
 public abstract class AbstractChangeOpinionConversation implements Conversation {
 
@@ -101,10 +101,10 @@ public abstract class AbstractChangeOpinionConversation implements Conversation 
 		boolean targetAccepts = targetAccepts(target, performer);
 		
 		return Arrays.asList(
-				new Response(YES, Text.ANSWER_NICE_YES), 
-				new Response(NO, Text.ANSWER_NICE_NO),
-				new Response(ALREADY_ASKED_SAME, Text.ANSWER_NICE_SAME, (targetAccepts ? "yes" : "no")),
-				new Response(ALREADY_ASKED_DIFFERENT, Text.ANSWER_NICE_DIFFERENT, (targetAccepts ? "yes" : "no"))
+				new Response(YES, TextId.ANSWER_NICE_YES), 
+				new Response(NO, TextId.ANSWER_NICE_NO),
+				new Response(ALREADY_ASKED_SAME, TextId.ANSWER_NICE_SAME, (targetAccepts ? "yes" : "no")),
+				new Response(ALREADY_ASKED_DIFFERENT, TextId.ANSWER_NICE_DIFFERENT, (targetAccepts ? "yes" : "no"))
 				);
 	}
 

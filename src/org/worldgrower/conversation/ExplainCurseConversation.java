@@ -24,7 +24,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
-import org.worldgrower.text.Text;
+import org.worldgrower.text.TextId;
 
 public class ExplainCurseConversation implements Conversation {
 
@@ -57,7 +57,7 @@ public class ExplainCurseConversation implements Conversation {
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		return Arrays.asList(
-			new Question(Text.QUESTION_CURSE)
+			new Question(TextId.QUESTION_CURSE)
 			);
 	}
 
@@ -68,10 +68,10 @@ public class ExplainCurseConversation implements Conversation {
 		List<Response> responses = new ArrayList<>();
 		if (targetHasCurse(target)) {
 			String curseExplanation = target.getProperty(Constants.CURSE).getExplanation();
-			responses.add(new Response(YES, Text.ANSWER_CURSE_YES, curseExplanation));
+			responses.add(new Response(YES, TextId.ANSWER_CURSE_YES, curseExplanation));
 		}
-		responses.add(new Response(NO, Text.ANSWER_CURSE_NO));
-		responses.add(new Response(GET_LOST, Text.ANSWER_CURSE_GETLOST));
+		responses.add(new Response(NO, TextId.ANSWER_CURSE_NO));
+		responses.add(new Response(GET_LOST, TextId.ANSWER_CURSE_GETLOST));
 		
 		return responses;
 	}

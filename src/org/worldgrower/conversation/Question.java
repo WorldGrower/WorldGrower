@@ -16,7 +16,8 @@ package org.worldgrower.conversation;
 
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
-import org.worldgrower.text.Text;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class Question {
 	private int id;
@@ -25,31 +26,29 @@ public class Question {
 	private final int additionalValue;
 	private final int additionalValue2;
 	
-	private final Text text;
-	private final Object[] objects;
+	private final FormattableText formattableText;
 	
-	public Question(Text text, Object... objects) {
+	public Question(TextId text, Object... objects) {
 		this(null, text, objects);
 	}
 	
-	public Question(WorldObject subject, Text text, Object... objects) {
+	public Question(WorldObject subject, TextId text, Object... objects) {
 		this(subject, 0, 0, text, objects);
 	}
 	
-	public Question(int additionalValue, Text text, Object... objects) {
+	public Question(int additionalValue, TextId text, Object... objects) {
 		this(null, additionalValue, 0, text, objects);
 	}
 	
-	public Question(WorldObject subject, int additionalValue, Text text, Object... objects) {
+	public Question(WorldObject subject, int additionalValue, TextId text, Object... objects) {
 		this(subject, additionalValue, 0, text, objects);
 	}
 	
-	public Question(WorldObject subject, int additionalValue, int additionalValue2, Text text, Object... objects) {
+	public Question(WorldObject subject, int additionalValue, int additionalValue2, TextId text, Object... objects) {
 		this.subjectId = (subject != null ? subject.getProperty(Constants.ID) : -1);
 		this.additionalValue = additionalValue;
 		this.additionalValue2 = additionalValue2;
-		this.text = text;
-		this.objects = objects;
+		this.formattableText = new FormattableText(text, objects);
 	}
 	
 	public int getId() {
@@ -65,7 +64,7 @@ public class Question {
 	}
 
 	public String getQuestionPhrase(ConversationFormatter conversationFormatter) {
-		return conversationFormatter.format(text, objects);
+		return conversationFormatter.format(formattableText);
 	}		
 
 	public int getHistoryItemId() {

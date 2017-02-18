@@ -26,7 +26,7 @@ import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
 import org.worldgrower.profession.Profession;
 import org.worldgrower.profession.Professions;
-import org.worldgrower.text.Text;
+import org.worldgrower.text.TextId;
 import org.worldgrower.util.SentenceUtils;
 
 public class ProfessionPractitionersConversation implements Conversation {
@@ -57,7 +57,7 @@ public class ProfessionPractitionersConversation implements Conversation {
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		List<Question> questions = new ArrayList<>();
 		for(Profession profession : Professions.getAllSortedProfessions()) {
-			questions.add(new Question(Professions.getAllSortedProfessions().indexOf(profession), Text.QUESTION_PROFESSION_USERS, profession.getDescription()));
+			questions.add(new Question(Professions.getAllSortedProfessions().indexOf(profession), TextId.QUESTION_PROFESSION_USERS, profession.getDescription()));
 		}
 		return questions;
 	}
@@ -73,8 +73,8 @@ public class ProfessionPractitionersConversation implements Conversation {
 	@Override
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
-			new Response(YES, Text.ANSWER_PROFESSION_USERS_YES, getProfessionPractitionersDescription(conversationContext)),
-			new Response(NO, Text.ANSWER_PROFESSION_USERS_NO)
+			new Response(YES, TextId.ANSWER_PROFESSION_USERS_YES, getProfessionPractitionersDescription(conversationContext)),
+			new Response(NO, TextId.ANSWER_PROFESSION_USERS_NO)
 			);
 	}
 

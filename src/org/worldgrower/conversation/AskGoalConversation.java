@@ -26,7 +26,7 @@ import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
 import org.worldgrower.goal.RelationshipPropertyUtils;
 import org.worldgrower.history.HistoryItem;
-import org.worldgrower.text.Text;
+import org.worldgrower.text.TextId;
 
 public class AskGoalConversation implements Conversation {
 
@@ -90,7 +90,7 @@ public class AskGoalConversation implements Conversation {
 		
 		for(int goalIndex = 0; goalIndex<allGoals.size(); goalIndex++) {
 			Goal goal = allGoals.get(goalIndex);
-			questions.add(new Question(goalIndex, Text.QUESTION_ASK_GOAL, goal.getDescription()));
+			questions.add(new Question(goalIndex, TextId.QUESTION_ASK_GOAL, goal.getDescription()));
 		}
 		
 		return questions;
@@ -101,9 +101,9 @@ public class AskGoalConversation implements Conversation {
 		Goal goal = getGoal(conversationContext);
 		
 		return Arrays.asList(
-			new Response(YES, Text.ANSWER_ASK_GOAL_YES, goal.getDescription()),
-			new Response(ALREADY, Text.ANSWER_ASK_GOAL_EXPLAIN, goal.getDescription()),
-			new Response(NO, Text.ANSWER_ASK_GOAL_NO));
+			new Response(YES, TextId.ANSWER_ASK_GOAL_YES, goal.getDescription()),
+			new Response(ALREADY, TextId.ANSWER_ASK_GOAL_EXPLAIN, goal.getDescription()),
+			new Response(NO, TextId.ANSWER_ASK_GOAL_NO));
 	}
 	
 	@Override

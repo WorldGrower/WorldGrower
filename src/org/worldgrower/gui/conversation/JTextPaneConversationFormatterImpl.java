@@ -15,17 +15,14 @@
 package org.worldgrower.gui.conversation;
 
 import java.awt.Image;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JTextPane;
 
-import org.worldgrower.WorldObject;
 import org.worldgrower.conversation.ConversationFormatter;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.util.JTextPaneUtils;
-import org.worldgrower.text.Text;
+import org.worldgrower.text.FormattableText;
 import org.worldgrower.text.TextParser;
 
 public class JTextPaneConversationFormatterImpl implements ConversationFormatter {
@@ -42,18 +39,18 @@ public class JTextPaneConversationFormatterImpl implements ConversationFormatter
 	}
 
 	@Override
-	public String format(Text text, Object[] objects) {
-		text.parse(new TextParser() {
+	public String format(FormattableText formattableText) {
+		formattableText.getTextId().parse(new TextParser() {
 			
 			@Override
 			public void variableFound(int index) {
-				Object object = objects[index];
+				Object object = formattableText.getObjects()[index];
 				if (object instanceof Item) {
 					Item item = (Item) object;
 					Image image = imageInfoReader.getImage(item.getImageId(), null);
 					JTextPaneUtils.appendIconAndText(textPane, image, item.getDescription());	
 				} else {
-					JTextPaneUtils.appendTextUsingLabel(textPane, conversationArgumentFormatter.formatObject(objects));
+					JTextPaneUtils.appendTextUsingLabel(textPane, conversationArgumentFormatter.formatObject(formattableText.getObjects()));
 				}
 			}
 			

@@ -27,7 +27,7 @@ import org.worldgrower.goal.BountyPropertyUtils;
 import org.worldgrower.goal.GoalUtils;
 import org.worldgrower.goal.GroupPropertyUtils;
 import org.worldgrower.history.HistoryItem;
-import org.worldgrower.text.Text;
+import org.worldgrower.text.TextId;
 
 public class CollectBountyFromThievesConversation implements Conversation {
 
@@ -54,7 +54,7 @@ public class CollectBountyFromThievesConversation implements Conversation {
 	@Override
 	public List<Question> getQuestionPhrases(WorldObject performer, WorldObject target, HistoryItem questionHistoryItem, WorldObject subjectWorldObject, World world) {
 		int bounty = BountyPropertyUtils.getBounty(target, world);
-		return Arrays.asList(new Question(Text.QUESTION_COLLECT_BOUNTY, bounty));
+		return Arrays.asList(new Question(TextId.QUESTION_COLLECT_BOUNTY, bounty));
 	}
 
 	@Override
@@ -64,11 +64,11 @@ public class CollectBountyFromThievesConversation implements Conversation {
 		int bounty = BountyPropertyUtils.getBounty(target, world);
 		List<Response> responses = new ArrayList<>();
 		if (target.getProperty(Constants.GOLD).intValue() >= bounty) {
-			responses.add(new Response(PAY_GOLD, bounty <= conversationContext.getTarget().getProperty(Constants.GOLD), Text.ANSWER_COLLECT_BOUNTY_PAY));
+			responses.add(new Response(PAY_GOLD, bounty <= conversationContext.getTarget().getProperty(Constants.GOLD), TextId.ANSWER_COLLECT_BOUNTY_PAY));
 		}
 		responses.addAll(Arrays.asList(
-				new Response(JAIL, Text.ANSWER_COLLECT_BOUNTY_JAIL),
-				new Response(RESIST_ARREST, Text.ANSWER_COLLECT_BOUNTY_RESIST)));
+				new Response(JAIL, TextId.ANSWER_COLLECT_BOUNTY_JAIL),
+				new Response(RESIST_ARREST, TextId.ANSWER_COLLECT_BOUNTY_RESIST)));
 		
 		return responses;
 	}

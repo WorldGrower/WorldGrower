@@ -22,27 +22,27 @@ public class UTestText {
 
 	@Test
 	public void testGetMessage() {
-		assertEquals("I'm here to receive my reward for participating in the arena", Text.QUESTION_ARENA_PAY_CHECK.get());
-		assertEquals("yes, here is your 7 gold", Text.ANSWER_ARENA_PAY_CHECK_YES.get("7", "gold"));
+		assertEquals("I'm here to receive my reward for participating in the arena", TextId.QUESTION_ARENA_PAY_CHECK.get());
+		assertEquals("yes, here is your 7 gold", TextId.ANSWER_ARENA_PAY_CHECK_YES.get("7", "gold"));
 	}
 	
 	@Test
 	public void testValidate() {
-		Text.getConversationDescriptions();
+		TextId.getConversationDescriptions();
 	}
 	
 	@Test
 	public void testParse() {
 		TextParser textParser = createTextParser();
-		Text.ANSWER_ANGRY_GETLOST.parse(textParser);
+		TextId.ANSWER_ANGRY_GETLOST.parse(textParser);
 		assertEquals("Get lost", textParser.toString());
 		
 		textParser = createTextParser();
-		Text.QUESTION_SET_PRICE.parse(textParser);
+		TextId.QUESTION_SET_PRICE.parse(textParser);
 		assertEquals("I'd like to set the price for {0} for {1} to {2}, can you take care of this?", textParser.toString());
 		
 		textParser = createTextParser();
-		Text.QUESTION_SHARE_KNOWLEDGE.parse(textParser);
+		TextId.QUESTION_SHARE_KNOWLEDGE.parse(textParser);
 		assertEquals("{0}", textParser.toString());
 	}
 
