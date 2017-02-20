@@ -27,6 +27,8 @@ import org.worldgrower.actions.legal.LegalAction;
 import org.worldgrower.actions.legal.LegalActions;
 import org.worldgrower.deity.Deity;
 import org.worldgrower.generator.BuildingDimensions;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class ShrineToDeityGoal implements Goal {
 
@@ -72,8 +74,8 @@ public class ShrineToDeityGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "choosing a deity";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_SHRINE_TO_DEITY);
 	}
 
 	@Override

@@ -24,6 +24,8 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.profession.Profession;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class LearnSkillGoal implements Goal {
 
@@ -68,8 +70,8 @@ public class LearnSkillGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "improving my skills";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_LEARN_SKILL);
 	}
 
 	@Override

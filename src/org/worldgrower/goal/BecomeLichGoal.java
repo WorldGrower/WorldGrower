@@ -22,6 +22,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.condition.LichUtils;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class BecomeLichGoal implements Goal {
 
@@ -56,8 +58,8 @@ public class BecomeLichGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "becoming a lich";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_BECOME_LICH);
 	}
 
 	@Override

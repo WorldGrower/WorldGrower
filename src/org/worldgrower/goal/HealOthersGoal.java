@@ -22,6 +22,8 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class HealOthersGoal implements Goal {
 
@@ -70,8 +72,8 @@ public class HealOthersGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "looking to heal and cure diseases";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_HEAL_OTHERS);
 	}
 
 	@Override

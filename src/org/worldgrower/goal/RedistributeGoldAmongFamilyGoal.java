@@ -24,6 +24,8 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.conversation.DemandMoneyConversation;
 import org.worldgrower.conversation.GiveMoneyConversation;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class RedistributeGoldAmongFamilyGoal implements Goal {
 
@@ -75,8 +77,8 @@ public class RedistributeGoldAmongFamilyGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "redistributing money among family members";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_REDISTRIBUTE_GOLD_AMONG_FAMILY);
 	}
 
 	@Override

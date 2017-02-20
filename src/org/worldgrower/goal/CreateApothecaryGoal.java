@@ -26,6 +26,8 @@ import org.worldgrower.actions.BuildApothecaryAction;
 import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.generator.BuildingDimensions;
 import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class CreateApothecaryGoal implements Goal {
 
@@ -69,8 +71,8 @@ public class CreateApothecaryGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "building an apothecary";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_CREATE_APOTHECARY);
 	}
 
 	@Override

@@ -23,6 +23,8 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.UnCheckedProperty;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class UseEquipmentGoal implements Goal {
 
@@ -90,8 +92,8 @@ public class UseEquipmentGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "looking for equipment";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_USE_EQUIPMENT);
 	}
 
 	@Override

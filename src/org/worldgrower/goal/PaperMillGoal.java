@@ -24,6 +24,8 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class PaperMillGoal implements Goal {
 
@@ -68,8 +70,8 @@ public class PaperMillGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "building a papermill";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_PAPER_MILL);
 	}
 
 	@Override

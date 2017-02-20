@@ -24,6 +24,8 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.UnCheckedProperty;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class PoisonWeaponGoal implements Goal {
 
@@ -80,8 +82,8 @@ public class PoisonWeaponGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "poisoning weapons";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_POISON_WEAPON);
 	}
 
 	@Override

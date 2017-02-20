@@ -23,6 +23,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class BuyClothesGoal implements Goal {
 
@@ -147,8 +149,8 @@ public class BuyClothesGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "buying clothes";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_BUY_CLOTHES);
 	}
 
 	@Override

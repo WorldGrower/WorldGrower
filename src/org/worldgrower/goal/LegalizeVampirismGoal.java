@@ -29,6 +29,8 @@ import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.condition.VampireUtils;
 import org.worldgrower.creaturetype.CreatureType;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class LegalizeVampirismGoal implements Goal {
 
@@ -76,8 +78,8 @@ public class LegalizeVampirismGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "looking to legalize vampirism";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_LEGALIZE_VAMPIRISM);
 	}
 
 	@Override

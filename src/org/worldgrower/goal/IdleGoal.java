@@ -21,6 +21,8 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class IdleGoal implements Goal {
 
@@ -48,8 +50,8 @@ public class IdleGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "doing nothing";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_IDLE);
 	}
 
 	@Override

@@ -26,6 +26,8 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.legal.LegalAction;
 import org.worldgrower.actions.legal.LegalActions;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class GatherFoodGoal implements Goal {
 
@@ -128,8 +130,8 @@ public class GatherFoodGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "harvesting food";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_GATHER_FOOD);
 	}
 
 	@Override

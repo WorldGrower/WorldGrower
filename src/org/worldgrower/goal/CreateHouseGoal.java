@@ -25,6 +25,8 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.BuildHouseAction;
 import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.generator.BuildingDimensions;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class CreateHouseGoal implements Goal {
 
@@ -61,8 +63,8 @@ public class CreateHouseGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "constructing a house";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_CREATE_HOUSE);
 	}
 
 	@Override

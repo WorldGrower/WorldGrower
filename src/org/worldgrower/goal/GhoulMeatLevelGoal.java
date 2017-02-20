@@ -22,6 +22,8 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class GhoulMeatLevelGoal implements Goal {
 
@@ -54,8 +56,8 @@ public class GhoulMeatLevelGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "hungry for human flesh";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_GHOUL_MEAT_LEVEL);
 	}
 
 	@Override

@@ -25,6 +25,8 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class WeaveLeatherArmorGoal implements Goal {
 
@@ -70,8 +72,8 @@ public class WeaveLeatherArmorGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "looking to weave leather equipment";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_WEAVE_LEATHER_ARMOR);
 	}
 
 	@Override

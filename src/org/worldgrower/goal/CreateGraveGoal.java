@@ -22,6 +22,8 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class CreateGraveGoal implements Goal {
 
@@ -57,8 +59,8 @@ public class CreateGraveGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "burying remains";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_CREATE_GRAVE);
 	}
 
 	@Override

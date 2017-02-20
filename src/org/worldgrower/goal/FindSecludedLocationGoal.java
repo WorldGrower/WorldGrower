@@ -25,6 +25,8 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.SecludedAction;
 import org.worldgrower.creaturetype.CreatureType;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class FindSecludedLocationGoal implements Goal {
 
@@ -67,8 +69,8 @@ public class FindSecludedLocationGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "finding a secluded locationr";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_FIND_SECLUDED_LOCATION);
 	}
 
 	@Override

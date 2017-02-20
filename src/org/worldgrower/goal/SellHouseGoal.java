@@ -23,6 +23,8 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.conversation.Conversations;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class SellHouseGoal implements Goal {
 	
@@ -63,8 +65,8 @@ public class SellHouseGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "selling a house";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_SELL_HOUSE);
 	}
 	
 	@Override

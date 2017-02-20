@@ -22,6 +22,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.FoodPropertyUtils;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class EquipButcherKnifeGoal implements Goal {
 
@@ -58,8 +60,8 @@ public class EquipButcherKnifeGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "equipping a butcher knife";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_EQUIP_BUTCHER_KNIFE);
 	}
 
 	@Override

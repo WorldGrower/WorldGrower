@@ -24,6 +24,8 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.IntProperty;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class MarkUnusedBuildingAsSellableGoal implements Goal {
 	private final IntProperty leftHandProperty;
@@ -67,8 +69,8 @@ public class MarkUnusedBuildingAsSellableGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "marking " + buildingType.getDescription() + "s as sellable";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_MARK_UNUSED_BUILDING_AS_SELLABLE, buildingType.getDescription());
 	}
 	
 	@Override

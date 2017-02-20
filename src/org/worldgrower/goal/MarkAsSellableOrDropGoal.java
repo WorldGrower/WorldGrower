@@ -23,6 +23,8 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class MarkAsSellableOrDropGoal implements Goal {
 
@@ -60,8 +62,8 @@ public class MarkAsSellableOrDropGoal implements Goal {
 	}
 	
 	@Override
-	public String getDescription() {
-		return "getting rid of " + propertyToSell;
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_MARK_AS_SELLABLE_OR_DROP, propertyToSell);
 	}
 
 	@Override

@@ -22,6 +22,8 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class KillOutsidersGoal implements Goal {
 
@@ -63,8 +65,8 @@ public class KillOutsidersGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "killing an outsider";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_KILL_OUTSIDER);
 	}
 
 	@Override

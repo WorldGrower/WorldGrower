@@ -24,6 +24,8 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class HouseGoal implements Goal {
 
@@ -74,8 +76,8 @@ public class HouseGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "looking to have a house of my own";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_HOUSE);
 	}
 
 	@Override

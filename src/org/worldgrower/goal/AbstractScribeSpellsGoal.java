@@ -29,6 +29,8 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.magic.MagicSpell;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public abstract class AbstractScribeSpellsGoal implements Goal {
 
@@ -112,8 +114,8 @@ public abstract class AbstractScribeSpellsGoal implements Goal {
 	}
 
 	@Override
-	public final String getDescription() {
-		return "scribing spells";
+	public final FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_SCRIBE_SPELLS);
 	}
 
 	@Override

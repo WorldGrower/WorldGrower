@@ -22,6 +22,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.MinePropertyUtils;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class EquipPickaxeGoal implements Goal {
 
@@ -58,8 +60,8 @@ public class EquipPickaxeGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "equipping a pickaxe";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_EQUIP_PICKAXE);
 	}
 
 	@Override

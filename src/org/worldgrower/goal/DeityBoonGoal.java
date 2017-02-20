@@ -26,6 +26,8 @@ import org.worldgrower.actions.legal.LegalAction;
 import org.worldgrower.actions.legal.LegalActions;
 import org.worldgrower.condition.ConditionUtils;
 import org.worldgrower.deity.Deity;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class DeityBoonGoal implements Goal {
 
@@ -70,8 +72,8 @@ public class DeityBoonGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "worshipping " + deity.getName();
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_DEITY_BOON, deity.getName());
 	}
 
 	@Override

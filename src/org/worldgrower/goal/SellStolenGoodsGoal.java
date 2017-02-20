@@ -21,6 +21,8 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class SellStolenGoodsGoal implements Goal {
 
@@ -74,8 +76,8 @@ public class SellStolenGoodsGoal implements Goal {
 	}
 	
 	@Override
-	public String getDescription() {
-		return "selling stolen goods";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_SELL_STOLEN_GOODS);
 	}
 	
 	@Override

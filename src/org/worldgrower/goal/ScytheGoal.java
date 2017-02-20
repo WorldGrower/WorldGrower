@@ -21,6 +21,8 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.generator.Item;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class ScytheGoal implements Goal {
 
@@ -56,8 +58,8 @@ public class ScytheGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "looking for a scythe";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_SCYTHE);
 	}
 
 	@Override

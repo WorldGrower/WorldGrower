@@ -22,6 +22,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class RepairEquipmentGoal implements Goal {
 
@@ -56,8 +58,8 @@ public class RepairEquipmentGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "repairing equipment";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_REPAIR_EQUIPMENT);
 	}
 	
 	private int getDamageOfEquipmentItemsInInventory(WorldObject performer) {

@@ -25,6 +25,8 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.BuildWorkbenchAction;
 import org.worldgrower.generator.BuildingDimensions;
 import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class CreateWorkbenchGoal implements Goal {
 
@@ -67,8 +69,8 @@ public class CreateWorkbenchGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "building a workbench";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_CREATE_WORKBENCH);
 	}
 
 	@Override

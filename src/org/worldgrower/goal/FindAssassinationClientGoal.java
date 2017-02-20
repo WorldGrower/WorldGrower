@@ -24,6 +24,8 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.IdMap;
 import org.worldgrower.conversation.Conversations;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class FindAssassinationClientGoal implements Goal {
 
@@ -92,8 +94,8 @@ public class FindAssassinationClientGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "finding an assassination client";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_FIND_ASSASSINATION_CLIENT);
 	}
 
 	@Override

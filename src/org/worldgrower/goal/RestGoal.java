@@ -23,6 +23,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.BuildingType;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class RestGoal implements Goal {
 
@@ -55,8 +57,8 @@ public class RestGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "tired";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_REST);
 	}
 
 	@Override

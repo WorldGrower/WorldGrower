@@ -22,6 +22,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.conversation.Conversations;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class SwitchDeityGoal implements Goal {
 
@@ -67,8 +69,8 @@ public class SwitchDeityGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "convert others to deity";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_SWITCH_DEITY);
 	}
 
 	@Override

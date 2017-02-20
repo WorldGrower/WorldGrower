@@ -27,6 +27,8 @@ import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.condition.GhoulUtils;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.generator.Item;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class GhoulGoal implements Goal {
 
@@ -71,8 +73,8 @@ public class GhoulGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "creating ghouls";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_GHOUL);
 	}
 
 	@Override

@@ -24,6 +24,8 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.conversation.Conversations;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class GetDiseaseCuredGoal implements Goal {
 
@@ -81,8 +83,8 @@ public class GetDiseaseCuredGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "looking to have diseases cured";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_GET_DISEASE_CURED);
 	}
 
 	@Override

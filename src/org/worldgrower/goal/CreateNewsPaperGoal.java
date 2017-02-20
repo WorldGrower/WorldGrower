@@ -23,6 +23,8 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.CreateNewsPaperAction;
 import org.worldgrower.attribute.Knowledge;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class CreateNewsPaperGoal implements Goal {
 
@@ -59,8 +61,8 @@ public class CreateNewsPaperGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "creating newspapers";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_CREATE_NEWS_PAPER);
 	}
 
 	@Override

@@ -16,12 +16,14 @@ package org.worldgrower.gui.conversation;
 
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
+import org.worldgrower.conversation.ConversationFormatter;
 import org.worldgrower.generator.Item;
+import org.worldgrower.text.FormattableText;
 
 public class TextConversationArgumentFormatter implements ConversationArgumentFormatter {
 
 	@Override
-	public String formatObject(Object object) {
+	public String formatObject(ConversationFormatter conversationFormatter, Object object) {
 		if (object instanceof String) {
 			return (String) object;
 		} else if (object instanceof Integer) {
@@ -32,6 +34,9 @@ public class TextConversationArgumentFormatter implements ConversationArgumentFo
 		} else if (object instanceof Item) {
 			Item item = (Item) object;
 			return item.getDescription();
+		} else if (object instanceof FormattableText) {
+			FormattableText formattableText = (FormattableText) object;
+			return conversationFormatter.format(formattableText);
 		} else {
 			throw new IllegalStateException("Object " + object + " of class " + object.getClass() + " cannot be mapped");
 		}

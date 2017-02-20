@@ -24,6 +24,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.personality.PersonalityTrait;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class FoodGoal implements Goal {
 
@@ -67,8 +69,8 @@ public class FoodGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "hungry and looking for food";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_FOOD);
 	}
 
 	@Override

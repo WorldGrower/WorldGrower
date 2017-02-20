@@ -33,7 +33,7 @@ public class ConversationFormatterImpl implements ConversationFormatter {
 	public String format(FormattableText formattableText) {
 		List<String> args = new ArrayList<>();
 		for(Object object : formattableText.getObjects()) {
-			args.add(conversationArgumentFormatter.formatObject(object));
+			args.add(conversationArgumentFormatter.formatObject(this, object));
 		}
 		return formattableText.getTextId().get(args);
 	}	

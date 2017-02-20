@@ -25,6 +25,8 @@ import org.worldgrower.attribute.IdMap;
 import org.worldgrower.attribute.Knowledge;
 import org.worldgrower.attribute.KnowledgeMap;
 import org.worldgrower.conversation.Conversations;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class SocializeGoal implements Goal {
 
@@ -115,8 +117,8 @@ public class SocializeGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "socializing";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_SOCIALIZE);
 	}
 
 	@Override

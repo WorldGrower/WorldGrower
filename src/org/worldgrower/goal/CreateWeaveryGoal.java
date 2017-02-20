@@ -25,6 +25,8 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.BuildWeaveryAction;
 import org.worldgrower.generator.BuildingDimensions;
 import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class CreateWeaveryGoal implements Goal {
 
@@ -67,8 +69,8 @@ public class CreateWeaveryGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "building a weavery";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_CREATE_WEAVERY);
 	}
 
 	@Override

@@ -22,6 +22,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.conversation.Conversations;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class StartBrawlGoal implements Goal {
 
@@ -77,8 +79,8 @@ public class StartBrawlGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "looking to brawl";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_START_BRAWL);
 	}
 
 	@Override

@@ -25,6 +25,8 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.IdMap;
 import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class ReleaseCapturedCriminalsGoal implements Goal {
 
@@ -84,8 +86,8 @@ public class ReleaseCapturedCriminalsGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "releasing criminals that have served their time";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_RELEASE_CAPTURED_CRIMINALS);
 	}
 
 	@Override

@@ -21,6 +21,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.legal.LegalActions;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class SetTaxesGoal implements Goal {
 
@@ -53,8 +55,8 @@ public class SetTaxesGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "setting tax rates";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_SET_TAXES);
 	}
 
 	@Override

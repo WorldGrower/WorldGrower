@@ -23,6 +23,8 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.IdMap;
 import org.worldgrower.conversation.Conversations;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class CatchThievesGoal implements Goal {
 
@@ -63,8 +65,8 @@ public class CatchThievesGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "catching thieves";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_CATCH_THIES);
 	}
 
 	@Override

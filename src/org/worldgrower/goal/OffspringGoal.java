@@ -22,6 +22,8 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class OffspringGoal implements Goal {
 
@@ -55,8 +57,8 @@ public class OffspringGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "looking to have children";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_OFFSPRING);
 	}
 
 	@Override

@@ -26,6 +26,8 @@ import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.IdMap;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.personality.PersonalityTrait;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class MateGoal implements Goal {
 
@@ -118,8 +120,8 @@ public class MateGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "looking to have a mate";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_MATE);
 	}
 
 	@Override

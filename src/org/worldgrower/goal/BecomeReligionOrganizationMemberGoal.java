@@ -24,6 +24,8 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.OrganizationNamer;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.deity.Deity;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class BecomeReligionOrganizationMemberGoal implements Goal {
 
@@ -76,8 +78,8 @@ public class BecomeReligionOrganizationMemberGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "looking for an religion organization to belong to";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_BECOME_RELIGION_ORGANIZATION_MEMBER);
 	}
 
 	@Override

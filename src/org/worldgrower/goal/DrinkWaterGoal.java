@@ -27,6 +27,8 @@ import org.worldgrower.actions.BuildWellAction;
 import org.worldgrower.generator.BuildingDimensions;
 import org.worldgrower.generator.Item;
 import org.worldgrower.personality.PersonalityTrait;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class DrinkWaterGoal implements Goal {
 
@@ -101,8 +103,8 @@ public class DrinkWaterGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "thirsty and looking for water";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_DRINK_WATER);
 	}
 
 	@Override

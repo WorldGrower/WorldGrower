@@ -21,6 +21,8 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class DonateMoneyToArenaGoal implements Goal {
 
@@ -62,8 +64,8 @@ public class DonateMoneyToArenaGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "donating money to the arena";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_DONATE_MONEY_TO_ARENA);
 	}
 
 	@Override

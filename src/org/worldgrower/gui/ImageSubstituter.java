@@ -22,6 +22,7 @@ import java.util.Map.Entry;
 
 import javax.swing.JTextPane;
 
+import org.worldgrower.conversation.ConversationFormatter;
 import org.worldgrower.conversation.Response;
 import org.worldgrower.generator.Item;
 import org.worldgrower.generator.ItemType;
@@ -126,7 +127,7 @@ public class ImageSubstituter implements ConversationArgumentFormatter {
 	}
 
 	@Override
-	public String formatObject(Object object) {
+	public String formatObject(ConversationFormatter conversationFormatter, Object object) {
 		if (object instanceof Item) {
 			Item item = (Item) object;
 			if (itemsToSubstitute().contains(item)) {
@@ -140,7 +141,7 @@ public class ImageSubstituter implements ConversationArgumentFormatter {
 			}
 		} else {
 			TextConversationArgumentFormatter textConversationArgumentFormatter = new TextConversationArgumentFormatter();
-			return textConversationArgumentFormatter.formatObject(object);
+			return textConversationArgumentFormatter.formatObject(conversationFormatter, object);
 		}
 	}
 }

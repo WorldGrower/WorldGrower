@@ -14,8 +14,10 @@
  *******************************************************************************/
 package org.worldgrower.gui.conversation;
 
+import org.worldgrower.conversation.ConversationFormatter;
+
 
 public interface ConversationArgumentFormatter {
 
-	public String formatObject(Object object);
+	public String formatObject(ConversationFormatter conversationFormatter, Object object);
 }

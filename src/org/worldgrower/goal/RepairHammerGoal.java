@@ -20,6 +20,8 @@ import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class RepairHammerGoal implements Goal {
 
@@ -55,8 +57,8 @@ public class RepairHammerGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "looking for repair hammers";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_REPAIR_HAMMER);
 	}
 
 	@Override

@@ -22,6 +22,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.conversation.Conversations;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class FeedOthersGoal implements Goal {
 
@@ -62,8 +64,8 @@ public class FeedOthersGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "looking to feed the hungry";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_FEED_OTHERS);
 	}
 
 	@Override

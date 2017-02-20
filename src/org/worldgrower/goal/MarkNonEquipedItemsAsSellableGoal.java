@@ -20,6 +20,8 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class MarkNonEquipedItemsAsSellableGoal implements Goal {
 	
@@ -61,8 +63,8 @@ public class MarkNonEquipedItemsAsSellableGoal implements Goal {
 	}
 
 	@Override
-	public final String getDescription() {
-		return "marking items as sellable";
+	public final FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_MARK_NON_EQUIPED_ITEMS_AS_SELLABLE);
 	}
 	
 	@Override

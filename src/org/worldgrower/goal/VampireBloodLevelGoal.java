@@ -25,6 +25,8 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.condition.VampireUtils;
 import org.worldgrower.personality.PersonalityTrait;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class VampireBloodLevelGoal implements Goal {
 
@@ -84,8 +86,8 @@ public class VampireBloodLevelGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "thirsty for blood";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_VAMPIRE_BLOOD);
 	}
 
 	@Override

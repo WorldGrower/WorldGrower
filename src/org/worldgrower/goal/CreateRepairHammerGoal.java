@@ -24,6 +24,8 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class CreateRepairHammerGoal implements Goal {
 
@@ -66,8 +68,8 @@ public class CreateRepairHammerGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "crafting repair hammers";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_CREATE_REPAIR_HAMMER);
 	}
 	
 	private int getNumberOfRepairHammers(WorldObject performer) {

@@ -24,6 +24,8 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.ConstructPickAxeAction;
 import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class CreatePickaxeGoal implements Goal {
 
@@ -64,8 +66,8 @@ public class CreatePickaxeGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "looking for a pickaxe";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_CREATE_PICKAXE);
 	}
 
 	@Override

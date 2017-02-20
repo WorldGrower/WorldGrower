@@ -23,6 +23,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class KillVillagersGoal implements Goal {
 
@@ -69,8 +71,8 @@ public class KillVillagersGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "killing villagers";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_KILL_VILLAGERS);
 	}
 
 	@Override

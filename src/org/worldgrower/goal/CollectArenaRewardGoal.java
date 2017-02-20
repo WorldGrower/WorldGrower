@@ -22,6 +22,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.conversation.Conversations;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class CollectArenaRewardGoal implements Goal {
 
@@ -55,8 +57,8 @@ public class CollectArenaRewardGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "collecting arena reward";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_COLLECT_ARENA_REWARD);
 	}
 
 	@Override

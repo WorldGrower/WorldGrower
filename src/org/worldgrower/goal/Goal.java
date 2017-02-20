@@ -22,6 +22,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.personality.PersonalityTrait;
+import org.worldgrower.text.FormattableText;
 
 /**
  * A Goal describes something a non-player character wants to achieve.
@@ -31,7 +32,7 @@ public interface Goal extends Serializable {
 	public OperationInfo calculateGoal(WorldObject performer, World world);
 	public boolean isGoalMet(WorldObject performer, World world);
 	public boolean isUrgentGoalMet(WorldObject performer, World world);
-	public String getDescription();
+	public FormattableText getDescription();
 	
 	public void goalMetOrNot(WorldObject performer, World world, boolean goalMet);
 	public int evaluate(WorldObject performer, World world);

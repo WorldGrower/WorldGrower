@@ -26,6 +26,8 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.KnowledgeMap;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class ReadNewsPaperGoal implements Goal {
 
@@ -96,8 +98,8 @@ public class ReadNewsPaperGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "looking for a newspaper";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_READ_NEWS_PAPER);
 	}
 
 	@Override

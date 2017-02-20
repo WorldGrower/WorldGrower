@@ -25,6 +25,8 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.deity.Deity;
 import org.worldgrower.profession.Professions;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class ChooseDeityGoal implements Goal {
 
@@ -113,8 +115,8 @@ public class ChooseDeityGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "looking for a deity to worship";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_CHOOSE_DEITY);
 	}
 
 	@Override

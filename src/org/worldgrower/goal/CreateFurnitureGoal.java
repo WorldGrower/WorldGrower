@@ -25,6 +25,8 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.ConstructBedAction;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class CreateFurnitureGoal implements Goal {
 
@@ -62,8 +64,8 @@ public class CreateFurnitureGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "constructing furniture";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_CREATE_FURNITURE);
 	}
 
 	@Override

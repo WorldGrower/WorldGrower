@@ -22,6 +22,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.conversation.Conversations;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class CurseKissGoal implements Goal {
 
@@ -53,8 +55,8 @@ public class CurseKissGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "wanting to get kissed";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_CURSE_KISS);
 	}
 
 	@Override

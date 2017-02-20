@@ -22,6 +22,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.deity.Deity;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class DestroyShrinesToOtherDeitiesGoal implements Goal {
 
@@ -60,8 +62,8 @@ public class DestroyShrinesToOtherDeitiesGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "destroy shrines to other deities";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_DESTROY_SHRINES_TO_OTHER_DEITIES);
 	}
 
 	@Override

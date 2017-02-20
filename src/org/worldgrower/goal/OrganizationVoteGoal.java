@@ -24,6 +24,8 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.VotingPropertyUtils;
 import org.worldgrower.attribute.IdList;
 import org.worldgrower.attribute.IdMap;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class OrganizationVoteGoal implements Goal {
 
@@ -72,8 +74,8 @@ public class OrganizationVoteGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "concerned about the organization leadership";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_ORGANIZATION_VOTE);
 	}
 
 	@Override

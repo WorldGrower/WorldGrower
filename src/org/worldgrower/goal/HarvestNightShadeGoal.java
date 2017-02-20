@@ -21,6 +21,8 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class HarvestNightShadeGoal implements Goal {
 
@@ -53,8 +55,8 @@ public class HarvestNightShadeGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "harvesting nightshade";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_HARVEST_NIGHTSHADE);
 	}
 
 	@Override

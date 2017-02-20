@@ -33,6 +33,7 @@ import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.condition.WorldStateChangedListeners;
+import org.worldgrower.conversation.ConversationFormatter;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.goal.Goals;
 import org.worldgrower.gui.ImageIds;
@@ -113,8 +114,8 @@ public interface Deity extends Serializable {
 		return -1;
 	}
 	
-	public default List<String> getOrganizationGoalDescriptions() {
-		return getOrganizationGoals().stream().map(g -> g.getDescription()).collect(Collectors.toList());
+	public default List<String> getOrganizationGoalDescriptions(ConversationFormatter conversationFormatter) {
+		return getOrganizationGoals().stream().map(g -> conversationFormatter.format(g.getDescription())).collect(Collectors.toList());
 	}
 	
 	public default Object readResolveImpl() throws ObjectStreamException {

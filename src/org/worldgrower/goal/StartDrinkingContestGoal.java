@@ -23,6 +23,8 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.conversation.Conversations;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class StartDrinkingContestGoal implements Goal {
 
@@ -81,8 +83,8 @@ public class StartDrinkingContestGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "looking to have a drinking contest";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_START_DRINKING_CONTEST);
 	}
 
 	@Override

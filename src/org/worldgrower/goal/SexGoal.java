@@ -23,6 +23,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.IdMap;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class SexGoal implements Goal {
 
@@ -66,8 +68,8 @@ public class SexGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "looking to have sex";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_SEX);
 	}
 
 	@Override

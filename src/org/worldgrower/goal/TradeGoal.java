@@ -20,6 +20,8 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class TradeGoal implements Goal {
 
@@ -61,8 +63,8 @@ public class TradeGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "trading";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_TRADE);
 	}
 
 	@Override

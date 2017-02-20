@@ -23,6 +23,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class CreatePaperGoal implements Goal {
 
@@ -62,8 +64,8 @@ public class CreatePaperGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "looking to have paper";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_CREATE_PAPER);
 	}
 
 	@Override

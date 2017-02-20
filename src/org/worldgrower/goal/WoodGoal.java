@@ -20,6 +20,8 @@ import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class WoodGoal implements Goal {
 
@@ -55,8 +57,8 @@ public class WoodGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "looking for wood";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_WOOD);
 	}
 
 	@Override

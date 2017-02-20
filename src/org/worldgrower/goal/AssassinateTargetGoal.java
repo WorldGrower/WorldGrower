@@ -20,6 +20,8 @@ import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class AssassinateTargetGoal implements Goal {
 
@@ -54,8 +56,8 @@ public class AssassinateTargetGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "assassinating someone";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_ASSASSINATE_TARGET);
 	}
 
 	@Override

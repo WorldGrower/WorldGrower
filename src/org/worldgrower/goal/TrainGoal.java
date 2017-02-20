@@ -26,6 +26,8 @@ import org.worldgrower.actions.ConstructTrainingDummyAction;
 import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.generator.BuildingDimensions;
 import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class TrainGoal implements Goal {
 
@@ -64,8 +66,8 @@ public class TrainGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "training";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_TRAIN);
 	}
 
 	@Override

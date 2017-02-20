@@ -24,6 +24,8 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
 import org.worldgrower.generator.ItemType;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class SellUnusedItemsGoal implements Goal {
 
@@ -65,8 +67,8 @@ public class SellUnusedItemsGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "looking to sell unused items";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_SELL_UNUSED_ITEMS);
 	}
 
 	@Override

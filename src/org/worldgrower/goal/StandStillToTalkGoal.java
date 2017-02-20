@@ -23,6 +23,8 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class StandStillToTalkGoal implements Goal {
 
@@ -85,8 +87,8 @@ public class StandStillToTalkGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "interested in hearing what you have to say";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_STAND_STILL_TO_TALK);
 	}
 
 	@Override

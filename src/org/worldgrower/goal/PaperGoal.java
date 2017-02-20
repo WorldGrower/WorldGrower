@@ -21,6 +21,8 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.generator.Item;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class PaperGoal implements Goal {
 
@@ -56,8 +58,8 @@ public class PaperGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "looking for paper";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_PAPER);
 	}
 
 	@Override

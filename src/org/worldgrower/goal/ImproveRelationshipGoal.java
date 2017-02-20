@@ -21,6 +21,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.conversation.Conversations;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class ImproveRelationshipGoal implements Goal {
 
@@ -69,8 +71,8 @@ public class ImproveRelationshipGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "improving my relationship with " + target.getProperty(Constants.NAME);
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_IMPROVE_RELATIONSHIP, target);
 	}
 
 	@Override

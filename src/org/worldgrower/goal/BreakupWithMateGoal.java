@@ -24,6 +24,8 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.IdMap;
 import org.worldgrower.attribute.KnowledgeMap;
 import org.worldgrower.conversation.Conversations;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class BreakupWithMateGoal implements Goal {
 
@@ -69,8 +71,8 @@ public class BreakupWithMateGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "looking to breakup with a mate";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_BREAKUP_WITH_MATE);
 	}
 
 	@Override

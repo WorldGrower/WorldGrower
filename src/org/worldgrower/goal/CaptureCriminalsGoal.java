@@ -26,6 +26,8 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class CaptureCriminalsGoal implements Goal {
 
@@ -76,8 +78,8 @@ public class CaptureCriminalsGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "capturing criminals";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_CAPTURE_CRIMINALS);
 	}
 
 	@Override

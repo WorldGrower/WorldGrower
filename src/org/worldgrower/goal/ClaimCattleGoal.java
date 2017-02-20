@@ -22,6 +22,8 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class ClaimCattleGoal implements Goal {
 
@@ -68,8 +70,8 @@ public class ClaimCattleGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "claiming cattle";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_CLAIM_CATTLE);
 	}
 
 	@Override

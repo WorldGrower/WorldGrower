@@ -21,6 +21,8 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.generator.Item;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class OreGoal implements Goal {
 
@@ -56,8 +58,8 @@ public class OreGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "looking for ore";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_ORE);
 	}
 
 	@Override

@@ -21,6 +21,8 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class MineGoldGoal implements Goal {
 
@@ -56,8 +58,8 @@ public class MineGoldGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "looking for gold";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_MINE_GOLD);
 	}
 
 	@Override

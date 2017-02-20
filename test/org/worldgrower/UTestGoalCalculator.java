@@ -23,6 +23,7 @@ import java.util.List;
 import org.junit.Test;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.goal.Goal;
+import org.worldgrower.text.FormattableText;
 
 public class UTestGoalCalculator {
 
@@ -72,7 +73,7 @@ public class UTestGoalCalculator {
 		}
 		
 		@Override
-		public String getDescription() {
+		public FormattableText getDescription() {
 			return null;
 		}
 

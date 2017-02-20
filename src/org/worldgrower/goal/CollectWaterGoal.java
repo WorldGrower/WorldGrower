@@ -25,6 +25,8 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.BuildWellAction;
 import org.worldgrower.generator.BuildingDimensions;
 import org.worldgrower.generator.Item;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class CollectWaterGoal implements Goal {
 
@@ -70,8 +72,8 @@ public class CollectWaterGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "collecting water";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_COLLECT_WATER);
 	}
 
 	@Override

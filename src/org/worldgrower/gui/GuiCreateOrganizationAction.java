@@ -25,7 +25,10 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.OrganizationNamer;
+import org.worldgrower.conversation.ConversationFormatter;
 import org.worldgrower.deity.Deity;
+import org.worldgrower.gui.conversation.ConversationFormatterImpl;
+import org.worldgrower.gui.conversation.TextConversationArgumentFormatter;
 import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.start.Game;
 import org.worldgrower.gui.util.ListData;
@@ -101,12 +104,12 @@ public class GuiCreateOrganizationAction extends AbstractAction {
 			
 			if (organizationName != null) {
 				int indexOfOrganization = organizationNames.indexOf(organizationName);
-				
-				List<String> possibleGoalsList = deity.getOrganizationGoalDescriptions();
+				ConversationFormatter conversationFormatter = new ConversationFormatterImpl(new TextConversationArgumentFormatter());
+				List<String> possibleGoalsList = deity.getOrganizationGoalDescriptions(conversationFormatter);
 				possibleGoalsList.add(0, "No goal");
 				String possibleGoal = new ListInputDialog("Choose Goal", new ListData(possibleGoalsList), imageInfoReader, soundIdReader, parentFrame).showMe();
 				if (possibleGoal != null) {
-					int indexOfGoal = deity.getOrganizationGoalDescriptions().indexOf(possibleGoal);
+					int indexOfGoal = deity.getOrganizationGoalDescriptions(conversationFormatter).indexOf(possibleGoal);
 					Game.executeActionAndMoveIntelligentWorldObjects(playerCharacter, Actions.CREATE_RELIGION_ORGANIZATION_ACTION, new int[] { deityIndex, indexOfOrganization, indexOfGoal}, world, dungeonMaster, playerCharacter, parent, imageInfoReader, soundIdReader);
 				}
 			}

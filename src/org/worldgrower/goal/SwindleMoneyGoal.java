@@ -22,6 +22,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.conversation.Conversations;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class SwindleMoneyGoal implements Goal {
 
@@ -94,8 +96,8 @@ public class SwindleMoneyGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "swindling people out of money";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_SWINDLE_MONEY);
 	}
 
 	@Override

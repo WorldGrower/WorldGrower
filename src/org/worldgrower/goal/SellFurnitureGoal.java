@@ -17,6 +17,8 @@ package org.worldgrower.goal;
 import java.util.List;
 
 import org.worldgrower.Constants;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class SellFurnitureGoal extends AbstractSellGoal {
 
@@ -30,7 +32,7 @@ public class SellFurnitureGoal extends AbstractSellGoal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "selling furniture";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_SELL_FURNITURE);
 	}
 }

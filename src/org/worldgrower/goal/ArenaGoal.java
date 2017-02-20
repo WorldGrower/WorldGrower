@@ -23,6 +23,8 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.BuildArenaAction;
 import org.worldgrower.generator.BuildingDimensions;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class ArenaGoal implements Goal {
 
@@ -59,8 +61,8 @@ public class ArenaGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "building an arena";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_ARENA);
 	}
 
 	@Override

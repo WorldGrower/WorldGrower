@@ -22,6 +22,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.creaturetype.CreatureTypeUtils;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class HuntUndeadGoal implements Goal {
 
@@ -59,8 +61,8 @@ public class HuntUndeadGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "destroy undead";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_HUNT_UNDEAD);
 	}
 
 	@Override

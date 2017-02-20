@@ -18,7 +18,7 @@ public class FormattableText {
 	private final TextId textId;
 	private final Object[] objects;
 	
-	public FormattableText(TextId textId, Object[] objects) {
+	public FormattableText(TextId textId, Object... objects) {
 		super();
 		this.textId = textId;
 		this.objects = objects;

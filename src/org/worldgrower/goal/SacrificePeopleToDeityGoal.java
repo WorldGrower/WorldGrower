@@ -25,6 +25,8 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.deity.Deity;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class SacrificePeopleToDeityGoal implements Goal {
 
@@ -94,8 +96,8 @@ public class SacrificePeopleToDeityGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "sacrifiving people to a deity";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_SACRIFICE_PEOPLE_TO_DEITY);
 	}
 
 	@Override

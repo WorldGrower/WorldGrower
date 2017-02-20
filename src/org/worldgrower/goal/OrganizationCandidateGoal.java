@@ -24,6 +24,8 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.VotingPropertyUtils;
 import org.worldgrower.personality.PersonalityTrait;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class OrganizationCandidateGoal implements Goal {
 
@@ -119,8 +121,8 @@ public class OrganizationCandidateGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "concerned about the organization leadership";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_ORGANIZATION_CANDIDATE);
 	}
 
 	@Override

@@ -27,6 +27,8 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.IdMap;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.history.Turn;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class CollectTaxesGoal implements Goal {
 
@@ -76,8 +78,8 @@ public class CollectTaxesGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "collecting taxes";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_COLLECT_TAXES);
 	}
 
 	@Override

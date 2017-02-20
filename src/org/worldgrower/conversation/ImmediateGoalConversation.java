@@ -22,6 +22,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.history.HistoryItem;
+import org.worldgrower.text.FormattableText;
 import org.worldgrower.text.TextId;
 
 public class ImmediateGoalConversation implements Conversation {
@@ -60,7 +61,12 @@ public class ImmediateGoalConversation implements Conversation {
 		Goal goal = world.getGoal(target);
 		OperationInfo operationInfo = world.getImmediateGoal(target, world);
 		String immediateGoalDescription = (operationInfo != null ? operationInfo.getDescription(world) : "");
-		String goalDescription = (goal != null ? goal.getDescription() : "");
+		final Object goalDescription;
+		if (goal != null) {
+			goalDescription = goal.getDescription();
+		} else {
+			goalDescription = new FormattableText(TextId.GOAL_DOING_NOTHING);
+		}
 		return Arrays.asList(
 			new Response(YES, TextId.ANSWER_IMMEDIATE_GOAL_YES, immediateGoalDescription, goalDescription),
 			new Response(NO, TextId.ANSWER_IMMEDIATE_GOAL_NO)

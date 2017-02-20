@@ -22,6 +22,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.conversation.Conversations;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class ArenaFightGoal implements Goal {
 
@@ -58,8 +60,8 @@ public class ArenaFightGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "looking to fight in an arena";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_ARENA_FIGHT);
 	}
 
 	@Override

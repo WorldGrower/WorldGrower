@@ -26,6 +26,8 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.profession.Profession;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class ProtectOneSelfGoal implements Goal {
 
@@ -163,8 +165,8 @@ public class ProtectOneSelfGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "avoiding danger";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_PROTECT_ONE_SELF);
 	}
 
 	@Override

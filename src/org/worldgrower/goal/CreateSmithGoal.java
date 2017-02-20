@@ -25,6 +25,8 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.BuildSmithAction;
 import org.worldgrower.generator.BuildingDimensions;
 import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class CreateSmithGoal implements Goal {
 
@@ -67,8 +69,8 @@ public class CreateSmithGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "building a smithy";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_CREATE_SMITH);
 	}
 
 	@Override

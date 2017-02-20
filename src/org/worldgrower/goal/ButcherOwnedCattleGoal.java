@@ -26,6 +26,8 @@ import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.FoodPropertyUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.CowOnTurn;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class ButcherOwnedCattleGoal implements Goal {
 
@@ -82,8 +84,8 @@ public class ButcherOwnedCattleGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "butchering cattle";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_BUTCHER_OWNED_CATTLE);
 	}
 
 	@Override

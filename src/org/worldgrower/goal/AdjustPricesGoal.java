@@ -23,6 +23,8 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.Prices;
 import org.worldgrower.generator.Item;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class AdjustPricesGoal implements Goal {
 
@@ -72,8 +74,8 @@ public class AdjustPricesGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "setting prices";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_ADJUST_PRICES);
 	}
 
 	@Override

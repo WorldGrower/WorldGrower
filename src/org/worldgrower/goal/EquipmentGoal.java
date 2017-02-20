@@ -22,6 +22,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class EquipmentGoal implements Goal {
 
@@ -98,8 +100,8 @@ public class EquipmentGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "looking for equipment";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_EQUIPMENT);
 	}
 
 	@Override

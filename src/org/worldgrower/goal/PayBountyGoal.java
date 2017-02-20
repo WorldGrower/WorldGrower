@@ -22,6 +22,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.conversation.Conversations;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class PayBountyGoal implements Goal {
 
@@ -54,8 +56,8 @@ public class PayBountyGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "paying a bounty";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_PAY_BOUNTY);
 	}
 
 	@Override

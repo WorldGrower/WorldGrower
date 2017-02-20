@@ -25,6 +25,8 @@ import org.worldgrower.actions.OrganizationNamer;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.profession.Profession;
 import org.worldgrower.profession.Professions;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class BecomeProfessionOrganizationMemberGoal implements Goal {
 
@@ -78,8 +80,8 @@ public class BecomeProfessionOrganizationMemberGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "looking for an profession organization to belong to";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_BECOME_PROFESSION_ORGANIZATION_MEMBER);
 	}
 
 	@Override

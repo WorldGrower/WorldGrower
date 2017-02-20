@@ -24,6 +24,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.generator.BuildingDimensions;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class CreateOrPlantWoodGoal implements Goal {
 
@@ -61,8 +63,8 @@ public class CreateOrPlantWoodGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "looking for wood";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_CREATE_OR_PLANT_WOOD);
 	}
 
 	@Override

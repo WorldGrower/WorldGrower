@@ -23,6 +23,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.generator.Item;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class GoldGoal implements Goal {
 
@@ -62,8 +64,8 @@ public class GoldGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "looking for gold";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_GOLD);
 	}
 
 	@Override

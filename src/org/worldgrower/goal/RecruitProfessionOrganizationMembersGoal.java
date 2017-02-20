@@ -27,6 +27,8 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.profession.Profession;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class RecruitProfessionOrganizationMembersGoal implements Goal {
 
@@ -112,8 +114,8 @@ public class RecruitProfessionOrganizationMembersGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "recruiting new profession organization members";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_RECRUIT_PROFESSION_ORGANIZATION_MEMBER);
 	}
 
 	@Override

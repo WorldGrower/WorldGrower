@@ -17,6 +17,8 @@ package org.worldgrower.goal;
 import java.util.List;
 
 import org.worldgrower.Constants;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class SellHealingPotionGoal extends AbstractSellGoal {
 	
@@ -30,7 +32,7 @@ public class SellHealingPotionGoal extends AbstractSellGoal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "selling healing potions";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_SELL_HEALING_POTION);
 	}
 }

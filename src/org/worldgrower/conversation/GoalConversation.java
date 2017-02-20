@@ -21,6 +21,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.goal.Goal;
 import org.worldgrower.history.HistoryItem;
+import org.worldgrower.text.FormattableText;
 import org.worldgrower.text.TextId;
 
 public class GoalConversation implements Conversation {
@@ -52,7 +53,12 @@ public class GoalConversation implements Conversation {
 		WorldObject target = conversationContext.getTarget();
 		World world = conversationContext.getWorld();
 		Goal goal = world.getGoal(target);
-		String goalDescription = (goal !=null ? goal.getDescription() : "");
+		final Object goalDescription;
+		if (goal != null) {
+			goalDescription = goal.getDescription();
+		} else {
+			goalDescription = new FormattableText(TextId.GOAL_DOING_NOTHING);
+		}
 		return Arrays.asList(
 			new Response(YES, TextId.ANSWER_GOAL_YES, goalDescription),
 			new Response(NO, TextId.ANSWER_GOAL_NO)

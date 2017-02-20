@@ -24,6 +24,8 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.ResearchKnowledgeSkillAction;
 import org.worldgrower.attribute.SkillProperty;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class ResearchMagicSkillsKnowledgeGoal implements Goal {
 	
@@ -72,8 +74,8 @@ public class ResearchMagicSkillsKnowledgeGoal implements Goal {
 	}
 
 	@Override
-	public String getDescription() {
-		return "researching magic skills";
+	public FormattableText getDescription() {
+		return new FormattableText(TextId.GOAL_RESEARCH_MAGIC_SKILLS_KNOWLEDGE);
 	}
 
 	@Override
