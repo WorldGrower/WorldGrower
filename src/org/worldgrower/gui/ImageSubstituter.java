@@ -15,6 +15,7 @@
 package org.worldgrower.gui;
 
 import java.awt.Image;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +37,8 @@ public class ImageSubstituter implements ConversationArgumentFormatter {
 	private final TooltipImages tooltipImages = new TooltipImages();
 	private final ImageInfoReader imageInfoReader;
 	private final ImageSubstitutionMode imageSubstitution;
+	
+	private static final List<Item> ITEMS_TO_SUBSTITUTE = getItemsToSubstitute();
 	
 	public ImageSubstituter(ImageInfoReader imageInfoReader, ImageSubstitutionMode imageSubstitution) {
 		super();
@@ -64,14 +67,19 @@ public class ImageSubstituter implements ConversationArgumentFormatter {
 		response.getResponsePhrase(new JTextPaneConversationFormatterImpl(textPane, new TextConversationArgumentFormatter(), imageInfoReader));
 	}
 
-	private List<Item> itemsToSubstitute() {
-		return Item.getItems(ItemType.FOOD, ItemType.RESOURCE, ItemType.INGREDIENT, ItemType.DRINK);
+	private static List<Item> getItemsToSubstitute() {
+		List<Item> items = Item.getItems(ItemType.FOOD, ItemType.RESOURCE, ItemType.INGREDIENT);
+		items = new ArrayList<>(items);
+		items.add(Item.WATER);
+		items.add(Item.WINE);
+		return items;
+		
 	}
 	
 	private Map<String, ImageIds> getTextToImageMapping() {
 		Map<String, ImageIds> textToImageMapping = new HashMap<>();
 		if (imageSubstitution == ImageSubstitutionMode.ALL) {
-			for(Item resourceItem : itemsToSubstitute()) {
+			for(Item resourceItem : ITEMS_TO_SUBSTITUTE) {
 				textToImageMapping.put(resourceItem.getDescription(), resourceItem.getImageId());
 			}
 		}
@@ -130,7 +138,7 @@ public class ImageSubstituter implements ConversationArgumentFormatter {
 	public String formatObject(ConversationFormatter conversationFormatter, Object object) {
 		if (object instanceof Item) {
 			Item item = (Item) object;
-			if (itemsToSubstitute().contains(item)) {
+			if (ITEMS_TO_SUBSTITUTE.contains(item)) {
 				ImageIds imageId = item.getImageId();
 				if (item == Item.GOLD) {
 					imageId = ImageIds.SMALL_GOLD_COIN;
