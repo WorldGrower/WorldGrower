@@ -75,11 +75,6 @@ public class CraftLongBowAction implements CraftRangedWeaponAction, AnimatedActi
 		return "crafting longbow";
 	}
 
-	@Override
-	public String getSimpleDescription() {
-		return "craft longbow";
-	}
-	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
 	}

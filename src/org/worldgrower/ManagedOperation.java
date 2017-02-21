@@ -19,8 +19,12 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.worldgrower.actions.Actions;
+import org.worldgrower.conversation.ConversationFormatter;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.conversation.ConversationFormatterImpl;
+import org.worldgrower.gui.conversation.TextConversationArgumentFormatter;
 import org.worldgrower.gui.music.SoundIds;
+import org.worldgrower.text.FormattableText;
 
 /**
  * A ManagedOperation described an action that a WorldObject performs on another WorldObject.
@@ -37,10 +41,18 @@ public interface ManagedOperation extends Serializable {
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world);
 	
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world);
-	public String getSimpleDescription();
+	public default String getSimpleDescription()  {
+		ConversationFormatter conversationFormatter = new ConversationFormatterImpl(new TextConversationArgumentFormatter());
+		return conversationFormatter.format(getFormattableText());
+	}
+	
 	public String getRequirementsDescription();
 	public ImageIds getImageIds(WorldObject performer);
 	public String getDescription();
+	
+	public default FormattableText getFormattableText() {
+		return null;
+	}
 	
 	public default boolean canExecuteIgnoringDistance(WorldObject performer, WorldObject target, int[] args, World world) {
 		return new OperationInfo(performer, target, args, this).canExecuteIgnoringDistance(performer, world);

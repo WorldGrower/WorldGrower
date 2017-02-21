@@ -75,11 +75,6 @@ public class CraftShortBowAction implements CraftRangedWeaponAction, AnimatedAct
 		return "crafting shortbow";
 	}
 
-	@Override
-	public String getSimpleDescription() {
-		return "craft shortbow";
-	}
-	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
 	}

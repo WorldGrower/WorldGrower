@@ -15,7 +15,14 @@
 package org.worldgrower.actions;
 
 import org.worldgrower.generator.Item;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public interface CraftRangedWeaponAction extends CraftAction {
 	public Item getItem();
+	
+	@Override
+	public default FormattableText getFormattableText() {
+		return new FormattableText(TextId.CRAFT_ITEM, getItem());
+	}
 }
