@@ -73,7 +73,7 @@ public class CollectWaterGoal implements Goal {
 
 	@Override
 	public FormattableText getDescription() {
-		return new FormattableText(TextId.GOAL_COLLECT_WATER);
+		return new FormattableText(TextId.GOAL_COLLECT_WATER, Item.WATER);
 	}
 
 	@Override

@@ -65,7 +65,11 @@ public class Question {
 
 	public String getQuestionPhrase(ConversationFormatter conversationFormatter) {
 		return conversationFormatter.format(formattableText);
-	}		
+	}
+	
+	public FormattableText getQuestionPhraseAsFormattableText() {
+		return formattableText;
+	}
 
 	public int getHistoryItemId() {
 		return historyItemId;

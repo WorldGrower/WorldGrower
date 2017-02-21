@@ -65,7 +65,7 @@ public class ImageSubstituter implements ConversationArgumentFormatter {
 	}
 
 	private List<Item> itemsToSubstitute() {
-		return Item.getItems(ItemType.FOOD, ItemType.RESOURCE, ItemType.INGREDIENT);
+		return Item.getItems(ItemType.FOOD, ItemType.RESOURCE, ItemType.INGREDIENT, ItemType.DRINK);
 	}
 	
 	private Map<String, ImageIds> getTextToImageMapping() {

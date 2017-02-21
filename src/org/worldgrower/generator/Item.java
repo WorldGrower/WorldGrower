@@ -1282,10 +1282,11 @@ public enum Item {
 		return values;
 	}
 	
-	public static List<Item> getItems(ItemType itemType1, ItemType itemType2, ItemType itemType3) {
+	public static List<Item> getItems(ItemType... itemTypes) {
+		List<ItemType> itemTypesList = Arrays.asList(itemTypes);
 		List<Item> resourceItems = new ArrayList<>();
 		for (Item item : values()) {
-			if (item.getItemType() == itemType1 || item.getItemType() == itemType2 || item.getItemType() == itemType3) {
+			if (itemTypesList.contains(item.getItemType())) {
 				resourceItems.add(item);
 			}
 		}

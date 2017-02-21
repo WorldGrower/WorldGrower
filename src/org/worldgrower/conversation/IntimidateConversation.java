@@ -61,7 +61,7 @@ public class IntimidateConversation implements Conversation {
 		List<Question> result = new ArrayList<>();
 		for(Question parentQuestionPhrase : parentQuestionPhrases) {
 			WorldObject subject = parentQuestionPhrase.getSubjectId() != -1 ? world.findWorldObjectById(parentQuestionPhrase.getSubjectId()) : null;
-			result.add(new Question(subject, TextId.QUESTION_INTIMIDATE, parentQuestionPhrase.getQuestionPhrase(new ConversationFormatterImpl(new TextConversationArgumentFormatter()))));
+			result.add(new Question(subject, TextId.QUESTION_INTIMIDATE, parentQuestionPhrase.getQuestionPhraseAsFormattableText()));
 		}
 		return result;
 	}

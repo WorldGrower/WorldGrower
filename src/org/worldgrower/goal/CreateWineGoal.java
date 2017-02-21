@@ -24,6 +24,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.generator.BuildingDimensions;
 import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.generator.Item;
 import org.worldgrower.text.FormattableText;
 import org.worldgrower.text.TextId;
 
@@ -73,7 +74,7 @@ public class CreateWineGoal implements Goal {
 
 	@Override
 	public FormattableText getDescription() {
-		return new FormattableText(TextId.GOAL_CREATE_WINE);
+		return new FormattableText(TextId.GOAL_CREATE_WINE, Item.WINE);
 	}
 
 	@Override
