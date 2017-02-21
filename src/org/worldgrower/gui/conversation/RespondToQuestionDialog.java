@@ -38,7 +38,6 @@ import org.worldgrower.gui.ColorPalette;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.ImageSubstituter;
-import org.worldgrower.gui.ImageSubstitutionMode;
 import org.worldgrower.gui.SwingUtils;
 import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.util.DialogUtils;
@@ -66,7 +65,7 @@ public class RespondToQuestionDialog extends AbstractDialog {
 	public RespondToQuestionDialog(int id, int conversationId, int historyItemId, int additionalValue, int additionalValue2, Questioner questioner, Conversations conversations, ImageIds imageIdPerformer, ImageIds imageIdTarget, String performerName, String targetName, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, JFrame parentFrame) {
 		super(600, 300, imageInfoReader);
 		this.imageInfoReader = imageInfoReader;
-		ImageSubstituter imageSubstituter = new ImageSubstituter(imageInfoReader, ImageSubstitutionMode.GOLD);
+		ImageSubstituter imageSubstituter = new ImageSubstituter(imageInfoReader);
 		conversationFormatter = new ConversationFormatterImpl(imageSubstituter);
 		
 		KeyStroke stroke = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);

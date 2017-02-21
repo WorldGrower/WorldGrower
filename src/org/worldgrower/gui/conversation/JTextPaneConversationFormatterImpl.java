@@ -50,7 +50,7 @@ public class JTextPaneConversationFormatterImpl implements ConversationFormatter
 					Image image = imageInfoReader.getImage(item.getImageId(), null);
 					JTextPaneUtils.appendIconAndText(textPane, image, item.getDescription());	
 				} else {
-					JTextPaneUtils.appendTextUsingLabel(textPane, conversationArgumentFormatter.formatObject(JTextPaneConversationFormatterImpl.this, formattableText.getObjects()));
+					JTextPaneUtils.appendTextUsingLabel(textPane, conversationArgumentFormatter.formatObject(JTextPaneConversationFormatterImpl.this, object));
 				}
 			}
 			

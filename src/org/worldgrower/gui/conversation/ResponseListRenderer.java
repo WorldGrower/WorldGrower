@@ -23,7 +23,6 @@ import javax.swing.ListCellRenderer;
 import org.worldgrower.conversation.Response;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.ImageSubstituter;
-import org.worldgrower.gui.ImageSubstitutionMode;
 import org.worldgrower.gui.util.JTextPaneFactory;
 
 public class ResponseListRenderer implements ListCellRenderer<Response> {
@@ -32,7 +31,7 @@ public class ResponseListRenderer implements ListCellRenderer<Response> {
 	
 	public ResponseListRenderer(ImageInfoReader imageInfoReader) {
 		this.rendererTextPane = JTextPaneFactory.createHmtlJTextPane(imageInfoReader);
-		this.imageSubstituter = new ImageSubstituter(imageInfoReader, ImageSubstitutionMode.ALL);
+		this.imageSubstituter = new ImageSubstituter(imageInfoReader);
 	}
 	
 	@Override

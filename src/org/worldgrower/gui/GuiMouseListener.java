@@ -57,7 +57,6 @@ import org.worldgrower.attribute.SkillProperty;
 import org.worldgrower.conversation.Conversations;
 import org.worldgrower.generator.CommonerGenerator;
 import org.worldgrower.generator.Item;
-import org.worldgrower.generator.ItemType;
 import org.worldgrower.gui.chooseworldobject.ChooseWorldObjectAction;
 import org.worldgrower.gui.chooseworldobject.GuiDisguiseAction;
 import org.worldgrower.gui.chooseworldobject.GuiViewCandidatesAction;
@@ -120,7 +119,7 @@ public class GuiMouseListener extends MouseAdapter {
 		this.soundIdReader = soundIdReader;
 		this.keyBindings = keyBindings;
 		this.parentFrame = parentFrame;
-		this.imageSubstituter = new ImageSubstituter(imageInfoReader, ImageSubstitutionMode.ALL);
+		this.imageSubstituter = new ImageSubstituter(imageInfoReader);
 		
 		characterSheetAction = new CharacterSheetAction(playerCharacter, imageInfoReader, soundIdReader, world, parentFrame);
 		inventoryAction = new ShowInventoryAction(playerCharacter, imageInfoReader, soundIdReader, world, dungeonMaster, container, parentFrame);

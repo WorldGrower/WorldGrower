@@ -58,7 +58,6 @@ import org.worldgrower.gui.ActionContainingArgs;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.ImageSubstituter;
-import org.worldgrower.gui.ImageSubstitutionMode;
 import org.worldgrower.gui.chooseworldobject.ChooseWorldObjectDialog;
 import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.util.DialogUtils;
@@ -135,7 +134,7 @@ public class AskQuestionDialog extends AbstractDialog implements ManagedOperatio
 		this.answerer = answerer;
 		this.soundIdReader = soundIdReader;
 		this.imageInfoReader = imageInfoReader;
-		ImageSubstituter imageSubstituter = new ImageSubstituter(imageInfoReader, ImageSubstitutionMode.GOLD);
+		ImageSubstituter imageSubstituter = new ImageSubstituter(imageInfoReader);
 		this.conversationFormatter = new ConversationFormatterImpl(imageSubstituter);
 		
 		KeyStroke stroke = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);

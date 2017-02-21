@@ -36,14 +36,12 @@ public class ImageSubstituter implements ConversationArgumentFormatter {
 
 	private final TooltipImages tooltipImages = new TooltipImages();
 	private final ImageInfoReader imageInfoReader;
-	private final ImageSubstitutionMode imageSubstitution;
 	
 	private static final List<Item> ITEMS_TO_SUBSTITUTE = getItemsToSubstitute();
 	
-	public ImageSubstituter(ImageInfoReader imageInfoReader, ImageSubstitutionMode imageSubstitution) {
+	public ImageSubstituter(ImageInfoReader imageInfoReader) {
 		super();
 		this.imageInfoReader = imageInfoReader;
-		this.imageSubstitution = imageSubstitution;
 	}
 
 	public String substituteImagesInHtml(String tooltip) {
@@ -78,10 +76,8 @@ public class ImageSubstituter implements ConversationArgumentFormatter {
 	
 	private Map<String, ImageIds> getTextToImageMapping() {
 		Map<String, ImageIds> textToImageMapping = new HashMap<>();
-		if (imageSubstitution == ImageSubstitutionMode.ALL) {
-			for(Item resourceItem : ITEMS_TO_SUBSTITUTE) {
-				textToImageMapping.put(resourceItem.getDescription(), resourceItem.getImageId());
-			}
+		for(Item resourceItem : ITEMS_TO_SUBSTITUTE) {
+			textToImageMapping.put(resourceItem.getDescription(), resourceItem.getImageId());
 		}
 		textToImageMapping.put("gold", ImageIds.SMALL_GOLD_COIN);
 		return textToImageMapping;
