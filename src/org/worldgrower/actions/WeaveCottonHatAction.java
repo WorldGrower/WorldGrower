@@ -73,11 +73,6 @@ public class WeaveCottonHatAction implements CraftEquipmentAction, AnimatedActio
 		return "weaving cotton hat";
 	}
 
-	@Override
-	public String getSimpleDescription() {
-		return "weave cotton hat";
-	}
-	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
 	}

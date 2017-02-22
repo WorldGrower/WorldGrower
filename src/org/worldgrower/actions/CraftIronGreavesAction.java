@@ -80,11 +80,6 @@ public class CraftIronGreavesAction implements CraftEquipmentAction, AnimatedAct
 		return "crafting iron greaves";
 	}
 
-	@Override
-	public String getSimpleDescription() {
-		return "craft iron greaves";
-	}
-	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
 	}

@@ -26,6 +26,8 @@ import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class BrewSleepingPotionAction implements CraftAction, AnimatedAction {
 
@@ -82,8 +84,8 @@ public class BrewSleepingPotionAction implements CraftAction, AnimatedAction {
 	}
 
 	@Override
-	public String getSimpleDescription() {
-		return "brew sleeping potion";
+	public FormattableText getFormattableText() {
+		return new FormattableText(TextId.BREW_ITEM, Item.SLEEPING_POTION);
 	}
 
 	@Override

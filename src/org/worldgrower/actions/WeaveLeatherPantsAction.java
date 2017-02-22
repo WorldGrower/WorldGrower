@@ -73,11 +73,6 @@ public class WeaveLeatherPantsAction implements CraftEquipmentAction, AnimatedAc
 		return "weaving leather pants";
 	}
 
-	@Override
-	public String getSimpleDescription() {
-		return "weave leather pants";
-	}
-	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
 	}

@@ -80,11 +80,6 @@ public class CraftIronGreatswordAction implements CraftEquipmentAction, Animated
 		return "crafting iron greatsword";
 	}
 
-	@Override
-	public String getSimpleDescription() {
-		return "craft iron greatsword";
-	}
-	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
 	}

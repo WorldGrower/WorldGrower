@@ -27,6 +27,8 @@ import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class BrewCurePoisonPotionAction implements CraftAction, AnimatedAction {
 	private static final int DISTANCE = 1;
@@ -83,8 +85,8 @@ public class BrewCurePoisonPotionAction implements CraftAction, AnimatedAction {
 	}
 
 	@Override
-	public String getSimpleDescription() {
-		return "brew cure poison potion";
+	public FormattableText getFormattableText() {
+		return new FormattableText(TextId.BREW_ITEM, Item.CURE_POISON_POTION);
 	}
 
 	@Override

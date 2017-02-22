@@ -80,11 +80,6 @@ public class CraftIronClaymoreAction implements CraftEquipmentAction, AnimatedAc
 		return "crafting iron claymore";
 	}
 
-	@Override
-	public String getSimpleDescription() {
-		return "craft iron claymore";
-	}
-	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
 	}

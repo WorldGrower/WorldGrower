@@ -61,6 +61,7 @@ import org.worldgrower.gui.chooseworldobject.ChooseWorldObjectAction;
 import org.worldgrower.gui.chooseworldobject.GuiDisguiseAction;
 import org.worldgrower.gui.chooseworldobject.GuiViewCandidatesAction;
 import org.worldgrower.gui.chooseworldobject.GuiVoteAction;
+import org.worldgrower.gui.conversation.ConversationFormatterImpl;
 import org.worldgrower.gui.conversation.GuiAskQuestionAction;
 import org.worldgrower.gui.cursor.Cursors;
 import org.worldgrower.gui.debug.GuiShowBuildingsOverviewAction;
@@ -85,6 +86,7 @@ import org.worldgrower.gui.start.KeyBindings;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.MenuFactory;
 import org.worldgrower.gui.util.ShowTextDialog;
+import org.worldgrower.text.FormattableText;
 
 public class GuiMouseListener extends MouseAdapter {
 	private final SkillImageIds skillImageIds = new SkillImageIds();
@@ -626,7 +628,7 @@ public class GuiMouseListener extends MouseAdapter {
 	private String createAllowedCraftActionsDescription(List<ManagedOperation> allowedCraftActions) {
 		StringBuilder allowedCraftActionsDescription = new StringBuilder("Allows actions:<br>");
 		for(ManagedOperation allowedCraftAction : allowedCraftActions) {
-			allowedCraftActionsDescription.append("&nbsp;&nbsp;").append(allowedCraftAction.getSimpleDescription()).append("<br>");
+			allowedCraftActionsDescription.append("&nbsp;&nbsp;").append(createMenuDescription(allowedCraftAction)).append("<br>");
 		}
 		return allowedCraftActionsDescription.toString();
 	}
@@ -798,6 +800,15 @@ public class GuiMouseListener extends MouseAdapter {
 		menuItem = MenuFactory.createJMenuItem(guiAction, soundIdReader);
 		menuItem.setText(action.getSimpleDescription());
 		return menuItem;
+	}
+	
+	private String createMenuDescription(ManagedOperation action) {
+		FormattableText formattableText = action.getFormattableText();
+		if (formattableText != null) {
+			return new ConversationFormatterImpl(imageSubstituter).format(formattableText);
+		} else {
+			return action.getSimpleDescription();
+		}
 	}
 
 	private void addObfuscateAction(JPopupMenu menu, WorldObject worldObject, ManagedOperation action) {

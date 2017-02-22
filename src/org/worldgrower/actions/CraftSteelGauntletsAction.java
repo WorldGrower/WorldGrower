@@ -80,11 +80,6 @@ public class CraftSteelGauntletsAction implements CraftEquipmentAction, Animated
 		return "crafting steel gauntlets";
 	}
 
-	@Override
-	public String getSimpleDescription() {
-		return "craft steel gauntlets";
-	}
-	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
 	}

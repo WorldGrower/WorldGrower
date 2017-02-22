@@ -43,7 +43,11 @@ public interface ManagedOperation extends Serializable {
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world);
 	public default String getSimpleDescription()  {
 		ConversationFormatter conversationFormatter = new ConversationFormatterImpl(new TextConversationArgumentFormatter());
-		return conversationFormatter.format(getFormattableText());
+		FormattableText formattableText = getFormattableText();
+		if (formattableText == null) {
+			throw new IllegalStateException("FormattableText is null for " + this.getClass());
+		}
+		return conversationFormatter.format(formattableText);
 	}
 	
 	public String getRequirementsDescription();

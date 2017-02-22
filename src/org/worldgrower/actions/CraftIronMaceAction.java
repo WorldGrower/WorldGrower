@@ -80,11 +80,6 @@ public class CraftIronMaceAction implements CraftEquipmentAction, AnimatedAction
 		return "crafting iron mace";
 	}
 
-	@Override
-	public String getSimpleDescription() {
-		return "craft iron mace";
-	}
-	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
 	}

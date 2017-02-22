@@ -78,11 +78,6 @@ public class WeaveCottonGlovesAction implements CraftEquipmentAction, AnimatedAc
 		return "weaving cotton gloves";
 	}
 
-	@Override
-	public String getSimpleDescription() {
-		return "weave cotton gloves";
-	}
-	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
 	}

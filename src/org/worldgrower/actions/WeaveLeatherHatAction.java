@@ -73,11 +73,6 @@ public class WeaveLeatherHatAction implements CraftEquipmentAction, AnimatedActi
 		return "weaving leather hat";
 	}
 
-	@Override
-	public String getSimpleDescription() {
-		return "weave leather hat";
-	}
-	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
 	}

@@ -81,11 +81,6 @@ public class CraftIronCuirassAction implements CraftEquipmentAction, AnimatedAct
 		return "crafting iron cuirass";
 	}
 
-	@Override
-	public String getSimpleDescription() {
-		return "craft iron cuirass";
-	}
-	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
 	}

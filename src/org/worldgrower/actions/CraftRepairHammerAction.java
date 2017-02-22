@@ -27,6 +27,8 @@ import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class CraftRepairHammerAction implements CraftAction, AnimatedAction {
 	private static final int DISTANCE = 1;
@@ -79,12 +81,12 @@ public class CraftRepairHammerAction implements CraftAction, AnimatedAction {
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
 		return "crafting a smithing hammer";
 	}
-
-	@Override
-	public String getSimpleDescription() {
-		return "craft smithing hammer";
-	}
 	
+	@Override
+	public FormattableText getFormattableText() {
+		return new FormattableText(TextId.CRAFT_ITEM, Item.REPAIR_HAMMER);
+	}
+
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
 	}

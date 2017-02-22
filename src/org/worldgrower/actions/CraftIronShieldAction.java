@@ -80,11 +80,6 @@ public class CraftIronShieldAction implements CraftEquipmentAction, AnimatedActi
 		return "crafting iron shield";
 	}
 
-	@Override
-	public String getSimpleDescription() {
-		return "craft iron shield";
-	}
-	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
 	}

@@ -80,11 +80,6 @@ public class CraftSteelGreatswordAction implements CraftEquipmentAction, Animate
 		return "crafting steel greatsword";
 	}
 
-	@Override
-	public String getSimpleDescription() {
-		return "craft steel greatsword";
-	}
-	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
 	}

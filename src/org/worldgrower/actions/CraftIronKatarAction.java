@@ -80,11 +80,6 @@ public class CraftIronKatarAction implements CraftEquipmentAction, AnimatedActio
 		return "crafting iron katar";
 	}
 
-	@Override
-	public String getSimpleDescription() {
-		return "craft iron katar";
-	}
-	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
 	}
