@@ -73,11 +73,6 @@ public class ConstructLockpickAction implements CraftEquipmentAction, AnimatedAc
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
 		return "constructing lockpick";
 	}
-
-	@Override
-	public String getSimpleDescription() {
-		return "construct lockpick";
-	}
 	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();

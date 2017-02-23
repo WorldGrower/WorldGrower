@@ -77,7 +77,7 @@ public enum Item {
 	OIL(ItemType.RESOURCE), 
 	FISHING_POLE(ItemType.TOOL), 
 	FISH(ItemType.FOOD), 
-	REPAIR_HAMMER(ItemType.MISC), 
+	REPAIR_HAMMER(ItemType.TOOL), 
 	WOOD(ItemType.RESOURCE), 
 	STONE(ItemType.RESOURCE), 
 	GOLD(ItemType.RESOURCE), 

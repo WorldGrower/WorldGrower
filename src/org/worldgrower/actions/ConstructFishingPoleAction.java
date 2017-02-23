@@ -74,11 +74,6 @@ public class ConstructFishingPoleAction implements CraftEquipmentAction, Animate
 		return "constructing fishing pole";
 	}
 
-	@Override
-	public String getSimpleDescription() {
-		return "construct fishing pole";
-	}
-	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
 	}

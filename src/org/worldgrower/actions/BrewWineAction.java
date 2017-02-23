@@ -28,6 +28,8 @@ import org.worldgrower.condition.ConditionUtils;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class BrewWineAction implements CraftAction, AnimatedAction {
 
@@ -87,8 +89,8 @@ public class BrewWineAction implements CraftAction, AnimatedAction {
 	}
 
 	@Override
-	public String getSimpleDescription() {
-		return "brew wine";
+	public FormattableText getFormattableText() {
+		return new FormattableText(TextId.BREW_ITEM, Item.WINE);
 	}
 	
 	@Override

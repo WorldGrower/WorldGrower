@@ -77,11 +77,6 @@ public class ConstructButcherKnifeAction implements CraftEquipmentAction, Animat
 		return "constructing butcher knife";
 	}
 
-	@Override
-	public String getSimpleDescription() {
-		return "construct butcher knife";
-	}
-	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
 	}

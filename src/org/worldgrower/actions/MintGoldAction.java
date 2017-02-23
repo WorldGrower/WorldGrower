@@ -21,8 +21,11 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class MintGoldAction implements CraftAction {
 
@@ -74,10 +77,10 @@ public class MintGoldAction implements CraftAction {
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world) {
 		return "minting gold";
 	}
-
+	
 	@Override
-	public String getSimpleDescription() {
-		return "mint gold";
+	public FormattableText getFormattableText() {
+		return new FormattableText(TextId.MINT_GOLD, Item.GOLD);
 	}
 	
 	public Object readResolve() throws ObjectStreamException {

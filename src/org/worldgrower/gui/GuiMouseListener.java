@@ -610,7 +610,7 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 
 	private String createTooltipForBuildAction(BuildAction buildAction) {
-		String requirementsDescription = buildAction.getRequirementsDescription();
+		String requirementsDescription = imageSubstituter.substituteImagesInHtml(buildAction.getRequirementsDescription());
 		List<ManagedOperation> allowedCraftActions = buildAction.getAllowedCraftActions(playerCharacter, world);
 		String allowedCraftActionsDescription = createAllowedCraftActionsDescription(allowedCraftActions);
 		
@@ -622,7 +622,7 @@ public class GuiMouseListener extends MouseAdapter {
 			tooltip += "<br>" + allowedCraftActionsDescription;
 		}
 		tooltip += "</html>";
-		return imageSubstituter.substituteImagesInHtml(tooltip);
+		return tooltip;
 	}
 	
 	private String createAllowedCraftActionsDescription(List<ManagedOperation> allowedCraftActions) {

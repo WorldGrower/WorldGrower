@@ -24,6 +24,8 @@ import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class ConstructBedAction implements CraftAction {
 	private static final int DISTANCE = 1;
@@ -76,8 +78,8 @@ public class ConstructBedAction implements CraftAction {
 	}
 
 	@Override
-	public String getSimpleDescription() {
-		return "construct bed";
+	public FormattableText getFormattableText() {
+		return new FormattableText(TextId.CRAFT_ITEM, Item.BED);
 	}
 	
 	public Object readResolve() throws ObjectStreamException {

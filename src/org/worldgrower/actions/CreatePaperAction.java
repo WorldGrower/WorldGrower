@@ -27,6 +27,8 @@ import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class CreatePaperAction implements CraftAction, AnimatedAction {
 
@@ -84,8 +86,8 @@ public class CreatePaperAction implements CraftAction, AnimatedAction {
 	}
 
 	@Override
-	public String getSimpleDescription() {
-		return "create paper";
+	public FormattableText getFormattableText() {
+		return new FormattableText(TextId.CREATE_PAPER, Item.PAPER);
 	}
 	
 	public Object readResolve() throws ObjectStreamException {

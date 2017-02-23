@@ -77,11 +77,6 @@ public class ConstructPickAxeAction implements CraftEquipmentAction, AnimatedAct
 		return "constructing pickaxe";
 	}
 
-	@Override
-	public String getSimpleDescription() {
-		return "construct pickaxe";
-	}
-	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
 	}

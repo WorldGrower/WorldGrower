@@ -77,11 +77,6 @@ public class ConstructScytheAction implements CraftEquipmentAction, AnimatedActi
 		return "constructing scythe";
 	}
 
-	@Override
-	public String getSimpleDescription() {
-		return "construct scythe";
-	}
-	
 	public Object readResolve() throws ObjectStreamException {
 		return readResolveImpl();
 	}
