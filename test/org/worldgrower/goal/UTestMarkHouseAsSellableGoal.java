@@ -19,6 +19,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.worldgrower.Args;
 import org.worldgrower.Constants;
+import org.worldgrower.DefaultConversationFormatter;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
@@ -75,6 +76,11 @@ public class UTestMarkHouseAsSellableGoal {
 		Actions.MARK_AS_SELLABLE_ACTION.execute(performer, house2, Args.EMPTY, world);
 		
 		assertEquals(true, goal.isGoalMet(performer, world));
+	}
+	
+	@Test
+	public void testGetDescription() {
+		assertEquals("marking houses as sellable", DefaultConversationFormatter.FORMATTER.format(goal.getDescription()));
 	}
 	
 	private WorldObject createPerformer() {

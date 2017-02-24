@@ -16,6 +16,7 @@ package org.worldgrower.gui.conversation;
 
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
+import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.conversation.ConversationFormatter;
 import org.worldgrower.generator.Item;
 import org.worldgrower.text.FormattableText;
@@ -37,6 +38,9 @@ public class TextConversationArgumentFormatter implements ConversationArgumentFo
 		} else if (object instanceof FormattableText) {
 			FormattableText formattableText = (FormattableText) object;
 			return conversationFormatter.format(formattableText);
+		} else if (object instanceof IntProperty) {
+			IntProperty intProperty = (IntProperty) object;
+			return intProperty.getName();
 		} else {
 			throw new IllegalStateException("Object " + object + " of class " + object.getClass() + " cannot be mapped");
 		}
