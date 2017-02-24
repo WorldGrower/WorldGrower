@@ -63,6 +63,7 @@ import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.JButtonFactory;
 import org.worldgrower.gui.util.JLabelFactory;
 import org.worldgrower.gui.util.MenuFactory;
+import org.worldgrower.util.CustomPopupFactory;
 
 public class StartScreen implements SaveGameHandler {
 
@@ -107,6 +108,7 @@ public class StartScreen implements SaveGameHandler {
 		loadImages();
 		loadSounds(preferences);
 		loadMusic(preferences);
+		CustomPopupFactory.setPopupFactory();
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
