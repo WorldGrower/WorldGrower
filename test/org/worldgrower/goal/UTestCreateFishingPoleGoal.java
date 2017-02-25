@@ -24,40 +24,64 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
+import org.worldgrower.attribute.BuildingList;
+import org.worldgrower.attribute.BuildingType;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.BuildingGenerator;
 import org.worldgrower.generator.Item;
 import org.worldgrower.generator.PlantGenerator;
 
-public class UTestCottonGoal {
+public class UTestCreateFishingPoleGoal {
 
-	private CottonGoal goal = Goals.COTTON_GOAL;
+	private CreateFishingPoleGoal goal = Goals.CREATE_FISHING_POLE_GOAL;
 	
 	@Test
 	public void testCalculateGoalNull() {
-		World world = new WorldImpl(0, 0, null, null);
-		WorldObject performer = createPerformer();
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
+		performer.setProperty(Constants.BUILDINGS, new BuildingList());
 		
 		assertEquals(null, goal.calculateGoal(performer, world));
 	}
 	
 	@Test
-	public void testCalculateGoalPlantCottonPlant() {
+	public void testCalculateGoalWood() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
 		
-		assertEquals(Actions.PLANT_COTTON_PLANT_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+		PlantGenerator.generateTree(5, 5, world);
+		
+		addWorkbench(world, performer);
+		
+		assertEquals(Actions.CUT_WOOD_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
 	
 	@Test
-	public void testCalculateGoalHarvestCotton() {
+	public void testCalculateGoalBuildWorkbench() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer();
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.STONE.generate(1f), 20);
+		performer.setProperty(Constants.BUILDINGS, new BuildingList());
 		
-		int cottonId = PlantGenerator.generateCottonPlant(5, 5, world);
-		WorldObject cottonPlant = world.findWorldObjectById(cottonId);
-		cottonPlant.setProperty(Constants.COTTON_SOURCE, 100);
+		assertEquals(Actions.BUILD_WORKBENCH_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+	@Test
+	public void testCalculateGoalConstructButherKnife() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer();
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.WOOD.generate(1f), 20);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.ORE.generate(1f), 20);
 		
-		assertEquals(Actions.HARVEST_COTTON_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+		addWorkbench(world, performer);
+		
+		assertEquals(Actions.CONSTRUCT_FISHING_POLE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+
+	private void addWorkbench(World world, WorldObject performer) {
+		int workbenchId = BuildingGenerator.generateWorkbench(0, 0, world, performer);
+		performer.setProperty(Constants.BUILDINGS, new BuildingList().add(workbenchId, BuildingType.WORKBENCH));
 	}
 	
 	@Test
@@ -67,15 +91,15 @@ public class UTestCottonGoal {
 		
 		assertEquals(false, goal.isGoalMet(performer, world));
 		
-		performer.getProperty(Constants.INVENTORY).addQuantity(Item.COTTON.generate(1f), 10);
+		performer.getProperty(Constants.INVENTORY).addQuantity(Item.FISHING_POLE.generate(1f), 10);
 		assertEquals(true, goal.isGoalMet(performer, world));
 	}
 	
 	@Test
 	public void testGetDescription() {
-		assertEquals("looking for cotton", DefaultConversationFormatter.FORMATTER.format(goal.getDescription()));
+		assertEquals("looking for a fishing pole", DefaultConversationFormatter.FORMATTER.format(goal.getDescription()));
 	}
-
+	
 	private WorldObject createPerformer() {
 		WorldObject performer = TestUtils.createSkilledWorldObject(1, Constants.INVENTORY, new WorldObjectContainer());
 		performer.setProperty(Constants.X, 0);

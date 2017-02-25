@@ -71,7 +71,7 @@ public class CottonGoal implements Goal {
 
 	@Override
 	public FormattableText getDescription() {
-		return new FormattableText(TextId.GOAL_COTTON);
+		return new FormattableText(TextId.GOAL_COTTON, Item.COTTON);
 	}
 
 	@Override

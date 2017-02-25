@@ -18,6 +18,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.DefaultConversationFormatter;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
@@ -72,6 +73,11 @@ public class UTestCatchFishGoal {
 		
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.FISH.generate(1f), 50);
 		assertEquals(true, goal.isGoalMet(performer, world));
+	}
+	
+	@Test
+	public void testGetDescription() {
+		assertEquals("looking to gather fish", DefaultConversationFormatter.FORMATTER.format(goal.getDescription()));
 	}
 
 	private WorldObject createPerformer() {

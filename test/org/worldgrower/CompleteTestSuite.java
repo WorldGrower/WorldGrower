@@ -811,7 +811,8 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestExplainCurseConversation.class,
 	UTestPoxCurse.class,
 	UTestCurseListener.class,
-	UTestTooltipImages.class
+	UTestTooltipImages.class,
+	UTestCreateFishingPoleGoal.class
 })
 public class CompleteTestSuite {
 }

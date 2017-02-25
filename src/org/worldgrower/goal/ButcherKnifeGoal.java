@@ -59,7 +59,7 @@ public class ButcherKnifeGoal implements Goal {
 
 	@Override
 	public FormattableText getDescription() {
-		return new FormattableText(TextId.GOAL_BUTCHER_KNIFE);
+		return new FormattableText(TextId.GOAL_BUTCHER_KNIFE, Item.BUTCHER_KNIFE);
 	}
 
 	@Override

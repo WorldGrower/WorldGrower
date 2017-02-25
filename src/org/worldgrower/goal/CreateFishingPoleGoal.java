@@ -24,6 +24,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.ConstructFishingPoleAction;
 import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.generator.Item;
 import org.worldgrower.text.FormattableText;
 import org.worldgrower.text.TextId;
 
@@ -65,7 +66,7 @@ public class CreateFishingPoleGoal implements Goal {
 
 	@Override
 	public FormattableText getDescription() {
-		return new FormattableText(TextId.GOAL_CREATE_FISHING_POLE);
+		return new FormattableText(TextId.GOAL_CREATE_FISHING_POLE, Item.FISHING_POLE);
 	}
 
 	@Override
