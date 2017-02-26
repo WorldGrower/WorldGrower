@@ -24,6 +24,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.CraftIronAxeAction;
 import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.generator.Item;
 import org.worldgrower.text.FormattableText;
 import org.worldgrower.text.TextId;
 
@@ -67,7 +68,7 @@ public class CreateIronAxeGoal implements Goal {
 
 	@Override
 	public FormattableText getDescription() {
-		return new FormattableText(TextId.GOAL_CREATE_IRON_AXE);
+		return new FormattableText(TextId.GOAL_CREATE_IRON_AXE, Item.IRON_AXE);
 	}
 
 	@Override

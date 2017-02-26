@@ -18,6 +18,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.DefaultConversationFormatter;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
@@ -106,6 +107,11 @@ public class UTestCreatePickaxeGoal {
 		
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.PICKAXE.generate(1f), 10);
 		assertEquals(true, goal.isGoalMet(performer, world));
+	}
+	
+	@Test
+	public void testGetDescription() {
+		assertEquals("looking for a pickaxe", DefaultConversationFormatter.FORMATTER.format(goal.getDescription()));
 	}
 	
 	private WorldObject createPerformer() {

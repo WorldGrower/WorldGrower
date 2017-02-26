@@ -18,6 +18,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.DefaultConversationFormatter;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
@@ -104,6 +105,11 @@ public class UTestCreatePoisonGoal {
 		
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.POISON.generate(1f), 20);
 		assertEquals(true, goal.isGoalMet(performer, world));
+	}
+	
+	@Test
+	public void testGetDescription() {
+		assertEquals("creating poison", DefaultConversationFormatter.FORMATTER.format(goal.getDescription()));
 	}
 
 	private WorldObject createPerformer() {

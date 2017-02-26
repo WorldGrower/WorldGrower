@@ -18,6 +18,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.DefaultConversationFormatter;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
@@ -100,5 +101,10 @@ public class UTestCreateRepairHammerGoal {
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.REPAIR_HAMMER.generate(1f), 20);
 		
 		assertEquals(true, goal.isGoalMet(performer, world));
+	}
+	
+	@Test
+	public void testGetDescription() {
+		assertEquals("crafting a smithing hammer", DefaultConversationFormatter.FORMATTER.format(goal.getDescription()));
 	}
 }

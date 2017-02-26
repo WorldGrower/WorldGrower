@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import org.junit.Test;
 import org.worldgrower.Args;
 import org.worldgrower.Constants;
+import org.worldgrower.DefaultConversationFormatter;
 import org.worldgrower.DoNothingWorldOnTurn;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -97,6 +98,11 @@ public class UTestCreateNewsPaperGoal {
 		
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.generateNewsPaper(new ArrayList<>(), Args.EMPTY, world), 20);
 		assertEquals(true, goal.isGoalMet(performer, world));
+	}
+	
+	@Test
+	public void testGetDescription() {
+		assertEquals("creating a news paper", DefaultConversationFormatter.FORMATTER.format(goal.getDescription()));
 	}
 	
 	private WorldObject createPerformer() {
