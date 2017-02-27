@@ -24,6 +24,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.ConstructScytheAction;
 import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.generator.Item;
 import org.worldgrower.text.FormattableText;
 import org.worldgrower.text.TextId;
 
@@ -67,7 +68,7 @@ public class CreateScytheGoal implements Goal {
 
 	@Override
 	public FormattableText getDescription() {
-		return new FormattableText(TextId.GOAL_CREATE_SCYTHE);
+		return new FormattableText(TextId.GOAL_CREATE_SCYTHE, Item.SCYTHE);
 	}
 
 	@Override

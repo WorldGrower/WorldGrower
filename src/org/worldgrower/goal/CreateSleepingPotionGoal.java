@@ -24,6 +24,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.generator.BuildingDimensions;
 import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.generator.Item;
 import org.worldgrower.text.FormattableText;
 import org.worldgrower.text.TextId;
 
@@ -68,7 +69,7 @@ public class CreateSleepingPotionGoal implements Goal {
 
 	@Override
 	public FormattableText getDescription() {
-		return new FormattableText(TextId.GOAL_CREATE_SLEEPING_POTION);
+		return new FormattableText(TextId.GOAL_CREATE_SLEEPING_POTION, Item.SLEEPING_POTION);
 	}
 
 	@Override

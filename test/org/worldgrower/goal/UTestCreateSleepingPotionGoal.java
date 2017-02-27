@@ -18,6 +18,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.DefaultConversationFormatter;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
@@ -84,6 +85,11 @@ public class UTestCreateSleepingPotionGoal {
 		
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.SLEEPING_POTION.generate(1f), 20);
 		assertEquals(true, goal.isGoalMet(performer, world));
+	}
+	
+	@Test
+	public void testGetDescription() {
+		assertEquals("creating a sleeping potion", DefaultConversationFormatter.FORMATTER.format(goal.getDescription()));
 	}
 
 	private WorldObject createPerformer() {
