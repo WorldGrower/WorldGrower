@@ -72,8 +72,11 @@ public class GuiResearchMagicSpellAction extends AbstractAction {
 				MagicSpell magicSpell = magicSpellsToResearch.get(indexOfMagicSpell);
 				ResearchSpellAction researchSpellAction = Actions.getResearchSpellActionFor(magicSpell);
 				
-				String textDialogMessage = "Research for how many turns? (0 - " + (magicSpell.getResearchCost()+1) + ")";
-				String turnsString = new TextInputDialog(textDialogMessage, TextInputDialog.NUMERIC_INPUT, imageInfoReader, soundIdReader, parentFrame).showMe();
+				TextInputDialog dialog = new TextInputDialog(TextInputDialog.NUMERIC_INPUT, imageInfoReader, soundIdReader, parentFrame);
+				dialog.append("Research for how many ");
+				dialog.append(ImageIds.SMALL_TURN, " turns? (0 - " + (magicSpell.getResearchCost()+1) + ")");
+				
+				String turnsString = dialog.showMe();
 				if ((turnsString != null) && (turnsString.length() > 0) && (NumberUtils.isNumeric(turnsString))) {
 					int turns = Integer.parseInt(turnsString);
 					

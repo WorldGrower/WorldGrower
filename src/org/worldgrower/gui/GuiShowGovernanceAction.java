@@ -303,8 +303,8 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		votingStagesLabel.setToolTipText(VOTING_STAGES_TOOLTIP);
 		votingPanel.add(votingStagesLabel);
 		
-		JLabel candidateStageLabel = JLabelFactory.createJLabel("Number of turns people can become candidates:");
-		candidateStageLabel.setBounds(15, 245, 385, 30);
+		JLabel candidateStageLabel = JLabelFactory.createJLabel("<html>Number of " + imageInfoReader.smallImageTag(ImageIds.SMALL_TURN) + " turns people can become candidates:</html>");
+		candidateStageLabel.setBounds(15, 245, 395, 30);
 		candidateStageLabel.setToolTipText(CANDIDATE_STAGE_TOOLTIP);
 		votingPanel.add(candidateStageLabel);
 		
@@ -312,13 +312,13 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		candidateStageComboBox.setEnabled(performerIsLeaderOfVillagers);
 		int votingCandidacyTurns = villagersOrganization.getProperty(Constants.VOTING_CANDIDATE_TURNS);
 		candidateStageComboBox.setSelectedItem(votingCandidacyTurns);
-		candidateStageComboBox.setBounds(380, 245, 60, 30);
+		candidateStageComboBox.setBounds(420, 245, 60, 30);
 		candidateStageComboBox.setForeground(Color.BLACK);
 		candidateStageComboBox.setToolTipText(CANDIDATE_STAGE_TOOLTIP);
 		votingPanel.add(candidateStageComboBox);
 		
-		JLabel votingStageLabel = JLabelFactory.createJLabel("Number of turns people can vote:");
-		votingStageLabel.setBounds(15, 280, 385, 30);
+		JLabel votingStageLabel = JLabelFactory.createJLabel("<html>Number of " + imageInfoReader.smallImageTag(ImageIds.SMALL_TURN) + " turns people can vote:</html>");
+		votingStageLabel.setBounds(15, 280, 365, 30);
 		votingStageLabel.setToolTipText(VOTING_STAGE_TOOLTIP);
 		votingPanel.add(votingStageLabel);
 		
@@ -326,7 +326,7 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		votingStageComboBox.setEnabled(performerIsLeaderOfVillagers);
 		int votingStageTurns = villagersOrganization.getProperty(Constants.VOTING_TOTAL_TURNS) - votingCandidacyTurns;
 		votingStageComboBox.setSelectedItem(votingStageTurns);
-		votingStageComboBox.setBounds(380, 280, 60, 30);
+		votingStageComboBox.setBounds(420, 280, 60, 30);
 		votingStageComboBox.setForeground(Color.BLACK);
 		votingStageComboBox.setToolTipText(VOTING_STAGE_TOOLTIP);
 		votingPanel.add(votingStageComboBox);

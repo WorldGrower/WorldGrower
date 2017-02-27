@@ -291,7 +291,7 @@ public class OptionsScreen {
 		cmbImage.setBounds(228, 160, 137, 58);
 		contentPanel.add(cmbImage);
 		
-		JLabel lblStartTurn = JLabelFactory.createJLabel("Start turn:");
+		JLabel lblStartTurn = JLabelFactory.createJLabel("<html>Start " + imageInfoReader.smallImageTag(ImageIds.SMALL_TURN) + " turn:</html>");
 		lblStartTurn.setToolTipText(START_TURN_TOOL_TIP);
 		lblStartTurn.setBounds(25, 433, 191, 26);
 		contentPanel.add(lblStartTurn);
