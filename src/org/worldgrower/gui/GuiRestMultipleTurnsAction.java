@@ -54,8 +54,10 @@ public class GuiRestMultipleTurnsAction extends AbstractAction {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
-		String turnsString = new TextInputDialog("Sleep how many turns?", TextInputDialog.NUMERIC_INPUT, imageInfoReader, soundIdReader, parentFrame).showMe();
+		TextInputDialog dialog = new TextInputDialog(TextInputDialog.NUMERIC_INPUT, imageInfoReader, soundIdReader, parentFrame);
+		dialog.append("Sleep how many ");
+		dialog.append(ImageIds.SMALL_TURN, " turns?");
+		String turnsString = dialog.showMe();
 		if ((turnsString != null) && (NumberUtils.isNumeric(turnsString) && turnsString.length() > 0)) {
 			int turns = Integer.parseInt(turnsString);
 			

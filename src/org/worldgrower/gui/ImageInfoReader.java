@@ -135,6 +135,7 @@ public class ImageInfoReader {
     	
     	Sprites beds = readSpritesBed();
     	Sprites goldCoinSprite = readGoldCoinSprite();
+    	Sprites icons98 = readIcons98();
     	
     	addCharacter(ImageIds.KNIGHT, sprites, 0, 0, 1, 1);
     	addCharacter(ImageIds.GUARD, sprites, 0, 4, 1, 1);
@@ -737,8 +738,14 @@ public class ImageInfoReader {
 		add(ImageIds.REMOVE_CURSE_POTION, ImageUtils.dye((BufferedImage)sprites420.getSubImage(6, 2, 1, 1), new Color(200, 200, 0, 90)));
 		createAnimation(ImageIds.REMOVE_CURSE_POTION_ANIMATION, ImageIds.REMOVE_CURSE_POTION, 10);
     
-		add(ImageIds.SMALL_GOLD_COIN, ImageUtils.createResizedCopy(goldCoinSprite.getSubImage(0, 0, 1, 1), Fonts.getFontSize(), Fonts.getFontSize(), false));
+		add(ImageIds.SMALL_GOLD_COIN, createFontSizedImaged(goldCoinSprite.getSubImage(0, 0, 1, 1)));
+		add(ImageIds.SMALL_TURN, createFontSizedImaged(icons98.getSubImage(0, 4, 1, 1)));
     }
+
+	private BufferedImage createFontSizedImaged(Image image) {
+		int fontSize = Fonts.getFontSize();
+		return ImageUtils.createResizedCopy(image, fontSize, fontSize, false);
+	}
 
 	BufferedImage colorize(ImageIds imageId, Color color) {
 		return ImageUtils.dye((BufferedImage)getImage(imageId, null), color);
@@ -1149,6 +1156,10 @@ public class ImageInfoReader {
 	
 	private static Sprites readGoldCoinSprite() throws IOException {
 		return readImages("coins.png", 40, 40, 1, 1);
+	}
+	
+	private static Sprites readIcons98() throws IOException {
+		return readImages("extra_98_free_rpg_icons_by_ails-d6g2amz.png", 34, 34, 14, 8);
 	}
 
 	private static Sprites readSpritesApothecary() throws IOException {

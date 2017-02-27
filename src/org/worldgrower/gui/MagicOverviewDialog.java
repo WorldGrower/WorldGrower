@@ -89,6 +89,8 @@ public class MagicOverviewDialog extends JDialog {
 		magicSpellsTable.getColumnModel().getColumn(4).setPreferredWidth(100);
 		magicSpellsTable.getColumnModel().getColumn(5).setPreferredWidth(150);
 		
+		JTableFactory.applyImageToHeaderColumn(magicSpellsTable, magicSpellsTable.getColumnModel().getColumn(5), ImageIds.SMALL_TURN, imageInfoReader);
+		
 		scrollPane.setViewportView(magicSpellsTable);
 
 		JPanel buttonPane = new JPanel();
