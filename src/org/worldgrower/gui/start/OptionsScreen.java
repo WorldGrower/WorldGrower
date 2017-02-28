@@ -60,6 +60,9 @@ public class OptionsScreen {
 	private static final String WORLD_WIDTH_TOOL_TIP = "Sets width of world in number of tiles";
 	private static final String WORLD_HEIGHT_TOOL_TIP = "Sets height of world in number of tiles";
 	private static final String START_TURN_TOOL_TIP = "Sets turn on which the player character enters the world";
+	private static final String STONE_RESOURCES_TOOL_TIP = "Sets abundance of stone resources";
+	private static final String ORE_RESOURCES_TOOL_TIP = "Sets abundance of iron ore resources";
+	private static final String GOLD_RESOURCES_TOOL_TIP = "Sets abundance of gold resources";
 	
 	private JFrame frame;
 	private JTextField playerNameTextField;
@@ -79,6 +82,9 @@ public class OptionsScreen {
 	private JComboBox<ImageIds> cmbImage;
 	private final KeyBindings keyBindings;
 	private JTextField startTurnTextField;
+	private JComboBox<ResourceMultiplier> stoneResourceMultipliersComboBox;
+	private JComboBox<ResourceMultiplier> oreResourceMultipliersComboBox;
+	private JComboBox<ResourceMultiplier> goldResourceMultipliersComboBox;
 	
 	public OptionsScreen(CharacterAttributes characterAttributes, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, MusicPlayer musicPlayer, KeyBindings keyBindings, JFrame parentFrame) {
 		this.characterAttributes = characterAttributes;
@@ -106,7 +112,7 @@ public class OptionsScreen {
 		contentPanel.setLayout(null);
 		frame.setUndecorated(true);
 		int width = 400;
-		int height = 580;
+		int height = 680;
 		contentPanel.setSize(new Dimension(width, height));
 		contentPanel.setPreferredSize(new Dimension(width, height));
 		frame.getContentPane().add(contentPanel);
@@ -180,32 +186,70 @@ public class OptionsScreen {
 		worldHeightTextField.setBounds(228, 271, 137, 22);
 		contentPanel.add(worldHeightTextField);
 		
+		final int defaultResourceSelection = 2;
+		
+		JLabel lblStoneResource = JLabelFactory.createJLabel("Stone resources:");
+		lblStoneResource.setToolTipText(STONE_RESOURCES_TOOL_TIP);
+		lblStoneResource.setBounds(25, 310, 191, 26);
+		contentPanel.add(lblStoneResource);
+		
+		stoneResourceMultipliersComboBox = JComboBoxFactory.createJComboBox(getResourceMultipliers(), imageInfoReader);
+		stoneResourceMultipliersComboBox.setSelectedIndex(defaultResourceSelection);
+		stoneResourceMultipliersComboBox.setForeground(Color.BLACK);
+		stoneResourceMultipliersComboBox.setToolTipText(STONE_RESOURCES_TOOL_TIP);
+		stoneResourceMultipliersComboBox.setBounds(228, 310, 137, 26);
+		contentPanel.add(stoneResourceMultipliersComboBox);
+		
+		JLabel lblOreResource = JLabelFactory.createJLabel("Iron ore resources:");
+		lblOreResource.setToolTipText(ORE_RESOURCES_TOOL_TIP);
+		lblOreResource.setBounds(25, 352, 191, 26);
+		contentPanel.add(lblOreResource);
+		
+		oreResourceMultipliersComboBox = JComboBoxFactory.createJComboBox(getResourceMultipliers(), imageInfoReader);
+		oreResourceMultipliersComboBox.setSelectedIndex(defaultResourceSelection);
+		oreResourceMultipliersComboBox.setForeground(Color.BLACK);
+		oreResourceMultipliersComboBox.setToolTipText(ORE_RESOURCES_TOOL_TIP);
+		oreResourceMultipliersComboBox.setBounds(228, 352, 137, 26);
+		contentPanel.add(oreResourceMultipliersComboBox);
+		
+		JLabel lblGoldResource = JLabelFactory.createJLabel("Gold resources:");
+		lblGoldResource.setToolTipText(GOLD_RESOURCES_TOOL_TIP);
+		lblGoldResource.setBounds(25, 394, 191, 26);
+		contentPanel.add(lblGoldResource);
+		
+		goldResourceMultipliersComboBox = JComboBoxFactory.createJComboBox(getResourceMultipliers(), imageInfoReader);
+		goldResourceMultipliersComboBox.setSelectedIndex(defaultResourceSelection);
+		goldResourceMultipliersComboBox.setForeground(Color.BLACK);
+		goldResourceMultipliersComboBox.setToolTipText(GOLD_RESOURCES_TOOL_TIP);
+		goldResourceMultipliersComboBox.setBounds(228, 394, 137, 26);
+		contentPanel.add(goldResourceMultipliersComboBox);
+		
 		JLabel lblNumberOfEnemies = JLabelFactory.createJLabel("Enemy density:");
 		lblNumberOfEnemies.setToolTipText(MONSTER_DENSITY_TOOL_TIP);
-		lblNumberOfEnemies.setBounds(25, 310, 191, 26);
+		lblNumberOfEnemies.setBounds(25, 436, 191, 26);
 		contentPanel.add(lblNumberOfEnemies);
 		
 		numberOfEnemiesTextField = JTextFieldFactory.createJTextField();
 		numberOfEnemiesTextField.setToolTipText(MONSTER_DENSITY_TOOL_TIP);
 		numberOfEnemiesTextField.setText(Integer.toString(customGameParameters.getEnemyDensity()));
 		numberOfEnemiesTextField.setColumns(10);
-		numberOfEnemiesTextField.setBounds(228, 310, 137, 22);
+		numberOfEnemiesTextField.setBounds(228, 436, 137, 22);
 		contentPanel.add(numberOfEnemiesTextField);
 		
 		JLabel lblNumberOfVillagers = JLabelFactory.createJLabel("Number of Villagers:");
 		lblNumberOfVillagers.setToolTipText(NUMBER_OF_VILLAGERS_TOOL_TIP);
-		lblNumberOfVillagers.setBounds(25, 352, 191, 26);
+		lblNumberOfVillagers.setBounds(25, 478, 191, 26);
 		contentPanel.add(lblNumberOfVillagers);
 		
 		numberOfVillagersTextField = JTextFieldFactory.createJTextField();
 		numberOfVillagersTextField.setToolTipText(NUMBER_OF_VILLAGERS_TOOL_TIP);
 		numberOfVillagersTextField.setText(Integer.toString(customGameParameters.getVillagerCount()));
 		numberOfVillagersTextField.setColumns(10);
-		numberOfVillagersTextField.setBounds(228, 352, 137, 22);
+		numberOfVillagersTextField.setBounds(228, 478, 137, 22);
 		contentPanel.add(numberOfVillagersTextField);
 		
 		JButton btnOk = JButtonFactory.createButton("Ok", imageInfoReader, soundIdReader);
-		btnOk.setBounds(280, 535, 97, 25);
+		btnOk.setBounds(280, 635, 97, 25);
 		frame.getRootPane().setDefaultButton(btnOk);
 		contentPanel.add(btnOk);
 		btnOk.addActionListener(new ActionListener() {
@@ -225,7 +269,11 @@ public class OptionsScreen {
 						
 						String gender = maleRadioButton.isSelected() ? "male" : "female";
 						
-						CustomGameParameters customGameParameters = new CustomGameParameters(playerNameTextField.getText(), playerProfessionTextField.getText(), gender, worldWidth, worldHeight, enemyDensity, villagerCount, seed, startTurn);
+						float stoneResourceMultiplier = ((ResourceMultiplier)stoneResourceMultipliersComboBox.getSelectedItem()).getMultiplier();
+						float oreResourceMultiplier = ((ResourceMultiplier)oreResourceMultipliersComboBox.getSelectedItem()).getMultiplier();
+						float goldResourceMultiplier = ((ResourceMultiplier)goldResourceMultipliersComboBox.getSelectedItem()).getMultiplier();
+						
+						CustomGameParameters customGameParameters = new CustomGameParameters(playerNameTextField.getText(), playerProfessionTextField.getText(), gender, worldWidth, worldHeight, enemyDensity, villagerCount, seed, startTurn, stoneResourceMultiplier, oreResourceMultiplier, goldResourceMultiplier);
 						new Thread() {
 							public void run() {
 								try {
@@ -251,7 +299,7 @@ public class OptionsScreen {
 		});
 		
 		JButton btnCancel = JButtonFactory.createButton("Cancel", imageInfoReader, soundIdReader);
-		btnCancel.setBounds(169, 535, 97, 25);
+		btnCancel.setBounds(169, 635, 97, 25);
 		contentPanel.add(btnCancel);
 		
 		JLabel lblPlayerProfession = JLabelFactory.createJLabel("Character Profession:");
@@ -268,14 +316,14 @@ public class OptionsScreen {
 		
 		JLabel lblSeed = JLabelFactory.createJLabel("Seed:");
 		lblSeed.setToolTipText(SEED_TOOL_TIP);
-		lblSeed.setBounds(25, 394, 191, 26);
+		lblSeed.setBounds(25, 520, 191, 26);
 		contentPanel.add(lblSeed);
 		
 		seedTextField = JTextFieldFactory.createJTextField();
 		seedTextField.setToolTipText(SEED_TOOL_TIP);
 		seedTextField.setText(Integer.toString(customGameParameters.getSeed()));
 		seedTextField.setColumns(10);
-		seedTextField.setBounds(228, 394, 137, 22);
+		seedTextField.setBounds(228, 520, 137, 22);
 		contentPanel.add(seedTextField);
 		
 		JLabel lblCharacterImage = JLabelFactory.createJLabel("Character image:");
@@ -293,14 +341,14 @@ public class OptionsScreen {
 		
 		JLabel lblStartTurn = JLabelFactory.createJLabel("<html>Start " + imageInfoReader.smallImageTag(ImageIds.SMALL_TURN) + " turn:</html>");
 		lblStartTurn.setToolTipText(START_TURN_TOOL_TIP);
-		lblStartTurn.setBounds(25, 433, 191, 26);
+		lblStartTurn.setBounds(25, 562, 191, 26);
 		contentPanel.add(lblStartTurn);
 		
 		startTurnTextField = JTextFieldFactory.createJTextField();
 		startTurnTextField.setToolTipText(START_TURN_TOOL_TIP);
 		startTurnTextField.setText(Integer.toString(customGameParameters.getStartTurn()));
 		startTurnTextField.setColumns(10);
-		startTurnTextField.setBounds(228, 433, 137, 22);
+		startTurnTextField.setBounds(228, 562, 137, 22);
 		contentPanel.add(startTurnTextField);
 		btnCancel.addActionListener(new ActionListener() {
 			
@@ -368,5 +416,38 @@ public class OptionsScreen {
 		if (Integer.parseInt(textField.getText()) < 100) {
 			errors.add("World Height must be at least 100");
 		}
+	}
+	
+	private static class ResourceMultiplier {
+		private final float multiplier;
+		private final String description;
+
+		public ResourceMultiplier(float multiplier, String description) {
+			super();
+			this.multiplier = multiplier;
+			this.description = description;
+		}
+		
+		public float getMultiplier() {
+			return multiplier;
+		}
+		
+		public String getDescription() {
+			return description;
+		}
+
+		@Override
+		public String toString() {
+			return getDescription();
+		}		
+	}
+	
+	private ResourceMultiplier[] getResourceMultipliers() {
+		List<ResourceMultiplier> resourceMultipliers = new ArrayList<>();
+		resourceMultipliers.add(new ResourceMultiplier(0.0f, "Nonexistent"));
+		resourceMultipliers.add(new ResourceMultiplier(0.5f, "Scarce"));
+		resourceMultipliers.add(new ResourceMultiplier(1.0f, "Normal"));
+		resourceMultipliers.add(new ResourceMultiplier(1.5f, "Abundant"));
+		return resourceMultipliers.toArray(new ResourceMultiplier[0]);
 	}
 }

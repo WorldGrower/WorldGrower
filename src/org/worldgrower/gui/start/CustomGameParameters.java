@@ -35,6 +35,9 @@ public class CustomGameParameters implements GameParameters {
 	private final int villagerCount;
 	private final int seed;
 	private final int startTurn;
+	private final float stoneResourceMultiplier;
+	private final float oreResourceMultiplier;
+	private final float goldResourceMultiplier;
 	
 	public CustomGameParameters() {
 		this.playerName = getDefaultUsername();
@@ -46,6 +49,9 @@ public class CustomGameParameters implements GameParameters {
 		this.villagerCount = 6;
 		this.seed = 666;
 		this.startTurn = 0;
+		this.stoneResourceMultiplier = 1.0f;
+		this.oreResourceMultiplier = 1.0f;
+		this.goldResourceMultiplier = 1.0f;
 	}
 	
 	private String getDefaultUsername() {
@@ -57,7 +63,7 @@ public class CustomGameParameters implements GameParameters {
 		}
 	}
 	
-	public CustomGameParameters(String playerName, String playerProfession, String gender, int worldWidth, int worldHeight, int enemyDensity, int villagerCount, int seed, int startTurn) {
+	public CustomGameParameters(String playerName, String playerProfession, String gender, int worldWidth, int worldHeight, int enemyDensity, int villagerCount, int seed, int startTurn, float stoneResourceMultiplier, float oreResourceMultiplier, float goldResourceMultiplier) {
 		this.playerName = playerName;
 		this.playerProfession = playerProfession;
 		this.gender = gender;
@@ -67,6 +73,9 @@ public class CustomGameParameters implements GameParameters {
 		this.villagerCount = villagerCount;
 		this.seed = seed;
 		this.startTurn = startTurn;
+		this.stoneResourceMultiplier = stoneResourceMultiplier;
+		this.oreResourceMultiplier = oreResourceMultiplier;
+		this.goldResourceMultiplier = goldResourceMultiplier;
 	}
 
 	@Override
@@ -102,9 +111,16 @@ public class CustomGameParameters implements GameParameters {
 
 		WorldGenerator worldGenerator = new WorldGenerator(seed);
 		worldGenerator.addWorldObjects(world, 2, 2, PlantGenerator::generateTree);
-		worldGenerator.addWorldObjects(world, 2, 2, world.getWidth() / 10, TerrainType.HILL, TerrainGenerator::generateStoneResource);
-		worldGenerator.addWorldObjects(world, 2, 2, world.getWidth() / 10, TerrainType.MOUNTAIN, TerrainGenerator::generateOreResource);
-		worldGenerator.addWorldObjects(world, 2, 2, world.getWidth() / 20, TerrainType.MOUNTAIN, TerrainGenerator::generateGoldResource);
+		
+		int stoneResourceCount = (int) ((world.getWidth() / 10) * stoneResourceMultiplier);
+		worldGenerator.addWorldObjects(world, 2, 2, stoneResourceCount, TerrainType.HILL, TerrainGenerator::generateStoneResource);
+		
+		int oreResourceCount = (int)((world.getWidth() / 10) * oreResourceMultiplier);
+		worldGenerator.addWorldObjects(world, 2, 2, oreResourceCount, TerrainType.MOUNTAIN, TerrainGenerator::generateOreResource);
+		
+		int goldResourceCount = (int)((world.getWidth() / 20) * goldResourceMultiplier);
+		worldGenerator.addWorldObjects(world, 2, 2, goldResourceCount, TerrainType.MOUNTAIN, TerrainGenerator::generateGoldResource);
+
 		worldGenerator.addWorldObjects(world, 1, 1, world.getWidth() / 50, TerrainType.GRASLAND, PlantGenerator::generateNightShade);
 		worldGenerator.addWorldObjects(world, 1, 1, world.getWidth() / 50, TerrainType.PLAINS, TerrainGenerator::generateOilResource);
 		
