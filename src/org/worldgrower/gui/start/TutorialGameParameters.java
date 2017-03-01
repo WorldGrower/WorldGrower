@@ -26,6 +26,7 @@ import org.worldgrower.generator.CreatureGenerator;
 import org.worldgrower.generator.Item;
 import org.worldgrower.generator.PlantGenerator;
 import org.worldgrower.gui.AdditionalManagedOperationListenerFactory;
+import org.worldgrower.terrain.TerrainMapper;
 
 public class TutorialGameParameters implements GameParameters {
 
@@ -110,5 +111,10 @@ public class TutorialGameParameters implements GameParameters {
 		inventory.addQuantity(Item.IRON_GREATSWORD.generate(1f));
 		inventory.addQuantity(Item.IRON_CUIRASS.generate(1f));
 		inventory.addQuantity(Item.LONGBOW.generate(1f));
+	}
+
+	@Override
+	public double getWaterCutoff() {
+		return TerrainMapper.NORMAL_WATER_CUTOFF;
 	}
 }

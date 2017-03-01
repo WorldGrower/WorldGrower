@@ -64,6 +64,9 @@ import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.ProgressDialog;
 import org.worldgrower.gui.util.ShowTextDialog;
+import org.worldgrower.terrain.Terrain;
+import org.worldgrower.terrain.TerrainImpl;
+import org.worldgrower.terrain.TerrainMapper;
 import org.worldgrower.terrain.TerrainType;
 
 /**
@@ -78,7 +81,8 @@ public class Game {
 		int startTurn = gameParameters.getStartTurn();
 		DungeonMaster dungeonMaster = new DungeonMaster();
 		WorldOnTurnImpl worldOnTurn = new WorldOnTurnImpl(new DeityWorldOnTurn(), new ArenaFightOnTurn());
-		World world = new WorldImpl(gameParameters.getWorldWidth(), gameParameters.getWorldHeight(), dungeonMaster, worldOnTurn);
+		Terrain terrain = new TerrainImpl(gameParameters.getWorldWidth(), gameParameters.getWorldHeight(), new TerrainMapper(gameParameters.getWaterCutoff()));
+		World world = new WorldImpl(terrain, dungeonMaster, worldOnTurn);
 		int playerCharacterId = world.generateUniqueId();
 		
 		final CommonerImageIds commonerImageIds = new CommonerImageIds(playerCharacterImageId);

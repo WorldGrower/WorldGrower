@@ -48,6 +48,7 @@ import org.worldgrower.gui.util.JLabelFactory;
 import org.worldgrower.gui.util.JRadioButtonFactory;
 import org.worldgrower.gui.util.JTextFieldFactory;
 import org.worldgrower.gui.util.ShowTextDialog;
+import org.worldgrower.terrain.TerrainMapper;
 import org.worldgrower.util.NumberUtils;
 
 public class OptionsScreen {
@@ -63,7 +64,8 @@ public class OptionsScreen {
 	private static final String STONE_RESOURCES_TOOL_TIP = "Sets abundance of stone resources";
 	private static final String ORE_RESOURCES_TOOL_TIP = "Sets abundance of iron ore resources";
 	private static final String GOLD_RESOURCES_TOOL_TIP = "Sets abundance of gold resources";
-	
+	private static final String WATER_CUTOFF_TOOL_TIP = "Sets abundance of water";
+
 	private JFrame frame;
 	private JTextField playerNameTextField;
 	private JRadioButton maleRadioButton;
@@ -85,6 +87,7 @@ public class OptionsScreen {
 	private JComboBox<ResourceMultiplier> stoneResourceMultipliersComboBox;
 	private JComboBox<ResourceMultiplier> oreResourceMultipliersComboBox;
 	private JComboBox<ResourceMultiplier> goldResourceMultipliersComboBox;
+	private JComboBox<WaterCutoff> waterCutoffComboBox;
 	
 	public OptionsScreen(CharacterAttributes characterAttributes, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, MusicPlayer musicPlayer, KeyBindings keyBindings, JFrame parentFrame) {
 		this.characterAttributes = characterAttributes;
@@ -112,7 +115,7 @@ public class OptionsScreen {
 		contentPanel.setLayout(null);
 		frame.setUndecorated(true);
 		int width = 400;
-		int height = 680;
+		int height = 700;
 		contentPanel.setSize(new Dimension(width, height));
 		contentPanel.setPreferredSize(new Dimension(width, height));
 		frame.getContentPane().add(contentPanel);
@@ -224,32 +227,44 @@ public class OptionsScreen {
 		goldResourceMultipliersComboBox.setBounds(228, 394, 137, 26);
 		contentPanel.add(goldResourceMultipliersComboBox);
 		
+		JLabel lblWaterCutoff = JLabelFactory.createJLabel("Water availability:");
+		lblWaterCutoff.setToolTipText(WATER_CUTOFF_TOOL_TIP);
+		lblWaterCutoff.setBounds(25, 436, 191, 26);
+		contentPanel.add(lblWaterCutoff);
+		
+		waterCutoffComboBox = JComboBoxFactory.createJComboBox(getWaterCutoffs(), imageInfoReader);
+		waterCutoffComboBox.setSelectedIndex(2);
+		waterCutoffComboBox.setForeground(Color.BLACK);
+		waterCutoffComboBox.setToolTipText(WATER_CUTOFF_TOOL_TIP);
+		waterCutoffComboBox.setBounds(228, 436, 137, 26);
+		contentPanel.add(waterCutoffComboBox);
+		
 		JLabel lblNumberOfEnemies = JLabelFactory.createJLabel("Enemy density:");
 		lblNumberOfEnemies.setToolTipText(MONSTER_DENSITY_TOOL_TIP);
-		lblNumberOfEnemies.setBounds(25, 436, 191, 26);
+		lblNumberOfEnemies.setBounds(25, 478, 191, 26);
 		contentPanel.add(lblNumberOfEnemies);
 		
 		numberOfEnemiesTextField = JTextFieldFactory.createJTextField();
 		numberOfEnemiesTextField.setToolTipText(MONSTER_DENSITY_TOOL_TIP);
 		numberOfEnemiesTextField.setText(Integer.toString(customGameParameters.getEnemyDensity()));
 		numberOfEnemiesTextField.setColumns(10);
-		numberOfEnemiesTextField.setBounds(228, 436, 137, 22);
+		numberOfEnemiesTextField.setBounds(228, 478, 137, 22);
 		contentPanel.add(numberOfEnemiesTextField);
 		
 		JLabel lblNumberOfVillagers = JLabelFactory.createJLabel("Number of Villagers:");
 		lblNumberOfVillagers.setToolTipText(NUMBER_OF_VILLAGERS_TOOL_TIP);
-		lblNumberOfVillagers.setBounds(25, 478, 191, 26);
+		lblNumberOfVillagers.setBounds(25, 520, 191, 26);
 		contentPanel.add(lblNumberOfVillagers);
 		
 		numberOfVillagersTextField = JTextFieldFactory.createJTextField();
 		numberOfVillagersTextField.setToolTipText(NUMBER_OF_VILLAGERS_TOOL_TIP);
 		numberOfVillagersTextField.setText(Integer.toString(customGameParameters.getVillagerCount()));
 		numberOfVillagersTextField.setColumns(10);
-		numberOfVillagersTextField.setBounds(228, 478, 137, 22);
+		numberOfVillagersTextField.setBounds(228, 520, 137, 22);
 		contentPanel.add(numberOfVillagersTextField);
 		
 		JButton btnOk = JButtonFactory.createButton("Ok", imageInfoReader, soundIdReader);
-		btnOk.setBounds(280, 635, 97, 25);
+		btnOk.setBounds(280, 655, 97, 25);
 		frame.getRootPane().setDefaultButton(btnOk);
 		contentPanel.add(btnOk);
 		btnOk.addActionListener(new ActionListener() {
@@ -273,7 +288,8 @@ public class OptionsScreen {
 						float oreResourceMultiplier = ((ResourceMultiplier)oreResourceMultipliersComboBox.getSelectedItem()).getMultiplier();
 						float goldResourceMultiplier = ((ResourceMultiplier)goldResourceMultipliersComboBox.getSelectedItem()).getMultiplier();
 						
-						CustomGameParameters customGameParameters = new CustomGameParameters(playerNameTextField.getText(), playerProfessionTextField.getText(), gender, worldWidth, worldHeight, enemyDensity, villagerCount, seed, startTurn, stoneResourceMultiplier, oreResourceMultiplier, goldResourceMultiplier);
+						double waterCutoff = ((WaterCutoff)waterCutoffComboBox.getSelectedItem()).getCutoff();
+						CustomGameParameters customGameParameters = new CustomGameParameters(playerNameTextField.getText(), playerProfessionTextField.getText(), gender, worldWidth, worldHeight, enemyDensity, villagerCount, seed, startTurn, stoneResourceMultiplier, oreResourceMultiplier, goldResourceMultiplier, waterCutoff);
 						new Thread() {
 							public void run() {
 								try {
@@ -299,7 +315,7 @@ public class OptionsScreen {
 		});
 		
 		JButton btnCancel = JButtonFactory.createButton("Cancel", imageInfoReader, soundIdReader);
-		btnCancel.setBounds(169, 635, 97, 25);
+		btnCancel.setBounds(169, 655, 97, 25);
 		contentPanel.add(btnCancel);
 		
 		JLabel lblPlayerProfession = JLabelFactory.createJLabel("Character Profession:");
@@ -316,14 +332,14 @@ public class OptionsScreen {
 		
 		JLabel lblSeed = JLabelFactory.createJLabel("Seed:");
 		lblSeed.setToolTipText(SEED_TOOL_TIP);
-		lblSeed.setBounds(25, 520, 191, 26);
+		lblSeed.setBounds(25, 562, 191, 26);
 		contentPanel.add(lblSeed);
 		
 		seedTextField = JTextFieldFactory.createJTextField();
 		seedTextField.setToolTipText(SEED_TOOL_TIP);
 		seedTextField.setText(Integer.toString(customGameParameters.getSeed()));
 		seedTextField.setColumns(10);
-		seedTextField.setBounds(228, 520, 137, 22);
+		seedTextField.setBounds(228, 562, 137, 22);
 		contentPanel.add(seedTextField);
 		
 		JLabel lblCharacterImage = JLabelFactory.createJLabel("Character image:");
@@ -341,14 +357,14 @@ public class OptionsScreen {
 		
 		JLabel lblStartTurn = JLabelFactory.createJLabel("<html>Start " + imageInfoReader.smallImageTag(ImageIds.SMALL_TURN) + " turn:</html>");
 		lblStartTurn.setToolTipText(START_TURN_TOOL_TIP);
-		lblStartTurn.setBounds(25, 562, 191, 26);
+		lblStartTurn.setBounds(25, 604, 191, 26);
 		contentPanel.add(lblStartTurn);
 		
 		startTurnTextField = JTextFieldFactory.createJTextField();
 		startTurnTextField.setToolTipText(START_TURN_TOOL_TIP);
 		startTurnTextField.setText(Integer.toString(customGameParameters.getStartTurn()));
 		startTurnTextField.setColumns(10);
-		startTurnTextField.setBounds(228, 562, 137, 22);
+		startTurnTextField.setBounds(228, 604, 137, 22);
 		contentPanel.add(startTurnTextField);
 		btnCancel.addActionListener(new ActionListener() {
 			
@@ -449,5 +465,39 @@ public class OptionsScreen {
 		resourceMultipliers.add(new ResourceMultiplier(1.0f, "Normal"));
 		resourceMultipliers.add(new ResourceMultiplier(1.5f, "Abundant"));
 		return resourceMultipliers.toArray(new ResourceMultiplier[0]);
+	}
+	
+	private static class WaterCutoff {
+		private final double cutoff;
+		private final String description;
+		
+		public WaterCutoff(double cutoff, String description) {
+			super();
+			this.cutoff = cutoff;
+			this.description = description;
+		}
+
+		public double getCutoff() {
+			return cutoff;
+		}
+
+		public String getDescription() {
+			return description;
+		}
+
+		@Override
+		public String toString() {
+			return getDescription();
+		}
+	}
+	
+	private WaterCutoff[] getWaterCutoffs() {
+		List<WaterCutoff> waterCutoffs = new ArrayList<>();
+		waterCutoffs.add(new WaterCutoff(TerrainMapper.NO_WATER_CUTOFF, "Nonexistent"));
+		waterCutoffs.add(new WaterCutoff(TerrainMapper.SCARCE_WATER_CUTOFF, "Scarce"));
+		waterCutoffs.add(new WaterCutoff(TerrainMapper.NORMAL_WATER_CUTOFF, "Normal"));
+		waterCutoffs.add(new WaterCutoff(TerrainMapper.ABUNDANT_WATER_CUTOFF, "Abundant"));
+		waterCutoffs.add(new WaterCutoff(TerrainMapper.HUGE_WATER_CUTOFF, "Huge"));
+		return waterCutoffs.toArray(new WaterCutoff[0]);
 	}
 }

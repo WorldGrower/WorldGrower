@@ -41,6 +41,7 @@ import org.worldgrower.history.HistoryImpl;
 import org.worldgrower.history.Turn;
 import org.worldgrower.terrain.Terrain;
 import org.worldgrower.terrain.TerrainImpl;
+import org.worldgrower.terrain.TerrainMapper;
 
 public class WorldImpl implements World, Serializable {
 
@@ -62,10 +63,10 @@ public class WorldImpl implements World, Serializable {
 	private transient List<Integer> removedIds = new ArrayList<>();
 	
 	public WorldImpl(int width, int height, DungeonMaster dungeonMaster, WorldOnTurn worldOnTurn) {
-		this(new TerrainImpl(width, height), dungeonMaster, worldOnTurn);
+		this(new TerrainImpl(width, height, new TerrainMapper()), dungeonMaster, worldOnTurn);
 	}
 	
-	private WorldImpl(Terrain terrain, DungeonMaster dungeonMaster, WorldOnTurn worldOnTurn) {
+	public WorldImpl(Terrain terrain, DungeonMaster dungeonMaster, WorldOnTurn worldOnTurn) {
 		this.terrain = terrain;
 		this.dungeonMaster = dungeonMaster;
 		this.worldOnTurn = worldOnTurn;

@@ -22,14 +22,14 @@ public class UTestTerrainImpl {
 
 	@Test
 	public void testExplored() {
-		Terrain terrain = new TerrainImpl(10, 10);
+		Terrain terrain = new TerrainImpl(10, 10, new TerrainMapper());
 		assertEquals(false, terrain.isExplored(0, 0));
 		assertEquals(false, terrain.isExplored(-1, -1));
 	}
 	
 	@Test
 	public void testExplore() {
-		Terrain terrain = new TerrainImpl(10, 10);
+		Terrain terrain = new TerrainImpl(10, 10, new TerrainMapper());
 		assertEquals(false, terrain.isExplored(0, 0));
 		
 		terrain.explore(1, 1, 2);

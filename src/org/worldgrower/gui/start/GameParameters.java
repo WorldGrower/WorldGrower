@@ -27,6 +27,7 @@ public interface GameParameters {
 	public String getGender();
 	public int getWorldWidth();
 	public int getWorldHeight();
+	public double getWaterCutoff();
 	public int getEnemyDensity();
 	public int getVillagerCount();
 	public int getSeed();

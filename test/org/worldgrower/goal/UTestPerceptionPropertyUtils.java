@@ -26,12 +26,13 @@ import org.worldgrower.attribute.Skill;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.Conditions;
 import org.worldgrower.terrain.TerrainImpl;
+import org.worldgrower.terrain.TerrainMapper;
 
 public class UTestPerceptionPropertyUtils {
 
 	@Test
 	public void testCalculateRadius() {
-		MockWorld world = new MockWorld(new TerrainImpl(0, 0), new  WorldImpl(0, 0, null, null));
+		MockWorld world = new MockWorld(new TerrainImpl(0, 0, new TerrainMapper()), new  WorldImpl(0, 0, null, null));
 		WorldObject performer = TestUtils.createSkilledWorldObject(0);
 		performer.setProperty(Constants.PERCEPTION_SKILL, new Skill(10));
 		
@@ -46,7 +47,7 @@ public class UTestPerceptionPropertyUtils {
 	
 	@Test
 	public void testCalculateRadiusWithDarkVision() {
-		MockWorld world = new MockWorld(new TerrainImpl(0, 0), new  WorldImpl(0, 0, null, null));
+		MockWorld world = new MockWorld(new TerrainImpl(0, 0, new TerrainMapper()), new  WorldImpl(0, 0, null, null));
 		WorldObject performer = TestUtils.createSkilledWorldObject(0);
 		performer.setProperty(Constants.CONDITIONS, new Conditions());
 		performer.setProperty(Constants.PERCEPTION_SKILL, new Skill(10));

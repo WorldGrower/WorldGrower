@@ -25,34 +25,22 @@ public class TerrainImpl implements Terrain, Serializable {
 	private final TerrainInfo[][] terrainInfos;
 	private final boolean[][] explored;
 	
-	public TerrainImpl(int width, int height) {
+	public TerrainImpl(int width, int height, TerrainMapper terrainMapper) {
 		this.width = width;
 		this.height = height;
 		this.terrainInfos = new TerrainInfo[width][height];
-		fillTerrainInfo();
+		fillTerrainInfo(terrainMapper);
 		this.explored = new boolean[width][height];
 	}
 
-	private void fillTerrainInfo() {
+	private void fillTerrainInfo(TerrainMapper terrainMapper) {
 		Noise noise = new Noise(666);
 		double[] heights = noise.normalize(noise.smoothNoise(width, height, 32));
 		int counter = 0;
 		for(int x=0; x<width; x++) {
 			for(int y=0; y<height; y++) {
 				double terrainHeight = heights[counter++];
-				if (terrainHeight < 0.1f) {
-					terrainInfos[x][y] = new TerrainInfo(TerrainType.WATER);
-				} else if (terrainHeight < 0.5f) {
-					terrainInfos[x][y] = new TerrainInfo(TerrainType.GRASLAND);
-				} else if (terrainHeight < 0.75f){
-					terrainInfos[x][y] = new TerrainInfo(TerrainType.PLAINS);
-				} else if (terrainHeight < 0.9f){
-					terrainInfos[x][y] = new TerrainInfo(TerrainType.HILL);
-				} else if (terrainHeight < 1.0f){
-					terrainInfos[x][y] = new TerrainInfo(TerrainType.MOUNTAIN);
-				} else {
-					terrainInfos[x][y] = new TerrainInfo(TerrainType.MOUNTAIN);
-				}
+				terrainInfos[x][y] = new TerrainInfo(terrainMapper.map(terrainHeight));
 			}
 		}
 	}

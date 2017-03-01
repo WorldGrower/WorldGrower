@@ -22,6 +22,7 @@ import org.worldgrower.generator.PlantGenerator;
 import org.worldgrower.generator.TerrainGenerator;
 import org.worldgrower.generator.WorldGenerator;
 import org.worldgrower.gui.AdditionalManagedOperationListenerFactory;
+import org.worldgrower.terrain.TerrainMapper;
 import org.worldgrower.terrain.TerrainType;
 
 public class CustomGameParameters implements GameParameters {
@@ -38,6 +39,7 @@ public class CustomGameParameters implements GameParameters {
 	private final float stoneResourceMultiplier;
 	private final float oreResourceMultiplier;
 	private final float goldResourceMultiplier;
+	private final double waterCutoff;
 	
 	public CustomGameParameters() {
 		this.playerName = getDefaultUsername();
@@ -52,6 +54,7 @@ public class CustomGameParameters implements GameParameters {
 		this.stoneResourceMultiplier = 1.0f;
 		this.oreResourceMultiplier = 1.0f;
 		this.goldResourceMultiplier = 1.0f;
+		this.waterCutoff = TerrainMapper.NORMAL_WATER_CUTOFF;
 	}
 	
 	private String getDefaultUsername() {
@@ -63,7 +66,7 @@ public class CustomGameParameters implements GameParameters {
 		}
 	}
 	
-	public CustomGameParameters(String playerName, String playerProfession, String gender, int worldWidth, int worldHeight, int enemyDensity, int villagerCount, int seed, int startTurn, float stoneResourceMultiplier, float oreResourceMultiplier, float goldResourceMultiplier) {
+	public CustomGameParameters(String playerName, String playerProfession, String gender, int worldWidth, int worldHeight, int enemyDensity, int villagerCount, int seed, int startTurn, float stoneResourceMultiplier, float oreResourceMultiplier, float goldResourceMultiplier, double waterCutoff) {
 		this.playerName = playerName;
 		this.playerProfession = playerProfession;
 		this.gender = gender;
@@ -76,6 +79,7 @@ public class CustomGameParameters implements GameParameters {
 		this.stoneResourceMultiplier = stoneResourceMultiplier;
 		this.oreResourceMultiplier = oreResourceMultiplier;
 		this.goldResourceMultiplier = goldResourceMultiplier;
+		this.waterCutoff = waterCutoff;
 	}
 
 	@Override
@@ -169,5 +173,10 @@ public class CustomGameParameters implements GameParameters {
 
 	@Override
 	public void initializePlayerCharacter(WorldObject playerCharacter) {
+	}
+
+	@Override
+	public double getWaterCutoff() {
+		return waterCutoff;
 	}
 }
