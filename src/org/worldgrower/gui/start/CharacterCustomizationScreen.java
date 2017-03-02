@@ -21,12 +21,19 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
@@ -43,10 +50,19 @@ import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.util.DialogUtils;
 import org.worldgrower.gui.util.IconUtils;
 import org.worldgrower.gui.util.JButtonFactory;
+import org.worldgrower.gui.util.JComboBoxFactory;
 import org.worldgrower.gui.util.JLabelFactory;
+import org.worldgrower.gui.util.JPanelFactory;
+import org.worldgrower.gui.util.JRadioButtonFactory;
+import org.worldgrower.gui.util.JTextFieldFactory;
+import org.worldgrower.util.NumberUtils;
 
 public class CharacterCustomizationScreen extends JFrame {
 
+	private static final String PLAYER_NAME_TOOL_TIP = "Sets player character name";
+	private static final String GENDER_TOOL_TIP = "choose gender of player character";
+	private static final String CHARACTER_PROFESSION_TOOL_TIP = "describes profession of player character";
+	
 	private static final String ATTRIBUTE_EXPLANATION = "Shows number of attribute points that can be distributed among attributes. Attributes must be between 8 and 20";
 	private JPanel contentPane;
 	private int attributePoints = 6;
@@ -59,6 +75,13 @@ public class CharacterCustomizationScreen extends JFrame {
 	private JLabel lblIntelligence;
 	private JLabel lblWisdom;
 	private JLabel lblCharisma;
+	
+	private JTextField playerNameTextField;
+	private JRadioButton maleRadioButton;
+	private JRadioButton femaleRadioButton;
+	private JTextField playerProfessionTextField;
+	private JComboBox<ImageIds> cmbImage;
+	
 	private JButton btnOk;
 	
 	private final ImageInfoReader imageInfoReader;
@@ -66,7 +89,7 @@ public class CharacterCustomizationScreen extends JFrame {
 	public CharacterCustomizationScreen(ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, MusicPlayer musicPlayer, KeyBindings keyBindings, JFrame parentFrame) {
 		this.imageInfoReader = imageInfoReader;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 559, 310);
+		setBounds(100, 100, 599, 780);
 		setResizable(false);
 		contentPane = new TiledImagePanel(imageInfoReader);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -79,207 +102,282 @@ public class CharacterCustomizationScreen extends JFrame {
 		setCursor(Cursors.CURSOR);
 		((JComponent)getRootPane()).setBorder(BorderFactory.createLineBorder(Color.WHITE, 5));
 		
+		JPanel attributePanel = JPanelFactory.createJPanel("Attributes");
+		attributePanel.setLayout(null);
+		attributePanel.setBounds(20, 20, 539, 410);
+		contentPane.add(attributePanel);
+		
 		JLabel attributeLabel = JLabelFactory.createJLabel(attributePoints);
 		attributeLabel.setToolTipText(ATTRIBUTE_EXPLANATION);
 		attributeLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		attributeLabel.setBounds(453, 61, 56, 20);
-		contentPane.add(attributeLabel);
+		attributePanel.add(attributeLabel);
 		
 		int attributeLabelWidth = 120;
 		int attributeLabelHeight = 35;
 		int labelValueLeft = 145;
 		JLabel lblStrengthDesc = createAttributeLabel(Constants.STRENGTH, "Strength", ImageIds.STRENGTH_ICON);
-		lblStrengthDesc.setBounds(12, 23, attributeLabelWidth, attributeLabelHeight);
-		contentPane.add(lblStrengthDesc);
+		lblStrengthDesc.setBounds(12, 41, attributeLabelWidth, attributeLabelHeight);
+		attributePanel.add(lblStrengthDesc);
 		
 		lblStrength = JLabelFactory.createJLabel("10");
-		lblStrength.setBounds(labelValueLeft, 23, 24, attributeLabelHeight);
+		lblStrength.setBounds(labelValueLeft, 41, 24, attributeLabelHeight);
 		lblStrength.setToolTipText(lblStrengthDesc.getToolTipText());
-		contentPane.add(lblStrength);
+		attributePanel.add(lblStrength);
 		
 		JLabel lblConstitutionDesc = createAttributeLabel(Constants.CONSTITUTION, "Constitution", ImageIds.CONSTITUTION_ICON);
-		lblConstitutionDesc.setBounds(12, 61, attributeLabelWidth, attributeLabelHeight);
-		contentPane.add(lblConstitutionDesc);
+		lblConstitutionDesc.setBounds(12, 101, attributeLabelWidth, attributeLabelHeight);
+		attributePanel.add(lblConstitutionDesc);
 		
 		lblConstitution = JLabelFactory.createJLabel("10");
-		lblConstitution.setBounds(labelValueLeft, 61, 24, attributeLabelHeight);
+		lblConstitution.setBounds(labelValueLeft, 101, 24, attributeLabelHeight);
 		lblConstitution.setToolTipText(lblConstitutionDesc.getToolTipText());
-		contentPane.add(lblConstitution);
+		attributePanel.add(lblConstitution);
 		
 		JLabel lblDexterityDesc = createAttributeLabel(Constants.DEXTERITY, "Dexterity", ImageIds.DEXTERITY_ICON);
-		lblDexterityDesc.setBounds(12, 101, attributeLabelWidth, attributeLabelHeight);
-		contentPane.add(lblDexterityDesc);
+		lblDexterityDesc.setBounds(12, 161, attributeLabelWidth, attributeLabelHeight);
+		attributePanel.add(lblDexterityDesc);
 		
 		lblDexterity = JLabelFactory.createJLabel("10");
-		lblDexterity.setBounds(labelValueLeft, 101, 24, attributeLabelHeight);
+		lblDexterity.setBounds(labelValueLeft, 161, 24, attributeLabelHeight);
 		lblDexterity.setToolTipText(lblDexterityDesc.getToolTipText());
-		contentPane.add(lblDexterity);
+		attributePanel.add(lblDexterity);
 		
 		JLabel lblIntelligenceDesc = createAttributeLabel(Constants.INTELLIGENCE, "Intelligence", ImageIds.INTELLIGENCE_ICON);
-		lblIntelligenceDesc.setBounds(12, 143, attributeLabelWidth, attributeLabelHeight);
-		contentPane.add(lblIntelligenceDesc);
+		lblIntelligenceDesc.setBounds(12, 221, attributeLabelWidth, attributeLabelHeight);
+		attributePanel.add(lblIntelligenceDesc);
 		
 		lblIntelligence = JLabelFactory.createJLabel("10");
-		lblIntelligence.setBounds(labelValueLeft, 143, 24, attributeLabelHeight);
+		lblIntelligence.setBounds(labelValueLeft, 221, 24, attributeLabelHeight);
 		lblIntelligence.setToolTipText(lblIntelligenceDesc.getToolTipText());
-		contentPane.add(lblIntelligence);
+		attributePanel.add(lblIntelligence);
 		
 		JLabel lblWisdomDesc = createAttributeLabel(Constants.WISDOM, "Wisdom", ImageIds.WISDOM_ICON);
-		lblWisdomDesc.setBounds(12, 189, attributeLabelWidth, attributeLabelHeight);
-		contentPane.add(lblWisdomDesc);
+		lblWisdomDesc.setBounds(12, 281, attributeLabelWidth, attributeLabelHeight);
+		attributePanel.add(lblWisdomDesc);
 		
 		lblWisdom = JLabelFactory.createJLabel("10");
-		lblWisdom.setBounds(labelValueLeft, 189, 24, attributeLabelHeight);
+		lblWisdom.setBounds(labelValueLeft, 281, 24, attributeLabelHeight);
 		lblWisdom.setToolTipText(lblWisdomDesc.getToolTipText());
-		contentPane.add(lblWisdom);
+		attributePanel.add(lblWisdom);
 		
 		JLabel lblCharismaDesc = createAttributeLabel(Constants.CHARISMA, "Charisma", ImageIds.CHARISMA_ICON);
-		lblCharismaDesc.setBounds(12, 234, attributeLabelWidth, attributeLabelHeight);
-		contentPane.add(lblCharismaDesc);
+		lblCharismaDesc.setBounds(12, 341, attributeLabelWidth, attributeLabelHeight);
+		attributePanel.add(lblCharismaDesc);
 		
 		lblCharisma = JLabelFactory.createJLabel("10");
-		lblCharisma.setBounds(labelValueLeft, 234, 24, attributeLabelHeight);
+		lblCharisma.setBounds(labelValueLeft, 341, 24, attributeLabelHeight);
 		lblCharisma.setToolTipText(lblCharismaDesc.getToolTipText());
-		contentPane.add(lblCharisma);
+		attributePanel.add(lblCharisma);
 		
 		int plusButtonLeft = 254;
 		int minusButtonLeft = 186;
+		int buttonWidth = 48;
+		int buttonHeight = 48;
 		
-		JButton button1Plus = JButtonFactory.createButton("+", imageInfoReader, soundIdReader);
+		ImageIcon plusImageIcon = new ImageIcon(imageInfoReader.getImage(ImageIds.PLUS, null));
+		ImageIcon minusImageIcon = new ImageIcon(imageInfoReader.getImage(ImageIds.MINUS, null));
+		
+		JButton button1Plus = JButtonFactory.createButton("", plusImageIcon, imageInfoReader, soundIdReader);
 		plusButtons.add(button1Plus);
 		button1Plus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				incrementAttributeValue(lblStrength, attributeLabel); 
 			}
 		});
-		button1Plus.setBounds(plusButtonLeft, 25, 56, 25);
-		contentPane.add(button1Plus);
+		button1Plus.setBounds(plusButtonLeft, 35, buttonWidth, buttonHeight);
+		attributePanel.add(button1Plus);
 		
-		JButton button1Min = JButtonFactory.createButton("-", imageInfoReader, soundIdReader);
+		JButton button1Min = JButtonFactory.createButton("", minusImageIcon, imageInfoReader, soundIdReader);
 		minButtons.add(button1Min);
 		button1Min.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				decrementAttributeValue(lblStrength, attributeLabel); 
 			}
 		});
-		button1Min.setBounds(minusButtonLeft, 25, 56, 25);
-		contentPane.add(button1Min);
+		button1Min.setBounds(minusButtonLeft, 35, buttonWidth, buttonHeight);
+		attributePanel.add(button1Min);
 		
-		JButton button = JButtonFactory.createButton("+", imageInfoReader, soundIdReader);
+		JButton button = JButtonFactory.createButton("", plusImageIcon, imageInfoReader, soundIdReader);
 		plusButtons.add(button);
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				incrementAttributeValue(lblConstitution, attributeLabel); 
 			}
 		});
-		button.setBounds(plusButtonLeft, 65, 56, 25);
-		contentPane.add(button);
+		button.setBounds(plusButtonLeft, 95, buttonWidth, buttonHeight);
+		attributePanel.add(button);
 		
-		JButton button_1 = JButtonFactory.createButton("-", imageInfoReader, soundIdReader);
+		JButton button_1 = JButtonFactory.createButton("", minusImageIcon, imageInfoReader, soundIdReader);
 		minButtons.add(button_1);
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				decrementAttributeValue(lblConstitution, attributeLabel); 
 			}
 		});
-		button_1.setBounds(minusButtonLeft, 65, 56, 25);
-		contentPane.add(button_1);
+		button_1.setBounds(minusButtonLeft, 95, buttonWidth, buttonHeight);
+		attributePanel.add(button_1);
 		
-		JButton button_2 = JButtonFactory.createButton("+", imageInfoReader, soundIdReader);
+		JButton button_2 = JButtonFactory.createButton("", plusImageIcon, imageInfoReader, soundIdReader);
 		plusButtons.add(button_2);
 		button_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				incrementAttributeValue(lblDexterity, attributeLabel); 
 			}
 		});
-		button_2.setBounds(plusButtonLeft, 105, 56, 25);
-		contentPane.add(button_2);
+		button_2.setBounds(plusButtonLeft, 155, buttonWidth, buttonHeight);
+		attributePanel.add(button_2);
 		
-		JButton button_3 = JButtonFactory.createButton("-", imageInfoReader, soundIdReader);
+		JButton button_3 = JButtonFactory.createButton("", minusImageIcon, imageInfoReader, soundIdReader);
 		minButtons.add(button_3);
 		button_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				decrementAttributeValue(lblDexterity, attributeLabel); 
 			}
 		});
-		button_3.setBounds(minusButtonLeft, 105, 56, 25);
-		contentPane.add(button_3);
+		button_3.setBounds(minusButtonLeft, 155, buttonWidth, buttonHeight);
+		attributePanel.add(button_3);
 		
-		JButton button_4 = JButtonFactory.createButton("+", imageInfoReader, soundIdReader);
+		JButton button_4 = JButtonFactory.createButton("", plusImageIcon, imageInfoReader, soundIdReader);
 		plusButtons.add(button_4);
 		button_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				incrementAttributeValue(lblIntelligence, attributeLabel); 
 			}
 		});
-		button_4.setBounds(plusButtonLeft, 147, 56, 25);
-		contentPane.add(button_4);
+		button_4.setBounds(plusButtonLeft, 215, buttonWidth, buttonHeight);
+		attributePanel.add(button_4);
 		
-		JButton button_5 = JButtonFactory.createButton("-", imageInfoReader, soundIdReader);
+		JButton button_5 = JButtonFactory.createButton("", minusImageIcon, imageInfoReader, soundIdReader);
 		minButtons.add(button_5);
 		button_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				decrementAttributeValue(lblIntelligence, attributeLabel); 
 			}
 		});
-		button_5.setBounds(minusButtonLeft, 147, 56, 25);
-		contentPane.add(button_5);
+		button_5.setBounds(minusButtonLeft, 215, buttonWidth, buttonHeight);
+		attributePanel.add(button_5);
 		
-		JButton button_6 = JButtonFactory.createButton("+", imageInfoReader, soundIdReader);
+		JButton button_6 = JButtonFactory.createButton("", plusImageIcon, imageInfoReader, soundIdReader);
 		plusButtons.add(button_6);
 		button_6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				incrementAttributeValue(lblWisdom, attributeLabel); 
 			}
 		});
-		button_6.setBounds(plusButtonLeft, 195, 56, 25);
-		contentPane.add(button_6);
+		button_6.setBounds(plusButtonLeft, 275, buttonWidth, buttonHeight);
+		attributePanel.add(button_6);
 		
-		JButton button_7 = JButtonFactory.createButton("-", imageInfoReader, soundIdReader);
+		JButton button_7 = JButtonFactory.createButton("", minusImageIcon, imageInfoReader, soundIdReader);
 		minButtons.add(button_7);
 		button_7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				decrementAttributeValue(lblWisdom, attributeLabel); 
 			}
 		});
-		button_7.setBounds(minusButtonLeft, 195, 56, 25);
-		contentPane.add(button_7);
+		button_7.setBounds(minusButtonLeft, 275, buttonWidth, buttonHeight);
+		attributePanel.add(button_7);
 		
-		JButton button_8 = JButtonFactory.createButton("+", imageInfoReader, soundIdReader);
+		JButton button_8 = JButtonFactory.createButton("", plusImageIcon, imageInfoReader, soundIdReader);
 		plusButtons.add(button_8);
 		button_8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				incrementAttributeValue(lblCharisma, attributeLabel); 
 			}
 		});
-		button_8.setBounds(plusButtonLeft, 238, 56, 25);
-		contentPane.add(button_8);
+		button_8.setBounds(plusButtonLeft, 335, buttonWidth, buttonHeight);
+		attributePanel.add(button_8);
 		
-		JButton button_9 = JButtonFactory.createButton("-", imageInfoReader, soundIdReader);
+		JButton button_9 = JButtonFactory.createButton("", minusImageIcon, imageInfoReader, soundIdReader);
 		minButtons.add(button_9);
 		button_9.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				decrementAttributeValue(lblCharisma, attributeLabel); 
 			}
 		});
-		button_9.setBounds(minusButtonLeft, 238, 56, 25);
-		contentPane.add(button_9);
+		button_9.setBounds(minusButtonLeft, 335, buttonWidth, buttonHeight);
+		attributePanel.add(button_9);
 		
 		setButtonTooltipTexts();
 		
 		JLabel lblRemainingAttributePoints = JLabelFactory.createJLabel("Remaining attribute points:");
 		lblRemainingAttributePoints.setToolTipText(ATTRIBUTE_EXPLANATION);
-		lblRemainingAttributePoints.setBounds(334, 23, 215, 25);
-		contentPane.add(lblRemainingAttributePoints);
+		lblRemainingAttributePoints.setBounds(334, 33, 215, 25);
+		attributePanel.add(lblRemainingAttributePoints);
+		
+		JPanel generalInfoPanel = JPanelFactory.createJPanel("General Info");
+		generalInfoPanel.setLayout(null);
+		generalInfoPanel.setBounds(20, 450, 539, 270);
+		contentPane.add(generalInfoPanel);
+		
+		CustomGameParameters customGameParameters = new CustomGameParameters();
+		
+		JLabel lblPlayerName = JLabelFactory.createJLabel("Character Name:");
+		lblPlayerName.setToolTipText(PLAYER_NAME_TOOL_TIP);
+		lblPlayerName.setBounds(25, 33, 191, 26);
+		generalInfoPanel.add(lblPlayerName);
+		
+		playerNameTextField = JTextFieldFactory.createJTextField();
+		playerNameTextField.setToolTipText(PLAYER_NAME_TOOL_TIP);
+		playerNameTextField.setText(customGameParameters.getPlayerName());
+		playerNameTextField.setBounds(228, 33, 137, 22);
+		generalInfoPanel.add(playerNameTextField);
+		playerNameTextField.setColumns(10);
+		playerNameTextField.selectAll();
+		
+		JLabel lblGender = JLabelFactory.createJLabel("Gender:");
+		lblGender.setToolTipText(GENDER_TOOL_TIP);
+		lblGender.setBounds(25, 116, 191, 26);
+		generalInfoPanel.add(lblGender);
+		
+		maleRadioButton = JRadioButtonFactory.createJRadioButton("male");
+		maleRadioButton.setSelected(true);
+		maleRadioButton.setToolTipText(GENDER_TOOL_TIP);
+		maleRadioButton.setBounds(228, 116, 80, 22);
+		maleRadioButton.setOpaque(false);
+		generalInfoPanel.add(maleRadioButton);
+		
+		femaleRadioButton = JRadioButtonFactory.createJRadioButton("female");
+		femaleRadioButton.setToolTipText(GENDER_TOOL_TIP);
+		femaleRadioButton.setBounds(308, 116, 80, 22);
+		femaleRadioButton.setOpaque(false);
+		generalInfoPanel.add(femaleRadioButton);
+		
+		JLabel lblCharacterImage = JLabelFactory.createJLabel("Character image:");
+		lblCharacterImage.setToolTipText("choose gender of player character");
+		lblCharacterImage.setBounds(25, 155, 191, 26);
+		lblCharacterImage.setCursor(Cursors.CURSOR);
+		generalInfoPanel.add(lblCharacterImage);
+		
+		cmbImage = JComboBoxFactory.createJComboBox(imageInfoReader);
+		cmbImage.setModel(new ImageComboBoxModel(imageInfoReader));
+		cmbImage.setRenderer(new ImageComboBoxCellRenderer(imageInfoReader));
+		cmbImage.setSelectedIndex(0);
+		cmbImage.setBounds(228, 163, 137, 58);
+		generalInfoPanel.add(cmbImage);
+		
+		JLabel lblPlayerProfession = JLabelFactory.createJLabel("Character Profession:");
+		lblPlayerProfession.setToolTipText(CHARACTER_PROFESSION_TOOL_TIP);
+		lblPlayerProfession.setBounds(25, 72, 191, 26);
+		generalInfoPanel.add(lblPlayerProfession);
+		
+		playerProfessionTextField = JTextFieldFactory.createJTextField();
+		playerProfessionTextField.setToolTipText(CHARACTER_PROFESSION_TOOL_TIP);
+		playerProfessionTextField.setText(customGameParameters.getPlayerProfession());
+		playerProfessionTextField.setColumns(10);
+		playerProfessionTextField.setBounds(228, 72, 137, 22);
+		generalInfoPanel.add(playerProfessionTextField);
+		
+		ButtonGroup buttonGroup = new ButtonGroup();
+		buttonGroup.add(maleRadioButton);
+		buttonGroup.add(femaleRadioButton);
 		
 		btnOk = JButtonFactory.createButton("Ok", imageInfoReader, soundIdReader);
-		btnOk.setBounds(432, 264, 97, 25);
+		btnOk.setBounds(460, 730, 97, 25);
 		getRootPane().setDefaultButton(btnOk);
 		contentPane.add(btnOk);
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CharacterCustomizationScreen.this.setVisible(false);
-				
 				CharacterAttributes characterAttributes = new CharacterAttributes(
 						Integer.parseInt(lblStrength.getText()),
 						Integer.parseInt(lblConstitution.getText()),
@@ -289,14 +387,40 @@ public class CharacterCustomizationScreen extends JFrame {
 						Integer.parseInt(lblCharisma.getText())
 						);
 				
-				OptionsScreen window = new OptionsScreen(characterAttributes, imageInfoReader, soundIdReader, musicPlayer, keyBindings, parentFrame);
-				window.setVisible(true);
+				List<String> errors = validateInput();
+				if (errors.size() == 0) {
+					CharacterCustomizationScreen.this.setVisible(false);
+					
+					String gender = maleRadioButton.isSelected() ? "male" : "female";
+					PlayerCharacterInfo playerCharacterInfo = new PlayerCharacterInfo(playerNameTextField.getText(), playerProfessionTextField.getText(), gender, (ImageIds)cmbImage.getSelectedItem());
+					OptionsScreen window = new OptionsScreen(characterAttributes, playerCharacterInfo, imageInfoReader, soundIdReader, musicPlayer, keyBindings, parentFrame);
+					window.setVisible(true);
+				} else {
+					ErrorDialog.showErrors(errors, imageInfoReader, soundIdReader, CharacterCustomizationScreen.this);
+				}
 			}
 		});
+		
+		JButton btnCancel = JButtonFactory.createButton("Cancel", imageInfoReader, soundIdReader);
+		btnCancel.setBounds(350, 730, 97, 25);
+		contentPane.add(btnCancel);
+		Action cancelAction = new AbstractAction() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				CharacterCustomizationScreen.this.setVisible(false);
+				StartScreen startScreen = new StartScreen(imageInfoReader, soundIdReader, musicPlayer);
+				startScreen.setVisible(true);
+				
+			}
+		};
+		btnCancel.addActionListener(cancelAction);
 		
 		if (parentFrame != null) {
 			SwingUtils.installEscapeCloseOperation(this);
 			DialogUtils.createDialogBackPanel(this, parentFrame.getContentPane());
+		} else {
+			SwingUtils.installCloseAction(cancelAction, this.getRootPane());
 		}
 	}
 	
@@ -388,5 +512,18 @@ public class CharacterCustomizationScreen extends JFrame {
 				plusButton.setEnabled(true);
 			}
 		}
+	}
+	
+	private List<String> validateInput() {
+		List<String> errors = new ArrayList<>();
+		if (playerNameTextField.getText().length() == 0) {
+			errors.add("Player Name cannot be empty");
+		}
+		
+		if (playerProfessionTextField.getText().length() == 0) {
+			errors.add("Player Profession cannot be empty");
+		}
+		
+		return errors;
 	}
 }

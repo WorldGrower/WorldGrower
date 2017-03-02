@@ -212,3 +212,8 @@ coins.png
 
 98 icons by 7Soul1 at http://7soul1.deviantart.com/art/Extra-98-Free-RPG-Icons-389778011
 extra_98_free_rpg_icons_by_ails-d6g2amz.png
+
+plus, minus icons by mikhog at http://opengameart.org/content/play-pause-mute-and-unmute-buttons
+plus.png
+minus.png
+(colorized to grey/black)

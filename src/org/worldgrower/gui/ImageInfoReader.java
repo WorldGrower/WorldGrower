@@ -137,6 +137,9 @@ public class ImageInfoReader {
     	Sprites goldCoinSprite = readGoldCoinSprite();
     	Sprites icons98 = readIcons98();
     	
+    	Sprites plusIcon = readPlusIcon();
+    	Sprites minusIcon = readMinusIcon();
+    	
     	addCharacter(ImageIds.KNIGHT, sprites, 0, 0, 1, 1);
     	addCharacter(ImageIds.GUARD, sprites, 0, 4, 1, 1);
     	add(ImageIds.BUCKET, objects.getSubImage(10, 10, 1, 1));
@@ -740,6 +743,14 @@ public class ImageInfoReader {
     
 		add(ImageIds.SMALL_GOLD_COIN, createFontSizedImaged(goldCoinSprite.getSubImage(0, 0, 1, 1)));
 		add(ImageIds.SMALL_TURN, createFontSizedImaged(icons98.getSubImage(0, 4, 1, 1)));
+		
+		int plusMinusImageSize = 32;
+		Image plusImage = plusIcon.getSubImage(0, 0, 1, 1);
+		plusImage = plusImage.getScaledInstance(plusMinusImageSize, plusMinusImageSize, java.awt.Image.SCALE_SMOOTH) ;  
+		add(ImageIds.PLUS, plusImage);
+		Image minusImage = minusIcon.getSubImage(0, 0, 1, 1);
+		minusImage = minusImage.getScaledInstance(plusMinusImageSize, plusMinusImageSize, java.awt.Image.SCALE_SMOOTH) ;
+		add(ImageIds.MINUS, minusImage);
     }
 
 	private BufferedImage createFontSizedImaged(Image image) {
@@ -1160,6 +1171,14 @@ public class ImageInfoReader {
 	
 	private static Sprites readIcons98() throws IOException {
 		return readImages("extra_98_free_rpg_icons_by_ails-d6g2amz.png", 34, 34, 14, 8);
+	}
+	
+	private static Sprites readPlusIcon() throws IOException {
+		return readImages("plus.png", 64, 64, 1, 1);
+	}
+	
+	private static Sprites readMinusIcon() throws IOException {
+		return readImages("minus.png", 64, 64, 1, 1);
 	}
 
 	private static Sprites readSpritesApothecary() throws IOException {
