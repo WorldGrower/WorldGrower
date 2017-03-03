@@ -24,6 +24,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.attribute.WorldObjectContainer;
 import org.worldgrower.condition.Condition;
+import org.worldgrower.generator.Item;
 import org.worldgrower.text.FormattableText;
 import org.worldgrower.text.TextId;
 
@@ -66,7 +67,7 @@ public class FillSoulGemGoal implements Goal {
 
 	@Override
 	public FormattableText getDescription() {
-		return new FormattableText(TextId.GOAL_FILL_SOUL_GEM);
+		return new FormattableText(TextId.GOAL_FILL_SOUL_GEM, Item.SOUL_GEM);
 	}
 
 	@Override

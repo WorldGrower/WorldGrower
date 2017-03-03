@@ -18,6 +18,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.DefaultConversationFormatter;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
@@ -81,6 +82,11 @@ public class UTestEquipScytheGoal {
 		performer.getProperty(Constants.INVENTORY).addQuantity(Item.SCYTHE.generate(1f), 10);
 		performer.setProperty(Constants.LEFT_HAND_EQUIPMENT, performer.getProperty(Constants.INVENTORY).get(0));
 		assertEquals(true, goal.isGoalMet(performer, world));
+	}
+	
+	@Test
+	public void testGetDescription() {
+		assertEquals("equipping a scythe", DefaultConversationFormatter.FORMATTER.format(goal.getDescription()));
 	}
 	
 	private WorldObject createPerformer() {

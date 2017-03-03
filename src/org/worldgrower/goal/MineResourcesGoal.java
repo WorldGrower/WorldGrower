@@ -21,6 +21,7 @@ import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.WorldObjectContainer;
+import org.worldgrower.generator.Item;
 import org.worldgrower.text.FormattableText;
 import org.worldgrower.text.TextId;
 
@@ -76,7 +77,7 @@ public class MineResourcesGoal implements Goal {
 
 	@Override
 	public FormattableText getDescription() {
-		return new FormattableText(TextId.GOAL_MINE_RESOURCES);
+		return new FormattableText(TextId.GOAL_MINE_RESOURCES, Item.STONE, Item.ORE, Item.GOLD);
 	}
 
 	@Override

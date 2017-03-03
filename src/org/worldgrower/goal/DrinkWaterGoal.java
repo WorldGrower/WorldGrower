@@ -104,7 +104,7 @@ public class DrinkWaterGoal implements Goal {
 
 	@Override
 	public FormattableText getDescription() {
-		return new FormattableText(TextId.GOAL_DRINK_WATER);
+		return new FormattableText(TextId.GOAL_DRINK_WATER, Item.WATER);
 	}
 
 	@Override

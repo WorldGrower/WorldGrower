@@ -59,7 +59,7 @@ public class LeatherGoal implements Goal {
 
 	@Override
 	public FormattableText getDescription() {
-		return new FormattableText(TextId.GOAL_LEATHER);
+		return new FormattableText(TextId.GOAL_LEATHER, Item.LEATHER);
 	}
 
 	@Override

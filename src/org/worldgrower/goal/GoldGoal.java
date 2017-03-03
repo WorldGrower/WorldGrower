@@ -65,7 +65,7 @@ public class GoldGoal implements Goal {
 
 	@Override
 	public FormattableText getDescription() {
-		return new FormattableText(TextId.GOAL_GOLD);
+		return new FormattableText(TextId.GOAL_GOLD, Item.GOLD);
 	}
 
 	@Override

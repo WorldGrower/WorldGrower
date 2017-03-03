@@ -18,6 +18,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.DefaultConversationFormatter;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
@@ -105,6 +106,11 @@ public class UTestDrinkWaterGoal {
 		targetLocation.setProperty(Constants.X, 100);
 		targetLocation.setProperty(Constants.Y, 100);
 		assertEquals(false, goal.isValidWaterSource(performer, targetLocation, well));
+	}
+	
+	@Test
+	public void testGetDescription() {
+		assertEquals("thirsty and looking for water", DefaultConversationFormatter.FORMATTER.format(goal.getDescription()));
 	}
 
 	private WorldObject createPerformer() {

@@ -59,7 +59,7 @@ public class FishingPoleGoal implements Goal {
 
 	@Override
 	public FormattableText getDescription() {
-		return new FormattableText(TextId.GOAL_FISHING_POLE);
+		return new FormattableText(TextId.GOAL_FISHING_POLE, Item.FISHING_POLE);
 	}
 
 	@Override

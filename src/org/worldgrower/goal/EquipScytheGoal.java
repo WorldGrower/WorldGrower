@@ -22,6 +22,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.actions.Actions;
 import org.worldgrower.actions.FoodPropertyUtils;
+import org.worldgrower.generator.Item;
 import org.worldgrower.text.FormattableText;
 import org.worldgrower.text.TextId;
 
@@ -61,7 +62,7 @@ public class EquipScytheGoal implements Goal {
 
 	@Override
 	public FormattableText getDescription() {
-		return new FormattableText(TextId.GOAL_EQUIP_SCYTHE);
+		return new FormattableText(TextId.GOAL_EQUIP_SCYTHE, Item.SCYTHE);
 	}
 
 	@Override

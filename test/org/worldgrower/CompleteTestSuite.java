@@ -813,7 +813,9 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestCurseListener.class,
 	UTestTooltipImages.class,
 	UTestCreateFishingPoleGoal.class,
-	UTestCreateWoodGoal.class
+	UTestCreateWoodGoal.class,
+	UTestGoldGoal.class,
+	UTestHarvestGrapesGoal.class
 })
 public class CompleteTestSuite {
 }
