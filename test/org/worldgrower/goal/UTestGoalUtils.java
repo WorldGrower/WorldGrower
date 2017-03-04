@@ -26,6 +26,7 @@ import org.worldgrower.Args;
 import org.worldgrower.Constants;
 import org.worldgrower.DungeonMaster;
 import org.worldgrower.MockMetaInformation;
+import org.worldgrower.MockTerrain;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.TestUtils;
 import org.worldgrower.TestWorldObjectPriorities;
@@ -39,6 +40,8 @@ import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.generator.PlantGenerator;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.history.Turn;
+import org.worldgrower.terrain.Terrain;
+import org.worldgrower.terrain.TerrainType;
 
 public class UTestGoalUtils {
 
@@ -265,5 +268,37 @@ public class UTestGoalUtils {
 		
 		Integer targetId = target.getProperty(Constants.ID);
 		assertEquals(disguiser, GoalUtils.findNearestPersonLookingLike(performer, targetId, world));
+	}
+	
+	@Test
+	public void testFindOpenNonWaterSpaceValidStartingLocation() {
+		Terrain terrain = new MockTerrain(TerrainType.GRASLAND);
+		World world = new WorldImpl(terrain, null, null);
+		
+		Position position = GoalUtils.findOpenNonWaterSpace(6, 6, 1, 1, world);
+		assertEquals(6, position.getX());
+		assertEquals(6, position.getY());
+	}
+	
+	@Test
+	public void testFindOpenNonWaterSpaceWaterStartingLocation() {
+		MockTerrain terrain = new MockTerrain(TerrainType.GRASLAND);
+		terrain.setTerrainType(6, 6, TerrainType.WATER);
+		World world = new WorldImpl(terrain, null, null);
+		
+		Position position = GoalUtils.findOpenNonWaterSpace(6, 6, 1, 1, world);
+		assertEquals(5, position.getX());
+		assertEquals(5, position.getY());
+	}
+	
+	@Test
+	public void testFindOpenNonWaterSpaceOccupiedStartingLocation() {
+		MockTerrain terrain = new MockTerrain(TerrainType.GRASLAND);
+		World world = new WorldImpl(terrain, null, null);
+		PlantGenerator.generateBerryBush(6, 6, world);
+		
+		Position position = GoalUtils.findOpenNonWaterSpace(6, 6, 1, 1, world);
+		assertEquals(5, position.getX());
+		assertEquals(5, position.getY());
 	}
 }

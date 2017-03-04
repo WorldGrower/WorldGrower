@@ -19,27 +19,33 @@ import org.worldgrower.terrain.TerrainInfo;
 import org.worldgrower.terrain.TerrainType;
 
 public class MockTerrain implements Terrain {
-
-	private final TerrainType terrainType;
+	private static final int DIMENSION = 10;
+	
+	private final TerrainType[][] terrainTypes;
 	
 	public MockTerrain(TerrainType terrainType) {
 		super();
-		this.terrainType = terrainType;
+		terrainTypes = new TerrainType[DIMENSION][DIMENSION];
+		for(int i=0; i<DIMENSION; i++) {
+			for(int j=0; j<DIMENSION; j++) {
+				terrainTypes[i][j] = terrainType;
+			}
+		}
 	}
 
 	@Override
 	public TerrainInfo getTerrainInfo(int x, int y) {
-		return new TerrainInfo(terrainType);
+		return new TerrainInfo(terrainTypes[x][y]);
 	}
 
 	@Override
 	public int getWidth() {
-		return 10;
+		return DIMENSION;
 	}
 
 	@Override
 	public int getHeight() {
-		return 10;
+		return DIMENSION;
 	}
 
 	@Override
@@ -49,5 +55,9 @@ public class MockTerrain implements Terrain {
 
 	@Override
 	public void explore(int x, int y, int radius) {
+	}
+	
+	public void setTerrainType(int x, int y, TerrainType terrainType) {
+		terrainTypes[x][y] = terrainType;
 	}
 }

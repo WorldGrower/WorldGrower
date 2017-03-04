@@ -21,6 +21,8 @@ import org.worldgrower.generator.CreatureGenerator;
 import org.worldgrower.generator.PlantGenerator;
 import org.worldgrower.generator.TerrainGenerator;
 import org.worldgrower.generator.WorldGenerator;
+import org.worldgrower.goal.GoalUtils;
+import org.worldgrower.goal.Position;
 import org.worldgrower.gui.AdditionalManagedOperationListenerFactory;
 import org.worldgrower.terrain.TerrainMapper;
 import org.worldgrower.terrain.TerrainType;
@@ -102,8 +104,9 @@ public class CustomGameParameters implements GameParameters {
 		
 		PlantGenerator.generateBerryBush(3, 3, world);
 		
+		Position commonerPosition = GoalUtils.findOpenNonWaterSpace(1, 1, 1, 1, world);
 		for(int i=0; i<villagerCount; i++) {
-			commonerGenerator.generateCommoner(1, 1, world, organization, CommonerGenerator.NO_PARENT);
+			commonerGenerator.generateCommoner(commonerPosition.getX(), commonerPosition.getY(), world, organization, CommonerGenerator.NO_PARENT);
 		}
 		
 		creatureGenerator.generateCow(7, 2, world);

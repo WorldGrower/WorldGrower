@@ -48,8 +48,10 @@ import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.curse.Curse;
 import org.worldgrower.goal.ArmorPropertyUtils;
 import org.worldgrower.goal.EnergyPropertyUtils;
+import org.worldgrower.goal.GoalUtils;
 import org.worldgrower.goal.HitPointPropertyUtils;
 import org.worldgrower.goal.MeleeDamagePropertyUtils;
+import org.worldgrower.goal.Position;
 import org.worldgrower.gui.CommonerImageIds;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.start.CharacterAttributes;
@@ -171,8 +173,10 @@ public class CommonerGenerator implements Serializable {
 	public static WorldObject createPlayerCharacter(int id, String playerName, String playerProfession, String gender, World world, CommonerGenerator commonerGenerator, WorldObject organization, CharacterAttributes characterAttributes, ImageIds playerCharacterImageId) {
 		Map<ManagedProperty<?>, Object> properties = new HashMap<>();
 		
-		properties.put(Constants.X, 5);
-		properties.put(Constants.Y, 5);
+		Position playerCharacterPosition = GoalUtils.findOpenNonWaterSpace(5, 5, 1, 1, world);
+		
+		properties.put(Constants.X, playerCharacterPosition.getX());
+		properties.put(Constants.Y, playerCharacterPosition.getY());
 		properties.put(Constants.WIDTH, 1);
 		properties.put(Constants.HEIGHT, 1);
 		properties.put(Constants.NAME, playerName);

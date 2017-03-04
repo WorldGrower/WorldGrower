@@ -29,6 +29,8 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.ManagedProperty;
 import org.worldgrower.gui.ImageIds;
+import org.worldgrower.terrain.TerrainInfo;
+import org.worldgrower.terrain.TerrainType;
 
 public class GoalUtils {
 
@@ -103,6 +105,25 @@ public class GoalUtils {
 		}
 		return null;
 		//throw new IllegalStateException("Performer " + performer + " can't find open space");
+	}
+	
+	public static Position findOpenNonWaterSpace(int performerX, int performerY, int width, int height, World world) {
+		Position currentLocation = null;
+		int currentDistance = Integer.MAX_VALUE;
+		for(int x=0; x<=world.getWidth()-width; x++) {
+			for(int y=0; y<=world.getHeight()-height; y++) {
+				if (world.getTerrain().getTerrainInfo(x, y).getTerrainType() != TerrainType.WATER) {
+					if (isOpenSpace(x, y, width, height, world)) {
+						int distance = Reach.distance(x, y, performerY, performerY);
+						if (distance < currentDistance) {
+							currentLocation = new Position(x, y);
+							currentDistance = distance;
+						}
+					}
+				}
+			}
+		}
+		return currentLocation;
 	}
 	
 	public static boolean isOpenSpace(int openSpaceX, int openSpaceY, int width, int height, World world) {
