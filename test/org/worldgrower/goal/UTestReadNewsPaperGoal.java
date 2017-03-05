@@ -22,6 +22,7 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.DefaultConversationFormatter;
 import org.worldgrower.DoNothingWorldOnTurn;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
@@ -167,6 +168,11 @@ public class UTestReadNewsPaperGoal {
 		performer.setProperty(Constants.NEWSPAPER_READ_TURN, 0);
 		for(int i=0; i<1000; i++) { world.nextTurn(); }
 		assertEquals(false, goal.isGoalMet(performer, world));
+	}
+	
+	@Test
+	public void testGetDescription() {
+		assertEquals("looking for a news paper", DefaultConversationFormatter.FORMATTER.format(goal.getDescription()));
 	}
 	
 	private WorldObject createPerformer(int id) {

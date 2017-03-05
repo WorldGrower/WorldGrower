@@ -18,6 +18,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.DefaultConversationFormatter;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
@@ -34,6 +35,11 @@ public class UTestOreGoal {
 		WorldObject performer = createPerformer();
 		
 		assertEquals(null, goal.calculateGoal(performer, world));
+	}
+	
+	@Test
+	public void testGetDescription() {
+		assertEquals("looking for iron ore", DefaultConversationFormatter.FORMATTER.format(goal.getDescription()));
 	}
 
 	private WorldObject createPerformer() {

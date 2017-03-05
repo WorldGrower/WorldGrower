@@ -18,6 +18,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.worldgrower.Constants;
+import org.worldgrower.DefaultConversationFormatter;
 import org.worldgrower.TestUtils;
 import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
@@ -96,6 +97,11 @@ public class UTestPaperGoal {
 		addPaperMill(world, performer);
 		
 		assertEquals(Actions.CREATE_PAPER_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
+	}
+	
+	@Test
+	public void testGetDescription() {
+		assertEquals("looking for paper", DefaultConversationFormatter.FORMATTER.format(goal.getDescription()));
 	}
 
 	private void addPaperMill(World world, WorldObject performer) {

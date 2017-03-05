@@ -59,7 +59,7 @@ public class PaperGoal implements Goal {
 
 	@Override
 	public FormattableText getDescription() {
-		return new FormattableText(TextId.GOAL_PAPER);
+		return new FormattableText(TextId.GOAL_PAPER, Item.PAPER);
 	}
 
 	@Override

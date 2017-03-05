@@ -59,7 +59,7 @@ public class OreGoal implements Goal {
 
 	@Override
 	public FormattableText getDescription() {
-		return new FormattableText(TextId.GOAL_ORE);
+		return new FormattableText(TextId.GOAL_ORE, Item.ORE);
 	}
 
 	@Override
