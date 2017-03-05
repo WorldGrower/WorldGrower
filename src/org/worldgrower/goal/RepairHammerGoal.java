@@ -20,6 +20,7 @@ import org.worldgrower.Constants;
 import org.worldgrower.OperationInfo;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
+import org.worldgrower.generator.Item;
 import org.worldgrower.text.FormattableText;
 import org.worldgrower.text.TextId;
 
@@ -58,7 +59,7 @@ public class RepairHammerGoal implements Goal {
 
 	@Override
 	public FormattableText getDescription() {
-		return new FormattableText(TextId.GOAL_REPAIR_HAMMER);
+		return new FormattableText(TextId.GOAL_REPAIR_HAMMER, Item.REPAIR_HAMMER);
 	}
 
 	@Override
