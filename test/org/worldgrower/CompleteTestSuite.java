@@ -816,7 +816,13 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestCreateWoodGoal.class,
 	UTestGoldGoal.class,
 	UTestHarvestGrapesGoal.class,
-	UTestRepairHammerGoal.class
+	UTestRepairHammerGoal.class,
+	UTestSellGoldGoal.class,
+	UTestSellNewsPaperGoal.class,
+	UTestSellOreGoal.class,
+	UTestSellPoisonGoal.class,
+	UTestSellSleepingPotionGoal.class,
+	UTestSellStoneGoal.class
 })
 public class CompleteTestSuite {
 }

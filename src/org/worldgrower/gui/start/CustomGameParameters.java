@@ -41,6 +41,7 @@ public class CustomGameParameters implements GameParameters {
 	private final float stoneResourceMultiplier;
 	private final float oreResourceMultiplier;
 	private final float goldResourceMultiplier;
+	private final float oilResourceMultiplier;
 	private final double waterCutoff;
 	
 	public CustomGameParameters() {
@@ -56,6 +57,7 @@ public class CustomGameParameters implements GameParameters {
 		this.stoneResourceMultiplier = 1.0f;
 		this.oreResourceMultiplier = 1.0f;
 		this.goldResourceMultiplier = 1.0f;
+		this.oilResourceMultiplier = 1.0f;
 		this.waterCutoff = TerrainMapper.NORMAL_WATER_CUTOFF;
 	}
 	
@@ -68,7 +70,7 @@ public class CustomGameParameters implements GameParameters {
 		}
 	}
 	
-	public CustomGameParameters(String playerName, String playerProfession, String gender, int worldWidth, int worldHeight, int enemyDensity, int villagerCount, int seed, int startTurn, float stoneResourceMultiplier, float oreResourceMultiplier, float goldResourceMultiplier, double waterCutoff) {
+	public CustomGameParameters(String playerName, String playerProfession, String gender, int worldWidth, int worldHeight, int enemyDensity, int villagerCount, int seed, int startTurn, float stoneResourceMultiplier, float oreResourceMultiplier, float goldResourceMultiplier, float oilResourceMultiplier, double waterCutoff) {
 		this.playerName = playerName;
 		this.playerProfession = playerProfession;
 		this.gender = gender;
@@ -81,6 +83,7 @@ public class CustomGameParameters implements GameParameters {
 		this.stoneResourceMultiplier = stoneResourceMultiplier;
 		this.oreResourceMultiplier = oreResourceMultiplier;
 		this.goldResourceMultiplier = goldResourceMultiplier;
+		this.oilResourceMultiplier = oilResourceMultiplier;
 		this.waterCutoff = waterCutoff;
 	}
 
@@ -101,8 +104,6 @@ public class CustomGameParameters implements GameParameters {
 	
 	@Override
 	public void addDefaultWorldObjects(World world, CommonerGenerator commonerGenerator, CreatureGenerator creatureGenerator, WorldObject organization, int villagerCount, int seed) {
-		
-		PlantGenerator.generateBerryBush(3, 3, world);
 		
 		Position commonerPosition = GoalUtils.findOpenNonWaterSpace(1, 1, 1, 1, world);
 		for(int i=0; i<villagerCount; i++) {
@@ -129,9 +130,12 @@ public class CustomGameParameters implements GameParameters {
 		worldGenerator.addWorldObjects(world, 2, 2, goldResourceCount, TerrainType.MOUNTAIN, TerrainGenerator::generateGoldResource);
 
 		worldGenerator.addWorldObjects(world, 1, 1, world.getWidth() / 50, TerrainType.GRASLAND, PlantGenerator::generateNightShade);
-		worldGenerator.addWorldObjects(world, 1, 1, world.getWidth() / 50, TerrainType.PLAINS, TerrainGenerator::generateOilResource);
 		
-		worldGenerator.addWorldObjects(world, 1, 1, 20, TerrainType.PLAINS, PlantGenerator::generateBerryBush);
+		int oilResourceCount = (int)((world.getWidth() / 50) * oilResourceMultiplier);
+		worldGenerator.addWorldObjects(world, 1, 1, oilResourceCount, TerrainType.PLAINS, TerrainGenerator::generateOilResource);
+		
+		int berryBushCount = world.getWidth() / 5;
+		worldGenerator.addWorldObjects(world, 1, 1, berryBushCount, TerrainType.PLAINS, PlantGenerator::generateBerryBush);
 	}
 
 	@Override

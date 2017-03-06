@@ -17,6 +17,7 @@ package org.worldgrower.goal;
 import java.util.List;
 
 import org.worldgrower.Constants;
+import org.worldgrower.generator.Item;
 import org.worldgrower.text.FormattableText;
 import org.worldgrower.text.TextId;
 
@@ -33,6 +34,6 @@ public class SellPoisonGoal extends AbstractSellGoal {
 
 	@Override
 	public FormattableText getDescription() {
-		return new FormattableText(TextId.GOAL_SELL_POISON);
+		return new FormattableText(TextId.GOAL_SELL_POISON, Item.POISON);
 	}
 }
