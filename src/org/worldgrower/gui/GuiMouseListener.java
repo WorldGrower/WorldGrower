@@ -804,7 +804,7 @@ public class GuiMouseListener extends MouseAdapter {
 	}
 	
 	private String createMenuDescription(ManagedOperation action) {
-		FormattableText formattableText = action.getFormattableText();
+		FormattableText formattableText = action.getFormattableSimpleDescription();
 		if (formattableText != null) {
 			return new ConversationFormatterImpl(imageSubstituter).format(formattableText);
 		} else {

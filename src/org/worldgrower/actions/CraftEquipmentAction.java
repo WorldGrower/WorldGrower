@@ -24,7 +24,7 @@ public interface CraftEquipmentAction extends CraftAction {
 	public Item getItem();
 	
 	@Override
-	public default FormattableText getFormattableText() {
+	public default FormattableText getFormattableSimpleDescription() {
 		return new FormattableText(TextId.CRAFT_ITEM, getItem());
 	}
 }

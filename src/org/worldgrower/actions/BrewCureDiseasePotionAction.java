@@ -85,7 +85,7 @@ public class BrewCureDiseasePotionAction implements CraftAction, AnimatedAction 
 	}
 
 	@Override
-	public FormattableText getFormattableText() {
+	public FormattableText getFormattableSimpleDescription() {
 		return new FormattableText(TextId.BREW_ITEM, Item.CURE_DISEASE_POTION);
 	}
 

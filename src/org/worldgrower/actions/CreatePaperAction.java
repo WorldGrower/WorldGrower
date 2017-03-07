@@ -86,7 +86,7 @@ public class CreatePaperAction implements CraftAction, AnimatedAction {
 	}
 
 	@Override
-	public FormattableText getFormattableText() {
+	public FormattableText getFormattableSimpleDescription() {
 		return new FormattableText(TextId.CREATE_PAPER, Item.PAPER);
 	}
 	

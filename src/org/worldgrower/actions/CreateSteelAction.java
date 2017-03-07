@@ -82,7 +82,7 @@ public class CreateSteelAction implements CraftAction, AnimatedAction {
 	}
 	
 	@Override
-	public FormattableText getFormattableText() {
+	public FormattableText getFormattableSimpleDescription() {
 		return new FormattableText(TextId.CREATE_STEEL, Item.STEEL);
 	}
 	

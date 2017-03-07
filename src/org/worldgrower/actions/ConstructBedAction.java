@@ -78,7 +78,7 @@ public class ConstructBedAction implements CraftAction {
 	}
 
 	@Override
-	public FormattableText getFormattableText() {
+	public FormattableText getFormattableSimpleDescription() {
 		return new FormattableText(TextId.CRAFT_ITEM, Item.BED);
 	}
 	

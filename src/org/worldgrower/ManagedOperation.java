@@ -43,7 +43,7 @@ public interface ManagedOperation extends Serializable {
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world);
 	public default String getSimpleDescription()  {
 		ConversationFormatter conversationFormatter = new ConversationFormatterImpl(new TextConversationArgumentFormatter());
-		FormattableText formattableText = getFormattableText();
+		FormattableText formattableText = getFormattableSimpleDescription();
 		if (formattableText == null) {
 			throw new IllegalStateException("FormattableText is null for " + this.getClass());
 		}
@@ -54,7 +54,7 @@ public interface ManagedOperation extends Serializable {
 	public ImageIds getImageIds(WorldObject performer);
 	public String getDescription();
 	
-	public default FormattableText getFormattableText() {
+	public default FormattableText getFormattableSimpleDescription() {
 		return null;
 	}
 	

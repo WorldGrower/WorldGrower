@@ -79,7 +79,7 @@ public class MintGoldAction implements CraftAction {
 	}
 	
 	@Override
-	public FormattableText getFormattableText() {
+	public FormattableText getFormattableSimpleDescription() {
 		return new FormattableText(TextId.MINT_GOLD, Item.GOLD);
 	}
 	

@@ -89,7 +89,7 @@ public class BrewWineAction implements CraftAction, AnimatedAction {
 	}
 
 	@Override
-	public FormattableText getFormattableText() {
+	public FormattableText getFormattableSimpleDescription() {
 		return new FormattableText(TextId.BREW_ITEM, Item.WINE);
 	}
 	

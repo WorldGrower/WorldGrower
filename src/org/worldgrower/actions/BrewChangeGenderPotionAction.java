@@ -85,7 +85,7 @@ public class BrewChangeGenderPotionAction implements CraftAction, AnimatedAction
 	}
 
 	@Override
-	public FormattableText getFormattableText() {
+	public FormattableText getFormattableSimpleDescription() {
 		return new FormattableText(TextId.BREW_ITEM, Item.CHANGE_GENDER_POTION);
 	}
 

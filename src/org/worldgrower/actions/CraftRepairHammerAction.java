@@ -83,7 +83,7 @@ public class CraftRepairHammerAction implements CraftAction, AnimatedAction {
 	}
 	
 	@Override
-	public FormattableText getFormattableText() {
+	public FormattableText getFormattableSimpleDescription() {
 		return new FormattableText(TextId.CRAFT_ITEM, Item.REPAIR_HAMMER);
 	}
 
