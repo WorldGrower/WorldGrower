@@ -59,7 +59,7 @@ public class WoodCuttingToolGoal implements Goal {
 
 	@Override
 	public FormattableText getDescription() {
-		return new FormattableText(TextId.GOAL_WOOD_CUTTING_TOOL);
+		return new FormattableText(TextId.GOAL_WOOD_CUTTING_TOOL, Constants.WOOD_CUTTING_QUALITY);
 	}
 
 	@Override

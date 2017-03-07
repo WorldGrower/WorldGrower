@@ -14,28 +14,17 @@
  *******************************************************************************/
 package org.worldgrower.goal;
 
-import java.util.List;
+import static org.junit.Assert.assertEquals;
 
-import org.worldgrower.Constants;
-import org.worldgrower.attribute.IntProperty;
-import org.worldgrower.text.FormattableText;
-import org.worldgrower.text.TextId;
+import org.junit.Test;
+import org.worldgrower.DefaultConversationFormatter;
 
-public class SellWoodGoal extends AbstractSellGoal {
+public class UTestStoneGoal {
+
+	private StoneGoal goal = Goals.STONE_GOAL;
 	
-	private static final IntProperty PROPERTY_TO_SELL = Constants.WOOD;
-
-	public SellWoodGoal() {
-		super(PROPERTY_TO_SELL, 20);
-	}
-
-	public SellWoodGoal(List<Goal> allGoals) {
-		this();
-		allGoals.add(this);
-	}
-
-	@Override
-	public FormattableText getDescription() {
-		return new FormattableText(TextId.GOAL_SELL_WOOD, PROPERTY_TO_SELL);
+	@Test
+	public void testGetDescription() {
+		assertEquals("looking for stones", DefaultConversationFormatter.FORMATTER.format(goal.getDescription()));
 	}
 }

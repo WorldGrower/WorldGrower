@@ -822,7 +822,10 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestSellOreGoal.class,
 	UTestSellPoisonGoal.class,
 	UTestSellSleepingPotionGoal.class,
-	UTestSellStoneGoal.class
+	UTestSellStoneGoal.class,
+	UTestSellWineGoal.class,
+	UTestStoneGoal.class,
+	UTestWoodGoal.class
 })
 public class CompleteTestSuite {
 }

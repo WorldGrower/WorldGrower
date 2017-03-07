@@ -58,7 +58,7 @@ public class WoodGoal implements Goal {
 
 	@Override
 	public FormattableText getDescription() {
-		return new FormattableText(TextId.GOAL_WOOD);
+		return new FormattableText(TextId.GOAL_WOOD, Constants.WOOD);
 	}
 
 	@Override

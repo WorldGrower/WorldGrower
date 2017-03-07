@@ -59,7 +59,7 @@ public class WineGoal implements Goal {
 
 	@Override
 	public FormattableText getDescription() {
-		return new FormattableText(TextId.GOAL_WINE);
+		return new FormattableText(TextId.GOAL_WINE, Item.WINE);
 	}
 
 	@Override

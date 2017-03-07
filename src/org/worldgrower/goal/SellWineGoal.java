@@ -17,13 +17,16 @@ package org.worldgrower.goal;
 import java.util.List;
 
 import org.worldgrower.Constants;
+import org.worldgrower.attribute.IntProperty;
 import org.worldgrower.text.FormattableText;
 import org.worldgrower.text.TextId;
 
 public class SellWineGoal extends AbstractSellGoal {
 	
+	private static final IntProperty PROPERTY_TO_SELL = Constants.WINE;
+
 	public SellWineGoal() {
-		super(Constants.WINE, 20);
+		super(PROPERTY_TO_SELL, 20);
 	}
 
 	public SellWineGoal(List<Goal> allGoals) {
@@ -33,6 +36,6 @@ public class SellWineGoal extends AbstractSellGoal {
 
 	@Override
 	public FormattableText getDescription() {
-		return new FormattableText(TextId.GOAL_SELL_WINE);
+		return new FormattableText(TextId.GOAL_SELL_WINE, PROPERTY_TO_SELL);
 	}
 }
