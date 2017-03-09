@@ -40,31 +40,31 @@ public class ListInputDialog extends AbstractDialog {
 	
 	//TODO: use icon
 	public ListInputDialog(String question, Icon icon, ListData listData, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, JFrame parentFrame) {
-		super(450, 210, imageInfoReader);
+		super(600, 210, imageInfoReader);
 		
 		JLabel label = JLabelFactory.createJLabel(question);
-		label.setBounds(16, 16, 415, 50);
+		label.setBounds(16, 16, 565, 50);
 		addComponent(label);
 		
 		comboBox = JComboBoxFactory.createJComboBox(listData, imageInfoReader);
-		comboBox.setBounds(16, 70, 415, 50);
+		comboBox.setBounds(16, 70, 565, 50);
 		addComponent(comboBox);
 		
 		JPanel buttonPane = new JPanel();
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		buttonPane.setOpaque(false);
-		buttonPane.setBounds(16, 153, 425, 50);
+		buttonPane.setBounds(16, 153, 575, 50);
 		addComponent(buttonPane);
-
-		JButton okButton = JButtonFactory.createButton(" OK ", imageInfoReader, soundIdReader);
-		okButton.setActionCommand("OK");
-		buttonPane.add(okButton);
-		getRootPane().setDefaultButton(okButton);
 
 		JButton cancelButton = JButtonFactory.createButton("Cancel", imageInfoReader, soundIdReader);
 		cancelButton.setActionCommand("Cancel");
 		buttonPane.add(cancelButton);
 		
+		JButton okButton = JButtonFactory.createButton(" OK ", imageInfoReader, soundIdReader);
+		okButton.setActionCommand("OK");
+		buttonPane.add(okButton);
+		getRootPane().setDefaultButton(okButton);
+
 		addActions(okButton, cancelButton);
 		DialogUtils.createDialogBackPanel(this, parentFrame.getContentPane());
 	}

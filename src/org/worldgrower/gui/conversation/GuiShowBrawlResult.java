@@ -22,6 +22,7 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.BrawlFinishedListener;
 import org.worldgrower.actions.BrawlListener;
 import org.worldgrower.gui.ImageInfoReader;
+import org.worldgrower.gui.ImageSubstituter;
 import org.worldgrower.gui.WorldPanel;
 import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.util.IconUtils;
@@ -39,12 +40,14 @@ public class GuiShowBrawlResult implements BrawlFinishedListener {
 	private SoundIdReader soundIdReader;
 	private WorldPanel container;
 	private JFrame parentFrame;
+	private ImageSubstituter imageSubstituter;
 	
 	public GuiShowBrawlResult(ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, WorldPanel container, World world, JFrame parentFrame) {
 		this.imageInfoReader = imageInfoReader;
 		this.soundIdReader = soundIdReader;
 		this.container = container;
 		this.parentFrame = parentFrame;
+		this.imageSubstituter = new ImageSubstituter(imageInfoReader);
 		
 		world.getListenerByClass(BrawlListener.class).addBrawlFinishedListener(this);
 	}
@@ -52,7 +55,8 @@ public class GuiShowBrawlResult implements BrawlFinishedListener {
 	private String[] getResponses(int goldWon) {
 		String[] responses = new String[RESPONSE_PREFIXES.length];
 		for(int i=0; i<RESPONSE_PREFIXES.length; i++) {
-			responses[i] = RESPONSE_PREFIXES[i] + " I get " + goldWon + " gold from you.";
+			responses[i] = "<html>" + RESPONSE_PREFIXES[i] + " I get " + goldWon + " gold from you." + "</html>";
+			responses[i] = imageSubstituter.substituteImagesInHtml(responses[i]);
 		}
 		return responses;
 	}

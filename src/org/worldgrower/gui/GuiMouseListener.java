@@ -67,6 +67,7 @@ import org.worldgrower.gui.cursor.Cursors;
 import org.worldgrower.gui.debug.GuiShowBrawlFinishedAction;
 import org.worldgrower.gui.debug.GuiShowBuildingsOverviewAction;
 import org.worldgrower.gui.debug.GuiShowCommonersOverviewAction;
+import org.worldgrower.gui.debug.GuiShowDrinkingContestFinishedAction;
 import org.worldgrower.gui.debug.GuiShowEconomicOverviewAction;
 import org.worldgrower.gui.debug.GuiShowElectionResultsAction;
 import org.worldgrower.gui.debug.GuiShowGoalDescriptionOverviewAction;
@@ -911,6 +912,11 @@ public class GuiMouseListener extends MouseAdapter {
 			JMenuItem guiShowBrawlFinishedAction = MenuFactory.createJMenuItem(new GuiShowBrawlFinishedAction(worldObject, playerCharacter, imageInfoReader, soundIdReader, container, world, parentFrame), soundIdReader);
 			guiShowBrawlFinishedAction.setText("Show brawl finished dialog...");
 			debugMenu.add(guiShowBrawlFinishedAction);
+			
+			JMenuItem guiShowDrinkingContestFinishedAction = MenuFactory.createJMenuItem(new GuiShowDrinkingContestFinishedAction(worldObject, playerCharacter, imageInfoReader, soundIdReader, container, world, parentFrame), soundIdReader);
+			guiShowDrinkingContestFinishedAction.setText("Show drinking contest finished dialog...");
+			debugMenu.add(guiShowDrinkingContestFinishedAction);
+			
 		}
 	}
 	

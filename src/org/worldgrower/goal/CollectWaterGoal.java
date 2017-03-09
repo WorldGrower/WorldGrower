@@ -50,6 +50,9 @@ public class CollectWaterGoal implements Goal {
 					return Goals.WOOD_GOAL.calculateGoal(performer, world);
 				} else {
 					WorldObject targetLocation = BuildLocationUtils.findOpenLocationNearExistingProperty(performer, BuildingDimensions.WELL, world);
+					if (targetLocation == null) {
+						targetLocation = BuildLocationUtils.findOpenLocationNearPerformer(performer, BuildingDimensions.WELL, world);
+					}
 					return new OperationInfo(performer, targetLocation, Args.EMPTY, Actions.BUILD_WELL_ACTION);
 				}
 			}

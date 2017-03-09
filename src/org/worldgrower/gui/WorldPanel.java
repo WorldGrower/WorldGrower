@@ -386,7 +386,7 @@ public final class WorldPanel extends JPanel implements ImageFactory {
     
     public void centerOffsetsOn(int x, int y) {
     	int screenWidth = this.getWidth() / 48;
-    	int screenHeight = this.getHeight() / 48;
+    	int screenHeight = (this.getHeight() - this.infoPanel.getHeight()) / 48;
     	this.offsetX = offsetX - (x - screenWidth / 2);
     	this.offsetY = offsetY - (y - screenHeight / 2);
     	
