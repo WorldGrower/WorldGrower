@@ -23,8 +23,11 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.generator.BuildingDimensions;
 import org.worldgrower.generator.BuildingGenerator;
+import org.worldgrower.generator.Item;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class BuildWellAction implements BuildAction {
 
@@ -61,8 +64,8 @@ public class BuildWellAction implements BuildAction {
 	}
 	
 	@Override
-	public String getDescription() {
-		return "a well provides water";
+	public FormattableText getFormattableDescription() {
+		return new FormattableText(TextId.BUILD_WELL, Item.WATER);
 	}
 
 	@Override

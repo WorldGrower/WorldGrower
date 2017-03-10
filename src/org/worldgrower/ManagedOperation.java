@@ -41,8 +41,25 @@ public interface ManagedOperation extends Serializable {
 	public int distance(WorldObject performer, WorldObject target, int[] args, World world);
 	
 	public String getDescription(WorldObject performer, WorldObject target, int[] args, World world);
+	
+	public default String getDescription() {
+		ConversationFormatter conversationFormatter = getConversationFormatter();
+		FormattableText formattableText = getFormattableDescription();
+		if (formattableText == null) {
+			throw new IllegalStateException("FormattableText is null for " + this.getClass());
+		}
+		return conversationFormatter.format(formattableText);
+	}
+	public default ConversationFormatter getConversationFormatter() {
+		return new ConversationFormatterImpl(new TextConversationArgumentFormatter());
+	}
+	
+	public default FormattableText getFormattableDescription() {
+		return null;
+	}
+	
 	public default String getSimpleDescription()  {
-		ConversationFormatter conversationFormatter = new ConversationFormatterImpl(new TextConversationArgumentFormatter());
+		ConversationFormatter conversationFormatter = getConversationFormatter();
 		FormattableText formattableText = getFormattableSimpleDescription();
 		if (formattableText == null) {
 			throw new IllegalStateException("FormattableText is null for " + this.getClass());
@@ -52,7 +69,6 @@ public interface ManagedOperation extends Serializable {
 	
 	public String getRequirementsDescription();
 	public ImageIds getImageIds(WorldObject performer);
-	public String getDescription();
 	
 	public default FormattableText getFormattableSimpleDescription() {
 		return null;

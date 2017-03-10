@@ -619,7 +619,15 @@ public class GuiMouseListener extends MouseAdapter {
 		
 		String tooltip = "<html>" + requirementsDescription;
 		if (buildAction.getDescription().length() > 0) {
-			tooltip += "<br>" + buildAction.getDescription();
+			if (requirementsDescription.length() > 0) {
+				tooltip += "<br>";
+			}
+			FormattableText formattableDescription = buildAction.getFormattableDescription();
+			if (formattableDescription != null) {
+				tooltip += new ConversationFormatterImpl(imageSubstituter).format(formattableDescription);
+			} else {
+				tooltip += buildAction.getDescription();
+			}
 		}
 		if (allowedCraftActions.size() > 0) {
 			tooltip += "<br>" + allowedCraftActionsDescription;

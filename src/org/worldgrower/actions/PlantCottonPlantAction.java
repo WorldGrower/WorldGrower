@@ -21,9 +21,12 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.generator.BuildingDimensions;
+import org.worldgrower.generator.Item;
 import org.worldgrower.generator.PlantGenerator;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class PlantCottonPlantAction implements BuildAction {
 
@@ -56,8 +59,8 @@ public class PlantCottonPlantAction implements BuildAction {
 	}
 	
 	@Override
-	public String getDescription() {
-		return "plant cotton plant for cotton production";
+	public FormattableText getFormattableDescription() {
+		return new FormattableText(TextId.PLANT_COTTON_PLANT, Item.COTTON);
 	}
 
 	@Override

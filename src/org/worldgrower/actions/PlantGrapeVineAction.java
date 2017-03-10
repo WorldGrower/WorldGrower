@@ -22,9 +22,12 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.generator.BuildingDimensions;
+import org.worldgrower.generator.Item;
 import org.worldgrower.generator.PlantGenerator;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class PlantGrapeVineAction implements BuildAction {
 
@@ -54,8 +57,8 @@ public class PlantGrapeVineAction implements BuildAction {
 	}
 	
 	@Override
-	public String getDescription() {
-		return "plant grape vine for grapes production";
+	public FormattableText getFormattableDescription() {
+		return new FormattableText(TextId.PLANT_GRAPEVINE_PLANT, Item.GRAPES);
 	}
 	
 	@Override

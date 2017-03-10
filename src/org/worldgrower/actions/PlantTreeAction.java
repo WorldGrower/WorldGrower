@@ -22,9 +22,12 @@ import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.generator.BuildingDimensions;
+import org.worldgrower.generator.Item;
 import org.worldgrower.generator.PlantGenerator;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
+import org.worldgrower.text.FormattableText;
+import org.worldgrower.text.TextId;
 
 public class PlantTreeAction implements BuildAction {
 
@@ -55,10 +58,10 @@ public class PlantTreeAction implements BuildAction {
 	public String getRequirementsDescription() {
 		return "";
 	}
-	
+
 	@Override
-	public String getDescription() {
-		return "plant tree for wood production";
+	public FormattableText getFormattableDescription() {
+		return new FormattableText(TextId.PLANT_TREE, Item.WOOD);
 	}
 
 	@Override
