@@ -16,9 +16,18 @@ package org.worldgrower.gui;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.Transparency;
 import java.awt.image.BufferedImage;
+import java.awt.image.FilteredImageSource;
+import java.awt.image.ImageFilter;
+import java.awt.image.ImageProducer;
+import java.awt.image.RGBImageFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -74,6 +83,7 @@ public class ImageInfoReader {
     	Sprites fish = readSpritesFish();
     	Sprites cow = readSpritesCow();
     	Sprites forge = readSpritesForge();
+    	//TODO: isn't needed anymore
     	Sprites terrainTransitions = readTerrainTransitions();
     	Sprites vampire = readSpritesVampire();
     	Sprites clothingShop = readSpritesClothingShop();
@@ -139,6 +149,8 @@ public class ImageInfoReader {
     	
     	Sprites plusIcon = readPlusIcon();
     	Sprites minusIcon = readMinusIcon();
+    	
+    	Sprites tileMask = readSpritesTileMask();
     	
     	addCharacter(ImageIds.KNIGHT, sprites, 0, 0, 1, 1);
     	addCharacter(ImageIds.GUARD, sprites, 0, 4, 1, 1);
@@ -441,16 +453,7 @@ public class ImageInfoReader {
 		add(ImageIds.INN, tileC.getSubImage(0, 0, 4, 6));
 		add(ImageIds.STONE_WALL, houses.getSubImage(0, 4, 2, 4));
 		createInnImage();
-
-		add(ImageIds.TRANSITION_TOP_LEFT, terrainTransitions.getSubImage(0, 0, 1, 1));
-		add(ImageIds.TRANSITION_TOP_RIGHT, terrainTransitions.getSubImage(1, 0, 1, 1));
-		add(ImageIds.TRANSITION_DOWN_LEFT, terrainTransitions.getSubImage(0, 1, 1, 1));
-		add(ImageIds.TRANSITION_DOWN_RIGHT, terrainTransitions.getSubImage(1, 1, 1, 1));
-		add(ImageIds.TRANSITION_LEFT, terrainTransitions.getSubImage(2, 0, 1, 1));
-		add(ImageIds.TRANSITION_RIGHT, terrainTransitions.getSubImage(2, 1, 1, 1));
-		add(ImageIds.TRANSITION_TOP, terrainTransitions.getSubImage(3, 0, 1, 1));
-		add(ImageIds.TRANSITION_DOWN, terrainTransitions.getSubImage(3, 1, 1, 1));
-    
+ 
 		add(ImageIds.SIGN_POST, tileE.getSubImage(2, 14, 1, 1));
 		add(ImageIds.INTOXICATED_CONDITION, sprites420.getSubImage(12, 24, 1, 1));
 		add(ImageIds.DETECT_MAGIC, sprites420.getSubImage(0, 15, 1, 1));
@@ -751,6 +754,56 @@ public class ImageInfoReader {
 		Image minusImage = minusIcon.getSubImage(0, 0, 1, 1);
 		minusImage = minusImage.getScaledInstance(plusMinusImageSize, plusMinusImageSize, java.awt.Image.SCALE_SMOOTH) ;
 		add(ImageIds.MINUS, minusImage);
+		
+		add(ImageIds.TRANSITION_TOP_LEFT, createTileTransition(tileMask, 0, 0));
+		add(ImageIds.TRANSITION_TOP_RIGHT, createTileTransition(tileMask, 2, 0));
+		add(ImageIds.TRANSITION_DOWN_LEFT, createTileTransition(tileMask, 0, 2));
+		add(ImageIds.TRANSITION_DOWN_RIGHT, createTileTransition(tileMask, 2, 2));
+		add(ImageIds.TRANSITION_LEFT, createTileTransition(tileMask, 0, 1));
+		add(ImageIds.TRANSITION_RIGHT, createTileTransition(tileMask, 2, 1));
+		add(ImageIds.TRANSITION_TOP, createTileTransition(tileMask, 1, 0));
+		add(ImageIds.TRANSITION_DOWN, createTileTransition(tileMask, 2, 1));
+    }
+
+	private Image createTileTransition(Sprites tileMask, int posX, int posY) {
+		BufferedImage newImage = toCompatibleImage(new BufferedImage(48, 48, BufferedImage.TYPE_INT_ARGB));
+		Graphics2D g2 = (Graphics2D) newImage.getGraphics();
+		Image completeImage = tileMask.getSubImage(posX, posY, 1, 1);
+		
+		g2.drawImage(completeImage, 0, 0, null);
+		g2.setComposite(BlendComposite.Multiply);
+		g2.drawImage(toCompatibleImage((BufferedImage)getImage(ImageIds.GRASS_BACKGROUND, null)), 0, 0, null);
+    
+		g2.dispose();
+		return transformColorToTransparency(newImage, Color.BLACK);
+	}
+    
+    public static BufferedImage toCompatibleImage(BufferedImage image) {
+    	GraphicsConfiguration configuration = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
+        BufferedImage compatibleImage = configuration.createCompatibleImage(image.getWidth(),
+                image.getHeight(), Transparency.TRANSLUCENT);
+        Graphics g = compatibleImage.getGraphics();
+        g.drawImage(image, 0, 0, null);
+        g.dispose();
+        return compatibleImage;
+    }
+    
+    private Image transformColorToTransparency(BufferedImage image, Color color)
+    {
+      ImageFilter filter = new RGBImageFilter()
+      {
+        public final int filterRGB(int x, int y, int rgb)
+        {
+        	if (rgb == color.getRGB()) {
+        		return new Color(0, 0, 0, 0).getRGB();
+        	} else {
+        		return rgb;
+        	}
+        }
+      };
+
+      ImageProducer ip = new FilteredImageSource(image.getSource(), filter);
+      return Toolkit.getDefaultToolkit().createImage(ip);
     }
 
 	private BufferedImage createFontSizedImaged(Image image) {
@@ -1263,6 +1316,10 @@ public class ImageInfoReader {
     
     private Sprites readSpritesNicolaiNpc() throws IOException {
     	return readImages("nikolai_by_ttrain427-d4knbvf.png", 32, 48, 1, 1);
+	}
+    
+    private Sprites readSpritesTileMask() throws IOException {
+    	return readImages("tile_mask.png", 48, 48, 1, 1);
 	}
 
     private static Sprites readSpritesEmptyWell() throws IOException {

@@ -119,21 +119,24 @@ public class BackgroundPainter {
 				grassFlowerImage = toBufferedImage(filterImage(grassFlowerImage, new AddNoiseFilter()));
 				addFlowerImage(terrainType, grassFlowerImage);
 			} else {
-				Color grassColor = terrainTypesToColor.get(TerrainType.GRASLAND);
+				BufferedImage coloredBackgroundImage = colorizeToColor(grassBackgroundImage, currentColor);
+				addBackgroundImage(terrainType, ImageUtils.cropImage(coloredBackgroundImage, 48, 48));
 				
-				int deltaRed = currentColor.getRed() - grassColor.getRed();
-				int deltaGreen = currentColor.getGreen() - grassColor.getGreen();
-				int deltaBlue = currentColor.getBlue() - grassColor.getBlue();
-				
-				Image filteredImage = filterImage(grassBackgroundImage, new ColorFilter(deltaRed, deltaGreen, deltaBlue));
-				BufferedImage bufferedImage = toBufferedImage(filteredImage); 
-				addBackgroundImage(terrainType, ImageUtils.cropImage(bufferedImage, 48, 48));
-				
-				Image flowerImage = filterImage(grassFlowerImage, new ColorFilter(deltaRed, deltaGreen, deltaBlue));
-				bufferedImage = toBufferedImage(flowerImage); 
-				addFlowerImage(terrainType, ImageUtils.cropImage(bufferedImage, 48, 48));
+				BufferedImage flowerImage = colorizeToColor(grassFlowerImage, currentColor);
+				addFlowerImage(terrainType, ImageUtils.cropImage(flowerImage, 48, 48));
 			}
 		}
+	}
+	
+	private BufferedImage colorizeToColor(Image image, Color currentColor) {
+		Color grassColor = terrainTypesToColor.get(TerrainType.GRASLAND);
+		
+		int deltaRed = currentColor.getRed() - grassColor.getRed();
+		int deltaGreen = currentColor.getGreen() - grassColor.getGreen();
+		int deltaBlue = currentColor.getBlue() - grassColor.getBlue();
+		
+		Image filteredImage = filterImage(image, new ColorFilter(deltaRed, deltaGreen, deltaBlue));
+		return toBufferedImage(filteredImage); 
 	}
 
 	private void fillBackgroundTransitionMap(World world) {
@@ -194,29 +197,30 @@ public class BackgroundPainter {
 		//} else if (leftUp == current && rightUp == current && downLeft != current && downRight == current) {
 		//	return createCombinedImage(sourceImage, downLeft, ImageIds.TRANSITION_TOP_RIGHT);
 		 */
-		if (left == current && right != current) {
-		    return createCombinedImage(sourceImage, right, ImageIds.TRANSITION_LEFT);
-		} else if (right == current && left != current) {
-			return createCombinedImage(sourceImage, left, ImageIds.TRANSITION_RIGHT);
+		if (left != current && right == current) {
+		    return createCombinedImage(sourceImage, current, left, ImageIds.TRANSITION_LEFT);
+		} else if (right != current && left == current) {
+			return createCombinedImage(sourceImage, current, right, ImageIds.TRANSITION_RIGHT);
 		} else {
 			return sourceImage;
 		}
 		
 	}
 
-	private Image createCombinedImage(Image sourceImage, TerrainType terrainType, ImageIds imageId) {
+	private Image createCombinedImage(Image sourceImage, TerrainType backgroundTerrainType, TerrainType transitionTerrainType, ImageIds imageId) {
 		BufferedImage bimage = new BufferedImage(sourceImage.getWidth(null), sourceImage.getHeight(null), BufferedImage.TYPE_INT_ARGB);
 
 		Graphics2D bGr = bimage.createGraphics();
-		bGr.drawImage(getBackgroundImage(terrainType), 0, 0, null);
-		bGr.drawImage(createTransition(sourceImage, terrainType, imageId), 0, 0, null);
+		bGr.drawImage(getBackgroundImage(transitionTerrainType), 0, 0, null);
+		bGr.drawImage(createTransition(sourceImage, backgroundTerrainType, transitionTerrainType, imageId), 0, 0, null);
 		bGr.dispose();
 		return bimage;
 	}
 	
-	private Image createTransition(Image sourceImage, TerrainType other, ImageIds imageId) {
-		BufferedImage blackWhiteImage = (BufferedImage)imageInfoReader.getImage(imageId, null);
-
+	private Image createTransition(Image sourceImage, TerrainType backgroundTerrainType, TerrainType transitionTerrainType, ImageIds imageId) {
+		BufferedImage transitionImage = toBufferedImage(imageInfoReader.getImage(imageId, null));
+		transitionImage = colorizeToColor(transitionImage, terrainTypesToColor.get(backgroundTerrainType));
+		
 		BufferedImage combined = new BufferedImage(sourceImage.getWidth(null), sourceImage.getHeight(null), BufferedImage.TYPE_INT_ARGB);
 
 		{
@@ -225,29 +229,19 @@ public class BackgroundPainter {
 		g.dispose();
 		}
 		
-		double maxDistance = Math.sqrt(pow(255) * 3);
+		
+		
 		for(int x=0; x<48; x++) {
 			for(int y=0; y<48; y++) {
 				Color oldColor = new Color(combined.getRGB(x, y));
-				Color colorOfBlackWhiteImage = new Color(blackWhiteImage.getRGB(x, y));
-				double distance = Math.sqrt(pow(colorOfBlackWhiteImage.getRed() - Color.WHITE.getRed()) + pow(colorOfBlackWhiteImage.getGreen() - Color.WHITE.getGreen()) + pow(colorOfBlackWhiteImage.getBlue() - Color.WHITE.getBlue()));
 				
-				int a = (int)(255 * distance / maxDistance);
-				int r = oldColor.getRed();
-				int g = oldColor.getGreen();
-				int b = oldColor.getBlue();
-
-				int color = (a << 24) | (r << 16) | (g << 8) | b;
-				combined.setRGB(x, y, color);
+				int newColorValue = transitionImage.getRGB(x, y);
+				combined.setRGB(x, y, newColorValue);
 			}
 		}
 		return combined;
 	}
 	
-	private int pow(int value) {
-		return value * value;
-	}
-
 	private BackgroundTransitionKey getKeyForBackgroundTransitionMap(int index, Terrain terrain, int x, int y, World world) {
 		TerrainType terrainType = terrain.getTerrainInfo(x, y).getTerrainType();
 		
@@ -435,6 +429,7 @@ public class BackgroundPainter {
 
 		@Override
 		public int filterRGB(int x, int y, int rgb) {
+			int a = ((rgb >> 24) & 0xff);
 			int r = ((rgb >> 16) & 0xff) + deltaRed;
 			int g = ((rgb >> 8) & 0xff) + deltaGreen;
 			int b = ((rgb >> 0) & 0xff) + deltaBlue;
@@ -443,7 +438,7 @@ public class BackgroundPainter {
 			g = normalize(g);
 			b = normalize(b);
 			
-			return (rgb & 0xff000000) | (r << 16) | (g << 8) | (b << 0);
+			return (a << 24) | (r << 16) | (g << 8) | (b << 0);
 		}
 	}
 	
