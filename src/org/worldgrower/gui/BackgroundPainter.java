@@ -185,10 +185,21 @@ public class BackgroundPainter {
 			return createCombinedImage(sourceImage, current, up, ImageIds.TRANSITION_TOP_LEFT);
 		} else if (up != current && down == current && right != current && left == current) {
 			return createCombinedImage(sourceImage, current, up, ImageIds.TRANSITION_TOP_RIGHT);
+		
+		} else if (right != current && left != current && up == current && down != current) {
+			return createCombinedImage(sourceImage, right, right, ImageIds.TRANSITION_RIGHT);
+		} else if (right != current && left != current && up != current && down == current) {
+			return createCombinedImage(sourceImage, right, right, ImageIds.TRANSITION_RIGHT);
+		} else if (right != current && left == current && up != current && down != current) {
+			return createCombinedImage(sourceImage, right, right, ImageIds.TRANSITION_RIGHT);
+		} else if (right == current && left != current && up != current && down != current) {
+			return createCombinedImage(sourceImage, left, left, ImageIds.TRANSITION_RIGHT);
+		
 		} else if (left != current && right == current) {
 		    return createCombinedImage(sourceImage, current, left, ImageIds.TRANSITION_LEFT);
 		} else if (right != current && left == current) {
 			return createCombinedImage(sourceImage, current, right, ImageIds.TRANSITION_RIGHT);
+
 		} else {
 			return sourceImage;
 		}
