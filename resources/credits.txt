@@ -217,3 +217,5 @@ plus, minus icons by mikhog at http://opengameart.org/content/play-pause-mute-an
 plus.png
 minus.png
 (colorized to grey/black)
+
+tile transition idea at http://allacrost.sourceforge.net/wiki/index.php/Video_Engine_Visual_Effects

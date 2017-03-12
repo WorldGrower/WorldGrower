@@ -177,34 +177,21 @@ public class BackgroundPainter {
 	}
 	
 	private Image createTransitionImage(Image sourceImage, TerrainType current, TerrainType left, TerrainType right, TerrainType up, TerrainType down, TerrainType leftUp, TerrainType rightUp, TerrainType downLeft, TerrainType downRight, Map<TerrainType, Color> terrainTypesToColor) {
-		/*if (left == current && right != current && up == current && down == current) {
-		    return createCombinedImage(sourceImage, right, ImageIds.TRANSITION_LEFT);
-		} else if (right == current && left != current && up == current && down == current) {
-			return createCombinedImage(sourceImage, left, ImageIds.TRANSITION_RIGHT);
-		} else if (right == current && left == current && up == current && down != current) {
-			return createCombinedImage(sourceImage, down, ImageIds.TRANSITION_TOP);
-		} else if (right == current && left == current && up != current && down == current) {
-			return createCombinedImage(sourceImage, up, ImageIds.TRANSITION_DOWN);
-		} else if (right == current && left != current && up == current && down != current) {
-			return createCombinedImage(sourceImage, down, ImageIds.TRANSITION_TOP_RIGHT);
-		} else if (right == current && left != current && up != current && down == current) {
-			return createCombinedImage(sourceImage, up, ImageIds.TRANSITION_DOWN_RIGHT);
-		} else if (right != current && left == current && up != current && down == current) {
-			return createCombinedImage(sourceImage, up, ImageIds.TRANSITION_DOWN_LEFT);
-		} else if (right != current && left == current && up == current && down != current) {
-			return createCombinedImage(sourceImage, down, ImageIds.TRANSITION_TOP_LEFT);
-		
-		//} else if (leftUp == current && rightUp == current && downLeft != current && downRight == current) {
-		//	return createCombinedImage(sourceImage, downLeft, ImageIds.TRANSITION_TOP_RIGHT);
-		 */
-		if (left != current && right == current) {
+		if (up == current && down != current && right == current && left != current) {
+			return createCombinedImage(sourceImage, current, down, ImageIds.TRANSITION_DOWN_LEFT);
+		} else if (up == current && down != current && right != current && left == current) {
+			return createCombinedImage(sourceImage, current, down, ImageIds.TRANSITION_DOWN_RIGHT);
+		} else if (up != current && down == current && right == current && left != current) {
+			return createCombinedImage(sourceImage, current, up, ImageIds.TRANSITION_TOP_LEFT);
+		} else if (up != current && down == current && right != current && left == current) {
+			return createCombinedImage(sourceImage, current, up, ImageIds.TRANSITION_TOP_RIGHT);
+		} else if (left != current && right == current) {
 		    return createCombinedImage(sourceImage, current, left, ImageIds.TRANSITION_LEFT);
 		} else if (right != current && left == current) {
 			return createCombinedImage(sourceImage, current, right, ImageIds.TRANSITION_RIGHT);
 		} else {
 			return sourceImage;
 		}
-		
 	}
 
 	private Image createCombinedImage(Image sourceImage, TerrainType backgroundTerrainType, TerrainType transitionTerrainType, ImageIds imageId) {
