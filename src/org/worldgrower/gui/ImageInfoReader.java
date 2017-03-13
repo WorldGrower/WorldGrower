@@ -18,8 +18,6 @@ import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.GraphicsConfiguration;
-import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.Transparency;
@@ -83,8 +81,6 @@ public class ImageInfoReader {
     	Sprites fish = readSpritesFish();
     	Sprites cow = readSpritesCow();
     	Sprites forge = readSpritesForge();
-    	//TODO: isn't needed anymore
-    	Sprites terrainTransitions = readTerrainTransitions();
     	Sprites vampire = readSpritesVampire();
     	Sprites clothingShop = readSpritesClothingShop();
     	Sprites weavery = readSpritesWeavery();
@@ -779,9 +775,7 @@ public class ImageInfoReader {
 	}
     
     public static BufferedImage toCompatibleImage(BufferedImage image) {
-    	GraphicsConfiguration configuration = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
-        BufferedImage compatibleImage = configuration.createCompatibleImage(image.getWidth(),
-                image.getHeight(), Transparency.TRANSLUCENT);
+        BufferedImage compatibleImage =new BufferedImage(image.getWidth(), image.getHeight(), Transparency.TRANSLUCENT);
         Graphics g = compatibleImage.getGraphics();
         g.drawImage(image, 0, 0, null);
         g.dispose();
@@ -1136,10 +1130,6 @@ public class ImageInfoReader {
 	
 	private static Sprites readSpritesForge() throws IOException {
 		return readImages("forge.png", 64, 91, 1, 1);
-	}
-	
-	private static Sprites readTerrainTransitions() throws IOException {
-		return readImages("terrain_transitions.png", 48, 48, 4, 2);
 	}
 	
 	private static Sprites readSpritesVampire() throws IOException {
