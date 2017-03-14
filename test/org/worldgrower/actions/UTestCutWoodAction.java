@@ -42,6 +42,20 @@ public class UTestCutWoodAction {
 	}
 	
 	@Test
+	public void testExecuteHitPointsZero() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createTree(world);
+		target.setProperty(Constants.WOOD_SOURCE, 1);
+		
+		Actions.CUT_WOOD_ACTION.execute(performer, target, Args.EMPTY, world);
+		
+		assertEquals(1, performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD));
+		assertEquals(0, target.getProperty(Constants.WOOD_SOURCE).intValue());
+		assertEquals(0, target.getProperty(Constants.HIT_POINTS).intValue());
+	}
+	
+	@Test
 	public void testDistance() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
