@@ -26,13 +26,20 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.MouseInfo;
 import java.awt.Point;
+import java.awt.RadialGradientPaint;
 import java.awt.Rectangle;
+import java.awt.Shape;
 import java.awt.Toolkit;
+import java.awt.Transparency;
+import java.awt.MultipleGradientPaint.CycleMethod;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.event.MouseMotionListener;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Point2D;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,6 +65,7 @@ import org.worldgrower.attribute.LookDirection;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.WorldStateChangedListener;
 import org.worldgrower.condition.WorldStateChangedListeners;
+import org.worldgrower.goal.PerceptionPropertyUtils;
 import org.worldgrower.gui.conversation.GuiRespondToQuestion;
 import org.worldgrower.gui.conversation.GuiShowBrawlResult;
 import org.worldgrower.gui.conversation.GuiShowDrinkingContestResult;
@@ -91,6 +99,7 @@ public final class WorldPanel extends JPanel implements ImageFactory {
 	private final GoToPainter goToPainter;
 	private final KeyBindings keyBindings;
 	private final JFrame parentFrame;
+	private final PlayerCharacterVisionPainter playerCharacterVisionPainter;
 	
     public WorldPanel(WorldObject playerCharacter, World world, DungeonMaster dungeonMaster, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, MusicPlayer musicPlayer, String initialStatusMessage, KeyBindings keyBindings, JFrame parentFrame) throws IOException {
         super(new BorderLayout());
@@ -137,6 +146,7 @@ public final class WorldPanel extends JPanel implements ImageFactory {
         Image grassFlowersBackground = imageInfoReader.getImage(ImageIds.SMALL_FLOWERS, null);
 		this.backgroundPainter = new BackgroundPainter(grassBackground, grassFlowersBackground, imageInfoReader, world);
 		this.goToPainter = new GoToPainter(imageInfoReader);
+		this.playerCharacterVisionPainter = new PlayerCharacterVisionPainter();
     }
 
 	private Rectangle getScreenWorkingArea() {
@@ -224,12 +234,14 @@ public final class WorldPanel extends JPanel implements ImageFactory {
 		
 		goToPainter.paint(g, world, this);
 		
-		showHitPointsOfPlayerCharacterTarget(g);
+		showTargetHitPoints(g);
+		
+		playerCharacterVisionPainter.paintPlayerCharacterVision(g, playerCharacter, world, this);
 		
 		buildModeOutline.repaintBuildMode(g, getMouseLocation(), offsetX, offsetY, playerCharacter, world);
 		infoPanel.updatePlayerCharacterValues();
     }
-    
+	
 	private void paintStaticWorldObjects(Graphics g) {
 		List<WorldObject> worldObjects = world.getWorldObjects();
 		for(WorldObject worldObject : new ArrayList<>(worldObjects)) {
@@ -248,7 +260,7 @@ public final class WorldPanel extends JPanel implements ImageFactory {
 		}
 	}
 
-	private void showHitPointsOfPlayerCharacterTarget(Graphics g) {
+	private void showTargetHitPoints(Graphics g) {
 		OperationInfo lastPerformedOperation = world.getHistory().getLastPerformedOperation(playerCharacter);
 		if (lastPerformedOperation != null) {
 			WorldObject target = lastPerformedOperation.getTarget();
@@ -572,8 +584,16 @@ public final class WorldPanel extends JPanel implements ImageFactory {
 		return x-offsetX;
 	}
 	
+	public int getScreenX(int x) {
+		return x+offsetX;
+	}
+	
 	public int getRealY(int y) {
 		return y-offsetY;
+	}
+	
+	public int getScreenY(int y) {
+		return y+offsetY;
 	}
 
 	@Override
