@@ -144,7 +144,8 @@ public class BackgroundPainter {
 			for(int y = 0; y<world.getHeight(); y++) {
 				Terrain terrain = world.getTerrain();
 				TerrainType terrainType = terrain.getTerrainInfo(x, y).getTerrainType();
-				BackgroundTransitionKey key = getKeyForBackgroundTransitionMap(terrain, x, y, world);
+				int index = calculateIndex(x, y);
+				BackgroundTransitionKey key = getKeyForBackgroundTransitionMap(index, terrain, x, y, world);
 				if(backgroundTransitionMap.get(key) == null) {
 					TerrainType left = getTerrainTypeFor(terrain, x-1, y, world, terrainType);
 					TerrainType right = getTerrainTypeFor(terrain, x+1, y, world, terrainType);
@@ -220,7 +221,7 @@ public class BackgroundPainter {
 		return transitionImage;
 	}
 	
-	private BackgroundTransitionKey getKeyForBackgroundTransitionMap(Terrain terrain, int x, int y, World world) {
+	private BackgroundTransitionKey getKeyForBackgroundTransitionMap(int index, Terrain terrain, int x, int y, World world) {
 		TerrainType terrainType = terrain.getTerrainInfo(x, y).getTerrainType();
 		
 		TerrainType left = getTerrainTypeFor(terrain, x-1, y, world, terrainType);
@@ -232,7 +233,7 @@ public class BackgroundPainter {
 		TerrainType leftDown = getTerrainTypeFor(terrain, x, y-1, world, terrainType);
 		TerrainType rightDown = getTerrainTypeFor(terrain, x, y+1, world, terrainType);
 		
-		return new BackgroundTransitionKey(terrainType, left, right, up, down, leftUp, rightUp, leftDown, rightDown);
+		return new BackgroundTransitionKey(index, terrainType, left, right, up, down, leftUp, rightUp, leftDown, rightDown);
 				
 	}
 	
@@ -249,9 +250,13 @@ public class BackgroundPainter {
 	
 	private static class BackgroundTransitionKey {
 		private final List<TerrainType> terrainTypes;
+		// index is used to make tiles unique
+		// otherwise all tiles look alike and the map looks repetitive
+		private final int index;
 
-		public BackgroundTransitionKey(TerrainType... terrainTypes) {
+		public BackgroundTransitionKey(int index, TerrainType... terrainTypes) {
 			super();
+			this.index = index;
 			this.terrainTypes = Arrays.asList(terrainTypes);
 		}
 
@@ -259,6 +264,7 @@ public class BackgroundPainter {
 		public int hashCode() {
 			final int prime = 31;
 			int result = 1;
+			result += index;
 			result = prime * result
 					+ ((terrainTypes == null) ? 0 : terrainTypes.hashCode());
 			return result;
@@ -273,6 +279,9 @@ public class BackgroundPainter {
 			if (getClass() != obj.getClass())
 				return false;
 			BackgroundTransitionKey other = (BackgroundTransitionKey) obj;
+			if (this.index != other.index) {
+				return false;
+			}
 			if (terrainTypes == null) {
 				if (other.terrainTypes != null)
 					return false;
@@ -365,7 +374,8 @@ public class BackgroundPainter {
 				if (hasFlowers[x][y]) {
 					worldPanel.drawBackgroundImage(g, getFlowerImage(terrain.getTerrainInfo(x, y).getTerrainType()), x, y);
 				} else {
-					Image image = backgroundTransitionMap.get(getKeyForBackgroundTransitionMap(terrain, x, y, world));
+					int index = calculateIndex(x, y);
+					Image image = backgroundTransitionMap.get(getKeyForBackgroundTransitionMap(index, terrain, x, y, world));
 					worldPanel.drawBackgroundImage(g, image, x, y);
 				}
 			} else {
@@ -373,6 +383,10 @@ public class BackgroundPainter {
 			}
 		}
 		
+	}
+
+	private int calculateIndex(int x, int y) {
+		return (x+y) % 40;
 	}
 	
 	private Image filterImage(Image sourceImage, ImageFilter imageFilter) {

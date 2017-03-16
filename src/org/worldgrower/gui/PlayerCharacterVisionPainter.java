@@ -41,7 +41,7 @@ public class PlayerCharacterVisionPainter {
 	private BufferedImage lastImage = null;
 	
 	public void paintPlayerCharacterVision(Graphics worldPanelGraphics, WorldObject playerCharacter, World world, WorldPanel worldPanel) {
-		int circleRadius = PerceptionPropertyUtils.calculateRadius(playerCharacter, world) * 48;
+		int circleRadius = (PerceptionPropertyUtils.calculateRadius(playerCharacter, world) + 1) * 48;
 		int playerCharacterX = worldPanel.getScreenX(playerCharacter.getProperty(Constants.X)) * 48;
 		int playerCharacterY = worldPanel.getScreenY(playerCharacter.getProperty(Constants.Y)) * 48;
 		
@@ -60,14 +60,15 @@ public class PlayerCharacterVisionPainter {
 	}
 
 	private BufferedImage createImageToDraw(WorldPanel worldPanel, int circleRadius, int playerCharacterX, int playerCharacterY) {
-		Shape circle = new Ellipse2D.Float(playerCharacterX - circleRadius, playerCharacterY - circleRadius, circleRadius * 2.0f, circleRadius * 2.0f);
+		float circleDiameter = circleRadius * 2.0f;
+		Shape circle = new Ellipse2D.Float(playerCharacterX - circleRadius, playerCharacterY - circleRadius, circleDiameter, circleDiameter);
 		BufferedImage image = new BufferedImage(worldPanel.getWidth(), worldPanel.getHeight(), BufferedImage.TYPE_INT_ARGB);
 		
 		Graphics2D ga = (Graphics2D) image.createGraphics();
 		
 		Point2D center = new Point2D.Float(playerCharacterX, playerCharacterY);
 	    Point2D focus = new Point2D.Float(playerCharacterX, playerCharacterY);
-	    float[] dist = {0.0f, 0.80f, 0.95f};
+	    float[] dist = {0.0f, 0.70f, 0.95f};
 	    Color transparentBlack = new Color(0, 0, 0, 0);
 		Color[] colors = {transparentBlack, transparentBlack, Color.BLACK};
 	    RadialGradientPaint p =
