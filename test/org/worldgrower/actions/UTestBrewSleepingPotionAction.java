@@ -29,6 +29,8 @@ import org.worldgrower.generator.Item;
 
 public class UTestBrewSleepingPotionAction {
 
+	private BrewSleepingPotionAction action = Actions.BREW_SLEEPING_POTION_ACTION;
+	
 	@Test
 	public void testExecute() {
 		World world = new WorldImpl(10, 10, null, null);
@@ -37,7 +39,7 @@ public class UTestBrewSleepingPotionAction {
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
 		performerInventory.addQuantity(Item.NIGHT_SHADE.generate(1f), 10);
 
-		Actions.BREW_SLEEPING_POTION_ACTION.execute(performer, target, Args.EMPTY, world);
+		action.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(7, performerInventory.getQuantityFor(Constants.NIGHT_SHADE));
 		assertEquals(1, performerInventory.getQuantityFor(Constants.SLEEP_INDUCING_DRUG_STRENGTH));
@@ -50,8 +52,8 @@ public class UTestBrewSleepingPotionAction {
 
 		WorldObject apothecary = createApothecary(world, performer);
 		
-		assertEquals(true, Actions.BREW_SLEEPING_POTION_ACTION.isValidTarget(performer, apothecary, world));
-		assertEquals(false, Actions.BREW_SLEEPING_POTION_ACTION.isValidTarget(performer, performer, world));
+		assertEquals(true, action.isValidTarget(performer, apothecary, world));
+		assertEquals(false, action.isValidTarget(performer, performer, world));
 	}
 
 	WorldObject createApothecary(World world, WorldObject performer) {
@@ -67,7 +69,16 @@ public class UTestBrewSleepingPotionAction {
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
 		performerInventory.addQuantity(Item.NIGHT_SHADE.generate(1f), 10);
 		
-		assertEquals(true, Actions.BREW_SLEEPING_POTION_ACTION.isActionPossible(performer, performer, Args.EMPTY, world));
+		assertEquals(true, action.isActionPossible(performer, performer, Args.EMPTY, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		
+		assertEquals(0, action.distance(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {

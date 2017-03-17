@@ -31,6 +31,8 @@ import org.worldgrower.generator.Item;
 
 public class UTestBrewWineAction {
 
+	private BrewWineAction action = Actions.BREW_WINE_ACTION;
+	
 	@Test
 	public void testExecute() {
 		World world = new WorldImpl(10, 10, null, null);
@@ -39,7 +41,7 @@ public class UTestBrewWineAction {
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
 		performerInventory.addQuantity(Item.GRAPES.generate(1f), 10);
 
-		Actions.BREW_WINE_ACTION.execute(performer, target, Args.EMPTY, world);
+		action.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(7, performerInventory.getQuantityFor(Constants.GRAPE));
 		assertEquals(1, performerInventory.getQuantityFor(Constants.WINE));
@@ -54,7 +56,7 @@ public class UTestBrewWineAction {
 		performerInventory.addQuantity(Item.GRAPES.generate(1f), 10);
 
 		Conditions.add(performer, Condition.DIONYSUS_BOON_CONDITION, 8, world);
-		Actions.BREW_WINE_ACTION.execute(performer, target, Args.EMPTY, world);
+		action.execute(performer, target, Args.EMPTY, world);
 		
 		assertEquals(7, performerInventory.getQuantityFor(Constants.GRAPE));
 		assertEquals(2, performerInventory.getQuantityFor(Constants.WINE));
@@ -67,8 +69,8 @@ public class UTestBrewWineAction {
 
 		WorldObject target = createBrewery(world, performer);
 		
-		assertEquals(false, Actions.BREW_WINE_ACTION.isValidTarget(performer, performer, world));
-		assertEquals(true, Actions.BREW_WINE_ACTION.isValidTarget(performer, target, world));
+		assertEquals(false, action.isValidTarget(performer, performer, world));
+		assertEquals(true, action.isValidTarget(performer, target, world));
 	}
 
 	WorldObject createBrewery(World world, WorldObject performer) {
@@ -84,7 +86,16 @@ public class UTestBrewWineAction {
 		WorldObjectContainer performerInventory = performer.getProperty(Constants.INVENTORY);
 		performerInventory.addQuantity(Item.GRAPES.generate(1f), 10);
 
-		assertEquals(true, Actions.BREW_WINE_ACTION.isActionPossible(performer, performer, Args.EMPTY, world));
+		assertEquals(true, action.isActionPossible(performer, performer, Args.EMPTY, world));
+	}
+	
+	@Test
+	public void testDistance() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		
+		assertEquals(0, action.distance(performer, target, Args.EMPTY, world));
 	}
 	
 	private WorldObject createPerformer(int id) {
