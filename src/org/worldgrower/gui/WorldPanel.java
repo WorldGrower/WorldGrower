@@ -126,11 +126,8 @@ public final class WorldPanel extends JPanel implements ImageFactory {
         
         initializeKeyBindings(playerCharacter, world, dungeonMaster, parentFrame);
         
-        this.infoPanel = new InfoPanel(playerCharacter, world, imageInfoReader, soundIdReader, initialStatusMessage, parentFrame, this);
-        
-        
+        this.infoPanel = new InfoPanel(playerCharacter, world, imageInfoReader, soundIdReader, initialStatusMessage, parentFrame, this);        
         add(infoPanel, BorderLayout.SOUTH);
-        
         
         this.playerCharacter = playerCharacter;
         this.world = world;
@@ -139,7 +136,20 @@ public final class WorldPanel extends JPanel implements ImageFactory {
 		this.backgroundPainter = new BackgroundPainter(grassBackground, grassFlowersBackground, imageInfoReader, world);
 		this.goToPainter = new GoToPainter(imageInfoReader);
 		this.playerCharacterVisionPainter = new PlayerCharacterVisionPainter();
+		
+		centerIfNecessary(width, height, world);
     }
+
+	private void centerIfNecessary(int width, int height, World world) {
+		int widthInSquares = width / 48;
+		int heightInSquares = height / 48;
+		int worldWidth = world.getWidth();
+		int worldHeight = world.getHeight();
+		
+		if (worldWidth < widthInSquares || worldHeight < heightInSquares) {
+			centerOffsetsOn(worldWidth / 2, worldHeight / 2);
+		}
+	}
 
 	private Rectangle getScreenWorkingArea() {
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
