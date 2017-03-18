@@ -759,6 +759,9 @@ public class ImageInfoReader {
 		add(ImageIds.TRANSITION_RIGHT, createTileTransition(tileMask, 2, 1));
 		add(ImageIds.TRANSITION_TOP, createTileTransition(tileMask, 1, 0));
 		add(ImageIds.TRANSITION_DOWN, createTileTransition(tileMask, 2, 1));
+		
+		add(ImageIds.PLANT_GROWTH, tora_vx_02.getSubImage(5, 2, 1, 1));
+		createAnimation(ImageIds.PLANT_GROWTH_ANIMATON, ImageIds.PLANT_GROWTH, 10);
     }
 
 	private Image createTileTransition(Sprites tileMask, int posX, int posY) {
