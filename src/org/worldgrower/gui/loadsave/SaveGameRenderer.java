@@ -15,22 +15,29 @@
 package org.worldgrower.gui.loadsave;
 
 import java.awt.Component;
+import java.awt.Image;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
+import org.worldgrower.IncompatibleVersionException;
 import org.worldgrower.SaveGameStatistics;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.gui.ColorPalette;
+import org.worldgrower.gui.ImageIds;
+import org.worldgrower.gui.ImageInfoReader;
 import org.worldgrower.gui.util.JLabelFactory;
 
 class SaveGameRenderer extends JLabel implements ListCellRenderer<SaveGame> {
+	private final ImageInfoReader imageInfoReader;
 	private final JLabel rendererLabel = JLabelFactory.createJLabel("");
 
-	public SaveGameRenderer() {
+	public SaveGameRenderer(ImageInfoReader imageInfoReader) {
+		this.imageInfoReader = imageInfoReader;
 		this.rendererLabel.setOpaque(false);
 	}
 	
@@ -43,10 +50,21 @@ class SaveGameRenderer extends JLabel implements ListCellRenderer<SaveGame> {
 
 		if (value.isCreateNewFile()) {
 			rendererLabel.setText("Create new save");
+			Image image = imageInfoReader.getImage(ImageIds.PLUS, null);
+			rendererLabel.setIcon(new ImageIcon(image));
 		} else {
-			SaveGameStatistics saveGameStatistics = WorldImpl.getSaveGameStatistics(value.getFile());
-			String saveDateDescription = getSaveDateDescription(value);
-			rendererLabel.setText(saveGameStatistics.getPlayerCharacterName() + ", level " + saveGameStatistics.getPlayerCharacterLevel() + " at turn " + saveGameStatistics.getTurn() + ", saved on " + saveDateDescription);
+			SaveGameStatistics saveGameStatistics;
+			try {
+				saveGameStatistics = WorldImpl.getSaveGameStatistics(value.getFile());
+				
+				String saveDateDescription = getSaveDateDescription(value);
+				rendererLabel.setText(saveGameStatistics.getPlayerCharacterName() + ", level " + saveGameStatistics.getPlayerCharacterLevel() + " at turn " + saveGameStatistics.getTurn() + ", saved on " + saveDateDescription);
+				
+				Image image = imageInfoReader.getImage(saveGameStatistics.getPlayerCharacterImageId(), null);
+				rendererLabel.setIcon(new ImageIcon(image));
+			} catch (IncompatibleVersionException e) {
+				rendererLabel.setText("<incompatible save game>");
+			}
 		}
 		
 		if (isSelected) {

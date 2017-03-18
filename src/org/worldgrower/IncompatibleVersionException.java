@@ -14,35 +14,17 @@
  *******************************************************************************/
 package org.worldgrower;
 
-import org.worldgrower.gui.ImageIds;
+public class IncompatibleVersionException extends Exception {
 
-public class SaveGameStatistics {
-	private final String playerCharacterName;
-	private final int playerCharacterLevel;
-	private final int turn;
-	private final ImageIds playerCharacterImageId;	
-	
-	public SaveGameStatistics(String playerCharacterName, int playerCharacterLevel, int turn, ImageIds playerCharacterImageId) {
-		super();
-		this.playerCharacterName = playerCharacterName;
-		this.playerCharacterLevel = playerCharacterLevel;
-		this.turn = turn;
-		this.playerCharacterImageId = playerCharacterImageId;
+	public IncompatibleVersionException(String message) {
+		super(message);
 	}
 
-	public String getPlayerCharacterName() {
-		return playerCharacterName;
+	public IncompatibleVersionException(Throwable cause) {
+		super(cause);
 	}
 
-	public int getPlayerCharacterLevel() {
-		return playerCharacterLevel;
-	}
-
-	public int getTurn() {
-		return turn;
-	}
-
-	public ImageIds getPlayerCharacterImageId() {
-		return playerCharacterImageId;
+	public IncompatibleVersionException(String message, Throwable cause) {
+		super(message, cause);
 	}
 }

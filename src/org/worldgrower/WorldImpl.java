@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InvalidClassException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
@@ -36,6 +37,7 @@ import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.creaturetype.CreatureType;
 import org.worldgrower.generator.CommonerGenerator;
 import org.worldgrower.goal.Goal;
+import org.worldgrower.gui.ImageIds;
 import org.worldgrower.history.History;
 import org.worldgrower.history.HistoryImpl;
 import org.worldgrower.history.Turn;
@@ -234,6 +236,7 @@ public class WorldImpl implements World, Serializable {
 		objectOutputStream.writeObject(playerCharacter.getProperty(Constants.NAME));
 		objectOutputStream.writeInt(playerCharacter.getProperty(Constants.LEVEL));
 		objectOutputStream.writeInt(currentTurn.getValue());
+		objectOutputStream.writeObject(playerCharacter.getProperty(Constants.IMAGE_ID));
 	}
 	
 	private WorldObject getPlayerCharacter() {
@@ -245,10 +248,12 @@ public class WorldImpl implements World, Serializable {
 		throw new IllegalStateException("No player character found");
 	}
 
-	public static SaveGameStatistics getSaveGameStatistics(File fileToLoad) {
+	public static SaveGameStatistics getSaveGameStatistics(File fileToLoad) throws IncompatibleVersionException {
 		try (ObjectInputStream objectInputStream = new ObjectInputStream(new BufferedInputStream(new FileInputStream(fileToLoad)))) {
 			String versionFromFile = (String) objectInputStream.readObject();
 			return loadGameStatistics(objectInputStream);
+		} catch(InvalidClassException ex) {
+			throw new IncompatibleVersionException(ex);
 		} catch(IOException | ClassNotFoundException ex) {
 			throw new IllegalStateException("Problem loading file " + fileToLoad, ex);
 		}
@@ -256,11 +261,13 @@ public class WorldImpl implements World, Serializable {
 
 	private static SaveGameStatistics loadGameStatistics(ObjectInputStream objectInputStream)
 			throws IOException, ClassNotFoundException {
+
 		String playerCharacterName = (String) objectInputStream.readObject();
 		int playerCharacterLevel = objectInputStream.readInt();
 		int turn = objectInputStream.readInt();
+		ImageIds playerCharacterImageId = (ImageIds) objectInputStream.readObject();
 		
-		return new SaveGameStatistics(playerCharacterName, playerCharacterLevel, turn);
+		return new SaveGameStatistics(playerCharacterName, playerCharacterLevel, turn, playerCharacterImageId);
 	}
 	
 	@Override
