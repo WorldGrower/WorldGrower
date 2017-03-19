@@ -25,10 +25,20 @@ public class CottonPlantOnTurn implements OnTurn {
 
 	@Override
 	public void onTurn(WorldObject worldObject, World world, WorldStateChangedListeners creatureTypeChangedListeners) {
+		increaseCottonAmount(worldObject, world);
+		
+		DrownUtils.checkForDrowning(worldObject, world);
+	}
+
+	private static void increaseCottonAmount(WorldObject worldObject, World world) {
 		worldObject.increment(Constants.COTTON_SOURCE, 10);
 		
 		worldObject.setProperty(Constants.IMAGE_ID, CottonPlantImageCalculator.getImageId(worldObject, world));
-		
-		DrownUtils.checkForDrowning(worldObject, world);
+	}
+	
+	public static void increaseCottonAmountToMax(WorldObject worldObject, World world) {
+		while(!Constants.COTTON_SOURCE.isAtMax(worldObject)) {
+			increaseCottonAmount(worldObject, world);
+		}
 	}
 }

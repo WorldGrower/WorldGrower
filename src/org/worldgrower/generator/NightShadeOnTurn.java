@@ -25,10 +25,20 @@ public class NightShadeOnTurn implements OnTurn {
 
 	@Override
 	public void onTurn(WorldObject worldObject, World world, WorldStateChangedListeners creatureTypeChangedListeners) {
+		increaseNightShadeAmount(worldObject, world);
+		
+		DrownUtils.checkForDrowning(worldObject, world);
+	}
+
+	private static void increaseNightShadeAmount(WorldObject worldObject, World world) {
 		worldObject.increment(Constants.NIGHT_SHADE_SOURCE, 1);
 		
 		worldObject.setProperty(Constants.IMAGE_ID, NightShadeImageCalculator.getImageId(worldObject, world));
-		
-		DrownUtils.checkForDrowning(worldObject, world);
+	}
+	
+	public static void increaseNightShadeAmountToMax(WorldObject worldObject, World world) {
+		while (!Constants.NIGHT_SHADE_SOURCE.isAtMax(worldObject)) {
+			increaseNightShadeAmount(worldObject, world);
+		}
 	}
 }

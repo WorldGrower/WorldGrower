@@ -26,6 +26,12 @@ public class BerryBushOnTurn implements OnTurn {
 
 	@Override
 	public void onTurn(WorldObject worldObject, World world, WorldStateChangedListeners creatureTypeChangedListeners) {
+		increaseFoodAmount(worldObject, world);
+		
+		DrownUtils.checkForDrowning(worldObject, world);
+	}
+
+	private static void increaseFoodAmount(WorldObject worldObject, World world) {
 		if (!Constants.FOOD_PRODUCED.isAtMax(worldObject)) {
 			worldObject.increment(Constants.FOOD_SOURCE, 5);
 		}
@@ -33,7 +39,11 @@ public class BerryBushOnTurn implements OnTurn {
 		FoodPropertyUtils.checkFoodSourceExhausted(worldObject);
 
 		worldObject.setProperty(Constants.IMAGE_ID, BerryBushImageCalculator.getImageId(worldObject, world));
-		
-		DrownUtils.checkForDrowning(worldObject, world);
+	}
+	
+	public static void increaseFoodAmountToMax(WorldObject worldObject, World world) {
+		while (!Constants.FOOD_PRODUCED.isAtMax(worldObject)) {
+			increaseFoodAmount(worldObject, world);
+		}
 	}
 }

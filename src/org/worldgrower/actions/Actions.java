@@ -63,6 +63,7 @@ import org.worldgrower.actions.magic.MendAction;
 import org.worldgrower.actions.magic.MinorHealAction;
 import org.worldgrower.actions.magic.MinorIllusionAction;
 import org.worldgrower.actions.magic.ParalyzeSpellAction;
+import org.worldgrower.actions.magic.PlantGrowthAction;
 import org.worldgrower.actions.magic.ProtectionFromFireAction;
 import org.worldgrower.actions.magic.ProtectionFromIceAction;
 import org.worldgrower.actions.magic.ProtectionFromLightningAction;
@@ -183,6 +184,7 @@ public class Actions {
 	public static final SecretChestAction SECRET_CHEST_ACTION = new SecretChestAction();
 	public static final SacredFlameAttackAction SACRED_FLAME_ATTACK_ACTION = new SacredFlameAttackAction();
 	public static final TurnUndeadAction TURN_UNDEAD_ACTION = new TurnUndeadAction();
+	public static final PlantGrowthAction PLANT_GROWTH_ACTION = new PlantGrowthAction();
 	
 	public static final BuildLibraryAction BUILD_LIBRARY_ACTION = new BuildLibraryAction();
 	public static final ResearchRestorationSkillAction RESEARCH_RESTORATION_SKILL_ACTION = new ResearchRestorationSkillAction();
@@ -369,7 +371,8 @@ public class Actions {
 			PROTECTION_FROM_LIGHTNING_ACTION,
 			FREEDOM_OF_MOVEMENT_ACTION,
 			BESTOW_CURSE_ACTION,
-			REMOVE_CURSE_ACTION
+			REMOVE_CURSE_ACTION,
+			PLANT_GROWTH_ACTION
 			);
 	
 	private static final List<InventoryAction> INVENTORY_ACTIONS = Arrays.asList(

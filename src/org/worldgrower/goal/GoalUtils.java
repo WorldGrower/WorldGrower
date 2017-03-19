@@ -28,6 +28,7 @@ import org.worldgrower.Reach;
 import org.worldgrower.World;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.ManagedProperty;
+import org.worldgrower.generator.BuildingDimensions;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.terrain.TerrainInfo;
 import org.worldgrower.terrain.TerrainType;
@@ -124,6 +125,10 @@ public class GoalUtils {
 			}
 		}
 		return currentLocation;
+	}
+	
+	public static boolean isOpenSpace(int openSpaceX, int openSpaceY, BuildingDimensions buildingDimensions, World world) {
+		return isOpenSpace(openSpaceX, openSpaceY, buildingDimensions.getPlacementWidth(), buildingDimensions.getPlacementHeight(), world);
 	}
 	
 	public static boolean isOpenSpace(int openSpaceX, int openSpaceY, int width, int height, World world) {

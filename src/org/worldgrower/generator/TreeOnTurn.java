@@ -30,6 +30,13 @@ public class TreeOnTurn implements OnTurn {
 			throw new IllegalStateException("worldObject " + worldObject + " doesn't have conditions property");
 		}
 		
+		increaseWoodAmount(worldObject, world);
+		
+		worldObject.getProperty(Constants.CONDITIONS).onTurn(worldObject, world, creatureTypeChangedListeners);
+		DrownUtils.checkForDrowning(worldObject, world);
+	}
+
+	private static void increaseWoodAmount(WorldObject worldObject, World world) {
 		if (!Constants.WOOD_PRODUCED.isAtMax(worldObject)) {
 			worldObject.increment(Constants.WOOD_SOURCE, 1);
 		}
@@ -37,8 +44,11 @@ public class TreeOnTurn implements OnTurn {
 		WoodPropertyUtils.checkWoodSourceExhausted(worldObject);
 		
 		worldObject.setProperty(Constants.IMAGE_ID, TreeImageCalculator.getTreeImageId(worldObject, world));
-		
-		worldObject.getProperty(Constants.CONDITIONS).onTurn(worldObject, world, creatureTypeChangedListeners);
-		DrownUtils.checkForDrowning(worldObject, world);
+	}
+	
+	public static void increaseWoodAmountToMax(WorldObject worldObject, World world) {
+		while (!Constants.WOOD_PRODUCED.isAtMax(worldObject)) {
+			increaseWoodAmount(worldObject, world);
+		}
 	}
 }

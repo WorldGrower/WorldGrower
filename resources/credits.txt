@@ -219,3 +219,6 @@ minus.png
 (colorized to grey/black)
 
 tile transition idea at http://allacrost.sourceforge.net/wiki/index.php/Video_Engine_Visual_Effects
+
+sound effects by qubodup at http://opengameart.org/content/growth-spell
+qubodupGrowthSpell01_8bit.wav.gz
