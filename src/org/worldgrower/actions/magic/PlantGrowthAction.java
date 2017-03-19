@@ -37,6 +37,7 @@ import org.worldgrower.goal.GoalUtils;
 import org.worldgrower.goal.MagicSpellUtils;
 import org.worldgrower.gui.ImageIds;
 import org.worldgrower.gui.music.SoundIds;
+import org.worldgrower.util.TriConsumer;
 
 public class PlantGrowthAction implements BuildAction, MagicSpell, AnimatedAction {
 	private static final int ENERGY_USE = 400;
@@ -72,14 +73,19 @@ public class PlantGrowthAction implements BuildAction, MagicSpell, AnimatedActio
 		int targetX = (Integer)target.getProperty(Constants.X);
 		int targetY = (Integer)target.getProperty(Constants.Y);
 		
-		Random random = new Random(world.getCurrentTurn().getValue());
+		addNewPlants(targetX, targetY, BuildingDimensions.TREE, PlantGenerator::generateTree, world);
+		addNewPlants(targetX, targetY, BuildingDimensions.BERRY_BUSH, PlantGenerator::generateBerryBush, world);
+	}
+	
+	private void addNewPlants(int targetX, int targetY, BuildingDimensions buildingDimensions, TriConsumer<Integer, Integer, World> plantGenerateFunction, World world) {
+		Random random = new Random(world.getCurrentTurn().getValue() + buildingDimensions.getRealWidth() + buildingDimensions.getPlacementWidth());
 		
-		int treeCount = 5;
-		for(int i=0; i<treeCount; i++) {
+		int plantCount = 5;
+		for(int i=0; i<plantCount; i++) {
 			int x = targetX + random.nextInt(getWidth());
 			int y = targetY + random.nextInt(getHeight());
-			if (GoalUtils.isOpenSpace(x, y, BuildingDimensions.TREE, world)) {
-				PlantGenerator.generateTree(x, y, world);
+			if (GoalUtils.isOpenSpace(x, y, buildingDimensions, world)) {
+				plantGenerateFunction.apply(x, y, world);
 			}
 		}
 	}

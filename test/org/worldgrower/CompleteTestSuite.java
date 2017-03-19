@@ -54,6 +54,7 @@ import org.worldgrower.actions.magic.UTestMendAction;
 import org.worldgrower.actions.magic.UTestMinorHealAction;
 import org.worldgrower.actions.magic.UTestMinorIllusionAction;
 import org.worldgrower.actions.magic.UTestParalyzeAction;
+import org.worldgrower.actions.magic.UTestPlantGrowthAction;
 import org.worldgrower.actions.magic.UTestProtectionFromFireAction;
 import org.worldgrower.actions.magic.UTestRayOfFrostAttackAction;
 import org.worldgrower.actions.magic.UTestReduceAction;
@@ -825,7 +826,9 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestSellStoneGoal.class,
 	UTestSellWineGoal.class,
 	UTestStoneGoal.class,
-	UTestWoodGoal.class
+	UTestWoodGoal.class,
+	UTestPlantGrowthAction.class
+	
 })
 public class CompleteTestSuite {
 }
