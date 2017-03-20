@@ -25,10 +25,20 @@ public class GrapeVineOnTurn implements OnTurn {
 
 	@Override
 	public void onTurn(WorldObject worldObject, World world, WorldStateChangedListeners creatureTypeChangedListeners) {
+		increaseGrapeAmount(worldObject, world);
+		
+		DrownUtils.checkForDrowning(worldObject, world);
+	}
+
+	private static void increaseGrapeAmount(WorldObject worldObject, World world) {
 		worldObject.increment(Constants.GRAPE_SOURCE, 5);
 		
 		worldObject.setProperty(Constants.IMAGE_ID, VineImageCalculator.getImageId(worldObject, world));
-		
-		DrownUtils.checkForDrowning(worldObject, world);
+	}
+	
+	public static void increaseGrapeAmountToMax(WorldObject worldObject, World world) {
+		while (!Constants.GRAPE_SOURCE.isAtMax(worldObject)) {
+			increaseGrapeAmount(worldObject, world);
+		}
 	}
 }

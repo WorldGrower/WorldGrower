@@ -30,6 +30,7 @@ import org.worldgrower.attribute.SkillUtils;
 import org.worldgrower.generator.BerryBushOnTurn;
 import org.worldgrower.generator.BuildingDimensions;
 import org.worldgrower.generator.CottonPlantOnTurn;
+import org.worldgrower.generator.GrapeVineOnTurn;
 import org.worldgrower.generator.NightShadeOnTurn;
 import org.worldgrower.generator.PlantGenerator;
 import org.worldgrower.generator.TreeOnTurn;
@@ -65,6 +66,9 @@ public class PlantGrowthAction implements BuildAction, MagicSpell, AnimatedActio
 			}
 			if (spellTarget.hasProperty(Constants.NIGHT_SHADE_SOURCE)) {
 				NightShadeOnTurn.increaseNightShadeAmountToMax(spellTarget, world);
+			}
+			if (spellTarget.hasProperty(Constants.GRAPE_SOURCE)) {
+				GrapeVineOnTurn.increaseGrapeAmountToMax(spellTarget, world);
 			}
 		}
 	}

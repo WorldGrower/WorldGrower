@@ -57,6 +57,41 @@ public class UTestPlantGrowthAction {
 	}
 	
 	@Test
+	public void testExecuteForSources() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = TestUtils.createWorldObject(0, 0, 10, 10);
+		
+		int treeId = PlantGenerator.generateTree(0, 0, world);
+		WorldObject tree = world.findWorldObjectById(treeId);
+		assertEquals(50, tree.getProperty(Constants.WOOD_SOURCE).intValue());
+		
+		int berryBushId = PlantGenerator.generateBerryBush(0, 0, world);
+		WorldObject berryBush = world.findWorldObjectById(berryBushId);
+		assertEquals(1, berryBush.getProperty(Constants.FOOD_SOURCE).intValue());
+		
+		int nightshadeId = PlantGenerator.generateNightShade(0, 0, world);
+		WorldObject nightshade = world.findWorldObjectById(nightshadeId);
+		assertEquals(1, nightshade.getProperty(Constants.NIGHT_SHADE_SOURCE).intValue());
+		
+		int cottonPlantId = PlantGenerator.generateCottonPlant(0, 0, world);
+		WorldObject cottonPlant = world.findWorldObjectById(cottonPlantId);
+		assertEquals(1, cottonPlant.getProperty(Constants.COTTON_SOURCE).intValue());
+		
+		int grapevineId = PlantGenerator.generateGrapeVine(0, 0, world);
+		WorldObject grapeVine = world.findWorldObjectById(grapevineId);
+		assertEquals(1, grapeVine.getProperty(Constants.GRAPE_SOURCE).intValue());
+		
+		action.execute(performer, target, Args.EMPTY, world);
+		
+		assertEquals(400, tree.getProperty(Constants.WOOD_SOURCE).intValue());
+		assertEquals(500, berryBush.getProperty(Constants.FOOD_SOURCE).intValue());
+		assertEquals(500, nightshade.getProperty(Constants.NIGHT_SHADE_SOURCE).intValue());
+		assertEquals(500, cottonPlant.getProperty(Constants.COTTON_SOURCE).intValue());
+		assertEquals(500, grapeVine.getProperty(Constants.GRAPE_SOURCE).intValue());
+	}
+	
+	@Test
 	public void testIsValidTarget() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);

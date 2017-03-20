@@ -240,7 +240,7 @@ public class Constants {
 	public static final IdProperty MAGIC_LOCK_CREATOR_ID = new IdProperty("magicLockCreatorId", ALL_PROPERTIES);
 	public static final IntProperty TRAPPED_CONTAINER_DAMAGE = new IntProperty("trappedContainerDamage", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	
-	public static final IntProperty NIGHT_SHADE_SOURCE = new IntProperty("nightShadeSource", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
+	public static final IntProperty NIGHT_SHADE_SOURCE = new IntProperty("nightShadeSource", 0, 500, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IntProperty NIGHT_SHADE = new IntProperty("nightshade", 0, null, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final BooleanProperty DECEASED_WORLD_OBJECT = new BooleanProperty("deceasedWorldObject", NOT_NULLABLE, ALL_PROPERTIES);
 	public static final IdProperty CREATOR_ID = new IdProperty("creatorId", ALL_PROPERTIES);

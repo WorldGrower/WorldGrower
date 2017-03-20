@@ -58,7 +58,7 @@ public class UTestCreateHealingPotionGoal {
 		
 		int targetId = PlantGenerator.generateNightShade(0, 0, world);
 		WorldObject target = world.findWorldObjectById(targetId);
-		target.setProperty(Constants.NIGHT_SHADE_SOURCE, 1000);
+		target.setProperty(Constants.NIGHT_SHADE_SOURCE, 500);
 		
 		assertEquals(Actions.HARVEST_NIGHT_SHADE_ACTION, goal.calculateGoal(performer, world).getManagedOperation());
 	}
