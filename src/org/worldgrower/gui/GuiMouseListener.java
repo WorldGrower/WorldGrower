@@ -474,6 +474,14 @@ public class GuiMouseListener extends MouseAdapter {
 			setMenuIcon(restMultipleTurnsMenuItem, ImageIds.SLEEPING_INDICATOR);
 			restMultipleTurnsMenuItem.setToolTipText(Actions.SLEEP_ACTION.getDescription());
 			menu.add(restMultipleTurnsMenuItem);
+			
+			GuiRestUntilRestedAction guiRestUntilRestedAction = new GuiRestUntilRestedAction(playerCharacter, imageInfoReader, soundIdReader, world, container, dungeonMaster, worldObject, parentFrame);
+			JMenuItem restUntilRestedMenuItem = MenuFactory.createJMenuItem(guiRestUntilRestedAction, soundIdReader);
+			restUntilRestedMenuItem.setText("Sleep " +  guiRestUntilRestedAction.getTurns() + " turns until energy is recovered");
+			setMenuIcon(restUntilRestedMenuItem, ImageIds.SLEEPING_INDICATOR);
+			restUntilRestedMenuItem.setEnabled(guiRestUntilRestedAction.getTurns() > 0);
+			restUntilRestedMenuItem.setToolTipText(Actions.SLEEP_ACTION.getDescription());
+			menu.add(restUntilRestedMenuItem);
 		}
 	}
 

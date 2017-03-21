@@ -16,6 +16,7 @@ package org.worldgrower.goal;
 
 import org.worldgrower.Constants;
 import org.worldgrower.WorldObject;
+import org.worldgrower.actions.Actions;
 
 public class EnergyPropertyUtils {
 
@@ -33,5 +34,13 @@ public class EnergyPropertyUtils {
 		int constitution = performer.getProperty(Constants.CONSTITUTION).intValue();
 		int level = performer.getProperty(Constants.LEVEL).intValue();
 		return 1000 + (constitution - 10) * 25 + (level - 1) * constitution;
+	}
+	
+	public static int calculateTurnsUntilRested(WorldObject playerCharacter, WorldObject target) {
+		int energy = playerCharacter.getProperty(Constants.ENERGY);
+		int energyMax = calculateEnergyMax(playerCharacter);
+		int energyRegained = Actions.SLEEP_ACTION.getEnergyIncreaseWhenRestingIn(target) - 1;
+		
+		return (energyMax - energy) / energyRegained;
 	}
 }

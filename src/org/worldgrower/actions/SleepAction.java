@@ -31,8 +31,7 @@ public class SleepAction implements ManagedOperation, AnimatedAction {
 
 	@Override
 	public void execute(WorldObject performer, WorldObject target, int[] args, World world) {
-		int sleepComfort = target.getProperty(Constants.SLEEP_COMFORT);
-		int energyIncrease = 7 + sleepComfort;
+		int energyIncrease = getEnergyIncreaseWhenRestingIn(target);
 		
 		List<WorldObject> beds = target.getProperty(Constants.INVENTORY).getWorldObjects(Constants.ITEM_ID, Item.BED);
 		if (beds.size() > 0) {
@@ -41,6 +40,12 @@ public class SleepAction implements ManagedOperation, AnimatedAction {
 		
 		EnergyPropertyUtils.increment(performer, energyIncrease);
 		world.logAction(this, performer, target, args, null);
+	}
+	
+	public int getEnergyIncreaseWhenRestingIn(WorldObject target) {
+		int sleepComfort = target.getProperty(Constants.SLEEP_COMFORT);
+		int energyIncrease = 7 + sleepComfort;
+		return energyIncrease;
 	}
 
 	@Override
