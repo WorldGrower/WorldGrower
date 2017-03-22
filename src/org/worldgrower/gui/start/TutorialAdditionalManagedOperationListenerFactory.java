@@ -57,7 +57,7 @@ public class TutorialAdditionalManagedOperationListenerFactory implements Additi
 			} else if (managedOperation == Actions.CUT_WOOD_ACTION && performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) < 6 && performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.SHACK).size() == 0) {
 				setStatusMessage("You can keep cutting wood six times, so that you can build somewhere to sleep.", "Cutting Wood", target);
 			} else if (managedOperation == Actions.CUT_WOOD_ACTION && performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) >= 6 && performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.SHACK).size() == 0) {
-				setStatusMessage("Now left-click on your character and choose build - build shack. \nChoose an empty space around your character and place the shack. \nMove next to the shack and left-click on it to sleep in it.", "Building Shack", target);
+				setStatusMessage("Now left-click on your character and choose build - build shack. Choose an empty space around your character and place the shack. \nMove next to the shack and left-click on it to sleep in it.", "Building Shack", target);
 			} else if (managedOperation == Actions.SLEEP_ACTION) {
 				setStatusMessage("Resting restores energy, which is used for some actions like cutting wood. Energy is indicated by the green bar at the lower right of the screen. \nNow use the down arrow to move down to the berry bush.\n Then left-click on the berry bush to harvest food from it.", "Harvesting food", target);
 			} else if (managedOperation == Actions.HARVEST_FOOD_ACTION) {
@@ -72,7 +72,7 @@ public class TutorialAdditionalManagedOperationListenerFactory implements Additi
 			} else if (managedOperation == Actions.BUILD_LIBRARY_ACTION) {	
 				setStatusMessage("Let's learn firebolt, move next to the library and left-click and choose research firebolt. \nTo learn faster, you can research multiple turns at one.", "Researching firebolt", performer);
 			} else if (managedOperation == Actions.getResearchSpellActionFor(Actions.FIRE_BOLT_ATTACK_ACTION)) {
-				setStatusMessage("Spells known to your characters are shown in the magic overview. \nPress the M key or left-click on the character and choose Magic Overview to show the magic overview. \nOnce you've learned firebolt and have no weapon equipped, shoot a firebolt at the tree: left-click the tree, go to the Evocation menu and choose fire bolt.", "Eating food", performer);
+				setStatusMessage("Spells known to your characters are shown in the magic overview which is accessed by pressing the M key or left-clicking on the character and choosing Magic Overview. \nOnce you've learned firebolt and have no weapon equipped, shoot a firebolt at the tree: left-click the tree, go to the Evocation menu and choose fire bolt.", "Eating food", performer);
 			} else if (managedOperation == Actions.FIRE_BOLT_ATTACK_ACTION) {
 				setStatusMessage("Now that you know the basic actions, you can start a new game. \nClose any dialog windows, press the escape key to bring up the main menu and start a non-tutorial game.", "Talking", target);
 			}
