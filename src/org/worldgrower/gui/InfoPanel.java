@@ -89,7 +89,7 @@ public final class InfoPanel extends JPanel {
         messageTextPane.setEditable(false);
         
         int messageWidth = 600;
-        int messageHeight = 75;
+        int messageHeight = 80;
         messageTextPane.setMinimumSize(new Dimension(messageWidth, messageHeight));
         messageTextPane.setPreferredSize(new Dimension(messageWidth, messageHeight));
         setStatusMessage(initialStatusMessage);

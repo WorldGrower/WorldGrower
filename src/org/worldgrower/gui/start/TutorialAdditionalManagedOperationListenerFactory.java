@@ -59,16 +59,16 @@ public class TutorialAdditionalManagedOperationListenerFactory implements Additi
 			} else if (managedOperation == Actions.CUT_WOOD_ACTION && performer.getProperty(Constants.INVENTORY).getQuantityFor(Constants.WOOD) >= 6 && performer.getProperty(Constants.BUILDINGS).getIds(BuildingType.SHACK).size() == 0) {
 				setStatusMessage("Now left-click on your character and choose build - build shack. Choose an empty space around your character and place the shack. \nMove next to the shack and left-click on it to sleep in it.", "Building Shack", target);
 			} else if (managedOperation == Actions.SLEEP_ACTION) {
-				setStatusMessage("Resting restores energy, which is used for some actions like cutting wood. Energy is indicated by the green bar at the lower right of the screen. \nNow use the down arrow to move down to the berry bush.\n Then left-click on the berry bush to harvest food from it.", "Harvesting food", target);
+				setStatusMessage("Resting restores energy, which is used for some actions like cutting wood. Energy is indicated by the green bar at the lower right of the screen. \nNow use the down arrow to move down to the berry bush and left-click on it to harvest food from it.", "Harvesting food", target);
 			} else if (managedOperation == Actions.HARVEST_FOOD_ACTION) {
-				setStatusMessage("Harvested food is stored in the inventory. Press the I key or left-click on the character and choose inventory to show the inventory. \nIn the inventory screen, left-click on the berries and choose to eat the berry.\n Eating restores food, which keeps up energy. Food is indicated by the yellow bar at the lower right of the screen.", "Eating food", target);
+				setStatusMessage("Harvested food is stored in the inventory. Press the I key or left-click on the character and choose inventory to show the inventory. \nIn the inventory screen, left-click on the berries and choose to eat the berry. Eating restores food, which keeps up energy. Food is indicated by the yellow bar at the lower right of the screen.", "Eating food", target);
 			} else if (managedOperation == Actions.EAT_FROM_INVENTORY_ACTION) {
-				setStatusMessage("Now use the left arrow to move left to the other character.\n Then left-click on it to talk with it and ask its name. \n Asking a name is under personal information.", "Talking", target);
+				setStatusMessage("Now use the left arrow to move left to the other character.\n Then left-click on it to talk with it and ask its name. Asking a name is under personal information.", "Talking", target);
 			} else if (managedOperation == Actions.TALK_ACTION) {
 				switchToHostileRat();
-				setStatusMessage("A hostile rat has been added. Press the C key or left-click on the character and choose character screen to equip weapons and armor. \n In the character screen, equip an iron cuirass as equipment and an iron claymore as a weapon. \nThen move next to the rat and left-click on it to attack it until it is dead.", "Equiping", target);
+				setStatusMessage("A hostile rat has been added. Press the C key or left-click on the character and choose character screen to equip weapons and armor. \n In the character screen, equip an iron cuirass as equipment and an iron claymore as a weapon. Then move next to the rat and left-click on it to attack it until it is dead.", "Equiping", target);
 			} else if (managedOperation == Actions.MELEE_ATTACK_ACTION && !performer.isControlledByAI()) {
-				setStatusMessage("To learn magic spells, build a library. \nTo build a library move your character next to the tree to cut wood. \nWhen you have gathered 6 wood, left-click on your character and choose build - build library", "Eating food", target);
+				setStatusMessage("To learn magic spells, build a library. To build a library move your character next to the tree to cut wood. \nWhen you have gathered 6 wood, left-click on your character and choose build - build library", "Eating food", target);
 			} else if (managedOperation == Actions.BUILD_LIBRARY_ACTION) {	
 				setStatusMessage("Let's learn firebolt, move next to the library and left-click and choose research firebolt. \nTo learn faster, you can research multiple turns at one.", "Researching firebolt", performer);
 			} else if (managedOperation == Actions.getResearchSpellActionFor(Actions.FIRE_BOLT_ATTACK_ACTION)) {
