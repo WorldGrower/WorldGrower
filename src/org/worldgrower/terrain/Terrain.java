@@ -14,6 +14,8 @@
  *******************************************************************************/
 package org.worldgrower.terrain;
 
+import java.awt.Rectangle;
+
 /**
  * A Terrain represents the state of the terrain in a world.
  * What terrain type it is and whether it is explored.
@@ -26,4 +28,5 @@ public interface Terrain {
 	
 	public boolean isExplored(int x, int y);
 	public void explore(int x, int y, int radius); 
+	public Rectangle getExploredBoundsInSquares();
 }

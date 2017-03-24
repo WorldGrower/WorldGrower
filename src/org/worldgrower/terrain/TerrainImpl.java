@@ -14,6 +14,7 @@
  *******************************************************************************/
 package org.worldgrower.terrain;
 
+import java.awt.Rectangle;
 import java.io.Serializable;
 
 
@@ -24,6 +25,7 @@ public class TerrainImpl implements Terrain, Serializable {
 	
 	private final TerrainInfo[][] terrainInfos;
 	private final boolean[][] explored;
+	private Rectangle exploredBounds;
 	
 	public TerrainImpl(int width, int height, TerrainMapper terrainMapper) {
 		this.width = width;
@@ -88,6 +90,11 @@ public class TerrainImpl implements Terrain, Serializable {
 				}
 			}
 		}
-		
+		exploredBounds = new Rectangle(x-radius, y-radius, radius * 2, radius * 2);
+	}
+	
+	@Override
+	public Rectangle getExploredBoundsInSquares() {
+		return exploredBounds;
 	}
 }

@@ -14,6 +14,8 @@
  *******************************************************************************/
 package org.worldgrower;
 
+import java.awt.Rectangle;
+
 import org.worldgrower.terrain.Terrain;
 import org.worldgrower.terrain.TerrainInfo;
 import org.worldgrower.terrain.TerrainType;
@@ -59,5 +61,10 @@ public class MockTerrain implements Terrain {
 	
 	public void setTerrainType(int x, int y, TerrainType terrainType) {
 		terrainTypes[x][y] = terrainType;
+	}
+
+	@Override
+	public Rectangle getExploredBoundsInSquares() {
+		return null;
 	}
 }

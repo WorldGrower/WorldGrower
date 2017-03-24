@@ -27,6 +27,7 @@ import java.awt.Insets;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.Shape;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -246,6 +247,8 @@ public final class WorldPanel extends JPanel implements ImageFactory {
 	
 	private void paintStaticWorldObjects(Graphics g) {
 		List<WorldObject> worldObjects = world.getWorldObjects();
+		Shape clipShape = calculateClipShape();
+		g.setClip(clipShape);
 		for(WorldObject worldObject : new ArrayList<>(worldObjects)) {
 			ImageIds id = getImageId(worldObject);
 			LookDirection lookDirection = getLookDirection(worldObject);
@@ -253,13 +256,28 @@ public final class WorldPanel extends JPanel implements ImageFactory {
 			
 			int x = worldObject.getProperty(Constants.X);
 			int y = worldObject.getProperty(Constants.Y);
+			int width = worldObject.getProperty(Constants.WIDTH);
+			int height = worldObject.getProperty(Constants.HEIGHT);
 			
 			if (!worldObject.hasIntelligence()) {
-				if (world.getTerrain().isExplored(x, y) && isWorldObjectVisible(worldObject)) {
+				if (worldObjectIsExplored(x, y, width, height) && isWorldObjectVisible(worldObject)) {
 					drawWorldObject(g, worldObject, lookDirection, image, x, y);
 				}
 			}
 		}
+		g.setClip(null);
+	}
+	
+	private Shape calculateClipShape() {
+		Rectangle exploredBoundsInSquares = world.getTerrain().getExploredBoundsInSquares();
+		return new Rectangle((exploredBoundsInSquares.x+offsetX) * 48, (exploredBoundsInSquares.y+offsetY) * 48, exploredBoundsInSquares.width * 48, exploredBoundsInSquares.height * 48);
+	}
+
+	private boolean worldObjectIsExplored(int x, int y, int width, int height) {
+		return world.getTerrain().isExplored(x, y)
+			|| world.getTerrain().isExplored(x + width - 1, y)
+			|| world.getTerrain().isExplored(x, y + height - 1)
+			|| world.getTerrain().isExplored(x + width - 1, y + height - 1);
 	}
 
 	private void showTargetHitPoints(Graphics g) {
