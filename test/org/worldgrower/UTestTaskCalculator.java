@@ -24,6 +24,7 @@ import org.junit.Test;
 import org.worldgrower.actions.CutWoodAction;
 import org.worldgrower.actions.TalkAction;
 import org.worldgrower.generator.PlantGenerator;
+import org.worldgrower.terrain.TerrainType;
 
 public class UTestTaskCalculator {
 
@@ -64,6 +65,30 @@ public class UTestTaskCalculator {
 		assertContains(tasks.get(1).toString(), "args=[-1, 0]");
 		assertContains(tasks.get(2).toString(), "args=[-1, -1]");
 		assertContains(tasks.get(3).toString(), CutWoodAction.class.getName());
+	}
+	
+	@Test
+	public void testPathFindingWaterObstacle() {
+		WorldObject performer = createWorldObject(5, 5, 1, 1, Constants.ID, 2);
+		WorldObject target = createWorldObject(2, 2, 1, 1, Constants.ID, 3);
+
+		MockTerrain terrain = new MockTerrain(TerrainType.GRASLAND);
+		terrain.setTerrainType(2, 2, TerrainType.WATER);
+		terrain.setTerrainType(2, 3, TerrainType.WATER);
+		terrain.setTerrainType(3, 3, TerrainType.WATER);
+		terrain.setTerrainType(3, 4, TerrainType.WATER);
+		terrain.setTerrainType(4, 4, TerrainType.WATER);
+		
+		World world = new WorldImpl(terrain, null, null);
+		world.addWorldObject(performer);
+		world.addWorldObject(target);
+		
+		List<OperationInfo> tasks = taskCalculator.calculateTask(performer, world, new OperationInfo(performer, target, Args.EMPTY, new CutWoodAction()));
+		
+		assertEquals(3, tasks.size());
+		assertContains(tasks.get(0).toString(), "args=[-1, -1]");
+		assertContains(tasks.get(1).toString(), "args=[-1, -1]");
+		assertContains(tasks.get(2).toString(), CutWoodAction.class.getName());
 	}
 	
 	@Test
