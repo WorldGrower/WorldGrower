@@ -250,10 +250,6 @@ public final class WorldPanel extends JPanel implements ImageFactory {
 		Shape clipShape = calculateClipShape();
 		g.setClip(clipShape);
 		for(WorldObject worldObject : new ArrayList<>(worldObjects)) {
-			ImageIds id = getImageId(worldObject);
-			LookDirection lookDirection = getLookDirection(worldObject);
-    		Image image = imageInfoReader.getImage(id, lookDirection);
-			
 			int x = worldObject.getProperty(Constants.X);
 			int y = worldObject.getProperty(Constants.Y);
 			int width = worldObject.getProperty(Constants.WIDTH);
@@ -261,6 +257,10 @@ public final class WorldPanel extends JPanel implements ImageFactory {
 			
 			if (!worldObject.hasIntelligence()) {
 				if (worldObjectIsExplored(x, y, width, height) && isWorldObjectVisible(worldObject)) {
+					ImageIds id = getImageId(worldObject);
+					LookDirection lookDirection = getLookDirection(worldObject);
+		    		Image image = imageInfoReader.getImage(id, lookDirection);
+					
 					drawWorldObject(g, worldObject, lookDirection, image, x, y);
 				}
 			}
