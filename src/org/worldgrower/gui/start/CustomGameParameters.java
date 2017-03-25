@@ -120,21 +120,22 @@ public class CustomGameParameters implements GameParameters {
 		WorldGenerator worldGenerator = new WorldGenerator(seed);
 		worldGenerator.addWorldObjects(world, 2, 2, PlantGenerator::generateTree);
 		
-		int stoneResourceCount = (int) ((world.getWidth() / 10) * stoneResourceMultiplier);
+		int worldArea = world.getWidth() * world.getHeight();
+		int stoneResourceCount = (int) ((worldArea / 1000) * stoneResourceMultiplier);
 		worldGenerator.addWorldObjects(world, 2, 2, stoneResourceCount, TerrainType.HILL, TerrainGenerator::generateStoneResource);
 		
-		int oreResourceCount = (int)((world.getWidth() / 10) * oreResourceMultiplier);
+		int oreResourceCount = (int)((worldArea / 1000) * oreResourceMultiplier);
 		worldGenerator.addWorldObjects(world, 2, 2, oreResourceCount, TerrainType.MOUNTAIN, TerrainGenerator::generateOreResource);
 		
-		int goldResourceCount = (int)((world.getWidth() / 20) * goldResourceMultiplier);
+		int goldResourceCount = (int)((worldArea / 2000) * goldResourceMultiplier);
 		worldGenerator.addWorldObjects(world, 2, 2, goldResourceCount, TerrainType.MOUNTAIN, TerrainGenerator::generateGoldResource);
 
-		worldGenerator.addWorldObjects(world, 1, 1, world.getWidth() / 50, TerrainType.GRASLAND, PlantGenerator::generateNightShade);
+		worldGenerator.addWorldObjects(world, 1, 1, worldArea / 5000, TerrainType.GRASLAND, PlantGenerator::generateNightShade);
 		
-		int oilResourceCount = (int)((world.getWidth() / 50) * oilResourceMultiplier);
+		int oilResourceCount = (int)((worldArea / 5000) * oilResourceMultiplier);
 		worldGenerator.addWorldObjects(world, 1, 1, oilResourceCount, TerrainType.PLAINS, TerrainGenerator::generateOilResource);
 		
-		int berryBushCount = world.getWidth() / 5;
+		int berryBushCount = worldArea / 500;
 		worldGenerator.addWorldObjects(world, 1, 1, berryBushCount, TerrainType.PLAINS, PlantGenerator::generateBerryBush);
 	}
 

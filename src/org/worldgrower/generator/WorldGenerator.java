@@ -37,7 +37,7 @@ public class WorldGenerator {
 	}
 
 	public void addWorldObjects(World world, int width, int height, AddWorldObjectFunction addWorldObjectFunction) {
-		int numberOfStartingPlaces = random.nextInt(world.getWidth()) + 4;
+		int numberOfStartingPlaces = random.nextInt((world.getWidth() * world.getHeight()) / 100) + 4;
 		List<Integer> ids = new ArrayList<>();
 		for(int i=0; i<numberOfStartingPlaces; i++) {
 			int x = random.nextInt(world.getWidth()-1);

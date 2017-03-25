@@ -207,7 +207,8 @@ public class Game {
 			worldGenerator.addWorldObjects(world, 2, 2, 4, TerrainType.PLAINS, plantGenerator::generateDemonTree);
 		}
 		
-		worldGenerator.addWorldObjects(world, 1, 1, world.getWidth() / 20, TerrainType.WATER, creatureGenerator::generateFish);
+		int worldArea = world.getWidth() * world.getHeight();
+		worldGenerator.addWorldObjects(world, 1, 1, worldArea / 2000, TerrainType.WATER, creatureGenerator::generateFish);
 	}
 	
 	public static void load(File fileToLoad, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, MusicPlayer musicPlayer, KeyBindings keyBindings) {
