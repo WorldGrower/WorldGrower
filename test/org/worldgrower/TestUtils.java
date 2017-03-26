@@ -58,6 +58,7 @@ public class TestUtils {
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, width);
 		properties.put(Constants.HEIGHT, height);
+		properties.put(Constants.CONDITIONS, new Conditions());
 		properties.put(property, value);
 		WorldObject w1 = new WorldObjectImpl(properties);
 		return w1;

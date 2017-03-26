@@ -23,6 +23,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.worldgrower.actions.Actions;
+import org.worldgrower.actions.MoveAction;
 
 public class TaskCalculatorImpl implements TaskCalculator, Serializable {
 
@@ -57,7 +58,7 @@ public class TaskCalculatorImpl implements TaskCalculator, Serializable {
 			closedSet.add(current);
 			
 			if (current.g < maxDepth) {
-				for(Node neighbourNode : neighbourNodes(current, world, zone)) {
+				for(Node neighbourNode : neighbourNodes(current, copyPerformer, world, zone)) {
 					if (!closedSet.contains(neighbourNode)) {
 						if (!openSet.contains(neighbourNode)) {
 							neighbourNode.h = distance(goal, copyPerformer, neighbourNode, world);
@@ -104,24 +105,26 @@ public class TaskCalculatorImpl implements TaskCalculator, Serializable {
 		return reconstructedPath;
 	}
 
-	private List<Node> neighbourNodes(Node node, World world, LocationWorldObjectsCache zone) {
+	private List<Node> neighbourNodes(Node node, WorldObject performer, World world, LocationWorldObjectsCache zone) {
 		List<Node> result = new ArrayList<>();
 		int newG = node.g + 1;
-		addNodeToList(result, node.x - 1, node.y - 1, newG, world, zone);
-		addNodeToList(result, node.x - 1, node.y, newG, world, zone);
-		addNodeToList(result, node.x - 1, node.y + 1, newG, world, zone);
-		addNodeToList(result, node.x, node.y - 1, newG, world, zone);
-		addNodeToList(result, node.x, node.y + 1, newG, world, zone);
-		addNodeToList(result, node.x + 1, node.y - 1, newG, world, zone);
-		addNodeToList(result, node.x + 1, node.y, newG, world, zone);
-		addNodeToList(result, node.x + 1, node.y + 1, newG, world, zone);
+		addNodeToList(result, node.x - 1, node.y - 1, newG, performer, world, zone);
+		addNodeToList(result, node.x - 1, node.y, newG, performer, world, zone);
+		addNodeToList(result, node.x - 1, node.y + 1, newG, performer, world, zone);
+		addNodeToList(result, node.x, node.y - 1, newG, performer, world, zone);
+		addNodeToList(result, node.x, node.y + 1, newG, performer, world, zone);
+		addNodeToList(result, node.x + 1, node.y - 1, newG, performer, world, zone);
+		addNodeToList(result, node.x + 1, node.y, newG, performer, world, zone);
+		addNodeToList(result, node.x + 1, node.y + 1, newG, performer, world, zone);
 		return result;
 	}
 	
-	private void addNodeToList(List<Node> list, int nodeX, int nodeY, int newG, World world, LocationWorldObjectsCache zone) {
+	private void addNodeToList(List<Node> list, int nodeX, int nodeY, int newG, WorldObject performer, World world, LocationWorldObjectsCache zone) {
 		if ((nodeX >= 0) && (nodeX < world.getWidth()) && 
 				(nodeY >= 0) && (nodeY < world.getHeight()) && 
-				zone.value(nodeX, nodeY) == 0) {
+				zone.value(nodeX, nodeY) == 0 &&
+				//TODO: call MoveAction::distance?
+				MoveAction.performerCanMoveOnTerrain(performer, nodeX, nodeY, world)) {
 			list.add(new Node(nodeX, nodeY, newG));
 		}
 	}

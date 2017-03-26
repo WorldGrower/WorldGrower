@@ -79,15 +79,7 @@ public class MoveAction implements ManagedOperation {
 		if (LocationUtils.areInvalidCoordinates(newX, newY, world)) {
 			return 1;
 		} else {
-			TerrainType terrainType = world.getTerrain().getTerrainInfo(newX, newY).getTerrainType();
-			boolean hasWaterWalkCondition = performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.WATER_WALK_CONDITION);
-			if (terrainType == TerrainType.WATER) {
-				if (hasWaterWalkCondition) {
-					return 0;
-				} else {
-					return 1;
-				}
-			} else {
+			if (performerCanMoveOnTerrain(performer, newX, newY, world)) {
 				List<WorldObject> obstacles = calculateObstacles(performer, world, performerX, performerY, newX, newY);
 				
 				if (obstacles.size() == 1) {
@@ -99,7 +91,23 @@ public class MoveAction implements ManagedOperation {
 				} else {
 					return obstacles.size();
 				}
+			} else {
+				return 1;
 			}
+		}
+	}
+	
+	public static boolean performerCanMoveOnTerrain(WorldObject performer, int newX, int newY, World world) {
+		TerrainType terrainType = world.getTerrain().getTerrainInfo(newX, newY).getTerrainType();
+		boolean hasWaterWalkCondition = performer.getProperty(Constants.CONDITIONS).hasCondition(Condition.WATER_WALK_CONDITION);
+		if (terrainType == TerrainType.WATER) {
+			if (hasWaterWalkCondition) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return true;
 		}
 	}
 

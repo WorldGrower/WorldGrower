@@ -85,10 +85,12 @@ public class UTestTaskCalculator {
 		
 		List<OperationInfo> tasks = taskCalculator.calculateTask(performer, world, new OperationInfo(performer, target, Args.EMPTY, new CutWoodAction()));
 		
-		assertEquals(3, tasks.size());
-		assertContains(tasks.get(0).toString(), "args=[-1, -1]");
-		assertContains(tasks.get(1).toString(), "args=[-1, -1]");
-		assertContains(tasks.get(2).toString(), CutWoodAction.class.getName());
+		assertEquals(5, tasks.size());
+		assertContains(tasks.get(0).toString(), "args=[-1, 0]");
+		assertContains(tasks.get(1).toString(), "args=[-1, 0]");
+		assertContains(tasks.get(2).toString(), "args=[-1, -1]");
+		assertContains(tasks.get(3).toString(), "args=[-1, -1]");
+		assertContains(tasks.get(4).toString(), CutWoodAction.class.getName());
 	}
 	
 	@Test

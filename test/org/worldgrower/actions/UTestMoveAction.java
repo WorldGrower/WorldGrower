@@ -114,6 +114,21 @@ public class UTestMoveAction {
 	}
 	
 	@Test
+	public void testDistanceWaterWalkingWithObstacle() {
+		World world = new MockWorld(new MockTerrain(TerrainType.WATER), new WorldImpl(10, 10, null, null));
+		WorldObject performer = createPerformer(2);
+		performer.setProperty(Constants.CONDITIONS, new Conditions());
+		Conditions.add(performer, Condition.WATER_WALK_CONDITION, 8, world);
+		
+		WorldObject target = createPerformer(3);
+		target.setProperty(Constants.X, 1);
+		target.setProperty(Constants.Y, 1);
+		world.addWorldObject(target);
+		
+		assertEquals(true, Actions.MOVE_ACTION.distance(performer, performer, new int[] {1, 1}, world) > 0);
+	}
+	
+	@Test
 	public void testDistanceObstacle() {
 		World world = new WorldImpl(10, 10, null, null);
 		WorldObject performer = createPerformer(2);
