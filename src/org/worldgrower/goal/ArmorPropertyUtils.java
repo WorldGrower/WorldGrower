@@ -58,7 +58,7 @@ public class ArmorPropertyUtils {
 		}
 		
 		WorldObject shieldEquipment = worldObject.getProperty(Constants.RIGHT_HAND_EQUIPMENT);
-		if (shieldEquipment != null) {
+		if (shieldEquipment != null && shieldEquipment.getProperty(Constants.ARMOR) != null) {
 			double skillBonus = getSkillBonus(worldObject, shieldEquipment);
 			armor += (skillBonus * shieldEquipment.getProperty(Constants.ARMOR));
 		}
@@ -73,7 +73,11 @@ public class ArmorPropertyUtils {
 	
 	public static double getSkillBonus(WorldObject worldObject, WorldObject equipment) {
 		SkillProperty skill;
-		int armorType = equipment.getProperty(Constants.ARMOR_TYPE);
+		Integer armorTypeValue = equipment.getProperty(Constants.ARMOR_TYPE);
+		if (armorTypeValue == null) {
+			throw new IllegalStateException("WorldObject " + equipment + " has no armortype");
+		}
+		int armorType = armorTypeValue;
 		if (armorType == ArmorType.LIGHT) {
 			skill = Constants.LIGHT_ARMOR_SKILL;
 		} else if (armorType == ArmorType.HEAVY) {

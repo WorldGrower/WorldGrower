@@ -374,7 +374,7 @@ public class CharacterDialog extends JDialog {
 		
 		lblDamageResist = JLabelFactory.createJLabel(playerCharacter.getProperty(Constants.DAMAGE_RESIST).toString() + "%");
 		lblDamageResist.setToolTipText(DAMAGE_RESIST_TOOL_TIP);
-		lblDamageResist.setBounds(170, 50, 30, 20);
+		lblDamageResist.setBounds(170, 50, 40, 20);
 		attackDefensePanel.add(lblDamageResist);
 		
 		JLabel lblWeaponDamage = JLabelFactory.createJLabel("Weapon Damage");
