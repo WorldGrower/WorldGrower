@@ -81,6 +81,18 @@ public class UTestArmorPropertyUtils {
 	}
 	
 	@Test
+	public void testCalculateDamageResistForTwoHandedWeapon() {
+		WorldObject performer = TestUtils.createSkilledWorldObject(1);
+		assertEquals(0, ArmorPropertyUtils.calculateDamageResist(performer));
+		
+		WorldObject ironClaymore = Item.IRON_CLAYMORE.generate(1f);
+		performer.setProperty(Constants.LEFT_HAND_EQUIPMENT, ironClaymore);
+		performer.setProperty(Constants.RIGHT_HAND_EQUIPMENT, ironClaymore);
+		
+		assertEquals(0, ArmorPropertyUtils.calculateDamageResist(performer));
+	}
+	
+	@Test
 	public void testGetSkillBonus() {
 		WorldObject performer = TestUtils.createSkilledWorldObject(1);
 		assertEquals(1.0, ArmorPropertyUtils.getSkillBonus(performer, Item.IRON_CUIRASS.generate(1f)), 0.1);
