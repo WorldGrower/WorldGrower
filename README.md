@@ -14,21 +14,21 @@ It focuses on skills, dialogue, economy and society.
 
 ###Binary installation using installer
 
-*   [Windows 32-bit](https://github.com/WorldGrower/WorldGrower/releases/download/1.2.0/WorldGrower_windows_1_2_0_32bit.exe)
-*   [Windows 64-bit](https://github.com/WorldGrower/WorldGrower/releases/download/1.2.0/WorldGrower_windows-x64_1_2_0.exe)
-*   [MacOS X](https://github.com/WorldGrower/WorldGrower/releases/download/1.2.0/WorldGrower_macos_1_2_0.dmg)
-*   [Linux DEB 32-Bit (Debian, Ubuntu, Mint, etc)](https://github.com/WorldGrower/WorldGrower/releases/download/1.2.0/WorldGrower_linux_1_2_0_32bit.deb)
-*   [Linux DEB 64-Bit (Debian, Ubuntu, Mint, etc)](https://github.com/WorldGrower/WorldGrower/releases/download/1.2.0/WorldGrower_linux_1_2_0.deb)
-*   [Linux RPM 32-Bit (Fedora, Mandriva, openSUSE, Red Hat, etc)](https://github.com/WorldGrower/WorldGrower/releases/download/1.2.0/WorldGrower_linux_1_2_0_32bit.rpm)
-*   [Linux RPM 64-Bit (Fedora, Mandriva, openSUSE, Red Hat, etc)](https://github.com/WorldGrower/WorldGrower/releases/download/1.2.0/WorldGrower_linux_1_2_0.rpm)
-*   [Linux 32-Bit (Other Linux distributions)](https://github.com/WorldGrower/WorldGrower/releases/download/1.2.0/WorldGrower_unix_1_2_0_32bit.sh)
-*   [Linux 64-Bit (Other Linux distributions)](https://github.com/WorldGrower/WorldGrower/releases/download/1.2.0/WorldGrower_unix_1_2_0_64bit.sh)
+*   [Windows 32-bit](https://github.com/WorldGrower/WorldGrower/releases/download/1.3.0/WorldGrower_windows_1_3_0_32bit.exe)
+*   [Windows 64-bit](https://github.com/WorldGrower/WorldGrower/releases/download/1.3.0/WorldGrower_windows-x64_1_3_0.exe)
+*   [MacOS X](https://github.com/WorldGrower/WorldGrower/releases/download/1.3.0/WorldGrower_macos_1_3_0.dmg)
+*   [Linux DEB 32-Bit (Debian, Ubuntu, Mint, etc)](https://github.com/WorldGrower/WorldGrower/releases/download/1.3.0/WorldGrower_linux_1_3_0_32bit.deb)
+*   [Linux DEB 64-Bit (Debian, Ubuntu, Mint, etc)](https://github.com/WorldGrower/WorldGrower/releases/download/1.3.0/WorldGrower_linux_1_3_0.deb)
+*   [Linux RPM 32-Bit (Fedora, Mandriva, openSUSE, Red Hat, etc)](https://github.com/WorldGrower/WorldGrower/releases/download/1.3.0/WorldGrower_linux_1_3_0_32bit.rpm)
+*   [Linux RPM 64-Bit (Fedora, Mandriva, openSUSE, Red Hat, etc)](https://github.com/WorldGrower/WorldGrower/releases/download/1.3.0/WorldGrower_linux_1_3_0.rpm)
+*   [Linux 32-Bit (Other Linux distributions)](https://github.com/WorldGrower/WorldGrower/releases/download/1.3.0/WorldGrower_unix_1_3_0_32bit.sh)
+*   [Linux 64-Bit (Other Linux distributions)](https://github.com/WorldGrower/WorldGrower/releases/download/1.3.0/WorldGrower_unix_1_3_0_64bit.sh)
 
 *These installers contain the game and will install the game when executed.*
 
 ###Binary installation of .zip file
 
-*   [Download .zip file](https://github.com/WorldGrower/WorldGrower/releases/download/1.2.0/worldgrower-1.2.0.zip)
+*   [Download .zip file](https://github.com/WorldGrower/WorldGrower/releases/download/1.3.0/worldgrower-1.3.0.zip)
 *   Extract the .zip file on the local filesystem
 *   Make sure [Java 8](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html) is installed.
 	If you're not sure, you can check your java version [here](https://www.java.com/verify).
@@ -58,10 +58,7 @@ It focuses on skills, dialogue, economy and society.
 ## Bugs and Feature Requests<a name="bugs-and-feature-requests"></a>
 
 Have a bug or a feature request?<br/>Please search for existing and closed issues
-on the [Community
-Forum](http://worldgrower.freeforums.org/index.php).<br/>If your
-problem or idea is not addressed yet, [please open a new
-issue](https://github.com/WorldGrower/WorldGrower/issues).
+on the [issue list](https://github.com/WorldGrower/WorldGrower/issues).
 
 
 ## Documentation<a name="documentation"></a>
