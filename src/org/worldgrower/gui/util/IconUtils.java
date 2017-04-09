@@ -35,16 +35,22 @@ public class IconUtils {
 	private static final Image EXIT_ICON;
 	private static final Image MOUSE_ICON;
 	private static final Image CONTROLS_ICON;
+	private static final Image NEW_TUTORIAL_GAME_ICON;
+	private static final Image NEW_STANDARD_GAME_ICON;
+	private static final Image NEW_CUSTOM_GAME_ICON;
 	
 	static {
 		IMAGE_ICON = ImageUtils.getImage("/community.png");
 		IMAGE_ICON48 = ImageUtils.getImage("/community48.png");
-		NEW_ICON = ImageUtils.getImage("/new.png");
+		NEW_ICON = ImageUtils.getImage("/planet_14.png");
 		LOAD_ICON = ImageUtils.getImage("/load.png");
 		SAVE_ICON = ImageUtils.getImage("/save.png");
-		EXIT_ICON = ImageUtils.getImage("/exit.png");
+		EXIT_ICON = ImageUtils.getImage("/x.png");
 		MOUSE_ICON = ImageUtils.getImage("/cursor.png");
-		CONTROLS_ICON = ImageUtils.getImage("/controls.png");
+		CONTROLS_ICON = ImageUtils.getImage("/tools.png");
+		NEW_TUTORIAL_GAME_ICON = ImageUtils.getImage("/swordWood.png");
+		NEW_STANDARD_GAME_ICON = ImageUtils.getImage("/sword.png");
+		NEW_CUSTOM_GAME_ICON = ImageUtils.getImage("/upg_sword.png");
 	}
 
 	public static void setIcon(Window frame) {
@@ -86,5 +92,17 @@ public class IconUtils {
 
 	public static ImageIcon getControlsIcon() {
 		return new ImageIcon(CONTROLS_ICON);
+	}
+	
+	public static ImageIcon getNewTutorialGameIcon() {
+		return new ImageIcon(NEW_TUTORIAL_GAME_ICON);
+	}
+	
+	public static ImageIcon getNewStandardGameIcon() {
+		return new ImageIcon(NEW_STANDARD_GAME_ICON);
+	}
+	
+	public static ImageIcon getNewCustomGameIcon() {
+		return new ImageIcon(NEW_CUSTOM_GAME_ICON);
 	}
 }

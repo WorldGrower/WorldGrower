@@ -43,13 +43,6 @@ You must not use the graphic data which is in this software,
 for the purpose except playing this game. 
 When you want to get these resources, go to the website above.
 
-
-new.png: GNU/PGL at http://findicons.com/icon/238210/document_new?id=240920
-load.png: created by Bdate Kaspar/Franziska, licensed under Creative Commons at http://findicons.com/icon/84694/load?id=85046
-save.png: created by VisualPharm (Ivan Boyko), licensed under Creative Commons at http://findicons.com/icon/51057/save?id=51128
-exit.png: GNU/PGL at http://findicons.com/icon/169617/exit
-controls.png: GNU/GPL at http://findicons.com/icon/237985/configure#
-
 forge.png: created by SD-Arius at http://www.rpgmakervx-fr.com/t2647-tiles-lair
 
 cursor.png: created by http://www.elegantthemes.com from http://www.flaticon.com is licensed under http://creativecommons.org/licenses/by/3.0/
@@ -222,3 +215,18 @@ tile transition idea at http://allacrost.sourceforge.net/wiki/index.php/Video_En
 
 sound effects by qubodup at http://opengameart.org/content/growth-spell
 qubodupGrowthSpell01_8bit.wav.gz
+
+icons by Ravenmore at https://opengameart.org/content/fantasy-icon-pack-by-ravenmore-0
+tools.png
+swordWood.png
+sword.png
+upg_sword.png
+x.png
+
+sprites by Unnamed (Viktor.Hahn@web.de) at https://opengameart.org/content/17-planet-sprites
+planet_14.png
+
+icons by Unknown Horizons at https://opengameart.org/content/250-hud-and-interface-icons-unknown-horizons
+unknown_horizons_mainmenu_icons_transparent.png
+load.png
+save.png

@@ -67,8 +67,8 @@ import org.worldgrower.util.CustomPopupFactory;
 
 public class StartScreen implements SaveGameHandler {
 
-	private final int BUTTON_LEFT = 78;
-	private final int BUTTON_WIDTH = 167;
+	private final int BUTTON_LEFT = 75;
+	private final int BUTTON_WIDTH = 173;
 	private final int BUTTON_HEIGHT = 60;
 	private final int NEW_BUTTON_TOP = 81;
 	
@@ -256,18 +256,18 @@ public class StartScreen implements SaveGameHandler {
 	private void showNewGamePopupMenu() {
 		JPopupMenu popupMenu = MenuFactory.createJPopupMenu(imageInfoReader);
 		
-		popupMenu.add(createMenuItem(new TutorialAction(), ImageIds.CUDGEL, "Start a tutorial game in which the basics of the game are explained"));
-		popupMenu.add(createMenuItem(new StandardGameAction(), ImageIds.LARGE_CUDGEL, "Start a game with default settings"));
-		popupMenu.add(createMenuItem(new CustomGameAction(), ImageIds.GOLDEN_AXE, "Start a game with customizing settings beforehand"));
+		popupMenu.add(createMenuItem(new TutorialAction(), IconUtils.getNewTutorialGameIcon(), "Start a tutorial game in which the basics of the game are explained"));
+		popupMenu.add(createMenuItem(new StandardGameAction(), IconUtils.getNewStandardGameIcon(), "Start a game with default settings"));
+		popupMenu.add(createMenuItem(new CustomGameAction(), IconUtils.getNewCustomGameIcon(), "Start a game with customizing settings beforehand"));
 		
 		Point mouseLocation = MouseInfo.getPointerInfo().getLocation();
 		SwingUtilities.convertPointFromScreen(mouseLocation, frame);
 		popupMenu.show(frame, mouseLocation.x, mouseLocation.y);
 	}
 	
-	private JMenuItem createMenuItem(Action action, ImageIds imageId, String toolTipText) {
+	private JMenuItem createMenuItem(Action action, ImageIcon imageIcon, String toolTipText) {
 		JMenuItem menuItem = MenuFactory.createJMenuItem(action, soundIdReader);
-		menuItem.setIcon(new ImageIcon(imageInfoReader.getImage(imageId, null)));
+		menuItem.setIcon(imageIcon);
 		menuItem.setToolTipText(toolTipText);
 		return menuItem;
 	}
@@ -454,7 +454,7 @@ public class StartScreen implements SaveGameHandler {
 		JLabel lblVersion = JLabelFactory.createJLabel("Version " + Version.getVersion());
 		lblVersion.setToolTipText("Current version");
 		frame.addComponent(lblVersion);
-		SwingUtils.setBoundsAndCenterHorizontally(lblVersion, BUTTON_LEFT, 520, 167, 21);
+		SwingUtils.setBoundsAndCenterHorizontally(lblVersion, BUTTON_LEFT, 520, BUTTON_WIDTH, 21);
 	}
 	
 	@Override
