@@ -220,6 +220,7 @@ icons by Ravenmore at https://opengameart.org/content/fantasy-icon-pack-by-raven
 tools.png
 swordWood.png
 sword.png
+tome.png
 upg_sword.png
 x.png
 

@@ -28,7 +28,7 @@ import org.worldgrower.gui.ImageInfoReader;
 public class IconUtils {
 
 	private static final Image IMAGE_ICON;
-	private static final Image IMAGE_ICON48;
+	private static final Image CREDITS_ICON;
 	private static final Image NEW_ICON;
 	private static final Image LOAD_ICON;
 	private static final Image SAVE_ICON;
@@ -41,7 +41,7 @@ public class IconUtils {
 	
 	static {
 		IMAGE_ICON = ImageUtils.getImage("/community.png");
-		IMAGE_ICON48 = ImageUtils.getImage("/community48.png");
+		CREDITS_ICON = ImageUtils.getImage("/tome.png");
 		NEW_ICON = ImageUtils.getImage("/planet_14.png");
 		LOAD_ICON = ImageUtils.getImage("/load.png");
 		SAVE_ICON = ImageUtils.getImage("/save.png");
@@ -57,8 +57,8 @@ public class IconUtils {
 		frame.setIconImage(IMAGE_ICON);
 	}
 	
-	public static ImageIcon getImageIcon48() {
-		return new ImageIcon(IMAGE_ICON48);
+	public static ImageIcon getCreditsIcon() {
+		return new ImageIcon(CREDITS_ICON);
 	}
 
 	public static ImageIcon getNewIcon() {

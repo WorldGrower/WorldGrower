@@ -418,7 +418,7 @@ public class StartScreen implements SaveGameHandler {
 	}
 
 	private void addCreditsButton() {
-		JButton btnCredits = JButtonFactory.createButton("Credits", IconUtils.getImageIcon48(), imageInfoReader, soundIdReader);
+		JButton btnCredits = JButtonFactory.createButton("Credits", IconUtils.getCreditsIcon(), imageInfoReader, soundIdReader);
 		btnCredits.setHorizontalAlignment(SwingConstants.LEFT);
 		btnCredits.setHorizontalTextPosition(SwingConstants.RIGHT);
 		btnCredits.setToolTipText("Credits");
