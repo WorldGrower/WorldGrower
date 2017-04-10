@@ -30,16 +30,16 @@ import org.worldgrower.gui.music.SoundIdReader;
 public class ShowTextDialog extends AbstractDialog {
 
 	public ShowTextDialog(String value, ImageInfoReader imageInfoReader, SoundIdReader soundIdReader, JFrame parentFrame) {
-		super(450, 160, imageInfoReader);
+		super(500, 160, imageInfoReader);
 		
 		JLabel label = JLabelFactory.createJLabel(value);
-		label.setBounds(16, 16, 415, 50);
+		label.setBounds(16, 16, 465, 50);
 		addComponent(label);
 		
 		JPanel buttonPane = new JPanel();
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		buttonPane.setOpaque(false);
-		buttonPane.setBounds(16, 70, 415, 50);
+		buttonPane.setBounds(16, 100, 465, 50);
 		addComponent(buttonPane);
 
 		JButton okButton = JButtonFactory.createButton(" OK ", imageInfoReader, soundIdReader);

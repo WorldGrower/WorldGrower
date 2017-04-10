@@ -68,15 +68,15 @@ public class AssignActionLeftMouseDialog extends AbstractDialog {
 		buttonPane.setBounds(34, 423, 410, 50);
 		addComponent(buttonPane);
 
+		JButton cancelButton = JButtonFactory.createButton("Cancel", imageInfoReader, soundIdReader);
+		cancelButton.setActionCommand("Cancel");
+		buttonPane.add(cancelButton);
+		
 		JButton okButton = JButtonFactory.createButton("OK", imageInfoReader, soundIdReader);
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
 
-		JButton cancelButton = JButtonFactory.createButton("Cancel", imageInfoReader, soundIdReader);
-		cancelButton.setActionCommand("Cancel");
-		buttonPane.add(cancelButton);
-		
 		addActions(list, okButton, cancelButton);
 		DialogUtils.createDialogBackPanel(this, parentFrame.getContentPane());
 	}

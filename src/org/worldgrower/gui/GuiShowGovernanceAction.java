@@ -333,7 +333,7 @@ public class GuiShowGovernanceAction extends AbstractAction {
 		
 		JPanel buttonPane = new JPanel();
 		buttonPane.setOpaque(false);
-		buttonPane.setBounds(0, 795, 988, 75);
+		buttonPane.setBounds(0, 745, 1033, 75);
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		dialog.addComponent(buttonPane);
 		
