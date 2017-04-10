@@ -59,17 +59,17 @@ public class LoadSaveDialog extends AbstractDialog {
 		buttonPane.setBounds(16, 410, 465, 50);
 		addComponent(buttonPane);
 
+		JButton cancelButton = JButtonFactory.createButton("Cancel", imageInfoReader, soundIdReader);
+		cancelButton.setActionCommand("Cancel");
+		buttonPane.add(cancelButton, BorderLayout.WEST);
+		getRootPane().setDefaultButton(cancelButton);
+		
 		JButton okButton = JButtonFactory.createButton(loadSaveMode.getDescription(), imageInfoReader, soundIdReader);
 		okButton.setActionCommand("OK");
 		okButton.setEnabled(false);
 		buttonPane.add(okButton, BorderLayout.EAST);
 		getRootPane().setDefaultButton(okButton);
 		
-		JButton cancelButton = JButtonFactory.createButton("Cancel", imageInfoReader, soundIdReader);
-		cancelButton.setActionCommand("Cancel");
-		buttonPane.add(cancelButton, BorderLayout.WEST);
-		getRootPane().setDefaultButton(cancelButton);
-
 		addActions(list, okButton, cancelButton, loadSaveMode, saveGameHandler);
 	}
 	

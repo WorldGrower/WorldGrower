@@ -77,14 +77,14 @@ public class RespondToQuestionDialog extends AbstractDialog {
 		buttonPane.setOpaque(false);
 		addComponent(buttonPane);
 
+		JButton cancelButton = JButtonFactory.createButton("Cancel", imageInfoReader, soundIdReader);
+		cancelButton.setActionCommand("Cancel");
+		buttonPane.add(cancelButton);
+		
 		JButton okButton = JButtonFactory.createButton("OK", imageInfoReader, soundIdReader);
 		okButton.setActionCommand("OK");
 		buttonPane.add(okButton);
 		getRootPane().setDefaultButton(okButton);
-
-		JButton cancelButton = JButtonFactory.createButton("Cancel", imageInfoReader, soundIdReader);
-		cancelButton.setActionCommand("Cancel");
-		buttonPane.add(cancelButton);
 
 		JLabel targetLabel = JLabelFactory.createJLabel(imageInfoReader.getImage(imageIdTarget, null));
 		targetLabel.setToolTipText(targetName);
