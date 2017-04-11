@@ -31,6 +31,10 @@ public class MoveMode {
 	private List<WorldObject> magicCasters = new ArrayList<>();
 	private List<MagicTarget> magicTargets = new ArrayList<>();
 	
+	public MoveMode(World world) {
+		initializeIntelligentWorldObjects(world);
+	}
+	
 	public void startMove(WorldPanel worldPanel, int[] args, ActionListener guiMoveAction, ActionListener guiAfterMoveAction, WorldObject worldObject, World world, ImageInfoReader imageInfoReader) {
 		if (moveMode) {
 			return;
@@ -96,7 +100,7 @@ public class MoveMode {
 		} catch (InterruptedException e) {
 			throw new IllegalStateException(e);
 		}
-		initializeIntelligentWorldObjects(world);
+
 		for(int i=0; i<intelligentWorldObjects.size(); i++) {
 			WorldObject worldObject = intelligentWorldObjects.get(i);
 			ImageIds id = worldPanel.getImageId(worldObject);

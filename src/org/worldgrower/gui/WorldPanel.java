@@ -87,7 +87,7 @@ public final class WorldPanel extends JPanel implements ImageFactory {
 	private MouseMotionListener mouseMotionListener;
 	private final BonusDescriptions bonusDescriptions = new BonusDescriptions();
 	
-	private final MoveMode moveMode = new MoveMode();
+	private final MoveMode moveMode;
 	private final BackgroundPainter backgroundPainter;
 	private final GoToPainter goToPainter;
 	private final KeyBindings keyBindings;
@@ -132,6 +132,7 @@ public final class WorldPanel extends JPanel implements ImageFactory {
         
         this.playerCharacter = playerCharacter;
         this.world = world;
+        this.moveMode = new MoveMode(world);
         Image grassBackground = imageInfoReader.getImage(ImageIds.GRASS_BACKGROUND, null);
         Image grassFlowersBackground = imageInfoReader.getImage(ImageIds.SMALL_FLOWERS, null);
 		this.backgroundPainter = new BackgroundPainter(grassBackground, grassFlowersBackground, imageInfoReader, world);
