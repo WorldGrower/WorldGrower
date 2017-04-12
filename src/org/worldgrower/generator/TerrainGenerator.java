@@ -47,6 +47,8 @@ public class TerrainGenerator {
 		properties.put(Constants.IMAGE_ID, ImageIds.STONE_RESOURCE);
 		properties.put(Constants.STONE_SOURCE, 9000);
 		properties.put(Constants.SOUL_GEM_SOURCE, 1000);
+		properties.put(Constants.HIT_POINTS, 300 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.HIT_POINTS_MAX, 300 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.NAME, "stone resource");
 		return new WorldObjectImpl(properties);
 	}
@@ -69,6 +71,8 @@ public class TerrainGenerator {
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.ORE_RESOURCE);
 		properties.put(Constants.ORE_SOURCE, 9000);
+		properties.put(Constants.HIT_POINTS, 300 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.HIT_POINTS_MAX, 300 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.NAME, "ore resource");
 		WorldObject tree = new WorldObjectImpl(properties);
 		return tree;
@@ -91,6 +95,8 @@ public class TerrainGenerator {
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.GOLD_RESOURCE);
 		properties.put(Constants.GOLD_SOURCE, 9000);
+		properties.put(Constants.HIT_POINTS, 300 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.HIT_POINTS_MAX, 300 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.NAME, "gold resource");
 		WorldObject tree = new WorldObjectImpl(properties);
 		return tree;
@@ -113,6 +119,8 @@ public class TerrainGenerator {
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.OIL_RESOURCE);
 		properties.put(Constants.OIL_SOURCE, 1000);
+		properties.put(Constants.HIT_POINTS, 300 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.HIT_POINTS_MAX, 300 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.NAME, "oil resource");
 		WorldObject oilResource = new WorldObjectImpl(properties);
 		return oilResource;
@@ -128,6 +136,8 @@ public class TerrainGenerator {
 		properties.put(Constants.Y, y);
 		properties.put(Constants.WIDTH, 1);
 		properties.put(Constants.HEIGHT, 1);
+		properties.put(Constants.HIT_POINTS, 300 * Item.COMBAT_MULTIPLIER);
+		properties.put(Constants.HIT_POINTS_MAX, 300 * Item.COMBAT_MULTIPLIER);
 		properties.put(Constants.DAMAGE, (int)(FIRE_TRAP_BASE_DAMAGE * skillBonus));
 		properties.put(Constants.ID, id);
 		properties.put(Constants.IMAGE_ID, ImageIds.FIRE_TRAP);
