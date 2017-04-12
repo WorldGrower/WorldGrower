@@ -95,12 +95,14 @@ public class MoveMode {
 	
 	public void drawWorldObjects(Graphics g, WorldPanel worldPanel, ImageInfoReader imageInfoReader, World world) {
 		//System.out.println("drawWorldObjects: moveStep = " + moveStep + ", moveMode = " + moveMode);
-		try {
-			Thread.sleep(8);
-		} catch (InterruptedException e) {
-			throw new IllegalStateException(e);
+		if (moveStep > 0 && moveStep < 48) {
+			try {
+				Thread.sleep(8);
+			} catch (InterruptedException e) {
+				throw new IllegalStateException(e);
+			}
 		}
-
+		
 		for(int i=0; i<intelligentWorldObjects.size(); i++) {
 			WorldObject worldObject = intelligentWorldObjects.get(i);
 			ImageIds id = worldPanel.getImageId(worldObject);
@@ -176,7 +178,7 @@ public class MoveMode {
 		} else {
 			moveMode = false;
 			moveIndex = 0;
-			moveIndex = 0;
+			moveStep = 0;
 			if (this.guiAfterMoveAction != null) {
 				this.guiAfterMoveAction.actionPerformed(null);
 			}
