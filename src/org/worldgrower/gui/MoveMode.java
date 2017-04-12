@@ -131,18 +131,17 @@ public class MoveMode {
 				}
 			}
 		}
-		for(int i=0; i<magicCasters.size(); i++) {
-			paintMagicSpellForWorldObject(g, worldPanel, magicCasters.get(i), imageInfoReader, moveStep, moveIndex, world);
+		for(WorldObject magicCaster : magicCasters) {
+			paintMagicSpellForWorldObject(g, worldPanel, magicCaster, imageInfoReader, moveStep, moveIndex, world);
 		}
-		for(int i=0; i<magicTargets.size(); i++) {
-			paintMagicTargetForWorldObject(g, worldPanel, magicTargets.get(i), imageInfoReader, moveStep, moveIndex, world);
+		for(MagicTarget magicTarget : magicTargets) {
+			paintMagicTargetForWorldObject(g, worldPanel, magicTarget, imageInfoReader, moveStep, moveIndex, world);
 		}
 		if (moveMode && moveStep < 48) {
 			moveStep += 2;
 			SwingUtilities.invokeLater(new Runnable() {
 				public void run() {
-					for(int i=0; i<intelligentWorldObjects.size(); i++) {
-						WorldObject worldObject = intelligentWorldObjects.get(i);
+					for(WorldObject worldObject : intelligentWorldObjects) {
 						int x = worldObject.getProperty(Constants.X);
 						int y = worldObject.getProperty(Constants.Y);
 						worldPanel.repaintAround(x, y, worldObject);
@@ -153,8 +152,7 @@ public class MoveMode {
 			
 			SwingUtilities.invokeLater(new Runnable() {
 				public void run() {
-					for(int i=0; i<magicCasters.size(); i++) {
-						WorldObject magicCaster = magicCasters.get(i);
+					for(WorldObject magicCaster : magicCasters) {
 						int x = magicCaster.getProperty(Constants.X);
 						int y = magicCaster.getProperty(Constants.Y);
 						worldPanel.repaintAround(x, y, magicCaster);
@@ -165,11 +163,11 @@ public class MoveMode {
 			
 			SwingUtilities.invokeLater(new Runnable() {
 				public void run() {
-					for(int i=0; i<magicTargets.size(); i++) {
-						WorldObject magicTarget = magicTargets.get(i).getTarget();
-						int x = magicTarget.getProperty(Constants.X);
-						int y = magicTarget.getProperty(Constants.Y);
-						worldPanel.repaintAround(x, y, magicTarget);
+					for(MagicTarget magicTarget : magicTargets) {
+						WorldObject target = magicTarget.getTarget();
+						int x = target.getProperty(Constants.X);
+						int y = target.getProperty(Constants.Y);
+						worldPanel.repaintAround(x, y, target);
 						//worldPanel.repaint();
 					}
 				}
