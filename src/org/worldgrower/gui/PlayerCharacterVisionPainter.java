@@ -14,19 +14,19 @@
  *******************************************************************************/
 package org.worldgrower.gui;
 
-import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.MultipleGradientPaint.CycleMethod;
 import java.awt.RadialGradientPaint;
-import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.Shape;
-import java.awt.MultipleGradientPaint.CycleMethod;
 import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.worldgrower.Constants;
 import org.worldgrower.World;
@@ -39,6 +39,8 @@ public class PlayerCharacterVisionPainter {
 	private int lastPlayerCharacterX = -1;
 	private int lastPlayerCharacterY = -1;
 	private BufferedImage lastImage = null;
+	
+	private final Map<Integer, BufferedImage> playerVisionImages = new HashMap<>();
 	
 	public void paintPlayerCharacterVision(Graphics worldPanelGraphics, WorldObject playerCharacter, World world, WorldPanel worldPanel) {
 		int circleRadius = (PerceptionPropertyUtils.calculateRadius(playerCharacter, world) + 1) * 48;
@@ -61,13 +63,42 @@ public class PlayerCharacterVisionPainter {
 
 	private BufferedImage createImageToDraw(WorldPanel worldPanel, int circleRadius, int playerCharacterX, int playerCharacterY) {
 		float circleDiameter = circleRadius * 2.0f;
-		Shape circle = new Ellipse2D.Float(playerCharacterX - circleRadius, playerCharacterY - circleRadius, circleDiameter, circleDiameter);
+		Shape circle = new Ellipse2D.Float(playerCharacterX - circleRadius, playerCharacterY - circleRadius, circleDiameter-1, circleDiameter-1);
 		BufferedImage image = new BufferedImage(worldPanel.getWorldViewWidth(), worldPanel.getWorldViewHeight(), BufferedImage.TYPE_INT_ARGB);
 		
 		Graphics2D ga = (Graphics2D) image.createGraphics();
 		
-		Point2D center = new Point2D.Float(playerCharacterX, playerCharacterY);
-	    Point2D focus = new Point2D.Float(playerCharacterX, playerCharacterY);
+		BufferedImage playerVisionImage = getPlayerVisionImage(circleRadius);
+		ga.drawImage(playerVisionImage, playerCharacterX - circleRadius, playerCharacterY - circleRadius, null);
+		
+		Area outter = new Area(circle.getBounds());
+        outter.subtract(new Area(circle));
+        
+        ga.setColor(Color.BLACK);
+        ga.fill(outter);
+		
+		ga.dispose();
+		return image;
+	}
+	
+	private BufferedImage getPlayerVisionImage(int radius) {
+		BufferedImage playerVisionImage = playerVisionImages.get(radius);
+		if (playerVisionImage == null) {
+			playerVisionImage = createPlayerVisionImage(radius);
+			playerVisionImages.put(radius, playerVisionImage);
+		}
+		return playerVisionImage;
+	}
+
+	private BufferedImage createPlayerVisionImage(int circleRadius) {
+		float circleDiameter = circleRadius * 2.0f;
+		Shape circle = new Ellipse2D.Float(0, 0, circleDiameter, circleDiameter);
+		BufferedImage image = new BufferedImage((int)circleDiameter, (int)circleDiameter, BufferedImage.TYPE_INT_ARGB);
+		
+		Graphics2D ga = (Graphics2D) image.createGraphics();
+		
+		Point2D center = new Point2D.Float(circleRadius, circleRadius);
+	    Point2D focus = new Point2D.Float(circleRadius, circleRadius);
 	    float[] dist = {0.0f, 0.70f, 0.95f};
 	    Color transparentBlack = new Color(0, 0, 0, 0);
 		Color[] colors = {transparentBlack, transparentBlack, Color.BLACK};
@@ -82,13 +113,8 @@ public class PlayerCharacterVisionPainter {
 		
 		ga.fill(circle);
 		
-		Area outter = new Area(circle.getBounds());
-        outter.subtract(new Area(circle));
-        
-        ga.setColor(Color.BLACK);
-        ga.fill(outter);
-		
 		ga.dispose();
+		
 		return image;
 	}
 }
