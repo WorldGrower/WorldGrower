@@ -625,4 +625,12 @@ public final class WorldPanel extends JPanel implements ImageFactory {
 	public void setGotoPath(List<OperationInfo> operationInfos) {
 		this.goToPainter.setGotoOperations(playerCharacter, operationInfos);
 	}
+
+	public int getWorldViewWidth() {
+		return getWidth();
+	}
+
+	public int getWorldViewHeight() {
+		return getHeight() - infoPanel.getHeight();
+	}
 }

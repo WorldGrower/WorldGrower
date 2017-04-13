@@ -62,7 +62,7 @@ public class PlayerCharacterVisionPainter {
 	private BufferedImage createImageToDraw(WorldPanel worldPanel, int circleRadius, int playerCharacterX, int playerCharacterY) {
 		float circleDiameter = circleRadius * 2.0f;
 		Shape circle = new Ellipse2D.Float(playerCharacterX - circleRadius, playerCharacterY - circleRadius, circleDiameter, circleDiameter);
-		BufferedImage image = new BufferedImage(worldPanel.getWidth(), worldPanel.getHeight(), BufferedImage.TYPE_INT_ARGB);
+		BufferedImage image = new BufferedImage(worldPanel.getWorldViewWidth(), worldPanel.getWorldViewHeight(), BufferedImage.TYPE_INT_ARGB);
 		
 		Graphics2D ga = (Graphics2D) image.createGraphics();
 		
