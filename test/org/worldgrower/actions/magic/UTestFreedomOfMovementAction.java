@@ -50,6 +50,26 @@ public class UTestFreedomOfMovementAction {
 	}
 	
 	@Test
+	public void testExecutePreventMovementLimitation() {
+		World world = new WorldImpl(1, 1, null, null);
+		WorldObject performer = createPerformer(2);
+		WorldObject target = createPerformer(3);
+		
+		action.execute(performer, target, Args.EMPTY, world);
+		
+		assertEquals(true, target.getProperty(Constants.CONDITIONS).hasCondition(Condition.FREEDOM_OF_MOVEMENT_CONDITION));
+		assertEquals(false, target.getProperty(Constants.CONDITIONS).hasCondition(Condition.PARALYZED_CONDITION));
+		assertEquals(false, target.getProperty(Constants.CONDITIONS).hasCondition(Condition.ENTANGLED_CONDITION));
+	
+		Conditions.add(target, Condition.PARALYZED_CONDITION, 8, world);
+		Conditions.add(target, Condition.ENTANGLED_CONDITION, 8, world);
+		
+		assertEquals(true, target.getProperty(Constants.CONDITIONS).hasCondition(Condition.FREEDOM_OF_MOVEMENT_CONDITION));
+		assertEquals(false, target.getProperty(Constants.CONDITIONS).hasCondition(Condition.PARALYZED_CONDITION));
+		assertEquals(false, target.getProperty(Constants.CONDITIONS).hasCondition(Condition.ENTANGLED_CONDITION));
+	}
+	
+	@Test
 	public void testIsValidTarget() {
 		World world = new WorldImpl(1, 1, null, null);
 		WorldObject performer = createPerformer(2);
