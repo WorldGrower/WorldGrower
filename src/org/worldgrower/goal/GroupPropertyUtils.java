@@ -188,6 +188,7 @@ public class GroupPropertyUtils {
 		properties.put(Constants.ID, world.generateUniqueId());
 		properties.put(Constants.IMAGE_ID, ImageIds.BLACK_CROSS);
 		properties.put(Constants.ORGANIZATION_LEADER_ID, performerId);
+		properties.put(Constants.ORGANIZATION_REBEL_IDS, new IdList());
 		
 		WorldObject organization = new WorldObjectImpl(properties);
 		world.addWorldObject(organization);

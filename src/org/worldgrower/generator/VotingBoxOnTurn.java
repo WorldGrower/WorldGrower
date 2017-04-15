@@ -77,6 +77,7 @@ public class VotingBoxOnTurn implements OnTurn {
 		} else {
 			organization.setProperty(Constants.ORGANIZATION_LEADER_ID, null);
 		}
+		organization.setProperty(Constants.ORGANIZATION_REBEL_IDS, new IdList());
 		return organization;
 	}
 

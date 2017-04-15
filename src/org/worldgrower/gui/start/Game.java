@@ -39,6 +39,7 @@ import org.worldgrower.WorldOnTurnImpl;
 import org.worldgrower.actions.ArenaFightOnTurn;
 import org.worldgrower.actions.BrawlListener;
 import org.worldgrower.actions.DrinkingContestListener;
+import org.worldgrower.actions.OrganizationRebelsOnTurn;
 import org.worldgrower.condition.ConditionListener;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.curse.CurseListener;
@@ -80,7 +81,7 @@ public class Game {
 		int seed = gameParameters.getSeed();
 		int startTurn = gameParameters.getStartTurn();
 		DungeonMaster dungeonMaster = new DungeonMaster();
-		WorldOnTurnImpl worldOnTurn = new WorldOnTurnImpl(new DeityWorldOnTurn(), new ArenaFightOnTurn());
+		WorldOnTurnImpl worldOnTurn = new WorldOnTurnImpl(new DeityWorldOnTurn(), new ArenaFightOnTurn(), new OrganizationRebelsOnTurn());
 		Terrain terrain = new TerrainImpl(gameParameters.getWorldWidth(), gameParameters.getWorldHeight(), new TerrainMapper(gameParameters.getWaterCutoff()));
 		World world = new WorldImpl(terrain, dungeonMaster, worldOnTurn);
 		int playerCharacterId = world.generateUniqueId();

@@ -183,6 +183,12 @@ public class UTestSetGovernanceAction {
 
 		@Override
 		public void fireCreatureUncursed(WorldObject performer, WorldObject target, Curse curse) {
+		}
+
+		@Override
+		public void fireRebellionStarted(WorldObject organization) {
+			// TODO Auto-generated method stub
+			
 		}		
 	}
 	

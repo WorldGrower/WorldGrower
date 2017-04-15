@@ -93,6 +93,12 @@ public class WorldStateChangedListeners {
 			worldStateChangedListener.lostLeadership(worldObject, organization);
 		}
 	}
+	
+	public void fireRebellionStarted(WorldObject organization) {
+		for(WorldStateChangedListener worldStateChangedListener : worldStateChangedListeners) {
+			worldStateChangedListener.fireRebellionStarted(organization);
+		}
+	}
 
 	public void fireSkillsDeteriorated(WorldObject worldObject) {
 		for(WorldStateChangedListener worldStateChangedListener : worldStateChangedListeners) {

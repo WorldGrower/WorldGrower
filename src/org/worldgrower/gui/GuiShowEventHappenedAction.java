@@ -218,4 +218,10 @@ public class GuiShowEventHappenedAction implements WorldStateChangedListener {
 			MessageDialogUtils.showMessage(description, "Gender Changed", playerCharacter, container, imageInfoReader);
 		}
 	}
+
+	@Override
+	public void fireRebellionStarted(WorldObject organization) {
+		String description = " A rebellion has spread to the majority of the villagers and the current leader has been overthrown";
+		MessageDialogUtils.showMessage(description, "Rebellion started", playerCharacter, container, imageInfoReader);
+	}
 }

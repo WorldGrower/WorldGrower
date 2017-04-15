@@ -828,7 +828,8 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestStoneGoal.class,
 	UTestWoodGoal.class,
 	UTestPlantGrowthAction.class,
-	UTestMinePropertyUtils.class
+	UTestMinePropertyUtils.class,
+	UTestOrganizationRebelsOnTurn.class
 })
 public class CompleteTestSuite {
 }

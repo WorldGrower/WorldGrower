@@ -173,6 +173,7 @@ public class Constants {
 	public static final IntProperty SOCIAL = new IntProperty("social", 0, 1000, NOT_NULLABLE, ALL_PROPERTIES);
 	public static final BackgroundProperty BACKGROUND = new BackgroundProperty("background", ALL_PROPERTIES);
 	public static final IdProperty ORGANIZATION_LEADER_ID = new IdProperty("leader", ALL_PROPERTIES);
+	public static final IdListProperty ORGANIZATION_REBEL_IDS = new IdListProperty("rebelIds", ALL_PROPERTIES);
 	public static final KnowledgeMapProperty KNOWLEDGE_MAP = new KnowledgeMapProperty("knowledgeMap", ALL_PROPERTIES);
 	public static final UnCheckedProperty<Goal> ORGANIZATION_GOAL = new UnCheckedProperty<>("organizationGoal", ALL_PROPERTIES);
 	public static final UnCheckedProperty<LegalActions> LEGAL_ACTIONS = new UnCheckedProperty<>("legalActions", ALL_PROPERTIES);
