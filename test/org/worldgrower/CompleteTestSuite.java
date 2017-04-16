@@ -143,6 +143,7 @@ import org.worldgrower.conversation.UTestSellBuildingConversation;
 import org.worldgrower.conversation.UTestSetOrganizationProfitPercentageConversation;
 import org.worldgrower.conversation.UTestShareKnowledgeConversation;
 import org.worldgrower.conversation.UTestStartArenaFightConversation;
+import org.worldgrower.conversation.UTestStartRebellionConversation;
 import org.worldgrower.conversation.UTestStopSellingConversation;
 import org.worldgrower.conversation.UTestSwitchDeityConversation;
 import org.worldgrower.conversation.UTestVoteLeaderOrganizationConversation;
@@ -829,7 +830,8 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestWoodGoal.class,
 	UTestPlantGrowthAction.class,
 	UTestMinePropertyUtils.class,
-	UTestOrganizationRebelsOnTurn.class
+	UTestOrganizationRebelsOnTurn.class,
+	UTestStartRebellionConversation.class
 })
 public class CompleteTestSuite {
 }

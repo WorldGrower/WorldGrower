@@ -31,6 +31,7 @@ public class StartRebellionConversation implements Conversation {
 
 	private static final int YES = 0;
 	private static final int NO = 1;
+	private static final int GET_LOST = 2;
 	
 	@Override
 	public Response getReplyPhrase(ConversationContext conversationContext) {
@@ -41,7 +42,9 @@ public class StartRebellionConversation implements Conversation {
 		final int replyId;
 		int leaderRelationshipValue = target.getProperty(Constants.RELATIONSHIPS).getValue(leader);
 		int performerRelationshipValue = target.getProperty(Constants.RELATIONSHIPS).getValue(performer);
-		if (Constants.RELATIONSHIP_VALUE.isAtMin(leaderRelationshipValue) && !Constants.RELATIONSHIP_VALUE.isAtMin(performerRelationshipValue)) {
+		if (performerRelationshipValue < 0) {
+			replyId = GET_LOST;
+		} else if (Constants.RELATIONSHIP_VALUE.isAtMin(leaderRelationshipValue) && !Constants.RELATIONSHIP_VALUE.isAtMin(performerRelationshipValue)) {
 			replyId = YES;
 		} else {
 			replyId = NO;
@@ -68,7 +71,8 @@ public class StartRebellionConversation implements Conversation {
 	public List<Response> getReplyPhrases(ConversationContext conversationContext) {
 		return Arrays.asList(
 			new Response(YES, TextId.ANSWER_START_REBELLION_YES),
-			new Response(NO, TextId.ANSWER_START_REBELLION_NO)
+			new Response(NO, TextId.ANSWER_START_REBELLION_NO),
+			new Response(GET_LOST, TextId.ANSWER_START_REBELLION_GET_LOST)
 			);
 	}
 	
@@ -85,10 +89,11 @@ public class StartRebellionConversation implements Conversation {
 		if (replyIndex == YES) {
 			WorldObject organization = conversationContext.getSubject();
 			organization.getProperty(Constants.ORGANIZATION_REBEL_IDS).addUnique(performer);
-			organization.getProperty(Constants.ORGANIZATION_REBEL_IDS).addUnique(target);
-			
+			organization.getProperty(Constants.ORGANIZATION_REBEL_IDS).addUnique(target);	
 		} else if (replyIndex == NO) {
 			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -50, Actions.TALK_ACTION, Conversations.createArgs(this), world);
+		} else if (replyIndex == GET_LOST) {
+			RelationshipPropertyUtils.changeRelationshipValue(performer, target, -100, Actions.TALK_ACTION, Conversations.createArgs(this), world);
 		}
 	}
 	
