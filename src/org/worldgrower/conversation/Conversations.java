@@ -122,6 +122,7 @@ public class Conversations implements Serializable {
 	
 	public static final PayBountyConversation PAY_BOUNTY_CONVERSATION = new PayBountyConversation();
 	public static final RemoveCurseConversation REMOVE_CURSE_CONVERSATION = new RemoveCurseConversation();
+	public static final StartRebellionConversation START_REBELLION_CONVERSATION = new StartRebellionConversation();
 	
 	private static final List<Conversation> CONVERSATIONS = new ArrayList<>();
 	private static final Map<Conversation, ConversationCategory> CONVERSATION_CATEGORIES = new HashMap<>();
@@ -209,6 +210,7 @@ public class Conversations implements Serializable {
 		add(ASSASSINATE_TARGET_CONVERSATION, ConversationCategory.DEMAND);
 		add(PAY_BOUNTY_CONVERSATION, ConversationCategory.DEMAND);
 		addNormalAndIntimidate(REMOVE_CURSE_CONVERSATION, ConversationCategory.DEMAND);
+		addNormalAndIntimidate(START_REBELLION_CONVERSATION, ConversationCategory.LEADER);
 	}
 	
 	public static int[] createArgs(Conversation conversation) {

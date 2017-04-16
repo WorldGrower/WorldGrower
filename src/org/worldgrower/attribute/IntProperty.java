@@ -63,6 +63,10 @@ public class IntProperty implements ManagedProperty<Integer> {
 	public boolean isAtMax(WorldObject worldObject) {
 		return worldObject.getProperty(this).intValue() == maxValue;
 	}
+	
+	public boolean isAtMin(int value) {
+		return value == minValue.intValue();
+	}
 
 	@Override
 	public final String getName() {

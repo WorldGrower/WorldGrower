@@ -41,6 +41,14 @@ public class IdList implements Serializable {
 		return this;
 	}
 	
+	public IdList addUnique(WorldObject worldObject) {
+		int id = worldObject.getProperty(Constants.ID).intValue();
+		if (!ids.contains(id)) {
+			ids.add(id);
+		}
+		return this;
+	}
+	
 	public IdList addAll(IdList idList) {
 		ids.addAll(idList.ids);
 		return this;
