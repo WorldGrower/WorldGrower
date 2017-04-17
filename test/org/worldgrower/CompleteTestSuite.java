@@ -831,7 +831,8 @@ import org.worldgrower.util.UTestObjectUtils;
 	UTestPlantGrowthAction.class,
 	UTestMinePropertyUtils.class,
 	UTestOrganizationRebelsOnTurn.class,
-	UTestStartRebellionConversation.class
+	UTestStartRebellionConversation.class,
+	UTestRebellionGoal.class
 })
 public class CompleteTestSuite {
 }

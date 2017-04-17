@@ -232,6 +232,11 @@ public class GroupPropertyUtils {
 		return world.findWorldObjectById(1);
 	}
 	
+	public static IdList getVillagerRebels(World world) {
+		WorldObject villagersOrganization = getVillagersOrganization(world);
+		return villagersOrganization.getProperty(Constants.ORGANIZATION_REBEL_IDS);
+	}
+	
 	public static WorldObject getVerminOrganization(World world) {
 		return world.findWorldObjectById(2);
 	}

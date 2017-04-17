@@ -101,4 +101,8 @@ public class StartRebellionConversation implements Conversation {
 	public String getDescription(WorldObject performer, WorldObject target, World world) {
 		return "talking about starting a rebellion";
 	}
+
+	public boolean previousAnswerWasNegative(WorldObject performer, WorldObject target, World world) {
+		return PreviousResponseIdUtils.previousResponseIdsContains(this, NO, GET_LOST, performer, target, world);
+	}
 }
