@@ -49,7 +49,7 @@ public class DeityPropertyUtils {
 	}
 	
 	public static List<WorldObject> getAllWorshippers(World world) {
-		List<WorldObject> worshippers = world.findWorldObjects(w -> w.hasProperty(Constants.DEITY) && w.getProperty(Constants.DEITY) != null);
+		List<WorldObject> worshippers = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> w.hasProperty(Constants.DEITY) && w.getProperty(Constants.DEITY) != null);
 		return worshippers;
 	}
 	
@@ -72,7 +72,7 @@ public class DeityPropertyUtils {
 	}
 	
 	public static List<WorldObject> getWorshippersFor(Deity deity, World world) {
-		List<WorldObject> targets = world.findWorldObjects(w -> w.hasProperty(Constants.DEITY) && w.getProperty(Constants.DEITY) == deity);
+		List<WorldObject> targets = world.findWorldObjectsByProperty(Constants.STRENGTH, w -> w.hasProperty(Constants.DEITY) && w.getProperty(Constants.DEITY) == deity);
 		return targets;
 	}
 }

@@ -26,6 +26,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.attribute.IdList;
+import org.worldgrower.generator.BuildingGenerator;
 
 public class UTestDeityPropertyUtils {
 
@@ -67,5 +68,24 @@ public class UTestDeityPropertyUtils {
 		world.addWorldObject(target);
 		
 		assertEquals(Arrays.asList(target), DeityPropertyUtils.getWorshippersFor(Deity.HADES, world));
+	}
+	
+	@Test
+	public void testGetWorshippersForExcludeShrine() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.DEITY, Deity.HADES);
+		world.addWorldObject(performer);
+		BuildingGenerator.generateShrine(0, 0, world, performer);
+		assertEquals(Arrays.asList(performer), DeityPropertyUtils.getWorshippersFor(Deity.HADES, world));
+	}
+	
+	@Test
+	public void testgetAllWorshippers() {
+		World world = new WorldImpl(10, 10, null, null);
+		WorldObject performer = TestUtils.createIntelligentWorldObject(1, Constants.DEITY, Deity.HADES);
+		world.addWorldObject(performer);
+		BuildingGenerator.generateShrine(0, 0, world, performer);
+		assertEquals(Arrays.asList(performer), DeityPropertyUtils.getAllWorshippers(world));
+
 	}
 }
