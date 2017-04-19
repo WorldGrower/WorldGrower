@@ -103,6 +103,15 @@ public class StartScreen implements SaveGameHandler {
 		UIManager.getDefaults().put("CheckBox.disabledText", ColorPalette.DISABLED_FOREGROUND_COLOR);		
 		UIManager.put("ToolTip.font", new FontUIResource(Fonts.FONT));
 
+		Color menuSelectionBackground = new Color(255, 0, 0, 0);
+		Color menuSelectionForeground = Color.BLACK;
+		UIManager.put("MenuItem.selectionBackground", menuSelectionBackground);
+		UIManager.put("MenuItem.selectionForeground", menuSelectionForeground);
+		
+		UIManager.put("Menu.selectionBackground", menuSelectionBackground);
+		UIManager.put("Menu.selectionForeground", menuSelectionForeground);
+		
+		
 		Preferences preferences = Preferences.userNodeForPackage(StartScreen.class);
 		loadDefaultSoundOutput(preferences);
 		loadImages();
