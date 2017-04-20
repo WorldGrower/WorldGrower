@@ -15,13 +15,23 @@
 package org.worldgrower.terrain;
 
 public enum TerrainType {
-	WATER,
-	DESERT,
-	GRASLAND,
-	HILL,
-	MOUNTAIN,
-	PLAINS,
-	SNOW,
-	TUNDRA,
-	MARSH
+	WATER(0),
+	DESERT(-1),
+	GRASLAND(+1),
+	HILL(-1),
+	MOUNTAIN(-1),
+	PLAINS(+1),
+	SNOW(-1),
+	TUNDRA(-1),
+	MARSH(-1);
+	
+	private final int foodBonus;
+
+	private TerrainType(int foodBonus) {
+		this.foodBonus = foodBonus;
+	}
+
+	public int getFoodBonus() {
+		return foodBonus;
+	}
 }

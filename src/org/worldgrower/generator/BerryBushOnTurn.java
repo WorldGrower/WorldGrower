@@ -21,9 +21,12 @@ import org.worldgrower.WorldObject;
 import org.worldgrower.actions.FoodPropertyUtils;
 import org.worldgrower.condition.WorldStateChangedListeners;
 import org.worldgrower.goal.DrownUtils;
+import org.worldgrower.terrain.TerrainType;
 
 public class BerryBushOnTurn implements OnTurn {
 
+	private static final int DEFAULT_FOOD_INCREASE = 4;
+	
 	@Override
 	public void onTurn(WorldObject worldObject, World world, WorldStateChangedListeners creatureTypeChangedListeners) {
 		increaseFoodAmount(worldObject, world);
@@ -32,10 +35,11 @@ public class BerryBushOnTurn implements OnTurn {
 	}
 
 	private static void increaseFoodAmount(WorldObject worldObject, World world) {
+		int foodProduced = calculateFoodProduced(worldObject, world);
 		if (!Constants.FOOD_PRODUCED.isAtMax(worldObject)) {
-			worldObject.increment(Constants.FOOD_SOURCE, 5);
+			worldObject.increment(Constants.FOOD_SOURCE, foodProduced);
 		}
-		worldObject.increment(Constants.FOOD_PRODUCED, 5);
+		worldObject.increment(Constants.FOOD_PRODUCED, foodProduced);
 		FoodPropertyUtils.checkFoodSourceExhausted(worldObject);
 
 		worldObject.setProperty(Constants.IMAGE_ID, BerryBushImageCalculator.getImageId(worldObject, world));
@@ -45,5 +49,20 @@ public class BerryBushOnTurn implements OnTurn {
 		while (!Constants.FOOD_PRODUCED.isAtMax(worldObject)) {
 			increaseFoodAmount(worldObject, world);
 		}
+	}
+	
+	private static int calculateFoodProduced(WorldObject worldObject, World world) {
+		int x = worldObject.getProperty(Constants.X);
+		int y = worldObject.getProperty(Constants.Y);
+		TerrainType terrainType = world.getTerrain().getTerrainInfo(x, y).getTerrainType();
+		int foodBonus = terrainType.getFoodBonus();
+		return DEFAULT_FOOD_INCREASE + foodBonus;
+	}
+	
+	public static String getPercentageFoodBonus(TerrainType terrainType) {
+		int foodBonus = terrainType.getFoodBonus();
+		String sign = (foodBonus >= 0 ? "+" : "");
+		int foodBonusPercentage = (100 * foodBonus) / DEFAULT_FOOD_INCREASE;
+		return sign + foodBonusPercentage + "%";
 	}
 }

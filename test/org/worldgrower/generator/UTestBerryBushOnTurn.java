@@ -23,6 +23,7 @@ import org.worldgrower.World;
 import org.worldgrower.WorldImpl;
 import org.worldgrower.WorldObject;
 import org.worldgrower.condition.WorldStateChangedListeners;
+import org.worldgrower.terrain.TerrainType;
 
 public class UTestBerryBushOnTurn {
 
@@ -43,4 +44,13 @@ public class UTestBerryBushOnTurn {
 		WorldObject berryBush = world.findWorldObjectById(berryBushId);
 		return berryBush;
 	}
+	
+	@Test
+	public void testGetPercentageFoodBonus() {
+		assertEquals("+25%", BerryBushOnTurn.getPercentageFoodBonus(TerrainType.GRASLAND));
+		assertEquals("+25%", BerryBushOnTurn.getPercentageFoodBonus(TerrainType.PLAINS));
+		assertEquals("-25%", BerryBushOnTurn.getPercentageFoodBonus(TerrainType.HILL));
+		assertEquals("+0%", BerryBushOnTurn.getPercentageFoodBonus(TerrainType.WATER));
+	}
+	
 }

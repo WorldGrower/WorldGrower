@@ -59,6 +59,7 @@ import org.worldgrower.attribute.LookDirection;
 import org.worldgrower.condition.Condition;
 import org.worldgrower.condition.WorldStateChangedListener;
 import org.worldgrower.condition.WorldStateChangedListeners;
+import org.worldgrower.generator.BerryBushOnTurn;
 import org.worldgrower.gui.conversation.GuiRespondToQuestion;
 import org.worldgrower.gui.conversation.GuiShowBrawlResult;
 import org.worldgrower.gui.conversation.GuiShowDrinkingContestResult;
@@ -67,6 +68,7 @@ import org.worldgrower.gui.music.MusicPlayer;
 import org.worldgrower.gui.music.SoundIdReader;
 import org.worldgrower.gui.music.SoundIds;
 import org.worldgrower.gui.start.KeyBindings;
+import org.worldgrower.terrain.TerrainType;
 
 public final class WorldPanel extends JPanel implements ImageFactory {
 
@@ -563,7 +565,8 @@ public final class WorldPanel extends JPanel implements ImageFactory {
 			}
 			
 		} else {
-			return null;
+			TerrainType terrainType = world.getTerrain().getTerrainInfo(x-offsetX, y-offsetY).getTerrainType();
+			return "food bonus " + BerryBushOnTurn.getPercentageFoodBonus(terrainType);
 		}
 	}
 
