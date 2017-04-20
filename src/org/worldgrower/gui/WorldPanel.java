@@ -259,7 +259,7 @@ public final class WorldPanel extends JPanel implements ImageFactory {
 			int height = worldObject.getProperty(Constants.HEIGHT);
 			
 			if (!worldObject.hasIntelligence()) {
-				if (worldObjectIsExplored(x, y, width, height) && isWorldObjectVisible(worldObject)) {
+				if (shouldDrawWorldObject(worldObject, x, y, width, height)) {
 					ImageIds id = getImageId(worldObject);
 					LookDirection lookDirection = getLookDirection(worldObject);
 		    		Image image = imageInfoReader.getImage(id, lookDirection);
@@ -269,6 +269,10 @@ public final class WorldPanel extends JPanel implements ImageFactory {
 			}
 		}
 		g.setClip(null);
+	}
+
+	private boolean shouldDrawWorldObject(WorldObject worldObject, int x, int y, int width, int height) {
+		return worldObjectIsExplored(x, y, width, height) && isWorldObjectVisible(worldObject);
 	}
 	
 	private Shape calculateClipShape() {
@@ -546,6 +550,11 @@ public final class WorldPanel extends JPanel implements ImageFactory {
 	}
 	
 	@Override
+	public Point getToolTipLocation(MouseEvent event) {
+		return event.getPoint();
+	}
+
+	@Override
 	public String getToolTipText(MouseEvent e) {
 		int worldPanelX = (int) e.getPoint().getX();
 		int worldPanelY = (int) e.getPoint().getY();
@@ -555,18 +564,39 @@ public final class WorldPanel extends JPanel implements ImageFactory {
 		WorldObject worldObject = findWorldObject(x, y);
 		WorldObject worldObjectNorth = findWorldObject(x, y-1);
 		if (worldObject != null) {
-			return getDescriptionFor(worldPanelX, worldPanelY, worldObject);
+			return getWorldObjectTooltip(worldPanelX, worldPanelY, x, y, worldObject);
 		} else if (worldObjectNorth != null) {
-			String conditionDescription =  conditionIconDrawer.getConditionDescriptionFor(worldObjectNorth, worldPanelX, worldPanelY, offsetX, offsetY);
-			if (conditionDescription != null) {
-				return conditionDescription;
-			} else {
-				return buySellIconsDrawer.getItemDescriptionFor(worldObjectNorth, worldPanelX, worldPanelY, offsetX, offsetY);
-			}
-			
+			return getIconTooltip(worldPanelX, worldPanelY, worldObjectNorth);
 		} else {
+			return getTerrainTooltip(x, y);
+		}
+	}
+
+	private String getIconTooltip(int worldPanelX, int worldPanelY, WorldObject worldObjectNorth) {
+		String conditionDescription =  conditionIconDrawer.getConditionDescriptionFor(worldObjectNorth, worldPanelX, worldPanelY, offsetX, offsetY);
+		if (conditionDescription != null) {
+			return conditionDescription;
+		} else {
+			return buySellIconsDrawer.getItemDescriptionFor(worldObjectNorth, worldPanelX, worldPanelY, offsetX, offsetY);
+		}
+	}
+
+	private String getWorldObjectTooltip(int worldPanelX, int worldPanelY, int x, int y, WorldObject worldObject) {
+		int width = worldObject.getProperty(Constants.WIDTH);
+		int height = worldObject.getProperty(Constants.HEIGHT);
+		if (shouldDrawWorldObject(worldObject, x, y, width, height)) {
+			return getDescriptionFor(worldPanelX, worldPanelY, worldObject);
+		} else {
+			return null;
+		}
+	}
+
+	private String getTerrainTooltip(int x, int y) {
+		if (worldObjectIsExplored(x, y, 1, 1)) {
 			TerrainType terrainType = world.getTerrain().getTerrainInfo(x-offsetX, y-offsetY).getTerrainType();
 			return "food bonus " + BerryBushOnTurn.getPercentageFoodBonus(terrainType);
+		} else {
+			return null;
 		}
 	}
 
