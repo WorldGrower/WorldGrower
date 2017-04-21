@@ -598,8 +598,8 @@ public final class WorldPanel extends JPanel implements ImageFactory {
 			StringBuilder terrainTooltipBuilder = new StringBuilder();
 			terrainTooltipBuilder.append("<html>");
 			terrainTooltipBuilder.append(terrainType.getDescription()).append("<br>");
-			terrainTooltipBuilder.append("food bonus ").append(BerryBushOnTurn.getPercentageFoodBonus(terrainType)).append("<br>");
-			terrainTooltipBuilder.append("wood bonus ").append(TreeOnTurn.getPercentageWoodBonus(terrainType)).append("<br>");
+			terrainTooltipBuilder.append(imageInfoReader.smallImageTag(ImageIds.BERRY)).append(" food bonus ").append(BerryBushOnTurn.getPercentageFoodBonus(terrainType)).append("<br>");
+			terrainTooltipBuilder.append(imageInfoReader.smallImageTag(ImageIds.WOOD)).append(" wood bonus ").append(TreeOnTurn.getPercentageWoodBonus(terrainType)).append("<br>");
 			terrainTooltipBuilder.append("</html>");
 			return terrainTooltipBuilder.toString();
 		} else {
